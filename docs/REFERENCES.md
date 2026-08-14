@@ -90,6 +90,13 @@ The research environment could identify embedded video IDs/context but could not
 
 ## Supplied screenshot source
 
+Repository location reserved for direct source screenshots:
+
+- `reference/original-blitzit-screenshots/`
+- see `reference/original-blitzit-screenshots/README.md` for interpretation and naming guidance.
+
+When image files are present there, Codex should inspect the exact relevant screenshot for visual-fidelity work instead of relying only on prose descriptions. The screenshots remain reference evidence, not shipping assets or unquestionable product truth.
+
 Original supplied archive:
 
 - filename: `blitzit Ss.rar`
@@ -97,7 +104,7 @@ Original supplied archive:
 - extracted screenshots reviewed: 30 PNG files
 - current direct captures visibly include Blitzit `v2.6.69`
 
-The images themselves are not committed to this repository. Their screenshot-by-screenshot observations are preserved in `docs/RESEARCH_EVIDENCE.md` and `docs/UI_UX_SPEC.md`. If a future Codex session is given the original archive/screenshots, it may re-open the exact relevant image for visual validation instead of treating our measurements as exact source values.
+Their screenshot-by-screenshot observations are preserved in `docs/RESEARCH_EVIDENCE.md` and `docs/UI_UX_SPEC.md`. If the exact images are uploaded to the repository reference folder, later implementation sessions may re-open them directly and refine prior measurements/interpretations when warranted.
 
 ## MyBlitzit technical references
 
