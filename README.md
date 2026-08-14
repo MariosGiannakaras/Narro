@@ -4,6 +4,21 @@ MyBlitzit is a personal, local-only **Windows desktop** productivity application
 
 The repository is in the specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's full current Help Center, official product/engineering material, official embedded-video inventory, public roadmap/feature-board feedback, public reviews, and all 30 supplied screenshots in `blitzit Ss.rar`.
 
+## How to interpret this repository
+
+The specifications are a researched implementation baseline, **not an infallible source of truth and not a requirement to reproduce Blitzit's bugs or historical technical constraints**.
+
+Keep the distinction clear:
+
+- User requirements, local-only/Windows-only scope, data-integrity guarantees, and explicit product decisions are binding until changed by the user.
+- Screenshots and official Blitzit material are evidence for the experience and workflows we want to reproduce.
+- Public bugs/reviews/roadmap items are evidence of friction or ideas, not automatic requirements.
+- Architecture sketches, dimensions, animation timings, library choices, schema layouts and other technical recommendations are current best proposals. Codex may improve them when a better solution preserves the same intent and is validated.
+
+If an implementation agent wants to inspect the original material itself, start with `docs/REFERENCES.md`. It contains direct external URLs plus guidance on when the original source should be re-opened. `docs/SOURCE_AUDIT.md` contains the detailed source-by-source synthesis.
+
+Material deviations from a durable proposal should be recorded in `STATUS.md` with the reason and validation evidence rather than being made silently.
+
 ## Product scope
 
 The target application includes:
@@ -41,7 +56,7 @@ Explicitly out of scope:
 
 MyBlitzit should feel recognizably like the current Blitzit desktop experience rather than like a generic task application. The supplied screenshots define the information hierarchy, density, compact focus behavior, dark/light visual language, task/list states, settings surfaces, reports, Focus Panel and Floating Timer.
 
-The clone is allowed to improve interaction quality and reliability without inventing new product workflows. Approved improvements include:
+Fidelity does not require copying every pixel or every source-product flaw. The clone is allowed to improve interaction quality and reliability without inventing a different product workflow. Approved improvements include:
 
 - stable hover/focus actions with no layout shift
 - better handling of long task titles
@@ -66,46 +81,49 @@ Popular user requests that materially broaden the product — such as Tags, Cale
 
 Codex should read these files before implementation:
 
-1. `AGENTS.md` — durable project, correctness, fidelity, performance and scope rules
+1. `AGENTS.md` — durable project, correctness, interpretation, performance and scope rules
 2. `STATUS.md` — current confirmed state and decisions
 3. `TODO.md` — ordered implementation milestones
 4. `docs/PRODUCT_SPEC.md` — behavioral specification
 5. `docs/UI_UX_SPEC.md` — window/UI/state/motion specification and screenshot fidelity checklist
-6. `docs/ARCHITECTURE.md` — technical architecture
+6. `docs/ARCHITECTURE.md` — current technical architecture proposal
 7. `docs/RESEARCH_EVIDENCE.md` — supplied screenshot inventory, evidence precedence and visual conflicts
 8. `docs/SOURCE_AUDIT.md` — exhaustive Help Center page-by-page audit, official video inventory, roadmap/bugs and public user-feedback synthesis
+9. `docs/REFERENCES.md` — compact direct-link index for independently re-checking original sources and current platform documentation
 
-Do not repeat product research unless a requirement conflicts with recorded evidence or new evidence is introduced.
+Do not repeat all product research by default. Re-open only the source relevant to an ambiguity, conflict, implementation decision, or potentially outdated technical API.
 
 ## Original implementation evidence
 
 Public engineering material about Blitzit's own implementation is recorded only as research evidence. **MyBlitzit does not choose a framework merely because Blitzit uses it.** The clone stack is selected independently for this project's Windows-only, local-only requirements.
 
-## Technical direction
+## Current technical direction
 
-Selected stack: **Tauri 2 + React + TypeScript + Rust + SQLite**, targeting Windows 10/11 initially.
+Starting stack: **Tauri 2 + React + TypeScript + Rust + SQLite**, targeting Windows 10/11 initially.
 
-Why this fits MyBlitzit:
+Why this is the current best starting point:
 
 - Windows supplies the WebView2 runtime, so Tauri does not need to bundle a second full browser engine with the app.
 - React/HTML/CSS allows fast, precise iteration against the supplied Blitzit screenshots.
 - Rust can own authoritative timers, scheduling, recurrence, persistence, shortcuts, notifications, and window coordination independently of UI refresh cycles.
 - Tauri supports the Windows desktop primitives required by the product: multiple windows, always-on-top behavior, monitor/window positioning, global shortcuts, tray/background lifecycle, autostart, notifications, and Windows installers.
-- SQLite provides reliable fully-local persistence with migrations and no server dependency.
+- SQLite provides reliable fully-local transactional persistence with migrations and no server dependency.
 
-### Lightweight focus-window design
+This stack is **selected for the capability spike, not protected from evidence**. Milestone 1 must prove the required Windows behavior and measure the floating-only resource profile. If a concrete blocker or clearly better Windows implementation emerges, Codex may propose/adopt the better path after documenting the decision and updating the affected project files before broad implementation continues.
 
-The product has three **presentations** but should normally use only two webview windows:
+### Current lightweight focus-window proposal
+
+The product has three **presentations** but currently plans for only two webview windows:
 
 1. `main` — dashboard, list board, settings, archives, reports.
 2. `focusSurface` — one secondary window that changes between:
    - Focus Panel mode, and
    - compact Floating Timer mode.
 
-Do **not** keep separate Focus Panel and Floating Timer webviews alive. Switching modes should resize/reposition/restyle the same secondary window while preserving the active session in Rust.
+The reason is to preserve a single active focus state while minimizing the always-running floating surface. This is an architectural proposal, not a product-level requirement.
 
-The Floating Timer route must be a minimal frontend bundle and must not load dashboard/report/editor code that it does not use. If the main window is closed while a focus session or tray reminders continue, the implementation may destroy the main webview and recreate it on demand rather than retain it invisibly.
+The current plan is to keep the Floating Timer route minimal and avoid loading dashboard/report/editor code it does not use. If the main window is closed while a focus session or tray reminders continue, the implementation may destroy and recreate the main webview only if measurement shows the additional complexity produces worthwhile savings.
 
-The first implementation milestone must benchmark the floating-only steady state. A native Win32/WinUI floating overlay is only a fallback if measured WebView2 overhead is materially unacceptable; do not introduce a hybrid native UI before evidence requires it.
+A native Win32/WinUI floating overlay is a valid fallback if measured WebView2 overhead or native-window behavior is materially unacceptable. Other alternatives are also allowed when backed by evidence and compatible with the project goals.
 
-Implementation has intentionally not started yet. `TODO.md` begins with a Windows/Tauri capability and performance spike before product UI work.
+Implementation has intentionally not started yet. `TODO.md` begins with a Windows capability/performance spike before polished product UI work.
