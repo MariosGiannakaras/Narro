@@ -9,7 +9,7 @@ Evidence labels used below:
 - **[I]** inference from consistent evidence; not stated directly
 - **[L]** MyBlitzit local-only design decision, not a claim about Blitzit
 
-When labels conflict, follow the precedence in `AGENTS.md`.
+When labels conflict, follow the precedence in `AGENTS.md`. The exhaustive external-source audit is in `docs/SOURCE_AUDIT.md`.
 
 ## 1. Product model
 
@@ -25,6 +25,8 @@ MyBlitzit is a local personal task planner centered on a sequence:
 Blitzit's own introduction describes the product around planning and a to-do list that collapses into a floating countdown timer. [O]
 
 MyBlitzit must preserve that loop while removing service/account dependencies. [L]
+
+A consistent product principle across official material and user feedback is that execution must remain simpler than project management. Do not add permanent complexity merely because a feature appears on a public roadmap. [O/L]
 
 ## 2. Entities
 
@@ -74,6 +76,8 @@ Core fields:
 
 A task can be manually moved/reordered while unscheduled. Scheduled date rules can also move it between planning lanes. [O]
 
+Task identity must remain stable through moves/reorders. Reordering changes position, never identity or task count. [L]
+
 ### 2.3 Subtask
 
 Fields:
@@ -104,11 +108,13 @@ Confirmed formatting:
 - Undo
 - Redo
 
-URLs are clickable. When a task goes live, Blitzit automatically opens URLs from its notes in the default browser. [O]
+URLs are clickable. The current Help Center says URLs automatically open when a task goes live, but Blitzit's own public roadmap later lists that automatic opening behavior as a shipped/resolved bug. [O]
 
-MyBlitzit should reproduce URL auto-open only for URLs stored in a user-authored local note; do not fetch or preview remote content. [L]
+**MyBlitzit resolution:** URLs remain clickable but are opened only by explicit user action. Going live must not unexpectedly launch every link in a note. Do not fetch or preview remote content. [L]
 
 Voice transcription is excluded from initial MyBlitzit scope. [L]
+
+The Notes experience must support compact inline access during focus and a larger/resizable editing presentation for substantial notes. Public user feedback specifically identifies the original fixed Notes area as too small on larger screens. [L]
 
 ### 2.5 Session
 
@@ -124,7 +130,9 @@ Store:
 - source: automatic focus engine or manually added [L]
 - edit history timestamp [L]
 
-Reports must remain derivable from sessions after task completion and list archival. [L]
+Reports must remain derivable from sessions after task completion and normal list archival. [L]
+
+Permanent task deletion is different: official Blitzit documentation states deleted tasks no longer appear in Reports. MyBlitzit should remove the permanently deleted task from user-facing reports rather than presenting it as archived history. [O/L]
 
 ## 3. Main planning lanes
 
@@ -166,6 +174,8 @@ Confirmed methods:
 
 MyBlitzit must also provide a keyboard-accessible non-drag mechanism. [L]
 
+Reorder/move persistence must be transactional and invariant-tested. Public versions of Blitzit have had user-reported duplication/corruption while rearranging tasks; MyBlitzit explicitly treats that as an anti-regression requirement. [L]
+
 ## 4. Creating and editing tasks
 
 Task creation is available:
@@ -183,6 +193,8 @@ Inline create state shows:
 Task title is edited by clicking the title. [O]
 
 If the task is live, title editing is restricted; official docs state live-title editing is available only in Notes mode. [O]
+
+A successful local create/edit must be durably committed before the UI presents it as saved. MyBlitzit must not reproduce cloud/server-delay states where a task appears to vanish and later reappear. [L]
 
 ### 4.1 EST parsing
 
@@ -204,6 +216,8 @@ Time Taken is the actual working duration and is updated from live sessions. [O]
 It can also be edited manually. [O]
 
 For a live task, EST and Time Taken may be edited only while the live timer is paused. [O]
+
+Tracked time is correctness-critical: public Blitzit feedback currently includes lost-tracked-time reports, so MyBlitzit must persist transitions robustly and never keep the only authoritative accumulated time in a renderer. [L]
 
 ## 5. Scheduling
 
@@ -227,6 +241,8 @@ With a future time today:
 - it is visible as scheduled
 - it is not eligible for Blitz auto-start until the scheduled time has arrived. [O]
 
+Date-only schedules and schedules with a specific local time must be represented distinctly so timezone conversion cannot accidentally shift a date-only task to another day. [L]
+
 ### 5.2 Automatic lane movement
 
 Scheduled tasks automatically move between Backlog, This Week, and Today based on due date. [O]
@@ -238,6 +254,8 @@ Implementation rule [L]:
 - due later in the current Monday-starting week -> This Week
 - due beyond current week -> Backlog
 - time-of-day affects focus eligibility, not the Today lane itself
+
+All schedule calculations use the configured/local Windows timezone. Date/time display follows Windows locale conventions, including 12/24-hour preference, unless a future explicit in-app override is added. [L]
 
 ### 5.3 Recurrence
 
@@ -252,6 +270,8 @@ Confirmed built-in recurrence:
 Blitzit creates a recurring parent task in Backlog and child tasks for due work. Official docs state children are created on the Monday of the week they are due. [O]
 
 Editing supports replace-existing behavior; recurrence can also be detached/removed while preserving prior independent child tasks. [O]
+
+Replace-existing semantics must not silently overwrite previously detached/independent children. [O/L]
 
 MyBlitzit must preserve historical child edits and avoid regenerating duplicates. [L]
 
@@ -301,7 +321,7 @@ Current screenshot shows:
 - search field
 - list filter including All Lists [S]
 
-MyBlitzit should preserve done-task session history until the task/list is permanently deleted. [L]
+Normal archival preserves task/session/report history. Permanent deletion removes the entity from user-facing reports, matching official delete semantics. [O/L]
 
 ## 8. Blitz Mode / focus session
 
@@ -345,7 +365,7 @@ Skip:
 Manual Break:
 - pauses the current task
 - starts a break
-- after break the task resumes, or break can be skipped manually [O]
+- Windows shortcut documentation says the task resumes after the break, unless the break is skipped manually [O]
 
 Done:
 - marks active task completed [O]
@@ -382,6 +402,8 @@ Panel is a narrow desktop window, not a pane inside the main window. [S/I]
 
 MyBlitzit must position it using monitor work-area coordinates and persist the preference. [L]
 
+Monitor topology is dynamic. If a display is connected/disconnected while MyBlitzit is running, re-enumerate monitors and recover the Focus/Floating window into a valid visible work area without requiring application restart. [L]
+
 ## 9. Floating Timer
 
 The Floating Timer is the compact focus presentation. [O]
@@ -399,6 +421,8 @@ Confirmed:
 Current screenshot also shows reorder and delete controls inside expanded subtasks. [S]
 
 The timer window should not appear in the main app layout and must remain synchronized with the same active runtime state. [L]
+
+Persist the last safe user position and recover it when monitor geometry changes. Validate always-on-top behavior against normal maximized and borderless full-screen Windows applications; document unavoidable exclusive-fullscreen limitations rather than promising impossible overlay behavior. [L]
 
 ## 10. Timer modes
 
@@ -418,10 +442,14 @@ Actual work time is always recorded regardless of displayed mode. [O]
 ### 10.1 EST countdown
 
 - begins from EST [O]
-- reaches 00:00 -> `Time's Up` [O]
-- user may extend, mark done, or switch task [O]
-- extended time is overtime [O]
+- reaches 00:00 -> explicit `Time's Up` state [O]
+- user may Extend, mark done, or switch task [O]
+- Extend continues the active work session while showing overtime [O]
 - completion can be classified early/late against EST [O]
+
+`Time's Up` and overtime are domain-visible timer states, not merely display styling. [L]
+
+Public requests and Blitzit's official roadmap mention optional automatic overtime without pausing/notification. Do not make this initial default: preserve parity first and record auto-overtime as a post-parity preference candidate. [L]
 
 ### 10.2 Pomodoro
 
@@ -429,8 +457,8 @@ Preferences control Pomodoro, work sprint, break duration, and notifications. [O
 
 Behavior:
 - work sprint counts down
-- break begins automatically at sprint end
-- after break, user is prompted/resumes work [O]
+- break begins automatically at sprint end with notification
+- after break, the user is prompted to resume work [O]
 
 Current supplied preference screenshots have Pomodoro disabled, so exact transition visuals are not established. [S]
 
@@ -461,13 +489,13 @@ Current Shortcuts screenshot shows per-global-shortcut toggles. [S]
 ### 11.2 In-app
 
 Windows:
-- Create new task: `Ctrl+Alt+T`
-- Start break: `Ctrl+Alt+B`
-- Pause task: `Ctrl+Alt+P`
-- Skip task: `Ctrl+Alt+S`
-- Finish task: `Ctrl+Alt+F`
-- Add notes: `Ctrl+Alt+N`
-- Search: `Ctrl+F`
+- Create new task: `Ctrl+Alt+T` — quick task popup for any list [O]
+- Start break: `Ctrl+Alt+B` — pauses active task, starts break, then resumes unless break is skipped [O]
+- Pause task: `Ctrl+Alt+P` [O]
+- Skip task: `Ctrl+Alt+S` — live tasks only, not breaks [O]
+- Finish task: `Ctrl+Alt+F` [O]
+- Add notes: `Ctrl+Alt+N` [O]
+- Search: `Ctrl+F` — unavailable in Blitz Mode [O]
 
 ## 12. Preferences
 
@@ -481,9 +509,12 @@ Windows:
 Confirmed across docs/current screenshots:
 - open on wake/login [O]
 - hide EST / Time Taken on tasks [O/S]
+- hidden times remain available on hover [O]
 - auto-parse EST from title [S]
 - System / Dark / Light theme [S]
 - timezone [S]
+
+Date/time display follows Windows locale by default, including 12/24-hour convention. [L]
 
 ### 12.3 Blitz Mode
 
@@ -540,10 +571,10 @@ Current date-range picker screenshot shows presets:
 ### 13.1 Overview / productivity
 
 Confirmed metrics:
-- total work days
-- total tasks done
-- total hours/time worked
-- average time per task [O/S]
+- total work days = active days [O/S]
+- total tasks done + average per active day [O]
+- total hours/time worked = task + break time + average per active day [O/S]
+- average time per task, including partially completed tasks [O/S]
 
 Daily chart:
 - tasks/work time
@@ -551,9 +582,9 @@ Daily chart:
 - total [O/S]
 
 Most productive:
-- hour
-- day
-- month [O/S]
+- hour = hour with most focus [O]
+- day = weekday with most focus sessions [O]
+- month = month with most active time when range spans months [O]
 
 Lower sections:
 - Time by List [O/S]
@@ -561,10 +592,22 @@ Lower sections:
 
 Current screenshot shows Overview `Export PDF`. [S]
 
-### 13.2 Sessions
+### 13.2 Time spent / completion insights
+
+Time By List aggregates work time by list in the selected range. [O]
+
+Punctuality measures the proportion of tracked task time completed early vs late relative to EST. [O]
+
+Done task rows show:
+- completion date [O]
+- early/late when EST exists [O]
+- Time Taken [O]
+- tasks without EST omit early/late but retain Time Taken [O]
+
+### 13.3 Sessions
 
 Top metrics:
-- Total Time
+- Total Time = focused work time [O/S]
 - Total Tasks
 - Total Sessions [O/S]
 
@@ -612,16 +655,21 @@ The supplied UI includes some current Blitzit controls that MyBlitzit must not r
 
 Removing them is an explicit scope requirement, not a fidelity defect.
 
+Official AI/MCP/integration documentation remains useful only as evidence that the domain cleanly supports titles, notes, subtasks, schedules, EST, Time Taken, list/lane moves and completion. [O]
+
 ## 15. Data loss and deletion behavior
 
 Required local safety:
 
 - task delete -> confirmation
+- permanent task delete -> no longer appears in user-facing reports, matching official behavior [O/L]
 - list active state -> archive first
 - list permanent delete -> only from archive + confirmation
 - archived list retains task/report data
 - database file is not automatically reset on update
 - no cleanup job may delete active or recent done tasks
+- reorder operations must never create duplicate task identities
+- timer/session transitions must survive crash/restart according to recovery policy
 
 ## 16. UI behavior refinements adopted for MyBlitzit
 
@@ -631,6 +679,10 @@ These are deliberate local UX decisions, not claims about the original product:
 - Hover actions must not reflow task titles or move sibling controls. [L]
 - Icon-only focus/floating controls receive tooltips and stable hit targets. [L]
 - Timer digits use tabular numerals so the layout does not jitter every second. [L]
+- Notes can expand into a larger/resizable editor while retaining compact inline access during focus. [L]
+- URLs require explicit open; entering focus does not unexpectedly launch them. [L]
+- Date/time presentation follows Windows locale. [L]
+- Display hotplug/reconnect is handled at runtime without requiring restart. [L]
 - Motion is subtle, respects reduced-motion preferences, and is performance-budgeted for the always-on-top surface. [L]
 - Focus Panel and Floating Timer are two modes of one secondary window, not two persistent webviews. [L]
 
@@ -646,3 +698,20 @@ These are intentionally not guessed:
 6. Exact ordering policy when scheduled tasks and manual tasks share a Today lane outside Focus Panel.
 
 Implement sensible local behavior only when the relevant milestone is reached, record the decision in `STATUS.md`, and do not re-open already resolved research without new evidence.
+
+## 18. Post-parity candidates from public user feedback
+
+Record these so useful research is not lost, but do **not** implement them before the ordered parity/reliability milestones pass:
+
+- Tags/labels
+- Calendar week/month view
+- quick list assignment while typing a task title
+- paste a bulleted/numbered list as multiple tasks
+- CSV task import
+- optional automatic overtime without `Time's Up` interruption
+- subtask time estimates/tracking
+- richer theme/icon customization
+- partial-completion/day-by-day accounting
+- bulk task operations
+
+These are candidates, not accepted current scope. MyBlitzit should remain an execution-focused personal tool rather than expand into a broad project-management system without an explicit future instruction.
