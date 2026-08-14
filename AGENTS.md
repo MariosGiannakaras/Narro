@@ -13,7 +13,10 @@ Before making changes:
 3. Inspect current Git state, existing implementation, tests, and applicable repository instructions.
 4. Do not repeat the original Blitzit research unless new evidence conflicts with the recorded specification or an unresolved item blocks implementation.
 
-Use `docs/RESEARCH_EVIDENCE.md` as the evidence index.
+Use:
+
+- `docs/RESEARCH_EVIDENCE.md` for supplied screenshots, visual evidence and source precedence;
+- `docs/SOURCE_AUDIT.md` for exhaustive Help Center page-by-page research, official videos, roadmap, bug reports and public user-feedback synthesis.
 
 ## Source and decision precedence
 
@@ -27,6 +30,8 @@ When sources disagree:
 6. inference
 
 Never silently convert inference into confirmed behavior. Record necessary implementation choices that are not confirmed Blitzit behavior as MyBlitzit design decisions in `STATUS.md`.
+
+A planned or requested Blitzit feature is not automatically a MyBlitzit requirement. Post-parity ideas recorded in `docs/SOURCE_AUDIT.md` stay out of implementation until the ordered parity/reliability milestones pass or the user explicitly changes scope.
 
 ## Platform and scope
 
@@ -43,7 +48,7 @@ Do not add:
 - remote integrations/webhooks/calendar sync
 - voice transcription that sends audio to a service
 
-Allowed local OS functionality includes notifications, tray/background lifecycle, autostart, opening URLs, local file selection, and installers.
+Allowed local OS functionality includes notifications, tray/background lifecycle, autostart, explicitly opening user-selected URLs, local file selection, and installers.
 
 ## Selected architecture
 
@@ -77,6 +82,7 @@ The Floating Timer is a performance-sensitive surface.
 - Renderer refresh frequency must not determine timer correctness.
 - Keep idle work near zero; no background animation loops when content is static.
 - Measure process memory/CPU in Milestone 1 before adding product UI.
+- Re-measure after final Floating Timer UI is implemented.
 - A native Win32/WinUI overlay is a fallback only if measured WebView2 overhead is materially unacceptable. Do not introduce hybrid native UI speculatively.
 
 ## Timer and session correctness
@@ -90,24 +96,32 @@ Timer behavior is correctness-critical.
 - On restart, restore an interrupted live session paused unless later evidence establishes another behavior; do not count app downtime as work.
 - Work and break sessions must be distinguishable in persistence/reports.
 - Switching Focus Panel/Floating Timer must not start, stop, duplicate, or reset a session.
+- Switching live tasks closes one work segment and opens another without losing accumulated Time Taken.
 - Pausing stops work-time accumulation.
 - EST and Time Taken edits for a live task are allowed only while paused.
 - Pomodoro overrides EST for displayed countdown while actual work time remains tracked.
+- EST expiry enters an explicit `Time's Up` state with Extend/Done/Switch behavior before any optional future auto-overtime preference.
+- Never keep the only authoritative Time Taken value in renderer memory.
 
-Every timer transition needs unit tests with controlled time.
+Every timer transition needs unit tests with controlled time. Include explicit regression coverage for completion after a live session so tracked time can never silently become `00:00`.
 
 ## Scheduling correctness
 
 - Use the Windows user's configured local timezone.
+- Distinguish date-only schedules from schedules with a specific local time.
 - Week boundaries start Monday.
 - Scheduled tasks are classified into Backlog / This Week / Today according to local date.
 - Tasks scheduled for a future time today are not eligible to auto-start until due.
 - Recurrence generation must be deterministic and idempotent.
+- Recurring parent/child relationships, Replace Existing Tasks, and detachment semantics must match `docs/PRODUCT_SPEC.md`.
 - No server exists to materialize recurrence/reminders while the process is stopped; catch up safely on launch/resume.
 - Use tray/background runtime for due reminders while MyBlitzit is running.
 - Never create duplicate recurrence instances during repeated startup/date-boundary processing.
+- Date/time text follows Windows locale by default, including the system 12/24-hour convention.
 
-## Persistence
+Tests must cover DST, Monday/week boundaries, timezone changes, repeated startup, missed days, and moving scheduled tasks between lanes. A schedule/reorder operation must never clone a task identity.
+
+## Persistence and identity invariants
 
 - SQLite is the durable source of truth.
 - Use migrations from schema version 1.
@@ -116,7 +130,33 @@ Every timer transition needs unit tests with controlled time.
 - Preserve user data across application upgrades.
 - Permanent deletion must be explicit and confirmed.
 - Archiving remains reversible until permanent deletion.
-- Historical report/session data must survive normal list archival.
+- Historical report/session data survives normal list archival.
+- Permanently deleted tasks are removed from user-facing reports, matching current official Blitzit delete semantics.
+- A successful create/move/edit is durably committed before the UI presents success.
+- Reorder changes position only; it must never create/delete/alias task identities.
+- Duplicate creates a new task identity and independent editable copy.
+
+## URL and Notes behavior
+
+Current official Help Center text says task-note URLs may auto-open when a task goes live, but Blitzit's public roadmap later lists that automatic opening as a resolved bug.
+
+MyBlitzit resolves the conflict as follows:
+
+- URLs render as clickable links.
+- Opening a URL requires an explicit user action.
+- Entering Blitz Mode or switching the live task never launches all note URLs automatically.
+- Do not fetch remote previews.
+- Notes retain compact inline access in Focus Mode and also support a larger/resizable editing presentation.
+- Use WebView/browser spellcheck where practical; do not build a custom spelling service.
+
+## Windows display/window correctness
+
+- Floating Timer must be movable and always on top.
+- Focus Panel monitor and left/right positioning must work on Windows multi-monitor setups.
+- Treat monitor topology as dynamic: listen/recompute when displays connect, disconnect, wake, sleep, or change scaling/resolution.
+- Validate saved positions against current work areas; recover off-screen windows automatically.
+- Persist the Floating Timer's last safe position.
+- Validate always-on-top behavior over normal maximized and borderless full-screen applications. Do not promise overlay over exclusive full-screen modes if Windows/the target application prevents it.
 
 ## UI implementation rules
 
@@ -126,13 +166,12 @@ Every timer transition needs unit tests with controlled time.
 - Do not copy Blitzit branding assets or account/paid UI; use MyBlitzit branding and local equivalents.
 - Remove excluded cloud controls rather than showing dead imitations.
 - Keep Focus Panel and Floating Timer deliberately compact.
-- Floating Timer must be movable and always on top.
-- Focus Panel monitor and left/right positioning must actually work on Windows multi-monitor setups.
 - Focus task titles may use up to two lines where the compact layout permits; expose the full title through an accessible tooltip/detail mechanism.
 - The optional scrolling live title applies to the active/live presentation, not every ordinary task row.
 - Keyboard navigation/focus states must remain usable.
 - Icon-only actions need accessible labels and tooltips where their meaning is not obvious.
 - Pointer-hover affordances must have keyboard/focus-visible equivalents when meaningful.
+- Focus/Blitz action buttons must never move under the pointer when they reveal labels/actions; public feedback explicitly reports this as frustrating source UX.
 
 ## Motion and interaction polish
 
@@ -179,8 +218,9 @@ For each milestone:
 5. for performance-sensitive window changes, measure floating-only idle CPU and memory rather than relying on assumptions
 6. for screenshot-backed UI work, compare against the relevant fixtures in the `docs/UI_UX_SPEC.md` fidelity checklist and test normal, hover/focus, active, expanded and error/destructive states that apply
 7. validate both normal motion and reduced-motion behavior for affected animated components
-8. update `TODO.md` and `STATUS.md`
-9. stop when milestone acceptance criteria pass
+8. add regression tests for any applicable source-product pain point recorded in `docs/SOURCE_AUDIT.md`, especially tracked-time loss, duplicate/reorder corruption, scheduling/day errors and off-screen monitor placement
+9. update `TODO.md` and `STATUS.md`
+10. stop when milestone acceptance criteria pass
 
 Do not perform unrelated cleanup or broad rewrites.
 
@@ -198,11 +238,12 @@ Do not perform unrelated cleanup or broad rewrites.
 A milestone is complete only when:
 
 - behavior matches specification/evidence priority
-- persistence and timer invariants are respected
+- persistence, task-identity, scheduling and timer invariants are respected
 - tests for new domain behavior exist and pass
 - affected Windows desktop behavior has been smoke-tested
 - screenshot-backed UI states have been visually checked when applicable
 - reduced-motion and keyboard/focus behavior are not regressed by visual polish
 - performance-sensitive surfaces have no unexplained regression
+- relevant known Blitzit reliability failures have explicit anti-regression coverage
 - no known regression is left undocumented
 - `TODO.md` and `STATUS.md` reflect reality
