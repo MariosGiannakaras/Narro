@@ -2,352 +2,389 @@
 
 Decision date: 2026-08-15
 
-## 1. Requirements that drive the stack
+This document defines the technical architecture for the Windows-only, local-only MyBlitzit implementation. Product behavior is defined by `docs/PRODUCT_SPEC.md`; visual behavior by `docs/UI_UX_SPEC.md`; source rationale and known source-product failures by `docs/SOURCE_AUDIT.md`.
 
-The product is not merely a task web UI. It needs:
+## 1. Requirements driving the stack
 
-- a normal desktop main window
-- a narrow independently-positioned Focus Panel
-- a movable always-on-top Floating Timer
-- multi-monitor discovery and positioning
-- global keyboard shortcuts while other apps are focused
-- local reminders/notifications
-- optional open-on-login
-- a background/tray presence so shortcuts/reminders/focus can keep working when the main window is hidden
-- reliable local persistence
-- a timer that remains correct when individual windows are hidden/recreated
-- Windows 10/11 packaging
-- high UI fidelity to supplied screenshots
+MyBlitzit needs more than a task web UI:
 
-These requirements were evaluated before choosing the framework.
+- normal desktop main window;
+- narrow independently positioned Focus Panel;
+- compact movable always-on-top Floating Timer;
+- monitor enumeration and runtime display-topology handling;
+- global shortcuts while other apps are focused;
+- tray/background lifecycle;
+- local notifications/reminders;
+- optional autostart;
+- reliable local persistence;
+- correct timers independent of renderer/window lifecycle;
+- transactional reorder/scheduling/recurrence;
+- report/session history;
+- Windows 10/11 packaging;
+- screenshot-level UI fidelity with cheap micro-animation.
 
 ## 2. Selected stack
 
-### Desktop shell: Tauri 2
+### Tauri 2
 
-Use Tauri 2.
+Use Tauri 2 for desktop shell/native coordination.
 
-Official Tauri 2 capabilities relevant to this project:
+Required capability families:
+- WebviewWindow creation/manipulation;
+- always-on-top;
+- monitor discovery/positioning;
+- global shortcuts;
+- tray;
+- autostart;
+- notifications;
+- Windows bundling.
 
-- window/WebviewWindow APIs, including always-on-top
-- monitor enumeration/current monitor
-- global-shortcut plugin
-- autostart plugin
-- notification plugin
-- tray icon API
-- Windows installers/bundling
+### React + TypeScript
 
-Primary references are recorded in `docs/RESEARCH_EVIDENCE.md`.
+Use React/TypeScript for UI because the product has many reusable visual states and screenshot-driven HTML/CSS reproduction requirements.
 
-### Frontend: React + TypeScript
+Use Vite unless the current official Tauri template at implementation time gives a concrete reason to use another supported build setup.
 
-Reasons:
-- reusable components across main, Focus Panel, and Floating Timer
-- predictable view-state rendering
-- ecosystem for accessible drag/drop, date pickers, charts, and rich-text UI
-- precise CSS reproduction
+### Rust
 
-Use Vite as the frontend build tool unless the current Tauri template at implementation time establishes a different official default with a concrete advantage.
+Rust is the authority for:
+- SQLite and migrations;
+- task/list/subtask/note/session commands;
+- identity/order/scheduling invariants;
+- active timer/focus runtime;
+- recurrence materialization;
+- reminder scheduling;
+- window orchestration;
+- global shortcuts;
+- tray lifecycle;
+- recovery state;
+- display-topology response.
 
-### Backend: Rust inside Tauri
+Do not put correctness-critical timer, schedule, or identity state solely in React.
 
-Rust owns:
-- SQLite connection/migrations
-- domain commands that require transactions/invariants
-- authoritative active timer/session state
-- recurrence materialization
-- reminder scheduling/check loop
-- window orchestration where OS-native behavior is needed
-- global shortcut dispatch
-- tray lifecycle
-- recovery state
+### SQLite
 
-Do not put correctness-critical timer/session state solely in React.
-
-### Persistence: SQLite
-
-One local database per OS user/application data directory.
+One database per Windows user/app-data directory.
 
 Reasons:
-- transactional local writes
-- report queries
-- durable session history
-- straightforward migrations
-- no server dependency
+- transactional local writes;
+- no server/network dependency;
+- strong identity/invariant enforcement;
+- report queries;
+- durable session history;
+- migrations.
 
-## 3. Alternatives considered
+## 3. Why not Electron / native Windows as primary
 
-### Electron
+Electron is fully capable but bundles its own Chromium runtime. The Windows-only persistent Floating Timer use case makes trying the OS WebView2/Tauri route preferable first.
 
-Electron is technically capable:
-- BrowserWindow supports multiple windows and always-on-top
-- globalShortcut supports OS-global hotkeys
+WinUI/WPF/Win32 could minimize native-window overhead, but reproducing the screenshot-heavy rich UI would cost more implementation time. A native overlay remains a measured fallback only if the final Tauri/WebView2 Floating Timer is materially too heavy.
 
-It was not selected because:
-- it bundles a Chromium runtime rather than using the OS webview
-- the app has no need for Node-specific renderer capabilities
-- Tauri provides first-party primitives for the required desktop functions with a smaller runtime footprint
-
-Electron remains a fallback only if a proven Tauri platform limitation blocks a required behavior.
-
-### Flutter desktop
-
-Flutter is strong for custom-rendered UI, but this product's risk is desktop shell behavior rather than raw custom drawing. Tauri directly combines web-style pixel control with first-party native window/shortcut/tray/autostart primitives.
-
-Do not switch to Flutter solely for visual fidelity.
-
-## 4. Process and window model
-
-One Tauri application process owns domain/runtime state.
+## 4. Process/window model
 
 Persistent webview budget:
-- `main`
-- `focus-surface`
+- `main`;
+- `focusSurface`.
 
-Do **not** keep separate Focus Panel and Floating Timer webviews alive. The secondary `focus-surface` changes native size/position and frontend route/state between the two presentations.
+Do not keep separate persistent Focus Panel and Floating Timer webviews.
 
-### main
+### `main`
 
-- normal resizable Windows window
-- Home/list/reports/archive/settings
-- not always-on-top
-- can be hidden while Rust/tray runtime continues
-- may be destroyed and recreated during long focus-only periods if Milestone 1 measurements show worthwhile memory savings
+- normal resizable Windows window;
+- Home/lists/archives/search/preferences/reports;
+- not always-on-top;
+- can be hidden while Rust/tray runtime continues;
+- may be destroyed/recreated during long focus-only periods if Milestone 1 measurements show meaningful savings.
 
-### focus-surface
+### `focusSurface`
 
-Two presentation modes:
+Presentation enum:
+
+```text
+Hidden
+FocusPanel
+FloatingTimerCollapsed
+FloatingTimerExpanded
+```
+
+The active focus session is independent of this enum.
 
 `FocusPanel`:
-- narrow/tall
-- positioned to selected monitor edge
-- always-on-top only if final UX validation calls for it; the original requirement explicitly guarantees always-on-top for Floating Timer
-- renders Today queue, active task, notes/subtasks, scheduled/done groups
+- narrow/tall;
+- selected monitor edge;
+- current Today queue + active task + scheduled/done groups;
+- Notes/subtasks on demand.
 
-`FloatingTimer`:
-- compact
-- always-on-top = true
-- user movable
-- minimal renderer route/bundle
-- supports collapsed and expanded subtask/action state
+`FloatingTimer*`:
+- compact;
+- always-on-top;
+- movable;
+- minimal renderer bundle;
+- no normal navigation.
 
-Window presentation state should be an enum such as:
-- `Hidden`
-- `FocusPanel`
-- `FloatingTimer`
+### Focus ↔ Floating transformation
 
-The active focus session is independent of this presentation enum. Switching presentation must never start/stop/reset the session.
+1. persist safe floating position when leaving floating mode;
+2. resolve target monitor/work area;
+3. update native geometry/always-on-top/taskbar attributes through Rust/Tauri;
+4. update presentation state;
+5. renderer applies a short content transition only.
 
-### 4.1 Focus-surface transformation
+Never simulate native-window resizing with a high-frequency JS animation loop.
 
-Switching Focus Panel <-> Floating Timer:
-1. persist any user-moved floating position before leaving FloatingTimer
-2. choose target monitor/geometry
-3. change native window size/position/always-on-top attributes from Rust/Tauri
-4. update renderer presentation state
-5. renderer uses a short opacity/transform transition; do not implement a JS high-frequency native-window resize animation
+## 5. Dynamic Windows display model
 
-This design exists primarily to reduce memory/renderer overhead while preserving the visible two-mode experience.
+Treat displays as runtime state, not launch-time constants.
 
-### 4.2 Performance budget
+Rust/window coordination must:
+- enumerate current monitors/work areas;
+- react to monitor connect/disconnect;
+- react to resolution/work-area/DPI changes where exposed;
+- revalidate selected Focus monitor;
+- clamp Focus/Floating positions to visible work areas;
+- recover a saved Floating position if its monitor disappears;
+- preserve user placement when geometry is still valid.
 
-Milestone 1 must measure on the target Windows machine:
-- idle process RAM
-- main-only RAM
-- Focus Panel RAM/CPU
-- Floating Timer collapsed RAM/CPU
-- Floating Timer expanded RAM/CPU
-- timer CPU over at least several minutes
+Normal display hotplug must not require restarting MyBlitzit.
+
+Persist a logical placement descriptor where possible, not only raw absolute coordinates. At minimum store last position plus enough monitor/work-area information to validate it safely.
+
+## 6. Frontend ↔ Rust command/event boundary
+
+Frontend → Rust commands include:
+- list/task/subtask CRUD;
+- task duplicate;
+- reorder/move;
+- Notes update;
+- schedule/recurrence update;
+- start focus;
+- switch active task;
+- pause/resume;
+- start/skip break;
+- skip task;
+- complete task;
+- Time's Up Extend/Done/Switch;
+- edit/add/delete session;
+- Preferences/native settings;
+- window presentation commands;
+- explicit open-external-URL action.
+
+Rust → frontend events include:
+- domain data changed;
+- focus/timer snapshot changed;
+- session phase changed;
+- schedule/reminder event;
+- notification/alert event;
+- shortcut registration status;
+- display topology/placement changed;
+- theme/preferences changed in another view;
+- persistence/domain command error.
+
+Use typed DTOs. Do not expose arbitrary SQL or generic privileged shell calls to renderer code.
+
+## 7. Identity and ordering invariants
+
+Public source-product feedback includes drag/drop order failures and duplicate/triplicate tasks. MyBlitzit must make these impossible at the domain layer.
 
 Rules:
-- no continuous decorative animation on Floating Timer
-- no React interval is authoritative
-- focus-surface must not load Reports/chart code
-- lazy-load Notes editor only when opened
-- prefer CSS transform/opacity for micro-animations
-- if one WebView2 focus surface is still unacceptably heavy after optimization, investigate a native Win32/WinUI floating overlay as a measured fallback; do not adopt hybrid native UI preemptively
+- every list/task/subtask/session has an immutable unique ID;
+- reorder changes ordering metadata only;
+- move changes lane/list/order metadata only;
+- Duplicate creates exactly one new independent ID;
+- no UI optimistic operation may manufacture an ID without authoritative confirmation;
+- failed reorder/move transaction restores previous UI projection;
+- task count before/after reorder/move is invariant;
+- use transactions for multi-row order updates;
+- add uniqueness constraints where possible.
 
-## 5. Event and command boundary
+Use fractional/rank ordering or compact integer reindexing based on measured implementation simplicity, but hide ordering mechanics behind a Rust service.
 
-Frontend -> Rust commands:
-- CRUD operations
-- reorder/move task
-- schedule/recurrence update
-- start focus
-- switch active task
-- pause/resume
-- start/skip break
-- skip task
-- complete task
-- edit session
-- update preferences that affect native runtime
-- show/hide/switch windows
+## 8. Timer/focus runtime
 
-Rust -> frontend events:
-- domain data changed
-- active timer state changed
-- session phase changed
-- notification/alert event
-- shortcut registration error/status
-- monitor topology/placement change if needed
-- theme/preference update if another window changes it
+The timer is the highest-risk subsystem because public Blitzit feedback includes completed tasks losing tracked time.
 
-Prefer typed request/response DTOs. Generate or hand-maintain a small shared TypeScript model layer; do not expose arbitrary SQL to frontend views.
-
-## 6. Timer state machine
-
-The timer is the highest-risk subsystem.
-
-Recommended runtime model:
+Recommended conceptual state:
 
 ```text
-FocusRuntime
-  active_task_id: Option<TaskId>
-  mode: EstCountdown | CountUp | Pomodoro
-  phase: Idle | WorkRunning | WorkPaused | BreakRunning | BreakPaused | Overtime
-  phase_started_wall: DateTime
-  phase_started_mono: Instant (in-memory only)
-  accumulated_work_before_phase_ms
-  accumulated_break_before_phase_ms
-  est_seconds: Option<u64>
-  pomodoro_work_seconds
-  pomodoro_break_seconds
+FocusRuntime {
+  active_task_id: Option<TaskId>,
+  mode: EstCountdown | CountUp | Pomodoro,
+  phase: Idle | WorkRunning | WorkPaused | TimeUp | Overtime | BreakRunning | BreakPaused,
+  phase_started_wall,
+  phase_started_mono,        // in-memory only
+  accumulated_work_ms,
+  accumulated_break_ms,
+  est_seconds,
+  pomodoro_work_seconds,
+  pomodoro_break_seconds,
   active_session_id
+}
 ```
 
-The exact Rust types may differ, but invariants must hold.
+Exact Rust types may differ; invariants may not.
 
-### 6.1 Time calculation
+### Time calculation
 
-While process alive:
-- elapsed = monotonic now - monotonic phase start
-- display derives from phase + mode + accumulated duration
+While process is alive:
+- elapsed uses monotonic time;
+- UI derives current displayed value from authoritative snapshot;
+- wall-clock changes cannot corrupt a live duration.
 
 Persist:
-- wall-clock start/end timestamps for history/reporting
-- accumulated duration
-- recovery phase snapshot
+- wall-clock session boundaries for reports;
+- accumulated duration/checkpoints;
+- recovery phase snapshot.
 
-Do not persist a monotonic `Instant`.
+Never persist monotonic `Instant`.
 
-### 6.2 Pausing
+### Pausing
 
 On pause:
-1. calculate elapsed monotonic segment
-2. add to accumulated work/break
-3. close or checkpoint persisted session segment
-4. mark paused
-5. UI freezes based on authoritative state
+1. calculate current monotonic segment;
+2. accumulate work/break;
+3. persist/checkpoint transition;
+4. enter paused phase;
+5. emit coherent snapshot.
 
-### 6.3 Switching task
+### Switching task
 
-1. close current work segment
-2. persist accrued Time Taken
-3. choose target task
-4. derive timer mode from settings/EST
-5. start a new work segment
-6. emit one coherent state update
+1. close/checkpoint current work segment;
+2. preserve accumulated Time Taken;
+3. select target task;
+4. derive timer mode;
+5. start new work segment;
+6. emit one coherent domain update.
 
-### 6.4 Process interruption
+### EST expiry
 
-Local design:
-- persist recovery snapshot periodically/on meaningful transition
-- on next launch, detect non-idle unfinished runtime
-- convert to paused
-- do not count process downtime
-- show user the recoverable active task
+At zero:
+- transition into `TimeUp`;
+- expose Extend / Done / Switch;
+- Extend transitions into `Overtime` without losing current work duration;
+- actual work continues accumulating in overtime.
 
-### 6.5 UI ticking
+Optional future automatic-overtime preference is not initial parity behavior.
 
-Frontend may render a smooth second counter by interpolating from the latest authoritative snapshot, but backend state is canonical.
+### Pomodoro
 
-Frontend may receive an authoritative timestamp/state snapshot on transitions and periodically for drift correction. A local display tick may update once per second, but it must never mutate persisted elapsed time. Resynchronize on visibility/presentation changes.
+- work interval countdown;
+- at work interval end, persist work transition and automatically start break;
+- emit notification;
+- break is a separate session/phase;
+- at break end, prompt/transition back toward work according to product spec;
+- actual work duration remains independent of visible EST.
 
-## 7. Timer-mode derivation
+### Process interruption
+
+Local policy:
+- persist recovery state on meaningful transitions and safe checkpoints;
+- next launch detects unfinished runtime;
+- restore active task paused;
+- do not count app downtime as work.
+
+### Renderer ticking
+
+Renderer may visually tick once per second/interpolate from authoritative timestamps, but it never mutates authoritative duration.
+
+Resynchronize after:
+- visibility change;
+- Focus↔Floating transformation;
+- main recreation;
+- sleep/wake;
+- task switch;
+- pause/resume.
+
+## 9. Focus eligibility
+
+Conceptual function:
 
 ```text
-if settings.pomodoro_enabled:
-    Pomodoro
-else if task.est_seconds exists:
-    EstCountdown
-else:
-    CountUp
-```
-
-Actual Time Taken is the sum of work segments regardless of mode.
-
-For Pomodoro:
-- the sprint countdown is not the task EST
-- break segments are recorded separately
-
-For EST:
-- zero crossing enters Overtime/Time's Up
-- overtime continues actual work-time accumulation
-
-## 8. Focus eligibility
-
-Function:
-
-```text
-is_focus_eligible(task, now):
-  task not done
-  task appears in Today
+is_focus_eligible(task, now_local):
+  task not completed
+  task effective lane == Today
   and (
-    task has no scheduled time
-    or task.scheduled_at <= now
+    no specific scheduled time
+    or scheduled local date-time <= now_local
   )
 ```
 
-When Blitz Mode starts:
-- choose first eligible Today task by current ordering
+Date-only Today tasks are eligible for the day without an artificial midnight/UTC shift.
 
-If none:
-- return a domain result explaining that all Today tasks are future-scheduled or no Today tasks exist
+Blitz start selects the first eligible Today task by authoritative current ordering.
 
-Never make this a generic UI error string without a typed reason.
+Typed no-start reasons should distinguish:
+- no Today tasks;
+- only future-timed Today tasks.
 
-## 9. SQLite schema direction
+## 10. Scheduling data model — date-only is not date-time
 
-Use migrations from v1.
+Do **not** represent every schedule as one blindly converted UTC `scheduled_at` timestamp.
 
-Suggested tables:
+The official product distinguishes:
+- schedule for a calendar date with no specific time;
+- schedule for a specific local date + time.
+
+Recommended conceptual fields:
+
+```text
+schedule_kind: None | DateOnly | LocalDateTime
+scheduled_local_date: Option<DATE>
+scheduled_local_time: Option<TIME>
+schedule_timezone: Option<IANA/TZ identifier>
+```
+
+A derived UTC instant may be stored/cached for `LocalDateTime` if useful, but local semantic fields remain authoritative for recurrence/display/day classification.
+
+Rules:
+- date-only schedule never shifts calendar day because UTC offset changes;
+- specific-time schedule resolves in configured Windows/local timezone;
+- visible formatting follows Windows locale/system 12/24-hour convention;
+- timezone changes trigger re-derivation, not destructive data rewriting.
+
+This architecture explicitly prevents the wrong-day/timezone failure pattern present in source feedback.
+
+## 11. SQLite schema direction
+
+Use migrations from schema v1 and foreign keys.
 
 ### `lists`
-- id
+- `id` immutable PK
 - title
 - color
 - icon_asset
-- sort_order
+- sort_order/rank
 - archived_at
 - created_at
 - updated_at
 
 ### `tasks`
-- id
-- list_id
+- `id` immutable PK
+- list_id FK
 - title
-- manual_lane / planning metadata
-- sort_order
+- manual_lane
+- sort_order/rank
 - est_seconds
-- manual_time_adjustment_seconds if manual edits are supported distinctly
-- scheduled_at
+- manual_time_adjustment_seconds if needed
+- schedule_kind
+- scheduled_local_date
+- scheduled_local_time nullable
+- schedule_timezone nullable
 - recurrence_rule_id nullable
 - recurrence_parent_task_id nullable
-- completed_at
+- completion timestamp
 - archived_at
 - created_at
 - updated_at
 
-Do not store a blindly mutable `time_taken_seconds` as the only source. Prefer report/session-derived work duration plus an explicit manual adjustment or normalized edit operation so session history and totals cannot silently diverge.
+Do not store a mutable `time_taken_seconds` as the sole truth. Prefer session-derived work duration plus explicit normalized manual adjustment/edit semantics so report/session totals cannot silently diverge.
 
 ### `subtasks`
-- id
+- immutable id
 - task_id
 - title
-- sort_order
+- sort_order/rank
 - completed_at
-- created_at
-- updated_at
+- timestamps
 
 ### `task_notes`
 - task_id
@@ -355,258 +392,291 @@ Do not store a blindly mutable `time_taken_seconds` as the only source. Prefer r
 - content
 - updated_at
 
+Store sanitized structured editor content or sanitized HTML. Never store executable script.
+
 ### `recurrence_rules`
-- id
+- immutable id
 - parent_task_id
 - frequency
 - interval
-- weekday mask / JSON
+- weekday mask/structured rule
 - month-day behavior
-- timezone
+- timezone/local rule semantics
 - active
-- last_materialized_period
+- last materialized period/checkpoint
+
+### `recurrence_occurrences`
+Recommended explicit idempotency table or equivalent unique key:
+- recurrence_rule_id
+- occurrence_local_date
+- occurrence_local_time nullable
+- child_task_id
+- unique constraint on occurrence identity.
+
+This is preferable to relying only on “last materialized” state because repeated startup/resume must not generate duplicates.
 
 ### `sessions`
-- id
-- task_id nullable for free-standing break if necessary
-- kind: work/break
+- immutable id
+- task_id nullable for break if chosen
+- kind work/break
 - started_at
 - ended_at
 - duration_seconds
-- source: focus/manual/edit
-- created_at
-- updated_at
+- source focus/manual/edit
+- timestamps
 
 ### `settings`
-Structured key/value or typed single-row sections.
+Versioned typed settings or structured key/value with strict decoding.
 
 ### `runtime_recovery`
-Single-row current focus snapshot sufficient to restore paused.
+Single authoritative current focus snapshot sufficient for paused recovery.
 
-Indexes:
-- tasks by list/lane/scheduled_at/completed_at
-- sessions by task/started_at
-- recurrence by active/next generation key
-- archived/completed queries used by reports
+Indexes should cover:
+- tasks list/lane/schedule/completion/archive;
+- sessions task/start;
+- recurrence active/occurrence;
+- report date queries.
 
-Use foreign keys.
-
-## 10. Lane derivation and ordering
+## 12. Lane derivation
 
 Separate:
-- **manual planning lane/order**
-- **effective displayed lane**
+- manual planning lane;
+- effective displayed lane.
 
-For unscheduled task:
-- effective lane = manual lane
+Unscheduled:
+- effective lane = manual lane.
 
-For scheduled unfinished task:
-- lane derives from schedule date using configured timezone/week boundary
+Scheduled unfinished:
+- effective lane derives from local schedule semantics + Monday-based week.
 
-This prevents date-boundary jobs from destroying the user's underlying manual organization unnecessarily.
+This prevents date-boundary logic from destructively rewriting manual organization.
 
-Within lane:
-1. manually prioritized unscheduled items
-2. scheduled grouping according to UI
-3. stable sort by explicit sort order / schedule as specified
+Exact mixed ordering of manual vs scheduled tasks in Today outside Focus Panel remains a fidelity question; do not hardcode a screenshot accident into schema.
 
-Exact mixed-order behavior remains a fidelity item; do not encode screenshot accident as database schema.
-
-## 11. Recurrence engine
+## 13. Recurrence engine
 
 No server exists.
 
-Run materialization:
-- application startup
-- resume/wake
-- local date boundary
-- recurrence edit
+Run materialization on:
+- startup;
+- resume/wake;
+- local date boundary;
+- recurrence edit.
 
-Use an idempotency key per recurrence occurrence, e.g.:
-`rule_id + occurrence_local_date_time`
+Official behavior:
+- recurring parent remains Backlog;
+- children are created on Monday of the week they are due;
+- custom daily/weekly/monthly/yearly semantics;
+- Replace Existing Tasks;
+- detachment preserves existing independent children.
 
-Create a unique database constraint so repeated runs cannot duplicate children.
+Use a unique occurrence key such as:
 
-Respect configured timezone and DST by storing schedule instants plus local rule semantics.
+```text
+rule_id + occurrence_local_date + optional_local_time
+```
 
-Historical generated children must not be rewritten unless user explicitly chooses a replace-existing operation.
+Repeated materialization must be idempotent.
 
-## 12. Background lifecycle
+Do not rewrite detached/modified historical children unless the explicit replace behavior requires it.
 
-To support:
-- reminders
-- global shortcuts
-- active focus
-- floating timer
+Tests must include:
+- DST;
+- Monday boundaries;
+- timezone changes;
+- app closed for several days;
+- repeated startup;
+- edit with/without Replace Existing;
+- detach/re-add.
 
-the Tauri process should remain alive while the main window is hidden.
-
-Use a tray icon with:
-- Show MyBlitzit
-- Show Focus Panel / Floating Timer when active
-- Pause/Resume when active (optional if simple)
-- Quit
-
-Explicit Quit:
-- flush/persist runtime snapshot
-- unregister shortcuts
-- close cleanly
-
-Autostart is user-controlled.
-
-## 13. Notifications and sounds
-
-Notifications are local OS notifications.
-
-Reminder/check loop:
-- compute next relevant reminder
-- use a lightweight backend timer/wakeup
-- re-evaluate on task/settings/timezone changes and sleep/wake
-- emit/send notification when due
-
-If durable OS-scheduled future notifications are not portable through Tauri, rely on background process rather than pretending notifications work when the process is terminated.
-
-Sounds:
-- bundle local sound assets
-- provide preview
-- volume/mute behavior must respect OS/platform limitations
-
-## 14. Notes editor
+## 14. Notes/editor and external URLs
 
 Need WYSIWYG behavior for:
-- bold
-- italic
-- strike
-- bullet
-- numbered
-- undo/redo
-- links
+- bold;
+- italic;
+- strike;
+- bullet;
+- numbered;
+- undo/redo;
+- links.
 
-Choose a maintained React-compatible rich-text editor during implementation only after checking bundle/complexity. The persistence contract should support a versioned structured format or sanitized HTML.
+Choose a maintained React-compatible editor only after checking focus-surface bundle cost.
 
-Do not store executable HTML/script.
+Architecture rules:
+- lazy-load editor;
+- sanitized content only;
+- voice transcription omitted initially;
+- use WebView/browser spellcheck where practical;
+- compact inline Notes + larger/resizable editor presentation.
 
-Voice transcription omitted initially.
+### URL conflict resolution
 
-## 15. Frontend state
+The current Help Center describes automatic link opening on live task, but the public roadmap later identifies that behavior as a resolved bug.
 
-Use server/backend-style query cache or a small typed store.
+MyBlitzit:
+- links are rendered normally;
+- explicit renderer action sends a narrowly scoped `open_external_url` command;
+- validate `http`/`https` schemes;
+- Rust/Tauri opens OS default browser;
+- Focus entry/task switch never triggers link opening;
+- no remote preview fetch.
 
-Guideline:
-- persistent/domain data comes from Rust commands
-- transient UI state stays in each view
-- active runtime snapshot is subscribed from Rust events
-- do not maintain independent mutable copies of the same task across `main` and `focus-surface`
+## 15. Background lifecycle / reminders
 
-A small state library is acceptable but not mandatory.
+To support reminders/global shortcuts/focus:
+- Tauri process may stay alive after main closes;
+- tray provides Show MyBlitzit, focus presentation when active, and Quit;
+- autostart is user-controlled.
 
-## 16. Reports
+Explicit Quit:
+- persist runtime snapshot;
+- unregister shortcuts;
+- close DB/flush as appropriate.
 
-Compute from SQLite queries/view models.
+Reminders:
+- local OS notifications;
+- compute next due reminder efficiently;
+- re-evaluate on task/settings/timezone/sleep-wake changes;
+- if Tauri cannot schedule durable notifications while process is fully terminated, do not claim that behavior; rely on running background process.
 
-Overview:
-- aggregate work days
-- task completions
-- work/break durations
-- averages
-- productive time buckets
-- time by list
-- early/late comparison
+Sounds are bundled/local.
+
+## 16. Frontend state architecture
+
+Persistent/domain data comes from Rust services.
+
+Transient UI state may live per view.
+
+Do not keep independent mutable copies of the same task in `main` and `focusSurface`.
+
+Use a small typed store/query cache if useful, but avoid state-library complexity before needed.
+
+Focus surface code-splitting:
+- base collapsed timer path stays minimal;
+- Notes editor lazy-loads only when opened;
+- Reports/charts never load into focus bundle.
+
+## 17. Reports
+
+Compute locally from SQLite/session view models.
+
+Overview definitions follow current official docs:
+- active work days;
+- completed tasks + averages;
+- work + break duration;
+- average time per task including partial tasks;
+- productive hour/day/month;
+- time by list;
+- early/late punctuality.
 
 Sessions:
-- query raw sessions with filters
-- editing a session updates its timestamps/duration transactionally
-- report aggregates must immediately reflect edits
+- filtered raw work/break sessions;
+- editable date/start/end/duration;
+- manual Add Session;
+- transactional edits immediately update aggregates.
+
+Delete semantics:
+- normal archive preserves historical reporting;
+- permanently deleted task is removed from user-facing reports, matching current official Blitzit behavior.
 
 Export:
-- Overview -> local PDF
-- Sessions -> CSV
+- Overview → PDF;
+- Sessions → CSV.
 
-Do not send data to a reporting service.
+No remote reporting service.
 
-## 16.1 Frontend performance and motion
+## 18. Performance / motion architecture
 
-The React layer must keep visual polish cheap:
-- route/code-split Reports and heavy editors away from `focus-surface`
-- use tabular numerals for timer text to avoid layout jitter
-- reserve action-icon space so hover does not reflow titles
-- use `prefers-reduced-motion`
-- use one-shot transitions with transform/opacity; avoid infinite gradient/blur animations
-- never animate large-area `backdrop-filter`
-- chart animation runs only on initial render/filter changes
-- profile render churn in Floating Timer before optimizing with memoization by habit
+- route/code-split heavy main features;
+- minimal `focusSurface` startup bundle;
+- tabular timer numerals;
+- fixed action slots;
+- reduced-motion support;
+- one-shot transform/opacity transitions;
+- no infinite decorative gradients/blur;
+- chart animation only on load/filter change;
+- profile render churn before adding memoization by habit.
 
-Animation is presentation only. Domain transitions complete in Rust first; UI motion must never delay, own, or determine task completion, pause/resume, session switching, persistence, or focus-surface state.
+Animation never owns state. Rust completes persistence/domain transition first; UI visual response projects confirmed state.
 
-## 17. Security/privacy
+Benchmark:
+- baseline process;
+- main only;
+- Focus Panel;
+- Floating collapsed;
+- Floating expanded;
+- timer CPU over several minutes;
+- final UI versus Milestone 1 baseline.
 
-- no network permission required for core app
-- outbound network access should not be enabled globally merely because notes may contain URLs
-- URL opening uses OS shell/default browser
-- sanitize note content
-- validate imported icon file type/size
-- restrict Tauri command capability permissions to required windows/actions
-- no telemetry
-- no secrets/auth tokens
+## 19. Security/privacy
 
-## 18. Packaging targets
+- no network dependency for core operation;
+- no telemetry;
+- no auth tokens/secrets;
+- restrict Tauri capabilities by window/action;
+- validate imported icons;
+- sanitize Notes;
+- external URL action only allows approved schemes;
+- no globally enabled arbitrary shell/network API just because Notes can contain links.
 
-Target:
-- Windows 10/11 x64 first
-- Windows arm64 only if the actual target machine or future requirement justifies it
+## 20. Test strategy
 
-Use Tauri Windows bundling (NSIS or MSI chosen during the packaging milestone after local install/update testing). macOS/Linux packaging is out of scope.
+### Rust/domain
+- stable task identity/reorder/move;
+- duplicate identity;
+- timer mode derivation;
+- pause/resume;
+- Time's Up/overtime;
+- Pomodoro work/break;
+- task switch;
+- completion preserves tracked time;
+- crash recovery;
+- focus eligibility;
+- date-only vs date-time scheduling;
+- lane derivation;
+- recurrence/idempotency;
+- permanent-delete report semantics.
 
-The project is personal, so Store distribution and mandatory code signing are not phase-1 requirements. Local development/install builds are acceptable subject to normal Windows security prompts.
+### SQLite
+Use temporary DB:
+- migrations;
+- CRUD;
+- transactional reorder;
+- archive/delete;
+- recurrence occurrence uniqueness;
+- session edits;
+- recovery snapshot.
 
-## 19. Test strategy
+### Frontend
+- task states/interactions;
+- fixed hover geometry;
+- Notes explicit links;
+- Notes resize;
+- modal/popup states;
+- shortcuts dispatch;
+- active/paused/break/time-up/overtime rendering;
+- subtasks;
+- reduced-motion;
+- report interaction accessibility.
 
-### Rust unit tests
-- lane derivation
-- recurrence
-- focus eligibility
-- timer mode derivation
-- timer transitions
-- pause/resume
-- overtime
-- break flow
-- session duration accounting
-- crash recovery
+### Windows desktop smoke/integration
+- main/focus/floating switching;
+- always-on-top;
+- monitor placement;
+- monitor hotplug/recovery;
+- saved Floating position;
+- global shortcuts;
+- tray/autostart;
+- notifications;
+- maximized/borderless-fullscreen overlay behavior;
+- Windows locale 12/24-hour rendering;
+- DPI 100/125/150/200%;
+- installer;
+- Floating RAM/CPU.
 
-### Persistence tests
-Use temporary SQLite:
-- migrations
-- CRUD invariants
-- archive/delete
-- recurrence idempotency
-- session editing
+Known source-product failures from `docs/SOURCE_AUDIT.md` must become explicit anti-regression tests where they touch implemented behavior.
 
-### Frontend tests
-- task interactions
-- modal states
-- shortcuts dispatch at UI layer
-- active/paused/break rendering
-- notes/subtasks components
-- reduced-motion behavior
-- hover controls do not change row geometry
-
-### Desktop smoke tests
-Manual/automated where possible:
-- main/focus/timer window switching
-- always-on-top
-- drag/move
-- multi-monitor placement
-- global shortcuts
-- tray lifecycle
-- notifications
-- autostart
-- packaging
-- Windows DPI scaling at 100%, 125%, 150%, 200%
-- Floating Timer RAM/CPU in collapsed/expanded states
-
-## 20. Project tree target
-
-After Milestone 1, aim for a compact structure like:
+## 21. Target project structure
 
 ```text
 /
@@ -619,31 +689,33 @@ After Milestone 1, aim for a compact structure like:
     UI_UX_SPEC.md
     ARCHITECTURE.md
     RESEARCH_EVIDENCE.md
+    SOURCE_AUDIT.md
   src/
     app/
-    components/
     features/
       home/
       lists/
       tasks/
-      focus/
-      reports/
-      settings/
-    shared/
-    windows/
-      main/
       focus-surface/
-        focus-panel/
-        floating-timer/
+      archives/
+      preferences/
+      reports/
+    shared/
+      components/
+      design-system/
+      motion/
+      types/
   src-tauri/
     src/
-      commands/
       domain/
       persistence/
-      runtime/
+      timer/
+      scheduling/
+      recurrence/
       windows/
+      notifications/
+      shortcuts/
     migrations/
-    capabilities/
 ```
 
-Do not create extra architectural layers until real complexity requires them.
+Do not create parallel architecture/status documents unless a genuinely new concern cannot fit the existing set.
