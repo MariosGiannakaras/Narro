@@ -23,7 +23,8 @@ When sources disagree:
 2. current supplied screenshots
 3. current official Blitzit documentation/material
 4. older supplied public-review screenshots
-5. inference
+5. public reviews/feature-board comments for corroboration or UX-friction evidence only
+6. inference
 
 Never silently convert inference into confirmed behavior. Record necessary implementation choices that are not confirmed Blitzit behavior as MyBlitzit design decisions in `STATUS.md`.
 
@@ -119,15 +120,33 @@ Every timer transition needs unit tests with controlled time.
 
 ## UI implementation rules
 
-- Reproduce structure, hierarchy, spacing, and interaction states from the current screenshots rather than designing a generic task manager.
+- Reproduce structure, hierarchy, density, spacing, and interaction states from the current screenshots rather than designing a generic task manager.
+- Screenshot pixel dimensions are reference evidence for proportions, not hard CSS dimensions; support Windows DPI scaling.
 - Support system, dark, and light themes.
 - Do not copy Blitzit branding assets or account/paid UI; use MyBlitzit branding and local equivalents.
 - Remove excluded cloud controls rather than showing dead imitations.
 - Keep Focus Panel and Floating Timer deliberately compact.
 - Floating Timer must be movable and always on top.
 - Focus Panel monitor and left/right positioning must actually work on Windows multi-monitor setups.
-- Long active-task titles must support the configured scrolling behavior.
+- Focus task titles may use up to two lines where the compact layout permits; expose the full title through an accessible tooltip/detail mechanism.
+- The optional scrolling live title applies to the active/live presentation, not every ordinary task row.
 - Keyboard navigation/focus states must remain usable.
+- Icon-only actions need accessible labels and tooltips where their meaning is not obvious.
+- Pointer-hover affordances must have keyboard/focus-visible equivalents when meaningful.
+
+## Motion and interaction polish
+
+Use `docs/UI_UX_SPEC.md` as the detailed motion reference. Durable rules:
+
+- Motion is functional feedback, not decoration.
+- No hover/focus animation may reflow task text, move sibling controls, or change row/card geometry.
+- Reserve/overlay action-icon slots instead of inserting controls on hover.
+- Prefer transform and opacity; avoid continuously animated gradients, large-area blur/backdrop-filter animation, and other persistent GPU/CPU work.
+- Timer numerals use tabular figures and update discretely; do not animate every second transition.
+- Domain state changes complete in Rust independently of animation. Animation must never own or delay completion, pause/resume, persistence, task switching, or focus-mode switching.
+- Menus, tooltips, inline expansions, reorder/drop, completion, and focus/floating presentation changes use short one-shot transitions defined in `docs/UI_UX_SPEC.md`.
+- Respect `prefers-reduced-motion`; reduced-motion mode retains state clarity without unnecessary translation/scale.
+- The Floating Timer has the strictest animation budget. No infinite decorative animation is allowed there.
 
 ## Windows shortcuts
 
@@ -158,8 +177,10 @@ For each milestone:
 3. run integration smoke tests for affected Tauri commands/events
 4. manually validate Windows behavior when touching windows, shortcuts, tray, notifications, autostart, multi-monitor positioning, or packaging
 5. for performance-sensitive window changes, measure floating-only idle CPU and memory rather than relying on assumptions
-6. update `TODO.md` and `STATUS.md`
-7. stop when milestone acceptance criteria pass
+6. for screenshot-backed UI work, compare against the relevant fixtures in the `docs/UI_UX_SPEC.md` fidelity checklist and test normal, hover/focus, active, expanded and error/destructive states that apply
+7. validate both normal motion and reduced-motion behavior for affected animated components
+8. update `TODO.md` and `STATUS.md`
+9. stop when milestone acceptance criteria pass
 
 Do not perform unrelated cleanup or broad rewrites.
 
@@ -180,6 +201,8 @@ A milestone is complete only when:
 - persistence and timer invariants are respected
 - tests for new domain behavior exist and pass
 - affected Windows desktop behavior has been smoke-tested
+- screenshot-backed UI states have been visually checked when applicable
+- reduced-motion and keyboard/focus behavior are not regressed by visual polish
 - performance-sensitive surfaces have no unexplained regression
 - no known regression is left undocumented
 - `TODO.md` and `STATUS.md` reflect reality
