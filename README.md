@@ -1,8 +1,8 @@
 # MyBlitzit
 
-MyBlitzit is a personal, local-only desktop productivity application intended to reproduce the core planning and focus experience of Blitzit as faithfully as practical without accounts, cloud services, subscriptions, analytics, or multi-user infrastructure.
+MyBlitzit is a personal, local-only **Windows desktop** productivity application intended to reproduce the core planning and focus experience of Blitzit as faithfully as practical without accounts, cloud services, subscriptions, analytics, or multi-user infrastructure.
 
-The repository is currently in the specification/bootstrap phase. The product behavior, UI states, evidence, and technical direction were researched on 2026-08-15 from Blitzit's official Help Center, official engineering material, plus 30 supplied screenshots in `blitzit Ss.rar`.
+The repository is in the research/specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's official Help Center, official public material, and 30 supplied screenshots in `blitzit Ss.rar`.
 
 ## Product scope
 
@@ -17,7 +17,7 @@ The target application includes:
 - a narrow Focus Panel
 - a movable always-on-top Floating Timer
 - EST countdown, Pomodoro, and count-up tracking modes
-- keyboard shortcuts
+- Windows keyboard shortcuts/global hotkeys
 - local archives
 - search / quick actions
 - preferences and light/dark/system theme
@@ -30,10 +30,11 @@ Explicitly out of scope:
 - subscriptions, billing, licensing, trials, upgrade prompts
 - cloud backend or cloud sync
 - multi-user or collaboration
-- remote integrations (Google Calendar, Notion, ClickUp, Asana, webhooks, MCP, etc.)
+- remote integrations, webhooks, or MCP
 - AI assistant / Blitzy
 - telemetry / analytics sent off-device
 - support/help-center/community UI
+- macOS/Linux/mobile targets
 - voice transcription unless a future fully-local implementation is explicitly approved
 
 ## Read first
@@ -48,30 +49,37 @@ Codex should read these files before implementation:
 6. `docs/ARCHITECTURE.md` — technical architecture
 7. `docs/RESEARCH_EVIDENCE.md` — evidence, source precedence, screenshot inventory, and conflicts
 
-Do not repeat product research unless a requirement conflicts with the recorded evidence or new evidence is introduced.
+Do not repeat product research unless a requirement conflicts with recorded evidence or new evidence is introduced.
 
-## What the original Blitzit uses
+## Original implementation evidence
 
-Blitzit's founder explicitly documented on 2026-02-21 that the desktop application is maintained as **Electron macOS** and **Electron Windows** codebases. The current cross-device product also uses a unified remote API for operations such as task ordering, schedules, estimates, time tracking, and system-specific synchronization. Mobile is maintained separately as Apple-native and Android-native software.
-
-Source: `https://www.blitzit.app/blog/building-a-cross-platform-productivity-app`
-
-MyBlitzit intentionally does **not** reproduce Blitzit's remote API/cloud layer because the project is local-only.
+Public engineering material about Blitzit's own implementation is recorded only as research evidence. **MyBlitzit does not choose a framework merely because Blitzit uses it.** The clone stack is selected independently for this project's Windows-only, local-only requirements.
 
 ## Technical direction
 
-The selected stack is **Electron + React + TypeScript + SQLite**.
+Selected stack: **Tauri 2 + React + TypeScript + Rust + SQLite**, targeting Windows 10/11 initially.
 
-This supersedes the earlier Tauri proposal. Electron is now preferred because:
+Why this fits MyBlitzit:
 
-- it is the confirmed desktop runtime used by Blitzit itself;
-- Blitzit's founder specifically connects Electron to the product's cross-platform dynamic-window desktop experience;
-- Electron directly provides the required multi-window, always-on-top, positioning, tray, notification, and global-shortcut primitives;
-- React/HTML/CSS remains well suited to close reproduction of the supplied interface;
-- a local-only architecture can keep all authoritative domain/runtime state in the Electron main process without reproducing Blitzit's cloud API.
+- Windows supplies the WebView2 runtime, so Tauri does not need to bundle a second full browser engine with the app.
+- React/HTML/CSS allows fast, precise iteration against the supplied Blitzit screenshots.
+- Rust can own authoritative timers, scheduling, recurrence, persistence, shortcuts, notifications, and window coordination independently of UI refresh cycles.
+- Tauri supports the Windows desktop primitives required by the product: multiple windows, always-on-top behavior, monitor/window positioning, global shortcuts, tray/background lifecycle, autostart, notifications, and Windows installers.
+- SQLite provides reliable fully-local persistence with migrations and no server dependency.
 
-The **Electron main process** owns authoritative timer/session state, scheduling coordination, window lifecycle, shortcuts, notifications, and persistence. Renderer processes are UI projections only. Privileged operations are exposed through a narrow typed preload/IPC API with context isolation enabled.
+### Lightweight focus-window design
 
-The main window, Focus Panel, and Floating Timer are separate `BrowserWindow` presentations of the same application state.
+The product has three **presentations** but should normally use only two webview windows:
 
-Implementation has intentionally not started yet. The first milestone in `TODO.md` creates the Electron scaffold and validates the desktop primitives before product UI work.
+1. `main` — dashboard, list board, settings, archives, reports.
+2. `focusSurface` — one secondary window that changes between:
+   - Focus Panel mode, and
+   - compact Floating Timer mode.
+
+Do **not** keep separate Focus Panel and Floating Timer webviews alive. Switching modes should resize/reposition/restyle the same secondary window while preserving the active session in Rust.
+
+The Floating Timer route must be a minimal frontend bundle and must not load dashboard/report/editor code that it does not use. If the main window is closed while a focus session or tray reminders continue, the implementation may destroy the main webview and recreate it on demand rather than retain it invisibly.
+
+The first implementation milestone must benchmark the floating-only steady state. A native Win32/WinUI floating overlay is only a fallback if measured WebView2 overhead is materially unacceptable; do not introduce a hybrid native UI before evidence requires it.
+
+Implementation has intentionally not started yet. `TODO.md` begins with a Windows/Tauri capability and performance spike before product UI work.
