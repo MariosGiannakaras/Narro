@@ -2,7 +2,7 @@
 
 MyBlitzit is a personal, local-only **Windows desktop** productivity application intended to reproduce the core planning and focus experience of Blitzit as faithfully as practical without accounts, cloud services, subscriptions, analytics, or multi-user infrastructure.
 
-The repository is in the specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's official Help Center, official public material, and all 30 supplied screenshots in `blitzit Ss.rar`.
+The repository is in the specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's full current Help Center, official product/engineering material, official embedded-video inventory, public roadmap/feature-board feedback, public reviews, and all 30 supplied screenshots in `blitzit Ss.rar`.
 
 ## Product scope
 
@@ -37,16 +37,22 @@ Explicitly out of scope:
 - macOS/Linux/mobile targets
 - voice transcription unless a future fully-local implementation is explicitly approved
 
-## Fidelity and UX target
+## Fidelity, reliability, and UX target
 
 MyBlitzit should feel recognizably like the current Blitzit desktop experience rather than like a generic task application. The supplied screenshots define the information hierarchy, density, compact focus behavior, dark/light visual language, task/list states, settings surfaces, reports, Focus Panel and Floating Timer.
 
-The clone is allowed to improve interaction quality without inventing new product workflows. Approved improvements include:
+The clone is allowed to improve interaction quality and reliability without inventing new product workflows. Approved improvements include:
 
 - stable hover/focus actions with no layout shift
 - better handling of long task titles
 - accessible tooltips and keyboard focus for icon-only controls
 - tabular timer numerals to prevent per-second geometry jitter
+- larger/resizable Notes editing while retaining compact inline focus access
+- explicit user-controlled URL opening rather than surprise auto-launch
+- Windows-locale date/time formatting
+- runtime monitor hotplug/reconnect recovery without restart
+- safe persisted Floating Timer position
+- strong anti-regression guarantees against lost tracked time, duplicate task identities and wrong-day scheduling
 - restrained micro-animations for hover, press, menus, expansions, task completion, reorder/drop and Focus/Floating transitions
 - reduced-motion support
 - stronger destructive-action clarity
@@ -54,17 +60,20 @@ The clone is allowed to improve interaction quality without inventing new produc
 
 These improvements are labeled as MyBlitzit decisions in the specifications and must not be misrepresented as confirmed Blitzit behavior.
 
+Popular user requests that materially broaden the product — such as Tags, Calendar week/month view, bulk entry, CSV import, subtask time estimates and optional automatic overtime — are recorded as **post-parity candidates** in `docs/SOURCE_AUDIT.md`; they are not part of the initial implementation plan unless scope is changed explicitly.
+
 ## Read first
 
 Codex should read these files before implementation:
 
-1. `AGENTS.md` — durable project rules
+1. `AGENTS.md` — durable project, correctness, fidelity, performance and scope rules
 2. `STATUS.md` — current confirmed state and decisions
 3. `TODO.md` — ordered implementation milestones
 4. `docs/PRODUCT_SPEC.md` — behavioral specification
 5. `docs/UI_UX_SPEC.md` — window/UI/state/motion specification and screenshot fidelity checklist
 6. `docs/ARCHITECTURE.md` — technical architecture
-7. `docs/RESEARCH_EVIDENCE.md` — evidence, source precedence, screenshot inventory, and conflicts
+7. `docs/RESEARCH_EVIDENCE.md` — supplied screenshot inventory, evidence precedence and visual conflicts
+8. `docs/SOURCE_AUDIT.md` — exhaustive Help Center page-by-page audit, official video inventory, roadmap/bugs and public user-feedback synthesis
 
 Do not repeat product research unless a requirement conflicts with recorded evidence or new evidence is introduced.
 
