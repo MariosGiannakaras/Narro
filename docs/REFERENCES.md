@@ -22,6 +22,17 @@ The detailed source synthesis lives in:
 - `docs/RESEARCH_EVIDENCE.md` — screenshot inventory and visible-state evidence.
 - `docs/SOURCE_AUDIT.md` — exhaustive Help Center/page-by-page audit, official video inventory, roadmap/bugs, reviews, and feedback synthesis.
 
+## Optional planning and verification aids
+
+These files are **not required reading for every task** and are **not binding contracts**. Use them when they help the current milestone:
+
+- `docs/BEHAVIOR_MATRIX.md` — state/action/result matrix with HIGH/MEDIUM/LOW/MYBLITZIT confidence labels. Useful when implementing or testing a workflow whose transition semantics matter.
+- `docs/DECISION_GATES.md` — suggested evidence checkpoints for Windows viability, correctness, fidelity, floating-surface performance, polish, reports, and release readiness. Gates may be combined, simplified, replaced, or skipped when another validation method addresses the same risk better.
+- `docs/decisions/README.md` — lightweight optional ADR/decision-note template. Create a decision note only when the reasoning is durable enough to help future sessions; do not document every reversible implementation choice.
+- `docs/INTERACTION_CAPTURE_GUIDE.md` — suggested short recordings and observations that would resolve the most valuable remaining behavior/animation/window questions if direct access to the original app is available.
+
+These aids exist to make reasoning easier. They should never prevent Codex from finding a cleaner, faster, lighter, more reliable, or more accessible approach.
+
 ## Blitzit official product references
 
 Primary entry points:
