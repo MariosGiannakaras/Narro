@@ -2,855 +2,954 @@
 
 Last updated: 2026-08-15
 
-This document defines the visible Windows desktop experience for MyBlitzit. It combines direct evidence from the supplied Blitzit screenshots, behavior confirmed by the official Blitzit Help Center, and explicitly labeled MyBlitzit improvements.
+This document defines the visible Windows desktop experience for MyBlitzit. It combines current supplied screenshots, current official Blitzit documentation, and explicitly labeled MyBlitzit improvements derived from user feedback and reliability research.
 
-The goal is not a generic task manager. The goal is the same compact, modern, low-friction planning-to-focus experience, with stronger interaction polish, clearer long-title handling, stable hover behavior, and lightweight micro-animations.
+The target is not a generic task manager. MyBlitzit should preserve Blitzit's compact planning-to-focus character while improving interaction stability, readability, accessibility, resource use, and Windows reliability.
+
+See `docs/RESEARCH_EVIDENCE.md` for screenshot-by-screenshot evidence and `docs/SOURCE_AUDIT.md` for the exhaustive Help Center/video/roadmap/review audit.
 
 ## Evidence labels
 
-- **[CONFIRMED]** visible in supplied current screenshots and/or stated in official documentation.
-- **[CORROBORATED]** visible in older supplied review captures and consistent with official behavior.
-- **[MYBLITZIT IMPROVEMENT]** intentionally better UX; do not describe it as original Blitzit behavior.
-- **[INFERENCE]** reasonable implementation interpretation where exact source behavior is not observable.
+- **[CONFIRMED]** visible in supplied current screenshots and/or stated in current official documentation.
+- **[CORROBORATED]** visible in older supplied captures or consistent public evidence.
+- **[MYBLITZIT IMPROVEMENT]** intentionally improved local behavior; do not describe it as original Blitzit behavior.
+- **[INFERENCE]** reasonable interpretation where exact original behavior is not observable.
 
-Current supplied screenshots take precedence over older review captures for visual details.
+Current supplied screenshots take precedence for current visual details. Official Help Center behavior is used for transitions unless a later official bug/fix signal conflicts; conflicts are resolved in `STATUS.md` and `docs/SOURCE_AUDIT.md`.
 
-## 1. Window model
+---
 
-MyBlitzit uses two persistent webview surfaces on Windows:
+# 1. Window model
 
-1. **Main window** — planning, task/list management, archives, reports, preferences, search.
-2. **Focus surface** — one secondary native window that changes between:
-   - **Focus Panel**: tall narrow Today/focus workspace.
-   - **Floating Timer**: compact always-on-top widget.
+MyBlitzit normally uses two webview windows on Windows:
 
-The Focus Panel and Floating Timer are presentations of the same active session, not separate session owners.
+1. **Main window** — Home, lists, task management, archives, search, Preferences, shortcuts, reports.
+2. **focusSurface** — one secondary native window that changes presentation between:
+   - **Focus Panel** — tall/narrow focus workspace;
+   - **Floating Timer** — compact always-on-top widget.
 
-### Main window
+Focus Panel and Floating Timer are two views of one authoritative Rust-owned active session, not independent apps or timers.
 
-[CONFIRMED source behavior]
-- normal resizable desktop surface
-- Home and Reports primary navigation
-- dark/light theme
-- planning and management happen here
+## 1.1 Main window
+
+[CONFIRMED]
+- normal resizable desktop window;
+- Home and Reports are primary destinations;
+- dark/light themes preserve the same hierarchy;
+- planning and management happen here.
 
 [MYBLITZIT IMPROVEMENT]
-- use native-feeling Windows chrome where practical without browser-like UI
-- main webview may be destroyed while hidden for long focus-only periods if measurements show material memory savings; authoritative timer/session state remains in Rust
+- native-feeling Windows chrome; no browser-like navigation shell;
+- main webview may be destroyed while unused during long focus-only periods if measurements show meaningful savings;
+- restoring main derives state from Rust/SQLite, never hidden renderer memory.
 
-### Focus Panel
-
-[CONFIRMED]
-- narrow vertical panel placed on selected monitor and left/right side
-- contains Today workflow, active timer, remaining tasks, scheduled tasks, done tasks
-- list selector, Preferences, Home and compact/collapse control
-- current live task is visually emphasized
-
-Target starting width: approximately 340 logical px at 100% scaling. Screenshot pixel widths prove compactness but are not hard DPI-independent dimensions.
-
-### Floating Timer
+## 1.2 Focus Panel
 
 [CONFIRMED]
-- movable
-- always on top
-- current task and live timer continuously visible
-- collapsed and expanded states
-- expanded state exposes focus actions and subtasks
-- returns to Focus Panel
+- narrow vertical panel;
+- placed on selected monitor and left/right side;
+- contains Today workflow, active task/timer, remaining tasks, scheduled tasks, done tasks;
+- includes list selector, Preferences, Home, compact/floating switch;
+- active live task receives strong visual emphasis.
 
-Target collapsed footprint: roughly 340 × 110 logical px, with content-driven expansion.
+Starting target: approximately 340 logical px wide at 100% scale. Screenshot pixel widths are proportional evidence, not hard CSS dimensions.
 
-## 2. Visual language
+[MYBLITZIT IMPROVEMENT]
+- monitor selection and placement update at runtime when Windows display topology changes; normal hotplug must not require restart;
+- clamp/recover panel into a visible work area after monitor, resolution, DPI, sleep/wake changes.
 
-### Overall character
+## 1.3 Floating Timer
 
-The supplied screenshots establish:
-- dark charcoal background rather than pure black
-- low-contrast elevated cards
-- thin borders
-- rounded corners
-- compact desktop density
-- strong white/near-white primary text
-- subdued gray secondary text
-- cyan/teal-to-lime accent treatment
-- restrained red for overdue/destructive states
-- small colored list chips/icons
-- minimal decorative imagery outside completion celebration
+[CONFIRMED]
+- movable;
+- always on top;
+- current task and timer remain visible;
+- collapsed and expanded states;
+- expanded state exposes focus actions and subtasks;
+- can return to Focus Panel.
 
-The interface must remain quiet. Accent color conveys state/action rather than decorating everything.
+Starting collapsed target: roughly 340 × 110 logical px, content-driven rather than rigid.
 
-### Suggested design tokens
+[MYBLITZIT IMPROVEMENT]
+- persist last safe user position across launches;
+- validate restored coordinates against current Windows work areas;
+- expanded content must remain usable near taskbar/screen edges by repositioning/anchoring safely;
+- validate always-on-top over normal maximized and borderless full-screen apps; document exclusive-fullscreen limitations instead of promising impossible overlay behavior.
 
-These are implementation targets, not claims of exact Blitzit source values.
+---
 
-Dark:
-- `bg.canvas`: #0E0F0F
-- `bg.surface`: #151616
-- `bg.raised`: #1A1B1B
-- `bg.input`: #222323
-- `border.subtle`: rgba(255,255,255,.08)
-- `border.strong`: rgba(255,255,255,.16)
-- `text.primary`: #F4F5F5
-- `text.secondary`: #9A9E9C
-- `text.muted`: #6F7471
+# 2. Visual language
 
-Light:
-- `bg.canvas`: #ECEDEE to #F1F1F2 range
-- `bg.surface`: #F8F8F8
-- `bg.raised`: #FFFFFF
-- `border.subtle`: rgba(0,0,0,.08)
-- `text.primary`: #181A19
-- `text.secondary`: #696D6A
+## 2.1 Overall character
 
-Accent:
-- teal/cyan start near #48D6C5
-- lime end near #B7D96D
-- success uses teal/green family
-- overdue/destructive uses warm red/coral
-- report early/late semantics use green/red
+Screenshot evidence establishes:
 
-### Typography
+- charcoal canvas rather than pure black;
+- low-contrast raised cards;
+- thin borders;
+- rounded compact cards/panels;
+- dense desktop spacing;
+- near-white primary text;
+- subdued gray metadata;
+- cyan/teal → lime accent family;
+- restrained coral/red for overdue/destructive states;
+- colored list chips/icons;
+- minimal decorative imagery except completion celebration.
 
-Windows-first font stack:
+The interface should feel quiet and focused. Accent communicates state/action rather than decorating every surface.
+
+## 2.2 Calibration tokens
+
+These are implementation starting points, not claims about Blitzit's source design tokens.
+
+Dark calibration:
+- canvas around `#111111`;
+- raised surfaces around `#171717`;
+- deeper focus/floating layers may approach `#0E0F0F`;
+- input/interactive surfaces roughly `#202222`–`#252626`;
+- subtle borders `rgba(255,255,255,.08)`;
+- strong borders `rgba(255,255,255,.16)`;
+- primary text around `#F4F5F5`;
+- secondary around `#9A9E9C`.
+
+Light calibration:
+- canvas around `#E8E8E8`–`#F0F0F0`;
+- cards around `#F5F4F4`–`#FFFFFF`;
+- subtle dark borders ~8% opacity;
+- primary text around `#181A19`.
+
+Accent calibration:
+- teal/cyan start near `#48D6C5`;
+- lime end near `#B7D96D`;
+- success in teal/green family;
+- overdue/destructive in warm coral/red.
+
+Final values should be tuned by screenshot visual comparison, not blindly copied from sampled pixels affected by capture/compression/antialiasing.
+
+## 2.3 Typography
+
+Windows-first stack:
 `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif`
 
 Suggested hierarchy:
-- page title: 22–26 px semibold/bold
-- section title: 15–18 px semibold
-- task title: 14–16 px medium/semibold
-- metadata: 11–13 px
-- timer: 18–22 px semibold with tabular numerals
+- page title: 22–26 px semibold/bold;
+- section title: 15–18 px semibold;
+- task title: 14–16 px medium/semibold;
+- metadata: 11–13 px;
+- live timer: 18–22 px semibold with tabular numerals.
 
-Timers must use tabular numerals so the width does not jitter each second.
+Timer digits must use tabular figures so geometry does not jitter every second.
 
-### Radius and spacing
+## 2.4 Spacing/radius
 
-Suggested radius scale:
-- small controls: 6–8 px
-- task cards: 8–10 px
-- list cards/panels: 10–12 px
-- modal: 12–14 px
-- floating window content: 12–16 px
+Use a 4 px spacing base: 4, 8, 12, 16, 20, 24, 32.
 
-Spacing follows a 4 px base scale: 4, 8, 12, 16, 20, 24, 32.
+Starting radius scale:
+- compact controls 6–8 px;
+- task cards 8–10 px;
+- list cards/panels 10–12 px;
+- modals 12–14 px;
+- floating content 12–16 px.
 
-## 3. Motion system
+---
 
-Motion is a MyBlitzit enhancement. It makes state changes legible without making the product feel busy.
+# 3. Motion system
 
-### Rules
+Motion is functional feedback, not decoration.
 
-- no hover animation may change sibling layout geometry
-- prefer `opacity` and `transform`
-- animate progress with transforms rather than layout width where practical
-- avoid animated blur/backdrop-filter
-- no perpetual gradient animation in the Floating Timer
-- do not animate timer numerals between every second; update text discretely
-- respect `prefers-reduced-motion`
-- reduced-motion mode keeps state feedback but removes translation/scale and long easing
+## 3.1 Rules
 
-### Duration/easing targets
+- hover/focus must never reflow sibling content or move action targets;
+- reserve/overlay action slots;
+- prefer opacity/transform;
+- avoid continuously animated blur/backdrop-filter;
+- no perpetual gradient animation in Floating Timer;
+- timer text updates discretely; do not animate each second;
+- domain state completes independently of animation;
+- respect `prefers-reduced-motion`;
+- reduced-motion keeps state clarity but removes nonessential translation/scale.
 
-- press feedback: 70–90 ms
-- hover/focus: 110–140 ms
-- tooltip: 120–150 ms after 350–500 ms intent delay
-- menu/popover open: 130–160 ms
-- inline expansion: 160–200 ms
-- modal: 180–220 ms
-- task reorder/drop settle: 160–200 ms
-- task completion: 200–260 ms
-- chart/filter transition: 250–400 ms, one-shot only
+## 3.2 Timing targets
 
-Default easing:
-- enter: cubic-bezier(.2,.8,.2,1)
-- exit: cubic-bezier(.4,0,1,1)
+- press: 70–90 ms;
+- hover/focus: 110–140 ms;
+- tooltip: 120–150 ms after 350–500 ms intent delay;
+- menu/popover: 130–160 ms;
+- inline expansion: 160–200 ms;
+- modal: 180–220 ms;
+- reorder/drop settle: 160–200 ms;
+- completion: 200–260 ms;
+- chart/filter: 250–400 ms, one-shot.
 
-### Specific micro-interactions
+Suggested easing:
+- enter `cubic-bezier(.2,.8,.2,1)`;
+- exit `cubic-bezier(.4,0,1,1)`.
+
+## 3.3 Micro-interactions
 
 Buttons:
-- hover increases background/outline contrast and may visually lift by ~1 px
-- press scales to ~0.98 for <90 ms
-- disabled controls do not move
+- hover increases contrast and may visually lift ~1 px;
+- press scale ~0.98 briefly;
+- disabled controls do not move.
 
 Task cards:
-- hover changes border/background while actions fade into reserved space
-- drag lifts to scale ~1.01–1.015 with stronger shadow and fixed placeholder
-- drop settles in 160–200 ms
-- completion animates checkbox/check first, then text fade/strike, then card move/collapse
+- hover border/background change;
+- actions fade into reserved positions;
+- drag lift ~1.01–1.015 with fixed placeholder;
+- completion: checkbox/check feedback first, then strike/fade, then card movement.
 
 Menus/popovers:
-- opacity 0→1 plus translateY 3–4 px or scale .98→1
-- transform origin follows trigger
-- close faster than open
+- opacity + 3–4 px translate or `.98 → 1` scale;
+- close faster than open;
+- transform origin follows trigger.
 
-Progress bars:
-- animate to new value over ~220 ms
-- no continuous shimmer
+Progress:
+- one-shot transition ~220 ms;
+- no shimmer.
 
-Focus/Float transition:
-- native window geometry changes immediately or in a short controlled native sequence
-- content crossfades/scales for 120–180 ms after geometry change
-- do not implement a high-frequency JS loop to animate native window size
+Focus Panel ↔ Floating Timer:
+- native geometry changes directly or in a short controlled native sequence;
+- content may crossfade/scale 120–180 ms;
+- never drive native resize with high-frequency JS loops.
 
-Find Timer shortcut:
-- [CONFIRMED] original applies an animation to locate the floating timer
-- [MYBLITZIT IMPROVEMENT] use two restrained outline pulses or a short glow ring lasting <=900 ms
-
-Alert flash:
-- [CONFIRMED] Preferences expose an animated timer flash
-- run only when timed alerts are enabled
+Find Timer:
+- [CONFIRMED] original provides attention animation;
+- [MYBLITZIT IMPROVEMENT] two restrained outline pulses/glow <=900 ms.
 
 Completion celebration:
-- [CONFIRMED] success screen, optional GIF and success sound exist
-- [MYBLITZIT IMPROVEMENT] keep local celebration short, skippable and visually <=1.2 s by default
+- [CONFIRMED] success screen, optional GIF and sound;
+- [MYBLITZIT IMPROVEMENT] brief/skippable, default visual motion <=1.2 s.
 
-## 4. Main window — Home
+---
 
-### Shell
+# 4. Main window — Home
 
-[CONFIRMED from `Screenshot_1`, `Screenshot_15`]
-- large central content region
-- left stack of compact cards/navigation
-- top-right utility controls
-- bottom navigation with Home and Reports
-- greeting/title area plus secondary sentence in original
-- `Your Lists` heading
-- right-side helper text for lists with upcoming tasks
+## 4.1 Shell
 
-MyBlitzit removes account/trial/upgrade/profile/integration controls. Keep Search and Settings accessible.
+[CONFIRMED current screenshots]
+- large central content region;
+- compact left navigation/cards;
+- utility actions upper-right;
+- bottom Home / Reports navigation;
+- greeting/title area;
+- `Your Lists` section;
+- helper text for upcoming-task lists.
 
-### Left navigation
+MyBlitzit removes account/trial/upgrade/profile/AI/integration controls. Search and Settings stay accessible.
 
-[CONFIRMED]
-- `+ Create new list`
-- divider
-- `All my lists`
-- `Archived lists`
-- active row uses filled/raised state
+## 4.2 Left navigation
 
-### List card
+- `+ Create new list`;
+- divider;
+- `All my lists`;
+- `Archived lists`;
+- active row uses filled/raised state.
 
-[CONFIRMED from `Screenshot_1`, `Screenshot_3`, `Screenshot_15`]
-Normal state:
-- leading list icon/chip
-- list name
-- overflow `…`
-- preview of several task rows
-- optional task estimate/time metadata at row end
-- footer pending-task count
-- footer aggregate EST when available
+## 4.3 List card
 
-Hover state:
-- prominent `Open` pill appears
-- external card size remains stable
+Rest:
+- icon/chip;
+- list name;
+- overflow `…`;
+- preview task rows;
+- optional time metadata;
+- footer pending count;
+- footer aggregate EST.
 
-Overflow menu:
-- Edit List
-- Duplicate
-- divider
-- Archive List
+Hover:
+- prominent `Open` affordance;
+- card geometry remains unchanged.
+
+Overflow:
+- Edit List;
+- Duplicate;
+- divider;
+- Archive List.
 
 [MYBLITZIT IMPROVEMENT]
-- reserve or overlay the Open affordance so hover never reflows content
-- focus-visible state mirrors pointer hover
+- Open/actions overlay or occupy reserved geometry;
+- keyboard focus mirrors hover.
 
-### Create List tile
+## 4.4 Create List tile
 
-[CONFIRMED from `Screenshot_2`]
-- dashed rounded border
-- centered plus
-- uppercase `CREATE LIST`
-- accent gradient/dashed treatment
+- dashed rounded outline;
+- centered plus;
+- uppercase `CREATE LIST`;
+- teal/lime accent treatment;
+- hover increases contrast; no looping accent animation.
 
-Motion: hover increases border contrast and slightly scales/translates the plus; no looping gradient.
+## 4.5 Create/Edit List modal
 
-### Create/Edit List modal
+- centered modal over dimmed context;
+- close X;
+- `Create a new list`;
+- large icon-upload target;
+- formats `(jpg, png, svg)`;
+- color swatches and selected ring/check;
+- title input;
+- outlined Cancel;
+- accent Create.
 
-[CONFIRMED from supplied `490270...png`]
-- centered modal over dimmed context
-- `Create a new list`
-- close X
-- large circular Upload an icon control
-- optional file note `(jpg, png, svg)`
-- color swatches including multicolor and dark/black option
-- selected color ring/check
-- title input
-- Cancel outlined button
-- Create accent-gradient button
+Local icon assets are copied into app-owned storage and previewed before confirmation.
 
-Local icon behavior:
-- copy imported asset to app-owned data directory
-- preview before confirmation
+---
 
-## 5. Main window — List board
+# 5. Main window — List board and tasks
 
-[CORROBORATED by supplied Tool Finder captures; behavior confirmed by official Lists/Tasks docs]
+## 5.1 Board structure
 
-### Header
-- Back
-- list dropdown/chip
-- pending-task count + aggregate EST sentence
-- utility toolbar
+[CONFIRMED official behavior + supplied captures]
 
-### Columns
-Stable planning columns:
+Columns:
 1. Backlog
 2. This Week
 3. Today
 4. Done
 
-Each column:
-- tall rounded panel
-- title
-- aggregate EST where meaningful
-- `+` add-at-top
-- thin progress bar and `x/y Done` where applicable
-- bottom `+ ADD TASK`
+Each column can contain:
+- title;
+- aggregate EST where applicable;
+- top `+` insert-at-highest-priority control;
+- progress/count where applicable;
+- task cards;
+- bottom `+ ADD TASK`.
 
-Today is the focus-launch lane and receives stronger accent treatment in older captures.
+Today is the focus-launch lane. Scheduled/overdue groups can be visually separated.
 
-### Empty state
+## 5.2 Inline create
 
-[CORROBORATED]
-- small circular check/success icon
-- `All Clear`
+Visible older capture confirms:
+- Cancel;
+- Title;
+- EST;
+- Confirm;
+- helper text.
 
-### Inline create
+Top create inserts at highest priority; bottom create appends.
 
-[CORROBORATED from Tool Finder 2m01]
-- `× CANCEL`
-- Title input
-- Est time input
-- `Confirm` accent button
-- helper `Add a new task`
+## 5.3 Task-card states
 
-Create-at-top inserts at highest priority in that lane.
+Required states:
 
-### Task card state inventory
+**Normal**
+- title;
+- optional order/priority affordance;
+- list chip in All Lists context;
+- EST;
+- Time Taken.
 
-Normal:
-- priority/order number where used
-- title
-- list chip in All Lists context
-- EST lower-left
-- Time Taken lower-right
+**Hover/focus**
+- completion checkbox;
+- movement/actions;
+- no geometry shift.
 
-Hover/action-revealed:
-- completion checkbox
-- directional movement controls and/or task actions
-- action icons reveal without changing card height
+**Scheduled**
+- date/time metadata;
+- lower scheduled grouping where evidenced.
 
-Scheduled:
-- grouped toward bottom of relevant lane
-- scheduled date/time metadata
-- optional secondary note/context line
+**Overdue**
+- warning grouping/red age/date treatment.
 
-Overdue:
-- warning section such as `Scheduled tasks overdue`
-- warning/red age/date treatment
+**Done**
+- completion marker;
+- strike/secondary treatment;
+- Time Taken remains visible where appropriate.
 
-Done:
-- completion indicator
-- title may be strikethrough
-- remains in Done until archive policy moves old tasks
+**Live**
+- accent border/state;
+- timer.
 
-Live:
-- active focus card gets accent border and live timer
+**Paused live**
+- visible paused state;
+- EST/Time Taken become editable.
 
-Notes-expanded:
-- rich editor opens inside task/focus context
+**Time's Up / overtime**
+- distinct from normal countdown;
+- Extend, Done, Switch Task actions.
 
-Subtasks-expanded:
-- progress and rows render inline
+**Notes expanded**
+- editor stays in task/focus context.
 
-Paused-live:
-- EST / Time Taken become editable; running live state does not allow those edits
+**Subtasks expanded**
+- progress + rows.
 
-Destructive-confirm:
-- deletion requires explicit confirmation
+**Destructive confirm**
+- explicit confirmation for permanent task deletion.
 
-## 6. Search / command palette
-
-[CONFIRMED from `Screenshot_4`]
-- full-app dim overlay
-- compact centered palette near upper-middle
-- search icon
-- placeholder `Search for tasks, lists`
-- `Ctrl+F` key hint
-- divider
-- `Quick actions`
-- Add new task
-- Add new list
-- Go to Reports
+## 5.4 Reorder UX and reliability
 
 [MYBLITZIT IMPROVEMENT]
-- keyboard-first selection
-- stable result-row height
-- matched substring highlight
-- Enter executes, Esc closes
-- result changes fade without vertical jumping
+- drag uses fixed placeholder and stable identity;
+- drop animation does not imply success until local transaction succeeds;
+- failed persistence restores previous order with clear feedback;
+- moving/reordering can never duplicate a task identity;
+- keyboard-accessible non-drag movement is required.
 
-Search is unavailable in Blitz Mode per official shortcuts documentation.
+This directly addresses public reports of reordered tasks moving unexpectedly or duplicating in source versions. citeturn580012search8turn580012search16
 
-## 7. Archives
+---
 
-### Archived Lists
+# 6. Search and archives
 
-[CONFIRMED `Screenshot_8`]
-- segmented `Archived lists` / `Archived done tasks`
-- right-side section label
-- centered empty state with archive icon, title and explanation
+## 6.1 Search / command palette
 
-Behavior:
-- archived lists can be restored
-- permanent deletion only from archive and requires confirmation
-
-### Archived Done Tasks
-
-[CONFIRMED `Screenshot_9`]
-- same segmented tabs
-- full-width search field
-- list filter dropdown
-- All Lists + individual lists
-- centered empty state
-
-Original behavior auto-archives done tasks older than 60 days.
-
-## 8. Preferences
-
-Preferences use a tall modal/panel with internal scrolling and section dividers.
-
-### Blitz Panel
-
-[CONFIRMED `Screenshot_5`]
-- monitor preview showing desktop thumbnail/resolution
-- selected screen label
-- `Blitz Panel Side` Left/Right segmented control
-
-### General
-
-[CONFIRMED]
-- Hide EST / Time Taken on tasks
-- Auto-parse EST time from title
-- System / Dark / Light theme
-- Timezone dropdown
-
-When time fields are hidden, official docs state values remain available on hover.
-
-### Blitz mode settings
-
-[CONFIRMED]
-- Pomodoros toggle
-- default break length dropdown
-- scrolling title on live timer toggle
-- official docs additionally establish configurable work-sprint and Pomodoro-break lengths when Pomodoro is enabled
-
-Conditional settings expand/collapse without unexpectedly shifting the user's scroll position.
-
-### Alerts
-
-[CONFIRMED `Screenshot_6`, `Screenshot_7`]
-Timed alerts during a task:
-- enable toggle
-- timing dropdown
-- sound dropdown
-- speaker/volume affordance
-- preview/play control
-- animated flash on timer toggle
-
-Notification Alerts:
-- enable toggle
-- sound dropdown
-- speaker/preview controls
-
-Schedule reminders (system):
-- enable toggle
-- reminder timing such as `10 mins before`
-
-### Celebrate task completion
-
-[CONFIRMED]
-- Show success screen
-- nested Fun GIF on success screen
-- Success sound effect
-- sound preview controls
+[CONFIRMED screenshot + shortcuts]
+- dimmed app backdrop;
+- centered compact palette;
+- search icon;
+- `Search for tasks, lists`;
+- `Ctrl+F` hint;
+- Quick actions:
+  - Add new task;
+  - Add new list;
+  - Go to Reports.
 
 [MYBLITZIT IMPROVEMENT]
-- nested options visibly disable/collapse when parent is off
-- sound previews never overlap
+- keyboard-first selection;
+- stable result heights;
+- matched-text highlight;
+- Enter execute, Esc close;
+- no vertical jumping as results change.
 
-## 9. Windows Shortcuts modal
+Search is unavailable in Blitz Mode.
 
-[CONFIRMED `Screenshot_16` + official Windows docs]
+## 6.2 Archived Lists
 
-Visual structure:
-- centered modal
-- close X
-- `Global (works outside & inside Blitzit)`
-- each shortcut rendered as keycaps
-- per-global enable toggle
-- `App (works only inside of Blitzit)`
+- tabs/segments for Archived lists / Archived done tasks;
+- restore list;
+- permanent deletion only from archive;
+- empty state.
+
+## 6.3 Archived Done Tasks
+
+- search field;
+- All Lists/list filter;
+- empty state;
+- original automatically archives Done tasks older than 60 days.
+
+Normal archival preserves history. Permanent delete removes the entity from user-facing reports according to current official delete semantics.
+
+---
+
+# 7. Notes and subtasks
+
+## 7.1 Notes
+
+[CONFIRMED]
+- accessible from list and Focus Mode;
+- inline expansion keeps task context visible;
+- Bold;
+- Italic;
+- Strikethrough;
+- bulleted list;
+- numbered list;
+- Undo;
+- Redo;
+- URLs clickable;
+- microphone exists in original but is excluded initially.
+
+### URL conflict resolution
+
+The current Help Center says note URLs automatically open when a task goes live. Blitzit's public roadmap later lists that automatic behavior as a shipped/resolved bug. citeturn580012search7
+
+[MYBLITZIT IMPROVEMENT]
+- URLs open only after explicit pointer/keyboard activation;
+- entering Focus Mode, switching task, pause/resume never launches them automatically;
+- no remote preview/fetch;
+- valid external URL opening uses OS default browser.
+
+### Notes ergonomics
+
+[MYBLITZIT IMPROVEMENT]
+- retain compact inline Focus Notes;
+- allow a larger/resizable editing presentation for substantial notes;
+- preserve task context while expanding;
+- use WebView/browser spellcheck where practical.
+
+This directly addresses current public requests for a larger/adjustable Notes area and spellcheck usability. citeturn580012search14turn580012search8
+
+## 7.2 Subtasks
+
+[CONFIRMED]
+- add;
+- edit title;
+- complete/uncomplete;
+- reorder via arrows;
+- delete;
+- proportional progress;
+- full management while task is live;
+- changes immediately reflected across Main and focus views.
+
+Expanded Floating state shows per-row checkbox, reorder arrows, delete and completed strikethrough.
+
+---
+
+# 8. Preferences
+
+Preferences are a vertically scrollable modal/panel with clear section dividers.
+
+## 8.1 Blitz Panel
+
+- monitor preview/resolution;
+- selected screen;
+- Left/Right segmented placement.
+
+[MYBLITZIT IMPROVEMENT]
+- monitor list updates dynamically after display topology changes;
+- unavailable saved monitor falls back predictably.
+
+## 8.2 General
+
+[CONFIRMED]
+- Open on wake/login;
+- Hide EST / Time Taken;
+- hidden values remain available on hover;
+- Auto-parse EST from title;
+- System/Dark/Light theme;
+- timezone.
+
+[MYBLITZIT IMPROVEMENT]
+- schedule calculations use selected/local timezone consistently;
+- visible date/time formatting follows Windows locale/system 12/24-hour preference by default.
+
+## 8.3 Blitz Mode settings
+
+- Pomodoro toggle;
+- configurable work sprint when enabled;
+- Pomodoro break duration;
+- default manual break duration;
+- scrolling title on live timer.
+
+Conditional settings expand/collapse without losing scroll position.
+
+## 8.4 Alerts
+
+Screenshots/docs establish:
+- timed alerts during task;
+- interval;
+- sound selector;
+- volume/preview;
+- optional animated timer flash;
+- notification alerts;
+- notification sound;
+- schedule reminders;
+- reminder timing.
+
+Sound previews must stop/replace previous preview rather than overlap indefinitely.
+
+## 8.5 Completion celebration
+
+- success screen toggle;
+- nested Fun GIF toggle;
+- success sound;
+- sound preview.
+
+Nested controls clearly disable/collapse with parent state.
+
+---
+
+# 9. Windows shortcuts UI
+
+[CONFIRMED screenshot + official docs]
+
+Modal structure:
+- close X;
+- `Global (works outside & inside Blitzit)`;
+- keycaps;
+- per-global enable toggles;
+- `App (works only inside of Blitzit)`.
 
 Global:
-- Ctrl+Shift+B — Go to MyBlitzit
-- Ctrl+Shift+T — Alternate between Focus Mode
-- Ctrl+Shift+P — Find focus timer
+- `Ctrl+Shift+B` — bring MyBlitzit front;
+- `Ctrl+Shift+T` — alternate Focus Panel / Floating Timer;
+- `Ctrl+Shift+P` — find/animate Floating Timer.
 
-App:
-- Ctrl+Alt+T — Create new task
-- Ctrl+Alt+B — Start break
-- Ctrl+Alt+P — Pause task
-- Ctrl+Alt+S — Skip task
-- Ctrl+Alt+F — Finish active task
-- Ctrl+Alt+N — Add Notes (Active task)
-- Ctrl+F — Search
+In-app:
+- `Ctrl+Alt+T` — create task;
+- `Ctrl+Alt+B` — start break;
+- `Ctrl+Alt+P` — pause/resume;
+- `Ctrl+Alt+S` — skip live task;
+- `Ctrl+Alt+F` — finish active task;
+- `Ctrl+Alt+N` — active Notes;
+- `Ctrl+F` — search outside Blitz Mode.
 
-If a global registration fails, show an unavailable state next to that shortcut instead of failing silently.
+Unavailable global shortcut registration must be visible locally rather than silently failing.
 
-## 10. Reports — Overview
+---
 
-[CONFIRMED `Screenshot_10`–`Screenshot_14`]
+# 10. Reports
+
+## 10.1 Overview
+
+[CONFIRMED screenshots + official docs]
 
 Header/filters:
-- Back + Reports
-- Overview / Sessions segmented tabs
-- list filter
-- Export PDF
-- date range
+- Back + Reports;
+- Overview / Sessions tabs;
+- list filter;
+- date range;
+- Export PDF.
 
-Metric cards:
-- Total work days
-- Total tasks done
-- Total time worked
-- Avg. Time per task
+Summary cards:
+- Total Work Days;
+- Total Tasks Done;
+- Total Time/Hours Worked;
+- Avg. Time per Task.
+
+Official definitions:
+- Work Days = active days;
+- Tasks Done includes average per active day;
+- Hours Worked = task + break time, plus average active-day hours;
+- Avg Time per Task includes partially completed tasks. citeturn580012search11
 
 Productivity chart:
-- daily axis
-- Tasks color
-- Breaks color
-- Total color
-- hover tooltip with date and all three metrics
-- chart menu icon upper-right
+- Tasks/work time;
+- Breaks;
+- Total session time;
+- hover/focus tooltip with date + series values.
+
+Most productive:
+- hour = highest focus time;
+- day = weekday with highest focus-session count;
+- month = most active time when range spans months.
+
+Lower:
+- Time By List;
+- Done Tasks / completion insight;
+- early/late legend.
+
+## 10.2 Time By List / punctuality
+
+Official behavior:
+- work time aggregated by list;
+- punctuality percentage is the proportion of tracked task time completed early vs late;
+- Done rows show completion date, early/late if EST exists, and Time Taken;
+- no EST => no early/late but Time Taken remains. citeturn580012search15
+
+## 10.3 Date range picker
+
+Screenshot establishes:
+- preset column: Today, Yesterday, This week, Last 30/60/90 days;
+- two adjacent calendars;
+- previous/next month controls;
+- start/end filled markers;
+- continuous selected span;
+- Cancel;
+- Apply.
 
 [MYBLITZIT IMPROVEMENT]
-- tooltip follows point without obscuring pointer target
-- keyboard focus exposes equivalent values
-- chart motion occurs only on load/filter change
+- keyboard date navigation;
+- clear focus/start/end states;
+- Windows locale date labels.
 
-Productive-time cards:
-- Most Productive hour
-- Most Productive day
-- Most Productive month
+## 10.4 Sessions
 
-Lower panels:
-- Time By List
-- Done Tasks
-- early/late legend visible in current screenshots
-- empty copy when selected range has no report
+Dashboard:
+- Add Session;
+- current screenshot `Export .csv`;
+- Hide Break sessions;
+- date range;
+- list filter;
+- Total Time;
+- Total Tasks;
+- Total Sessions.
 
-## 11. Reports — Date Range Picker
+Rows/detail:
+- task;
+- list;
+- session number;
+- date;
+- start/end;
+- duration;
+- overflow.
 
-[CONFIRMED supplied `86d1...png`]
-
-- trigger with calendar icon and range
-- preset column: Today, Yesterday, This week, Last 30 days, Last 60 days, Last 90 days
-- two adjacent month calendars
-- previous/next controls
-- start/end dates filled with accent circles
-- selected span highlighted continuously
-- Cancel outlined action
-- Apply accent action
-
-[MYBLITZIT IMPROVEMENT]
-- keyboard date navigation
-- obvious start/end focus states
-- selected range remains visible while navigating adjacent months
-
-## 12. Reports — Sessions
-
-### Sessions dashboard
-
-[CONFIRMED `Screenshot_13`]
-- Overview / Sessions
-- Add Session
-- current screenshot shows `Export .csv`
-- Hide Break sessions
-- date range
-- Total Time
-- Total Tasks
-- Total Sessions
-- list filter
-
-### Session list
-
-Official docs establish chronological rows with:
-- task
-- list
-- session number
-- date
-- start
-- end
-- duration
-- overflow
-
-### Inline edit
-
-[CONFIRMED `Screenshot_21` + official docs]
-- date/start/end/duration editable
-- editing field gets accent outline
-- confirm/check action appears for pending edit
-- overflow remains available
-
-### Task Sessions modal
-
-[CONFIRMED `Screenshot_21`]
-- task title
-- list chip/name
-- close X
-- Add Session
-- aggregate session count
-- aggregate task session time
-- rows `Session N`
-- date field
-- start → end time
-- duration
-- per-row overflow
+Editing:
+- date/start/end/duration;
+- inline edit accent state;
+- confirmation check;
+- task-specific Sessions modal;
+- Add Session;
+- delete.
 
 [MYBLITZIT IMPROVEMENT]
-- preserve scroll position after editing
-- local validation failure restores previous value and shows inline error
+- validation failure restores previous value with inline error;
+- preserve scroll position after edit;
+- visible times follow Windows locale/system 12/24-hour preference.
 
-## 13. Focus Panel
+Export conflict resolution remains:
+- Overview → PDF;
+- Sessions → CSV.
 
-### Top bar
+---
 
-[CONFIRMED `Screenshot_18`, `Screenshot_20`]
-- list selector (`All` in capture)
-- `Today`
-- Preferences gear
-- Home
-- compact/collapse icon
+# 11. Focus Panel
 
-### Day summary
+## 11.1 Top bar
 
 [CONFIRMED]
-- aggregate `Est: 2hr 10min` style label
-- horizontal accent progress bar
-- `1/4 Done` style count
+- list selector (`All` in current capture);
+- `Today`;
+- Preferences gear;
+- Home;
+- compact/floating control.
 
-Progress change gets one short transition when completion changes.
+## 11.2 Day summary
 
-### Active live card
+- aggregate EST label;
+- horizontal teal/lime progress;
+- completion count such as `1/4 Done`.
 
-[CONFIRMED]
-- strong accent border
-- active task title
-- live timer right-aligned
-- subtask progress row
-- add subtask `+`
-- expand/collapse chevron
+Progress changes animate once, not continuously.
+
+## 11.3 Active live card
+
+- strong accent border;
+- task title;
+- live timer right;
+- subtask progress;
+- add subtask;
+- expand/collapse.
 
 [MYBLITZIT IMPROVEMENT]
-- title may use up to two lines before truncation; full title appears in tooltip/focus detail
-- timer uses fixed-width tabular numerals
-- accent border does not continuously pulse
+- up to two title lines where compact layout permits;
+- full title accessible by tooltip/detail;
+- timer fixed-width/tabular;
+- no perpetual accent pulse.
 
-### Remaining task rows
+## 11.4 Remaining task rows
 
-[CONFIRMED/CORROBORATED]
-- title
-- optional list chip at right in All Lists
-- optional overdue age/date
-- completion checkbox
-- hover actions may expose Rocket/make-live, subtasks, notes and overflow
+Can show:
+- title;
+- list chip in All Lists;
+- overdue age/date;
+- checkbox;
+- Rocket/make-live;
+- subtasks;
+- Notes;
+- overflow.
 
-[MYBLITZIT IMPROVEMENT based on public Blitzit feedback]
-- action slots reserve width; revealing controls never pushes/truncates title further
-- tooltips instead of hover labels that reflow
-- 2-line title clamp where compact width permits
-
-### Add Task
-
-[CONFIRMED]
-- `+ ADD TASK` between normal queue and scheduled section
-
-### Scheduled tasks
-
-[CONFIRMED]
-- section count such as `3 Scheduled tasks`
-- title
-- due label such as `Today 1:00PM`
-- optional secondary note/context line
-- original may show external integration chips; MyBlitzit omits them while preserving local schedule metadata
-
-### Done section
-
-[CONFIRMED]
-- section count
-- completed rows
-- strikethrough title
-- Time Taken at right
-
-### Inline Notes
-
-[CONFIRMED `Screenshot_20`, Tool Finder 4m33, official Notes docs]
-- editor expands inside task context
-- task title row remains visible
-- toolbar: Bold, Italic, Strikethrough, bulleted list, numbered list, Undo, Redo, microphone in original
-- Close action
-- URLs are clickable
-
-Initial MyBlitzit excludes remote voice transcription, so the microphone is absent unless fully-local transcription is separately approved.
-
-Original behavior auto-opens note URLs when a task goes live. Implement only valid http/https URLs and avoid reopening the same URL repeatedly on pause/resume.
-
-### Focus task overflow
-
-[CORROBORATED Tool Finder 2m41]
-- Update Schedule
-- date/time summary
-- Change list
-- Duplicate
-- destructive confirmation
-- original `Open in Calendar` excluded
-
-## 14. Floating Timer
-
-### Collapsed
-
-[CONFIRMED `Screenshot_19`]
-- dark rounded compact panel
-- task title left
-- live timer right
-- second row: circular subtask progress, `2/4 Subtasks`, plus and chevron
-- subtle shadow/elevation against desktop
-- always on top and movable
-- no normal navigation
-
-### Expanded
-
-[CONFIRMED `Screenshot_17`]
-Top action strip has icon-only controls corresponding to:
-- Break
-- Notes
-- Pause/Resume
-- Skip
-- Done
-- return/expand to Focus Panel at far right
-
-Expanded subtasks:
-- progress dial
-- `n/m Subtasks`
-- add `+`
-- collapse chevron
-- per-row checkbox
-- completed text strikethrough
-- reorder up/down
-- delete
+Public feedback reports “jumpy” Blitz buttons that users feel they chase with the cursor. citeturn580012search16
 
 [MYBLITZIT IMPROVEMENT]
-- fixed icon hit boxes >=32 px with tooltips
-- hover never changes window width
-- destructive subtask action gets safe confirmation/undo behavior according to final product rule
+- action controls occupy fixed slots;
+- revealing actions never pushes title/siblings;
+- hit targets remain stationary;
+- icon labels use tooltips instead of expanding text under pointer.
 
-### Performance rules
+## 11.5 Add Task / Scheduled / Done groups
 
-- focus/floating route must not import reports/charts/editor code until needed
-- collapsed state renders only title, timer, progress, chevron, drag region and minimum action logic
-- no React polling is authoritative for elapsed time
-- no infinite decorative CSS animation
-- measure CPU/RAM in Milestone 1 and again after Floating Timer implementation
+- `+ ADD TASK` between main queue and scheduled section;
+- scheduled section count;
+- scheduled title/time metadata;
+- optional context text;
+- Done section count;
+- completed title strike;
+- Time Taken at right.
 
-## 15. Timer/focus visual state matrix
+Remote integration chips/actions are omitted while local schedule metadata remains.
 
-Idle:
-- no active accent card
-- focus start only if an eligible Today task exists
+## 11.6 Focus Notes
 
-Running EST countdown:
-- accent active card
-- remaining time displayed
-- actual Time Taken accumulates in backend
+Uses the Notes behavior from Section 7:
+- editor expands without leaving focus context;
+- URLs explicit-open only;
+- larger/resizable editor available when needed;
+- microphone omitted initially.
 
-Time's Up / overtime:
-- official docs require `Time's Up`
-- actions include extend, done, switch task
-- clearly distinguish overtime from remaining estimate
+## 11.7 Overflow
 
-Running count-up:
-- starts at 00:00 and increments
+Corroborated older capture:
+- Update Schedule;
+- schedule summary;
+- Change list;
+- Duplicate;
+- destructive action/confirmation;
+- original Open in Calendar excluded.
 
-Pomodoro work:
-- work sprint countdown overrides EST display
-- actual work time still accumulates
+---
 
-Break:
-- task work accumulation pauses
-- break tracked separately
+# 12. Floating Timer
 
-Paused:
-- timer visually indicates paused state
-- EST and Time Taken become editable
+## 12.1 Collapsed
 
-Completed:
-- task marked Done
-- optional success moment per Preferences
+[CONFIRMED current screenshot]
+- rounded dark panel;
+- title left;
+- live timer right;
+- subtask progress ring;
+- `n/m Subtasks`;
+- add `+`;
+- expand chevron;
+- minimal footprint;
+- movable/always-on-top.
 
-## 16. Explicit UX improvements over Blitzit
+## 12.2 Expanded
 
-These are deliberate and compatible with the same core workflow:
+Action strip:
+- Break;
+- Notes;
+- Pause/Resume;
+- Skip;
+- Done;
+- return to Focus Panel.
 
-1. No hover layout shift — action controls use reserved/overlay slots.
-2. Long-title readability — Focus rows can use two lines; full text via tooltip/focus.
-3. Tooltips for icon-only controls — especially focus/floating actions.
-4. Consistent keyboard focus — pointer actions have focus-visible equivalents where meaningful.
-5. Reduced-motion support.
-6. Better destructive-action safety.
-7. No dead cloud UI — account/upgrade/integration controls are removed.
-8. Stable timer geometry — tabular digits and fixed timer column.
-9. Clear, restrained empty states.
-10. Performance-aware focus surface — minimal bundle and no decorative continuous animation.
+Subtasks:
+- progress ring;
+- count;
+- add;
+- collapse;
+- checkbox;
+- completed strike;
+- reorder up/down;
+- delete.
 
-## 17. Accessibility / Windows requirements
+[MYBLITZIT IMPROVEMENT]
+- fixed icon hit boxes >=32 px; critical actions preferably >=36 px;
+- tooltips;
+- hover never changes widget width;
+- destructive subtask action uses safe confirmation/undo according to final product rule.
 
-- target WCAG 2.2 AA contrast where practical
-- visible focus ring not dependent on color alone
-- hit targets preferably >=32 px; critical focus controls >=36 px where space permits
-- semantic labels for icon controls, toggles, progress, timer and charts
-- chart data must have accessible textual equivalent
-- Esc closes safe modal/popover/editor layers
-- Enter confirms focused primary actions
-- test 100%, 125%, 150%, 200% Windows display scaling
-- multi-monitor placement must correctly convert logical/physical coordinates
+## 12.3 Resource rules
 
-## 18. Screenshot fidelity checklist
+- minimal focus-surface bundle;
+- no report/chart code in collapsed path;
+- no persistent decorative animation;
+- no React polling as authoritative time;
+- no per-second DB write;
+- benchmark CPU/RAM before product UI and after final Floating implementation.
 
-Before UI fidelity is considered complete, visual-regression fixtures should cover:
-- Home dark
-- Home light
-- list-card hover/Open
-- list-card overflow
-- Create List tile
-- Create List modal
-- Search palette
-- Preferences upper/middle/lower
-- Archived Lists empty
-- Archived Done Tasks empty + filter open
-- Reports Overview + chart tooltip
-- Reports lower section
-- Reports list filter open
-- Reports date-range picker
-- Sessions dashboard
-- Sessions task-detail edit modal
-- Windows Shortcuts modal
-- four-column List board
-- inline Add Task
-- task card with EST + Time Taken
-- overdue scheduled group
-- inline Notes in board
-- Focus Panel normal
-- Focus task hover actions
-- Focus Notes expanded
-- Focus overflow menu
-- Floating Timer collapsed
-- Floating Timer expanded with subtasks
+---
+
+# 13. Timer/focus visual state matrix
+
+**Idle**
+- no active accent card;
+- focus start only when eligible Today work exists.
+
+**Running EST countdown**
+- active accent state;
+- remaining estimate;
+- actual Time Taken accumulates in Rust.
+
+**Time's Up**
+- explicit state at zero;
+- Extend;
+- Done;
+- Switch Task. citeturn580012search12
+
+**Overtime after Extend**
+- continued work session;
+- extra time clearly distinguished from remaining estimate.
+
+**Running count-up**
+- starts at zero and increments.
+
+**Pomodoro work**
+- sprint countdown overrides EST display;
+- actual work still tracked.
+
+**Pomodoro break**
+- starts automatically at sprint end;
+- notification;
+- break tracked separately;
+- end prompts return to work.
+
+**Manual break**
+- current task pauses;
+- break session tracked;
+- documented shortcut workflow resumes task after break unless manually skipped.
+
+**Paused**
+- unmistakable pause state;
+- EST/Time Taken editable.
+
+**Completed**
+- Done transition;
+- optional success moment;
+- exact next-task auto-start behavior remains intentionally unresolved until fidelity testing.
+
+---
+
+# 14. Accessibility and Windows behavior
+
+- target WCAG 2.2 AA contrast where practical;
+- visible focus ring not dependent on color alone;
+- semantic names for icon-only controls;
+- keyboard equivalent for meaningful hover actions;
+- tooltip for ambiguous icons;
+- hit targets preferably >=32 px;
+- chart values have accessible textual equivalent;
+- Esc closes modal/popover/editor where safe;
+- Enter confirms focused primary action;
+- test 100%, 125%, 150%, 200% Windows scaling;
+- use logical/physical coordinate conversion correctly;
+- display changes are runtime events;
+- Windows locale/system 12/24-hour preference drives visible schedule/session formatting by default;
+- reduced-motion remains fully functional.
+
+---
+
+# 15. Explicit MyBlitzit improvements over source UX
+
+1. No hover-induced layout shift.
+2. Long-title two-line treatment + full-title access.
+3. Stationary focus action hit targets.
+4. Accessible icon tooltips/focus states.
+5. Tabular timer geometry.
+6. Larger/resizable Notes plus compact inline access.
+7. Explicit URL activation; no surprise auto-launch.
+8. Runtime monitor hotplug recovery.
+9. Persisted safe Floating Timer position.
+10. Windows-locale date/time presentation.
+11. Strong destructive-action clarity.
+12. Reduced-motion support.
+13. Performance-budgeted micro-animation.
+14. No dead cloud/account/integration UI.
+15. Visual success only after local persistence/domain transition succeeds.
+
+---
+
+# 16. Screenshot visual-regression checklist
+
+Before parity UI is considered complete, implementation fixtures/screenshots must cover:
+
+- Home dark;
+- Home light;
+- list card rest/hover/Open;
+- list overflow menu;
+- Create List tile;
+- Create/Edit List modal;
+- Search palette;
+- four-column board;
+- inline Add Task;
+- normal task with EST + Time Taken;
+- scheduled group;
+- overdue group;
+- task hover/actions;
+- Notes-expanded task;
+- subtasks-expanded task;
+- destructive confirmation;
+- Archived Lists empty;
+- Archived Done Tasks + filter;
+- Preferences upper/middle/lower;
+- Windows Shortcuts modal;
+- Reports Overview top;
+- chart tooltip;
+- Reports lower cards;
+- list filter;
+- date-range picker;
+- Sessions dashboard;
+- Sessions task-detail inline edit;
+- Focus Panel normal;
+- active card;
+- focus hover actions;
+- Focus Notes expanded;
+- focus overflow menu;
+- paused state;
+- Time's Up/overtime state;
+- break state;
+- Floating Timer collapsed;
+- Floating Timer expanded/subtasks;
+- reduced-motion variants for representative animated interactions.
+
+Fidelity review should compare hierarchy, spacing, typography, density, contrast, control size, state clarity, and interaction behavior — not only raw pixel similarity.
