@@ -2,7 +2,7 @@
 
 MyBlitzit is a personal, local-only **Windows desktop** productivity application intended to reproduce the core planning and focus experience of Blitzit as faithfully as practical without accounts, cloud services, subscriptions, analytics, or multi-user infrastructure.
 
-The repository is in the research/specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's official Help Center, official public material, and 30 supplied screenshots in `blitzit Ss.rar`.
+The repository is in the specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's official Help Center, official public material, and all 30 supplied screenshots in `blitzit Ss.rar`.
 
 ## Product scope
 
@@ -37,6 +37,23 @@ Explicitly out of scope:
 - macOS/Linux/mobile targets
 - voice transcription unless a future fully-local implementation is explicitly approved
 
+## Fidelity and UX target
+
+MyBlitzit should feel recognizably like the current Blitzit desktop experience rather than like a generic task application. The supplied screenshots define the information hierarchy, density, compact focus behavior, dark/light visual language, task/list states, settings surfaces, reports, Focus Panel and Floating Timer.
+
+The clone is allowed to improve interaction quality without inventing new product workflows. Approved improvements include:
+
+- stable hover/focus actions with no layout shift
+- better handling of long task titles
+- accessible tooltips and keyboard focus for icon-only controls
+- tabular timer numerals to prevent per-second geometry jitter
+- restrained micro-animations for hover, press, menus, expansions, task completion, reorder/drop and Focus/Floating transitions
+- reduced-motion support
+- stronger destructive-action clarity
+- strict animation/resource budget for the always-on-top Floating Timer
+
+These improvements are labeled as MyBlitzit decisions in the specifications and must not be misrepresented as confirmed Blitzit behavior.
+
 ## Read first
 
 Codex should read these files before implementation:
@@ -45,7 +62,7 @@ Codex should read these files before implementation:
 2. `STATUS.md` — current confirmed state and decisions
 3. `TODO.md` — ordered implementation milestones
 4. `docs/PRODUCT_SPEC.md` — behavioral specification
-5. `docs/UI_UX_SPEC.md` — window/UI/state specification
+5. `docs/UI_UX_SPEC.md` — window/UI/state/motion specification and screenshot fidelity checklist
 6. `docs/ARCHITECTURE.md` — technical architecture
 7. `docs/RESEARCH_EVIDENCE.md` — evidence, source precedence, screenshot inventory, and conflicts
 
