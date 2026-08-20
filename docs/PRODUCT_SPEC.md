@@ -7,13 +7,13 @@ Evidence labels used below:
 - **[O]** confirmed by current official Blitzit documentation
 - **[S]** confirmed by supplied screenshots
 - **[I]** inference from consistent evidence; not stated directly
-- **[L]** MyBlitzit local-only design decision, not a claim about Blitzit
+- **[L]** Narro local-only design decision, not a claim about Blitzit
 
 When labels conflict, follow the precedence in `AGENTS.md`. The exhaustive external-source audit is in `docs/SOURCE_AUDIT.md`.
 
 ## 1. Product model
 
-MyBlitzit is a local personal task planner centered on a sequence:
+Narro is a local personal task planner centered on a sequence:
 
 1. plan tasks by time horizon
 2. place priority work in Today
@@ -24,7 +24,7 @@ MyBlitzit is a local personal task planner centered on a sequence:
 
 Blitzit's own introduction describes the product around planning and a to-do list that collapses into a floating countdown timer. [O]
 
-MyBlitzit must preserve that loop while removing service/account dependencies. [L]
+Narro must preserve that loop while removing service/account dependencies. [L]
 
 A consistent product principle across official material and user feedback is that execution must remain simpler than project management. Do not add permanent complexity merely because a feature appears on a public roadmap. [O/L]
 
@@ -110,9 +110,9 @@ Confirmed formatting:
 
 URLs are clickable. The current Help Center says URLs automatically open when a task goes live, but Blitzit's own public roadmap later lists that automatic opening behavior as a shipped/resolved bug. [O]
 
-**MyBlitzit resolution:** URLs remain clickable but are opened only by explicit user action. Going live must not unexpectedly launch every link in a note. Do not fetch or preview remote content. [L]
+**Narro resolution:** URLs remain clickable but are opened only by explicit user action. Going live must not unexpectedly launch every link in a note. Do not fetch or preview remote content. [L]
 
-Voice transcription is excluded from initial MyBlitzit scope. [L]
+Voice transcription is excluded from initial Narro scope. [L]
 
 The Notes experience must support compact inline access during focus and a larger/resizable editing presentation for substantial notes. Public user feedback specifically identifies the original fixed Notes area as too small on larger screens. [L]
 
@@ -132,7 +132,7 @@ Store:
 
 Reports must remain derivable from sessions after task completion and normal list archival. [L]
 
-Permanent task deletion is different: official Blitzit documentation states deleted tasks no longer appear in Reports. MyBlitzit should remove the permanently deleted task from user-facing reports rather than presenting it as archived history. [O/L]
+Permanent task deletion is different: official Blitzit documentation states deleted tasks no longer appear in Reports. Narro should remove the permanently deleted task from user-facing reports rather than presenting it as archived history. [O/L]
 
 ## 3. Main planning lanes
 
@@ -172,9 +172,9 @@ Confirmed methods:
 - mark Done via checkbox [O]
 - drag into Done [O]
 
-MyBlitzit must also provide a keyboard-accessible non-drag mechanism. [L]
+Narro must also provide a keyboard-accessible non-drag mechanism. [L]
 
-Reorder/move persistence must be transactional and invariant-tested. Public versions of Blitzit have had user-reported duplication/corruption while rearranging tasks; MyBlitzit explicitly treats that as an anti-regression requirement. [L]
+Reorder/move persistence must be transactional and invariant-tested. Public versions of Blitzit have had user-reported duplication/corruption while rearranging tasks; Narro explicitly treats that as an anti-regression requirement. [L]
 
 ## 4. Creating and editing tasks
 
@@ -194,7 +194,7 @@ Task title is edited by clicking the title. [O]
 
 If the task is live, title editing is restricted; official docs state live-title editing is available only in Notes mode. [O]
 
-A successful local create/edit must be durably committed before the UI presents it as saved. MyBlitzit must not reproduce cloud/server-delay states where a task appears to vanish and later reappear. [L]
+A successful local create/edit must be durably committed before the UI presents it as saved. Narro must not reproduce cloud/server-delay states where a task appears to vanish and later reappear. [L]
 
 ### 4.1 EST parsing
 
@@ -207,7 +207,7 @@ Examples of supported intent:
 
 Current Preferences screenshot contains `Auto-parse Est. time from title`. [S]
 
-MyBlitzit should parse common suffixes case-insensitively and remove/normalize the estimate suffix from the title after successful parse if the implemented interaction matches the source behavior during validation. Exact text-normalization is not directly evidenced. [I]
+Narro should parse common suffixes case-insensitively and remove/normalize the estimate suffix from the title after successful parse if the implemented interaction matches the source behavior during validation. Exact text-normalization is not directly evidenced. [I]
 
 ### 4.2 Time Taken
 
@@ -217,7 +217,7 @@ It can also be edited manually. [O]
 
 For a live task, EST and Time Taken may be edited only while the live timer is paused. [O]
 
-Tracked time is correctness-critical: public Blitzit feedback currently includes lost-tracked-time reports, so MyBlitzit must persist transitions robustly and never keep the only authoritative accumulated time in a renderer. [L]
+Tracked time is correctness-critical: public Blitzit feedback currently includes lost-tracked-time reports, so Narro must persist transitions robustly and never keep the only authoritative accumulated time in a renderer. [L]
 
 ## 5. Scheduling
 
@@ -273,7 +273,7 @@ Editing supports replace-existing behavior; recurrence can also be detached/remo
 
 Replace-existing semantics must not silently overwrite previously detached/independent children. [O/L]
 
-MyBlitzit must preserve historical child edits and avoid regenerating duplicates. [L]
+Narro must preserve historical child edits and avoid regenerating duplicates. [L]
 
 ### 5.4 Reminders
 
@@ -281,7 +281,7 @@ Current Preferences screenshot shows:
 - Schedule reminders (system) toggle
 - reminder timing such as `10 mins before` [S]
 
-MyBlitzit uses local OS notifications. [L]
+Narro uses local OS notifications. [L]
 
 The app should remain available in a tray/background process for reliable reminders while the desktop session is active. [L]
 
@@ -400,9 +400,9 @@ Preferences allow:
 
 Panel is a narrow desktop window, not a pane inside the main window. [S/I]
 
-MyBlitzit must position it using monitor work-area coordinates and persist the preference. [L]
+Narro must position it using monitor work-area coordinates and persist the preference. [L]
 
-Monitor topology is dynamic. If a display is connected/disconnected while MyBlitzit is running, re-enumerate monitors and recover the Focus/Floating window into a valid visible work area without requiring application restart. [L]
+Monitor topology is dynamic. If a display is connected/disconnected while Narro is running, re-enumerate monitors and recover the Focus/Floating window into a valid visible work area without requiring application restart. [L]
 
 ## 9. Floating Timer
 
@@ -474,13 +474,13 @@ If no EST and Pomodoro off:
 ### 11.1 Global
 
 Windows:
-- Go to MyBlitzit: `Ctrl+Shift+B`
+- Go to Narro: `Ctrl+Shift+B`
 - Alternate Focus Mode: `Ctrl+Shift+T`
 - Find focus timer: `Ctrl+Shift+P`
 
 [O/S]
 
-MyBlitzit is Windows-only; macOS bindings are research evidence only and are not implementation requirements. [L]
+Narro is Windows-only; macOS bindings are research evidence only and are not implementation requirements. [L]
 
 Current Shortcuts screenshot shows per-global-shortcut toggles. [S]
 
@@ -538,7 +538,7 @@ Current screenshots show:
 
 Official docs confirm timed alerts, sounds, flash, and notification alerts. [O]
 
-All sounds in MyBlitzit must be bundled/local user assets; no remote playback dependency. [L]
+All sounds in Narro must be bundled/local user assets; no remote playback dependency. [L]
 
 ### 12.5 Celebration
 
@@ -638,11 +638,11 @@ Editing:
 Manual Add Session is required. [O]
 
 Current screenshot shows `Export .csv` in Sessions. [S]
-Official help text describes PDF export. This conflict is resolved in `STATUS.md`: MyBlitzit uses CSV for Sessions and PDF for Overview.
+Official help text describes PDF export. This conflict is resolved in `STATUS.md`: Narro uses CSV for Sessions and PDF for Overview.
 
 ## 14. Main-window non-core controls intentionally omitted
 
-The supplied UI includes some current Blitzit controls that MyBlitzit must not reproduce because they depend on excluded product/service scope:
+The supplied UI includes some current Blitzit controls that Narro must not reproduce because they depend on excluded product/service scope:
 
 - plan/trial status
 - Upgrade Now
@@ -671,7 +671,7 @@ Required local safety:
 - reorder operations must never create duplicate task identities
 - timer/session transitions must survive crash/restart according to recovery policy
 
-## 16. UI behavior refinements adopted for MyBlitzit
+## 16. UI behavior refinements adopted for Narro
 
 These are deliberate local UX decisions, not claims about the original product:
 
@@ -714,4 +714,4 @@ Record these so useful research is not lost, but do **not** implement them befor
 - partial-completion/day-by-day accounting
 - bulk task operations
 
-These are candidates, not accepted current scope. MyBlitzit should remain an execution-focused personal tool rather than expand into a broad project-management system without an explicit future instruction.
+These are candidates, not accepted current scope. Narro should remain an execution-focused personal tool rather than expand into a broad project-management system without an explicit future instruction.
