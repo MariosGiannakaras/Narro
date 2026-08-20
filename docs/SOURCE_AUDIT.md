@@ -2,7 +2,7 @@
 
 Research date: 2026-08-15
 
-This document is the exhaustive external-source audit for MyBlitzit. It complements `RESEARCH_EVIDENCE.md`, which is primarily the supplied-screenshot inventory and evidence-precedence record.
+This document is the exhaustive external-source audit for Narro. It complements `RESEARCH_EVIDENCE.md`, which is primarily the supplied-screenshot inventory and evidence-precedence record.
 
 Use this file to avoid re-reading the Blitzit website, Help Center, public roadmap, and review sources during implementation.
 
@@ -14,9 +14,9 @@ Evidence classes:
 - **OFFICIAL DIRECTION** — founder/team blog or official roadmap describing intended redesign/future direction; useful for UX rationale, not proof that a feature exists in the current supplied build.
 - **PUBLIC PRODUCT FEEDBACK** — Blitzit's public Frill feature/bug board. Useful for confirmed UX friction and requested improvements, not for overriding current behavior.
 - **PUBLIC REVIEW** — Product Hunt, G2, Trustpilot, or editorial hands-on feedback. Corroborative only.
-- **MYBLITZIT DECISION** — local-only/Windows-only choice made for this project.
+- **NARRO DECISION** — local-only/Windows-only choice made for this project.
 
-Do not convert planned Blitzit features into MyBlitzit parity requirements merely because they appear on a roadmap.
+Do not convert planned Blitzit features into Narro parity requirements merely because they appear on a roadmap.
 
 ## 2. Complete current Help Center navigation
 
@@ -74,7 +74,7 @@ The current Help Center exposes these pages.
 - Submitting ideas and bugs
 - Affiliate program
 
-The integration/account/billing/affiliate surfaces are out of MyBlitzit's product scope, but they are still reviewed here when they reveal task fields, menu placement, synchronization semantics, or failure states relevant to the local domain model.
+The integration/account/billing/affiliate surfaces are out of Narro's product scope, but they are still reviewed here when they reveal task fields, menu placement, synchronization semantics, or failure states relevant to the local domain model.
 
 ---
 
@@ -97,7 +97,7 @@ The Help Center Home links directly to:
 
 Implementation significance:
 
-- none of these support/community surfaces belong in MyBlitzit's application UI;
+- none of these support/community surfaces belong in Narro's application UI;
 - the public roadmap/feature board is a first-party-sanctioned feedback source, because Blitzit itself directs users there for bugs/features.
 
 ## 3.2 Introduction to Blitzit
@@ -127,11 +127,11 @@ Desktop requirements listed by Blitzit:
 - macOS 12.3+;
 - 8 GB RAM recommended by Blitzit for its own application.
 
-MyBlitzit significance:
+Narro significance:
 
 - the planning-to-execution loop is the central product invariant;
 - features must not obscure the live-task/focus experience;
-- the original app's memory recommendation is not a performance target for MyBlitzit. MyBlitzit explicitly benchmarks its lightweight floating-only state.
+- the original app's memory recommendation is not a performance target for Narro. Narro explicitly benchmarks its lightweight floating-only state.
 
 ## 3.3 Lists
 
@@ -223,7 +223,7 @@ Done:
 
 Reliability implication:
 
-- reorder/move operations must preserve task identity. Public feedback has historically reported duplication/corruption during reorder, so MyBlitzit must test reorder transactionality explicitly.
+- reorder/move operations must preserve task identity. Public feedback has historically reported duplication/corruption during reorder, so Narro must test reorder transactionality explicitly.
 
 ## 3.5 Blitz Mode / Focus Sessions
 
@@ -280,9 +280,9 @@ Both Focus Panel and Floating Timer expose:
 
 Floating Timer returns to Focus Panel via resize icon.
 
-MyBlitzit improvement:
+Narro improvement:
 
-- current source Troubleshooting says a newly connected second monitor may require Blitzit restart. MyBlitzit must respond to Windows display topology changes without requiring restart.
+- current source Troubleshooting says a newly connected second monitor may require Blitzit restart. Narro must respond to Windows display topology changes without requiring restart.
 
 ## 3.6 Timer Modes
 
@@ -348,7 +348,7 @@ If no EST and Pomodoro is disabled:
 
 Public feedback implication:
 
-- many users want automatic overtime without an interruption at EST. Blitzit's official roadmap also lists automatic overtime as a Focus Mode customization. For MyBlitzit initial parity, keep `Time's Up -> Extend/Done/Switch`; optional auto-overtime belongs in post-parity candidates rather than silently changing the core behavior.
+- many users want automatic overtime without an interruption at EST. Blitzit's official roadmap also lists automatic overtime as a Focus Mode customization. For Narro initial parity, keep `Time's Up -> Extend/Done/Switch`; optional auto-overtime belongs in post-parity candidates rather than silently changing the core behavior.
 
 ## 3.7 Scheduling Task Reminders
 
@@ -423,7 +423,7 @@ Detaching:
 - re-adding recurrence later generates new children without overwriting old modified children;
 - preserves older child renames, notes, EST changes, etc.
 
-MyBlitzit requirements:
+Narro requirements:
 
 - deterministic/idempotent materialization;
 - no duplicate child creation on repeated startup/resume;
@@ -447,7 +447,7 @@ Formatting:
 - undo;
 - redo.
 
-Original Blitzit also supports microphone transcription. Initial MyBlitzit does not implement remote voice transcription.
+Original Blitzit also supports microphone transcription. Initial Narro does not implement remote voice transcription.
 
 URLs:
 
@@ -460,7 +460,7 @@ Blitzit's own public roadmap has a shipped/resolved bug titled approximately `Wh
 
 Therefore the Help Center description and later bug-resolution signal conflict.
 
-**MYBLITZIT DECISION:**
+**NARRO DECISION:**
 
 - render URLs as clickable links;
 - do not automatically launch every URL merely because a task becomes live;
@@ -471,7 +471,7 @@ This is safer and matches the later UX feedback signal.
 
 Public feedback also requests a larger/adjustable Notes surface and reports that the existing one is too small on large screens.
 
-**MYBLITZIT IMPROVEMENT:** Notes editor should be comfortably resizable/expandable while preserving compact inline access in Focus Mode.
+**NARRO IMPROVEMENT:** Notes editor should be comfortably resizable/expandable while preserving compact inline access in Focus Mode.
 
 ## 3.9 Subtasks
 
@@ -538,7 +538,7 @@ Archived Done Tasks:
 
 - completed tasks older than 60 days are moved there automatically.
 
-MyBlitzit must distinguish archive from permanent delete and require explicit confirmation for permanent deletion.
+Narro must distinguish archive from permanent delete and require explicit confirmation for permanent deletion.
 
 ## 3.11 Windows Shortcuts
 
@@ -546,7 +546,7 @@ Source: `https://www.blitzit.app/help-center/key-shortcuts-for-windows`
 
 **OFFICIAL CURRENT**
 
-Shortcuts UI is accessed in original Blitzit from Avatar -> Shortcuts; MyBlitzit must expose it without requiring an account/avatar identity surface.
+Shortcuts UI is accessed in original Blitzit from Avatar -> Shortcuts; Narro must expose it without requiring an account/avatar identity surface.
 
 Global shortcuts, with individual enable toggles:
 
@@ -568,7 +568,7 @@ In-app:
 
 Source: `https://www.blitzit.app/help-center/ai-agent-%28blitzy%29`
 
-**OUT OF MYBLITZIT SCOPE**, but useful as first-party evidence for the domain vocabulary.
+**OUT OF NARRO SCOPE**, but useful as first-party evidence for the domain vocabulary.
 
 Blitzy can prepare/create a task with:
 
@@ -592,9 +592,9 @@ It can modify existing data:
 
 Implication:
 
-- MyBlitzit's domain model should keep these concepts cleanly separated even though it has no AI or remote API.
+- Narro's domain model should keep these concepts cleanly separated even though it has no AI or remote API.
 
-Future AI items in that article are not MyBlitzit requirements.
+Future AI items in that article are not Narro requirements.
 
 ## 3.13 Productivity Report
 
@@ -703,7 +703,7 @@ Help Center currently documents PDF export.
 
 Supplied current desktop screenshot `Screenshot_13.png` visibly shows `Export .csv`.
 
-Evidence precedence keeps the existing MyBlitzit decision:
+Evidence precedence keeps the existing Narro decision:
 
 - Overview -> PDF;
 - Sessions -> CSV.
@@ -724,7 +724,7 @@ Reveals:
 - imported title/date/time/notes/meeting URL map into task concepts;
 - meeting links can be placed into Notes.
 
-The current article again says meeting links automatically open when Blitz Mode starts, reinforcing that the auto-open behavior existed in some versions, but the Frill bug-resolution conflict still means MyBlitzit should prefer explicit opening.
+The current article again says meeting links automatically open when Blitz Mode starts, reinforcing that the auto-open behavior existed in some versions, but the Frill bug-resolution conflict still means Narro should prefer explicit opening.
 
 ## 3.17 Notion
 
@@ -739,7 +739,7 @@ Relevant concepts:
 - Notion checkboxes may map to Blitzit subtasks;
 - externally sourced subtasks can have different ownership/deletion semantics.
 
-MyBlitzit has no source-sync ownership model initially, so every local subtask is locally editable/deletable.
+Narro has no source-sync ownership model initially, so every local subtask is locally editable/deletable.
 
 ## 3.18 ClickUp
 
@@ -756,7 +756,7 @@ Relevant domain evidence:
 - external subtasks can map either to Blitzit subtasks or separate tasks;
 - article explicitly warns matching timezone settings matter for schedule consistency.
 
-MyBlitzit implication:
+Narro implication:
 
 - schedule/date logic should use Windows local timezone consistently;
 - duplication must create a new identity, not an alias/reference to original.
@@ -773,7 +773,7 @@ Relevant evidence:
 - duplicate becomes independent unsynced copy;
 - deleting on one side may unlink rather than erase local task in integration context.
 
-No remote ownership/unlink state is needed in MyBlitzit.
+No remote ownership/unlink state is needed in Narro.
 
 ## 3.20 Claude / ChatGPT / Raycast
 
@@ -797,7 +797,7 @@ These integrations expose remote actions for:
 - planning-column/list moves;
 - completion.
 
-This corroborates the core domain model but does not justify MCP/AI implementation in MyBlitzit.
+This corroborates the core domain model but does not justify MCP/AI implementation in Narro.
 
 ## 3.21 Webhook guides: Zapier, n8n, Make, IFTTT
 
@@ -817,7 +817,7 @@ The webhook documentation exposes useful task payload vocabulary, including fiel
 
 Each list can have integration-specific identifiers/configuration in original Blitzit.
 
-MyBlitzit does not implement webhook URLs, secrets, remote errors, or connected-list dashboards.
+Narro does not implement webhook URLs, secrets, remote errors, or connected-list dashboards.
 
 ## 3.22 Upcoming Integrations
 
@@ -905,7 +905,7 @@ The article documents:
 - server-processing delays where newly created tasks may temporarily not appear;
 - second monitor added after Blitzit launch may not be detected until restart.
 
-MyBlitzit implications:
+Narro implications:
 
 - server-delay issue disappears by architecture: task creation is local and committed transactionally before success is shown;
 - do not reproduce monitor detection limitation: handle Windows display/monitor topology changes and revalidate saved window positions.
@@ -914,7 +914,7 @@ MyBlitzit implications:
 
 **OUT OF SCOPE**.
 
-No activation/license code exists in MyBlitzit.
+No activation/license code exists in Narro.
 
 ## 3.27 Submitting Ideas and Bugs
 
@@ -936,7 +936,7 @@ Therefore the public Frill board is legitimate first-party-hosted user-feedback 
 
 **OUT OF SCOPE**.
 
-No product/domain implication for MyBlitzit.
+No product/domain implication for Narro.
 
 ---
 
@@ -983,7 +983,7 @@ Redesign goals/results:
 - quick task creation;
 - easier Today focus.
 
-MyBlitzit significance:
+Narro significance:
 
 - micro-interaction polish is part of the execution experience, not decorative scope;
 - actions should be easy to hit and not shift under pointer;
@@ -1018,7 +1018,7 @@ Near-term requests mentioned include:
 - title wrapping preference;
 - Windows tracking fixes.
 
-MyBlitzit significance:
+Narro significance:
 
 - Blitzit's Electron choice does not determine our Tauri choice;
 - ordering, scheduling, and time tracking deserve strong invariants/tests;
@@ -1128,7 +1128,7 @@ Repeated praise:
 - does not turn organization into its own task;
 - enough features without feeling like a large project-management suite.
 
-MyBlitzit implication:
+Narro implication:
 
 - protect density and clarity;
 - avoid scope expansion that adds permanent UI chrome.
@@ -1142,7 +1142,7 @@ Repeated praise:
 - smaller floating timer conserves screen space;
 - current-task visibility reduces distraction.
 
-MyBlitzit implication:
+Narro implication:
 
 - Focus Panel + Floating Timer remain the signature experience;
 - their activation must be low latency;
@@ -1174,7 +1174,7 @@ Accuracy is more important than visual complexity.
 
 Current Frill roadmap explicitly has `Tasks sometimes lose tracked time` in development.
 
-MyBlitzit requirement:
+Narro requirement:
 
 - timer state transitions are transactional;
 - periodic durable checkpoints where appropriate without per-second writes;
@@ -1185,7 +1185,7 @@ MyBlitzit requirement:
 
 Public editorial/review feedback has reported task duplication while rearranging.
 
-MyBlitzit requirement:
+Narro requirement:
 
 - reorder changes position, never identity;
 - DB transaction around ordering updates;
@@ -1196,7 +1196,7 @@ MyBlitzit requirement:
 
 Current roadmap explicitly tracks wrong-day/incorrect-scheduling problems; integration docs also warn about timezone mismatches.
 
-MyBlitzit requirement:
+Narro requirement:
 
 - one explicit Windows local timezone model;
 - date-only and date-time values distinguishable;
@@ -1208,7 +1208,7 @@ MyBlitzit requirement:
 
 Help Center says second monitor added after launch may require restart; roadmap includes screen-selection responsiveness issue.
 
-MyBlitzit requirement:
+Narro requirement:
 
 - listen for display topology changes;
 - re-enumerate monitors;
@@ -1220,7 +1220,7 @@ MyBlitzit requirement:
 
 Roadmap feedback asks for larger/adjustable Notes screen.
 
-MyBlitzit improvement:
+Narro improvement:
 
 - Notes can expand/rescale appropriately;
 - inline Focus Notes remain available;
@@ -1231,7 +1231,7 @@ MyBlitzit improvement:
 
 Founder engineering update and public feedback both identify title wrapping as desired; prior feedback also describes action controls becoming hard to target when hover changes geometry.
 
-MyBlitzit improvement already locked:
+Narro improvement already locked:
 
 - up to two lines in compact rows where practical;
 - accessible full-title tooltip/detail;
@@ -1242,7 +1242,7 @@ MyBlitzit improvement already locked:
 
 Public feedback includes requests for the timer to remain visible over full-screen work.
 
-MyBlitzit requirement:
+Narro requirement:
 
 - validate always-on-top behavior against normal maximized and borderless full-screen Windows applications;
 - document OS/application cases where exclusive full-screen prevents overlay rather than promising impossible behavior.
@@ -1251,7 +1251,7 @@ MyBlitzit requirement:
 
 Users have asked for timer location to survive launches.
 
-MyBlitzit already requires:
+Narro already requires:
 
 - persist last valid position;
 - recover if monitor geometry changes;
@@ -1335,7 +1335,7 @@ Small review sample, but consistent themes:
 - cohesive reminder/focus/task workflow;
 - limited advanced project-planning/customization can be a weakness for users who want complex project management.
 
-MyBlitzit implication:
+Narro implication:
 
 - simplicity is intentional, not a missing feature to “fix” automatically.
 
@@ -1357,7 +1357,7 @@ Negative recurring themes:
 - reliability can negate productivity gains;
 - cloud/backend dependency created severe outage risk for some users.
 
-MyBlitzit implication:
+Narro implication:
 
 - local-only design directly removes remote outage/sync dependence;
 - correctness must outrank feature count.
@@ -1375,13 +1375,13 @@ Editorial testing praised:
 
 The author also reported a serious task-duplication/reorder issue in the version tested.
 
-MyBlitzit treats that as an explicit anti-regression target.
+Narro treats that as an explicit anti-regression target.
 
 ---
 
 # 10. Quality principles derived from the full audit
 
-These are MyBlitzit design/engineering decisions, not claims that Blitzit already behaves this way.
+These are Narro design/engineering decisions, not claims that Blitzit already behaves this way.
 
 1. **Execution first.** Every permanent surface should support planning, doing, or reviewing work.
 2. **Local confirmation is immediate.** When UI says a task was created/moved/completed, the local transaction has succeeded.
@@ -1392,7 +1392,7 @@ These are MyBlitzit design/engineering decisions, not claims that Blitzit alread
 7. **Displays are dynamic.** Hotplug/reconnect is normal runtime behavior.
 8. **Focus actions never move under the pointer.** Hover state may reveal controls but not reflow them.
 9. **Compact does not mean unreadable.** Long titles and Notes get deliberate expansion/accessibility paths.
-10. **No surprise URL launches.** Links are explicit user actions in MyBlitzit.
+10. **No surprise URL launches.** Links are explicit user actions in Narro.
 11. **Animation must explain state.** Short, finite, no persistent decorative work in Floating Timer.
 12. **Add features only after parity is dependable.** Tags/calendar/bulk-entry/etc. remain candidates until core milestones pass.
 
