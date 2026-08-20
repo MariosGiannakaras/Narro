@@ -2,7 +2,7 @@
 
 Status: **Proposal / implementation steering aid — not mandatory process**
 
-Last reviewed: 2026-08-15
+Last reviewed: 2026-08-20
 
 These gates are suggested checkpoints for avoiding expensive implementation mistakes. They are not release bureaucracy and they are not a reason to block a clearly superior implementation path.
 
@@ -63,7 +63,7 @@ If a simpler schema or timer model proves more reliable than the current archite
 
 Suggested timing: after the main planning and Focus surfaces are functional.
 
-Question: does MyBlitzit still feel like the intended Blitzit-style workflow rather than a generic task manager?
+Question: does Narro still feel like the intended Blitzit-style workflow rather than a generic task manager?
 
 Suggested validation:
 - create a task with very little friction;
@@ -134,7 +134,7 @@ Suggested validation:
 - date filtering honors local dates/timezone;
 - exports are generated entirely locally.
 
-If the source product's exact aggregation formula is unclear, prefer a transparent, internally consistent MyBlitzit definition and document it.
+If the source product's exact aggregation formula is unclear, prefer a transparent, internally consistent Narro definition and document it.
 
 ## Gate G — Release candidate
 
