@@ -2,7 +2,7 @@
 
 Research baseline: 2026-08-15
 
-This file is the evidence index for MyBlitzit. It records what was observed, what was confirmed by official Blitzit documentation, and what is a deliberate MyBlitzit-only decision so implementation does not need to repeat the original product research.
+This file is the evidence index for Narro. It records what was observed, what was confirmed by official Blitzit documentation, and what is a deliberate Narro-only decision so implementation does not need to repeat the original product research.
 
 ## 1. Evidence precedence
 
@@ -88,7 +88,7 @@ Visible:
 - bottom Home / Reports nav
 - Windows title controls
 
-MyBlitzit scope action:
+Narro scope action:
 - account/trial/upgrade/integration/profile/AI controls are omitted, not stubbed
 
 ### `Screenshot_2.png`
@@ -254,7 +254,7 @@ Visible:
 Important conflict:
 - current screenshot says CSV
 - Help Center Sessions article describes PDF export
-- current screenshot wins for MyBlitzit Sessions: CSV
+- current screenshot wins for Narro Sessions: CSV
 
 ### `Screenshot_14.png`
 Reports list filter open.
@@ -367,7 +367,7 @@ Visible:
 
 Evidence use:
 - Notes do not require navigating away from focus context
-- voice transcription control exists in original but is excluded from initial local-only MyBlitzit scope
+- voice transcription control exists in original but is excluded from initial local-only Narro scope
 
 ### `Screenshot_21.png`
 Sessions task-detail editing modal.
@@ -396,7 +396,7 @@ Evidence use:
 
 ## 4. Older supplied Tool Finder review captures
 
-These are secondary/corroborative. They show an older visual generation and external-service UI that MyBlitzit will not copy.
+These are secondary/corroborative. They show an older visual generation and external-service UI that Narro will not copy.
 
 ### `... 1m54s.png`
 - full four-column board: Backlog / This Week / Today / Done
@@ -453,7 +453,7 @@ Focus task expanded menu:
 - Duplicate
 - destructive confirmation state
 
-MyBlitzit omits Open in Calendar because external calendar integration is out of scope.
+Narro omits Open in Calendar because external calendar integration is out of scope.
 
 ### `... 4m33s.png`
 Older board with inline Notes editor:
@@ -553,7 +553,7 @@ Used for:
 - Undo / Redo
 - clickable URLs
 - URLs auto-open when task goes live
-- original voice transcription behavior, which MyBlitzit excludes initially
+- original voice transcription behavior, which Narro excludes initially
 
 ### Subtasks
 https://www.blitzit.app/help-center/subtasks
@@ -624,7 +624,7 @@ Used for:
 
 ## 6. Technical implementation research
 
-The MyBlitzit stack is selected for the Windows-only local clone based on requirements, not because it is assumed to match Blitzit's implementation.
+The Narro stack is selected for the Windows-only local clone based on requirements, not because it is assumed to match Blitzit's implementation.
 
 ### Tauri 2
 
@@ -654,14 +654,14 @@ Other official Tauri capabilities:
 - SQLite plugin option: https://v2.tauri.app/plugin/sql/
 - Windows installer: https://v2.tauri.app/distribute/windows-installer/
 
-MyBlitzit will prefer Rust-owned SQLite rather than exposing arbitrary SQL to React.
+Narro will prefer Rust-owned SQLite rather than exposing arbitrary SQL to React.
 
 ### Original Blitzit implementation evidence
 
 Official Blitzit engineering material has described desktop Electron Windows/macOS codebases:
 - https://www.blitzit.app/blog/building-a-cross-platform-productivity-app
 
-This is recorded as research about the original product. It does **not** determine MyBlitzit's stack. MyBlitzit is Windows-only and prioritizes a lightweight persistent floating surface, so Tauri remains the selected clone architecture unless measured capability tests disprove the choice.
+This is recorded as research about the original product. It does **not** determine Narro's stack. Narro is Windows-only and prioritizes a lightweight persistent floating surface, so Tauri remains the selected clone architecture unless measured capability tests disprove the choice.
 
 ## 7. Evidence conflicts and resolutions
 
@@ -680,7 +680,7 @@ Resolution:
 
 Resolution:
 - same functional setting family
-- MyBlitzit wording: `Hide EST / Time Taken on tasks`
+- Narro wording: `Hide EST / Time Taken on tasks`
 
 ### Older external calendar/integration UI
 
@@ -701,7 +701,7 @@ User feedback reports:
 - long Focus Mode task titles truncate too aggressively
 - hover actions/labels can move controls and be difficult to target
 
-MyBlitzit improvement derived from this:
+Narro improvement derived from this:
 - up to two lines for focus-row titles where practical
 - full-title tooltip/focus disclosure
 - fixed/reserved action slots
@@ -710,7 +710,7 @@ MyBlitzit improvement derived from this:
 ### Icon action discoverability
 https://blitzit.frill.co/b/xmnjk5vl/feature-ideas/small-action-items-need-tooltips
 
-MyBlitzit improvement:
+Narro improvement:
 - tooltips for icon-only focus/floating actions
 - stable hit targets
 
@@ -719,7 +719,7 @@ Public reviews independently praise the clean/distraction-free workflow and floa
 - https://www.trustpilot.com/review/blitzit.app
 - https://www.producthunt.com/products/blitzit-2/reviews
 
-No state transition in MyBlitzit depends solely on a review.
+No state transition in Narro depends solely on a review.
 
 ## 9. Visual conclusions used by implementation
 
