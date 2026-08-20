@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-08-15
+Last updated: 2026-08-20
 
 ## Current phase
 
@@ -21,7 +21,7 @@ The repository was initially empty. It now contains the durable rules, exhaustiv
 
 ## Confirmed repository goal
 
-Build a personal/local **Windows** desktop application that reproduces Blitzit's core planning and focus experience as faithfully as practical while:
+Build **Narro**, a personal/local **Windows** desktop application that reproduces Blitzit's core planning and focus experience as faithfully as practical while:
 
 - removing remote-service/account dependencies;
 - improving interaction polish where source UX has documented friction;
@@ -104,7 +104,7 @@ The available research environment did **not** expose reliable YouTube streams/t
 
 Reviewed current first-party Frill bug/feature feedback plus corroborative Product Hunt, G2, Trustpilot and hands-on editorial feedback.
 
-Public reviews never override current screenshot/official behavior. They are used to identify repeated qualities users value and reliability/UX failures MyBlitzit should not reproduce.
+Public reviews never override current screenshot/official behavior. They are used to identify repeated qualities users value and reliability/UX failures Narro should not reproduce.
 
 ## Confirmed core product behavior
 
@@ -137,7 +137,7 @@ Current Help Center text says URLs in task Notes automatically open when the tas
 
 Blitzit's own public roadmap later contains a shipped/resolved bug report that links in the description opened when pressing Blitzit Now.
 
-**MyBlitzit decision:**
+**Narro decision:**
 
 - URLs remain clickable;
 - explicit user activation is required;
@@ -154,7 +154,7 @@ These are now implementation requirements, not optional polish.
 
 Public Blitzit feedback includes live tasks completing with `00:00` / lost tracked time.
 
-MyBlitzit:
+Narro:
 - Rust owns authoritative timer/session state;
 - no renderer-only accumulated time;
 - transition/checkpoint persistence without per-second writes;
@@ -166,7 +166,7 @@ MyBlitzit:
 
 Public feedback reports drag/drop order not sticking and scheduled tasks duplicating/triplicating after movement.
 
-MyBlitzit:
+Narro:
 - stable immutable task identities;
 - reorder changes position only;
 - transactional ordering writes;
@@ -177,7 +177,7 @@ MyBlitzit:
 
 Current Frill roadmap tracks tasks appearing on wrong day, timezone shifts and recurrence weekday errors.
 
-MyBlitzit:
+Narro:
 - distinguish date-only vs date+time schedules;
 - single explicit Windows local/configured timezone model;
 - Windows-locale rendering;
@@ -188,7 +188,7 @@ MyBlitzit:
 
 Official Troubleshooting says Blitzit may require restart when a second monitor is connected after launch; feedback also mentions screen-selection responsiveness.
 
-MyBlitzit:
+Narro:
 - monitor topology is dynamic runtime state;
 - re-enumerate displays on changes;
 - clamp/recover Focus/Floating surfaces to visible work areas;
@@ -199,7 +199,7 @@ MyBlitzit:
 
 Public feedback explicitly describes Blitz buttons as jumpy and hard to catch with the cursor.
 
-MyBlitzit:
+Narro:
 - hover/focus controls use fixed/reserved slots;
 - no layout shift;
 - pointer targets never move because an action is revealed;
@@ -209,7 +209,7 @@ MyBlitzit:
 
 Roadmap feedback requests a larger/adjustable Notes screen and includes spellcheck friction.
 
-MyBlitzit:
+Narro:
 - compact inline Notes remain in Focus context;
 - larger/resizable editor is also available;
 - use WebView/browser spellcheck where practical;
@@ -273,11 +273,11 @@ Local equivalents:
 - reports/exports -> SQLite/local generation;
 - external links -> explicit default-browser open.
 
-## Final architecture decision
+## Current architecture direction
 
-Selected: **Tauri 2 + React + TypeScript + Rust + SQLite**, Windows 10/11 x64 first.
+Selected starting point: **Tauri 2 + React + TypeScript + Rust + SQLite**, Windows 10/11 x64 first.
 
-Framework choice is based on MyBlitzit's Windows-only local requirements, not on copying original Blitzit's Electron implementation.
+Framework choice is based on Narro's Windows-only local requirements, not on copying original Blitzit's Electron implementation.
 
 Normally two webviews:
 
@@ -286,9 +286,9 @@ Normally two webviews:
 
 Rust owns authoritative timer/session/domain state. SQLite is durable source of truth. `focusSurface` is a minimal frontend bundle. Main may be destroyed/recreated during focus-only runtime if measurement shows worthwhile savings.
 
-Milestone 1 must benchmark Floating-only CPU/RAM. Native Win32/WinUI Floating overlay remains a measured fallback only.
+Milestone 1 must benchmark Floating-only CPU/RAM. Native Win32/WinUI Floating overlay remains a measured fallback only. The architecture remains a proposal subject to validation, as defined in `AGENTS.md`.
 
-## UI/UX direction locked
+## UI/UX direction
 
 - same compact modern dark/light character;
 - screenshot-calibrated hierarchy/density;
@@ -320,6 +320,10 @@ Do not invent these until the relevant milestone requires a local choice:
 5. exact original shutdown behavior during an active session;
 6. exact mixed ordering policy for scheduled/manual Today tasks outside Focus Panel;
 7. exact spoken content of embedded official YouTube videos, because transcripts were not retrievable in this research environment.
+
+## Naming
+
+The application name is **Narro**. The GitHub repository may temporarily retain its previous repository slug until it is renamed separately; repository-path references are not the application name.
 
 ## Next executable work
 
