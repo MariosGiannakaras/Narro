@@ -15,7 +15,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [ ] Prove switching those modes by resize/reposition/restyle of the same secondary webview.
 - [ ] Prove always-on-top and skip-taskbar behavior for Floating Timer mode.
 - [ ] Prove Windows monitor enumeration and left/right positioning for Focus Panel mode.
-- [ ] Prove display-topology change handling: connect/disconnect/re-enumerate displays and clamp windows to a visible work area without restarting MyBlitzit.
+- [ ] Prove display-topology change handling: connect/disconnect/re-enumerate displays and clamp windows to a visible work area without restarting Narro.
 - [ ] Prove global shortcut registration and conflict/error handling.
 - [ ] Prove tray/background lifecycle plus explicit Quit.
 - [ ] Prove local Windows notification delivery while process remains running.
@@ -289,7 +289,7 @@ Acceptance criteria:
 - [ ] Validate Windows display scaling at 100%, 125%, 150%, and 200%.
 - [ ] Validate Windows locale variants including 12-hour and 24-hour time formats.
 - [ ] Validate Windows installer packaging.
-- [ ] Add MyBlitzit-owned application icon/branding.
+- [ ] Add Narro-owned application icon/branding.
 - [ ] Run regression tests for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
 - [ ] Confirm animation does not cause task-row/card geometry changes or persistent idle CPU work.
