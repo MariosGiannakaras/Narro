@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/branding/narro-logo.webp" alt="Narro logo" width="128">
+  <img src="assets/branding/narro-logo-master.png" alt="Narro logo" width="128">
 </p>
 
 # Narro
