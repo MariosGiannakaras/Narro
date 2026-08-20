@@ -1,6 +1,6 @@
 # External References
 
-Last reviewed: 2026-08-15
+Last reviewed: 2026-08-20
 
 This file is a compact navigation index for Codex or any future implementation agent that wants to inspect the underlying sources directly. It is intentionally not another product specification.
 
@@ -11,7 +11,7 @@ The repository documentation is an evidence-based implementation baseline, not a
 Treat sources and project documents as follows:
 
 - **User requirements and project invariants are authoritative.** Local-only, Windows-only scope, data-integrity guarantees, no telemetry/cloud/auth, and explicit user decisions must be preserved unless the user changes them.
-- **Current screenshots and official Blitzit material are fidelity evidence.** They are useful for understanding workflows and visible states, but Blitzit itself may contain bugs, obsolete behavior, undocumented behavior, or implementation compromises that MyBlitzit should not reproduce blindly.
+- **Current screenshots and official Blitzit material are fidelity evidence.** They are useful for understanding workflows and visible states, but Blitzit itself may contain bugs, obsolete behavior, undocumented behavior, or implementation compromises that Narro should not reproduce blindly.
 - **Roadmap, bug reports, reviews, and feature requests are diagnostic evidence.** Use them to identify friction, reliability failures, and ideas. They do not automatically become requirements.
 - **Architecture, UI measurements, animation timings, library choices, schema sketches, and implementation mechanics in this repository are current best proposals.** Codex may replace them with a demonstrably better approach when it preserves the intended behavior, scope, reliability, performance, and visual character.
 - **Do not re-research everything by default.** Open the original references when a requirement is ambiguous, a source conflict matters to the current milestone, the implementation exposes a better alternative, or current platform/framework documentation may have changed.
@@ -26,7 +26,7 @@ The detailed source synthesis lives in:
 
 These files are **not required reading for every task** and are **not binding contracts**. Use them when they help the current milestone:
 
-- `docs/BEHAVIOR_MATRIX.md` — state/action/result matrix with HIGH/MEDIUM/LOW/MYBLITZIT confidence labels. Useful when implementing or testing a workflow whose transition semantics matter.
+- `docs/BEHAVIOR_MATRIX.md` — state/action/result matrix with HIGH/MEDIUM/LOW/NARRO confidence labels. Useful when implementing or testing a workflow whose transition semantics matter.
 - `docs/DECISION_GATES.md` — suggested evidence checkpoints for Windows viability, correctness, fidelity, floating-surface performance, polish, reports, and release readiness. Gates may be combined, simplified, replaced, or skipped when another validation method addresses the same risk better.
 - `docs/decisions/README.md` — lightweight optional ADR/decision-note template. Create a decision note only when the reasoning is durable enough to help future sessions; do not document every reversible implementation choice.
 - `docs/INTERACTION_CAPTURE_GUIDE.md` — suggested short recordings and observations that would resolve the most valuable remaining behavior/animation/window questions if direct access to the original app is available.
@@ -62,7 +62,7 @@ The full Help Center navigation, integration pages, support pages, and what each
 
 ## Blitzit official/public feedback references
 
-These are useful for identifying source-product bugs and UX friction, not for defining MyBlitzit behavior by themselves:
+These are useful for identifying source-product bugs and UX friction, not for defining Narro behavior by themselves:
 
 - Blitzit roadmap / feature board: https://blitzit.frill.co/roadmap
 - Feature/bug board root: https://blitzit.frill.co/
@@ -106,7 +106,7 @@ Original supplied archive:
 
 Their screenshot-by-screenshot observations are preserved in `docs/RESEARCH_EVIDENCE.md` and `docs/UI_UX_SPEC.md`. If the exact images are uploaded to the repository reference folder, later implementation sessions may re-open them directly and refine prior measurements/interpretations when warranted.
 
-## MyBlitzit technical references
+## Narro technical references
 
 These should be consulted when implementation details or APIs may have changed since this research pass:
 
@@ -132,4 +132,4 @@ When deciding whether to copy, improve, or replace a behavior, prefer this order
 5. improve source-product bugs or avoidable friction when the improvement does not undermine parity;
 6. choose the simplest maintainable implementation that satisfies the above.
 
-The objective is not to reproduce Blitzit's bugs or historical implementation constraints. The objective is to build the best local Windows version of the same core experience, with traceable reasons for deliberate differences.
+The objective is not to reproduce Blitzit's bugs or historical implementation constraints. The objective is to build Narro as the best local Windows version of the same core experience, with traceable reasons for deliberate differences.
