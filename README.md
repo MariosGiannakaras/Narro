@@ -1,8 +1,23 @@
+<p align="center">
+  <img src="assets/branding/narro-logo.webp" alt="Narro logo" width="128">
+</p>
+
 # Narro
 
 Narro is a personal, local-only **Windows desktop** productivity application intended to reproduce the core planning and focus experience of Blitzit as faithfully as practical without accounts, cloud services, subscriptions, analytics, or multi-user infrastructure.
 
 The repository is in the specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's full current Help Center, official product/engineering material, official embedded-video inventory, public roadmap/feature-board feedback, public reviews, and all 30 supplied screenshots in `blitzit Ss.rar`.
+
+## Branding
+
+The Narro logo shown above is the official project identity supplied by the project owner. Repository branding assets and usage rules live in `assets/branding/`.
+
+- README/docs preview: `assets/branding/narro-logo.webp`
+- canonical source design: original 1254×1254 RGBA artwork recorded in `assets/branding/README.md`
+- Windows application, installer, taskbar and tray derivatives should be generated from the canonical Narro artwork when implementation begins
+- do not substitute Blitzit branding or independently redesign/recolor the Narro mark
+
+The lightweight WebP is a documentation preview, not the source for final high-resolution platform icons when the original master is available.
 
 ## How to interpret this repository
 
