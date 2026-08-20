@@ -1,6 +1,6 @@
-# MyBlitzit
+# Narro
 
-MyBlitzit is a personal, local-only **Windows desktop** productivity application intended to reproduce the core planning and focus experience of Blitzit as faithfully as practical without accounts, cloud services, subscriptions, analytics, or multi-user infrastructure.
+Narro is a personal, local-only **Windows desktop** productivity application intended to reproduce the core planning and focus experience of Blitzit as faithfully as practical without accounts, cloud services, subscriptions, analytics, or multi-user infrastructure.
 
 The repository is in the specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's full current Help Center, official product/engineering material, official embedded-video inventory, public roadmap/feature-board feedback, public reviews, and all 30 supplied screenshots in `blitzit Ss.rar`.
 
@@ -54,7 +54,7 @@ Explicitly out of scope:
 
 ## Fidelity, reliability, and UX target
 
-MyBlitzit should feel recognizably like the current Blitzit desktop experience rather than like a generic task application. The supplied screenshots define the information hierarchy, density, compact focus behavior, dark/light visual language, task/list states, settings surfaces, reports, Focus Panel and Floating Timer.
+Narro should feel recognizably like the current Blitzit desktop experience rather than like a generic task application. The supplied screenshots define the information hierarchy, density, compact focus behavior, dark/light visual language, task/list states, settings surfaces, reports, Focus Panel and Floating Timer.
 
 Fidelity does not require copying every pixel or every source-product flaw. The clone is allowed to improve interaction quality and reliability without inventing a different product workflow. Approved improvements include:
 
@@ -73,7 +73,7 @@ Fidelity does not require copying every pixel or every source-product flaw. The 
 - stronger destructive-action clarity
 - strict animation/resource budget for the always-on-top Floating Timer
 
-These improvements are labeled as MyBlitzit decisions in the specifications and must not be misrepresented as confirmed Blitzit behavior.
+These improvements are labeled as Narro decisions in the specifications and must not be misrepresented as confirmed Blitzit behavior.
 
 Popular user requests that materially broaden the product — such as Tags, Calendar week/month view, bulk entry, CSV import, subtask time estimates and optional automatic overtime — are recorded as **post-parity candidates** in `docs/SOURCE_AUDIT.md`; they are not part of the initial implementation plan unless scope is changed explicitly.
 
@@ -95,7 +95,7 @@ Do not repeat all product research by default. Re-open only the source relevant 
 
 ## Original implementation evidence
 
-Public engineering material about Blitzit's own implementation is recorded only as research evidence. **MyBlitzit does not choose a framework merely because Blitzit uses it.** The clone stack is selected independently for this project's Windows-only, local-only requirements.
+Public engineering material about Blitzit's own implementation is recorded only as research evidence. **Narro does not choose a framework merely because Blitzit uses it.** The clone stack is selected independently for this project's Windows-only, local-only requirements.
 
 ## Current technical direction
 
