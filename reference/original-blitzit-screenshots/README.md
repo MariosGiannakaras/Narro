@@ -14,7 +14,7 @@ Use these images as visual evidence for:
 - Preferences, Reports, Search and archive surfaces
 - hover/focus/expanded/destructive states where captured
 
-They are **reference material, not implementation assets**. Do not ship, import, trace, or reuse Blitzit logos, branding, proprietary artwork, screenshots, or other source assets inside MyBlitzit.
+They are **reference material, not implementation assets**. Do not ship, import, trace, or reuse Blitzit logos, branding, proprietary artwork, screenshots, or other source assets inside Narro.
 
 ## Interpretation rule
 
@@ -26,7 +26,7 @@ A screenshot proves what was visible in one captured state/version. It does not 
 - whether the behavior is current or obsolete
 - whether a visible limitation is intentional
 - exact CSS values, fonts, colors, animation timings, or native-window mechanics
-- that MyBlitzit should reproduce a source-product bug or usability problem
+- that Narro should reproduce a source-product bug or usability problem
 
 Use screenshots together with `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/BEHAVIOR_MATRIX.md`, `docs/RESEARCH_EVIDENCE.md`, `docs/SOURCE_AUDIT.md`, and original references when necessary.
 
@@ -91,7 +91,7 @@ When implementing a screenshot-backed surface:
 2. inspect the corresponding behavior/spec evidence;
 3. reproduce the recognizable hierarchy and interaction character;
 4. improve obvious accessibility/reliability/friction issues where consistent with project goals;
-5. create MyBlitzit-owned visual-regression baselines rather than using these original screenshots as shipping assets.
+5. create Narro-owned visual-regression baselines rather than using these original screenshots as shipping assets.
 
 ## Existing researched archive
 
