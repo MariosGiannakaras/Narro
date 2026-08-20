@@ -1,10 +1,10 @@
 # UI / UX Specification
 
-Last updated: 2026-08-15
+Last updated: 2026-08-20
 
-This document defines the visible Windows desktop experience for MyBlitzit. It combines current supplied screenshots, current official Blitzit documentation, and explicitly labeled MyBlitzit improvements derived from user feedback and reliability research.
+This document defines the visible Windows desktop experience for Narro. It combines current supplied screenshots, current official Blitzit documentation, and explicitly labeled Narro improvements derived from user feedback and reliability research.
 
-The target is not a generic task manager. MyBlitzit should preserve Blitzit's compact planning-to-focus character while improving interaction stability, readability, accessibility, resource use, and Windows reliability.
+The target is not a generic task manager. Narro should preserve Blitzit's compact planning-to-focus character while improving interaction stability, readability, accessibility, resource use, and Windows reliability.
 
 See `docs/RESEARCH_EVIDENCE.md` for screenshot-by-screenshot evidence and `docs/SOURCE_AUDIT.md` for the exhaustive Help Center/video/roadmap/review audit.
 
@@ -12,7 +12,7 @@ See `docs/RESEARCH_EVIDENCE.md` for screenshot-by-screenshot evidence and `docs/
 
 - **[CONFIRMED]** visible in supplied current screenshots and/or stated in current official documentation.
 - **[CORROBORATED]** visible in older supplied captures or consistent public evidence.
-- **[MYBLITZIT IMPROVEMENT]** intentionally improved local behavior; do not describe it as original Blitzit behavior.
+- **[NARRO IMPROVEMENT]** intentionally improved local behavior; do not describe it as original Blitzit behavior.
 - **[INFERENCE]** reasonable interpretation where exact original behavior is not observable.
 
 Current supplied screenshots take precedence for current visual details. Official Help Center behavior is used for transitions unless a later official bug/fix signal conflicts; conflicts are resolved in `STATUS.md` and `docs/SOURCE_AUDIT.md`.
@@ -21,7 +21,7 @@ Current supplied screenshots take precedence for current visual details. Officia
 
 # 1. Window model
 
-MyBlitzit normally uses two webview windows on Windows:
+Narro normally uses two webview windows on Windows:
 
 1. **Main window** — Home, lists, task management, archives, search, Preferences, shortcuts, reports.
 2. **focusSurface** — one secondary native window that changes presentation between:
@@ -38,7 +38,7 @@ Focus Panel and Floating Timer are two views of one authoritative Rust-owned act
 - dark/light themes preserve the same hierarchy;
 - planning and management happen here.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - native-feeling Windows chrome; no browser-like navigation shell;
 - main webview may be destroyed while unused during long focus-only periods if measurements show meaningful savings;
 - restoring main derives state from Rust/SQLite, never hidden renderer memory.
@@ -54,7 +54,7 @@ Focus Panel and Floating Timer are two views of one authoritative Rust-owned act
 
 Starting target: approximately 340 logical px wide at 100% scale. Screenshot pixel widths are proportional evidence, not hard CSS dimensions.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - monitor selection and placement update at runtime when Windows display topology changes; normal hotplug must not require restart;
 - clamp/recover panel into a visible work area after monitor, resolution, DPI, sleep/wake changes.
 
@@ -70,7 +70,7 @@ Starting target: approximately 340 logical px wide at 100% scale. Screenshot pix
 
 Starting collapsed target: roughly 340 × 110 logical px, content-driven rather than rigid.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - persist last safe user position across launches;
 - validate restored coordinates against current Windows work areas;
 - expanded content must remain usable near taskbar/screen edges by repositioning/anchoring safely;
@@ -214,11 +214,11 @@ Focus Panel ↔ Floating Timer:
 
 Find Timer:
 - [CONFIRMED] original provides attention animation;
-- [MYBLITZIT IMPROVEMENT] two restrained outline pulses/glow <=900 ms.
+- [NARRO IMPROVEMENT] two restrained outline pulses/glow <=900 ms.
 
 Completion celebration:
 - [CONFIRMED] success screen, optional GIF and sound;
-- [MYBLITZIT IMPROVEMENT] brief/skippable, default visual motion <=1.2 s.
+- [NARRO IMPROVEMENT] brief/skippable, default visual motion <=1.2 s.
 
 ---
 
@@ -235,7 +235,7 @@ Completion celebration:
 - `Your Lists` section;
 - helper text for upcoming-task lists.
 
-MyBlitzit removes account/trial/upgrade/profile/AI/integration controls. Search and Settings stay accessible.
+Narro removes account/trial/upgrade/profile/AI/integration controls. Search and Settings stay accessible.
 
 ## 4.2 Left navigation
 
@@ -266,7 +266,7 @@ Overflow:
 - divider;
 - Archive List.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - Open/actions overlay or occupy reserved geometry;
 - keyboard focus mirrors hover.
 
@@ -378,7 +378,7 @@ Required states:
 
 ## 5.4 Reorder UX and reliability
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - drag uses fixed placeholder and stable identity;
 - drop animation does not imply success until local transaction succeeds;
 - failed persistence restores previous order with clear feedback;
@@ -404,7 +404,7 @@ This directly addresses public reports of reordered tasks moving unexpectedly or
   - Add new list;
   - Go to Reports.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - keyboard-first selection;
 - stable result heights;
 - matched-text highlight;
@@ -452,7 +452,7 @@ Normal archival preserves history. Permanent delete removes the entity from user
 
 The current Help Center says note URLs automatically open when a task goes live. Blitzit's public roadmap later lists that automatic behavior as a shipped/resolved bug. citeturn580012search7
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - URLs open only after explicit pointer/keyboard activation;
 - entering Focus Mode, switching task, pause/resume never launches them automatically;
 - no remote preview/fetch;
@@ -460,7 +460,7 @@ The current Help Center says note URLs automatically open when a task goes live.
 
 ### Notes ergonomics
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - retain compact inline Focus Notes;
 - allow a larger/resizable editing presentation for substantial notes;
 - preserve task context while expanding;
@@ -494,7 +494,7 @@ Preferences are a vertically scrollable modal/panel with clear section dividers.
 - selected screen;
 - Left/Right segmented placement.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - monitor list updates dynamically after display topology changes;
 - unavailable saved monitor falls back predictably.
 
@@ -508,7 +508,7 @@ Preferences are a vertically scrollable modal/panel with clear section dividers.
 - System/Dark/Light theme;
 - timezone.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - schedule calculations use selected/local timezone consistently;
 - visible date/time formatting follows Windows locale/system 12/24-hour preference by default.
 
@@ -560,7 +560,7 @@ Modal structure:
 - `App (works only inside of Blitzit)`.
 
 Global:
-- `Ctrl+Shift+B` — bring MyBlitzit front;
+- `Ctrl+Shift+B` — bring Narro front;
 - `Ctrl+Shift+T` — alternate Focus Panel / Floating Timer;
 - `Ctrl+Shift+P` — find/animate Floating Timer.
 
@@ -637,7 +637,7 @@ Screenshot establishes:
 - Cancel;
 - Apply.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - keyboard date navigation;
 - clear focus/start/end states;
 - Windows locale date labels.
@@ -671,7 +671,7 @@ Editing:
 - Add Session;
 - delete.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - validation failure restores previous value with inline error;
 - preserve scroll position after edit;
 - visible times follow Windows locale/system 12/24-hour preference.
@@ -710,7 +710,7 @@ Progress changes animate once, not continuously.
 - add subtask;
 - expand/collapse.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - up to two title lines where compact layout permits;
 - full title accessible by tooltip/detail;
 - timer fixed-width/tabular;
@@ -730,7 +730,7 @@ Can show:
 
 Public feedback reports “jumpy” Blitz buttons that users feel they chase with the cursor. citeturn580012search16
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - action controls occupy fixed slots;
 - revealing actions never pushes title/siblings;
 - hit targets remain stationary;
@@ -803,7 +803,7 @@ Subtasks:
 - reorder up/down;
 - delete.
 
-[MYBLITZIT IMPROVEMENT]
+[NARRO IMPROVEMENT]
 - fixed icon hit boxes >=32 px; critical actions preferably >=36 px;
 - tooltips;
 - hover never changes widget width;
@@ -889,7 +889,7 @@ Subtasks:
 
 ---
 
-# 15. Explicit MyBlitzit improvements over source UX
+# 15. Explicit Narro improvements over source UX
 
 1. No hover-induced layout shift.
 2. Long-title two-line treatment + full-title access.
