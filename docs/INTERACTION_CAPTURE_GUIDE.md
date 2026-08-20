@@ -2,11 +2,11 @@
 
 Status: **Optional research proposal — use when direct access to the current Blitzit app or reliable video footage is available**
 
-Last reviewed: 2026-08-15
+Last reviewed: 2026-08-20
 
 Static screenshots and Help Center articles already cover most product structure. Further research is most valuable when it reveals **transitions, timing, transient states, window behavior, or edge cases** that static evidence cannot show.
 
-This guide is therefore not a request to record everything and not a requirement to copy every observed behavior. Source-product behavior may be buggy or less suitable for a Windows-only local app. Record observations first; decide later whether MyBlitzit should reproduce, improve, or intentionally reject them.
+This guide is therefore not a request to record everything and not a requirement to copy every observed behavior. Source-product behavior may be buggy or less suitable for a Windows-only local app. Record observations first; decide later whether Narro should reproduce, improve, or intentionally reject them.
 
 ## 1. Capture principles
 
@@ -20,7 +20,7 @@ When recording the original app:
 - if possible, record at known Windows display scaling and resolution;
 - note Blitzit version if visible;
 - do not infer hidden persistence/network behavior from visuals alone;
-- separate **observed** behavior from **recommended MyBlitzit** behavior.
+- separate **observed** behavior from **recommended Narro** behavior.
 
 A clip is useful even if it reveals a bug. Bugs become reliability evidence, not clone requirements.
 
@@ -196,7 +196,7 @@ Observe:
 - timer continuity;
 - task/subtask state continuity.
 
-Do not copy the underlying source window architecture merely from appearance. MyBlitzit's architecture should be chosen from measured Windows behavior.
+Do not copy the underlying source window architecture merely from appearance. Narro's architecture should be chosen from measured Windows behavior.
 
 ### M. Floating Timer expand/collapse
 
@@ -218,7 +218,7 @@ Capture:
 - resize if current version supports it;
 - close and reopen.
 
-Observe whether timer state changes and whether URL opening is explicit. If the source unexpectedly auto-opens links, record it as source behavior/bug evidence rather than a MyBlitzit requirement.
+Observe whether timer state changes and whether URL opening is explicit. If the source unexpectedly auto-opens links, record it as source behavior/bug evidence rather than a Narro requirement.
 
 ### O. Subtasks
 
@@ -258,7 +258,7 @@ If practical:
 - move Floating Timer partly near work-area edges;
 - restart app.
 
-Observe failures as well as successes. MyBlitzit should generally improve recovery rather than reproduce source limitations.
+Observe failures as well as successes. Narro should generally improve recovery rather than reproduce source limitations.
 
 ## 3. Useful Windows edge-case captures
 
@@ -292,7 +292,7 @@ Observed:
 - ...
 - ...
 Confidence: direct observation
-MyBlitzit recommendation: reproduce / improve / reject / undecided
+Narro recommendation: reproduce / improve / reject / undecided
 Reason: ...
 ```
 
@@ -305,7 +305,7 @@ For implementation-relevant clips, analyze six layers:
 3. **Domain transition** — what task/session/schedule state changes.
 4. **Window/layout transition** — resize, move, modal, expansion.
 5. **Persistence expectation** — what must survive restart.
-6. **MyBlitzit choice** — reproduce, improve, or intentionally diverge.
+6. **Narro choice** — reproduce, improve, or intentionally diverge.
 
 This prevents confusing a visual transition with business logic.
 
@@ -320,7 +320,7 @@ If a recording is high enough quality, approximate:
 - whether easing feels spring-like, ease-out, or linear;
 - whether interaction causes layout shift.
 
-Do not overfit exact millisecond values from screen recordings. Capture frame rate, compression, and system performance make exact reconstruction unreliable. Use the observation to tune MyBlitzit by feel and measured performance.
+Do not overfit exact millisecond values from screen recordings. Capture frame rate, compression, and system performance make exact reconstruction unreliable. Use the observation to tune Narro by feel and measured performance.
 
 ## 7. When to stop researching
 
@@ -335,4 +335,4 @@ Direct interaction research is most valuable when it resolves:
 
 If a question can be answered more effectively by implementing two small prototypes and measuring them, prefer the prototype.
 
-The objective is not a forensic reproduction of every Blitzit implementation detail. The objective is a reliable, lightweight, recognizable, and polished MyBlitzit experience.
+The objective is not a forensic reproduction of every Blitzit implementation detail. The objective is a reliable, lightweight, recognizable, and polished Narro experience.
