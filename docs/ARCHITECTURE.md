@@ -2,11 +2,11 @@
 
 Decision date: 2026-08-15
 
-This document defines the technical architecture for the Windows-only, local-only MyBlitzit implementation. Product behavior is defined by `docs/PRODUCT_SPEC.md`; visual behavior by `docs/UI_UX_SPEC.md`; source rationale and known source-product failures by `docs/SOURCE_AUDIT.md`.
+This document defines the technical architecture for the Windows-only, local-only Narro implementation. Product behavior is defined by `docs/PRODUCT_SPEC.md`; visual behavior by `docs/UI_UX_SPEC.md`; source rationale and known source-product failures by `docs/SOURCE_AUDIT.md`.
 
 ## 1. Requirements driving the stack
 
-MyBlitzit needs more than a task web UI:
+Narro needs more than a task web UI:
 
 - normal desktop main window;
 - narrow independently positioned Focus Panel;
@@ -145,7 +145,7 @@ Rust/window coordination must:
 - recover a saved Floating position if its monitor disappears;
 - preserve user placement when geometry is still valid.
 
-Normal display hotplug must not require restarting MyBlitzit.
+Normal display hotplug must not require restarting Narro.
 
 Persist a logical placement descriptor where possible, not only raw absolute coordinates. At minimum store last position plus enough monitor/work-area information to validate it safely.
 
@@ -184,7 +184,7 @@ Use typed DTOs. Do not expose arbitrary SQL or generic privileged shell calls to
 
 ## 7. Identity and ordering invariants
 
-Public source-product feedback includes drag/drop order failures and duplicate/triplicate tasks. MyBlitzit must make these impossible at the domain layer.
+Public source-product feedback includes drag/drop order failures and duplicate/triplicate tasks. Narro must make these impossible at the domain layer.
 
 Rules:
 - every list/task/subtask/session has an immutable unique ID;
@@ -513,7 +513,7 @@ Architecture rules:
 
 The current Help Center describes automatic link opening on live task, but the public roadmap later identifies that behavior as a resolved bug.
 
-MyBlitzit:
+Narro:
 - links are rendered normally;
 - explicit renderer action sends a narrowly scoped `open_external_url` command;
 - validate `http`/`https` schemes;
@@ -525,7 +525,7 @@ MyBlitzit:
 
 To support reminders/global shortcuts/focus:
 - Tauri process may stay alive after main closes;
-- tray provides Show MyBlitzit, focus presentation when active, and Quit;
+- tray provides Show Narro, focus presentation when active, and Quit;
 - autostart is user-controlled.
 
 Explicit Quit:
