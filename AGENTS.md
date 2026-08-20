@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file contains durable implementation rules for MyBlitzit. Keep changing progress in `STATUS.md` and `TODO.md`; do not turn this file into a changelog.
+This file contains durable implementation rules for Narro. Keep changing progress in `STATUS.md` and `TODO.md`; do not turn this file into a changelog.
 
 ## Start-of-task procedure
 
@@ -44,15 +44,15 @@ When evidence disagrees, investigate rather than mechanically applying a hierarc
 5. public reviews/feature-board comments for corroboration, bug evidence or UX-friction evidence only
 6. inference
 
-This precedence does **not** mean higher-ranked sources are automatically correct implementations for MyBlitzit. Current Blitzit can contain bugs and documentation can lag the product. Resolve meaningful conflicts using the evidence, the project goals and implementation validation.
+This precedence does **not** mean higher-ranked sources are automatically correct implementations for Narro. Current Blitzit can contain bugs and documentation can lag the product. Resolve meaningful conflicts using the evidence, the project goals and implementation validation.
 
-Never silently convert inference into confirmed behavior. Record necessary implementation choices that are not confirmed Blitzit behavior as MyBlitzit design decisions in `STATUS.md`.
+Never silently convert inference into confirmed behavior. Record necessary implementation choices that are not confirmed Blitzit behavior as Narro design decisions in `STATUS.md`.
 
-A planned or requested Blitzit feature is not automatically a MyBlitzit requirement. Post-parity ideas recorded in `docs/SOURCE_AUDIT.md` stay out of implementation until the ordered parity/reliability milestones pass or the user explicitly changes scope.
+A planned or requested Blitzit feature is not automatically a Narro requirement. Post-parity ideas recorded in `docs/SOURCE_AUDIT.md` stay out of implementation until the ordered parity/reliability milestones pass or the user explicitly changes scope.
 
 ## Platform and scope
 
-MyBlitzit is a **personal, local-only Windows desktop application**. Target Windows 10/11 x64 first. Do not spend implementation effort on macOS, Linux, mobile, or cross-platform abstractions unless the user later changes scope.
+Narro is a **personal, local-only Windows desktop application**. Target Windows 10/11 x64 first. Do not spend implementation effort on macOS, Linux, mobile, or cross-platform abstractions unless the user later changes scope.
 
 Do not add:
 
@@ -142,7 +142,7 @@ Every timer transition needs unit tests with controlled time. Include explicit r
 - Recurrence generation must be deterministic and idempotent.
 - Recurring parent/child relationships, Replace Existing Tasks, and detachment semantics should follow the recorded product behavior unless a better local representation preserves the same user-visible result more reliably.
 - No server exists to materialize recurrence/reminders while the process is stopped; catch up safely on launch/resume.
-- Use tray/background runtime for due reminders while MyBlitzit is running unless a more reliable native Windows scheduling mechanism is adopted and validated.
+- Use tray/background runtime for due reminders while Narro is running unless a more reliable native Windows scheduling mechanism is adopted and validated.
 - Never create duplicate recurrence instances during repeated startup/date-boundary processing.
 - Date/time text follows Windows locale by default, including the system 12/24-hour convention.
 
@@ -158,7 +158,7 @@ Tests must cover DST, Monday/week boundaries, timezone changes, repeated startup
 - Permanent deletion must be explicit and confirmed.
 - Archiving remains reversible until permanent deletion.
 - Historical report/session data survives normal list archival.
-- Permanently deleted tasks are removed from user-facing reports, matching current official Blitzit delete semantics unless a later explicit MyBlitzit decision intentionally preserves anonymized history.
+- Permanently deleted tasks are removed from user-facing reports, matching current official Blitzit delete semantics unless a later explicit Narro decision intentionally preserves anonymized history.
 - A successful create/move/edit is durably committed before the UI presents success.
 - Reorder changes position only; it must never create/delete/alias task identities.
 - Duplicate creates a new task identity and independent editable copy.
@@ -167,7 +167,7 @@ Tests must cover DST, Monday/week boundaries, timezone changes, repeated startup
 
 Current official Help Center text says task-note URLs may auto-open when a task goes live, but Blitzit's public roadmap later lists that automatic opening as a resolved bug.
 
-MyBlitzit resolves the conflict as follows:
+Narro resolves the conflict as follows:
 
 - URLs render as clickable links.
 - Opening a URL requires an explicit user action.
@@ -193,7 +193,7 @@ Implementation mechanism is flexible: use the simplest reliable Windows/Tauri/na
 - Pixel-perfect copying is not the goal when it would reduce readability, accessibility, Windows-native behavior, performance, or maintainability.
 - Screenshot pixel dimensions are reference evidence for proportions, not hard CSS dimensions; support Windows DPI scaling.
 - Support system, dark, and light themes.
-- Do not copy Blitzit branding assets or account/paid UI; use MyBlitzit branding and local equivalents.
+- Do not copy Blitzit branding assets or account/paid UI; use Narro branding and local equivalents.
 - Remove excluded cloud controls rather than showing dead imitations.
 - Keep Focus Panel and Floating Timer deliberately compact.
 - Focus task titles may use up to two lines where the compact layout permits; expose the full title through an accessible tooltip/detail mechanism.
@@ -226,7 +226,7 @@ Exact timing/easing choices may be improved during implementation if the result 
 Implement the confirmed shortcuts unless Windows refuses registration or a later explicit decision changes them.
 
 Global:
-- bring MyBlitzit to front: `Ctrl+Shift+B`
+- bring Narro to front: `Ctrl+Shift+B`
 - alternate Focus Panel / Floating Timer: `Ctrl+Shift+T`
 - locate/animate Floating Timer: `Ctrl+Shift+P`
 
