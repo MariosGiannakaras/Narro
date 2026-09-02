@@ -11,8 +11,14 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Add SQLite plus migration harness; create migration `0001` even if the initial schema is minimal.
 - [x] Create only two initial webview windows: `main` and `focusSurface`.
 - [ ] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state.
+  - [x] implementation compiles in Windows CI
+  - [ ] interactive destroy/recreate/state-survival validation
 - [ ] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
+  - [x] implementation compiles in Windows CI
+  - [ ] interactive validation
 - [ ] Prove switching those modes by resize/reposition/restyle of the same secondary webview.
+  - [x] implementation compiles in Windows CI
+  - [ ] interactive validation
 - [ ] Prove always-on-top and skip-taskbar behavior for Floating Timer mode.
 - [ ] Prove Windows monitor enumeration and left/right positioning for Focus Panel mode.
 - [ ] Prove display-topology change handling: connect/disconnect/re-enumerate displays and clamp windows to a visible work area without restarting Narro.
@@ -24,6 +30,8 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [ ] Measure floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
 - [ ] Record measurements and obvious WebView2/process contributors in `STATUS.md`.
 - [ ] Add a minimal smoke-test harness for Rust commands/events.
+  - [x] harness created and compiles in Windows CI
+  - [ ] interactive execution
 
 Acceptance criteria:
 
@@ -321,3 +329,4 @@ Do not implement these until Milestones 1–10 parity/reliability work is stable
 - cross-device sync
 - macOS/Linux/mobile/web versions
 - collaborative/shared lists
+

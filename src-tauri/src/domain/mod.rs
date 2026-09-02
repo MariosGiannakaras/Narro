@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct AppStatePayload {
     pub active_task: Option<String>,
     pub is_running: bool,
+    pub counter: i32,
 }
 
 pub struct AppState {
@@ -17,6 +18,7 @@ impl AppState {
             data: Mutex::new(AppStatePayload {
                 active_task: None,
                 is_running: false,
+                counter: 0,
             }),
         }
     }

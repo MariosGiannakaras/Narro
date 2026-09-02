@@ -7,16 +7,16 @@ import "./App.css";
 type AppStatePayload = {
   active_task: string | null;
   is_running: boolean;
+  counter: number;
 };
 
 function FocusApp() {
   const [state, setState] = useState<AppStatePayload | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Initial fetch
-    invoke<AppStatePayload>("get_state").then(setState);
+    invoke<AppStatePayload>("get_state").then(setState).catch(setError);
 
-    // Listen to changes
     const unlisten = listen<AppStatePayload>("state-changed", (event) => {
       setState(event.payload);
     });
@@ -26,14 +26,26 @@ function FocusApp() {
     };
   }, []);
 
+  const runCmd = (cmd: string) => {
+    invoke(cmd).then(() => setError(null)).catch(setError);
+  };
+
   return (
-    <main className="container" style={{ padding: "1rem" }}>
-      <h2>Narro - Focus</h2>
-      <div style={{ marginTop: "1rem", textAlign: "left", background: "#222", padding: "1rem", borderRadius: "8px" }}>
-        <pre>{JSON.stringify(state, null, 2)}</pre>
+    <main className="container" style={{ padding: "0.5rem", fontFamily: "sans-serif", display: "flex", flexDirection: "column", height: "100vh", boxSizing: "border-box" }}>
+      <h3 style={{ margin: "0 0 0.5rem 0" }}>Focus Surface</h3>
+      {error && <div style={{ color: "red", fontSize: "0.8em" }}>{error}</div>}
+      
+      <div style={{ background: "#222", padding: "0.5rem", fontSize: "0.8em", overflow: "auto", flex: 1, borderRadius: "4px" }}>
+        <pre style={{ margin: 0 }}>{JSON.stringify(state, null, 2)}</pre>
       </div>
-      <div style={{ marginTop: "1rem" }}>
-        <button onClick={() => invoke("toggle_timer")}>Toggle</button>
+      
+      <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <button onClick={() => runCmd("mutate_state")}>Mutate State</button>
+        <button onClick={() => runCmd("main_window_recreate")}>Recreate Main</button>
+        <button onClick={() => runCmd("main_window_show")}>Show Main</button>
+        <button onClick={() => runCmd("main_window_hide")}>Hide Main</button>
+        <button onClick={() => runCmd("focus_surface_mode_panel")}>Panel Mode</button>
+        <button onClick={() => runCmd("focus_surface_mode_timer")}>Timer Mode</button>
       </div>
     </main>
   );
