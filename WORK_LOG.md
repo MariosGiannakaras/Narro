@@ -128,3 +128,60 @@ Copy/adapt this structure for each coherent slice:
 
 ### Exact continuation point
 - A Windows environment with Rust installed must build the scaffold, prove window/native behavior, and complete the rest of Milestone 1.
+
+---
+
+## 2026-09-02 — Review of Antigravity Milestone 1 scaffold
+
+**Agent:** ChatGPT / repository audit  
+**Milestone:** M1 / review of slice 1  
+**Commits:**
+- `ca41817b221e87dbf040ed99ca9d0cb54ee13e92` — Antigravity scaffold under review
+- `20909befab74779ad360307c3c5f590a8346c1a9` — corrected current handoff with audit findings
+
+### Changed
+
+- Performed source-level review of the Antigravity scaffold and its repository handoff state.
+- Rewrote `HANDOFF.md` so the next coding agent sees the unvalidated status and specific defects before continuing.
+- Did not alter application implementation code during this review.
+
+### Findings / decisions
+
+- The scaffold is useful as a draft but is not a validated Milestone 1 slice.
+- Antigravity marked five Milestone 1 `TODO.md` tasks `[x]` even though it recorded no Rust/Tauri build or Windows validation. Under `AGENT_WORKFLOW.md`, those checkmarks are not evidence-valid and must be reverted/qualified or validated before reliance.
+- `src-tauri/capabilities/default.json` grants capability only to `main`; `focusSurface` is omitted. This must be fixed before both windows can be treated as equivalent Rust-state projections.
+- Most Rust module files are empty placeholders and no explicit app-state registration exists yet; the Rust module task is therefore incomplete in substance as well as validation.
+- SQLite `run_migrations` exists but is not wired into startup/database opening, and no fresh database migration test has run.
+- Migration is named `01-initial.sql` instead of the requested `0001` convention and contains a premature/incomplete slice of later domain schema; this should be reassessed before becoming durable schema history.
+- Root package metadata remains `temp_app`; HTML and React UI retain starter-template titles/assets/demo links.
+- No `Cargo.lock` exists because Cargo has not successfully run.
+
+### Validation performed
+
+Repository/source inspection only:
+
+- inspected commit `ca41817b...` and current repository files;
+- confirmed `package.json` name is `temp_app`;
+- confirmed Vite multipage inputs exist for `index.html` and `focus.html`;
+- confirmed Tauri config declares only `main` and `focusSurface` windows;
+- confirmed capability file targets only `main`;
+- confirmed `lib.rs` does not initialize SQLite migrations or authoritative shared app state;
+- confirmed most Rust module `mod.rs` files are empty placeholders;
+- confirmed migration harness references `migrations/01-initial.sql`;
+- confirmed no `src-tauri/Cargo.lock` is present;
+- no build/test/manual Windows scenario was run by this review agent.
+
+### TODO/STATUS updates
+
+- `TODO.md` still physically contains Antigravity's premature `[x]` marks because this review did not safely rewrite the large checklist through the available GitHub contents interface.
+- `HANDOFF.md` explicitly overrides reliance on those checkmarks and instructs the next coding agent to correct them or validate them immediately.
+- `STATUS.md` remains accurate at the broad level that Milestone 1 has started, but no capability gate has passed.
+
+### Known limitations/blockers
+
+- Native validation still requires a functioning Rust/Tauri Windows environment.
+- The previous Antigravity run reported `rustup` download timeout.
+
+### Exact continuation point
+
+Start with the corrected `HANDOFF.md`. First repair evidence state and scaffold fundamentals: get Rust working, run frontend/Rust builds, fix `focusSurface` capabilities, add minimal authoritative Rust state, wire/validate a minimal SQLite migration, and only then proceed to window lifecycle/native capability work.
