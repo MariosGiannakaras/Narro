@@ -258,7 +258,9 @@ fn position_focus_panel(
             x: final_position.x,
             y: final_position.y,
         }))
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "position at monitor edge", error))?;
+        .map_err(|error| {
+            map_window_error(FOCUS_SURFACE_LABEL, "position at monitor edge", error)
+        })?;
     window
         .set_focus()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus", error))?;
