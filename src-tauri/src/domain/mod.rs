@@ -7,6 +7,7 @@ pub struct AppStatePayload {
     pub active_task: Option<String>,
     pub is_running: bool,
     pub counter: u32,
+    pub global_shortcut_trigger_count: u32,
     pub revision: u32,
 }
 
@@ -14,6 +15,7 @@ pub struct AppStatePayload {
 pub enum StateError {
     LockPoisoned,
     CounterOverflow,
+    GlobalShortcutTriggerOverflow,
     RevisionOverflow,
 }
 
@@ -22,6 +24,7 @@ impl Display for StateError {
         let message = match self {
             Self::LockPoisoned => "authoritative application state lock is poisoned",
             Self::CounterOverflow => "diagnostic state counter overflow",
+            Self::GlobalShortcutTriggerOverflow => "global shortcut trigger counter overflow",
             Self::RevisionOverflow => "application state revision overflow",
         };
         formatter.write_str(message)
@@ -81,6 +84,22 @@ impl AppState {
         data.revision = revision;
         Ok(data.clone())
     }
+
+    pub fn record_global_shortcut_trigger(&self) -> Result<AppStatePayload, StateError> {
+        let mut data = self.lock()?;
+        let trigger_count = data
+            .global_shortcut_trigger_count
+            .checked_add(1)
+            .ok_or(StateError::GlobalShortcutTriggerOverflow)?;
+        let revision = data
+            .revision
+            .checked_add(1)
+            .ok_or(StateError::RevisionOverflow)?;
+
+        data.global_shortcut_trigger_count = trigger_count;
+        data.revision = revision;
+        Ok(data.clone())
+    }
 }
 
 #[cfg(test)]
@@ -100,6 +119,13 @@ mod tests {
         assert_eq!(mutated.counter, 1);
         assert_eq!(mutated.revision, 2);
         assert_eq!(mutated.active_task.as_deref(), Some("Task mutation 1"));
+
+        let shortcut = state
+            .record_global_shortcut_trigger()
+            .expect("record global shortcut trigger");
+        assert_eq!(shortcut.global_shortcut_trigger_count, 1);
+        assert_eq!(shortcut.counter, 1);
+        assert_eq!(shortcut.revision, 3);
     }
 
     #[test]
@@ -120,11 +146,30 @@ mod tests {
     }
 
     #[test]
+    fn shortcut_trigger_overflow_does_not_partially_mutate_state() {
+        let state = AppState::new();
+        {
+            let mut data = state.data.lock().expect("state lock");
+            data.global_shortcut_trigger_count = u32::MAX;
+            data.revision = 11;
+        }
+
+        assert_eq!(
+            state.record_global_shortcut_trigger(),
+            Err(StateError::GlobalShortcutTriggerOverflow)
+        );
+        let snapshot = state.snapshot().expect("snapshot after shortcut overflow");
+        assert_eq!(snapshot.global_shortcut_trigger_count, u32::MAX);
+        assert_eq!(snapshot.revision, 11);
+    }
+
+    #[test]
     fn revision_overflow_does_not_partially_mutate_state() {
         let state = AppState::new();
         {
             let mut data = state.data.lock().expect("state lock");
             data.counter = 41;
+            data.global_shortcut_trigger_count = 9;
             data.revision = u32::MAX;
             data.active_task = Some("before".into());
         }
@@ -132,8 +177,17 @@ mod tests {
         assert_eq!(state.increment_counter(), Err(StateError::RevisionOverflow));
         let snapshot = state.snapshot().expect("snapshot after overflow");
         assert_eq!(snapshot.counter, 41);
+        assert_eq!(snapshot.global_shortcut_trigger_count, 9);
         assert_eq!(snapshot.revision, u32::MAX);
         assert_eq!(snapshot.active_task.as_deref(), Some("before"));
+
+        assert_eq!(
+            state.record_global_shortcut_trigger(),
+            Err(StateError::RevisionOverflow)
+        );
+        let shortcut_snapshot = state.snapshot().expect("snapshot after shortcut overflow");
+        assert_eq!(shortcut_snapshot.global_shortcut_trigger_count, 9);
+        assert_eq!(shortcut_snapshot.revision, u32::MAX);
     }
 
     #[test]
