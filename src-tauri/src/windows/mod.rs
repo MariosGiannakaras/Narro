@@ -1,5 +1,11 @@
 //! Native Windows window-management capability boundary used by Milestone 1 validation.
 
+#[cfg(windows)]
+mod topology;
+
+#[cfg(windows)]
+pub use topology::install_display_change_observer;
+
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
@@ -73,6 +79,22 @@ fn axis_bounds(
     Ok((origin, maximum))
 }
 
+fn intersection_area(left: PhysicalRect, right: PhysicalRect) -> u64 {
+    let left_x1 = i64::from(left.position.x);
+    let left_y1 = i64::from(left.position.y);
+    let left_x2 = left_x1 + i64::from(left.size.width);
+    let left_y2 = left_y1 + i64::from(left.size.height);
+
+    let right_x1 = i64::from(right.position.x);
+    let right_y1 = i64::from(right.position.y);
+    let right_x2 = right_x1 + i64::from(right.size.width);
+    let right_y2 = right_y1 + i64::from(right.size.height);
+
+    let width = (left_x2.min(right_x2) - left_x1.max(right_x1)).max(0) as u64;
+    let height = (left_y2.min(right_y2) - left_y1.max(right_y1)).max(0) as u64;
+    width * height
+}
+
 pub fn validate_work_area(work_area: PhysicalRect) -> Result<(), WindowGeometryError> {
     if work_area.size.width == 0 || work_area.size.height == 0 {
         return Err(WindowGeometryError::EmptyWorkArea);
@@ -133,6 +155,39 @@ pub fn focus_panel_edge_position(
     clamp_top_left(work_area, window_size, desired)
 }
 
+pub fn recover_window_top_left(
+    current_window: PhysicalRect,
+    work_areas: &[PhysicalRect],
+    fallback_work_area: PhysicalRect,
+) -> Result<PhysicalPoint, WindowGeometryError> {
+    validate_work_area(fallback_work_area)?;
+    if current_window.size.width == 0 || current_window.size.height == 0 {
+        return Err(WindowGeometryError::EmptyWindow);
+    }
+
+    let mut best_work_area = None;
+    let mut best_intersection = 0;
+
+    for work_area in work_areas {
+        if validate_work_area(*work_area).is_err() {
+            continue;
+        }
+
+        let overlap = intersection_area(current_window, *work_area);
+        if overlap > best_intersection {
+            best_intersection = overlap;
+            best_work_area = Some(*work_area);
+        }
+    }
+
+    let target_work_area = best_work_area.unwrap_or(fallback_work_area);
+    clamp_top_left(
+        target_work_area,
+        current_window.size,
+        current_window.position,
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -142,34 +197,26 @@ mod tests {
         height: 700,
     };
 
+    const PRIMARY_WORK_AREA: PhysicalRect = PhysicalRect {
+        position: PhysicalPoint { x: 0, y: 0 },
+        size: PhysicalSize {
+            width: 1920,
+            height: 1040,
+        },
+    };
+
     #[test]
     fn positions_panel_at_left_edge() {
-        let work_area = PhysicalRect {
-            position: PhysicalPoint { x: 0, y: 0 },
-            size: PhysicalSize {
-                width: 1920,
-                height: 1040,
-            },
-        };
-
         assert_eq!(
-            focus_panel_edge_position(work_area, PANEL, FocusPanelSide::Left),
+            focus_panel_edge_position(PRIMARY_WORK_AREA, PANEL, FocusPanelSide::Left),
             Ok(PhysicalPoint { x: 0, y: 0 })
         );
     }
 
     #[test]
     fn positions_panel_at_right_edge() {
-        let work_area = PhysicalRect {
-            position: PhysicalPoint { x: 0, y: 0 },
-            size: PhysicalSize {
-                width: 1920,
-                height: 1040,
-            },
-        };
-
         assert_eq!(
-            focus_panel_edge_position(work_area, PANEL, FocusPanelSide::Right),
+            focus_panel_edge_position(PRIMARY_WORK_AREA, PANEL, FocusPanelSide::Right),
             Ok(PhysicalPoint { x: 1520, y: 0 })
         );
     }
@@ -230,6 +277,107 @@ mod tests {
     }
 
     #[test]
+    fn recovery_keeps_fully_visible_window_unchanged() {
+        let current = PhysicalRect {
+            position: PhysicalPoint { x: 500, y: 200 },
+            size: PhysicalSize {
+                width: 800,
+                height: 600,
+            },
+        };
+
+        assert_eq!(
+            recover_window_top_left(current, &[PRIMARY_WORK_AREA], PRIMARY_WORK_AREA),
+            Ok(current.position)
+        );
+    }
+
+    #[test]
+    fn recovery_clamps_partially_offscreen_window_to_intersecting_monitor() {
+        let secondary = PhysicalRect {
+            position: PhysicalPoint { x: -1600, y: 0 },
+            size: PhysicalSize {
+                width: 1600,
+                height: 900,
+            },
+        };
+        let current = PhysicalRect {
+            position: PhysicalPoint { x: -1750, y: 700 },
+            size: PhysicalSize {
+                width: 500,
+                height: 400,
+            },
+        };
+
+        assert_eq!(
+            recover_window_top_left(current, &[PRIMARY_WORK_AREA, secondary], PRIMARY_WORK_AREA,),
+            Ok(PhysicalPoint { x: -1600, y: 500 })
+        );
+    }
+
+    #[test]
+    fn recovery_prefers_monitor_with_largest_window_intersection() {
+        let secondary = PhysicalRect {
+            position: PhysicalPoint { x: 1920, y: 0 },
+            size: PhysicalSize {
+                width: 1920,
+                height: 1040,
+            },
+        };
+        let current = PhysicalRect {
+            position: PhysicalPoint { x: 1700, y: 100 },
+            size: PhysicalSize {
+                width: 1000,
+                height: 700,
+            },
+        };
+
+        assert_eq!(
+            recover_window_top_left(current, &[PRIMARY_WORK_AREA, secondary], PRIMARY_WORK_AREA,),
+            Ok(PhysicalPoint { x: 1920, y: 100 })
+        );
+    }
+
+    #[test]
+    fn recovery_uses_fallback_when_previous_monitor_is_detached() {
+        let detached_window = PhysicalRect {
+            position: PhysicalPoint { x: 4200, y: 200 },
+            size: PhysicalSize {
+                width: 500,
+                height: 700,
+            },
+        };
+
+        assert_eq!(
+            recover_window_top_left(detached_window, &[PRIMARY_WORK_AREA], PRIMARY_WORK_AREA,),
+            Ok(PhysicalPoint { x: 1420, y: 200 })
+        );
+    }
+
+    #[test]
+    fn recovery_ignores_transient_invalid_work_area() {
+        let invalid = PhysicalRect {
+            position: PhysicalPoint { x: 1920, y: 0 },
+            size: PhysicalSize {
+                width: 0,
+                height: 1040,
+            },
+        };
+        let current = PhysicalRect {
+            position: PhysicalPoint { x: 2500, y: 100 },
+            size: PhysicalSize {
+                width: 500,
+                height: 500,
+            },
+        };
+
+        assert_eq!(
+            recover_window_top_left(current, &[invalid, PRIMARY_WORK_AREA], PRIMARY_WORK_AREA,),
+            Ok(PhysicalPoint { x: 1420, y: 100 })
+        );
+    }
+
+    #[test]
     fn rejects_empty_geometry() {
         let empty_area = PhysicalRect {
             position: PhysicalPoint { x: 0, y: 0 },
@@ -243,16 +391,9 @@ mod tests {
             Err(WindowGeometryError::EmptyWorkArea)
         );
 
-        let valid_area = PhysicalRect {
-            position: PhysicalPoint { x: 0, y: 0 },
-            size: PhysicalSize {
-                width: 100,
-                height: 100,
-            },
-        };
         assert_eq!(
             focus_panel_edge_position(
-                valid_area,
+                PRIMARY_WORK_AREA,
                 PhysicalSize {
                     width: 0,
                     height: 1,
