@@ -1,4 +1,6 @@
-use super::{recover_window_top_left, validate_work_area, PhysicalPoint, PhysicalRect, PhysicalSize};
+use super::{
+    recover_window_top_left, validate_work_area, PhysicalPoint, PhysicalRect, PhysicalSize,
+};
 use std::ffi::c_void;
 use std::io;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -12,9 +14,8 @@ const WM_DISPLAY_CHANGE: u32 = 0x007e;
 const WM_NC_DESTROY: u32 = 0x0082;
 
 type RawHwnd = *mut c_void;
-type SubclassProc = Option<
-    unsafe extern "system" fn(RawHwnd, u32, usize, isize, usize, usize) -> isize,
->;
+type SubclassProc =
+    Option<unsafe extern "system" fn(RawHwnd, u32, usize, isize, usize, usize) -> isize>;
 
 #[link(name = "comctl32")]
 unsafe extern "system" {
@@ -42,9 +43,9 @@ static RECOVERY_PENDING: AtomicBool = AtomicBool::new(false);
 static RECOVERY_DIRTY: AtomicBool = AtomicBool::new(false);
 
 pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error> {
-    let focus_surface = app
-        .get_webview_window(FOCUS_SURFACE_LABEL)
-        .ok_or_else(|| io::Error::other("focusSurface does not exist during display observer setup"))?;
+    let focus_surface = app.get_webview_window(FOCUS_SURFACE_LABEL).ok_or_else(|| {
+        io::Error::other("focusSurface does not exist during display observer setup")
+    })?;
     let hwnd = focus_surface
         .hwnd()
         .map_err(|error| io::Error::other(format!("resolve focusSurface HWND: {error}")))?;
@@ -163,7 +164,9 @@ fn recover_visible_windows(app_handle: &tauri::AppHandle) -> Result<Vec<&'static
         .map(|monitor| monitor_work_area(&monitor))
         .filter(|work_area| validate_work_area(*work_area).is_ok())
         .or_else(|| work_areas.first().copied())
-        .ok_or_else(|| io::Error::other("Windows reported no valid work area after display change"))?;
+        .ok_or_else(|| {
+            io::Error::other("Windows reported no valid work area after display change")
+        })?;
 
     let mut moved_labels = Vec::new();
     let mut failures = Vec::new();
@@ -221,12 +224,9 @@ fn recover_window(
             height: size.height,
         },
     };
-    let recovered_position = recover_window_top_left(
-        current_window,
-        work_areas,
-        fallback_work_area,
-    )
-    .map_err(|error| format!("compute visible position: {error}"))?;
+    let recovered_position =
+        recover_window_top_left(current_window, work_areas, fallback_work_area)
+            .map_err(|error| format!("compute visible position: {error}"))?;
 
     if recovered_position == current_window.position {
         return Ok(false);
