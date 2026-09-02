@@ -26,6 +26,7 @@ No product implementation code has been created yet.
 - [x] Branding temporary upload artifacts were removed.
 - [x] Multi-agent workflow is defined in `AGENT_WORKFLOW.md`.
 - [x] `WORK_LOG.md` exists for chronological implementation evidence.
+- [x] Durable Antigravity kickoff prompt exists at `prompts/ANTIGRAVITY_M1.md`.
 
 ## Next actions — execute in this order unless repository evidence justifies a change
 
@@ -66,9 +67,11 @@ Start with:
 
 - `AGENTS.md`
 - `AGENT_WORKFLOW.md`
+- `HANDOFF.md`
 - `STATUS.md`
 - `TODO.md` → Milestone 1 only
 - `docs/ARCHITECTURE.md`
+- `prompts/ANTIGRAVITY_M1.md` when the next agent is Antigravity
 
 Use only if relevant to a question encountered during this slice:
 
