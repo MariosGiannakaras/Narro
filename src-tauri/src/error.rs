@@ -2,6 +2,7 @@ use serde::Serialize;
 use std::fmt::{Display, Formatter};
 
 use crate::domain::StateError;
+use crate::shortcuts::ShortcutError;
 
 pub type CommandResult<T> = Result<T, CommandError>;
 
@@ -103,11 +104,42 @@ impl From<StateError> for CommandError {
                 "STATE_COUNTER_OVERFLOW",
                 "diagnostic state counter reached its maximum value",
             ),
+            StateError::GlobalShortcutTriggerOverflow => Self::new(
+                "GLOBAL_SHORTCUT_TRIGGER_OVERFLOW",
+                "global shortcut trigger counter reached its maximum value",
+            ),
             StateError::RevisionOverflow => Self::new(
                 "STATE_REVISION_OVERFLOW",
                 "application state revision reached its maximum value",
             ),
         }
+    }
+}
+
+impl From<ShortcutError> for CommandError {
+    fn from(error: ShortcutError) -> Self {
+        let code = match &error {
+            ShortcutError::WindowUnavailable => "GLOBAL_SHORTCUT_WINDOW_UNAVAILABLE",
+            ShortcutError::ObserverAlreadyInitialized | ShortcutError::ObserverInstallFailed(_) => {
+                "GLOBAL_SHORTCUT_OBSERVER_FAILED"
+            }
+            ShortcutError::MainThreadDispatchFailed(_) | ShortcutError::MainThreadResponseFailed => {
+                "GLOBAL_SHORTCUT_DISPATCH_FAILED"
+            }
+            ShortcutError::RegistrationConflict { .. } => "GLOBAL_SHORTCUT_CONFLICT",
+            ShortcutError::RegistrationFailed { .. } => "GLOBAL_SHORTCUT_REGISTER_FAILED",
+            ShortcutError::UnregisterFailed { .. } => "GLOBAL_SHORTCUT_UNREGISTER_FAILED",
+            ShortcutError::ConflictProbeRequiresUnregistered => {
+                "GLOBAL_SHORTCUT_PROBE_REQUIRES_UNREGISTERED"
+            }
+            ShortcutError::ConflictProbeUnexpectedFailure { .. } => {
+                "GLOBAL_SHORTCUT_PROBE_FAILED"
+            }
+            ShortcutError::ConflictProbeCleanupFailed(_) => {
+                "GLOBAL_SHORTCUT_PROBE_CLEANUP_FAILED"
+            }
+        };
+        Self::new(code, error.to_string())
     }
 }
 
@@ -139,5 +171,20 @@ mod tests {
         let error = CommandError::stale_monitor_selection();
         assert_eq!(error.code, "MONITOR_SELECTION_STALE");
         assert!(error.message.contains("refresh monitors"));
+    }
+
+    #[test]
+    fn shortcut_conflict_has_stable_command_code() {
+        let error = CommandError::from(ShortcutError::RegistrationConflict {
+            os_error_code: Some(1409),
+        });
+        assert_eq!(error.code, "GLOBAL_SHORTCUT_CONFLICT");
+        assert!(error.message.contains("already registered"));
+    }
+
+    #[test]
+    fn shortcut_probe_state_error_is_distinct_from_os_conflict() {
+        let error = CommandError::from(ShortcutError::ConflictProbeRequiresUnregistered);
+        assert_eq!(error.code, "GLOBAL_SHORTCUT_PROBE_REQUIRES_UNREGISTERED");
     }
 }
