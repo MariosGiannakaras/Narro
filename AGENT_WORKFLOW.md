@@ -1,198 +1,215 @@
 # Narro Multi-Agent Workflow
 
-This repository is expected to be worked on alternately by different coding agents, including Codex and Antigravity. **The repository is the handoff medium.** Do not rely on another agent having access to previous chat context, local scratch notes, or unstaged files.
+Narro is intentionally maintained so different coding AIs can alternate without prior chat context. **The repository is the handoff medium and must be sufficient by itself.**
 
-This file defines the working protocol. It complements `AGENTS.md`; product, architecture, correctness and scope rules in `AGENTS.md` remain authoritative.
+This protocol complements `AGENTS.md`. Product, architecture, correctness and scope rules in `AGENTS.md` remain authoritative.
+
+## Universal bootstrap
+
+Every zero-context agent session begins at:
+
+`AI_START_HERE.md`
+
+An agent must not require the user to paste a kickoff prompt, previous-chat summary or the previous agent's response when repository state already contains the needed information.
+
+At minimum, before editing code:
+
+1. synchronize with latest `main` and inspect current Git/recent commits;
+2. read `AI_START_HERE.md`;
+3. read `AGENTS.md` completely;
+4. read this file completely;
+5. read `HANDOFF.md` completely;
+6. read the active milestone in `TODO.md`;
+7. read `STATUS.md`;
+8. inspect the implementation/tests/CI relevant to the handoff;
+9. consult only the relevant specification/evidence docs;
+10. continue the highest-priority unblocked action from `HANDOFF.md`.
+
+If `HANDOFF.md` is stale or contradicts repository reality, correct it before broadening work.
+
+Do not ask the user “what should I work on?” when the repository already answers it. Ask only for a genuine unresolved product decision, required secret/permission, destructive approval, or physical/manual Windows evidence that cannot be automated.
 
 ## Files and responsibilities
 
-Use these files for distinct purposes:
-
-- `AGENTS.md` — durable engineering/product rules and invariants.
-- `TODO.md` — ordered executable work. Checkboxes reflect verified reality.
+- `AI_START_HERE.md` — universal zero-context bootstrap.
+- `AGENTS.md` — durable product/engineering rules and invariants.
+- `AGENT_WORKFLOW.md` — this synchronization/evidence/handoff protocol.
+- `HANDOFF.md` — current continuation state; rewritten as work advances.
+- `TODO.md` — ordered executable work; checkboxes reflect validated reality.
 - `STATUS.md` — concise project-level state, durable decisions, measurements and known limitations.
-- `HANDOFF.md` — the current continuation point for the next agent.
-- `WORK_LOG.md` — append-only chronological record of meaningful implementation slices.
-- `docs/*` — researched specifications, evidence and proposals.
+- `WORK_LOG.md` — chronological append-only record of meaningful implementation/validation slices.
+- `docs/*` — researched specifications, evidence, validation procedures and optional design/decision aids.
+- `prompts/*` — historical or slice-specific aids only; **not required onboarding** unless current `HANDOFF.md` explicitly points to one.
 
-Do not duplicate the same detailed information into every file. Link/reference the appropriate file instead.
+Do not duplicate detailed state into every file. Put information in the file whose role matches it.
 
-## Start of every agent session
+## How an agent chooses work autonomously
 
-Before editing code:
+Use this order:
 
-1. Fetch/pull the latest `main` and inspect the current Git state.
-2. Read `AGENTS.md`.
-3. Read `HANDOFF.md` completely.
-4. Read `STATUS.md` and the active milestone in `TODO.md`.
-5. Read only the specs/reference material relevant to the current slice.
-6. Inspect the implementation and tests that already exist; do not assume the previous agent's summary is sufficient.
-7. Confirm that the `HANDOFF.md` continuation point still matches repository reality. If it does not, correct `HANDOFF.md` before proceeding.
+1. If `HANDOFF.md` contains an unresolved **USER ACTION REQUIRED**, do not fake or substitute that evidence. Work only on explicitly allowed parallel tasks.
+2. Otherwise execute the first **NEXT AGENT ACTION** in `HANDOFF.md`.
+3. If handoff state is stale, reconcile it with actual code/tests/CI and fix the handoff first.
+4. If there is no actionable handoff, take the first open item in the current `TODO.md` milestone whose prerequisites are satisfied.
+5. Do not skip to later milestones merely because they are easier or visually rewarding.
 
-Never overwrite or revert another agent's work merely because it differs from an earlier plan. Investigate the repository history and current evidence first.
+The user should not need to relay one agent's explanation to another.
 
 ## TODO checkbox discipline
 
 `TODO.md` is the executable checklist.
 
-Use checkboxes strictly:
+- `[ ]` = not fully implemented and validated.
+- `[x]` = implemented **and** the relevant acceptance evidence exists.
 
-- `[ ]` means not yet fully implemented and validated.
-- `[x]` means the item is implemented **and** the relevant validation/acceptance evidence exists.
+Compilation is not manual Windows validation. Code existence is not compilation. A passing unit test does not prove window/taskbar/monitor behavior.
 
-Do not mark `[x]` simply because code was written or because it compiled once.
-
-If an item is partly complete, keep the parent item open and add nested checkboxes only when useful, for example:
+For partial work keep the parent open and add nested evidence checkboxes when useful, for example:
 
 ```md
-- [ ] Prove display-topology change handling.
-  - [x] enumerate monitors
-  - [x] clamp saved position to visible work area
-  - [ ] verify physical monitor disconnect/reconnect on Windows
+- [ ] Prove display-topology recovery.
+  - [x] implementation compiles in Windows CI
+  - [x] unit tests cover clamping logic
+  - [ ] physical monitor disconnect/reconnect validated on Windows
 ```
 
-Do not invent a nonstandard “in progress” checkbox state. The active slice belongs in `HANDOFF.md`.
+Whenever a checkbox changes, ensure the evidence is recorded in `WORK_LOG.md` or a linked durable validation document.
 
-Whenever a checkbox changes:
+## Evidence levels
 
-- ensure the underlying code is committed;
-- record relevant test/manual validation in `WORK_LOG.md`;
-- update `HANDOFF.md` if it changes what the next agent should do.
+Use precise language:
+
+- **implemented** — code exists;
+- **compiled** — relevant build/check passes;
+- **automated validated** — relevant tests/CI pass;
+- **manual Windows validated** — behavior was physically observed on a real Windows desktop when that is required.
+
+Never promote one level into another without evidence.
 
 ## Meaningful change rule
 
-Every meaningful project change must reach the repository before handoff, including:
+Every meaningful project change must reach the repository before handoff, including source, migrations, tests, configuration, dependencies, tracked platform assets, durable decisions, benchmark evidence, TODO changes and blockers.
 
-- source code;
-- migrations/schema changes;
-- tests and fixtures;
-- configuration/build files;
-- dependencies;
-- generated platform assets that are intentionally tracked;
-- benchmark scripts/results intended as evidence;
-- durable implementation decisions;
-- updated TODO checkboxes;
-- current blockers/limitations.
+Do not leave required continuation information only in:
 
-Do not leave required work only in local files or chat messages.
+- chat messages;
+- local scratch notes;
+- unstaged/uncommitted files;
+- an agent-specific task description;
+- CI logs that are not summarized/linked from durable repo state when their result matters.
 
-Temporary build output, dependency caches, secrets, machine-specific junk and disposable diagnostics should not be committed unless the project explicitly needs them as fixtures/evidence.
+Disposable build output, caches, secrets and machine-specific junk should not be committed.
 
 ## WORK_LOG.md protocol
 
-`WORK_LOG.md` is chronological and append-only in normal operation. Do not rewrite previous entries to make history look cleaner. Correct an earlier mistake with a new entry.
+`WORK_LOG.md` is chronological and append-only in normal operation.
 
-Add one entry per coherent implementation/validation slice, not per individual file save.
+Never replace the file with only the newest entry. Never rewrite prior entries just to make history cleaner. Correct mistakes with new forward entries.
 
-Each entry should contain:
+Add one entry per coherent implementation/validation slice containing:
 
 - date/time or date;
-- agent (`Codex`, `Antigravity`, or other);
-- active milestone/slice;
-- commits created during the slice;
-- files/components materially changed;
-- decisions made and why;
-- tests/build/manual checks executed and their result;
+- agent identity/tool when useful;
+- milestone/slice;
+- reachable commit SHA(s);
+- material files/components changed;
+- decisions and reasoning;
+- exact build/test/manual checks with PASS/FAIL/NOT RUN;
 - measurements when relevant;
-- known limitations/blockers introduced or discovered;
-- exact next continuation point.
+- blockers/limitations;
+- exact continuation point.
 
-If a command/test was not run, say **not run** rather than implying success.
-
-For Windows-only validation that the current environment cannot perform, record that explicitly and leave the relevant TODO checkbox unchecked.
+If a command or physical check was not run, say `NOT RUN`.
 
 ## HANDOFF.md protocol
 
-`HANDOFF.md` should remain short enough to read at the beginning of every session. It is rewritten as the active continuation state changes.
+`HANDOFF.md` is intentionally short and operational. It is rewritten as current state changes and must not become the historical log.
 
-It must always state:
+It must always contain, in clear sections:
 
-- current milestone;
-- last agent that worked on it;
-- last verified repository/commit state when useful;
-- what is already complete in the current slice;
-- exact next actions in priority order, using checkboxes;
-- tests/manual validation still required;
-- blockers or environment limitations;
-- files that are especially relevant to the next action;
-- any temporary implementation that must not be mistaken for final product UI/architecture.
+- current milestone/slice;
+- current verified baseline/important commits or CI artifact when relevant;
+- what is proven vs merely implemented;
+- **NEXT AGENT ACTION** — prioritized work an AI can perform now;
+- **USER ACTION REQUIRED** — only genuine manual/physical/product decisions, or `None`;
+- blockers and `NOT RUN` validation;
+- particularly relevant files;
+- temporary diagnostics that must not be mistaken for final UI/architecture.
 
-Do not use `HANDOFF.md` as a historical log; move historical detail to `WORK_LOG.md`.
+If a user manual test is pending, include the exact artifact/run/build identity so old binaries cannot be confused with new ones.
 
 ## STATUS.md protocol
 
-Update `STATUS.md` when a change affects the project-level truth, including:
+`STATUS.md` is concise project-level truth. Update it when a change affects:
 
-- phase/milestone status;
-- architecture selected or rejected after evidence;
+- current phase/milestone status;
+- accepted/rejected architecture after evidence;
+- confirmed native capability gates;
 - measured CPU/RAM/startup/window behavior;
-- durable constraints or known limitations;
-- important decisions that future milestones depend on;
-- completed major capability gates.
+- durable product/engineering decisions;
+- important known limitations future work depends on.
 
-Do not add every small code change to `STATUS.md`.
+Do not use `STATUS.md` as a second work log or repeat all research summaries there.
+
+## CI and user Windows validation
+
+Use GitHub Actions or equivalent automated infrastructure for reproducible compilation/tests whenever agent environments lack Rust/Windows tooling.
+
+When a behavior genuinely requires a real interactive Windows desktop:
+
+1. implement the smallest diagnostic/production path required;
+2. keep automated Windows CI green;
+3. produce a clearly identified downloadable artifact when practical;
+4. document an exact short manual procedure;
+5. ask the user only for the observations automation cannot provide;
+6. record the returned PASS/FAIL evidence in the repository;
+7. fix failures before broadening the milestone.
+
+The user's Windows machine is primarily a **test bench**, not a requirement for writing ordinary application code.
 
 ## Commit and synchronization discipline
 
 Agents are expected to work sequentially unless explicitly coordinated otherwise.
 
-At session start:
+During normal work:
 
 - synchronize with latest `main`;
-- inspect recent commits when another agent worked since the previous session.
-
-During work:
-
-- make coherent commits with descriptive messages;
-- checkpoint a long milestone after a working/validated slice;
+- make coherent descriptive commits;
 - preserve unrelated changes;
-- avoid destructive history rewrites;
-- **do not amend, rebase, force-push, or otherwise replace commits that have already been published to `main` during normal agent handoff work**;
-- use new forward commits to correct code, documentation, commit-message mistakes, or handoff metadata so SHAs referenced by `WORK_LOG.md` and other agents remain stable;
-- only rewrite published `main` history when the user explicitly requests a history rewrite and the consequences for existing handoff references are handled deliberately.
+- use forward commits for corrections;
+- never amend/rebase/force-push already-published `main` history unless the user explicitly requests a history rewrite;
+- verify actual CI outcomes before claiming success;
+- keep referenced commit SHAs reachable.
 
 Before handoff:
 
-1. run the relevant tests/checks that the environment permits;
-2. commit and push all intended changes;
-3. update `TODO.md` checkboxes based on validation, not optimism;
-4. append the coherent slice to `WORK_LOG.md`;
+1. run relevant checks available in the environment;
+2. commit/push all intended changes;
+3. update evidence-backed TODO checkboxes;
+4. append a coherent `WORK_LOG.md` entry;
 5. update `STATUS.md` if project-level truth changed;
-6. rewrite `HANDOFF.md` with the exact continuation point;
-7. ensure there are no required uncommitted/unpushed files;
-8. report any validations that could not be performed.
+6. rewrite `HANDOFF.md` with exact continuation state;
+7. verify no required work/context is uncommitted or chat-only.
 
-A handoff is incomplete if the next agent needs information that exists only in the previous agent's chat.
+A handoff is incomplete if a different AI with only repository access would need the user to reconstruct what happened.
 
 ## Decisions and deviations
 
-Specifications and architecture documents include proposals, not infallible instructions. An agent may find a better implementation.
+Specs and architecture documents include proposals, not infallible commands. A better implementation may replace a proposal when it preserves the same product/correctness intent and is supported by evidence.
 
-For a material deviation:
+For material deviations:
 
-1. verify the alternative against the same product/correctness/performance intent;
-2. document the evidence in `WORK_LOG.md`;
-3. update `STATUS.md` if it becomes a durable project decision;
-4. update the affected spec/architecture/TODO when the old direction would mislead the next agent.
+1. verify the alternative;
+2. record evidence/reasoning in `WORK_LOG.md`;
+3. update `STATUS.md` if it becomes durable project truth;
+4. update affected specs/architecture/TODO when the old direction would mislead future agents.
 
-Do not silently change confirmed product semantics, local-only scope, data-integrity invariants or user decisions.
-
-## Validation evidence
-
-Prefer reproducible evidence:
-
-- test command + result;
-- build command + result;
-- benchmark method + machine/context + result;
-- manual Windows scenario + observed result;
-- screenshot/reference comparison when UI work begins.
-
-Avoid claims such as “works”, “done”, “optimized” or “production-ready” without saying what was actually checked.
+Never silently change explicit user decisions, local-only scope, data-integrity invariants or confirmed product semantics.
 
 ## Milestone 1 special rule
 
 Milestone 1 is a capability/performance spike, not polished product UI.
 
-Agents must not prematurely build the full Blitzit-like interface. The purpose is to validate the Windows/Tauri/WebView2/native architecture and measure it. Temporary diagnostic controls are acceptable but must be labeled/treated as temporary.
+Temporary diagnostic controls are acceptable and should remain obviously temporary. Do not begin polished Blitzit-like UI or Milestone 2 while a blocking M1 architecture/runtime validation in `HANDOFF.md` is unresolved.
 
-If Windows-specific validation cannot be executed in the agent environment, implement the narrow testable slice, document exactly what remains unverified, and leave the corresponding TODO item open for a Windows-capable session.
+If a coding environment cannot perform Windows GUI checks, implement/CI-validate the narrow slice and prepare a user-test artifact rather than pretending native behavior was validated.
