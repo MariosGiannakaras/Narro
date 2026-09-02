@@ -18,7 +18,7 @@ Before asking the user what to do next, do all of the following:
 6. Read `STATUS.md` for durable project-level truth and validated architecture/capability decisions.
 7. Inspect the implementation/tests/files referenced by `HANDOFF.md`; never trust a summary without checking repository reality.
 8. Read only the product/architecture/evidence docs relevant to the active slice.
-9. Inspect the latest relevant `WORK_LOG.md` entries when historical rationale or validation evidence is needed.
+9. Inspect the newest relevant files in `work-log/` when recent rationale/validation evidence is needed. Use root `WORK_LOG.md` only for older legacy history.
 10. Continue the exact highest-priority unblocked action recorded in `HANDOFF.md`.
 
 Do **not** ask the user for a prompt that merely repeats repository instructions.
@@ -42,7 +42,8 @@ These files have distinct jobs:
 - `HANDOFF.md` — **current** exact continuation point; rewritten as work advances.
 - `TODO.md` — ordered executable milestones; `[x]` means implemented **and validated**.
 - `STATUS.md` — concise durable project-level state, measurements, accepted/rejected architecture findings and important limitations.
-- `WORK_LOG.md` — chronological append-only implementation/validation history.
+- `work-log/*.md` — preferred immutable per-slice implementation/validation logs for new work.
+- `WORK_LOG.md` — legacy historical archive retained for older context; do not replace or truncate it.
 - `docs/*` — specifications, research evidence, validation procedures and optional design/decision aids.
 - `reference/original-blitzit-screenshots/` — original-product visual evidence, not Narro-owned UI assets.
 - `assets/branding/` — canonical Narro branding assets/rules.
@@ -91,7 +92,7 @@ Before stopping, every agent must leave a complete repository handoff:
 1. Commit/push all intended source/config/test/doc changes using forward commits.
 2. Run and record the validations the environment permits.
 3. Update `TODO.md` only with evidence-backed checkbox changes.
-4. Append one coherent entry to `WORK_LOG.md`; never replace prior history.
+4. Create one new immutable coherent entry under `work-log/` following `work-log/README.md`. Do not overwrite another entry or truncate root `WORK_LOG.md`.
 5. Update `STATUS.md` only if project-level truth changed.
 6. Rewrite `HANDOFF.md` with the exact continuation state.
 7. Ensure `HANDOFF.md` explicitly distinguishes:
