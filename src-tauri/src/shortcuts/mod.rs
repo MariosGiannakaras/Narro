@@ -109,7 +109,9 @@ impl ShortcutState {
     }
 
     fn lock(&self) -> Result<MutexGuard<'_, ShortcutStatus>, ShortcutStateError> {
-        self.data.lock().map_err(|_| ShortcutStateError::LockPoisoned)
+        self.data
+            .lock()
+            .map_err(|_| ShortcutStateError::LockPoisoned)
     }
 
     pub fn snapshot(&self) -> Result<ShortcutStatus, ShortcutStateError> {
@@ -190,14 +192,16 @@ impl Display for ShortcutError {
             Self::UnregistrationFailed(error) => {
                 write!(formatter, "UnregisterHotKey failed: {error}")
             }
-            Self::ConflictProbeRequiresRegistration => formatter.write_str(
-                "register the primary diagnostic shortcut before probing a conflict",
-            ),
+            Self::ConflictProbeRequiresRegistration => formatter
+                .write_str("register the primary diagnostic shortcut before probing a conflict"),
             Self::ConflictProbeUnexpectedSuccess => formatter.write_str(
                 "Windows unexpectedly allowed the same accelerator to be registered twice",
             ),
             Self::ConflictProbeUnexpectedFailure(error) => {
-                write!(formatter, "duplicate RegisterHotKey failed unexpectedly: {error}")
+                write!(
+                    formatter,
+                    "duplicate RegisterHotKey failed unexpectedly: {error}"
+                )
             }
             Self::ObserverAlreadyInitialized => {
                 formatter.write_str("shortcut observer app handle was already initialized")
@@ -273,14 +277,8 @@ pub fn install_shortcut_observer(app: &tauri::App) -> Result<(), ShortcutError> 
         .set(app_handle)
         .map_err(|_| ShortcutError::ObserverAlreadyInitialized)?;
 
-    let installed = unsafe {
-        set_window_subclass(
-            hwnd,
-            Some(shortcut_subclass_proc),
-            SHORTCUT_SUBCLASS_ID,
-            0,
-        )
-    };
+    let installed =
+        unsafe { set_window_subclass(hwnd, Some(shortcut_subclass_proc), SHORTCUT_SUBCLASS_ID, 0) };
     if installed == 0 {
         return Err(ShortcutError::ObserverInstallFailed);
     }
@@ -357,14 +355,8 @@ pub fn probe_conflict(
     }
 
     let hwnd = focus_surface_hwnd(app_handle)?;
-    let result = unsafe {
-        register_hot_key(
-            hwnd,
-            CONFLICT_PROBE_HOTKEY_ID,
-            SHORTCUT_MODIFIERS,
-            VK_F10,
-        )
-    };
+    let result =
+        unsafe { register_hot_key(hwnd, CONFLICT_PROBE_HOTKEY_ID, SHORTCUT_MODIFIERS, VK_F10) };
 
     if result != 0 {
         if let Err(error) = unregister_native(hwnd, CONFLICT_PROBE_HOTKEY_ID) {
@@ -507,7 +499,10 @@ mod tests {
         let state = Arc::new(ShortcutState::new());
         let poisoned = Arc::clone(&state);
         let join = std::thread::spawn(move || {
-            let _guard = poisoned.data.lock().expect("shortcut state lock before poison");
+            let _guard = poisoned
+                .data
+                .lock()
+                .expect("shortcut state lock before poison");
             panic!("intentional poison for test");
         })
         .join();
