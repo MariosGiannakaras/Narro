@@ -64,8 +64,8 @@ function App() {
           <button onClick={() => runCmd("main_window_destroy")}>Destroy Main</button>
           <button onClick={() => runCmd("main_window_recreate")}>Recreate Main</button>
           <hr />
-          <button onClick={() => runCmd("focus_surface_mode_panel")}>FocusSurface -> Panel</button>
-          <button onClick={() => runCmd("focus_surface_mode_timer")}>FocusSurface -> Timer</button>
+          <button onClick={() => runCmd("focus_surface_mode_panel")}>FocusSurface -&gt; Panel</button>
+          <button onClick={() => runCmd("focus_surface_mode_timer")}>FocusSurface -&gt; Timer</button>
         </div>
       </div>
     </main>
