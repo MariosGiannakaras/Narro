@@ -1,23 +1,52 @@
 # STATUS.md
 
-Last updated: 2026-08-20
+Last updated: 2026-09-02
 
 ## Current phase
 
-**Research/specification complete. Implementation not started.**
+**Research/specification complete. Reference assets complete. Implementation not started.**
 
-The repository was initially empty. It now contains the durable rules, exhaustive source/screenshot research, product behavior specification, UI/UX/motion specification, Windows architecture, and ordered implementation plan needed for Codex to begin without repeating Blitzit research.
+The repository now contains the durable rules, exhaustive source/screenshot research, product behavior specification, UI/UX/motion specification, Windows architecture, ordered implementation plan, original Blitzit screenshot references, and the canonical Narro branding asset needed for Codex to begin without repeating the original product research.
 
 ## Repository documentation complete
 
 - `AGENTS.md` — durable development, correctness, fidelity, performance, motion, Windows and scope rules
-- `README.md` — purpose, scope, selected stack and two-webview strategy
+- `README.md` — purpose, scope, branding, selected stack and two-webview strategy
 - `docs/PRODUCT_SPEC.md` — domain behavior and confirmed/inferred/local distinctions
 - `docs/UI_UX_SPEC.md` — main/focus/floating UI, states, visual language, motion, accessibility and screenshot checklist
 - `docs/ARCHITECTURE.md` — Tauri/React/Rust/SQLite boundaries and Windows runtime architecture
 - `docs/RESEARCH_EVIDENCE.md` — supplied screenshot-by-screenshot evidence inventory
 - `docs/SOURCE_AUDIT.md` — exhaustive current Help Center page-by-page audit, official video inventory, official blogs/roadmaps, Frill bugs/features and review synthesis
+- `docs/REFERENCES.md` — direct source/reference index
+- `docs/BEHAVIOR_MATRIX.md` — optional state/transition verification aid
+- `docs/DECISION_GATES.md` — optional implementation validation checkpoints
+- `docs/INTERACTION_CAPTURE_GUIDE.md` — optional future source-product interaction capture guide
 - `TODO.md` — ordered executable milestones and anti-regression acceptance criteria
+
+## Reference assets complete
+
+### Original Blitzit screenshots
+
+The repository contains the supplied original Blitzit screenshots under:
+
+`reference/original-blitzit-screenshots/`
+
+These are reference/evidence only. They are available to Codex for visual fidelity work and must not be treated as Narro-owned product assets or as infallible evidence of hidden behavior.
+
+### Narro branding
+
+Canonical Narro artwork is committed at:
+
+`assets/branding/narro-logo-master.png`
+
+Verified master metadata:
+
+- `1254 × 1254` RGBA
+- `916,927` bytes
+- SHA-256 `c553431248aafc705ce20230a69418769e41e019f0eea4dc88d0949c9bb05a5a`
+- Git blob SHA `41781e60334c4f873805915ddc4b2f1219e938e4`
+
+The root README references this master PNG directly. Platform-specific Windows/app/tray/icon derivatives should be generated from this source when implementation begins. Do not replace the master with a lower-resolution or heavily compressed derivative.
 
 ## Confirmed repository goal
 
@@ -323,7 +352,7 @@ Do not invent these until the relevant milestone requires a local choice:
 
 ## Naming
 
-The application name is **Narro**. The GitHub repository may temporarily retain its previous repository slug until it is renamed separately; repository-path references are not the application name.
+The application name and repository name are both **Narro**. Current repository: `MariosGiannakaras/Narro`.
 
 ## Next executable work
 
