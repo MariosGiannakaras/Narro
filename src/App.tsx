@@ -32,17 +32,30 @@ function App() {
     }
   }
 
+  function applyMonitorList(discovered: MonitorDescriptor[]) {
+    setMonitors(discovered);
+    setSelectedMonitorKey((current) =>
+      isValidMonitorSelection(current, discovered) ? current : discovered[0]?.key ?? null,
+    );
+  }
+
+  function clearMonitorList() {
+    setMonitors([]);
+    setSelectedMonitorKey(null);
+  }
+
+  async function fetchAndApplyMonitors() {
+    const discovered = await invoke<MonitorDescriptor[]>("list_monitors");
+    applyMonitorList(discovered);
+    return discovered;
+  }
+
   async function refreshMonitors() {
     try {
-      const discovered = await invoke<MonitorDescriptor[]>("list_monitors");
-      setMonitors(discovered);
-      setSelectedMonitorKey((current) =>
-        isValidMonitorSelection(current, discovered) ? current : discovered[0]?.key ?? null,
-      );
+      await fetchAndApplyMonitors();
       setError(null);
     } catch (failure: unknown) {
-      setMonitors([]);
-      setSelectedMonitorKey(null);
+      clearMonitorList();
       setError(formatInvokeError(failure));
     }
   }
@@ -122,10 +135,26 @@ function App() {
         side,
       });
       setError(null);
-      await refreshMonitors();
+
+      try {
+        await fetchAndApplyMonitors();
+      } catch (refreshFailure: unknown) {
+        clearMonitorList();
+        setError(
+          `Position succeeded, but monitor refresh failed: ${formatInvokeError(refreshFailure)}`,
+        );
+      }
     } catch (failure: unknown) {
-      setError(formatInvokeError(failure));
-      await refreshMonitors();
+      const primaryFailure = formatInvokeError(failure);
+      try {
+        await fetchAndApplyMonitors();
+        setError(primaryFailure);
+      } catch (refreshFailure: unknown) {
+        clearMonitorList();
+        setError(
+          `${primaryFailure} | Monitor refresh also failed: ${formatInvokeError(refreshFailure)}`,
+        );
+      }
     }
   }
 
