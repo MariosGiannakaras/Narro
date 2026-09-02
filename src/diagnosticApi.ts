@@ -28,6 +28,7 @@ export type PhysicalRect = {
 };
 
 export type MonitorDescriptor = {
+  key: string;
   index: number;
   name: string | null;
   scaleFactor: number;
@@ -87,16 +88,24 @@ export function applyNewerState(
 }
 
 export function isValidMonitorSelection(
-  monitorIndex: number | null,
+  monitorKey: string | null,
   monitors: readonly MonitorDescriptor[],
-): monitorIndex is number {
+): monitorKey is string {
   return (
-    monitorIndex !== null &&
-    Number.isSafeInteger(monitorIndex) &&
-    monitorIndex >= 0 &&
-    monitorIndex < monitors.length &&
-    monitors[monitorIndex]?.index === monitorIndex
+    monitorKey !== null &&
+    monitorKey.length > 0 &&
+    monitors.some((monitor) => monitor.key === monitorKey)
   );
+}
+
+export function findSelectedMonitor(
+  monitorKey: string | null,
+  monitors: readonly MonitorDescriptor[],
+): MonitorDescriptor | null {
+  if (!isValidMonitorSelection(monitorKey, monitors)) {
+    return null;
+  }
+  return monitors.find((monitor) => monitor.key === monitorKey) ?? null;
 }
 
 export function formatMonitorLabel(monitor: MonitorDescriptor): string {
