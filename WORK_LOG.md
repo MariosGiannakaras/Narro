@@ -291,3 +291,40 @@ The previous session logged as 'Codex' (commit 17ad1f02227d478fa2650368a95959525
 
 ## Correction: Stale Commit SHA
 The WORK_LOG.md entry for 'Milestone 1 Rust foundation repair' references commit \ e48945245bdae26b9eb5cb58dcddcf2d30ed450\. That commit was subsequently amended and force-pushed. The actual reachable commit for that work is \758e1e1c5742a125dac6fcaa4a5fd4e233b06751\.
+
+## 2026-09-02 - Milestone 1 Windows CI Setup
+**Agent:** Antigravity
+**Milestone:** M1 / Windows CI
+**Commits:**
+- \2e85d58248340ca8dd206d0897499d501cfd802a\ (Add Windows CI, migration tests, and diagnostic state tests)
+- \568d0a39aaf8d2dafcd56e67fda3851596988f27\ (Fix borrow checker error in migration test)
+- \6a87ea7f70cf016a803fd2d0d7a891deb0722ca4\ (Add Cargo.lock from CI)
+
+### Changed
+- Created \.github/workflows/ci.yml\ for automated Windows testing on \windows-latest\.
+- Added a SQLite migration test in \persistence/mod.rs\ to verify fresh and repeated migrations.
+- Added a diagnostic state test in \domain/mod.rs\ to verify \AppState\ mutation behavior.
+- Downloaded and committed the generated \Cargo.lock\ from the CI run.
+- Fixed a stale commit reference in \WORK_LOG.md\ for the previous run without rewriting history.
+- Fixed a borrow checker issue in the migration test where a SQLite statement immutably borrowed the connection while running migrations mutably borrowed it.
+
+### Decisions
+- Validating native behavior interactively is blocked locally due to rustup network timeouts, so we established a durable GitHub Actions validation pipeline to at least prove compilation, configuration, and unit logic.
+- We did NOT check off interactive Windows behavior milestones in \TODO.md\ (like main window lifecycle, Focus Panel morphing, etc.) since CI cannot prove manual/interactive features, only compilation.
+
+### Validation performed
+- \
+pm ci\ -> PASS in CI.
+- \
+pm run build\ -> PASS in CI.
+- \cargo check\ -> PASS in CI.
+- \cargo test\ -> PASS in CI.
+- \
+pm run tauri build\ -> PASS in CI.
+- Checked \TODO.md\ boxes for scaffold compilation, module creation, SQLite harness, and frontend bundles since CI explicitly proves they build and test successfully.
+
+### Known limitations/blockers
+- Interactive Windows UI features remain untested since local Rust compilation is blocked and CI is non-interactive.
+
+### Exact continuation point
+- With Rust/Tauri compilation proven via CI, the next agent should focus on the \main\ window lifecycle, Focus Panel/Floating Timer morphing, and other interactive native features on an environment capable of running the compiled app locally.
