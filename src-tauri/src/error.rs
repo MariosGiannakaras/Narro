@@ -55,10 +55,17 @@ impl CommandError {
         )
     }
 
-    pub fn monitor_not_found(index: usize, count: usize) -> Self {
+    pub fn invalid_monitor_descriptor(index: usize, reason: impl Display) -> Self {
         Self::new(
-            "MONITOR_NOT_FOUND",
-            format!("monitor index {index} is invalid for the current topology ({count} monitor(s))"),
+            "MONITOR_DESCRIPTOR_INVALID",
+            format!("monitor {index} reported invalid geometry or scale data: {reason}"),
+        )
+    }
+
+    pub fn stale_monitor_selection() -> Self {
+        Self::new(
+            "MONITOR_SELECTION_STALE",
+            "the selected monitor is no longer present in the current display topology; refresh monitors and retry",
         )
     }
 
@@ -111,10 +118,9 @@ mod tests {
     }
 
     #[test]
-    fn monitor_not_found_error_reports_current_topology_size() {
-        let error = CommandError::monitor_not_found(3, 2);
-        assert_eq!(error.code, "MONITOR_NOT_FOUND");
-        assert!(error.message.contains("3"));
-        assert!(error.message.contains("2 monitor(s)"));
+    fn stale_monitor_selection_has_actionable_stable_code() {
+        let error = CommandError::stale_monitor_selection();
+        assert_eq!(error.code, "MONITOR_SELECTION_STALE");
+        assert!(error.message.contains("refresh monitors"));
     }
 }
