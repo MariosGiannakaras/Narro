@@ -1,223 +1,233 @@
 pub mod domain;
-pub mod persistence;
-pub mod timer;
-pub mod scheduling;
-pub mod recurrence;
-pub mod windows;
+pub mod error;
 pub mod notifications;
+pub mod persistence;
+pub mod recurrence;
+pub mod scheduling;
 pub mod shortcuts;
+pub mod timer;
+pub mod windows;
 
 use domain::{AppState, AppStatePayload};
-use tauri::{Emitter, Manager, State};
+use error::{CommandError, CommandResult};
+use std::fmt::Display;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
+use tauri::{Emitter, Manager, State};
 
-#[tauri::command]
-fn get_state(state: State<'_, AppState>) -> AppStatePayload {
-    state.data.lock().unwrap().clone()
+const MAIN_WINDOW_LABEL: &str = "main";
+const FOCUS_SURFACE_LABEL: &str = "focusSurface";
+const STATE_CHANGED_EVENT: &str = "state-changed";
+
+fn report_state_change(app_handle: &tauri::AppHandle, payload: &AppStatePayload) {
+    if let Err(error) = app_handle.emit(STATE_CHANGED_EVENT, payload.clone()) {
+        eprintln!(
+            "Warning: authoritative state revision {} changed, but broadcast failed: {error}",
+            payload.revision
+        );
+    }
 }
 
 #[tauri::command]
-fn toggle_timer(state: State<'_, AppState>, app_handle: tauri::AppHandle) -> AppStatePayload {
-    let cloned_data = {
-        let mut data = state.data.lock().unwrap();
-        data.is_running = !data.is_running;
-        if data.is_running && data.active_task.is_none() {
-            data.active_task = Some("Implement Milestone 1".into());
-        } else if !data.is_running {
-            data.active_task = None;
-        }
-        data.clone()
-    };
+fn get_state(state: State<'_, AppState>) -> CommandResult<AppStatePayload> {
+    state.snapshot().map_err(CommandError::from)
+}
 
-    let _ = app_handle.emit("state-changed", cloned_data.clone());
-    cloned_data
+#[tauri::command]
+fn toggle_timer(
+    state: State<'_, AppState>,
+    app_handle: tauri::AppHandle,
+) -> CommandResult<AppStatePayload> {
+    let payload = state.toggle_timer().map_err(CommandError::from)?;
+    report_state_change(&app_handle, &payload);
+    Ok(payload)
 }
 
 #[tauri::command]
 fn mutate_state(
     state: State<'_, AppState>,
     app_handle: tauri::AppHandle,
-) -> Result<AppStatePayload, String> {
-    let cloned_data = {
-        let mut data = state.data.lock().unwrap();
-        data.counter += 1;
-        data.active_task = Some(format!("Task mutation {}", data.counter));
-        data.clone()
-    };
-
-    app_handle
-        .emit("state-changed", cloned_data.clone())
-        .map_err(|e| e.to_string())?;
-    Ok(cloned_data)
+) -> CommandResult<AppStatePayload> {
+    let payload = state.increment_counter().map_err(CommandError::from)?;
+    report_state_change(&app_handle, &payload);
+    Ok(payload)
 }
 
-fn show_and_focus(window: &tauri::WebviewWindow) -> Result<(), String> {
-    window.show().map_err(|e| e.to_string())?;
-    window.set_focus().map_err(|e| e.to_string())?;
+fn get_window(app_handle: &tauri::AppHandle, label: &str) -> CommandResult<tauri::WebviewWindow> {
+    app_handle
+        .get_webview_window(label)
+        .ok_or_else(|| CommandError::window_not_found(label))
+}
+
+fn map_window_error(label: &str, operation: &str, error: impl Display) -> CommandError {
+    CommandError::window_operation(label, operation, error)
+}
+
+fn show_and_focus(window: &tauri::WebviewWindow) -> CommandResult<()> {
+    let label = window.label();
+    window
+        .show()
+        .map_err(|error| map_window_error(label, "show", error))?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(label, "focus", error))?;
     Ok(())
 }
 
-fn build_main_window(app_handle: &tauri::AppHandle) -> Result<tauri::WebviewWindow, String> {
+fn build_main_window(app_handle: &tauri::AppHandle) -> CommandResult<tauri::WebviewWindow> {
     tauri::WebviewWindowBuilder::new(
         app_handle,
-        "main",
+        MAIN_WINDOW_LABEL,
         tauri::WebviewUrl::App("index.html".into()),
     )
     .title("Narro Main")
     .inner_size(800.0, 600.0)
     .build()
-    .map_err(|e| e.to_string())
+    .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "create", error))
 }
 
-async fn show_or_recreate_main(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("main") {
+async fn show_or_recreate_main(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    if let Some(window) = app_handle.get_webview_window(MAIN_WINDOW_LABEL) {
         return show_and_focus(&window);
     }
 
     let window = build_main_window(&app_handle)?;
-    window.set_focus().map_err(|e| e.to_string())?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "focus", error))?;
     Ok(())
 }
 
 fn request_show_or_recreate_main(app_handle: tauri::AppHandle) {
     tauri::async_runtime::spawn(async move {
         if let Err(error) = show_or_recreate_main(app_handle).await {
-            eprintln!("Failed to show/recreate Narro main window: {error}");
+            eprintln!("Failed to show or recreate Narro main window: {error}");
         }
     });
 }
 
 #[tauri::command]
-fn main_window_show(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("main") {
-        window.show().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("main window not found".into())
-    }
+fn main_window_show(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
+    window
+        .show()
+        .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "show", error))
 }
 
 #[tauri::command]
-fn main_window_hide(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("main") {
-        window.hide().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("main window not found".into())
-    }
+fn main_window_hide(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
+    window
+        .hide()
+        .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "hide", error))
 }
 
 #[tauri::command]
-fn main_window_focus(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("main") {
-        window.set_focus().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("main window not found".into())
-    }
+fn main_window_focus(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "focus", error))
 }
 
 #[tauri::command]
-fn main_window_destroy(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("main") {
-        window.destroy().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("main window not found".into())
-    }
+fn main_window_destroy(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
+    window
+        .destroy()
+        .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "destroy", error))
 }
 
 #[tauri::command]
-fn main_window_close(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("main") {
-        window.close().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("main window not found".into())
-    }
+fn main_window_close(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
+    window
+        .close()
+        .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "close", error))
 }
 
 #[tauri::command]
-async fn main_window_recreate(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if app_handle.get_webview_window("main").is_some() {
-        return Err("main window already exists".into());
+async fn main_window_recreate(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    if app_handle.get_webview_window(MAIN_WINDOW_LABEL).is_some() {
+        return Err(CommandError::window_already_exists(MAIN_WINDOW_LABEL));
     }
 
     let window = build_main_window(&app_handle)?;
-    window.set_focus().map_err(|e| e.to_string())?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "focus", error))?;
     Ok(())
 }
 
 #[tauri::command]
-fn focus_surface_show(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("focusSurface") {
-        window.show().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("focusSurface window not found".into())
-    }
+fn focus_surface_show(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    window
+        .show()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))
 }
 
 #[tauri::command]
-fn focus_surface_hide(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("focusSurface") {
-        window.hide().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("focusSurface window not found".into())
-    }
+fn focus_surface_hide(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    window
+        .hide()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "hide", error))
 }
 
 #[tauri::command]
-fn focus_surface_focus(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("focusSurface") {
-        window.set_focus().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("focusSurface window not found".into())
-    }
+fn focus_surface_focus(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus", error))
+}
+
+enum FocusSurfaceMode {
+    Panel,
+    Timer,
+}
+
+fn apply_focus_surface_mode(
+    app_handle: &tauri::AppHandle,
+    mode: FocusSurfaceMode,
+) -> CommandResult<()> {
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    let (width, height, always_on_top, skip_taskbar) = match mode {
+        FocusSurfaceMode::Panel => (400.0, 700.0, false, false),
+        FocusSurfaceMode::Timer => (300.0, 100.0, true, true),
+    };
+
+    window
+        .set_size(tauri::Size::Logical(tauri::LogicalSize { width, height }))
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "resize", error))?;
+    window
+        .set_always_on_top(always_on_top)
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "set always-on-top", error))?;
+    window
+        .set_skip_taskbar(skip_taskbar)
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "set taskbar visibility", error))?;
+    window
+        .show()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
+    Ok(())
 }
 
 #[tauri::command]
-fn focus_surface_mode_panel(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("focusSurface") {
-        window
-            .set_size(tauri::Size::Logical(tauri::LogicalSize {
-                width: 400.0,
-                height: 700.0,
-            }))
-            .map_err(|e| e.to_string())?;
-        window.set_always_on_top(false).map_err(|e| e.to_string())?;
-        window.set_skip_taskbar(false).map_err(|e| e.to_string())?;
-        window.show().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("focusSurface window not found".into())
-    }
+fn focus_surface_mode_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    apply_focus_surface_mode(&app_handle, FocusSurfaceMode::Panel)
 }
 
 #[tauri::command]
-fn focus_surface_mode_timer(app_handle: tauri::AppHandle) -> Result<(), String> {
-    if let Some(window) = app_handle.get_webview_window("focusSurface") {
-        window
-            .set_size(tauri::Size::Logical(tauri::LogicalSize {
-                width: 300.0,
-                height: 100.0,
-            }))
-            .map_err(|e| e.to_string())?;
-        window.set_always_on_top(true).map_err(|e| e.to_string())?;
-        window.set_skip_taskbar(true).map_err(|e| e.to_string())?;
-        window.show().map_err(|e| e.to_string())?;
-        Ok(())
-    } else {
-        Err("focusSurface window not found".into())
-    }
+fn focus_surface_mode_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    apply_focus_surface_mode(&app_handle, FocusSurfaceMode::Timer)
 }
 
 #[tauri::command]
 fn list_windows(app_handle: tauri::AppHandle) -> Vec<String> {
-    app_handle.webview_windows().keys().cloned().collect()
+    let mut labels: Vec<_> = app_handle.webview_windows().keys().cloned().collect();
+    labels.sort_unstable();
+    labels
 }
 
 fn install_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
@@ -241,10 +251,13 @@ fn install_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
             if event.id() == "show-main" {
                 request_show_or_recreate_main(app_handle.clone());
             } else if event.id() == "show-focus" {
-                if let Some(window) = app_handle.get_webview_window("focusSurface") {
-                    if let Err(error) = show_and_focus(&window) {
-                        eprintln!("Failed to show Narro focus surface: {error}");
+                match get_window(app_handle, FOCUS_SURFACE_LABEL) {
+                    Ok(window) => {
+                        if let Err(error) = show_and_focus(&window) {
+                            eprintln!("Failed to show Narro focus surface: {error}");
+                        }
                     }
+                    Err(error) => eprintln!("Failed to show Narro focus surface: {error}"),
                 }
             } else if event.id() == "quit" {
                 app_handle.exit(0);
@@ -265,9 +278,40 @@ fn install_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+fn startup_error(context: &str, source: impl Display) -> std::io::Error {
+    std::io::Error::other(format!("{context}: {source}"))
+}
+
+fn initialize_persistence(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
+    let app_dir = app
+        .path()
+        .app_data_dir()
+        .map_err(|error| startup_error("resolve app data directory", error))?;
+    std::fs::create_dir_all(&app_dir)
+        .map_err(|error| startup_error("create app data directory", error))?;
+
+    let db_path = app_dir.join("narro.db");
+    let mut connection = rusqlite::Connection::open(&db_path)
+        .map_err(|error| startup_error("open Narro SQLite database", error))?;
+    persistence::run_migrations(&mut connection)
+        .map_err(|error| startup_error("run Narro database migrations", error))?;
+
+    let id = uuid::Uuid::new_v4().to_string();
+    let now = chrono::Utc::now().to_rfc3339();
+    connection
+        .execute(
+            "INSERT INTO _diagnostic_startup (id, started_at) VALUES (?1, ?2)",
+            rusqlite::params![id, now],
+        )
+        .map_err(|error| startup_error("write diagnostic startup record", error))?;
+
+    println!("SQLite migration and diagnostic startup insert succeeded. ID: {id}");
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    let result = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .manage(AppState::new())
         .invoke_handler(tauri::generate_handler![
@@ -289,27 +333,13 @@ pub fn run() {
         ])
         .setup(|app| {
             install_tray(app)?;
-
-            // Minimal SQLite wireup (not full persistence yet, just opening it to prove migration works).
-            let app_dir = app.path().app_data_dir().expect("Failed to get app_data_dir");
-            std::fs::create_dir_all(&app_dir)?;
-            let db_path = app_dir.join("narro.db");
-            let mut conn = rusqlite::Connection::open(db_path)?;
-
-            persistence::run_migrations(&mut conn)
-                .map_err(|e| Box::new(e) as Box<dyn std::error::Error>)?;
-
-            // Prove SQLite works.
-            let id = uuid::Uuid::new_v4().to_string();
-            let now = chrono::Utc::now().to_rfc3339();
-            conn.execute(
-                "INSERT INTO _diagnostic_startup (id, started_at) VALUES (?1, ?2)",
-                rusqlite::params![id, now],
-            )?;
-
-            println!("SQLite migration and insert successful. ID: {}", id);
+            initialize_persistence(app)?;
             Ok(())
         })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .run(tauri::generate_context!());
+
+    if let Err(error) = result {
+        eprintln!("Fatal Narro runtime error: {error}");
+        std::process::exit(1);
+    }
 }
