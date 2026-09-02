@@ -22,9 +22,11 @@ mod tests {
         assert!(res1.is_ok(), "Fresh migration should succeed");
         
         // Verify table exists
-        let mut stmt = conn.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='_diagnostic_startup'").unwrap();
-        let exists = stmt.exists([]).unwrap();
-        assert!(exists, "Table _diagnostic_startup should exist after migration");
+        {
+            let mut stmt = conn.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='_diagnostic_startup'").unwrap();
+            let exists = stmt.exists([]).unwrap();
+            assert!(exists, "Table _diagnostic_startup should exist after migration");
+        }
 
         // Repeated migration
         let res2 = run_migrations(&mut conn);
