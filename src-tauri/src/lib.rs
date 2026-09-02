@@ -10,6 +10,7 @@ pub mod windows;
 
 use domain::{AppState, AppStatePayload};
 use error::{CommandError, CommandResult};
+use shortcuts::{ConflictProbeResult, ShortcutState, ShortcutStatus};
 use std::fmt::Display;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
@@ -400,6 +401,35 @@ fn list_windows(app_handle: tauri::AppHandle) -> Vec<String> {
     labels
 }
 
+#[tauri::command]
+fn shortcut_status(state: State<'_, ShortcutState>) -> CommandResult<ShortcutStatus> {
+    shortcuts::status(&state).map_err(CommandError::from)
+}
+
+#[tauri::command]
+fn shortcut_register(
+    app_handle: tauri::AppHandle,
+    state: State<'_, ShortcutState>,
+) -> CommandResult<ShortcutStatus> {
+    shortcuts::register(&app_handle, &state).map_err(CommandError::from)
+}
+
+#[tauri::command]
+fn shortcut_unregister(
+    app_handle: tauri::AppHandle,
+    state: State<'_, ShortcutState>,
+) -> CommandResult<ShortcutStatus> {
+    shortcuts::unregister(&app_handle, &state).map_err(CommandError::from)
+}
+
+#[tauri::command]
+fn shortcut_probe_conflict(
+    app_handle: tauri::AppHandle,
+    state: State<'_, ShortcutState>,
+) -> CommandResult<ConflictProbeResult> {
+    shortcuts::probe_conflict(&app_handle, &state).map_err(CommandError::from)
+}
+
 fn install_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
     let show_main = MenuItem::with_id(app, "show-main", "Show Narro", true, None::<&str>)?;
     let show_focus =
@@ -479,6 +509,7 @@ pub fn run() {
     let result = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .manage(AppState::new())
+        .manage(ShortcutState::new())
         .invoke_handler(tauri::generate_handler![
             get_state,
             toggle_timer,
@@ -496,7 +527,11 @@ pub fn run() {
             focus_surface_mode_timer,
             list_windows,
             list_monitors,
-            position_focus_panel
+            position_focus_panel,
+            shortcut_status,
+            shortcut_register,
+            shortcut_unregister,
+            shortcut_probe_conflict
         ])
         .setup(|app| {
             install_tray(app)?;
@@ -504,6 +539,9 @@ pub fn run() {
             #[cfg(windows)]
             windows::install_display_change_observer(app)
                 .map_err(|error| startup_error("install display topology observer", error))?;
+            #[cfg(windows)]
+            shortcuts::install_shortcut_observer(app)
+                .map_err(|error| startup_error("install global shortcut observer", error))?;
             Ok(())
         })
         .run(tauri::generate_context!());
