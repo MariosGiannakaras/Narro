@@ -233,6 +233,15 @@ fn last_hotkey_error() -> io::Error {
     io::Error::last_os_error()
 }
 
+fn report_shortcut_state_change(app_handle: &tauri::AppHandle, status: &ShortcutStatus) {
+    if let Err(error) = app_handle.emit(SHORTCUT_EVENT, status.clone()) {
+        eprintln!(
+            "Warning: shortcut state revision {} changed, but broadcast failed: {error}",
+            status.revision
+        );
+    }
+}
+
 fn register_native(hwnd: RawHwnd, id: i32) -> Result<(), ShortcutError> {
     let result = unsafe { register_hot_key(hwnd, id, SHORTCUT_MODIFIERS, VK_F10) };
     if result != 0 {
@@ -296,7 +305,10 @@ pub fn register(
     register_native(hwnd, PRIMARY_HOTKEY_ID)?;
 
     match state.set_registered(true) {
-        Ok(status) => Ok(status),
+        Ok(status) => {
+            report_shortcut_state_change(app_handle, &status);
+            Ok(status)
+        }
         Err(error) => {
             if let Err(rollback_error) = unregister_native(hwnd, PRIMARY_HOTKEY_ID) {
                 eprintln!(
@@ -319,7 +331,21 @@ pub fn unregister(
 
     let hwnd = focus_surface_hwnd(app_handle)?;
     unregister_native(hwnd, PRIMARY_HOTKEY_ID)?;
-    state.set_registered(false).map_err(ShortcutError::from)
+
+    match state.set_registered(false) {
+        Ok(status) => {
+            report_shortcut_state_change(app_handle, &status);
+            Ok(status)
+        }
+        Err(error) => {
+            if let Err(rollback_error) = register_native(hwnd, PRIMARY_HOTKEY_ID) {
+                eprintln!(
+                    "Shortcut state update failed after UnregisterHotKey and rollback also failed: {rollback_error}"
+                );
+            }
+            Err(error.into())
+        }
+    }
 }
 
 pub fn probe_conflict(
@@ -385,11 +411,7 @@ fn schedule_trigger_recording() {
     tauri::async_runtime::spawn(async move {
         let state = app_handle.state::<ShortcutState>();
         match state.record_trigger() {
-            Ok(status) => {
-                if let Err(error) = app_handle.emit(SHORTCUT_EVENT, status) {
-                    eprintln!("Global shortcut fired but event broadcast failed: {error}");
-                }
-            }
+            Ok(status) => report_shortcut_state_change(&app_handle, &status),
             Err(error) => eprintln!("Failed to record global shortcut trigger: {error}"),
         }
     });
