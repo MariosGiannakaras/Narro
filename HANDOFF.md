@@ -10,6 +10,8 @@ Before working, also read `AGENTS.md`, `AGENT_WORKFLOW.md`, `STATUS.md`, and the
 
 Antigravity created an initial scaffold in commit `ca41817b221e87dbf040ed99ca9d0cb54ee13e92`, but the scaffold has **not been built or validated with Rust/Tauri on Windows**. Treat it as a draft starting point, not as completed Milestone 1 work.
 
+**Recommended next agent: Codex.** Use `prompts/CODEX_M1_REVIEW_FIX.md` for the next session. It is specifically scoped to audit/fix/validate this scaffold before broader Milestone 1 native capability work.
+
 ## Last implementation/review agents
 
 - Antigravity — 2026-09-02: initial scaffold.
@@ -74,7 +76,7 @@ No `src-tauri/Cargo.lock` is present because Cargo has not successfully run. Onc
 
 ## Next actions — recommended order
 
-- [ ] Synchronize with latest `main`; inspect commit `ca41817b...` and this audit.
+- [ ] Synchronize with latest `main`; inspect commit `ca41817b...`, this audit, and `prompts/CODEX_M1_REVIEW_FIX.md`.
 - [ ] Correct `TODO.md` evidence state: revert/qualify Antigravity's premature `[x]` items unless validation is performed immediately.
 - [ ] Install/use a functioning stable Rust toolchain on Windows and record versions (`rustc`, `cargo`, Node/npm, Tauri CLI).
 - [ ] Run `npm run build`; fix frontend/TypeScript errors before treating the scaffold as valid.
@@ -118,6 +120,7 @@ Start with:
 - `TODO.md` → Milestone 1 only
 - `WORK_LOG.md`
 - `docs/ARCHITECTURE.md`
+- `prompts/CODEX_M1_REVIEW_FIX.md`
 - commit `ca41817b221e87dbf040ed99ca9d0cb54ee13e92`
 
 Inspect especially:
