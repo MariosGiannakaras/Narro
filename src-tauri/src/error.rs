@@ -119,7 +119,9 @@ impl From<StateError> for CommandError {
 impl From<ShortcutError> for CommandError {
     fn from(error: ShortcutError) -> Self {
         let code = match &error {
-            ShortcutError::WindowUnavailable => "GLOBAL_SHORTCUT_WINDOW_UNAVAILABLE",
+            ShortcutError::WindowUnavailable | ShortcutError::WindowHandleUnavailable(_) => {
+                "GLOBAL_SHORTCUT_WINDOW_UNAVAILABLE"
+            }
             ShortcutError::ObserverAlreadyInitialized | ShortcutError::ObserverInstallFailed(_) => {
                 "GLOBAL_SHORTCUT_OBSERVER_FAILED"
             }
@@ -180,6 +182,14 @@ mod tests {
         });
         assert_eq!(error.code, "GLOBAL_SHORTCUT_CONFLICT");
         assert!(error.message.contains("already registered"));
+    }
+
+    #[test]
+    fn shortcut_window_handle_failure_uses_window_code() {
+        let error = CommandError::from(ShortcutError::WindowHandleUnavailable(
+            "native handle unavailable".into(),
+        ));
+        assert_eq!(error.code, "GLOBAL_SHORTCUT_WINDOW_UNAVAILABLE");
     }
 
     #[test]
