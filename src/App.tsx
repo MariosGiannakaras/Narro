@@ -8,6 +8,7 @@ import {
   type FocusPanelSide,
   type MonitorDescriptor,
   applyNewerState,
+  findSelectedMonitor,
   formatInvokeError,
   formatMonitorLabel,
   isValidMonitorSelection,
@@ -19,7 +20,7 @@ function App() {
   const [state, setState] = useState<AppStatePayload | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
-  const [selectedMonitorIndex, setSelectedMonitorIndex] = useState<number | null>(null);
+  const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function refreshWindows() {
@@ -35,13 +36,13 @@ function App() {
     try {
       const discovered = await invoke<MonitorDescriptor[]>("list_monitors");
       setMonitors(discovered);
-      setSelectedMonitorIndex((current) =>
-        isValidMonitorSelection(current, discovered) ? current : discovered[0]?.index ?? null,
+      setSelectedMonitorKey((current) =>
+        isValidMonitorSelection(current, discovered) ? current : discovered[0]?.key ?? null,
       );
       setError(null);
     } catch (failure: unknown) {
       setMonitors([]);
-      setSelectedMonitorIndex(null);
+      setSelectedMonitorKey(null);
       setError(formatInvokeError(failure));
     }
   }
@@ -109,15 +110,15 @@ function App() {
     }
   }
 
-  async function positionFocusSurface(side: FocusPanelSide) {
-    if (!isValidMonitorSelection(selectedMonitorIndex, monitors)) {
+  async function positionFocusPanel(side: FocusPanelSide) {
+    if (!isValidMonitorSelection(selectedMonitorKey, monitors)) {
       setError("[MONITOR_SELECTION_INVALID] Select a currently available monitor first.");
       return;
     }
 
     try {
-      await invoke<void>("position_focus_surface", {
-        monitorIndex: selectedMonitorIndex,
+      await invoke<void>("position_focus_panel", {
+        monitorKey: selectedMonitorKey,
         side,
       });
       setError(null);
@@ -129,20 +130,17 @@ function App() {
   }
 
   function handleMonitorSelection(value: string) {
-    const candidate = Number(value);
-    if (!Number.isSafeInteger(candidate) || candidate < 0 || candidate >= monitors.length) {
-      setSelectedMonitorIndex(null);
+    if (!isValidMonitorSelection(value, monitors)) {
+      setSelectedMonitorKey(null);
       setError("[MONITOR_SELECTION_INVALID] The selected monitor is not available.");
       return;
     }
 
-    setSelectedMonitorIndex(candidate);
+    setSelectedMonitorKey(value);
     setError(null);
   }
 
-  const selectedMonitor = isValidMonitorSelection(selectedMonitorIndex, monitors)
-    ? monitors[selectedMonitorIndex]
-    : null;
+  const selectedMonitor = findSelectedMonitor(selectedMonitorKey, monitors);
 
   return (
     <main className="container" style={{ padding: "1rem", fontFamily: "sans-serif" }}>
@@ -222,13 +220,13 @@ function App() {
             <label>
               Monitor:{" "}
               <select
-                value={selectedMonitorIndex ?? ""}
+                value={selectedMonitorKey ?? ""}
                 onChange={(event) => handleMonitorSelection(event.target.value)}
                 disabled={monitors.length === 0}
               >
                 {monitors.length === 0 && <option value="">No monitor available</option>}
                 {monitors.map((monitor) => (
-                  <option key={monitor.index} value={monitor.index}>
+                  <option key={monitor.key} value={monitor.key}>
                     {formatMonitorLabel(monitor)}
                   </option>
                 ))}
@@ -242,15 +240,15 @@ function App() {
           )}
           <button
             disabled={!selectedMonitor}
-            onClick={() => void positionFocusSurface("left")}
+            onClick={() => void positionFocusPanel("left")}
           >
-            Position FocusSurface Left
+            Position Focus Panel Left
           </button>
           <button
             disabled={!selectedMonitor}
-            onClick={() => void positionFocusSurface("right")}
+            onClick={() => void positionFocusPanel("right")}
           >
-            Position FocusSurface Right
+            Position Focus Panel Right
           </button>
         </div>
       </div>
