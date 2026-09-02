@@ -10,7 +10,11 @@ Follow `AGENT_WORKFLOW.md` when adding entries.
 
 **Agent:** ChatGPT / repository preparation  
 **Milestone:** Pre-implementation → Milestone 1 handoff  
-**Commits:** preparation commits through the current multi-agent-workflow setup  
+**Commits:**  
+- `864b2b54c3430817b365796af58c23cd27e18ff3` — add multi-agent repository workflow  
+- `c49268729c6dc76c68aeb8f5b092eda112212fc1` — add current agent handoff state  
+- `a7c861c33bf0043857f6104b059ba13b4e682ee0` — add multi-agent work log  
+- `855aafcab4f8fce191d2cb06c0c26469b6966445` — add Antigravity Milestone 1 kickoff prompt  
 
 ### Changed
 
@@ -21,7 +25,8 @@ Follow `AGENT_WORKFLOW.md` when adding entries.
 - updated `STATUS.md` to state research/spec/reference assets are complete and implementation has not started;
 - added `AGENT_WORKFLOW.md` for Codex/Antigravity repository synchronization and checkbox discipline;
 - added `HANDOFF.md` as the live continuation point;
-- added this `WORK_LOG.md` as the chronological evidence log.
+- added this `WORK_LOG.md` as the chronological evidence log;
+- added `prompts/ANTIGRAVITY_M1.md` so the initial Antigravity instructions are also durable repository state rather than chat-only context.
 
 ### Decisions
 
@@ -30,6 +35,7 @@ Follow `AGENT_WORKFLOW.md` when adding entries.
 - Partially complete TODO items remain open; nested checkboxes may be added for meaningful verified sub-parts.
 - `HANDOFF.md` is rewritten as current work changes; `WORK_LOG.md` retains history.
 - Multi-agent documentation should be detailed enough for continuity but should not duplicate all specs or become a substitute for tests/evidence.
+- The initial Antigravity session is intentionally limited to Milestone 1. The current Tauri/two-webview design remains a hypothesis to validate, not an architecture that must be defended regardless of measurements.
 
 ### Validation performed
 
@@ -38,7 +44,14 @@ Follow `AGENT_WORKFLOW.md` when adding entries.
 - Previously verified canonical master metadata: `1254 × 1254` RGBA, SHA-256 `c553431248aafc705ce20230a69418769e41e019f0eea4dc88d0949c9bb05a5a`.
 - Confirmed root README references `assets/branding/narro-logo-master.png`.
 - Confirmed original Blitzit screenshot files are present in the repository reference folder.
+- Confirmed root multi-agent files `AGENT_WORKFLOW.md`, `HANDOFF.md`, and `WORK_LOG.md` exist on `main`.
+- Confirmed `prompts/ANTIGRAVITY_M1.md` is committed on `main`.
 - No application build/tests were run because implementation has not started.
+
+### TODO/STATUS updates
+
+- No Milestone 1 checkbox was marked complete; no capability has yet been implemented/validated.
+- `STATUS.md` remains correctly in the pre-implementation state.
 
 ### Known limitations/blockers
 
@@ -47,7 +60,7 @@ Follow `AGENT_WORKFLOW.md` when adding entries.
 
 ### Exact continuation point
 
-Begin `TODO.md` **Milestone 1** only. Read `HANDOFF.md`, `AGENTS.md`, `AGENT_WORKFLOW.md`, `STATUS.md`, and `docs/ARCHITECTURE.md` first. Build the minimum scaffold/capability spike; do not start polished Blitzit-style UI.
+Begin `TODO.md` **Milestone 1** only. Read `HANDOFF.md`, `AGENTS.md`, `AGENT_WORKFLOW.md`, `STATUS.md`, and `docs/ARCHITECTURE.md` first. Build the minimum scaffold/capability spike; do not start polished Blitzit-style UI. Antigravity can use the durable kickoff prompt at `prompts/ANTIGRAVITY_M1.md`.
 
 ---
 
