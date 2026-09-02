@@ -12,12 +12,13 @@ The repository is in the specification/bootstrap phase. Product behavior and UI 
 
 The Narro logo shown above is the official project identity supplied by the project owner. Repository branding assets and usage rules live in `assets/branding/`.
 
-- README/docs preview: `assets/branding/narro-logo.webp`
-- canonical source design: original 1254×1254 RGBA artwork recorded in `assets/branding/README.md`
-- Windows application, installer, taskbar and tray derivatives should be generated from the canonical Narro artwork when implementation begins
+- canonical master: `assets/branding/narro-logo-master.png`
+- verified master: 1254×1254 RGBA, 916,927 bytes
+- Windows application, installer, taskbar, tray and other platform derivatives should be generated from this master when implementation begins
 - do not substitute Blitzit branding or independently redesign/recolor the Narro mark
+- do not use a low-resolution or heavily compressed derivative as the primary Narro brand asset
 
-The lightweight WebP is a documentation preview, not the source for final high-resolution platform icons when the original master is available.
+The root README references the canonical PNG directly. Detailed derivative/usage rules are in `assets/branding/README.md`.
 
 ## How to interpret this repository
 
