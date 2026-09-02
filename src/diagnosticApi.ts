@@ -44,7 +44,7 @@ export function formatInvokeError(error: unknown): string {
   }
 
   try {
-    return JSON.stringify(error);
+    return JSON.stringify(error) ?? "Unknown command failure";
   } catch {
     return "Unknown command failure";
   }
