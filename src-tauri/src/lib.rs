@@ -98,7 +98,7 @@ fn main_window_close(app_handle: tauri::AppHandle) -> Result<(), String> {
 }
 
 #[tauri::command]
-fn main_window_recreate(app_handle: tauri::AppHandle) -> Result<(), String> {
+async fn main_window_recreate(app_handle: tauri::AppHandle) -> Result<(), String> {
     if app_handle.get_webview_window("main").is_none() {
         tauri::WebviewWindowBuilder::new(
             &app_handle,

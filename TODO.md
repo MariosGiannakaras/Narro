@@ -12,7 +12,8 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Create only two initial webview windows: `main` and `focusSurface`.
 - [ ] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state (fixed 800x600 recreation geometry only).
   - [x] implementation compiles in Windows CI
-  - [ ] interactive destroy/recreate/state-survival validation
+  - [x] interactive hide/show/destroy and state-survival validation
+  - [ ] interactive recreate validation
 - [ ] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
   - [x] implementation compiles in Windows CI
   - [ ] interactive validation
