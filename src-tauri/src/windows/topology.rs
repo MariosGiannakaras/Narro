@@ -100,23 +100,25 @@ fn schedule_display_recovery() {
         return;
     };
 
-    let recovery_handle = app_handle.clone();
-    if let Err(error) = app_handle.run_on_main_thread(move || {
-        match recover_visible_windows(&recovery_handle) {
-            Ok(moved_labels) if !moved_labels.is_empty() => {
-                println!(
-                    "Display topology recovery moved window(s): {}",
-                    moved_labels.join(", ")
-                );
+    tauri::async_runtime::spawn(async move {
+        let recovery_handle = app_handle.clone();
+        if let Err(error) = app_handle.run_on_main_thread(move || {
+            match recover_visible_windows(&recovery_handle) {
+                Ok(moved_labels) if !moved_labels.is_empty() => {
+                    println!(
+                        "Display topology recovery moved window(s): {}",
+                        moved_labels.join(", ")
+                    );
+                }
+                Ok(_) => {}
+                Err(error) => eprintln!("Display topology recovery failed: {error}"),
             }
-            Ok(_) => {}
-            Err(error) => eprintln!("Display topology recovery failed: {error}"),
+            RECOVERY_PENDING.store(false, Ordering::Release);
+        }) {
+            RECOVERY_PENDING.store(false, Ordering::Release);
+            eprintln!("Failed to schedule display topology recovery on the main thread: {error}");
         }
-        RECOVERY_PENDING.store(false, Ordering::Release);
-    }) {
-        RECOVERY_PENDING.store(false, Ordering::Release);
-        eprintln!("Failed to schedule display topology recovery: {error}");
-    }
+    });
 }
 
 fn monitor_work_area(monitor: &tauri::window::Monitor) -> PhysicalRect {
