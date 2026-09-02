@@ -44,6 +44,8 @@ function FocusApp() {
         <button onClick={() => runCmd("main_window_recreate")}>Recreate Main</button>
         <button onClick={() => runCmd("main_window_show")}>Show Main</button>
         <button onClick={() => runCmd("main_window_hide")}>Hide Main</button>
+        <button onClick={() => runCmd("main_window_destroy")}>Destroy Main</button>
+        <button onClick={() => runCmd("main_window_close")}>Close Main</button>
         <button onClick={() => runCmd("focus_surface_mode_panel")}>Panel Mode</button>
         <button onClick={() => runCmd("focus_surface_mode_timer")}>Timer Mode</button>
       </div>

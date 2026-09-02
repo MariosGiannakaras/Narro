@@ -10,13 +10,13 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Add Rust modules for app state, persistence, timers, scheduling, and window coordination.
 - [x] Add SQLite plus migration harness; create migration `0001` even if the initial schema is minimal.
 - [x] Create only two initial webview windows: `main` and `focusSurface`.
-- [ ] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state.
+- [ ] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state (fixed 800x600 recreation geometry only).
   - [x] implementation compiles in Windows CI
   - [ ] interactive destroy/recreate/state-survival validation
 - [ ] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
   - [x] implementation compiles in Windows CI
   - [ ] interactive validation
-- [ ] Prove switching those modes by resize/reposition/restyle of the same secondary webview.
+- [ ] Prove switching those modes by resize/restyle of the same secondary webview (monitor-edge repositioning deferred).
   - [x] implementation compiles in Windows CI
   - [ ] interactive validation
 - [ ] Prove always-on-top and skip-taskbar behavior for Floating Timer mode.
@@ -329,4 +329,5 @@ Do not implement these until Milestones 1–10 parity/reliability work is stable
 - cross-device sync
 - macOS/Linux/mobile/web versions
 - collaborative/shared lists
+
 
