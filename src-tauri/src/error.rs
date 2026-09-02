@@ -20,6 +20,13 @@ impl CommandError {
         }
     }
 
+    pub fn invalid_argument(argument: &str, reason: impl Display) -> Self {
+        Self::new(
+            "INVALID_ARGUMENT",
+            format!("invalid command argument '{argument}': {reason}"),
+        )
+    }
+
     pub fn window_not_found(label: &str) -> Self {
         Self::new(
             "WINDOW_NOT_FOUND",
@@ -115,6 +122,16 @@ mod tests {
 
         assert_eq!(value["code"], "WINDOW_NOT_FOUND");
         assert_eq!(value["message"], "window 'main' does not exist");
+    }
+
+    #[test]
+    fn invalid_argument_error_does_not_echo_unbounded_input_value() {
+        let error = CommandError::invalid_argument("monitorKey", "must be non-empty");
+        assert_eq!(error.code, "INVALID_ARGUMENT");
+        assert_eq!(
+            error.message,
+            "invalid command argument 'monitorKey': must be non-empty"
+        );
     }
 
     #[test]
