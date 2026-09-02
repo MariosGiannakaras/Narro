@@ -37,6 +37,19 @@ export type MonitorDescriptor = {
   workArea: PhysicalRect;
 };
 
+export type ShortcutStatus = {
+  accelerator: string;
+  registered: boolean;
+  triggerCount: number;
+  revision: number;
+};
+
+export type ShortcutConflictProbeResult = {
+  accelerator: string;
+  conflictDetected: boolean;
+  osErrorCode: number | null;
+};
+
 export type DiagnosticCommand =
   | "main_window_hide"
   | "main_window_show"
@@ -81,6 +94,16 @@ export function applyNewerState(
   current: AppStatePayload | null,
   incoming: AppStatePayload,
 ): AppStatePayload {
+  if (current === null || incoming.revision > current.revision) {
+    return incoming;
+  }
+  return current;
+}
+
+export function applyNewerShortcutStatus(
+  current: ShortcutStatus | null,
+  incoming: ShortcutStatus,
+): ShortcutStatus {
   if (current === null || incoming.revision > current.revision) {
     return incoming;
   }
