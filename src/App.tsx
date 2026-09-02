@@ -5,8 +5,12 @@ import "./App.css";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
+  type FocusPanelSide,
+  type MonitorDescriptor,
   applyNewerState,
   formatInvokeError,
+  formatMonitorLabel,
+  isValidMonitorSelection,
 } from "./diagnosticApi";
 
 type StateCommand = "mutate_state" | "toggle_timer";
@@ -14,6 +18,8 @@ type StateCommand = "mutate_state" | "toggle_timer";
 function App() {
   const [state, setState] = useState<AppStatePayload | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
+  const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
+  const [selectedMonitorIndex, setSelectedMonitorIndex] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function refreshWindows() {
@@ -21,6 +27,21 @@ function App() {
       const labels = await invoke<string[]>("list_windows");
       setWindows(labels);
     } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function refreshMonitors() {
+    try {
+      const discovered = await invoke<MonitorDescriptor[]>("list_monitors");
+      setMonitors(discovered);
+      setSelectedMonitorIndex((current) =>
+        isValidMonitorSelection(current, discovered) ? current : discovered[0]?.index ?? null,
+      );
+      setError(null);
+    } catch (failure: unknown) {
+      setMonitors([]);
+      setSelectedMonitorIndex(null);
       setError(formatInvokeError(failure));
     }
   }
@@ -60,6 +81,7 @@ function App() {
       });
 
     void refreshWindows();
+    void refreshMonitors();
 
     return () => {
       disposed = true;
@@ -86,6 +108,41 @@ function App() {
       setError(formatInvokeError(failure));
     }
   }
+
+  async function positionFocusSurface(side: FocusPanelSide) {
+    if (!isValidMonitorSelection(selectedMonitorIndex, monitors)) {
+      setError("[MONITOR_SELECTION_INVALID] Select a currently available monitor first.");
+      return;
+    }
+
+    try {
+      await invoke<void>("position_focus_surface", {
+        monitorIndex: selectedMonitorIndex,
+        side,
+      });
+      setError(null);
+      await refreshMonitors();
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+      await refreshMonitors();
+    }
+  }
+
+  function handleMonitorSelection(value: string) {
+    const candidate = Number(value);
+    if (!Number.isSafeInteger(candidate) || candidate < 0 || candidate >= monitors.length) {
+      setSelectedMonitorIndex(null);
+      setError("[MONITOR_SELECTION_INVALID] The selected monitor is not available.");
+      return;
+    }
+
+    setSelectedMonitorIndex(candidate);
+    setError(null);
+  }
+
+  const selectedMonitor = isValidMonitorSelection(selectedMonitorIndex, monitors)
+    ? monitors[selectedMonitorIndex]
+    : null;
 
   return (
     <main className="container" style={{ padding: "1rem", fontFamily: "sans-serif" }}>
@@ -156,6 +213,44 @@ function App() {
           </button>
           <button onClick={() => void runWindowCommand("focus_surface_mode_timer")}>
             FocusSurface -&gt; Timer
+          </button>
+
+          <hr />
+          <h3>Monitor Diagnostics</h3>
+          <button onClick={() => void refreshMonitors()}>Refresh Monitors</button>
+          <div style={{ marginTop: "0.5rem" }}>
+            <label>
+              Monitor:{" "}
+              <select
+                value={selectedMonitorIndex ?? ""}
+                onChange={(event) => handleMonitorSelection(event.target.value)}
+                disabled={monitors.length === 0}
+              >
+                {monitors.length === 0 && <option value="">No monitor available</option>}
+                {monitors.map((monitor) => (
+                  <option key={monitor.index} value={monitor.index}>
+                    {formatMonitorLabel(monitor)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          {selectedMonitor && (
+            <pre style={{ whiteSpace: "pre-wrap" }}>
+              {JSON.stringify(selectedMonitor, null, 2)}
+            </pre>
+          )}
+          <button
+            disabled={!selectedMonitor}
+            onClick={() => void positionFocusSurface("left")}
+          >
+            Position FocusSurface Left
+          </button>
+          <button
+            disabled={!selectedMonitor}
+            onClick={() => void positionFocusSurface("right")}
+          >
+            Position FocusSurface Right
           </button>
         </div>
       </div>
