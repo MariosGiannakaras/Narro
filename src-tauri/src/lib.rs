@@ -59,9 +59,7 @@ fn mutate_state(
 }
 
 #[tauri::command]
-fn global_shortcut_status(
-    app_handle: tauri::AppHandle,
-) -> shortcuts::ShortcutRegistrationStatus {
+fn global_shortcut_status(app_handle: tauri::AppHandle) -> shortcuts::ShortcutRegistrationStatus {
     shortcuts::status(&app_handle)
 }
 
