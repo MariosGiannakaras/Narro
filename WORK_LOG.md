@@ -328,3 +328,40 @@ pm run tauri build\ -> PASS in CI.
 
 ### Exact continuation point
 - With Rust/Tauri compilation proven via CI, the next agent should focus on the \main\ window lifecycle, Focus Panel/Floating Timer morphing, and other interactive native features on an environment capable of running the compiled app locally.
+
+## 2026-09-02 - Milestone 1 Native Runtime Harness Implementation
+**Agent:** Codex
+**Milestone:** M1 / Native Runtime
+**Commits:**
+- \d60f4bb\ (Implement M1 runtime harness (compilation verified, interactive tests pending))
+
+### Changed
+- Added \docs/M1_WINDOWS_RUNTIME_VALIDATION.md\ detailing precise manual test steps for native behavior (state sharing, window lifecycle, dynamic mode morphing).
+- Implemented diagnostic UI in \src/App.tsx\ (\main\ window) and \src/Focus.tsx\ (\ocusSurface\ window) that exercises Rust core commands.
+- Extended \AppStatePayload\ to include a \counter\ to clearly visualize real-time state mutation syncing.
+- Implemented core window lifecycle commands in \src-tauri/src/lib.rs\ (\main_window_hide\, \main_window_show\, \main_window_focus\, \main_window_destroy\, \main_window_recreate\).
+- Implemented focus morphological mode commands (\ocus_surface_mode_panel\, \ocus_surface_mode_timer\) adjusting size, always-on-top, and skip-taskbar constraints.
+- Updated \TODO.md\ with nested check-boxes clarifying that implementations compile in Windows CI, but interactive testing is pending.
+
+### Decisions
+- Validating native behavior interactively is STILL blocked locally due to the environment lacking a Rust toolchain / having network timeouts. 
+- Implemented the harness entirely via code and validated its structure against the Windows CI pipeline.
+- Did not check off any interactive UI/Windows \TODO.md\ top-level items because they must physically pass a local test to count as validated.
+
+### Validation performed
+- \
+pm ci\ -> PASS in CI.
+- \
+pm run build\ -> PASS in CI.
+- \cargo check\ -> PASS in CI.
+- \cargo test\ -> PASS in CI.
+- \
+pm run tauri build\ -> PASS in CI.
+- **Interactive Windows Tests -> NOT RUN** (Environment lacks interactive Webview2/Rust capability).
+
+### Known limitations/blockers
+- Interactive Windows UI features (Always-on-top, dynamic focus bounds) remain completely untested locally.
+
+### Exact continuation point
+- The native harness is fully built and compiles on Windows. The next agent must launch this on a real interactive Windows environment (e.g. running \
+pm run tauri dev\) and execute the manual procedures listed in \docs/M1_WINDOWS_RUNTIME_VALIDATION.md\ before adding polished UI.
