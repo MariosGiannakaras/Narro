@@ -2,7 +2,7 @@
 
 This document defines the manual validation procedures for the Tauri 2 native runtime harness on Windows.
 
-Automated Windows CI proves compilation, unit tests, dependency resolution and installer/artifact generation. It does **not** prove interactive desktop behavior such as cross-window event delivery, native window destruction/recreation, always-on-top, taskbar behavior or tray UX. Those observations must be performed on a real Windows desktop.
+Automated Windows CI proves compilation, unit tests, dependency resolution and installer/artifact generation. It does **not** prove interactive desktop behavior such as cross-window event delivery, native window destruction/recreation, always-on-top, taskbar behavior, tray UX or physical monitor placement. Those observations must be performed on a real Windows desktop.
 
 ## Preferred test build
 
@@ -101,7 +101,7 @@ Record:
 
 Important:
 
-- monitor-edge repositioning is **not implemented or validated in this slice**;
+- monitor-edge positioning is validated separately in Scenario 5;
 - the current diagnostic window remains manually resizable after a mode command; that is acceptable for M1 and is not final product sizing behavior.
 
 Record:
@@ -143,6 +143,47 @@ Record:
 - Tray Show Focus Surface: `PASS / FAIL`
 - Explicit Quit terminates process: `PASS / FAIL`
 - No hidden Narro process after Quit: `PASS / FAIL`
+
+## Scenario 5 — monitor enumeration and Focus Panel edge placement
+
+**Goal:** prove Narro can enumerate the current Windows display topology and place the Focus Panel against the selected monitor's left or right work-area edge without relying on a hard-coded primary-screen origin.
+
+This scenario proves explicit enumeration/placement only. **Automatic display-hotplug detection and recovery are a separate M1 capability and must not be inferred from this scenario.**
+
+1. Launch the current diagnostic build and click **Show FocusSurface**.
+2. In `main`, click **Refresh Monitors**.
+3. **PASS/FAIL:** does the monitor selector list the displays currently enabled in Windows Display Settings?
+4. Inspect the selected monitor descriptor. Confirm resolution, desktop position, work-area position/size and scale factor are plausible for that display.
+5. Choose a monitor and click **Position Focus Panel Left**.
+6. **PASS/FAIL:** does the same `focusSurface` switch to Panel mode and move to the selected monitor's left work-area edge?
+7. Click **Position Focus Panel Right**.
+8. **PASS/FAIL:** does the same panel move to that monitor's right work-area edge?
+9. If more than one monitor is available, select each monitor in turn and repeat left/right placement.
+10. **PASS/FAIL:** does the panel move to the chosen display rather than always using the primary monitor?
+11. Confirm the panel top edge uses the Windows work area and does not intentionally position underneath a taskbar/docked work-area exclusion.
+12. **PASS/FAIL:** does **Refresh Window List** still report only `main` and `focusSurface`?
+
+### Optional stale-selection fail-safe check
+
+Perform this only if disconnecting a secondary display is convenient and safe for your desktop setup.
+
+1. With at least two monitors connected, click **Refresh Monitors** and select a secondary display.
+2. Disconnect/disable that selected display **without clicking Refresh Monitors again**.
+3. Click **Position Focus Panel Left** or **Right** using the now-stale selection.
+4. **PASS/FAIL:** does Narro reject the action with `MONITOR_SELECTION_STALE` (or an equivalent explicit topology error) instead of silently targeting a different remaining monitor?
+5. Click **Refresh Monitors** and confirm the selector updates to the currently available displays.
+
+This optional check validates fail-safe stale-selection handling. It does **not** validate automatic hotplug detection/re-enumeration.
+
+Record:
+
+- Monitor enumeration matches Windows topology: `PASS / FAIL`
+- Selected-monitor left placement: `PASS / FAIL`
+- Selected-monitor right placement: `PASS / FAIL`
+- Multi-monitor target selection (if applicable): `PASS / FAIL / NOT APPLICABLE`
+- Work-area placement is plausible: `PASS / FAIL`
+- Same two-webview model preserved: `PASS / FAIL`
+- Stale monitor selection rejected safely: `PASS / FAIL / NOT RUN`
 
 ## What to send back after testing
 
