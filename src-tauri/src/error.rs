@@ -125,21 +125,16 @@ impl From<ShortcutError> for CommandError {
             ShortcutError::ObserverAlreadyInitialized | ShortcutError::ObserverInstallFailed(_) => {
                 "GLOBAL_SHORTCUT_OBSERVER_FAILED"
             }
-            ShortcutError::MainThreadDispatchFailed(_) | ShortcutError::MainThreadResponseFailed => {
-                "GLOBAL_SHORTCUT_DISPATCH_FAILED"
-            }
+            ShortcutError::MainThreadDispatchFailed(_)
+            | ShortcutError::MainThreadResponseFailed => "GLOBAL_SHORTCUT_DISPATCH_FAILED",
             ShortcutError::RegistrationConflict { .. } => "GLOBAL_SHORTCUT_CONFLICT",
             ShortcutError::RegistrationFailed { .. } => "GLOBAL_SHORTCUT_REGISTER_FAILED",
             ShortcutError::UnregisterFailed { .. } => "GLOBAL_SHORTCUT_UNREGISTER_FAILED",
             ShortcutError::ConflictProbeRequiresUnregistered => {
                 "GLOBAL_SHORTCUT_PROBE_REQUIRES_UNREGISTERED"
             }
-            ShortcutError::ConflictProbeUnexpectedFailure { .. } => {
-                "GLOBAL_SHORTCUT_PROBE_FAILED"
-            }
-            ShortcutError::ConflictProbeCleanupFailed(_) => {
-                "GLOBAL_SHORTCUT_PROBE_CLEANUP_FAILED"
-            }
+            ShortcutError::ConflictProbeUnexpectedFailure { .. } => "GLOBAL_SHORTCUT_PROBE_FAILED",
+            ShortcutError::ConflictProbeCleanupFailed(_) => "GLOBAL_SHORTCUT_PROBE_CLEANUP_FAILED",
         };
         Self::new(code, error.to_string())
     }
