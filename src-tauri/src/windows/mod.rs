@@ -310,11 +310,7 @@ mod tests {
         };
 
         assert_eq!(
-            recover_window_top_left(
-                current,
-                &[PRIMARY_WORK_AREA, secondary],
-                PRIMARY_WORK_AREA,
-            ),
+            recover_window_top_left(current, &[PRIMARY_WORK_AREA, secondary], PRIMARY_WORK_AREA,),
             Ok(PhysicalPoint { x: -1600, y: 500 })
         );
     }
@@ -337,11 +333,7 @@ mod tests {
         };
 
         assert_eq!(
-            recover_window_top_left(
-                current,
-                &[PRIMARY_WORK_AREA, secondary],
-                PRIMARY_WORK_AREA,
-            ),
+            recover_window_top_left(current, &[PRIMARY_WORK_AREA, secondary], PRIMARY_WORK_AREA,),
             Ok(PhysicalPoint { x: 1920, y: 100 })
         );
     }
@@ -357,11 +349,7 @@ mod tests {
         };
 
         assert_eq!(
-            recover_window_top_left(
-                detached_window,
-                &[PRIMARY_WORK_AREA],
-                PRIMARY_WORK_AREA,
-            ),
+            recover_window_top_left(detached_window, &[PRIMARY_WORK_AREA], PRIMARY_WORK_AREA,),
             Ok(PhysicalPoint { x: 1420, y: 200 })
         );
     }
@@ -384,11 +372,7 @@ mod tests {
         };
 
         assert_eq!(
-            recover_window_top_left(
-                current,
-                &[invalid, PRIMARY_WORK_AREA],
-                PRIMARY_WORK_AREA,
-            ),
+            recover_window_top_left(current, &[invalid, PRIMARY_WORK_AREA], PRIMARY_WORK_AREA,),
             Ok(PhysicalPoint { x: 1420, y: 100 })
         );
     }
