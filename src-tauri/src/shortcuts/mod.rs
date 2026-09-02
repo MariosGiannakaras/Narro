@@ -136,10 +136,14 @@ pub enum ShortcutError {
 impl Display for ShortcutError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::WindowUnavailable => formatter
-                .write_str("focusSurface is unavailable for global shortcut registration"),
+            Self::WindowUnavailable => {
+                formatter.write_str("focusSurface is unavailable for global shortcut registration")
+            }
             Self::WindowHandleUnavailable(detail) => {
-                write!(formatter, "focusSurface native window handle is unavailable: {detail}")
+                write!(
+                    formatter,
+                    "focusSurface native window handle is unavailable: {detail}"
+                )
             }
             Self::ObserverAlreadyInitialized => {
                 formatter.write_str("global shortcut observer was already initialized")
@@ -156,9 +160,8 @@ impl Display for ShortcutError {
                     "failed to dispatch global shortcut operation to the Windows UI thread: {detail}"
                 )
             }
-            Self::MainThreadResponseFailed => formatter.write_str(
-                "global shortcut UI-thread operation ended without returning a result",
-            ),
+            Self::MainThreadResponseFailed => formatter
+                .write_str("global shortcut UI-thread operation ended without returning a result"),
             Self::RegistrationConflict { os_error_code } => {
                 write!(
                     formatter,
@@ -264,9 +267,7 @@ unsafe extern "system" fn shortcut_subclass_proc(
         schedule_shortcut_trigger();
     } else if message == WM_NC_DESTROY {
         cleanup_on_window_destroy(hwnd);
-        let _ = unsafe {
-            remove_window_subclass(hwnd, Some(shortcut_subclass_proc), subclass_id)
-        };
+        let _ = unsafe { remove_window_subclass(hwnd, Some(shortcut_subclass_proc), subclass_id) };
     }
 
     unsafe { def_subclass_proc(hwnd, message, wparam, lparam) }
@@ -372,8 +373,7 @@ fn register_on_ui_thread(
     }
 
     let hwnd = focus_surface_hwnd(app_handle)?;
-    let registered =
-        unsafe { register_hot_key(hwnd, PRIMARY_HOTKEY_ID, SHORTCUT_MODIFIERS, VK_N) };
+    let registered = unsafe { register_hot_key(hwnd, PRIMARY_HOTKEY_ID, SHORTCUT_MODIFIERS, VK_N) };
     if registered == 0 {
         return Err(classify_registration_error(io::Error::last_os_error()));
     }
@@ -413,14 +413,8 @@ fn probe_conflict_on_ui_thread(
     }
 
     let hwnd = focus_surface_hwnd(app_handle)?;
-    let probe_registered = unsafe {
-        register_hot_key(
-            hwnd,
-            CONFLICT_PROBE_HOTKEY_ID,
-            SHORTCUT_MODIFIERS,
-            VK_N,
-        )
-    };
+    let probe_registered =
+        unsafe { register_hot_key(hwnd, CONFLICT_PROBE_HOTKEY_ID, SHORTCUT_MODIFIERS, VK_N) };
     if probe_registered == 0 {
         let error = io::Error::last_os_error();
         if error.raw_os_error() == Some(ERROR_HOTKEY_ALREADY_REGISTERED) {
