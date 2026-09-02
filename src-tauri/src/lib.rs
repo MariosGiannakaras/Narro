@@ -24,7 +24,7 @@ const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const STATE_CHANGED_EVENT: &str = "state-changed";
 const MAX_MONITOR_KEY_LEN: usize = 2048;
 
-fn report_state_change(app_handle: &tauri::AppHandle, payload: &AppStatePayload) {
+pub(crate) fn report_state_change(app_handle: &tauri::AppHandle, payload: &AppStatePayload) {
     if let Err(error) = app_handle.emit(STATE_CHANGED_EVENT, payload.clone()) {
         eprintln!(
             "Warning: authoritative state revision {} changed, but broadcast failed: {error}",
@@ -56,6 +56,40 @@ fn mutate_state(
     let payload = state.increment_counter().map_err(CommandError::from)?;
     report_state_change(&app_handle, &payload);
     Ok(payload)
+}
+
+#[tauri::command]
+fn global_shortcut_status(
+    app_handle: tauri::AppHandle,
+) -> shortcuts::ShortcutRegistrationStatus {
+    shortcuts::status(&app_handle)
+}
+
+#[tauri::command]
+async fn global_shortcut_register(
+    app_handle: tauri::AppHandle,
+) -> CommandResult<shortcuts::ShortcutRegistrationStatus> {
+    shortcuts::register(app_handle)
+        .await
+        .map_err(CommandError::from)
+}
+
+#[tauri::command]
+async fn global_shortcut_unregister(
+    app_handle: tauri::AppHandle,
+) -> CommandResult<shortcuts::ShortcutRegistrationStatus> {
+    shortcuts::unregister(app_handle)
+        .await
+        .map_err(CommandError::from)
+}
+
+#[tauri::command]
+async fn global_shortcut_probe_conflict(
+    app_handle: tauri::AppHandle,
+) -> CommandResult<shortcuts::ShortcutConflictProbe> {
+    shortcuts::probe_conflict(app_handle)
+        .await
+        .map_err(CommandError::from)
 }
 
 fn get_window(app_handle: &tauri::AppHandle, label: &str) -> CommandResult<tauri::WebviewWindow> {
@@ -479,10 +513,15 @@ pub fn run() {
     let result = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .manage(AppState::new())
+        .manage(shortcuts::ShortcutRuntime::new())
         .invoke_handler(tauri::generate_handler![
             get_state,
             toggle_timer,
             mutate_state,
+            global_shortcut_status,
+            global_shortcut_register,
+            global_shortcut_unregister,
+            global_shortcut_probe_conflict,
             main_window_show,
             main_window_hide,
             main_window_focus,
@@ -504,6 +543,9 @@ pub fn run() {
             #[cfg(windows)]
             windows::install_display_change_observer(app)
                 .map_err(|error| startup_error("install display topology observer", error))?;
+            #[cfg(windows)]
+            shortcuts::install_shortcut_observer(app)
+                .map_err(|error| startup_error("install global shortcut observer", error))?;
             Ok(())
         })
         .run(tauri::generate_context!());
