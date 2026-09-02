@@ -4,7 +4,7 @@ Last updated: 2026-09-02
 
 ## Current phase
 
-**Research/specification complete. Reference assets complete. Implementation not started.**
+**Milestone 1 Implementation started (Scaffolding)**
 
 The repository now contains the durable rules, exhaustive source/screenshot research, product behavior specification, UI/UX/motion specification, Windows architecture, ordered implementation plan, original Blitzit screenshot references, and the canonical Narro branding asset needed for Codex to begin without repeating the original product research.
 

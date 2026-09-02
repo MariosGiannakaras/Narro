@@ -6,10 +6,10 @@ Milestones are ordered. Do not skip ahead unless a later task is required to unb
 
 Goal: prove the selected Tauri stack and lightweight focus-window architecture before product UI is built.
 
-- [ ] Create a Tauri 2 + React + TypeScript scaffold targeting Windows 10/11 x64.
-- [ ] Add Rust modules for app state, persistence, timers, scheduling, and window coordination.
-- [ ] Add SQLite plus migration harness; create migration `0001` even if the initial schema is minimal.
-- [ ] Create only two initial webview windows: `main` and `focusSurface`.
+- [x] Create a Tauri 2 + React + TypeScript scaffold targeting Windows 10/11 x64.
+- [x] Add Rust modules for app state, persistence, timers, scheduling, and window coordination.
+- [x] Add SQLite plus migration harness; create migration `0001` even if the initial schema is minimal.
+- [x] Create only two initial webview windows: `main` and `focusSurface`.
 - [ ] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state.
 - [ ] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
 - [ ] Prove switching those modes by resize/reposition/restyle of the same secondary webview.
@@ -20,7 +20,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [ ] Prove tray/background lifecycle plus explicit Quit.
 - [ ] Prove local Windows notification delivery while process remains running.
 - [ ] Prove Windows autostart can be toggled locally.
-- [ ] Build the `focusSurface` as a separate minimal frontend entry/bundle that does not import dashboard/reports/settings/editor code.
+- [x] Build the `focusSurface` as a separate minimal frontend entry/bundle that does not import dashboard/reports/settings/editor code.
 - [ ] Measure floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
 - [ ] Record measurements and obvious WebView2/process contributors in `STATUS.md`.
 - [ ] Add a minimal smoke-test harness for Rust commands/events.

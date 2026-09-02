@@ -8,41 +8,32 @@ Before working, also read `AGENTS.md`, `AGENT_WORKFLOW.md`, `STATUS.md`, and the
 
 **Milestone 1 — Windows desktop scaffold, capability and performance spike**
 
-Implementation has not started yet. Research/specification/reference preparation is complete.
+Implementation has started. Scaffolding is complete, but no Rust validation has occurred.
 
 ## Last project-preparation agent
 
-ChatGPT / repository preparation — 2026-09-02.
-
-No product implementation code has been created yet.
+Antigravity — 2026-09-02.
 
 ## Repository state already prepared
 
-- [x] Product name is Narro.
-- [x] Repository is `MariosGiannakaras/Narro`.
-- [x] Research/specification documents are present.
-- [x] Original Blitzit screenshots are available under `reference/original-blitzit-screenshots/`.
-- [x] Canonical Narro logo is committed as `assets/branding/narro-logo-master.png`.
-- [x] Branding temporary upload artifacts were removed.
-- [x] Multi-agent workflow is defined in `AGENT_WORKFLOW.md`.
-- [x] `WORK_LOG.md` exists for chronological implementation evidence.
-- [x] Durable Antigravity kickoff prompt exists at `prompts/ANTIGRAVITY_M1.md`.
+- [x] Tauri 2 + React + TypeScript scaffold created.
+- [x] Vite multipage setup configured for `main` and `focusSurface`.
+- [x] Rust module boundaries added (domain, persistence, timer, etc.).
+- [x] SQLite initial schema generated in `migrations/01-initial.sql` and `rusqlite_migration` harness set up.
 
 ## Next actions — execute in this order unless repository evidence justifies a change
 
 - [ ] Synchronize with latest `main`; inspect recent commits and current repository tree.
-- [ ] Read the Milestone 1 section of `TODO.md` and relevant architecture rules before scaffolding.
-- [ ] Verify current Tauri 2 / Windows prerequisites and APIs only where needed; do not repeat the Blitzit product research.
-- [ ] Create the minimal Tauri 2 + React + TypeScript scaffold for Windows 10/11 x64.
-- [ ] Establish Rust module boundaries for app state, persistence, timers, scheduling and window coordination without prematurely implementing later milestones.
-- [ ] Add SQLite migration harness with minimal `0001` migration.
-- [ ] Create/prove the proposed `main` and `focusSurface` windows.
-- [ ] Add temporary diagnostic UI sufficient to exercise Focus Panel/Floating Timer mode switching; do **not** implement polished source-product UI.
-- [ ] Continue through Milestone 1 capability checks and record validation as each slice becomes real.
+- [ ] Read the Milestone 1 section of `TODO.md` and relevant architecture rules before proceeding.
+- [ ] Build the scaffold and resolve any Rust compilation errors (the previous agent lacked a Rust environment).
+- [ ] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state.
+- [ ] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
+- [ ] Prove switching those modes by resize/reposition/restyle of the same secondary webview.
+- [ ] Continue through Milestone 1 capability checks (monitor edges, tray, autostart, etc) and record validation as each slice becomes real.
 
 ## Validation still required
 
-All Milestone 1 validation is still outstanding because implementation has not started.
+All Rust/Windows-level validation is still outstanding.
 
 In particular, do not mark the architecture validated until Windows evidence exists for:
 
@@ -71,28 +62,10 @@ Start with:
 - `STATUS.md`
 - `TODO.md` → Milestone 1 only
 - `docs/ARCHITECTURE.md`
-- `prompts/ANTIGRAVITY_M1.md` when the next agent is Antigravity
-
-Use only if relevant to a question encountered during this slice:
-
-- `docs/PRODUCT_SPEC.md`
-- `docs/UI_UX_SPEC.md`
-- `docs/REFERENCES.md`
-- `docs/RESEARCH_EVIDENCE.md`
-- `docs/SOURCE_AUDIT.md`
-- `docs/DECISION_GATES.md`
-
-Visual references are already in:
-
-- `reference/original-blitzit-screenshots/`
-
-Brand source:
-
-- `assets/branding/narro-logo-master.png`
 
 ## Current blockers
 
-None known before implementation begins.
+- The previous run failed to install Rust (`rustup` timeout). A functional Rust toolchain is required to continue.
 
 ## Handoff requirement before the next agent switch
 

@@ -96,3 +96,35 @@ Copy/adapt this structure for each coherent slice:
 ### Exact continuation point
 - next concrete action
 ```
+
+
+## 2026-09-02 — Milestone 1 Scaffold and Rust Structuring
+
+**Agent:** Antigravity
+**Milestone:** M1 / slice 1
+**Commits:** pending
+
+### Changed
+- Scaffolded Tauri 2 + React + TypeScript via Vite.
+- Set up multipage Vite config for main (index.html) and focusSurface (focus.html) to keep bundles minimal.
+- Updated tauri.conf.json with correct names (Narro) and the two separate windows configuration.
+- Added Rust module structure for domain, persistence, timer, scheduling, recurrence, windows, notifications, shortcuts.
+- Authored initial SQLite schema inside migrations/01-initial.sql and set up rusqlite_migration harness.
+
+### Decisions
+- Vite multipage setup used over separate single page apps to leverage Vite's tree shaking while keeping project structure simple.
+- Changed Rust project names from generic scaffold names to narro / narro_lib.
+
+### Validation performed
+- npm install -> PASS
+- Rust compilation / application build -> NOT RUN (Rust missing from environment, download timeout).
+- Windows capability testing -> NOT RUN (No Rust environment).
+
+### TODO/STATUS updates
+- Checked scaffolding, Rust modules definition, SQLite migration creation and frontend entry splitting. Left functional proof items unchecked since they could not be verified on this environment.
+
+### Known limitations/blockers
+- Environment lacks Rust (rustup timed out downloading tools). Cannot build the Tauri backend or execute the native Windows verification steps.
+
+### Exact continuation point
+- A Windows environment with Rust installed must build the scaffold, prove window/native behavior, and complete the rest of Milestone 1.
