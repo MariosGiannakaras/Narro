@@ -266,10 +266,7 @@ mod tests {
     #[test]
     fn rejects_coordinate_overflow() {
         let work_area = PhysicalRect {
-            position: PhysicalPoint {
-                x: i32::MAX,
-                y: 0,
-            },
+            position: PhysicalPoint { x: i32::MAX, y: 0 },
             size: PhysicalSize {
                 width: 100,
                 height: 100,
