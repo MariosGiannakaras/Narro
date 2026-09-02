@@ -40,6 +40,34 @@ impl CommandError {
             format!("failed to {operation} window '{label}': {source}"),
         )
     }
+
+    pub fn monitor_enumeration(source: impl Display) -> Self {
+        Self::new(
+            "MONITOR_ENUMERATION_FAILED",
+            format!("failed to enumerate Windows monitors: {source}"),
+        )
+    }
+
+    pub fn no_monitors_available() -> Self {
+        Self::new(
+            "NO_MONITORS_AVAILABLE",
+            "Windows reported no available monitors",
+        )
+    }
+
+    pub fn monitor_not_found(index: usize, count: usize) -> Self {
+        Self::new(
+            "MONITOR_NOT_FOUND",
+            format!("monitor index {index} is invalid for the current topology ({count} monitor(s))"),
+        )
+    }
+
+    pub fn window_geometry(source: impl Display) -> Self {
+        Self::new(
+            "WINDOW_GEOMETRY_INVALID",
+            format!("cannot compute a safe focus-surface position: {source}"),
+        )
+    }
 }
 
 impl Display for CommandError {
@@ -80,5 +108,13 @@ mod tests {
 
         assert_eq!(value["code"], "WINDOW_NOT_FOUND");
         assert_eq!(value["message"], "window 'main' does not exist");
+    }
+
+    #[test]
+    fn monitor_not_found_error_reports_current_topology_size() {
+        let error = CommandError::monitor_not_found(3, 2);
+        assert_eq!(error.code, "MONITOR_NOT_FOUND");
+        assert!(error.message.contains("3"));
+        assert!(error.message.contains("2 monitor(s)"));
     }
 }
