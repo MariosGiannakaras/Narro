@@ -232,13 +232,8 @@ fn list_windows(app_handle: tauri::AppHandle) -> Vec<String> {
 
 fn install_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
     let show_main = MenuItem::with_id(app, "show-main", "Show Narro", true, None::<&str>)?;
-    let show_focus = MenuItem::with_id(
-        app,
-        "show-focus",
-        "Show Focus Surface",
-        true,
-        None::<&str>,
-    )?;
+    let show_focus =
+        MenuItem::with_id(app, "show-focus", "Show Focus Surface", true, None::<&str>)?;
     let quit = MenuItem::with_id(app, "quit", "Quit Narro", true, None::<&str>)?;
     let menu = Menu::with_items(app, &[&show_main, &show_focus, &quit])?;
 
