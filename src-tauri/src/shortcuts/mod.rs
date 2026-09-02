@@ -109,46 +109,87 @@ pub struct ShortcutConflictProbe {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ShortcutError {
     WindowUnavailable,
+    WindowHandleUnavailable(String),
     ObserverAlreadyInitialized,
     ObserverInstallFailed(String),
     MainThreadDispatchFailed(String),
     MainThreadResponseFailed,
-    RegistrationConflict { os_error_code: Option<i32> },
-    RegistrationFailed { detail: String, os_error_code: Option<i32> },
-    UnregisterFailed { detail: String, os_error_code: Option<i32> },
+    RegistrationConflict {
+        os_error_code: Option<i32>,
+    },
+    RegistrationFailed {
+        detail: String,
+        os_error_code: Option<i32>,
+    },
+    UnregisterFailed {
+        detail: String,
+        os_error_code: Option<i32>,
+    },
     ConflictProbeRequiresUnregistered,
-    ConflictProbeUnexpectedFailure { detail: String, os_error_code: Option<i32> },
+    ConflictProbeUnexpectedFailure {
+        detail: String,
+        os_error_code: Option<i32>,
+    },
     ConflictProbeCleanupFailed(String),
 }
 
 impl Display for ShortcutError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::WindowUnavailable => formatter.write_str("focusSurface is unavailable for global shortcut registration"),
-            Self::ObserverAlreadyInitialized => formatter.write_str("global shortcut observer was already initialized"),
+            Self::WindowUnavailable => formatter
+                .write_str("focusSurface is unavailable for global shortcut registration"),
+            Self::WindowHandleUnavailable(detail) => {
+                write!(formatter, "focusSurface native window handle is unavailable: {detail}")
+            }
+            Self::ObserverAlreadyInitialized => {
+                formatter.write_str("global shortcut observer was already initialized")
+            }
             Self::ObserverInstallFailed(detail) => {
-                write!(formatter, "failed to install global shortcut window observer: {detail}")
+                write!(
+                    formatter,
+                    "failed to install global shortcut window observer: {detail}"
+                )
             }
             Self::MainThreadDispatchFailed(detail) => {
-                write!(formatter, "failed to dispatch global shortcut operation to the Windows UI thread: {detail}")
+                write!(
+                    formatter,
+                    "failed to dispatch global shortcut operation to the Windows UI thread: {detail}"
+                )
             }
-            Self::MainThreadResponseFailed => formatter.write_str("global shortcut UI-thread operation ended without returning a result"),
+            Self::MainThreadResponseFailed => formatter.write_str(
+                "global shortcut UI-thread operation ended without returning a result",
+            ),
             Self::RegistrationConflict { os_error_code } => {
-                write!(formatter, "global shortcut {SHORTCUT_LABEL} is unavailable because the key combination is already registered")?;
+                write!(
+                    formatter,
+                    "global shortcut {SHORTCUT_LABEL} is unavailable because the key combination is already registered"
+                )?;
                 if let Some(code) = os_error_code {
                     write!(formatter, " (Windows error {code})")?;
                 }
                 Ok(())
             }
-            Self::RegistrationFailed { detail, os_error_code } => {
-                write!(formatter, "failed to register global shortcut {SHORTCUT_LABEL}: {detail}")?;
+            Self::RegistrationFailed {
+                detail,
+                os_error_code,
+            } => {
+                write!(
+                    formatter,
+                    "failed to register global shortcut {SHORTCUT_LABEL}: {detail}"
+                )?;
                 if let Some(code) = os_error_code {
                     write!(formatter, " (Windows error {code})")?;
                 }
                 Ok(())
             }
-            Self::UnregisterFailed { detail, os_error_code } => {
-                write!(formatter, "failed to unregister global shortcut {SHORTCUT_LABEL}: {detail}")?;
+            Self::UnregisterFailed {
+                detail,
+                os_error_code,
+            } => {
+                write!(
+                    formatter,
+                    "failed to unregister global shortcut {SHORTCUT_LABEL}: {detail}"
+                )?;
                 if let Some(code) = os_error_code {
                     write!(formatter, " (Windows error {code})")?;
                 }
@@ -157,15 +198,24 @@ impl Display for ShortcutError {
             Self::ConflictProbeRequiresUnregistered => formatter.write_str(
                 "unregister the Narro diagnostic shortcut before running the conflict probe",
             ),
-            Self::ConflictProbeUnexpectedFailure { detail, os_error_code } => {
-                write!(formatter, "global shortcut conflict probe failed unexpectedly: {detail}")?;
+            Self::ConflictProbeUnexpectedFailure {
+                detail,
+                os_error_code,
+            } => {
+                write!(
+                    formatter,
+                    "global shortcut conflict probe failed unexpectedly: {detail}"
+                )?;
                 if let Some(code) = os_error_code {
                     write!(formatter, " (Windows error {code})")?;
                 }
                 Ok(())
             }
             Self::ConflictProbeCleanupFailed(detail) => {
-                write!(formatter, "global shortcut conflict probe cleanup failed: {detail}")
+                write!(
+                    formatter,
+                    "global shortcut conflict probe cleanup failed: {detail}"
+                )
             }
         }
     }
@@ -179,7 +229,7 @@ pub fn install_shortcut_observer(app: &tauri::App) -> Result<(), ShortcutError> 
         .ok_or(ShortcutError::WindowUnavailable)?;
     let hwnd = focus_surface
         .hwnd()
-        .map_err(|error| ShortcutError::ObserverInstallFailed(format!("resolve focusSurface HWND: {error}")))?;
+        .map_err(|error| ShortcutError::WindowHandleUnavailable(error.to_string()))?;
 
     SHORTCUT_APP_HANDLE
         .set(app.handle().clone())
@@ -195,7 +245,7 @@ pub fn install_shortcut_observer(app: &tauri::App) -> Result<(), ShortcutError> 
     };
     if installed == 0 {
         return Err(ShortcutError::ObserverInstallFailed(
-            io::Error::last_os_error().to_string(),
+            "SetWindowSubclass returned false".into(),
         ));
     }
 
@@ -214,7 +264,9 @@ unsafe extern "system" fn shortcut_subclass_proc(
         schedule_shortcut_trigger();
     } else if message == WM_NC_DESTROY {
         cleanup_on_window_destroy(hwnd);
-        let _ = unsafe { remove_window_subclass(hwnd, Some(shortcut_subclass_proc), subclass_id) };
+        let _ = unsafe {
+            remove_window_subclass(hwnd, Some(shortcut_subclass_proc), subclass_id)
+        };
     }
 
     unsafe { def_subclass_proc(hwnd, message, wparam, lparam) }
@@ -251,6 +303,10 @@ fn cleanup_on_window_destroy(hwnd: RawHwnd) {
             runtime.set_registered(false);
         }
     }
+
+    // A conflict-probe reservation should never survive the probe function, but release the
+    // temporary ID best-effort during HWND teardown as a final safety net.
+    let _ = unsafe { unregister_hot_key(hwnd, CONFLICT_PROBE_HOTKEY_ID) };
 }
 
 pub fn status(app_handle: &tauri::AppHandle) -> ShortcutRegistrationStatus {
@@ -260,19 +316,19 @@ pub fn status(app_handle: &tauri::AppHandle) -> ShortcutRegistrationStatus {
 pub async fn register(
     app_handle: tauri::AppHandle,
 ) -> Result<ShortcutRegistrationStatus, ShortcutError> {
-    run_on_ui_thread(app_handle, |handle| register_on_ui_thread(handle)).await
+    run_on_ui_thread(app_handle, register_on_ui_thread).await
 }
 
 pub async fn unregister(
     app_handle: tauri::AppHandle,
 ) -> Result<ShortcutRegistrationStatus, ShortcutError> {
-    run_on_ui_thread(app_handle, |handle| unregister_on_ui_thread(handle)).await
+    run_on_ui_thread(app_handle, unregister_on_ui_thread).await
 }
 
 pub async fn probe_conflict(
     app_handle: tauri::AppHandle,
 ) -> Result<ShortcutConflictProbe, ShortcutError> {
-    run_on_ui_thread(app_handle, |handle| probe_conflict_on_ui_thread(handle)).await
+    run_on_ui_thread(app_handle, probe_conflict_on_ui_thread).await
 }
 
 async fn run_on_ui_thread<T, F>(
@@ -291,11 +347,10 @@ where
         })
         .map_err(|error| ShortcutError::MainThreadDispatchFailed(error.to_string()))?;
 
-    let received = tauri::async_runtime::spawn_blocking(move || receiver.recv())
+    tauri::async_runtime::spawn_blocking(move || receiver.recv())
         .await
         .map_err(|error| ShortcutError::MainThreadDispatchFailed(error.to_string()))?
-        .map_err(|_| ShortcutError::MainThreadResponseFailed)?;
-    received
+        .map_err(|_| ShortcutError::MainThreadResponseFailed)?
 }
 
 fn focus_surface_hwnd(app_handle: &tauri::AppHandle) -> Result<RawHwnd, ShortcutError> {
@@ -305,10 +360,7 @@ fn focus_surface_hwnd(app_handle: &tauri::AppHandle) -> Result<RawHwnd, Shortcut
     window
         .hwnd()
         .map(|hwnd| hwnd.0 as RawHwnd)
-        .map_err(|error| ShortcutError::RegistrationFailed {
-            detail: format!("resolve focusSurface HWND: {error}"),
-            os_error_code: None,
-        })
+        .map_err(|error| ShortcutError::WindowHandleUnavailable(error.to_string()))
 }
 
 fn register_on_ui_thread(
@@ -320,9 +372,8 @@ fn register_on_ui_thread(
     }
 
     let hwnd = focus_surface_hwnd(app_handle)?;
-    let registered = unsafe {
-        register_hot_key(hwnd, PRIMARY_HOTKEY_ID, SHORTCUT_MODIFIERS, VK_N)
-    };
+    let registered =
+        unsafe { register_hot_key(hwnd, PRIMARY_HOTKEY_ID, SHORTCUT_MODIFIERS, VK_N) };
     if registered == 0 {
         return Err(classify_registration_error(io::Error::last_os_error()));
     }
@@ -386,9 +437,8 @@ fn probe_conflict_on_ui_thread(
         });
     }
 
-    let primary_registered = unsafe {
-        register_hot_key(hwnd, PRIMARY_HOTKEY_ID, SHORTCUT_MODIFIERS, VK_N)
-    };
+    let primary_registered =
+        unsafe { register_hot_key(hwnd, PRIMARY_HOTKEY_ID, SHORTCUT_MODIFIERS, VK_N) };
     let primary_error = if primary_registered == 0 {
         Some(io::Error::last_os_error())
     } else {
@@ -397,13 +447,17 @@ fn probe_conflict_on_ui_thread(
 
     let mut cleanup_failures = Vec::new();
     if primary_registered != 0 && unsafe { unregister_hot_key(hwnd, PRIMARY_HOTKEY_ID) } == 0 {
+        runtime.set_registered(true);
         cleanup_failures.push(format!(
-            "primary probe registration: {}",
+            "primary probe registration may still be active: {}",
             io::Error::last_os_error()
         ));
     }
     if unsafe { unregister_hot_key(hwnd, CONFLICT_PROBE_HOTKEY_ID) } == 0 {
-        cleanup_failures.push(format!("conflict probe registration: {}", io::Error::last_os_error()));
+        cleanup_failures.push(format!(
+            "conflict probe registration may still be active: {}",
+            io::Error::last_os_error()
+        ));
     }
     if !cleanup_failures.is_empty() {
         return Err(ShortcutError::ConflictProbeCleanupFailed(
