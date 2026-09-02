@@ -39,6 +39,7 @@ unsafe extern "system" {
 
 static DISPLAY_APP_HANDLE: OnceLock<tauri::AppHandle> = OnceLock::new();
 static RECOVERY_PENDING: AtomicBool = AtomicBool::new(false);
+static RECOVERY_DIRTY: AtomicBool = AtomicBool::new(false);
 
 pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error> {
     let focus_surface = app
@@ -90,11 +91,13 @@ unsafe extern "system" fn display_change_subclass_proc(
 }
 
 fn schedule_display_recovery() {
+    RECOVERY_DIRTY.store(true, Ordering::Release);
     if RECOVERY_PENDING.swap(true, Ordering::AcqRel) {
         return;
     }
 
     let Some(app_handle) = DISPLAY_APP_HANDLE.get().cloned() else {
+        RECOVERY_DIRTY.store(false, Ordering::Release);
         RECOVERY_PENDING.store(false, Ordering::Release);
         eprintln!("Display topology changed before the Narro app handle was available");
         return;
@@ -103,6 +106,10 @@ fn schedule_display_recovery() {
     tauri::async_runtime::spawn(async move {
         let recovery_handle = app_handle.clone();
         if let Err(error) = app_handle.run_on_main_thread(move || {
+            // This pass observes the latest topology at execution time. If another display
+            // event arrives while recovery is running, RECOVERY_DIRTY becomes true again and
+            // schedules a follow-up pass after the current one releases RECOVERY_PENDING.
+            RECOVERY_DIRTY.store(false, Ordering::Release);
             match recover_visible_windows(&recovery_handle) {
                 Ok(moved_labels) if !moved_labels.is_empty() => {
                     println!(
@@ -113,7 +120,11 @@ fn schedule_display_recovery() {
                 Ok(_) => {}
                 Err(error) => eprintln!("Display topology recovery failed: {error}"),
             }
+
             RECOVERY_PENDING.store(false, Ordering::Release);
+            if RECOVERY_DIRTY.load(Ordering::Acquire) {
+                schedule_display_recovery();
+            }
         }) {
             RECOVERY_PENDING.store(false, Ordering::Release);
             eprintln!("Failed to schedule display topology recovery on the main thread: {error}");
