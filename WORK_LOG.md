@@ -288,3 +288,6 @@ The previous session logged as 'Codex' (commit 17ad1f02227d478fa2650368a95959525
 ### Exact continuation point
 - The frontend builds, and the Rust backend codebase is refactored (mutex scoping, Emitter imported). The next environment with a working Rust toolchain MUST run `cargo check`, validate the SQLite migration on a fresh DB, and test the `main` & `focusSurface` shared state.
 
+
+## Correction: Stale Commit SHA
+The WORK_LOG.md entry for 'Milestone 1 Rust foundation repair' references commit \ e48945245bdae26b9eb5cb58dcddcf2d30ed450\. That commit was subsequently amended and force-pushed. The actual reachable commit for that work is \758e1e1c5742a125dac6fcaa4a5fd4e233b06751\.

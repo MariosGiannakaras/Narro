@@ -21,3 +21,28 @@ impl AppState {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_app_state_mutation() {
+        let state = AppState::new();
+        
+        {
+            let mut data = state.data.lock().unwrap();
+            assert_eq!(data.is_running, false);
+            assert_eq!(data.active_task, None);
+            
+            data.is_running = true;
+            data.active_task = Some("Test Task".into());
+        }
+        
+        {
+            let data = state.data.lock().unwrap();
+            assert_eq!(data.is_running, true);
+            assert_eq!(data.active_task.as_deref(), Some("Test Task"));
+        }
+    }
+}

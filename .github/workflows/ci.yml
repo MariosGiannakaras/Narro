@@ -1,0 +1,58 @@
+name: Windows CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+
+    - name: Install Frontend Dependencies
+      run: npm ci
+
+    - name: Build Frontend
+      run: npm run build
+
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: x86_64-pc-windows-msvc
+
+    - name: Print Versions
+      run: |
+        node -v
+        npm -v
+        rustc -V
+        cargo -V
+
+    - name: Check Rust Compilation
+      working-directory: src-tauri
+      run: cargo check
+
+    - name: Generate Cargo.lock
+      working-directory: src-tauri
+      run: cargo generate-lockfile
+
+    - name: Upload Cargo.lock
+      uses: actions/upload-artifact@v4
+      with:
+        name: Cargo-lock
+        path: src-tauri/Cargo.lock
+
+    - name: Run Rust Tests
+      working-directory: src-tauri
+      run: cargo test
+
+    - name: Check Tauri Build
+      run: npm run tauri build
