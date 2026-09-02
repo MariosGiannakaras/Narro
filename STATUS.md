@@ -8,9 +8,9 @@ For zero-context AI continuation, start with `AI_START_HERE.md` and `HANDOFF.md`
 
 **Milestone 1 — Windows desktop capability/performance validation is in progress.**
 
-The repository is past research/bootstrap and contains a compiling Tauri/React/Rust/SQLite Windows scaffold plus a temporary native runtime diagnostic harness. Product UI has intentionally **not** started yet.
+The repository is past research/bootstrap and contains a Tauri 2 + React + TypeScript + Rust + SQLite Windows scaffold plus a temporary native runtime diagnostic harness. Product UI has intentionally **not** started yet.
 
-The immediate project blocker is a required real-Windows retest of the repaired `main` destroy/recreate path. Exact current build/test instructions are in `HANDOFF.md`.
+The two-webview architecture has now passed several real Windows runtime checks. The current implementation slice adds a persistent Windows tray lifecycle because user testing exposed a background-process recovery/quit gap.
 
 ## Current architecture hypothesis
 
@@ -25,65 +25,88 @@ Starting architecture remains:
   - `main`;
   - `focusSurface`, reused for Focus Panel and Floating Timer.
 
-This is still an evidence-driven hypothesis, not an immutable requirement. Milestone 1 must finish native capability and floating-only resource validation before polished product UI begins.
+This remains an evidence-driven hypothesis, not an immutable requirement. Milestone 1 must finish native capability and floating-only resource validation before polished product UI begins.
 
-## Automated Windows baseline — verified
+## Automated Windows baseline
 
-GitHub Actions `Windows CI` currently verifies on `windows-latest`:
+GitHub Actions `Windows CI` is the compile/test source of evidence when agent sandboxes cannot run native Windows UI. It covers:
 
 - frontend dependency install/build;
-- Rust stable/MSVC resolution;
+- stable Rust/MSVC resolution;
 - `cargo check --locked`;
 - Rust unit tests;
 - Tauri Windows build;
-- NSIS/MSI artifact generation.
+- diagnostic artifact generation.
 
-A `Cargo.lock` is committed for deterministic desktop builds.
+`Cargo.lock` is committed for deterministic desktop builds.
 
-Current retest artifact identity is recorded in `HANDOFF.md`.
+## Manual Windows runtime evidence — physically proven
 
-## Manual Windows runtime evidence already proven
+Detailed evidence lives in:
 
-Using a real Windows desktop and the first diagnostic artifact, the user physically verified:
+`docs/M1_USER_RUNTIME_RESULTS_2026-09-02.md`
+
+The project owner has physically verified on Windows:
 
 - `main` -> `focusSurface` Rust state/event propagation: PASS;
 - `focusSurface` -> `main` Rust state/event propagation: PASS;
 - hide/show `main`: PASS;
-- forced destroy of `main` leaves the process and `focusSurface` alive: PASS;
-- Rust state continues to mutate while `main` is absent: PASS.
+- forced destroy of `main` leaves the Rust process / `focusSurface` alive: PASS;
+- Rust state can mutate while `main` is absent: PASS;
+- async `main` recreation opens/initializes the diagnostic UI instead of reproducing the original deadlock: PASS;
+- `focusSurface` remains responsive after recreation: PASS;
+- Panel -> Timer -> Panel on the same secondary webview: PASS;
+- Timer Mode always-on-top against normal Windows apps: PASS;
+- Timer Mode skip-taskbar behavior: PASS;
+- only `main` and `focusSurface` remain as persistent webviews: PASS.
 
-Durable evidence:
+One lifecycle observation is still deliberately **not confirmed**:
 
-`docs/M1_USER_RUNTIME_RESULTS_2026-09-02.md`
+- whether the recreated `main` visibly reads the exact surviving pre-destroy Rust counter/state was reported ambiguously (`PASS/FAIL`), so it remains open until explicitly rechecked.
 
-## Current recreate blocker/fix state
+## Recreate deadlock history
 
-The first real-Windows recreate attempt failed:
+The first synchronous `WebviewWindowBuilder::build()` recreate path deadlocked on the user's Windows machine: the replacement `main` appeared blank/white and both webviews froze.
 
-- replacement `main` native window appeared blank/white;
-- recreated React UI did not initialize;
-- existing `focusSurface` became unresponsive at the same point.
+The implementation was changed to Tauri's documented async-command pattern. The subsequent Windows retest confirmed that `main` now recreates and both webviews remain responsive.
 
-The failure matched Tauri's documented Windows/WebView2 risk when creating a webview window from a synchronous command/event-handler path.
+Do not regress window creation back into a synchronous command/event-handler path on Windows without evidence that the underlying Tauri/WebView2 limitation has changed.
 
-Current source changes `main_window_recreate` to an async Tauri command. The repaired code compiles/builds successfully in Windows CI and a fresh raw `narro.exe` artifact exists, but **the fix is not considered validated until the user physically retests it on Windows**.
+## Newly discovered background lifecycle gap
 
-Do not broaden native capability work past this blocker until `HANDOFF.md` says the retest passed.
+The second Windows test exposed a separate issue:
 
-## Milestone 1 work still pending after recreate validation
+- closing `main` with the native `X` can leave Narro running;
+- Timer Mode correctly has no normal taskbar entry;
+- if `focusSurface` is also hidden, the process can become completely invisible;
+- before the current tray slice there was no normal explicit Quit path, so Task Manager was required.
 
-Once the recreate/mode test slice passes, continue M1 in `TODO.md` order with:
+This is now treated as an M1 lifecycle/recovery defect, not cosmetic polish.
 
-- same-`focusSurface` Panel <-> Floating Timer runtime validation;
-- always-on-top and skip-taskbar behavior;
+Current implementation work adds:
+
+- a persistent Windows tray icon using a symbol-only derivative of the canonical Narro logo;
+- tray **Show Narro** with show/recreate behavior for `main`;
+- tray **Show Focus Surface**;
+- tray **Quit Narro** using explicit process exit;
+- tray left-click Show/Recreate Narro behavior.
+
+This implementation must pass Windows CI and then be physically validated before the tray/background TODO item is closed.
+
+The temporary diagnostic Panel/Timer window remains manually resizable. That is acceptable for M1; final geometry/resize constraints belong to the Focus Panel/Floating Timer product milestones unless another native M1 test requires them earlier.
+
+## Remaining Milestone 1 capability work
+
+After the tray lifecycle slice is validated, continue M1 with the still-open capabilities in `TODO.md`, including:
+
+- explicit confirmation that recreated `main` reads surviving Rust state;
 - monitor enumeration and left/right Focus Panel placement;
 - dynamic display topology / off-screen recovery;
 - global shortcut registration/conflict behavior;
-- tray/background lifecycle + explicit Quit;
 - Windows notifications;
 - local autostart toggle;
 - floating-only idle CPU/memory measurements with `main` destroyed;
-- architecture decision based on measured results.
+- final architecture decision based on measured results.
 
 Milestone 2 and polished Narro UI remain blocked until the M1 architecture/capability gate is sufficiently validated.
 
@@ -111,11 +134,11 @@ Future agents must preserve the detailed rules in `AGENTS.md`. Particularly impo
 
 - Rust/domain state, not renderer timers, owns authoritative live-session truth;
 - stable immutable task IDs; reorder/move must never duplicate tasks;
-- date-only schedules must remain distinct from local date+time schedules;
-- recurrence/materialization must be deterministic and idempotent;
+- date-only schedules remain distinct from local date+time schedules;
+- recurrence/materialization is deterministic and idempotent;
 - note URLs open only through explicit user action;
-- monitor topology must be treated as dynamic;
-- `focusSurface` should remain minimal and performance-sensitive;
+- monitor topology is dynamic runtime state;
+- `focusSurface` remains minimal and performance-sensitive;
 - architecture proposals may change when concrete Windows evidence supports a better approach.
 
 ## Research/specification state
@@ -138,13 +161,13 @@ Canonical Narro master:
 
 `assets/branding/narro-logo-master.png`
 
-Verified source metadata recorded by the project:
+Verified source metadata:
 
 - 1254 x 1254 RGBA;
 - 916,927 bytes;
 - SHA-256 `c553431248aafc705ce20230a69418769e41e019f0eea4dc88d0949c9bb05a5a`.
 
-Platform derivatives must come from this master; do not substitute Blitzit branding or a low-quality derivative.
+The tray uses a small symbol-only derivative generated from this canonical master rather than a generic Tauri asset. Platform derivatives must remain recognizably based on the master.
 
 ## Multi-agent continuation rule
 
@@ -157,7 +180,7 @@ Canonical continuation system:
 - `AGENT_WORKFLOW.md` — handoff/evidence protocol;
 - `HANDOFF.md` — exact current continuation;
 - `TODO.md` — evidence-backed executable plan;
-- `work-log/*.md` — preferred immutable per-slice logs for new work;
+- `work-log/*.md` — immutable per-slice logs for new work;
 - `WORK_LOG.md` — legacy historical archive only.
 
 Agent-specific pointer files (`GEMINI.md`, `CLAUDE.md`, `.github/copilot-instructions.md`) lead back to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
