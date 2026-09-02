@@ -146,7 +146,10 @@ During work:
 - make coherent commits with descriptive messages;
 - checkpoint a long milestone after a working/validated slice;
 - preserve unrelated changes;
-- avoid destructive history rewrites.
+- avoid destructive history rewrites;
+- **do not amend, rebase, force-push, or otherwise replace commits that have already been published to `main` during normal agent handoff work**;
+- use new forward commits to correct code, documentation, commit-message mistakes, or handoff metadata so SHAs referenced by `WORK_LOG.md` and other agents remain stable;
+- only rewrite published `main` history when the user explicitly requests a history rewrite and the consequences for existing handoff references are handled deliberately.
 
 Before handoff:
 
