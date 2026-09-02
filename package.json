@@ -6,6 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "check:config": "node scripts/verify-config.mjs",
+    "check:rust:fmt": "cargo fmt --manifest-path src-tauri/Cargo.toml -- --check",
+    "check:rust": "cargo check --manifest-path src-tauri/Cargo.toml --locked",
+    "check:rust:clippy": "cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings",
+    "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked",
+    "preflight:frontend": "npm run check:config && npm run build",
+    "preflight:windows": "npm run preflight:frontend && npm run check:rust:fmt && npm run check:rust && npm run check:rust:clippy && npm run test:rust",
+    "preflight": "npm run preflight:windows",
     "preview": "vite preview",
     "tauri": "tauri"
   },
