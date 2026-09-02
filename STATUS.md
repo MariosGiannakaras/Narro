@@ -157,6 +157,7 @@ Canonical continuation system:
 - `AGENT_WORKFLOW.md` — handoff/evidence protocol;
 - `HANDOFF.md` — exact current continuation;
 - `TODO.md` — evidence-backed executable plan;
-- `WORK_LOG.md` — append-only history.
+- `work-log/*.md` — preferred immutable per-slice logs for new work;
+- `WORK_LOG.md` — legacy historical archive only.
 
-Agent-specific `prompts/*` are optional historical/slice aids, not required onboarding.
+Agent-specific pointer files (`GEMINI.md`, `CLAUDE.md`, `.github/copilot-instructions.md`) lead back to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
