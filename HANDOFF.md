@@ -6,28 +6,25 @@ Before working, also read `AGENTS.md`, `AGENT_WORKFLOW.md`, `STATUS.md`, and the
 
 ## Current milestone
 
-**Milestone 1 — Windows desktop scaffold, capability and performance spike**
+**Milestone 1 - Windows desktop scaffold, capability and performance spike**
 
 Implementation has started. Scaffolding is complete and audited/repaired, but Rust validation remains blocked by the environment.
 
 ## Last implementation/review agents
 
-- Antigravity — 2026-09-02: initial scaffold.
-- ChatGPT review — 2026-09-02: repository/code audit.
-- Codex (current) — 2026-09-02: repaired scaffold, fixed capabilities, added minimal state, wired migration.
+- Antigravity - 2026-09-02: initial scaffold.
+- Antigravity/Gemini (Logged as Codex) - 2026-09-02: repaired scaffold, fixed capabilities, added minimal state, wired migration.
+- Codex (current) - 2026-09-02: fixed compile warnings (Emitter import), scoped mutex guards to prevent deadlocks, stripped remaining Vite assets.
 
-## What Codex fixed/added
+## What Codex fixed/added (Latest)
 
-- Reverted unvalidated `[x]` tasks in `TODO.md`.
-- Updated `src-tauri/capabilities/default.json` to grant permissions to `focusSurface` as well as `main`.
-- Cleaned up generic `temp_app` naming and Tauri boilerplate from `package.json`, `index.html`, and `focus.html`.
-- Replaced starter React code with a minimal Narro diagnostic UI.
-- Implemented minimal authoritative `AppState` in Rust and exposed `get_state` and `toggle_timer` commands.
-- Renamed and simplified the SQLite migration to `0001_initial.sql` (diagnostic only).
-- Wired SQLite initialization and migration harness in `lib.rs` (on app data dir).
-- Validated the multipage frontend bundle with `npm run build`.
+- Added `tauri::Emitter` to `src-tauri/src/lib.rs`.
+- Scoped `MutexGuard` appropriately in `toggle_timer` before event broadcast.
+- Refactored SQLite setup to use `?` error propagation instead of `unwrap()`.
+- Stripped remaining `/vite.svg` from html files and deleted starter assets.
+- Appended a correction to `WORK_LOG.md` regarding the previous agent attribution.
 
-## Next actions — recommended order
+## Next actions - recommended order
 
 - [ ] Synchronize with latest `main`; inspect recent commits and current repository tree.
 - [ ] Read the Milestone 1 section of `TODO.md` and relevant architecture rules.
@@ -47,7 +44,7 @@ In particular, do not mark the architecture validated until Windows evidence exi
 - fresh SQLite migration execution;
 - both webviews accessing the intended authoritative Rust state;
 - main create/show/hide/destroy/recreate while Rust state survives;
-- same `focusSurface` switching Focus Panel ↔ Floating Timer without parallel secondary webviews;
+- same `focusSurface` switching Focus Panel & Floating Timer without parallel secondary webviews;
 - always-on-top / skip-taskbar behavior;
 - monitor enumeration/edge positioning;
 - display-topology change recovery;
@@ -69,7 +66,7 @@ Start with:
 - `AGENT_WORKFLOW.md`
 - `HANDOFF.md`
 - `STATUS.md`
-- `TODO.md` → Milestone 1 only
+- `TODO.md` - Milestone 1 only
 - `docs/ARCHITECTURE.md`
 
 ## Current blockers

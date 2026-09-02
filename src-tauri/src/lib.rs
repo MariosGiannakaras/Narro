@@ -8,7 +8,7 @@ pub mod notifications;
 pub mod shortcuts;
 
 use domain::{AppState, AppStatePayload};
-use tauri::{Manager, State};
+use tauri::{Emitter, Manager, State};
 
 #[tauri::command]
 fn get_state(state: State<'_, AppState>) -> AppStatePayload {
@@ -17,15 +17,17 @@ fn get_state(state: State<'_, AppState>) -> AppStatePayload {
 
 #[tauri::command]
 fn toggle_timer(state: State<'_, AppState>, app_handle: tauri::AppHandle) -> AppStatePayload {
-    let mut data = state.data.lock().unwrap();
-    data.is_running = !data.is_running;
-    if data.is_running && data.active_task.is_none() {
-        data.active_task = Some("Implement Milestone 1".into());
-    } else if !data.is_running {
-        data.active_task = None;
-    }
+    let cloned_data = {
+        let mut data = state.data.lock().unwrap();
+        data.is_running = !data.is_running;
+        if data.is_running && data.active_task.is_none() {
+            data.active_task = Some("Implement Milestone 1".into());
+        } else if !data.is_running {
+            data.active_task = None;
+        }
+        data.clone()
+    };
     
-    let cloned_data = data.clone();
     // Notify all windows of state change
     let _ = app_handle.emit("state-changed", cloned_data.clone());
     
@@ -41,17 +43,17 @@ pub fn run() {
         .setup(|app| {
             // Minimal SQLite wireup (not full persistence yet, just opening it to prove migration works)
             // We'll create a local db in AppData
-            let app_dir = app.path().app_data_dir().unwrap();
-            std::fs::create_dir_all(&app_dir).unwrap();
+            let app_dir = app.path().app_data_dir().expect("Failed to get app_data_dir");
+            std::fs::create_dir_all(&app_dir)?;
             let db_path = app_dir.join("narro.db");
-            let mut conn = rusqlite::Connection::open(db_path).unwrap();
+            let mut conn = rusqlite::Connection::open(db_path)?;
             
-            persistence::run_migrations(&mut conn).unwrap();
+            persistence::run_migrations(&mut conn).map_err(|e| Box::new(e) as Box<dyn std::error::Error>)?;
 
             // Prove SQLite works
             let id = uuid::Uuid::new_v4().to_string();
             let now = chrono::Utc::now().to_rfc3339();
-            conn.execute("INSERT INTO _diagnostic_startup (id, started_at) VALUES (?1, ?2)", rusqlite::params![id, now]).unwrap();
+            conn.execute("INSERT INTO _diagnostic_startup (id, started_at) VALUES (?1, ?2)", rusqlite::params![id, now])?;
             
             println!("SQLite migration and insert successful. ID: {}", id);
             
