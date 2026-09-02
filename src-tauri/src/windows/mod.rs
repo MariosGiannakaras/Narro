@@ -34,6 +34,7 @@ pub struct PhysicalRect {
 #[derive(Debug, Clone, Serialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct MonitorDescriptor {
+    pub key: String,
     pub index: usize,
     pub name: Option<String>,
     pub scale_factor: f64,
@@ -61,11 +62,22 @@ impl Display for WindowGeometryError {
 
 impl std::error::Error for WindowGeometryError {}
 
-fn axis_bounds(origin: i32, area_extent: u32, window_extent: u32) -> Result<(i32, i32), WindowGeometryError> {
+fn axis_bounds(
+    origin: i32,
+    area_extent: u32,
+    window_extent: u32,
+) -> Result<(i32, i32), WindowGeometryError> {
     let usable_offset = area_extent.saturating_sub(window_extent);
     let maximum = i64::from(origin) + i64::from(usable_offset);
     let maximum = i32::try_from(maximum).map_err(|_| WindowGeometryError::CoordinateOverflow)?;
     Ok((origin, maximum))
+}
+
+pub fn validate_work_area(work_area: PhysicalRect) -> Result<(), WindowGeometryError> {
+    if work_area.size.width == 0 || work_area.size.height == 0 {
+        return Err(WindowGeometryError::EmptyWorkArea);
+    }
+    Ok(())
 }
 
 pub fn clamp_top_left(
@@ -73,15 +85,21 @@ pub fn clamp_top_left(
     window_size: PhysicalSize,
     desired: PhysicalPoint,
 ) -> Result<PhysicalPoint, WindowGeometryError> {
-    if work_area.size.width == 0 || work_area.size.height == 0 {
-        return Err(WindowGeometryError::EmptyWorkArea);
-    }
+    validate_work_area(work_area)?;
     if window_size.width == 0 || window_size.height == 0 {
         return Err(WindowGeometryError::EmptyWindow);
     }
 
-    let (min_x, max_x) = axis_bounds(work_area.position.x, work_area.size.width, window_size.width)?;
-    let (min_y, max_y) = axis_bounds(work_area.position.y, work_area.size.height, window_size.height)?;
+    let (min_x, max_x) = axis_bounds(
+        work_area.position.x,
+        work_area.size.width,
+        window_size.width,
+    )?;
+    let (min_y, max_y) = axis_bounds(
+        work_area.position.y,
+        work_area.size.height,
+        window_size.height,
+    )?;
 
     Ok(PhysicalPoint {
         x: desired.x.clamp(min_x, max_x),
@@ -94,14 +112,16 @@ pub fn focus_panel_edge_position(
     window_size: PhysicalSize,
     side: FocusPanelSide,
 ) -> Result<PhysicalPoint, WindowGeometryError> {
-    if work_area.size.width == 0 || work_area.size.height == 0 {
-        return Err(WindowGeometryError::EmptyWorkArea);
-    }
+    validate_work_area(work_area)?;
     if window_size.width == 0 || window_size.height == 0 {
         return Err(WindowGeometryError::EmptyWindow);
     }
 
-    let (left, right) = axis_bounds(work_area.position.x, work_area.size.width, window_size.width)?;
+    let (left, right) = axis_bounds(
+        work_area.position.x,
+        work_area.size.width,
+        window_size.width,
+    )?;
     let desired = PhysicalPoint {
         x: match side {
             FocusPanelSide::Left => left,
