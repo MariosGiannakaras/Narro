@@ -365,3 +365,4 @@ pm run tauri build\ -> PASS in CI.
 ### Exact continuation point
 - The native harness is fully built and compiles on Windows. The next agent must launch this on a real interactive Windows environment (e.g. running \
 pm run tauri dev\) and execute the manual procedures listed in \docs/M1_WINDOWS_RUNTIME_VALIDATION.md\ before adding polished UI.
+
