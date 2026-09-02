@@ -15,13 +15,14 @@ use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Emitter, Manager, State};
 use windows::{
-    focus_panel_edge_position, FocusPanelSide, MonitorDescriptor, PhysicalPoint as GeometryPoint,
-    PhysicalRect as GeometryRect, PhysicalSize as GeometrySize,
+    focus_panel_edge_position, validate_work_area, FocusPanelSide, MonitorDescriptor,
+    PhysicalPoint as GeometryPoint, PhysicalRect as GeometryRect, PhysicalSize as GeometrySize,
 };
 
 const MAIN_WINDOW_LABEL: &str = "main";
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const STATE_CHANGED_EVENT: &str = "state-changed";
+const MAX_MONITOR_KEY_LEN: usize = 2048;
 
 fn report_state_change(app_handle: &tauri::AppHandle, payload: &AppStatePayload) {
     if let Err(error) = app_handle.emit(STATE_CHANGED_EVENT, payload.clone()) {
@@ -102,13 +103,50 @@ fn monitor_work_area(monitor: &tauri::window::Monitor) -> GeometryRect {
     }
 }
 
-fn monitor_descriptor(index: usize, monitor: &tauri::window::Monitor) -> MonitorDescriptor {
+fn monitor_descriptor(
+    index: usize,
+    monitor: &tauri::window::Monitor,
+) -> CommandResult<MonitorDescriptor> {
     let position = monitor.position();
     let size = monitor.size();
-    MonitorDescriptor {
+    let work_area = monitor_work_area(monitor);
+    let scale_factor = monitor.scale_factor();
+
+    if size.width == 0 || size.height == 0 {
+        return Err(CommandError::invalid_monitor_descriptor(
+            index,
+            "monitor resolution has zero width or height",
+        ));
+    }
+    if !scale_factor.is_finite() || scale_factor <= 0.0 {
+        return Err(CommandError::invalid_monitor_descriptor(
+            index,
+            "scale factor must be positive and finite",
+        ));
+    }
+    validate_work_area(work_area)
+        .map_err(|error| CommandError::invalid_monitor_descriptor(index, error))?;
+
+    let name = monitor.name().cloned();
+    let key = format!(
+        "{}|{}|{}|{}|{}|{}|{}|{}|{}|{:016x}",
+        name.as_deref().unwrap_or_default(),
+        position.x,
+        position.y,
+        size.width,
+        size.height,
+        work_area.position.x,
+        work_area.position.y,
+        work_area.size.width,
+        work_area.size.height,
+        scale_factor.to_bits(),
+    );
+
+    Ok(MonitorDescriptor {
+        key,
         index,
-        name: monitor.name().cloned(),
-        scale_factor: monitor.scale_factor(),
+        name,
+        scale_factor,
         position: GeometryPoint {
             x: position.x,
             y: position.y,
@@ -117,36 +155,96 @@ fn monitor_descriptor(index: usize, monitor: &tauri::window::Monitor) -> Monitor
             width: size.width,
             height: size.height,
         },
-        work_area: monitor_work_area(monitor),
+        work_area,
+    })
+}
+
+fn resolve_monitor_by_key(
+    app_handle: &tauri::AppHandle,
+    monitor_key: &str,
+) -> CommandResult<(tauri::window::Monitor, MonitorDescriptor)> {
+    if monitor_key.is_empty() {
+        return Err(CommandError::invalid_argument(
+            "monitorKey",
+            "must be non-empty",
+        ));
     }
+    if monitor_key.len() > MAX_MONITOR_KEY_LEN {
+        return Err(CommandError::invalid_argument(
+            "monitorKey",
+            "exceeds the maximum supported length",
+        ));
+    }
+
+    for (index, monitor) in enumerate_monitors(app_handle)?.into_iter().enumerate() {
+        let descriptor = monitor_descriptor(index, &monitor)?;
+        if descriptor.key == monitor_key {
+            return Ok((monitor, descriptor));
+        }
+    }
+
+    Err(CommandError::stale_monitor_selection())
 }
 
 #[tauri::command]
 fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescriptor>> {
-    Ok(enumerate_monitors(&app_handle)?
+    enumerate_monitors(&app_handle)?
         .iter()
         .enumerate()
         .map(|(index, monitor)| monitor_descriptor(index, monitor))
-        .collect())
+        .collect()
 }
 
-#[tauri::command]
-fn position_focus_surface(
+fn configure_focus_surface_mode(
+    window: &tauri::WebviewWindow,
+    mode: FocusSurfaceMode,
+) -> CommandResult<()> {
+    let (width, height, always_on_top, skip_taskbar) = match mode {
+        FocusSurfaceMode::Panel => (400.0, 700.0, false, false),
+        FocusSurfaceMode::Timer => (300.0, 100.0, true, true),
+    };
+
+    window
+        .set_size(tauri::Size::Logical(tauri::LogicalSize { width, height }))
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "resize", error))?;
+    window
+        .set_always_on_top(always_on_top)
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "set always-on-top", error))?;
+    window
+        .set_skip_taskbar(skip_taskbar)
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "set taskbar visibility", error))?;
+    window
+        .show()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
+    Ok(())
+}
+
+#[tauri::command(rename_all = "camelCase")]
+fn position_focus_panel(
     app_handle: tauri::AppHandle,
-    monitor_index: usize,
+    monitor_key: String,
     side: FocusPanelSide,
 ) -> CommandResult<()> {
-    let monitors = enumerate_monitors(&app_handle)?;
-    let monitor = monitors
-        .get(monitor_index)
-        .ok_or_else(|| CommandError::monitor_not_found(monitor_index, monitors.len()))?;
+    let (_monitor, descriptor) = resolve_monitor_by_key(&app_handle, &monitor_key)?;
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+
+    // Move into the target work area before applying logical panel geometry so Windows/WebView2
+    // can use the target monitor's DPI. The final edge position is computed from the actual
+    // physical outer size after the resize.
+    window
+        .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
+            x: descriptor.work_area.position.x,
+            y: descriptor.work_area.position.y,
+        }))
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error))?;
+
+    configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
+
     let window_size = window
         .outer_size()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read outer size", error))?;
-
-    let position = focus_panel_edge_position(
-        monitor_work_area(monitor),
+    let final_position = focus_panel_edge_position(
+        descriptor.work_area,
         GeometrySize {
             width: window_size.width,
             height: window_size.height,
@@ -157,11 +255,14 @@ fn position_focus_surface(
 
     window
         .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-            x: position.x,
-            y: position.y,
+            x: final_position.x,
+            y: final_position.y,
         }))
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "position", error))?;
-    show_and_focus(&window)
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "position at monitor edge", error))?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus", error))?;
+    Ok(())
 }
 
 fn build_main_window(app_handle: &tauri::AppHandle) -> CommandResult<tauri::WebviewWindow> {
@@ -278,39 +379,16 @@ enum FocusSurfaceMode {
     Timer,
 }
 
-fn apply_focus_surface_mode(
-    app_handle: &tauri::AppHandle,
-    mode: FocusSurfaceMode,
-) -> CommandResult<()> {
-    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
-    let (width, height, always_on_top, skip_taskbar) = match mode {
-        FocusSurfaceMode::Panel => (400.0, 700.0, false, false),
-        FocusSurfaceMode::Timer => (300.0, 100.0, true, true),
-    };
-
-    window
-        .set_size(tauri::Size::Logical(tauri::LogicalSize { width, height }))
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "resize", error))?;
-    window
-        .set_always_on_top(always_on_top)
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "set always-on-top", error))?;
-    window
-        .set_skip_taskbar(skip_taskbar)
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "set taskbar visibility", error))?;
-    window
-        .show()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
-    Ok(())
-}
-
 #[tauri::command]
 fn focus_surface_mode_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    apply_focus_surface_mode(&app_handle, FocusSurfaceMode::Panel)
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)
 }
 
 #[tauri::command]
 fn focus_surface_mode_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    apply_focus_surface_mode(&app_handle, FocusSurfaceMode::Timer)
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    configure_focus_surface_mode(&window, FocusSurfaceMode::Timer)
 }
 
 #[tauri::command]
@@ -416,7 +494,7 @@ pub fn run() {
             focus_surface_mode_timer,
             list_windows,
             list_monitors,
-            position_focus_surface
+            position_focus_panel
         ])
         .setup(|app| {
             install_tray(app)?;
