@@ -1,15 +1,41 @@
 use super::{recover_window_top_left, validate_work_area, PhysicalPoint, PhysicalRect, PhysicalSize};
+use std::ffi::c_void;
 use std::io;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::OnceLock;
 use tauri::Manager;
-use windows_sys::Win32::Foundation::{HWND, LPARAM, LRESULT, WPARAM};
-use windows_sys::Win32::UI::Shell::{DefSubclassProc, RemoveWindowSubclass, SetWindowSubclass};
-use windows_sys::Win32::UI::WindowsAndMessaging::{WM_DISPLAYCHANGE, WM_NCDESTROY};
 
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const RECOVERABLE_WINDOW_LABELS: [&str; 2] = ["main", FOCUS_SURFACE_LABEL];
 const DISPLAY_CHANGE_SUBCLASS_ID: usize = 0x4e_41_52_52_4f;
+const WM_DISPLAY_CHANGE: u32 = 0x007e;
+const WM_NC_DESTROY: u32 = 0x0082;
+
+type RawHwnd = *mut c_void;
+type SubclassProc = Option<
+    unsafe extern "system" fn(RawHwnd, u32, usize, isize, usize, usize) -> isize,
+>;
+
+#[link(name = "comctl32")]
+unsafe extern "system" {
+    #[link_name = "SetWindowSubclass"]
+    fn set_window_subclass(
+        hwnd: RawHwnd,
+        subclass_proc: SubclassProc,
+        subclass_id: usize,
+        reference_data: usize,
+    ) -> i32;
+
+    #[link_name = "RemoveWindowSubclass"]
+    fn remove_window_subclass(
+        hwnd: RawHwnd,
+        subclass_proc: SubclassProc,
+        subclass_id: usize,
+    ) -> i32;
+
+    #[link_name = "DefSubclassProc"]
+    fn def_subclass_proc(hwnd: RawHwnd, message: u32, wparam: usize, lparam: isize) -> isize;
+}
 
 static DISPLAY_APP_HANDLE: OnceLock<tauri::AppHandle> = OnceLock::new();
 static RECOVERY_PENDING: AtomicBool = AtomicBool::new(false);
@@ -26,9 +52,9 @@ pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error
         .set(app.handle().clone())
         .map_err(|_| io::Error::other("display observer app handle was already initialized"))?;
 
-    let raw_hwnd = hwnd.0 as HWND;
+    let raw_hwnd = hwnd.0 as RawHwnd;
     let installed = unsafe {
-        SetWindowSubclass(
+        set_window_subclass(
             raw_hwnd,
             Some(display_change_subclass_proc),
             DISPLAY_CHANGE_SUBCLASS_ID,
@@ -45,22 +71,22 @@ pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error
 }
 
 unsafe extern "system" fn display_change_subclass_proc(
-    hwnd: HWND,
+    hwnd: RawHwnd,
     message: u32,
-    wparam: WPARAM,
-    lparam: LPARAM,
+    wparam: usize,
+    lparam: isize,
     subclass_id: usize,
     _reference_data: usize,
-) -> LRESULT {
-    if message == WM_DISPLAYCHANGE {
+) -> isize {
+    if message == WM_DISPLAY_CHANGE {
         schedule_display_recovery();
-    } else if message == WM_NCDESTROY {
+    } else if message == WM_NC_DESTROY {
         let _ = unsafe {
-            RemoveWindowSubclass(hwnd, Some(display_change_subclass_proc), subclass_id)
+            remove_window_subclass(hwnd, Some(display_change_subclass_proc), subclass_id)
         };
     }
 
-    unsafe { DefSubclassProc(hwnd, message, wparam, lparam) }
+    unsafe { def_subclass_proc(hwnd, message, wparam, lparam) }
 }
 
 fn schedule_display_recovery() {
@@ -108,9 +134,9 @@ fn monitor_work_area(monitor: &tauri::window::Monitor) -> PhysicalRect {
 }
 
 fn recover_visible_windows(app_handle: &tauri::AppHandle) -> Result<Vec<&'static str>, io::Error> {
-    let monitors = app_handle
-        .available_monitors()
-        .map_err(|error| io::Error::other(format!("enumerate monitors after display change: {error}")))?;
+    let monitors = app_handle.available_monitors().map_err(|error| {
+        io::Error::other(format!("enumerate monitors after display change: {error}"))
+    })?;
 
     let work_areas: Vec<_> = monitors
         .iter()
