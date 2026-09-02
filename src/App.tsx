@@ -7,6 +7,9 @@ import {
   type DiagnosticCommand,
   type FocusPanelSide,
   type MonitorDescriptor,
+  type ShortcutConflictProbeResult,
+  type ShortcutStatus,
+  applyNewerShortcutStatus,
   applyNewerState,
   findSelectedMonitor,
   formatInvokeError,
@@ -15,9 +18,12 @@ import {
 } from "./diagnosticApi";
 
 type StateCommand = "mutate_state" | "toggle_timer";
+type ShortcutCommand = "shortcut_register" | "shortcut_unregister";
 
 function App() {
   const [state, setState] = useState<AppStatePayload | null>(null);
+  const [shortcut, setShortcut] = useState<ShortcutStatus | null>(null);
+  const [shortcutProbe, setShortcutProbe] = useState<ShortcutConflictProbeResult | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
@@ -62,7 +68,8 @@ function App() {
 
   useEffect(() => {
     let disposed = false;
-    let stopListening: (() => void) | undefined;
+    let stopStateListening: (() => void) | undefined;
+    let stopShortcutListening: (() => void) | undefined;
 
     void listen<AppStatePayload>("state-changed", (event) => {
       if (!disposed) {
@@ -73,7 +80,25 @@ function App() {
         if (disposed) {
           unlisten();
         } else {
-          stopListening = unlisten;
+          stopStateListening = unlisten;
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setError(formatInvokeError(failure));
+        }
+      });
+
+    void listen<ShortcutStatus>("shortcut-state-changed", (event) => {
+      if (!disposed) {
+        setShortcut((current) => applyNewerShortcutStatus(current, event.payload));
+      }
+    })
+      .then((unlisten) => {
+        if (disposed) {
+          unlisten();
+        } else {
+          stopShortcutListening = unlisten;
         }
       })
       .catch((failure: unknown) => {
@@ -94,12 +119,25 @@ function App() {
         }
       });
 
+    void invoke<ShortcutStatus>("shortcut_status")
+      .then((status) => {
+        if (!disposed) {
+          setShortcut((current) => applyNewerShortcutStatus(current, status));
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setError(formatInvokeError(failure));
+        }
+      });
+
     void refreshWindows();
     void refreshMonitors();
 
     return () => {
       disposed = true;
-      stopListening?.();
+      stopStateListening?.();
+      stopShortcutListening?.();
     };
   }, []);
 
@@ -119,6 +157,28 @@ function App() {
       setError(null);
       await refreshWindows();
     } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function runShortcutCommand(command: ShortcutCommand) {
+    try {
+      const status = await invoke<ShortcutStatus>(command);
+      setShortcut((current) => applyNewerShortcutStatus(current, status));
+      setShortcutProbe(null);
+      setError(null);
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function probeShortcutConflict() {
+    try {
+      const result = await invoke<ShortcutConflictProbeResult>("shortcut_probe_conflict");
+      setShortcutProbe(result);
+      setError(null);
+    } catch (failure: unknown) {
+      setShortcutProbe(null);
       setError(formatInvokeError(failure));
     }
   }
@@ -198,6 +258,27 @@ function App() {
           <button onClick={() => void runStateCommand("toggle_timer")}>
             Toggle Timer
           </button>
+
+          <hr />
+          <h3>Global Shortcut Diagnostics</h3>
+          <pre>{JSON.stringify(shortcut, null, 2)}</pre>
+          <p>
+            After registration, press {shortcut?.accelerator ?? "Ctrl+Alt+Shift+F10"} from any
+            normal Windows application. The Rust-owned triggerCount should increment.
+          </p>
+          <button onClick={() => void runShortcutCommand("shortcut_register")}>
+            Register Shortcut
+          </button>
+          <button onClick={() => void runShortcutCommand("shortcut_unregister")}>
+            Unregister Shortcut
+          </button>
+          <button
+            disabled={!shortcut?.registered}
+            onClick={() => void probeShortcutConflict()}
+          >
+            Probe Duplicate Conflict
+          </button>
+          {shortcutProbe && <pre>{JSON.stringify(shortcutProbe, null, 2)}</pre>}
         </div>
 
         <div
