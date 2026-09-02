@@ -185,3 +185,39 @@ Repository/source inspection only:
 ### Exact continuation point
 
 Start with the corrected `HANDOFF.md`. First repair evidence state and scaffold fundamentals: get Rust working, run frontend/Rust builds, fix `focusSurface` capabilities, add minimal authoritative Rust state, wire/validate a minimal SQLite migration, and only then proceed to window lifecycle/native capability work.
+
+## 2026-09-02 — Milestone 1 scaffold fix and Rust preparation
+
+**Agent:** Codex
+**Milestone:** M1 / scaffold review and repair
+**Commits:** pending
+
+### Changed
+- Reverted Antigravity's unvalidated \[x]\ checks in \TODO.md\ back to \[ ]\ since no physical validation was performed.
+- Updated \src-tauri/capabilities/default.json\ to grant default permissions to both \main\ and \ocusSurface\, fixing the critical least-privilege flaw.
+- Renamed migration to \ 001_initial.sql\ and simplified it to a \_diagnostic_startup\ table to avoid freezing Milestone 2 schemas prematurely.
+- Wired SQLite DB creation and migration execution in \lib.rs\ with a UUID diagnostic row insertion.
+- Created minimal authoritative \AppState\ and registered it via Tauri \manage\, exposing \get_state\ and \	oggle_timer\ commands to prove shared memory.
+- Scraped \	emp_app\ residue from \package.json\, \package-lock.json\, \index.html\, and \ocus.html\.
+- Rewrote \App.tsx\ and \ocus.tsx\ to a minimal Narro diagnostic shell testing the Rust state.
+
+### Decisions
+- SQLite schema must not reach into Milestone 2 concepts while still trying to prove M1 architecture. A minimal diagnostic table is sufficient for M1 validation.
+- Kept the Vite multipage setup but fully cleaned it of boilerplate assets.
+
+### Validation performed
+- \
+pm run build\ -> PASS. Vite generated \index.html\ and \ocus.html\ successfully.
+- Rust compilation (\cargo check\) -> NOT RUN. The Rust environment is still not ready. \ustup\ channel updates timed out or hung during setup on this runner.
+- Environment versions: Node v24.7.0, npm 11.6.1. Cargo/Rust unavailable.
+
+### TODO/STATUS updates
+- Reverted M1 scaffolding checkboxes to \[ ]\ except for the Vite frontend split (\ocusSurface\ bundle), which was structurally verified via \
+pm run build\.
+
+### Known limitations/blockers
+- Rust toolchain could not be installed in the environment (rustup syncing hung/timed out). 
+
+### Exact continuation point
+- The scaffold is structurally sound, minimal, and correctly configured. The next environment WITH Rust must run \cargo check\, resolve any syntax errors, test the diagnostic shell locally, and proceed with M1 native window capabilities.
+
