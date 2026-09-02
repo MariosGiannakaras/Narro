@@ -7,6 +7,8 @@ import {
   type DiagnosticCommand,
   type FocusPanelSide,
   type MonitorDescriptor,
+  type ShortcutConflictProbe,
+  type ShortcutRegistrationStatus,
   applyNewerState,
   findSelectedMonitor,
   formatInvokeError,
@@ -15,12 +17,15 @@ import {
 } from "./diagnosticApi";
 
 type StateCommand = "mutate_state" | "toggle_timer";
+type ShortcutRegistrationCommand = "global_shortcut_register" | "global_shortcut_unregister";
 
 function App() {
   const [state, setState] = useState<AppStatePayload | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
+  const [shortcutStatus, setShortcutStatus] = useState<ShortcutRegistrationStatus | null>(null);
+  const [shortcutProbe, setShortcutProbe] = useState<ShortcutConflictProbe | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function refreshWindows() {
@@ -56,6 +61,16 @@ function App() {
       setError(null);
     } catch (failure: unknown) {
       clearMonitorList();
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function refreshShortcutStatus() {
+    try {
+      const status = await invoke<ShortcutRegistrationStatus>("global_shortcut_status");
+      setShortcutStatus(status);
+    } catch (failure: unknown) {
+      setShortcutStatus(null);
       setError(formatInvokeError(failure));
     }
   }
@@ -96,6 +111,7 @@ function App() {
 
     void refreshWindows();
     void refreshMonitors();
+    void refreshShortcutStatus();
 
     return () => {
       disposed = true;
@@ -120,6 +136,38 @@ function App() {
       await refreshWindows();
     } catch (failure: unknown) {
       setError(formatInvokeError(failure));
+    }
+  }
+
+  async function runShortcutRegistration(command: ShortcutRegistrationCommand) {
+    try {
+      const status = await invoke<ShortcutRegistrationStatus>(command);
+      setShortcutStatus(status);
+      setShortcutProbe(null);
+      setError(null);
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+      await refreshShortcutStatus();
+    }
+  }
+
+  async function probeShortcutConflict() {
+    if (shortcutStatus?.registered) {
+      setError(
+        "[GLOBAL_SHORTCUT_PROBE_REQUIRES_UNREGISTERED] Unregister the Narro shortcut before running the conflict probe.",
+      );
+      return;
+    }
+
+    try {
+      const probe = await invoke<ShortcutConflictProbe>("global_shortcut_probe_conflict");
+      setShortcutProbe(probe);
+      setError(null);
+      await refreshShortcutStatus();
+    } catch (failure: unknown) {
+      setShortcutProbe(null);
+      setError(formatInvokeError(failure));
+      await refreshShortcutStatus();
     }
   }
 
@@ -241,6 +289,43 @@ function App() {
           <button onClick={() => void runWindowCommand("focus_surface_mode_timer")}>
             FocusSurface -&gt; Timer
           </button>
+
+          <hr />
+          <h3>Global Shortcut Diagnostics</h3>
+          <div>
+            Shortcut: {shortcutStatus?.shortcut ?? "Ctrl+Alt+Shift+N"} — {" "}
+            {shortcutStatus === null
+              ? "status unavailable"
+              : shortcutStatus.registered
+                ? "registered"
+                : "not registered"}
+          </div>
+          <div>
+            Trigger count: {state?.global_shortcut_trigger_count ?? "state unavailable"}
+          </div>
+          <button
+            disabled={shortcutStatus?.registered === true}
+            onClick={() => void runShortcutRegistration("global_shortcut_register")}
+          >
+            Register Global Shortcut
+          </button>
+          <button
+            disabled={shortcutStatus?.registered !== true}
+            onClick={() => void runShortcutRegistration("global_shortcut_unregister")}
+          >
+            Unregister Global Shortcut
+          </button>
+          <button
+            disabled={shortcutStatus?.registered === true}
+            onClick={() => void probeShortcutConflict()}
+          >
+            Probe Shortcut Conflict
+          </button>
+          {shortcutProbe && (
+            <pre style={{ whiteSpace: "pre-wrap" }}>
+              {JSON.stringify(shortcutProbe, null, 2)}
+            </pre>
+          )}
 
           <hr />
           <h3>Monitor Diagnostics</h3>
