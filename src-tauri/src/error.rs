@@ -2,6 +2,7 @@ use serde::Serialize;
 use std::fmt::{Display, Formatter};
 
 use crate::domain::StateError;
+use crate::shortcuts::{ShortcutError, ShortcutStateError};
 
 pub type CommandResult<T> = Result<T, CommandError>;
 
@@ -111,6 +112,67 @@ impl From<StateError> for CommandError {
     }
 }
 
+impl From<ShortcutError> for CommandError {
+    fn from(error: ShortcutError) -> Self {
+        match error {
+            ShortcutError::State(state_error) => match state_error {
+                ShortcutStateError::LockPoisoned => Self::new(
+                    "SHORTCUT_STATE_LOCK_POISONED",
+                    "global shortcut state lock is poisoned",
+                ),
+                ShortcutStateError::TriggerCountOverflow => Self::new(
+                    "SHORTCUT_TRIGGER_COUNT_OVERFLOW",
+                    "global shortcut trigger count reached its maximum value",
+                ),
+                ShortcutStateError::RevisionOverflow => Self::new(
+                    "SHORTCUT_STATE_REVISION_OVERFLOW",
+                    "global shortcut state revision reached its maximum value",
+                ),
+            },
+            ShortcutError::FocusSurfaceMissing => Self::new(
+                "SHORTCUT_HOST_WINDOW_MISSING",
+                "focusSurface does not exist, so the Windows global shortcut cannot be managed",
+            ),
+            ShortcutError::Hwnd(source) => Self::new(
+                "SHORTCUT_HOST_WINDOW_FAILED",
+                format!("failed to access the focusSurface native window: {source}"),
+            ),
+            ShortcutError::RegistrationConflict => Self::new(
+                "SHORTCUT_REGISTRATION_CONFLICT",
+                "Windows reports the diagnostic global shortcut is already registered by another owner",
+            ),
+            ShortcutError::RegistrationFailed(source) => Self::new(
+                "SHORTCUT_REGISTRATION_FAILED",
+                format!("Windows failed to register the diagnostic global shortcut: {source}"),
+            ),
+            ShortcutError::UnregistrationFailed(source) => Self::new(
+                "SHORTCUT_UNREGISTRATION_FAILED",
+                format!("Windows failed to unregister the diagnostic global shortcut: {source}"),
+            ),
+            ShortcutError::ConflictProbeRequiresRegistration => Self::new(
+                "SHORTCUT_NOT_REGISTERED",
+                "register the diagnostic global shortcut before probing duplicate-registration conflict handling",
+            ),
+            ShortcutError::ConflictProbeUnexpectedSuccess => Self::new(
+                "SHORTCUT_CONFLICT_PROBE_INVALID",
+                "Windows unexpectedly allowed the same global shortcut accelerator to be registered twice",
+            ),
+            ShortcutError::ConflictProbeUnexpectedFailure(source) => Self::new(
+                "SHORTCUT_CONFLICT_PROBE_FAILED",
+                format!("duplicate global shortcut registration failed with an unexpected Windows error: {source}"),
+            ),
+            ShortcutError::ObserverAlreadyInitialized => Self::new(
+                "SHORTCUT_OBSERVER_ALREADY_INITIALIZED",
+                "global shortcut observer was initialized more than once",
+            ),
+            ShortcutError::ObserverInstallFailed => Self::new(
+                "SHORTCUT_OBSERVER_INSTALL_FAILED",
+                "Windows rejected installation of the global shortcut message observer",
+            ),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -139,5 +201,20 @@ mod tests {
         let error = CommandError::stale_monitor_selection();
         assert_eq!(error.code, "MONITOR_SELECTION_STALE");
         assert!(error.message.contains("refresh monitors"));
+    }
+
+    #[test]
+    fn shortcut_conflict_maps_to_stable_actionable_code() {
+        let error = CommandError::from(ShortcutError::RegistrationConflict);
+        assert_eq!(error.code, "SHORTCUT_REGISTRATION_CONFLICT");
+        assert!(error.message.contains("already registered"));
+    }
+
+    #[test]
+    fn shortcut_state_error_maps_without_losing_failure_class() {
+        let error = CommandError::from(ShortcutError::State(
+            ShortcutStateError::TriggerCountOverflow,
+        ));
+        assert_eq!(error.code, "SHORTCUT_TRIGGER_COUNT_OVERFLOW");
     }
 }
