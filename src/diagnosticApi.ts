@@ -2,6 +2,7 @@ export type AppStatePayload = {
   active_task: string | null;
   is_running: boolean;
   counter: number;
+  global_shortcut_trigger_count: number;
   revision: number;
 };
 
@@ -35,6 +36,18 @@ export type MonitorDescriptor = {
   position: PhysicalPoint;
   size: PhysicalSize;
   workArea: PhysicalRect;
+};
+
+export type ShortcutRegistrationStatus = {
+  shortcut: string;
+  registered: boolean;
+};
+
+export type ShortcutConflictProbe = {
+  shortcut: string;
+  conflictDetected: boolean;
+  source: string;
+  osErrorCode: number | null;
 };
 
 export type DiagnosticCommand =
