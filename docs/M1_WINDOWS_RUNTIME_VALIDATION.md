@@ -1,63 +1,125 @@
 # Milestone 1: Windows Runtime Validation Harness
 
-This document outlines the manual validation procedures for testing the Tauri 2 native runtime behavior on Windows. Since automated CI cannot interact with the desktop shell or prove Windows-specific morphological webview constraints, these scenarios must be run manually by the user.
+This document defines the manual validation procedures for the Tauri 2 native runtime harness on Windows.
 
-## Testing Methods
+Automated Windows CI proves compilation, unit tests, dependency resolution and installer generation. It does **not** prove interactive desktop behavior such as cross-window event delivery, native window destruction/recreation, always-on-top or taskbar behavior. Those observations must be performed on a real Windows desktop.
 
-### OPTION A (PREFERRED)
-Download the successful GitHub Actions artifact, extract/install it, run Narro diagnostic harness, and perform the manual scenarios without installing Rust locally.
+## Preferred test build
 
-1. Go to the GitHub Actions tab for this repository.
-2. Select the latest successful Windows CI run on main.
-3. Scroll down to **Artifacts** and download 
-arro-m1-runtime-harness-windows-x64.
-4. Extract the .zip and run the executable installer (.exe or .msi).
-5. Run the installed "Narro" app and follow the Scenarios below.
+The verified GitHub Actions build is:
 
-### OPTION B
-For a Windows development machine with Rust and Node installed:
-`ash
+- Workflow: `Windows CI`
+- Run: `33654231268`
+- Commit: `843549c5acf62eac1d178730bdaa18e431c59f46`
+- Conclusion: `success`
+- Artifact: `narro-m1-runtime-harness-windows-x64`
+- Artifact SHA-256 digest: `fae196e8eb053db116025e6a3d1675981115845d636a07794545d899aa189b8b`
+
+The artifact contains:
+
+- `nsis/Narro_0.1.0_x64-setup.exe`
+- `msi/Narro_0.1.0_x64_en-US.msi`
+
+The diagnostic build is unsigned. Windows may show an unsigned-app / SmartScreen warning. This is expected for the Milestone 1 test build.
+
+## Testing methods
+
+### Option A — preferred: install the CI artifact
+
+1. Open the repository's **Actions** tab.
+2. Open successful `Windows CI` run `33654231268` for commit `843549c5...`.
+3. Download the artifact `narro-m1-runtime-harness-windows-x64`.
+4. Extract the ZIP.
+5. Install either the NSIS `.exe` or MSI package. You do not need both.
+6. Launch **Narro**.
+7. Perform Scenarios 1–3 below and record every PASS/FAIL result.
+
+### Option B — local development machine
+
+Use this only on a Windows machine with Node, Rust/MSVC and WebView2 available:
+
+```powershell
 npm ci
 npm run tauri dev
-`
+```
 
-## Scenario 1: Shared Authoritative Rust State
+## Scenario 1 — shared authoritative Rust state
 
-**Goal**: Prove that both main and ocusSurface project the exact same state without duplicating authoritative copies in renderer memory.
+**Goal:** prove that `main` and `focusSurface` project the same Rust-owned state rather than independent authoritative renderer copies.
 
-**Steps**:
-1. Launch the application. The main window should appear.
-2. Click **Show FocusSurface** in main. Verify the ocusSurface window appears.
-3. In the main window, click **Mutate State (Counter)**.
-4. Verify that the counter increments in the main window.
-5. **PASS/FAIL**: Look at the ocusSurface window. Did it immediately receive the updated counter?
-6. In the ocusSurface window, click **Mutate State**.
-7. **PASS/FAIL**: Did the main window immediately receive the updated counter?
+1. Launch Narro. The `main` diagnostic window should appear.
+2. In `main`, click **Show FocusSurface**.
+3. Confirm the `focusSurface` diagnostic window appears.
+4. In `main`, click **Mutate State (Counter)**.
+5. Confirm the counter increments in `main`.
+6. **PASS/FAIL:** does `focusSurface` immediately display the same updated counter?
+7. In `focusSurface`, click **Mutate State**.
+8. **PASS/FAIL:** does `main` immediately display the same new counter?
 
-## Scenario 2: Main Window Programmatic Lifecycle
+Record:
 
-**Goal**: Prove that closing/destroying the main window does not terminate the Rust process, and that recreating it instantly projects the current surviving state.
+- Main → FocusSurface state event: `PASS / FAIL`
+- FocusSurface → Main state event: `PASS / FAIL`
 
-**Steps**:
-1. Ensure the counter has been mutated to a recognizable value (e.g., 5).
-2. In the ocusSurface window, click **Hide Main**. Verify main disappears.
-3. In the ocusSurface window, click **Show Main**. Verify main reappears.
-4. In the ocusSurface window, click **Destroy Main**. Verify main is closed.
-5. While main is destroyed, click **Mutate State** in the ocusSurface window. Verify the counter still increments in the focus UI (proving Rust state remains active).
-6. **PASS/FAIL**: In the ocusSurface window, click **Recreate Main**. Does the main window reappear?
-7. **PASS/FAIL**: In the newly recreated main window, does it instantly display the correct surviving counter value (e.g., 6) rather than resetting to 0? *(Note: recreation geometry is currently fixed at 800x600, preserving previous position is not required in this slice).*
+## Scenario 2 — main window lifecycle and state survival
 
-## Scenario 3: FocusSurface Morphing (Focus Panel <-> Floating Timer)
+**Goal:** prove that the `main` webview can be hidden/destroyed/recreated without terminating the Rust process or resetting Rust state.
 
-**Goal**: Prove that we can switch modes by dynamically resizing and restyling the *same* webview, without creating a third persistent window.
+1. Keep `focusSurface` visible.
+2. Mutate the counter to a recognizable value such as `5`.
+3. In `focusSurface`, click **Hide Main**. Confirm `main` disappears.
+4. Click **Show Main**. Confirm `main` reappears with the same counter.
+5. In `focusSurface`, click **Destroy Main**. Confirm the `main` webview disappears.
+6. While `main` does not exist, click **Mutate State** in `focusSurface`.
+7. Confirm the counter continues to increment in `focusSurface`.
+8. Click **Recreate Main**.
+9. **PASS/FAIL:** does a new `main` window appear?
+10. **PASS/FAIL:** does recreated `main` immediately display the surviving counter instead of resetting to `0`?
 
-**Steps**:
-1. Verify the list of Active Webviews in the main window shows exactly main, focusSurface (click Refresh Window List).
-2. In the ocusSurface window, click **Timer Mode**.
-3. **PASS/FAIL**: Does the window resize to a compact geometry (300x100)?
-4. **PASS/FAIL**: Open a normal maximized application (e.g., a web browser or Notepad). Does the compact Timer Mode window stay strictly **Always on Top**?
-5. **PASS/FAIL**: Is the compact Timer Mode window hidden from the Windows Taskbar? (Skip-taskbar behavior).
-6. In the compact ocusSurface window, click **Panel Mode**.
-7. **PASS/FAIL**: Does the window restore to panel geometry (400x700)?
-8. **PASS/FAIL**: Does it correctly restore taskbar presence and drop its always-on-top constraint?
-9. **PASS/FAIL**: Click **Refresh Window List** in the main window. Does the list still show exactly main, focusSurface (proving no 3rd window was created)?
+Notes:
+
+- **Destroy Main** uses Tauri `WebviewWindow::destroy()`.
+- **Close Main** is a separate diagnostic control using Tauri `close()` and is not the forced-destroy proof.
+- Recreated `main` currently uses fixed `800×600` geometry. Preserving previous position/geometry is outside this slice.
+
+Record:
+
+- Hide/show main: `PASS / FAIL`
+- Forced destroy while process/focusSurface survives: `PASS / FAIL`
+- State mutation while main is absent: `PASS / FAIL`
+- Recreate main: `PASS / FAIL`
+- Rust state survives recreation: `PASS / FAIL`
+
+## Scenario 3 — same `focusSurface` as Focus Panel / Floating Timer
+
+**Goal:** prove that Narro can resize/restyle the same existing `focusSurface` webview instead of creating a third persistent focus webview.
+
+1. Ensure both windows are visible.
+2. In `main`, click **Refresh Window List**.
+3. Confirm the list contains exactly `main` and `focusSurface`.
+4. In `focusSurface`, click **Timer Mode**.
+5. **PASS/FAIL:** does the same window resize to approximately `300×100`?
+6. Open a normal Windows application such as Notepad or a browser and place/focus it over the Narro area.
+7. **PASS/FAIL:** does Timer Mode remain above the normal application?
+8. **PASS/FAIL:** is Timer Mode absent from normal taskbar presentation?
+9. In `focusSurface`, click **Panel Mode**.
+10. **PASS/FAIL:** does the same window resize to approximately `400×700`?
+11. **PASS/FAIL:** does Panel Mode stop being always-on-top and return to normal taskbar presentation?
+12. In `main`, click **Refresh Window List** again.
+13. **PASS/FAIL:** does the list still contain exactly `main` and `focusSurface`, with no third persistent webview?
+
+Important: monitor-edge repositioning is **not implemented or validated in this slice**. This scenario proves resize/restyle/reuse only.
+
+Record:
+
+- Timer geometry: `PASS / FAIL`
+- Timer always-on-top: `PASS / FAIL`
+- Timer skip-taskbar behavior: `PASS / FAIL`
+- Panel geometry/restyle restore: `PASS / FAIL`
+- Same `focusSurface` reused / no third webview: `PASS / FAIL`
+
+## What to send back after testing
+
+Send the PASS/FAIL results plus any unexpected behavior. Screenshots are useful for failures but are not required for obvious PASS results.
+
+Do **not** edit `TODO.md` manually unless you want to. The next coding/review agent can update the repository checklist from the observed evidence.
