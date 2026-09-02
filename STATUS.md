@@ -4,7 +4,7 @@ Last updated: 2026-09-02
 
 ## Current phase
 
-**Milestone 1 in progress (Native harness implemented, CI passing, interactive test blocked)**
+**Milestone 1 in progress (Native harness artifact generated, awaiting manual user validation)**
 
 The repository now contains the durable rules, exhaustive source/screenshot research, product behavior specification, UI/UX/motion specification, Windows architecture, ordered implementation plan, original Blitzit screenshot references, and the canonical Narro branding asset needed for Codex to begin without repeating the original product research.
 
@@ -357,6 +357,7 @@ The application name and repository name are both **Narro**. Current repository:
 ## Next executable work
 
 Start `TODO.md` Milestone 1: build the minimal Windows Tauri scaffold and prove two-webview behavior, dynamic displays, native capabilities, SQLite migration path and real Floating Timer resource profile before product UI implementation.
+
 
 
 
