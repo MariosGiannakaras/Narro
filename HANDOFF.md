@@ -6,90 +6,123 @@ This file is the current continuation point for the next Narro coding/review ses
 
 **Milestone 1 — Windows desktop scaffold, capability and performance spike**
 
-The M1 runtime harness is implemented and compiles/builds successfully in Windows GitHub Actions. Interactive Windows behavior is **not yet validated**.
+The M1 runtime harness compiles/builds successfully in Windows GitHub Actions and has now received its first real interactive Windows validation pass from the user.
 
-## Verified CI/artifact state
+The shared-state/destroy-survival architecture worked through the point where `main` was forcibly destroyed. The current blocker is a reproducible **Windows recreate deadlock/freeze** in `main_window_recreate`.
 
-Latest verified diagnostic build:
+Do not continue to later M1 native capabilities until this recreate path is fixed and retested with a new artifact.
+
+## Verified CI/artifact baseline used for the first manual run
 
 - Workflow: `Windows CI`
 - Run ID: `33654231268`
 - Commit: `843549c5acf62eac1d178730bdaa18e431c59f46`
 - Conclusion: `success`
 - Artifact: `narro-m1-runtime-harness-windows-x64`
-- Artifact size: `6,357,692` bytes
 - Artifact digest: `sha256:fae196e8eb053db116025e6a3d1675981115845d636a07794545d899aa189b8b`
-- Artifact contents:
+- Contents:
   - `nsis/Narro_0.1.0_x64-setup.exe`
   - `msi/Narro_0.1.0_x64_en-US.msi`
 
-CI currently proves the frontend build, Rust/Tauri compilation, Rust unit tests, locked dependency resolution and Windows installer generation. It does not prove native GUI behavior.
+Detailed user results are durable at:
 
-## Runtime harness implemented
+`docs/M1_USER_RUNTIME_RESULTS_2026-09-02.md`
 
-Current source includes diagnostic controls for:
+## Interactive Windows results now proven
 
-- shared Rust-owned counter/state mutation and `state-changed` events;
-- `main` show/hide/focus;
-- separate `main` close and forced destroy semantics;
-- `main` recreation while the Rust process remains alive;
-- `focusSurface` show/hide/focus;
-- same-window `focusSurface` Panel/Timer resize/restyle;
-- Floating Timer always-on-top and skip-taskbar flags;
-- listing active webview labels.
+Using the real Windows artifact, the user observed:
 
-Audit corrections already applied:
+- [x] `main` → `focusSurface` Rust state/event propagation: **PASS**
+- [x] `focusSurface` → `main` Rust state/event propagation: **PASS**
+- [x] hide/show `main`: **PASS**
+- [x] forced destroy of `main` leaves the process and `focusSurface` alive: **PASS**
+- [x] Rust state can still mutate while `main` does not exist: **PASS**
+- [ ] recreate `main`: **FAIL**
+  - the replacement native window appears;
+  - its client area is blank white;
+  - the React diagnostic UI never initializes;
+  - at the same point, the surviving `focusSurface` also becomes unresponsive.
+- [ ] recreated `main` sees surviving Rust state: **NOT VALIDATED**, because the recreate call freezes the harness first.
+- [ ] Panel → Timer → Panel: **NOT RUN after recreate failure**.
+- [ ] Timer always-on-top: **NOT RUN after recreate failure**.
+- [ ] Timer skip-taskbar: **NOT RUN after recreate failure**.
+- [ ] two-window-count check after mode switching: **NOT RUN after recreate failure**.
 
-- `main_window_destroy` uses Tauri `destroy()`, while `main_window_close` uses `close()`;
-- missing target windows return explicit command errors rather than silent success;
-- Panel/Timer commands show the existing `focusSurface`;
-- focus diagnostic UI includes Destroy/Close Main controls;
-- no claim is made that recreated `main` preserves prior geometry; it currently recreates at fixed `800×600`;
-- monitor-edge repositioning is not claimed as part of this slice.
+The parent main lifecycle task must remain open.
 
-## Next action — USER manual Windows validation
+## Likely recreate root cause — high-confidence hypothesis
 
-The next evidence must come from a real Windows desktop.
+Current source implements `main_window_recreate` as a **synchronous Tauri command** and calls `WebviewWindowBuilder::build()` directly inside that command.
 
-Use `docs/M1_WINDOWS_RUNTIME_VALIDATION.md` and preferably install the verified CI artifact rather than installing Rust locally.
+Tauri 2's current Windows API documentation explicitly lists a known WebView2 issue: webview-window creation can **deadlock when performed from synchronous commands or event handlers on Windows**. Tauri recommends using an `async` command and/or separate thread for window creation.
 
-Required observations:
+Official references:
 
-- [ ] main → focusSurface state event works;
-- [ ] focusSurface → main state event works;
-- [ ] hide/show main works;
-- [ ] forced destroy of main leaves process/focusSurface alive;
-- [ ] Rust state can mutate while main is absent;
-- [ ] recreated main sees surviving Rust state;
-- [ ] same `focusSurface` switches Panel → Timer → Panel;
-- [ ] Timer Mode is always-on-top against a normal Windows application;
-- [ ] Timer Mode skip-taskbar behavior works;
-- [ ] no third persistent webview appears.
+- https://docs.rs/tauri/latest/x86_64-pc-windows-msvc/tauri/webview/struct.WebviewWindowBuilder.html
+- https://docs.rs/tauri/latest/tauri/webview/struct.WebviewWindowBuilder.html
 
-Do not mark the parent runtime TODO items complete until these observations are reported.
+The user's observed failure — recreated blank native window followed by both webviews becoming unresponsive immediately after the synchronous `build()` path — is strongly consistent with that documented issue.
 
-## After user validation
+Treat this as a root-cause hypothesis until a corrected async/threaded recreate path passes the same real Windows test.
 
-The next coding/review agent must:
+## Recommended next agent
 
-1. record the user's PASS/FAIL evidence in `WORK_LOG.md`;
-2. update only evidence-backed `TODO.md` checkboxes;
-3. fix any failed runtime behavior before broadening Milestone 1;
-4. if this slice passes, continue to monitor enumeration/edge placement, display topology recovery, shortcuts, tray, notifications, autostart and floating-only CPU/RAM measurements;
-5. keep polished product UI and Milestone 2 blocked until the M1 architecture/capability gate is sufficiently validated.
+**Codex**
+
+Use:
+
+`prompts/CODEX_M1_RECREATE_DEADLOCK_FIX.md`
+
+The next session should be narrowly scoped to fixing/revalidating recreate. Do not broaden to monitors, hotplug, shortcuts, tray, notifications, autostart, performance measurements, polished UI or Milestone 2 yet.
+
+## Required next implementation slice
+
+1. Verify the current official Tauri 2 Windows guidance for `WebviewWindowBuilder`.
+2. Replace synchronous recreate with a documented non-deadlocking pattern:
+   - preferably an `async` command using the current supported Tauri pattern;
+   - use a separate thread/main-thread handoff only if required by current API behavior;
+   - do not invent a custom unsafe workaround.
+3. Keep the same authoritative Rust `AppState` in the existing process.
+4. Ensure the recreate command resolves with explicit success/error rather than hanging the calling `focusSurface` renderer.
+5. Consider using the configured `main` `WindowConfig` / `WebviewWindowBuilder::from_config` if that reduces drift from initial-window settings, but this is optional and must not obscure the actual deadlock fix.
+6. Add diagnostic error/last-action feedback if useful for the retest.
+7. Keep Windows CI green with `cargo check --locked`, `cargo test --locked` and `npm run tauri build`.
+8. Produce a new downloadable artifact.
+9. Prefer including the raw release `narro.exe` in the diagnostic artifact if verified independently runnable, in addition to installers, so the user can retest without accidentally launching an older installed `0.1.0` build.
+10. Record the exact new artifact run/commit and give the user a short retest procedure.
+
+## Retest gate
+
+Before broadening Milestone 1, the user must be able to perform this sequence on the corrected artifact:
+
+- [ ] launch main and show `focusSurface`;
+- [ ] mutate state in both directions;
+- [ ] destroy `main`;
+- [ ] mutate state while `main` is absent;
+- [ ] recreate `main` without freezing either webview;
+- [ ] recreated `main` loads its diagnostic UI;
+- [ ] recreated `main` immediately sees the surviving Rust counter/state;
+- [ ] only then continue Panel → Timer → Panel / AOT / taskbar validation.
+
+## Handoff/work-log integrity note
+
+`WORK_LOG.md` was accidentally overwritten by the last Antigravity slice instead of appended. Restore the historical append-only log before the next agent handoff and append the artifact/manual validation entries as forward history. Do not silently discard prior entries.
 
 ## Important files
 
 - `AGENTS.md`
 - `AGENT_WORKFLOW.md`
-- `TODO.md` — Milestone 1
+- `TODO.md` — Milestone 1 only
 - `STATUS.md`
+- `WORK_LOG.md`
 - `docs/ARCHITECTURE.md`
 - `docs/M1_WINDOWS_RUNTIME_VALIDATION.md`
+- `docs/M1_USER_RUNTIME_RESULTS_2026-09-02.md`
+- `src-tauri/src/lib.rs`
 - `.github/workflows/ci.yml`
 
 ## Handoff discipline
 
 Use forward commits only. Do not amend/rebase/force-push published `main` history for normal handoff work.
 
-Before the next agent stops, it must update `TODO.md`, append `WORK_LOG.md`, update `STATUS.md` if project-level truth changed, and rewrite this file with the exact next continuation point.
+Before the next agent stops, it must update evidence-backed `TODO.md` checkboxes, restore/append `WORK_LOG.md`, update `STATUS.md` if project-level truth changed, and rewrite this file with the exact next continuation point.
