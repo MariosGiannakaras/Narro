@@ -501,6 +501,9 @@ pub fn run() {
         .setup(|app| {
             install_tray(app)?;
             initialize_persistence(app)?;
+            #[cfg(windows)]
+            windows::install_display_change_observer(app)
+                .map_err(|error| startup_error("install display topology observer", error))?;
             Ok(())
         })
         .run(tauri::generate_context!());
