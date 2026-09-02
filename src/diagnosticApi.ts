@@ -10,6 +10,32 @@ export type CommandErrorPayload = {
   message: string;
 };
 
+export type FocusPanelSide = "left" | "right";
+
+export type PhysicalPoint = {
+  x: number;
+  y: number;
+};
+
+export type PhysicalSize = {
+  width: number;
+  height: number;
+};
+
+export type PhysicalRect = {
+  position: PhysicalPoint;
+  size: PhysicalSize;
+};
+
+export type MonitorDescriptor = {
+  index: number;
+  name: string | null;
+  scaleFactor: number;
+  position: PhysicalPoint;
+  size: PhysicalSize;
+  workArea: PhysicalRect;
+};
+
 export type DiagnosticCommand =
   | "main_window_hide"
   | "main_window_show"
@@ -58,4 +84,23 @@ export function applyNewerState(
     return incoming;
   }
   return current;
+}
+
+export function isValidMonitorSelection(
+  monitorIndex: number | null,
+  monitors: readonly MonitorDescriptor[],
+): monitorIndex is number {
+  return (
+    monitorIndex !== null &&
+    Number.isSafeInteger(monitorIndex) &&
+    monitorIndex >= 0 &&
+    monitorIndex < monitors.length &&
+    monitors[monitorIndex]?.index === monitorIndex
+  );
+}
+
+export function formatMonitorLabel(monitor: MonitorDescriptor): string {
+  const name = monitor.name?.trim() || `Monitor ${monitor.index + 1}`;
+  const scalePercent = Math.round(monitor.scaleFactor * 100);
+  return `${monitor.index}: ${name} — ${monitor.size.width}×${monitor.size.height} @ ${scalePercent}%`;
 }
