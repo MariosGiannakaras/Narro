@@ -1,145 +1,156 @@
 <p align="center">
-  <img src="assets/branding/narro-logo-master.png" alt="Narro logo" width="128">
+  <img src="assets/branding/narro-logo-master.png" alt="Narro logo" width="160">
 </p>
 
 # Narro
 
-Narro is a personal, local-only **Windows desktop** productivity application intended to reproduce the core planning and focus experience of Blitzit as faithfully as practical without accounts, cloud services, subscriptions, analytics, or multi-user infrastructure.
+Narro is a personal, local-only **Windows desktop productivity application** inspired by the core Blitzit planning -> focus workflow, rebuilt without accounts, cloud services, subscriptions, telemetry or multi-user infrastructure.
 
-The repository is in the specification/bootstrap phase. Product behavior and UI states were researched on 2026-08-15 from Blitzit's full current Help Center, official product/engineering material, official embedded-video inventory, public roadmap/feature-board feedback, public reviews, and all 30 supplied screenshots in `blitzit Ss.rar`.
+The project prioritizes:
 
-## Branding
+- fast planning-to-focus workflow;
+- a compact Focus Panel and lightweight always-on-top Floating Timer;
+- reliable local timer/session tracking;
+- stable task identity/order/scheduling behavior;
+- Windows-native lifecycle, monitor, shortcut, tray and notification behavior;
+- recognizable source-product hierarchy and interaction character without reproducing known bugs.
 
-The Narro logo shown above is the official project identity supplied by the project owner. Repository branding assets and usage rules live in `assets/branding/`.
+## AI / coding-agent continuation
 
-- canonical master: `assets/branding/narro-logo-master.png`
-- verified master: 1254×1254 RGBA, 916,927 bytes
-- Windows application, installer, taskbar, tray and other platform derivatives should be generated from this master when implementation begins
-- do not substitute Blitzit branding or independently redesign/recolor the Narro mark
-- do not use a low-resolution or heavily compressed derivative as the primary Narro brand asset
+**If you are an AI taking over this repository with no previous chat context, start here:**
 
-The root README references the canonical PNG directly. Detailed derivative/usage rules are in `assets/branding/README.md`.
+[`AI_START_HERE.md`](AI_START_HERE.md)
 
-## How to interpret this repository
+The repository is intentionally **self-handing-off**. ChatGPT, Codex, Antigravity/Gemini, Claude-like coding agents, Copilot or another capable AI should be able to continue from the latest repository state without the user copying a custom prompt, previous-chat summary or agent-specific rules.
 
-The specifications are a researched implementation baseline, **not an infallible source of truth and not a requirement to reproduce Blitzit's bugs or historical technical constraints**.
+Canonical continuation files:
 
-Keep the distinction clear:
+- `AI_START_HERE.md` — universal zero-context bootstrap;
+- `AGENTS.md` — durable product/engineering/correctness rules;
+- `AGENT_WORKFLOW.md` — multi-agent evidence/commit/handoff protocol;
+- `HANDOFF.md` — exact current continuation point;
+- `TODO.md` — ordered work; `[x]` means implemented **and validated**;
+- `STATUS.md` — concise project-level truth and architecture/capability state;
+- `WORK_LOG.md` — append-only implementation/validation history.
 
-- User requirements, local-only/Windows-only scope, data-integrity guarantees, and explicit product decisions are binding until changed by the user.
-- Screenshots and official Blitzit material are evidence for the experience and workflows we want to reproduce.
-- Public bugs/reviews/roadmap items are evidence of friction or ideas, not automatic requirements.
-- Architecture sketches, dimensions, animation timings, library choices, schema layouts and other technical recommendations are current best proposals. Codex may improve them when a better solution preserves the same intent and is validated.
+Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
 
-If an implementation agent wants to inspect the original material itself, start with `docs/REFERENCES.md`. It contains direct external URLs plus guidance on when the original source should be re-opened. `docs/SOURCE_AUDIT.md` contains the detailed source-by-source synthesis.
+## Current phase
 
-Material deviations from a durable proposal should be recorded in `STATUS.md` with the reason and validation evidence rather than being made silently.
+**Milestone 1 — Windows architecture/capability/performance validation.**
+
+Research/specification and reference assets are complete enough for implementation. A Tauri 2 + React + TypeScript + Rust + SQLite Windows scaffold and temporary runtime diagnostic harness now build successfully through Windows GitHub Actions.
+
+Real Windows testing has already proven shared Rust state between the `main` and `focusSurface` webviews plus survival of Rust state when `main` is forcibly destroyed. The current exact blocker/retest state is always recorded in:
+
+[`HANDOFF.md`](HANDOFF.md)
+
+Do not infer current progress from this README alone.
 
 ## Product scope
 
-The target application includes:
+Initial Narro scope includes:
 
-- local lists and tasks
-- Backlog / This Week / Today / Done planning
-- task estimates (EST) and actual time tracking
-- scheduling, recurrence, and local reminders
-- subtasks and rich task notes
-- Blitz/focus sessions
-- a narrow Focus Panel
-- a movable always-on-top Floating Timer
-- EST countdown, Pomodoro, and count-up tracking modes
-- Windows keyboard shortcuts/global hotkeys
-- local archives
-- search / quick actions
-- preferences and light/dark/system theme
-- local productivity and session reports
-- local report export where specified
+- local lists and tasks;
+- Backlog / This Week / Today / Done planning;
+- EST and actual Time Taken;
+- scheduling, recurrence and local reminders;
+- subtasks and rich task notes;
+- focus sessions;
+- Focus Panel;
+- movable always-on-top Floating Timer;
+- EST countdown, Pomodoro and count-up modes;
+- Windows shortcuts/global hotkeys;
+- local archive/search/preferences;
+- light/dark/system theme;
+- local productivity/session reports and local exports where specified.
 
-Explicitly out of scope:
+Explicitly excluded unless the project owner changes scope:
 
-- account creation, login, authentication
-- subscriptions, billing, licensing, trials, upgrade prompts
-- cloud backend or cloud sync
-- multi-user or collaboration
-- remote integrations, webhooks, or MCP
-- AI assistant / Blitzy
-- telemetry / analytics sent off-device
-- support/help-center/community UI
-- macOS/Linux/mobile targets
-- voice transcription unless a future fully-local implementation is explicitly approved
-
-## Fidelity, reliability, and UX target
-
-Narro should feel recognizably like the current Blitzit desktop experience rather than like a generic task application. The supplied screenshots define the information hierarchy, density, compact focus behavior, dark/light visual language, task/list states, settings surfaces, reports, Focus Panel and Floating Timer.
-
-Fidelity does not require copying every pixel or every source-product flaw. The clone is allowed to improve interaction quality and reliability without inventing a different product workflow. Approved improvements include:
-
-- stable hover/focus actions with no layout shift
-- better handling of long task titles
-- accessible tooltips and keyboard focus for icon-only controls
-- tabular timer numerals to prevent per-second geometry jitter
-- larger/resizable Notes editing while retaining compact inline focus access
-- explicit user-controlled URL opening rather than surprise auto-launch
-- Windows-locale date/time formatting
-- runtime monitor hotplug/reconnect recovery without restart
-- safe persisted Floating Timer position
-- strong anti-regression guarantees against lost tracked time, duplicate task identities and wrong-day scheduling
-- restrained micro-animations for hover, press, menus, expansions, task completion, reorder/drop and Focus/Floating transitions
-- reduced-motion support
-- stronger destructive-action clarity
-- strict animation/resource budget for the always-on-top Floating Timer
-
-These improvements are labeled as Narro decisions in the specifications and must not be misrepresented as confirmed Blitzit behavior.
-
-Popular user requests that materially broaden the product — such as Tags, Calendar week/month view, bulk entry, CSV import, subtask time estimates and optional automatic overtime — are recorded as **post-parity candidates** in `docs/SOURCE_AUDIT.md`; they are not part of the initial implementation plan unless scope is changed explicitly.
-
-## Read first
-
-Codex should read these files before implementation:
-
-1. `AGENTS.md` — durable project, correctness, interpretation, performance and scope rules
-2. `STATUS.md` — current confirmed state and decisions
-3. `TODO.md` — ordered implementation milestones
-4. `docs/PRODUCT_SPEC.md` — behavioral specification
-5. `docs/UI_UX_SPEC.md` — window/UI/state/motion specification and screenshot fidelity checklist
-6. `docs/ARCHITECTURE.md` — current technical architecture proposal
-7. `docs/RESEARCH_EVIDENCE.md` — supplied screenshot inventory, evidence precedence and visual conflicts
-8. `docs/SOURCE_AUDIT.md` — exhaustive Help Center page-by-page audit, official video inventory, roadmap/bugs and public user-feedback synthesis
-9. `docs/REFERENCES.md` — compact direct-link index for independently re-checking original sources and current platform documentation
-
-Do not repeat all product research by default. Re-open only the source relevant to an ambiguity, conflict, implementation decision, or potentially outdated technical API.
-
-## Original implementation evidence
-
-Public engineering material about Blitzit's own implementation is recorded only as research evidence. **Narro does not choose a framework merely because Blitzit uses it.** The clone stack is selected independently for this project's Windows-only, local-only requirements.
+- accounts/login/auth;
+- subscriptions/billing/licensing/trials;
+- cloud backend or cloud sync;
+- collaboration/multi-user;
+- remote integrations/webhooks/MCP;
+- AI/Blitzy;
+- telemetry sent off-device;
+- remote calendar sync;
+- remote voice transcription;
+- macOS/Linux/mobile/web targets.
 
 ## Current technical direction
 
-Starting stack: **Tauri 2 + React + TypeScript + Rust + SQLite**, targeting Windows 10/11 initially.
+Starting architecture:
 
-Why this is the current best starting point:
+- **Tauri 2** desktop shell;
+- **React + TypeScript** frontend;
+- **Rust** authoritative runtime/domain/native coordination;
+- **SQLite** durable local persistence with migrations;
+- **WebView2** Windows renderer runtime;
+- normally only two webview windows:
+  - `main`;
+  - `focusSurface`, reused for Focus Panel and Floating Timer.
 
-- Windows supplies the WebView2 runtime, so Tauri does not need to bundle a second full browser engine with the app.
-- React/HTML/CSS allows fast, precise iteration against the supplied Blitzit screenshots.
-- Rust can own authoritative timers, scheduling, recurrence, persistence, shortcuts, notifications, and window coordination independently of UI refresh cycles.
-- Tauri supports the Windows desktop primitives required by the product: multiple windows, always-on-top behavior, monitor/window positioning, global shortcuts, tray/background lifecycle, autostart, notifications, and Windows installers.
-- SQLite provides reliable fully-local transactional persistence with migrations and no server dependency.
+This is an evidence-driven starting architecture, **not an immutable mandate**. Milestone 1 exists to validate native behavior and measure floating-only CPU/RAM before product UI is built. If concrete Windows evidence proves a better approach, future agents may change the architecture through the documented decision/evidence process in `AGENTS.md` and `AGENT_WORKFLOW.md`.
 
-This stack is **selected for the capability spike, not protected from evidence**. Milestone 1 must prove the required Windows behavior and measure the floating-only resource profile. If a concrete blocker or clearly better Windows implementation emerges, Codex may propose/adopt the better path after documenting the decision and updating the affected project files before broad implementation continues.
+## Fidelity and reliability target
 
-### Current lightweight focus-window proposal
+Narro should be recognizably related to the supplied current Blitzit desktop experience, not a generic task manager. Original screenshots and research are evidence for hierarchy, density and workflow, not assets or infallible implementation instructions.
 
-The product has three **presentations** but currently plans for only two webview windows:
+Narro intentionally improves source-product friction where evidence supports it, including:
 
-1. `main` — dashboard, list board, settings, archives, reports.
-2. `focusSurface` — one secondary window that changes between:
-   - Focus Panel mode, and
-   - compact Floating Timer mode.
+- no hover layout shift or moving pointer targets;
+- robust long-title handling;
+- explicit note-URL activation only;
+- authoritative non-renderer timer/session state;
+- stable immutable task IDs;
+- anti-duplication reorder/schedule behavior;
+- explicit date-only vs date+time scheduling;
+- dynamic monitor/off-screen recovery;
+- larger/resizable Notes editing while preserving compact focus access;
+- reduced-motion support;
+- strict idle-resource discipline for Floating Timer.
 
-The reason is to preserve a single active focus state while minimizing the always-running floating surface. This is an architectural proposal, not a product-level requirement.
+## Research and specifications
 
-The current plan is to keep the Floating Timer route minimal and avoid loading dashboard/report/editor code it does not use. If the main window is closed while a focus session or tray reminders continue, the implementation may destroy and recreate the main webview only if measurement shows the additional complexity produces worthwhile savings.
+Broad source-product research is already complete. Do not repeat it by default.
 
-A native Win32/WinUI floating overlay is a valid fallback if measured WebView2 overhead or native-window behavior is materially unacceptable. Other alternatives are also allowed when backed by evidence and compatible with the project goals.
+Primary implementation references:
 
-Implementation has intentionally not started yet. `TODO.md` begins with a Windows capability/performance spike before polished product UI work.
+- `docs/PRODUCT_SPEC.md` — domain/product behavior;
+- `docs/UI_UX_SPEC.md` — visual hierarchy, states, motion and accessibility;
+- `docs/ARCHITECTURE.md` — current technical architecture proposal;
+- `docs/RESEARCH_EVIDENCE.md` — supplied screenshot inventory and source conflicts;
+- `docs/SOURCE_AUDIT.md` — exhaustive official/source/feedback research;
+- `docs/REFERENCES.md` — compact direct-link source index;
+- `reference/original-blitzit-screenshots/` — original-product visual references.
+
+Optional planning/verification aids live in `docs/BEHAVIOR_MATRIX.md`, `docs/DECISION_GATES.md`, `docs/INTERACTION_CAPTURE_GUIDE.md` and `docs/decisions/`. They are aids, not additional product requirements.
+
+## Branding
+
+The logo shown above is the official Narro identity supplied by the project owner.
+
+Canonical source:
+
+`assets/branding/narro-logo-master.png`
+
+Verified master metadata recorded by the project:
+
+- 1254 x 1254 RGBA;
+- 916,927 bytes;
+- SHA-256 `c553431248aafc705ce20230a69418769e41e019f0eea4dc88d0949c9bb05a5a`.
+
+Windows application/installer/taskbar/tray derivatives should be generated from that master. Do not substitute Blitzit branding, independently redesign the Narro mark, or use a low-quality derivative as the primary brand source.
+
+## Development principle
+
+The repository separates:
+
+1. **binding user requirements/invariants**;
+2. **observed Blitzit behavior/visual evidence**;
+3. **current Narro implementation proposals**.
+
+Future agents may improve proposals when a better approach is measurably simpler, more reliable, faster, lighter, more accessible or more Windows-appropriate while preserving product intent. Material durable deviations must be documented rather than silently introduced.
+
+The latest implementation truth is always `HANDOFF.md` + `STATUS.md` + the active `TODO.md` milestone, verified against actual code/tests/CI.
