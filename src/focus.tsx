@@ -6,17 +6,21 @@ import "./App.css";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
+  type ShortcutStatus,
+  applyNewerShortcutStatus,
   applyNewerState,
   formatInvokeError,
 } from "./diagnosticApi";
 
 function FocusApp() {
   const [state, setState] = useState<AppStatePayload | null>(null);
+  const [shortcut, setShortcut] = useState<ShortcutStatus | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let disposed = false;
-    let stopListening: (() => void) | undefined;
+    let stopStateListening: (() => void) | undefined;
+    let stopShortcutListening: (() => void) | undefined;
 
     void listen<AppStatePayload>("state-changed", (event) => {
       if (!disposed) {
@@ -27,7 +31,25 @@ function FocusApp() {
         if (disposed) {
           unlisten();
         } else {
-          stopListening = unlisten;
+          stopStateListening = unlisten;
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setError(formatInvokeError(failure));
+        }
+      });
+
+    void listen<ShortcutStatus>("shortcut-state-changed", (event) => {
+      if (!disposed) {
+        setShortcut((current) => applyNewerShortcutStatus(current, event.payload));
+      }
+    })
+      .then((unlisten) => {
+        if (disposed) {
+          unlisten();
+        } else {
+          stopShortcutListening = unlisten;
         }
       })
       .catch((failure: unknown) => {
@@ -48,9 +70,22 @@ function FocusApp() {
         }
       });
 
+    void invoke<ShortcutStatus>("shortcut_status")
+      .then((status) => {
+        if (!disposed) {
+          setShortcut((current) => applyNewerShortcutStatus(current, status));
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setError(formatInvokeError(failure));
+        }
+      });
+
     return () => {
       disposed = true;
-      stopListening?.();
+      stopStateListening?.();
+      stopShortcutListening?.();
     };
   }, []);
 
@@ -98,7 +133,10 @@ function FocusApp() {
           borderRadius: "4px",
         }}
       >
-        <pre style={{ margin: 0 }}>{JSON.stringify(state, null, 2)}</pre>
+        <strong>Authoritative Rust State</strong>
+        <pre style={{ margin: "0.25rem 0 0.75rem" }}>{JSON.stringify(state, null, 2)}</pre>
+        <strong>Global Shortcut State</strong>
+        <pre style={{ margin: "0.25rem 0 0" }}>{JSON.stringify(shortcut, null, 2)}</pre>
       </div>
 
       <div
