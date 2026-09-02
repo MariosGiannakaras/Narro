@@ -14,6 +14,10 @@ use std::fmt::Display;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Emitter, Manager, State};
+use windows::{
+    focus_panel_edge_position, FocusPanelSide, MonitorDescriptor, PhysicalPoint as GeometryPoint,
+    PhysicalRect as GeometryRect, PhysicalSize as GeometrySize,
+};
 
 const MAIN_WINDOW_LABEL: &str = "main";
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
@@ -72,6 +76,92 @@ fn show_and_focus(window: &tauri::WebviewWindow) -> CommandResult<()> {
         .set_focus()
         .map_err(|error| map_window_error(label, "focus", error))?;
     Ok(())
+}
+
+fn enumerate_monitors(app_handle: &tauri::AppHandle) -> CommandResult<Vec<tauri::window::Monitor>> {
+    let monitors = app_handle
+        .available_monitors()
+        .map_err(CommandError::monitor_enumeration)?;
+    if monitors.is_empty() {
+        return Err(CommandError::no_monitors_available());
+    }
+    Ok(monitors)
+}
+
+fn monitor_work_area(monitor: &tauri::window::Monitor) -> GeometryRect {
+    let area = monitor.work_area();
+    GeometryRect {
+        position: GeometryPoint {
+            x: area.position.x,
+            y: area.position.y,
+        },
+        size: GeometrySize {
+            width: area.size.width,
+            height: area.size.height,
+        },
+    }
+}
+
+fn monitor_descriptor(index: usize, monitor: &tauri::window::Monitor) -> MonitorDescriptor {
+    let position = monitor.position();
+    let size = monitor.size();
+    MonitorDescriptor {
+        index,
+        name: monitor.name().cloned(),
+        scale_factor: monitor.scale_factor(),
+        position: GeometryPoint {
+            x: position.x,
+            y: position.y,
+        },
+        size: GeometrySize {
+            width: size.width,
+            height: size.height,
+        },
+        work_area: monitor_work_area(monitor),
+    }
+}
+
+#[tauri::command]
+fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescriptor>> {
+    Ok(enumerate_monitors(&app_handle)?
+        .iter()
+        .enumerate()
+        .map(|(index, monitor)| monitor_descriptor(index, monitor))
+        .collect())
+}
+
+#[tauri::command]
+fn position_focus_surface(
+    app_handle: tauri::AppHandle,
+    monitor_index: usize,
+    side: FocusPanelSide,
+) -> CommandResult<()> {
+    let monitors = enumerate_monitors(&app_handle)?;
+    let monitor = monitors
+        .get(monitor_index)
+        .ok_or_else(|| CommandError::monitor_not_found(monitor_index, monitors.len()))?;
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    let window_size = window
+        .outer_size()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read outer size", error))?;
+
+    let position = focus_panel_edge_position(
+        monitor_work_area(monitor),
+        GeometrySize {
+            width: window_size.width,
+            height: window_size.height,
+        },
+        side,
+    )
+    .map_err(CommandError::window_geometry)?;
+
+    window
+        .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
+            x: position.x,
+            y: position.y,
+        }))
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "position", error))?;
+    show_and_focus(&window)
 }
 
 fn build_main_window(app_handle: &tauri::AppHandle) -> CommandResult<tauri::WebviewWindow> {
@@ -324,7 +414,9 @@ pub fn run() {
             focus_surface_focus,
             focus_surface_mode_panel,
             focus_surface_mode_timer,
-            list_windows
+            list_windows,
+            list_monitors,
+            position_focus_surface
         ])
         .setup(|app| {
             install_tray(app)?;
