@@ -31,7 +31,8 @@ Canonical continuation files:
 - `HANDOFF.md` — exact current continuation point;
 - `TODO.md` — ordered work; `[x]` means implemented **and validated**;
 - `STATUS.md` — concise project-level truth and architecture/capability state;
-- `WORK_LOG.md` — append-only implementation/validation history.
+- `work-log/*.md` — preferred immutable per-slice implementation/validation logs for new work;
+- `WORK_LOG.md` — legacy historical archive retained for older context.
 
 Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
 
