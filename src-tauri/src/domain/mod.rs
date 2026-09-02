@@ -30,6 +30,7 @@ impl Display for StateError {
 
 impl std::error::Error for StateError {}
 
+#[derive(Default)]
 pub struct AppState {
     data: Mutex<AppStatePayload>,
 }
@@ -79,14 +80,6 @@ impl AppState {
         data.active_task = Some(format!("Task mutation {counter}"));
         data.revision = revision;
         Ok(data.clone())
-    }
-}
-
-impl Default for AppState {
-    fn default() -> Self {
-        Self {
-            data: Mutex::new(AppStatePayload::default()),
-        }
     }
 }
 
