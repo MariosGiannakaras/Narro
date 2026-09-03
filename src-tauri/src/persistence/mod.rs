@@ -1,5 +1,6 @@
 pub mod lists;
 pub mod task_identity;
+pub mod task_metadata;
 pub mod tasks;
 
 use rusqlite::Connection;
