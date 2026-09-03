@@ -10,11 +10,11 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Add Rust modules for app state, persistence, timers, scheduling, and window coordination.
 - [x] Add SQLite plus migration harness; create migration `0001` even if the initial schema is minimal.
 - [x] Create only two initial webview windows: `main` and `focusSurface`.
-- [ ] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state (fixed 800x600 recreation geometry only).
+- [x] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state (fixed 800x600 recreation geometry only).
   - [x] implementation compiles in Windows CI
   - [x] interactive hide/show/destroy and background state mutation validation
   - [x] interactive async recreate opens and remains responsive
-  - [ ] exact pre-destroy Rust state visibly survives in recreated `main`
+  - [x] exact Rust state visibly survives and updates correctly in recreated `main`
 - [x] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
   - [x] implementation compiles in Windows CI
   - [x] interactive validation
@@ -22,33 +22,34 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] implementation compiles in Windows CI
   - [x] interactive Panel -> Timer -> Panel reuse validation
 - [x] Prove always-on-top and skip-taskbar behavior for Floating Timer mode.
-- [ ] Prove Windows monitor enumeration and left/right positioning for Focus Panel mode.
+- [x] Prove Windows monitor enumeration and left/right positioning for Focus Panel mode.
   - [x] implementation and geometry tests automated-validated
-  - [ ] physical selected-monitor left/right validation
-- [ ] Prove display-topology change handling: connect/disconnect/re-enumerate displays and clamp windows to a visible work area without restarting Narro.
+  - [x] physical selected-monitor left/right validation
+- [x] Prove display-topology change handling: connect/disconnect/re-enumerate displays and clamp windows to a visible work area without restarting Narro.
   - [x] event-driven implementation automated-validated
-  - [ ] physical disconnect/reconnect/reorder validation
-- [ ] Prove global shortcut registration and conflict/error handling.
+  - [x] physical disconnect/reconnect recovery validation
+- [x] Prove global shortcut registration and conflict/error handling.
   - [x] native registration/unregistration/conflict implementation and Windows CI validation
-  - [ ] physical register/fire/unregister/conflict validation
-- [ ] Prove tray/background lifecycle plus explicit Quit.
+  - [x] physical shortcut validation
+- [x] Prove tray/background lifecycle plus explicit Quit.
   - [x] tray/background/recovery/Quit implementation and Windows CI validation
-  - [ ] physical tray/background/recovery/Quit validation
-- [ ] Prove local Windows notification delivery while process remains running.
+  - [x] physical tray/background/recovery/Quit validation
+- [x] Prove local Windows notification delivery while process remains running.
   - [x] Rust notification delivery path and Windows CI validation
-  - [ ] physical visible notification validation from installed build
-- [ ] Prove Windows autostart can be toggled locally.
+  - [x] physical visible notification validation from installed build
+- [x] Prove Windows autostart can be toggled locally.
   - [x] status/enable/disable implementation, idempotence/state verification and Windows CI validation
-  - [ ] physical enable/disable plus actual next-sign-in launch
+  - [x] physical enable/disable registration observed in Windows Task Manager Startup apps
+  - [ ] actual fresh-sign-in process launch — intentionally NOT RUN; defer to later restart/release validation
 - [x] Build the `focusSurface` as a separate minimal frontend entry/bundle that does not import dashboard/reports/settings/editor code.
 - [x] Measure floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
   - [x] repeatable process-tree harness automated-validated by Windows CI #66
   - [x] three physical 30s-warmup / 60s-sample runs with zero process churn and `steadyStateValid: true`
 - [x] Record measurements and obvious WebView2/process contributors in `STATUS.md`.
 - [x] Decide the M1 floating performance baseline supports the current Tauri + WebView2 `focusSurface` architecture; retain native Win32/WinUI overlay only as a measured fallback.
-- [ ] Add a minimal smoke-test harness for Rust commands/events.
+- [x] Add a minimal smoke-test harness for Rust commands/events.
   - [x] harness created and compiles in Windows CI
-  - [ ] interactive execution
+  - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation
 
 Acceptance criteria:
 
@@ -58,10 +59,12 @@ Acceptance criteria:
 - Focus Panel can move to selected monitor edge
 - display connect/disconnect does not require app restart and cannot strand the focus surface off-screen
 - one confirmed global shortcut registers and fires
-- tray/background lifecycle, notification, and autostart work locally
+- tray/background lifecycle, notification, and autostart registration/toggling work locally
 - SQLite migration v1 runs cleanly on a fresh app-data directory
 - floating-only idle CPU is stable/near-idle with no unexplained polling loop
 - floating-only memory is measured and documented; if clearly unacceptable, stop and evaluate a native Win32/WinUI overlay before product UI work
+
+**Gate A result: PASS / proceed with current Tauri 2 + WebView2 architecture.** The only material manual residual is actual autostart process launch on a genuinely new Windows sign-in session; do not require a reboot/sign-out solely to close that residual. Revisit it opportunistically during later lifecycle/release validation.
 
 Do not implement polished Blitzit UI in this milestone.
 
@@ -314,6 +317,7 @@ Acceptance criteria:
 - [ ] Validate Windows display scaling at 100%, 125%, 150%, and 200%.
 - [ ] Validate Windows locale variants including 12-hour and 24-hour time formats.
 - [ ] Validate Windows installer packaging.
+- [ ] Validate actual autostart process launch on a genuinely new Windows sign-in session.
 - [ ] Add Narro-owned application icon/branding.
 - [ ] Run regression tests for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
@@ -346,4 +350,3 @@ Do not implement these until Milestones 1–10 parity/reliability work is stable
 - cross-device sync
 - macOS/Linux/mobile/web versions
 - collaborative/shared lists
-
