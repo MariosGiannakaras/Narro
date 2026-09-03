@@ -49,9 +49,7 @@ pub enum TaskSchedule {
     #[serde(rename = "none")]
     None,
     #[serde(rename = "date_only")]
-    DateOnly {
-        local_date: String,
-    },
+    DateOnly { local_date: String },
     #[serde(rename = "local_datetime")]
     LocalDateTime {
         local_date: String,

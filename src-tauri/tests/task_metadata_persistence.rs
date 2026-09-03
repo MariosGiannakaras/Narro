@@ -99,9 +99,15 @@ fn task_schedule_and_time_taken_adjustment_survive_database_reopen() {
             240
         );
         assert_eq!(persisted.schedule_kind, ScheduleKind::LocalDateTime);
-        assert_eq!(persisted.scheduled_local_date.as_deref(), Some("2026-09-05"));
+        assert_eq!(
+            persisted.scheduled_local_date.as_deref(),
+            Some("2026-09-05")
+        );
         assert_eq!(persisted.scheduled_local_time.as_deref(), Some("09:30"));
-        assert_eq!(persisted.schedule_timezone.as_deref(), Some("Europe/Athens"));
+        assert_eq!(
+            persisted.schedule_timezone.as_deref(),
+            Some("Europe/Athens")
+        );
     }
 
     fs::remove_file(path).expect("remove temporary database");

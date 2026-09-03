@@ -177,10 +177,7 @@ fn persisted_work_seconds(conn: &Connection, id: TaskId) -> Result<i64, TaskMeta
     Ok(total)
 }
 
-pub fn task_time_taken_seconds(
-    conn: &Connection,
-    id: TaskId,
-) -> Result<u64, TaskMetadataError> {
+pub fn task_time_taken_seconds(conn: &Connection, id: TaskId) -> Result<u64, TaskMetadataError> {
     let task = get_task(conn, id)?;
     let persisted = persisted_work_seconds(conn, id)?;
     let effective = persisted
@@ -398,7 +395,10 @@ mod tests {
         )
         .expect("set date-only schedule");
         assert_eq!(date_only.schedule_kind, ScheduleKind::DateOnly);
-        assert_eq!(date_only.scheduled_local_date.as_deref(), Some("2026-09-04"));
+        assert_eq!(
+            date_only.scheduled_local_date.as_deref(),
+            Some("2026-09-04")
+        );
         assert!(date_only.scheduled_local_time.is_none());
         assert!(date_only.schedule_timezone.is_none());
 
@@ -418,8 +418,8 @@ mod tests {
         assert_eq!(timed.scheduled_local_time.as_deref(), Some("09:30"));
         assert_eq!(timed.schedule_timezone.as_deref(), Some("Europe/Athens"));
 
-        let cleared = set_task_schedule(&mut conn, task.id, TaskSchedule::None, T3)
-            .expect("clear schedule");
+        let cleared =
+            set_task_schedule(&mut conn, task.id, TaskSchedule::None, T3).expect("clear schedule");
         assert_eq!(cleared.schedule_kind, ScheduleKind::None);
         assert!(cleared.scheduled_local_date.is_none());
         assert!(cleared.scheduled_local_time.is_none());
