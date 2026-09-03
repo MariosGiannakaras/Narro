@@ -41,7 +41,7 @@ macro_rules! string_enum {
         }
 
         impl $name {
-            pub const fn as_str(self) -> &'static str {
+            pub const fn as_str(&self) -> &'static str {
                 match self {
                     $(Self::$variant => $value),+
                 }
@@ -50,7 +50,7 @@ macro_rules! string_enum {
 
         impl Display for $name {
             fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str((*self).as_str())
+                formatter.write_str(self.as_str())
             }
         }
 
