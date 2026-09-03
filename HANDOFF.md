@@ -1,93 +1,61 @@
 # HANDOFF.md
 
-This is the **current operational continuation state** for Narro. Any zero-context AI must start with `AI_START_HERE.md`, then read this file, `ENGINEERING_QUALITY.md`, the active section in `TODO.md`, `STATUS.md`, and the newest relevant `work-log/*.md` entries.
-
-Do not require the user to reconstruct prior chat context or provide a custom continuation prompt.
+This is the **current operational continuation state** for Narro. Any zero-context AI must start with `AI_START_HERE.md`, then read `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 2 section in `TODO.md`, `STATUS.md`, and the newest relevant `work-log/*.md` entries.
 
 ## CURRENT MILESTONE
 
-**Milestone 2 — Domain model, identity invariants, and local persistence**
+**Milestone 2 — Domain model, identity invariants, and local persistence.**
 
-Milestone 1 Gate A is validated and no longer blocks implementation. Continue with the current Tauri 2 + WebView2 architecture and the two-window composition (`main` + reused `focusSurface`).
+Milestone 1 Gate A is PASS. Continue with Tauri 2 + React/TypeScript + Rust + SQLite and the two-window composition (`main` + reused `focusSurface`). Do not regress the async `main` recreation path; the old synchronous WebView2 recreation path deadlocked on real Windows.
 
-Current source truth is on `main`. Use forward history only; never amend/rebase/force-push published `main` during normal handoff work.
+## VALIDATED MILESTONE 2 BASELINE
 
-## MILESTONE 1 GATE A RESULT
+Automated-validated and merged on `main`:
 
-**PASS — proceed with current Tauri 2 + WebView2 architecture.**
+- PR #8 / merge `5d3201e4fd9b2d7b0e93fc4ec89b135aa61da9cc`: durable typed IDs, domain enum contracts, SQLite migration `0002_domain_foundation.sql`, foreign-key enforcement and migration/schema regression tests. Exact head `91fef967959146c69dc6ff018326277151f716dd` passed Windows CI #73.
+- PR #9 / merge `c6a7dabb5b919647486ef467bff8c3b649663cea`: transactional list create/update/reorder/archive/restore/permanent-delete persistence with stable identities and reopen tests. Windows CI #77 / run `33749371662` passed.
+- PR #10 / merge `6631c9fa57ce999ca3da9e99908420a2da7ffec4`: task create/update, Backlog/This Week/Today moves, Done/reopen, archive/restore and permanent-delete persistence. Exact head `2484f3bf825169cdf5b9e0f7bb046c5f48132e32` passed Windows CI #82 / run `33756963309`.
+- PR #11 / merge `b01dcd1223f1c0cdf81db8cf694708b528feaa2a`: exact-set transactional task bucket ordering, repeated reorder/move identity regressions, restart-persistent order and independent task duplication. Exact head `f74f5520dd039a26e25dad967ca80e430b8b70b1` passed Windows CI #87 / run `33759742017`.
 
-Physical Windows PASS evidence includes:
-
-- authoritative Rust state/event propagation both directions;
-- hide/show/destroy/recreate of `main`;
-- exact Rust state survives background mutation while `main` is absent and appears correctly after recreate;
-- async `main` recreation without the historical WebView2 deadlock;
-- Panel -> Timer -> Panel on the same `focusSurface`;
-- Timer always-on-top and skip-taskbar behavior;
-- only `main` + `focusSurface` as persistent webviews;
-- tray/background recovery and explicit Quit;
-- selected-monitor Focus Panel left/right placement;
-- display disconnect/reconnect recovery without app restart;
-- global shortcut physical behavior;
-- visible local Windows notification from installed Narro;
-- local autostart enable/disable registration visible in Windows Task Manager Startup apps;
-- actual Narro autostart launch after a real Windows restart, with `main` open normally after sign-in;
-- three valid floating-only steady-state performance runs with `main` destroyed.
-
-Detailed physical evidence:
-
-- `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md`;
-- `work-log/2026-09-03-chatgpt-autostart-restart-validation.md`.
-
-There is no remaining M1 autostart capability residual. Milestone 10 may still retest restart/autostart as part of full release validation, but it is not unresolved evidence.
-
-## FLOATING-ONLY PERFORMANCE BASELINE
-
-Three physical installed-build runs are committed under:
-
-- `performance/m1-floating/20260903-074630Z/`;
-- `performance/m1-floating/20260903-074840Z/`;
-- `performance/m1-floating/20260903-075029Z/`.
-
-All three had zero process churn and `steadyStateValid: true`.
-
-Median baseline:
-
-- CPU: about **0.026% of one logical core**;
-- CPU total capacity: about **0.0022%**;
-- aggregate process-tree working set: about **396.21 MiB**;
-- aggregate process-tree private bytes: about **325.40 MiB**.
-
-Memory is WebView2-dominated; idle CPU is effectively zero. The final run plateaued rather than showing continuing growth. Current evidence does not justify a native Win32/WinUI overlay rewrite.
-
-Re-measure later after the real Floating Timer UI exists, especially collapsed/expanded/timer-running states and repeated Focus↔Floating/Notes/subtask stress transitions.
-
-## IMPORTANT HISTORICAL CONSTRAINT
-
-The original synchronous `WebviewWindowBuilder::build()` recreation path deadlocked on the real Windows machine. Narro uses the async creation path now and that path passed physical validation. Do not regress it without new evidence.
+Local Rust checks were NOT RUN in the ChatGPT environment for these latest source slices because the Rust toolchain/checkout was unavailable there; the exact-head Windows CI runs above are the compile/test/release evidence.
 
 ## NEXT AGENT ACTION — MILESTONE 2
 
-Start from the first unchecked Milestone 2 task in `TODO.md` and implement the domain/storage foundation before product UI work:
+Continue from the first unchecked Milestone 2 task in `TODO.md` with a narrow **task metadata persistence semantics** slice before UI work:
 
-1. define durable IDs and SQLite schema for lists, tasks, subtasks, notes, recurrence/reminders, sessions, preferences, and archived entities;
-2. preserve authoritative Rust/domain ownership and stable identities;
-3. use migrations rather than ad-hoc schema mutation;
-4. add deterministic fixtures and regression tests as schema/CRUD behavior lands;
-5. make successful persistence precede UI-visible success for create/edit/move operations;
-6. keep the existing M1 diagnostic UI temporary and do not polish it;
-7. validate source changes through the existing Windows CI gate when local Rust/Windows execution is unavailable.
+1. inspect the existing `TaskRecord`, task schema and persistence APIs rather than redesigning them;
+2. preserve the already-validated EST/completion/archive behavior;
+3. add typed, transactional mutation semantics for the still-open metadata portions, especially normalized manual Time Taken adjustment and schedule state (`none`, date-only, local date-time with timezone);
+4. add explicit validation for invalid schedule shapes and stale/invalid lifecycle states before writes;
+5. treat recurrence metadata carefully: model/persist the M2 data contract only; recurrence generation/materialization, Monday-of-due-week behavior, DST catch-up and Replace Existing Tasks belong to Milestone 4;
+6. add deterministic regression tests including database reopen where persistence is material;
+7. keep successful persistence before any future UI-visible success and keep the current diagnostic UI temporary/unpolished;
+8. validate source changes with Windows CI when local Rust execution is unavailable.
 
-Do not skip directly to polished Main/Focus/Floating UI. Milestones 2–4 establish correctness-critical data, timer, and scheduling behavior first.
+After that, continue the remaining ordered M2 items (subtasks, rich notes, preferences, explicit report-delete semantics, fixture builders and any still-open corruption regressions) before Milestone 3.
 
-## DURABLE REFERENCES
+## USER ACTION REQUIRED
 
-- `STATUS.md` — evidence/state summary;
-- `TODO.md` — ordered milestone work;
-- `AGENTS.md` / `ENGINEERING_QUALITY.md` — engineering invariants;
-- `docs/ARCHITECTURE.md` — architecture model;
-- `docs/PRODUCT_SPEC.md` — product/domain behavior;
-- `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md` — baseline measurement protocol;
-- `work-log/2026-09-03-chatgpt-floating-performance-results.md` — performance decision;
-- `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md` — main physical M1 capability evidence;
-- `work-log/2026-09-03-chatgpt-autostart-restart-validation.md` — actual restart/autostart launch evidence.
+**None.** Current Milestone 2 work is automated domain/persistence work and does not require physical Windows interaction.
+
+## IMPORTANT FILES
+
+- `src-tauri/src/domain/ids.rs`
+- `src-tauri/src/domain/model.rs`
+- `src-tauri/src/domain/lists.rs`
+- `src-tauri/src/domain/tasks.rs`
+- `src-tauri/src/persistence/mod.rs`
+- `src-tauri/src/persistence/lists.rs`
+- `src-tauri/src/persistence/tasks.rs`
+- `src-tauri/src/persistence/task_identity.rs`
+- `src-tauri/migrations/0002_domain_foundation.sql`
+- `TODO.md`
+- `STATUS.md`
+- newest Milestone 2 `work-log/*.md`
+
+## DURABLE M1 REFERENCES
+
+- `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md`
+- `work-log/2026-09-03-chatgpt-autostart-restart-validation.md`
+- `work-log/2026-09-03-chatgpt-floating-performance-results.md`
+- `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md`
