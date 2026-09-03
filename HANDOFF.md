@@ -122,40 +122,72 @@ Physical enable/disable and actual next-sign-in/reboot launch remain **MANUAL NO
 
 Evidence: `work-log/2026-09-03-chatgpt-windows-autostart.md`.
 
-## ACTIVE IMPLEMENTATION SLICE
+### Floating-only performance measurement harness
 
-**Next slice: floating-only steady-state CPU/RAM measurement with `main` destroyed.**
+Merged PR #7 / squash merge `4a475d3863e80ac0520bcae9ec728658b0c25195`.
 
-M1 measurement requirements:
+Implementation:
 
-- use the release/installed Windows diagnostic build, not a dev server;
-- put `focusSurface` in compact Floating Timer mode;
-- destroy/close `main` so the runtime remains alive only through tray + `focusSurface`;
-- ensure no active timer animation or other deliberate continuous animation/work is running;
-- allow a short warm-up before sampling so startup/transient work is excluded;
-- measure the complete Narro process tree, including WebView2 child processes attributable to the running Narro instance, not only `narro.exe` private memory;
-- record CPU over a time window rather than a single instantaneous sample;
-- record working set/private memory with process attribution and note WebView2 contributors;
-- make the procedure/script repeatable and keep raw samples available for review;
-- do not present hosted CI runner numbers as representative physical Windows performance; CI may validate the measurement harness only;
-- write actual representative measurements and interpretation into `STATUS.md` once physically run;
-- if floating-only memory/CPU is clearly unacceptable, stop before product UI and evaluate whether the two-webview architecture or a native Win32/WinUI overlay needs reconsideration.
+- repeatable `scripts/measure-floating.ps1` Windows harness;
+- resolves one Narro root `narro.exe` and follows only its descendant process tree;
+- includes Narro-owned WebView2 helpers without summing unrelated Edge/WebView2 processes;
+- records cumulative CPU, working set, private bytes and per-process attribution;
+- derives CPU percentages from timed CPU deltas rather than instantaneous samples;
+- fingerprints process identity with PID + process start time;
+- refuses to infer steady-state CPU across process churn and exits non-zero after preserving raw output;
+- exports `summary.json`, `samples.csv`, and `cpu-intervals.csv`;
+- timestamped raw measurement directories are gitignored by default;
+- `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md` defines the physical protocol;
+- `npm run test:performance-harness` is part of `preflight:windows`.
+
+Automated evidence:
+
+- Windows CI #66 / run `33727105026`: **SUCCESS**;
+- exact tested base `196e839dc00db5f87ed9dcb894b6fd2675695c33`;
+- final PR head `3bc2940a348cf92f78b59ab122bc7d5d7fa62997`;
+- PowerShell deterministic self-test: **PASS**;
+- full preflight, Tauri release build and artifact upload: **PASS**;
+- artifact ID `9882735216`;
+- digest `sha256:2eef59e89911a588a2699a79fc07c4af32f22068e05decf5cd76b4809dbc9f98`.
+
+Actual floating-only CPU/RAM measurements on a real Windows machine remain **MANUAL NOT RUN**. Hosted CI runner resource numbers are not representative M1 performance evidence.
+
+Evidence: `work-log/2026-09-03-chatgpt-floating-performance-harness.md` and `work-log/2026-09-03-chatgpt-floating-performance-harness-validation.md`.
+
+## ACTIVE VALIDATION SLICE
+
+**Next slice: consolidated physical Windows Milestone 1 validation, including the floating-only performance run.**
+
+Performance protocol:
+
+- use `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md`;
+- use a successfully validated release/installed diagnostic build;
+- put `focusSurface` in compact Floating Timer mode with the timer/session inactive;
+- destroy `main`, do not merely hide it;
+- avoid deliberate interaction/animation during warm-up and sampling;
+- run at least three valid samples using 30-second warm-up + 60-second sampling;
+- require `steadyStateValid: true` and zero process-churn intervals;
+- record every run average plus the median, not only the best run;
+- record process contributors and Windows/CPU/build context in `STATUS.md`;
+- if CPU/memory is clearly unacceptable, stop before product UI and evaluate the two-webview architecture/native overlay fallback.
+
+No numeric pass/fail threshold currently exists in the repository; do not invent one after seeing results.
 
 ## NEXT AGENT ACTION
 
 1. synchronize with latest `main`;
-2. inspect the existing diagnostic harness/process topology and current scripts/docs before adding anything;
-3. implement the narrowest repeatable Windows resource-measurement harness/procedure needed for floating-only mode;
-4. ensure measurement aggregation cannot accidentally count unrelated Edge/WebView2 processes;
-5. validate script input/error handling and deterministic aggregation logic where possible;
-6. use Windows CI only to validate the harness/script mechanics if meaningful; do not label hosted-runner performance as the M1 result;
-7. record immutable implementation evidence in `work-log/*.md`;
-8. then run one consolidated physical Windows pass covering the still-open capability observations plus CPU/RAM sampling;
-9. reconcile `TODO.md` / `STATUS.md` and make the Milestone 1 architecture decision.
+2. use the CI #66 diagnostic artifact or a later exact-main release artifact for the consolidated real-Windows pass;
+3. physically validate the still-open lifecycle/monitor/display/shortcut/notification/autostart observations listed below;
+4. run the three floating-only performance measurements exactly per `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md`;
+5. preserve the raw local outputs for review but do not commit machine-local samples by default;
+6. record actual measurements and obvious Narro/WebView2 contributors in `STATUS.md`;
+7. reconcile Milestone 1 checkboxes in `TODO.md` strictly from observed evidence;
+8. make and document the Milestone 1 two-webview architecture gate decision;
+9. only after that decision, proceed to Milestone 2 or change architecture if the evidence requires it.
 
-## MANUAL WINDOWS BATCH — AFTER MEASUREMENT HARNESS IS READY
+## CONSOLIDATED MANUAL WINDOWS BATCH
 
-Use one fresh diagnostic artifact and a consolidated pass covering:
+Use one fresh diagnostic artifact and cover:
 
 - exact state survival across `main` recreate;
 - tray/background recovery and explicit Quit;
@@ -166,7 +198,7 @@ Use one fresh diagnostic artifact and a consolidated pass covering:
 - local Windows notification appearance from an installed build;
 - autostart enable/disable and actual next-sign-in launch;
 - only `main` + `focusSurface` persistent webviews;
-- floating-only steady-state CPU and process-tree memory with `main` destroyed.
+- three valid floating-only steady-state CPU/process-tree memory runs with `main` destroyed.
 
 ## TEMPORARY HARNESS WARNING
 
