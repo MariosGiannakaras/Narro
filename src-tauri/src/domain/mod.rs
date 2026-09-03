@@ -1,6 +1,7 @@
 pub mod ids;
 pub mod lists;
 pub mod model;
+pub mod tasks;
 
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
