@@ -1,4 +1,5 @@
 pub mod lists;
+pub mod notes;
 pub mod recurrence;
 pub mod subtasks;
 pub mod task_identity;
