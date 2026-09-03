@@ -6,7 +6,10 @@ use narro_lib::domain::tasks::TaskDestination;
 use narro_lib::persistence::task_identity::reorder_active_bucket;
 use narro_lib::persistence::tasks::{active_tasks_in_bucket, get_task, move_task};
 use std::collections::HashSet;
-use support::{migrated, ListFixture, TaskFixture, MUTATED_AGAIN_AT, MUTATED_AT};
+use support::{
+    insert_work_session, migrated, session_id, ListFixture, TaskFixture, MUTATED_AGAIN_AT,
+    MUTATED_AT,
+};
 
 fn ids_in_bucket(
     conn: &rusqlite::Connection,
@@ -18,6 +21,49 @@ fn ids_in_bucket(
         .into_iter()
         .map(|task| task.id)
         .collect()
+}
+
+#[test]
+fn deterministic_fixture_builders_emit_fixed_ids_and_common_persisted_shapes() {
+    let conn = migrated();
+    let list = ListFixture::new(7, "Fixture list").insert(&conn);
+    assert_eq!(
+        list.id.to_string(),
+        "10000000-0000-0000-0000-000000000007"
+    );
+
+    let archived_list = ListFixture::new(8, "Archived fixture list")
+        .archived(MUTATED_AT)
+        .insert(&conn);
+    assert_eq!(archived_list.archived_at.as_deref(), Some(MUTATED_AT));
+
+    let task = TaskFixture::new(11, list.id, "Fixture task", PlanningLane::ThisWeek)
+        .rank(4)
+        .date_only("2026-09-05")
+        .completed(MUTATED_AT)
+        .archived(MUTATED_AGAIN_AT)
+        .insert(&conn);
+    assert_eq!(
+        task.id.to_string(),
+        "20000000-0000-0000-0000-00000000000b"
+    );
+    assert_eq!(task.manual_lane, PlanningLane::ThisWeek);
+    assert_eq!(task.sort_rank, 4);
+    assert_eq!(task.schedule_kind, ScheduleKind::DateOnly);
+    assert_eq!(task.scheduled_local_date.as_deref(), Some("2026-09-05"));
+    assert_eq!(task.completed_at.as_deref(), Some(MUTATED_AT));
+    assert_eq!(task.archived_at.as_deref(), Some(MUTATED_AGAIN_AT));
+
+    insert_work_session(&conn, 9, task.id, 600);
+    let session: (String, i64) = conn
+        .query_row(
+            "SELECT id, duration_seconds FROM sessions WHERE task_id = ?1",
+            [task.id.to_string()],
+            |row| Ok((row.get(0)?, row.get(1)?)),
+        )
+        .expect("load deterministic work-session fixture");
+    assert_eq!(session.0, session_id(9).to_string());
+    assert_eq!(session.1, 600);
 }
 
 #[test]
