@@ -397,9 +397,7 @@ mod native {
         Ok(())
     }
 
-    pub(super) fn focus_surface_hwnd(
-        app_handle: &tauri::AppHandle,
-    ) -> Result<RawHwnd, io::Error> {
+    pub(super) fn focus_surface_hwnd(app_handle: &tauri::AppHandle) -> Result<RawHwnd, io::Error> {
         let window = app_handle
             .get_webview_window(FOCUS_SURFACE_LABEL)
             .ok_or_else(|| io::Error::other("focusSurface does not exist"))?;
@@ -426,14 +424,8 @@ mod native {
     }
 
     fn register(hwnd: RawHwnd, id: i32) -> Result<(), io::Error> {
-        let registered = unsafe {
-            register_hot_key(
-                hwnd,
-                id,
-                MOD_CONTROL | MOD_SHIFT | MOD_NOREPEAT,
-                VK_B,
-            )
-        };
+        let registered =
+            unsafe { register_hot_key(hwnd, id, MOD_CONTROL | MOD_SHIFT | MOD_NOREPEAT, VK_B) };
         if registered == 0 {
             Err(io::Error::last_os_error())
         } else {
@@ -463,9 +455,8 @@ mod native {
         } else if message == WM_NC_DESTROY {
             let _ = unsafe { unregister_hot_key(hwnd, DEFAULT_HOTKEY_ID) };
             let _ = unsafe { unregister_hot_key(hwnd, CONFLICT_PROBE_HOTKEY_ID) };
-            let _ = unsafe {
-                remove_window_subclass(hwnd, Some(shortcut_subclass_proc), subclass_id)
-            };
+            let _ =
+                unsafe { remove_window_subclass(hwnd, Some(shortcut_subclass_proc), subclass_id) };
         }
 
         unsafe { def_subclass_proc(hwnd, message, wparam, lparam) }
@@ -484,13 +475,17 @@ mod native {
                 match manager.record_trigger() {
                     Ok(payload) => report_shortcut_change(&trigger_handle, &payload),
                     Err(error) => {
-                        eprintln!("Global shortcut fired but diagnostic state update failed: {error}")
+                        eprintln!(
+                            "Global shortcut fired but diagnostic state update failed: {error}"
+                        )
                     }
                 }
 
                 crate::request_show_or_recreate_main(trigger_handle.clone());
             }) {
-                eprintln!("Failed to schedule global shortcut handling on the main thread: {error}");
+                eprintln!(
+                    "Failed to schedule global shortcut handling on the main thread: {error}"
+                );
             }
         });
     }
