@@ -123,7 +123,10 @@ mod tests {
 
     #[test]
     fn db_string_contract_round_trips() {
-        assert_eq!(PlanningLane::try_from("this_week"), Ok(PlanningLane::ThisWeek));
+        assert_eq!(
+            PlanningLane::try_from("this_week"),
+            Ok(PlanningLane::ThisWeek)
+        );
         assert_eq!(ScheduleKind::LocalDateTime.as_str(), "local_datetime");
         assert_eq!(RecurrenceUnit::Month.to_string(), "month");
         assert_eq!(SessionKind::try_from("break"), Ok(SessionKind::Break));
@@ -139,7 +142,8 @@ mod tests {
 
     #[test]
     fn serde_matches_database_strings() {
-        let encoded = serde_json::to_string(&ScheduleKind::DateOnly).expect("serialize schedule kind");
+        let encoded =
+            serde_json::to_string(&ScheduleKind::DateOnly).expect("serialize schedule kind");
         assert_eq!(encoded, "\"date_only\"");
 
         let decoded: ScheduleKind =
