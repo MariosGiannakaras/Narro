@@ -6,7 +6,7 @@ For zero-context AI continuation, start with `AI_START_HERE.md` and `HANDOFF.md`
 
 ## Current phase
 
-**Milestone 2 — Domain model, identity invariants, and local persistence.**
+**Milestone 3 — Timer/session engine.**
 
 Milestone 1 Windows desktop capability/performance Gate A is validated. The selected architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with normally two persistent webviews only:
 
@@ -138,21 +138,17 @@ Evidence: `work-log/2026-09-03-chatgpt-floating-performance-results.md`.
 
 The original synchronous `WebviewWindowBuilder::build()` recreation path deadlocked on the user's real Windows machine. Narro now uses the async creation path, which passed physical retesting. Do not regress this without new evidence.
 
-## Active Milestone 2 work
+## Milestone 2 completion
 
-Milestone 2 now has an automated-validated persistence/identity foundation through task metadata persistence:
+**Result: PASS / proceed to Milestone 3.**
 
-- domain IDs + SQLite schema/migrations: PR #8, merge `5d3201e4fd9b2d7b0e93fc4ec89b135aa61da9cc`; exact head `91fef967959146c69dc6ff018326277151f716dd` passed Windows CI #73;
-- list lifecycle persistence: PR #9, merge `c6a7dabb5b919647486ef467bff8c3b649663cea`; Windows CI #77 / run `33749371662` passed;
-- task CRUD/planning/completion/archive lifecycle: PR #10, merge `6631c9fa57ce999ca3da9e99908420a2da7ffec4`; exact head `2484f3bf825169cdf5b9e0f7bb046c5f48132e32` passed Windows CI #82 / run `33756963309`;
-- task bucket ordering + independent duplication invariants: PR #11, merge `b01dcd1223f1c0cdf81db8cf694708b528feaa2a`; exact head `f74f5520dd039a26e25dad967ca80e430b8b70b1` passed Windows CI #87 / run `33759742017`;
-- task Time Taken + typed schedule metadata persistence: PR #13, merge `0595025fcea529a7723468c0a6b530e9ebbb4092`; exact head `2cd35bda25df8f2e8a1cd69e44c14427b77f3948` passed Windows CI #92 / run `33763969680`; artifact `9897160600`, digest `sha256:08477502ee766ed8e03599225da0ab5925bab7fb1659cd76b8bbe6b29c2cadfa`.
+Milestone 2 is now automated-validated through PR #21. Durable coverage includes IDs/schema/migrations, list/task/subtask lifecycle, stable ordering and duplication invariants, Time Taken and typed schedule metadata, recurrence metadata persistence, constrained rich notes, versioned preferences/defaults, explicit permanent-delete report exclusion, deterministic fixtures, persistence-first mutation visibility, and repeated scheduled-lane move/reorder corruption regressions.
 
-Proven invariants now include durable UUID identities, explicit migrations, enabled foreign keys, list/task archive + permanent-delete semantics, Backlog/This Week/Today/Done task transitions, exact-set transactional reorder, restart-persistent bucket positions, duplication as one new independent task identity, Time Taken as persisted work-session duration plus a normalized signed manual adjustment, and transactional schedule state using explicit `none` / `date_only` / `local_datetime` shapes with restart persistence.
+Completion evidence: `work-log/2026-09-03-chatgpt-m2-completion.md`.
 
-The broad M2 metadata checkbox intentionally remains open because recurrence metadata CRUD/persistence semantics are not yet implemented. The next source slice is therefore **recurrence metadata persistence** only: typed rule create/read/update/disable/delete contracts, lifecycle validation, parent-task linkage and restart tests. Recurrence occurrence generation/materialization, Monday-of-due-week behavior, DST catch-up, Replace Existing Tasks execution and scheduling eligibility remain Milestone 4 concerns and must not be pulled forward.
+The active source boundary is now the Rust timer/session engine. Scheduling classification, recurrence materialization, reminder firing and DST/week semantics remain Milestone 4.
 
-Product UI remains intentionally unpolished while Milestones 2–4 establish correctness-critical behavior.
+Product UI remains intentionally unpolished while Milestones 3–4 establish correctness-critical behavior.
 
 ## Durable scope
 

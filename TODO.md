@@ -77,16 +77,16 @@ Goal: establish durable task/list/session behavior before UI complexity.
 - [x] Implement task CRUD and planning transitions: Backlog / This Week / Today / Done.
 - [x] Implement ordering within planning buckets as position changes on stable task identities.
 - [x] Implement task duplication as a new independent identity/copy.
-- [ ] Implement EST, Time Taken, completion timestamp, scheduled date/time, recurrence metadata, and archive state.
+- [x] Implement EST, Time Taken, completion timestamp, scheduled date/time, recurrence metadata, and archive state.
 - [x] Distinguish date-only schedules from schedules with a specific local time in the domain/schema.
-- [ ] Implement subtasks with ordering/completion state.
-- [ ] Implement rich-note storage using a constrained local document format.
-- [ ] Implement preferences and schema defaults.
-- [ ] Implement permanent-task-delete semantics so deleted tasks no longer appear in user-facing reports, matching current official behavior.
-- [ ] Ensure successful create/edit/move is committed locally before success is reflected in UI state.
-- [ ] Add deterministic fixture builders for tests.
+- [x] Implement subtasks with ordering/completion state.
+- [x] Implement rich-note storage using a constrained local document format.
+- [x] Implement preferences and schema defaults.
+- [x] Implement permanent-task-delete semantics so deleted tasks no longer appear in user-facing reports, matching current official behavior.
+- [x] Establish a persistence-first create/edit/move success boundary; future UI state must update only after the resolved local mutation succeeds.
+- [x] Add deterministic fixture builders for tests.
 - [x] Add regression tests proving reorder/move cannot duplicate, alias, or silently delete task identities.
-- [ ] Add repeated drag/drop and scheduled-lane-move tests based on publicly reported source-product duplication/reorder failures.
+- [x] Add repeated reorder/move and scheduled-lane-move tests based on publicly reported source-product duplication/reorder failures.
 
 Acceptance criteria:
 
@@ -96,6 +96,8 @@ Acceptance criteria:
 - duplicate creates exactly one new independent ID
 - archive/restore preserves history
 - permanent deletion is explicit, tested, and excluded from user-facing reports
+
+**Gate B result: PASS / proceed to Milestone 3.** Domain/persistence invariants are automated-validated; product UI integration must preserve the persistence-first mutation boundary.
 
 ## Milestone 3 — Timer/session engine
 
