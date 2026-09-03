@@ -60,6 +60,13 @@ fn mutate_state(
 }
 
 #[tauri::command]
+fn send_test_notification(
+    app_handle: tauri::AppHandle,
+) -> CommandResult<notifications::NotificationTestResult> {
+    notifications::send_test(&app_handle)
+}
+
+#[tauri::command]
 fn global_shortcut_status(
     shortcut_manager: State<'_, ShortcutManager>,
 ) -> CommandResult<ShortcutDiagnostics> {
@@ -510,12 +517,14 @@ fn initialize_persistence(app: &tauri::App) -> Result<(), Box<dyn std::error::Er
 pub fn run() {
     let result = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_notification::init())
         .manage(AppState::new())
         .manage(ShortcutManager::new())
         .invoke_handler(tauri::generate_handler![
             get_state,
             toggle_timer,
             mutate_state,
+            send_test_notification,
             global_shortcut_status,
             global_shortcut_register,
             global_shortcut_unregister,
