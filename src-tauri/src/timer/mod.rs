@@ -117,7 +117,10 @@ pub enum TimerAction {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum TimerError {
-    ClockMovedBackwards { previous_ms: u64, now_ms: u64 },
+    ClockMovedBackwards {
+        previous_ms: u64,
+        now_ms: u64,
+    },
     AlreadyActive,
     NoActiveTask,
     InvalidTransition {
@@ -141,7 +144,10 @@ impl Display for TimerError {
             Self::AlreadyActive => formatter.write_str("timer already has an active task"),
             Self::NoActiveTask => formatter.write_str("timer has no active task"),
             Self::InvalidTransition { action, state } => {
-                write!(formatter, "timer action {action:?} is invalid from state {state:?}")
+                write!(
+                    formatter,
+                    "timer action {action:?} is invalid from state {state:?}"
+                )
             }
             Self::ZeroDuration => formatter.write_str("timer durations must be greater than zero"),
             Self::DurationOverflow => formatter.write_str("timer duration arithmetic overflow"),
@@ -662,7 +668,9 @@ impl TimerEngine {
                     },
                     break_kind: Some(break_runtime.kind),
                     break_remaining_ms: Some(
-                        break_runtime.duration_ms.saturating_sub(current_break_elapsed),
+                        break_runtime
+                            .duration_ms
+                            .saturating_sub(current_break_elapsed),
                     ),
                 })
             }
@@ -705,7 +713,9 @@ mod tests {
     #[test]
     fn count_up_accumulates_only_running_work_and_pause_resume_are_idempotent() {
         let mut engine = TimerEngine::new();
-        engine.start_task(task(1), TimerMode::CountUp, 1_000).unwrap();
+        engine
+            .start_task(task(1), TimerMode::CountUp, 1_000)
+            .unwrap();
         assert_eq!(engine.advance(4_000).unwrap().work_elapsed_ms, 3_000);
 
         let paused = engine.pause(5_000).unwrap();
@@ -832,7 +842,9 @@ mod tests {
     #[test]
     fn backwards_clock_is_rejected_without_partial_mutation() {
         let mut engine = TimerEngine::new();
-        engine.start_task(task(8), TimerMode::CountUp, 5_000).unwrap();
+        engine
+            .start_task(task(8), TimerMode::CountUp, 5_000)
+            .unwrap();
         let before = engine.advance(8_000).unwrap();
         assert!(matches!(
             engine.pause(7_000),
