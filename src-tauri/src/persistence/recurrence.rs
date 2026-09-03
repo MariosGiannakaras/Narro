@@ -256,7 +256,7 @@ fn normalize_time_and_timezone(
     }
 }
 
-fn normalize_rule_input(
+struct RuleMetadataInput {
     interval_count: u32,
     unit: RecurrenceUnit,
     weekday_mask: u8,
@@ -265,23 +265,27 @@ fn normalize_rule_input(
     local_time: Option<String>,
     timezone: Option<String>,
     replace_existing: bool,
+}
+
+fn normalize_rule_input(
+    input: RuleMetadataInput,
 ) -> Result<NormalizedRuleInput, RecurrenceStoreError> {
-    if interval_count == 0 {
+    if input.interval_count == 0 {
         return Err(RecurrenceStoreError::InvalidInterval);
     }
-    validate_pattern(unit, weekday_mask, month_day)?;
-    let starts_local_date = normalize_local_date(&starts_local_date)?;
-    let (local_time, timezone) = normalize_time_and_timezone(local_time, timezone)?;
+    validate_pattern(input.unit, input.weekday_mask, input.month_day)?;
+    let starts_local_date = normalize_local_date(&input.starts_local_date)?;
+    let (local_time, timezone) = normalize_time_and_timezone(input.local_time, input.timezone)?;
 
     Ok(NormalizedRuleInput {
-        interval_count: i64::from(interval_count),
-        unit,
-        weekday_mask,
-        month_day,
+        interval_count: i64::from(input.interval_count),
+        unit: input.unit,
+        weekday_mask: input.weekday_mask,
+        month_day: input.month_day,
         starts_local_date,
         local_time,
         timezone,
-        replace_existing,
+        replace_existing: input.replace_existing,
     })
 }
 
@@ -439,16 +443,16 @@ pub fn create_recurrence_rule(
     now: &str,
 ) -> Result<RecurrenceRuleRecord, RecurrenceStoreError> {
     validate_timestamp(now)?;
-    let normalized = normalize_rule_input(
-        input.interval_count,
-        input.unit,
-        input.weekday_mask,
-        input.month_day,
-        input.starts_local_date,
-        input.local_time,
-        input.timezone,
-        input.replace_existing,
-    )?;
+    let normalized = normalize_rule_input(RuleMetadataInput {
+        interval_count: input.interval_count,
+        unit: input.unit,
+        weekday_mask: input.weekday_mask,
+        month_day: input.month_day,
+        starts_local_date: input.starts_local_date,
+        local_time: input.local_time,
+        timezone: input.timezone,
+        replace_existing: input.replace_existing,
+    })?;
 
     let tx = conn.transaction()?;
     let parent = validate_parent_context(&tx, input.parent_task_id, false)?;
@@ -508,16 +512,16 @@ pub fn update_recurrence_rule(
     now: &str,
 ) -> Result<RecurrenceRuleRecord, RecurrenceStoreError> {
     validate_timestamp(now)?;
-    let normalized = normalize_rule_input(
-        input.interval_count,
-        input.unit,
-        input.weekday_mask,
-        input.month_day,
-        input.starts_local_date,
-        input.local_time,
-        input.timezone,
-        input.replace_existing,
-    )?;
+    let normalized = normalize_rule_input(RuleMetadataInput {
+        interval_count: input.interval_count,
+        unit: input.unit,
+        weekday_mask: input.weekday_mask,
+        month_day: input.month_day,
+        starts_local_date: input.starts_local_date,
+        local_time: input.local_time,
+        timezone: input.timezone,
+        replace_existing: input.replace_existing,
+    })?;
 
     let tx = conn.transaction()?;
     let current = get_recurrence_rule(&tx, id)?;
