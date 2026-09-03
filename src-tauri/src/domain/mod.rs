@@ -1,6 +1,7 @@
 pub mod ids;
 pub mod lists;
 pub mod model;
+pub mod notes;
 pub mod recurrence;
 pub mod subtasks;
 pub mod tasks;
