@@ -8,7 +8,7 @@ Do not require the user to reconstruct prior chat context or provide a custom co
 
 **Milestone 2 — Domain model, identity invariants, and local persistence**
 
-Milestone 1 Gate A is sufficiently validated and no longer blocks implementation. Continue with the current Tauri 2 + WebView2 architecture and the two-window composition (`main` + reused `focusSurface`).
+Milestone 1 Gate A is validated and no longer blocks implementation. Continue with the current Tauri 2 + WebView2 architecture and the two-window composition (`main` + reused `focusSurface`).
 
 Current source truth is on `main`. Use forward history only; never amend/rebase/force-push published `main` during normal handoff work.
 
@@ -16,7 +16,7 @@ Current source truth is on `main`. Use forward history only; never amend/rebase/
 
 **PASS — proceed with current Tauri 2 + WebView2 architecture.**
 
-Physical Windows PASS evidence now includes:
+Physical Windows PASS evidence includes:
 
 - authoritative Rust state/event propagation both directions;
 - hide/show/destroy/recreate of `main`;
@@ -31,24 +31,15 @@ Physical Windows PASS evidence now includes:
 - global shortcut physical behavior;
 - visible local Windows notification from installed Narro;
 - local autostart enable/disable registration visible in Windows Task Manager Startup apps;
+- actual Narro autostart launch after a real Windows restart, with `main` open normally after sign-in;
 - three valid floating-only steady-state performance runs with `main` destroyed.
 
-Detailed latest physical evidence: `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md`.
+Detailed physical evidence:
 
-## AUTOSTART RESIDUAL — DO NOT BLOCK M2
+- `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md`;
+- `work-log/2026-09-03-chatgpt-autostart-restart-validation.md`.
 
-Actual Narro process launch on a genuinely new Windows sign-in session remains **NOT RUN**.
-
-The user intentionally does not want to reboot or terminate the Windows session solely for this validation. `Win+L` + PIN is lock/unlock, not sign-out/sign-in, and therefore is not valid fresh-login evidence.
-
-What is proven:
-
-- Narro enable/disable autostart commands work locally;
-- post-operation state verification works;
-- enabled Narro appears in Windows Task Manager Startup apps;
-- official Tauri autostart implementation passed Windows CI.
-
-Do not claim actual next-login launch was physically observed. Revisit this opportunistically in Milestone 10 restart/release validation rather than asking the user to reboot/sign out now.
+There is no remaining M1 autostart capability residual. Milestone 10 may still retest restart/autostart as part of full release validation, but it is not unresolved evidence.
 
 ## FLOATING-ONLY PERFORMANCE BASELINE
 
@@ -98,4 +89,5 @@ Do not skip directly to polished Main/Focus/Floating UI. Milestones 2–4 establ
 - `docs/PRODUCT_SPEC.md` — product/domain behavior;
 - `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md` — baseline measurement protocol;
 - `work-log/2026-09-03-chatgpt-floating-performance-results.md` — performance decision;
-- `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md` — final physical M1 capability evidence.
+- `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md` — main physical M1 capability evidence;
+- `work-log/2026-09-03-chatgpt-autostart-restart-validation.md` — actual restart/autostart launch evidence.
