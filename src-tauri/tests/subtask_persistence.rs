@@ -100,15 +100,13 @@ fn subtask_crud_completion_reorder_and_delete_preserve_stable_identities() {
     assert_eq!(completed.completed_at.as_deref(), Some(T2));
     assert_eq!(ids(task_id, &conn), vec![first.id, second.id, third.id]);
 
-    let reordered = reorder_subtasks(
-        &mut conn,
-        task_id,
-        &[third.id, second.id, first.id],
-        T3,
-    )
-    .expect("reorder subtasks");
+    let reordered = reorder_subtasks(&mut conn, task_id, &[third.id, second.id, first.id], T3)
+        .expect("reorder subtasks");
     assert_eq!(
-        reordered.iter().map(|subtask| subtask.id).collect::<Vec<_>>(),
+        reordered
+            .iter()
+            .map(|subtask| subtask.id)
+            .collect::<Vec<_>>(),
         vec![third.id, second.id, first.id]
     );
     assert_eq!(
@@ -139,7 +137,10 @@ fn subtask_crud_completion_reorder_and_delete_preserve_stable_identities() {
     delete_subtask(&mut conn, second.id, T4).expect("delete middle subtask");
     let remaining = subtasks_for_task(&conn, task_id).expect("load remaining subtasks");
     assert_eq!(
-        remaining.iter().map(|subtask| subtask.id).collect::<Vec<_>>(),
+        remaining
+            .iter()
+            .map(|subtask| subtask.id)
+            .collect::<Vec<_>>(),
         vec![third.id, first.id]
     );
     assert_eq!(
@@ -189,12 +190,7 @@ fn duplicate_or_stale_reorder_is_rejected_without_partial_write() {
     .expect("create third");
     let original = ids(task_id, &conn);
 
-    let duplicate = reorder_subtasks(
-        &mut conn,
-        task_id,
-        &[first.id, first.id, third.id],
-        T2,
-    );
+    let duplicate = reorder_subtasks(&mut conn, task_id, &[first.id, first.id, third.id], T2);
     assert!(matches!(
         duplicate,
         Err(SubtaskStoreError::DuplicateReorderId)
@@ -304,8 +300,7 @@ fn subtask_order_and_completion_survive_database_reopen() {
         first_id = first.id;
         second_id = second.id;
         complete_subtask(&mut conn, first.id, T2).expect("complete first");
-        reorder_subtasks(&mut conn, task_id, &[second.id, first.id], T3)
-            .expect("persist reorder");
+        reorder_subtasks(&mut conn, task_id, &[second.id, first.id], T3).expect("persist reorder");
     }
 
     {
@@ -313,7 +308,10 @@ fn subtask_order_and_completion_survive_database_reopen() {
         run_migrations(&mut reopened).expect("re-run migrations after reopen");
         let persisted = subtasks_for_task(&reopened, task_id).expect("load persisted subtasks");
         assert_eq!(
-            persisted.iter().map(|subtask| subtask.id).collect::<Vec<_>>(),
+            persisted
+                .iter()
+                .map(|subtask| subtask.id)
+                .collect::<Vec<_>>(),
             vec![second_id, first_id]
         );
         assert_eq!(persisted[0].sort_rank, 0);

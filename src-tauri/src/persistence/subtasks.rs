@@ -43,11 +43,15 @@ impl Display for SubtaskStoreError {
             }
             Self::RankOverflow => formatter.write_str("subtask ordering rank overflow"),
             Self::NotFound(id) => write!(formatter, "subtask not found: {id}"),
-            Self::ParentTaskArchived(id) => write!(formatter, "subtask parent task is archived: {id}"),
+            Self::ParentTaskArchived(id) => {
+                write!(formatter, "subtask parent task is archived: {id}")
+            }
             Self::ParentTaskCompleted(id) => {
                 write!(formatter, "subtask parent task is completed: {id}")
             }
-            Self::ParentListArchived(id) => write!(formatter, "subtask parent list is archived: {id}"),
+            Self::ParentListArchived(id) => {
+                write!(formatter, "subtask parent list is archived: {id}")
+            }
             Self::DuplicateReorderId => {
                 formatter.write_str("subtask reorder contains a duplicate identity")
             }
@@ -98,8 +102,7 @@ struct RawSubtask {
     updated_at: String,
 }
 
-const SUBTASK_COLUMNS: &str =
-    "id, task_id, title, sort_rank, completed_at, created_at, updated_at";
+const SUBTASK_COLUMNS: &str = "id, task_id, title, sort_rank, completed_at, created_at, updated_at";
 
 fn raw_subtask_from_row(row: &Row<'_>) -> rusqlite::Result<RawSubtask> {
     Ok(RawSubtask {
@@ -225,10 +228,7 @@ fn compact_ranks(
     Ok(())
 }
 
-pub fn get_subtask(
-    conn: &Connection,
-    id: SubtaskId,
-) -> Result<SubtaskRecord, SubtaskStoreError> {
+pub fn get_subtask(conn: &Connection, id: SubtaskId) -> Result<SubtaskRecord, SubtaskStoreError> {
     decode_subtask(get_raw_subtask(conn, id)?.ok_or(SubtaskStoreError::NotFound(id))?)
 }
 
