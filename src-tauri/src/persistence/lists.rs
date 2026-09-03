@@ -24,17 +24,20 @@ impl Display for ListStoreError {
         match self {
             Self::Sqlite(error) => write!(formatter, "list persistence failed: {error}"),
             Self::InvalidTitle => formatter.write_str("list title must not be empty"),
-            Self::InvalidTimestamp => formatter.write_str("list mutation timestamp must be RFC 3339"),
+            Self::InvalidTimestamp => {
+                formatter.write_str("list mutation timestamp must be RFC 3339")
+            }
             Self::InvalidStoredId => formatter.write_str("stored list id is not a valid UUID"),
-            Self::InvalidStoredRank(rank) => write!(formatter, "stored list rank is invalid: {rank}"),
+            Self::InvalidStoredRank(rank) => {
+                write!(formatter, "stored list rank is invalid: {rank}")
+            }
             Self::RankOverflow => formatter.write_str("list ordering rank overflow"),
             Self::NotFound(id) => write!(formatter, "list not found: {id}"),
             Self::DuplicateReorderId => {
                 formatter.write_str("list reorder contains a duplicate identity")
             }
-            Self::ReorderSetMismatch => formatter.write_str(
-                "list reorder must contain every active list identity exactly once",
-            ),
+            Self::ReorderSetMismatch => formatter
+                .write_str("list reorder must contain every active list identity exactly once"),
             Self::MustArchiveBeforePermanentDelete(id) => write!(
                 formatter,
                 "list must be archived before permanent deletion: {id}"
@@ -85,8 +88,8 @@ fn raw_list_from_row(row: &Row<'_>) -> rusqlite::Result<RawList> {
 
 fn decode_list(raw: RawList) -> Result<ListRecord, ListStoreError> {
     let id = ListId::parse_str(&raw.id).map_err(|_| ListStoreError::InvalidStoredId)?;
-    let sort_rank =
-        u32::try_from(raw.sort_rank).map_err(|_| ListStoreError::InvalidStoredRank(raw.sort_rank))?;
+    let sort_rank = u32::try_from(raw.sort_rank)
+        .map_err(|_| ListStoreError::InvalidStoredRank(raw.sort_rank))?;
 
     Ok(ListRecord {
         id,
@@ -347,10 +350,7 @@ pub fn restore_list(
     decode_list(restored)
 }
 
-pub fn permanently_delete_list(
-    conn: &mut Connection,
-    id: ListId,
-) -> Result<(), ListStoreError> {
+pub fn permanently_delete_list(conn: &mut Connection, id: ListId) -> Result<(), ListStoreError> {
     let tx = conn.transaction()?;
     let current = get_raw_list(&tx, id)?.ok_or(ListStoreError::NotFound(id))?;
     if current.archived_at.is_none() {
@@ -462,11 +462,17 @@ mod tests {
         assert_eq!(ids(&reordered), vec![second.id, third.id, first.id]);
         assert_eq!(reordered.len(), 3);
         assert_eq!(
-            reordered.iter().map(|record| record.id).collect::<HashSet<_>>(),
+            reordered
+                .iter()
+                .map(|record| record.id)
+                .collect::<HashSet<_>>(),
             expected
         );
         assert_eq!(
-            reordered.iter().map(|record| record.sort_rank).collect::<Vec<_>>(),
+            reordered
+                .iter()
+                .map(|record| record.sort_rank)
+                .collect::<Vec<_>>(),
             vec![0, 1, 2]
         );
     }
@@ -481,11 +487,20 @@ mod tests {
 
         let duplicate = reorder_active_lists(&mut conn, &[first.id, first.id, third.id], T2);
         assert!(matches!(duplicate, Err(ListStoreError::DuplicateReorderId)));
-        assert_eq!(ids(&active_lists(&conn).expect("order after duplicate")), original);
+        assert_eq!(
+            ids(&active_lists(&conn).expect("order after duplicate")),
+            original
+        );
 
         let incomplete = reorder_active_lists(&mut conn, &[third.id, second.id], T2);
-        assert!(matches!(incomplete, Err(ListStoreError::ReorderSetMismatch)));
-        assert_eq!(ids(&active_lists(&conn).expect("order after stale set")), original);
+        assert!(matches!(
+            incomplete,
+            Err(ListStoreError::ReorderSetMismatch)
+        ));
+        assert_eq!(
+            ids(&active_lists(&conn).expect("order after stale set")),
+            original
+        );
     }
 
     #[test]
@@ -502,7 +517,13 @@ mod tests {
         assert_eq!(archived.archived_at.as_deref(), Some(T2));
         let active = active_lists(&conn).expect("active after archive");
         assert_eq!(ids(&active), vec![first.id, third.id]);
-        assert_eq!(active.iter().map(|record| record.sort_rank).collect::<Vec<_>>(), vec![0, 1]);
+        assert_eq!(
+            active
+                .iter()
+                .map(|record| record.sort_rank)
+                .collect::<Vec<_>>(),
+            vec![0, 1]
+        );
         assert_eq!(archived_lists(&conn).expect("archived lists").len(), 1);
 
         let task_count: i64 = conn
