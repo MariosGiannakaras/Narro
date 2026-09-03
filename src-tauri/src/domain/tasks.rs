@@ -42,3 +42,44 @@ pub struct TaskDestination {
     pub list_id: ListId,
     pub manual_lane: PlanningLane,
 }
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "kind", rename_all = "snake_case")]
+pub enum TaskSchedule {
+    None,
+    DateOnly {
+        local_date: String,
+    },
+    LocalDateTime {
+        local_date: String,
+        local_time: String,
+        timezone: String,
+    },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub struct SetTaskTimeTakenInput {
+    pub total_seconds: u32,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn schedule_serde_uses_explicit_shape_tag() {
+        let value = TaskSchedule::LocalDateTime {
+            local_date: "2026-09-04".into(),
+            local_time: "09:30".into(),
+            timezone: "Europe/Athens".into(),
+        };
+        let encoded = serde_json::to_value(&value).expect("serialize schedule");
+        assert_eq!(encoded["kind"], "local_date_time");
+        assert_eq!(encoded["local_date"], "2026-09-04");
+        assert_eq!(encoded["local_time"], "09:30");
+        assert_eq!(encoded["timezone"], "Europe/Athens");
+
+        let decoded: TaskSchedule = serde_json::from_value(encoded).expect("deserialize schedule");
+        assert_eq!(decoded, value);
+    }
+}
