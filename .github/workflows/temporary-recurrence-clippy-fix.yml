@@ -22,41 +22,17 @@ jobs:
       - name: Refactor normalization helper
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Stop'
           @'
           from pathlib import Path
+          import re
 
           path = Path('src-tauri/src/persistence/recurrence.rs')
           text = path.read_text(encoding='utf-8')
 
-          old_fn = '''fn normalize_rule_input(
-              interval_count: u32,
-              unit: RecurrenceUnit,
-              weekday_mask: u8,
-              month_day: Option<u8>,
-              starts_local_date: String,
-              local_time: Option<String>,
-              timezone: Option<String>,
-              replace_existing: bool,
-          ) -> Result<NormalizedRuleInput, RecurrenceStoreError> {
-              if interval_count == 0 {
-                  return Err(RecurrenceStoreError::InvalidInterval);
-              }
-              validate_pattern(unit, weekday_mask, month_day)?;
-              let starts_local_date = normalize_local_date(&starts_local_date)?;
-              let (local_time, timezone) = normalize_time_and_timezone(local_time, timezone)?;
-
-              Ok(NormalizedRuleInput {
-                  interval_count: i64::from(interval_count),
-                  unit,
-                  weekday_mask,
-                  month_day,
-                  starts_local_date,
-                  local_time,
-                  timezone,
-                  replace_existing,
-              })
-          }
-          '''
+          start = text.index('fn normalize_rule_input(')
+          end_marker = '\nfn decode_bool('
+          end = text.index(end_marker, start)
           new_fn = '''struct RuleMetadataInput {
               interval_count: u32,
               unit: RecurrenceUnit,
@@ -91,20 +67,14 @@ jobs:
               })
           }
           '''
-          if old_fn not in text:
-              raise SystemExit('normalize_rule_input block did not match expected formatted source')
-          text = text.replace(old_fn, new_fn, 1)
+          text = text[:start] + new_fn + text[end:]
 
-          old_call = '''let normalized = normalize_rule_input(
-              input.interval_count,
-              input.unit,
-              input.weekday_mask,
-              input.month_day,
-              input.starts_local_date,
-              input.local_time,
-              input.timezone,
-              input.replace_existing,
-          )?;'''
+          call_pattern = re.compile(
+              r'let normalized = normalize_rule_input\(\s*'
+              r'input\.interval_count,\s*input\.unit,\s*input\.weekday_mask,\s*'
+              r'input\.month_day,\s*input\.starts_local_date,\s*input\.local_time,\s*'
+              r'input\.timezone,\s*input\.replace_existing,\s*\)\?;'
+          )
           new_call = '''let normalized = normalize_rule_input(RuleMetadataInput {
               interval_count: input.interval_count,
               unit: input.unit,
@@ -115,15 +85,22 @@ jobs:
               timezone: input.timezone,
               replace_existing: input.replace_existing,
           })?;'''
-          if text.count(old_call) != 2:
-              raise SystemExit(f'expected two normalize_rule_input calls, found {text.count(old_call)}')
-          text = text.replace(old_call, new_call)
+          text, count = call_pattern.subn(new_call, text)
+          if count != 2:
+              raise SystemExit(f'expected two normalize_rule_input calls, found {count}')
+
           path.write_text(text, encoding='utf-8')
           '@ | python -
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo fmt --manifest-path src-tauri/Cargo.toml
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Commit refactor
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (git status --porcelain -- src-tauri/src/persistence/recurrence.rs)) {
+            throw 'Expected recurrence.rs changes were not produced.'
+          }
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src-tauri/src/persistence/recurrence.rs
