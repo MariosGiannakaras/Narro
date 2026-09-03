@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   implement:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -24,12 +24,10 @@ jobs:
       - name: Apply autostart implementation
         run: python .github/scripts/autostart_implement.py
       - name: Generate lockfile and format Rust
-        shell: pwsh
         run: |
           cargo generate-lockfile --manifest-path src-tauri/Cargo.toml
           cargo fmt --manifest-path src-tauri/Cargo.toml
       - name: Remove temporary implementation files and commit
-        shell: pwsh
         run: |
           git rm .github/workflows/autostart-implement.yml .github/scripts/autostart_implement.py
           git config user.name "github-actions[bot]"
