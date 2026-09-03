@@ -8,6 +8,12 @@ use chrono::DateTime;
 use rusqlite::{params, Connection, OptionalExtension};
 use std::fmt::{Display, Formatter};
 
+const MAX_BLOCKS: usize = 512;
+const MAX_LIST_ITEMS_PER_BLOCK: usize = 512;
+const MAX_RUNS_PER_CONTAINER: usize = 1024;
+const MAX_TEXT_BYTES_PER_RUN: usize = 65_536;
+const MAX_LINK_BYTES: usize = 2_048;
+
 #[derive(Debug)]
 pub enum TaskNoteStoreError {
     Sqlite(rusqlite::Error),
@@ -20,6 +26,8 @@ pub enum TaskNoteStoreError {
     UnsupportedFormatVersion(u32),
     InvalidStoredFormatVersion(i64),
     InvalidLink(String),
+    DocumentTooLarge(&'static str),
+    MissingAfterUpsert(TaskId),
 }
 
 impl Display for TaskNoteStoreError {
@@ -32,15 +40,27 @@ impl Display for TaskNoteStoreError {
             Self::InvalidTimestamp => {
                 formatter.write_str("task-note mutation timestamp must be RFC 3339")
             }
-            Self::TaskArchived(id) => write!(formatter, "task note is immutable for archived task: {id}"),
-            Self::ListArchived(id) => write!(formatter, "task note is immutable for archived list: {id}"),
+            Self::TaskArchived(id) => {
+                write!(formatter, "task note is immutable for archived task: {id}")
+            }
+            Self::ListArchived(id) => {
+                write!(formatter, "task note is immutable for archived list: {id}")
+            }
             Self::UnsupportedFormatVersion(version) => {
                 write!(formatter, "unsupported task-note format version: {version}")
             }
             Self::InvalidStoredFormatVersion(version) => {
                 write!(formatter, "stored task-note format version is invalid: {version}")
             }
-            Self::InvalidLink(link) => write!(formatter, "task-note link must use http or https: {link}"),
+            Self::InvalidLink(link) => {
+                write!(formatter, "task-note link must use http or https: {link}")
+            }
+            Self::DocumentTooLarge(kind) => {
+                write!(formatter, "task-note document exceeds the supported {kind} limit")
+            }
+            Self::MissingAfterUpsert(id) => {
+                write!(formatter, "task note disappeared after persistence upsert: {id}")
+            }
         }
     }
 }
@@ -100,7 +120,10 @@ fn validate_mutable_task(conn: &Connection, task_id: TaskId) -> Result<(), TaskN
 }
 
 fn validate_link(value: &str) -> Result<(), TaskNoteStoreError> {
-    if value.is_empty() || value.chars().any(char::is_control) {
+    if value.is_empty()
+        || value.len() > MAX_LINK_BYTES
+        || value.chars().any(char::is_control)
+    {
         return Err(TaskNoteStoreError::InvalidLink(value.to_owned()));
     }
     let lower = value.to_ascii_lowercase();
@@ -111,25 +134,39 @@ fn validate_link(value: &str) -> Result<(), TaskNoteStoreError> {
 }
 
 fn validate_run(run: &NoteTextRun) -> Result<(), TaskNoteStoreError> {
+    if run.text.len() > MAX_TEXT_BYTES_PER_RUN {
+        return Err(TaskNoteStoreError::DocumentTooLarge("text-run size"));
+    }
     if let Some(link) = &run.link {
         validate_link(link)?;
     }
     Ok(())
 }
 
+fn validate_runs(runs: &[NoteTextRun]) -> Result<(), TaskNoteStoreError> {
+    if runs.len() > MAX_RUNS_PER_CONTAINER {
+        return Err(TaskNoteStoreError::DocumentTooLarge("text-run count"));
+    }
+    for run in runs {
+        validate_run(run)?;
+    }
+    Ok(())
+}
+
 pub fn validate_note_document(document: &NoteDocument) -> Result<(), TaskNoteStoreError> {
+    if document.blocks.len() > MAX_BLOCKS {
+        return Err(TaskNoteStoreError::DocumentTooLarge("block count"));
+    }
+
     for block in &document.blocks {
         match block {
-            NoteBlock::Paragraph { runs } => {
-                for run in runs {
-                    validate_run(run)?;
-                }
-            }
+            NoteBlock::Paragraph { runs } => validate_runs(runs)?,
             NoteBlock::BulletList { items } | NoteBlock::NumberedList { items } => {
+                if items.len() > MAX_LIST_ITEMS_PER_BLOCK {
+                    return Err(TaskNoteStoreError::DocumentTooLarge("list-item count"));
+                }
                 for item in items {
-                    for run in &item.runs {
-                        validate_run(run)?;
-                    }
+                    validate_runs(&item.runs)?;
                 }
             }
         }
@@ -202,12 +239,8 @@ pub fn set_task_note(
             now
         ],
     )?;
-    let saved = get_task_note(&tx, task_id)?.ok_or_else(|| {
-        TaskNoteStoreError::Json(serde_json::Error::io(std::io::Error::new(
-            std::io::ErrorKind::NotFound,
-            "task note disappeared after upsert",
-        )))
-    })?;
+    let saved = get_task_note(&tx, task_id)?
+        .ok_or(TaskNoteStoreError::MissingAfterUpsert(task_id))?;
     tx.commit()?;
     Ok(saved)
 }
@@ -261,5 +294,24 @@ mod tests {
                 Err(TaskNoteStoreError::InvalidLink(_))
             ));
         }
+    }
+
+    #[test]
+    fn oversized_text_and_links_are_rejected() {
+        let mut text_document = linked("https://example.com");
+        let NoteBlock::Paragraph { runs } = &mut text_document.blocks[0] else {
+            panic!("expected paragraph fixture");
+        };
+        runs[0].text = "x".repeat(MAX_TEXT_BYTES_PER_RUN + 1);
+        assert!(matches!(
+            validate_note_document(&text_document),
+            Err(TaskNoteStoreError::DocumentTooLarge("text-run size"))
+        ));
+
+        let oversized_link = format!("https://example.com/{}", "x".repeat(MAX_LINK_BYTES));
+        assert!(matches!(
+            validate_note_document(&linked(&oversized_link)),
+            Err(TaskNoteStoreError::InvalidLink(_))
+        ));
     }
 }
