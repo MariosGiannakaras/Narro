@@ -8,13 +8,13 @@ Do not require the user to reconstruct prior chat context or provide a custom co
 
 **Milestone 1 — Windows desktop scaffold, native capability and performance spike**
 
-Product UI remains intentionally blocked until the Windows capability/performance gate is sufficiently proven.
+Product UI remains intentionally blocked until the remaining Windows capability gate is sufficiently proven.
 
 Current source truth is on `main`. Use forward history only; never amend/rebase/force-push published `main` during normal handoff work.
 
 ## PHYSICALLY PROVEN ON REAL WINDOWS
 
-Detailed evidence: `docs/M1_USER_RUNTIME_RESULTS_2026-09-02.md`.
+Detailed prior runtime evidence: `docs/M1_USER_RUNTIME_RESULTS_2026-09-02.md`.
 
 Observed PASS:
 
@@ -28,7 +28,8 @@ Observed PASS:
 - Panel -> Timer -> Panel on the same `focusSurface`;
 - Timer Mode always-on-top;
 - Timer Mode skip-taskbar;
-- only `main` + `focusSurface` remain as persistent webviews.
+- only `main` + `focusSurface` remain as persistent webviews;
+- three valid floating-only steady-state CPU/process-tree memory runs with `main` destroyed.
 
 Still deliberately unconfirmed:
 
@@ -122,72 +123,61 @@ Physical enable/disable and actual next-sign-in/reboot launch remain **MANUAL NO
 
 Evidence: `work-log/2026-09-03-chatgpt-windows-autostart.md`.
 
-### Floating-only performance measurement harness
+## FLOATING-ONLY PERFORMANCE BASELINE — PHYSICALLY MEASURED
 
-Merged PR #7 / squash merge `4a475d3863e80ac0520bcae9ec728658b0c25195`.
+Performance harness merged in PR #7 / squash merge `4a475d3863e80ac0520bcae9ec728658b0c25195` and automated-validated by Windows CI #66 / run `33727105026`.
 
-Implementation:
+The user physically ran the canonical installed-build protocol three times and committed the raw evidence in commit `55c860d6c7ab72e1de1963c49708507e6b6d0640` under:
 
-- repeatable `scripts/measure-floating.ps1` Windows harness;
-- resolves one Narro root `narro.exe` and follows only its descendant process tree;
-- includes Narro-owned WebView2 helpers without summing unrelated Edge/WebView2 processes;
-- records cumulative CPU, working set, private bytes and per-process attribution;
-- derives CPU percentages from timed CPU deltas rather than instantaneous samples;
-- fingerprints process identity with PID + process start time;
-- refuses to infer steady-state CPU across process churn and exits non-zero after preserving raw output;
-- exports `summary.json`, `samples.csv`, and `cpu-intervals.csv`;
-- timestamped raw measurement directories are gitignored by default;
-- `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md` defines the physical protocol;
-- `npm run test:performance-harness` is part of `preflight:windows`.
+- `performance/m1-floating/20260903-074630Z/`;
+- `performance/m1-floating/20260903-074840Z/`;
+- `performance/m1-floating/20260903-075029Z/`.
 
-Automated evidence:
+All three runs:
 
-- Windows CI #66 / run `33727105026`: **SUCCESS**;
-- exact tested base `196e839dc00db5f87ed9dcb894b6fd2675695c33`;
-- final PR head `3bc2940a348cf92f78b59ab122bc7d5d7fa62997`;
-- PowerShell deterministic self-test: **PASS**;
-- full preflight, Tauri release build and artifact upload: **PASS**;
-- artifact ID `9882735216`;
-- digest `sha256:2eef59e89911a588a2699a79fc07c4af32f22068e05decf5cd76b4809dbc9f98`.
+- scenario `floating-only-main-destroyed`;
+- 30-second warm-up;
+- approximately 60-second sample window;
+- 12 logical processors;
+- 1 `narro.exe` + 6 attributable `msedgewebview2.exe` processes;
+- zero process-churn intervals;
+- `steadyStateValid: true`.
 
-Actual floating-only CPU/RAM measurements on a real Windows machine remain **MANUAL NOT RUN**. Hosted CI runner resource numbers are not representative M1 performance evidence.
+Run averages / median:
 
-Evidence: `work-log/2026-09-03-chatgpt-floating-performance-harness.md` and `work-log/2026-09-03-chatgpt-floating-performance-harness-validation.md`.
+| Run | Avg CPU (% one core) | Avg CPU (% total capacity) | Avg working set | Avg private bytes |
+| --- | ---: | ---: | ---: | ---: |
+| `074630Z` | 0.000% | 0.0000% | 393.62 MiB | 319.19 MiB |
+| `074840Z` | 0.077% | 0.0064% | 396.21 MiB | 325.40 MiB |
+| `075029Z` | 0.026% | 0.0022% | 401.35 MiB | 337.17 MiB |
+| **median** | **0.026%** | **0.0022%** | **396.21 MiB** | **325.40 MiB** |
+
+Interpretation:
+
+- idle CPU is effectively zero; there is no evidence of a continuous polling/animation loop;
+- memory is dominated by WebView2 rather than the Rust host;
+- last-snapshot WebView2 working set is roughly 362–369 MiB, while `narro.exe` is roughly 32.5 MiB;
+- last-snapshot WebView2 private bytes are roughly 260–277 MiB, while `narro.exe` is roughly 60.4 MiB;
+- run 2 includes a one-time WebView2 private-memory allocation increase; run 3 then plateaus with only about 0.13 MiB min-to-max private-memory movement over the full minute, so the baseline does not show continuing leak behavior;
+- summed working set includes shared/resident pages and is not unique physical RAM; private bytes must be considered alongside it.
+
+### Performance architecture decision
+
+**Proceed with the current Tauri + WebView2 `focusSurface` architecture.**
+
+The repository intentionally has no arbitrary RAM cutoff, and `docs/DECISION_GATES.md` says not to use one as the sole pass/fail criterion. Near-zero idle CPU, a stable process tree and stabilized final-run memory do not justify a native Win32/WinUI overlay rewrite at this stage.
+
+The current three-run baseline is the comparison point for later Floating Timer work. Revisit after real Floating Timer UI exists, especially collapsed/expanded/timer-running CPU and memory before/after repeated Focus↔Floating and Notes/subtask expansion stress tests.
+
+Detailed interpretation is in `STATUS.md`. Record an immutable measurement work-log before ending this continuation cycle.
 
 ## ACTIVE VALIDATION SLICE
 
-**Next slice: consolidated physical Windows Milestone 1 validation, including the floating-only performance run.**
+**Next slice: remaining consolidated physical Windows Milestone 1 capability validation.**
 
-Performance protocol:
+Performance sampling is no longer a blocker. Do not ask the user to re-run the baseline unless new evidence requires it.
 
-- use `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md`;
-- use a successfully validated release/installed diagnostic build;
-- put `focusSurface` in compact Floating Timer mode with the timer/session inactive;
-- destroy `main`, do not merely hide it;
-- avoid deliberate interaction/animation during warm-up and sampling;
-- run at least three valid samples using 30-second warm-up + 60-second sampling;
-- require `steadyStateValid: true` and zero process-churn intervals;
-- record every run average plus the median, not only the best run;
-- record process contributors and Windows/CPU/build context in `STATUS.md`;
-- if CPU/memory is clearly unacceptable, stop before product UI and evaluate the two-webview architecture/native overlay fallback.
-
-No numeric pass/fail threshold currently exists in the repository; do not invent one after seeing results.
-
-## NEXT AGENT ACTION
-
-1. synchronize with latest `main`;
-2. use the CI #66 diagnostic artifact or a later exact-main release artifact for the consolidated real-Windows pass;
-3. physically validate the still-open lifecycle/monitor/display/shortcut/notification/autostart observations listed below;
-4. run the three floating-only performance measurements exactly per `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md`;
-5. preserve the raw local outputs for review but do not commit machine-local samples by default;
-6. record actual measurements and obvious Narro/WebView2 contributors in `STATUS.md`;
-7. reconcile Milestone 1 checkboxes in `TODO.md` strictly from observed evidence;
-8. make and document the Milestone 1 two-webview architecture gate decision;
-9. only after that decision, proceed to Milestone 2 or change architecture if the evidence requires it.
-
-## CONSOLIDATED MANUAL WINDOWS BATCH
-
-Use one fresh diagnostic artifact and cover:
+Still-open physical checks:
 
 - exact state survival across `main` recreate;
 - tray/background recovery and explicit Quit;
@@ -197,8 +187,18 @@ Use one fresh diagnostic artifact and cover:
 - global shortcut register/fire/unregister/conflict behavior;
 - local Windows notification appearance from an installed build;
 - autostart enable/disable and actual next-sign-in launch;
-- only `main` + `focusSurface` persistent webviews;
-- three valid floating-only steady-state CPU/process-tree memory runs with `main` destroyed.
+- confirm no unexpected parallel Narro instance/invisible stranded process during autostart/recovery scenarios.
+
+## NEXT AGENT ACTION
+
+1. synchronize with latest `main`;
+2. read the committed performance baseline in `STATUS.md`; do not repeat the measurement work by default;
+3. guide the user through one concise consolidated physical Windows capability pass using the installed diagnostic build;
+4. record each observation strictly as PASS / FAIL / NOT RUN;
+5. reconcile Milestone 1 checkboxes in `TODO.md` from actual observed evidence;
+6. if a physical failure reveals a product/runtime blocker, fix that narrow blocker and revalidate through Windows CI;
+7. once remaining Gate A evidence is acceptable, record the final Milestone 1 Gate A result and proceed to Milestone 2;
+8. do not start polished product UI before the Gate A decision.
 
 ## TEMPORARY HARNESS WARNING
 
