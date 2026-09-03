@@ -37,7 +37,9 @@ impl Display for TaskStoreError {
                 write!(formatter, "stored {kind} identity is not a valid UUID")
             }
             Self::InvalidStoredDomainValue(error) => Display::fmt(error, formatter),
-            Self::InvalidStoredRank(rank) => write!(formatter, "stored task rank is invalid: {rank}"),
+            Self::InvalidStoredRank(rank) => {
+                write!(formatter, "stored task rank is invalid: {rank}")
+            }
             Self::InvalidStoredEstimate(value) => {
                 write!(formatter, "stored task estimate is invalid: {value}")
             }
@@ -120,8 +122,8 @@ schedule_timezone, recurrence_rule_id, recurrence_parent_task_id, completed_at, 
 created_at, updated_at";
 
 fn decode_task(raw: RawTask) -> Result<TaskRecord, TaskStoreError> {
-    let id = TaskId::parse_str(&raw.id)
-        .map_err(|_| TaskStoreError::InvalidStoredIdentity("task"))?;
+    let id =
+        TaskId::parse_str(&raw.id).map_err(|_| TaskStoreError::InvalidStoredIdentity("task"))?;
     let list_id = ListId::parse_str(&raw.list_id)
         .map_err(|_| TaskStoreError::InvalidStoredIdentity("list"))?;
     let manual_lane = PlanningLane::try_from(raw.manual_lane.as_str())
@@ -131,9 +133,9 @@ fn decode_task(raw: RawTask) -> Result<TaskRecord, TaskStoreError> {
     let sort_rank = u32::try_from(raw.sort_rank)
         .map_err(|_| TaskStoreError::InvalidStoredRank(raw.sort_rank))?;
     let est_seconds = match raw.est_seconds {
-        Some(value) if value > 0 => Some(
-            u32::try_from(value).map_err(|_| TaskStoreError::InvalidStoredEstimate(value))?,
-        ),
+        Some(value) if value > 0 => {
+            Some(u32::try_from(value).map_err(|_| TaskStoreError::InvalidStoredEstimate(value))?)
+        }
         Some(value) => return Err(TaskStoreError::InvalidStoredEstimate(value)),
         None => None,
     };
@@ -238,8 +240,7 @@ fn bucket_ids(
     let mut ids = Vec::new();
     for row in rows {
         ids.push(
-            TaskId::parse_str(&row?)
-                .map_err(|_| TaskStoreError::InvalidStoredIdentity("task"))?,
+            TaskId::parse_str(&row?).map_err(|_| TaskStoreError::InvalidStoredIdentity("task"))?,
         );
     }
     Ok(ids)
@@ -318,7 +319,10 @@ pub fn active_tasks_in_bucket(
          ORDER BY sort_rank, id"
     );
     let mut statement = conn.prepare(&sql)?;
-    let rows = statement.query_map(params![list_id.to_string(), lane.as_str()], raw_task_from_row)?;
+    let rows = statement.query_map(
+        params![list_id.to_string(), lane.as_str()],
+        raw_task_from_row,
+    )?;
     let mut tasks = Vec::new();
     for row in rows {
         tasks.push(decode_task(row?)?);
@@ -620,8 +624,12 @@ mod tests {
     fn create_and_update_keep_stable_identity_and_typed_fields() {
         let mut conn = migrated();
         let list_id = create_test_list(&mut conn, "Inbox");
-        let created = create_task(&mut conn, input(list_id, "  First task  ", PlanningLane::Backlog), T1)
-            .expect("create task");
+        let created = create_task(
+            &mut conn,
+            input(list_id, "  First task  ", PlanningLane::Backlog),
+            T1,
+        )
+        .expect("create task");
         assert_eq!(created.title, "First task");
         assert_eq!(created.est_seconds, Some(900));
         assert_eq!(created.schedule_kind, ScheduleKind::None);
@@ -649,10 +657,18 @@ mod tests {
         let mut conn = migrated();
         let first_list = create_test_list(&mut conn, "First list");
         let second_list = create_test_list(&mut conn, "Second list");
-        let first = create_task(&mut conn, input(first_list, "First", PlanningLane::Backlog), T1)
-            .expect("create first task");
-        let second = create_task(&mut conn, input(first_list, "Second", PlanningLane::Backlog), T1)
-            .expect("create second task");
+        let first = create_task(
+            &mut conn,
+            input(first_list, "First", PlanningLane::Backlog),
+            T1,
+        )
+        .expect("create first task");
+        let second = create_task(
+            &mut conn,
+            input(first_list, "Second", PlanningLane::Backlog),
+            T1,
+        )
+        .expect("create second task");
         let expected: HashSet<TaskId> = [first.id, second.id].into_iter().collect();
 
         let moved = move_task(
@@ -674,8 +690,8 @@ mod tests {
             .expect("source bucket");
         assert_eq!(task_ids(&source), vec![second.id]);
         assert_eq!(source[0].sort_rank, 0);
-        let target = active_tasks_in_bucket(&conn, second_list, PlanningLane::Today)
-            .expect("target bucket");
+        let target =
+            active_tasks_in_bucket(&conn, second_list, PlanningLane::Today).expect("target bucket");
         assert_eq!(task_ids(&target), vec![first.id]);
 
         let moved_again = move_task(
@@ -690,9 +706,12 @@ mod tests {
         .expect("idempotent same-bucket move");
         assert_eq!(moved_again.id, first.id);
 
-        let stored: HashSet<TaskId> = [get_task(&conn, first.id).unwrap().id, get_task(&conn, second.id).unwrap().id]
-            .into_iter()
-            .collect();
+        let stored: HashSet<TaskId> = [
+            get_task(&conn, first.id).unwrap().id,
+            get_task(&conn, second.id).unwrap().id,
+        ]
+        .into_iter()
+        .collect();
         assert_eq!(stored, expected);
     }
 
@@ -720,7 +739,10 @@ mod tests {
         let active = active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
             .expect("active after reopen");
         assert_eq!(task_ids(&active), vec![second.id, first.id]);
-        assert_eq!(active.iter().map(|task| task.sort_rank).collect::<Vec<_>>(), vec![0, 1]);
+        assert_eq!(
+            active.iter().map(|task| task.sort_rank).collect::<Vec<_>>(),
+            vec![0, 1]
+        );
 
         let reopened_again = reopen_task(&mut conn, first.id, T4).expect("repeat reopen");
         assert_eq!(reopened_again.sort_rank, 1);
@@ -753,7 +775,11 @@ mod tests {
         let archived = archive_task(&mut conn, task.id, T2).expect("archive task");
         assert_eq!(archived.archived_at.as_deref(), Some(T2));
         let preserved_sessions: i64 = conn
-            .query_row("SELECT COUNT(*) FROM sessions WHERE task_id = ?1", [task.id.to_string()], |row| row.get(0))
+            .query_row(
+                "SELECT COUNT(*) FROM sessions WHERE task_id = ?1",
+                [task.id.to_string()],
+                |row| row.get(0),
+            )
             .expect("count preserved sessions");
         assert_eq!(preserved_sessions, 1);
 
@@ -765,9 +791,14 @@ mod tests {
         permanently_delete_task(&mut conn, task.id).expect("permanent delete");
         for table in ["tasks", "subtasks", "sessions"] {
             let count: i64 = conn
-                .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |row| row.get(0))
+                .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |row| {
+                    row.get(0)
+                })
                 .expect("count cascade rows");
-            assert_eq!(count, 0, "{table} should be removed by permanent delete cascade");
+            assert_eq!(
+                count, 0,
+                "{table} should be removed by permanent delete cascade"
+            );
         }
     }
 
@@ -788,7 +819,10 @@ mod tests {
             },
             T1,
         );
-        assert!(matches!(zero_estimate, Err(TaskStoreError::InvalidEstimate)));
+        assert!(matches!(
+            zero_estimate,
+            Err(TaskStoreError::InvalidEstimate)
+        ));
 
         archive_list(&mut conn, list_id, T2).expect("archive list");
         let archived_target = create_task(
