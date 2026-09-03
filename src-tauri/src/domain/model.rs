@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -64,12 +64,30 @@ macro_rules! string_enum {
                 }
             }
         }
+
+        impl Serialize for $name {
+            fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+            where
+                S: Serializer,
+            {
+                serializer.serialize_str(self.as_str())
+            }
+        }
+
+        impl<'de> Deserialize<'de> for $name {
+            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+            where
+                D: Deserializer<'de>,
+            {
+                let value = String::deserialize(deserializer)?;
+                Self::try_from(value.as_str()).map_err(serde::de::Error::custom)
+            }
+        }
     };
 }
 
 string_enum! {
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-    #[serde(rename_all = "snake_case")]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
     pub enum PlanningLane {
         Backlog => "backlog",
         ThisWeek => "this_week",
@@ -78,8 +96,7 @@ string_enum! {
 }
 
 string_enum! {
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-    #[serde(rename_all = "snake_case")]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
     pub enum ScheduleKind {
         None => "none",
         DateOnly => "date_only",
@@ -88,8 +105,7 @@ string_enum! {
 }
 
 string_enum! {
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-    #[serde(rename_all = "snake_case")]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
     pub enum RecurrenceUnit {
         Day => "day",
         Week => "week",
@@ -99,8 +115,7 @@ string_enum! {
 }
 
 string_enum! {
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-    #[serde(rename_all = "snake_case")]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
     pub enum SessionKind {
         Work => "work",
         Break => "break",
@@ -108,8 +123,7 @@ string_enum! {
 }
 
 string_enum! {
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-    #[serde(rename_all = "snake_case")]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
     pub enum SessionSource {
         Focus => "focus",
         Manual => "manual",
@@ -142,12 +156,17 @@ mod tests {
 
     #[test]
     fn serde_matches_database_strings() {
-        let encoded =
-            serde_json::to_string(&ScheduleKind::DateOnly).expect("serialize schedule kind");
-        assert_eq!(encoded, "\"date_only\"");
+        for (value, expected) in [
+            (ScheduleKind::None, "none"),
+            (ScheduleKind::DateOnly, "date_only"),
+            (ScheduleKind::LocalDateTime, "local_datetime"),
+        ] {
+            let encoded = serde_json::to_string(&value).expect("serialize schedule kind");
+            assert_eq!(encoded, format!("\"{expected}\""));
 
-        let decoded: ScheduleKind =
-            serde_json::from_str("\"local_datetime\"").expect("deserialize schedule kind");
-        assert_eq!(decoded, ScheduleKind::LocalDateTime);
+            let decoded: ScheduleKind =
+                serde_json::from_str(&encoded).expect("deserialize schedule kind");
+            assert_eq!(decoded, value);
+        }
     }
 }
