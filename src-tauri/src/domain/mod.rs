@@ -2,6 +2,7 @@ pub mod ids;
 pub mod lists;
 pub mod model;
 pub mod notes;
+pub mod preferences;
 pub mod recurrence;
 pub mod subtasks;
 pub mod tasks;
@@ -129,7 +130,7 @@ mod tests {
 
     #[test]
     fn revision_overflow_does_not_partially_mutate_state() {
-        let state = AppState::new();
+        let state = Arc::new(AppState::new());
         {
             let mut data = state.data.lock().expect("state lock");
             data.counter = 41;
