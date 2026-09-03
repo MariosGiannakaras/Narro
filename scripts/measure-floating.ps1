@@ -41,10 +41,10 @@ function Get-DescendantPidSet {
     while ($changed) {
         $changed = $false
         foreach ($row in $ProcessRows) {
-            $pid = [int]$row.ProcessId
+            $processId = [int]$row.ProcessId
             $parentPid = [int]$row.ParentProcessId
-            if (($selected -contains $parentPid) -and -not ($selected -contains $pid)) {
-                $selected += $pid
+            if (($selected -contains $parentPid) -and -not ($selected -contains $processId)) {
+                $selected += $processId
                 $changed = $true
             }
         }
@@ -155,23 +155,23 @@ function Get-TreeMetricSnapshot {
     }
 
     $processMetrics = @()
-    foreach ($pid in $treePids) {
-        if (-not $rowsByPid.ContainsKey($pid)) {
-            throw "process PID $pid disappeared while the process tree snapshot was being assembled"
+    foreach ($processId in $treePids) {
+        if (-not $rowsByPid.ContainsKey($processId)) {
+            throw "process PID $processId disappeared while the process tree snapshot was being assembled"
         }
 
         try {
-            $process = Get-Process -Id $pid -ErrorAction Stop
+            $process = Get-Process -Id $processId -ErrorAction Stop
         }
         catch {
-            throw "process PID $pid disappeared while metrics were being read: $($_.Exception.Message)"
+            throw "process PID $processId disappeared while metrics were being read: $($_.Exception.Message)"
         }
 
         $cpuSeconds = if ($null -eq $process.CPU) { 0.0 } else { [double]$process.CPU }
         $startTicks = $process.StartTime.ToUniversalTime().Ticks
-        $cim = $rowsByPid[$pid]
+        $cim = $rowsByPid[$processId]
         $processMetrics += [pscustomobject]@{
-            pid = [int]$pid
+            pid = [int]$processId
             parentPid = [int]$cim.ParentProcessId
             name = [string]$cim.Name
             startTimeUtcTicks = [long]$startTicks
@@ -398,7 +398,7 @@ Write-Host ("Average working set: {0:N1} MiB" -f ($workingSetStats.average / 1MB
 Write-Host ("Average private bytes: {0:N1} MiB" -f ($privateStats.average / 1MB))
 
 if ($churnIntervals -gt 0) {
-    Write-Error "process-tree churn occurred in $churnIntervals interval(s); raw data was saved, but this run is not valid steady-state evidence"
+    Write-Error "process-tree churn occurred in $churnIntervals interval(s); raw data was saved, but this run is not valid steady-state evidence" -ErrorAction Continue
     exit 2
 }
 
