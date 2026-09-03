@@ -75,10 +75,8 @@ Merged PR #5 / merge `60da68ee853c9698fc4f024610df4bd1965672ca`.
 Implementation:
 
 - official Tauri 2 `tauri-plugin-notification` `2.4.0` Rust API;
-- plugin initialized in the Tauri runtime;
 - Narro-owned `send_test_notification` command with bounded static diagnostic title/body;
-- stable `NOTIFICATION_DELIVERY_FAILED` error;
-- typed submission result;
+- stable delivery errors and typed submission result;
 - temporary diagnostic button only;
 - no guest `notification:*` capability exposed to the renderer;
 - no reminder/scheduling product semantics, cloud service, telemetry or extra webview.
@@ -91,50 +89,73 @@ Automated evidence:
 - artifact ID `9881057394`;
 - digest `sha256:337fe0acccaebe77c73197f9cbe91ae35d8e7a7269615be4b36066d333b3f9a6`.
 
-Physical Windows notification appearance remains **MANUAL NOT RUN**. For canonical app identity, validate the installed artifact; Tauri documents different Windows notification identity behavior for development/raw execution.
+Physical Windows notification appearance remains **MANUAL NOT RUN**. Validate an installed artifact for canonical app identity.
 
 Evidence: `work-log/2026-09-03-chatgpt-windows-notifications.md`.
 
+### Windows autostart
+
+Merged PR #6 / squash merge `063cc91b5f8c4f9e5ef8efbec38136159fa68a41`.
+
+Implementation:
+
+- official Tauri 2 `tauri-plugin-autostart` `2.5.1` Rust API;
+- Narro-owned `autostart_status`, `autostart_enable`, and `autostart_disable` commands;
+- no guest `autostart:*` capability exposed to the renderer;
+- typed `{ enabled, changed }` diagnostic status;
+- caller-idempotent enable/disable transition planning;
+- explicit post-operation state verification;
+- structured query/enable/disable/state-mismatch errors;
+- deterministic Rust tests for transition/state logic;
+- temporary diagnostic controls only.
+
+Automated evidence:
+
+- Windows CI #65 / run `33725057607`: **SUCCESS**;
+- exact tested base `697428bb5f02d1d5dcce7a43f6602f4414abb4bc`;
+- final PR head `c837687844d987bac282943d06e1fa353c1a5756`;
+- full preflight, Tauri release build and artifact upload: **PASS**;
+- artifact ID `9881948331`;
+- digest `sha256:3ab3168645ce90dfb22ad7cc8911a222b0abd06c568632428f8602b99d7c8a0e`.
+
+Physical enable/disable and actual next-sign-in/reboot launch remain **MANUAL NOT RUN**.
+
+Evidence: `work-log/2026-09-03-chatgpt-windows-autostart.md`.
+
 ## ACTIVE IMPLEMENTATION SLICE
 
-**Next capability: local Windows autostart toggle.**
+**Next slice: floating-only steady-state CPU/RAM measurement with `main` destroyed.**
 
-Current official Tauri 2 evidence supports the official `tauri-plugin-autostart` plugin on Windows with Rust APIs for enable/disable/is-enabled. Prefer the narrow Rust API behind Narro-owned diagnostic commands rather than exposing the guest plugin permission surface unless a later product milestone genuinely needs it.
+M1 measurement requirements:
 
-M1 requirements:
-
-- fully local Windows startup registration; no remote dependency;
-- explicit `is enabled`, `enable`, and `disable` diagnostic commands/state;
-- operations must be idempotent from the caller's perspective;
-- structured `CommandError` mapping for setup/query/enable/disable failures;
-- do not silently treat a failed enable/disable as success;
-- temporary diagnostic UI only;
-- no polished Preferences implementation yet;
-- physical reboot/sign-in launch behavior remains MANUAL NOT RUN until a real Windows test;
-- after physical validation, ensure Narro does not create parallel instances or strand an invisible process; deeper single-instance/product startup UX is outside this narrow M1 capability unless testing reveals a blocker.
+- use the release/installed Windows diagnostic build, not a dev server;
+- put `focusSurface` in compact Floating Timer mode;
+- destroy/close `main` so the runtime remains alive only through tray + `focusSurface`;
+- ensure no active timer animation or other deliberate continuous animation/work is running;
+- allow a short warm-up before sampling so startup/transient work is excluded;
+- measure the complete Narro process tree, including WebView2 child processes attributable to the running Narro instance, not only `narro.exe` private memory;
+- record CPU over a time window rather than a single instantaneous sample;
+- record working set/private memory with process attribution and note WebView2 contributors;
+- make the procedure/script repeatable and keep raw samples available for review;
+- do not present hosted CI runner numbers as representative physical Windows performance; CI may validate the measurement harness only;
+- write actual representative measurements and interpretation into `STATUS.md` once physically run;
+- if floating-only memory/CPU is clearly unacceptable, stop before product UI and evaluate whether the two-webview architecture or a native Win32/WinUI overlay needs reconsideration.
 
 ## NEXT AGENT ACTION
 
 1. synchronize with latest `main`;
-2. inspect current `Cargo.toml`/lock, Tauri builder and diagnostic harness;
-3. verify current official autostart Rust API/version behavior as needed;
-4. implement the narrow Windows autostart capability on a branch;
-5. keep renderer access behind Narro-owned Rust commands; do not add guest permissions without need;
-6. add deterministic tests for error/state logic possible without rebooting Windows;
-7. run strongest available local checks; unavailable checks are NOT RUN;
-8. validate exact PR merge context through Windows CI before merge;
-9. record real CI/artifact evidence in a new immutable `work-log/*.md` entry;
-10. keep actual sign-in/reboot launch behavior MANUAL NOT RUN.
+2. inspect the existing diagnostic harness/process topology and current scripts/docs before adding anything;
+3. implement the narrowest repeatable Windows resource-measurement harness/procedure needed for floating-only mode;
+4. ensure measurement aggregation cannot accidentally count unrelated Edge/WebView2 processes;
+5. validate script input/error handling and deterministic aggregation logic where possible;
+6. use Windows CI only to validate the harness/script mechanics if meaningful; do not label hosted-runner performance as the M1 result;
+7. record immutable implementation evidence in `work-log/*.md`;
+8. then run one consolidated physical Windows pass covering the still-open capability observations plus CPU/RAM sampling;
+9. reconcile `TODO.md` / `STATUS.md` and make the Milestone 1 architecture decision.
 
-After autostart:
+## MANUAL WINDOWS BATCH — AFTER MEASUREMENT HARNESS IS READY
 
-1. measure floating-only steady-state CPU/RAM with `main` destroyed;
-2. run the consolidated physical Windows capability batch;
-3. reconcile M1 TODO evidence and decide whether the two-webview architecture passes the gate.
-
-## MANUAL WINDOWS BATCH — NOT REQUIRED YET
-
-Prefer one fresh diagnostic artifact after the remaining coherent M1 native slices, then a consolidated pass covering:
+Use one fresh diagnostic artifact and a consolidated pass covering:
 
 - exact state survival across `main` recreate;
 - tray/background recovery and explicit Quit;
@@ -144,7 +165,8 @@ Prefer one fresh diagnostic artifact after the remaining coherent M1 native slic
 - global shortcut register/fire/unregister/conflict behavior;
 - local Windows notification appearance from an installed build;
 - autostart enable/disable and actual next-sign-in launch;
-- only `main` + `focusSurface` persistent webviews.
+- only `main` + `focusSurface` persistent webviews;
+- floating-only steady-state CPU and process-tree memory with `main` destroyed.
 
 ## TEMPORARY HARNESS WARNING
 
