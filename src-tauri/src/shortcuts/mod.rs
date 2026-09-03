@@ -333,7 +333,7 @@ mod native {
     const MOD_NOREPEAT: u32 = 0x4000;
     const VK_B: u32 = 0x42;
 
-    type RawHwnd = *mut c_void;
+    pub(super) type RawHwnd = *mut c_void;
     type SubclassProc =
         Option<unsafe extern "system" fn(RawHwnd, u32, usize, isize, usize, usize) -> isize>;
 
@@ -369,7 +369,7 @@ mod native {
 
     static SHORTCUT_APP_HANDLE: OnceLock<tauri::AppHandle> = OnceLock::new();
 
-    pub fn install_observer(app: &tauri::App) -> Result<(), io::Error> {
+    pub(super) fn install_observer(app: &tauri::App) -> Result<(), io::Error> {
         let hwnd = app
             .get_webview_window(FOCUS_SURFACE_LABEL)
             .ok_or_else(|| io::Error::other("focusSurface does not exist during shortcut setup"))?
@@ -397,7 +397,9 @@ mod native {
         Ok(())
     }
 
-    pub fn focus_surface_hwnd(app_handle: &tauri::AppHandle) -> Result<RawHwnd, io::Error> {
+    pub(super) fn focus_surface_hwnd(
+        app_handle: &tauri::AppHandle,
+    ) -> Result<RawHwnd, io::Error> {
         let window = app_handle
             .get_webview_window(FOCUS_SURFACE_LABEL)
             .ok_or_else(|| io::Error::other("focusSurface does not exist"))?;
@@ -407,19 +409,19 @@ mod native {
         Ok(hwnd.0 as RawHwnd)
     }
 
-    pub fn register_default(hwnd: RawHwnd) -> Result<(), io::Error> {
+    pub(super) fn register_default(hwnd: RawHwnd) -> Result<(), io::Error> {
         register(hwnd, DEFAULT_HOTKEY_ID)
     }
 
-    pub fn unregister_default(hwnd: RawHwnd) -> Result<(), io::Error> {
+    pub(super) fn unregister_default(hwnd: RawHwnd) -> Result<(), io::Error> {
         unregister(hwnd, DEFAULT_HOTKEY_ID)
     }
 
-    pub fn register_conflict_probe(hwnd: RawHwnd) -> Result<(), io::Error> {
+    pub(super) fn register_conflict_probe(hwnd: RawHwnd) -> Result<(), io::Error> {
         register(hwnd, CONFLICT_PROBE_HOTKEY_ID)
     }
 
-    pub fn unregister_conflict_probe(hwnd: RawHwnd) -> Result<(), io::Error> {
+    pub(super) fn unregister_conflict_probe(hwnd: RawHwnd) -> Result<(), io::Error> {
         unregister(hwnd, CONFLICT_PROBE_HOTKEY_ID)
     }
 
