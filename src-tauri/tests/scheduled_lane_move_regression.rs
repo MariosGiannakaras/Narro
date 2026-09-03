@@ -64,10 +64,19 @@ fn repeated_scheduled_lane_moves_and_reorders_preserve_identity_count_and_schedu
         .expect("move scheduled task to Today");
         assert_eq!(moved_today.id, scheduled.id);
         assert_eq!(moved_today.schedule_kind, ScheduleKind::LocalDateTime);
-        assert_eq!(moved_today.scheduled_local_date.as_deref(), Some("2026-09-04"));
+        assert_eq!(
+            moved_today.scheduled_local_date.as_deref(),
+            Some("2026-09-04")
+        );
         assert_eq!(moved_today.scheduled_local_time.as_deref(), Some("09:30"));
-        assert_eq!(moved_today.schedule_timezone.as_deref(), Some("Europe/Athens"));
-        assert_eq!(ids_in_bucket(&conn, list.id, PlanningLane::Today), vec![scheduled.id]);
+        assert_eq!(
+            moved_today.schedule_timezone.as_deref(),
+            Some("Europe/Athens")
+        );
+        assert_eq!(
+            ids_in_bucket(&conn, list.id, PlanningLane::Today),
+            vec![scheduled.id]
+        );
 
         let remaining_backlog = ids_in_bucket(&conn, list.id, PlanningLane::Backlog);
         assert_eq!(remaining_backlog.len(), 2);
@@ -90,11 +99,17 @@ fn repeated_scheduled_lane_moves_and_reorders_preserve_identity_count_and_schedu
             .expect("load backlog after move cycle");
         assert_eq!(all_backlog.len(), 3);
         assert_eq!(
-            all_backlog.iter().map(|task| task.id).collect::<HashSet<_>>(),
+            all_backlog
+                .iter()
+                .map(|task| task.id)
+                .collect::<HashSet<_>>(),
             expected_ids
         );
         assert_eq!(
-            all_backlog.iter().map(|task| task.sort_rank).collect::<Vec<_>>(),
+            all_backlog
+                .iter()
+                .map(|task| task.sort_rank)
+                .collect::<Vec<_>>(),
             vec![0, 1, 2]
         );
 
@@ -121,7 +136,13 @@ fn repeated_scheduled_lane_moves_and_reorders_preserve_identity_count_and_schedu
     assert_eq!(persisted.id, scheduled.id);
     assert_eq!(persisted.manual_lane, PlanningLane::Backlog);
     assert_eq!(persisted.schedule_kind, ScheduleKind::LocalDateTime);
-    assert_eq!(persisted.scheduled_local_date.as_deref(), Some("2026-09-04"));
+    assert_eq!(
+        persisted.scheduled_local_date.as_deref(),
+        Some("2026-09-04")
+    );
     assert_eq!(persisted.scheduled_local_time.as_deref(), Some("09:30"));
-    assert_eq!(persisted.schedule_timezone.as_deref(), Some("Europe/Athens"));
+    assert_eq!(
+        persisted.schedule_timezone.as_deref(),
+        Some("Europe/Athens")
+    );
 }

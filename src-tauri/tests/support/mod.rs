@@ -125,12 +125,7 @@ pub struct TaskFixture {
 }
 
 impl TaskFixture {
-    pub fn new(
-        slot: u64,
-        list_id: ListId,
-        title: impl Into<String>,
-        lane: PlanningLane,
-    ) -> Self {
+    pub fn new(slot: u64, list_id: ListId, title: impl Into<String>, lane: PlanningLane) -> Self {
         Self {
             id: task_id(slot),
             list_id,
