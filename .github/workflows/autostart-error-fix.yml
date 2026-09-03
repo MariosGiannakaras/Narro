@@ -1,0 +1,32 @@
+name: Autostart Error Fix
+
+on:
+  push:
+    branches: [ "m1-windows-autostart" ]
+    paths:
+      - ".github/workflows/autostart-error-fix.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m1-windows-autostart
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Preserve primary autostart errors
+        run: python .github/scripts/fix_autostart_error.py
+      - name: Remove temporary files and commit
+        run: |
+          git rm .github/workflows/autostart-error-fix.yml .github/scripts/fix_autostart_error.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/App.tsx
+          git commit -m "Preserve autostart command errors"
+          git push origin HEAD:m1-windows-autostart
