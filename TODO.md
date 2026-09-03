@@ -12,24 +12,40 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Create only two initial webview windows: `main` and `focusSurface`.
 - [ ] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state (fixed 800x600 recreation geometry only).
   - [x] implementation compiles in Windows CI
-  - [x] interactive hide/show/destroy and state-survival validation
-  - [ ] interactive recreate validation
-- [ ] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
+  - [x] interactive hide/show/destroy and background state mutation validation
+  - [x] interactive async recreate opens and remains responsive
+  - [ ] exact pre-destroy Rust state visibly survives in recreated `main`
+- [x] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
   - [x] implementation compiles in Windows CI
-  - [ ] interactive validation
-- [ ] Prove switching those modes by resize/restyle of the same secondary webview (monitor-edge repositioning deferred).
+  - [x] interactive validation
+- [x] Prove switching those modes by resize/restyle of the same secondary webview (monitor-edge repositioning deferred).
   - [x] implementation compiles in Windows CI
-  - [ ] interactive validation
-- [ ] Prove always-on-top and skip-taskbar behavior for Floating Timer mode.
+  - [x] interactive Panel -> Timer -> Panel reuse validation
+- [x] Prove always-on-top and skip-taskbar behavior for Floating Timer mode.
 - [ ] Prove Windows monitor enumeration and left/right positioning for Focus Panel mode.
+  - [x] implementation and geometry tests automated-validated
+  - [ ] physical selected-monitor left/right validation
 - [ ] Prove display-topology change handling: connect/disconnect/re-enumerate displays and clamp windows to a visible work area without restarting Narro.
+  - [x] event-driven implementation automated-validated
+  - [ ] physical disconnect/reconnect/reorder validation
 - [ ] Prove global shortcut registration and conflict/error handling.
+  - [x] native registration/unregistration/conflict implementation and Windows CI validation
+  - [ ] physical register/fire/unregister/conflict validation
 - [ ] Prove tray/background lifecycle plus explicit Quit.
+  - [x] tray/background/recovery/Quit implementation and Windows CI validation
+  - [ ] physical tray/background/recovery/Quit validation
 - [ ] Prove local Windows notification delivery while process remains running.
+  - [x] Rust notification delivery path and Windows CI validation
+  - [ ] physical visible notification validation from installed build
 - [ ] Prove Windows autostart can be toggled locally.
+  - [x] status/enable/disable implementation, idempotence/state verification and Windows CI validation
+  - [ ] physical enable/disable plus actual next-sign-in launch
 - [x] Build the `focusSurface` as a separate minimal frontend entry/bundle that does not import dashboard/reports/settings/editor code.
-- [ ] Measure floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
-- [ ] Record measurements and obvious WebView2/process contributors in `STATUS.md`.
+- [x] Measure floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
+  - [x] repeatable process-tree harness automated-validated by Windows CI #66
+  - [x] three physical 30s-warmup / 60s-sample runs with zero process churn and `steadyStateValid: true`
+- [x] Record measurements and obvious WebView2/process contributors in `STATUS.md`.
+- [x] Decide the M1 floating performance baseline supports the current Tauri + WebView2 `focusSurface` architecture; retain native Win32/WinUI overlay only as a measured fallback.
 - [ ] Add a minimal smoke-test harness for Rust commands/events.
   - [x] harness created and compiles in Windows CI
   - [ ] interactive execution
@@ -330,5 +346,4 @@ Do not implement these until Milestones 1–10 parity/reliability work is stable
 - cross-device sync
 - macOS/Linux/mobile/web versions
 - collaborative/shared lists
-
 
