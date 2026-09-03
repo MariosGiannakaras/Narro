@@ -55,8 +55,8 @@ fn archive_preserves_history_but_permanent_delete_removes_reportable_task_histor
     conn.execute(
         "INSERT INTO subtasks (
             id, task_id, title, sort_rank, completed_at, created_at, updated_at
-         ) VALUES (?1, ?2, 'Persisted subtask', 0, ?3, ?1, ?3)",
-        params![SubtaskId::generate().to_string(), task_id, T2],
+         ) VALUES (?1, ?2, 'Persisted subtask', 0, ?3, ?4, ?3)",
+        params![SubtaskId::generate().to_string(), task_id, T2, T1],
     )
     .expect("insert subtask history");
     conn.execute(
@@ -69,8 +69,8 @@ fn archive_preserves_history_but_permanent_delete_removes_reportable_task_histor
         "INSERT INTO reminders (
             id, task_id, remind_local_date, remind_local_time, timezone,
             fired_at, dismissed_at, created_at, updated_at
-         ) VALUES (?1, ?2, '2026-09-03', '19:55', 'Europe/Athens', ?3, NULL, ?1, ?3)",
-        params![ReminderId::generate().to_string(), task_id, T2],
+         ) VALUES (?1, ?2, '2026-09-03', '19:55', 'Europe/Athens', ?3, NULL, ?4, ?3)",
+        params![ReminderId::generate().to_string(), task_id, T2, T1],
     )
     .expect("insert reminder history");
     conn.execute(
