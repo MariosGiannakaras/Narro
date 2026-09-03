@@ -11,8 +11,9 @@
     "check:rust": "cargo check --manifest-path src-tauri/Cargo.toml --locked",
     "check:rust:clippy": "cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings",
     "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked",
+    "test:performance-harness": "powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/measure-floating.ps1 -SelfTest",
     "preflight:frontend": "npm run check:config && npm run build",
-    "preflight:windows": "npm run preflight:frontend && npm run check:rust:fmt && npm run check:rust && npm run check:rust:clippy && npm run test:rust",
+    "preflight:windows": "npm run preflight:frontend && npm run check:rust:fmt && npm run check:rust && npm run check:rust:clippy && npm run test:rust && npm run test:performance-harness",
     "preflight": "npm run preflight:windows",
     "preview": "vite preview",
     "tauri": "tauri"
