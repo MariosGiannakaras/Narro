@@ -1,3 +1,5 @@
+pub mod lists;
+
 use rusqlite::Connection;
 use rusqlite_migration::{Migrations, M};
 use std::fmt::{Display, Formatter};
