@@ -246,8 +246,16 @@ function App() {
       setAutostartStatus(result);
       setError(null);
     } catch (failure: unknown) {
-      setError(formatInvokeError(failure));
-      await refreshAutostartStatus();
+      const primaryFailure = formatInvokeError(failure);
+      try {
+        const refreshed = await invoke<AutostartStatus>("autostart_status");
+        setAutostartStatus(refreshed);
+        setError(primaryFailure);
+      } catch (refreshFailure: unknown) {
+        setError(
+          `${primaryFailure} | Autostart status refresh also failed: ${formatInvokeError(refreshFailure)}`,
+        );
+      }
     }
   }
 
