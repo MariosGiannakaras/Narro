@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Generated local performance evidence
+performance/m1-floating/*/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
