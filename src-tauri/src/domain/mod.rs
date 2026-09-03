@@ -2,6 +2,7 @@ pub mod ids;
 pub mod lists;
 pub mod model;
 pub mod recurrence;
+pub mod subtasks;
 pub mod tasks;
 
 use serde::{Deserialize, Serialize};
