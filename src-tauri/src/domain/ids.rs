@@ -10,7 +10,7 @@ macro_rules! durable_id {
         pub struct $name(Uuid);
 
         impl $name {
-            pub fn new() -> Self {
+            pub fn generate() -> Self {
                 Self(Uuid::new_v4())
             }
 
@@ -68,8 +68,8 @@ mod tests {
 
     #[test]
     fn generated_ids_are_unique_and_round_trip() {
-        let first = TaskId::new();
-        let second = TaskId::new();
+        let first = TaskId::generate();
+        let second = TaskId::generate();
         assert_ne!(first, second);
 
         let encoded = first.to_string();
