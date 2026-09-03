@@ -37,10 +37,10 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Prove local Windows notification delivery while process remains running.
   - [x] Rust notification delivery path and Windows CI validation
   - [x] physical visible notification validation from installed build
-- [x] Prove Windows autostart can be toggled locally.
+- [x] Prove Windows autostart can be toggled locally and launches Narro after Windows restart/sign-in.
   - [x] status/enable/disable implementation, idempotence/state verification and Windows CI validation
   - [x] physical enable/disable registration observed in Windows Task Manager Startup apps
-  - [ ] actual fresh-sign-in process launch — intentionally NOT RUN; defer to later restart/release validation
+  - [x] actual autostart launch observed after a real Windows restart; `main` opened normally after sign-in
 - [x] Build the `focusSurface` as a separate minimal frontend entry/bundle that does not import dashboard/reports/settings/editor code.
 - [x] Measure floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
   - [x] repeatable process-tree harness automated-validated by Windows CI #66
@@ -59,12 +59,12 @@ Acceptance criteria:
 - Focus Panel can move to selected monitor edge
 - display connect/disconnect does not require app restart and cannot strand the focus surface off-screen
 - one confirmed global shortcut registers and fires
-- tray/background lifecycle, notification, and autostart registration/toggling work locally
+- tray/background lifecycle, notification, and autostart registration/toggling/restart launch work locally
 - SQLite migration v1 runs cleanly on a fresh app-data directory
 - floating-only idle CPU is stable/near-idle with no unexplained polling loop
 - floating-only memory is measured and documented; if clearly unacceptable, stop and evaluate a native Win32/WinUI overlay before product UI work
 
-**Gate A result: PASS / proceed with current Tauri 2 + WebView2 architecture.** The only material manual residual is actual autostart process launch on a genuinely new Windows sign-in session; do not require a reboot/sign-out solely to close that residual. Revisit it opportunistically during later lifecycle/release validation.
+**Gate A result: PASS / proceed with current Tauri 2 + WebView2 architecture.** Targeted M1 physical capability and performance evidence is now complete. Later lifecycle checks are release-candidate revalidation, not unresolved M1 architecture proof.
 
 Do not implement polished Blitzit UI in this milestone.
 
@@ -317,7 +317,7 @@ Acceptance criteria:
 - [ ] Validate Windows display scaling at 100%, 125%, 150%, and 200%.
 - [ ] Validate Windows locale variants including 12-hour and 24-hour time formats.
 - [ ] Validate Windows installer packaging.
-- [ ] Validate actual autostart process launch on a genuinely new Windows sign-in session.
+- [ ] Re-validate autostart launch after Windows restart/sign-in on the release-candidate build.
 - [ ] Add Narro-owned application icon/branding.
 - [ ] Run regression tests for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
