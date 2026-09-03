@@ -1,3 +1,4 @@
+pub mod autostart;
 pub mod domain;
 pub mod error;
 pub mod notifications;
@@ -64,6 +65,21 @@ fn send_test_notification(
     app_handle: tauri::AppHandle,
 ) -> CommandResult<notifications::NotificationTestResult> {
     notifications::send_test(&app_handle)
+}
+
+#[tauri::command]
+fn autostart_status(app_handle: tauri::AppHandle) -> CommandResult<autostart::AutostartStatus> {
+    autostart::status(&app_handle)
+}
+
+#[tauri::command]
+fn autostart_enable(app_handle: tauri::AppHandle) -> CommandResult<autostart::AutostartStatus> {
+    autostart::enable(&app_handle)
+}
+
+#[tauri::command]
+fn autostart_disable(app_handle: tauri::AppHandle) -> CommandResult<autostart::AutostartStatus> {
+    autostart::disable(&app_handle)
 }
 
 #[tauri::command]
@@ -518,6 +534,10 @@ pub fn run() {
     let result = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_autostart::init(
+            tauri_plugin_autostart::MacosLauncher::LaunchAgent,
+            None,
+        ))
         .manage(AppState::new())
         .manage(ShortcutManager::new())
         .invoke_handler(tauri::generate_handler![
@@ -525,6 +545,9 @@ pub fn run() {
             toggle_timer,
             mutate_state,
             send_test_notification,
+            autostart_status,
+            autostart_enable,
+            autostart_disable,
             global_shortcut_status,
             global_shortcut_register,
             global_shortcut_unregister,
