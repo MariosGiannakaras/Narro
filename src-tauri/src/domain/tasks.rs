@@ -44,12 +44,15 @@ pub struct TaskDestination {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(tag = "kind", rename_all = "snake_case")]
+#[serde(tag = "kind")]
 pub enum TaskSchedule {
+    #[serde(rename = "none")]
     None,
+    #[serde(rename = "date_only")]
     DateOnly {
         local_date: String,
     },
+    #[serde(rename = "local_datetime")]
     LocalDateTime {
         local_date: String,
         local_time: String,
@@ -67,14 +70,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn schedule_serde_uses_explicit_shape_tag() {
+    fn schedule_serde_matches_database_kind_tokens() {
         let value = TaskSchedule::LocalDateTime {
             local_date: "2026-09-04".into(),
             local_time: "09:30".into(),
             timezone: "Europe/Athens".into(),
         };
         let encoded = serde_json::to_value(&value).expect("serialize schedule");
-        assert_eq!(encoded["kind"], "local_date_time");
+        assert_eq!(encoded["kind"], "local_datetime");
         assert_eq!(encoded["local_date"], "2026-09-04");
         assert_eq!(encoded["local_time"], "09:30");
         assert_eq!(encoded["timezone"], "Europe/Athens");
