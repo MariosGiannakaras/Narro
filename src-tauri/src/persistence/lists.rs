@@ -214,7 +214,7 @@ pub fn create_list(
 ) -> Result<ListRecord, ListStoreError> {
     validate_timestamp(now)?;
     let title = normalize_title(&input.title)?;
-    let id = ListId::new();
+    let id = ListId::generate();
     let tx = conn.transaction()?;
     let rank = next_active_rank(&tx)?;
     tx.execute(
@@ -509,7 +509,7 @@ mod tests {
         let first = create_list(&mut conn, input("First"), T1).expect("create first");
         let second = create_list(&mut conn, input("Second"), T1).expect("create second");
         let third = create_list(&mut conn, input("Third"), T1).expect("create third");
-        let task_id = TaskId::new();
+        let task_id = TaskId::generate();
         insert_task(&conn, task_id, second.id);
 
         let archived = archive_list(&mut conn, second.id, T2).expect("archive second");
@@ -548,7 +548,7 @@ mod tests {
     fn permanent_delete_requires_archive_and_cascades_list_owned_tasks() {
         let mut conn = migrated();
         let list = create_list(&mut conn, input("Delete me"), T1).expect("create list");
-        let task_id = TaskId::new();
+        let task_id = TaskId::generate();
         insert_task(&conn, task_id, list.id);
 
         let active_delete = permanently_delete_list(&mut conn, list.id);
