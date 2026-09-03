@@ -1,0 +1,131 @@
+name: Temporary Recurrence Clippy Fix
+
+on:
+  push:
+    branches:
+      - m2-recurrence-metadata
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: ${{ !contains(github.event.head_commit.message, 'Refactor recurrence normalization input') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m2-recurrence-metadata
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: Refactor normalization helper
+        shell: pwsh
+        run: |
+          @'
+          from pathlib import Path
+
+          path = Path('src-tauri/src/persistence/recurrence.rs')
+          text = path.read_text(encoding='utf-8')
+
+          old_fn = '''fn normalize_rule_input(
+              interval_count: u32,
+              unit: RecurrenceUnit,
+              weekday_mask: u8,
+              month_day: Option<u8>,
+              starts_local_date: String,
+              local_time: Option<String>,
+              timezone: Option<String>,
+              replace_existing: bool,
+          ) -> Result<NormalizedRuleInput, RecurrenceStoreError> {
+              if interval_count == 0 {
+                  return Err(RecurrenceStoreError::InvalidInterval);
+              }
+              validate_pattern(unit, weekday_mask, month_day)?;
+              let starts_local_date = normalize_local_date(&starts_local_date)?;
+              let (local_time, timezone) = normalize_time_and_timezone(local_time, timezone)?;
+
+              Ok(NormalizedRuleInput {
+                  interval_count: i64::from(interval_count),
+                  unit,
+                  weekday_mask,
+                  month_day,
+                  starts_local_date,
+                  local_time,
+                  timezone,
+                  replace_existing,
+              })
+          }
+          '''
+          new_fn = '''struct RuleMetadataInput {
+              interval_count: u32,
+              unit: RecurrenceUnit,
+              weekday_mask: u8,
+              month_day: Option<u8>,
+              starts_local_date: String,
+              local_time: Option<String>,
+              timezone: Option<String>,
+              replace_existing: bool,
+          }
+
+          fn normalize_rule_input(
+              input: RuleMetadataInput,
+          ) -> Result<NormalizedRuleInput, RecurrenceStoreError> {
+              if input.interval_count == 0 {
+                  return Err(RecurrenceStoreError::InvalidInterval);
+              }
+              validate_pattern(input.unit, input.weekday_mask, input.month_day)?;
+              let starts_local_date = normalize_local_date(&input.starts_local_date)?;
+              let (local_time, timezone) =
+                  normalize_time_and_timezone(input.local_time, input.timezone)?;
+
+              Ok(NormalizedRuleInput {
+                  interval_count: i64::from(input.interval_count),
+                  unit: input.unit,
+                  weekday_mask: input.weekday_mask,
+                  month_day: input.month_day,
+                  starts_local_date,
+                  local_time,
+                  timezone,
+                  replace_existing: input.replace_existing,
+              })
+          }
+          '''
+          if old_fn not in text:
+              raise SystemExit('normalize_rule_input block did not match expected formatted source')
+          text = text.replace(old_fn, new_fn, 1)
+
+          old_call = '''let normalized = normalize_rule_input(
+              input.interval_count,
+              input.unit,
+              input.weekday_mask,
+              input.month_day,
+              input.starts_local_date,
+              input.local_time,
+              input.timezone,
+              input.replace_existing,
+          )?;'''
+          new_call = '''let normalized = normalize_rule_input(RuleMetadataInput {
+              interval_count: input.interval_count,
+              unit: input.unit,
+              weekday_mask: input.weekday_mask,
+              month_day: input.month_day,
+              starts_local_date: input.starts_local_date,
+              local_time: input.local_time,
+              timezone: input.timezone,
+              replace_existing: input.replace_existing,
+          })?;'''
+          if text.count(old_call) != 2:
+              raise SystemExit(f'expected two normalize_rule_input calls, found {text.count(old_call)}')
+          text = text.replace(old_call, new_call)
+          path.write_text(text, encoding='utf-8')
+          '@ | python -
+          cargo fmt --manifest-path src-tauri/Cargo.toml
+      - name: Commit refactor
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri/src/persistence/recurrence.rs
+          git commit -m "Refactor recurrence normalization input"
+          git push origin HEAD:m2-recurrence-metadata
