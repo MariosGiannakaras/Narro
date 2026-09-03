@@ -73,7 +73,10 @@ mod tests {
         assert_ne!(first, second);
 
         let encoded = first.to_string();
-        assert_eq!(TaskId::parse_str(&encoded).expect("parse generated task id"), first);
+        assert_eq!(
+            TaskId::parse_str(&encoded).expect("parse generated task id"),
+            first
+        );
     }
 
     #[test]
