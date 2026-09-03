@@ -31,19 +31,32 @@ impl Display for PreferenceStoreError {
                 formatter.write_str("preference mutation timestamp must be RFC 3339")
             }
             Self::InvalidStoredSchemaVersion(version) => {
-                write!(formatter, "stored preference schema version is invalid: {version}")
+                write!(
+                    formatter,
+                    "stored preference schema version is invalid: {version}"
+                )
             }
             Self::UnsupportedSchemaVersion(version) => {
-                write!(formatter, "unsupported preference schema version: {version}")
+                write!(
+                    formatter,
+                    "unsupported preference schema version: {version}"
+                )
             }
             Self::InvalidToken(field) => {
-                write!(formatter, "preference field contains an invalid token: {field}")
+                write!(
+                    formatter,
+                    "preference field contains an invalid token: {field}"
+                )
             }
             Self::InvalidDuration(field, seconds) => {
-                write!(formatter, "preference duration is invalid for {field}: {seconds}")
+                write!(
+                    formatter,
+                    "preference duration is invalid for {field}: {seconds}"
+                )
             }
-            Self::FunGifRequiresSuccessScreen => formatter
-                .write_str("fun GIF preference requires the success screen to be enabled"),
+            Self::FunGifRequiresSuccessScreen => {
+                formatter.write_str("fun GIF preference requires the success screen to be enabled")
+            }
             Self::MissingAfterWrite => {
                 formatter.write_str("preferences disappeared after persistence write")
             }
@@ -158,7 +171,9 @@ fn decode_preferences(
     let schema_version = u32::try_from(schema_version)
         .map_err(|_| PreferenceStoreError::InvalidStoredSchemaVersion(schema_version))?;
     if schema_version != PREFERENCES_SCHEMA_VERSION {
-        return Err(PreferenceStoreError::UnsupportedSchemaVersion(schema_version));
+        return Err(PreferenceStoreError::UnsupportedSchemaVersion(
+            schema_version,
+        ));
     }
     let payload: PreferencesPayload = serde_json::from_str(&payload_json)?;
     validate_preferences(&payload)?;

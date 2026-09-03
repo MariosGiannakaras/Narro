@@ -137,5 +137,8 @@ fn singleton_schema_rejects_noncanonical_preference_row_ids() {
          VALUES (2, ?1, ?2, ?3)",
         params![i64::from(PREFERENCES_SCHEMA_VERSION), payload_json, T3],
     );
-    assert!(result.is_err(), "preferences table must remain singleton id=1");
+    assert!(
+        result.is_err(),
+        "preferences table must remain singleton id=1"
+    );
 }
