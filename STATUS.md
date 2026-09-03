@@ -140,16 +140,17 @@ The original synchronous `WebviewWindowBuilder::build()` recreation path deadloc
 
 ## Active Milestone 2 work
 
-Milestone 2 now has an automated-validated persistence/identity foundation through task ordering and duplication:
+Milestone 2 now has an automated-validated persistence/identity foundation through task metadata persistence:
 
 - domain IDs + SQLite schema/migrations: PR #8, merge `5d3201e4fd9b2d7b0e93fc4ec89b135aa61da9cc`; exact head `91fef967959146c69dc6ff018326277151f716dd` passed Windows CI #73;
 - list lifecycle persistence: PR #9, merge `c6a7dabb5b919647486ef467bff8c3b649663cea`; Windows CI #77 / run `33749371662` passed;
 - task CRUD/planning/completion/archive lifecycle: PR #10, merge `6631c9fa57ce999ca3da9e99908420a2da7ffec4`; exact head `2484f3bf825169cdf5b9e0f7bb046c5f48132e32` passed Windows CI #82 / run `33756963309`;
-- task bucket ordering + independent duplication invariants: PR #11, merge `b01dcd1223f1c0cdf81db8cf694708b528feaa2a`; exact head `f74f5520dd039a26e25dad967ca80e430b8b70b1` passed Windows CI #87 / run `33759742017`.
+- task bucket ordering + independent duplication invariants: PR #11, merge `b01dcd1223f1c0cdf81db8cf694708b528feaa2a`; exact head `f74f5520dd039a26e25dad967ca80e430b8b70b1` passed Windows CI #87 / run `33759742017`;
+- task Time Taken + typed schedule metadata persistence: PR #13, merge `0595025fcea529a7723468c0a6b530e9ebbb4092`; exact head `2cd35bda25df8f2e8a1cd69e44c14427b77f3948` passed Windows CI #92 / run `33763969680`; artifact `9897160600`, digest `sha256:08477502ee766ed8e03599225da0ab5925bab7fb1659cd76b8bbe6b29c2cadfa`.
 
-Proven invariants include durable UUID identities, explicit migrations, enabled foreign keys, list/task archive + permanent-delete semantics, Backlog/This Week/Today/Done task transitions, exact-set transactional reorder, restart-persistent bucket positions, and duplication as one new independent task identity without session/completion/archive/recurrence-history aliasing.
+Proven invariants now include durable UUID identities, explicit migrations, enabled foreign keys, list/task archive + permanent-delete semantics, Backlog/This Week/Today/Done task transitions, exact-set transactional reorder, restart-persistent bucket positions, duplication as one new independent task identity, Time Taken as persisted work-session duration plus a normalized signed manual adjustment, and transactional schedule state using explicit `none` / `date_only` / `local_datetime` shapes with restart persistence.
 
-The next open Milestone 2 slice is task metadata persistence semantics. Existing schema already carries EST, manual time adjustment, schedule shape, recurrence metadata, completion and archive fields; remaining work is to expose and validate typed mutation semantics for the still-unimplemented portions, especially manual Time Taken adjustment and schedule/recurrence metadata. Scheduling eligibility/classification and recurrence materialization remain Milestone 4 concerns and should not be pulled forward accidentally.
+The broad M2 metadata checkbox intentionally remains open because recurrence metadata CRUD/persistence semantics are not yet implemented. The next source slice is therefore **recurrence metadata persistence** only: typed rule create/read/update/disable/delete contracts, lifecycle validation, parent-task linkage and restart tests. Recurrence occurrence generation/materialization, Monday-of-due-week behavior, DST catch-up, Replace Existing Tasks execution and scheduling eligibility remain Milestone 4 concerns and must not be pulled forward.
 
 Product UI remains intentionally unpolished while Milestones 2–4 establish correctness-critical behavior.
 
