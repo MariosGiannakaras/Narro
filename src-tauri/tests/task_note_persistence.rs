@@ -102,8 +102,8 @@ fn note_upsert_preserves_one_row_and_completed_task_history_remains_editable() {
     let list_id = create_test_list(&mut conn, "Inbox");
     let task_id = create_test_task(&mut conn, list_id, "Task");
 
-    let first = set_task_note(&mut conn, task_id, rich_document("first"), T1)
-        .expect("save first note");
+    let first =
+        set_task_note(&mut conn, task_id, rich_document("first"), T1).expect("save first note");
     assert_eq!(first.task_id, task_id);
     assert_eq!(first.editor_format_version, TASK_NOTE_FORMAT_VERSION);
     assert_eq!(first.updated_at, T1);
@@ -247,5 +247,7 @@ fn delete_note_is_idempotent_for_active_task() {
 
     assert!(delete_task_note(&mut conn, task_id, T2).expect("delete existing note"));
     assert!(!delete_task_note(&mut conn, task_id, T3).expect("delete missing note"));
-    assert!(get_task_note(&conn, task_id).expect("read deleted note").is_none());
+    assert!(get_task_note(&conn, task_id)
+        .expect("read deleted note")
+        .is_none());
 }
