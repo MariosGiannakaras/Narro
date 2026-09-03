@@ -1,4 +1,5 @@
 pub mod lists;
+pub mod tasks;
 
 use rusqlite::Connection;
 use rusqlite_migration::{Migrations, M};
