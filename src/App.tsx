@@ -7,10 +7,14 @@ import {
   type DiagnosticCommand,
   type FocusPanelSide,
   type MonitorDescriptor,
+  type ShortcutCommand,
+  type ShortcutDiagnostics,
+  applyNewerShortcutDiagnostics,
   applyNewerState,
   findSelectedMonitor,
   formatInvokeError,
   formatMonitorLabel,
+  isCommandErrorPayload,
   isValidMonitorSelection,
 } from "./diagnosticApi";
 
@@ -18,6 +22,8 @@ type StateCommand = "mutate_state" | "toggle_timer";
 
 function App() {
   const [state, setState] = useState<AppStatePayload | null>(null);
+  const [shortcutDiagnostics, setShortcutDiagnostics] = useState<ShortcutDiagnostics | null>(null);
+  const [shortcutProbeStatus, setShortcutProbeStatus] = useState<string | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
@@ -27,6 +33,15 @@ function App() {
     try {
       const labels = await invoke<string[]>("list_windows");
       setWindows(labels);
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function refreshShortcutDiagnostics() {
+    try {
+      const payload = await invoke<ShortcutDiagnostics>("global_shortcut_status");
+      setShortcutDiagnostics((current) => applyNewerShortcutDiagnostics(current, payload));
     } catch (failure: unknown) {
       setError(formatInvokeError(failure));
     }
@@ -62,7 +77,8 @@ function App() {
 
   useEffect(() => {
     let disposed = false;
-    let stopListening: (() => void) | undefined;
+    let stopStateListening: (() => void) | undefined;
+    let stopShortcutListening: (() => void) | undefined;
 
     void listen<AppStatePayload>("state-changed", (event) => {
       if (!disposed) {
@@ -73,7 +89,27 @@ function App() {
         if (disposed) {
           unlisten();
         } else {
-          stopListening = unlisten;
+          stopStateListening = unlisten;
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setError(formatInvokeError(failure));
+        }
+      });
+
+    void listen<ShortcutDiagnostics>("shortcut-diagnostic-changed", (event) => {
+      if (!disposed) {
+        setShortcutDiagnostics((current) =>
+          applyNewerShortcutDiagnostics(current, event.payload),
+        );
+      }
+    })
+      .then((unlisten) => {
+        if (disposed) {
+          unlisten();
+        } else {
+          stopShortcutListening = unlisten;
         }
       })
       .catch((failure: unknown) => {
@@ -94,12 +130,27 @@ function App() {
         }
       });
 
+    void invoke<ShortcutDiagnostics>("global_shortcut_status")
+      .then((payload) => {
+        if (!disposed) {
+          setShortcutDiagnostics((current) =>
+            applyNewerShortcutDiagnostics(current, payload),
+          );
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setError(formatInvokeError(failure));
+        }
+      });
+
     void refreshWindows();
     void refreshMonitors();
 
     return () => {
       disposed = true;
-      stopListening?.();
+      stopStateListening?.();
+      stopShortcutListening?.();
     };
   }, []);
 
@@ -109,6 +160,41 @@ function App() {
       setState((current) => applyNewerState(current, payload));
       setError(null);
     } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function runShortcutCommand(command: ShortcutCommand) {
+    try {
+      const payload = await invoke<ShortcutDiagnostics>(command);
+      setShortcutDiagnostics((current) => applyNewerShortcutDiagnostics(current, payload));
+      setShortcutProbeStatus(null);
+      setError(null);
+    } catch (failure: unknown) {
+      setShortcutProbeStatus(null);
+      setError(formatInvokeError(failure));
+      await refreshShortcutDiagnostics();
+    }
+  }
+
+  async function runShortcutConflictProbe() {
+    try {
+      await invoke<void>("global_shortcut_conflict_probe");
+      setShortcutProbeStatus(
+        "Unexpected result: duplicate registration did not report the expected conflict.",
+      );
+      setError(null);
+    } catch (failure: unknown) {
+      await refreshShortcutDiagnostics();
+      if (isCommandErrorPayload(failure) && failure.code === "SHORTCUT_CONFLICT") {
+        setShortcutProbeStatus(
+          "PASS: deterministic duplicate registration returned SHORTCUT_CONFLICT.",
+        );
+        setError(null);
+        return;
+      }
+
+      setShortcutProbeStatus(null);
       setError(formatInvokeError(failure));
     }
   }
@@ -198,6 +284,35 @@ function App() {
           <button onClick={() => void runStateCommand("toggle_timer")}>
             Toggle Timer
           </button>
+
+          <hr />
+          <h2>Global Shortcut Diagnostics</h2>
+          <p>
+            Default test chord: <strong>{shortcutDiagnostics?.chord ?? "Ctrl+Shift+B"}</strong>
+          </p>
+          <pre style={{ whiteSpace: "pre-wrap" }}>
+            {JSON.stringify(shortcutDiagnostics, null, 2)}
+          </pre>
+          <button onClick={() => void refreshShortcutDiagnostics()}>
+            Refresh Shortcut Status
+          </button>
+          <button onClick={() => void runShortcutCommand("global_shortcut_register")}>
+            Register Shortcut
+          </button>
+          <button onClick={() => void runShortcutCommand("global_shortcut_unregister")}>
+            Unregister Shortcut
+          </button>
+          <button
+            disabled={!shortcutDiagnostics?.registered}
+            onClick={() => void runShortcutConflictProbe()}
+          >
+            Run Deterministic Conflict Probe
+          </button>
+          {shortcutProbeStatus && <p>{shortcutProbeStatus}</p>}
+          <p>
+            Physical firing check: press Ctrl+Shift+B from another normal Windows application. The
+            trigger count should increment and Narro main should show/focus or recreate if absent.
+          </p>
         </div>
 
         <div

@@ -10,6 +10,20 @@ export type CommandErrorPayload = {
   message: string;
 };
 
+export type ShortcutErrorSnapshot = {
+  code: string;
+  message: string;
+};
+
+export type ShortcutDiagnostics = {
+  observerInstalled: boolean;
+  registered: boolean;
+  chord: string;
+  triggerCount: number;
+  revision: number;
+  lastError: ShortcutErrorSnapshot | null;
+};
+
 export type FocusPanelSide = "left" | "right";
 
 export type PhysicalPoint = {
@@ -50,7 +64,9 @@ export type DiagnosticCommand =
   | "focus_surface_mode_panel"
   | "focus_surface_mode_timer";
 
-function isCommandErrorPayload(value: unknown): value is CommandErrorPayload {
+export type ShortcutCommand = "global_shortcut_register" | "global_shortcut_unregister";
+
+export function isCommandErrorPayload(value: unknown): value is CommandErrorPayload {
   if (typeof value !== "object" || value === null) {
     return false;
   }
@@ -81,6 +97,16 @@ export function applyNewerState(
   current: AppStatePayload | null,
   incoming: AppStatePayload,
 ): AppStatePayload {
+  if (current === null || incoming.revision > current.revision) {
+    return incoming;
+  }
+  return current;
+}
+
+export function applyNewerShortcutDiagnostics(
+  current: ShortcutDiagnostics | null,
+  incoming: ShortcutDiagnostics,
+): ShortcutDiagnostics {
   if (current === null || incoming.revision > current.revision) {
     return incoming;
   }

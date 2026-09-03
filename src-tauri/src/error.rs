@@ -82,6 +82,71 @@ impl CommandError {
             format!("cannot compute a safe focus-surface position: {source}"),
         )
     }
+
+    pub fn shortcut_state_poisoned() -> Self {
+        Self::new(
+            "SHORTCUT_STATE_LOCK_POISONED",
+            "global shortcut diagnostic state lock is poisoned",
+        )
+    }
+
+    pub fn shortcut_revision_overflow() -> Self {
+        Self::new(
+            "SHORTCUT_REVISION_OVERFLOW",
+            "global shortcut diagnostic revision reached its maximum value",
+        )
+    }
+
+    pub fn shortcut_trigger_overflow() -> Self {
+        Self::new(
+            "SHORTCUT_TRIGGER_OVERFLOW",
+            "global shortcut trigger counter reached its maximum value",
+        )
+    }
+
+    pub fn shortcut_observer_unavailable() -> Self {
+        Self::new(
+            "SHORTCUT_OBSERVER_UNAVAILABLE",
+            "global shortcut message observer is unavailable; registration cannot be enabled safely",
+        )
+    }
+
+    pub fn shortcut_not_registered() -> Self {
+        Self::new(
+            "SHORTCUT_NOT_REGISTERED",
+            "the default global shortcut must be registered before running the deterministic conflict probe",
+        )
+    }
+
+    pub fn shortcut_conflict(chord: &str) -> Self {
+        Self::new(
+            "SHORTCUT_CONFLICT",
+            format!(
+                "global shortcut '{chord}' is already registered and cannot be claimed by Narro"
+            ),
+        )
+    }
+
+    pub fn shortcut_operation(operation: &str, source: impl Display) -> Self {
+        Self::new(
+            "SHORTCUT_OPERATION_FAILED",
+            format!("global shortcut {operation} failed: {source}"),
+        )
+    }
+
+    pub fn shortcut_conflict_probe_unexpected_success() -> Self {
+        Self::new(
+            "SHORTCUT_CONFLICT_PROBE_UNEXPECTED_SUCCESS",
+            "the deterministic duplicate-shortcut conflict probe unexpectedly registered a second identical hotkey",
+        )
+    }
+
+    pub fn shortcut_unsupported_platform() -> Self {
+        Self::new(
+            "SHORTCUT_UNSUPPORTED_PLATFORM",
+            "the current global shortcut capability is implemented only for Windows",
+        )
+    }
 }
 
 impl Display for CommandError {
@@ -139,5 +204,12 @@ mod tests {
         let error = CommandError::stale_monitor_selection();
         assert_eq!(error.code, "MONITOR_SELECTION_STALE");
         assert!(error.message.contains("refresh monitors"));
+    }
+
+    #[test]
+    fn shortcut_conflict_has_stable_machine_code() {
+        let error = CommandError::shortcut_conflict("Ctrl+Shift+B");
+        assert_eq!(error.code, "SHORTCUT_CONFLICT");
+        assert!(error.message.contains("Ctrl+Shift+B"));
     }
 }
