@@ -147,6 +147,20 @@ impl CommandError {
             "the current global shortcut capability is implemented only for Windows",
         )
     }
+
+    pub fn notification_delivery(source: impl Display) -> Self {
+        Self::new(
+            "NOTIFICATION_DELIVERY_FAILED",
+            format!("failed to submit the local Windows notification: {source}"),
+        )
+    }
+
+    pub fn notification_unsupported_platform() -> Self {
+        Self::new(
+            "NOTIFICATION_UNSUPPORTED_PLATFORM",
+            "the current local notification capability is implemented only for Windows",
+        )
+    }
 }
 
 impl Display for CommandError {
@@ -211,5 +225,12 @@ mod tests {
         let error = CommandError::shortcut_conflict("Ctrl+Shift+B");
         assert_eq!(error.code, "SHORTCUT_CONFLICT");
         assert!(error.message.contains("Ctrl+Shift+B"));
+    }
+
+    #[test]
+    fn notification_delivery_has_stable_machine_code() {
+        let error = CommandError::notification_delivery("backend unavailable");
+        assert_eq!(error.code, "NOTIFICATION_DELIVERY_FAILED");
+        assert!(error.message.contains("backend unavailable"));
     }
 }
