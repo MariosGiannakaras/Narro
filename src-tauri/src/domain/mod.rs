@@ -130,7 +130,7 @@ mod tests {
 
     #[test]
     fn revision_overflow_does_not_partially_mutate_state() {
-        let state = Arc::new(AppState::new());
+        let state = AppState::new();
         {
             let mut data = state.data.lock().expect("state lock");
             data.counter = 41;
