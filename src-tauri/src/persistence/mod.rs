@@ -1,5 +1,6 @@
 pub mod lists;
 pub mod notes;
+pub mod preferences;
 pub mod recurrence;
 pub mod subtasks;
 pub mod task_identity;
