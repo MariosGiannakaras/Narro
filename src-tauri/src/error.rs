@@ -161,6 +161,45 @@ impl CommandError {
             "the current local notification capability is implemented only for Windows",
         )
     }
+
+    pub fn autostart_query(source: impl Display) -> Self {
+        Self::new(
+            "AUTOSTART_QUERY_FAILED",
+            format!("failed to query Windows autostart registration: {source}"),
+        )
+    }
+
+    pub fn autostart_enable(source: impl Display) -> Self {
+        Self::new(
+            "AUTOSTART_ENABLE_FAILED",
+            format!("failed to enable Windows autostart: {source}"),
+        )
+    }
+
+    pub fn autostart_disable(source: impl Display) -> Self {
+        Self::new(
+            "AUTOSTART_DISABLE_FAILED",
+            format!("failed to disable Windows autostart: {source}"),
+        )
+    }
+
+    pub fn autostart_state_mismatch(expected: bool, observed: bool) -> Self {
+        let expected_state = if expected { "enabled" } else { "disabled" };
+        let observed_state = if observed { "enabled" } else { "disabled" };
+        Self::new(
+            "AUTOSTART_STATE_MISMATCH",
+            format!(
+                "Windows autostart operation completed without the requested state: expected {expected_state}, observed {observed_state}"
+            ),
+        )
+    }
+
+    pub fn autostart_unsupported_platform() -> Self {
+        Self::new(
+            "AUTOSTART_UNSUPPORTED_PLATFORM",
+            "the current autostart capability is implemented only for Windows",
+        )
+    }
 }
 
 impl Display for CommandError {

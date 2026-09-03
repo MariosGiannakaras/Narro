@@ -26,11 +26,17 @@ type NotificationTestResult = {
   submitted: boolean;
 };
 
+type AutostartStatus = {
+  enabled: boolean;
+  changed: boolean;
+};
+
 function App() {
   const [state, setState] = useState<AppStatePayload | null>(null);
   const [shortcutDiagnostics, setShortcutDiagnostics] = useState<ShortcutDiagnostics | null>(null);
   const [shortcutProbeStatus, setShortcutProbeStatus] = useState<string | null>(null);
   const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
+  const [autostartStatus, setAutostartStatus] = useState<AutostartStatus | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
@@ -151,6 +157,7 @@ function App() {
         }
       });
 
+    void refreshAutostartStatus();
     void refreshWindows();
     void refreshMonitors();
 
@@ -218,6 +225,37 @@ function App() {
     } catch (failure: unknown) {
       setNotificationStatus(null);
       setError(formatInvokeError(failure));
+    }
+  }
+
+  async function refreshAutostartStatus() {
+    try {
+      const result = await invoke<AutostartStatus>("autostart_status");
+      setAutostartStatus(result);
+      setError(null);
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function setAutostartEnabled(enabled: boolean) {
+    try {
+      const result = await invoke<AutostartStatus>(
+        enabled ? "autostart_enable" : "autostart_disable",
+      );
+      setAutostartStatus(result);
+      setError(null);
+    } catch (failure: unknown) {
+      const primaryFailure = formatInvokeError(failure);
+      try {
+        const refreshed = await invoke<AutostartStatus>("autostart_status");
+        setAutostartStatus(refreshed);
+        setError(primaryFailure);
+      } catch (refreshFailure: unknown) {
+        setError(
+          `${primaryFailure} | Autostart status refresh also failed: ${formatInvokeError(refreshFailure)}`,
+        );
+      }
     }
   }
 
@@ -344,6 +382,29 @@ function App() {
             Command success means the notification was submitted to the Windows notification
             backend; visual delivery still requires physical validation. Use an installed build for
             canonical Narro app identity.
+          </p>
+
+          <hr />
+          <h2>Windows Autostart Diagnostics</h2>
+          <pre style={{ whiteSpace: "pre-wrap" }}>
+            {JSON.stringify(autostartStatus, null, 2)}
+          </pre>
+          <button onClick={() => void refreshAutostartStatus()}>Refresh Autostart Status</button>
+          <button
+            disabled={autostartStatus?.enabled === true}
+            onClick={() => void setAutostartEnabled(true)}
+          >
+            Enable Autostart
+          </button>
+          <button
+            disabled={autostartStatus?.enabled !== true}
+            onClick={() => void setAutostartEnabled(false)}
+          >
+            Disable Autostart
+          </button>
+          <p>
+            Enable/disable commands verify the resulting Windows registration state. Actual launch
+            on the next sign-in or reboot remains a physical Windows validation step.
           </p>
         </div>
 
