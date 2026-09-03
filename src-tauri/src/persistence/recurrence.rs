@@ -55,9 +55,8 @@ impl Display for RecurrenceStoreError {
             Self::InvalidMonthDay => {
                 formatter.write_str("recurrence month day must be between 1 and 31")
             }
-            Self::InvalidPattern => formatter.write_str(
-                "recurrence selector shape is invalid for the selected recurrence unit",
-            ),
+            Self::InvalidPattern => formatter
+                .write_str("recurrence selector shape is invalid for the selected recurrence unit"),
             Self::InvalidStartDate => {
                 formatter.write_str("recurrence start date must use YYYY-MM-DD")
             }
@@ -77,16 +76,24 @@ impl Display for RecurrenceStoreError {
                 write!(formatter, "stored recurrence {kind} is invalid: {value}")
             }
             Self::InvalidStoredBoolean(kind, value) => {
-                write!(formatter, "stored recurrence {kind} boolean is invalid: {value}")
+                write!(
+                    formatter,
+                    "stored recurrence {kind} boolean is invalid: {value}"
+                )
             }
             Self::InvalidStoredRuleShape => {
                 formatter.write_str("stored recurrence rule shape is invalid")
             }
             Self::NotFound(id) => write!(formatter, "recurrence rule not found: {id}"),
             Self::AlreadyExists(parent_id) => {
-                write!(formatter, "task already has recurrence metadata: {parent_id}")
+                write!(
+                    formatter,
+                    "task already has recurrence metadata: {parent_id}"
+                )
             }
-            Self::ParentArchived(id) => write!(formatter, "recurrence parent task is archived: {id}"),
+            Self::ParentArchived(id) => {
+                write!(formatter, "recurrence parent task is archived: {id}")
+            }
             Self::ParentCompleted(id) => {
                 write!(formatter, "recurrence parent task is completed: {id}")
             }
@@ -313,7 +320,10 @@ fn decode_rule(raw: RawRecurrenceRule) -> Result<RecurrenceRuleRecord, Recurrenc
             u8::try_from(value)
                 .ok()
                 .filter(|day| (1..=31).contains(day))
-                .ok_or(RecurrenceStoreError::InvalidStoredInteger("month day", value))
+                .ok_or(RecurrenceStoreError::InvalidStoredInteger(
+                    "month day",
+                    value,
+                ))
         })
         .transpose()?;
     validate_pattern(unit, weekday_mask, month_day)
@@ -394,7 +404,9 @@ fn validate_parent_link(
 ) -> Result<TaskRecord, RecurrenceStoreError> {
     let task = validate_parent_context(conn, rule.parent_task_id, allow_completed)?;
     if task.recurrence_rule_id != Some(rule.id) {
-        return Err(RecurrenceStoreError::ParentLinkMismatch(rule.parent_task_id));
+        return Err(RecurrenceStoreError::ParentLinkMismatch(
+            rule.parent_task_id,
+        ));
     }
     Ok(task)
 }
@@ -478,7 +490,9 @@ pub fn create_recurrence_rule(
         params![id.to_string(), now, input.parent_task_id.to_string()],
     )?;
     if linked != 1 {
-        return Err(RecurrenceStoreError::ParentLinkMismatch(input.parent_task_id));
+        return Err(RecurrenceStoreError::ParentLinkMismatch(
+            input.parent_task_id,
+        ));
     }
 
     let created = get_recurrence_rule(&tx, id)?;
@@ -595,7 +609,10 @@ pub fn delete_recurrence_rule(
          WHERE recurrence_parent_task_id = ?2",
         params![now, current.parent_task_id.to_string()],
     )?;
-    let deleted = tx.execute("DELETE FROM recurrence_rules WHERE id = ?1", [id.to_string()])?;
+    let deleted = tx.execute(
+        "DELETE FROM recurrence_rules WHERE id = ?1",
+        [id.to_string()],
+    )?;
     if deleted != 1 {
         return Err(RecurrenceStoreError::NotFound(id));
     }
@@ -606,7 +623,9 @@ pub fn delete_recurrence_rule(
 
     let parent = get_task(&tx, current.parent_task_id)?;
     if parent.recurrence_rule_id.is_some() {
-        return Err(RecurrenceStoreError::ParentLinkMismatch(current.parent_task_id));
+        return Err(RecurrenceStoreError::ParentLinkMismatch(
+            current.parent_task_id,
+        ));
     }
     tx.commit()?;
     Ok(())
@@ -845,7 +864,9 @@ mod tests {
         let detached = get_task(&conn, child.id).expect("child task must remain");
         assert_eq!(detached.recurrence_parent_task_id, None);
         let occurrence_count: i64 = conn
-            .query_row("SELECT COUNT(*) FROM recurrence_occurrences", [], |row| row.get(0))
+            .query_row("SELECT COUNT(*) FROM recurrence_occurrences", [], |row| {
+                row.get(0)
+            })
             .expect("count occurrence metadata");
         assert_eq!(occurrence_count, 0);
     }
