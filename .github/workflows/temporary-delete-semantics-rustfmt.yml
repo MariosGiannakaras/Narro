@@ -1,0 +1,40 @@
+name: Temporary Delete Semantics Rustfmt
+
+on:
+  push:
+    branches:
+      - m2-permanent-delete-report-semantics
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    if: ${{ !contains(github.event.head_commit.message, 'Apply delete-semantics rustfmt') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m2-permanent-delete-report-semantics
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: Apply rustfmt
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo fmt --manifest-path src-tauri/Cargo.toml
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Commit formatting when needed
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (git status --porcelain -- src-tauri/src src-tauri/tests)) {
+            Write-Host 'No rustfmt changes required.'
+            exit 0
+          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri/src src-tauri/tests
+          git commit -m "Apply delete-semantics rustfmt"
+          git push origin HEAD:m2-permanent-delete-report-semantics
