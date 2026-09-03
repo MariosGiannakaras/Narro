@@ -20,10 +20,17 @@ import {
 
 type StateCommand = "mutate_state" | "toggle_timer";
 
+type NotificationTestResult = {
+  title: string;
+  body: string;
+  submitted: boolean;
+};
+
 function App() {
   const [state, setState] = useState<AppStatePayload | null>(null);
   const [shortcutDiagnostics, setShortcutDiagnostics] = useState<ShortcutDiagnostics | null>(null);
   const [shortcutProbeStatus, setShortcutProbeStatus] = useState<string | null>(null);
+  const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
@@ -199,6 +206,21 @@ function App() {
     }
   }
 
+  async function sendTestNotification() {
+    try {
+      const result = await invoke<NotificationTestResult>("send_test_notification");
+      setNotificationStatus(
+        result.submitted
+          ? `Submitted to Windows: ${result.title} — ${result.body}`
+          : "Unexpected result: notification command returned without a submitted notification.",
+      );
+      setError(null);
+    } catch (failure: unknown) {
+      setNotificationStatus(null);
+      setError(formatInvokeError(failure));
+    }
+  }
+
   async function runWindowCommand(command: DiagnosticCommand) {
     try {
       await invoke<void>(command);
@@ -312,6 +334,16 @@ function App() {
           <p>
             Physical firing check: press Ctrl+Shift+B from another normal Windows application. The
             trigger count should increment and Narro main should show/focus or recreate if absent.
+          </p>
+
+          <hr />
+          <h2>Windows Notification Diagnostics</h2>
+          <button onClick={() => void sendTestNotification()}>Send Test Notification</button>
+          {notificationStatus && <p>{notificationStatus}</p>}
+          <p>
+            Command success means the notification was submitted to the Windows notification
+            backend; visual delivery still requires physical validation. Use an installed build for
+            canonical Narro app identity.
           </p>
         </div>
 
