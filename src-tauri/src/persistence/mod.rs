@@ -107,7 +107,10 @@ mod tests {
             "sessions",
             "preferences",
         ] {
-            assert!(table_exists(&conn, table), "{table} should exist after migration");
+            assert!(
+                table_exists(&conn, table),
+                "{table} should exist after migration"
+            );
         }
 
         let foreign_keys: i64 = conn
@@ -151,7 +154,10 @@ mod tests {
             params!["task-bad-schedule", "list-1", NOW],
         );
 
-        assert!(result.is_err(), "date-only task must not carry a local time");
+        assert!(
+            result.is_err(),
+            "date-only task must not carry a local time"
+        );
     }
 
     #[test]
@@ -187,9 +193,14 @@ mod tests {
 
         for table in ["subtasks", "task_notes", "reminders", "sessions"] {
             let count: i64 = conn
-                .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |row| row.get(0))
+                .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |row| {
+                    row.get(0)
+                })
                 .expect("count task-owned rows");
-            assert_eq!(count, 0, "{table} rows should cascade with permanent task delete");
+            assert_eq!(
+                count, 0,
+                "{table} rows should cascade with permanent task delete"
+            );
         }
     }
 
@@ -225,6 +236,9 @@ mod tests {
             [NOW],
         );
 
-        assert!(duplicate.is_err(), "same date-only occurrence must be idempotency-protected");
+        assert!(
+            duplicate.is_err(),
+            "same date-only occurrence must be idempotency-protected"
+        );
     }
 }
