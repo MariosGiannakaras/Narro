@@ -72,20 +72,20 @@ Do not implement polished Blitzit UI in this milestone.
 
 Goal: establish durable task/list/session behavior before UI complexity.
 
-- [ ] Define IDs and schema for lists, tasks, subtasks, notes, recurrence rules, reminders, sessions, preferences, and archived entities.
-- [ ] Implement list CRUD, ordering, archive, restore, permanent deletion.
-- [ ] Implement task CRUD and planning transitions: Backlog / This Week / Today / Done.
-- [ ] Implement ordering within planning buckets as position changes on stable task identities.
-- [ ] Implement task duplication as a new independent identity/copy.
+- [x] Define IDs and schema for lists, tasks, subtasks, notes, recurrence rules, reminders, sessions, preferences, and archived entities.
+- [x] Implement list CRUD, ordering, archive, restore, permanent deletion.
+- [x] Implement task CRUD and planning transitions: Backlog / This Week / Today / Done.
+- [x] Implement ordering within planning buckets as position changes on stable task identities.
+- [x] Implement task duplication as a new independent identity/copy.
 - [ ] Implement EST, Time Taken, completion timestamp, scheduled date/time, recurrence metadata, and archive state.
-- [ ] Distinguish date-only schedules from schedules with a specific local time in the domain/schema.
+- [x] Distinguish date-only schedules from schedules with a specific local time in the domain/schema.
 - [ ] Implement subtasks with ordering/completion state.
 - [ ] Implement rich-note storage using a constrained local document format.
 - [ ] Implement preferences and schema defaults.
 - [ ] Implement permanent-task-delete semantics so deleted tasks no longer appear in user-facing reports, matching current official behavior.
 - [ ] Ensure successful create/edit/move is committed locally before success is reflected in UI state.
 - [ ] Add deterministic fixture builders for tests.
-- [ ] Add regression tests proving reorder/move cannot duplicate, alias, or silently delete task identities.
+- [x] Add regression tests proving reorder/move cannot duplicate, alias, or silently delete task identities.
 - [ ] Add repeated drag/drop and scheduled-lane-move tests based on publicly reported source-product duplication/reorder failures.
 
 Acceptance criteria:

@@ -140,15 +140,18 @@ The original synchronous `WebviewWindowBuilder::build()` recreation path deadloc
 
 ## Active Milestone 2 work
 
-Start with the first unchecked Milestone 2 item in `TODO.md`:
+Milestone 2 now has an automated-validated persistence/identity foundation through task ordering and duplication:
 
-1. define durable IDs and schema for lists, tasks, subtasks, notes, recurrence rules, reminders, sessions, preferences, and archived entities;
-2. implement migrations/schema changes explicitly;
-3. preserve stable identities and authoritative Rust/domain ownership;
-4. add deterministic fixtures and regression tests with the domain work;
-5. make persistence success precede UI-visible success for mutations;
-6. keep the current M1 diagnostic React controls temporary and unpolished;
-7. use Windows CI as the compile/test/package gate when local Rust/Windows validation is unavailable.
+- domain IDs + SQLite schema/migrations: PR #8, merge `5d3201e4fd9b2d7b0e93fc4ec89b135aa61da9cc`; exact head `91fef967959146c69dc6ff018326277151f716dd` passed Windows CI #73;
+- list lifecycle persistence: PR #9, merge `c6a7dabb5b919647486ef467bff8c3b649663cea`; Windows CI #77 / run `33749371662` passed;
+- task CRUD/planning/completion/archive lifecycle: PR #10, merge `6631c9fa57ce999ca3da9e99908420a2da7ffec4`; exact head `2484f3bf825169cdf5b9e0f7bb046c5f48132e32` passed Windows CI #82 / run `33756963309`;
+- task bucket ordering + independent duplication invariants: PR #11, merge `b01dcd1223f1c0cdf81db8cf694708b528feaa2a`; exact head `f74f5520dd039a26e25dad967ca80e430b8b70b1` passed Windows CI #87 / run `33759742017`.
+
+Proven invariants include durable UUID identities, explicit migrations, enabled foreign keys, list/task archive + permanent-delete semantics, Backlog/This Week/Today/Done task transitions, exact-set transactional reorder, restart-persistent bucket positions, and duplication as one new independent task identity without session/completion/archive/recurrence-history aliasing.
+
+The next open Milestone 2 slice is task metadata persistence semantics. Existing schema already carries EST, manual time adjustment, schedule shape, recurrence metadata, completion and archive fields; remaining work is to expose and validate typed mutation semantics for the still-unimplemented portions, especially manual Time Taken adjustment and schedule/recurrence metadata. Scheduling eligibility/classification and recurrence materialization remain Milestone 4 concerns and should not be pulled forward accidentally.
+
+Product UI remains intentionally unpolished while Milestones 2–4 establish correctness-critical behavior.
 
 ## Durable scope
 
