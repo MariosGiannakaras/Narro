@@ -10,7 +10,7 @@ For zero-context AI continuation, start with `AI_START_HERE.md` and `HANDOFF.md`
 
 The repository contains a Tauri 2 + React + TypeScript + Rust + SQLite Windows scaffold plus a temporary native runtime diagnostic harness. Product UI has intentionally **not** started yet.
 
-Global shortcut, local Windows notification, Windows autostart, and the floating-only performance measurement harness are implemented and automated-validated. The current next slice is the **consolidated physical Windows validation**, including real floating-only CPU/RAM sampling.
+Global shortcut, local Windows notification, Windows autostart, and the floating-only performance measurement harness are implemented and automated-validated. The floating-only performance baseline has now also been physically measured on the target Windows machine. The current next slice is the **remaining consolidated physical Windows capability validation**.
 
 ## Current architecture hypothesis
 
@@ -25,7 +25,9 @@ Starting architecture remains:
   - `main`;
   - `focusSurface`, reused for Focus Panel and Floating Timer.
 
-This remains an evidence-driven hypothesis. Milestone 1 must finish physical native-capability validation and floating-only resource measurement before polished product UI begins.
+The measured floating-only baseline supports continuing with this architecture. Idle CPU is effectively zero and there is no process churn or ongoing memory-growth signal in the final stabilized run. Process-tree memory is substantial and dominated by WebView2, but the repository deliberately has no arbitrary RAM cutoff and the evidence does not currently justify a native overlay rewrite. Re-measure after the real Floating Timer UI and perform the documented transition/leak stress tests before treating this as a final long-term performance conclusion.
+
+Milestone 1 must still finish the remaining physical native-capability checks before polished product UI begins.
 
 ## Automated Windows baseline
 
@@ -48,7 +50,8 @@ Observed PASS:
 - Panel -> Timer -> Panel reuses the same secondary webview;
 - Timer Mode always-on-top against normal Windows applications;
 - Timer Mode skip-taskbar behavior;
-- only `main` and `focusSurface` remain persistent webviews.
+- only `main` and `focusSurface` remain persistent webviews;
+- three valid floating-only steady-state process-tree performance runs with `main` destroyed.
 
 Still deliberately unconfirmed:
 
@@ -132,7 +135,7 @@ Merged PR #7 / squash merge `4a475d3863e80ac0520bcae9ec728658b0c25195`.
 
 `scripts/measure-floating.ps1` provides the repeatable M1 Windows resource harness. It resolves one Narro root process, follows only Narro descendants, includes attributable WebView2 helpers, samples cumulative process CPU plus working set/private bytes, emits per-process raw evidence, and rejects CPU inference across PID/start-time process-tree churn.
 
-`docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md` defines the physical protocol. Timestamped raw runs are gitignored by default.
+`docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md` defines the physical protocol. The three physical raw runs were intentionally force-added to git in commit `55c860d6c7ab72e1de1963c49708507e6b6d0640` for reviewable M1 evidence.
 
 Automated validation:
 
@@ -145,11 +148,39 @@ Automated validation:
 - artifact ID `9882735216`;
 - digest `sha256:2eef59e89911a588a2699a79fc07c4af32f22068e05decf5cd76b4809dbc9f98`.
 
-Actual physical CPU/RAM measurements remain MANUAL NOT RUN. Hosted GitHub runner resource values are deliberately not accepted as representative performance evidence.
+### Physical floating-only baseline — PASS as usable architecture baseline
 
-Physical protocol requires at least three valid runs with `focusSurface` in inactive/static Floating Timer mode, `main` destroyed, 30-second warm-up, 60-second sample window, zero process-churn intervals, and reporting of every run average plus the median. No numeric architecture pass/fail threshold currently exists; do not invent one after seeing results.
+Conditions common to all three runs:
 
-Evidence: `work-log/2026-09-03-chatgpt-floating-performance-harness.md` and `work-log/2026-09-03-chatgpt-floating-performance-harness-validation.md`.
+- installed executable: `C:\Users\MariosG\AppData\Local\Narro\narro.exe`;
+- scenario: `floating-only-main-destroyed`;
+- logical processors: 12;
+- warm-up: 30 seconds;
+- requested sample: 60 seconds;
+- process tree: 1 `narro.exe` + 6 attributable `msedgewebview2.exe` processes;
+- process churn: 0 intervals in every run;
+- `steadyStateValid: true` in every run.
+
+Run averages:
+
+| Run | Avg CPU (% one core) | Avg CPU (% total capacity) | Avg working set | Avg private bytes |
+| --- | ---: | ---: | ---: | ---: |
+| `20260903-074630Z` | 0.000% | 0.0000% | 393.62 MiB | 319.19 MiB |
+| `20260903-074840Z` | 0.077% | 0.0064% | 396.21 MiB | 325.40 MiB |
+| `20260903-075029Z` | 0.026% | 0.0022% | 401.35 MiB | 337.17 MiB |
+| **median** | **0.026%** | **0.0022%** | **396.21 MiB** | **325.40 MiB** |
+
+Interpretation:
+
+- Idle CPU is effectively zero. There is no evidence of a renderer polling loop or continuous idle animation/work in this M1 floating-only scaffold.
+- Memory is dominated by WebView2. Last-snapshot WebView2 working set was about 362.05–369.12 MiB versus about 32.5 MiB for `narro.exe`; WebView2 private bytes were about 259.58–277.02 MiB versus about 60.4 MiB for `narro.exe`.
+- Summed working set includes shared/resident pages across processes and should not be interpreted as unique physical RAM. Private bytes are the more useful companion metric for process-private allocation.
+- Run 2 contains a one-time WebView2 allocation increase: private bytes ranged from about 319.55 MiB to 337.44 MiB during that window. Run 3 then plateaued at about 337.16 MiB with only about 0.13 MiB min-to-max movement over the full sample. This does not look like a continuing leak in the measured baseline, but it establishes a useful warm-state baseline for later leak/stress comparison.
+- The repository has no arbitrary numeric RAM pass/fail threshold and `docs/DECISION_GATES.md` explicitly says not to use one as the sole criterion. Given the near-zero CPU, stable process tree, stabilized final-run memory and working native window behavior already proven, current evidence does **not** justify replacing the floating surface with a native Win32/WinUI overlay at this stage.
+
+Performance decision: **proceed with the current Tauri + WebView2 `focusSurface` architecture for subsequent milestones.** Revisit after the real Floating Timer UI exists, and specifically re-measure collapsed/expanded/timer-running states plus memory before/after repeated Focus↔Floating transitions and Notes/subtask expansion.
+
+Evidence: committed raw runs under `performance/m1-floating/20260903-074630Z/`, `20260903-074840Z/`, and `20260903-075029Z/`, plus `work-log/2026-09-03-chatgpt-floating-performance-harness.md` and `work-log/2026-09-03-chatgpt-floating-performance-harness-validation.md`.
 
 ## Recreate deadlock history
 
@@ -160,17 +191,16 @@ The original synchronous `WebviewWindowBuilder::build()` recreate path deadlocke
 Current ordered work:
 
 1. consolidated physical Windows validation for still-open native capabilities;
-2. three valid floating-only steady-state CPU/RAM runs with `main` destroyed;
-3. record measured values/process contributors and reconcile M1 evidence in `STATUS.md` / `TODO.md`;
-4. make the final two-webview architecture gate decision from measured and physical evidence.
+2. reconcile the remaining Milestone 1 checkboxes strictly from observed physical evidence;
+3. close Gate A when the remaining lifecycle/monitor/display/shortcut/notification/autostart observations are physically known.
 
-Milestone 2 and polished Narro UI remain blocked until this gate is sufficiently validated.
+The floating-only performance sub-gate is complete and supports the current architecture. Milestone 2 and polished Narro UI remain blocked only on the remaining M1 physical-capability evidence, not on performance tooling or measurement.
 
 ## Performance evidence rule
 
-Use `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md` as the canonical procedure. Measure the complete Narro process tree on a real Windows 10/11 x64 machine, preserve raw output for review, and report all valid run averages plus their median. Do not substitute hosted CI resource numbers, a single instantaneous Task Manager sample, or only `narro.exe` memory for the required evidence.
+The committed three-run baseline is the reference point for future Floating Timer performance work. Re-run the same process-tree measurement after final Floating Timer UI is implemented and compare like-for-like states rather than inventing a new absolute threshold.
 
-If floating-only CPU/memory is clearly unacceptable for the product goal, stop before polished UI and evaluate the current two-WebView2 composition against the documented native Win32/WinUI overlay fallback.
+A material regression, repeated process growth, or clear user-visible memory pressure should trigger investigation. The native Win32/WinUI overlay remains a fallback, not the current plan.
 
 ## Durable scope
 
