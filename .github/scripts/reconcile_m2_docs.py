@@ -6,7 +6,7 @@ TODO_REPLACEMENTS = {
     '- [ ] Implement task CRUD and planning transitions: Backlog / This Week / Today / Done.': '- [x] Implement task CRUD and planning transitions: Backlog / This Week / Today / Done.',
     '- [ ] Implement ordering within planning buckets as position changes on stable task identities.': '- [x] Implement ordering within planning buckets as position changes on stable task identities.',
     '- [ ] Implement task duplication as a new independent identity/copy.': '- [x] Implement task duplication as a new independent identity/copy.',
-    '- [ ] Distinguish date-only schedules from local-date-time schedules in the domain/schema.': '- [x] Distinguish date-only schedules from local-date-time schedules in the domain/schema.',
+    '- [ ] Distinguish date-only schedules from schedules with a specific local time in the domain/schema.': '- [x] Distinguish date-only schedules from schedules with a specific local time in the domain/schema.',
     '- [ ] Add regression tests proving reorder/move cannot duplicate, alias, or silently delete task identities.': '- [x] Add regression tests proving reorder/move cannot duplicate, alias, or silently delete task identities.',
 }
 
