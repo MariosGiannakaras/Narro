@@ -27,10 +27,7 @@ fn ids_in_bucket(
 fn deterministic_fixture_builders_emit_fixed_ids_and_common_persisted_shapes() {
     let conn = migrated();
     let list = ListFixture::new(7, "Fixture list").insert(&conn);
-    assert_eq!(
-        list.id.to_string(),
-        "10000000-0000-0000-0000-000000000007"
-    );
+    assert_eq!(list.id.to_string(), "10000000-0000-0000-0000-000000000007");
 
     let archived_list = ListFixture::new(8, "Archived fixture list")
         .archived(MUTATED_AT)
@@ -43,10 +40,7 @@ fn deterministic_fixture_builders_emit_fixed_ids_and_common_persisted_shapes() {
         .completed(MUTATED_AT)
         .archived(MUTATED_AGAIN_AT)
         .insert(&conn);
-    assert_eq!(
-        task.id.to_string(),
-        "20000000-0000-0000-0000-00000000000b"
-    );
+    assert_eq!(task.id.to_string(), "20000000-0000-0000-0000-00000000000b");
     assert_eq!(task.manual_lane, PlanningLane::ThisWeek);
     assert_eq!(task.sort_rank, 4);
     assert_eq!(task.schedule_kind, ScheduleKind::DateOnly);
