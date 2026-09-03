@@ -1,6 +1,6 @@
 # HANDOFF.md
 
-This is the **current operational continuation state** for Narro. Any zero-context AI must start with `AI_START_HERE.md`, then read this file, `ENGINEERING_QUALITY.md`, `TODO.md`, `STATUS.md`, and the newest `work-log/*.md` entries.
+This is the **current operational continuation state** for Narro. Any zero-context AI must start with `AI_START_HERE.md`, then read this file, `ENGINEERING_QUALITY.md`, the active Milestone 1 section in `TODO.md`, `STATUS.md`, and the newest relevant `work-log/*.md` entries.
 
 Do not require the user to reconstruct prior chat context or provide a custom continuation prompt.
 
@@ -8,7 +8,7 @@ Do not require the user to reconstruct prior chat context or provide a custom co
 
 **Milestone 1 — Windows desktop scaffold, native capability and performance spike**
 
-Product UI is intentionally blocked until the Windows capability/performance gate is sufficiently proven.
+Product UI remains intentionally blocked until the Windows capability/performance gate is sufficiently proven.
 
 Current source truth is on `main`. Use forward history only; never amend/rebase/force-push published `main` during normal handoff work.
 
@@ -32,142 +32,105 @@ Observed PASS:
 
 Still deliberately unconfirmed:
 
-- exact surviving Rust counter/state visibly appears unchanged in recreated `main` — previous user report was `PASS/FAIL`, so do not infer PASS.
+- exact surviving Rust counter/state visibly appears unchanged in recreated `main` — previous user report was ambiguous (`PASS/FAIL`), so do not infer PASS.
 
-## IMPLEMENTED / CI-VALIDATED BUT STILL NEEDS PHYSICAL WINDOWS EVIDENCE
+## IMPLEMENTED / AUTOMATED-VALIDATED, PHYSICAL WINDOWS EVIDENCE STILL OPEN
 
 ### Tray/background lifecycle
 
-Implementation exists for:
-
-- persistent tray icon;
-- Show/Recreate Narro;
-- Show Focus Surface;
-- explicit Quit;
-- tray left-click recovery of `main`.
-
-Physical tray/background/Quit validation is still required before closing the TODO parent.
+Implementation exists for persistent tray, Show/Recreate Narro, Show Focus Surface, explicit Quit and tray left-click recovery. Physical tray/background/Quit validation remains **NOT RUN**.
 
 ### Monitor enumeration and Focus Panel positioning
 
-Implementation exists for:
-
-- Windows monitor enumeration;
-- monitor descriptors with desktop/work-area geometry and scale factor;
-- stable monitor selection key;
-- explicit stale-selection failure;
-- left/right placement on the selected monitor work area;
-- negative desktop coordinate support;
-- pure geometry validation/clamping tests.
-
-Automated evidence:
-
-- Windows CI #51 / run `33681874656`: **SUCCESS**
-- head `9ed143a964fae6889a64fb9382ba1471b2ab6415`
-- artifact ID `9866958869`
-- digest `sha256:6777bc5302080986f78c7b6d391d9bf95fb28f0c2d0b85cb062c45bc0f1b228d`
-
-Physical monitor enumeration / selected left-right positioning: **NOT RUN**.
+Implementation exists for monitor enumeration, descriptors/work areas/scale, stable selection key, stale-selection rejection, negative desktop coordinates, and left/right Focus Panel positioning. Windows CI evidence exists; physical monitor positioning remains **NOT RUN**.
 
 ### Display-topology / off-screen recovery
 
-Merged implementation:
+Merged implementation uses event-driven `WM_DISPLAYCHANGE`, the persistent `focusSurface` HWND, coalesced deferred recovery, current work-area re-enumeration and visible-area clamping without adding a third webview. Windows CI #54 / run `33683913556`: **SUCCESS**. Physical disconnect/reconnect/reorder recovery remains **NOT RUN**.
 
-- merge commit `7bd8e47edfca42ebbe4cc26caa0c5022af51b959`;
-- event-driven `WM_DISPLAYCHANGE`; no polling;
-- persistent `focusSurface` HWND observer, so `main` may be absent;
-- Win32 callback only coalesces/schedules; monitor enumeration and moves happen outside the WindowProc on the Tauri main thread;
-- dirty/pending coalescing prevents display-change loss during an active recovery pass;
-- current displays/work areas are re-enumerated at recovery time;
-- normal `main` / `focusSurface` windows are recovered into a visible work area;
-- minimized/maximized/fullscreen geometry remains Windows-managed;
-- no third persistent webview and no new Rust dependency/lockfile churn.
+Detailed evidence: `work-log/2026-09-03-chatgpt-monitor-and-display-topology.md`.
+
+### Global shortcut registration/conflict handling
+
+Merged in PR #4 / merge commit `fce2bbf65ab07d50a6928605c00fb694079739a0`.
+
+Implemented:
+
+- native `RegisterHotKey` / `UnregisterHotKey`;
+- M1 proof chord `Ctrl+Shift+B`;
+- `MOD_NOREPEAT`;
+- `WM_HOTKEY` through a minimal subclass on persistent `focusSurface` HWND;
+- Rust-owned trigger count/revision and `shortcut-diagnostic-changed` event;
+- Show/Recreate Main on trigger;
+- explicit idempotent register/unregister commands;
+- stable structured shortcut errors;
+- Windows error 1409 -> `SHORTCUT_CONFLICT`;
+- deterministic duplicate-registration conflict probe;
+- temporary diagnostic controls only;
+- no new Rust dependency / lockfile churn / persistent webview.
 
 Automated evidence:
 
-- PR #1 final head `3089398bf45bdec2c47fa9e75648adc36fd25b43`;
-- Windows CI #54 / run `33683913556`: **SUCCESS**;
-- preflight, Tauri release build and artifact upload: PASS;
-- artifact ID `9867702085`;
-- artifact digest `sha256:70789c4654d46f07e173a4aedb86aed267e38e3ae21c8e8fe31f341b02469c24`.
+- final PR head `e79ed5abc24fd7d6a3af2180ddbeaeeefcd88c21`;
+- Windows CI #63 / run `33720583395`: **SUCCESS**;
+- repository preflight, frontend build, Rust fmt/check/clippy/tests, Tauri release build and artifact upload: **PASS**;
+- artifact ID `9880361708`;
+- artifact digest `sha256:137b43b1cd62fcacfa0261b496b591cc492d4d0c2193a2dfbab60b34f9836680`.
 
-Physical disconnect/reconnect/reorder/off-screen recovery: **NOT RUN**.
+Physical shortcut firing/register/unregister behavior remains **MANUAL NOT RUN**.
 
-Full immutable evidence: `work-log/2026-09-03-chatgpt-monitor-and-display-topology.md`.
-Physical procedure: `docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md`.
+Full evidence: `work-log/2026-09-03-chatgpt-global-shortcuts.md`.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**Next capability: global shortcut registration, firing and conflict/error handling.**
+**Next capability: local Windows notification delivery while Narro remains running.**
 
-Use the Windows-only architecture deliberately:
+Requirements for this M1 proof:
 
-- prefer a minimal native implementation for this M1 proof rather than adding broad dependency surface without need;
-- current intended approach is Win32 `RegisterHotKey` / `UnregisterHotKey` and `WM_HOTKEY` using the persistent `focusSurface` HWND;
-- do not use `F12` because Windows reserves it for debugging;
-- use `MOD_NOREPEAT`;
-- integrate failures into the existing structured `CommandError` model;
-- implement deterministic conflict validation rather than requiring the user to find another application that happens to own the same key combination;
-- unregister cleanly and make registration/unregistration idempotence explicit;
-- prove the handler fires through authoritative Rust-visible diagnostic state/event evidence, not console logging alone.
+- keep notifications fully local; no remote service or telemetry;
+- prefer the narrowest reliable Tauri/Windows mechanism already compatible with the current stack;
+- expose a temporary diagnostic command/control that sends a bounded static test notification;
+- use structured `CommandError` behavior for permission/API/delivery setup failures where the caller can recover;
+- do not claim visual delivery from compilation alone;
+- keep physical Windows toast observation as MANUAL NOT RUN until tested;
+- avoid adding scheduling/reminder product semantics here — this slice proves native notification delivery only;
+- no product UI polish.
 
-Primary official references already checked:
-
-- Microsoft `RegisterHotKey` / `UnregisterHotKey` / `WM_HOTKEY` behavior;
-- current Tauri 2 global-shortcut plugin remains a future option if shortcut scope grows, but is not required for this narrow Windows-only M1 proof.
-
-## ENGINEERING / CI DISCIPLINE
-
-The user's production-grade requirements are durable repository policy in `ENGINEERING_QUALITY.md`.
-
-Before native CI:
-
-1. inspect candidate diff;
-2. run every meaningful local check available;
-3. record unavailable checks as NOT RUN, never as PASS;
-4. validate input/state/error paths and edge cases;
-5. prefer fail-fast explicit errors over silent fallback where correctness matters;
-6. keep unsafe/native boundaries small and documented;
-7. use a branch/PR Windows CI gate before `main` for risky native slices when local Rust/Windows execution is unavailable;
-8. inspect exact CI logs before changing code after failure;
-9. never blindly rerun deterministic failures.
-
-A source PR whose exact merge context has already passed the full Windows pipeline may be merged with a CI-skip marker to avoid a redundant identical `main` build, provided the head/base did not move and no repository rule requires another run. Record that decision in the work log.
+Before choosing an implementation, inspect current Tauri 2 notification support/current official API behavior and existing repo dependencies. Add dependency surface only when it is the simplest supported path and record the decision.
 
 ## NEXT AGENT ACTION
 
-If taking over with zero chat context:
-
 1. synchronize with latest `main`;
-2. read the canonical files listed at the top of this document;
-3. confirm no concurrent source change moved `main`;
-4. implement the global-shortcut M1 slice on a branch;
-5. add deterministic Rust tests for any pure registration/state logic possible without real keyboard input;
-6. expose temporary diagnostic controls/state only as needed to prove register/unregister/conflict/trigger behavior;
-7. run strongest available local checks;
-8. validate via Windows CI PR before merge;
-9. record real CI/artifact evidence in a new immutable `work-log/*.md` entry;
-10. keep physical shortcut firing as MANUAL NOT RUN until the user tests it.
+2. inspect `src-tauri/src/notifications/`, `src-tauri/Cargo.toml`, Tauri config/capabilities and the diagnostic harness;
+3. verify current official Tauri/Windows notification API requirements if needed;
+4. implement the narrow local notification proof on a branch;
+5. add deterministic tests for validation/error mapping where possible;
+6. expose only the temporary diagnostic state/control needed to trigger a test notification;
+7. run strongest available local checks and record unavailable checks as NOT RUN;
+8. validate the exact PR merge context through Windows CI before merge;
+9. record CI/artifact evidence in a new immutable `work-log/*.md` entry;
+10. keep physical notification appearance as MANUAL NOT RUN until the consolidated Windows test batch.
 
-After shortcut capability, continue M1 in dependency-aware order:
+After notifications, continue Milestone 1 in this order unless repository evidence changes:
 
-1. local Windows notification delivery;
-2. autostart toggle;
-3. floating-only steady-state CPU/RAM measurement with `main` destroyed;
-4. reconcile remaining physical Windows checks and decide whether the two-webview architecture passes the M1 gate.
+1. local autostart toggle;
+2. floating-only steady-state CPU/RAM measurement with `main` destroyed;
+3. reconcile outstanding physical Windows checks and decide whether the two-webview architecture passes the M1 gate.
 
 ## MANUAL WINDOWS BATCH — NOT REQUIRED YET
 
-Do not interrupt implementation for each small native capability. Prefer producing one fresh diagnostic artifact after the next coherent set of native slices, then ask the user for a consolidated manual pass covering:
+Prefer one fresh diagnostic artifact after the remaining coherent M1 native slices, then a consolidated pass covering:
 
 - exact state survival across `main` recreate;
 - tray/background recovery and explicit Quit;
 - monitor enumeration and selected left/right Focus Panel placement;
 - stale monitor selection rejection;
 - display disconnect/reconnect/off-screen recovery, including while `main` is destroyed;
-- global shortcut register/fire/conflict behavior once implemented;
+- global shortcut register/fire/unregister/conflict behavior;
+- local Windows notification appearance;
+- autostart behavior once implemented;
 - only `main` + `focusSurface` persistent webviews.
 
 ## TEMPORARY HARNESS WARNING
 
-Current React diagnostic controls, dimensions and styling are Milestone 1 scaffolding only. Do not polish them or treat them as final Narro product UI. Branding/icon expansion is explicitly deferred by the user.
+Current React diagnostic controls, dimensions and styling are Milestone 1 scaffolding only. Do not polish them or treat them as final Narro product UI. Branding/icon expansion remains deferred unless a native capability specifically requires an application identity asset.
