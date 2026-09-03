@@ -105,10 +105,7 @@ fn bucket_ids(
     })?;
     let mut ids = Vec::new();
     for row in rows {
-        ids.push(
-            TaskId::parse_str(&row?)
-                .map_err(|_| TaskIdentityError::ReorderSetMismatch)?,
-        );
+        ids.push(TaskId::parse_str(&row?).map_err(|_| TaskIdentityError::ReorderSetMismatch)?);
     }
     Ok(ids)
 }
@@ -306,7 +303,11 @@ mod tests {
         let order_b = [first.id, third.id, fourth.id, second.id];
 
         for iteration in 0..40 {
-            let requested = if iteration % 2 == 0 { &order_a } else { &order_b };
+            let requested = if iteration % 2 == 0 {
+                &order_a
+            } else {
+                &order_b
+            };
             let reordered =
                 reorder_active_bucket(&mut conn, list_id, PlanningLane::Backlog, requested, T2)
                     .expect("reorder bucket");
@@ -319,10 +320,7 @@ mod tests {
                 vec![0, 1, 2, 3]
             );
             assert_eq!(
-                reordered
-                    .iter()
-                    .map(|task| task.id)
-                    .collect::<HashSet<_>>(),
+                reordered.iter().map(|task| task.id).collect::<HashSet<_>>(),
                 expected
             );
         }
@@ -340,10 +338,8 @@ mod tests {
         let first = create_test_task(&mut conn, list_id, "First", PlanningLane::Today);
         let second = create_test_task(&mut conn, list_id, "Second", PlanningLane::Today);
         let third = create_test_task(&mut conn, list_id, "Third", PlanningLane::Today);
-        let original = ids(
-            &active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
-                .expect("load original bucket"),
-        );
+        let original = ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
+            .expect("load original bucket"));
 
         let duplicate = reorder_active_bucket(
             &mut conn,
@@ -357,10 +353,8 @@ mod tests {
             Err(TaskIdentityError::DuplicateReorderId)
         ));
         assert_eq!(
-            ids(
-                &active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
-                    .expect("bucket after duplicate rejection")
-            ),
+            ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
+                .expect("bucket after duplicate rejection")),
             original
         );
 
@@ -371,15 +365,10 @@ mod tests {
             &[third.id, second.id, TaskId::generate()],
             T2,
         );
-        assert!(matches!(
-            stale,
-            Err(TaskIdentityError::ReorderSetMismatch)
-        ));
+        assert!(matches!(stale, Err(TaskIdentityError::ReorderSetMismatch)));
         assert_eq!(
-            ids(
-                &active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
-                    .expect("bucket after stale rejection")
-            ),
+            ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
+                .expect("bucket after stale rejection")),
             original
         );
     }
@@ -467,10 +456,7 @@ mod tests {
         assert_eq!(duplicate.manual_lane, source.manual_lane);
         assert_eq!(duplicate.est_seconds, source.est_seconds);
         assert_eq!(duplicate.schedule_kind, source.schedule_kind);
-        assert_eq!(
-            duplicate.scheduled_local_date,
-            source.scheduled_local_date
-        );
+        assert_eq!(duplicate.scheduled_local_date, source.scheduled_local_date);
         assert_eq!(duplicate.manual_time_adjustment_seconds, 0);
         assert!(duplicate.completed_at.is_none());
         assert!(duplicate.archived_at.is_none());
@@ -499,7 +485,10 @@ mod tests {
         )
         .expect("edit duplicate independently");
         assert_eq!(edited.title, "Independent copy");
-        assert_eq!(get_task(&conn, source.id).expect("reload source").title, "Source");
+        assert_eq!(
+            get_task(&conn, source.id).expect("reload source").title,
+            "Source"
+        );
 
         let count: i64 = conn
             .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
