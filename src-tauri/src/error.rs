@@ -121,7 +121,9 @@ impl CommandError {
     pub fn shortcut_conflict(chord: &str) -> Self {
         Self::new(
             "SHORTCUT_CONFLICT",
-            format!("global shortcut '{chord}' is already registered and cannot be claimed by Narro"),
+            format!(
+                "global shortcut '{chord}' is already registered and cannot be claimed by Narro"
+            ),
         )
     }
 
