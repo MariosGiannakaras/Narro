@@ -8,7 +8,7 @@ For zero-context AI continuation, start with `AI_START_HERE.md` and `HANDOFF.md`
 
 **Milestone 2 — Domain model, identity invariants, and local persistence.**
 
-Milestone 1 Windows desktop capability/performance Gate A is sufficiently validated. The selected architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with normally two persistent webviews only:
+Milestone 1 Windows desktop capability/performance Gate A is validated. The selected architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with normally two persistent webviews only:
 
 - `main`;
 - `focusSurface`, reused for Focus Panel and Floating Timer.
@@ -21,7 +21,10 @@ Product UI should still not be polished yet. Milestones 2–4 establish the corr
 
 The evidence does not justify a native Win32/WinUI Floating Timer rewrite at this stage. The native overlay remains a measured fallback only if later real Floating Timer UI materially regresses CPU/memory or exposes a concrete WebView2 limitation.
 
-Latest physical evidence: `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md`.
+Latest physical evidence:
+
+- `work-log/2026-09-03-chatgpt-m1-physical-capability-results.md`;
+- `work-log/2026-09-03-chatgpt-autostart-restart-validation.md`.
 
 ## Physically proven on real Windows
 
@@ -44,21 +47,8 @@ Observed PASS:
 - global shortcut physical behavior;
 - visible Windows notification delivery from installed Narro;
 - autostart enable/disable registration behavior visible in Windows Task Manager Startup apps;
+- actual Narro autostart launch after a real Windows restart, with `main` open normally after sign-in;
 - three valid floating-only steady-state process-tree performance runs with `main` destroyed.
-
-## Autostart residual
-
-Actual Narro process launch on a **genuinely new Windows sign-in session** remains **NOT RUN**.
-
-The user intentionally does not want to reboot or terminate the current Windows session solely for this check. The attempted `Win+L` + PIN cycle is lock/unlock of the same session, not sign-out/sign-in, so it is not valid autostart launch evidence.
-
-What is physically proven is sufficient for the M1 architecture gate:
-
-- enable/disable controls operate locally;
-- plugin state verification succeeds;
-- enabled Narro appears in Task Manager Startup apps.
-
-The official `tauri-plugin-autostart` implementation is also automated-validated by Windows CI. Do **not** claim actual next-login process launch was physically observed. The remaining check is deferred to normal Milestone 10 restart/release validation instead of blocking Milestone 2.
 
 ## Native capability implementation evidence
 
@@ -98,7 +88,9 @@ Official `tauri-plugin-autostart` 2.5.1 is used through Rust-owned `autostart_st
 
 Windows CI #65 / run `33725057607`: SUCCESS. Artifact ID `9881948331`, digest `sha256:3ab3168645ce90dfb22ad7cc8911a222b0abd06c568632428f8602b99d7c8a0e`.
 
-Physical registration/toggle: PASS. Actual new-session launch: NOT RUN / deferred to M10.
+Physical validation: **PASS**. Enable/disable registration was observed in Windows Task Manager Startup apps, and after a real Windows restart Narro launched automatically with the `main` window open normally after sign-in.
+
+Evidence: `work-log/2026-09-03-chatgpt-autostart-restart-validation.md`.
 
 ## Floating-only performance baseline
 
