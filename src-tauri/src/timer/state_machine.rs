@@ -401,11 +401,10 @@ impl TimerState {
 }
 
 fn duration_seconds(start: DateTime<Utc>, end: DateTime<Utc>) -> Result<u64, TimerError> {
-    let duration: Duration = end
-        .signed_duration_since(start)
-        .to_std()
-        .map_err(|_| TimerError::TimeWentBackwards)?
-        .into();
+    let duration: Duration = end.signed_duration_since(start);
+    if duration < Duration::zero() {
+        return Err(TimerError::TimeWentBackwards);
+    }
     u64::try_from(duration.num_seconds()).map_err(|_| TimerError::DurationOverflow)
 }
 
