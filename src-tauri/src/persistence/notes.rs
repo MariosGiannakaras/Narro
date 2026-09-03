@@ -50,16 +50,25 @@ impl Display for TaskNoteStoreError {
                 write!(formatter, "unsupported task-note format version: {version}")
             }
             Self::InvalidStoredFormatVersion(version) => {
-                write!(formatter, "stored task-note format version is invalid: {version}")
+                write!(
+                    formatter,
+                    "stored task-note format version is invalid: {version}"
+                )
             }
             Self::InvalidLink(link) => {
                 write!(formatter, "task-note link must use http or https: {link}")
             }
             Self::DocumentTooLarge(kind) => {
-                write!(formatter, "task-note document exceeds the supported {kind} limit")
+                write!(
+                    formatter,
+                    "task-note document exceeds the supported {kind} limit"
+                )
             }
             Self::MissingAfterUpsert(id) => {
-                write!(formatter, "task note disappeared after persistence upsert: {id}")
+                write!(
+                    formatter,
+                    "task note disappeared after persistence upsert: {id}"
+                )
             }
         }
     }
@@ -120,10 +129,7 @@ fn validate_mutable_task(conn: &Connection, task_id: TaskId) -> Result<(), TaskN
 }
 
 fn validate_link(value: &str) -> Result<(), TaskNoteStoreError> {
-    if value.is_empty()
-        || value.len() > MAX_LINK_BYTES
-        || value.chars().any(char::is_control)
-    {
+    if value.is_empty() || value.len() > MAX_LINK_BYTES || value.chars().any(char::is_control) {
         return Err(TaskNoteStoreError::InvalidLink(value.to_owned()));
     }
     let lower = value.to_ascii_lowercase();
@@ -239,8 +245,8 @@ pub fn set_task_note(
             now
         ],
     )?;
-    let saved = get_task_note(&tx, task_id)?
-        .ok_or(TaskNoteStoreError::MissingAfterUpsert(task_id))?;
+    let saved =
+        get_task_note(&tx, task_id)?.ok_or(TaskNoteStoreError::MissingAfterUpsert(task_id))?;
     tx.commit()?;
     Ok(saved)
 }
@@ -288,7 +294,11 @@ mod tests {
 
     #[test]
     fn executable_or_implicit_schemes_are_rejected() {
-        for link in ["javascript:alert(1)", "file:///C:/secret.txt", "example.com"] {
+        for link in [
+            "javascript:alert(1)",
+            "file:///C:/secret.txt",
+            "example.com",
+        ] {
             assert!(matches!(
                 validate_note_document(&linked(link)),
                 Err(TaskNoteStoreError::InvalidLink(_))
