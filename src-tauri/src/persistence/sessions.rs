@@ -1,14 +1,16 @@
-use crate::domain::ids::{SessionId, TaskId};
+use crate::domain::ids::{ListId, SessionId, TaskId};
 use crate::domain::sessions::{SessionDecodeError, SessionKind, SessionRecord, SessionSource};
+use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
 use chrono::DateTime;
-use rusqlite::{params, Connection, OptionalExtension, Row};
+use rusqlite::{params, Connection, Row};
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
 pub enum SessionStoreError {
     Sqlite(rusqlite::Error),
     Task(TaskStoreError),
+    List(ListStoreError),
     Decode(SessionDecodeError),
     InvalidTimestamp,
     InvalidStoredIdentity,
@@ -31,6 +33,7 @@ pub enum SessionStoreError {
     },
     TaskArchived(TaskId),
     TaskCompleted(TaskId),
+    ListArchived(ListId),
     NoOpenWorkSession,
     OpenWorkTaskMismatch {
         work_task_id: Option<TaskId>,
@@ -44,6 +47,7 @@ impl Display for SessionStoreError {
         match self {
             Self::Sqlite(error) => write!(formatter, "session persistence failed: {error}"),
             Self::Task(error) => Display::fmt(error, formatter),
+            Self::List(error) => Display::fmt(error, formatter),
             Self::Decode(error) => Display::fmt(error, formatter),
             Self::InvalidTimestamp => formatter.write_str("session timestamp must be RFC 3339"),
             Self::InvalidStoredIdentity => {
@@ -79,6 +83,9 @@ impl Display for SessionStoreError {
             Self::TaskCompleted(id) => {
                 write!(formatter, "cannot start live session for completed task: {id}")
             }
+            Self::ListArchived(id) => {
+                write!(formatter, "cannot start live session in archived list: {id}")
+            }
             Self::NoOpenWorkSession => {
                 formatter.write_str("cannot start break without an open work session")
             }
@@ -101,6 +108,7 @@ impl std::error::Error for SessionStoreError {
         match self {
             Self::Sqlite(error) => Some(error),
             Self::Task(error) => Some(error),
+            Self::List(error) => Some(error),
             Self::Decode(error) => Some(error),
             _ => None,
         }
@@ -116,6 +124,12 @@ impl From<rusqlite::Error> for SessionStoreError {
 impl From<TaskStoreError> for SessionStoreError {
     fn from(value: TaskStoreError) -> Self {
         Self::Task(value)
+    }
+}
+
+impl From<ListStoreError> for SessionStoreError {
+    fn from(value: ListStoreError) -> Self {
+        Self::List(value)
     }
 }
 
@@ -180,10 +194,7 @@ fn session_select_sql() -> &'static str {
     "SELECT id, task_id, kind, started_at, ended_at, duration_seconds, source, created_at, updated_at FROM sessions"
 }
 
-pub fn get_session(
-    conn: &Connection,
-    id: SessionId,
-) -> Result<SessionRecord, SessionStoreError> {
+pub fn get_session(conn: &Connection, id: SessionId) -> Result<SessionRecord, SessionStoreError> {
     let sql = format!("{} WHERE id = ?1", session_select_sql());
     let mut statement = conn.prepare(&sql)?;
     let mut rows = statement.query([id.to_string()])?;
@@ -213,6 +224,10 @@ fn validate_live_task(conn: &Connection, task_id: TaskId) -> Result<(), SessionS
     }
     if task.completed_at.is_some() {
         return Err(SessionStoreError::TaskCompleted(task_id));
+    }
+    let list = get_list(conn, task.list_id)?;
+    if list.archived_at.is_some() {
+        return Err(SessionStoreError::ListArchived(task.list_id));
     }
     Ok(())
 }
@@ -261,13 +276,7 @@ pub fn start_work_session(
     let tx = conn.transaction()?;
     validate_live_task(&tx, task_id)?;
     ensure_no_open_kind(&tx, SessionKind::Work)?;
-    let session = insert_open_session(
-        &tx,
-        Some(task_id),
-        SessionKind::Work,
-        source,
-        started_at,
-    )?;
+    let session = insert_open_session(&tx, Some(task_id), SessionKind::Work, source, started_at)?;
     tx.commit()?;
     Ok(session)
 }
@@ -290,13 +299,7 @@ pub fn start_break_session(
             requested_task_id: task_id,
         });
     }
-    let session = insert_open_session(
-        &tx,
-        Some(task_id),
-        SessionKind::Break,
-        source,
-        started_at,
-    )?;
+    let session = insert_open_session(&tx, Some(task_id), SessionKind::Break, source, started_at)?;
     tx.commit()?;
     Ok(session)
 }
@@ -440,7 +443,7 @@ mod tests {
     use crate::domain::lists::NewListInput;
     use crate::domain::model::PlanningLane;
     use crate::domain::tasks::NewTaskInput;
-    use crate::persistence::lists::create_list;
+    use crate::persistence::lists::{archive_list, create_list};
     use crate::persistence::run_migrations;
     use crate::persistence::tasks::{archive_task, complete_task, create_task};
 
@@ -499,8 +502,8 @@ mod tests {
             })
         ));
 
-        let checkpoint = checkpoint_work_session(&mut conn, work.id, 42, T1)
-            .expect("checkpoint work session");
+        let checkpoint =
+            checkpoint_work_session(&mut conn, work.id, 42, T1).expect("checkpoint work session");
         assert_eq!(checkpoint.duration_seconds, 42);
         assert_eq!(checkpoint.updated_at, T1);
         assert!(matches!(
@@ -508,8 +511,7 @@ mod tests {
             Err(SessionStoreError::DurationRegressed { .. })
         ));
 
-        let closed = close_work_session(&mut conn, work.id, 65, T2)
-            .expect("close work session");
+        let closed = close_work_session(&mut conn, work.id, 65, T2).expect("close work session");
         assert_eq!(closed.duration_seconds, 65);
         assert_eq!(closed.ended_at.as_deref(), Some(T2));
 
@@ -522,8 +524,8 @@ mod tests {
     fn database_unique_index_rejects_second_open_row_of_same_kind() {
         let mut conn = migrated();
         let task_id = task_fixture(&mut conn, "Unique");
-        let first = start_work_session(&mut conn, task_id, SessionSource::Focus, T0)
-            .expect("start work");
+        let first =
+            start_work_session(&mut conn, task_id, SessionSource::Focus, T0).expect("start work");
 
         let direct = conn.execute(
             "INSERT INTO sessions (
@@ -532,7 +534,10 @@ mod tests {
              ) VALUES (?1, ?2, 'work', ?3, NULL, 0, 'focus', ?3, ?3)",
             params![SessionId::generate().to_string(), task_id.to_string(), T1],
         );
-        assert!(direct.is_err(), "unique index must reject duplicate open work row");
+        assert!(
+            direct.is_err(),
+            "unique index must reject duplicate open work row"
+        );
         assert_eq!(
             open_session_by_kind(&conn, SessionKind::Work)
                 .unwrap()
@@ -566,8 +571,7 @@ mod tests {
         assert_eq!(break_session.kind, SessionKind::Break);
         assert_eq!(break_session.task_id, Some(first_task));
 
-        checkpoint_break_session(&mut conn, break_session.id, 30, T2)
-            .expect("checkpoint break");
+        checkpoint_break_session(&mut conn, break_session.id, 30, T2).expect("checkpoint break");
         close_break_session(&mut conn, break_session.id, 45, T3).expect("close break");
         assert!(open_session_by_kind(&conn, SessionKind::Break)
             .unwrap()
@@ -585,13 +589,12 @@ mod tests {
     fn recovery_closes_open_break_at_last_checkpoint_and_leaves_work_open_paused_candidate() {
         let mut conn = migrated();
         let task_id = task_fixture(&mut conn, "Recovery");
-        let work = start_work_session(&mut conn, task_id, SessionSource::Focus, T0)
-            .expect("start work");
+        let work =
+            start_work_session(&mut conn, task_id, SessionSource::Focus, T0).expect("start work");
         checkpoint_work_session(&mut conn, work.id, 75, T1).expect("checkpoint work");
-        let break_session = start_break_session(&mut conn, task_id, SessionSource::Focus, T1)
-            .expect("start break");
-        checkpoint_break_session(&mut conn, break_session.id, 20, T2)
-            .expect("checkpoint break");
+        let break_session =
+            start_break_session(&mut conn, task_id, SessionSource::Focus, T1).expect("start break");
+        checkpoint_break_session(&mut conn, break_session.id, 20, T2).expect("checkpoint break");
 
         let recovered = recover_interrupted_sessions(&mut conn).expect("recover interrupted state");
         let recovered_work = recovered.work.expect("open work should survive recovery");
@@ -599,7 +602,9 @@ mod tests {
         assert_eq!(recovered_work.duration_seconds, 75);
         assert!(recovered_work.ended_at.is_none());
 
-        let closed_break = recovered.closed_break.expect("break should be closed on recovery");
+        let closed_break = recovered
+            .closed_break
+            .expect("break should be closed on recovery");
         assert_eq!(closed_break.duration_seconds, 20);
         assert_eq!(closed_break.ended_at.as_deref(), Some(T2));
         assert!(open_session_by_kind(&conn, SessionKind::Break)
@@ -623,14 +628,24 @@ mod tests {
             start_work_session(&mut conn, archived, SessionSource::Focus, T3),
             Err(SessionStoreError::TaskArchived(id)) if id == archived
         ));
+
+        let archived_list_task = task_fixture(&mut conn, "Archived list");
+        let owning_list = get_task(&conn, archived_list_task)
+            .expect("load archived-list task")
+            .list_id;
+        archive_list(&mut conn, owning_list, T3).expect("archive owning list");
+        assert!(matches!(
+            start_work_session(&mut conn, archived_list_task, SessionSource::Focus, T4),
+            Err(SessionStoreError::ListArchived(id)) if id == owning_list
+        ));
     }
 
     #[test]
     fn closed_session_rejects_future_checkpoint_mutation() {
         let mut conn = migrated();
         let task_id = task_fixture(&mut conn, "Closed");
-        let work = start_work_session(&mut conn, task_id, SessionSource::Focus, T0)
-            .expect("start work");
+        let work =
+            start_work_session(&mut conn, task_id, SessionSource::Focus, T0).expect("start work");
         close_work_session(&mut conn, work.id, 10, T1).expect("close work");
         assert!(matches!(
             checkpoint_work_session(&mut conn, work.id, 20, T4),
