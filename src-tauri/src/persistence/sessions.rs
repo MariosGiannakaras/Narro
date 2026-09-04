@@ -21,6 +21,7 @@ pub enum SessionStoreError {
     },
     DurationOverflow,
     EndBeforeStart,
+    TimestampBeforePreviousUpdate,
     CorruptIdentity {
         field: &'static str,
         value: String,
@@ -63,6 +64,9 @@ impl Display for SessionStoreError {
             Self::EndBeforeStart => {
                 formatter.write_str("session end/checkpoint timestamp cannot precede start")
             }
+            Self::TimestampBeforePreviousUpdate => formatter.write_str(
+                "session mutation timestamp cannot precede the previous persisted update",
+            ),
             Self::CorruptIdentity { field, value } => {
                 write!(formatter, "stored session {field} identity is invalid: {value}")
             }
@@ -110,7 +114,9 @@ fn validate_mutation_timestamp(value: &str) -> Result<(), SessionStoreError> {
         .map_err(|_| SessionStoreError::InvalidMutationTimestamp)
 }
 
-fn parsed_stored_timestamp(value: &str) -> Result<DateTime<chrono::FixedOffset>, SessionStoreError> {
+fn parsed_stored_timestamp(
+    value: &str,
+) -> Result<DateTime<chrono::FixedOffset>, SessionStoreError> {
     DateTime::parse_from_rfc3339(value)
         .map_err(|_| SessionStoreError::CorruptStoredTimestamp(value.to_owned()))
 }
@@ -121,6 +127,16 @@ fn ensure_not_before_start(started_at: &str, now: &str) -> Result<(), SessionSto
         .map_err(|_| SessionStoreError::InvalidMutationTimestamp)?;
     if now < started {
         return Err(SessionStoreError::EndBeforeStart);
+    }
+    Ok(())
+}
+
+fn ensure_not_before_previous_update(updated_at: &str, now: &str) -> Result<(), SessionStoreError> {
+    let previous = parsed_stored_timestamp(updated_at)?;
+    let now = DateTime::parse_from_rfc3339(now)
+        .map_err(|_| SessionStoreError::InvalidMutationTimestamp)?;
+    if now < previous {
+        return Err(SessionStoreError::TimestampBeforePreviousUpdate);
     }
     Ok(())
 }
@@ -294,10 +310,7 @@ pub fn open_focus_break_session(
     open_focus_session(conn, SessionKind::Break, task_id, started_at)
 }
 
-pub fn get_session(
-    conn: &Connection,
-    id: SessionId,
-) -> Result<SessionRecord, SessionStoreError> {
+pub fn get_session(conn: &Connection, id: SessionId) -> Result<SessionRecord, SessionStoreError> {
     load_session(conn, id)
 }
 
@@ -319,6 +332,7 @@ pub fn checkpoint_open_session(
         return Err(SessionStoreError::AlreadyClosed(id));
     }
     ensure_not_before_start(&current.started_at, now)?;
+    ensure_not_before_previous_update(&current.updated_at, now)?;
     if duration_seconds < current.duration_seconds {
         return Err(SessionStoreError::DurationDecreased {
             stored_seconds: current.duration_seconds,
@@ -354,6 +368,7 @@ pub fn close_session(
         return Err(SessionStoreError::AlreadyClosed(id));
     }
     ensure_not_before_start(&current.started_at, ended_at)?;
+    ensure_not_before_previous_update(&current.updated_at, ended_at)?;
     if duration_seconds < current.duration_seconds {
         return Err(SessionStoreError::DurationDecreased {
             stored_seconds: current.duration_seconds,
@@ -491,7 +506,6 @@ mod tests {
         ));
 
         let (mut conn, task_id) = fixture();
-        let list_id: TaskId = task_id;
         let owning_list = conn
             .query_row(
                 "SELECT list_id FROM tasks WHERE id = ?1",
@@ -500,7 +514,6 @@ mod tests {
             )
             .map(|value| crate::domain::ids::ListId::parse_str(&value).unwrap())
             .unwrap();
-        let _ = list_id;
         archive_list(&mut conn, owning_list, T1).unwrap();
         assert!(matches!(
             open_focus_work_session(&mut conn, task_id, T2),

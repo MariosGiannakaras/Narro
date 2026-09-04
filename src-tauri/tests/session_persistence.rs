@@ -125,7 +125,10 @@ fn database_constraint_rejects_a_second_open_session_even_outside_store_api() {
          ) VALUES (?1, ?2, 'break', ?3, NULL, 0, 'focus', ?3, ?3)",
         params![raw_second_id.to_string(), task_id.to_string(), T1],
     );
-    assert!(result.is_err(), "database must reject a second unfinished session");
+    assert!(
+        result.is_err(),
+        "database must reject a second unfinished session"
+    );
 
     let still_open = get_open_session(&conn)
         .expect("read open session")
