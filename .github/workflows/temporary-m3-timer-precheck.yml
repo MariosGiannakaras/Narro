@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   precheck:
-    if: ${{ !contains(github.event.head_commit.message, 'Apply M3 timer rustfmt') }}
+    if: ${{ !contains(github.event.head_commit.message, '[m3-precheck]') }}
     runs-on: windows-2025
     timeout-minutes: 25
     steps:
@@ -20,6 +20,178 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
+      - name: Patch cadence-independent timer semantics
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          @'
+          from pathlib import Path
+
+          path = Path('src-tauri/src/timer/mod.rs')
+          text = path.read_text(encoding='utf-8')
+
+          old = '''    pub fn finish_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              self.apply_without_automatic_break_completion(now_ms, |candidate| {
+                  candidate.leave_break(now_ms, false)
+              })
+          }
+
+          pub fn skip_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              self.apply_without_automatic_break_completion(now_ms, |candidate| {
+                  candidate.leave_break(now_ms, true)
+              })
+          }
+
+          pub fn snapshot(&self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              if let Some(previous_ms) = self.last_observed_ms {
+                  if now_ms < previous_ms {
+                      return Err(TimerError::ClockMovedBackwards {
+                          previous_ms,
+                          now_ms,
+                      });
+                  }
+              }
+              self.snapshot_inner(now_ms)
+          }
+          '''
+          new = '''    pub fn finish_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              self.apply_break_action(now_ms, false)
+          }
+
+          pub fn skip_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              self.apply_break_action(now_ms, true)
+          }
+
+          pub fn snapshot(&self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              if let Some(previous_ms) = self.last_observed_ms {
+                  if now_ms < previous_ms {
+                      return Err(TimerError::ClockMovedBackwards {
+                          previous_ms,
+                          now_ms,
+                      });
+                  }
+              }
+              let mut candidate = self.clone();
+              candidate.advance_inner(now_ms)?;
+              candidate.snapshot_inner(now_ms)
+          }
+          '''
+          if old not in text:
+              raise SystemExit('finish/skip/snapshot patch target not found')
+          text = text.replace(old, new, 1)
+
+          old = '''    fn apply_without_automatic_break_completion<F>(
+              &mut self,
+              now_ms: u64,
+              mutation: F,
+          ) -> Result<TimerSnapshot, TimerError>
+          where
+              F: FnOnce(&mut Self) -> Result<(), TimerError>,
+          {
+              let mut candidate = self.clone();
+              candidate.observe(now_ms)?;
+              candidate.advance_work_only(now_ms)?;
+              mutation(&mut candidate)?;
+              candidate.advance_inner(now_ms)?;
+              let snapshot = candidate.snapshot_inner(now_ms)?;
+              *self = candidate;
+              Ok(snapshot)
+          }
+          '''
+          new = '''    fn apply_break_action(
+              &mut self,
+              now_ms: u64,
+              skipped: bool,
+          ) -> Result<TimerSnapshot, TimerError> {
+              let mut candidate = self.clone();
+              candidate.observe(now_ms)?;
+              candidate.advance_work_only(now_ms)?;
+              let state = candidate.state_kind();
+              let RuntimeState::Break(break_runtime) = &candidate.runtime else {
+                  return Err(candidate.invalid(
+                      if skipped {
+                          TimerAction::SkipBreak
+                      } else {
+                          TimerAction::FinishBreak
+                      },
+                      state,
+                  ));
+              };
+              let expired = break_runtime.projected_elapsed(now_ms)? >= break_runtime.duration_ms;
+              if expired {
+                  candidate.advance_inner(now_ms)?;
+              } else {
+                  candidate.leave_break(now_ms, skipped)?;
+                  candidate.advance_inner(now_ms)?;
+              }
+              let snapshot = candidate.snapshot_inner(now_ms)?;
+              *self = candidate;
+              Ok(snapshot)
+          }
+          '''
+          if old not in text:
+              raise SystemExit('break-action helper patch target not found')
+          text = text.replace(old, new, 1)
+
+          marker = '''    #[test]
+              fn backwards_clock_is_rejected_without_partial_mutation() {
+          '''
+          tests = '''    #[test]
+              fn snapshot_projects_threshold_transitions_without_renderer_owned_mutation() {
+                  let mut engine = TimerEngine::new();
+                  engine
+                      .start_task(task(8), TimerMode::EstCountdown { est_ms: 10_000 }, 0)
+                      .unwrap();
+
+                  let projected = engine.snapshot(12_000).unwrap();
+                  assert_eq!(projected.state, TimerStateKind::TimeUp);
+                  assert_eq!(projected.work_elapsed_ms, 10_000);
+                  assert_eq!(projected.countdown_remaining_ms, Some(0));
+
+                  let committed = engine.advance(12_000).unwrap();
+                  assert_eq!(committed, projected);
+              }
+
+              #[test]
+              fn late_manual_break_finish_uses_natural_completion_timestamp() {
+                  let mut engine = TimerEngine::new();
+                  engine.start_task(task(9), TimerMode::CountUp, 0).unwrap();
+                  engine.start_manual_break(5_000, 4_000).unwrap();
+
+                  let finished = engine.finish_break(12_000).unwrap();
+                  assert_eq!(finished.state, TimerStateKind::Running);
+                  assert_eq!(finished.total_break_ms, 5_000);
+                  assert_eq!(finished.work_elapsed_ms, 7_000);
+              }
+
+              #[test]
+              fn late_pomodoro_break_action_preserves_natural_paused_completion() {
+                  let mut engine = TimerEngine::new();
+                  engine
+                      .start_task(
+                          task(10),
+                          TimerMode::Pomodoro {
+                              work_ms: 10_000,
+                              break_ms: 5_000,
+                          },
+                          0,
+                      )
+                      .unwrap();
+
+                  let after = engine.skip_break(20_000).unwrap();
+                  assert_eq!(after.state, TimerStateKind::Paused);
+                  assert_eq!(after.work_elapsed_ms, 10_000);
+                  assert_eq!(after.total_break_ms, 5_000);
+                  assert_eq!(after.countdown_remaining_ms, Some(10_000));
+              }
+
+          '''
+          if marker not in text:
+              raise SystemExit('test insertion marker not found')
+          text = text.replace(marker, tests + marker, 1)
+          path.write_text(text, encoding='utf-8', newline='\n')
+          '@ | python -
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Apply rustfmt
         shell: pwsh
         run: |
@@ -36,16 +208,16 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Commit formatting when needed
+      - name: Commit source changes when needed
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
           if (-not (git status --porcelain -- src-tauri/src src-tauri/tests)) {
-            Write-Host 'No rustfmt changes required.'
+            Write-Host 'No timer source changes required.'
             exit 0
           }
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src-tauri/src src-tauri/tests
-          git commit -m "Apply M3 timer rustfmt"
+          git commit -m "Fix timer cadence invariants [m3-precheck]"
           git push origin HEAD:m3-timer-state-machine
