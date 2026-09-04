@@ -1,0 +1,62 @@
+name: Temporary M3 Runtime Recovery Precheck
+
+on:
+  push:
+    branches:
+      - m3-runtime-recovery
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-validate:
+    if: ${{ !contains(github.event.head_commit.message, 'Apply M3 runtime recovery patch') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-runtime-recovery
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt,clippy
+      - name: Apply patch
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python scripts/tmp_m3_runtime_recovery_patch.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Rustfmt
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo fmt --manifest-path src-tauri/Cargo.toml
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Cargo check
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo check --manifest-path src-tauri/Cargo.toml --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Clippy
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Tests
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Commit validated patch
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri
+          if (-not (git diff --cached --quiet)) {
+            git commit -m "Apply M3 runtime recovery patch"
+            git push origin HEAD:m3-runtime-recovery
+          }
