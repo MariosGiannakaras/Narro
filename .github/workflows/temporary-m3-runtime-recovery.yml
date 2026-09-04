@@ -23,6 +23,8 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
+          python scripts/tmp_fix_m3_runtime_recovery_patcher.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python scripts/tmp_m3_runtime_recovery_patch.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Rustfmt
