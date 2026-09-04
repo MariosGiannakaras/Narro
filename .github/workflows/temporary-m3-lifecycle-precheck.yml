@@ -1,0 +1,74 @@
+name: Temporary M3 Lifecycle Precheck
+
+on:
+  push:
+    branches:
+      - m3-timer-task-lifecycle
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-check:
+    if: ${{ !contains(github.event.head_commit.message, '[m3-lifecycle-precheck]') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-timer-task-lifecycle
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Patch timer module exports and actions
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $script = @'
+          from pathlib import Path
+
+          path = Path("src-tauri/src/timer/mod.rs")
+          text = path.read_text(encoding="utf-8")
+
+          import_anchor = "use serde::{Deserialize, Serialize};\nuse std::fmt::{Display, Formatter};\n"
+          export_block = import_anchor + "\nmod lifecycle;\npub use lifecycle::{TaskExitReason, TimerExit, TimerSwitchResult};\n"
+          if "mod lifecycle;" not in text:
+              if text.count(import_anchor) != 1:
+                  raise SystemExit("timer import anchor mismatch")
+              text = text.replace(import_anchor, export_block, 1)
+
+          action_anchor = "    FinishBreak,\n    SkipBreak,\n    Extend,\n"
+          action_block = "    FinishBreak,\n    SkipBreak,\n    FinishTask,\n    SkipTask,\n    SwitchTask,\n    Extend,\n"
+          if "    FinishTask,\n" not in text:
+              if text.count(action_anchor) != 1:
+                  raise SystemExit("TimerAction anchor mismatch")
+              text = text.replace(action_anchor, action_block, 1)
+
+          path.write_text(text, encoding="utf-8")
+          '@
+          $script | python -
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Format and validate Rust
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo fmt --manifest-path src-tauri/Cargo.toml
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo check --manifest-path src-tauri/Cargo.toml --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Commit validated patch
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (git status --porcelain -- src-tauri/src/timer)) {
+            Write-Host 'No source changes required.'
+            exit 0
+          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri/src/timer
+          git commit -m "Validate M3 timer lifecycle [m3-lifecycle-precheck]"
+          git push origin HEAD:m3-timer-task-lifecycle
