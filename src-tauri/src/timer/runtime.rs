@@ -61,12 +61,10 @@ impl Display for TimerRuntimeError {
         match self {
             Self::Timer(error) => Display::fmt(error, formatter),
             Self::Session(error) => Display::fmt(error, formatter),
-            Self::BindingMismatch => formatter.write_str(
-                "timer runtime and persisted open-session binding are inconsistent",
-            ),
-            Self::DurationAccountingUnderflow => formatter.write_str(
-                "timer runtime duration is lower than already-closed session duration",
-            ),
+            Self::BindingMismatch => formatter
+                .write_str("timer runtime and persisted open-session binding are inconsistent"),
+            Self::DurationAccountingUnderflow => formatter
+                .write_str("timer runtime duration is lower than already-closed session duration"),
         }
     }
 }
@@ -256,7 +254,10 @@ impl TimerRuntime {
         now_ms: u64,
         wall_time: &str,
     ) -> Result<PersistedTimerSwitch, TimerRuntimeError> {
-        let current = self.binding.clone().ok_or(TimerRuntimeError::BindingMismatch)?;
+        let current = self
+            .binding
+            .clone()
+            .ok_or(TimerRuntimeError::BindingMismatch)?;
         if current.kind != SessionKind::Work {
             return Err(TimerRuntimeError::BindingMismatch);
         }
@@ -299,7 +300,10 @@ impl TimerRuntime {
         now_ms: u64,
         wall_time: &str,
     ) -> Result<PersistedTimerExit, TimerRuntimeError> {
-        let current = self.binding.clone().ok_or(TimerRuntimeError::BindingMismatch)?;
+        let current = self
+            .binding
+            .clone()
+            .ok_or(TimerRuntimeError::BindingMismatch)?;
         if current.kind != SessionKind::Work {
             return Err(TimerRuntimeError::BindingMismatch);
         }
@@ -347,7 +351,9 @@ impl TimerRuntime {
                 self.binding = Some(SessionBinding::from_record(&opened));
             }
             (Some(_), None) => return Err(TimerRuntimeError::BindingMismatch),
-            (Some(current), Some(next)) if current.kind == next.kind && current.task_id == next.task_id => {
+            (Some(current), Some(next))
+                if current.kind == next.kind && current.task_id == next.task_id =>
+            {
                 if checkpoint_same {
                     let duration = self.open_duration_seconds(&snapshot, current.kind)?;
                     checkpoint_open_session(conn, current.id, duration, wall_time)?;
@@ -439,8 +445,7 @@ fn open_binding(
             wall_time,
         )
         .map_err(TimerRuntimeError::from),
-        SessionKind::Break => {
-            open_focus_break_session(conn, binding.task_id, wall_time).map_err(TimerRuntimeError::from)
-        }
+        SessionKind::Break => open_focus_break_session(conn, binding.task_id, wall_time)
+            .map_err(TimerRuntimeError::from),
     }
 }

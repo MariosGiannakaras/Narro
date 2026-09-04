@@ -10,6 +10,7 @@ use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
 mod lifecycle;
+pub mod runtime;
 pub use lifecycle::{TaskExitReason, TimerExit, TimerSwitchResult};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
