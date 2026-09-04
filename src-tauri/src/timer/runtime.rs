@@ -6,9 +6,9 @@ use crate::domain::ids::{SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionRecord};
 use crate::persistence::sessions::{get_open_session, SessionStoreError};
 use crate::persistence::timer_runtime::{
-    checkpoint_open_session_with_runtime, close_session_and_clear_runtime,
-    load_runtime_checkpoint, open_focus_work_session_with_checkpoint,
-    replace_open_focus_session_with_checkpoint, TimerRuntimeStoreError,
+    checkpoint_open_session_with_runtime, close_session_and_clear_runtime, load_runtime_checkpoint,
+    open_focus_work_session_with_checkpoint, replace_open_focus_session_with_checkpoint,
+    TimerRuntimeStoreError,
 };
 use rusqlite::Connection;
 use serde::{Deserialize, Serialize};
@@ -228,8 +228,8 @@ impl TimerRuntime {
                 let (engine, closed_work_seconds, closed_break_seconds) =
                     restore_engine(durable, now_ms)?;
                 let snapshot = engine.snapshot(now_ms)?;
-                let desired = desired_binding(&snapshot)?
-                    .ok_or(TimerRuntimeError::BindingMismatch)?;
+                let desired =
+                    desired_binding(&snapshot)?.ok_or(TimerRuntimeError::BindingMismatch)?;
                 if desired.kind != open_session.kind || desired.task_id != open_session.task_id {
                     return Err(TimerRuntimeError::BindingMismatch);
                 }
@@ -293,8 +293,7 @@ impl TimerRuntime {
         let mut engine = self.engine.clone();
         let snapshot = engine.start_task(task_id, mode, now_ms)?;
         let payload = checkpoint_payload_for(&engine, 0, 0, now_ms)?;
-        let session =
-            open_focus_work_session_with_checkpoint(conn, task_id, wall_time, &payload)?;
+        let session = open_focus_work_session_with_checkpoint(conn, task_id, wall_time, &payload)?;
 
         self.engine = engine;
         self.binding = Some(SessionBinding::from_record(&session));
@@ -314,15 +313,8 @@ impl TimerRuntime {
         let mut engine = self.engine.clone();
         let snapshot = engine.advance(now_ms)?;
         let checkpoint_same =
-            snapshot.state != self.last_state || self.checkpoint_due(now_ms);
-        self.commit_candidate(
-            conn,
-            engine,
-            snapshot,
-            now_ms,
-            wall_time,
-            checkpoint_same,
-        )
+            snapshot.state != self.last_state || self.checkpoint_due(now_ms, snapshot.state);
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, checkpoint_same)
     }
 
     pub fn checkpoint(
@@ -499,12 +491,8 @@ impl TimerRuntime {
         let current_duration = current_total
             .checked_sub(self.closed_work_seconds)
             .ok_or(TimerRuntimeError::DurationAccountingUnderflow)?;
-        let closed = close_session_and_clear_runtime(
-            conn,
-            current.id,
-            current_duration,
-            wall_time,
-        )?;
+        let closed =
+            close_session_and_clear_runtime(conn, current.id, current_duration, wall_time)?;
 
         self.engine = engine;
         self.binding = None;
@@ -555,11 +543,7 @@ impl TimerRuntime {
                         now_ms,
                     )?;
                     checkpoint_open_session_with_runtime(
-                        conn,
-                        current.id,
-                        duration,
-                        wall_time,
-                        &payload,
+                        conn, current.id, duration, wall_time, &payload,
                     )?;
                     checkpoint_written = true;
                 }
@@ -607,7 +591,14 @@ impl TimerRuntime {
         Ok(self.runtime_snapshot(snapshot))
     }
 
-    fn checkpoint_due(&self, now_ms: u64) -> bool {
+    fn checkpoint_due(&self, now_ms: u64, state: TimerStateKind) -> bool {
+        if !matches!(
+            state,
+            TimerStateKind::Running | TimerStateKind::OvertimeRunning | TimerStateKind::Break
+        ) {
+            return false;
+        }
+
         self.last_checkpoint_ms
             .map(|previous| now_ms.saturating_sub(previous) >= PERIODIC_CHECKPOINT_INTERVAL_MS)
             .unwrap_or(true)
@@ -761,7 +752,9 @@ fn recover_work_phase(state: TimerStateKind) -> Result<WorkPhase, TimerRuntimeEr
         TimerStateKind::TimeUp => Ok(WorkPhase::TimeUp),
         TimerStateKind::OvertimeRunning => Ok(WorkPhase::OvertimePaused),
         TimerStateKind::OvertimePaused => Ok(WorkPhase::OvertimePaused),
-        TimerStateKind::Idle | TimerStateKind::Break => Err(TimerRuntimeError::InvalidRecoveryState),
+        TimerStateKind::Idle | TimerStateKind::Break => {
+            Err(TimerRuntimeError::InvalidRecoveryState)
+        }
     }
 }
 
@@ -794,15 +787,18 @@ fn validate_work_checkpoint(
 
     match mode {
         TimerMode::CountUp => {
-            if matches!(phase, WorkPhase::TimeUp | WorkPhase::OvertimeRunning | WorkPhase::OvertimePaused)
-            {
+            if matches!(
+                phase,
+                WorkPhase::TimeUp | WorkPhase::OvertimeRunning | WorkPhase::OvertimePaused
+            ) {
                 return Err(TimerRuntimeError::InvalidRecoveryState);
             }
         }
         TimerMode::EstCountdown { est_ms } => match phase {
             WorkPhase::Running | WorkPhase::Paused if interval_work_ms <= est_ms => {}
             WorkPhase::TimeUp if interval_work_ms == est_ms => {}
-            WorkPhase::OvertimeRunning | WorkPhase::OvertimePaused if interval_work_ms >= est_ms => {}
+            WorkPhase::OvertimeRunning | WorkPhase::OvertimePaused
+                if interval_work_ms >= est_ms => {}
             _ => return Err(TimerRuntimeError::InvalidRecoveryState),
         },
         TimerMode::Pomodoro { work_ms, .. } => {
