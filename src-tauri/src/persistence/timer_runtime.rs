@@ -164,7 +164,9 @@ fn validate_snapshot_shape(snapshot: &TimerSnapshot) -> Result<(), TimerRuntimeS
     if snapshot.task_id.is_none() {
         return Err(TimerRuntimeStoreError::MissingTaskIdentity);
     }
-    let mode = snapshot.mode.ok_or(TimerRuntimeStoreError::MissingTimerMode)?;
+    let mode = snapshot
+        .mode
+        .ok_or(TimerRuntimeStoreError::MissingTimerMode)?;
 
     if snapshot.state == TimerStateKind::Break {
         if snapshot.break_kind.is_none() || snapshot.break_remaining_ms.is_none() {
@@ -184,7 +186,8 @@ fn validate_snapshot_shape(snapshot: &TimerSnapshot) -> Result<(), TimerRuntimeS
             ) {
                 return Err(TimerRuntimeStoreError::InvalidModeState);
             }
-            if snapshot.countdown_remaining_ms.is_some() && snapshot.state != TimerStateKind::Break {
+            if snapshot.countdown_remaining_ms.is_some() && snapshot.state != TimerStateKind::Break
+            {
                 return Err(TimerRuntimeStoreError::InvalidModeState);
             }
         }
@@ -249,10 +252,14 @@ fn validate_session_alignment(
     let checkpointed = parse_timestamp(checkpointed_at)?;
     let session = get_session(conn, active_session_id)?;
     if !session.is_open() {
-        return Err(TimerRuntimeStoreError::ActiveSessionClosed(active_session_id));
+        return Err(TimerRuntimeStoreError::ActiveSessionClosed(
+            active_session_id,
+        ));
     }
     if session.source != SessionSource::Focus {
-        return Err(TimerRuntimeStoreError::ActiveSessionNotFocus(active_session_id));
+        return Err(TimerRuntimeStoreError::ActiveSessionNotFocus(
+            active_session_id,
+        ));
     }
 
     let expected_kind = if snapshot.state == TimerStateKind::Break {

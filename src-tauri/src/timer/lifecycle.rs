@@ -274,7 +274,9 @@ mod tests {
     #[test]
     fn running_snapshot_restores_paused_without_counting_downtime() {
         let mut engine = TimerEngine::new();
-        engine.start_task(task(11), TimerMode::CountUp, 1_000).unwrap();
+        engine
+            .start_task(task(11), TimerMode::CountUp, 1_000)
+            .unwrap();
         let snapshot = engine.snapshot(6_000).unwrap();
         assert_eq!(snapshot.state, TimerStateKind::Running);
         assert_eq!(snapshot.work_elapsed_ms, 5_000);

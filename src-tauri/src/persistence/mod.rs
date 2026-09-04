@@ -54,7 +54,9 @@ fn migrations() -> Migrations<'static> {
         M::up(include_str!("../../migrations/0001_initial.sql")),
         M::up(include_str!("../../migrations/0002_domain_foundation.sql")),
         M::up(include_str!("../../migrations/0003_session_runtime.sql")),
-        M::up(include_str!("../../migrations/0004_timer_runtime_checkpoint.sql")),
+        M::up(include_str!(
+            "../../migrations/0004_timer_runtime_checkpoint.sql"
+        )),
     ])
 }
 
