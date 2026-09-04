@@ -1,6 +1,5 @@
 use super::{
-    BreakKind, RuntimeState, TimerEngine, TimerError, TimerMode, TimerStateKind, WorkPhase,
-    WorkRuntime,
+    RuntimeState, TimerEngine, TimerError, TimerMode, TimerStateKind, WorkPhase, WorkRuntime,
 };
 use crate::domain::ids::TaskId;
 use serde::{Deserialize, Serialize};
@@ -31,15 +30,13 @@ impl Display for TimerRecoveryError {
         match self {
             Self::Timer(error) => Display::fmt(error, formatter),
             Self::IdleState => formatter.write_str("idle timer has no recoverable focus runtime"),
-            Self::InvalidWorkAccounting => formatter.write_str(
-                "timer recovery interval work cannot exceed total accumulated work",
-            ),
+            Self::InvalidWorkAccounting => formatter
+                .write_str("timer recovery interval work cannot exceed total accumulated work"),
             Self::InvalidActiveSegment => formatter.write_str(
                 "timer recovery active-segment shape does not match the persisted timer state",
             ),
-            Self::InvalidStateForMode => formatter.write_str(
-                "timer recovery state is incompatible with the persisted timer mode",
-            ),
+            Self::InvalidStateForMode => formatter
+                .write_str("timer recovery state is incompatible with the persisted timer mode"),
         }
     }
 }
@@ -137,9 +134,7 @@ impl TimerEngine {
         Ok(Some(recovery))
     }
 
-    pub fn from_recovery_paused(
-        recovery: TimerRecoveryState,
-    ) -> Result<Self, TimerRecoveryError> {
+    pub fn from_recovery_paused(recovery: TimerRecoveryState) -> Result<Self, TimerRecoveryError> {
         recovery.validate()?;
         let phase = match recovery.state {
             TimerStateKind::Idle => return Err(TimerRecoveryError::IdleState),
@@ -179,7 +174,9 @@ mod tests {
     #[test]
     fn running_checkpoint_preserves_exact_monotonic_work_and_segment_elapsed() {
         let mut engine = TimerEngine::new();
-        engine.start_task(task(1), TimerMode::CountUp, 1_000).unwrap();
+        engine
+            .start_task(task(1), TimerMode::CountUp, 1_000)
+            .unwrap();
 
         let recovery = engine.recovery_state(6_500).unwrap().unwrap();
         assert_eq!(recovery.state, TimerStateKind::Running);

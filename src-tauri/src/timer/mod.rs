@@ -5,6 +5,9 @@
 //! per-second persistence writes. Session-row persistence and Tauri event integration are
 //! layered on top in later Milestone 3 slices.
 
+mod recovery;
+pub use recovery::{TimerRecoveryError, TimerRecoveryState};
+
 use crate::domain::ids::TaskId;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};

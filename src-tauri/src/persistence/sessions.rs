@@ -1,11 +1,9 @@
-use crate::domain::ids::{ListId, SessionId, TaskId};
+use crate::domain::ids::{SessionId, TaskId};
 use crate::domain::model::{DomainValueError, SessionKind, SessionSource};
 use crate::domain::sessions::SessionRecord;
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
-use crate::timer::{
-    TimerEngine, TimerRecoveryError, TimerRecoveryState, TimerStateKind,
-};
+use crate::timer::{TimerEngine, TimerRecoveryError, TimerRecoveryState, TimerStateKind};
 use chrono::DateTime;
 use rusqlite::{params, Connection, OptionalExtension, Transaction};
 use serde::{Deserialize, Serialize};
@@ -77,17 +75,26 @@ impl Display for SessionPersistenceError {
                 formatter.write_str("focus runtime already has an unfinished session")
             }
             Self::OrphanOpenSession(id) => {
-                write!(formatter, "unfinished session is not linked to recovery state: {id}")
+                write!(
+                    formatter,
+                    "unfinished session is not linked to recovery state: {id}"
+                )
             }
             Self::DurationRegressed(id) => {
-                write!(formatter, "session checkpoint duration moved backwards: {id}")
+                write!(
+                    formatter,
+                    "session checkpoint duration moved backwards: {id}"
+                )
             }
             Self::DurationOverflow => formatter.write_str("session duration does not fit SQLite"),
             Self::InvalidTransitionShape => formatter.write_str(
                 "focus persistence transition does not match the authoritative timer state",
             ),
             Self::UnsupportedRecoveryVersion(version) => {
-                write!(formatter, "unsupported focus recovery schema version: {version}")
+                write!(
+                    formatter,
+                    "unsupported focus recovery schema version: {version}"
+                )
             }
             Self::RecoveryTaskMismatch => formatter.write_str(
                 "focus recovery task column does not match the serialized timer recovery task",
@@ -387,7 +394,15 @@ fn load_recovery_from_connection(
              FROM focus_runtime_recovery
              WHERE id = 1",
             [],
-            |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?, row.get(4)?)),
+            |row| {
+                Ok((
+                    row.get(0)?,
+                    row.get(1)?,
+                    row.get(2)?,
+                    row.get(3)?,
+                    row.get(4)?,
+                ))
+            },
         )
         .optional()?;
 
@@ -451,7 +466,12 @@ pub fn persist_focus_transition(
     let opened_session = open
         .map(|input| open_focus_session_in_tx(&tx, input, now))
         .transpose()?;
-    save_recovery_in_tx(&tx, recovery, opened_session.as_ref().map(|session| session.id), now)?;
+    save_recovery_in_tx(
+        &tx,
+        recovery,
+        opened_session.as_ref().map(|session| session.id),
+        now,
+    )?;
     tx.commit()?;
 
     Ok(FocusTransitionResult {
@@ -477,21 +497,31 @@ pub fn checkpoint_focus_runtime(
     let tx = conn.transaction()?;
     let current = session_by_id(&tx, active_session_id)?;
     if current.ended_at.is_some() {
-        return Err(SessionPersistenceError::SessionAlreadyClosed(active_session_id));
+        return Err(SessionPersistenceError::SessionAlreadyClosed(
+            active_session_id,
+        ));
     }
     if current.source != SessionSource::Focus {
-        return Err(SessionPersistenceError::SessionNotFocusOwned(active_session_id));
+        return Err(SessionPersistenceError::SessionNotFocusOwned(
+            active_session_id,
+        ));
     }
     if current.task_id != Some(recovery.task_id) {
-        return Err(SessionPersistenceError::SessionTaskMismatch(active_session_id));
+        return Err(SessionPersistenceError::SessionTaskMismatch(
+            active_session_id,
+        ));
     }
     if current.kind != expected_kind {
-        return Err(SessionPersistenceError::SessionKindMismatch(active_session_id));
+        return Err(SessionPersistenceError::SessionKindMismatch(
+            active_session_id,
+        ));
     }
     if u64::try_from(next_duration).map_err(|_| SessionPersistenceError::DurationOverflow)?
         < current.duration_seconds
     {
-        return Err(SessionPersistenceError::DurationRegressed(active_session_id));
+        return Err(SessionPersistenceError::DurationRegressed(
+            active_session_id,
+        ));
     }
 
     tx.execute(
@@ -532,13 +562,19 @@ pub fn recover_interrupted_focus(
     if let Some(active_session_id) = stored.active_session_id {
         let active = session_by_id(&tx, active_session_id)?;
         if active.ended_at.is_some() {
-            return Err(SessionPersistenceError::SessionAlreadyClosed(active_session_id));
+            return Err(SessionPersistenceError::SessionAlreadyClosed(
+                active_session_id,
+            ));
         }
         if active.source != SessionSource::Focus {
-            return Err(SessionPersistenceError::SessionNotFocusOwned(active_session_id));
+            return Err(SessionPersistenceError::SessionNotFocusOwned(
+                active_session_id,
+            ));
         }
         if active.task_id != Some(stored.timer.task_id) {
-            return Err(SessionPersistenceError::SessionTaskMismatch(active_session_id));
+            return Err(SessionPersistenceError::SessionTaskMismatch(
+                active_session_id,
+            ));
         }
         let checkpoint_at = active.updated_at.clone();
         tx.execute(
@@ -599,7 +635,9 @@ pub fn sessions_for_task(
 pub fn active_focus_session(
     conn: &Connection,
 ) -> Result<Option<SessionRecord>, SessionPersistenceError> {
-    open_session_id(conn)?.map(|id| session_by_id(conn, id)).transpose()
+    open_session_id(conn)?
+        .map(|id| session_by_id(conn, id))
+        .transpose()
 }
 
 #[cfg(test)]
