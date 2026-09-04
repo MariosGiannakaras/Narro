@@ -80,7 +80,9 @@ fn running_ticks_do_not_write_per_second_but_pause_resume_and_finish_checkpoint_
         .pause(&mut conn, 2_500, T2_5)
         .expect("pause and checkpoint");
     assert_eq!(paused.timer.state, TimerStateKind::Paused);
-    let paused_row = get_open_session(&conn).unwrap().expect("paused open session");
+    let paused_row = get_open_session(&conn)
+        .unwrap()
+        .expect("paused open session");
     assert_eq!(paused_row.id, opened.id);
     assert_eq!(paused_row.duration_seconds, 2);
     assert_eq!(paused_row.updated_at, T2_5);
@@ -88,7 +90,9 @@ fn running_ticks_do_not_write_per_second_but_pause_resume_and_finish_checkpoint_
     runtime
         .resume(&mut conn, 3_000, T3)
         .expect("resume and checkpoint transition");
-    let resumed_row = get_open_session(&conn).unwrap().expect("resumed work session");
+    let resumed_row = get_open_session(&conn)
+        .unwrap()
+        .expect("resumed work session");
     assert_eq!(resumed_row.id, opened.id);
     assert_eq!(resumed_row.duration_seconds, 2);
     assert_eq!(resumed_row.updated_at, T3);
@@ -183,7 +187,10 @@ fn pomodoro_boundaries_replace_session_rows_only_when_authoritative_state_change
     let break_row = get_open_session(&conn).unwrap().unwrap();
     assert_ne!(break_row.id, first_id);
     assert_eq!(break_row.kind, SessionKind::Break);
-    assert_eq!(sessions_for_task(&conn, task_id).unwrap()[0].duration_seconds, 2);
+    assert_eq!(
+        sessions_for_task(&conn, task_id).unwrap()[0].duration_seconds,
+        2
+    );
 
     let awaiting_resume = runtime.advance(&mut conn, 6_000, T6).unwrap();
     assert_eq!(awaiting_resume.timer.state, TimerStateKind::Paused);
@@ -227,11 +234,15 @@ fn failed_switch_rolls_back_database_transition_and_leaves_engine_on_original_ta
     assert_eq!(snapshot.timer.work_elapsed_ms, 2_000);
     assert_eq!(snapshot.open_session_id, Some(original_session));
 
-    let open = get_open_session(&conn).unwrap().expect("original session remains open");
+    let open = get_open_session(&conn)
+        .unwrap()
+        .expect("original session remains open");
     assert_eq!(open.id, original_session);
     assert_eq!(open.task_id, Some(first));
     assert!(open.is_open());
-    assert!(sessions_for_task(&conn, completed_target).unwrap().is_empty());
+    assert!(sessions_for_task(&conn, completed_target)
+        .unwrap()
+        .is_empty());
 }
 
 #[test]
@@ -253,7 +264,10 @@ fn successful_switch_atomically_closes_previous_row_and_opens_target_row() {
     assert!(!switched.previous_session.is_open());
     assert_eq!(switched.current_session.task_id, Some(second));
     assert!(switched.current_session.is_open());
-    assert_eq!(get_open_session(&conn).unwrap().unwrap().id, switched.current_session.id);
+    assert_eq!(
+        get_open_session(&conn).unwrap().unwrap().id,
+        switched.current_session.id
+    );
 
     let finished = runtime
         .finish_task(&mut conn, 5_500, T5)
