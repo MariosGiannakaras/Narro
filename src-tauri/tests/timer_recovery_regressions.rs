@@ -75,9 +75,7 @@ fn repeated_pause_cycles_with_recovery_persist_exactly_thirty_minutes() {
     assert_eq!(waited.timer.work_elapsed_ms, 1_200_000);
     recovered.resume(&mut conn, 600_000, T30).unwrap();
 
-    let completed = recovered
-        .complete_task(&mut conn, 1_200_000, T40)
-        .unwrap();
+    let completed = recovered.complete_task(&mut conn, 1_200_000, T40).unwrap();
     assert_eq!(completed.timer.work_elapsed_ms, 1_800_000);
     assert_eq!(completed.closed_session.duration_seconds, 1_800);
     assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 1_800);
@@ -128,9 +126,7 @@ fn restart_after_task_switch_recovers_only_the_new_task_session() {
     assert!(!first_sessions[0].is_open());
 
     recovered.resume(&mut conn, 0, T20).unwrap();
-    let completed = recovered
-        .complete_task(&mut conn, 180_000, T23)
-        .unwrap();
+    let completed = recovered.complete_task(&mut conn, 180_000, T23).unwrap();
     assert_eq!(completed.timer.task_id, second);
     assert_eq!(completed.timer.work_elapsed_ms, 300_000);
     assert_eq!(completed.closed_session.id, second_session);
