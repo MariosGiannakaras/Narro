@@ -12,6 +12,7 @@ pub const TIMER_RUNTIME_SCHEMA_VERSION: u32 = 1;
 pub struct TimerRuntimeRecord {
     pub snapshot: TimerSnapshot,
     pub active_session_id: SessionId,
+    pub session_work_baseline_ms: u64,
     pub checkpointed_at: String,
 }
 
@@ -23,6 +24,16 @@ pub enum TimerRuntimeStoreError {
     UnsupportedSchemaVersion(i64),
     CorruptPayload(String),
     CorruptSessionId(String),
+    CorruptSessionWorkBaseline(i64),
+    SessionWorkBaselineOverflow,
+    SessionWorkBaselineAfterElapsed {
+        baseline_ms: u64,
+        work_elapsed_ms: u64,
+    },
+    BreakSessionWorkBaselineMismatch {
+        baseline_ms: u64,
+        work_elapsed_ms: u64,
+    },
     IdleSnapshot,
     MissingTaskIdentity,
     MissingTimerMode,
@@ -56,6 +67,26 @@ impl Display for TimerRuntimeStoreError {
             Self::CorruptSessionId(value) => {
                 write!(formatter, "stored timer runtime session identity is invalid: {value}")
             }
+            Self::CorruptSessionWorkBaseline(value) => {
+                write!(formatter, "stored timer runtime session work baseline is invalid: {value}")
+            }
+            Self::SessionWorkBaselineOverflow => {
+                formatter.write_str("timer runtime session work baseline exceeds SQLite range")
+            }
+            Self::SessionWorkBaselineAfterElapsed {
+                baseline_ms,
+                work_elapsed_ms,
+            } => write!(
+                formatter,
+                "timer runtime session work baseline exceeds cumulative work: baseline={baseline_ms}ms work={work_elapsed_ms}ms"
+            ),
+            Self::BreakSessionWorkBaselineMismatch {
+                baseline_ms,
+                work_elapsed_ms,
+            } => write!(
+                formatter,
+                "break session work baseline must equal frozen work: baseline={baseline_ms}ms work={work_elapsed_ms}ms"
+            ),
             Self::IdleSnapshot => {
                 formatter.write_str("idle timer snapshots are not persisted as active runtime checkpoints")
             }
@@ -118,7 +149,12 @@ impl From<SessionStoreError> for TimerRuntimeStoreError {
 }
 
 fn parse_timestamp(value: &str) -> Result<DateTime<chrono::FixedOffset>, TimerRuntimeStoreError> {
-    DateTime::parse_from_rfc3339(value).map_err(|_| TimerRuntimeStoreError::InvalidCheckpointTimestamp)
+    DateTime::parse_from_rfc3339(value)
+        .map_err(|_| TimerRuntimeStoreError::InvalidCheckpointTimestamp)
+}
+
+fn baseline_for_sql(value: u64) -> Result<i64, TimerRuntimeStoreError> {
+    i64::try_from(value).map_err(|_| TimerRuntimeStoreError::SessionWorkBaselineOverflow)
 }
 
 fn validate_snapshot_shape(snapshot: &TimerSnapshot) -> Result<(), TimerRuntimeStoreError> {
@@ -191,9 +227,25 @@ fn validate_session_alignment(
     conn: &Connection,
     snapshot: &TimerSnapshot,
     active_session_id: SessionId,
+    session_work_baseline_ms: u64,
     checkpointed_at: &str,
 ) -> Result<(), TimerRuntimeStoreError> {
     validate_snapshot_shape(snapshot)?;
+    if session_work_baseline_ms > snapshot.work_elapsed_ms {
+        return Err(TimerRuntimeStoreError::SessionWorkBaselineAfterElapsed {
+            baseline_ms: session_work_baseline_ms,
+            work_elapsed_ms: snapshot.work_elapsed_ms,
+        });
+    }
+    if snapshot.state == TimerStateKind::Break
+        && session_work_baseline_ms != snapshot.work_elapsed_ms
+    {
+        return Err(TimerRuntimeStoreError::BreakSessionWorkBaselineMismatch {
+            baseline_ms: session_work_baseline_ms,
+            work_elapsed_ms: snapshot.work_elapsed_ms,
+        });
+    }
+
     let checkpointed = parse_timestamp(checkpointed_at)?;
     let session = get_session(conn, active_session_id)?;
     if !session.is_open() {
@@ -237,28 +289,39 @@ pub fn save_timer_runtime(
     conn: &mut Connection,
     snapshot: &TimerSnapshot,
     active_session_id: SessionId,
+    session_work_baseline_ms: u64,
     checkpointed_at: &str,
 ) -> Result<TimerRuntimeRecord, TimerRuntimeStoreError> {
     validate_snapshot_shape(snapshot)?;
     parse_timestamp(checkpointed_at)?;
+    let baseline_sql = baseline_for_sql(session_work_baseline_ms)?;
     let payload = serde_json::to_string(snapshot)
         .map_err(|error| TimerRuntimeStoreError::CorruptPayload(error.to_string()))?;
 
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-    validate_session_alignment(&tx, snapshot, active_session_id, checkpointed_at)?;
+    validate_session_alignment(
+        &tx,
+        snapshot,
+        active_session_id,
+        session_work_baseline_ms,
+        checkpointed_at,
+    )?;
     tx.execute(
         "INSERT INTO timer_runtime_checkpoint (
-            id, schema_version, payload_json, active_session_id, checkpointed_at
-         ) VALUES (1, ?1, ?2, ?3, ?4)
+            id, schema_version, payload_json, active_session_id,
+            session_work_baseline_ms, checkpointed_at
+         ) VALUES (1, ?1, ?2, ?3, ?4, ?5)
          ON CONFLICT(id) DO UPDATE SET
             schema_version = excluded.schema_version,
             payload_json = excluded.payload_json,
             active_session_id = excluded.active_session_id,
+            session_work_baseline_ms = excluded.session_work_baseline_ms,
             checkpointed_at = excluded.checkpointed_at",
         params![
             i64::from(TIMER_RUNTIME_SCHEMA_VERSION),
             payload,
             active_session_id.to_string(),
+            baseline_sql,
             checkpointed_at
         ],
     )?;
@@ -267,6 +330,7 @@ pub fn save_timer_runtime(
     Ok(TimerRuntimeRecord {
         snapshot: snapshot.clone(),
         active_session_id,
+        session_work_baseline_ms,
         checkpointed_at: checkpointed_at.to_owned(),
     })
 }
@@ -274,15 +338,24 @@ pub fn save_timer_runtime(
 pub fn load_timer_runtime(
     conn: &Connection,
 ) -> Result<Option<TimerRuntimeRecord>, TimerRuntimeStoreError> {
-    let stored: Option<(i64, String, String, String)> = conn
+    let stored: Option<(i64, String, String, i64, String)> = conn
         .query_row(
-            "SELECT schema_version, payload_json, active_session_id, checkpointed_at
+            "SELECT schema_version, payload_json, active_session_id,
+                    session_work_baseline_ms, checkpointed_at
              FROM timer_runtime_checkpoint WHERE id = 1",
             [],
-            |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?)),
+            |row| {
+                Ok((
+                    row.get(0)?,
+                    row.get(1)?,
+                    row.get(2)?,
+                    row.get(3)?,
+                    row.get(4)?,
+                ))
+            },
         )
         .optional()?;
-    let Some((schema_version, payload, session_id, checkpointed_at)) = stored else {
+    let Some((schema_version, payload, session_id, baseline_raw, checkpointed_at)) = stored else {
         return Ok(None);
     };
     if schema_version != i64::from(TIMER_RUNTIME_SCHEMA_VERSION) {
@@ -294,16 +367,20 @@ pub fn load_timer_runtime(
         .map_err(|error| TimerRuntimeStoreError::CorruptPayload(error.to_string()))?;
     let active_session_id = SessionId::parse_str(&session_id)
         .map_err(|_| TimerRuntimeStoreError::CorruptSessionId(session_id.clone()))?;
+    let session_work_baseline_ms = u64::try_from(baseline_raw)
+        .map_err(|_| TimerRuntimeStoreError::CorruptSessionWorkBaseline(baseline_raw))?;
     validate_session_alignment(
         conn,
         &snapshot,
         active_session_id,
+        session_work_baseline_ms,
         &checkpointed_at,
     )?;
 
     Ok(Some(TimerRuntimeRecord {
         snapshot,
         active_session_id,
+        session_work_baseline_ms,
         checkpointed_at,
     }))
 }
@@ -323,7 +400,9 @@ mod tests {
     use crate::domain::tasks::NewTaskInput;
     use crate::persistence::lists::create_list;
     use crate::persistence::run_migrations;
-    use crate::persistence::sessions::{close_session, open_focus_break_session, open_focus_work_session};
+    use crate::persistence::sessions::{
+        close_session, open_focus_break_session, open_focus_work_session,
+    };
     use crate::persistence::tasks::create_task;
     use crate::timer::{TimerEngine, TimerMode};
 
@@ -364,13 +443,14 @@ mod tests {
         let mut engine = TimerEngine::new();
         engine.start_task(task_id, TimerMode::CountUp, 0).unwrap();
         let snapshot = engine.advance(5_000).unwrap();
-        save_timer_runtime(&mut conn, &snapshot, session.id, T1).expect("save runtime");
+        save_timer_runtime(&mut conn, &snapshot, session.id, 0, T1).expect("save runtime");
 
         let stored = load_timer_runtime(&conn)
             .expect("load runtime")
             .expect("runtime exists");
         assert_eq!(stored.snapshot, snapshot);
         assert_eq!(stored.active_session_id, session.id);
+        assert_eq!(stored.session_work_baseline_ms, 0);
 
         let restored = TimerEngine::restore_snapshot_paused(&stored.snapshot, 100_000).unwrap();
         let recovered = restored.snapshot(200_000).unwrap();
@@ -389,9 +469,34 @@ mod tests {
         engine.start_task(task_id, TimerMode::CountUp, 0).unwrap();
         let snapshot = engine.start_manual_break(10_000, 4_000).unwrap();
 
-        save_timer_runtime(&mut conn, &snapshot, break_session.id, T1)
-            .expect("save break runtime");
-        assert!(load_timer_runtime(&conn).unwrap().is_some());
+        save_timer_runtime(
+            &mut conn,
+            &snapshot,
+            break_session.id,
+            snapshot.work_elapsed_ms,
+            T1,
+        )
+        .expect("save break runtime");
+        let persisted = load_timer_runtime(&conn).unwrap().unwrap();
+        assert_eq!(persisted.session_work_baseline_ms, snapshot.work_elapsed_ms);
+    }
+
+    #[test]
+    fn break_runtime_rejects_a_stale_work_baseline() {
+        let (mut conn, task_id) = fixture();
+        let work = open_focus_work_session(&mut conn, task_id, T0).expect("open work");
+        close_session(&mut conn, work.id, 4, T1).expect("close work");
+        let break_session =
+            open_focus_break_session(&mut conn, Some(task_id), T1).expect("open break");
+        let mut engine = TimerEngine::new();
+        engine.start_task(task_id, TimerMode::CountUp, 0).unwrap();
+        let snapshot = engine.start_manual_break(10_000, 4_000).unwrap();
+
+        assert!(matches!(
+            save_timer_runtime(&mut conn, &snapshot, break_session.id, 0, T1),
+            Err(TimerRuntimeStoreError::BreakSessionWorkBaselineMismatch { .. })
+        ));
+        assert!(load_timer_runtime(&conn).unwrap().is_none());
     }
 
     #[test]
@@ -401,15 +506,16 @@ mod tests {
         let mut engine = TimerEngine::new();
         engine.start_task(task_id, TimerMode::CountUp, 0).unwrap();
         let work_snapshot = engine.advance(5_000).unwrap();
-        save_timer_runtime(&mut conn, &work_snapshot, session.id, T1).unwrap();
+        save_timer_runtime(&mut conn, &work_snapshot, session.id, 0, T1).unwrap();
 
         let break_snapshot = engine.start_manual_break(10_000, 5_000).unwrap();
         assert!(matches!(
-            save_timer_runtime(&mut conn, &break_snapshot, session.id, T1),
+            save_timer_runtime(&mut conn, &break_snapshot, session.id, 5_000, T1),
             Err(TimerRuntimeStoreError::ActiveSessionKindMismatch { .. })
         ));
         let persisted = load_timer_runtime(&conn).unwrap().unwrap();
         assert_eq!(persisted.snapshot, work_snapshot);
+        assert_eq!(persisted.session_work_baseline_ms, 0);
     }
 
     #[test]
@@ -418,7 +524,7 @@ mod tests {
         let session = open_focus_work_session(&mut conn, task_id, T0).expect("open work");
         let mut engine = TimerEngine::new();
         let snapshot = engine.start_task(task_id, TimerMode::CountUp, 0).unwrap();
-        save_timer_runtime(&mut conn, &snapshot, session.id, T0).unwrap();
+        save_timer_runtime(&mut conn, &snapshot, session.id, 0, T0).unwrap();
         assert!(clear_timer_runtime(&mut conn).unwrap());
         assert!(!clear_timer_runtime(&mut conn).unwrap());
         assert!(load_timer_runtime(&conn).unwrap().is_none());
