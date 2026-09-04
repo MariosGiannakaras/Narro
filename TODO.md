@@ -103,33 +103,46 @@ Acceptance criteria:
 
 Goal: implement correctness-critical runtime independently from UI.
 
-- [ ] Implement session state machine: idle, running, paused, break, time-up/overtime.
-- [ ] Implement EST countdown mode.
-- [ ] Implement explicit `Time's Up` transition at EST expiry.
-- [ ] Implement Extend from `Time's Up`, preserving the same work session and exposing overtime.
-- [ ] Implement Done and Switch Task from `Time's Up`.
-- [ ] Implement Pomodoro countdown mode.
-- [ ] Implement automatic Pomodoro break start with notification when work interval finishes.
-- [ ] Implement end-of-Pomodoro-break prompt/resume workflow per product specification.
-- [ ] Implement count-up mode.
-- [ ] Track actual work duration independently of displayed countdown.
-- [ ] Make pause/resume idempotent.
-- [ ] Implement skip and finish transitions.
-- [ ] Persist session transitions/timestamps without per-second SQLite writes.
-- [ ] Restore interrupted live sessions paused on launch.
-- [ ] Prevent duplicate running sessions.
-- [ ] Keep break sessions distinct from work sessions.
-- [ ] Emit typed events consumed by both webviews.
-- [ ] Add regression coverage for completing a live task after tracked work: Time Taken must never reset to `00:00`.
-- [ ] Add crash/restart tests around running, paused, break, task-switch and overtime transitions.
+Research context: before changing M3 behavior, consult `docs/BLITZIT_HISTORY_RISK_INDEX.md`. Tracked-time loss is a recurring Blitzit failure family through current 2026 reports; do not consider a visual timer test sufficient without durable session/Time Taken verification.
+
+- [x] Implement session state machine: idle, running, paused, break, time-up/overtime.
+- [x] Implement EST countdown mode.
+- [x] Implement explicit `Time's Up` transition at EST expiry.
+- [x] Implement Extend from `Time's Up`, preserving the same work runtime and exposing overtime.
+- [x] Implement Done and Switch Task from `Time's Up` at the authoritative engine/runtime layer.
+- [x] Implement Pomodoro countdown mode and automatic authoritative work -> break -> paused-awaiting-resume transitions.
+- [ ] Emit automatic Pomodoro break/finish notifications exactly once at authoritative boundaries, including late observation/recovery cases.
+- [ ] Implement the user-visible end-of-Pomodoro-break prompt/resume workflow per product specification once typed events/UI projection exist.
+- [x] Implement count-up mode.
+- [x] Track actual work duration independently of displayed countdown.
+- [x] Make pause/resume idempotent.
+- [x] Implement skip and finish timer/session transitions.
+- [x] Persist session transitions/timestamps without per-second SQLite writes.
+- [x] Prevent duplicate unfinished focus sessions at the database layer.
+- [x] Keep break sessions distinct from work sessions and exclude break time from Time Taken.
+- [x] Atomically replace the open session at work<->break and task-switch boundaries; rollback failed switches without publishing the candidate runtime.
+- [ ] Add durable runtime checkpoint/recovery and restore interrupted live sessions to the specified non-running state without counting process downtime as work. Cover running, paused, break, Time's Up, overtime and Pomodoro boundaries.
+- [ ] Couple task completion mutation and final timer/session close through one persistence-success boundary (transaction or equivalent safe coordination) so tracked work can never become `00:00` on Done.
+- [ ] Integrate paused manual Time Taken edits with the authoritative runtime/session baseline so resume/pause/Done cannot snap back, double-count or diverge from durable session totals.
+- [ ] Emit typed timer/session events consumed by both webviews; renderer/window lifecycle changes must remain presentation-only unless an explicit domain transition is requested.
+- [x] Add persistence regression proving one pause/resume/finish path excludes paused wall time and combines pre/post-pause work.
+- [ ] Add source-derived pause/resume regression: 15m work -> pause -> wait -> resume -> 15m work -> Done = exactly 30m in durable Time Taken/session history; repeat across multiple pause cycles and recovery.
+- [ ] Add regression coverage for completing a live task after tracked work through the real task-completion mutation path: Time Taken must never reset to `00:00`.
+- [ ] Add crash/restart tests around running, paused, break, task-switch, Time's Up/overtime and Pomodoro transitions.
+- [ ] Define/test Windows sleep/resume behavior for no session/data loss. Do not invent whether unattended sleep counts as work without an explicit product decision.
+- [ ] Add long-duration/large-elapsed safety coverage so very long sessions cannot overflow or corrupt timer/session state.
 
 Acceptance criteria:
 
 - timer correctness is tested with controlled/fake time
 - UI refresh cadence cannot alter authoritative elapsed time
+- persistence failure cannot publish an in-memory transition the database rejected
 - restarting process does not count downtime as work
-- tracked Time Taken survives completion and task switching
-- all timer modes produce consistent session history
+- pause/resume counts each running segment exactly once and every paused interval zero times
+- paused manual Time Taken editing rebases the authoritative runtime deterministically
+- task completion and task switching preserve all tracked Time Taken
+- all timer modes produce coherent work/break session history
+- renderer destruction/recreation or Focus Panel <-> Floating Timer presentation changes cannot reset/duplicate/advance a session
 - no renderer owns irreplaceable timer/session state
 
 ## Milestone 4 — Scheduling, recurrence, reminders, eligibility
@@ -324,7 +337,7 @@ Acceptance criteria:
 - [ ] Run regression tests for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
 - [ ] Confirm animation does not cause task-row/card geometry changes or persistent idle CPU work.
-- [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch.
+- [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, and no post-pause/manual-edit timer-vs-ledger divergence.
 - [ ] Update `README.md`, `STATUS.md`, and `TODO.md` for release-candidate reality.
 
 ## Post-parity candidates — recorded, not scheduled

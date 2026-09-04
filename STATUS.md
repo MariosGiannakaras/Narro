@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-03
+Last updated: 2026-09-04
 
 For zero-context AI continuation, start with `AI_START_HERE.md` and `HANDOFF.md`.
 
@@ -8,12 +8,12 @@ For zero-context AI continuation, start with `AI_START_HERE.md` and `HANDOFF.md`
 
 **Milestone 3 — Timer/session engine.**
 
-Milestone 1 Windows desktop capability/performance Gate A is validated. The selected architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with normally two persistent webviews only:
+Milestone 1 Windows desktop capability/performance Gate A is validated. Milestone 2 domain/persistence Gate B is validated. The selected architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with normally two persistent webviews only:
 
 - `main`;
 - `focusSurface`, reused for Focus Panel and Floating Timer.
 
-Product UI should still not be polished yet. Milestones 2–4 establish the correctness-critical domain, timer/session, scheduling, recurrence, reminder and persistence foundations before the screenshot-driven UI milestones.
+Product UI should still not be polished yet. Milestones 3–4 establish the correctness-critical timer/session, scheduling, recurrence, reminder and persistence foundations before the screenshot-driven UI milestones.
 
 ## Gate A — Windows desktop viability
 
@@ -142,11 +142,53 @@ The original synchronous `WebviewWindowBuilder::build()` recreation path deadloc
 
 **Result: PASS / proceed to Milestone 3.**
 
-Milestone 2 is now automated-validated through PR #21. Durable coverage includes IDs/schema/migrations, list/task/subtask lifecycle, stable ordering and duplication invariants, Time Taken and typed schedule metadata, recurrence metadata persistence, constrained rich notes, versioned preferences/defaults, explicit permanent-delete report exclusion, deterministic fixtures, persistence-first mutation visibility, and repeated scheduled-lane move/reorder corruption regressions.
+Milestone 2 is automated-validated through PR #21. Durable coverage includes IDs/schema/migrations, list/task/subtask lifecycle, stable ordering and duplication invariants, Time Taken and typed schedule metadata, recurrence metadata persistence, constrained rich notes, versioned preferences/defaults, explicit permanent-delete report exclusion, deterministic fixtures, persistence-first mutation visibility, and repeated scheduled-lane move/reorder corruption regressions.
 
 Completion evidence: `work-log/2026-09-03-chatgpt-m2-completion.md`.
 
-The active source boundary is now the Rust timer/session engine. Scheduling classification, recurrence materialization, reminder firing and DST/week semantics remain Milestone 4.
+## Milestone 3 current merged state
+
+Current validated `main` baseline before this research-only documentation change: `c769c284002628b73f76b4c1e35b1595dc685bf0`.
+
+Merged M3 implementation slices:
+
+- PR #23 / `efb50743e1625a597f2e8466d552f67f03539d5d`: authoritative pure Rust timer state machine with controlled time, CountUp/EST/Pomodoro, explicit pause/break/Time's Up/overtime states and renderer-independent work accounting.
+- PR #24 / `2da2496d1e7eab4ba57a0c80d82c680614fe2397`: task Done/Skip/Switch timer lifecycle and Time's Up exits.
+- PR #25 / `faf46923acbebd59cd0b1d241eaad80c2618f606`: typed session persistence foundation, work/break separation, monotonic checkpoints and database enforcement of at most one unfinished session.
+- PR #27 / `c769c284002628b73f76b4c1e35b1595dc685bf0`: persistence-first `TimerRuntime`, atomic Work<->Break/task-switch row replacement, no per-second SQLite writes, fractional-segment accounting and failed-switch rollback. Windows CI #122 / run `33889344761`: SUCCESS.
+
+Current merged integration tests already prove a basic pause/resume/finish path excludes paused wall time and combines work before/after the pause; they also prove break exclusion, Pomodoro row boundaries and atomic task-switch persistence behavior.
+
+PR #26 (`m3-session-coordinator`) was closed unmerged. Its crash/restart recovery work is **not** part of `main`.
+
+Remaining correctness boundaries before M3 can close:
+
+- durable runtime checkpoint/recovery after process interruption;
+- transactionally safe coordination between task completion mutation and final timer/session persistence;
+- authoritative rebasing after manual Time Taken edits while paused;
+- typed Tauri timer/session events with renderers kept non-authoritative;
+- exactly-once Pomodoro notification/boundary side effects;
+- explicit Windows sleep/resume no-data-loss coverage.
+
+Scheduling classification, recurrence materialization, reminder firing and DST/week semantics remain Milestone 4.
+
+## Blitzit historical/reliability research — 2026-09-04
+
+Focused historical research is complete and stored in `docs/BLITZIT_HISTORY_RISK_INDEX.md`. It complements, rather than replaces, `docs/SOURCE_AUDIT.md` and `docs/RESEARCH_EVIDENCE.md`.
+
+Main evidence-backed conclusions:
+
+- tracked-time loss is a recurring Blitzit failure family from late 2024 through current late-August/early-September 2026 reports, covering completion-to-`00:00`, navigation/sleep loss, pause accounting, post-pause persistence and manual Time Taken edit divergence;
+- Blitzit's current public roadmap still lists `Tasks sometimes lose tracked time` as **In Development**;
+- Blitzit's own November 2025 retrospective says reporting accuracy was a long-standing problem and that session tracking was rebuilt around individual editable sessions;
+- task duplication/reorder corruption recurs across historical Frill reports and an independent 2025 hands-on review; Narro M2's stable-ID/exact-set/persistence-first rules already address that risk class;
+- scheduling/day-boundary failures recur across historical shipped fixes and current reports; the existing M4 date-only/local-datetime, timezone, DST and idempotence requirements remain necessary;
+- the March 2026 Firebase suspension is developer-confirmed and temporarily made all user tasks/data inaccessible; Narro's local-only SQLite authority intentionally avoids this centralized availability failure class;
+- the core Blitzit value proposition remains simple planning -> one-task focus -> persistent timer/Pomodoro -> completion, so Narro should improve reliability without adding workflow friction.
+
+The official desktop changelog URL exists but its current public page exposes the release feed dynamically; a complete static desktop version ledger could not be recovered. Known public version/date anchors are recorded without inventing missing releases.
+
+`TODO.md` and `HANDOFF.md` now translate the research into only the actionable M3/M4/UI anti-regressions that are relevant to Narro. No product code or new feature implementation was performed in this research phase.
 
 Product UI remains intentionally unpolished while Milestones 3–4 establish correctness-critical behavior.
 
@@ -162,6 +204,8 @@ Allowed local Windows equivalents include SQLite, tray/background lifecycle, not
 
 Future agents must preserve `AGENTS.md` and `ENGINEERING_QUALITY.md`, especially authoritative Rust/domain state, stable identities, scheduling/timer invariants, explicit link activation, dynamic monitor topology, minimal `focusSurface`, structured recoverable failures, and evidence-backed architecture changes.
 
+For source-product risks and regression targets, use `docs/BLITZIT_HISTORY_RISK_INDEX.md` together with `docs/SOURCE_AUDIT.md`; do not infer that a historical Blitzit fix permanently closes a failure class when newer evidence reports recurrence.
+
 ## Multi-agent continuation rule
 
-Repository state must be sufficient for another capable coding AI without prior chat context. Use `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, `HANDOFF.md`, `TODO.md`, `work-log/*.md`, and legacy `WORK_LOG.md` according to their documented roles.
+Repository state must be sufficient for another capable coding AI without prior chat context. Use `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, `HANDOFF.md`, `TODO.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, `work-log/*.md`, and legacy `WORK_LOG.md` according to their documented roles.

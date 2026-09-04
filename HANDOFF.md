@@ -1,59 +1,66 @@
 # HANDOFF.md
 
-This is the **current operational continuation state** for Narro. Any zero-context AI must start with `AI_START_HERE.md`, then read `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 2 section in `TODO.md`, `STATUS.md`, and the newest relevant `work-log/*.md` entries.
+This is the **current operational continuation state** for Narro. Any zero-context AI must start with `AI_START_HERE.md`, then read `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 3 section in `TODO.md`, `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant `work-log/*.md` entries.
 
 ## CURRENT MILESTONE
 
 **Milestone 3 — Timer/session engine.**
 
-Milestone 1 Gate A is PASS. Continue with Tauri 2 + React/TypeScript + Rust + SQLite and the two-window composition (`main` + reused `focusSurface`). Do not regress the async `main` recreation path; the old synchronous WebView2 recreation path deadlocked on real Windows.
+Milestone 1 Gate A is PASS and Milestone 2 Gate B is PASS. Continue with Tauri 2 + React/TypeScript + Rust + SQLite and the two-window composition (`main` + reused `focusSurface`). Do not regress the async `main` recreation path; the old synchronous WebView2 recreation path deadlocked on real Windows.
 
-## VALIDATED MILESTONE 2 BASELINE
+## VALIDATED MILESTONE 3 BASELINE
 
-Milestone 2 is complete and automated-validated. Canonical completion evidence is `work-log/2026-09-03-chatgpt-m2-completion.md`. The latest closing slices are:
+Current `main` baseline is merge `c769c284002628b73f76b4c1e35b1595dc685bf0`.
 
-- PR #15 / merge `106867b40d1c13572e11468b9217a9738a453036`: recurrence metadata persistence; Windows CI #101 PASS.
-- PR #16 / merge `78039b5c2bb71386edf8b0ac97cc2534e524190a`: subtask persistence; Windows CI #105 PASS.
-- PR #17 / merge `1ef6da2ab1996c71c8706e2eac7ebf98bf197253`: constrained rich-note persistence; Windows CI #108 PASS.
-- PR #19 / merge `e662eddfffb3f747d36b9b5121461bf48cf18b8e`: typed/versioned preferences + defaults; Windows CI #109 PASS.
-- PR #20 / merge `253c306aa0cdd73ee47dc5db1f508c21a6c5d632`: permanent-delete report-exclusion regression; Windows CI #111 PASS.
-- PR #21 / merge `16bb8b3e2fc2ac44c23c31268ad92bf1cdf8b7a3`: deterministic fixtures, scheduled-lane move/reorder stress, persistence-first mutation visibility; Windows CI #113 PASS.
+Merged M3 slices:
 
-Preserve the stable-ID, exact-set reorder, archive/history, date-only/local-datetime, recurrence-linkage and persistence-first mutation invariants established in M2.
+- PR #23 / merge `efb50743e1625a597f2e8466d552f67f03539d5d`: authoritative pure Rust timer state machine with controlled time, CountUp/EST/Pomodoro, pause/resume, breaks, Time's Up and overtime semantics.
+- PR #24 / merge `2da2496d1e7eab4ba57a0c80d82c680614fe2397`: Done/Skip/Switch lifecycle and Time's Up task exits.
+- PR #25 / merge `faf46923acbebd59cd0b1d241eaad80c2618f606`: session persistence foundation, one-open-session DB invariant, work/break rows and restart-surviving persisted sessions.
+- PR #27 / merge `c769c284002628b73f76b4c1e35b1595dc685bf0`: persistence-first `TimerRuntime`, atomic Work<->Break/task-switch session replacement, no per-second SQLite writes, pause/resume checkpoints, fractional segment accounting and rollback on failed switch. Windows CI #122 PASS.
+
+PR #26 (`m3-session-coordinator`) was closed unmerged. Do not assume its crash-recovery work exists on `main`.
+
+## REQUIRED RESEARCH CONTEXT
+
+The focused Blitzit history/reliability research is in `docs/BLITZIT_HISTORY_RISK_INDEX.md` and complements `docs/SOURCE_AUDIT.md` / `docs/RESEARCH_EVIDENCE.md`.
+
+Highest-confidence M3 lesson: tracked-time loss is a recurring Blitzit failure family from late 2024 through current 2026 reports. Public evidence includes completion showing `00:00`, progress loss after navigation/sleep, pause counting paused time, resumed work not being persisted after the first pause, and manual Time Taken edits diverging after resume. Blitzit's current roadmap still lists `Tasks sometimes lose tracked time` as In Development.
+
+Do not re-research these completed findings unless new evidence materially changes them. Use the feature-specific risk/checklist section when implementing the corresponding Narro slice.
 
 ## NEXT AGENT ACTION — MILESTONE 3
 
-Continue the narrow **authoritative timer state-machine** slice already prepared on branch `m3-timer-state-machine`.
+Continue from the merged `TimerRuntime` baseline. Do not start Milestone 4 or product UI.
 
-1. Keep exactly one authoritative Rust timer engine; do not create renderer-owned timer state.
-2. Validate idle/running/paused/break/time-up/overtime transitions with controlled/fake time.
-3. Preserve timestamp-derived elapsed work independently from renderer sampling cadence.
-4. Keep pause/resume idempotent and break time distinct from work time.
-5. Preserve explicit EST `Time's Up` and Extend/overtime semantics.
-6. Pomodoro may transition work -> break automatically, but notification delivery/session-row persistence/event emission remain later M3 slices.
-7. After the pure engine is validated/merged, add transactional session-row persistence without per-second SQLite writes, restart recovery to paused, and duplicate-running-session protection.
-8. Use exact-head Windows CI as the authoritative compile/Clippy/test/release gate.
+Priority order:
 
-Do not pull Milestone 4 scheduling/recurrence materialization into the timer engine.
+1. Implement durable runtime checkpoint/recovery for interrupted running/paused/break/Time's Up/overtime/Pomodoro states. On process restart recover to the explicitly specified non-running state and do not count process downtime as work. Preserve one coherent open-session identity/ledger and the database single-open-session invariant.
+2. Couple task completion mutation with final timer/session persistence through one safe persistence boundary so a completed task can never publish lost/zero Time Taken after tracked work.
+3. Specify and implement paused manual Time Taken editing against the authoritative runtime baseline before UI wiring. Regression: pause -> edit -> resume -> pause/Done cannot snap back, double-count or diverge from durable session totals.
+4. Add explicit source-derived pause/resume regression coverage: work 15m -> pause -> wait -> resume -> work 15m -> Done must durably equal 30m; repeat across multiple pause cycles and recovery boundaries.
+5. Add typed Tauri timer/session events only after the authoritative/recovery model is stable. Renderers remain projections and presentation/window changes must not create timer transitions.
+6. Complete Pomodoro notification/boundary side effects with exactly-once tests across late renderer observation and recovery.
+7. Define/test Windows sleep/resume behavior for **no data loss**. Do not invent whether unattended sleep counts as work without an explicit product decision.
+8. Use exact-head Windows CI as the authoritative Rust/frontend/release gate.
+
+Do not pull Milestone 4 scheduling/recurrence materialization into M3.
 
 ## USER ACTION REQUIRED
 
-**None.** Current Milestone 2 work is automated domain/persistence work and does not require physical Windows interaction.
+**None for the current M3 backend/runtime slices.** Physical Windows validation is only needed when a slice actually depends on OS-visible runtime behavior that automation cannot establish.
 
 ## IMPORTANT FILES
 
-- `src-tauri/src/domain/ids.rs`
-- `src-tauri/src/domain/model.rs`
-- `src-tauri/src/domain/tasks.rs`
-- `src-tauri/src/persistence/mod.rs`
-- `src-tauri/src/persistence/tasks.rs`
-- `src-tauri/src/persistence/task_identity.rs`
-- `src-tauri/src/persistence/task_metadata.rs`
-- `src-tauri/tests/task_metadata_persistence.rs`
-- `src-tauri/migrations/0002_domain_foundation.sql`
+- `docs/BLITZIT_HISTORY_RISK_INDEX.md`
+- `docs/SOURCE_AUDIT.md`
+- `src-tauri/src/timer/`
+- `src-tauri/src/persistence/sessions.rs`
+- `src-tauri/tests/timer_session_coordinator.rs`
+- `src-tauri/migrations/0003_session_runtime.sql`
 - `TODO.md`
 - `STATUS.md`
-- newest Milestone 2 `work-log/*.md`
+- newest Milestone 3 `work-log/*.md`
 
 ## DURABLE M1 REFERENCES
 
