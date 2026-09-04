@@ -55,6 +55,22 @@ jobs:
                   1,
               )
           timer.write_text(text)
+
+          sessions = Path('src-tauri/src/persistence/sessions.rs')
+          text = sessions.read_text().replace(
+              'use crate::domain::ids::{ListId, SessionId, TaskId};',
+              'use crate::domain::ids::{SessionId, TaskId};',
+              1,
+          )
+          sessions.write_text(text)
+
+          recovery = Path('src-tauri/src/timer/recovery.rs')
+          text = recovery.read_text().replace(
+              '    BreakKind, RuntimeState, TimerEngine, TimerError, TimerMode, TimerStateKind, WorkPhase,\n',
+              '    RuntimeState, TimerEngine, TimerError, TimerMode, TimerStateKind, WorkPhase,\n',
+              1,
+          )
+          recovery.write_text(text)
           '@ | python -
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Rust format
