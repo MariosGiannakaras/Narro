@@ -7,6 +7,7 @@ pub mod subtasks;
 pub mod task_identity;
 pub mod task_metadata;
 pub mod tasks;
+pub mod timer_runtime;
 
 use rusqlite::Connection;
 use rusqlite_migration::{Migrations, M};
@@ -53,6 +54,7 @@ fn migrations() -> Migrations<'static> {
         M::up(include_str!("../../migrations/0001_initial.sql")),
         M::up(include_str!("../../migrations/0002_domain_foundation.sql")),
         M::up(include_str!("../../migrations/0003_session_runtime.sql")),
+        M::up(include_str!("../../migrations/0004_timer_runtime_checkpoint.sql")),
     ])
 }
 
@@ -117,6 +119,7 @@ mod tests {
             "reminders",
             "sessions",
             "preferences",
+            "timer_runtime_checkpoint",
         ] {
             assert!(
                 table_exists(&conn, table),
@@ -148,6 +151,7 @@ mod tests {
         run_migrations(&mut conn).expect("upgrade v1 database to latest");
         assert!(table_exists(&conn, "tasks"));
         assert!(table_exists(&conn, "sessions"));
+        assert!(table_exists(&conn, "timer_runtime_checkpoint"));
     }
 
     #[test]
