@@ -121,14 +121,14 @@ Research context: before changing M3 behavior, consult `docs/BLITZIT_HISTORY_RIS
 - [x] Prevent duplicate unfinished focus sessions at the database layer.
 - [x] Keep break sessions distinct from work sessions and exclude break time from Time Taken.
 - [x] Atomically replace the open session at work<->break and task-switch boundaries; rollback failed switches without publishing the candidate runtime.
-- [ ] Add durable runtime checkpoint/recovery and restore interrupted live sessions to the specified non-running state without counting process downtime as work. Cover running, paused, break, Time's Up, overtime and Pomodoro boundaries.
-- [ ] Couple task completion mutation and final timer/session close through one persistence-success boundary (transaction or equivalent safe coordination) so tracked work can never become `00:00` on Done.
-- [ ] Integrate paused manual Time Taken edits with the authoritative runtime/session baseline so resume/pause/Done cannot snap back, double-count or diverge from durable session totals.
+- [x] Add durable runtime checkpoint/recovery and restore interrupted live sessions to the specified non-running state without counting process downtime as work. Cover running, paused, break, Time's Up, overtime and Pomodoro boundaries.
+- [x] Couple task completion mutation and final timer/session close through one persistence-success boundary (transaction or equivalent safe coordination) so tracked work can never become `00:00` on Done.
+- [x] Integrate paused manual Time Taken edits with the authoritative runtime/session baseline so resume/pause/Done cannot snap back, double-count or diverge from durable session totals.
 - [ ] Emit typed timer/session events consumed by both webviews; renderer/window lifecycle changes must remain presentation-only unless an explicit domain transition is requested.
 - [x] Add persistence regression proving one pause/resume/finish path excludes paused wall time and combines pre/post-pause work.
-- [ ] Add source-derived pause/resume regression: 15m work -> pause -> wait -> resume -> 15m work -> Done = exactly 30m in durable Time Taken/session history; repeat across multiple pause cycles and recovery.
-- [ ] Add regression coverage for completing a live task after tracked work through the real task-completion mutation path: Time Taken must never reset to `00:00`.
-- [ ] Add crash/restart tests around running, paused, break, task-switch, Time's Up/overtime and Pomodoro transitions.
+- [x] Add source-derived pause/resume regression: 15m work -> pause -> wait -> resume -> 15m work -> Done = exactly 30m in durable Time Taken/session history; repeat across multiple pause cycles and recovery.
+- [x] Add regression coverage for completing a live task after tracked work through the real task-completion mutation path: Time Taken must never reset to `00:00`.
+- [x] Add crash/restart tests around running, paused, break, task-switch, Time's Up/overtime and Pomodoro transitions.
 - [ ] Define/test Windows sleep/resume behavior for no session/data loss. Do not invent whether unattended sleep counts as work without an explicit product decision.
 - [ ] Add long-duration/large-elapsed safety coverage so very long sessions cannot overflow or corrupt timer/session state.
 
@@ -358,10 +358,3 @@ Do not implement these until Milestones 1–10 parity/reliability work is stable
 ## Deferred unless explicitly approved
 
 - native Win32/WinUI Floating Timer fallback (only if performance evidence requires it)
-- fully local voice transcription
-- external calendar/integration features
-- webhooks/API/MCP
-- AI assistant
-- cross-device sync
-- macOS/Linux/mobile/web versions
-- collaborative/shared lists
