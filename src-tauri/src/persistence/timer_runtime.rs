@@ -395,7 +395,8 @@ pub fn close_session_and_clear_runtime(
     ended_at: &str,
 ) -> Result<SessionRecord, TimerRuntimeStoreError> {
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-    let closed = close_session_and_clear_runtime_in_transaction(&tx, id, duration_seconds, ended_at)?;
+    let closed =
+        close_session_and_clear_runtime_in_transaction(&tx, id, duration_seconds, ended_at)?;
     tx.commit()?;
     Ok(closed)
 }
