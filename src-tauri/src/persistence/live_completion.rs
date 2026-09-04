@@ -1,10 +1,13 @@
 use crate::domain::ids::{SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionRecord, SessionSource};
 use crate::persistence::sessions::{get_session, SessionStoreError};
+use crate::persistence::tasks::{
+    complete_task_in_transaction, get_task, TaskStoreError,
+};
 use crate::timer::runtime::{PersistedTimerExit, TimerRuntime, TimerRuntimeError};
 use crate::timer::{TaskExitReason, TimerAction, TimerError, TimerExit, TimerStateKind};
 use chrono::DateTime;
-use rusqlite::{params, Connection, OptionalExtension, Transaction, TransactionBehavior};
+use rusqlite::{params, Connection, Transaction, TransactionBehavior};
 use serde::Deserialize;
 use std::fmt::{Display, Formatter};
 
@@ -20,11 +23,10 @@ struct RuntimeAccountingCheckpoint {
 pub enum LiveTaskCompletionError {
     Runtime(TimerRuntimeError),
     Session(SessionStoreError),
+    Task(TaskStoreError),
     Sqlite(rusqlite::Error),
     CheckpointJson(serde_json::Error),
     InvalidTimestamp,
-    TaskNotFound(TaskId),
-    TaskInactive(TaskId),
     TaskAlreadyCompleted(TaskId),
     MissingCheckpoint,
     CorruptCheckpointSessionId(String),
@@ -40,8 +42,6 @@ pub enum LiveTaskCompletionError {
         stored_seconds: u64,
         attempted_seconds: u64,
     },
-    RankOverflow,
-    RankCompactionConflict,
 }
 
 impl Display for LiveTaskCompletionError {
@@ -49,6 +49,7 @@ impl Display for LiveTaskCompletionError {
         match self {
             Self::Runtime(error) => Display::fmt(error, formatter),
             Self::Session(error) => Display::fmt(error, formatter),
+            Self::Task(error) => Display::fmt(error, formatter),
             Self::Sqlite(error) => {
                 write!(formatter, "live task completion persistence failed: {error}")
             }
@@ -58,11 +59,6 @@ impl Display for LiveTaskCompletionError {
             Self::InvalidTimestamp => {
                 formatter.write_str("live task completion timestamp must be RFC 3339")
             }
-            Self::TaskNotFound(id) => write!(formatter, "live task not found: {id}"),
-            Self::TaskInactive(id) => write!(
-                formatter,
-                "live task is archived or its list is archived: {id}"
-            ),
             Self::TaskAlreadyCompleted(id) => {
                 write!(formatter, "live task is already completed: {id}")
             }
@@ -97,12 +93,6 @@ impl Display for LiveTaskCompletionError {
                 formatter,
                 "live task completion cannot decrease the open session duration: stored={stored_seconds}s attempted={attempted_seconds}s"
             ),
-            Self::RankOverflow => {
-                formatter.write_str("task ordering rank overflow during completion")
-            }
-            Self::RankCompactionConflict => formatter.write_str(
-                "task ordering changed unexpectedly while completing the live task",
-            ),
         }
     }
 }
@@ -112,6 +102,7 @@ impl std::error::Error for LiveTaskCompletionError {
         match self {
             Self::Runtime(error) => Some(error),
             Self::Session(error) => Some(error),
+            Self::Task(error) => Some(error),
             Self::Sqlite(error) => Some(error),
             Self::CheckpointJson(error) => Some(error),
             _ => None,
@@ -128,6 +119,15 @@ impl From<TimerRuntimeError> for LiveTaskCompletionError {
 impl From<SessionStoreError> for LiveTaskCompletionError {
     fn from(value: SessionStoreError) -> Self {
         Self::Session(value)
+    }
+}
+
+impl From<TaskStoreError> for LiveTaskCompletionError {
+    fn from(value: TaskStoreError) -> Self {
+        match value {
+            TaskStoreError::Sqlite(error) => Self::Sqlite(error),
+            other => Self::Task(other),
+        }
     }
 }
 
@@ -207,7 +207,9 @@ impl TimerRuntime {
     }
 }
 
-fn validate_timestamp(value: &str) -> Result<DateTime<chrono::FixedOffset>, LiveTaskCompletionError> {
+fn validate_timestamp(
+    value: &str,
+) -> Result<DateTime<chrono::FixedOffset>, LiveTaskCompletionError> {
     DateTime::parse_from_rfc3339(value).map_err(|_| LiveTaskCompletionError::InvalidTimestamp)
 }
 
@@ -245,42 +247,6 @@ fn load_checkpoint_accounting(
     Ok(checkpoint)
 }
 
-fn compact_active_bucket_ranks(
-    tx: &Transaction<'_>,
-    list_id: &str,
-    manual_lane: &str,
-    now: &str,
-) -> Result<(), LiveTaskCompletionError> {
-    let mut statement = tx.prepare(
-        "SELECT id
-         FROM tasks
-         WHERE list_id = ?1
-           AND manual_lane = ?2
-           AND completed_at IS NULL
-           AND archived_at IS NULL
-         ORDER BY sort_rank, id",
-    )?;
-    let rows = statement.query_map(params![list_id, manual_lane], |row| row.get::<_, String>(0))?;
-    let ids = rows.collect::<Result<Vec<_>, _>>()?;
-    drop(statement);
-
-    for (index, id) in ids.iter().enumerate() {
-        let rank = i64::try_from(index).map_err(|_| LiveTaskCompletionError::RankOverflow)?;
-        let changed = tx.execute(
-            "UPDATE tasks
-             SET sort_rank = ?1, updated_at = ?2
-             WHERE id = ?3
-               AND completed_at IS NULL
-               AND archived_at IS NULL",
-            params![rank, now, id],
-        )?;
-        if changed != 1 {
-            return Err(LiveTaskCompletionError::RankCompactionConflict);
-        }
-    }
-    Ok(())
-}
-
 fn complete_task_and_close_session(
     conn: &mut Connection,
     task_id: TaskId,
@@ -292,32 +258,8 @@ fn complete_task_and_close_session(
     let final_work_seconds = work_elapsed_ms / 1_000;
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
 
-    let task_state: Option<(String, String, Option<String>, Option<String>, Option<String>)> = tx
-        .query_row(
-            "SELECT tasks.list_id, tasks.manual_lane, tasks.completed_at, tasks.archived_at,
-                    lists.archived_at
-             FROM tasks
-             JOIN lists ON lists.id = tasks.list_id
-             WHERE tasks.id = ?1",
-            [task_id.to_string()],
-            |row| {
-                Ok((
-                    row.get(0)?,
-                    row.get(1)?,
-                    row.get(2)?,
-                    row.get(3)?,
-                    row.get(4)?,
-                ))
-            },
-        )
-        .optional()?;
-    let Some((list_id, manual_lane, completed_at, archived_at, list_archived_at)) = task_state else {
-        return Err(LiveTaskCompletionError::TaskNotFound(task_id));
-    };
-    if archived_at.is_some() || list_archived_at.is_some() {
-        return Err(LiveTaskCompletionError::TaskInactive(task_id));
-    }
-    if completed_at.is_some() {
+    let task = get_task(&tx, task_id)?;
+    if task.completed_at.is_some() {
         return Err(LiveTaskCompletionError::TaskAlreadyCompleted(task_id));
     }
 
@@ -368,16 +310,7 @@ fn complete_task_and_close_session(
         return Err(LiveTaskCompletionError::MissingCheckpoint);
     }
 
-    let completed = tx.execute(
-        "UPDATE tasks
-         SET completed_at = ?1, updated_at = ?1
-         WHERE id = ?2 AND completed_at IS NULL AND archived_at IS NULL",
-        params![wall_time, task_id.to_string()],
-    )?;
-    if completed != 1 {
-        return Err(LiveTaskCompletionError::TaskNotFound(task_id));
-    }
-    compact_active_bucket_ranks(&tx, &list_id, &manual_lane, wall_time)?;
+    complete_task_in_transaction(&tx, task_id, wall_time)?;
 
     let closed_session = get_session(&tx, session_id)?;
     tx.commit()?;
