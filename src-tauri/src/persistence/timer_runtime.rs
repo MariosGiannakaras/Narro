@@ -72,18 +72,15 @@ fn validate_mutation_timestamp(value: &str) -> Result<(), TimerRuntimeStoreError
 fn parsed_stored_timestamp(
     value: &str,
 ) -> Result<DateTime<chrono::FixedOffset>, TimerRuntimeStoreError> {
-    DateTime::parse_from_rfc3339(value).map_err(|_| {
-        SessionStoreError::CorruptStoredTimestamp(value.to_owned()).into()
-    })
+    DateTime::parse_from_rfc3339(value)
+        .map_err(|_| SessionStoreError::CorruptStoredTimestamp(value.to_owned()).into())
 }
 
-fn ensure_not_before_start(
-    started_at: &str,
-    now: &str,
-) -> Result<(), TimerRuntimeStoreError> {
+fn ensure_not_before_start(started_at: &str, now: &str) -> Result<(), TimerRuntimeStoreError> {
     let started = parsed_stored_timestamp(started_at)?;
-    let now = DateTime::parse_from_rfc3339(now)
-        .map_err(|_| TimerRuntimeStoreError::Session(SessionStoreError::InvalidMutationTimestamp))?;
+    let now = DateTime::parse_from_rfc3339(now).map_err(|_| {
+        TimerRuntimeStoreError::Session(SessionStoreError::InvalidMutationTimestamp)
+    })?;
     if now < started {
         return Err(SessionStoreError::EndBeforeStart.into());
     }
@@ -95,8 +92,9 @@ fn ensure_not_before_previous_update(
     now: &str,
 ) -> Result<(), TimerRuntimeStoreError> {
     let previous = parsed_stored_timestamp(updated_at)?;
-    let now = DateTime::parse_from_rfc3339(now)
-        .map_err(|_| TimerRuntimeStoreError::Session(SessionStoreError::InvalidMutationTimestamp))?;
+    let now = DateTime::parse_from_rfc3339(now).map_err(|_| {
+        TimerRuntimeStoreError::Session(SessionStoreError::InvalidMutationTimestamp)
+    })?;
     if now < previous {
         return Err(SessionStoreError::TimestampBeforePreviousUpdate.into());
     }
@@ -154,10 +152,7 @@ fn ensure_checkpoint_binding(
     match checkpoint_session_id(conn)? {
         None => Err(TimerRuntimeStoreError::MissingCheckpoint),
         Some(actual) if actual == expected => Ok(()),
-        Some(actual) => Err(TimerRuntimeStoreError::CheckpointBindingMismatch {
-            expected,
-            actual,
-        }),
+        Some(actual) => Err(TimerRuntimeStoreError::CheckpointBindingMismatch { expected, actual }),
     }
 }
 
