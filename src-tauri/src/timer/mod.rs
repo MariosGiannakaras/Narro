@@ -10,7 +10,9 @@ use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
 mod lifecycle;
+mod recovery;
 pub use lifecycle::{TaskExitReason, TimerExit, TimerSwitchResult};
+pub use recovery::{TimerRecoveryCheckpoint, TimerRecoveryPhase};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -136,6 +138,7 @@ pub enum TimerError {
     },
     ZeroDuration,
     DurationOverflow,
+    InvalidRecoveryState,
 }
 
 impl Display for TimerError {
@@ -158,6 +161,9 @@ impl Display for TimerError {
             }
             Self::ZeroDuration => formatter.write_str("timer durations must be greater than zero"),
             Self::DurationOverflow => formatter.write_str("timer duration arithmetic overflow"),
+            Self::InvalidRecoveryState => {
+                formatter.write_str("persisted timer recovery state is invalid")
+            }
         }
     }
 }

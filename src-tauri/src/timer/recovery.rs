@@ -33,30 +33,28 @@ impl TimerRecoveryCheckpoint {
             {
                 Ok(())
             }
-            (
-                TimerMode::EstCountdown { est_ms },
-                TimerRecoveryPhase::Paused,
-            ) if self.interval_work_ms < est_ms
-                && self.interval_work_ms == self.work_elapsed_ms =>
+            (TimerMode::EstCountdown { est_ms }, TimerRecoveryPhase::Paused)
+                if self.interval_work_ms < est_ms
+                    && self.interval_work_ms == self.work_elapsed_ms =>
             {
                 Ok(())
             }
-            (
-                TimerMode::EstCountdown { est_ms },
-                TimerRecoveryPhase::TimeUp,
-            ) if self.interval_work_ms == est_ms && self.work_elapsed_ms == est_ms => Ok(()),
-            (
-                TimerMode::EstCountdown { est_ms },
-                TimerRecoveryPhase::OvertimePaused,
-            ) if self.interval_work_ms >= est_ms
-                && self.interval_work_ms == self.work_elapsed_ms =>
+            (TimerMode::EstCountdown { est_ms }, TimerRecoveryPhase::TimeUp)
+                if self.interval_work_ms == est_ms && self.work_elapsed_ms == est_ms =>
             {
                 Ok(())
             }
-            (
-                TimerMode::Pomodoro { work_ms, .. },
-                TimerRecoveryPhase::Paused,
-            ) if self.interval_work_ms < work_ms => Ok(()),
+            (TimerMode::EstCountdown { est_ms }, TimerRecoveryPhase::OvertimePaused)
+                if self.interval_work_ms >= est_ms
+                    && self.interval_work_ms == self.work_elapsed_ms =>
+            {
+                Ok(())
+            }
+            (TimerMode::Pomodoro { work_ms, .. }, TimerRecoveryPhase::Paused)
+                if self.interval_work_ms < work_ms =>
+            {
+                Ok(())
+            }
             _ => Err(TimerError::InvalidRecoveryState),
         }
     }
@@ -157,7 +155,9 @@ mod tests {
     #[test]
     fn running_count_up_restores_paused_and_process_downtime_is_not_counted() {
         let mut engine = TimerEngine::new();
-        engine.start_task(task(1), TimerMode::CountUp, 1_000).unwrap();
+        engine
+            .start_task(task(1), TimerMode::CountUp, 1_000)
+            .unwrap();
 
         let checkpoint = engine
             .recovery_checkpoint(6_000)
@@ -226,7 +226,10 @@ mod tests {
         let mut engine = TimerEngine::new();
         engine.start_task(task(4), TimerMode::CountUp, 0).unwrap();
         engine.start_manual_break(10_000, 4_000).unwrap();
-        assert_eq!(engine.snapshot(7_000).unwrap().break_kind, Some(BreakKind::Manual));
+        assert_eq!(
+            engine.snapshot(7_000).unwrap().break_kind,
+            Some(BreakKind::Manual)
+        );
 
         let checkpoint = engine
             .recovery_checkpoint(7_000)
