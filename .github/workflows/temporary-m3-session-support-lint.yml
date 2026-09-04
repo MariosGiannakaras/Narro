@@ -1,0 +1,48 @@
+name: Temporary M3 Session Test Support Lint
+
+on:
+  push:
+    branches:
+      - m3-session-persistence-recovery
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, '[m3-support-fix]') && !contains(github.event.head_commit.message, '[m3-session-fix]') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-session-persistence-recovery
+      - name: Scope shared test-support dead-code lint
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          @'
+          from pathlib import Path
+          path = Path('src-tauri/tests/session_runtime_persistence.rs')
+          text = path.read_text()
+          old = 'mod support;\n'
+          new = '#[allow(dead_code)]\nmod support;\n'
+          if new not in text:
+              if old not in text:
+                  raise SystemExit('could not locate support module declaration')
+              text = text.replace(old, new, 1)
+              path.write_text(text)
+          '@ | python -
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Commit scoped lint fix
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (git status --porcelain -- src-tauri/tests/session_runtime_persistence.rs)) {
+            Write-Host 'Lint scope already applied.'
+            exit 0
+          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri/tests/session_runtime_persistence.rs
+          git commit -m "Scope M3 shared test fixtures [m3-support-fix]"
+          git push origin HEAD:m3-session-persistence-recovery
