@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   precheck:
-    if: ${{ !contains(github.event.head_commit.message, 'Apply M3 session precheck fixes') }}
+    if: ${{ !contains(github.event.head_commit.message, '[m3-session-fix]') }}
     runs-on: windows-2025
     steps:
       - uses: actions/checkout@v4
@@ -19,58 +19,107 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
-      - name: Wire modules and migration
+      - name: Patch same-session Time's Up and Extend persistence
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
           @'
           from pathlib import Path
 
-          persistence = Path('src-tauri/src/persistence/mod.rs')
-          text = persistence.read_text()
-          if 'pub mod sessions;' not in text:
-              text = text.replace('pub mod recurrence;\n', 'pub mod recurrence;\npub mod sessions;\n', 1)
-          migration2 = '        M::up(include_str!("../../migrations/0002_domain_foundation.sql")),\n'
-          migration3 = migration2 + '        M::up(include_str!("../../migrations/0003_focus_runtime_recovery.sql")),\n'
-          if '0003_focus_runtime_recovery.sql' not in text:
-              if migration2 not in text:
-                  raise SystemExit('could not locate migration 0002 insertion point')
-              text = text.replace(migration2, migration3, 1)
-          if '"focus_runtime_recovery",' not in text:
-              marker = '            "preferences",\n'
-              if marker not in text:
-                  raise SystemExit('could not locate migration table assertion insertion point')
-              text = text.replace(marker, marker + '            "focus_runtime_recovery",\n', 1)
-          persistence.write_text(text)
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              if old not in text:
+                  if new in text:
+                      return text
+                  raise SystemExit(f'could not locate {label}')
+              return text.replace(old, new, 1)
 
-          timer = Path('src-tauri/src/timer/mod.rs')
-          text = timer.read_text()
-          if 'mod recovery;' not in text:
-              marker = 'use crate::domain::ids::TaskId;\n'
-              if marker not in text:
-                  raise SystemExit('could not locate timer module insertion point')
-              text = text.replace(
-                  marker,
-                  'mod recovery;\npub use recovery::{TimerRecoveryError, TimerRecoveryState};\n\n' + marker,
-                  1,
-              )
-          timer.write_text(text)
+          def replace_between(text: str, start: str, end: str, replacement: str, label: str) -> str:
+              begin = text.find(start)
+              if begin < 0:
+                  raise SystemExit(f'could not locate start of {label}')
+              finish = text.find(end, begin)
+              if finish < 0:
+                  raise SystemExit(f'could not locate end of {label}')
+              return text[:begin] + replacement + text[finish:]
 
           sessions = Path('src-tauri/src/persistence/sessions.rs')
-          text = sessions.read_text().replace(
-              'use crate::domain::ids::{ListId, SessionId, TaskId};',
-              'use crate::domain::ids::{SessionId, TaskId};',
-              1,
+          text = sessions.read_text()
+
+          text = replace_once(
+              text,
+              '''pub struct FocusTransitionResult {\n    pub closed_session: Option<SessionRecord>,\n    pub opened_session: Option<SessionRecord>,\n}\n''',
+              '''pub struct FocusTransitionResult {\n    pub closed_session: Option<SessionRecord>,\n    pub opened_session: Option<SessionRecord>,\n    pub retained_session: Option<SessionRecord>,\n}\n''',
+              'FocusTransitionResult',
+          )
+          text = replace_once(
+              text,
+              '''pub struct FocusRecoveryRecord {\n    pub timer: TimerRecoveryState,\n    pub active_session_id: Option<SessionId>,\n    pub updated_at: String,\n}\n''',
+              '''pub struct FocusRecoveryRecord {\n    pub timer: TimerRecoveryState,\n    pub active_session_id: Option<SessionId>,\n    pub active_session_base_ms: u64,\n    pub updated_at: String,\n}\n\n#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]\nstruct StoredFocusRecoveryPayload {\n    timer: TimerRecoveryState,\n    active_session_base_ms: u64,\n}\n''',
+              'FocusRecoveryRecord',
+          )
+
+          checkpoint_helper = '''fn checkpoint_focus_session_in_tx(\n    tx: &Transaction<'_>,\n    id: SessionId,\n    duration_ms: u64,\n    updated_at: &str,\n) -> Result<SessionRecord, SessionPersistenceError> {\n    let current = session_by_id(tx, id)?;\n    if current.ended_at.is_some() {\n        return Err(SessionPersistenceError::SessionAlreadyClosed(id));\n    }\n    if current.source != SessionSource::Focus {\n        return Err(SessionPersistenceError::SessionNotFocusOwned(id));\n    }\n    let next_duration = duration_seconds(duration_ms)?;\n    if u64::try_from(next_duration).map_err(|_| SessionPersistenceError::DurationOverflow)?\n        < current.duration_seconds\n    {\n        return Err(SessionPersistenceError::DurationRegressed(id));\n    }\n\n    tx.execute(\n        "UPDATE sessions\n         SET duration_seconds = ?1, updated_at = ?2\n         WHERE id = ?3 AND ended_at IS NULL",\n        params![next_duration, updated_at, id.to_string()],\n    )?;\n    session_by_id(tx, id)\n}\n\nfn validate_retained_focus_session(\n    tx: &Transaction<'_>,\n    id: SessionId,\n    task_id: TaskId,\n    kind: SessionKind,\n) -> Result<SessionRecord, SessionPersistenceError> {\n    let current = session_by_id(tx, id)?;\n    if current.ended_at.is_some() {\n        return Err(SessionPersistenceError::SessionAlreadyClosed(id));\n    }\n    if current.source != SessionSource::Focus {\n        return Err(SessionPersistenceError::SessionNotFocusOwned(id));\n    }\n    if current.task_id != Some(task_id) {\n        return Err(SessionPersistenceError::SessionTaskMismatch(id));\n    }\n    if current.kind != kind {\n        return Err(SessionPersistenceError::SessionKindMismatch(id));\n    }\n    Ok(current)\n}\n\n'''
+          marker = 'fn save_recovery_in_tx(\n'
+          if 'fn checkpoint_focus_session_in_tx(' not in text:
+              idx = text.find(marker)
+              if idx < 0:
+                  raise SystemExit('could not locate save_recovery_in_tx insertion point')
+              text = text[:idx] + checkpoint_helper + text[idx:]
+
+          save_recovery = '''fn save_recovery_in_tx(\n    tx: &Transaction<'_>,\n    timer: &TimerRecoveryState,\n    active_session_id: Option<SessionId>,\n    active_session_base_ms: u64,\n    now: &str,\n) -> Result<(), SessionPersistenceError> {\n    let payload = serde_json::to_string(&StoredFocusRecoveryPayload {\n        timer: timer.clone(),\n        active_session_base_ms,\n    })?;\n    tx.execute(\n        "INSERT INTO focus_runtime_recovery (\n            id, task_id, active_session_id, schema_version, payload_json, updated_at\n         ) VALUES (1, ?1, ?2, ?3, ?4, ?5)\n         ON CONFLICT(id) DO UPDATE SET\n            task_id = excluded.task_id,\n            active_session_id = excluded.active_session_id,\n            schema_version = excluded.schema_version,\n            payload_json = excluded.payload_json,\n            updated_at = excluded.updated_at",\n        params![\n            timer.task_id.to_string(),\n            active_session_id.map(|id| id.to_string()),\n            RECOVERY_SCHEMA_VERSION,\n            payload,\n            now\n        ],\n    )?;\n    Ok(())\n}\n\n'''
+          text = replace_between(
+              text,
+              'fn save_recovery_in_tx(\n',
+              'fn load_recovery_from_connection(\n',
+              save_recovery,
+              'save_recovery_in_tx',
+          )
+
+          load_recovery = '''fn load_recovery_from_connection(\n    conn: &Connection,\n) -> Result<Option<FocusRecoveryRecord>, SessionPersistenceError> {\n    let row: Option<(String, Option<String>, i64, String, String)> = conn\n        .query_row(\n            "SELECT task_id, active_session_id, schema_version, payload_json, updated_at\n             FROM focus_runtime_recovery\n             WHERE id = 1",\n            [],\n            |row| {\n                Ok((\n                    row.get(0)?,\n                    row.get(1)?,\n                    row.get(2)?,\n                    row.get(3)?,\n                    row.get(4)?,\n                ))\n            },\n        )\n        .optional()?;\n\n    let Some((task_id, active_session_id, version, payload, updated_at)) = row else {\n        return Ok(None);\n    };\n    if version != RECOVERY_SCHEMA_VERSION {\n        return Err(SessionPersistenceError::UnsupportedRecoveryVersion(version));\n    }\n    let task_id = TaskId::parse_str(&task_id)\n        .map_err(|_| SessionPersistenceError::InvalidStoredTaskId(task_id))?;\n    let active_session_id = active_session_id\n        .map(|value| {\n            SessionId::parse_str(&value)\n                .map_err(|_| SessionPersistenceError::InvalidStoredSessionId(value))\n        })\n        .transpose()?;\n    let payload: StoredFocusRecoveryPayload = serde_json::from_str(&payload)?;\n    if payload.timer.task_id != task_id {\n        return Err(SessionPersistenceError::RecoveryTaskMismatch);\n    }\n\n    Ok(Some(FocusRecoveryRecord {\n        timer: payload.timer,\n        active_session_id,\n        active_session_base_ms: payload.active_session_base_ms,\n        updated_at,\n    }))\n}\n\n'''
+          text = replace_between(
+              text,
+              'fn load_recovery_from_connection(\n',
+              'pub fn load_focus_recovery(\n',
+              load_recovery,
+              'load_recovery_from_connection',
+          )
+
+          persist_transition = '''pub fn persist_focus_transition(\n    conn: &mut Connection,\n    close: Option<CloseFocusSession>,\n    open: Option<OpenFocusSession>,\n    recovery: &TimerRecoveryState,\n    now: &str,\n) -> Result<FocusTransitionResult, SessionPersistenceError> {\n    validate_timestamp(now)?;\n    let tx = conn.transaction()?;\n    let previous = load_recovery_from_connection(&tx)?;\n    let expected_kind = expected_active_kind(recovery.state);\n\n    let mut closed_session = None;\n    let mut opened_session = None;\n    let mut retained_session = None;\n    let mut active_session_id = None;\n    let mut active_session_base_ms = 0;\n\n    if recovery.state == TimerStateKind::TimeUp {\n        if open.is_some() {\n            return Err(SessionPersistenceError::InvalidTransitionShape);\n        }\n        let hold = close.ok_or(SessionPersistenceError::InvalidTransitionShape)?;\n        let previous = previous\n            .as_ref()\n            .ok_or(SessionPersistenceError::InvalidTransitionShape)?;\n        if previous.timer.state != TimerStateKind::Running\n            || previous.timer.task_id != recovery.task_id\n            || previous.active_session_id != Some(hold.id)\n        {\n            return Err(SessionPersistenceError::InvalidTransitionShape);\n        }\n        validate_retained_focus_session(&tx, hold.id, recovery.task_id, SessionKind::Work)?;\n        let held = checkpoint_focus_session_in_tx(&tx, hold.id, hold.duration_ms, now)?;\n        active_session_id = Some(hold.id);\n        active_session_base_ms = hold.duration_ms;\n        retained_session = Some(held);\n    } else {\n        closed_session = close\n            .map(|input| close_focus_session_in_tx(&tx, input, now))\n            .transpose()?;\n\n        let existing_open = open_session_id(&tx)?;\n        match expected_kind {\n            Some(expected) => {\n                if let Some(input) = open {\n                    if input.kind != expected || input.task_id != recovery.task_id {\n                        return Err(SessionPersistenceError::InvalidTransitionShape);\n                    }\n                    if let Some(orphan) = existing_open {\n                        return Err(SessionPersistenceError::OrphanOpenSession(orphan));\n                    }\n                    let opened = open_focus_session_in_tx(&tx, input, now)?;\n                    active_session_id = Some(opened.id);\n                    opened_session = Some(opened);\n                } else {\n                    let previous = previous\n                        .as_ref()\n                        .ok_or(SessionPersistenceError::InvalidTransitionShape)?;\n                    let retained_id = previous\n                        .active_session_id\n                        .ok_or(SessionPersistenceError::InvalidTransitionShape)?;\n                    if recovery.state != TimerStateKind::OvertimeRunning\n                        || previous.timer.state != TimerStateKind::TimeUp\n                        || previous.timer.task_id != recovery.task_id\n                        || existing_open != Some(retained_id)\n                    {\n                        return Err(SessionPersistenceError::InvalidTransitionShape);\n                    }\n                    let retained = validate_retained_focus_session(\n                        &tx,\n                        retained_id,\n                        recovery.task_id,\n                        expected,\n                    )?;\n                    active_session_id = Some(retained_id);\n                    active_session_base_ms = previous.active_session_base_ms;\n                    retained_session = Some(retained);\n                }\n            }\n            None => {\n                if open.is_some() {\n                    return Err(SessionPersistenceError::InvalidTransitionShape);\n                }\n                if let Some(orphan) = existing_open {\n                    return Err(SessionPersistenceError::OrphanOpenSession(orphan));\n                }\n            }\n        }\n    }\n\n    save_recovery_in_tx(\n        &tx,\n        recovery,\n        active_session_id,\n        active_session_base_ms,\n        now,\n    )?;\n    tx.commit()?;\n\n    Ok(FocusTransitionResult {\n        closed_session,\n        opened_session,\n        retained_session,\n    })\n}\n\n'''
+          text = replace_between(
+              text,
+              'pub fn persist_focus_transition(\n',
+              'pub fn checkpoint_focus_runtime(\n',
+              persist_transition,
+              'persist_focus_transition',
+          )
+
+          checkpoint_runtime = '''pub fn checkpoint_focus_runtime(\n    conn: &mut Connection,\n    active_session_id: SessionId,\n    recovery: &TimerRecoveryState,\n    now: &str,\n) -> Result<SessionRecord, SessionPersistenceError> {\n    validate_timestamp(now)?;\n    let expected_kind = expected_active_kind(recovery.state)\n        .ok_or(SessionPersistenceError::InvalidTransitionShape)?;\n    let segment_ms = recovery\n        .active_segment_elapsed_ms\n        .ok_or(SessionPersistenceError::InvalidTransitionShape)?;\n\n    let tx = conn.transaction()?;\n    let stored = load_recovery_from_connection(&tx)?\n        .ok_or(SessionPersistenceError::InvalidTransitionShape)?;\n    if stored.timer.task_id != recovery.task_id\n        || stored.active_session_id != Some(active_session_id)\n    {\n        return Err(SessionPersistenceError::InvalidTransitionShape);\n    }\n    let current = validate_retained_focus_session(\n        &tx,\n        active_session_id,\n        recovery.task_id,\n        expected_kind,\n    )?;\n    let next_duration_ms = stored\n        .active_session_base_ms\n        .checked_add(segment_ms)\n        .ok_or(SessionPersistenceError::DurationOverflow)?;\n    let next_duration = duration_seconds(next_duration_ms)?;\n    if u64::try_from(next_duration).map_err(|_| SessionPersistenceError::DurationOverflow)?\n        < current.duration_seconds\n    {\n        return Err(SessionPersistenceError::DurationRegressed(\n            active_session_id,\n        ));\n    }\n\n    tx.execute(\n        "UPDATE sessions\n         SET duration_seconds = ?1, updated_at = ?2\n         WHERE id = ?3 AND ended_at IS NULL",\n        params![next_duration, now, active_session_id.to_string()],\n    )?;\n    save_recovery_in_tx(\n        &tx,\n        recovery,\n        Some(active_session_id),\n        stored.active_session_base_ms,\n        now,\n    )?;\n    let updated = session_by_id(&tx, active_session_id)?;\n    tx.commit()?;\n    Ok(updated)\n}\n\n'''
+          text = replace_between(
+              text,
+              'pub fn checkpoint_focus_runtime(\n',
+              'pub fn clear_focus_recovery(',
+              checkpoint_runtime,
+              'checkpoint_focus_runtime',
+          )
+
+          text = replace_once(
+              text,
+              'save_recovery_in_tx(&tx, &normalized, None, restarted_at)?;',
+              'save_recovery_in_tx(&tx, &normalized, None, 0, restarted_at)?;',
+              'recovery normalization save',
           )
           sessions.write_text(text)
 
-          recovery = Path('src-tauri/src/timer/recovery.rs')
-          text = recovery.read_text().replace(
-              '    BreakKind, RuntimeState, TimerEngine, TimerError, TimerMode, TimerStateKind, WorkPhase,\n',
-              '    RuntimeState, TimerEngine, TimerError, TimerMode, TimerStateKind, WorkPhase,\n',
-              1,
-          )
-          recovery.write_text(text)
+          tests = Path('src-tauri/tests/session_runtime_persistence.rs')
+          test_text = tests.read_text()
+          same_session_test = '''\n#[test]\nfn time_up_extend_preserves_one_work_session_identity_and_accumulates_overtime() {\n    let mut conn = migrated();\n    let task = task_fixture(&conn, 44);\n    let mut engine = TimerEngine::new();\n    engine\n        .start_task(task.id, TimerMode::EstCountdown { est_ms: 5_000 }, 0)\n        .expect("start EST timer");\n\n    let initial = engine\n        .recovery_state(0)\n        .expect("export initial recovery")\n        .expect("initial recovery");\n    let work = persist_focus_transition(\n        &mut conn,\n        None,\n        Some(OpenFocusSession {\n            task_id: task.id,\n            kind: SessionKind::Work,\n        }),\n        &initial,\n        STARTED_AT,\n    )\n    .expect("persist initial work")\n    .opened_session\n    .expect("open work session");\n\n    engine.advance(6_000).expect("reach Time's Up");\n    let time_up = engine\n        .recovery_state(6_000)\n        .expect("export Time's Up recovery")\n        .expect("Time's Up recovery");\n    assert_eq!(time_up.state, TimerStateKind::TimeUp);\n    let held = persist_focus_transition(\n        &mut conn,\n        Some(CloseFocusSession {\n            id: work.id,\n            duration_ms: 5_000,\n        }),\n        None,\n        &time_up,\n        CHECKPOINT_AT,\n    )\n    .expect("hold work session at Time's Up");\n    assert!(held.closed_session.is_none());\n    assert!(held.opened_session.is_none());\n    let held_session = held.retained_session.expect("retained Time's Up work session");\n    assert_eq!(held_session.id, work.id);\n    assert_eq!(held_session.duration_seconds, 5);\n    assert!(held_session.ended_at.is_none());\n    let held_recovery = load_focus_recovery(&conn)\n        .expect("load Time's Up recovery")\n        .expect("stored Time's Up recovery");\n    assert_eq!(held_recovery.active_session_id, Some(work.id));\n    assert_eq!(held_recovery.active_session_base_ms, 5_000);\n\n    engine.extend(6_000).expect("extend into overtime");\n    let extended = engine\n        .recovery_state(6_000)\n        .expect("export overtime recovery")\n        .expect("overtime recovery");\n    let resumed = persist_focus_transition(&mut conn, None, None, &extended, PAUSED_AT)\n        .expect("continue retained work session into overtime");\n    assert!(resumed.opened_session.is_none());\n    assert_eq!(\n        resumed.retained_session.expect("retained overtime work").id,\n        work.id\n    );\n\n    let overtime = engine\n        .recovery_state(9_000)\n        .expect("export overtime checkpoint")\n        .expect("overtime checkpoint");\n    let checkpointed = checkpoint_focus_runtime(\n        &mut conn,\n        work.id,\n        &overtime,\n        RESUMED_AT,\n    )\n    .expect("checkpoint overtime on retained work session");\n    assert_eq!(checkpointed.id, work.id);\n    assert_eq!(checkpointed.duration_seconds, 8);\n\n    engine.pause(9_000).expect("pause overtime");\n    let paused = engine\n        .recovery_state(9_000)\n        .expect("export overtime pause")\n        .expect("overtime pause recovery");\n    let closed = persist_focus_transition(\n        &mut conn,\n        Some(CloseFocusSession {\n            id: work.id,\n            duration_ms: 8_000,\n        }),\n        None,\n        &paused,\n        BREAK_AT,\n    )\n    .expect("close retained overtime work on pause")\n    .closed_session\n    .expect("closed retained work session");\n    assert_eq!(closed.id, work.id);\n    assert_eq!(closed.duration_seconds, 8);\n    assert!(closed.ended_at.is_some());\n\n    let sessions = sessions_for_task(&conn, task.id).expect("load EST work history");\n    assert_eq!(sessions.len(), 1);\n    assert_eq!(sessions[0].id, work.id);\n    assert_eq!(sessions[0].duration_seconds, 8);\n    assert_eq!(\n        task_time_taken_seconds(&conn, task.id).expect("reconcile EST overtime Time Taken"),\n        8\n    );\n}\n\n'''
+          marker = '#[test]\nfn database_rejects_a_second_unfinished_session_even_outside_service_layer() {'
+          if 'fn time_up_extend_preserves_one_work_session_identity_and_accumulates_overtime()' not in test_text:
+              idx = test_text.find(marker)
+              if idx < 0:
+                  raise SystemExit('could not locate integration test insertion point')
+              test_text = test_text[:idx] + same_session_test + test_text[idx:]
+          tests.write_text(test_text)
           '@ | python -
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Rust format
@@ -85,7 +134,7 @@ jobs:
       - name: Rust tests
         shell: pwsh
         run: cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked
-      - name: Commit validated wiring and formatting
+      - name: Commit validated semantic fixes
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
@@ -96,5 +145,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src-tauri
-          git commit -m "Apply M3 session precheck fixes"
+          git commit -m "Fix M3 Time's Up session continuity [m3-session-fix]"
           git push origin HEAD:m3-session-persistence-recovery
