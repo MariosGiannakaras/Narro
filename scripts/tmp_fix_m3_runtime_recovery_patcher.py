@@ -52,5 +52,10 @@ if text.count(old_import) != 1:
     raise SystemExit(f"expected one recovery-test ID import, found {text.count(old_import)}")
 text = text.replace(old_import, "use narro_lib::domain::ids::TaskId;")
 
+old_drop = "    drop(runtime);\n"
+if text.count(old_drop) != 4:
+    raise SystemExit(f"expected four non-Drop runtime test drops, found {text.count(old_drop)}")
+text = text.replace(old_drop, "")
+
 path.write_text(text, encoding="utf-8")
 print("Temporary M3 recovery patcher hardened")
