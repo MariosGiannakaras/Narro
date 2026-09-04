@@ -1,5 +1,6 @@
 pub mod lists;
 pub mod live_completion;
+pub mod live_time_taken;
 pub mod notes;
 pub mod preferences;
 pub mod recurrence;
