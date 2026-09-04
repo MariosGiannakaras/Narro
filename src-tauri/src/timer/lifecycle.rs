@@ -46,11 +46,8 @@ impl TimerEngine {
     ) -> Result<TimerSwitchResult, TimerError> {
         mode.validate()?;
         let mut candidate = self.clone();
-        let previous = candidate.exit_task_inner(
-            TaskExitReason::Switch,
-            TimerAction::SwitchTask,
-            now_ms,
-        )?;
+        let previous =
+            candidate.exit_task_inner(TaskExitReason::Switch, TimerAction::SwitchTask, now_ms)?;
         let current = candidate.start_task(task_id, mode, now_ms)?;
         *self = candidate;
         Ok(TimerSwitchResult { previous, current })
@@ -115,7 +112,9 @@ mod tests {
     #[test]
     fn finish_captures_running_work_then_returns_engine_to_idle() {
         let mut engine = TimerEngine::new();
-        engine.start_task(task(1), TimerMode::CountUp, 1_000).unwrap();
+        engine
+            .start_task(task(1), TimerMode::CountUp, 1_000)
+            .unwrap();
 
         let exit = engine.finish_task(5_500).unwrap();
         assert_eq!(exit.reason, TaskExitReason::Done);
@@ -148,7 +147,9 @@ mod tests {
             .start_task(task(3), TimerMode::EstCountdown { est_ms: 3_000 }, 0)
             .unwrap();
 
-        let switched = engine.switch_task(task(4), TimerMode::CountUp, 5_000).unwrap();
+        let switched = engine
+            .switch_task(task(4), TimerMode::CountUp, 5_000)
+            .unwrap();
         assert_eq!(switched.previous.reason, TaskExitReason::Switch);
         assert_eq!(switched.previous.task_id, task(3));
         assert_eq!(switched.previous.final_state, TimerStateKind::TimeUp);
@@ -165,14 +166,12 @@ mod tests {
     #[test]
     fn switch_while_running_closes_old_work_at_switch_timestamp() {
         let mut engine = TimerEngine::new();
-        engine.start_task(task(5), TimerMode::CountUp, 1_000).unwrap();
+        engine
+            .start_task(task(5), TimerMode::CountUp, 1_000)
+            .unwrap();
 
         let switched = engine
-            .switch_task(
-                task(6),
-                TimerMode::EstCountdown { est_ms: 10_000 },
-                3_500,
-            )
+            .switch_task(task(6), TimerMode::EstCountdown { est_ms: 10_000 }, 3_500)
             .unwrap();
         assert_eq!(switched.previous.task_id, task(5));
         assert_eq!(switched.previous.work_elapsed_ms, 2_500);

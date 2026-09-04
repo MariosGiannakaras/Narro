@@ -9,6 +9,9 @@ use crate::domain::ids::TaskId;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
+mod lifecycle;
+pub use lifecycle::{TaskExitReason, TimerExit, TimerSwitchResult};
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum TimerStateKind {
@@ -113,6 +116,9 @@ pub enum TimerAction {
     StartManualBreak,
     FinishBreak,
     SkipBreak,
+    FinishTask,
+    SkipTask,
+    SwitchTask,
     Extend,
 }
 
