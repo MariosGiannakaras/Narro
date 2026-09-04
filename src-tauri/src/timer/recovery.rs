@@ -54,13 +54,11 @@ impl TimerEngine {
 
         let phase = match mode {
             TimerMode::CountUp => WorkPhase::Paused,
-            TimerMode::EstCountdown { est_ms } => {
-                if persisted_work_ms > est_ms {
-                    WorkPhase::OvertimePaused
-                } else {
-                    WorkPhase::Paused
-                }
-            }
+            TimerMode::EstCountdown { est_ms } => match persisted_work_ms.cmp(&est_ms) {
+                std::cmp::Ordering::Less => WorkPhase::Paused,
+                std::cmp::Ordering::Equal => WorkPhase::TimeUp,
+                std::cmp::Ordering::Greater => WorkPhase::OvertimePaused,
+            },
             TimerMode::Pomodoro { work_ms, .. } => {
                 if persisted_work_ms >= work_ms {
                     return Err(TimerRecoveryError::PomodoroBoundaryAmbiguous {
@@ -116,7 +114,7 @@ mod tests {
     }
 
     #[test]
-    fn est_recovery_preserves_remaining_or_overtime_without_running() {
+    fn est_recovery_preserves_pre_limit_time_up_and_overtime_states_without_running() {
         let (_, before_limit) = TimerEngine::restore_interrupted_work_paused(
             task(),
             TimerMode::EstCountdown { est_ms: 10_000 },
@@ -126,6 +124,16 @@ mod tests {
         .unwrap();
         assert_eq!(before_limit.state, super::super::TimerStateKind::Paused);
         assert_eq!(before_limit.countdown_remaining_ms, Some(4_000));
+
+        let (_, time_up) = TimerEngine::restore_interrupted_work_paused(
+            task(),
+            TimerMode::EstCountdown { est_ms: 10_000 },
+            10_000,
+            50_000,
+        )
+        .unwrap();
+        assert_eq!(time_up.state, super::super::TimerStateKind::TimeUp);
+        assert_eq!(time_up.countdown_remaining_ms, Some(0));
 
         let (_, overtime) = TimerEngine::restore_interrupted_work_paused(
             task(),
