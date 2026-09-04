@@ -74,13 +74,10 @@ fn checkpointed_open_work_recovers_paused_without_counting_process_downtime() {
     {
         let mut conn = Connection::open(&path).expect("reopen recovery fixture database");
         run_migrations(&mut conn).expect("re-run migrations after process restart");
-        let (mut coordinator, recovered) = SessionCoordinator::recover_open_work_paused(
-            &conn,
-            TimerMode::CountUp,
-            100_000,
-        )
-        .expect("recover open work")
-        .expect("open work exists");
+        let (mut coordinator, recovered) =
+            SessionCoordinator::recover_open_work_paused(&conn, TimerMode::CountUp, 100_000)
+                .expect("recover open work")
+                .expect("open work exists");
 
         assert_eq!(coordinator.open_work_session_id(), Some(session_id));
         assert_eq!(recovered.state, TimerStateKind::Paused);
@@ -130,7 +127,9 @@ fn est_time_up_extend_and_completion_keep_one_persisted_work_session_and_time_ta
     assert_eq!(time_up.work_elapsed_ms, 5_000);
     assert_eq!(get_session(&conn, session_id).unwrap().duration_seconds, 5);
 
-    let extended = coordinator.extend(10_000).expect("extend same work runtime");
+    let extended = coordinator
+        .extend(10_000)
+        .expect("extend same work runtime");
     assert_eq!(extended.state, TimerStateKind::OvertimeRunning);
     assert_eq!(coordinator.open_work_session_id(), Some(session_id));
 
@@ -160,5 +159,8 @@ fn failed_second_start_leaves_candidate_engine_idle_when_database_rejects_duplic
         .is_err());
     assert_eq!(rejected.snapshot(0).unwrap().state, TimerStateKind::Idle);
     assert_eq!(rejected.open_work_session_id(), None);
-    assert_eq!(get_open_session(&conn).unwrap().unwrap().task_id, Some(first.id));
+    assert_eq!(
+        get_open_session(&conn).unwrap().unwrap().task_id,
+        Some(first.id)
+    );
 }

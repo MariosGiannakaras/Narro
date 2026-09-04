@@ -1,5 +1,6 @@
 use super::{
-    TaskExitReason, TimerEngine, TimerError, TimerExit, TimerMode, TimerRecoveryError, TimerSnapshot,
+    TaskExitReason, TimerEngine, TimerError, TimerExit, TimerMode, TimerRecoveryError,
+    TimerSnapshot,
 };
 use crate::domain::ids::{SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionRecord, SessionSource};
@@ -210,19 +211,18 @@ impl SessionCoordinator {
                 source: session.source,
             });
         }
-        let task_id = session
-            .task_id
-            .ok_or(SessionCoordinatorError::OpenWorkSessionMissingTask(session.id))?;
+        let task_id =
+            session
+                .task_id
+                .ok_or(SessionCoordinatorError::OpenWorkSessionMissingTask(
+                    session.id,
+                ))?;
         let persisted_work_ms = session
             .duration_seconds
             .checked_mul(1_000)
             .ok_or(TimerError::DurationOverflow)?;
-        let (engine, snapshot) = TimerEngine::restore_interrupted_work_paused(
-            task_id,
-            mode,
-            persisted_work_ms,
-            now_ms,
-        )?;
+        let (engine, snapshot) =
+            TimerEngine::restore_interrupted_work_paused(task_id, mode, persisted_work_ms, now_ms)?;
         Ok(Some((
             Self {
                 engine,
@@ -244,7 +244,9 @@ impl SessionCoordinator {
         let timer = match reason {
             TaskExitReason::Done => candidate.finish_task(now_ms)?,
             TaskExitReason::Skip => candidate.skip_task(now_ms)?,
-            TaskExitReason::Switch => unreachable!("switch requires an atomic close/open transition"),
+            TaskExitReason::Switch => {
+                unreachable!("switch requires an atomic close/open transition")
+            }
         };
         let session = close_session(
             conn,

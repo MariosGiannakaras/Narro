@@ -9,8 +9,12 @@ use crate::domain::ids::TaskId;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
+mod coordinator;
 mod lifecycle;
+mod recovery;
+pub use coordinator::{PersistedTimerExit, SessionCoordinator, SessionCoordinatorError};
 pub use lifecycle::{TaskExitReason, TimerExit, TimerSwitchResult};
+pub use recovery::TimerRecoveryError;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
