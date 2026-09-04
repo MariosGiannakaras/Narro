@@ -4,7 +4,7 @@ use crate::domain::tasks::{SetTaskTimeTakenInput, TaskRecord, TaskSchedule};
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
 use chrono::{DateTime, NaiveDate, NaiveTime};
-use rusqlite::{params, Connection};
+use rusqlite::{params, Connection, TransactionBehavior};
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
@@ -16,6 +16,7 @@ pub enum TaskMetadataError {
     ArchivedTask(TaskId),
     CompletedTask(TaskId),
     ArchivedList(ListId),
+    LiveTaskRequiresRuntimeBoundary(TaskId),
     InvalidScheduleDate,
     InvalidScheduleTime,
     InvalidScheduleTimezone,
@@ -35,6 +36,10 @@ impl Display for TaskMetadataError {
             Self::ArchivedTask(id) => write!(formatter, "task is archived: {id}"),
             Self::CompletedTask(id) => write!(formatter, "task is completed: {id}"),
             Self::ArchivedList(id) => write!(formatter, "task list is archived: {id}"),
+            Self::LiveTaskRequiresRuntimeBoundary(id) => write!(
+                formatter,
+                "live task Time Taken must be edited through the paused timer runtime boundary: {id}"
+            ),
             Self::InvalidScheduleDate => {
                 formatter.write_str("scheduled local date must use YYYY-MM-DD")
             }
@@ -177,6 +182,19 @@ fn persisted_work_seconds(conn: &Connection, id: TaskId) -> Result<i64, TaskMeta
     Ok(total)
 }
 
+fn has_live_focus_session(conn: &Connection, id: TaskId) -> Result<bool, TaskMetadataError> {
+    let exists: i64 = conn.query_row(
+        "SELECT EXISTS(
+            SELECT 1
+            FROM sessions
+            WHERE task_id = ?1 AND ended_at IS NULL AND source = 'focus'
+         )",
+        [id.to_string()],
+        |row| row.get(0),
+    )?;
+    Ok(exists != 0)
+}
+
 pub fn task_time_taken_seconds(conn: &Connection, id: TaskId) -> Result<u64, TaskMetadataError> {
     let task = get_task(conn, id)?;
     let persisted = persisted_work_seconds(conn, id)?;
@@ -189,22 +207,21 @@ pub fn task_time_taken_seconds(conn: &Connection, id: TaskId) -> Result<u64, Tas
     u64::try_from(effective).map_err(|_| TaskMetadataError::TimeTakenOverflow)
 }
 
-pub fn set_task_time_taken(
-    conn: &mut Connection,
+pub(crate) fn set_task_time_taken_in_transaction(
+    conn: &Connection,
     id: TaskId,
     input: SetTaskTimeTakenInput,
     now: &str,
 ) -> Result<TaskRecord, TaskMetadataError> {
     validate_timestamp(now)?;
     let desired = i64::from(input.total_seconds);
-    let tx = conn.transaction()?;
-    validate_task_context(&tx, id, true)?;
-    let persisted = persisted_work_seconds(&tx, id)?;
+    validate_task_context(conn, id, true)?;
+    let persisted = persisted_work_seconds(conn, id)?;
     let adjustment = desired
         .checked_sub(persisted)
         .ok_or(TaskMetadataError::TimeTakenOverflow)?;
 
-    let changed = tx.execute(
+    let changed = conn.execute(
         "UPDATE tasks
          SET manual_time_adjustment_seconds = ?1, updated_at = ?2
          WHERE id = ?3 AND archived_at IS NULL",
@@ -214,7 +231,20 @@ pub fn set_task_time_taken(
         return Err(TaskMetadataError::ArchivedTask(id));
     }
 
-    let updated = get_task(&tx, id)?;
+    get_task(conn, id).map_err(TaskMetadataError::from)
+}
+
+pub fn set_task_time_taken(
+    conn: &mut Connection,
+    id: TaskId,
+    input: SetTaskTimeTakenInput,
+    now: &str,
+) -> Result<TaskRecord, TaskMetadataError> {
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    if has_live_focus_session(&tx, id)? {
+        return Err(TaskMetadataError::LiveTaskRequiresRuntimeBoundary(id));
+    }
+    let updated = set_task_time_taken_in_transaction(&tx, id, input, now)?;
     tx.commit()?;
     Ok(updated)
 }
@@ -359,6 +389,31 @@ mod tests {
             )
             .expect("count sessions");
         assert_eq!(sessions, 3, "manual edit must not rewrite session history");
+    }
+
+    #[test]
+    fn live_task_time_taken_must_use_runtime_boundary() {
+        let mut conn = migrated();
+        let task = task_fixture(&mut conn);
+        conn.execute(
+            "INSERT INTO sessions (
+                id, task_id, kind, started_at, ended_at,
+                duration_seconds, source, created_at, updated_at
+             ) VALUES (?1, ?2, 'work', ?3, NULL, 60, 'focus', ?3, ?3)",
+            params![SessionId::generate().to_string(), task.id.to_string(), T1],
+        )
+        .expect("insert live focus session");
+
+        assert!(matches!(
+            set_task_time_taken(
+                &mut conn,
+                task.id,
+                SetTaskTimeTakenInput { total_seconds: 30 },
+                T2,
+            ),
+            Err(TaskMetadataError::LiveTaskRequiresRuntimeBoundary(id)) if id == task.id
+        ));
+        assert_eq!(get_task(&conn, task.id).unwrap().manual_time_adjustment_seconds, 0);
     }
 
     #[test]
