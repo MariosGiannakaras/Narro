@@ -1,0 +1,35 @@
+name: Temporary M3 Session Persistence Patch
+
+on:
+  push:
+    branches:
+      - m3-session-persistence
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, 'Apply M3 session persistence patch') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-session-persistence
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: Apply reviewed patch and rustfmt
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          ./scripts/temporary-m3-session-persistence-patch.ps1
+          if (-not (git status --porcelain -- src-tauri)) {
+            Write-Host 'No source changes required.'
+            exit 0
+          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri
+          git commit -m "Apply M3 session persistence patch"
+          git push origin HEAD:m3-session-persistence
