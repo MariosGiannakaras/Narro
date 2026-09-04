@@ -413,7 +413,12 @@ mod tests {
             ),
             Err(TaskMetadataError::LiveTaskRequiresRuntimeBoundary(id)) if id == task.id
         ));
-        assert_eq!(get_task(&conn, task.id).unwrap().manual_time_adjustment_seconds, 0);
+        assert_eq!(
+            get_task(&conn, task.id)
+                .unwrap()
+                .manual_time_adjustment_seconds,
+            0
+        );
     }
 
     #[test]
