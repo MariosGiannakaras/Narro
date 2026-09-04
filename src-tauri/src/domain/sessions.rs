@@ -16,7 +16,7 @@ impl SessionKind {
         }
     }
 
-    pub const fn parse(value: &str) -> Option<Self> {
+    pub fn parse(value: &str) -> Option<Self> {
         match value {
             "work" => Some(Self::Work),
             "break" => Some(Self::Break),
@@ -42,7 +42,7 @@ impl SessionSource {
         }
     }
 
-    pub const fn parse(value: &str) -> Option<Self> {
+    pub fn parse(value: &str) -> Option<Self> {
         match value {
             "focus" => Some(Self::Focus),
             "manual" => Some(Self::Manual),
