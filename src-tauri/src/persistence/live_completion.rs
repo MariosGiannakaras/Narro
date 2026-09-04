@@ -3,8 +3,7 @@ use crate::domain::sessions::{SessionKind, SessionRecord, SessionSource};
 use crate::persistence::sessions::get_session;
 use crate::persistence::tasks::{complete_task_in_transaction, get_task, TaskStoreError};
 use crate::persistence::timer_runtime::{
-    close_session_and_clear_runtime_in_transaction, load_runtime_checkpoint,
-    TimerRuntimeStoreError,
+    close_session_and_clear_runtime_in_transaction, load_runtime_checkpoint, TimerRuntimeStoreError,
 };
 use crate::timer::runtime::{PersistedTimerExit, TimerRuntime, TimerRuntimeError};
 use crate::timer::{TaskExitReason, TimerAction, TimerError, TimerExit, TimerStateKind};
@@ -40,10 +39,16 @@ impl Display for LiveTaskCompletionError {
             Self::Store(error) => Display::fmt(error, formatter),
             Self::Task(error) => Display::fmt(error, formatter),
             Self::Sqlite(error) => {
-                write!(formatter, "live task completion persistence failed: {error}")
+                write!(
+                    formatter,
+                    "live task completion persistence failed: {error}"
+                )
             }
             Self::CheckpointJson(error) => {
-                write!(formatter, "timer runtime checkpoint JSON is invalid: {error}")
+                write!(
+                    formatter,
+                    "timer runtime checkpoint JSON is invalid: {error}"
+                )
             }
             Self::TaskAlreadyCompleted(id) => {
                 write!(formatter, "live task is already completed: {id}")
@@ -196,8 +201,8 @@ fn complete_task_and_close_session(
         return Err(LiveTaskCompletionError::SessionBindingMismatch);
     }
 
-    let checkpoint = load_runtime_checkpoint(&tx)?
-        .ok_or(TimerRuntimeStoreError::MissingCheckpoint)?;
+    let checkpoint =
+        load_runtime_checkpoint(&tx)?.ok_or(TimerRuntimeStoreError::MissingCheckpoint)?;
     if checkpoint.session_id != session_id {
         return Err(TimerRuntimeStoreError::CheckpointBindingMismatch {
             expected: session_id,
