@@ -305,7 +305,6 @@ fn running_periodic_checkpoint_recovers_paused_without_counting_process_downtime
     assert_eq!(checkpointed_row.duration_seconds, 31);
     assert_eq!(checkpointed_row.updated_at, T31_5);
 
-    drop(runtime);
     let mut recovered = TimerRuntime::recover(&mut conn, 0, T40).expect("recover runtime");
     let recovered_snapshot = recovered.snapshot(0).unwrap();
     assert_eq!(recovered_snapshot.timer.state, TimerStateKind::Paused);
@@ -339,7 +338,6 @@ fn already_paused_checkpoint_recovers_paused_and_does_not_advance() {
         .unwrap();
     runtime.pause(&mut conn, 2_500, T2_5).unwrap();
 
-    drop(runtime);
     let mut recovered = TimerRuntime::recover(&mut conn, 0, T3).unwrap();
     let paused = recovered.snapshot(0).unwrap();
     assert_eq!(paused.timer.state, TimerStateKind::Paused);
@@ -367,7 +365,6 @@ fn time_up_and_overtime_running_recover_to_safe_non_running_states() {
 
     let time_up = runtime.advance(&mut conn, 2_000, T2).unwrap();
     assert_eq!(time_up.timer.state, TimerStateKind::TimeUp);
-    drop(runtime);
 
     let mut recovered = TimerRuntime::recover(&mut conn, 0, T3).unwrap();
     let recovered_time_up = recovered.snapshot(0).unwrap();
@@ -379,7 +376,6 @@ fn time_up_and_overtime_running_recover_to_safe_non_running_states() {
     recovered
         .checkpoint(&mut conn, 1_500, T5)
         .expect("persist overtime progress");
-    drop(recovered);
 
     let recovered_overtime = TimerRuntime::recover(&mut conn, 0, T6).unwrap();
     let snapshot = recovered_overtime.snapshot(0).unwrap();
@@ -413,7 +409,6 @@ fn pomodoro_break_recovery_preserves_remaining_time_without_counting_downtime() 
         .checkpoint(&mut conn, 3_500, T3_5)
         .expect("persist break progress");
     let break_session = runtime.open_session_id().unwrap();
-    drop(runtime);
 
     let mut recovered = TimerRuntime::recover(&mut conn, 0, T40).unwrap();
     let recovered_break = recovered.snapshot(0).unwrap();
@@ -445,7 +440,6 @@ fn recovery_rejects_an_open_session_without_its_checkpoint() {
         .unwrap();
     conn.execute("DELETE FROM timer_runtime_checkpoint", [])
         .expect("remove checkpoint fixture");
-    drop(runtime);
 
     let error = TimerRuntime::recover(&mut conn, 0, T1)
         .expect_err("open session without checkpoint must be rejected");
