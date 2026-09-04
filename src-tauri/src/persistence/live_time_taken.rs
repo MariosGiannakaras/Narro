@@ -218,7 +218,12 @@ mod tests {
             error,
             LiveTimeTakenError::NotPaused(TimerStateKind::Running)
         ));
-        assert_eq!(get_task(&conn, task_id).unwrap().manual_time_adjustment_seconds, 0);
+        assert_eq!(
+            get_task(&conn, task_id)
+                .unwrap()
+                .manual_time_adjustment_seconds,
+            0
+        );
     }
 
     #[test]
@@ -242,7 +247,10 @@ mod tests {
         assert_eq!(edited.runtime.timer.work_elapsed_ms, 900_000);
         assert_eq!(edited.time_taken_seconds, 600);
         assert_eq!(edited.task.manual_time_adjustment_seconds, -300);
-        assert_eq!(get_open_session(&conn).unwrap().unwrap().duration_seconds, 900);
+        assert_eq!(
+            get_open_session(&conn).unwrap().unwrap().duration_seconds,
+            900
+        );
 
         runtime.resume(&mut conn, 1_800_000, T30).unwrap();
         runtime.pause(&mut conn, 2_100_000, T35).unwrap();
@@ -257,7 +265,12 @@ mod tests {
         assert_eq!(sessions.len(), 1);
         assert_eq!(sessions[0].kind, SessionKind::Work);
         assert_eq!(sessions[0].duration_seconds, 1_200);
-        assert_eq!(get_task(&conn, task_id).unwrap().manual_time_adjustment_seconds, -300);
+        assert_eq!(
+            get_task(&conn, task_id)
+                .unwrap()
+                .manual_time_adjustment_seconds,
+            -300
+        );
     }
 
     #[test]
@@ -278,7 +291,10 @@ mod tests {
             .unwrap();
 
         let mut recovered = TimerRuntime::recover(&mut conn, 0, T20).unwrap();
-        assert_eq!(recovered.snapshot(0).unwrap().timer.state, TimerStateKind::Paused);
+        assert_eq!(
+            recovered.snapshot(0).unwrap().timer.state,
+            TimerStateKind::Paused
+        );
         assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 600);
 
         recovered.resume(&mut conn, 0, T20).unwrap();
@@ -320,8 +336,16 @@ mod tests {
         let snapshot = runtime.snapshot(60_000).unwrap();
         assert_eq!(snapshot.timer.state, TimerStateKind::Paused);
         assert_eq!(snapshot.timer.work_elapsed_ms, 60_000);
-        assert_eq!(get_open_session(&conn).unwrap().unwrap().duration_seconds, 60);
-        assert_eq!(get_task(&conn, task_id).unwrap().manual_time_adjustment_seconds, 0);
+        assert_eq!(
+            get_open_session(&conn).unwrap().unwrap().duration_seconds,
+            60
+        );
+        assert_eq!(
+            get_task(&conn, task_id)
+                .unwrap()
+                .manual_time_adjustment_seconds,
+            0
+        );
         assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 60);
     }
 }
