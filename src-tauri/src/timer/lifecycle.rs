@@ -1,5 +1,6 @@
 use super::{
     RuntimeState, TimerAction, TimerEngine, TimerError, TimerMode, TimerSnapshot, TimerStateKind,
+    WorkPhase, WorkRuntime,
 };
 use crate::domain::ids::TaskId;
 use serde::{Deserialize, Serialize};
@@ -51,6 +52,50 @@ impl TimerEngine {
         let current = candidate.start_task(task_id, mode, now_ms)?;
         *self = candidate;
         Ok(TimerSwitchResult { previous, current })
+    }
+
+    pub fn restore_snapshot_paused(
+        snapshot: &TimerSnapshot,
+        now_ms: u64,
+    ) -> Result<Self, TimerError> {
+        if snapshot.state == TimerStateKind::Idle {
+            return Err(TimerError::NoActiveTask);
+        }
+        let task_id = snapshot.task_id.ok_or(TimerError::NoActiveTask)?;
+        let mode = snapshot.mode.ok_or(TimerError::NoActiveTask)?;
+        mode.validate()?;
+
+        let interval_work_ms = match mode {
+            TimerMode::CountUp | TimerMode::EstCountdown { .. } => snapshot.work_elapsed_ms,
+            TimerMode::Pomodoro { work_ms, .. } => snapshot.work_elapsed_ms % work_ms,
+        };
+        let phase = match snapshot.state {
+            TimerStateKind::Running | TimerStateKind::Paused => WorkPhase::Paused,
+            TimerStateKind::Break => match mode {
+                TimerMode::EstCountdown { .. } if snapshot.overtime_ms > 0 => {
+                    WorkPhase::OvertimePaused
+                }
+                _ => WorkPhase::Paused,
+            },
+            TimerStateKind::TimeUp => WorkPhase::TimeUp,
+            TimerStateKind::OvertimeRunning | TimerStateKind::OvertimePaused => {
+                WorkPhase::OvertimePaused
+            }
+            TimerStateKind::Idle => return Err(TimerError::NoActiveTask),
+        };
+
+        Ok(Self {
+            runtime: RuntimeState::Work(WorkRuntime {
+                task_id,
+                mode,
+                phase,
+                total_work_ms: snapshot.work_elapsed_ms,
+                interval_work_ms,
+                run_started_ms: None,
+            }),
+            committed_break_ms: snapshot.total_break_ms,
+            last_observed_ms: Some(now_ms),
+        })
     }
 
     fn exit_task(
@@ -224,5 +269,63 @@ mod tests {
         assert_eq!(exit.final_state, TimerStateKind::OvertimeRunning);
         assert_eq!(exit.work_elapsed_ms, 3_500);
         assert_eq!(exit.mode, TimerMode::EstCountdown { est_ms: 2_000 });
+    }
+
+    #[test]
+    fn running_snapshot_restores_paused_without_counting_downtime() {
+        let mut engine = TimerEngine::new();
+        engine.start_task(task(11), TimerMode::CountUp, 1_000).unwrap();
+        let snapshot = engine.snapshot(6_000).unwrap();
+        assert_eq!(snapshot.state, TimerStateKind::Running);
+        assert_eq!(snapshot.work_elapsed_ms, 5_000);
+
+        let restored = TimerEngine::restore_snapshot_paused(&snapshot, 60_000).unwrap();
+        let recovered = restored.snapshot(90_000).unwrap();
+        assert_eq!(recovered.state, TimerStateKind::Paused);
+        assert_eq!(recovered.work_elapsed_ms, 5_000);
+    }
+
+    #[test]
+    fn pomodoro_break_snapshot_restores_paused_at_next_sprint_boundary() {
+        let mut engine = TimerEngine::new();
+        engine
+            .start_task(
+                task(12),
+                TimerMode::Pomodoro {
+                    work_ms: 5_000,
+                    break_ms: 4_000,
+                },
+                0,
+            )
+            .unwrap();
+        let snapshot = engine.advance(6_000).unwrap();
+        assert_eq!(snapshot.state, TimerStateKind::Break);
+        assert_eq!(snapshot.work_elapsed_ms, 5_000);
+
+        let restored = TimerEngine::restore_snapshot_paused(&snapshot, 100_000).unwrap();
+        let recovered = restored.snapshot(110_000).unwrap();
+        assert_eq!(recovered.state, TimerStateKind::Paused);
+        assert_eq!(recovered.work_elapsed_ms, 5_000);
+        assert_eq!(recovered.countdown_remaining_ms, Some(5_000));
+    }
+
+    #[test]
+    fn overtime_break_recovery_preserves_overtime_paused_state() {
+        let mut engine = TimerEngine::new();
+        engine
+            .start_task(task(13), TimerMode::EstCountdown { est_ms: 2_000 }, 0)
+            .unwrap();
+        engine.advance(2_000).unwrap();
+        engine.extend(3_000).unwrap();
+        engine.start_manual_break(5_000, 5_000).unwrap();
+        let snapshot = engine.snapshot(6_000).unwrap();
+        assert_eq!(snapshot.state, TimerStateKind::Break);
+        assert_eq!(snapshot.overtime_ms, 2_000);
+
+        let restored = TimerEngine::restore_snapshot_paused(&snapshot, 50_000).unwrap();
+        let recovered = restored.snapshot(80_000).unwrap();
+        assert_eq!(recovered.state, TimerStateKind::OvertimePaused);
+        assert_eq!(recovered.work_elapsed_ms, 4_000);
+        assert_eq!(recovered.overtime_ms, 2_000);
     }
 }
