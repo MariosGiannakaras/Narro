@@ -35,11 +35,13 @@ pub enum LiveTaskCompletionError {
     UnsupportedCheckpointVersion(u32),
     SessionBindingMismatch,
     DurationAccountingUnderflow,
+    DurationOverflow,
     DurationDecreased {
         stored_seconds: u64,
         attempted_seconds: u64,
     },
     RankOverflow,
+    RankCompactionConflict,
 }
 
 impl Display for LiveTaskCompletionError {
@@ -47,7 +49,9 @@ impl Display for LiveTaskCompletionError {
         match self {
             Self::Runtime(error) => Display::fmt(error, formatter),
             Self::Session(error) => Display::fmt(error, formatter),
-            Self::Sqlite(error) => write!(formatter, "live task completion persistence failed: {error}"),
+            Self::Sqlite(error) => {
+                write!(formatter, "live task completion persistence failed: {error}")
+            }
             Self::CheckpointJson(error) => {
                 write!(formatter, "timer runtime checkpoint JSON is invalid: {error}")
             }
@@ -55,8 +59,13 @@ impl Display for LiveTaskCompletionError {
                 formatter.write_str("live task completion timestamp must be RFC 3339")
             }
             Self::TaskNotFound(id) => write!(formatter, "live task not found: {id}"),
-            Self::TaskInactive(id) => write!(formatter, "live task is archived or its list is archived: {id}"),
-            Self::TaskAlreadyCompleted(id) => write!(formatter, "live task is already completed: {id}"),
+            Self::TaskInactive(id) => write!(
+                formatter,
+                "live task is archived or its list is archived: {id}"
+            ),
+            Self::TaskAlreadyCompleted(id) => {
+                write!(formatter, "live task is already completed: {id}")
+            }
             Self::MissingCheckpoint => {
                 formatter.write_str("open live task session has no durable runtime checkpoint")
             }
@@ -78,6 +87,9 @@ impl Display for LiveTaskCompletionError {
             Self::DurationAccountingUnderflow => formatter.write_str(
                 "live task completion duration is lower than already-closed runtime work",
             ),
+            Self::DurationOverflow => {
+                formatter.write_str("live task completion duration exceeds SQLite range")
+            }
             Self::DurationDecreased {
                 stored_seconds,
                 attempted_seconds,
@@ -85,7 +97,12 @@ impl Display for LiveTaskCompletionError {
                 formatter,
                 "live task completion cannot decrease the open session duration: stored={stored_seconds}s attempted={attempted_seconds}s"
             ),
-            Self::RankOverflow => formatter.write_str("task ordering rank overflow during completion"),
+            Self::RankOverflow => {
+                formatter.write_str("task ordering rank overflow during completion")
+            }
+            Self::RankCompactionConflict => formatter.write_str(
+                "task ordering changed unexpectedly while completing the live task",
+            ),
         }
     }
 }
@@ -258,9 +275,7 @@ fn compact_active_bucket_ranks(
             params![rank, now, id],
         )?;
         if changed != 1 {
-            return Err(LiveTaskCompletionError::TaskNotFound(
-                TaskId::parse_str(id).map_err(|_| LiveTaskCompletionError::TaskInactive(TaskId::nil()))?,
-            ));
+            return Err(LiveTaskCompletionError::RankCompactionConflict);
         }
     }
     Ok(())
@@ -285,7 +300,15 @@ fn complete_task_and_close_session(
              JOIN lists ON lists.id = tasks.list_id
              WHERE tasks.id = ?1",
             [task_id.to_string()],
-            |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?, row.get(4)?)),
+            |row| {
+                Ok((
+                    row.get(0)?,
+                    row.get(1)?,
+                    row.get(2)?,
+                    row.get(3)?,
+                    row.get(4)?,
+                ))
+            },
         )
         .optional()?;
     let Some((list_id, manual_lane, completed_at, archived_at, list_archived_at)) = task_state else {
@@ -325,7 +348,7 @@ fn complete_task_and_close_session(
         });
     }
     let duration_sql =
-        i64::try_from(current_duration).map_err(|_| LiveTaskCompletionError::DurationAccountingUnderflow)?;
+        i64::try_from(current_duration).map_err(|_| LiveTaskCompletionError::DurationOverflow)?;
 
     let closed = tx.execute(
         "UPDATE sessions
@@ -421,12 +444,17 @@ mod tests {
         assert_eq!(completed.closed_session.id, session_id);
         assert_eq!(completed.closed_session.duration_seconds, 2);
         assert_eq!(completed.closed_session.ended_at.as_deref(), Some(T2_5));
-        assert_eq!(runtime.snapshot(2_500).unwrap().timer.state, TimerStateKind::Idle);
+        assert_eq!(
+            runtime.snapshot(2_500).unwrap().timer.state,
+            TimerStateKind::Idle
+        );
         assert!(get_open_session(&conn).unwrap().is_none());
         assert!(get_task(&conn, task_id).unwrap().completed_at.is_some());
         assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 2);
         let checkpoint_count: i64 = conn
-            .query_row("SELECT COUNT(*) FROM timer_runtime_checkpoint", [], |row| row.get(0))
+            .query_row("SELECT COUNT(*) FROM timer_runtime_checkpoint", [], |row| {
+                row.get(0)
+            })
             .unwrap();
         assert_eq!(checkpoint_count, 0);
     }
@@ -458,7 +486,9 @@ mod tests {
         assert_eq!(open.id, session_id);
         assert_eq!(open.duration_seconds, 0);
         let checkpoint_count: i64 = conn
-            .query_row("SELECT COUNT(*) FROM timer_runtime_checkpoint", [], |row| row.get(0))
+            .query_row("SELECT COUNT(*) FROM timer_runtime_checkpoint", [], |row| {
+                row.get(0)
+            })
             .unwrap();
         assert_eq!(checkpoint_count, 1);
         let still_running = runtime.snapshot(2_500).unwrap();
