@@ -1,0 +1,35 @@
+name: Temporary M3 Timer Recovery Patch
+
+on:
+  push:
+    branches:
+      - m3-timer-recovery-checkpoint
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, 'Apply M3 timer recovery patch') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-timer-recovery-checkpoint
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: Apply reviewed patch and rustfmt
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          ./scripts/temporary-m3-recovery-patch.ps1
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if (git status --porcelain -- src-tauri) {
+            git add src-tauri
+            git commit -m "Apply M3 timer recovery patch"
+            git push origin HEAD:m3-timer-recovery-checkpoint
+          } else {
+            Write-Host 'No source changes required.'
+          }
