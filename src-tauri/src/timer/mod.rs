@@ -17,7 +17,8 @@ pub enum TimerStateKind {
     Paused,
     Break,
     TimeUp,
-    Overtime,
+    OvertimeRunning,
+    OvertimePaused,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -172,7 +173,8 @@ impl WorkPhase {
             Self::Running => TimerStateKind::Running,
             Self::Paused => TimerStateKind::Paused,
             Self::TimeUp => TimerStateKind::TimeUp,
-            Self::OvertimeRunning | Self::OvertimePaused => TimerStateKind::Overtime,
+            Self::OvertimeRunning => TimerStateKind::OvertimeRunning,
+            Self::OvertimePaused => TimerStateKind::OvertimePaused,
         }
     }
 
@@ -399,15 +401,11 @@ impl TimerEngine {
     }
 
     pub fn finish_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
-        self.apply_without_automatic_break_completion(now_ms, |candidate| {
-            candidate.leave_break(now_ms, false)
-        })
+        self.apply_break_action(now_ms, false)
     }
 
     pub fn skip_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
-        self.apply_without_automatic_break_completion(now_ms, |candidate| {
-            candidate.leave_break(now_ms, true)
-        })
+        self.apply_break_action(now_ms, true)
     }
 
     pub fn snapshot(&self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
@@ -419,7 +417,9 @@ impl TimerEngine {
                 });
             }
         }
-        self.snapshot_inner(now_ms)
+        let mut candidate = self.clone();
+        candidate.advance_inner(now_ms)?;
+        candidate.snapshot_inner(now_ms)
     }
 
     fn apply<F>(&mut self, now_ms: u64, mutation: F) -> Result<TimerSnapshot, TimerError>
@@ -436,19 +436,32 @@ impl TimerEngine {
         Ok(snapshot)
     }
 
-    fn apply_without_automatic_break_completion<F>(
+    fn apply_break_action(
         &mut self,
         now_ms: u64,
-        mutation: F,
-    ) -> Result<TimerSnapshot, TimerError>
-    where
-        F: FnOnce(&mut Self) -> Result<(), TimerError>,
-    {
+        skipped: bool,
+    ) -> Result<TimerSnapshot, TimerError> {
         let mut candidate = self.clone();
         candidate.observe(now_ms)?;
         candidate.advance_work_only(now_ms)?;
-        mutation(&mut candidate)?;
-        candidate.advance_inner(now_ms)?;
+        let state = candidate.state_kind();
+        let RuntimeState::Break(break_runtime) = &candidate.runtime else {
+            return Err(candidate.invalid(
+                if skipped {
+                    TimerAction::SkipBreak
+                } else {
+                    TimerAction::FinishBreak
+                },
+                state,
+            ));
+        };
+        let expired = break_runtime.projected_elapsed(now_ms)? >= break_runtime.duration_ms;
+        if expired {
+            candidate.advance_inner(now_ms)?;
+        } else {
+            candidate.leave_break(now_ms, skipped)?;
+            candidate.advance_inner(now_ms)?;
+        }
         let snapshot = candidate.snapshot_inner(now_ms)?;
         *self = candidate;
         Ok(snapshot)
@@ -747,11 +760,20 @@ mod tests {
         assert_eq!(engine.advance(20_000).unwrap().work_elapsed_ms, 10_000);
 
         let extended = engine.extend(20_000).unwrap();
-        assert_eq!(extended.state, TimerStateKind::Overtime);
+        assert_eq!(extended.state, TimerStateKind::OvertimeRunning);
         let overtime = engine.advance(23_500).unwrap();
         assert_eq!(overtime.work_elapsed_ms, 13_500);
         assert_eq!(overtime.overtime_ms, 3_500);
         assert_eq!(overtime.countdown_remaining_ms, Some(0));
+
+        let paused_overtime = engine.pause(24_000).unwrap();
+        assert_eq!(paused_overtime.state, TimerStateKind::OvertimePaused);
+        assert_eq!(paused_overtime.work_elapsed_ms, 14_000);
+        assert_eq!(engine.advance(30_000).unwrap().work_elapsed_ms, 14_000);
+
+        let resumed_overtime = engine.resume(30_000).unwrap();
+        assert_eq!(resumed_overtime.state, TimerStateKind::OvertimeRunning);
+        assert_eq!(engine.advance(31_000).unwrap().work_elapsed_ms, 15_000);
     }
 
     #[test]
@@ -837,6 +859,55 @@ mod tests {
         assert_eq!(paused.state, TimerStateKind::Paused);
         assert_eq!(paused.work_elapsed_ms, 1_000);
         assert_eq!(paused.total_break_ms, 2_000);
+    }
+
+    #[test]
+    fn snapshot_projects_threshold_transitions_without_renderer_owned_mutation() {
+        let mut engine = TimerEngine::new();
+        engine
+            .start_task(task(80), TimerMode::EstCountdown { est_ms: 10_000 }, 0)
+            .unwrap();
+
+        let projected = engine.snapshot(12_000).unwrap();
+        assert_eq!(projected.state, TimerStateKind::TimeUp);
+        assert_eq!(projected.work_elapsed_ms, 10_000);
+        assert_eq!(projected.countdown_remaining_ms, Some(0));
+
+        let committed = engine.advance(12_000).unwrap();
+        assert_eq!(committed, projected);
+    }
+
+    #[test]
+    fn late_manual_break_finish_uses_natural_completion_timestamp() {
+        let mut engine = TimerEngine::new();
+        engine.start_task(task(90), TimerMode::CountUp, 0).unwrap();
+        engine.start_manual_break(5_000, 4_000).unwrap();
+
+        let finished = engine.finish_break(12_000).unwrap();
+        assert_eq!(finished.state, TimerStateKind::Running);
+        assert_eq!(finished.total_break_ms, 5_000);
+        assert_eq!(finished.work_elapsed_ms, 7_000);
+    }
+
+    #[test]
+    fn late_pomodoro_break_action_preserves_natural_paused_completion() {
+        let mut engine = TimerEngine::new();
+        engine
+            .start_task(
+                task(100),
+                TimerMode::Pomodoro {
+                    work_ms: 10_000,
+                    break_ms: 5_000,
+                },
+                0,
+            )
+            .unwrap();
+
+        let after = engine.skip_break(20_000).unwrap();
+        assert_eq!(after.state, TimerStateKind::Paused);
+        assert_eq!(after.work_elapsed_ms, 10_000);
+        assert_eq!(after.total_break_ms, 5_000);
+        assert_eq!(after.countdown_remaining_ms, Some(10_000));
     }
 
     #[test]
