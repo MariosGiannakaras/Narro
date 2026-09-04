@@ -1,0 +1,63 @@
+name: Temporary M3 Session Coordinator Precheck
+
+on:
+  push:
+    branches:
+      - m3-session-coordinator
+
+permissions:
+  contents: write
+
+jobs:
+  precheck:
+    if: ${{ !contains(github.event.head_commit.message, 'Apply M3 session coordinator patch') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-session-coordinator
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Export coordinator modules
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          @'
+          from pathlib import Path
+          path = Path('src-tauri/src/timer/mod.rs')
+          text = path.read_text(encoding='utf-8')
+          old = "mod lifecycle;\npub use lifecycle::{TaskExitReason, TimerExit, TimerSwitchResult};\n"
+          new = "mod coordinator;\nmod lifecycle;\nmod recovery;\npub use coordinator::{PersistedTimerExit, SessionCoordinator, SessionCoordinatorError};\npub use lifecycle::{TaskExitReason, TimerExit, TimerSwitchResult};\npub use recovery::TimerRecoveryError;\n"
+          if new in text:
+              raise SystemExit(0)
+          if old not in text:
+              raise SystemExit('timer module export anchor not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          '@ | python -
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Rustfmt
+        shell: pwsh
+        run: cargo fmt --manifest-path src-tauri/Cargo.toml
+      - name: Cargo check
+        shell: pwsh
+        run: cargo check --manifest-path src-tauri/Cargo.toml --locked
+      - name: Clippy
+        shell: pwsh
+        run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings
+      - name: Rust tests
+        shell: pwsh
+        run: cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked
+      - name: Commit patch and formatting
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (git status --porcelain -- src-tauri/src src-tauri/tests)) {
+            Write-Host 'No source changes required.'
+            exit 0
+          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri/src src-tauri/tests
+          git commit -m "Apply M3 session coordinator patch"
+          git push origin HEAD:m3-session-coordinator
