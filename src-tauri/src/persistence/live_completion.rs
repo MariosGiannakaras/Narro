@@ -240,7 +240,7 @@ mod tests {
     use crate::domain::tasks::NewTaskInput;
     use crate::persistence::lists::create_list;
     use crate::persistence::run_migrations;
-    use crate::persistence::sessions::get_open_session;
+    use crate::persistence::sessions::{get_open_session, sessions_for_task};
     use crate::persistence::task_metadata::task_time_taken_seconds;
     use crate::persistence::tasks::{create_task, get_task};
     use crate::timer::TimerMode;
@@ -249,6 +249,12 @@ mod tests {
     const T2_5: &str = "2026-09-04T10:00:02.500Z";
     const T3_5: &str = "2026-09-04T10:00:03.500Z";
     const T5: &str = "2026-09-04T10:00:05Z";
+    const T1_30: &str = "2026-09-04T10:01:30Z";
+    const T2_30: &str = "2026-09-04T10:02:30Z";
+    const T3_30: &str = "2026-09-04T10:03:30Z";
+    const T15: &str = "2026-09-04T10:15:00Z";
+    const T30: &str = "2026-09-04T10:30:00Z";
+    const T45: &str = "2026-09-04T10:45:00Z";
 
     fn fixture() -> (Connection, TaskId) {
         let mut conn = Connection::open_in_memory().expect("open database");
@@ -370,5 +376,67 @@ mod tests {
         assert_eq!(completed.timer.work_elapsed_ms, 2_000);
         assert_eq!(completed.closed_session.duration_seconds, 2);
         assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 2);
+    }
+
+    #[test]
+    fn pause_wait_resume_then_done_persists_exactly_the_two_work_segments() {
+        let (mut conn, task_id) = fixture();
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+
+        runtime.pause(&mut conn, 900_000, T15).unwrap();
+        runtime.resume(&mut conn, 1_800_000, T30).unwrap();
+        let completed = runtime
+            .complete_task(&mut conn, 2_700_000, T45)
+            .unwrap();
+
+        assert_eq!(completed.timer.work_elapsed_ms, 1_800_000);
+        assert_eq!(completed.closed_session.duration_seconds, 1_800);
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 1_800);
+    }
+
+    #[test]
+    fn done_after_break_uses_prior_closed_work_without_double_counting() {
+        let (mut conn, task_id) = fixture();
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        let first_work_session = runtime.open_session_id().unwrap();
+
+        let on_break = runtime
+            .start_manual_break(&mut conn, 60_000, 90_000, T1_30)
+            .unwrap();
+        assert_eq!(on_break.timer.state, TimerStateKind::Break);
+        let break_session = runtime.open_session_id().unwrap();
+        assert_ne!(break_session, first_work_session);
+
+        let resumed = runtime.advance(&mut conn, 150_000, T2_30).unwrap();
+        assert_eq!(resumed.timer.state, TimerStateKind::Running);
+        let final_work_session = runtime.open_session_id().unwrap();
+        assert_ne!(final_work_session, break_session);
+
+        let completed = runtime
+            .complete_task(&mut conn, 210_000, T3_30)
+            .unwrap();
+        assert_eq!(completed.timer.work_elapsed_ms, 150_000);
+        assert_eq!(completed.closed_session.id, final_work_session);
+        assert_eq!(completed.closed_session.duration_seconds, 60);
+
+        let sessions = sessions_for_task(&conn, task_id).unwrap();
+        assert_eq!(
+            sessions
+                .iter()
+                .map(|session| (session.kind, session.duration_seconds))
+                .collect::<Vec<_>>(),
+            vec![
+                (SessionKind::Work, 90),
+                (SessionKind::Break, 60),
+                (SessionKind::Work, 60),
+            ]
+        );
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 150);
     }
 }
