@@ -429,17 +429,15 @@ pub fn move_task(
     decode_task(moved)
 }
 
-pub fn complete_task(
-    conn: &mut Connection,
+pub(crate) fn complete_task_in_transaction(
+    tx: &Transaction<'_>,
     id: TaskId,
     now: &str,
 ) -> Result<TaskRecord, TaskStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
-    let current = get_task(&tx, id)?;
-    ensure_mutable_task(&tx, &current)?;
+    let current = get_task(tx, id)?;
+    ensure_mutable_task(tx, &current)?;
     if current.completed_at.is_some() {
-        drop(tx);
         return Ok(current);
     }
 
@@ -452,10 +450,20 @@ pub fn complete_task(
     if changed != 1 {
         return Err(TaskStoreError::NotFound(id));
     }
-    compact_bucket_ranks(&tx, current.list_id, current.manual_lane, now)?;
-    let completed = get_raw_task(&tx, id)?.ok_or(TaskStoreError::NotFound(id))?;
-    tx.commit()?;
+    compact_bucket_ranks(tx, current.list_id, current.manual_lane, now)?;
+    let completed = get_raw_task(tx, id)?.ok_or(TaskStoreError::NotFound(id))?;
     decode_task(completed)
+}
+
+pub fn complete_task(
+    conn: &mut Connection,
+    id: TaskId,
+    now: &str,
+) -> Result<TaskRecord, TaskStoreError> {
+    let tx = conn.transaction()?;
+    let completed = complete_task_in_transaction(&tx, id, now)?;
+    tx.commit()?;
+    Ok(completed)
 }
 
 pub fn reopen_task(

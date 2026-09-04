@@ -2,7 +2,7 @@ use crate::domain::ids::{SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionRecord};
 use crate::persistence::sessions::{get_open_session, get_session, SessionStoreError};
 use chrono::DateTime;
-use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
+use rusqlite::{params, Connection, OptionalExtension, Transaction, TransactionBehavior};
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -344,18 +344,17 @@ pub fn replace_open_focus_session_with_checkpoint(
     Ok((closed, opened))
 }
 
-pub fn close_session_and_clear_runtime(
-    conn: &mut Connection,
+pub(crate) fn close_session_and_clear_runtime_in_transaction(
+    tx: &Transaction<'_>,
     id: SessionId,
     duration_seconds: u64,
     ended_at: &str,
 ) -> Result<SessionRecord, TimerRuntimeStoreError> {
     validate_mutation_timestamp(ended_at)?;
     let duration_sql = duration_for_sql(duration_seconds)?;
-    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-    ensure_checkpoint_binding(&tx, id)?;
+    ensure_checkpoint_binding(tx, id)?;
 
-    let current = get_session(&tx, id)?;
+    let current = get_session(tx, id)?;
     if !current.is_open() {
         return Err(SessionStoreError::AlreadyClosed(id).into());
     }
@@ -386,7 +385,18 @@ pub fn close_session_and_clear_runtime(
         return Err(TimerRuntimeStoreError::MissingCheckpoint);
     }
 
-    let closed = get_session(&tx, id)?;
+    get_session(tx, id).map_err(TimerRuntimeStoreError::from)
+}
+
+pub fn close_session_and_clear_runtime(
+    conn: &mut Connection,
+    id: SessionId,
+    duration_seconds: u64,
+    ended_at: &str,
+) -> Result<SessionRecord, TimerRuntimeStoreError> {
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    let closed =
+        close_session_and_clear_runtime_in_transaction(&tx, id, duration_seconds, ended_at)?;
     tx.commit()?;
     Ok(closed)
 }
