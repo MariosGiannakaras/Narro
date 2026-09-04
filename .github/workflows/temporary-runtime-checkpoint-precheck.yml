@@ -1,0 +1,50 @@
+name: Temporary Runtime Checkpoint Precheck
+
+on:
+  push:
+    branches:
+      - m3-runtime-checkpoint
+
+permissions:
+  contents: write
+
+jobs:
+  precheck:
+    if: ${{ !contains(github.event.head_commit.message, 'Apply runtime checkpoint precheck fixes') }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-runtime-checkpoint
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Apply rustfmt
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo fmt --manifest-path src-tauri/Cargo.toml
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run Rust checks
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo check --manifest-path src-tauri/Cargo.toml --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Commit rustfmt changes when needed
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (git status --porcelain -- src-tauri/src src-tauri/tests)) {
+            Write-Host 'No rustfmt changes required.'
+            exit 0
+          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri/src src-tauri/tests
+          git commit -m "Apply runtime checkpoint precheck fixes"
+          git push origin HEAD:m3-runtime-checkpoint
