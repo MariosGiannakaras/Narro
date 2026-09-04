@@ -1,0 +1,229 @@
+name: Temporary M3 Timer Fix
+
+on:
+  push:
+    branches:
+      - m3-timer-state-machine
+
+permissions:
+  contents: write
+
+jobs:
+  fix-and-check:
+    if: ${{ !contains(github.event.head_commit.message, '[m3-precheck]') }}
+    runs-on: windows-2025
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: m3-timer-state-machine
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Apply timer correctness fixes
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          @'
+          from pathlib import Path
+
+          path = Path('src-tauri/src/timer/mod.rs')
+          text = path.read_text(encoding='utf-8')
+
+          def replace_between(start_anchor, end_anchor, replacement, label):
+              global text
+              start = text.find(start_anchor)
+              if start < 0:
+                  raise SystemExit(f'{label}: start anchor not found')
+              end = text.find(end_anchor, start)
+              if end < 0:
+                  raise SystemExit(f'{label}: end anchor not found')
+              text = text[:start] + replacement + text[end:]
+
+          replace_between(
+              '    pub fn finish_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {',
+              '    fn apply<F>',
+              '''    pub fn finish_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              self.apply_break_action(now_ms, false)
+          }
+
+          pub fn skip_break(&mut self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              self.apply_break_action(now_ms, true)
+          }
+
+          pub fn snapshot(&self, now_ms: u64) -> Result<TimerSnapshot, TimerError> {
+              if let Some(previous_ms) = self.last_observed_ms {
+                  if now_ms < previous_ms {
+                      return Err(TimerError::ClockMovedBackwards {
+                          previous_ms,
+                          now_ms,
+                      });
+                  }
+              }
+              let mut candidate = self.clone();
+              candidate.advance_inner(now_ms)?;
+              candidate.snapshot_inner(now_ms)
+          }
+
+          ''',
+              'public break/snapshot methods',
+          )
+
+          replace_between(
+              '    fn apply_without_automatic_break_completion<F>(',
+              '    fn observe(&mut self, now_ms: u64) -> Result<(), TimerError> {',
+              '''    fn apply_break_action(
+              &mut self,
+              now_ms: u64,
+              skipped: bool,
+          ) -> Result<TimerSnapshot, TimerError> {
+              let mut candidate = self.clone();
+              candidate.observe(now_ms)?;
+              candidate.advance_work_only(now_ms)?;
+              let state = candidate.state_kind();
+              let RuntimeState::Break(break_runtime) = &candidate.runtime else {
+                  return Err(candidate.invalid(
+                      if skipped {
+                          TimerAction::SkipBreak
+                      } else {
+                          TimerAction::FinishBreak
+                      },
+                      state,
+                  ));
+              };
+              let expired = break_runtime.projected_elapsed(now_ms)? >= break_runtime.duration_ms;
+              if expired {
+                  candidate.advance_inner(now_ms)?;
+              } else {
+                  candidate.leave_break(now_ms, skipped)?;
+                  candidate.advance_inner(now_ms)?;
+              }
+              let snapshot = candidate.snapshot_inner(now_ms)?;
+              *self = candidate;
+              Ok(snapshot)
+          }
+
+          ''',
+              'break action helper',
+          )
+
+          enum_anchor = '    Overtime,\n'
+          if text.count(enum_anchor) != 1:
+              raise SystemExit(f'overtime enum anchor count={text.count(enum_anchor)}')
+          text = text.replace(enum_anchor, '    OvertimeRunning,\n    OvertimePaused,\n', 1)
+
+          mapping_anchor = '            Self::OvertimeRunning | Self::OvertimePaused => TimerStateKind::Overtime,\n'
+          if text.count(mapping_anchor) != 1:
+              raise SystemExit(f'overtime mapping anchor count={text.count(mapping_anchor)}')
+          text = text.replace(
+              mapping_anchor,
+              '            Self::OvertimeRunning => TimerStateKind::OvertimeRunning,\n            Self::OvertimePaused => TimerStateKind::OvertimePaused,\n',
+              1,
+          )
+
+          assertion_anchor = '        assert_eq!(extended.state, TimerStateKind::Overtime);\n'
+          if text.count(assertion_anchor) != 1:
+              raise SystemExit(f'overtime assertion anchor count={text.count(assertion_anchor)}')
+          text = text.replace(
+              assertion_anchor,
+              '        assert_eq!(extended.state, TimerStateKind::OvertimeRunning);\n',
+              1,
+          )
+
+          overtime_anchor = '        assert_eq!(overtime.countdown_remaining_ms, Some(0));\n'
+          if text.count(overtime_anchor) != 1:
+              raise SystemExit(f'overtime tail anchor count={text.count(overtime_anchor)}')
+          overtime_extra = '''
+
+              let paused_overtime = engine.pause(24_000).unwrap();
+              assert_eq!(paused_overtime.state, TimerStateKind::OvertimePaused);
+              assert_eq!(paused_overtime.work_elapsed_ms, 14_000);
+              assert_eq!(engine.advance(30_000).unwrap().work_elapsed_ms, 14_000);
+
+              let resumed_overtime = engine.resume(30_000).unwrap();
+              assert_eq!(resumed_overtime.state, TimerStateKind::OvertimeRunning);
+              assert_eq!(engine.advance(31_000).unwrap().work_elapsed_ms, 15_000);'''
+          text = text.replace(overtime_anchor, overtime_anchor.rstrip('\n') + overtime_extra + '\n', 1)
+
+          test_anchor = '    #[test]\n    fn backwards_clock_is_rejected_without_partial_mutation() {\n'
+          if text.count(test_anchor) != 1:
+              raise SystemExit(f'test insertion anchor count={text.count(test_anchor)}')
+          new_tests = '''    #[test]
+          fn snapshot_projects_threshold_transitions_without_renderer_owned_mutation() {
+              let mut engine = TimerEngine::new();
+              engine
+                  .start_task(task(80), TimerMode::EstCountdown { est_ms: 10_000 }, 0)
+                  .unwrap();
+
+              let projected = engine.snapshot(12_000).unwrap();
+              assert_eq!(projected.state, TimerStateKind::TimeUp);
+              assert_eq!(projected.work_elapsed_ms, 10_000);
+              assert_eq!(projected.countdown_remaining_ms, Some(0));
+
+              let committed = engine.advance(12_000).unwrap();
+              assert_eq!(committed, projected);
+          }
+
+          #[test]
+          fn late_manual_break_finish_uses_natural_completion_timestamp() {
+              let mut engine = TimerEngine::new();
+              engine.start_task(task(90), TimerMode::CountUp, 0).unwrap();
+              engine.start_manual_break(5_000, 4_000).unwrap();
+
+              let finished = engine.finish_break(12_000).unwrap();
+              assert_eq!(finished.state, TimerStateKind::Running);
+              assert_eq!(finished.total_break_ms, 5_000);
+              assert_eq!(finished.work_elapsed_ms, 7_000);
+          }
+
+          #[test]
+          fn late_pomodoro_break_action_preserves_natural_paused_completion() {
+              let mut engine = TimerEngine::new();
+              engine
+                  .start_task(
+                      task(100),
+                      TimerMode::Pomodoro {
+                          work_ms: 10_000,
+                          break_ms: 5_000,
+                      },
+                      0,
+                  )
+                  .unwrap();
+
+              let after = engine.skip_break(20_000).unwrap();
+              assert_eq!(after.state, TimerStateKind::Paused);
+              assert_eq!(after.work_elapsed_ms, 10_000);
+              assert_eq!(after.total_break_ms, 5_000);
+              assert_eq!(after.countdown_remaining_ms, Some(10_000));
+          }
+
+          '''
+          text = text.replace(test_anchor, new_tests + test_anchor, 1)
+          path.write_text(text, encoding='utf-8', newline='\n')
+          '@ | python -
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Format and validate Rust
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          cargo fmt --manifest-path src-tauri/Cargo.toml
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo check --manifest-path src-tauri/Cargo.toml --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test --manifest-path src-tauri/Cargo.toml --all-targets --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Commit validated timer source
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (git status --porcelain -- src-tauri/src/timer/mod.rs)) {
+            Write-Host 'No timer source changes required.'
+            exit 0
+          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src-tauri/src/timer/mod.rs
+          git commit -m "Fix timer correctness invariants [m3-precheck]"
+          git push origin HEAD:m3-timer-state-machine
