@@ -5,9 +5,8 @@ use narro_lib::domain::ids::SessionId;
 use narro_lib::domain::model::{PlanningLane, SessionKind};
 use narro_lib::persistence::run_migrations;
 use narro_lib::persistence::sessions::{
-    active_focus_session, checkpoint_focus_runtime, load_focus_recovery,
-    persist_focus_transition, recover_interrupted_focus, sessions_for_task, CloseFocusSession,
-    OpenFocusSession,
+    active_focus_session, checkpoint_focus_runtime, load_focus_recovery, persist_focus_transition,
+    recover_interrupted_focus, sessions_for_task, CloseFocusSession, OpenFocusSession,
 };
 use narro_lib::persistence::task_metadata::task_time_taken_seconds;
 use narro_lib::timer::{TimerEngine, TimerMode, TimerStateKind};
@@ -63,13 +62,8 @@ fn work_pause_resume_and_manual_break_persist_distinct_reconcilable_segments() {
         .recovery_state(5_000)
         .expect("export work checkpoint")
         .expect("active work recovery");
-    let checkpointed = checkpoint_focus_runtime(
-        &mut conn,
-        first.id,
-        &checkpoint,
-        CHECKPOINT_AT,
-    )
-    .expect("checkpoint work segment");
+    let checkpointed = checkpoint_focus_runtime(&mut conn, first.id, &checkpoint, CHECKPOINT_AT)
+        .expect("checkpoint work segment");
     assert_eq!(checkpointed.duration_seconds, 5);
     assert!(checkpointed.ended_at.is_none());
 
@@ -209,6 +203,118 @@ fn work_pause_resume_and_manual_break_persist_distinct_reconcilable_segments() {
 }
 
 #[test]
+fn time_up_extend_preserves_one_work_session_identity_and_accumulates_overtime() {
+    let mut conn = migrated();
+    let task = task_fixture(&conn, 44);
+    let mut engine = TimerEngine::new();
+    engine
+        .start_task(task.id, TimerMode::EstCountdown { est_ms: 5_000 }, 0)
+        .expect("start EST timer");
+
+    let initial = engine
+        .recovery_state(0)
+        .expect("export initial recovery")
+        .expect("initial recovery");
+    let work = persist_focus_transition(
+        &mut conn,
+        None,
+        Some(OpenFocusSession {
+            task_id: task.id,
+            kind: SessionKind::Work,
+        }),
+        &initial,
+        STARTED_AT,
+    )
+    .expect("persist initial work")
+    .opened_session
+    .expect("open work session");
+
+    engine.advance(6_000).expect("reach Time's Up");
+    let time_up = engine
+        .recovery_state(6_000)
+        .expect("export Time's Up recovery")
+        .expect("Time's Up recovery");
+    assert_eq!(time_up.state, TimerStateKind::TimeUp);
+    let held = persist_focus_transition(
+        &mut conn,
+        Some(CloseFocusSession {
+            id: work.id,
+            duration_ms: 5_000,
+        }),
+        None,
+        &time_up,
+        CHECKPOINT_AT,
+    )
+    .expect("hold work session at Time's Up");
+    assert!(held.closed_session.is_none());
+    assert!(held.opened_session.is_none());
+    let held_session = held
+        .retained_session
+        .expect("retained Time's Up work session");
+    assert_eq!(held_session.id, work.id);
+    assert_eq!(held_session.duration_seconds, 5);
+    assert!(held_session.ended_at.is_none());
+    let held_recovery = load_focus_recovery(&conn)
+        .expect("load Time's Up recovery")
+        .expect("stored Time's Up recovery");
+    assert_eq!(held_recovery.active_session_id, Some(work.id));
+    assert_eq!(held_recovery.active_session_base_ms, 5_000);
+
+    engine.extend(6_000).expect("extend into overtime");
+    let extended = engine
+        .recovery_state(6_000)
+        .expect("export overtime recovery")
+        .expect("overtime recovery");
+    let resumed = persist_focus_transition(&mut conn, None, None, &extended, PAUSED_AT)
+        .expect("continue retained work session into overtime");
+    assert!(resumed.opened_session.is_none());
+    assert_eq!(
+        resumed.retained_session.expect("retained overtime work").id,
+        work.id
+    );
+
+    let overtime = engine
+        .recovery_state(9_000)
+        .expect("export overtime checkpoint")
+        .expect("overtime checkpoint");
+    let checkpointed = checkpoint_focus_runtime(&mut conn, work.id, &overtime, RESUMED_AT)
+        .expect("checkpoint overtime on retained work session");
+    assert_eq!(checkpointed.id, work.id);
+    assert_eq!(checkpointed.duration_seconds, 8);
+
+    engine.pause(9_000).expect("pause overtime");
+    let paused = engine
+        .recovery_state(9_000)
+        .expect("export overtime pause")
+        .expect("overtime pause recovery");
+    let closed = persist_focus_transition(
+        &mut conn,
+        Some(CloseFocusSession {
+            id: work.id,
+            duration_ms: 8_000,
+        }),
+        None,
+        &paused,
+        BREAK_AT,
+    )
+    .expect("close retained overtime work on pause")
+    .closed_session
+    .expect("closed retained work session");
+    assert_eq!(closed.id, work.id);
+    assert_eq!(closed.duration_seconds, 8);
+    assert!(closed.ended_at.is_some());
+
+    let sessions = sessions_for_task(&conn, task.id).expect("load EST work history");
+    assert_eq!(sessions.len(), 1);
+    assert_eq!(sessions[0].id, work.id);
+    assert_eq!(sessions[0].duration_seconds, 8);
+    assert_eq!(
+        task_time_taken_seconds(&conn, task.id).expect("reconcile EST overtime Time Taken"),
+        8
+    );
+}
+
+#[test]
 fn database_rejects_a_second_unfinished_session_even_outside_service_layer() {
     let mut conn = migrated();
     let task = task_fixture(&conn, 41);
@@ -243,7 +349,10 @@ fn database_rejects_a_second_unfinished_session_even_outside_service_layer() {
             CHECKPOINT_AT
         ],
     );
-    assert!(duplicate.is_err(), "database must enforce one unfinished session");
+    assert!(
+        duplicate.is_err(),
+        "database must enforce one unfinished session"
+    );
 
     let open_count: i64 = conn
         .query_row(
@@ -257,10 +366,8 @@ fn database_rejects_a_second_unfinished_session_even_outside_service_layer() {
 
 #[test]
 fn database_reopen_restores_interrupted_work_paused_at_last_safe_checkpoint() {
-    let path = std::env::temp_dir().join(format!(
-        "narro-m3-session-recovery-{}.db",
-        Uuid::new_v4()
-    ));
+    let path =
+        std::env::temp_dir().join(format!("narro-m3-session-recovery-{}.db", Uuid::new_v4()));
     let task_id;
     let session_id;
 
@@ -297,13 +404,8 @@ fn database_reopen_restores_interrupted_work_paused_at_last_safe_checkpoint() {
             .recovery_state(4_500)
             .expect("export crash checkpoint")
             .expect("checkpoint recovery");
-        let persisted = checkpoint_focus_runtime(
-            &mut conn,
-            session_id,
-            &checkpoint,
-            CHECKPOINT_AT,
-        )
-        .expect("persist crash-safe checkpoint");
+        let persisted = checkpoint_focus_runtime(&mut conn, session_id, &checkpoint, CHECKPOINT_AT)
+            .expect("persist crash-safe checkpoint");
         assert_eq!(persisted.duration_seconds, 4);
         assert!(persisted.ended_at.is_none());
     }

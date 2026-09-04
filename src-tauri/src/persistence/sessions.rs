@@ -169,13 +169,21 @@ pub struct OpenFocusSession {
 pub struct FocusTransitionResult {
     pub closed_session: Option<SessionRecord>,
     pub opened_session: Option<SessionRecord>,
+    pub retained_session: Option<SessionRecord>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct FocusRecoveryRecord {
     pub timer: TimerRecoveryState,
     pub active_session_id: Option<SessionId>,
+    pub active_session_base_ms: u64,
     pub updated_at: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct StoredFocusRecoveryPayload {
+    timer: TimerRecoveryState,
+    active_session_base_ms: u64,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -357,13 +365,68 @@ fn close_focus_session_in_tx(
     session_by_id(tx, input.id)
 }
 
+fn checkpoint_focus_session_in_tx(
+    tx: &Transaction<'_>,
+    id: SessionId,
+    duration_ms: u64,
+    updated_at: &str,
+) -> Result<SessionRecord, SessionPersistenceError> {
+    let current = session_by_id(tx, id)?;
+    if current.ended_at.is_some() {
+        return Err(SessionPersistenceError::SessionAlreadyClosed(id));
+    }
+    if current.source != SessionSource::Focus {
+        return Err(SessionPersistenceError::SessionNotFocusOwned(id));
+    }
+    let next_duration = duration_seconds(duration_ms)?;
+    if u64::try_from(next_duration).map_err(|_| SessionPersistenceError::DurationOverflow)?
+        < current.duration_seconds
+    {
+        return Err(SessionPersistenceError::DurationRegressed(id));
+    }
+
+    tx.execute(
+        "UPDATE sessions
+         SET duration_seconds = ?1, updated_at = ?2
+         WHERE id = ?3 AND ended_at IS NULL",
+        params![next_duration, updated_at, id.to_string()],
+    )?;
+    session_by_id(tx, id)
+}
+
+fn validate_retained_focus_session(
+    tx: &Transaction<'_>,
+    id: SessionId,
+    task_id: TaskId,
+    kind: SessionKind,
+) -> Result<SessionRecord, SessionPersistenceError> {
+    let current = session_by_id(tx, id)?;
+    if current.ended_at.is_some() {
+        return Err(SessionPersistenceError::SessionAlreadyClosed(id));
+    }
+    if current.source != SessionSource::Focus {
+        return Err(SessionPersistenceError::SessionNotFocusOwned(id));
+    }
+    if current.task_id != Some(task_id) {
+        return Err(SessionPersistenceError::SessionTaskMismatch(id));
+    }
+    if current.kind != kind {
+        return Err(SessionPersistenceError::SessionKindMismatch(id));
+    }
+    Ok(current)
+}
+
 fn save_recovery_in_tx(
     tx: &Transaction<'_>,
     timer: &TimerRecoveryState,
     active_session_id: Option<SessionId>,
+    active_session_base_ms: u64,
     now: &str,
 ) -> Result<(), SessionPersistenceError> {
-    let payload = serde_json::to_string(timer)?;
+    let payload = serde_json::to_string(&StoredFocusRecoveryPayload {
+        timer: timer.clone(),
+        active_session_base_ms,
+    })?;
     tx.execute(
         "INSERT INTO focus_runtime_recovery (
             id, task_id, active_session_id, schema_version, payload_json, updated_at
@@ -420,14 +483,15 @@ fn load_recovery_from_connection(
                 .map_err(|_| SessionPersistenceError::InvalidStoredSessionId(value))
         })
         .transpose()?;
-    let timer: TimerRecoveryState = serde_json::from_str(&payload)?;
-    if timer.task_id != task_id {
+    let payload: StoredFocusRecoveryPayload = serde_json::from_str(&payload)?;
+    if payload.timer.task_id != task_id {
         return Err(SessionPersistenceError::RecoveryTaskMismatch);
     }
 
     Ok(Some(FocusRecoveryRecord {
-        timer,
+        timer: payload.timer,
         active_session_id,
+        active_session_base_ms: payload.active_session_base_ms,
         updated_at,
     }))
 }
@@ -446,30 +510,94 @@ pub fn persist_focus_transition(
     now: &str,
 ) -> Result<FocusTransitionResult, SessionPersistenceError> {
     validate_timestamp(now)?;
-    let expected_kind = expected_active_kind(recovery.state);
-    match (expected_kind, open) {
-        (Some(expected), Some(input))
-            if expected == input.kind && input.task_id == recovery.task_id => {}
-        (None, None) => {}
-        _ => return Err(SessionPersistenceError::InvalidTransitionShape),
-    }
-
     let tx = conn.transaction()?;
-    let closed_session = close
-        .map(|input| close_focus_session_in_tx(&tx, input, now))
-        .transpose()?;
+    let previous = load_recovery_from_connection(&tx)?;
+    let expected_kind = expected_active_kind(recovery.state);
 
-    if let Some(orphan) = open_session_id(&tx)? {
-        return Err(SessionPersistenceError::OrphanOpenSession(orphan));
+    let mut closed_session = None;
+    let mut opened_session = None;
+    let mut retained_session = None;
+    let mut active_session_id = None;
+    let mut active_session_base_ms = 0;
+
+    if recovery.state == TimerStateKind::TimeUp {
+        if open.is_some() {
+            return Err(SessionPersistenceError::InvalidTransitionShape);
+        }
+        let hold = close.ok_or(SessionPersistenceError::InvalidTransitionShape)?;
+        let previous = previous
+            .as_ref()
+            .ok_or(SessionPersistenceError::InvalidTransitionShape)?;
+        if previous.timer.state != TimerStateKind::Running
+            || previous.timer.task_id != recovery.task_id
+            || previous.active_session_id != Some(hold.id)
+        {
+            return Err(SessionPersistenceError::InvalidTransitionShape);
+        }
+        validate_retained_focus_session(&tx, hold.id, recovery.task_id, SessionKind::Work)?;
+        let held = checkpoint_focus_session_in_tx(&tx, hold.id, hold.duration_ms, now)?;
+        active_session_id = Some(hold.id);
+        active_session_base_ms = hold.duration_ms;
+        retained_session = Some(held);
+    } else {
+        closed_session = close
+            .map(|input| close_focus_session_in_tx(&tx, input, now))
+            .transpose()?;
+
+        let existing_open = open_session_id(&tx)?;
+        match expected_kind {
+            Some(expected) => {
+                if let Some(input) = open {
+                    if input.kind != expected || input.task_id != recovery.task_id {
+                        return Err(SessionPersistenceError::InvalidTransitionShape);
+                    }
+                    if let Some(orphan) = existing_open {
+                        return Err(SessionPersistenceError::OrphanOpenSession(orphan));
+                    }
+                    let opened = open_focus_session_in_tx(&tx, input, now)?;
+                    active_session_id = Some(opened.id);
+                    opened_session = Some(opened);
+                } else {
+                    let previous = previous
+                        .as_ref()
+                        .ok_or(SessionPersistenceError::InvalidTransitionShape)?;
+                    let retained_id = previous
+                        .active_session_id
+                        .ok_or(SessionPersistenceError::InvalidTransitionShape)?;
+                    if recovery.state != TimerStateKind::OvertimeRunning
+                        || previous.timer.state != TimerStateKind::TimeUp
+                        || previous.timer.task_id != recovery.task_id
+                        || existing_open != Some(retained_id)
+                    {
+                        return Err(SessionPersistenceError::InvalidTransitionShape);
+                    }
+                    let retained = validate_retained_focus_session(
+                        &tx,
+                        retained_id,
+                        recovery.task_id,
+                        expected,
+                    )?;
+                    active_session_id = Some(retained_id);
+                    active_session_base_ms = previous.active_session_base_ms;
+                    retained_session = Some(retained);
+                }
+            }
+            None => {
+                if open.is_some() {
+                    return Err(SessionPersistenceError::InvalidTransitionShape);
+                }
+                if let Some(orphan) = existing_open {
+                    return Err(SessionPersistenceError::OrphanOpenSession(orphan));
+                }
+            }
+        }
     }
 
-    let opened_session = open
-        .map(|input| open_focus_session_in_tx(&tx, input, now))
-        .transpose()?;
     save_recovery_in_tx(
         &tx,
         recovery,
-        opened_session.as_ref().map(|session| session.id),
+        active_session_id,
+        active_session_base_ms,
         now,
     )?;
     tx.commit()?;
@@ -477,6 +605,7 @@ pub fn persist_focus_transition(
     Ok(FocusTransitionResult {
         closed_session,
         opened_session,
+        retained_session,
     })
 }
 
@@ -492,30 +621,22 @@ pub fn checkpoint_focus_runtime(
     let segment_ms = recovery
         .active_segment_elapsed_ms
         .ok_or(SessionPersistenceError::InvalidTransitionShape)?;
-    let next_duration = duration_seconds(segment_ms)?;
 
     let tx = conn.transaction()?;
-    let current = session_by_id(&tx, active_session_id)?;
-    if current.ended_at.is_some() {
-        return Err(SessionPersistenceError::SessionAlreadyClosed(
-            active_session_id,
-        ));
+    let stored = load_recovery_from_connection(&tx)?
+        .ok_or(SessionPersistenceError::InvalidTransitionShape)?;
+    if stored.timer.task_id != recovery.task_id
+        || stored.active_session_id != Some(active_session_id)
+    {
+        return Err(SessionPersistenceError::InvalidTransitionShape);
     }
-    if current.source != SessionSource::Focus {
-        return Err(SessionPersistenceError::SessionNotFocusOwned(
-            active_session_id,
-        ));
-    }
-    if current.task_id != Some(recovery.task_id) {
-        return Err(SessionPersistenceError::SessionTaskMismatch(
-            active_session_id,
-        ));
-    }
-    if current.kind != expected_kind {
-        return Err(SessionPersistenceError::SessionKindMismatch(
-            active_session_id,
-        ));
-    }
+    let current =
+        validate_retained_focus_session(&tx, active_session_id, recovery.task_id, expected_kind)?;
+    let next_duration_ms = stored
+        .active_session_base_ms
+        .checked_add(segment_ms)
+        .ok_or(SessionPersistenceError::DurationOverflow)?;
+    let next_duration = duration_seconds(next_duration_ms)?;
     if u64::try_from(next_duration).map_err(|_| SessionPersistenceError::DurationOverflow)?
         < current.duration_seconds
     {
@@ -530,7 +651,13 @@ pub fn checkpoint_focus_runtime(
          WHERE id = ?3 AND ended_at IS NULL",
         params![next_duration, now, active_session_id.to_string()],
     )?;
-    save_recovery_in_tx(&tx, recovery, Some(active_session_id), now)?;
+    save_recovery_in_tx(
+        &tx,
+        recovery,
+        Some(active_session_id),
+        stored.active_session_base_ms,
+        now,
+    )?;
     let updated = session_by_id(&tx, active_session_id)?;
     tx.commit()?;
     Ok(updated)
@@ -591,7 +718,7 @@ pub fn recover_interrupted_focus(
     let normalized = engine
         .recovery_state(0)?
         .ok_or(SessionPersistenceError::InvalidTransitionShape)?;
-    save_recovery_in_tx(&tx, &normalized, None, restarted_at)?;
+    save_recovery_in_tx(&tx, &normalized, None, 0, restarted_at)?;
     tx.commit()?;
 
     Ok(Some(RecoveredFocusRuntime {
