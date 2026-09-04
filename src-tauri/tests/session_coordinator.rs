@@ -1,14 +1,49 @@
-mod support;
-
+use narro_lib::domain::lists::NewListInput;
 use narro_lib::domain::model::PlanningLane;
+use narro_lib::domain::tasks::{NewTaskInput, TaskRecord};
+use narro_lib::persistence::lists::create_list;
 use narro_lib::persistence::run_migrations;
 use narro_lib::persistence::sessions::{get_open_session, get_session};
 use narro_lib::persistence::task_metadata::task_time_taken_seconds;
+use narro_lib::persistence::tasks::create_task;
 use narro_lib::timer::{SessionCoordinator, TimerMode, TimerStateKind};
 use rusqlite::Connection;
 use std::fs;
-use support::{ListFixture, TaskFixture, CREATED_AT, MUTATED_AGAIN_AT, MUTATED_AT};
 use uuid::Uuid;
+
+const CREATED_AT: &str = "2026-09-04T14:00:00Z";
+const MUTATED_AT: &str = "2026-09-04T14:01:00Z";
+const MUTATED_AGAIN_AT: &str = "2026-09-04T14:02:00Z";
+
+fn migrated() -> Connection {
+    let mut conn = Connection::open_in_memory().expect("open session coordinator database");
+    run_migrations(&mut conn).expect("migrate session coordinator database");
+    conn
+}
+
+fn task_fixture(conn: &mut Connection, list_title: &str, task_title: &str) -> TaskRecord {
+    let list = create_list(
+        conn,
+        NewListInput {
+            title: list_title.to_owned(),
+            color: None,
+            icon_asset: None,
+        },
+        CREATED_AT,
+    )
+    .expect("create coordinator list fixture");
+    create_task(
+        conn,
+        NewTaskInput {
+            list_id: list.id,
+            title: task_title.to_owned(),
+            manual_lane: PlanningLane::Today,
+            est_seconds: Some(900),
+        },
+        CREATED_AT,
+    )
+    .expect("create coordinator task fixture")
+}
 
 #[test]
 fn checkpointed_open_work_recovers_paused_without_counting_process_downtime() {
@@ -19,9 +54,7 @@ fn checkpointed_open_work_recovers_paused_without_counting_process_downtime() {
     {
         let mut conn = Connection::open(&path).expect("open recovery fixture database");
         run_migrations(&mut conn).expect("migrate recovery fixture database");
-        let list = ListFixture::new(1, "Inbox").insert(&conn);
-        let task = TaskFixture::new(1, list.id, "Recovered work", PlanningLane::Today)
-            .insert(&conn);
+        let task = task_fixture(&mut conn, "Inbox", "Recovered work");
         task_id = task.id;
 
         let mut coordinator = SessionCoordinator::new();
@@ -75,9 +108,8 @@ fn checkpointed_open_work_recovers_paused_without_counting_process_downtime() {
 
 #[test]
 fn est_time_up_extend_and_completion_keep_one_persisted_work_session_and_time_taken() {
-    let mut conn = support::migrated();
-    let list = ListFixture::new(2, "Focus").insert(&conn);
-    let task = TaskFixture::new(2, list.id, "Estimate", PlanningLane::Today).insert(&conn);
+    let mut conn = migrated();
+    let task = task_fixture(&mut conn, "Focus", "Estimate");
     let mut coordinator = SessionCoordinator::new();
 
     coordinator
@@ -113,10 +145,9 @@ fn est_time_up_extend_and_completion_keep_one_persisted_work_session_and_time_ta
 
 #[test]
 fn failed_second_start_leaves_candidate_engine_idle_when_database_rejects_duplicate_open_session() {
-    let mut conn = support::migrated();
-    let list = ListFixture::new(3, "Inbox").insert(&conn);
-    let first = TaskFixture::new(3, list.id, "First", PlanningLane::Today).insert(&conn);
-    let second = TaskFixture::new(4, list.id, "Second", PlanningLane::Today).insert(&conn);
+    let mut conn = migrated();
+    let first = task_fixture(&mut conn, "First list", "First");
+    let second = task_fixture(&mut conn, "Second list", "Second");
 
     let mut owner = SessionCoordinator::new();
     owner
