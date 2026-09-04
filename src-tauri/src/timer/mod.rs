@@ -10,8 +10,11 @@ use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
 mod lifecycle;
+mod recovery;
 pub mod runtime;
 pub use lifecycle::{TaskExitReason, TimerExit, TimerSwitchResult};
+pub(crate) use recovery::TimerRecoveryCheckpoint;
+pub use recovery::TimerRecoveryError;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

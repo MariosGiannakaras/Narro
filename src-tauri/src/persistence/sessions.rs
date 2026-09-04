@@ -262,6 +262,7 @@ fn open_focus_session(
     kind: SessionKind,
     task_id: Option<TaskId>,
     started_at: &str,
+    runtime_checkpoint_json: Option<&str>,
 ) -> Result<SessionRecord, SessionStoreError> {
     validate_mutation_timestamp(started_at)?;
     if kind == SessionKind::Work && task_id.is_none() {
@@ -280,13 +281,14 @@ fn open_focus_session(
     tx.execute(
         "INSERT INTO sessions (
             id, task_id, kind, started_at, ended_at, duration_seconds,
-            source, created_at, updated_at
-         ) VALUES (?1, ?2, ?3, ?4, NULL, 0, 'focus', ?4, ?4)",
+            source, created_at, updated_at, runtime_checkpoint_json
+         ) VALUES (?1, ?2, ?3, ?4, NULL, 0, 'focus', ?4, ?4, ?5)",
         params![
             id.to_string(),
             task_id.map(|value| value.to_string()),
             kind.as_str(),
-            started_at
+            started_at,
+            runtime_checkpoint_json
         ],
     )?;
     let created = load_session(&tx, id)?;
@@ -299,7 +301,22 @@ pub fn open_focus_work_session(
     task_id: TaskId,
     started_at: &str,
 ) -> Result<SessionRecord, SessionStoreError> {
-    open_focus_session(conn, SessionKind::Work, Some(task_id), started_at)
+    open_focus_session(conn, SessionKind::Work, Some(task_id), started_at, None)
+}
+
+pub fn open_focus_work_session_with_runtime_checkpoint(
+    conn: &mut Connection,
+    task_id: TaskId,
+    started_at: &str,
+    runtime_checkpoint_json: &str,
+) -> Result<SessionRecord, SessionStoreError> {
+    open_focus_session(
+        conn,
+        SessionKind::Work,
+        Some(task_id),
+        started_at,
+        Some(runtime_checkpoint_json),
+    )
 }
 
 pub fn open_focus_break_session(
@@ -307,7 +324,22 @@ pub fn open_focus_break_session(
     task_id: Option<TaskId>,
     started_at: &str,
 ) -> Result<SessionRecord, SessionStoreError> {
-    open_focus_session(conn, SessionKind::Break, task_id, started_at)
+    open_focus_session(conn, SessionKind::Break, task_id, started_at, None)
+}
+
+pub fn open_focus_break_session_with_runtime_checkpoint(
+    conn: &mut Connection,
+    task_id: Option<TaskId>,
+    started_at: &str,
+    runtime_checkpoint_json: &str,
+) -> Result<SessionRecord, SessionStoreError> {
+    open_focus_session(
+        conn,
+        SessionKind::Break,
+        task_id,
+        started_at,
+        Some(runtime_checkpoint_json),
+    )
 }
 
 pub fn get_session(conn: &Connection, id: SessionId) -> Result<SessionRecord, SessionStoreError> {
@@ -318,11 +350,26 @@ pub fn get_open_session(conn: &Connection) -> Result<Option<SessionRecord>, Sess
     load_open_session(conn)
 }
 
-pub fn checkpoint_open_session(
+pub fn get_session_runtime_checkpoint(
+    conn: &Connection,
+    id: SessionId,
+) -> Result<Option<String>, SessionStoreError> {
+    let value = conn
+        .query_row(
+            "SELECT runtime_checkpoint_json FROM sessions WHERE id = ?1",
+            [id.to_string()],
+            |row| row.get::<_, Option<String>>(0),
+        )
+        .optional()?;
+    value.ok_or(SessionStoreError::NotFound(id))
+}
+
+fn checkpoint_open_session_inner(
     conn: &mut Connection,
     id: SessionId,
     duration_seconds: u64,
     now: &str,
+    runtime_checkpoint_json: Option<&str>,
 ) -> Result<SessionRecord, SessionStoreError> {
     validate_mutation_timestamp(now)?;
     let duration_sql = duration_for_sql(duration_seconds)?;
@@ -342,9 +389,11 @@ pub fn checkpoint_open_session(
 
     let changed = tx.execute(
         "UPDATE sessions
-         SET duration_seconds = ?1, updated_at = ?2
+         SET duration_seconds = ?1,
+             updated_at = ?2,
+             runtime_checkpoint_json = COALESCE(?4, runtime_checkpoint_json)
          WHERE id = ?3 AND ended_at IS NULL",
-        params![duration_sql, now, id.to_string()],
+        params![duration_sql, now, id.to_string(), runtime_checkpoint_json],
     )?;
     if changed != 1 {
         return Err(SessionStoreError::AlreadyClosed(id));
@@ -352,6 +401,31 @@ pub fn checkpoint_open_session(
     let updated = load_session(&tx, id)?;
     tx.commit()?;
     Ok(updated)
+}
+
+pub fn checkpoint_open_session(
+    conn: &mut Connection,
+    id: SessionId,
+    duration_seconds: u64,
+    now: &str,
+) -> Result<SessionRecord, SessionStoreError> {
+    checkpoint_open_session_inner(conn, id, duration_seconds, now, None)
+}
+
+pub fn checkpoint_open_session_with_runtime_checkpoint(
+    conn: &mut Connection,
+    id: SessionId,
+    duration_seconds: u64,
+    now: &str,
+    runtime_checkpoint_json: &str,
+) -> Result<SessionRecord, SessionStoreError> {
+    checkpoint_open_session_inner(
+        conn,
+        id,
+        duration_seconds,
+        now,
+        Some(runtime_checkpoint_json),
+    )
 }
 
 pub fn close_session(
@@ -390,13 +464,14 @@ pub fn close_session(
     Ok(closed)
 }
 
-pub fn replace_open_focus_session(
+fn replace_open_focus_session_inner(
     conn: &mut Connection,
     current_id: SessionId,
     current_duration_seconds: u64,
     next_kind: SessionKind,
     next_task_id: Option<TaskId>,
     transitioned_at: &str,
+    next_runtime_checkpoint_json: Option<&str>,
 ) -> Result<(SessionRecord, SessionRecord), SessionStoreError> {
     validate_mutation_timestamp(transitioned_at)?;
     if next_kind == SessionKind::Work && next_task_id.is_none() {
@@ -434,13 +509,14 @@ pub fn replace_open_focus_session(
     tx.execute(
         "INSERT INTO sessions (
             id, task_id, kind, started_at, ended_at, duration_seconds,
-            source, created_at, updated_at
-         ) VALUES (?1, ?2, ?3, ?4, NULL, 0, 'focus', ?4, ?4)",
+            source, created_at, updated_at, runtime_checkpoint_json
+         ) VALUES (?1, ?2, ?3, ?4, NULL, 0, 'focus', ?4, ?4, ?5)",
         params![
             next_id.to_string(),
             next_task_id.map(|value| value.to_string()),
             next_kind.as_str(),
-            transitioned_at
+            transitioned_at,
+            next_runtime_checkpoint_json
         ],
     )?;
 
@@ -448,6 +524,45 @@ pub fn replace_open_focus_session(
     let opened = load_session(&tx, next_id)?;
     tx.commit()?;
     Ok((closed, opened))
+}
+
+pub fn replace_open_focus_session(
+    conn: &mut Connection,
+    current_id: SessionId,
+    current_duration_seconds: u64,
+    next_kind: SessionKind,
+    next_task_id: Option<TaskId>,
+    transitioned_at: &str,
+) -> Result<(SessionRecord, SessionRecord), SessionStoreError> {
+    replace_open_focus_session_inner(
+        conn,
+        current_id,
+        current_duration_seconds,
+        next_kind,
+        next_task_id,
+        transitioned_at,
+        None,
+    )
+}
+
+pub fn replace_open_focus_session_with_runtime_checkpoint(
+    conn: &mut Connection,
+    current_id: SessionId,
+    current_duration_seconds: u64,
+    next_kind: SessionKind,
+    next_task_id: Option<TaskId>,
+    transitioned_at: &str,
+    next_runtime_checkpoint_json: &str,
+) -> Result<(SessionRecord, SessionRecord), SessionStoreError> {
+    replace_open_focus_session_inner(
+        conn,
+        current_id,
+        current_duration_seconds,
+        next_kind,
+        next_task_id,
+        transitioned_at,
+        Some(next_runtime_checkpoint_json),
+    )
 }
 
 pub fn sessions_for_task(

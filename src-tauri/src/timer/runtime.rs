@@ -1,12 +1,14 @@
 use super::{
-    TaskExitReason, TimerEngine, TimerError, TimerExit, TimerMode, TimerSnapshot, TimerStateKind,
-    TimerSwitchResult,
+    TaskExitReason, TimerEngine, TimerError, TimerExit, TimerMode, TimerRecoveryCheckpoint,
+    TimerRecoveryError, TimerSnapshot, TimerStateKind, TimerSwitchResult,
 };
 use crate::domain::ids::{SessionId, TaskId};
-use crate::domain::sessions::{SessionKind, SessionRecord};
+use crate::domain::sessions::{SessionKind, SessionRecord, SessionSource};
 use crate::persistence::sessions::{
-    checkpoint_open_session, close_session, open_focus_break_session, open_focus_work_session,
-    replace_open_focus_session, SessionStoreError,
+    checkpoint_open_session_with_runtime_checkpoint, close_session, get_open_session,
+    get_session_runtime_checkpoint, open_focus_break_session_with_runtime_checkpoint,
+    open_focus_work_session_with_runtime_checkpoint,
+    replace_open_focus_session_with_runtime_checkpoint, SessionStoreError,
 };
 use rusqlite::Connection;
 use serde::{Deserialize, Serialize};
@@ -51,8 +53,21 @@ pub struct PersistedTimerSwitch {
 #[derive(Debug)]
 pub enum TimerRuntimeError {
     Timer(TimerError),
+    Recovery(TimerRecoveryError),
     Session(SessionStoreError),
+    CheckpointJson(serde_json::Error),
     BindingMismatch,
+    MissingRuntimeCheckpoint(SessionId),
+    UnsupportedRecoverySession {
+        id: SessionId,
+        kind: SessionKind,
+        source: SessionSource,
+    },
+    RecoveryTaskMismatch {
+        session_id: SessionId,
+        session_task_id: Option<TaskId>,
+        checkpoint_task_id: TaskId,
+    },
     DurationAccountingUnderflow,
 }
 
@@ -60,9 +75,26 @@ impl Display for TimerRuntimeError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Timer(error) => Display::fmt(error, formatter),
+            Self::Recovery(error) => Display::fmt(error, formatter),
             Self::Session(error) => Display::fmt(error, formatter),
+            Self::CheckpointJson(error) => write!(formatter, "timer runtime checkpoint JSON failed: {error}"),
             Self::BindingMismatch => formatter
                 .write_str("timer runtime and persisted open-session binding are inconsistent"),
+            Self::MissingRuntimeCheckpoint(id) => {
+                write!(formatter, "open focus session {id} has no durable timer checkpoint")
+            }
+            Self::UnsupportedRecoverySession { id, kind, source } => write!(
+                formatter,
+                "cannot recover open session {id}: kind={kind:?} source={source:?}"
+            ),
+            Self::RecoveryTaskMismatch {
+                session_id,
+                session_task_id,
+                checkpoint_task_id,
+            } => write!(
+                formatter,
+                "timer recovery task mismatch for session {session_id}: session={session_task_id:?} checkpoint={checkpoint_task_id}"
+            ),
             Self::DurationAccountingUnderflow => formatter
                 .write_str("timer runtime duration is lower than already-closed session duration"),
         }
@@ -73,7 +105,9 @@ impl std::error::Error for TimerRuntimeError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
             Self::Timer(error) => Some(error),
+            Self::Recovery(error) => Some(error),
             Self::Session(error) => Some(error),
+            Self::CheckpointJson(error) => Some(error),
             _ => None,
         }
     }
@@ -88,6 +122,18 @@ impl From<TimerError> for TimerRuntimeError {
 impl From<SessionStoreError> for TimerRuntimeError {
     fn from(value: SessionStoreError) -> Self {
         Self::Session(value)
+    }
+}
+
+impl From<TimerRecoveryError> for TimerRuntimeError {
+    fn from(value: TimerRecoveryError) -> Self {
+        Self::Recovery(value)
+    }
+}
+
+impl From<serde_json::Error> for TimerRuntimeError {
+    fn from(value: serde_json::Error) -> Self {
+        Self::CheckpointJson(value)
     }
 }
 
@@ -125,6 +171,97 @@ impl TimerRuntime {
         self.binding.as_ref().map(|binding| binding.id)
     }
 
+    pub fn recover_after_restart(
+        conn: &mut Connection,
+        now_ms: u64,
+        wall_time: &str,
+    ) -> Result<Option<(Self, TimerRuntimeSnapshot)>, TimerRuntimeError> {
+        let Some(session) = get_open_session(conn)? else {
+            return Ok(None);
+        };
+        if session.source != SessionSource::Focus {
+            return Err(TimerRuntimeError::UnsupportedRecoverySession {
+                id: session.id,
+                kind: session.kind,
+                source: session.source,
+            });
+        }
+        let checkpoint_json = get_session_runtime_checkpoint(conn, session.id)?
+            .ok_or(TimerRuntimeError::MissingRuntimeCheckpoint(session.id))?;
+        let checkpoint: TimerRecoveryCheckpoint = serde_json::from_str(&checkpoint_json)?;
+        if session.task_id != Some(checkpoint.task_id) {
+            return Err(TimerRuntimeError::RecoveryTaskMismatch {
+                session_id: session.id,
+                session_task_id: session.task_id,
+                checkpoint_task_id: checkpoint.task_id,
+            });
+        }
+        match (session.kind, checkpoint.state) {
+            (SessionKind::Work, TimerStateKind::Break)
+            | (SessionKind::Break, TimerStateKind::Running)
+            | (SessionKind::Break, TimerStateKind::Paused)
+            | (SessionKind::Break, TimerStateKind::TimeUp)
+            | (SessionKind::Break, TimerStateKind::OvertimeRunning)
+            | (SessionKind::Break, TimerStateKind::OvertimePaused)
+            | (_, TimerStateKind::Idle) => return Err(TimerRuntimeError::BindingMismatch),
+            _ => {}
+        }
+
+        let (engine, snapshot) = TimerEngine::restore_interrupted_paused(checkpoint, now_ms)?;
+        let checkpoint_json = encoded_checkpoint(&engine, now_ms)?;
+        let total_work_seconds = seconds(snapshot.work_elapsed_ms);
+        let total_break_seconds = seconds(snapshot.total_break_ms);
+
+        let (binding, closed_work_seconds, closed_break_seconds) = match session.kind {
+            SessionKind::Work => {
+                let closed_work_seconds = total_work_seconds
+                    .checked_sub(session.duration_seconds)
+                    .ok_or(TimerRuntimeError::DurationAccountingUnderflow)?;
+                checkpoint_open_session_with_runtime_checkpoint(
+                    conn,
+                    session.id,
+                    session.duration_seconds,
+                    wall_time,
+                    &checkpoint_json,
+                )?;
+                (
+                    SessionBinding::from_record(&session),
+                    closed_work_seconds,
+                    total_break_seconds,
+                )
+            }
+            SessionKind::Break => {
+                total_break_seconds
+                    .checked_sub(session.duration_seconds)
+                    .ok_or(TimerRuntimeError::DurationAccountingUnderflow)?;
+                let (_, opened) = replace_open_focus_session_with_runtime_checkpoint(
+                    conn,
+                    session.id,
+                    session.duration_seconds,
+                    SessionKind::Work,
+                    Some(snapshot.task_id.ok_or(TimerRuntimeError::BindingMismatch)?),
+                    wall_time,
+                    &checkpoint_json,
+                )?;
+                (
+                    SessionBinding::from_record(&opened),
+                    total_work_seconds,
+                    total_break_seconds,
+                )
+            }
+        };
+
+        let runtime = Self {
+            engine,
+            binding: Some(binding),
+            closed_work_seconds,
+            closed_break_seconds,
+            last_state: snapshot.state,
+        };
+        let runtime_snapshot = runtime.runtime_snapshot(snapshot);
+        Ok(Some((runtime, runtime_snapshot)))
+    }
+
     pub fn start_task(
         &mut self,
         conn: &mut Connection,
@@ -139,7 +276,13 @@ impl TimerRuntime {
 
         let mut engine = self.engine.clone();
         let snapshot = engine.start_task(task_id, mode, now_ms)?;
-        let session = open_focus_work_session(conn, task_id, wall_time)?;
+        let checkpoint_json = encoded_checkpoint(&engine, now_ms)?;
+        let session = open_focus_work_session_with_runtime_checkpoint(
+            conn,
+            task_id,
+            wall_time,
+            &checkpoint_json,
+        )?;
 
         self.engine = engine;
         self.binding = Some(SessionBinding::from_record(&session));
@@ -158,7 +301,7 @@ impl TimerRuntime {
         let mut engine = self.engine.clone();
         let snapshot = engine.advance(now_ms)?;
         let checkpoint_same = snapshot.state != self.last_state;
-        self.commit_candidate(conn, engine, snapshot, wall_time, checkpoint_same)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, checkpoint_same)
     }
 
     pub fn pause(
@@ -169,7 +312,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.pause(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, wall_time, true)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true)
     }
 
     pub fn resume(
@@ -180,7 +323,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.resume(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, wall_time, true)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true)
     }
 
     pub fn extend(
@@ -191,7 +334,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.extend(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, wall_time, true)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true)
     }
 
     pub fn start_manual_break(
@@ -203,7 +346,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.start_manual_break(duration_ms, now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, wall_time, false)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false)
     }
 
     pub fn finish_break(
@@ -214,7 +357,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.finish_break(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, wall_time, false)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false)
     }
 
     pub fn skip_break(
@@ -225,7 +368,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.skip_break(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, wall_time, false)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false)
     }
 
     pub fn finish_task(
@@ -271,13 +414,15 @@ impl TimerRuntime {
         let current_duration = current_total
             .checked_sub(self.closed_work_seconds)
             .ok_or(TimerRuntimeError::DurationAccountingUnderflow)?;
-        let (closed, opened) = replace_open_focus_session(
+        let checkpoint_json = encoded_checkpoint(&engine, now_ms)?;
+        let (closed, opened) = replace_open_focus_session_with_runtime_checkpoint(
             conn,
             current.id,
             current_duration,
             SessionKind::Work,
             Some(task_id),
             wall_time,
+            &checkpoint_json,
         )?;
 
         self.engine = engine;
@@ -340,6 +485,7 @@ impl TimerRuntime {
         conn: &mut Connection,
         engine: TimerEngine,
         snapshot: TimerSnapshot,
+        now_ms: u64,
         wall_time: &str,
         checkpoint_same: bool,
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
@@ -347,7 +493,8 @@ impl TimerRuntime {
         match (self.binding.clone(), desired) {
             (None, None) => {}
             (None, Some(next)) => {
-                let opened = open_binding(conn, &next, wall_time)?;
+                let checkpoint_json = encoded_checkpoint(&engine, now_ms)?;
+                let opened = open_binding(conn, &next, wall_time, &checkpoint_json)?;
                 self.binding = Some(SessionBinding::from_record(&opened));
             }
             (Some(_), None) => return Err(TimerRuntimeError::BindingMismatch),
@@ -356,19 +503,28 @@ impl TimerRuntime {
             {
                 if checkpoint_same {
                     let duration = self.open_duration_seconds(&snapshot, current.kind)?;
-                    checkpoint_open_session(conn, current.id, duration, wall_time)?;
+                    let checkpoint_json = encoded_checkpoint(&engine, now_ms)?;
+                    checkpoint_open_session_with_runtime_checkpoint(
+                        conn,
+                        current.id,
+                        duration,
+                        wall_time,
+                        &checkpoint_json,
+                    )?;
                 }
             }
             (Some(current), Some(next)) => {
                 let total = total_seconds(&snapshot, current.kind);
                 let duration = self.open_duration_seconds(&snapshot, current.kind)?;
-                let (_, opened) = replace_open_focus_session(
+                let checkpoint_json = encoded_checkpoint(&engine, now_ms)?;
+                let (_, opened) = replace_open_focus_session_with_runtime_checkpoint(
                     conn,
                     current.id,
                     duration,
                     next.kind,
                     next.task_id,
                     wall_time,
+                    &checkpoint_json,
                 )?;
                 match current.kind {
                     SessionKind::Work => self.closed_work_seconds = total,
@@ -433,19 +589,31 @@ fn desired_binding(snapshot: &TimerSnapshot) -> Result<Option<SessionBinding>, T
     }
 }
 
+fn encoded_checkpoint(engine: &TimerEngine, now_ms: u64) -> Result<String, TimerRuntimeError> {
+    let checkpoint = engine.recovery_checkpoint(now_ms)?;
+    serde_json::to_string(&checkpoint).map_err(TimerRuntimeError::from)
+}
+
 fn open_binding(
     conn: &mut Connection,
     binding: &SessionBinding,
     wall_time: &str,
+    runtime_checkpoint_json: &str,
 ) -> Result<SessionRecord, TimerRuntimeError> {
     match binding.kind {
-        SessionKind::Work => open_focus_work_session(
+        SessionKind::Work => open_focus_work_session_with_runtime_checkpoint(
             conn,
             binding.task_id.ok_or(TimerRuntimeError::BindingMismatch)?,
             wall_time,
+            runtime_checkpoint_json,
         )
         .map_err(TimerRuntimeError::from),
-        SessionKind::Break => open_focus_break_session(conn, binding.task_id, wall_time)
-            .map_err(TimerRuntimeError::from),
+        SessionKind::Break => open_focus_break_session_with_runtime_checkpoint(
+            conn,
+            binding.task_id,
+            wall_time,
+            runtime_checkpoint_json,
+        )
+        .map_err(TimerRuntimeError::from),
     }
 }
