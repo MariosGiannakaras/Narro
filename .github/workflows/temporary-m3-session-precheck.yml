@@ -55,7 +55,7 @@ jobs:
           '@
           $script | python -
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Harden live-session list lifecycle guard
+      - name: Harden live-session lifecycle guards
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
@@ -73,6 +73,10 @@ jobs:
               (
                   "use crate::persistence::tasks::{get_task, TaskStoreError};\n",
                   "use crate::persistence::lists::{get_list, ListStoreError};\nuse crate::persistence::tasks::{get_task, TaskStoreError};\n",
+              ),
+              (
+                  "use rusqlite::{params, Connection, OptionalExtension, Row};\n",
+                  "use rusqlite::{params, Connection, Row};\n",
               ),
               (
                   "    Task(TaskStoreError),\n    Decode(SessionDecodeError),\n",
