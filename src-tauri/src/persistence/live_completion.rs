@@ -388,9 +388,7 @@ mod tests {
 
         runtime.pause(&mut conn, 900_000, T15).unwrap();
         runtime.resume(&mut conn, 1_800_000, T30).unwrap();
-        let completed = runtime
-            .complete_task(&mut conn, 2_700_000, T45)
-            .unwrap();
+        let completed = runtime.complete_task(&mut conn, 2_700_000, T45).unwrap();
 
         assert_eq!(completed.timer.work_elapsed_ms, 1_800_000);
         assert_eq!(completed.closed_session.duration_seconds, 1_800);
@@ -418,9 +416,7 @@ mod tests {
         let final_work_session = runtime.open_session_id().unwrap();
         assert_ne!(final_work_session, break_session);
 
-        let completed = runtime
-            .complete_task(&mut conn, 210_000, T3_30)
-            .unwrap();
+        let completed = runtime.complete_task(&mut conn, 210_000, T3_30).unwrap();
         assert_eq!(completed.timer.work_elapsed_ms, 150_000);
         assert_eq!(completed.closed_session.id, final_work_session);
         assert_eq!(completed.closed_session.duration_seconds, 60);
