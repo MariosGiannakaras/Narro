@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
+import { TimerSessionProjection } from "./TimerSessionProjection";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
@@ -83,6 +84,7 @@ function FocusApp() {
         flexDirection: "column",
         height: "100vh",
         boxSizing: "border-box",
+        overflow: "auto",
       }}
     >
       <h3 style={{ margin: "0 0 0.5rem 0" }}>Focus Surface</h3>
@@ -94,12 +96,14 @@ function FocusApp() {
           padding: "0.5rem",
           fontSize: "0.8em",
           overflow: "auto",
-          flex: 1,
+          minHeight: "8rem",
           borderRadius: "4px",
         }}
       >
         <pre style={{ margin: 0 }}>{JSON.stringify(state, null, 2)}</pre>
       </div>
+
+      <TimerSessionProjection label="Focus Surface" compact />
 
       <div
         style={{
