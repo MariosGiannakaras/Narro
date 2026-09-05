@@ -14,6 +14,51 @@ Do not skip to M5+ product UI while M4 remains open unless the user explicitly c
 
 Architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with normally two persistent webviews: `main` and reused `focusSurface`.
 
+## WORK-STATE SEMANTICS
+
+Every zero-context agent must distinguish milestone state, slice state, and prerequisite code. Do not infer progress from file existence, branch names, old PRs, scaffolds, schema fields, or code that merely enables later work.
+
+Allowed milestone states:
+
+- **NOT STARTED** — no ordered product implementation slice for this milestone has begun;
+- **ACTIVE** — this is the current ordered milestone and at least one implementation slice is in progress or completed while the milestone gate remains open;
+- **COMPLETE** — the milestone gate is closed after required implementation, tests, authoritative Windows validation, merge/main validation, and tracking reconciliation.
+
+Allowed implementation-slice states:
+
+- **NOT STARTED** — no source/config/test mutation for the slice has begun;
+- **ACTIVE** — source work exists and must be resumed before starting another competing slice;
+- **PR VALIDATED** — exact PR head passed required CI but is not yet fully merged/main-validated/reconciled;
+- **MERGED / MAIN VALIDATION PENDING** — guarded merge completed but authoritative post-merge validation is unfinished;
+- **VALIDATED / RECONCILIATION PENDING** — source is validated on main but durable tracking is not yet reconciled;
+- **COMPLETE / RECONCILED** — source, validation, merge/main evidence and repository tracking are all complete.
+
+A later-milestone prerequisite implemented early is **FOUNDATION ONLY**. It does not change that later milestone from NOT STARTED to ACTIVE. If a coherent source change genuinely touches contracts used by multiple milestones, record which current-milestone requirement justified the change and label later-milestone effects as FOUNDATION ONLY until their ordered milestone actually begins.
+
+Branch/PR rules:
+
+- an old branch existing on GitHub does not make work active;
+- an old closed/unmerged PR does not make work active;
+- an open implementation PR **must** be listed below as the active PR, or explicitly classified as superseded/historical/blocking;
+- if repository inspection finds an unlisted open implementation PR, reconcile `HANDOFF.md` before doing new source work;
+- never start a parallel replacement slice while an ACTIVE slice/PR can be resumed safely;
+- before closing a superseded PR, compare its diff/capabilities against the authoritative merged implementation and record whether any unique required behavior would be lost.
+
+This section is the canonical interpretation rule when branch/PR history is noisy.
+
+## ACTIVE WORK RECORD
+
+- Active milestone: **Milestone 4**.
+- Latest completed slice: **timezone/DST correctness — COMPLETE / RECONCILED**.
+- Active source slice: **None**.
+- Active implementation branch: **None**.
+- Active implementation PR: **None**.
+- Pending source CI/main validation: **None**.
+- Next candidate slice: **M4 recurrence execution/materialization — NOT STARTED**.
+- Later milestones M5–M10: **NOT STARTED**.
+
+If any of these facts changes, update this record in the same coherent work cycle. A new chat must resume an ACTIVE item here before choosing a new one.
+
 ## USER-FACING PROGRESS
 
 Current durable project progress:
@@ -157,7 +202,9 @@ Preserve M2/M3/M4 correctness:
 
 Old branches may remain reachable for history. Their existence does not make their old slice active.
 
-PR #2 and PR #3 are superseded historical M1 shortcut attempts; the authoritative merged shortcut implementation is PR #4. They must not be treated as open implementation work.
+PR #2 and PR #3 are superseded historical M1 shortcut attempts. Their source diffs were re-audited after closure against PR #4/current main. They contain alternate diagnostic implementations of the same required capability (different temporary chords/state models), not unique required product behavior. The authoritative merged implementation is PR #4 / merge `fce2bbf65ab07d50a6928605c00fb694079739a0`, which provides the final `Ctrl+Shift+B` Windows `RegisterHotKey` path, `WM_HOTKEY` handling, idempotent registration, deterministic conflict handling, structured diagnostics, trigger counting and main show/recreate behavior. No required source recovery from PR #2/#3 is pending.
+
+PR #2 and PR #3 must not be treated as active implementation work.
 
 ## IMPORTANT FILES
 
@@ -174,6 +221,7 @@ PR #2 and PR #3 are superseded historical M1 shortcut attempts; the authoritativ
 - `src-tauri/src/persistence/task_metadata.rs`
 - `work-log/2026-09-05-1618-chatgpt-m4-scheduling-core.md`
 - `work-log/2026-09-05-chatgpt-m4-timezone-dst-reconciliation.md`
+- `work-log/2026-09-05-chatgpt-work-state-protocol.md`
 
 ## USER ACTION REQUIRED
 
