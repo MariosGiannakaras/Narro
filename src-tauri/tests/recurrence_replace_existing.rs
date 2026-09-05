@@ -75,6 +75,12 @@ fn friday_replacement() -> UpdateRecurrenceRuleInput {
     }
 }
 
+fn same_pattern_replacement() -> UpdateRecurrenceRuleInput {
+    let mut input = friday_replacement();
+    input.weekday_mask = 0b0000101;
+    input
+}
+
 fn occurrence_count(conn: &Connection, rule_id: narro_lib::domain::ids::RecurrenceRuleId) -> i64 {
     conn.query_row(
         "SELECT COUNT(*) FROM recurrence_occurrences WHERE recurrence_rule_id = ?1",
@@ -159,7 +165,7 @@ fn replace_preserves_and_detaches_modified_or_history_bearing_active_child() {
         replaced.detached_modified_child_ids,
         vec![modified_id, history_id]
     );
-    assert_eq!(occurrence_count(&conn, rule_id), 0);
+    assert_eq!(occurrence_count(&conn, rule_id), 2);
 
     let modified = get_task(&conn, modified_id).expect("edited child survives");
     assert_eq!(modified.title, "User-edited child");
@@ -174,6 +180,34 @@ fn replace_preserves_and_detaches_modified_or_history_bearing_active_child() {
         )
         .expect("count preserved sessions");
     assert_eq!(sessions, 1);
+}
+
+#[test]
+fn preserved_modified_child_reserves_occurrence_against_duplicate_rematerialization() {
+    let (mut conn, _parent_id, rule_id) = fixture();
+    let original = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
+        .expect("materialize original pattern");
+    let preserved_id = original.created_child_ids[0];
+    let replaceable_id = original.created_child_ids[1];
+
+    conn.execute(
+        "UPDATE tasks SET title = 'Keep my edit', updated_at = ?1 WHERE id = ?2",
+        params![T2, preserved_id.to_string()],
+    )
+    .expect("edit generated child");
+
+    let replaced = replace_existing_tasks(&mut conn, rule_id, same_pattern_replacement(), T2)
+        .expect("replace while preserving edited occurrence");
+    assert_eq!(replaced.removed_child_ids, vec![replaceable_id]);
+    assert_eq!(replaced.detached_modified_child_ids, vec![preserved_id]);
+    assert_eq!(occurrence_count(&conn, rule_id), 1);
+
+    let rematerialized = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T2)
+        .expect("rematerialize same occurrence pattern");
+    assert_eq!(rematerialized.existing_child_ids, vec![preserved_id]);
+    assert_eq!(rematerialized.created_child_ids.len(), 1);
+    assert_ne!(rematerialized.created_child_ids[0], preserved_id);
+    assert_eq!(occurrence_count(&conn, rule_id), 2);
 }
 
 #[test]
@@ -265,6 +299,23 @@ fn replace_is_atomic_when_rule_update_fails_after_child_selection() {
             get_task(&conn, child_id).is_ok(),
             "child deletion must roll back"
         );
+    }
+}
+
+#[test]
+fn replace_rejects_invalid_weekday_mask_before_any_write() {
+    let (mut conn, _parent_id, rule_id) = fixture();
+    let original = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
+        .expect("materialize original pattern");
+    let mut input = friday_replacement();
+    input.weekday_mask = 128;
+
+    let error = replace_existing_tasks(&mut conn, rule_id, input, T2)
+        .expect_err("invalid weekday mask must be rejected before replacement");
+    assert!(matches!(error, ReplaceExistingError::InvalidPattern));
+    assert_eq!(occurrence_count(&conn, rule_id), 2);
+    for child_id in original.created_child_ids {
+        assert!(get_task(&conn, child_id).is_ok());
     }
 }
 
