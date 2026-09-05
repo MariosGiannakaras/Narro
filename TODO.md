@@ -129,7 +129,7 @@ Research context: before changing M3 behavior, consult `docs/BLITZIT_HISTORY_RIS
 - [x] Add source-derived pause/resume regression: 15m work -> pause -> wait -> resume -> 15m work -> Done = exactly 30m in durable Time Taken/session history; repeat across multiple pause cycles and recovery.
 - [x] Add regression coverage for completing a live task after tracked work through the real task-completion mutation path: Time Taken must never reset to `00:00`.
 - [x] Add crash/restart tests around running, paused, break, task-switch, Time's Up/overtime and Pomodoro transitions.
-- [ ] Define/test Windows sleep/resume behavior for no session/data loss. Do not invent whether unattended sleep counts as work without an explicit product decision.
+- [x] Define/test Windows sleep/resume behavior for no session/data loss. Default global policy excludes unattended sleep from Time Taken; global `count` is supported; each task can `inherit`, `exclude`, or `count`; the effective policy is snapshotted into the active focus session so later preference changes do not alter already-running work.
 - [x] Add long-duration/large-elapsed safety coverage so very long sessions cannot overflow or corrupt timer/session state.
 
 Acceptance criteria:
@@ -144,6 +144,8 @@ Acceptance criteria:
 - all timer modes produce coherent work/break session history
 - renderer destruction/recreation or Focus Panel <-> Floating Timer presentation changes cannot reset/duplicate/advance a session
 - no renderer owns irreplaceable timer/session state
+
+**Gate C result: PASS / proceed to Milestone 4.** The timer/session engine, recovery, tracked-time durability, Pomodoro boundary effects, large-elapsed safety, and configurable Windows sleep/resume accounting are automated-validated on Windows. PR #35 exact head `a4582f5ea76737c8a5e01cb4e1c2cfb87a826159` passed Windows CI #192; squash merge `5eaf7f0eba1770112d41744377ea134ad5d41e33` passed main Windows CI #196.
 
 ## Milestone 4 — Scheduling, recurrence, reminders, eligibility
 
