@@ -228,14 +228,15 @@ fn normalized_rule_schedule(
             let time = parse_rule_time(local_time)?;
             let timezone = validate_timezone_identifier(timezone)
                 .map_err(|_| RecurrenceError::InvalidRuleTimezone)?;
-            resolve_local_datetime_strict(local_date, time, &timezone)
-                .map_err(|error| match error {
+            resolve_local_datetime_strict(local_date, time, &timezone).map_err(
+                |error| match error {
                     SchedulingError::InvalidTimezone(_) => RecurrenceError::InvalidRuleTimezone,
                     SchedulingError::AmbiguousLocalDateTime { .. } => {
                         RecurrenceError::AmbiguousOccurrenceLocalDateTime
                     }
                     _ => RecurrenceError::OccurrenceTimezoneResolutionFailed,
-                })?;
+                },
+            )?;
             Ok((
                 ScheduleKind::LocalDateTime,
                 local_date_text,
@@ -255,10 +256,7 @@ pub fn occurrences_for_materialization_week(
         return Ok(Vec::new());
     }
 
-    let current = parse_date(
-        current_local_date,
-        RecurrenceError::InvalidCurrentLocalDate,
-    )?;
+    let current = parse_date(current_local_date, RecurrenceError::InvalidCurrentLocalDate)?;
     let start = parse_date(
         &rule.starts_local_date,
         RecurrenceError::InvalidRuleStartDate,
@@ -429,10 +427,7 @@ pub fn materialize_recurrence_week(
     now: &str,
 ) -> Result<MaterializationReport, RecurrenceError> {
     validate_timestamp(now)?;
-    let current = parse_date(
-        current_local_date,
-        RecurrenceError::InvalidCurrentLocalDate,
-    )?;
+    let current = parse_date(current_local_date, RecurrenceError::InvalidCurrentLocalDate)?;
     let current_text = current.format("%Y-%m-%d").to_string();
 
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
@@ -474,13 +469,9 @@ pub fn materialize_recurrence_week(
             report.existing_child_ids.push(child_id);
             continue;
         }
-        report.created_child_ids.push(insert_occurrence_child(
-            &tx,
-            &rule,
-            &parent,
-            occurrence,
-            now,
-        )?);
+        report
+            .created_child_ids
+            .push(insert_occurrence_child(&tx, &rule, &parent, occurrence, now)?);
     }
 
     tx.execute(
@@ -526,7 +517,10 @@ mod tests {
     }
 
     fn dates(values: &[RecurrenceOccurrence]) -> Vec<&str> {
-        values.iter().map(|value| value.local_date.as_str()).collect()
+        values
+            .iter()
+            .map(|value| value.local_date.as_str())
+            .collect()
     }
 
     #[test]
@@ -591,13 +585,7 @@ mod tests {
             vec!["2026-10-10"]
         );
 
-        let weekday_rule = rule(
-            RecurrenceUnit::Month,
-            1,
-            0b0000101,
-            None,
-            "2026-09-01",
-        );
+        let weekday_rule = rule(RecurrenceUnit::Month, 1, 0b0000101, None, "2026-09-01");
         assert_eq!(
             dates(
                 &occurrences_for_materialization_week(&weekday_rule, "2026-10-05")
@@ -614,10 +602,7 @@ mod tests {
             .expect("non leap year")
             .is_empty());
         assert_eq!(
-            dates(
-                &occurrences_for_materialization_week(&rule, "2028-02-28")
-                    .expect("leap year")
-            ),
+            dates(&occurrences_for_materialization_week(&rule, "2028-02-28").expect("leap year")),
             vec!["2028-02-29"]
         );
     }
