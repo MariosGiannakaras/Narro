@@ -130,7 +130,7 @@ Research context: before changing M3 behavior, consult `docs/BLITZIT_HISTORY_RIS
 - [x] Add regression coverage for completing a live task after tracked work through the real task-completion mutation path: Time Taken must never reset to `00:00`.
 - [x] Add crash/restart tests around running, paused, break, task-switch, Time's Up/overtime and Pomodoro transitions.
 - [ ] Define/test Windows sleep/resume behavior for no session/data loss. Do not invent whether unattended sleep counts as work without an explicit product decision.
-- [ ] Add long-duration/large-elapsed safety coverage so very long sessions cannot overflow or corrupt timer/session state.
+- [x] Add long-duration/large-elapsed safety coverage so very long sessions cannot overflow or corrupt timer/session state.
 
 Acceptance criteria:
 
