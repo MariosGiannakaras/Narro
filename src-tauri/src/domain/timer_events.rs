@@ -10,6 +10,7 @@ pub const TIMER_SESSION_EVENT_NAME: &str = "timer-session-changed";
 pub struct TimerSessionPayload {
     pub revision: u64,
     pub runtime: TimerRuntimeSnapshot,
+    pub awaiting_resume: bool,
     pub change: Option<TimerSessionChange>,
 }
 
@@ -18,6 +19,7 @@ impl TimerSessionPayload {
         Self {
             revision,
             runtime,
+            awaiting_resume: false,
             change: None,
         }
     }
@@ -30,6 +32,7 @@ impl TimerSessionPayload {
         Self {
             revision,
             runtime,
+            awaiting_resume: false,
             change: Some(change),
         }
     }
@@ -118,6 +121,7 @@ mod tests {
     fn snapshot_payload_has_no_fake_transition() {
         let payload = TimerSessionPayload::snapshot(7, runtime());
         assert_eq!(payload.revision, 7);
+        assert!(!payload.awaiting_resume);
         assert!(payload.change.is_none());
         assert_eq!(payload.runtime.timer.state, TimerStateKind::Paused);
     }
@@ -135,6 +139,7 @@ mod tests {
         let value = serde_json::to_value(payload).unwrap();
 
         assert_eq!(value["revision"], 8);
+        assert_eq!(value["awaitingResume"], false);
         assert_eq!(
             value["runtime"]["open_session_id"],
             session_id().to_string()
