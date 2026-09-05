@@ -4,7 +4,7 @@ use crate::domain::timer_events::{TimerSessionChange, TimerSessionPayload};
 use crate::persistence::live_completion::LiveTaskCompletionError;
 use crate::persistence::live_time_taken::LiveTimeTakenError;
 use crate::timer::runtime::{TimerRuntime, TimerRuntimeError, TimerRuntimeSnapshot};
-use crate::timer::{TimerMode, TimerStateKind};
+use crate::timer::TimerMode;
 use rusqlite::Connection;
 use std::fmt::{Display, Formatter};
 
@@ -427,6 +427,7 @@ mod tests {
     use crate::persistence::sessions::get_open_session;
     use crate::persistence::task_metadata::task_time_taken_seconds;
     use crate::persistence::tasks::create_task;
+    use crate::timer::TimerStateKind;
 
     const T0: &str = "2026-09-05T12:00:00Z";
     const T1: &str = "2026-09-05T12:01:00Z";
