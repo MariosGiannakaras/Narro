@@ -29,33 +29,50 @@ Do not begin polished Milestone 5+ product UI while Milestone 4 remains open unl
 
 ## Current validated source baseline
 
-Latest validated **source** baseline:
+Latest fully main-validated **source** baseline:
 
-`77625cfac01ad133a4c5c188a9613b43d294460c`
+`2135e40fe6953cf730d73edd184378510e2057aa`
 
-This is the squash merge of PR #37, **M4: harden timezone and DST scheduling**.
+This resulting-main SHA contains PR #40 recurrence execution/materialization plus the semantics-neutral PR #41 main-CI revalidation/tracking repair.
 
-Exact validated PR head:
+### Recurrence PR validation
 
-`4ef9e89ccf68989716444d45a833c6e4436723f6`
+PR #40 exact validated head:
 
-### PR #37 validation
+`7217dbed78f930411fe5c360796729ee3e5b8d4b`
 
-- Windows PR CI #207 / run `33976481855`: **SUCCESS**;
+- Windows PR CI #212 / run `33979784683` / job `101342828953`: **SUCCESS**;
 - repository preflight: **PASS**;
 - Tauri release build: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `9972643028`;
-- digest `sha256:9193752fe1a40d4c28d3ff186b37eaf4b37ba68f03f2cf6bbc69b0ce4ac59595`.
+- artifact ID `9973579168`;
+- digest `sha256:1f75ebec83c7c0bf04f47e28acad627e727fab42872ff180aeef862ce6babc38`.
+
+PR #40 squash merge: `ca0d45a22ee61a2e5cd3c308d873ff1b5a42f20a`.
+
+The normal main push CI did not start for that merge because the squash commit message inherited a historical CI-skip token from branch history. This was treated as missing validation evidence, not as a pass.
+
+PR #41 supplied a semantics-neutral revalidation path. Exact validated PR #41 head:
+
+`0331173297647506d55da6adae50e5096c8d0173`
+
+- Windows PR CI #214 / run `33981665186` / job `101347875865`: **SUCCESS**;
+- repository preflight: **PASS**;
+- Tauri release build: **PASS**;
+- artifact upload: **PASS**;
+- artifact ID `9974074797`;
+- digest `sha256:d3366746cd3338ec94896fb04c236413ad452ccf97833313f2f2fecaeacc574e`.
 
 ### Main validation
 
-- Windows main CI #208 / run `33977191609` / job `101335861563`: **SUCCESS** on exact source SHA `77625cfac01ad133a4c5c188a9613b43d294460c`;
+PR #41 guarded squash merge produced source SHA `2135e40fe6953cf730d73edd184378510e2057aa` with a clean commit message containing no CI-skip token.
+
+- Windows main CI #215 / run `33982239289` / job `101349403398`: **SUCCESS** on exact source SHA `2135e40fe6953cf730d73edd184378510e2057aa`;
 - repository preflight: **PASS**;
 - Tauri release build: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `9972845872`;
-- digest `sha256:dc554575ec03b5a7c793f5163a8451173cbcf6713070ed0615ccfada0ce564c0`.
+- artifact ID `9974264032`;
+- digest `sha256:b88ffabf27cd8d736ea17c2a78739f78b28b537036f97f49ed78e3d4ce4f3e67`.
 
 Markdown-only reconciliation commits newer than this SHA do not replace the validated source baseline.
 
@@ -110,7 +127,7 @@ Completion evidence:
 
 - `work-log/2026-09-03-chatgpt-m2-completion.md`.
 
-M2 recurrence support is **metadata persistence only**. It does not mean M4 recurrence materialization has started.
+M2 recurrence support is metadata persistence only; M4 now owns recurrence execution/materialization behavior.
 
 ## Milestone 3 — Gate C complete
 
@@ -145,7 +162,7 @@ PR #26 is historical/unmerged and superseded by the later validated recovery imp
 
 ## Milestone 4 — active validated state
 
-Milestone 4 remains open. Two coherent source slices are validated.
+Milestone 4 remains open. Three coherent source slices are now validated and reconciled.
 
 ### PR #36 — scheduling / eligibility core
 
@@ -165,7 +182,7 @@ Evidence: `work-log/2026-09-05-1618-chatgpt-m4-scheduling-core.md`.
 
 ### PR #37 — timezone / DST correctness
 
-Merge/current source baseline: `77625cfac01ad133a4c5c188a9613b43d294460c`.
+Merge: `77625cfac01ad133a4c5c188a9613b43d294460c`.
 
 Validated:
 
@@ -179,48 +196,56 @@ Validated:
 - persistence rejects invalid timezone/DST local-datetime shapes;
 - unit/integration regressions for invalid zones, DST gaps/folds, timezone changes and date-only stability.
 
-Final PR #37 source/test files:
-
-- `src-tauri/Cargo.toml`;
-- `src-tauri/Cargo.lock`;
-- `src-tauri/src/persistence/task_metadata.rs`;
-- `src-tauri/src/scheduling/mod.rs`;
-- `src-tauri/tests/scheduling_core.rs`.
-
-The temporary branch-only lockfile workflow was removed before the validated head and is absent from `main`.
-
 Evidence: `work-log/2026-09-05-chatgpt-m4-timezone-dst-reconciliation.md`.
+
+### PR #40 / #41 — recurrence execution/materialization core
+
+Fully validated resulting source baseline: `2135e40fe6953cf730d73edd184378510e2057aa`.
+
+Validated recurrence behavior:
+
+- deterministic day/week/month/year interval occurrence evaluation;
+- weekly/monthly weekday masks and monthly calendar-date rules;
+- Monday-through-Sunday materialization window;
+- recurring parent normalization to unscheduled Backlog;
+- new stable child task identities with parent linkage and copied title/list/EST fields;
+- date-only and timed child schedule semantics;
+- strict IANA/DST rejection for ambiguous/nonexistent timed occurrences;
+- transactional child + `recurrence_occurrences` insertion under SQLite `IMMEDIATE` transaction;
+- durable duplicate prevention through recurrence occurrence identity;
+- repeated same-week materialization is idempotent;
+- inactive rules are no-ops;
+- failed timed materialization rolls back all parent/child/occurrence mutations;
+- monotonic `last_materialized_local_date` checkpoint.
+
+Evidence: `work-log/2026-09-05-chatgpt-m4-recurrence-materialization-reconciliation.md`.
 
 ### M4 progress boundary
 
-The completed timezone/DST slice is:
+The recurrence execution/materialization core slice is:
 
 **Μικρή τρέχουσα υλοποίηση: 6/6 ολοκληρωμένες.**
 
-The next M4 source slice is **NOT STARTED**. Do not reset the small counter until actual new source work begins.
+No new M4 source slice is active after this reconciliation. The next source slice is **NOT STARTED** and must receive a new explicit small-slice denominator when source work begins.
 
 Still open in M4:
 
 - one-off local reminders;
-- recurrence presets and custom interval/unit/weekday rules;
-- recurring parent in Backlog and Monday-of-due-week child materialization;
 - Replace Existing Tasks execution;
 - recurrence detachment semantics;
-- idempotent materialization on startup/resume/date change and missed-day catch-up;
+- startup/resume/date-change orchestration and missed-day catch-up;
 - tray/background due-reminder processing;
 - Windows locale/system 12/24-hour visible formatting;
-- remaining combined M4 regression matrix;
+- remaining combined M4 regression matrix, including repeated startup/missed days;
 - explicit scheduled-lane movement anti-duplication regression at the M4 behavior layer.
 
-`src-tauri/src/recurrence/mod.rs` remains only a capability-boundary comment/stub. Recurrence occurrence materialization has **not started**.
-
-The broad TODO item covering DST + Monday/week boundaries + timezone changes + repeated startup + missed days + future eligibility + weekend/date-only behavior remains open. PR #37 validates the timezone/DST/date-only subset, but recurrence/repeated-startup/missed-day behavior does not yet exist and must not be implied complete.
+The broad TODO item covering DST + Monday/week boundaries + timezone changes + repeated startup + missed days + future eligibility + weekend/date-only behavior remains open. Existing slices validate the DST/week/timezone/future-eligibility/weekend/date-only and same-week recurrence-idempotency subsets, but repeated-startup/missed-day orchestration does not yet exist.
 
 ## Later milestone status
 
 Milestones 5–10 are **NOT STARTED**.
 
-This is true even where prerequisite capability already exists. In particular:
+This remains true even where prerequisite capability already exists. In particular:
 
 - M1 diagnostic `main`/`focusSurface` UI is not Milestone 5/6/7 product UI;
 - global shortcut proof is not Milestone 8 Preferences implementation;
@@ -275,7 +300,8 @@ Future agents must preserve:
 - Monday week boundaries;
 - explicit timezone resolution for timed schedules;
 - fail-closed DST ambiguity/nonexistence handling until a different policy is explicitly validated;
-- deterministic/idempotent recurrence once implemented;
+- deterministic/idempotent recurrence;
+- recurrence occurrence identity as the durable duplicate-prevention boundary;
 - explicit link activation;
 - dynamic monitor topology recovery;
 - minimal `focusSurface` dependency/runtime footprint;

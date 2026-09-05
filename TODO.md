@@ -155,8 +155,8 @@ Acceptance criteria:
 - [x] Prevent future-timed Today tasks from auto-starting before due time.
 - [x] Preserve date-only schedule semantics without accidental timezone day shifts.
 - [ ] Implement one-off local reminders.
-- [ ] Implement recurrence presets and custom interval/unit/weekday rules documented in `docs/PRODUCT_SPEC.md`.
-- [ ] Implement recurring parent in Backlog and Monday-of-due-week child materialization.
+- [x] Implement recurrence presets and custom interval/unit/weekday rules documented in `docs/PRODUCT_SPEC.md`.
+- [x] Implement recurring parent in Backlog and Monday-of-due-week child materialization.
 - [ ] Implement Replace Existing Tasks behavior.
 - [ ] Implement recurrence detachment semantics while preserving already modified independent children.
 - [ ] Make recurrence materialization idempotent on startup/resume/date change.
