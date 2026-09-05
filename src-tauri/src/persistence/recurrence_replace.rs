@@ -245,27 +245,23 @@ pub fn replace_existing_tasks(
            AND t.recurrence_parent_task_id = ?2
          ORDER BY ro.occurrence_local_date, COALESCE(ro.occurrence_local_time, ''), t.id",
     )?;
-    let rows = statement.query_map(
-        params![rule_id.to_string(), parent.id.to_string()],
-        |row| {
-            Ok((
-                row.get::<_, String>(0)?,
-                row.get::<_, Option<String>>(1)?,
-                row.get::<_, Option<String>>(2)?,
-                row.get::<_, String>(3)?,
-                row.get::<_, String>(4)?,
-                row.get::<_, i64>(5)?,
-            ))
-        },
-    )?;
+    let rows = statement.query_map(params![rule_id.to_string(), parent.id.to_string()], |row| {
+        Ok((
+            row.get::<_, String>(0)?,
+            row.get::<_, Option<String>>(1)?,
+            row.get::<_, Option<String>>(2)?,
+            row.get::<_, String>(3)?,
+            row.get::<_, String>(4)?,
+            row.get::<_, i64>(5)?,
+        ))
+    })?;
     let candidates: Vec<_> = rows.collect::<Result<_, _>>()?;
     drop(statement);
 
     let mut removed_child_ids = Vec::new();
     let mut detached_modified_child_ids = Vec::new();
 
-    for (raw_id, completed_at, archived_at, created_at, updated_at, manual_adjustment) in
-        candidates
+    for (raw_id, completed_at, archived_at, created_at, updated_at, manual_adjustment) in candidates
     {
         let child_id = parse_child_id(raw_id)?;
         if completed_at.is_some() || archived_at.is_some() {
@@ -337,9 +333,9 @@ pub fn replace_existing_tasks(
         ],
     )?;
     if changed != 1 {
-        return Err(ReplaceExistingError::Store(
-            RecurrenceStoreError::NotFound(rule_id),
-        ));
+        return Err(ReplaceExistingError::Store(RecurrenceStoreError::NotFound(
+            rule_id,
+        )));
     }
     tx.execute(
         "UPDATE tasks SET updated_at = ?1 WHERE id = ?2",
