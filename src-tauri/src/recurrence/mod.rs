@@ -6,6 +6,7 @@
 use crate::domain::ids::{RecurrenceRuleId, TaskId};
 use crate::domain::model::{PlanningLane, RecurrenceUnit, ScheduleKind};
 use crate::domain::recurrence::RecurrenceRuleRecord;
+use crate::domain::tasks::TaskRecord;
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::recurrence::{get_recurrence_rule, RecurrenceStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
@@ -41,6 +42,7 @@ pub enum RecurrenceError {
     InvalidTimestamp,
     InvalidCurrentLocalDate,
     InvalidRuleStartDate,
+    InvalidRuleInterval,
     InvalidRuleLocalTime,
     InvalidRuleTimeTimezoneShape,
     InvalidRuleTimezone,
@@ -70,6 +72,9 @@ impl Display for RecurrenceError {
             }
             Self::InvalidRuleStartDate => {
                 formatter.write_str("recurrence rule start date must use YYYY-MM-DD")
+            }
+            Self::InvalidRuleInterval => {
+                formatter.write_str("recurrence rule interval must be greater than zero")
             }
             Self::InvalidRuleLocalTime => {
                 formatter.write_str("recurrence rule local time must use 24-hour HH:MM")
@@ -170,7 +175,10 @@ fn is_occurrence_date(
     start: NaiveDate,
     candidate: NaiveDate,
 ) -> Result<bool, RecurrenceError> {
-    if candidate < start || rule.interval_count == 0 {
+    if rule.interval_count == 0 {
+        return Err(RecurrenceError::InvalidRuleInterval);
+    }
+    if candidate < start {
         return Ok(false);
     }
     let interval = i64::from(rule.interval_count);
@@ -300,17 +308,18 @@ fn next_backlog_rank(tx: &Transaction<'_>, list_id: &str) -> Result<i64, Recurre
 
 fn normalize_parent_as_backlog(
     tx: &Transaction<'_>,
-    parent: &crate::domain::tasks::TaskRecord,
+    parent: &TaskRecord,
     now: &str,
 ) -> Result<(), RecurrenceError> {
     if parent.manual_lane == PlanningLane::Backlog && parent.schedule_kind == ScheduleKind::None {
         return Ok(());
     }
 
+    let list_id = parent.list_id.to_string();
     let rank = if parent.manual_lane == PlanningLane::Backlog {
         i64::from(parent.sort_rank)
     } else {
-        next_backlog_rank(tx, &parent.list_id.to_string())?
+        next_backlog_rank(tx, &list_id)?
     };
     let changed = tx.execute(
         "UPDATE tasks
@@ -346,8 +355,8 @@ fn existing_occurrence_child(
                AND COALESCE(occurrence_local_time, '') = COALESCE(?3, '')",
             params![
                 rule_id.to_string(),
-                occurrence.local_date,
-                occurrence.local_time
+                occurrence.local_date.as_str(),
+                occurrence.local_time.as_deref()
             ],
             |row| row.get(0),
         )
@@ -362,17 +371,18 @@ fn existing_occurrence_child(
 fn insert_occurrence_child(
     tx: &Transaction<'_>,
     rule: &RecurrenceRuleRecord,
-    parent: &crate::domain::tasks::TaskRecord,
+    parent: &TaskRecord,
     occurrence: &RecurrenceOccurrence,
     now: &str,
 ) -> Result<TaskId, RecurrenceError> {
-    let local_date = parse_date(
+    let occurrence_date = parse_date(
         &occurrence.local_date,
         RecurrenceError::InvalidCurrentLocalDate,
     )?;
     let (schedule_kind, local_date, local_time, timezone) =
-        normalized_rule_schedule(rule, local_date)?;
-    let rank = next_backlog_rank(tx, &parent.list_id.to_string())?;
+        normalized_rule_schedule(rule, occurrence_date)?;
+    let list_id = parent.list_id.to_string();
+    let rank = next_backlog_rank(tx, &list_id)?;
     let child_id = TaskId::generate();
 
     tx.execute(
@@ -383,8 +393,8 @@ fn insert_occurrence_child(
          ) VALUES (?1, ?2, ?3, 'backlog', ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?11)",
         params![
             child_id.to_string(),
-            parent.list_id.to_string(),
-            parent.title,
+            list_id,
+            parent.title.as_str(),
             rank,
             parent.est_seconds.map(i64::from),
             schedule_kind.as_str(),
@@ -404,8 +414,8 @@ fn insert_occurrence_child(
         params![
             child_id.to_string(),
             rule.id.to_string(),
-            occurrence.local_date,
-            occurrence.local_time,
+            occurrence.local_date.as_str(),
+            occurrence.local_time.as_deref(),
             now
         ],
     )?;
@@ -425,7 +435,8 @@ pub fn materialize_recurrence_week(
     )?;
     let current_text = current.format("%Y-%m-%d").to_string();
 
-    let rule = get_recurrence_rule(conn, rule_id)?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    let rule = get_recurrence_rule(&tx, rule_id)?;
     let occurrences = occurrences_for_materialization_week(&rule, &current_text)?;
     let mut report = MaterializationReport {
         recurrence_rule_id: rule_id,
@@ -435,8 +446,11 @@ pub fn materialize_recurrence_week(
         existing_child_ids: Vec::new(),
     };
 
-    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-    let rule = get_recurrence_rule(&tx, rule_id)?;
+    if !rule.is_active {
+        tx.commit()?;
+        return Ok(report);
+    }
+
     let parent = get_task(&tx, rule.parent_task_id)?;
     if parent.archived_at.is_some() {
         return Err(RecurrenceError::ParentArchived(parent.id));
@@ -450,11 +464,6 @@ pub fn materialize_recurrence_week(
     }
     if parent.recurrence_rule_id != Some(rule.id) {
         return Err(RecurrenceError::ParentRuleLinkMismatch(parent.id));
-    }
-
-    if !rule.is_active {
-        tx.commit()?;
-        return Ok(report);
     }
 
     normalize_parent_as_backlog(&tx, &parent, now)?;
@@ -476,11 +485,10 @@ pub fn materialize_recurrence_week(
 
     tx.execute(
         "UPDATE recurrence_rules
-         SET last_materialized_local_date = CASE
-                 WHEN last_materialized_local_date IS NULL OR last_materialized_local_date < ?1
-                 THEN ?1 ELSE last_materialized_local_date END,
+         SET last_materialized_local_date = ?1,
              updated_at = ?2
-         WHERE id = ?3",
+         WHERE id = ?3
+           AND (last_materialized_local_date IS NULL OR last_materialized_local_date < ?1)",
         params![current_text, now, rule.id.to_string()],
     )?;
     tx.commit()?;
