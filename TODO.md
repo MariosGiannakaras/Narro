@@ -149,11 +149,11 @@ Acceptance criteria:
 
 ## Milestone 4 — Scheduling, recurrence, reminders, eligibility
 
-- [ ] Implement Monday-based week classification.
-- [ ] Implement official scheduling shortcuts: Today, Later today (+2h), Tomorrow, Next week (+7d), custom date.
-- [ ] Classify scheduled tasks into Backlog / This Week / Today by Windows local date/timezone.
-- [ ] Prevent future-timed Today tasks from auto-starting before due time.
-- [ ] Preserve date-only schedule semantics without accidental timezone day shifts.
+- [x] Implement Monday-based week classification.
+- [x] Implement official scheduling shortcuts: Today, Later today (+2h), Tomorrow, Next week (+7d), custom date.
+- [x] Classify scheduled tasks into Backlog / This Week / Today by Windows local date/timezone.
+- [x] Prevent future-timed Today tasks from auto-starting before due time.
+- [x] Preserve date-only schedule semantics without accidental timezone day shifts.
 - [ ] Implement one-off local reminders.
 - [ ] Implement recurrence presets and custom interval/unit/weekday rules documented in `docs/PRODUCT_SPEC.md`.
 - [ ] Implement recurring parent in Backlog and Monday-of-due-week child materialization.
