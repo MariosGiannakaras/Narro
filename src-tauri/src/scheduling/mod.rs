@@ -24,11 +24,13 @@ impl Display for SchedulingError {
             Self::InvalidLocalTime(value) => {
                 write!(formatter, "scheduled local time is invalid: {value}")
             }
-            Self::InvalidTimezone => formatter.write_str(
-                "scheduling timezone must be a non-empty local timezone identifier",
-            ),
+            Self::InvalidTimezone => formatter
+                .write_str("scheduling timezone must be a non-empty local timezone identifier"),
             Self::InconsistentStoredSchedule(kind) => {
-                write!(formatter, "stored schedule fields do not match kind: {kind}")
+                write!(
+                    formatter,
+                    "stored schedule fields do not match kind: {kind}"
+                )
             }
             Self::DateArithmeticOverflow => {
                 formatter.write_str("scheduling date/time arithmetic overflow")
@@ -83,10 +85,7 @@ fn parse_local_time(value: &str) -> Result<NaiveTime, SchedulingError> {
 
 fn validate_timezone(value: &str) -> Result<&str, SchedulingError> {
     let value = value.trim();
-    if value.is_empty()
-        || value.len() > MAX_TIMEZONE_BYTES
-        || value.chars().any(char::is_control)
-    {
+    if value.is_empty() || value.len() > MAX_TIMEZONE_BYTES || value.chars().any(char::is_control) {
         return Err(SchedulingError::InvalidTimezone);
     }
     Ok(value)
