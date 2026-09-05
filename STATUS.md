@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-04
+Last updated: 2026-09-05
 
 For zero-context AI continuation, start with `AI_START_HERE.md` and `HANDOFF.md`.
 
@@ -148,7 +148,7 @@ Completion evidence: `work-log/2026-09-03-chatgpt-m2-completion.md`.
 
 ## Milestone 3 current merged state
 
-Current validated `main` baseline before this research-only documentation change: `c769c284002628b73f76b4c1e35b1595dc685bf0`.
+Current validated implementation baseline: `c59e434e9f6b13b1837159f00e51fc96dd7f10a7`.
 
 Merged M3 implementation slices:
 
@@ -156,19 +156,29 @@ Merged M3 implementation slices:
 - PR #24 / `2da2496d1e7eab4ba57a0c80d82c680614fe2397`: task Done/Skip/Switch timer lifecycle and Time's Up exits.
 - PR #25 / `faf46923acbebd59cd0b1d241eaad80c2618f606`: typed session persistence foundation, work/break separation, monotonic checkpoints and database enforcement of at most one unfinished session.
 - PR #27 / `c769c284002628b73f76b4c1e35b1595dc685bf0`: persistence-first `TimerRuntime`, atomic Work<->Break/task-switch row replacement, no per-second SQLite writes, fractional-segment accounting and failed-switch rollback. Windows CI #122 / run `33889344761`: SUCCESS.
+- PR #29 / `3d4ab087682d3cf91a93f18aa5e1bd2cb23d2719`: durable timer-runtime checkpoint/recovery tied to the open focus session. Interrupted running/overtime recover paused, break progress survives without charging downtime, and checkpoint/session mismatches are rejected. PR CI #128 / run `33917954626`: SUCCESS. Main CI #129 / run `33919037186`: SUCCESS.
+- PR #30 / `138fb5cc753dc520be731159be453fc6046aecb4`: atomic product-level task completion boundary combining final session close, checkpoint removal, task completion and rank compaction before Idle publication. PR CI #138 / run `33927834736`: SUCCESS. Main CI #139 / run `33928547004`: SUCCESS.
+- PR #31 / `c59e434e9f6b13b1837159f00e51fc96dd7f10a7`: live Time Taken edits restricted to a paused runtime-aware transaction, preserving raw session history, plus exact 15m+15m pause/recovery and task-switch restart regressions. PR CI #144 / run `33929261772`: SUCCESS. Main CI #145 / run `33931153129`: SUCCESS.
 
-Current merged integration tests already prove a basic pause/resume/finish path excludes paused wall time and combines work before/after the pause; they also prove break exclusion, Pomodoro row boundaries and atomic task-switch persistence behavior.
+The high-risk tracked-time boundaries are now automated-covered: process downtime is excluded, one open-session identity survives recovery, task switching remains coherent across restart, Done cannot publish task completion without final session persistence, and a paused manual Time Taken correction remains stable after resume/recovery without rewriting historical session durations.
 
-PR #26 (`m3-session-coordinator`) was closed unmerged. Its crash/restart recovery work is **not** part of `main`.
+PR #26 (`m3-session-coordinator`) was closed unmerged and is historical only. Its intended crash-recovery capability is superseded by merged PR #29.
 
-Remaining correctness boundaries before M3 can close:
+Important product/runtime APIs:
 
-- durable runtime checkpoint/recovery after process interruption;
-- transactionally safe coordination between task completion mutation and final timer/session persistence;
-- authoritative rebasing after manual Time Taken edits while paused;
-- typed Tauri timer/session events with renderers kept non-authoritative;
-- exactly-once Pomodoro notification/boundary side effects;
-- explicit Windows sleep/resume no-data-loss coverage.
+- product task Done: `TimerRuntime::complete_task`;
+- lower-level timer/session lifecycle only: `TimerRuntime::finish_task`;
+- live paused Time Taken edit: `TimerRuntime::set_time_taken_while_paused`;
+- generic `set_task_time_taken` rejects an active focus session.
+
+Remaining M3 correctness boundaries before M3 can close:
+
+- typed Tauri timer/session events consumed by both webviews while renderers remain non-authoritative;
+- exactly-once Pomodoro notification/boundary side effects and the user-visible end-of-break prompt workflow;
+- long-duration/large-elapsed overflow safety;
+- explicit Windows sleep/resume no-data-loss coverage. Whether unattended sleep counts as work remains an unresolved product-policy decision and must not be invented.
+
+Active implementation branch: `ai/m3-typed-timer-events`.
 
 Scheduling classification, recurrence materialization, reminder firing and DST/week semantics remain Milestone 4.
 
@@ -187,8 +197,6 @@ Main evidence-backed conclusions:
 - the core Blitzit value proposition remains simple planning -> one-task focus -> persistent timer/Pomodoro -> completion, so Narro should improve reliability without adding workflow friction.
 
 The official desktop changelog URL exists but its current public page exposes the release feed dynamically; a complete static desktop version ledger could not be recovered. Known public version/date anchors are recorded without inventing missing releases.
-
-`TODO.md` and `HANDOFF.md` now translate the research into only the actionable M3/M4/UI anti-regressions that are relevant to Narro. No product code or new feature implementation was performed in this research phase.
 
 Product UI remains intentionally unpolished while Milestones 3–4 establish correctness-critical behavior.
 
