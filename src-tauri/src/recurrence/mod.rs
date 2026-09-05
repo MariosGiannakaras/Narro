@@ -469,9 +469,9 @@ pub fn materialize_recurrence_week(
             report.existing_child_ids.push(child_id);
             continue;
         }
-        report
-            .created_child_ids
-            .push(insert_occurrence_child(&tx, &rule, &parent, occurrence, now)?);
+        report.created_child_ids.push(insert_occurrence_child(
+            &tx, &rule, &parent, occurrence, now,
+        )?);
     }
 
     tx.execute(
