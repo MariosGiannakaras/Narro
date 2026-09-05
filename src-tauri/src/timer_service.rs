@@ -267,11 +267,8 @@ impl TimerService {
             transition(controller, now_ms, &wall_time).map_err(CommandError::timer_operation)?;
         *observed_ms = now_ms;
         *recovered_awaiting_resume &= is_paused_pomodoro_projection(&payload);
-        let payload = decorate_timer_payload(
-            effects_connection,
-            payload,
-            *recovered_awaiting_resume,
-        )?;
+        let payload =
+            decorate_timer_payload(effects_connection, payload, *recovered_awaiting_resume)?;
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
 
@@ -798,7 +795,10 @@ mod tests {
         let service = TimerService::recover(connection).expect("recover awaiting resume service");
         let recovered_payload = service.snapshot().unwrap();
         assert!(recovered_payload.awaiting_resume);
-        assert_eq!(recovered_payload.runtime.timer.state, TimerStateKind::Paused);
+        assert_eq!(
+            recovered_payload.runtime.timer.state,
+            TimerStateKind::Paused
+        );
 
         drop(service);
         fs::remove_file(path).expect("remove test database");
