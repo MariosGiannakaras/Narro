@@ -1,6 +1,6 @@
+use super::ids::{SessionId, TaskId};
 use crate::timer::runtime::TimerRuntimeSnapshot;
 use crate::timer::TimerStateKind;
-use super::ids::{SessionId, TaskId};
 use serde::{Deserialize, Serialize};
 
 pub const TIMER_SESSION_EVENT_NAME: &str = "timer-session-changed";
@@ -60,7 +60,6 @@ pub enum TimerSessionChange {
     TaskCompleted {
         task_id: TaskId,
         closed_session_id: SessionId,
-        time_taken_seconds: u64,
     },
     TaskSkipped {
         task_id: TaskId,
