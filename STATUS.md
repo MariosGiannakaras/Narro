@@ -148,7 +148,7 @@ Completion evidence: `work-log/2026-09-03-chatgpt-m2-completion.md`.
 
 ## Milestone 3 current merged state
 
-Current validated **source** implementation baseline: `3ffbaca0c5df78833584de26270686f6cdadca16`.
+Current validated **source** implementation baseline: `22d59dd5b52e42a5bab4e1f058df2338a072fb16`.
 
 Markdown-only work-log/tracking commits may be newer and do not change this source baseline.
 
@@ -163,8 +163,9 @@ Merged M3 implementation slices:
 - PR #31 / `c59e434e9f6b13b1837159f00e51fc96dd7f10a7`: live Time Taken edits restricted to a paused runtime-aware transaction, preserving raw session history, plus exact 15m+15m pause/recovery and task-switch restart regressions. PR CI #144 / run `33929261772`: SUCCESS. Main CI #145 / run `33931153129`: SUCCESS.
 - PR #32 / `349260f28475f53472b444af6180704a4b981c20`: typed revisioned timer/session events and Tauri-owned timer service. Rust owns monotonic time/background advance; successful persisted transitions broadcast `timer-session-changed`; both `main` and `focusSurface` use the shared race-safe revision-aware projection bridge. PR CI #161 / run `33936979665`: SUCCESS. Main CI #162 / run `33947484856`: SUCCESS.
 - PR #33 / `3ffbaca0c5df78833584de26270686f6cdadca16`: exact late Pomodoro boundary persistence, durable once-only local notification decisions/claims, best-effort post-commit Windows notification submission, authoritative `awaitingResume` projection, shared Resume prompt in both webviews, and recovery preservation without replaying claimed notification decisions. Exact head `6a3e7d2f2b5fa941e6389bea7e3ed3247987c817`; PR CI #181 / run `33953073811`: SUCCESS. Main CI #182 / run `33955789396`: SUCCESS.
+- PR #34 / `22d59dd5b52e42a5bab4e1f058df2338a072fb16`: deterministic large-elapsed/overflow coverage across continuous CountUp near `u64::MAX`, recovered Work/Break counters near overflow, SQLite signed-duration conversion, and very large Time Taken aggregates. Existing checked arithmetic and persistence-first rollback semantics passed these near-limit cases without production runtime changes. Exact head `e779514558005c5dd7cea23bf7483388d9b4f1c0`; PR CI #184 / run `33959065974` / job `101287590338`: SUCCESS. Main CI #185 / run `33959681959` / job `101289258096`: SUCCESS.
 
-The high-risk tracked-time boundaries are now automated-covered: process downtime is excluded, one open-session identity survives recovery, task switching remains coherent across restart, Done cannot publish task completion without final session persistence, a paused manual Time Taken correction remains stable after resume/recovery without rewriting historical session durations, renderer lifecycle no longer owns or advances timer time, and late Pomodoro observation cannot skip the persisted intermediate Break boundary.
+The high-risk tracked-time boundaries are now automated-covered: process downtime is excluded, one open-session identity survives recovery, task switching remains coherent across restart, Done cannot publish task completion without final session persistence, a paused manual Time Taken correction remains stable after resume/recovery without rewriting historical session durations, renderer lifecycle no longer owns or advances timer time, late Pomodoro observation cannot skip the persisted intermediate Break boundary, and near-limit timer/session arithmetic fails safely instead of wrapping or corrupting durable state.
 
 PR #26 (`m3-session-coordinator`) was closed unmerged and is historical only. Its intended crash-recovery capability is superseded by merged PR #29.
 
@@ -181,12 +182,11 @@ Important product/runtime APIs and ownership rules:
 
 Architecture decision for manual Time Taken remains: user corrections do not rewrite raw session history or raw monotonic timer elapsed. They rebase durable task adjustment while paused, so later real work accrues on the corrected effective baseline.
 
-### Remaining M3 correctness boundaries
+### Remaining M3 correctness boundary
 
-- long-duration/large-elapsed overflow safety;
 - explicit Windows sleep/resume no-data-loss coverage. Whether unattended sleep counts as work remains an unresolved product-policy decision and must not be invented.
 
-Next source slice: add long-duration/large-elapsed safety coverage so timer/session arithmetic, boundary interpolation and event revisioning fail safely rather than overflow or corrupt persisted state. Keep Windows sleep/resume accounting policy unresolved until explicitly decided.
+Next M3 source work is blocked on that explicit accounting decision. Do not begin Milestone 4 until Milestone 3 is closed or the user explicitly changes milestone order.
 
 Scheduling classification, recurrence materialization, reminder firing and DST/week semantics remain Milestone 4.
 
