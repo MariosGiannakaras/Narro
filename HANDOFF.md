@@ -21,7 +21,7 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 - Branch base: docs-only main `792c964f58572bf46040312838a0b0c967d50ce3`, whose latest fully main-validated source ancestor is `bdcb7729b291e76206ca5916d2a84587b060223b`.
 - Latest fully main-validated source baseline: **`bdcb7729b291e76206ca5916d2a84587b060223b`**.
 - Local Rust/Node preflight in this connector-only environment: **NOT RUN**.
-- Current small-slice progress: **1/6**.
+- Current small-slice progress: **2/6**.
 
 No open implementation PR existed when this slice began.
 
@@ -29,12 +29,12 @@ No open implementation PR existed when this slice began.
 
 **Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
 
-**Μικρή τρέχουσα υλοποίηση: 1/6 ολοκληρωμένες.**
+**Μικρή τρέχουσα υλοποίηση: 2/6 ολοκληρωμένες.**
 
 Recurrence detachment checkpoints:
 
 1. product/risk/schema/source audit plus branch start — COMPLETE;
-2. detachment implementation + deterministic regressions + candidate diff review — PENDING;
+2. detachment implementation contract + deterministic regressions + candidate diff review — COMPLETE;
 3. exact PR-head Windows CI success including preflight, Tauri release and artifact — PENDING;
 4. final semantic/diff review of exact validated head — PENDING;
 5. guarded merge with expected validated head — PENDING;
@@ -42,26 +42,40 @@ Recurrence detachment checkpoints:
 
 ## PRODUCT / RELIABILITY CONTRACT
 
-Evidence-backed semantics:
-
 - recurrence can be detached/removed while preserving prior independent child tasks;
 - ordinary detachment is not Replace Existing and must not delete generated child tasks merely because recurrence is removed;
-- stable child task identities, user edits, notes, subtasks, reminders, sessions, timer preferences, completion/archive state and schedule metadata must survive detachment;
-- children already independent/detached before recurrence removal must remain untouched;
-- once the recurrence rule is removed there is no active rule that may generate further occurrences;
-- removing the rule may remove its internal `recurrence_occurrences` reservations because the rule itself no longer exists, but must never cascade-delete the child task;
-- the parent must end with `recurrence_rule_id = NULL` and previously linked generated children must end with `recurrence_parent_task_id = NULL`;
-- mutation must be transactional and fail without partial detachment.
+- stable child IDs, edits, notes, subtasks, reminders, sessions, completion/archive state and schedule metadata survive;
+- children already independent before recurrence removal remain untouched;
+- parent ends with `recurrence_rule_id = NULL` and linked generated children end with `recurrence_parent_task_id = NULL`;
+- deleting the removed rule's `recurrence_occurrences` rows is valid because no rule authority remains, but child tasks must not cascade-delete;
+- no future materialization can occur using the removed rule;
+- mutation is transactional; forced rule-delete failure must roll back child and parent link changes;
+- repeated removal reports typed `NotFound` and must not mutate preserved tasks.
 
-Existing source already contains `delete_recurrence_rule`, which transactionally clears linked children then deletes the rule. The active slice is to make that detachment contract explicit, robust and regression-proven rather than introduce a second recurrence authority/model.
+Existing `delete_recurrence_rule` is the canonical persistence mutation and already implements the correct relationship/FK semantics. This slice deliberately validates and hardens that existing boundary instead of creating a second recurrence authority.
+
+## CANDIDATE
+
+New `src-tauri/tests/recurrence_detachment.rs` proves:
+
+- four generated child identities survive recurrence removal;
+- edited title plus note/subtask/reminder/session history survives;
+- completed and archived generated children survive and detach;
+- a child already detached before recurrence removal remains independent and its `updated_at` is not rewritten;
+- parent recurrence link is cleared;
+- recurrence occurrence rows are removed with the deleted rule while child tasks remain;
+- the removed rule cannot materialize new children;
+- a forced `BEFORE DELETE` SQLite trigger failure rolls back all child/parent link changes and preserves occurrence rows;
+- a repeated detach returns typed `RecurrenceStoreError::NotFound` without mutating the preserved child.
 
 ## NEXT AGENT ACTION — ACTIVE BRANCH
 
-1. Inspect `delete_recurrence_rule`, FK behavior and existing recurrence fixtures in detail.
-2. Make the narrowest source hardening needed for explicit detachment semantics; prefer reuse of the existing recurrence persistence boundary.
-3. Add deterministic regressions proving stable IDs/data/history, completed/archived child preservation, already-detached child preservation, no remaining rule/parent linkage, no future materialization, repeated/missing behavior, and rollback on forced failure.
-4. Review the full branch-vs-main diff before opening a PR.
-5. Validate the exact PR head on authoritative Windows CI; then final-review, guarded-merge, validate resulting main and reconcile tracking.
+1. Open the implementation PR from `ai/m4-recurrence-detachment` and re-read its exact head SHA.
+2. Accept Windows CI only for that exact head. If it fails, inspect the exact failing log and fix only evidence-backed problems.
+3. On full preflight/release/artifact success, record run/job/artifact/digest and perform final exact-head semantic/diff review.
+4. Guarded-merge only the validated expected head.
+5. Validate resulting main on Windows CI.
+6. Reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and create one new immutable detachment work-log entry.
 
 ## IMPORTANT INVARIANTS
 
