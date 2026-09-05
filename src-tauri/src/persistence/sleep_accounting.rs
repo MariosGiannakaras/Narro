@@ -20,7 +20,9 @@ pub enum SleepAccountingStoreError {
 impl Display for SleepAccountingStoreError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Sqlite(error) => write!(formatter, "sleep accounting persistence failed: {error}"),
+            Self::Sqlite(error) => {
+                write!(formatter, "sleep accounting persistence failed: {error}")
+            }
             Self::Preferences(error) => Display::fmt(error, formatter),
             Self::InvalidTimestamp => {
                 formatter.write_str("sleep accounting mutation timestamp must be RFC 3339")
@@ -30,7 +32,10 @@ impl Display for SleepAccountingStoreError {
                 write!(formatter, "sleep accounting session not found: {id}")
             }
             Self::InvalidStoredPolicy(value) => {
-                write!(formatter, "stored sleep accounting policy is invalid: {value}")
+                write!(
+                    formatter,
+                    "stored sleep accounting policy is invalid: {value}"
+                )
             }
         }
     }
