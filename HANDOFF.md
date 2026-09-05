@@ -14,123 +14,78 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 
 Do not start M5+ while M4 remains open unless the user explicitly changes roadmap order.
 
-## WORK-STATE SEMANTICS
-
-Milestone states: **NOT STARTED**, **ACTIVE**, **COMPLETE**.
-
-Implementation-slice states: **NOT STARTED**, **ACTIVE**, **PR VALIDATED**, **MERGED / MAIN VALIDATION PENDING**, **VALIDATED / RECONCILIATION PENDING**, **COMPLETE / RECONCILED**.
-
-A later-milestone prerequisite implemented early is **FOUNDATION ONLY**. File existence, schema fields, old branches/PRs or reusable notification/window/preferences capability do not mark a later milestone started.
-
 ## ACTIVE WORK RECORD
 
 - Active milestone: **Milestone 4**.
 - Latest completed source slice: **durable one-off reminder core — COMPLETE / RECONCILED**.
-- Active source slice: **None**.
-- Active implementation branch: **None**.
-- Active implementation PR: **None**.
-- Pending source CI/main validation: **None**.
+- Active source slice: **tray/background OS reminder delivery orchestration — ACTIVE**.
+- Active implementation branch: **`ai/m4-reminder-delivery`**.
+- Active implementation PR: **None yet**.
 - Latest fully main-validated source baseline: **`3ba3203fa567234665f5caa2e1e6bede98805d64`**.
-- Next M4 source slice: **tray/background OS reminder delivery orchestration — NOT STARTED**.
+- Current small-slice progress: **1/6**.
 - Later milestones M5–M10: **NOT STARTED**.
 
-A new chat must not reinterpret the validated reminder core as end-to-end reminder delivery. The product-level one-off reminder item remains open until due rows are reliably dispatched through the existing Windows notification transport while the process is running.
+The branch was created after reminder-core reconciliation. No source delivery code has been committed yet. Resume this exact branch before starting any other source slice.
 
 ## USER-FACING PROGRESS
 
 **Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
 
-**Μικρή τρέχουσα υλοποίηση: 6/6 ολοκληρωμένες** for the completed durable one-off reminder core slice.
+**Μικρή τρέχουσα υλοποίηση: 1/6 ολοκληρωμένες.**
 
-Do not reset the small counter until a genuinely new source slice begins and its denominator is stated.
+Reminder-delivery slice checkpoints:
+
+1. product/risk/runtime ownership audit plus branch start;
+2. Rust-owned tray/background dispatcher + deterministic tests + candidate diff review;
+3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact;
+4. final semantic/diff review of the exact validated head;
+5. guarded merge using the validated expected head;
+6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation.
+
+Do not increment a checkpoint from code presence alone.
 
 ## LATEST VALIDATED SOURCE BASELINE
 
 `3ba3203fa567234665f5caa2e1e6bede98805d64`
 
-### PR #43 exact-head validation
+- PR #43 exact head `e7ad0e936bda7bd55bf6146eeed9834342dec4c3` passed Windows CI #221 / run `33984170905` / job `101354563375`; artifact `9974807441`, digest `sha256:3d427309eb210efbee385a09a3fdba65ff1e595fd99bd0623374658bd18f5db9`.
+- Guarded squash merge produced `3ba3203fa567234665f5caa2e1e6bede98805d64`.
+- Resulting-main Windows CI #222 / run `33984813779` / job `101356279605` passed preflight, release build and artifact upload; artifact `9974997335`, digest `sha256:c82b91fe12b797f6b95a6257d558741203c3a194fa6d4f3737fbdd25a6bea7c4`.
 
-Exact validated PR head:
+Markdown-only commits newer than the source SHA do not replace the validated source baseline.
 
-`e7ad0e936bda7bd55bf6146eeed9834342dec4c3`
+## VALIDATED REMINDER FOUNDATION
 
-- Windows PR CI #221 / run `33984170905` / job `101354563375`: **SUCCESS**.
-- Repository preflight: **PASS**.
-- Tauri release build: **PASS**.
-- Artifact upload: **PASS**.
-- Artifact ID `9974807441`.
-- Digest `sha256:3d427309eb210efbee385a09a3fdba65ff1e595fd99bd0623374658bd18f5db9`.
+PR #43 established:
 
-PR #43 was guarded-squash-merged with expected head `e7ad0e936bda7bd55bf6146eeed9834342dec4c3` and produced:
+- typed one-off reminder persistence using the existing M2 `reminders` table;
+- strict RFC3339/local-date/local-time/IANA timezone validation and DST gap/fold rejection;
+- active task/list checks on creation;
+- side-effect-free `pending_due_reminders` ordered by resolved instant;
+- fired/dismissed and inactive task/list reminders excluded from pending selection;
+- conditional/idempotent `mark_reminder_fired` and `dismiss_reminder` terminal transitions.
 
-`3ba3203fa567234665f5caa2e1e6bede98805d64`
+The reminder core deliberately does not submit OS notifications. The M4 one-off reminder TODO and tray/background due-processing TODO remain open until this active slice is validated and reconciled.
 
-### Resulting-main validation
+## ACTIVE DELIVERY CONTRACT
 
-- Windows main CI #222 / run `33984813779` / job `101356279605`: **SUCCESS** on exact source SHA `3ba3203fa567234665f5caa2e1e6bede98805d64`.
-- Repository preflight: **PASS**.
-- Tauri release build: **PASS**.
-- Artifact upload: **PASS**.
-- Artifact ID `9974997335`.
-- Digest `sha256:c82b91fe12b797f6b95a6257d558741203c3a194fa6d4f3737fbdd25a6bea7c4`.
+Implement the narrowest Rust-owned dispatcher using existing process/tray/runtime infrastructure:
 
-Markdown-only tracking commits newer than this SHA do not replace the validated source baseline.
+1. Reuse `src-tauri/src/notifications/mod.rs` for Windows notification submission; do not add renderer polling.
+2. Reuse the persisted reminder core; do not create a second reminder storage model.
+3. Background processing owns a separately configured SQLite connection rather than borrowing renderer state.
+4. For each due reminder, submit the OS notification first. Persist `fired_at` only after successful submission.
+5. On submission failure, leave the reminder pending for later retry and log the failure without terminating the app.
+6. Acknowledge the unavoidable crash window between successful OS submission and `fired_at` persistence; do not claim exactly-once delivery unless a stronger durable protocol is implemented and validated.
+7. Exclude completed/archived task/list reminders through the existing due query.
+8. Avoid high-frequency work; use a bounded background cadence suitable for minute-resolution reminders.
+9. Tests must deterministically prove: successful delivery is acknowledged; failed submission stays pending; repeated processing after acknowledgment does not resubmit; multiple due reminders are handled in deterministic due order; terminal/inactive rows are skipped; dispatcher persistence failure is explicit and does not masquerade as successful acknowledgment.
 
-## VALIDATED M4 CAPABILITIES
-
-### Scheduling / eligibility — PR #36
-
-- Monday-starting week classification.
-- Official Today / Later today (+2h) / Tomorrow / Next week (+7d) / custom-date shortcuts.
-- Scheduled Today / This Week / Backlog projection.
-- Future-timed Today focus gating.
-- Date-only calendar semantics and stable task identity through schedule changes.
-
-### Timezone / DST — PR #37
-
-- IANA timezone validation/resolution through `jiff`.
-- Stable-instant timed schedules and timezone reprojection.
-- Strict DST gap/fold rejection.
-- Date-only schedules remain outside UTC conversion.
-
-### Recurrence execution/materialization — PR #40/#41
-
-- Day/week/month/year interval occurrence evaluation.
-- Weekday masks and monthly calendar-date rules.
-- Monday-through-Sunday materialization window.
-- Recurring parent normalization to unscheduled Backlog.
-- Stable child task IDs with recurrence-parent linkage.
-- Transactional child + `recurrence_occurrences` creation.
-- Durable same-week duplicate prevention.
-- Strict timed recurrence timezone/DST validation.
-- Inactive-rule no-op and rollback on failed materialization.
-
-Evidence: `work-log/2026-09-05-chatgpt-m4-recurrence-materialization-reconciliation.md`.
-
-### Durable one-off reminder core — PR #43
-
-Validated:
-
-- typed `ReminderRecord` / `NewReminderInput` using the existing M2 `reminders` table;
-- strict RFC3339 mutation timestamp, local date/time, IANA timezone and DST gap/fold validation;
-- reminder creation rejected for completed/archived tasks and archived-list contexts;
-- side-effect-free pending-due evaluation by resolved absolute instant;
-- due selection excludes fired/dismissed and inactive task/list rows;
-- explicit conditional/idempotent `mark_reminder_fired` and `dismiss_reminder` terminal transitions;
-- timezone instant-order, DST, terminal idempotency and inactive-context integration regressions.
-
-Explicitly not implemented by PR #43:
-
-- tray/background polling or due dispatch;
-- OS notification submission for due reminders;
-- exactly-once delivery across a crash window between OS submission and `fired_at` acknowledgment;
-- Preferences/UI behavior, sounds/previews or recurring reminder generation.
-
-Evidence: `work-log/2026-09-05-chatgpt-m4-reminder-core-reconciliation.md`.
+Historical reliability context: Blitzit mobile release history includes late/duplicate/missed reminder fixes. Treat restart/retry and duplicate-risk behavior as an explicit M4 regression class.
 
 ## M4 TODO STATE
 
-Validated and checked in `TODO.md`:
+Already validated/checked:
 
 - Monday week classification;
 - official scheduling shortcuts;
@@ -142,50 +97,37 @@ Validated and checked in `TODO.md`:
 
 Still open:
 
-- product-level one-off local reminders (durable core validated, delivery still absent);
+- product-level one-off local reminders (**active delivery slice**);
 - Replace Existing Tasks;
 - recurrence detachment;
 - startup/resume/date-change recurrence orchestration and missed-day catch-up;
-- tray/background due-reminder processing;
+- tray/background due-reminder processing (**active delivery slice**);
 - Windows locale/system 12/24-hour formatting;
 - combined M4 regression matrix including repeated startup/missed days/reminder delivery;
 - explicit scheduled-lane movement anti-duplication regression.
 
-## NEXT AGENT ACTION — NOT STARTED
+## NEXT AGENT ACTION — ACTIVE BRANCH
 
-Remain inside Milestone 4. There is no active source PR to resume after this reconciliation.
-
-The next ordered implementation slice should complete reminder delivery using the already validated reminder core:
-
-1. inspect `src-tauri/src/notifications/mod.rs`, tray/background lifecycle in `src-tauri/src/lib.rs`, and database/service ownership patterns;
-2. create one narrow reminder-delivery branch from validated source baseline `3ba3203fa567234665f5caa2e1e6bede98805d64` (or current main whose source ancestry includes it);
-3. set a fresh explicit small-slice denominator and immediately record the ACTIVE branch/PR here when source work begins;
-4. consume `pending_due_reminders` without moving due evaluation into renderer code;
-5. submit the OS notification first and persist `fired_at` only after successful delivery submission;
-6. design restart/retry behavior against the historical late/duplicate/missed reminder risk without claiming exactly-once crash semantics unless proven;
-7. validate exact PR head in Windows CI, guarded-merge, validate resulting main, then reconcile tracking.
-
-Do not begin M5+ while M4 remains open.
+1. Inspect reminder persistence, notification transport, `TimerService` background pattern, task lookup/title fields and persistence connection configuration.
+2. Implement the dispatcher and tests on `ai/m4-reminder-delivery`.
+3. Review the entire candidate diff before opening the PR.
+4. Record unavailable local checks as NOT RUN; Windows GitHub Actions is authoritative for Rust/Tauri validation in this connector-only environment.
+5. Open one implementation PR, validate its exact head, final-review the same head, guarded-merge it, validate resulting main, then reconcile tracking.
 
 ## IMPORTANT INVARIANTS
 
-- persistence-first mutations;
+- persistence-first authoritative mutations;
 - stable task identities;
 - date-only schedules never convert through UTC;
 - week starts Monday;
-- timed local datetimes resolve through explicit IANA timezone rules and fail closed on gap/fold;
-- recurrence remains deterministic/idempotent and `recurrence_occurrences` is the durable duplicate-prevention boundary;
-- reminder due evaluation stays side-effect free;
+- strict IANA timezone/DST resolution for timed data;
+- recurrence remains deterministic/idempotent;
+- reminder due evaluation remains side-effect free;
 - never mark a reminder fired before successful notification submission;
 - fired/dismissed reminder transitions remain terminal/idempotent;
-- renderer owns no authoritative timer/reminder state;
-- process restart downtime is not counted as work;
-- one-open-session database invariant remains enforced;
-- preserve async `main` recreation that avoids the historical Windows WebView2 deadlock.
-
-## HISTORICAL / SUPERSEDED WORK
-
-PR #2 and PR #3 are historical alternate M1 shortcut implementations; PR #4/current main contains the authoritative required behavior. Old branches may remain for history and do not imply active work.
+- renderer owns no authoritative reminder/timer state;
+- do not introduce an unbounded/high-frequency background polling loop;
+- preserve async `main` recreation and current tray/background lifecycle.
 
 ## USER ACTION REQUIRED
 
