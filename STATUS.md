@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-05
+Last updated: 2026-09-06
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 
@@ -22,36 +22,37 @@ Later-milestone scaffolds or reusable foundation do not count as starting those 
 
 Latest fully main-validated **source** baseline:
 
-`cd30ffafbe3e9cb0431f4bc8230c095451a106ca`
+`bdcb7729b291e76206ca5916d2a84587b060223b`
 
-This SHA is the guarded squash merge of PR #45, the M4 tray/background one-off reminder delivery source slice.
+This SHA is the guarded squash merge of PR #47, the M4 Replace Existing Tasks recurrence slice.
 
-### PR #45 exact-head validation
+### PR #47 exact-head validation
 
 Exact validated PR head:
 
-`61e7a473917cc3ae189228af63f3969f5fac361a`
+`ce4181be2216f7ee2333b03302062cb89f4a3b56`
 
-- Windows PR CI #226 / run `33987769236` / job `101364389957`: **SUCCESS**.
+- Windows PR CI #235 / run `33992278666` / job `101376509763`: **SUCCESS**.
 - Repository preflight: **PASS**.
 - Tauri release build: **PASS**.
 - Artifact upload: **PASS**.
-- Artifact ID `9975828913`.
-- Digest `sha256:5efad294c22a6cdc936830f87495ad014393b1c992271fae5445ee7e94624b2f`.
-- PR #45 had no unresolved review threads at final exact-head review.
+- Artifact ID `9977163499`.
+- Digest `sha256:aa17138190feccc6a4fb1ec5717d34aec4df462ce2f16125f093272bf763aa41`.
+- Final exact-head semantic/diff review: **PASS**.
+- PR #47 had no unresolved review threads.
 
-Guarded squash merge with expected head `61e7a473917cc3ae189228af63f3969f5fac361a` produced:
+Guarded squash merge with expected head `ce4181be2216f7ee2333b03302062cb89f4a3b56` produced:
 
-`cd30ffafbe3e9cb0431f4bc8230c095451a106ca`
+`bdcb7729b291e76206ca5916d2a84587b060223b`
 
 ### Resulting-main validation
 
-- Windows main CI #227 / run `33988613427` / job `101366662297`: **SUCCESS** on exact source SHA `cd30ffafbe3e9cb0431f4bc8230c095451a106ca`.
+- Windows main CI #236 / run `33993051867` / job `101378588286`: **SUCCESS** on exact source SHA `bdcb7729b291e76206ca5916d2a84587b060223b`.
 - Repository preflight: **PASS**.
 - Tauri release build: **PASS**.
 - Artifact upload: **PASS**.
-- Artifact ID `9976084645`.
-- Digest `sha256:31bd024a7f4da25191582a0cb0812df53d8ba20aa31abcd6dbe39e0d492d5550`.
+- Artifact ID `9977373964`.
+- Digest `sha256:66eaac71f2514d70274e23d69c1fdadaadd33501299b367391b4a44f539f4714`.
 
 Markdown-only reconciliation commits newer than this SHA do not replace the validated source baseline.
 
@@ -69,7 +70,7 @@ Markdown-only reconciliation commits newer than this SHA do not replace the vali
 
 ## Milestone 4 — active validated state
 
-Five coherent M4 source slices are now validated.
+Six coherent M4 source slices are now validated.
 
 ### PR #36 — scheduling / eligibility core
 
@@ -115,25 +116,42 @@ Reliability boundary: the source does **not** claim mathematically exactly-once 
 
 Evidence: `work-log/2026-09-05-chatgpt-m4-reminder-delivery-reconciliation.md`.
 
+### PR #47 — Replace Existing Tasks
+
+Validated:
+
+- explicit `replace_existing = true` boundary;
+- SQLite `IMMEDIATE` transaction for the replacement mutation;
+- pristine active generated children are the only children deleted by replacement;
+- completed/archived historical children remain intact;
+- already detached/independent children remain intact;
+- edited/history-bearing active generated children are preserved and detached rather than cascade-deleted;
+- preserved/detached children retain the old `recurrence_occurrences` reservation so the same occurrence cannot regenerate as a duplicate;
+- recurrence materialization cursor resets and normal materialization creates only unreserved occurrences with new task identities;
+- invalid recurrence pattern/date/time/timezone shape fails before mutation, including weekday masks above seven supported bits;
+- forced rule-update failure rolls back child mutations;
+- final semantic review caught and corrected the occurrence-reservation duplicate-regeneration risk before the accepted exact-head CI/merge.
+
+Evidence: `work-log/2026-09-06-chatgpt-m4-replace-existing-reconciliation.md`.
+
 ### M4 progress boundary
 
-The reminder-delivery source slice is:
+The Replace Existing Tasks source slice is:
 
 **Μικρή τρέχουσα υλοποίηση: 6/6 ολοκληρωμένες.**
 
-The implementation and authoritative Windows PR/main validation are complete. The top-level `TODO.md` reminder items intentionally remain unchecked until a physical installed-build observation confirms that an actual due reminder is visibly delivered while Narro is in tray/background mode. CI validates the source path but cannot substitute for that visible OS acceptance evidence.
+Do not reset the small counter until a genuinely new source slice begins and its denominator is recorded.
 
 Still open in M4:
 
-- physical visible one-off due-reminder acceptance in tray/background mode;
-- Replace Existing Tasks execution;
+- physical visible one-off due-reminder acceptance in tray/background mode; source implementation remains validated;
 - recurrence detachment semantics;
 - startup/resume/date-change recurrence orchestration and missed-day catch-up;
 - Windows locale/system 12/24-hour visible formatting;
 - remaining combined M4 regression matrix, including repeated startup/missed days/reminder delivery;
 - explicit scheduled-lane movement anti-duplication regression at the M4 behavior layer.
 
-The next source implementation slice is **Replace Existing Tasks behavior — NOT STARTED**. Physical reminder acceptance can be captured independently without changing the validated source baseline unless it reveals a defect.
+The next ordered source implementation slice is **recurrence detachment semantics — NOT STARTED**. Physical reminder acceptance can be captured independently without changing the validated source baseline unless it reveals a defect.
 
 ## Later milestone status
 
@@ -149,6 +167,9 @@ Future work must preserve:
 - date-only calendar semantics and Monday week boundaries;
 - explicit IANA timezone resolution with fail-closed DST gap/fold handling;
 - deterministic/idempotent recurrence with `recurrence_occurrences` as the duplicate-prevention boundary;
+- Replace Existing deletes only pristine applicable generated children;
+- completed/archived and detached/independent recurrence history survives replacement;
+- preserved edited/history-bearing children retain occurrence reservations against duplicate regeneration;
 - reminder due evaluation remains side-effect free;
 - reminder `fired_at` is written only after successful OS notification submission;
 - failed reminder submission remains retryable;

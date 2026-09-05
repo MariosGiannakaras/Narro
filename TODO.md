@@ -157,7 +157,7 @@ Acceptance criteria:
 - [ ] Implement one-off local reminders.
 - [x] Implement recurrence presets and custom interval/unit/weekday rules documented in `docs/PRODUCT_SPEC.md`.
 - [x] Implement recurring parent in Backlog and Monday-of-due-week child materialization.
-- [ ] Implement Replace Existing Tasks behavior.
+- [x] Implement Replace Existing Tasks behavior.
 - [ ] Implement recurrence detachment semantics while preserving already modified independent children.
 - [ ] Make recurrence materialization idempotent on startup/resume/date change.
 - [ ] Add tray/background due-reminder processing while process is running.
