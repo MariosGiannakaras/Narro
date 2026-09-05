@@ -14,106 +14,124 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 
 ## ACTIVE WORK RECORD
 
-- Latest completed source slice: **tray/background one-off reminder delivery source — COMPLETE / RECONCILED**.
-- Active source slice: **Replace Existing Tasks behavior — ACTIVE**.
-- Active implementation branch: **`ai/m4-recurrence-replace-existing`**.
-- Active implementation PR: **#47 — `M4: implement Replace Existing Tasks behavior`**.
-- Branch base: tracking main `e5db579c4c0dd812bf7fb6d6c917c05a4d0f5b10`, whose latest validated source ancestor is `cd30ffafbe3e9cb0431f4bc8230c095451a106ca`.
-- Latest source/test candidate before this HANDOFF tracking commit: **`6d9f13a76642346b4ee65008178487852c0a33dd`**.
-- Exact PR head must be re-read after this tracking commit before accepting CI or merging.
-- Latest fully main-validated source baseline: **`cd30ffafbe3e9cb0431f4bc8230c095451a106ca`**.
-- Local Rust/Node preflight in this connector-only environment: **NOT RUN**.
-- Current small-slice progress: **2/6**.
+- Latest completed source slice: **Replace Existing Tasks behavior — COMPLETE / RECONCILED**.
+- Active source slice: **None**.
+- Active implementation branch: **None**.
+- Active implementation PR: **None**.
+- Pending source CI/main validation: **None**.
+- Latest fully main-validated source baseline: **`bdcb7729b291e76206ca5916d2a84587b060223b`**.
+- Next ordered source slice: **recurrence detachment semantics — NOT STARTED**.
+- Physical reminder acceptance still pending: **visible due reminder while Narro remains in tray/background mode**.
 
-Resume PR #47 before any other source slice. Ignore CI tied to superseded heads.
+Do not reopen or recreate PR #47. Its source work is validated, merged, main-validated and reconciled. Markdown-only reconciliation commits newer than the validated source SHA do not replace that source baseline.
 
 ## USER-FACING PROGRESS
 
 **Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
 
-**Μικρή τρέχουσα υλοποίηση: 2/6 ολοκληρωμένες.**
+**Μικρή τρέχουσα υλοποίηση: 6/6 ολοκληρωμένες** for the completed Replace Existing Tasks slice.
+
+Do not reset the small counter until a genuinely new source slice begins and its denominator is stated.
 
 Replace Existing Tasks checkpoints:
 
 1. product/risk/schema audit plus branch start — COMPLETE;
 2. transactional replace-existing implementation + deterministic tests + candidate diff review — COMPLETE;
-3. exact PR-head Windows CI success including preflight, Tauri release and artifact — PENDING;
-4. final semantic/diff review of exact validated head — PENDING;
-5. guarded merge with expected validated head — PENDING;
-6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
+3. exact PR-head Windows CI success including preflight, Tauri release and artifact — COMPLETE;
+4. final semantic/diff review of exact validated head — COMPLETE;
+5. guarded merge with expected validated head — COMPLETE;
+6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE after the tracking PR carrying this file is merged.
 
-## VALIDATION HISTORY FOR THIS SLICE
+## LATEST VALIDATED SOURCE BASELINE
 
-- Windows CI #229 / run `33991287155` on head `0186881034ac37eecdf06ccfe951a4c4966d0f3b`: FAILED only at `cargo fmt --check`; release/artifact skipped. Exact rustfmt deltas were applied.
-- Windows CI #231 / run `33991428280` on head `27363ab63676d3f0ea93e646d5351a07e93cc59c`: SUCCESS with repository preflight, release and artifact; artifact `9976915859`, digest `sha256:2abf22fc7cdccfe7f1225f57feb3a647934620dd0d26d38a19a4af029678e675`.
-- Final semantic review of that successful head found a real idempotency blocker: preserved edited/history-bearing children were detached **and their occurrence rows were deleted**, allowing the same occurrence to regenerate beside the preserved child.
-- That blocker was fixed after #231 by keeping `recurrence_occurrences` as the durable idempotency reservation for preserved/detached children and by adding a direct no-duplicate rematerialization regression. Therefore #231 does **not** validate the current source head and checkpoint 3 returned to PENDING.
+`bdcb7729b291e76206ca5916d2a84587b060223b`
 
-## PRODUCT / RELIABILITY CONTRACT
+### PR #47 exact-head validation
 
-Evidence-backed semantics:
+Exact validated PR head:
 
-- editing recurrence supports explicit Replace Existing Tasks;
-- explicit replace resets the recurring pattern and old generated tasks may be removed/replaced by new generated tasks;
-- ordinary recurrence edits preserve historical children unless explicit replacement is chosen;
-- detached/independent children must never be silently overwritten by replacement;
-- Narro preserves historical child work and avoids duplicate regeneration;
-- replacement must be transactional and must not create accidental extra task identities.
+`ce4181be2216f7ee2333b03302062cb89f4a3b56`
 
-Narro's conservative applicability rule for this slice:
+- Windows PR CI #235 / run `33992278666` / job `101376509763`: **SUCCESS**.
+- Repository preflight: **PASS**.
+- Tauri release build: **PASS**.
+- Artifact upload: **PASS**.
+- Artifact ID `9977163499`.
+- Digest `sha256:aa17138190feccc6a4fb1ec5717d34aec4df462ce2f16125f093272bf763aa41`.
+- Final exact-head semantic/diff review: **PASS**.
+- Unresolved inline review threads: **none**.
 
-- only active, incomplete, unarchived generated children that still have an authoritative `recurrence_occurrences` row for the same rule and still point at the same recurrence parent are replacement candidates;
-- pristine candidates are deleted transactionally and therefore receive new identities only through normal rematerialization;
-- active candidates with user edits or owned history (subtasks, notes, reminders, sessions or task timer preferences) are preserved and detached instead of being cascade-deleted;
-- preserved/detached candidates retain their `recurrence_occurrences` row as a system idempotency reservation so the same occurrence cannot regenerate beside the independent child;
-- completed or archived generated children are historical and remain untouched with their occurrence reservation;
-- children whose recurrence-parent linkage no longer matches are already independent/detached and remain untouched;
-- explicit replacement resets the rule's `last_materialized_local_date` cursor; normal materialization then creates only unreserved occurrences through the existing unique occurrence boundary;
-- replacement never reuses a deleted child identity.
+PR #47 was guarded-squash-merged with expected head `ce4181be2216f7ee2333b03302062cb89f4a3b56` and produced:
 
-## IMPLEMENTED CANDIDATE
+`bdcb7729b291e76206ca5916d2a84587b060223b`
 
-- `src-tauri/src/persistence/recurrence_replace.rs` adds typed `IMMEDIATE` transactional Replace Existing behavior.
-- invalid interval/pattern/date/time/timezone shape is rejected before the transaction; weekday masks above 127 are rejected explicitly rather than relying on SQLite rollback.
-- `src-tauri/src/persistence/mod.rs` exports the recurrence replacement persistence module.
-- `src-tauri/tests/recurrence_replace_existing.rs` covers:
-  - pristine-child replacement and deterministic one-time rematerialization;
-  - preservation/detachment of edited and session-history-bearing active children;
-  - preserved edited occurrence reservation preventing duplicate rematerialization;
-  - preservation of completed/archived historical children;
-  - preservation of an already detached generated child and its occurrence reservation;
-  - transaction rollback when recurrence-rule update fails;
-  - invalid weekday-mask rejection before writes;
-  - rejection when `replace_existing` is not explicitly enabled.
+### Resulting-main validation
+
+- Windows main CI #236 / run `33993051867` / job `101378588286`: **SUCCESS** on exact source SHA `bdcb7729b291e76206ca5916d2a84587b060223b`.
+- Repository preflight: **PASS**.
+- Tauri release build: **PASS**.
+- Artifact upload: **PASS**.
+- Artifact ID `9977373964`.
+- Digest `sha256:66eaac71f2514d70274e23d69c1fdadaadd33501299b367391b4a44f539f4714`.
+
+Evidence: `work-log/2026-09-06-chatgpt-m4-replace-existing-reconciliation.md`.
+
+## VALIDATED REPLACE EXISTING CONTRACT
+
+- explicit `replace_existing = true` is required;
+- mutation uses an SQLite `IMMEDIATE` transaction;
+- only active, incomplete, unarchived generated children still linked to the same recurrence parent/rule are replacement candidates;
+- pristine candidates may be deleted and receive new identities only through normal materialization;
+- active edited/history-bearing children survive and are detached instead of cascade-deleted;
+- preserved/detached children retain `recurrence_occurrences` as a durable occurrence reservation so the same occurrence cannot regenerate beside them;
+- completed or archived generated children remain historical and untouched;
+- already detached/independent children remain untouched;
+- replacement resets `last_materialized_local_date`, then existing materialization creates only unreserved occurrences;
+- replacement never reuses a deleted child task identity;
+- invalid recurrence shape/date/time/timezone input fails before writes where possible;
+- transaction rollback preserves rule/children if the rule update fails.
+
+A successful intermediate CI head was deliberately rejected during implementation when semantic review found occurrence reservations were being deleted for preserved edited/history-bearing children. That duplicate-regeneration risk was corrected and directly regression-tested before the accepted head above.
 
 ## REMINDER ACCEPTANCE — INDEPENDENT PENDING EVIDENCE
 
-PR #45 source is fully validated and reconciled. Physical installed-build observation of one actual due reminder in tray/background mode remains pending before the two reminder TODO parent items may be checked. Do not reopen PR #45 unless physical evidence reveals a defect.
+PR #45 reminder source remains fully validated and reconciled. Physical installed-build observation of one actual due reminder in tray/background mode remains pending before the two reminder TODO parent items may be checked. Do not reopen PR #45 unless physical evidence reveals a defect.
 
-## NEXT AGENT ACTION — PR #47
+## NEXT AGENT ACTION — NOT STARTED
 
-1. Re-read PR #47 exact current head after this tracking commit.
-2. Inspect Windows CI only for that exact head.
-3. If CI fails, read the exact failing job log and fix only evidence-backed failures on the same branch/PR; progress remains 2/6.
-4. If CI succeeds, record run/job/artifact/digest and perform final semantic/diff review of the same exact head, including preserved-child occurrence reservation behavior.
-5. Guarded-merge only that validated expected head.
-6. Validate the resulting main source SHA with Windows CI.
-7. Reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and create a new immutable Replace Existing Tasks work-log entry.
+Remain inside Milestone 4.
+
+The next ordered source implementation item is **recurrence detachment semantics while preserving already modified independent children**.
+
+Before changing source:
+
+1. run the mandatory startup sequence from repository state;
+2. confirm no open implementation PR and confirm current main descends from validated source baseline `bdcb7729b291e76206ca5916d2a84587b060223b`;
+3. inspect recurrence materialization, task/occurrence ownership, `docs/PRODUCT_SPEC.md`, and relevant source-product reliability risks;
+4. create one narrow source branch from current main and immediately record a fresh small-slice denominator in this file;
+5. do not reuse Replace Existing deletion semantics for ordinary detachment unless product evidence explicitly requires it;
+6. preserve stable task identities, user edits/history, and occurrence idempotency boundaries;
+7. validate exact PR head on authoritative Windows CI, perform final semantic review, guarded-merge, validate resulting main, then reconcile tracking.
+
+Physical reminder acceptance may be captured independently. If it exposes a defect, stop the new recurrence slice and address the evidence-backed reminder defect first.
 
 ## IMPORTANT INVARIANTS
 
-- stable task identities; replacement explicitly deletes only pristine applicable generated IDs and creates new IDs only through normal materialization;
-- completed/archived history survives replacement;
-- edited/history-bearing and detached/independent children survive replacement;
-- preserved children retain the old occurrence reservation so the same occurrence cannot regenerate as a duplicate;
+- authoritative Rust/domain state and persistence-first mutations;
+- stable task identities;
+- completed/archived recurrence history survives replacement/detachment;
+- edited/history-bearing and detached/independent children are never silently overwritten;
 - `recurrence_occurrences` remains the authoritative generated-occurrence/idempotency boundary;
+- preserved children retain occurrence reservations when needed to prevent duplicate regeneration;
 - date-only schedules never convert through UTC;
 - week starts Monday;
 - strict IANA timezone/DST rules remain fail-closed;
-- all replace operations are transactional;
+- recurrence mutations are transactional;
+- reminder due evaluation remains side-effect free;
+- reminder delivery remains submit-before-ack and failed submissions remain retryable;
 - no renderer owns authoritative recurrence/reminder/timer state;
-- reminder delivery submit-before-ack/retry semantics remain unchanged.
+- async `main` recreation remains intact to avoid the historical Windows WebView2 deadlock.
 
 ## USER ACTION REQUIRED
 
-None for Replace Existing Tasks implementation. Physical reminder acceptance remains independently pending.
+None for the next recurrence source slice. Physical installed-build visible due-reminder observation remains independently pending for reminder acceptance.
