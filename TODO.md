@@ -111,8 +111,8 @@ Research context: before changing M3 behavior, consult `docs/BLITZIT_HISTORY_RIS
 - [x] Implement Extend from `Time's Up`, preserving the same work runtime and exposing overtime.
 - [x] Implement Done and Switch Task from `Time's Up` at the authoritative engine/runtime layer.
 - [x] Implement Pomodoro countdown mode and automatic authoritative work -> break -> paused-awaiting-resume transitions.
-- [ ] Emit automatic Pomodoro break/finish notifications exactly once at authoritative boundaries, including late observation/recovery cases.
-- [ ] Implement the user-visible end-of-Pomodoro-break prompt/resume workflow per product specification once typed events/UI projection exist.
+- [x] Emit automatic Pomodoro break/finish notifications exactly once at authoritative boundaries, including late observation/recovery cases.
+- [x] Implement the user-visible end-of-Pomodoro-break prompt/resume workflow per product specification once typed events/UI projection exist.
 - [x] Implement count-up mode.
 - [x] Track actual work duration independently of displayed countdown.
 - [x] Make pause/resume idempotent.
