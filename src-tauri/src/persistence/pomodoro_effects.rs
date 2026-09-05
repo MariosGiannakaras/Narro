@@ -111,11 +111,10 @@ pub fn ensure_boundary_decision(
     conn: &mut Connection,
     session_id: SessionId,
     kind: PomodoroBoundaryEffectKind,
-    decided_at: &str,
 ) -> Result<bool, PomodoroBoundaryEffectError> {
-    validate_timestamp(decided_at)?;
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-    get_session(&tx, session_id)?;
+    let session = get_session(&tx, session_id)?;
+    validate_timestamp(&session.started_at)?;
 
     let existing: Option<String> = tx
         .query_row(
@@ -143,7 +142,7 @@ pub fn ensure_boundary_decision(
         "INSERT INTO pomodoro_boundary_effects (
             session_id, effect_kind, decided_at, notification_claimed_at
          ) VALUES (?1, ?2, ?3, NULL)",
-        params![session_id.to_string(), kind.as_str(), decided_at],
+        params![session_id.to_string(), kind.as_str(), session.started_at],
     )?;
     tx.commit()?;
     Ok(true)
