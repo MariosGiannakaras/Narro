@@ -95,9 +95,15 @@ fn later_today_persists_as_local_datetime_and_gates_focus_until_due() {
     .expect("resolve later today");
     let scheduled = set_task_schedule(&mut conn, task_id, schedule, T1).expect("persist schedule");
 
-    assert_eq!(scheduled.scheduled_local_date.as_deref(), Some("2026-09-09"));
+    assert_eq!(
+        scheduled.scheduled_local_date.as_deref(),
+        Some("2026-09-09")
+    );
     assert_eq!(scheduled.scheduled_local_time.as_deref(), Some("12:00"));
-    assert_eq!(scheduled.schedule_timezone.as_deref(), Some("Europe/Athens"));
+    assert_eq!(
+        scheduled.schedule_timezone.as_deref(),
+        Some("Europe/Athens")
+    );
     assert_eq!(
         effective_planning_lane(&scheduled, date("2026-09-09")).unwrap(),
         PlanningLane::Today
