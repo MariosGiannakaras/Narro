@@ -55,13 +55,9 @@ impl TimerService {
             controller,
             observed_ms,
         } = &mut *state;
-        advance_controller_to(
-            controller,
-            observed_ms,
-            now_ms,
-            &wall_time,
-            |payload| report_timer_change(app_handle, payload),
-        )
+        advance_controller_to(controller, observed_ms, now_ms, &wall_time, |payload| {
+            report_timer_change(app_handle, payload)
+        })
     }
 
     pub fn start_task(
@@ -104,10 +100,7 @@ impl TimerService {
         self.transition(app_handle, TimerController::finish_break)
     }
 
-    pub fn skip_break(
-        &self,
-        app_handle: &tauri::AppHandle,
-    ) -> CommandResult<TimerSessionPayload> {
+    pub fn skip_break(&self, app_handle: &tauri::AppHandle) -> CommandResult<TimerSessionPayload> {
         self.transition(app_handle, TimerController::skip_break)
     }
 
@@ -118,10 +111,7 @@ impl TimerService {
         self.transition(app_handle, TimerController::complete_task)
     }
 
-    pub fn skip_task(
-        &self,
-        app_handle: &tauri::AppHandle,
-    ) -> CommandResult<TimerSessionPayload> {
+    pub fn skip_task(&self, app_handle: &tauri::AppHandle) -> CommandResult<TimerSessionPayload> {
         self.transition(app_handle, TimerController::skip_task)
     }
 
@@ -175,16 +165,12 @@ impl TimerService {
 
         // Catch up every automatic boundary first. Each committed boundary is reported immediately,
         // so a later explicit command failure cannot hide an already-persisted transition.
-        advance_controller_to(
-            controller,
-            observed_ms,
-            now_ms,
-            &wall_time,
-            |payload| report_timer_change(app_handle, payload),
-        )?;
+        advance_controller_to(controller, observed_ms, now_ms, &wall_time, |payload| {
+            report_timer_change(app_handle, payload)
+        })?;
 
-        let payload = transition(controller, now_ms, &wall_time)
-            .map_err(CommandError::timer_operation)?;
+        let payload =
+            transition(controller, now_ms, &wall_time).map_err(CommandError::timer_operation)?;
         *observed_ms = now_ms;
         if payload.change.is_some() {
             report_timer_change(app_handle, &payload);
@@ -202,10 +188,7 @@ fn current_wall_time() -> String {
     Utc::now().to_rfc3339_opts(SecondsFormat::Millis, true)
 }
 
-fn automatic_boundary_ms(
-    snapshot: &TimerSnapshot,
-    observed_ms: u64,
-) -> CommandResult<Option<u64>> {
+fn automatic_boundary_ms(snapshot: &TimerSnapshot, observed_ms: u64) -> CommandResult<Option<u64>> {
     let remaining_ms = match snapshot.state {
         TimerStateKind::Running => snapshot.countdown_remaining_ms,
         TimerStateKind::Break => snapshot.break_remaining_ms,
@@ -454,10 +437,8 @@ mod tests {
     const T6: &str = "2026-09-05T12:00:06Z";
 
     fn fixture() -> (TimerController, TaskId, PathBuf) {
-        let path = std::env::temp_dir().join(format!(
-            "narro-pomodoro-boundary-{}.db",
-            Uuid::new_v4()
-        ));
+        let path =
+            std::env::temp_dir().join(format!("narro-pomodoro-boundary-{}.db", Uuid::new_v4()));
         let mut connection = Connection::open(&path).expect("open test database");
         run_migrations(&mut connection).expect("migrate test database");
         let list = create_list(
@@ -503,13 +484,9 @@ mod tests {
         let mut observed_ms = 0;
         let mut events = Vec::new();
 
-        advance_controller_to(
-            &mut controller,
-            &mut observed_ms,
-            6_000,
-            T6,
-            |payload| events.push(payload.clone()),
-        )
+        advance_controller_to(&mut controller, &mut observed_ms, 6_000, T6, |payload| {
+            events.push(payload.clone())
+        })
         .expect("advance through late Pomodoro boundaries");
 
         assert_eq!(observed_ms, 6_000);
@@ -553,9 +530,15 @@ mod tests {
                 (SessionKind::Work, 0, true),
             ]
         );
-        assert_eq!(sessions[0].ended_at.as_deref(), Some("2026-09-05T12:00:02.000Z"));
+        assert_eq!(
+            sessions[0].ended_at.as_deref(),
+            Some("2026-09-05T12:00:02.000Z")
+        );
         assert_eq!(sessions[1].started_at, "2026-09-05T12:00:02.000Z");
-        assert_eq!(sessions[1].ended_at.as_deref(), Some("2026-09-05T12:00:05.000Z"));
+        assert_eq!(
+            sessions[1].ended_at.as_deref(),
+            Some("2026-09-05T12:00:05.000Z")
+        );
         assert_eq!(sessions[2].started_at, "2026-09-05T12:00:05.000Z");
 
         drop(inspection);
