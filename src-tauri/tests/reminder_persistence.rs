@@ -76,7 +76,10 @@ fn reminder_round_trips_and_becomes_due_at_resolved_timezone_instant() {
     assert!(reminder.fired_at.is_none());
     assert!(reminder.dismissed_at.is_none());
     assert_eq!(get_reminder(&conn, reminder.id).unwrap(), reminder);
-    assert_eq!(list_task_reminders(&conn, task.id).unwrap(), vec![reminder.clone()]);
+    assert_eq!(
+        list_task_reminders(&conn, task.id).unwrap(),
+        vec![reminder.clone()]
+    );
 
     assert!(pending_due_reminders(&conn, "2026-09-07T05:59:59Z")
         .expect("query before due")
@@ -185,7 +188,8 @@ fn fired_and_dismissed_transitions_are_idempotent_and_exclude_due_rows() {
     assert_eq!(fired_twice.fired_at.as_deref(), Some(T2));
 
     let dismissed_once = dismiss_reminder(&mut conn, dismissed.id, T2).unwrap();
-    let dismissed_twice = dismiss_reminder(&mut conn, dismissed.id, "2026-09-05T18:40:00Z").unwrap();
+    let dismissed_twice =
+        dismiss_reminder(&mut conn, dismissed.id, "2026-09-05T18:40:00Z").unwrap();
     assert_eq!(dismissed_once.dismissed_at.as_deref(), Some(T2));
     assert_eq!(dismissed_twice.dismissed_at.as_deref(), Some(T2));
 
