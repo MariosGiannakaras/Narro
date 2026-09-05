@@ -84,8 +84,7 @@ fn reminder_round_trips_and_becomes_due_at_resolved_timezone_instant() {
     assert!(pending_due_reminders(&conn, "2026-09-07T05:59:59Z")
         .expect("query before due")
         .is_empty());
-    let due = pending_due_reminders(&conn, "2026-09-07T06:00:00Z")
-        .expect("query at due instant");
+    let due = pending_due_reminders(&conn, "2026-09-07T06:00:00Z").expect("query at due instant");
     assert_eq!(due, vec![reminder]);
 }
 
