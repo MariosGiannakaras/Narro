@@ -5,6 +5,7 @@ use chrono::DateTime;
 use rusqlite::{params, Connection, OptionalExtension};
 use std::fmt::{Display, Formatter};
 
+const MIN_SUPPORTED_PREFERENCES_SCHEMA_VERSION: u32 = 1;
 const MAX_TOKEN_BYTES: usize = 256;
 const MAX_DURATION_SECONDS: u32 = 24 * 60 * 60;
 const MAX_REMINDER_LEAD_SECONDS: u32 = 7 * 24 * 60 * 60;
@@ -170,7 +171,9 @@ fn decode_preferences(
 ) -> Result<PreferencesRecord, PreferenceStoreError> {
     let schema_version = u32::try_from(schema_version)
         .map_err(|_| PreferenceStoreError::InvalidStoredSchemaVersion(schema_version))?;
-    if schema_version != PREFERENCES_SCHEMA_VERSION {
+    if !(MIN_SUPPORTED_PREFERENCES_SCHEMA_VERSION..=PREFERENCES_SCHEMA_VERSION)
+        .contains(&schema_version)
+    {
         return Err(PreferenceStoreError::UnsupportedSchemaVersion(
             schema_version,
         ));
@@ -250,6 +253,10 @@ pub fn save_preferences(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::domain::preferences::SleepAccountingPolicy;
+    use crate::persistence::run_migrations;
+
+    const NOW: &str = "2026-09-05T14:00:00Z";
 
     #[test]
     fn invalid_nested_celebration_state_is_rejected() {
@@ -279,5 +286,42 @@ mod tests {
             validate_preferences(&token),
             Err(PreferenceStoreError::InvalidToken("general.timezone"))
         ));
+    }
+
+    #[test]
+    fn legacy_v1_payload_without_sleep_policy_loads_with_safe_exclude_default() {
+        let mut conn = Connection::open_in_memory().expect("open database");
+        run_migrations(&mut conn).expect("migrate database");
+        let mut value = serde_json::to_value(PreferencesPayload::default()).unwrap();
+        value["focus"]
+            .as_object_mut()
+            .unwrap()
+            .remove("sleep_accounting_policy");
+        conn.execute(
+            "INSERT INTO preferences (id, schema_version, payload_json, updated_at)
+             VALUES (1, 1, ?1, ?2)",
+            params![value.to_string(), NOW],
+        )
+        .unwrap();
+
+        let loaded = get_preferences(&conn).unwrap().unwrap();
+        assert_eq!(loaded.schema_version, 1);
+        assert_eq!(
+            loaded.payload.focus.sleep_accounting_policy,
+            SleepAccountingPolicy::Exclude
+        );
+    }
+
+    #[test]
+    fn save_writes_current_schema_and_round_trips_count_sleep_policy() {
+        let mut conn = Connection::open_in_memory().expect("open database");
+        run_migrations(&mut conn).expect("migrate database");
+        let mut payload = PreferencesPayload::default();
+        payload.focus.sleep_accounting_policy = SleepAccountingPolicy::Count;
+
+        let saved = save_preferences(&mut conn, payload.clone(), NOW).unwrap();
+        assert_eq!(saved.schema_version, PREFERENCES_SCHEMA_VERSION);
+        assert_eq!(saved.payload, payload);
+        assert_eq!(get_preferences(&conn).unwrap().unwrap(), saved);
     }
 }
