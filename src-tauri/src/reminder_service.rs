@@ -38,7 +38,10 @@ impl Display for ReminderDispatchError {
             Self::Task(error) => write!(formatter, "reminder task lookup failed: {error}"),
             Self::List(error) => write!(formatter, "reminder list lookup failed: {error}"),
             Self::Acknowledgment(error) => {
-                write!(formatter, "reminder delivery acknowledgment failed: {error}")
+                write!(
+                    formatter,
+                    "reminder delivery acknowledgment failed: {error}"
+                )
             }
         }
     }
@@ -279,13 +282,8 @@ mod tests {
     fn successful_submission_is_acknowledged_once_and_not_resubmitted() {
         let mut conn = fixture();
         let task = create_task_fixture(&mut conn, "Write report");
-        let reminder = create_due_reminder(
-            &mut conn,
-            task.id,
-            "2026-09-05",
-            "10:00",
-            "Europe/Athens",
-        );
+        let reminder =
+            create_due_reminder(&mut conn, task.id, "2026-09-05", "10:00", "Europe/Athens");
         let mut submissions = Vec::new();
 
         let first = dispatch_due_with(
@@ -301,7 +299,13 @@ mod tests {
         assert_eq!(first.due_count, 1);
         assert_eq!(first.submitted_count, 1);
         assert_eq!(submissions, vec!["Write report"]);
-        assert_eq!(get_reminder(&conn, reminder.id).unwrap().fired_at.as_deref(), Some(T1));
+        assert_eq!(
+            get_reminder(&conn, reminder.id)
+                .unwrap()
+                .fired_at
+                .as_deref(),
+            Some(T1)
+        );
 
         let second = dispatch_due_with(
             &mut conn,
@@ -321,13 +325,8 @@ mod tests {
     fn failed_submission_stays_pending_and_retries_later() {
         let mut conn = fixture();
         let task = create_task_fixture(&mut conn, "Retry me");
-        let reminder = create_due_reminder(
-            &mut conn,
-            task.id,
-            "2026-09-05",
-            "10:00",
-            "Europe/Athens",
-        );
+        let reminder =
+            create_due_reminder(&mut conn, task.id, "2026-09-05", "10:00", "Europe/Athens");
 
         let failed = dispatch_due_with(&mut conn, T1, |_, _| false, acknowledge_fired)
             .expect("failed delivery cycle remains valid");
@@ -337,7 +336,13 @@ mod tests {
         let retried = dispatch_due_with(&mut conn, T1, |_, _| true, acknowledge_fired)
             .expect("retry delivery");
         assert_eq!(retried.submitted_count, 1);
-        assert_eq!(get_reminder(&conn, reminder.id).unwrap().fired_at.as_deref(), Some(T1));
+        assert_eq!(
+            get_reminder(&conn, reminder.id)
+                .unwrap()
+                .fired_at
+                .as_deref(),
+            Some(T1)
+        );
     }
 
     #[test]
@@ -352,13 +357,7 @@ mod tests {
             "08:00",
             "America/New_York",
         );
-        create_due_reminder(
-            &mut conn,
-            athens.id,
-            "2026-09-05",
-            "12:00",
-            "Europe/Athens",
-        );
+        create_due_reminder(&mut conn, athens.id, "2026-09-05", "12:00", "Europe/Athens");
         let mut titles = Vec::new();
 
         let report = dispatch_due_with(
@@ -380,13 +379,7 @@ mod tests {
     fn completed_task_reminder_is_not_submitted() {
         let mut conn = fixture();
         let task = create_task_fixture(&mut conn, "Completed");
-        create_due_reminder(
-            &mut conn,
-            task.id,
-            "2026-09-05",
-            "10:00",
-            "Europe/Athens",
-        );
+        create_due_reminder(&mut conn, task.id, "2026-09-05", "10:00", "Europe/Athens");
         complete_task(&mut conn, task.id, T1).expect("complete task");
         let mut called = false;
 
@@ -409,13 +402,8 @@ mod tests {
     fn acknowledgment_failure_is_explicit_after_successful_submission() {
         let mut conn = fixture();
         let task = create_task_fixture(&mut conn, "Ack failure");
-        let reminder = create_due_reminder(
-            &mut conn,
-            task.id,
-            "2026-09-05",
-            "10:00",
-            "Europe/Athens",
-        );
+        let reminder =
+            create_due_reminder(&mut conn, task.id, "2026-09-05", "10:00", "Europe/Athens");
         let mut submitted = 0;
 
         let error = dispatch_due_with(
