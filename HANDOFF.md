@@ -1,12 +1,12 @@
 # HANDOFF.md
 
-This is the **current operational continuation state** for Narro. Any zero-context AI must start with `AI_START_HERE.md`, then read `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 3 section in `TODO.md`, `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant `work-log/*.md` entries.
+This is the **current operational continuation state** for Narro. Any zero-context AI must start with `AI_START_HERE.md`, then read `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 4 section in `TODO.md`, `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant `work-log/*.md` entries.
 
 ## CURRENT MILESTONE
 
-**Milestone 3 — Timer/session engine.**
+**Milestone 4 — Scheduling, recurrence, reminders, eligibility.**
 
-Milestone 1 Gate A is PASS and Milestone 2 Gate B is PASS. Milestone 3 has one remaining unresolved correctness boundary: Windows sleep/resume accounting. Do not start Milestone 4 or polished product UI until M3 is closed unless the user explicitly changes milestone order.
+Milestone 1 Gate A is PASS, Milestone 2 Gate B is PASS, and Milestone 3 Gate C is PASS. M3 is closed; ordered source work may now proceed into M4. Do not skip to polished Milestone 5/6 product UI until M4 is closed unless the user explicitly changes milestone order.
 
 The architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with `main` plus the reused `focusSurface` webview. Do not regress the async `main` recreation path; the old synchronous WebView2 recreation path deadlocked on real Windows.
 
@@ -17,7 +17,7 @@ The architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 1
 - `Γενική υλοποίηση: X/Y ...` — validated milestones out of Narro's stable 10-milestone roadmap;
 - `Μικρή τρέχουσα υλοποίηση: A/B ...` — meaningful checkpoints inside the active implementation slice.
 
-Current general roadmap progress is **2/10 validated milestones** because M1 and M2 are complete while M3 remains open on the sleep/resume decision. Failed CI does not increment progress and denominators must not change silently.
+Current general roadmap progress is **3/10 validated milestones** because M1, M2 and M3 are complete. Failed CI does not increment progress and denominators must not change silently.
 
 Rule commits on `main`:
 
@@ -26,28 +26,30 @@ Rule commits on `main`:
 
 ## VALIDATED MILESTONE 3 BASELINE
 
-Current validated **source** implementation baseline is PR #34 squash merge:
+Current validated **source** implementation baseline is PR #35 squash merge:
 
-`22d59dd5b52e42a5bab4e1f058df2338a072fb16`
+`5eaf7f0eba1770112d41744377ea134ad5d41e33`
 
-Exact PR head:
+Exact validated PR head:
 
-`e779514558005c5dd7cea23bf7483388d9b4f1c0`
+`a4582f5ea76737c8a5e01cb4e1c2cfb87a826159`
 
 Validation:
 
-- Windows PR CI #184 / run `33959065974` / job `101287590338`: **SUCCESS**;
+- Windows PR CI #192 / run `33964109578` / job `101301016918`: **SUCCESS**;
 - PR preflight, Tauri release build and artifact upload: **PASS**;
-- PR artifact ID `9967498244`, digest `sha256:efa254abf3468b1d7ee7df1d641a33fcfb1c801c12932710648dda258fcf21aa`;
-- Windows main CI #185 / run `33959681959` / job `101289258096`: **SUCCESS**;
+- PR artifact ID `9969024118`, digest `sha256:834b247060eedfd426cf0566f97614fd357a326a25a4c4353547be0cb77fc2f6`;
+- Windows main CI #196 / run `33964738776` / job `101302758803`: **SUCCESS**;
 - main preflight, Tauri release build and artifact upload: **PASS**;
-- main artifact ID `9967652919`, digest `sha256:17eae2b6603293c0f5309b24f1ff8ab316d5bf90722dba70703eafcb903282e2`.
+- main artifact ID `9969220078`, digest `sha256:c2d1b2ce9cbaf12abdb45020a537b89081005c0f1f7305007cb97f812ee974d1`.
 
-Markdown-only tracking/work-log commits may be newer than the source SHA and do not change the validated source baseline.
+Markdown-only tracking/work-log commits are newer than the source SHA and do not change the validated source baseline.
 
-## MERGED M3 CAPABILITIES
+## MILESTONE 3 RESULT
 
-M3 now has automated-validated coverage for:
+**Gate C: PASS / proceed to Milestone 4.**
+
+M3 has automated-validated coverage for:
 
 - authoritative pure-Rust CountUp / EST / Pomodoro / pause / break / Time's Up / overtime state machine;
 - Done / Skip / Switch lifecycle;
@@ -60,15 +62,30 @@ M3 now has automated-validated coverage for:
 - paused live Time Taken rebasing without rewriting raw session history or snapping back after resume/recovery;
 - exact 15m + pause + 15m work accounting across recovery;
 - typed revisioned timer/session events shared by `main` and `focusSurface`;
-- Rust/Tauri-owned monotonic timer time; renderers cannot supply authoritative elapsed time;
+- Rust/Tauri-owned timer time; renderers cannot supply authoritative elapsed time;
 - late Pomodoro catch-up that persists every crossed Work/Break boundary in order;
 - durable once-only Pomodoro notification decisions/claims, with Windows toast submission best-effort after persistence;
 - authoritative `awaitingResume` projection and minimal shared Resume workflow after Pomodoro break completion;
-- long-duration / large-elapsed overflow safety covering near-`u64::MAX` Work/Break recovery, SQLite signed-duration boundaries and very large Time Taken aggregates.
+- long-duration / large-elapsed overflow safety covering near-`u64::MAX` Work/Break recovery, SQLite signed-duration boundaries and very large Time Taken aggregates;
+- Windows suspend/resume no-data-loss accounting with configurable policy and durable session snapshot.
 
-Latest slice evidence:
+Windows sleep policy is now a durable product decision:
 
-- `work-log/2026-09-05-1315-chatgpt-m3-large-elapsed-safety.md`.
+- global default: `exclude` unattended system sleep from Time Taken;
+- global policy may be changed to `count`;
+- per-task override: `inherit`, `exclude`, or `count`;
+- effective policy is snapshotted into the current focus session when it opens;
+- later preference changes do not mutate an already-running session's accounting semantics;
+- Work↔Break preserves the same policy; Switch Task resolves the target task policy;
+- native `WM_POWERBROADCAST` observes suspend/resume;
+- Windows `GetTickCount64` measures the suspend interval instead of relying on ambiguous Rust `Instant` suspend behavior;
+- suspend and resume force durable checkpoints without consuming semantic event revisions;
+- `count` catch-up goes through the existing authoritative boundary stepper, including Pomodoro effects;
+- process-restart downtime remains excluded from work.
+
+Latest completion evidence:
+
+- `work-log/2026-09-05-1514-chatgpt-m3-windows-sleep-policy.md`.
 
 Earlier key M3 merges:
 
@@ -81,16 +98,17 @@ Earlier key M3 merges:
 - PR #31 `c59e434e9f6b13b1837159f00e51fc96dd7f10a7` — paused Time Taken/recovery regressions;
 - PR #32 `349260f28475f53472b444af6180704a4b981c20` — typed timer/session events and Tauri-owned timer service;
 - PR #33 `3ffbaca0c5df78833584de26270686f6cdadca16` — exact Pomodoro boundary effects/notifications/resume projection;
-- PR #34 `22d59dd5b52e42a5bab4e1f058df2338a072fb16` — large-elapsed/overflow regressions.
+- PR #34 `22d59dd5b52e42a5bab4e1f058df2338a072fb16` — large-elapsed/overflow regressions;
+- PR #35 `5eaf7f0eba1770112d41744377ea134ad5d41e33` — configurable Windows sleep/resume accounting.
 
 PR #26 (`m3-session-coordinator`) was closed unmerged and is historical only; its recovery intent was superseded by PR #29.
 
-## IMPORTANT INVARIANTS
+## IMPORTANT TIMER INVARIANTS TO PRESERVE
 
-Preserve all of these:
+M4 and later work must not regress these:
 
 - renderer reads do not advance authoritative time or supply `now_ms` / wall time;
-- Tauri/Rust owns automatic boundary advancement;
+- Tauri/Rust owns automatic timer boundary advancement;
 - publish/broadcast only after successful persisted timer/session transition;
 - broadcast failure after commit is log-only;
 - Pomodoro OS notification failure after durable claim is log-only; do not report timer mutation failure because a toast failed;
@@ -102,43 +120,35 @@ Preserve all of these:
 - generic task Time Taken mutation rejects an active focus session;
 - raw timer/session elapsed remains monotonic; manual corrections use durable adjustment rather than rewriting history;
 - process restart downtime is not counted as work;
-- no M4 scheduling or polished M5/M6 UI work while M3 is still open.
+- active sleep accounting semantics come from the persisted focus-session policy, not from a live preference read or renderer clock;
+- one-open-session persistence invariant remains enforced.
 
-## LARGE-ELAPSED SLICE RESULT
+## TRACKING RECONCILIATION
 
-PR #34 added six deterministic integration regressions and required no production runtime semantic change. Existing checked arithmetic and persistence-first rollback behavior passed:
+M3 completion tracking on `main`:
 
-1. continuous CountUp near the full `u64` clock span;
-2. recovered Work total near `u64::MAX` rejecting a new segment with `DurationOverflow` atomically;
-3. recovered Break total near `u64::MAX` rejecting projected overflow atomically;
-4. session duration beyond SQLite signed `INTEGER` range rejecting before mutation;
-5. very large valid Time Taken aggregate remaining exact;
-6. overflowing Time Taken aggregate rejecting metadata rebase without mutation.
+- `TODO.md` commit `67f6ccd2d8e8e03e2e3303a2e1bfc7e70302a2e7` — sleep/resume item checked and Gate C PASS recorded;
+- `STATUS.md` commit `7214fb0e8cfa7a79822a5472ee38e7d9a62e278d` — phase advanced to M4 and PR/main validation evidence recorded;
+- immutable completion log commit `1cbe49f1dc90e5f4452ba89be5ed30578328ea6f` — `work-log/2026-09-05-1514-chatgpt-m3-windows-sleep-policy.md`.
 
-`TODO.md` long-duration item is now `[x]`.
+## NEXT AGENT ACTION — MILESTONE 4
 
-## NEXT AGENT ACTION — BLOCKED ON PRODUCT DECISION
+Start with the first ordered M4 correctness slice, not product UI.
 
-Do not invent Windows sleep accounting semantics.
+Before writing source, inspect the existing scheduling/recurrence domain and persistence foundation plus `docs/PRODUCT_SPEC.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the active M4 TODO. Reuse the existing typed schedule metadata from M2 rather than creating parallel identities or renderer-owned date logic.
 
-Before implementing the final M3 slice, obtain an explicit user decision for this question:
+A suitable first M4 slice is the scheduling/eligibility core:
 
-**If a work timer is running when Windows enters system sleep, should the unattended sleep duration count toward Time Taken?**
+1. define deterministic Windows-local Monday-based week classification around the existing date-only and local-datetime schedule types;
+2. implement official scheduling shortcut resolution: Today, Later today (+2h), Tomorrow, Next week (+7d), custom date;
+3. classify scheduled tasks into Backlog / This Week / Today without shifting date-only tasks across timezone boundaries;
+4. make future-timed Today tasks ineligible before their due local time;
+5. add controlled-time regressions for Monday/week boundaries, weekend behavior, timezone/DST edges and date-only versus timed schedules;
+6. validate exact-head Windows CI before marking any corresponding M4 TODO items complete.
 
-Two direct policies are available:
+Do not begin recurrence materialization, reminder dispatch, or UI integration until the scheduling/eligibility core is coherent unless source inspection proves a narrower dependency requires it.
 
-- **Exclude sleep time from work** — treat sleep like unavailable/downtime and resume from the pre-sleep tracked amount without charging the asleep interval.
-- **Count sleep time as work** — if the timer was running when Windows slept, include the sleep interval in active work when the system resumes.
-
-After the user chooses, implement the narrowest Windows sleep/resume policy and no-data-loss tests, validate exact-head PR CI and main CI, update TODO/STATUS/HANDOFF/work-log, and then close Milestone 3 if all acceptance criteria are satisfied.
-
-## USER ACTION REQUIRED
-
-**Required:** choose whether unattended Windows sleep time counts as active work for a timer that was running at sleep entry.
-
-Until that decision exists, no further M3 source implementation should guess the behavior and Milestone 4 must not start automatically.
-
-## IMPORTANT FILES
+## IMPORTANT M4 FILES / AREAS TO INSPECT
 
 - `AGENT_WORKFLOW.md`
 - `TODO.md`
@@ -146,17 +156,10 @@ Until that decision exists, no further M3 source implementation should guess the
 - `docs/BLITZIT_HISTORY_RISK_INDEX.md`
 - `docs/SOURCE_AUDIT.md`
 - `docs/PRODUCT_SPEC.md`
-- `src-tauri/src/timer/`
-- `src-tauri/src/timer_service.rs`
-- `src-tauri/src/domain/timer_events.rs`
-- `src-tauri/src/persistence/sessions.rs`
-- `src-tauri/src/persistence/timer_runtime.rs`
-- `src-tauri/src/persistence/timer_controller.rs`
-- `src-tauri/src/persistence/pomodoro_effects.rs`
-- `src-tauri/src/persistence/live_completion.rs`
-- `src-tauri/src/persistence/live_time_taken.rs`
-- `src-tauri/tests/timer_large_elapsed_safety.rs`
-- `src-tauri/tests/timer_recovery_regressions.rs`
-- `work-log/2026-09-05-1315-chatgpt-m3-large-elapsed-safety.md`
+- `src-tauri/src/domain/`
+- `src-tauri/src/persistence/`
+- existing schedule/recurrence/reminder types and tests discovered under `src-tauri/`
+- task planning/lane classification persistence introduced in M2
+- `work-log/2026-09-05-1514-chatgpt-m3-windows-sleep-policy.md`
 
 A handoff is complete only when another capable agent can continue from repository state without requiring prior chat context.
