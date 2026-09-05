@@ -9,7 +9,7 @@ use narro_lib::persistence::reminders::{
 };
 use narro_lib::persistence::run_migrations;
 use narro_lib::persistence::tasks::{complete_task, create_task};
-use rusqlite::Connection;
+use rusqlite::{params, Connection};
 
 const T0: &str = "2026-09-05T18:30:00Z";
 const T1: &str = "2026-09-05T18:31:00Z";
@@ -43,6 +43,15 @@ fn task_fixture(conn: &mut Connection, title: &str) -> narro_lib::domain::tasks:
         T0,
     )
     .expect("create task")
+}
+
+fn pending_input(task_id: narro_lib::domain::ids::TaskId) -> NewReminderInput {
+    NewReminderInput {
+        task_id,
+        remind_local_date: "2026-09-06".into(),
+        remind_local_time: "10:00".into(),
+        timezone: "Europe/Athens".into(),
+    }
 }
 
 #[test]
@@ -237,12 +246,12 @@ fn completed_or_archived_task_context_cannot_produce_pending_delivery() {
     complete_task(&mut conn, completed_task.id, T2).expect("complete task");
     conn.execute(
         "UPDATE tasks SET archived_at = ?1, updated_at = ?1 WHERE id = ?2",
-        [T2, &archived_task.id.to_string()],
+        params![T2, archived_task.id.to_string()],
     )
     .expect("archive task fixture");
     conn.execute(
         "UPDATE lists SET archived_at = ?1, updated_at = ?1 WHERE id = (SELECT list_id FROM tasks WHERE id = ?2)",
-        [T2, &archived_list_task.id.to_string()],
+        params![T2, archived_list_task.id.to_string()],
     )
     .expect("archive list fixture");
 
@@ -253,16 +262,15 @@ fn completed_or_archived_task_context_cannot_produce_pending_delivery() {
     assert!(get_reminder(&conn, archived_list_reminder.id).is_ok());
 
     assert!(matches!(
-        create_reminder(
-            &mut conn,
-            NewReminderInput {
-                task_id: completed_task.id,
-                remind_local_date: "2026-09-06".into(),
-                remind_local_time: "10:00".into(),
-                timezone: "Europe/Athens".into(),
-            },
-            T2,
-        ),
+        create_reminder(&mut conn, pending_input(completed_task.id), T2),
         Err(ReminderStoreError::TaskCompleted(id)) if id == completed_task.id
+    ));
+    assert!(matches!(
+        create_reminder(&mut conn, pending_input(archived_task.id), T2),
+        Err(ReminderStoreError::TaskArchived(id)) if id == archived_task.id
+    ));
+    assert!(matches!(
+        create_reminder(&mut conn, pending_input(archived_list_task.id), T2),
+        Err(ReminderStoreError::TaskListArchived)
     ));
 }
