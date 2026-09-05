@@ -21,7 +21,11 @@ const T2: &str = "2026-09-05T14:02:00Z";
 const T3: &str = "2026-09-05T14:03:00Z";
 const T4: &str = "2026-09-05T14:04:00Z";
 
-fn fixture() -> (Connection, narro_lib::domain::ids::TaskId, narro_lib::domain::ids::TaskId) {
+fn fixture() -> (
+    Connection,
+    narro_lib::domain::ids::TaskId,
+    narro_lib::domain::ids::TaskId,
+) {
     let mut conn = Connection::open_in_memory().expect("open database");
     run_migrations(&mut conn).expect("migrate database");
     let list = create_list(
@@ -59,11 +63,7 @@ fn fixture() -> (Connection, narro_lib::domain::ids::TaskId, narro_lib::domain::
     (conn, first.id, second.id)
 }
 
-fn open_policy(
-    conn: &Connection,
-    runtime: &TimerRuntime,
-    now_ms: u64,
-) -> SleepAccountingPolicy {
+fn open_policy(conn: &Connection, runtime: &TimerRuntime, now_ms: u64) -> SleepAccountingPolicy {
     let session_id = runtime
         .snapshot(now_ms)
         .expect("snapshot runtime")
@@ -164,13 +164,8 @@ fn active_session_policy_does_not_change_when_preferences_change_later() {
 #[test]
 fn task_switch_re_resolves_policy_for_target_task() {
     let (mut conn, first, second) = fixture();
-    set_task_sleep_accounting_override(
-        &mut conn,
-        first,
-        TaskSleepAccountingOverride::Count,
-        T1,
-    )
-    .unwrap();
+    set_task_sleep_accounting_override(&mut conn, first, TaskSleepAccountingOverride::Count, T1)
+        .unwrap();
     set_task_sleep_accounting_override(
         &mut conn,
         second,
@@ -200,13 +195,8 @@ fn task_switch_re_resolves_policy_for_target_task() {
 #[test]
 fn work_break_work_session_replacements_preserve_same_task_policy() {
     let (mut conn, task_id, _) = fixture();
-    set_task_sleep_accounting_override(
-        &mut conn,
-        task_id,
-        TaskSleepAccountingOverride::Count,
-        T1,
-    )
-    .unwrap();
+    set_task_sleep_accounting_override(&mut conn, task_id, TaskSleepAccountingOverride::Count, T1)
+        .unwrap();
 
     let mut runtime = TimerRuntime::new();
     runtime
