@@ -80,6 +80,14 @@ pub struct TimerService {
 
 impl TimerService {
     pub fn recover(connection: Connection) -> Result<Self, TimerServiceRecoverError> {
+        let wall_time = current_wall_time();
+        Self::recover_at(connection, &wall_time)
+    }
+
+    fn recover_at(
+        connection: Connection,
+        wall_time: &str,
+    ) -> Result<Self, TimerServiceRecoverError> {
         let database_path = connection
             .path()
             .filter(|path| !path.is_empty())
@@ -94,8 +102,7 @@ impl TimerService {
                 .map_err(TimerServiceRecoverError::EffectsRecovery)?;
 
         let monotonic_origin = Instant::now();
-        let wall_time = current_wall_time();
-        let controller = TimerController::recover(connection, 0, &wall_time)?;
+        let controller = TimerController::recover(connection, 0, wall_time)?;
         Ok(Self {
             state: Mutex::new(TimerServiceState {
                 controller,
@@ -792,7 +799,8 @@ mod tests {
         drop(controller);
         drop(effects);
         let connection = Connection::open(&path).unwrap();
-        let service = TimerService::recover(connection).expect("recover awaiting resume service");
+        let service = TimerService::recover_at(connection, "2026-09-05T12:01:00Z")
+            .expect("recover awaiting resume service");
         let recovered_payload = service.snapshot().unwrap();
         assert!(recovered_payload.awaiting_resume);
         assert_eq!(
