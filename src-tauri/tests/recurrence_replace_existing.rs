@@ -4,9 +4,7 @@ use narro_lib::domain::recurrence::{NewRecurrenceRuleInput, UpdateRecurrenceRule
 use narro_lib::domain::tasks::NewTaskInput;
 use narro_lib::persistence::lists::create_list;
 use narro_lib::persistence::recurrence::{create_recurrence_rule, get_recurrence_rule};
-use narro_lib::persistence::recurrence_replace::{
-    replace_existing_tasks, ReplaceExistingError,
-};
+use narro_lib::persistence::recurrence_replace::{replace_existing_tasks, ReplaceExistingError};
 use narro_lib::persistence::run_migrations;
 use narro_lib::persistence::tasks::{complete_task, create_task, get_task};
 use narro_lib::recurrence::materialize_recurrence_week;
