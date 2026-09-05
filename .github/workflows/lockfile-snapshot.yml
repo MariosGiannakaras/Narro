@@ -1,0 +1,22 @@
+name: Lockfile Snapshot
+
+on:
+  push:
+    branches:
+      - ai/m4-timezone-dst
+
+jobs:
+  snapshot:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Refresh Cargo lock metadata
+        shell: pwsh
+        run: cargo metadata --manifest-path src-tauri/Cargo.toml --format-version 1 | Out-Null
+      - name: Upload refreshed lockfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: m4-refreshed-cargo-lock
+          path: src-tauri/Cargo.lock
+          if-no-files-found: error
