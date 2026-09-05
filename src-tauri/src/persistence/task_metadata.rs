@@ -3,6 +3,9 @@ use crate::domain::model::ScheduleKind;
 use crate::domain::tasks::{SetTaskTimeTakenInput, TaskRecord, TaskSchedule};
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
+use crate::scheduling::{
+    resolve_local_datetime_strict, validate_timezone_identifier, SchedulingError,
+};
 use chrono::{DateTime, NaiveDate, NaiveTime};
 use rusqlite::{params, Connection, TransactionBehavior};
 use std::fmt::{Display, Formatter};
@@ -20,6 +23,8 @@ pub enum TaskMetadataError {
     InvalidScheduleDate,
     InvalidScheduleTime,
     InvalidScheduleTimezone,
+    AmbiguousScheduleLocalDateTime,
+    ScheduleResolutionFailed,
     InvalidStoredTimeTaken(i64),
     TimeTakenOverflow,
 }
@@ -46,8 +51,15 @@ impl Display for TaskMetadataError {
             Self::InvalidScheduleTime => {
                 formatter.write_str("scheduled local time must use 24-hour HH:MM")
             }
-            Self::InvalidScheduleTimezone => formatter
-                .write_str("scheduled timezone must be a non-empty local timezone identifier"),
+            Self::InvalidScheduleTimezone => {
+                formatter.write_str("scheduled timezone must be a known IANA timezone identifier")
+            }
+            Self::AmbiguousScheduleLocalDateTime => formatter.write_str(
+                "scheduled local datetime is ambiguous or nonexistent in the selected timezone",
+            ),
+            Self::ScheduleResolutionFailed => {
+                formatter.write_str("scheduled local datetime could not be resolved")
+            }
             Self::InvalidStoredTimeTaken(value) => {
                 write!(formatter, "stored task Time Taken is invalid: {value}")
             }
@@ -114,11 +126,29 @@ fn normalize_local_time(value: &str) -> Result<String, TaskMetadataError> {
 }
 
 fn normalize_timezone(value: &str) -> Result<String, TaskMetadataError> {
-    let value = value.trim();
-    if value.is_empty() || value.len() > 128 || value.chars().any(char::is_control) {
-        return Err(TaskMetadataError::InvalidScheduleTimezone);
-    }
-    Ok(value.to_owned())
+    validate_timezone_identifier(value).map_err(|_| TaskMetadataError::InvalidScheduleTimezone)
+}
+
+fn validate_resolvable_local_datetime(
+    local_date: &str,
+    local_time: &str,
+    timezone: &str,
+) -> Result<(), TaskMetadataError> {
+    let date = NaiveDate::parse_from_str(local_date, "%Y-%m-%d")
+        .map_err(|_| TaskMetadataError::InvalidScheduleDate)?;
+    let time = NaiveTime::parse_from_str(local_time, "%H:%M")
+        .map_err(|_| TaskMetadataError::InvalidScheduleTime)?;
+    resolve_local_datetime_strict(date, time, timezone)
+        .map(|_| ())
+        .map_err(|error| match error {
+            SchedulingError::InvalidTimezone(_) => TaskMetadataError::InvalidScheduleTimezone,
+            SchedulingError::AmbiguousLocalDateTime { .. } => {
+                TaskMetadataError::AmbiguousScheduleLocalDateTime
+            }
+            SchedulingError::InvalidLocalDate(_) => TaskMetadataError::InvalidScheduleDate,
+            SchedulingError::InvalidLocalTime(_) => TaskMetadataError::InvalidScheduleTime,
+            _ => TaskMetadataError::ScheduleResolutionFailed,
+        })
 }
 
 fn normalize_schedule(schedule: TaskSchedule) -> Result<NormalizedSchedule, TaskMetadataError> {
@@ -139,12 +169,18 @@ fn normalize_schedule(schedule: TaskSchedule) -> Result<NormalizedSchedule, Task
             local_date,
             local_time,
             timezone,
-        } => Ok(NormalizedSchedule {
-            kind: ScheduleKind::LocalDateTime,
-            local_date: Some(normalize_local_date(&local_date)?),
-            local_time: Some(normalize_local_time(&local_time)?),
-            timezone: Some(normalize_timezone(&timezone)?),
-        }),
+        } => {
+            let local_date = normalize_local_date(&local_date)?;
+            let local_time = normalize_local_time(&local_time)?;
+            let timezone = normalize_timezone(&timezone)?;
+            validate_resolvable_local_datetime(&local_date, &local_time, &timezone)?;
+            Ok(NormalizedSchedule {
+                kind: ScheduleKind::LocalDateTime,
+                local_date: Some(local_date),
+                local_time: Some(local_time),
+                timezone: Some(timezone),
+            })
+        }
     }
 }
 
@@ -513,6 +549,21 @@ mod tests {
                 local_date: "2026-09-04".into(),
                 local_time: "09:00".into(),
                 timezone: "   ".into(),
+            },
+            TaskSchedule::LocalDateTime {
+                local_date: "2026-09-04".into(),
+                local_time: "09:00".into(),
+                timezone: "Europe/Atlantis".into(),
+            },
+            TaskSchedule::LocalDateTime {
+                local_date: "2026-03-08".into(),
+                local_time: "02:30".into(),
+                timezone: "America/New_York".into(),
+            },
+            TaskSchedule::LocalDateTime {
+                local_date: "2026-11-01".into(),
+                local_time: "01:30".into(),
+                timezone: "America/New_York".into(),
             },
         ] {
             assert!(set_task_schedule(&mut conn, task.id, invalid, T3).is_err());

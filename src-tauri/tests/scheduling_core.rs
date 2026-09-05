@@ -1,14 +1,15 @@
 use chrono::{NaiveDate, NaiveDateTime};
+use jiff::Timestamp;
 use narro_lib::domain::lists::NewListInput;
 use narro_lib::domain::model::PlanningLane;
-use narro_lib::domain::tasks::NewTaskInput;
+use narro_lib::domain::tasks::{NewTaskInput, TaskSchedule};
 use narro_lib::persistence::lists::create_list;
 use narro_lib::persistence::run_migrations;
-use narro_lib::persistence::task_metadata::set_task_schedule;
+use narro_lib::persistence::task_metadata::{set_task_schedule, TaskMetadataError};
 use narro_lib::persistence::tasks::{create_task, get_task};
 use narro_lib::scheduling::{
-    effective_planning_lane, focus_eligibility, resolve_schedule_shortcut, FocusEligibility,
-    ScheduleShortcut,
+    effective_planning_lane, effective_planning_lane_at, focus_eligibility_at,
+    resolve_schedule_shortcut, FocusEligibility, ScheduleShortcut,
 };
 use rusqlite::Connection;
 
@@ -22,6 +23,10 @@ fn date(value: &str) -> NaiveDate {
 
 fn datetime(value: &str) -> NaiveDateTime {
     NaiveDateTime::parse_from_str(value, "%Y-%m-%d %H:%M:%S").unwrap()
+}
+
+fn timestamp(value: &str) -> Timestamp {
+    value.parse().unwrap()
 }
 
 fn fixture() -> (Connection, narro_lib::domain::ids::TaskId) {
@@ -105,17 +110,104 @@ fn later_today_persists_as_local_datetime_and_gates_focus_until_due() {
         Some("Europe/Athens")
     );
     assert_eq!(
-        effective_planning_lane(&scheduled, date("2026-09-09")).unwrap(),
+        effective_planning_lane_at(
+            &scheduled,
+            timestamp("2026-09-09T08:59:59Z"),
+            "Europe/Athens"
+        )
+        .unwrap(),
         PlanningLane::Today
     );
     assert_eq!(
-        focus_eligibility(&scheduled, datetime("2026-09-09 11:59:59")).unwrap(),
+        focus_eligibility_at(
+            &scheduled,
+            timestamp("2026-09-09T08:59:59Z"),
+            "Europe/Athens"
+        )
+        .unwrap(),
         FocusEligibility::FutureScheduledTime
     );
     assert_eq!(
-        focus_eligibility(&scheduled, datetime("2026-09-09 12:00:00")).unwrap(),
+        focus_eligibility_at(
+            &scheduled,
+            timestamp("2026-09-09T09:00:00Z"),
+            "Europe/Athens"
+        )
+        .unwrap(),
         FocusEligibility::Eligible
     );
+}
+
+#[test]
+fn configured_timezone_change_reprojects_timed_schedule_without_changing_its_instant() {
+    let (mut conn, task_id) = fixture();
+    let scheduled = set_task_schedule(
+        &mut conn,
+        task_id,
+        TaskSchedule::LocalDateTime {
+            local_date: "2026-09-10".into(),
+            local_time: "00:30".into(),
+            timezone: "Europe/Athens".into(),
+        },
+        T1,
+    )
+    .expect("persist timed schedule");
+    let now = timestamp("2026-09-09T20:00:00Z");
+
+    assert_eq!(
+        effective_planning_lane_at(&scheduled, now, "Europe/Athens").unwrap(),
+        PlanningLane::ThisWeek
+    );
+    assert_eq!(
+        effective_planning_lane_at(&scheduled, now, "America/New_York").unwrap(),
+        PlanningLane::Today
+    );
+    assert_eq!(
+        focus_eligibility_at(&scheduled, now, "America/New_York").unwrap(),
+        FocusEligibility::FutureScheduledTime
+    );
+    assert_eq!(
+        scheduled.schedule_timezone.as_deref(),
+        Some("Europe/Athens")
+    );
+}
+
+#[test]
+fn invalid_timezone_and_dst_gap_fold_fail_before_persistence_changes() {
+    let (mut conn, task_id) = fixture();
+
+    for (local_date, local_time, timezone, expected) in [
+        ("2026-09-09", "12:00", "Europe/Atlantis", "timezone"),
+        ("2026-03-08", "02:30", "America/New_York", "ambiguity"),
+        ("2026-11-01", "01:30", "America/New_York", "ambiguity"),
+    ] {
+        let result = set_task_schedule(
+            &mut conn,
+            task_id,
+            TaskSchedule::LocalDateTime {
+                local_date: local_date.into(),
+                local_time: local_time.into(),
+                timezone: timezone.into(),
+            },
+            T1,
+        );
+        match expected {
+            "timezone" => assert!(matches!(
+                result,
+                Err(TaskMetadataError::InvalidScheduleTimezone)
+            )),
+            "ambiguity" => assert!(matches!(
+                result,
+                Err(TaskMetadataError::AmbiguousScheduleLocalDateTime)
+            )),
+            _ => unreachable!(),
+        }
+        let stored = get_task(&conn, task_id).expect("reload unchanged task");
+        assert_eq!(stored.id, task_id);
+        assert!(stored.scheduled_local_date.is_none());
+        assert!(stored.scheduled_local_time.is_none());
+        assert!(stored.schedule_timezone.is_none());
+    }
 }
 
 #[test]
@@ -146,13 +238,7 @@ fn changing_schedule_reuses_same_task_and_clearing_restores_manual_lane_projecti
         PlanningLane::Backlog
     );
 
-    let cleared = set_task_schedule(
-        &mut conn,
-        task_id,
-        narro_lib::domain::tasks::TaskSchedule::None,
-        T2,
-    )
-    .unwrap();
+    let cleared = set_task_schedule(&mut conn, task_id, TaskSchedule::None, T2).unwrap();
     assert_eq!(cleared.id, task_id);
     assert_eq!(cleared.manual_lane, PlanningLane::Backlog);
     assert_eq!(
