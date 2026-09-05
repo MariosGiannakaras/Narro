@@ -6,6 +6,7 @@ pub mod pomodoro_effects;
 pub mod preferences;
 pub mod recurrence;
 pub mod sessions;
+pub mod sleep_accounting;
 pub mod subtasks;
 pub mod task_identity;
 pub mod task_metadata;
@@ -63,6 +64,9 @@ fn migrations() -> Migrations<'static> {
         )),
         M::up(include_str!(
             "../../migrations/0005_pomodoro_boundary_effects.sql"
+        )),
+        M::up(include_str!(
+            "../../migrations/0006_sleep_accounting_policy.sql"
         )),
     ])
 }
@@ -130,12 +134,24 @@ mod tests {
             "preferences",
             "timer_runtime_checkpoint",
             "pomodoro_boundary_effects",
+            "task_timer_preferences",
         ] {
             assert!(
                 table_exists(&conn, table),
                 "{table} should exist after migration"
             );
         }
+
+        let sleep_policy: String = conn
+            .query_row(
+                "SELECT dflt_value
+                 FROM pragma_table_info('sessions')
+                 WHERE name = 'sleep_accounting_policy'",
+                [],
+                |row| row.get(0),
+            )
+            .expect("query session sleep policy default");
+        assert_eq!(sleep_policy, "'exclude'");
 
         let foreign_keys: i64 = conn
             .query_row("PRAGMA foreign_keys", [], |row| row.get(0))
@@ -163,6 +179,47 @@ mod tests {
         assert!(table_exists(&conn, "sessions"));
         assert!(table_exists(&conn, "timer_runtime_checkpoint"));
         assert!(table_exists(&conn, "pomodoro_boundary_effects"));
+        assert!(table_exists(&conn, "task_timer_preferences"));
+    }
+
+    #[test]
+    fn pre_sleep_policy_database_upgrades_existing_session_to_safe_exclude_default() {
+        let mut conn = Connection::open_in_memory().expect("open in-memory database");
+        configure_connection(&conn).expect("configure database");
+        let pre_sleep = Migrations::new(vec![
+            M::up(include_str!("../../migrations/0001_initial.sql")),
+            M::up(include_str!("../../migrations/0002_domain_foundation.sql")),
+            M::up(include_str!("../../migrations/0003_session_runtime.sql")),
+            M::up(include_str!(
+                "../../migrations/0004_timer_runtime_checkpoint.sql"
+            )),
+            M::up(include_str!(
+                "../../migrations/0005_pomodoro_boundary_effects.sql"
+            )),
+        ]);
+        pre_sleep
+            .to_latest(&mut conn)
+            .expect("create pre-sleep-policy database");
+        insert_list(&conn, "list-1");
+        insert_task(&conn, "task-1", "list-1");
+        conn.execute(
+            "INSERT INTO sessions (
+                id, task_id, kind, started_at, ended_at, duration_seconds,
+                source, created_at, updated_at
+             ) VALUES ('session-1', 'task-1', 'work', ?1, NULL, 42, 'focus', ?1, ?1)",
+            [NOW],
+        )
+        .expect("insert legacy session");
+
+        run_migrations(&mut conn).expect("upgrade to sleep policy schema");
+        let policy: String = conn
+            .query_row(
+                "SELECT sleep_accounting_policy FROM sessions WHERE id = 'session-1'",
+                [],
+                |row| row.get(0),
+            )
+            .expect("read migrated sleep policy");
+        assert_eq!(policy, "exclude");
     }
 
     #[test]
@@ -213,11 +270,23 @@ mod tests {
             [NOW],
         )
         .expect("insert session");
+        conn.execute(
+            "INSERT INTO task_timer_preferences (task_id, sleep_accounting_override, updated_at)
+             VALUES ('task-1', 'count', ?1)",
+            [NOW],
+        )
+        .expect("insert task timer preference");
 
         conn.execute("DELETE FROM tasks WHERE id = 'task-1'", [])
             .expect("delete task");
 
-        for table in ["subtasks", "task_notes", "reminders", "sessions"] {
+        for table in [
+            "subtasks",
+            "task_notes",
+            "reminders",
+            "sessions",
+            "task_timer_preferences",
+        ] {
             let count: i64 = conn
                 .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |row| {
                     row.get(0)

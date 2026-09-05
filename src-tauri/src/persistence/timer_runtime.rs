@@ -1,6 +1,10 @@
 use crate::domain::ids::{SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionRecord};
 use crate::persistence::sessions::{get_open_session, get_session, SessionStoreError};
+use crate::persistence::sleep_accounting::{
+    policy_token, resolve_task_sleep_accounting_policy, session_sleep_accounting_policy,
+    SleepAccountingStoreError,
+};
 use chrono::DateTime;
 use rusqlite::{params, Connection, OptionalExtension, Transaction, TransactionBehavior};
 use std::fmt::{Display, Formatter};
@@ -15,6 +19,7 @@ pub struct RuntimeCheckpointRecord {
 #[derive(Debug)]
 pub enum TimerRuntimeStoreError {
     Session(SessionStoreError),
+    SleepAccounting(SleepAccountingStoreError),
     MissingCheckpoint,
     UnexpectedCheckpoint(SessionId),
     CheckpointBindingMismatch {
@@ -27,6 +32,7 @@ impl Display for TimerRuntimeStoreError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Session(error) => Display::fmt(error, formatter),
+            Self::SleepAccounting(error) => Display::fmt(error, formatter),
             Self::MissingCheckpoint => {
                 formatter.write_str("open timer session has no durable runtime checkpoint")
             }
@@ -46,6 +52,7 @@ impl std::error::Error for TimerRuntimeStoreError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
             Self::Session(error) => Some(error),
+            Self::SleepAccounting(error) => Some(error),
             _ => None,
         }
     }
@@ -54,6 +61,12 @@ impl std::error::Error for TimerRuntimeStoreError {
 impl From<SessionStoreError> for TimerRuntimeStoreError {
     fn from(value: SessionStoreError) -> Self {
         Self::Session(value)
+    }
+}
+
+impl From<SleepAccountingStoreError> for TimerRuntimeStoreError {
+    fn from(value: SleepAccountingStoreError) -> Self {
+        Self::SleepAccounting(value)
     }
 }
 
@@ -221,14 +234,20 @@ pub fn open_focus_work_session_with_checkpoint(
         return Err(SessionStoreError::OpenSessionExists(existing.id).into());
     }
     validate_focus_task(&tx, task_id)?;
+    let sleep_policy = resolve_task_sleep_accounting_policy(&tx, task_id)?;
 
     let id = SessionId::generate();
     tx.execute(
         "INSERT INTO sessions (
             id, task_id, kind, started_at, ended_at, duration_seconds,
-            source, created_at, updated_at
-         ) VALUES (?1, ?2, 'work', ?3, NULL, 0, 'focus', ?3, ?3)",
-        params![id.to_string(), task_id.to_string(), started_at],
+            source, sleep_accounting_policy, created_at, updated_at
+         ) VALUES (?1, ?2, 'work', ?3, NULL, 0, 'focus', ?4, ?3, ?3)",
+        params![
+            id.to_string(),
+            task_id.to_string(),
+            started_at,
+            policy_token(sleep_policy)
+        ],
     )?;
     upsert_checkpoint(&tx, id, payload_json, started_at)?;
 
@@ -313,6 +332,17 @@ pub fn replace_open_focus_session_with_checkpoint(
         validate_focus_task(&tx, task_id)?;
     }
 
+    let current_sleep_policy = session_sleep_accounting_policy(&tx, current_id)?;
+    let next_sleep_policy = if current.kind == SessionKind::Work
+        && next_kind == SessionKind::Work
+        && current.task_id != next_task_id
+    {
+        let task_id = next_task_id.ok_or(SessionStoreError::InvalidSessionShape)?;
+        resolve_task_sleep_accounting_policy(&tx, task_id)?
+    } else {
+        current_sleep_policy
+    };
+
     let changed = tx.execute(
         "UPDATE sessions
          SET ended_at = ?1, duration_seconds = ?2, updated_at = ?1
@@ -327,13 +357,14 @@ pub fn replace_open_focus_session_with_checkpoint(
     tx.execute(
         "INSERT INTO sessions (
             id, task_id, kind, started_at, ended_at, duration_seconds,
-            source, created_at, updated_at
-         ) VALUES (?1, ?2, ?3, ?4, NULL, 0, 'focus', ?4, ?4)",
+            source, sleep_accounting_policy, created_at, updated_at
+         ) VALUES (?1, ?2, ?3, ?4, NULL, 0, 'focus', ?5, ?4, ?4)",
         params![
             next_id.to_string(),
             next_task_id.map(|value| value.to_string()),
             next_kind.as_str(),
-            transitioned_at
+            transitioned_at,
+            policy_token(next_sleep_policy)
         ],
     )?;
     upsert_checkpoint(&tx, next_id, payload_json, transitioned_at)?;

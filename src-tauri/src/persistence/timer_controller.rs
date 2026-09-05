@@ -89,6 +89,21 @@ impl TimerController {
         TimerSessionPayload::snapshot(self.revision, self.published_runtime.clone())
     }
 
+    /// Force the already-authoritative runtime projection through the durable session/checkpoint
+    /// boundary without consuming an event revision. Callers must first advance/report all due
+    /// automatic boundaries to the same `now_ms`.
+    pub(crate) fn checkpoint(
+        &mut self,
+        now_ms: u64,
+        wall_time: &str,
+    ) -> Result<(), TimerControllerError> {
+        let runtime = self
+            .runtime
+            .checkpoint(&mut self.connection, now_ms, wall_time)?;
+        self.published_runtime = runtime;
+        Ok(())
+    }
+
     pub fn start_task(
         &mut self,
         task_id: TaskId,
@@ -509,6 +524,28 @@ mod tests {
             60
         );
         assert!(get_open_session(&controller.connection).unwrap().is_none());
+    }
+
+    #[test]
+    fn forced_checkpoint_does_not_consume_revision_or_publish_a_semantic_change() {
+        let (connection, task_id, _) = fixture();
+        let mut controller = TimerController::recover(connection, 0, T0).unwrap();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+
+        controller.checkpoint(5_000, T1).unwrap();
+        let snapshot = controller.snapshot();
+        assert_eq!(snapshot.revision, 1);
+        assert_eq!(snapshot.runtime.timer.state, TimerStateKind::Running);
+        assert_eq!(snapshot.runtime.timer.work_elapsed_ms, 5_000);
+        assert_eq!(
+            get_open_session(&controller.connection)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            5
+        );
     }
 
     #[test]

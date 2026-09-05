@@ -1,6 +1,33 @@
 use serde::{Deserialize, Serialize};
 
-pub const PREFERENCES_SCHEMA_VERSION: u32 = 1;
+pub const PREFERENCES_SCHEMA_VERSION: u32 = 2;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
+#[serde(rename_all = "snake_case")]
+pub enum SleepAccountingPolicy {
+    #[default]
+    Exclude,
+    Count,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
+#[serde(rename_all = "snake_case")]
+pub enum TaskSleepAccountingOverride {
+    #[default]
+    Inherit,
+    Exclude,
+    Count,
+}
+
+impl TaskSleepAccountingOverride {
+    pub const fn resolve(self, global: SleepAccountingPolicy) -> SleepAccountingPolicy {
+        match self {
+            Self::Inherit => global,
+            Self::Exclude => SleepAccountingPolicy::Exclude,
+            Self::Count => SleepAccountingPolicy::Count,
+        }
+    }
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -37,6 +64,8 @@ pub struct FocusPreferences {
     pub pomodoro_break_seconds: u32,
     pub default_break_seconds: u32,
     pub scrolling_title: bool,
+    #[serde(default)]
+    pub sleep_accounting_policy: SleepAccountingPolicy,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -87,6 +116,7 @@ impl Default for PreferencesPayload {
                 pomodoro_break_seconds: 5 * 60,
                 default_break_seconds: 10 * 60,
                 scrolling_title: false,
+                sleep_accounting_policy: SleepAccountingPolicy::Exclude,
             },
             alerts: AlertPreferences {
                 timed_alerts_enabled: false,
@@ -127,6 +157,10 @@ mod tests {
         assert!(!defaults.general.open_on_login);
         assert!(!defaults.focus.pomodoro_enabled);
         assert_eq!(defaults.focus.default_break_seconds, 600);
+        assert_eq!(
+            defaults.focus.sleep_accounting_policy,
+            SleepAccountingPolicy::Exclude
+        );
         assert!(!defaults.alerts.schedule_reminders_enabled);
         assert!(!defaults.celebration.show_success_screen);
     }
@@ -140,6 +174,47 @@ mod tests {
         assert_eq!(
             serde_json::to_string(&FocusPanelSide::Left).expect("serialize side"),
             "\"left\""
+        );
+        assert_eq!(
+            serde_json::to_string(&SleepAccountingPolicy::Exclude).expect("serialize sleep policy"),
+            "\"exclude\""
+        );
+        assert_eq!(
+            serde_json::to_string(&TaskSleepAccountingOverride::Inherit)
+                .expect("serialize task sleep override"),
+            "\"inherit\""
+        );
+    }
+
+    #[test]
+    fn task_sleep_override_resolves_against_global_default() {
+        assert_eq!(
+            TaskSleepAccountingOverride::Inherit.resolve(SleepAccountingPolicy::Count),
+            SleepAccountingPolicy::Count
+        );
+        assert_eq!(
+            TaskSleepAccountingOverride::Exclude.resolve(SleepAccountingPolicy::Count),
+            SleepAccountingPolicy::Exclude
+        );
+        assert_eq!(
+            TaskSleepAccountingOverride::Count.resolve(SleepAccountingPolicy::Exclude),
+            SleepAccountingPolicy::Count
+        );
+    }
+
+    #[test]
+    fn legacy_focus_payload_without_sleep_policy_defaults_to_exclude() {
+        let mut value = serde_json::to_value(PreferencesPayload::default())
+            .expect("serialize default preferences");
+        value["focus"]
+            .as_object_mut()
+            .expect("focus object")
+            .remove("sleep_accounting_policy");
+        let decoded: PreferencesPayload =
+            serde_json::from_value(value).expect("decode legacy payload");
+        assert_eq!(
+            decoded.focus.sleep_accounting_policy,
+            SleepAccountingPolicy::Exclude
         );
     }
 

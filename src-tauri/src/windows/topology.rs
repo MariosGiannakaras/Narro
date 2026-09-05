@@ -1,6 +1,7 @@
 use super::{
     recover_window_top_left, validate_work_area, PhysicalPoint, PhysicalRect, PhysicalSize,
 };
+use crate::timer_service::TimerService;
 use std::ffi::c_void;
 use std::io;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -11,7 +12,12 @@ const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const RECOVERABLE_WINDOW_LABELS: [&str; 2] = ["main", FOCUS_SURFACE_LABEL];
 const DISPLAY_CHANGE_SUBCLASS_ID: usize = 0x4e_41_52_52_4f;
 const WM_DISPLAY_CHANGE: u32 = 0x007e;
+const WM_POWER_BROADCAST: u32 = 0x0218;
 const WM_NC_DESTROY: u32 = 0x0082;
+const PBT_APM_SUSPEND: usize = 0x0004;
+const PBT_APM_RESUME_CRITICAL: usize = 0x0006;
+const PBT_APM_RESUME_SUSPEND: usize = 0x0007;
+const PBT_APM_RESUME_AUTOMATIC: usize = 0x0012;
 
 type RawHwnd = *mut c_void;
 type SubclassProc =
@@ -38,21 +44,27 @@ unsafe extern "system" {
     fn def_subclass_proc(hwnd: RawHwnd, message: u32, wparam: usize, lparam: isize) -> isize;
 }
 
+#[link(name = "kernel32")]
+unsafe extern "system" {
+    #[link_name = "GetTickCount64"]
+    fn get_tick_count_64() -> u64;
+}
+
 static DISPLAY_APP_HANDLE: OnceLock<tauri::AppHandle> = OnceLock::new();
 static RECOVERY_PENDING: AtomicBool = AtomicBool::new(false);
 static RECOVERY_DIRTY: AtomicBool = AtomicBool::new(false);
 
 pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error> {
     let focus_surface = app.get_webview_window(FOCUS_SURFACE_LABEL).ok_or_else(|| {
-        io::Error::other("focusSurface does not exist during display observer setup")
+        io::Error::other("focusSurface does not exist during display/power observer setup")
     })?;
     let hwnd = focus_surface
         .hwnd()
         .map_err(|error| io::Error::other(format!("resolve focusSurface HWND: {error}")))?;
 
-    DISPLAY_APP_HANDLE
-        .set(app.handle().clone())
-        .map_err(|_| io::Error::other("display observer app handle was already initialized"))?;
+    DISPLAY_APP_HANDLE.set(app.handle().clone()).map_err(|_| {
+        io::Error::other("display/power observer app handle was already initialized")
+    })?;
 
     let raw_hwnd = hwnd.0 as RawHwnd;
     let installed = unsafe {
@@ -65,7 +77,7 @@ pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error
     };
     if installed == 0 {
         return Err(io::Error::other(
-            "SetWindowSubclass returned false while installing display observer",
+            "SetWindowSubclass returned false while installing display/power observer",
         ));
     }
 
@@ -82,6 +94,8 @@ unsafe extern "system" fn display_change_subclass_proc(
 ) -> isize {
     if message == WM_DISPLAY_CHANGE {
         schedule_display_recovery();
+    } else if message == WM_POWER_BROADCAST {
+        handle_power_broadcast(wparam);
     } else if message == WM_NC_DESTROY {
         let _ = unsafe {
             remove_window_subclass(hwnd, Some(display_change_subclass_proc), subclass_id)
@@ -89,6 +103,33 @@ unsafe extern "system" fn display_change_subclass_proc(
     }
 
     unsafe { def_subclass_proc(hwnd, message, wparam, lparam) }
+}
+
+fn handle_power_broadcast(event: usize) {
+    if !matches!(
+        event,
+        PBT_APM_SUSPEND
+            | PBT_APM_RESUME_CRITICAL
+            | PBT_APM_RESUME_SUSPEND
+            | PBT_APM_RESUME_AUTOMATIC
+    ) {
+        return;
+    }
+
+    let Some(app_handle) = DISPLAY_APP_HANDLE.get() else {
+        eprintln!("Windows power event arrived before the Narro app handle was available");
+        return;
+    };
+    let power_tick_ms = unsafe { get_tick_count_64() };
+    let timer_service = app_handle.state::<TimerService>();
+    let result = if event == PBT_APM_SUSPEND {
+        timer_service.handle_power_suspend(app_handle, power_tick_ms)
+    } else {
+        timer_service.handle_power_resume(app_handle, power_tick_ms)
+    };
+    if let Err(error) = result {
+        eprintln!("Windows power-event timer handling failed: {error}");
+    }
 }
 
 fn schedule_display_recovery() {

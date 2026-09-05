@@ -1,4 +1,5 @@
 use crate::domain::ids::TaskId;
+use crate::domain::preferences::SleepAccountingPolicy;
 use crate::domain::tasks::SetTaskTimeTakenInput;
 use crate::domain::timer_events::{TimerSessionPayload, TIMER_SESSION_EVENT_NAME};
 use crate::error::{CommandError, CommandResult};
@@ -8,6 +9,7 @@ use crate::persistence::pomodoro_effects::{
     claim_pending_notifications, ensure_boundary_decision, PomodoroBoundaryEffect,
     PomodoroBoundaryEffectError, PomodoroBoundaryEffectKind,
 };
+use crate::persistence::sleep_accounting::session_sleep_accounting_policy;
 use crate::persistence::timer_controller::{TimerController, TimerControllerError};
 use crate::persistence::{configure_connection, PersistenceError};
 use crate::timer::{BreakKind, TimerMode, TimerSnapshot, TimerStateKind};
@@ -17,6 +19,10 @@ use std::fmt::{Display, Formatter};
 use std::sync::Mutex;
 use std::time::{Duration, Instant};
 use tauri::{Emitter, Manager, State};
+
+#[path = "timer/sleep_clock.rs"]
+mod sleep_clock;
+use sleep_clock::{TimerLogicalClock, TimerLogicalClockError};
 
 const BACKGROUND_ADVANCE_INTERVAL: Duration = Duration::from_millis(250);
 
@@ -69,6 +75,7 @@ impl From<TimerControllerError> for TimerServiceRecoverError {
 struct TimerServiceState {
     controller: TimerController,
     effects_connection: Connection,
+    clock: TimerLogicalClock,
     observed_ms: u64,
     recovered_awaiting_resume: bool,
 }
@@ -107,6 +114,7 @@ impl TimerService {
             state: Mutex::new(TimerServiceState {
                 controller,
                 effects_connection,
+                clock: TimerLogicalClock::new(0),
                 observed_ms: 0,
                 recovered_awaiting_resume,
             }),
@@ -127,12 +135,13 @@ impl TimerService {
     }
 
     pub fn advance_and_report(&self, app_handle: &tauri::AppHandle) -> CommandResult<()> {
-        let now_ms = self.now_ms()?;
+        let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
             .state
             .lock()
             .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let TimerServiceState {
             controller,
             effects_connection,
@@ -148,6 +157,95 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        drop(state);
+        submit_claimed_notifications(app_handle, pending);
+        Ok(())
+    }
+
+    pub fn handle_power_suspend(
+        &self,
+        app_handle: &tauri::AppHandle,
+        power_tick_ms: u64,
+    ) -> CommandResult<()> {
+        let raw_ms = self.raw_now_ms()?;
+        let wall_time = current_wall_time();
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        if state.clock.is_suspended() {
+            return Ok(());
+        }
+
+        let now_ms = state
+            .clock
+            .begin_suspend(raw_ms, power_tick_ms)
+            .map_err(clock_error)?;
+        let TimerServiceState {
+            controller,
+            effects_connection,
+            observed_ms,
+            ..
+        } = &mut *state;
+        advance_controller_to(
+            controller,
+            effects_connection,
+            observed_ms,
+            now_ms,
+            &wall_time,
+            |payload| report_timer_change(app_handle, payload),
+        )?;
+        controller
+            .checkpoint(now_ms, &wall_time)
+            .map_err(CommandError::timer_operation)?;
+        *observed_ms = now_ms;
+        let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        drop(state);
+        submit_claimed_notifications(app_handle, pending);
+        Ok(())
+    }
+
+    pub fn handle_power_resume(
+        &self,
+        app_handle: &tauri::AppHandle,
+        power_tick_ms: u64,
+    ) -> CommandResult<()> {
+        let raw_ms = self.raw_now_ms()?;
+        let wall_time = current_wall_time();
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        if !state.clock.is_suspended() {
+            return Ok(());
+        }
+
+        let policy = active_sleep_policy(&state.controller, &state.effects_connection)?;
+        let now_ms = state
+            .clock
+            .resume(raw_ms, power_tick_ms, policy)
+            .map_err(clock_error)?;
+        let TimerServiceState {
+            controller,
+            effects_connection,
+            observed_ms,
+            recovered_awaiting_resume,
+            ..
+        } = &mut *state;
+        advance_controller_to(
+            controller,
+            effects_connection,
+            observed_ms,
+            now_ms,
+            &wall_time,
+            |payload| report_timer_change(app_handle, payload),
+        )?;
+        controller
+            .checkpoint(now_ms, &wall_time)
+            .map_err(CommandError::timer_operation)?;
+        *observed_ms = now_ms;
+        *recovered_awaiting_resume &= is_paused_pomodoro_projection(&controller.snapshot());
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
         submit_claimed_notifications(app_handle, pending);
@@ -246,17 +344,19 @@ impl TimerService {
             &str,
         ) -> Result<TimerSessionPayload, TimerControllerError>,
     {
-        let now_ms = self.now_ms()?;
+        let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
             .state
             .lock()
             .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        let now_ms = state.clock.now(raw_ms).map_err(clock_error)?;
         let TimerServiceState {
             controller,
             effects_connection,
             observed_ms,
             recovered_awaiting_resume,
+            ..
         } = &mut *state;
 
         // Catch up every automatic boundary first. Decisions are persisted before each due boundary,
@@ -286,7 +386,7 @@ impl TimerService {
         Ok(payload)
     }
 
-    fn now_ms(&self) -> CommandResult<u64> {
+    fn raw_now_ms(&self) -> CommandResult<u64> {
         u64::try_from(self.monotonic_origin.elapsed().as_millis())
             .map_err(|_| CommandError::timer_clock_overflow())
     }
@@ -294,6 +394,47 @@ impl TimerService {
 
 fn current_wall_time() -> String {
     Utc::now().to_rfc3339_opts(SecondsFormat::Millis, true)
+}
+
+fn clock_error(error: TimerLogicalClockError) -> CommandError {
+    match error {
+        TimerLogicalClockError::Overflow => CommandError::timer_clock_overflow(),
+        TimerLogicalClockError::RawClockMovedBackwards {
+            previous_ms,
+            now_ms,
+        } => CommandError::new(
+            "TIMER_CLOCK_MOVED_BACKWARDS",
+            format!(
+                "authoritative raw timer clock moved backwards: previous={previous_ms}ms now={now_ms}ms"
+            ),
+        ),
+        TimerLogicalClockError::PowerTickMovedBackwards {
+            suspend_ms,
+            resume_ms,
+        } => CommandError::new(
+            "WINDOWS_POWER_TICK_MOVED_BACKWARDS",
+            format!(
+                "Windows sleep clock moved backwards: suspend={suspend_ms}ms resume={resume_ms}ms"
+            ),
+        ),
+    }
+}
+
+fn sleep_policy_error(error: impl Display) -> CommandError {
+    CommandError::new(
+        "SLEEP_ACCOUNTING_FAILED",
+        format!("authoritative sleep accounting policy failed: {error}"),
+    )
+}
+
+fn active_sleep_policy(
+    controller: &TimerController,
+    effects_connection: &Connection,
+) -> CommandResult<SleepAccountingPolicy> {
+    let Some(session_id) = controller.snapshot().runtime.open_session_id else {
+        return Ok(SleepAccountingPolicy::Exclude);
+    };
+    session_sleep_accounting_policy(effects_connection, session_id).map_err(sleep_policy_error)
 }
 
 fn effect_error(error: impl Display) -> CommandError {
@@ -631,7 +772,7 @@ mod tests {
     use crate::persistence::lists::create_list;
     use crate::persistence::pomodoro_effects::claim_pending_notifications;
     use crate::persistence::run_migrations;
-    use crate::persistence::sessions::sessions_for_task;
+    use crate::persistence::sessions::{get_open_session, sessions_for_task};
     use crate::persistence::tasks::create_task;
     use rusqlite::Connection;
     use std::fs;
@@ -671,6 +812,102 @@ mod tests {
         configure_connection(&effects_connection).expect("configure effects database");
         let controller = TimerController::recover(connection, 0, T0).expect("recover controller");
         (controller, effects_connection, task.id, path)
+    }
+
+    fn simulate_sleep(
+        controller: &mut TimerController,
+        effects: &mut Connection,
+        clock: &mut TimerLogicalClock,
+        observed_ms: &mut u64,
+        policy: SleepAccountingPolicy,
+    ) {
+        let suspend_now = clock.begin_suspend(5_000, 100_000).unwrap();
+        advance_controller_to(
+            controller,
+            effects,
+            observed_ms,
+            suspend_now,
+            "2026-09-05T12:00:05Z",
+            |_| {},
+        )
+        .unwrap();
+        controller
+            .checkpoint(suspend_now, "2026-09-05T12:00:05Z")
+            .unwrap();
+
+        let resume_now = clock.resume(5_100, 160_000, policy).unwrap();
+        advance_controller_to(
+            controller,
+            effects,
+            observed_ms,
+            resume_now,
+            "2026-09-05T12:01:05Z",
+            |_| {},
+        )
+        .unwrap();
+        controller
+            .checkpoint(resume_now, "2026-09-05T12:01:05Z")
+            .unwrap();
+    }
+
+    #[test]
+    fn exclude_sleep_keeps_work_and_session_duration_frozen() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        let mut clock = TimerLogicalClock::new(0);
+        let mut observed_ms = 0;
+
+        simulate_sleep(
+            &mut controller,
+            &mut effects,
+            &mut clock,
+            &mut observed_ms,
+            SleepAccountingPolicy::Exclude,
+        );
+
+        assert_eq!(controller.snapshot().runtime.timer.work_elapsed_ms, 5_000);
+        assert_eq!(
+            get_open_session(&effects)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            5
+        );
+        drop(effects);
+        drop(controller);
+        fs::remove_file(path).expect("remove test database");
+    }
+
+    #[test]
+    fn count_sleep_advances_work_and_persisted_session_by_sleep_interval() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        let mut clock = TimerLogicalClock::new(0);
+        let mut observed_ms = 0;
+
+        simulate_sleep(
+            &mut controller,
+            &mut effects,
+            &mut clock,
+            &mut observed_ms,
+            SleepAccountingPolicy::Count,
+        );
+
+        assert_eq!(controller.snapshot().runtime.timer.work_elapsed_ms, 65_000);
+        assert_eq!(
+            get_open_session(&effects)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            65
+        );
+        drop(effects);
+        drop(controller);
+        fs::remove_file(path).expect("remove test database");
     }
 
     #[test]
