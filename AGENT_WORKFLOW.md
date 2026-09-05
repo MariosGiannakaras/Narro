@@ -45,13 +45,22 @@ The user should never have to relay one agent's explanation to another.
 
 ## User progress reporting
 
-For every implementation slice that takes multiple meaningful steps, keep the user informed with an explicit `x/y ολοκληρωμένα` progress indicator (or the same `x/y completed` meaning in the user's current language).
+For every implementation task, keep the user informed with **two explicit progress levels** in the user's current language:
 
-- Define `y` as the current set of meaningful implementation/validation checkpoints, not individual low-level tool calls.
-- Increment `x` only when a checkpoint is actually completed; a failed CI run is evidence, not a completed implementation checkpoint.
-- Include the indicator in substantive progress updates while work is ongoing and finish the slice at `y/y ολοκληρωμένα` when all planned checkpoints are complete.
-- If newly discovered work materially changes the plan, update the denominator and briefly state why instead of silently changing the count.
-- Keep the progress count user-facing; repository work logs continue to record the detailed technical evidence separately.
+- `Γενική υλοποίηση: X/Y ολοκληρωμένες` (or equivalent): top-level implementation workstreams/checkpoints for the current user goal or active milestone slice.
+- `Μικρή τρέχουσα υλοποίηση: A/B ολοκληρωμένες` (or equivalent): meaningful checkpoints inside the currently active top-level implementation item.
+
+Use both indicators in substantive implementation progress updates and in the final implementation status, including when the current task is small. For a genuinely atomic task, `1/1` is acceptable at either level.
+
+Progress-count rules:
+
+- Define both denominators from meaningful implementation/validation checkpoints, never from low-level tool calls.
+- Increment a numerator only when that checkpoint is actually completed.
+- A failed CI run is evidence and does **not** increment either completed count unless resolving that failure was itself an explicitly defined checkpoint that is now finished.
+- The general indicator should remain stable across the current user goal/workstream; the small indicator may reset when moving to the next top-level item.
+- If newly discovered work materially changes either plan, update the affected denominator and briefly state why instead of silently changing the count.
+- Do not present an implementation as complete until the relevant validation/merge/reconciliation checkpoint required by repository rules is complete.
+- Keep the detailed technical evidence in repository work logs; the two progress indicators are the concise user-facing status.
 
 ## Evidence and TODO discipline
 
