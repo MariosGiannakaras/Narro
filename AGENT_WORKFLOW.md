@@ -47,18 +47,20 @@ The user should never have to relay one agent's explanation to another.
 
 For every implementation task, keep the user informed with **two explicit progress levels** in the user's current language:
 
-- `Γενική υλοποίηση: X/Y ολοκληρωμένες` (or equivalent): top-level implementation workstreams/checkpoints for the current user goal or active milestone slice.
-- `Μικρή τρέχουσα υλοποίηση: A/B ολοκληρωμένες` (or equivalent): meaningful checkpoints inside the currently active top-level implementation item.
+- `Γενική υλοποίηση: X/Y ολοκληρωμένα` (or equivalent): overall project implementation progress. When the repository has an ordered milestone roadmap, use completed validated milestones over the total planned milestones so this denominator stays stable across sessions. For Narro, use the 10 ordered milestones in `TODO.md`; an in-progress milestone is not counted as completed.
+- `Μικρή τρέχουσα υλοποίηση: A/B ολοκληρωμένα` (or equivalent): meaningful checkpoints inside the currently active implementation slice/task.
 
-Use both indicators in substantive implementation progress updates and in the final implementation status, including when the current task is small. For a genuinely atomic task, `1/1` is acceptable at either level.
+Use both indicators in substantive implementation progress updates and in the final implementation status, including when the current task is small. For a genuinely atomic current slice, `1/1` is acceptable for the small indicator.
 
 Progress-count rules:
 
 - Define both denominators from meaningful implementation/validation checkpoints, never from low-level tool calls.
-- Increment a numerator only when that checkpoint is actually completed.
+- Increment a numerator only when that checkpoint is actually completed and validated to the level required by repository rules.
 - A failed CI run is evidence and does **not** increment either completed count unless resolving that failure was itself an explicitly defined checkpoint that is now finished.
-- The general indicator should remain stable across the current user goal/workstream; the small indicator may reset when moving to the next top-level item.
-- If newly discovered work materially changes either plan, update the affected denominator and briefly state why instead of silently changing the count.
+- Keep the general project indicator stable across sessions and user turns; change it only when a top-level milestone is actually validated complete or the roadmap itself is explicitly revised.
+- The small indicator may reset when moving to the next implementation slice.
+- If newly discovered work materially changes the small plan, update its denominator and briefly state why instead of silently changing the count.
+- If the ordered project roadmap is explicitly revised, update the general denominator and state why.
 - Do not present an implementation as complete until the relevant validation/merge/reconciliation checkpoint required by repository rules is complete.
 - Keep the detailed technical evidence in repository work logs; the two progress indicators are the concise user-facing status.
 
