@@ -5,6 +5,7 @@ pub mod notes;
 pub mod pomodoro_effects;
 pub mod preferences;
 pub mod recurrence;
+pub mod reminders;
 pub mod sessions;
 pub mod sleep_accounting;
 pub mod subtasks;
