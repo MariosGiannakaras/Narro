@@ -6,14 +6,14 @@ For zero-context AI continuation, start with `AI_START_HERE.md` and `HANDOFF.md`
 
 ## Current phase
 
-**Milestone 3 — Timer/session engine.**
+**Milestone 4 — Scheduling, recurrence, reminders, eligibility.**
 
-Milestone 1 Windows desktop capability/performance Gate A is validated. Milestone 2 domain/persistence Gate B is validated. The selected architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with normally two persistent webviews only:
+Milestone 1 Windows desktop capability/performance Gate A is validated. Milestone 2 domain/persistence Gate B is validated. Milestone 3 timer/session Gate C is validated. The selected architecture remains Tauri 2 + React/TypeScript + Rust + SQLite on Windows 10/11 x64, with normally two persistent webviews only:
 
 - `main`;
 - `focusSurface`, reused for Focus Panel and Floating Timer.
 
-Product UI should still not be polished yet. Milestones 3–4 establish the correctness-critical timer/session, scheduling, recurrence, reminder and persistence foundations before the screenshot-driven UI milestones.
+Product UI should still not be polished yet. Milestone 4 establishes scheduling, recurrence, reminder and eligibility correctness before the screenshot-driven UI milestones.
 
 ## Gate A — Windows desktop viability
 
@@ -146,9 +146,11 @@ Milestone 2 is automated-validated through PR #21. Durable coverage includes IDs
 
 Completion evidence: `work-log/2026-09-03-chatgpt-m2-completion.md`.
 
-## Milestone 3 current merged state
+## Milestone 3 completion
 
-Current validated **source** implementation baseline: `22d59dd5b52e42a5bab4e1f058df2338a072fb16`.
+**Result: PASS / proceed to Milestone 4.**
+
+Current validated **source** implementation baseline: `5eaf7f0eba1770112d41744377ea134ad5d41e33`.
 
 Markdown-only work-log/tracking commits may be newer and do not change this source baseline.
 
@@ -164,8 +166,9 @@ Merged M3 implementation slices:
 - PR #32 / `349260f28475f53472b444af6180704a4b981c20`: typed revisioned timer/session events and Tauri-owned timer service. Rust owns monotonic time/background advance; successful persisted transitions broadcast `timer-session-changed`; both `main` and `focusSurface` use the shared race-safe revision-aware projection bridge. PR CI #161 / run `33936979665`: SUCCESS. Main CI #162 / run `33947484856`: SUCCESS.
 - PR #33 / `3ffbaca0c5df78833584de26270686f6cdadca16`: exact late Pomodoro boundary persistence, durable once-only local notification decisions/claims, best-effort post-commit Windows notification submission, authoritative `awaitingResume` projection, shared Resume prompt in both webviews, and recovery preservation without replaying claimed notification decisions. Exact head `6a3e7d2f2b5fa941e6389bea7e3ed3247987c817`; PR CI #181 / run `33953073811`: SUCCESS. Main CI #182 / run `33955789396`: SUCCESS.
 - PR #34 / `22d59dd5b52e42a5bab4e1f058df2338a072fb16`: deterministic large-elapsed/overflow coverage across continuous CountUp near `u64::MAX`, recovered Work/Break counters near overflow, SQLite signed-duration conversion, and very large Time Taken aggregates. Existing checked arithmetic and persistence-first rollback semantics passed these near-limit cases without production runtime changes. Exact head `e779514558005c5dd7cea23bf7483388d9b4f1c0`; PR CI #184 / run `33959065974` / job `101287590338`: SUCCESS. Main CI #185 / run `33959681959` / job `101289258096`: SUCCESS.
+- PR #35 / `5eaf7f0eba1770112d41744377ea134ad5d41e33`: configurable Windows sleep/resume accounting and no-data-loss durability. Global default is `exclude`; global `count` is supported; each task can `inherit`, `exclude`, or `count`; the effective policy is snapshotted into the focus session and preserved across Work↔Break while Switch Task re-resolves the target task policy. Native `WM_POWERBROADCAST` plus `GetTickCount64` measure suspend/resume independently of Rust `Instant`; suspend/resume force durable checkpoints; `count` catch-up reuses authoritative Pomodoro boundary stepping. Exact head `a4582f5ea76737c8a5e01cb4e1c2cfb87a826159`; PR CI #192 / run `33964109578` / job `101301016918`: SUCCESS. PR artifact `9969024118`, digest `sha256:834b247060eedfd426cf0566f97614fd357a326a25a4c4353547be0cb77fc2f6`. Main CI #196 / run `33964738776` / job `101302758803`: SUCCESS. Main artifact `9969220078`, digest `sha256:c2d1b2ce9cbaf12abdb45020a537b89081005c0f1f7305007cb97f812ee974d1`.
 
-The high-risk tracked-time boundaries are now automated-covered: process downtime is excluded, one open-session identity survives recovery, task switching remains coherent across restart, Done cannot publish task completion without final session persistence, a paused manual Time Taken correction remains stable after resume/recovery without rewriting historical session durations, renderer lifecycle no longer owns or advances timer time, late Pomodoro observation cannot skip the persisted intermediate Break boundary, and near-limit timer/session arithmetic fails safely instead of wrapping or corrupting durable state.
+The high-risk tracked-time boundaries are now automated-covered: process downtime is excluded, one open-session identity survives recovery, task switching remains coherent across restart, Done cannot publish task completion without final session persistence, a paused manual Time Taken correction remains stable after resume/recovery without rewriting historical session durations, renderer lifecycle no longer owns or advances timer time, late Pomodoro observation cannot skip the persisted intermediate Break boundary, near-limit timer/session arithmetic fails safely instead of wrapping or corrupting durable state, and Windows sleep/resume cannot silently lose tracked state or ambiguously charge unattended time because the effective accounting policy is persisted with the active session.
 
 PR #26 (`m3-session-coordinator`) was closed unmerged and is historical only. Its intended crash-recovery capability is superseded by merged PR #29.
 
@@ -178,17 +181,20 @@ Important product/runtime APIs and ownership rules:
 - process-local monotonic timer ownership: Tauri `TimerService` / Rust, never renderer timestamps;
 - authoritative typed projection: `timer-session-changed`, consumed by both webviews after persistence success;
 - Pomodoro notifications use one durable local boundary decision/claim per source session/effect kind. Windows toast submission happens after persistence and is best-effort; Narro does not claim transactional exactly-once delivery across a crash in the external OS notification API;
-- end-of-Pomodoro-break prompt state is authoritative `awaitingResume`, survives renderer recreation/process recovery, and clears when the authoritative projection leaves paused Pomodoro (including Resume).
+- end-of-Pomodoro-break prompt state is authoritative `awaitingResume`, survives renderer recreation/process recovery, and clears when the authoritative projection leaves paused Pomodoro (including Resume);
+- Windows sleep accounting defaults to `exclude`, can be globally changed to `count`, and supports task-level `inherit` / `exclude` / `count`; the effective policy is captured in the current focus session so later settings changes do not alter already-running work;
+- Windows suspend/resume is observed natively with `WM_POWERBROADCAST`; `GetTickCount64` measures the sleep interval, and renderer clocks are never authoritative for this boundary.
 
 Architecture decision for manual Time Taken remains: user corrections do not rewrite raw session history or raw monotonic timer elapsed. They rebase durable task adjustment while paused, so later real work accrues on the corrected effective baseline.
 
-### Remaining M3 correctness boundary
+### Gate C validation
 
-- explicit Windows sleep/resume no-data-loss coverage. Whether unattended sleep counts as work remains an unresolved product-policy decision and must not be invented.
+- PR #35 exact head `a4582f5ea76737c8a5e01cb4e1c2cfb87a826159` passed Windows CI #192 / run `33964109578` / job `101301016918` with repository preflight, Tauri release build and artifact upload all successful.
+- PR artifact ID `9969024118`, digest `sha256:834b247060eedfd426cf0566f97614fd357a326a25a4c4353547be0cb77fc2f6`.
+- Squash merge `5eaf7f0eba1770112d41744377ea134ad5d41e33` passed main Windows CI #196 / run `33964738776` / job `101302758803` with repository preflight, Tauri release build and artifact upload all successful.
+- Main artifact ID `9969220078`, digest `sha256:c2d1b2ce9cbaf12abdb45020a537b89081005c0f1f7305007cb97f812ee974d1`.
 
-Next M3 source work is blocked on that explicit accounting decision. Do not begin Milestone 4 until Milestone 3 is closed or the user explicitly changes milestone order.
-
-Scheduling classification, recurrence materialization, reminder firing and DST/week semantics remain Milestone 4.
+Milestone 3 is closed. The next ordered source work is Milestone 4 scheduling classification, recurrence materialization, reminders, eligibility and DST/week/date-only correctness. Do not skip to polished Milestone 5/6 UI before M4 Gate is satisfied unless the user explicitly changes milestone order.
 
 ## Blitzit historical/reliability research — 2026-09-04
 
@@ -206,7 +212,7 @@ Main evidence-backed conclusions:
 
 The official desktop changelog URL exists but its current public page exposes the release feed dynamically; a complete static desktop version ledger could not be recovered. Known public version/date anchors are recorded without inventing missing releases.
 
-Product UI remains intentionally unpolished while Milestones 3–4 establish correctness-critical behavior.
+Product UI remains intentionally unpolished while Milestone 4 establishes correctness-critical scheduling behavior.
 
 ## Durable scope
 
