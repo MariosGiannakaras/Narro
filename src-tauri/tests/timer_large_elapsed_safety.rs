@@ -139,7 +139,9 @@ fn recovered_near_max_work_counter_overflow_is_atomic() {
     );
 
     let mut runtime = TimerRuntime::recover(&mut conn, 0, T1).expect("recover near max work");
-    let resumed = runtime.resume(&mut conn, 0, T1).expect("resume near max work");
+    let resumed = runtime
+        .resume(&mut conn, 0, T1)
+        .expect("resume near max work");
     assert_eq!(resumed.timer.state, TimerStateKind::Running);
     let before_session = get_open_session(&conn).unwrap().unwrap();
     let before_checkpoint = load_runtime_checkpoint(&conn).unwrap().unwrap();
@@ -152,7 +154,9 @@ fn recovered_near_max_work_counter_overflow_is_atomic() {
         TimerRuntimeError::Timer(TimerError::DurationOverflow)
     ));
 
-    let after = runtime.snapshot(0).expect("failed mutation leaves runtime unchanged");
+    let after = runtime
+        .snapshot(0)
+        .expect("failed mutation leaves runtime unchanged");
     assert_eq!(after.timer.state, TimerStateKind::Running);
     assert_eq!(after.timer.work_elapsed_ms, total_work_ms);
     assert_eq!(get_open_session(&conn).unwrap().unwrap(), before_session);
@@ -191,7 +195,9 @@ fn recovered_near_max_break_counter_overflow_is_atomic() {
     );
 
     let mut runtime = TimerRuntime::recover(&mut conn, 0, T1).expect("recover near max break");
-    let before = runtime.snapshot(0).expect("initial recovered break projection");
+    let before = runtime
+        .snapshot(0)
+        .expect("initial recovered break projection");
     assert_eq!(before.timer.state, TimerStateKind::Break);
     assert_eq!(before.timer.total_break_ms, committed_break_ms);
     let before_session = get_open_session(&conn).unwrap().unwrap();
