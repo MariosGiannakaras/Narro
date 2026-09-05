@@ -135,7 +135,10 @@ mod tests {
         let value = serde_json::to_value(payload).unwrap();
 
         assert_eq!(value["revision"], 8);
-        assert_eq!(value["runtime"]["open_session_id"], session_id().to_string());
+        assert_eq!(
+            value["runtime"]["open_session_id"],
+            session_id().to_string()
+        );
         assert_eq!(value["change"]["type"], "time_taken_rebased");
         assert_eq!(value["change"]["task_id"], task_id().to_string());
         assert_eq!(value["change"]["total_seconds"], 60);
