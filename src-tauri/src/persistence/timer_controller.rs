@@ -97,9 +97,9 @@ impl TimerController {
         wall_time: &str,
     ) -> Result<TimerSessionPayload, TimerControllerError> {
         let next_revision = self.next_revision()?;
-        let runtime = self
-            .runtime
-            .start_task(&mut self.connection, task_id, mode, now_ms, wall_time)?;
+        let runtime =
+            self.runtime
+                .start_task(&mut self.connection, task_id, mode, now_ms, wall_time)?;
         let session_id = runtime
             .open_session_id
             .expect("successful timer start must publish an open work session");
@@ -283,13 +283,9 @@ impl TimerController {
         wall_time: &str,
     ) -> Result<TimerSessionPayload, TimerControllerError> {
         let next_revision = self.next_revision()?;
-        let switched = self.runtime.switch_task(
-            &mut self.connection,
-            task_id,
-            mode,
-            now_ms,
-            wall_time,
-        )?;
+        let switched =
+            self.runtime
+                .switch_task(&mut self.connection, task_id, mode, now_ms, wall_time)?;
         let runtime = TimerRuntimeSnapshot {
             timer: switched.timer.current.clone(),
             open_session_id: Some(switched.current_session.id),
@@ -492,19 +488,21 @@ mod tests {
         let paused = controller.pause(60_000, T1).unwrap();
         assert_eq!(paused.revision, 2);
         assert_eq!(paused.runtime.timer.state, TimerStateKind::Paused);
-        assert_eq!(task_time_taken_seconds(&controller.connection, task_id).unwrap(), 60);
+        assert_eq!(
+            task_time_taken_seconds(&controller.connection, task_id).unwrap(),
+            60
+        );
 
         let rebased = controller
-            .set_time_taken_while_paused(
-                SetTaskTimeTakenInput { total_seconds: 30 },
-                60_000,
-                T1,
-            )
+            .set_time_taken_while_paused(SetTaskTimeTakenInput { total_seconds: 30 }, 60_000, T1)
             .unwrap();
         assert_eq!(rebased.revision, 3);
         assert!(matches!(
             rebased.change,
-            Some(TimerSessionChange::TimeTakenRebased { total_seconds: 30, .. })
+            Some(TimerSessionChange::TimeTakenRebased {
+                total_seconds: 30,
+                ..
+            })
         ));
 
         controller.resume(60_000, T1).unwrap();
@@ -515,7 +513,10 @@ mod tests {
             completed.change,
             Some(TimerSessionChange::TaskCompleted { task_id: id, .. }) if id == task_id
         ));
-        assert_eq!(task_time_taken_seconds(&controller.connection, task_id).unwrap(), 60);
+        assert_eq!(
+            task_time_taken_seconds(&controller.connection, task_id).unwrap(),
+            60
+        );
         assert!(get_open_session(&controller.connection).unwrap().is_none());
     }
 
@@ -546,7 +547,10 @@ mod tests {
         let work_session = started.runtime.open_session_id.unwrap();
 
         // Reading the controller projection cannot predict/apply the boundary.
-        assert_eq!(controller.snapshot().runtime.timer.state, TimerStateKind::Running);
+        assert_eq!(
+            controller.snapshot().runtime.timer.state,
+            TimerStateKind::Running
+        );
         assert_eq!(controller.snapshot().revision, 1);
 
         let event = controller
