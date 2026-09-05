@@ -4,6 +4,7 @@ pub mod model;
 pub mod notes;
 pub mod preferences;
 pub mod recurrence;
+pub mod reminders;
 pub mod sessions;
 pub mod subtasks;
 pub mod tasks;
