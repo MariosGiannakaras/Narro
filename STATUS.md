@@ -148,7 +148,7 @@ Completion evidence: `work-log/2026-09-03-chatgpt-m2-completion.md`.
 
 ## Milestone 3 current merged state
 
-Current validated **source** implementation baseline: `349260f28475f53472b444af6180704a4b981c20`.
+Current validated **source** implementation baseline: `3ffbaca0c5df78833584de26270686f6cdadca16`.
 
 Markdown-only work-log/tracking commits may be newer and do not change this source baseline.
 
@@ -162,8 +162,9 @@ Merged M3 implementation slices:
 - PR #30 / `138fb5cc753dc520be731159be453fc6046aecb4`: atomic product-level task completion boundary combining final session close, checkpoint removal, task completion and rank compaction before Idle publication. PR CI #138 / run `33927834736`: SUCCESS. Main CI #139 / run `33928547004`: SUCCESS.
 - PR #31 / `c59e434e9f6b13b1837159f00e51fc96dd7f10a7`: live Time Taken edits restricted to a paused runtime-aware transaction, preserving raw session history, plus exact 15m+15m pause/recovery and task-switch restart regressions. PR CI #144 / run `33929261772`: SUCCESS. Main CI #145 / run `33931153129`: SUCCESS.
 - PR #32 / `349260f28475f53472b444af6180704a4b981c20`: typed revisioned timer/session events and Tauri-owned timer service. Rust owns monotonic time/background advance; successful persisted transitions broadcast `timer-session-changed`; both `main` and `focusSurface` use the shared race-safe revision-aware projection bridge. PR CI #161 / run `33936979665`: SUCCESS. Main CI #162 / run `33947484856`: SUCCESS.
+- PR #33 / `3ffbaca0c5df78833584de26270686f6cdadca16`: exact late Pomodoro boundary persistence, durable once-only local notification decisions/claims, best-effort post-commit Windows notification submission, authoritative `awaitingResume` projection, shared Resume prompt in both webviews, and recovery preservation without replaying claimed notification decisions. Exact head `6a3e7d2f2b5fa941e6389bea7e3ed3247987c817`; PR CI #181 / run `33953073811`: SUCCESS. Main CI #182 / run `33955789396`: SUCCESS.
 
-The high-risk tracked-time boundaries are now automated-covered: process downtime is excluded, one open-session identity survives recovery, task switching remains coherent across restart, Done cannot publish task completion without final session persistence, a paused manual Time Taken correction remains stable after resume/recovery without rewriting historical session durations, and renderer lifecycle no longer owns or advances timer time.
+The high-risk tracked-time boundaries are now automated-covered: process downtime is excluded, one open-session identity survives recovery, task switching remains coherent across restart, Done cannot publish task completion without final session persistence, a paused manual Time Taken correction remains stable after resume/recovery without rewriting historical session durations, renderer lifecycle no longer owns or advances timer time, and late Pomodoro observation cannot skip the persisted intermediate Break boundary.
 
 PR #26 (`m3-session-coordinator`) was closed unmerged and is historical only. Its intended crash-recovery capability is superseded by merged PR #29.
 
@@ -174,20 +175,18 @@ Important product/runtime APIs and ownership rules:
 - live paused Time Taken edit: `TimerRuntime::set_time_taken_while_paused`;
 - generic `set_task_time_taken` rejects an active focus session;
 - process-local monotonic timer ownership: Tauri `TimerService` / Rust, never renderer timestamps;
-- authoritative typed projection: `timer-session-changed`, consumed by both webviews after persistence success.
+- authoritative typed projection: `timer-session-changed`, consumed by both webviews after persistence success;
+- Pomodoro notifications use one durable local boundary decision/claim per source session/effect kind. Windows toast submission happens after persistence and is best-effort; Narro does not claim transactional exactly-once delivery across a crash in the external OS notification API;
+- end-of-Pomodoro-break prompt state is authoritative `awaitingResume`, survives renderer recreation/process recovery, and clears when the authoritative projection leaves paused Pomodoro (including Resume).
 
 Architecture decision for manual Time Taken remains: user corrections do not rewrite raw session history or raw monotonic timer elapsed. They rebase durable task adjustment while paused, so later real work accrues on the corrected effective baseline.
 
 ### Remaining M3 correctness boundaries
 
-- exactly-once Pomodoro authoritative boundary notification decisions and Windows notification submission, including late observation/recovery;
-- durable user-visible end-of-break awaiting-resume prompt/resume workflow on the typed projection;
 - long-duration/large-elapsed overflow safety;
 - explicit Windows sleep/resume no-data-loss coverage. Whether unattended sleep counts as work remains an unresolved product-policy decision and must not be invented.
 
-A newly identified Pomodoro regression target must be addressed before that slice is considered complete: a sufficiently late engine observation can traverse Work -> Break -> Paused in one `advance`. The current runtime persistence coordinator compares only initial/final session binding, so the intermediate Break row can be skipped when the final binding is Work again. The next slice must preserve/publish each crossed authoritative boundary in order and then derive once-only Pomodoro side effects from those persisted boundaries.
-
-Next source branch: `ai/m3-pomodoro-boundary-effects` after current tracking reconciliation.
+Next source slice: add long-duration/large-elapsed safety coverage so timer/session arithmetic, boundary interpolation and event revisioning fail safely rather than overflow or corrupt persisted state. Keep Windows sleep/resume accounting policy unresolved until explicitly decided.
 
 Scheduling classification, recurrence materialization, reminder firing and DST/week semantics remain Milestone 4.
 
