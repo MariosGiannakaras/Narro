@@ -166,13 +166,8 @@ fn task_switch_re_resolves_policy_for_target_task() {
     let (mut conn, first, second) = fixture();
     set_task_sleep_accounting_override(&mut conn, first, TaskSleepAccountingOverride::Count, T1)
         .unwrap();
-    set_task_sleep_accounting_override(
-        &mut conn,
-        second,
-        TaskSleepAccountingOverride::Exclude,
-        T1,
-    )
-    .unwrap();
+    set_task_sleep_accounting_override(&mut conn, second, TaskSleepAccountingOverride::Exclude, T1)
+        .unwrap();
 
     let mut runtime = TimerRuntime::new();
     runtime
