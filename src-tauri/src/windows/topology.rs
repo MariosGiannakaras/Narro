@@ -62,9 +62,9 @@ pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error
         .hwnd()
         .map_err(|error| io::Error::other(format!("resolve focusSurface HWND: {error}")))?;
 
-    DISPLAY_APP_HANDLE
-        .set(app.handle().clone())
-        .map_err(|_| io::Error::other("display/power observer app handle was already initialized"))?;
+    DISPLAY_APP_HANDLE.set(app.handle().clone()).map_err(|_| {
+        io::Error::other("display/power observer app handle was already initialized")
+    })?;
 
     let raw_hwnd = hwnd.0 as RawHwnd;
     let installed = unsafe {
