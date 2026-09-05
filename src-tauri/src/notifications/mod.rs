@@ -7,11 +7,9 @@ pub const TEST_NOTIFICATION_TITLE: &str = "Narro notification test";
 pub const TEST_NOTIFICATION_BODY: &str =
     "Local Windows notification delivery is available while Narro is running.";
 pub const POMODORO_BREAK_STARTED_TITLE: &str = "Pomodoro break started";
-pub const POMODORO_BREAK_STARTED_BODY: &str =
-    "Your work sprint is complete. Take a break.";
+pub const POMODORO_BREAK_STARTED_BODY: &str = "Your work sprint is complete. Take a break.";
 pub const POMODORO_BREAK_FINISHED_TITLE: &str = "Pomodoro break finished";
-pub const POMODORO_BREAK_FINISHED_BODY: &str =
-    "Your break is complete. Resume when you're ready.";
+pub const POMODORO_BREAK_FINISHED_BODY: &str = "Your break is complete. Resume when you're ready.";
 
 #[derive(Debug, Clone, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -44,11 +42,7 @@ fn submit(app_handle: &tauri::AppHandle, title: &str, body: &str) -> CommandResu
 }
 
 pub fn send_test(app_handle: &tauri::AppHandle) -> CommandResult<NotificationTestResult> {
-    submit(
-        app_handle,
-        TEST_NOTIFICATION_TITLE,
-        TEST_NOTIFICATION_BODY,
-    )?;
+    submit(app_handle, TEST_NOTIFICATION_TITLE, TEST_NOTIFICATION_BODY)?;
 
     Ok(NotificationTestResult {
         title: TEST_NOTIFICATION_TITLE,
