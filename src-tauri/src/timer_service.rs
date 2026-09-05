@@ -288,8 +288,8 @@ pub fn timer_set_time_taken(
         .map(|payload| report_command_payload(&app_handle, payload))
 }
 
-pub fn install_background_advance(app_handle: tauri::AppHandle) -> std::io::Result<()> {
-    std::thread::Builder::new()
+pub fn install_background_advance(app_handle: tauri::AppHandle) {
+    if let Err(error) = std::thread::Builder::new()
         .name("narro-timer-runtime".to_owned())
         .spawn(move || loop {
             std::thread::sleep(BACKGROUND_ADVANCE_INTERVAL);
@@ -299,6 +299,9 @@ pub fn install_background_advance(app_handle: tauri::AppHandle) -> std::io::Resu
                 Ok(None) => {}
                 Err(error) => eprintln!("Timer background advance failed: {error}"),
             }
-        })?;
-    Ok(())
+        })
+    {
+        eprintln!("Fatal: failed to start authoritative timer runtime thread: {error}");
+        std::process::exit(1);
+    }
 }
