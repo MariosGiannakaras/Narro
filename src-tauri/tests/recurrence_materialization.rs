@@ -196,3 +196,58 @@ fn inactive_rule_does_not_create_children_or_normalize_parent() {
     let unchanged_parent = get_task(&conn, parent.id).expect("reload parent");
     assert_eq!(unchanged_parent.manual_lane, PlanningLane::ThisWeek);
 }
+
+#[test]
+fn failed_materialization_rolls_back_parent_normalization_and_children() {
+    let mut conn = migrated();
+    let list = create_list(
+        &mut conn,
+        NewListInput {
+            title: "Inbox".into(),
+            color: None,
+            icon_asset: None,
+        },
+        T1,
+    )
+    .expect("create list");
+    let parent = create_task(
+        &mut conn,
+        NewTaskInput {
+            list_id: list.id,
+            title: "DST rollback recurrence".into(),
+            manual_lane: PlanningLane::Today,
+            est_seconds: Some(600),
+        },
+        T1,
+    )
+    .expect("create parent");
+    let rule = create_recurrence_rule(
+        &mut conn,
+        NewRecurrenceRuleInput {
+            parent_task_id: parent.id,
+            interval_count: 1,
+            unit: RecurrenceUnit::Week,
+            weekday_mask: 0b1000000,
+            month_day: None,
+            starts_local_date: "2026-03-02".into(),
+            local_time: Some("02:30".into()),
+            timezone: Some("America/New_York".into()),
+            replace_existing: false,
+        },
+        T2,
+    )
+    .expect("create timed rule");
+
+    assert!(materialize_recurrence_week(&mut conn, rule.id, "2026-03-02", T2).is_err());
+
+    let unchanged_parent = get_task(&conn, parent.id).expect("reload parent after failure");
+    assert_eq!(unchanged_parent.manual_lane, PlanningLane::Today);
+    let occurrence_rows: i64 = conn
+        .query_row(
+            "SELECT COUNT(*) FROM recurrence_occurrences WHERE recurrence_rule_id = ?1",
+            [rule.id.to_string()],
+            |row| row.get(0),
+        )
+        .expect("count occurrence rows after rollback");
+    assert_eq!(occurrence_rows, 0);
+}
