@@ -194,7 +194,41 @@ Architecture decision for manual Time Taken remains: user corrections do not rew
 - Squash merge `5eaf7f0eba1770112d41744377ea134ad5d41e33` passed main Windows CI #196 / run `33964738776` / job `101302758803` with repository preflight, Tauri release build and artifact upload all successful.
 - Main artifact ID `9969220078`, digest `sha256:c2d1b2ce9cbaf12abdb45020a537b89081005c0f1f7305007cb97f812ee974d1`.
 
-Milestone 3 is closed. The next ordered source work is Milestone 4 scheduling classification, recurrence materialization, reminders, eligibility and DST/week/date-only correctness. Do not skip to polished Milestone 5/6 UI before M4 Gate is satisfied unless the user explicitly changes milestone order.
+Milestone 3 is closed. Milestone 4 is active; do not skip to polished Milestone 5/6 UI before M4 Gate is satisfied unless the user explicitly changes milestone order.
+
+## Milestone 4 current merged state
+
+Current validated **source** implementation baseline: `4a39d94545a361736968b455a20a3889ee5c9a1c`.
+
+Markdown-only tracking/work-log commits may be newer and do not change this source baseline.
+
+Merged M4 implementation slices:
+
+- PR #36 / `4a39d94545a361736968b455a20a3889ee5c9a1c`: deterministic scheduling/eligibility core. Exact validated PR head `530bb99bacb184972123d34d11e4567d9d110a53`. Monday-starting week classification derives effective `Today` / `This Week` / `Backlog` from existing M2 schedule metadata without rewriting `manual_lane`; official Today / Later today (+2h) / Tomorrow / Next week (+7d) / custom-date shortcuts resolve into `TaskSchedule`; date-only values never require UTC/timezone conversion; future-timed Today tasks remain visible in Today but are focus-ineligible before due time; SQLite regressions prove schedule changes keep one stable task identity and clearing a schedule restores manual-lane projection.
+
+Validation:
+
+- old PR CI #197 / run `33966100377` / job `101306401202` failed only at `cargo fmt --check`; compile/tests/release build were not reached and the failure did not count as progress;
+- Windows PR CI #199 / run `33966273403` / job `101306868458`: **SUCCESS** on exact head `530bb99bacb184972123d34d11e4567d9d110a53`;
+- PR repository preflight, Tauri release build and artifact upload: **PASS**;
+- PR artifact ID `9969712672`, digest `sha256:a873bd0184629f540e36290513c49692558cd5b7a08d229996d85f1e8c16a61b`;
+- Windows main CI #200 / run `33967873158` / job `101311074138`: **SUCCESS** on merge `4a39d94545a361736968b455a20a3889ee5c9a1c`;
+- main repository preflight, Tauri release build and artifact upload: **PASS**;
+- main artifact ID `9970182535`, digest `sha256:57acc2e14297bd34d44851cf7d99f491a604ba2df382c1ba41242b4a4b17e0ef`.
+
+`TODO.md` now marks the first five M4 scheduling/eligibility items complete. The combined DST/timezone/repeated-startup/missed-days test item remains open, as does the explicit scheduled-task lane-move duplicate/triplicate regression item.
+
+Important M4 scheduling decisions:
+
+- effective scheduled lane is derived; scheduling does not destructively rewrite the task's persisted manual lane or identity;
+- date-only values are calendar semantics and never pass through UTC conversion;
+- time-of-day changes focus eligibility, not whether a due-today task belongs to Today;
+- scheduling core consumes authoritative configured/local `NaiveDate` / `NaiveDateTime` values supplied by Rust-side callers, not renderer clocks;
+- stored local-datetime timezone tokens are currently validated structurally/non-empty, but PR #36 does **not** claim full IANA timezone resolution or DST gap/fold handling.
+
+Next ordered correctness slice is explicit timezone/DST resolution before recurrence/reminder code is allowed to rely on local-datetime instants. Required regressions include configured-timezone changes, spring-forward nonexistent times, fall-back ambiguous times, date-only stability, Sunday->Monday rollover, and weekend behavior. Do not silently choose gap/fold semantics.
+
+Evidence: `work-log/2026-09-05-1618-chatgpt-m4-scheduling-core.md`.
 
 ## Blitzit historical/reliability research — 2026-09-04
 
