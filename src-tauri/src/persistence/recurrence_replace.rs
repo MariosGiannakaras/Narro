@@ -143,11 +143,7 @@ fn normalize_replacement(
     if input.interval_count == 0 {
         return Err(ReplaceExistingError::InvalidInterval);
     }
-    if input.weekday_mask > 127
-        || input
-            .month_day
-            .is_some_and(|day| !(1..=31).contains(&day))
-    {
+    if input.weekday_mask > 127 || input.month_day.is_some_and(|day| !(1..=31).contains(&day)) {
         return Err(ReplaceExistingError::InvalidPattern);
     }
 
