@@ -4,6 +4,14 @@ Narro is maintained so different coding AIs can alternate without prior chat con
 
 `AGENTS.md` remains authoritative for durable product/scope/correctness rules. `ENGINEERING_QUALITY.md` is authoritative for implementation quality, error handling, robustness, validation and pre-CI discipline.
 
+## Repository state overrides conversational memory
+
+The latest validated repository state always outranks chat history, cached summaries, or a previous agent's remembered checkpoint.
+
+Before emitting a substantive progress/status update after a new chat, interruption, resumed session, or apparent context loss, the agent must re-read current `HANDOFF.md`, the active `TODO.md` milestone, relevant `STATUS.md`, the newest relevant immutable `work-log/*.md` entry, and any open/recent PR/CI state referenced there. If conversation state conflicts with repository evidence, correct the conversation and follow the repository.
+
+Never decrement a previously validated user-facing progress counter because an older conversational checkpoint was loaded. The small progress counter may reset only when a genuinely new implementation slice has explicitly begun. When resetting it, state the new slice and denominator in the same update and ensure `HANDOFF.md` records either the latest completed slice progress or the currently active slice progress so another zero-context agent cannot infer an older value.
+
 ## Start of every zero-context session
 
 1. Synchronize with latest `main` and inspect recent commits/current Git state.
@@ -58,7 +66,8 @@ Progress-count rules:
 - Increment a numerator only when that checkpoint is actually completed and validated to the level required by repository rules.
 - A failed CI run is evidence and does **not** increment either completed count unless resolving that failure was itself an explicitly defined checkpoint that is now finished.
 - Keep the general project indicator stable across sessions and user turns; change it only when a top-level milestone is actually validated complete or the roadmap itself is explicitly revised.
-- The small indicator may reset when moving to the next implementation slice.
+- A validated progress value recorded in current repository state must never move backward merely because a chat/session resumed from stale context.
+- The small indicator may reset only when moving to a genuinely new implementation slice; make that reset explicit and record the new slice/progress basis in `HANDOFF.md`.
 - If newly discovered work materially changes the small plan, update its denominator and briefly state why instead of silently changing the count.
 - If the ordered project roadmap is explicitly revised, update the general denominator and state why.
 - Do not present an implementation as complete until the relevant validation/merge/reconciliation checkpoint required by repository rules is complete.
@@ -121,6 +130,7 @@ Never overwrite another work-log entry. Corrections get a new file. Root `WORK_L
 Keep `HANDOFF.md` short and operational. It must clearly contain:
 
 - current milestone/slice;
+- current general progress and either the active small-slice progress or the latest completed small-slice progress;
 - verified baseline/artifact/commits when relevant;
 - what is proven vs merely implemented;
 - `NEXT AGENT ACTION`;
