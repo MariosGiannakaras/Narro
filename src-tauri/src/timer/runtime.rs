@@ -52,8 +52,6 @@ enum DurableTimerState {
         phase: TimerStateKind,
         total_work_ms: u64,
         interval_work_ms: u64,
-        #[serde(default)]
-        awaiting_resume: bool,
     },
     Break {
         task_id: TaskId,
@@ -71,7 +69,6 @@ enum DurableTimerState {
 pub struct TimerRuntimeSnapshot {
     pub timer: TimerSnapshot,
     pub open_session_id: Option<SessionId>,
-    pub awaiting_resume: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -181,7 +178,6 @@ pub struct TimerRuntime {
     binding: Option<SessionBinding>,
     closed_work_seconds: u64,
     closed_break_seconds: u64,
-    awaiting_resume: bool,
     last_state: TimerStateKind,
     last_checkpoint_ms: Option<u64>,
 }
@@ -199,7 +195,6 @@ impl TimerRuntime {
             binding: None,
             closed_work_seconds: 0,
             closed_break_seconds: 0,
-            awaiting_resume: false,
             last_state: TimerStateKind::Idle,
             last_checkpoint_ms: None,
         }
@@ -230,7 +225,7 @@ impl TimerRuntime {
 
                 let durable: DurableTimerCheckpoint =
                     serde_json::from_str(&checkpoint.payload_json)?;
-                let (engine, closed_work_seconds, closed_break_seconds, awaiting_resume) =
+                let (engine, closed_work_seconds, closed_break_seconds) =
                     restore_engine(durable, now_ms)?;
                 let snapshot = engine.snapshot(now_ms)?;
                 let desired =
@@ -258,7 +253,6 @@ impl TimerRuntime {
                     binding: Some(SessionBinding::from_record(&open_session)),
                     closed_work_seconds,
                     closed_break_seconds,
-                    awaiting_resume,
                     last_state: snapshot.state,
                     last_checkpoint_ms: Some(now_ms),
                 };
@@ -298,14 +292,13 @@ impl TimerRuntime {
 
         let mut engine = self.engine.clone();
         let snapshot = engine.start_task(task_id, mode, now_ms)?;
-        let payload = checkpoint_payload_for(&engine, 0, 0, false, now_ms)?;
+        let payload = checkpoint_payload_for(&engine, 0, 0, now_ms)?;
         let session = open_focus_work_session_with_checkpoint(conn, task_id, wall_time, &payload)?;
 
         self.engine = engine;
         self.binding = Some(SessionBinding::from_record(&session));
         self.closed_work_seconds = 0;
         self.closed_break_seconds = 0;
-        self.awaiting_resume = false;
         self.last_state = snapshot.state;
         self.last_checkpoint_ms = Some(now_ms);
         Ok(self.runtime_snapshot(snapshot))
@@ -319,19 +312,9 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.advance(now_ms)?;
-        let awaiting_resume = self.awaiting_resume
-            || (self.last_state == TimerStateKind::Break && snapshot.state == TimerStateKind::Paused);
         let checkpoint_same =
             snapshot.state != self.last_state || self.checkpoint_due(now_ms, snapshot.state);
-        self.commit_candidate(
-            conn,
-            engine,
-            snapshot,
-            now_ms,
-            wall_time,
-            checkpoint_same,
-            awaiting_resume,
-        )
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, checkpoint_same)
     }
 
     pub fn checkpoint(
@@ -342,15 +325,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.advance(now_ms)?;
-        self.commit_candidate(
-            conn,
-            engine,
-            snapshot,
-            now_ms,
-            wall_time,
-            true,
-            self.awaiting_resume,
-        )
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true)
     }
 
     pub fn pause(
@@ -361,15 +336,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.pause(now_ms)?;
-        self.commit_candidate(
-            conn,
-            engine,
-            snapshot,
-            now_ms,
-            wall_time,
-            true,
-            self.awaiting_resume,
-        )
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true)
     }
 
     pub fn resume(
@@ -380,7 +347,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.resume(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true, false)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true)
     }
 
     pub fn extend(
@@ -391,7 +358,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.extend(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true, false)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true)
     }
 
     pub fn start_manual_break(
@@ -403,7 +370,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.start_manual_break(duration_ms, now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false, false)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false)
     }
 
     pub fn finish_break(
@@ -414,7 +381,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.finish_break(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false, false)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false)
     }
 
     pub fn skip_break(
@@ -425,7 +392,7 @@ impl TimerRuntime {
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let mut engine = self.engine.clone();
         let snapshot = engine.skip_break(now_ms)?;
-        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false, false)
+        self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, false)
     }
 
     pub fn finish_task(
@@ -471,7 +438,7 @@ impl TimerRuntime {
         let current_duration = current_total
             .checked_sub(self.closed_work_seconds)
             .ok_or(TimerRuntimeError::DurationAccountingUnderflow)?;
-        let payload = checkpoint_payload_for(&engine, 0, 0, false, now_ms)?;
+        let payload = checkpoint_payload_for(&engine, 0, 0, now_ms)?;
         let (closed, opened) = replace_open_focus_session_with_checkpoint(
             conn,
             current.id,
@@ -486,7 +453,6 @@ impl TimerRuntime {
         self.binding = Some(SessionBinding::from_record(&opened));
         self.closed_work_seconds = 0;
         self.closed_break_seconds = 0;
-        self.awaiting_resume = false;
         self.last_state = result.current.state;
         self.last_checkpoint_ms = Some(now_ms);
 
@@ -532,7 +498,6 @@ impl TimerRuntime {
         self.binding = None;
         self.closed_work_seconds = 0;
         self.closed_break_seconds = 0;
-        self.awaiting_resume = false;
         self.last_state = TimerStateKind::Idle;
         self.last_checkpoint_ms = None;
 
@@ -550,7 +515,6 @@ impl TimerRuntime {
         now_ms: u64,
         wall_time: &str,
         checkpoint_same: bool,
-        awaiting_resume: bool,
     ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError> {
         let desired = desired_binding(&snapshot)?;
         let mut next_closed_work_seconds = self.closed_work_seconds;
@@ -576,7 +540,6 @@ impl TimerRuntime {
                         &engine,
                         self.closed_work_seconds,
                         self.closed_break_seconds,
-                        awaiting_resume,
                         now_ms,
                     )?;
                     checkpoint_open_session_with_runtime(
@@ -601,7 +564,6 @@ impl TimerRuntime {
                     &engine,
                     next_closed_work_seconds,
                     next_closed_break_seconds,
-                    awaiting_resume,
                     now_ms,
                 )?;
                 let (_, opened) = replace_open_focus_session_with_checkpoint(
@@ -622,7 +584,6 @@ impl TimerRuntime {
         self.binding = next_binding;
         self.closed_work_seconds = next_closed_work_seconds;
         self.closed_break_seconds = next_closed_break_seconds;
-        self.awaiting_resume = awaiting_resume;
         self.last_state = snapshot.state;
         if checkpoint_written {
             self.last_checkpoint_ms = Some(now_ms);
@@ -648,7 +609,6 @@ impl TimerRuntime {
             &self.engine,
             self.closed_work_seconds,
             self.closed_break_seconds,
-            self.awaiting_resume,
             now_ms,
         )
     }
@@ -657,7 +617,6 @@ impl TimerRuntime {
         TimerRuntimeSnapshot {
             timer,
             open_session_id: self.open_session_id(),
-            awaiting_resume: self.awaiting_resume,
         }
     }
 }
@@ -666,7 +625,6 @@ fn checkpoint_payload_for(
     engine: &TimerEngine,
     closed_work_seconds: u64,
     closed_break_seconds: u64,
-    awaiting_resume: bool,
     now_ms: u64,
 ) -> Result<String, TimerRuntimeError> {
     let state = match &engine.runtime {
@@ -677,7 +635,6 @@ fn checkpoint_payload_for(
             phase: work.phase.state_kind(),
             total_work_ms: work.projected_total(now_ms)?,
             interval_work_ms: work.projected_interval(now_ms)?,
-            awaiting_resume,
         },
         RuntimeState::Break(break_runtime) => DurableTimerState::Break {
             task_id: break_runtime.resume_work.task_id,
@@ -704,43 +661,32 @@ fn checkpoint_payload_for(
 fn restore_engine(
     checkpoint: DurableTimerCheckpoint,
     now_ms: u64,
-) -> Result<(TimerEngine, u64, u64, bool), TimerRuntimeError> {
+) -> Result<(TimerEngine, u64, u64), TimerRuntimeError> {
     if checkpoint.version != RUNTIME_CHECKPOINT_VERSION {
         return Err(TimerRuntimeError::UnsupportedCheckpointVersion(
             checkpoint.version,
         ));
     }
 
-    let (runtime, awaiting_resume) = match checkpoint.state {
+    let runtime = match checkpoint.state {
         DurableTimerState::Work {
             task_id,
             mode,
             phase,
             total_work_ms,
             interval_work_ms,
-            awaiting_resume,
         } => {
             validate_mode(mode)?;
-            if awaiting_resume
-                && (!matches!(mode, TimerMode::Pomodoro { .. })
-                    || phase != TimerStateKind::Paused
-                    || interval_work_ms != 0)
-            {
-                return Err(TimerRuntimeError::InvalidRecoveryState);
-            }
             let phase = recover_work_phase(phase)?;
             validate_work_checkpoint(mode, phase, total_work_ms, interval_work_ms)?;
-            (
-                RuntimeState::Work(WorkRuntime {
-                    task_id,
-                    mode,
-                    phase,
-                    total_work_ms,
-                    interval_work_ms,
-                    run_started_ms: None,
-                }),
-                awaiting_resume,
-            )
+            RuntimeState::Work(WorkRuntime {
+                task_id,
+                mode,
+                phase,
+                total_work_ms,
+                interval_work_ms,
+                run_started_ms: None,
+            })
         }
         DurableTimerState::Break {
             task_id,
@@ -771,23 +717,20 @@ fn restore_engine(
                 resume_total_work_ms,
                 resume_interval_work_ms,
             )?;
-            (
-                RuntimeState::Break(BreakRuntime {
-                    kind: break_kind,
-                    duration_ms,
-                    elapsed_ms,
-                    run_started_ms: now_ms,
-                    resume_work: WorkRuntime {
-                        task_id,
-                        mode,
-                        phase: resume_phase,
-                        total_work_ms: resume_total_work_ms,
-                        interval_work_ms: resume_interval_work_ms,
-                        run_started_ms: None,
-                    },
-                }),
-                false,
-            )
+            RuntimeState::Break(BreakRuntime {
+                kind: break_kind,
+                duration_ms,
+                elapsed_ms,
+                run_started_ms: now_ms,
+                resume_work: WorkRuntime {
+                    task_id,
+                    mode,
+                    phase: resume_phase,
+                    total_work_ms: resume_total_work_ms,
+                    interval_work_ms: resume_interval_work_ms,
+                    run_started_ms: None,
+                },
+            })
         }
     };
 
@@ -799,7 +742,6 @@ fn restore_engine(
         },
         checkpoint.closed_work_seconds,
         checkpoint.closed_break_seconds,
-        awaiting_resume,
     ))
 }
 
