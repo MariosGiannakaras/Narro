@@ -3,7 +3,9 @@ use crate::domain::model::ScheduleKind;
 use crate::domain::tasks::{SetTaskTimeTakenInput, TaskRecord, TaskSchedule};
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
-use crate::scheduling::{resolve_local_datetime_strict, validate_timezone_identifier, SchedulingError};
+use crate::scheduling::{
+    resolve_local_datetime_strict, validate_timezone_identifier, SchedulingError,
+};
 use chrono::{DateTime, NaiveDate, NaiveTime};
 use rusqlite::{params, Connection, TransactionBehavior};
 use std::fmt::{Display, Formatter};
