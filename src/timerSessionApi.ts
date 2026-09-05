@@ -77,6 +77,7 @@ export type TimerSessionChange =
 export type TimerSessionPayload = {
   revision: number;
   runtime: TimerRuntimeSnapshot;
+  awaitingResume: boolean;
   change: TimerSessionChange | null;
 };
 
@@ -105,4 +106,8 @@ export async function connectTimerSessionProjection(
     unlisten();
     throw error;
   }
+}
+
+export async function resumeTimer(): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_resume");
 }
