@@ -166,7 +166,10 @@ fn configured_timezone_change_reprojects_timed_schedule_without_changing_its_ins
         focus_eligibility_at(&scheduled, now, "America/New_York").unwrap(),
         FocusEligibility::FutureScheduledTime
     );
-    assert_eq!(scheduled.schedule_timezone.as_deref(), Some("Europe/Athens"));
+    assert_eq!(
+        scheduled.schedule_timezone.as_deref(),
+        Some("Europe/Athens")
+    );
 }
 
 #[test]
@@ -174,24 +177,9 @@ fn invalid_timezone_and_dst_gap_fold_fail_before_persistence_changes() {
     let (mut conn, task_id) = fixture();
 
     for (local_date, local_time, timezone, expected) in [
-        (
-            "2026-09-09",
-            "12:00",
-            "Europe/Atlantis",
-            "timezone",
-        ),
-        (
-            "2026-03-08",
-            "02:30",
-            "America/New_York",
-            "ambiguity",
-        ),
-        (
-            "2026-11-01",
-            "01:30",
-            "America/New_York",
-            "ambiguity",
-        ),
+        ("2026-09-09", "12:00", "Europe/Atlantis", "timezone"),
+        ("2026-03-08", "02:30", "America/New_York", "ambiguity"),
+        ("2026-11-01", "01:30", "America/New_York", "ambiguity"),
     ] {
         let result = set_task_schedule(
             &mut conn,
