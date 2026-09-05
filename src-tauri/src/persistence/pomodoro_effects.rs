@@ -1,5 +1,5 @@
 use crate::domain::ids::SessionId;
-use crate::persistence::sessions::{get_session, SessionStoreError};
+use crate::persistence::sessions::{get_open_session, get_session, SessionStoreError};
 use chrono::DateTime;
 use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
 use std::fmt::{Display, Formatter};
@@ -172,6 +172,15 @@ pub fn awaiting_resume_for_open_work_session(
         |row| row.get(0),
     )?;
     Ok(awaiting == 1)
+}
+
+pub fn awaiting_resume_for_current_open_work_session(
+    conn: &Connection,
+) -> Result<bool, PomodoroBoundaryEffectError> {
+    let Some(session) = get_open_session(conn)? else {
+        return Ok(false);
+    };
+    awaiting_resume_for_open_work_session(conn, session.id)
 }
 
 pub fn claim_pending_notifications(
