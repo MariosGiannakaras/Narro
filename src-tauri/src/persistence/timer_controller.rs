@@ -197,8 +197,8 @@ impl TimerController {
             now_ms,
             wall_time,
         )?;
-        let closed_work_session_id = closed_work_session_id
-            .expect("successful break start must have closed a work session");
+        let closed_work_session_id =
+            closed_work_session_id.expect("successful break start must have closed a work session");
         let break_session_id = runtime
             .open_session_id
             .expect("successful break start must publish an open break session");
@@ -532,7 +532,10 @@ mod tests {
         assert!(controller.skip_task(1_000, T1).is_err());
         assert_eq!(controller.revision, 0);
         assert_eq!(controller.snapshot().revision, 0);
-        assert_eq!(controller.snapshot().runtime.timer.state, TimerStateKind::Idle);
+        assert_eq!(
+            controller.snapshot().runtime.timer.state,
+            TimerStateKind::Idle
+        );
     }
 
     #[test]
