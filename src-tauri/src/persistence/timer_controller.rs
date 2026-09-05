@@ -58,11 +58,11 @@ impl From<LiveTimeTakenError> for TimerControllerError {
     }
 }
 
-#[derive(Debug)]
 pub struct TimerController {
     connection: Connection,
     runtime: TimerRuntime,
     revision: u64,
+    published_runtime: TimerRuntimeSnapshot,
 }
 
 impl TimerController {
@@ -72,18 +72,21 @@ impl TimerController {
         wall_time: &str,
     ) -> Result<Self, TimerControllerError> {
         let runtime = TimerRuntime::recover(&mut connection, now_ms, wall_time)?;
+        let published_runtime = runtime.snapshot(now_ms)?;
         Ok(Self {
             connection,
             runtime,
             revision: 0,
+            published_runtime,
         })
     }
 
-    pub fn snapshot(&self, now_ms: u64) -> Result<TimerSessionPayload, TimerControllerError> {
-        Ok(TimerSessionPayload::snapshot(
-            self.revision,
-            self.runtime.snapshot(now_ms)?,
-        ))
+    /// Return the last Rust-observed, persistence-coherent projection.
+    ///
+    /// This deliberately does not advance the timer from renderer-provided time. Automatic timer
+    /// boundaries are applied by `advance`, then published. Renderers remain presentation-only.
+    pub fn snapshot(&self) -> TimerSessionPayload {
+        TimerSessionPayload::snapshot(self.revision, self.published_runtime.clone())
     }
 
     pub fn start_task(
@@ -115,30 +118,40 @@ impl TimerController {
         now_ms: u64,
         wall_time: &str,
     ) -> Result<Option<TimerSessionPayload>, TimerControllerError> {
+        // Reserve the revision before a call that may persist an automatic boundary. This prevents
+        // a successful database transition from becoming unpublishable because the revision
+        // counter overflowed afterward.
         let next_revision = self.next_revision()?;
-        let before = self.runtime.snapshot(now_ms)?;
+        let before = self.published_runtime.clone();
         let after = self
             .runtime
             .advance(&mut self.connection, now_ms, wall_time)?;
 
-        if before.timer.state == after.timer.state
-            && before.open_session_id == after.open_session_id
-        {
+        let boundary_changed = before.timer.state != after.timer.state
+            || before.open_session_id != after.open_session_id;
+        if !boundary_changed {
+            self.published_runtime = after;
             return Ok(None);
         }
 
+        let closed_session_id = if before.open_session_id != after.open_session_id {
+            before.open_session_id
+        } else {
+            None
+        };
+        let opened_session_id = if before.open_session_id != after.open_session_id {
+            after.open_session_id
+        } else {
+            None
+        };
         Ok(Some(self.publish(
             next_revision,
             after.clone(),
             TimerSessionChange::AutomaticBoundary {
                 previous_state: before.timer.state,
                 current_state: after.timer.state,
-                closed_session_id: (before.open_session_id != after.open_session_id)
-                    .then_some(before.open_session_id)
-                    .flatten(),
-                opened_session_id: (before.open_session_id != after.open_session_id)
-                    .then_some(after.open_session_id)
-                    .flatten(),
+                closed_session_id,
+                opened_session_id,
             },
         )))
     }
@@ -148,7 +161,7 @@ impl TimerController {
         now_ms: u64,
         wall_time: &str,
     ) -> Result<TimerSessionPayload, TimerControllerError> {
-        self.simple_transition(now_ms, wall_time, TimerSessionChange::Paused, |runtime, conn| {
+        self.simple_transition(TimerSessionChange::Paused, |runtime, conn| {
             runtime.pause(conn, now_ms, wall_time)
         })
     }
@@ -158,7 +171,7 @@ impl TimerController {
         now_ms: u64,
         wall_time: &str,
     ) -> Result<TimerSessionPayload, TimerControllerError> {
-        self.simple_transition(now_ms, wall_time, TimerSessionChange::Resumed, |runtime, conn| {
+        self.simple_transition(TimerSessionChange::Resumed, |runtime, conn| {
             runtime.resume(conn, now_ms, wall_time)
         })
     }
@@ -168,7 +181,7 @@ impl TimerController {
         now_ms: u64,
         wall_time: &str,
     ) -> Result<TimerSessionPayload, TimerControllerError> {
-        self.simple_transition(now_ms, wall_time, TimerSessionChange::Extended, |runtime, conn| {
+        self.simple_transition(TimerSessionChange::Extended, |runtime, conn| {
             runtime.extend(conn, now_ms, wall_time)
         })
     }
@@ -180,8 +193,8 @@ impl TimerController {
         wall_time: &str,
     ) -> Result<TimerSessionPayload, TimerControllerError> {
         let next_revision = self.next_revision()?;
-        let before = self.runtime.snapshot(now_ms)?;
-        let closed_work_session_id = before
+        let closed_work_session_id = self
+            .published_runtime
             .open_session_id
             .expect("active work runtime must have an open session");
         let runtime = self.runtime.start_manual_break(
@@ -225,18 +238,17 @@ impl TimerController {
         wall_time: &str,
     ) -> Result<TimerSessionPayload, TimerControllerError> {
         let next_revision = self.next_revision()?;
-        let before = self.runtime.snapshot(now_ms)?;
-        let task_id = before
+        let task_id = self
+            .published_runtime
             .timer
             .task_id
             .expect("active completion runtime must have a task");
         let completed = self
             .runtime
             .complete_task(&mut self.connection, now_ms, wall_time)?;
-        let runtime = idle_runtime_snapshot();
         Ok(self.publish(
             next_revision,
-            runtime,
+            idle_runtime_snapshot(),
             TimerSessionChange::TaskCompleted {
                 task_id,
                 closed_session_id: completed.closed_session.id,
@@ -253,10 +265,9 @@ impl TimerController {
         let skipped = self
             .runtime
             .skip_task(&mut self.connection, now_ms, wall_time)?;
-        let runtime = idle_runtime_snapshot();
         Ok(self.publish(
             next_revision,
-            runtime,
+            idle_runtime_snapshot(),
             TimerSessionChange::TaskSkipped {
                 task_id: skipped.timer.task_id,
                 closed_session_id: skipped.closed_session.id,
@@ -288,7 +299,11 @@ impl TimerController {
             runtime,
             TimerSessionChange::TaskSwitched {
                 previous_task_id: switched.timer.previous.task_id,
-                current_task_id: switched.timer.current.task_id.expect("switch target task"),
+                current_task_id: switched
+                    .timer
+                    .current
+                    .task_id
+                    .expect("successful switch must publish a target task"),
                 previous_session_id: switched.previous_session.id,
                 current_session_id: switched.current_session.id,
             },
@@ -325,18 +340,22 @@ impl TimerController {
 
     fn simple_transition<F>(
         &mut self,
-        now_ms: u64,
-        wall_time: &str,
         change: TimerSessionChange,
         transition: F,
     ) -> Result<TimerSessionPayload, TimerControllerError>
     where
-        F: FnOnce(&mut TimerRuntime, &mut Connection) -> Result<TimerRuntimeSnapshot, TimerRuntimeError>,
+        F: FnOnce(
+            &mut TimerRuntime,
+            &mut Connection,
+        ) -> Result<TimerRuntimeSnapshot, TimerRuntimeError>,
     {
         let next_revision = self.next_revision()?;
-        let before = self.runtime.snapshot(now_ms)?;
+        let before = self.published_runtime.clone();
         let after = transition(&mut self.runtime, &mut self.connection)?;
-        if before == after {
+        if before.timer.state == after.timer.state
+            && before.open_session_id == after.open_session_id
+        {
+            self.published_runtime = after.clone();
             return Ok(TimerSessionPayload::snapshot(self.revision, after));
         }
         Ok(self.publish(next_revision, after, change))
@@ -349,8 +368,8 @@ impl TimerController {
         skipped: bool,
     ) -> Result<TimerSessionPayload, TimerControllerError> {
         let next_revision = self.next_revision()?;
-        let before = self.runtime.snapshot(now_ms)?;
-        let closed_break_session_id = before
+        let closed_break_session_id = self
+            .published_runtime
             .open_session_id
             .expect("active break runtime must have an open break session");
         let after = if skipped {
@@ -390,6 +409,7 @@ impl TimerController {
         change: TimerSessionChange,
     ) -> TimerSessionPayload {
         self.revision = revision;
+        self.published_runtime = runtime.clone();
         TimerSessionPayload::changed(revision, runtime, change)
     }
 }
@@ -458,7 +478,7 @@ mod tests {
     fn successful_persisted_transitions_increment_revision_after_commit() {
         let (connection, task_id, _) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
-        assert_eq!(controller.snapshot(0).unwrap().revision, 0);
+        assert_eq!(controller.snapshot().revision, 0);
 
         let started = controller
             .start_task(task_id, TimerMode::CountUp, 0, T0)
@@ -505,11 +525,11 @@ mod tests {
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
         assert!(controller.pause(1_000, T1).is_err());
         assert_eq!(controller.revision, 0);
-        assert_eq!(controller.snapshot(1_000).unwrap().revision, 0);
+        assert_eq!(controller.snapshot().revision, 0);
     }
 
     #[test]
-    fn automatic_boundary_event_reports_state_and_session_replacement() {
+    fn automatic_boundary_event_uses_last_persisted_projection_not_a_renderer_projection() {
         let (connection, task_id, _) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
         let started = controller
@@ -524,6 +544,10 @@ mod tests {
             )
             .unwrap();
         let work_session = started.runtime.open_session_id.unwrap();
+
+        // Reading the controller projection cannot predict/apply the boundary.
+        assert_eq!(controller.snapshot().runtime.timer.state, TimerStateKind::Running);
+        assert_eq!(controller.snapshot().revision, 1);
 
         let event = controller
             .advance(2_000, T1)
@@ -542,6 +566,21 @@ mod tests {
                 opened_session_id: Some(opened),
             }) if closed == work_session && opened == break_session
         ));
+    }
+
+    #[test]
+    fn checkpoint_only_advance_refreshes_projection_without_consuming_revision() {
+        let (connection, task_id, _) = fixture();
+        let mut controller = TimerController::recover(connection, 0, T0).unwrap();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+
+        assert!(controller.advance(31_000, T1).unwrap().is_none());
+        let snapshot = controller.snapshot();
+        assert_eq!(snapshot.revision, 1);
+        assert_eq!(snapshot.runtime.timer.state, TimerStateKind::Running);
+        assert_eq!(snapshot.runtime.timer.work_elapsed_ms, 31_000);
     }
 
     #[test]
