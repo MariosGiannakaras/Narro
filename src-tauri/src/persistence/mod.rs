@@ -2,6 +2,7 @@ pub mod lists;
 pub mod live_completion;
 pub mod live_time_taken;
 pub mod notes;
+pub mod pomodoro_effects;
 pub mod preferences;
 pub mod recurrence;
 pub mod sessions;
@@ -59,6 +60,9 @@ fn migrations() -> Migrations<'static> {
         M::up(include_str!("../../migrations/0003_session_runtime.sql")),
         M::up(include_str!(
             "../../migrations/0004_timer_runtime_checkpoint.sql"
+        )),
+        M::up(include_str!(
+            "../../migrations/0005_pomodoro_boundary_effects.sql"
         )),
     ])
 }
@@ -125,6 +129,7 @@ mod tests {
             "sessions",
             "preferences",
             "timer_runtime_checkpoint",
+            "pomodoro_boundary_effects",
         ] {
             assert!(
                 table_exists(&conn, table),
@@ -157,6 +162,7 @@ mod tests {
         assert!(table_exists(&conn, "tasks"));
         assert!(table_exists(&conn, "sessions"));
         assert!(table_exists(&conn, "timer_runtime_checkpoint"));
+        assert!(table_exists(&conn, "pomodoro_boundary_effects"));
     }
 
     #[test]
