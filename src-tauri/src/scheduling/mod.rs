@@ -1,6 +1,7 @@
 use crate::domain::model::{PlanningLane, ScheduleKind};
 use crate::domain::tasks::{TaskRecord, TaskSchedule};
 use chrono::{Datelike, Duration, NaiveDate, NaiveDateTime, NaiveTime};
+use jiff::{civil::DateTime as JiffDateTime, tz::TimeZone, Timestamp};
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
@@ -10,9 +11,15 @@ const MAX_TIMEZONE_BYTES: usize = 128;
 pub enum SchedulingError {
     InvalidLocalDate(String),
     InvalidLocalTime(String),
-    InvalidTimezone,
+    InvalidTimezone(String),
+    AmbiguousLocalDateTime {
+        local_date: String,
+        local_time: String,
+        timezone: String,
+    },
     InconsistentStoredSchedule(ScheduleKind),
     DateArithmeticOverflow,
+    TimezoneConversionFailed,
 }
 
 impl Display for SchedulingError {
@@ -24,8 +31,17 @@ impl Display for SchedulingError {
             Self::InvalidLocalTime(value) => {
                 write!(formatter, "scheduled local time is invalid: {value}")
             }
-            Self::InvalidTimezone => formatter
-                .write_str("scheduling timezone must be a non-empty local timezone identifier"),
+            Self::InvalidTimezone(value) => {
+                write!(formatter, "scheduling timezone is not a known IANA identifier: {value}")
+            }
+            Self::AmbiguousLocalDateTime {
+                local_date,
+                local_time,
+                timezone,
+            } => write!(
+                formatter,
+                "scheduled local datetime is ambiguous or nonexistent in {timezone}: {local_date} {local_time}"
+            ),
             Self::InconsistentStoredSchedule(kind) => {
                 write!(
                     formatter,
@@ -34,6 +50,9 @@ impl Display for SchedulingError {
             }
             Self::DateArithmeticOverflow => {
                 formatter.write_str("scheduling date/time arithmetic overflow")
+            }
+            Self::TimezoneConversionFailed => {
+                formatter.write_str("scheduling timezone conversion failed")
             }
         }
     }
@@ -70,6 +89,7 @@ enum ParsedTaskSchedule {
     LocalDateTime {
         local_date: NaiveDate,
         local_time: NaiveTime,
+        timezone: String,
     },
 }
 
@@ -83,12 +103,18 @@ fn parse_local_time(value: &str) -> Result<NaiveTime, SchedulingError> {
         .map_err(|_| SchedulingError::InvalidLocalTime(value.to_owned()))
 }
 
-fn validate_timezone(value: &str) -> Result<&str, SchedulingError> {
+pub fn validate_timezone_identifier(value: &str) -> Result<String, SchedulingError> {
     let value = value.trim();
     if value.is_empty() || value.len() > MAX_TIMEZONE_BYTES || value.chars().any(char::is_control) {
-        return Err(SchedulingError::InvalidTimezone);
+        return Err(SchedulingError::InvalidTimezone(value.to_owned()));
     }
-    Ok(value)
+    TimeZone::get(value).map_err(|_| SchedulingError::InvalidTimezone(value.to_owned()))?;
+    Ok(value.to_owned())
+}
+
+fn resolve_timezone(value: &str) -> Result<TimeZone, SchedulingError> {
+    let normalized = validate_timezone_identifier(value)?;
+    TimeZone::get(&normalized).map_err(|_| SchedulingError::InvalidTimezone(normalized))
 }
 
 fn checked_add(value: NaiveDateTime, duration: Duration) -> Result<NaiveDateTime, SchedulingError> {
@@ -141,13 +167,50 @@ fn parsed_task_schedule(task: &TaskRecord) -> Result<ParsedTaskSchedule, Schedul
                     ScheduleKind::LocalDateTime,
                 ));
             };
-            validate_timezone(timezone)?;
+            let timezone = validate_timezone_identifier(timezone)?;
             Ok(ParsedTaskSchedule::LocalDateTime {
                 local_date: parse_local_date(local_date)?,
                 local_time: parse_local_time(local_time)?,
+                timezone,
             })
         }
     }
+}
+
+fn jiff_local_datetime(
+    local_date: NaiveDate,
+    local_time: NaiveTime,
+) -> Result<JiffDateTime, SchedulingError> {
+    format!(
+        "{}T{}:00",
+        local_date.format("%Y-%m-%d"),
+        local_time.format("%H:%M")
+    )
+    .parse()
+    .map_err(|_| SchedulingError::TimezoneConversionFailed)
+}
+
+pub fn resolve_local_datetime_strict(
+    local_date: NaiveDate,
+    local_time: NaiveTime,
+    timezone: &str,
+) -> Result<Timestamp, SchedulingError> {
+    let timezone = validate_timezone_identifier(timezone)?;
+    let zone = resolve_timezone(&timezone)?;
+    let civil = jiff_local_datetime(local_date, local_time)?;
+    zone.to_ambiguous_timestamp(civil)
+        .unambiguous()
+        .map_err(|_| SchedulingError::AmbiguousLocalDateTime {
+            local_date: local_date.format("%Y-%m-%d").to_string(),
+            local_time: local_time.format("%H:%M").to_string(),
+            timezone,
+        })
+}
+
+fn local_date_at(timestamp: Timestamp, timezone: &str) -> Result<NaiveDate, SchedulingError> {
+    let zone = resolve_timezone(timezone)?;
+    let date = zone.to_datetime(timestamp).date().to_string();
+    parse_local_date(&date).map_err(|_| SchedulingError::TimezoneConversionFailed)
 }
 
 pub fn monday_of_week(local_date: NaiveDate) -> Result<NaiveDate, SchedulingError> {
@@ -187,9 +250,33 @@ pub fn effective_planning_lane(
     }
 }
 
-pub fn focus_eligibility(
+pub fn effective_planning_lane_at(
     task: &TaskRecord,
-    now_local: NaiveDateTime,
+    now: Timestamp,
+    display_timezone: &str,
+) -> Result<PlanningLane, SchedulingError> {
+    let today_local = local_date_at(now, display_timezone)?;
+    match parsed_task_schedule(task)? {
+        ParsedTaskSchedule::None => Ok(task.manual_lane),
+        ParsedTaskSchedule::DateOnly { local_date } => {
+            classify_scheduled_date(local_date, today_local)
+        }
+        ParsedTaskSchedule::LocalDateTime {
+            local_date,
+            local_time,
+            timezone,
+        } => {
+            let scheduled = resolve_local_datetime_strict(local_date, local_time, &timezone)?;
+            let scheduled_local_date = local_date_at(scheduled, display_timezone)?;
+            classify_scheduled_date(scheduled_local_date, today_local)
+        }
+    }
+}
+
+pub fn focus_eligibility_at(
+    task: &TaskRecord,
+    now: Timestamp,
+    display_timezone: &str,
 ) -> Result<FocusEligibility, SchedulingError> {
     if task.archived_at.is_some() {
         return Ok(FocusEligibility::Archived);
@@ -197,16 +284,18 @@ pub fn focus_eligibility(
     if task.completed_at.is_some() {
         return Ok(FocusEligibility::Completed);
     }
-    if effective_planning_lane(task, now_local.date())? != PlanningLane::Today {
+    if effective_planning_lane_at(task, now, display_timezone)? != PlanningLane::Today {
         return Ok(FocusEligibility::NotToday);
     }
 
     if let ParsedTaskSchedule::LocalDateTime {
         local_date,
         local_time,
+        timezone,
     } = parsed_task_schedule(task)?
     {
-        if local_date == now_local.date() && local_time > now_local.time() {
+        let scheduled = resolve_local_datetime_strict(local_date, local_time, &timezone)?;
+        if scheduled > now {
             return Ok(FocusEligibility::FutureScheduledTime);
         }
     }
@@ -214,11 +303,12 @@ pub fn focus_eligibility(
     Ok(FocusEligibility::Eligible)
 }
 
-pub fn is_focus_eligible(
+pub fn is_focus_eligible_at(
     task: &TaskRecord,
-    now_local: NaiveDateTime,
+    now: Timestamp,
+    display_timezone: &str,
 ) -> Result<bool, SchedulingError> {
-    Ok(focus_eligibility(task, now_local)? == FocusEligibility::Eligible)
+    Ok(focus_eligibility_at(task, now, display_timezone)? == FocusEligibility::Eligible)
 }
 
 pub fn resolve_schedule_shortcut(
@@ -231,12 +321,13 @@ pub fn resolve_schedule_shortcut(
             local_date: now_local.date().format("%Y-%m-%d").to_string(),
         }),
         ScheduleShortcut::LaterToday => {
-            let timezone = validate_timezone(timezone)?;
+            let timezone = validate_timezone_identifier(timezone)?;
             let due = checked_add(now_local, Duration::hours(2))?;
+            resolve_local_datetime_strict(due.date(), due.time(), &timezone)?;
             Ok(TaskSchedule::LocalDateTime {
                 local_date: due.date().format("%Y-%m-%d").to_string(),
                 local_time: due.time().format("%H:%M").to_string(),
-                timezone: timezone.to_owned(),
+                timezone,
             })
         }
         ScheduleShortcut::Tomorrow => Ok(TaskSchedule::DateOnly {
@@ -270,6 +361,10 @@ mod tests {
         NaiveDateTime::parse_from_str(value, "%Y-%m-%d %H:%M:%S").unwrap()
     }
 
+    fn timestamp(value: &str) -> Timestamp {
+        value.parse().unwrap()
+    }
+
     fn task(manual_lane: PlanningLane) -> TaskRecord {
         TaskRecord {
             id: TaskId::generate(),
@@ -298,12 +393,21 @@ mod tests {
         task
     }
 
-    fn local_datetime(mut task: TaskRecord, local_date: &str, local_time: &str) -> TaskRecord {
+    fn local_datetime_in(
+        mut task: TaskRecord,
+        local_date: &str,
+        local_time: &str,
+        timezone: &str,
+    ) -> TaskRecord {
         task.schedule_kind = ScheduleKind::LocalDateTime;
         task.scheduled_local_date = Some(local_date.into());
         task.scheduled_local_time = Some(local_time.into());
-        task.schedule_timezone = Some("Europe/Athens".into());
+        task.schedule_timezone = Some(timezone.into());
         task
+    }
+
+    fn local_datetime(task: TaskRecord, local_date: &str, local_time: &str) -> TaskRecord {
+        local_datetime_in(task, local_date, local_time, "Europe/Athens")
     }
 
     #[test]
@@ -365,41 +469,37 @@ mod tests {
     }
 
     #[test]
-    fn unscheduled_task_keeps_manual_lane() {
-        let unscheduled = task(PlanningLane::ThisWeek);
-        assert_eq!(
-            effective_planning_lane(&unscheduled, date("2026-09-09")).unwrap(),
-            PlanningLane::ThisWeek
-        );
-    }
-
-    #[test]
     fn future_timed_today_task_is_visible_today_but_not_focus_eligible() {
         let scheduled = local_datetime(task(PlanningLane::Backlog), "2026-09-09", "15:00");
-        let before = datetime("2026-09-09 14:59:59");
+        let before = timestamp("2026-09-09T11:59:59Z");
         assert_eq!(
-            effective_planning_lane(&scheduled, before.date()).unwrap(),
+            effective_planning_lane_at(&scheduled, before, "Europe/Athens").unwrap(),
             PlanningLane::Today
         );
         assert_eq!(
-            focus_eligibility(&scheduled, before).unwrap(),
+            focus_eligibility_at(&scheduled, before, "Europe/Athens").unwrap(),
             FocusEligibility::FutureScheduledTime
         );
-        assert!(!is_focus_eligible(&scheduled, before).unwrap());
+        assert!(!is_focus_eligible_at(&scheduled, before, "Europe/Athens").unwrap());
 
-        let due = datetime("2026-09-09 15:00:00");
+        let due = timestamp("2026-09-09T12:00:00Z");
         assert_eq!(
-            focus_eligibility(&scheduled, due).unwrap(),
+            focus_eligibility_at(&scheduled, due, "Europe/Athens").unwrap(),
             FocusEligibility::Eligible
         );
-        assert!(is_focus_eligible(&scheduled, due).unwrap());
+        assert!(is_focus_eligible_at(&scheduled, due, "Europe/Athens").unwrap());
     }
 
     #[test]
     fn overdue_timed_task_is_focus_eligible_even_when_stored_time_is_later_in_day() {
         let scheduled = local_datetime(task(PlanningLane::Backlog), "2026-09-08", "23:59");
         assert_eq!(
-            focus_eligibility(&scheduled, datetime("2026-09-09 08:00:00")).unwrap(),
+            focus_eligibility_at(
+                &scheduled,
+                timestamp("2026-09-09T05:00:00Z"),
+                "Europe/Athens"
+            )
+            .unwrap(),
             FocusEligibility::Eligible
         );
     }
@@ -409,21 +509,32 @@ mod tests {
         let mut completed = task(PlanningLane::Today);
         completed.completed_at = Some("2026-09-09T07:00:00Z".into());
         assert_eq!(
-            focus_eligibility(&completed, datetime("2026-09-09 08:00:00")).unwrap(),
+            focus_eligibility_at(
+                &completed,
+                timestamp("2026-09-09T05:00:00Z"),
+                "Europe/Athens"
+            )
+            .unwrap(),
             FocusEligibility::Completed
         );
 
         let mut archived = task(PlanningLane::Today);
         archived.archived_at = Some("2026-09-09T07:00:00Z".into());
         assert_eq!(
-            focus_eligibility(&archived, datetime("2026-09-09 08:00:00")).unwrap(),
+            focus_eligibility_at(
+                &archived,
+                timestamp("2026-09-09T05:00:00Z"),
+                "Europe/Athens"
+            )
+            .unwrap(),
             FocusEligibility::Archived
         );
 
         assert_eq!(
-            focus_eligibility(
+            focus_eligibility_at(
                 &task(PlanningLane::ThisWeek),
-                datetime("2026-09-09 08:00:00")
+                timestamp("2026-09-09T05:00:00Z"),
+                "Europe/Athens"
             )
             .unwrap(),
             FocusEligibility::NotToday
@@ -435,12 +546,101 @@ mod tests {
         let scheduled = date_only(task(PlanningLane::Backlog), "2026-09-09");
         assert!(scheduled.schedule_timezone.is_none());
         assert_eq!(
-            effective_planning_lane(&scheduled, date("2026-09-09")).unwrap(),
+            effective_planning_lane_at(
+                &scheduled,
+                timestamp("2026-09-09T00:00:00Z"),
+                "Europe/Athens"
+            )
+            .unwrap(),
             PlanningLane::Today
         );
         assert_eq!(
-            focus_eligibility(&scheduled, datetime("2026-09-09 00:00:00")).unwrap(),
+            focus_eligibility_at(
+                &scheduled,
+                timestamp("2026-09-09T00:00:00Z"),
+                "Europe/Athens"
+            )
+            .unwrap(),
             FocusEligibility::Eligible
+        );
+    }
+
+    #[test]
+    fn timezone_identifier_is_resolved_through_iana_database() {
+        assert_eq!(
+            validate_timezone_identifier(" Europe/Athens ").unwrap(),
+            "Europe/Athens"
+        );
+        assert!(matches!(
+            validate_timezone_identifier("Europe/Atlantis"),
+            Err(SchedulingError::InvalidTimezone(_))
+        ));
+    }
+
+    #[test]
+    fn dst_gap_and_fold_fail_closed_instead_of_selecting_an_implicit_instant() {
+        assert!(matches!(
+            resolve_local_datetime_strict(
+                date("2026-03-08"),
+                NaiveTime::parse_from_str("02:30", "%H:%M").unwrap(),
+                "America/New_York"
+            ),
+            Err(SchedulingError::AmbiguousLocalDateTime { .. })
+        ));
+        assert!(matches!(
+            resolve_local_datetime_strict(
+                date("2026-11-01"),
+                NaiveTime::parse_from_str("01:30", "%H:%M").unwrap(),
+                "America/New_York"
+            ),
+            Err(SchedulingError::AmbiguousLocalDateTime { .. })
+        ));
+    }
+
+    #[test]
+    fn timed_schedule_keeps_its_instant_when_display_timezone_changes() {
+        let scheduled = local_datetime_in(
+            task(PlanningLane::Backlog),
+            "2026-09-10",
+            "00:30",
+            "Europe/Athens",
+        );
+        let now = timestamp("2026-09-09T20:00:00Z");
+
+        assert_eq!(
+            effective_planning_lane_at(&scheduled, now, "Europe/Athens").unwrap(),
+            PlanningLane::ThisWeek
+        );
+        assert_eq!(
+            effective_planning_lane_at(&scheduled, now, "America/New_York").unwrap(),
+            PlanningLane::Today
+        );
+        assert_eq!(
+            focus_eligibility_at(&scheduled, now, "America/New_York").unwrap(),
+            FocusEligibility::FutureScheduledTime
+        );
+        assert_eq!(
+            focus_eligibility_at(
+                &scheduled,
+                timestamp("2026-09-09T21:30:00Z"),
+                "America/New_York"
+            )
+            .unwrap(),
+            FocusEligibility::Eligible
+        );
+    }
+
+    #[test]
+    fn date_only_schedule_remains_calendar_stable_across_timezone_changes() {
+        let scheduled = date_only(task(PlanningLane::Backlog), "2026-09-10");
+        let now = timestamp("2026-09-09T20:00:00Z");
+        assert_eq!(
+            effective_planning_lane_at(&scheduled, now, "Europe/Athens").unwrap(),
+            PlanningLane::ThisWeek
+        );
+        assert_eq!(
+            effective_planning_lane_at(&scheduled, now, "America/New_York").unwrap(),
+            PlanningLane::ThisWeek
         );
     }
 
@@ -511,6 +711,18 @@ mod tests {
     }
 
     #[test]
+    fn later_today_fails_closed_if_two_hour_target_lands_in_dst_gap() {
+        assert!(matches!(
+            resolve_schedule_shortcut(
+                ScheduleShortcut::LaterToday,
+                datetime("2026-03-08 00:30:00"),
+                "America/New_York"
+            ),
+            Err(SchedulingError::AmbiguousLocalDateTime { .. })
+        ));
+    }
+
+    #[test]
     fn invalid_shortcut_date_timezone_and_corrupt_stored_schedule_fail_closed() {
         assert!(matches!(
             resolve_schedule_shortcut(
@@ -526,9 +738,9 @@ mod tests {
             resolve_schedule_shortcut(
                 ScheduleShortcut::LaterToday,
                 datetime("2026-09-09 10:15:00"),
-                "  "
+                "Europe/Atlantis"
             ),
-            Err(SchedulingError::InvalidTimezone)
+            Err(SchedulingError::InvalidTimezone(_))
         ));
 
         let mut corrupt = task(PlanningLane::Today);
