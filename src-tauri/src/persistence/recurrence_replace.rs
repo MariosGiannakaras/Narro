@@ -143,7 +143,11 @@ fn normalize_replacement(
     if input.interval_count == 0 {
         return Err(ReplaceExistingError::InvalidInterval);
     }
-    if input.month_day.is_some_and(|day| !(1..=31).contains(&day)) {
+    if input.weekday_mask > 127
+        || input
+            .month_day
+            .is_some_and(|day| !(1..=31).contains(&day))
+    {
         return Err(ReplaceExistingError::InvalidPattern);
     }
 
@@ -298,11 +302,9 @@ pub fn replace_existing_tasks(
             if detached != 1 {
                 return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
             }
-            tx.execute(
-                "DELETE FROM recurrence_occurrences
-                 WHERE child_task_id = ?1 AND recurrence_rule_id = ?2",
-                params![child_id.to_string(), rule_id.to_string()],
-            )?;
+            // Keep the occurrence row as the durable idempotency reservation for this
+            // preserved child. The task is user-independent, but this rule must not
+            // regenerate the same occurrence and create a duplicate beside it.
             detached_modified_child_ids.push(child_id);
         }
     }
