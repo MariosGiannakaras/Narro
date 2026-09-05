@@ -50,31 +50,41 @@ This section is the canonical interpretation rule when branch/PR history is nois
 
 - Active milestone: **Milestone 4**.
 - Latest completed slice: **timezone/DST correctness — COMPLETE / RECONCILED**.
-- Active source slice: **None**.
-- Active implementation branch: **None**.
-- Active implementation PR: **None**.
-- Pending source CI/main validation: **None**.
-- Next candidate slice: **M4 recurrence execution/materialization — NOT STARTED**.
+- Active source slice: **recurrence execution/materialization core — ACTIVE**.
+- Active implementation branch: **`ai/m4-recurrence-materialization`**.
+- Active implementation PR: **#40 — `M4: materialize recurring task occurrences`**.
+- Current candidate head: **`22d6cbafda3f3967aeecf7f0823172336728035d`**.
+- Pending source CI/main validation: **Windows PR CI required; exact-head validation not yet proven**.
+- Small-slice progress: **2/6** (requirements/source audit and reviewed source/test candidate complete; PR CI/merge/main/reconciliation remain).
 - Later milestones M5–M10: **NOT STARTED**.
 
-If any of these facts changes, update this record in the same coherent work cycle. A new chat must resume an ACTIVE item here before choosing a new one.
+A new chat must resume PR #40 before starting another source slice. Inspect its exact current head and latest CI state first. If the head changes, do not merge based on older validation evidence.
 
 ## USER-FACING PROGRESS
 
 Current durable project progress:
 
 - **Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
-- **Μικρή τρέχουσα υλοποίηση: 6/6 ολοκληρωμένες** for the completed M4 timezone/DST correctness slice (PR #37).
+- **Μικρή τρέχουσα υλοποίηση: 2/6 ολοκληρωμένες** for the active M4 recurrence execution/materialization core slice (PR #40).
 
-The next M4 implementation slice has **NOT STARTED**. Do not reset the small counter until source work on a genuinely new slice explicitly begins and its checkpoint denominator is stated.
+The 6 checkpoints for this slice are:
+
+1. recurrence product/risk/persistence contract audit and branch start;
+2. deterministic transactional source/test candidate plus actual diff review;
+3. exact PR-head Windows CI success (preflight, Rust tests/build, release artifact);
+4. final semantic/diff review of the exact validated head;
+5. guarded merge using the validated expected head;
+6. resulting-main Windows CI plus durable TODO/STATUS/HANDOFF/work-log reconciliation.
+
+Do not increment checkpoint 3 from code presence alone.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-Latest validated source baseline is PR #37 squash merge:
+Latest validated source baseline remains PR #37 squash merge:
 
 `77625cfac01ad133a4c5c188a9613b43d294460c`
 
-Exact validated PR head:
+Exact validated PR #37 head:
 
 `4ef9e89ccf68989716444d45a833c6e4436723f6`
 
@@ -88,13 +98,13 @@ PR validation evidence:
 
 Post-merge validation evidence:
 
-- Windows main CI #208 / run `33977191609` / job `101335861563`: **SUCCESS** on exact main source SHA `77625cfac01ad133a4c5c188a9613b43d294460c`;
+- Windows main CI #208 / run `33977191609` / job `101335861563`: **SUCCESS** on exact source SHA `77625cfac01ad133a4c5c188a9613b43d294460c`;
 - repository preflight: **PASS**;
 - Tauri release build: **PASS**;
 - artifact upload: **PASS**;
 - main artifact ID `9972845872`, digest `sha256:dc554575ec03b5a7c793f5163a8451173cbcf6713070ed0615ccfada0ce564c0`.
 
-Markdown-only tracking commits newer than this source SHA do not replace the validated source baseline.
+Markdown-only tracking commits newer than this SHA do not replace the validated source baseline. PR #40 source is **implemented but not yet validated** and therefore does not replace this baseline yet.
 
 ## VALIDATED M4 SLICES
 
@@ -127,17 +137,39 @@ Validated capabilities:
 - schedule persistence rejects invalid timezone identifiers and ambiguous/nonexistent timed local datetimes;
 - regressions cover invalid IANA zones, DST gaps/folds, timezone changes, date-only stability and existing task-identity/scheduling invariants.
 
-Changed source/tests in final PR #37:
-
-- `src-tauri/Cargo.toml`;
-- `src-tauri/Cargo.lock`;
-- `src-tauri/src/persistence/task_metadata.rs`;
-- `src-tauri/src/scheduling/mod.rs`;
-- `src-tauri/tests/scheduling_core.rs`.
-
-The temporary lockfile-snapshot workflow used during branch preparation was removed before the validated PR head and is not present in `main`.
-
 Evidence: `work-log/2026-09-05-chatgpt-m4-timezone-dst-reconciliation.md`.
+
+## ACTIVE M4 RECURRENCE SLICE — PR #40
+
+Implemented candidate behavior, **not yet CI-validated**:
+
+- recurrence occurrence computation for day/week/month/year interval rules;
+- Monday-through-Sunday materialization window, so due children for the current week are generated from the Monday boundary;
+- weekly/monthly selected-weekday masks and monthly calendar-date rules;
+- leap-day yearly rules skip non-leap years rather than inventing a different calendar date;
+- timed recurrence occurrences reuse strict IANA/DST resolution and fail closed on a DST gap/fold;
+- active recurring parent is normalized to an unscheduled Backlog parent at materialization;
+- child tasks receive stable new task IDs, parent linkage, copied core title/list/EST fields, and date-only or local-datetime schedule semantics;
+- task + `recurrence_occurrences` insertions occur in one SQLite `IMMEDIATE` transaction;
+- repeated materialization reuses the existing occurrence row/child instead of duplicating it;
+- `last_materialized_local_date` advances monotonically and is not the sole idempotency mechanism.
+
+Changed candidate files:
+
+- `src-tauri/src/recurrence/mod.rs`;
+- `src-tauri/tests/recurrence_materialization.rs`.
+
+Explicitly out of scope / still open after this slice unless later work proves otherwise:
+
+- Replace Existing Tasks;
+- recurrence detachment semantics;
+- startup/resume/local-date orchestration across all active rules;
+- multi-week missed-day catch-up;
+- reminders;
+- copying unconfirmed rich-note/subtask behavior into recurrence children;
+- product UI.
+
+Local Node/Rust preflight: **NOT RUN** in the connector-only implementation environment. Windows CI is authoritative for compile/tests/release validation.
 
 ## M4 TODO STATE
 
@@ -149,36 +181,32 @@ Already validated and checked in `TODO.md`:
 - future-timed Today focus gating;
 - date-only no-day-shift semantics.
 
-Timezone/DST coverage is now materially stronger after PR #37, but the broad combined M4 test item intentionally remains open because repeated startup, missed-day recurrence catch-up, and full recurrence/reminder behavior are not implemented yet.
-
-Still open:
+Still open until evidence-backed reconciliation:
 
 - one-off local reminders;
 - recurrence presets/custom interval-unit-weekday rules;
 - recurring parent in Backlog and Monday-of-due-week child materialization;
 - Replace Existing Tasks;
 - recurrence detachment while preserving independent modified children;
-- idempotent materialization on startup/resume/date change;
+- idempotent materialization on startup/resume/date change/missed-day catch-up;
 - tray/background due-reminder processing;
 - Windows locale/system 12/24-hour visible formatting;
-- remaining combined M4 regressions including repeated startup, missed days and recurrence/reminder boundary behavior;
+- remaining combined M4 regressions;
 - explicit scheduled-lane movement anti-duplication regression at the M4 behavior layer.
 
-`src-tauri/src/recurrence/mod.rs` is still only the Milestone 4 capability boundary; occurrence materialization has not started.
+Do not check recurrence TODO items from PR #40 until its exact head passes CI, is merged, resulting main is validated, and tracking is reconciled.
 
-## NEXT AGENT ACTION — NOT STARTED
+## NEXT AGENT ACTION — ACTIVE PR #40
 
-The next source slice has **not started**. When implementation resumes, remain inside Milestone 4.
+1. inspect current exact PR #40 head (expected at this handoff: `22d6cbafda3f3967aeecf7f0823172336728035d`);
+2. inspect its latest Windows CI state;
+3. if CI fails, read the exact failing job log and fix only evidence-backed problems on the same branch/PR;
+4. if CI succeeds, record exact run/job/artifact evidence and perform final semantic/diff review;
+5. guarded-merge only that validated expected head;
+6. validate resulting main source SHA with Windows CI;
+7. only then update TODO/STATUS/HANDOFF and create the immutable recurrence work-log entry.
 
-The next ordered candidate is recurrence execution/materialization, using the already-validated M2 recurrence metadata and the now-validated scheduling/timezone foundation. Before writing code:
-
-1. inspect `docs/PRODUCT_SPEC.md` recurrence rules and current `src-tauri/src/domain/recurrence.rs` / `src-tauri/src/persistence/recurrence.rs` contracts;
-2. define a narrow first recurrence slice with deterministic occurrence computation and idempotency;
-3. preserve the recurring parent in Backlog and Monday-of-due-week child behavior;
-4. do not claim Replace Existing, detachment, missed-day catch-up or reminders until each is actually implemented and validated;
-5. validate exact PR head with Windows CI, merge with expected-head guard, validate resulting main source SHA, then reconcile tracking before marking that slice complete.
-
-Do **not** start Milestone 5 UI, Milestone 6 Focus Panel product UI, Milestone 7 Floating Timer product UI, or later milestones while M4 is open.
+Do not begin Replace Existing, detachment, reminders or Milestone 5+ while PR #40 is unresolved.
 
 ## IMPORTANT INVARIANTS
 
@@ -189,22 +217,20 @@ Preserve M2/M3/M4 correctness:
 - date-only schedules never convert through UTC;
 - week starts Monday;
 - timed schedules use explicit timezone resolution and fail closed on ambiguous/nonexistent local times;
-- time-of-day affects focus eligibility, not Today lane classification;
+- recurrence generation is deterministic and idempotent;
+- `recurrence_occurrences` unique identity is the durable duplicate-prevention boundary, not only `last_materialized_local_date`;
 - renderer does not own authoritative wall/timezone/timer state;
 - Tauri/Rust owns timer advancement and automatic boundaries;
 - process restart downtime is not counted as work;
 - active sleep accounting semantics come from the persisted focus-session policy;
 - one-open-session database invariant remains enforced;
-- recurrence generation, once implemented, must be deterministic and idempotent;
 - do not regress async `main` recreation; the old synchronous WebView2 creation path deadlocked on real Windows.
 
 ## HISTORICAL / SUPERSEDED WORK
 
 Old branches may remain reachable for history. Their existence does not make their old slice active.
 
-PR #2 and PR #3 are superseded historical M1 shortcut attempts. Their source diffs were re-audited after closure against PR #4/current main. They contain alternate diagnostic implementations of the same required capability (different temporary chords/state models), not unique required product behavior. The authoritative merged implementation is PR #4 / merge `fce2bbf65ab07d50a6928605c00fb694079739a0`, which provides the final `Ctrl+Shift+B` Windows `RegisterHotKey` path, `WM_HOTKEY` handling, idempotent registration, deterministic conflict handling, structured diagnostics, trigger counting and main show/recreate behavior. No required source recovery from PR #2/#3 is pending.
-
-PR #2 and PR #3 must not be treated as active implementation work.
+PR #2 and PR #3 are superseded historical M1 shortcut attempts. Their source diffs were re-audited after closure against PR #4/current main. They contain alternate diagnostic implementations of the same required capability, not unique required product behavior. The authoritative merged shortcut implementation is PR #4 / merge `fce2bbf65ab07d50a6928605c00fb694079739a0`. No required source recovery from PR #2/#3 is pending.
 
 ## IMPORTANT FILES
 
@@ -213,14 +239,13 @@ PR #2 and PR #3 must not be treated as active implementation work.
 - `STATUS.md`
 - `docs/BLITZIT_HISTORY_RISK_INDEX.md`
 - `docs/PRODUCT_SPEC.md`
-- `src-tauri/src/scheduling/mod.rs`
-- `src-tauri/tests/scheduling_core.rs`
+- `docs/ARCHITECTURE.md`
 - `src-tauri/src/domain/recurrence.rs`
 - `src-tauri/src/persistence/recurrence.rs`
 - `src-tauri/src/recurrence/mod.rs`
+- `src-tauri/tests/recurrence_materialization.rs`
+- `src-tauri/src/scheduling/mod.rs`
 - `src-tauri/src/persistence/task_metadata.rs`
-- `work-log/2026-09-05-1618-chatgpt-m4-scheduling-core.md`
-- `work-log/2026-09-05-chatgpt-m4-timezone-dst-reconciliation.md`
 - `work-log/2026-09-05-chatgpt-work-state-protocol.md`
 
 ## USER ACTION REQUIRED
