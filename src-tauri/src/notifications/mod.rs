@@ -10,6 +10,8 @@ pub const POMODORO_BREAK_STARTED_TITLE: &str = "Pomodoro break started";
 pub const POMODORO_BREAK_STARTED_BODY: &str = "Your work sprint is complete. Take a break.";
 pub const POMODORO_BREAK_FINISHED_TITLE: &str = "Pomodoro break finished";
 pub const POMODORO_BREAK_FINISHED_BODY: &str = "Your break is complete. Resume when you're ready.";
+pub const TASK_REMINDER_TITLE: &str = "Task reminder";
+const MAX_NOTIFICATION_BODY_CHARS: usize = 200;
 
 #[derive(Debug, Clone, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -17,6 +19,10 @@ pub struct NotificationTestResult {
     pub title: &'static str,
     pub body: &'static str,
     pub submitted: bool,
+}
+
+fn bounded_body(value: &str) -> String {
+    value.chars().take(MAX_NOTIFICATION_BODY_CHARS).collect()
 }
 
 fn submit(app_handle: &tauri::AppHandle, title: &str, body: &str) -> CommandResult<()> {
@@ -67,6 +73,11 @@ pub fn send_pomodoro_break_finished(app_handle: &tauri::AppHandle) -> CommandRes
     )
 }
 
+pub fn send_task_reminder(app_handle: &tauri::AppHandle, task_title: &str) -> CommandResult<()> {
+    let body = bounded_body(task_title);
+    submit(app_handle, TASK_REMINDER_TITLE, &body)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -81,7 +92,17 @@ mod tests {
             assert!(!title.is_empty());
             assert!(title.len() <= 80);
             assert!(!body.is_empty());
-            assert!(body.len() <= 200);
+            assert!(body.len() <= MAX_NOTIFICATION_BODY_CHARS);
         }
+        assert!(!TASK_REMINDER_TITLE.is_empty());
+        assert!(TASK_REMINDER_TITLE.len() <= 80);
+    }
+
+    #[test]
+    fn task_reminder_body_truncates_by_character_without_splitting_unicode() {
+        let input = "α".repeat(MAX_NOTIFICATION_BODY_CHARS + 5);
+        let body = bounded_body(&input);
+        assert_eq!(body.chars().count(), MAX_NOTIFICATION_BODY_CHARS);
+        assert_eq!(body, "α".repeat(MAX_NOTIFICATION_BODY_CHARS));
     }
 }

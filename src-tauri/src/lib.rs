@@ -4,6 +4,7 @@ pub mod error;
 pub mod notifications;
 pub mod persistence;
 pub mod recurrence;
+pub mod reminder_service;
 pub mod scheduling;
 pub mod shortcuts;
 pub mod timer;
@@ -590,9 +591,24 @@ pub fn run() {
         .setup(|app| {
             install_tray(app)?;
             let connection = initialize_persistence(app)?;
+            let reminder_database_path = connection
+                .path()
+                .filter(|path| !path.is_empty())
+                .map(std::path::PathBuf::from)
+                .ok_or_else(|| {
+                    startup_error(
+                        "resolve reminder delivery database path",
+                        "SQLite connection has no durable path",
+                    )
+                })?;
             let timer_service = TimerService::recover(connection)
                 .map_err(|error| startup_error("recover authoritative timer runtime", error))?;
             app.manage(timer_service);
+            reminder_service::install_background_delivery(
+                app.handle().clone(),
+                reminder_database_path,
+            )
+            .map_err(|error| startup_error("start reminder delivery runtime", error))?;
             timer_service::install_background_advance(app.handle().clone());
             #[cfg(windows)]
             windows::install_display_change_observer(app)
