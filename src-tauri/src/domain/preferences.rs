@@ -176,8 +176,7 @@ mod tests {
             "\"left\""
         );
         assert_eq!(
-            serde_json::to_string(&SleepAccountingPolicy::Exclude)
-                .expect("serialize sleep policy"),
+            serde_json::to_string(&SleepAccountingPolicy::Exclude).expect("serialize sleep policy"),
             "\"exclude\""
         );
         assert_eq!(
