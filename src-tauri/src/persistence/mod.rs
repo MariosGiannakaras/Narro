@@ -9,6 +9,7 @@ pub mod subtasks;
 pub mod task_identity;
 pub mod task_metadata;
 pub mod tasks;
+pub mod timer_controller;
 pub mod timer_runtime;
 
 use rusqlite::Connection;
