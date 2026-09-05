@@ -113,16 +113,17 @@ fn unsupported_stored_schema_version_is_explicitly_rejected() {
     run_migrations(&mut conn).expect("migrate database");
     let payload_json =
         serde_json::to_string(&PreferencesPayload::default()).expect("serialize default payload");
+    let future_version = PREFERENCES_SCHEMA_VERSION + 1;
     conn.execute(
         "INSERT INTO preferences (id, schema_version, payload_json, updated_at)
-         VALUES (1, 2, ?1, ?2)",
-        params![payload_json, T1],
+         VALUES (1, ?1, ?2, ?3)",
+        params![i64::from(future_version), payload_json, T1],
     )
     .expect("insert future schema fixture");
 
     assert!(matches!(
         get_preferences(&conn),
-        Err(PreferenceStoreError::UnsupportedSchemaVersion(2))
+        Err(PreferenceStoreError::UnsupportedSchemaVersion(version)) if version == future_version
     ));
 }
 
