@@ -48,7 +48,10 @@ impl Display for ReminderStoreError {
                 write!(formatter, "stored {kind} identity is not a valid UUID")
             }
             Self::InvalidStoredTimestamp(kind) => {
-                write!(formatter, "stored reminder {kind} timestamp must be RFC 3339")
+                write!(
+                    formatter,
+                    "stored reminder {kind} timestamp must be RFC 3339"
+                )
             }
             Self::NotFound(id) => write!(formatter, "reminder not found: {id}"),
             Self::TaskArchived(id) => write!(formatter, "reminder task is archived: {id}"),
@@ -131,10 +134,7 @@ fn validate_timestamp(value: &str) -> Result<(), ReminderStoreError> {
         .map_err(|_| ReminderStoreError::InvalidTimestamp)
 }
 
-fn validate_stored_timestamp(
-    kind: &'static str,
-    value: &str,
-) -> Result<(), ReminderStoreError> {
+fn validate_stored_timestamp(kind: &'static str, value: &str) -> Result<(), ReminderStoreError> {
     DateTime::parse_from_rfc3339(value)
         .map(|_| ())
         .map_err(|_| ReminderStoreError::InvalidStoredTimestamp(kind))
