@@ -111,10 +111,11 @@ pub fn ensure_boundary_decision(
     conn: &mut Connection,
     session_id: SessionId,
     kind: PomodoroBoundaryEffectKind,
+    decided_at: &str,
 ) -> Result<bool, PomodoroBoundaryEffectError> {
+    validate_timestamp(decided_at)?;
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-    let session = get_session(&tx, session_id)?;
-    validate_timestamp(&session.started_at)?;
+    get_session(&tx, session_id)?;
 
     let existing: Option<String> = tx
         .query_row(
@@ -142,28 +143,35 @@ pub fn ensure_boundary_decision(
         "INSERT INTO pomodoro_boundary_effects (
             session_id, effect_kind, decided_at, notification_claimed_at
          ) VALUES (?1, ?2, ?3, NULL)",
-        params![session_id.to_string(), kind.as_str(), session.started_at],
+        params![session_id.to_string(), kind.as_str(), decided_at],
     )?;
     tx.commit()?;
     Ok(true)
 }
 
-pub fn boundary_decision_for_session(
+pub fn awaiting_resume_for_open_work_session(
     conn: &Connection,
     session_id: SessionId,
-) -> Result<Option<PomodoroBoundaryEffectKind>, PomodoroBoundaryEffectError> {
-    let raw: Option<String> = conn
-        .query_row(
-            "SELECT effect_kind FROM pomodoro_boundary_effects WHERE session_id = ?1",
-            [session_id.to_string()],
-            |row| row.get(0),
-        )
-        .optional()?;
-    raw.map(|value| {
-        PomodoroBoundaryEffectKind::parse(&value)
-            .ok_or(PomodoroBoundaryEffectError::CorruptKind(value))
-    })
-    .transpose()
+) -> Result<bool, PomodoroBoundaryEffectError> {
+    let awaiting: i64 = conn.query_row(
+        "SELECT EXISTS(
+            SELECT 1
+            FROM sessions current
+            JOIN sessions previous
+              ON previous.ended_at = current.started_at
+             AND previous.kind = 'break'
+            JOIN pomodoro_boundary_effects effect
+              ON effect.session_id = previous.id
+             AND effect.effect_kind = 'break_finished'
+            WHERE current.id = ?1
+              AND current.kind = 'work'
+              AND current.ended_at IS NULL
+              AND current.updated_at = current.started_at
+        )",
+        [session_id.to_string()],
+        |row| row.get(0),
+    )?;
+    Ok(awaiting == 1)
 }
 
 pub fn claim_pending_notifications(
@@ -174,10 +182,23 @@ pub fn claim_pending_notifications(
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let pending = {
         let mut statement = tx.prepare(
-            "SELECT session_id, effect_kind, decided_at
-             FROM pomodoro_boundary_effects
-             WHERE notification_claimed_at IS NULL
-             ORDER BY decided_at, session_id",
+            "SELECT effect.session_id, effect.effect_kind, effect.decided_at
+             FROM pomodoro_boundary_effects effect
+             JOIN sessions source ON source.id = effect.session_id
+             WHERE effect.notification_claimed_at IS NULL
+               AND source.ended_at IS NOT NULL
+               AND (
+                 (effect.effect_kind = 'break_started' AND EXISTS(
+                    SELECT 1 FROM sessions next
+                    WHERE next.kind = 'break' AND next.started_at = source.ended_at
+                 ))
+                 OR
+                 (effect.effect_kind = 'break_finished' AND EXISTS(
+                    SELECT 1 FROM sessions next
+                    WHERE next.kind = 'work' AND next.started_at = source.ended_at
+                 ))
+               )
+             ORDER BY effect.decided_at, effect.session_id",
         )?;
         let rows = statement.query_map([], |row| {
             Ok((
