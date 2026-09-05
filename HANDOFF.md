@@ -20,29 +20,30 @@ Do not start M5+ while M4 remains open unless the user explicitly changes roadma
 - Latest completed source slice: **durable one-off reminder core — COMPLETE / RECONCILED**.
 - Active source slice: **tray/background OS reminder delivery orchestration — ACTIVE**.
 - Active implementation branch: **`ai/m4-reminder-delivery`**.
-- Active implementation PR: **None yet**.
+- Active implementation PR: **#45 — `M4: deliver due reminders in tray background runtime`**.
 - Latest fully main-validated source baseline: **`3ba3203fa567234665f5caa2e1e6bede98805d64`**.
-- Current small-slice progress: **1/6**.
+- Current source candidate is implemented and diff-reviewed; exact PR head must be re-read after this HANDOFF commit before accepting CI or merging.
+- Local Rust/Node preflight in this connector-only environment: **NOT RUN**.
+- Pending validation: **exact-head Windows PR CI, final exact-head semantic/diff review, guarded merge, resulting-main Windows CI, reconciliation**.
+- Current small-slice progress: **2/6**.
 - Later milestones M5–M10: **NOT STARTED**.
 
-The branch was created after reminder-core reconciliation. No source delivery code has been committed yet. Resume this exact branch before starting any other source slice.
+Resume PR #45 before any other source slice. Ignore CI tied to older heads.
 
 ## USER-FACING PROGRESS
 
 **Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
 
-**Μικρή τρέχουσα υλοποίηση: 1/6 ολοκληρωμένες.**
+**Μικρή τρέχουσα υλοποίηση: 2/6 ολοκληρωμένες.**
 
-Reminder-delivery slice checkpoints:
+Reminder-delivery checkpoints:
 
-1. product/risk/runtime ownership audit plus branch start;
-2. Rust-owned tray/background dispatcher + deterministic tests + candidate diff review;
-3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact;
-4. final semantic/diff review of the exact validated head;
-5. guarded merge using the validated expected head;
-6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation.
-
-Do not increment a checkpoint from code presence alone.
+1. product/risk/runtime ownership audit plus branch start — COMPLETE;
+2. Rust-owned tray/background dispatcher + deterministic tests + candidate diff review — COMPLETE;
+3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact — PENDING;
+4. final semantic/diff review of the exact validated head — PENDING;
+5. guarded merge using the validated expected head — PENDING;
+6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
 ## LATEST VALIDATED SOURCE BASELINE
 
@@ -50,38 +51,34 @@ Do not increment a checkpoint from code presence alone.
 
 - PR #43 exact head `e7ad0e936bda7bd55bf6146eeed9834342dec4c3` passed Windows CI #221 / run `33984170905` / job `101354563375`; artifact `9974807441`, digest `sha256:3d427309eb210efbee385a09a3fdba65ff1e595fd99bd0623374658bd18f5db9`.
 - Guarded squash merge produced `3ba3203fa567234665f5caa2e1e6bede98805d64`.
-- Resulting-main Windows CI #222 / run `33984813779` / job `101356279605` passed preflight, release build and artifact upload; artifact `9974997335`, digest `sha256:c82b91fe12b797f6b95a6257d558741203c3a194fa6d4f3737fbdd25a6bea7c4`.
+- Resulting-main Windows CI #222 / run `33984813779` / job `101356279605` passed preflight, release and artifact upload; artifact `9974997335`, digest `sha256:c82b91fe12b797f6b95a6257d558741203c3a194fa6d4f3737fbdd25a6bea7c4`.
 
-Markdown-only commits newer than the source SHA do not replace the validated source baseline.
+Markdown-only commits newer than this source SHA do not replace the validated source baseline.
 
-## VALIDATED REMINDER FOUNDATION
+## PR #45 CANDIDATE BEHAVIOR — NOT YET CI VALIDATED
 
-PR #43 established:
+The candidate reuses the PR #43 durable reminder core and existing Windows notification transport.
 
-- typed one-off reminder persistence using the existing M2 `reminders` table;
-- strict RFC3339/local-date/local-time/IANA timezone validation and DST gap/fold rejection;
-- active task/list checks on creation;
-- side-effect-free `pending_due_reminders` ordered by resolved instant;
-- fired/dismissed and inactive task/list reminders excluded from pending selection;
-- conditional/idempotent `mark_reminder_fired` and `dismiss_reminder` terminal transitions.
+Implemented:
 
-The reminder core deliberately does not submit OS notifications. The M4 one-off reminder TODO and tray/background due-processing TODO remain open until this active slice is validated and reconciled.
+- `src-tauri/src/reminder_service.rs` owns reminder dispatch in Rust;
+- a separately configured SQLite connection is opened for reminder background processing;
+- startup performs an immediate due-reminder catch-up, then repeats at a bounded 30-second cadence;
+- `pending_due_reminders` remains the side-effect-free deterministic due selector;
+- task/list state is rechecked immediately before submission;
+- notification submission happens before `fired_at` acknowledgment;
+- failed Windows submissions remain pending for retry and do not terminate the process;
+- successful acknowledgment excludes the row from later delivery cycles;
+- notification task-title bodies are bounded to 200 Unicode characters;
+- deterministic tests cover success/no-resubmit, failure/retry, resolved-instant order, inactive completed-task exclusion and explicit acknowledgment failure;
+- `lib.rs` integration is narrow: module registration, durable database-path extraction and startup installation of the reminder background worker.
 
-## ACTIVE DELIVERY CONTRACT
+Reliability boundary:
 
-Implement the narrowest Rust-owned dispatcher using existing process/tray/runtime infrastructure:
-
-1. Reuse `src-tauri/src/notifications/mod.rs` for Windows notification submission; do not add renderer polling.
-2. Reuse the persisted reminder core; do not create a second reminder storage model.
-3. Background processing owns a separately configured SQLite connection rather than borrowing renderer state.
-4. For each due reminder, submit the OS notification first. Persist `fired_at` only after successful submission.
-5. On submission failure, leave the reminder pending for later retry and log the failure without terminating the app.
-6. Acknowledge the unavoidable crash window between successful OS submission and `fired_at` persistence; do not claim exactly-once delivery unless a stronger durable protocol is implemented and validated.
-7. Exclude completed/archived task/list reminders through the existing due query.
-8. Avoid high-frequency work; use a bounded background cadence suitable for minute-resolution reminders.
-9. Tests must deterministically prove: successful delivery is acknowledged; failed submission stays pending; repeated processing after acknowledgment does not resubmit; multiple due reminders are handled in deterministic due order; terminal/inactive rows are skipped; dispatcher persistence failure is explicit and does not masquerade as successful acknowledgment.
-
-Historical reliability context: Blitzit mobile release history includes late/duplicate/missed reminder fixes. Treat restart/retry and duplicate-risk behavior as an explicit M4 regression class.
+- do **not** claim exactly-once notification delivery across the unavoidable crash window after successful OS submission but before `fired_at` persistence;
+- no renderer polling or renderer-owned reminder authority;
+- no second reminder schema/storage model;
+- no high-frequency polling loop.
 
 ## M4 TODO STATE
 
@@ -95,24 +92,26 @@ Already validated/checked:
 - recurrence interval/unit/weekday execution;
 - recurring parent Backlog + Monday-of-due-week child materialization.
 
-Still open:
+Still open until required validation/reconciliation:
 
-- product-level one-off local reminders (**active delivery slice**);
+- product-level one-off local reminders (**PR #45 active**);
+- tray/background due-reminder processing (**PR #45 active**);
 - Replace Existing Tasks;
 - recurrence detachment;
 - startup/resume/date-change recurrence orchestration and missed-day catch-up;
-- tray/background due-reminder processing (**active delivery slice**);
 - Windows locale/system 12/24-hour formatting;
 - combined M4 regression matrix including repeated startup/missed days/reminder delivery;
 - explicit scheduled-lane movement anti-duplication regression.
 
-## NEXT AGENT ACTION — ACTIVE BRANCH
+## NEXT AGENT ACTION — PR #45
 
-1. Inspect reminder persistence, notification transport, `TimerService` background pattern, task lookup/title fields and persistence connection configuration.
-2. Implement the dispatcher and tests on `ai/m4-reminder-delivery`.
-3. Review the entire candidate diff before opening the PR.
-4. Record unavailable local checks as NOT RUN; Windows GitHub Actions is authoritative for Rust/Tauri validation in this connector-only environment.
-5. Open one implementation PR, validate its exact head, final-review the same head, guarded-merge it, validate resulting main, then reconcile tracking.
+1. Re-read PR #45 exact current head after this tracking commit.
+2. Inspect Windows CI only for that exact head.
+3. If CI fails, read the exact failing job log and fix only evidence-backed failures on the same branch/PR.
+4. If CI succeeds, record run/job/artifact/digest and perform final semantic/diff review of the same exact head.
+5. Guarded-merge only that validated expected head.
+6. Validate the resulting main source SHA with Windows CI.
+7. Reconcile TODO/STATUS/HANDOFF and create a new immutable reminder-delivery work-log entry. Interactive visible due-reminder behavior must not be claimed from CI alone.
 
 ## IMPORTANT INVARIANTS
 
@@ -124,11 +123,11 @@ Still open:
 - recurrence remains deterministic/idempotent;
 - reminder due evaluation remains side-effect free;
 - never mark a reminder fired before successful notification submission;
-- fired/dismissed reminder transitions remain terminal/idempotent;
+- fired/dismissed transitions remain terminal/idempotent;
 - renderer owns no authoritative reminder/timer state;
 - do not introduce an unbounded/high-frequency background polling loop;
 - preserve async `main` recreation and current tray/background lifecycle.
 
 ## USER ACTION REQUIRED
 
-None.
+None during automated PR/main validation. Physical Windows observation will be requested only if needed to close the interactive notification-delivery acceptance evidence.
