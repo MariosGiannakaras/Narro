@@ -245,8 +245,7 @@ impl TimerService {
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
         *observed_ms = now_ms;
-        *recovered_awaiting_resume &=
-            is_paused_pomodoro_projection(&controller.snapshot());
+        *recovered_awaiting_resume &= is_paused_pomodoro_projection(&controller.snapshot());
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
         submit_claimed_notifications(app_handle, pending);
@@ -869,7 +868,13 @@ mod tests {
         );
 
         assert_eq!(controller.snapshot().runtime.timer.work_elapsed_ms, 5_000);
-        assert_eq!(get_open_session(&effects).unwrap().unwrap().duration_seconds, 5);
+        assert_eq!(
+            get_open_session(&effects)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            5
+        );
         drop(effects);
         drop(controller);
         fs::remove_file(path).expect("remove test database");
@@ -893,7 +898,13 @@ mod tests {
         );
 
         assert_eq!(controller.snapshot().runtime.timer.work_elapsed_ms, 65_000);
-        assert_eq!(get_open_session(&effects).unwrap().unwrap().duration_seconds, 65);
+        assert_eq!(
+            get_open_session(&effects)
+                .unwrap()
+                .unwrap()
+                .duration_seconds,
+            65
+        );
         drop(effects);
         drop(controller);
         fs::remove_file(path).expect("remove test database");
