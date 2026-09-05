@@ -43,6 +43,16 @@ Do not ask the user for a kickoff prompt or previous-chat summary when repositor
 
 The user should never have to relay one agent's explanation to another.
 
+## User progress reporting
+
+For every implementation slice that takes multiple meaningful steps, keep the user informed with an explicit `x/y ολοκληρωμένα` progress indicator (or the same `x/y completed` meaning in the user's current language).
+
+- Define `y` as the current set of meaningful implementation/validation checkpoints, not individual low-level tool calls.
+- Increment `x` only when a checkpoint is actually completed; a failed CI run is evidence, not a completed implementation checkpoint.
+- Include the indicator in substantive progress updates while work is ongoing and finish the slice at `y/y ολοκληρωμένα` when all planned checkpoints are complete.
+- If newly discovered work materially changes the plan, update the denominator and briefly state why instead of silently changing the count.
+- Keep the progress count user-facing; repository work logs continue to record the detailed technical evidence separately.
+
 ## Evidence and TODO discipline
 
 Use precise levels:
