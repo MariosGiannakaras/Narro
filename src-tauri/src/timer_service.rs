@@ -48,7 +48,11 @@ impl TimerService {
             .map_err(CommandError::timer_operation)
     }
 
-    pub fn start_task(&self, task_id: TaskId, mode: TimerMode) -> CommandResult<TimerSessionPayload> {
+    pub fn start_task(
+        &self,
+        task_id: TaskId,
+        mode: TimerMode,
+    ) -> CommandResult<TimerSessionPayload> {
         self.transition(|controller, now_ms, wall_time| {
             controller.start_task(task_id, mode, now_ms, wall_time)
         })
@@ -88,7 +92,11 @@ impl TimerService {
         self.transition(TimerController::skip_task)
     }
 
-    pub fn switch_task(&self, task_id: TaskId, mode: TimerMode) -> CommandResult<TimerSessionPayload> {
+    pub fn switch_task(
+        &self,
+        task_id: TaskId,
+        mode: TimerMode,
+    ) -> CommandResult<TimerSessionPayload> {
         self.transition(|controller, now_ms, wall_time| {
             controller.switch_task(task_id, mode, now_ms, wall_time)
         })
