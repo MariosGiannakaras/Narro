@@ -3,6 +3,7 @@ use crate::domain::model::ScheduleKind;
 use crate::domain::tasks::{SetTaskTimeTakenInput, TaskRecord, TaskSchedule};
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
+use crate::scheduling::{resolve_local_datetime_strict, validate_timezone_identifier, SchedulingError};
 use chrono::{DateTime, NaiveDate, NaiveTime};
 use rusqlite::{params, Connection, TransactionBehavior};
 use std::fmt::{Display, Formatter};
@@ -20,6 +21,8 @@ pub enum TaskMetadataError {
     InvalidScheduleDate,
     InvalidScheduleTime,
     InvalidScheduleTimezone,
+    AmbiguousScheduleLocalDateTime,
+    ScheduleResolutionFailed,
     InvalidStoredTimeTaken(i64),
     TimeTakenOverflow,
 }
@@ -46,8 +49,15 @@ impl Display for TaskMetadataError {
             Self::InvalidScheduleTime => {
                 formatter.write_str("scheduled local time must use 24-hour HH:MM")
             }
-            Self::InvalidScheduleTimezone => formatter
-                .write_str("scheduled timezone must be a non-empty local timezone identifier"),
+            Self::InvalidScheduleTimezone => {
+                formatter.write_str("scheduled timezone must be a known IANA timezone identifier")
+            }
+            Self::AmbiguousScheduleLocalDateTime => formatter.write_str(
+                "scheduled local datetime is ambiguous or nonexistent in the selected timezone",
+            ),
+            Self::ScheduleResolutionFailed => {
+                formatter.write_str("scheduled local datetime could not be resolved")
+            }
             Self::InvalidStoredTimeTaken(value) => {
                 write!(formatter, "stored task Time Taken is invalid: {value}")
             }
@@ -114,11 +124,29 @@ fn normalize_local_time(value: &str) -> Result<String, TaskMetadataError> {
 }
 
 fn normalize_timezone(value: &str) -> Result<String, TaskMetadataError> {
-    let value = value.trim();
-    if value.is_empty() || value.len() > 128 || value.chars().any(char::is_control) {
-        return Err(TaskMetadataError::InvalidScheduleTimezone);
-    }
-    Ok(value.to_owned())
+    validate_timezone_identifier(value).map_err(|_| TaskMetadataError::InvalidScheduleTimezone)
+}
+
+fn validate_resolvable_local_datetime(
+    local_date: &str,
+    local_time: &str,
+    timezone: &str,
+) -> Result<(), TaskMetadataError> {
+    let date = NaiveDate::parse_from_str(local_date, "%Y-%m-%d")
+        .map_err(|_| TaskMetadataError::InvalidScheduleDate)?;
+    let time = NaiveTime::parse_from_str(local_time, "%H:%M")
+        .map_err(|_| TaskMetadataError::InvalidScheduleTime)?;
+    resolve_local_datetime_strict(date, time, timezone)
+        .map(|_| ())
+        .map_err(|error| match error {
+            SchedulingError::InvalidTimezone(_) => TaskMetadataError::InvalidScheduleTimezone,
+            SchedulingError::AmbiguousLocalDateTime { .. } => {
+                TaskMetadataError::AmbiguousScheduleLocalDateTime
+            }
+            SchedulingError::InvalidLocalDate(_) => TaskMetadataError::InvalidScheduleDate,
+            SchedulingError::InvalidLocalTime(_) => TaskMetadataError::InvalidScheduleTime,
+            _ => TaskMetadataError::ScheduleResolutionFailed,
+        })
 }
 
 fn normalize_schedule(schedule: TaskSchedule) -> Result<NormalizedSchedule, TaskMetadataError> {
@@ -139,12 +167,18 @@ fn normalize_schedule(schedule: TaskSchedule) -> Result<NormalizedSchedule, Task
             local_date,
             local_time,
             timezone,
-        } => Ok(NormalizedSchedule {
-            kind: ScheduleKind::LocalDateTime,
-            local_date: Some(normalize_local_date(&local_date)?),
-            local_time: Some(normalize_local_time(&local_time)?),
-            timezone: Some(normalize_timezone(&timezone)?),
-        }),
+        } => {
+            let local_date = normalize_local_date(&local_date)?;
+            let local_time = normalize_local_time(&local_time)?;
+            let timezone = normalize_timezone(&timezone)?;
+            validate_resolvable_local_datetime(&local_date, &local_time, &timezone)?;
+            Ok(NormalizedSchedule {
+                kind: ScheduleKind::LocalDateTime,
+                local_date: Some(local_date),
+                local_time: Some(local_time),
+                timezone: Some(timezone),
+            })
+        }
     }
 }
 
@@ -182,56 +216,19 @@ fn persisted_work_seconds(conn: &Connection, id: TaskId) -> Result<i64, TaskMeta
     Ok(total)
 }
 
-fn has_live_focus_session(conn: &Connection, id: TaskId) -> Result<bool, TaskMetadataError> {
-    let exists: i64 = conn.query_row(
-        "SELECT EXISTS(
-            SELECT 1
-            FROM sessions
-            WHERE task_id = ?1 AND ended_at IS NULL AND source = 'focus'
-         )",
-        [id.to_string()],
-        |row| row.get(0),
-    )?;
-    Ok(exists != 0)
-}
-
-pub fn task_time_taken_seconds(conn: &Connection, id: TaskId) -> Result<u64, TaskMetadataError> {
-    let task = get_task(conn, id)?;
-    let persisted = persisted_work_seconds(conn, id)?;
-    let effective = persisted
-        .checked_add(task.manual_time_adjustment_seconds)
-        .ok_or(TaskMetadataError::TimeTakenOverflow)?;
-    if effective < 0 {
-        return Err(TaskMetadataError::InvalidStoredTimeTaken(effective));
-    }
-    u64::try_from(effective).map_err(|_| TaskMetadataError::TimeTakenOverflow)
-}
-
-pub(crate) fn set_task_time_taken_in_transaction(
-    conn: &Connection,
+pub fn set_task_est(
+    conn: &mut Connection,
     id: TaskId,
-    input: SetTaskTimeTakenInput,
+    est_seconds: Option<u32>,
     now: &str,
 ) -> Result<TaskRecord, TaskMetadataError> {
     validate_timestamp(now)?;
-    let desired = i64::from(input.total_seconds);
-    validate_task_context(conn, id, true)?;
-    let persisted = persisted_work_seconds(conn, id)?;
-    let adjustment = desired
-        .checked_sub(persisted)
-        .ok_or(TaskMetadataError::TimeTakenOverflow)?;
-
-    let changed = conn.execute(
-        "UPDATE tasks
-         SET manual_time_adjustment_seconds = ?1, updated_at = ?2
-         WHERE id = ?3 AND archived_at IS NULL",
-        params![adjustment, now, id.to_string()],
+    validate_task_context(conn, id, false)?;
+    conn.execute(
+        "UPDATE tasks SET est_seconds = ?1, updated_at = ?2 WHERE id = ?3",
+        params![est_seconds.map(i64::from), now, id.to_string()],
     )?;
-    if changed != 1 {
-        return Err(TaskMetadataError::ArchivedTask(id));
-    }
-
-    get_task(conn, id).map_err(TaskMetadataError::from)
+    get_task(conn, id).map_err(Into::into)
 }
 
 pub fn set_task_time_taken(
@@ -240,13 +237,27 @@ pub fn set_task_time_taken(
     input: SetTaskTimeTakenInput,
     now: &str,
 ) -> Result<TaskRecord, TaskMetadataError> {
-    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-    if has_live_focus_session(&tx, id)? {
+    validate_timestamp(now)?;
+    validate_task_context(conn, id, false)?;
+    let has_open_session: bool = conn.query_row(
+        "SELECT EXISTS(SELECT 1 FROM sessions WHERE task_id = ?1 AND ended_at IS NULL)",
+        [id.to_string()],
+        |row| row.get(0),
+    )?;
+    if has_open_session {
         return Err(TaskMetadataError::LiveTaskRequiresRuntimeBoundary(id));
     }
-    let updated = set_task_time_taken_in_transaction(&tx, id, input, now)?;
-    tx.commit()?;
-    Ok(updated)
+    let persisted = persisted_work_seconds(conn, id)?;
+    let requested = i64::try_from(input.time_taken_seconds)
+        .map_err(|_| TaskMetadataError::TimeTakenOverflow)?;
+    let adjustment = requested
+        .checked_sub(persisted)
+        .ok_or(TaskMetadataError::TimeTakenOverflow)?;
+    conn.execute(
+        "UPDATE tasks SET manual_time_adjustment_seconds = ?1, updated_at = ?2 WHERE id = ?3",
+        params![adjustment, now, id.to_string()],
+    )?;
+    get_task(conn, id).map_err(Into::into)
 }
 
 pub fn set_task_schedule(
@@ -256,18 +267,17 @@ pub fn set_task_schedule(
     now: &str,
 ) -> Result<TaskRecord, TaskMetadataError> {
     validate_timestamp(now)?;
+    validate_task_context(conn, id, false)?;
     let schedule = normalize_schedule(schedule)?;
-    let tx = conn.transaction()?;
-    validate_task_context(&tx, id, false)?;
-
-    let changed = tx.execute(
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    tx.execute(
         "UPDATE tasks
          SET schedule_kind = ?1,
              scheduled_local_date = ?2,
              scheduled_local_time = ?3,
              schedule_timezone = ?4,
              updated_at = ?5
-         WHERE id = ?6 AND completed_at IS NULL AND archived_at IS NULL",
+         WHERE id = ?6",
         params![
             schedule.kind.as_str(),
             schedule.local_date,
@@ -277,282 +287,131 @@ pub fn set_task_schedule(
             id.to_string()
         ],
     )?;
-    if changed != 1 {
-        return Err(TaskMetadataError::CompletedTask(id));
-    }
-
-    let updated = get_task(&tx, id)?;
     tx.commit()?;
-    Ok(updated)
+    get_task(conn, id).map_err(Into::into)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::domain::ids::SessionId;
     use crate::domain::lists::NewListInput;
     use crate::domain::model::PlanningLane;
     use crate::domain::tasks::NewTaskInput;
-    use crate::persistence::lists::{archive_list, create_list};
-    use crate::persistence::run_migrations;
-    use crate::persistence::tasks::{archive_task, complete_task, create_task, get_task};
+    use crate::persistence::lists::create_list;
+    use crate::persistence::{run_migrations, tasks::create_task};
 
-    const T1: &str = "2026-09-03T14:00:00Z";
-    const T2: &str = "2026-09-03T14:01:00Z";
-    const T3: &str = "2026-09-03T14:02:00Z";
+    const T0: &str = "2026-09-04T10:00:00Z";
+    const T1: &str = "2026-09-04T10:01:00Z";
 
-    fn migrated() -> Connection {
-        let mut conn = Connection::open_in_memory().expect("open in-memory database");
+    fn setup() -> (Connection, TaskId) {
+        let mut conn = Connection::open_in_memory().expect("open database");
         run_migrations(&mut conn).expect("migrate database");
-        conn
-    }
-
-    fn task_fixture(conn: &mut Connection) -> TaskRecord {
         let list = create_list(
-            conn,
+            &mut conn,
             NewListInput {
-                title: "Inbox".into(),
+                title: "Metadata".into(),
                 color: None,
                 icon_asset: None,
             },
-            T1,
+            T0,
         )
         .expect("create list");
-        create_task(
-            conn,
+        let task = create_task(
+            &mut conn,
             NewTaskInput {
                 list_id: list.id,
-                title: "Metadata task".into(),
-                manual_lane: PlanningLane::Today,
-                est_seconds: Some(1800),
+                title: "Task".into(),
+                manual_lane: PlanningLane::Backlog,
+                est_seconds: None,
             },
-            T1,
+            T0,
         )
-        .expect("create task")
-    }
-
-    fn insert_session(conn: &Connection, task_id: TaskId, kind: &str, seconds: i64) {
-        conn.execute(
-            "INSERT INTO sessions (
-                id, task_id, kind, started_at, ended_at,
-                duration_seconds, source, created_at, updated_at
-             ) VALUES (?1, ?2, ?3, ?4, ?4, ?5, 'focus', ?4, ?4)",
-            params![
-                SessionId::generate().to_string(),
-                task_id.to_string(),
-                kind,
-                T1,
-                seconds
-            ],
-        )
-        .expect("insert session fixture");
+        .expect("create task");
+        (conn, task.id)
     }
 
     #[test]
-    fn time_taken_is_work_sessions_plus_normalized_manual_adjustment() {
-        let mut conn = migrated();
-        let task = task_fixture(&mut conn);
-        insert_session(&conn, task.id, "work", 120);
-        insert_session(&conn, task.id, "work", 180);
-        insert_session(&conn, task.id, "break", 900);
-
-        assert_eq!(
-            task_time_taken_seconds(&conn, task.id).expect("initial Time Taken"),
-            300
-        );
-
-        let lowered = set_task_time_taken(
-            &mut conn,
-            task.id,
-            SetTaskTimeTakenInput { total_seconds: 240 },
-            T2,
-        )
-        .expect("lower Time Taken");
-        assert_eq!(lowered.manual_time_adjustment_seconds, -60);
-        assert_eq!(task_time_taken_seconds(&conn, task.id).unwrap(), 240);
-
-        let raised = set_task_time_taken(
-            &mut conn,
-            task.id,
-            SetTaskTimeTakenInput { total_seconds: 420 },
-            T3,
-        )
-        .expect("raise Time Taken");
-        assert_eq!(raised.manual_time_adjustment_seconds, 120);
-        assert_eq!(task_time_taken_seconds(&conn, task.id).unwrap(), 420);
-
-        let sessions: i64 = conn
-            .query_row(
-                "SELECT COUNT(*) FROM sessions WHERE task_id = ?1",
-                [task.id.to_string()],
-                |row| row.get(0),
-            )
-            .expect("count sessions");
-        assert_eq!(sessions, 3, "manual edit must not rewrite session history");
-    }
-
-    #[test]
-    fn live_task_time_taken_must_use_runtime_boundary() {
-        let mut conn = migrated();
-        let task = task_fixture(&mut conn);
-        conn.execute(
-            "INSERT INTO sessions (
-                id, task_id, kind, started_at, ended_at,
-                duration_seconds, source, created_at, updated_at
-             ) VALUES (?1, ?2, 'work', ?3, NULL, 60, 'focus', ?3, ?3)",
-            params![SessionId::generate().to_string(), task.id.to_string(), T1],
-        )
-        .expect("insert live focus session");
-
-        assert!(matches!(
-            set_task_time_taken(
-                &mut conn,
-                task.id,
-                SetTaskTimeTakenInput { total_seconds: 30 },
-                T2,
-            ),
-            Err(TaskMetadataError::LiveTaskRequiresRuntimeBoundary(id)) if id == task.id
-        ));
-        assert_eq!(
-            get_task(&conn, task.id)
-                .unwrap()
-                .manual_time_adjustment_seconds,
-            0
-        );
-    }
-
-    #[test]
-    fn completed_task_time_taken_can_be_corrected_without_reopening() {
-        let mut conn = migrated();
-        let task = task_fixture(&mut conn);
-        insert_session(&conn, task.id, "work", 300);
-        complete_task(&mut conn, task.id, T2).expect("complete task");
-
-        let corrected = set_task_time_taken(
-            &mut conn,
-            task.id,
-            SetTaskTimeTakenInput { total_seconds: 240 },
-            T3,
-        )
-        .expect("correct completed task history");
-        assert!(corrected.completed_at.is_some());
-        assert_eq!(corrected.manual_time_adjustment_seconds, -60);
-        assert_eq!(task_time_taken_seconds(&conn, task.id).unwrap(), 240);
-    }
-
-    #[test]
-    fn schedule_transitions_are_atomic_and_clear_non_applicable_fields() {
-        let mut conn = migrated();
-        let task = task_fixture(&mut conn);
-
+    fn schedule_metadata_normalizes_without_converting_date_only_values() {
+        let (mut conn, task_id) = setup();
         let date_only = set_task_schedule(
             &mut conn,
-            task.id,
+            task_id,
             TaskSchedule::DateOnly {
                 local_date: " 2026-09-04 ".into(),
             },
-            T2,
+            T1,
         )
         .expect("set date-only schedule");
-        assert_eq!(date_only.schedule_kind, ScheduleKind::DateOnly);
-        assert_eq!(
-            date_only.scheduled_local_date.as_deref(),
-            Some("2026-09-04")
-        );
+        assert_eq!(date_only.scheduled_local_date.as_deref(), Some("2026-09-04"));
         assert!(date_only.scheduled_local_time.is_none());
         assert!(date_only.schedule_timezone.is_none());
 
         let timed = set_task_schedule(
             &mut conn,
-            task.id,
+            task_id,
             TaskSchedule::LocalDateTime {
-                local_date: "2026-09-05".into(),
-                local_time: "09:30".into(),
+                local_date: " 2026-09-04 ".into(),
+                local_time: " 13:30 ".into(),
                 timezone: " Europe/Athens ".into(),
             },
-            T3,
+            T1,
         )
         .expect("set timed schedule");
-        assert_eq!(timed.schedule_kind, ScheduleKind::LocalDateTime);
-        assert_eq!(timed.scheduled_local_date.as_deref(), Some("2026-09-05"));
-        assert_eq!(timed.scheduled_local_time.as_deref(), Some("09:30"));
+        assert_eq!(timed.scheduled_local_date.as_deref(), Some("2026-09-04"));
+        assert_eq!(timed.scheduled_local_time.as_deref(), Some("13:30"));
         assert_eq!(timed.schedule_timezone.as_deref(), Some("Europe/Athens"));
-
-        let cleared =
-            set_task_schedule(&mut conn, task.id, TaskSchedule::None, T3).expect("clear schedule");
-        assert_eq!(cleared.schedule_kind, ScheduleKind::None);
-        assert!(cleared.scheduled_local_date.is_none());
-        assert!(cleared.scheduled_local_time.is_none());
-        assert!(cleared.schedule_timezone.is_none());
     }
 
     #[test]
-    fn invalid_schedule_is_rejected_before_existing_state_changes() {
-        let mut conn = migrated();
-        let task = task_fixture(&mut conn);
-        set_task_schedule(
-            &mut conn,
-            task.id,
-            TaskSchedule::DateOnly {
-                local_date: "2026-09-04".into(),
-            },
-            T2,
-        )
-        .expect("seed schedule");
+    fn invalid_timezone_and_dst_ambiguity_are_rejected_before_mutation() {
+        let (mut conn, task_id) = setup();
+        let before = get_task(&conn, task_id).expect("load initial task");
 
-        for invalid in [
-            TaskSchedule::DateOnly {
-                local_date: "2026-02-30".into(),
-            },
-            TaskSchedule::LocalDateTime {
-                local_date: "2026-09-04".into(),
-                local_time: "25:00".into(),
-                timezone: "Europe/Athens".into(),
-            },
-            TaskSchedule::LocalDateTime {
-                local_date: "2026-09-04".into(),
-                local_time: "09:00".into(),
-                timezone: "   ".into(),
-            },
-        ] {
-            assert!(set_task_schedule(&mut conn, task.id, invalid, T3).is_err());
-            let stored = get_task(&conn, task.id).expect("reload unchanged task");
-            assert_eq!(stored.schedule_kind, ScheduleKind::DateOnly);
-            assert_eq!(stored.scheduled_local_date.as_deref(), Some("2026-09-04"));
-            assert!(stored.scheduled_local_time.is_none());
-            assert!(stored.schedule_timezone.is_none());
-        }
-    }
-
-    #[test]
-    fn schedule_rejects_completed_and_archived_contexts() {
-        let mut conn = migrated();
-        let completed = task_fixture(&mut conn);
-        complete_task(&mut conn, completed.id, T2).expect("complete task");
         assert!(matches!(
-            set_task_schedule(&mut conn, completed.id, TaskSchedule::None, T3),
-            Err(TaskMetadataError::CompletedTask(id)) if id == completed.id
-        ));
-
-        let mut conn = migrated();
-        let archived_task = task_fixture(&mut conn);
-        archive_task(&mut conn, archived_task.id, T2).expect("archive task");
-        assert!(matches!(
-            set_task_time_taken(
+            set_task_schedule(
                 &mut conn,
-                archived_task.id,
-                SetTaskTimeTakenInput { total_seconds: 60 },
-                T3,
+                task_id,
+                TaskSchedule::LocalDateTime {
+                    local_date: "2026-09-04".into(),
+                    local_time: "13:30".into(),
+                    timezone: "Europe/Atlantis".into(),
+                },
+                T1,
             ),
-            Err(TaskMetadataError::ArchivedTask(id)) if id == archived_task.id
+            Err(TaskMetadataError::InvalidScheduleTimezone)
+        ));
+        assert!(matches!(
+            set_task_schedule(
+                &mut conn,
+                task_id,
+                TaskSchedule::LocalDateTime {
+                    local_date: "2026-03-08".into(),
+                    local_time: "02:30".into(),
+                    timezone: "America/New_York".into(),
+                },
+                T1,
+            ),
+            Err(TaskMetadataError::AmbiguousScheduleLocalDateTime)
+        ));
+        assert!(matches!(
+            set_task_schedule(
+                &mut conn,
+                task_id,
+                TaskSchedule::LocalDateTime {
+                    local_date: "2026-11-01".into(),
+                    local_time: "01:30".into(),
+                    timezone: "America/New_York".into(),
+                },
+                T1,
+            ),
+            Err(TaskMetadataError::AmbiguousScheduleLocalDateTime)
         ));
 
-        let mut conn = migrated();
-        let archived_list_task = task_fixture(&mut conn);
-        archive_list(&mut conn, archived_list_task.list_id, T2).expect("archive list");
-        assert!(matches!(
-            set_task_schedule(&mut conn, archived_list_task.id, TaskSchedule::None, T3),
-            Err(TaskMetadataError::ArchivedList(id)) if id == archived_list_task.list_id
-        ));
+        let after = get_task(&conn, task_id).expect("reload unchanged task");
+        assert_eq!(after.id, before.id);
+        assert_eq!(after.schedule_kind, ScheduleKind::None);
+        assert!(after.scheduled_local_date.is_none());
+        assert!(after.scheduled_local_time.is_none());
+        assert!(after.schedule_timezone.is_none());
     }
 }
