@@ -124,7 +124,7 @@ Research context: before changing M3 behavior, consult `docs/BLITZIT_HISTORY_RIS
 - [x] Add durable runtime checkpoint/recovery and restore interrupted live sessions to the specified non-running state without counting process downtime as work. Cover running, paused, break, Time's Up, overtime and Pomodoro boundaries.
 - [x] Couple task completion mutation and final timer/session close through one persistence-success boundary (transaction or equivalent safe coordination) so tracked work can never become `00:00` on Done.
 - [x] Integrate paused manual Time Taken edits with the authoritative runtime/session baseline so resume/pause/Done cannot snap back, double-count or diverge from durable session totals.
-- [ ] Emit typed timer/session events consumed by both webviews; renderer/window lifecycle changes must remain presentation-only unless an explicit domain transition is requested.
+- [x] Emit typed timer/session events consumed by both webviews; renderer/window lifecycle changes must remain presentation-only unless an explicit domain transition is requested.
 - [x] Add persistence regression proving one pause/resume/finish path excludes paused wall time and combines pre/post-pause work.
 - [x] Add source-derived pause/resume regression: 15m work -> pause -> wait -> resume -> 15m work -> Done = exactly 30m in durable Time Taken/session history; repeat across multiple pause cycles and recovery.
 - [x] Add regression coverage for completing a live task after tracked work through the real task-completion mutation path: Time Taken must never reset to `00:00`.
