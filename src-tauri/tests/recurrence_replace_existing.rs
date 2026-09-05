@@ -7,8 +7,8 @@ use narro_lib::persistence::recurrence::{create_recurrence_rule, get_recurrence_
 use narro_lib::persistence::recurrence_replace::{
     replace_existing_tasks, ReplaceExistingError,
 };
-use narro_lib::persistence::tasks::{complete_task, create_task, get_task};
 use narro_lib::persistence::run_migrations;
+use narro_lib::persistence::tasks::{complete_task, create_task, get_task};
 use narro_lib::recurrence::materialize_recurrence_week;
 use rusqlite::{params, Connection};
 
@@ -17,7 +17,11 @@ const T1: &str = "2026-09-08T06:00:00Z";
 const T2: &str = "2026-09-08T07:00:00Z";
 const CURRENT_LOCAL_DATE: &str = "2026-09-08";
 
-fn fixture() -> (Connection, narro_lib::domain::ids::TaskId, narro_lib::domain::ids::RecurrenceRuleId) {
+fn fixture() -> (
+    Connection,
+    narro_lib::domain::ids::TaskId,
+    narro_lib::domain::ids::RecurrenceRuleId,
+) {
     let mut conn = Connection::open_in_memory().expect("open in-memory database");
     run_migrations(&mut conn).expect("migrate database");
     let list = create_list(
@@ -106,14 +110,20 @@ fn replace_removes_pristine_children_resets_cursor_and_rematerializes_new_patter
     assert!(replaced.updated_rule.last_materialized_local_date.is_none());
     assert_eq!(occurrence_count(&conn, rule_id), 0);
     for child_id in original.created_child_ids {
-        assert!(get_task(&conn, child_id).is_err(), "pristine old child must be removed");
+        assert!(
+            get_task(&conn, child_id).is_err(),
+            "pristine old child must be removed"
+        );
     }
 
     let new_pattern = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T2)
         .expect("materialize replacement pattern");
     assert_eq!(new_pattern.created_child_ids.len(), 1);
     assert_eq!(new_pattern.evaluated_occurrences.len(), 1);
-    assert_eq!(new_pattern.evaluated_occurrences[0].local_date, "2026-09-11");
+    assert_eq!(
+        new_pattern.evaluated_occurrences[0].local_date,
+        "2026-09-11"
+    );
     assert_eq!(occurrence_count(&conn, rule_id), 1);
 
     let repeated = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T2)
@@ -169,7 +179,7 @@ fn replace_preserves_and_detaches_modified_or_history_bearing_active_child() {
 }
 
 #[test]
-fn replace_keeps_completed_archived_and_already_independent_children() {
+fn replace_keeps_completed_and_archived_historical_children() {
     let (mut conn, _parent_id, rule_id) = fixture();
     let original = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
         .expect("materialize original pattern");
@@ -183,31 +193,47 @@ fn replace_keeps_completed_archived_and_already_independent_children() {
     )
     .expect("archive generated child");
 
-    let independent = create_task(
-        &mut conn,
-        NewTaskInput {
-            list_id: get_task(&conn, completed_id).expect("load completed child").list_id,
-            title: "Independent child".into(),
-            manual_lane: PlanningLane::Backlog,
-            est_seconds: None,
-        },
-        T1,
-    )
-    .expect("create independent task");
-    conn.execute(
-        "UPDATE tasks SET recurrence_parent_task_id = NULL WHERE id = ?1",
-        [independent.id.to_string()],
-    )
-    .expect("keep independent task detached");
-
     let replaced = replace_existing_tasks(&mut conn, rule_id, friday_replacement(), T2)
-        .expect("replace without touching history");
+        .expect("replace without touching historical children");
     assert!(replaced.removed_child_ids.is_empty());
     assert!(replaced.detached_modified_child_ids.is_empty());
     assert!(get_task(&conn, completed_id).is_ok());
     assert!(get_task(&conn, archived_id).is_ok());
-    assert!(get_task(&conn, independent.id).is_ok());
     assert_eq!(occurrence_count(&conn, rule_id), 2);
+}
+
+#[test]
+fn replace_does_not_touch_already_detached_generated_child() {
+    let (mut conn, _parent_id, rule_id) = fixture();
+    let original = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
+        .expect("materialize original pattern");
+    let detached_id = original.created_child_ids[0];
+    let replaceable_id = original.created_child_ids[1];
+
+    conn.execute(
+        "UPDATE tasks SET recurrence_parent_task_id = NULL, updated_at = ?1 WHERE id = ?2",
+        params![T2, detached_id.to_string()],
+    )
+    .expect("detach generated child");
+
+    let replaced = replace_existing_tasks(&mut conn, rule_id, friday_replacement(), T2)
+        .expect("replace while preserving detached child");
+    assert_eq!(replaced.removed_child_ids, vec![replaceable_id]);
+    assert!(replaced.detached_modified_child_ids.is_empty());
+    let detached = get_task(&conn, detached_id).expect("detached child survives");
+    assert!(detached.recurrence_parent_task_id.is_none());
+
+    let detached_occurrences: i64 = conn
+        .query_row(
+            "SELECT COUNT(*) FROM recurrence_occurrences WHERE child_task_id = ?1",
+            [detached_id.to_string()],
+            |row| row.get(0),
+        )
+        .expect("count detached occurrence linkage");
+    assert_eq!(
+        detached_occurrences, 1,
+        "replace must not rewrite linkage owned by a child already outside the parent relation"
+    );
 }
 
 #[test]
@@ -237,7 +263,10 @@ fn replace_is_atomic_when_rule_update_fails_after_child_selection() {
     );
     assert_eq!(occurrence_count(&conn, rule_id), 2);
     for child_id in original.created_child_ids {
-        assert!(get_task(&conn, child_id).is_ok(), "child deletion must roll back");
+        assert!(
+            get_task(&conn, child_id).is_ok(),
+            "child deletion must roll back"
+        );
     }
 }
 
