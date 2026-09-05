@@ -49,23 +49,26 @@ This section is the canonical interpretation rule when branch/PR history is nois
 ## ACTIVE WORK RECORD
 
 - Active milestone: **Milestone 4**.
-- Latest completed slice: **timezone/DST correctness — COMPLETE / RECONCILED**.
-- Active source slice: **recurrence execution/materialization core — ACTIVE**.
-- Active implementation branch: **`ai/m4-recurrence-materialization`**.
-- Active implementation PR: **#40 — `M4: materialize recurring task occurrences`**.
-- Current candidate head: **`22d6cbafda3f3967aeecf7f0823172336728035d`**.
-- Pending source CI/main validation: **Windows PR CI required; exact-head validation not yet proven**.
-- Small-slice progress: **2/6** (requirements/source audit and reviewed source/test candidate complete; PR CI/merge/main/reconciliation remain).
+- Latest source slice: **recurrence execution/materialization core — MERGED / MAIN VALIDATION PENDING**.
+- PR #40 exact validated head: **`7217dbed78f930411fe5c360796729ee3e5b8d4b`**.
+- PR #40 squash merge on main: **`ca0d45a22ee61a2e5cd3c308d873ff1b5a42f20a`**.
+- PR #40 Windows CI #212 / run `33979784683`: **SUCCESS**; artifact ID `9973579168`, digest `sha256:1f75ebec83c7c0bf04f47e28acad627e727fab42872ff180aeef862ce6babc38`.
+- Required main CI for `ca0d45a2...` did **not** start because the squash commit message inherited a historical CI-skip token from branch history.
+- Active revalidation branch: **`ai/m4-main-ci-revalidation`**.
+- Active revalidation PR: **#41 — `M4: revalidate recurrence materialization on main CI`**.
+- PR #41 is semantics-neutral: one recurrence-domain documentation line plus this tracking update; no behavior/schema/dependency/UI/timer/scheduling semantic change.
+- Pending source validation: **exact-head Windows PR CI for PR #41, guarded merge, resulting-main Windows CI, then TODO/STATUS/HANDOFF/work-log reconciliation**.
+- Small-slice progress: **5/6**.
 - Later milestones M5–M10: **NOT STARTED**.
 
-A new chat must resume PR #40 before starting another source slice. Inspect its exact current head and latest CI state first. If the head changes, do not merge based on older validation evidence.
+A new chat must resume PR #41 before starting any new source slice. Inspect its exact current head and latest CI state first. If the head changes, do not merge based on older validation evidence.
 
 ## USER-FACING PROGRESS
 
 Current durable project progress:
 
 - **Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
-- **Μικρή τρέχουσα υλοποίηση: 2/6 ολοκληρωμένες** for the active M4 recurrence execution/materialization core slice (PR #40).
+- **Μικρή τρέχουσα υλοποίηση: 5/6 ολοκληρωμένες** for the M4 recurrence execution/materialization core slice; only resulting-main Windows validation plus durable reconciliation remain.
 
 The 6 checkpoints for this slice are:
 
@@ -76,11 +79,11 @@ The 6 checkpoints for this slice are:
 5. guarded merge using the validated expected head;
 6. resulting-main Windows CI plus durable TODO/STATUS/HANDOFF/work-log reconciliation.
 
-Do not increment checkpoint 3 from code presence alone.
+Checkpoint 5 is complete from PR #40. PR #41 exists only to repair the skipped resulting-main CI path without changing recurrence behavior.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-Latest validated source baseline remains PR #37 squash merge:
+Latest fully main-validated source baseline remains PR #37 squash merge until PR #41 completes main validation:
 
 `77625cfac01ad133a4c5c188a9613b43d294460c`
 
@@ -104,7 +107,7 @@ Post-merge validation evidence:
 - artifact upload: **PASS**;
 - main artifact ID `9972845872`, digest `sha256:dc554575ec03b5a7c793f5163a8451173cbcf6713070ed0615ccfada0ce564c0`.
 
-Markdown-only tracking commits newer than this SHA do not replace the validated source baseline. PR #40 source is **implemented but not yet validated** and therefore does not replace this baseline yet.
+PR #40 is PR-validated and merged but is not yet the fully main-validated baseline because its main push CI was skipped. PR #41 is the evidence-backed revalidation path.
 
 ## VALIDATED M4 SLICES
 
@@ -139,9 +142,9 @@ Validated capabilities:
 
 Evidence: `work-log/2026-09-05-chatgpt-m4-timezone-dst-reconciliation.md`.
 
-## ACTIVE M4 RECURRENCE SLICE — PR #40
+## PR-VALIDATED / MERGED M4 RECURRENCE SLICE — PR #40
 
-Implemented candidate behavior, **not yet CI-validated**:
+Validated at PR head `7217dbed78f930411fe5c360796729ee3e5b8d4b`:
 
 - recurrence occurrence computation for day/week/month/year interval rules;
 - Monday-through-Sunday materialization window, so due children for the current week are generated from the Monday boundary;
@@ -152,14 +155,24 @@ Implemented candidate behavior, **not yet CI-validated**:
 - child tasks receive stable new task IDs, parent linkage, copied core title/list/EST fields, and date-only or local-datetime schedule semantics;
 - task + `recurrence_occurrences` insertions occur in one SQLite `IMMEDIATE` transaction;
 - repeated materialization reuses the existing occurrence row/child instead of duplicating it;
+- failed timed materialization rolls back parent normalization and child/occurrence creation;
+- inactive rules are no-ops;
 - `last_materialized_local_date` advances monotonically and is not the sole idempotency mechanism.
 
-Changed candidate files:
+Changed behavior/test files in PR #40:
 
 - `src-tauri/src/recurrence/mod.rs`;
 - `src-tauri/tests/recurrence_materialization.rs`.
 
-Explicitly out of scope / still open after this slice unless later work proves otherwise:
+PR validation evidence:
+
+- Windows CI #212 / run `33979784683` / job `101342828953`: **SUCCESS**;
+- repository preflight: **PASS**;
+- Tauri release build: **PASS**;
+- artifact upload: **PASS**;
+- artifact ID `9973579168`, digest `sha256:1f75ebec83c7c0bf04f47e28acad627e727fab42872ff180aeef862ce6babc38`.
+
+Explicitly out of scope / still open after this slice:
 
 - Replace Existing Tasks;
 - recurrence detachment semantics;
@@ -169,11 +182,9 @@ Explicitly out of scope / still open after this slice unless later work proves o
 - copying unconfirmed rich-note/subtask behavior into recurrence children;
 - product UI.
 
-Local Node/Rust preflight: **NOT RUN** in the connector-only implementation environment. Windows CI is authoritative for compile/tests/release validation.
-
 ## M4 TODO STATE
 
-Already validated and checked in `TODO.md`:
+Already validated and checked in `TODO.md` before PR #40:
 
 - Monday-based week classification;
 - official scheduling shortcuts;
@@ -181,32 +192,30 @@ Already validated and checked in `TODO.md`:
 - future-timed Today focus gating;
 - date-only no-day-shift semantics.
 
-Still open until evidence-backed reconciliation:
+PR #40 has evidence for recurrence rule evaluation, recurring parent Backlog normalization, Monday-of-due-week child materialization and same-week duplicate prevention. Do not check those TODO items until PR #41 completes resulting-main validation and final tracking reconciliation.
+
+Still open regardless of PR #40:
 
 - one-off local reminders;
-- recurrence presets/custom interval-unit-weekday rules;
-- recurring parent in Backlog and Monday-of-due-week child materialization;
 - Replace Existing Tasks;
 - recurrence detachment while preserving independent modified children;
-- idempotent materialization on startup/resume/date change/missed-day catch-up;
+- startup/resume/date-change orchestration and missed-day catch-up;
 - tray/background due-reminder processing;
 - Windows locale/system 12/24-hour visible formatting;
 - remaining combined M4 regressions;
 - explicit scheduled-lane movement anti-duplication regression at the M4 behavior layer.
 
-Do not check recurrence TODO items from PR #40 until its exact head passes CI, is merged, resulting main is validated, and tracking is reconciled.
+## NEXT AGENT ACTION — ACTIVE PR #41
 
-## NEXT AGENT ACTION — ACTIVE PR #40
+1. inspect exact current PR #41 head and its Windows CI state;
+2. if CI fails, read the exact failure log and fix only evidence-backed problems on the same branch/PR;
+3. if CI succeeds, record exact run/job/artifact evidence and confirm the diff remains semantics-neutral;
+4. guarded-merge only the exact validated PR #41 head;
+5. validate the resulting main source SHA with Windows CI and record artifact evidence;
+6. update `TODO.md`, `STATUS.md`, and `HANDOFF.md` and create a new immutable recurrence work-log entry;
+7. only after that mark this recurrence materialization slice 6/6 and choose the next M4 slice.
 
-1. inspect current exact PR #40 head (expected at this handoff: `22d6cbafda3f3967aeecf7f0823172336728035d`);
-2. inspect its latest Windows CI state;
-3. if CI fails, read the exact failing job log and fix only evidence-backed problems on the same branch/PR;
-4. if CI succeeds, record exact run/job/artifact evidence and perform final semantic/diff review;
-5. guarded-merge only that validated expected head;
-6. validate resulting main source SHA with Windows CI;
-7. only then update TODO/STATUS/HANDOFF and create the immutable recurrence work-log entry.
-
-Do not begin Replace Existing, detachment, reminders or Milestone 5+ while PR #40 is unresolved.
+Do not begin Replace Existing, detachment, reminders or Milestone 5+ while PR #41/reconciliation is unresolved.
 
 ## IMPORTANT INVARIANTS
 

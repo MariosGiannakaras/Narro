@@ -1,3 +1,5 @@
+//! Durable recurrence metadata shared by persistence and the Milestone 4 materializer.
+
 use super::ids::{RecurrenceRuleId, TaskId};
 use super::model::RecurrenceUnit;
 use serde::{Deserialize, Serialize};
