@@ -4,8 +4,9 @@ use crate::domain::timer_events::{TimerSessionPayload, TIMER_SESSION_EVENT_NAME}
 use crate::error::{CommandError, CommandResult};
 use crate::notifications;
 use crate::persistence::pomodoro_effects::{
-    awaiting_resume_for_open_work_session, claim_pending_notifications, ensure_boundary_decision,
-    PomodoroBoundaryEffect, PomodoroBoundaryEffectKind,
+    awaiting_resume_for_current_open_work_session, awaiting_resume_for_open_work_session,
+    claim_pending_notifications, ensure_boundary_decision, PomodoroBoundaryEffect,
+    PomodoroBoundaryEffectError, PomodoroBoundaryEffectKind,
 };
 use crate::persistence::timer_controller::{TimerController, TimerControllerError};
 use crate::persistence::{configure_connection, PersistenceError};
@@ -25,6 +26,7 @@ pub enum TimerServiceRecoverError {
     DatabasePathUnavailable,
     EffectsConnection(rusqlite::Error),
     EffectsConfiguration(PersistenceError),
+    EffectsRecovery(PomodoroBoundaryEffectError),
 }
 
 impl Display for TimerServiceRecoverError {
@@ -35,9 +37,13 @@ impl Display for TimerServiceRecoverError {
                 "authoritative timer database path is unavailable for Pomodoro effect persistence",
             ),
             Self::EffectsConnection(error) => {
-                write!(formatter, "failed to open Pomodoro effect database connection: {error}")
+                write!(
+                    formatter,
+                    "failed to open Pomodoro effect database connection: {error}"
+                )
             }
             Self::EffectsConfiguration(error) => Display::fmt(error, formatter),
+            Self::EffectsRecovery(error) => Display::fmt(error, formatter),
         }
     }
 }
@@ -48,6 +54,7 @@ impl std::error::Error for TimerServiceRecoverError {
             Self::Controller(error) => Some(error),
             Self::EffectsConnection(error) => Some(error),
             Self::EffectsConfiguration(error) => Some(error),
+            Self::EffectsRecovery(error) => Some(error),
             Self::DatabasePathUnavailable => None,
         }
     }
@@ -63,6 +70,7 @@ struct TimerServiceState {
     controller: TimerController,
     effects_connection: Connection,
     observed_ms: u64,
+    recovered_awaiting_resume: bool,
 }
 
 pub struct TimerService {
@@ -81,6 +89,9 @@ impl TimerService {
             Connection::open(database_path).map_err(TimerServiceRecoverError::EffectsConnection)?;
         configure_connection(&effects_connection)
             .map_err(TimerServiceRecoverError::EffectsConfiguration)?;
+        let recovered_awaiting_resume =
+            awaiting_resume_for_current_open_work_session(&effects_connection)
+                .map_err(TimerServiceRecoverError::EffectsRecovery)?;
 
         let monotonic_origin = Instant::now();
         let wall_time = current_wall_time();
@@ -90,6 +101,7 @@ impl TimerService {
                 controller,
                 effects_connection,
                 observed_ms: 0,
+                recovered_awaiting_resume,
             }),
             monotonic_origin,
         })
@@ -100,7 +112,11 @@ impl TimerService {
             .state
             .lock()
             .map_err(|_| CommandError::timer_service_lock_poisoned())?;
-        decorate_timer_payload(&state.effects_connection, state.controller.snapshot())
+        decorate_timer_payload(
+            &state.effects_connection,
+            state.controller.snapshot(),
+            state.recovered_awaiting_resume,
+        )
     }
 
     pub fn advance_and_report(&self, app_handle: &tauri::AppHandle) -> CommandResult<()> {
@@ -114,6 +130,7 @@ impl TimerService {
             controller,
             effects_connection,
             observed_ms,
+            ..
         } = &mut *state;
 
         advance_controller_to(
@@ -232,6 +249,7 @@ impl TimerService {
             controller,
             effects_connection,
             observed_ms,
+            recovered_awaiting_resume,
         } = &mut *state;
 
         // Catch up every automatic boundary first. Decisions are persisted before each due boundary,
@@ -248,7 +266,12 @@ impl TimerService {
         let payload =
             transition(controller, now_ms, &wall_time).map_err(CommandError::timer_operation)?;
         *observed_ms = now_ms;
-        let payload = decorate_timer_payload(effects_connection, payload)?;
+        *recovered_awaiting_resume &= is_paused_pomodoro_projection(&payload);
+        let payload = decorate_timer_payload(
+            effects_connection,
+            payload,
+            *recovered_awaiting_resume,
+        )?;
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
 
@@ -331,17 +354,27 @@ fn wall_time_at_monotonic(
         .to_rfc3339_opts(SecondsFormat::Millis, true))
 }
 
+fn is_paused_pomodoro_projection(payload: &TimerSessionPayload) -> bool {
+    payload.runtime.timer.state == TimerStateKind::Paused
+        && matches!(payload.runtime.timer.mode, Some(TimerMode::Pomodoro { .. }))
+}
+
 fn decorate_timer_payload(
     effects_connection: &Connection,
     mut payload: TimerSessionPayload,
+    recovered_awaiting_resume: bool,
 ) -> CommandResult<TimerSessionPayload> {
-    payload.awaiting_resume = if payload.runtime.timer.state == TimerStateKind::Paused
-        && matches!(payload.runtime.timer.mode, Some(TimerMode::Pomodoro { .. }))
-    {
-        match payload.runtime.open_session_id {
-            Some(session_id) => awaiting_resume_for_open_work_session(effects_connection, session_id)
-                .map_err(effect_error)?,
-            None => false,
+    payload.awaiting_resume = if is_paused_pomodoro_projection(&payload) {
+        if recovered_awaiting_resume {
+            true
+        } else {
+            match payload.runtime.open_session_id {
+                Some(session_id) => {
+                    awaiting_resume_for_open_work_session(effects_connection, session_id)
+                        .map_err(effect_error)?
+                }
+                None => false,
+            }
         }
     } else {
         false
@@ -397,7 +430,7 @@ where
             .map_err(CommandError::timer_operation)?;
         *observed_ms = boundary_ms;
         if let Some(payload) = changed {
-            let payload = decorate_timer_payload(effects_connection, payload)?;
+            let payload = decorate_timer_payload(effects_connection, payload, false)?;
             report(&payload);
         }
     }
@@ -407,7 +440,7 @@ where
             .advance(now_ms, wall_time)
             .map_err(CommandError::timer_operation)?
         {
-            let payload = decorate_timer_payload(effects_connection, payload)?;
+            let payload = decorate_timer_payload(effects_connection, payload, false)?;
             report(&payload);
         }
         *observed_ms = now_ms;
@@ -733,7 +766,7 @@ mod tests {
     }
 
     #[test]
-    fn awaiting_resume_survives_recovery_and_clears_after_resume_checkpoint() {
+    fn awaiting_resume_survives_service_recovery() {
         let (mut controller, mut effects, task_id, path) = fixture();
         controller
             .start_task(
@@ -756,28 +789,55 @@ mod tests {
             |_| {},
         )
         .unwrap();
-        let live = decorate_timer_payload(&effects, controller.snapshot()).unwrap();
+        let live = decorate_timer_payload(&effects, controller.snapshot(), false).unwrap();
         assert!(live.awaiting_resume);
 
         drop(controller);
+        drop(effects);
         let connection = Connection::open(&path).unwrap();
-        let mut recovered = TimerController::recover(
-            connection,
-            0,
-            "2026-09-05T12:01:00Z",
-        )
-        .expect("recover awaiting resume");
-        let recovered_payload = decorate_timer_payload(&effects, recovered.snapshot()).unwrap();
+        let service = TimerService::recover(connection).expect("recover awaiting resume service");
+        let recovered_payload = service.snapshot().unwrap();
         assert!(recovered_payload.awaiting_resume);
+        assert_eq!(recovered_payload.runtime.timer.state, TimerStateKind::Paused);
 
-        let resumed = recovered
-            .resume(1_000, "2026-09-05T12:01:01Z")
+        drop(service);
+        fs::remove_file(path).expect("remove test database");
+    }
+
+    #[test]
+    fn recovered_awaiting_resume_fallback_clears_after_running_projection() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        controller
+            .start_task(
+                task_id,
+                TimerMode::Pomodoro {
+                    work_ms: 2_000,
+                    break_ms: 3_000,
+                },
+                0,
+                T0,
+            )
+            .unwrap();
+        let mut observed_ms = 0;
+        advance_controller_to(
+            &mut controller,
+            &mut effects,
+            &mut observed_ms,
+            5_000,
+            "2026-09-05T12:00:05Z",
+            |_| {},
+        )
+        .unwrap();
+
+        let resumed = controller
+            .resume(6_000, "2026-09-05T12:00:06Z")
             .expect("resume after prompt");
-        let resumed = decorate_timer_payload(&effects, resumed).unwrap();
+        assert!(!is_paused_pomodoro_projection(&resumed));
+        let resumed = decorate_timer_payload(&effects, resumed, true).unwrap();
         assert!(!resumed.awaiting_resume);
 
         drop(effects);
-        drop(recovered);
+        drop(controller);
         fs::remove_file(path).expect("remove test database");
     }
 
