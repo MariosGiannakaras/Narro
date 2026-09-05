@@ -7,6 +7,7 @@ pub mod recurrence;
 pub mod sessions;
 pub mod subtasks;
 pub mod tasks;
+pub mod timer_events;
 
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};

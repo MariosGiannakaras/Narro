@@ -7,6 +7,7 @@ pub mod recurrence;
 pub mod scheduling;
 pub mod shortcuts;
 pub mod timer;
+pub mod timer_service;
 pub mod windows;
 
 use domain::{AppState, AppStatePayload};
@@ -16,6 +17,11 @@ use std::fmt::Display;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Emitter, Manager, State};
+use timer_service::{
+    timer_complete_task, timer_extend, timer_finish_break, timer_pause, timer_resume,
+    timer_session_snapshot, timer_set_time_taken, timer_skip_break, timer_skip_task,
+    timer_start_manual_break, timer_start_task, timer_switch_task, TimerService,
+};
 use windows::{
     focus_panel_edge_position, validate_work_area, FocusPanelSide, MonitorDescriptor,
     PhysicalPoint as GeometryPoint, PhysicalRect as GeometryRect, PhysicalSize as GeometrySize,
@@ -502,7 +508,9 @@ fn startup_error(context: &str, source: impl Display) -> std::io::Error {
     std::io::Error::other(format!("{context}: {source}"))
 }
 
-fn initialize_persistence(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
+fn initialize_persistence(
+    app: &tauri::App,
+) -> Result<rusqlite::Connection, Box<dyn std::error::Error>> {
     let app_dir = app
         .path()
         .app_data_dir()
@@ -526,7 +534,7 @@ fn initialize_persistence(app: &tauri::App) -> Result<(), Box<dyn std::error::Er
         .map_err(|error| startup_error("write diagnostic startup record", error))?;
 
     println!("SQLite migration and diagnostic startup insert succeeded. ID: {id}");
-    Ok(())
+    Ok(connection)
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -552,6 +560,18 @@ pub fn run() {
             global_shortcut_register,
             global_shortcut_unregister,
             global_shortcut_conflict_probe,
+            timer_session_snapshot,
+            timer_start_task,
+            timer_pause,
+            timer_resume,
+            timer_extend,
+            timer_start_manual_break,
+            timer_finish_break,
+            timer_skip_break,
+            timer_complete_task,
+            timer_skip_task,
+            timer_switch_task,
+            timer_set_time_taken,
             main_window_show,
             main_window_hide,
             main_window_focus,
@@ -569,7 +589,11 @@ pub fn run() {
         ])
         .setup(|app| {
             install_tray(app)?;
-            initialize_persistence(app)?;
+            let connection = initialize_persistence(app)?;
+            let timer_service = TimerService::recover(connection)
+                .map_err(|error| startup_error("recover authoritative timer runtime", error))?;
+            app.manage(timer_service);
+            timer_service::install_background_advance(app.handle().clone());
             #[cfg(windows)]
             windows::install_display_change_observer(app)
                 .map_err(|error| startup_error("install display topology observer", error))?;

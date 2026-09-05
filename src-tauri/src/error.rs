@@ -27,6 +27,27 @@ impl CommandError {
         )
     }
 
+    pub fn timer_service_lock_poisoned() -> Self {
+        Self::new(
+            "TIMER_SERVICE_LOCK_POISONED",
+            "authoritative timer service lock is poisoned",
+        )
+    }
+
+    pub fn timer_clock_overflow() -> Self {
+        Self::new(
+            "TIMER_CLOCK_OVERFLOW",
+            "authoritative timer monotonic clock exceeded the supported range",
+        )
+    }
+
+    pub fn timer_operation(source: impl Display) -> Self {
+        Self::new(
+            "TIMER_OPERATION_FAILED",
+            format!("authoritative timer operation failed: {source}"),
+        )
+    }
+
     pub fn window_not_found(label: &str) -> Self {
         Self::new(
             "WINDOW_NOT_FOUND",
@@ -250,6 +271,13 @@ mod tests {
             error.message,
             "invalid command argument 'monitorKey': must be non-empty"
         );
+    }
+
+    #[test]
+    fn timer_operation_has_stable_machine_code() {
+        let error = CommandError::timer_operation("no active task");
+        assert_eq!(error.code, "TIMER_OPERATION_FAILED");
+        assert!(error.message.contains("no active task"));
     }
 
     #[test]
