@@ -22,37 +22,37 @@ Later-milestone scaffolds or reusable foundation do not count as starting those 
 
 Latest fully main-validated **source** baseline:
 
-`bdcb7729b291e76206ca5916d2a84587b060223b`
+`6c9217f90f3b7db46a30393548e640faf671fb55`
 
-This SHA is the guarded squash merge of PR #47, the M4 Replace Existing Tasks recurrence slice.
+This SHA is the guarded squash merge of PR #49, the M4 recurrence detachment slice.
 
-### PR #47 exact-head validation
+### PR #49 exact-head validation
 
 Exact validated PR head:
 
-`ce4181be2216f7ee2333b03302062cb89f4a3b56`
+`d7e41e69ed3e69647ad1b67a5d07efaa0d034784`
 
-- Windows PR CI #235 / run `33992278666` / job `101376509763`: **SUCCESS**.
+- Windows PR CI #238 / run `34016467394` / job `101440990105`: **SUCCESS**.
 - Repository preflight: **PASS**.
 - Tauri release build: **PASS**.
 - Artifact upload: **PASS**.
-- Artifact ID `9977163499`.
-- Digest `sha256:aa17138190feccc6a4fb1ec5717d34aec4df462ce2f16125f093272bf763aa41`.
+- Artifact ID `9984212532`.
+- Digest `sha256:f04e43e3d06e487dd7d37ea6414f3a739a139e2b9ec48c33514fa4c13363505d`.
 - Final exact-head semantic/diff review: **PASS**.
-- PR #47 had no unresolved review threads.
+- PR #49 had no unresolved review threads.
 
-Guarded squash merge with expected head `ce4181be2216f7ee2333b03302062cb89f4a3b56` produced:
+Guarded squash merge with expected head `d7e41e69ed3e69647ad1b67a5d07efaa0d034784` produced:
 
-`bdcb7729b291e76206ca5916d2a84587b060223b`
+`6c9217f90f3b7db46a30393548e640faf671fb55`
 
 ### Resulting-main validation
 
-- Windows main CI #236 / run `33993051867` / job `101378588286`: **SUCCESS** on exact source SHA `bdcb7729b291e76206ca5916d2a84587b060223b`.
+- Windows main CI #239 / run `34017068364` / job `101442607083`: **SUCCESS** on exact source SHA `6c9217f90f3b7db46a30393548e640faf671fb55`.
 - Repository preflight: **PASS**.
 - Tauri release build: **PASS**.
 - Artifact upload: **PASS**.
-- Artifact ID `9977373964`.
-- Digest `sha256:66eaac71f2514d70274e23d69c1fdadaadd33501299b367391b4a44f539f4714`.
+- Artifact ID `9984403460`.
+- Digest `sha256:d8426b78e8e2cb7ed4c509be41e8de1bdf3688f892bb202b7787b4279bc82409`.
 
 Markdown-only reconciliation commits newer than this SHA do not replace the validated source baseline.
 
@@ -70,73 +70,37 @@ Markdown-only reconciliation commits newer than this SHA do not replace the vali
 
 ## Milestone 4 — active validated state
 
-Six coherent M4 source slices are now validated.
+Seven coherent M4 source slices are now validated:
 
-### PR #36 — scheduling / eligibility core
+1. scheduling / eligibility core — PR #36;
+2. timezone / DST correctness — PR #37;
+3. recurrence execution/materialization core — PR #40/#41;
+4. durable one-off reminder core — PR #43;
+5. tray/background one-off reminder delivery source — PR #45;
+6. Replace Existing Tasks — PR #47;
+7. recurrence detachment semantics — PR #49.
 
-Validated Monday-starting week classification, official schedule shortcuts, scheduled lane projection, date-only semantics, future-timed Today focus gating and stable task identity.
-
-Evidence: `work-log/2026-09-05-1618-chatgpt-m4-scheduling-core.md`.
-
-### PR #37 — timezone / DST correctness
-
-Validated IANA timezone resolution, stable-instant timed scheduling, strict gap/fold rejection, timezone reprojection and date-only isolation from UTC conversion.
-
-Evidence: `work-log/2026-09-05-chatgpt-m4-timezone-dst-reconciliation.md`.
-
-### PR #40 / #41 — recurrence execution/materialization core
-
-Validated day/week/month/year recurrence evaluation, weekday/calendar-date rules, Monday-through-Sunday materialization, Backlog parent normalization, transactional child/occurrence creation, strict timed DST handling and durable same-week idempotency.
-
-Evidence: `work-log/2026-09-05-chatgpt-m4-recurrence-materialization-reconciliation.md`.
-
-### PR #43 — durable one-off reminder core
-
-Validated typed reminder persistence, strict schedule/timezone/DST validation, side-effect-free due evaluation, inactive-context exclusion and terminal fired/dismissed transitions.
-
-Evidence: `work-log/2026-09-05-chatgpt-m4-reminder-core-reconciliation.md`.
-
-### PR #45 — tray/background one-off reminder delivery source
+### PR #49 — recurrence detachment
 
 Validated:
 
-- Rust-owned reminder dispatcher using a separately configured SQLite connection;
-- immediate startup catch-up plus bounded 30-second cadence while Narro remains running in tray/background mode;
-- reuse of the validated side-effect-free `pending_due_reminders` selector;
-- active task/list re-check immediately before notification submission;
-- existing Windows notification transport reused rather than a parallel transport;
-- notification submission occurs before durable `fired_at` acknowledgment;
-- failed submissions remain pending for retry without terminating the process;
-- acknowledged reminders are excluded from subsequent cycles;
-- deterministic due-order, retry/no-resubmit, inactive-task and acknowledgment-failure regressions;
-- bounded task-title notification body by Unicode character count;
-- narrow Tauri startup integration with no renderer-owned timer/reminder authority.
+- ordinary recurrence removal reuses the canonical persistence mutation rather than a second recurrence authority;
+- generated child task identities survive recurrence removal;
+- edited title plus notes/subtasks/reminders/sessions survive;
+- completed and archived generated children survive;
+- already detached/independent children remain unchanged;
+- parent recurrence link is cleared;
+- still-linked child recurrence-parent links are cleared;
+- rule-owned occurrence rows are removed with the deleted rule while child tasks remain;
+- removed rules cannot materialize future children;
+- forced delete failure rolls back child/parent link changes and occurrence cleanup;
+- repeated detach returns typed `NotFound` without mutating preserved tasks.
 
-Reliability boundary: the source does **not** claim mathematically exactly-once delivery across the unavoidable crash window after OS submission and before `fired_at` persistence. A crash in that interval can cause a retry/duplicate after restart; hiding that limitation would be incorrect.
-
-Evidence: `work-log/2026-09-05-chatgpt-m4-reminder-delivery-reconciliation.md`.
-
-### PR #47 — Replace Existing Tasks
-
-Validated:
-
-- explicit `replace_existing = true` boundary;
-- SQLite `IMMEDIATE` transaction for the replacement mutation;
-- pristine active generated children are the only children deleted by replacement;
-- completed/archived historical children remain intact;
-- already detached/independent children remain intact;
-- edited/history-bearing active generated children are preserved and detached rather than cascade-deleted;
-- preserved/detached children retain the old `recurrence_occurrences` reservation so the same occurrence cannot regenerate as a duplicate;
-- recurrence materialization cursor resets and normal materialization creates only unreserved occurrences with new task identities;
-- invalid recurrence pattern/date/time/timezone shape fails before mutation, including weekday masks above seven supported bits;
-- forced rule-update failure rolls back child mutations;
-- final semantic review caught and corrected the occurrence-reservation duplicate-regeneration risk before the accepted exact-head CI/merge.
-
-Evidence: `work-log/2026-09-06-chatgpt-m4-replace-existing-reconciliation.md`.
+Evidence: `work-log/2026-09-06-chatgpt-m4-recurrence-detachment-reconciliation.md`.
 
 ### M4 progress boundary
 
-The Replace Existing Tasks source slice is:
+The recurrence detachment source slice is:
 
 **Μικρή τρέχουσα υλοποίηση: 6/6 ολοκληρωμένες.**
 
@@ -145,17 +109,12 @@ Do not reset the small counter until a genuinely new source slice begins and its
 Still open in M4:
 
 - physical visible one-off due-reminder acceptance in tray/background mode; source implementation remains validated;
-- recurrence detachment semantics;
 - startup/resume/date-change recurrence orchestration and missed-day catch-up;
 - Windows locale/system 12/24-hour visible formatting;
 - remaining combined M4 regression matrix, including repeated startup/missed days/reminder delivery;
 - explicit scheduled-lane movement anti-duplication regression at the M4 behavior layer.
 
-The next ordered source implementation slice is **recurrence detachment semantics — NOT STARTED**. Physical reminder acceptance can be captured independently without changing the validated source baseline unless it reveals a defect.
-
-## Later milestone status
-
-Milestones 5–10 remain **NOT STARTED**. Existing window, notification, preference, schema or report foundations do not change that state.
+The next ordered source implementation slice is **startup/resume/date-change recurrence orchestration and missed-day catch-up — NOT STARTED**. Physical reminder acceptance can be captured independently without changing the validated source baseline unless it reveals a defect.
 
 ## Durable correctness decisions
 
@@ -166,10 +125,11 @@ Future work must preserve:
 - renderer-independent timer accounting;
 - date-only calendar semantics and Monday week boundaries;
 - explicit IANA timezone resolution with fail-closed DST gap/fold handling;
-- deterministic/idempotent recurrence with `recurrence_occurrences` as the duplicate-prevention boundary;
+- deterministic/idempotent recurrence while a rule exists;
 - Replace Existing deletes only pristine applicable generated children;
 - completed/archived and detached/independent recurrence history survives replacement;
-- preserved edited/history-bearing children retain occurrence reservations against duplicate regeneration;
+- ordinary detachment never deletes child tasks or user history;
+- removing recurrence leaves no active materialization authority for the removed rule;
 - reminder due evaluation remains side-effect free;
 - reminder `fired_at` is written only after successful OS notification submission;
 - failed reminder submission remains retryable;
