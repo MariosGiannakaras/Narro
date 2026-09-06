@@ -22,6 +22,12 @@ export function TimerSessionProjection({ label, compact = false }: TimerSessionP
   const [resuming, setResuming] = useState(false);
   const localePreferences = resolveVisibleDateTimePreferences();
   const localeSample = formatVisibleDateTime("2026-09-07", "21:05");
+  const hourConvention =
+    localePreferences.hour12 === null
+      ? "system hour convention"
+      : localePreferences.hour12
+        ? "12-hour"
+        : "24-hour";
 
   useEffect(() => {
     let disposed = false;
@@ -87,7 +93,7 @@ export function TimerSessionProjection({ label, compact = false }: TimerSessionP
       >
         Windows locale date/time sample: <strong>{localeSample}</strong>{" "}
         <span>
-          ({localePreferences.locale}; {localePreferences.hourCycle ?? "system hour cycle"})
+          ({localePreferences.locale}; {hourConvention})
         </span>
       </div>
       {payload?.awaitingResume && (
