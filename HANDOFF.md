@@ -14,56 +14,98 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 
 ## ACTIVE WORK RECORD
 
-- Latest completed source slice: **recurrence detachment semantics — COMPLETE / RECONCILED**.
-- Active source slice: **startup/resume/date-change recurrence orchestration + missed-day catch-up — ACTIVE**.
-- Active implementation branch: **`ai/m4-recurrence-orchestration`**.
-- Active implementation PR: **None yet**.
-- Latest fully main-validated source baseline: **`6c9217f90f3b7db46a30393548e640faf671fb55`**.
-- Branch started from current tracking-only `main`; Markdown-only descendants do not replace the validated source baseline.
-- Local Rust/Node preflight in this connector-only environment: **NOT RUN**.
-- Current small-slice progress: **2/6**.
+- Latest completed source slice: **startup/resume/date-change recurrence orchestration + missed-week catch-up — COMPLETE / RECONCILED**.
+- Active source slice: **None**.
+- Active implementation branch: **None**.
+- Active implementation PR: **None**.
+- Pending source CI/main validation: **None**.
+- Latest fully main-validated source baseline: **`83afcbee0583ef71dfc42c0e4c5266b0ed997fa0`**.
+- Next ordered unblocked source slice: **Windows locale/system 12/24-hour visible date/time formatting — NOT STARTED**.
+- Physical reminder acceptance remains independently pending: **visible due reminder while Narro remains in tray/background mode**.
 
-No open implementation PR existed when this slice began.
+Markdown-only reconciliation commits newer than the validated source SHA do not replace that source baseline.
 
 ## USER-FACING PROGRESS
 
-**Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
+**`M-4/10 | 6/6 | 10/15`**
 
-**Μικρή τρέχουσα υλοποίηση: 2/6 ολοκληρωμένες.**
+Do not reset the slice counter until a genuinely new source slice begins and its denominator is explicitly recorded.
 
 Recurrence orchestration checkpoints:
 
 1. mandatory startup + product/risk/source/runtime audit + branch start — COMPLETE;
 2. Rust-owned orchestration + deterministic startup/date-change/missed-week/idempotency tests + candidate diff review — COMPLETE;
-3. exact PR-head Windows CI success including preflight, Tauri release and artifact — PENDING;
-4. final semantic/diff review of exact validated head — PENDING;
-5. guarded merge with expected validated head — PENDING;
-6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
+3. exact PR-head Windows CI success including preflight, Tauri release and artifact — COMPLETE;
+4. final semantic/diff review of exact validated head — COMPLETE;
+5. guarded merge with expected validated head — COMPLETE;
+6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE after the tracking PR carrying this file is merged.
 
-## CANDIDATE CONTRACT
+## LATEST VALIDATED SOURCE BASELINE
 
-- `src-tauri/src/recurrence_service.rs` owns active-rule discovery and orchestration; no renderer polling or second materialization engine exists.
-- `materialize_recurrence_week` remains the transactional child/occurrence primitive.
-- no prior watermark => current week only, avoiding arbitrary historical backfill;
-- existing watermark => each missed Monday-based week is processed in order, then the current local date is processed idempotently;
-- repeated same-day/same-week/date-change cycles rely on occurrence uniqueness and create no duplicates;
-- timed rules resolve current date in their own validated IANA timezone;
-- date-only rules use Windows/system local calendar date without UTC conversion;
-- one broken active rule is recorded as a per-rule failure and does not block unrelated rules;
-- successful earlier missed-week commits remain durable if a later week fails; retry resumes safely from the monotonic watermark;
-- a dedicated configured SQLite connection runs one immediate cycle at startup and repeats every 60 seconds, naturally covering post-sleep/resume and local-date changes while Narro remains alive;
-- startup wiring only registers the service and reuses the already-required durable database path.
+`83afcbee0583ef71dfc42c0e4c5266b0ed997fa0`
 
-Deterministic regressions cover first startup without historical backfill, repeated pass, same-week date change, multi-week catch-up, cross-rule failure isolation, timed-zone date resolution and corrupt active-rule identity.
+### PR #51 exact-head validation
 
-## NEXT AGENT ACTION — PR VALIDATION
+Exact validated PR head:
 
-1. Open one implementation PR from `ai/m4-recurrence-orchestration` and read its exact head SHA.
-2. Accept Windows CI only for that exact head. If it fails, inspect the exact failing log and fix only evidence-backed problems.
-3. On full preflight/release/artifact success, record run/job/artifact/digest and perform final exact-head semantic/diff review.
-4. Guarded-merge only the validated expected head.
-5. Validate resulting main on Windows CI.
-6. Reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and create one new immutable recurrence-orchestration work-log entry.
+`5adcb73099af418e007fe3d4b263d146d383c75e`
+
+- Windows PR CI #241 / run `34018912013` / job `101447745275`: **SUCCESS**.
+- Repository preflight: **PASS**.
+- Tauri release build: **PASS**.
+- Artifact upload: **PASS**.
+- Artifact ID `9984989563`.
+- Digest `sha256:e899a6c05874cb50caabcc8d2e5db3b346a4a98f0e6cf269d9bbb5676fdf9643`.
+- Final exact-head semantic/diff review: **PASS**.
+- Unresolved inline review threads: **none**.
+- PR conversation comments: **none**.
+
+PR #51 was guarded-squash-merged with expected head `5adcb73099af418e007fe3d4b263d146d383c75e` and produced:
+
+`83afcbee0583ef71dfc42c0e4c5266b0ed997fa0`
+
+### Resulting-main validation
+
+- Windows main CI #244 / run `34022250016` / job `101456840746`: **SUCCESS** on exact source SHA `83afcbee0583ef71dfc42c0e4c5266b0ed997fa0`.
+- Repository preflight: **PASS**.
+- Tauri release build: **PASS**.
+- Artifact upload: **PASS**.
+- Artifact ID `9986069438`.
+- Digest `sha256:41cade65815899a3c068f978f8f3e286eb75f0d0b3eb2e60267030bb6f201d4a`.
+
+Evidence: `work-log/2026-09-06-chatgpt-m4-recurrence-orchestration-reconciliation.md`.
+
+## VALIDATED RECURRENCE ORCHESTRATION CONTRACT
+
+- `src-tauri/src/recurrence_service.rs` is the Rust-owned orchestration authority; no renderer polling or second recurrence materialization engine exists.
+- `materialize_recurrence_week` remains the transactional child/occurrence creation primitive.
+- no materialization watermark => process the current local week only, avoiding arbitrary historical backfill;
+- existing watermark => process every missed Monday-based week in order, then process the current local date idempotently;
+- repeated startup/same-day/same-week/date-change passes create no duplicate child tasks;
+- timed recurrence resolves the current date in the recurrence rule's validated IANA timezone;
+- date-only recurrence uses the Windows/system local calendar date and never converts through UTC;
+- one failing rule does not block unrelated active rules;
+- successful earlier catch-up weeks remain durable if a later week fails, and retry resumes from the monotonic watermark;
+- orchestration uses a separately configured SQLite connection;
+- one immediate startup cycle plus a bounded 60-second background cycle covers startup, local-date change and post-sleep/resume catch-up while Narro remains running.
+
+## NEXT AGENT ACTION — NOT STARTED
+
+Remain inside Milestone 4.
+
+The next ordered **unblocked source** implementation slice is **Windows locale/system 12/24-hour visible date/time formatting**.
+
+Before changing source:
+
+1. run the mandatory repository startup sequence and confirm current `main` descends from source baseline `83afcbee0583ef71dfc42c0e4c5266b0ed997fa0`;
+2. confirm there is no unfinished implementation PR or source CI that must be resumed first;
+3. inspect current visible date/time formatting paths in both webviews plus any Rust-projected strings;
+4. preserve stored scheduling semantics: this slice is presentation formatting only, not schedule/timezone mutation;
+5. use Windows/system locale conventions for 12/24-hour presentation without changing date-only or IANA scheduling logic;
+6. define a new meaningful slice denominator before source changes and record it here;
+7. validate exact PR head on authoritative Windows CI, final-review, guarded-merge, validate resulting main, then reconcile tracking.
+
+The two reminder-related top-level TODO items remain open only because physical installed-build visible notification evidence is still pending. That independent acceptance does not block locale-formatting source work unless it exposes a reminder defect.
 
 ## IMPORTANT INVARIANTS
 
@@ -73,7 +115,7 @@ Deterministic regressions cover first startup without historical backfill, repea
 - date-only schedules never convert through UTC;
 - week starts Monday;
 - strict IANA timezone/DST rules remain fail-closed;
-- recurrence mutations are transactional per materialized week;
+- recurrence materialization remains transactional per week and orchestration remains Rust-owned;
 - failed one-rule orchestration remains retryable;
 - reminder delivery submit-before-ack/retry semantics remain unchanged;
 - no renderer owns authoritative recurrence/reminder/timer state;
@@ -85,4 +127,4 @@ PR #45 reminder source remains fully validated and reconciled. Physical installe
 
 ## USER ACTION REQUIRED
 
-None for recurrence orchestration implementation. Physical installed-build visible due-reminder observation remains independently pending for reminder acceptance.
+None for the next locale-formatting source slice. Physical installed-build visible due-reminder observation remains independently pending for reminder acceptance.
