@@ -4,7 +4,7 @@ const LOCAL_TIME_PATTERN = /^(\d{2}):(\d{2})$/;
 export type VisibleDateTimePreferences = {
   locale: string;
   calendar: string;
-  hourCycle: string | null;
+  hour12: boolean | null;
   timeZone: string;
 };
 
@@ -110,7 +110,7 @@ export function resolveVisibleDateTimePreferences(
   return {
     locale: resolved.locale,
     calendar: resolved.calendar,
-    hourCycle: resolved.hourCycle ?? null,
+    hour12: resolved.hour12 ?? null,
     timeZone: resolved.timeZone,
   };
 }
