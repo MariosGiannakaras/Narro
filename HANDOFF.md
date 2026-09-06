@@ -16,16 +16,17 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 - Source implementation PR: **#58 — `M4: add due-reminder acceptance harness`**.
 - Exact validated PR head: **`8f73abf919f7babcfba76c2dd17c73d7a4fd138f`**.
 - Guarded squash-merge/resulting-main source SHA: **`438b28a36dfba58b35fa221557ff37d776453f23`**.
+- Tracking reconciliation PR: **#59 — merged**.
+- Current repository `main` tracking SHA after PR #59: **`927d9d2705a4c467fc0a311f0d536c3a32e44b01`**.
 - Active source branch/PR: **None**.
 - Pending source CI/main validation: **None**.
-- Current tracking reconciliation branch: **`docs/m4-reminder-acceptance-reconciliation`**, Markdown-only and based on validated source SHA `438b28a36dfba58b35fa221557ff37d776453f23`.
 - Remaining M4 gate: **physical installed-Windows observation of one actual due reminder while Narro remains running in tray/background mode**.
 
 Markdown-only tracking commits newer than `438b28a36dfba58b35fa221557ff37d776453f23` do not replace that validated source/test baseline.
 
 ## USER-FACING PROGRESS
 
-**`M-4/10 | 6/6 | 13/15`** once this Markdown-only reconciliation is merged.
+**`M-4/10 | 6/6 | 13/15`**
 
 Reminder-acceptance-harness checkpoints:
 
@@ -34,7 +35,7 @@ Reminder-acceptance-harness checkpoints:
 3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact — COMPLETE;
 4. final exact-head semantic/diff review — COMPLETE;
 5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI + tracking/work-log reconciliation + exact manual procedure/artifact identity — COMPLETE with this reconciliation.
+6. resulting-main Windows CI + tracking/work-log reconciliation + exact manual procedure/artifact identity — COMPLETE.
 
 ## VALIDATION EVIDENCE
 
