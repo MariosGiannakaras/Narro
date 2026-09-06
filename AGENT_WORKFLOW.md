@@ -43,8 +43,8 @@ Do not ask the user for a kickoff prompt or previous-chat summary when repositor
 
 ## Choosing work autonomously
 
-1. If `HANDOFF.md` contains `USER ACTION REQUIRED`, do not fake that evidence or broaden past the blocker unless the handoff explicitly allows parallel work or the user explicitly instructs continuation.
-2. Otherwise execute the first `NEXT AGENT ACTION`.
+1. If `HANDOFF.md` contains a **USER ACTION REQUIRED** blocker, do not fake that evidence or broaden past the blocker unless the handoff explicitly allows parallel work or the user explicitly instructs continuation.
+2. Otherwise execute the first **NEXT AGENT ACTION**.
 3. If handoff state is stale, reconcile it with actual code/tests/CI and correct the handoff first.
 4. If no actionable handoff exists, take the first open item in the current `TODO.md` milestone whose prerequisites are satisfied.
 5. Do not skip to a later milestone because it is easier or more visually rewarding.
@@ -53,25 +53,31 @@ The user should never have to relay one agent's explanation to another.
 
 ## User progress reporting
 
-For every implementation task, keep the user informed with **two explicit progress levels** in the user's current language:
+For every implementation task, keep the user informed with one compact progress line in this exact shape:
 
-- `Γενική υλοποίηση: X/Y ολοκληρωμένα` (or equivalent): overall project implementation progress. When the repository has an ordered milestone roadmap, use completed validated milestones over the total planned milestones so this denominator stays stable across sessions. For Narro, use the 10 ordered milestones in `TODO.md`; an in-progress milestone is not counted as completed.
-- `Μικρή τρέχουσα υλοποίηση: A/B ολοκληρωμένα` (or equivalent): meaningful checkpoints inside the currently active implementation slice/task.
+`M-{active milestone}/{total roadmap milestones} | {completed current-slice checkpoints}/{total current-slice checkpoints} | {completed active-milestone items}/{total active-milestone items}`
 
-Use both indicators in substantive implementation progress updates and in the final implementation status, including when the current task is small. For a genuinely atomic current slice, `1/1` is acceptable for the small indicator.
+The three fields are presentation-only views over existing repository state:
 
-Progress-count rules:
+- `M-{active milestone}/{total roadmap milestones}` identifies the currently active ordered milestone and the total number of milestones in the authoritative roadmap in `TODO.md`. It does **not** mean completed milestones over total milestones.
+- `{completed current-slice checkpoints}/{total current-slice checkpoints}` is the existing small-slice progress counter and keeps exactly the same checkpoint definitions, reset rules, validation requirements and denominator discipline already recorded in `HANDOFF.md` and this workflow.
+- `{completed active-milestone items}/{total active-milestone items}` is derived directly from the active milestone's **top-level checkbox items** in `TODO.md`: numerator = top-level `[x]` items; denominator = all top-level checkbox items in that milestone. Do not count acceptance criteria, explanatory bullets, prose, or nested validation/checkpoint bullets as separate milestone implementation items unless the repository contract explicitly promotes them to top-level implementation items.
 
-- Define both denominators from meaningful implementation/validation checkpoints, never from low-level tool calls.
-- Increment a numerator only when that checkpoint is actually completed and validated to the level required by repository rules.
-- A failed CI run is evidence and does **not** increment either completed count unless resolving that failure was itself an explicitly defined checkpoint that is now finished.
-- Keep the general project indicator stable across sessions and user turns; change it only when a top-level milestone is actually validated complete or the roadmap itself is explicitly revised.
-- A validated progress value recorded in current repository state must never move backward merely because a chat/session resumed from stale context.
-- The small indicator may reset only when moving to a genuinely new implementation slice; make that reset explicit and record the new slice/progress basis in `HANDOFF.md`.
-- If newly discovered work materially changes the small plan, update its denominator and briefly state why instead of silently changing the count.
-- If the ordered project roadmap is explicitly revised, update the general denominator and state why.
-- Do not present an implementation as complete until the relevant validation/merge/reconciliation checkpoint required by repository rules is complete.
-- Keep the detailed technical evidence in repository work logs; the two progress indicators are the concise user-facing status.
+Always derive all three fields from current authoritative repository state. Never hardcode example values or carry a stale value forward from conversation memory.
+
+This display-format change does not change what counts as progress. Existing completion semantics remain authoritative:
+
+- Increment the current-slice numerator only when that checkpoint is actually completed and validated to the level required by repository rules.
+- A failed CI run is evidence and does **not** increment the current-slice counter unless resolving that failure was itself an explicitly defined checkpoint that is now finished.
+- The current-slice counter may reset only when moving to a genuinely new implementation slice; make that reset explicit and record the new slice/progress basis in `HANDOFF.md`.
+- Do not change the current-slice denominator unless the actual slice plan materially changes under the existing rules; if it changes, state why rather than silently changing it.
+- The active-milestone item field is descriptive only. It never replaces slice tracking, never changes checkpoint completion, and never changes milestone completion or gate semantics.
+- A top-level milestone item counts as completed in the third field only when its checkbox is already `[x]` under the repository's existing evidence/validation rules.
+- Do not present an implementation item, checkpoint, or milestone as complete until the validation already required by the repository has passed.
+- If the ordered roadmap is explicitly revised, derive the first-field denominator from the revised authoritative `TODO.md`; do not silently invent a new roadmap denominator.
+- Keep detailed technical evidence in repository work logs; the compact line is only the user-facing summary.
+
+Use the compact line in substantive implementation progress updates and in final implementation status. Do not add parallel legacy `Γενική υλοποίηση` / `Μικρή τρέχουσα υλοποίηση` counters unless the user explicitly asks for them.
 
 ## Evidence and TODO discipline
 
@@ -95,7 +101,7 @@ Before every source/config push that will trigger Windows CI:
 3. prefer `npm run preflight` when Node dependencies and Rust toolchain are available;
 4. otherwise run the valid subset (`check:config`, frontend build/type check, Rust fmt/check/clippy/tests where possible) and record unavailable checks as `NOT RUN`;
 5. fix known local failures before pushing;
-6. prefer building/reviewing a coherent slice off `main`, then advance `main` once so one source slice causes one CI run;
+6. prefer building/reviewing a coherent slice off `main`, then advance `main` once so one source slice causes one Windows CI run;
 7. never use CI as a blind syntax/formatting probe when the equivalent local tool is available.
 
 Windows CI is the reproducible second gate. Inspect the real failing step/log before changing code or rerunning. Do not retry a deterministic failure without a corrective change.
@@ -130,7 +136,7 @@ Never overwrite another work-log entry. Corrections get a new file. Root `WORK_L
 Keep `HANDOFF.md` short and operational. It must clearly contain:
 
 - current milestone/slice;
-- current general progress and either the active small-slice progress or the latest completed small-slice progress;
+- current compact user-facing progress line (or the authoritative source values needed to derive it), including active milestone/roadmap size, active small-slice progress, and active-milestone top-level TODO progress;
 - verified baseline/artifact/commits when relevant;
 - what is proven vs merely implemented;
 - `NEXT AGENT ACTION`;
