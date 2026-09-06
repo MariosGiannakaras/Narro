@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run prepare:icons",
     "build": "tsc && vite build",
+    "prepare:icons": "tauri icon assets/branding/narro-logo-master.png && node scripts/sync-tray-icon.mjs",
     "check:config": "node scripts/verify-config.mjs",
     "check:rust:fmt": "cargo fmt --manifest-path src-tauri/Cargo.toml -- --check",
     "check:rust": "cargo check --manifest-path src-tauri/Cargo.toml --locked",
