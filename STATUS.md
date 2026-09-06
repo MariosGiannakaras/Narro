@@ -12,67 +12,63 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / NOT YET IMPLEMENTED**.
+- Milestone 5: **ACTIVE / 1 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 3/3 | 0/28`**
+**`M-5/10 | 6/6 | 1/28`**
 
-The latest completed slice is the M4 installed-Windows physical reminder acceptance reconciliation. No M5 implementation slice has started yet; the next agent must perform the mandatory M5 startup and UI-spec/reference inspection before source changes.
+The first M5 source slice — semantic theme-token foundation — is fully exact-head/main validated. No second M5 implementation slice has started yet.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`
+`69ebe191b930a004157fc3d17a7b0546a5432e01`
 
-This SHA is the guarded squash merge of PR #62, the M4 live reminder polling + Windows Narro identity correction triggered by the earlier physical installed-Windows failure.
+This is the guarded squash merge of PR #65 — `M5: add semantic theme token foundation`.
 
-### PR #62 exact-head validation
+### PR #65 exact-head validation
 
-The initial exact PR head `d0e6fd304b23455dbba9cda1d394b1904de9406d` failed Windows CI #258 / run `34063408392` / job `101567874358` only at `cargo fmt --check`. Repository config/date formatting, icon regeneration/tray sync and frontend build had passed before the formatter gate. Release/artifact steps were skipped. Only rustfmt-required wrapping changed; no behavior or assertions changed.
+Exact validated PR head:
 
-Final exact validated PR head:
+`5fcd341d45acc657f18b60e67cf3103998c2d97a`
 
-`46e637698f3b6cb7339e5b73205d0e5dcc9c493d`
+Windows PR CI #262:
 
-Windows PR CI #260:
-
-- run `34063610881`;
-- job `101568451581`;
+- run `34066418885`;
+- job `101575853019`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `9998442377`;
+- artifact ID `9999268854`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:cdb700b20457ef265b6a216b54d89e75dfe358252c92000b01de87e484e91aad`;
+- digest `sha256:0af4495be614ca5db55fd1ecfadf9ebae478cbaba84cda20562f65df7d4f6110`;
 - final exact-head semantic/diff review: **PASS**;
-- PR comments/review threads requiring resolution: **none**.
+- PR comments/reviews/review threads requiring resolution: **none**.
 
-Guarded squash merge with expected head `46e637698f3b6cb7339e5b73205d0e5dcc9c493d` produced:
-
-`c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`
+PR #65 was squash-merged with expected-head guard `5fcd341d45acc657f18b60e67cf3103998c2d97a`, producing source SHA `69ebe191b930a004157fc3d17a7b0546a5432e01`.
 
 ### Resulting-main validation
 
-Windows main CI #261:
+Windows main CI #263:
 
-- run `34064434528`;
-- job `101570603570`;
-- exact main source SHA `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`;
+- run `34067250128`;
+- job `101578072173`;
+- exact source SHA `69ebe191b930a004157fc3d17a7b0546a5432e01`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `9998653381`;
+- artifact ID `9999508854`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:864aa26b821c0e63d4d8fd7184004cd68bb8952f943febb738b1ef2394a87583`.
+- digest `sha256:ebca7dfc080dd8972316ba52ee8175b6ab944d8a7708f514e6cc17f01e75bbc6`.
 
-Markdown-only reconciliation commits newer than this SHA do not replace the validated source/test baseline.
+Markdown-only tracking descendants do not replace this validated source/test baseline.
 
 ## Milestone 1 — Gate A complete
 
-**PASS.** Tauri 2 + WebView2 architecture retained after physical Windows capability/performance validation. Key evidence remains under `work-log/2026-09-03-*`.
+**PASS.** Tauri 2 + WebView2 architecture retained after physical Windows capability/performance validation. Two-window architecture (`main` + reusable `focusSurface`), tray/background lifecycle, notifications, autostart, monitor handling, shortcuts and performance baseline are validated. Key evidence remains under `work-log/2026-09-03-*`.
 
 ## Milestone 2 — Gate B complete
 
@@ -86,77 +82,44 @@ Markdown-only reconciliation commits newer than this SHA do not replace the vali
 
 **PASS.** All 15 top-level scheduling/recurrence/reminder/eligibility items are implemented and validated.
 
-Thirteen coherent M4 source/test/acceptance slices establish the completed state:
+Final M4 source baseline before M5 was `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`, validated by Windows main CI #261 / artifact `9998653381`. The installed-Windows physical reminder acceptance passed with reminder `91f217f6-abc3-4df3-a6cc-66e18a0fb046` due `2026-09-07 01:56`: delivery occurred while Narro remained alive in tray/background mode, no duplicate appeared after more than one additional minute, and both tray and Task Manager Narro identity checks passed.
 
-1. scheduling / eligibility core — PR #36;
-2. timezone / DST correctness — PR #37;
-3. recurrence execution/materialization core — PR #40/#41;
-4. durable one-off reminder core — PR #43;
-5. tray/background one-off reminder delivery source — PR #45;
-6. Replace Existing Tasks — PR #47;
-7. recurrence detachment semantics — PR #49;
-8. recurrence startup/resume/date-change orchestration + missed-week catch-up — PR #51;
-9. Windows locale/system visible date/time formatting — PR #54;
-10. combined scheduling/recurrence regression-matrix completion — PR #56;
-11. persisted physical due-reminder acceptance harness — PR #58;
-12. physical due-reminder background-delivery failure correction + Windows Narro identity correction — PR #62;
-13. installed-Windows physical reminder acceptance PASS — `work-log/2026-09-07-chatgpt-m4-reminder-physical-acceptance-pass.md`.
-
-### Scheduling/recurrence regression matrix
-
-The validated combined test set covers:
-
-- Monday/week classification and Sunday -> Monday rollover;
-- strict IANA timezone resolution and fail-closed DST gap/fold handling;
-- timed-schedule display-timezone changes without changing the represented instant;
-- date-only schedules remaining local-calendar values across timezone changes;
-- future-timed Today focus eligibility;
-- recurrence first-start behavior, repeated startup/date-change idempotence and missed-week catch-up;
-- rule-local timezone resolution for timed recurrence;
-- persisted weekend/date-only behavior across display timezones and Monday rollover;
-- repeated scheduled-lane reorder/move without identity count changes.
-
-### Reminder source and background delivery
-
-The reminder pipeline remains Rust-owned:
-
-- real reminders are durable SQLite rows;
-- `pending_due_reminders` is side-effect free;
-- active task/list state is rechecked before delivery;
-- Windows notification submission happens before durable `fired_at` acknowledgment;
-- failed submission stays pending and retryable;
-- crash-proof exactly-once delivery is **not** claimed across a crash after Windows accepts a notification but before `fired_at` is acknowledged;
-- background cadence remains bounded at 30 seconds;
-- each immediate/30-second delivery cycle opens a fresh configured read/write SQLite connection so reminders committed after startup are visible to the live background loop.
-
-A file-backed regression proves: first cycle empty -> independent connection commits reminder -> next fresh cycle sees/submits/acknowledges it.
-
-### Installed-Windows physical reminder acceptance
-
-The corrected installed build from source SHA `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`, main CI #261 / artifact `9998653381`, physically passed the remaining reminder acceptance:
-
-- reminder ID `91f217f6-abc3-4df3-a6cc-66e18a0fb046`;
-- due local date/time `2026-09-07 01:56`;
-- notification appeared while the same Narro process remained alive in tray/background mode;
-- it did not appear exactly at the displayed minute boundary but arrived before one minute elapsed, consistent with the bounded 30-second poll;
-- after waiting more than one additional minute, no second identical notification appeared;
-- system tray Narro icon: **PASS**;
-- Task Manager / executable Narro icon: **PASS**.
-
-This manual evidence closes both formerly open top-level items: one-off local reminders and tray/background due-reminder processing while the process is running.
+Reminder delivery still does **not** claim crash-proof exactly-once semantics across a process crash after Windows accepts a notification but before durable `fired_at` acknowledgment.
 
 ## Milestone 5 — active ordered work
 
-Milestone 5 now starts from **0/28** top-level items. It must follow `docs/UI_UX_SPEC.md` and current screenshot/reference evidence rather than inventing a generic task-manager UI.
+### Completed: semantic theme-token foundation
 
-Before the first M5 source edit, reconstruct the latest repository state and inspect at minimum:
+The first M5 top-level item is validated complete.
 
-- the complete Milestone 5 TODO section;
-- the relevant `docs/UI_UX_SPEC.md` sections for theme tokens, typography, spacing/elevation, motion/reduced-motion, tooltips/popovers/menus and screenshot fixture expectations;
-- the supplied reference screenshots/evidence needed for the first visual foundation slice;
-- current `src/App.tsx`, stylesheet/assets and any existing frontend test/build harness so the diagnostic M1/M4 surface is replaced or isolated deliberately rather than accidentally broken.
+Source contract now provides reusable semantic colors for:
 
-The first ordered M5 item is theme tokens for canvas/surfaces/borders/text/accent/success/warning/destructive states. Do not skip ahead to later Main UI polish before the shared visual foundation begins.
+- canvas;
+- raised/deep/interactive surfaces;
+- subtle/strong borders;
+- primary/secondary/inverse text;
+- accent start/end and solid accent action color;
+- success;
+- warning/overdue;
+- destructive/error;
+- light and dark value sets;
+- system theme resolution plus explicit `data-theme="light"`, `data-theme="dark"`, and `data-theme="system"` selectors.
+
+`src/App.css` consumes the semantic layer and no longer carries the obsolete Vite/React scaffold palette. `scripts/test-ui-theme-tokens.mjs` is part of `preflight:frontend` and guards token completeness/selectors/consumption. Visible focus outlines were restored for shared controls.
+
+This slice intentionally does **not** complete the later `Light/dark/system theme` product item: persisted/user-facing theme preference controls remain open. Existing diagnostic Main/focusSurface inline presentation is not yet the final product UI.
+
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-theme-token-foundation.md`.
+
+### Next ordered M5 item
+
+The next top-level item is:
+
+`Implement typography using Segoe UI Variable / Windows system fallbacks and tabular timer numerals.`
+
+Before source changes, perform the normal startup and inspect current typography usage in `src/App.css`, `src/App.tsx`, `src/focus.tsx`, `src/TimerSessionProjection.tsx`, and the relevant `docs/UI_UX_SPEC.md` typography/timer sections. Keep the slice narrow: typography only unless a directly required test seam needs a small supporting change.
+
+Do not skip to spacing, motion, tooltip primitives, screenshot harness, App shell, Home, board, or task UI before the typography item is validated.
 
 ## Durable correctness decisions
 
@@ -168,24 +131,15 @@ Future work must preserve:
 - date-only calendar semantics and Monday week boundaries;
 - visible date/time formatting follows Windows/system locale by default without changing stored scheduling semantics;
 - explicit IANA timezone resolution with fail-closed DST gap/fold handling;
-- deterministic/idempotent recurrence while a rule exists;
-- recurrence startup/resume/date-change orchestration remains Rust-owned and bounded;
-- no-watermark recurrence orchestration starts from the current week rather than arbitrary historical backfill;
-- missed weeks catch up in Monday-based order from the durable watermark;
-- Replace Existing deletes only pristine applicable generated children;
-- completed/archived and detached/independent recurrence history survives replacement;
-- ordinary detachment never deletes child tasks or user history;
-- removing recurrence leaves no active materialization authority for the removed rule;
-- reminder due evaluation remains side-effect free until dispatch;
-- reminder `fired_at` is written only after successful OS notification submission;
-- failed reminder submission remains retryable;
-- reminder delivery does not claim crash-proof exactly-once semantics across the post-submit/pre-ack crash window;
-- acceptance harness is diagnostic-only and never directly submits a notification;
-- reminder and recurrence background processing cadences remain bounded;
+- deterministic/idempotent recurrence and bounded Rust-owned reminder/recurrence orchestration;
+- reminder `fired_at` is written only after successful OS notification submission and failed submission remains retryable;
 - scheduling/move operations preserve task identity count;
 - async `main` recreation remains intact to avoid the historical Windows WebView2 deadlock;
 - Windows executable/installer/tray icon inputs derive from the canonical Narro branding master;
-- M5 visual work must not move authoritative task/timer/reminder logic into renderer state.
+- M5 visual work must not move authoritative task/timer/reminder logic into renderer state;
+- semantic theme tokens remain calibration infrastructure and may be visually tuned by later screenshot comparison without losing semantic roles;
+- no hover/focus interaction may reflow sibling content or move pointer targets;
+- reduced-motion and keyboard/focus accessibility remain required as the visual foundation expands.
 
 ## Multi-agent continuation rule
 
