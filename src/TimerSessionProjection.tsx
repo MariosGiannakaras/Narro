@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import {
+  formatVisibleDateTime,
+  resolveVisibleDateTimePreferences,
+} from "./dateTimeFormat";
 import { formatInvokeError } from "./diagnosticApi";
 import {
   type TimerSessionPayload,
@@ -16,6 +20,8 @@ export function TimerSessionProjection({ label, compact = false }: TimerSessionP
   const [payload, setPayload] = useState<TimerSessionPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [resuming, setResuming] = useState(false);
+  const localePreferences = resolveVisibleDateTimePreferences();
+  const localeSample = formatVisibleDateTime("2026-09-07", "21:05");
 
   useEffect(() => {
     let disposed = false;
@@ -72,6 +78,18 @@ export function TimerSessionProjection({ label, compact = false }: TimerSessionP
       <h2 style={{ marginTop: 0, fontSize: compact ? "1rem" : undefined }}>
         Authoritative Timer / Session Projection
       </h2>
+      <div
+        style={{
+          marginBottom: "0.75rem",
+          fontSize: compact ? "0.72rem" : "0.85rem",
+          opacity: 0.85,
+        }}
+      >
+        Windows locale date/time sample: <strong>{localeSample}</strong>{" "}
+        <span>
+          ({localePreferences.locale}; {localePreferences.hourCycle ?? "system hour cycle"})
+        </span>
+      </div>
       {payload?.awaitingResume && (
         <div role="alert" style={{ marginBottom: "0.75rem" }}>
           <div>Pomodoro break complete. Resume work when you&apos;re ready.</div>
