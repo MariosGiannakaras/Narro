@@ -26,16 +26,41 @@ type NotificationTestResult = {
   submitted: boolean;
 };
 
+type ReminderAcceptanceProbeResult = {
+  listId: string;
+  taskId: string;
+  reminderId: string;
+  remindLocalDate: string;
+  remindLocalTime: string;
+  timezone: string;
+  notificationTitle: string;
+  notificationBody: string;
+};
+
 type AutostartStatus = {
   enabled: boolean;
   changed: boolean;
 };
+
+const REMINDER_ACCEPTANCE_DELAY_MS = 2 * 60 * 1000;
+
+function twoDigits(value: number): string {
+  return value.toString().padStart(2, "0");
+}
+
+function localReminderParts(value: Date): { localDate: string; localTime: string } {
+  return {
+    localDate: `${value.getFullYear()}-${twoDigits(value.getMonth() + 1)}-${twoDigits(value.getDate())}`,
+    localTime: `${twoDigits(value.getHours())}:${twoDigits(value.getMinutes())}`,
+  };
+}
 
 function App() {
   const [state, setState] = useState<AppStatePayload | null>(null);
   const [shortcutDiagnostics, setShortcutDiagnostics] = useState<ShortcutDiagnostics | null>(null);
   const [shortcutProbeStatus, setShortcutProbeStatus] = useState<string | null>(null);
   const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
+  const [reminderAcceptanceStatus, setReminderAcceptanceStatus] = useState<string | null>(null);
   const [autostartStatus, setAutostartStatus] = useState<AutostartStatus | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
@@ -228,6 +253,34 @@ function App() {
     }
   }
 
+  async function scheduleReminderAcceptanceProbe() {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!timezone) {
+      setReminderAcceptanceStatus(null);
+      setError(
+        "[REMINDER_TIMEZONE_UNAVAILABLE] WebView2 did not expose a local IANA timezone for the acceptance probe.",
+      );
+      return;
+    }
+
+    const due = new Date(Date.now() + REMINDER_ACCEPTANCE_DELAY_MS);
+    const { localDate, localTime } = localReminderParts(due);
+
+    try {
+      const result = await invoke<ReminderAcceptanceProbeResult>(
+        "schedule_reminder_acceptance_probe",
+        { localDate, localTime, timezone },
+      );
+      setReminderAcceptanceStatus(
+        `Persisted real reminder ${result.reminderId} for ${result.remindLocalDate} ${result.remindLocalTime} ${result.timezone}. Expected exactly one Windows notification: “${result.notificationTitle}” — “${result.notificationBody}”. Hide or close Main and leave Narro running in the tray/background; allow up to 30 seconds after the due minute for the background poll.`,
+      );
+      setError(null);
+    } catch (failure: unknown) {
+      setReminderAcceptanceStatus(null);
+      setError(formatInvokeError(failure));
+    }
+  }
+
   async function refreshAutostartStatus() {
     try {
       const result = await invoke<AutostartStatus>("autostart_status");
@@ -382,6 +435,17 @@ function App() {
             Command success means the notification was submitted to the Windows notification
             backend; visual delivery still requires physical validation. Use an installed build for
             canonical Narro app identity.
+          </p>
+
+          <h3>M4 Due-Reminder Acceptance</h3>
+          <button onClick={() => void scheduleReminderAcceptanceProbe()}>
+            Schedule Real Reminder Probe (+2 min)
+          </button>
+          {reminderAcceptanceStatus && <p>{reminderAcceptanceStatus}</p>}
+          <p>
+            This probe does not submit a notification directly. It persists one diagnostic Today
+            task and one real reminder in Narro SQLite. The existing Rust-owned tray/background
+            reminder dispatcher must discover the due row and submit the Windows notification.
           </p>
 
           <hr />
