@@ -64,10 +64,7 @@ fn fixture() -> (
     (conn, parent.id, rule.id)
 }
 
-fn occurrence_count(
-    conn: &Connection,
-    rule_id: narro_lib::domain::ids::RecurrenceRuleId,
-) -> i64 {
+fn occurrence_count(conn: &Connection, rule_id: narro_lib::domain::ids::RecurrenceRuleId) -> i64 {
     conn.query_row(
         "SELECT COUNT(*) FROM recurrence_occurrences WHERE recurrence_rule_id = ?1",
         [rule_id.to_string()],
@@ -102,22 +99,14 @@ fn detach_preserves_child_identities_states_and_owned_history() {
     conn.execute(
         "INSERT INTO subtasks (id, task_id, title, sort_rank, created_at, updated_at)
          VALUES (?1, ?2, 'Preserved subtask', 0, ?3, ?3)",
-        params![
-            uuid::Uuid::new_v4().to_string(),
-            edited_id.to_string(),
-            T2
-        ],
+        params![uuid::Uuid::new_v4().to_string(), edited_id.to_string(), T2],
     )
     .expect("add subtask history");
     conn.execute(
         "INSERT INTO reminders (
             id, task_id, remind_local_date, remind_local_time, timezone, created_at, updated_at
          ) VALUES (?1, ?2, '2026-09-08', '12:00', 'Europe/Athens', ?3, ?3)",
-        params![
-            uuid::Uuid::new_v4().to_string(),
-            edited_id.to_string(),
-            T2
-        ],
+        params![uuid::Uuid::new_v4().to_string(), edited_id.to_string(), T2],
     )
     .expect("add reminder history");
     conn.execute(
@@ -166,7 +155,8 @@ fn detach_preserves_child_identities_states_and_owned_history() {
     assert!(archived.archived_at.is_some());
     assert!(archived.recurrence_parent_task_id.is_none());
 
-    let already_detached = get_task(&conn, already_detached_id).expect("independent child survives");
+    let already_detached =
+        get_task(&conn, already_detached_id).expect("independent child survives");
     assert_eq!(already_detached.title, "Already independent");
     assert_eq!(already_detached.updated_at, T2);
     assert!(already_detached.recurrence_parent_task_id.is_none());
@@ -201,8 +191,8 @@ fn detach_rolls_back_child_and_parent_links_when_rule_delete_fails() {
     )
     .expect("install detach failure trigger");
 
-    let error = delete_recurrence_rule(&mut conn, rule_id, T2)
-        .expect_err("detach must fail atomically");
+    let error =
+        delete_recurrence_rule(&mut conn, rule_id, T2).expect_err("detach must fail atomically");
     assert!(matches!(error, RecurrenceStoreError::Sqlite(_)));
 
     let parent = get_task(&conn, parent_id).expect("parent survives rollback");
