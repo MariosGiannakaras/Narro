@@ -21,7 +21,7 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 - Latest fully main-validated source baseline: **`6c9217f90f3b7db46a30393548e640faf671fb55`**.
 - Branch started from current tracking-only `main`; Markdown-only descendants do not replace the validated source baseline.
 - Local Rust/Node preflight in this connector-only environment: **NOT RUN**.
-- Current small-slice progress: **1/6**.
+- Current small-slice progress: **2/6**.
 
 No open implementation PR existed when this slice began.
 
@@ -29,53 +29,52 @@ No open implementation PR existed when this slice began.
 
 **Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
 
-**Μικρή τρέχουσα υλοποίηση: 1/6 ολοκληρωμένες.**
+**Μικρή τρέχουσα υλοποίηση: 2/6 ολοκληρωμένες.**
 
 Recurrence orchestration checkpoints:
 
 1. mandatory startup + product/risk/source/runtime audit + branch start — COMPLETE;
-2. Rust-owned orchestration + deterministic startup/date-change/missed-week/idempotency tests + candidate diff review — PENDING;
+2. Rust-owned orchestration + deterministic startup/date-change/missed-week/idempotency tests + candidate diff review — COMPLETE;
 3. exact PR-head Windows CI success including preflight, Tauri release and artifact — PENDING;
 4. final semantic/diff review of exact validated head — PENDING;
 5. guarded merge with expected validated head — PENDING;
 6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
-## PRODUCT / RELIABILITY CONTRACT
+## CANDIDATE CONTRACT
 
-- startup must materialize all active recurrence rules for the current relevant local week;
-- repeated startup/date-boundary processing must not duplicate children;
-- if Narro was stopped or asleep across one or more Monday-based weeks, the next orchestration pass must catch up missed weeks deterministically;
-- a rule with no prior materialization watermark starts from the current week rather than backfilling arbitrary historical time before Narro ever processed that rule;
-- once a watermark exists, missed Monday weeks between the watermark and the current week are processed in order;
-- the current week is always processed idempotently so repeated passes and local-date changes are safe;
-- timed recurrence uses the recurrence rule's validated IANA timezone to determine its current local date;
-- date-only recurrence uses the current Windows/system local calendar date and never converts through UTC;
-- one failing recurrence rule must not prevent unrelated active rules from being processed on later/background cycles;
-- no renderer owns recurrence orchestration authority;
-- no second recurrence materialization engine or schema is introduced.
+- `src-tauri/src/recurrence_service.rs` owns active-rule discovery and orchestration; no renderer polling or second materialization engine exists.
+- `materialize_recurrence_week` remains the transactional child/occurrence primitive.
+- no prior watermark => current week only, avoiding arbitrary historical backfill;
+- existing watermark => each missed Monday-based week is processed in order, then the current local date is processed idempotently;
+- repeated same-day/same-week/date-change cycles rely on occurrence uniqueness and create no duplicates;
+- timed rules resolve current date in their own validated IANA timezone;
+- date-only rules use Windows/system local calendar date without UTC conversion;
+- one broken active rule is recorded as a per-rule failure and does not block unrelated rules;
+- successful earlier missed-week commits remain durable if a later week fails; retry resumes safely from the monotonic watermark;
+- a dedicated configured SQLite connection runs one immediate cycle at startup and repeats every 60 seconds, naturally covering post-sleep/resume and local-date changes while Narro remains alive;
+- startup wiring only registers the service and reuses the already-required durable database path.
 
-Current implementation direction: add a narrow Rust-owned recurrence orchestration service over the already validated `materialize_recurrence_week` primitive. Immediate startup execution plus a bounded low-frequency background date check will cover startup, sleep/resume catch-up and local-date changes without renderer polling. The service must reuse a separately configured SQLite connection, like reminder delivery, and preserve the existing transactional/idempotency boundary per materialized week.
+Deterministic regressions cover first startup without historical backfill, repeated pass, same-week date change, multi-week catch-up, cross-rule failure isolation, timed-zone date resolution and corrupt active-rule identity.
 
-## NEXT AGENT ACTION — ACTIVE BRANCH
+## NEXT AGENT ACTION — PR VALIDATION
 
-1. Add deterministic orchestration logic for active-rule discovery, per-rule current-local-date resolution and ordered missed-week catch-up.
-2. Add regressions for first startup, repeated pass, same-week date change, multi-week missed catch-up, independent rule failure and timed timezone date resolution.
-3. Integrate one immediate background pass plus bounded date-change polling into Tauri startup using the durable database path; do not couple orchestration to a renderer.
-4. Review the candidate diff and update this file to 2/6 only after the implementation/test contract is coherent.
-5. Open one PR and accept Windows CI only for its exact head.
+1. Open one implementation PR from `ai/m4-recurrence-orchestration` and read its exact head SHA.
+2. Accept Windows CI only for that exact head. If it fails, inspect the exact failing log and fix only evidence-backed problems.
+3. On full preflight/release/artifact success, record run/job/artifact/digest and perform final exact-head semantic/diff review.
+4. Guarded-merge only the validated expected head.
+5. Validate resulting main on Windows CI.
+6. Reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and create one new immutable recurrence-orchestration work-log entry.
 
 ## IMPORTANT INVARIANTS
 
 - authoritative Rust/domain state and persistence-first mutations;
 - stable task identities;
-- `materialize_recurrence_week` remains the transactional child/occurrence creation primitive;
 - occurrence uniqueness remains the duplicate-prevention boundary;
-- ordinary detachment never deletes child history;
-- recurrence removal leaves no active materialization authority for the removed rule;
 - date-only schedules never convert through UTC;
 - week starts Monday;
 - strict IANA timezone/DST rules remain fail-closed;
-- failed one-rule orchestration must remain retryable;
+- recurrence mutations are transactional per materialized week;
+- failed one-rule orchestration remains retryable;
 - reminder delivery submit-before-ack/retry semantics remain unchanged;
 - no renderer owns authoritative recurrence/reminder/timer state;
 - async `main` recreation remains intact.
