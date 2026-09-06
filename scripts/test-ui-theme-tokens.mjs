@@ -26,6 +26,7 @@ const requiredTokens = [
   "--color-accent-end",
   "--color-accent-solid",
   "--color-accent-contrast",
+  "--color-accent-on-solid",
   "--color-success",
   "--color-success-surface",
   "--color-warning",
@@ -59,6 +60,7 @@ const requiredConsumption = [
   "var(--color-text-primary)",
   "var(--color-text-secondary)",
   "var(--color-accent-solid)",
+  "var(--color-accent-contrast)",
   "var(--color-destructive)",
 ];
 
