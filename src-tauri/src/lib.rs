@@ -5,6 +5,7 @@ pub mod notifications;
 pub mod persistence;
 pub mod recurrence;
 pub mod recurrence_service;
+pub mod reminder_acceptance;
 pub mod reminder_service;
 pub mod scheduling;
 pub mod shortcuts;
@@ -73,6 +74,37 @@ fn send_test_notification(
     app_handle: tauri::AppHandle,
 ) -> CommandResult<notifications::NotificationTestResult> {
     notifications::send_test(&app_handle)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+fn schedule_reminder_acceptance_probe(
+    app_handle: tauri::AppHandle,
+    local_date: String,
+    local_time: String,
+    timezone: String,
+) -> CommandResult<reminder_acceptance::ReminderAcceptanceProbe> {
+    let app_dir = app_handle.path().app_data_dir().map_err(|error| {
+        CommandError::new(
+            "REMINDER_ACCEPTANCE_PROBE_FAILED",
+            format!("failed to resolve Narro app-data directory for reminder acceptance: {error}"),
+        )
+    })?;
+    let database_path = app_dir.join("narro.db");
+    let now = chrono::Utc::now().to_rfc3339();
+
+    reminder_acceptance::schedule_probe(
+        &database_path,
+        &local_date,
+        &local_time,
+        &timezone,
+        &now,
+    )
+    .map_err(|error| {
+        CommandError::new(
+            "REMINDER_ACCEPTANCE_PROBE_FAILED",
+            format!("failed to persist reminder acceptance probe: {error}"),
+        )
+    })
 }
 
 #[tauri::command]
@@ -555,6 +587,7 @@ pub fn run() {
             toggle_timer,
             mutate_state,
             send_test_notification,
+            schedule_reminder_acceptance_probe,
             autostart_status,
             autostart_enable,
             autostart_disable,
