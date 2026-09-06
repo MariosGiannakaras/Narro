@@ -161,7 +161,7 @@ Acceptance criteria:
 - [x] Implement recurrence detachment semantics while preserving already modified independent children.
 - [x] Make recurrence materialization idempotent on startup/resume/date change.
 - [ ] Add tray/background due-reminder processing while process is running.
-- [ ] Format visible dates/times using Windows locale/system 12/24-hour convention by default.
+- [x] Format visible dates/times using Windows locale/system 12/24-hour convention by default.
 - [ ] Add tests for DST, Monday/week boundaries, timezone changes, repeated startup, missed days, future-time eligibility and weekend/date-only behavior.
 - [ ] Add regression tests ensuring moving a scheduled task between lanes cannot duplicate/triplicate it.
 
