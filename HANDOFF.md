@@ -12,131 +12,94 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 
 ## ACTIVE WORK RECORD
 
-- Latest completed source/test slice: **M4 physical due-reminder acceptance harness — COMPLETE / MAIN-VALIDATED**.
-- Source implementation PR: **#58 — `M4: add due-reminder acceptance harness`**.
-- Exact validated PR head: **`8f73abf919f7babcfba76c2dd17c73d7a4fd138f`**.
-- Guarded squash-merge/resulting-main source SHA: **`438b28a36dfba58b35fa221557ff37d776453f23`**.
-- Tracking reconciliation PR #59: **merged at `927d9d2705a4c467fc0a311f0d536c3a32e44b01`**.
-- Active source branch/PR: **None**.
-- Pending source CI/main validation: **None**.
-- Remaining M4 gate: **physical installed-Windows observation of one actual due reminder while Narro remains running in tray/background mode**.
+- Active source slice: **physical due-reminder background-delivery failure fix**.
+- Active branch: **`ai/m4-reminder-background-physical-fix`**.
+- Branch base tracking `main`: **`170b622b712a6f931c94d3f16488e67f8145746b`**.
+- Latest fully main-validated source/test baseline before this fix: **`438b28a36dfba58b35fa221557ff37d776453f23`**.
+- Open implementation PR: **None yet**.
+- Pending source CI/main validation: **this fix slice**.
+- Do not begin Milestone 5.
 
-Markdown-only tracking commits newer than `438b28a36dfba58b35fa221557ff37d776453f23` do not replace that validated source/test baseline.
+Markdown-only descendants of the validated source/test SHA do not replace that source baseline.
+
+## PHYSICAL WINDOWS FAILURE EVIDENCE
+
+The user tested main CI #257 / artifact `9997215512` / source SHA `438b28a36dfba58b35fa221557ff37d776453f23` using the installed Windows build.
+
+Observed **FAIL**:
+
+- a persisted `Schedule Real Reminder Probe (+2 min)` produced no visible notification while Narro remained running;
+- fully exiting Narro (Exit or Task Manager) and relaunching caused the overdue reminder notification to appear immediately;
+- pressing the diagnostic probe button multiple times created multiple independent reminders, which then appeared one after another after restart;
+- Narro also did not show the canonical Narro logo in the tray / Task Manager surfaces.
+
+Interpretation:
+
+- reminder persistence and startup catch-up are functioning because the same pending row is delivered immediately after restart;
+- the live background reminder path is therefore defective and must be fixed before either open M4 reminder item can be checked;
+- multiple button presses are currently multiple independently persisted diagnostic reminders, not evidence that one reminder is being submitted repeatedly; the acceptance harness should nevertheless prevent ambiguous multi-probe retests;
+- the tray/executable icon report is separate evidence-backed Windows packaging/identity work and may be fixed in this same narrow physical-Windows reliability slice.
 
 ## USER-FACING PROGRESS
 
-**`M-4/10 | 6/6 | 13/15`**
+**`M-4/10 | 0/6 | 13/15`**
 
-Reminder-acceptance-harness checkpoints:
+Current fix checkpoints:
 
-1. mandatory startup + confirm physical-acceptance path gap + risk review + branch start — COMPLETE;
-2. implement narrow persisted-reminder acceptance probe + deterministic tests + candidate diff review — COMPLETE;
-3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact — COMPLETE;
-4. final exact-head semantic/diff review — COMPLETE;
-5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI + tracking/work-log reconciliation + exact manual procedure/artifact identity — COMPLETE.
+1. mandatory startup + physical FAIL/root-cause reconstruction + branch start + regression plan — ACTIVE;
+2. narrow reminder runtime fix + acceptance-probe repeat guard + Narro icon fix + deterministic tests + candidate diff review — PENDING;
+3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact — PENDING;
+4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
+5. guarded merge with expected validated head — PENDING;
+6. resulting-main Windows CI + durable tracking/work-log reconciliation + exact physical retest artifact/procedure — PENDING.
 
-## VALIDATION EVIDENCE
+A failed CI run does not increment this counter.
 
-### PR #58 exact-head validation
+## CURRENT ROOT-CAUSE BOUNDARY
 
-Initial PR head `6278197d4afcf59a1a592a9dfcde9aa15f9f04c5` failed Windows CI #254 / run `34056067473` / job `101548078178` only at `cargo fmt --check`. Frontend/config/date-formatting checks had passed; release/artifact steps were skipped. Only the exact rustfmt-required line wrapping was changed. This failed run did not increment progress.
+Current implementation facts:
 
-Final exact validated PR head:
+- `src-tauri/src/reminder_service.rs` opens one SQLite connection once, moves it into a raw background thread, dispatches immediately at startup, then reuses that same connection every 30 seconds forever;
+- startup catch-up and the repeated cycle use the same due-query/notification code;
+- `pending_due_reminders` uses fresh SELECT statements and strict resolved-instant comparison;
+- the diagnostic probe writes through a separate configured SQLite connection;
+- physical evidence shows a fresh process/background connection sees the pending row while the already-running loop does not produce the notification.
 
-`8f73abf919f7babcfba76c2dd17c73d7a4fd138f`
+The fix should therefore first make every bounded reminder cycle use a fresh configured read/write SQLite connection, matching the known-good startup visibility boundary and removing long-lived connection state from reminder polling. Add a real file-backed regression where one cycle observes no reminder, a separate connection inserts a reminder, and the next cycle sees/submits it.
 
-Windows PR CI #256:
+Do not broaden into a reminder architecture rewrite unless exact evidence disproves this path.
 
-- run `34056230438`
-- job `101548519396`
-- conclusion: **SUCCESS**
-- Repository Preflight: **PASS**
-- Tauri Release: **PASS**
-- artifact upload: **PASS**
-- artifact ID `9996212916`
-- digest `sha256:5eb8bcff58f8da58fa3aa8190d2159a351d205617bd7bc0641f7090a2e608d35`
-- final exact-head semantic/diff review: **PASS**
-- PR comments/reviews/review threads: **none**
+## ACCEPTANCE-HARNESS HARDENING
 
-PR #58 was squash-merged with expected-head guard `8f73abf919f7babcfba76c2dd17c73d7a4fd138f`, producing:
+`src-tauri/src/reminder_acceptance.rs` currently creates a new diagnostic list/task/reminder for every click. Retest behavior must be unambiguous: repeated clicks must not accumulate multiple pending acceptance reminders. Any cleanup/replacement must be limited to the diagnostic acceptance fixture and preserve user data.
 
-`438b28a36dfba58b35fa221557ff37d776453f23`
+## WINDOWS IDENTITY / ICON EVIDENCE
 
-### Resulting-main validation
+Canonical owner-supplied Narro artwork is `assets/branding/narro-logo-master.png`. `assets/branding/README.md` explicitly requires Windows executable/taskbar/tray/installer derivatives to come from that master.
 
-Windows main CI #257:
-
-- run `34059656511`
-- job `101557789155`
-- exact main SHA `438b28a36dfba58b35fa221557ff37d776453f23`
-- conclusion: **SUCCESS**
-- Repository Preflight: **PASS**
-- Tauri Release: **PASS**
-- artifact upload: **PASS**
-- artifact ID `9997215512`
-- artifact name `narro-m1-runtime-harness-windows-x64`
-- digest `sha256:d0192494bd8bdfca957109c28d969b1e6ea21c4a5a185393d6de08a9e8a1229a`
-
-The artifact contains `narro.exe` plus generated NSIS/MSI installers. Use an installer for the physical notification acceptance so Windows observes the installed Narro identity.
-
-## VALIDATED ACCEPTANCE-HARNESS CONTRACT
-
-The harness is diagnostic-only and does not implement Milestone 5 scheduling UI.
-
-- `src-tauri/src/reminder_acceptance.rs` creates one diagnostic list, one Today task and one real reminder in one SQLite transaction.
-- Rust validates local date, local time, IANA timezone and strict DST resolution before writes.
-- Tests prove the persisted reminder reaches the real `pending_due_reminders` boundary at its resolved instant.
-- Forced reminder-insert failure rolls the list/task/reminder fixture back atomically.
-- Invalid timezone is rejected before any rows are written.
-- `schedule_reminder_acceptance_probe` does **not** call the notification API.
-- The existing Rust-owned `reminder_service` remains the only path that can discover the due row, submit the Windows notification and acknowledge `fired_at`.
-- The existing 30-second background polling cadence is unchanged.
-
-Expected notification:
-
-- title: `Task reminder`
-- body: `Reminder acceptance probe - expected once`
-
-## NEXT AGENT ACTION — BLOCKED ON PHYSICAL WINDOWS EVIDENCE
-
-Remain inside Milestone 4. Do **not** start Milestone 5 yet.
-
-The next action depends on the user's physical observation using the validated main artifact from CI #257:
-
-1. If the physical check **PASSes**, create a new immutable work-log entry recording the returned evidence, mark both remaining M4 reminder TODO items `[x]`, update `STATUS.md` and `HANDOFF.md`, close Milestone 4 only after that reconciliation, and then proceed to Milestone 5.
-2. If the physical check **FAILs**, record the exact observed defect and reopen only the narrow reminder source path required by that evidence; use a new source branch/PR with normal exact-head Windows CI discipline.
-
-Do not infer visible notification success from CI and do not reopen PR #45 merely to collect manual evidence.
-
-## USER ACTION REQUIRED
-
-Use **main CI #257 / artifact `9997215512` / source SHA `438b28a36dfba58b35fa221557ff37d776453f23`**.
-
-Physical acceptance procedure:
-
-1. Download/extract artifact `9997215512` and install Narro using the included NSIS or MSI installer.
-2. Launch the installed Narro build.
-3. In Main, under **Windows Notification Diagnostics → M4 Due-Reminder Acceptance**, click **Schedule Real Reminder Probe (+2 min)** exactly once.
-4. Record the displayed reminder ID, due local date/time and timezone. Do not click the probe again.
-5. Hide or close Main, verify Narro remains running in the system tray, and do not quit/restart Narro during the test.
-6. At the displayed due minute, allow the existing background poll up to 30 seconds to run.
-7. Confirm exactly one visible Windows notification appears with title **Task reminder** and body **Reminder acceptance probe - expected once**.
-8. Keep Narro running in tray/background for at least another 60 seconds and confirm no second identical notification appears.
-9. Report **PASS** with the reminder ID/due time if the notification appeared once with no duplicate, or **FAIL** with the exact observed behavior.
-
-Known limitation: reminder delivery does not claim crash-proof exactly-once semantics across the interval after Windows accepts a notification but before `fired_at` is durably acknowledged. The acceptance procedure intentionally avoids restart/crash during the observation.
+Current tray construction explicitly includes `src-tauri/icons/narro-tray-64.png`, while `tauri.conf.json` packages `src-tauri/icons/icon.ico` and other existing generated/scaffold derivatives. The user physically observed that tray and Task Manager do not show the expected Narro identity. Replace/re-generate the Windows icon inputs from the canonical master and keep the tray image explicitly Narro-owned.
 
 ## IMPORTANT INVARIANTS
 
 - authoritative Rust/domain state and persistence-first mutations;
-- stable task identities;
-- date-only schedules never convert through UTC;
-- strict IANA timezone/DST rules remain fail-closed;
-- week starts Monday;
 - reminder due evaluation remains Rust-owned and side-effect free until notification submission;
-- reminder `fired_at` is written only after successful OS notification submission;
-- failed reminder submission remains pending and retryable;
-- acceptance probe must never directly submit a Windows notification;
-- no renderer owns authoritative recurrence/reminder/timer state;
-- async `main` recreation remains intact.
+- `fired_at` is written only after the delivery path reports submission success;
+- failed reminder submission stays pending and retryable;
+- reminder background cadence remains bounded;
+- no renderer becomes reminder authority;
+- diagnostic acceptance code must never directly submit a notification;
+- date-only scheduling/timezone semantics must not change;
+- async `main` recreation remains intact;
+- do not modify recurrence behavior or start M5 UI work.
+
+## NEXT AGENT ACTION
+
+1. Finish the evidence-backed root-cause review for the long-lived reminder connection.
+2. Implement the smallest deterministic reminder-cycle fix and file-backed regression.
+3. Make the acceptance probe single-pending/replacement-safe for retesting.
+4. Correct Windows Narro icon inputs from the canonical branding master.
+5. Review the exact candidate diff, then open one implementation PR and validate only its exact head on Windows CI.
+
+## USER ACTION REQUIRED
+
+**None now.** Do not ask for another physical test until a new exact main-validated Windows artifact exists.
