@@ -16,8 +16,7 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 - Source implementation PR: **#58 — `M4: add due-reminder acceptance harness`**.
 - Exact validated PR head: **`8f73abf919f7babcfba76c2dd17c73d7a4fd138f`**.
 - Guarded squash-merge/resulting-main source SHA: **`438b28a36dfba58b35fa221557ff37d776453f23`**.
-- Tracking reconciliation PR: **#59 — merged**.
-- Current repository `main` tracking SHA after PR #59: **`927d9d2705a4c467fc0a311f0d536c3a32e44b01`**.
+- Tracking reconciliation PR #59: **merged at `927d9d2705a4c467fc0a311f0d536c3a32e44b01`**.
 - Active source branch/PR: **None**.
 - Pending source CI/main validation: **None**.
 - Remaining M4 gate: **physical installed-Windows observation of one actual due reminder while Narro remains running in tray/background mode**.
