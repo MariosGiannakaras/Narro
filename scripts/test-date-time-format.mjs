@@ -24,13 +24,7 @@ if (transpiled.diagnostics?.some((diagnostic) => diagnostic.category === ts.Diag
 }
 
 const module = { exports: {} };
-const context = vm.createContext({
-  module,
-  exports: module.exports,
-  Intl,
-  Date,
-  RangeError,
-});
+const context = vm.createContext({ module, exports: module.exports, Intl, Date, RangeError });
 vm.runInContext(transpiled.outputText, context, { filename: "dateTimeFormat.js" });
 
 const {
@@ -57,7 +51,8 @@ assert.match(gbTime, /21:05/);
 
 const usPreferences = resolveVisibleDateTimePreferences("en-US");
 const gbPreferences = resolveVisibleDateTimePreferences("en-GB");
-assert.notEqual(usPreferences.hourCycle, gbPreferences.hourCycle);
+assert.equal(usPreferences.hour12, true);
+assert.equal(gbPreferences.hour12, false);
 assert.ok(usPreferences.locale.toLowerCase().startsWith("en-us"));
 assert.ok(gbPreferences.locale.toLowerCase().startsWith("en-gb"));
 
@@ -65,6 +60,7 @@ const systemPreferences = resolveVisibleDateTimePreferences();
 assert.ok(systemPreferences.locale.length > 0);
 assert.ok(systemPreferences.calendar.length > 0);
 assert.ok(systemPreferences.timeZone.length > 0);
+assert.equal(typeof systemPreferences.hour12, "boolean");
 assert.ok(formatVisibleDate("2026-09-07").length > 0);
 assert.ok(formatVisibleTime("09:05").length > 0);
 assert.ok(formatVisibleDateTime("2026-09-07", "09:05").length > 0);
