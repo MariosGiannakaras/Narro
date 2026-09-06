@@ -1,15 +1,16 @@
 # HANDOFF.md
 
-This is the canonical zero-context continuation state for Narro. Start with `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 4 section in `TODO.md`, relevant `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant immutable `work-log/*.md` entries.
+This is the canonical zero-context continuation state for Narro. Start with `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 5 section in `TODO.md`, relevant `STATUS.md`, the relevant `docs/UI_UX_SPEC.md` sections/reference evidence, and the newest relevant immutable `work-log/*.md` entries.
 
 ## CURRENT MILESTONE
 
-**Milestone 4 — Scheduling, recurrence, reminders, eligibility.**
+**Milestone 5 — Design system and Main window product UI.**
 
-- Milestones 1–3: COMPLETE / PASS.
-- Milestone 4: ACTIVE / 13 of 15 top-level items validated.
-- Milestones 5–10: NOT STARTED.
-- Do **not** begin Milestone 5 until the physical reminder retest passes and M4 is reconciled complete.
+- Milestones 1–4: COMPLETE / PASS.
+- Milestone 5: ACTIVE / 0 of 28 top-level items validated.
+- Milestones 6–10: NOT STARTED.
+
+Milestone 4 is no longer blocked. Its final physical Windows reminder/identity acceptance passed and is durably recorded in `work-log/2026-09-07-chatgpt-m4-reminder-physical-acceptance-pass.md`.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
@@ -51,43 +52,57 @@ Windows resulting-main CI #261:
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
-## PHYSICAL FAILURE THAT PR #62 ADDRESSES
+## MILESTONE 4 FINAL PHYSICAL ACCEPTANCE
 
-The user physically tested the earlier main CI #257 installed build and reported:
+The user physically tested the corrected installed Windows build from source SHA `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`, main CI #261 / artifact `9998653381`.
 
-- a persisted real reminder did not notify while Narro remained running;
-- quitting/killing and relaunching caused the overdue reminder to notify immediately;
-- multiple diagnostic-button clicks created multiple independent pending reminders;
-- tray / Task Manager did not show the expected Narro logo.
+Final result: **PASS**.
 
-This is durable evidence; do not reinterpret the old build as passing.
+- reminder ID: `91f217f6-abc3-4df3-a6cc-66e18a0fb046`;
+- displayed due local date/time: `2026-09-07 01:56`;
+- Narro remained running in tray/background mode; no Exit, kill, or restart was used to trigger delivery;
+- the notification arrived after the displayed minute began and before one minute elapsed, consistent with the existing bounded 30-second poll;
+- after waiting more than one additional minute, no second identical notification appeared;
+- system tray Narro icon: PASS;
+- Task Manager / executable Narro icon: PASS.
 
-## VALIDATED FIX CONTRACT
+This closes both formerly open top-level M4 items:
 
-PR #62 changes only the bounded physical-Windows reliability path:
+- one-off local reminders;
+- tray/background due-reminder processing while the process is running.
 
-- `reminder_service` opens a fresh configured read/write SQLite connection for every immediate/30-second reminder cycle instead of retaining one connection for the process lifetime;
-- a file-backed regression proves a later cycle sees and acknowledges a reminder inserted by an independent connection after an initial empty cycle;
-- the diagnostic acceptance harness rejects a second probe while a prior diagnostic reminder is pending, preventing ambiguous multi-click retests;
-- authoritative builds regenerate Tauri desktop icons from `assets/branding/narro-logo-master.png` and sync the tray image from the generated 64px Narro icon;
-- reminder due query, task/list eligibility recheck, OS submission-before-`fired_at` acknowledgment ordering, retryability, 30-second cadence, schema, recurrence and scheduling semantics remain unchanged.
-
-Initial PR CI #258 failed only `cargo fmt --check`; icon generation/tray sync/frontend build before that point passed. Only formatter-required wrapping was changed. No behavior/assertions changed.
+`TODO.md` records Gate D PASS / 15 of 15 top-level M4 items complete. The known post-submit/pre-ack process-crash duplicate window remains documented; the physical acceptance did not claim crash-proof exactly-once semantics.
 
 ## USER-FACING PROGRESS
 
-**`M-4/10 | 6/6 | 13/15`**
+**`M-5/10 | 3/3 | 0/28`**
 
-Physical-failure-fix checkpoints:
+Latest completed slice — M4 physical-acceptance reconciliation:
 
-1. mandatory startup + physical FAIL/root-cause reconstruction + branch start + regression plan — COMPLETE;
-2. narrow reminder runtime fix + acceptance-probe repeat guard + Narro icon fix + deterministic tests + candidate diff review — COMPLETE;
-3. exact PR-head Windows CI success including preflight, Tauri release and artifact — COMPLETE;
-4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
-5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI + durable tracking/work-log reconciliation + exact physical retest artifact/procedure — COMPLETE.
+1. mandatory startup + exact physical PASS/source/artifact evidence capture — COMPLETE;
+2. immutable work log + TODO/STATUS/HANDOFF reconciliation + docs-only PR review — COMPLETE;
+3. guarded documentation merge + final main verification — COMPLETE once this reconciliation reaches `main`.
 
-Milestone 4 remains 13/15 because manual Windows behavior cannot be inferred from CI.
+A new M5 implementation slice has **not** started. Reset the small-slice counter only when the first coherent M5 implementation slice is explicitly defined.
+
+## M5 ORDERED STARTING POINT
+
+Milestone 5 must implement the screenshot hierarchy and shared visual system rather than inventing a generic task manager.
+
+The first ordered top-level item is:
+
+`Implement theme tokens for canvas/surfaces/borders/text/accent/success/warning/destructive states based on docs/UI_UX_SPEC.md.`
+
+Before editing source for that item, perform the normal startup plus M5-specific inspection:
+
+1. read the complete Milestone 5 TODO section;
+2. read the relevant `docs/UI_UX_SPEC.md` sections covering theme/color tokens, typography, spacing/radius/elevation, motion/reduced-motion, accessible tooltip/popover/menu geometry and screenshot/visual-regression expectations;
+3. inspect the supplied current screenshot/reference evidence for dark/light Main-window states;
+4. inspect current frontend source (`src/App.tsx`, styles/assets, existing routes/components/tests) and identify how the temporary M1/M4 diagnostic surface should be preserved, isolated or replaced without breaking validated native acceptance seams;
+5. define one narrow, deterministic first M5 slice with explicit checkpoints before changing source;
+6. use normal candidate diff review -> exact-head Windows CI -> guarded merge -> resulting-main validation -> tracking reconciliation discipline.
+
+Do not skip directly to later board/task polish before the shared visual foundation starts.
 
 ## IMPORTANT INVARIANTS
 
@@ -100,41 +115,19 @@ Milestone 4 remains 13/15 because manual Windows behavior cannot be inferred fro
 - `fired_at` is written only after successful OS notification submission;
 - failed reminder submission remains pending and retryable;
 - reminder delivery does not claim crash-proof exactly-once semantics across the post-submit/pre-ack crash window;
-- reminder background cadence remains bounded at 30 seconds;
+- reminder background cadence remains bounded at 30 seconds and each cycle sees fresh committed SQLite state;
 - acceptance probe never directly submits a Windows notification;
 - renderer owns no authoritative recurrence/reminder/timer state;
 - async `main` recreation remains intact;
-- no M5 product UI work before M4 closes.
+- Windows executable/installer/tray icon inputs derive from the canonical Narro branding master;
+- M5 UI state must remain a projection of authoritative domain/persistence state, not a replacement authority;
+- hover/focus visual affordances must not reflow sibling content or move pointer targets;
+- reduced-motion and keyboard/focus accessibility are part of the visual foundation, not deferred polish.
 
-## NEXT AGENT ACTION — BLOCKED ON PHYSICAL WINDOWS EVIDENCE
+## NEXT AGENT ACTION
 
-Do not implement new M4 source work and do not start M5 unless the physical retest reports a failure that requires an evidence-backed correction.
-
-When the user returns physical evidence:
-
-- PASS: create a new immutable physical-acceptance work log, mark both remaining M4 reminder TODO items `[x]`, reconcile `STATUS.md` / `HANDOFF.md`, close Milestone 4, then proceed to Milestone 5;
-- FAIL: record the exact failure (reminder delivery and icon identity independently), reopen only the failing source path on a new branch, and use exact-head PR CI -> guarded merge -> resulting-main CI -> tracking reconciliation.
+Perform the mandatory Milestone 5 startup/relevant UI-spec and frontend inspection, then begin only the first ordered shared-visual-foundation slice. Do not re-open Milestone 4 unless new evidence directly demonstrates a regression.
 
 ## USER ACTION REQUIRED
 
-Use only the newly validated installed Windows build from:
-
-- source SHA `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`;
-- main CI #261 / run `34064434528`;
-- artifact `9998653381`;
-- digest `sha256:864aa26b821c0e63d4d8fd7184004cd68bb8952f943febb738b1ef2394a87583`.
-
-Physical retest:
-
-1. Extract artifact `9998653381` and install Narro with its included NSIS or MSI installer.
-2. Launch the installed build. If old overdue acceptance notifications from the earlier failed build arrive immediately, let them finish; they are not the new observation.
-3. Check the Narro icon in both the system tray and Task Manager/executable surface and record PASS/FAIL for identity separately.
-4. Under `Windows Notification Diagnostics -> M4 Due-Reminder Acceptance`, click `Schedule Real Reminder Probe (+2 min)` **once**.
-5. Record reminder ID, due local date/time and timezone. If Narro instead reports an older pending diagnostic probe, return that exact message rather than repeatedly clicking.
-6. Hide or close Main while leaving the same Narro process running in tray/background. Do not Exit, kill or restart it during the reminder observation.
-7. At the due minute allow up to 30 seconds for the background poll.
-8. Reminder PASS requires exactly one visible Windows notification with title `Task reminder` and body `Reminder acceptance probe - expected once` while the same process remains alive.
-9. Keep Narro running for at least another 60 seconds and verify no second identical notification appears for that reminder.
-10. Return PASS/FAIL with reminder ID/due time plus the tray/Task Manager icon result.
-
-Detailed source/validation evidence is in `work-log/2026-09-07-chatgpt-m4-reminder-background-physical-fix.md`.
+**None.** No physical user action is currently required before the first M5 implementation slice.
