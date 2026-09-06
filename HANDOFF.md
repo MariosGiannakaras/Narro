@@ -15,120 +15,74 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 ## ACTIVE WORK RECORD
 
 - Latest completed source slice: **recurrence detachment semantics — COMPLETE / RECONCILED**.
-- Active source slice: **None**.
-- Active implementation branch: **None**.
-- Active implementation PR: **None**.
-- Pending source CI/main validation: **None**.
+- Active source slice: **startup/resume/date-change recurrence orchestration + missed-day catch-up — ACTIVE**.
+- Active implementation branch: **`ai/m4-recurrence-orchestration`**.
+- Active implementation PR: **None yet**.
 - Latest fully main-validated source baseline: **`6c9217f90f3b7db46a30393548e640faf671fb55`**.
-- Next ordered source slice: **startup/resume/date-change recurrence orchestration and missed-day catch-up — NOT STARTED**.
-- Physical reminder acceptance still pending: **visible due reminder while Narro remains in tray/background mode**.
+- Branch started from current tracking-only `main`; Markdown-only descendants do not replace the validated source baseline.
+- Local Rust/Node preflight in this connector-only environment: **NOT RUN**.
+- Current small-slice progress: **2/6**.
 
-Markdown-only reconciliation commits newer than the validated source SHA do not replace that source baseline.
+No open implementation PR existed when this slice began.
 
 ## USER-FACING PROGRESS
 
 **Γενική υλοποίηση: 3/10 milestones ολοκληρωμένα.**
 
-**Μικρή τρέχουσα υλοποίηση: 6/6 ολοκληρωμένες** for the recurrence detachment slice.
+**Μικρή τρέχουσα υλοποίηση: 2/6 ολοκληρωμένες.**
 
-Do not reset the small counter until a genuinely new source slice begins and its denominator is stated.
+Recurrence orchestration checkpoints:
 
-Recurrence detachment checkpoints:
+1. mandatory startup + product/risk/source/runtime audit + branch start — COMPLETE;
+2. Rust-owned orchestration + deterministic startup/date-change/missed-week/idempotency tests + candidate diff review — COMPLETE;
+3. exact PR-head Windows CI success including preflight, Tauri release and artifact — PENDING;
+4. final semantic/diff review of exact validated head — PENDING;
+5. guarded merge with expected validated head — PENDING;
+6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
-1. product/risk/schema/source audit plus branch start — COMPLETE;
-2. detachment implementation contract + deterministic regressions + candidate diff review — COMPLETE;
-3. exact PR-head Windows CI success including preflight, Tauri release and artifact — COMPLETE;
-4. final semantic/diff review of exact validated head — COMPLETE;
-5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE after the tracking PR carrying this file is merged.
+## CANDIDATE CONTRACT
 
-## LATEST VALIDATED SOURCE BASELINE
+- `src-tauri/src/recurrence_service.rs` owns active-rule discovery and orchestration; no renderer polling or second materialization engine exists.
+- `materialize_recurrence_week` remains the transactional child/occurrence primitive.
+- no prior watermark => current week only, avoiding arbitrary historical backfill;
+- existing watermark => each missed Monday-based week is processed in order, then the current local date is processed idempotently;
+- repeated same-day/same-week/date-change cycles rely on occurrence uniqueness and create no duplicates;
+- timed rules resolve current date in their own validated IANA timezone;
+- date-only rules use Windows/system local calendar date without UTC conversion;
+- one broken active rule is recorded as a per-rule failure and does not block unrelated rules;
+- successful earlier missed-week commits remain durable if a later week fails; retry resumes safely from the monotonic watermark;
+- a dedicated configured SQLite connection runs one immediate cycle at startup and repeats every 60 seconds, naturally covering post-sleep/resume and local-date changes while Narro remains alive;
+- startup wiring only registers the service and reuses the already-required durable database path.
 
-`6c9217f90f3b7db46a30393548e640faf671fb55`
+Deterministic regressions cover first startup without historical backfill, repeated pass, same-week date change, multi-week catch-up, cross-rule failure isolation, timed-zone date resolution and corrupt active-rule identity.
 
-### PR #49 exact-head validation
+## NEXT AGENT ACTION — PR VALIDATION
 
-Exact validated PR head:
-
-`d7e41e69ed3e69647ad1b67a5d07efaa0d034784`
-
-- Windows PR CI #238 / run `34016467394` / job `101440990105`: **SUCCESS**.
-- Repository preflight: **PASS**.
-- Tauri release build: **PASS**.
-- Artifact upload: **PASS**.
-- Artifact ID `9984212532`.
-- Digest `sha256:f04e43e3d06e487dd7d37ea6414f3a739a139e2b9ec48c33514fa4c13363505d`.
-- Final exact-head semantic/diff review: **PASS**.
-- Unresolved inline review threads: **none**.
-
-PR #49 was guarded-squash-merged with expected head `d7e41e69ed3e69647ad1b67a5d07efaa0d034784` and produced:
-
-`6c9217f90f3b7db46a30393548e640faf671fb55`
-
-### Resulting-main validation
-
-- Windows main CI #239 / run `34017068364` / job `101442607083`: **SUCCESS** on exact source SHA `6c9217f90f3b7db46a30393548e640faf671fb55`.
-- Repository preflight: **PASS**.
-- Tauri release build: **PASS**.
-- Artifact upload: **PASS**.
-- Artifact ID `9984403460`.
-- Digest `sha256:d8426b78e8e2cb7ed4c509be41e8de1bdf3688f892bb202b7787b4279bc82409`.
-
-Evidence: `work-log/2026-09-06-chatgpt-m4-recurrence-detachment-reconciliation.md`.
-
-## VALIDATED RECURRENCE DETACHMENT CONTRACT
-
-- ordinary recurrence removal reuses the canonical persistence mutation rather than introducing a second recurrence authority;
-- generated child task identities survive recurrence removal;
-- edited titles and task-owned notes/subtasks/reminders/sessions survive;
-- completed and archived generated children survive;
-- children already independent before recurrence removal remain unchanged;
-- parent recurrence link is cleared;
-- still-linked generated children lose their recurrence-parent link and become independent;
-- deleting the removed rule also removes its occurrence rows, but never child tasks;
-- a removed rule cannot materialize future children;
-- forced delete failure rolls back child/parent link changes and occurrence cleanup;
-- repeated detach returns typed `NotFound` without mutating preserved tasks.
-
-## REMINDER ACCEPTANCE — INDEPENDENT PENDING EVIDENCE
-
-PR #45 reminder source remains fully validated and reconciled. Physical installed-build observation of one actual due reminder in tray/background mode remains pending before the two reminder TODO parent items may be checked. Do not reopen PR #45 unless physical evidence reveals a defect.
-
-## NEXT AGENT ACTION — NOT STARTED
-
-Remain inside Milestone 4.
-
-The next ordered source implementation item is **startup/resume/date-change recurrence orchestration and missed-day catch-up**.
-
-Before changing source:
-
-1. run the mandatory startup sequence from repository state;
-2. confirm no open implementation PR and confirm current main descends from validated source baseline `6c9217f90f3b7db46a30393548e640faf671fb55`;
-3. inspect recurrence materialization watermark/orchestration ownership, process startup, tray/background lifecycle, and date-change/resume hooks;
-4. consult `docs/BLITZIT_HISTORY_RISK_INDEX.md` for missed/duplicate scheduling reliability risks;
-5. create one narrow source branch from current main and record a fresh small-slice denominator immediately;
-6. make repeated startup/resume/date-change idempotent and cover missed-day catch-up without duplicate children;
-7. validate exact PR head on authoritative Windows CI, perform final semantic review, guarded-merge, validate resulting main, then reconcile tracking.
-
-Physical reminder acceptance may be captured independently. If it exposes a defect, stop the recurrence slice and address the evidence-backed reminder defect first.
+1. Open one implementation PR from `ai/m4-recurrence-orchestration` and read its exact head SHA.
+2. Accept Windows CI only for that exact head. If it fails, inspect the exact failing log and fix only evidence-backed problems.
+3. On full preflight/release/artifact success, record run/job/artifact/digest and perform final exact-head semantic/diff review.
+4. Guarded-merge only the validated expected head.
+5. Validate resulting main on Windows CI.
+6. Reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and create one new immutable recurrence-orchestration work-log entry.
 
 ## IMPORTANT INVARIANTS
 
 - authoritative Rust/domain state and persistence-first mutations;
 - stable task identities;
-- completed/archived recurrence history survives replacement/detachment;
-- ordinary detachment never deletes child tasks or user history;
-- recurrence removal leaves no active materialization authority for the removed rule;
-- repeated materialization remains idempotent;
+- occurrence uniqueness remains the duplicate-prevention boundary;
 - date-only schedules never convert through UTC;
 - week starts Monday;
 - strict IANA timezone/DST rules remain fail-closed;
-- recurrence mutations are transactional;
-- reminder due evaluation remains side-effect free;
-- reminder delivery remains submit-before-ack and failed submissions remain retryable;
+- recurrence mutations are transactional per materialized week;
+- failed one-rule orchestration remains retryable;
+- reminder delivery submit-before-ack/retry semantics remain unchanged;
 - no renderer owns authoritative recurrence/reminder/timer state;
-- async `main` recreation remains intact to avoid the historical Windows WebView2 deadlock.
+- async `main` recreation remains intact.
+
+## REMINDER ACCEPTANCE — INDEPENDENT PENDING EVIDENCE
+
+PR #45 reminder source remains fully validated and reconciled. Physical installed-build observation of one actual due reminder in tray/background mode remains pending before the two reminder TODO parent items may be checked. Do not reopen PR #45 unless physical evidence reveals a defect.
 
 ## USER ACTION REQUIRED
 
-None for the next recurrence source slice. Physical installed-build visible due-reminder observation remains independently pending for reminder acceptance.
+None for recurrence orchestration implementation. Physical installed-build visible due-reminder observation remains independently pending for reminder acceptance.
