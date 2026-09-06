@@ -15,7 +15,7 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 ## ACTIVE WORK RECORD
 
 - Latest completed source/test slice: **combined M4 scheduling/recurrence regression matrix — COMPLETE / MAIN-VALIDATED / RECONCILED**.
-- Active source slice: **M4 physical reminder acceptance harness — ACTIVE**.
+- Active source slice: **M4 physical reminder acceptance harness — ACTIVE / CANDIDATE READY**.
 - Active implementation branch: **`ai/m4-reminder-acceptance-harness`**.
 - Active implementation PR: **None yet**.
 - Branch base: tracking-only `main` **`6a824e761b54f1c069a7923aac2606abd8ecd2b9`**.
@@ -27,41 +27,57 @@ Markdown-only descendants of the validated source/test SHA do not replace that s
 
 ## WHY THIS SLICE IS REQUIRED
 
-The previous handoff correctly required physical due-reminder acceptance, but repository inspection found that the validated diagnostic build cannot currently create a real due reminder through the product reminder pipeline:
+The prior handoff correctly required physical due-reminder acceptance, but repository inspection showed that the validated diagnostic build could not create a real due reminder through the persisted reminder path:
 
-- `src/App.tsx` exposes only `Send Test Notification`;
-- `send_test_notification` submits directly to the Windows notification backend;
-- no Tauri command/UI currently creates a persisted `ReminderRecord` for manual acceptance;
-- the Milestone 5 scheduling UI is intentionally not implemented yet.
+- `src/App.tsx` exposed only `Send Test Notification`;
+- `send_test_notification` submits directly to the Windows notification backend and bypasses reminder persistence/dispatch;
+- no Tauri command/UI created a persisted `ReminderRecord` for manual acceptance;
+- Milestone 5 scheduling UI is intentionally not implemented yet.
 
-Therefore asking the user to perform the physical M4 reminder acceptance on the current build would require unsupported external SQLite manipulation and would not be the repository's narrowest reproducible test path. `AGENT_WORKFLOW.md` requires implementing the narrowest testable path before asking for interactive Windows evidence.
+Asking for physical M4 acceptance on that build would therefore require unsupported external SQLite manipulation. `AGENT_WORKFLOW.md` requires the narrowest testable path before interactive Windows evidence, so this diagnostic-only seam is required to make the existing acceptance gate executable.
 
 ## USER-FACING PROGRESS
 
-**`M-4/10 | 1/6 | 13/15`**
+**`M-4/10 | 2/6 | 13/15`**
 
 Reminder-acceptance-harness checkpoints:
 
 1. mandatory startup + confirm physical-acceptance path gap + risk review + branch start — COMPLETE;
-2. implement narrow persisted-reminder acceptance probe + deterministic tests + candidate diff review — PENDING;
+2. implement narrow persisted-reminder acceptance probe + deterministic tests + candidate diff review — COMPLETE;
 3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact — PENDING;
 4. final exact-head semantic/diff review — PENDING;
 5. guarded merge with expected validated head — PENDING;
 6. resulting-main Windows CI + tracking/work-log reconciliation + exact manual procedure/artifact identity — PENDING.
 
-## ACCEPTANCE-HARNESS CONTRACT
+## CANDIDATE CONTRACT
 
-The source slice must remain diagnostic-only and must not implement Milestone 5 product UI.
+The candidate is diagnostic-only and does not implement Milestone 5 product scheduling UI.
 
-Required behavior:
+Implemented:
 
-- expose one diagnostic action that creates a real persisted reminder through the existing list/task/reminder persistence APIs;
-- use the renderer only to provide the current Windows/WebView2-resolved IANA timezone and a near-future local date/time;
-- persist the probe transactionally so validation failure cannot leave partial diagnostic list/task rows;
-- do **not** call the notification API directly from the probe;
-- let the existing Rust-owned `reminder_service` background thread discover the due persisted reminder and call the existing task-reminder notification transport;
-- return enough typed data for the diagnostic UI to show the scheduled local date/time/timezone and expected notification title/body;
-- keep the two reminder parent TODO items open until physical Windows evidence is actually returned.
+- new isolated `src-tauri/src/reminder_acceptance.rs`;
+- one Tauri command `schedule_reminder_acceptance_probe`;
+- one diagnostic control `Schedule Real Reminder Probe (+2 min)` in the existing Main diagnostic surface;
+- the renderer supplies only a near-future local `YYYY-MM-DD` / `HH:mm` plus WebView2-resolved IANA timezone;
+- Rust strictly validates date, time, timezone and DST resolution before writing rows;
+- diagnostic list + Today task + real reminder are inserted in one SQLite transaction, with typed read-back before commit;
+- deterministic tests prove the persisted row becomes visible to the real `pending_due_reminders` boundary at its resolved instant;
+- deterministic forced reminder-insert failure proves list/task/reminder setup rolls back atomically;
+- invalid timezone is rejected before any rows are written;
+- the command does **not** call the notification API.
+
+The existing Rust-owned `reminder_service` background thread remains unchanged and is therefore the only code that can discover the due row, submit `Task reminder`, and acknowledge `fired_at`. The diagnostic fixture writes directly to the already-established durable schema inside one transaction because the public create-list/create-task/create-reminder functions each own their own transaction and cannot be safely nested; typed decoders and the real due-query boundary verify the committed shape.
+
+Expected physical notification after validation:
+
+- title: `Task reminder`;
+- body: `Reminder acceptance probe - expected once`;
+- exactly one visible notification is expected;
+- background poll interval remains 30 seconds.
+
+Candidate diff review: PASS. Compared with base `6a824e761b54f1c069a7923aac2606abd8ecd2b9`, the source candidate changes only `src-tauri/src/lib.rs`, adds `src-tauri/src/reminder_acceptance.rs`, changes `src/App.tsx`, and updates this HANDOFF tracking file. `reminder_service.rs`, notification transport, reminder schema and product TODO/STATUS are unchanged.
+
+Local project preflight is NOT RUN in the connector-only environment; authoritative Windows CI is required for the exact PR head.
 
 ## LATEST VALIDATED REMINDER SOURCE
 
@@ -86,18 +102,20 @@ Current latest fully validated source/test baseline is newer: `9ece00dc1c2e2d06e
 - reminder due evaluation remains Rust-owned and side-effect free until notification submission;
 - reminder `fired_at` is written only after successful OS notification submission;
 - failed reminder submission remains pending and retryable;
-- acceptance probe must not directly submit a Windows notification;
+- acceptance probe must never directly submit a Windows notification;
 - no renderer owns authoritative recurrence/reminder/timer state;
 - async `main` recreation remains intact.
 
-## NEXT AGENT ACTION — IMPLEMENT ACCEPTANCE PROBE
+## NEXT AGENT ACTION — PR VALIDATION
 
-1. Add the narrow diagnostic persisted-reminder probe with explicit typed failure handling and transaction rollback on partial setup failure.
-2. Add deterministic Rust tests for successful persisted setup and rollback on invalid reminder input.
-3. Add one diagnostic UI control that schedules the probe a short time in the future using WebView2's resolved IANA timezone and explains the tray/background observation.
-4. Review the actual candidate diff, then open one PR and accept Windows CI only for its exact head.
-5. After guarded merge and resulting-main CI, reconcile tracking and provide the exact artifact/manual procedure.
+1. Open one PR from `ai/m4-reminder-acceptance-harness` and record its exact head SHA.
+2. Accept Windows CI only for that exact head; on failure inspect the exact failing step/log and fix only evidence-backed problems.
+3. On success record run/job/artifact/digest and perform final exact-head semantic/diff review.
+4. Guarded-merge only the validated expected head.
+5. Validate the resulting main source SHA on authoritative Windows CI.
+6. Reconcile `STATUS.md`, `HANDOFF.md` and a new immutable work-log entry; TODO remains `13/15` until actual physical Windows reminder evidence is returned.
+7. Only after the validated resulting-main artifact exists, give the user the exact short physical acceptance procedure.
 
 ## USER ACTION REQUIRED
 
-**Not yet.** Do not ask the user to perform the physical reminder acceptance until this harness has a fully validated resulting-main Windows artifact. Once available, the only required observation will be whether exactly one `Task reminder` Windows notification appears at/after the displayed due time while Narro remains running in tray/background mode.
+**Not yet.** Do not ask the user to perform the physical reminder acceptance until this harness has a fully validated resulting-main Windows artifact. Once available, the only required observation will be whether exactly one `Task reminder` Windows notification with body `Reminder acceptance probe - expected once` appears at/after the displayed due time while Narro remains running in tray/background mode.
