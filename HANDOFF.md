@@ -64,7 +64,7 @@ Implement a reusable semantic color layer using the calibrated visual language i
 - light and dark value sets;
 - system preference resolution at the token layer, plus explicit `data-theme="light"` / `data-theme="dark"` override selectors for later preference UI integration.
 
-Apply those tokens to the existing Main diagnostic shell enough to prove the semantic layer is actually consumed, while preserving every diagnostic/native command and test seam. Remove obsolete Vite/React scaffold color styling from `App.css` rather than allowing it to remain a competing palette.
+Apply those tokens to the existing shared diagnostic stylesheet enough to prove the semantic layer is actually consumed, while preserving every diagnostic/native command and test seam. Remove obsolete Vite/React scaffold color styling from `App.css` rather than allowing it to remain a competing palette.
 
 Add a deterministic dependency-light token contract check to repository frontend preflight so missing semantic tokens/theme selectors fail CI before the Tauri release build.
 
@@ -86,18 +86,37 @@ The existing diagnostic Main/focusSurface functionality remains available until 
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 1/6 | 0/28`**
+**`M-5/10 | 2/6 | 0/28`**
 
 Theme-token-foundation checkpoints:
 
 1. mandatory M5 startup + UI/reference/frontend inspection + branch + exact token/scope contract — COMPLETE;
-2. implement semantic theme tokens + existing Main diagnostic consumption + deterministic token contract check + candidate diff review — PENDING;
+2. implement semantic theme tokens + existing diagnostic stylesheet consumption + deterministic token contract check + candidate diff review — COMPLETE / CANDIDATE READY;
 3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact — PENDING;
 4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
 5. guarded merge with expected validated head — PENDING;
 6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
 A failed CI run does not increment this counter.
+
+## CANDIDATE IMPLEMENTATION
+
+Material candidate changes compared with base `c107c98e44f0bcd9afb1a7eda1245ed745468b8a`:
+
+- new `src/theme.css` defines semantic light/dark/system color tokens;
+- `src/App.css` imports and consumes the semantic layer, removes obsolete Vite/React logo palette rules and retains existing diagnostic geometry/behavior;
+- new `scripts/test-ui-theme-tokens.mjs` fails on missing/incomplete semantic token declarations, missing explicit/system selectors, missing shared-stylesheet consumption, or a return to hard-coded hex palette values in `App.css`;
+- `package.json` runs `test:ui-theme` inside `preflight:frontend`;
+- this `HANDOFF.md` records active-slice state.
+
+No `App.tsx`, `focus.tsx`, timer/session API, Rust, Tauri config, schema or native command file changes are present.
+
+### Pre-PR validation
+
+- dependency-light `node scripts/test-ui-theme-tokens.mjs`: **PASS** in an isolated local fixture using the exact candidate CSS/test contents;
+- Node syntax check for the token test: **PASS**;
+- light/dark semantic contrast spot-check: **PASS** for primary/secondary text and tuned semantic foregrounds used as text colors; light accent/success/warning/destructive solids were darkened where necessary while preserving the documented visual families;
+- full project clone/build/preflight: **NOT RUN locally** because the execution container has no outbound GitHub/network access and therefore could not materialize/install the repository; Windows CI remains the authoritative complete gate.
 
 ## M5 REFERENCE FINDINGS FOR THIS SLICE
 
@@ -118,13 +137,13 @@ Reference mapping confirms `Screenshot_1.png` is current dark Home and `Screensh
 Current Main is still the M1–M4 diagnostic harness:
 
 - `src/App.tsx` contains all native diagnostic actions required for prior physical acceptance;
-- `src/App.css` is largely untouched Vite scaffold CSS with light/dark hard-coded colors and obsolete logo rules;
-- Main diagnostic panels also contain hard-coded inline palette values;
+- `src/App.css` was largely untouched Vite scaffold CSS with hard-coded light/dark colors and obsolete logo rules;
+- Main diagnostic panels still contain some hard-coded inline palette values and are intentionally left structurally untouched in this first token-only slice;
 - `src/focus.tsx` shares `App.css` but retains its own diagnostic inline styles;
 - `src/main.tsx` also mounts the authoritative `TimerSessionProjection`;
-- frontend preflight currently runs `check:config`, date-format tests and production build before Rust checks.
+- frontend preflight runs config/date-format checks, now adds the theme-token contract, then runs the production frontend build before Rust gates.
 
-The theme-token slice must not alter command semantics, window labels, timer projection authority, or focus-surface lifecycle.
+Later M5 shell/component work may remove remaining inline diagnostic palette values when it intentionally replaces/isolates the diagnostic presentation. This slice does not silently refactor runtime seams merely for visual cleanup.
 
 ## IMPORTANT INVARIANTS
 
@@ -142,7 +161,7 @@ The theme-token slice must not alter command semantics, window labels, timer pro
 
 ## NEXT AGENT ACTION
 
-Implement checkpoint 2 exactly as scoped, review the candidate diff, and open one implementation PR. Accept Windows CI only for the exact final PR head.
+Open one implementation PR from `ai/m5-theme-token-foundation`, record the exact head SHA, and accept Windows CI only for that exact head. On failure, inspect the exact log and change only evidence-backed issues.
 
 ## USER ACTION REQUIRED
 
