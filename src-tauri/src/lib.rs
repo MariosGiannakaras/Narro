@@ -92,19 +92,13 @@ fn schedule_reminder_acceptance_probe(
     let database_path = app_dir.join("narro.db");
     let now = chrono::Utc::now().to_rfc3339();
 
-    reminder_acceptance::schedule_probe(
-        &database_path,
-        &local_date,
-        &local_time,
-        &timezone,
-        &now,
-    )
-    .map_err(|error| {
-        CommandError::new(
-            "REMINDER_ACCEPTANCE_PROBE_FAILED",
-            format!("failed to persist reminder acceptance probe: {error}"),
-        )
-    })
+    reminder_acceptance::schedule_probe(&database_path, &local_date, &local_time, &timezone, &now)
+        .map_err(|error| {
+            CommandError::new(
+                "REMINDER_ACCEPTANCE_PROBE_FAILED",
+                format!("failed to persist reminder acceptance probe: {error}"),
+            )
+        })
 }
 
 #[tauri::command]
