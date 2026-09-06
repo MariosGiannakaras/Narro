@@ -147,8 +147,7 @@ fn schedule_probe_in_connection(
     now: &str,
 ) -> Result<ReminderAcceptanceProbe, ReminderAcceptanceError> {
     DateTime::parse_from_rfc3339(now).map_err(|_| ReminderAcceptanceError::InvalidTimestamp)?;
-    let (local_date, local_time, timezone) =
-        normalized_schedule(local_date, local_time, timezone)?;
+    let (local_date, local_time, timezone) = normalized_schedule(local_date, local_time, timezone)?;
 
     let list_id = ListId::generate();
     let task_id = TaskId::generate();
@@ -212,7 +211,8 @@ pub fn schedule_probe(
     timezone: &str,
     now: &str,
 ) -> Result<ReminderAcceptanceProbe, ReminderAcceptanceError> {
-    let mut connection = Connection::open_with_flags(database_path, OpenFlags::SQLITE_OPEN_READ_WRITE)?;
+    let mut connection =
+        Connection::open_with_flags(database_path, OpenFlags::SQLITE_OPEN_READ_WRITE)?;
     configure_connection(&connection)?;
     schedule_probe_in_connection(&mut connection, local_date, local_time, timezone, now)
 }
