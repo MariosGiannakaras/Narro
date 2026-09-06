@@ -30,10 +30,16 @@ impl Display for RuleOrchestrationError {
             Self::Store(error) => Display::fmt(error, formatter),
             Self::Materialization(error) => Display::fmt(error, formatter),
             Self::InvalidCurrentLocalDate(value) => {
-                write!(formatter, "recurrence current local date is invalid: {value}")
+                write!(
+                    formatter,
+                    "recurrence current local date is invalid: {value}"
+                )
             }
             Self::InvalidWatermark(value) => {
-                write!(formatter, "recurrence materialization watermark is invalid: {value}")
+                write!(
+                    formatter,
+                    "recurrence materialization watermark is invalid: {value}"
+                )
             }
             Self::InvalidTimezone(value) => {
                 write!(formatter, "recurrence timezone is invalid: {value}")
@@ -97,9 +103,14 @@ pub enum RecurrenceCycleError {
 impl Display for RecurrenceCycleError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Sqlite(error) => write!(formatter, "recurrence active-rule query failed: {error}"),
+            Self::Sqlite(error) => {
+                write!(formatter, "recurrence active-rule query failed: {error}")
+            }
             Self::InvalidStoredRuleIdentity(value) => {
-                write!(formatter, "stored recurrence rule identity is invalid: {value}")
+                write!(
+                    formatter,
+                    "stored recurrence rule identity is invalid: {value}"
+                )
             }
         }
     }
@@ -130,9 +141,13 @@ pub enum RecurrenceRuntimeStartError {
 impl Display for RecurrenceRuntimeStartError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Sqlite(error) => write!(formatter, "open recurrence orchestration database: {error}"),
+            Self::Sqlite(error) => {
+                write!(formatter, "open recurrence orchestration database: {error}")
+            }
             Self::Persistence(error) => Display::fmt(error, formatter),
-            Self::Thread(error) => write!(formatter, "start recurrence orchestration thread: {error}"),
+            Self::Thread(error) => {
+                write!(formatter, "start recurrence orchestration thread: {error}")
+            }
         }
     }
 }
@@ -214,8 +229,8 @@ fn local_date_for_rule_at(
             let zone = TimeZone::get(timezone)
                 .map_err(|_| RuleOrchestrationError::InvalidTimezone(timezone.to_owned()))?;
             let date = zone.to_datetime(timestamp).date().to_string();
-            let parsed = parse_date(&date)
-                .map_err(|_| RuleOrchestrationError::TimezoneConversionFailed)?;
+            let parsed =
+                parse_date(&date).map_err(|_| RuleOrchestrationError::TimezoneConversionFailed)?;
             Ok(parsed.format("%Y-%m-%d").to_string())
         }
         _ => Err(RuleOrchestrationError::InvalidTimeTimezoneShape),
@@ -223,7 +238,8 @@ fn local_date_for_rule_at(
 }
 
 fn active_rule_ids(conn: &Connection) -> Result<Vec<RecurrenceRuleId>, RecurrenceCycleError> {
-    let mut statement = conn.prepare("SELECT id FROM recurrence_rules WHERE is_active = 1 ORDER BY id")?;
+    let mut statement =
+        conn.prepare("SELECT id FROM recurrence_rules WHERE is_active = 1 ORDER BY id")?;
     let values = statement.query_map([], |row| row.get::<_, String>(0))?;
     let mut ids = Vec::new();
     for value in values {
