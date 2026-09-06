@@ -154,13 +154,13 @@ Acceptance criteria:
 - [x] Classify scheduled tasks into Backlog / This Week / Today by Windows local date/timezone.
 - [x] Prevent future-timed Today tasks from auto-starting before due time.
 - [x] Preserve date-only schedule semantics without accidental timezone day shifts.
-- [ ] Implement one-off local reminders.
+- [x] Implement one-off local reminders.
 - [x] Implement recurrence presets and custom interval/unit/weekday rules documented in `docs/PRODUCT_SPEC.md`.
 - [x] Implement recurring parent in Backlog and Monday-of-due-week child materialization.
 - [x] Implement Replace Existing Tasks behavior.
 - [x] Implement recurrence detachment semantics while preserving already modified independent children.
 - [x] Make recurrence materialization idempotent on startup/resume/date change.
-- [ ] Add tray/background due-reminder processing while process is running.
+- [x] Add tray/background due-reminder processing while process is running.
 - [x] Format visible dates/times using Windows locale/system 12/24-hour convention by default.
 - [x] Add tests for DST, Monday/week boundaries, timezone changes, repeated startup, missed days, future-time eligibility and weekend/date-only behavior.
 - [x] Add regression tests ensuring moving a scheduled task between lanes cannot duplicate/triplicate it.
@@ -173,6 +173,8 @@ Acceptance criteria:
 - task eligibility matches scheduling rules
 - date-only tasks remain on the intended local calendar date
 - scheduling/move operations never change task identity count
+
+**Gate D result: PASS / proceed to Milestone 5.** The final installed-Windows acceptance on main CI #261 / artifact `9998653381` physically delivered reminder `91f217f6-abc3-4df3-a6cc-66e18a0fb046` due `2026-09-07 01:56` while Narro remained alive in tray/background mode, with no duplicate after more than one additional minute. Tray and Task Manager Narro icon identity also passed. The validated source/test baseline remains `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`.
 
 ## Milestone 5 — Design system and Main window product UI
 
