@@ -485,41 +485,25 @@ mod tests {
 
     #[test]
     fn fresh_cycle_connection_observes_reminder_inserted_after_empty_cycle() {
-        let database_path = std::env::temp_dir().join(format!(
-            "narro-reminder-cycle-{}.db",
-            uuid::Uuid::new_v4()
-        ));
+        let database_path =
+            std::env::temp_dir().join(format!("narro-reminder-cycle-{}.db", uuid::Uuid::new_v4()));
 
         {
             let mut setup = Connection::open(&database_path).expect("create file-backed database");
             run_migrations(&mut setup).expect("migrate file-backed database");
         }
 
-        let first = dispatch_due_from_path_with(
-            &database_path,
-            T0,
-            |_, _| true,
-            acknowledge_fired,
-        )
-        .expect("empty first reminder cycle");
+        let first = dispatch_due_from_path_with(&database_path, T0, |_, _| true, acknowledge_fired)
+            .expect("empty first reminder cycle");
         assert_eq!(first.due_count, 0);
 
         let reminder_id = {
-            let mut writer = Connection::open_with_flags(
-                &database_path,
-                OpenFlags::SQLITE_OPEN_READ_WRITE,
-            )
-            .expect("open independent writer");
+            let mut writer =
+                Connection::open_with_flags(&database_path, OpenFlags::SQLITE_OPEN_READ_WRITE)
+                    .expect("open independent writer");
             configure_connection(&writer).expect("configure writer");
             let task = create_task_fixture(&mut writer, "Inserted after first cycle");
-            create_due_reminder(
-                &mut writer,
-                task.id,
-                "2026-09-05",
-                "10:00",
-                "Europe/Athens",
-            )
-            .id
+            create_due_reminder(&mut writer, task.id, "2026-09-05", "10:00", "Europe/Athens").id
         };
 
         let mut submissions = Vec::new();
@@ -541,11 +525,9 @@ mod tests {
             vec![(reminder_id, "Inserted after first cycle".to_owned())]
         );
 
-        let verification = Connection::open_with_flags(
-            &database_path,
-            OpenFlags::SQLITE_OPEN_READ_WRITE,
-        )
-        .expect("open verification connection");
+        let verification =
+            Connection::open_with_flags(&database_path, OpenFlags::SQLITE_OPEN_READ_WRITE)
+                .expect("open verification connection");
         assert_eq!(
             get_reminder(&verification, reminder_id)
                 .expect("read delivered reminder")
