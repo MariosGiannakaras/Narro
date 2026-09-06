@@ -21,40 +21,42 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 - Latest fully main-validated source baseline: **`83afcbee0583ef71dfc42c0e4c5266b0ed997fa0`**.
 - Branch started from current tracking-only `main` (`62fbd7ea8774b123ed90e93ca5cca68ad56fab28`); Markdown-only descendants do not replace the validated source baseline.
 - No open implementation PR or pending source CI existed when this slice began.
-- Local Rust/Node preflight in this connector-only environment: **NOT RUN**.
-- Current small-slice progress: **1/6**.
+- Local Node runtime exists, but project dependencies are unavailable in the local container; project preflight remains **NOT RUN locally**.
+- Current small-slice progress: **2/6**.
 
 ## USER-FACING PROGRESS
 
-**`M-4/10 | 1/6 | 10/15`**
+**`M-4/10 | 2/6 | 10/15`**
 
 Locale-formatting checkpoints:
 
 1. mandatory startup + current visible-formatting/spec/dependency audit + branch start — COMPLETE;
-2. shared locale-aware visible formatter + deterministic contract tests/diagnostic projection + candidate diff review — PENDING;
+2. shared locale-aware visible formatter + executable contract test + shared diagnostic projection + candidate diff review — COMPLETE;
 3. exact PR-head Windows CI success including preflight, Tauri release and artifact — PENDING;
 4. final exact-head semantic/diff review — PENDING;
 5. guarded merge with expected validated head — PENDING;
 6. resulting-main Windows CI plus TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
-## PRODUCT / RELIABILITY CONTRACT
+## CANDIDATE CONTRACT
 
-- visible date/time text follows the Windows/system locale and its default 12/24-hour convention;
-- do not hardcode an hour cycle or a product-specific date order when the system locale already defines it;
-- date-only values remain calendar dates and must never be converted through UTC for display;
-- timed schedule storage, IANA timezone resolution, recurrence materialization and eligibility semantics remain unchanged;
-- this slice is presentation formatting only: no schema migration and no schedule mutation;
-- use one shared formatting boundary so later Main/Focus scheduling UI does not invent independent locale logic;
-- current `main` and `focusSurface` are still diagnostic/runtime surfaces, so the slice may add a narrow visible formatting diagnostic/example while establishing the shared formatter contract; do not start Milestone 5 product UI.
+- `src/dateTimeFormat.ts` is the shared visible date/time formatting boundary for both webviews.
+- Default calls pass no explicit locale and no `hour12`/`hourCycle`, so WebView2/Intl uses the runtime's Windows/system locale and hour-cycle convention.
+- `YYYY-MM-DD` date-only values are parsed into local calendar components at local noon, never through UTC, preventing display-day shifts.
+- local clock values are validated as strict `HH:mm` and formatted with locale-native hour presentation.
+- explicit locale injection exists only as a deterministic test seam; production/default calls use the runtime default locale.
+- `scripts/test-date-time-format.mjs` transpiles and executes the actual TypeScript formatter via the repository TypeScript dependency and checks leap-day/date validation, invalid times, date-only local-component preservation, `en-US` 12-hour vs `en-GB` 24-hour behavior, and default-system resolution.
+- `package.json` runs the formatter contract before the frontend build in `preflight:frontend`.
+- the existing shared `TimerSessionProjection` renders one fixed locale-format sample in both `main` and `focusSurface`, proving both webviews consume the same formatter without adding scheduling product UI.
+- no Rust/domain/schema/scheduling/timezone mutation code changed.
 
-## NEXT AGENT ACTION — ACTIVE BRANCH
+## NEXT AGENT ACTION — PR VALIDATION
 
-1. Implement a shared frontend date/time formatting module using the runtime's default locale/hour cycle rather than hardcoded locale or `hour12` settings.
-2. Parse date-only `YYYY-MM-DD` values as local calendar components rather than UTC instants.
-3. Add deterministic contract checks for date-only parsing, invalid values, locale option construction, and explicit injected locales/hour-cycle behavior where useful without changing the default-system policy.
-4. Surface a minimal diagnostic projection in both webview entry paths only if needed to prove the shared formatter is actually used; do not build scheduling product UI.
-5. Review the candidate diff, then update this file to 2/6 and open one PR.
-6. Accept Windows CI only for the PR's exact head; then final-review, guarded-merge, validate resulting main, and reconcile tracking.
+1. Open one PR from `ai/m4-windows-locale-formatting` and record its exact head SHA.
+2. Accept Windows CI only for that exact head. If it fails, inspect the exact failing log and fix only evidence-backed problems.
+3. On full preflight/release/artifact success, record run/job/artifact/digest and perform final exact-head semantic/diff review.
+4. Guarded-merge only the validated expected head.
+5. Validate resulting main on authoritative Windows CI.
+6. Reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and create one new immutable locale-formatting work-log entry.
 
 ## IMPORTANT INVARIANTS
 
