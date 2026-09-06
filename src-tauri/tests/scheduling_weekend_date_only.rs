@@ -81,10 +81,7 @@ fn persisted_sunday_date_only_schedule_never_gains_a_timezone_or_changes_calenda
 
     let stored = get_task(&conn, task_id).expect("reload scheduled task");
     assert_eq!(stored.id, task_id);
-    assert_eq!(
-        stored.scheduled_local_date.as_deref(),
-        Some("2026-09-13")
-    );
+    assert_eq!(stored.scheduled_local_date.as_deref(), Some("2026-09-13"));
     assert!(stored.scheduled_local_time.is_none());
     assert!(stored.schedule_timezone.is_none());
 }
