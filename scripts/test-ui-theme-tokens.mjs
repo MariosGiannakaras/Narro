@@ -6,6 +6,10 @@ function invariant(condition, message) {
   }
 }
 
+function escapedPattern(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 const [themeCss, appCss] = await Promise.all([
   readFile(new URL("../src/theme.css", import.meta.url), "utf8"),
   readFile(new URL("../src/App.css", import.meta.url), "utf8"),
@@ -36,12 +40,19 @@ const requiredTokens = [
 ];
 
 for (const token of requiredTokens) {
-  invariant(themeCss.includes(`${token}:`), `missing semantic token ${token}`);
+  const declarationCount = [...themeCss.matchAll(new RegExp(`${escapedPattern(token)}\\s*:`, "g"))]
+    .length;
+  invariant(
+    declarationCount === 3,
+    `${token} must be declared for light, explicit dark, and system-dark values; found ${declarationCount}`,
+  );
 }
 
 invariant(themeCss.includes(':root[data-theme="light"]'), "missing explicit light theme selector");
 invariant(themeCss.includes(':root[data-theme="dark"]'), "missing explicit dark theme selector");
 invariant(themeCss.includes(':root[data-theme="system"]'), "missing explicit system theme selector");
+invariant(themeCss.includes("color-scheme: light"), "light theme must expose color-scheme: light");
+invariant(themeCss.includes("color-scheme: dark"), "dark theme must expose color-scheme: dark");
 invariant(
   themeCss.includes("@media (prefers-color-scheme: dark)"),
   "system theme must follow prefers-color-scheme",
