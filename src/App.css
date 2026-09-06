@@ -123,7 +123,7 @@ input:invalid {
 }
 
 ::selection {
-  color: var(--color-text-inverse);
+  color: var(--color-accent-contrast);
   background: var(--color-accent-start);
 }
 
