@@ -7,7 +7,7 @@ use crate::scheduling::{
     resolve_local_datetime_strict, validate_timezone_identifier, SchedulingError,
 };
 use chrono::{DateTime, NaiveDate, NaiveTime};
-use rusqlite::{params, Connection, OpenFlags};
+use rusqlite::{params, Connection, OpenFlags, OptionalExtension};
 use serde::Serialize;
 use std::fmt::{Display, Formatter};
 use std::path::Path;
@@ -38,6 +38,8 @@ pub enum ReminderAcceptanceError {
     InvalidTimestamp,
     InvalidLocalDate,
     InvalidLocalTime,
+    InvalidStoredReminderIdentity,
+    PendingProbeExists(ReminderId),
     ListRankOverflow,
 }
 
@@ -58,6 +60,13 @@ impl Display for ReminderAcceptanceError {
             Self::InvalidLocalTime => {
                 formatter.write_str("reminder acceptance local time must use 24-hour HH:MM")
             }
+            Self::InvalidStoredReminderIdentity => {
+                formatter.write_str("stored reminder acceptance identity is not a valid UUID")
+            }
+            Self::PendingProbeExists(id) => write!(
+                formatter,
+                "reminder acceptance probe is already pending: {id}; wait for it to fire before scheduling another"
+            ),
             Self::ListRankOverflow => formatter.write_str("reminder acceptance list rank overflow"),
         }
     }
@@ -139,6 +148,37 @@ fn next_list_rank(conn: &Connection) -> Result<i64, ReminderAcceptanceError> {
     }
 }
 
+fn pending_acceptance_probe(
+    conn: &Connection,
+) -> Result<Option<ReminderId>, ReminderAcceptanceError> {
+    let stored_id: Option<String> = conn
+        .query_row(
+            "SELECT r.id
+             FROM reminders r
+             JOIN tasks t ON t.id = r.task_id
+             JOIN lists l ON l.id = t.list_id
+             WHERE l.title = ?1
+               AND t.title = ?2
+               AND r.fired_at IS NULL
+               AND r.dismissed_at IS NULL
+               AND t.completed_at IS NULL
+               AND t.archived_at IS NULL
+               AND l.archived_at IS NULL
+             ORDER BY r.created_at DESC, r.id DESC
+             LIMIT 1",
+            params![ACCEPTANCE_LIST_TITLE, ACCEPTANCE_TASK_TITLE],
+            |row| row.get(0),
+        )
+        .optional()?;
+
+    stored_id
+        .map(|value| {
+            ReminderId::parse_str(&value)
+                .map_err(|_| ReminderAcceptanceError::InvalidStoredReminderIdentity)
+        })
+        .transpose()
+}
+
 fn schedule_probe_in_connection(
     conn: &mut Connection,
     local_date: &str,
@@ -148,6 +188,10 @@ fn schedule_probe_in_connection(
 ) -> Result<ReminderAcceptanceProbe, ReminderAcceptanceError> {
     DateTime::parse_from_rfc3339(now).map_err(|_| ReminderAcceptanceError::InvalidTimestamp)?;
     let (local_date, local_time, timezone) = normalized_schedule(local_date, local_time, timezone)?;
+
+    if let Some(reminder_id) = pending_acceptance_probe(conn)? {
+        return Err(ReminderAcceptanceError::PendingProbeExists(reminder_id));
+    }
 
     let list_id = ListId::generate();
     let task_id = TaskId::generate();
@@ -220,7 +264,7 @@ pub fn schedule_probe(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::persistence::reminders::pending_due_reminders;
+    use crate::persistence::reminders::{mark_reminder_fired, pending_due_reminders};
     use crate::persistence::run_migrations;
 
     const NOW: &str = "2026-09-06T19:30:00Z";
@@ -267,6 +311,65 @@ mod tests {
         assert_eq!(due.len(), 1);
         assert_eq!(due[0].id, probe.reminder_id);
         assert_eq!(due[0].task_id, probe.task_id);
+    }
+
+    #[test]
+    fn repeated_probe_is_rejected_while_the_first_reminder_is_pending() {
+        let mut connection = fixture();
+        let first = schedule_probe_in_connection(
+            &mut connection,
+            "2026-09-06",
+            "22:32",
+            "Europe/Athens",
+            NOW,
+        )
+        .expect("create first acceptance probe");
+
+        let error = schedule_probe_in_connection(
+            &mut connection,
+            "2026-09-06",
+            "22:34",
+            "Europe/Athens",
+            "2026-09-06T19:31:00Z",
+        )
+        .expect_err("second pending probe must be rejected");
+
+        assert!(matches!(
+            error,
+            ReminderAcceptanceError::PendingProbeExists(id) if id == first.reminder_id
+        ));
+        assert_eq!(row_count(&connection, "lists"), 1);
+        assert_eq!(row_count(&connection, "tasks"), 1);
+        assert_eq!(row_count(&connection, "reminders"), 1);
+    }
+
+    #[test]
+    fn a_new_probe_can_be_scheduled_after_the_previous_one_is_fired() {
+        let mut connection = fixture();
+        let first = schedule_probe_in_connection(
+            &mut connection,
+            "2026-09-06",
+            "22:32",
+            "Europe/Athens",
+            NOW,
+        )
+        .expect("create first acceptance probe");
+        mark_reminder_fired(&mut connection, first.reminder_id, "2026-09-06T19:32:00Z")
+            .expect("mark first acceptance probe fired");
+
+        let second = schedule_probe_in_connection(
+            &mut connection,
+            "2026-09-06",
+            "22:34",
+            "Europe/Athens",
+            "2026-09-06T19:33:00Z",
+        )
+        .expect("create replacement acceptance probe after terminal first probe");
+
+        assert_ne!(second.reminder_id, first.reminder_id);
+        assert_eq!(row_count(&connection, "lists"), 2);
+        assert_eq!(row_count(&connection, "tasks"), 2);
+        assert_eq!(row_count(&connection, "reminders"), 2);
     }
 
     #[test]
