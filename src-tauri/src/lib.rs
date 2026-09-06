@@ -396,7 +396,7 @@ fn main_window_destroy(app_handle: tauri::AppHandle) -> CommandResult<()> {
 
 #[tauri::command]
 fn main_window_close(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    let window = get_window(app_handle, MAIN_WINDOW_LABEL)?;
+    let window = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
     window
         .close()
         .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "close", error))
