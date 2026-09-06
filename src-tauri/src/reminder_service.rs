@@ -8,9 +8,9 @@ use crate::persistence::reminders::{
 use crate::persistence::tasks::{get_task, TaskStoreError};
 use crate::persistence::{configure_connection, PersistenceError};
 use chrono::{SecondsFormat, Utc};
-use rusqlite::Connection;
+use rusqlite::{Connection, OpenFlags};
 use std::fmt::{Display, Formatter};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::time::Duration;
 
 const REMINDER_POLL_INTERVAL: Duration = Duration::from_secs(30);
@@ -55,6 +55,45 @@ impl std::error::Error for ReminderDispatchError {
             Self::List(error) => Some(error),
             Self::Acknowledgment(error) => Some(error),
         }
+    }
+}
+
+#[derive(Debug)]
+pub enum ReminderDeliveryCycleError {
+    Sqlite(rusqlite::Error),
+    Persistence(PersistenceError),
+    Dispatch(ReminderDispatchError),
+}
+
+impl Display for ReminderDeliveryCycleError {
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Sqlite(error) => write!(formatter, "open reminder delivery database: {error}"),
+            Self::Persistence(error) => Display::fmt(error, formatter),
+            Self::Dispatch(error) => Display::fmt(error, formatter),
+        }
+    }
+}
+
+impl std::error::Error for ReminderDeliveryCycleError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Sqlite(error) => Some(error),
+            Self::Persistence(error) => Some(error),
+            Self::Dispatch(error) => Some(error),
+        }
+    }
+}
+
+impl From<rusqlite::Error> for ReminderDeliveryCycleError {
+    fn from(value: rusqlite::Error) -> Self {
+        Self::Sqlite(value)
+    }
+}
+
+impl From<PersistenceError> for ReminderDeliveryCycleError {
+    fn from(value: PersistenceError) -> Self {
+        Self::Persistence(value)
     }
 }
 
@@ -159,13 +198,36 @@ where
     Ok(report)
 }
 
-fn dispatch_due(
-    conn: &mut Connection,
+fn open_delivery_connection(
+    database_path: &Path,
+) -> Result<Connection, ReminderDeliveryCycleError> {
+    let connection = Connection::open_with_flags(database_path, OpenFlags::SQLITE_OPEN_READ_WRITE)?;
+    configure_connection(&connection)?;
+    Ok(connection)
+}
+
+fn dispatch_due_from_path_with<Submit, Acknowledge>(
+    database_path: &Path,
+    now: &str,
+    submit: Submit,
+    acknowledge: Acknowledge,
+) -> Result<ReminderDispatchReport, ReminderDeliveryCycleError>
+where
+    Submit: FnMut(&ReminderRecord, &str) -> bool,
+    Acknowledge: FnMut(&mut Connection, ReminderId, &str) -> Result<(), ReminderStoreError>,
+{
+    let mut connection = open_delivery_connection(database_path)?;
+    dispatch_due_with(&mut connection, now, submit, acknowledge)
+        .map_err(ReminderDeliveryCycleError::Dispatch)
+}
+
+fn dispatch_due_from_path(
+    database_path: &Path,
     app_handle: &tauri::AppHandle,
     now: &str,
-) -> Result<ReminderDispatchReport, ReminderDispatchError> {
-    dispatch_due_with(
-        conn,
+) -> Result<ReminderDispatchReport, ReminderDeliveryCycleError> {
+    dispatch_due_from_path_with(
+        database_path,
         now,
         |reminder, task_title| match notifications::send_task_reminder(app_handle, task_title) {
             Ok(()) => true,
@@ -185,29 +247,28 @@ pub fn install_background_delivery(
     app_handle: tauri::AppHandle,
     database_path: PathBuf,
 ) -> Result<(), ReminderDeliveryStartError> {
-    let connection = Connection::open(database_path)?;
-    configure_connection(&connection)?;
+    let validation_connection =
+        Connection::open_with_flags(&database_path, OpenFlags::SQLITE_OPEN_READ_WRITE)?;
+    configure_connection(&validation_connection)?;
+    drop(validation_connection);
 
     std::thread::Builder::new()
         .name("narro-reminder-delivery".to_owned())
-        .spawn(move || {
-            let mut connection = connection;
-            loop {
-                let now = Utc::now().to_rfc3339_opts(SecondsFormat::Secs, true);
-                match dispatch_due(&mut connection, &app_handle, &now) {
-                    Ok(report) if report.submission_failed_count > 0 => {
-                        eprintln!(
-                            "Reminder delivery cycle completed with {} submission failure(s); pending rows will retry",
-                            report.submission_failed_count
-                        );
-                    }
-                    Ok(_) => {}
-                    Err(error) => {
-                        eprintln!("Reminder delivery cycle failed; pending rows remain durable: {error}");
-                    }
+        .spawn(move || loop {
+            let now = Utc::now().to_rfc3339_opts(SecondsFormat::Secs, true);
+            match dispatch_due_from_path(&database_path, &app_handle, &now) {
+                Ok(report) if report.submission_failed_count > 0 => {
+                    eprintln!(
+                        "Reminder delivery cycle completed with {} submission failure(s); pending rows will retry",
+                        report.submission_failed_count
+                    );
                 }
-                std::thread::sleep(REMINDER_POLL_INTERVAL);
+                Ok(_) => {}
+                Err(error) => {
+                    eprintln!("Reminder delivery cycle failed; pending rows remain durable: {error}");
+                }
             }
+            std::thread::sleep(REMINDER_POLL_INTERVAL);
         })
         .map(|_| ())
         .map_err(ReminderDeliveryStartError::Thread)
@@ -420,5 +481,80 @@ mod tests {
         assert_eq!(submitted, 1);
         assert!(matches!(error, ReminderDispatchError::Acknowledgment(_)));
         assert!(get_reminder(&conn, reminder.id).unwrap().fired_at.is_none());
+    }
+
+    #[test]
+    fn fresh_cycle_connection_observes_reminder_inserted_after_empty_cycle() {
+        let database_path = std::env::temp_dir().join(format!(
+            "narro-reminder-cycle-{}.db",
+            uuid::Uuid::new_v4()
+        ));
+
+        {
+            let mut setup = Connection::open(&database_path).expect("create file-backed database");
+            run_migrations(&mut setup).expect("migrate file-backed database");
+        }
+
+        let first = dispatch_due_from_path_with(
+            &database_path,
+            T0,
+            |_, _| true,
+            acknowledge_fired,
+        )
+        .expect("empty first reminder cycle");
+        assert_eq!(first.due_count, 0);
+
+        let reminder_id = {
+            let mut writer = Connection::open_with_flags(
+                &database_path,
+                OpenFlags::SQLITE_OPEN_READ_WRITE,
+            )
+            .expect("open independent writer");
+            configure_connection(&writer).expect("configure writer");
+            let task = create_task_fixture(&mut writer, "Inserted after first cycle");
+            create_due_reminder(
+                &mut writer,
+                task.id,
+                "2026-09-05",
+                "10:00",
+                "Europe/Athens",
+            )
+            .id
+        };
+
+        let mut submissions = Vec::new();
+        let second = dispatch_due_from_path_with(
+            &database_path,
+            T1,
+            |reminder, title| {
+                submissions.push((reminder.id, title.to_owned()));
+                true
+            },
+            acknowledge_fired,
+        )
+        .expect("later cycle must see independent committed reminder");
+
+        assert_eq!(second.due_count, 1);
+        assert_eq!(second.submitted_count, 1);
+        assert_eq!(
+            submissions,
+            vec![(reminder_id, "Inserted after first cycle".to_owned())]
+        );
+
+        let verification = Connection::open_with_flags(
+            &database_path,
+            OpenFlags::SQLITE_OPEN_READ_WRITE,
+        )
+        .expect("open verification connection");
+        assert_eq!(
+            get_reminder(&verification, reminder_id)
+                .expect("read delivered reminder")
+                .fired_at
+                .as_deref(),
+            Some(T1)
+        );
+
+        drop(verification);
+        std::fs::remove_file(&database_path).expect("remove file-backed reminder database");
     }
 }
