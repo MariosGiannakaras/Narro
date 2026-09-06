@@ -4,6 +4,7 @@ pub mod error;
 pub mod notifications;
 pub mod persistence;
 pub mod recurrence;
+pub mod recurrence_service;
 pub mod reminder_service;
 pub mod scheduling;
 pub mod shortcuts;
@@ -395,7 +396,7 @@ fn main_window_destroy(app_handle: tauri::AppHandle) -> CommandResult<()> {
 
 #[tauri::command]
 fn main_window_close(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    let window = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
+    let window = get_window(app_handle, MAIN_WINDOW_LABEL)?;
     window
         .close()
         .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "close", error))
@@ -591,22 +592,24 @@ pub fn run() {
         .setup(|app| {
             install_tray(app)?;
             let connection = initialize_persistence(app)?;
-            let reminder_database_path = connection
+            let background_database_path = connection
                 .path()
                 .filter(|path| !path.is_empty())
                 .map(std::path::PathBuf::from)
                 .ok_or_else(|| {
                     startup_error(
-                        "resolve reminder delivery database path",
+                        "resolve background runtime database path",
                         "SQLite connection has no durable path",
                     )
                 })?;
             let timer_service = TimerService::recover(connection)
                 .map_err(|error| startup_error("recover authoritative timer runtime", error))?;
             app.manage(timer_service);
+            recurrence_service::install_background_orchestration(background_database_path.clone())
+                .map_err(|error| startup_error("start recurrence orchestration runtime", error))?;
             reminder_service::install_background_delivery(
                 app.handle().clone(),
-                reminder_database_path,
+                background_database_path,
             )
             .map_err(|error| startup_error("start reminder delivery runtime", error))?;
             timer_service::install_background_advance(app.handle().clone());
