@@ -354,12 +354,8 @@ mod tests {
             NOW,
         )
         .expect("create first acceptance probe");
-        mark_reminder_fired(
-            &mut connection,
-            first.reminder_id,
-            "2026-09-06T19:32:00Z",
-        )
-        .expect("mark first acceptance probe fired");
+        mark_reminder_fired(&mut connection, first.reminder_id, "2026-09-06T19:32:00Z")
+            .expect("mark first acceptance probe fired");
 
         let second = schedule_probe_in_connection(
             &mut connection,
