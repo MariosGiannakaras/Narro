@@ -12,60 +12,60 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 3 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 4 of 28 top-level items validated once this docs-only reconciliation reaches `main`**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 6/6 | 3/28`**
+**`M-5/10 | 6/6 | 4/28`**
 
-The first three ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, and spacing/radius/elevation. The next ordered item is shared motion duration/easing primitives.
+The first four ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, and shared motion duration/easing primitives. The next ordered item is `prefers-reduced-motion` behavior.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`c8da64be57122cee69fd42cdbf24a175e772981f`
+`a45715ca8d24f11d580a64a4382db2fb83651db8`
 
-This is the guarded squash merge of PR #70 — `M5: add spacing radius elevation foundation`.
+This is the guarded squash merge of PR #73 — `M5: add shared motion token foundation`.
 
-### PR #70 exact-head validation
+### PR #73 exact-head validation
 
 Final exact validated PR head:
 
-`8819511f876f646d0b3bd65200b4190b88dbdb73`
+`56b5960f60626a8a421335a4f154e98998b7e7b7`
 
-Windows PR CI #268:
+Windows PR CI #270:
 
-- run `34096211484`;
-- job `101660337016`;
-- exact head `8819511f876f646d0b3bd65200b4190b88dbdb73`;
+- run `34104711339`;
+- job `101686964301`;
+- exact head `56b5960f60626a8a421335a4f154e98998b7e7b7`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `10009082067`;
+- artifact ID `10012348649`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:e7402d81f6340c3cab0cfdf3faf5c8e69cf25ba300806b5d99587b0e6409ccfe`;
+- digest `sha256:009f74cac0b11c3ac804b47fec29281e8c182612eda3683c86aa152a1b9664ad`;
 - final exact-head semantic/diff review: **PASS**;
 - PR comments/reviews/review threads requiring resolution: **none**.
 
-PR #70 was squash-merged with expected-head guard `8819511f876f646d0b3bd65200b4190b88dbdb73`, producing source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`.
+PR #73 was squash-merged with expected-head guard `56b5960f60626a8a421335a4f154e98998b7e7b7`, producing source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`.
 
 ### Resulting-main validation
 
-Windows main CI #269:
+Windows main CI #271:
 
-- run `34097442085`;
-- job `101664113908`;
-- exact source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`;
+- run `34111571620`;
+- job `101708791529`;
+- exact source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `10009533727`;
+- artifact ID `10014967044`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:ada06097e2b768aeed766857d1ed7b5948e9fef8507bee689d10e84132998d43`.
+- digest `sha256:c994d2d4496fea5fe3918701bcb74e4ec937a34b41d3d033d7b08c0bdaebcab0`.
 
-Tracking reconciliation PR #71 was merged after the source validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
+Markdown-only tracking descendants do not replace this validated source/test baseline.
 
 ## Milestone 1 — Gate A complete
 
@@ -89,40 +89,46 @@ Reminder delivery still does **not** claim crash-proof exactly-once semantics ac
 
 ### Completed: semantic theme-token foundation
 
-Validated source contract provides reusable light/dark/system semantic roles for canvas, surfaces, borders, text, accent, success, warning and destructive states. `src/App.css` consumes them; `scripts/test-ui-theme-tokens.mjs` guards the contract in frontend preflight. This does not complete the later user-facing persisted theme-preference item.
+Reusable light/dark/system semantic roles exist for canvas, surfaces, borders, text, accent, success, warning and destructive states. `scripts/test-ui-theme-tokens.mjs` guards the contract in frontend preflight.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-theme-token-foundation.md`.
 
 ### Completed: typography foundation
 
-Validated typography contract provides the Windows-first `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif` stack, reusable title/task/metadata/live-timer roles, and tabular timer numerals. `scripts/test-ui-typography.mjs` is part of frontend preflight and is Windows CRLF-safe.
+Validated typography provides the Windows-first `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif` stack, reusable title/task/metadata/live-timer roles, and tabular timer numerals. `scripts/test-ui-typography.mjs` is part of frontend preflight and is Windows CRLF-safe.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-typography-foundation.md`.
 
 ### Completed: spacing/radius/elevation foundation
 
-The third M5 top-level item is validated complete.
-
-Validated geometry contract now provides:
-
-- documented 4 px spacing scale: 4, 8, 12, 16, 20, 24 and 32 px;
-- semantic radius roles for controls, task cards, panels, modals and floating content within the documented calibration ranges;
-- restrained flat/raised/overlay elevation tokens rather than a heavy decorative shadow system;
-- reusable raised/floating surface roles composed from existing semantic surface/border tokens;
-- shared `App.css` consumption for current control radius/padding and diagnostic input spacing;
-- deterministic `scripts/test-ui-geometry.mjs` coverage in `preflight:frontend`, including LF and Windows CRLF-safe import-order validation.
-
-No React command behavior, Rust/domain/persistence/window behavior changed in this slice. No physical Windows acceptance is required for this CSS/token-only foundation change; screenshot fixture validation remains a separate later M5 item.
+Validated geometry provides the documented 4 px spacing scale, semantic radius roles, restrained elevation tokens, reusable raised/floating surface roles, and deterministic LF/CRLF-safe `scripts/test-ui-geometry.mjs` coverage.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-spacing-radius-elevation.md`.
+
+### Completed: motion-token foundation
+
+The fourth M5 top-level item is validated complete.
+
+Validated motion contract now provides:
+
+- calibrated press, hover/focus, tooltip, popover, inline, modal, reorder, completion, chart/filter and focus-surface duration tokens inside `docs/UI_UX_SPEC.md` ranges;
+- tooltip intent delay and documented enter/exit cubic-bezier easing tokens;
+- reusable opt-in transition primitives restricted to stable visual properties;
+- explicit guards against `transition: all`, keyframes, animation declarations, backdrop-filter animation and per-second timer animation;
+- `src/App.css` imports the motion foundation after theme/typography/geometry without yet applying component-specific animation;
+- deterministic `scripts/test-ui-motion.mjs` coverage in `preflight:frontend`, including Windows CRLF-safe import-order validation.
+
+No React command behavior, Rust/domain/persistence/window behavior changed. No physical Windows acceptance is required for this token/test-only foundation slice because no component-specific or native-window animation is applied yet.
+
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-motion-token-foundation.md`.
 
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Implement shared motion primitives and duration/easing tokens from docs/UI_UX_SPEC.md.`
+`Implement prefers-reduced-motion behavior before adding component-specific animation.`
 
-Before source changes, perform the normal mandatory startup, inspect the active M5 TODO, `docs/UI_UX_SPEC.md` motion rules/timing/easing guidance, current shared CSS contracts and frontend preflight structure, then define a narrow motion-token-only slice. Keep `prefers-reduced-motion` as the immediately following separate ordered item; do not jump ahead to component-specific animation, tooltips/popovers/menus, screenshot harness, App shell, Home, board or task UI.
+Before source changes, perform the normal mandatory startup, inspect the active M5 TODO, `docs/UI_UX_SPEC.md` reduced-motion rules, current `src/motion.css`, `src/App.css` and frontend preflight structure, then define a narrow shared reduced-motion-only slice. Do not jump ahead to tooltip/popover/menu components, screenshot harness, App shell, Home, board or task UI.
 
 ## Durable correctness decisions
 
@@ -140,10 +146,11 @@ Future work must preserve:
 - async `main` recreation remains intact;
 - Windows executable/installer/tray icon inputs derive from canonical Narro branding;
 - M5 visual work never moves authoritative task/timer/reminder logic into renderer state;
-- semantic color, typography and geometry roles remain reusable independent contracts;
-- elevation remains restrained and does not introduce continuous visual work;
+- semantic color, typography, geometry and motion roles remain reusable independent contracts;
+- motion never owns or delays domain-state completion;
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
+- no infinite decorative animation, especially on `focusSurface`;
 - reduced-motion and keyboard/focus accessibility remain required as the visual foundation expands.
 
 ## Multi-agent continuation rule
