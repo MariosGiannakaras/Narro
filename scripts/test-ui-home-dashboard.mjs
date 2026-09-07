@@ -51,12 +51,6 @@ for (const [haystack, needle, label] of [
   requireText(haystack, needle, label);
 }
 
-for (const forbidden of ["Edit List", "Duplicate", "Archive List", ">Open<", "CREATE LIST"]) {
-  if (component.includes(forbidden)) {
-    throw new Error(`Home baseline slice must not implement the next ordered list-card interaction state: ${forbidden}`);
-  }
-}
-
 if (component.includes("iconAsset") && component.includes("<img")) {
   throw new Error("Home baseline must not render unvalidated stored icon paths directly as image sources.");
 }

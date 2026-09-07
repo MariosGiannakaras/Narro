@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { Menu, MenuItem } from "./overlayPrimitives";
 import "./homeDashboard.css";
 
 export type HomeTaskPreview = {
@@ -25,9 +26,19 @@ export type HomeSnapshot = {
   aggregateEstSeconds: number;
 };
 
+export type HomeListCardActions = {
+  onOpen?: () => void;
+  onEdit?: () => void;
+  onDuplicate?: () => void;
+  onArchive?: () => void;
+};
+
 type HomeDashboardProps = {
   fixtureSnapshot?: HomeSnapshot;
   fixtureHour?: number;
+  fixtureHoverListId?: string;
+  getListCardActions?: (list: HomeListCardSnapshot) => HomeListCardActions | undefined;
+  onCreateList?: () => void;
 };
 
 type DisplayCard = {
@@ -67,19 +78,47 @@ function safeAccent(color: string | null): CSSProperties | undefined {
   return { "--home-list-accent": color } as CSSProperties;
 }
 
-function ListCard({ card }: { card: DisplayCard }) {
+function ListCard({
+  card,
+  actions,
+  fixtureHovered = false,
+}: {
+  card: DisplayCard;
+  actions?: HomeListCardActions;
+  fixtureHovered?: boolean;
+}) {
   const initial = card.aggregate ? "A" : card.title.trim().charAt(0).toUpperCase() || "L";
+  const hasMenu = Boolean(actions?.onEdit || actions?.onDuplicate || actions?.onArchive);
 
   return (
     <article
       className={`home-list-card${card.aggregate ? " home-list-card--aggregate" : ""}`}
       data-home-card={card.aggregate ? "all-lists" : "list"}
+      data-list-id={card.id}
+      data-fixture-hovered={fixtureHovered ? "true" : "false"}
       style={safeAccent(card.color)}
     >
       <header className="home-list-card__header">
         <span className="home-list-card__icon" aria-hidden="true">{initial}</span>
         <h3 className="home-list-card__title">{card.title}</h3>
-        <span className="home-list-card__action-slot" aria-hidden="true" />
+        <span className="home-list-card__action-slot">
+          {hasMenu ? (
+            <Menu
+              triggerLabel={`More actions for ${card.title}`}
+              trigger={<span aria-hidden="true">…</span>}
+              align="end"
+            >
+              {actions?.onEdit ? <MenuItem onSelect={actions.onEdit}>Edit List</MenuItem> : null}
+              {actions?.onDuplicate ? <MenuItem onSelect={actions.onDuplicate}>Duplicate</MenuItem> : null}
+              {actions?.onArchive ? (
+                <>
+                  <div role="separator" className="home-list-card__menu-separator" />
+                  <MenuItem destructive onSelect={actions.onArchive}>Archive List</MenuItem>
+                </>
+              ) : null}
+            </Menu>
+          ) : null}
+        </span>
       </header>
 
       <div className="home-list-card__preview" aria-label={`${card.title} task preview`}>
@@ -98,6 +137,16 @@ function ListCard({ card }: { card: DisplayCard }) {
         ) : (
           <p className="home-list-card__empty">No pending task previews</p>
         )}
+
+        {actions?.onOpen ? (
+          <button
+            type="button"
+            className="home-list-card__open motion-interactive"
+            onClick={actions.onOpen}
+          >
+            Open
+          </button>
+        ) : null}
       </div>
 
       <footer className="home-list-card__footer type-metadata">
@@ -108,7 +157,27 @@ function ListCard({ card }: { card: DisplayCard }) {
   );
 }
 
-export function HomeDashboard({ fixtureSnapshot, fixtureHour }: HomeDashboardProps) {
+function CreateListTile({ onCreate }: { onCreate: () => void }) {
+  return (
+    <button
+      type="button"
+      className="home-create-list-tile motion-interactive"
+      data-home-create-list="true"
+      onClick={onCreate}
+    >
+      <span className="home-create-list-tile__plus" aria-hidden="true">+</span>
+      <span>CREATE LIST</span>
+    </button>
+  );
+}
+
+export function HomeDashboard({
+  fixtureSnapshot,
+  fixtureHour,
+  fixtureHoverListId,
+  getListCardActions,
+  onCreateList,
+}: HomeDashboardProps) {
   const [snapshot, setSnapshot] = useState<HomeSnapshot | null>(fixtureSnapshot ?? null);
   const [error, setError] = useState<string | null>(null);
 
@@ -182,8 +251,14 @@ export function HomeDashboard({ fixtureSnapshot, fixtureHour }: HomeDashboardPro
           <div className="home-dashboard__grid" data-home-list-count={snapshot.lists.length}>
             {aggregateCard ? <ListCard card={aggregateCard} /> : null}
             {snapshot.lists.map((list) => (
-              <ListCard key={list.id} card={list} />
+              <ListCard
+                key={list.id}
+                card={list}
+                actions={getListCardActions?.(list)}
+                fixtureHovered={fixtureHoverListId === list.id}
+              />
             ))}
+            {onCreateList ? <CreateListTile onCreate={onCreateList} /> : null}
           </div>
         )}
       </section>

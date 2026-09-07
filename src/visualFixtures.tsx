@@ -8,7 +8,7 @@ import "./visualFixtures.css";
 const searchParams = new URLSearchParams(window.location.search);
 const theme = searchParams.get("theme") === "dark" ? "dark" : "light";
 const requestedFixture = searchParams.get("fixture");
-const fixture = requestedFixture === "app-shell" || requestedFixture === "home"
+const fixture = requestedFixture === "app-shell" || requestedFixture === "home" || requestedFixture === "list-card-states"
   ? requestedFixture
   : "foundation";
 const captureViewport = { width: 1280, height: 720 } as const;
@@ -47,6 +47,27 @@ const homeFixtureSnapshot: HomeSnapshot = {
   ],
 };
 
+const interactionFixtureSnapshot: HomeSnapshot = {
+  pendingCount: 4,
+  aggregateEstSeconds: 133200,
+  lists: [
+    {
+      id: "33333333-3333-4333-8333-333333333333",
+      title: "Study",
+      color: "#48d6c5",
+      iconAsset: null,
+      pendingCount: 4,
+      aggregateEstSeconds: 133200,
+      previewTasks: [
+        { id: "43333333-3333-4333-8333-333333333331", title: "Review chapter notes", estSeconds: 3600 },
+        { id: "43333333-3333-4333-8333-333333333332", title: "Practice problem set", estSeconds: 5400 },
+        { id: "43333333-3333-4333-8333-333333333333", title: "Prepare flash cards", estSeconds: 1800 },
+        { id: "43333333-3333-4333-8333-333333333334", title: "Draft revision plan", estSeconds: 2700 },
+      ],
+    },
+  ],
+};
+
 function FoundationFixtureSurface() {
   return (
     <main className="visual-fixture" data-visual-fixture="foundation">
@@ -55,12 +76,8 @@ function FoundationFixtureSurface() {
           <h1 className="visual-fixture__title type-section-title">Foundation fixture</h1>
           <p className="visual-fixture__meta type-metadata">Stable geometry · {theme} theme</p>
         </div>
-        <p className="visual-fixture__timer type-live-timer" data-timer-numerals="true">
-          12:34
-        </p>
-        <button type="button" className="visual-fixture__button motion-interactive">
-          Primary action
-        </button>
+        <p className="visual-fixture__timer type-live-timer" data-timer-numerals="true">12:34</p>
+        <button type="button" className="visual-fixture__button motion-interactive">Primary action</button>
       </section>
 
       <section className="visual-fixture__states" aria-label="Semantic state colors">
@@ -83,6 +100,8 @@ function ShellPlaceholderFixture() {
   );
 }
 
+const fixtureAction = () => undefined;
+
 function VisualFixtureSurface() {
   if (fixture === "app-shell") {
     return <AppShell fixtureMode homeContent={<ShellPlaceholderFixture />} />;
@@ -92,6 +111,27 @@ function VisualFixtureSurface() {
       <AppShell
         fixtureMode
         homeContent={<HomeDashboard fixtureSnapshot={homeFixtureSnapshot} fixtureHour={20} />}
+      />
+    );
+  }
+  if (fixture === "list-card-states") {
+    return (
+      <AppShell
+        fixtureMode
+        homeContent={
+          <HomeDashboard
+            fixtureSnapshot={interactionFixtureSnapshot}
+            fixtureHour={20}
+            fixtureHoverListId="33333333-3333-4333-8333-333333333333"
+            getListCardActions={() => ({
+              onOpen: fixtureAction,
+              onEdit: fixtureAction,
+              onDuplicate: fixtureAction,
+              onArchive: fixtureAction,
+            })}
+            onCreateList={fixtureAction}
+          />
+        }
       />
     );
   }
@@ -106,6 +146,12 @@ if (!rootElement) {
 flushSync(() => {
   createRoot(rootElement).render(<VisualFixtureSurface />);
 });
+
+if (fixture === "list-card-states") {
+  const menuTrigger = document.querySelector<HTMLButtonElement>('button[aria-label="More actions for Study"]');
+  if (!menuTrigger) throw new Error("List-card state fixture menu trigger is missing.");
+  flushSync(() => menuTrigger.click());
+}
 
 type VisualContractNode = {
   width?: number;
@@ -165,28 +211,31 @@ const visualContract = fixture === "app-shell"
         canvas: readVisualNode("body", ["backgroundColor", "color"]),
         ...shellContract(),
         home: readVisualNode(".home-dashboard", ["width", "height"]),
-        aggregateCard: readVisualNode('[data-home-card="all-lists"]', [
-          "width",
-          "height",
-          "backgroundColor",
-          "borderRadius",
-        ]),
-        listCard: readVisualNode('[data-home-card="list"]', [
-          "width",
-          "height",
-          "backgroundColor",
-          "borderRadius",
-        ]),
+        aggregateCard: readVisualNode('[data-home-card="all-lists"]', ["width", "height", "backgroundColor", "borderRadius"]),
+        listCard: readVisualNode('[data-home-card="list"]', ["width", "height", "backgroundColor", "borderRadius"]),
       }
-    : {
-        theme,
-        viewport: captureViewport,
-        canvas: readVisualNode("body", ["backgroundColor", "color"]),
-        panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
-        card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
-        button: readVisualNode(".visual-fixture__button", ["width", "height", "backgroundColor", "color", "borderRadius"]),
-        timer: readVisualNode(".visual-fixture__timer", ["color", "fontSize", "lineHeight", "fontVariantNumeric"]),
-      };
+    : fixture === "list-card-states"
+      ? {
+          fixture,
+          theme,
+          viewport: captureViewport,
+          canvas: readVisualNode("body", ["backgroundColor", "color"]),
+          ...shellContract(),
+          restCard: readVisualNode('[data-home-card="all-lists"]', ["width", "height", "borderRadius"]),
+          interactiveCard: readVisualNode('[data-list-id="33333333-3333-4333-8333-333333333333"]', ["width", "height", "borderRadius"]),
+          openButton: readVisualNode(".home-list-card__open", ["width", "height"]),
+          createTile: readVisualNode('[data-home-create-list="true"]', ["width", "height", "borderRadius"]),
+          menu: readVisualNode('.overlay-menu[data-open="true"]', ["width", "height", "borderRadius"]),
+        }
+      : {
+          theme,
+          viewport: captureViewport,
+          canvas: readVisualNode("body", ["backgroundColor", "color"]),
+          panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
+          card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
+          button: readVisualNode(".visual-fixture__button", ["width", "height", "backgroundColor", "color", "borderRadius"]),
+          timer: readVisualNode(".visual-fixture__timer", ["color", "fontSize", "lineHeight", "fontVariantNumeric"]),
+        };
 
 const contractNode = document.createElement("script");
 contractNode.id = "visual-contract";

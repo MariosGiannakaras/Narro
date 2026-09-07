@@ -6,6 +6,7 @@ const outputDirectory = path.resolve(root, process.argv[2] ?? "artifacts/visual-
 const themes = ["light", "dark"];
 const expectedCapture = { width: 1280, height: 720 };
 const homeGeometry = new Map();
+const listCardStateGeometry = new Map();
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`Visual fixture validation failed: ${message}`);
@@ -88,6 +89,8 @@ for (const theme of themes) {
   invariant(homeDom.includes("All Lists"), `${homeLabel} All Lists aggregate card is missing`);
   invariant(homeDom.includes("Work"), `${homeLabel} representative Work list card is missing`);
   invariant(homeDom.includes("Personal"), `${homeLabel} representative Personal list card is missing`);
+  invariant(!homeDom.includes("Edit List"), `${homeLabel} must not expose callback-gated Edit List without a target`);
+  invariant(!homeDom.includes('data-home-create-list="true"'), `${homeLabel} must not expose callback-gated Create List without a target`);
   invariant(home.fixture === "home", `${homeLabel} contract fixture identity differs`);
   validateShellContract(home, homeLabel, theme);
   invariant(home.home?.width > 0 && home.home?.height > 0, `${homeLabel} Home content has invalid geometry`);
@@ -100,11 +103,59 @@ for (const theme of themes) {
     aggregateCard: { width: home.aggregateCard.width, height: home.aggregateCard.height },
     listCard: { width: home.listCard.width, height: home.listCard.height },
   });
+
+  const stateLabel = `list-card-states-${theme}`;
+  const stateScreenshotPath = path.join(outputDirectory, `${stateLabel}.png`);
+  const stateDomPath = path.join(outputDirectory, `${stateLabel}.html`);
+  validatePng(stateScreenshotPath, stateLabel);
+
+  const { dom: stateDom, contract: state } = readVisualContract(stateDomPath, stateLabel);
+  invariant(state.fixture === "list-card-states", `${stateLabel} contract fixture identity differs`);
+  validateShellContract(state, stateLabel, theme);
+  invariant(stateDom.includes('data-fixture-hovered="true"'), `${stateLabel} forced hover state is missing`);
+  invariant(stateDom.includes(">Open<"), `${stateLabel} Open affordance is missing`);
+  invariant(stateDom.includes("Edit List"), `${stateLabel} Edit List menu item is missing`);
+  invariant(stateDom.includes("Duplicate"), `${stateLabel} Duplicate menu item is missing`);
+  invariant(stateDom.includes("Archive List"), `${stateLabel} Archive List menu item is missing`);
+  invariant(stateDom.includes('role="separator"'), `${stateLabel} overflow menu divider is missing`);
+  invariant(stateDom.includes('data-open="true"'), `${stateLabel} overflow menu is not captured open`);
+  invariant(stateDom.includes('data-home-create-list="true"'), `${stateLabel} Create List tile is missing`);
+  invariant(stateDom.includes("CREATE LIST"), `${stateLabel} Create List label is missing`);
+
+  for (const [name, node] of [
+    ["rest card", state.restCard],
+    ["interactive card", state.interactiveCard],
+    ["Open button", state.openButton],
+    ["Create List tile", state.createTile],
+    ["overflow menu", state.menu],
+  ]) {
+    invariant(node?.width > 0 && node?.height > 0, `${stateLabel} ${name} has invalid geometry`);
+  }
+
+  invariant(state.restCard.width === state.interactiveCard.width, `${stateLabel} hover/menu state changed card width`);
+  invariant(state.restCard.height === state.interactiveCard.height, `${stateLabel} hover/menu state changed card height`);
+  invariant(state.restCard.width === state.createTile.width, `${stateLabel} Create List tile width diverges from list-card grid cell`);
+  invariant(state.restCard.height === state.createTile.height, `${stateLabel} Create List tile height diverges from list-card grid cell`);
+  invariant(state.restCard.borderRadius === state.interactiveCard.borderRadius, `${stateLabel} hover state changed card radius`);
+  invariant(state.restCard.borderRadius === state.createTile.borderRadius, `${stateLabel} Create List tile radius diverges from card radius`);
+
+  listCardStateGeometry.set(theme, {
+    restCard: state.restCard,
+    interactiveCard: state.interactiveCard,
+    openButton: state.openButton,
+    createTile: state.createTile,
+    menu: state.menu,
+  });
 }
 
 invariant(
   stableJson(homeGeometry.get("light")) === stableJson(homeGeometry.get("dark")),
   "Home light/dark geometry differs; theme must preserve hierarchy and card sizing",
+);
+
+invariant(
+  stableJson(listCardStateGeometry.get("light")) === stableJson(listCardStateGeometry.get("dark")),
+  "List-card interaction-state light/dark geometry differs",
 );
 
 console.log("Captured visual fixture contracts: PASS");
