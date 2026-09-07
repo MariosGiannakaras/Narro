@@ -10,6 +10,7 @@
   --motion-duration-completion: 220ms;
   --motion-duration-chart-filter: 300ms;
   --motion-duration-focus-surface: 150ms;
+  --motion-duration-reduced: 1ms;
 
   --motion-ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
   --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
@@ -64,4 +65,50 @@
 
 .motion-exit {
   transition-timing-function: var(--motion-ease-exit);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-press: var(--motion-duration-reduced);
+    --motion-duration-hover-focus: var(--motion-duration-reduced);
+    --motion-duration-tooltip: var(--motion-duration-reduced);
+    --motion-duration-popover: var(--motion-duration-reduced);
+    --motion-duration-inline: var(--motion-duration-reduced);
+    --motion-duration-modal: var(--motion-duration-reduced);
+    --motion-duration-reorder: var(--motion-duration-reduced);
+    --motion-duration-completion: var(--motion-duration-reduced);
+    --motion-duration-chart-filter: var(--motion-duration-reduced);
+    --motion-duration-focus-surface: var(--motion-duration-reduced);
+
+    --motion-distance-lift: 0rem;
+    --motion-distance-overlay: 0rem;
+    --motion-scale-press: 1;
+    --motion-scale-drag: 1;
+  }
+
+  .motion-interactive {
+    transition-property: color, background-color, border-color, opacity, box-shadow;
+  }
+
+  .motion-overlay,
+  .motion-inline,
+  .motion-modal,
+  .motion-reorder,
+  .motion-focus-surface {
+    transition-property: opacity;
+  }
+
+  .motion-completion {
+    transition-property: color, opacity;
+  }
+
+  .motion-interactive,
+  .motion-overlay,
+  .motion-inline,
+  .motion-modal,
+  .motion-reorder,
+  .motion-completion,
+  .motion-focus-surface {
+    transition-delay: 0ms;
+  }
 }
