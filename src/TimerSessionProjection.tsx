@@ -81,16 +81,8 @@ export function TimerSessionProjection({ label, compact = false }: TimerSessionP
         borderRadius: "8px",
       }}
     >
-      <h2 style={{ marginTop: 0, fontSize: compact ? "1rem" : undefined }}>
-        Authoritative Timer / Session Projection
-      </h2>
-      <div
-        style={{
-          marginBottom: "0.75rem",
-          fontSize: compact ? "0.72rem" : "0.85rem",
-          opacity: 0.85,
-        }}
-      >
+      <h2 style={{ marginTop: 0 }}>Authoritative Timer / Session Projection</h2>
+      <div className="type-metadata" style={{ marginBottom: "0.75rem", opacity: 0.85 }}>
         Windows locale date/time sample: <strong>{localeSample}</strong>{" "}
         <span>
           ({localePreferences.locale}; {hourConvention})
@@ -111,6 +103,8 @@ export function TimerSessionProjection({ label, compact = false }: TimerSessionP
       )}
       {error && <div style={{ color: "#ffb4b4" }}>{error}</div>}
       <pre
+        className="timer-numerals"
+        data-timer-numerals="true"
         style={{
           margin: 0,
           whiteSpace: "pre-wrap",
