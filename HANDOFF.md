@@ -18,71 +18,74 @@ Latest fully main-validated source/test SHA:
 
 This is the merge of PR #76 — `M5: add reduced-motion foundation`.
 
-Exact validation evidence:
+Validation evidence remains:
 
-- final PR head `3a67e076292424e8cbcfec4713ed7e3463fc3420`;
-- Windows PR CI #272 / run `34116005616` / job `101722851191`: SUCCESS; preflight/release/artifact PASS; artifact `10016707418`; digest `sha256:ded80ef9c67d38293be47d869c50d773596e7e9185ff6f22696df6cb22cb2c8c`;
-- PR #76 merged from that exact validated head to source SHA `0b0433fe9c2922d1a02a5a45656857368dcbbecb`;
-- Windows resulting-main CI #273 / run `34117327629` / job `101727089898`: SUCCESS; preflight/release/artifact PASS; artifact `10017138498`; digest `sha256:8d38e33021958d150907f4165588f9eb772e6f7e44649c5cf9d9c1748f51f14e`;
-- final semantic diff review: PASS; five intended files only;
-- PR comments/reviews/review threads requiring resolution: none.
+- PR #76 final exact validated head `3a67e076292424e8cbcfec4713ed7e3463fc3420`;
+- Windows PR CI #272 / run `34116005616` / job `101722851191`: SUCCESS, artifact `10016707418`;
+- resulting source SHA `0b0433fe9c2922d1a02a5a45656857368dcbbecb`;
+- Windows main CI #273 / run `34117327629` / job `101727089898`: SUCCESS, artifact `10017138498`.
 
-Markdown-only tracking descendants do not replace this validated source/test baseline.
+Tracking reconciliation PR #77 merged to tracking main `097e5399575f69e2426a2bbd8f6c78344fd4199f`. Markdown-only tracking descendants do not replace the validated source/test baseline.
 
-## LATEST COMPLETED SLICE
+## ACTIVE M5 SLICE
 
-**M5 shared visual foundation — `prefers-reduced-motion` behavior.**
+**Shared visual foundation — accessible Tooltip / Popover / Menu primitives with stable anchored geometry.**
 
-Validated capabilities:
+Branch: `ai/m5-overlay-primitives`
 
-- `src/motion.css` contains one shared `@media (prefers-reduced-motion: reduce)` contract;
-- shared transition durations collapse to `--motion-duration-reduced: 1ms` while tooltip intent delay remains independent;
-- nonessential lift/overlay distances reduce to zero and press/drag scales reduce to identity;
-- reduced-mode transition-property lists omit `transform` so translation/scale does not interpolate;
-- shared transition delays clear to `0ms` in reduced mode;
-- normal-motion calibration remains unchanged;
-- `scripts/test-ui-reduced-motion.mjs` is part of `preflight:frontend` and is LF/Windows-CRLF safe;
-- no component-specific animation, React command behavior, Rust/domain/persistence/window behavior, or native-window animation changed.
+Base tracking main: `097e5399575f69e2426a2bbd8f6c78344fd4199f`
 
-No physical Windows acceptance is required for this foundation-only CSS/preflight slice because no animated product component consumes the primitives yet.
+Targeted top-level TODO item:
 
-Detailed evidence: `work-log/2026-09-07-chatgpt-m5-reduced-motion-foundation.md`.
+`Implement accessible tooltip/popover/menu primitives with stable geometry.`
+
+### Scope contract
+
+Implement only reusable overlay infrastructure:
+
+- a shared anchored-overlay geometry function using viewport-relative rectangles, preferred side, flip and clamp behavior;
+- React portal rendering with `position: fixed`, so opening an overlay cannot reflow siblings or move trigger geometry;
+- event/`ResizeObserver`-driven geometry refresh only; no polling loop;
+- Tooltip: hover/focus intent, `role="tooltip"`, stable `aria-describedby`, Escape close, no focus transfer;
+- Popover: trigger `aria-expanded` / `aria-controls` / `aria-haspopup="dialog"`, outside-pointer and Escape close, focus return to trigger;
+- Menu: `role="menu"` / `role="menuitem"`, `aria-haspopup="menu"`, ArrowUp/ArrowDown/Home/End navigation, Enter/Space activation, Escape close/focus return, disabled-item skipping;
+- consume existing semantic theme/geometry/motion/reduced-motion contracts;
+- deterministic geometry/accessibility source contracts in `preflight:frontend`;
+- no new third-party UI/overlay dependency.
+
+Explicit non-goals: screenshot fixture harness, App shell, Home/list-card product implementation, actual overflow-menu wiring, Focus Panel/Floating Timer product controls, domain/Rust/Tauri behavior, native-window animation, or broad design polish.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 6/6 | 5/28`**
+**`M-5/10 | 1/6 | 5/28`**
 
-Reduced-motion checkpoints:
+Overlay-primitive checkpoints:
 
-1. mandatory startup + repo/PR/spec/current-motion inspection + branch + narrow contract — COMPLETE;
-2. shared reduced-motion overrides + deterministic test + candidate review — COMPLETE;
-3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
-4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
-5. merge of exact validated head — COMPLETE;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE when this tracking payload is present on `main`.
+1. mandatory startup + exact main/open-PR state + UI spec/frontend/dependency inspection + branch + narrow API/accessibility/geometry contract — COMPLETE;
+2. primitives + deterministic tests + candidate diff/local checks — PENDING;
+3. exact PR-head Windows CI including preflight/release/artifact — PENDING;
+4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
+5. guarded merge with expected validated head — PENDING;
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
-A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
+A failed CI run does not increment this counter.
 
 ## IMPORTANT INVARIANTS
 
 - authoritative Rust/domain state and persistence-first mutations remain unchanged;
-- stable task identities and renderer-independent timer/session authority remain unchanged;
-- semantic color, typography, geometry and motion roles remain separate reusable contracts;
-- motion never owns or delays domain-state completion;
-- reduced motion removes nonessential translation/scale without hiding state changes;
-- tooltip intent delay remains separate from animation duration;
-- no hover/focus layout shift or moving hit targets;
-- timer numerals remain tabular with no per-second transition animation;
-- no infinite decorative animation, especially on `focusSurface`;
-- keyboard/focus accessibility remains required.
+- overlay open/close is presentation-only and cannot own domain completion;
+- overlays render out of normal flow and never change sibling/trigger geometry;
+- geometry refresh is event-driven; no long-lived polling or decorative animation loop;
+- keyboard and focus behavior must be first-class, not pointer-only;
+- reduced motion must keep overlays fully usable without nonessential transform interpolation;
+- timer numerals and focus runtime remain untouched;
+- no external network/UI service or cloud dependency is introduced.
 
 ## NEXT AGENT ACTION
 
-Perform mandatory startup again and start only the next ordered M5 item:
+Implement the shared pure geometry helper, Tooltip/Popover/Menu React primitives, shared overlay CSS, and dependency-light frontend contract tests. Run the strongest available local checks and review the exact candidate diff before opening one implementation PR.
 
-`Implement accessible tooltip/popover/menu primitives with stable geometry.`
-
-Before source changes inspect the relevant tooltip/popover/menu accessibility and geometry requirements in `docs/UI_UX_SPEC.md`, current motion/reduced-motion contracts, current React/frontend architecture, and available dependencies. Define a narrow primitive-level slice with deterministic tests. Do not skip ahead to screenshot fixtures, App shell, Home, board or task-card product UI.
+Do not skip ahead to screenshot fixtures, App shell, Home, board, task cards, or later milestones.
 
 ## USER ACTION REQUIRED
 
