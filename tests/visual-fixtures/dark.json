@@ -1,0 +1,36 @@
+{
+  "theme": "dark",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "canvas": {
+    "backgroundColor": "rgb(17, 17, 17)",
+    "color": "rgb(244, 245, 245)"
+  },
+  "panel": {
+    "width": 768,
+    "height": 480,
+    "backgroundColor": "rgb(14, 15, 15)",
+    "borderRadius": "14px"
+  },
+  "card": {
+    "width": 320,
+    "height": 180,
+    "backgroundColor": "rgb(23, 23, 23)",
+    "borderRadius": "12px"
+  },
+  "button": {
+    "width": 120,
+    "height": 36,
+    "backgroundColor": "rgb(34, 36, 36)",
+    "color": "rgb(244, 245, 245)",
+    "borderRadius": "8px"
+  },
+  "timer": {
+    "color": "rgb(72, 214, 197)",
+    "fontSize": "20px",
+    "lineHeight": "22px",
+    "fontVariantNumeric": "tabular-nums"
+  }
+}
