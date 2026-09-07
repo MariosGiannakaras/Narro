@@ -187,7 +187,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Implement shared spacing/radius/elevation primitives.
 - [x] Implement shared motion primitives and duration/easing tokens from `docs/UI_UX_SPEC.md`.
 - [x] Implement `prefers-reduced-motion` behavior before adding component-specific animation.
-- [ ] Implement accessible tooltip/popover/menu primitives with stable geometry.
+- [x] Implement accessible tooltip/popover/menu primitives with stable geometry.
 - [ ] Establish a screenshot/visual-regression fixture harness for representative dark/light states.
 
 ### Main UI
@@ -358,7 +358,3 @@ Do not implement these until Milestones 1–10 parity/reliability work is stable
 - richer app theme/icon customization
 - partial-completion/day-by-day accounting
 - bulk task operations
-
-## Deferred unless explicitly approved
-
-- native Win32/WinUI Floating Timer fallback (only if performance evidence requires it)
