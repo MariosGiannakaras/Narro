@@ -12,60 +12,58 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 2 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 3 of 28 top-level items validated once this docs-only reconciliation reaches `main`**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 6/6 | 2/28`**
+**`M-5/10 | 6/6 | 3/28`**
 
-The first two ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens and typography. A new spacing/radius/elevation source slice has not started yet.
+The first three ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, and spacing/radius/elevation. The next ordered item is shared motion duration/easing primitives.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`8f6395fc50387dee59a60eae3706e9923dd8ffe3`
+`c8da64be57122cee69fd42cdbf24a175e772981f`
 
-This is the guarded squash merge of PR #67 — `M5: add typography foundation`.
+This is the guarded squash merge of PR #70 — `M5: add spacing radius elevation foundation`.
 
-### PR #67 exact-head validation
+### PR #70 exact-head validation
 
 Final exact validated PR head:
 
-`91e766a5c4d00f06cf9fa3222c7b79307f1719ee`
+`8819511f876f646d0b3bd65200b4190b88dbdb73`
 
-Initial PR head `7e865150ca984839d24b1f56d32c860ddb5e4673` failed Windows CI #264 only because the new typography contract test assumed LF line endings while Windows checkout supplied CRLF. Config/date/theme checks had passed; release/artifact were skipped. The evidence-backed correction changed only that test to accept `\r?\n`.
+Windows PR CI #268:
 
-Windows PR CI #266:
-
-- run `34087763134`;
-- job `101635005150`;
-- exact head `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`;
+- run `34096211484`;
+- job `101660337016`;
+- exact head `8819511f876f646d0b3bd65200b4190b88dbdb73`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `10006003958`;
+- artifact ID `10009082067`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:a24f9e23db08cfdc6943d7329f21b77893befb3c744f91807e73bd357c7327af`;
+- digest `sha256:e7402d81f6340c3cab0cfdf3faf5c8e69cf25ba300806b5d99587b0e6409ccfe`;
 - final exact-head semantic/diff review: **PASS**;
 - PR comments/reviews/review threads requiring resolution: **none**.
 
-PR #67 was squash-merged with expected-head guard `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`, producing source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`.
+PR #70 was squash-merged with expected-head guard `8819511f876f646d0b3bd65200b4190b88dbdb73`, producing source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`.
 
 ### Resulting-main validation
 
-Windows main CI #267:
+Windows main CI #269:
 
-- run `34088634798`;
-- job `101637463417`;
-- exact source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`;
+- run `34097442085`;
+- job `101664113908`;
+- exact source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `10006311758`;
+- artifact ID `10009533727`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:0fd1f7a137cf84ae83684290342fff05ef6b69dd18d44cb80dd6151cd2a46c38`.
+- digest `sha256:ada06097e2b768aeed766857d1ed7b5948e9fef8507bee689d10e84132998d43`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -97,29 +95,34 @@ Detailed evidence: `work-log/2026-09-07-chatgpt-m5-theme-token-foundation.md`.
 
 ### Completed: typography foundation
 
-The second M5 top-level item is validated complete.
-
-Validated typography contract now provides:
-
-- Windows-first `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif` UI family;
-- reusable page-title, section-title, task-title, metadata and live-timer roles;
-- regular/medium/semibold/bold weight tokens and role line heights;
-- reusable timer numeral geometry using `font-variant-numeric: tabular-nums` plus OpenType `tnum`;
-- shared `App.css` consumption without the legacy Inter/Avenir/Helvetica scaffold stack;
-- `TimerSessionProjection` consumption of metadata and tabular-number primitives;
-- deterministic `scripts/test-ui-typography.mjs` coverage in `preflight:frontend`, including Windows CRLF-safe import-order validation.
-
-No Rust/domain/persistence/window behavior changed in this slice. No physical Windows acceptance is required for this typography-only foundation change; screenshot fixture validation remains a separate later M5 item.
+Validated typography contract provides the Windows-first `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif` stack, reusable title/task/metadata/live-timer roles, and tabular timer numerals. `scripts/test-ui-typography.mjs` is part of frontend preflight and is Windows CRLF-safe.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-typography-foundation.md`.
+
+### Completed: spacing/radius/elevation foundation
+
+The third M5 top-level item is validated complete.
+
+Validated geometry contract now provides:
+
+- documented 4 px spacing scale: 4, 8, 12, 16, 20, 24 and 32 px;
+- semantic radius roles for controls, task cards, panels, modals and floating content within the documented calibration ranges;
+- restrained flat/raised/overlay elevation tokens rather than a heavy decorative shadow system;
+- reusable raised/floating surface roles composed from existing semantic surface/border tokens;
+- shared `App.css` consumption for current control radius/padding and diagnostic input spacing;
+- deterministic `scripts/test-ui-geometry.mjs` coverage in `preflight:frontend`, including LF and Windows CRLF-safe import-order validation.
+
+No React command behavior, Rust/domain/persistence/window behavior changed in this slice. No physical Windows acceptance is required for this CSS/token-only foundation change; screenshot fixture validation remains a separate later M5 item.
+
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-spacing-radius-elevation.md`.
 
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Implement shared spacing/radius/elevation primitives.`
+`Implement shared motion primitives and duration/easing tokens from docs/UI_UX_SPEC.md.`
 
-Before source changes, perform the normal mandatory startup, inspect the active M5 TODO, `docs/UI_UX_SPEC.md` spacing/radius and elevation/surface guidance, current shared CSS and frontend preflight structure, then define a narrow spacing/radius/elevation-only slice. Do not skip ahead to motion, reduced-motion, tooltip/popover/menu primitives, screenshot harness, App shell, Home, board or task UI.
+Before source changes, perform the normal mandatory startup, inspect the active M5 TODO, `docs/UI_UX_SPEC.md` motion rules/timing/easing guidance, current shared CSS contracts and frontend preflight structure, then define a narrow motion-token-only slice. Keep `prefers-reduced-motion` as the immediately following separate ordered item; do not jump ahead to component-specific animation, tooltips/popovers/menus, screenshot harness, App shell, Home, board or task UI.
 
 ## Durable correctness decisions
 
@@ -137,7 +140,8 @@ Future work must preserve:
 - async `main` recreation remains intact;
 - Windows executable/installer/tray icon inputs derive from canonical Narro branding;
 - M5 visual work never moves authoritative task/timer/reminder logic into renderer state;
-- semantic color and typography roles remain reusable contracts and may be calibrated later through screenshot comparison without losing role semantics;
+- semantic color, typography and geometry roles remain reusable independent contracts;
+- elevation remains restrained and does not introduce continuous visual work;
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
 - reduced-motion and keyboard/focus accessibility remain required as the visual foundation expands.
