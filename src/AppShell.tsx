@@ -1,4 +1,5 @@
 import { type ReactNode, useState } from "react";
+import { HomeDashboard } from "./HomeDashboard";
 import "./appShell.css";
 
 export type AppDestination =
@@ -13,6 +14,7 @@ export type AppDestination =
 type AppShellProps = {
   children?: ReactNode;
   fixtureMode?: boolean;
+  homeContent?: ReactNode;
 };
 
 type DestinationCopy = {
@@ -25,7 +27,7 @@ const destinationCopy: Record<AppDestination, DestinationCopy> = {
   home: {
     eyebrow: "Planning",
     title: "Home",
-    description: "Your Lists and planning workspace will appear here as the next ordered UI slices land.",
+    description: "Your Lists and planning workspace.",
   },
   reports: {
     eyebrow: "History",
@@ -40,7 +42,7 @@ const destinationCopy: Record<AppDestination, DestinationCopy> = {
   "all-lists": {
     eyebrow: "Lists",
     title: "All my lists",
-    description: "List cards will populate this workspace in the next product UI slices.",
+    description: "List management will reuse the same local list data without changing the shell geometry.",
   },
   "archived-lists": {
     eyebrow: "Archive",
@@ -86,7 +88,7 @@ function NavButton({
   );
 }
 
-export function AppShell({ children, fixtureMode = false }: AppShellProps) {
+export function AppShell({ children, fixtureMode = false, homeContent }: AppShellProps) {
   const [activeDestination, setActiveDestination] = useState<AppDestination>("home");
   const copy = destinationCopy[activeDestination];
 
@@ -148,13 +150,17 @@ export function AppShell({ children, fixtureMode = false }: AppShellProps) {
         </header>
 
         <main className="app-shell__content" id="main-content" tabIndex={-1}>
-          <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">
-            <p className="app-shell__eyebrow type-metadata">{copy.eyebrow}</p>
-            <h1 id="app-shell-page-title" className="app-shell__page-title type-page-title">
-              {copy.title}
-            </h1>
-            <p className="app-shell__description">{copy.description}</p>
-          </section>
+          {activeDestination === "home" ? (
+            homeContent ?? <HomeDashboard />
+          ) : (
+            <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">
+              <p className="app-shell__eyebrow type-metadata">{copy.eyebrow}</p>
+              <h1 id="app-shell-page-title" className="app-shell__page-title type-page-title">
+                {copy.title}
+              </h1>
+              <p className="app-shell__description">{copy.description}</p>
+            </section>
+          )}
 
           {children}
         </main>
