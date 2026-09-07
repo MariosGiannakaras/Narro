@@ -12,7 +12,7 @@ $baseUrl = "http://127.0.0.1:$port"
 
 function Resolve-EdgePath {
     $candidates = @(
-        "$env:ProgramFiles(x86)\Microsoft\Edge\Application\msedge.exe",
+        "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe",
         "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe"
     )
 
@@ -46,9 +46,11 @@ New-Item -ItemType Directory -Path $outputPath -Force | Out-Null
 
 $edge = Resolve-EdgePath
 $preview = $null
+$locationPushed = $false
 
 try {
     Push-Location $repoRoot
+    $locationPushed = $true
     $preview = Start-Process -FilePath "npm.cmd" -ArgumentList @(
         "run", "preview", "--", "--host", "127.0.0.1", "--port", "$port", "--strictPort"
     ) -PassThru -WindowStyle Hidden
@@ -72,9 +74,11 @@ try {
         $dump | Set-Content -Path $dom -Encoding utf8
     }
 } finally {
-    Pop-Location
     if ($preview -and -not $preview.HasExited) {
         & taskkill.exe /PID $preview.Id /T /F 2>$null | Out-Null
+    }
+    if ($locationPushed) {
+        Pop-Location
     }
 }
 
