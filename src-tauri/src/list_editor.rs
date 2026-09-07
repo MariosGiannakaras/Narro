@@ -407,6 +407,7 @@ mod tests {
         assert!(crate::persistence::lists::active_lists(&connection)
             .expect("read lists")
             .is_empty());
+        drop(connection);
         std::fs::remove_dir_all(app_dir).expect("remove test app dir");
     }
 
