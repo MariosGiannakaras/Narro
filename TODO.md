@@ -186,7 +186,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Implement typography using Segoe UI Variable / Windows system fallbacks and tabular timer numerals.
 - [x] Implement shared spacing/radius/elevation primitives.
 - [x] Implement shared motion primitives and duration/easing tokens from `docs/UI_UX_SPEC.md`.
-- [ ] Implement `prefers-reduced-motion` behavior before adding component-specific animation.
+- [x] Implement `prefers-reduced-motion` behavior before adding component-specific animation.
 - [ ] Implement accessible tooltip/popover/menu primitives with stable geometry.
 - [ ] Establish a screenshot/visual-regression fixture harness for representative dark/light states.
 
