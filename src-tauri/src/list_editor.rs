@@ -42,7 +42,9 @@ pub enum ListEditorError {
 impl Display for ListEditorError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::OpenDatabase(error) => write!(formatter, "failed to open Narro database: {error}"),
+            Self::OpenDatabase(error) => {
+                write!(formatter, "failed to open Narro database: {error}")
+            }
             Self::ConfigureDatabase(error) => {
                 write!(formatter, "failed to configure Narro database: {error}")
             }
@@ -111,9 +113,7 @@ fn validate_icon_bytes(extension: &str, bytes: &[u8]) -> Result<(), ListEditorEr
     }
 
     match extension {
-        "png" if bytes.starts_with(&[0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a]) => {
-            Ok(())
-        }
+        "png" if bytes.starts_with(&[0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a]) => Ok(()),
         "jpg" if bytes.starts_with(&[0xff, 0xd8, 0xff]) => Ok(()),
         "svg" => {
             let text = std::str::from_utf8(bytes).map_err(|_| ListEditorError::InvalidSvg)?;
@@ -121,8 +121,8 @@ fn validate_icon_bytes(extension: &str, bytes: &[u8]) -> Result<(), ListEditorEr
                 .trim_start_matches('\u{feff}')
                 .trim_start()
                 .to_ascii_lowercase();
-            let has_svg_root = lower.starts_with("<svg")
-                || (lower.starts_with("<?xml") && lower.contains("<svg"));
+            let has_svg_root =
+                lower.starts_with("<svg") || (lower.starts_with("<?xml") && lower.contains("<svg"));
             let contains_unsafe_markup = lower.contains("<script")
                 || lower.contains("javascript:")
                 || lower.contains("<!doctype");
@@ -353,7 +353,9 @@ mod tests {
         assert_eq!(created.title, "Work");
         let icon = created.icon_asset.clone().expect("stored icon path");
         assert!(icon.starts_with("list-icons/"));
-        assert!(resolve_owned_icon(&app_dir, &icon).expect("owned path").exists());
+        assert!(resolve_owned_icon(&app_dir, &icon)
+            .expect("owned path")
+            .exists());
 
         let updated = update(
             &app_dir,
