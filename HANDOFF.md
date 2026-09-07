@@ -7,81 +7,81 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 2 of 28 top-level items validated.
+- Milestone 5: ACTIVE / 3 of 28 top-level items validated once this docs-only reconciliation reaches `main`.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Latest fully main-validated source/test SHA:
 
-`8f6395fc50387dee59a60eae3706e9923dd8ffe3`
+`c8da64be57122cee69fd42cdbf24a175e772981f`
 
-This is the guarded squash merge of PR #67 — `M5: add typography foundation`.
+This is the guarded squash merge of PR #70 — `M5: add spacing radius elevation foundation`.
 
-Windows PR CI #266 / run `34087763134` / job `101635005150`: SUCCESS on exact typography PR head `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`, preflight/release/artifact PASS, artifact `10006003958`, digest `sha256:a24f9e23db08cfdc6943d7329f21b77893befb3c744f91807e73bd357c7327af`.
+Final exact validated PR head:
 
-Windows resulting-main CI #267 / run `34088634798` / job `101637463417`: SUCCESS on source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`, preflight/release/artifact PASS, artifact `10006311758`, digest `sha256:0fd1f7a137cf84ae83684290342fff05ef6b69dd18d44cb80dd6151cd2a46c38`.
+`8819511f876f646d0b3bd65200b4190b88dbdb73`
+
+Windows PR CI #268:
+
+- run `34096211484`;
+- job `101660337016`;
+- exact head `8819511f876f646d0b3bd65200b4190b88dbdb73`;
+- conclusion: SUCCESS;
+- Repository Preflight: PASS;
+- Tauri Release: PASS;
+- artifact upload: PASS;
+- artifact `10009082067`;
+- digest `sha256:e7402d81f6340c3cab0cfdf3faf5c8e69cf25ba300806b5d99587b0e6409ccfe`.
+
+PR #70 was squash-merged with expected-head guard `8819511f876f646d0b3bd65200b4190b88dbdb73`, producing source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`.
+
+Windows resulting-main CI #269:
+
+- run `34097442085`;
+- job `101664113908`;
+- exact source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`;
+- conclusion: SUCCESS;
+- Repository Preflight: PASS;
+- Tauri Release: PASS;
+- artifact upload: PASS;
+- artifact `10009533727`;
+- digest `sha256:ada06097e2b768aeed766857d1ed7b5948e9fef8507bee689d10e84132998d43`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
-## ACTIVE M5 SLICE
+## LATEST COMPLETED SLICE
 
-**Shared visual foundation — spacing, radius and elevation primitives only.**
+**M5 shared visual foundation — spacing, radius and elevation.**
 
-Branch: `ai/m5-spacing-radius-elevation`
+Validated capabilities:
 
-Base tracking main: `6c2dea1b74c2d52f40b3cf034d1e23b698ba4ef2`
+- `src/geometry.css` provides the documented 4 px spacing scale: 4, 8, 12, 16, 20, 24 and 32 px;
+- semantic radius roles cover controls, task cards, panels, modals and floating content inside the documented ranges;
+- restrained flat/raised/overlay elevation tokens exist without a heavy decorative shadow system;
+- reusable `.surface-raised` and `.surface-floating` roles consume existing semantic surface/border tokens;
+- shared `src/App.css` consumes geometry tokens for current control radius/padding and diagnostic input spacing;
+- `scripts/test-ui-geometry.mjs` is part of `preflight:frontend` and is LF/CRLF-safe;
+- no React command behavior, Rust/domain/persistence/window behavior changed.
 
-Targeted top-level TODO item:
+No physical Windows acceptance is required for this CSS/token-only foundation slice. Screenshot-backed visual calibration remains a separate later M5 item.
 
-`Implement shared spacing/radius/elevation primitives.`
-
-### Scope contract
-
-Implement only reusable geometry/elevation primitives supported by `docs/UI_UX_SPEC.md`:
-
-- 4 px spacing scale: 4, 8, 12, 16, 20, 24, 32 px;
-- semantic radius roles for compact controls, task cards, list cards/panels, modals and floating content, staying inside the documented ranges;
-- restrained elevation primitives consistent with low-contrast raised surfaces and thin borders; no heavy decorative shadow system;
-- shared raised/floating surface roles using the existing semantic color/border tokens;
-- migrate only current shared `App.css` geometry that cleanly maps to the new primitives;
-- deterministic dependency-light geometry contract coverage in `preflight:frontend`.
-
-Explicit non-goals: motion/easing, reduced-motion, tooltip/popover/menu behavior, screenshot harness, App shell/Home/board/task components, broad cleanup of diagnostic inline layout, Rust/domain/persistence/window behavior, or final visual calibration through screenshots.
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-spacing-radius-elevation.md`.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 2/6 | 2/28`**
+**`M-5/10 | 6/6 | 3/28`**
 
 Spacing/radius/elevation checkpoints:
 
 1. mandatory startup + spec/current CSS/preflight inspection + branch + narrow geometry/elevation contract — COMPLETE;
-2. shared primitives + limited shared-style consumption + deterministic test + candidate review — COMPLETE / CANDIDATE READY;
-3. exact PR-head Windows CI including preflight/release/artifact — PENDING;
-4. final exact-head diff/review + no unresolved PR feedback — PENDING;
-5. guarded merge with expected validated head — PENDING;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
+2. shared primitives + limited shared-style consumption + deterministic test + candidate review — COMPLETE;
+3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
+4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
+5. guarded merge with expected validated head — COMPLETE;
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE once this docs-only reconciliation reaches `main`.
 
-A failed CI run does not increment this counter.
-
-## CANDIDATE IMPLEMENTATION
-
-Material branch changes versus base `6c2dea1b74c2d52f40b3cf034d1e23b698ba4ef2`:
-
-- new `src/geometry.css` defines the 4px spacing scale, semantic radius roles, flat/raised/overlay elevation tokens, and reusable `.surface-raised` / `.surface-floating` primitives;
-- `src/App.css` imports geometry after theme/typography and migrates current shared control radius/padding plus the diagnostic input gap to the new tokens;
-- new `scripts/test-ui-geometry.mjs` guards exact spacing/radius/elevation values, reusable surface semantics, import order, token consumption and removal of the migrated hard-coded geometry;
-- `package.json` adds `test:ui-geometry` to `preflight:frontend`;
-- no React component behavior, Rust, Tauri config, persistence, timer, scheduling, recurrence or reminder behavior changed.
-
-### Local / pre-PR evidence
-
-- exact candidate diff review: PASS; five intended files only;
-- `node --check scripts/test-ui-geometry.mjs`: PASS;
-- geometry contract against LF `App.css`: PASS;
-- geometry contract against simulated CRLF `App.css`: PASS;
-- existing theme/typography contracts remain semantically compatible with the added third import and unchanged role consumption;
-- full repository checkout / `npm run build` / Rust preflight: **NOT RUN locally** because the execution environment does not have the full dependency/materialized checkout needed for those commands.
+A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
 
 ## IMPORTANT INVARIANTS
 
@@ -89,15 +89,26 @@ Material branch changes versus base `6c2dea1b74c2d52f40b3cf034d1e23b698ba4ef2`:
 - stable task identities and renderer-independent timer/session authority remain unchanged;
 - semantic color, typography and geometry roles remain separate reusable contracts;
 - elevation remains restrained and introduces no continuous visual work;
-- timer numerals remain tabular and acquire no per-second animation;
+- timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus layout shift or moving hit targets;
-- reduced-motion and keyboard/focus accessibility remain first-class requirements for later slices.
+- reduced-motion and keyboard/focus accessibility remain first-class requirements.
 
 ## NEXT AGENT ACTION
 
-Open one implementation PR for the current branch and accept validation only for its exact head. Require Windows Repository Preflight, Tauri Release and artifact upload to succeed. On failure inspect the exact failing log and fix only evidence-backed problems; on success perform final exact-head semantic/diff/feedback review, guarded merge with expected validated head, resulting-main Windows CI, then docs/work-log reconciliation.
+After this docs-only reconciliation is merged, perform mandatory startup again and start only the next ordered M5 top-level item:
 
-Do not skip ahead to motion, reduced-motion, tooltip/popover/menu primitives, screenshot harness, App shell, Home, board or task-card UI.
+`Implement shared motion primitives and duration/easing tokens from docs/UI_UX_SPEC.md.`
+
+Before source changes, inspect:
+
+1. active M5 `TODO.md`;
+2. `docs/UI_UX_SPEC.md` motion rules, timing targets and easing guidance;
+3. current `src/theme.css`, `src/typography.css`, `src/geometry.css`, `src/App.css` and frontend preflight tests;
+4. current UI surfaces only to identify reusable motion-token consumption points without adding component-specific animation.
+
+Keep the slice narrow: duration/easing tokens and reusable motion primitives only. Do not complete `prefers-reduced-motion` in the same checkbox unless the ordered TODO is intentionally revised; reduced-motion is the immediately following separate top-level item and must precede later component-specific animation.
+
+Do not skip ahead to tooltip/popover/menu primitives, screenshot harness, App shell, Home, board or task-card UI.
 
 ## USER ACTION REQUIRED
 
