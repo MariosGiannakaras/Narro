@@ -1,5 +1,6 @@
 import {
   type ChangeEvent,
+  type CSSProperties,
   type FormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
@@ -243,7 +244,7 @@ export function ListEditorModal({
                   <label
                     key={swatch}
                     className="list-editor-modal__swatch"
-                    style={{ "--list-editor-swatch": swatch } as React.CSSProperties}
+                    style={{ "--list-editor-swatch": swatch } as CSSProperties}
                     data-selected={selected ? "true" : "false"}
                     aria-label={`Color ${swatch}`}
                   >
