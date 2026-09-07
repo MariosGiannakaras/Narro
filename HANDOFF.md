@@ -7,7 +7,7 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 3 of 28 top-level items validated once this docs-only reconciliation reaches `main`.
+- Milestone 5: ACTIVE / 3 of 28 top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
@@ -48,7 +48,7 @@ Windows resulting-main CI #269:
 - artifact `10009533727`;
 - digest `sha256:ada06097e2b768aeed766857d1ed7b5948e9fef8507bee689d10e84132998d43`.
 
-Markdown-only tracking descendants do not replace this validated source/test baseline.
+Tracking reconciliation PR #71 was merged after this validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
 
 ## LATEST COMPLETED SLICE
 
@@ -79,7 +79,7 @@ Spacing/radius/elevation checkpoints:
 3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
 4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
 5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE once this docs-only reconciliation reaches `main`.
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE.
 
 A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
 
@@ -95,7 +95,7 @@ A new implementation slice has not started. Reset the small-slice counter only a
 
 ## NEXT AGENT ACTION
 
-After this docs-only reconciliation is merged, perform mandatory startup again and start only the next ordered M5 top-level item:
+Perform mandatory startup again and start only the next ordered M5 top-level item:
 
 `Implement shared motion primitives and duration/easing tokens from docs/UI_UX_SPEC.md.`
 
@@ -106,7 +106,7 @@ Before source changes, inspect:
 3. current `src/theme.css`, `src/typography.css`, `src/geometry.css`, `src/App.css` and frontend preflight tests;
 4. current UI surfaces only to identify reusable motion-token consumption points without adding component-specific animation.
 
-Keep the slice narrow: duration/easing tokens and reusable motion primitives only. Do not complete `prefers-reduced-motion` in the same checkbox unless the ordered TODO is intentionally revised; reduced-motion is the immediately following separate top-level item and must precede later component-specific animation.
+Keep the slice narrow: duration/easing tokens and reusable motion primitives only. `prefers-reduced-motion` is the immediately following separate top-level item and must be implemented before later component-specific animation.
 
 Do not skip ahead to tooltip/popover/menu primitives, screenshot harness, App shell, Home, board or task-card UI.
 
