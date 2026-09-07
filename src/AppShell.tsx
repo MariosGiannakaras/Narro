@@ -1,5 +1,12 @@
 import { type ReactNode, useState } from "react";
-import { HomeDashboard } from "./HomeDashboard";
+import { formatInvokeError } from "./diagnosticApi";
+import { HomeDashboard, type HomeListCardSnapshot } from "./HomeDashboard";
+import { ListEditorModal } from "./ListEditorModal";
+import {
+  createListFromEditor,
+  type ListEditorRequest,
+  updateListFromEditor,
+} from "./listEditorApi";
 import "./appShell.css";
 
 export type AppDestination =
@@ -23,6 +30,10 @@ type DestinationCopy = {
   description: string;
 };
 
+type ListEditorState =
+  | { mode: "create" }
+  | { mode: "edit"; list: HomeListCardSnapshot };
+
 const destinationCopy: Record<AppDestination, DestinationCopy> = {
   home: {
     eyebrow: "Planning",
@@ -37,7 +48,7 @@ const destinationCopy: Record<AppDestination, DestinationCopy> = {
   "create-list": {
     eyebrow: "Lists",
     title: "Create a new list",
-    description: "The list-creation modal is a later ordered Milestone 5 item; this route reserves its shell entry point.",
+    description: "Create a local list without leaving the Home workspace.",
   },
   "all-lists": {
     eyebrow: "Lists",
@@ -90,98 +101,154 @@ function NavButton({
 
 export function AppShell({ children, fixtureMode = false, homeContent }: AppShellProps) {
   const [activeDestination, setActiveDestination] = useState<AppDestination>("home");
+  const [editorState, setEditorState] = useState<ListEditorState | null>(null);
+  const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
 
+  function openCreateList() {
+    setEditorState({ mode: "create" });
+  }
+
+  function openEditList(list: HomeListCardSnapshot) {
+    setEditorState({ mode: "edit", list });
+  }
+
+  function handleNavigate(destination: AppDestination) {
+    if (destination === "create-list") {
+      openCreateList();
+      return;
+    }
+    setActiveDestination(destination);
+  }
+
+  async function saveList(request: ListEditorRequest) {
+    if (!editorState) return;
+    try {
+      if (editorState.mode === "create") {
+        await createListFromEditor(request);
+      } else {
+        await updateListFromEditor(editorState.list.id, request);
+      }
+    } catch (failure) {
+      throw new Error(formatInvokeError(failure));
+    }
+
+    setEditorState(null);
+    setActiveDestination("home");
+    setHomeRefreshKey((value) => value + 1);
+  }
+
+  const runtimeHome = homeContent ?? (
+    <HomeDashboard
+      refreshKey={homeRefreshKey}
+      onCreateList={openCreateList}
+      getListCardActions={(list) => ({
+        onEdit: () => openEditList(list),
+      })}
+    />
+  );
+
   return (
-    <div
-      className={`app-shell${fixtureMode ? " app-shell--fixture" : ""}`}
-      data-app-shell="main"
-      data-active-destination={activeDestination}
-    >
-      <aside className="app-shell__sidebar" aria-label="List navigation">
-        <div className="app-shell__brand" aria-label="Narro">
-          <span className="app-shell__brand-mark" aria-hidden="true">N</span>
-          <span className="app-shell__brand-name">Narro</span>
-        </div>
-
-        <nav className="app-shell__list-nav" aria-label="Lists">
-          <NavButton
-            destination="create-list"
-            activeDestination={activeDestination}
-            label="+ Create new list"
-            onNavigate={setActiveDestination}
-            className="app-shell__nav-button--create"
-          />
-          <div className="app-shell__divider" aria-hidden="true" />
-          <NavButton
-            destination="all-lists"
-            activeDestination={activeDestination}
-            label="All my lists"
-            onNavigate={setActiveDestination}
-          />
-          <NavButton
-            destination="archived-lists"
-            activeDestination={activeDestination}
-            label="Archived lists"
-            onNavigate={setActiveDestination}
-          />
-        </nav>
-      </aside>
-
-      <section className="app-shell__workspace">
-        <header className="app-shell__topbar">
-          <div className="app-shell__topbar-spacer" aria-hidden="true" />
-          <div className="app-shell__utilities" aria-label="Utilities">
-            <NavButton
-              destination="search"
-              activeDestination={activeDestination}
-              label="Search"
-              onNavigate={setActiveDestination}
-              className="app-shell__utility-button"
-            />
-            <NavButton
-              destination="settings"
-              activeDestination={activeDestination}
-              label="Settings"
-              onNavigate={setActiveDestination}
-              className="app-shell__utility-button"
-            />
+    <>
+      <div
+        className={`app-shell${fixtureMode ? " app-shell--fixture" : ""}`}
+        data-app-shell="main"
+        data-active-destination={activeDestination}
+      >
+        <aside className="app-shell__sidebar" aria-label="List navigation">
+          <div className="app-shell__brand" aria-label="Narro">
+            <span className="app-shell__brand-mark" aria-hidden="true">N</span>
+            <span className="app-shell__brand-name">Narro</span>
           </div>
-        </header>
 
-        <main className="app-shell__content" id="main-content" tabIndex={-1}>
-          {activeDestination === "home" ? (
-            homeContent ?? <HomeDashboard />
-          ) : (
-            <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">
-              <p className="app-shell__eyebrow type-metadata">{copy.eyebrow}</p>
-              <h1 id="app-shell-page-title" className="app-shell__page-title type-page-title">
-                {copy.title}
-              </h1>
-              <p className="app-shell__description">{copy.description}</p>
-            </section>
-          )}
+          <nav className="app-shell__list-nav" aria-label="Lists">
+            <NavButton
+              destination="create-list"
+              activeDestination={activeDestination}
+              label="+ Create new list"
+              onNavigate={handleNavigate}
+              className="app-shell__nav-button--create"
+            />
+            <div className="app-shell__divider" aria-hidden="true" />
+            <NavButton
+              destination="all-lists"
+              activeDestination={activeDestination}
+              label="All my lists"
+              onNavigate={handleNavigate}
+            />
+            <NavButton
+              destination="archived-lists"
+              activeDestination={activeDestination}
+              label="Archived lists"
+              onNavigate={handleNavigate}
+            />
+          </nav>
+        </aside>
 
-          {children}
-        </main>
+        <section className="app-shell__workspace">
+          <header className="app-shell__topbar">
+            <div className="app-shell__topbar-spacer" aria-hidden="true" />
+            <div className="app-shell__utilities" aria-label="Utilities">
+              <NavButton
+                destination="search"
+                activeDestination={activeDestination}
+                label="Search"
+                onNavigate={handleNavigate}
+                className="app-shell__utility-button"
+              />
+              <NavButton
+                destination="settings"
+                activeDestination={activeDestination}
+                label="Settings"
+                onNavigate={handleNavigate}
+                className="app-shell__utility-button"
+              />
+            </div>
+          </header>
 
-        <nav className="app-shell__primary-nav" aria-label="Primary">
-          <NavButton
-            destination="home"
-            activeDestination={activeDestination}
-            label="Home"
-            onNavigate={setActiveDestination}
-            className="app-shell__primary-button"
-          />
-          <NavButton
-            destination="reports"
-            activeDestination={activeDestination}
-            label="Reports"
-            onNavigate={setActiveDestination}
-            className="app-shell__primary-button"
-          />
-        </nav>
-      </section>
-    </div>
+          <main className="app-shell__content" id="main-content" tabIndex={-1}>
+            {activeDestination === "home" ? (
+              runtimeHome
+            ) : (
+              <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">
+                <p className="app-shell__eyebrow type-metadata">{copy.eyebrow}</p>
+                <h1 id="app-shell-page-title" className="app-shell__page-title type-page-title">
+                  {copy.title}
+                </h1>
+                <p className="app-shell__description">{copy.description}</p>
+              </section>
+            )}
+
+            {children}
+          </main>
+
+          <nav className="app-shell__primary-nav" aria-label="Primary">
+            <NavButton
+              destination="home"
+              activeDestination={activeDestination}
+              label="Home"
+              onNavigate={handleNavigate}
+              className="app-shell__primary-button"
+            />
+            <NavButton
+              destination="reports"
+              activeDestination={activeDestination}
+              label="Reports"
+              onNavigate={handleNavigate}
+              className="app-shell__primary-button"
+            />
+          </nav>
+        </section>
+      </div>
+
+      {editorState ? (
+        <ListEditorModal
+          mode={editorState.mode}
+          initialList={editorState.mode === "edit" ? editorState.list : undefined}
+          onRequestClose={() => setEditorState(null)}
+          onSave={saveList}
+        />
+      ) : null}
+    </>
   );
 }
