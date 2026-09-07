@@ -18,97 +18,82 @@ Latest fully main-validated source/test SHA:
 
 This is the guarded squash merge of PR #70 — `M5: add spacing radius elevation foundation`.
 
-Final exact validated PR head:
+Windows PR CI #268 / run `34096211484` / job `101660337016`: SUCCESS on exact PR head `8819511f876f646d0b3bd65200b4190b88dbdb73`, preflight/release/artifact PASS, artifact `10009082067`, digest `sha256:e7402d81f6340c3cab0cfdf3faf5c8e69cf25ba300806b5d99587b0e6409ccfe`.
 
-`8819511f876f646d0b3bd65200b4190b88dbdb73`
+PR #70 was guarded-squash-merged to source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`.
 
-Windows PR CI #268:
+Windows resulting-main CI #269 / run `34097442085` / job `101664113908`: SUCCESS on exact source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`, preflight/release/artifact PASS, artifact `10009533727`, digest `sha256:ada06097e2b768aeed766857d1ed7b5948e9fef8507bee689d10e84132998d43`.
 
-- run `34096211484`;
-- job `101660337016`;
-- exact head `8819511f876f646d0b3bd65200b4190b88dbdb73`;
-- conclusion: SUCCESS;
-- Repository Preflight: PASS;
-- Tauri Release: PASS;
-- artifact upload: PASS;
-- artifact `10009082067`;
-- digest `sha256:e7402d81f6340c3cab0cfdf3faf5c8e69cf25ba300806b5d99587b0e6409ccfe`.
+Tracking reconciliation PR #71 and post-merge cleanup PR #72 were merged after this validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
 
-PR #70 was squash-merged with expected-head guard `8819511f876f646d0b3bd65200b4190b88dbdb73`, producing source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`.
+## ACTIVE M5 SLICE
 
-Windows resulting-main CI #269:
+**Shared visual foundation — motion duration/easing tokens and reusable motion primitives only.**
 
-- run `34097442085`;
-- job `101664113908`;
-- exact source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`;
-- conclusion: SUCCESS;
-- Repository Preflight: PASS;
-- Tauri Release: PASS;
-- artifact upload: PASS;
-- artifact `10009533727`;
-- digest `sha256:ada06097e2b768aeed766857d1ed7b5948e9fef8507bee689d10e84132998d43`.
+Branch: `ai/m5-motion-token-foundation`
 
-Tracking reconciliation PR #71 was merged after this validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
+Base tracking main: `1fd2e87d9d415a1cb956e0974265e9dc46b80369`
 
-## LATEST COMPLETED SLICE
+Targeted top-level TODO item:
 
-**M5 shared visual foundation — spacing, radius and elevation.**
+`Implement shared motion primitives and duration/easing tokens from docs/UI_UX_SPEC.md.`
 
-Validated capabilities:
+### Scope contract
 
-- `src/geometry.css` provides the documented 4 px spacing scale: 4, 8, 12, 16, 20, 24 and 32 px;
-- semantic radius roles cover controls, task cards, panels, modals and floating content inside the documented ranges;
-- restrained flat/raised/overlay elevation tokens exist without a heavy decorative shadow system;
-- reusable `.surface-raised` and `.surface-floating` roles consume existing semantic surface/border tokens;
-- shared `src/App.css` consumes geometry tokens for current control radius/padding and diagnostic input spacing;
-- `scripts/test-ui-geometry.mjs` is part of `preflight:frontend` and is LF/CRLF-safe;
-- no React command behavior, Rust/domain/persistence/window behavior changed.
+Implement only reusable motion foundation supported by `docs/UI_UX_SPEC.md`:
 
-No physical Windows acceptance is required for this CSS/token-only foundation slice. Screenshot-backed visual calibration remains a separate later M5 item.
+- calibrated duration tokens inside the documented timing bands for press, hover/focus, tooltip, menu/popover, inline expansion, modal, reorder/drop, completion, chart/filter and focus-surface content transitions;
+- tooltip intent-delay token inside the documented 350–500 ms range;
+- enter/exit easing tokens using the documented cubic-bezier curves;
+- reusable transition primitives that favor opacity/transform and stable visual properties, never geometry-changing `transition: all` behavior;
+- no infinite/perpetual animation primitives and no timer-per-second animation;
+- deterministic dependency-light motion contract coverage in `preflight:frontend`;
+- import the motion foundation after theme/typography/geometry so later components can consume it.
 
-Detailed evidence: `work-log/2026-09-07-chatgpt-m5-spacing-radius-elevation.md`.
+Explicit non-goals: `prefers-reduced-motion` implementation, component-specific hover/press/menu/modal animations, tooltip/popover/menu components, screenshot harness, App shell/Home/board/task UI, React command behavior, Rust/domain/persistence/window behavior, or native window animation.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 6/6 | 3/28`**
+**`M-5/10 | 1/6 | 3/28`**
 
-Spacing/radius/elevation checkpoints:
+Motion-token checkpoints:
 
-1. mandatory startup + spec/current CSS/preflight inspection + branch + narrow geometry/elevation contract — COMPLETE;
-2. shared primitives + limited shared-style consumption + deterministic test + candidate review — COMPLETE;
-3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
-4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
-5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE.
+1. mandatory startup + exact repo/PR state + UI motion spec/current CSS/preflight inspection + branch + narrow motion contract — COMPLETE;
+2. duration/easing tokens + reusable primitives + deterministic test + candidate review — PENDING;
+3. exact PR-head Windows CI including preflight/release/artifact — PENDING;
+4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
+5. guarded merge with expected validated head — PENDING;
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
-A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
+A failed CI run does not increment this counter.
+
+## STARTUP / SCOPE EVIDENCE
+
+- current tracking `main`: `1fd2e87d9d415a1cb956e0974265e9dc46b80369`;
+- open implementation PRs at slice start: none;
+- current validated source/test baseline: `c8da64be57122cee69fd42cdbf24a175e772981f`;
+- M5 top-level progress at slice start: 3/28;
+- current source search found no existing frontend transition/animation implementation to migrate or preserve;
+- `docs/UI_UX_SPEC.md` timing bands: press 70–90 ms; hover/focus 110–140 ms; tooltip 120–150 ms after 350–500 ms delay; menu/popover 130–160 ms; inline expansion/reorder 160–200 ms; modal 180–220 ms; completion 200–260 ms; chart/filter 250–400 ms; focus content 120–180 ms;
+- documented easings: enter `cubic-bezier(.2,.8,.2,1)` and exit `cubic-bezier(.4,0,1,1)`;
+- full local repository checkout/build is not assumed available; run the strongest dependency-light checks possible before PR and record unavailable checks as NOT RUN.
 
 ## IMPORTANT INVARIANTS
 
 - authoritative Rust/domain state and persistence-first mutations remain unchanged;
 - stable task identities and renderer-independent timer/session authority remain unchanged;
-- semantic color, typography and geometry roles remain separate reusable contracts;
-- elevation remains restrained and introduces no continuous visual work;
-- timer numerals remain tabular and must not acquire per-second transition animation;
+- semantic color, typography, geometry and motion roles remain separate reusable contracts;
+- motion never owns or delays domain-state completion;
 - no hover/focus layout shift or moving hit targets;
-- reduced-motion and keyboard/focus accessibility remain first-class requirements.
+- timer numerals remain tabular and acquire no per-second transition animation;
+- no infinite decorative animation, especially on `focusSurface`;
+- `prefers-reduced-motion` remains the immediately following separate ordered M5 item and must be implemented before component-specific animation.
 
 ## NEXT AGENT ACTION
 
-Perform mandatory startup again and start only the next ordered M5 top-level item:
+Implement checkpoint 2 only: add the shared motion CSS contract, deterministic test and preflight wiring; perform exact candidate diff review and strongest dependency-light checks before opening one implementation PR.
 
-`Implement shared motion primitives and duration/easing tokens from docs/UI_UX_SPEC.md.`
-
-Before source changes, inspect:
-
-1. active M5 `TODO.md`;
-2. `docs/UI_UX_SPEC.md` motion rules, timing targets and easing guidance;
-3. current `src/theme.css`, `src/typography.css`, `src/geometry.css`, `src/App.css` and frontend preflight tests;
-4. current UI surfaces only to identify reusable motion-token consumption points without adding component-specific animation.
-
-Keep the slice narrow: duration/easing tokens and reusable motion primitives only. `prefers-reduced-motion` is the immediately following separate top-level item and must be implemented before later component-specific animation.
-
-Do not skip ahead to tooltip/popover/menu primitives, screenshot harness, App shell, Home, board or task-card UI.
+Do not skip ahead to reduced-motion, tooltip/popover/menu components, screenshot harness, App shell, Home, board or task-card UI.
 
 ## USER ACTION REQUIRED
 
