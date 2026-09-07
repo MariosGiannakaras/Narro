@@ -50,6 +50,16 @@ jobs:
     - name: Run Repository Preflight
       run: npm run preflight
 
+    - name: Capture Visual Regression Fixtures
+      run: npm run test:visual-regression:windows
+
+    - name: Upload Visual Regression Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m5-visual-regression
+        path: artifacts/visual-regression/*
+        if-no-files-found: error
+
     - name: Build Tauri Release
       run: npm run tauri build
 

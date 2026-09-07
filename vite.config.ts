@@ -12,6 +12,7 @@ export default defineConfig(async () => ({
       input: {
         main: "index.html",
         focus: "focus.html",
+        visualFixtures: "visual-fixtures.html",
       },
     },
   },

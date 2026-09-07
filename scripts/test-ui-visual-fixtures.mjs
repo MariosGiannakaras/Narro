@@ -1,0 +1,42 @@
+import fs from "node:fs";
+
+const root = new URL("../", import.meta.url);
+const read = (relative) => fs.readFileSync(new URL(relative, root), "utf8").replace(/\r\n/g, "\n");
+
+function requireText(haystack, needle, label) {
+  if (!haystack.includes(needle)) throw new Error(`Missing ${label}: ${needle}`);
+}
+
+const html = read("visual-fixtures.html");
+const source = read("src/visualFixtures.tsx");
+const css = read("src/visualFixtures.css");
+const vite = read("vite.config.ts");
+const capture = read("scripts/capture-visual-fixtures.ps1");
+const validator = read("scripts/validate-visual-fixtures.mjs");
+
+for (const baseline of ["tests/visual-fixtures/light.json", "tests/visual-fixtures/dark.json"]) {
+  const parsed = JSON.parse(read(baseline));
+  if (parsed.viewport?.width !== 1280 || parsed.viewport?.height !== 720) {
+    throw new Error(`${baseline} must retain the deterministic 1280x720 viewport contract.`);
+  }
+}
+
+for (const [haystack, needle, label] of [
+  [html, '/src/visualFixtures.tsx', "fixture entry module"],
+  [source, 'data-visual-fixture="foundation"', "fixture identity"],
+  [source, 'dataset.visualFixtureReady = "true"', "fixture ready signal"],
+  [source, 'id = "visual-contract"', "serialized visual contract"],
+  [source, 'data-timer-numerals="true"', "tabular timer coverage"],
+  [css, "width: 48rem;", "fixed fixture panel width"],
+  [css, "height: 30rem;", "fixed fixture panel height"],
+  [vite, 'visualFixtures: "visual-fixtures.html"', "Vite fixture build input"],
+  [capture, "--window-size=1280,720", "fixed Edge viewport"],
+  [capture, "--user-data-dir=", "isolated Edge profile"],
+  [capture, "--screenshot=", "real screenshot capture"],
+  [capture, "--dump-dom", "captured DOM output"],
+  [validator, "Captured visual fixture contracts: PASS", "captured contract validation"],
+]) {
+  requireText(haystack, needle, label);
+}
+
+console.log("Visual fixture harness contract checks passed.");
