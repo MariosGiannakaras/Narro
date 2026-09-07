@@ -12,60 +12,60 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 4 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 5 of 28 top-level items validated once this docs-only reconciliation reaches `main`**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 6/6 | 4/28`**
+**`M-5/10 | 6/6 | 5/28`**
 
-The first four ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, and shared motion duration/easing primitives. The next ordered item is `prefers-reduced-motion` behavior.
+The first five ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion duration/easing primitives, and `prefers-reduced-motion` behavior. The next ordered item is accessible tooltip/popover/menu primitives with stable geometry.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`a45715ca8d24f11d580a64a4382db2fb83651db8`
+`0b0433fe9c2922d1a02a5a45656857368dcbbecb`
 
-This is the guarded squash merge of PR #73 — `M5: add shared motion token foundation`.
+This is the merge of PR #76 — `M5: add reduced-motion foundation`.
 
-### PR #73 exact-head validation
+### PR #76 exact-head validation
 
 Final exact validated PR head:
 
-`56b5960f60626a8a421335a4f154e98998b7e7b7`
+`3a67e076292424e8cbcfec4713ed7e3463fc3420`
 
-Windows PR CI #270:
+Windows PR CI #272:
 
-- run `34104711339`;
-- job `101686964301`;
-- exact head `56b5960f60626a8a421335a4f154e98998b7e7b7`;
+- run `34116005616`;
+- job `101722851191`;
+- exact head `3a67e076292424e8cbcfec4713ed7e3463fc3420`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `10012348649`;
+- artifact ID `10016707418`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:009f74cac0b11c3ac804b47fec29281e8c182612eda3683c86aa152a1b9664ad`;
+- digest `sha256:ded80ef9c67d38293be47d869c50d773596e7e9185ff6f22696df6cb22cb2c8c`;
 - final exact-head semantic/diff review: **PASS**;
 - PR comments/reviews/review threads requiring resolution: **none**.
 
-PR #73 was squash-merged with expected-head guard `56b5960f60626a8a421335a4f154e98998b7e7b7`, producing source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`.
+PR #76 merged from the exact validated head, producing source SHA `0b0433fe9c2922d1a02a5a45656857368dcbbecb`.
 
 ### Resulting-main validation
 
-Windows main CI #271:
+Windows main CI #273:
 
-- run `34111571620`;
-- job `101708791529`;
-- exact source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`;
+- run `34117327629`;
+- job `101727089898`;
+- exact source SHA `0b0433fe9c2922d1a02a5a45656857368dcbbecb`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `10014967044`;
+- artifact ID `10017138498`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:c994d2d4496fea5fe3918701bcb74e4ec937a34b41d3d033d7b08c0bdaebcab0`.
+- digest `sha256:8d38e33021958d150907f4165588f9eb772e6f7e44649c5cf9d9c1748f51f14e`.
 
-Tracking reconciliation PR #74 was merged after the source validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
+Markdown-only tracking descendants do not replace this validated source/test baseline.
 
 ## Milestone 1 — Gate A complete
 
@@ -107,28 +107,35 @@ Detailed evidence: `work-log/2026-09-07-chatgpt-m5-spacing-radius-elevation.md`.
 
 ### Completed: motion-token foundation
 
-The fourth M5 top-level item is validated complete.
-
-Validated motion contract now provides:
-
-- calibrated press, hover/focus, tooltip, popover, inline, modal, reorder, completion, chart/filter and focus-surface duration tokens inside `docs/UI_UX_SPEC.md` ranges;
-- tooltip intent delay and documented enter/exit cubic-bezier easing tokens;
-- reusable opt-in transition primitives restricted to stable visual properties;
-- explicit guards against `transition: all`, keyframes, animation declarations, backdrop-filter animation and per-second timer animation;
-- `src/App.css` imports the motion foundation after theme/typography/geometry without yet applying component-specific animation;
-- deterministic `scripts/test-ui-motion.mjs` coverage in `preflight:frontend`, including Windows CRLF-safe import-order validation.
-
-No React command behavior, Rust/domain/persistence/window behavior changed. No physical Windows acceptance is required for this token/test-only foundation slice because no component-specific or native-window animation is applied yet.
+Validated motion provides calibrated duration/delay/easing tokens and reusable opt-in transition primitives restricted to stable visual properties. `scripts/test-ui-motion.mjs` remains in `preflight:frontend`, and no per-second/infinite decorative animation is introduced.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-motion-token-foundation.md`.
+
+### Completed: reduced-motion foundation
+
+The fifth M5 top-level item is validated complete.
+
+Validated reduced-motion behavior now provides:
+
+- one shared `@media (prefers-reduced-motion: reduce)` contract in `src/motion.css`;
+- shared transition-duration tokens collapse to `--motion-duration-reduced: 1ms` while tooltip intent delay remains unchanged;
+- nonessential lift/overlay distances reduce to `0rem`, and press/drag scales reduce to identity `1`;
+- reduced-mode transition-property lists omit `transform`, preserving stable color/background/border/opacity/box-shadow state projection as applicable;
+- shared transition delays clear to `0ms` in reduced mode;
+- normal-motion calibration remains unchanged and separately guarded;
+- deterministic `scripts/test-ui-reduced-motion.mjs` coverage is part of `preflight:frontend`, including LF/Windows-CRLF-safe import-order validation.
+
+No component-specific animation, React command behavior, Rust/domain/persistence/window behavior or native-window animation changed. No physical Windows acceptance is required for this foundation-only CSS/preflight slice because no animated product component is yet consuming the primitives.
+
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-reduced-motion-foundation.md`.
 
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Implement prefers-reduced-motion behavior before adding component-specific animation.`
+`Implement accessible tooltip/popover/menu primitives with stable geometry.`
 
-Before source changes, perform the normal mandatory startup, inspect the active M5 TODO, `docs/UI_UX_SPEC.md` reduced-motion rules, current `src/motion.css`, `src/App.css` and frontend preflight structure, then define a narrow shared reduced-motion-only slice. Do not jump ahead to tooltip/popover/menu components, screenshot harness, App shell, Home, board or task UI.
+Before source changes, perform the normal mandatory startup, inspect the relevant accessibility/tooltip/menu geometry requirements in `docs/UI_UX_SPEC.md`, current motion/reduced-motion contracts, current frontend architecture and existing dependency set. Keep the slice at primitive-level infrastructure; do not jump ahead to screenshot fixtures, App shell, Home, board or task-card product UI.
 
 ## Durable correctness decisions
 
@@ -148,10 +155,12 @@ Future work must preserve:
 - M5 visual work never moves authoritative task/timer/reminder logic into renderer state;
 - semantic color, typography, geometry and motion roles remain reusable independent contracts;
 - motion never owns or delays domain-state completion;
+- reduced-motion removes nonessential translation/scale without hiding state changes;
+- tooltip intent delay is an interaction-intent delay and remains independent from animation duration;
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
 - no infinite decorative animation, especially on `focusSurface`;
-- reduced-motion and keyboard/focus accessibility remain required as the visual foundation expands.
+- keyboard/focus accessibility remains required as the visual foundation expands.
 
 ## Multi-agent continuation rule
 
