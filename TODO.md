@@ -193,7 +193,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 ### Main UI
 
 - [x] App shell/navigation.
-- [ ] Home dashboard/list cards.
+- [x] Home dashboard/list cards.
 - [ ] List-card rest, hover/Open, overflow-menu and create-list states.
 - [ ] Create/Edit List modal with icon import, color selection, title, cancel/create states.
 - [ ] List board with Backlog, This Week, Today, Done.

@@ -12,68 +12,68 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 8 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 9 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 8/28`**
+**`M-5/10 | 5/5 | 9/28`**
 
-The first eight ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, and Main-window App shell/navigation. The next ordered item is Home dashboard/list cards.
+The first nine ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, and Home dashboard/list cards. The next ordered item is list-card rest, hover/Open, overflow-menu and create-list states.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`31f84a1fe2064e59ea27acc7c9afa9f650669608`
+`62d8d8a600ecdb6c42ba70db43f345a9687cfddf`
 
-This is the squash merge of PR #80 — `M5: add app shell navigation`.
+This is the guarded squash merge of PR #81 — `M5: add Home dashboard list cards`.
 
-### PR #80 exact-head validation
+### PR #81 exact-head validation
 
 Final exact validated PR head:
 
-`e1a0eb737cce5095b04cae32130fa3f08b3dcb5d`
+`42655fcf712cbb72d28dd5ad93dc4943a56091e4`
 
-Windows PR CI #285:
+Windows PR CI #288:
 
-- run `34144266196`;
-- job `101812742288`;
-- exact head `e1a0eb737cce5095b04cae32130fa3f08b3dcb5d`;
+- run `34150415778`;
+- job `101831341373`;
+- exact head `42655fcf712cbb72d28dd5ad93dc4943a56091e4`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10027211577`;
+- visual artifact ID `10029290625`;
 - visual artifact name `narro-m5-visual-regression`;
-- visual artifact digest `sha256:b1df010bcd84089ff2f49999337e3e059f9dab9530274b2c3158d9643e8cc9fd`;
-- diagnostic artifact ID `10027371165`;
+- visual artifact digest `sha256:584514e21547a69770b61b92922b7b65591c5e3df021a9f71822c8ccbab36c7b`;
+- diagnostic artifact ID `10029428916`;
 - diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
-- diagnostic artifact digest `sha256:f870171b482fe9a42f3550bebaef6162e75604ee82f3b9dfe0308f0f67827f09`;
-- final exact-head semantic/diff review: **PASS**; 12 changed files confined to shell/navigation, visual-harness, and branch-handoff scope;
-- PR comments/reviews/review threads requiring resolution: **none**.
+- diagnostic artifact digest `sha256:5d43cab738b2cb830d83a35d7d0f1b530e82bbd721364c7b92a5669b039b97ae`;
+- final exact-head semantic/diff review: **PASS**; 12 changed files confined to Home read-model/UI integration, visual harness/preflight and branch handoff scope;
+- PR comments, review submissions and inline review threads requiring resolution: **none**.
 
-PR #80 was squash-merged with expected-head guard from that exact validated head, producing source SHA `31f84a1fe2064e59ea27acc7c9afa9f650669608`.
+PR #81 was squash-merged with an expected-head guard set to the validated head, producing source SHA `62d8d8a600ecdb6c42ba70db43f345a9687cfddf`.
 
 ### Resulting-main validation
 
-Windows main CI #286:
+Windows main CI #289:
 
-- run `34146374105`;
-- job `101819196686`;
-- exact source SHA `31f84a1fe2064e59ea27acc7c9afa9f650669608`;
+- run `34153630279`;
+- job `101840803319`;
+- exact source SHA `62d8d8a600ecdb6c42ba70db43f345a9687cfddf`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10027957828`;
+- visual artifact ID `10030335039`;
 - visual artifact name `narro-m5-visual-regression`;
-- visual artifact digest `sha256:d28c47553ec3ecbbda5aa7bde8d7eacddaa5cd1c803ad22f2e63faf86aeb4d53`;
-- diagnostic artifact ID `10028115494`;
+- visual artifact digest `sha256:f2125065aa0d046165179d20870545c3f7bed4b02df831cb3b887984d4216d46`;
+- diagnostic artifact ID `10030472150`;
 - diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
-- diagnostic artifact digest `sha256:d5f60f59a284361432fdcc1e929ba32c97bf77d588790c14181e75cb1efa5add`.
+- diagnostic artifact digest `sha256:0111064264e0ac26334424a9605fc77f1af921c44e6f35880f36f3f85dfcf852`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -159,13 +159,32 @@ Validated behavior now provides:
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-app-shell-navigation.md`.
 
+### Completed: Home dashboard/list cards
+
+The ninth M5 top-level item is validated complete.
+
+Validated behavior now provides:
+
+- a read-only Rust Home snapshot composed from validated active-list and active-task persistence reads;
+- active-list cards with up to four pending task previews plus full pending-count and aggregate-EST totals;
+- a default Home hierarchy with neutral time-based greeting, `Your Lists`, helper copy and `All Lists` aggregate card;
+- stable list-card header geometry with reserved future action space and no premature hover/Open/menu/create-list interactions;
+- safe six-digit-hex list accent projection and no direct rendering of unvalidated stored icon paths;
+- loading, empty and typed-error states;
+- renderer recreation reloads Home data from SQLite rather than retaining hidden renderer authority;
+- deterministic Home light/dark Edge fixtures isolated from runtime IPC and normal user data;
+- theme-stable Home/card geometry and semantic hierarchy checks in the visual harness;
+- deterministic `scripts/test-ui-home-dashboard.mjs` preflight coverage.
+
+Detailed evidence: `work-log/2026-09-07-2154-chatgpt-m5-home-dashboard-list-cards.md`.
+
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Home dashboard/list cards.`
+`List-card rest, hover/Open, overflow-menu and create-list states.`
 
-Before source changes, perform the mandatory startup again and inspect the Home/list-card screenshot evidence in `docs/UI_UX_SPEC.md`, the current `AppShell`/Main frontend, existing domain list-read capabilities, shared visual contracts, and the validated Edge visual harness. Keep this slice focused on the Home dashboard hierarchy and baseline list-card content. Do not absorb the next separate item covering list-card hover/Open, overflow-menu, and create-list interaction states except for the minimum static/reserved geometry needed to prevent later layout shift.
+Start from the validated Home baseline. Preserve the reserved action-slot geometry so hover/focus controls do not reflow titles or cards. Implement only the evidence-backed list-card interaction states and create-list card state; do not absorb the separate Create/Edit List modal item, board/task UI, search palette, Settings content or Reports behavior.
 
 ## Durable correctness decisions
 
