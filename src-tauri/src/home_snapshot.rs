@@ -255,12 +255,15 @@ mod tests {
             PlanningLane::Backlog,
             None,
         );
-        add_task(
+        create_task(
             &mut conn,
-            archived,
-            "Archived task",
-            PlanningLane::Today,
-            Some(1234),
+            NewTaskInput {
+                list_id: archived,
+                title: "Archived task".to_owned(),
+                manual_lane: PlanningLane::Today,
+                est_seconds: Some(1234),
+            },
+            T0,
         )
         .expect_err("tasks cannot be created in archived lists");
 
