@@ -98,8 +98,14 @@ function validateListEditorFixture(theme, mode) {
     invariant(node?.width > 0 && node?.height > 0, `${label} ${name} has invalid geometry`);
   }
 
-  invariant(contract.backdrop.width === expectedCapture.width, `${label} backdrop does not cover capture width`);
-  invariant(contract.backdrop.height === expectedCapture.height, `${label} backdrop does not cover capture height`);
+  invariant(
+    contract.backdrop.width === expectedCapture.width,
+    `${label} backdrop width is ${contract.backdrop.width}px; expected ${expectedCapture.width}px capture width (shell ${contract.shell?.width ?? "unknown"}px)`,
+  );
+  invariant(
+    contract.backdrop.height === expectedCapture.height,
+    `${label} backdrop height is ${contract.backdrop.height}px; expected ${expectedCapture.height}px capture height (shell ${contract.shell?.height ?? "unknown"}px)`,
+  );
   invariant(contract.modal.width <= 480, `${label} modal exceeds the 30rem width contract`);
   invariant(contract.upload.width === contract.upload.height, `${label} icon upload target is not circular geometry`);
   invariant(contract.cancel.height === contract.submit.height, `${label} footer actions differ in height`);
