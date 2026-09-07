@@ -40,12 +40,14 @@ for (const [haystack, needle, label] of [
   [component, "fixtureSnapshot", "fixture-only deterministic data injection"],
   [component, "HEX_COLOR", "safe list-color projection"],
   [component, 'className="home-list-card__action-slot"', "reserved action geometry"],
+  [component, "refreshKey = 0", "persistence-backed Home refresh control"],
   [css, "grid-template-columns: 2rem minmax(0, 1fr) 2rem;", "stable card header action slot"],
   [css, "grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));", "responsive Home card grid"],
-  [shell, "homeContent ?? <HomeDashboard />", "Home as default shell content"],
+  [shell, "const runtimeHome = homeContent ?? (", "fixture override and runtime Home boundary"],
+  [shell, "<HomeDashboard", "Home as default shell content"],
   [fixtures, 'fixture === "home"', "Home visual fixture route"],
   [fixtures, "homeFixtureSnapshot", "deterministic Home fixture snapshot"],
-  [capture, "fixture=home", "real Edge Home capture"],
+  [capture, '"home"', "real Edge Home capture"],
   [validator, 'data-home-dashboard="main"', "captured Home semantic validation"],
 ]) {
   requireText(haystack, needle, label);
