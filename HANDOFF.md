@@ -7,84 +7,61 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 3 of 28 top-level items validated.
+- Milestone 5: ACTIVE / 4 of 28 top-level items validated once this docs-only reconciliation reaches `main`.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Latest fully main-validated source/test SHA:
 
-`c8da64be57122cee69fd42cdbf24a175e772981f`
+`a45715ca8d24f11d580a64a4382db2fb83651db8`
 
-This is the guarded squash merge of PR #70 — `M5: add spacing radius elevation foundation`.
+This is the guarded squash merge of PR #73 — `M5: add shared motion token foundation`.
 
-Windows PR CI #268 / run `34096211484` / job `101660337016`: SUCCESS on exact PR head `8819511f876f646d0b3bd65200b4190b88dbdb73`, preflight/release/artifact PASS, artifact `10009082067`, digest `sha256:e7402d81f6340c3cab0cfdf3faf5c8e69cf25ba300806b5d99587b0e6409ccfe`.
+Final exact validated PR head:
 
-PR #70 was guarded-squash-merged to source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`.
+`56b5960f60626a8a421335a4f154e98998b7e7b7`
 
-Windows resulting-main CI #269 / run `34097442085` / job `101664113908`: SUCCESS on exact source SHA `c8da64be57122cee69fd42cdbf24a175e772981f`, preflight/release/artifact PASS, artifact `10009533727`, digest `sha256:ada06097e2b768aeed766857d1ed7b5948e9fef8507bee689d10e84132998d43`.
+Windows PR CI #270 / run `34104711339` / job `101686964301`: SUCCESS on exact PR head `56b5960f60626a8a421335a4f154e98998b7e7b7`, preflight/release/artifact PASS, artifact `10012348649`, digest `sha256:009f74cac0b11c3ac804b47fec29281e8c182612eda3683c86aa152a1b9664ad`.
 
-Tracking reconciliation PR #71 and post-merge cleanup PR #72 were merged after this validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
+PR #73 was guarded-squash-merged to source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`.
 
-## ACTIVE M5 SLICE
+Windows resulting-main CI #271 / run `34111571620` / job `101708791529`: SUCCESS on exact source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`, preflight/release/artifact PASS, artifact `10014967044`, digest `sha256:c994d2d4496fea5fe3918701bcb74e4ec937a34b41d3d033d7b08c0bdaebcab0`.
 
-**Shared visual foundation — motion duration/easing tokens and reusable motion primitives only.**
+Markdown-only tracking descendants do not replace this validated source/test baseline.
 
-Branch: `ai/m5-motion-token-foundation`
+## LATEST COMPLETED SLICE
 
-Base tracking main: `1fd2e87d9d415a1cb956e0974265e9dc46b80369`
+**M5 shared visual foundation — motion duration/easing tokens.**
 
-Targeted top-level TODO item:
+Validated capabilities:
 
-`Implement shared motion primitives and duration/easing tokens from docs/UI_UX_SPEC.md.`
+- `src/motion.css` provides calibrated duration/delay tokens inside `docs/UI_UX_SPEC.md` timing bands;
+- documented enter/exit cubic-bezier easing tokens are reusable;
+- shared opt-in transition primitives use only stable visual properties (`color`, `background-color`, `border-color`, `opacity`, `box-shadow`, `transform`);
+- `transition: all`, keyframes, animation declarations, backdrop-filter animation and per-second timer animation are prohibited by the deterministic contract;
+- `src/App.css` imports motion after theme/typography/geometry without applying component-specific animation;
+- `scripts/test-ui-motion.mjs` is part of `preflight:frontend` and is LF/CRLF-safe;
+- no React command behavior, Rust/domain/persistence/window behavior changed.
 
-### Scope contract
+No physical Windows acceptance is required for this token/test-only foundation slice because it applies no component-specific or native-window animation.
 
-Implement only reusable motion foundation supported by `docs/UI_UX_SPEC.md`:
-
-- calibrated duration tokens inside the documented timing bands for press, hover/focus, tooltip, menu/popover, inline expansion, modal, reorder/drop, completion, chart/filter and focus-surface content transitions;
-- tooltip intent-delay token inside the documented 350–500 ms range;
-- enter/exit easing tokens using the documented cubic-bezier curves;
-- reusable transition primitives that favor opacity/transform and stable visual properties, never geometry-changing `transition: all` behavior;
-- no infinite/perpetual animation primitives and no timer-per-second animation;
-- deterministic dependency-light motion contract coverage in `preflight:frontend`;
-- import the motion foundation after theme/typography/geometry so later components can consume it.
-
-Explicit non-goals: `prefers-reduced-motion` implementation, component-specific hover/press/menu/modal animations, tooltip/popover/menu components, screenshot harness, App shell/Home/board/task UI, React command behavior, Rust/domain/persistence/window behavior, or native window animation.
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-motion-token-foundation.md`.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 2/6 | 3/28`**
+**`M-5/10 | 6/6 | 4/28`**
 
 Motion-token checkpoints:
 
 1. mandatory startup + exact repo/PR state + UI motion spec/current CSS/preflight inspection + branch + narrow motion contract — COMPLETE;
-2. duration/easing tokens + reusable primitives + deterministic test + candidate review — COMPLETE / CANDIDATE READY;
-3. exact PR-head Windows CI including preflight/release/artifact — PENDING;
-4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
-5. guarded merge with expected validated head — PENDING;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
+2. duration/easing tokens + reusable primitives + deterministic test + candidate review — COMPLETE;
+3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
+4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
+5. guarded merge with expected validated head — COMPLETE;
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE once this docs-only reconciliation reaches `main`.
 
-A failed CI run does not increment this counter.
-
-## CANDIDATE IMPLEMENTATION
-
-Material branch changes versus base `1fd2e87d9d415a1cb956e0974265e9dc46b80369`:
-
-- new `src/motion.css` defines calibrated duration/delay tokens, enter/exit easing tokens, 1 px lift / 4 px overlay distance, press/drag scale values and opt-in reusable transition primitives;
-- reusable transition properties are restricted to stable visual properties (`color`, `background-color`, `border-color`, `opacity`, `box-shadow`, `transform`); no `transition: all`, keyframes, animation declarations or backdrop-filter animation exist;
-- `src/App.css` imports motion after theme/typography/geometry but does not apply any motion class to existing diagnostic/product UI, so no component-specific animation is introduced before reduced-motion support;
-- new `scripts/test-ui-motion.mjs` guards exact calibration, documented timing bands, safe transition properties, import order, absence of keyframes/animation/reduced-motion scope drift, and dedicated exit easing consumption;
-- `package.json` adds `test:ui-motion` to `preflight:frontend`;
-- no React component behavior, Rust, Tauri config, persistence, timer/session, scheduling, recurrence, reminder or native-window behavior changed.
-
-### Local / pre-PR evidence
-
-- exact branch diff review: PASS; five intended files only (`HANDOFF.md`, `package.json`, `scripts/test-ui-motion.mjs`, `src/App.css`, `src/motion.css`);
-- `node --check scripts/test-ui-motion.mjs`: PASS using exact candidate script content;
-- motion contract against LF `App.css`: PASS;
-- motion contract against simulated Windows CRLF `App.css`: PASS;
-- full repository checkout / `npm run build` / Rust preflight: **NOT RUN locally** because the execution environment does not have the full dependency/materialized checkout needed for those commands.
+A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
 
 ## IMPORTANT INVARIANTS
 
@@ -95,13 +72,22 @@ Material branch changes versus base `1fd2e87d9d415a1cb956e0974265e9dc46b80369`:
 - no hover/focus layout shift or moving hit targets;
 - timer numerals remain tabular and acquire no per-second transition animation;
 - no infinite decorative animation, especially on `focusSurface`;
-- `prefers-reduced-motion` remains the immediately following separate ordered M5 item and must be implemented before component-specific animation.
+- reduced-motion and keyboard/focus accessibility remain first-class requirements.
 
 ## NEXT AGENT ACTION
 
-Open one implementation PR for the current branch and accept validation only for its exact head. Require Windows Repository Preflight, Tauri Release and artifact upload to succeed. On failure inspect the exact failing log and fix only evidence-backed problems; on success perform final exact-head semantic/diff/feedback review, guarded merge with expected validated head, resulting-main Windows CI, then docs/work-log reconciliation.
+After this docs-only reconciliation is merged, perform mandatory startup again and start only the next ordered M5 top-level item:
 
-Do not skip ahead to reduced-motion, tooltip/popover/menu components, screenshot harness, App shell, Home, board or task-card UI.
+`Implement prefers-reduced-motion behavior before adding component-specific animation.`
+
+Before source changes, inspect:
+
+1. active M5 `TODO.md`;
+2. `docs/UI_UX_SPEC.md` motion/reduced-motion rules;
+3. current `src/motion.css`, `src/App.css` and frontend preflight tests;
+4. current focus/main surfaces only to define a reusable reduced-motion contract without introducing component-specific animation.
+
+Keep the slice narrow: shared reduced-motion behavior for existing motion primitives only. Do not skip ahead to tooltip/popover/menu components, screenshot harness, App shell, Home, board or task-card UI.
 
 ## USER ACTION REQUIRED
 
