@@ -42,6 +42,59 @@ function Wait-ForPreview {
     throw "Vite preview did not become reachable at $Url."
 }
 
+function Capture-Theme {
+    param(
+        [string]$EdgePath,
+        [string]$Theme,
+        [string]$Url,
+        [string]$ScreenshotPath,
+        [string]$DomPath
+    )
+
+    $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
+    $profilePath = Join-Path $tempRoot "narro-edge-$Theme-$([guid]::NewGuid().ToString('N'))"
+    New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
+
+    try {
+        $dump = & $EdgePath `
+            --headless=new `
+            --disable-gpu `
+            --disable-background-networking `
+            --hide-scrollbars `
+            --no-first-run `
+            --force-device-scale-factor=1 `
+            --window-size=1280,720 `
+            --user-data-dir="$profilePath" `
+            --screenshot="$ScreenshotPath" `
+            --dump-dom `
+            $Url
+
+        if ($LASTEXITCODE -ne 0) {
+            throw "Edge visual capture failed for theme '$Theme' with exit code $LASTEXITCODE."
+        }
+        if (-not (Test-Path $ScreenshotPath)) {
+            throw "Edge did not create the screenshot for theme '$Theme'."
+        }
+
+        $domText = ($dump -join [Environment]::NewLine)
+        if ([string]::IsNullOrWhiteSpace($domText)) {
+            throw "Edge did not return captured DOM for theme '$Theme'."
+        }
+
+        [System.IO.File]::WriteAllText(
+            $DomPath,
+            $domText,
+            [System.Text.UTF8Encoding]::new($false)
+        )
+
+        if (-not (Test-Path $DomPath) -or (Get-Item $DomPath).Length -eq 0) {
+            throw "Captured DOM file is missing or empty for theme '$Theme'."
+        }
+    } finally {
+        Remove-Item -LiteralPath $profilePath -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
 New-Item -ItemType Directory -Path $outputPath -Force | Out-Null
 
 $edge = Resolve-EdgePath
@@ -62,16 +115,12 @@ try {
         $screenshot = Join-Path $outputPath "$theme.png"
         $dom = Join-Path $outputPath "$theme.html"
 
-        & $edge --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,720 --screenshot="$screenshot" $url | Out-Null
-        if ($LASTEXITCODE -ne 0 -or -not (Test-Path $screenshot)) {
-            throw "Edge screenshot capture failed for theme '$theme'."
-        }
-
-        $dump = & $edge --headless=new --disable-gpu --force-device-scale-factor=1 --window-size=1280,720 --dump-dom $url
-        if ($LASTEXITCODE -ne 0) {
-            throw "Edge DOM capture failed for theme '$theme'."
-        }
-        $dump | Set-Content -Path $dom -Encoding utf8
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme $theme `
+            -Url $url `
+            -ScreenshotPath $screenshot `
+            -DomPath $dom
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {
