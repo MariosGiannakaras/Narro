@@ -7,116 +7,115 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 1 of 28 top-level items validated.
+- Milestone 5: ACTIVE / 2 of 28 top-level items validated once this docs-only reconciliation reaches `main`.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Latest fully main-validated source/test SHA:
 
-`69ebe191b930a004157fc3d17a7b0546a5432e01`
+`8f6395fc50387dee59a60eae3706e9923dd8ffe3`
 
-Windows resulting-main CI #263:
+This is the guarded squash merge of PR #67 — `M5: add typography foundation`.
 
-- run `34067250128`;
-- job `101578072173`;
-- exact source SHA `69ebe191b930a004157fc3d17a7b0546a5432e01`;
+Final exact validated PR head:
+
+`91e766a5c4d00f06cf9fa3222c7b79307f1719ee`
+
+Windows PR CI #266:
+
+- run `34087763134`;
+- job `101635005150`;
+- exact head `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`;
 - conclusion: SUCCESS;
 - Repository Preflight: PASS;
 - Tauri Release: PASS;
 - artifact upload: PASS;
-- artifact `9999508854`;
-- digest `sha256:ebca7dfc080dd8972316ba52ee8175b6ab944d8a7708f514e6cc17f01e75bbc6`.
+- artifact `10006003958`;
+- digest `sha256:a24f9e23db08cfdc6943d7329f21b77893befb3c744f91807e73bd357c7327af`.
+
+PR #67 was squash-merged with expected-head guard `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`, producing source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`.
+
+Windows resulting-main CI #267:
+
+- run `34088634798`;
+- job `101637463417`;
+- exact source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`;
+- conclusion: SUCCESS;
+- Repository Preflight: PASS;
+- Tauri Release: PASS;
+- artifact upload: PASS;
+- artifact `10006311758`;
+- digest `sha256:0fd1f7a137cf84ae83684290342fff05ef6b69dd18d44cb80dd6151cd2a46c38`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
-## ACTIVE M5 SLICE
+## LATEST COMPLETED SLICE
 
-**Shared visual foundation — typography only.**
+**M5 shared visual foundation — typography.**
 
-Branch: `ai/m5-typography-foundation`
+Validated capabilities:
 
-Implementation PR: **#67 — `M5: add typography foundation`**
+- `src/typography.css` provides the Windows-first `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif` stack;
+- reusable page-title, section-title, task-title, metadata and live-timer roles exist with calibrated sizes, weights and line heights;
+- reusable timer numeral hooks use `font-variant-numeric: tabular-nums` and OpenType `tnum`;
+- shared `src/App.css` consumes the typography contract and no longer carries Inter/Avenir/Helvetica scaffold fonts;
+- `TimerSessionProjection` consumes metadata and tabular-number roles;
+- `scripts/test-ui-typography.mjs` is part of `preflight:frontend` and is CRLF-safe on Windows.
 
-Base tracking main: `b42a4e5fa9ca4911122e058d5279e34f5647a316`
+Initial PR head `7e865150ca984839d24b1f56d32c860ddb5e4673` failed Windows CI #264 only because the new test assumed LF line endings; the correction changed only that test to accept `\r?\n`. The corrected exact head and resulting `main` both passed full Windows CI.
 
-Targeted top-level TODO item:
+Explicit boundary:
 
-`Implement typography using Segoe UI Variable / Windows system fallbacks and tabular timer numerals.`
+- this does not implement spacing/radius/elevation, motion, reduced-motion, tooltip/popover/menu primitives, screenshot fixtures or product Main UI;
+- this does not complete the later user-facing persisted Light/Dark/System theme item;
+- no Rust/domain/persistence/window behavior changed;
+- no physical Windows acceptance is required for this typography-only foundation slice.
 
-### Scope contract
-
-Implement only the reusable typography layer required by `docs/UI_UX_SPEC.md`:
-
-- Windows-first UI family: `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif`;
-- shared page-title, section-title, task-title, metadata and live-timer size roles using midpoint values from the documented calibration ranges;
-- regular/medium/semibold/bold weights and shared line-height roles;
-- reusable tabular timer numeral primitive using `font-variant-numeric: tabular-nums` plus explicit OpenType `tnum` request;
-- consume the shared typography contract from existing diagnostic Main/focus surfaces without changing native/domain command wiring;
-- exercise metadata and tabular-number roles in `TimerSessionProjection`;
-- deterministic dependency-light typography contract test in `preflight:frontend`.
-
-Explicit non-goals: spacing/radius/elevation, motion/reduced-motion, tooltip/popover/menu primitives, screenshot harness, product App shell/Home/board/task UI, final live-timer formatting/animation, user-facing theme preferences, and any Rust/domain/persistence/window behavior.
-
-The current diagnostic `main` and `focusSurface` roots still contain temporary inline `fontFamily: "sans-serif"` declarations. Shared `.container` typography deliberately overrides those temporary declarations so rendered diagnostics consume the Windows-first stack without broad React rewrites in this foundation-only slice. Those diagnostic surfaces will be replaced/isolated by later ordered M5 UI work.
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-typography-foundation.md`.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 2/6 | 1/28`**
+**`M-5/10 | 6/6 | 2/28`**
 
 Typography-foundation checkpoints:
 
 1. mandatory startup + current typography/timer/preflight inspection + branch + narrow scope contract — COMPLETE;
-2. shared typography primitives + current diagnostic consumption + tabular timer hook + deterministic test + candidate review — COMPLETE / CANDIDATE READY;
-3. exact PR-head Windows CI success including repository preflight, Tauri release and artifact — PENDING;
-4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
-5. guarded merge with expected validated head — PENDING;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
+2. shared typography primitives + diagnostic consumption + tabular timer hook + deterministic test + candidate review — COMPLETE;
+3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
+4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
+5. guarded merge with expected validated head — COMPLETE;
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE once this docs-only reconciliation reaches `main`.
 
-A failed CI run does not increment this counter.
-
-## CANDIDATE IMPLEMENTATION
-
-Material changes compared with base `b42a4e5fa9ca4911122e058d5279e34f5647a316`:
-
-- new `src/typography.css` defines Windows-first font family, calibrated role sizes, weights, line heights and reusable tabular-number hooks;
-- `src/App.css` imports/consumes typography after theme, removes the old Inter/Avenir/Helvetica scaffold stack, maps headings/metadata/shared controls to typography roles, and ensures existing diagnostic roots consume the shared family;
-- `src/TimerSessionProjection.tsx` consumes the metadata role and marks authoritative timer/session numeric output with the tabular numeral primitive;
-- new `scripts/test-ui-typography.mjs` guards token completeness, Windows font-stack order, reusable role selectors, tabular-number settings, shared stylesheet consumption and timer-projection usage;
-- `package.json` runs `test:ui-typography` inside `preflight:frontend`;
-- no Rust, Tauri config, schema, persistence, scheduling, reminder, recurrence or timer authority changes are present.
-
-### Local / CI evidence
-
-Pre-PR local dependency-light checks:
-
-- `node --check scripts/test-ui-typography.mjs`: PASS;
-- exact-content typography contract with LF checkout: PASS;
-- existing exact-content theme-token contract against updated `App.css`: PASS;
-- full repository clone / `npm run build` / Rust preflight: **NOT RUN locally** because the execution environment cannot resolve GitHub/outbound network.
-
-Initial exact PR head `7e865150ca984839d24b1f56d32c860ddb5e4673` failed Windows CI #264 / run `34087552398` / job `101634388801` only in the new typography test. Config/date/theme checks had passed; release/artifact were skipped. Exact evidence: the test used an LF-only `startsWith` assertion for the two leading CSS imports, while Windows checkout supplied CRLF line endings.
-
-Evidence-backed correction: `scripts/test-ui-typography.mjs` now matches `\r?\n` between the imports. The corrected test passes locally against both exact LF and synthesized CRLF `App.css` contents. No typography behavior or runtime code changed for this correction.
-
-Current candidate head after the line-ending fix and handoff update must receive a fresh exact-head Windows CI PASS before merge.
+A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
 
 ## IMPORTANT INVARIANTS
 
-- authoritative Rust/domain state and persistence-first mutations remain unchanged;
-- stable task identities and renderer-independent timer/session authority remain unchanged;
+- authoritative Rust/domain state and persistence-first mutations;
+- stable task identities and renderer-independent timer/session authority;
 - date-only scheduling and strict IANA/DST rules remain unchanged;
 - reminder delivery/ack semantics remain unchanged;
 - async `main` recreation and validated Windows window/tray behavior remain intact;
 - M5 UI remains a projection of authoritative domain/persistence state;
-- semantic theme roles remain stable and typography is layered separately from color;
-- timer digits use fixed tabular geometry at the typography layer and must not acquire per-second transition animation;
+- semantic theme roles and typography roles remain separate reusable contracts;
+- timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus layout shift or moving hit targets;
-- reduced-motion and keyboard/focus accessibility remain first-class requirements for later visual primitives.
+- reduced-motion and keyboard/focus accessibility remain first-class requirements.
 
 ## NEXT AGENT ACTION
 
-Inspect PR #67's current exact head and its fresh Windows CI. Accept success only for that exact head. On failure, inspect the exact failing log and change only evidence-backed issues. On success, perform final exact-head diff/feedback review, guarded merge, resulting-main Windows CI, then tracking reconciliation.
+After this docs-only reconciliation is merged, perform mandatory startup again and start only the next ordered M5 top-level item:
+
+`Implement shared spacing/radius/elevation primitives.`
+
+Before source changes, inspect:
+
+1. active M5 `TODO.md`;
+2. `docs/UI_UX_SPEC.md` spacing/radius and surface/elevation guidance;
+3. current `src/theme.css`, `src/typography.css`, `src/App.css` and any shared UI styles;
+4. frontend preflight/test structure so deterministic spacing/radius/elevation contract coverage can be added without broad product UI work.
+
+Do not skip ahead to motion, reduced-motion, tooltip/popover/menu primitives, screenshot harness, App shell, Home, board or task-card UI.
 
 ## USER ACTION REQUIRED
 

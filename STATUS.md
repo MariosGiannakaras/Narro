@@ -12,57 +12,60 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 1 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 2 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 6/6 | 1/28`**
+**`M-5/10 | 6/6 | 2/28`**
 
-The first M5 source slice — semantic theme-token foundation — is fully exact-head/main validated. No second M5 implementation slice has started yet.
+The first two ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens and typography. A new spacing/radius/elevation source slice has not started yet.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`69ebe191b930a004157fc3d17a7b0546a5432e01`
+`8f6395fc50387dee59a60eae3706e9923dd8ffe3`
 
-This is the guarded squash merge of PR #65 — `M5: add semantic theme token foundation`.
+This is the guarded squash merge of PR #67 — `M5: add typography foundation`.
 
-### PR #65 exact-head validation
+### PR #67 exact-head validation
 
-Exact validated PR head:
+Final exact validated PR head:
 
-`5fcd341d45acc657f18b60e67cf3103998c2d97a`
+`91e766a5c4d00f06cf9fa3222c7b79307f1719ee`
 
-Windows PR CI #262:
+Initial PR head `7e865150ca984839d24b1f56d32c860ddb5e4673` failed Windows CI #264 only because the new typography contract test assumed LF line endings while Windows checkout supplied CRLF. Config/date/theme checks had passed; release/artifact were skipped. The evidence-backed correction changed only that test to accept `\r?\n`.
 
-- run `34066418885`;
-- job `101575853019`;
+Windows PR CI #266:
+
+- run `34087763134`;
+- job `101635005150`;
+- exact head `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `9999268854`;
+- artifact ID `10006003958`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:0af4495be614ca5db55fd1ecfadf9ebae478cbaba84cda20562f65df7d4f6110`;
+- digest `sha256:a24f9e23db08cfdc6943d7329f21b77893befb3c744f91807e73bd357c7327af`;
 - final exact-head semantic/diff review: **PASS**;
 - PR comments/reviews/review threads requiring resolution: **none**.
 
-PR #65 was squash-merged with expected-head guard `5fcd341d45acc657f18b60e67cf3103998c2d97a`, producing source SHA `69ebe191b930a004157fc3d17a7b0546a5432e01`.
+PR #67 was squash-merged with expected-head guard `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`, producing source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`.
 
 ### Resulting-main validation
 
-Windows main CI #263:
+Windows main CI #267:
 
-- run `34067250128`;
-- job `101578072173`;
-- exact source SHA `69ebe191b930a004157fc3d17a7b0546a5432e01`;
+- run `34088634798`;
+- job `101637463417`;
+- exact source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `9999508854`;
+- artifact ID `10006311758`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:ebca7dfc080dd8972316ba52ee8175b6ab944d8a7708f514e6cc17f01e75bbc6`.
+- digest `sha256:0fd1f7a137cf84ae83684290342fff05ef6b69dd18d44cb80dd6151cd2a46c38`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -80,9 +83,7 @@ Markdown-only tracking descendants do not replace this validated source/test bas
 
 ## Milestone 4 — Gate D complete
 
-**PASS.** All 15 top-level scheduling/recurrence/reminder/eligibility items are implemented and validated.
-
-Final M4 source baseline before M5 was `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`, validated by Windows main CI #261 / artifact `9998653381`. The installed-Windows physical reminder acceptance passed with reminder `91f217f6-abc3-4df3-a6cc-66e18a0fb046` due `2026-09-07 01:56`: delivery occurred while Narro remained alive in tray/background mode, no duplicate appeared after more than one additional minute, and both tray and Task Manager Narro identity checks passed.
+**PASS.** All 15 scheduling/recurrence/reminder/eligibility items are implemented and validated. Final M4 source baseline before M5 was `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`, validated by Windows main CI #261 / artifact `9998653381`. Installed-Windows reminder acceptance passed for reminder `91f217f6-abc3-4df3-a6cc-66e18a0fb046` due `2026-09-07 01:56`, including tray/background delivery, no duplicate after more than one additional minute, and correct tray/Task Manager icon identity.
 
 Reminder delivery still does **not** claim crash-proof exactly-once semantics across a process crash after Windows accepts a notification but before durable `fired_at` acknowledgment.
 
@@ -90,36 +91,35 @@ Reminder delivery still does **not** claim crash-proof exactly-once semantics ac
 
 ### Completed: semantic theme-token foundation
 
-The first M5 top-level item is validated complete.
-
-Source contract now provides reusable semantic colors for:
-
-- canvas;
-- raised/deep/interactive surfaces;
-- subtle/strong borders;
-- primary/secondary/inverse text;
-- accent start/end and solid accent action color;
-- success;
-- warning/overdue;
-- destructive/error;
-- light and dark value sets;
-- system theme resolution plus explicit `data-theme="light"`, `data-theme="dark"`, and `data-theme="system"` selectors.
-
-`src/App.css` consumes the semantic layer and no longer carries the obsolete Vite/React scaffold palette. `scripts/test-ui-theme-tokens.mjs` is part of `preflight:frontend` and guards token completeness/selectors/consumption. Visible focus outlines were restored for shared controls.
-
-This slice intentionally does **not** complete the later `Light/dark/system theme` product item: persisted/user-facing theme preference controls remain open. Existing diagnostic Main/focusSurface inline presentation is not yet the final product UI.
+Validated source contract provides reusable light/dark/system semantic roles for canvas, surfaces, borders, text, accent, success, warning and destructive states. `src/App.css` consumes them; `scripts/test-ui-theme-tokens.mjs` guards the contract in frontend preflight. This does not complete the later user-facing persisted theme-preference item.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-theme-token-foundation.md`.
+
+### Completed: typography foundation
+
+The second M5 top-level item is validated complete.
+
+Validated typography contract now provides:
+
+- Windows-first `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif` UI family;
+- reusable page-title, section-title, task-title, metadata and live-timer roles;
+- regular/medium/semibold/bold weight tokens and role line heights;
+- reusable timer numeral geometry using `font-variant-numeric: tabular-nums` plus OpenType `tnum`;
+- shared `App.css` consumption without the legacy Inter/Avenir/Helvetica scaffold stack;
+- `TimerSessionProjection` consumption of metadata and tabular-number primitives;
+- deterministic `scripts/test-ui-typography.mjs` coverage in `preflight:frontend`, including Windows CRLF-safe import-order validation.
+
+No Rust/domain/persistence/window behavior changed in this slice. No physical Windows acceptance is required for this typography-only foundation change; screenshot fixture validation remains a separate later M5 item.
+
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-typography-foundation.md`.
 
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Implement typography using Segoe UI Variable / Windows system fallbacks and tabular timer numerals.`
+`Implement shared spacing/radius/elevation primitives.`
 
-Before source changes, perform the normal startup and inspect current typography usage in `src/App.css`, `src/App.tsx`, `src/focus.tsx`, `src/TimerSessionProjection.tsx`, and the relevant `docs/UI_UX_SPEC.md` typography/timer sections. Keep the slice narrow: typography only unless a directly required test seam needs a small supporting change.
-
-Do not skip to spacing, motion, tooltip primitives, screenshot harness, App shell, Home, board, or task UI before the typography item is validated.
+Before source changes, perform the normal mandatory startup, inspect the active M5 TODO, `docs/UI_UX_SPEC.md` spacing/radius and elevation/surface guidance, current shared CSS and frontend preflight structure, then define a narrow spacing/radius/elevation-only slice. Do not skip ahead to motion, reduced-motion, tooltip/popover/menu primitives, screenshot harness, App shell, Home, board or task UI.
 
 ## Durable correctness decisions
 
@@ -129,15 +129,16 @@ Future work must preserve:
 - stable task identities and one-open-session invariant;
 - renderer-independent timer accounting;
 - date-only calendar semantics and Monday week boundaries;
-- visible date/time formatting follows Windows/system locale by default without changing stored scheduling semantics;
+- Windows/system-locale visible date/time formatting without changing stored scheduling semantics;
 - explicit IANA timezone resolution with fail-closed DST gap/fold handling;
 - deterministic/idempotent recurrence and bounded Rust-owned reminder/recurrence orchestration;
-- reminder `fired_at` is written only after successful OS notification submission and failed submission remains retryable;
+- reminder `fired_at` only after successful OS notification submission, with failed submission retryable;
 - scheduling/move operations preserve task identity count;
-- async `main` recreation remains intact to avoid the historical Windows WebView2 deadlock;
-- Windows executable/installer/tray icon inputs derive from the canonical Narro branding master;
-- M5 visual work must not move authoritative task/timer/reminder logic into renderer state;
-- semantic theme tokens remain calibration infrastructure and may be visually tuned by later screenshot comparison without losing semantic roles;
+- async `main` recreation remains intact;
+- Windows executable/installer/tray icon inputs derive from canonical Narro branding;
+- M5 visual work never moves authoritative task/timer/reminder logic into renderer state;
+- semantic color and typography roles remain reusable contracts and may be calibrated later through screenshot comparison without losing role semantics;
+- timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
 - reduced-motion and keyboard/focus accessibility remain required as the visual foundation expands.
 
