@@ -158,8 +158,8 @@ mod tests {
     use crate::domain::lists::NewListInput;
     use crate::domain::tasks::NewTaskInput;
     use crate::persistence::lists::{archive_list, create_list};
-    use crate::persistence::tasks::{complete_task, create_task};
     use crate::persistence::run_migrations;
+    use crate::persistence::tasks::{complete_task, create_task};
 
     const T0: &str = "2026-09-07T10:00:00Z";
     const T1: &str = "2026-09-07T10:01:00Z";
@@ -223,7 +223,13 @@ mod tests {
         archive_list(&mut conn, archived, T1).expect("archive list");
 
         add_task(&mut conn, work, "Today one", PlanningLane::Today, Some(600));
-        add_task(&mut conn, work, "Today two", PlanningLane::Today, Some(1200));
+        add_task(
+            &mut conn,
+            work,
+            "Today two",
+            PlanningLane::Today,
+            Some(1200),
+        );
         add_task(
             &mut conn,
             work,
@@ -238,7 +244,13 @@ mod tests {
             PlanningLane::ThisWeek,
             Some(2400),
         );
-        add_task(&mut conn, work, "Backlog one", PlanningLane::Backlog, Some(3000));
+        add_task(
+            &mut conn,
+            work,
+            "Backlog one",
+            PlanningLane::Backlog,
+            Some(3000),
+        );
         let completed = add_task(
             &mut conn,
             work,
