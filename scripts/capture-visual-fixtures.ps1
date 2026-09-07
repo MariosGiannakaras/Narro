@@ -145,6 +145,17 @@ try {
             -Url $url `
             -ScreenshotPath $screenshot `
             -DomPath $dom
+
+        $shellUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=app-shell"
+        $shellScreenshot = Join-Path $outputPath "app-shell-$theme.png"
+        $shellDom = Join-Path $outputPath "app-shell-$theme.html"
+
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme "app-shell-$theme" `
+            -Url $shellUrl `
+            -ScreenshotPath $shellScreenshot `
+            -DomPath $shellDom
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {
