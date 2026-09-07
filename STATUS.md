@@ -12,58 +12,68 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 6 of 28 top-level items validated once this docs-only reconciliation reaches `main`**.
+- Milestone 5: **ACTIVE / 7 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 6/28`**
+**`M-5/10 | 5/5 | 7/28`**
 
-The first six ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion duration/easing primitives, `prefers-reduced-motion` behavior, and accessible tooltip/popover/menu primitives with stable geometry. The next ordered item is the screenshot/visual-regression fixture harness for representative dark/light states.
+The first seven ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion duration/easing primitives, `prefers-reduced-motion` behavior, accessible tooltip/popover/menu primitives with stable geometry, and a deterministic dark/light screenshot/visual-regression fixture harness. The next ordered item is App shell/navigation.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`392c4b0b9e2c395212f77ac9286349cc0b784d05`
+`7918c378d50f516a152f0a7a90a7564eaedac42f`
 
-This is the squash merge of PR #78 — `M5: add accessible overlay primitives`.
+This is the squash merge of PR #79 — `M5: add visual regression fixture harness`.
 
-### PR #78 exact-head validation
+### PR #79 exact-head validation
 
 Final exact validated PR head:
 
-`abe99e355f0dcb5c8d35a23a509c1cd598375e6c`
+`de2aa8307c107e16eb02c3179910a82c5ccb8944`
 
-Windows PR CI #276:
+Windows PR CI #283:
 
-- run `34130835990`;
-- job `101770362797`;
-- exact head `abe99e355f0dcb5c8d35a23a509c1cd598375e6c`;
+- run `34140072237`;
+- job `101799859067`;
+- exact head `de2aa8307c107e16eb02c3179910a82c5ccb8944`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
+- Capture Visual Regression Fixtures: **PASS**;
+- Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
-- artifact upload: **PASS**;
-- artifact ID `10022463278`;
-- artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:1290021593167b6dc8843580df93b17402243155efd9b377870960169174afd4`;
-- final exact-head semantic/diff review: **PASS** after correcting menu-item selection dismissal/focus restoration before the final run;
+- diagnostic artifact upload: **PASS**;
+- visual artifact ID `10025733897`;
+- visual artifact name `narro-m5-visual-regression`;
+- visual artifact digest `sha256:146f0dbd015ecb84f62b26eec23a96c9a7df9ae1d1d29000f95505c9d40e8366`;
+- diagnostic artifact ID `10025922183`;
+- diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
+- diagnostic artifact digest `sha256:aad9e89c8ecd2adaffaf2d2b068e6d515b2c90cdba564ca2de6a103afed8e10c`;
+- final exact-head changed-file review: **PASS**, confined to fixture/build/test/CI harness scope;
 - PR comments/reviews/review threads requiring resolution: **none**.
 
-PR #78 was squash-merged with expected-head guard from the exact validated head, producing source SHA `392c4b0b9e2c395212f77ac9286349cc0b784d05`.
+PR #79 was squash-merged with expected-head guard from the exact validated head, producing source SHA `7918c378d50f516a152f0a7a90a7564eaedac42f`.
 
 ### Resulting-main validation
 
-Windows main CI #277:
+Windows main CI #284:
 
-- run `34132388297`;
-- job `101775346828`;
-- exact source SHA `392c4b0b9e2c395212f77ac9286349cc0b784d05`;
+- run `34141236455`;
+- job `101803468031`;
+- exact source SHA `7918c378d50f516a152f0a7a90a7564eaedac42f`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
+- Capture Visual Regression Fixtures: **PASS**;
+- Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
-- artifact upload: **PASS**;
-- artifact ID `10023061747`;
-- artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:8de39fd9e1d1d3b8eb0f9f2295d79928b0d2f82e3ccf3feb9d79a1b1fd75d329`.
+- diagnostic artifact upload: **PASS**;
+- visual artifact ID `10026165505`;
+- visual artifact name `narro-m5-visual-regression`;
+- visual artifact digest `sha256:5bc64b3ee03956713b61165e991a9a4357695266c2c924ae88fa5817626a9aeb`;
+- diagnostic artifact ID `10026353917`;
+- diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
+- diagnostic artifact digest `sha256:f0188f7bbf88c017cc16e01aeba471ee97341a7a3e224327c051fa3393b0b671`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -146,17 +156,35 @@ Validated primitive-level behavior now provides:
 - deterministic `scripts/test-ui-overlay-primitives.mjs` contract coverage in `preflight:frontend`;
 - no new UI dependency and no Rust/domain/persistence/native-window behavior changes.
 
-No physical Windows acceptance was required for this primitive-only infrastructure slice because no product screen consumes the primitives yet; rendered interaction/visual validation belongs to the upcoming fixture and product UI slices.
+No physical Windows acceptance was required for this primitive-only infrastructure slice because no product screen consumes the primitives yet; rendered interaction/visual validation belongs to the fixture and product UI slices.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-overlay-primitives.md`.
+
+### Completed: visual-regression fixture harness
+
+The seventh M5 top-level item is validated complete.
+
+Validated harness behavior now provides:
+
+- deterministic representative light/dark React fixture surface using the shared semantic visual contracts;
+- stable JSON geometry/style baselines for semantic regression checking;
+- dedicated Vite fixture page/entry;
+- Windows Microsoft Edge headless screenshot capture without a new browser-automation dependency;
+- captured-DOM contract validation and explicit PNG header checks;
+- exact 1280x720 captured-image validation from PNG IHDR, independent of Edge's browser-chrome-adjusted DOM viewport size;
+- deterministic frontend harness contract coverage in repository preflight;
+- Windows CI capture/validation and uploaded `narro-m5-visual-regression` artifacts on both exact PR head and resulting `main`;
+- no App shell/Home/board/task-card product behavior and no Rust/domain/persistence/native-window behavior changed.
+
+Detailed evidence: `work-log/2026-09-07-1920-chatgpt-m5-visual-regression-harness.md`.
 
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Establish a screenshot/visual-regression fixture harness for representative dark/light states.`
+`App shell/navigation.`
 
-Before source changes, perform the normal mandatory startup and inspect existing build/test tooling plus the screenshot fixture requirements in `docs/UI_UX_SPEC.md`. Keep this slice at reusable visual-regression infrastructure; do not jump ahead to App shell, Home, board or task-card product UI except for the minimum deterministic fixture surface genuinely required to prove the harness.
+Before source changes, perform the normal mandatory startup and inspect the relevant App-shell/navigation evidence in `docs/UI_UX_SPEC.md`, the current `src/App.tsx`/shared visual contracts, and the validated visual-regression harness. Keep the next slice narrow and deterministic; add representative shell fixture coverage where useful, preserve keyboard/reduced-motion/no-layout-shift invariants, and do not jump ahead to Home/list-card/board/task-card behavior except for the minimum shell content required to validate navigation structure.
 
 ## Durable correctness decisions
 
@@ -182,7 +210,8 @@ Future work must preserve:
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
 - no infinite decorative animation, especially on `focusSurface`;
-- keyboard/focus accessibility remains required as the visual foundation expands.
+- keyboard/focus accessibility remains required as the visual foundation expands;
+- visual capture dimensions remain an image-output contract, not a browser DOM viewport assumption.
 
 ## Multi-agent continuation rule
 
