@@ -12,7 +12,7 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 3 of 28 top-level items validated once this docs-only reconciliation reaches `main`**.
+- Milestone 5: **ACTIVE / 3 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
 **`M-5/10 | 6/6 | 3/28`**
@@ -65,7 +65,7 @@ Windows main CI #269:
 - artifact name `narro-m1-runtime-harness-windows-x64`;
 - digest `sha256:ada06097e2b768aeed766857d1ed7b5948e9fef8507bee689d10e84132998d43`.
 
-Markdown-only tracking descendants do not replace this validated source/test baseline.
+Tracking reconciliation PR #71 was merged after the source validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
 
 ## Milestone 1 — Gate A complete
 
