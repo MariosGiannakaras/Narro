@@ -32,11 +32,13 @@ for (const [haystack, needle, label] of [
   [rust, '"LIST_EDITOR_NOT_FOUND"', "typed missing-list failure code"],
   [rust, "pub fn create_list_from_editor", "renderer create command"],
   [rust, "pub fn update_list_from_editor", "renderer update command"],
+  [rust, ") -> CommandResult<()> {", "success-only command return contract"],
+  [rust, ".map(|_| ())", "internal record hidden from renderer command boundary"],
   [lib, "pub mod list_editor;", "list editor module registration"],
   [lib, "list_editor::create_list_from_editor,", "create command handler registration"],
   [lib, "list_editor::update_list_from_editor,", "update command handler registration"],
-  [api, 'invoke<PersistedList>("create_list_from_editor"', "typed frontend create IPC"],
-  [api, 'invoke<PersistedList>("update_list_from_editor"', "typed frontend update IPC"],
+  [api, 'invoke<void>("create_list_from_editor"', "success-only frontend create IPC"],
+  [api, 'invoke<void>("update_list_from_editor"', "success-only frontend update IPC"],
   [modal, 'role="dialog"', "dialog semantics"],
   [modal, 'aria-modal="true"', "modal semantics"],
   [modal, 'aria-label="Close list editor"', "accessible close control"],
@@ -72,6 +74,10 @@ for (const [haystack, needle, label] of [
   [validator, "validateListEditorFixture", "captured modal validation"],
 ]) {
   requireText(haystack, needle, label);
+}
+
+if (api.includes("PersistedList")) {
+  throw new Error("List editor IPC must not expose a renderer-owned persisted-list serialization contract.");
 }
 
 for (const forbidden of [
