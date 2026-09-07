@@ -7,7 +7,7 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 2 of 28 top-level items validated once this docs-only reconciliation reaches `main`.
+- Milestone 5: ACTIVE / 2 of 28 top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
@@ -85,7 +85,7 @@ Typography-foundation checkpoints:
 3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
 4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
 5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE once this docs-only reconciliation reaches `main`.
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE.
 
 A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
 
@@ -104,7 +104,7 @@ A new implementation slice has not started. Reset the small-slice counter only a
 
 ## NEXT AGENT ACTION
 
-After this docs-only reconciliation is merged, perform mandatory startup again and start only the next ordered M5 top-level item:
+Perform mandatory startup again and start only the next ordered M5 top-level item:
 
 `Implement shared spacing/radius/elevation primitives.`
 
