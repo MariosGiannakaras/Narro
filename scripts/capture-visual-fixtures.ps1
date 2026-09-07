@@ -52,33 +52,55 @@ function Capture-Theme {
     )
 
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
-    $profilePath = Join-Path $tempRoot "narro-edge-$Theme-$([guid]::NewGuid().ToString('N'))"
+    $captureId = [guid]::NewGuid().ToString('N')
+    $profilePath = Join-Path $tempRoot "narro-edge-$Theme-$captureId"
+    $stdoutPath = Join-Path $tempRoot "narro-edge-$Theme-$captureId.stdout.txt"
+    $stderrPath = Join-Path $tempRoot "narro-edge-$Theme-$captureId.stderr.txt"
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
-        $dump = & $EdgePath `
-            --headless=new `
-            --disable-gpu `
-            --disable-background-networking `
-            --hide-scrollbars `
-            --no-first-run `
-            --force-device-scale-factor=1 `
-            --window-size=1280,720 `
-            --user-data-dir="$profilePath" `
-            --screenshot="$ScreenshotPath" `
-            --dump-dom `
+        $arguments = @(
+            "--headless=new",
+            "--disable-gpu",
+            "--disable-background-networking",
+            "--hide-scrollbars",
+            "--no-first-run",
+            "--force-device-scale-factor=1",
+            "--window-size=1280,720",
+            "--user-data-dir=$profilePath",
+            "--screenshot=$ScreenshotPath",
+            "--dump-dom",
             $Url
+        )
 
-        if ($LASTEXITCODE -ne 0) {
-            throw "Edge visual capture failed for theme '$Theme' with exit code $LASTEXITCODE."
+        $edgeProcess = Start-Process `
+            -FilePath $EdgePath `
+            -ArgumentList $arguments `
+            -RedirectStandardOutput $stdoutPath `
+            -RedirectStandardError $stderrPath `
+            -PassThru `
+            -Wait
+
+        $stderrText = if (Test-Path $stderrPath) {
+            [System.IO.File]::ReadAllText($stderrPath)
+        } else {
+            ""
+        }
+
+        if ($edgeProcess.ExitCode -ne 0) {
+            throw "Edge visual capture failed for theme '$Theme' with exit code $($edgeProcess.ExitCode). $stderrText"
         }
         if (-not (Test-Path $ScreenshotPath)) {
-            throw "Edge did not create the screenshot for theme '$Theme'."
+            throw "Edge did not create the screenshot for theme '$Theme'. $stderrText"
         }
 
-        $domText = ($dump -join [Environment]::NewLine)
+        $domText = if (Test-Path $stdoutPath) {
+            [System.IO.File]::ReadAllText($stdoutPath)
+        } else {
+            ""
+        }
         if ([string]::IsNullOrWhiteSpace($domText)) {
-            throw "Edge did not return captured DOM for theme '$Theme'."
+            throw "Edge did not return captured DOM for theme '$Theme'. $stderrText"
         }
 
         [System.IO.File]::WriteAllText(
@@ -92,6 +114,8 @@ function Capture-Theme {
         }
     } finally {
         Remove-Item -LiteralPath $profilePath -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $stdoutPath -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $stderrPath -Force -ErrorAction SilentlyContinue
     }
 }
 
