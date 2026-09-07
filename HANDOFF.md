@@ -18,102 +18,84 @@ Latest fully main-validated source/test SHA:
 
 This is the guarded squash merge of PR #67 — `M5: add typography foundation`.
 
-Final exact validated PR head:
+Windows PR CI #266 / run `34087763134` / job `101635005150`: SUCCESS on exact typography PR head `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`, preflight/release/artifact PASS, artifact `10006003958`, digest `sha256:a24f9e23db08cfdc6943d7329f21b77893befb3c744f91807e73bd357c7327af`.
 
-`91e766a5c4d00f06cf9fa3222c7b79307f1719ee`
-
-Windows PR CI #266:
-
-- run `34087763134`;
-- job `101635005150`;
-- exact head `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`;
-- conclusion: SUCCESS;
-- Repository Preflight: PASS;
-- Tauri Release: PASS;
-- artifact upload: PASS;
-- artifact `10006003958`;
-- digest `sha256:a24f9e23db08cfdc6943d7329f21b77893befb3c744f91807e73bd357c7327af`.
-
-PR #67 was squash-merged with expected-head guard `91e766a5c4d00f06cf9fa3222c7b79307f1719ee`, producing source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`.
-
-Windows resulting-main CI #267:
-
-- run `34088634798`;
-- job `101637463417`;
-- exact source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`;
-- conclusion: SUCCESS;
-- Repository Preflight: PASS;
-- Tauri Release: PASS;
-- artifact upload: PASS;
-- artifact `10006311758`;
-- digest `sha256:0fd1f7a137cf84ae83684290342fff05ef6b69dd18d44cb80dd6151cd2a46c38`.
+Windows resulting-main CI #267 / run `34088634798` / job `101637463417`: SUCCESS on source SHA `8f6395fc50387dee59a60eae3706e9923dd8ffe3`, preflight/release/artifact PASS, artifact `10006311758`, digest `sha256:0fd1f7a137cf84ae83684290342fff05ef6b69dd18d44cb80dd6151cd2a46c38`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
-## LATEST COMPLETED SLICE
+## ACTIVE M5 SLICE
 
-**M5 shared visual foundation — typography.**
+**Shared visual foundation — spacing, radius and elevation primitives only.**
 
-Validated capabilities:
+Branch: `ai/m5-spacing-radius-elevation`
 
-- `src/typography.css` provides the Windows-first `"Segoe UI Variable", "Segoe UI", system-ui, sans-serif` stack;
-- reusable page-title, section-title, task-title, metadata and live-timer roles exist with calibrated sizes, weights and line heights;
-- reusable timer numeral hooks use `font-variant-numeric: tabular-nums` and OpenType `tnum`;
-- shared `src/App.css` consumes the typography contract and no longer carries Inter/Avenir/Helvetica scaffold fonts;
-- `TimerSessionProjection` consumes metadata and tabular-number roles;
-- `scripts/test-ui-typography.mjs` is part of `preflight:frontend` and is CRLF-safe on Windows.
+Base tracking main: `6c2dea1b74c2d52f40b3cf034d1e23b698ba4ef2`
 
-Initial PR head `7e865150ca984839d24b1f56d32c860ddb5e4673` failed Windows CI #264 only because the new test assumed LF line endings; the correction changed only that test to accept `\r?\n`. The corrected exact head and resulting `main` both passed full Windows CI.
-
-Explicit boundary:
-
-- this does not implement spacing/radius/elevation, motion, reduced-motion, tooltip/popover/menu primitives, screenshot fixtures or product Main UI;
-- this does not complete the later user-facing persisted Light/Dark/System theme item;
-- no Rust/domain/persistence/window behavior changed;
-- no physical Windows acceptance is required for this typography-only foundation slice.
-
-Detailed evidence: `work-log/2026-09-07-chatgpt-m5-typography-foundation.md`.
-
-## USER-FACING PROGRESS
-
-**`M-5/10 | 6/6 | 2/28`**
-
-Typography-foundation checkpoints:
-
-1. mandatory startup + current typography/timer/preflight inspection + branch + narrow scope contract — COMPLETE;
-2. shared typography primitives + diagnostic consumption + tabular timer hook + deterministic test + candidate review — COMPLETE;
-3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
-4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
-5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE.
-
-A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
-
-## IMPORTANT INVARIANTS
-
-- authoritative Rust/domain state and persistence-first mutations;
-- stable task identities and renderer-independent timer/session authority;
-- date-only scheduling and strict IANA/DST rules remain unchanged;
-- reminder delivery/ack semantics remain unchanged;
-- async `main` recreation and validated Windows window/tray behavior remain intact;
-- M5 UI remains a projection of authoritative domain/persistence state;
-- semantic theme roles and typography roles remain separate reusable contracts;
-- timer numerals remain tabular and must not acquire per-second transition animation;
-- no hover/focus layout shift or moving hit targets;
-- reduced-motion and keyboard/focus accessibility remain first-class requirements.
-
-## NEXT AGENT ACTION
-
-Perform mandatory startup again and start only the next ordered M5 top-level item:
+Targeted top-level TODO item:
 
 `Implement shared spacing/radius/elevation primitives.`
 
-Before source changes, inspect:
+### Scope contract
 
-1. active M5 `TODO.md`;
-2. `docs/UI_UX_SPEC.md` spacing/radius and surface/elevation guidance;
-3. current `src/theme.css`, `src/typography.css`, `src/App.css` and any shared UI styles;
-4. frontend preflight/test structure so deterministic spacing/radius/elevation contract coverage can be added without broad product UI work.
+Implement only reusable geometry/elevation primitives supported by `docs/UI_UX_SPEC.md`:
+
+- 4 px spacing scale: 4, 8, 12, 16, 20, 24, 32 px;
+- semantic radius roles for compact controls, task cards, list cards/panels, modals and floating content, staying inside the documented ranges;
+- restrained elevation primitives consistent with low-contrast raised surfaces and thin borders; no heavy decorative shadow system;
+- shared raised/floating surface roles using the existing semantic color/border tokens;
+- migrate only current shared `App.css` geometry that cleanly maps to the new primitives;
+- deterministic dependency-light geometry contract coverage in `preflight:frontend`.
+
+Explicit non-goals: motion/easing, reduced-motion, tooltip/popover/menu behavior, screenshot harness, App shell/Home/board/task components, broad cleanup of diagnostic inline layout, Rust/domain/persistence/window behavior, or final visual calibration through screenshots.
+
+## USER-FACING PROGRESS
+
+**`M-5/10 | 2/6 | 2/28`**
+
+Spacing/radius/elevation checkpoints:
+
+1. mandatory startup + spec/current CSS/preflight inspection + branch + narrow geometry/elevation contract — COMPLETE;
+2. shared primitives + limited shared-style consumption + deterministic test + candidate review — COMPLETE / CANDIDATE READY;
+3. exact PR-head Windows CI including preflight/release/artifact — PENDING;
+4. final exact-head diff/review + no unresolved PR feedback — PENDING;
+5. guarded merge with expected validated head — PENDING;
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
+
+A failed CI run does not increment this counter.
+
+## CANDIDATE IMPLEMENTATION
+
+Material branch changes versus base `6c2dea1b74c2d52f40b3cf034d1e23b698ba4ef2`:
+
+- new `src/geometry.css` defines the 4px spacing scale, semantic radius roles, flat/raised/overlay elevation tokens, and reusable `.surface-raised` / `.surface-floating` primitives;
+- `src/App.css` imports geometry after theme/typography and migrates current shared control radius/padding plus the diagnostic input gap to the new tokens;
+- new `scripts/test-ui-geometry.mjs` guards exact spacing/radius/elevation values, reusable surface semantics, import order, token consumption and removal of the migrated hard-coded geometry;
+- `package.json` adds `test:ui-geometry` to `preflight:frontend`;
+- no React component behavior, Rust, Tauri config, persistence, timer, scheduling, recurrence or reminder behavior changed.
+
+### Local / pre-PR evidence
+
+- exact candidate diff review: PASS; five intended files only;
+- `node --check scripts/test-ui-geometry.mjs`: PASS;
+- geometry contract against LF `App.css`: PASS;
+- geometry contract against simulated CRLF `App.css`: PASS;
+- existing theme/typography contracts remain semantically compatible with the added third import and unchanged role consumption;
+- full repository checkout / `npm run build` / Rust preflight: **NOT RUN locally** because the execution environment does not have the full dependency/materialized checkout needed for those commands.
+
+## IMPORTANT INVARIANTS
+
+- authoritative Rust/domain state and persistence-first mutations remain unchanged;
+- stable task identities and renderer-independent timer/session authority remain unchanged;
+- semantic color, typography and geometry roles remain separate reusable contracts;
+- elevation remains restrained and introduces no continuous visual work;
+- timer numerals remain tabular and acquire no per-second animation;
+- no hover/focus layout shift or moving hit targets;
+- reduced-motion and keyboard/focus accessibility remain first-class requirements for later slices.
+
+## NEXT AGENT ACTION
+
+Open one implementation PR for the current branch and accept validation only for its exact head. Require Windows Repository Preflight, Tauri Release and artifact upload to succeed. On failure inspect the exact failing log and fix only evidence-backed problems; on success perform final exact-head semantic/diff/feedback review, guarded merge with expected validated head, resulting-main Windows CI, then docs/work-log reconciliation.
 
 Do not skip ahead to motion, reduced-motion, tooltip/popover/menu primitives, screenshot harness, App shell, Home, board or task-card UI.
 
