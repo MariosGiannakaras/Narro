@@ -15,6 +15,11 @@ const [motionCss, appCss] = await Promise.all([
   readFile(new URL("../src/App.css", import.meta.url), "utf8"),
 ]);
 
+const reducedMotionMarker = "@media (prefers-reduced-motion: reduce)";
+const reducedMotionIndex = motionCss.indexOf(reducedMotionMarker);
+const normalMotionCss =
+  reducedMotionIndex === -1 ? motionCss : motionCss.slice(0, reducedMotionIndex);
+
 const expectedTokens = new Map([
   ["--motion-duration-press", "80ms"],
   ["--motion-duration-hover-focus", "120ms"],
@@ -37,8 +42,11 @@ const expectedTokens = new Map([
 
 for (const [token, value] of expectedTokens) {
   const declaration = new RegExp(`${escapedPattern(token)}\\s*:\\s*${escapedPattern(value)}\\s*;`, "g");
-  const declarationCount = [...motionCss.matchAll(declaration)].length;
-  invariant(declarationCount === 1, `${token} must equal ${value} exactly once; found ${declarationCount}`);
+  const declarationCount = [...normalMotionCss.matchAll(declaration)].length;
+  invariant(
+    declarationCount === 1,
+    `${token} must equal ${value} exactly once in normal motion; found ${declarationCount}`,
+  );
 }
 
 const durationBands = new Map([
@@ -56,7 +64,9 @@ const durationBands = new Map([
 ]);
 
 for (const [token, [minimum, maximum]] of durationBands) {
-  const match = motionCss.match(new RegExp(`${escapedPattern(token)}\\s*:\\s*(\\d+)ms\\s*;`));
+  const match = normalMotionCss.match(
+    new RegExp(`${escapedPattern(token)}\\s*:\\s*(\\d+)ms\\s*;`),
+  );
   invariant(match, `${token} must be expressed in milliseconds`);
   const value = Number(match[1]);
   invariant(value >= minimum && value <= maximum, `${token}=${value}ms is outside ${minimum}-${maximum}ms`);
@@ -72,7 +82,7 @@ for (const selector of [
   ".motion-focus-surface",
   ".motion-exit",
 ]) {
-  invariant(motionCss.includes(selector), `missing reusable motion selector ${selector}`);
+  invariant(normalMotionCss.includes(selector), `missing reusable motion selector ${selector}`);
 }
 
 const allowedTransitionProperties = new Set([
@@ -96,10 +106,6 @@ invariant(!/transition\s*:\s*all\b/i.test(motionCss), "transition: all is prohib
 invariant(!/@keyframes\b/i.test(motionCss), "shared motion foundation must not define keyframes");
 invariant(!/animation(?:-\w+)?\s*:/i.test(motionCss), "shared motion foundation must not start animations");
 invariant(!/backdrop-filter\s*:/i.test(motionCss), "shared motion foundation must not animate backdrop filters");
-invariant(
-  !/prefers-reduced-motion/i.test(motionCss),
-  "reduced-motion behavior is the next separate ordered M5 item, not part of this slice",
-);
 
 invariant(
   /^@import "\.\/theme\.css";\r?\n@import "\.\/typography\.css";\r?\n@import "\.\/geometry\.css";\r?\n@import "\.\/motion\.css";/.test(
@@ -109,7 +115,7 @@ invariant(
 );
 
 invariant(
-  motionCss.includes("transition-timing-function: var(--motion-ease-exit)"),
+  normalMotionCss.includes("transition-timing-function: var(--motion-ease-exit)"),
   "exit modifier must consume the dedicated exit easing token",
 );
 
