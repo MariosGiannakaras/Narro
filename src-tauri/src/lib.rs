@@ -1,6 +1,7 @@
 pub mod autostart;
 pub mod domain;
 pub mod error;
+pub mod home_snapshot;
 pub mod notifications;
 pub mod persistence;
 pub mod recurrence;
@@ -47,6 +48,35 @@ fn report_state_change(app_handle: &tauri::AppHandle, payload: &AppStatePayload)
 #[tauri::command]
 fn get_state(state: State<'_, AppState>) -> CommandResult<AppStatePayload> {
     state.snapshot().map_err(CommandError::from)
+}
+
+#[tauri::command]
+fn get_home_snapshot(app_handle: tauri::AppHandle) -> CommandResult<home_snapshot::HomeSnapshot> {
+    let app_dir = app_handle.path().app_data_dir().map_err(|error| {
+        CommandError::new(
+            "HOME_SNAPSHOT_FAILED",
+            format!("failed to resolve Narro app-data directory for Home: {error}"),
+        )
+    })?;
+    let database_path = app_dir.join("narro.db");
+    let connection = rusqlite::Connection::open(&database_path).map_err(|error| {
+        CommandError::new(
+            "HOME_SNAPSHOT_FAILED",
+            format!("failed to open the Narro database for Home: {error}"),
+        )
+    })?;
+    persistence::configure_connection(&connection).map_err(|error| {
+        CommandError::new(
+            "HOME_SNAPSHOT_FAILED",
+            format!("failed to configure the Narro database for Home: {error}"),
+        )
+    })?;
+    home_snapshot::load(&connection).map_err(|error| {
+        CommandError::new(
+            "HOME_SNAPSHOT_FAILED",
+            format!("failed to read the Home snapshot: {error}"),
+        )
+    })
 }
 
 #[tauri::command]
@@ -578,6 +608,7 @@ pub fn run() {
         .manage(ShortcutManager::new())
         .invoke_handler(tauri::generate_handler![
             get_state,
+            get_home_snapshot,
             toggle_timer,
             mutate_state,
             send_test_notification,
