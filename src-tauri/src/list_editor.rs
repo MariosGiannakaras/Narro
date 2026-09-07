@@ -1,10 +1,12 @@
 use crate::domain::ids::ListId;
 use crate::domain::lists::{ListRecord, NewListInput, UpdateListInput};
+use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::lists::{create_list, get_list, update_list, ListStoreError};
 use serde::Deserialize;
 use std::fmt::{Display, Formatter};
 use std::path::{Component, Path, PathBuf};
+use tauri::Manager;
 
 const ICON_DIRECTORY: &str = "list-icons";
 const MAX_ICON_BYTES: usize = 1_048_576;
@@ -71,7 +73,10 @@ fn validate_color(color: Option<&str>) -> Result<(), ListEditorError> {
     let Some(color) = color else {
         return Ok(());
     };
-    if color.len() != 7 || !color.starts_with('#') || !color[1..].bytes().all(|byte| byte.is_ascii_hexdigit()) {
+    if color.len() != 7
+        || !color.starts_with('#')
+        || !color[1..].bytes().all(|byte| byte.is_ascii_hexdigit())
+    {
         return Err(ListEditorError::InvalidColor);
     }
     Ok(())
@@ -104,7 +109,10 @@ fn validate_icon_bytes(extension: &str, bytes: &[u8]) -> Result<(), ListEditorEr
         "jpg" if bytes.starts_with(&[0xff, 0xd8, 0xff]) => Ok(()),
         "svg" => {
             let text = std::str::from_utf8(bytes).map_err(|_| ListEditorError::InvalidSvg)?;
-            let lower = text.trim_start_matches('\u{feff}').trim_start().to_ascii_lowercase();
+            let lower = text
+                .trim_start_matches('\u{feff}')
+                .trim_start()
+                .to_ascii_lowercase();
             let has_svg_root = lower.starts_with("<svg")
                 || (lower.starts_with("<?xml") && lower.contains("<svg"));
             let contains_unsafe_markup = lower.contains("<script")
@@ -249,6 +257,51 @@ pub fn update(
     }
 }
 
+fn command_error(error: ListEditorError) -> CommandError {
+    let code = match &error {
+        ListEditorError::InvalidColor
+        | ListEditorError::EmptyIcon
+        | ListEditorError::IconTooLarge
+        | ListEditorError::UnsupportedIconType
+        | ListEditorError::InvalidSvg => "LIST_EDITOR_INVALID_INPUT",
+        ListEditorError::Store(ListStoreError::NotFound(_)) => "LIST_EDITOR_NOT_FOUND",
+        _ => "LIST_EDITOR_FAILED",
+    };
+    CommandError::new(code, error.to_string())
+}
+
+fn app_data_dir(app_handle: &tauri::AppHandle) -> CommandResult<PathBuf> {
+    app_handle.path().app_data_dir().map_err(|error| {
+        CommandError::new(
+            "LIST_EDITOR_FAILED",
+            format!("failed to resolve Narro app-data directory: {error}"),
+        )
+    })
+}
+
+#[tauri::command]
+pub fn create_list_from_editor(
+    app_handle: tauri::AppHandle,
+    request: ListEditorRequest,
+) -> CommandResult<ListRecord> {
+    let app_dir = app_data_dir(&app_handle)?;
+    let now = chrono::Utc::now().to_rfc3339();
+    create(&app_dir, request, &now).map_err(command_error)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn update_list_from_editor(
+    app_handle: tauri::AppHandle,
+    list_id: String,
+    request: ListEditorRequest,
+) -> CommandResult<ListRecord> {
+    let id = ListId::parse_str(&list_id)
+        .map_err(|_| CommandError::invalid_argument("listId", "must be a valid UUID"))?;
+    let app_dir = app_data_dir(&app_handle)?;
+    let now = chrono::Utc::now().to_rfc3339();
+    update(&app_dir, id, request, &now).map_err(command_error)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -260,7 +313,8 @@ mod tests {
 
     fn setup(app_dir: &Path) {
         std::fs::create_dir_all(app_dir).expect("create test app dir");
-        let mut connection = rusqlite::Connection::open(app_dir.join("narro.db")).expect("open test db");
+        let mut connection =
+            rusqlite::Connection::open(app_dir.join("narro.db")).expect("open test db");
         run_migrations(&mut connection).expect("run migrations");
     }
 
@@ -274,7 +328,10 @@ mod tests {
             ListEditorRequest {
                 title: " Work ".into(),
                 color: Some("#48d6c5".into()),
-                icon_upload: Some(ListIconUpload { filename: "work.png".into(), bytes: png }),
+                icon_upload: Some(ListIconUpload {
+                    filename: "work.png".into(),
+                    bytes: png,
+                }),
             },
             "2026-09-08T00:00:00Z",
         )
@@ -306,7 +363,11 @@ mod tests {
         setup(&app_dir);
         let invalid_color = create(
             &app_dir,
-            ListEditorRequest { title: "List".into(), color: Some("red".into()), icon_upload: None },
+            ListEditorRequest {
+                title: "List".into(),
+                color: Some("red".into()),
+                icon_upload: None,
+            },
             "2026-09-08T00:00:00Z",
         )
         .expect_err("invalid color must fail");
@@ -317,14 +378,19 @@ mod tests {
             ListEditorRequest {
                 title: "List".into(),
                 color: None,
-                icon_upload: Some(ListIconUpload { filename: "fake.png".into(), bytes: b"not a png".to_vec() }),
+                icon_upload: Some(ListIconUpload {
+                    filename: "fake.png".into(),
+                    bytes: b"not a png".to_vec(),
+                }),
             },
             "2026-09-08T00:00:00Z",
         )
         .expect_err("spoofed icon must fail");
         assert!(matches!(spoofed, ListEditorError::UnsupportedIconType));
         let connection = rusqlite::Connection::open(app_dir.join("narro.db")).expect("open db");
-        assert!(crate::persistence::lists::active_lists(&connection).expect("read lists").is_empty());
+        assert!(crate::persistence::lists::active_lists(&connection)
+            .expect("read lists")
+            .is_empty());
         std::fs::remove_dir_all(app_dir).expect("remove test app dir");
     }
 
