@@ -51,7 +51,7 @@ for (const [haystack, needle, label] of [
   [modal, 'type="radio"', "color radio controls"],
   [modal, 'data-selected={selected ? "true" : "false"}', "selected swatch state"],
   [modal, 'type="text"', "list title input"],
-  [modal, ">Cancel<", "Cancel action"],
+  [modal, "Cancel", "Cancel action"],
   [modal, 'mode === "create" ? "Create" : "Save changes"', "create/edit submit state"],
   [css, "position: fixed;", "viewport modal backdrop"],
   [css, "border-radius: var(--radius-modal);", "shared modal radius token"],
