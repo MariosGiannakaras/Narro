@@ -71,7 +71,7 @@ invariant(
 );
 
 invariant(
-  appCss.startsWith('@import "./theme.css";\n@import "./typography.css";'),
+  /^@import "\.\/theme\.css";\r?\n@import "\.\/typography\.css";/.test(appCss),
   "App.css must import theme first and shared typography second",
 );
 invariant(
