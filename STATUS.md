@@ -12,58 +12,58 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 5 of 28 top-level items validated once this docs-only reconciliation reaches `main`**.
+- Milestone 5: **ACTIVE / 6 of 28 top-level items validated once this docs-only reconciliation reaches `main`**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 6/6 | 5/28`**
+**`M-5/10 | 5/5 | 6/28`**
 
-The first five ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion duration/easing primitives, and `prefers-reduced-motion` behavior. The next ordered item is accessible tooltip/popover/menu primitives with stable geometry.
+The first six ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion duration/easing primitives, `prefers-reduced-motion` behavior, and accessible tooltip/popover/menu primitives with stable geometry. The next ordered item is the screenshot/visual-regression fixture harness for representative dark/light states.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`0b0433fe9c2922d1a02a5a45656857368dcbbecb`
+`392c4b0b9e2c395212f77ac9286349cc0b784d05`
 
-This is the merge of PR #76 — `M5: add reduced-motion foundation`.
+This is the squash merge of PR #78 — `M5: add accessible overlay primitives`.
 
-### PR #76 exact-head validation
+### PR #78 exact-head validation
 
 Final exact validated PR head:
 
-`3a67e076292424e8cbcfec4713ed7e3463fc3420`
+`abe99e355f0dcb5c8d35a23a509c1cd598375e6c`
 
-Windows PR CI #272:
+Windows PR CI #276:
 
-- run `34116005616`;
-- job `101722851191`;
-- exact head `3a67e076292424e8cbcfec4713ed7e3463fc3420`;
+- run `34130835990`;
+- job `101770362797`;
+- exact head `abe99e355f0dcb5c8d35a23a509c1cd598375e6c`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `10016707418`;
+- artifact ID `10022463278`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:ded80ef9c67d38293be47d869c50d773596e7e9185ff6f22696df6cb22cb2c8c`;
-- final exact-head semantic/diff review: **PASS**;
+- digest `sha256:1290021593167b6dc8843580df93b17402243155efd9b377870960169174afd4`;
+- final exact-head semantic/diff review: **PASS** after correcting menu-item selection dismissal/focus restoration before the final run;
 - PR comments/reviews/review threads requiring resolution: **none**.
 
-PR #76 merged from the exact validated head, producing source SHA `0b0433fe9c2922d1a02a5a45656857368dcbbecb`.
+PR #78 was squash-merged with expected-head guard from the exact validated head, producing source SHA `392c4b0b9e2c395212f77ac9286349cc0b784d05`.
 
 ### Resulting-main validation
 
-Windows main CI #273:
+Windows main CI #277:
 
-- run `34117327629`;
-- job `101727089898`;
-- exact source SHA `0b0433fe9c2922d1a02a5a45656857368dcbbecb`;
+- run `34132388297`;
+- job `101775346828`;
+- exact source SHA `392c4b0b9e2c395212f77ac9286349cc0b784d05`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Tauri Release: **PASS**;
 - artifact upload: **PASS**;
-- artifact ID `10017138498`;
+- artifact ID `10023061747`;
 - artifact name `narro-m1-runtime-harness-windows-x64`;
-- digest `sha256:8d38e33021958d150907f4165588f9eb772e6f7e44649c5cf9d9c1748f51f14e`.
+- digest `sha256:8de39fd9e1d1d3b8eb0f9f2295d79928b0d2f82e3ccf3feb9d79a1b1fd75d329`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -129,13 +129,34 @@ No component-specific animation, React command behavior, Rust/domain/persistence
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-reduced-motion-foundation.md`.
 
+### Completed: accessible overlay primitives
+
+The sixth M5 top-level item is validated complete.
+
+Validated primitive-level behavior now provides:
+
+- dependency-free React `Tooltip`, `Popover`, `Menu`, and `MenuItem` primitives;
+- tooltip `role="tooltip"` plus `aria-describedby` relationship and preserved existing descriptions;
+- popover/menu trigger `aria-haspopup`, `aria-expanded`, and `aria-controls` semantics;
+- menu `role="menu"` / `role="menuitem"`, disabled-item exclusion, ArrowUp/ArrowDown/Home/End keyboard navigation, Escape dismissal, and focus restoration;
+- active menu-item selection closes the menu and restores trigger focus after the selected callback runs;
+- outside-pointer dismissal for popover/menu;
+- absolutely positioned overlay geometry anchored in a reserved wrapper so opening/closing overlays does not reflow sibling geometry;
+- shared motion tokens for tooltip/popover transitions with reduced-motion transform removal;
+- deterministic `scripts/test-ui-overlay-primitives.mjs` contract coverage in `preflight:frontend`;
+- no new UI dependency and no Rust/domain/persistence/native-window behavior changes.
+
+No physical Windows acceptance was required for this primitive-only infrastructure slice because no product screen consumes the primitives yet; rendered interaction/visual validation belongs to the upcoming fixture and product UI slices.
+
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-overlay-primitives.md`.
+
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Implement accessible tooltip/popover/menu primitives with stable geometry.`
+`Establish a screenshot/visual-regression fixture harness for representative dark/light states.`
 
-Before source changes, perform the normal mandatory startup, inspect the relevant accessibility/tooltip/menu geometry requirements in `docs/UI_UX_SPEC.md`, current motion/reduced-motion contracts, current frontend architecture and existing dependency set. Keep the slice at primitive-level infrastructure; do not jump ahead to screenshot fixtures, App shell, Home, board or task-card product UI.
+Before source changes, perform the normal mandatory startup and inspect existing build/test tooling plus the screenshot fixture requirements in `docs/UI_UX_SPEC.md`. Keep this slice at reusable visual-regression infrastructure; do not jump ahead to App shell, Home, board or task-card product UI except for the minimum deterministic fixture surface genuinely required to prove the harness.
 
 ## Durable correctness decisions
 
@@ -157,6 +178,7 @@ Future work must preserve:
 - motion never owns or delays domain-state completion;
 - reduced-motion removes nonessential translation/scale without hiding state changes;
 - tooltip intent delay is an interaction-intent delay and remains independent from animation duration;
+- overlay primitives must preserve stable sibling geometry and keyboard/focus accessibility;
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
 - no infinite decorative animation, especially on `focusSurface`;
