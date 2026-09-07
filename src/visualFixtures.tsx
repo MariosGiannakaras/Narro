@@ -1,14 +1,17 @@
 import { createRoot } from "react-dom/client";
 import { flushSync } from "react-dom";
 import "./App.css";
+import { AppShell } from "./AppShell";
 import "./visualFixtures.css";
 
-const theme = new URLSearchParams(window.location.search).get("theme") === "dark" ? "dark" : "light";
+const searchParams = new URLSearchParams(window.location.search);
+const theme = searchParams.get("theme") === "dark" ? "dark" : "light";
+const fixture = searchParams.get("fixture") === "app-shell" ? "app-shell" : "foundation";
 const captureViewport = { width: 1280, height: 720 } as const;
 document.documentElement.dataset.theme = theme;
 document.body.classList.add("visual-fixture-body");
 
-function VisualFixtureSurface() {
+function FoundationFixtureSurface() {
   return (
     <main className="visual-fixture" data-visual-fixture="foundation">
       <section className="visual-fixture__card">
@@ -32,6 +35,10 @@ function VisualFixtureSurface() {
       </section>
     </main>
   );
+}
+
+function VisualFixtureSurface() {
+  return fixture === "app-shell" ? <AppShell fixtureMode /> : <FoundationFixtureSurface />;
 }
 
 const rootElement = document.getElementById("root");
@@ -78,15 +85,26 @@ function readVisualNode(selector: string, fields: Array<keyof VisualContractNode
   return values;
 }
 
-const visualContract = {
-  theme,
-  viewport: captureViewport,
-  canvas: readVisualNode("body", ["backgroundColor", "color"]),
-  panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
-  card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
-  button: readVisualNode(".visual-fixture__button", ["width", "height", "backgroundColor", "color", "borderRadius"]),
-  timer: readVisualNode(".visual-fixture__timer", ["color", "fontSize", "lineHeight", "fontVariantNumeric"]),
-};
+const visualContract = fixture === "app-shell"
+  ? {
+      fixture,
+      theme,
+      viewport: captureViewport,
+      canvas: readVisualNode("body", ["backgroundColor", "color"]),
+      shell: readVisualNode(".app-shell", ["width", "height", "backgroundColor"]),
+      sidebar: readVisualNode(".app-shell__sidebar", ["width", "height", "backgroundColor"]),
+      workspace: readVisualNode(".app-shell__workspace", ["width", "height", "backgroundColor"]),
+      primaryNav: readVisualNode(".app-shell__primary-nav", ["height", "backgroundColor"]),
+    }
+  : {
+      theme,
+      viewport: captureViewport,
+      canvas: readVisualNode("body", ["backgroundColor", "color"]),
+      panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
+      card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
+      button: readVisualNode(".visual-fixture__button", ["width", "height", "backgroundColor", "color", "borderRadius"]),
+      timer: readVisualNode(".visual-fixture__timer", ["color", "fontSize", "lineHeight", "fontVariantNumeric"]),
+    };
 
 const contractNode = document.createElement("script");
 contractNode.id = "visual-contract";
