@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-07
+Last updated: 2026-09-08
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 
@@ -12,68 +12,68 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 9 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 10 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 9/28`**
+**`M-5/10 | 5/5 | 10/28`**
 
-The first nine ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, and Home dashboard/list cards. The next ordered item is list-card rest, hover/Open, overflow-menu and create-list states.
+The first ten ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, and list-card rest/hover/Open/overflow-menu/create-list states. The next ordered item is the Create/Edit List modal.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`62d8d8a600ecdb6c42ba70db43f345a9687cfddf`
+`61fd8b982839c03133e05163842f5a1f9b2c8e0d`
 
-This is the guarded squash merge of PR #81 — `M5: add Home dashboard list cards`.
+This is the guarded squash merge of PR #82 — `M5: add list-card interaction states`.
 
-### PR #81 exact-head validation
+### PR #82 exact-head validation
 
 Final exact validated PR head:
 
-`42655fcf712cbb72d28dd5ad93dc4943a56091e4`
+`35c2668fd2fa0f1d88764584d41cf42df9795964`
 
-Windows PR CI #288:
+Windows PR CI #290:
 
-- run `34150415778`;
-- job `101831341373`;
-- exact head `42655fcf712cbb72d28dd5ad93dc4943a56091e4`;
+- run `34161062758`;
+- job `101862841977`;
+- exact head `35c2668fd2fa0f1d88764584d41cf42df9795964`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10029290625`;
+- visual artifact ID `10032735331`;
 - visual artifact name `narro-m5-visual-regression`;
-- visual artifact digest `sha256:584514e21547a69770b61b92922b7b65591c5e3df021a9f71822c8ccbab36c7b`;
-- diagnostic artifact ID `10029428916`;
+- visual artifact digest `sha256:ba2d353a45051fd6cd8ae7c6faf53dcac173eddcbb87d3052d797799ccb1f7e8`;
+- diagnostic artifact ID `10032854077`;
 - diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
-- diagnostic artifact digest `sha256:5d43cab738b2cb830d83a35d7d0f1b530e82bbd721364c7b92a5669b039b97ae`;
-- final exact-head semantic/diff review: **PASS**; 12 changed files confined to Home read-model/UI integration, visual harness/preflight and branch handoff scope;
-- PR comments, review submissions and inline review threads requiring resolution: **none**.
+- diagnostic artifact digest `sha256:a95087f02de6ef7d248cc4471af90f97f7fd874ead75d4dca0c27fef5c8a7bb2`;
+- final exact-head semantic/diff review: **PASS**; 9 changed files confined to Home interaction states, visual harness/preflight, and branch handoff scope;
+- PR comments, review submissions, and inline review threads requiring resolution: **none**.
 
-PR #81 was squash-merged with an expected-head guard set to the validated head, producing source SHA `62d8d8a600ecdb6c42ba70db43f345a9687cfddf`.
+PR #82 was squash-merged with an expected-head guard set to the validated head, producing source SHA `61fd8b982839c03133e05163842f5a1f9b2c8e0d`.
 
 ### Resulting-main validation
 
-Windows main CI #289:
+Windows main CI #291:
 
-- run `34153630279`;
-- job `101840803319`;
-- exact source SHA `62d8d8a600ecdb6c42ba70db43f345a9687cfddf`;
+- run `34161939996`;
+- job `101865381504`;
+- exact source SHA `61fd8b982839c03133e05163842f5a1f9b2c8e0d`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10030335039`;
+- visual artifact ID `10033003446`;
 - visual artifact name `narro-m5-visual-regression`;
-- visual artifact digest `sha256:f2125065aa0d046165179d20870545c3f7bed4b02df831cb3b887984d4216d46`;
-- diagnostic artifact ID `10030472150`;
+- visual artifact digest `sha256:7919f1f34c84c45a4ae9a8048d2ba161dc1cd5cb38917ee6d49c9613f7724ee0`;
+- diagnostic artifact ID `10033125255`;
 - diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
-- diagnostic artifact digest `sha256:0111064264e0ac26334424a9605fc77f1af921c44e6f35880f36f3f85dfcf852`.
+- diagnostic artifact digest `sha256:67133df3313f25bb068c382b753504d58bc62245c4a91982fb18330f6298d1e1`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -168,7 +168,7 @@ Validated behavior now provides:
 - a read-only Rust Home snapshot composed from validated active-list and active-task persistence reads;
 - active-list cards with up to four pending task previews plus full pending-count and aggregate-EST totals;
 - a default Home hierarchy with neutral time-based greeting, `Your Lists`, helper copy and `All Lists` aggregate card;
-- stable list-card header geometry with reserved future action space and no premature hover/Open/menu/create-list interactions;
+- stable list-card header geometry with reserved future action space;
 - safe six-digit-hex list accent projection and no direct rendering of unvalidated stored icon paths;
 - loading, empty and typed-error states;
 - renderer recreation reloads Home data from SQLite rather than retaining hidden renderer authority;
@@ -178,13 +178,31 @@ Validated behavior now provides:
 
 Detailed evidence: `work-log/2026-09-07-2154-chatgpt-m5-home-dashboard-list-cards.md`.
 
+### Completed: list-card interaction states
+
+The tenth M5 top-level item is validated complete.
+
+Validated behavior now provides:
+
+- callback-gated Open/Edit/Duplicate/Archive card actions so product runtime exposes controls only when a real target exists;
+- shared accessible overflow Menu/MenuItem primitives inside the pre-reserved action slot;
+- absolute hover/focus Open overlay with unchanged card/header/title/footer geometry;
+- callback-gated dashed Create List tile;
+- deterministic light/dark forced-hover/Open, open-menu and Create List fixture states;
+- visual validation proving rest/interaction/create-card geometry parity and theme parity;
+- reduced-motion-safe Open presentation;
+- deterministic `scripts/test-ui-list-card-states.mjs` frontend-preflight coverage;
+- no Rust/domain/persistence/list CRUD/modal/board/search/settings/reports scope folded into the slice.
+
+Detailed evidence: `work-log/2026-09-08-0019-chatgpt-m5-list-card-interaction-states.md`.
+
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`List-card rest, hover/Open, overflow-menu and create-list states.`
+`Create/Edit List modal with icon import, color selection, title, cancel/create states.`
 
-Start from the validated Home baseline. Preserve the reserved action-slot geometry so hover/focus controls do not reflow titles or cards. Implement only the evidence-backed list-card interaction states and create-list card state; do not absorb the separate Create/Edit List modal item, board/task UI, search palette, Settings content or Reports behavior.
+Start from the validated Home/list-card callback surface and M2 persistence-first list CRUD. Implement only the evidence-backed modal, icon import, color selection, title, cancel/create/edit states and the minimum real persistence integration required by those states. Preserve existing Home/card geometry and do not absorb the later list board, task-card state model, list-settings/archive/delete flows, search palette, Settings content or Reports behavior.
 
 ## Durable correctness decisions
 
