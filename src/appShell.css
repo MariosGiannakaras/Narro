@@ -83,9 +83,9 @@
   background: transparent;
   text-align: left;
   transition:
-    color var(--motion-duration-hover) var(--motion-ease-standard),
-    background-color var(--motion-duration-hover) var(--motion-ease-standard),
-    border-color var(--motion-duration-hover) var(--motion-ease-standard);
+    color var(--motion-duration-hover-focus) var(--motion-ease-enter),
+    background-color var(--motion-duration-hover-focus) var(--motion-ease-enter),
+    border-color var(--motion-duration-hover-focus) var(--motion-ease-enter);
 }
 
 .app-shell__nav-button:hover:not(:disabled),
@@ -226,7 +226,7 @@
   min-width: 0;
   padding: var(--space-4);
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-task-card);
   background: var(--color-surface-raised);
   color: var(--color-text-primary);
 }
