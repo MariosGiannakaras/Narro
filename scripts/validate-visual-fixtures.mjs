@@ -5,6 +5,7 @@ const root = process.cwd();
 const outputDirectory = path.resolve(root, process.argv[2] ?? "artifacts/visual-regression");
 const themes = ["light", "dark"];
 const expectedCapture = { width: 1280, height: 720 };
+const homeGeometry = new Map();
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`Visual fixture validation failed: ${message}`);
@@ -45,6 +46,14 @@ function readVisualContract(domPath, label) {
   return { dom, contract: JSON.parse(match[1]) };
 }
 
+function validateShellContract(shell, label, theme) {
+  invariant(shell.theme === theme, `${label} contract theme differs`);
+  invariant(shell.viewport?.width === expectedCapture.width && shell.viewport?.height === expectedCapture.height, `${label} viewport contract differs`);
+  invariant(shell.shell?.width === 960 && shell.shell?.height === 560, `${label} shell geometry differs from 960x560 fixture contract`);
+  invariant(shell.sidebar?.width === 208, `${label} sidebar width differs from 208px contract`);
+  invariant(shell.primaryNav?.height === 56, `${label} primary navigation height differs from 56px contract`);
+}
+
 for (const theme of themes) {
   const screenshotPath = path.join(outputDirectory, `${theme}.png`);
   const domPath = path.join(outputDirectory, `${theme}.html`);
@@ -64,11 +73,38 @@ for (const theme of themes) {
   invariant(shellDom.includes('data-app-shell="main"'), `${shellLabel} app-shell identity is missing`);
   invariant(shellDom.includes('data-active-destination="home"'), `${shellLabel} default Home destination is missing`);
   invariant(shell.fixture === "app-shell", `${shellLabel} contract fixture identity differs`);
-  invariant(shell.theme === theme, `${shellLabel} contract theme differs`);
-  invariant(shell.viewport?.width === expectedCapture.width && shell.viewport?.height === expectedCapture.height, `${shellLabel} viewport contract differs`);
-  invariant(shell.shell?.width === 960 && shell.shell?.height === 560, `${shellLabel} shell geometry differs from 960x560 fixture contract`);
-  invariant(shell.sidebar?.width === 208, `${shellLabel} sidebar width differs from 208px contract`);
-  invariant(shell.primaryNav?.height === 56, `${shellLabel} primary navigation height differs from 56px contract`);
+  validateShellContract(shell, shellLabel, theme);
+
+  const homeLabel = `home-${theme}`;
+  const homeScreenshotPath = path.join(outputDirectory, `${homeLabel}.png`);
+  const homeDomPath = path.join(outputDirectory, `${homeLabel}.html`);
+  validatePng(homeScreenshotPath, homeLabel);
+
+  const { dom: homeDom, contract: home } = readVisualContract(homeDomPath, homeLabel);
+  invariant(homeDom.includes('data-app-shell="main"'), `${homeLabel} app-shell identity is missing`);
+  invariant(homeDom.includes('data-active-destination="home"'), `${homeLabel} active Home destination is missing`);
+  invariant(homeDom.includes('data-home-dashboard="main"'), `${homeLabel} Home dashboard identity is missing`);
+  invariant(homeDom.includes("Your Lists"), `${homeLabel} Your Lists heading is missing`);
+  invariant(homeDom.includes("All Lists"), `${homeLabel} All Lists aggregate card is missing`);
+  invariant(homeDom.includes("Work"), `${homeLabel} representative Work list card is missing`);
+  invariant(homeDom.includes("Personal"), `${homeLabel} representative Personal list card is missing`);
+  invariant(home.fixture === "home", `${homeLabel} contract fixture identity differs`);
+  validateShellContract(home, homeLabel, theme);
+  invariant(home.home?.width > 0 && home.home?.height > 0, `${homeLabel} Home content has invalid geometry`);
+  invariant(home.aggregateCard?.width > 0 && home.aggregateCard?.height > 0, `${homeLabel} aggregate card has invalid geometry`);
+  invariant(home.listCard?.width > 0 && home.listCard?.height > 0, `${homeLabel} list card has invalid geometry`);
+  invariant(home.aggregateCard?.borderRadius === home.listCard?.borderRadius, `${homeLabel} card radius contract diverges`);
+
+  homeGeometry.set(theme, {
+    home: { width: home.home.width, height: home.home.height },
+    aggregateCard: { width: home.aggregateCard.width, height: home.aggregateCard.height },
+    listCard: { width: home.listCard.width, height: home.listCard.height },
+  });
 }
+
+invariant(
+  stableJson(homeGeometry.get("light")) === stableJson(homeGeometry.get("dark")),
+  "Home light/dark geometry differs; theme must preserve hierarchy and card sizing",
+);
 
 console.log("Captured visual fixture contracts: PASS");
