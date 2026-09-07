@@ -25,7 +25,9 @@ for (const [haystack, needle, label] of [
   [html, '/src/visualFixtures.tsx', "fixture entry module"],
   [source, 'data-visual-fixture="foundation"', "foundation fixture identity"],
   [source, 'fixture === "app-shell"', "app-shell fixture selection"],
-  [source, '<AppShell fixtureMode />', "app-shell fixture rendering"],
+  [source, 'fixture === "home"', "Home fixture selection"],
+  [source, 'homeContent={<ShellPlaceholderFixture />}', "app-shell fixture rendering without runtime IPC"],
+  [source, 'fixtureSnapshot={homeFixtureSnapshot}', "deterministic Home fixture data"],
   [source, 'dataset.visualFixtureReady = "true"', "fixture ready signal"],
   [source, 'id = "visual-contract"', "serialized visual contract"],
   [source, 'data-timer-numerals="true"', "tabular timer coverage"],
@@ -39,8 +41,12 @@ for (const [haystack, needle, label] of [
   [capture, "--dump-dom", "captured DOM output"],
   [capture, "fixture=app-shell", "app-shell Edge capture"],
   [capture, '"app-shell-$theme.png"', "app-shell screenshot artifact"],
+  [capture, "fixture=home", "Home Edge capture"],
+  [capture, '"home-$theme.png"', "Home screenshot artifact"],
   [validator, 'data-app-shell="main"', "captured app-shell identity validation"],
+  [validator, 'data-home-dashboard="main"', "captured Home identity validation"],
   [validator, 'shell.shell?.width === 960 && shell.shell?.height === 560', "app-shell geometry validation"],
+  [validator, "Home light/dark geometry differs", "Home theme geometry parity check"],
   [validator, "Captured visual fixture contracts: PASS", "captured contract validation"],
 ]) {
   requireText(haystack, needle, label);
