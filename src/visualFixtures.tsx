@@ -4,6 +4,7 @@ import "./App.css";
 import "./visualFixtures.css";
 
 const theme = new URLSearchParams(window.location.search).get("theme") === "dark" ? "dark" : "light";
+const captureViewport = { width: 1280, height: 720 } as const;
 document.documentElement.dataset.theme = theme;
 document.body.classList.add("visual-fixture-body");
 
@@ -79,10 +80,7 @@ function readVisualNode(selector: string, fields: Array<keyof VisualContractNode
 
 const visualContract = {
   theme,
-  viewport: {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  },
+  viewport: captureViewport,
   canvas: readVisualNode("body", ["backgroundColor", "color"]),
   panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
   card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
