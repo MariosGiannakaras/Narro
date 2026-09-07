@@ -1,0 +1,67 @@
+:root {
+  --motion-duration-press: 80ms;
+  --motion-duration-hover-focus: 120ms;
+  --motion-duration-tooltip: 140ms;
+  --motion-delay-tooltip-intent: 400ms;
+  --motion-duration-popover: 150ms;
+  --motion-duration-inline: 180ms;
+  --motion-duration-modal: 200ms;
+  --motion-duration-reorder: 180ms;
+  --motion-duration-completion: 220ms;
+  --motion-duration-chart-filter: 300ms;
+  --motion-duration-focus-surface: 150ms;
+
+  --motion-ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  --motion-distance-lift: 0.0625rem;
+  --motion-distance-overlay: 0.25rem;
+  --motion-scale-press: 0.98;
+  --motion-scale-drag: 1.0125;
+}
+
+.motion-interactive {
+  transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+  transition-duration: var(--motion-duration-hover-focus);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.motion-overlay {
+  transition-property: opacity, transform;
+  transition-duration: var(--motion-duration-popover);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.motion-inline {
+  transition-property: opacity, transform;
+  transition-duration: var(--motion-duration-inline);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.motion-modal {
+  transition-property: opacity, transform;
+  transition-duration: var(--motion-duration-modal);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.motion-reorder {
+  transition-property: opacity, transform;
+  transition-duration: var(--motion-duration-reorder);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.motion-completion {
+  transition-property: color, opacity, transform;
+  transition-duration: var(--motion-duration-completion);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.motion-focus-surface {
+  transition-property: opacity, transform;
+  transition-duration: var(--motion-duration-focus-surface);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.motion-exit {
+  transition-timing-function: var(--motion-ease-exit);
+}
