@@ -185,7 +185,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Implement theme tokens for canvas/surfaces/borders/text/accent/success/warning/destructive states based on `docs/UI_UX_SPEC.md`.
 - [x] Implement typography using Segoe UI Variable / Windows system fallbacks and tabular timer numerals.
 - [x] Implement shared spacing/radius/elevation primitives.
-- [ ] Implement shared motion primitives and duration/easing tokens from `docs/UI_UX_SPEC.md`.
+- [x] Implement shared motion primitives and duration/easing tokens from `docs/UI_UX_SPEC.md`.
 - [ ] Implement `prefers-reduced-motion` behavior before adding component-specific animation.
 - [ ] Implement accessible tooltip/popover/menu primitives with stable geometry.
 - [ ] Establish a screenshot/visual-regression fixture harness for representative dark/light states.
