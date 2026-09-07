@@ -43,14 +43,20 @@ impl Display for ListEditorError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::OpenDatabase(error) => write!(formatter, "failed to open Narro database: {error}"),
-            Self::ConfigureDatabase(error) => write!(formatter, "failed to configure Narro database: {error}"),
+            Self::ConfigureDatabase(error) => {
+                write!(formatter, "failed to configure Narro database: {error}")
+            }
             Self::Store(error) => write!(formatter, "list mutation failed: {error}"),
             Self::Io(error) => write!(formatter, "list icon storage failed: {error}"),
             Self::InvalidColor => formatter.write_str("list color must be a six-digit hex color"),
             Self::EmptyIcon => formatter.write_str("imported list icon is empty"),
             Self::IconTooLarge => formatter.write_str("imported list icon exceeds the 1 MiB limit"),
-            Self::UnsupportedIconType => formatter.write_str("list icon must be jpg, jpeg, png, or svg"),
-            Self::InvalidSvg => formatter.write_str("imported SVG is not a safe standalone SVG image"),
+            Self::UnsupportedIconType => {
+                formatter.write_str("list icon must be jpg, jpeg, png, or svg")
+            }
+            Self::InvalidSvg => {
+                formatter.write_str("imported SVG is not a safe standalone SVG image")
+            }
         }
     }
 }
@@ -105,7 +111,9 @@ fn validate_icon_bytes(extension: &str, bytes: &[u8]) -> Result<(), ListEditorEr
     }
 
     match extension {
-        "png" if bytes.starts_with(&[0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a]) => Ok(()),
+        "png" if bytes.starts_with(&[0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a]) => {
+            Ok(())
+        }
         "jpg" if bytes.starts_with(&[0xff, 0xd8, 0xff]) => Ok(()),
         "svg" => {
             let text = std::str::from_utf8(bytes).map_err(|_| ListEditorError::InvalidSvg)?;
@@ -167,7 +175,9 @@ fn cleanup_icon(app_dir: &Path, relative: &str) {
     match std::fs::remove_file(&path) {
         Ok(()) => {}
         Err(error) if error.kind() == std::io::ErrorKind::NotFound => {}
-        Err(error) => eprintln!("Warning: list mutation committed but old icon cleanup failed: {error}"),
+        Err(error) => {
+            eprintln!("Warning: list mutation committed but old icon cleanup failed: {error}")
+        }
     }
 }
 
@@ -283,10 +293,12 @@ fn app_data_dir(app_handle: &tauri::AppHandle) -> CommandResult<PathBuf> {
 pub fn create_list_from_editor(
     app_handle: tauri::AppHandle,
     request: ListEditorRequest,
-) -> CommandResult<ListRecord> {
+) -> CommandResult<()> {
     let app_dir = app_data_dir(&app_handle)?;
     let now = chrono::Utc::now().to_rfc3339();
-    create(&app_dir, request, &now).map_err(command_error)
+    create(&app_dir, request, &now)
+        .map(|_| ())
+        .map_err(command_error)
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -294,12 +306,14 @@ pub fn update_list_from_editor(
     app_handle: tauri::AppHandle,
     list_id: String,
     request: ListEditorRequest,
-) -> CommandResult<ListRecord> {
+) -> CommandResult<()> {
     let id = ListId::parse_str(&list_id)
         .map_err(|_| CommandError::invalid_argument("listId", "must be a valid UUID"))?;
     let app_dir = app_data_dir(&app_handle)?;
     let now = chrono::Utc::now().to_rfc3339();
-    update(&app_dir, id, request, &now).map_err(command_error)
+    update(&app_dir, id, request, &now)
+        .map(|_| ())
+        .map_err(command_error)
 }
 
 #[cfg(test)]
