@@ -1,6 +1,7 @@
 @import "./theme.css";
 @import "./typography.css";
 @import "./geometry.css";
+@import "./motion.css";
 
 :root {
   font-family: var(--font-family-ui);
