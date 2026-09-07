@@ -16,80 +16,64 @@ Latest fully main-validated source/test SHA:
 
 `7918c378d50f516a152f0a7a90a7564eaedac42f`
 
-This is the squash merge of PR #79 — `M5: add visual regression fixture harness`.
+This remains the squash merge of PR #79 — `M5: add visual regression fixture harness`. Markdown-only tracking descendants do not replace this source/test baseline.
 
-Exact validation evidence:
+## ACTIVE SLICE
 
-- final corrected PR head `de2aa8307c107e16eb02c3179910a82c5ccb8944`;
-- Windows PR CI #283 / run `34140072237` / job `101799859067`: SUCCESS; preflight, visual capture/validation, visual artifact, release build, and diagnostic artifact all PASS;
-- PR visual artifact `10025733897`, `narro-m5-visual-regression`, digest `sha256:146f0dbd015ecb84f62b26eec23a96c9a7df9ae1d1d29000f95505c9d40e8366`;
-- PR diagnostic artifact `10025922183`, `narro-m1-runtime-harness-windows-x64`, digest `sha256:aad9e89c8ecd2adaffaf2d2b068e6d515b2c90cdba564ca2de6a103afed8e10c`;
-- PR #79 squash-merged with expected-head guard set to that exact validated head, producing source SHA `7918c378d50f516a152f0a7a90a7564eaedac42f`;
-- Windows resulting-main CI #284 / run `34141236455` / job `101803468031`: SUCCESS; preflight, visual capture/validation, visual artifact, release build, and diagnostic artifact all PASS;
-- main visual artifact `10026165505`, `narro-m5-visual-regression`, digest `sha256:5bc64b3ee03956713b61165e991a9a4357695266c2c924ae88fa5817626a9aeb`;
-- main diagnostic artifact `10026353917`, `narro-m1-runtime-harness-windows-x64`, digest `sha256:f0188f7bbf88c017cc16e01aeba471ee97341a7a3e224327c051fa3393b0b671`;
-- exact-head changed-file review: PASS; 11 changed files confined to fixture/build/test/CI harness scope;
-- PR comments/reviews/review threads requiring resolution: none.
+**M5 Main UI — App shell/navigation.**
 
-Markdown-only tracking descendants do not replace this validated source/test baseline.
+Branch: `m5-app-shell-navigation`.
 
-## LATEST COMPLETED SLICE
+Implemented candidate scope:
 
-**M5 shared visual foundation — screenshot/visual-regression fixture harness.**
+- default main webview now renders a reusable `AppShell` instead of the temporary diagnostic dashboard;
+- compact left navigation contains `+ Create new list`, `All my lists`, and `Archived lists` with stable active-row geometry;
+- upper-right utility actions reserve stable Search and Settings entry points;
+- bottom primary navigation provides Home and Reports;
+- destinations currently render only minimal shell placeholders, deliberately not Home cards, board/task UI, search palette, settings UI, or reports content;
+- navigation exposes `aria-current="page"`, landmark labels, focus-visible states, and reduced-motion-safe transitions;
+- legacy M1/M4 Windows diagnostic controls remain available only through explicit `?diagnostics=1` and are collapsed away from the normal product surface;
+- normal product mode no longer starts shortcut/monitor/autostart diagnostic probes; authoritative `get_state` / `state-changed` projection remains intact;
+- deterministic `scripts/test-ui-app-shell.mjs` coverage is wired into `preflight:frontend`;
+- the existing Windows Edge visual harness now captures `app-shell-light` and `app-shell-dark` in addition to the unchanged foundation baselines, validates exact 1280x720 PNG output, semantic shell identity, default Home state, and stable fixture geometry;
+- document title is now `Narro` rather than the old diagnostic title;
+- no Rust/domain/persistence/native-window code changed.
 
-Validated capabilities:
+Candidate diff from current `main`: 11 frontend/visual-harness files. Source-level review caught and corrected shared-token mismatches before CI (`--radius-task-card`, `--motion-duration-hover-focus`, `--motion-ease-enter`).
 
-- deterministic representative light/dark React fixture surface using shared semantic visual contracts;
-- stable JSON geometry/style baselines;
-- dedicated Vite fixture entry/page;
-- Windows Microsoft Edge headless capture with no added browser-automation dependency;
-- captured-DOM semantic contract validation;
-- explicit PNG signature plus exact 1280x720 image-dimension validation;
-- capture dimensions are treated as an image-output contract rather than an assumption about Edge's DOM viewport after browser chrome;
-- deterministic frontend fixture-harness checks are part of repository preflight;
-- Windows CI captures and uploads `narro-m5-visual-regression` artifacts on both exact PR head and resulting `main`;
-- no App shell/Home/board/task-card product behavior and no Rust/domain/persistence/native-window behavior changed.
-
-No physical Windows acceptance is required for this infrastructure-only slice because Windows CI itself executes the real Edge capture path and validates the resulting artifacts. Product-screen visual acceptance begins with subsequent M5 UI slices.
-
-Detailed evidence: `work-log/2026-09-07-1920-chatgpt-m5-visual-regression-harness.md`.
+Local Node/Rust preflight: **NOT RUN** — this connector-only environment does not expose a local checkout/toolchain. Do not infer PASS. Windows CI is the next reproducible gate.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 5/5 | 7/28`**
+**`M-5/10 | 2/5 | 7/28`**
 
-Visual-regression-harness checkpoints:
+App-shell/navigation checkpoints:
 
-1. mandatory startup + repo/spec/frontend/dependency inspection + narrow branch/scope — COMPLETE;
-2. fixture/build/capture/contract implementation + deterministic harness review — COMPLETE;
-3. final corrected exact PR-head Windows CI including preflight/visual capture/release/artifacts — COMPLETE;
-4. exact-head diff/review-thread check + expected-head guarded merge — COMPLETE;
-5. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE.
-
-A new implementation slice has not started. Reset the small-slice counter only after defining the App shell/navigation slice and its meaningful checkpoints.
+1. mandatory startup + current-main/PR/spec/frontend inspection + narrow branch/scope — COMPLETE;
+2. shell/navigation implementation + preserved diagnostic path + deterministic contract/visual-fixture candidate review — COMPLETE;
+3. final corrected exact PR-head Windows CI including repository preflight, shell dark/light capture, release build and required artifacts — PENDING;
+4. exact-head semantic/diff/review-thread check + expected-head guarded merge — PENDING;
+5. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
 ## IMPORTANT INVARIANTS
 
 - authoritative Rust/domain state and persistence-first mutations remain unchanged;
 - stable task identities and renderer-independent timer/session authority remain unchanged;
-- semantic color, typography, geometry and motion roles remain separate reusable contracts;
-- overlay primitives must preserve stable sibling geometry and keyboard/focus accessibility;
-- motion never owns or delays domain-state completion;
-- reduced motion removes nonessential translation/scale without hiding state changes;
-- tooltip intent delay remains separate from animation duration;
-- no hover/focus layout shift or moving hit targets;
-- timer numerals remain tabular with no per-second transition animation;
-- no infinite decorative animation, especially on `focusSurface`;
+- main-window recreation must continue deriving authoritative state from Rust/SQLite rather than hidden renderer memory;
+- App shell is navigation/presentation only; no authoritative product state moves into renderer navigation state;
+- semantic color, typography, geometry and motion contracts remain the styling source of truth;
+- hover/focus/active navigation states must not reflow sibling geometry or move pointer targets;
+- reduced motion must remain usable and remove nonessential motion;
 - keyboard/focus accessibility remains required;
-- visual capture dimensions are validated from the image output and must not rely on browser DOM viewport equality.
+- excluded account/trial/upgrade/profile/AI/integration controls must not appear;
+- diagnostic controls remain explicitly gated and must not become normal product navigation;
+- visual capture dimensions are validated from PNG output and must not rely on DOM viewport equality.
 
 ## NEXT AGENT ACTION
 
-Perform mandatory startup again and start only the next ordered M5 item:
+Create/reuse one PR for branch `m5-app-shell-navigation`, inspect its exact head SHA, and run/observe the authoritative Windows CI on that exact head. Require repository preflight, `app-shell-light`/`app-shell-dark` Edge capture validation, visual artifact upload, Tauri release build, and diagnostic artifact upload to succeed. If CI fails, inspect the exact failure log and fix only evidence-backed problems; do not broaden into Home cards or later M5 items.
 
-`App shell/navigation.`
-
-Before source changes inspect the relevant App-shell/navigation evidence in `docs/UI_UX_SPEC.md`, current `src/App.tsx` and its direct dependencies, existing shared visual contracts/overlay primitives, and the validated visual-regression harness. Define a narrow deterministic shell/navigation slice. Add representative shell fixture coverage where useful. Preserve keyboard/focus/reduced-motion/no-layout-shift invariants. Do not skip ahead to Home dashboard/list cards, board/task cards, or later product behavior except for the minimum placeholder/content structure genuinely required to validate the shell/navigation hierarchy.
+After an exact-head PASS, verify the candidate diff/review threads, merge only with an expected-head guard, validate the resulting main source SHA with Windows CI, and only then mark `App shell/navigation` complete in `TODO.md` and reconcile `STATUS.md`, `HANDOFF.md`, plus a new immutable work-log entry.
 
 ## USER ACTION REQUIRED
 
