@@ -71,7 +71,7 @@
   background: var(--color-surface-raised);
   box-shadow: var(--elevation-raised);
   transition-property: border-color, background-color, box-shadow;
-  transition-duration: var(--motion-duration-interactive);
+  transition-duration: var(--motion-duration-hover-focus);
   transition-timing-function: var(--motion-ease-enter);
 }
 
@@ -167,7 +167,7 @@
   min-height: 2rem;
   color: var(--color-text-secondary);
   transition-property: opacity;
-  transition-duration: var(--motion-duration-interactive);
+  transition-duration: var(--motion-duration-hover-focus);
   transition-timing-function: var(--motion-ease-enter);
 }
 
@@ -207,9 +207,9 @@
   box-shadow: var(--elevation-raised);
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, calc(-50% + var(--motion-distance-interactive)));
+  transform: translate(-50%, calc(-50% + var(--motion-distance-lift)));
   transition-property: opacity, transform, box-shadow;
-  transition-duration: var(--motion-duration-interactive);
+  transition-duration: var(--motion-duration-hover-focus);
   transition-timing-function: var(--motion-ease-enter);
 }
 
