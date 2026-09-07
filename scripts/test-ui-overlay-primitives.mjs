@@ -24,6 +24,7 @@ for (const [needle, label] of [
   ['event.key === "Home"', "Home menu navigation"],
   ['event.key === "End"', "End menu navigation"],
   ['document.addEventListener("pointerdown"', "outside pointer dismissal"],
+  ['target.closest(\'[role="menuitem"]:not(:disabled)\')', "menu selection dismissal"],
   ['triggerRef.current?.focus()', "focus restoration"],
 ]) {
   requireText(source, needle, label);
