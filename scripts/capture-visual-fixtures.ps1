@@ -139,34 +139,25 @@ try {
         $screenshot = Join-Path $outputPath "$theme.png"
         $dom = Join-Path $outputPath "$theme.html"
 
-        Capture-Theme `
-            -EdgePath $edge `
-            -Theme $theme `
-            -Url $url `
-            -ScreenshotPath $screenshot `
-            -DomPath $dom
+        Capture-Theme -EdgePath $edge -Theme $theme -Url $url -ScreenshotPath $screenshot -DomPath $dom
 
         $shellUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=app-shell"
         $shellScreenshot = Join-Path $outputPath "app-shell-$theme.png"
         $shellDom = Join-Path $outputPath "app-shell-$theme.html"
 
-        Capture-Theme `
-            -EdgePath $edge `
-            -Theme "app-shell-$theme" `
-            -Url $shellUrl `
-            -ScreenshotPath $shellScreenshot `
-            -DomPath $shellDom
+        Capture-Theme -EdgePath $edge -Theme "app-shell-$theme" -Url $shellUrl -ScreenshotPath $shellScreenshot -DomPath $shellDom
 
         $homeUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=home"
         $homeScreenshot = Join-Path $outputPath "home-$theme.png"
         $homeDom = Join-Path $outputPath "home-$theme.html"
 
-        Capture-Theme `
-            -EdgePath $edge `
-            -Theme "home-$theme" `
-            -Url $homeUrl `
-            -ScreenshotPath $homeScreenshot `
-            -DomPath $homeDom
+        Capture-Theme -EdgePath $edge -Theme "home-$theme" -Url $homeUrl -ScreenshotPath $homeScreenshot -DomPath $homeDom
+
+        $listCardUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=list-card-states"
+        $listCardScreenshot = Join-Path $outputPath "list-card-states-$theme.png"
+        $listCardDom = Join-Path $outputPath "list-card-states-$theme.html"
+
+        Capture-Theme -EdgePath $edge -Theme "list-card-states-$theme" -Url $listCardUrl -ScreenshotPath $listCardScreenshot -DomPath $listCardDom
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {
