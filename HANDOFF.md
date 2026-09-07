@@ -7,91 +7,61 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 4 of 28 top-level items validated.
+- Milestone 5: ACTIVE / 5 of 28 top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Latest fully main-validated source/test SHA:
 
-`a45715ca8d24f11d580a64a4382db2fb83651db8`
+`0b0433fe9c2922d1a02a5a45656857368dcbbecb`
 
-This is the guarded squash merge of PR #73 — `M5: add shared motion token foundation`.
+This is the merge of PR #76 — `M5: add reduced-motion foundation`.
 
-Windows PR CI #270 / run `34104711339` / job `101686964301`: SUCCESS on exact PR head `56b5960f60626a8a421335a4f154e98998b7e7b7`, preflight/release/artifact PASS, artifact `10012348649`, digest `sha256:009f74cac0b11c3ac804b47fec29281e8c182612eda3683c86aa152a1b9664ad`.
+Exact validation evidence:
 
-PR #73 was guarded-squash-merged to source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`.
+- final PR head `3a67e076292424e8cbcfec4713ed7e3463fc3420`;
+- Windows PR CI #272 / run `34116005616` / job `101722851191`: SUCCESS; preflight/release/artifact PASS; artifact `10016707418`; digest `sha256:ded80ef9c67d38293be47d869c50d773596e7e9185ff6f22696df6cb22cb2c8c`;
+- PR #76 merged from that exact validated head to source SHA `0b0433fe9c2922d1a02a5a45656857368dcbbecb`;
+- Windows resulting-main CI #273 / run `34117327629` / job `101727089898`: SUCCESS; preflight/release/artifact PASS; artifact `10017138498`; digest `sha256:8d38e33021958d150907f4165588f9eb772e6f7e44649c5cf9d9c1748f51f14e`;
+- final semantic diff review: PASS; five intended files only;
+- PR comments/reviews/review threads requiring resolution: none.
 
-Windows resulting-main CI #271 / run `34111571620` / job `101708791529`: SUCCESS on exact source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`, preflight/release/artifact PASS, artifact `10014967044`, digest `sha256:c994d2d4496fea5fe3918701bcb74e4ec937a34b41d3d033d7b08c0bdaebcab0`.
+Markdown-only tracking descendants do not replace this validated source/test baseline.
 
-Tracking reconciliation PR #74 and post-merge cleanup PR #75 were merged after this validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
+## LATEST COMPLETED SLICE
 
-## ACTIVE M5 SLICE
+**M5 shared visual foundation — `prefers-reduced-motion` behavior.**
 
-**Shared visual foundation — `prefers-reduced-motion` behavior for existing motion primitives only.**
+Validated capabilities:
 
-Branch: `ai/m5-reduced-motion-foundation`
+- `src/motion.css` contains one shared `@media (prefers-reduced-motion: reduce)` contract;
+- shared transition durations collapse to `--motion-duration-reduced: 1ms` while tooltip intent delay remains independent;
+- nonessential lift/overlay distances reduce to zero and press/drag scales reduce to identity;
+- reduced-mode transition-property lists omit `transform` so translation/scale does not interpolate;
+- shared transition delays clear to `0ms` in reduced mode;
+- normal-motion calibration remains unchanged;
+- `scripts/test-ui-reduced-motion.mjs` is part of `preflight:frontend` and is LF/Windows-CRLF safe;
+- no component-specific animation, React command behavior, Rust/domain/persistence/window behavior, or native-window animation changed.
 
-Base tracking main: `ddc87c05e679599795724981c607a017cda38106`
+No physical Windows acceptance is required for this foundation-only CSS/preflight slice because no animated product component consumes the primitives yet.
 
-Targeted top-level TODO item:
-
-`Implement prefers-reduced-motion behavior before adding component-specific animation.`
-
-### Scope contract
-
-Implement only reusable reduced-motion behavior supported by `docs/UI_UX_SPEC.md`:
-
-- respond to `@media (prefers-reduced-motion: reduce)` inside the shared motion layer;
-- retain clear final visual state while removing nonessential translation/scale semantics;
-- collapse shared transition durations to a minimal nonzero duration so presentation updates are effectively immediate without creating a transition-owned domain boundary;
-- preserve tooltip intent delay because it is an interaction-intent delay, not decorative motion;
-- remove `transform` from reduced-mode transition-property lists so translation/scale never interpolates;
-- keep all existing normal-motion calibration unchanged;
-- add deterministic dependency-light reduced-motion contract coverage to `preflight:frontend`;
-- apply no component-specific animation and change no React command, Rust/domain, persistence, timer/session or native-window behavior.
-
-Explicit non-goals: tooltip/popover/menu components, screenshot harness, App shell/Home/board/task UI, component-specific hover/press/menu/modal animation, native window animation, smooth-scroll work, or later completion/attention animations.
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-reduced-motion-foundation.md`.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 2/6 | 4/28`**
+**`M-5/10 | 6/6 | 5/28`**
 
 Reduced-motion checkpoints:
 
-1. mandatory startup + exact repo/open-PR state + spec/current motion/preflight inspection + branch + narrow reduced-motion contract — COMPLETE;
-2. shared reduced-motion overrides + deterministic test + candidate review — COMPLETE / CANDIDATE READY;
-3. exact PR-head Windows CI including preflight/release/artifact — PENDING;
-4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
-5. guarded merge with expected validated head — PENDING;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
+1. mandatory startup + repo/PR/spec/current-motion inspection + branch + narrow contract — COMPLETE;
+2. shared reduced-motion overrides + deterministic test + candidate review — COMPLETE;
+3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
+4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
+5. merge of exact validated head — COMPLETE;
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE when this tracking payload is present on `main`.
 
-A failed CI run does not increment this counter.
-
-## CANDIDATE IMPLEMENTATION
-
-Material branch changes versus base `ddc87c05e679599795724981c607a017cda38106`:
-
-- `src/motion.css` adds one `prefers-reduced-motion: reduce` media query;
-- all shared animation-duration tokens collapse to `--motion-duration-reduced: 1ms` in reduced mode, while `--motion-delay-tooltip-intent` remains unchanged;
-- lift/overlay distances reduce to `0rem` and press/drag scales reduce to `1`;
-- reduced-mode transition-property lists omit `transform`, preserving only stable color/background/border/opacity/box-shadow state projection as applicable;
-- shared transition delays are cleared in reduced mode;
-- normal-motion calibration remains unchanged and is still guarded by `scripts/test-ui-motion.mjs`;
-- new `scripts/test-ui-reduced-motion.mjs` guards media-query presence, duration collapse, transform removal, identity distances/scales, intent-delay independence, visible-state preservation, and LF/CRLF-safe import order;
-- `package.json` adds `test:ui-reduced-motion` to `preflight:frontend`;
-- no React component behavior, Rust, Tauri config, persistence, timer/session, scheduling, recurrence, reminder or native-window behavior changed.
-
-### Local / pre-PR evidence
-
-- exact candidate diff review: PASS; five intended files only (`HANDOFF.md`, `package.json`, `scripts/test-ui-motion.mjs`, `scripts/test-ui-reduced-motion.mjs`, `src/motion.css`);
-- `node --check scripts/test-ui-motion.mjs`: PASS;
-- `node --check scripts/test-ui-reduced-motion.mjs`: PASS;
-- normal-motion contract against LF `App.css`: PASS;
-- reduced-motion contract against LF `App.css`: PASS;
-- normal-motion contract against simulated Windows CRLF `App.css`: PASS;
-- reduced-motion contract against simulated Windows CRLF `App.css`: PASS;
-- full repository checkout / `npm run build` / Rust preflight: **NOT RUN locally** because the execution environment does not have the full dependency/materialized checkout needed for those commands.
+A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
 
 ## IMPORTANT INVARIANTS
 
@@ -102,14 +72,17 @@ Material branch changes versus base `ddc87c05e679599795724981c607a017cda38106`:
 - reduced motion removes nonessential translation/scale without hiding state changes;
 - tooltip intent delay remains separate from animation duration;
 - no hover/focus layout shift or moving hit targets;
-- timer numerals remain tabular and acquire no per-second transition animation;
-- no infinite decorative animation, especially on `focusSurface`.
+- timer numerals remain tabular with no per-second transition animation;
+- no infinite decorative animation, especially on `focusSurface`;
+- keyboard/focus accessibility remains required.
 
 ## NEXT AGENT ACTION
 
-Open one implementation PR for the current branch and accept validation only for its exact head. Require Windows Repository Preflight, Tauri Release and artifact upload to succeed. On failure inspect the exact failing log and fix only evidence-backed problems; on success perform final exact-head semantic/diff/feedback review, guarded merge with expected validated head, resulting-main Windows CI, then docs/work-log reconciliation.
+Perform mandatory startup again and start only the next ordered M5 item:
 
-Do not skip ahead to tooltip/popover/menu components, screenshot harness, App shell, Home, board or task-card UI.
+`Implement accessible tooltip/popover/menu primitives with stable geometry.`
+
+Before source changes inspect the relevant tooltip/popover/menu accessibility and geometry requirements in `docs/UI_UX_SPEC.md`, current motion/reduced-motion contracts, current React/frontend architecture, and available dependencies. Define a narrow primitive-level slice with deterministic tests. Do not skip ahead to screenshot fixtures, App shell, Home, board or task-card product UI.
 
 ## USER ACTION REQUIRED
 
