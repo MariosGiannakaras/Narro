@@ -2,6 +2,10 @@ body.visual-fixture-body {
   overflow: hidden;
 }
 
+.visual-fixture-body .app-shell--fixture {
+  margin: 2rem auto 0;
+}
+
 .visual-fixture {
   box-sizing: border-box;
   width: 48rem;

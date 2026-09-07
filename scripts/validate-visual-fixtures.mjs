@@ -22,31 +22,53 @@ function stableJson(value) {
   return JSON.stringify(value);
 }
 
+function validatePng(screenshotPath, label) {
+  invariant(fs.existsSync(screenshotPath), `${label} screenshot is missing`);
+  invariant(fs.statSync(screenshotPath).size > 10_000, `${label} screenshot is unexpectedly small`);
+
+  const png = fs.readFileSync(screenshotPath);
+  const pngHeader = png.subarray(0, 8);
+  invariant(pngHeader.equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])), `${label} capture is not a PNG`);
+  invariant(png.length >= 24, `${label} PNG is missing its IHDR dimensions`);
+  const width = png.readUInt32BE(16);
+  const height = png.readUInt32BE(20);
+  invariant(width === expectedCapture.width && height === expectedCapture.height, `${label} screenshot dimensions are ${width}x${height}, expected ${expectedCapture.width}x${expectedCapture.height}`);
+}
+
+function readVisualContract(domPath, label) {
+  invariant(fs.existsSync(domPath), `${label} captured DOM is missing`);
+  const dom = fs.readFileSync(domPath, "utf8");
+  invariant(dom.includes('data-visual-fixture-ready="true"'), `${label} fixture did not report ready state`);
+
+  const match = dom.match(/<script id="visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
+  invariant(match, `${label} visual contract was not present in captured DOM`);
+  return { dom, contract: JSON.parse(match[1]) };
+}
+
 for (const theme of themes) {
   const screenshotPath = path.join(outputDirectory, `${theme}.png`);
   const domPath = path.join(outputDirectory, `${theme}.html`);
   const baselinePath = path.join(root, "tests", "visual-fixtures", `${theme}.json`);
 
-  invariant(fs.existsSync(screenshotPath), `${theme} screenshot is missing`);
-  invariant(fs.statSync(screenshotPath).size > 10_000, `${theme} screenshot is unexpectedly small`);
-
-  const png = fs.readFileSync(screenshotPath);
-  const pngHeader = png.subarray(0, 8);
-  invariant(pngHeader.equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])), `${theme} capture is not a PNG`);
-  invariant(png.length >= 24, `${theme} PNG is missing its IHDR dimensions`);
-  const width = png.readUInt32BE(16);
-  const height = png.readUInt32BE(20);
-  invariant(width === expectedCapture.width && height === expectedCapture.height, `${theme} screenshot dimensions are ${width}x${height}, expected ${expectedCapture.width}x${expectedCapture.height}`);
-
-  const dom = fs.readFileSync(domPath, "utf8");
-  invariant(dom.includes('data-visual-fixture-ready="true"'), `${theme} fixture did not report ready state`);
-
-  const match = dom.match(/<script id="visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
-  invariant(match, `${theme} visual contract was not present in captured DOM`);
-
-  const actual = JSON.parse(match[1]);
+  validatePng(screenshotPath, theme);
+  const { contract: actual } = readVisualContract(domPath, theme);
   const expected = readJson(baselinePath);
   invariant(stableJson(actual) === stableJson(expected), `${theme} geometry/style contract differs from baseline\nExpected: ${JSON.stringify(expected, null, 2)}\nActual: ${JSON.stringify(actual, null, 2)}`);
+
+  const shellLabel = `app-shell-${theme}`;
+  const shellScreenshotPath = path.join(outputDirectory, `${shellLabel}.png`);
+  const shellDomPath = path.join(outputDirectory, `${shellLabel}.html`);
+  validatePng(shellScreenshotPath, shellLabel);
+
+  const { dom: shellDom, contract: shell } = readVisualContract(shellDomPath, shellLabel);
+  invariant(shellDom.includes('data-app-shell="main"'), `${shellLabel} app-shell identity is missing`);
+  invariant(shellDom.includes('data-active-destination="home"'), `${shellLabel} default Home destination is missing`);
+  invariant(shell.fixture === "app-shell", `${shellLabel} contract fixture identity differs`);
+  invariant(shell.theme === theme, `${shellLabel} contract theme differs`);
+  invariant(shell.viewport?.width === expectedCapture.width && shell.viewport?.height === expectedCapture.height, `${shellLabel} viewport contract differs`);
+  invariant(shell.shell?.width === 960 && shell.shell?.height === 560, `${shellLabel} shell geometry differs from 960x560 fixture contract`);
+  invariant(shell.sidebar?.width === 208, `${shellLabel} sidebar width differs from 208px contract`);
+  invariant(shell.primaryNav?.height === 56, `${shellLabel} primary navigation height differs from 56px contract`);
 }
 
 console.log("Captured visual fixture contracts: PASS");

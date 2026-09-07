@@ -23,17 +23,24 @@ for (const baseline of ["tests/visual-fixtures/light.json", "tests/visual-fixtur
 
 for (const [haystack, needle, label] of [
   [html, '/src/visualFixtures.tsx', "fixture entry module"],
-  [source, 'data-visual-fixture="foundation"', "fixture identity"],
+  [source, 'data-visual-fixture="foundation"', "foundation fixture identity"],
+  [source, 'fixture === "app-shell"', "app-shell fixture selection"],
+  [source, '<AppShell fixtureMode />', "app-shell fixture rendering"],
   [source, 'dataset.visualFixtureReady = "true"', "fixture ready signal"],
   [source, 'id = "visual-contract"', "serialized visual contract"],
   [source, 'data-timer-numerals="true"', "tabular timer coverage"],
-  [css, "width: 48rem;", "fixed fixture panel width"],
-  [css, "height: 30rem;", "fixed fixture panel height"],
+  [css, "width: 48rem;", "fixed foundation panel width"],
+  [css, "height: 30rem;", "fixed foundation panel height"],
+  [css, ".visual-fixture-body .app-shell--fixture", "app-shell capture placement"],
   [vite, 'visualFixtures: "visual-fixtures.html"', "Vite fixture build input"],
-  [capture, "--window-size=1280,720", "fixed Edge viewport"],
+  [capture, "--window-size=1280,720", "fixed Edge capture dimensions"],
   [capture, "--user-data-dir=", "isolated Edge profile"],
   [capture, "--screenshot=", "real screenshot capture"],
   [capture, "--dump-dom", "captured DOM output"],
+  [capture, "fixture=app-shell", "app-shell Edge capture"],
+  [capture, '"app-shell-$theme.png"', "app-shell screenshot artifact"],
+  [validator, 'data-app-shell="main"', "captured app-shell identity validation"],
+  [validator, 'shell.shell?.width === 960 && shell.shell?.height === 560', "app-shell geometry validation"],
   [validator, "Captured visual fixture contracts: PASS", "captured contract validation"],
 ]) {
   requireText(haystack, needle, label);

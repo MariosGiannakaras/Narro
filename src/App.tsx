@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
+import { AppShell } from "./AppShell";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
@@ -66,6 +67,7 @@ function App() {
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const diagnosticMode = new URLSearchParams(window.location.search).get("diagnostics") === "1";
 
   async function refreshWindows() {
     try {
@@ -136,26 +138,6 @@ function App() {
         }
       });
 
-    void listen<ShortcutDiagnostics>("shortcut-diagnostic-changed", (event) => {
-      if (!disposed) {
-        setShortcutDiagnostics((current) =>
-          applyNewerShortcutDiagnostics(current, event.payload),
-        );
-      }
-    })
-      .then((unlisten) => {
-        if (disposed) {
-          unlisten();
-        } else {
-          stopShortcutListening = unlisten;
-        }
-      })
-      .catch((failure: unknown) => {
-        if (!disposed) {
-          setError(formatInvokeError(failure));
-        }
-      });
-
     void invoke<AppStatePayload>("get_state")
       .then((payload) => {
         if (!disposed) {
@@ -168,30 +150,52 @@ function App() {
         }
       });
 
-    void invoke<ShortcutDiagnostics>("global_shortcut_status")
-      .then((payload) => {
+    if (diagnosticMode) {
+      void listen<ShortcutDiagnostics>("shortcut-diagnostic-changed", (event) => {
         if (!disposed) {
           setShortcutDiagnostics((current) =>
-            applyNewerShortcutDiagnostics(current, payload),
+            applyNewerShortcutDiagnostics(current, event.payload),
           );
         }
       })
-      .catch((failure: unknown) => {
-        if (!disposed) {
-          setError(formatInvokeError(failure));
-        }
-      });
+        .then((unlisten) => {
+          if (disposed) {
+            unlisten();
+          } else {
+            stopShortcutListening = unlisten;
+          }
+        })
+        .catch((failure: unknown) => {
+          if (!disposed) {
+            setError(formatInvokeError(failure));
+          }
+        });
 
-    void refreshAutostartStatus();
-    void refreshWindows();
-    void refreshMonitors();
+      void invoke<ShortcutDiagnostics>("global_shortcut_status")
+        .then((payload) => {
+          if (!disposed) {
+            setShortcutDiagnostics((current) =>
+              applyNewerShortcutDiagnostics(current, payload),
+            );
+          }
+        })
+        .catch((failure: unknown) => {
+          if (!disposed) {
+            setError(formatInvokeError(failure));
+          }
+        });
+
+      void refreshAutostartStatus();
+      void refreshWindows();
+      void refreshMonitors();
+    }
 
     return () => {
       disposed = true;
       stopStateListening?.();
       stopShortcutListening?.();
     };
-  }, []);
+  }, [diagnosticMode]);
 
   async function runStateCommand(command: StateCommand) {
     try {
@@ -371,189 +375,153 @@ function App() {
   const selectedMonitor = findSelectedMonitor(selectedMonitorKey, monitors);
 
   return (
-    <main className="container" style={{ padding: "1rem", fontFamily: "sans-serif" }}>
-      <h1>Narro Diagnostic - Main Window</h1>
+    <AppShell>
       {error && (
-        <div style={{ color: "red", background: "#fdd", padding: "0.5rem" }}>
-          Error: {error}
+        <div className="app-shell__error" role="alert">
+          {error}
         </div>
       )}
 
-      <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-        <div
-          style={{
-            flex: 1,
-            background: "#333",
-            color: "#fff",
-            padding: "1rem",
-            borderRadius: "8px",
-          }}
-        >
-          <h2>Authoritative Rust State</h2>
-          <pre>{JSON.stringify(state, null, 2)}</pre>
-          <button onClick={() => void runStateCommand("mutate_state")}>
-            Mutate State (Counter)
-          </button>
-          <button onClick={() => void runStateCommand("toggle_timer")}>
-            Toggle Timer
-          </button>
+      {diagnosticMode && (
+        <details className="app-shell__diagnostics">
+          <summary>Windows diagnostic controls</summary>
+          <div className="app-shell__diagnostics-content">
+            <div className="app-shell__diagnostic-grid">
+              <section className="app-shell__diagnostic-card">
+                <h2>Authoritative Rust State</h2>
+                <pre>{JSON.stringify(state, null, 2)}</pre>
+                <button onClick={() => void runStateCommand("mutate_state")}>
+                  Mutate State (Counter)
+                </button>
+                <button onClick={() => void runStateCommand("toggle_timer")}>
+                  Toggle Timer
+                </button>
 
-          <hr />
-          <h2>Global Shortcut Diagnostics</h2>
-          <p>
-            Default test chord: <strong>{shortcutDiagnostics?.chord ?? "Ctrl+Shift+B"}</strong>
-          </p>
-          <pre style={{ whiteSpace: "pre-wrap" }}>
-            {JSON.stringify(shortcutDiagnostics, null, 2)}
-          </pre>
-          <button onClick={() => void refreshShortcutDiagnostics()}>
-            Refresh Shortcut Status
-          </button>
-          <button onClick={() => void runShortcutCommand("global_shortcut_register")}>
-            Register Shortcut
-          </button>
-          <button onClick={() => void runShortcutCommand("global_shortcut_unregister")}>
-            Unregister Shortcut
-          </button>
-          <button
-            disabled={!shortcutDiagnostics?.registered}
-            onClick={() => void runShortcutConflictProbe()}
-          >
-            Run Deterministic Conflict Probe
-          </button>
-          {shortcutProbeStatus && <p>{shortcutProbeStatus}</p>}
-          <p>
-            Physical firing check: press Ctrl+Shift+B from another normal Windows application. The
-            trigger count should increment and Narro main should show/focus or recreate if absent.
-          </p>
+                <hr />
+                <h2>Global Shortcut Diagnostics</h2>
+                <p>
+                  Default test chord: <strong>{shortcutDiagnostics?.chord ?? "Ctrl+Shift+B"}</strong>
+                </p>
+                <pre>{JSON.stringify(shortcutDiagnostics, null, 2)}</pre>
+                <button onClick={() => void refreshShortcutDiagnostics()}>
+                  Refresh Shortcut Status
+                </button>
+                <button onClick={() => void runShortcutCommand("global_shortcut_register")}>
+                  Register Shortcut
+                </button>
+                <button onClick={() => void runShortcutCommand("global_shortcut_unregister")}>
+                  Unregister Shortcut
+                </button>
+                <button
+                  disabled={!shortcutDiagnostics?.registered}
+                  onClick={() => void runShortcutConflictProbe()}
+                >
+                  Run Deterministic Conflict Probe
+                </button>
+                {shortcutProbeStatus && <p>{shortcutProbeStatus}</p>}
 
-          <hr />
-          <h2>Windows Notification Diagnostics</h2>
-          <button onClick={() => void sendTestNotification()}>Send Test Notification</button>
-          {notificationStatus && <p>{notificationStatus}</p>}
-          <p>
-            Command success means the notification was submitted to the Windows notification
-            backend; visual delivery still requires physical validation. Use an installed build for
-            canonical Narro app identity.
-          </p>
+                <hr />
+                <h2>Windows Notification Diagnostics</h2>
+                <button onClick={() => void sendTestNotification()}>Send Test Notification</button>
+                {notificationStatus && <p>{notificationStatus}</p>}
 
-          <h3>M4 Due-Reminder Acceptance</h3>
-          <button onClick={() => void scheduleReminderAcceptanceProbe()}>
-            Schedule Real Reminder Probe (+2 min)
-          </button>
-          {reminderAcceptanceStatus && <p>{reminderAcceptanceStatus}</p>}
-          <p>
-            This probe does not submit a notification directly. It persists one diagnostic Today
-            task and one real reminder in Narro SQLite. The existing Rust-owned tray/background
-            reminder dispatcher must discover the due row and submit the Windows notification.
-          </p>
+                <h3>M4 Due-Reminder Acceptance</h3>
+                <button onClick={() => void scheduleReminderAcceptanceProbe()}>
+                  Schedule Real Reminder Probe (+2 min)
+                </button>
+                {reminderAcceptanceStatus && <p>{reminderAcceptanceStatus}</p>}
 
-          <hr />
-          <h2>Windows Autostart Diagnostics</h2>
-          <pre style={{ whiteSpace: "pre-wrap" }}>
-            {JSON.stringify(autostartStatus, null, 2)}
-          </pre>
-          <button onClick={() => void refreshAutostartStatus()}>Refresh Autostart Status</button>
-          <button
-            disabled={autostartStatus?.enabled === true}
-            onClick={() => void setAutostartEnabled(true)}
-          >
-            Enable Autostart
-          </button>
-          <button
-            disabled={autostartStatus?.enabled !== true}
-            onClick={() => void setAutostartEnabled(false)}
-          >
-            Disable Autostart
-          </button>
-          <p>
-            Enable/disable commands verify the resulting Windows registration state. Actual launch
-            on the next sign-in or reboot remains a physical Windows validation step.
-          </p>
-        </div>
+                <hr />
+                <h2>Windows Autostart Diagnostics</h2>
+                <pre>{JSON.stringify(autostartStatus, null, 2)}</pre>
+                <button onClick={() => void refreshAutostartStatus()}>
+                  Refresh Autostart Status
+                </button>
+                <button
+                  disabled={autostartStatus?.enabled === true}
+                  onClick={() => void setAutostartEnabled(true)}
+                >
+                  Enable Autostart
+                </button>
+                <button
+                  disabled={autostartStatus?.enabled !== true}
+                  onClick={() => void setAutostartEnabled(false)}
+                >
+                  Disable Autostart
+                </button>
+              </section>
 
-        <div
-          style={{
-            flex: 1,
-            background: "#eee",
-            color: "#000",
-            padding: "1rem",
-            borderRadius: "8px",
-          }}
-        >
-          <h2>Window Controls</h2>
-          <ul>
-            <li>Active Webviews: {windows.join(", ")}</li>
-          </ul>
-          <button onClick={() => void refreshWindows()}>Refresh Window List</button>
-          <hr />
-          <button onClick={() => void runWindowCommand("main_window_hide")}>Hide Main</button>
-          <button onClick={() => void runWindowCommand("main_window_show")}>Show Main</button>
-          <button onClick={() => void runWindowCommand("main_window_focus")}>Focus Main</button>
-          <button onClick={() => void runWindowCommand("main_window_destroy")}>
-            Destroy Main
-          </button>
-          <button onClick={() => void runWindowCommand("main_window_recreate")}>
-            Recreate Main
-          </button>
-          <button onClick={() => void runWindowCommand("main_window_close")}>Close Main</button>
-          <hr />
-          <button onClick={() => void runWindowCommand("focus_surface_show")}>
-            Show FocusSurface
-          </button>
-          <button onClick={() => void runWindowCommand("focus_surface_hide")}>
-            Hide FocusSurface
-          </button>
-          <button onClick={() => void runWindowCommand("focus_surface_focus")}>
-            Focus FocusSurface
-          </button>
-          <button onClick={() => void runWindowCommand("focus_surface_mode_panel")}>
-            FocusSurface -&gt; Panel
-          </button>
-          <button onClick={() => void runWindowCommand("focus_surface_mode_timer")}>
-            FocusSurface -&gt; Timer
-          </button>
+              <section className="app-shell__diagnostic-card">
+                <h2>Window Controls</h2>
+                <p>Active Webviews: {windows.join(", ") || "none"}</p>
+                <button onClick={() => void refreshWindows()}>Refresh Window List</button>
+                <hr />
+                <button onClick={() => void runWindowCommand("main_window_hide")}>Hide Main</button>
+                <button onClick={() => void runWindowCommand("main_window_show")}>Show Main</button>
+                <button onClick={() => void runWindowCommand("main_window_focus")}>Focus Main</button>
+                <button onClick={() => void runWindowCommand("main_window_destroy")}>
+                  Destroy Main
+                </button>
+                <button onClick={() => void runWindowCommand("main_window_recreate")}>
+                  Recreate Main
+                </button>
+                <button onClick={() => void runWindowCommand("main_window_close")}>Close Main</button>
+                <hr />
+                <button onClick={() => void runWindowCommand("focus_surface_show")}>
+                  Show FocusSurface
+                </button>
+                <button onClick={() => void runWindowCommand("focus_surface_hide")}>
+                  Hide FocusSurface
+                </button>
+                <button onClick={() => void runWindowCommand("focus_surface_focus")}>
+                  Focus FocusSurface
+                </button>
+                <button onClick={() => void runWindowCommand("focus_surface_mode_panel")}>
+                  FocusSurface -&gt; Panel
+                </button>
+                <button onClick={() => void runWindowCommand("focus_surface_mode_timer")}>
+                  FocusSurface -&gt; Timer
+                </button>
 
-          <hr />
-          <h3>Monitor Diagnostics</h3>
-          <button onClick={() => void refreshMonitors()}>Refresh Monitors</button>
-          <div style={{ marginTop: "0.5rem" }}>
-            <label>
-              Monitor:{" "}
-              <select
-                value={selectedMonitorKey ?? ""}
-                onChange={(event) => handleMonitorSelection(event.target.value)}
-                disabled={monitors.length === 0}
-              >
-                {monitors.length === 0 && <option value="">No monitor available</option>}
-                {monitors.map((monitor) => (
-                  <option key={monitor.key} value={monitor.key}>
-                    {formatMonitorLabel(monitor)}
-                  </option>
-                ))}
-              </select>
-            </label>
+                <hr />
+                <h3>Monitor Diagnostics</h3>
+                <button onClick={() => void refreshMonitors()}>Refresh Monitors</button>
+                <div>
+                  <label>
+                    Monitor:{" "}
+                    <select
+                      value={selectedMonitorKey ?? ""}
+                      onChange={(event) => handleMonitorSelection(event.target.value)}
+                      disabled={monitors.length === 0}
+                    >
+                      {monitors.length === 0 && <option value="">No monitor available</option>}
+                      {monitors.map((monitor) => (
+                        <option key={monitor.key} value={monitor.key}>
+                          {formatMonitorLabel(monitor)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                {selectedMonitor && <pre>{JSON.stringify(selectedMonitor, null, 2)}</pre>}
+                <button
+                  disabled={!selectedMonitor}
+                  onClick={() => void positionFocusPanel("left")}
+                >
+                  Position Focus Panel Left
+                </button>
+                <button
+                  disabled={!selectedMonitor}
+                  onClick={() => void positionFocusPanel("right")}
+                >
+                  Position Focus Panel Right
+                </button>
+              </section>
+            </div>
           </div>
-          {selectedMonitor && (
-            <pre style={{ whiteSpace: "pre-wrap" }}>
-              {JSON.stringify(selectedMonitor, null, 2)}
-            </pre>
-          )}
-          <button
-            disabled={!selectedMonitor}
-            onClick={() => void positionFocusPanel("left")}
-          >
-            Position Focus Panel Left
-          </button>
-          <button
-            disabled={!selectedMonitor}
-            onClick={() => void positionFocusPanel("right")}
-          >
-            Position Focus Panel Right
-          </button>
-        </div>
-      </div>
-    </main>
+        </details>
+      )}
+    </AppShell>
   );
 }
 
