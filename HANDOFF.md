@@ -55,12 +55,12 @@ Explicit non-goals: tooltip/popover/menu components, screenshot harness, App she
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 1/6 | 4/28`**
+**`M-5/10 | 2/6 | 4/28`**
 
 Reduced-motion checkpoints:
 
 1. mandatory startup + exact repo/open-PR state + spec/current motion/preflight inspection + branch + narrow reduced-motion contract — COMPLETE;
-2. shared reduced-motion overrides + deterministic test + candidate review — PENDING;
+2. shared reduced-motion overrides + deterministic test + candidate review — COMPLETE / CANDIDATE READY;
 3. exact PR-head Windows CI including preflight/release/artifact — PENDING;
 4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
 5. guarded merge with expected validated head — PENDING;
@@ -68,13 +68,38 @@ Reduced-motion checkpoints:
 
 A failed CI run does not increment this counter.
 
+## CANDIDATE IMPLEMENTATION
+
+Material branch changes versus base `ddc87c05e679599795724981c607a017cda38106`:
+
+- `src/motion.css` adds one `prefers-reduced-motion: reduce` media query;
+- all shared animation-duration tokens collapse to `--motion-duration-reduced: 1ms` in reduced mode, while `--motion-delay-tooltip-intent` remains unchanged;
+- lift/overlay distances reduce to `0rem` and press/drag scales reduce to `1`;
+- reduced-mode transition-property lists omit `transform`, preserving only stable color/background/border/opacity/box-shadow state projection as applicable;
+- shared transition delays are cleared in reduced mode;
+- normal-motion calibration remains unchanged and is still guarded by `scripts/test-ui-motion.mjs`;
+- new `scripts/test-ui-reduced-motion.mjs` guards media-query presence, duration collapse, transform removal, identity distances/scales, intent-delay independence, visible-state preservation, and LF/CRLF-safe import order;
+- `package.json` adds `test:ui-reduced-motion` to `preflight:frontend`;
+- no React component behavior, Rust, Tauri config, persistence, timer/session, scheduling, recurrence, reminder or native-window behavior changed.
+
+### Local / pre-PR evidence
+
+- exact candidate diff review: PASS; five intended files only (`HANDOFF.md`, `package.json`, `scripts/test-ui-motion.mjs`, `scripts/test-ui-reduced-motion.mjs`, `src/motion.css`);
+- `node --check scripts/test-ui-motion.mjs`: PASS;
+- `node --check scripts/test-ui-reduced-motion.mjs`: PASS;
+- normal-motion contract against LF `App.css`: PASS;
+- reduced-motion contract against LF `App.css`: PASS;
+- normal-motion contract against simulated Windows CRLF `App.css`: PASS;
+- reduced-motion contract against simulated Windows CRLF `App.css`: PASS;
+- full repository checkout / `npm run build` / Rust preflight: **NOT RUN locally** because the execution environment does not have the full dependency/materialized checkout needed for those commands.
+
 ## IMPORTANT INVARIANTS
 
 - authoritative Rust/domain state and persistence-first mutations remain unchanged;
 - stable task identities and renderer-independent timer/session authority remain unchanged;
 - semantic color, typography, geometry and motion roles remain separate reusable contracts;
 - motion never owns or delays domain-state completion;
-- reduced motion must remove nonessential translation/scale without hiding state changes;
+- reduced motion removes nonessential translation/scale without hiding state changes;
 - tooltip intent delay remains separate from animation duration;
 - no hover/focus layout shift or moving hit targets;
 - timer numerals remain tabular and acquire no per-second transition animation;
@@ -82,7 +107,7 @@ A failed CI run does not increment this counter.
 
 ## NEXT AGENT ACTION
 
-Implement the narrow reduced-motion contract in `src/motion.css`, add a dependency-light test to frontend preflight, run the strongest available local checks, and review the exact candidate diff before opening one implementation PR.
+Open one implementation PR for the current branch and accept validation only for its exact head. Require Windows Repository Preflight, Tauri Release and artifact upload to succeed. On failure inspect the exact failing log and fix only evidence-backed problems; on success perform final exact-head semantic/diff/feedback review, guarded merge with expected validated head, resulting-main Windows CI, then docs/work-log reconciliation.
 
 Do not skip ahead to tooltip/popover/menu components, screenshot harness, App shell, Home, board or task-card UI.
 
