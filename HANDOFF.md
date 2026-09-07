@@ -54,12 +54,12 @@ Explicit non-goals: `prefers-reduced-motion` implementation, component-specific 
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 1/6 | 3/28`**
+**`M-5/10 | 2/6 | 3/28`**
 
 Motion-token checkpoints:
 
 1. mandatory startup + exact repo/PR state + UI motion spec/current CSS/preflight inspection + branch + narrow motion contract — COMPLETE;
-2. duration/easing tokens + reusable primitives + deterministic test + candidate review — PENDING;
+2. duration/easing tokens + reusable primitives + deterministic test + candidate review — COMPLETE / CANDIDATE READY;
 3. exact PR-head Windows CI including preflight/release/artifact — PENDING;
 4. final exact-head semantic/diff review + no unresolved PR feedback — PENDING;
 5. guarded merge with expected validated head — PENDING;
@@ -67,16 +67,24 @@ Motion-token checkpoints:
 
 A failed CI run does not increment this counter.
 
-## STARTUP / SCOPE EVIDENCE
+## CANDIDATE IMPLEMENTATION
 
-- current tracking `main`: `1fd2e87d9d415a1cb956e0974265e9dc46b80369`;
-- open implementation PRs at slice start: none;
-- current validated source/test baseline: `c8da64be57122cee69fd42cdbf24a175e772981f`;
-- M5 top-level progress at slice start: 3/28;
-- current source search found no existing frontend transition/animation implementation to migrate or preserve;
-- `docs/UI_UX_SPEC.md` timing bands: press 70–90 ms; hover/focus 110–140 ms; tooltip 120–150 ms after 350–500 ms delay; menu/popover 130–160 ms; inline expansion/reorder 160–200 ms; modal 180–220 ms; completion 200–260 ms; chart/filter 250–400 ms; focus content 120–180 ms;
-- documented easings: enter `cubic-bezier(.2,.8,.2,1)` and exit `cubic-bezier(.4,0,1,1)`;
-- full local repository checkout/build is not assumed available; run the strongest dependency-light checks possible before PR and record unavailable checks as NOT RUN.
+Material branch changes versus base `1fd2e87d9d415a1cb956e0974265e9dc46b80369`:
+
+- new `src/motion.css` defines calibrated duration/delay tokens, enter/exit easing tokens, 1 px lift / 4 px overlay distance, press/drag scale values and opt-in reusable transition primitives;
+- reusable transition properties are restricted to stable visual properties (`color`, `background-color`, `border-color`, `opacity`, `box-shadow`, `transform`); no `transition: all`, keyframes, animation declarations or backdrop-filter animation exist;
+- `src/App.css` imports motion after theme/typography/geometry but does not apply any motion class to existing diagnostic/product UI, so no component-specific animation is introduced before reduced-motion support;
+- new `scripts/test-ui-motion.mjs` guards exact calibration, documented timing bands, safe transition properties, import order, absence of keyframes/animation/reduced-motion scope drift, and dedicated exit easing consumption;
+- `package.json` adds `test:ui-motion` to `preflight:frontend`;
+- no React component behavior, Rust, Tauri config, persistence, timer/session, scheduling, recurrence, reminder or native-window behavior changed.
+
+### Local / pre-PR evidence
+
+- exact branch diff review: PASS; five intended files only (`HANDOFF.md`, `package.json`, `scripts/test-ui-motion.mjs`, `src/App.css`, `src/motion.css`);
+- `node --check scripts/test-ui-motion.mjs`: PASS using exact candidate script content;
+- motion contract against LF `App.css`: PASS;
+- motion contract against simulated Windows CRLF `App.css`: PASS;
+- full repository checkout / `npm run build` / Rust preflight: **NOT RUN locally** because the execution environment does not have the full dependency/materialized checkout needed for those commands.
 
 ## IMPORTANT INVARIANTS
 
@@ -91,7 +99,7 @@ A failed CI run does not increment this counter.
 
 ## NEXT AGENT ACTION
 
-Implement checkpoint 2 only: add the shared motion CSS contract, deterministic test and preflight wiring; perform exact candidate diff review and strongest dependency-light checks before opening one implementation PR.
+Open one implementation PR for the current branch and accept validation only for its exact head. Require Windows Repository Preflight, Tauri Release and artifact upload to succeed. On failure inspect the exact failing log and fix only evidence-backed problems; on success perform final exact-head semantic/diff/feedback review, guarded merge with expected validated head, resulting-main Windows CI, then docs/work-log reconciliation.
 
 Do not skip ahead to reduced-motion, tooltip/popover/menu components, screenshot harness, App shell, Home, board or task-card UI.
 
