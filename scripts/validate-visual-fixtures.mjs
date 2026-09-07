@@ -4,6 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const outputDirectory = path.resolve(root, process.argv[2] ?? "artifacts/visual-regression");
 const themes = ["light", "dark"];
+const expectedCapture = { width: 1280, height: 720 };
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`Visual fixture validation failed: ${message}`);
@@ -29,8 +30,13 @@ for (const theme of themes) {
   invariant(fs.existsSync(screenshotPath), `${theme} screenshot is missing`);
   invariant(fs.statSync(screenshotPath).size > 10_000, `${theme} screenshot is unexpectedly small`);
 
-  const pngHeader = fs.readFileSync(screenshotPath).subarray(0, 8);
+  const png = fs.readFileSync(screenshotPath);
+  const pngHeader = png.subarray(0, 8);
   invariant(pngHeader.equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])), `${theme} capture is not a PNG`);
+  invariant(png.length >= 24, `${theme} PNG is missing its IHDR dimensions`);
+  const width = png.readUInt32BE(16);
+  const height = png.readUInt32BE(20);
+  invariant(width === expectedCapture.width && height === expectedCapture.height, `${theme} screenshot dimensions are ${width}x${height}, expected ${expectedCapture.width}x${expectedCapture.height}`);
 
   const dom = fs.readFileSync(domPath, "utf8");
   invariant(dom.includes('data-visual-fixture-ready="true"'), `${theme} fixture did not report ready state`);
