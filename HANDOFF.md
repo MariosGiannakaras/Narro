@@ -7,7 +7,7 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 4 of 28 top-level items validated once this docs-only reconciliation reaches `main`.
+- Milestone 5: ACTIVE / 4 of 28 top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
@@ -28,7 +28,7 @@ PR #73 was guarded-squash-merged to source SHA `a45715ca8d24f11d580a64a4382db2fb
 
 Windows resulting-main CI #271 / run `34111571620` / job `101708791529`: SUCCESS on exact source SHA `a45715ca8d24f11d580a64a4382db2fb83651db8`, preflight/release/artifact PASS, artifact `10014967044`, digest `sha256:c994d2d4496fea5fe3918701bcb74e4ec937a34b41d3d033d7b08c0bdaebcab0`.
 
-Markdown-only tracking descendants do not replace this validated source/test baseline.
+Tracking reconciliation PR #74 was merged after this validation. Markdown-only tracking descendants do not replace the validated source/test baseline.
 
 ## LATEST COMPLETED SLICE
 
@@ -59,7 +59,7 @@ Motion-token checkpoints:
 3. exact PR-head Windows CI including preflight/release/artifact — COMPLETE;
 4. final exact-head semantic/diff review + no unresolved PR feedback — COMPLETE;
 5. guarded merge with expected validated head — COMPLETE;
-6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE once this docs-only reconciliation reaches `main`.
+6. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — COMPLETE.
 
 A new implementation slice has not started. Reset the small-slice counter only after defining the next coherent M5 slice.
 
@@ -76,7 +76,7 @@ A new implementation slice has not started. Reset the small-slice counter only a
 
 ## NEXT AGENT ACTION
 
-After this docs-only reconciliation is merged, perform mandatory startup again and start only the next ordered M5 top-level item:
+Perform mandatory startup again and start only the next ordered M5 top-level item:
 
 `Implement prefers-reduced-motion behavior before adding component-specific animation.`
 
