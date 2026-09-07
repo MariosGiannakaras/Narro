@@ -188,7 +188,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Implement shared motion primitives and duration/easing tokens from `docs/UI_UX_SPEC.md`.
 - [x] Implement `prefers-reduced-motion` behavior before adding component-specific animation.
 - [x] Implement accessible tooltip/popover/menu primitives with stable geometry.
-- [ ] Establish a screenshot/visual-regression fixture harness for representative dark/light states.
+- [x] Establish a screenshot/visual-regression fixture harness for representative dark/light states.
 
 ### Main UI
 
