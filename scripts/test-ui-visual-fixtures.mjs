@@ -31,7 +31,9 @@ for (const [haystack, needle, label] of [
   [css, "height: 30rem;", "fixed fixture panel height"],
   [vite, 'visualFixtures: "visual-fixtures.html"', "Vite fixture build input"],
   [capture, "--window-size=1280,720", "fixed Edge viewport"],
-  [capture, '--screenshot="$screenshot"', "real screenshot capture"],
+  [capture, "--user-data-dir=", "isolated Edge profile"],
+  [capture, "--screenshot=", "real screenshot capture"],
+  [capture, "--dump-dom", "captured DOM output"],
   [validator, "Captured visual fixture contracts: PASS", "captured contract validation"],
 ]) {
   requireText(haystack, needle, label);
