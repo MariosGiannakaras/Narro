@@ -1,3 +1,8 @@
+.app-shell,
+.app-shell * {
+  box-sizing: border-box;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: 13rem minmax(0, 1fr);
