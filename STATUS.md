@@ -12,68 +12,68 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 7 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 8 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 7/28`**
+**`M-5/10 | 5/5 | 8/28`**
 
-The first seven ordered M5 shared-visual-foundation slices are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion duration/easing primitives, `prefers-reduced-motion` behavior, accessible tooltip/popover/menu primitives with stable geometry, and a deterministic dark/light screenshot/visual-regression fixture harness. The next ordered item is App shell/navigation.
+The first eight ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, and Main-window App shell/navigation. The next ordered item is Home dashboard/list cards.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`7918c378d50f516a152f0a7a90a7564eaedac42f`
+`31f84a1fe2064e59ea27acc7c9afa9f650669608`
 
-This is the squash merge of PR #79 — `M5: add visual regression fixture harness`.
+This is the squash merge of PR #80 — `M5: add app shell navigation`.
 
-### PR #79 exact-head validation
+### PR #80 exact-head validation
 
 Final exact validated PR head:
 
-`de2aa8307c107e16eb02c3179910a82c5ccb8944`
+`e1a0eb737cce5095b04cae32130fa3f08b3dcb5d`
 
-Windows PR CI #283:
+Windows PR CI #285:
 
-- run `34140072237`;
-- job `101799859067`;
-- exact head `de2aa8307c107e16eb02c3179910a82c5ccb8944`;
+- run `34144266196`;
+- job `101812742288`;
+- exact head `e1a0eb737cce5095b04cae32130fa3f08b3dcb5d`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
-- diagnostic artifact upload: **PASS**;
-- visual artifact ID `10025733897`;
+- Upload Diagnostic Harness Artifact: **PASS**;
+- visual artifact ID `10027211577`;
 - visual artifact name `narro-m5-visual-regression`;
-- visual artifact digest `sha256:146f0dbd015ecb84f62b26eec23a96c9a7df9ae1d1d29000f95505c9d40e8366`;
-- diagnostic artifact ID `10025922183`;
+- visual artifact digest `sha256:b1df010bcd84089ff2f49999337e3e059f9dab9530274b2c3158d9643e8cc9fd`;
+- diagnostic artifact ID `10027371165`;
 - diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
-- diagnostic artifact digest `sha256:aad9e89c8ecd2adaffaf2d2b068e6d515b2c90cdba564ca2de6a103afed8e10c`;
-- final exact-head changed-file review: **PASS**, confined to fixture/build/test/CI harness scope;
+- diagnostic artifact digest `sha256:f870171b482fe9a42f3550bebaef6162e75604ee82f3b9dfe0308f0f67827f09`;
+- final exact-head semantic/diff review: **PASS**; 12 changed files confined to shell/navigation, visual-harness, and branch-handoff scope;
 - PR comments/reviews/review threads requiring resolution: **none**.
 
-PR #79 was squash-merged with expected-head guard from the exact validated head, producing source SHA `7918c378d50f516a152f0a7a90a7564eaedac42f`.
+PR #80 was squash-merged with expected-head guard from that exact validated head, producing source SHA `31f84a1fe2064e59ea27acc7c9afa9f650669608`.
 
 ### Resulting-main validation
 
-Windows main CI #284:
+Windows main CI #286:
 
-- run `34141236455`;
-- job `101803468031`;
-- exact source SHA `7918c378d50f516a152f0a7a90a7564eaedac42f`;
+- run `34146374105`;
+- job `101819196686`;
+- exact source SHA `31f84a1fe2064e59ea27acc7c9afa9f650669608`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
-- diagnostic artifact upload: **PASS**;
-- visual artifact ID `10026165505`;
+- Upload Diagnostic Harness Artifact: **PASS**;
+- visual artifact ID `10027957828`;
 - visual artifact name `narro-m5-visual-regression`;
-- visual artifact digest `sha256:5bc64b3ee03956713b61165e991a9a4357695266c2c924ae88fa5817626a9aeb`;
-- diagnostic artifact ID `10026353917`;
+- visual artifact digest `sha256:d28c47553ec3ecbbda5aa7bde8d7eacddaa5cd1c803ad22f2e63faf86aeb4d53`;
+- diagnostic artifact ID `10028115494`;
 - diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
-- diagnostic artifact digest `sha256:f0188f7bbf88c017cc16e01aeba471ee97341a7a3e224327c051fa3393b0b671`.
+- diagnostic artifact digest `sha256:d5f60f59a284361432fdcc1e929ba32c97bf77d588790c14181e75cb1efa5add`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -123,68 +123,49 @@ Detailed evidence: `work-log/2026-09-07-chatgpt-m5-motion-token-foundation.md`.
 
 ### Completed: reduced-motion foundation
 
-The fifth M5 top-level item is validated complete.
-
-Validated reduced-motion behavior now provides:
-
-- one shared `@media (prefers-reduced-motion: reduce)` contract in `src/motion.css`;
-- shared transition-duration tokens collapse to `--motion-duration-reduced: 1ms` while tooltip intent delay remains unchanged;
-- nonessential lift/overlay distances reduce to `0rem`, and press/drag scales reduce to identity `1`;
-- reduced-mode transition-property lists omit `transform`, preserving stable color/background/border/opacity/box-shadow state projection as applicable;
-- shared transition delays clear to `0ms` in reduced mode;
-- normal-motion calibration remains unchanged and separately guarded;
-- deterministic `scripts/test-ui-reduced-motion.mjs` coverage is part of `preflight:frontend`, including LF/Windows-CRLF-safe import-order validation.
-
-No component-specific animation, React command behavior, Rust/domain/persistence/window behavior or native-window animation changed. No physical Windows acceptance is required for this foundation-only CSS/preflight slice because no animated product component is yet consuming the primitives.
+Validated reduced-motion behavior provides one shared `prefers-reduced-motion` contract, collapses animation durations, removes nonessential translation/scale, preserves tooltip intent delay, and keeps state changes visible. Deterministic `scripts/test-ui-reduced-motion.mjs` coverage remains in `preflight:frontend`.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-reduced-motion-foundation.md`.
 
 ### Completed: accessible overlay primitives
 
-The sixth M5 top-level item is validated complete.
-
-Validated primitive-level behavior now provides:
-
-- dependency-free React `Tooltip`, `Popover`, `Menu`, and `MenuItem` primitives;
-- tooltip `role="tooltip"` plus `aria-describedby` relationship and preserved existing descriptions;
-- popover/menu trigger `aria-haspopup`, `aria-expanded`, and `aria-controls` semantics;
-- menu `role="menu"` / `role="menuitem"`, disabled-item exclusion, ArrowUp/ArrowDown/Home/End keyboard navigation, Escape dismissal, and focus restoration;
-- active menu-item selection closes the menu and restores trigger focus after the selected callback runs;
-- outside-pointer dismissal for popover/menu;
-- absolutely positioned overlay geometry anchored in a reserved wrapper so opening/closing overlays does not reflow sibling geometry;
-- shared motion tokens for tooltip/popover transitions with reduced-motion transform removal;
-- deterministic `scripts/test-ui-overlay-primitives.mjs` contract coverage in `preflight:frontend`;
-- no new UI dependency and no Rust/domain/persistence/native-window behavior changes.
-
-No physical Windows acceptance was required for this primitive-only infrastructure slice because no product screen consumes the primitives yet; rendered interaction/visual validation belongs to the fixture and product UI slices.
+Validated dependency-free `Tooltip`, `Popover`, `Menu`, and `MenuItem` primitives provide accessible relationships, keyboard navigation/dismissal/focus restoration, outside-pointer dismissal, and absolutely positioned stable geometry. Deterministic `scripts/test-ui-overlay-primitives.mjs` coverage remains in `preflight:frontend`.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-overlay-primitives.md`.
 
 ### Completed: visual-regression fixture harness
 
-The seventh M5 top-level item is validated complete.
-
-Validated harness behavior now provides:
-
-- deterministic representative light/dark React fixture surface using the shared semantic visual contracts;
-- stable JSON geometry/style baselines for semantic regression checking;
-- dedicated Vite fixture page/entry;
-- Windows Microsoft Edge headless screenshot capture without a new browser-automation dependency;
-- captured-DOM contract validation and explicit PNG header checks;
-- exact 1280x720 captured-image validation from PNG IHDR, independent of Edge's browser-chrome-adjusted DOM viewport size;
-- deterministic frontend harness contract coverage in repository preflight;
-- Windows CI capture/validation and uploaded `narro-m5-visual-regression` artifacts on both exact PR head and resulting `main`;
-- no App shell/Home/board/task-card product behavior and no Rust/domain/persistence/native-window behavior changed.
+Validated harness behavior provides deterministic representative light/dark fixture surfaces, stable semantic geometry/style contracts, Windows Microsoft Edge headless PNG capture, captured-DOM validation, exact 1280x720 image validation, and uploaded CI artifacts.
 
 Detailed evidence: `work-log/2026-09-07-1920-chatgpt-m5-visual-regression-harness.md`.
+
+### Completed: App shell/navigation
+
+The eighth M5 top-level item is validated complete.
+
+Validated behavior now provides:
+
+- a reusable `AppShell` as the default Main-window product presentation instead of the temporary diagnostic dashboard;
+- compact left navigation for `+ Create new list`, `All my lists`, and `Archived lists`;
+- stable upper-right Search and Settings entry points;
+- stable bottom Home and Reports primary navigation;
+- `aria-current="page"`, navigation landmarks, keyboard/focus-visible states, and reduced-motion-safe transitions;
+- stable hover/focus/active geometry without sibling reflow or moving hit targets;
+- legacy Windows diagnostics preserved only behind explicit `?diagnostics=1`, with normal product mode no longer starting shortcut/monitor/autostart diagnostic probes;
+- authoritative Rust `get_state` / `state-changed` projection preserved;
+- deterministic `scripts/test-ui-app-shell.mjs` frontend-preflight coverage;
+- real Windows Edge `app-shell-light` and `app-shell-dark` captures plus semantic/default-Home/stable-geometry validation in the existing visual artifact;
+- no Home-card, board/task, search-palette, Settings-content, Reports-content, Rust/domain/persistence/native-window implementation folded into this slice.
+
+Detailed evidence: `work-log/2026-09-07-chatgpt-m5-app-shell-navigation.md`.
 
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`App shell/navigation.`
+`Home dashboard/list cards.`
 
-Before source changes, perform the normal mandatory startup and inspect the relevant App-shell/navigation evidence in `docs/UI_UX_SPEC.md`, the current `src/App.tsx`/shared visual contracts, and the validated visual-regression harness. Keep the next slice narrow and deterministic; add representative shell fixture coverage where useful, preserve keyboard/reduced-motion/no-layout-shift invariants, and do not jump ahead to Home/list-card/board/task-card behavior except for the minimum shell content required to validate navigation structure.
+Before source changes, perform the mandatory startup again and inspect the Home/list-card screenshot evidence in `docs/UI_UX_SPEC.md`, the current `AppShell`/Main frontend, existing domain list-read capabilities, shared visual contracts, and the validated Edge visual harness. Keep this slice focused on the Home dashboard hierarchy and baseline list-card content. Do not absorb the next separate item covering list-card hover/Open, overflow-menu, and create-list interaction states except for the minimum static/reserved geometry needed to prevent later layout shift.
 
 ## Durable correctness decisions
 
@@ -199,16 +180,19 @@ Future work must preserve:
 - deterministic/idempotent recurrence and bounded Rust-owned reminder/recurrence orchestration;
 - reminder `fired_at` only after successful OS notification submission, with failed submission retryable;
 - scheduling/move operations preserve task identity count;
-- async `main` recreation remains intact;
+- async `main` recreation remains intact and derives state from Rust/SQLite, not hidden renderer memory;
 - Windows executable/installer/tray icon inputs derive from canonical Narro branding;
 - M5 visual work never moves authoritative task/timer/reminder logic into renderer state;
+- App shell remains presentation/navigation only;
 - semantic color, typography, geometry and motion roles remain reusable independent contracts;
 - motion never owns or delays domain-state completion;
 - reduced-motion removes nonessential translation/scale without hiding state changes;
-- tooltip intent delay is an interaction-intent delay and remains independent from animation duration;
-- overlay primitives must preserve stable sibling geometry and keyboard/focus accessibility;
+- tooltip intent delay remains independent from animation duration;
+- overlay primitives preserve stable sibling geometry and keyboard/focus accessibility;
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
+- excluded account/trial/upgrade/profile/AI/integration controls remain absent;
+- diagnostic controls remain explicitly gated and outside normal product navigation;
 - no infinite decorative animation, especially on `focusSurface`;
 - keyboard/focus accessibility remains required as the visual foundation expands;
 - visual capture dimensions remain an image-output contract, not a browser DOM viewport assumption.
