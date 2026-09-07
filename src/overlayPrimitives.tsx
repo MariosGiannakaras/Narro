@@ -334,6 +334,12 @@ export function Menu({ triggerLabel, trigger, children, align = "start" }: MenuP
         className="overlay-menu motion-overlay"
         data-align={align}
         data-open={open ? "true" : "false"}
+        onClick={(event) => {
+          const target = event.target as HTMLElement;
+          if (target.closest('[role="menuitem"]:not(:disabled)')) {
+            closeAndRestoreFocus();
+          }
+        }}
         onKeyDown={onMenuKeyDown}
       >
         {children}
