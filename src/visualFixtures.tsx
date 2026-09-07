@@ -115,17 +115,18 @@ const fixtureSave = async () => undefined;
 
 function ListEditorFixture({ mode }: { mode: "create" | "edit" }) {
   return (
-    <AppShell
-      fixtureMode
-      homeContent={<HomeDashboard fixtureSnapshot={homeFixtureSnapshot} fixtureHour={20} />}
-    >
+    <>
+      <AppShell
+        fixtureMode
+        homeContent={<HomeDashboard fixtureSnapshot={homeFixtureSnapshot} fixtureHour={20} />}
+      />
       <ListEditorModal
         mode={mode}
         initialList={mode === "edit" ? editFixtureList : undefined}
         onRequestClose={fixtureAction}
         onSave={fixtureSave}
       />
-    </AppShell>
+    </>
   );
 }
 
