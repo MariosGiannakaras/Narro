@@ -143,13 +143,13 @@
 }
 
 .home-list-card__task-est {
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   font-variant-numeric: tabular-nums;
 }
 
 .home-list-card__empty {
   margin: var(--space-3) 0 0;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
 }
 
 .home-list-card__footer {
