@@ -8,6 +8,7 @@ function requireText(haystack, needle, label) {
 }
 
 const rust = read("src-tauri/src/list_board.rs");
+const rustProduction = rust.split("#[cfg(test)]")[0];
 const lib = read("src-tauri/src/lib.rs");
 const component = read("src/ListBoard.tsx");
 const css = read("src/listBoard.css");
@@ -82,7 +83,7 @@ for (const forbidden of [
 }
 
 for (const forbidden of ["create_task", "move_task", "update_task", "complete_task", "reopen_task"]) {
-  if (rust.includes(forbidden)) {
+  if (rustProduction.includes(forbidden)) {
     throw new Error(`List-board read model must not call a task mutation: ${forbidden}`);
   }
 }
