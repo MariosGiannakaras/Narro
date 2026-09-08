@@ -14,7 +14,10 @@ use tauri::Manager;
 enum BoardTaskMutationError {
     Task(TaskStoreError),
     Identity(TaskIdentityError),
-    ExpectedListMismatch { expected: ListId, actual: ListId },
+    ExpectedListMismatch {
+        expected: ListId,
+        actual: ListId,
+    },
     ExpectedLaneMismatch {
         expected: PlanningLane,
         actual: PlanningLane,
@@ -220,8 +223,9 @@ fn parse_list_id(argument: &str, raw: &str) -> CommandResult<ListId> {
 }
 
 fn parse_lane(argument: &str, raw: &str) -> CommandResult<PlanningLane> {
-    PlanningLane::try_from(raw)
-        .map_err(|_| CommandError::invalid_argument(argument, "must be backlog, this_week, or today"))
+    PlanningLane::try_from(raw).map_err(|_| {
+        CommandError::invalid_argument(argument, "must be backlog, this_week, or today")
+    })
 }
 
 fn map_reorder_error(error: BoardTaskMutationError) -> CommandError {
@@ -404,10 +408,8 @@ mod tests {
             [scheduled.id.to_string()],
         )
         .expect("schedule fixture task");
-        let before = ids(
-            &active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
-                .expect("load bucket before rejected reorder"),
-        );
+        let before = ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
+            .expect("load bucket before rejected reorder"));
 
         let result = reorder_unscheduled_task_before(
             &mut conn,
@@ -417,7 +419,9 @@ mod tests {
             Some(first.id),
             T1,
         );
-        assert!(matches!(result, Err(BoardTaskMutationError::ScheduledTask(id)) if id == scheduled.id));
+        assert!(
+            matches!(result, Err(BoardTaskMutationError::ScheduledTask(id)) if id == scheduled.id)
+        );
         assert_eq!(
             ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
                 .expect("load bucket after rejected reorder")),
@@ -446,8 +450,10 @@ mod tests {
         assert_eq!(moved.id, moving.id);
         assert_eq!(moved.manual_lane, PlanningLane::Today);
         assert_eq!(
-            ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Backlog)
-                .expect("load compacted source")),
+            ids(
+                &active_tasks_in_bucket(&conn, list_id, PlanningLane::Backlog)
+                    .expect("load compacted source")
+            ),
             vec![stay.id]
         );
         assert_eq!(
@@ -500,8 +506,10 @@ mod tests {
             Err(BoardTaskMutationError::InvalidAnchor(id)) if id == other_lane.id
         ));
         assert_eq!(
-            ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Backlog)
-                .expect("load backlog after rejected mutations")),
+            ids(
+                &active_tasks_in_bucket(&conn, list_id, PlanningLane::Backlog)
+                    .expect("load backlog after rejected mutations")
+            ),
             original
         );
     }
