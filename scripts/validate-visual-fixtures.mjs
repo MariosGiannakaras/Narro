@@ -99,12 +99,16 @@ function validateListEditorFixture(theme, mode) {
   }
 
   invariant(
-    contract.backdrop.width === expectedCapture.width,
-    `${label} backdrop width is ${contract.backdrop.width}px; expected ${expectedCapture.width}px capture width (shell ${contract.shell?.width ?? "unknown"}px)`,
+    contract.layoutViewport?.width > 0 && contract.layoutViewport?.height > 0,
+    `${label} measured DOM layout viewport is missing or invalid`,
   );
   invariant(
-    contract.backdrop.height === expectedCapture.height,
-    `${label} backdrop height is ${contract.backdrop.height}px; expected ${expectedCapture.height}px capture height (shell ${contract.shell?.height ?? "unknown"}px)`,
+    contract.backdrop.width === contract.layoutViewport.width,
+    `${label} backdrop width is ${contract.backdrop.width}px; expected measured DOM layout viewport width ${contract.layoutViewport.width}px (PNG capture remains ${expectedCapture.width}px)`,
+  );
+  invariant(
+    contract.backdrop.height === contract.layoutViewport.height,
+    `${label} backdrop height is ${contract.backdrop.height}px; expected measured DOM layout viewport height ${contract.layoutViewport.height}px (PNG capture remains ${expectedCapture.height}px)`,
   );
   invariant(contract.modal.width <= 480, `${label} modal exceeds the 30rem width contract`);
   invariant(contract.upload.width === contract.upload.height, `${label} icon upload target is not circular geometry`);
