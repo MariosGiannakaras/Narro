@@ -218,6 +218,13 @@ function readVisualNode(selector: string, fields: Array<keyof VisualContractNode
   return values;
 }
 
+function readLayoutViewport() {
+  return {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+}
+
 const shellContract = () => ({
   shell: readVisualNode(".app-shell", ["width", "height", "backgroundColor"]),
   sidebar: readVisualNode(".app-shell__sidebar", ["width", "height", "backgroundColor"]),
@@ -227,6 +234,7 @@ const shellContract = () => ({
 
 const modalContract = () => ({
   ...shellContract(),
+  layoutViewport: readLayoutViewport(),
   backdrop: readVisualNode(".list-editor-backdrop", ["width", "height", "backgroundColor"]),
   modal: readVisualNode(".list-editor-modal", ["width", "height", "backgroundColor", "borderRadius"]),
   upload: readVisualNode(".list-editor-modal__upload-circle", ["width", "height", "borderRadius"]),
