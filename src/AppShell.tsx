@@ -116,14 +116,17 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     setEditorState({ mode: "edit", list });
   }
 
-  function openAllListsBoard() {
-    setBoardTarget({ kind: "all" });
+  function openBoardTarget(target: ListBoardRequestTarget) {
+    setBoardTarget(target);
     setActiveDestination("all-lists");
   }
 
+  function openAllListsBoard() {
+    openBoardTarget({ kind: "all" });
+  }
+
   function openListBoard(list: HomeListCardSnapshot) {
-    setBoardTarget({ kind: "list", id: list.id });
-    setActiveDestination("all-lists");
+    openBoardTarget({ kind: "list", id: list.id });
   }
 
   function handleNavigate(destination: AppDestination) {
@@ -229,7 +232,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
 
           <main className="app-shell__content" id="main-content" tabIndex={-1}>
             {boardTarget ? (
-              <ListBoard target={boardTarget} />
+              <ListBoard target={boardTarget} onTargetChange={openBoardTarget} />
             ) : activeDestination === "home" ? (
               runtimeHome
             ) : (
