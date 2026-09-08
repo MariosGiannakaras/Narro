@@ -115,7 +115,11 @@ function validateListEditorFixture(theme, mode) {
   invariant(contract.cancel.height === contract.submit.height, `${label} footer actions differ in height`);
 
   listEditorGeometry.set(`${mode}-${theme}`, {
-    modal: contract.modal,
+    modal: {
+      width: contract.modal.width,
+      height: contract.modal.height,
+      borderRadius: contract.modal.borderRadius,
+    },
     upload: contract.upload,
     swatches: contract.swatches,
     titleInput: contract.titleInput,
