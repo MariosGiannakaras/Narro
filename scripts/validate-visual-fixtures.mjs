@@ -145,6 +145,21 @@ function validateListBoardFixture(theme, aggregate) {
     dom.includes(`data-board-target="${aggregate ? "all_lists" : "list"}"`),
     `${label} target identity differs`,
   );
+  invariant(dom.includes('data-board-list-selector="true"'), `${label} confirmed board list selector is missing`);
+  invariant(dom.includes('aria-label="Planning list"'), `${label} board list selector label is missing`);
+  invariant(dom.includes(">All Lists<"), `${label} All Lists selector option is missing`);
+  if (aggregate) {
+    invariant(
+      dom.includes('data-board-selected-target="__all_lists__"'),
+      `${label} selector does not reflect the aggregate target`,
+    );
+  } else {
+    invariant(
+      dom.includes('data-board-selected-target="11111111-1111-4111-8111-111111111111"'),
+      `${label} selector does not reflect the Work-list target`,
+    );
+    invariant(dom.includes(">Work<"), `${label} Work selector/list title is missing`);
+  }
 
   const laneMarkers = ["Backlog", "This Week", "Today", "Done"].map((title) =>
     dom.indexOf(`data-board-lane="${title}"`),
