@@ -16,27 +16,9 @@ Latest fully main-validated source/test SHA:
 
 `997ba6d019425ec2a15fdef630ca50c2fbab981f`
 
-This is the expected-head guarded squash merge of PR #83 — `M5: add Create/Edit List modal`.
+This is the expected-head guarded squash merge of PR #83 — `M5: add Create/Edit List modal`. Windows PR CI #307 / run `34204710799` / job `101991403060` and resulting-main CI #308 / run `34206908315` / job `101998422358` both passed Repository Preflight, real Create/Edit visual captures, Tauri release and required artifacts. Detailed completed-slice evidence: `work-log/2026-09-08-1117-chatgpt-m5-create-edit-list-modal.md`.
 
-Exact PR evidence:
-
-- validated PR head `17f3e3c1b9c7fad562b6bc7e05eee029bf047598`;
-- Windows PR CI #307 / run `34204710799` / job `101991403060`: **SUCCESS**;
-- Repository Preflight, real light/dark Create/Edit modal captures, visual artifact, Tauri release and diagnostic artifact: **PASS**;
-- PR visual artifact `10047503212`, digest `sha256:41bc8583d36927989be1c604151e69df97b70e24b9cf0df6b1c2e67127398371`;
-- PR diagnostic artifact `10047701183`, digest `sha256:646145f1a90ce6434080e7cac9f283023369d2106517da3996265281eef1a03e`.
-
-Expected-head guarded squash merge produced `997ba6d019425ec2a15fdef630ca50c2fbab981f`.
-
-Resulting-main evidence:
-
-- Windows main CI #308 / run `34206908315` / job `101998422358`: **SUCCESS**;
-- exact source SHA `997ba6d019425ec2a15fdef630ca50c2fbab981f`;
-- Repository Preflight, real Create/Edit modal captures, visual artifact, Tauri release and diagnostic artifact: **PASS**;
-- main visual artifact `10048388708`, digest `sha256:67e1919bd4e996a9fae786bea1f0fe5da73a3327b8cdf6a24a531934992ab840`;
-- main diagnostic artifact `10048640730`, digest `sha256:163c10356a44fc7238aead403f5d465bbe47b8ae4b1d69a52773219368792c3d`.
-
-Main tracking tip `4786bb6f269d7dda6054d21d635add3600a833a9` is docs-only and does not replace this validated source/test baseline. Detailed completed-slice evidence: `work-log/2026-09-08-1117-chatgpt-m5-create-edit-list-modal.md`.
+Main tracking tip `4786bb6f269d7dda6054d21d635add3600a833a9` is docs-only and does not replace this validated source/test baseline.
 
 ## ACTIVE SLICE
 
@@ -44,32 +26,48 @@ Main tracking tip `4786bb6f269d7dda6054d21d635add3600a833a9` is docs-only and do
 
 Branch: `m5-list-board`, based on main docs tip `4786bb6f269d7dda6054d21d635add3600a833a9`.
 
+PR: #84 — `M5: add list board hierarchy` — OPEN / mergeable.
+
 Latest source/test candidate before this tracking commit:
 
-`1e0c5d7dc38201175ffe349e6a00974deb0e8d95`
+`38a186822a364c6431882a26b5894d24039c8ed3`
 
 Candidate implementation includes:
 
 - read-only Rust `list_board` projection over active lists and stable persisted task identities;
 - individual-list and aggregate All Lists targets without creating a synthetic persisted list;
-- Backlog / This Week / Today projection for pending tasks through the already validated M4 `effective_planning_lane_at` logic rather than trusting `manual_lane` for scheduled tasks;
+- Backlog / This Week / Today projection for pending tasks through validated M4 `effective_planning_lane_at` rather than trusting `manual_lane` for scheduled tasks;
 - Done projection from completed, non-archived tasks only;
-- duplicate-identity fail-closed guard plus checked count and aggregate-EST arithmetic;
+- duplicate-identity fail-closed guard plus checked task-count and aggregate-EST arithmetic;
 - active-list target validation and persisted timezone preference use, falling back to the Windows/WebView IANA timezone only when no preference is stored;
 - typed renderer-facing `get_list_board_snapshot` read command; no task mutation commands are used by the board;
-- real runtime navigation from Home list-card `Open`, Home `All Lists`, and sidebar `All my lists`, plus in-board list selector switching;
+- real runtime navigation from Home list-card `Open`, Home `All Lists`, sidebar `All my lists`, and in-board list selector switching;
 - four-column `ListBoard` hierarchy with title/count/aggregate EST and deliberately baseline/static task rows;
-- aggregate view origin labels for tasks from different lists;
+- aggregate-view origin labels for tasks from different lists;
 - reserved top/bottom future-add geometry without exposing dead `+` / `ADD TASK` controls;
 - deterministic individual and aggregate board light/dark fixtures, Edge capture wiring, semantic/geometry validation and `scripts/test-ui-list-board.mjs` frontend-preflight coverage;
-- prior List Editor/List Card preflight assertions updated only where the now-real Open target made their old literal exclusions stale;
+- prior List Editor/List Card preflight assertions updated only where the now-real Open target made old literal exclusions stale;
 - no drag/drop/reorder, inline task creation/editing, full task-card state model, Time Taken controls, scheduling/recurrence UI, subtasks, notes, destructive task/list flows, search, Settings or Reports behavior was added.
 
-Semantic/diff review before PR: **PASS**. Compared with main, 14 files are changed and all are confined to the list-board read model, navigation integration, visual harness/preflight and supporting styles/types. The projection does not mutate task/list identity or order.
+Semantic/diff review before PR: **PASS**. Compared with main, changes are confined to the list-board read model, navigation integration, visual harness/preflight, supporting styles/types, and this handoff. The projection does not mutate task/list identity or order.
 
 Local Node/Rust preflight: **NOT RUN**. This connector-only execution environment has no usable local checkout/toolchain; Windows GitHub Actions CI remains the authoritative reproducible gate.
 
-PR: **not yet opened at this tracking commit**.
+### Latest CI evidence
+
+Windows PR CI #309 / run `34259918088` / job `102175005224` on exact PR head `8b13c8dc0ba887b4b5c1efd5b16afebbc0af418c`:
+
+- frontend/static contracts including `test:ui-list-board`: **PASS**;
+- TypeScript/Vite production build: **PASS**;
+- Repository Preflight: **FAIL** only at `cargo fmt --check`;
+- visual capture, release and artifacts were correctly skipped after the formatting gate failed.
+
+The #309 failure was formatting-only. The Windows rustfmt diff was applied exactly:
+
+- `b59a2f35fab3c91b35e1aa9d067e732a7b6e0db3` — rustfmt layout for `list_board.rs`;
+- `38a186822a364c6431882a26b5894d24039c8ed3` — preserve formatted EOF/newline in `lib.rs` while retaining only the list-board module/handler registration.
+
+No runtime/domain/visual behavior changed in those corrective commits. The next authoritative run must validate the new exact head after this tracking update; #309 is diagnostic evidence only and is not merge evidence.
 
 ## USER-FACING PROGRESS
 
@@ -100,11 +98,11 @@ List-board checkpoints:
 
 ## NEXT AGENT ACTION
 
-Open exactly one PR from `m5-list-board` to `main`, record its exact current head SHA after this tracking commit, and observe the authoritative Windows CI for that exact head.
+Record PR #84's exact head after this tracking update and observe the fresh authoritative Windows CI for that exact head. Do not make another source change unless the new run produces evidence-backed failure.
 
 Require Repository Preflight including `test:ui-list-board`, real Edge light/dark individual + All Lists board captures, visual artifact upload, Tauri release and diagnostic artifact upload to succeed on the same exact PR head.
 
-If CI fails, inspect the exact failure log and fix only evidence-backed issues. After exact-head PASS, inspect the final changed-file diff plus all PR comments/reviews/inline threads, merge only with an expected-head guard, validate the resulting main source SHA with Windows CI, and only then mark `List board with Backlog, This Week, Today, Done` complete and reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` plus one new immutable work-log entry.
+After exact-head PASS, inspect the final changed-file diff plus all PR comments/reviews/inline threads, merge only with an expected-head guard, validate the resulting main source SHA with Windows CI, and only then mark `List board with Backlog, This Week, Today, Done` complete and reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` plus one new immutable work-log entry.
 
 ## USER ACTION REQUIRED
 
