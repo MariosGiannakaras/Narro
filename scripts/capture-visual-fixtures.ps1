@@ -163,6 +163,17 @@ try {
                 -ScreenshotPath $fixtureScreenshot `
                 -DomPath $fixtureDom
         }
+
+        $reorderLabel = "task-reorder-$theme"
+        $reorderUrl = "$baseUrl/task-reorder-fixture.html?theme=$theme"
+        $reorderScreenshot = Join-Path $outputPath "$reorderLabel.png"
+        $reorderDom = Join-Path $outputPath "$reorderLabel.html"
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme $reorderLabel `
+            -Url $reorderUrl `
+            -ScreenshotPath $reorderScreenshot `
+            -DomPath $reorderDom
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {
