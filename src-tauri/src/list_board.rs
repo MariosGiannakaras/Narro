@@ -267,7 +267,9 @@ fn task_is_overdue_at(
         ScheduleKind::DateOnly => {
             scheduling::effective_planning_lane_at(task, now, display_timezone)?;
             let Some(scheduled_date) = task.scheduled_local_date.as_deref() else {
-                return Err(SchedulingError::InconsistentStoredSchedule(ScheduleKind::DateOnly).into());
+                return Err(
+                    SchedulingError::InconsistentStoredSchedule(ScheduleKind::DateOnly).into(),
+                );
             };
             Ok(scheduled_date < display_local_date(now, display_timezone)?.as_str())
         }
@@ -620,7 +622,10 @@ mod tests {
         let projected = &board.today.tasks[0];
         assert_eq!(projected.id, task_id);
         assert_eq!(projected.time_taken_seconds, "375");
-        assert_eq!(projected.scheduled_local_date.as_deref(), Some("2026-09-07"));
+        assert_eq!(
+            projected.scheduled_local_date.as_deref(),
+            Some("2026-09-07")
+        );
         assert!(projected.is_overdue);
     }
 
