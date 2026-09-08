@@ -11,6 +11,7 @@ const rust = read("src-tauri/src/list_board.rs");
 const rustProduction = rust.split("#[cfg(test)]")[0];
 const lib = read("src-tauri/src/lib.rs");
 const component = read("src/ListBoard.tsx");
+const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
 const api = read("src/listBoardApi.ts");
 const shell = read("src/AppShell.tsx");
@@ -42,7 +43,8 @@ for (const [haystack, needle, label] of [
   [component, '{ key: "done", title: "Done" }', "Done lane"],
   [component, 'data-board-lane-count={LANES.length}', "four-lane board contract"],
   [component, 'data-board-add-slot="reserved"', "future add-action geometry reservation"],
-  [component, 'data-board-task="baseline"', "baseline-only task presentation"],
+  [component, "<TaskCard task={task} aggregateView={aggregateView} />", "task-card presentation projection"],
+  [taskCard, 'data-board-task="task-card"', "task-card identity"],
   [component, 'data-board-list-selector="true"', "confirmed board list selector"],
   [component, 'aria-label="Planning list"', "accessible board selector"],
   [component, 'invoke<HomeSnapshot>("get_home_snapshot")', "reuse of validated active-list option projection"],
@@ -78,7 +80,7 @@ for (const forbidden of [
   "onSchedule",
 ]) {
   if (component.includes(forbidden)) {
-    throw new Error(`List-board hierarchy slice must not activate a later task interaction: ${forbidden}`);
+    throw new Error(`List-board hierarchy must not activate a later task interaction: ${forbidden}`);
   }
 }
 

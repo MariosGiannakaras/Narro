@@ -16,6 +16,10 @@ export type ListBoardTask = {
   listColor: string | null;
   title: string;
   estSeconds: number | null;
+  timeTakenSeconds: string;
+  scheduledLocalDate: string | null;
+  scheduledLocalTime: string | null;
+  isOverdue: boolean;
   completedAt: string | null;
 };
 

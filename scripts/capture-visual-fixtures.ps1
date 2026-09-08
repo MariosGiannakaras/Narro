@@ -147,7 +147,8 @@ try {
             "list-editor-create",
             "list-editor-edit",
             "list-board",
-            "list-board-all"
+            "list-board-all",
+            "task-card-states"
         )
 
         foreach ($fixture in $fixtures) {

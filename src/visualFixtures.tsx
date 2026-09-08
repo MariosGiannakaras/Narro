@@ -6,6 +6,7 @@ import { HomeDashboard, type HomeListCardSnapshot, type HomeSnapshot } from "./H
 import { ListBoard } from "./ListBoard";
 import type { ListBoardSnapshot, ListBoardTask } from "./listBoardApi";
 import { ListEditorModal } from "./ListEditorModal";
+import { TaskCard, type TaskCardFixtureState } from "./TaskCard";
 import "./visualFixtures.css";
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -18,6 +19,7 @@ const fixture = requestedFixture === "app-shell"
   || requestedFixture === "list-editor-edit"
   || requestedFixture === "list-board"
   || requestedFixture === "list-board-all"
+  || requestedFixture === "task-card-states"
   ? requestedFixture
   : "foundation";
 const captureViewport = { width: 1280, height: 720 } as const;
@@ -77,6 +79,13 @@ const interactionFixtureSnapshot: HomeSnapshot = {
   ],
 };
 
+type BoardTaskPresentation = {
+  timeTakenSeconds?: string;
+  scheduledLocalDate?: string | null;
+  scheduledLocalTime?: string | null;
+  isOverdue?: boolean;
+};
+
 function boardTask(
   id: string,
   title: string,
@@ -84,6 +93,7 @@ function boardTask(
   listTitle = "Work",
   listColor: string | null = "#48d6c5",
   completedAt: string | null = null,
+  presentation: BoardTaskPresentation = {},
 ): ListBoardTask {
   return {
     id,
@@ -94,6 +104,10 @@ function boardTask(
     listColor,
     title,
     estSeconds,
+    timeTakenSeconds: presentation.timeTakenSeconds ?? "0",
+    scheduledLocalDate: presentation.scheduledLocalDate ?? null,
+    scheduledLocalTime: presentation.scheduledLocalTime ?? null,
+    isOverdue: presentation.isOverdue ?? false,
     completedAt,
   };
 }
@@ -119,15 +133,39 @@ const listBoardFixtureSnapshot: ListBoardSnapshot = {
     aggregateEstSeconds: 4500,
     tasks: [
       boardTask("51111111-1111-4111-8111-111111111113", "Refine presentation", 2700),
-      boardTask("51111111-1111-4111-8111-111111111114", "Send project update", 1800),
+      boardTask(
+        "51111111-1111-4111-8111-111111111114",
+        "Send project update",
+        1800,
+        "Work",
+        "#48d6c5",
+        null,
+        { scheduledLocalDate: "2026-09-11" },
+      ),
     ],
   },
   today: {
     count: 2,
     aggregateEstSeconds: 5400,
     tasks: [
-      boardTask("51111111-1111-4111-8111-111111111115", "Prepare project review", 3600),
-      boardTask("51111111-1111-4111-8111-111111111116", "Reply to client notes", 1800),
+      boardTask(
+        "51111111-1111-4111-8111-111111111115",
+        "Prepare project review",
+        3600,
+        "Work",
+        "#48d6c5",
+        null,
+        { timeTakenSeconds: "900", scheduledLocalDate: "2026-09-07", isOverdue: true },
+      ),
+      boardTask(
+        "51111111-1111-4111-8111-111111111116",
+        "Reply to client notes",
+        1800,
+        "Work",
+        "#48d6c5",
+        null,
+        { scheduledLocalDate: "2026-09-08", scheduledLocalTime: "18:00" },
+      ),
     ],
   },
   done: {
@@ -141,6 +179,7 @@ const listBoardFixtureSnapshot: ListBoardSnapshot = {
         "Work",
         "#48d6c5",
         "2026-09-08T09:00:00Z",
+        { timeTakenSeconds: "1320" },
       ),
     ],
   },
@@ -167,14 +206,30 @@ const allListsBoardFixtureSnapshot: ListBoardSnapshot = {
     aggregateEstSeconds: 5400,
     tasks: [
       boardTask("61111111-1111-4111-8111-111111111113", "Refine presentation", 2700),
-      boardTask("61111111-1111-4111-8111-111111111114", "Book dentist appointment", 2700, "Personal", "#b7d96d"),
+      boardTask(
+        "61111111-1111-4111-8111-111111111114",
+        "Book dentist appointment",
+        2700,
+        "Personal",
+        "#b7d96d",
+        null,
+        { scheduledLocalDate: "2026-09-12", scheduledLocalTime: "09:30" },
+      ),
     ],
   },
   today: {
     count: 2,
     aggregateEstSeconds: 4500,
     tasks: [
-      boardTask("61111111-1111-4111-8111-111111111115", "Prepare project review", 3600),
+      boardTask(
+        "61111111-1111-4111-8111-111111111115",
+        "Prepare project review",
+        3600,
+        "Work",
+        "#48d6c5",
+        null,
+        { timeTakenSeconds: "900", scheduledLocalDate: "2026-09-07", isOverdue: true },
+      ),
       boardTask("61111111-1111-4111-8111-111111111116", "Pick up groceries", 900, "Personal", "#b7d96d"),
     ],
   },
@@ -189,6 +244,7 @@ const allListsBoardFixtureSnapshot: ListBoardSnapshot = {
         "Work",
         "#48d6c5",
         "2026-09-08T09:00:00Z",
+        { timeTakenSeconds: "1320" },
       ),
       boardTask(
         "61111111-1111-4111-8111-111111111118",
@@ -197,6 +253,7 @@ const allListsBoardFixtureSnapshot: ListBoardSnapshot = {
         "Personal",
         "#b7d96d",
         "2026-09-08T08:30:00Z",
+        { timeTakenSeconds: "840" },
       ),
     ],
   },
@@ -275,6 +332,67 @@ function ListBoardFixture({ aggregate }: { aggregate: boolean }) {
   );
 }
 
+const taskCardFixtureStates: TaskCardFixtureState[] = [
+  "normal",
+  "action_revealed",
+  "scheduled",
+  "overdue",
+  "done",
+  "inline_create",
+  "notes_expanded",
+  "subtasks_expanded",
+  "paused_editable",
+  "destructive_confirm",
+];
+
+function stateLabel(state: TaskCardFixtureState): string {
+  return state.replace(/_/g, " ");
+}
+
+function taskForFixtureState(state: TaskCardFixtureState, index: number): ListBoardTask {
+  const base = boardTask(
+    `71111111-1111-4111-8111-1111111111${String(index).padStart(2, "0")}`,
+    state === "inline_create" ? "New task" : `Task card · ${stateLabel(state)}`,
+    3600,
+    "Work",
+    "#48d6c5",
+    state === "done" ? "2026-09-08T09:00:00Z" : null,
+    { timeTakenSeconds: state === "done" ? "2700" : "900" },
+  );
+
+  if (state === "scheduled") {
+    return { ...base, scheduledLocalDate: "2026-09-09", scheduledLocalTime: "14:30" };
+  }
+  if (state === "overdue") {
+    return { ...base, scheduledLocalDate: "2026-09-07", isOverdue: true };
+  }
+  return base;
+}
+
+function TaskCardStatesFixture() {
+  return (
+    <AppShell
+      fixtureMode
+      homeContent={
+        <section className="task-card-state-fixture" data-task-card-state-fixture="true" aria-labelledby="task-card-state-title">
+          <header className="task-card-state-fixture__header">
+            <p className="app-shell__eyebrow type-metadata">Task cards</p>
+            <h1 id="task-card-state-title" className="type-page-title">State model</h1>
+          </header>
+          <div className="task-card-state-fixture__grid">
+            {taskCardFixtureStates.map((state, index) => (
+              <div key={state} className="task-card-state-fixture__item" data-task-card-fixture={state}>
+                <span className="task-card-state-fixture__label type-metadata">{stateLabel(state)}</span>
+                <TaskCard task={taskForFixtureState(state, index)} aggregateView fixtureState={state} />
+              </div>
+            ))}
+          </div>
+        </section>
+      }
+    />
+  );
+}
+
 function VisualFixtureSurface() {
   if (fixture === "app-shell") {
     return <AppShell fixtureMode homeContent={<ShellPlaceholderFixture />} />;
@@ -312,6 +430,7 @@ function VisualFixtureSurface() {
   if (fixture === "list-editor-edit") return <ListEditorFixture mode="edit" />;
   if (fixture === "list-board") return <ListBoardFixture aggregate={false} />;
   if (fixture === "list-board-all") return <ListBoardFixture aggregate />;
+  if (fixture === "task-card-states") return <TaskCardStatesFixture />;
   return <FoundationFixtureSurface />;
 }
 
@@ -399,6 +518,19 @@ const boardContract = () => ({
   firstTask: readVisualNode(".list-board-task", ["width", "height", "backgroundColor", "borderRadius"]),
 });
 
+const taskCardStatesContract = () => ({
+  ...shellContract(),
+  gallery: readVisualNode(".task-card-state-fixture__grid", ["width", "height"]),
+  normalCard: readVisualNode('[data-task-card-fixture="normal"] .list-board-task', ["width", "height", "borderRadius"]),
+  actionCard: readVisualNode('[data-task-card-fixture="action_revealed"] .list-board-task', ["width", "height", "borderRadius"]),
+  normalTitleRow: readVisualNode('[data-task-card-fixture="normal"] .list-board-task__title-row', ["width", "height"]),
+  actionTitleRow: readVisualNode('[data-task-card-fixture="action_revealed"] .list-board-task__title-row', ["width", "height"]),
+  actionSlot: readVisualNode('[data-task-card-fixture="action_revealed"] .list-board-task__action-slot', ["width", "height"]),
+  notesCard: readVisualNode('[data-task-card-fixture="notes_expanded"] .list-board-task', ["width", "height"]),
+  subtasksCard: readVisualNode('[data-task-card-fixture="subtasks_expanded"] .list-board-task', ["width", "height"]),
+  destructiveCard: readVisualNode('[data-task-card-fixture="destructive_confirm"] .list-board-task', ["width", "height"]),
+});
+
 const visualContract = fixture === "app-shell"
   ? {
       fixture,
@@ -447,15 +579,23 @@ const visualContract = fixture === "app-shell"
               canvas: readVisualNode("body", ["backgroundColor", "color"]),
               ...boardContract(),
             }
-          : {
-              theme,
-              viewport: captureViewport,
-              canvas: readVisualNode("body", ["backgroundColor", "color"]),
-              panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
-              card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
-              button: readVisualNode(".visual-fixture__button", ["width", "height", "backgroundColor", "color", "borderRadius"]),
-              timer: readVisualNode(".visual-fixture__timer", ["color", "fontSize", "lineHeight", "fontVariantNumeric"]),
-            };
+          : fixture === "task-card-states"
+            ? {
+                fixture,
+                theme,
+                viewport: captureViewport,
+                canvas: readVisualNode("body", ["backgroundColor", "color"]),
+                ...taskCardStatesContract(),
+              }
+            : {
+                theme,
+                viewport: captureViewport,
+                canvas: readVisualNode("body", ["backgroundColor", "color"]),
+                panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
+                card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
+                button: readVisualNode(".visual-fixture__button", ["width", "height", "backgroundColor", "color", "borderRadius"]),
+                timer: readVisualNode(".visual-fixture__timer", ["color", "fontSize", "lineHeight", "fontVariantNumeric"]),
+              };
 
 const contractNode = document.createElement("script");
 contractNode.id = "visual-contract";
