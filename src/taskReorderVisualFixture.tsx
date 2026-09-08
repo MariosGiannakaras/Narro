@@ -31,7 +31,17 @@ function task(
   };
 }
 
+function geometry(element: Element | null) {
+  if (!(element instanceof HTMLElement)) return null;
+  const bounds = element.getBoundingClientRect();
+  return {
+    width: Math.round(bounds.width),
+    height: Math.round(bounds.height),
+  };
+}
+
 const draggingId = "82111111-1111-4111-8111-111111111111";
+const scheduledId = "82111111-1111-4111-8111-111111111114";
 const settlingId = "82111111-1111-4111-8111-111111111116";
 
 const snapshot: ListBoardSnapshot = {
@@ -55,7 +65,7 @@ const snapshot: ListBoardSnapshot = {
     aggregateEstSeconds: 4500,
     tasks: [
       task("82111111-1111-4111-8111-111111111113", "Refine presentation", 2700),
-      task("82111111-1111-4111-8111-111111111114", "Send scheduled project update", 1800, {
+      task(scheduledId, "Send scheduled project update", 1800, {
         scheduledLocalDate: "2026-09-11",
       }),
     ],
@@ -101,6 +111,23 @@ flushSync(() => {
     />,
   );
 });
+
+const scheduledCard = document.querySelector(`[data-task-id="${scheduledId}"]`);
+const scheduledShell = scheduledCard?.closest(".list-board-task-drag-shell") ?? null;
+const contract = {
+  theme,
+  viewport: { width: 1280, height: 720 },
+  placeholder: geometry(document.querySelector('[data-task-drop-placeholder="true"]')),
+  draggingShell: geometry(document.querySelector('[data-task-dragging="true"]')),
+  settlingShell: geometry(document.querySelector('[data-task-settling="true"]')),
+  scheduledReorderable: scheduledShell?.getAttribute("data-task-reorderable") ?? null,
+  dropLaneActive: document.querySelector('[data-board-lane="This Week"]')?.getAttribute("data-drop-active") ?? null,
+};
+const contractScript = document.createElement("script");
+contractScript.id = "task-reorder-contract";
+contractScript.type = "application/json";
+contractScript.textContent = JSON.stringify(contract);
+document.body.append(contractScript);
 
 document.documentElement.dataset.visualFixtureReady = "true";
 document.documentElement.dataset.taskReorderFixture = "true";
