@@ -160,8 +160,17 @@ function BoardLane({
   const pendingLane = laneKey === "done" ? null : laneKey;
   const acceptsDrop = pendingLane !== null && presentationReorderEnabled;
   const laneDropTarget = pendingLane !== null && dropTarget?.lane === pendingLane ? dropTarget : null;
-  const appendAfterId = laneDropTarget?.beforeTaskId === null ? placeholderAfterTaskId(lane) : null;
-  const showEmptyPlaceholder = laneDropTarget?.beforeTaskId === null && appendAfterId === null;
+  const crossLaneAppend = pendingLane !== null
+    && laneDropTarget?.beforeTaskId === null
+    && dragState !== null
+    && dragState.sourceLane !== pendingLane;
+  const appendAfterId = laneDropTarget?.beforeTaskId === null && !crossLaneAppend
+    ? placeholderAfterTaskId(lane)
+    : null;
+  const showLeadingPlaceholder = laneDropTarget?.beforeTaskId === null
+    && appendAfterId === null
+    && !crossLaneAppend;
+  const showLaneEndPlaceholder = laneDropTarget?.beforeTaskId === null && crossLaneAppend;
 
   return (
     <section
@@ -195,7 +204,7 @@ function BoardLane({
           : undefined}
         onDrop={acceptsDrop && interactionReorderEnabled ? onDrop : undefined}
       >
-        {showEmptyPlaceholder ? <DropPlaceholder /> : null}
+        {showLeadingPlaceholder ? <DropPlaceholder /> : null}
         {lane.tasks.length > 0 ? (
           lane.tasks.map((task) => {
             const reorderable = pendingLane !== null
@@ -243,6 +252,7 @@ function BoardLane({
         ) : laneDropTarget ? null : (
           <div className="list-board-lane__empty type-metadata">No tasks</div>
         )}
+        {showLaneEndPlaceholder ? <DropPlaceholder /> : null}
       </div>
 
       <div className="list-board-lane__reserved-action list-board-lane__reserved-action--bottom" aria-hidden="true" data-board-add-slot="reserved" />
@@ -265,6 +275,7 @@ export function ListBoard({
   const [error, setError] = useState<string | null>(null);
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [mutationStatus, setMutationStatus] = useState<string>("");
+  const [mutationRefreshBlocked, setMutationRefreshBlocked] = useState(false);
   const [listOptions, setListOptions] = useState<ListBoardOption[]>(() => fixtureOptions(fixtureSnapshot));
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [dropTarget, setDropTarget] = useState<DropTarget | null>(null);
@@ -281,6 +292,8 @@ export function ListBoard({
       setSnapshot(fixtureSnapshot);
       setError(null);
       setMutationError(null);
+      setMutationStatus("");
+      setMutationRefreshBlocked(false);
       setListOptions(fixtureOptions(fixtureSnapshot));
       return;
     }
@@ -289,6 +302,8 @@ export function ListBoard({
     setSnapshot(null);
     setError(null);
     setMutationError(null);
+    setMutationStatus("");
+    setMutationRefreshBlocked(false);
     void getListBoardSnapshot(target)
       .then((payload) => {
         if (!disposed) {
@@ -359,6 +374,7 @@ export function ListBoard({
   const aggregateView = snapshot.target.kind === "all_lists";
   const selectedTarget = aggregateView ? ALL_LISTS_VALUE : snapshot.target.id ?? ALL_LISTS_VALUE;
   const interactionReorderEnabled = !fixtureSnapshot
+    && !mutationRefreshBlocked
     && target.kind === "list"
     && snapshot.target.kind === "list"
     && snapshot.target.id === target.id;
@@ -396,8 +412,18 @@ export function ListBoard({
     }, SETTLE_DURATION_MS);
   };
 
-  const commitDrop = async (taskId: string, sourceLane: PendingLaneKey, targetLane: PendingLaneKey, beforeTaskId: string | null) => {
-    if (!interactionReorderEnabled || target.kind !== "list" || mutationPendingTaskId) return;
+  const commitDrop = async (
+    taskId: string,
+    sourceLane: PendingLaneKey,
+    targetLane: PendingLaneKey,
+    beforeTaskId: string | null,
+  ) => {
+    if (
+      !interactionReorderEnabled
+      || target.kind !== "list"
+      || mutationPendingTaskId
+      || mutationRefreshBlocked
+    ) return;
     const task = findTask(taskId);
     if (!task || !isManualReorderTask(task)) return;
 
@@ -405,15 +431,20 @@ export function ListBoard({
     setMutationError(null);
     setDragState(null);
     setDropTarget(null);
+
+    const sameLane = sourceLane === targetLane;
+    const successMessage = sameLane
+      ? `Reordered ${task.title}.`
+      : `Moved ${task.title} to ${LANES.find((lane) => lane.key === targetLane)?.title ?? "lane"}.`;
+
     try {
-      if (sourceLane === targetLane) {
+      if (sameLane) {
         await reorderListBoardTask({
           taskId,
           listId: target.id,
           sourceLane: LANE_TOKEN[sourceLane],
           beforeTaskId,
         });
-        setMutationStatus(`Reordered ${task.title}.`);
       } else {
         await moveListBoardTask({
           taskId,
@@ -421,13 +452,23 @@ export function ListBoard({
           sourceLane: LANE_TOKEN[sourceLane],
           targetLane: LANE_TOKEN[targetLane],
         });
-        setMutationStatus(`Moved ${task.title} to ${LANES.find((lane) => lane.key === targetLane)?.title ?? "lane"}.`);
       }
-      await refreshAfterMutation(taskId);
     } catch (failure: unknown) {
-      const message = formatInvokeError(failure);
-      setMutationError(message);
-      setMutationStatus(`Could not move ${task.title}.`);
+      setMutationError(formatInvokeError(failure));
+      setMutationStatus(`${sameLane ? "Could not reorder" : "Could not move"} ${task.title}.`);
+      setMutationPendingTaskId(null);
+      return;
+    }
+
+    setMutationStatus(successMessage);
+    try {
+      await refreshAfterMutation(taskId);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      setMutationRefreshBlocked(true);
+      setMutationError(
+        `Task change was saved, but the board could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before moving more tasks.`,
+      );
     } finally {
       setMutationPendingTaskId(null);
     }
@@ -484,9 +525,7 @@ export function ListBoard({
     if (!dragState || mutationPendingTaskId) return;
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
-    if (dragState.sourceLane !== lane || !dropTarget || dropTarget.lane !== lane) {
-      setDropTarget({ lane, beforeTaskId: null });
-    }
+    setDropTarget({ lane, beforeTaskId: null });
   };
 
   const handleDrop = (event: ReactDragEvent<HTMLDivElement>) => {
