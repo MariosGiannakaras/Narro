@@ -90,12 +90,21 @@ impl Display for ListBoardError {
             Self::Preferences(error) => Display::fmt(error, formatter),
             Self::Scheduling(error) => Display::fmt(error, formatter),
             Self::Sqlite(error) => write!(formatter, "list-board read failed: {error}"),
-            Self::InvalidStoredTaskId => formatter.write_str("stored completed task identity is invalid"),
-            Self::TargetListNotFound(id) => write!(formatter, "active list-board target not found: {id}"),
-            Self::DuplicateTaskProjection(id) => {
-                write!(formatter, "list-board projection contained duplicate task identity: {id}")
+            Self::InvalidStoredTaskId => {
+                formatter.write_str("stored completed task identity is invalid")
             }
-            Self::CountOverflow => formatter.write_str("list-board task count exceeded the supported range"),
+            Self::TargetListNotFound(id) => {
+                write!(formatter, "active list-board target not found: {id}")
+            }
+            Self::DuplicateTaskProjection(id) => {
+                write!(
+                    formatter,
+                    "list-board projection contained duplicate task identity: {id}"
+                )
+            }
+            Self::CountOverflow => {
+                formatter.write_str("list-board task count exceeded the supported range")
+            }
             Self::EstimateOverflow => {
                 formatter.write_str("list-board aggregate estimate exceeded the supported range")
             }
@@ -268,11 +277,8 @@ pub fn load_at(
                 if !seen.insert(task.id) {
                     return Err(ListBoardError::DuplicateTaskProjection(task.id));
                 }
-                let effective_lane = scheduling::effective_planning_lane_at(
-                    &task,
-                    now,
-                    &display_timezone,
-                )?;
+                let effective_lane =
+                    scheduling::effective_planning_lane_at(&task, now, &display_timezone)?;
                 let projected = ProjectedTask {
                     list_rank: list.sort_rank,
                     task,
@@ -407,7 +413,9 @@ mod tests {
     }
 
     fn now() -> Timestamp {
-        "2026-09-08T10:00:00Z".parse().expect("parse deterministic timestamp")
+        "2026-09-08T10:00:00Z"
+            .parse()
+            .expect("parse deterministic timestamp")
     }
 
     #[test]
@@ -426,8 +434,20 @@ mod tests {
     fn individual_board_projects_active_and_completed_tasks_without_identity_duplication() {
         let mut conn = setup();
         let list_id = create_named_list(&mut conn, "Work", Some("#48d6c5"));
-        let backlog = add_task(&mut conn, list_id, "Backlog", PlanningLane::Backlog, Some(600));
-        let week = add_task(&mut conn, list_id, "Week", PlanningLane::ThisWeek, Some(1200));
+        let backlog = add_task(
+            &mut conn,
+            list_id,
+            "Backlog",
+            PlanningLane::Backlog,
+            Some(600),
+        );
+        let week = add_task(
+            &mut conn,
+            list_id,
+            "Week",
+            PlanningLane::ThisWeek,
+            Some(1200),
+        );
         let today = add_task(&mut conn, list_id, "Today", PlanningLane::Today, Some(1800));
         let done = add_task(&mut conn, list_id, "Done", PlanningLane::Today, Some(2400));
         complete_task(&mut conn, done, T1).expect("complete task");
@@ -476,7 +496,10 @@ mod tests {
         assert!(board.backlog.tasks.is_empty());
         assert_eq!(board.today.tasks.len(), 1);
         assert_eq!(board.today.tasks[0].id, task_id);
-        assert_eq!(get_task(&conn, task_id).expect("reload task").manual_lane, PlanningLane::Backlog);
+        assert_eq!(
+            get_task(&conn, task_id).expect("reload task").manual_lane,
+            PlanningLane::Backlog
+        );
     }
 
     #[test]
@@ -487,7 +510,13 @@ mod tests {
         let archived = create_named_list(&mut conn, "Archived", None);
         archive_list(&mut conn, archived, T1).expect("archive list");
 
-        let work_task = add_task(&mut conn, work, "Work today", PlanningLane::Today, Some(600));
+        let work_task = add_task(
+            &mut conn,
+            work,
+            "Work today",
+            PlanningLane::Today,
+            Some(600),
+        );
         let personal_task = add_task(
             &mut conn,
             personal,
@@ -517,6 +546,9 @@ mod tests {
 
         let timezone = load_at(&conn, None, now(), "not/a-zone")
             .expect_err("invalid display timezone must fail");
-        assert!(matches!(timezone, ListBoardError::Scheduling(SchedulingError::InvalidTimezone(_))));
+        assert!(matches!(
+            timezone,
+            ListBoardError::Scheduling(SchedulingError::InvalidTimezone(_))
+        ));
     }
 }
