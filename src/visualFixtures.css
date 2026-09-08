@@ -86,3 +86,81 @@ body.visual-fixture-body {
 .visual-fixture__swatch--destructive {
   background: var(--color-destructive-surface);
 }
+
+.task-card-state-fixture {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.task-card-state-fixture__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.task-card-state-fixture__header p,
+.task-card-state-fixture__header h1 {
+  margin: 0;
+}
+
+.task-card-state-fixture__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  min-width: 0;
+  align-content: start;
+}
+
+.task-card-state-fixture__item {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.task-card-state-fixture__label {
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.task-card-state-fixture__item .list-board-task {
+  padding: var(--space-2);
+  gap: var(--space-1);
+  min-height: 4rem;
+}
+
+.task-card-state-fixture__item .list-board-task__title-row {
+  grid-template-columns: 1rem minmax(0, 1fr) 3.5rem;
+  gap: var(--space-1);
+}
+
+.task-card-state-fixture__item .list-board-task__action-slot,
+.task-card-state-fixture__item .list-board-task__actions {
+  width: 3.5rem;
+}
+
+.task-card-state-fixture__item .list-board-task__schedule,
+.task-card-state-fixture__item .list-board-task__meta,
+.task-card-state-fixture__item .list-board-task__fixture-helper,
+.task-card-state-fixture__item .list-board-task__fixture-note,
+.task-card-state-fixture__item .list-board-task__subtask,
+.task-card-state-fixture__item .list-board-task__fixture-toolbar {
+  font-size: 0.66rem;
+}
+
+.task-card-state-fixture__item .list-board-task__times {
+  gap: var(--space-1);
+}
+
+.task-card-state-fixture__item .list-board-task__fixture-input {
+  min-height: 1.5rem;
+}
+
+.task-card-state-fixture__item .list-board-task__fixture-body {
+  gap: var(--space-1);
+  padding-top: var(--space-1);
+}
