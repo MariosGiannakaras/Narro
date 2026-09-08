@@ -12,68 +12,60 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 10 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 11 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 10/28`**
+**`M-5/10 | 5/5 | 11/28`**
 
-The first ten ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, and list-card rest/hover/Open/overflow-menu/create-list states. The next ordered item is the Create/Edit List modal.
+The first eleven ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, list-card rest/hover/Open/overflow-menu/create-list states, and the persistence-backed Create/Edit List modal. The next ordered item is the List board with Backlog, This Week, Today, Done.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`61fd8b982839c03133e05163842f5a1f9b2c8e0d`
+`997ba6d019425ec2a15fdef630ca50c2fbab981f`
 
-This is the guarded squash merge of PR #82 — `M5: add list-card interaction states`.
+This is the expected-head guarded squash merge of PR #83 — `M5: add Create/Edit List modal`.
 
-### PR #82 exact-head validation
+### PR #83 exact-head validation
 
-Final exact validated PR head:
+Final validated PR head:
 
-`35c2668fd2fa0f1d88764584d41cf42df9795964`
+`17f3e3c1b9c7fad562b6bc7e05eee029bf047598`
 
-Windows PR CI #290:
+Windows PR CI #307:
 
-- run `34161062758`;
-- job `101862841977`;
-- exact head `35c2668fd2fa0f1d88764584d41cf42df9795964`;
+- run `34204710799`;
+- job `101991403060`;
+- exact head `17f3e3c1b9c7fad562b6bc7e05eee029bf047598`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10032735331`;
-- visual artifact name `narro-m5-visual-regression`;
-- visual artifact digest `sha256:ba2d353a45051fd6cd8ae7c6faf53dcac173eddcbb87d3052d797799ccb1f7e8`;
-- diagnostic artifact ID `10032854077`;
-- diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
-- diagnostic artifact digest `sha256:a95087f02de6ef7d248cc4471af90f97f7fd874ead75d4dca0c27fef5c8a7bb2`;
-- final exact-head semantic/diff review: **PASS**; 9 changed files confined to Home interaction states, visual harness/preflight, and branch handoff scope;
-- PR comments, review submissions, and inline review threads requiring resolution: **none**.
+- visual artifact ID `10047503212`, digest `sha256:41bc8583d36927989be1c604151e69df97b70e24b9cf0df6b1c2e67127398371`;
+- diagnostic artifact ID `10047701183`, digest `sha256:646145f1a90ce6434080e7cac9f283023369d2106517da3996265281eef1a03e`;
+- final exact-head semantic/diff review: **PASS**; 16 changed files confined to list editor, existing Home/App-shell wiring, visual harness/tests and branch tracking;
+- PR comments, submitted reviews and inline review threads requiring resolution: **none**.
 
-PR #82 was squash-merged with an expected-head guard set to the validated head, producing source SHA `61fd8b982839c03133e05163842f5a1f9b2c8e0d`.
+PR #83 was squash-merged with expected-head guard `17f3e3c1b9c7fad562b6bc7e05eee029bf047598`, producing source SHA `997ba6d019425ec2a15fdef630ca50c2fbab981f`.
 
 ### Resulting-main validation
 
-Windows main CI #291:
+Windows main CI #308:
 
-- run `34161939996`;
-- job `101865381504`;
-- exact source SHA `61fd8b982839c03133e05163842f5a1f9b2c8e0d`;
+- run `34206908315`;
+- job `101998422358`;
+- exact source SHA `997ba6d019425ec2a15fdef630ca50c2fbab981f`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10033003446`;
-- visual artifact name `narro-m5-visual-regression`;
-- visual artifact digest `sha256:7919f1f34c84c45a4ae9a8048d2ba161dc1cd5cb38917ee6d49c9613f7724ee0`;
-- diagnostic artifact ID `10033125255`;
-- diagnostic artifact name `narro-m1-runtime-harness-windows-x64`;
-- diagnostic artifact digest `sha256:67133df3313f25bb068c382b753504d58bc62245c4a91982fb18330f6298d1e1`.
+- visual artifact ID `10048388708`, digest `sha256:67e1919bd4e996a9fae786bea1f0fe5da73a3327b8cdf6a24a531934992ab840`;
+- diagnostic artifact ID `10048640730`, digest `sha256:163c10356a44fc7238aead403f5d465bbe47b8ae4b1d69a52773219368792c3d`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -141,68 +133,48 @@ Detailed evidence: `work-log/2026-09-07-1920-chatgpt-m5-visual-regression-harnes
 
 ### Completed: App shell/navigation
 
-The eighth M5 top-level item is validated complete.
-
-Validated behavior now provides:
-
-- a reusable `AppShell` as the default Main-window product presentation instead of the temporary diagnostic dashboard;
-- compact left navigation for `+ Create new list`, `All my lists`, and `Archived lists`;
-- stable upper-right Search and Settings entry points;
-- stable bottom Home and Reports primary navigation;
-- `aria-current="page"`, navigation landmarks, keyboard/focus-visible states, and reduced-motion-safe transitions;
-- stable hover/focus/active geometry without sibling reflow or moving hit targets;
-- legacy Windows diagnostics preserved only behind explicit `?diagnostics=1`, with normal product mode no longer starting shortcut/monitor/autostart diagnostic probes;
-- authoritative Rust `get_state` / `state-changed` projection preserved;
-- deterministic `scripts/test-ui-app-shell.mjs` frontend-preflight coverage;
-- real Windows Edge `app-shell-light` and `app-shell-dark` captures plus semantic/default-Home/stable-geometry validation in the existing visual artifact;
-- no Home-card, board/task, search-palette, Settings-content, Reports-content, Rust/domain/persistence/native-window implementation folded into this slice.
+The eighth M5 top-level item is validated complete. Validated behavior includes the reusable default `AppShell`, compact list navigation, Search/Settings utility entries, Home/Reports primary navigation, stable keyboard/focus geometry, diagnostics gated behind `?diagnostics=1`, and deterministic light/dark Edge shell captures.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-app-shell-navigation.md`.
 
 ### Completed: Home dashboard/list cards
 
-The ninth M5 top-level item is validated complete.
-
-Validated behavior now provides:
-
-- a read-only Rust Home snapshot composed from validated active-list and active-task persistence reads;
-- active-list cards with up to four pending task previews plus full pending-count and aggregate-EST totals;
-- a default Home hierarchy with neutral time-based greeting, `Your Lists`, helper copy and `All Lists` aggregate card;
-- stable list-card header geometry with reserved future action space;
-- safe six-digit-hex list accent projection and no direct rendering of unvalidated stored icon paths;
-- loading, empty and typed-error states;
-- renderer recreation reloads Home data from SQLite rather than retaining hidden renderer authority;
-- deterministic Home light/dark Edge fixtures isolated from runtime IPC and normal user data;
-- theme-stable Home/card geometry and semantic hierarchy checks in the visual harness;
-- deterministic `scripts/test-ui-home-dashboard.mjs` preflight coverage.
+The ninth M5 top-level item is validated complete. Validated behavior includes a read-only SQLite Home snapshot, active list cards with task previews/pending/EST totals, default Home hierarchy, loading/empty/error states, safe list color projection, deterministic Home fixtures and theme-stable geometry validation.
 
 Detailed evidence: `work-log/2026-09-07-2154-chatgpt-m5-home-dashboard-list-cards.md`.
 
 ### Completed: list-card interaction states
 
-The tenth M5 top-level item is validated complete.
+The tenth M5 top-level item is validated complete. Validated behavior includes callback-gated card actions, shared accessible overflow menus, stable absolute Open hover/focus affordance, callback-gated Create List tile, reduced-motion-safe presentation and deterministic state fixtures with no layout shift.
+
+Detailed evidence: `work-log/2026-09-08-0019-chatgpt-m5-list-card-interaction-states.md`.
+
+### Completed: Create/Edit List modal
+
+The eleventh M5 top-level item is validated complete.
 
 Validated behavior now provides:
 
-- callback-gated Open/Edit/Duplicate/Archive card actions so product runtime exposes controls only when a real target exists;
-- shared accessible overflow Menu/MenuItem primitives inside the pre-reserved action slot;
-- absolute hover/focus Open overlay with unchanged card/header/title/footer geometry;
-- callback-gated dashed Create List tile;
-- deterministic light/dark forced-hover/Open, open-menu and Create List fixture states;
-- visual validation proving rest/interaction/create-card geometry parity and theme parity;
-- reduced-motion-safe Open presentation;
-- deterministic `scripts/test-ui-list-card-states.mjs` frontend-preflight coverage;
-- no Rust/domain/persistence/list CRUD/modal/board/search/settings/reports scope folded into the slice.
+- one reusable accessible Create/Edit List modal with dimmed viewport backdrop, close X, Escape dismissal, Tab focus trap and opener-focus restoration;
+- local JPG/JPEG/PNG/SVG icon import with frontend and Rust size/content validation, 1 MiB cap and rejection of scripted/`javascript:` SVG payloads;
+- Narro-owned app-data `list-icons/` storage with UUID filenames and only relative owned paths persisted;
+- persistence-first reuse of the validated M2 `create_list` / `update_list` boundaries;
+- success-only renderer IPC: the modal closes and Home re-reads authoritative SQLite state only after a successful mutation;
+- typed validation/not-found/general command failures; failed mutations keep the modal open;
+- best-effort cleanup of newly imported icons on database/mutation failure, refusal to delete non-owned paths, cleanup of partial temporary writes, and cleanup of replaced old owned icons only after the update commits;
+- real runtime Create targets from sidebar/Home plus real Edit target from the existing list-card menu; Open/Duplicate/Archive remain unbound until their ordered targets exist;
+- deterministic create/edit light/dark fixtures, measured DOM-layout backdrop coverage, strict 1280x720 PNG output validation and geometry-only theme parity;
+- deterministic `scripts/test-ui-list-editor-modal.mjs` frontend-preflight coverage.
 
-Detailed evidence: `work-log/2026-09-08-0019-chatgpt-m5-list-card-interaction-states.md`.
+Detailed evidence: `work-log/2026-09-08-1117-chatgpt-m5-create-edit-list-modal.md`.
 
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Create/Edit List modal with icon import, color selection, title, cancel/create states.`
+`List board with Backlog, This Week, Today, Done.`
 
-Start from the validated Home/list-card callback surface and M2 persistence-first list CRUD. Implement only the evidence-backed modal, icon import, color selection, title, cancel/create/edit states and the minimum real persistence integration required by those states. Preserve existing Home/card geometry and do not absorb the later list board, task-card state model, list-settings/archive/delete flows, search palette, Settings content or Reports behavior.
+Start from the validated persistence/domain planning buckets and current Home/List Editor runtime. Implement the narrow board hierarchy and minimum real read projection/navigation needed for Backlog, This Week, Today and Done. Do not absorb the following task-card state model, drag/drop/reorder, inline editing, EST/Time Taken editing, scheduling/recurrence editor, subtasks, notes, list settings, search, Settings or Reports behavior unless a dependency is strictly required and recorded.
 
 ## Durable correctness decisions
 
@@ -228,11 +200,12 @@ Future work must preserve:
 - overlay primitives preserve stable sibling geometry and keyboard/focus accessibility;
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
+- imported list icons remain app-data-owned and only relative owned paths are persisted or eligible for cleanup;
+- exact 1280x720 remains a PNG output contract, not a browser DOM-layout viewport assumption;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostic controls remain explicitly gated and outside normal product navigation;
 - no infinite decorative animation, especially on `focusSurface`;
-- keyboard/focus accessibility remains required as the visual foundation expands;
-- visual capture dimensions remain an image-output contract, not a browser DOM viewport assumption.
+- keyboard/focus accessibility remains required as the visual foundation expands.
 
 ## Multi-agent continuation rule
 
