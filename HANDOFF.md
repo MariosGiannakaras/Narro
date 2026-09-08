@@ -46,24 +46,29 @@ Local Node/Rust preflight: **NOT RUN**. The current execution environment has no
 
 ### Latest CI evidence / active diagnostic
 
-Latest exact PR head with the DOM-layout-viewport correction:
+Latest failed exact PR head before the geometry-only validator correction:
 
-`adb4927dde7a0d5fd15e72f4aac3efde674a5ea0`
+`c49ab6193c49a39c14983788378f01d417cb9316`
 
-Windows PR CI #301 / run `34192108491` / job `101952146882`:
+Windows PR CI #303 / run `34192821845` / job `101954219210`:
 
 - Repository Preflight: **PASS**;
-- visual-fixture static regression guard: **PASS**;
 - `test:ui-list-editor-modal`: **PASS**;
 - frontend build: **PASS**;
 - Rust fmt/check/Clippy/tests: **PASS**; 188 Rust unit tests passed plus integration suites;
-- the previous `list-editor-create-light` 1256px-vs-1280px backdrop failure is no longer the failing assertion; modal fixed-backdrop geometry is now validated against measured DOM `window.innerWidth` / `window.innerHeight` while exact PNG IHDR validation remains 1280x720;
-- Capture Visual Regression Fixtures: **FAIL** only on `list-editor-edit-light selected color state is missing`;
+- performance harness self-test: **PASS**;
+- the previous DOM-layout-viewport backdrop failure is fixed and the strict exact 1280x720 PNG IHDR contract remains intact;
+- the previous edit-fixture selected-color failure is fixed by using the real palette swatch `#48d6c5` only in `editFixtureList`;
+- Capture Visual Regression Fixtures: **FAIL** only on `List editor create light/dark geometry differs`;
 - visual artifact upload / Tauri release / diagnostic artifact upload were skipped because capture validation failed first.
 
-The new failure is deterministic fixture-data evidence, not a production modal or persistence failure. `editFixtureList` currently spreads `homeFixtureSnapshot.lists[0]`, whose representative Work color is `#32c7b5`. The editor palette is `#48d6c5`, `#b7d96d`, `#5da7e8`, `#8a78dc`, `#e0a34d`, `#df716b`; therefore the edit fixture renders no `data-selected="true"` swatch and correctly fails the semantic capture assertion.
+The #303 failure is a validator-only parity bug, not production UI evidence. `listEditorGeometry` stored the full `contract.modal`, which contains theme-specific `backgroundColor`, then compared the resulting object between light and dark under a geometry-only invariant. Light and dark modal surface colors are intentionally different.
 
-Required correction: keep the Home fixture color unchanged, but override only `editFixtureList.color` with a supported deterministic editor swatch (`#48d6c5`). Do not relax the selected-color semantic assertion and do not change production modal/Rust behavior. Then validate a new exact PR head with full Windows CI.
+Evidence-backed correction is implemented in source/test candidate commit:
+
+`2add6d452a69a6416641bb8484cfab7198e49836`
+
+That correction projects the modal parity contract to only `width`, `height`, and `borderRadius`. Existing per-theme semantic checks, selected-color checks, modal size/radius checks, measured DOM layout viewport/backdrop coverage, exact 1280x720 PNG validation, and production modal/Rust behavior are unchanged.
 
 The validated visual-harness decision in `work-log/2026-09-07-1920-chatgpt-m5-visual-regression-harness.md` remains in force: exact 1280x720 is the PNG output contract, not a browser DOM layout viewport assumption.
 
@@ -91,15 +96,16 @@ Create/Edit List modal checkpoints:
 - modal keyboard/focus behavior and reduced-motion usability must remain intact;
 - exact 1280x720 is the PNG capture-output contract, not a DOM layout viewport assumption;
 - edit fixture color must be an actual editor-palette swatch so the captured selected-color state is meaningful;
+- light/dark geometry parity must compare geometry only; theme-specific surface colors must remain independently validated rather than treated as equal geometry;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostics remain gated behind `?diagnostics=1`;
 - do not absorb the later list board, task-card, drag/drop, list-settings/archive-delete, search, settings or reports items.
 
 ## NEXT AGENT ACTION
 
-On the existing `m5-create-edit-list-modal` branch / PR #83, override only `editFixtureList.color` to the supported deterministic editor swatch `#48d6c5`; retain the strict `data-selected="true"` captured semantic assertion and all DOM-viewport/PNG-dimension distinctions established by the prior correction.
+Inspect PR #83 after this tracking update, record its exact current head, and observe the fresh authoritative Windows CI run for that head. Do not make another source change unless the new run produces evidence-backed failure.
 
-Then record the new exact PR head and observe a fresh authoritative Windows CI run. Require repository preflight including `test:ui-list-editor-modal`, real Edge light/dark create/edit modal captures, visual artifact upload, Tauri release and diagnostic artifact upload to succeed.
+Require Repository Preflight including `test:ui-list-editor-modal`, real Edge light/dark create/edit modal captures, visual artifact upload, Tauri release and diagnostic artifact upload to succeed on the same exact PR head.
 
 After exact-head PASS, inspect the exact changed-file diff plus all PR comments/reviews/inline threads, merge only with an expected-head guard, validate the resulting main source SHA with Windows CI, and only then mark `Create/Edit List modal with icon import, color selection, title, cancel/create states` complete and reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` plus one new immutable work-log entry.
 
