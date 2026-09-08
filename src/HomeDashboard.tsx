@@ -39,6 +39,7 @@ type HomeDashboardProps = {
   fixtureHoverListId?: string;
   refreshKey?: number;
   getListCardActions?: (list: HomeListCardSnapshot) => HomeListCardActions | undefined;
+  onOpenAllLists?: () => void;
   onCreateList?: () => void;
 };
 
@@ -178,6 +179,7 @@ export function HomeDashboard({
   fixtureHoverListId,
   refreshKey = 0,
   getListCardActions,
+  onOpenAllLists,
   onCreateList,
 }: HomeDashboardProps) {
   const [snapshot, setSnapshot] = useState<HomeSnapshot | null>(fixtureSnapshot ?? null);
@@ -256,7 +258,12 @@ export function HomeDashboard({
           </div>
         ) : (
           <div className="home-dashboard__grid" data-home-list-count={snapshot.lists.length}>
-            {aggregateCard ? <ListCard card={aggregateCard} /> : null}
+            {aggregateCard ? (
+              <ListCard
+                card={aggregateCard}
+                actions={onOpenAllLists ? { onOpen: onOpenAllLists } : undefined}
+              />
+            ) : null}
             {snapshot.lists.map((list) => (
               <ListCard
                 key={list.id}

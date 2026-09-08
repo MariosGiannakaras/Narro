@@ -1,6 +1,8 @@
 import { type ReactNode, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { HomeDashboard, type HomeListCardSnapshot } from "./HomeDashboard";
+import { ListBoard } from "./ListBoard";
+import type { ListBoardRequestTarget } from "./listBoardApi";
 import { ListEditorModal } from "./ListEditorModal";
 import {
   createListFromEditor,
@@ -53,7 +55,7 @@ const destinationCopy: Record<AppDestination, DestinationCopy> = {
   "all-lists": {
     eyebrow: "Lists",
     title: "All my lists",
-    description: "List management will reuse the same local list data without changing the shell geometry.",
+    description: "Tasks from active local lists share one planning board without becoming a persisted synthetic list.",
   },
   "archived-lists": {
     eyebrow: "Archive",
@@ -101,6 +103,7 @@ function NavButton({
 
 export function AppShell({ children, fixtureMode = false, homeContent }: AppShellProps) {
   const [activeDestination, setActiveDestination] = useState<AppDestination>("home");
+  const [boardTarget, setBoardTarget] = useState<ListBoardRequestTarget | null>(null);
   const [editorState, setEditorState] = useState<ListEditorState | null>(null);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
@@ -113,11 +116,29 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     setEditorState({ mode: "edit", list });
   }
 
+  function openBoardTarget(target: ListBoardRequestTarget) {
+    setBoardTarget(target);
+    setActiveDestination("all-lists");
+  }
+
+  function openAllListsBoard() {
+    openBoardTarget({ kind: "all" });
+  }
+
+  function openListBoard(list: HomeListCardSnapshot) {
+    openBoardTarget({ kind: "list", id: list.id });
+  }
+
   function handleNavigate(destination: AppDestination) {
     if (destination === "create-list") {
       openCreateList();
       return;
     }
+    if (destination === "all-lists") {
+      openAllListsBoard();
+      return;
+    }
+    setBoardTarget(null);
     setActiveDestination(destination);
   }
 
@@ -134,6 +155,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     }
 
     setEditorState(null);
+    setBoardTarget(null);
     setActiveDestination("home");
     setHomeRefreshKey((value) => value + 1);
   }
@@ -141,8 +163,10 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const runtimeHome = homeContent ?? (
     <HomeDashboard
       refreshKey={homeRefreshKey}
+      onOpenAllLists={openAllListsBoard}
       onCreateList={openCreateList}
       getListCardActions={(list) => ({
+        onOpen: () => openListBoard(list),
         onEdit: () => openEditList(list),
       })}
     />
@@ -207,7 +231,9 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
           </header>
 
           <main className="app-shell__content" id="main-content" tabIndex={-1}>
-            {activeDestination === "home" ? (
+            {boardTarget ? (
+              <ListBoard target={boardTarget} onTargetChange={openBoardTarget} />
+            ) : activeDestination === "home" ? (
               runtimeHome
             ) : (
               <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">

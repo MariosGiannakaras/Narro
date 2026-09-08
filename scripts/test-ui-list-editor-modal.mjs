@@ -62,6 +62,7 @@ for (const [haystack, needle, label] of [
   [shell, 'destination === "create-list"', "Create-list nav opens modal"],
   [shell, "onCreateList={openCreateList}", "Home Create tile opens modal"],
   [shell, "onEdit: () => openEditList(list)", "real Edit List card target"],
+  [shell, "onOpen: () => openListBoard(list)", "real Open target after board implementation"],
   [shell, "await createListFromEditor(request);", "persistence-backed create"],
   [shell, "await updateListFromEditor(editorState.list.id, request);", "persistence-backed edit"],
   [shell, "setHomeRefreshKey((value) => value + 1);", "post-commit Home refresh"],
@@ -80,11 +81,7 @@ if (api.includes("PersistedList")) {
   throw new Error("List editor IPC must not expose a renderer-owned persisted-list serialization contract.");
 }
 
-for (const forbidden of [
-  "onOpen: () =>",
-  "onDuplicate: () =>",
-  "onArchive: () =>",
-]) {
+for (const forbidden of ["onDuplicate: () =>", "onArchive: () =>"]) {
   if (shell.includes(forbidden)) {
     throw new Error(`Create/Edit List modal slice must not activate a later runtime card target: ${forbidden}`);
   }

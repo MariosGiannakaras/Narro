@@ -41,12 +41,13 @@ for (const [haystack, needle, label] of [
   [fixtures, 'button[aria-label="More actions for Study"]', "deterministic overflow-menu opening"],
   [capture, '"list-card-states"', "real Edge list-card state capture"],
   [validator, "list-card-states", "captured list-card state validation"],
+  [shell, "onOpen: () => openListBoard(list)", "real Open target after list-board implementation"],
   [shell, "onEdit: () => openEditList(list)", "real Edit List target after modal implementation"],
 ]) {
   requireText(haystack, needle, label);
 }
 
-for (const forbidden of ["onOpen: () =>", "onDuplicate: () =>", "onArchive: () =>"]) {
+for (const forbidden of ["onDuplicate: () =>", "onArchive: () =>"]) {
   if (shell.includes(forbidden)) {
     throw new Error(`Runtime AppShell must not activate a later list-card target: ${forbidden}`);
   }

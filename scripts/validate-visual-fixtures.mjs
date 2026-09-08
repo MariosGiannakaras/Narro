@@ -8,6 +8,7 @@ const expectedCapture = { width: 1280, height: 720 };
 const homeGeometry = new Map();
 const listCardStateGeometry = new Map();
 const listEditorGeometry = new Map();
+const listBoardGeometry = new Map();
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`Visual fixture validation failed: ${message}`);
@@ -128,6 +129,86 @@ function validateListEditorFixture(theme, mode) {
   });
 }
 
+function validateListBoardFixture(theme, aggregate) {
+  const fixtureName = aggregate ? "list-board-all" : "list-board";
+  const label = `${fixtureName}-${theme}`;
+  const screenshotPath = path.join(outputDirectory, `${label}.png`);
+  const domPath = path.join(outputDirectory, `${label}.html`);
+  validatePng(screenshotPath, label);
+
+  const { dom, contract } = readVisualContract(domPath, label);
+  invariant(contract.fixture === fixtureName, `${label} contract fixture identity differs`);
+  validateShellContract(contract, label, theme);
+  invariant(dom.includes('data-list-board="main"'), `${label} list-board identity is missing`);
+  invariant(dom.includes('data-board-lane-count="4"'), `${label} four-lane contract is missing`);
+  invariant(
+    dom.includes(`data-board-target="${aggregate ? "all_lists" : "list"}"`),
+    `${label} target identity differs`,
+  );
+  invariant(dom.includes('data-board-list-selector="true"'), `${label} confirmed board list selector is missing`);
+  invariant(dom.includes('aria-label="Planning list"'), `${label} board list selector label is missing`);
+  invariant(dom.includes(">All Lists<"), `${label} All Lists selector option is missing`);
+  if (aggregate) {
+    invariant(
+      dom.includes('data-board-selected-target="__all_lists__"'),
+      `${label} selector does not reflect the aggregate target`,
+    );
+  } else {
+    invariant(
+      dom.includes('data-board-selected-target="11111111-1111-4111-8111-111111111111"'),
+      `${label} selector does not reflect the Work-list target`,
+    );
+    invariant(dom.includes(">Work<"), `${label} Work selector/list title is missing`);
+  }
+
+  const laneMarkers = ["Backlog", "This Week", "Today", "Done"].map((title) =>
+    dom.indexOf(`data-board-lane="${title}"`),
+  );
+  invariant(laneMarkers.every((index) => index >= 0), `${label} one or more board lanes are missing`);
+  invariant(
+    laneMarkers.every((index, position) => position === 0 || index > laneMarkers[position - 1]),
+    `${label} board lane order differs from Backlog / This Week / Today / Done`,
+  );
+  invariant(dom.includes('data-board-add-slot="reserved"'), `${label} future add-action geometry is not reserved`);
+  invariant(dom.includes('data-completed="true"'), `${label} Done projection does not contain a completed task`);
+  invariant(dom.includes("Est:"), `${label} lane/task estimate metadata is missing`);
+
+  if (aggregate) {
+    invariant(dom.includes("All Lists"), `${label} aggregate title is missing`);
+    invariant(dom.includes('title="Work"'), `${label} Work origin label is missing`);
+    invariant(dom.includes('title="Personal"'), `${label} Personal origin label is missing`);
+  } else {
+    invariant(dom.includes(">Work<"), `${label} individual list title is missing`);
+  }
+
+  for (const [name, node] of [
+    ["board", contract.board],
+    ["lanes", contract.lanes],
+    ["first lane", contract.firstLane],
+    ["first task", contract.firstTask],
+  ]) {
+    invariant(node?.width > 0 && node?.height > 0, `${label} ${name} has invalid geometry`);
+  }
+  invariant(contract.lanes.width <= contract.board.width, `${label} lane grid overflows board width`);
+  invariant(contract.firstLane.borderRadius === "12px", `${label} lane radius differs from panel contract`);
+  invariant(contract.firstTask.borderRadius === "10px", `${label} baseline task row radius differs from task-card contract`);
+
+  listBoardGeometry.set(`${fixtureName}-${theme}`, {
+    board: { width: contract.board.width, height: contract.board.height },
+    lanes: { width: contract.lanes.width, height: contract.lanes.height },
+    firstLane: {
+      width: contract.firstLane.width,
+      height: contract.firstLane.height,
+      borderRadius: contract.firstLane.borderRadius,
+    },
+    firstTask: {
+      width: contract.firstTask.width,
+      height: contract.firstTask.height,
+      borderRadius: contract.firstTask.borderRadius,
+    },
+  });
+}
+
 for (const theme of themes) {
   const screenshotPath = path.join(outputDirectory, `${theme}.png`);
   const domPath = path.join(outputDirectory, `${theme}.html`);
@@ -222,6 +303,8 @@ for (const theme of themes) {
 
   validateListEditorFixture(theme, "create");
   validateListEditorFixture(theme, "edit");
+  validateListBoardFixture(theme, false);
+  validateListBoardFixture(theme, true);
 }
 
 invariant(
@@ -238,6 +321,14 @@ for (const mode of ["create", "edit"]) {
   invariant(
     stableJson(listEditorGeometry.get(`${mode}-light`)) === stableJson(listEditorGeometry.get(`${mode}-dark`)),
     `List editor ${mode} light/dark geometry differs`,
+  );
+}
+
+for (const fixtureName of ["list-board", "list-board-all"]) {
+  invariant(
+    stableJson(listBoardGeometry.get(`${fixtureName}-light`))
+      === stableJson(listBoardGeometry.get(`${fixtureName}-dark`)),
+    `${fixtureName} light/dark geometry differs`,
   );
 }
 
