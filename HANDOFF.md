@@ -26,13 +26,15 @@ Detailed completed-slice evidence: `work-log/2026-09-08-0019-chatgpt-m5-list-car
 
 Branch: `m5-create-edit-list-modal`, based on main docs tip `498d1be65117b60cefa0e33e6e3ab3088bb8352c`.
 
-Candidate implementation now includes:
+PR: #83 — `M5: add Create/Edit List modal` — OPEN / mergeable.
+
+Candidate implementation includes:
 
 - reusable `ListEditorModal` with create/edit modes, dimmed backdrop, close X, Escape dismissal, Tab focus trap, opener focus restoration, title validation, Cancel and persistence-backed Create / Save changes states;
 - local icon selection and preview for JPG/JPEG/PNG/SVG with frontend size/signature checks and 1 MiB cap;
 - app-data-owned `list-icons/` storage in Rust with filename-extension/content validation, scripted/`javascript:` SVG rejection, UUID filenames, relative stored paths and cleanup of new files when a list mutation fails;
 - reuse of the validated M2 `create_list` / `update_list` persistence boundaries rather than parallel renderer-owned CRUD;
-- renderer-facing `create_list_from_editor` / `update_list_from_editor` commands with typed command errors and **success-only** `CommandResult<()>` IPC; internal `ListRecord` values remain domain/test-only and Home re-reads authoritative SQLite state after a successful commit;
+- renderer-facing `create_list_from_editor` / `update_list_from_editor` commands with typed command errors and success-only `CommandResult<()>` IPC; internal `ListRecord` values remain domain/test-only and Home re-reads authoritative SQLite state after a successful commit;
 - runtime wiring from `+ Create new list`, the Home Create List tile and the existing `Edit List` menu item; Open/Duplicate/Archive remain unbound because their targets are later ordered items;
 - successful create/edit closes the modal, returns to Home and increments a refresh key that triggers a fresh `get_home_snapshot` read; failed mutations keep the modal open and show the mapped error;
 - deterministic light/dark `list-editor-create` and `list-editor-edit` visual fixtures, capture wiring and geometry/semantic validation;
@@ -40,7 +42,27 @@ Candidate implementation now includes:
 - previous Home/list-card static contracts updated only where their old literal assertions became stale after real Create/Edit callbacks were introduced;
 - no list board/task-card/drag-drop/task-edit/scheduling/subtasks/notes/list-settings/archive-delete/search/settings/reports behavior was added.
 
-Local Node/Rust preflight: **NOT RUN**. The current execution environment has Node but no repository checkout and no Rust/Cargo toolchain; DNS/network isolation prevents cloning the public repository into the container. No local PASS is claimed. Windows GitHub Actions CI is the authoritative reproducible gate.
+Local Node/Rust preflight: **NOT RUN**. The current execution environment has no repository checkout/Rust toolchain; no local PASS is claimed. Windows GitHub Actions CI is the authoritative reproducible gate.
+
+### Latest CI evidence / active diagnostic
+
+Latest exact PR head before the viewport-contract correction:
+
+`c472e82de1b8f1206110532ee19940c5f19689a0`
+
+Windows PR CI #297 / run `34171600267` / job `101892811843`:
+
+- Repository Preflight: **PASS**;
+- frontend static contracts/build: **PASS**;
+- Rust fmt/check/Clippy/tests: **PASS**; 188 Rust unit tests passed plus integration suites;
+- Capture Visual Regression Fixtures: **FAIL** only on the new list-editor modal viewport assertion;
+- measured `list-editor-create-light` fixed backdrop width: **1256px**;
+- PNG capture contract: **1280x720**;
+- shell width: **960px**.
+
+The failure is an evidence-backed validator regression, not evidence that the production modal is constrained to the shell. The validated visual-harness decision in `work-log/2026-09-07-1920-chatgpt-m5-visual-regression-harness.md` explicitly states that Windows Edge `--window-size=1280,720` may include browser chrome, so DOM `window.innerWidth` / `window.innerHeight` can be smaller while the PNG IHDR remains exactly 1280x720. `STATUS.md` likewise records that capture dimensions are an image-output contract, not a browser DOM viewport assumption.
+
+Required correction: measure the actual DOM layout viewport in the modal fixture, validate `position: fixed; inset: 0` backdrop geometry against that measured layout viewport, and keep the independent exact 1280x720 PNG IHDR assertion unchanged. Add a static regression guard that forbids comparing modal backdrop geometry directly to the PNG capture dimensions.
 
 ## USER-FACING PROGRESS
 
@@ -64,15 +86,16 @@ Create/Edit List modal checkpoints:
 - normal product Home exposes only real Create/Edit targets added by this slice; Open/Duplicate/Archive remain callback-absent;
 - deterministic fixture data and fixture callbacks never appear as normal user data/actions;
 - modal keyboard/focus behavior and reduced-motion usability must remain intact;
+- exact 1280x720 is the PNG capture-output contract, not a DOM layout viewport assumption;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostics remain gated behind `?diagnostics=1`;
 - do not absorb the later list board, task-card, drag/drop, list-settings/archive-delete, search, settings or reports items.
 
 ## NEXT AGENT ACTION
 
-Open one PR from `m5-create-edit-list-modal`, record its exact head SHA, and observe authoritative Windows CI on that exact head. Require repository preflight including `test:ui-list-editor-modal`, real Edge light/dark create/edit modal captures, visual artifact upload, Tauri release and diagnostic artifact upload to succeed.
+On the existing `m5-create-edit-list-modal` branch / PR #83, implement only the evidence-backed visual-harness correction described above: serialize measured `window.innerWidth` / `window.innerHeight` for the list-editor fixtures, compare fixed-backdrop geometry against that DOM layout viewport, retain exact 1280x720 PNG IHDR validation, and add a deterministic static regression guard against capture-size/DOM-viewport conflation.
 
-If CI fails, inspect the exact failing job log and fix only evidence-backed problems on the same branch. Do not retry a deterministic failure without a corrective change.
+Then record the new exact PR head and observe a fresh authoritative Windows CI run. Require repository preflight including `test:ui-list-editor-modal`, real Edge light/dark create/edit modal captures, visual artifact upload, Tauri release and diagnostic artifact upload to succeed.
 
 After exact-head PASS, inspect the exact changed-file diff plus all PR comments/reviews/inline threads, merge only with an expected-head guard, validate the resulting main source SHA with Windows CI, and only then mark `Create/Edit List modal with icon import, color selection, title, cancel/create states` complete and reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` plus one new immutable work-log entry.
 
