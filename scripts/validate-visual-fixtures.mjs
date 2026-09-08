@@ -191,7 +191,7 @@ function validateListBoardFixture(theme, aggregate) {
   }
   invariant(contract.lanes.width <= contract.board.width, `${label} lane grid overflows board width`);
   invariant(contract.firstLane.borderRadius === "12px", `${label} lane radius differs from panel contract`);
-  invariant(contract.firstTask.borderRadius === "12px", `${label} baseline task row radius differs from task-card contract`);
+  invariant(contract.firstTask.borderRadius === "10px", `${label} baseline task row radius differs from task-card contract`);
 
   listBoardGeometry.set(`${fixtureName}-${theme}`, {
     board: { width: contract.board.width, height: contract.board.height },
