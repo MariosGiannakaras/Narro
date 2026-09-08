@@ -194,13 +194,13 @@ pub fn create(
     now: &str,
 ) -> Result<ListRecord, ListEditorError> {
     validate_color(request.color.as_deref())?;
+    let mut connection = open_database(app_dir)?;
     let imported = request
         .icon_upload
         .as_ref()
         .map(|upload| write_imported_icon(app_dir, upload))
         .transpose()?;
 
-    let mut connection = open_database(app_dir)?;
     let result = create_list(
         &mut connection,
         NewListInput {
@@ -370,6 +370,34 @@ mod tests {
         .expect("update list");
         assert_eq!(updated.title, "Deep Work");
         assert_eq!(updated.icon_asset.as_deref(), Some(icon.as_str()));
+        std::fs::remove_dir_all(app_dir).expect("remove test app dir");
+    }
+
+    #[test]
+    fn create_database_open_failure_does_not_leave_imported_icon() {
+        let app_dir = test_app_dir();
+        std::fs::create_dir_all(&app_dir).expect("create test app dir");
+        std::fs::create_dir_all(app_dir.join("narro.db")).expect("block database file path");
+
+        let error = create(
+            &app_dir,
+            ListEditorRequest {
+                title: "Work".into(),
+                color: Some("#48d6c5".into()),
+                icon_upload: Some(ListIconUpload {
+                    filename: "work.png".into(),
+                    bytes: vec![0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 0],
+                }),
+            },
+            "2026-09-08T00:00:00Z",
+        )
+        .expect_err("database open must fail");
+
+        assert!(matches!(error, ListEditorError::OpenDatabase(_)));
+        assert!(
+            !app_dir.join(ICON_DIRECTORY).exists(),
+            "failed create must not write an imported icon before the database is available"
+        );
         std::fs::remove_dir_all(app_dir).expect("remove test app dir");
     }
 
