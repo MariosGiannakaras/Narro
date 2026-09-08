@@ -7,8 +7,8 @@ import {
   type ListBoardLane,
   type ListBoardRequestTarget,
   type ListBoardSnapshot,
-  type ListBoardTask,
 } from "./listBoardApi";
+import { TaskCard } from "./TaskCard";
 import "./listBoard.css";
 
 type ListBoardProps = {
@@ -49,31 +49,6 @@ function safeListAccent(color: string | null): CSSProperties | undefined {
   return { "--list-board-task-accent": color } as CSSProperties;
 }
 
-function BoardTaskRow({ task, aggregateView }: { task: ListBoardTask; aggregateView: boolean }) {
-  return (
-    <article
-      className="list-board-task"
-      data-board-task="baseline"
-      data-task-id={task.id}
-      data-completed={task.completedAt ? "true" : "false"}
-      style={safeListAccent(task.listColor)}
-    >
-      <div className="list-board-task__title-row">
-        <span className="list-board-task__marker" aria-hidden="true" />
-        <span className="list-board-task__title">{task.title}</span>
-      </div>
-      <div className="list-board-task__meta type-metadata">
-        {aggregateView ? (
-          <span className="list-board-task__list" title={task.listTitle}>
-            {task.listTitle}
-          </span>
-        ) : null}
-        <span className="list-board-task__est">Est: {formatEstimate(task.estSeconds ?? 0)}</span>
-      </div>
-    </article>
-  );
-}
-
 function BoardLane({
   lane,
   title,
@@ -106,7 +81,7 @@ function BoardLane({
         {lane.tasks.length > 0 ? (
           lane.tasks.map((task) => (
             <div role="listitem" key={task.id}>
-              <BoardTaskRow task={task} aggregateView={aggregateView} />
+              <TaskCard task={task} aggregateView={aggregateView} />
             </div>
           ))
         ) : (
