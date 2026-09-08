@@ -1,13 +1,14 @@
 use crate::domain::ids::{ListId, TaskId};
-use crate::domain::model::PlanningLane;
+use crate::domain::model::{PlanningLane, ScheduleKind};
 use crate::domain::tasks::TaskRecord;
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::lists::{active_lists, ListStoreError};
 use crate::persistence::preferences::{get_preferences, PreferenceStoreError};
+use crate::persistence::task_metadata::{task_time_taken_seconds, TaskMetadataError};
 use crate::persistence::tasks::{active_tasks_in_bucket, get_task, TaskStoreError};
-use crate::scheduling::{self, SchedulingError};
-use jiff::Timestamp;
+use crate::scheduling::{self, FocusEligibility, SchedulingError};
+use jiff::{tz::TimeZone, Timestamp};
 use rusqlite::{params, Connection};
 use serde::Serialize;
 use std::collections::HashSet;
@@ -46,6 +47,10 @@ pub struct ListBoardTask {
     pub list_color: Option<String>,
     pub title: String,
     pub est_seconds: Option<u32>,
+    pub time_taken_seconds: String,
+    pub scheduled_local_date: Option<String>,
+    pub scheduled_local_time: Option<String>,
+    pub is_overdue: bool,
     pub completed_at: Option<String>,
 }
 
@@ -72,6 +77,7 @@ pub struct ListBoardSnapshot {
 pub enum ListBoardError {
     Lists(ListStoreError),
     Tasks(TaskStoreError),
+    TaskMetadata(TaskMetadataError),
     Preferences(PreferenceStoreError),
     Scheduling(SchedulingError),
     Sqlite(rusqlite::Error),
@@ -87,6 +93,7 @@ impl Display for ListBoardError {
         match self {
             Self::Lists(error) => Display::fmt(error, formatter),
             Self::Tasks(error) => Display::fmt(error, formatter),
+            Self::TaskMetadata(error) => Display::fmt(error, formatter),
             Self::Preferences(error) => Display::fmt(error, formatter),
             Self::Scheduling(error) => Display::fmt(error, formatter),
             Self::Sqlite(error) => write!(formatter, "list-board read failed: {error}"),
@@ -126,6 +133,12 @@ impl From<TaskStoreError> for ListBoardError {
     }
 }
 
+impl From<TaskMetadataError> for ListBoardError {
+    fn from(value: TaskMetadataError) -> Self {
+        Self::TaskMetadata(value)
+    }
+}
+
 impl From<PreferenceStoreError> for ListBoardError {
     fn from(value: PreferenceStoreError) -> Self {
         Self::Preferences(value)
@@ -150,6 +163,8 @@ struct ProjectedTask {
     task: TaskRecord,
     list_title: String,
     list_color: Option<String>,
+    time_taken_seconds: String,
+    is_overdue: bool,
 }
 
 #[derive(Default)]
@@ -186,6 +201,10 @@ impl LaneAccumulator {
                 list_color: projected.list_color,
                 title: projected.task.title,
                 est_seconds: projected.task.est_seconds,
+                time_taken_seconds: projected.time_taken_seconds,
+                scheduled_local_date: projected.task.scheduled_local_date,
+                scheduled_local_time: projected.task.scheduled_local_time,
+                is_overdue: projected.is_overdue,
                 completed_at: projected.task.completed_at,
             });
         }
@@ -226,6 +245,58 @@ fn selected_timezone(conn: &Connection, fallback: &str) -> Result<String, ListBo
         .filter(|value| !value.trim().is_empty());
     let candidate = persisted.as_deref().unwrap_or(fallback);
     Ok(scheduling::validate_timezone_identifier(candidate)?)
+}
+
+fn display_local_date(now: Timestamp, display_timezone: &str) -> Result<String, ListBoardError> {
+    let timezone = TimeZone::get(display_timezone)
+        .map_err(|_| SchedulingError::InvalidTimezone(display_timezone.to_owned()))?;
+    Ok(timezone.to_datetime(now).date().to_string())
+}
+
+fn task_is_overdue_at(
+    task: &TaskRecord,
+    now: Timestamp,
+    display_timezone: &str,
+) -> Result<bool, ListBoardError> {
+    if task.completed_at.is_some() {
+        return Ok(false);
+    }
+
+    match task.schedule_kind {
+        ScheduleKind::None => Ok(false),
+        ScheduleKind::DateOnly => {
+            scheduling::effective_planning_lane_at(task, now, display_timezone)?;
+            let Some(scheduled_date) = task.scheduled_local_date.as_deref() else {
+                return Err(SchedulingError::InconsistentStoredSchedule(ScheduleKind::DateOnly).into());
+            };
+            Ok(scheduled_date < display_local_date(now, display_timezone)?.as_str())
+        }
+        ScheduleKind::LocalDateTime => Ok(matches!(
+            scheduling::focus_eligibility_at(task, now, display_timezone)?,
+            FocusEligibility::Eligible
+        )),
+    }
+}
+
+fn project_task(
+    conn: &Connection,
+    list_rank: u32,
+    task: TaskRecord,
+    list_title: String,
+    list_color: Option<String>,
+    now: Timestamp,
+    display_timezone: &str,
+) -> Result<ProjectedTask, ListBoardError> {
+    let time_taken_seconds = task_time_taken_seconds(conn, task.id)?.to_string();
+    let is_overdue = task_is_overdue_at(&task, now, display_timezone)?;
+    Ok(ProjectedTask {
+        list_rank,
+        task,
+        list_title,
+        list_color,
+        time_taken_seconds,
+        is_overdue,
+    })
 }
 
 pub fn load_at(
@@ -279,12 +350,15 @@ pub fn load_at(
                 }
                 let effective_lane =
                     scheduling::effective_planning_lane_at(&task, now, &display_timezone)?;
-                let projected = ProjectedTask {
-                    list_rank: list.sort_rank,
+                let projected = project_task(
+                    conn,
+                    list.sort_rank,
                     task,
-                    list_title: list.title.clone(),
-                    list_color: list.color.clone(),
-                };
+                    list.title.clone(),
+                    list.color.clone(),
+                    now,
+                    &display_timezone,
+                )?;
                 match effective_lane {
                     PlanningLane::Backlog => backlog.push(projected),
                     PlanningLane::ThisWeek => this_week.push(projected),
@@ -297,12 +371,15 @@ pub fn load_at(
             if !seen.insert(task.id) {
                 return Err(ListBoardError::DuplicateTaskProjection(task.id));
             }
-            done.push(ProjectedTask {
-                list_rank: list.sort_rank,
+            done.push(project_task(
+                conn,
+                list.sort_rank,
                 task,
-                list_title: list.title.clone(),
-                list_color: list.color.clone(),
-            });
+                list.title.clone(),
+                list.color.clone(),
+                now,
+                &display_timezone,
+            )?);
         }
     }
 
@@ -363,9 +440,10 @@ pub fn get_list_board_snapshot(
 mod tests {
     use super::*;
     use crate::domain::lists::NewListInput;
-    use crate::domain::tasks::NewTaskInput;
+    use crate::domain::tasks::{NewTaskInput, SetTaskTimeTakenInput};
     use crate::persistence::lists::{archive_list, create_list};
     use crate::persistence::run_migrations;
+    use crate::persistence::task_metadata::set_task_time_taken;
     use crate::persistence::tasks::{complete_task, create_task};
 
     const T0: &str = "2026-09-08T08:00:00Z";
@@ -460,6 +538,9 @@ mod tests {
         assert_eq!(board.done.tasks[0].id, done);
         assert_eq!(board.today.aggregate_est_seconds, 1800);
         assert_eq!(board.done.aggregate_est_seconds, 2400);
+        assert_eq!(board.today.tasks[0].time_taken_seconds, "0");
+        assert!(!board.today.tasks[0].is_overdue);
+        assert!(!board.done.tasks[0].is_overdue);
 
         let projected: HashSet<TaskId> = board
             .backlog
@@ -497,9 +578,78 @@ mod tests {
         assert_eq!(board.today.tasks.len(), 1);
         assert_eq!(board.today.tasks[0].id, task_id);
         assert_eq!(
+            board.today.tasks[0].scheduled_local_date.as_deref(),
+            Some("2026-09-08")
+        );
+        assert!(board.today.tasks[0].scheduled_local_time.is_none());
+        assert!(!board.today.tasks[0].is_overdue);
+        assert_eq!(
             get_task(&conn, task_id).expect("reload task").manual_lane,
             PlanningLane::Backlog
         );
+    }
+
+    #[test]
+    fn overdue_and_time_taken_are_authoritative_read_metadata() {
+        let mut conn = setup();
+        let list_id = create_named_list(&mut conn, "Work", None);
+        let task_id = add_task(
+            &mut conn,
+            list_id,
+            "Past due",
+            PlanningLane::Backlog,
+            Some(900),
+        );
+        conn.execute(
+            "UPDATE tasks
+             SET schedule_kind = 'date_only', scheduled_local_date = '2026-09-07'
+             WHERE id = ?1",
+            [task_id.to_string()],
+        )
+        .expect("schedule overdue task");
+        set_task_time_taken(
+            &mut conn,
+            task_id,
+            SetTaskTimeTakenInput { total_seconds: 375 },
+            T1,
+        )
+        .expect("set durable Time Taken");
+
+        let board = load_at(&conn, Some(list_id), now(), "Europe/Athens").expect("load board");
+        assert_eq!(board.today.tasks.len(), 1);
+        let projected = &board.today.tasks[0];
+        assert_eq!(projected.id, task_id);
+        assert_eq!(projected.time_taken_seconds, "375");
+        assert_eq!(projected.scheduled_local_date.as_deref(), Some("2026-09-07"));
+        assert!(projected.is_overdue);
+    }
+
+    #[test]
+    fn future_timed_today_is_scheduled_but_not_overdue() {
+        let mut conn = setup();
+        let list_id = create_named_list(&mut conn, "Work", None);
+        let task_id = add_task(
+            &mut conn,
+            list_id,
+            "Later today",
+            PlanningLane::Backlog,
+            None,
+        );
+        conn.execute(
+            "UPDATE tasks
+             SET schedule_kind = 'local_datetime',
+                 scheduled_local_date = '2026-09-08',
+                 scheduled_local_time = '15:00',
+                 schedule_timezone = 'Europe/Athens'
+             WHERE id = ?1",
+            [task_id.to_string()],
+        )
+        .expect("schedule future timed task");
+
+        let board = load_at(&conn, Some(list_id), now(), "Europe/Athens").expect("load board");
+        let projected = &board.today.tasks[0];
+        assert_eq!(projected.scheduled_local_time.as_deref(), Some("15:00"));
+        assert!(!projected.is_overdue);
     }
 
     #[test]
