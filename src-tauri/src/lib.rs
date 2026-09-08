@@ -2,6 +2,7 @@ pub mod autostart;
 pub mod domain;
 pub mod error;
 pub mod home_snapshot;
+pub mod list_board;
 pub mod list_editor;
 pub mod notifications;
 pub mod persistence;
@@ -610,6 +611,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_state,
             get_home_snapshot,
+            list_board::get_list_board_snapshot,
             list_editor::create_list_from_editor,
             list_editor::update_list_from_editor,
             toggle_timer,
