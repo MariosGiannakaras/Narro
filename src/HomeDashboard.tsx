@@ -37,6 +37,7 @@ type HomeDashboardProps = {
   fixtureSnapshot?: HomeSnapshot;
   fixtureHour?: number;
   fixtureHoverListId?: string;
+  refreshKey?: number;
   getListCardActions?: (list: HomeListCardSnapshot) => HomeListCardActions | undefined;
   onCreateList?: () => void;
 };
@@ -175,6 +176,7 @@ export function HomeDashboard({
   fixtureSnapshot,
   fixtureHour,
   fixtureHoverListId,
+  refreshKey = 0,
   getListCardActions,
   onCreateList,
 }: HomeDashboardProps) {
@@ -202,7 +204,7 @@ export function HomeDashboard({
     return () => {
       disposed = true;
     };
-  }, [fixtureSnapshot]);
+  }, [fixtureSnapshot, refreshKey]);
 
   const greetingHour = fixtureHour ?? new Date().getHours();
   const aggregateCard = useMemo<DisplayCard | null>(() => {
@@ -246,6 +248,11 @@ export function HomeDashboard({
           <div className="home-dashboard__empty">
             <strong>No lists yet</strong>
             <span>Your local lists will appear here after you create one.</span>
+            {onCreateList ? (
+              <button type="button" className="motion-interactive" onClick={onCreateList}>
+                Create your first list
+              </button>
+            ) : null}
           </div>
         ) : (
           <div className="home-dashboard__grid" data-home-list-count={snapshot.lists.length}>

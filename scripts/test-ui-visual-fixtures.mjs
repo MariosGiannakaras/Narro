@@ -31,6 +31,10 @@ for (const [haystack, needle, label] of [
   [source, 'dataset.visualFixtureReady = "true"', "fixture ready signal"],
   [source, 'id = "visual-contract"', "serialized visual contract"],
   [source, 'data-timer-numerals="true"', "tabular timer coverage"],
+  [source, "function readLayoutViewport()", "measured DOM layout viewport helper"],
+  [source, "width: window.innerWidth", "measured DOM layout viewport width"],
+  [source, "height: window.innerHeight", "measured DOM layout viewport height"],
+  [source, "layoutViewport: readLayoutViewport()", "modal layout viewport serialization"],
   [css, "width: 48rem;", "fixed foundation panel width"],
   [css, "height: 30rem;", "fixed foundation panel height"],
   [css, ".visual-fixture-body .app-shell--fixture", "app-shell capture placement"],
@@ -39,17 +43,27 @@ for (const [haystack, needle, label] of [
   [capture, "--user-data-dir=", "isolated Edge profile"],
   [capture, "--screenshot=", "real screenshot capture"],
   [capture, "--dump-dom", "captured DOM output"],
-  [capture, "fixture=app-shell", "app-shell Edge capture"],
-  [capture, '"app-shell-$theme.png"', "app-shell screenshot artifact"],
-  [capture, "fixture=home", "Home Edge capture"],
-  [capture, '"home-$theme.png"', "Home screenshot artifact"],
+  [capture, '$fixtures = @(', "fixture capture list"],
+  [capture, '"app-shell"', "app-shell capture entry"],
+  [capture, '"home"', "Home capture entry"],
+  [capture, '$fixtureUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=$fixture"', "generic fixture Edge URL"],
+  [capture, '$fixtureScreenshot = Join-Path $outputPath "$fixtureLabel.png"', "generic fixture screenshot artifact"],
   [validator, 'data-app-shell="main"', "captured app-shell identity validation"],
   [validator, 'data-home-dashboard="main"', "captured Home identity validation"],
   [validator, 'shell.shell?.width === 960 && shell.shell?.height === 560', "app-shell geometry validation"],
+  [validator, "contract.backdrop.width === contract.layoutViewport.width", "modal backdrop DOM viewport width validation"],
+  [validator, "contract.backdrop.height === contract.layoutViewport.height", "modal backdrop DOM viewport height validation"],
   [validator, "Home light/dark geometry differs", "Home theme geometry parity check"],
   [validator, "Captured visual fixture contracts: PASS", "captured contract validation"],
 ]) {
   requireText(haystack, needle, label);
+}
+
+if (
+  validator.includes("contract.backdrop.width === expectedCapture.width")
+  || validator.includes("contract.backdrop.height === expectedCapture.height")
+) {
+  throw new Error("Overlay geometry must be validated against the measured DOM layout viewport, not PNG capture dimensions.");
 }
 
 console.log("Visual fixture harness contract checks passed.");

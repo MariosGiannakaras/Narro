@@ -39,14 +39,17 @@ for (const [haystack, needle, label] of [
   [fixtures, "onOpen: fixtureAction", "fixture-only Open callback"],
   [fixtures, "onCreateList={fixtureAction}", "fixture-only Create List callback"],
   [fixtures, 'button[aria-label="More actions for Study"]', "deterministic overflow-menu opening"],
-  [capture, "fixture=list-card-states", "real Edge list-card state capture"],
+  [capture, '"list-card-states"', "real Edge list-card state capture"],
   [validator, "list-card-states", "captured list-card state validation"],
+  [shell, "onEdit: () => openEditList(list)", "real Edit List target after modal implementation"],
 ]) {
   requireText(haystack, needle, label);
 }
 
-if (!shell.includes("homeContent ?? <HomeDashboard />")) {
-  throw new Error("Normal AppShell Home must continue to construct HomeDashboard without action callbacks.");
+for (const forbidden of ["onOpen: () =>", "onDuplicate: () =>", "onArchive: () =>"]) {
+  if (shell.includes(forbidden)) {
+    throw new Error(`Runtime AppShell must not activate a later list-card target: ${forbidden}`);
+  }
 }
 
 for (const forbidden of ["--motion-duration-interactive", "--motion-distance-interactive", "--color-text-muted"]) {

@@ -7,6 +7,7 @@ const themes = ["light", "dark"];
 const expectedCapture = { width: 1280, height: 720 };
 const homeGeometry = new Map();
 const listCardStateGeometry = new Map();
+const listEditorGeometry = new Map();
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`Visual fixture validation failed: ${message}`);
@@ -53,6 +54,78 @@ function validateShellContract(shell, label, theme) {
   invariant(shell.shell?.width === 960 && shell.shell?.height === 560, `${label} shell geometry differs from 960x560 fixture contract`);
   invariant(shell.sidebar?.width === 208, `${label} sidebar width differs from 208px contract`);
   invariant(shell.primaryNav?.height === 56, `${label} primary navigation height differs from 56px contract`);
+}
+
+function validateListEditorFixture(theme, mode) {
+  const fixtureName = `list-editor-${mode}`;
+  const label = `${fixtureName}-${theme}`;
+  const screenshotPath = path.join(outputDirectory, `${label}.png`);
+  const domPath = path.join(outputDirectory, `${label}.html`);
+  validatePng(screenshotPath, label);
+
+  const { dom, contract } = readVisualContract(domPath, label);
+  invariant(contract.fixture === fixtureName, `${label} contract fixture identity differs`);
+  validateShellContract(contract, label, theme);
+  invariant(dom.includes('role="dialog"'), `${label} dialog role is missing`);
+  invariant(dom.includes('aria-modal="true"'), `${label} aria-modal relationship is missing`);
+  invariant(dom.includes('aria-label="Close list editor"'), `${label} close control label is missing`);
+  invariant(dom.includes("UPLOAD AN ICON") || dom.includes("Current local icon retained"), `${label} icon-import state is missing`);
+  invariant(dom.includes("jpg, png, svg"), `${label} accepted icon formats are missing`);
+  invariant(dom.includes('role="radiogroup"'), `${label} color radiogroup is missing`);
+  invariant(dom.includes('data-selected="true"'), `${label} selected color state is missing`);
+  invariant(dom.includes('type="text"'), `${label} title input is missing`);
+  invariant(dom.includes(">Cancel<"), `${label} Cancel action is missing`);
+
+  if (mode === "create") {
+    invariant(dom.includes("Create a new list"), `${label} create heading is missing`);
+    invariant(dom.includes(">Create<"), `${label} Create action is missing`);
+  } else {
+    invariant(dom.includes("Edit list"), `${label} edit heading is missing`);
+    invariant(dom.includes('value="Work"'), `${label} edit title is not prefilled`);
+    invariant(dom.includes("Current local icon retained"), `${label} retained local icon state is missing`);
+    invariant(dom.includes("Save changes"), `${label} Save changes action is missing`);
+  }
+
+  for (const [name, node] of [
+    ["backdrop", contract.backdrop],
+    ["modal", contract.modal],
+    ["upload target", contract.upload],
+    ["color swatches", contract.swatches],
+    ["title input", contract.titleInput],
+    ["Cancel", contract.cancel],
+    ["submit", contract.submit],
+  ]) {
+    invariant(node?.width > 0 && node?.height > 0, `${label} ${name} has invalid geometry`);
+  }
+
+  invariant(
+    contract.layoutViewport?.width > 0 && contract.layoutViewport?.height > 0,
+    `${label} measured DOM layout viewport is missing or invalid`,
+  );
+  invariant(
+    contract.backdrop.width === contract.layoutViewport.width,
+    `${label} backdrop width is ${contract.backdrop.width}px; expected measured DOM layout viewport width ${contract.layoutViewport.width}px (PNG capture remains ${expectedCapture.width}px)`,
+  );
+  invariant(
+    contract.backdrop.height === contract.layoutViewport.height,
+    `${label} backdrop height is ${contract.backdrop.height}px; expected measured DOM layout viewport height ${contract.layoutViewport.height}px (PNG capture remains ${expectedCapture.height}px)`,
+  );
+  invariant(contract.modal.width <= 480, `${label} modal exceeds the 30rem width contract`);
+  invariant(contract.upload.width === contract.upload.height, `${label} icon upload target is not circular geometry`);
+  invariant(contract.cancel.height === contract.submit.height, `${label} footer actions differ in height`);
+
+  listEditorGeometry.set(`${mode}-${theme}`, {
+    modal: {
+      width: contract.modal.width,
+      height: contract.modal.height,
+      borderRadius: contract.modal.borderRadius,
+    },
+    upload: contract.upload,
+    swatches: contract.swatches,
+    titleInput: contract.titleInput,
+    cancel: contract.cancel,
+    submit: contract.submit,
+  });
 }
 
 for (const theme of themes) {
@@ -146,6 +219,9 @@ for (const theme of themes) {
     createTile: state.createTile,
     menu: state.menu,
   });
+
+  validateListEditorFixture(theme, "create");
+  validateListEditorFixture(theme, "edit");
 }
 
 invariant(
@@ -157,5 +233,12 @@ invariant(
   stableJson(listCardStateGeometry.get("light")) === stableJson(listCardStateGeometry.get("dark")),
   "List-card interaction-state light/dark geometry differs",
 );
+
+for (const mode of ["create", "edit"]) {
+  invariant(
+    stableJson(listEditorGeometry.get(`${mode}-light`)) === stableJson(listEditorGeometry.get(`${mode}-dark`)),
+    `List editor ${mode} light/dark geometry differs`,
+  );
+}
 
 console.log("Captured visual fixture contracts: PASS");

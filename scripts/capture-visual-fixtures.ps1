@@ -138,26 +138,28 @@ try {
         $url = "$baseUrl/visual-fixtures.html?theme=$theme"
         $screenshot = Join-Path $outputPath "$theme.png"
         $dom = Join-Path $outputPath "$theme.html"
-
         Capture-Theme -EdgePath $edge -Theme $theme -Url $url -ScreenshotPath $screenshot -DomPath $dom
 
-        $shellUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=app-shell"
-        $shellScreenshot = Join-Path $outputPath "app-shell-$theme.png"
-        $shellDom = Join-Path $outputPath "app-shell-$theme.html"
+        $fixtures = @(
+            "app-shell",
+            "home",
+            "list-card-states",
+            "list-editor-create",
+            "list-editor-edit"
+        )
 
-        Capture-Theme -EdgePath $edge -Theme "app-shell-$theme" -Url $shellUrl -ScreenshotPath $shellScreenshot -DomPath $shellDom
-
-        $homeUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=home"
-        $homeScreenshot = Join-Path $outputPath "home-$theme.png"
-        $homeDom = Join-Path $outputPath "home-$theme.html"
-
-        Capture-Theme -EdgePath $edge -Theme "home-$theme" -Url $homeUrl -ScreenshotPath $homeScreenshot -DomPath $homeDom
-
-        $listCardUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=list-card-states"
-        $listCardScreenshot = Join-Path $outputPath "list-card-states-$theme.png"
-        $listCardDom = Join-Path $outputPath "list-card-states-$theme.html"
-
-        Capture-Theme -EdgePath $edge -Theme "list-card-states-$theme" -Url $listCardUrl -ScreenshotPath $listCardScreenshot -DomPath $listCardDom
+        foreach ($fixture in $fixtures) {
+            $fixtureUrl = "$baseUrl/visual-fixtures.html?theme=$theme&fixture=$fixture"
+            $fixtureLabel = "$fixture-$theme"
+            $fixtureScreenshot = Join-Path $outputPath "$fixtureLabel.png"
+            $fixtureDom = Join-Path $outputPath "$fixtureLabel.html"
+            Capture-Theme `
+                -EdgePath $edge `
+                -Theme $fixtureLabel `
+                -Url $fixtureUrl `
+                -ScreenshotPath $fixtureScreenshot `
+                -DomPath $fixtureDom
+        }
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {

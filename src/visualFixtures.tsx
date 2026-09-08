@@ -1,14 +1,19 @@
-import { createRoot } from "react-dom/client";
 import { flushSync } from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./App.css";
 import { AppShell } from "./AppShell";
-import { HomeDashboard, type HomeSnapshot } from "./HomeDashboard";
+import { HomeDashboard, type HomeListCardSnapshot, type HomeSnapshot } from "./HomeDashboard";
+import { ListEditorModal } from "./ListEditorModal";
 import "./visualFixtures.css";
 
 const searchParams = new URLSearchParams(window.location.search);
 const theme = searchParams.get("theme") === "dark" ? "dark" : "light";
 const requestedFixture = searchParams.get("fixture");
-const fixture = requestedFixture === "app-shell" || requestedFixture === "home" || requestedFixture === "list-card-states"
+const fixture = requestedFixture === "app-shell"
+  || requestedFixture === "home"
+  || requestedFixture === "list-card-states"
+  || requestedFixture === "list-editor-create"
+  || requestedFixture === "list-editor-edit"
   ? requestedFixture
   : "foundation";
 const captureViewport = { width: 1280, height: 720 } as const;
@@ -68,6 +73,12 @@ const interactionFixtureSnapshot: HomeSnapshot = {
   ],
 };
 
+const editFixtureList: HomeListCardSnapshot = {
+  ...homeFixtureSnapshot.lists[0],
+  color: "#48d6c5",
+  iconAsset: "list-icons/work.svg",
+};
+
 function FoundationFixtureSurface() {
   return (
     <main className="visual-fixture" data-visual-fixture="foundation">
@@ -101,6 +112,24 @@ function ShellPlaceholderFixture() {
 }
 
 const fixtureAction = () => undefined;
+const fixtureSave = async () => undefined;
+
+function ListEditorFixture({ mode }: { mode: "create" | "edit" }) {
+  return (
+    <>
+      <AppShell
+        fixtureMode
+        homeContent={<HomeDashboard fixtureSnapshot={homeFixtureSnapshot} fixtureHour={20} />}
+      />
+      <ListEditorModal
+        mode={mode}
+        initialList={mode === "edit" ? editFixtureList : undefined}
+        onRequestClose={fixtureAction}
+        onSave={fixtureSave}
+      />
+    </>
+  );
+}
 
 function VisualFixtureSurface() {
   if (fixture === "app-shell") {
@@ -135,6 +164,8 @@ function VisualFixtureSurface() {
       />
     );
   }
+  if (fixture === "list-editor-create") return <ListEditorFixture mode="create" />;
+  if (fixture === "list-editor-edit") return <ListEditorFixture mode="edit" />;
   return <FoundationFixtureSurface />;
 }
 
@@ -188,11 +219,30 @@ function readVisualNode(selector: string, fields: Array<keyof VisualContractNode
   return values;
 }
 
+function readLayoutViewport() {
+  return {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+}
+
 const shellContract = () => ({
   shell: readVisualNode(".app-shell", ["width", "height", "backgroundColor"]),
   sidebar: readVisualNode(".app-shell__sidebar", ["width", "height", "backgroundColor"]),
   workspace: readVisualNode(".app-shell__workspace", ["width", "height", "backgroundColor"]),
   primaryNav: readVisualNode(".app-shell__primary-nav", ["height", "backgroundColor"]),
+});
+
+const modalContract = () => ({
+  ...shellContract(),
+  layoutViewport: readLayoutViewport(),
+  backdrop: readVisualNode(".list-editor-backdrop", ["width", "height", "backgroundColor"]),
+  modal: readVisualNode(".list-editor-modal", ["width", "height", "backgroundColor", "borderRadius"]),
+  upload: readVisualNode(".list-editor-modal__upload-circle", ["width", "height", "borderRadius"]),
+  swatches: readVisualNode(".list-editor-modal__swatches", ["width", "height"]),
+  titleInput: readVisualNode('.list-editor-modal__field input[type="text"]', ["width", "height", "borderRadius"]),
+  cancel: readVisualNode(".list-editor-modal__cancel", ["width", "height", "borderRadius"]),
+  submit: readVisualNode(".list-editor-modal__submit", ["width", "height", "borderRadius"]),
 });
 
 const visualContract = fixture === "app-shell"
@@ -227,15 +277,23 @@ const visualContract = fixture === "app-shell"
           createTile: readVisualNode('[data-home-create-list="true"]', ["width", "height", "borderRadius"]),
           menu: readVisualNode('.overlay-menu[data-open="true"]', ["width", "height", "borderRadius"]),
         }
-      : {
-          theme,
-          viewport: captureViewport,
-          canvas: readVisualNode("body", ["backgroundColor", "color"]),
-          panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
-          card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
-          button: readVisualNode(".visual-fixture__button", ["width", "height", "backgroundColor", "color", "borderRadius"]),
-          timer: readVisualNode(".visual-fixture__timer", ["color", "fontSize", "lineHeight", "fontVariantNumeric"]),
-        };
+      : fixture === "list-editor-create" || fixture === "list-editor-edit"
+        ? {
+            fixture,
+            theme,
+            viewport: captureViewport,
+            canvas: readVisualNode("body", ["backgroundColor", "color"]),
+            ...modalContract(),
+          }
+        : {
+            theme,
+            viewport: captureViewport,
+            canvas: readVisualNode("body", ["backgroundColor", "color"]),
+            panel: readVisualNode(".visual-fixture", ["width", "height", "backgroundColor", "borderRadius"]),
+            card: readVisualNode(".visual-fixture__card", ["width", "height", "backgroundColor", "borderRadius"]),
+            button: readVisualNode(".visual-fixture__button", ["width", "height", "backgroundColor", "color", "borderRadius"]),
+            timer: readVisualNode(".visual-fixture__timer", ["color", "fontSize", "lineHeight", "fontVariantNumeric"]),
+          };
 
 const contractNode = document.createElement("script");
 contractNode.id = "visual-contract";
