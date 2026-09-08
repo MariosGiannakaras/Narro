@@ -75,6 +75,7 @@ const interactionFixtureSnapshot: HomeSnapshot = {
 
 const editFixtureList: HomeListCardSnapshot = {
   ...homeFixtureSnapshot.lists[0],
+  color: "#48d6c5",
   iconAsset: "list-icons/work.svg",
 };
 
