@@ -7,102 +7,111 @@ This is the canonical zero-context continuation state for Narro. Start with `AI_
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 11 of 28 top-level items validated.
+- Milestone 5: ACTIVE / 12 of 28 top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Latest fully main-validated source/test SHA:
 
-`997ba6d019425ec2a15fdef630ca50c2fbab981f`
+`d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`
 
-This is the expected-head guarded squash merge of PR #83 — `M5: add Create/Edit List modal`. Windows PR CI #307 / run `34204710799` / job `101991403060` and resulting-main CI #308 / run `34206908315` / job `101998422358` both passed Repository Preflight, real Create/Edit visual captures, Tauri release and required artifacts. Detailed completed-slice evidence: `work-log/2026-09-08-1117-chatgpt-m5-create-edit-list-modal.md`.
+This is the expected-head guarded squash merge of PR #84 — `M5: add list board hierarchy`.
 
-Main tracking tip `4786bb6f269d7dda6054d21d635add3600a833a9` is docs-only and does not replace this validated source/test baseline.
+Exact PR validation:
 
-## ACTIVE SLICE
+- final PR head `233ab9cb930a5e9cee47d6cbf02d5cd8382c017e`;
+- Windows PR CI #313 / run `34261787995` / job `102181282975`: **SUCCESS**;
+- Repository Preflight, real individual + All Lists light/dark board captures, Tauri release and required artifacts: **PASS**;
+- PR visual artifact `10070458234`, digest `sha256:b9ac6a69c7550e8ae25afbfb3e7f750e847bf4f416ec3ba60a95b4ebcb9bd303`;
+- PR diagnostic artifact `10070674547`, digest `sha256:57d3d5d2c6fec36e228218d1b9f30a12e3c570d1f2e19ce23a1dddc9fc7d8f35`;
+- final exact-head semantic/diff review: PASS; 15 changed files, no PR comments, submitted reviews or inline threads requiring resolution.
+
+Expected-head guarded squash merge produced `d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`.
+
+Resulting-main validation:
+
+- Windows main CI #314 / run `34263232684` / job `102186124690`: **SUCCESS**;
+- exact source SHA `d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`;
+- Repository Preflight, real board captures, visual artifact, Tauri release and diagnostic artifact: **PASS**;
+- main visual artifact `10071063644`, digest `sha256:1d0fa6ec2579ea5e78fe035eba49c42eef5cd184c8673cb91d02aba56489108e`;
+- main diagnostic artifact `10071323113`, digest `sha256:4ca72195d7d269edb61bdcdf6f52ac91ad3556ec665142c595284f78d8568c83`.
+
+Tracking commits descending from this source SHA update `TODO.md`, `STATUS.md`, this handoff and `work-log/2026-09-08-2144-chatgpt-m5-list-board.md`; they are markdown-only and do not replace the validated source/test baseline.
+
+## LATEST COMPLETED SLICE
 
 **M5 Main UI — List board with Backlog, This Week, Today, Done.**
 
-Branch: `m5-list-board`, based on main docs tip `4786bb6f269d7dda6054d21d635add3600a833a9`.
-
-PR: #84 — `M5: add list board hierarchy` — OPEN / mergeable.
-
-Latest source/test candidate before this tracking commit:
-
-`38a186822a364c6431882a26b5894d24039c8ed3`
-
-Candidate implementation includes:
+Validated capabilities:
 
 - read-only Rust `list_board` projection over active lists and stable persisted task identities;
-- individual-list and aggregate All Lists targets without creating a synthetic persisted list;
-- Backlog / This Week / Today projection for pending tasks through validated M4 `effective_planning_lane_at` rather than trusting `manual_lane` for scheduled tasks;
+- individual-list and aggregate All Lists targets without a synthetic persisted list;
+- Backlog / This Week / Today projection for pending tasks through validated M4 `effective_planning_lane_at` semantics;
 - Done projection from completed, non-archived tasks only;
 - duplicate-identity fail-closed guard plus checked task-count and aggregate-EST arithmetic;
-- active-list target validation and persisted timezone preference use, falling back to the Windows/WebView IANA timezone only when no preference is stored;
-- typed renderer-facing `get_list_board_snapshot` read command; no task mutation commands are used by the board;
-- real runtime navigation from Home list-card `Open`, Home `All Lists`, sidebar `All my lists`, and in-board list selector switching;
-- four-column `ListBoard` hierarchy with title/count/aggregate EST and deliberately baseline/static task rows;
-- aggregate-view origin labels for tasks from different lists;
-- reserved top/bottom future-add geometry without exposing dead `+` / `ADD TASK` controls;
-- deterministic individual and aggregate board light/dark fixtures, Edge capture wiring, semantic/geometry validation and `scripts/test-ui-list-board.mjs` frontend-preflight coverage;
-- prior List Editor/List Card preflight assertions updated only where the now-real Open target made old literal exclusions stale;
-- no drag/drop/reorder, inline task creation/editing, full task-card state model, Time Taken controls, scheduling/recurrence UI, subtasks, notes, destructive task/list flows, search, Settings or Reports behavior was added.
+- persisted timezone preference wins; Windows/WebView IANA timezone is fallback only;
+- typed renderer-facing `get_list_board_snapshot` read command with no task mutation commands;
+- real Home list-card Open, Home All Lists, sidebar All my lists and in-board selector navigation;
+- four-column hierarchy with title/count/aggregate EST and deliberately baseline/static task rows;
+- aggregate origin labels and reserved future-add geometry without dead add controls;
+- deterministic individual + aggregate light/dark Edge fixtures, visual validation and `test:ui-list-board` frontend-preflight coverage;
+- detailed task-card states, drag/drop/reorder, task create/edit behavior, EST/Time Taken editing, scheduling/recurrence UI, subtasks, notes, destructive flows, search, Settings and Reports remain later ordered work.
 
-Semantic/diff review before PR: **PASS**. Compared with main, changes are confined to the list-board read model, navigation integration, visual harness/preflight, supporting styles/types, and this handoff. The projection does not mutate task/list identity or order.
+Detailed evidence: `work-log/2026-09-08-2144-chatgpt-m5-list-board.md`.
 
-Local Node/Rust preflight: **NOT RUN**. This connector-only execution environment has no usable local checkout/toolchain; Windows GitHub Actions CI remains the authoritative reproducible gate.
+## ACTIVE SLICE
 
-### Latest CI evidence
+**M5 Main UI — Task-card state model: normal, hover/action-revealed, scheduled, overdue, done, inline-create, notes-expanded, subtasks-expanded, paused/editable, destructive-confirm.**
 
-Windows PR CI #309 / run `34259918088` / job `102175005224` on exact PR head `8b13c8dc0ba887b4b5c1efd5b16afebbc0af418c`:
+No implementation branch or PR exists yet for this slice as of this reconciliation.
 
-- frontend/static contracts including `test:ui-list-board`: **PASS**;
-- TypeScript/Vite production build: **PASS**;
-- Repository Preflight: **FAIL** only at `cargo fmt --check`;
-- visual capture, release and artifacts were correctly skipped after the formatting gate failed.
+Scope intent:
 
-The #309 failure was formatting-only. The Windows rustfmt diff was applied exactly:
-
-- `b59a2f35fab3c91b35e1aa9d067e732a7b6e0db3` — rustfmt layout for `list_board.rs`;
-- `38a186822a364c6431882a26b5894d24039c8ed3` — preserve formatted EOF/newline in `lib.rs` while retaining only the list-board module/handler registration.
-
-No runtime/domain/visual behavior changed in those corrective commits. The next authoritative run must validate the new exact head after this tracking update; #309 is diagnostic evidence only and is not merge evidence.
+- start from the validated baseline/static board row and authoritative persisted/domain metadata;
+- implement the ordered visual/state model and only the minimum read projection/fixture plumbing required to make every requested state deterministic and reachable;
+- preserve stable card/title/action geometry across hover/focus states;
+- keep actual drag/drop/reorder behavior, task creation/edit mutation behavior, EST/Time Taken mutation behavior, scheduling/recurrence editor behavior, subtask mutation behavior, notes editor behavior, list settings, search, Settings and Reports out of scope unless a strict dependency is demonstrated and recorded;
+- do not expose dead controls whose corresponding action is not implemented in the current ordered slice.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 2/5 | 11/28`**
+**`M-5/10 | 0/5 | 12/28`**
 
-List-board checkpoints:
+Task-card state-model checkpoints:
 
-1. mandatory startup + current-main/open-PR/spec/screenshot/M2 task-read/identity/M4 scheduling-risk/visual-harness inspection + exact existing branch reconstruction — COMPLETE;
-2. board read model/navigation + deterministic static/visual candidate + semantic/diff review — COMPLETE;
-3. exact PR-head Windows CI including repository preflight, board captures, release and required artifacts — PENDING;
+1. mandatory startup + exact current-main/spec/screenshot/task metadata/timer-state/history-risk/visual-harness inspection + narrow state-model scope — PENDING;
+2. deterministic task-card state model + minimum read projection/fixtures + semantic/diff review — PENDING;
+3. exact PR-head Windows CI including repository preflight, task-card state captures, release and required artifacts — PENDING;
 4. exact-head semantic/diff/feedback review + expected-head guarded merge — PENDING;
 5. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
 ## IMPORTANT INVARIANTS
 
 - authoritative Rust/domain/persistence state and persistence-first mutation semantics remain authoritative;
-- this board slice is read-only: renderer presentation must not mutate task identities, list identities, lane order or persistence;
-- scheduled pending tasks must be projected through validated M4 effective planning-lane semantics; schedule metadata must not be mistaken for `manual_lane` mutation;
+- stable task identities and one-open-session invariant must not regress;
+- renderer-independent timer/session accounting must not regress;
+- list board presentation remains read-only unless a later ordered mutation slice explicitly adds a persistence-backed action;
+- scheduled pending tasks remain projected through validated M4 effective planning-lane semantics; schedule metadata must not be mistaken for `manual_lane` mutation;
 - archived lists/tasks remain absent; completed non-archived tasks project to Done exactly once;
-- All Lists is a read projection across active lists, never a synthetic persisted list;
+- All Lists remains a read projection across active lists, never a synthetic persisted list;
 - task identity duplication must fail closed rather than render duplicate aliases;
-- renderer-provided timezone is fallback presentation context only; a stored configured timezone wins and all timezone identifiers are validated;
-- task rows remain baseline/static for this slice; detailed task-card states, drag/drop, task creation/editing, EST/Time Taken editing, scheduling, subtasks, notes and destructive controls remain later ordered items;
-- no dead top/bottom Add Task controls are exposed even though stable future action geometry is reserved;
+- stored configured timezone wins over renderer fallback and all timezone identifiers are validated;
+- hover/focus/action-revealed task-card states must reserve or overlay action geometry and never reflow title/card geometry or move pointer targets;
+- task-card visual states must not imply a mutation succeeded before authoritative persistence commits;
+- paused/editable presentation must not create renderer-owned timer or Time Taken authority;
+- notes-expanded presentation must not auto-launch URLs; explicit click/keyboard activation remains required when actual note-link activation is later wired;
+- destructive-confirm presentation must not silently activate delete/archive behavior before the corresponding persistence-backed flow exists;
 - existing Create/Edit List, Home, shell, theme, overlay, reduced-motion and exact 1280x720 PNG contracts must not regress;
+- imported list icons remain app-data-owned and cleanup must never target arbitrary paths;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostics remain gated behind `?diagnostics=1`.
 
 ## NEXT AGENT ACTION
 
-Record PR #84's exact head after this tracking update and observe the fresh authoritative Windows CI for that exact head. Do not make another source change unless the new run produces evidence-backed failure.
+Perform mandatory startup against the current main tracking tip and the validated source baseline above. Inspect the task-card screenshots/state descriptions in `docs/UI_UX_SPEC.md`, relevant source-product evidence, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, the current `ListBoard` / board snapshot types, M2 task/subtask/note persistence reads, M3 authoritative paused/timer projection, M4 scheduling/overdue semantics, shared overlay/focus/motion primitives and the visual fixture harness.
 
-Require Repository Preflight including `test:ui-list-board`, real Edge light/dark individual + All Lists board captures, visual artifact upload, Tauri release and diagnostic artifact upload to succeed on the same exact PR head.
-
-After exact-head PASS, inspect the final changed-file diff plus all PR comments/reviews/inline threads, merge only with an expected-head guard, validate the resulting main source SHA with Windows CI, and only then mark `List board with Backlog, This Week, Today, Done` complete and reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` plus one new immutable work-log entry.
+Then create one coherent feature branch for the task-card state-model slice and implement directly. Prefer deterministic fixture-only state activation where a requested state represents later mutation behavior; only extend production read projection when authoritative persisted/runtime metadata is genuinely required. Do not pull later mutation slices forward merely to make a visual state fixture possible.
 
 ## USER ACTION REQUIRED
 
