@@ -12,60 +12,62 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 11 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 12 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 11/28`**
+**`M-5/10 | 5/5 | 12/28`**
 
-The first eleven ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, list-card rest/hover/Open/overflow-menu/create-list states, and the persistence-backed Create/Edit List modal. The next ordered item is the List board with Backlog, This Week, Today, Done.
+The first twelve ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, list-card rest/hover/Open/overflow-menu/create-list states, the persistence-backed Create/Edit List modal, and the List board with Backlog / This Week / Today / Done. The next ordered item is the detailed task-card state model.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`997ba6d019425ec2a15fdef630ca50c2fbab981f`
+`d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`
 
-This is the expected-head guarded squash merge of PR #83 — `M5: add Create/Edit List modal`.
+This is the expected-head guarded squash merge of PR #84 — `M5: add list board hierarchy`.
 
-### PR #83 exact-head validation
+### PR #84 exact-head validation
 
 Final validated PR head:
 
-`17f3e3c1b9c7fad562b6bc7e05eee029bf047598`
+`233ab9cb930a5e9cee47d6cbf02d5cd8382c017e`
 
-Windows PR CI #307:
+Windows PR CI #313:
 
-- run `34204710799`;
-- job `101991403060`;
-- exact head `17f3e3c1b9c7fad562b6bc7e05eee029bf047598`;
+- run `34261787995`;
+- job `102181282975`;
+- exact head `233ab9cb930a5e9cee47d6cbf02d5cd8382c017e`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10047503212`, digest `sha256:41bc8583d36927989be1c604151e69df97b70e24b9cf0df6b1c2e67127398371`;
-- diagnostic artifact ID `10047701183`, digest `sha256:646145f1a90ce6434080e7cac9f283023369d2106517da3996265281eef1a03e`;
-- final exact-head semantic/diff review: **PASS**; 16 changed files confined to list editor, existing Home/App-shell wiring, visual harness/tests and branch tracking;
+- visual artifact ID `10070458234`, digest `sha256:b9ac6a69c7550e8ae25afbfb3e7f750e847bf4f416ec3ba60a95b4ebcb9bd303`;
+- diagnostic artifact ID `10070674547`, digest `sha256:57d3d5d2c6fec36e228218d1b9f30a12e3c570d1f2e19ce23a1dddc9fc7d8f35`;
+- final exact-head semantic/diff review: **PASS**; 15 changed files confined to the list-board read model, Home/App-shell navigation integration, board presentation/styles, visual harness/tests and branch tracking;
 - PR comments, submitted reviews and inline review threads requiring resolution: **none**.
 
-PR #83 was squash-merged with expected-head guard `17f3e3c1b9c7fad562b6bc7e05eee029bf047598`, producing source SHA `997ba6d019425ec2a15fdef630ca50c2fbab981f`.
+The final PR-head correction was evidence-backed and test-only: the captured task row correctly used the shared `--radius-task-card: 0.625rem` / 10 px contract, while the new visual validator incorrectly expected the 12 px panel radius. The validator expectation was corrected to 10 px and the complete authoritative pipeline then passed.
+
+PR #84 was squash-merged with expected-head guard `233ab9cb930a5e9cee47d6cbf02d5cd8382c017e`, producing source SHA `d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`.
 
 ### Resulting-main validation
 
-Windows main CI #308:
+Windows main CI #314:
 
-- run `34206908315`;
-- job `101998422358`;
-- exact source SHA `997ba6d019425ec2a15fdef630ca50c2fbab981f`;
+- run `34263232684`;
+- job `102186124690`;
+- exact source SHA `d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10048388708`, digest `sha256:67e1919bd4e996a9fae786bea1f0fe5da73a3327b8cdf6a24a531934992ab840`;
-- diagnostic artifact ID `10048640730`, digest `sha256:163c10356a44fc7238aead403f5d465bbe47b8ae4b1d69a52773219368792c3d`.
+- visual artifact ID `10071063644`, digest `sha256:1d0fa6ec2579ea5e78fe035eba49c42eef5cd184c8673cb91d02aba56489108e`;
+- diagnostic artifact ID `10071323113`, digest `sha256:4ca72195d7d269edb61bdcdf6f52ac91ad3556ec665142c595284f78d8568c83`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -162,19 +164,41 @@ Validated behavior now provides:
 - success-only renderer IPC: the modal closes and Home re-reads authoritative SQLite state only after a successful mutation;
 - typed validation/not-found/general command failures; failed mutations keep the modal open;
 - best-effort cleanup of newly imported icons on database/mutation failure, refusal to delete non-owned paths, cleanup of partial temporary writes, and cleanup of replaced old owned icons only after the update commits;
-- real runtime Create targets from sidebar/Home plus real Edit target from the existing list-card menu; Open/Duplicate/Archive remain unbound until their ordered targets exist;
+- real runtime Create targets from sidebar/Home plus real Edit target from the existing list-card menu;
 - deterministic create/edit light/dark fixtures, measured DOM-layout backdrop coverage, strict 1280x720 PNG output validation and geometry-only theme parity;
 - deterministic `scripts/test-ui-list-editor-modal.mjs` frontend-preflight coverage.
 
 Detailed evidence: `work-log/2026-09-08-1117-chatgpt-m5-create-edit-list-modal.md`.
 
+### Completed: List board hierarchy
+
+The twelfth M5 top-level item is validated complete.
+
+Validated behavior now provides:
+
+- a read-only Rust `list_board` projection over active lists and stable persisted task identities;
+- individual-list and aggregate All Lists targets without creating a synthetic persisted list;
+- Backlog / This Week / Today projection for pending tasks through validated M4 `effective_planning_lane_at` semantics;
+- Done projection from completed, non-archived tasks only;
+- duplicate-identity fail-closed protection and checked task-count / aggregate-EST arithmetic;
+- active-list target validation and persisted timezone preference use, with the Windows/WebView IANA timezone used only as fallback presentation context;
+- a typed renderer-facing `get_list_board_snapshot` read command with no task mutation commands in the board path;
+- real runtime navigation from Home list-card Open, Home All Lists, sidebar All my lists, and in-board list selector switching;
+- a four-column `ListBoard` hierarchy with count/aggregate EST and deliberately baseline/static task rows;
+- aggregate-view origin labels for tasks from different lists;
+- reserved future-add geometry without exposing dead Add Task controls;
+- deterministic individual and aggregate board light/dark fixtures, Edge capture wiring, semantic/geometry validation and `scripts/test-ui-list-board.mjs` frontend-preflight coverage;
+- no drag/drop/reorder, inline task creation/editing, detailed task-card state model, Time Taken controls, scheduling/recurrence UI, subtasks, notes, destructive task/list flows, search, Settings or Reports behavior was absorbed.
+
+Detailed evidence: `work-log/2026-09-08-2144-chatgpt-m5-list-board.md`.
+
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`List board with Backlog, This Week, Today, Done.`
+`Task-card state model: normal, hover/action-revealed, scheduled, overdue, done, inline-create, notes-expanded, subtasks-expanded, paused/editable, destructive-confirm.`
 
-Start from the validated persistence/domain planning buckets and current Home/List Editor runtime. Implement the narrow board hierarchy and minimum real read projection/navigation needed for Backlog, This Week, Today and Done. Do not absorb the following task-card state model, drag/drop/reorder, inline editing, EST/Time Taken editing, scheduling/recurrence editor, subtasks, notes, list settings, search, Settings or Reports behavior unless a dependency is strictly required and recorded.
+Start from the validated baseline/static board rows and current persistence/domain metadata. Implement only the ordered state-model presentation and the minimum projection/fixture plumbing required to make those states deterministic and reachable. Do not absorb the following drag/drop/reorder, task creation/editing behavior, EST/Time Taken editing behavior, scheduling/recurrence editor, subtasks editing, notes editor, list settings, search, Settings or Reports unless a strict dependency is required and recorded.
 
 ## Durable correctness decisions
 
@@ -201,6 +225,12 @@ Future work must preserve:
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
 - imported list icons remain app-data-owned and only relative owned paths are persisted or eligible for cleanup;
+- List Board remains a read projection: renderer presentation cannot mutate task/list identities, lane order or persistence;
+- scheduled pending tasks remain projected through validated effective planning-lane semantics rather than schedule-driven `manual_lane` mutation;
+- archived lists/tasks remain absent from the board and completed non-archived tasks project to Done exactly once;
+- All Lists remains an aggregate read projection, never a persisted synthetic list;
+- task identity duplication in a board projection must fail closed;
+- stored configured timezone wins over renderer fallback and all timezone identifiers remain validated;
 - exact 1280x720 remains a PNG output contract, not a browser DOM-layout viewport assumption;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostic controls remain explicitly gated and outside normal product navigation;
