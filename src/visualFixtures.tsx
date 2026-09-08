@@ -345,10 +345,14 @@ const taskCardFixtureStates: TaskCardFixtureState[] = [
   "destructive_confirm",
 ];
 
+function stateLabel(state: TaskCardFixtureState): string {
+  return state.replace(/_/g, " ");
+}
+
 function taskForFixtureState(state: TaskCardFixtureState, index: number): ListBoardTask {
   const base = boardTask(
     `71111111-1111-4111-8111-1111111111${String(index).padStart(2, "0")}`,
-    state === "inline_create" ? "New task" : `Task card · ${state.replaceAll("_", " ")}`,
+    state === "inline_create" ? "New task" : `Task card · ${stateLabel(state)}`,
     3600,
     "Work",
     "#48d6c5",
@@ -378,7 +382,7 @@ function TaskCardStatesFixture() {
           <div className="task-card-state-fixture__grid">
             {taskCardFixtureStates.map((state, index) => (
               <div key={state} className="task-card-state-fixture__item" data-task-card-fixture={state}>
-                <span className="task-card-state-fixture__label type-metadata">{state.replaceAll("_", " ")}</span>
+                <span className="task-card-state-fixture__label type-metadata">{stateLabel(state)}</span>
                 <TaskCard task={taskForFixtureState(state, index)} aggregateView fixtureState={state} />
               </div>
             ))}
