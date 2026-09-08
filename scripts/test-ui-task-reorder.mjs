@@ -39,9 +39,13 @@ for (const [haystack, needle, label] of [
   [board, "draggable={reorderable && interactionReorderEnabled", "pointer drag activation"],
   [board, "event.dataTransfer.effectAllowed = \"move\"", "native drag move intent"],
   [board, "event.clientY < bounds.top + bounds.height / 2", "same-lane before/after placeholder targeting"],
+  [board, "setDropTarget({ lane, beforeTaskId: null });", "blank-lane append targeting"],
+  [board, "showLaneEndPlaceholder", "cross-lane append placeholder"],
   [board, "await reorderListBoardTask", "persistence-first same-lane mutation"],
   [board, "await moveListBoardTask", "persistence-first cross-lane mutation"],
   [board, "await refreshAfterMutation(taskId)", "authoritative snapshot refresh after mutation"],
+  [board, "mutationRefreshBlocked", "refresh-failure interaction lock"],
+  [board, "Task change was saved, but the board could not refresh.", "committed-mutation refresh failure distinction"],
   [board, "event.altKey", "keyboard reorder modifier"],
   [board, 'event.key === "ArrowUp"', "keyboard upward reorder"],
   [board, 'event.key === "ArrowLeft" || event.key === "ArrowRight"', "keyboard cross-lane move"],
@@ -72,6 +76,12 @@ const firstPersistenceCall = Math.min(
 );
 if (firstSnapshotWrite >= 0 && firstSnapshotWrite < firstPersistenceCall) {
   throw new Error("Task reorder must not optimistically rewrite board order before persistence succeeds.");
+}
+
+const savedRefreshMessage = mutation.indexOf("Task change was saved, but the board could not refresh.");
+const persistenceFailureMessage = mutation.indexOf("Could not reorder");
+if (savedRefreshMessage < 0 || persistenceFailureMessage < 0) {
+  throw new Error("Task reorder must distinguish persistence failure from post-commit refresh failure.");
 }
 
 for (const forbidden of ["setInterval(", "requestAnimationFrame("]) {
