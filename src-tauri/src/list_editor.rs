@@ -158,7 +158,10 @@ fn write_imported_icon(app_dir: &Path, upload: &ListIconUpload) -> Result<String
     let final_path = directory.join(&filename);
     let temporary_path = directory.join(format!(".{filename}.tmp"));
 
-    std::fs::write(&temporary_path, &upload.bytes)?;
+    if let Err(error) = std::fs::write(&temporary_path, &upload.bytes) {
+        let _ = std::fs::remove_file(&temporary_path);
+        return Err(ListEditorError::Io(error));
+    }
     if let Err(error) = std::fs::rename(&temporary_path, &final_path) {
         let _ = std::fs::remove_file(&temporary_path);
         return Err(ListEditorError::Io(error));
