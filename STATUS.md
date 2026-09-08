@@ -12,62 +12,62 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 12 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 13 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 12/28`**
+**`M-5/10 | 5/5 | 13/28`**
 
-The first twelve ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, list-card rest/hover/Open/overflow-menu/create-list states, the persistence-backed Create/Edit List modal, and the List board with Backlog / This Week / Today / Done. The next ordered item is the detailed task-card state model.
+The first thirteen ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, list-card rest/hover/Open/overflow-menu/create-list states, the persistence-backed Create/Edit List modal, the List board with Backlog / This Week / Today / Done, and the detailed Task-card state model. The next ordered item is drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`
+`9a93ae58c235a0d56b3879bb48d553dcb021aeb7`
 
-This is the expected-head guarded squash merge of PR #84 — `M5: add list board hierarchy`.
+This is the expected-head guarded squash merge of PR #85 — `M5: add task card state model`.
 
-### PR #84 exact-head validation
+### PR #85 exact-head validation
 
 Final validated PR head:
 
-`233ab9cb930a5e9cee47d6cbf02d5cd8382c017e`
+`e192df8a920cfb2c9227c734ca47a2307dc21dc2`
 
-Windows PR CI #313:
+Windows PR CI #317:
 
-- run `34261787995`;
-- job `102181282975`;
-- exact head `233ab9cb930a5e9cee47d6cbf02d5cd8382c017e`;
+- run `34270409390`;
+- job `102210278846`;
+- exact head `e192df8a920cfb2c9227c734ca47a2307dc21dc2`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10070458234`, digest `sha256:b9ac6a69c7550e8ae25afbfb3e7f750e847bf4f416ec3ba60a95b4ebcb9bd303`;
-- diagnostic artifact ID `10070674547`, digest `sha256:57d3d5d2c6fec36e228218d1b9f30a12e3c570d1f2e19ce23a1dddc9fc7d8f35`;
-- final exact-head semantic/diff review: **PASS**; 15 changed files confined to the list-board read model, Home/App-shell navigation integration, board presentation/styles, visual harness/tests and branch tracking;
+- visual artifact ID `10073839851`, digest `sha256:3503ab0dc7e9e601af07f640667e73a95971748f78321b958c81977a0c09d5f5`;
+- diagnostic artifact ID `10074080790`, digest `sha256:c6d745469ff4914a75aaf182463ee6041b604677db6451386e4080507076fc1e`;
+- final exact-head semantic/diff review: **PASS**; 13 changed files confined to the board read projection, task-card presentation/styles, fixtures, visual capture/validation, frontend-preflight wiring and branch handoff tracking;
 - PR comments, submitted reviews and inline review threads requiring resolution: **none**.
 
-The final PR-head correction was evidence-backed and test-only: the captured task row correctly used the shared `--radius-task-card: 0.625rem` / 10 px contract, while the new visual validator incorrectly expected the 12 px panel radius. The validator expectation was corrected to 10 px and the complete authoritative pipeline then passed.
+Windows PR CI #316 / run `34267196942` failed only at `cargo fmt --check` on `src-tauri/src/list_board.rs`. The exact Windows rustfmt output was applied in forward commit `e192df8a920cfb2c9227c734ca47a2307dc21dc2`; the corrective diff touched only that Rust file and did not change runtime or test semantics. The subsequent complete authoritative pipeline passed.
 
-PR #84 was squash-merged with expected-head guard `233ab9cb930a5e9cee47d6cbf02d5cd8382c017e`, producing source SHA `d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`.
+PR #85 was squash-merged with expected-head guard `e192df8a920cfb2c9227c734ca47a2307dc21dc2`, producing source SHA `9a93ae58c235a0d56b3879bb48d553dcb021aeb7`.
 
 ### Resulting-main validation
 
-Windows main CI #314:
+Windows main CI #318:
 
-- run `34263232684`;
-- job `102186124690`;
-- exact source SHA `d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`;
+- run `34271876368`;
+- job `102215181335`;
+- exact source SHA `9a93ae58c235a0d56b3879bb48d553dcb021aeb7`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10071063644`, digest `sha256:1d0fa6ec2579ea5e78fe035eba49c42eef5cd184c8673cb91d02aba56489108e`;
-- diagnostic artifact ID `10071323113`, digest `sha256:4ca72195d7d269edb61bdcdf6f52ac91ad3556ec665142c595284f78d8568c83`.
+- visual artifact ID `10074394863`, digest `sha256:077835b516adbaecef115ae621d5765933f20672cc2b0768c949c137092d6272`;
+- diagnostic artifact ID `10074634760`, digest `sha256:18871e7966d097c3f8b7d13987d7debac8aacf612f2ecbf962dc138315f8a951`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -192,13 +192,33 @@ Validated behavior now provides:
 
 Detailed evidence: `work-log/2026-09-08-2144-chatgpt-m5-list-board.md`.
 
+### Completed: Task-card state model
+
+The thirteenth M5 top-level item is validated complete.
+
+Validated behavior now provides:
+
+- a reusable `TaskCard` presentation on the real List Board;
+- production-derived normal, scheduled, overdue and done states from authoritative board read metadata;
+- durable Time Taken projected from the existing authoritative task/session ledger boundary and serialized losslessly as a decimal string for renderer display;
+- scheduled local date/time presentation without changing persisted scheduling semantics or `manual_lane`;
+- read-only overdue classification using validated M4 scheduling/focus eligibility semantics plus display-local date comparison for date-only tasks;
+- fixed reserved completion/action/title geometry so action-revealed hover/focus treatment cannot reflow the task title/card or move pointer targets;
+- deterministic fixture-only action-revealed, inline-create, notes-expanded, subtasks-expanded, paused/editable and destructive-confirm presentations where the matching mutations belong to later ordered slices;
+- notes-expanded fixture behavior that explicitly preserves manual URL activation and contains no auto-open/navigation path;
+- destructive-confirm fixture behavior that performs no delete/archive mutation;
+- deterministic light/dark `task-card-states` Edge captures, semantic/geometry validation and `scripts/test-ui-task-card-states.mjs` frontend-preflight coverage;
+- no drag/drop/reorder, real task creation/edit mutation, completion/move/delete handlers, EST/Time Taken mutation UI, scheduling/recurrence editor, subtask mutation, rich notes editing/link activation, list settings, search, Settings or Reports behavior was absorbed.
+
+Detailed evidence: `work-log/2026-09-08-chatgpt-m5-task-card-state-model.md`.
+
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Task-card state model: normal, hover/action-revealed, scheduled, overdue, done, inline-create, notes-expanded, subtasks-expanded, paused/editable, destructive-confirm.`
+`Drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.`
 
-Start from the validated baseline/static board rows and current persistence/domain metadata. Implement only the ordered state-model presentation and the minimum projection/fixture plumbing required to make those states deterministic and reachable. Do not absorb the following drag/drop/reorder, task creation/editing behavior, EST/Time Taken editing behavior, scheduling/recurrence editor, subtasks editing, notes editor, list settings, search, Settings or Reports unless a strict dependency is required and recorded.
+Implement only persistence-backed reorder/move behavior over stable task identities and the minimum board projection/UI/fixture/test wiring required to exercise it. Reuse the validated M2 task ordering/move boundaries instead of introducing renderer-owned ordering. Explicitly cover the historical duplicate/reorder corruption risk recorded in `docs/BLITZIT_HISTORY_RISK_INDEX.md`: repeated reorder/move must preserve the exact task-ID set and task count, and scheduled-task moves must not duplicate identities or mutate schedule-derived lane semantics incorrectly. Keep the following hover-geometry checklist item, task creation/editing, EST/Time Taken editing, scheduling/recurrence editor, subtasks, notes, list settings, search, Settings and Reports out of scope unless a strict dependency is documented.
 
 ## Durable correctness decisions
 
@@ -213,6 +233,7 @@ Future work must preserve:
 - deterministic/idempotent recurrence and bounded Rust-owned reminder/recurrence orchestration;
 - reminder `fired_at` only after successful OS notification submission, with failed submission retryable;
 - scheduling/move operations preserve task identity count;
+- reorder changes positions/lanes only and must never create, delete or alias task identities;
 - async `main` recreation remains intact and derives state from Rust/SQLite, not hidden renderer memory;
 - Windows executable/installer/tray icon inputs derive from canonical Narro branding;
 - M5 visual work never moves authoritative task/timer/reminder logic into renderer state;
@@ -224,8 +245,11 @@ Future work must preserve:
 - overlay primitives preserve stable sibling geometry and keyboard/focus accessibility;
 - timer numerals remain tabular and must not acquire per-second transition animation;
 - no hover/focus interaction may reflow sibling content or move pointer targets;
+- task-card action slots remain reserved/overlayed so action reveal cannot change task-card/title geometry;
+- task-card notes presentation must never auto-launch URLs; explicit click/keyboard activation remains the durable policy when link activation is implemented;
+- task-card destructive-confirm presentation must not imply or perform persistence mutation before the dedicated mutation path exists;
 - imported list icons remain app-data-owned and only relative owned paths are persisted or eligible for cleanup;
-- List Board remains a read projection: renderer presentation cannot mutate task/list identities, lane order or persistence;
+- List Board remains a projection over authoritative persisted task/list identities rather than renderer-owned truth;
 - scheduled pending tasks remain projected through validated effective planning-lane semantics rather than schedule-driven `manual_lane` mutation;
 - archived lists/tasks remain absent from the board and completed non-archived tasks project to Done exactly once;
 - All Lists remains an aggregate read projection, never a persisted synthetic list;

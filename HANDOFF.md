@@ -1,109 +1,99 @@
 # HANDOFF.md
 
-This is the canonical zero-context continuation state for Narro. Start with `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 5 section in `TODO.md`, relevant `STATUS.md`, relevant `docs/UI_UX_SPEC.md` / `docs/RESEARCH_EVIDENCE.md` / `docs/BLITZIT_HISTORY_RISK_INDEX.md` evidence, and the newest relevant immutable `work-log/*.md` entries.
+This is the canonical zero-context continuation state for Narro. Start with `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 5 section in `TODO.md`, relevant `STATUS.md`, `docs/UI_UX_SPEC.md`, `docs/RESEARCH_EVIDENCE.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant immutable `work-log/*.md` entries.
 
 ## CURRENT MILESTONE
 
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / 12 of 28 top-level items validated.
+- Milestone 5: ACTIVE / 13 of 28 top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Latest fully main-validated source/test SHA:
 
-`d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`
+`9a93ae58c235a0d56b3879bb48d553dcb021aeb7`
 
-This is the expected-head guarded squash merge of PR #84 — `M5: add list board hierarchy`.
+This is the expected-head guarded squash merge of PR #85 — `M5: add task card state model`.
 
-Validated list-board evidence:
+Task-card validation evidence:
 
-- final PR #84 head `233ab9cb930a5e9cee47d6cbf02d5cd8382c017e`;
-- Windows PR CI #313 / run `34261787995` / job `102181282975`: **SUCCESS**;
-- expected-head guarded squash merge produced `d54c4e57933588f89f8f1cf56b1e3dfe5441fd9b`;
-- Windows main CI #314 / run `34263232684` / job `102186124690`: **SUCCESS**;
-- main visual artifact `10071063644`, digest `sha256:1d0fa6ec2579ea5e78fe035eba49c42eef5cd184c8673cb91d02aba56489108e`;
-- main diagnostic artifact `10071323113`, digest `sha256:4ca72195d7d269edb61bdcdf6f52ac91ad3556ec665142c595284f78d8568c83`.
+- final PR #85 head `e192df8a920cfb2c9227c734ca47a2307dc21dc2`;
+- Windows PR CI #317 / run `34270409390` / job `102210278846`: **SUCCESS**;
+- PR visual artifact `10073839851`, digest `sha256:3503ab0dc7e9e601af07f640667e73a95971748f78321b958c81977a0c09d5f5`;
+- PR diagnostic artifact `10074080790`, digest `sha256:c6d745469ff4914a75aaf182463ee6041b604677db6451386e4080507076fc1e`;
+- expected-head guarded squash merge produced `9a93ae58c235a0d56b3879bb48d553dcb021aeb7`;
+- Windows main CI #318 / run `34271876368` / job `102215181335`: **SUCCESS**;
+- main visual artifact `10074394863`, digest `sha256:077835b516adbaecef115ae621d5765933f20672cc2b0768c949c137092d6272`;
+- main diagnostic artifact `10074634760`, digest `sha256:18871e7966d097c3f8b7d13987d7debac8aacf612f2ecbf962dc138315f8a951`.
 
-Tracking descendants are markdown-only and do not replace this validated source/test baseline. Detailed completed-slice evidence: `work-log/2026-09-08-2144-chatgpt-m5-list-board.md`.
+PR CI #316 / run `34267196942` failed only at `cargo fmt --check`; the exact Windows rustfmt output was applied to `src-tauri/src/list_board.rs` in the final validated head. No runtime/test semantic change was made by that correction.
+
+Tracking descendants are markdown-only and do not replace the validated source/test baseline. Detailed completed-slice evidence: `work-log/2026-09-08-chatgpt-m5-task-card-state-model.md`.
 
 ## ACTIVE SLICE
 
-**M5 Main UI — Task-card state model: normal, hover/action-revealed, scheduled, overdue, done, inline-create, notes-expanded, subtasks-expanded, paused/editable, destructive-confirm.**
+**M5 Main UI — Drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.**
 
-Branch: `m5-task-card-states`, based on main tracking tip `2aed955968a1c86704329d453be1cfdc0dd5a660`.
+No feature branch/PR exists yet for this new slice. Create a coherent branch from the latest main tracking tip after verifying it still descends from validated source SHA `9a93ae58c235a0d56b3879bb48d553dcb021aeb7`.
 
-PR: #85 — `M5: add task card state model` — OPEN.
+Scope for this slice:
 
-Latest candidate before this handoff commit:
+- persistence-backed task reorder within a planning lane and task move between planning lanes, reusing validated M2 identity/order mutation boundaries;
+- renderer interaction that never treats DOM order as authoritative and only presents success after the local mutation commits;
+- stable drag/drop or keyboard-equivalent affordance with deterministic placeholder/drop feedback and reduced-motion behavior;
+- exact-set anti-regression coverage: repeated reorder/move preserves task count and task IDs, including scheduled tasks;
+- minimum board refresh/projection/fixture/visual-validation plumbing required to exercise the behavior.
 
-`a9f980972f670c1752017027bc388621a675a90a`
-
-Candidate implementation includes:
-
-- reusable `TaskCard` presentation used by the validated List Board;
-- production-derived normal / scheduled / overdue / done states from authoritative board read metadata;
-- authoritative durable Time Taken projection through existing `task_time_taken_seconds`, serialized losslessly as a decimal string for renderer display;
-- scheduled local date/time projection without changing persisted schedule semantics;
-- read-only overdue classification using validated M4 scheduling/focus eligibility semantics plus display-local date comparison for date-only schedules;
-- stable reserved completion/action/title geometry so the action-revealed state cannot reflow card/title geometry;
-- deterministic fixture-only action-revealed, inline-create, notes-expanded, subtasks-expanded, paused/editable and destructive-confirm states where real mutation behavior belongs to later ordered slices;
-- fixture-only note state explicitly states links require explicit activation; no URL opener/href behavior exists in `TaskCard`;
-- fixture-only destructive confirmation performs no mutation;
-- deterministic `task-card-states` light/dark fixture, Edge capture wiring, semantic/geometry validator and `test:ui-task-card-states` frontend-preflight coverage;
-- board fixtures now expose representative scheduled, overdue, done and durable Time Taken metadata;
-- no drag/drop/reorder, task creation/edit mutation, completion/move/delete handler, EST/Time Taken mutation UI, scheduling/recurrence editor, subtask mutation, rich notes editor/link activation, list settings, search, Settings or Reports behavior was added.
-
-Semantic/diff review before authoritative CI: **PASS**. PR #85 has 12 changed files, all confined to board read projection, task-card presentation, fixtures and validation/preflight. An ES2020 compatibility issue (`String.replaceAll`) was identified during review and corrected before this handoff/CI candidate.
-
-Local checkout/toolchain validation: **NOT RUN**. The connector-only execution environment cannot resolve GitHub from the local container; Windows GitHub Actions remains the authoritative reproducible gate.
-
-### CI state
-
-Windows PR CI #315 / run `34267049009` was queued for exact candidate head `a9f980972f670c1752017027bc388621a675a90a` before this handoff update. Because this handoff commit changes the PR head, require a fresh authoritative run on the new exact PR head before merge. Treat #315 as superseded diagnostic evidence if it completes on the older head.
+Explicitly out of scope unless a strict dependency is proven: the separate hover-action-geometry checklist item, task creation/inline editing, EST/Time Taken editing, scheduling/recurrence editor, subtasks, rich notes, list settings, search, Settings and Reports.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 2/5 | 12/28`**
+**`M-5/10 | 0/5 | 13/28`**
 
-Task-card state-model checkpoints:
+The current-slice counter resets here because the validated task-card slice is complete and this is a genuinely new ordered implementation slice.
 
-1. mandatory startup + exact current-main/spec/screenshot/task metadata/timer-state/history-risk/visual-harness inspection + narrow state-model scope — COMPLETE;
-2. deterministic task-card state model + minimum read projection/fixtures + semantic/diff review — COMPLETE;
-3. exact PR-head Windows CI including repository preflight, task-card state captures, release and required artifacts — PENDING;
+Drag/drop/reorder checkpoints:
+
+1. mandatory startup + exact current-main/domain/persistence/board/risk/spec/test inspection + narrow reorder/move scope — PENDING;
+2. persistence-backed reorder/move implementation + interaction/placeholder/reduced-motion + deterministic identity/regression/visual coverage + semantic/diff review — PENDING;
+3. exact PR-head Windows CI including repository preflight, visual captures, release and required artifacts — PENDING;
 4. exact-head semantic/diff/feedback review + expected-head guarded merge — PENDING;
 5. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
 
-## IMPORTANT INVARIANTS
+## COMPLETED CAPABILITIES / INVARIANTS THAT MUST NOT REGRESS
 
 - authoritative Rust/domain/persistence state and persistence-first mutation semantics remain authoritative;
+- reorder changes position/lane only; it must never create, delete or alias task identities;
 - stable task identities and one-open-session invariant must not regress;
 - renderer-independent timer/session accounting must not regress;
-- the board/task-card production path remains read-only in this slice;
-- scheduled pending tasks remain projected through validated M4 effective planning-lane semantics; schedule metadata must not mutate `manual_lane`;
+- scheduled tasks retain validated M4 schedule semantics; lane moves must not duplicate identities or incorrectly erase schedule metadata;
+- scheduled pending tasks remain projected through effective planning-lane semantics rather than schedule-driven `manual_lane` mutation;
 - archived lists/tasks remain absent; completed non-archived tasks project to Done exactly once;
-- All Lists remains a read projection, never a persisted synthetic list;
-- task identity duplication must fail closed;
+- All Lists remains an aggregate projection, never a persisted synthetic list;
+- task identity duplication in board projection fails closed;
 - stored configured timezone wins over renderer fallback and timezone identifiers remain validated;
-- hover/focus/action-revealed task-card states must reserve/overlay action geometry and never reflow title/card geometry or move pointer targets;
-- task-card visual states must not imply a mutation succeeded before authoritative persistence commits;
-- paused/editable presentation must not create renderer-owned timer or Time Taken authority;
-- notes-expanded presentation must never auto-launch URLs; explicit click/keyboard activation remains required when link activation is later implemented;
-- destructive-confirm presentation must not activate delete/archive behavior before its persistence-backed slice;
+- task-card production states now include normal, scheduled, overdue and done from authoritative read metadata plus durable Time Taken;
+- action-revealed task-card geometry is reserved/overlayed and must not reflow title/card geometry or move pointer targets;
+- fixture-only inline-create, notes-expanded, subtasks-expanded, paused/editable and destructive-confirm presentations must not be mistaken for implemented mutations;
+- notes must never auto-launch URLs; explicit click/keyboard activation remains required when link behavior is implemented;
 - existing Create/Edit List, Home, shell, theme, overlay, reduced-motion and exact 1280x720 PNG contracts must not regress;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostics remain gated behind `?diagnostics=1`.
 
 ## NEXT AGENT ACTION
 
-Read PR #85's current exact head after this handoff commit and observe the fresh Windows CI for that exact SHA. Do not make a source change unless the authoritative run produces an evidence-backed failure.
+Inspect the existing M2 task reorder/move persistence APIs and tests, the current `ListBoard`/`TaskCard` renderer path, relevant `docs/UI_UX_SPEC.md` drag/drop/motion evidence, and the reorder/duplication failure family in `docs/BLITZIT_HISTORY_RISK_INDEX.md`. Verify the latest main/tracking tip and that no implementation PR appeared concurrently.
 
-Require Repository Preflight including `test:ui-task-card-states`, real Edge light/dark `task-card-states` captures plus existing visual fixtures, visual artifact upload, Tauri release and diagnostic artifact upload to pass on the same exact head.
-
-After exact-head PASS, inspect the final changed-file diff plus all PR comments/reviews/inline threads, merge only with an expected-head guard, validate resulting main with Windows CI, then reconcile `TODO.md`, `STATUS.md`, this handoff and one new immutable work-log entry.
+Then create one coherent M5 reorder branch and implement the narrow persistence-backed reorder/move slice directly. Prefer the simplest deterministic interaction that preserves stable IDs, persistence-first success, keyboard accessibility and reduced-motion semantics. Add regression coverage for repeated same-lane reorder, cross-lane move, scheduled-task move and exact task-ID-set preservation before authoritative Windows CI.
 
 ## USER ACTION REQUIRED
 
 **None.**
+
+## BLOCKERS / NOT RUN
+
+- No product/user blocker is known.
+- Local checkout/toolchain validation in the connector-only environment: **NOT RUN**. Use the strongest connector/repository review available before pushing; Windows GitHub Actions remains the authoritative reproducible compile/test/release/visual gate.

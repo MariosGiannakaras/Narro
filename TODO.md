@@ -197,7 +197,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] List-card rest, hover/Open, overflow-menu and create-list states.
 - [x] Create/Edit List modal with icon import, color selection, title, cancel/create states.
 - [x] List board with Backlog, This Week, Today, Done.
-- [ ] Task-card state model: normal, hover/action-revealed, scheduled, overdue, done, inline-create, notes-expanded, subtasks-expanded, paused/editable, destructive-confirm.
+- [x] Task-card state model: normal, hover/action-revealed, scheduled, overdue, done, inline-create, notes-expanded, subtasks-expanded, paused/editable, destructive-confirm.
 - [ ] Drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.
 - [ ] Ensure hover actions use reserved/overlay slots and never reflow title/card geometry.
 - [ ] Task creation and inline editing.
