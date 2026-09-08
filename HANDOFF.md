@@ -46,23 +46,26 @@ Local Node/Rust preflight: **NOT RUN**. The current execution environment has no
 
 ### Latest CI evidence / active diagnostic
 
-Latest exact PR head before the viewport-contract correction:
+Latest exact PR head with the DOM-layout-viewport correction:
 
-`c472e82de1b8f1206110532ee19940c5f19689a0`
+`adb4927dde7a0d5fd15e72f4aac3efde674a5ea0`
 
-Windows PR CI #297 / run `34171600267` / job `101892811843`:
+Windows PR CI #301 / run `34192108491` / job `101952146882`:
 
 - Repository Preflight: **PASS**;
-- frontend static contracts/build: **PASS**;
+- visual-fixture static regression guard: **PASS**;
+- `test:ui-list-editor-modal`: **PASS**;
+- frontend build: **PASS**;
 - Rust fmt/check/Clippy/tests: **PASS**; 188 Rust unit tests passed plus integration suites;
-- Capture Visual Regression Fixtures: **FAIL** only on the new list-editor modal viewport assertion;
-- measured `list-editor-create-light` fixed backdrop width: **1256px**;
-- PNG capture contract: **1280x720**;
-- shell width: **960px**.
+- the previous `list-editor-create-light` 1256px-vs-1280px backdrop failure is no longer the failing assertion; modal fixed-backdrop geometry is now validated against measured DOM `window.innerWidth` / `window.innerHeight` while exact PNG IHDR validation remains 1280x720;
+- Capture Visual Regression Fixtures: **FAIL** only on `list-editor-edit-light selected color state is missing`;
+- visual artifact upload / Tauri release / diagnostic artifact upload were skipped because capture validation failed first.
 
-The failure is an evidence-backed validator regression, not evidence that the production modal is constrained to the shell. The validated visual-harness decision in `work-log/2026-09-07-1920-chatgpt-m5-visual-regression-harness.md` explicitly states that Windows Edge `--window-size=1280,720` may include browser chrome, so DOM `window.innerWidth` / `window.innerHeight` can be smaller while the PNG IHDR remains exactly 1280x720. `STATUS.md` likewise records that capture dimensions are an image-output contract, not a browser DOM viewport assumption.
+The new failure is deterministic fixture-data evidence, not a production modal or persistence failure. `editFixtureList` currently spreads `homeFixtureSnapshot.lists[0]`, whose representative Work color is `#32c7b5`. The editor palette is `#48d6c5`, `#b7d96d`, `#5da7e8`, `#8a78dc`, `#e0a34d`, `#df716b`; therefore the edit fixture renders no `data-selected="true"` swatch and correctly fails the semantic capture assertion.
 
-Required correction: measure the actual DOM layout viewport in the modal fixture, validate `position: fixed; inset: 0` backdrop geometry against that measured layout viewport, and keep the independent exact 1280x720 PNG IHDR assertion unchanged. Add a static regression guard that forbids comparing modal backdrop geometry directly to the PNG capture dimensions.
+Required correction: keep the Home fixture color unchanged, but override only `editFixtureList.color` with a supported deterministic editor swatch (`#48d6c5`). Do not relax the selected-color semantic assertion and do not change production modal/Rust behavior. Then validate a new exact PR head with full Windows CI.
+
+The validated visual-harness decision in `work-log/2026-09-07-1920-chatgpt-m5-visual-regression-harness.md` remains in force: exact 1280x720 is the PNG output contract, not a browser DOM layout viewport assumption.
 
 ## USER-FACING PROGRESS
 
@@ -87,13 +90,14 @@ Create/Edit List modal checkpoints:
 - deterministic fixture data and fixture callbacks never appear as normal user data/actions;
 - modal keyboard/focus behavior and reduced-motion usability must remain intact;
 - exact 1280x720 is the PNG capture-output contract, not a DOM layout viewport assumption;
+- edit fixture color must be an actual editor-palette swatch so the captured selected-color state is meaningful;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostics remain gated behind `?diagnostics=1`;
 - do not absorb the later list board, task-card, drag/drop, list-settings/archive-delete, search, settings or reports items.
 
 ## NEXT AGENT ACTION
 
-On the existing `m5-create-edit-list-modal` branch / PR #83, implement only the evidence-backed visual-harness correction described above: serialize measured `window.innerWidth` / `window.innerHeight` for the list-editor fixtures, compare fixed-backdrop geometry against that DOM layout viewport, retain exact 1280x720 PNG IHDR validation, and add a deterministic static regression guard against capture-size/DOM-viewport conflation.
+On the existing `m5-create-edit-list-modal` branch / PR #83, override only `editFixtureList.color` to the supported deterministic editor swatch `#48d6c5`; retain the strict `data-selected="true"` captured semantic assertion and all DOM-viewport/PNG-dimension distinctions established by the prior correction.
 
 Then record the new exact PR head and observe a fresh authoritative Windows CI run. Require repository preflight including `test:ui-list-editor-modal`, real Edge light/dark create/edit modal captures, visual artifact upload, Tauri release and diagnostic artifact upload to succeed.
 
