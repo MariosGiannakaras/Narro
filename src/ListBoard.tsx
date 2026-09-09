@@ -25,6 +25,7 @@ import "./listBoard.css";
 
 type LaneKey = "backlog" | "thisWeek" | "today" | "done";
 type PendingLaneKey = Exclude<LaneKey, "done">;
+type WithinLaneDirection = "up" | "down";
 
 type ListBoardProps = {
   target: ListBoardRequestTarget;
@@ -138,6 +139,7 @@ function BoardLane({
   onDrop,
   onDragEnd,
   onTaskKeyDown,
+  onMoveWithinLane,
 }: {
   laneKey: LaneKey;
   lane: ListBoardLane;
@@ -155,6 +157,7 @@ function BoardLane({
   onDrop: (event: ReactDragEvent<HTMLDivElement>) => void;
   onDragEnd: () => void;
   onTaskKeyDown: (task: ListBoardTask, lane: PendingLaneKey, event: ReactKeyboardEvent<HTMLDivElement>) => void;
+  onMoveWithinLane: (task: ListBoardTask, lane: PendingLaneKey, direction: WithinLaneDirection) => void;
 }) {
   const headingId = `list-board-${title.replace(/\s+/g, "-").toLowerCase()}`;
   const pendingLane = laneKey === "done" ? null : laneKey;
@@ -171,6 +174,7 @@ function BoardLane({
     && appendAfterId === null
     && !crossLaneAppend;
   const showLaneEndPlaceholder = laneDropTarget?.beforeTaskId === null && crossLaneAppend;
+  const eligibleTasks = pendingLane !== null ? manualTasks(lane) : [];
 
   return (
     <section
@@ -210,6 +214,18 @@ function BoardLane({
             const reorderable = pendingLane !== null
               && presentationReorderEnabled
               && isManualReorderTask(task);
+            const reorderIndex = reorderable ? taskIndex(eligibleTasks, task.id) : -1;
+            const actionsEnabled = reorderable
+              && interactionReorderEnabled
+              && mutationPendingTaskId === null
+              && pendingLane !== null;
+            const onMoveUp = actionsEnabled && reorderIndex > 0
+              ? () => onMoveWithinLane(task, pendingLane, "up")
+              : undefined;
+            const onMoveDown = actionsEnabled && reorderIndex >= 0 && reorderIndex < eligibleTasks.length - 1
+              ? () => onMoveWithinLane(task, pendingLane, "down")
+              : undefined;
+            const taskActions = onMoveUp || onMoveDown ? { onMoveUp, onMoveDown } : undefined;
             const dragging = dragState?.taskId === task.id;
             const settling = settlingTaskId === task.id;
             const pending = mutationPendingTaskId === task.id;
@@ -243,7 +259,11 @@ function BoardLane({
                     ? (event) => onTaskKeyDown(task, pendingLane, event)
                     : undefined}
                 >
-                  <TaskCard task={task} aggregateView={aggregateView} />
+                  <TaskCard
+                    task={task}
+                    aggregateView={aggregateView}
+                    actions={taskActions}
+                  />
                 </div>
                 {placeholderAfter ? <DropPlaceholder /> : null}
               </div>
@@ -539,6 +559,25 @@ export function ListBoard({
     );
   };
 
+  const handleMoveWithinLane = (
+    task: ListBoardTask,
+    lane: PendingLaneKey,
+    direction: WithinLaneDirection,
+  ) => {
+    if (mutationPendingTaskId) return;
+    const eligible = manualTasks(snapshot[lane]);
+    const index = taskIndex(eligible, task.id);
+    if (index < 0) return;
+
+    if (direction === "up" && index > 0) {
+      void commitDrop(task.id, lane, lane, eligible[index - 1].id);
+      return;
+    }
+    if (direction === "down" && index < eligible.length - 1) {
+      void commitDrop(task.id, lane, lane, eligible[index + 2]?.id ?? null);
+    }
+  };
+
   const handleTaskKeyDown = (
     task: ListBoardTask,
     lane: PendingLaneKey,
@@ -551,12 +590,12 @@ export function ListBoard({
 
     if (event.key === "ArrowUp" && index > 0) {
       event.preventDefault();
-      void commitDrop(task.id, lane, lane, eligible[index - 1].id);
+      handleMoveWithinLane(task, lane, "up");
       return;
     }
     if (event.key === "ArrowDown" && index < eligible.length - 1) {
       event.preventDefault();
-      void commitDrop(task.id, lane, lane, eligible[index + 2]?.id ?? null);
+      handleMoveWithinLane(task, lane, "down");
       return;
     }
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
@@ -662,6 +701,7 @@ export function ListBoard({
               setDropTarget(null);
             }}
             onTaskKeyDown={handleTaskKeyDown}
+            onMoveWithinLane={handleMoveWithinLane}
           />
         ))}
       </div>
