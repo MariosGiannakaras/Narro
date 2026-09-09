@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
 import type { ListBoardTask } from "./listBoardApi";
+import { Tooltip } from "./overlayPrimitives";
 
 type FixturePresentationState =
   | "normal"
@@ -14,14 +15,25 @@ type FixturePresentationState =
   | "paused_editable"
   | "destructive_confirm";
 
+export type TaskCardActions = {
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+};
+
 type TaskCardProps = {
   task: ListBoardTask;
   aggregateView: boolean;
   fixtureState?: FixturePresentationState;
+  actions?: TaskCardActions;
 };
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 const WHOLE_SECONDS = /^\d+$/;
+const fixtureAction = () => undefined;
+const FIXTURE_REORDER_ACTIONS: TaskCardActions = {
+  onMoveUp: fixtureAction,
+  onMoveDown: fixtureAction,
+};
 
 function safeListAccent(color: string | null): CSSProperties | undefined {
   if (!color || !HEX_COLOR.test(color)) return undefined;
@@ -64,13 +76,57 @@ function derivedState(task: ListBoardTask): FixturePresentationState {
   return "normal";
 }
 
-function StaticActionRail() {
+function TaskActionButton({
+  label,
+  glyph,
+  action,
+  actionId,
+}: {
+  label: string;
+  glyph: string;
+  action: () => void;
+  actionId: "move-up" | "move-down";
+}) {
   return (
-    <span className="list-board-task__actions" aria-hidden="true" data-fixture-only-actions="true">
-      <span className="list-board-task__action-glyph">✓</span>
-      <span className="list-board-task__action-glyph">↑</span>
-      <span className="list-board-task__action-glyph">↓</span>
-      <span className="list-board-task__action-glyph">•••</span>
+    <Tooltip content={label}>
+      <button
+        type="button"
+        className="list-board-task__action-button motion-interactive"
+        aria-label={label}
+        data-task-action={actionId}
+        draggable={false}
+        onPointerDown={(event) => event.stopPropagation()}
+        onClick={action}
+      >
+        <span aria-hidden="true">{glyph}</span>
+      </button>
+    </Tooltip>
+  );
+}
+
+function TaskActionRail({ actions }: { actions: TaskCardActions }) {
+  return (
+    <span className="list-board-task__actions" data-task-actions="reorder">
+      <span className="list-board-task__action-position" data-task-action-position="move-up">
+        {actions.onMoveUp ? (
+          <TaskActionButton
+            label="Move task up"
+            glyph="↑"
+            action={actions.onMoveUp}
+            actionId="move-up"
+          />
+        ) : null}
+      </span>
+      <span className="list-board-task__action-position" data-task-action-position="move-down">
+        {actions.onMoveDown ? (
+          <TaskActionButton
+            label="Move task down"
+            glyph="↓"
+            action={actions.onMoveDown}
+            actionId="move-down"
+          />
+        ) : null}
+      </span>
     </span>
   );
 }
@@ -137,12 +193,17 @@ function DestructiveConfirmState() {
   );
 }
 
-export function TaskCard({ task, aggregateView, fixtureState }: TaskCardProps) {
+export function TaskCard({ task, aggregateView, fixtureState, actions }: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
   const scheduled = scheduleLabel(task);
   const isFixtureOnly = fixtureState !== undefined;
-  const showActionRail = state === "action_revealed";
   const showBaseContent = state !== "inline_create";
+  const effectiveActions = actions ?? (
+    isFixtureOnly && (state === "normal" || state === "action_revealed")
+      ? FIXTURE_REORDER_ACTIONS
+      : undefined
+  );
+  const hasActions = Boolean(effectiveActions?.onMoveUp || effectiveActions?.onMoveDown);
 
   return (
     <article
@@ -151,6 +212,7 @@ export function TaskCard({ task, aggregateView, fixtureState }: TaskCardProps) {
       data-task-card-state={state}
       data-task-id={task.id}
       data-completed={task.completedAt ? "true" : "false"}
+      data-task-actions-available={hasActions ? "true" : "false"}
       data-fixture-presentation={isFixtureOnly ? "true" : "false"}
       style={safeListAccent(task.listColor)}
       tabIndex={isFixtureOnly && state === "action_revealed" ? 0 : undefined}
@@ -162,8 +224,12 @@ export function TaskCard({ task, aggregateView, fixtureState }: TaskCardProps) {
               <span className="list-board-task__completion-mark">{state === "done" ? "✓" : "○"}</span>
             </span>
             <span className="list-board-task__title" title={task.title}>{task.title}</span>
-            <span className="list-board-task__action-slot" aria-hidden={!showActionRail}>
-              {showActionRail ? <StaticActionRail /> : null}
+            <span
+              className="list-board-task__action-slot"
+              data-task-action-slot="reserved"
+              aria-hidden={hasActions ? undefined : true}
+            >
+              {effectiveActions && hasActions ? <TaskActionRail actions={effectiveActions} /> : null}
             </span>
           </div>
 
