@@ -32,13 +32,15 @@ Branch base / main tracking tip when created:
 
 `24a476408c9b8c0e3ab224f4c117acbcc7673c4a`
 
-Latest source candidate after checkpoint-2 implementation and semantic/diff review:
+Open implementation PR:
 
-`e519b546617d37a80a95da957ce860e96e572196`
+**PR #90 — `M5: add scheduling and recurrence editor`**
 
-The current branch tip may be a markdown-only descendant of that source candidate because this HANDOFF update is itself a tracking commit. No source/test validation has been claimed for that descendant yet.
+Latest source/test candidate after evidence-backed CI fixes and exact rustfmt reconciliation:
 
-No implementation PR existed at the time this checkpoint was recorded. The next action is to open the PR from this branch and validate its exact head on Windows CI.
+`b42f8b4ad198f9fe41506cda08c9ad2bcf827812`
+
+The branch tip after this HANDOFF write is a markdown-only descendant of that source/test candidate. It has not yet passed authoritative Windows CI and must be validated as the exact PR head before merge.
 
 ## USER-FACING PROGRESS
 
@@ -47,8 +49,8 @@ No implementation PR existed at the time this checkpoint was recorded. The next 
 Current five checkpoints:
 
 1. mandatory inspection + narrow scheduling/recurrence mutation and UX contract — **COMPLETE**;
-2. authoritative scheduling/recurrence command/frontend implementation + deterministic static/Rust/visual coverage + semantic/diff review — **COMPLETE / candidate ready for PR CI**;
-3. exact PR-head Windows CI — PENDING;
+2. authoritative scheduling/recurrence command/frontend implementation + deterministic static/Rust/visual coverage + semantic/diff review — **COMPLETE**;
+3. exact PR-head Windows CI — **IN PROGRESS; no successful exact-head run yet**;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + tracking reconciliation — PENDING.
 
@@ -66,9 +68,9 @@ Current five checkpoints:
 - `src-tauri/src/board_task_schedule.rs` exposes renderer-facing read/save/remove commands over the existing recurrence persistence/materialization system.
 - Create is rejected for generated recurrence occurrences and for stale task/rule bindings.
 - Existing rule updates require the expected rule ID and expected `updated_at`.
-- A semantic review found and fixed a TOCTOU stale-write window: update, remove, and Replace Existing now validate the expected recurrence version **inside** an immediate persistence transaction.
-- `persistence::recurrence` now exposes `update_recurrence_rule_if_expected` and `delete_recurrence_rule_if_expected` while preserving the existing non-guarded internal APIs for validated non-renderer callers.
-- `persistence::recurrence_replace` now exposes `replace_existing_tasks_if_expected`; the stale-version check happens before any child scan/detach/delete in the same immediate transaction.
+- Semantic review found and fixed a TOCTOU stale-write window: recurrence update, remove, and Replace Existing now validate expected rule version **inside** an immediate persistence transaction.
+- `persistence::recurrence` exposes `update_recurrence_rule_if_expected` and `delete_recurrence_rule_if_expected` while preserving existing non-guarded APIs for validated non-renderer callers.
+- `persistence::recurrence_replace` exposes `replace_existing_tasks_if_expected`; the stale-version check happens before child scan/detach/delete in the same immediate transaction.
 - `src-tauri/tests/recurrence_stale_version_guards.rs` proves a stale Replace Existing request leaves recurrence metadata and generated children untouched.
 - Existing modified/history-bearing child detachment and occurrence-reservation semantics remain unchanged.
 - Recurrence create/update materialization is post-commit best effort; a materialization failure is returned as a warning rather than misreporting the committed mutation as failed.
@@ -81,7 +83,7 @@ Current five checkpoints:
 - Opening the schedule editor locks reorder/create/title/metric/list-switch interactions; schedule controls are excluded from drag initiation.
 - Successful schedule/recurrence mutation closes the dialog and performs an authoritative board snapshot refresh.
 - Commit-success/refresh-failure uses the existing `Task change was saved, but the board could not refresh` safety path and blocks unsafe follow-up mutations.
-- The board projection now exposes authoritative `recurrenceRuleId` / `recurrenceParentTaskId` identity so closed cards can visibly distinguish `Repeats` parents and generated `Occurrence` tasks without per-card polling or renderer inference.
+- The board projection exposes authoritative `recurrenceRuleId` / `recurrenceParentTaskId` identity so closed cards visibly distinguish `Repeats` parents and generated `Occurrence` tasks without per-card polling or renderer inference.
 
 ### Schedule / Repeat dialog
 
@@ -92,19 +94,28 @@ Current five checkpoints:
 - Generated occurrences can edit their individual schedule but cannot create a nested recurrence rule.
 - Escape, Cancel, close button, Tab/Shift+Tab focus containment and opener focus restoration are implemented; explicit `:focus-visible` states are present.
 
-## DETERMINISTIC COVERAGE ADDED
+## DETERMINISTIC COVERAGE
 
 - Rust schedule-edit regressions cover metadata preservation, stale schedule rejection, and ambiguous/nonexistent local-time rejection.
 - Rust recurrence stale-version regressions cover update/delete and destructive Replace Existing before-write rejection.
-- `scripts/test-ui-task-scheduling.mjs` statically gates command registration, atomic expected-state boundaries, recurrence detachment/replace paths, task-card recurrence projection, interaction locking, refresh semantics, drag isolation, dialog controls, no renderer polling, and no reminder-scope leakage.
+- `scripts/test-ui-task-scheduling.mjs` gates command registration, atomic expected-state boundaries, recurrence detachment/replace paths, task-card recurrence projection, interaction locking, refresh semantics, drag isolation, dialog controls, no renderer polling, and no reminder-scope leakage.
 - `src/taskScheduleVisualFixture.tsx`, `task-schedule-fixture.html`, capture wiring and `validate-task-schedule-captures.mjs` provide deterministic production-dialog Windows captures and geometry/theme parity checks.
-- `package.json` includes the scheduling static check in `preflight:frontend` and the schedule capture validator in the Windows visual regression chain.
+- `package.json` includes scheduling static validation in `preflight:frontend` and schedule capture validation in the Windows visual-regression chain.
+
+## PR #90 WINDOWS CI EVIDENCE SO FAR
+
+No failed run below increments progress.
+
+- **#343** — run `34398165967`, job `102623064917`, head `1611ec7d89f445feae49dc3143e532e769e6f31d`: Repository Preflight failed because the old List Board static guard still forbade the newly ordered `onSchedule` interaction. Fixed narrowly in `scripts/test-ui-list-board.mjs`.
+- **#344** — run `34398496464`, job `102624198270`, head `96178df3efd384413a29401103febf322cf7674d`: the List Board guard passed; preflight then found the old hover-action drag selector omitted scheduling controls. Fixed by requiring `[data-task-schedule-control]` in the drag-exclusion contract.
+- **#345** — run `34398737273`, job `102625003810`, head `a1082c2661c1af77ce520831a625ee5487306ef7`: prior guards passed; preflight then found `test-ui-task-create-edit.mjs` still forbade the ordered scheduling interaction. Fixed narrowly while retaining completion/delete exclusions and requiring schedule-control drag isolation.
+- **#346** — run `34399578287`, job `102627830258`, head `556c8c4e3885afa6466eeffdc7afae0985540fb9`: all frontend/static checks and the TypeScript/Vite production build passed. Preflight then failed only at `cargo fmt --all -- --check`. Windows runner used Rust `1.98.1` / rustfmt `1.9.0-stable` and emitted formatter-only diffs in four files.
+- The exact #346 rustfmt output was applied in four formatter-only commits, ending at source/test candidate `b42f8b4ad198f9fe41506cda08c9ad2bcf827812`.
+- Diff review from `556c8c4e3885afa6466eeffdc7afae0985540fb9` to `b42f8b4ad198f9fe41506cda08c9ad2bcf827812` shows only the four rustfmt-targeted files. Individual commit diffs match the #346 formatter output; no semantic change is present.
 
 ## SEMANTIC / DIFF REVIEW
 
-Reviewed candidate `e519b546617d37a80a95da957ce860e96e572196` against branch base `24a476408c9b8c0e3ab224f4c117acbcc7673c4a`.
-
-Scope is limited to:
+Current slice remains limited to:
 
 - scheduling/recurrence command and persistence boundaries;
 - recurrence identity projection required for closed-card status;
@@ -131,13 +142,12 @@ No reminder UI, notes, subtasks, completion/delete/archive flows, timer/session 
 
 ## NEXT AGENT ACTION
 
-1. Verify the exact current branch tip and confirm no competing open PR.
-2. Open the implementation PR from `m5-scheduling-recurrence-ui` to `main`.
-3. Record the exact PR head SHA.
-4. Require authoritative Windows PR CI to PASS on that exact SHA: Repository Preflight, frontend/Rust tests, visual capture + artifact upload, Tauri Release, diagnostic artifact upload.
-5. If CI fails, inspect the exact failure log and fix only evidence-backed failures; do not increment progress.
-6. After exact-head CI PASS, perform final diff/review/comment reconciliation, then merge only the validated expected head.
-7. Validate resulting main on Windows CI, then update `TODO.md`, `STATUS.md`, `HANDOFF.md` and add a new immutable `work-log/*.md` entry. Only then mark `Scheduling UI and recurrence editor` complete and advance M5 from 17/28 to 18/28.
+1. Fetch PR #90 and verify its exact current head SHA; this HANDOFF write should be the latest markdown-only descendant of source/test candidate `b42f8b4ad198f9fe41506cda08c9ad2bcf827812` unless newer repository evidence supersedes it.
+2. Require authoritative Windows PR CI to PASS on that exact SHA: Repository Preflight, frontend/Rust tests, visual capture + artifact upload, Tauri Release, diagnostic artifact upload.
+3. If CI fails, inspect the exact failure log and fix only evidence-backed failures; do not increment progress.
+4. After exact-head CI PASS, record run/job/artifact evidence, perform final exact-head diff/review/comment reconciliation, and merge only with an expected-head guard.
+5. Validate the resulting main source SHA on Windows CI.
+6. Only after resulting-main PASS, update `TODO.md`, `STATUS.md`, `HANDOFF.md` and add a new immutable `work-log/*.md` entry; then mark `Scheduling UI and recurrence editor` complete and advance M5 from 17/28 to 18/28. The next ordered M5 item is `Subtasks UI`.
 
 ## USER ACTION REQUIRED
 
