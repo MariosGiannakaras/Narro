@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  type KeyboardEvent as ReactKeyboardEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import {
   getTaskScheduleEditor,
@@ -107,6 +113,14 @@ function scheduleFromDraft(
   };
 }
 
+function focusableElements(container: HTMLElement): HTMLElement[] {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ),
+  ).filter((element) => !element.hasAttribute("hidden"));
+}
+
 export function TaskScheduleDialog({
   taskId,
   listId,
@@ -115,6 +129,9 @@ export function TaskScheduleDialog({
   onClose,
   onCommitted,
 }: Props) {
+  const dialogRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
   const [snapshot, setSnapshot] = useState<TaskScheduleEditorSnapshot | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [mutationError, setMutationError] = useState<string | null>(null);
@@ -134,6 +151,12 @@ export function TaskScheduleDialog({
   const [customWeekdayMask, setCustomWeekdayMask] = useState(1);
   const [customMonthPattern, setCustomMonthPattern] = useState<MonthPattern>("date");
   const [customMonthDay, setCustomMonthDay] = useState(1);
+
+  useEffect(() => {
+    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    closeButtonRef.current?.focus();
+    return () => openerRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     let disposed = false;
@@ -340,6 +363,30 @@ export function TaskScheduleDialog({
     }
   };
 
+  const handleDialogKeyDown = (event: ReactKeyboardEvent<HTMLElement>) => {
+    if (event.key === "Escape") {
+      if (!pending) {
+        event.preventDefault();
+        onClose();
+      }
+      return;
+    }
+    if (event.key !== "Tab" || !dialogRef.current) return;
+
+    const focusable = focusableElements(dialogRef.current);
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+    if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
   return (
     <div
       className="task-schedule-dialog__backdrop"
@@ -347,19 +394,15 @@ export function TaskScheduleDialog({
       onPointerDown={(event) => {
         if (event.target === event.currentTarget && !pending) onClose();
       }}
-      onKeyDown={(event) => {
-        if (event.key === "Escape" && !pending) {
-          event.preventDefault();
-          onClose();
-        }
-      }}
     >
       <section
+        ref={dialogRef}
         className="task-schedule-dialog motion-overlay"
         role="dialog"
         aria-modal="true"
         aria-labelledby="task-schedule-dialog-title"
         data-task-schedule-state={snapshot ? "ready" : loadError ? "error" : "loading"}
+        onKeyDown={handleDialogKeyDown}
       >
         <header className="task-schedule-dialog__header">
           <div>
@@ -367,6 +410,7 @@ export function TaskScheduleDialog({
             <h2 id="task-schedule-dialog-title" className="type-section-title">{taskTitle}</h2>
           </div>
           <button
+            ref={closeButtonRef}
             type="button"
             className="task-schedule-dialog__close motion-interactive"
             aria-label="Close scheduling editor"
