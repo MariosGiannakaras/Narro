@@ -46,7 +46,7 @@ Branch base / main tracking tip when created:
 
 `68d1a38874cf7d1c6988f11cd58fc28a8d050d84`
 
-Latest source/test candidate reviewed before this tracking update:
+Latest source/test candidate reviewed before tracking commits:
 
 `03a7de2e213d7039bca6ed69355a23a4f7b51d43`
 
@@ -54,7 +54,13 @@ Candidate tree:
 
 `b8e8190f8b3e070f31d055fb2d4ab442d7382c4a`
 
-The branch is 33 commits ahead of its base and 0 behind at that candidate. No implementation PR existed at the checkpoint-2 review; the exact next action is to open one and validate its final exact head with Windows CI.
+Implementation PR:
+
+- PR #89 — `M5: add EST and Time Taken editing`;
+- opened `2026-09-09T13:57:15Z` from `m5-est-time-taken-edit` to `main`;
+- initial PR head at creation: `f130d89cbb6d4b09f7fb54eda97003638ed86350`;
+- this HANDOFF reconciliation is a tracking-only descendant after that initial head, so the exact current PR head must be fetched before evaluating CI;
+- authoritative Windows PR CI: **PENDING** for the exact current PR head.
 
 ## USER-FACING PROGRESS
 
@@ -64,7 +70,7 @@ Current five checkpoints:
 
 1. mandatory inspection + narrow EST/Time Taken mutation/UX contract — **COMPLETE**;
 2. authoritative persistence/runtime/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — **PENDING**;
+3. exact PR-head Windows CI — **IN PROGRESS**;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + tracking reconciliation — PENDING.
 
@@ -100,39 +106,21 @@ Current five checkpoints:
 
 ### Deterministic coverage added/updated
 
-Rust coverage includes:
+Rust coverage includes EST metadata preservation/stale/live rejection; non-live Time Taken session-history/stale/live rejection; live Time Taken stale-task/stale-total, anti-snap-back, recovery and completion; live EST pause binding, CountUp↔EstCountdown, Pomodoro precedence, below-elapsed `TimeUp` without time loss, recovery and rollback; and estimate-rebase event serialization.
 
-- EST-only metadata preservation;
-- null-safe expected EST stale rejection;
-- live-session rejection at the non-live EST boundary;
-- non-live Time Taken session-history preservation and expected-total stale rejection;
-- live Time Taken stale task/total rejection, anti-snap-back, recovery and completion behavior;
-- live EST pause binding, CountUp↔EstCountdown behavior, Pomodoro precedence, below-elapsed `TimeUp` without time loss, recovery and rollback-on-persistence-failure;
-- timer-event serialization for estimate rebase.
+Frontend/static coverage includes `scripts/test-ui-task-metrics.mjs` in `preflight:frontend`, typed command/event registration, stale guards, individual-list/live-state gates, explicit duration parsing, commit-before-runtime-publication, drag isolation, visual-chain linkage and geometry contracts. Legacy create/edit and hover drag-selector contracts were updated only to include metric controls.
 
-Frontend/static coverage includes:
-
-- `scripts/test-ui-task-metrics.mjs` in `preflight:frontend`;
-- typed command/event registration, stale guards, individual-list/live-state gates, explicit duration parsing, commit-before-runtime-publication, drag isolation and geometry contracts;
-- legacy create/edit and hover-action drag-selector contracts updated only to include metric controls.
-
-Windows visual coverage includes:
-
-- dedicated `task-metric-fixture.html` using production `TaskCard` props, not fixture-only paused presentation;
-- deterministic display, live-paused EST edit and live-overtime-paused Time Taken edit states;
-- light/dark Edge captures;
-- `validate-task-metric-captures.mjs` requiring 1280×720 PNGs, production editor markers, 68px reserved action slot, display/edit card and title-row geometry parity, and light/dark geometry parity;
-- the metric validator is part of `test:visual-regression:windows`.
+Windows visual coverage uses dedicated `task-metric-fixture.html` with production `TaskCard` props. Light/dark captures include normal display, live-paused EST edit and live-overtime-paused Time Taken edit. `validate-task-metric-captures.mjs` requires 1280×720 PNGs, production editor markers, 68px reserved action slot, display/edit card/title-row geometry parity and light/dark geometry parity. The validator is part of `test:visual-regression:windows`.
 
 ## SEMANTIC / DIFF REVIEW
 
-Checkpoint-2 semantic review inspected the persistence boundaries, live runtime/controller/service path, Tauri registrations, TypeScript IPC contracts, `ListBoard`, `TaskCard`, CSS, visual fixture/capture validator and legacy UI static contracts.
+Checkpoint-2 semantic review inspected persistence boundaries, live runtime/controller/service path, Tauri registrations, TypeScript IPC contracts, `ListBoard`, `TaskCard`, CSS, production visual fixture/capture validator and legacy UI static contracts.
 
 Evidence-backed fixes made during review:
 
-- extended the previously validated create/edit and hover drag guards to include `[data-task-metric-control]`;
-- corrected stale metric static-test expectations from obsolete `StaleTask`/`StaleTimeTaken` names to the implemented `TaskBindingMismatch`/`ExpectedTimeTakenMismatch` contracts;
-- added an explicit static linkage to the below-elapsed EST no-time-loss regression and production visual/capture chain.
+- extended the validated create/edit and hover drag guards to include `[data-task-metric-control]`;
+- corrected stale metric static-test expectations from obsolete names to the implemented `TaskBindingMismatch` / `ExpectedTimeTakenMismatch` contracts;
+- linked the static contract to the below-elapsed EST no-time-loss regression and production visual/capture chain.
 
 No broad architecture change, migration, later-stage product behavior or unrelated feature activation is present in the reviewed diff.
 
@@ -155,7 +143,7 @@ This slice does **not** implement title-suffix EST auto-parsing preference, top-
 
 ## NEXT AGENT ACTION
 
-Open the implementation PR from `m5-est-time-taken-edit` to `main`, record the exact final PR head SHA, and inspect the authoritative Windows GitHub Actions run for that exact head. Required before checkpoint 3 can complete: Repository Preflight, tests, visual regression capture/validation and artifact upload, Tauri release build, and diagnostic artifact upload must all succeed. If CI fails, inspect the exact failure log and fix only evidence-backed problems; any fix creates a new head that must be revalidated.
+Fetch PR #89 and its exact current head SHA after this tracking commit, then inspect the authoritative Windows GitHub Actions run for that exact head. Required before checkpoint 3 can complete: Repository Preflight, tests, visual regression capture/validation and artifact upload, Tauri release build, and diagnostic artifact upload must all succeed. If CI fails, inspect the exact failure log and fix only evidence-backed problems; any fix creates a new head that must be revalidated.
 
 ## USER ACTION REQUIRED
 
