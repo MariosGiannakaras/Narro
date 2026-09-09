@@ -3,7 +3,9 @@ use narro_lib::domain::model::{PlanningLane, RecurrenceUnit};
 use narro_lib::domain::recurrence::{NewRecurrenceRuleInput, UpdateRecurrenceRuleInput};
 use narro_lib::domain::tasks::NewTaskInput;
 use narro_lib::persistence::lists::create_list;
-use narro_lib::persistence::recurrence::{create_recurrence_rule, get_recurrence_rule, RecurrenceStoreError};
+use narro_lib::persistence::recurrence::{
+    create_recurrence_rule, get_recurrence_rule, RecurrenceStoreError,
+};
 use narro_lib::persistence::recurrence_replace::{
     replace_existing_tasks_if_expected, ReplaceExistingError,
 };
