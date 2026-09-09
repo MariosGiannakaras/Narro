@@ -18,7 +18,7 @@ Latest fully main-validated source/test SHA:
 
 This is the expected-head guarded squash merge of PR #86 — `M5: add task reorder and move interactions`.
 
-Task-reorder validation evidence:
+Validation evidence:
 
 - final PR #86 head `5096163f67f1c4b673ff6b05059cc9532b9de765`;
 - Windows PR CI #320 / run `34280885956` / job `102245092274`: **SUCCESS**;
@@ -29,52 +29,44 @@ Task-reorder validation evidence:
 - main visual artifact `10090292156`, digest `sha256:4f0bf3c16161894a934d8d885c2e5cc3ce1c4e9dc15ceb9079c14eb13021875b`;
 - main diagnostic artifact `10090429537`, digest `sha256:58dd8e279a2a248c373ab319b86fd9b4be00769be29e5eb4b038a8fe267905bb`.
 
-PR CI #319 / run `34280633818` / job `102244250572` failed only at `cargo fmt --check`; forward commit `5096163f67f1c4b673ff6b05059cc9532b9de765` applied the exact Windows rustfmt output to `src-tauri/src/board_task_mutation.rs` without runtime/test semantic change.
-
 Tracking descendants are markdown-only and do not replace the validated source/test baseline. Detailed completed-slice evidence: `work-log/2026-09-09-0858-chatgpt-m5-task-reorder.md`.
-
-## LATEST COMPLETED SLICE
-
-**M5 Main UI — Drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.**
-
-Validated capabilities:
-
-- same-lane persistence-backed exact-set reorder and transactional cross-lane append move reuse M2 boundaries;
-- task identity set/count is preserved and stale source/anchor requests fail closed;
-- scheduled/completed/archived tasks are not manually reorderable; scheduled effective-lane semantics remain owned by M4 scheduling;
-- All Lists and Done remain read-only for manual reorder;
-- pointer drag/drop and `Alt+Arrow` keyboard equivalent are available on eligible individual-list pending tasks;
-- no optimistic renderer order exists: mutation commits first, then the authoritative board snapshot is re-read;
-- post-commit refresh failure is distinct from mutation failure and cannot encourage unsafe duplicate retry;
-- stable placeholder/target feedback and finite settle animation respect reduced motion;
-- Windows light/dark Edge captures and exact task-identity regressions passed.
 
 ## ACTIVE SLICE
 
 **M5 Main UI — Ensure hover actions use reserved/overlay slots and never reflow title/card geometry.**
 
-This is the next ordered top-level item after the fully validated reorder/move slice. Begin from the latest main tracking tip, while treating `5d91767ba79482fe1d6d25b2965db19e6baac8c2` as the validated source baseline until a new source PR passes the full merge/main sequence.
+Active branch: `m5-hover-action-geometry`.
 
-Narrow scope:
+Latest reviewed source candidate before this tracking-only handoff commit:
 
-- inspect the real production `TaskCard` hover/focus/action-revealed path, existing reserved action slot, title-row geometry and applicable list-card/focus evidence;
-- make any missing production hover/focus actions reachable without inserting/removing layout columns or moving pointer targets;
-- preserve keyboard/focus-visible equivalence and accessible names/tooltips for icon-only affordances that become real;
-- extend deterministic static/visual no-reflow validation for production hover/focus geometry;
-- keep action behavior callback-gated/presentation-only unless an already validated mutation is a strict dependency.
+`49db47cde952b057466e87566c23ae43ecf68214`
 
-Explicitly out of scope unless a strict dependency is proven: task creation/inline editing, EST/Time Taken edit controls, scheduling/recurrence editor, subtasks, notes editing/link activation, destructive task flows, list settings, search, Settings and Reports.
+No implementation PR existed at the last concurrency check. `main` remained `ca2fa3d3fd5b4ee56deedf5faf87aff44f964bf6`, a markdown-only descendant of validated source `5d91767ba79482fe1d6d25b2965db19e6baac8c2`.
+
+Implemented candidate scope:
+
+- production `TaskCard` Move up / Move down actions now occupy the existing fixed 4.25rem reserved action column;
+- the visible 1.75rem action controls are absolutely overlaid inside the pre-existing 4.25rem × 1.25rem slot, preserving the validated rest title/card geometry;
+- hover, card focus and child focus reveal the action rail with opacity/visibility only; hidden actions remain inert without removing layout geometry;
+- icon-only actions reuse the shared accessible `Tooltip` primitive and explicit `aria-label`s;
+- pointer actions and `Alt+ArrowUp/Down` reuse one `handleMoveWithinLane` helper and the already validated persistence-first `commitDrop` boundary;
+- action-button drag initiation is rejected before the parent task drag path can start;
+- aggregate All Lists, Done, scheduled tasks and non-reorderable rows remain read-only for these actions;
+- deterministic static checks and the existing task-card visual capture contract now require production action DOM, stable card/title dimensions and the original 68×20 reserved slot geometry;
+- `preflight:frontend` includes `test:ui-task-hover-actions`.
+
+Explicitly not implemented: task creation/editing, completion/delete/archive actions, EST/Time Taken editing, scheduling/recurrence editor, subtasks, notes editing/link activation, list settings, search, Settings or Reports.
+
+Local checkout/toolchain execution remains **NOT RUN** in this connector-only runtime. Semantic/diff review of the candidate against `ca2fa3d3fd5b4ee56deedf5faf87aff44f964bf6`: **PASS**; only TaskCard/ListBoard/CSS and deterministic frontend test/preflight files changed, with no Rust/schema/domain changes.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 0/5 | 14/28`**
-
-The small counter resets because the reorder/move slice is fully reconciled and this is a genuinely new ordered implementation slice.
+**`M-5/10 | 2/5 | 14/28`**
 
 Hover-action geometry checkpoints:
 
-1. mandatory startup + exact current-main/TaskCard/ListBoard/action-slot/spec/risk/visual-contract inspection + narrow scope — PENDING;
-2. production hover/focus action geometry implementation/hardening + keyboard/accessibility + deterministic static/visual no-reflow coverage + semantic/diff review — PENDING;
+1. mandatory startup + exact current-main/TaskCard/ListBoard/action-slot/spec/risk/visual-contract inspection + narrow scope — COMPLETE;
+2. production hover/focus action geometry implementation/hardening + keyboard/accessibility + deterministic static/visual no-reflow coverage + semantic/diff review — COMPLETE;
 3. exact PR-head Windows CI including repository preflight, visual captures, release and required artifacts — PENDING;
 4. exact-head semantic/diff/feedback review + expected-head guarded merge — PENDING;
 5. resulting-main Windows CI + TODO/STATUS/HANDOFF/new immutable work-log reconciliation — PENDING.
@@ -88,22 +80,20 @@ Hover-action geometry checkpoints:
 - scheduled pending tasks remain projected through effective planning-lane semantics rather than schedule-driven `manual_lane` mutation;
 - archived lists/tasks remain absent; completed non-archived tasks project to Done exactly once;
 - All Lists remains an aggregate projection, never a persisted synthetic list;
-- task identity duplication in board projection fails closed;
-- stored configured timezone wins over renderer fallback and timezone identifiers remain validated;
-- task-card production states include normal, scheduled, overdue and done from authoritative read metadata plus durable Time Taken;
-- action-revealed task-card geometry is reserved/overlayed and must not reflow title/card geometry or move pointer targets;
-- no hover/focus interaction may change row/card geometry or move sibling controls under the pointer;
-- fixture-only inline-create, notes-expanded, subtasks-expanded, paused/editable and destructive-confirm presentations must not be mistaken for implemented mutations;
-- notes must never auto-launch URLs; explicit click/keyboard activation remains required when link behavior is implemented;
-- existing Create/Edit List, Home, shell, theme, overlay, reduced-motion and exact 1280x720 PNG contracts must not regress;
+- task-card production states and durable Time Taken remain authoritative read projections;
+- hover/focus action reveal may not reflow title/card geometry or move pointer targets;
+- hidden action controls must retain reserved geometry and keyboard/focus accessibility when revealed;
+- fixture-only inline-create, notes-expanded, subtasks-expanded, paused/editable and destructive-confirm presentations remain non-mutating;
+- notes never auto-launch URLs; explicit click/keyboard activation remains required when link behavior is implemented;
+- existing Home/shell/list-board/theme/overlay/reduced-motion and exact 1280×720 PNG contracts must not regress;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostics remain gated behind `?diagnostics=1`.
 
 ## NEXT AGENT ACTION
 
-Verify current `main` and that there is no new open implementation PR. Inspect `src/TaskCard.tsx`, `src/ListBoard.tsx`, `src/listBoard.css`, existing task-card state fixtures/validators, shared overlay/tooltip primitives, the hover/no-layout-shift sections of `docs/UI_UX_SPEC.md`, supplied evidence where relevant, and the action-button movement risk in `docs/BLITZIT_HISTORY_RISK_INDEX.md`.
+Read the exact current branch head after this tracking commit, create one PR from `m5-hover-action-geometry` to `main`, and record its exact head SHA. Inspect the authoritative Windows PR CI for that exact head. Require Repository Preflight, visual captures, visual artifact upload, Tauri release build and diagnostic artifact upload to pass. If CI fails, inspect the exact job log and change only the evidence-backed problem. Do not merge an unvalidated newer head.
 
-Then implement the narrow hover-action geometry slice directly on one coherent feature branch. Reuse the existing reserved action geometry instead of introducing a new layout model. Do not activate later task-edit/destructive behavior merely to populate the slot; callback-gated or currently meaningful actions are preferable until their ordered mutation slices arrive.
+After exact-head CI passes, perform final semantic/diff/feedback review, merge with expected-head guard, validate the resulting main source SHA with Windows CI, then reconcile `TODO.md`, `STATUS.md`, this handoff and a new immutable work-log. The next ordered item after successful reconciliation is `Task creation and inline editing.`
 
 ## USER ACTION REQUIRED
 
@@ -112,4 +102,4 @@ Then implement the narrow hover-action geometry slice directly on one coherent f
 ## BLOCKERS / NOT RUN
 
 - No product/user blocker is known.
-- Local checkout/toolchain validation in the connector-only environment: **NOT RUN**. Use the strongest connector/repository review available before pushing; Windows GitHub Actions remains the authoritative reproducible compile/test/release/visual gate.
+- Local checkout/toolchain validation in this connector-only environment: **NOT RUN**. Windows GitHub Actions is the authoritative reproducible compile/test/release/visual gate.
