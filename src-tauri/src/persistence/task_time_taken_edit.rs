@@ -132,11 +132,10 @@ mod tests {
     use super::*;
     use crate::domain::lists::NewListInput;
     use crate::domain::model::PlanningLane;
-    use crate::domain::sessions::{NewSessionInput, SessionKind, SessionSource};
     use crate::domain::tasks::NewTaskInput;
     use crate::persistence::lists::create_list;
     use crate::persistence::run_migrations;
-    use crate::persistence::sessions::{close_session, open_session};
+    use crate::persistence::sessions::{close_session, open_focus_work_session};
     use crate::persistence::tasks::create_task;
     use crate::timer::runtime::TimerRuntime;
     use crate::timer::TimerMode;
@@ -175,16 +174,7 @@ mod tests {
     #[test]
     fn non_live_edit_preserves_session_history_and_reconciles_effective_total() {
         let (mut conn, list_id, task_id) = fixture();
-        let session = open_session(
-            &mut conn,
-            NewSessionInput {
-                task_id: Some(task_id),
-                kind: SessionKind::Work,
-                source: SessionSource::Manual,
-            },
-            T0,
-        )
-        .unwrap();
+        let session = open_focus_work_session(&mut conn, task_id, T0).unwrap();
         close_session(&mut conn, session.id, 600, T1).unwrap();
 
         let (_, effective) = set_non_live_task_time_taken_if_expected(
