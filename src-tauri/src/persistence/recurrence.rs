@@ -785,13 +785,8 @@ mod tests {
             rule.id
         );
 
-        let updated = update_recurrence_rule(
-            &mut conn,
-            rule.id,
-            monthly_update(true),
-            T3,
-        )
-        .expect("update recurrence rule");
+        let updated = update_recurrence_rule(&mut conn, rule.id, monthly_update(true), T3)
+            .expect("update recurrence rule");
         assert_eq!(updated.unit, RecurrenceUnit::Month);
         assert_eq!(updated.month_day, Some(15));
         assert!(updated.replace_existing);
