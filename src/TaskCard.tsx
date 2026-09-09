@@ -96,6 +96,18 @@ function scheduleLabel(task: ListBoardTask): string | null {
     : formatVisibleDate(task.scheduledLocalDate);
 }
 
+function recurrenceLabel(task: ListBoardTask): string | null {
+  if (task.recurrenceRuleId) return "Repeats";
+  if (task.recurrenceParentTaskId) return "Occurrence";
+  return null;
+}
+
+function recurrenceState(task: ListBoardTask): "parent" | "occurrence" | "none" {
+  if (task.recurrenceRuleId) return "parent";
+  if (task.recurrenceParentTaskId) return "occurrence";
+  return "none";
+}
+
 function derivedState(task: ListBoardTask): FixturePresentationState {
   if (task.completedAt) return "done";
   if (task.isOverdue) return "overdue";
@@ -424,6 +436,7 @@ export function TaskCard({
 }: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
   const scheduled = scheduleLabel(task);
+  const repeatStatus = recurrenceLabel(task);
   const isFixtureOnly = fixtureState !== undefined;
   const showBaseContent = state !== "inline_create";
   const effectiveActions = titleEditor || metricEditor
@@ -435,6 +448,9 @@ export function TaskCard({
     );
   const hasActions = Boolean(effectiveActions?.onMoveUp || effectiveActions?.onMoveDown);
   const liveLabel = liveStateLabel(liveState);
+  const scheduleStateLabel = task.isOverdue
+    ? repeatStatus ? `Overdue · ${repeatStatus}` : "Overdue"
+    : repeatStatus ? `Scheduled · ${repeatStatus}` : "Scheduled";
 
   return (
     <article
@@ -447,6 +463,7 @@ export function TaskCard({
       data-task-title-editing={titleEditor ? "true" : "false"}
       data-task-metric-editing={metricEditor?.metric ?? "none"}
       data-task-live-state={liveState ?? "none"}
+      data-task-recurrence={recurrenceState(task)}
       data-fixture-presentation={isFixtureOnly ? "true" : "false"}
       style={safeListAccent(task.listColor)}
       tabIndex={isFixtureOnly && state === "action_revealed" ? 0 : undefined}
@@ -494,17 +511,17 @@ export function TaskCard({
                 className="list-board-task__schedule list-board-task__schedule-button type-metadata motion-interactive"
                 data-overdue={task.isOverdue ? "true" : "false"}
                 data-task-schedule-control="open"
-                aria-label={`Edit task schedule: ${scheduled}`}
+                aria-label={`Edit task schedule: ${scheduled}${repeatStatus ? `, ${repeatStatus}` : ""}`}
                 draggable={false}
                 onPointerDown={(event) => event.stopPropagation()}
                 onClick={onScheduleEdit}
               >
-                <span>{task.isOverdue ? "Overdue" : "Scheduled"}</span>
+                <span>{scheduleStateLabel}</span>
                 <span>{scheduled}</span>
               </button>
             ) : (
               <div className="list-board-task__schedule type-metadata" data-overdue={task.isOverdue ? "true" : "false"}>
-                <span>{task.isOverdue ? "Overdue" : "Scheduled"}</span>
+                <span>{scheduleStateLabel}</span>
                 <span>{scheduled}</span>
               </div>
             )
@@ -512,9 +529,13 @@ export function TaskCard({
 
           <div className="list-board-task__meta type-metadata">
             {aggregateView ? (
-              <span className="list-board-task__list" title={task.listTitle}>{task.listTitle}</span>
+              <span className="list-board-task__list" title={task.listTitle}>
+                {task.listTitle}{repeatStatus ? ` · ${repeatStatus}` : ""}
+              </span>
             ) : liveLabel ? (
-              <span className="list-board-task__live-state">{liveLabel}</span>
+              <span className="list-board-task__live-state">
+                {liveLabel}{repeatStatus ? ` · ${repeatStatus}` : ""}
+              </span>
             ) : onScheduleEdit && !scheduled ? (
               <button
                 type="button"
@@ -524,8 +545,14 @@ export function TaskCard({
                 onPointerDown={(event) => event.stopPropagation()}
                 onClick={onScheduleEdit}
               >
-                Schedule / Repeat
+                {repeatStatus === "Repeats"
+                  ? "Repeats · Edit"
+                  : repeatStatus === "Occurrence"
+                    ? "Occurrence · Schedule"
+                    : "Schedule / Repeat"}
               </button>
+            ) : repeatStatus && !scheduled ? (
+              <span className="list-board-task__recurrence-marker">{repeatStatus}</span>
             ) : <span />}
             <span className="list-board-task__times">
               <MetricValue
