@@ -42,94 +42,99 @@ Active branch:
 
 `m5-est-time-taken-edit`
 
-Branch base / latest tracking tip when created:
+Branch base / main tracking tip when created:
 
 `68d1a38874cf7d1c6988f11cd58fc28a8d050d84`
 
-No implementation PR exists yet for this slice.
+Latest source/test candidate reviewed before this tracking update:
+
+`03a7de2e213d7039bca6ed69355a23a4f7b51d43`
+
+Candidate tree:
+
+`b8e8190f8b3e070f31d055fb2d4ab442d7382c4a`
+
+The branch is 33 commits ahead of its base and 0 behind at that candidate. No implementation PR existed at the checkpoint-2 review; the exact next action is to open one and validate its final exact head with Windows CI.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 1/5 | 16/28`**
+**`M-5/10 | 2/5 | 16/28`**
 
 Current five checkpoints:
 
 1. mandatory inspection + narrow EST/Time Taken mutation/UX contract — **COMPLETE**;
-2. authoritative persistence/runtime/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **IN PROGRESS**;
-3. exact PR-head Windows CI — PENDING;
+2. authoritative persistence/runtime/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **COMPLETE**;
+3. exact PR-head Windows CI — **PENDING**;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + tracking reconciliation — PENDING.
 
-## INSPECTION FINDINGS / IMPLEMENTATION CONTRACT
+## CHECKPOINT 2 IMPLEMENTATION
 
-Repository and product evidence establish the following contract.
+### Non-live task metric persistence
 
-### Existing authoritative data boundaries
+- `persistence::task_estimate_edit` provides an immediate transaction with expected-list and null-safe expected-EST guards. The write changes only `est_seconds` and `updated_at` and rejects active live focus sessions.
+- `persistence::task_time_taken_edit` provides an immediate transaction with expected-list and expected-effective-total guards. It delegates to the existing Time Taken reconciliation boundary, preserves raw session history and rejects live focus sessions.
+- `board_task_metrics` exposes renderer-facing `update_list_board_task_estimate` and `update_list_board_task_time_taken` commands without owning raw task SQL.
 
-- `ListBoardTask` already projects `estSeconds` and effective `timeTakenSeconds`; ordinary task cards already display both read-only.
-- Effective Time Taken is authoritative work-session duration plus `manual_time_adjustment_seconds`; break duration is excluded.
-- `persistence::task_metadata::set_task_time_taken` is the correct non-live metadata boundary and explicitly rejects a task with an open focus session.
-- `TimerRuntime::set_time_taken_while_paused` is the validated live-task boundary: it requires Paused/OvertimePaused, validates open work-session/checkpoint bindings, rebases the durable manual adjustment transactionally, preserves raw session history and survives resume/recovery/Done without snap-back.
-- `TimerController` already publishes `TimeTakenRebased`; `timer_set_time_taken` exists, but before renderer production use it needs an expected task binding so a stale editor cannot apply a value to a newly switched live task.
-- The timer session projection already has monotonic revisions and a renderer listener/snapshot API. The List Board may consume that projection as presentation state; it must not become timer authority.
+### Live-paused task metric persistence/runtime
 
-### EST correctness dependency
+- `TimerRuntime::set_estimate_while_paused` requires Paused/OvertimePaused and an exact authoritative task/session binding.
+- A live non-Pomodoro EST edit atomically persists both task EST and the durable timer checkpoint before the runtime candidate is published.
+- Clearing live EST changes CountUp/EST-countdown work to CountUp; setting EST changes it to EstCountdown. Pomodoro retains active Pomodoro timer precedence while task EST metadata changes.
+- Setting EST below already accumulated work enters `TimeUp` without discarding work. The interval anchor is normalized for valid countdown recovery while `total_work_ms`, session duration and effective tracked time remain intact. `estimate_below_elapsed_enters_time_up_without_losing_work` covers the invariant and recovery.
+- Live Time Taken editing requires Paused/OvertimePaused, exact task binding and expected authoritative total. It rebases the manual adjustment while raw session/runtime elapsed accounting remains monotonic and survives resume/recovery/Done without snap-back.
+- `TimerController` publishes `EstimateRebased` and the existing `TimeTakenRebased` through the normal monotonic revision/event path.
+- `timer_set_estimate` and stale-bound `timer_set_time_taken` are registered Tauri commands. Expected Time Taken crosses IPC as a decimal string to avoid renderer precision loss.
 
-- The active timer checkpoint stores `TimerMode`, including `EstCountdown { est_ms }`; therefore a live-paused EST edit cannot update only `tasks.est_seconds`.
-- For a live paused non-Pomodoro task, EST mutation must update the task row and durable timer mode/checkpoint through one persistence-success boundary. Otherwise the task card and authoritative countdown can diverge after resume/recovery.
-- Pomodoro remains timer-display precedence. Editing the task EST while Pomodoro is paused changes task EST metadata but does not replace the active Pomodoro mode.
-- For CountUp/EST-countdown live tasks, clearing EST changes the paused runtime to CountUp; setting EST changes it to EstCountdown while preserving accumulated work/session identity.
-- If a newly set EST is already at/below the accumulated current work interval, the authoritative runtime may immediately become `TimeUp` rather than retaining an invalid countdown or producing arithmetic underflow. No work duration is discarded.
-- Live EST edits are accepted only from `Paused` or `OvertimePaused`; running, break and `TimeUp` states remain non-editable.
+### Production List Board / TaskCard
 
-### Stale-write and scope rules
+- Normal task cards keep read-only EST and Time Taken display semantics when editing is unavailable.
+- Individual real List Boards expose keyboard/click metric editing. Aggregate All Lists remains read-only.
+- Live task metrics are editable only when the authoritative timer projection says that exact task is `paused` or `overtime_paused`; running, break and `time_up` states are not editable.
+- Live title editing remains unavailable from the List Board.
+- Metric drafts use explicit `H:MM:SS`; EST may be blank to clear, Time Taken may not. Renderer validation caps values at the Rust `u32` command range.
+- Save/Cancel controls occupy the existing reserved `4.25rem` action slot. Metric input uses the existing metadata row and does not change title/card width geometry.
+- Production mutations remain persistence-first. Live command results are fed through the monotonic timer projection before the authoritative board snapshot refresh.
+- A committed metric mutation followed by failed board refresh uses the established `Task change was saved, but the board could not refresh` boundary and blocks further unsafe task mutations.
+- Reorder/title/metric controls are all excluded from parent drag initiation.
 
-- Add null-safe expected-prior EST and expected-list guards for estimate edits. An EST edit changes only `est_seconds`/`updated_at`; it must never rewrite title, Time Taken, schedule, completion, identity, lane or order.
-- Add expected task/current-total guards for manual Time Taken edits. A stale editor must fail rather than overwrite a newer session/manual-time result or act on a switched live task.
-- Non-live EST and Time Taken editing is available from a real individual List Board, including Done where the task is no longer live; aggregate All Lists remains read-only for mutation.
-- If the task becomes live while a non-live editor is open, the non-live backend must reject the write and require the live runtime boundary.
-- If the live task/state changes while an editor is open, the live backend must reject stale/non-paused binding rather than retargeting the mutation.
-- Existing source rule remains: live title editing is not available on the board; title edits for a live task are restricted to the later Notes-mode workflow.
+### Deterministic coverage added/updated
 
-### Renderer interaction contract
+Rust coverage includes:
 
-- Normal cards continue to display EST and Time Taken.
-- On a real individual board, editable metric values use keyboard/click-accessible controls without changing card/title geometry.
-- An active EST or Time Taken editor occupies the existing metadata value slot; Save/Cancel use the already reserved `4.25rem` title-row action slot so opening/closing the editor cannot move sibling controls or card width.
-- Direct duration editing uses an explicit duration field; it is not the later Preferences-controlled title-suffix auto-parse feature.
-- Live task metric editing is exposed only when the authoritative timer projection says that exact task is Paused/OvertimePaused. The same card shows a compact live/paused state label without adding a new Focus Panel workflow.
-- Production mutation remains persistence-first. On success, apply returned authoritative timer payload when relevant and then refresh the List Board snapshot. A committed mutation followed by failed board refresh remains `saved but could not refresh` and blocks unsafe retry.
-- Metric controls must be excluded from parent drag initiation just like title/action controls.
+- EST-only metadata preservation;
+- null-safe expected EST stale rejection;
+- live-session rejection at the non-live EST boundary;
+- non-live Time Taken session-history preservation and expected-total stale rejection;
+- live Time Taken stale task/total rejection, anti-snap-back, recovery and completion behavior;
+- live EST pause binding, CountUp↔EstCountdown behavior, Pomodoro precedence, below-elapsed `TimeUp` without time loss, recovery and rollback-on-persistence-failure;
+- timer-event serialization for estimate rebase.
 
-### Explicit exclusions
+Frontend/static coverage includes:
 
-This slice does **not** implement:
+- `scripts/test-ui-task-metrics.mjs` in `preflight:frontend`;
+- typed command/event registration, stale guards, individual-list/live-state gates, explicit duration parsing, commit-before-runtime-publication, drag isolation and geometry contracts;
+- legacy create/edit and hover-action drag-selector contracts updated only to include metric controls.
 
-- title-suffix EST auto-parsing preference;
-- top-priority task creation or create-task shortcut;
-- scheduling/recurrence UI;
-- subtasks;
-- notes;
-- completion/delete/archive actions;
-- list settings;
-- search;
-- Settings;
-- Reports/session-row editing;
-- Focus Panel or Floating Timer product UI.
+Windows visual coverage includes:
 
-## REQUIRED DETERMINISTIC COVERAGE
+- dedicated `task-metric-fixture.html` using production `TaskCard` props, not fixture-only paused presentation;
+- deterministic display, live-paused EST edit and live-overtime-paused Time Taken edit states;
+- light/dark Edge captures;
+- `validate-task-metric-captures.mjs` requiring 1280×720 PNGs, production editor markers, 68px reserved action slot, display/edit card and title-row geometry parity, and light/dark geometry parity;
+- the metric validator is part of `test:visual-regression:windows`.
 
-Before checkpoint 2 can complete, add/adjust evidence for:
+## SEMANTIC / DIFF REVIEW
 
-- EST-only persistence preserving title, Time Taken/session history, identity/list/lane/order/schedule/completion;
-- null/non-null expected EST stale-write guards;
-- non-live Time Taken expected-total/list guard and live-session rejection;
-- live Time Taken expected-task/expected-total stale guards plus existing pause/resume/recovery/Done anti-snap-back cases;
-- live EST pause requirement, task/session binding, CountUp↔EstCountdown rebase, Pomodoro precedence, already-expired estimate -> TimeUp, recovery and rollback-on-persistence-failure;
-- timer event/TypeScript contract for estimate rebase;
-- production board editability rules: individual vs All Lists, non-live vs live paused/running, title restriction for live task, persistence-before-refresh and committed-refresh handling;
-- drag isolation and stable reserved action geometry;
-- deterministic light/dark Windows capture of production EST/Time Taken display/edit state rather than relying only on the old fixture-only paused card.
+Checkpoint-2 semantic review inspected the persistence boundaries, live runtime/controller/service path, Tauri registrations, TypeScript IPC contracts, `ListBoard`, `TaskCard`, CSS, visual fixture/capture validator and legacy UI static contracts.
+
+Evidence-backed fixes made during review:
+
+- extended the previously validated create/edit and hover drag guards to include `[data-task-metric-control]`;
+- corrected stale metric static-test expectations from obsolete `StaleTask`/`StaleTimeTaken` names to the implemented `TaskBindingMismatch`/`ExpectedTimeTakenMismatch` contracts;
+- added an explicit static linkage to the below-elapsed EST no-time-loss regression and production visual/capture chain.
+
+No broad architecture change, migration, later-stage product behavior or unrelated feature activation is present in the reviewed diff.
 
 ## COMPLETED CAPABILITIES / INVARIANTS THAT MUST NOT REGRESS
 
@@ -144,9 +149,13 @@ Before checkpoint 2 can complete, add/adjust evidence for:
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostics remain gated behind `?diagnostics=1`.
 
+## EXPLICIT EXCLUSIONS
+
+This slice does **not** implement title-suffix EST auto-parsing preference, top-priority task creation, create-task shortcut, scheduling/recurrence UI, subtasks, notes, completion/delete/archive actions, list settings, search, Settings, Reports/session-row editing, or Focus Panel/Floating Timer product UI.
+
 ## NEXT AGENT ACTION
 
-Continue checkpoint 2 on `m5-est-time-taken-edit`: implement the narrow expected-state EST/Time Taken persistence boundaries, the live-paused EST runtime/checkpoint rebase and stale-bound live Time Taken command; then wire the List Board production controls and deterministic static/visual coverage. Do not open a PR until semantic/diff review is complete.
+Open the implementation PR from `m5-est-time-taken-edit` to `main`, record the exact final PR head SHA, and inspect the authoritative Windows GitHub Actions run for that exact head. Required before checkpoint 3 can complete: Repository Preflight, tests, visual regression capture/validation and artifact upload, Tauri release build, and diagnostic artifact upload must all succeed. If CI fails, inspect the exact failure log and fix only evidence-backed problems; any fix creates a new head that must be revalidated.
 
 ## USER ACTION REQUIRED
 
@@ -155,4 +164,5 @@ Continue checkpoint 2 on `m5-est-time-taken-edit`: implement the narrow expected
 ## BLOCKERS / NOT RUN
 
 - No product/user blocker is known.
-- Local checkout/toolchain validation in this connector-only environment: **NOT RUN**; exact-head Windows GitHub Actions remains authoritative.
+- Local checkout/toolchain validation in this connector-only environment: **NOT RUN**.
+- Checkpoint 2 is complete by source/deterministic-coverage/semantic review, but the source candidate is **not validated** until exact-head Windows CI passes.
