@@ -160,24 +160,40 @@ fn parse_rule_id(argument: &str, raw: &str) -> CommandResult<RecurrenceRuleId> {
 
 fn task_schedule(task: &TaskRecord) -> CommandResult<TaskSchedule> {
     match task.schedule_kind.as_str() {
-        "none" if task.scheduled_local_date.is_none()
-            && task.scheduled_local_time.is_none()
-            && task.schedule_timezone.is_none() => Ok(TaskSchedule::None),
+        "none"
+            if task.scheduled_local_date.is_none()
+                && task.scheduled_local_time.is_none()
+                && task.schedule_timezone.is_none() =>
+        {
+            Ok(TaskSchedule::None)
+        }
         "date_only" if task.scheduled_local_time.is_none() && task.schedule_timezone.is_none() => {
             let local_date = task.scheduled_local_date.clone().ok_or_else(|| {
-                CommandError::new("TASK_SCHEDULE_CORRUPT", "stored date-only schedule has no local date")
+                CommandError::new(
+                    "TASK_SCHEDULE_CORRUPT",
+                    "stored date-only schedule has no local date",
+                )
             })?;
             Ok(TaskSchedule::DateOnly { local_date })
         }
         "local_datetime" => {
             let local_date = task.scheduled_local_date.clone().ok_or_else(|| {
-                CommandError::new("TASK_SCHEDULE_CORRUPT", "stored local schedule has no local date")
+                CommandError::new(
+                    "TASK_SCHEDULE_CORRUPT",
+                    "stored local schedule has no local date",
+                )
             })?;
             let local_time = task.scheduled_local_time.clone().ok_or_else(|| {
-                CommandError::new("TASK_SCHEDULE_CORRUPT", "stored local schedule has no local time")
+                CommandError::new(
+                    "TASK_SCHEDULE_CORRUPT",
+                    "stored local schedule has no local time",
+                )
             })?;
             let timezone = task.schedule_timezone.clone().ok_or_else(|| {
-                CommandError::new("TASK_SCHEDULE_CORRUPT", "stored local schedule has no timezone")
+                CommandError::new(
+                    "TASK_SCHEDULE_CORRUPT",
+                    "stored local schedule has no timezone",
+                )
             })?;
             Ok(TaskSchedule::LocalDateTime {
                 local_date,
@@ -255,9 +271,13 @@ fn map_schedule_error(error: TaskScheduleEditError) -> CommandError {
 fn validate_recurrence_timezone(draft: &BoardRecurrenceDraft) -> CommandResult<()> {
     match (draft.local_time.as_deref(), draft.timezone.as_deref()) {
         (None, None) => Ok(()),
-        (Some(_), Some(timezone)) => validate_timezone_identifier(timezone)
-            .map(|_| ())
-            .map_err(|error| CommandError::invalid_argument("recurrence.timezone", error.to_string())),
+        (Some(_), Some(timezone)) => {
+            validate_timezone_identifier(timezone)
+                .map(|_| ())
+                .map_err(|error| {
+                    CommandError::invalid_argument("recurrence.timezone", error.to_string())
+                })
+        }
         _ => Err(CommandError::invalid_argument(
             "recurrence.timezone",
             "recurrence local time and timezone must both be provided or both be omitted",
@@ -335,13 +355,24 @@ fn local_now(timezone: &str) -> CommandResult<NaiveDateTime> {
     let local = zone.to_datetime(Timestamp::now());
     let date_text = local.date().to_string();
     let time_text = local.time().to_string();
-    let date = NaiveDate::parse_from_str(&date_text, "%Y-%m-%d")
-        .map_err(|_| CommandError::new("TASK_SCHEDULE_FAILED", "could not resolve local schedule date"))?;
-    let minute_text = time_text.get(0..5).ok_or_else(|| {
-        CommandError::new("TASK_SCHEDULE_FAILED", "could not resolve local schedule time")
+    let date = NaiveDate::parse_from_str(&date_text, "%Y-%m-%d").map_err(|_| {
+        CommandError::new(
+            "TASK_SCHEDULE_FAILED",
+            "could not resolve local schedule date",
+        )
     })?;
-    let time = NaiveTime::parse_from_str(minute_text, "%H:%M")
-        .map_err(|_| CommandError::new("TASK_SCHEDULE_FAILED", "could not resolve local schedule time"))?;
+    let minute_text = time_text.get(0..5).ok_or_else(|| {
+        CommandError::new(
+            "TASK_SCHEDULE_FAILED",
+            "could not resolve local schedule time",
+        )
+    })?;
+    let time = NaiveTime::parse_from_str(minute_text, "%H:%M").map_err(|_| {
+        CommandError::new(
+            "TASK_SCHEDULE_FAILED",
+            "could not resolve local schedule time",
+        )
+    })?;
     Ok(date.and_time(time))
 }
 
@@ -461,7 +492,8 @@ pub fn save_list_board_task_recurrence(
                     "must be provided when updating recurrence",
                 )
             })?;
-            let current = get_recurrence_rule(&connection, rule_id).map_err(map_recurrence_error)?;
+            let current =
+                get_recurrence_rule(&connection, rule_id).map_err(map_recurrence_error)?;
             if current.parent_task_id != task_id || current.updated_at != expected_updated_at {
                 return Err(CommandError::new(
                     "TASK_RECURRENCE_STALE",
