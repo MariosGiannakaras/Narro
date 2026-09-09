@@ -56,6 +56,7 @@ for (const [haystack, needle, label] of [
   [component, "onTargetChange", "selector target-change callback"],
   [component, "getListBoardSnapshot(target)", "authoritative board read"],
   [component, 'data-board-reorder-enabled={interactionReorderEnabled ? "true" : "false"}', "ordered reorder interaction gate"],
+  [component, "onScheduleEdit={canEditSchedule", "ordered scheduling interaction"],
   [shell, "openBoardTarget", "shared board navigation target"],
   [shell, "onTargetChange={openBoardTarget}", "real selector target switching"],
   [shell, "onOpenAllLists={openAllListsBoard}", "All Lists Home navigation"],
@@ -78,7 +79,6 @@ for (const [haystack, needle, label] of [
 for (const forbidden of [
   "onComplete",
   "onDelete",
-  "onSchedule",
 ]) {
   if (component.includes(forbidden)) {
     throw new Error(`List-board hierarchy must not activate an unordered later task interaction: ${forbidden}`);
