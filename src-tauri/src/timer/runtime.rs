@@ -526,8 +526,8 @@ impl TimerRuntime {
         )?;
 
         let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-        let open_session = get_open_session(&tx)?
-            .ok_or(LiveEstimateEditError::SessionBindingMismatch)?;
+        let open_session =
+            get_open_session(&tx)?.ok_or(LiveEstimateEditError::SessionBindingMismatch)?;
         if open_session.id != session_id
             || open_session.kind != SessionKind::Work
             || open_session.source != SessionSource::Focus
@@ -535,8 +535,8 @@ impl TimerRuntime {
         {
             return Err(LiveEstimateEditError::SessionBindingMismatch);
         }
-        let checkpoint = load_runtime_checkpoint(&tx)?
-            .ok_or(TimerRuntimeStoreError::MissingCheckpoint)?;
+        let checkpoint =
+            load_runtime_checkpoint(&tx)?.ok_or(TimerRuntimeStoreError::MissingCheckpoint)?;
         if checkpoint.session_id != session_id {
             return Err(TimerRuntimeStoreError::CheckpointBindingMismatch {
                 expected: session_id,
@@ -545,8 +545,10 @@ impl TimerRuntime {
             .into());
         }
 
-        let previous_update = DateTime::parse_from_rfc3339(&open_session.updated_at)
-            .map_err(|_| SessionStoreError::CorruptStoredTimestamp(open_session.updated_at.clone()))?;
+        let previous_update =
+            DateTime::parse_from_rfc3339(&open_session.updated_at).map_err(|_| {
+                SessionStoreError::CorruptStoredTimestamp(open_session.updated_at.clone())
+            })?;
         let next_update = DateTime::parse_from_rfc3339(wall_time)
             .map_err(|_| SessionStoreError::InvalidMutationTimestamp)?;
         if next_update < previous_update {
@@ -1130,15 +1132,7 @@ mod live_estimate_tests {
         let session_id = runtime.open_session_id().unwrap();
 
         let edited = runtime
-            .set_estimate_while_paused(
-                &mut conn,
-                task_id,
-                list_id,
-                None,
-                Some(1_200),
-                600_000,
-                T10,
-            )
+            .set_estimate_while_paused(&mut conn, task_id, list_id, None, Some(1_200), 600_000, T10)
             .unwrap();
         assert_eq!(edited.task.est_seconds, Some(1_200));
         assert_eq!(edited.runtime.open_session_id, Some(session_id));
@@ -1171,15 +1165,7 @@ mod live_estimate_tests {
         runtime.pause(&mut conn, 900_000, T15).unwrap();
 
         let edited = runtime
-            .set_estimate_while_paused(
-                &mut conn,
-                task_id,
-                list_id,
-                None,
-                Some(600),
-                900_000,
-                T15,
-            )
+            .set_estimate_while_paused(&mut conn, task_id, list_id, None, Some(600), 900_000, T15)
             .unwrap();
         assert_eq!(edited.runtime.timer.state, TimerStateKind::TimeUp);
         assert_eq!(edited.runtime.timer.work_elapsed_ms, 900_000);
