@@ -1,5 +1,6 @@
 pub mod lists;
 pub mod live_completion;
+pub mod live_estimate_error_conversions;
 pub mod live_time_taken;
 pub mod notes;
 pub mod pomodoro_effects;
