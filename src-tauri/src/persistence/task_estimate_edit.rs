@@ -8,10 +8,7 @@ use std::fmt::{Display, Formatter};
 #[derive(Debug)]
 pub enum TaskEstimateEditError {
     Task(TaskStoreError),
-    ExpectedListMismatch {
-        expected: ListId,
-        actual: ListId,
-    },
+    ExpectedListMismatch { expected: ListId, actual: ListId },
     ExpectedEstimateMismatch(TaskId),
     LiveTaskRequiresRuntimeBoundary(TaskId),
     StaleWrite(TaskId),
@@ -165,7 +162,9 @@ pub fn update_non_live_task_estimate_if_expected(
     validate_timestamp(now)?;
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     if has_live_focus_session(&tx, task_id)? {
-        return Err(TaskEstimateEditError::LiveTaskRequiresRuntimeBoundary(task_id));
+        return Err(TaskEstimateEditError::LiveTaskRequiresRuntimeBoundary(
+            task_id,
+        ));
     }
     let updated = update_task_estimate_in_transaction(
         &tx,
@@ -263,15 +262,8 @@ mod tests {
     #[test]
     fn expected_estimate_guard_is_null_safe_and_rejects_stale_values() {
         let (mut conn, list_id, task_id) = fixture(None);
-        update_non_live_task_estimate_if_expected(
-            &mut conn,
-            task_id,
-            list_id,
-            None,
-            Some(600),
-            T1,
-        )
-        .expect("set first EST");
+        update_non_live_task_estimate_if_expected(&mut conn, task_id, list_id, None, Some(600), T1)
+            .expect("set first EST");
 
         let stale = update_non_live_task_estimate_if_expected(
             &mut conn,
