@@ -14,6 +14,7 @@ export default defineConfig(async () => ({
         focus: "focus.html",
         visualFixtures: "visual-fixtures.html",
         taskReorderFixture: "task-reorder-fixture.html",
+        taskMetricFixture: "task-metric-fixture.html",
       },
     },
   },

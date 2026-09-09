@@ -1,5 +1,6 @@
 pub mod lists;
 pub mod live_completion;
+pub mod live_estimate_error_conversions;
 pub mod live_time_taken;
 pub mod notes;
 pub mod pomodoro_effects;
@@ -10,8 +11,10 @@ pub mod reminders;
 pub mod sessions;
 pub mod sleep_accounting;
 pub mod subtasks;
+pub mod task_estimate_edit;
 pub mod task_identity;
 pub mod task_metadata;
+pub mod task_time_taken_edit;
 pub mod task_title_edit;
 pub mod tasks;
 pub mod timer_controller;

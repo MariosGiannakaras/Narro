@@ -1,0 +1,49 @@
+body.visual-fixture-body {
+  overflow: hidden;
+}
+
+.visual-fixture-body .app-shell--fixture {
+  margin: 2rem auto 0;
+}
+
+.task-metric-visual-fixture {
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.task-metric-visual-fixture__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.task-metric-visual-fixture__header p,
+.task-metric-visual-fixture__header h1 {
+  margin: 0;
+}
+
+.task-metric-visual-fixture__header > p {
+  color: var(--color-text-secondary);
+}
+
+.task-metric-visual-fixture__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  min-width: 0;
+  align-items: start;
+}
+
+.task-metric-visual-fixture__item {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.task-metric-visual-fixture__item > .type-metadata {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+}

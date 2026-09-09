@@ -74,6 +74,10 @@ pub enum TimerSessionChange {
         previous_session_id: SessionId,
         current_session_id: SessionId,
     },
+    EstimateRebased {
+        task_id: TaskId,
+        est_seconds: Option<u32>,
+    },
     TimeTakenRebased {
         task_id: TaskId,
         total_seconds: u64,
@@ -147,5 +151,18 @@ mod tests {
         assert_eq!(value["change"]["type"], "time_taken_rebased");
         assert_eq!(value["change"]["task_id"], task_id().to_string());
         assert_eq!(value["change"]["total_seconds"], 60);
+
+        let estimate = TimerSessionPayload::changed(
+            9,
+            runtime(),
+            TimerSessionChange::EstimateRebased {
+                task_id: task_id(),
+                est_seconds: Some(1_800),
+            },
+        );
+        let estimate_value = serde_json::to_value(estimate).unwrap();
+        assert_eq!(estimate_value["change"]["type"], "estimate_rebased");
+        assert_eq!(estimate_value["change"]["task_id"], task_id().to_string());
+        assert_eq!(estimate_value["change"]["est_seconds"], 1_800);
     }
 }

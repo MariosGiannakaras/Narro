@@ -16,6 +16,8 @@ import {
   getListBoardSnapshot,
   moveListBoardTask,
   reorderListBoardTask,
+  updateListBoardTaskEstimate,
+  updateListBoardTaskTimeTaken,
   updateListBoardTaskTitle,
   type ListBoardLane,
   type ListBoardRequestTarget,
@@ -23,7 +25,15 @@ import {
   type ListBoardTask,
   type PlanningLaneToken,
 } from "./listBoardApi";
-import { TaskCard } from "./TaskCard";
+import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
+import {
+  applyTimerSessionProjection,
+  connectTimerSessionProjection,
+  setPausedTimerEstimate,
+  setPausedTimerTimeTaken,
+  type TimerSessionPayload,
+  type TimerStateKind,
+} from "./timerSessionApi";
 import "./listBoard.css";
 
 type LaneKey = "backlog" | "thisWeek" | "today" | "done";
@@ -54,7 +64,18 @@ type DropTarget = {
 
 type TaskEditorState =
   | { kind: "create"; lane: PendingLaneKey; title: string }
-  | { kind: "edit"; taskId: string; expectedTitle: string; title: string };
+  | { kind: "edit"; taskId: string; expectedTitle: string; title: string }
+  | {
+      kind: "metric";
+      taskId: string;
+      listId: string;
+      metric: TaskCardMetricKind;
+      value: string;
+      initialValue: string;
+      expectedEstSeconds: number | null;
+      expectedTimeTakenSeconds: string;
+      live: boolean;
+    };
 
 export type ListBoardFixtureReorderState = {
   draggingTaskId?: string;
@@ -82,8 +103,11 @@ const LANE_TOKEN: Record<PendingLaneKey, PlanningLaneToken> = {
   today: "today",
 };
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
+const WHOLE_SECONDS = /^\d+$/;
+const DURATION_INPUT = /^(\d+):([0-5]\d):([0-5]\d)$/;
 const ALL_LISTS_VALUE = "__all_lists__";
 const SETTLE_DURATION_MS = 220;
+const MAX_EDITABLE_SECONDS = 4_294_967_295n;
 
 function formatEstimate(totalSeconds: number): string {
   if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return "—";
@@ -93,6 +117,50 @@ function formatEstimate(totalSeconds: number): string {
   if (hours === 0) return `${minutes}m`;
   if (minutes === 0) return `${hours}h`;
   return `${hours}h ${minutes}m`;
+}
+
+function formatDurationSeconds(seconds: bigint): string {
+  const hours = seconds / 3_600n;
+  const minutes = (seconds % 3_600n) / 60n;
+  const remainder = seconds % 60n;
+  return `${hours}:${minutes.toString().padStart(2, "0")}:${remainder.toString().padStart(2, "0")}`;
+}
+
+function estimateDraft(seconds: number | null): string {
+  return seconds === null ? "" : formatDurationSeconds(BigInt(seconds));
+}
+
+function timeTakenDraft(rawSeconds: string): string {
+  return WHOLE_SECONDS.test(rawSeconds) ? formatDurationSeconds(BigInt(rawSeconds)) : "0:00:00";
+}
+
+function parseMetricDuration(
+  raw: string,
+  metric: TaskCardMetricKind,
+): { ok: true; seconds: number | null } | { ok: false; message: string } {
+  const value = raw.trim();
+  if (metric === "estimate" && value === "") return { ok: true, seconds: null };
+  const match = DURATION_INPUT.exec(value);
+  if (!match) {
+    return {
+      ok: false,
+      message: metric === "estimate"
+        ? "EST must use H:MM:SS, or be left blank to clear it."
+        : "Time Taken must use H:MM:SS.",
+    };
+  }
+
+  const hours = BigInt(match[1]);
+  const minutes = BigInt(match[2]);
+  const seconds = BigInt(match[3]);
+  const total = hours * 3_600n + minutes * 60n + seconds;
+  if (total > MAX_EDITABLE_SECONDS) {
+    return { ok: false, message: "Duration exceeds Narro's editable range." };
+  }
+  if (metric === "estimate" && total === 0n) {
+    return { ok: false, message: "EST must be greater than zero, or blank to clear it." };
+  }
+  return { ok: true, seconds: Number(total) };
 }
 
 function safeListAccent(color: string | null): CSSProperties | undefined {
@@ -115,6 +183,15 @@ function manualTasks(lane: ListBoardLane): ListBoardTask[] {
 function placeholderAfterTaskId(lane: ListBoardLane): string | null {
   const eligible = manualTasks(lane);
   return eligible.length > 0 ? eligible[eligible.length - 1].id : null;
+}
+
+function liveStateForTask(
+  timerPayload: TimerSessionPayload | null,
+  taskId: string,
+): TimerStateKind | null {
+  return timerPayload?.runtime.timer.task_id === taskId
+    ? timerPayload.runtime.timer.state
+    : null;
 }
 
 function DropPlaceholder() {
@@ -186,7 +263,9 @@ function BoardLane({
   aggregateView,
   presentationReorderEnabled,
   interactionReorderEnabled,
-  canStartEditor,
+  canStartCreate,
+  canStartTaskEditor,
+  timerPayload,
   editorState,
   editorMutationPending,
   dragState,
@@ -206,6 +285,9 @@ function BoardLane({
   onStartTitleEdit,
   onEditTitleChange,
   onSubmitTitleEdit,
+  onStartMetricEdit,
+  onMetricValueChange,
+  onSubmitMetricEdit,
   onCancelEditor,
 }: {
   laneKey: LaneKey;
@@ -214,7 +296,9 @@ function BoardLane({
   aggregateView: boolean;
   presentationReorderEnabled: boolean;
   interactionReorderEnabled: boolean;
-  canStartEditor: boolean;
+  canStartCreate: boolean;
+  canStartTaskEditor: boolean;
+  timerPayload: TimerSessionPayload | null;
   editorState: TaskEditorState | null;
   editorMutationPending: boolean;
   dragState: DragState | null;
@@ -234,6 +318,9 @@ function BoardLane({
   onStartTitleEdit: (task: ListBoardTask) => void;
   onEditTitleChange: (value: string) => void;
   onSubmitTitleEdit: () => void;
+  onStartMetricEdit: (task: ListBoardTask, metric: TaskCardMetricKind, live: boolean) => void;
+  onMetricValueChange: (value: string) => void;
+  onSubmitMetricEdit: () => void;
   onCancelEditor: () => void;
 }) {
   const headingId = `list-board-${title.replace(/\s+/g, "-").toLowerCase()}`;
@@ -315,9 +402,25 @@ function BoardLane({
                   onCancel: onCancelEditor,
                 }
               : undefined;
+            const metricEditor = editorState?.kind === "metric" && editorState.taskId === task.id
+              ? {
+                  metric: editorState.metric,
+                  value: editorState.value,
+                  pending: editorMutationPending,
+                  onChange: onMetricValueChange,
+                  onSubmit: onSubmitMetricEdit,
+                  onCancel: onCancelEditor,
+                }
+              : undefined;
+            const liveState = liveStateForTask(timerPayload, task.id);
+            const isLiveTask = liveState !== null && liveState !== "idle";
+            const liveMetricEditable = liveState === "paused" || liveState === "overtime_paused";
+            const canEditMetric = canStartTaskEditor && (!isLiveTask || liveMetricEditable);
             const dragging = dragState?.taskId === task.id;
             const settling = settlingTaskId === task.id;
-            const pending = mutationPendingTaskId === task.id || Boolean(titleEditor?.pending);
+            const pending = mutationPendingTaskId === task.id
+              || Boolean(titleEditor?.pending)
+              || Boolean(metricEditor?.pending);
             const placeholderBefore = laneDropTarget?.beforeTaskId === task.id;
             const placeholderAfter = laneDropTarget?.beforeTaskId === null
               && appendAfterId === task.id;
@@ -352,8 +455,18 @@ function BoardLane({
                     task={task}
                     aggregateView={aggregateView}
                     actions={taskActions}
-                    onTitleEdit={canStartEditor ? () => onStartTitleEdit(task) : undefined}
+                    onTitleEdit={canStartTaskEditor && !isLiveTask
+                      ? () => onStartTitleEdit(task)
+                      : undefined}
                     titleEditor={titleEditor}
+                    onEstimateEdit={canEditMetric
+                      ? () => onStartMetricEdit(task, "estimate", isLiveTask)
+                      : undefined}
+                    onTimeTakenEdit={canEditMetric
+                      ? () => onStartMetricEdit(task, "time_taken", isLiveTask)
+                      : undefined}
+                    metricEditor={metricEditor}
+                    liveState={liveState}
                   />
                 </div>
                 {placeholderAfter ? <DropPlaceholder /> : null}
@@ -383,7 +496,7 @@ function BoardLane({
               type="button"
               className="list-board-lane__add-task motion-interactive"
               onClick={() => onStartCreate(pendingLane)}
-              disabled={!canStartEditor}
+              disabled={!canStartCreate}
               aria-label={`Add task to ${title}`}
               data-board-add-task={pendingLane}
             >
@@ -429,6 +542,8 @@ export function ListBoard({
   const [editorState, setEditorState] = useState<TaskEditorState | null>(null);
   const [editorMutationPending, setEditorMutationPending] = useState(false);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
+  const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
+  const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
   const settleTimer = useRef<number | null>(null);
 
   useEffect(() => () => {
@@ -474,6 +589,40 @@ export function ListBoard({
       disposed = true;
     };
   }, [fixtureSnapshot, target.kind, target.kind === "list" ? target.id : null]);
+
+  useEffect(() => {
+    if (fixtureSnapshot) {
+      setTimerPayload(null);
+      setTimerProjectionError(null);
+      return;
+    }
+
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    setTimerPayload(null);
+    setTimerProjectionError(null);
+    void connectTimerSessionProjection((incoming) => {
+      if (!disposed) {
+        setTimerPayload((current) => applyTimerSessionProjection(current, incoming));
+        setTimerProjectionError(null);
+      }
+    })
+      .then((unlisten) => {
+        if (disposed) {
+          unlisten();
+        } else {
+          stopListening = unlisten;
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) setTimerProjectionError(formatInvokeError(failure));
+      });
+
+    return () => {
+      disposed = true;
+      stopListening?.();
+    };
+  }, [fixtureSnapshot]);
 
   useEffect(() => {
     if (fixtureSnapshot) return;
@@ -533,10 +682,13 @@ export function ListBoard({
   const interactionReorderEnabled = interactionBoardEnabled
     && editorState === null
     && !editorMutationPending;
-  const canStartEditor = interactionBoardEnabled
+  const canStartCreate = interactionBoardEnabled
     && mutationPendingTaskId === null
     && editorState === null
     && !editorMutationPending;
+  const canStartTaskEditor = canStartCreate
+    && timerPayload !== null
+    && timerProjectionError === null;
   const presentationReorderEnabled = interactionReorderEnabled || fixtureReorderState !== undefined;
   const displayedDragState = fixtureReorderState?.draggingTaskId && fixtureReorderState.sourceLane
     ? {
@@ -699,6 +851,11 @@ export function ListBoard({
       setMutationError(null);
       return;
     }
+    if (liveStateForTask(timerPayload, editorState.taskId) !== null) {
+      setMutationError("Live task titles cannot be edited from the List Board.");
+      setMutationStatus("Could not save task title.");
+      return;
+    }
 
     const { taskId, expectedTitle } = editorState;
     setEditorMutationPending(true);
@@ -729,12 +886,100 @@ export function ListBoard({
     }
   };
 
+  const submitMetricEdit = async () => {
+    if (
+      !interactionBoardEnabled
+      || target.kind !== "list"
+      || editorState?.kind !== "metric"
+      || editorMutationPending
+      || mutationPendingTaskId
+    ) return;
+    if (editorState.value.trim() === editorState.initialValue) {
+      setEditorState(null);
+      setMutationError(null);
+      return;
+    }
+
+    const parsed = parseMetricDuration(editorState.value, editorState.metric);
+    if (!parsed.ok) {
+      setMutationError(parsed.message);
+      setMutationStatus("Could not save task metric.");
+      return;
+    }
+
+    const taskId = editorState.taskId;
+    const metricLabel = editorState.metric === "estimate" ? "EST" : "Time Taken";
+    setEditorMutationPending(true);
+    setMutationError(null);
+    try {
+      if (editorState.metric === "estimate") {
+        if (editorState.live) {
+          const payload = await setPausedTimerEstimate({
+            taskId,
+            listId: editorState.listId,
+            expectedEstSeconds: editorState.expectedEstSeconds,
+            estSeconds: parsed.seconds,
+          });
+          setTimerPayload((current) => applyTimerSessionProjection(current, payload));
+        } else {
+          await updateListBoardTaskEstimate({
+            taskId,
+            listId: editorState.listId,
+            expectedEstSeconds: editorState.expectedEstSeconds,
+            estSeconds: parsed.seconds,
+          });
+        }
+      } else {
+        const totalSeconds = parsed.seconds;
+        if (totalSeconds === null) {
+          setMutationError("Time Taken must not be blank.");
+          setMutationStatus("Could not save task metric.");
+          setEditorMutationPending(false);
+          return;
+        }
+        if (editorState.live) {
+          const payload = await setPausedTimerTimeTaken({
+            taskId,
+            expectedTotalSeconds: editorState.expectedTimeTakenSeconds,
+            totalSeconds,
+          });
+          setTimerPayload((current) => applyTimerSessionProjection(current, payload));
+        } else {
+          await updateListBoardTaskTimeTaken({
+            taskId,
+            listId: editorState.listId,
+            expectedTotalSeconds: editorState.expectedTimeTakenSeconds,
+            totalSeconds,
+          });
+        }
+      }
+    } catch (failure: unknown) {
+      setMutationError(formatInvokeError(failure));
+      setMutationStatus(`Could not save ${metricLabel}.`);
+      setEditorMutationPending(false);
+      return;
+    }
+
+    setEditorState(null);
+    setMutationStatus(`${metricLabel} saved.`);
+    try {
+      await refreshAfterMutation(taskId);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setEditorMutationPending(false);
+    }
+  };
+
   const handleDragStart = (
     task: ListBoardTask,
     lane: PendingLaneKey,
     event: ReactDragEvent<HTMLDivElement>,
   ) => {
-    if ((event.target as HTMLElement).closest("[data-task-action], [data-task-title-control]")) {
+    if ((event.target as HTMLElement).closest(
+      "[data-task-action], [data-task-title-control], [data-task-metric-control]",
+    )) {
       event.preventDefault();
       return;
     }
@@ -854,6 +1099,8 @@ export function ListBoard({
       data-board-target={snapshot.target.kind}
       data-board-reorder-enabled={interactionReorderEnabled ? "true" : "false"}
       data-board-task-editor={editorState?.kind ?? "idle"}
+      data-board-metric-editor={editorState?.kind === "metric" ? editorState.metric : "none"}
+      data-board-timer-projection={timerPayload ? "ready" : timerProjectionError ? "error" : "loading"}
       aria-labelledby="list-board-title"
     >
       <p id="list-board-reorder-instructions" className="list-board__reorder-instructions">
@@ -865,6 +1112,11 @@ export function ListBoard({
       {mutationError ? (
         <div className="list-board__mutation-error type-metadata" role="alert">
           {mutationError}
+        </div>
+      ) : null}
+      {timerProjectionError ? (
+        <div className="list-board__mutation-error type-metadata" role="alert">
+          Task editing is unavailable because live timer state could not be loaded. {timerProjectionError}
         </div>
       ) : null}
 
@@ -928,7 +1180,9 @@ export function ListBoard({
             aggregateView={aggregateView}
             presentationReorderEnabled={presentationReorderEnabled}
             interactionReorderEnabled={interactionReorderEnabled}
-            canStartEditor={canStartEditor}
+            canStartCreate={canStartCreate}
+            canStartTaskEditor={canStartTaskEditor}
+            timerPayload={timerPayload}
             editorState={editorState}
             editorMutationPending={editorMutationPending}
             dragState={displayedDragState}
@@ -946,7 +1200,7 @@ export function ListBoard({
             onTaskKeyDown={handleTaskKeyDown}
             onMoveWithinLane={handleMoveWithinLane}
             onStartCreate={(lane) => {
-              if (!canStartEditor) return;
+              if (!canStartCreate) return;
               setMutationError(null);
               setMutationStatus("");
               setEditorState({ kind: "create", lane, title: "" });
@@ -958,7 +1212,7 @@ export function ListBoard({
             }}
             onSubmitCreate={() => void submitCreate()}
             onStartTitleEdit={(task) => {
-              if (!canStartEditor) return;
+              if (!canStartTaskEditor || liveStateForTask(timerPayload, task.id) !== null) return;
               setMutationError(null);
               setMutationStatus("");
               setEditorState({
@@ -974,6 +1228,31 @@ export function ListBoard({
                 : current);
             }}
             onSubmitTitleEdit={() => void submitTitleEdit()}
+            onStartMetricEdit={(task, metric, live) => {
+              if (!canStartTaskEditor) return;
+              const initialValue = metric === "estimate"
+                ? estimateDraft(task.estSeconds)
+                : timeTakenDraft(task.timeTakenSeconds);
+              setMutationError(null);
+              setMutationStatus("");
+              setEditorState({
+                kind: "metric",
+                taskId: task.id,
+                listId: task.listId,
+                metric,
+                value: initialValue,
+                initialValue,
+                expectedEstSeconds: task.estSeconds,
+                expectedTimeTakenSeconds: task.timeTakenSeconds,
+                live,
+              });
+            }}
+            onMetricValueChange={(value) => {
+              setEditorState((current) => current?.kind === "metric"
+                ? { ...current, value }
+                : current);
+            }}
+            onSubmitMetricEdit={() => void submitMetricEdit()}
             onCancelEditor={() => {
               if (editorMutationPending) return;
               setEditorState(null);

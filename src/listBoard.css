@@ -333,7 +333,9 @@
 }
 
 .list-board-task__title-button:focus-visible,
-.list-board-task__title-input:focus-visible {
+.list-board-task__title-input:focus-visible,
+.list-board-task__metric-button:focus-visible,
+.list-board-task__metric-input:focus-visible {
   outline: 2px solid var(--color-accent-solid);
   outline-offset: 2px;
 }
@@ -367,7 +369,8 @@
 }
 
 .list-board-task__actions,
-.list-board-task__title-edit-actions {
+.list-board-task__title-edit-actions,
+.list-board-task__metric-edit-actions {
   position: absolute;
   inset-inline-end: 0;
   top: 50%;
@@ -389,7 +392,8 @@
   transition-timing-function: var(--motion-ease-enter);
 }
 
-.list-board-task__title-edit-actions {
+.list-board-task__title-edit-actions,
+.list-board-task__metric-edit-actions {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -475,22 +479,79 @@
   justify-content: space-between;
   gap: var(--space-2);
   min-width: 0;
+  min-height: 1.5rem;
   color: var(--color-text-secondary);
 }
 
-.list-board-task__list {
+.list-board-task__list,
+.list-board-task__live-state {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.list-board-task__live-state {
+  color: var(--color-warning);
+  font-weight: var(--font-weight-semibold);
+}
+
 .list-board-task__times {
   display: inline-flex;
+  align-items: center;
   flex: 0 0 auto;
   gap: var(--space-2);
+  min-width: 0;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+.list-board-task__metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 0;
+  min-height: 1.5rem;
+  color: inherit;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.list-board-task__metric-button {
+  padding: 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  cursor: text;
+}
+
+.list-board-task__metric-button:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.list-board-task__metric-button strong {
+  font-weight: var(--font-weight-medium);
+}
+
+.list-board-task__metric--editing {
+  gap: var(--space-1);
+}
+
+.list-board-task__metric-input {
+  width: 5.75rem;
+  max-width: 100%;
+  min-width: 0;
+  height: 1.5rem;
+  padding: 0 var(--space-1);
+  border: 1px solid var(--color-accent-solid);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  line-height: 1;
 }
 
 .list-board-task--inline-create {
