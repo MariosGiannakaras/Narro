@@ -39,11 +39,13 @@ for (const [haystack, needle, label] of [
   [component, '"destructive_confirm"', "destructive-confirm state"],
   [component, "formatVisibleDateTime", "Windows-locale schedule formatting"],
   [component, "BigInt(rawSeconds)", "lossless Time Taken formatting"],
-  [component, 'data-fixture-only-actions="true"', "fixture-only action rail"],
+  [component, 'data-task-actions="reorder"', "production reorder action rail"],
+  [component, 'data-task-action-slot="reserved"', "reserved action slot marker"],
+  [component, 'aria-label={label}', "accessible action labels"],
   [component, 'data-fixture-only-body="notes-expanded"', "fixture-only notes expansion"],
   [component, "Links open only after explicit activation.", "explicit-only note URL policy"],
   [component, "This presentation does not perform a deletion.", "non-mutating destructive confirmation"],
-  [board, "<TaskCard task={task} aggregateView={aggregateView} />", "production board task-card projection"],
+  [board, "actions={taskActions}", "production board task-card action callbacks"],
   [css, "grid-template-columns: 1rem minmax(0, 1fr) 4.25rem;", "reserved production action geometry"],
   [css, ".list-board-task__action-slot", "stable action slot"],
   [css, 'data-task-card-state="overdue"', "overdue visual state"],
@@ -77,14 +79,12 @@ for (const state of [
 
 for (const forbidden of [
   "invoke(",
-  "onClick=",
   "onDoubleClick=",
-  "draggable=",
   "onDragStart=",
   "onDrop=",
 ]) {
   if (component.includes(forbidden)) {
-    throw new Error(`Task-card state-model slice must remain presentation-only; found ${forbidden}`);
+    throw new Error(`TaskCard must not own native/domain mutation or drag/drop behavior; found ${forbidden}`);
   }
 }
 
