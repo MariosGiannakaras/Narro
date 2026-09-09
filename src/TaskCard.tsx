@@ -29,6 +29,11 @@ type TaskCardProps = {
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 const WHOLE_SECONDS = /^\d+$/;
+const fixtureAction = () => undefined;
+const FIXTURE_REORDER_ACTIONS: TaskCardActions = {
+  onMoveUp: fixtureAction,
+  onMoveDown: fixtureAction,
+};
 
 function safeListAccent(color: string | null): CSSProperties | undefined {
   if (!color || !HEX_COLOR.test(color)) return undefined;
@@ -193,7 +198,12 @@ export function TaskCard({ task, aggregateView, fixtureState, actions }: TaskCar
   const scheduled = scheduleLabel(task);
   const isFixtureOnly = fixtureState !== undefined;
   const showBaseContent = state !== "inline_create";
-  const hasActions = Boolean(actions?.onMoveUp || actions?.onMoveDown);
+  const effectiveActions = actions ?? (
+    isFixtureOnly && (state === "normal" || state === "action_revealed")
+      ? FIXTURE_REORDER_ACTIONS
+      : undefined
+  );
+  const hasActions = Boolean(effectiveActions?.onMoveUp || effectiveActions?.onMoveDown);
 
   return (
     <article
@@ -219,7 +229,7 @@ export function TaskCard({ task, aggregateView, fixtureState, actions }: TaskCar
               data-task-action-slot="reserved"
               aria-hidden={hasActions ? undefined : true}
             >
-              {actions && hasActions ? <TaskActionRail actions={actions} /> : null}
+              {effectiveActions && hasActions ? <TaskActionRail actions={effectiveActions} /> : null}
             </span>
           </div>
 
