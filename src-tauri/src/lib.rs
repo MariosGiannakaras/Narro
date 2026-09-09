@@ -1,4 +1,5 @@
 pub mod autostart;
+pub mod board_task_editor;
 pub mod board_task_mutation;
 pub mod domain;
 pub mod error;
@@ -613,6 +614,8 @@ pub fn run() {
             get_state,
             get_home_snapshot,
             list_board::get_list_board_snapshot,
+            board_task_editor::create_list_board_task,
+            board_task_editor::update_list_board_task_title,
             board_task_mutation::reorder_list_board_task,
             board_task_mutation::move_list_board_task,
             list_editor::create_list_from_editor,
