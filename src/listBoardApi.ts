@@ -42,6 +42,22 @@ export type ListBoardRequestTarget =
   | { kind: "all" }
   | { kind: "list"; id: string };
 
+export type PlanningLaneToken = "backlog" | "this_week" | "today";
+
+export type ReorderListBoardTaskRequest = {
+  taskId: string;
+  listId: string;
+  sourceLane: PlanningLaneToken;
+  beforeTaskId: string | null;
+};
+
+export type MoveListBoardTaskRequest = {
+  taskId: string;
+  listId: string;
+  sourceLane: PlanningLaneToken;
+  targetLane: PlanningLaneToken;
+};
+
 export function systemDisplayTimezone(): string {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.trim();
   if (!timezone) {
@@ -57,4 +73,12 @@ export function getListBoardSnapshot(
     listId: target.kind === "list" ? target.id : null,
     displayTimezone: systemDisplayTimezone(),
   });
+}
+
+export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Promise<void> {
+  return invoke<void>("reorder_list_board_task", request);
+}
+
+export function moveListBoardTask(request: MoveListBoardTaskRequest): Promise<void> {
+  return invoke<void>("move_list_board_task", request);
 }

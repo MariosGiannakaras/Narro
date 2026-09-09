@@ -37,10 +37,10 @@ for (const [haystack, needle, label] of [
   [lib, "list_board::get_list_board_snapshot,", "list board command registration"],
   [api, 'invoke<ListBoardSnapshot>("get_list_board_snapshot"', "typed board IPC"],
   [api, "Intl.DateTimeFormat().resolvedOptions().timeZone", "Windows WebView display-timezone fallback"],
-  [component, '{ key: "backlog", title: "Backlog" }', "Backlog lane"],
-  [component, '{ key: "thisWeek", title: "This Week" }', "This Week lane"],
-  [component, '{ key: "today", title: "Today" }', "Today lane"],
-  [component, '{ key: "done", title: "Done" }', "Done lane"],
+  [component, '{ key: "backlog", title: "Backlog", mutationLane: "backlog" }', "Backlog lane"],
+  [component, '{ key: "thisWeek", title: "This Week", mutationLane: "this_week" }', "This Week lane"],
+  [component, '{ key: "today", title: "Today", mutationLane: "today" }', "Today lane"],
+  [component, '{ key: "done", title: "Done", mutationLane: null }', "Done lane"],
   [component, 'data-board-lane-count={LANES.length}', "four-lane board contract"],
   [component, 'data-board-add-slot="reserved"', "future add-action geometry reservation"],
   [component, "<TaskCard task={task} aggregateView={aggregateView} />", "task-card presentation projection"],
@@ -50,6 +50,7 @@ for (const [haystack, needle, label] of [
   [component, 'invoke<HomeSnapshot>("get_home_snapshot")', "reuse of validated active-list option projection"],
   [component, "onTargetChange", "selector target-change callback"],
   [component, "getListBoardSnapshot(target)", "authoritative board read"],
+  [component, 'data-board-reorder-enabled={interactionReorderEnabled ? "true" : "false"}', "ordered reorder interaction gate"],
   [shell, "openBoardTarget", "shared board navigation target"],
   [shell, "onTargetChange={openBoardTarget}", "real selector target switching"],
   [shell, "onOpenAllLists={openAllListsBoard}", "All Lists Home navigation"],
@@ -69,18 +70,14 @@ for (const [haystack, needle, label] of [
 }
 
 for (const forbidden of [
-  "draggable=",
-  "onDragStart=",
-  "onDrop=",
   "ADD TASK",
   ">+<",
   "onComplete",
-  "onMove",
   "onDelete",
   "onSchedule",
 ]) {
   if (component.includes(forbidden)) {
-    throw new Error(`List-board hierarchy must not activate a later task interaction: ${forbidden}`);
+    throw new Error(`List-board hierarchy must not activate an unordered later task interaction: ${forbidden}`);
   }
 }
 

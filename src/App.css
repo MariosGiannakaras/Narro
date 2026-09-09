@@ -3,6 +3,7 @@
 @import "./geometry.css";
 @import "./motion.css";
 @import "./overlayPrimitives.css";
+@import "./taskReorder.css";
 
 :root {
   font-family: var(--font-family-ui);
