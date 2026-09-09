@@ -8,7 +8,9 @@ function requireText(haystack, needle, label) {
 }
 
 const rust = read("src-tauri/src/board_task_editor.rs");
-const rustProduction = rust.split("#[cfg(test)]")[0];
+const titlePersistence = read("src-tauri/src/persistence/task_title_edit.rs");
+const titlePersistenceProduction = titlePersistence.split("#[cfg(test)]")[0];
+const persistenceMod = read("src-tauri/src/persistence/mod.rs");
 const lib = read("src-tauri/src/lib.rs");
 const board = read("src/ListBoard.tsx");
 const taskCard = read("src/TaskCard.tsx");
@@ -20,18 +22,20 @@ const captureValidator = read("scripts/validate-task-create-edit-captures.mjs");
 for (const [haystack, needle, label] of [
   [rust, "create_task(", "M2 transactional task-create reuse"],
   [rust, "est_seconds: None", "title-only create leaves EST to the next ordered slice"],
-  [rust, "let tx = conn.transaction()", "atomic inline-title transaction"],
-  [rust, "SET title = ?1, updated_at = ?2", "title-only persistence write"],
-  [rust, "AND list_id = ?4", "atomic expected-list precondition"],
-  [rust, "AND title = ?5", "atomic expected-title precondition"],
-  [rust, "AND archived_at IS NULL", "active-task write precondition"],
-  [rust, "SELECT 1 FROM lists", "active-list write precondition"],
+  [rust, "update_task_title_if_expected(", "persistence title-edit boundary reuse"],
+  [persistenceMod, "pub mod task_title_edit;", "task-title persistence module registration"],
+  [titlePersistence, "let tx = conn.transaction()", "atomic inline-title transaction"],
+  [titlePersistence, "SET title = ?1, updated_at = ?2", "title-only persistence write"],
+  [titlePersistence, "AND list_id = ?4", "atomic expected-list precondition"],
+  [titlePersistence, "AND title = ?5", "atomic expected-title precondition"],
+  [titlePersistence, "AND archived_at IS NULL", "active-task write precondition"],
+  [titlePersistence, "SELECT 1 FROM lists", "active-list write precondition"],
   [rust, 'CommandError::new("TASK_CREATE_STALE"', "stable stale-create error code"],
   [rust, 'CommandError::new("TASK_EDIT_STALE"', "stable stale-edit error code"],
   [rust, 'CommandError::new("TASK_EDIT_NOT_ALLOWED"', "stable edit-not-allowed error code"],
-  [rust, "blank_title_edit_is_rejected_without_writing", "blank edit regression"],
-  [rust, "stale_title_edit_is_rejected_without_clobbering_newer_authoritative_title", "stale-title regression"],
-  [rust, "title_edit_preserves_identity_position_estimate_schedule_completion_and_time_metadata", "metadata preservation regression"],
+  [titlePersistence, "blank_title_edit_is_rejected_without_writing", "blank edit regression"],
+  [titlePersistence, "stale_title_edit_is_rejected_without_clobbering_newer_authoritative_title", "stale-title regression"],
+  [titlePersistence, "title_edit_preserves_identity_position_estimate_schedule_completion_and_time_metadata", "metadata preservation regression"],
   [lib, "pub mod board_task_editor;", "task editor module registration"],
   [lib, "board_task_editor::create_list_board_task,", "create command registration"],
   [lib, "board_task_editor::update_list_board_task_title,", "title-edit command registration"],
@@ -66,8 +70,14 @@ for (const [haystack, needle, label] of [
   requireText(haystack, needle, label);
 }
 
-if (rustProduction.includes("update_task(")) {
+if (rust.includes(".execute(")) {
+  throw new Error("Board task editor must delegate persistence rather than own raw task SQL.");
+}
+if (titlePersistenceProduction.includes("update_task(")) {
   throw new Error("Inline title editing must not re-write EST through the generic title+EST update boundary.");
+}
+if (titlePersistenceProduction.includes("SET title = ?1, est_seconds")) {
+  throw new Error("Title-only persistence must never assign EST.");
 }
 
 const createStart = board.indexOf("function InlineCreateEditor");
