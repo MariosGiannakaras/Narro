@@ -81,8 +81,9 @@ for (const theme of ["light", "dark"]) {
     contract.dialog.x + contract.dialog.width <= 1280 && contract.dialog.y + contract.dialog.height <= 720,
     `${label} dialog extends outside the viewport`,
   );
-  invariant(contract.header.width === contract.dialog.width, `${label} sticky header width differs from dialog width`);
-  invariant(contract.footer.width === contract.dialog.width, `${label} sticky footer width differs from dialog width`);
+  const dialogContentWidth = contract.dialog.width - 2;
+  invariant(contract.header.width === dialogContentWidth, `${label} sticky header does not fill the dialog content box`);
+  invariant(contract.footer.width === dialogContentWidth, `${label} sticky footer does not fill the dialog content box`);
 
   geometryByTheme.set(theme, contract);
 }
