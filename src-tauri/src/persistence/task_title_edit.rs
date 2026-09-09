@@ -8,10 +8,7 @@ use std::fmt::{Display, Formatter};
 #[derive(Debug)]
 pub enum TaskTitleEditError {
     Task(TaskStoreError),
-    ExpectedListMismatch {
-        expected: ListId,
-        actual: ListId,
-    },
+    ExpectedListMismatch { expected: ListId, actual: ListId },
     ExpectedTitleMismatch(TaskId),
     StaleWrite(TaskId),
 }
