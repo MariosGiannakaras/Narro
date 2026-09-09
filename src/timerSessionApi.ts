@@ -65,6 +65,7 @@ export type TimerSessionChange =
       previous_session_id: string;
       current_session_id: string;
     }
+  | { type: "estimate_rebased"; task_id: string; est_seconds: number | null }
   | { type: "time_taken_rebased"; task_id: string; total_seconds: number }
   | {
       type: "automatic_boundary";
@@ -79,6 +80,19 @@ export type TimerSessionPayload = {
   runtime: TimerRuntimeSnapshot;
   awaitingResume: boolean;
   change: TimerSessionChange | null;
+};
+
+export type SetPausedTimerEstimateRequest = {
+  taskId: string;
+  listId: string;
+  expectedEstSeconds: number | null;
+  estSeconds: number | null;
+};
+
+export type SetPausedTimerTimeTakenRequest = {
+  taskId: string;
+  expectedTotalSeconds: string;
+  totalSeconds: number;
 };
 
 export function applyTimerSessionProjection(
@@ -110,4 +124,16 @@ export async function connectTimerSessionProjection(
 
 export async function resumeTimer(): Promise<TimerSessionPayload> {
   return invoke<TimerSessionPayload>("timer_resume");
+}
+
+export function setPausedTimerEstimate(
+  request: SetPausedTimerEstimateRequest,
+): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_set_estimate", request);
+}
+
+export function setPausedTimerTimeTaken(
+  request: SetPausedTimerTimeTakenRequest,
+): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_set_time_taken", request);
 }
