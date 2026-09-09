@@ -539,14 +539,7 @@ mod tests {
         );
 
         let estimate = controller
-            .set_estimate_while_paused(
-                task_id,
-                list_id,
-                Some(120),
-                Some(180),
-                60_000,
-                T1,
-            )
+            .set_estimate_while_paused(task_id, list_id, Some(120), Some(180), 60_000, T1)
             .unwrap();
         assert_eq!(estimate.revision, 3);
         assert!(matches!(
@@ -556,7 +549,12 @@ mod tests {
                 est_seconds: Some(180),
             }) if id == task_id
         ));
-        assert_eq!(get_task(&controller.connection, task_id).unwrap().est_seconds, Some(180));
+        assert_eq!(
+            get_task(&controller.connection, task_id)
+                .unwrap()
+                .est_seconds,
+            Some(180)
+        );
 
         let rebased = controller
             .set_time_taken_while_paused(
