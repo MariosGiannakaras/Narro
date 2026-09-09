@@ -1,5 +1,6 @@
 pub mod autostart;
 pub mod board_task_editor;
+pub mod board_task_metrics;
 pub mod board_task_mutation;
 pub mod domain;
 pub mod error;
@@ -27,8 +28,8 @@ use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}
 use tauri::{Emitter, Manager, State};
 use timer_service::{
     timer_complete_task, timer_extend, timer_finish_break, timer_pause, timer_resume,
-    timer_session_snapshot, timer_set_time_taken, timer_skip_break, timer_skip_task,
-    timer_start_manual_break, timer_start_task, timer_switch_task, TimerService,
+    timer_session_snapshot, timer_set_estimate, timer_set_time_taken, timer_skip_break,
+    timer_skip_task, timer_start_manual_break, timer_start_task, timer_switch_task, TimerService,
 };
 use windows::{
     focus_panel_edge_position, validate_work_area, FocusPanelSide, MonitorDescriptor,
@@ -616,6 +617,8 @@ pub fn run() {
             list_board::get_list_board_snapshot,
             board_task_editor::create_list_board_task,
             board_task_editor::update_list_board_task_title,
+            board_task_metrics::update_list_board_task_estimate,
+            board_task_metrics::update_list_board_task_time_taken,
             board_task_mutation::reorder_list_board_task,
             board_task_mutation::move_list_board_task,
             list_editor::create_list_from_editor,
@@ -642,6 +645,7 @@ pub fn run() {
             timer_complete_task,
             timer_skip_task,
             timer_switch_task,
+            timer_set_estimate,
             timer_set_time_taken,
             main_window_show,
             main_window_hide,
