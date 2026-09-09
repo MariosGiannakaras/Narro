@@ -115,7 +115,7 @@ for (const theme of themes) {
   invariant(contract.normalTitleRow.width === contract.actionTitleRow.width, `${label} action reveal changed title-row width`);
   invariant(contract.normalTitleRow.height === contract.actionTitleRow.height, `${label} action reveal changed title-row height`);
   invariant(contract.actionSlot.width === 68, `${label} reserved action slot width changed`);
-  invariant(contract.actionSlot.height === 28, `${label} reserved action slot height changed`);
+  invariant(contract.actionSlot.height === 20, `${label} reserved action slot height changed`);
   invariant(contract.normalCard.borderRadius === "10px", `${label} normal card radius differs from task-card contract`);
   invariant(contract.actionCard.borderRadius === contract.normalCard.borderRadius, `${label} action state changed card radius`);
   invariant(contract.notesCard.height > contract.normalCard.height, `${label} notes expansion does not expand card`);
