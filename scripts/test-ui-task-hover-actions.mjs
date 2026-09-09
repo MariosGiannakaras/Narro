@@ -28,8 +28,11 @@ for (const [haystack, needle, label] of [
   [board, 'handleMoveWithinLane(task, lane, "down")', "keyboard Move down helper reuse"],
   [board, "void commitDrop(task.id, lane, lane", "validated persistence-first reorder helper reuse"],
   [css, "grid-template-columns: 1rem minmax(0, 1fr) 4.25rem;", "fixed reserved title/action columns"],
+  [css, "min-height: 1.25rem;", "validated title-row slot baseline"],
+  [css, "height: 1.25rem;", "fixed reserved action-slot baseline height"],
+  [css, "position: absolute;", "overlay action rail positioning"],
   [css, "width: 4.25rem;", "fixed action-slot/rail width"],
-  [css, "height: 1.75rem;", "fixed action-slot/rail height"],
+  [css, "height: 1.75rem;", "fixed overlay action rail/button height"],
   [css, "opacity: 0;", "rest-state hidden action rail"],
   [css, "visibility: hidden;", "rest-state non-visible action rail"],
   [css, "pointer-events: none;", "rest-state inert action rail"],
@@ -70,7 +73,19 @@ if (actionsStart < 0 || actionsEnd < 0) {
 const actionRailCss = css.slice(actionsStart, actionsEnd);
 for (const forbidden of ["display: none", "position: static", "grid-template-columns: 0", "width: 0", "height: 0"]) {
   if (actionRailCss.includes(forbidden)) {
-    throw new Error(`Task hover-action rest state must retain reserved geometry; found ${forbidden}`);
+    throw new Error(`Task hover-action rest state must retain overlay geometry; found ${forbidden}`);
+  }
+}
+
+const slotStart = css.indexOf(".list-board-task__action-slot {");
+const slotEnd = css.indexOf("}\n\n.list-board-task__actions", slotStart);
+if (slotStart < 0 || slotEnd < 0) {
+  throw new Error("Could not isolate reserved task action slot styles.");
+}
+const slotCss = css.slice(slotStart, slotEnd);
+for (const required of ["position: relative;", "width: 4.25rem;", "height: 1.25rem;"]) {
+  if (!slotCss.includes(required)) {
+    throw new Error(`Reserved task action slot must preserve validated baseline geometry; missing ${required}`);
   }
 }
 
