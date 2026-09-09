@@ -162,6 +162,9 @@ mod tests {
             assert_eq!(error.code, "INVALID_ARGUMENT");
         }
         assert_eq!(parse_expected_total("0").unwrap(), 0);
-        assert_eq!(parse_expected_total("18446744073709551615").unwrap(), u64::MAX);
+        assert_eq!(
+            parse_expected_total("18446744073709551615").unwrap(),
+            u64::MAX
+        );
     }
 }
