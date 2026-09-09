@@ -68,7 +68,9 @@ fn create_board_task(
 
 fn map_create_error(error: TaskStoreError) -> CommandError {
     match error {
-        TaskStoreError::InvalidTitle => CommandError::invalid_argument("title", "must not be empty"),
+        TaskStoreError::InvalidTitle => {
+            CommandError::invalid_argument("title", "must not be empty")
+        }
         TaskStoreError::ListNotFound(_) | TaskStoreError::ListArchived(_) => {
             CommandError::new("TASK_CREATE_STALE", error.to_string())
         }
@@ -197,7 +199,10 @@ mod tests {
         assert_eq!(second.list_id, list_id);
         assert_eq!(second.manual_lane, PlanningLane::Today);
         assert_eq!(second.sort_rank, first.sort_rank + 1);
-        assert_eq!(get_task(&conn, second.id).expect("reload created task"), second);
+        assert_eq!(
+            get_task(&conn, second.id).expect("reload created task"),
+            second
+        );
     }
 
     #[test]
