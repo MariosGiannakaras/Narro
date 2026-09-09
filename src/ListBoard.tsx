@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import {
   type CSSProperties,
   type DragEvent as ReactDragEvent,
+  type FormEvent as ReactFormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
   useMemo,
@@ -11,9 +12,11 @@ import {
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
+  createListBoardTask,
   getListBoardSnapshot,
   moveListBoardTask,
   reorderListBoardTask,
+  updateListBoardTaskTitle,
   type ListBoardLane,
   type ListBoardRequestTarget,
   type ListBoardSnapshot,
@@ -48,6 +51,10 @@ type DropTarget = {
   lane: PendingLaneKey;
   beforeTaskId: string | null;
 };
+
+type TaskEditorState =
+  | { kind: "create"; lane: PendingLaneKey; title: string }
+  | { kind: "edit"; taskId: string; expectedTitle: string; title: string };
 
 export type ListBoardFixtureReorderState = {
   draggingTaskId?: string;
@@ -122,6 +129,56 @@ function DropPlaceholder() {
   );
 }
 
+function InlineCreateEditor({
+  title,
+  pending,
+  laneTitle,
+  onChange,
+  onSubmit,
+  onCancel,
+}: {
+  title: string;
+  pending: boolean;
+  laneTitle: string;
+  onChange: (value: string) => void;
+  onSubmit: () => void;
+  onCancel: () => void;
+}) {
+  const handleSubmit = (event: ReactFormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!pending) onSubmit();
+  };
+
+  return (
+    <form
+      className="list-board-task list-board-task--inline-create"
+      data-board-task-create="editor"
+      onSubmit={handleSubmit}
+    >
+      <label className="list-board-task-create__field">
+        <span className="type-metadata">Add task to {laneTitle}</span>
+        <input
+          value={title}
+          onChange={(event) => onChange(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key !== "Escape" || pending) return;
+            event.preventDefault();
+            onCancel();
+          }}
+          disabled={pending}
+          aria-label={`New ${laneTitle} task title`}
+          data-task-create-title="true"
+          autoFocus
+        />
+      </label>
+      <div className="list-board-task-create__actions">
+        <button type="button" onClick={onCancel} disabled={pending}>Cancel</button>
+        <button type="submit" disabled={pending || title.trim().length === 0}>Add task</button>
+      </div>
+    </form>
+  );
+}
+
 function BoardLane({
   laneKey,
   lane,
@@ -129,6 +186,9 @@ function BoardLane({
   aggregateView,
   presentationReorderEnabled,
   interactionReorderEnabled,
+  canStartEditor,
+  editorState,
+  editorMutationPending,
   dragState,
   dropTarget,
   settlingTaskId,
@@ -140,6 +200,13 @@ function BoardLane({
   onDragEnd,
   onTaskKeyDown,
   onMoveWithinLane,
+  onStartCreate,
+  onCreateTitleChange,
+  onSubmitCreate,
+  onStartTitleEdit,
+  onEditTitleChange,
+  onSubmitTitleEdit,
+  onCancelEditor,
 }: {
   laneKey: LaneKey;
   lane: ListBoardLane;
@@ -147,6 +214,9 @@ function BoardLane({
   aggregateView: boolean;
   presentationReorderEnabled: boolean;
   interactionReorderEnabled: boolean;
+  canStartEditor: boolean;
+  editorState: TaskEditorState | null;
+  editorMutationPending: boolean;
   dragState: DragState | null;
   dropTarget: DropTarget | null;
   settlingTaskId: string | null;
@@ -158,6 +228,13 @@ function BoardLane({
   onDragEnd: () => void;
   onTaskKeyDown: (task: ListBoardTask, lane: PendingLaneKey, event: ReactKeyboardEvent<HTMLDivElement>) => void;
   onMoveWithinLane: (task: ListBoardTask, lane: PendingLaneKey, direction: WithinLaneDirection) => void;
+  onStartCreate: (lane: PendingLaneKey) => void;
+  onCreateTitleChange: (value: string) => void;
+  onSubmitCreate: () => void;
+  onStartTitleEdit: (task: ListBoardTask) => void;
+  onEditTitleChange: (value: string) => void;
+  onSubmitTitleEdit: () => void;
+  onCancelEditor: () => void;
 }) {
   const headingId = `list-board-${title.replace(/\s+/g, "-").toLowerCase()}`;
   const pendingLane = laneKey === "done" ? null : laneKey;
@@ -175,6 +252,9 @@ function BoardLane({
     && !crossLaneAppend;
   const showLaneEndPlaceholder = laneDropTarget?.beforeTaskId === null && crossLaneAppend;
   const eligibleTasks = pendingLane !== null ? manualTasks(lane) : [];
+  const createEditor = editorState?.kind === "create" && editorState.lane === pendingLane
+    ? editorState
+    : null;
 
   return (
     <section
@@ -226,9 +306,18 @@ function BoardLane({
               ? () => onMoveWithinLane(task, pendingLane, "down")
               : undefined;
             const taskActions = onMoveUp || onMoveDown ? { onMoveUp, onMoveDown } : undefined;
+            const titleEditor = editorState?.kind === "edit" && editorState.taskId === task.id
+              ? {
+                  value: editorState.title,
+                  pending: editorMutationPending,
+                  onChange: onEditTitleChange,
+                  onSubmit: onSubmitTitleEdit,
+                  onCancel: onCancelEditor,
+                }
+              : undefined;
             const dragging = dragState?.taskId === task.id;
             const settling = settlingTaskId === task.id;
-            const pending = mutationPendingTaskId === task.id;
+            const pending = mutationPendingTaskId === task.id || Boolean(titleEditor?.pending);
             const placeholderBefore = laneDropTarget?.beforeTaskId === task.id;
             const placeholderAfter = laneDropTarget?.beforeTaskId === null
               && appendAfterId === task.id;
@@ -263,6 +352,8 @@ function BoardLane({
                     task={task}
                     aggregateView={aggregateView}
                     actions={taskActions}
+                    onTitleEdit={canStartEditor ? () => onStartTitleEdit(task) : undefined}
+                    titleEditor={titleEditor}
                   />
                 </div>
                 {placeholderAfter ? <DropPlaceholder /> : null}
@@ -273,9 +364,44 @@ function BoardLane({
           <div className="list-board-lane__empty type-metadata">No tasks</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder /> : null}
+        {createEditor ? (
+          <InlineCreateEditor
+            title={createEditor.title}
+            pending={editorMutationPending}
+            laneTitle={title}
+            onChange={onCreateTitleChange}
+            onSubmit={onSubmitCreate}
+            onCancel={onCancelEditor}
+          />
+        ) : null}
       </div>
 
-      <div className="list-board-lane__reserved-action list-board-lane__reserved-action--bottom" aria-hidden="true" data-board-add-slot="reserved" />
+      {pendingLane !== null && !aggregateView ? (
+        <div className="list-board-lane__add-region" data-board-add-slot="bottom">
+          {!createEditor ? (
+            <button
+              type="button"
+              className="list-board-lane__add-task motion-interactive"
+              onClick={() => onStartCreate(pendingLane)}
+              disabled={!canStartEditor}
+              aria-label={`Add task to ${title}`}
+              data-board-add-task={pendingLane}
+            >
+              <span aria-hidden="true">+</span> ADD TASK
+            </button>
+          ) : (
+            <span className="list-board-lane__add-placeholder type-metadata" aria-hidden="true">
+              Adding task
+            </span>
+          )}
+        </div>
+      ) : (
+        <div
+          className="list-board-lane__reserved-action list-board-lane__reserved-action--bottom"
+          aria-hidden="true"
+          data-board-add-slot="reserved"
+        />
+      )}
     </section>
   );
 }
@@ -300,6 +426,8 @@ export function ListBoard({
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [dropTarget, setDropTarget] = useState<DropTarget | null>(null);
   const [mutationPendingTaskId, setMutationPendingTaskId] = useState<string | null>(null);
+  const [editorState, setEditorState] = useState<TaskEditorState | null>(null);
+  const [editorMutationPending, setEditorMutationPending] = useState(false);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const settleTimer = useRef<number | null>(null);
 
@@ -314,6 +442,8 @@ export function ListBoard({
       setMutationError(null);
       setMutationStatus("");
       setMutationRefreshBlocked(false);
+      setEditorState(null);
+      setEditorMutationPending(false);
       setListOptions(fixtureOptions(fixtureSnapshot));
       return;
     }
@@ -324,6 +454,8 @@ export function ListBoard({
     setMutationError(null);
     setMutationStatus("");
     setMutationRefreshBlocked(false);
+    setEditorState(null);
+    setEditorMutationPending(false);
     void getListBoardSnapshot(target)
       .then((payload) => {
         if (!disposed) {
@@ -393,11 +525,18 @@ export function ListBoard({
 
   const aggregateView = snapshot.target.kind === "all_lists";
   const selectedTarget = aggregateView ? ALL_LISTS_VALUE : snapshot.target.id ?? ALL_LISTS_VALUE;
-  const interactionReorderEnabled = !fixtureSnapshot
+  const interactionBoardEnabled = !fixtureSnapshot
     && !mutationRefreshBlocked
     && target.kind === "list"
     && snapshot.target.kind === "list"
     && snapshot.target.id === target.id;
+  const interactionReorderEnabled = interactionBoardEnabled
+    && editorState === null
+    && !editorMutationPending;
+  const canStartEditor = interactionBoardEnabled
+    && mutationPendingTaskId === null
+    && editorState === null
+    && !editorMutationPending;
   const presentationReorderEnabled = interactionReorderEnabled || fixtureReorderState !== undefined;
   const displayedDragState = fixtureReorderState?.draggingTaskId && fixtureReorderState.sourceLane
     ? {
@@ -430,6 +569,13 @@ export function ListBoard({
       setSettlingTaskId(null);
       settleTimer.current = null;
     }, SETTLE_DURATION_MS);
+  };
+
+  const handleCommittedRefreshFailure = (failure: unknown) => {
+    setMutationRefreshBlocked(true);
+    setMutationError(
+      `Task change was saved, but the board could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before making more task changes.`,
+    );
   };
 
   const commitDrop = async (
@@ -485,12 +631,101 @@ export function ListBoard({
       await refreshAfterMutation(taskId);
       setMutationRefreshBlocked(false);
     } catch (failure: unknown) {
-      setMutationRefreshBlocked(true);
-      setMutationError(
-        `Task change was saved, but the board could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before moving more tasks.`,
-      );
+      handleCommittedRefreshFailure(failure);
     } finally {
       setMutationPendingTaskId(null);
+    }
+  };
+
+  const submitCreate = async () => {
+    if (
+      !interactionBoardEnabled
+      || target.kind !== "list"
+      || editorState?.kind !== "create"
+      || editorMutationPending
+      || mutationPendingTaskId
+    ) return;
+    const title = editorState.title.trim();
+    if (!title) {
+      setMutationError("Task title must not be empty.");
+      setMutationStatus("Could not add task.");
+      return;
+    }
+
+    setEditorMutationPending(true);
+    setMutationError(null);
+    let createdTaskId: string;
+    try {
+      createdTaskId = await createListBoardTask({
+        listId: target.id,
+        lane: LANE_TOKEN[editorState.lane],
+        title,
+      });
+    } catch (failure: unknown) {
+      setMutationError(formatInvokeError(failure));
+      setMutationStatus(`Could not add ${title}.`);
+      setEditorMutationPending(false);
+      return;
+    }
+
+    setEditorState(null);
+    setMutationStatus(`Added ${title}.`);
+    try {
+      await refreshAfterMutation(createdTaskId);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setEditorMutationPending(false);
+    }
+  };
+
+  const submitTitleEdit = async () => {
+    if (
+      !interactionBoardEnabled
+      || target.kind !== "list"
+      || editorState?.kind !== "edit"
+      || editorMutationPending
+      || mutationPendingTaskId
+    ) return;
+    const title = editorState.title.trim();
+    if (!title) {
+      setMutationError("Task title must not be empty.");
+      setMutationStatus("Could not save task title.");
+      return;
+    }
+    if (title === editorState.expectedTitle) {
+      setEditorState(null);
+      setMutationError(null);
+      return;
+    }
+
+    const { taskId, expectedTitle } = editorState;
+    setEditorMutationPending(true);
+    setMutationError(null);
+    try {
+      await updateListBoardTaskTitle({
+        taskId,
+        listId: target.id,
+        expectedTitle,
+        title,
+      });
+    } catch (failure: unknown) {
+      setMutationError(formatInvokeError(failure));
+      setMutationStatus(`Could not rename ${expectedTitle}.`);
+      setEditorMutationPending(false);
+      return;
+    }
+
+    setEditorState(null);
+    setMutationStatus(`Renamed ${expectedTitle} to ${title}.`);
+    try {
+      await refreshAfterMutation(taskId);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setEditorMutationPending(false);
     }
   };
 
@@ -499,7 +734,7 @@ export function ListBoard({
     lane: PendingLaneKey,
     event: ReactDragEvent<HTMLDivElement>,
   ) => {
-    if ((event.target as HTMLElement).closest("[data-task-action]")) {
+    if ((event.target as HTMLElement).closest("[data-task-action], [data-task-title-control]")) {
       event.preventDefault();
       return;
     }
@@ -618,6 +853,7 @@ export function ListBoard({
       data-list-board="main"
       data-board-target={snapshot.target.kind}
       data-board-reorder-enabled={interactionReorderEnabled ? "true" : "false"}
+      data-board-task-editor={editorState?.kind ?? "idle"}
       aria-labelledby="list-board-title"
     >
       <p id="list-board-reorder-instructions" className="list-board__reorder-instructions">
@@ -665,7 +901,7 @@ export function ListBoard({
                     : { kind: "list", id: value },
                 );
               }}
-              disabled={!onTargetChange || mutationPendingTaskId !== null}
+              disabled={!onTargetChange || mutationPendingTaskId !== null || editorMutationPending}
               aria-label="Planning list"
             >
               <option value={ALL_LISTS_VALUE}>All Lists</option>
@@ -692,6 +928,9 @@ export function ListBoard({
             aggregateView={aggregateView}
             presentationReorderEnabled={presentationReorderEnabled}
             interactionReorderEnabled={interactionReorderEnabled}
+            canStartEditor={canStartEditor}
+            editorState={editorState}
+            editorMutationPending={editorMutationPending}
             dragState={displayedDragState}
             dropTarget={displayedDropTarget}
             settlingTaskId={displayedSettlingTaskId}
@@ -706,6 +945,40 @@ export function ListBoard({
             }}
             onTaskKeyDown={handleTaskKeyDown}
             onMoveWithinLane={handleMoveWithinLane}
+            onStartCreate={(lane) => {
+              if (!canStartEditor) return;
+              setMutationError(null);
+              setMutationStatus("");
+              setEditorState({ kind: "create", lane, title: "" });
+            }}
+            onCreateTitleChange={(value) => {
+              setEditorState((current) => current?.kind === "create"
+                ? { ...current, title: value }
+                : current);
+            }}
+            onSubmitCreate={() => void submitCreate()}
+            onStartTitleEdit={(task) => {
+              if (!canStartEditor) return;
+              setMutationError(null);
+              setMutationStatus("");
+              setEditorState({
+                kind: "edit",
+                taskId: task.id,
+                expectedTitle: task.title,
+                title: task.title,
+              });
+            }}
+            onEditTitleChange={(value) => {
+              setEditorState((current) => current?.kind === "edit"
+                ? { ...current, title: value }
+                : current);
+            }}
+            onSubmitTitleEdit={() => void submitTitleEdit()}
+            onCancelEditor={() => {
+              if (editorMutationPending) return;
+              setEditorState(null);
+              setMutationError(null);
+            }}
           />
         ))}
       </div>
