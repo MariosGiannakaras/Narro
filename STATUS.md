@@ -12,80 +12,75 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 16 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 17 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 16/28`**
+**`M-5/10 | 5/5 | 17/28`**
 
-The first sixteen ordered M5 items are fully main validated. The latest completed item is **Task creation and inline editing**. The next ordered item is **EST and Time Taken display/edit states**.
+The first seventeen ordered M5 items are fully main validated. The latest completed item is **EST and Time Taken display/edit states**. The next ordered item is **Scheduling UI and recurrence editor**.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`a7e6ed1d89d7592e1bf514e56f1e47e63495cbad`
+`2c4ec648490764cfdd5b0f793f9f68ed73657037`
 
-This is the merged result of PR #88 — `M5: add task creation and inline editing`.
+Tree:
+
+`a1d562c3153fa6c0f169eaf9d587285e7141301d`
+
+This is the squash-merged result of PR #89 — `M5: add EST and Time Taken editing`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
-### PR #88 exact-head validation
+### PR #89 exact-head validation
 
 Final validated PR head:
 
-`ce89c473a7306982ce43a8a07fce43f3ecc1ee02`
+`b7e6a5d2dbf428888fc6fb2e05fc5fa53229d9ad`
 
-Windows PR CI #331:
+Windows PR CI #341:
 
-- run `34340494624`;
-- job `102429916044`;
-- exact head `ce89c473a7306982ce43a8a07fce43f3ecc1ee02`;
+- run `34368816102`;
+- job `102524819883`;
+- exact head `b7e6a5d2dbf428888fc6fb2e05fc5fa53229d9ad`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact `10099815643`, digest `sha256:0f993845d8d302095c05be8a3edcca6c9dce65c2859e7ae7118ad19d0f4436c5`;
-- diagnostic artifact `10100064241`, digest `sha256:1cf9061d914157a5bbb01897f04d8e0b261ee0e8a1e0dd5debecaf0b7222f25a`;
+- visual artifact `10111419066`, digest `sha256:4a62f2146b8624287fe3f228407c59743a8de732afa9560af85d2fd71f9ac76a`;
+- diagnostic artifact `10111710336`, digest `sha256:1f0a454973be877b39b12f3f72a1e6cba35c6727333183f4468a4de26331af61`;
 - final exact-head semantic/diff review: **PASS**;
-- issue comments, submitted reviews and inline review threads requiring resolution: **none**.
+- PR comments/reviews requiring resolution: **none**.
 
-PR #88 merged with an expected-head guard at `2026-09-09T10:46:29Z`, producing main source SHA `a7e6ed1d89d7592e1bf514e56f1e47e63495cbad` and tree `bc5b22bc7093a7355b6bb0f93e1e88aa54d3a893`.
+PR #89 was squash-merged at `2026-09-09T15:43:09Z` using expected head `b7e6a5d2dbf428888fc6fb2e05fc5fa53229d9ad`, producing main source SHA `2c4ec648490764cfdd5b0f793f9f68ed73657037`.
 
 ### Resulting-main validation
 
-Windows main CI #332:
+Windows main CI #342:
 
-- run `34342022923`;
-- job `102434764558`;
-- exact source SHA `a7e6ed1d89d7592e1bf514e56f1e47e63495cbad`;
+- run `34372082553`;
+- job `102535551447`;
+- exact source SHA `2c4ec648490764cfdd5b0f793f9f68ed73657037`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact `10100383350`, digest `sha256:84facb757045e2f3a47ea128829b116bcad9784165c72e577ef58463c79fe9f7`;
-- diagnostic artifact `10100609210`, digest `sha256:6434366a5f35dff7f2a411292fb9e9cf5fc2349515edef80b7f79f60f2332ac6`.
+- visual artifact `10112664337`, digest `sha256:4e4f8cd95f8a1c8261c0ca7f25b30536fba3fcabca5ac4091e140c88b4cd5a7d`;
+- diagnostic artifact `10112942834`, digest `sha256:4ec3c3d8635ddbe1c65abdeb46d7de2d0677b2fd6c13e7c6f0dd202cd7a7edc1`.
 
-Detailed evidence: `work-log/2026-09-09-1432-chatgpt-m5-task-create-inline-edit.md`.
+Detailed evidence: `work-log/2026-09-09-1858-chatgpt-m5-task-metrics.md`.
 
-## Milestone 1 — Gate A complete
+## Milestones 1–4 — validated gates
 
-**PASS.** Tauri 2 + WebView2 architecture retained after physical Windows capability/performance validation. Two-window architecture (`main` + reusable `focusSurface`), tray/background lifecycle, notifications, autostart, monitor handling, shortcuts and the floating-only performance baseline are validated.
-
-## Milestone 2 — Gate B complete
-
-**PASS.** Durable SQLite/domain identity, CRUD, ordering, archive/delete, task metadata, recurrence/reminder/session schema, preferences and persistence-first mutation invariants are validated.
-
-## Milestone 3 — Gate C complete
-
-**PASS.** Authoritative timer/session engine, recovery, persistence boundaries, Pomodoro effects, large-elapsed safety and Windows sleep accounting are validated. Tracked-time correctness remains a durable anti-regression requirement: renderer lifecycle, pause/resume, task switching, manual Time Taken edits and Done must never lose or double-count authoritative work history.
-
-## Milestone 4 — Gate D complete
-
-**PASS.** Scheduling/recurrence/reminder/eligibility are implemented and validated. Date-only scheduling, timezone/DST/week boundaries, recurrence idempotency and tray/background reminder behavior remain authoritative invariants.
+- **Gate A PASS:** Tauri 2 + WebView2 architecture, two-window model, Windows native lifecycle/capabilities and floating performance baseline validated.
+- **Gate B PASS:** durable SQLite/domain identity, CRUD/order/archive/delete, metadata and persistence-first invariants validated.
+- **Gate C PASS:** authoritative timer/session runtime, recovery, Pomodoro, tracked-time durability, manual Time Taken rebase and sleep accounting validated.
+- **Gate D PASS:** scheduling/recurrence/reminders/eligibility, date-only semantics, timezone/DST/week boundaries and recurrence idempotency validated.
 
 ## Milestone 5 — validated ordered work
 
@@ -106,30 +101,32 @@ The following top-level items are validated complete, in roadmap order:
 13. Task-card state model;
 14. persistence-backed drag/drop or equivalent reorder/move behavior;
 15. production hover/focus action geometry with reserved/overlay slots and no title/card reflow;
-16. persistence-backed task creation and inline title editing.
+16. persistence-backed task creation and inline title editing;
+17. persistence-backed EST and Time Taken display/edit states with authoritative live-paused timer/session integration.
 
-### Latest completed: task creation and inline editing
+### Latest completed: EST and Time Taken display/edit states
 
 Validated behavior includes:
 
-- bottom `+ ADD TASK` creation for real individual Backlog / This Week / Today lanes only;
-- no task creation target in Done or aggregate All Lists;
-- stable generated task identity and persistence-first create semantics;
-- atomic expected-list/expected-title title-only editing;
-- title-only writes preserve EST, Time Taken/session-owned state, identity, list/lane/order, scheduling and completion metadata;
-- click-title edit with Enter/Save and Escape/Cancel;
-- drag isolation for title/edit controls and preservation of the fixed reserved action geometry;
-- authoritative board refresh after durable mutation;
-- explicit saved-but-refresh-failed handling that blocks unsafe mutation retries;
-- deterministic Rust/frontend/static/Windows visual coverage.
-
-Top-priority insertion, create-task shortcut, EST editing and Time Taken editing were intentionally not absorbed into this slice.
+- stale-safe expected-list/value persistence for non-live EST and Time Taken edits;
+- non-live metric writes reject a live focus task rather than bypassing the timer runtime;
+- live EST and Time Taken edits require the exact active task in `Paused` or `OvertimePaused`;
+- live EST changes atomically commit task metadata plus durable timer checkpoint before publishing runtime state;
+- CountUp/EST countdown rebasing preserves accumulated work, and EST below elapsed enters `TimeUp` without tracked-time loss;
+- Pomodoro timer precedence remains intact when EST metadata changes;
+- live Time Taken edits preserve raw session history and remain stable through resume, recovery and Done without snap-back/double-counting;
+- stale task/current-total guards prevent renderer races from overwriting newer authoritative state;
+- individual real List Boards expose metric editing while aggregate All Lists remains read-only;
+- explicit `H:MM:SS` editing is used; EST may be blank to clear, Time Taken may not be blank;
+- Save/Cancel remain inside the reserved `4.25rem` action slot and captured light/dark geometry proves no card/title-row reflow;
+- renderer mutation success remains persistence-first, with committed-but-refresh-failed handling blocking unsafe retries;
+- deterministic Rust, frontend/static and Windows visual regression coverage is part of preflight/CI.
 
 ### Next ordered M5 item
 
-`EST and Time Taken display/edit states.`
+`Scheduling UI and recurrence editor.`
 
-This next slice must reuse the existing authoritative M2 task-metadata and M3 paused manual-Time-Taken/session-rebase boundaries. In particular, editing EST or Time Taken may not reset tracked work, overwrite session-owned state, or make renderer state authoritative. Consult `docs/BLITZIT_HISTORY_RISK_INDEX.md` before implementation because tracked-time loss and post-pause/manual-edit divergence are current source-product reliability risks.
+This slice must project the already validated Milestone 4 scheduling/recurrence model rather than recreate scheduling rules in renderer memory. It must preserve date-only versus local-date-time semantics, Monday-based week behavior, recurrence idempotency/detachment/replace rules, stable task identity, persistence-first mutations and no wrong-day/timezone shifts. Consult the relevant product/UI/behavior specifications and `docs/BLITZIT_HISTORY_RISK_INDEX.md` before implementation.
 
 ## Durable correctness decisions
 
@@ -139,15 +136,16 @@ Future work must preserve:
 - Tauri 2 + React/TypeScript + authoritative Rust/domain state + SQLite remains the validated architecture.
 - `main` and reusable `focusSurface` are the normal two-webview model; presentation changes must not duplicate authoritative runtime state.
 - Authoritative task/list/session/timer/scheduling state lives outside renderer memory; persistence-first mutations remain the success boundary.
-- Stable task identities are mandatory. Reorder/move changes positions/lanes only and may never create, delete or alias identities.
+- Stable task identities are mandatory. Reorder/move/schedule changes may never create, delete or alias task identities except through an explicit create/duplicate operation.
 - A committed authoritative mutation must not be reported as failed merely because a secondary renderer refresh/event delivery fails.
 - All Lists remains an aggregate projection, never a persisted synthetic list.
-- Scheduled pending tasks remain projected through validated effective planning-lane semantics; manual board reorder/move remains disabled while scheduling owns the effective lane.
+- Scheduled pending tasks remain projected through validated effective planning-lane semantics; scheduling owns the effective lane where applicable.
 - Archived lists/tasks remain absent from active board projection; completed non-archived tasks project to Done exactly once.
 - Renderer-independent timer/session accounting, one-open-session protection and durable recovery must not regress.
 - EST/title metadata edits must not rewrite or lose Time Taken/session state.
-- Paused manual Time Taken editing must use the already validated authoritative runtime/session baseline rebase path; it may not be implemented as a renderer-only task-field write.
+- Paused manual Time Taken editing must use the validated authoritative runtime/session baseline rebase path; it may not be implemented as a renderer-only task-field write.
 - Date-only schedules remain calendar dates, distinct from local date-times; Monday week boundaries and timezone/DST validation remain authoritative.
+- Recurrence materialization remains deterministic/idempotent and preserves validated replace/detach semantics.
 - Notes URLs require explicit click/keyboard activation and may never auto-launch merely because a task becomes live.
 - Hover/focus/edit interactions may not reflow task/list card geometry, move sibling controls under the pointer, or move hit targets. Reserved/overlay action slots remain the established pattern.
 - Keyboard/focus-visible equivalents and accessible names/tooltips remain required for icon-only actions.
