@@ -2,7 +2,7 @@ use super::{
     BreakKind, BreakRuntime, RuntimeState, TaskExitReason, TimerEngine, TimerError, TimerExit,
     TimerMode, TimerSnapshot, TimerStateKind, TimerSwitchResult, WorkPhase, WorkRuntime,
 };
-use crate::domain::ids::{SessionId, TaskId};
+use crate::domain::ids::{ListId, SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionRecord, SessionSource};
 use crate::domain::tasks::TaskRecord;
 use crate::persistence::sessions::{get_open_session, SessionStoreError};
@@ -94,6 +94,14 @@ pub struct PersistedTimerSwitch {
 pub struct LiveEstimateUpdate {
     pub runtime: TimerRuntimeSnapshot,
     pub task: TaskRecord,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct LiveEstimateEditInput {
+    pub expected_task_id: TaskId,
+    pub expected_list_id: ListId,
+    pub expected_est_seconds: Option<u32>,
+    pub est_seconds: Option<u32>,
 }
 
 #[derive(Debug)]
@@ -444,13 +452,16 @@ impl TimerRuntime {
     pub fn set_estimate_while_paused(
         &mut self,
         conn: &mut Connection,
-        expected_task_id: TaskId,
-        expected_list_id: crate::domain::ids::ListId,
-        expected_est_seconds: Option<u32>,
-        est_seconds: Option<u32>,
+        input: LiveEstimateEditInput,
         now_ms: u64,
         wall_time: &str,
     ) -> Result<LiveEstimateUpdate, LiveEstimateEditError> {
+        let LiveEstimateEditInput {
+            expected_task_id,
+            expected_list_id,
+            expected_est_seconds,
+            est_seconds,
+        } = input;
         let current = self.snapshot(now_ms)?;
         if !matches!(
             current.timer.state,
@@ -1132,7 +1143,17 @@ mod live_estimate_tests {
         let session_id = runtime.open_session_id().unwrap();
 
         let edited = runtime
-            .set_estimate_while_paused(&mut conn, task_id, list_id, None, Some(1_200), 600_000, T10)
+            .set_estimate_while_paused(
+                &mut conn,
+                LiveEstimateEditInput {
+                    expected_task_id: task_id,
+                    expected_list_id: list_id,
+                    expected_est_seconds: None,
+                    est_seconds: Some(1_200),
+                },
+                600_000,
+                T10,
+            )
             .unwrap();
         assert_eq!(edited.task.est_seconds, Some(1_200));
         assert_eq!(edited.runtime.open_session_id, Some(session_id));
@@ -1165,7 +1186,17 @@ mod live_estimate_tests {
         runtime.pause(&mut conn, 900_000, T15).unwrap();
 
         let edited = runtime
-            .set_estimate_while_paused(&mut conn, task_id, list_id, None, Some(600), 900_000, T15)
+            .set_estimate_while_paused(
+                &mut conn,
+                LiveEstimateEditInput {
+                    expected_task_id: task_id,
+                    expected_list_id: list_id,
+                    expected_est_seconds: None,
+                    est_seconds: Some(600),
+                },
+                900_000,
+                T15,
+            )
             .unwrap();
         assert_eq!(edited.runtime.timer.state, TimerStateKind::TimeUp);
         assert_eq!(edited.runtime.timer.work_elapsed_ms, 900_000);
@@ -1194,10 +1225,12 @@ mod live_estimate_tests {
         let edited = runtime
             .set_estimate_while_paused(
                 &mut conn,
-                task_id,
-                list_id,
-                Some(1_800),
-                Some(3_600),
+                LiveEstimateEditInput {
+                    expected_task_id: task_id,
+                    expected_list_id: list_id,
+                    expected_est_seconds: Some(1_800),
+                    est_seconds: Some(3_600),
+                },
                 300_000,
                 T5,
             )
@@ -1224,10 +1257,12 @@ mod live_estimate_tests {
 
         let result = runtime.set_estimate_while_paused(
             &mut conn,
-            task_id,
-            list_id,
-            Some(600),
-            Some(1_200),
+            LiveEstimateEditInput {
+                expected_task_id: task_id,
+                expected_list_id: list_id,
+                expected_est_seconds: Some(600),
+                est_seconds: Some(1_200),
+            },
             60_000,
             T1,
         );
@@ -1258,10 +1293,12 @@ mod live_estimate_tests {
 
         let result = runtime.set_estimate_while_paused(
             &mut conn,
-            task_id,
-            list_id,
-            None,
-            Some(900),
+            LiveEstimateEditInput {
+                expected_task_id: task_id,
+                expected_list_id: list_id,
+                expected_est_seconds: None,
+                est_seconds: Some(900),
+            },
             300_000,
             T5,
         );
