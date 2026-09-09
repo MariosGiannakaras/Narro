@@ -192,6 +192,7 @@
 
 .list-board-task:hover,
 .list-board-task:focus-visible,
+.list-board-task:focus-within,
 .list-board-task[data-task-card-state="action_revealed"] {
   border-color: var(--color-border-strong);
   background: var(--color-surface-interactive);
@@ -225,7 +226,7 @@
   display: grid;
   align-items: center;
   min-width: 0;
-  min-height: 1.25rem;
+  min-height: 1.75rem;
 }
 
 .list-board-task__completion-slot {
@@ -248,6 +249,7 @@
 
 .list-board-task:hover .list-board-task__completion-mark,
 .list-board-task:focus-visible .list-board-task__completion-mark,
+.list-board-task:focus-within .list-board-task__completion-mark,
 .list-board-task[data-task-card-state="action_revealed"] .list-board-task__completion-mark {
   opacity: 1;
 }
@@ -272,28 +274,70 @@
 }
 
 .list-board-task__action-slot {
+  position: relative;
   width: 4.25rem;
+  height: 1.75rem;
   justify-self: end;
 }
 
 .list-board-task__actions {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1.75rem);
+  justify-content: end;
+  gap: var(--space-1);
   width: 4.25rem;
-  height: 1.25rem;
-  overflow: hidden;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-control);
-  background: var(--color-surface-deep);
+  height: 1.75rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition-property: opacity;
+  transition-duration: var(--motion-duration-hover-focus);
+  transition-timing-function: var(--motion-ease-enter);
 }
 
-.list-board-task__action-glyph {
+.list-board-task:hover .list-board-task__actions,
+.list-board-task:focus-within .list-board-task__actions,
+.list-board-task-drag-shell:focus-visible .list-board-task__actions,
+.list-board-task[data-task-card-state="action_revealed"] .list-board-task__actions {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.list-board-task__action-position {
   display: grid;
   place-items: center;
-  min-width: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.list-board-task__action-button {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
   color: var(--color-text-secondary);
-  font-size: 0.62rem;
+  background: var(--color-surface-deep);
+  font: inherit;
+  font-size: 0.75rem;
   line-height: 1;
+  cursor: pointer;
+}
+
+.list-board-task__action-button:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.list-board-task__action-button:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 1px;
 }
 
 .list-board-task__schedule {
