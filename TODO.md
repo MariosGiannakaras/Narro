@@ -146,7 +146,6 @@ Acceptance criteria:
 - no renderer owns irreplaceable timer/session state
 
 **Gate C result: PASS / proceed to Milestone 4.** The timer/session engine, recovery, tracked-time durability, Pomodoro boundary effects, large-elapsed safety, and configurable Windows sleep/resume accounting are automated-validated on Windows. PR #35 exact head `a4582f5ea76737c8a5e01cb4e1c2cfb87a826159` passed Windows CI #192; squash merge `5eaf7f0eba1770112d41744377ea134ad5d41e33` passed main Windows CI #196.
-
 ## Milestone 4 — Scheduling, recurrence, reminders, eligibility
 
 - [x] Implement Monday-based week classification.
@@ -200,7 +199,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Task-card state model: normal, hover/action-revealed, scheduled, overdue, done, inline-create, notes-expanded, subtasks-expanded, paused/editable, destructive-confirm.
 - [x] Drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.
 - [x] Ensure hover actions use reserved/overlay slots and never reflow title/card geometry.
-- [ ] Task creation and inline editing.
+- [x] Task creation and inline editing.
 - [ ] EST and Time Taken display/edit states.
 - [ ] Scheduling UI and recurrence editor.
 - [ ] Subtasks UI.
