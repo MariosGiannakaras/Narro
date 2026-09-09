@@ -10,10 +10,12 @@ function requireText(haystack, needle, label) {
 const schedulePersistence = read("src-tauri/src/persistence/task_schedule_edit.rs");
 const recurrencePersistence = read("src-tauri/src/persistence/recurrence.rs");
 const replacePersistence = read("src-tauri/src/persistence/recurrence_replace.rs");
+const listBoardRust = read("src-tauri/src/list_board.rs");
 const boardSchedule = read("src-tauri/src/board_task_schedule.rs");
 const scheduling = read("src-tauri/src/scheduling/mod.rs");
 const persistenceMod = read("src-tauri/src/persistence/mod.rs");
 const lib = read("src-tauri/src/lib.rs");
+const listBoardApi = read("src/listBoardApi.ts");
 const api = read("src/taskScheduleApi.ts");
 const dialog = read("src/TaskScheduleDialog.tsx");
 const board = read("src/ListBoard.tsx");
@@ -40,6 +42,11 @@ for (const [haystack, needle, label] of [
   [scheduling, "Duration::hours(2)", "Later today +2h behavior"],
   [scheduling, "ScheduleShortcut::NextWeek", "authoritative Next week shortcut"],
   [scheduling, "checked_add_days(now_local.date(), 7)", "Next week +7d behavior"],
+  [listBoardRust, "pub recurrence_rule_id: Option<RecurrenceRuleId>", "recurrence parent identity projection"],
+  [listBoardRust, "pub recurrence_parent_task_id: Option<TaskId>", "generated occurrence parent projection"],
+  [listBoardRust, "recurrence_rule_id: projected.task.recurrence_rule_id", "authoritative recurrence parent projection wiring"],
+  [listBoardApi, "recurrenceRuleId?: string | null", "typed recurrence parent task-card field"],
+  [listBoardApi, "recurrenceParentTaskId?: string | null", "typed occurrence parent task-card field"],
   [boardSchedule, "pub fn get_list_board_task_schedule_editor(", "schedule editor read command"],
   [boardSchedule, "resolve_schedule_shortcut(shortcut, now_local, &timezone)", "Rust-owned shortcut resolution"],
   [boardSchedule, "update_task_schedule_if_expected(", "stale-safe schedule mutation boundary"],
@@ -92,8 +99,11 @@ for (const [haystack, needle, label] of [
   [board, "[data-task-schedule-control]", "schedule-control drag isolation"],
   [board, 'data-board-schedule-editor={scheduleEditorTaskId ? "open" : "closed"}', "board schedule editor marker"],
   [taskCard, 'data-task-schedule-control="open"', "task-card schedule affordance"],
+  [taskCard, 'data-task-recurrence={recurrenceState(task)}', "task-card recurrence state marker"],
+  [taskCard, 'if (task.recurrenceRuleId) return "Repeats";', "recurrence parent visible label"],
+  [taskCard, 'if (task.recurrenceParentTaskId) return "Occurrence";', "generated occurrence visible label"],
   [taskCard, "list-board-task__schedule-button", "scheduled-row button without title geometry mutation"],
-  [taskCard, "list-board-task__schedule-open", "unscheduled metadata-row affordance"],
+  [taskCard, "list-board-task__schedule-trigger", "unscheduled metadata-row affordance"],
   [boardCss, "width: 4.25rem;", "reserved title action slot remains fixed"],
   [dialogCss, ".task-schedule-dialog__backdrop", "dialog backdrop presentation"],
   [dialogCss, ".task-schedule-dialog__shortcuts", "shortcut layout"],
