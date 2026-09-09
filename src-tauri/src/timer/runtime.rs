@@ -3,14 +3,20 @@ use super::{
     TimerMode, TimerSnapshot, TimerStateKind, TimerSwitchResult, WorkPhase, WorkRuntime,
 };
 use crate::domain::ids::{SessionId, TaskId};
-use crate::domain::sessions::{SessionKind, SessionRecord};
+use crate::domain::sessions::{SessionKind, SessionRecord, SessionSource};
+use crate::domain::tasks::TaskRecord;
 use crate::persistence::sessions::{get_open_session, SessionStoreError};
+use crate::persistence::task_estimate_edit::{
+    update_task_estimate_in_transaction, TaskEstimateEditError,
+};
+use crate::persistence::tasks::TaskStoreError;
 use crate::persistence::timer_runtime::{
     checkpoint_open_session_with_runtime, close_session_and_clear_runtime, load_runtime_checkpoint,
     open_focus_work_session_with_checkpoint, replace_open_focus_session_with_checkpoint,
     TimerRuntimeStoreError,
 };
-use rusqlite::Connection;
+use chrono::DateTime;
+use rusqlite::{params, Connection, TransactionBehavior};
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
@@ -82,6 +88,80 @@ pub struct PersistedTimerSwitch {
     pub timer: TimerSwitchResult,
     pub previous_session: SessionRecord,
     pub current_session: SessionRecord,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct LiveEstimateUpdate {
+    pub runtime: TimerRuntimeSnapshot,
+    pub task: TaskRecord,
+}
+
+#[derive(Debug)]
+pub enum LiveEstimateEditError {
+    Runtime(TimerRuntimeError),
+    Estimate(TaskEstimateEditError),
+    Sqlite(rusqlite::Error),
+    NotPaused(TimerStateKind),
+    TaskBindingMismatch {
+        expected: TaskId,
+        actual: Option<TaskId>,
+    },
+    SessionBindingMismatch,
+    CheckpointWriteConflict(SessionId),
+}
+
+impl Display for LiveEstimateEditError {
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Runtime(error) => Display::fmt(error, formatter),
+            Self::Estimate(error) => Display::fmt(error, formatter),
+            Self::Sqlite(error) => write!(formatter, "live EST persistence failed: {error}"),
+            Self::NotPaused(state) => write!(
+                formatter,
+                "live EST can only be edited while paused; current timer state is {state:?}"
+            ),
+            Self::TaskBindingMismatch { expected, actual } => write!(
+                formatter,
+                "live EST editor is stale: expected task {expected}, authoritative task is {actual:?}"
+            ),
+            Self::SessionBindingMismatch => formatter.write_str(
+                "live EST runtime, open session and durable checkpoint bindings are inconsistent",
+            ),
+            Self::CheckpointWriteConflict(session_id) => write!(
+                formatter,
+                "live EST checkpoint changed before the atomic write committed for session {session_id}"
+            ),
+        }
+    }
+}
+
+impl std::error::Error for LiveEstimateEditError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Runtime(error) => Some(error),
+            Self::Estimate(error) => Some(error),
+            Self::Sqlite(error) => Some(error),
+            _ => None,
+        }
+    }
+}
+
+impl From<TimerRuntimeError> for LiveEstimateEditError {
+    fn from(value: TimerRuntimeError) -> Self {
+        Self::Runtime(value)
+    }
+}
+
+impl From<TaskEstimateEditError> for LiveEstimateEditError {
+    fn from(value: TaskEstimateEditError) -> Self {
+        Self::Estimate(value)
+    }
+}
+
+impl From<rusqlite::Error> for LiveEstimateEditError {
+    fn from(value: rusqlite::Error) -> Self {
+        Self::Sqlite(value)
+    }
 }
 
 #[derive(Debug)]
@@ -359,6 +439,146 @@ impl TimerRuntime {
         let mut engine = self.engine.clone();
         let snapshot = engine.extend(now_ms)?;
         self.commit_candidate(conn, engine, snapshot, now_ms, wall_time, true)
+    }
+
+    pub fn set_estimate_while_paused(
+        &mut self,
+        conn: &mut Connection,
+        expected_task_id: TaskId,
+        expected_list_id: crate::domain::ids::ListId,
+        expected_est_seconds: Option<u32>,
+        est_seconds: Option<u32>,
+        now_ms: u64,
+        wall_time: &str,
+    ) -> Result<LiveEstimateUpdate, LiveEstimateEditError> {
+        let current = self.snapshot(now_ms)?;
+        if !matches!(
+            current.timer.state,
+            TimerStateKind::Paused | TimerStateKind::OvertimePaused
+        ) {
+            return Err(LiveEstimateEditError::NotPaused(current.timer.state));
+        }
+        if current.timer.task_id != Some(expected_task_id) {
+            return Err(LiveEstimateEditError::TaskBindingMismatch {
+                expected: expected_task_id,
+                actual: current.timer.task_id,
+            });
+        }
+        let session_id = current
+            .open_session_id
+            .ok_or(LiveEstimateEditError::SessionBindingMismatch)?;
+        let binding = self
+            .binding
+            .as_ref()
+            .ok_or(LiveEstimateEditError::SessionBindingMismatch)?;
+        if binding.id != session_id
+            || binding.kind != SessionKind::Work
+            || binding.task_id != Some(expected_task_id)
+        {
+            return Err(LiveEstimateEditError::SessionBindingMismatch);
+        }
+        if est_seconds == Some(0) {
+            return Err(TaskEstimateEditError::Task(TaskStoreError::InvalidEstimate).into());
+        }
+
+        let mut engine = self.engine.clone();
+        engine.advance(now_ms)?;
+        let RuntimeState::Work(work) = &mut engine.runtime else {
+            return Err(LiveEstimateEditError::SessionBindingMismatch);
+        };
+        if work.task_id != expected_task_id {
+            return Err(LiveEstimateEditError::TaskBindingMismatch {
+                expected: expected_task_id,
+                actual: Some(work.task_id),
+            });
+        }
+        if !matches!(work.phase, WorkPhase::Paused | WorkPhase::OvertimePaused) {
+            return Err(LiveEstimateEditError::NotPaused(work.phase.state_kind()));
+        }
+
+        if !matches!(work.mode, TimerMode::Pomodoro { .. }) {
+            match est_seconds {
+                None => {
+                    work.mode = TimerMode::CountUp;
+                    work.phase = WorkPhase::Paused;
+                }
+                Some(seconds) => {
+                    let est_ms = u64::from(seconds)
+                        .checked_mul(1_000)
+                        .ok_or(TimerError::DurationOverflow)?;
+                    work.mode = TimerMode::EstCountdown { est_ms };
+                    if work.interval_work_ms >= est_ms {
+                        work.interval_work_ms = est_ms;
+                        work.phase = WorkPhase::TimeUp;
+                    } else {
+                        work.phase = WorkPhase::Paused;
+                    }
+                }
+            }
+        }
+
+        let next_timer = engine.snapshot(now_ms)?;
+        let checkpoint_payload = checkpoint_payload_for(
+            &engine,
+            self.closed_work_seconds,
+            self.closed_break_seconds,
+            now_ms,
+        )?;
+
+        let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+        let open_session = get_open_session(&tx)?
+            .ok_or(LiveEstimateEditError::SessionBindingMismatch)?;
+        if open_session.id != session_id
+            || open_session.kind != SessionKind::Work
+            || open_session.source != SessionSource::Focus
+            || open_session.task_id != Some(expected_task_id)
+        {
+            return Err(LiveEstimateEditError::SessionBindingMismatch);
+        }
+        let checkpoint = load_runtime_checkpoint(&tx)?
+            .ok_or(TimerRuntimeStoreError::MissingCheckpoint)?;
+        if checkpoint.session_id != session_id {
+            return Err(TimerRuntimeStoreError::CheckpointBindingMismatch {
+                expected: session_id,
+                actual: checkpoint.session_id,
+            }
+            .into());
+        }
+
+        let previous_update = DateTime::parse_from_rfc3339(&open_session.updated_at)
+            .map_err(|_| SessionStoreError::CorruptStoredTimestamp(open_session.updated_at.clone()))?;
+        let next_update = DateTime::parse_from_rfc3339(wall_time)
+            .map_err(|_| SessionStoreError::InvalidMutationTimestamp)?;
+        if next_update < previous_update {
+            return Err(SessionStoreError::TimestampBeforePreviousUpdate.into());
+        }
+
+        let task = update_task_estimate_in_transaction(
+            &tx,
+            expected_task_id,
+            expected_list_id,
+            expected_est_seconds,
+            est_seconds,
+            wall_time,
+        )?;
+        let changed = tx.execute(
+            "UPDATE timer_runtime_checkpoint
+             SET payload_json = ?1, updated_at = ?2
+             WHERE singleton = 1 AND session_id = ?3",
+            params![checkpoint_payload, wall_time, session_id.to_string()],
+        )?;
+        if changed != 1 {
+            return Err(LiveEstimateEditError::CheckpointWriteConflict(session_id));
+        }
+        tx.commit()?;
+
+        self.engine = engine;
+        self.last_state = next_timer.state;
+        self.last_checkpoint_ms = Some(now_ms);
+        Ok(LiveEstimateUpdate {
+            runtime: self.runtime_snapshot(next_timer),
+            task,
+        })
     }
 
     pub fn start_manual_break(
@@ -852,5 +1072,215 @@ fn desired_binding(snapshot: &TimerSnapshot) -> Result<Option<SessionBinding>, T
             kind: SessionKind::Work,
             task_id: Some(snapshot.task_id.ok_or(TimerRuntimeError::BindingMismatch)?),
         })),
+    }
+}
+
+#[cfg(test)]
+mod live_estimate_tests {
+    use super::*;
+    use crate::domain::ids::ListId;
+    use crate::domain::lists::NewListInput;
+    use crate::domain::model::PlanningLane;
+    use crate::domain::tasks::NewTaskInput;
+    use crate::persistence::lists::create_list;
+    use crate::persistence::run_migrations;
+    use crate::persistence::tasks::{create_task, get_task};
+
+    const T0: &str = "2026-09-09T12:00:00Z";
+    const T1: &str = "2026-09-09T12:01:00Z";
+    const T5: &str = "2026-09-09T12:05:00Z";
+    const T10: &str = "2026-09-09T12:10:00Z";
+    const T15: &str = "2026-09-09T12:15:00Z";
+
+    fn fixture(est_seconds: Option<u32>) -> (Connection, ListId, TaskId) {
+        let mut conn = Connection::open_in_memory().expect("open database");
+        run_migrations(&mut conn).expect("migrate database");
+        let list = create_list(
+            &mut conn,
+            NewListInput {
+                title: "Work".into(),
+                color: None,
+                icon_asset: None,
+            },
+            T0,
+        )
+        .expect("create list");
+        let task = create_task(
+            &mut conn,
+            NewTaskInput {
+                list_id: list.id,
+                title: "Live estimate".into(),
+                manual_lane: PlanningLane::Today,
+                est_seconds,
+            },
+            T0,
+        )
+        .expect("create task");
+        (conn, list.id, task.id)
+    }
+
+    #[test]
+    fn paused_count_up_rebase_to_estimate_preserves_session_and_recovers() {
+        let (mut conn, list_id, task_id) = fixture(None);
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        runtime.pause(&mut conn, 600_000, T10).unwrap();
+        let session_id = runtime.open_session_id().unwrap();
+
+        let edited = runtime
+            .set_estimate_while_paused(
+                &mut conn,
+                task_id,
+                list_id,
+                None,
+                Some(1_200),
+                600_000,
+                T10,
+            )
+            .unwrap();
+        assert_eq!(edited.task.est_seconds, Some(1_200));
+        assert_eq!(edited.runtime.open_session_id, Some(session_id));
+        assert_eq!(edited.runtime.timer.state, TimerStateKind::Paused);
+        assert_eq!(
+            edited.runtime.timer.mode,
+            Some(TimerMode::EstCountdown { est_ms: 1_200_000 })
+        );
+        assert_eq!(edited.runtime.timer.work_elapsed_ms, 600_000);
+        assert_eq!(edited.runtime.timer.countdown_remaining_ms, Some(600_000));
+
+        let recovered = TimerRuntime::recover(&mut conn, 600_000, T10).unwrap();
+        let snapshot = recovered.snapshot(600_000).unwrap();
+        assert_eq!(snapshot.open_session_id, Some(session_id));
+        assert_eq!(snapshot.timer.state, TimerStateKind::Paused);
+        assert_eq!(
+            snapshot.timer.mode,
+            Some(TimerMode::EstCountdown { est_ms: 1_200_000 })
+        );
+        assert_eq!(snapshot.timer.work_elapsed_ms, 600_000);
+    }
+
+    #[test]
+    fn estimate_below_elapsed_enters_time_up_without_losing_work() {
+        let (mut conn, list_id, task_id) = fixture(None);
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        runtime.pause(&mut conn, 900_000, T15).unwrap();
+
+        let edited = runtime
+            .set_estimate_while_paused(
+                &mut conn,
+                task_id,
+                list_id,
+                None,
+                Some(600),
+                900_000,
+                T15,
+            )
+            .unwrap();
+        assert_eq!(edited.runtime.timer.state, TimerStateKind::TimeUp);
+        assert_eq!(edited.runtime.timer.work_elapsed_ms, 900_000);
+        assert_eq!(edited.runtime.timer.countdown_remaining_ms, Some(0));
+        assert_eq!(edited.runtime.timer.overtime_ms, 300_000);
+        assert_eq!(get_task(&conn, task_id).unwrap().est_seconds, Some(600));
+
+        let recovered = TimerRuntime::recover(&mut conn, 900_000, T15).unwrap();
+        let snapshot = recovered.snapshot(900_000).unwrap();
+        assert_eq!(snapshot.timer.state, TimerStateKind::TimeUp);
+        assert_eq!(snapshot.timer.work_elapsed_ms, 900_000);
+        assert_eq!(snapshot.timer.overtime_ms, 300_000);
+    }
+
+    #[test]
+    fn paused_pomodoro_estimate_edit_preserves_pomodoro_precedence() {
+        let (mut conn, list_id, task_id) = fixture(Some(1_800));
+        let mode = TimerMode::Pomodoro {
+            work_ms: 1_500_000,
+            break_ms: 300_000,
+        };
+        let mut runtime = TimerRuntime::new();
+        runtime.start_task(&mut conn, task_id, mode, 0, T0).unwrap();
+        runtime.pause(&mut conn, 300_000, T5).unwrap();
+
+        let edited = runtime
+            .set_estimate_while_paused(
+                &mut conn,
+                task_id,
+                list_id,
+                Some(1_800),
+                Some(3_600),
+                300_000,
+                T5,
+            )
+            .unwrap();
+        assert_eq!(edited.task.est_seconds, Some(3_600));
+        assert_eq!(edited.runtime.timer.mode, Some(mode));
+        assert_eq!(edited.runtime.timer.state, TimerStateKind::Paused);
+        assert_eq!(edited.runtime.timer.countdown_remaining_ms, Some(1_200_000));
+    }
+
+    #[test]
+    fn running_live_estimate_edit_is_rejected_without_write() {
+        let (mut conn, list_id, task_id) = fixture(Some(600));
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(
+                &mut conn,
+                task_id,
+                TimerMode::EstCountdown { est_ms: 600_000 },
+                0,
+                T0,
+            )
+            .unwrap();
+
+        let result = runtime.set_estimate_while_paused(
+            &mut conn,
+            task_id,
+            list_id,
+            Some(600),
+            Some(1_200),
+            60_000,
+            T1,
+        );
+        assert!(matches!(
+            result,
+            Err(LiveEstimateEditError::NotPaused(TimerStateKind::Running))
+        ));
+        assert_eq!(get_task(&conn, task_id).unwrap().est_seconds, Some(600));
+    }
+
+    #[test]
+    fn checkpoint_failure_rolls_back_estimate_and_runtime_candidate() {
+        let (mut conn, list_id, task_id) = fixture(None);
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        runtime.pause(&mut conn, 300_000, T5).unwrap();
+        let before = runtime.snapshot(300_000).unwrap();
+        conn.execute_batch(
+            "CREATE TRIGGER fail_estimate_checkpoint
+             BEFORE UPDATE ON timer_runtime_checkpoint
+             BEGIN
+                 SELECT RAISE(ABORT, 'forced EST checkpoint failure');
+             END;",
+        )
+        .unwrap();
+
+        let result = runtime.set_estimate_while_paused(
+            &mut conn,
+            task_id,
+            list_id,
+            None,
+            Some(900),
+            300_000,
+            T5,
+        );
+        assert!(matches!(result, Err(LiveEstimateEditError::Sqlite(_))));
+        assert_eq!(get_task(&conn, task_id).unwrap().est_seconds, None);
+        assert_eq!(runtime.snapshot(300_000).unwrap(), before);
     }
 }
