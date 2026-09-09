@@ -21,7 +21,7 @@ for (const [haystack, needle, label] of [
   [component, 'label="Move task down"', "Move down accessible action"],
   [component, "onPointerDown={(event) => event.stopPropagation()}", "pointer action drag isolation"],
   [component, "onClick={action}", "callback-gated pointer action"],
-  [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control]"', "parent drag-start interactive-control guard"],
+  [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control]"', "parent drag-start interactive-control guard"],
   [board, "const handleMoveWithinLane = (", "shared within-lane action helper"],
   [board, "actions={taskActions}", "production TaskCard callback wiring"],
   [board, "onMoveWithinLane={handleMoveWithinLane}", "BoardLane callback wiring"],
