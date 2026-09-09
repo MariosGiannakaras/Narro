@@ -104,7 +104,9 @@ pub fn set_non_live_task_time_taken_if_expected(
         });
     }
     if has_live_focus_session(&tx, task_id)? {
-        return Err(TaskTimeTakenEditError::LiveTaskRequiresRuntimeBoundary(task_id));
+        return Err(TaskTimeTakenEditError::LiveTaskRequiresRuntimeBoundary(
+            task_id,
+        ));
     }
 
     let actual = task_time_taken_seconds(&tx, task_id)?;
@@ -177,15 +179,9 @@ mod tests {
         let session = open_focus_work_session(&mut conn, task_id, T0).unwrap();
         close_session(&mut conn, session.id, 600, T1).unwrap();
 
-        let (_, effective) = set_non_live_task_time_taken_if_expected(
-            &mut conn,
-            task_id,
-            list_id,
-            600,
-            900,
-            T2,
-        )
-        .expect("edit Time Taken");
+        let (_, effective) =
+            set_non_live_task_time_taken_if_expected(&mut conn, task_id, list_id, 600, 900, T2)
+                .expect("edit Time Taken");
         assert_eq!(effective, 900);
 
         let stored_duration: i64 = conn
@@ -201,17 +197,10 @@ mod tests {
     #[test]
     fn stale_expected_total_rejects_overwrite() {
         let (mut conn, list_id, task_id) = fixture();
-        set_non_live_task_time_taken_if_expected(&mut conn, task_id, list_id, 0, 300, T1)
-            .unwrap();
+        set_non_live_task_time_taken_if_expected(&mut conn, task_id, list_id, 0, 300, T1).unwrap();
 
-        let stale = set_non_live_task_time_taken_if_expected(
-            &mut conn,
-            task_id,
-            list_id,
-            0,
-            600,
-            T2,
-        );
+        let stale =
+            set_non_live_task_time_taken_if_expected(&mut conn, task_id, list_id, 0, 600, T2);
         assert!(matches!(
             stale,
             Err(TaskTimeTakenEditError::ExpectedTimeTakenMismatch {
@@ -231,14 +220,8 @@ mod tests {
             .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
             .unwrap();
 
-        let result = set_non_live_task_time_taken_if_expected(
-            &mut conn,
-            task_id,
-            list_id,
-            0,
-            120,
-            T1,
-        );
+        let result =
+            set_non_live_task_time_taken_if_expected(&mut conn, task_id, list_id, 0, 120, T1);
         assert!(matches!(
             result,
             Err(TaskTimeTakenEditError::LiveTaskRequiresRuntimeBoundary(id)) if id == task_id
