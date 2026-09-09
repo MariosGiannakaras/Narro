@@ -28,114 +28,116 @@ Markdown-only tracking descendants do not replace this validated source/test bas
 
 Active branch: `m5-scheduling-recurrence-ui`
 
-Branch base / main tracking tip when created: `24a476408c9b8c0e3ab224f4c117acbcc7673c4a`
+Branch base / main tracking tip when created:
 
-Latest branch tracking commit before source implementation: `8848706a84bf002bb5c4173697336502e1a7da82`
+`24a476408c9b8c0e3ab224f4c117acbcc7673c4a`
 
-No implementation PR exists yet.
+Latest source candidate after checkpoint-2 implementation and semantic/diff review:
+
+`e519b546617d37a80a95da957ce860e96e572196`
+
+The current branch tip may be a markdown-only descendant of that source candidate because this HANDOFF update is itself a tracking commit. No source/test validation has been claimed for that descendant yet.
+
+No implementation PR existed at the time this checkpoint was recorded. The next action is to open the PR from this branch and validate its exact head on Windows CI.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 1/5 | 17/28`**
+**`M-5/10 | 2/5 | 17/28`**
 
 Current five checkpoints:
 
 1. mandatory inspection + narrow scheduling/recurrence mutation and UX contract — **COMPLETE**;
-2. authoritative scheduling/recurrence command/frontend implementation + deterministic static/Rust/visual coverage + semantic/diff review — **IN PROGRESS**;
+2. authoritative scheduling/recurrence command/frontend implementation + deterministic static/Rust/visual coverage + semantic/diff review — **COMPLETE / candidate ready for PR CI**;
 3. exact PR-head Windows CI — PENDING;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + tracking reconciliation — PENDING.
 
-## CHECKPOINT 1 — INSPECTED AUTHORITATIVE BOUNDARIES
+## CHECKPOINT 2 IMPLEMENTED CAPABILITIES
 
-### Scheduling
+### Authoritative schedule editing
 
-- `domain::tasks::TaskSchedule` already distinguishes `None`, `DateOnly` and `LocalDateTime`.
-- `scheduling::resolve_schedule_shortcut` owns Today / Later Today (+2h) / Tomorrow / Next Week (+7d) / Custom Date behavior.
-- `scheduling::effective_planning_lane_at` owns Backlog / This Week / Today projection and Monday-week semantics; React must not reproduce this classification.
-- `scheduling::focus_eligibility_at` owns future-timed Today eligibility.
-- `task_metadata::set_task_schedule` owns schedule normalization and strict date/time/timezone validation, including ambiguous/nonexistent DST local times.
-- Current `ListBoard` already projects scheduled tasks through the M4 effective-lane boundary without rewriting `manual_lane`, excludes scheduled tasks from manual reorder, and reads the authoritative display timezone.
+- `src-tauri/src/persistence/task_schedule_edit.rs` provides expected-list + expected-schedule guarded schedule mutation under an immediate SQLite transaction.
+- Existing `TaskSchedule` normalization and strict local date/time/timezone DST validation remain authoritative; renderer code does not recreate those semantics.
+- `resolve_list_board_schedule_shortcut` delegates Today / Later today / Tomorrow / Next week behavior to the Rust scheduling module and selected display timezone.
+- Date-only schedules stay calendar dates and never round-trip through UTC.
 
-### Recurrence
+### Authoritative recurrence editing
 
-- `persistence::recurrence` owns rule shape validation and transactional create/update/disable/delete with stable rule/parent links.
-- Weekday masks use Monday as bit 0.
-- `recurrence::materialize_recurrence_week` owns deterministic occurrence evaluation, parent normalization to unscheduled Backlog, child identity generation and unique occurrence idempotency.
-- `recurrence_service` owns repeated/catch-up orchestration and timezone-specific rule-local date evaluation.
-- `persistence::recurrence_replace::replace_existing_tasks` is the mandatory edit path when `replace_existing=true`: pristine generated children are removed, modified/history-bearing children are detached and their occurrence reservations remain so they cannot be regenerated as duplicates.
-- Removing a recurrence rule uses the validated delete/detach path: future materialization stops while existing child tasks/history survive independently.
+- `src-tauri/src/board_task_schedule.rs` exposes renderer-facing read/save/remove commands over the existing recurrence persistence/materialization system.
+- Create is rejected for generated recurrence occurrences and for stale task/rule bindings.
+- Existing rule updates require the expected rule ID and expected `updated_at`.
+- A semantic review found and fixed a TOCTOU stale-write window: update, remove, and Replace Existing now validate the expected recurrence version **inside** an immediate persistence transaction.
+- `persistence::recurrence` now exposes `update_recurrence_rule_if_expected` and `delete_recurrence_rule_if_expected` while preserving the existing non-guarded internal APIs for validated non-renderer callers.
+- `persistence::recurrence_replace` now exposes `replace_existing_tasks_if_expected`; the stale-version check happens before any child scan/detach/delete in the same immediate transaction.
+- `src-tauri/tests/recurrence_stale_version_guards.rs` proves a stale Replace Existing request leaves recurrence metadata and generated children untouched.
+- Existing modified/history-bearing child detachment and occurrence-reservation semantics remain unchanged.
+- Recurrence create/update materialization is post-commit best effort; a materialization failure is returned as a warning rather than misreporting the committed mutation as failed.
 
-## NARROW IMPLEMENTATION CONTRACT
+### List Board / task-card UX
 
-### Renderer read model
+- Real individual List Boards expose `Schedule / Repeat` from the existing task metadata area; All Lists remains read-only.
+- Scheduled rows themselves open the editor without changing title/action geometry.
+- Live tasks and completed tasks do not expose scheduling mutations in this Main-window slice.
+- Opening the schedule editor locks reorder/create/title/metric/list-switch interactions; schedule controls are excluded from drag initiation.
+- Successful schedule/recurrence mutation closes the dialog and performs an authoritative board snapshot refresh.
+- Commit-success/refresh-failure uses the existing `Task change was saved, but the board could not refresh` safety path and blocks unsafe follow-up mutations.
+- The board projection now exposes authoritative `recurrenceRuleId` / `recurrenceParentTaskId` identity so closed cards can visibly distinguish `Repeats` parents and generated `Occurrence` tasks without per-card polling or renderer inference.
 
-Extend the existing List Board task projection only with scheduling/recurrence metadata needed to render and stale-guard the editor:
+### Schedule / Repeat dialog
 
-- schedule kind and schedule timezone in addition to the already projected local date/time;
-- recurrence parent task identity for generated occurrences;
-- optional recurrence-rule summary for a recurring parent, including rule ID, interval/unit/selectors/start/time/timezone/replace flag/active state/`updated_at`.
+- Production `TaskScheduleDialog` supports Unscheduled, Today, Later today, Tomorrow, Next week, custom local date and optional local time.
+- Timed schedules show/use the authoritative display timezone.
+- Recurrence presets cover every day, every weekday, weekly on start weekday, monthly on start date, and custom day/week/month/year intervals with weekday/month-day selectors as applicable.
+- Existing recurrence can be edited, explicitly `Replace Existing Tasks`, or removed.
+- Generated occurrences can edit their individual schedule but cannot create a nested recurrence rule.
+- Escape, Cancel, close button, Tab/Shift+Tab focus containment and opener focus restoration are implemented; explicit `:focus-visible` states are present.
 
-All Lists remains read-only. Completed tasks remain read-only for scheduling. Generated recurrence children may have their individual schedule edited, but this slice does **not** invent automatic child detachment; their existing M4 modified-child preservation semantics remain authoritative. A generated child cannot be turned into a nested recurrence parent from this UI.
+## DETERMINISTIC COVERAGE ADDED
 
-### Schedule mutation boundary
+- Rust schedule-edit regressions cover metadata preservation, stale schedule rejection, and ambiguous/nonexistent local-time rejection.
+- Rust recurrence stale-version regressions cover update/delete and destructive Replace Existing before-write rejection.
+- `scripts/test-ui-task-scheduling.mjs` statically gates command registration, atomic expected-state boundaries, recurrence detachment/replace paths, task-card recurrence projection, interaction locking, refresh semantics, drag isolation, dialog controls, no renderer polling, and no reminder-scope leakage.
+- `src/taskScheduleVisualFixture.tsx`, `task-schedule-fixture.html`, capture wiring and `validate-task-schedule-captures.mjs` provide deterministic production-dialog Windows captures and geometry/theme parity checks.
+- `package.json` includes the scheduling static check in `preflight:frontend` and the schedule capture validator in the Windows visual regression chain.
 
-Add a renderer-facing command over an **expected-state / immediate-transaction** schedule persistence boundary:
+## SEMANTIC / DIFF REVIEW
 
-- expected list ID;
-- expected schedule kind/date/time/timezone;
-- requested `TaskSchedule`.
+Reviewed candidate `e519b546617d37a80a95da957ce860e96e572196` against branch base `24a476408c9b8c0e3ab224f4c117acbcc7673c4a`.
 
-The command must reject stale renderer state instead of overwriting a newer schedule. It must reuse the existing schedule normalization/DST validation and change only schedule metadata + `updated_at`. Title, EST, Time Taken/session history, identity, manual lane, completion and recurrence links must remain unchanged.
+Scope is limited to:
 
-Add a read-only renderer command that resolves schedule shortcuts through Rust/M4 logic using the board/display timezone. The renderer may present the returned draft but must not calculate Today/Tomorrow/+7d/+2h semantics itself.
+- scheduling/recurrence command and persistence boundaries;
+- recurrence identity projection required for closed-card status;
+- List Board / TaskCard / dialog production UX;
+- deterministic Rust/static/visual coverage;
+- build/capture registration and branch tracking.
 
-### Recurrence mutation boundary
-
-Add renderer-facing recurrence commands with expected parent/list/rule-version guards:
-
-- create only when the task is not a generated child and still has no recurrence rule;
-- update only when the expected rule ID and `updated_at` still match;
-- when the saved update has `replace_existing=true`, route through `replace_existing_tasks`, never plain metadata update;
-- remove only when the expected rule/version still match and route through the validated rule deletion/detachment boundary.
-
-After a successful recurrence create/update, trigger the existing authoritative recurrence orchestration for that rule as a **secondary** best-effort refresh so the parent/children can project promptly. If this post-commit materialization fails, do not report the committed recurrence mutation as failed; return/report a warning and let the background orchestration retry.
-
-### Production UX
-
-- Individual real List Boards only; aggregate All Lists is read-only.
-- Live tasks do not expose scheduling/recurrence editing in this Main-window slice.
-- Unscheduled editable task cards expose a compact `Schedule` metadata action in already-reserved metadata geometry.
-- Scheduled task date/time presentation becomes the schedule-editor trigger without changing the normal card width/title geometry.
-- Recurring parents expose a recurrence marker/summary through the same scheduling metadata area.
-- Editor is a compact accessible overlay/dialog, not a hover-reflow interaction.
-- Schedule section supports Unscheduled, Today, Later today, Tomorrow, Next week, custom local date and optional local time. The selected board/display timezone is explicit for timed schedules.
-- Recurrence section supports every day, every weekday, weekly on selected weekday, monthly on selected calendar date and custom day/week/month/year interval with relevant weekday/month-day selectors.
-- Existing recurrence may be edited, `Replace Existing Tasks` may be selected explicitly, or recurrence may be removed.
-- Save/Cancel/Escape and keyboard/focus-visible operation are required.
-- Successful authoritative mutation is followed by an authoritative board snapshot refresh. A commit-success/refresh-failure keeps the existing `Task change was saved, but the board could not refresh` safety boundary and blocks unsafe retries.
-- Drag initiation must exclude scheduling/editor controls.
-
-### Explicit exclusions
-
-Do not implement reminders/preferences UI, top-priority creation, subtasks, notes, task completion/delete/archive, list settings, search, archives, Settings, Reports/session editing, Focus Panel/Floating Timer product UI, or later milestones.
+No reminder UI, notes, subtasks, completion/delete/archive flows, timer/session accounting rewrite, list settings, search, Settings, Reports, Focus Panel/Floating Timer product UI, or later-milestone feature was added.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
 - date-only schedules remain calendar dates and never round-trip through UTC;
-- local date-time schedules retain explicit Windows-local/IANA timezone semantics and reject DST gaps/folds through the existing strict boundary;
+- local date-time schedules retain explicit IANA timezone semantics and reject DST gaps/folds through the existing strict boundary;
 - Monday week boundaries and future-time eligibility remain authoritative;
-- schedule mutations preserve task identity and cannot duplicate/alias tasks;
-- recurrence materialization stays deterministic/idempotent and preserves validated parent/child, replace-existing and detachment behavior;
+- schedule/recurrence mutations preserve task identity and cannot duplicate/alias tasks;
+- expected renderer state is checked atomically for schedule update and recurrence update/remove/replace;
+- recurrence materialization stays deterministic/idempotent and preserves validated parent/child, Replace Existing and detachment behavior;
+- modified/history-bearing generated children are preserved and occurrence reservations prevent duplicate regeneration;
 - persistence-first mutation remains the success boundary;
 - a committed mutation plus failed board refresh/materialization side effect is not reported as an authoritative mutation failure;
 - All Lists remains an aggregate read projection;
 - tracked time/timer/session state is not rewritten by scheduling/recurrence edits;
-- card hover/focus geometry and keyboard accessibility remain stable.
+- task-card title/action geometry and keyboard accessibility remain stable.
 
 ## NEXT AGENT ACTION
 
-Implement checkpoint 2 exactly to this contract, add deterministic Rust/static/Windows visual coverage, then perform semantic/diff review before opening a PR. Local checkout/toolchain remains unavailable here, so record local checks as NOT RUN and use exact PR-head Windows CI as the reproducible gate.
+1. Verify the exact current branch tip and confirm no competing open PR.
+2. Open the implementation PR from `m5-scheduling-recurrence-ui` to `main`.
+3. Record the exact PR head SHA.
+4. Require authoritative Windows PR CI to PASS on that exact SHA: Repository Preflight, frontend/Rust tests, visual capture + artifact upload, Tauri Release, diagnostic artifact upload.
+5. If CI fails, inspect the exact failure log and fix only evidence-backed failures; do not increment progress.
+6. After exact-head CI PASS, perform final diff/review/comment reconciliation, then merge only the validated expected head.
+7. Validate resulting main on Windows CI, then update `TODO.md`, `STATUS.md`, `HANDOFF.md` and add a new immutable `work-log/*.md` entry. Only then mark `Scheduling UI and recurrence editor` complete and advance M5 from 17/28 to 18/28.
 
 ## USER ACTION REQUIRED
 
@@ -145,3 +147,4 @@ Implement checkpoint 2 exactly to this contract, add deterministic Rust/static/W
 
 - No product/user blocker is known.
 - Local checkout/toolchain validation in this connector-only environment: **NOT RUN**.
+- Windows GitHub Actions remains authoritative for frontend, Rust/Tauri, visual and artifact validation.
