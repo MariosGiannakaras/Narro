@@ -1,9 +1,11 @@
-use crate::domain::ids::TaskId;
+use crate::domain::ids::{ListId, TaskId};
 use crate::domain::tasks::SetTaskTimeTakenInput;
 use crate::domain::timer_events::{TimerSessionChange, TimerSessionPayload};
 use crate::persistence::live_completion::LiveTaskCompletionError;
 use crate::persistence::live_time_taken::LiveTimeTakenError;
-use crate::timer::runtime::{TimerRuntime, TimerRuntimeError, TimerRuntimeSnapshot};
+use crate::timer::runtime::{
+    LiveEstimateEditError, TimerRuntime, TimerRuntimeError, TimerRuntimeSnapshot,
+};
 use crate::timer::TimerMode;
 use rusqlite::Connection;
 use std::fmt::{Display, Formatter};
@@ -12,6 +14,7 @@ use std::fmt::{Display, Formatter};
 pub enum TimerControllerError {
     Runtime(TimerRuntimeError),
     Completion(LiveTaskCompletionError),
+    Estimate(LiveEstimateEditError),
     TimeTaken(LiveTimeTakenError),
     RevisionOverflow,
 }
@@ -21,6 +24,7 @@ impl Display for TimerControllerError {
         match self {
             Self::Runtime(error) => Display::fmt(error, formatter),
             Self::Completion(error) => Display::fmt(error, formatter),
+            Self::Estimate(error) => Display::fmt(error, formatter),
             Self::TimeTaken(error) => Display::fmt(error, formatter),
             Self::RevisionOverflow => {
                 formatter.write_str("timer/session event revision reached its maximum value")
@@ -34,6 +38,7 @@ impl std::error::Error for TimerControllerError {
         match self {
             Self::Runtime(error) => Some(error),
             Self::Completion(error) => Some(error),
+            Self::Estimate(error) => Some(error),
             Self::TimeTaken(error) => Some(error),
             Self::RevisionOverflow => None,
         }
@@ -49,6 +54,12 @@ impl From<TimerRuntimeError> for TimerControllerError {
 impl From<LiveTaskCompletionError> for TimerControllerError {
     fn from(value: LiveTaskCompletionError) -> Self {
         Self::Completion(value)
+    }
+}
+
+impl From<LiveEstimateEditError> for TimerControllerError {
+    fn from(value: LiveEstimateEditError) -> Self {
+        Self::Estimate(value)
     }
 }
 
@@ -312,8 +323,39 @@ impl TimerController {
         ))
     }
 
+    pub fn set_estimate_while_paused(
+        &mut self,
+        expected_task_id: TaskId,
+        expected_list_id: ListId,
+        expected_est_seconds: Option<u32>,
+        est_seconds: Option<u32>,
+        now_ms: u64,
+        wall_time: &str,
+    ) -> Result<TimerSessionPayload, TimerControllerError> {
+        let next_revision = self.next_revision()?;
+        let updated = self.runtime.set_estimate_while_paused(
+            &mut self.connection,
+            expected_task_id,
+            expected_list_id,
+            expected_est_seconds,
+            est_seconds,
+            now_ms,
+            wall_time,
+        )?;
+        Ok(self.publish(
+            next_revision,
+            updated.runtime,
+            TimerSessionChange::EstimateRebased {
+                task_id: expected_task_id,
+                est_seconds: updated.task.est_seconds,
+            },
+        ))
+    }
+
     pub fn set_time_taken_while_paused(
         &mut self,
+        expected_task_id: TaskId,
+        expected_total_seconds: u64,
         input: SetTaskTimeTakenInput,
         now_ms: u64,
         wall_time: &str,
@@ -321,20 +363,17 @@ impl TimerController {
         let next_revision = self.next_revision()?;
         let updated = self.runtime.set_time_taken_while_paused(
             &mut self.connection,
+            expected_task_id,
+            expected_total_seconds,
             input,
             now_ms,
             wall_time,
         )?;
-        let task_id = updated
-            .runtime
-            .timer
-            .task_id
-            .expect("paused live Time Taken update must remain bound to a task");
         Ok(self.publish(
             next_revision,
             updated.runtime,
             TimerSessionChange::TimeTakenRebased {
-                task_id,
+                task_id: expected_task_id,
                 total_seconds: updated.time_taken_seconds,
             },
         ))
@@ -431,14 +470,14 @@ mod tests {
     use crate::persistence::run_migrations;
     use crate::persistence::sessions::get_open_session;
     use crate::persistence::task_metadata::task_time_taken_seconds;
-    use crate::persistence::tasks::create_task;
+    use crate::persistence::tasks::{create_task, get_task};
     use crate::timer::TimerStateKind;
 
     const T0: &str = "2026-09-05T12:00:00Z";
     const T1: &str = "2026-09-05T12:01:00Z";
     const T2: &str = "2026-09-05T12:02:00Z";
 
-    fn fixture() -> (Connection, TaskId, TaskId) {
+    fn fixture() -> (Connection, ListId, TaskId, TaskId) {
         let mut connection = Connection::open_in_memory().unwrap();
         run_migrations(&mut connection).unwrap();
         let list = create_list(
@@ -473,12 +512,12 @@ mod tests {
             T0,
         )
         .unwrap();
-        (connection, first.id, second.id)
+        (connection, list.id, first.id, second.id)
     }
 
     #[test]
     fn successful_persisted_transitions_increment_revision_after_commit() {
-        let (connection, task_id, _) = fixture();
+        let (connection, list_id, task_id, _) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
         assert_eq!(controller.snapshot().revision, 0);
 
@@ -499,10 +538,36 @@ mod tests {
             60
         );
 
-        let rebased = controller
-            .set_time_taken_while_paused(SetTaskTimeTakenInput { total_seconds: 30 }, 60_000, T1)
+        let estimate = controller
+            .set_estimate_while_paused(
+                task_id,
+                list_id,
+                Some(120),
+                Some(180),
+                60_000,
+                T1,
+            )
             .unwrap();
-        assert_eq!(rebased.revision, 3);
+        assert_eq!(estimate.revision, 3);
+        assert!(matches!(
+            estimate.change,
+            Some(TimerSessionChange::EstimateRebased {
+                task_id: id,
+                est_seconds: Some(180),
+            }) if id == task_id
+        ));
+        assert_eq!(get_task(&controller.connection, task_id).unwrap().est_seconds, Some(180));
+
+        let rebased = controller
+            .set_time_taken_while_paused(
+                task_id,
+                60,
+                SetTaskTimeTakenInput { total_seconds: 30 },
+                60_000,
+                T1,
+            )
+            .unwrap();
+        assert_eq!(rebased.revision, 4);
         assert!(matches!(
             rebased.change,
             Some(TimerSessionChange::TimeTakenRebased {
@@ -513,7 +578,7 @@ mod tests {
 
         controller.resume(60_000, T1).unwrap();
         let completed = controller.complete_task(90_000, T2).unwrap();
-        assert_eq!(completed.revision, 5);
+        assert_eq!(completed.revision, 6);
         assert_eq!(completed.runtime.timer.state, TimerStateKind::Idle);
         assert!(matches!(
             completed.change,
@@ -528,7 +593,7 @@ mod tests {
 
     #[test]
     fn forced_checkpoint_does_not_consume_revision_or_publish_a_semantic_change() {
-        let (connection, task_id, _) = fixture();
+        let (connection, _, task_id, _) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
         controller
             .start_task(task_id, TimerMode::CountUp, 0, T0)
@@ -550,7 +615,7 @@ mod tests {
 
     #[test]
     fn failed_transition_does_not_publish_or_consume_revision() {
-        let (connection, _, _) = fixture();
+        let (connection, _, _, _) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
         assert!(controller.pause(1_000, T1).is_err());
         assert_eq!(controller.revision, 0);
@@ -559,7 +624,7 @@ mod tests {
 
     #[test]
     fn invalid_session_lifecycle_commands_return_errors_without_consuming_revision() {
-        let (connection, _, _) = fixture();
+        let (connection, _, _, _) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
 
         assert!(controller.start_manual_break(60_000, 1_000, T1).is_err());
@@ -577,7 +642,7 @@ mod tests {
 
     #[test]
     fn automatic_boundary_event_uses_last_persisted_projection_not_a_renderer_projection() {
-        let (connection, task_id, _) = fixture();
+        let (connection, _, task_id, _) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
         let started = controller
             .start_task(
@@ -619,7 +684,7 @@ mod tests {
 
     #[test]
     fn checkpoint_only_advance_refreshes_projection_without_consuming_revision() {
-        let (connection, task_id, _) = fixture();
+        let (connection, _, task_id, _) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
         controller
             .start_task(task_id, TimerMode::CountUp, 0, T0)
@@ -634,7 +699,7 @@ mod tests {
 
     #[test]
     fn task_switch_event_carries_both_session_identities() {
-        let (connection, first, second) = fixture();
+        let (connection, _, first, second) = fixture();
         let mut controller = TimerController::recover(connection, 0, T0).unwrap();
         let started = controller
             .start_task(first, TimerMode::CountUp, 0, T0)
