@@ -19,6 +19,8 @@ export type ListBoardTask = {
   timeTakenSeconds: string;
   scheduledLocalDate: string | null;
   scheduledLocalTime: string | null;
+  recurrenceRuleId?: string | null;
+  recurrenceParentTaskId?: string | null;
   isOverdue: boolean;
   completedAt: string | null;
 };
