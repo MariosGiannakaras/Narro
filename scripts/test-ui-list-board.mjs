@@ -19,6 +19,7 @@ const home = read("src/HomeDashboard.tsx");
 const fixtures = read("src/visualFixtures.tsx");
 const capture = read("scripts/capture-visual-fixtures.ps1");
 const validator = read("scripts/validate-visual-fixtures.mjs");
+const createEditValidator = read("scripts/validate-task-create-edit-captures.mjs");
 
 for (const [haystack, needle, label] of [
   [rust, "active_lists(conn)?", "validated active-list persistence read"],
@@ -66,7 +67,7 @@ for (const [haystack, needle, label] of [
   [capture, '"list-board-all"', "aggregate board Edge capture"],
   [validator, "validateListBoardFixture", "captured board validation"],
   [validator, 'data-board-lane-count="4"', "captured four-lane validation"],
-  [validator, "data-board-add-task", "captured production Add Task validation"],
+  [createEditValidator, "data-board-add-task", "captured production Add Task validation"],
   [css, "grid-template-columns: repeat(4, minmax(9.5rem, 1fr));", "stable four-column geometry"],
   [css, ".list-board__selector select", "selector geometry contract"],
   [css, "border-radius: var(--radius-task-card);", "shared task-card radius"],
