@@ -170,7 +170,9 @@ fn normalize_schedule(schedule: TaskSchedule) -> Result<NormalizedSchedule, Task
     }
 }
 
-fn normalized_schedule_from_task(task: &TaskRecord) -> Result<NormalizedSchedule, TaskScheduleEditError> {
+fn normalized_schedule_from_task(
+    task: &TaskRecord,
+) -> Result<NormalizedSchedule, TaskScheduleEditError> {
     match task.schedule_kind {
         ScheduleKind::None => {
             if task.scheduled_local_date.is_some()
@@ -357,7 +359,10 @@ mod tests {
         assert_eq!(updated.manual_lane, before.manual_lane);
         assert_eq!(updated.title, before.title);
         assert_eq!(updated.est_seconds, before.est_seconds);
-        assert_eq!(updated.manual_time_adjustment_seconds, before.manual_time_adjustment_seconds);
+        assert_eq!(
+            updated.manual_time_adjustment_seconds,
+            before.manual_time_adjustment_seconds
+        );
         assert_eq!(updated.schedule_kind, ScheduleKind::DateOnly);
         assert_eq!(updated.scheduled_local_date.as_deref(), Some("2026-09-12"));
         assert!(updated.scheduled_local_time.is_none());
@@ -421,6 +426,9 @@ mod tests {
             result,
             Err(TaskScheduleEditError::AmbiguousScheduleLocalDateTime)
         ));
-        assert_eq!(get_task(&conn, task_id).unwrap().schedule_kind, ScheduleKind::None);
+        assert_eq!(
+            get_task(&conn, task_id).unwrap().schedule_kind,
+            ScheduleKind::None
+        );
     }
 }
