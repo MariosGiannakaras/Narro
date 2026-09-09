@@ -1,3 +1,4 @@
+use crate::domain::ids::TaskId;
 use crate::domain::sessions::{SessionKind, SessionSource};
 use crate::domain::tasks::{SetTaskTimeTakenInput, TaskRecord};
 use crate::persistence::sessions::{get_session, SessionStoreError};
@@ -25,6 +26,15 @@ pub enum LiveTimeTakenError {
     Session(SessionStoreError),
     Sqlite(rusqlite::Error),
     NotPaused(TimerStateKind),
+    TaskBindingMismatch {
+        expected: TaskId,
+        actual: Option<TaskId>,
+    },
+    ExpectedTimeTakenMismatch {
+        task_id: TaskId,
+        expected: u64,
+        actual: u64,
+    },
     BindingMismatch,
 }
 
@@ -39,6 +49,18 @@ impl Display for LiveTimeTakenError {
             Self::NotPaused(state) => write!(
                 formatter,
                 "live Time Taken can only be edited while paused; current timer state is {state:?}"
+            ),
+            Self::TaskBindingMismatch { expected, actual } => write!(
+                formatter,
+                "live Time Taken editor is stale: expected task {expected}, authoritative task is {actual:?}"
+            ),
+            Self::ExpectedTimeTakenMismatch {
+                task_id,
+                expected,
+                actual,
+            } => write!(
+                formatter,
+                "live Time Taken changed before the edit committed: {task_id}; expected {expected}s, actual {actual}s"
             ),
             Self::BindingMismatch => formatter.write_str(
                 "live Time Taken runtime, open session and durable checkpoint bindings are inconsistent",
@@ -55,7 +77,10 @@ impl std::error::Error for LiveTimeTakenError {
             Self::Store(error) => Some(error),
             Self::Session(error) => Some(error),
             Self::Sqlite(error) => Some(error),
-            Self::NotPaused(_) | Self::BindingMismatch => None,
+            Self::NotPaused(_)
+            | Self::TaskBindingMismatch { .. }
+            | Self::ExpectedTimeTakenMismatch { .. }
+            | Self::BindingMismatch => None,
         }
     }
 }
@@ -91,14 +116,16 @@ impl From<rusqlite::Error> for LiveTimeTakenError {
 }
 
 impl TimerRuntime {
-    /// Rebase the user-facing Time Taken total for the active task while the timer is paused.
+    /// Rebase the user-facing Time Taken total for the expected active task while paused.
     ///
     /// Raw timer elapsed time and historical session durations remain monotonic accounting data.
-    /// The edit updates the task's durable manual adjustment relative to the already-persisted work
-    /// ledger, so future resumed work is added on top of the edited user baseline without snap-back.
+    /// Expected task/total guards are validated at the authoritative runtime/transaction boundary so
+    /// a stale renderer can neither retarget the edit after a task switch nor overwrite newer time.
     pub fn set_time_taken_while_paused(
         &mut self,
         conn: &mut Connection,
+        expected_task_id: TaskId,
+        expected_total_seconds: u64,
         input: SetTaskTimeTakenInput,
         now_ms: u64,
         wall_time: &str,
@@ -115,6 +142,12 @@ impl TimerRuntime {
             .timer
             .task_id
             .ok_or(LiveTimeTakenError::BindingMismatch)?;
+        if task_id != expected_task_id {
+            return Err(LiveTimeTakenError::TaskBindingMismatch {
+                expected: expected_task_id,
+                actual: Some(task_id),
+            });
+        }
         let session_id = runtime
             .open_session_id
             .ok_or(LiveTimeTakenError::BindingMismatch)?;
@@ -137,6 +170,15 @@ impl TimerRuntime {
                 actual: checkpoint.session_id,
             }
             .into());
+        }
+
+        let actual_total_seconds = task_time_taken_seconds(&tx, task_id)?;
+        if actual_total_seconds != expected_total_seconds {
+            return Err(LiveTimeTakenError::ExpectedTimeTakenMismatch {
+                task_id,
+                expected: expected_total_seconds,
+                actual: actual_total_seconds,
+            });
         }
 
         let task = set_task_time_taken_in_transaction(&tx, task_id, input, wall_time)?;
@@ -171,7 +213,7 @@ mod tests {
     const T30: &str = "2026-09-05T10:30:00Z";
     const T35: &str = "2026-09-05T10:35:00Z";
 
-    fn fixture() -> (Connection, crate::domain::ids::TaskId) {
+    fn fixture() -> (Connection, TaskId) {
         let mut conn = Connection::open_in_memory().expect("open database");
         run_migrations(&mut conn).expect("migrate database");
         let list = create_list(
@@ -209,6 +251,8 @@ mod tests {
         let error = runtime
             .set_time_taken_while_paused(
                 &mut conn,
+                task_id,
+                0,
                 SetTaskTimeTakenInput { total_seconds: 30 },
                 30_000,
                 T1,
@@ -227,6 +271,66 @@ mod tests {
     }
 
     #[test]
+    fn stale_task_binding_cannot_retarget_live_time_taken_edit() {
+        let (mut conn, task_id) = fixture();
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        runtime.pause(&mut conn, 60_000, T1).unwrap();
+        let stale_task_id = TaskId::generate();
+
+        let error = runtime
+            .set_time_taken_while_paused(
+                &mut conn,
+                stale_task_id,
+                60,
+                SetTaskTimeTakenInput { total_seconds: 30 },
+                60_000,
+                T1,
+            )
+            .expect_err("stale task binding must be rejected");
+        assert!(matches!(
+            error,
+            LiveTimeTakenError::TaskBindingMismatch {
+                expected,
+                actual: Some(actual),
+            } if expected == stale_task_id && actual == task_id
+        ));
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 60);
+    }
+
+    #[test]
+    fn stale_expected_total_cannot_overwrite_newer_live_time() {
+        let (mut conn, task_id) = fixture();
+        let mut runtime = TimerRuntime::new();
+        runtime
+            .start_task(&mut conn, task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        runtime.pause(&mut conn, 60_000, T1).unwrap();
+
+        let error = runtime
+            .set_time_taken_while_paused(
+                &mut conn,
+                task_id,
+                30,
+                SetTaskTimeTakenInput { total_seconds: 45 },
+                60_000,
+                T1,
+            )
+            .expect_err("stale expected total must be rejected");
+        assert!(matches!(
+            error,
+            LiveTimeTakenError::ExpectedTimeTakenMismatch {
+                task_id: id,
+                expected: 30,
+                actual: 60,
+            } if id == task_id
+        ));
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 60);
+    }
+
+    #[test]
     fn paused_edit_rebases_effective_time_without_rewriting_raw_session_history() {
         let (mut conn, task_id) = fixture();
         let mut runtime = TimerRuntime::new();
@@ -238,6 +342,8 @@ mod tests {
         let edited = runtime
             .set_time_taken_while_paused(
                 &mut conn,
+                task_id,
+                900,
                 SetTaskTimeTakenInput { total_seconds: 600 },
                 900_000,
                 T15,
@@ -284,6 +390,8 @@ mod tests {
         runtime
             .set_time_taken_while_paused(
                 &mut conn,
+                task_id,
+                900,
                 SetTaskTimeTakenInput { total_seconds: 600 },
                 900_000,
                 T15,
@@ -324,6 +432,8 @@ mod tests {
         let error = runtime
             .set_time_taken_while_paused(
                 &mut conn,
+                task_id,
+                60,
                 SetTaskTimeTakenInput { total_seconds: 30 },
                 60_000,
                 T1,
