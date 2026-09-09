@@ -26,96 +26,71 @@ Validation evidence:
 
 - final PR #89 head `b7e6a5d2dbf428888fc6fb2e05fc5fa53229d9ad`;
 - Windows PR CI #341 / run `34368816102` / job `102524819883`: **SUCCESS**;
-- PR Repository Preflight, visual capture/upload, Tauri release and diagnostic artifact upload: **PASS**;
-- PR visual artifact `10111419066`, digest `sha256:4a62f2146b8624287fe3f228407c59743a8de732afa9560af85d2fd71f9ac76a`;
-- PR diagnostic artifact `10111710336`, digest `sha256:1f0a454973be877b39b12f3f72a1e6cba35c6727333183f4468a4de26331af61`;
-- final exact-head semantic/diff review: **PASS**;
-- comments/reviews requiring resolution: **none**;
 - expected-head guarded squash merge at `2026-09-09T15:43:09Z`;
-- merged main source SHA `2c4ec648490764cfdd5b0f793f9f68ed73657037`;
 - Windows main CI #342 / run `34372082553` / job `102535551447`: **SUCCESS**;
-- main Repository Preflight, visual capture/upload, Tauri release and diagnostic artifact upload: **PASS**;
-- main visual artifact `10112664337`, digest `sha256:4e4f8cd95f8a1c8261c0ca7f25b30536fba3fcabca5ac4091e140c88b4cd5a7d`;
-- main diagnostic artifact `10112942834`, digest `sha256:4ec3c3d8635ddbe1c65abdeb46d7de2d0677b2fd6c13e7c6f0dd202cd7a7edc1`.
+- main Repository Preflight, visual capture/upload, Tauri release and diagnostic artifact upload: **PASS**.
 
-Markdown-only tracking descendants do not replace this validated source/test baseline. Detailed evidence: `work-log/2026-09-09-1858-chatgpt-m5-task-metrics.md`.
+Detailed completed-slice evidence: `work-log/2026-09-09-1858-chatgpt-m5-task-metrics.md`.
 
-## LATEST COMPLETED SLICE
+Markdown-only tracking descendants do not replace the validated source/test baseline.
 
-**M5 Main UI — EST and Time Taken display/edit states.**
-
-Validated capabilities:
-
-- stale-safe expected-list/value persistence for non-live EST and Time Taken;
-- active live focus tasks cannot bypass the authoritative timer runtime through non-live commands;
-- live EST and Time Taken edits require exact active-task binding in `Paused` or `OvertimePaused`;
-- live EST atomically commits task metadata and durable timer checkpoint before runtime publication;
-- CountUp/EST countdown rebasing, including EST below elapsed -> `TimeUp`, preserves accumulated tracked work;
-- Pomodoro timer precedence is preserved while EST metadata changes;
-- live Time Taken rebases the validated manual adjustment while raw session/runtime accounting stays monotonic through resume/recovery/Done;
-- stale task/current-value guards prevent renderer races and stale overwrites;
-- individual real List Boards expose metric editing; aggregate All Lists remains read-only;
-- live title editing remains unavailable from the List Board;
-- metric drafts use explicit `H:MM:SS`; EST may be blank to clear and Time Taken may not;
-- Save/Cancel use the fixed `4.25rem` reserved action slot and captured light/dark geometry proves no title/card reflow;
-- action/title/metric controls are isolated from drag initiation;
-- persistence-first mutation and saved-but-refresh-failed handling remain authoritative;
-- deterministic Rust/frontend/static/Windows visual regression coverage is in preflight/CI.
-
-## USER-FACING PROGRESS
-
-**`M-5/10 | 5/5 | 17/28`**
-
-The completed EST/Time Taken slice used five checkpoints, all complete:
-
-1. mandatory inspection + narrow EST/Time Taken mutation/UX contract — **COMPLETE**;
-2. authoritative persistence/runtime/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — **COMPLETE**;
-4. final exact-head review + expected-head merge — **COMPLETE**;
-5. resulting-main Windows CI + tracking reconciliation — **COMPLETE**.
-
-Do not reset this small-slice counter until the next implementation slice is actually begun and its checkpoint plan is recorded in the repository.
-
-## COMPLETED CAPABILITIES / INVARIANTS THAT MUST NOT REGRESS
-
-- authoritative Rust/domain/persistence state and persistence-first mutation semantics remain authoritative;
-- stable task identities and one-open-session invariant must not regress;
-- renderer-independent timer/session accounting must not regress;
-- tracked time must never reset, disappear, double-count or snap back after pause/resume/recovery/Done;
-- EST/title metadata edits must not rewrite or lose Time Taken/session state;
-- paused manual Time Taken edits remain coupled to the authoritative runtime/session rebase path;
-- a stale renderer cannot overwrite newer EST/Time Taken or retarget a live edit after task switch;
-- a committed mutation plus failed renderer refresh/broadcast must not be reported as authoritative mutation failure;
-- All Lists remains an aggregate read projection;
-- scheduling preserves stable task identity and validated effective planning-lane semantics;
-- date-only schedules remain distinct from local date-times; Monday week, timezone and DST semantics remain authoritative;
-- recurrence materialization remains deterministic/idempotent and preserves validated replace/detach behavior;
-- task-card hover/focus/edit geometry uses reserved/overlay slots and may not move sibling content/hit targets;
-- notes never auto-launch URLs;
-- excluded account/trial/upgrade/profile/AI/integration controls remain absent;
-- diagnostics remain gated behind `?diagnostics=1`.
-
-## NEXT ORDERED SLICE
+## ACTIVE IMPLEMENTATION
 
 **M5 Main UI — Scheduling UI and recurrence editor.**
 
-This slice has not yet begun after the task-metrics reconciliation. When starting it, create/resume one coherent feature branch from the latest `main` tracking tip and record a narrow five-checkpoint plan before resetting the small-slice counter.
+Active branch:
 
-Required inspection before implementation:
+`m5-scheduling-recurrence-ui`
 
-- authoritative Milestone 4 scheduling/domain/persistence boundaries for date-only versus local date-time schedules, shortcuts, eligibility and effective planning lanes;
-- recurrence rule model, parent/child materialization, replace-existing and detachment semantics;
-- current `ListBoard` / `TaskCard` scheduling display and mutation boundaries;
-- relevant scheduling/recurrence sections of `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md` and `docs/BEHAVIOR_MATRIX.md`;
-- `docs/BLITZIT_HISTORY_RISK_INDEX.md`, especially wrong-day/timezone and duplicate identity failure families.
+Branch base / main tracking tip when created:
 
-The implementation must project authoritative scheduling/recurrence behavior rather than recreate rules in React. Preserve persistence-first success, stable task identity, date-only calendar semantics, Windows local timezone/locale behavior, recurrence idempotency and existing board no-layout-shift behavior.
+`24a476408c9b8c0e3ab224f4c117acbcc7673c4a`
 
-Do not absorb Subtasks UI, notes, destructive flows, list settings, search, Settings, Reports/session editing, Focus Panel/Floating Timer product UI, or later milestones.
+No implementation PR exists yet.
+
+## USER-FACING PROGRESS
+
+**`M-5/10 | 0/5 | 17/28`**
+
+Current five checkpoints:
+
+1. mandatory inspection + narrow scheduling/recurrence mutation and UX contract — **IN PROGRESS**;
+2. authoritative scheduling/recurrence command/frontend implementation + deterministic static/Rust/visual coverage + semantic/diff review — PENDING;
+3. exact PR-head Windows CI — PENDING;
+4. final exact-head review + expected-head merge — PENDING;
+5. resulting-main Windows CI + tracking reconciliation — PENDING.
+
+Do not increment checkpoint 1 until the M4 scheduling/recurrence boundaries, current board/task presentation, product/UI/behavior specs and history-risk evidence are inspected and the narrow implementation contract is explicit.
+
+## REQUIRED INSPECTION / SCOPE
+
+Inspect before source changes:
+
+- Milestone 4 scheduling domain/persistence boundaries for date-only versus local date-time schedules, official shortcuts, eligibility and effective planning lanes;
+- recurrence rule model, parent/child materialization, Replace Existing Tasks and detachment semantics;
+- current `ListBoard`, `TaskCard`, board read model and mutation command patterns;
+- scheduling/recurrence sections of `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md` and `docs/BEHAVIOR_MATRIX.md`;
+- `docs/BLITZIT_HISTORY_RISK_INDEX.md`, especially one-hour/wrong-day/timezone and duplicate-identity failure families.
+
+The renderer must project authoritative scheduling/recurrence behavior rather than recreate classification or recurrence materialization rules in React.
+
+## INVARIANTS THAT MUST NOT REGRESS
+
+- date-only schedules remain calendar dates and never round-trip through UTC;
+- local date-time schedules retain explicit Windows-local timezone semantics;
+- Monday week boundaries, DST behavior and future-time eligibility remain authoritative;
+- schedule mutations preserve task identity and cannot duplicate/alias tasks;
+- recurrence materialization stays deterministic/idempotent and preserves validated parent/child, replace-existing and detachment behavior;
+- persistence-first mutation remains the success boundary;
+- a committed mutation plus failed board refresh is reported as committed and blocks unsafe retries;
+- All Lists remains an aggregate read projection;
+- tracked time/timer/session state is not rewritten by scheduling metadata edits;
+- task-card actions/editors preserve reserved geometry and keyboard/focus accessibility;
+- no subtasks, notes, destructive flows, list settings, search, Settings, Reports/session editing, Focus Panel/Floating Timer product UI, or later milestones are absorbed into this slice.
 
 ## NEXT AGENT ACTION
 
-Begin the ordered `Scheduling UI and recurrence editor` slice from the latest `main` tracking tip while treating `2c4ec648490764cfdd5b0f793f9f68ed73657037` as the validated source/test baseline. Create one coherent feature branch, inspect the authoritative M4 scheduling/recurrence boundaries and relevant UI/product/risk evidence, write a five-checkpoint slice plan into `HANDOFF.md`, then implement only the evidence-backed scheduling/recurrence UI scope.
+Complete checkpoint 1 by inspecting the authoritative M4 implementation and relevant specs/risk evidence. Record the exact scheduling/recurrence UI contract in this file, then implement the smallest persistence-first renderer-facing command and List Board/TaskCard editor surface that reuses those authoritative boundaries.
 
 ## USER ACTION REQUIRED
 
@@ -125,4 +100,3 @@ Begin the ordered `Scheduling UI and recurrence editor` slice from the latest `m
 
 - No product/user blocker is known.
 - Local checkout/toolchain validation in this connector-only environment: **NOT RUN**.
-- Windows PR CI #341 and resulting-main CI #342 are the authoritative reproducible validation evidence for the completed task-metrics slice.
