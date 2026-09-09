@@ -12,88 +12,80 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 15 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 16 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 15/28`**
+**`M-5/10 | 5/5 | 16/28`**
 
-The first fifteen ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, deterministic dark/light visual-regression infrastructure, Main-window App shell/navigation, Home dashboard/list cards, list-card interaction states, persistence-backed Create/Edit List, List Board, Task-card state model, persistence-backed reorder/move, and production hover/focus action geometry with reserved overlay slots and no title/card reflow.
-
-The next ordered item is **Task creation and inline editing**.
+The first sixteen ordered M5 items are fully main validated. The latest completed item is **Task creation and inline editing**. The next ordered item is **EST and Time Taken display/edit states**.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`f965da939397b22adc6b024e5dd86ee750a18b92`
+`a7e6ed1d89d7592e1bf514e56f1e47e63495cbad`
 
-This is the merged result of PR #87 — `M5: harden task hover action geometry`.
-
-### PR #87 exact-head validation
-
-Final validated PR head:
-
-`94d6ef53ba882c4e0022a42eb242a87d427b84c9`
-
-Windows PR CI #324:
-
-- run `34323668511`;
-- job `102375871427`;
-- exact head `94d6ef53ba882c4e0022a42eb242a87d427b84c9`;
-- conclusion: **SUCCESS**;
-- Repository Preflight: **PASS**;
-- Capture Visual Regression Fixtures: **PASS**;
-- Upload Visual Regression Artifact: **PASS**;
-- Tauri Release: **PASS**;
-- Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact `10093105381`, digest `sha256:0bb2d5698589e6199b3fbbaad90efb7a9183da74e77d07c8664e95d284a8c5a0`;
-- diagnostic artifact `10093299961`, digest `sha256:8e13f9cdcd8f6b3a8b06aed2bb9f59e060ba2b2ee3cdade46812b8edf7bbccc3`;
-- final exact-head semantic/diff review: **PASS**;
-- issue comments, submitted reviews and inline review threads requiring resolution: **none**.
-
-The final PR changed-file set was confined to `TaskCard` / List Board renderer code and CSS, deterministic frontend static/visual checks, preflight wiring, and the in-branch handoff note. No Rust/schema/domain/persistence implementation changed.
-
-PR #87 merged at `2026-09-09T07:39:16Z`, producing main source SHA `f965da939397b22adc6b024e5dd86ee750a18b92`. The PR head and merged main source share tree `0928b83c165a21db3c7203094894cd9e4a6af5a4`, so the exact validated source content reached `main`.
-
-### Resulting-main validation
-
-Windows main CI #325:
-
-- run `34324954967`;
-- job `102379970998`;
-- exact source SHA `f965da939397b22adc6b024e5dd86ee750a18b92`;
-- conclusion: **SUCCESS**;
-- Repository Preflight: **PASS**;
-- Capture Visual Regression Fixtures: **PASS**;
-- Upload Visual Regression Artifact: **PASS**;
-- Tauri Release: **PASS**;
-- Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact `10093618064`, digest `sha256:d3dd321cc9ed0b47988217e7a661da14e13f2aec2b7596ae3a71d6ab25ee08cc`;
-- diagnostic artifact `10093848439`, digest `sha256:eade32f945641e2a6c22789f40e0294e814d04172035cbf9b87e86d5dc766a68`.
+This is the merged result of PR #88 — `M5: add task creation and inline editing`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
-Detailed evidence: `work-log/2026-09-09-1125-chatgpt-m5-hover-action-geometry.md`.
+### PR #88 exact-head validation
+
+Final validated PR head:
+
+`ce89c473a7306982ce43a8a07fce43f3ecc1ee02`
+
+Windows PR CI #331:
+
+- run `34340494624`;
+- job `102429916044`;
+- exact head `ce89c473a7306982ce43a8a07fce43f3ecc1ee02`;
+- conclusion: **SUCCESS**;
+- Repository Preflight: **PASS**;
+- Capture Visual Regression Fixtures: **PASS**;
+- Upload Visual Regression Artifact: **PASS**;
+- Tauri Release: **PASS**;
+- Upload Diagnostic Harness Artifact: **PASS**;
+- visual artifact `10099815643`, digest `sha256:0f993845d8d302095c05be8a3edcca6c9dce65c2859e7ae7118ad19d0f4436c5`;
+- diagnostic artifact `10100064241`, digest `sha256:1cf9061d914157a5bbb01897f04d8e0b261ee0e8a1e0dd5debecaf0b7222f25a`;
+- final exact-head semantic/diff review: **PASS**;
+- issue comments, submitted reviews and inline review threads requiring resolution: **none**.
+
+PR #88 merged with an expected-head guard at `2026-09-09T10:46:29Z`, producing main source SHA `a7e6ed1d89d7592e1bf514e56f1e47e63495cbad` and tree `bc5b22bc7093a7355b6bb0f93e1e88aa54d3a893`.
+
+### Resulting-main validation
+
+Windows main CI #332:
+
+- run `34342022923`;
+- job `102434764558`;
+- exact source SHA `a7e6ed1d89d7592e1bf514e56f1e47e63495cbad`;
+- conclusion: **SUCCESS**;
+- Repository Preflight: **PASS**;
+- Capture Visual Regression Fixtures: **PASS**;
+- Upload Visual Regression Artifact: **PASS**;
+- Tauri Release: **PASS**;
+- Upload Diagnostic Harness Artifact: **PASS**;
+- visual artifact `10100383350`, digest `sha256:84facb757045e2f3a47ea128829b116bcad9784165c72e577ef58463c79fe9f7`;
+- diagnostic artifact `10100609210`, digest `sha256:6434366a5f35dff7f2a411292fb9e9cf5fc2349515edef80b7f79f60f2332ac6`.
+
+Detailed evidence: `work-log/2026-09-09-1432-chatgpt-m5-task-create-inline-edit.md`.
 
 ## Milestone 1 — Gate A complete
 
-**PASS.** Tauri 2 + WebView2 architecture retained after physical Windows capability/performance validation. Two-window architecture (`main` + reusable `focusSurface`), tray/background lifecycle, notifications, autostart, monitor handling, shortcuts and the floating-only performance baseline are validated. Key evidence remains under `work-log/2026-09-03-*`.
+**PASS.** Tauri 2 + WebView2 architecture retained after physical Windows capability/performance validation. Two-window architecture (`main` + reusable `focusSurface`), tray/background lifecycle, notifications, autostart, monitor handling, shortcuts and the floating-only performance baseline are validated.
 
 ## Milestone 2 — Gate B complete
 
-**PASS.** Durable SQLite/domain identity, CRUD, ordering, archive/delete, task metadata, recurrence/reminder/session schema, preferences and persistence-first mutation invariants are validated. Completion evidence: `work-log/2026-09-03-chatgpt-m2-completion.md`.
+**PASS.** Durable SQLite/domain identity, CRUD, ordering, archive/delete, task metadata, recurrence/reminder/session schema, preferences and persistence-first mutation invariants are validated.
 
 ## Milestone 3 — Gate C complete
 
-**PASS.** Authoritative timer/session engine, recovery, persistence boundaries, Pomodoro effects, large-elapsed safety and Windows sleep accounting are validated. Final M3 source baseline: `5eaf7f0eba1770112d41744377ea134ad5d41e33`.
-
-Tracked-time correctness remains a durable anti-regression requirement: renderer lifecycle, pause/resume, task switching, manual Time Taken edits and Done must never lose or double-count authoritative work history.
+**PASS.** Authoritative timer/session engine, recovery, persistence boundaries, Pomodoro effects, large-elapsed safety and Windows sleep accounting are validated. Tracked-time correctness remains a durable anti-regression requirement: renderer lifecycle, pause/resume, task switching, manual Time Taken edits and Done must never lose or double-count authoritative work history.
 
 ## Milestone 4 — Gate D complete
 
-**PASS.** Scheduling/recurrence/reminder/eligibility are implemented and validated. Final M4 source baseline before M5 was `c66558cdc3d3ab8f8ec0626c7897491625bb4ddd`, validated by Windows main CI #261 / artifact `9998653381`. Installed-Windows reminder acceptance passed, including tray/background delivery and no duplicate after an additional observation period.
-
-Reminder delivery still does **not** claim crash-proof exactly-once semantics across a process crash after Windows accepts a notification but before durable `fired_at` acknowledgment.
+**PASS.** Scheduling/recurrence/reminder/eligibility are implemented and validated. Date-only scheduling, timezone/DST/week boundaries, recurrence idempotency and tray/background reminder behavior remain authoritative invariants.
 
 ## Milestone 5 — validated ordered work
 
@@ -113,33 +105,31 @@ The following top-level items are validated complete, in roadmap order:
 12. List Board with Backlog / This Week / Today / Done;
 13. Task-card state model;
 14. persistence-backed drag/drop or equivalent reorder/move behavior;
-15. production hover/focus action geometry with reserved/overlay slots and no title/card reflow.
+15. production hover/focus action geometry with reserved/overlay slots and no title/card reflow;
+16. persistence-backed task creation and inline title editing.
 
-Detailed evidence for each slice is under the corresponding immutable `work-log/*.md` entry; the latest two are:
+### Latest completed: task creation and inline editing
 
-- `work-log/2026-09-09-0858-chatgpt-m5-task-reorder.md`;
-- `work-log/2026-09-09-1125-chatgpt-m5-hover-action-geometry.md`.
+Validated behavior includes:
 
-### Completed: hover-action geometry hardening
+- bottom `+ ADD TASK` creation for real individual Backlog / This Week / Today lanes only;
+- no task creation target in Done or aggregate All Lists;
+- stable generated task identity and persistence-first create semantics;
+- atomic expected-list/expected-title title-only editing;
+- title-only writes preserve EST, Time Taken/session-owned state, identity, list/lane/order, scheduling and completion metadata;
+- click-title edit with Enter/Save and Escape/Cancel;
+- drag isolation for title/edit controls and preservation of the fixed reserved action geometry;
+- authoritative board refresh after durable mutation;
+- explicit saved-but-refresh-failed handling that blocks unsafe mutation retries;
+- deterministic Rust/frontend/static/Windows visual coverage.
 
-Validated behavior now provides:
-
-- production Move up / Move down controls inside the existing fixed `4.25rem` action column;
-- absolutely overlaid `1.75rem` controls inside the existing `4.25rem × 1.25rem` reserved slot;
-- hover/card-focus/child-focus reveal through opacity/visibility only;
-- stable title/card dimensions and pointer targets in rest vs action-revealed states;
-- accessible `aria-label`s and shared Tooltip behavior for icon-only actions;
-- pointer controls and `Alt+ArrowUp/Down` reusing the already validated persistence-first reorder boundary;
-- action-button drag initiation isolation;
-- All Lists, Done, scheduled and otherwise non-reorderable rows remaining read-only;
-- deterministic production DOM/static checks plus light/dark Windows Edge capture geometry validation;
-- `test:ui-task-hover-actions` included in frontend preflight.
+Top-priority insertion, create-task shortcut, EST editing and Time Taken editing were intentionally not absorbed into this slice.
 
 ### Next ordered M5 item
 
-`Task creation and inline editing.`
+`EST and Time Taken display/edit states.`
 
-Implement this as a narrow persistence-backed slice. Reuse the existing M2 task create/update boundaries, preserve success-only authoritative snapshot refresh, and keep EST/Time Taken editing, scheduling/recurrence, subtasks, notes, destructive flows, list settings, search, Settings and Reports outside the slice unless a strict dependency is proven.
+This next slice must reuse the existing authoritative M2 task-metadata and M3 paused manual-Time-Taken/session-rebase boundaries. In particular, editing EST or Time Taken may not reset tracked work, overwrite session-owned state, or make renderer state authoritative. Consult `docs/BLITZIT_HISTORY_RISK_INDEX.md` before implementation because tracked-time loss and post-pause/manual-edit divergence are current source-product reliability risks.
 
 ## Durable correctness decisions
 
@@ -155,10 +145,11 @@ Future work must preserve:
 - Scheduled pending tasks remain projected through validated effective planning-lane semantics; manual board reorder/move remains disabled while scheduling owns the effective lane.
 - Archived lists/tasks remain absent from active board projection; completed non-archived tasks project to Done exactly once.
 - Renderer-independent timer/session accounting, one-open-session protection and durable recovery must not regress.
+- EST/title metadata edits must not rewrite or lose Time Taken/session state.
+- Paused manual Time Taken editing must use the already validated authoritative runtime/session baseline rebase path; it may not be implemented as a renderer-only task-field write.
 - Date-only schedules remain calendar dates, distinct from local date-times; Monday week boundaries and timezone/DST validation remain authoritative.
 - Notes URLs require explicit click/keyboard activation and may never auto-launch merely because a task becomes live.
-- Imported list icons remain Narro app-data-owned; only relative owned paths are persisted or eligible for cleanup.
-- Hover/focus interactions may not reflow task/list card geometry, move sibling controls under the pointer, or move hit targets. Reserved/overlay action slots remain the established pattern.
+- Hover/focus/edit interactions may not reflow task/list card geometry, move sibling controls under the pointer, or move hit targets. Reserved/overlay action slots remain the established pattern.
 - Keyboard/focus-visible equivalents and accessible names/tooltips remain required for icon-only actions.
 - Motion never owns or delays domain-state completion; no infinite decorative animation is allowed, especially on `focusSurface`.
 - `prefers-reduced-motion` must remove nonessential translation/scale without hiding state changes.
