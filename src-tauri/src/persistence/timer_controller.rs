@@ -4,7 +4,8 @@ use crate::domain::timer_events::{TimerSessionChange, TimerSessionPayload};
 use crate::persistence::live_completion::LiveTaskCompletionError;
 use crate::persistence::live_time_taken::LiveTimeTakenError;
 use crate::timer::runtime::{
-    LiveEstimateEditError, TimerRuntime, TimerRuntimeError, TimerRuntimeSnapshot,
+    LiveEstimateEditError, LiveEstimateEditInput, TimerRuntime, TimerRuntimeError,
+    TimerRuntimeSnapshot,
 };
 use crate::timer::TimerMode;
 use rusqlite::Connection;
@@ -335,10 +336,12 @@ impl TimerController {
         let next_revision = self.next_revision()?;
         let updated = self.runtime.set_estimate_while_paused(
             &mut self.connection,
-            expected_task_id,
-            expected_list_id,
-            expected_est_seconds,
-            est_seconds,
+            LiveEstimateEditInput {
+                expected_task_id,
+                expected_list_id,
+                expected_est_seconds,
+                est_seconds,
+            },
             now_ms,
             wall_time,
         )?;
