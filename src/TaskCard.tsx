@@ -2,6 +2,7 @@ import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
 import type { ListBoardTask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import type { TimerStateKind } from "./timerSessionApi";
 
 type FixturePresentationState =
   | "normal"
@@ -28,6 +29,17 @@ export type TaskCardTitleEditor = {
   onCancel: () => void;
 };
 
+export type TaskCardMetricKind = "estimate" | "time_taken";
+
+export type TaskCardMetricEditor = {
+  metric: TaskCardMetricKind;
+  value: string;
+  pending: boolean;
+  onChange: (value: string) => void;
+  onSubmit: () => void;
+  onCancel: () => void;
+};
+
 type TaskCardProps = {
   task: ListBoardTask;
   aggregateView: boolean;
@@ -35,6 +47,10 @@ type TaskCardProps = {
   actions?: TaskCardActions;
   onTitleEdit?: () => void;
   titleEditor?: TaskCardTitleEditor;
+  onEstimateEdit?: () => void;
+  onTimeTakenEdit?: () => void;
+  metricEditor?: TaskCardMetricEditor;
+  liveState?: TimerStateKind | null;
 };
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
@@ -84,6 +100,27 @@ function derivedState(task: ListBoardTask): FixturePresentationState {
   if (task.isOverdue) return "overdue";
   if (task.scheduledLocalDate) return "scheduled";
   return "normal";
+}
+
+function liveStateLabel(state: TimerStateKind | null | undefined): string | null {
+  switch (state) {
+    case "paused":
+      return "Live · Paused";
+    case "overtime_paused":
+      return "Live · Overtime paused";
+    case "running":
+      return "Live · Running";
+    case "overtime_running":
+      return "Live · Overtime";
+    case "break":
+      return "Live · Break";
+    case "time_up":
+      return "Live · Time's up";
+    case "idle":
+    case null:
+    case undefined:
+      return null;
+  }
 }
 
 function TaskActionButton({
@@ -141,7 +178,7 @@ function TaskActionRail({ actions }: { actions: TaskCardActions }) {
   );
 }
 
-function InlineTitleEditor({ editor }: { editor: TaskCardTitleEditor }) {
+function InlineTitleEditor({ editor, done }: { editor: TaskCardTitleEditor; done: boolean }) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!editor.pending) editor.onSubmit();
@@ -160,7 +197,7 @@ function InlineTitleEditor({ editor }: { editor: TaskCardTitleEditor }) {
       onPointerDown={(event) => event.stopPropagation()}
     >
       <span className="list-board-task__completion-slot" aria-hidden="true">
-        <span className="list-board-task__completion-mark">○</span>
+        <span className="list-board-task__completion-mark">{done ? "✓" : "○"}</span>
       </span>
       <input
         className="list-board-task__title-input"
@@ -204,6 +241,108 @@ function InlineTitleEditor({ editor }: { editor: TaskCardTitleEditor }) {
         </span>
       </span>
     </form>
+  );
+}
+
+function MetricEditActions({ editor }: { editor: TaskCardMetricEditor }) {
+  return (
+    <span className="list-board-task__metric-edit-actions" data-task-metric-actions={editor.metric}>
+      <Tooltip content="Cancel metric edit">
+        <button
+          type="button"
+          className="list-board-task__action-button motion-interactive"
+          aria-label="Cancel metric edit"
+          data-task-metric-control="cancel"
+          draggable={false}
+          disabled={editor.pending}
+          onPointerDown={(event) => event.stopPropagation()}
+          onClick={editor.onCancel}
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </Tooltip>
+      <Tooltip content="Save metric">
+        <button
+          type="button"
+          className="list-board-task__action-button motion-interactive"
+          aria-label="Save metric"
+          data-task-metric-control="save"
+          draggable={false}
+          disabled={editor.pending}
+          onPointerDown={(event) => event.stopPropagation()}
+          onClick={editor.onSubmit}
+        >
+          <span aria-hidden="true">✓</span>
+        </button>
+      </Tooltip>
+    </span>
+  );
+}
+
+function MetricValue({
+  metric,
+  label,
+  value,
+  onEdit,
+  editor,
+}: {
+  metric: TaskCardMetricKind;
+  label: string;
+  value: string;
+  onEdit?: () => void;
+  editor?: TaskCardMetricEditor;
+}) {
+  if (editor?.metric === metric) {
+    const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        if (!editor.pending) editor.onCancel();
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        if (!editor.pending) editor.onSubmit();
+      }
+    };
+    return (
+      <span className="list-board-task__metric list-board-task__metric--editing" data-task-metric={metric}>
+        <span>{label}:</span>
+        <input
+          className="list-board-task__metric-input timer-numerals"
+          aria-label={`${label} duration in H:MM:SS`}
+          data-task-metric-control="input"
+          data-task-metric-input={metric}
+          value={editor.value}
+          onChange={(event) => editor.onChange(event.target.value)}
+          onKeyDown={handleKeyDown}
+          onPointerDown={(event) => event.stopPropagation()}
+          disabled={editor.pending}
+          placeholder={metric === "estimate" ? "H:MM:SS or blank" : "H:MM:SS"}
+          autoFocus
+        />
+      </span>
+    );
+  }
+
+  if (onEdit) {
+    return (
+      <button
+        type="button"
+        className="list-board-task__metric list-board-task__metric-button motion-interactive"
+        aria-label={`Edit ${label}: ${value}`}
+        data-task-metric={metric}
+        data-task-metric-control="open"
+        draggable={false}
+        onPointerDown={(event) => event.stopPropagation()}
+        onClick={onEdit}
+      >
+        <span>{label}:</span> <strong>{value}</strong>
+      </button>
+    );
+  }
+
+  return (
+    <span className="list-board-task__metric" data-task-metric={metric}>
+      {label}: {value}
+    </span>
   );
 }
 
@@ -276,12 +415,16 @@ export function TaskCard({
   actions,
   onTitleEdit,
   titleEditor,
+  onEstimateEdit,
+  onTimeTakenEdit,
+  metricEditor,
+  liveState,
 }: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
   const scheduled = scheduleLabel(task);
   const isFixtureOnly = fixtureState !== undefined;
   const showBaseContent = state !== "inline_create";
-  const effectiveActions = titleEditor
+  const effectiveActions = titleEditor || metricEditor
     ? undefined
     : actions ?? (
       isFixtureOnly && (state === "normal" || state === "action_revealed")
@@ -289,6 +432,7 @@ export function TaskCard({
         : undefined
     );
   const hasActions = Boolean(effectiveActions?.onMoveUp || effectiveActions?.onMoveDown);
+  const liveLabel = liveStateLabel(liveState);
 
   return (
     <article
@@ -299,6 +443,8 @@ export function TaskCard({
       data-completed={task.completedAt ? "true" : "false"}
       data-task-actions-available={hasActions ? "true" : "false"}
       data-task-title-editing={titleEditor ? "true" : "false"}
+      data-task-metric-editing={metricEditor?.metric ?? "none"}
+      data-task-live-state={liveState ?? "none"}
       data-fixture-presentation={isFixtureOnly ? "true" : "false"}
       style={safeListAccent(task.listColor)}
       tabIndex={isFixtureOnly && state === "action_revealed" ? 0 : undefined}
@@ -306,7 +452,7 @@ export function TaskCard({
       {showBaseContent ? (
         <>
           {titleEditor ? (
-            <InlineTitleEditor editor={titleEditor} />
+            <InlineTitleEditor editor={titleEditor} done={state === "done"} />
           ) : (
             <div className="list-board-task__title-row">
               <span className="list-board-task__completion-slot" aria-hidden="true">
@@ -331,8 +477,9 @@ export function TaskCard({
               <span
                 className="list-board-task__action-slot"
                 data-task-action-slot="reserved"
-                aria-hidden={hasActions ? undefined : true}
+                aria-hidden={hasActions || metricEditor ? undefined : true}
               >
+                {metricEditor ? <MetricEditActions editor={metricEditor} /> : null}
                 {effectiveActions && hasActions ? <TaskActionRail actions={effectiveActions} /> : null}
               </span>
             </div>
@@ -348,10 +495,24 @@ export function TaskCard({
           <div className="list-board-task__meta type-metadata">
             {aggregateView ? (
               <span className="list-board-task__list" title={task.listTitle}>{task.listTitle}</span>
+            ) : liveLabel ? (
+              <span className="list-board-task__live-state">{liveLabel}</span>
             ) : <span />}
             <span className="list-board-task__times">
-              <span>Est: {formatEstimate(task.estSeconds)}</span>
-              <span>Taken: {formatTimeTaken(task.timeTakenSeconds)}</span>
+              <MetricValue
+                metric="estimate"
+                label="Est"
+                value={formatEstimate(task.estSeconds)}
+                onEdit={onEstimateEdit}
+                editor={metricEditor}
+              />
+              <MetricValue
+                metric="time_taken"
+                label="Taken"
+                value={formatTimeTaken(task.timeTakenSeconds)}
+                onEdit={onTimeTakenEdit}
+                editor={metricEditor}
+              />
             </span>
           </div>
         </>
