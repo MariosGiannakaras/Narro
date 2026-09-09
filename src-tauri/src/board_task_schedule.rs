@@ -8,10 +8,12 @@ use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::lists::get_list;
 use crate::persistence::recurrence::{
-    create_recurrence_rule, delete_recurrence_rule, get_recurrence_rule,
-    update_recurrence_rule, RecurrenceStoreError,
+    create_recurrence_rule, delete_recurrence_rule_if_expected, get_recurrence_rule,
+    update_recurrence_rule_if_expected, RecurrenceStoreError,
 };
-use crate::persistence::recurrence_replace::replace_existing_tasks;
+use crate::persistence::recurrence_replace::{
+    replace_existing_tasks_if_expected, ReplaceExistingError,
+};
 use crate::persistence::task_schedule_edit::{
     update_task_schedule_if_expected, TaskScheduleEditError,
 };
@@ -276,6 +278,7 @@ fn map_recurrence_error(error: RecurrenceStoreError) -> CommandError {
             CommandError::invalid_argument("recurrence", error.to_string())
         }
         RecurrenceStoreError::NotFound(_)
+        | RecurrenceStoreError::ExpectedVersionMismatch(_)
         | RecurrenceStoreError::ParentLinkMismatch(_)
         | RecurrenceStoreError::Task(TaskStoreError::NotFound(_)) => {
             CommandError::new("TASK_RECURRENCE_STALE", error.to_string())
@@ -289,6 +292,13 @@ fn map_recurrence_error(error: RecurrenceStoreError) -> CommandError {
             CommandError::new("TASK_RECURRENCE_STALE", error.to_string())
         }
         _ => CommandError::new("TASK_RECURRENCE_FAILED", error.to_string()),
+    }
+}
+
+fn map_replace_existing_error(error: ReplaceExistingError) -> CommandError {
+    match error {
+        ReplaceExistingError::Store(error) => map_recurrence_error(error),
+        other => CommandError::new("TASK_RECURRENCE_FAILED", other.to_string()),
     }
 }
 
@@ -437,14 +447,22 @@ pub fn save_list_board_task_recurrence(
                     "must be null when creating recurrence",
                 ));
             }
-            create_recurrence_rule(&mut connection, recurrence.create_input(task_id), &Utc::now().to_rfc3339())
-                .map_err(map_recurrence_error)?
+            create_recurrence_rule(
+                &mut connection,
+                recurrence.create_input(task_id),
+                &Utc::now().to_rfc3339(),
+            )
+            .map_err(map_recurrence_error)?
         }
         Some(rule_id) => {
+            let expected_updated_at = expected_rule_updated_at.as_deref().ok_or_else(|| {
+                CommandError::invalid_argument(
+                    "expectedRuleUpdatedAt",
+                    "must be provided when updating recurrence",
+                )
+            })?;
             let current = get_recurrence_rule(&connection, rule_id).map_err(map_recurrence_error)?;
-            if current.parent_task_id != task_id
-                || expected_rule_updated_at.as_deref() != Some(current.updated_at.as_str())
-            {
+            if current.parent_task_id != task_id || current.updated_at != expected_updated_at {
                 return Err(CommandError::new(
                     "TASK_RECURRENCE_STALE",
                     "recurrence rule changed before the edit committed",
@@ -452,12 +470,24 @@ pub fn save_list_board_task_recurrence(
             }
             let input = recurrence.update_input();
             if input.replace_existing {
-                replace_existing_tasks(&mut connection, rule_id, input, &Utc::now().to_rfc3339())
-                    .map(|report| report.updated_rule)
-                    .map_err(|error| CommandError::new("TASK_RECURRENCE_FAILED", error.to_string()))?
+                replace_existing_tasks_if_expected(
+                    &mut connection,
+                    rule_id,
+                    expected_updated_at,
+                    input,
+                    &Utc::now().to_rfc3339(),
+                )
+                .map(|report| report.updated_rule)
+                .map_err(map_replace_existing_error)?
             } else {
-                update_recurrence_rule(&mut connection, rule_id, input, &Utc::now().to_rfc3339())
-                    .map_err(map_recurrence_error)?
+                update_recurrence_rule_if_expected(
+                    &mut connection,
+                    rule_id,
+                    expected_updated_at,
+                    input,
+                    &Utc::now().to_rfc3339(),
+                )
+                .map_err(map_recurrence_error)?
             }
         }
     };
@@ -494,8 +524,13 @@ pub fn remove_list_board_task_recurrence(
             "recurrence rule changed before removal",
         ));
     }
-    delete_recurrence_rule(&mut connection, rule_id, &Utc::now().to_rfc3339())
-        .map_err(map_recurrence_error)
+    delete_recurrence_rule_if_expected(
+        &mut connection,
+        rule_id,
+        &expected_rule_updated_at,
+        &Utc::now().to_rfc3339(),
+    )
+    .map_err(map_recurrence_error)
 }
 
 #[cfg(test)]
