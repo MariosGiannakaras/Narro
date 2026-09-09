@@ -174,6 +174,17 @@ try {
             -Url $reorderUrl `
             -ScreenshotPath $reorderScreenshot `
             -DomPath $reorderDom
+
+        $metricLabel = "task-metrics-$theme"
+        $metricUrl = "$baseUrl/task-metric-fixture.html?theme=$theme"
+        $metricScreenshot = Join-Path $outputPath "$metricLabel.png"
+        $metricDom = Join-Path $outputPath "$metricLabel.html"
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme $metricLabel `
+            -Url $metricUrl `
+            -ScreenshotPath $metricScreenshot `
+            -DomPath $metricDom
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {
