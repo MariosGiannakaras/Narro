@@ -1,4 +1,4 @@
-use crate::domain::ids::TaskId;
+use crate::domain::ids::{ListId, TaskId};
 use crate::domain::preferences::SleepAccountingPolicy;
 use crate::domain::tasks::SetTaskTimeTakenInput;
 use crate::domain::timer_events::{TimerSessionPayload, TIMER_SESSION_EVENT_NAME};
@@ -318,13 +318,37 @@ impl TimerService {
         })
     }
 
+    pub fn set_estimate_while_paused(
+        &self,
+        app_handle: &tauri::AppHandle,
+        expected_task_id: TaskId,
+        expected_list_id: ListId,
+        expected_est_seconds: Option<u32>,
+        est_seconds: Option<u32>,
+    ) -> CommandResult<TimerSessionPayload> {
+        self.transition(app_handle, |controller, now_ms, wall_time| {
+            controller.set_estimate_while_paused(
+                expected_task_id,
+                expected_list_id,
+                expected_est_seconds,
+                est_seconds,
+                now_ms,
+                wall_time,
+            )
+        })
+    }
+
     pub fn set_time_taken_while_paused(
         &self,
         app_handle: &tauri::AppHandle,
+        expected_task_id: TaskId,
+        expected_total_seconds: u64,
         total_seconds: u32,
     ) -> CommandResult<TimerSessionPayload> {
         self.transition(app_handle, |controller, now_ms, wall_time| {
             controller.set_time_taken_while_paused(
+                expected_task_id,
+                expected_total_seconds,
                 SetTaskTimeTakenInput { total_seconds },
                 now_ms,
                 wall_time,
@@ -633,6 +657,19 @@ fn parse_task_id(value: &str) -> CommandResult<TaskId> {
     TaskId::parse_str(value).map_err(|error| CommandError::invalid_argument("taskId", error))
 }
 
+fn parse_list_id(value: &str) -> CommandResult<ListId> {
+    ListId::parse_str(value).map_err(|error| CommandError::invalid_argument("listId", error))
+}
+
+fn parse_expected_total_seconds(value: &str) -> CommandResult<u64> {
+    value.parse::<u64>().map_err(|_| {
+        CommandError::invalid_argument(
+            "expectedTotalSeconds",
+            "must be a non-negative whole-second decimal string",
+        )
+    })
+}
+
 fn report_timer_change(app_handle: &tauri::AppHandle, payload: &TimerSessionPayload) {
     if let Err(error) = app_handle.emit(TIMER_SESSION_EVENT_NAME, payload.clone()) {
         eprintln!(
@@ -737,12 +774,47 @@ pub fn timer_switch_task(
 }
 
 #[tauri::command(rename_all = "camelCase")]
+pub fn timer_set_estimate(
+    timer_service: State<'_, TimerService>,
+    app_handle: tauri::AppHandle,
+    task_id: String,
+    list_id: String,
+    expected_est_seconds: Option<u32>,
+    est_seconds: Option<u32>,
+) -> CommandResult<TimerSessionPayload> {
+    let task_id = parse_task_id(&task_id)?;
+    let list_id = parse_list_id(&list_id)?;
+    if est_seconds == Some(0) {
+        return Err(CommandError::invalid_argument(
+            "estSeconds",
+            "must be greater than zero when provided",
+        ));
+    }
+    timer_service.set_estimate_while_paused(
+        &app_handle,
+        task_id,
+        list_id,
+        expected_est_seconds,
+        est_seconds,
+    )
+}
+
+#[tauri::command(rename_all = "camelCase")]
 pub fn timer_set_time_taken(
     timer_service: State<'_, TimerService>,
     app_handle: tauri::AppHandle,
+    task_id: String,
+    expected_total_seconds: String,
     total_seconds: u32,
 ) -> CommandResult<TimerSessionPayload> {
-    timer_service.set_time_taken_while_paused(&app_handle, total_seconds)
+    let task_id = parse_task_id(&task_id)?;
+    let expected_total_seconds = parse_expected_total_seconds(&expected_total_seconds)?;
+    timer_service.set_time_taken_while_paused(
+        &app_handle,
+        task_id,
+        expected_total_seconds,
+        total_seconds,
+    )
 }
 
 pub fn install_background_advance(app_handle: tauri::AppHandle) {
@@ -1092,5 +1164,15 @@ mod tests {
             wall_time_at_monotonic("2026-09-05T12:00:06Z", 6_000, 2_000).unwrap(),
             "2026-09-05T12:00:02.000Z"
         );
+    }
+
+    #[test]
+    fn live_metric_command_parsers_reject_stale_identifier_and_total_shapes() {
+        assert!(parse_task_id("not-a-task").is_err());
+        assert!(parse_list_id("not-a-list").is_err());
+        for value in ["-1", "1.5", "abc", ""] {
+            assert!(parse_expected_total_seconds(value).is_err());
+        }
+        assert_eq!(parse_expected_total_seconds("0").unwrap(), 0);
     }
 }
