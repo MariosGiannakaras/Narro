@@ -185,6 +185,17 @@ try {
             -Url $metricUrl `
             -ScreenshotPath $metricScreenshot `
             -DomPath $metricDom
+
+        $scheduleLabel = "task-scheduling-$theme"
+        $scheduleUrl = "$baseUrl/task-schedule-fixture.html?theme=$theme"
+        $scheduleScreenshot = Join-Path $outputPath "$scheduleLabel.png"
+        $scheduleDom = Join-Path $outputPath "$scheduleLabel.html"
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme $scheduleLabel `
+            -Url $scheduleUrl `
+            -ScreenshotPath $scheduleScreenshot `
+            -DomPath $scheduleDom
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {
