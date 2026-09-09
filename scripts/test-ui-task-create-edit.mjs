@@ -15,7 +15,7 @@ const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
 const api = read("src/listBoardApi.ts");
 const packageJson = read("package.json");
-const validator = read("scripts/validate-visual-fixtures.mjs");
+const captureValidator = read("scripts/validate-task-create-edit-captures.mjs");
 
 for (const [haystack, needle, label] of [
   [rust, "create_task(", "M2 transactional task-create reuse"],
@@ -59,7 +59,8 @@ for (const [haystack, needle, label] of [
   [css, "grid-template-columns: 1rem minmax(0, 1fr) 4.25rem;", "stable title-row geometry"],
   [css, ".list-board-task__title-edit-actions", "overlay title-edit actions"],
   [css, ".list-board-task--inline-create", "production inline-create styling"],
-  [validator, "data-board-add-task", "captured production Add Task validation"],
+  [captureValidator, "data-board-add-task", "captured production Add Task validation"],
+  [captureValidator, "data-fixture-only-body", "captured inline-create evidence validation"],
   [packageJson, '"test:ui-task-create-edit"', "task create/edit preflight script"],
 ]) {
   requireText(haystack, needle, label);
