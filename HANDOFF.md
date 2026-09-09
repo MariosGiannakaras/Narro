@@ -1,6 +1,6 @@
 # HANDOFF.md
 
-This is the canonical zero-context continuation state for Narro. Start with `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 5 section in `TODO.md`, relevant `STATUS.md`, `docs/UI_UX_SPEC.md`, `docs/RESEARCH_EVIDENCE.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant immutable `work-log/*.md` entries.
+This is the canonical zero-context continuation state for Narro. Start with `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 5 section in `TODO.md`, relevant `STATUS.md`, `docs/UI_UX_SPEC.md`, `docs/PRODUCT_SPEC.md`, `docs/RESEARCH_EVIDENCE.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant immutable `work-log/*.md` entries.
 
 ## CURRENT MILESTONE
 
@@ -57,30 +57,52 @@ Validated capabilities:
 
 **M5 Main UI — Task creation and inline editing.**
 
-Planned feature branch: `m5-task-create-inline-edit`.
+Active feature branch: `m5-task-create-inline-edit`.
 
-No source work for this new slice is validated yet. Begin from the latest `main` tracking tip while treating `f965da939397b22adc6b024e5dd86ee750a18b92` as the validated source/test baseline until the new source slice completes the full PR/main Windows CI sequence.
+Branch base / latest main tracking tip at slice start:
 
-Narrow scope:
+`2c58b0d555175f3b9dcec53ffdb542864133c77c`
 
-- inspect and reuse the existing M2 task create/update persistence boundaries rather than adding renderer-owned or parallel task mutation semantics;
-- make task creation reachable from the individual List Board using the existing reserved add geometry and the screenshot-backed inline-create presentation;
-- implement inline task-title editing for an existing eligible task through the authoritative persistence boundary;
-- validate empty/invalid titles, stale/missing targets and persistence failures before presenting success;
-- update renderer state only after successful persistence and re-read the authoritative List Board snapshot;
-- keep a committed mutation distinct from any subsequent snapshot-refresh failure so an unsafe retry is not encouraged;
-- preserve stable task identity, lane/order semantics, scheduled-task projection and aggregate/Done read-only constraints;
-- provide keyboard/focus behavior and deterministic static/visual coverage for create/edit/rest/error states without layout shift.
+No source implementation for this slice is validated yet. Continue to treat `f965da939397b22adc6b024e5dd86ee750a18b92` as the fully validated source/test baseline until this source slice completes the full PR/main Windows CI sequence.
 
-Explicitly out of scope unless a strict dependency is proven: EST/Time Taken editing, completion/delete/archive task actions, scheduling/recurrence editor, subtasks, rich notes editing/link activation, list settings, search, Settings and Reports.
+### Validated inspection / contract findings
+
+The mandatory narrow inspection is complete:
+
+- `src-tauri/src/persistence/tasks.rs` already provides transactional `create_task` and `update_task` boundaries, title normalization/blank rejection, active-list validation and stable generated task identity;
+- `update_task` updates title and EST together, so a title-only board command must load the current authoritative task and preserve its existing `est_seconds` rather than letting the renderer guess or reset it;
+- `src-tauri/src/board_task_mutation.rs` establishes the renderer-facing pattern for app-data DB opening/configuration, UUID/lane parsing, stale expected-source rejection, typed command errors and persistence-first board mutations;
+- `src/listBoardApi.ts` currently exposes read, reorder and move only; no create/edit task renderer command exists;
+- `src/ListBoard.tsx` already separates a committed reorder/move from a later snapshot-refresh failure and blocks further mutation when authoritative refresh is uncertain; create/edit must reuse the same success/refresh distinction;
+- the production List Board already has top/bottom `data-board-add-slot="reserved"` geometry but intentionally exposes no dead Add Task control yet;
+- `TaskCard` still contains a fixture-only `inline_create` presentation; production title text is not currently editable;
+- `docs/PRODUCT_SPEC.md` confirms bottom `+ ADD TASK`, top `+`, create-task shortcut and focus-panel Add Task as source entry points; the inline-create visual evidence includes Title / EST / Cancel / Confirm; task title editing begins by clicking the title; a successful local create/edit must be durably committed before the UI presents success;
+- the immediately following ordered M5 item is EST and Time Taken display/edit states, so this slice must not activate EST editing or parsing merely because the existing visual fixture depicts an EST field. The production create/edit mutation in this slice is title-focused; the next ordered slice owns real EST editing.
+
+### Narrow implementation contract
+
+- add dedicated renderer-facing task create/title-edit commands over the existing M2 persistence functions; do not expose raw SQL or renderer-owned truth;
+- create only into a real active individual list and a pending lane; All Lists and Done remain non-creation targets;
+- use stable generated task identity from the existing persistence boundary;
+- reject blank titles before presenting success; map stale/missing/archived targets to typed errors;
+- title edit must preserve task ID, list/lane/order, scheduling metadata, completion state, Time Taken and the existing EST value;
+- include an expected list ID and expected prior title (or equivalent authoritative precondition) so an inline edit cannot silently clobber a concurrently changed/moved task;
+- after create/edit commits, re-read the authoritative board snapshot before presenting the new board state;
+- if the commit succeeds but snapshot refresh fails, report that the change was saved, block further board mutation until a clean reload/list switch, and do not encourage retry;
+- expose a real bottom `+ ADD TASK` entry on individual pending lanes first; keep top insertion behavior out until its highest-priority ordering can be made atomic rather than create-then-reorder with a partial-success window;
+- clicking a production task title enters inline title edit; Enter/explicit Save commits, Escape/Cancel abandons local edits; editing must not turn the title into a drag handle or cause card geometry instability;
+- keep the existing fixture-only EST field as visual evidence until the next ordered EST/Time Taken slice makes that control real;
+- add deterministic Rust and frontend contract tests and evolve visual validation only where production create/edit geometry can be asserted without destabilizing unrelated fixtures.
+
+Explicitly out of scope unless a strict dependency is proven: EST parsing/editing, Time Taken editing, completion/delete/archive task actions, scheduling/recurrence editor, subtasks, rich notes editing/link activation, list settings, search, Settings and Reports.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 0/5 | 15/28`**
+**`M-5/10 | 1/5 | 15/28`**
 
 Task creation / inline editing checkpoints:
 
-1. mandatory startup + exact current-main/M2 CRUD/ListBoard/TaskCard/inline-create-edit/spec/risk/visual-contract inspection + narrow mutation/UX contract — PENDING;
+1. mandatory startup + exact current-main/M2 CRUD/ListBoard/TaskCard/inline-create-edit/spec/risk/visual-contract inspection + narrow mutation/UX contract — COMPLETE;
 2. persistence-first task creation/title-edit implementation + validation/failure/accessibility behavior + deterministic static/visual coverage + semantic/diff review — PENDING;
 3. exact PR-head Windows CI including repository preflight, visual captures, release and required artifacts — PENDING;
 4. exact-head semantic/diff/feedback review + validated-head merge — PENDING;
@@ -106,11 +128,9 @@ Task creation / inline editing checkpoints:
 
 ## NEXT AGENT ACTION
 
-Verify current `main` and that there is no open implementation PR that already supersedes this handoff. Create or reuse `m5-task-create-inline-edit` from the latest main tracking tip.
+Continue on `m5-task-create-inline-edit` from this tracking checkpoint. Implement the dedicated Rust create/title-edit command boundary with deterministic tests first, register it in the Tauri handler, then wire `src/listBoardApi.ts` and the production List Board bottom Add Task / click-title inline editor. Preserve current EST values on title-only edits and do not activate EST editing in this slice.
 
-Inspect the M2 task create/update domain/persistence implementation and tests, current renderer task API boundaries, `src/ListBoard.tsx`, `src/TaskCard.tsx`, the reserved board add slot, task-card inline-create/edit fixtures and validators, and the relevant `docs/UI_UX_SPEC.md` / product evidence. Define the narrow create/title-edit contract from repository evidence, then implement it directly. Do not absorb the following EST/Time Taken item or later scheduling/subtask/notes/destructive flows.
-
-Before any source/config push, run the strongest available local preflight; in this connector-only runtime local checkout/toolchain execution remains unavailable, so perform repository/diff semantic review and record local checks as **NOT RUN**. Use exact-head Windows GitHub Actions as the authoritative reproducible compile/test/release/visual gate.
+Run the narrowest static/Rust/frontend checks available after each coherent source checkpoint. In a connector-only runtime without local checkout/toolchain execution, perform exact repository/diff semantic review and record local execution as **NOT RUN**; then use exact-head Windows GitHub Actions as the authoritative compile/test/release/visual gate.
 
 ## USER ACTION REQUIRED
 
