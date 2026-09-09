@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-08
+Last updated: 2026-09-09
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 
@@ -12,62 +12,62 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 13 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 14 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 13/28`**
+**`M-5/10 | 5/5 | 14/28`**
 
-The first thirteen ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, list-card rest/hover/Open/overflow-menu/create-list states, the persistence-backed Create/Edit List modal, the List board with Backlog / This Week / Today / Done, and the detailed Task-card state model. The next ordered item is drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.
+The first fourteen ordered M5 items are fully main validated: semantic theme tokens, typography, spacing/radius/elevation, shared motion primitives, `prefers-reduced-motion`, accessible tooltip/popover/menu primitives, the deterministic dark/light visual-regression harness, Main-window App shell/navigation, Home dashboard/list cards, list-card rest/hover/Open/overflow-menu/create-list states, the persistence-backed Create/Edit List modal, the List board with Backlog / This Week / Today / Done, the detailed Task-card state model, and persistence-backed task reorder/move behavior with stable placeholder/drop feedback. The next ordered item is ensuring hover actions use reserved/overlay slots and never reflow title/card geometry.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`9a93ae58c235a0d56b3879bb48d553dcb021aeb7`
+`5d91767ba79482fe1d6d25b2965db19e6baac8c2`
 
-This is the expected-head guarded squash merge of PR #85 — `M5: add task card state model`.
+This is the expected-head guarded squash merge of PR #86 — `M5: add task reorder and move interactions`.
 
-### PR #85 exact-head validation
+### PR #86 exact-head validation
 
 Final validated PR head:
 
-`e192df8a920cfb2c9227c734ca47a2307dc21dc2`
+`5096163f67f1c4b673ff6b05059cc9532b9de765`
 
-Windows PR CI #317:
+Windows PR CI #320:
 
-- run `34270409390`;
-- job `102210278846`;
-- exact head `e192df8a920cfb2c9227c734ca47a2307dc21dc2`;
+- run `34280885956`;
+- job `102245092274`;
+- exact head `5096163f67f1c4b673ff6b05059cc9532b9de765`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10073839851`, digest `sha256:3503ab0dc7e9e601af07f640667e73a95971748f78321b958c81977a0c09d5f5`;
-- diagnostic artifact ID `10074080790`, digest `sha256:c6d745469ff4914a75aaf182463ee6041b604677db6451386e4080507076fc1e`;
-- final exact-head semantic/diff review: **PASS**; 13 changed files confined to the board read projection, task-card presentation/styles, fixtures, visual capture/validation, frontend-preflight wiring and branch handoff tracking;
+- visual artifact ID `10077803918`, digest `sha256:09169f15dd4d4beed6674020da6a4216119bc1365ffff446c614f380759e79ce`;
+- diagnostic artifact ID `10078011804`, digest `sha256:9964d2fb4b44b7c1b6e2168afe257900b7e5bb67b388fc79f7f35f7d2acb159f`;
+- final exact-head semantic/diff review: **PASS**; changes remained confined to board reorder/move mutation boundaries, renderer interaction/styles, deterministic fixture/capture validation and frontend-preflight wiring;
 - PR comments, submitted reviews and inline review threads requiring resolution: **none**.
 
-Windows PR CI #316 / run `34267196942` failed only at `cargo fmt --check` on `src-tauri/src/list_board.rs`. The exact Windows rustfmt output was applied in forward commit `e192df8a920cfb2c9227c734ca47a2307dc21dc2`; the corrective diff touched only that Rust file and did not change runtime or test semantics. The subsequent complete authoritative pipeline passed.
+Windows PR CI #319 / run `34280633818` / job `102244250572` failed only at `cargo fmt --check` in `src-tauri/src/board_task_mutation.rs`. All frontend/static task-reorder checks and the production frontend build had already passed. Forward commit `5096163f67f1c4b673ff6b05059cc9532b9de765` applied only the exact Windows rustfmt output; the corrective diff did not change runtime or test semantics. The subsequent complete authoritative pipeline passed.
 
-PR #85 was squash-merged with expected-head guard `e192df8a920cfb2c9227c734ca47a2307dc21dc2`, producing source SHA `9a93ae58c235a0d56b3879bb48d553dcb021aeb7`.
+PR #86 was squash-merged with expected-head guard `5096163f67f1c4b673ff6b05059cc9532b9de765`, producing source SHA `5d91767ba79482fe1d6d25b2965db19e6baac8c2`.
 
 ### Resulting-main validation
 
-Windows main CI #318:
+Windows main CI #321:
 
-- run `34271876368`;
-- job `102215181335`;
-- exact source SHA `9a93ae58c235a0d56b3879bb48d553dcb021aeb7`;
+- run `34316110248`;
+- job `102352553758`;
+- exact source SHA `5d91767ba79482fe1d6d25b2965db19e6baac8c2`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact ID `10074394863`, digest `sha256:077835b516adbaecef115ae621d5765933f20672cc2b0768c949c137092d6272`;
-- diagnostic artifact ID `10074634760`, digest `sha256:18871e7966d097c3f8b7d13987d7debac8aacf612f2ecbf962dc138315f8a951`.
+- visual artifact ID `10090292156`, digest `sha256:4f0bf3c16161894a934d8d885c2e5cc3ce1c4e9dc15ceb9079c14eb13021875b`;
+- diagnostic artifact ID `10090429537`, digest `sha256:58dd8e279a2a248c373ab319b86fd9b4be00769be29e5eb4b038a8fe267905bb`.
 
 Markdown-only tracking descendants do not replace this validated source/test baseline.
 
@@ -123,7 +123,7 @@ Detailed evidence: `work-log/2026-09-07-chatgpt-m5-reduced-motion-foundation.md`
 
 ### Completed: accessible overlay primitives
 
-Validated dependency-free `Tooltip`, `Popover`, `Menu`, and `MenuItem` primitives provide accessible relationships, keyboard navigation/dismissal/focus restoration, outside-pointer dismissal, and absolutely positioned stable geometry. Deterministic `scripts/test-ui-overlay-primitives.mjs` coverage remains in `preflight:frontend`.
+Validated dependency-free `Tooltip`, `Popover`, `Menu`, and `MenuItem` primitives provide accessible relationships, keyboard navigation/dismissal/focus restoration, outside-pointer dismissal, and absolutely positioned stable geometry. Deterministic `scripts/test-ui-overlay-primitives.mjs` coverage remains in frontend preflight.
 
 Detailed evidence: `work-log/2026-09-07-chatgpt-m5-overlay-primitives.md`.
 
@@ -212,13 +212,34 @@ Validated behavior now provides:
 
 Detailed evidence: `work-log/2026-09-08-chatgpt-m5-task-card-state-model.md`.
 
+### Completed: Task reorder/move interaction
+
+The fourteenth M5 top-level item is validated complete.
+
+Validated behavior now provides:
+
+- same-lane manual reorder through the existing M2 exact-set `reorder_active_bucket` persistence boundary;
+- cross-lane move through the existing transactional M2 `move_task` boundary, appending to the target persisted bucket without changing task identity;
+- stale expected-list/lane and invalid-anchor rejection before persistence mutation;
+- manual reorder/move limited to unscheduled pending tasks on an individual list board, while scheduled tasks, Done and aggregate All Lists remain read-only for this interaction;
+- pointer drag/drop plus an `Alt+Arrow` keyboard equivalent;
+- no optimistic renderer reordering: SQLite commits first and the board then re-reads the authoritative snapshot;
+- explicit separation between mutation failure and a post-commit refresh failure so a committed mutation is never reported as failed in a way that encourages an unsafe retry;
+- same-lane blank-area drop deterministically targets append rather than retaining a stale card anchor;
+- stable placeholder/target feedback and a finite drop-settle presentation with reduced-motion behavior;
+- deterministic Rust regressions proving exact task-ID-set preservation, scheduled-row singularity, transactional cross-lane move and stale-request no-mutation behavior;
+- deterministic light/dark Windows Edge reorder captures validating dragging, placeholder, settling, target lane and scheduled-task non-reorderability;
+- `scripts/test-ui-task-reorder.mjs` plus the evolved List Board contract in frontend preflight.
+
+Detailed evidence: `work-log/2026-09-09-0858-chatgpt-m5-task-reorder.md`.
+
 ### Next ordered M5 item
 
 The next top-level item is:
 
-`Drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.`
+`Ensure hover actions use reserved/overlay slots and never reflow title/card geometry.`
 
-Implement only persistence-backed reorder/move behavior over stable task identities and the minimum board projection/UI/fixture/test wiring required to exercise it. Reuse the validated M2 task ordering/move boundaries instead of introducing renderer-owned ordering. Explicitly cover the historical duplicate/reorder corruption risk recorded in `docs/BLITZIT_HISTORY_RISK_INDEX.md`: repeated reorder/move must preserve the exact task-ID set and task count, and scheduled-task moves must not duplicate identities or mutate schedule-derived lane semantics incorrectly. Keep the following hover-geometry checklist item, task creation/editing, EST/Time Taken editing, scheduling/recurrence editor, subtasks, notes, list settings, search, Settings and Reports out of scope unless a strict dependency is documented.
+Treat this as a focused geometry/accessibility hardening slice. The Task-card state model already established reserved action/title geometry; inspect the real production hover/focus path and current visual contracts, then implement only any missing production action affordances/validation necessary to satisfy this ordered item. Do not absorb task creation/editing or later task mutation UI unless a strict dependency is proven.
 
 ## Durable correctness decisions
 
@@ -234,6 +255,9 @@ Future work must preserve:
 - reminder `fired_at` only after successful OS notification submission, with failed submission retryable;
 - scheduling/move operations preserve task identity count;
 - reorder changes positions/lanes only and must never create, delete or alias task identities;
+- manual board reorder/move remains disabled for scheduled tasks while schedule-derived effective-lane projection is active;
+- All Lists and Done remain read-only for the M5 manual reorder interaction;
+- a committed reorder/move must not be reported as failed merely because the secondary authoritative snapshot refresh fails;
 - async `main` recreation remains intact and derives state from Rust/SQLite, not hidden renderer memory;
 - Windows executable/installer/tray icon inputs derive from canonical Narro branding;
 - M5 visual work never moves authoritative task/timer/reminder logic into renderer state;
