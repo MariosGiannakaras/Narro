@@ -22,6 +22,11 @@ const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
 const listApi = read("src/listBoardApi.ts");
 const timerApi = read("src/timerSessionApi.ts");
+const metricFixture = read("src/taskMetricVisualFixture.tsx");
+const metricFixtureHtml = read("task-metric-fixture.html");
+const vite = read("vite.config.ts");
+const capture = read("scripts/capture-visual-fixtures.ps1");
+const metricValidator = read("scripts/validate-task-metric-captures.mjs");
 const packageJson = read("package.json");
 
 for (const [haystack, needle, label] of [
@@ -47,8 +52,6 @@ for (const [haystack, needle, label] of [
   [runtime, "work.phase = WorkPhase::TimeUp", "expired EST TimeUp transition"],
   [runtime, "TransactionBehavior::Immediate", "live EST atomic task/checkpoint transaction"],
   [runtime, "UPDATE timer_runtime_checkpoint", "live EST checkpoint persistence"],
-  [runtime, "tx.commit()?;", "live EST commit boundary"],
-  [runtime, "self.engine = engine;", "post-commit runtime publication"],
   [runtime, "checkpoint_failure_rolls_back_estimate_and_runtime_candidate", "live EST rollback regression"],
   [runtime, "paused_count_up_rebase_to_estimate_preserves_session_and_recovers", "live EST recovery regression"],
   [controller, "TimerSessionChange::EstimateRebased", "EST controller event"],
@@ -96,12 +99,29 @@ for (const [haystack, needle, label] of [
   [css, "width: 4.25rem;", "reserved action width"],
   [css, ".list-board-task__metric-input", "stable metric input styling"],
   [css, "min-height: 1.5rem;", "stable metadata row height"],
+  [metricFixtureHtml, "/src/taskMetricVisualFixture.tsx", "metric fixture entry module"],
+  [metricFixture, 'data-task-metric-visual="display"', "production metric display fixture"],
+  [metricFixture, 'data-task-metric-visual="estimate-edit"', "production EST edit fixture"],
+  [metricFixture, 'data-task-metric-visual="time-taken-edit"', "production Time Taken edit fixture"],
+  [metricFixture, 'metricEditor={editor("estimate", "1:00:00")}', "production EST editor fixture props"],
+  [metricFixture, 'metricEditor={editor("time_taken", "0:15:00")}', "production Time Taken editor fixture props"],
+  [vite, 'taskMetricFixture: "task-metric-fixture.html"', "Vite task metric fixture entry"],
+  [capture, 'task-metrics-$theme', "Windows task metric capture"],
+  [metricValidator, "opening EST edit changed card width", "captured EST no-layout-shift gate"],
+  [metricValidator, "opening Time Taken edit changed card height", "captured Time Taken no-layout-shift gate"],
+  [metricValidator, "task metric display/edit geometry differs between light and dark themes", "metric theme geometry parity"],
 ]) {
   requireText(haystack, needle, label);
 }
 
-const commitIndex = runtime.indexOf("tx.commit()?;");
-const publishIndex = runtime.indexOf("self.engine = engine;", commitIndex);
+const estimateStart = runtime.indexOf("pub fn set_estimate_while_paused(");
+const estimateEnd = runtime.indexOf("pub fn start_manual_break(", estimateStart);
+if (estimateStart < 0 || estimateEnd < 0) {
+  throw new Error("Could not isolate live EST runtime mutation boundary.");
+}
+const estimateMutation = runtime.slice(estimateStart, estimateEnd);
+const commitIndex = estimateMutation.indexOf("tx.commit()?;");
+const publishIndex = estimateMutation.indexOf("self.engine = engine;", commitIndex);
 if (commitIndex < 0 || publishIndex < 0 || commitIndex > publishIndex) {
   throw new Error("Live EST runtime state must publish only after the atomic persistence commit.");
 }
@@ -122,6 +142,11 @@ if (boardMetrics.includes("UPDATE tasks") || boardMetrics.includes("INSERT INTO"
   throw new Error("Renderer-facing metric commands must delegate to persistence boundaries rather than own raw task SQL.");
 }
 
+if (metricFixture.includes("fixtureState=")) {
+  throw new Error("Task metric visual evidence must use production TaskCard props rather than fixture-only presentation state.");
+}
+
 requireText(packageJson, '"test:ui-task-metrics"', "task metric preflight script");
+requireText(packageJson, "validate-task-metric-captures.mjs", "task metric Windows capture validator");
 
 console.log("EST and Time Taken production contract checks passed.");
