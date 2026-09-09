@@ -57,6 +57,20 @@ export type UpdateListBoardTaskTitleRequest = {
   title: string;
 };
 
+export type UpdateListBoardTaskEstimateRequest = {
+  taskId: string;
+  listId: string;
+  expectedEstSeconds: number | null;
+  estSeconds: number | null;
+};
+
+export type UpdateListBoardTaskTimeTakenRequest = {
+  taskId: string;
+  listId: string;
+  expectedTotalSeconds: string;
+  totalSeconds: number;
+};
+
 export type ReorderListBoardTaskRequest = {
   taskId: string;
   listId: string;
@@ -94,6 +108,18 @@ export function createListBoardTask(request: CreateListBoardTaskRequest): Promis
 
 export function updateListBoardTaskTitle(request: UpdateListBoardTaskTitleRequest): Promise<void> {
   return invoke<void>("update_list_board_task_title", request);
+}
+
+export function updateListBoardTaskEstimate(
+  request: UpdateListBoardTaskEstimateRequest,
+): Promise<void> {
+  return invoke<void>("update_list_board_task_estimate", request);
+}
+
+export function updateListBoardTaskTimeTaken(
+  request: UpdateListBoardTaskTimeTakenRequest,
+): Promise<void> {
+  return invoke<void>("update_list_board_task_time_taken", request);
 }
 
 export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Promise<void> {
