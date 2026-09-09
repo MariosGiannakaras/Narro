@@ -50,6 +50,7 @@ type TaskCardProps = {
   onEstimateEdit?: () => void;
   onTimeTakenEdit?: () => void;
   metricEditor?: TaskCardMetricEditor;
+  onScheduleEdit?: () => void;
   liveState?: TimerStateKind | null;
 };
 
@@ -418,6 +419,7 @@ export function TaskCard({
   onEstimateEdit,
   onTimeTakenEdit,
   metricEditor,
+  onScheduleEdit,
   liveState,
 }: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
@@ -486,10 +488,26 @@ export function TaskCard({
           )}
 
           {scheduled ? (
-            <div className="list-board-task__schedule type-metadata" data-overdue={task.isOverdue ? "true" : "false"}>
-              <span>{task.isOverdue ? "Overdue" : "Scheduled"}</span>
-              <span>{scheduled}</span>
-            </div>
+            onScheduleEdit ? (
+              <button
+                type="button"
+                className="list-board-task__schedule list-board-task__schedule-button type-metadata motion-interactive"
+                data-overdue={task.isOverdue ? "true" : "false"}
+                data-task-schedule-control="open"
+                aria-label={`Edit task schedule: ${scheduled}`}
+                draggable={false}
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={onScheduleEdit}
+              >
+                <span>{task.isOverdue ? "Overdue" : "Scheduled"}</span>
+                <span>{scheduled}</span>
+              </button>
+            ) : (
+              <div className="list-board-task__schedule type-metadata" data-overdue={task.isOverdue ? "true" : "false"}>
+                <span>{task.isOverdue ? "Overdue" : "Scheduled"}</span>
+                <span>{scheduled}</span>
+              </div>
+            )
           ) : null}
 
           <div className="list-board-task__meta type-metadata">
@@ -497,6 +515,17 @@ export function TaskCard({
               <span className="list-board-task__list" title={task.listTitle}>{task.listTitle}</span>
             ) : liveLabel ? (
               <span className="list-board-task__live-state">{liveLabel}</span>
+            ) : onScheduleEdit && !scheduled ? (
+              <button
+                type="button"
+                className="list-board-task__schedule-trigger motion-interactive"
+                data-task-schedule-control="open"
+                draggable={false}
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={onScheduleEdit}
+              >
+                Schedule / Repeat
+              </button>
             ) : <span />}
             <span className="list-board-task__times">
               <MetricValue
