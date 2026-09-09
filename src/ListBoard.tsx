@@ -499,6 +499,10 @@ export function ListBoard({
     lane: PendingLaneKey,
     event: ReactDragEvent<HTMLDivElement>,
   ) => {
+    if ((event.target as HTMLElement).closest("[data-task-action]")) {
+      event.preventDefault();
+      return;
+    }
     if (!interactionReorderEnabled || mutationPendingTaskId) {
       event.preventDefault();
       return;
