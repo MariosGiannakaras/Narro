@@ -51,7 +51,7 @@ for (const [haystack, needle, label] of [
   [board, "expectedTitle,", "expected-title concurrency guard projection"],
   [board, "Task change was saved, but the board could not refresh.", "committed-refresh failure distinction"],
   [board, "setMutationRefreshBlocked(true)", "post-commit mutation block"],
-  [board, '[data-task-action], [data-task-title-control]', "title controls excluded from drag start"],
+  [board, '[data-task-action], [data-task-title-control], [data-task-metric-control]', "task controls excluded from drag start"],
   [taskCard, 'data-task-title-control="open"', "click title edit target"],
   [taskCard, 'data-task-title-editor="true"', "inline title editor identity"],
   [taskCard, 'data-task-title-control="input"', "title input identity"],
