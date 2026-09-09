@@ -66,7 +66,7 @@ for (const [haystack, needle, label] of [
 }
 
 const mutationStart = board.indexOf("const commitDrop = async");
-const mutationEnd = board.indexOf("const handleDragStart", mutationStart);
+const mutationEnd = board.indexOf("const submitCreate", mutationStart);
 if (mutationStart < 0 || mutationEnd < 0) throw new Error("Could not isolate task reorder mutation boundary.");
 const mutation = board.slice(mutationStart, mutationEnd);
 const firstSnapshotWrite = mutation.indexOf("setSnapshot(");
@@ -78,10 +78,22 @@ if (firstSnapshotWrite >= 0 && firstSnapshotWrite < firstPersistenceCall) {
   throw new Error("Task reorder must not optimistically rewrite board order before persistence succeeds.");
 }
 
-const savedRefreshMessage = mutation.indexOf("Task change was saved, but the board could not refresh.");
-const persistenceFailureMessage = mutation.indexOf("Could not reorder");
-if (savedRefreshMessage < 0 || persistenceFailureMessage < 0) {
-  throw new Error("Task reorder must distinguish persistence failure from post-commit refresh failure.");
+const refreshFailureStart = board.indexOf("const handleCommittedRefreshFailure =");
+const refreshFailureEnd = board.indexOf("const commitDrop = async", refreshFailureStart);
+if (refreshFailureStart < 0 || refreshFailureEnd < 0) {
+  throw new Error("Could not isolate shared committed-refresh failure boundary.");
+}
+const refreshFailure = board.slice(refreshFailureStart, refreshFailureEnd);
+for (const required of [
+  "Task change was saved, but the board could not refresh.",
+  "setMutationRefreshBlocked(true)",
+]) {
+  if (!refreshFailure.includes(required)) {
+    throw new Error(`Committed-refresh failure boundary is missing ${required}.`);
+  }
+}
+if (!mutation.includes("Could not reorder") || !mutation.includes("handleCommittedRefreshFailure(failure)")) {
+  throw new Error("Task reorder must distinguish persistence failure from post-commit refresh failure through the shared boundary.");
 }
 
 for (const forbidden of ["setInterval(", "requestAnimationFrame("]) {

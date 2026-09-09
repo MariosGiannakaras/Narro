@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
 import type { ListBoardTask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
@@ -20,11 +20,21 @@ export type TaskCardActions = {
   onMoveDown?: () => void;
 };
 
+export type TaskCardTitleEditor = {
+  value: string;
+  pending: boolean;
+  onChange: (value: string) => void;
+  onSubmit: () => void;
+  onCancel: () => void;
+};
+
 type TaskCardProps = {
   task: ListBoardTask;
   aggregateView: boolean;
   fixtureState?: FixturePresentationState;
   actions?: TaskCardActions;
+  onTitleEdit?: () => void;
+  titleEditor?: TaskCardTitleEditor;
 };
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
@@ -131,6 +141,72 @@ function TaskActionRail({ actions }: { actions: TaskCardActions }) {
   );
 }
 
+function InlineTitleEditor({ editor }: { editor: TaskCardTitleEditor }) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!editor.pending) editor.onSubmit();
+  };
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== "Escape") return;
+    event.preventDefault();
+    if (!editor.pending) editor.onCancel();
+  };
+
+  return (
+    <form
+      className="list-board-task__title-row list-board-task__title-row--editing"
+      data-task-title-editor="true"
+      onSubmit={handleSubmit}
+      onPointerDown={(event) => event.stopPropagation()}
+    >
+      <span className="list-board-task__completion-slot" aria-hidden="true">
+        <span className="list-board-task__completion-mark">○</span>
+      </span>
+      <input
+        className="list-board-task__title-input"
+        data-task-title-control="input"
+        aria-label="Task title"
+        value={editor.value}
+        onChange={(event) => editor.onChange(event.target.value)}
+        onKeyDown={handleKeyDown}
+        disabled={editor.pending}
+        autoFocus
+      />
+      <span className="list-board-task__action-slot" data-task-action-slot="reserved">
+        <span className="list-board-task__title-edit-actions">
+          <Tooltip content="Cancel title edit">
+            <button
+              type="button"
+              className="list-board-task__action-button motion-interactive"
+              aria-label="Cancel title edit"
+              data-task-title-control="cancel"
+              draggable={false}
+              disabled={editor.pending}
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={editor.onCancel}
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </Tooltip>
+          <Tooltip content="Save task title">
+            <button
+              type="submit"
+              className="list-board-task__action-button motion-interactive"
+              aria-label="Save task title"
+              data-task-title-control="save"
+              draggable={false}
+              disabled={editor.pending}
+              onPointerDown={(event) => event.stopPropagation()}
+            >
+              <span aria-hidden="true">✓</span>
+            </button>
+          </Tooltip>
+        </span>
+      </span>
+    </form>
+  );
+}
+
 function InlineCreateState() {
   return (
     <div className="list-board-task__fixture-body" data-fixture-only-body="inline-create">
@@ -193,16 +269,25 @@ function DestructiveConfirmState() {
   );
 }
 
-export function TaskCard({ task, aggregateView, fixtureState, actions }: TaskCardProps) {
+export function TaskCard({
+  task,
+  aggregateView,
+  fixtureState,
+  actions,
+  onTitleEdit,
+  titleEditor,
+}: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
   const scheduled = scheduleLabel(task);
   const isFixtureOnly = fixtureState !== undefined;
   const showBaseContent = state !== "inline_create";
-  const effectiveActions = actions ?? (
-    isFixtureOnly && (state === "normal" || state === "action_revealed")
-      ? FIXTURE_REORDER_ACTIONS
-      : undefined
-  );
+  const effectiveActions = titleEditor
+    ? undefined
+    : actions ?? (
+      isFixtureOnly && (state === "normal" || state === "action_revealed")
+        ? FIXTURE_REORDER_ACTIONS
+        : undefined
+    );
   const hasActions = Boolean(effectiveActions?.onMoveUp || effectiveActions?.onMoveDown);
 
   return (
@@ -213,25 +298,45 @@ export function TaskCard({ task, aggregateView, fixtureState, actions }: TaskCar
       data-task-id={task.id}
       data-completed={task.completedAt ? "true" : "false"}
       data-task-actions-available={hasActions ? "true" : "false"}
+      data-task-title-editing={titleEditor ? "true" : "false"}
       data-fixture-presentation={isFixtureOnly ? "true" : "false"}
       style={safeListAccent(task.listColor)}
       tabIndex={isFixtureOnly && state === "action_revealed" ? 0 : undefined}
     >
       {showBaseContent ? (
         <>
-          <div className="list-board-task__title-row">
-            <span className="list-board-task__completion-slot" aria-hidden="true">
-              <span className="list-board-task__completion-mark">{state === "done" ? "✓" : "○"}</span>
-            </span>
-            <span className="list-board-task__title" title={task.title}>{task.title}</span>
-            <span
-              className="list-board-task__action-slot"
-              data-task-action-slot="reserved"
-              aria-hidden={hasActions ? undefined : true}
-            >
-              {effectiveActions && hasActions ? <TaskActionRail actions={effectiveActions} /> : null}
-            </span>
-          </div>
+          {titleEditor ? (
+            <InlineTitleEditor editor={titleEditor} />
+          ) : (
+            <div className="list-board-task__title-row">
+              <span className="list-board-task__completion-slot" aria-hidden="true">
+                <span className="list-board-task__completion-mark">{state === "done" ? "✓" : "○"}</span>
+              </span>
+              {onTitleEdit ? (
+                <button
+                  type="button"
+                  className="list-board-task__title list-board-task__title-button"
+                  title={task.title}
+                  aria-label={`Edit task title: ${task.title}`}
+                  data-task-title-control="open"
+                  draggable={false}
+                  onPointerDown={(event) => event.stopPropagation()}
+                  onClick={onTitleEdit}
+                >
+                  {task.title}
+                </button>
+              ) : (
+                <span className="list-board-task__title" title={task.title}>{task.title}</span>
+              )}
+              <span
+                className="list-board-task__action-slot"
+                data-task-action-slot="reserved"
+                aria-hidden={hasActions ? undefined : true}
+              >
+                {effectiveActions && hasActions ? <TaskActionRail actions={effectiveActions} /> : null}
+              </span>
+            </div>
+          )}
 
           {scheduled ? (
             <div className="list-board-task__schedule type-metadata" data-overdue={task.isOverdue ? "true" : "false"}>

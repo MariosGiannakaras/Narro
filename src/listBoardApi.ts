@@ -44,6 +44,19 @@ export type ListBoardRequestTarget =
 
 export type PlanningLaneToken = "backlog" | "this_week" | "today";
 
+export type CreateListBoardTaskRequest = {
+  listId: string;
+  lane: PlanningLaneToken;
+  title: string;
+};
+
+export type UpdateListBoardTaskTitleRequest = {
+  taskId: string;
+  listId: string;
+  expectedTitle: string;
+  title: string;
+};
+
 export type ReorderListBoardTaskRequest = {
   taskId: string;
   listId: string;
@@ -73,6 +86,14 @@ export function getListBoardSnapshot(
     listId: target.kind === "list" ? target.id : null,
     displayTimezone: systemDisplayTimezone(),
   });
+}
+
+export function createListBoardTask(request: CreateListBoardTaskRequest): Promise<string> {
+  return invoke<string>("create_list_board_task", request);
+}
+
+export function updateListBoardTaskTitle(request: UpdateListBoardTaskTitleRequest): Promise<void> {
+  return invoke<void>("update_list_board_task_title", request);
 }
 
 export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Promise<void> {
