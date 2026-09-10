@@ -91,9 +91,9 @@ for (const forbidden of ["Est. time", "Time Taken", "schedule", "recurrence"]) {
   }
 }
 
-for (const forbidden of ["onComplete", "onDelete"]) {
+for (const forbidden of ["onTaskComplete", "onTaskDelete", "completeListBoardTask", "deleteListBoardTask"]) {
   if (board.includes(forbidden)) {
-    throw new Error(`Task create/edit slice must not activate an unordered task action: ${forbidden}`);
+    throw new Error(`Task create/edit slice must not activate an unordered parent-task action: ${forbidden}`);
   }
 }
 
