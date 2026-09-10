@@ -90,6 +90,9 @@ for (const [haystack, needle, label] of [
   [subtasks, 'data-task-subtask-control="create"', "create control"],
   [subtasks, 'event.key === "Escape"', "keyboard cancel"],
   [subtasks, 'event.key === "Enter"', "keyboard save"],
+  [subtasks, "function belongsToRenderedTask(", "rendered parent identity guard"],
+  [subtasks, '.closest<HTMLElement>("[data-task-id]")', "rendered task identity lookup"],
+  [subtasks, "return renderedTaskId === subtask.taskId;", "fail-closed subtask parent comparison"],
   [subtasks, "Completed tasks keep subtasks as read-only history.", "completed-parent read-only message"],
   [css, "width: 4.25rem;", "fixed parent action slot"],
   [css, "width: var(--subtask-progress, 66.666%);", "data-driven subtask progress width"],
@@ -105,6 +108,11 @@ for (const [haystack, needle, label] of [
   [validator, "task subtask title/action geometry differs between light and dark themes", "cross-theme geometry gate"],
 ]) {
   requireText(haystack, needle, label);
+}
+
+const parentIdentityGuardUses = subtasks.match(/belongsToRenderedTask\(event, subtask\)/g)?.length ?? 0;
+if (parentIdentityGuardUses < 5) {
+  throw new Error("Every row mutation affordance must fail closed on rendered parent/subtask identity mismatch.");
 }
 
 if (boardCommands.includes("INSERT INTO subtasks") || boardCommands.includes("UPDATE subtasks") || boardCommands.includes("DELETE FROM subtasks")) {
