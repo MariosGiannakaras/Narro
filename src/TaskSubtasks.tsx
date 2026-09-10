@@ -1,4 +1,4 @@
-import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
+import type { CSSProperties, FormEvent, KeyboardEvent, MouseEvent } from "react";
 import type { BoardSubtask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
 
@@ -54,6 +54,16 @@ function Progress({ completed, total }: { completed: number; total: number }) {
       <span />
     </span>
   );
+}
+
+function belongsToRenderedTask(
+  event: MouseEvent<HTMLElement>,
+  subtask: BoardSubtask,
+): boolean {
+  const renderedTaskId = event.currentTarget
+    .closest<HTMLElement>("[data-task-id]")
+    ?.dataset.taskId;
+  return renderedTaskId === subtask.taskId;
 }
 
 export function TaskSubtasks({
@@ -143,7 +153,9 @@ export function TaskSubtasks({
                           aria-label={`${completed ? "Reopen" : "Complete"} subtask: ${subtask.title}`}
                           disabled={!model.mutable || model.pending || editing}
                           draggable={false}
-                          onClick={() => onToggleCompleted(subtask)}
+                          onClick={(event) => {
+                            if (belongsToRenderedTask(event, subtask)) onToggleCompleted(subtask);
+                          }}
                         >
                           <span aria-hidden="true">{completed ? "✓" : "○"}</span>
                         </button>
@@ -176,7 +188,9 @@ export function TaskSubtasks({
                           title={subtask.title}
                           disabled={!model.mutable || model.pending}
                           draggable={false}
-                          onClick={() => onStartEdit(subtask)}
+                          onClick={(event) => {
+                            if (belongsToRenderedTask(event, subtask)) onStartEdit(subtask);
+                          }}
                         >
                           {completed ? <s>{subtask.title}</s> : subtask.title}
                         </button>
@@ -215,7 +229,9 @@ export function TaskSubtasks({
                                 data-task-subtask-control="move-up"
                                 aria-label={`Move subtask up: ${subtask.title}`}
                                 disabled={!model.mutable || model.pending || index === 0}
-                                onClick={() => onMove(subtask, "up")}
+                                onClick={(event) => {
+                                  if (belongsToRenderedTask(event, subtask)) onMove(subtask, "up");
+                                }}
                               >↑</button>
                             </Tooltip>
                             <Tooltip content="Move subtask down">
@@ -225,7 +241,9 @@ export function TaskSubtasks({
                                 data-task-subtask-control="move-down"
                                 aria-label={`Move subtask down: ${subtask.title}`}
                                 disabled={!model.mutable || model.pending || index === model.subtasks.length - 1}
-                                onClick={() => onMove(subtask, "down")}
+                                onClick={(event) => {
+                                  if (belongsToRenderedTask(event, subtask)) onMove(subtask, "down");
+                                }}
                               >↓</button>
                             </Tooltip>
                             <Tooltip content="Delete subtask">
@@ -235,7 +253,9 @@ export function TaskSubtasks({
                                 data-task-subtask-control="delete"
                                 aria-label={`Delete subtask: ${subtask.title}`}
                                 disabled={!model.mutable || model.pending}
-                                onClick={() => onDelete(subtask)}
+                                onClick={(event) => {
+                                  if (belongsToRenderedTask(event, subtask)) onDelete(subtask);
+                                }}
                               >×</button>
                             </Tooltip>
                           </>
