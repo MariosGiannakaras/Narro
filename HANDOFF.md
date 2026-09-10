@@ -34,11 +34,19 @@ Branch base / main tracking tip at slice start:
 
 `1c4f14500265df9376384b5c608f7147e851e099`
 
-Reviewed source/test candidate before this HANDOFF-only descendant:
+Open PR:
 
-`3cb410c8919a7bc1a119b6cfebc0a588bd502a2c`
+**#91 — `M5: add Subtasks UI`**
 
-No implementation PR existed at the completion of checkpoint 2. The next action is to open the coherent Subtasks UI PR from the current branch head and validate that exact PR head on authoritative Windows CI.
+Initial exact PR head validated by CI #355:
+
+`5ab6dc2d4d4b1eabc33aa77be84f1e9410e5d4d0`
+
+Current formatter-corrected source/test candidate before this HANDOFF-only descendant:
+
+`fe738146cec2cca6f8f1e638935fe347ca6b6c59`
+
+The current PR head after this tracking commit must receive a fresh exact-head Windows CI run; intermediate source-only runs do not count once the branch advances.
 
 ## USER-FACING PROGRESS
 
@@ -48,7 +56,7 @@ Current five checkpoints:
 
 1. mandatory inspection + narrow subtask mutation/read/UX contract — **COMPLETE**;
 2. authoritative subtask command/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — PENDING;
+3. exact PR-head Windows CI — **IN PROGRESS**;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + tracking/work-log reconciliation — PENDING.
 
@@ -109,7 +117,7 @@ Current five checkpoints:
 - Post-commit refresh failure explicitly reports that the subtask change was saved and blocks unsafe follow-up mutations until the board is reloaded.
 - Parent task drag start ignores `[data-task-subtask-control]` descendants.
 - Expanded subtasks suppress the parent reorder action rail while retaining the fixed `4.25rem` title/action slot.
-- A defensive rendered-parent identity gate now compares the nearest `data-task-id` card identity with persisted `subtask.taskId` before any row mutation callback, preventing stale/mismatched rows from entering the pending mutation state.
+- A defensive rendered-parent identity gate compares the nearest `data-task-id` card identity with persisted `subtask.taskId` before any row mutation callback, preventing stale/mismatched rows from entering the pending mutation state.
 
 ### Deterministic coverage / visual evidence
 
@@ -124,7 +132,29 @@ Current five checkpoints:
 - Branch diff review caught an accidental full replacement of `persistence/mod.rs` that removed existing migration tests. It was restored from the validated base; the final slice diff contains only the intended `pub mod subtask_board;` addition there.
 - A stale static assertion expected an earlier subtask-count helper name; it now checks the actual `subtask_counts` projection.
 - A defensive UI review found that an impossible-under-normal-rendering mismatched subtask callback could set `pending=true` before returning. Row mutation controls now fail closed against the rendered parent task identity before invoking the board orchestrator, with a static regression requiring all five row mutation affordances to use the guard.
-- Final compare from slice base to source/test candidate is limited to 22 Subtasks UI / deterministic harness / branch-tracking files; no notes/search/archive/theme/timer-domain source scope was absorbed.
+- Final compare from slice base to the reviewed source/test candidate is limited to 22 Subtasks UI / deterministic harness / branch-tracking files; no notes/search/archive/theme/timer-domain source scope was absorbed.
+
+## CHECKPOINT 3 — WINDOWS CI EVIDENCE
+
+### Windows CI #355 — FAILED / not counted
+
+- run ID: `34511182147`
+- job ID: `102985411935`
+- initial exact PR head: `5ab6dc2d4d4b1eabc33aa77be84f1e9410e5d4d0`
+- Repository Preflight: **FAILED** at `cargo fmt --check`.
+- Every frontend/static contract before Rust formatting passed, including the new `test:ui-task-subtasks`, all earlier M5 guards, and the TypeScript/Vite production build with `task-subtasks-fixture.html`.
+- Visual capture, release build and artifact uploads were skipped because preflight stopped at formatting.
+- The log showed formatting-only diffs in exactly three Rust files:
+  - `src-tauri/src/board_task_subtasks.rs`
+  - `src-tauri/src/list_board.rs`
+  - `src-tauri/src/persistence/subtask_board.rs`
+- Evidence-backed formatter-only commits:
+  - `e67169038e9c5dfd981b631b1dc498a062856152` — board subtask command rustfmt output;
+  - `07bffcebd34b51d9353e955b5c340183d931bf42` — list-board count rustfmt output;
+  - `fe738146cec2cca6f8f1e638935fe347ca6b6c59` — subtask persistence rustfmt output.
+- Compare `5ab6dc2d...` → `fe738146...` touches only those three files and only the exact formatter shapes reported by CI; no behavior changed.
+
+Checkpoint 3 remains open until a fresh Windows CI run succeeds completely on the newest exact PR head, including preflight, visual captures/upload, Tauri release and diagnostic artifact upload.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -143,7 +173,7 @@ Current five checkpoints:
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Open the coherent Subtasks UI pull request from the current `m5-subtasks-ui` head, record its exact head SHA, and run/inspect authoritative Windows CI for that exact head. If CI fails, inspect the exact failing job log and fix only evidence-backed problems. Do not merge or increment checkpoint 3 until the complete required Windows gate succeeds on the exact PR head.
+Fetch PR #91's current exact head after this HANDOFF-only tracking commit and inspect the Windows CI run associated with that exact SHA. If CI fails, inspect the exact failing job log and fix only evidence-backed problems. Do not merge or increment checkpoint 3 until the complete required Windows gate succeeds on the exact PR head.
 
 ## USER ACTION REQUIRED
 
