@@ -1,7 +1,8 @@
 import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
-import type { ListBoardTask } from "./listBoardApi";
+import type { BoardSubtask, ListBoardTask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import { TaskSubtasks, type TaskSubtasksModel } from "./TaskSubtasks";
 import type { TimerStateKind } from "./timerSessionApi";
 
 type FixturePresentationState =
@@ -40,6 +41,21 @@ export type TaskCardMetricEditor = {
   onCancel: () => void;
 };
 
+export type TaskCardSubtasks = {
+  model?: TaskSubtasksModel;
+  canExpand: boolean;
+  onToggleExpanded: () => void;
+  onCreateValueChange: (value: string) => void;
+  onCreate: () => void;
+  onStartEdit: (subtask: BoardSubtask) => void;
+  onEditValueChange: (value: string) => void;
+  onSaveEdit: () => void;
+  onCancelEdit: () => void;
+  onToggleCompleted: (subtask: BoardSubtask) => void;
+  onMove: (subtask: BoardSubtask, direction: "up" | "down") => void;
+  onDelete: (subtask: BoardSubtask) => void;
+};
+
 type TaskCardProps = {
   task: ListBoardTask;
   aggregateView: boolean;
@@ -51,6 +67,7 @@ type TaskCardProps = {
   onTimeTakenEdit?: () => void;
   metricEditor?: TaskCardMetricEditor;
   onScheduleEdit?: () => void;
+  subtasks?: TaskCardSubtasks;
   liveState?: TimerStateKind | null;
 };
 
@@ -432,6 +449,7 @@ export function TaskCard({
   onTimeTakenEdit,
   metricEditor,
   onScheduleEdit,
+  subtasks,
   liveState,
 }: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
@@ -439,7 +457,8 @@ export function TaskCard({
   const repeatStatus = recurrenceLabel(task);
   const isFixtureOnly = fixtureState !== undefined;
   const showBaseContent = state !== "inline_create";
-  const effectiveActions = titleEditor || metricEditor
+  const subtaskExpanded = Boolean(subtasks?.model?.expanded);
+  const effectiveActions = titleEditor || metricEditor || subtaskExpanded
     ? undefined
     : actions ?? (
       isFixtureOnly && (state === "normal" || state === "action_revealed")
@@ -464,6 +483,7 @@ export function TaskCard({
       data-task-metric-editing={metricEditor?.metric ?? "none"}
       data-task-live-state={liveState ?? "none"}
       data-task-recurrence={recurrenceState(task)}
+      data-task-subtasks-expanded={subtaskExpanded ? "true" : "false"}
       data-fixture-presentation={isFixtureOnly ? "true" : "false"}
       style={safeListAccent(task.listColor)}
       tabIndex={isFixtureOnly && state === "action_revealed" ? 0 : undefined}
@@ -571,6 +591,26 @@ export function TaskCard({
               />
             </span>
           </div>
+
+          {subtasks ? (
+            <TaskSubtasks
+              taskTitle={task.title}
+              totalCount={task.subtaskTotalCount ?? 0}
+              completedCount={task.subtaskCompletedCount ?? 0}
+              model={subtasks.model}
+              canExpand={subtasks.canExpand}
+              onToggleExpanded={subtasks.onToggleExpanded}
+              onCreateValueChange={subtasks.onCreateValueChange}
+              onCreate={subtasks.onCreate}
+              onStartEdit={subtasks.onStartEdit}
+              onEditValueChange={subtasks.onEditValueChange}
+              onSaveEdit={subtasks.onSaveEdit}
+              onCancelEdit={subtasks.onCancelEdit}
+              onToggleCompleted={subtasks.onToggleCompleted}
+              onMove={subtasks.onMove}
+              onDelete={subtasks.onDelete}
+            />
+          ) : null}
         </>
       ) : null}
 
