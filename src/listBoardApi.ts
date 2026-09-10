@@ -17,6 +17,8 @@ export type ListBoardTask = {
   title: string;
   estSeconds: number | null;
   timeTakenSeconds: string;
+  subtaskTotalCount?: number;
+  subtaskCompletedCount?: number;
   scheduledLocalDate: string | null;
   scheduledLocalTime: string | null;
   recurrenceRuleId?: string | null;
@@ -45,6 +47,22 @@ export type ListBoardRequestTarget =
   | { kind: "list"; id: string };
 
 export type PlanningLaneToken = "backlog" | "this_week" | "today";
+
+export type BoardSubtask = {
+  id: string;
+  taskId: string;
+  title: string;
+  sortRank: number;
+  completedAt: string | null;
+  updatedAt: string;
+};
+
+export type BoardSubtaskSnapshot = {
+  taskId: string;
+  listId: string;
+  mutable: boolean;
+  subtasks: BoardSubtask[];
+};
 
 export type CreateListBoardTaskRequest = {
   listId: string;
@@ -85,6 +103,42 @@ export type MoveListBoardTaskRequest = {
   listId: string;
   sourceLane: PlanningLaneToken;
   targetLane: PlanningLaneToken;
+};
+
+export type CreateListBoardSubtaskRequest = {
+  taskId: string;
+  listId: string;
+  title: string;
+};
+
+export type UpdateListBoardSubtaskTitleRequest = {
+  subtaskId: string;
+  taskId: string;
+  listId: string;
+  expectedTitle: string;
+  title: string;
+};
+
+export type SetListBoardSubtaskCompletionRequest = {
+  subtaskId: string;
+  taskId: string;
+  listId: string;
+  expectedCompletedAt: string | null;
+  completed: boolean;
+};
+
+export type ReorderListBoardSubtasksRequest = {
+  taskId: string;
+  listId: string;
+  expectedOrder: string[];
+  orderedIds: string[];
+};
+
+export type DeleteListBoardSubtaskRequest = {
+  subtaskId: string;
+  taskId: string;
+  listId: string;
+  expectedUpdatedAt: string;
 };
 
 export function systemDisplayTimezone(): string {
@@ -130,4 +184,41 @@ export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Prom
 
 export function moveListBoardTask(request: MoveListBoardTaskRequest): Promise<void> {
   return invoke<void>("move_list_board_task", request);
+}
+
+export function getListBoardTaskSubtasks(
+  taskId: string,
+  listId: string,
+): Promise<BoardSubtaskSnapshot> {
+  return invoke<BoardSubtaskSnapshot>("get_list_board_task_subtasks", { taskId, listId });
+}
+
+export function createListBoardSubtask(
+  request: CreateListBoardSubtaskRequest,
+): Promise<BoardSubtask> {
+  return invoke<BoardSubtask>("create_list_board_subtask", request);
+}
+
+export function updateListBoardSubtaskTitle(
+  request: UpdateListBoardSubtaskTitleRequest,
+): Promise<BoardSubtask> {
+  return invoke<BoardSubtask>("update_list_board_subtask_title", request);
+}
+
+export function setListBoardSubtaskCompletion(
+  request: SetListBoardSubtaskCompletionRequest,
+): Promise<BoardSubtask> {
+  return invoke<BoardSubtask>("set_list_board_subtask_completion", request);
+}
+
+export function reorderListBoardSubtasks(
+  request: ReorderListBoardSubtasksRequest,
+): Promise<BoardSubtask[]> {
+  return invoke<BoardSubtask[]>("reorder_list_board_subtasks", request);
+}
+
+export function deleteListBoardSubtask(
+  request: DeleteListBoardSubtaskRequest,
+): Promise<void> {
+  return invoke<void>("delete_list_board_subtask", request);
 }

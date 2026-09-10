@@ -335,7 +335,14 @@
 .list-board-task__title-button:focus-visible,
 .list-board-task__title-input:focus-visible,
 .list-board-task__metric-button:focus-visible,
-.list-board-task__metric-input:focus-visible {
+.list-board-task__metric-input:focus-visible,
+.list-board-task__subtask-trigger:focus-visible,
+.list-board-task__subtask-check:focus-visible,
+.list-board-task__subtask-title:focus-visible,
+.list-board-task__subtask-title-input:focus-visible,
+.list-board-task__subtask-action:focus-visible,
+.list-board-task__subtask-create input:focus-visible,
+.list-board-task__subtask-create button:focus-visible {
   outline: 2px solid var(--color-accent-solid);
   outline-offset: 2px;
 }
@@ -677,6 +684,54 @@
   color: var(--color-text-primary);
 }
 
+.list-board-task__subtasks {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.list-board-task__subtask-trigger {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 1.75rem;
+  padding: 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--color-text-secondary);
+  background: transparent;
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  text-align: left;
+  cursor: pointer;
+}
+
+.list-board-task__subtask-trigger:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.list-board-task__subtask-trigger:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.list-board-task__subtask-chevron {
+  width: 1rem;
+  text-align: center;
+}
+
+.list-board-task__subtask-panel {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+  padding-top: var(--space-1);
+}
+
 .list-board-task__subtask-summary {
   display: flex;
   align-items: center;
@@ -694,9 +749,170 @@
 
 .list-board-task__subtask-progress span {
   display: block;
-  width: 66.666%;
+  width: var(--subtask-progress, 66.666%);
   height: 100%;
   background: var(--color-success);
+  transition-property: width;
+  transition-duration: var(--motion-duration-state);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.list-board-task__subtask-list {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.list-board-task__subtask-row {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr) 5.75rem;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  min-height: 2rem;
+  padding: var(--space-1);
+  border-radius: var(--radius-control);
+  background: color-mix(in srgb, var(--color-surface-interactive) 65%, transparent);
+}
+
+.list-board-task__subtask-row[data-subtask-completed="true"] {
+  color: var(--color-text-secondary);
+}
+
+.list-board-task__subtask-check,
+.list-board-task__subtask-action {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  color: var(--color-text-secondary);
+  background: transparent;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.list-board-task__subtask-check {
+  color: var(--list-board-task-accent);
+}
+
+.list-board-task__subtask-check:hover:not(:disabled),
+.list-board-task__subtask-action:hover:not(:disabled) {
+  border-color: var(--color-border-subtle);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+}
+
+.list-board-task__subtask-action--delete:hover:not(:disabled) {
+  border-color: var(--color-destructive);
+  color: var(--color-destructive);
+  background: var(--color-destructive-surface);
+}
+
+.list-board-task__subtask-check:disabled,
+.list-board-task__subtask-action:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.list-board-task__subtask-title {
+  min-width: 0;
+  overflow: hidden;
+  padding: var(--space-1);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: text;
+}
+
+.list-board-task__subtask-title:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+}
+
+.list-board-task__subtask-title:disabled {
+  cursor: default;
+}
+
+.list-board-task__subtask-title-input {
+  width: 100%;
+  min-width: 0;
+  height: 1.75rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-accent-solid);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  font: inherit;
+  font-size: var(--font-size-metadata);
+}
+
+.list-board-task__subtask-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1.75rem);
+  justify-content: end;
+  gap: var(--space-1);
+  width: 5.75rem;
+}
+
+.list-board-task__subtask-row:has(.list-board-task__subtask-title-input) .list-board-task__subtask-actions {
+  grid-template-columns: repeat(2, 1.75rem);
+}
+
+.list-board-task__subtask-create {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.list-board-task__subtask-create input {
+  min-width: 0;
+  height: 2rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  font: inherit;
+  font-size: var(--font-size-metadata);
+}
+
+.list-board-task__subtask-create button {
+  min-height: 2rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-accent-solid);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: color-mix(in srgb, var(--color-accent-solid) 16%, var(--color-surface-deep));
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  cursor: pointer;
+}
+
+.list-board-task__subtask-create button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.list-board-task__subtask-error {
+  color: var(--color-destructive);
+}
+
+.list-board-task__subtask-empty,
+.list-board-task__subtask-readonly {
+  color: var(--color-text-secondary);
 }
 
 .list-board-task__subtask {
@@ -796,5 +1012,9 @@
   .list-board-lane,
   .list-board-task {
     scroll-behavior: auto;
+  }
+
+  .list-board-task__subtask-progress span {
+    transition-duration: 0ms;
   }
 }

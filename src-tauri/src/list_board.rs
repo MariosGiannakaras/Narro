@@ -48,6 +48,8 @@ pub struct ListBoardTask {
     pub title: String,
     pub est_seconds: Option<u32>,
     pub time_taken_seconds: String,
+    pub subtask_total_count: u64,
+    pub subtask_completed_count: u64,
     pub scheduled_local_date: Option<String>,
     pub scheduled_local_time: Option<String>,
     pub recurrence_rule_id: Option<RecurrenceRuleId>,
@@ -88,6 +90,7 @@ pub enum ListBoardError {
     DuplicateTaskProjection(TaskId),
     CountOverflow,
     EstimateOverflow,
+    SubtaskCountOverflow,
 }
 
 impl Display for ListBoardError {
@@ -116,6 +119,9 @@ impl Display for ListBoardError {
             }
             Self::EstimateOverflow => {
                 formatter.write_str("list-board aggregate estimate exceeded the supported range")
+            }
+            Self::SubtaskCountOverflow => {
+                formatter.write_str("list-board subtask count exceeded the supported range")
             }
         }
     }
@@ -166,6 +172,8 @@ struct ProjectedTask {
     list_title: String,
     list_color: Option<String>,
     time_taken_seconds: String,
+    subtask_total_count: u64,
+    subtask_completed_count: u64,
     is_overdue: bool,
 }
 
@@ -204,6 +212,8 @@ impl LaneAccumulator {
                 title: projected.task.title,
                 est_seconds: projected.task.est_seconds,
                 time_taken_seconds: projected.time_taken_seconds,
+                subtask_total_count: projected.subtask_total_count,
+                subtask_completed_count: projected.subtask_completed_count,
                 scheduled_local_date: projected.task.scheduled_local_date,
                 scheduled_local_time: projected.task.scheduled_local_time,
                 recurrence_rule_id: projected.task.recurrence_rule_id,
@@ -284,6 +294,23 @@ fn task_is_overdue_at(
     }
 }
 
+fn subtask_counts(conn: &Connection, task_id: TaskId) -> Result<(u64, u64), ListBoardError> {
+    let (total, completed): (i64, i64) = conn.query_row(
+        "SELECT COUNT(*),
+                COALESCE(SUM(CASE WHEN completed_at IS NOT NULL THEN 1 ELSE 0 END), 0)
+         FROM subtasks
+         WHERE task_id = ?1",
+        [task_id.to_string()],
+        |row| Ok((row.get(0)?, row.get(1)?)),
+    )?;
+    let total = u64::try_from(total).map_err(|_| ListBoardError::SubtaskCountOverflow)?;
+    let completed = u64::try_from(completed).map_err(|_| ListBoardError::SubtaskCountOverflow)?;
+    if completed > total {
+        return Err(ListBoardError::SubtaskCountOverflow);
+    }
+    Ok((total, completed))
+}
+
 fn project_task(
     conn: &Connection,
     list_rank: u32,
@@ -294,6 +321,7 @@ fn project_task(
     display_timezone: &str,
 ) -> Result<ProjectedTask, ListBoardError> {
     let time_taken_seconds = task_time_taken_seconds(conn, task.id)?.to_string();
+    let (subtask_total_count, subtask_completed_count) = subtask_counts(conn, task.id)?;
     let is_overdue = task_is_overdue_at(&task, now, display_timezone)?;
     Ok(ProjectedTask {
         list_rank,
@@ -301,6 +329,8 @@ fn project_task(
         list_title,
         list_color,
         time_taken_seconds,
+        subtask_total_count,
+        subtask_completed_count,
         is_overdue,
     })
 }
@@ -446,9 +476,11 @@ pub fn get_list_board_snapshot(
 mod tests {
     use super::*;
     use crate::domain::lists::NewListInput;
+    use crate::domain::subtasks::NewSubtaskInput;
     use crate::domain::tasks::{NewTaskInput, SetTaskTimeTakenInput};
     use crate::persistence::lists::{archive_list, create_list};
     use crate::persistence::run_migrations;
+    use crate::persistence::subtasks::{complete_subtask, create_subtask};
     use crate::persistence::task_metadata::set_task_time_taken;
     use crate::persistence::tasks::{complete_task, create_task};
 
@@ -534,6 +566,25 @@ mod tests {
         );
         let today = add_task(&mut conn, list_id, "Today", PlanningLane::Today, Some(1800));
         let done = add_task(&mut conn, list_id, "Done", PlanningLane::Today, Some(2400));
+        let first_subtask = create_subtask(
+            &mut conn,
+            NewSubtaskInput {
+                task_id: today,
+                title: "First".into(),
+            },
+            T0,
+        )
+        .expect("create first subtask");
+        create_subtask(
+            &mut conn,
+            NewSubtaskInput {
+                task_id: today,
+                title: "Second".into(),
+            },
+            T0,
+        )
+        .expect("create second subtask");
+        complete_subtask(&mut conn, first_subtask.id, T1).expect("complete first subtask");
         complete_task(&mut conn, done, T1).expect("complete task");
 
         let board = load_at(&conn, Some(list_id), now(), "Europe/Athens").expect("load board");
@@ -545,6 +596,10 @@ mod tests {
         assert_eq!(board.today.aggregate_est_seconds, 1800);
         assert_eq!(board.done.aggregate_est_seconds, 2400);
         assert_eq!(board.today.tasks[0].time_taken_seconds, "0");
+        assert_eq!(board.today.tasks[0].subtask_total_count, 2);
+        assert_eq!(board.today.tasks[0].subtask_completed_count, 1);
+        assert_eq!(board.done.tasks[0].subtask_total_count, 0);
+        assert_eq!(board.done.tasks[0].subtask_completed_count, 0);
         assert!(board.today.tasks[0].recurrence_rule_id.is_none());
         assert!(board.today.tasks[0].recurrence_parent_task_id.is_none());
         assert!(!board.today.tasks[0].is_overdue);
@@ -628,6 +683,8 @@ mod tests {
         let projected = &board.today.tasks[0];
         assert_eq!(projected.id, task_id);
         assert_eq!(projected.time_taken_seconds, "375");
+        assert_eq!(projected.subtask_total_count, 0);
+        assert_eq!(projected.subtask_completed_count, 0);
         assert_eq!(
             projected.scheduled_local_date.as_deref(),
             Some("2026-09-07")

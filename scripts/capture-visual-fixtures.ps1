@@ -190,6 +190,17 @@ try {
             -ScreenshotPath $metricScreenshot `
             -DomPath $metricDom
 
+        $subtaskLabel = "task-subtasks-$theme"
+        $subtaskUrl = "$baseUrl/task-subtasks-fixture.html?theme=$theme"
+        $subtaskScreenshot = Join-Path $outputPath "$subtaskLabel.png"
+        $subtaskDom = Join-Path $outputPath "$subtaskLabel.html"
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme $subtaskLabel `
+            -Url $subtaskUrl `
+            -ScreenshotPath $subtaskScreenshot `
+            -DomPath $subtaskDom
+
         $scheduleLabel = "task-scheduling-$theme"
         $scheduleUrl = "$baseUrl/task-schedule-fixture.html?theme=$theme"
         $scheduleScreenshot = Join-Path $outputPath "$scheduleLabel.png"

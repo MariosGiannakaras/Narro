@@ -3,6 +3,7 @@ pub mod board_task_editor;
 pub mod board_task_metrics;
 pub mod board_task_mutation;
 pub mod board_task_schedule;
+pub mod board_task_subtasks;
 pub mod domain;
 pub mod error;
 pub mod home_snapshot;
@@ -625,6 +626,12 @@ pub fn run() {
             board_task_schedule::update_list_board_task_schedule,
             board_task_schedule::save_list_board_task_recurrence,
             board_task_schedule::remove_list_board_task_recurrence,
+            board_task_subtasks::get_list_board_task_subtasks,
+            board_task_subtasks::create_list_board_subtask,
+            board_task_subtasks::update_list_board_subtask_title,
+            board_task_subtasks::set_list_board_subtask_completion,
+            board_task_subtasks::reorder_list_board_subtasks,
+            board_task_subtasks::delete_list_board_subtask,
             board_task_mutation::reorder_list_board_task,
             board_task_mutation::move_list_board_task,
             list_editor::create_list_from_editor,

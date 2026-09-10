@@ -77,11 +77,13 @@ for (const [haystack, needle, label] of [
 }
 
 for (const forbidden of [
-  "onComplete",
-  "onDelete",
+  "onTaskComplete",
+  "onTaskDelete",
+  "completeListBoardTask",
+  "deleteListBoardTask",
 ]) {
   if (component.includes(forbidden)) {
-    throw new Error(`List-board hierarchy must not activate an unordered later task interaction: ${forbidden}`);
+    throw new Error(`List-board hierarchy must not activate an unordered parent-task interaction: ${forbidden}`);
   }
 }
 

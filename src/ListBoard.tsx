@@ -12,13 +12,21 @@ import {
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
+  createListBoardSubtask,
   createListBoardTask,
+  deleteListBoardSubtask,
   getListBoardSnapshot,
+  getListBoardTaskSubtasks,
   moveListBoardTask,
+  reorderListBoardSubtasks,
   reorderListBoardTask,
+  setListBoardSubtaskCompletion,
+  updateListBoardSubtaskTitle,
   updateListBoardTaskEstimate,
   updateListBoardTaskTimeTaken,
   updateListBoardTaskTitle,
+  type BoardSubtask,
+  type BoardSubtaskSnapshot,
   type ListBoardLane,
   type ListBoardRequestTarget,
   type ListBoardSnapshot,
@@ -40,6 +48,7 @@ import "./listBoard.css";
 type LaneKey = "backlog" | "thisWeek" | "today" | "done";
 type PendingLaneKey = Exclude<LaneKey, "done">;
 type WithinLaneDirection = "up" | "down";
+type SubtaskDirection = "up" | "down";
 
 type ListBoardProps = {
   target: ListBoardRequestTarget;
@@ -77,6 +86,32 @@ type TaskEditorState =
       expectedTimeTakenSeconds: string;
       live: boolean;
     };
+
+type SubtaskPanelState = {
+  taskId: string;
+  listId: string;
+  loading: boolean;
+  snapshot: BoardSubtaskSnapshot | null;
+  error: string | null;
+  createValue: string;
+  editor: { id: string; expectedTitle: string; value: string } | null;
+  pending: boolean;
+};
+
+type BoardSubtaskControls = {
+  panel: SubtaskPanelState | null;
+  canOpen: boolean;
+  onToggle: (task: ListBoardTask) => void;
+  onCreateValueChange: (value: string) => void;
+  onCreate: () => void;
+  onStartEdit: (subtask: BoardSubtask) => void;
+  onEditValueChange: (value: string) => void;
+  onSaveEdit: () => void;
+  onCancelEdit: () => void;
+  onToggleCompleted: (subtask: BoardSubtask) => void;
+  onMove: (subtask: BoardSubtask, direction: SubtaskDirection) => void;
+  onDelete: (subtask: BoardSubtask) => void;
+};
 
 export type ListBoardFixtureReorderState = {
   draggingTaskId?: string;
@@ -274,6 +309,7 @@ function BoardLane({
   dropTarget,
   settlingTaskId,
   mutationPendingTaskId,
+  subtaskControls,
   onDragStart,
   onDragOverTask,
   onDragOverLane,
@@ -309,6 +345,7 @@ function BoardLane({
   dropTarget: DropTarget | null;
   settlingTaskId: string | null;
   mutationPendingTaskId: string | null;
+  subtaskControls?: BoardSubtaskControls;
   onDragStart: (task: ListBoardTask, lane: PendingLaneKey, event: ReactDragEvent<HTMLDivElement>) => void;
   onDragOverTask: (task: ListBoardTask, lane: PendingLaneKey, event: ReactDragEvent<HTMLDivElement>) => void;
   onDragOverLane: (lane: PendingLaneKey, event: ReactDragEvent<HTMLDivElement>) => void;
@@ -422,11 +459,27 @@ function BoardLane({
             const liveMetricEditable = liveState === "paused" || liveState === "overtime_paused";
             const canEditMetric = canStartTaskEditor && (!isLiveTask || liveMetricEditable);
             const canEditSchedule = canStartScheduleEditor && task.completedAt === null && !isLiveTask;
+            const taskSubtaskPanel = subtaskControls?.panel?.taskId === task.id
+              ? subtaskControls.panel
+              : null;
+            const subtaskModel = taskSubtaskPanel
+              ? {
+                  expanded: true,
+                  loading: taskSubtaskPanel.loading,
+                  error: taskSubtaskPanel.error,
+                  mutable: Boolean(taskSubtaskPanel.snapshot?.mutable) && !aggregateView,
+                  subtasks: taskSubtaskPanel.snapshot?.subtasks ?? [],
+                  createValue: taskSubtaskPanel.createValue,
+                  editor: taskSubtaskPanel.editor,
+                  pending: taskSubtaskPanel.pending,
+                }
+              : undefined;
             const dragging = dragState?.taskId === task.id;
             const settling = settlingTaskId === task.id;
             const pending = mutationPendingTaskId === task.id
               || Boolean(titleEditor?.pending)
-              || Boolean(metricEditor?.pending);
+              || Boolean(metricEditor?.pending)
+              || Boolean(taskSubtaskPanel?.pending);
             const placeholderBefore = laneDropTarget?.beforeTaskId === task.id;
             const placeholderAfter = laneDropTarget?.beforeTaskId === null
               && appendAfterId === task.id;
@@ -473,6 +526,20 @@ function BoardLane({
                       : undefined}
                     metricEditor={metricEditor}
                     onScheduleEdit={canEditSchedule ? () => onStartScheduleEdit(task) : undefined}
+                    subtasks={subtaskControls ? {
+                      model: subtaskModel,
+                      canExpand: taskSubtaskPanel ? !taskSubtaskPanel.pending : subtaskControls.canOpen,
+                      onToggleExpanded: () => subtaskControls.onToggle(task),
+                      onCreateValueChange: subtaskControls.onCreateValueChange,
+                      onCreate: subtaskControls.onCreate,
+                      onStartEdit: subtaskControls.onStartEdit,
+                      onEditValueChange: subtaskControls.onEditValueChange,
+                      onSaveEdit: subtaskControls.onSaveEdit,
+                      onCancelEdit: subtaskControls.onCancelEdit,
+                      onToggleCompleted: subtaskControls.onToggleCompleted,
+                      onMove: subtaskControls.onMove,
+                      onDelete: subtaskControls.onDelete,
+                    } : undefined}
                     liveState={liveState}
                   />
                 </div>
@@ -549,6 +616,7 @@ export function ListBoard({
   const [editorState, setEditorState] = useState<TaskEditorState | null>(null);
   const [editorMutationPending, setEditorMutationPending] = useState(false);
   const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
+  const [subtaskPanel, setSubtaskPanel] = useState<SubtaskPanelState | null>(null);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
@@ -568,6 +636,7 @@ export function ListBoard({
       setEditorState(null);
       setEditorMutationPending(false);
       setScheduleEditorTaskId(null);
+      setSubtaskPanel(null);
       setListOptions(fixtureOptions(fixtureSnapshot));
       return;
     }
@@ -581,6 +650,7 @@ export function ListBoard({
     setEditorState(null);
     setEditorMutationPending(false);
     setScheduleEditorTaskId(null);
+    setSubtaskPanel(null);
     void getListBoardSnapshot(target)
       .then((payload) => {
         if (!disposed) {
@@ -692,18 +762,27 @@ export function ListBoard({
   const interactionReorderEnabled = interactionBoardEnabled
     && editorState === null
     && !editorMutationPending
-    && scheduleEditorTaskId === null;
+    && scheduleEditorTaskId === null
+    && subtaskPanel === null;
   const canStartCreate = interactionBoardEnabled
     && mutationPendingTaskId === null
     && editorState === null
     && !editorMutationPending
-    && scheduleEditorTaskId === null;
+    && scheduleEditorTaskId === null
+    && subtaskPanel === null;
   const canStartTaskEditor = canStartCreate
     && timerPayload !== null
     && timerProjectionError === null;
   const canStartScheduleEditor = canStartCreate
     && timerPayload !== null
     && timerProjectionError === null;
+  const canOpenSubtasks = !fixtureSnapshot
+    && !mutationRefreshBlocked
+    && mutationPendingTaskId === null
+    && editorState === null
+    && !editorMutationPending
+    && scheduleEditorTaskId === null
+    && subtaskPanel === null;
   const presentationReorderEnabled = interactionReorderEnabled || fixtureReorderState !== undefined;
   const displayedDragState = fixtureReorderState?.draggingTaskId && fixtureReorderState.sourceLane
     ? {
@@ -728,9 +807,7 @@ export function ListBoard({
   };
   const scheduleEditorTask = scheduleEditorTaskId ? findTask(scheduleEditorTaskId) : null;
 
-  const refreshAfterMutation = async (taskId: string) => {
-    const payload = await getListBoardSnapshot(target);
-    setSnapshot(payload);
+  const markSettling = (taskId: string) => {
     setSettlingTaskId(taskId);
     if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
     settleTimer.current = window.setTimeout(() => {
@@ -739,11 +816,50 @@ export function ListBoard({
     }, SETTLE_DURATION_MS);
   };
 
+  const refreshAfterMutation = async (taskId: string) => {
+    const payload = await getListBoardSnapshot(target);
+    setSnapshot(payload);
+    markSettling(taskId);
+  };
+
   const handleCommittedRefreshFailure = (failure: unknown) => {
     setMutationRefreshBlocked(true);
     setMutationError(
       `Task change was saved, but the board could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before making more task changes.`,
     );
+  };
+
+  const handleCommittedSubtaskRefreshFailure = (failure: unknown) => {
+    setMutationRefreshBlocked(true);
+    setMutationError(
+      `Subtask change was saved, but authoritative task details could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before making more task changes.`,
+    );
+    setSubtaskPanel((current) => current
+      ? {
+          ...current,
+          loading: false,
+          pending: false,
+          error: "Subtasks changed, but this panel is stale. Reopen the board before editing again.",
+        }
+      : current);
+  };
+
+  const refreshSubtasksAndBoard = async (taskId: string, listId: string) => {
+    const [subtasksPayload, boardPayload] = await Promise.all([
+      getListBoardTaskSubtasks(taskId, listId),
+      getListBoardSnapshot(target),
+    ]);
+    setSnapshot(boardPayload);
+    setSubtaskPanel((current) => current?.taskId === taskId
+      ? {
+          ...current,
+          loading: false,
+          snapshot: subtasksPayload,
+          error: null,
+          pending: false,
+        }
+      : current);
+    markSettling(taskId);
   };
 
   const handleScheduleCommitted = async (
@@ -1009,13 +1125,200 @@ export function ListBoard({
     }
   };
 
+  const toggleSubtaskPanel = (task: ListBoardTask) => {
+    if (subtaskPanel?.taskId === task.id) {
+      if (!subtaskPanel.pending) setSubtaskPanel(null);
+      return;
+    }
+    if (!canOpenSubtasks) return;
+
+    setDragState(null);
+    setDropTarget(null);
+    setMutationError(null);
+    setSubtaskPanel({
+      taskId: task.id,
+      listId: task.listId,
+      loading: true,
+      snapshot: null,
+      error: null,
+      createValue: "",
+      editor: null,
+      pending: false,
+    });
+    void getListBoardTaskSubtasks(task.id, task.listId)
+      .then((payload) => {
+        setSubtaskPanel((current) => current?.taskId === task.id
+          ? { ...current, loading: false, snapshot: payload, error: null }
+          : current);
+      })
+      .catch((failure: unknown) => {
+        setSubtaskPanel((current) => current?.taskId === task.id
+          ? { ...current, loading: false, error: formatInvokeError(failure) }
+          : current);
+      });
+  };
+
+  const beginSubtaskMutation = (): SubtaskPanelState | null => {
+    if (
+      !interactionBoardEnabled
+      || target.kind !== "list"
+      || !subtaskPanel
+      || subtaskPanel.loading
+      || subtaskPanel.error
+      || !subtaskPanel.snapshot?.mutable
+      || subtaskPanel.pending
+      || subtaskPanel.listId !== target.id
+    ) return null;
+    setSubtaskPanel((current) => current ? { ...current, pending: true } : current);
+    setMutationError(null);
+    return subtaskPanel;
+  };
+
+  const finishSubtaskCommit = async (
+    panel: SubtaskPanelState,
+    message: string,
+  ) => {
+    setMutationStatus(message);
+    try {
+      await refreshSubtasksAndBoard(panel.taskId, panel.listId);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedSubtaskRefreshFailure(failure);
+    }
+  };
+
+  const failSubtaskMutation = (failure: unknown, message: string) => {
+    setMutationError(formatInvokeError(failure));
+    setMutationStatus(message);
+    setSubtaskPanel((current) => current ? { ...current, pending: false } : current);
+  };
+
+  const submitSubtaskCreate = async () => {
+    const panel = beginSubtaskMutation();
+    if (!panel) return;
+    const title = panel.createValue.trim();
+    if (!title) {
+      setSubtaskPanel((current) => current ? { ...current, pending: false } : current);
+      setMutationError("Subtask title must not be empty.");
+      setMutationStatus("Could not add subtask.");
+      return;
+    }
+    try {
+      await createListBoardSubtask({ taskId: panel.taskId, listId: panel.listId, title });
+    } catch (failure: unknown) {
+      failSubtaskMutation(failure, `Could not add ${title}.`);
+      return;
+    }
+    setSubtaskPanel((current) => current?.taskId === panel.taskId
+      ? { ...current, createValue: "" }
+      : current);
+    await finishSubtaskCommit(panel, `Added subtask ${title}.`);
+  };
+
+  const submitSubtaskTitleEdit = async () => {
+    const panel = beginSubtaskMutation();
+    if (!panel || !panel.editor) {
+      setSubtaskPanel((current) => current ? { ...current, pending: false } : current);
+      return;
+    }
+    const title = panel.editor.value.trim();
+    if (!title) {
+      setSubtaskPanel((current) => current ? { ...current, pending: false } : current);
+      setMutationError("Subtask title must not be empty.");
+      setMutationStatus("Could not save subtask title.");
+      return;
+    }
+    if (title === panel.editor.expectedTitle) {
+      setSubtaskPanel((current) => current ? { ...current, pending: false, editor: null } : current);
+      return;
+    }
+    try {
+      await updateListBoardSubtaskTitle({
+        subtaskId: panel.editor.id,
+        taskId: panel.taskId,
+        listId: panel.listId,
+        expectedTitle: panel.editor.expectedTitle,
+        title,
+      });
+    } catch (failure: unknown) {
+      failSubtaskMutation(failure, `Could not rename ${panel.editor.expectedTitle}.`);
+      return;
+    }
+    setSubtaskPanel((current) => current?.taskId === panel.taskId
+      ? { ...current, editor: null }
+      : current);
+    await finishSubtaskCommit(panel, `Renamed subtask to ${title}.`);
+  };
+
+  const toggleSubtaskCompleted = async (subtask: BoardSubtask) => {
+    const panel = beginSubtaskMutation();
+    if (!panel || subtask.taskId !== panel.taskId) return;
+    const completed = subtask.completedAt === null;
+    try {
+      await setListBoardSubtaskCompletion({
+        subtaskId: subtask.id,
+        taskId: panel.taskId,
+        listId: panel.listId,
+        expectedCompletedAt: subtask.completedAt,
+        completed,
+      });
+    } catch (failure: unknown) {
+      failSubtaskMutation(failure, `Could not ${completed ? "complete" : "reopen"} ${subtask.title}.`);
+      return;
+    }
+    await finishSubtaskCommit(panel, `${completed ? "Completed" : "Reopened"} ${subtask.title}.`);
+  };
+
+  const moveSubtask = async (subtask: BoardSubtask, direction: SubtaskDirection) => {
+    const panel = beginSubtaskMutation();
+    if (!panel?.snapshot || subtask.taskId !== panel.taskId) return;
+    const expectedOrder = panel.snapshot.subtasks.map((item) => item.id);
+    const index = expectedOrder.indexOf(subtask.id);
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (index < 0 || targetIndex < 0 || targetIndex >= expectedOrder.length) {
+      setSubtaskPanel((current) => current ? { ...current, pending: false } : current);
+      return;
+    }
+    const orderedIds = [...expectedOrder];
+    [orderedIds[index], orderedIds[targetIndex]] = [orderedIds[targetIndex], orderedIds[index]];
+    try {
+      await reorderListBoardSubtasks({
+        taskId: panel.taskId,
+        listId: panel.listId,
+        expectedOrder,
+        orderedIds,
+      });
+    } catch (failure: unknown) {
+      failSubtaskMutation(failure, `Could not move ${subtask.title}.`);
+      return;
+    }
+    await finishSubtaskCommit(panel, `Moved ${subtask.title} ${direction}.`);
+  };
+
+  const deleteSubtask = async (subtask: BoardSubtask) => {
+    const panel = beginSubtaskMutation();
+    if (!panel || subtask.taskId !== panel.taskId) return;
+    try {
+      await deleteListBoardSubtask({
+        subtaskId: subtask.id,
+        taskId: panel.taskId,
+        listId: panel.listId,
+        expectedUpdatedAt: subtask.updatedAt,
+      });
+    } catch (failure: unknown) {
+      failSubtaskMutation(failure, `Could not delete ${subtask.title}.`);
+      return;
+    }
+    await finishSubtaskCommit(panel, `Deleted subtask ${subtask.title}.`);
+  };
+
   const handleDragStart = (
     task: ListBoardTask,
     lane: PendingLaneKey,
     event: ReactDragEvent<HTMLDivElement>,
   ) => {
     if ((event.target as HTMLElement).closest(
-      "[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control]",
+      "[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-subtask-control]",
     )) {
       event.preventDefault();
       return;
@@ -1129,6 +1432,43 @@ export function ListBoard({
     }
   };
 
+  const subtaskControls: BoardSubtaskControls | undefined = fixtureSnapshot
+    ? undefined
+    : {
+        panel: subtaskPanel,
+        canOpen: canOpenSubtasks,
+        onToggle: toggleSubtaskPanel,
+        onCreateValueChange: (value) => {
+          setSubtaskPanel((current) => current ? { ...current, createValue: value } : current);
+        },
+        onCreate: () => void submitSubtaskCreate(),
+        onStartEdit: (subtask) => {
+          if (!subtaskPanel?.snapshot?.mutable || subtaskPanel.pending) return;
+          setSubtaskPanel((current) => current
+            ? {
+                ...current,
+                editor: { id: subtask.id, expectedTitle: subtask.title, value: subtask.title },
+              }
+            : current);
+          setMutationError(null);
+          setMutationStatus("");
+        },
+        onEditValueChange: (value) => {
+          setSubtaskPanel((current) => current?.editor
+            ? { ...current, editor: { ...current.editor, value } }
+            : current);
+        },
+        onSaveEdit: () => void submitSubtaskTitleEdit(),
+        onCancelEdit: () => {
+          if (subtaskPanel?.pending) return;
+          setSubtaskPanel((current) => current ? { ...current, editor: null } : current);
+          setMutationError(null);
+        },
+        onToggleCompleted: (subtask) => void toggleSubtaskCompleted(subtask),
+        onMove: (subtask, direction) => void moveSubtask(subtask, direction),
+        onDelete: (subtask) => void deleteSubtask(subtask),
+      };
+
   return (
     <section
       className="list-board"
@@ -1138,6 +1478,7 @@ export function ListBoard({
       data-board-task-editor={editorState?.kind ?? "idle"}
       data-board-metric-editor={editorState?.kind === "metric" ? editorState.metric : "none"}
       data-board-schedule-editor={scheduleEditorTaskId ? "open" : "closed"}
+      data-board-subtask-panel={subtaskPanel?.taskId ?? "closed"}
       data-board-timer-projection={timerPayload ? "ready" : timerProjectionError ? "error" : "loading"}
       aria-labelledby="list-board-title"
     >
@@ -1194,7 +1535,8 @@ export function ListBoard({
               disabled={!onTargetChange
                 || mutationPendingTaskId !== null
                 || editorMutationPending
-                || scheduleEditorTaskId !== null}
+                || scheduleEditorTaskId !== null
+                || subtaskPanel !== null}
               aria-label="Planning list"
             >
               <option value={ALL_LISTS_VALUE}>All Lists</option>
@@ -1231,6 +1573,7 @@ export function ListBoard({
             dropTarget={displayedDropTarget}
             settlingTaskId={displayedSettlingTaskId}
             mutationPendingTaskId={mutationPendingTaskId}
+            subtaskControls={subtaskControls}
             onDragStart={handleDragStart}
             onDragOverTask={handleDragOverTask}
             onDragOverLane={handleDragOverLane}

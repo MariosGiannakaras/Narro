@@ -10,6 +10,7 @@ pub mod recurrence_replace;
 pub mod reminders;
 pub mod sessions;
 pub mod sleep_accounting;
+pub mod subtask_board;
 pub mod subtasks;
 pub mod task_estimate_edit;
 pub mod task_identity;
