@@ -1,4 +1,4 @@
-import type { FormEvent, KeyboardEvent } from "react";
+import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
 import type { BoardSubtask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
 
@@ -49,7 +49,7 @@ function Progress({ completed, total }: { completed: number; total: number }) {
       aria-valuemin={0}
       aria-valuemax={clampedTotal}
       aria-valuenow={clampedCompleted}
-      style={{ "--subtask-progress": `${percent}%` } as React.CSSProperties}
+      style={{ "--subtask-progress": `${percent}%` } as CSSProperties}
     >
       <span />
     </span>
