@@ -1,179 +1,168 @@
 # HANDOFF.md
 
-This is the canonical zero-context continuation state for Narro. Start with `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 5 section in `TODO.md`, relevant `STATUS.md`, `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/BEHAVIOR_MATRIX.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant immutable `work-log/*.md` entries.
+This is the canonical zero-context continuation state for Narro. Start with `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, the active Milestone 5 section in `TODO.md`, relevant `STATUS.md`, `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/BEHAVIOR_MATRIX.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md` when source-product reliability risks are relevant, and the newest relevant immutable `work-log/*.md` entries.
 
 ## CURRENT MILESTONE
 
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / **18 of 28** top-level items validated.
+- Milestone 5: ACTIVE / **19 of 28** top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Latest fully main-validated source/test SHA:
 
-`64b7cc8cc79b3991a7407c2838b60f923c63dc75`
+`120bf882b67c54d832a1116f8fa024fe2727e155`
 
 Source tree:
 
-`537390a65e7cec0343f01741db7c110bf38377a6`
+`6c898857c43a1f25d147d4af1eec6d3f4d08a1a2`
 
-This is the expected-head guarded merge of PR #90 — `M5: add scheduling and recurrence editor`. PR Windows CI #353 and resulting-main Windows CI #354 are both **SUCCESS**. Detailed evidence: `work-log/2026-09-10-1105-chatgpt-m5-scheduling-recurrence-ui.md`.
+This is the expected-head guarded merge of PR #91 — `M5: add Subtasks UI`.
 
-Markdown-only tracking descendants do not replace this validated source/test baseline.
+Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
-## ACTIVE IMPLEMENTATION
+## LATEST COMPLETED IMPLEMENTATION
 
 **M5 Main UI — Subtasks UI.**
 
-Active branch: `m5-subtasks-ui`
+Validated capabilities:
 
-Branch base / main tracking tip at slice start:
+- authoritative completed/total subtask counts project into List Board task cards without renderer polling;
+- expanded rows load from task-scoped Rust/SQLite state and preserve stable `SubtaskId` / parent `TaskId` identity;
+- active individual-list tasks support persisted add, inline title edit, complete/uncomplete, move up/down and delete;
+- aggregate All Lists and completed Done tasks expose subtasks read-only;
+- active live parent tasks can manage subtasks while parent title/metric/schedule restrictions remain independent;
+- renderer mutations bind expected parent/list state and use immediate SQLite transactions;
+- title/completion/delete/reorder writes carry expected-state stale guards;
+- reorder preserves an exact duplicate-free subtask identity set and validates the expected current order before rewriting ranks;
+- delete validates expected `updated_at` and compacts ranks in the same transaction;
+- expanded subtask state locks conflicting parent task/list mutations and subtask controls cannot initiate parent drag;
+- successful mutations refresh both authoritative subtask rows and board progress;
+- committed-but-refresh-failed subtask mutations are reported as saved and block unsafe follow-up writes until reload;
+- a rendered-parent identity gate rejects mismatched stale rows before mutation callbacks;
+- fixed task title/action geometry remains intact in expanded/edit/read-only states;
+- deterministic Rust/static coverage and light/dark production visual fixtures are wired into preflight/Windows CI.
 
-`1c4f14500265df9376384b5c608f7147e851e099`
+Detailed immutable evidence:
 
-Open PR:
+`work-log/2026-09-11-0127-chatgpt-m5-subtasks-ui.md`
 
-**#91 — `M5: add Subtasks UI`**
+## LATEST PR / CI EVIDENCE
 
-Initial exact PR head validated by CI #355:
+### PR #91 exact-head validation
 
-`5ab6dc2d4d4b1eabc33aa77be84f1e9410e5d4d0`
+Final validated PR head:
 
-Current formatter-corrected source/test candidate before this HANDOFF-only descendant:
+`929c5042a095dfcedc1343ff680080fb2d229cbe`
 
-`fe738146cec2cca6f8f1e638935fe347ca6b6c59`
+Windows PR CI #359:
 
-The current PR head after this tracking commit must receive a fresh exact-head Windows CI run; intermediate source-only runs do not count once the branch advances.
+- run `34511982661`;
+- job `102988191474`;
+- conclusion: **SUCCESS**;
+- Repository Preflight: **PASS**;
+- Capture Visual Regression Fixtures: **PASS**;
+- Upload Visual Regression Artifact: **PASS**;
+- Tauri Release: **PASS**;
+- Upload Diagnostic Harness Artifact: **PASS**;
+- visual artifact `10166459738`, digest `sha256:176f7bf17badd1efd8aafeaaa09110ce44568ed70588db064e38abc412244ef8`;
+- diagnostic artifact `10166706435`, digest `sha256:c52c6c764b29e3147de21c5e733948e985ca5de5aa091ebb7c7eb9cdec709a4c`;
+- PR comments: none;
+- submitted reviews: none;
+- inline review threads: none;
+- final exact-head semantic/diff review: **PASS**.
+
+Earlier Windows CI #355 / run `34511182147` failed only at `cargo fmt --check` after all frontend/static checks and the production build passed. The exact formatter output was applied to three Rust files and revalidated by #359; the failed run did not increment progress.
+
+PR #91 merged with:
+
+`expected_head_sha=929c5042a095dfcedc1343ff680080fb2d229cbe`
+
+Resulting main source SHA:
+
+`120bf882b67c54d832a1116f8fa024fe2727e155`
+
+### Resulting-main validation
+
+Windows main CI #360:
+
+- run `34536225635`;
+- job `103068350228`;
+- event `push`;
+- exact source SHA `120bf882b67c54d832a1116f8fa024fe2727e155`;
+- conclusion: **SUCCESS**;
+- Repository Preflight: **PASS**;
+- Capture Visual Regression Fixtures: **PASS**;
+- Upload Visual Regression Artifact: **PASS**;
+- Tauri Release: **PASS**;
+- Upload Diagnostic Harness Artifact: **PASS**;
+- visual artifact `10175731468`, digest `sha256:5a7d009113217741067605456948ec7b7ed323974d265b28a663580fa68285ab`;
+- diagnostic artifact `10175926487`, digest `sha256:01d5f5fdf8d4c825a12c6ab15e2532b470682c1a971f6349efe0b6ef24af7e32`.
+
+## TRACKING STATE
+
+- `TODO.md`: Subtasks UI is checked complete.
+- `STATUS.md`: Milestone 5 is reconciled at **19/28**.
+- Latest immutable work log: `work-log/2026-09-11-0127-chatgpt-m5-subtasks-ui.md`.
+- The post-merge markdown commits are tracking descendants only; validated source/test baseline remains `120bf882b67c54d832a1116f8fa024fe2727e155`.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 2/5 | 18/28`**
+**`M-5/10 | 5/5 | 19/28`**
 
-Current five checkpoints:
+The completed Subtasks UI slice used five checkpoints, all complete:
 
 1. mandatory inspection + narrow subtask mutation/read/UX contract — **COMPLETE**;
 2. authoritative subtask command/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — **IN PROGRESS**;
-4. final exact-head review + expected-head merge — PENDING;
-5. resulting-main Windows CI + tracking/work-log reconciliation — PENDING.
+3. exact PR-head Windows CI — **COMPLETE**;
+4. final exact-head review + expected-head merge — **COMPLETE**;
+5. resulting-main Windows CI + tracking/work-log reconciliation — **COMPLETE**.
 
-## CHECKPOINT 1 — EVIDENCE-BACKED CONTRACT
-
-### Existing authoritative M2 behavior
-
-- `domain::subtasks::SubtaskRecord` owns stable `SubtaskId`, stable parent `TaskId`, title, `sort_rank`, optional `completed_at`, and timestamps.
-- `persistence::subtasks` already implements create/read/title update/complete/reopen/exact-set reorder/delete.
-- Create appends at the next persisted rank; delete compacts ranks.
-- Reorder rejects duplicate IDs and any set mismatch and persists a contiguous rank order.
-- Existing M2 integration tests prove CRUD/completion/reorder/delete preserve identities, stale/duplicate reorder does not partially write, ordering/completion survive database reopen, and history remains readable after parent completion/archive.
-- Subtask mutation is forbidden when the parent task is completed or archived or when the parent list is archived. Reads remain available for historical/completed parents.
-
-### Renderer-facing stale-write policy
-
-- Every renderer mutation binds the expected parent task and list.
-- Title edits compare the expected prior title and only update title/`updated_at`.
-- Completion toggles compare the expected prior completion state and only update completion/`updated_at`.
-- Reorder compares the renderer's expected current ordered ID sequence inside the same transaction before assigning the requested sequence; a concurrent reorder or create/delete fails stale rather than being overwritten.
-- Delete compares expected `updated_at` before deleting/compacting.
-- Renderer-facing guarded mutations use an immediate SQLite transaction so validation and write form one authoritative boundary.
-- Creation appends to the authoritative persisted order after validating exact parent/list/mutable state; it never creates renderer-side IDs or ranks.
-
-### List Board / UX contract
-
-- Normal task cards show authoritative completed/total subtask progress without renderer polling.
-- Full rows load through one task-scoped Rust command on expansion.
-- Aggregate All Lists and completed Done tasks may expose rows read-only; mutations remain blocked.
-- Supported Main-window actions: add, title edit, complete/uncomplete, move up/down, delete.
-- Completing the last subtask does not auto-complete the parent task.
-- Full management remains available while the parent task is live; parent title/metric/schedule restrictions remain independent.
-- Opening the panel locks conflicting task reorder/create/title/metric/schedule interactions and list switching.
-- Subtask controls are excluded from parent drag initiation.
-- Mutation success is persistence-first. After commit, authoritative subtask rows and board progress refresh together. A committed mutation plus failed secondary refresh enters the existing fail-closed mutation-blocked path.
-- Pointer actions have keyboard/focus-visible equivalents and icon-only controls have accessible names/tooltips.
-
-## CHECKPOINT 2 — IMPLEMENTED AND REVIEWED
-
-### Authoritative persistence / command boundaries
-
-- Added `src-tauri/src/persistence/subtask_board.rs` with `TransactionBehavior::Immediate` guarded create/title/completion/reorder/delete boundaries.
-- Renderer writes validate task/list binding, expected title/completion/version/order and preserve stable subtask identity.
-- Reorder validates duplicate-free equal identity sets and current expected order before rank rewrite.
-- Delete validates expected `updated_at` and compacts remaining ranks in the same transaction.
-- Added `src-tauri/src/board_task_subtasks.rs` typed Tauri commands with stable `SUBTASK_STALE`, `SUBTASK_NOT_ALLOWED` and `SUBTASK_FAILED` codes; raw SQL remains out of the command/React layer.
-- Completed-parent reads remain available with `mutable=false`; mutations remain rejected by authoritative M2 parent/list rules.
-- Commands/modules are registered through `lib.rs` / `persistence/mod.rs`.
-
-### Board projection / frontend behavior
-
-- `ListBoardTask` projects authoritative subtask total/completed counts; deterministic Rust board tests cover 2 total / 1 completed without changing identity/lane/time metadata.
-- `listBoardApi.ts` exposes typed subtask DTOs and mutation requests.
-- Added production `TaskSubtasks.tsx`; `TaskCard` renders progress and real expanded rows rather than relying on fixture-only presentation.
-- `ListBoard` owns one transient expanded-panel state, loads authoritative rows on open and keeps conflicting parent mutations locked while the panel is open.
-- All Lists and Done are read-only; active individual-list tasks can mutate even when the parent task is live.
-- Create/edit/toggle/reorder/delete are persistence-first and refresh both the task-scoped subtask snapshot and board snapshot after commit.
-- Post-commit refresh failure explicitly reports that the subtask change was saved and blocks unsafe follow-up mutations until the board is reloaded.
-- Parent task drag start ignores `[data-task-subtask-control]` descendants.
-- Expanded subtasks suppress the parent reorder action rail while retaining the fixed `4.25rem` title/action slot.
-- A defensive rendered-parent identity gate compares the nearest `data-task-id` card identity with persisted `subtask.taskId` before any row mutation callback, preventing stale/mismatched rows from entering the pending mutation state.
-
-### Deterministic coverage / visual evidence
-
-- Added Rust regressions for stale title/completion and stale reorder/delete non-clobbering, completed-parent read-only behavior and board count projection.
-- Added `scripts/test-ui-task-subtasks.mjs` covering persistence/command layering, stale guards, exact identity-set reorder, read-only states, combined refresh, drag isolation, no polling, scope exclusions and rendered-parent identity gating.
-- Added production `task-subtasks-fixture.html`, `taskSubtasksVisualFixture.tsx/.css` and `validate-task-subtask-captures.mjs` for light/dark expanded, inline-edit and completed read-only states plus fixed parent title/action geometry.
-- Wired the new static test and Windows capture validator into `package.json`, Vite and `capture-visual-fixtures.ps1`.
-- Legacy list-board/create-edit/hover static guards were narrowed only enough to admit ordered subtask controls while continuing to forbid unordered parent-task completion/delete and requiring subtask-control drag isolation.
-
-### Review findings resolved before PR
-
-- Branch diff review caught an accidental full replacement of `persistence/mod.rs` that removed existing migration tests. It was restored from the validated base; the final slice diff contains only the intended `pub mod subtask_board;` addition there.
-- A stale static assertion expected an earlier subtask-count helper name; it now checks the actual `subtask_counts` projection.
-- A defensive UI review found that an impossible-under-normal-rendering mismatched subtask callback could set `pending=true` before returning. Row mutation controls now fail closed against the rendered parent task identity before invoking the board orchestrator, with a static regression requiring all five row mutation affordances to use the guard.
-- Final compare from slice base to the reviewed source/test candidate is limited to 22 Subtasks UI / deterministic harness / branch-tracking files; no notes/search/archive/theme/timer-domain source scope was absorbed.
-
-## CHECKPOINT 3 — WINDOWS CI EVIDENCE
-
-### Windows CI #355 — FAILED / not counted
-
-- run ID: `34511182147`
-- job ID: `102985411935`
-- initial exact PR head: `5ab6dc2d4d4b1eabc33aa77be84f1e9410e5d4d0`
-- Repository Preflight: **FAILED** at `cargo fmt --check`.
-- Every frontend/static contract before Rust formatting passed, including the new `test:ui-task-subtasks`, all earlier M5 guards, and the TypeScript/Vite production build with `task-subtasks-fixture.html`.
-- Visual capture, release build and artifact uploads were skipped because preflight stopped at formatting.
-- The log showed formatting-only diffs in exactly three Rust files:
-  - `src-tauri/src/board_task_subtasks.rs`
-  - `src-tauri/src/list_board.rs`
-  - `src-tauri/src/persistence/subtask_board.rs`
-- Evidence-backed formatter-only commits:
-  - `e67169038e9c5dfd981b631b1dc498a062856152` — board subtask command rustfmt output;
-  - `07bffcebd34b51d9353e955b5c340183d931bf42` — list-board count rustfmt output;
-  - `fe738146cec2cca6f8f1e638935fe347ca6b6c59` — subtask persistence rustfmt output.
-- Compare `5ab6dc2d...` → `fe738146...` touches only those three files and only the exact formatter shapes reported by CI; no behavior changed.
-
-Checkpoint 3 remains open until a fresh Windows CI run succeeds completely on the newest exact PR head, including preflight, visual captures/upload, Tauri release and diagnostic artifact upload.
+Do not reset the small-slice counter until the next implementation slice is actually begun and its five-checkpoint plan is recorded in the repository.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
 - authoritative Rust/domain/persistence state and persistence-first mutation semantics remain authoritative;
 - stable task and subtask identities are mandatory;
-- subtask create/reorder/delete cannot alias, duplicate or silently remove unrelated identities;
-- renderer-independent timer/session accounting and tracked Time Taken are not rewritten by subtask edits;
+- renderer-independent timer/session accounting, tracked Time Taken and one-open-session protection must not regress;
+- task title/EST/subtask/note edits must not rewrite or lose Time Taken/session state;
 - a committed mutation plus failed renderer refresh/broadcast is not reported as authoritative mutation failure;
 - All Lists remains an aggregate read projection;
 - scheduling/date-only/timezone/recurrence semantics validated through M4/M5 remain unchanged;
 - stale recurrence update/remove/replace requests continue to fail atomically before destructive child work;
-- task-card title/action/edit/schedule geometry and pointer targets remain stable;
-- notes never auto-launch URLs;
+- task-card title/action/edit/schedule/subtask geometry and pointer targets remain stable;
+- notes URLs require explicit click/keyboard activation and may never auto-launch merely because a task becomes live;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent;
 - diagnostics remain gated behind `?diagnostics=1`.
 
+## UNFINISHED WORK / NEXT ORDERED ITEM
+
+The next ordered Milestone 5 item in `TODO.md` is:
+
+**Rich task notes editor/viewer with clickable URLs.**
+
+The following TODO items remain distinct unless a real dependency requires combining them:
+
+- explicit click/keyboard-only URL activation / no auto-launch on focus;
+- larger/resizable Notes editing presentation;
+- WebView/browser spellcheck where practical.
+
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Fetch PR #91's current exact head after this HANDOFF-only tracking commit and inspect the Windows CI run associated with that exact SHA. If CI fails, inspect the exact failing job log and fix only evidence-backed problems. Do not merge or increment checkpoint 3 until the complete required Windows gate succeeds on the exact PR head.
+Begin a new narrow five-checkpoint M5 slice for **Rich task notes editor/viewer with clickable URLs** from the current main tracking tip.
+
+Before source changes:
+
+1. reconstruct the exact current main/tracking SHA and confirm no open implementation PR/unfinished CI supersedes this handoff;
+2. inspect the existing M2 constrained rich-note domain/persistence APIs and tests;
+3. inspect current `TaskCard` / `ListBoard` interaction locks and the existing fixture-only `notes-expanded` presentation;
+4. read the relevant Notes sections in `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, `docs/BEHAVIOR_MATRIX.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md` where URL-launch reliability risk is relevant;
+5. record the evidence-backed mutation/read/UX contract in this handoff before implementing.
+
+Preserve the established rule that renderer memory is draft/presentation state only and authoritative note persistence remains outside React.
 
 ## USER ACTION REQUIRED
 
@@ -181,6 +170,6 @@ Fetch PR #91's current exact head after this HANDOFF-only tracking commit and in
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks the slice.
+- No product/user decision blocks the next ordered slice.
 - Local checkout/toolchain validation in this connector-only environment: **NOT RUN**.
 - Windows GitHub Actions remains authoritative for frontend, Rust/Tauri, visual and artifact validation.
