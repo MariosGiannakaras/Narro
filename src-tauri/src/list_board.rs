@@ -304,8 +304,7 @@ fn subtask_counts(conn: &Connection, task_id: TaskId) -> Result<(u64, u64), List
         |row| Ok((row.get(0)?, row.get(1)?)),
     )?;
     let total = u64::try_from(total).map_err(|_| ListBoardError::SubtaskCountOverflow)?;
-    let completed =
-        u64::try_from(completed).map_err(|_| ListBoardError::SubtaskCountOverflow)?;
+    let completed = u64::try_from(completed).map_err(|_| ListBoardError::SubtaskCountOverflow)?;
     if completed > total {
         return Err(ListBoardError::SubtaskCountOverflow);
     }
