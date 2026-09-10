@@ -14,7 +14,10 @@ pub enum SubtaskBoardError {
     Task(TaskStoreError),
     List(ListStoreError),
     Subtask(SubtaskStoreError),
-    ExpectedListMismatch { expected: ListId, actual: ListId },
+    ExpectedListMismatch {
+        expected: ListId,
+        actual: ListId,
+    },
     ExpectedParentMismatch {
         subtask_id: SubtaskId,
         expected: TaskId,
@@ -381,7 +384,11 @@ pub fn delete_board_subtask_if_expected(
     let changed = tx.execute(
         "DELETE FROM subtasks
          WHERE id = ?1 AND task_id = ?2 AND updated_at = ?3",
-        params![id.to_string(), expected_task_id.to_string(), expected_updated_at],
+        params![
+            id.to_string(),
+            expected_task_id.to_string(),
+            expected_updated_at
+        ],
     )?;
     if changed != 1 {
         return Err(SubtaskBoardError::StaleWrite(id));
@@ -480,13 +487,7 @@ mod tests {
 
         let completed = complete_subtask(&mut conn, subtask.id, T1).expect("complete subtask");
         let stale_completion = set_board_subtask_completion_if_expected(
-            &mut conn,
-            subtask.id,
-            task_id,
-            list_id,
-            None,
-            false,
-            T2,
+            &mut conn, subtask.id, task_id, list_id, None, false, T2,
         );
         assert!(matches!(
             stale_completion,
