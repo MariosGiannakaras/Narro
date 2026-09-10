@@ -201,7 +201,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Ensure hover actions use reserved/overlay slots and never reflow title/card geometry.
 - [x] Task creation and inline editing.
 - [x] EST and Time Taken display/edit states.
-- [ ] Scheduling UI and recurrence editor.
+- [x] Scheduling UI and recurrence editor.
 - [ ] Subtasks UI.
 - [ ] Rich task notes editor/viewer with clickable URLs.
 - [ ] Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.
