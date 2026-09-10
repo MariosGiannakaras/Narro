@@ -69,9 +69,7 @@ function reparent(items: BoardSubtask[], taskId: string): BoardSubtask[] {
 function controller(
   taskId: string,
   mutable: boolean,
-  editor: TaskCardSubtasks["model"] extends infer _Model
-    ? { id: string; expectedTitle: string; value: string } | null
-    : never = null,
+  editor: { id: string; expectedTitle: string; value: string } | null = null,
 ): TaskCardSubtasks {
   return {
     model: {
