@@ -14,6 +14,7 @@ pub mod subtasks;
 pub mod task_estimate_edit;
 pub mod task_identity;
 pub mod task_metadata;
+pub mod task_schedule_edit;
 pub mod task_time_taken_edit;
 pub mod task_title_edit;
 pub mod tasks;

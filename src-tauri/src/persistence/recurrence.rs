@@ -7,7 +7,7 @@ use crate::domain::tasks::TaskRecord;
 use crate::persistence::lists::{get_list, ListStoreError};
 use crate::persistence::tasks::{get_task, TaskStoreError};
 use chrono::{DateTime, NaiveDate, NaiveTime};
-use rusqlite::{params, Connection, OptionalExtension, Row};
+use rusqlite::{params, Connection, OptionalExtension, Row, TransactionBehavior};
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
@@ -30,6 +30,7 @@ pub enum RecurrenceStoreError {
     InvalidStoredBoolean(&'static str, i64),
     InvalidStoredRuleShape,
     NotFound(RecurrenceRuleId),
+    ExpectedVersionMismatch(RecurrenceRuleId),
     AlreadyExists(TaskId),
     ParentArchived(TaskId),
     ParentCompleted(TaskId),
@@ -85,6 +86,9 @@ impl Display for RecurrenceStoreError {
                 formatter.write_str("stored recurrence rule shape is invalid")
             }
             Self::NotFound(id) => write!(formatter, "recurrence rule not found: {id}"),
+            Self::ExpectedVersionMismatch(id) => {
+                write!(formatter, "recurrence rule changed before mutation: {id}")
+            }
             Self::AlreadyExists(parent_id) => {
                 write!(
                     formatter,
@@ -505,9 +509,10 @@ pub fn create_recurrence_rule(
     Ok(created)
 }
 
-pub fn update_recurrence_rule(
+fn update_recurrence_rule_inner(
     conn: &mut Connection,
     id: RecurrenceRuleId,
+    expected_updated_at: Option<&str>,
     input: UpdateRecurrenceRuleInput,
     now: &str,
 ) -> Result<RecurrenceRuleRecord, RecurrenceStoreError> {
@@ -523,9 +528,16 @@ pub fn update_recurrence_rule(
         replace_existing: input.replace_existing,
     })?;
 
-    let tx = conn.transaction()?;
+    let tx = if expected_updated_at.is_some() {
+        conn.transaction_with_behavior(TransactionBehavior::Immediate)?
+    } else {
+        conn.transaction()?
+    };
     let current = get_recurrence_rule(&tx, id)?;
     validate_parent_link(&tx, &current, false)?;
+    if expected_updated_at.is_some_and(|expected| expected != current.updated_at) {
+        return Err(RecurrenceStoreError::ExpectedVersionMismatch(id));
+    }
 
     let changed = tx.execute(
         "UPDATE recurrence_rules
@@ -565,6 +577,25 @@ pub fn update_recurrence_rule(
     Ok(updated)
 }
 
+pub fn update_recurrence_rule(
+    conn: &mut Connection,
+    id: RecurrenceRuleId,
+    input: UpdateRecurrenceRuleInput,
+    now: &str,
+) -> Result<RecurrenceRuleRecord, RecurrenceStoreError> {
+    update_recurrence_rule_inner(conn, id, None, input, now)
+}
+
+pub fn update_recurrence_rule_if_expected(
+    conn: &mut Connection,
+    id: RecurrenceRuleId,
+    expected_updated_at: &str,
+    input: UpdateRecurrenceRuleInput,
+    now: &str,
+) -> Result<RecurrenceRuleRecord, RecurrenceStoreError> {
+    update_recurrence_rule_inner(conn, id, Some(expected_updated_at), input, now)
+}
+
 pub fn set_recurrence_rule_active(
     conn: &mut Connection,
     id: RecurrenceRuleId,
@@ -597,15 +628,23 @@ pub fn set_recurrence_rule_active(
     Ok(updated)
 }
 
-pub fn delete_recurrence_rule(
+fn delete_recurrence_rule_inner(
     conn: &mut Connection,
     id: RecurrenceRuleId,
+    expected_updated_at: Option<&str>,
     now: &str,
 ) -> Result<(), RecurrenceStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = if expected_updated_at.is_some() {
+        conn.transaction_with_behavior(TransactionBehavior::Immediate)?
+    } else {
+        conn.transaction()?
+    };
     let current = get_recurrence_rule(&tx, id)?;
     validate_parent_link(&tx, &current, true)?;
+    if expected_updated_at.is_some_and(|expected| expected != current.updated_at) {
+        return Err(RecurrenceStoreError::ExpectedVersionMismatch(id));
+    }
 
     tx.execute(
         "UPDATE tasks
@@ -633,6 +672,23 @@ pub fn delete_recurrence_rule(
     }
     tx.commit()?;
     Ok(())
+}
+
+pub fn delete_recurrence_rule(
+    conn: &mut Connection,
+    id: RecurrenceRuleId,
+    now: &str,
+) -> Result<(), RecurrenceStoreError> {
+    delete_recurrence_rule_inner(conn, id, None, now)
+}
+
+pub fn delete_recurrence_rule_if_expected(
+    conn: &mut Connection,
+    id: RecurrenceRuleId,
+    expected_updated_at: &str,
+    now: &str,
+) -> Result<(), RecurrenceStoreError> {
+    delete_recurrence_rule_inner(conn, id, Some(expected_updated_at), now)
 }
 
 #[cfg(test)]
@@ -694,6 +750,19 @@ mod tests {
         }
     }
 
+    fn monthly_update(replace_existing: bool) -> UpdateRecurrenceRuleInput {
+        UpdateRecurrenceRuleInput {
+            interval_count: 1,
+            unit: RecurrenceUnit::Month,
+            weekday_mask: 0,
+            month_day: Some(15),
+            starts_local_date: "2026-09-15".into(),
+            local_time: None,
+            timezone: None,
+            replace_existing,
+        }
+    }
+
     #[test]
     fn create_update_disable_and_delete_keep_parent_link_consistent() {
         let mut conn = migrated();
@@ -716,22 +785,8 @@ mod tests {
             rule.id
         );
 
-        let updated = update_recurrence_rule(
-            &mut conn,
-            rule.id,
-            UpdateRecurrenceRuleInput {
-                interval_count: 1,
-                unit: RecurrenceUnit::Month,
-                weekday_mask: 0,
-                month_day: Some(15),
-                starts_local_date: "2026-09-15".into(),
-                local_time: None,
-                timezone: None,
-                replace_existing: true,
-            },
-            T3,
-        )
-        .expect("update recurrence rule");
+        let updated = update_recurrence_rule(&mut conn, rule.id, monthly_update(true), T3)
+            .expect("update recurrence rule");
         assert_eq!(updated.unit, RecurrenceUnit::Month);
         assert_eq!(updated.month_day, Some(15));
         assert!(updated.replace_existing);
@@ -748,6 +803,42 @@ mod tests {
             .expect("load detached parent")
             .recurrence_rule_id
             .is_none());
+    }
+
+    #[test]
+    fn stale_expected_version_blocks_update_and_delete_before_write() {
+        let mut conn = migrated();
+        let parent = create_parent(&mut conn);
+        let rule = create_recurrence_rule(&mut conn, weekly(parent.id), T2)
+            .expect("create recurrence rule");
+
+        assert!(matches!(
+            update_recurrence_rule_if_expected(
+                &mut conn,
+                rule.id,
+                "2026-09-03T14:59:00Z",
+                monthly_update(false),
+                T3,
+            ),
+            Err(RecurrenceStoreError::ExpectedVersionMismatch(id)) if id == rule.id
+        ));
+        assert_eq!(
+            get_recurrence_rule(&conn, rule.id)
+                .expect("rule survives stale update")
+                .unit,
+            rule.unit
+        );
+
+        assert!(matches!(
+            delete_recurrence_rule_if_expected(
+                &mut conn,
+                rule.id,
+                "2026-09-03T14:59:00Z",
+                T4,
+            ),
+            Err(RecurrenceStoreError::ExpectedVersionMismatch(id)) if id == rule.id
+        ));
+        assert!(get_recurrence_rule(&conn, rule.id).is_ok());
     }
 
     #[test]

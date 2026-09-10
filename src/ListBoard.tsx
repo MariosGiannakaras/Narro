@@ -26,6 +26,7 @@ import {
   type PlanningLaneToken,
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
+import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
   applyTimerSessionProjection,
   connectTimerSessionProjection,
@@ -265,6 +266,7 @@ function BoardLane({
   interactionReorderEnabled,
   canStartCreate,
   canStartTaskEditor,
+  canStartScheduleEditor,
   timerPayload,
   editorState,
   editorMutationPending,
@@ -288,6 +290,7 @@ function BoardLane({
   onStartMetricEdit,
   onMetricValueChange,
   onSubmitMetricEdit,
+  onStartScheduleEdit,
   onCancelEditor,
 }: {
   laneKey: LaneKey;
@@ -298,6 +301,7 @@ function BoardLane({
   interactionReorderEnabled: boolean;
   canStartCreate: boolean;
   canStartTaskEditor: boolean;
+  canStartScheduleEditor: boolean;
   timerPayload: TimerSessionPayload | null;
   editorState: TaskEditorState | null;
   editorMutationPending: boolean;
@@ -321,6 +325,7 @@ function BoardLane({
   onStartMetricEdit: (task: ListBoardTask, metric: TaskCardMetricKind, live: boolean) => void;
   onMetricValueChange: (value: string) => void;
   onSubmitMetricEdit: () => void;
+  onStartScheduleEdit: (task: ListBoardTask) => void;
   onCancelEditor: () => void;
 }) {
   const headingId = `list-board-${title.replace(/\s+/g, "-").toLowerCase()}`;
@@ -416,6 +421,7 @@ function BoardLane({
             const isLiveTask = liveState !== null && liveState !== "idle";
             const liveMetricEditable = liveState === "paused" || liveState === "overtime_paused";
             const canEditMetric = canStartTaskEditor && (!isLiveTask || liveMetricEditable);
+            const canEditSchedule = canStartScheduleEditor && task.completedAt === null && !isLiveTask;
             const dragging = dragState?.taskId === task.id;
             const settling = settlingTaskId === task.id;
             const pending = mutationPendingTaskId === task.id
@@ -466,6 +472,7 @@ function BoardLane({
                       ? () => onStartMetricEdit(task, "time_taken", isLiveTask)
                       : undefined}
                     metricEditor={metricEditor}
+                    onScheduleEdit={canEditSchedule ? () => onStartScheduleEdit(task) : undefined}
                     liveState={liveState}
                   />
                 </div>
@@ -541,6 +548,7 @@ export function ListBoard({
   const [mutationPendingTaskId, setMutationPendingTaskId] = useState<string | null>(null);
   const [editorState, setEditorState] = useState<TaskEditorState | null>(null);
   const [editorMutationPending, setEditorMutationPending] = useState(false);
+  const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
@@ -559,6 +567,7 @@ export function ListBoard({
       setMutationRefreshBlocked(false);
       setEditorState(null);
       setEditorMutationPending(false);
+      setScheduleEditorTaskId(null);
       setListOptions(fixtureOptions(fixtureSnapshot));
       return;
     }
@@ -571,6 +580,7 @@ export function ListBoard({
     setMutationRefreshBlocked(false);
     setEditorState(null);
     setEditorMutationPending(false);
+    setScheduleEditorTaskId(null);
     void getListBoardSnapshot(target)
       .then((payload) => {
         if (!disposed) {
@@ -681,12 +691,17 @@ export function ListBoard({
     && snapshot.target.id === target.id;
   const interactionReorderEnabled = interactionBoardEnabled
     && editorState === null
-    && !editorMutationPending;
+    && !editorMutationPending
+    && scheduleEditorTaskId === null;
   const canStartCreate = interactionBoardEnabled
     && mutationPendingTaskId === null
     && editorState === null
-    && !editorMutationPending;
+    && !editorMutationPending
+    && scheduleEditorTaskId === null;
   const canStartTaskEditor = canStartCreate
+    && timerPayload !== null
+    && timerProjectionError === null;
+  const canStartScheduleEditor = canStartCreate
     && timerPayload !== null
     && timerProjectionError === null;
   const presentationReorderEnabled = interactionReorderEnabled || fixtureReorderState !== undefined;
@@ -711,6 +726,7 @@ export function ListBoard({
     }
     return null;
   };
+  const scheduleEditorTask = scheduleEditorTaskId ? findTask(scheduleEditorTaskId) : null;
 
   const refreshAfterMutation = async (taskId: string) => {
     const payload = await getListBoardSnapshot(target);
@@ -728,6 +744,27 @@ export function ListBoard({
     setMutationError(
       `Task change was saved, but the board could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before making more task changes.`,
     );
+  };
+
+  const handleScheduleCommitted = async (
+    taskId: string,
+    message: string,
+    warning?: string | null,
+  ) => {
+    setMutationPendingTaskId(taskId);
+    setScheduleEditorTaskId(null);
+    setMutationStatus(message);
+    setMutationError(warning
+      ? `Recurrence change was saved, but immediate occurrence materialization failed. ${warning} Background recurrence processing will retry.`
+      : null);
+    try {
+      await refreshAfterMutation(taskId);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setMutationPendingTaskId(null);
+    }
   };
 
   const commitDrop = async (
@@ -978,7 +1015,7 @@ export function ListBoard({
     event: ReactDragEvent<HTMLDivElement>,
   ) => {
     if ((event.target as HTMLElement).closest(
-      "[data-task-action], [data-task-title-control], [data-task-metric-control]",
+      "[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control]",
     )) {
       event.preventDefault();
       return;
@@ -1100,6 +1137,7 @@ export function ListBoard({
       data-board-reorder-enabled={interactionReorderEnabled ? "true" : "false"}
       data-board-task-editor={editorState?.kind ?? "idle"}
       data-board-metric-editor={editorState?.kind === "metric" ? editorState.metric : "none"}
+      data-board-schedule-editor={scheduleEditorTaskId ? "open" : "closed"}
       data-board-timer-projection={timerPayload ? "ready" : timerProjectionError ? "error" : "loading"}
       aria-labelledby="list-board-title"
     >
@@ -1153,7 +1191,10 @@ export function ListBoard({
                     : { kind: "list", id: value },
                 );
               }}
-              disabled={!onTargetChange || mutationPendingTaskId !== null || editorMutationPending}
+              disabled={!onTargetChange
+                || mutationPendingTaskId !== null
+                || editorMutationPending
+                || scheduleEditorTaskId !== null}
               aria-label="Planning list"
             >
               <option value={ALL_LISTS_VALUE}>All Lists</option>
@@ -1182,6 +1223,7 @@ export function ListBoard({
             interactionReorderEnabled={interactionReorderEnabled}
             canStartCreate={canStartCreate}
             canStartTaskEditor={canStartTaskEditor}
+            canStartScheduleEditor={canStartScheduleEditor}
             timerPayload={timerPayload}
             editorState={editorState}
             editorMutationPending={editorMutationPending}
@@ -1253,6 +1295,14 @@ export function ListBoard({
                 : current);
             }}
             onSubmitMetricEdit={() => void submitMetricEdit()}
+            onStartScheduleEdit={(task) => {
+              if (!canStartScheduleEditor || liveStateForTask(timerPayload, task.id) !== null) return;
+              setMutationError(null);
+              setMutationStatus("");
+              setDragState(null);
+              setDropTarget(null);
+              setScheduleEditorTaskId(task.id);
+            }}
             onCancelEditor={() => {
               if (editorMutationPending) return;
               setEditorState(null);
@@ -1261,6 +1311,17 @@ export function ListBoard({
           />
         ))}
       </div>
+
+      {scheduleEditorTask && target.kind === "list" ? (
+        <TaskScheduleDialog
+          taskId={scheduleEditorTask.id}
+          listId={target.id}
+          taskTitle={scheduleEditorTask.title}
+          displayTimezone={snapshot.displayTimezone}
+          onClose={() => setScheduleEditorTaskId(null)}
+          onCommitted={handleScheduleCommitted}
+        />
+      ) : null}
     </section>
   );
 }

@@ -1,0 +1,333 @@
+.task-schedule-dialog__backdrop,
+.task-schedule-dialog__backdrop * {
+  box-sizing: border-box;
+}
+
+.task-schedule-dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: grid;
+  place-items: center;
+  padding: var(--space-5);
+  background: rgba(0, 0, 0, 0.58);
+}
+
+.task-schedule-dialog {
+  width: min(42rem, calc(100vw - 2 * var(--space-5)));
+  max-height: calc(100vh - 2 * var(--space-5));
+  overflow: auto;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-modal);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-overlay);
+}
+
+.task-schedule-dialog__header,
+.task-schedule-dialog__footer,
+.task-schedule-dialog__section-heading,
+.task-schedule-dialog__section-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.task-schedule-dialog__header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-raised);
+}
+
+.task-schedule-dialog__header p,
+.task-schedule-dialog__header h2,
+.task-schedule-dialog__section-heading h3,
+.task-schedule-dialog__section-heading p,
+.task-schedule-dialog__timezone {
+  margin: 0;
+}
+
+.task-schedule-dialog__header p {
+  margin-bottom: var(--space-1);
+  color: var(--color-accent-solid);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.task-schedule-dialog__close {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.task-schedule-dialog__content {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+}
+
+.task-schedule-dialog__loading,
+.task-schedule-dialog__error {
+  margin: var(--space-4) var(--space-5);
+  padding: var(--space-3);
+  border-radius: var(--radius-control);
+}
+
+.task-schedule-dialog__loading {
+  color: var(--color-text-secondary);
+  background: var(--color-surface-deep);
+}
+
+.task-schedule-dialog__error {
+  border: 1px solid var(--color-destructive);
+  color: var(--color-destructive);
+  background: var(--color-destructive-surface);
+}
+
+.task-schedule-dialog__section {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-deep);
+}
+
+.task-schedule-dialog__section-heading {
+  align-items: flex-start;
+}
+
+.task-schedule-dialog__section-heading h3 {
+  font-size: var(--font-size-section-title);
+}
+
+.task-schedule-dialog__section-heading p,
+.task-schedule-dialog__timezone {
+  margin-top: var(--space-1);
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+.task-schedule-dialog__text-action,
+.task-schedule-dialog__shortcut {
+  min-height: 2rem;
+  padding: 0 var(--space-3);
+  background: var(--color-surface-interactive);
+}
+
+.task-schedule-dialog__shortcuts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.task-schedule-dialog__form-grid,
+.task-schedule-dialog__recurrence-form,
+.task-schedule-dialog__custom-rule {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.task-schedule-dialog__form-grid,
+.task-schedule-dialog__custom-rule {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.task-schedule-dialog label:not(.task-schedule-dialog__check) {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.task-schedule-dialog input,
+.task-schedule-dialog select {
+  width: 100%;
+  min-height: 2.4rem;
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.task-schedule-dialog button:focus-visible,
+.task-schedule-dialog input:focus-visible,
+.task-schedule-dialog select:focus-visible,
+.list-board-task__schedule-button:focus-visible,
+.list-board-task__schedule-open:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
+.task-schedule-dialog__check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.task-schedule-dialog__check input {
+  width: 1rem;
+  min-width: 1rem;
+  height: 1rem;
+  min-height: 1rem;
+  margin-top: 0.15rem;
+  accent-color: var(--color-accent-solid);
+}
+
+.task-schedule-dialog__check--warning {
+  padding: var(--space-3);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-warning-surface);
+}
+
+.task-schedule-dialog__weekdays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.task-schedule-dialog__weekdays legend {
+  width: 100%;
+  margin-bottom: var(--space-1);
+  color: var(--color-text-secondary);
+}
+
+.task-schedule-dialog__weekdays label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 999px;
+  background: var(--color-surface-interactive);
+  cursor: pointer;
+}
+
+.task-schedule-dialog__weekdays input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.task-schedule-dialog__weekdays label:has(input:checked) {
+  border-color: var(--color-accent-solid);
+  color: var(--color-accent-contrast);
+  background: var(--color-accent-solid);
+}
+
+.task-schedule-dialog__weekdays label:focus-within {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
+.task-schedule-dialog__section-actions {
+  align-items: stretch;
+}
+
+.task-schedule-dialog__primary,
+.task-schedule-dialog__danger,
+.task-schedule-dialog__cancel {
+  min-height: 2.4rem;
+  padding-inline: var(--space-4);
+}
+
+.task-schedule-dialog__primary {
+  margin-left: auto;
+  border-color: transparent;
+  color: var(--color-accent-contrast);
+  background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-end));
+}
+
+.task-schedule-dialog__danger {
+  border-color: var(--color-destructive);
+  color: var(--color-destructive);
+  background: transparent;
+}
+
+.task-schedule-dialog__footer {
+  position: sticky;
+  bottom: 0;
+  justify-content: flex-end;
+  padding: var(--space-3) var(--space-5) var(--space-5);
+  border-top: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-raised);
+}
+
+.task-schedule-dialog__cancel {
+  background: transparent;
+}
+
+.list-board-task__schedule-button,
+.list-board-task__schedule-open {
+  appearance: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.list-board-task__schedule-button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+}
+
+.list-board-task__schedule-button:hover,
+.list-board-task__schedule-button:focus-visible,
+.list-board-task__schedule-open:hover,
+.list-board-task__schedule-open:focus-visible {
+  color: var(--color-text-primary);
+}
+
+.list-board-task__schedule-open {
+  min-width: 0;
+  padding: 0;
+  color: var(--color-text-secondary);
+  background: transparent;
+  text-align: left;
+}
+
+@media (max-width: 44rem) {
+  .task-schedule-dialog__backdrop {
+    padding: var(--space-3);
+  }
+
+  .task-schedule-dialog {
+    width: calc(100vw - 2 * var(--space-3));
+    max-height: calc(100vh - 2 * var(--space-3));
+  }
+
+  .task-schedule-dialog__shortcuts,
+  .task-schedule-dialog__form-grid,
+  .task-schedule-dialog__custom-rule {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .task-schedule-dialog__backdrop,
+  .task-schedule-dialog {
+    transform: none;
+  }
+}

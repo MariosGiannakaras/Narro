@@ -48,7 +48,8 @@ function Capture-Theme {
         [string]$Theme,
         [string]$Url,
         [string]$ScreenshotPath,
-        [string]$DomPath
+        [string]$DomPath,
+        [int]$VirtualTimeBudgetMs = 0
     )
 
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
@@ -72,6 +73,9 @@ function Capture-Theme {
             "--dump-dom",
             $Url
         )
+        if ($VirtualTimeBudgetMs -gt 0) {
+            $arguments = @("--virtual-time-budget=$VirtualTimeBudgetMs") + $arguments
+        }
 
         $edgeProcess = Start-Process `
             -FilePath $EdgePath `
@@ -185,6 +189,18 @@ try {
             -Url $metricUrl `
             -ScreenshotPath $metricScreenshot `
             -DomPath $metricDom
+
+        $scheduleLabel = "task-scheduling-$theme"
+        $scheduleUrl = "$baseUrl/task-schedule-fixture.html?theme=$theme"
+        $scheduleScreenshot = Join-Path $outputPath "$scheduleLabel.png"
+        $scheduleDom = Join-Path $outputPath "$scheduleLabel.html"
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme $scheduleLabel `
+            -Url $scheduleUrl `
+            -ScreenshotPath $scheduleScreenshot `
+            -DomPath $scheduleDom `
+            -VirtualTimeBudgetMs 6000
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {

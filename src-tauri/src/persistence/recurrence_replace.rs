@@ -210,9 +210,10 @@ fn has_owned_history(
     Ok(exists == 1)
 }
 
-pub fn replace_existing_tasks(
+fn replace_existing_tasks_inner(
     conn: &mut Connection,
     rule_id: RecurrenceRuleId,
+    expected_updated_at: Option<&str>,
     input: UpdateRecurrenceRuleInput,
     now: &str,
 ) -> Result<ReplaceExistingReport, ReplaceExistingError> {
@@ -221,6 +222,11 @@ pub fn replace_existing_tasks(
 
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let current = get_recurrence_rule(&tx, rule_id)?;
+    if expected_updated_at.is_some_and(|expected| expected != current.updated_at) {
+        return Err(ReplaceExistingError::Store(
+            RecurrenceStoreError::ExpectedVersionMismatch(rule_id),
+        ));
+    }
     let parent = get_task(&tx, current.parent_task_id)?;
     if parent.archived_at.is_some() {
         return Err(ReplaceExistingError::ParentArchived(parent.id));
@@ -348,4 +354,23 @@ pub fn replace_existing_tasks(
         removed_child_ids,
         detached_modified_child_ids,
     })
+}
+
+pub fn replace_existing_tasks(
+    conn: &mut Connection,
+    rule_id: RecurrenceRuleId,
+    input: UpdateRecurrenceRuleInput,
+    now: &str,
+) -> Result<ReplaceExistingReport, ReplaceExistingError> {
+    replace_existing_tasks_inner(conn, rule_id, None, input, now)
+}
+
+pub fn replace_existing_tasks_if_expected(
+    conn: &mut Connection,
+    rule_id: RecurrenceRuleId,
+    expected_updated_at: &str,
+    input: UpdateRecurrenceRuleInput,
+    now: &str,
+) -> Result<ReplaceExistingReport, ReplaceExistingError> {
+    replace_existing_tasks_inner(conn, rule_id, Some(expected_updated_at), input, now)
 }

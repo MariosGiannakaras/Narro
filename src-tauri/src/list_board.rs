@@ -1,4 +1,4 @@
-use crate::domain::ids::{ListId, TaskId};
+use crate::domain::ids::{ListId, RecurrenceRuleId, TaskId};
 use crate::domain::model::{PlanningLane, ScheduleKind};
 use crate::domain::tasks::TaskRecord;
 use crate::error::{CommandError, CommandResult};
@@ -50,6 +50,8 @@ pub struct ListBoardTask {
     pub time_taken_seconds: String,
     pub scheduled_local_date: Option<String>,
     pub scheduled_local_time: Option<String>,
+    pub recurrence_rule_id: Option<RecurrenceRuleId>,
+    pub recurrence_parent_task_id: Option<TaskId>,
     pub is_overdue: bool,
     pub completed_at: Option<String>,
 }
@@ -204,6 +206,8 @@ impl LaneAccumulator {
                 time_taken_seconds: projected.time_taken_seconds,
                 scheduled_local_date: projected.task.scheduled_local_date,
                 scheduled_local_time: projected.task.scheduled_local_time,
+                recurrence_rule_id: projected.task.recurrence_rule_id,
+                recurrence_parent_task_id: projected.task.recurrence_parent_task_id,
                 is_overdue: projected.is_overdue,
                 completed_at: projected.task.completed_at,
             });
@@ -541,6 +545,8 @@ mod tests {
         assert_eq!(board.today.aggregate_est_seconds, 1800);
         assert_eq!(board.done.aggregate_est_seconds, 2400);
         assert_eq!(board.today.tasks[0].time_taken_seconds, "0");
+        assert!(board.today.tasks[0].recurrence_rule_id.is_none());
+        assert!(board.today.tasks[0].recurrence_parent_task_id.is_none());
         assert!(!board.today.tasks[0].is_overdue);
         assert!(!board.done.tasks[0].is_overdue);
 
