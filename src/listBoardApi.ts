@@ -17,8 +17,8 @@ export type ListBoardTask = {
   title: string;
   estSeconds: number | null;
   timeTakenSeconds: string;
-  subtaskTotalCount: number;
-  subtaskCompletedCount: number;
+  subtaskTotalCount?: number;
+  subtaskCompletedCount?: number;
   scheduledLocalDate: string | null;
   scheduledLocalTime: string | null;
   recurrenceRuleId?: string | null;
