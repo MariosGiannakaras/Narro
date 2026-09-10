@@ -99,10 +99,12 @@ fn map_subtask_error(error: SubtaskBoardError) -> CommandError {
         SubtaskBoardError::Subtask(SubtaskStoreError::DuplicateReorderId) => {
             CommandError::invalid_argument("orderedIds", "must not contain duplicate subtask IDs")
         }
-        SubtaskBoardError::Subtask(SubtaskStoreError::ReorderSetMismatch) => CommandError::invalid_argument(
-            "orderedIds",
-            "must contain the same subtask IDs as expectedOrder",
-        ),
+        SubtaskBoardError::Subtask(SubtaskStoreError::ReorderSetMismatch) => {
+            CommandError::invalid_argument(
+                "orderedIds",
+                "must contain the same subtask IDs as expectedOrder",
+            )
+        }
         SubtaskBoardError::ExpectedListMismatch { .. }
         | SubtaskBoardError::ExpectedParentMismatch { .. }
         | SubtaskBoardError::ExpectedTitleMismatch(_)
@@ -325,14 +327,8 @@ mod tests {
     #[test]
     fn snapshot_is_read_only_after_parent_completion() {
         let (mut connection, list_id, task_id) = setup();
-        let created = create_board_subtask(
-            &mut connection,
-            task_id,
-            list_id,
-            "Child".into(),
-            T0,
-        )
-        .expect("create child");
+        let created = create_board_subtask(&mut connection, task_id, list_id, "Child".into(), T0)
+            .expect("create child");
         complete_subtask(&mut connection, created.id, T1).expect("complete child");
         complete_task(&mut connection, task_id, T1).expect("complete parent");
 
