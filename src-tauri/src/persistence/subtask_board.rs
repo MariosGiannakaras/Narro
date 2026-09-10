@@ -165,7 +165,10 @@ fn validate_subtask_binding(
     validate_parent_binding(conn, expected_task_id, expected_list_id, mutable)
 }
 
-fn ordered_ids(conn: &Connection, task_id: TaskId) -> Result<Vec<SubtaskId>, SubtaskBoardError> {
+fn current_order_ids(
+    conn: &Connection,
+    task_id: TaskId,
+) -> Result<Vec<SubtaskId>, SubtaskBoardError> {
     Ok(subtasks_for_task(conn, task_id)?
         .into_iter()
         .map(|subtask| subtask.id)
@@ -333,27 +336,27 @@ pub fn reorder_board_subtasks_if_expected(
     task_id: TaskId,
     expected_list_id: ListId,
     expected_order: &[SubtaskId],
-    ordered_ids: &[SubtaskId],
+    requested_order: &[SubtaskId],
     now: &str,
 ) -> Result<Vec<SubtaskRecord>, SubtaskBoardError> {
     validate_timestamp(now)?;
     let expected_set = validate_order_ids(expected_order)?;
-    let requested_set = validate_order_ids(ordered_ids)?;
-    if expected_order.len() != ordered_ids.len() || expected_set != requested_set {
+    let requested_set = validate_order_ids(requested_order)?;
+    if expected_order.len() != requested_order.len() || expected_set != requested_set {
         return Err(SubtaskStoreError::ReorderSetMismatch.into());
     }
 
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     validate_parent_binding(&tx, task_id, expected_list_id, true)?;
-    let current = ordered_ids(&tx, task_id)?;
+    let current = current_order_ids(&tx, task_id)?;
     if current != expected_order {
         return Err(SubtaskBoardError::ExpectedOrderMismatch(task_id));
     }
-    if current == ordered_ids {
+    if current == requested_order {
         return Ok(subtasks_for_task(&tx, task_id)?);
     }
 
-    rewrite_ranks(&tx, task_id, ordered_ids, now)?;
+    rewrite_ranks(&tx, task_id, requested_order, now)?;
     let reordered = subtasks_for_task(&tx, task_id)?;
     tx.commit()?;
     Ok(reordered)
@@ -383,7 +386,7 @@ pub fn delete_board_subtask_if_expected(
     if changed != 1 {
         return Err(SubtaskBoardError::StaleWrite(id));
     }
-    let remaining = ordered_ids(&tx, expected_task_id)?;
+    let remaining = current_order_ids(&tx, expected_task_id)?;
     rewrite_ranks(&tx, expected_task_id, &remaining, now)?;
     tx.commit()?;
     Ok(())
@@ -394,13 +397,12 @@ mod tests {
     use super::*;
     use crate::domain::lists::NewListInput;
     use crate::domain::model::PlanningLane;
-    use crate::domain::subtasks::NewSubtaskInput;
+    use crate::domain::subtasks::{NewSubtaskInput, UpdateSubtaskInput};
     use crate::domain::tasks::NewTaskInput;
     use crate::persistence::lists::create_list;
     use crate::persistence::run_migrations;
     use crate::persistence::subtasks::{complete_subtask, create_subtask, update_subtask};
     use crate::persistence::tasks::create_task;
-    use crate::domain::subtasks::UpdateSubtaskInput;
 
     const T0: &str = "2026-09-10T09:00:00Z";
     const T1: &str = "2026-09-10T09:01:00Z";
@@ -526,7 +528,10 @@ mod tests {
             stale_reorder,
             Err(SubtaskBoardError::ExpectedOrderMismatch(id)) if id == task_id
         ));
-        assert_eq!(ordered_ids(&conn, task_id).unwrap(), vec![third.id, second.id, first.id]);
+        assert_eq!(
+            current_order_ids(&conn, task_id).unwrap(),
+            vec![third.id, second.id, first.id]
+        );
 
         let newer = get_subtask(&conn, second.id).expect("load second");
         update_subtask(
@@ -550,6 +555,9 @@ mod tests {
             stale_delete,
             Err(SubtaskBoardError::ExpectedUpdatedAtMismatch(id)) if id == second.id
         ));
-        assert_eq!(ordered_ids(&conn, task_id).unwrap(), vec![third.id, second.id, first.id]);
+        assert_eq!(
+            current_order_ids(&conn, task_id).unwrap(),
+            vec![third.id, second.id, first.id]
+        );
     }
 }
