@@ -202,7 +202,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Task creation and inline editing.
 - [x] EST and Time Taken display/edit states.
 - [x] Scheduling UI and recurrence editor.
-- [ ] Subtasks UI.
+- [x] Subtasks UI.
 - [ ] Rich task notes editor/viewer with clickable URLs.
 - [ ] Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.
 - [ ] Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.
