@@ -1,102 +1,92 @@
 # HANDOFF.md
 
-Canonical zero-context continuation state for Narro. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, active Milestone 5 in `TODO.md`, relevant `STATUS.md`, list/archive sections in `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, `docs/BEHAVIOR_MATRIX.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant `work-log/*.md` entries before changing source.
+Canonical zero-context continuation state for Narro. Before changing source, read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, active Milestone 5 in `TODO.md`, relevant `STATUS.md`, current search/quick-action sections in `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, `docs/BEHAVIOR_MATRIX.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md` when reliability risk applies, and the newest relevant immutable `work-log/*.md` entries. Inspect open implementation PRs and their exact CI state before making changes.
 
 ## CURRENT MILESTONE
 
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / **23 of 28** top-level items validated.
+- Milestone 5: ACTIVE / **24 of 28** top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-Source/test SHA: `d65b97b4f83a498bb0426b4d793449b8fd5e044b`
+Source/test SHA: `69c98ea107090e31589bb58299de603652336228`
 
-Source tree: `7c99559b708dd381892a2fb35d4df27dcf1c801e`
+Source tree: `0ae45142388df4dde7546c14ed1f1cf5b59d8c73`
 
-Latest main tracking tip at slice start: `30d08d9c9322fcfec3d274eea5dea83b124c56bd`. Markdown-only tracking descendants do not replace the validated source baseline.
+This is the expected-head guarded merge of PR #96. Markdown-only tracking descendants do not replace this source baseline.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
-**M5 item 23/28 — native WebView/browser spellcheck on the existing Notes editor.**
+**M5 item 24/28 — List settings: name, icon, archive/delete flows.**
 
-Immutable evidence: `work-log/2026-09-12-0025-chatgpt-m5-notes-spellcheck.md`.
+Immutable evidence: `work-log/2026-09-12-0220-chatgpt-m5-list-settings.md`.
 
-- PR #95 exact head `3affb7078f3bc89f6a6d03adeb0625c763a8f7c7`, Windows PR CI #370: **SUCCESS**;
-- expected-head merge source SHA `d65b97b4f83a498bb0426b4d793449b8fd5e044b`;
-- Windows main CI #371: **SUCCESS**.
+### Exact PR-head validation
+
+- PR #96: `M5: add list settings archive and delete flows`.
+- Final exact head: `0a17f510f92fdb5bd364933cca04ce95624e755b`.
+- Windows PR CI #378: run `34655658720`, job `103447372737`, **SUCCESS**.
+- Repository Preflight, Windows Edge captures/DOM validation, Tauri Release, visual artifact upload and diagnostic artifact upload: **PASS**.
+- PR visual artifact `10286345586`, digest `sha256:7252b8f053ef4316c72a1c3325fba5afd0a767741d48178edc4392035264902e`.
+- PR diagnostic artifact `10285591255`, digest `sha256:7d467a95a6f0c4054ad4adf2ec0b853674afa6645ea488bf0aa27dbefc9408fe`.
+- Final review: mergeable; 31 commits ahead / 0 behind base; no submitted reviews; no unresolved review threads.
+- Earlier failed PR runs did not advance progress. Evidence-backed fixes were limited to stale deterministic guards, rustfmt formatting, and explicit SQLite connection drops before Windows test-directory cleanup.
+
+### Merge and resulting-main validation
+
+- Expected-head guarded merge source SHA: `69c98ea107090e31589bb58299de603652336228`.
+- Source tree: `0ae45142388df4dde7546c14ed1f1cf5b59d8c73`.
+- Windows main CI #379: run `34656547631`, job `103450115073`, **SUCCESS**.
+- Repository Preflight, Windows Edge captures/DOM validation, Tauri Release, visual artifact upload and diagnostic artifact upload: **PASS**.
+- Main visual artifact `10286422012`, digest `sha256:9fdbdc0f96ae93c6d24b6be8b069e9ac7e49415846408af61b3568177e3fd848`.
+- Main diagnostic artifact `10285427967`, digest `sha256:b8f1f479c2ff8fe45075406980151d0ea887be369295cabafa11c14c24942678`.
+
+### Completed capability
+
+- the existing validated Create/Edit List modal remains the only name/icon/color editor;
+- active-list Archive is wired from list-card settings to an explicit keyboard/focus-contained confirmation;
+- archive, restore and permanent-delete commands reuse authoritative local persistence and publish success only after mutation success;
+- Archived lists now has the minimal management dependency required by this item: authoritative archived rows, Restore and archive-only permanent deletion;
+- permanent deletion is explicit and irreversible, commits database deletion before best-effort app-owned icon cleanup, and refuses non-owned icon paths;
+- archive/restore preserves list/task/history identity; `All Lists` remains a synthetic aggregate and cannot be archived/deleted;
+- production Windows Edge fixtures validate light/dark active Archive, archived-list management and permanent-delete confirmation;
+- search, full archive parity, theme work, Focus Panel and reports remained out of scope.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**M5 item 24/28 — List settings: name, icon, archive/delete flows.**
+**M5 item 25/28 — Search / quick-actions palette with keyboard-first behavior.**
 
-Branch: `m5-list-settings`
+No implementation branch or PR should be assumed from this tracking reconciliation. Reconstruct the exact current repository/open-PR state before starting source changes.
 
-Slice base: main tracking tip `30d08d9c9322fcfec3d274eea5dea83b124c56bd`.
+### Required reconstruction / contract questions
 
-### Checkpoint 1 — COMPLETE: reconstruction + list-settings contract
-
-Repository evidence:
-
-- no open implementation PR existed at slice startup;
-- the existing Create/Edit List modal already main-validates rename, color and app-owned icon replacement through the M2 persistence-first update boundary; it is reused, not rewritten;
-- M2 persistence already provides transactional/idempotent `archive_list` and `restore_list`, plus archive-first `permanently_delete_list`;
-- active Archive is reversible and preserves list/task/history identity; permanent deletion is available only from archive, is explicit/irreversible, and removes list/tasks from user-facing report data;
-- `All Lists` remains a synthetic aggregate view and is never archivable/deletable;
-- full Archived Lists/Archived Done Tasks parity remains a later ordered M5 item. Item 24 owns only the minimal archived-list management dependency needed to make Restore/Permanent delete actually reachable.
-
-### Checkpoint 2 — COMPLETE: implementation + deterministic/runtime coverage + semantic review
-
-Reviewed source candidate before this HANDOFF-only checkpoint commit: `6f1f0ecc9a6c6f039acc134db1a57aa7d1abbee5`.
-
-Implemented contract:
-
-- existing Edit List modal remains the name/icon/color settings path and retains its validated icon file validation, owned-path guards and rollback semantics;
-- active Home list cards now bind the already-present `Archive List` menu action to an explicit focus-contained confirmation dialog;
-- archive UI awaits `archive_list_from_settings` before closing the confirmation or refreshing Home;
-- new renderer-facing Rust commands reuse the M2 persistence functions for archive, restore and archive-only permanent deletion; archived list summaries are read from authoritative SQLite;
-- the production `Archived lists` destination now exposes only minimal list management: archived list rows, Restore and Permanently delete;
-- Restore and permanent-delete UI publish row removal only after their local persistence command resolves successfully; failures keep the surface/confirmation visible with an error;
-- permanent list deletion reads the existing owned icon path before DB deletion, commits the archive-first database delete, then performs only best-effort owned `list-icons/<filename>` cleanup; non-owned paths are refused and cleanup failure cannot convert a committed deletion into a reported mutation failure;
-- a reusable archive/delete confirmation dialog provides modal semantics, Escape dismissal, Tab containment, initial Cancel focus and opener focus restoration;
-- deterministic source gates were added and the old list-card/list-editor tests were deliberately revised only to permit the now-ordered runtime Archive target while still forbidding the deferred Duplicate target;
-- a dedicated production fixture entry covers active Archive confirmation, minimal archived list management and permanent-delete confirmation in light/dark; Windows Edge captured-DOM validation checks dialog semantics, stable archived list identities, Restore/delete controls and later-scope exclusion;
-- fixture readiness is synchronous via `flushSync`; Vite differs from the slice base only by one fixture build-input line; no dependency/package-lock changes were introduced.
-
-Semantic/diff review from `30d08d9c...` to the reviewed candidate found only the expected list-settings source/tests/tracking files. `src-tauri/src/lib.rs` adds the list-settings module and four command registrations only (plus a non-semantic final-newline diff from connector replacement); the visual capture script only adds the six light/dark list-settings captures; `AppShell.tsx` only gains archive confirmation/refresh and the archived-list destination. No task/timer/Notes/scheduling/schema/search/theme/Focus Panel behavior is changed.
-
-Local full repository preflight remains unavailable in this connector environment. The Windows CI `cargo fmt --check`, TypeScript build, Rust check/clippy/tests and real Edge captures are authoritative for the next checkpoint.
-
-### Five checkpoints
-
-1. mandatory reconstruction + narrow list-settings/archive/delete contract — **COMPLETE**;
-2. implementation + deterministic/runtime coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — PENDING;
-4. final exact-head review + expected-head merge — PENDING;
-5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
-
-## USER-FACING PROGRESS
-
-**`M-5/10 | 2/5 | 23/28`**
+- inspect current app-shell navigation, list/task snapshot APIs, overlay primitives, keyboard handling and any dormant search UI before creating a new surface;
+- derive searchable entities and allowed quick actions from current product/spec evidence rather than inventing a generic command palette;
+- keep search read behavior local and deterministic; preserve persistence-first boundaries for any command that mutates state;
+- define keyboard-first open, query, result navigation, activation, Escape dismissal, focus containment/return and empty/no-match behavior;
+- determine whether any action in the palette is merely navigation versus authoritative mutation and keep those boundaries explicit;
+- add deterministic source gates and Windows Edge visual/DOM coverage for representative search states;
+- do not absorb full archived lists/tasks parity, theme work, Focus Panel, reports or excluded cloud/account/integration controls.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
-- list/task/subtask identity remains stable across edit/archive/restore;
-- list mutations publish success only after local persistence succeeds;
-- archive/restore preserves history and owned icon assets; permanent delete remains explicit, archive-only and irreversible;
-- committed mutations are not reported as failures merely because post-commit icon cleanup fails;
-- All Lists remains an aggregate/read-only synthetic view, never a persisted mutable list;
-- list-card/menu/modal geometry, keyboard/focus-visible access and reduced-motion behavior remain stable;
-- existing Create/Edit list icon input validation, safe owned-path handling and rollback cleanup remain intact;
-- the minimal archived list management dependency must not expand into Archived Done Tasks, archive search/filter or the later full archive-surface polish;
-- Notes/timer/session/scheduling behavior remains out of scope;
-- no account/cloud/integration controls are introduced.
+- list/task/subtask identities remain stable across edit/archive/restore/reorder/move;
+- renderer success is published only after authoritative local mutation succeeds;
+- archive/restore preserves history and owned assets; permanent list deletion remains explicit, archive-only and irreversible;
+- committed database deletion is not reported as failed merely because post-commit owned-icon cleanup fails;
+- `All Lists` remains a synthetic aggregate/read-only list identity, never persisted as a mutable user list;
+- task timer/session/Time Taken, scheduling/date-only/timezone/recurrence and reminder semantics remain unchanged unless the ordered item explicitly requires them;
+- Notes retain one mounted compact/large editor path, explicit-only URL activation and native spellcheck-only behavior;
+- card/menu/modal/overlay geometry must not shift because hover/focus actions appear;
+- keyboard/focus-visible access and reduced-motion behavior remain required;
+- no auth/cloud/telemetry/trial/upgrade/profile/AI/integration authority is introduced.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Open one PR from `m5-list-settings` to `main`, record its exact head SHA, and run the authoritative Windows CI. Inspect only evidence-backed failures. Require Repository Preflight (including frontend static gate, TypeScript/Vite build, Rust fmt/check/clippy/tests), production Edge list-settings captures/DOM validator, Tauri Release and required artifacts before advancing to final review/expected-head merge.
+Reconstruct current state from repository and GitHub first. If no unfinished implementation PR exists, begin M5 item 25/28 by auditing current search/quick-action product evidence and existing app-shell/overlay/keyboard code, then define a narrow deterministic search-palette contract before source edits. Use a coherent feature branch/PR and exact-head Windows CI; do not advance the item until PR CI, expected-head merge, resulting-main CI and tracking reconciliation are all complete.
 
 ## USER ACTION REQUIRED
 
@@ -104,5 +94,5 @@ Open one PR from `m5-list-settings` to `main`, record its exact head SHA, and ru
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks the current contract.
-- Full local repository preflight is unavailable in this connector environment; Windows GitHub Actions remains authoritative.
+- No current product/user decision is known to block starting the search/quick-actions reconstruction.
+- Full local repository preflight is unavailable in this connector environment; Windows GitHub Actions remains authoritative for Rust/Tauri validation.
