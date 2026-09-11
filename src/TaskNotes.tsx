@@ -3,35 +3,34 @@ import {
   Fragment,
   type MouseEvent as ReactMouseEvent,
   type ReactNode,
+  useEffect,
   useRef,
   useState,
 } from "react";
-import type {
-  BoardTaskNote,
-  NoteBlock,
-  NoteDocument,
-  NoteListItem,
-  NoteTextRun,
+import { formatInvokeError } from "./diagnosticApi";
+import {
+  deleteListBoardTaskNote,
+  getListBoardTaskNote,
+  saveListBoardTaskNote,
+  type BoardTaskNoteSnapshot,
+  type NoteBlock,
+  type NoteDocument,
+  type NoteListItem,
+  type NoteTextRun,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
 import "./taskNotes.css";
 
-export type TaskNotesModel = {
-  expanded: boolean;
-  loading: boolean;
-  error: string | null;
-  mutable: boolean;
-  note: BoardTaskNote | null;
-  pending: boolean;
-};
-
 type TaskNotesProps = {
+  taskId: string;
+  listId: string;
   taskTitle: string;
-  model?: TaskNotesModel;
+  expanded: boolean;
   canExpand: boolean;
+  readOnly: boolean;
   onToggleExpanded: () => void;
-  onSave: (document: NoteDocument) => void;
-  onDelete: () => void;
+  onMutationStatus: (status: string, error: string | null) => void;
+  onRefreshBlocked: (message: string) => void;
 };
 
 type InlineStyle = {
@@ -44,6 +43,15 @@ type InlineStyle = {
 const EMPTY_NOTE: NoteDocument = {
   blocks: [{ kind: "paragraph", runs: [{ text: "" }] }],
 };
+
+function baseInlineStyle(): InlineStyle {
+  return {
+    bold: false,
+    italic: false,
+    strikethrough: false,
+    link: null,
+  };
+}
 
 function safeExternalUrl(value: string | null | undefined): string | null {
   if (!value || /[\u0000-\u001f\u007f]/.test(value)) return null;
@@ -98,13 +106,13 @@ function readInlineNode(node: Node, style: InlineStyle, runs: NoteTextRun[]) {
 
 function readRuns(container: Node): NoteTextRun[] {
   const runs: NoteTextRun[] = [];
-  const style: InlineStyle = {
-    bold: false,
-    italic: false,
-    strikethrough: false,
-    link: null,
-  };
-  container.childNodes.forEach((child) => readInlineNode(child, style, runs));
+  container.childNodes.forEach((child) => readInlineNode(child, baseInlineStyle(), runs));
+  return runs.length > 0 ? runs : [{ text: "" }];
+}
+
+function readSingleNode(node: Node): NoteTextRun[] {
+  const runs: NoteTextRun[] = [];
+  readInlineNode(node, baseInlineStyle(), runs);
   return runs.length > 0 ? runs : [{ text: "" }];
 }
 
@@ -112,7 +120,7 @@ function editorDocument(root: HTMLElement): NoteDocument {
   const blocks: NoteBlock[] = [];
   root.childNodes.forEach((node) => {
     if (node.nodeType === Node.TEXT_NODE) {
-      blocks.push({ kind: "paragraph", runs: readRuns(node) });
+      blocks.push({ kind: "paragraph", runs: readSingleNode(node) });
       return;
     }
     if (!(node instanceof HTMLElement)) return;
@@ -167,7 +175,13 @@ function EditableDocument({ document }: { document: NoteDocument }) {
   });
 }
 
-function NoteRun({ run, onOpenError }: { run: NoteTextRun; onOpenError: (message: string | null) => void }) {
+function NoteRun({
+  run,
+  onOpenError,
+}: {
+  run: NoteTextRun;
+  onOpenError: (message: string | null) => void;
+}) {
   const content = styledRun(run, run.text);
   const link = safeExternalUrl(run.link);
   if (!link) return <>{content}</>;
@@ -336,23 +350,147 @@ function RichNoteEditor({
   );
 }
 
+function validSnapshot(
+  payload: BoardTaskNoteSnapshot,
+  taskId: string,
+  listId: string,
+): boolean {
+  return payload.taskId === taskId && payload.listId === listId;
+}
+
 export function TaskNotes({
+  taskId,
+  listId,
   taskTitle,
-  model,
+  expanded,
   canExpand,
+  readOnly,
   onToggleExpanded,
-  onSave,
-  onDelete,
+  onMutationStatus,
+  onRefreshBlocked,
 }: TaskNotesProps) {
-  const expanded = Boolean(model?.expanded);
-  const note = model?.note ?? null;
-  const editable = Boolean(model?.mutable);
+  const [snapshot, setSnapshot] = useState<BoardTaskNoteSnapshot | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [panelError, setPanelError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+  const [locallyBlocked, setLocallyBlocked] = useState(false);
+
+  useEffect(() => {
+    if (!expanded) return;
+    let disposed = false;
+    setLoading(true);
+    setPanelError(null);
+    setLocallyBlocked(false);
+    void getListBoardTaskNote(taskId, listId)
+      .then((payload) => {
+        if (disposed) return;
+        if (!validSnapshot(payload, taskId, listId)) {
+          setSnapshot(null);
+          setPanelError("Authoritative note details did not match this task. Reopen the board before editing.");
+          setLoading(false);
+          return;
+        }
+        setSnapshot(payload);
+        setPanelError(null);
+        setLoading(false);
+      })
+      .catch((failure: unknown) => {
+        if (disposed) return;
+        setSnapshot(null);
+        setPanelError(formatInvokeError(failure));
+        setLoading(false);
+      });
+    return () => {
+      disposed = true;
+    };
+  }, [expanded, taskId, listId]);
+
+  const refreshAfterCommit = async () => {
+    const payload = await getListBoardTaskNote(taskId, listId);
+    if (!validSnapshot(payload, taskId, listId)) {
+      throw new Error("authoritative note refresh returned a mismatched task/list identity");
+    }
+    setSnapshot(payload);
+    setPanelError(null);
+  };
+
+  const handleCommittedRefreshFailure = (failure: unknown) => {
+    const detail = formatInvokeError(failure);
+    const message = `Note change was saved, but authoritative task details could not refresh. ${detail} Switch lists or reopen this board before making more task changes.`;
+    setLocallyBlocked(true);
+    setPanelError("Notes changed, but this panel is stale. Reopen the board before editing again.");
+    onRefreshBlocked(message);
+  };
+
+  const saveNote = async (document: NoteDocument) => {
+    if (!snapshot || !snapshot.mutable || readOnly || pending || locallyBlocked) return;
+    setPending(true);
+    setPanelError(null);
+    onMutationStatus("", null);
+    try {
+      await saveListBoardTaskNote({
+        taskId,
+        listId,
+        expectedUpdatedAt: snapshot.note?.updatedAt ?? null,
+        document,
+      });
+    } catch (failure: unknown) {
+      const detail = formatInvokeError(failure);
+      setPanelError(detail);
+      onMutationStatus("Could not save task note.", detail);
+      setPending(false);
+      return;
+    }
+
+    onMutationStatus("Task note saved.", null);
+    try {
+      await refreshAfterCommit();
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const deleteNote = async () => {
+    const current = snapshot?.note;
+    if (!snapshot?.mutable || readOnly || !current || pending || locallyBlocked) return;
+    setPending(true);
+    setPanelError(null);
+    onMutationStatus("", null);
+    try {
+      await deleteListBoardTaskNote({
+        taskId,
+        listId,
+        expectedUpdatedAt: current.updatedAt,
+      });
+    } catch (failure: unknown) {
+      const detail = formatInvokeError(failure);
+      setPanelError(detail);
+      onMutationStatus("Could not delete task note.", detail);
+      setPending(false);
+      return;
+    }
+
+    onMutationStatus("Task note deleted.", null);
+    try {
+      await refreshAfterCommit();
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const note = snapshot?.note ?? null;
+  const editable = Boolean(snapshot?.mutable) && !readOnly && !locallyBlocked;
   const initialDocument = note?.document ?? EMPTY_NOTE;
 
   return (
     <div
       className="task-notes"
       data-task-notes={expanded ? "expanded" : "collapsed"}
+      data-task-note-task-id={taskId}
       onPointerDown={(event) => event.stopPropagation()}
     >
       <button
@@ -361,7 +499,7 @@ export function TaskNotes({
         data-task-note-control="toggle"
         aria-expanded={expanded}
         aria-label={`${expanded ? "Collapse" : "Expand"} notes for ${taskTitle}`}
-        disabled={!canExpand}
+        disabled={pending || (!expanded && !canExpand)}
         draggable={false}
         onClick={onToggleExpanded}
       >
@@ -369,20 +507,20 @@ export function TaskNotes({
         <span aria-hidden="true">{expanded ? "⌃" : "⌄"}</span>
       </button>
 
-      {expanded && model ? (
+      {expanded ? (
         <div className="task-notes__panel" data-task-note-panel="true">
-          {model.loading ? (
+          {loading ? (
             <span className="type-metadata" role="status">Loading notes…</span>
-          ) : model.error ? (
-            <span className="task-notes__error type-metadata" role="alert">{model.error}</span>
-          ) : (
+          ) : panelError && !snapshot ? (
+            <span className="task-notes__error type-metadata" role="alert">{panelError}</span>
+          ) : snapshot ? (
             <>
               {editable ? (
                 <RichNoteEditor
                   key={note?.updatedAt ?? "new-note"}
                   initialDocument={initialDocument}
-                  pending={model.pending}
-                  onSave={onSave}
+                  pending={pending}
+                  onSave={(document) => void saveNote(document)}
                 />
               ) : note ? (
                 <NoteViewer document={note.document} />
@@ -398,19 +536,23 @@ export function TaskNotes({
                       type="button"
                       className="task-notes__delete motion-interactive"
                       data-task-note-control="delete"
-                      disabled={model.pending}
-                      onClick={onDelete}
+                      disabled={pending}
+                      onClick={() => void deleteNote()}
                     >Delete</button>
                   </div>
                   <NoteViewer document={note.document} />
                 </div>
               ) : null}
 
-              {!editable ? (
+              {readOnly ? (
                 <span className="task-notes__readonly type-metadata">All Lists shows Notes as read-only.</span>
+              ) : locallyBlocked ? (
+                <span className="task-notes__readonly type-metadata">Reload this board before editing Notes again.</span>
               ) : null}
+
+              {panelError ? <span className="task-notes__error type-metadata" role="alert">{panelError}</span> : null}
             </>
-          )}
+          ) : null}
         </div>
       ) : null}
     </div>
