@@ -7,113 +7,75 @@ Canonical zero-context continuation state for Narro. Read `AI_START_HERE.md`, `A
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / **21 of 28** top-level items validated.
+- Milestone 5: ACTIVE / **22 of 28** top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-Source/test SHA: `6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`
+Source/test SHA: `cf4922a82d9e3c6d99856701aa7af9a70e39470f`
 
-Source tree: `b10e0086ff1db304d70f59676325fb2c1fa59e77`
+Source tree: `1a4805ad770b65ad8b3c21a6bde0c79c2e20e774`
 
-This is the main-validated merge of PR #93. Markdown-only descendants, including tracking tip `a6df63ed2bf3f2142513b181dca64869a8c145f4`, do not replace it.
+This is the expected-head guarded merge of PR #94. Markdown-only tracking descendants do not replace it.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
-**M5 item 21/28 — explicit click/keyboard activation for note URLs; no focus auto-launch.**
+**M5 item 22/28 — larger/resizable Notes editing presentation with compact inline access preserved.**
 
-Immutable evidence: `work-log/2026-09-11-1732-chatgpt-m5-note-url-activation.md`.
+Immutable evidence: `work-log/2026-09-11-2007-chatgpt-m5-large-resizable-notes.md`.
 
-- final PR #93 head `9236b87239bc9b57916eafd3dfe5f71a0195059e`;
-- Windows PR CI #366 / run `34605963762` / job `103284328992`: **SUCCESS**;
-- expected-head merge main SHA `6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`;
-- Windows main CI #367 / run `34610879130` / job `103300772019`: **SUCCESS**.
+- final PR #94 head `698e5c71e7eb9a3b993aec463005984f40c0c1ea`;
+- Windows PR CI #368 / run `34622329766` / job `103339070808`: **SUCCESS**;
+- PR visual artifact `10273457724`, digest `sha256:909e89df69fd09469eacc94b345e728ae28d1eac6719a0d54b997ab906f5d3ef`;
+- PR diagnostic artifact `10272504818`, digest `sha256:37b873c896b105207f20d31a20e9a0dd8bb19490eec271924fef8c22766a9e12`;
+- expected-head merge main SHA `cf4922a82d9e3c6d99856701aa7af9a70e39470f`;
+- Windows main CI #369 / run `34624303197` / job `103345552004`: **SUCCESS**;
+- main visual artifact `10273666955`, digest `sha256:d03a9c60c0e6e3706d6fc2e493d6d53f584b6af77f0acfeca66424a494f2a9d4`;
+- main diagnostic artifact `10274422873`, digest `sha256:f696f611005108bb4cfa45eed3326271ee063722c0fec401b8d1bf202e67f048`.
 
-## ACTIVE IMPLEMENTATION SLICE
+Completed capability:
 
-**M5 item 22/28 — Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.**
-
-Branch: `m5-notes-large-editor`
-
-Slice base / latest main tracking tip at start: `a6df63ed2bf3f2142513b181dca64869a8c145f4`.
-
-Reviewed source/test candidate before this HANDOFF-only descendant:
-
-`c687a36cad818ff84765d4489641067b8d0e8086`
-
-No open implementation PR or unfinished CI superseded this slice at startup.
-
-### Checkpoint 1 contract — COMPLETE
-
-Evidence inspected:
-
-- `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, and `docs/BEHAVIOR_MATRIX.md` preserve compact inline Notes while requiring a more comfortable larger/adjustable editing surface;
-- current `TaskNotes.tsx` owned the single production `RichNoteEditor`, persistence-first save/delete path, optimistic stale guards and explicit-only URL opener;
-- current `ListEditorModal.tsx` provided validated Escape, Tab focus containment and focus-restoration patterns;
-- current Notes fixture/capture pipeline already rendered the real production TaskCard/TaskNotes surface in light/dark themes;
-- source-product reliability item N-01 remained protected and spellcheck is the next separate ordered TODO item.
-
-Contract: keep one mounted editor/draft path; switch presentation only; preserve compact access, persistence, explicit URL activation, task-card geometry, keyboard/focus accessibility and reduced-motion; make the large desktop surface bounded and pointer-resizable; add deterministic/static/visual evidence; keep spellcheck separate.
-
-### Checkpoint 2 implementation + review — COMPLETE
-
-Production behavior:
-
-- `RichNoteEditor` remains a single invocation and the same `contentEditable` DOM node in compact and large modes; no second draft/editor or persistence read/write path was added.
-- Added an explicit toolbar presentation control that switches the existing editor shell between compact and large presentation state.
-- Large mode uses dialog semantics, Escape close, Tab focus containment, focus restoration and body-scroll locking while active.
-- Closing by the return control, Escape or backdrop is presentation-only; Save still uses the same existing `onSave` callback and authoritative Notes persistence flow.
-- Large mode is a useful desktop preset and uses CSS `resize: both` with bounded min/max width/height. Semantic review found and fixed an initial max-resize horizontal overflow edge; the final left/max-width geometry remains inside the viewport.
-- Existing compact editor max-height remains unchanged outside large mode; large mode removes the compact editor height cap only while active.
-- Existing `http`/`https` explicit link controls, N-01 opener isolation, All Lists read-only semantics and task-card/board interaction locks are unchanged.
-- No Rust, Tauri IPC, SQLite/schema, timer/session/focus transition or spellcheck implementation changed.
-
-Deterministic/static coverage:
-
-- Added `scripts/test-ui-task-notes-large.mjs` and wired it into canonical frontend preflight.
-- The static gate requires one `RichNoteEditor`, one editor shell and one editor control; validates dialog/Escape/Tab/focus/resize/viewport contracts; forbids authoritative Notes IPC/opener calls inside presentation-only `RichNoteEditor`; and rejects spellcheck scope creep.
-- Updated existing Notes and N-01 tests to anchor specifically to the authoritative lazy-load effect now that `RichNoteEditor` has its own presentation effect; this prevents false anti-regression coverage.
-
-Production visual/runtime coverage:
-
-- Existing compact light/dark Notes captures remain.
-- Added separate `task-notes-large-light/dark` production captures through the existing Windows visual pipeline.
-- The real production fixture activates the actual presentation button, injects an unsaved draft marker, performs compact → large → compact → large, and fails if the editor node is remounted or the unsaved draft disappears.
-- Capture validation requires a large dialog/resizable surface, comfortable editor geometry, explicit link controls, stable title/action-slot geometry, and equal light/dark geometry.
-
-Semantic/diff review:
-
-- Base `a6df63ed2bf3f2142513b181dca64869a8c145f4` to reviewed candidate `c687a36cad818ff84765d4489641067b8d0e8086` is ahead only in 10 Notes presentation/test/visual/tracking files.
-- No later spellcheck, list settings, search, archives, theme, Focus Panel product UI, reports or persistence scope was absorbed.
-- Full local repository preflight remains **NOT RUN** because no local checkout/toolchain exists in this connector environment. Windows GitHub Actions is the authoritative compile/test/visual/release gate.
-
-### Five checkpoints
-
-1. mandatory reconstruction + larger Notes presentation contract — **COMPLETE**;
-2. same-editor large/resizable presentation + accessibility/static/visual coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — PENDING;
-4. final exact-head review + expected-head merge — PENDING;
-5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
+- compact and large Notes use the same mounted `RichNoteEditor` / `contentEditable` node and one persistence path;
+- explicit toolbar control switches presentation without remounting or discarding unsaved rich text;
+- large mode is bounded and pointer-resizable, with dialog semantics, Escape, Tab containment, focus restoration and body-scroll lock;
+- production light/dark visual fixtures validate large geometry, stable task-card geometry and compact → large → compact → large draft preservation;
+- persistence-first Notes save/delete, stale guards, All Lists read-only behavior and explicit-only URL activation remain unchanged;
+- no Rust/IPC/schema/timer/session/focus-transition or spellcheck scope changed.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 2/5 | 21/28`**
+**`M-5/10 | 5/5 | 22/28`**
+
+The five-checkpoint larger/resizable Notes slice is complete: reconstruction/contract, implementation/review, exact-head PR CI, guarded merge, and resulting-main CI + reconciliation all passed.
+
+## ACTIVE IMPLEMENTATION SLICE
+
+**Next ordered M5 item: Use WebView/browser spellcheck where practical.**
+
+No source changes for this new slice are included in this reconciliation commit.
+
+Startup evidence to inspect before implementation:
+
+- current rich editor is the sole `contentEditable` note editor in `src/TaskNotes.tsx` and now serves both compact and large presentations;
+- the completed large-Notes slice intentionally had a static guard forbidding `spellCheck` so scope remained ordered; that guard must be deliberately revised only in the spellcheck slice;
+- browser/WebView native spellcheck should remain a renderer/editor affordance only: no network service, language API, remote preview, persistence schema, or custom dictionary authority should be introduced unless repository evidence explicitly requires it;
+- deterministic coverage should prove spellcheck is enabled only on the editable Notes surface and does not change serialization, URL activation, read-only viewer behavior, focus containment or editor identity.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
 - persistence-first rich-note save/delete and optimistic stale guards;
 - explicit-only URL activation and N-01 source-wide anti-regression;
-- compact inline Notes access remains available;
-- one mounted editor/draft path only; presentation switching cannot discard unsaved text;
+- one mounted compact/large editor/draft path only; presentation switching cannot discard unsaved text;
+- compact inline Notes access remains available and large mode remains bounded/resizable;
 - task-card title/action geometry remains fixed;
 - no renderer becomes authoritative for durable Notes data;
 - All Lists remains read-only; completed non-archived task Notes remain editable;
 - keyboard/focus-visible access and reduced-motion behavior remain usable;
-- no spellcheck implementation is absorbed into this slice.
+- spellcheck must not create remote/network behavior or alter the constrained NoteDocument format.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Open/resume the implementation PR from `m5-notes-large-editor`, record its exact head SHA and inspect the authoritative Windows CI. If CI fails, fix only the evidence-backed failure and revalidate the new exact head. If CI succeeds, perform final exact-head semantic/review-thread checks, expected-head merge, resulting-main Windows CI, then reconcile `TODO.md`, `STATUS.md`, this HANDOFF and a new immutable work log. Do not mark item 22 complete before that sequence finishes.
+Begin the spellcheck slice from latest main tracking tip. Re-run mandatory startup reads, confirm no open implementation PR/CI, inspect current `contentEditable` behavior and repository evidence for browser/WebView spellcheck, record a narrow checkpoint contract, then implement and validate only the native spellcheck affordance. Do not absorb list settings.
 
 ## USER ACTION REQUIRED
 
@@ -121,5 +83,5 @@ Open/resume the implementation PR from `m5-notes-large-editor`, record its exact
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks checkpoint 3.
-- Full local repository preflight is unavailable in this connector environment; Windows GitHub Actions remains authoritative.
+- No product/user decision blocks the spellcheck item.
+- Full local repository preflight remains unavailable in this connector environment; Windows GitHub Actions is authoritative.

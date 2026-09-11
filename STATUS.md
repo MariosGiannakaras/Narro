@@ -12,76 +12,77 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 21 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 22 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 21/28`**
+**`M-5/10 | 5/5 | 22/28`**
 
-The first twenty-one ordered M5 items are fully main validated. The latest completed item is **explicit click/keyboard activation for note URLs with no focus auto-launch**. The next ordered item is **Provide a larger/resizable Notes editing presentation in addition to compact inline focus access**.
+The first twenty-two ordered M5 items are fully main validated. The latest completed item is **larger/resizable Notes editing while retaining the same compact editor/draft path**. The next ordered item is **Use WebView/browser spellcheck where practical**.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`
+`cf4922a82d9e3c6d99856701aa7af9a70e39470f`
 
 Tree:
 
-`b10e0086ff1db304d70f59676325fb2c1fa59e77`
+`1a4805ad770b65ad8b3c21a6bde0c79c2e20e774`
 
-This is the expected-head guarded merge of PR #93 — `M5: guard note URLs against focus auto-launch`.
+This is the expected-head guarded merge of PR #94 — `M5: add larger resizable Notes editor`.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
-### PR #93 exact-head validation
+### PR #94 exact-head validation
 
-Final validated PR head: `9236b87239bc9b57916eafd3dfe5f71a0195059e`.
+Final validated PR head: `698e5c71e7eb9a3b993aec463005984f40c0c1ea`.
 
-Windows PR CI #366:
+Windows PR CI #368:
 
-- run `34605963762`, job `103284328992`, conclusion **SUCCESS**;
-- exact head `9236b87239bc9b57916eafd3dfe5f71a0195059e`;
+- run `34622329766`, job `103339070808`, conclusion **SUCCESS**;
+- exact head `698e5c71e7eb9a3b993aec463005984f40c0c1ea`;
 - Repository Preflight, visual capture/upload, Tauri Release and diagnostic artifact upload: **PASS**;
-- visual artifact `10266877528`, digest `sha256:c372dcbf92bf44e943080df99530ded40c300ac3a8c545ad199ba99b71f891f6`;
-- diagnostic artifact `10266803621`, digest `sha256:839876876578f5ced9f3bf1168deb3e0924b6d782d1f186c5a5a0244c9a145eb`;
-- final PR state: mergeable, no submitted reviews, no unresolved review threads.
+- visual artifact `10273457724`, digest `sha256:909e89df69fd09469eacc94b345e728ae28d1eac6719a0d54b997ab906f5d3ef`;
+- diagnostic artifact `10272504818`, digest `sha256:37b873c896b105207f20d31a20e9a0dd8bb19490eec271924fef8c22766a9e12`;
+- final exact-head review: mergeable, no submitted reviews, no unresolved review threads.
 
-Expected-head merge produced main source SHA `6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`.
+Expected-head merge produced main source SHA `cf4922a82d9e3c6d99856701aa7af9a70e39470f`.
 
 ### Resulting-main validation
 
-Windows main CI #367:
+Windows main CI #369:
 
-- run `34610879130`, job `103300772019`, conclusion **SUCCESS**;
-- exact source SHA `6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`;
+- run `34624303197`, job `103345552004`, conclusion **SUCCESS**;
+- exact source SHA `cf4922a82d9e3c6d99856701aa7af9a70e39470f`;
 - Repository Preflight, visual capture/upload, Tauri Release and diagnostic artifact upload: **PASS**;
-- visual artifact `10269041513`, digest `sha256:204b813fcbc9fa9741ba57c60dff01916d6d5c6310dbc0d154d7018ca50e4ab7`;
-- diagnostic artifact `10268808169`, digest `sha256:88c8434c188cc1edc432a2cafcf5a5a831ea89407d78396e892ecb0ee3c81b2f`.
+- visual artifact `10273666955`, digest `sha256:d03a9c60c0e6e3706d6fc2e493d6d53f584b6af77f0acfeca66424a494f2a9d4`;
+- diagnostic artifact `10274422873`, digest `sha256:f696f611005108bb4cfa45eed3326271ee063722c0fec401b8d1bf202e67f048`.
 
-Detailed immutable evidence is recorded in `work-log/2026-09-11-1732-chatgpt-m5-note-url-activation.md`.
+Detailed immutable evidence is recorded in `work-log/2026-09-11-2007-chatgpt-m5-large-resizable-notes.md`.
 
 ## Milestone 5 — validated ordered work
 
-Validated top-level items 1–20 remain as previously recorded. Item 21 is now additionally validated:
+Validated top-level items 1–21 remain as previously recorded. Item 22 is now additionally validated:
 
-21. note URLs open only through explicit native button activation; source-wide N-01 regression coverage prevents focus/live/session/window transitions and note lazy-load effects from gaining opener/browser-navigation side effects.
+22. Notes retain the existing compact editor while an explicit presentation control can expand that same mounted rich editor into a bounded, pointer-resizable dialog-like surface; compact↔large round trips preserve the exact editor node and unsaved draft text.
 
-### Latest completed: explicit Notes URL activation / no auto-launch
+### Latest completed: larger/resizable Notes presentation
 
 Validated behavior includes:
 
-- the only production `@tauri-apps/plugin-opener` import and `openUrl()` call remain encapsulated in `TaskNotes.tsx`;
-- the saved-link control is a native button with explicit activation marker, accessible name and existing focus-visible styling, so pointer and Enter/Space keyboard activation are intentional user actions;
-- valid URLs remain restricted to `http://` / `https://`; editor anchors cannot navigate directly and no remote preview/fetch behavior exists;
-- the dedicated N-01 static gate scans production TS/TSX and fails if additional opener imports/calls appear outside the approved Notes component;
-- current Focus surface, timer/session projection/API, main App, List Board, Task Card and note lazy-load effect are all guarded against direct opener/browser-navigation side effects;
-- no timer/session/focus behavior, persistence/schema, Notes layout, larger-editor behavior or spellcheck scope changed in this slice.
+- one `RichNoteEditor`, one editor shell and one `contentEditable` editor remain mounted; large mode is presentation state, not a second editor or persistence authority;
+- large mode has dialog semantics, Escape close, Tab focus containment, focus restoration and body-scroll locking;
+- CSS `resize: both` provides bounded desktop resizing while the compact editor retains its existing inline geometry;
+- save/delete persistence, stale-version guards, All Lists read-only behavior and explicit-only `http`/`https` URL activation are unchanged;
+- production visual fixtures exercise compact → large → compact → large and fail if the editor remounts or unsaved draft text disappears;
+- light/dark large Notes captures validate comfortable editing geometry and stable task-card title/action slots;
+- no Rust/IPC/schema/timer/session/focus-transition or spellcheck behavior was absorbed into this slice.
 
 ### Next ordered M5 item
 
-`Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.`
+`Use WebView/browser spellcheck where practical.`
 
-Reuse the validated rich-note persistence/editor path and keep one authoritative draft/persistence flow. The larger presentation is a frontend presentation concern: preserve compact inline Notes access, explicit URL activation, task-card geometry, keyboard/focus accessibility and reduced-motion behavior. Do not absorb the separately ordered browser/WebView spellcheck item.
+Treat spellcheck as a narrow editor usability slice. Preserve the single-editor compact/large presentation path, rich-note serialization, explicit URL activation, accessibility/focus behavior, and no-remote-preview/local-only invariants. Do not absorb list settings or later M5 items.
 
 ## Durable correctness decisions
 
@@ -91,9 +92,9 @@ Future work must preserve:
 - Tauri 2 + React/TypeScript + authoritative Rust/domain state + SQLite remains the validated architecture.
 - `main` and reusable `focusSurface` are the normal two-webview model; presentation changes must not duplicate authoritative runtime state.
 - authoritative task/list/session/timer/scheduling/note state lives outside renderer memory; persistence-first mutations remain the success boundary.
-- stable task/subtask identities, tracked Time Taken, one-open-session protection, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress.
-- a committed authoritative mutation must not be reported as failed merely because a secondary renderer refresh/event delivery fails.
-- Notes URLs require explicit pointer/keyboard activation and may never auto-launch merely because a task becomes live, focus mode opens, task selection changes, pause/resume occurs, renderers refresh, or windows change presentation.
+- stable task/subtask identities, tracked Time Taken, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress.
+- Notes use one mounted compact/large editor/draft path; presentation switching cannot discard unsaved rich text.
+- Notes URLs require explicit pointer/keyboard activation and may never auto-launch from focus/session/window transitions.
 - hover/focus/edit interactions may not reflow task/list card geometry or move hit targets.
 - keyboard/focus-visible equivalents and accessible names/tooltips remain required for icon-only actions.
 - motion never owns or delays domain-state completion; `prefers-reduced-motion` remains usable and timer numerals remain tabular.
