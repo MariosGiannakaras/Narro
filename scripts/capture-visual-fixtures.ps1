@@ -168,6 +168,20 @@ try {
                 -DomPath $fixtureDom
         }
 
+        foreach ($listSettingsMode in @("archive", "archived", "delete")) {
+            $listSettingsLabel = "list-settings-$listSettingsMode-$theme"
+            $listSettingsUrl = "$baseUrl/list-settings-fixture.html?theme=$theme&mode=$listSettingsMode"
+            $listSettingsScreenshot = Join-Path $outputPath "$listSettingsLabel.png"
+            $listSettingsDom = Join-Path $outputPath "$listSettingsLabel.html"
+            Capture-Theme `
+                -EdgePath $edge `
+                -Theme $listSettingsLabel `
+                -Url $listSettingsUrl `
+                -ScreenshotPath $listSettingsScreenshot `
+                -DomPath $listSettingsDom `
+                -VirtualTimeBudgetMs 800
+        }
+
         $reorderLabel = "task-reorder-$theme"
         $reorderUrl = "$baseUrl/task-reorder-fixture.html?theme=$theme"
         $reorderScreenshot = Join-Path $outputPath "$reorderLabel.png"

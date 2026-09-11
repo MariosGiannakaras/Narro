@@ -43,14 +43,13 @@ for (const [haystack, needle, label] of [
   [validator, "list-card-states", "captured list-card state validation"],
   [shell, "onOpen: () => openListBoard(list)", "real Open target after list-board implementation"],
   [shell, "onEdit: () => openEditList(list)", "real Edit List target after modal implementation"],
+  [shell, "onArchive: () => requestArchive(list)", "real Archive List target after list-settings implementation"],
 ]) {
   requireText(haystack, needle, label);
 }
 
-for (const forbidden of ["onDuplicate: () =>", "onArchive: () =>"]) {
-  if (shell.includes(forbidden)) {
-    throw new Error(`Runtime AppShell must not activate a later list-card target: ${forbidden}`);
-  }
+if (shell.includes("onDuplicate: () =>")) {
+  throw new Error("Runtime AppShell must not activate the still-deferred Duplicate list-card target.");
 }
 
 for (const forbidden of ["--motion-duration-interactive", "--motion-distance-interactive", "--color-text-muted"]) {

@@ -81,10 +81,8 @@ if (api.includes("PersistedList")) {
   throw new Error("List editor IPC must not expose a renderer-owned persisted-list serialization contract.");
 }
 
-for (const forbidden of ["onDuplicate: () =>", "onArchive: () =>"]) {
-  if (shell.includes(forbidden)) {
-    throw new Error(`Create/Edit List modal slice must not activate a later runtime card target: ${forbidden}`);
-  }
+if (shell.includes("onDuplicate: () =>")) {
+  throw new Error("Create/Edit List modal slice must not activate the still-deferred Duplicate runtime card target.");
 }
 
 for (const forbidden of ["--color-text-muted", "--motion-duration-interactive", "--motion-distance-interactive"]) {
