@@ -16,7 +16,7 @@ Source/test SHA: `6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`
 
 Source tree: `b10e0086ff1db304d70f59676325fb2c1fa59e77`
 
-This is the expected-head guarded merge of PR #93. Markdown-only descendants do not replace it.
+This is the main-validated merge of PR #93. Markdown-only descendants, including tracking tip `a6df63ed2bf3f2142513b181dca64869a8c145f4`, do not replace it.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
@@ -26,49 +26,63 @@ Immutable evidence: `work-log/2026-09-11-1732-chatgpt-m5-note-url-activation.md`
 
 - final PR #93 head `9236b87239bc9b57916eafd3dfe5f71a0195059e`;
 - Windows PR CI #366 / run `34605963762` / job `103284328992`: **SUCCESS**;
-- PR visual artifact `10266877528`, digest `sha256:c372dcbf92bf44e943080df99530ded40c300ac3a8c545ad199ba99b71f891f6`;
-- PR diagnostic artifact `10266803621`, digest `sha256:839876876578f5ced9f3bf1168deb3e0924b6d782d1f186c5a5a0244c9a145eb`;
 - expected-head merge main SHA `6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`;
 - Windows main CI #367 / run `34610879130` / job `103300772019`: **SUCCESS**;
 - main visual artifact `10269041513`, digest `sha256:204b813fcbc9fa9741ba57c60dff01916d6d5c6310dbc0d154d7018ca50e4ab7`;
 - main diagnostic artifact `10268808169`, digest `sha256:88c8434c188cc1edc432a2cafcf5a5a831ea89407d78396e892ecb0ee3c81b2f`.
 
-Completed capability:
+## ACTIVE IMPLEMENTATION SLICE
 
-- the only production opener import/call remains inside the explicit saved-link `TaskNotes` button handler;
-- pointer plus Enter/Space activation are explicit; button has accessible name/focus-visible styling;
-- dedicated N-01 source-wide regression gate prevents focus/live/session/window projection code and note lazy-load effects from gaining URL-open side effects;
-- `http`/`https` validation, editor navigation suppression and no-remote-preview behavior remain intact;
-- no timer/session/focus behavior or persistence model changed.
+**M5 item 22/28 — Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.**
+
+Branch: `m5-notes-large-editor`
+
+Slice base / latest main tracking tip at start: `a6df63ed2bf3f2142513b181dca64869a8c145f4`.
+
+No open implementation PR or unfinished CI superseded this slice at startup.
+
+### Checkpoint 1 contract — COMPLETE
+
+Evidence inspected:
+
+- `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, and `docs/BEHAVIOR_MATRIX.md` all preserve compact inline Notes while requiring a more comfortable larger/adjustable editing surface;
+- current `TaskNotes.tsx` owns the single production `RichNoteEditor`, persistence-first save/delete path, optimistic stale guards and explicit-only URL opener;
+- current `ListEditorModal.tsx` provides validated Escape, Tab focus containment and focus-restoration patterns;
+- current Notes fixture/capture pipeline already renders the real production TaskCard/TaskNotes surface in light/dark themes;
+- source-product reliability item N-01 remains protected and spellcheck is the next separate ordered TODO item.
+
+Implementation contract:
+
+- Keep exactly one mounted production `RichNoteEditor` / `contentEditable` draft instance. Expanding to the large presentation changes presentation state/classes only; it must not mount a second editor, fork draft state, reload persistence or discard unsaved rich text.
+- Preserve the compact inline editor as the default and as the presentation returned to when the large surface closes.
+- Add an explicit keyboard-accessible expand/return control inside the existing Notes editor. The large presentation is an accessible dialog-like surface with Escape close, contained Tab navigation and deterministic focus restoration.
+- Closing the large presentation is presentation-only and must preserve unsaved editor DOM/draft content because the same editor remains mounted.
+- The large surface is comfortably sized on desktop and pointer-resizable within bounded viewport-safe min/max dimensions; keyboard users must still get a useful large preset without needing pointer resizing.
+- Reuse the existing save/delete/persistence path unchanged. Do not introduce renderer-authoritative durable note state, new note IPC, schema changes or new persistence semantics.
+- Preserve explicit-only `http`/`https` URL activation and the source-wide N-01 anti-auto-launch gate; no remote preview/fetch behavior.
+- Preserve task-card title/action geometry, board interaction locks, All Lists read-only semantics and completed non-archived note mutability.
+- Reuse existing motion primitives and `prefers-reduced-motion`; no continuous animation or geometry-owned domain transitions.
+- Extend deterministic static coverage and production visual evidence with a separate large-presentation capture in light/dark themes, while retaining compact Notes captures.
+- Keep WebView/browser spellcheck entirely separate for the next ordered M5 item.
+
+### Five checkpoints
+
+1. mandatory reconstruction + larger Notes presentation contract — **COMPLETE**;
+2. same-editor large/resizable presentation + accessibility/static/visual coverage + semantic/diff review — PENDING;
+3. exact PR-head Windows CI — PENDING;
+4. final exact-head review + expected-head merge — PENDING;
+5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 5/5 | 21/28`**
-
-The five-checkpoint note URL activation slice is complete: contract, implementation/review, exact-head PR CI, expected-head merge, and resulting-main CI + reconciliation all passed.
-
-## ACTIVE IMPLEMENTATION SLICE
-
-**Next ordered M5 item: Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.**
-
-No source changes for this new slice have been made by this reconciliation commit.
-
-Evidence already identified for startup:
-
-- `docs/PRODUCT_SPEC.md`: Notes can expand into a larger/resizable editor while retaining compact inline access during focus;
-- `docs/UI_UX_SPEC.md`: expanded Notes stay in task/focus context;
-- `docs/SOURCE_AUDIT.md`: larger/resizable Notes is a documented usability need; compact Focus Notes remain available;
-- current `TaskNotes.tsx` owns the single production rich editor and transient draft DOM;
-- current `ListEditorModal.tsx` provides validated dialog accessibility patterns (Escape, Tab focus trap, focus restoration);
-- current Notes visual fixture already renders the real production `TaskCard` / `TaskNotes` surface.
-
-Start a new five-checkpoint slice. Prefer a presentation-only implementation that reuses the same mounted `RichNoteEditor`/persistence path, so expanding/collapsing cannot fork authoritative note state or silently discard unsaved rich text. Add deterministic accessibility/geometry/resize coverage and light/dark production visual evidence. Keep spellcheck separate.
+**`M-5/10 | 1/5 | 21/28`**
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
 - persistence-first rich-note save/delete and optimistic stale guards;
 - explicit-only URL activation and N-01 source-wide anti-regression;
 - compact inline Notes access remains available;
+- one mounted editor/draft path only; presentation switching cannot discard unsaved text;
 - task-card title/action geometry remains fixed;
 - no renderer becomes authoritative for durable Notes data;
 - All Lists remains read-only; completed non-archived task Notes remain editable;
@@ -77,7 +91,7 @@ Start a new five-checkpoint slice. Prefer a presentation-only implementation tha
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Begin the larger/resizable Notes slice from latest main. Re-run mandatory startup reads, confirm no open implementation PR/CI, create a coherent branch, record the narrow five-checkpoint contract in this file, then implement the same-editor larger presentation plus deterministic static/visual coverage before exact-head Windows CI.
+Implement checkpoint 2 on `m5-notes-large-editor`: keep the existing RichNoteEditor mounted while toggling a bounded resizable large presentation, add Escape/Tab/focus-restoration accessibility, extend deterministic static coverage and add light/dark production large-presentation visual captures. Review the exact diff for scope and draft-preservation semantics before opening a PR.
 
 ## USER ACTION REQUIRED
 
@@ -85,5 +99,5 @@ Begin the larger/resizable Notes slice from latest main. Re-run mandatory startu
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks the next item.
-- Full local repository preflight remains unavailable in this connector environment; Windows GitHub Actions is authoritative.
+- No product/user decision blocks checkpoint 2.
+- Full local repository preflight is unavailable in this connector environment; Windows GitHub Actions remains authoritative.
