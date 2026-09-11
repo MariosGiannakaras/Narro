@@ -31,6 +31,7 @@ for (const [haystack, needle, label] of [
   [notes, "document.body.style.overflow = previousOverflow;", "background scroll restoration"],
   [notes, 'data-task-note-large-backdrop="true"', "large Notes backdrop"],
   [notes, "taskTitle={taskTitle}", "task identity/context passed to large editor"],
+  [notes, "spellCheck", "native spellcheck hint retained on the shared editor"],
   [css, '.task-notes__editor-shell[data-task-note-presentation="large"]', "large Notes surface selector"],
   [css, "position: fixed;", "large Notes fixed presentation"],
   [css, "resize: both;", "pointer-resizable large Notes surface"],
@@ -64,6 +65,10 @@ const editorShells = notes.match(/data-task-note-editor="true"/g) ?? [];
 if (editorShells.length !== 1) {
   throw new Error(`Large Notes must keep one editor shell; found ${editorShells.length}.`);
 }
+const spellcheckHints = notes.match(/\bspellCheck\b/g) ?? [];
+if (spellcheckHints.length !== 1) {
+  throw new Error(`Large Notes must retain exactly one native spellcheck hint on the shared editor; found ${spellcheckHints.length}.`);
+}
 
 const richEditorStart = notes.indexOf("function RichNoteEditor(");
 const validSnapshotStart = notes.indexOf("function validSnapshot(", richEditorStart);
@@ -81,9 +86,6 @@ for (const forbidden of [
     throw new Error(`Presentation-only RichNoteEditor absorbed authoritative/URL side effects: ${forbidden}`);
   }
 }
-if (notes.includes("spellCheck")) {
-  throw new Error("Larger Notes slice must not absorb the separately ordered spellcheck implementation.");
-}
 
 const presentationStateIndex = richEditor.indexOf("const [largePresentation, setLargePresentation] = useState(false);");
 const editorRefIndex = richEditor.indexOf('data-task-note-control="editor"');
@@ -91,4 +93,4 @@ if (presentationStateIndex < 0 || editorRefIndex < presentationStateIndex) {
   throw new Error("Large presentation must decorate the existing mounted editor rather than replace it.");
 }
 
-console.log("Large/resizable Notes presentation, single-editor draft, accessibility, and visual contracts passed.");
+console.log("Large/resizable Notes presentation, single-editor draft, accessibility, spellcheck, and visual contracts passed.");
