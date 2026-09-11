@@ -20,91 +20,87 @@ Source tree:
 
 `93e72feb5da74fcaf6de16ab3b120c32008eddc6`
 
-This is the expected-head guarded merge of PR #92 — `M5: add rich task notes editor and viewer`. Markdown-only tracking descendants do not replace this source baseline.
+This is the expected-head guarded merge of PR #92 — `M5: add rich task notes editor and viewer`. Markdown-only tracking descendants, including reconciliation commit `983213fba7b233183151fd3939fc246ba6918166`, do not replace this source baseline.
 
-## LATEST COMPLETED IMPLEMENTATION / CI
+Latest completed immutable evidence: `work-log/2026-09-11-1629-chatgpt-m5-rich-task-notes.md`.
 
-**M5 Main UI — Rich task notes editor/viewer with clickable URLs.** Detailed immutable evidence: `work-log/2026-09-11-1629-chatgpt-m5-rich-task-notes.md`.
+## ACTIVE IMPLEMENTATION SLICE
 
-Final PR #92 head: `12e5de44b0ddc00f09a0b1b2bca72d4744ceb113`.
+**M5 item 21/28 — Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.**
 
-Windows PR CI #364:
+Branch: `m5-note-url-activation`
 
-- run `34599041219`, job `103261625630`, conclusion **SUCCESS**;
-- Repository Preflight, visual capture/upload, Tauri Release and diagnostic artifact upload: **PASS**;
-- visual artifact `10263334390`, digest `sha256:8634f7fa24c0dfa1cc315db57c34afdad0acc75dc27943ea55a5f9a88087cdb9`;
-- diagnostic artifact `10263778572`, digest `sha256:6fe93eb9fe9aae3d18885c0d23beff680e019f6b69ef0f1cff906744bddd3875`.
+Slice base / main tracking tip at start:
 
-Expected-head merge produced main source SHA `766781b03caa01b9c70d7af10827d751d998caba`.
+`983213fba7b233183151fd3939fc246ba6918166`
 
-Windows main CI #365:
+No open implementation PR or unfinished implementation CI existed at slice startup. The markdown-only reconciliation commit triggered no CI.
 
-- run `34600370102`, job `103265907994`, conclusion **SUCCESS**;
-- exact source SHA `766781b03caa01b9c70d7af10827d751d998caba`;
-- Repository Preflight, visual capture/upload, Tauri Release and diagnostic artifact upload: **PASS**;
-- visual artifact `10263584561`, digest `sha256:0cb8b53e438e654882291764a6bac6868a6e527ed6e71619116f07fc9686c83a`;
-- diagnostic artifact `10264950279`, digest `sha256:7dec60f2e218c0479d7058ea45e0a59229ae4715a160b62da2eceb1dfd7a2895`.
+### Checkpoint 1 — startup reconstruction + evidence-backed contract — COMPLETE
 
-## COMPLETED CAPABILITIES FROM THE LATEST SLICE
+Evidence inspected:
 
-- Reused the M2 constrained, versioned local `NoteDocument` persistence model; no schema migration and no authoritative HTML storage.
-- Added board-facing exact task/list note reads and persistence-first save/delete commands with immediate SQLite transactions and expected-`updated_at` stale guards.
-- Added stable `NOTE_STALE`, `NOTE_NOT_ALLOWED` and `NOTE_FAILED` command classes.
-- Preserved completed-task note editing, archived task/list mutation restrictions and aggregate All Lists read-only behavior.
-- Added production inline rich Notes editor/viewer with paragraph/list structure, Bold, Italic, Strikethrough, bullet/numbered lists, link creation, Undo/Redo, Save/Delete and structural rendering.
-- Saved URLs are explicit user controls routed through the existing Tauri opener; editor links cannot navigate and there is no remote preview/fetch path.
-- Notes expansion participates in the one-panel List Board interaction locks, is mutually exclusive with Subtasks, and Notes controls cannot initiate parent drag.
-- Successful note writes refresh authoritative persistence; committed-write/refresh-failure is distinguished and blocks unsafe follow-up mutation.
-- Added deterministic Rust/static coverage plus light/dark production visual fixtures for editable and aggregate read-only Notes states.
+- mandatory repository startup files and active M5 roadmap/tracking state;
+- newest validated Rich Notes work log and PR/main CI evidence;
+- `docs/BLITZIT_HISTORY_RISK_INDEX.md` risk N-01: source-product automatic note-link opening on Blitz entry is a resolved bug class and a required Narro anti-regression;
+- `docs/SOURCE_AUDIT.md` and `docs/PRODUCT_SPEC.md`: historical Help Center text described auto-open on live-task entry, while later roadmap evidence resolves it as a bug;
+- `docs/BEHAVIOR_MATRIX.md`: note URL click opens explicitly in the default browser; a task containing a URL becoming live must not auto-launch;
+- current `TaskNotes.tsx`, `taskNotes.css`, `scripts/test-ui-task-notes.mjs`, `focus.tsx`, `TimerSessionProjection.tsx`, package preflight and all repository `openUrl` / opener call sites.
+
+Current source finding:
+
+- there is exactly one production `openUrl()` call and one production `@tauri-apps/plugin-opener` import, both in `TaskNotes.tsx`;
+- the opener call is inside the `onClick` handler of a native `<button type="button">`, so normal pointer activation and native Enter/Space keyboard activation are explicit;
+- the saved-link button already has `:focus-visible` styling;
+- the editor prevents navigation when clicking editable anchors;
+- the Notes lazy-load `useEffect` does not open links;
+- `focus.tsx` and `TimerSessionProjection.tsx` contain no Notes/opener URL side effect;
+- there is no evidence-backed behavior defect to fix before adding the dedicated anti-regression layer.
+
+Implementation contract:
+
+- Preserve the existing explicit saved-link button/opener behavior; do not introduce auto-open compatibility with historical Blitzit Help Center text.
+- Keep `http`/`https` validation and no-remote-preview behavior unchanged.
+- Add a durable explicit activation marker/accessibility label to the saved-link button without changing visual geometry.
+- Add one dedicated deterministic source-product anti-regression script that scans production frontend source, not only `TaskNotes.tsx`.
+- The anti-regression must require exactly one production opener import/call, bound to the explicit Notes button handler, and reject opener/navigation side effects outside that path.
+- Explicitly cover focus/live transition surfaces: `focus.tsx`, `TimerSessionProjection.tsx`, `timerSessionApi.ts`, `App.tsx`, `ListBoard.tsx`, and `TaskCard.tsx` must not directly open note URLs from state/event/effect transitions.
+- Do not forbid future Focus UI from rendering the reusable `TaskNotes` component; future explicit link clicks in Focus remain allowed because opening stays encapsulated in the same explicit button path.
+- State/event transitions that must remain URL-side-effect free include focus entry/show/mode projection, task-live selection/switch, pause/resume, timer/session events, renderer refresh/recreation and board/note lazy refresh.
+- Do not add a schema migration, new native URL command, polling, remote fetch/preview, or timer/session mutation.
+- Keep larger/resizable Notes editing and WebView/browser spellcheck as later ordered TODO items.
+- No new manual Windows observation is required for this source-only anti-regression slice unless CI or implementation introduces a native behavior change; Windows CI remains authoritative for build/static/Rust/Tauri regression validation.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 5/5 | 20/28`**
+New five-checkpoint slice:
 
-Completed five-checkpoint Rich Notes slice:
-
-1. mandatory inspection + narrow rich-note mutation/read/UX contract — **COMPLETE**;
-2. authoritative note command/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — **COMPLETE**;
-4. final exact-head review + expected-head merge — **COMPLETE**;
-5. resulting-main Windows CI + tracking/work-log reconciliation — **COMPLETE** after this markdown-only reconciliation commit; validated source remains `766781b03caa01b9c70d7af10827d751d998caba`.
+1. startup reconstruction + evidence-backed URL activation/no-auto-launch contract — **COMPLETE**;
+2. explicit activation hardening + deterministic source-wide anti-regression coverage + semantic/diff review — PENDING;
+3. exact PR-head Windows CI — PENDING;
+4. final exact-head review + expected-head merge — PENDING;
+5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
 - Rust/domain/persistence remains authoritative and mutations remain persistence-first.
 - Stable task/subtask identity, tracked Time Taken, timer/session accounting and one-open-session protection must not regress.
-- A committed authoritative mutation plus failed renderer refresh/broadcast is not reported as mutation failure.
 - All Lists remains an aggregate read projection.
 - Scheduling/date-only/timezone/recurrence semantics validated through M4/M5 remain unchanged.
-- Task-card reserved action/title geometry and pointer targets remain stable.
-- Note URLs require explicit pointer/keyboard activation and may never auto-launch merely because focus/live task state changes.
+- Notes persistence, rich formatting and task-card geometry from item 20/28 remain unchanged.
+- Note URLs require explicit pointer/keyboard activation and may never auto-launch merely because focus/live task/session/window state changes.
 - Excluded account/trial/upgrade/profile/AI/integration controls remain absent.
 - Diagnostics remain gated behind `?diagnostics=1`.
 
-## ACTIVE IMPLEMENTATION SLICE
-
-**Next ordered M5 item: Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.**
-
-No source changes for this new slice have been made by this reconciliation commit.
-
-Before source changes, reconstruct the URL-open/focus transition contract from current source and:
-
-- `docs/BLITZIT_HISTORY_RISK_INDEX.md` source-product risk N-01;
-- Notes/focus behavior in `docs/SOURCE_AUDIT.md`, `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, and `docs/BEHAVIOR_MATRIX.md`;
-- current `TaskNotes.tsx` explicit opener path;
-- current Focus/Blitz task-live/session projection code and typed events.
-
-Define a narrow five-checkpoint slice. The acceptance target is regression proof that URL opening can occur only from an explicit pointer/keyboard activation and never from entering focus, making/switching a task live, pause/resume, session events, renderer refresh/recreation, or focus-surface mode projection. Keep larger/resizable Notes editing and spellcheck separate.
-
 ## TRACKING STATE
 
-- `TODO.md`: Rich task notes editor/viewer is checked; M5 is **20/28**.
-- `STATUS.md`: **20/28**, validated source baseline `766781b03caa01b9c70d7af10827d751d998caba`.
-- Latest immutable completed work log: `work-log/2026-09-11-1629-chatgpt-m5-rich-task-notes.md`.
+- `TODO.md`: item 21 remains unchecked until exact-head PR CI, expected-head merge, resulting-main Windows CI and reconciliation all pass.
+- `STATUS.md`: M5 remains **20/28**.
+- Validated source baseline remains `766781b03caa01b9c70d7af10827d751d998caba`.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Begin the next ordered M5 slice: **Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.** First perform the mandatory startup reads against the current repository, inspect the newest relevant work log and confirm there is no open unfinished implementation PR/CI. Then inspect all URL-open call sites and focus/live-task transition paths, record a narrow evidence-backed contract in `HANDOFF.md`, create a coherent feature branch, and implement deterministic anti-regression coverage before changing behavior unless source inspection proves a behavior defect.
+Continue on `m5-note-url-activation`. Implement checkpoint 2 narrowly: add the explicit saved-link activation marker/accessibility hardening, add the dedicated source-wide N-01 anti-regression script, wire it into frontend preflight, then review the exact diff from base `983213fba7b233183151fd3939fc246ba6918166`. Do not change URL behavior unless source/tests reveal an actual defect.
 
 ## USER ACTION REQUIRED
 
@@ -112,6 +108,6 @@ Begin the next ordered M5 slice: **Require explicit click/keyboard activation to
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks the next ordered slice.
-- Local checkout/toolchain validation is unavailable in this connector environment because the container cannot resolve GitHub.
-- Windows GitHub Actions remains authoritative for frontend, Rust/Tauri, visual and artifact validation.
+- No product/user decision blocks checkpoint 2.
+- Local checkout/toolchain validation is unavailable because the container cannot resolve GitHub.
+- Windows GitHub Actions remains authoritative for full frontend/Rust/Tauri validation after the reviewed source candidate is ready.
