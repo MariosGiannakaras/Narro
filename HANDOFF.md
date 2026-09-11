@@ -34,6 +34,10 @@ Slice base / main tracking tip at start:
 
 `983213fba7b233183151fd3939fc246ba6918166`
 
+Reviewed source/test candidate before this HANDOFF-only descendant:
+
+`2652d6a2a35b36d49ee635ec8b916b645eb009a6`
+
 No open implementation PR or unfinished implementation CI existed at slice startup. The markdown-only reconciliation commit triggered no CI.
 
 ### Checkpoint 1 — startup reconstruction + evidence-backed contract — COMPLETE
@@ -49,34 +53,49 @@ Evidence inspected:
 
 Current source finding:
 
-- there is exactly one production `openUrl()` call and one production `@tauri-apps/plugin-opener` import, both in `TaskNotes.tsx`;
-- the opener call is inside the `onClick` handler of a native `<button type="button">`, so normal pointer activation and native Enter/Space keyboard activation are explicit;
-- the saved-link button already has `:focus-visible` styling;
-- the editor prevents navigation when clicking editable anchors;
-- the Notes lazy-load `useEffect` does not open links;
-- `focus.tsx` and `TimerSessionProjection.tsx` contain no Notes/opener URL side effect;
-- there is no evidence-backed behavior defect to fix before adding the dedicated anti-regression layer.
+- exactly one production `openUrl()` call and one production opener import exist, both in `TaskNotes.tsx`;
+- the call is inside the click handler of a native button, which supplies pointer plus Enter/Space keyboard activation;
+- the saved-link button already has focus-visible styling;
+- editor anchor pointer navigation is suppressed;
+- Notes lazy-load effects and current focus/timer projections have no URL-open side effect;
+- no evidence-backed behavior defect required a behavior rewrite.
 
-Implementation contract:
+Contract:
 
-- Preserve the existing explicit saved-link button/opener behavior; do not introduce auto-open compatibility with historical Blitzit Help Center text.
-- Keep `http`/`https` validation and no-remote-preview behavior unchanged.
-- Add a durable explicit activation marker/accessibility label to the saved-link button without changing visual geometry.
-- Add one dedicated deterministic source-product anti-regression script that scans production frontend source, not only `TaskNotes.tsx`.
-- The anti-regression must require exactly one production opener import/call, bound to the explicit Notes button handler, and reject opener/navigation side effects outside that path.
-- Explicitly cover focus/live transition surfaces: `focus.tsx`, `TimerSessionProjection.tsx`, `timerSessionApi.ts`, `App.tsx`, `ListBoard.tsx`, and `TaskCard.tsx` must not directly open note URLs from state/event/effect transitions.
-- Do not forbid future Focus UI from rendering the reusable `TaskNotes` component; future explicit link clicks in Focus remain allowed because opening stays encapsulated in the same explicit button path.
-- State/event transitions that must remain URL-side-effect free include focus entry/show/mode projection, task-live selection/switch, pause/resume, timer/session events, renderer refresh/recreation and board/note lazy refresh.
-- Do not add a schema migration, new native URL command, polling, remote fetch/preview, or timer/session mutation.
-- Keep larger/resizable Notes editing and WebView/browser spellcheck as later ordered TODO items.
-- No new manual Windows observation is required for this source-only anti-regression slice unless CI or implementation introduces a native behavior change; Windows CI remains authoritative for build/static/Rust/Tauri regression validation.
+- Preserve existing explicit saved-link opener behavior and `http`/`https` validation; never reintroduce historical auto-open behavior.
+- Keep focus entry/show/mode projection, task-live selection/switch, pause/resume, timer/session events, renderer refresh/recreation and note lazy refresh URL-side-effect free.
+- Keep the explicit opener encapsulated in reusable `TaskNotes`, so future M6 Focus Notes may reuse it without direct focus-transition opener code.
+- Add durable anti-regression coverage without schema/native-command/polling/remote-preview/timer changes.
+- Keep larger/resizable Notes editing and spellcheck separate.
+
+### Checkpoint 2 — hardening + deterministic anti-regression + semantic/diff review — COMPLETE
+
+Implementation:
+
+- `TaskNotes.tsx` saved-link button now carries `data-note-url-activation="explicit"` and an explicit accessible name; visual geometry and opener behavior are otherwise unchanged.
+- Added `scripts/test-note-url-activation.mjs` as the dedicated N-01 regression gate.
+- The new gate recursively inspects production TypeScript/TSX source and requires exactly one opener import and exactly one `openUrl()` call, both isolated to `TaskNotes.tsx`.
+- It isolates `NoteRun` and requires native `<button type="button">` semantics, the explicit marker, accessible name, click handler and opener-call ordering.
+- It preserves `http`/`https` validation, editor anchor-navigation suppression and saved-link `:focus-visible` styling.
+- It rejects effect/focus-driven opener logic in the saved-link component.
+- It checks `focus.tsx`, `TimerSessionProjection.tsx`, `timerSessionApi.ts`, `App.tsx`, `ListBoard.tsx` and `TaskCard.tsx` for direct opener/browser-navigation side effects, covering current focus/live/session/window projection paths.
+- It separately isolates the task-note lazy-load effect and requires it to remain URL-side-effect free.
+- Wired the new gate as `test:note-url-activation` into `preflight:frontend` immediately after the existing rich Notes contract.
+
+Review / validation available before CI:
+
+- exact base `983213fba7b233183151fd3939fc246ba6918166` to candidate `2652d6a2a35b36d49ee635ec8b916b645eb009a6`: ahead by 4, behind by 0;
+- changed files: `TaskNotes.tsx` +2 lines, new 122-line anti-regression script, `package.json` +2/-1, `HANDOFF.md` tracking only;
+- no Rust, persistence, timer/session, focus behavior, layout/CSS or later Notes scope changed;
+- local scratch `node --check` of the exact new `.mjs` source: **PASS**;
+- full local repository test/preflight: **NOT RUN** because this environment cannot obtain a local GitHub checkout; Windows GitHub Actions remains authoritative.
 
 ## USER-FACING PROGRESS
 
-New five-checkpoint slice:
+Five-checkpoint slice:
 
 1. startup reconstruction + evidence-backed URL activation/no-auto-launch contract — **COMPLETE**;
-2. explicit activation hardening + deterministic source-wide anti-regression coverage + semantic/diff review — PENDING;
+2. explicit activation hardening + deterministic source-wide anti-regression coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — PENDING;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
@@ -89,6 +108,7 @@ New five-checkpoint slice:
 - Scheduling/date-only/timezone/recurrence semantics validated through M4/M5 remain unchanged.
 - Notes persistence, rich formatting and task-card geometry from item 20/28 remain unchanged.
 - Note URLs require explicit pointer/keyboard activation and may never auto-launch merely because focus/live task/session/window state changes.
+- Future Focus Notes may call the same reusable explicit `TaskNotes` activation path; focus transition/effect code itself must not open URLs.
 - Excluded account/trial/upgrade/profile/AI/integration controls remain absent.
 - Diagnostics remain gated behind `?diagnostics=1`.
 
@@ -100,7 +120,7 @@ New five-checkpoint slice:
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Continue on `m5-note-url-activation`. Implement checkpoint 2 narrowly: add the explicit saved-link activation marker/accessibility hardening, add the dedicated source-wide N-01 anti-regression script, wire it into frontend preflight, then review the exact diff from base `983213fba7b233183151fd3939fc246ba6918166`. Do not change URL behavior unless source/tests reveal an actual defect.
+Open/resume the implementation PR for `m5-note-url-activation`, record its exact head SHA and inspect authoritative Windows CI. If CI fails, change only the evidence-backed failure. If CI succeeds, perform final exact-head diff/review-thread checks, expected-head merge, resulting-main Windows CI, then reconcile item 21 to 21/28 in TODO/STATUS/HANDOFF and create a new immutable work log.
 
 ## USER ACTION REQUIRED
 
@@ -108,6 +128,6 @@ Continue on `m5-note-url-activation`. Implement checkpoint 2 narrowly: add the e
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks checkpoint 2.
-- Local checkout/toolchain validation is unavailable because the container cannot resolve GitHub.
-- Windows GitHub Actions remains authoritative for full frontend/Rust/Tauri validation after the reviewed source candidate is ready.
+- No product/user decision blocks checkpoint 3.
+- Full local repository preflight is NOT RUN because the container cannot resolve GitHub and no local Narro checkout is available.
+- Windows GitHub Actions remains authoritative for full frontend/Rust/Tauri validation.
