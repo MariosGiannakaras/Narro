@@ -260,6 +260,7 @@ mod tests {
         assert!(restored.archived_at.is_none());
         assert_eq!(active_lists(&connection).expect("active lists").len(), 1);
 
+        drop(connection);
         std::fs::remove_dir_all(app_dir).expect("remove app dir");
     }
 
@@ -297,6 +298,7 @@ mod tests {
             Err(ListStoreError::NotFound(id)) if id == created.id
         ));
 
+        drop(connection);
         std::fs::remove_dir_all(app_dir).expect("remove app dir");
     }
 }
