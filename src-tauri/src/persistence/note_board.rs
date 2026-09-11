@@ -108,7 +108,9 @@ fn validate_parent_binding(
     let list = get_list(conn, task.list_id)?;
     if mutable {
         if task.archived_at.is_some() {
-            return Err(NoteBoardError::Note(TaskNoteStoreError::TaskArchived(task_id)));
+            return Err(NoteBoardError::Note(TaskNoteStoreError::TaskArchived(
+                task_id,
+            )));
         }
         if list.archived_at.is_some() {
             return Err(NoteBoardError::Note(TaskNoteStoreError::ListArchived(
@@ -183,8 +185,9 @@ pub fn set_board_task_note_if_expected(
     if changed != 1 {
         return Err(NoteBoardError::StaleWrite(task_id));
     }
-    let saved = get_task_note(&tx, task_id)?
-        .ok_or(NoteBoardError::Note(TaskNoteStoreError::MissingAfterUpsert(task_id)))?;
+    let saved = get_task_note(&tx, task_id)?.ok_or(NoteBoardError::Note(
+        TaskNoteStoreError::MissingAfterUpsert(task_id),
+    ))?;
     tx.commit()?;
     Ok(saved)
 }
@@ -300,7 +303,9 @@ mod tests {
             document("stale"),
             T2,
         );
-        assert!(matches!(stale, Err(NoteBoardError::ExpectedUpdatedAtMismatch(id)) if id == task_id));
+        assert!(
+            matches!(stale, Err(NoteBoardError::ExpectedUpdatedAtMismatch(id)) if id == task_id)
+        );
         assert_eq!(
             board_task_note(&connection, task_id, list_id)
                 .expect("read note")
@@ -330,7 +335,9 @@ mod tests {
             document("clobber"),
             T1,
         );
-        assert!(matches!(stale, Err(NoteBoardError::ExpectedUpdatedAtMismatch(id)) if id == task_id));
+        assert!(
+            matches!(stale, Err(NoteBoardError::ExpectedUpdatedAtMismatch(id)) if id == task_id)
+        );
     }
 
     #[test]
@@ -362,7 +369,9 @@ mod tests {
             &first.updated_at,
             T2,
         );
-        assert!(matches!(stale_delete, Err(NoteBoardError::ExpectedUpdatedAtMismatch(id)) if id == task_id));
+        assert!(
+            matches!(stale_delete, Err(NoteBoardError::ExpectedUpdatedAtMismatch(id)) if id == task_id)
+        );
         assert_eq!(
             board_task_note(&connection, task_id, list_id)
                 .expect("read note")
