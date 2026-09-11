@@ -1,0 +1,200 @@
+.task-notes {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.task-notes__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 1.75rem;
+  padding: 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--color-text-secondary);
+  background: transparent;
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  text-align: left;
+  cursor: pointer;
+}
+
+.task-notes__trigger:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.task-notes__trigger:focus-visible,
+.task-notes__toolbar-button:focus-visible,
+.task-notes__save:focus-visible,
+.task-notes__delete:focus-visible,
+.task-notes__link:focus-visible,
+.task-notes__editor:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
+.task-notes__trigger:disabled,
+.task-notes__toolbar-button:disabled,
+.task-notes__save:disabled,
+.task-notes__delete:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.task-notes__panel,
+.task-notes__editor-shell,
+.task-notes__saved-preview,
+.task-notes__viewer {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.task-notes__toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.task-notes__toolbar-button {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  padding: 0 var(--space-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-deep);
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  cursor: pointer;
+}
+
+.task-notes__toolbar-button:hover:not(:disabled) {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.task-notes__editor,
+.task-notes__viewer {
+  min-height: 5rem;
+  max-height: 12rem;
+  overflow: auto;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-deep);
+  font-size: var(--font-size-body);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.task-notes__editor[contenteditable="true"] {
+  cursor: text;
+}
+
+.task-notes__editor p,
+.task-notes__viewer p,
+.task-notes__editor ul,
+.task-notes__viewer ul,
+.task-notes__editor ol,
+.task-notes__viewer ol {
+  margin: 0;
+}
+
+.task-notes__editor p + p,
+.task-notes__viewer p + p,
+.task-notes__editor p + ul,
+.task-notes__viewer p + ul,
+.task-notes__editor p + ol,
+.task-notes__viewer p + ol,
+.task-notes__editor ul + p,
+.task-notes__viewer ul + p,
+.task-notes__editor ol + p,
+.task-notes__viewer ol + p {
+  margin-top: var(--space-2);
+}
+
+.task-notes__editor ul,
+.task-notes__viewer ul,
+.task-notes__editor ol,
+.task-notes__viewer ol {
+  padding-left: 1.25rem;
+}
+
+.task-notes__editor a {
+  color: var(--color-accent-solid);
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+  cursor: text;
+}
+
+.task-notes__link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--color-accent-solid);
+  background: transparent;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+  cursor: pointer;
+}
+
+.task-notes__editor-footer,
+.task-notes__saved-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.task-notes__save,
+.task-notes__delete {
+  min-height: 1.875rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  cursor: pointer;
+}
+
+.task-notes__save {
+  border-color: var(--color-accent-solid);
+  color: var(--color-text-primary);
+  background: color-mix(in srgb, var(--color-accent-solid) 16%, var(--color-surface-deep));
+}
+
+.task-notes__delete {
+  color: var(--color-destructive);
+  background: var(--color-destructive-surface);
+}
+
+.task-notes__saved-preview {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.task-notes__error {
+  color: var(--color-destructive);
+}
+
+.task-notes__empty,
+.task-notes__readonly,
+.task-notes__editor-footer > span,
+.task-notes__saved-preview-heading {
+  color: var(--color-text-secondary);
+}

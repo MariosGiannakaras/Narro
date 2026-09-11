@@ -16,6 +16,7 @@ export default defineConfig(async () => ({
         taskReorderFixture: "task-reorder-fixture.html",
         taskMetricFixture: "task-metric-fixture.html",
         taskScheduleFixture: "task-schedule-fixture.html",
+        taskNotesFixture: "task-notes-fixture.html",
         taskSubtasksFixture: "task-subtasks-fixture.html",
       },
     },

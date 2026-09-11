@@ -2,6 +2,7 @@ import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
 import type { BoardSubtask, ListBoardTask } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import { TaskNotes } from "./TaskNotes";
 import { TaskSubtasks, type TaskSubtasksModel } from "./TaskSubtasks";
 import type { TimerStateKind } from "./timerSessionApi";
 
@@ -41,6 +42,15 @@ export type TaskCardMetricEditor = {
   onCancel: () => void;
 };
 
+export type TaskCardNotes = {
+  expanded: boolean;
+  canExpand: boolean;
+  readOnly: boolean;
+  onToggleExpanded: () => void;
+  onMutationStatus: (status: string, error: string | null) => void;
+  onRefreshBlocked: (message: string) => void;
+};
+
 export type TaskCardSubtasks = {
   model?: TaskSubtasksModel;
   canExpand: boolean;
@@ -67,6 +77,7 @@ type TaskCardProps = {
   onTimeTakenEdit?: () => void;
   metricEditor?: TaskCardMetricEditor;
   onScheduleEdit?: () => void;
+  notes?: TaskCardNotes;
   subtasks?: TaskCardSubtasks;
   liveState?: TimerStateKind | null;
 };
@@ -449,6 +460,7 @@ export function TaskCard({
   onTimeTakenEdit,
   metricEditor,
   onScheduleEdit,
+  notes,
   subtasks,
   liveState,
 }: TaskCardProps) {
@@ -457,8 +469,9 @@ export function TaskCard({
   const repeatStatus = recurrenceLabel(task);
   const isFixtureOnly = fixtureState !== undefined;
   const showBaseContent = state !== "inline_create";
+  const noteExpanded = Boolean(notes?.expanded);
   const subtaskExpanded = Boolean(subtasks?.model?.expanded);
-  const effectiveActions = titleEditor || metricEditor || subtaskExpanded
+  const effectiveActions = titleEditor || metricEditor || noteExpanded || subtaskExpanded
     ? undefined
     : actions ?? (
       isFixtureOnly && (state === "normal" || state === "action_revealed")
@@ -483,6 +496,7 @@ export function TaskCard({
       data-task-metric-editing={metricEditor?.metric ?? "none"}
       data-task-live-state={liveState ?? "none"}
       data-task-recurrence={recurrenceState(task)}
+      data-task-notes-expanded={noteExpanded ? "true" : "false"}
       data-task-subtasks-expanded={subtaskExpanded ? "true" : "false"}
       data-fixture-presentation={isFixtureOnly ? "true" : "false"}
       style={safeListAccent(task.listColor)}
@@ -591,6 +605,20 @@ export function TaskCard({
               />
             </span>
           </div>
+
+          {notes ? (
+            <TaskNotes
+              taskId={task.id}
+              listId={task.listId}
+              taskTitle={task.title}
+              expanded={notes.expanded}
+              canExpand={notes.canExpand}
+              readOnly={notes.readOnly}
+              onToggleExpanded={notes.onToggleExpanded}
+              onMutationStatus={notes.onMutationStatus}
+              onRefreshBlocked={notes.onRefreshBlocked}
+            />
+          ) : null}
 
           {subtasks ? (
             <TaskSubtasks
