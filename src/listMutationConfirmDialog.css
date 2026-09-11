@@ -1,0 +1,109 @@
+.list-confirm-backdrop,
+.list-confirm-backdrop * {
+  box-sizing: border-box;
+}
+
+.list-confirm-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+  background: rgba(0, 0, 0, 0.56);
+}
+
+.list-confirm-dialog {
+  width: min(28rem, calc(100vw - 2 * var(--space-6)));
+  padding: var(--space-6);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-modal);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-overlay);
+}
+
+.list-confirm-dialog__eyebrow,
+.list-confirm-dialog__title,
+.list-confirm-dialog__description {
+  margin: 0;
+}
+
+.list-confirm-dialog__eyebrow {
+  margin-bottom: var(--space-2);
+  color: var(--color-accent-solid);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.list-confirm-dialog[data-list-confirm-action="delete"] .list-confirm-dialog__eyebrow {
+  color: var(--color-destructive);
+}
+
+.list-confirm-dialog__description {
+  margin-top: var(--space-3);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.list-confirm-dialog__error {
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  border: 1px solid var(--color-destructive);
+  border-radius: var(--radius-control);
+  color: var(--color-destructive);
+  background: var(--color-destructive-surface);
+}
+
+.list-confirm-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.list-confirm-dialog__cancel,
+.list-confirm-dialog__confirm {
+  min-height: 2.5rem;
+  padding-inline: var(--space-4);
+}
+
+.list-confirm-dialog__cancel {
+  background: transparent;
+}
+
+.list-confirm-dialog__confirm {
+  border-color: transparent;
+  color: var(--color-accent-contrast);
+  background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-end));
+}
+
+.list-confirm-dialog__confirm[data-destructive="true"] {
+  color: #fff;
+  background: var(--color-destructive);
+}
+
+.list-confirm-dialog__confirm:hover:not(:disabled),
+.list-confirm-dialog__confirm:active:not(:disabled) {
+  border-color: transparent;
+  box-shadow: var(--elevation-raised);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list-confirm-backdrop,
+  .list-confirm-dialog {
+    transform: none;
+  }
+}
+
+@media (max-width: 36rem) {
+  .list-confirm-backdrop {
+    padding: var(--space-3);
+  }
+
+  .list-confirm-dialog {
+    width: calc(100vw - 2 * var(--space-3));
+    padding: var(--space-5);
+  }
+}
