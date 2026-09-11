@@ -80,7 +80,7 @@ for (const [haystack, needle, label] of [
   [taskCard, 'data-task-subtasks-expanded={subtaskExpanded ? "true" : "false"}', "task-card expansion marker"],
   [taskCard, "task.subtaskTotalCount ?? 0", "task-card total progress projection"],
   [taskCard, "task.subtaskCompletedCount ?? 0", "task-card completed progress projection"],
-  [taskCard, "titleEditor || metricEditor || subtaskExpanded", "expanded panel parent action lock"],
+  [taskCard, "titleEditor || metricEditor || noteExpanded || subtaskExpanded", "expanded panel parent action lock"],
   [subtasks, 'data-task-subtask-control="toggle"', "expand-collapse control"],
   [subtasks, 'data-task-subtask-control="complete"', "complete-reopen control"],
   [subtasks, 'data-task-subtask-control="edit"', "inline title edit control"],
