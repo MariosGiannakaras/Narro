@@ -48,6 +48,41 @@ export type ListBoardRequestTarget =
 
 export type PlanningLaneToken = "backlog" | "this_week" | "today";
 
+export type NoteTextRun = {
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  strikethrough?: boolean;
+  link?: string | null;
+};
+
+export type NoteListItem = {
+  runs: NoteTextRun[];
+};
+
+export type NoteBlock =
+  | { kind: "paragraph"; runs: NoteTextRun[] }
+  | { kind: "bullet_list"; items: NoteListItem[] }
+  | { kind: "numbered_list"; items: NoteListItem[] };
+
+export type NoteDocument = {
+  blocks: NoteBlock[];
+};
+
+export type BoardTaskNote = {
+  taskId: string;
+  editorFormatVersion: number;
+  document: NoteDocument;
+  updatedAt: string;
+};
+
+export type BoardTaskNoteSnapshot = {
+  taskId: string;
+  listId: string;
+  mutable: boolean;
+  note: BoardTaskNote | null;
+};
+
 export type BoardSubtask = {
   id: string;
   taskId: string;
@@ -103,6 +138,19 @@ export type MoveListBoardTaskRequest = {
   listId: string;
   sourceLane: PlanningLaneToken;
   targetLane: PlanningLaneToken;
+};
+
+export type SaveListBoardTaskNoteRequest = {
+  taskId: string;
+  listId: string;
+  expectedUpdatedAt: string | null;
+  document: NoteDocument;
+};
+
+export type DeleteListBoardTaskNoteRequest = {
+  taskId: string;
+  listId: string;
+  expectedUpdatedAt: string;
 };
 
 export type CreateListBoardSubtaskRequest = {
@@ -184,6 +232,25 @@ export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Prom
 
 export function moveListBoardTask(request: MoveListBoardTaskRequest): Promise<void> {
   return invoke<void>("move_list_board_task", request);
+}
+
+export function getListBoardTaskNote(
+  taskId: string,
+  listId: string,
+): Promise<BoardTaskNoteSnapshot> {
+  return invoke<BoardTaskNoteSnapshot>("get_list_board_task_note", { taskId, listId });
+}
+
+export function saveListBoardTaskNote(
+  request: SaveListBoardTaskNoteRequest,
+): Promise<BoardTaskNote> {
+  return invoke<BoardTaskNote>("save_list_board_task_note", request);
+}
+
+export function deleteListBoardTaskNote(
+  request: DeleteListBoardTaskNoteRequest,
+): Promise<void> {
+  return invoke<void>("delete_list_board_task_note", request);
 }
 
 export function getListBoardTaskSubtasks(
