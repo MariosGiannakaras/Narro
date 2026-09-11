@@ -18,15 +18,13 @@ export default defineConfig(async () => ({
         taskScheduleFixture: "task-schedule-fixture.html",
         taskNotesFixture: "task-notes-fixture.html",
         taskSubtasksFixture: "task-subtasks-fixture.html",
+        listSettingsFixture: "list-settings-fixture.html",
       },
     },
   },
 
-  // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
-  //
-  // 1. prevent Vite from obscuring rust errors
+  // @ts-expect-error process is a nodejs global
   clearScreen: false,
-  // 2. tauri expects a fixed port, fail if that port is not available
   server: {
     port: 1420,
     strictPort: true,
@@ -39,7 +37,6 @@ export default defineConfig(async () => ({
         }
       : undefined,
     watch: {
-      // 3. tell Vite to ignore watching `src-tauri`
       ignored: ["**/src-tauri/**"],
     },
   },
