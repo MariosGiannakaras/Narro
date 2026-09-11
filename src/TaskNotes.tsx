@@ -1,9 +1,11 @@
 import { openUrl } from "@tauri-apps/plugin-opener";
 import {
   Fragment,
+  type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
   type ReactNode,
   useEffect,
+  useId,
   useRef,
   useState,
 } from "react";
@@ -254,6 +256,14 @@ function ToolbarButton({
   );
 }
 
+function focusableEditorElements(container: HTMLElement): HTMLElement[] {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [contenteditable="true"], [tabindex]:not([tabindex="-1"])',
+    ),
+  ).filter((element) => !element.hasAttribute("hidden"));
+}
+
 function RichNoteEditor({
   initialDocument,
   pending,
@@ -263,9 +273,15 @@ function RichNoteEditor({
   pending: boolean;
   onSave: (document: NoteDocument) => void;
 }) {
+  const titleId = useId();
+  const descriptionId = useId();
+  const shellRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLDivElement>(null);
+  const expandButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [dirty, setDirty] = useState(false);
   const [editorError, setEditorError] = useState<string | null>(null);
+  const [largePresentation, setLargePresentation] = useState(false);
 
   const selectionInsideEditor = () => {
     const selection = window.getSelection();
@@ -303,51 +319,142 @@ function RichNoteEditor({
     onSave(editorDocument(root));
   };
 
+  const openLargePresentation = () => {
+    if (pending) return;
+    setLargePresentation(true);
+    window.setTimeout(() => closeButtonRef.current?.focus(), 0);
+  };
+
+  const closeLargePresentation = () => {
+    if (pending) return;
+    setLargePresentation(false);
+    window.setTimeout(() => expandButtonRef.current?.focus(), 0);
+  };
+
+  const handlePresentationKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (!largePresentation) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeLargePresentation();
+      return;
+    }
+    if (event.key !== "Tab" || !shellRef.current) return;
+
+    const focusable = focusableEditorElements(shellRef.current);
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+    if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
   return (
-    <div className="task-notes__editor-shell" data-task-note-editor="true">
-      <div className="task-notes__toolbar" role="toolbar" aria-label="Note formatting">
-        <ToolbarButton label="Bold" disabled={pending} onAction={() => command("bold")}><strong>B</strong></ToolbarButton>
-        <ToolbarButton label="Italic" disabled={pending} onAction={() => command("italic")}><em>I</em></ToolbarButton>
-        <ToolbarButton label="Strikethrough" disabled={pending} onAction={() => command("strikeThrough")}><s>S</s></ToolbarButton>
-        <ToolbarButton label="Bulleted list" disabled={pending} onAction={() => command("insertUnorderedList")}>•</ToolbarButton>
-        <ToolbarButton label="Numbered list" disabled={pending} onAction={() => command("insertOrderedList")}>1.</ToolbarButton>
-        <ToolbarButton label="Add link" disabled={pending} onAction={addLink}>↗</ToolbarButton>
-        <ToolbarButton label="Undo" disabled={pending} onAction={() => command("undo")}>↶</ToolbarButton>
-        <ToolbarButton label="Redo" disabled={pending} onAction={() => command("redo")}>↷</ToolbarButton>
-      </div>
+    <div
+      className="task-notes__editor-presentation"
+      data-task-note-editor-presentation={largePresentation ? "large" : "compact"}
+    >
       <div
-        ref={editorRef}
-        className="task-notes__editor"
-        contentEditable={!pending}
-        suppressContentEditableWarning
-        role="textbox"
-        aria-multiline="true"
-        aria-label="Task note"
-        data-task-note-control="editor"
-        onInput={() => {
-          setDirty(true);
-          setEditorError(null);
+        className="task-notes__editor-backdrop"
+        data-task-note-large-backdrop="true"
+        hidden={!largePresentation}
+        onMouseDown={(event) => {
+          if (event.target === event.currentTarget) closeLargePresentation();
         }}
-        onClick={(event: ReactMouseEvent<HTMLDivElement>) => {
-          const target = event.target as Element;
-          if (target.closest("a")) event.preventDefault();
-        }}
+      />
+      <div
+        ref={shellRef}
+        className="task-notes__editor-shell"
+        data-task-note-editor="true"
+        data-task-note-presentation={largePresentation ? "large" : "compact"}
+        role={largePresentation ? "dialog" : undefined}
+        aria-modal={largePresentation ? "true" : undefined}
+        aria-labelledby={largePresentation ? titleId : undefined}
+        aria-describedby={largePresentation ? descriptionId : undefined}
+        onKeyDown={handlePresentationKeyDown}
       >
-        <EditableDocument document={initialDocument} />
-      </div>
-      <div className="task-notes__editor-footer">
-        <span className="type-metadata">{dirty ? "Unsaved changes" : "Saved content loaded"}</span>
-        <button
-          type="button"
-          className="task-notes__save motion-interactive"
-          data-task-note-control="save"
-          disabled={pending}
-          onClick={save}
+        <div className="task-notes__presentation-bar">
+          <div className="task-notes__presentation-copy" hidden={!largePresentation}>
+            <strong id={titleId}>Task note editor</strong>
+            <span id={descriptionId} className="type-metadata">
+              Resize this editor from its lower-right edge. Returning to compact view keeps unsaved changes.
+            </span>
+          </div>
+          {largePresentation ? (
+            <button
+              ref={closeButtonRef}
+              type="button"
+              className="task-notes__presentation-button motion-interactive"
+              data-task-note-control="compact-editor"
+              aria-label="Return to compact task note editor"
+              disabled={pending}
+              onClick={closeLargePresentation}
+            >
+              Compact
+            </button>
+          ) : (
+            <button
+              ref={expandButtonRef}
+              type="button"
+              className="task-notes__presentation-button motion-interactive"
+              data-task-note-control="expand-editor"
+              aria-label="Open larger task note editor"
+              disabled={pending}
+              onClick={openLargePresentation}
+            >
+              Larger editor
+            </button>
+          )}
+        </div>
+        <div className="task-notes__toolbar" role="toolbar" aria-label="Note formatting">
+          <ToolbarButton label="Bold" disabled={pending} onAction={() => command("bold")}><strong>B</strong></ToolbarButton>
+          <ToolbarButton label="Italic" disabled={pending} onAction={() => command("italic")}><em>I</em></ToolbarButton>
+          <ToolbarButton label="Strikethrough" disabled={pending} onAction={() => command("strikeThrough")}><s>S</s></ToolbarButton>
+          <ToolbarButton label="Bulleted list" disabled={pending} onAction={() => command("insertUnorderedList")}>•</ToolbarButton>
+          <ToolbarButton label="Numbered list" disabled={pending} onAction={() => command("insertOrderedList")}>1.</ToolbarButton>
+          <ToolbarButton label="Add link" disabled={pending} onAction={addLink}>↗</ToolbarButton>
+          <ToolbarButton label="Undo" disabled={pending} onAction={() => command("undo")}>↶</ToolbarButton>
+          <ToolbarButton label="Redo" disabled={pending} onAction={() => command("redo")}>↷</ToolbarButton>
+        </div>
+        <div
+          ref={editorRef}
+          className="task-notes__editor"
+          contentEditable={!pending}
+          suppressContentEditableWarning
+          role="textbox"
+          aria-multiline="true"
+          aria-label="Task note"
+          data-task-note-control="editor"
+          onInput={() => {
+            setDirty(true);
+            setEditorError(null);
+          }}
+          onClick={(event: ReactMouseEvent<HTMLDivElement>) => {
+            const target = event.target as Element;
+            if (target.closest("a")) event.preventDefault();
+          }}
         >
-          {pending ? "Saving…" : "Save note"}
-        </button>
+          <EditableDocument document={initialDocument} />
+        </div>
+        <div className="task-notes__editor-footer">
+          <span className="type-metadata">{dirty ? "Unsaved changes" : "Saved content loaded"}</span>
+          <button
+            type="button"
+            className="task-notes__save motion-interactive"
+            data-task-note-control="save"
+            disabled={pending}
+            onClick={save}
+          >
+            {pending ? "Saving…" : "Save note"}
+          </button>
+        </div>
+        {editorError ? <span className="task-notes__error type-metadata" role="alert">{editorError}</span> : null}
       </div>
-      {editorError ? <span className="task-notes__error type-metadata" role="alert">{editorError}</span> : null}
     </div>
   );
 }
