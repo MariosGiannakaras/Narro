@@ -79,9 +79,10 @@ if (linkHandler < 0 || openCall < linkHandler) {
   throw new Error("Task-note URL opening must remain inside an explicit click handler.");
 }
 
-const noteEffectStart = notes.indexOf("useEffect(() => {");
-const noteEffectEnd = notes.indexOf("}, [expanded, taskId, listId]);", noteEffectStart);
-if (noteEffectStart < 0 || noteEffectEnd < 0) throw new Error("Could not isolate task-note lazy-load effect.");
+const lazyLoadGuard = notes.indexOf("if (!expanded) return;");
+const noteEffectStart = notes.lastIndexOf("useEffect(() => {", lazyLoadGuard);
+const noteEffectEnd = notes.indexOf("}, [expanded, taskId, listId]);", lazyLoadGuard);
+if (lazyLoadGuard < 0 || noteEffectStart < 0 || noteEffectEnd < 0) throw new Error("Could not isolate task-note lazy-load effect.");
 if (notes.slice(noteEffectStart, noteEffectEnd).includes("openUrl(")) {
   throw new Error("Task-note lazy load must never open saved URLs.");
 }
