@@ -429,6 +429,7 @@ function RichNoteEditor({
           ref={editorRef}
           className="task-notes__editor"
           contentEditable={!pending}
+          spellCheck
           suppressContentEditableWarning
           role="textbox"
           aria-multiline="true"
