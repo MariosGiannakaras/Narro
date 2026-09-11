@@ -37,6 +37,10 @@ Branch: `m5-notes-spellcheck`
 
 Slice base / latest main tracking tip at start: `88bb0e2c928a645bb5b066e62085e43301833aca`.
 
+Reviewed source/test candidate before this HANDOFF-only descendant:
+
+`6fbad438e81f26fd4e67c26cf6cf2b0b3b50516e`
+
 ### Checkpoint 1 contract — COMPLETE
 
 Repository/evidence reconstruction:
@@ -44,30 +48,50 @@ Repository/evidence reconstruction:
 - no open implementation PR existed at slice startup;
 - `TODO.md`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/UI_UX_SPEC.md`, and `docs/SOURCE_AUDIT.md` all converge on native WebView/browser spellcheck where practical, not a custom spelling service;
 - the sole editable Notes surface is the single production `contentEditable` node inside `RichNoteEditor`, reused across compact and large presentations;
-- the prior large-Notes regression gate intentionally forbids `spellCheck` only to keep item ordering and must now be deliberately revised;
-- HTML `spellcheck="true"` is a user-agent hint. Narro must not claim its own dictionary/result authority or depend on visible underline behavior, because actual checking can be controlled by WebView/browser settings;
-- Narro adds no spelling network client, remote language service, custom dictionary, persistence/schema field, or autocorrect behavior in this slice.
+- HTML spellcheck is a user-agent hint; Narro does not claim dictionary/result authority or depend on visible underline pixels.
 
-Contract:
+Contract: opt the existing Notes editor into native spellcheck only; preserve one compact/large editor/draft path, constrained `NoteDocument` serialization, read-only viewers, explicit URL activation, focus/resize behavior and local-only scope; add deterministic source and captured-DOM evidence; keep list settings separate.
 
-- opt the existing editable Notes `contentEditable` into native spellcheck with an explicit boolean `spellCheck` hint;
-- keep exactly one mounted compact/large editor/draft path and the same constrained `NoteDocument` serialization;
-- read-only saved-note viewers remain viewers, not editable/spellcheck surfaces;
-- preserve explicit-only URL activation, no remote preview/fetch behavior, dialog/focus containment, draft preservation and stable task-card geometry;
-- add deterministic source/runtime DOM coverage proving spellcheck is enabled on the production editor in both compact and large fixtures without asserting user-agent-specific underline pixels;
-- keep list settings and all later M5 work separate.
+### Checkpoint 2 implementation + review — COMPLETE
+
+Production behavior:
+
+- added the boolean React `spellCheck` attribute to the existing production Notes `contentEditable` and nowhere else;
+- no new state, mutation, dictionary, language service, autocorrect, network request, IPC, Rust, SQLite/schema or persistence field was introduced;
+- compact and large presentations still reuse the same editor node because spellcheck decorates that existing node only;
+- read-only saved-note viewers remain non-editable and receive no spellcheck attribute.
+
+Deterministic/static coverage:
+
+- added `scripts/test-ui-task-notes-spellcheck.mjs`, wired into canonical frontend preflight;
+- the gate requires exactly one production `spellCheck` hint and one editor control, proves `NoteViewer` stays non-editable, preserves the existing structural serialization boundary, rejects authoritative Notes calls/opener/network/autocorrect inside `RichNoteEditor`, and rejects common custom spelling dependencies;
+- revised the previous large-Notes scope guard from intentionally rejecting spellcheck to requiring exactly one native spellcheck hint on the same shared editor.
+
+Runtime captured-DOM coverage:
+
+- added `scripts/validate-task-note-spellcheck-captures.mjs` to the Windows visual-regression pipeline;
+- it reuses the existing production compact/large light/dark Notes captures and validates the rendered Edge DOM, not spelling underline pixels;
+- every capture must expose exactly one editable `spellcheck="true"` editor while every saved-note viewer stays non-editable and without spellcheck;
+- no additional visual fixture or second editor path was added.
+
+Semantic/diff review:
+
+- base `88bb0e2c928a645bb5b066e62085e43301833aca` to reviewed candidate `6fbad438e81f26fd4e67c26cf6cf2b0b3b50516e` is ahead by 6, behind by 0;
+- changed scope is only `HANDOFF.md`, `package.json`, the large-Notes gate, two spellcheck test/validator files, and one production line in `src/TaskNotes.tsx`;
+- no list settings, search, archive, theme, Focus Panel, reports, domain/runtime or source-product reliability behavior was absorbed;
+- full local repository preflight remains **NOT RUN** because no local Narro checkout/toolchain exists in this connector environment. Windows GitHub Actions is authoritative.
 
 ### Five checkpoints
 
 1. mandatory reconstruction + native spellcheck contract — **COMPLETE**;
-2. implementation + deterministic/runtime contract coverage + semantic/diff review — PENDING;
+2. implementation + deterministic/runtime contract coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — PENDING;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 1/5 | 22/28`**
+**`M-5/10 | 2/5 | 22/28`**
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -83,7 +107,7 @@ Contract:
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Implement the narrow native spellcheck affordance on `m5-notes-spellcheck`: add explicit `spellCheck` only to the production editable Notes surface, revise the prior scope-separation guard, add a dedicated static gate and compact/large runtime DOM contract, wire it into frontend preflight, then perform semantic/diff review before opening exact-head Windows CI.
+Open/resume the implementation PR from `m5-notes-spellcheck`, record its exact head SHA and inspect authoritative Windows CI. If CI fails, fix only the evidence-backed failure and revalidate the new exact head. If CI succeeds, perform final exact-head review/thread checks, expected-head merge, resulting-main Windows CI, then reconcile `TODO.md`, `STATUS.md`, this HANDOFF and a new immutable work log. Do not mark item 23 complete before that sequence finishes.
 
 ## USER ACTION REQUIRED
 
@@ -91,5 +115,5 @@ Implement the narrow native spellcheck affordance on `m5-notes-spellcheck`: add 
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks the spellcheck item.
-- Full local repository preflight remains unavailable in this connector environment; Windows GitHub Actions is authoritative.
+- No product/user decision blocks checkpoint 3.
+- Full local repository preflight is unavailable in this connector environment; Windows GitHub Actions remains authoritative.
