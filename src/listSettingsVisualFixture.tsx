@@ -1,3 +1,4 @@
+import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./App.css";
 import { AppShell } from "./AppShell";
@@ -87,7 +88,7 @@ function FixtureSurface() {
 
 const root = document.getElementById("root");
 if (!root) throw new Error("List settings fixture root is missing.");
-createRoot(root).render(<FixtureSurface />);
-window.requestAnimationFrame(() => {
-  document.documentElement.dataset.listSettingsFixtureReady = "true";
+flushSync(() => {
+  createRoot(root).render(<FixtureSurface />);
 });
+document.documentElement.dataset.listSettingsFixtureReady = "true";
