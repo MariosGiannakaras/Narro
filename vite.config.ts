@@ -23,7 +23,7 @@ export default defineConfig(async () => ({
     },
   },
 
-  // @ts-expect-error process is a nodejs global
+  // Tauri expects a fixed port and clear Rust errors during development.
   clearScreen: false,
   server: {
     port: 1420,
