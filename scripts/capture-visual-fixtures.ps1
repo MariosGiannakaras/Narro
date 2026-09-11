@@ -190,6 +190,18 @@ try {
             -ScreenshotPath $metricScreenshot `
             -DomPath $metricDom
 
+        $noteLabel = "task-notes-$theme"
+        $noteUrl = "$baseUrl/task-notes-fixture.html?theme=$theme"
+        $noteScreenshot = Join-Path $outputPath "$noteLabel.png"
+        $noteDom = Join-Path $outputPath "$noteLabel.html"
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme $noteLabel `
+            -Url $noteUrl `
+            -ScreenshotPath $noteScreenshot `
+            -DomPath $noteDom `
+            -VirtualTimeBudgetMs 1000
+
         $subtaskLabel = "task-subtasks-$theme"
         $subtaskUrl = "$baseUrl/task-subtasks-fixture.html?theme=$theme"
         $subtaskScreenshot = Join-Path $outputPath "$subtaskLabel.png"
