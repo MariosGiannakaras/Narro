@@ -1,4 +1,5 @@
 import { type ReactNode, useState } from "react";
+import { ArchivedListsPanel } from "./ArchivedListsPanel";
 import { formatInvokeError } from "./diagnosticApi";
 import { HomeDashboard, type HomeListCardSnapshot } from "./HomeDashboard";
 import { ListBoard } from "./ListBoard";
@@ -9,6 +10,8 @@ import {
   type ListEditorRequest,
   updateListFromEditor,
 } from "./listEditorApi";
+import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
+import { archiveListFromSettings } from "./listSettingsApi";
 import "./appShell.css";
 
 export type AppDestination =
@@ -60,7 +63,7 @@ const destinationCopy: Record<AppDestination, DestinationCopy> = {
   "archived-lists": {
     eyebrow: "Archive",
     title: "Archived lists",
-    description: "Archived list and done-task surfaces will reuse this shell without adding browser-style navigation.",
+    description: "Restore archived lists or permanently delete them after explicit confirmation.",
   },
   search: {
     eyebrow: "Find",
@@ -105,6 +108,9 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [activeDestination, setActiveDestination] = useState<AppDestination>("home");
   const [boardTarget, setBoardTarget] = useState<ListBoardRequestTarget | null>(null);
   const [editorState, setEditorState] = useState<ListEditorState | null>(null);
+  const [archiveTarget, setArchiveTarget] = useState<HomeListCardSnapshot | null>(null);
+  const [archivePending, setArchivePending] = useState(false);
+  const [archiveError, setArchiveError] = useState<string | null>(null);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
 
@@ -114,6 +120,11 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
 
   function openEditList(list: HomeListCardSnapshot) {
     setEditorState({ mode: "edit", list });
+  }
+
+  function requestArchive(list: HomeListCardSnapshot) {
+    setArchiveTarget(list);
+    setArchiveError(null);
   }
 
   function openBoardTarget(target: ListBoardRequestTarget) {
@@ -160,6 +171,21 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     setHomeRefreshKey((value) => value + 1);
   }
 
+  async function confirmArchive() {
+    if (!archiveTarget || archivePending) return;
+    setArchivePending(true);
+    setArchiveError(null);
+    try {
+      await archiveListFromSettings(archiveTarget.id);
+      setArchiveTarget(null);
+      setHomeRefreshKey((value) => value + 1);
+    } catch (failure) {
+      setArchiveError(formatInvokeError(failure));
+    } finally {
+      setArchivePending(false);
+    }
+  }
+
   const runtimeHome = homeContent ?? (
     <HomeDashboard
       refreshKey={homeRefreshKey}
@@ -168,6 +194,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
       getListCardActions={(list) => ({
         onOpen: () => openListBoard(list),
         onEdit: () => openEditList(list),
+        onArchive: () => requestArchive(list),
       })}
     />
   );
@@ -235,6 +262,8 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
               <ListBoard target={boardTarget} onTargetChange={openBoardTarget} />
             ) : activeDestination === "home" ? (
               runtimeHome
+            ) : activeDestination === "archived-lists" ? (
+              <ArchivedListsPanel />
             ) : (
               <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">
                 <p className="app-shell__eyebrow type-metadata">{copy.eyebrow}</p>
@@ -273,6 +302,22 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
           initialList={editorState.mode === "edit" ? editorState.list : undefined}
           onRequestClose={() => setEditorState(null)}
           onSave={saveList}
+        />
+      ) : null}
+
+      {archiveTarget ? (
+        <ListMutationConfirmDialog
+          action="archive"
+          listTitle={archiveTarget.title}
+          pending={archivePending}
+          error={archiveError}
+          onCancel={() => {
+            if (!archivePending) {
+              setArchiveTarget(null);
+              setArchiveError(null);
+            }
+          }}
+          onConfirm={() => void confirmArchive()}
         />
       ) : null}
     </>
