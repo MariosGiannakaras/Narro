@@ -48,13 +48,18 @@ pub enum ListSettingsError {
 impl Display for ListSettingsError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::OpenDatabase(error) => write!(formatter, "failed to open Narro database: {error}"),
+            Self::OpenDatabase(error) => {
+                write!(formatter, "failed to open Narro database: {error}")
+            }
             Self::ConfigureDatabase(error) => {
                 write!(formatter, "failed to configure Narro database: {error}")
             }
             Self::Store(error) => write!(formatter, "list settings mutation failed: {error}"),
             Self::ExpectedArchived(id) => {
-                write!(formatter, "archived-list projection contained an active list: {id}")
+                write!(
+                    formatter,
+                    "archived-list projection contained an active list: {id}"
+                )
             }
         }
     }
@@ -279,7 +284,10 @@ mod tests {
 
         archive(&app_dir, created.id, T2).expect("archive list");
         permanently_delete(&app_dir, created.id).expect("delete archived list");
-        assert!(!icon_path.exists(), "committed permanent delete must clean owned icon");
+        assert!(
+            !icon_path.exists(),
+            "committed permanent delete must clean owned icon"
+        );
 
         let connection =
             rusqlite::Connection::open(app_dir.join("narro.db")).expect("open database");
