@@ -107,9 +107,10 @@ for (const file of transitionFiles) {
   }
 }
 
-const taskNoteEffectStart = notes.indexOf("useEffect(() => {");
-const taskNoteEffectEnd = notes.indexOf("}, [expanded, taskId, listId]);", taskNoteEffectStart);
-if (taskNoteEffectStart < 0 || taskNoteEffectEnd < 0) {
+const lazyLoadGuard = notes.indexOf("if (!expanded) return;");
+const taskNoteEffectStart = notes.lastIndexOf("useEffect(() => {", lazyLoadGuard);
+const taskNoteEffectEnd = notes.indexOf("}, [expanded, taskId, listId]);", lazyLoadGuard);
+if (lazyLoadGuard < 0 || taskNoteEffectStart < 0 || taskNoteEffectEnd < 0) {
   throw new Error("Could not isolate the task-note lazy-load effect.");
 }
 const taskNoteEffect = notes.slice(taskNoteEffectStart, taskNoteEffectEnd);

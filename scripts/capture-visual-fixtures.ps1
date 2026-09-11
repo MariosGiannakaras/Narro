@@ -202,6 +202,18 @@ try {
             -DomPath $noteDom `
             -VirtualTimeBudgetMs 1000
 
+        $noteLargeLabel = "task-notes-large-$theme"
+        $noteLargeUrl = "$baseUrl/task-notes-fixture.html?theme=$theme&presentation=large"
+        $noteLargeScreenshot = Join-Path $outputPath "$noteLargeLabel.png"
+        $noteLargeDom = Join-Path $outputPath "$noteLargeLabel.html"
+        Capture-Theme `
+            -EdgePath $edge `
+            -Theme $noteLargeLabel `
+            -Url $noteLargeUrl `
+            -ScreenshotPath $noteLargeScreenshot `
+            -DomPath $noteLargeDom `
+            -VirtualTimeBudgetMs 1200
+
         $subtaskLabel = "task-subtasks-$theme"
         $subtaskUrl = "$baseUrl/task-subtasks-fixture.html?theme=$theme"
         $subtaskScreenshot = Join-Path $outputPath "$subtaskLabel.png"

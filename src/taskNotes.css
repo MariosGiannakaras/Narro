@@ -56,11 +56,59 @@
   min-width: 0;
 }
 
+.task-notes__large-backdrop[hidden] {
+  display: none;
+}
+
+.task-notes__large-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: color-mix(in srgb, var(--color-canvas) 72%, transparent);
+}
+
+.task-notes__editor-shell[data-task-note-presentation="large"] {
+  position: fixed;
+  top: max(1rem, 8vh);
+  left: max(4vw, calc(50% - 32rem));
+  z-index: 121;
+  grid-template-rows: auto minmax(18rem, 1fr) auto auto;
+  width: min(64rem, 84vw);
+  height: min(42rem, 84vh);
+  min-width: min(34rem, calc(100vw - 4rem));
+  min-height: min(26rem, calc(100vh - 4rem));
+  max-width: min(68rem, 92vw);
+  max-height: 88vh;
+  padding: var(--space-4);
+  overflow: auto;
+  resize: both;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-modal);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-overlay);
+}
+
 .task-notes__toolbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: var(--space-1);
+}
+
+.task-notes__large-title {
+  display: none;
+  min-width: 0;
+  max-width: min(28rem, 40vw);
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-notes__editor-shell[data-task-note-presentation="large"] .task-notes__large-title {
+  display: inline-block;
+  margin-inline-end: var(--space-2);
 }
 
 .task-notes__toolbar-button {
@@ -84,6 +132,10 @@
   background: var(--color-surface-interactive);
 }
 
+.task-notes__presentation-button {
+  margin-inline-start: auto;
+}
+
 .task-notes__editor,
 .task-notes__viewer {
   min-height: 5rem;
@@ -97,6 +149,12 @@
   font-size: var(--font-size-body);
   line-height: 1.45;
   overflow-wrap: anywhere;
+}
+
+.task-notes__editor-shell[data-task-note-presentation="large"] .task-notes__editor {
+  height: 100%;
+  min-height: 18rem;
+  max-height: none;
 }
 
 .task-notes__editor[contenteditable="true"] {
