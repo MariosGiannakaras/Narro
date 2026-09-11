@@ -53,6 +53,10 @@ Branch: `m5-rich-task-notes`
 
 Slice base / main tracking tip at start: `333443e5f8e969f3ec46989f264faef9c915b452`.
 
+Reviewed source/test candidate before this HANDOFF-only descendant:
+
+`79f117cf085d51c4564feb88aaab044a38a6d22e`
+
 No open implementation PR or unfinished CI superseded this slice at startup.
 
 ### Checkpoint 1 contract — COMPLETE
@@ -82,12 +86,49 @@ Implementation contract:
 - Preserve fixed task-card title/action geometry, keyboard/focus-visible access, timer/session accounting, recurrence/scheduling behavior and existing Subtasks behavior.
 - Larger/resizable Notes editing and explicit spellcheck remain later ordered TODO items.
 
+### Checkpoint 2 implementation and review — COMPLETE
+
+Authoritative persistence / commands:
+
+- Added `persistence::note_board` with immediate transactions, exact task/list validation, expected-`updated_at` stale guards, create-only insert semantics and stale-safe delete.
+- Existing M2 `NoteDocument` and `validate_note_document` remain authoritative; no migration or HTML persistence was added.
+- Completed tasks remain note-editable while archived task/list mutations remain blocked.
+- Added typed Tauri note read/save/delete commands with stable `NOTE_STALE`, `NOTE_NOT_ALLOWED` and `NOTE_FAILED` mappings and registered them in `lib.rs`.
+- Added Rust regressions for stale save non-clobbering, concurrent create-only rejection, completed-task editing and stale delete rejection.
+
+Frontend / interaction behavior:
+
+- `listBoardApi.ts` exposes typed rich-note DTOs and read/save/delete IPC only; full note documents are lazy loaded and not copied into the board snapshot.
+- Added production `TaskNotes` with structural paragraph/list/run rendering, Bold/Italic/Strikethrough, bullet/numbered list, link creation, Undo/Redo, explicit save/delete and saved-note viewer.
+- Direct root text nodes from `contentEditable` are explicitly preserved by the DOM-to-`NoteDocument` parser; a review-found text-loss edge case was fixed before PR.
+- Viewer never uses `dangerouslySetInnerHTML`; no remote preview/fetch path exists.
+- Saved URLs render as explicit button controls and call the Tauri opener only from the user click handler. Editor links cannot navigate on click.
+- One Notes panel is controlled by `ListBoard`; opening it locks reorder/create/title/metric/schedule/list switching and mutually excludes Subtasks expansion. Notes controls are excluded from parent drag initiation.
+- `All Lists` opens Notes read-only. Individual-list completed tasks follow the authoritative M2 rule and remain editable.
+- Note save/delete are persistence-first and refresh the authoritative note snapshot after commit. A committed write followed by refresh failure is reported as saved, blocks further note writes locally and enters the board fail-closed mutation blocker.
+- Task-card reserved title/action geometry remains unchanged; reorder action rail is suppressed while Notes is expanded.
+
+Deterministic coverage / visual evidence wired for Windows CI:
+
+- Added `scripts/test-ui-task-notes.mjs` covering registration/layering, immediate/stale guards, stable error codes, completed-task behavior, typed IPC, identity gates, parser text preservation, structural rendering, explicit-only opener behavior, read-only aggregate projection, interaction locks, drag isolation and committed-refresh failure semantics.
+- Updated the existing hover/action static guard only to include `[data-task-note-control]` in the already validated parent drag exclusion selector.
+- Added `task-notes-fixture.html`, `taskNotesVisualFixture.tsx/.css` and `validate-task-note-captures.mjs` using the real production `TaskCard`/`TaskNotes` surface in light/dark editable and aggregate read-only states.
+- The visual contract checks fixed title/action geometry, rich editor/viewer presence, eight formatting controls and explicit saved-link controls.
+- Wired the new static test, Vite entry, Windows capture and capture validator into `package.json`, Vite and the existing visual pipeline.
+
+Semantic/diff review:
+
+- Base `333443e5f8e969f3ec46989f264faef9c915b452` to candidate `79f117cf085d51c4564feb88aaab044a38a6d22e` is ahead by 21 commits and limited to 19 Notes/guard/fixture/tracking files.
+- `ListBoard.tsx` full-file replacement was explicitly diff-reviewed; the commit contains only the intended Notes state/locks/wiring and one drag-selector extension, with no accidental pre-existing logic deletion.
+- `TaskCard.tsx` diff contains only production Notes integration and expansion geometry locking.
+- No search/archive/timer-domain/recurrence implementation or later larger-editor/spellcheck scope was absorbed.
+
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 1/5 | 19/28`**
+**`M-5/10 | 2/5 | 19/28`**
 
 1. mandatory inspection + narrow rich-note mutation/read/UX contract — **COMPLETE**;
-2. authoritative note command/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **IN PROGRESS**;
+2. authoritative note command/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — PENDING;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + tracking/work-log reconciliation — PENDING.
@@ -112,7 +153,7 @@ Implementation contract:
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Resume checkpoint 2 on branch `m5-rich-task-notes`. Implement the guarded board note persistence/command boundary, typed frontend API, production `TaskNotes` editor/viewer integration, List Board one-panel orchestration/locks, deterministic Rust/static coverage and light/dark visual fixture coverage. Then review the exact branch diff before opening the PR. Do not start a parallel branch and do not mark the M5 item complete before authoritative Windows validation/merge/main validation.
+Open/resume the implementation PR from `m5-rich-task-notes`, record its exact head SHA and inspect the authoritative Windows CI. If CI fails, fix only the exact evidence-backed failure and revalidate the new exact head. If CI succeeds, perform final exact-head semantic/review-thread checks, expected-head merge, resulting-main Windows CI, then reconcile `TODO.md`, `STATUS.md`, this HANDOFF and a new immutable work log. Do not mark the M5 item complete before that sequence finishes.
 
 ## USER ACTION REQUIRED
 
@@ -120,6 +161,6 @@ Resume checkpoint 2 on branch `m5-rich-task-notes`. Implement the guarded board 
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks checkpoint 2.
-- Local checkout/toolchain validation in this connector-only environment: **NOT RUN**.
+- No product/user decision blocks checkpoint 3.
+- Local checkout/toolchain validation could not be run in this connector environment; the local container cannot resolve GitHub and has no Rust toolchain checkout for this repository.
 - Windows GitHub Actions remains authoritative for frontend, Rust/Tauri, visual and artifact validation.
