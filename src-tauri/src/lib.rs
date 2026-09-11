@@ -10,6 +10,7 @@ pub mod error;
 pub mod home_snapshot;
 pub mod list_board;
 pub mod list_editor;
+pub mod list_settings;
 pub mod notifications;
 pub mod persistence;
 pub mod recurrence;
@@ -640,6 +641,10 @@ pub fn run() {
             board_task_mutation::move_list_board_task,
             list_editor::create_list_from_editor,
             list_editor::update_list_from_editor,
+            list_settings::get_archived_lists_for_settings,
+            list_settings::archive_list_from_settings,
+            list_settings::restore_list_from_settings,
+            list_settings::permanently_delete_list_from_settings,
             toggle_timer,
             mutate_state,
             send_test_notification,
