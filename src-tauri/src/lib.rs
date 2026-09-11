@@ -2,6 +2,7 @@ pub mod autostart;
 pub mod board_task_editor;
 pub mod board_task_metrics;
 pub mod board_task_mutation;
+pub mod board_task_notes;
 pub mod board_task_schedule;
 pub mod board_task_subtasks;
 pub mod domain;
@@ -626,6 +627,9 @@ pub fn run() {
             board_task_schedule::update_list_board_task_schedule,
             board_task_schedule::save_list_board_task_recurrence,
             board_task_schedule::remove_list_board_task_recurrence,
+            board_task_notes::get_list_board_task_note,
+            board_task_notes::save_list_board_task_note,
+            board_task_notes::delete_list_board_task_note,
             board_task_subtasks::get_list_board_task_subtasks,
             board_task_subtasks::create_list_board_subtask,
             board_task_subtasks::update_list_board_subtask_title,
