@@ -80,7 +80,7 @@
 }
 
 .list-confirm-dialog__confirm[data-destructive="true"] {
-  color: #fff;
+  color: var(--color-text-inverse);
   background: var(--color-destructive);
 }
 
