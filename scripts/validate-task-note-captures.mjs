@@ -95,6 +95,8 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.largeSurface === null, `${label} compact fixture unexpectedly reports a large surface`);
   invariant(contract.largeDialog === false, `${label} compact fixture unexpectedly reports a modal dialog`);
   invariant(contract.resizablePresentation === false, `${label} compact fixture unexpectedly reports resize mode`);
+  invariant(contract.draftPreserved === true, `${label} compact fixture draft baseline is invalid`);
+  invariant(contract.editorNodePreserved === true, `${label} compact fixture editor identity baseline is invalid`);
   invariant(contract.editableCard.width === contract.readonlyCard.width, `${label} Notes state changed task-card width`);
   invariant(contract.editableTitleRow.width === contract.readonlyTitleRow.width, `${label} Notes state changed title-row width`);
   invariant(contract.editableTitleRow.height === contract.readonlyTitleRow.height, `${label} Notes state changed title-row height`);
@@ -133,6 +135,7 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('role="dialog"'), `${label} dialog role is missing`);
   invariant(dom.includes('aria-modal="true"'), `${label} modal semantics are missing`);
   invariant(dom.includes("Return to compact notes"), `${label} compact-return control is missing`);
+  invariant(dom.includes("Draft survives presentation changes."), `${label} unsaved draft marker did not survive presentation round trip`);
 
   const contract = readContract(dom, label);
   invariant(contract.fixture === "task-notes", `${label} fixture contract identity differs`);
@@ -140,6 +143,8 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.presentation === "large", `${label} presentation identity differs`);
   invariant(contract.largeDialog === true, `${label} large presentation is not dialog-like`);
   invariant(contract.resizablePresentation === true, `${label} large presentation did not report resize mode`);
+  invariant(contract.draftPreserved === true, `${label} unsaved rich-note draft was not preserved`);
+  invariant(contract.editorNodePreserved === true, `${label} large presentation remounted the editor node`);
   invariant(contract.largeSurface?.width > 700, `${label} large Notes surface is not comfortably wide`);
   invariant(contract.largeSurface?.height > 400, `${label} large Notes surface is not comfortably tall`);
   invariant(contract.editorCanvas?.width > 600, `${label} large Notes editing canvas is not comfortably wide`);
