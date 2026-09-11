@@ -1,126 +1,83 @@
 # HANDOFF.md
 
-Canonical zero-context continuation state for Narro. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, active Milestone 5 in `TODO.md`, relevant `STATUS.md`, Notes/focus sections in `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/BEHAVIOR_MATRIX.md`, `docs/SOURCE_AUDIT.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, and the newest relevant immutable `work-log/*.md` entry before changing source.
+Canonical zero-context continuation state for Narro. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, active Milestone 5 in `TODO.md`, relevant `STATUS.md`, Notes sections in `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, `docs/BEHAVIOR_MATRIX.md`, and the newest relevant `work-log/*.md` entry before changing source.
 
 ## CURRENT MILESTONE
 
 **Milestone 5 — Design system and Main window product UI.**
 
 - Milestones 1–4: COMPLETE / PASS.
-- Milestone 5: ACTIVE / **20 of 28** top-level items validated.
+- Milestone 5: ACTIVE / **21 of 28** top-level items validated.
 - Milestones 6–10: NOT STARTED.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-Latest fully main-validated source/test SHA:
+Source/test SHA: `6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`
 
-`766781b03caa01b9c70d7af10827d751d998caba`
+Source tree: `b10e0086ff1db304d70f59676325fb2c1fa59e77`
 
-Source tree:
+This is the expected-head guarded merge of PR #93. Markdown-only descendants do not replace it.
 
-`93e72feb5da74fcaf6de16ab3b120c32008eddc6`
+## LATEST COMPLETED IMPLEMENTATION / CI
 
-This is the expected-head guarded merge of PR #92 — `M5: add rich task notes editor and viewer`. Markdown-only tracking descendants, including reconciliation commit `983213fba7b233183151fd3939fc246ba6918166`, do not replace this source baseline.
+**M5 item 21/28 — explicit click/keyboard activation for note URLs; no focus auto-launch.**
 
-Latest completed immutable evidence: `work-log/2026-09-11-1629-chatgpt-m5-rich-task-notes.md`.
+Immutable evidence: `work-log/2026-09-11-1732-chatgpt-m5-note-url-activation.md`.
 
-## ACTIVE IMPLEMENTATION SLICE
+- final PR #93 head `9236b87239bc9b57916eafd3dfe5f71a0195059e`;
+- Windows PR CI #366 / run `34605963762` / job `103284328992`: **SUCCESS**;
+- PR visual artifact `10266877528`, digest `sha256:c372dcbf92bf44e943080df99530ded40c300ac3a8c545ad199ba99b71f891f6`;
+- PR diagnostic artifact `10266803621`, digest `sha256:839876876578f5ced9f3bf1168deb3e0924b6d782d1f186c5a5a0244c9a145eb`;
+- expected-head merge main SHA `6f9880133e46c2f93b172f036cd8a5e6ec4d80fd`;
+- Windows main CI #367 / run `34610879130` / job `103300772019`: **SUCCESS**;
+- main visual artifact `10269041513`, digest `sha256:204b813fcbc9fa9741ba57c60dff01916d6d5c6310dbc0d154d7018ca50e4ab7`;
+- main diagnostic artifact `10268808169`, digest `sha256:88c8434c188cc1edc432a2cafcf5a5a831ea89407d78396e892ecb0ee3c81b2f`.
 
-**M5 item 21/28 — Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.**
+Completed capability:
 
-Branch: `m5-note-url-activation`
-
-Slice base / main tracking tip at start:
-
-`983213fba7b233183151fd3939fc246ba6918166`
-
-Reviewed source/test candidate before this HANDOFF-only descendant:
-
-`2652d6a2a35b36d49ee635ec8b916b645eb009a6`
-
-No open implementation PR or unfinished implementation CI existed at slice startup. The markdown-only reconciliation commit triggered no CI.
-
-### Checkpoint 1 — startup reconstruction + evidence-backed contract — COMPLETE
-
-Evidence inspected:
-
-- mandatory repository startup files and active M5 roadmap/tracking state;
-- newest validated Rich Notes work log and PR/main CI evidence;
-- `docs/BLITZIT_HISTORY_RISK_INDEX.md` risk N-01: source-product automatic note-link opening on Blitz entry is a resolved bug class and a required Narro anti-regression;
-- `docs/SOURCE_AUDIT.md` and `docs/PRODUCT_SPEC.md`: historical Help Center text described auto-open on live-task entry, while later roadmap evidence resolves it as a bug;
-- `docs/BEHAVIOR_MATRIX.md`: note URL click opens explicitly in the default browser; a task containing a URL becoming live must not auto-launch;
-- current `TaskNotes.tsx`, `taskNotes.css`, `scripts/test-ui-task-notes.mjs`, `focus.tsx`, `TimerSessionProjection.tsx`, package preflight and all repository `openUrl` / opener call sites.
-
-Current source finding:
-
-- exactly one production `openUrl()` call and one production opener import exist, both in `TaskNotes.tsx`;
-- the call is inside the click handler of a native button, which supplies pointer plus Enter/Space keyboard activation;
-- the saved-link button already has focus-visible styling;
-- editor anchor pointer navigation is suppressed;
-- Notes lazy-load effects and current focus/timer projections have no URL-open side effect;
-- no evidence-backed behavior defect required a behavior rewrite.
-
-Contract:
-
-- Preserve existing explicit saved-link opener behavior and `http`/`https` validation; never reintroduce historical auto-open behavior.
-- Keep focus entry/show/mode projection, task-live selection/switch, pause/resume, timer/session events, renderer refresh/recreation and note lazy refresh URL-side-effect free.
-- Keep the explicit opener encapsulated in reusable `TaskNotes`, so future M6 Focus Notes may reuse it without direct focus-transition opener code.
-- Add durable anti-regression coverage without schema/native-command/polling/remote-preview/timer changes.
-- Keep larger/resizable Notes editing and spellcheck separate.
-
-### Checkpoint 2 — hardening + deterministic anti-regression + semantic/diff review — COMPLETE
-
-Implementation:
-
-- `TaskNotes.tsx` saved-link button now carries `data-note-url-activation="explicit"` and an explicit accessible name; visual geometry and opener behavior are otherwise unchanged.
-- Added `scripts/test-note-url-activation.mjs` as the dedicated N-01 regression gate.
-- The new gate recursively inspects production TypeScript/TSX source and requires exactly one opener import and exactly one `openUrl()` call, both isolated to `TaskNotes.tsx`.
-- It isolates `NoteRun` and requires native `<button type="button">` semantics, the explicit marker, accessible name, click handler and opener-call ordering.
-- It preserves `http`/`https` validation, editor anchor-navigation suppression and saved-link `:focus-visible` styling.
-- It rejects effect/focus-driven opener logic in the saved-link component.
-- It checks `focus.tsx`, `TimerSessionProjection.tsx`, `timerSessionApi.ts`, `App.tsx`, `ListBoard.tsx` and `TaskCard.tsx` for direct opener/browser-navigation side effects, covering current focus/live/session/window projection paths.
-- It separately isolates the task-note lazy-load effect and requires it to remain URL-side-effect free.
-- Wired the new gate as `test:note-url-activation` into `preflight:frontend` immediately after the existing rich Notes contract.
-
-Review / validation available before CI:
-
-- exact base `983213fba7b233183151fd3939fc246ba6918166` to candidate `2652d6a2a35b36d49ee635ec8b916b645eb009a6`: ahead by 4, behind by 0;
-- changed files: `TaskNotes.tsx` +2 lines, new 122-line anti-regression script, `package.json` +2/-1, `HANDOFF.md` tracking only;
-- no Rust, persistence, timer/session, focus behavior, layout/CSS or later Notes scope changed;
-- local scratch `node --check` of the exact new `.mjs` source: **PASS**;
-- full local repository test/preflight: **NOT RUN** because this environment cannot obtain a local GitHub checkout; Windows GitHub Actions remains authoritative.
+- the only production opener import/call remains inside the explicit saved-link `TaskNotes` button handler;
+- pointer plus Enter/Space activation are explicit; button has accessible name/focus-visible styling;
+- dedicated N-01 source-wide regression gate prevents focus/live/session/window projection code and note lazy-load effects from gaining URL-open side effects;
+- `http`/`https` validation, editor navigation suppression and no-remote-preview behavior remain intact;
+- no timer/session/focus behavior or persistence model changed.
 
 ## USER-FACING PROGRESS
 
-Five-checkpoint slice:
+**`M-5/10 | 5/5 | 21/28`**
 
-1. startup reconstruction + evidence-backed URL activation/no-auto-launch contract — **COMPLETE**;
-2. explicit activation hardening + deterministic source-wide anti-regression coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — PENDING;
-4. final exact-head review + expected-head merge — PENDING;
-5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
+The five-checkpoint note URL activation slice is complete: contract, implementation/review, exact-head PR CI, expected-head merge, and resulting-main CI + reconciliation all passed.
+
+## ACTIVE IMPLEMENTATION SLICE
+
+**Next ordered M5 item: Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.**
+
+No source changes for this new slice have been made by this reconciliation commit.
+
+Evidence already identified for startup:
+
+- `docs/PRODUCT_SPEC.md`: Notes can expand into a larger/resizable editor while retaining compact inline access during focus;
+- `docs/UI_UX_SPEC.md`: expanded Notes stay in task/focus context;
+- `docs/SOURCE_AUDIT.md`: larger/resizable Notes is a documented usability need; compact Focus Notes remain available;
+- current `TaskNotes.tsx` owns the single production rich editor and transient draft DOM;
+- current `ListEditorModal.tsx` provides validated dialog accessibility patterns (Escape, Tab focus trap, focus restoration);
+- current Notes visual fixture already renders the real production `TaskCard` / `TaskNotes` surface.
+
+Start a new five-checkpoint slice. Prefer a presentation-only implementation that reuses the same mounted `RichNoteEditor`/persistence path, so expanding/collapsing cannot fork authoritative note state or silently discard unsaved rich text. Add deterministic accessibility/geometry/resize coverage and light/dark production visual evidence. Keep spellcheck separate.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
-- Rust/domain/persistence remains authoritative and mutations remain persistence-first.
-- Stable task/subtask identity, tracked Time Taken, timer/session accounting and one-open-session protection must not regress.
-- All Lists remains an aggregate read projection.
-- Scheduling/date-only/timezone/recurrence semantics validated through M4/M5 remain unchanged.
-- Notes persistence, rich formatting and task-card geometry from item 20/28 remain unchanged.
-- Note URLs require explicit pointer/keyboard activation and may never auto-launch merely because focus/live task/session/window state changes.
-- Future Focus Notes may call the same reusable explicit `TaskNotes` activation path; focus transition/effect code itself must not open URLs.
-- Excluded account/trial/upgrade/profile/AI/integration controls remain absent.
-- Diagnostics remain gated behind `?diagnostics=1`.
-
-## TRACKING STATE
-
-- `TODO.md`: item 21 remains unchecked until exact-head PR CI, expected-head merge, resulting-main Windows CI and reconciliation all pass.
-- `STATUS.md`: M5 remains **20/28**.
-- Validated source baseline remains `766781b03caa01b9c70d7af10827d751d998caba`.
+- persistence-first rich-note save/delete and optimistic stale guards;
+- explicit-only URL activation and N-01 source-wide anti-regression;
+- compact inline Notes access remains available;
+- task-card title/action geometry remains fixed;
+- no renderer becomes authoritative for durable Notes data;
+- All Lists remains read-only; completed non-archived task Notes remain editable;
+- keyboard/focus-visible access and reduced-motion behavior remain usable;
+- no spellcheck implementation is absorbed into this slice.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Open/resume the implementation PR for `m5-note-url-activation`, record its exact head SHA and inspect authoritative Windows CI. If CI fails, change only the evidence-backed failure. If CI succeeds, perform final exact-head diff/review-thread checks, expected-head merge, resulting-main Windows CI, then reconcile item 21 to 21/28 in TODO/STATUS/HANDOFF and create a new immutable work log.
+Begin the larger/resizable Notes slice from latest main. Re-run mandatory startup reads, confirm no open implementation PR/CI, create a coherent branch, record the narrow five-checkpoint contract in this file, then implement the same-editor larger presentation plus deterministic static/visual coverage before exact-head Windows CI.
 
 ## USER ACTION REQUIRED
 
@@ -128,6 +85,5 @@ Open/resume the implementation PR for `m5-note-url-activation`, record its exact
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks checkpoint 3.
-- Full local repository preflight is NOT RUN because the container cannot resolve GitHub and no local Narro checkout is available.
-- Windows GitHub Actions remains authoritative for full frontend/Rust/Tauri validation.
+- No product/user decision blocks the next item.
+- Full local repository preflight remains unavailable in this connector environment; Windows GitHub Actions is authoritative.
