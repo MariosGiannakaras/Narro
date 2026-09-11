@@ -16,7 +16,7 @@ Source/test SHA: `cf4922a82d9e3c6d99856701aa7af9a70e39470f`
 
 Source tree: `1a4805ad770b65ad8b3c21a6bde0c79c2e20e774`
 
-This is the expected-head guarded merge of PR #94. Markdown-only tracking descendants do not replace it.
+This is the expected-head guarded merge of PR #94. Markdown-only tracking descendants, including tracking tip `88bb0e2c928a645bb5b066e62085e43301833aca`, do not replace it.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
@@ -26,40 +26,48 @@ Immutable evidence: `work-log/2026-09-11-2007-chatgpt-m5-large-resizable-notes.m
 
 - final PR #94 head `698e5c71e7eb9a3b993aec463005984f40c0c1ea`;
 - Windows PR CI #368 / run `34622329766` / job `103339070808`: **SUCCESS**;
-- PR visual artifact `10273457724`, digest `sha256:909e89df69fd09469eacc94b345e728ae28d1eac6719a0d54b997ab906f5d3ef`;
-- PR diagnostic artifact `10272504818`, digest `sha256:37b873c896b105207f20d31a20e9a0dd8bb19490eec271924fef8c22766a9e12`;
 - expected-head merge main SHA `cf4922a82d9e3c6d99856701aa7af9a70e39470f`;
-- Windows main CI #369 / run `34624303197` / job `103345552004`: **SUCCESS**;
-- main visual artifact `10273666955`, digest `sha256:d03a9c60c0e6e3706d6fc2e493d6d53f584b6af77f0acfeca66424a494f2a9d4`;
-- main diagnostic artifact `10274422873`, digest `sha256:f696f611005108bb4cfa45eed3326271ee063722c0fec401b8d1bf202e67f048`.
-
-Completed capability:
-
-- compact and large Notes use the same mounted `RichNoteEditor` / `contentEditable` node and one persistence path;
-- explicit toolbar control switches presentation without remounting or discarding unsaved rich text;
-- large mode is bounded and pointer-resizable, with dialog semantics, Escape, Tab containment, focus restoration and body-scroll lock;
-- production light/dark visual fixtures validate large geometry, stable task-card geometry and compact → large → compact → large draft preservation;
-- persistence-first Notes save/delete, stale guards, All Lists read-only behavior and explicit-only URL activation remain unchanged;
-- no Rust/IPC/schema/timer/session/focus-transition or spellcheck scope changed.
-
-## USER-FACING PROGRESS
-
-**`M-5/10 | 5/5 | 22/28`**
-
-The five-checkpoint larger/resizable Notes slice is complete: reconstruction/contract, implementation/review, exact-head PR CI, guarded merge, and resulting-main CI + reconciliation all passed.
+- Windows main CI #369 / run `34624303197` / job `103345552004`: **SUCCESS**.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**Next ordered M5 item: Use WebView/browser spellcheck where practical.**
+**M5 item 23/28 — Use WebView/browser spellcheck where practical.**
 
-No source changes for this new slice are included in this reconciliation commit.
+Branch: `m5-notes-spellcheck`
 
-Startup evidence to inspect before implementation:
+Slice base / latest main tracking tip at start: `88bb0e2c928a645bb5b066e62085e43301833aca`.
 
-- current rich editor is the sole `contentEditable` note editor in `src/TaskNotes.tsx` and now serves both compact and large presentations;
-- the completed large-Notes slice intentionally had a static guard forbidding `spellCheck` so scope remained ordered; that guard must be deliberately revised only in the spellcheck slice;
-- browser/WebView native spellcheck should remain a renderer/editor affordance only: no network service, language API, remote preview, persistence schema, or custom dictionary authority should be introduced unless repository evidence explicitly requires it;
-- deterministic coverage should prove spellcheck is enabled only on the editable Notes surface and does not change serialization, URL activation, read-only viewer behavior, focus containment or editor identity.
+### Checkpoint 1 contract — COMPLETE
+
+Repository/evidence reconstruction:
+
+- no open implementation PR existed at slice startup;
+- `TODO.md`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/UI_UX_SPEC.md`, and `docs/SOURCE_AUDIT.md` all converge on native WebView/browser spellcheck where practical, not a custom spelling service;
+- the sole editable Notes surface is the single production `contentEditable` node inside `RichNoteEditor`, reused across compact and large presentations;
+- the prior large-Notes regression gate intentionally forbids `spellCheck` only to keep item ordering and must now be deliberately revised;
+- HTML `spellcheck="true"` is a user-agent hint. Narro must not claim its own dictionary/result authority or depend on visible underline behavior, because actual checking can be controlled by WebView/browser settings;
+- Narro adds no spelling network client, remote language service, custom dictionary, persistence/schema field, or autocorrect behavior in this slice.
+
+Contract:
+
+- opt the existing editable Notes `contentEditable` into native spellcheck with an explicit boolean `spellCheck` hint;
+- keep exactly one mounted compact/large editor/draft path and the same constrained `NoteDocument` serialization;
+- read-only saved-note viewers remain viewers, not editable/spellcheck surfaces;
+- preserve explicit-only URL activation, no remote preview/fetch behavior, dialog/focus containment, draft preservation and stable task-card geometry;
+- add deterministic source/runtime DOM coverage proving spellcheck is enabled on the production editor in both compact and large fixtures without asserting user-agent-specific underline pixels;
+- keep list settings and all later M5 work separate.
+
+### Five checkpoints
+
+1. mandatory reconstruction + native spellcheck contract — **COMPLETE**;
+2. implementation + deterministic/runtime contract coverage + semantic/diff review — PENDING;
+3. exact PR-head Windows CI — PENDING;
+4. final exact-head review + expected-head merge — PENDING;
+5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
+
+## USER-FACING PROGRESS
+
+**`M-5/10 | 1/5 | 22/28`**
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -67,15 +75,15 @@ Startup evidence to inspect before implementation:
 - explicit-only URL activation and N-01 source-wide anti-regression;
 - one mounted compact/large editor/draft path only; presentation switching cannot discard unsaved text;
 - compact inline Notes access remains available and large mode remains bounded/resizable;
-- task-card title/action geometry remains fixed;
+- constrained structural `NoteDocument` serialization remains unchanged;
 - no renderer becomes authoritative for durable Notes data;
 - All Lists remains read-only; completed non-archived task Notes remain editable;
 - keyboard/focus-visible access and reduced-motion behavior remain usable;
-- spellcheck must not create remote/network behavior or alter the constrained NoteDocument format.
+- spellcheck remains a native user-agent hint only: no Narro remote spelling service, custom dictionary, persistence schema or automatic text mutation.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Begin the spellcheck slice from latest main tracking tip. Re-run mandatory startup reads, confirm no open implementation PR/CI, inspect current `contentEditable` behavior and repository evidence for browser/WebView spellcheck, record a narrow checkpoint contract, then implement and validate only the native spellcheck affordance. Do not absorb list settings.
+Implement the narrow native spellcheck affordance on `m5-notes-spellcheck`: add explicit `spellCheck` only to the production editable Notes surface, revise the prior scope-separation guard, add a dedicated static gate and compact/large runtime DOM contract, wire it into frontend preflight, then perform semantic/diff review before opening exact-head Windows CI.
 
 ## USER ACTION REQUIRED
 
