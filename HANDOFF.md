@@ -41,35 +41,45 @@ Slice base: main tracking tip `30d08d9c9322fcfec3d274eea5dea83b124c56bd`.
 Repository evidence:
 
 - no open implementation PR existed at slice startup;
-- the existing Create/Edit List modal already main-validates rename, color and app-owned icon replacement through the M2 persistence-first update boundary; it must be reused, not rewritten;
-- Home list-card UI already has callback-gated `Archive List`; production `AppShell` intentionally leaves it unbound from the earlier M5 slice;
-- M2 persistence already provides transactional/idempotent `archive_list` and `restore_list`, plus `permanently_delete_list` which rejects active lists;
-- product/spec evidence is explicit: active list Archive removes it from active workspace while retaining history; archived list Restore preserves the same identities; permanent deletion is available only from archive, requires explicit confirmation, is irreversible, and removes list/tasks from user-facing report data;
-- archive must retain the list's app-owned icon because restore is reversible; after a successful permanent delete an owned icon may be cleaned best-effort, but a cleanup failure after the database commit must not turn the committed delete into a reported mutation failure;
+- the existing Create/Edit List modal already main-validates rename, color and app-owned icon replacement through the M2 persistence-first update boundary; it is reused, not rewritten;
+- M2 persistence already provides transactional/idempotent `archive_list` and `restore_list`, plus archive-first `permanently_delete_list`;
+- active Archive is reversible and preserves list/task/history identity; permanent deletion is available only from archive, is explicit/irreversible, and removes list/tasks from user-facing report data;
 - `All Lists` remains a synthetic aggregate view and is never archivable/deletable;
-- full Archived Lists/Archived Done Tasks visual parity is a later ordered M5 item. A minimal production archived-list management projection is nevertheless a strict dependency of this item so Restore/Permanent delete are actually reachable; do not absorb Archived Done Tasks, archive search/filter, or the later full surface polish.
+- full Archived Lists/Archived Done Tasks parity remains a later ordered M5 item. Item 24 owns only the minimal archived-list management dependency needed to make Restore/Permanent delete actually reachable.
 
-Narrow contract:
+### Checkpoint 2 — COMPLETE: implementation + deterministic/runtime coverage + semantic review
 
-- keep existing Edit List modal as the name/icon/color settings path and preserve its icon-validation/rollback semantics;
-- wire active Home `Archive List` through an explicit confirmation UI and a typed renderer-facing command reusing `persistence::lists::archive_list`; only after local commit may Home refresh/remove the card;
-- expose archived lists from authoritative SQLite with only the fields required for management and render the minimal `archived-lists` production destination;
-- provide Restore and Permanently delete actions for archived lists; Restore keeps identity/tasks/history, while permanent delete requires a second explicit destructive confirmation and reuses the M2 archive-first persistence boundary;
-- add typed UUID/input/not-found/state/general failures; mutation failures keep the relevant UI visible and do not publish optimistic success;
-- if permanently deleting a list with an app-owned icon, clean the owned file only after database deletion commits; non-owned paths are never removed and cleanup failure is warning-only after commit;
-- deterministic static + Windows captured-DOM coverage must prove active Archive confirmation, archived Restore/delete controls, delete confirmation, failure-safe/persistence-first wiring, and the archive-first restriction without implementing search, archived done tasks, theme work or Focus Panel work.
+Reviewed source candidate before this HANDOFF-only checkpoint commit: `6f1f0ecc9a6c6f039acc134db1a57aa7d1abbee5`.
+
+Implemented contract:
+
+- existing Edit List modal remains the name/icon/color settings path and retains its validated icon file validation, owned-path guards and rollback semantics;
+- active Home list cards now bind the already-present `Archive List` menu action to an explicit focus-contained confirmation dialog;
+- archive UI awaits `archive_list_from_settings` before closing the confirmation or refreshing Home;
+- new renderer-facing Rust commands reuse the M2 persistence functions for archive, restore and archive-only permanent deletion; archived list summaries are read from authoritative SQLite;
+- the production `Archived lists` destination now exposes only minimal list management: archived list rows, Restore and Permanently delete;
+- Restore and permanent-delete UI publish row removal only after their local persistence command resolves successfully; failures keep the surface/confirmation visible with an error;
+- permanent list deletion reads the existing owned icon path before DB deletion, commits the archive-first database delete, then performs only best-effort owned `list-icons/<filename>` cleanup; non-owned paths are refused and cleanup failure cannot convert a committed deletion into a reported mutation failure;
+- a reusable archive/delete confirmation dialog provides modal semantics, Escape dismissal, Tab containment, initial Cancel focus and opener focus restoration;
+- deterministic source gates were added and the old list-card/list-editor tests were deliberately revised only to permit the now-ordered runtime Archive target while still forbidding the deferred Duplicate target;
+- a dedicated production fixture entry covers active Archive confirmation, minimal archived list management and permanent-delete confirmation in light/dark; Windows Edge captured-DOM validation checks dialog semantics, stable archived list identities, Restore/delete controls and later-scope exclusion;
+- fixture readiness is synchronous via `flushSync`; Vite differs from the slice base only by one fixture build-input line; no dependency/package-lock changes were introduced.
+
+Semantic/diff review from `30d08d9c...` to the reviewed candidate found only the expected list-settings source/tests/tracking files. `src-tauri/src/lib.rs` adds the list-settings module and four command registrations only (plus a non-semantic final-newline diff from connector replacement); the visual capture script only adds the six light/dark list-settings captures; `AppShell.tsx` only gains archive confirmation/refresh and the archived-list destination. No task/timer/Notes/scheduling/schema/search/theme/Focus Panel behavior is changed.
+
+Local full repository preflight remains unavailable in this connector environment. The Windows CI `cargo fmt --check`, TypeScript build, Rust check/clippy/tests and real Edge captures are authoritative for the next checkpoint.
 
 ### Five checkpoints
 
 1. mandatory reconstruction + narrow list-settings/archive/delete contract — **COMPLETE**;
-2. implementation + deterministic/runtime coverage + semantic/diff review — PENDING;
+2. implementation + deterministic/runtime coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — PENDING;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 1/5 | 23/28`**
+**`M-5/10 | 2/5 | 23/28`**
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -80,12 +90,13 @@ Narrow contract:
 - All Lists remains an aggregate/read-only synthetic view, never a persisted mutable list;
 - list-card/menu/modal geometry, keyboard/focus-visible access and reduced-motion behavior remain stable;
 - existing Create/Edit list icon input validation, safe owned-path handling and rollback cleanup remain intact;
+- the minimal archived list management dependency must not expand into Archived Done Tasks, archive search/filter or the later full archive-surface polish;
 - Notes/timer/session/scheduling behavior remains out of scope;
 - no account/cloud/integration controls are introduced.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Implement checkpoint 2 on `m5-list-settings`: add the narrow typed Rust/list-settings renderer boundary over existing M2 archive/restore/permanent-delete persistence, add frontend API + active Archive confirmation + minimal production archived-list management/restore/delete confirmation, add deterministic static and Windows DOM/visual fixture coverage, deliberately revise old tests that forbade runtime Archive wiring, then review the exact diff before opening a PR.
+Open one PR from `m5-list-settings` to `main`, record its exact head SHA, and run the authoritative Windows CI. Inspect only evidence-backed failures. Require Repository Preflight (including frontend static gate, TypeScript/Vite build, Rust fmt/check/clippy/tests), production Edge list-settings captures/DOM validator, Tauri Release and required artifacts before advancing to final review/expected-head merge.
 
 ## USER ACTION REQUIRED
 
