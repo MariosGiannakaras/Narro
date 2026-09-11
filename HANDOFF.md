@@ -102,26 +102,56 @@ Windows main CI #360:
 - visual artifact `10175731468`, digest `sha256:5a7d009113217741067605456948ec7b7ed323974d265b28a663580fa68285ab`;
 - diagnostic artifact `10175926487`, digest `sha256:01d5f5fdf8d4c825a12c6ab15e2532b470682c1a971f6349efe0b6ef24af7e32`.
 
+## ACTIVE IMPLEMENTATION SLICE
+
+**M5 Main UI — Rich task notes editor/viewer with clickable URLs.**
+
+Active branch:
+
+`m5-rich-task-notes`
+
+Branch base / main tracking tip at slice start:
+
+`333443e5f8e969f3ec46989f264faef9c915b452`
+
+No open implementation PR or unfinished CI superseded this slice when it started. The latest authoritative Windows validation remains main CI #360 at source SHA `120bf882b67c54d832a1116f8fa024fe2727e155`.
+
+### Evidence-backed mutation/read/UX contract
+
+- Reuse the existing M2 `NoteDocument` / `NoteBlock` / `NoteTextRun` constrained rich-note model and `task_notes` persistence. No schema migration or HTML-authoritative storage is required.
+- Supported persisted rich semantics remain paragraph, bullet list, numbered list, bold, italic, strikethrough, and optional `http`/`https` links. Existing persistence size limits and link validation remain authoritative.
+- Task/list identity must be validated at the renderer-facing boundary before reads or writes. React memory is draft/presentation state only.
+- Notes load lazily for one expanded task card at a time through a task-scoped Rust command. The board snapshot does not duplicate full note documents.
+- Individual-list task cards may edit notes, including completed tasks, matching the existing M2 persistence contract; archived task/list mutation remains forbidden. `All Lists` is an aggregate read projection and exposes Notes read-only.
+- Save/delete use persistence-first immediate transactions and optimistic stale guards based on the note row's expected `updated_at`: creating requires no existing row when the expected version is absent; replacing/deleting an existing row requires the expected persisted timestamp to match.
+- The renderer-facing command layer returns stable stale/not-allowed/failed error classes rather than exposing raw SQLite text.
+- Rich editing stays inline in task context and provides the confirmed controls: Bold, Italic, Strikethrough, bulleted list, numbered list, Undo and Redo. The microphone control remains excluded.
+- Viewer rendering is structural React output rather than `dangerouslySetInnerHTML`. Link destinations remain constrained to persisted `http`/`https` values.
+- Links are user-activated controls and open via the existing Tauri opener capability; this slice does not add any focus/live-task side effect. The separately ordered no-auto-launch TODO remains unclaimed until its dedicated anti-regression coverage is implemented.
+- No remote link previews/fetches are introduced.
+- Opening Notes locks conflicting parent task reorder/create/title/metric/schedule interactions and list switching, and Notes controls must not initiate parent drag.
+- Successful mutations refresh the authoritative note snapshot. If persistence commits but the renderer refresh fails, report the note as saved and block unsafe follow-up writes until reload rather than misreporting the authoritative mutation as failed.
+- Task-card reserved title/action geometry, keyboard/focus-visible access, timer/session accounting, scheduling/recurrence semantics, and existing Subtasks behavior must not regress.
+- The later TODO items for larger/resizable Notes editing and WebView/browser spellcheck stay outside this slice unless an actual implementation dependency proves otherwise.
+
 ## TRACKING STATE
 
-- `TODO.md`: Subtasks UI is checked complete.
-- `STATUS.md`: Milestone 5 is reconciled at **19/28**.
-- Latest immutable work log: `work-log/2026-09-11-0127-chatgpt-m5-subtasks-ui.md`.
+- `TODO.md`: Subtasks UI is checked complete; Rich task notes editor/viewer remains unchecked until exact-head PR CI, expected-head merge, resulting-main Windows CI and tracking reconciliation all pass.
+- `STATUS.md`: Milestone 5 remains reconciled at **19/28** until this slice is fully validated.
+- Latest immutable completed work log: `work-log/2026-09-11-0127-chatgpt-m5-subtasks-ui.md`.
 - The post-merge markdown commits are tracking descendants only; validated source/test baseline remains `120bf882b67c54d832a1116f8fa024fe2727e155`.
 
 ## USER-FACING PROGRESS
 
-**`M-5/10 | 5/5 | 19/28`**
+**`M-5/10 | 0/5 | 19/28`**
 
-The completed Subtasks UI slice used five checkpoints, all complete:
+Current five checkpoints:
 
-1. mandatory inspection + narrow subtask mutation/read/UX contract — **COMPLETE**;
-2. authoritative subtask command/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — **COMPLETE**;
-3. exact PR-head Windows CI — **COMPLETE**;
-4. final exact-head review + expected-head merge — **COMPLETE**;
-5. resulting-main Windows CI + tracking/work-log reconciliation — **COMPLETE**.
-
-Do not reset the small-slice counter until the next implementation slice is actually begun and its five-checkpoint plan is recorded in the repository.
+1. mandatory inspection + narrow rich-note mutation/read/UX contract — **IN PROGRESS**;
+2. authoritative note command/frontend implementation + deterministic Rust/static/visual coverage + semantic/diff review — PENDING;
+3. exact PR-head Windows CI — PENDING;
+4. final exact-head review + expected-head merge — PENDING;
+5. resulting-main Windows CI + tracking/work-log reconciliation — PENDING.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -140,7 +170,7 @@ Do not reset the small-slice counter until the next implementation slice is actu
 
 ## UNFINISHED WORK / NEXT ORDERED ITEM
 
-The next ordered Milestone 5 item in `TODO.md` is:
+The active ordered Milestone 5 item is:
 
 **Rich task notes editor/viewer with clickable URLs.**
 
@@ -152,17 +182,7 @@ The following TODO items remain distinct unless a real dependency requires combi
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Begin a new narrow five-checkpoint M5 slice for **Rich task notes editor/viewer with clickable URLs** from the current main tracking tip.
-
-Before source changes:
-
-1. reconstruct the exact current main/tracking SHA and confirm no open implementation PR/unfinished CI supersedes this handoff;
-2. inspect the existing M2 constrained rich-note domain/persistence APIs and tests;
-3. inspect current `TaskCard` / `ListBoard` interaction locks and the existing fixture-only `notes-expanded` presentation;
-4. read the relevant Notes sections in `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, `docs/BEHAVIOR_MATRIX.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md` where URL-launch reliability risk is relevant;
-5. record the evidence-backed mutation/read/UX contract in this handoff before implementing.
-
-Preserve the established rule that renderer memory is draft/presentation state only and authoritative note persistence remains outside React.
+Continue checkpoint 1 on branch `m5-rich-task-notes`: finish inspection of current `ListBoard`/Subtasks interaction-lock patterns and Rust command registration, mark checkpoint 1 complete in this handoff, then implement checkpoint 2 directly from the contract above. Do not start a parallel replacement branch.
 
 ## USER ACTION REQUIRED
 
@@ -170,6 +190,6 @@ Preserve the established rule that renderer memory is draft/presentation state o
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks the next ordered slice.
+- No product/user decision blocks the active slice.
 - Local checkout/toolchain validation in this connector-only environment: **NOT RUN**.
 - Windows GitHub Actions remains authoritative for frontend, Rust/Tauri, visual and artifact validation.
