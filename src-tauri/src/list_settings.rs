@@ -1,15 +1,16 @@
 use crate::domain::ids::ListId;
 use crate::domain::lists::ListRecord;
 use crate::error::{CommandError, CommandResult};
-use crate::list_editor::cleanup_icon;
 use crate::persistence;
 use crate::persistence::lists::{
     archive_list, archived_lists, get_list, permanently_delete_list, restore_list, ListStoreError,
 };
 use serde::Serialize;
 use std::fmt::{Display, Formatter};
-use std::path::{Path, PathBuf};
+use std::path::{Component, Path, PathBuf};
 use tauri::Manager;
+
+const ICON_DIRECTORY: &str = "list-icons";
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -74,6 +75,33 @@ fn open_database(app_dir: &Path) -> Result<rusqlite::Connection, ListSettingsErr
     Ok(connection)
 }
 
+fn resolve_owned_icon(app_dir: &Path, relative: &str) -> Option<PathBuf> {
+    let path = Path::new(relative);
+    let mut components = path.components();
+    match (components.next(), components.next(), components.next()) {
+        (Some(Component::Normal(directory)), Some(Component::Normal(filename)), None)
+            if directory == ICON_DIRECTORY && !filename.is_empty() =>
+        {
+            Some(app_dir.join(ICON_DIRECTORY).join(filename))
+        }
+        _ => None,
+    }
+}
+
+fn cleanup_owned_icon_after_commit(app_dir: &Path, relative: &str) {
+    let Some(path) = resolve_owned_icon(app_dir, relative) else {
+        eprintln!("Warning: refusing to remove non-owned list icon path after delete: {relative}");
+        return;
+    };
+    match std::fs::remove_file(path) {
+        Ok(()) => {}
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => {}
+        Err(error) => {
+            eprintln!("Warning: list deletion committed but icon cleanup failed: {error}")
+        }
+    }
+}
+
 fn app_data_dir(app_handle: &tauri::AppHandle) -> CommandResult<PathBuf> {
     app_handle.path().app_data_dir().map_err(|error| {
         CommandError::new(
@@ -125,7 +153,7 @@ pub fn permanently_delete(app_dir: &Path, id: ListId) -> Result<(), ListSettings
     permanently_delete_list(&mut connection, id)?;
 
     if let Some(relative) = existing.icon_asset.as_deref() {
-        cleanup_icon(app_dir, relative);
+        cleanup_owned_icon_after_commit(app_dir, relative);
     }
     Ok(())
 }
@@ -234,7 +262,7 @@ mod tests {
     fn permanent_delete_requires_archive_and_cleans_owned_icon_after_commit() {
         let app_dir = test_app_dir();
         setup(&app_dir);
-        let icon_dir = app_dir.join("list-icons");
+        let icon_dir = app_dir.join(ICON_DIRECTORY);
         std::fs::create_dir_all(&icon_dir).expect("create icon directory");
         let icon_relative = "list-icons/work.png";
         let icon_path = app_dir.join(icon_relative);
