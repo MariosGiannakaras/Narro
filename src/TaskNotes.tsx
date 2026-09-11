@@ -190,6 +190,8 @@ function NoteRun({
       type="button"
       className="task-notes__link"
       data-task-note-control="open-link"
+      data-note-url-activation="explicit"
+      aria-label={`Open saved note link: ${run.text || link}`}
       title={link}
       onClick={() => {
         onOpenError(null);
