@@ -235,15 +235,8 @@ mod tests {
     #[test]
     fn completed_task_snapshot_stays_mutable_for_notes() {
         let (mut connection, list_id, task_id) = setup();
-        set_board_task_note_if_expected(
-            &mut connection,
-            task_id,
-            list_id,
-            None,
-            document(),
-            T0,
-        )
-        .expect("create note");
+        set_board_task_note_if_expected(&mut connection, task_id, list_id, None, document(), T0)
+            .expect("create note");
         complete_task(&mut connection, task_id, T1).expect("complete task");
         let read = snapshot(&connection, task_id, list_id).expect("read completed note");
         assert!(read.mutable);
