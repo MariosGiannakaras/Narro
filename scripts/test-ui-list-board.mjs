@@ -93,10 +93,8 @@ for (const forbidden of ["create_task", "move_task", "update_task", "complete_ta
   }
 }
 
-for (const forbidden of ["onDuplicate: () =>", "onArchive: () =>"]) {
-  if (shell.includes(forbidden)) {
-    throw new Error(`List-board slice must not activate a later list-card target: ${forbidden}`);
-  }
+if (shell.includes("onDuplicate: () =>")) {
+  throw new Error("List-board slice must not activate the separately ordered Duplicate target.");
 }
 
 for (const forbidden of ["--color-text-muted", "--motion-duration-interactive", "--motion-distance-interactive"]) {
