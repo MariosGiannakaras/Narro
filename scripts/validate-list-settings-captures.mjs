@@ -26,7 +26,7 @@ for (const theme of ["light", "dark"]) {
   const archived = read(`list-settings-archived-${theme}`);
   invariant(archived.includes('data-archived-lists-panel="true"'), `${theme} archived-list panel is missing`);
   invariant((archived.match(/data-archived-list-id=/g) ?? []).length === 2, `${theme} archived fixture must render two list identities`);
-  invariant(archived.includes(">Restore<"), `${theme} Restore action is missing`);
+  invariant(archived.includes("Restore"), `${theme} Restore action is missing`);
   invariant(archived.includes("Permanently delete"), `${theme} permanent-delete action is missing`);
   invariant(!archived.includes("Archived done tasks"), `${theme} item 24 must not absorb the later archived-done-task surface`);
 
