@@ -9,6 +9,7 @@ import "./taskNotesVisualFixture.css";
 
 const searchParams = new URLSearchParams(window.location.search);
 const theme = searchParams.get("theme") === "dark" ? "dark" : "light";
+const presentation = searchParams.get("presentation") === "large" ? "large" : "compact";
 document.documentElement.dataset.theme = theme;
 document.body.classList.add("visual-fixture-body");
 
@@ -120,6 +121,7 @@ function NotesFixtureContent() {
     <section
       className="task-notes-visual-fixture"
       data-task-notes-visual-fixture="true"
+      data-task-notes-presentation={presentation}
       aria-labelledby="task-notes-visual-title"
     >
       <header className="task-notes-visual-fixture__header">
@@ -127,7 +129,7 @@ function NotesFixtureContent() {
           <p className="app-shell__eyebrow type-metadata">Task notes</p>
           <h1 id="task-notes-visual-title" className="type-page-title">Rich editor and read-only viewer</h1>
         </div>
-        <p className="type-metadata">Production TaskCard · {theme}</p>
+        <p className="type-metadata">Production TaskCard · {theme} · {presentation}</p>
       </header>
       <div className="task-notes-visual-fixture__grid">
         <div className="task-notes-visual-fixture__item" data-task-notes-visual="editable">
@@ -161,6 +163,15 @@ flushSync(() => createRoot(rootElement).render(<Fixture />));
 
 await new Promise<void>((resolve) => window.setTimeout(resolve, 80));
 
+if (presentation === "large") {
+  const presentationButton = document.querySelector<HTMLButtonElement>(
+    '[data-task-notes-visual="editable"] [data-task-note-control="presentation"]',
+  );
+  if (!presentationButton) throw new Error("Task notes large-presentation control is missing.");
+  presentationButton.click();
+  await new Promise<void>((resolve) => window.setTimeout(resolve, 40));
+}
+
 const requireElement = <T extends HTMLElement>(selector: string): T => {
   const element = document.querySelector<T>(selector);
   if (!element) throw new Error(`Task notes fixture selector is missing: ${selector}`);
@@ -173,9 +184,13 @@ const geometry = (selector: string): Geometry => {
   return { width: Math.round(rect.width), height: Math.round(rect.height) };
 };
 
+const largeSurface = presentation === "large"
+  ? requireElement<HTMLElement>('[data-task-note-presentation="large"]')
+  : null;
 const contract = {
   fixture: "task-notes",
   theme,
+  presentation,
   viewport: { width: 1280, height: 720 },
   editableCard: geometry('[data-task-notes-visual="editable"] .list-board-task'),
   readonlyCard: geometry('[data-task-notes-visual="readonly"] .list-board-task'),
@@ -184,9 +199,14 @@ const contract = {
   editableActionSlot: geometry('[data-task-notes-visual="editable"] .list-board-task__action-slot'),
   readonlyActionSlot: geometry('[data-task-notes-visual="readonly"] .list-board-task__action-slot'),
   editor: geometry('[data-task-notes-visual="editable"] [data-task-note-editor="true"]'),
+  editorCanvas: geometry('[data-task-notes-visual="editable"] [data-task-note-control="editor"]'),
   readonlyViewer: geometry('[data-task-notes-visual="readonly"] [data-task-note-viewer="true"]'),
   explicitLinkControls: document.querySelectorAll('[data-task-note-control="open-link"]').length,
   formattingControls: document.querySelectorAll('[data-task-notes-visual="editable"] [data-task-note-control="format"]').length,
+  presentationControls: document.querySelectorAll('[data-task-note-control="presentation"]').length,
+  largeSurface: largeSurface ? geometry('[data-task-note-presentation="large"]') : null,
+  largeDialog: Boolean(largeSurface?.matches('[role="dialog"][aria-modal="true"]')),
+  resizablePresentation: largeSurface?.dataset.taskNoteResizable === "true",
 };
 
 const contractNode = document.createElement("script");
