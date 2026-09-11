@@ -70,7 +70,7 @@
 .task-notes__editor-shell[data-task-note-presentation="large"] {
   position: fixed;
   top: max(1rem, 8vh);
-  left: calc(50% - min(32rem, 42vw));
+  left: max(4vw, calc(50% - 32rem));
   z-index: 121;
   grid-template-rows: auto minmax(18rem, 1fr) auto auto;
   width: min(64rem, 84vw);
