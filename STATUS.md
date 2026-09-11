@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-11
+Last updated: 2026-09-12
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 
@@ -12,77 +12,76 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 22 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 23 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 22/28`**
+**`M-5/10 | 5/5 | 23/28`**
 
-The first twenty-two ordered M5 items are fully main validated. The latest completed item is **larger/resizable Notes editing while retaining the same compact editor/draft path**. The next ordered item is **Use WebView/browser spellcheck where practical**.
+The first twenty-three ordered M5 items are fully main validated. The latest completed item is **native WebView/browser spellcheck on the existing Notes editor**. The next ordered item is **List settings: name, icon, archive/delete flows**.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`cf4922a82d9e3c6d99856701aa7af9a70e39470f`
+`d65b97b4f83a498bb0426b4d793449b8fd5e044b`
 
 Tree:
 
-`1a4805ad770b65ad8b3c21a6bde0c79c2e20e774`
+`7c99559b708dd381892a2fb35d4df27dcf1c801e`
 
-This is the expected-head guarded merge of PR #94 — `M5: add larger resizable Notes editor`.
+This is the expected-head guarded merge of PR #95 — `M5: enable native Notes spellcheck`.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
-### PR #94 exact-head validation
+### PR #95 exact-head validation
 
-Final validated PR head: `698e5c71e7eb9a3b993aec463005984f40c0c1ea`.
+Final validated PR head: `3affb7078f3bc89f6a6d03adeb0625c763a8f7c7`.
 
-Windows PR CI #368:
+Windows PR CI #370:
 
-- run `34622329766`, job `103339070808`, conclusion **SUCCESS**;
-- exact head `698e5c71e7eb9a3b993aec463005984f40c0c1ea`;
-- Repository Preflight, visual capture/upload, Tauri Release and diagnostic artifact upload: **PASS**;
-- visual artifact `10273457724`, digest `sha256:909e89df69fd09469eacc94b345e728ae28d1eac6719a0d54b997ab906f5d3ef`;
-- diagnostic artifact `10272504818`, digest `sha256:37b873c896b105207f20d31a20e9a0dd8bb19490eec271924fef8c22766a9e12`;
+- run `34637737822`, job `103389643888`, conclusion **SUCCESS**;
+- exact head `3affb7078f3bc89f6a6d03adeb0625c763a8f7c7`;
+- Repository Preflight, production Edge visual capture/validation, Tauri Release and diagnostic artifact upload: **PASS**;
+- visual artifact `10278628664`, digest `sha256:14647da2898117ce7b22271f8ce4f780ee3f860b3440fe615eead1b5ecd80860`;
+- diagnostic artifact `10279316550`, digest `sha256:e5587ad07e7bec1cf1ccf1052a2732f04410a6759f7cc8a1fafdac0688cab438`;
 - final exact-head review: mergeable, no submitted reviews, no unresolved review threads.
 
-Expected-head merge produced main source SHA `cf4922a82d9e3c6d99856701aa7af9a70e39470f`.
+Expected-head guarded merge produced main source SHA `d65b97b4f83a498bb0426b4d793449b8fd5e044b`.
 
 ### Resulting-main validation
 
-Windows main CI #369:
+Windows main CI #371:
 
-- run `34624303197`, job `103345552004`, conclusion **SUCCESS**;
-- exact source SHA `cf4922a82d9e3c6d99856701aa7af9a70e39470f`;
-- Repository Preflight, visual capture/upload, Tauri Release and diagnostic artifact upload: **PASS**;
-- visual artifact `10273666955`, digest `sha256:d03a9c60c0e6e3706d6fc2e493d6d53f584b6af77f0acfeca66424a494f2a9d4`;
-- diagnostic artifact `10274422873`, digest `sha256:f696f611005108bb4cfa45eed3326271ee063722c0fec401b8d1bf202e67f048`.
+- run `34639143128`, job `103394283704`, conclusion **SUCCESS**;
+- exact source SHA `d65b97b4f83a498bb0426b4d793449b8fd5e044b`;
+- Repository Preflight, production Edge visual capture/validation, Tauri Release and diagnostic artifact upload: **PASS**;
+- visual artifact `10279363099`, digest `sha256:ff22f10e2b77f84a662be13677114de1b2ed8ad3d7ea8b2d502150c81ab9d3f1`;
+- diagnostic artifact `10280001356`, digest `sha256:55b4e8fef16de2d7127bf5d8fc0868032779735e58d949f03dce21792fdcedeb`.
 
-Detailed immutable evidence is recorded in `work-log/2026-09-11-2007-chatgpt-m5-large-resizable-notes.md`.
+Detailed immutable evidence is recorded in `work-log/2026-09-12-0025-chatgpt-m5-notes-spellcheck.md`.
 
 ## Milestone 5 — validated ordered work
 
-Validated top-level items 1–21 remain as previously recorded. Item 22 is now additionally validated:
+Validated top-level items 1–22 remain as previously recorded. Item 23 is now additionally validated:
 
-22. Notes retain the existing compact editor while an explicit presentation control can expand that same mounted rich editor into a bounded, pointer-resizable dialog-like surface; compact↔large round trips preserve the exact editor node and unsaved draft text.
+23. The single production Notes `contentEditable` explicitly opts into native WebView/browser spellcheck; compact and large presentations reuse that same editor/draft path, read-only saved-note viewers remain non-editable, and no Narro spelling service/dictionary/autocorrect/network path is introduced.
 
-### Latest completed: larger/resizable Notes presentation
+### Latest completed: native Notes spellcheck
 
 Validated behavior includes:
 
-- one `RichNoteEditor`, one editor shell and one `contentEditable` editor remain mounted; large mode is presentation state, not a second editor or persistence authority;
-- large mode has dialog semantics, Escape close, Tab focus containment, focus restoration and body-scroll locking;
-- CSS `resize: both` provides bounded desktop resizing while the compact editor retains its existing inline geometry;
-- save/delete persistence, stale-version guards, All Lists read-only behavior and explicit-only `http`/`https` URL activation are unchanged;
-- production visual fixtures exercise compact → large → compact → large and fail if the editor remounts or unsaved draft text disappears;
-- light/dark large Notes captures validate comfortable editing geometry and stable task-card title/action slots;
-- no Rust/IPC/schema/timer/session/focus-transition or spellcheck behavior was absorbed into this slice.
+- the existing production Notes editor has exactly one React `spellCheck` hint and remains the sole compact/large editable surface;
+- constrained `NoteDocument` serialization, persistence-first save/delete, stale-version guards and explicit-only `http`/`https` URL activation remain unchanged;
+- read-only saved-note viewers receive neither `spellcheck` nor `contenteditable`;
+- canonical frontend preflight contains a dedicated static spellcheck contract gate that rejects custom spelling dependencies, remote/network spelling behavior and accidental authoritative Notes operations inside the editor;
+- Windows production Edge captures validate rendered `spellcheck="true"` plus `contenteditable="true"` on exactly one editor in compact/large light/dark Notes fixtures, without depending on dictionary underline pixels or correction UI;
+- no Rust/Tauri IPC/SQLite/schema/timer/session/focus-transition/list-settings behavior was absorbed into the slice.
 
 ### Next ordered M5 item
 
-`Use WebView/browser spellcheck where practical.`
+`List settings: name, icon, archive/delete flows.`
 
-Treat spellcheck as a narrow editor usability slice. Preserve the single-editor compact/large presentation path, rich-note serialization, explicit URL activation, accessibility/focus behavior, and no-remote-preview/local-only invariants. Do not absorb list settings or later M5 items.
+Treat this as a focused list-settings slice. Preserve persistence-first list mutations, stable list/task identities, archive/history semantics, explicit permanent deletion behavior, All Lists aggregate behavior, existing modal/menu geometry and keyboard accessibility. Do not absorb search, archives surfaces, theme work or Focus Panel work.
 
 ## Durable correctness decisions
 
@@ -95,6 +94,7 @@ Future work must preserve:
 - stable task/subtask identities, tracked Time Taken, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress.
 - Notes use one mounted compact/large editor/draft path; presentation switching cannot discard unsaved rich text.
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from focus/session/window transitions.
+- Notes spellcheck remains a native user-agent hint only; no Narro remote spelling service, custom dictionary, persistence schema or automatic text mutation.
 - hover/focus/edit interactions may not reflow task/list card geometry or move hit targets.
 - keyboard/focus-visible equivalents and accessible names/tooltips remain required for icon-only actions.
 - motion never owns or delays domain-state completion; `prefers-reduced-motion` remains usable and timer numerals remain tabular.

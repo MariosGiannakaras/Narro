@@ -206,7 +206,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Rich task notes editor/viewer with clickable URLs.
 - [x] Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.
 - [x] Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.
-- [ ] Use WebView/browser spellcheck where practical.
+- [x] Use WebView/browser spellcheck where practical.
 - [ ] List settings: name, icon, archive/delete flows.
 - [ ] Search / quick-actions palette with keyboard-first behavior.
 - [ ] Archived lists/tasks surfaces.
