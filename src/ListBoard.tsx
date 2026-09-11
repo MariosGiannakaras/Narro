@@ -98,6 +98,14 @@ type SubtaskPanelState = {
   pending: boolean;
 };
 
+type BoardNoteControls = {
+  taskId: string | null;
+  canOpen: boolean;
+  onToggle: (task: ListBoardTask) => void;
+  onMutationStatus: (status: string, error: string | null) => void;
+  onRefreshBlocked: (message: string) => void;
+};
+
 type BoardSubtaskControls = {
   panel: SubtaskPanelState | null;
   canOpen: boolean;
@@ -309,6 +317,7 @@ function BoardLane({
   dropTarget,
   settlingTaskId,
   mutationPendingTaskId,
+  noteControls,
   subtaskControls,
   onDragStart,
   onDragOverTask,
@@ -345,6 +354,7 @@ function BoardLane({
   dropTarget: DropTarget | null;
   settlingTaskId: string | null;
   mutationPendingTaskId: string | null;
+  noteControls?: BoardNoteControls;
   subtaskControls?: BoardSubtaskControls;
   onDragStart: (task: ListBoardTask, lane: PendingLaneKey, event: ReactDragEvent<HTMLDivElement>) => void;
   onDragOverTask: (task: ListBoardTask, lane: PendingLaneKey, event: ReactDragEvent<HTMLDivElement>) => void;
@@ -459,6 +469,7 @@ function BoardLane({
             const liveMetricEditable = liveState === "paused" || liveState === "overtime_paused";
             const canEditMetric = canStartTaskEditor && (!isLiveTask || liveMetricEditable);
             const canEditSchedule = canStartScheduleEditor && task.completedAt === null && !isLiveTask;
+            const noteExpanded = noteControls?.taskId === task.id;
             const taskSubtaskPanel = subtaskControls?.panel?.taskId === task.id
               ? subtaskControls.panel
               : null;
@@ -526,6 +537,14 @@ function BoardLane({
                       : undefined}
                     metricEditor={metricEditor}
                     onScheduleEdit={canEditSchedule ? () => onStartScheduleEdit(task) : undefined}
+                    notes={noteControls ? {
+                      expanded: Boolean(noteExpanded),
+                      canExpand: noteExpanded ? true : noteControls.canOpen,
+                      readOnly: aggregateView,
+                      onToggleExpanded: () => noteControls.onToggle(task),
+                      onMutationStatus: noteControls.onMutationStatus,
+                      onRefreshBlocked: noteControls.onRefreshBlocked,
+                    } : undefined}
                     subtasks={subtaskControls ? {
                       model: subtaskModel,
                       canExpand: taskSubtaskPanel ? !taskSubtaskPanel.pending : subtaskControls.canOpen,
@@ -616,6 +635,7 @@ export function ListBoard({
   const [editorState, setEditorState] = useState<TaskEditorState | null>(null);
   const [editorMutationPending, setEditorMutationPending] = useState(false);
   const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
+  const [notePanelTaskId, setNotePanelTaskId] = useState<string | null>(null);
   const [subtaskPanel, setSubtaskPanel] = useState<SubtaskPanelState | null>(null);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
@@ -636,6 +656,7 @@ export function ListBoard({
       setEditorState(null);
       setEditorMutationPending(false);
       setScheduleEditorTaskId(null);
+      setNotePanelTaskId(null);
       setSubtaskPanel(null);
       setListOptions(fixtureOptions(fixtureSnapshot));
       return;
@@ -650,6 +671,7 @@ export function ListBoard({
     setEditorState(null);
     setEditorMutationPending(false);
     setScheduleEditorTaskId(null);
+    setNotePanelTaskId(null);
     setSubtaskPanel(null);
     void getListBoardSnapshot(target)
       .then((payload) => {
@@ -763,12 +785,14 @@ export function ListBoard({
     && editorState === null
     && !editorMutationPending
     && scheduleEditorTaskId === null
+    && notePanelTaskId === null
     && subtaskPanel === null;
   const canStartCreate = interactionBoardEnabled
     && mutationPendingTaskId === null
     && editorState === null
     && !editorMutationPending
     && scheduleEditorTaskId === null
+    && notePanelTaskId === null
     && subtaskPanel === null;
   const canStartTaskEditor = canStartCreate
     && timerPayload !== null
@@ -776,12 +800,21 @@ export function ListBoard({
   const canStartScheduleEditor = canStartCreate
     && timerPayload !== null
     && timerProjectionError === null;
+  const canOpenNotes = !fixtureSnapshot
+    && !mutationRefreshBlocked
+    && mutationPendingTaskId === null
+    && editorState === null
+    && !editorMutationPending
+    && scheduleEditorTaskId === null
+    && notePanelTaskId === null
+    && subtaskPanel === null;
   const canOpenSubtasks = !fixtureSnapshot
     && !mutationRefreshBlocked
     && mutationPendingTaskId === null
     && editorState === null
     && !editorMutationPending
     && scheduleEditorTaskId === null
+    && notePanelTaskId === null
     && subtaskPanel === null;
   const presentationReorderEnabled = interactionReorderEnabled || fixtureReorderState !== undefined;
   const displayedDragState = fixtureReorderState?.draggingTaskId && fixtureReorderState.sourceLane
@@ -1125,6 +1158,19 @@ export function ListBoard({
     }
   };
 
+  const toggleNotePanel = (task: ListBoardTask) => {
+    if (notePanelTaskId === task.id) {
+      setNotePanelTaskId(null);
+      return;
+    }
+    if (!canOpenNotes) return;
+    setDragState(null);
+    setDropTarget(null);
+    setMutationError(null);
+    setMutationStatus("");
+    setNotePanelTaskId(task.id);
+  };
+
   const toggleSubtaskPanel = (task: ListBoardTask) => {
     if (subtaskPanel?.taskId === task.id) {
       if (!subtaskPanel.pending) setSubtaskPanel(null);
@@ -1318,7 +1364,7 @@ export function ListBoard({
     event: ReactDragEvent<HTMLDivElement>,
   ) => {
     if ((event.target as HTMLElement).closest(
-      "[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-subtask-control]",
+      "[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]",
     )) {
       event.preventDefault();
       return;
@@ -1432,6 +1478,22 @@ export function ListBoard({
     }
   };
 
+  const noteControls: BoardNoteControls | undefined = fixtureSnapshot
+    ? undefined
+    : {
+        taskId: notePanelTaskId,
+        canOpen: canOpenNotes,
+        onToggle: toggleNotePanel,
+        onMutationStatus: (status, error) => {
+          setMutationStatus(status);
+          setMutationError(error);
+        },
+        onRefreshBlocked: (message) => {
+          setMutationRefreshBlocked(true);
+          setMutationError(message);
+        },
+      };
+
   const subtaskControls: BoardSubtaskControls | undefined = fixtureSnapshot
     ? undefined
     : {
@@ -1478,6 +1540,7 @@ export function ListBoard({
       data-board-task-editor={editorState?.kind ?? "idle"}
       data-board-metric-editor={editorState?.kind === "metric" ? editorState.metric : "none"}
       data-board-schedule-editor={scheduleEditorTaskId ? "open" : "closed"}
+      data-board-note-panel={notePanelTaskId ?? "closed"}
       data-board-subtask-panel={subtaskPanel?.taskId ?? "closed"}
       data-board-timer-projection={timerPayload ? "ready" : timerProjectionError ? "error" : "loading"}
       aria-labelledby="list-board-title"
@@ -1536,6 +1599,7 @@ export function ListBoard({
                 || mutationPendingTaskId !== null
                 || editorMutationPending
                 || scheduleEditorTaskId !== null
+                || notePanelTaskId !== null
                 || subtaskPanel !== null}
               aria-label="Planning list"
             >
@@ -1573,6 +1637,7 @@ export function ListBoard({
             dropTarget={displayedDropTarget}
             settlingTaskId={displayedSettlingTaskId}
             mutationPendingTaskId={mutationPendingTaskId}
+            noteControls={noteControls}
             subtaskControls={subtaskControls}
             onDragStart={handleDragStart}
             onDragOverTask={handleDragOverTask}
