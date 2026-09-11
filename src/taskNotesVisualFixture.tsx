@@ -16,6 +16,7 @@ document.body.classList.add("visual-fixture-body");
 const LIST_ID = "21111111-1111-4111-8111-111111111111";
 const EDITABLE_TASK_ID = "31111111-1111-4111-8111-111111111111";
 const READONLY_TASK_ID = "31111111-1111-4111-8111-111111111112";
+const DRAFT_MARKER = "Draft survives presentation changes.";
 
 const documentFixture: NoteDocument = {
   blocks: [
@@ -163,20 +164,55 @@ flushSync(() => createRoot(rootElement).render(<Fixture />));
 
 await new Promise<void>((resolve) => window.setTimeout(resolve, 80));
 
-if (presentation === "large") {
-  const presentationButton = document.querySelector<HTMLButtonElement>(
-    '[data-task-notes-visual="editable"] [data-task-note-control="presentation"]',
-  );
-  if (!presentationButton) throw new Error("Task notes large-presentation control is missing.");
-  presentationButton.click();
-  await new Promise<void>((resolve) => window.setTimeout(resolve, 40));
-}
-
 const requireElement = <T extends HTMLElement>(selector: string): T => {
   const element = document.querySelector<T>(selector);
   if (!element) throw new Error(`Task notes fixture selector is missing: ${selector}`);
   return element;
 };
+
+let draftPreserved = true;
+let editorNodePreserved = true;
+if (presentation === "large") {
+  const editor = requireElement<HTMLDivElement>(
+    '[data-task-notes-visual="editable"] [data-task-note-control="editor"]',
+  );
+  const paragraph = editor.querySelector("p");
+  if (!paragraph) throw new Error("Task notes editable paragraph is missing.");
+  paragraph.append(` ${DRAFT_MARKER}`);
+  editor.dispatchEvent(new InputEvent("input", {
+    bubbles: true,
+    inputType: "insertText",
+    data: DRAFT_MARKER,
+  }));
+  await new Promise<void>((resolve) => window.setTimeout(resolve, 20));
+
+  const presentationButton = requireElement<HTMLButtonElement>(
+    '[data-task-notes-visual="editable"] [data-task-note-control="presentation"]',
+  );
+  presentationButton.click();
+  await new Promise<void>((resolve) => window.setTimeout(resolve, 30));
+  editorNodePreserved = document.querySelector('[data-task-note-control="editor"]') === editor;
+
+  requireElement<HTMLButtonElement>(
+    '[data-task-note-presentation="large"] [data-task-note-control="presentation"]',
+  ).click();
+  await new Promise<void>((resolve) => window.setTimeout(resolve, 30));
+  editorNodePreserved = editorNodePreserved
+    && document.querySelector('[data-task-note-control="editor"]') === editor;
+  draftPreserved = editor.textContent?.includes(DRAFT_MARKER) ?? false;
+
+  requireElement<HTMLButtonElement>(
+    '[data-task-note-presentation="compact"] [data-task-note-control="presentation"]',
+  ).click();
+  await new Promise<void>((resolve) => window.setTimeout(resolve, 40));
+  editorNodePreserved = editorNodePreserved
+    && document.querySelector('[data-task-note-control="editor"]') === editor;
+  draftPreserved = draftPreserved && (editor.textContent?.includes(DRAFT_MARKER) ?? false);
+
+  if (!editorNodePreserved || !draftPreserved) {
+    throw new Error("Large Notes presentation remounted the editor or discarded the unsaved draft.");
+  }
+}
 
 type Geometry = { width: number; height: number };
 const geometry = (selector: string): Geometry => {
@@ -207,6 +243,8 @@ const contract = {
   largeSurface: largeSurface ? geometry('[data-task-note-presentation="large"]') : null,
   largeDialog: Boolean(largeSurface?.matches('[role="dialog"][aria-modal="true"]')),
   resizablePresentation: largeSurface?.dataset.taskNoteResizable === "true",
+  draftPreserved,
+  editorNodePreserved,
 };
 
 const contractNode = document.createElement("script");
