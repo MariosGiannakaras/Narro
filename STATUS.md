@@ -12,62 +12,59 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 19 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 20 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-**`M-5/10 | 5/5 | 19/28`**
+**`M-5/10 | 5/5 | 20/28`**
 
-The first nineteen ordered M5 items are fully main validated. The latest completed item is **Subtasks UI**. The next ordered item is **Rich task notes editor/viewer with clickable URLs**.
+The first twenty ordered M5 items are fully main validated. The latest completed item is **Rich task notes editor/viewer with clickable URLs**. The next ordered item is **Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus**.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`120bf882b67c54d832a1116f8fa024fe2727e155`
+`766781b03caa01b9c70d7af10827d751d998caba`
 
 Tree:
 
-`6c898857c43a1f25d147d4af1eec6d3f4d08a1a2`
+`93e72feb5da74fcaf6de16ab3b120c32008eddc6`
 
-This is the expected-head guarded merge of PR #91 — `M5: add Subtasks UI`.
+This is the expected-head guarded merge of PR #92 — `M5: add rich task notes editor and viewer`.
 
-Markdown-only tracking descendants, beginning with TODO reconciliation commit `0ee98838bfd03b818a9ac37de996edc7c8887e8f`, do **not** replace this validated source/test baseline.
+Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
-### PR #91 exact-head validation
+### PR #92 exact-head validation
 
 Final validated PR head:
 
-`929c5042a095dfcedc1343ff680080fb2d229cbe`
+`12e5de44b0ddc00f09a0b1b2bca72d4744ceb113`
 
-Windows PR CI #359:
+Windows PR CI #364:
 
-- run `34511982661`;
-- job `102988191474`;
-- exact head `929c5042a095dfcedc1343ff680080fb2d229cbe`;
+- run `34599041219`;
+- job `103261625630`;
+- exact head `12e5de44b0ddc00f09a0b1b2bca72d4744ceb113`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
 - Capture Visual Regression Fixtures: **PASS**;
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact `10166459738`, digest `sha256:176f7bf17badd1efd8aafeaaa09110ce44568ed70588db064e38abc412244ef8`;
-- diagnostic artifact `10166706435`, digest `sha256:c52c6c764b29e3147de21c5e733948e985ca5de5aa091ebb7c7eb9cdec709a4c`;
-- PR comments: none;
-- submitted reviews: none;
-- inline review threads: none;
-- final exact-head semantic/diff review: **PASS**.
+- visual artifact `10263334390`, digest `sha256:8634f7fa24c0dfa1cc315db57c34afdad0acc75dc27943ea55a5f9a88087cdb9`;
+- diagnostic artifact `10263778572`, digest `sha256:6fe93eb9fe9aae3d18885c0d23beff680e019f6b69ef0f1cff906744bddd3875`;
+- final PR state: mergeable, no submitted reviews, no unresolved review threads.
 
-An earlier exact-head Windows CI #355 / run `34511182147` failed only at `cargo fmt --check` after all frontend/static checks and the production Vite build had passed. The three formatter-only Rust diffs were applied exactly from that log and revalidated by #359; the failed run does not count as progress.
+Earlier PR CI #361 failed at a stale Subtasks static assertion after the Notes interaction lock was added; #362 then passed all frontend/static checks and production Vite build but failed only `cargo fmt --check` on new Rust formatting. Both were corrected narrowly and neither failed run counts as progress.
 
-PR #91 was merged with `expected_head_sha=929c5042a095dfcedc1343ff680080fb2d229cbe`, producing main source SHA `120bf882b67c54d832a1116f8fa024fe2727e155`.
+PR #92 was merged with expected-head guard against `12e5de44b0ddc00f09a0b1b2bca72d4744ceb113`, producing main source SHA `766781b03caa01b9c70d7af10827d751d998caba`.
 
 ### Resulting-main validation
 
-Windows main CI #360:
+Windows main CI #365:
 
-- run `34536225635`;
-- job `103068350228`;
-- exact source SHA `120bf882b67c54d832a1116f8fa024fe2727e155`;
+- run `34600370102`;
+- job `103265907994`;
+- exact source SHA `766781b03caa01b9c70d7af10827d751d998caba`;
 - event: `push`;
 - conclusion: **SUCCESS**;
 - Repository Preflight: **PASS**;
@@ -75,17 +72,10 @@ Windows main CI #360:
 - Upload Visual Regression Artifact: **PASS**;
 - Tauri Release: **PASS**;
 - Upload Diagnostic Harness Artifact: **PASS**;
-- visual artifact `10175731468`, digest `sha256:5a7d009113217741067605456948ec7b7ed323974d265b28a663580fa68285ab`;
-- diagnostic artifact `10175926487`, digest `sha256:01d5f5fdf8d4c825a12c6ab15e2532b470682c1a971f6349efe0b6ef24af7e32`.
+- visual artifact `10263584561`, digest `sha256:0cb8b53e438e654882291764a6bac6868a6e527ed6e71619116f07fc9686c83a`;
+- diagnostic artifact `10264950279`, digest `sha256:7dec60f2e218c0479d7058ea45e0a59229ae4715a160b62da2eceb1dfd7a2895`.
 
-Detailed immutable evidence is recorded in the newest M5 Subtasks UI work log.
-
-## Milestones 1–4 — validated gates
-
-- **Gate A PASS:** Tauri 2 + WebView2 architecture, two-window model, Windows native lifecycle/capabilities and floating performance baseline validated.
-- **Gate B PASS:** durable SQLite/domain identity, CRUD/order/archive/delete, metadata and persistence-first invariants validated.
-- **Gate C PASS:** authoritative timer/session runtime, recovery, Pomodoro, tracked-time durability, manual Time Taken rebase and sleep accounting validated.
-- **Gate D PASS:** scheduling/recurrence/reminders/eligibility, date-only semantics, timezone/DST/week boundaries and recurrence idempotency validated.
+Detailed immutable evidence is recorded in `work-log/2026-09-11-1629-chatgpt-m5-rich-task-notes.md`.
 
 ## Milestone 5 — validated ordered work
 
@@ -109,56 +99,44 @@ The following top-level items are validated complete, in roadmap order:
 16. persistence-backed task creation and inline title editing;
 17. persistence-backed EST and Time Taken display/edit states with authoritative live-paused timer/session integration;
 18. production scheduling and recurrence editor over the authoritative M4 scheduling/recurrence model;
-19. production Subtasks UI over the authoritative M2 subtask identity/order/completion persistence model.
+19. production Subtasks UI over the authoritative M2 subtask identity/order/completion persistence model;
+20. production rich task Notes editor/viewer over the authoritative M2 constrained rich-note model, including saved clickable URLs.
 
-### Latest completed: Subtasks UI
+### Latest completed: Rich task notes editor/viewer with clickable URLs
 
 Validated behavior includes:
 
-- authoritative completed/total subtask counts are projected in List Board task cards without renderer polling;
-- expanded rows are loaded through task-scoped Rust commands and retain stable persisted `SubtaskId` / parent `TaskId` identity;
-- renderer-facing create/title/completion/reorder/delete writes use immediate SQLite transactions and expected-state stale guards;
-- reorder validates duplicate-free equal identity sets and the renderer's expected current order before rank rewrite;
-- destructive delete validates expected `updated_at` and compacts ranks atomically;
-- aggregate All Lists and completed Done tasks remain read-only while active individual-list tasks can manage subtasks, including while the parent task is live;
-- subtask controls are isolated from parent drag, and expanded subtasks suppress conflicting task actions while preserving the fixed task title/action slot geometry;
-- successful subtask mutations refresh both authoritative subtask rows and board progress; a commit followed by refresh failure is reported as saved and blocks unsafe follow-up mutations;
-- a rendered-parent identity gate rejects mismatched stale rows before mutation callbacks;
-- deterministic Rust/static coverage and light/dark production visual fixtures cover expanded, inline-edit and completed read-only states.
+- board-facing note reads/writes validate exact task/list identity and reuse the M2 constrained versioned `NoteDocument` format with no HTML-authoritative storage and no schema migration;
+- save/delete use immediate SQLite transactions with expected-`updated_at` optimistic stale guards, including create-only absent-version protection and stale-safe delete;
+- completed non-archived tasks remain note-editable, archived task/list mutation remains forbidden, and aggregate All Lists is read-only;
+- the inline editor/viewer supports paragraph/list structure, Bold, Italic, Strikethrough, bulleted/numbered lists, link creation, Undo/Redo, structural rendering and explicit Save/Delete;
+- saved URLs are explicit user controls using the existing Tauri opener path; editor links do not navigate and no remote preview/fetch path exists;
+- Notes expansion is mutually exclusive with conflicting task/subtask/schedule/reorder interactions and Notes controls are isolated from parent drag;
+- successful writes refresh authoritative persisted note state; a committed write followed by refresh failure is reported as saved and blocks unsafe follow-up writes;
+- deterministic Rust/static coverage and light/dark production visual fixtures validate editable and aggregate read-only Notes states.
 
 ### Next ordered M5 item
 
-`Rich task notes editor/viewer with clickable URLs.`
+`Require explicit click/keyboard activation to open note URLs; do not auto-launch links when entering focus.`
 
-This work must build on the already validated M2 constrained rich-note persistence model. It must preserve persistence-first writes, explicit task/list identity, no renderer-only authoritative note state, task-card geometry invariants, keyboard access, and the source-product safety rule that URLs require explicit user activation. The following ordered M5 items remain separate unless a narrow dependency requires them: explicit no-auto-launch URL policy, larger/resizable Notes editing presentation, and WebView/browser spellcheck.
+This is a dedicated source-product reliability slice. Re-read `docs/BLITZIT_HISTORY_RISK_INDEX.md` and the Notes/focus sections of `docs/SOURCE_AUDIT.md`, `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md` and `docs/BEHAVIOR_MATRIX.md` before source changes. The implementation should prove the existing explicit opener path is the only URL-open side effect and add regressions across task-live/focus entry, switching, pause/resume and renderer/window projection transitions. Do not absorb the later larger/resizable Notes presentation or spellcheck items.
 
 ## Durable correctness decisions
 
 Future work must preserve:
 
-- Narro remains a personal, local-only Windows 10/11 x64 desktop application; no auth/cloud/telemetry/integration authority is introduced.
+- Narro remains personal, local-only Windows 10/11 x64 software; no auth/cloud/telemetry/integration authority is introduced.
 - Tauri 2 + React/TypeScript + authoritative Rust/domain state + SQLite remains the validated architecture.
 - `main` and reusable `focusSurface` are the normal two-webview model; presentation changes must not duplicate authoritative runtime state.
-- Authoritative task/list/session/timer/scheduling state lives outside renderer memory; persistence-first mutations remain the success boundary.
-- Stable task and subtask identities are mandatory; reorder/move/schedule/subtask changes may not alias or duplicate identities.
-- A committed authoritative mutation must not be reported as failed merely because a secondary renderer refresh/event delivery fails.
-- All Lists remains an aggregate projection, never a persisted synthetic list.
-- Scheduled pending tasks remain projected through validated effective planning-lane semantics.
-- Archived lists/tasks remain absent from active board projection; completed non-archived tasks project to Done exactly once.
-- Renderer-independent timer/session accounting, one-open-session protection and durable recovery must not regress.
-- EST/title/subtask/note metadata edits must not rewrite or lose Time Taken/session state.
-- Paused manual Time Taken editing must use the validated authoritative runtime/session baseline rebase path.
-- Date-only schedules remain calendar dates, distinct from local date-times; Monday week boundaries and timezone/DST validation remain authoritative.
-- Recurrence materialization remains deterministic/idempotent and preserves validated replace/detach semantics; stale recurrence writes fail atomically before destructive child work.
-- Notes URLs require explicit click/keyboard activation and may never auto-launch merely because a task becomes live.
-- Hover/focus/edit interactions may not reflow task/list card geometry or move hit targets; reserved/overlay action slots remain the established pattern.
-- Keyboard/focus-visible equivalents and accessible names/tooltips remain required for icon-only actions.
-- Motion never owns or delays domain-state completion; no infinite decorative animation is allowed, especially on `focusSurface`.
-- `prefers-reduced-motion` must remove nonessential translation/scale without hiding state changes.
-- Timer numerals remain tabular and must not gain per-second transition animation.
-- Exact `1280×720` is a PNG visual-artifact contract, not a browser DOM-layout viewport assumption.
-- Excluded account/trial/upgrade/profile/AI/integration controls remain absent.
-- Diagnostic controls remain gated behind `?diagnostics=1` and outside normal product navigation.
+- authoritative task/list/session/timer/scheduling/note state lives outside renderer memory; persistence-first mutations remain the success boundary;
+- stable task/subtask identities, tracked Time Taken, one-open-session protection, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress;
+- a committed authoritative mutation must not be reported as failed merely because a secondary renderer refresh/event delivery fails;
+- Notes URLs require explicit pointer/keyboard activation and may never auto-launch merely because a task becomes live, focus mode opens, task selection changes, or pause/resume occurs;
+- hover/focus/edit interactions may not reflow task/list card geometry or move hit targets;
+- keyboard/focus-visible equivalents and accessible names/tooltips remain required for icon-only actions;
+- motion never owns or delays domain-state completion; `prefers-reduced-motion` remains usable and timer numerals remain tabular;
+- excluded account/trial/upgrade/profile/AI/integration controls remain absent;
+- diagnostics remain gated behind `?diagnostics=1`.
 
 ## Multi-agent continuation rule
 
