@@ -125,7 +125,7 @@ fn schedule_reminder_acceptance_probe(
     let app_dir = app_handle.path().app_data_dir().map_err(|error| {
         CommandError::new(
             "REMINDER_ACCEPTANCE_PROBE_FAILED",
-            format!("failed to resolve Narro app data directory for reminder acceptance: {error}"),
+            format!("failed to resolve Narro app-data directory for reminder acceptance: {error}"),
         )
     })?;
     let database_path = app_dir.join("narro.db");
