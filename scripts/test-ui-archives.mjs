@@ -16,7 +16,7 @@ const donePanel = read("src/ArchivedDoneTasksPanel.tsx");
 const listPanel = read("src/ArchivedListsPanel.tsx");
 const fixture = read("src/archiveVisualFixture.tsx");
 const vite = read("vite.config.ts");
-const capture = read("scripts/capture-visual-fixtures.ps1");
+const capture = read("scripts/capture-archive-fixtures.ps1");
 const validator = read("scripts/validate-archive-captures.mjs");
 const packageJson = read("package.json");
 
@@ -52,6 +52,7 @@ for (const [haystack, needle, label] of [
   [fixture, 'fixtureTab={tab}', "segmented archive fixture"],
   [vite, 'archiveFixture: "archive-fixture.html"', "archive fixture build input"],
   [capture, 'foreach ($archiveMode in @("lists-empty", "done-empty", "done-filter", "done-results"))', "archive Edge capture mode loop"],
+  [capture, '$label = "archive-$archiveMode-$theme"', "archive capture label"],
   [validator, "Archive captured DOM contracts: PASS", "archive captured-DOM validator"],
   [packageJson, '"test:ui-archives": "node scripts/test-ui-archives.mjs"', "archive frontend preflight script"],
   [packageJson, "validate-archive-captures.mjs", "Windows archive captured-DOM validation wiring"],
