@@ -165,7 +165,7 @@
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-control);
   background: var(--color-surface-raised);
-  box-shadow: var(--elevation-popover);
+  box-shadow: var(--elevation-overlay);
 }
 
 .archived-done-panel__filter-menu button {
