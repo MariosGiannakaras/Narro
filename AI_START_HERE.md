@@ -79,6 +79,28 @@ A capable agent should normally:
 
 Do not make the user act as a messenger between agents. If the next agent needs information, commit it to the repository.
 
+## User-facing implementation progress
+
+The user-facing progress line is intentionally compact and must use this exact shape:
+
+`{completed roadmap milestones}/{total roadmap milestones}M || {completed current-slice checkpoints}/{total current-slice checkpoints} | {completed active-milestone items}/{total active-milestone items}`
+
+Example shape only: `4/10M || 1/5 | 25/28`.
+
+Rules:
+
+- The first field is **completed roadmap milestones / total roadmap milestones**, followed by `M`. It is not the active milestone number.
+- The second field is the existing current implementation-slice checkpoint counter.
+- The third field is the active milestone's validated top-level TODO-item counter.
+- Derive all values from current repository state; never copy example numbers or conversation memory.
+- Do not increment any field before its existing validation requirements are satisfied.
+- Do not silently change denominators.
+- Show the compact line when one of its counters changes, when a genuinely new slice resets the small counter, or in a final implementation status where the current counters are useful.
+- Do **not** repeat an unchanged compact line in every routine progress update. In particular, do not repeatedly print `0/5`, `1/5`, etc. while no checkpoint has advanced.
+- Do not add parallel verbose `Γενική υλοποίηση` / `Μικρή τρέχουσα υλοποίηση` lines unless the user explicitly asks for them.
+
+This section records the user's latest explicit reporting preference and supersedes older/conflicting presentation-only wording elsewhere in the repository. It changes only presentation cadence/format, not validation or completion semantics. Reconcile older wording when those files are next edited.
+
 ## Validation boundary
 
 Distinguish these clearly:
