@@ -19,6 +19,7 @@ export default defineConfig(async () => ({
         taskNotesFixture: "task-notes-fixture.html",
         taskSubtasksFixture: "task-subtasks-fixture.html",
         listSettingsFixture: "list-settings-fixture.html",
+        searchPaletteFixture: "search-palette-fixture.html",
       },
     },
   },
