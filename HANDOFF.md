@@ -38,6 +38,8 @@ Immutable evidence: `work-log/2026-09-12-chatgpt-m5-excluded-controls.md`.
 
 Implementation branch: `m6-focus-entry`.
 
+Pull request: **#101 — `M6: start Blitz from eligible Today tasks`**.
+
 Current small-slice progress: **2/5**.
 
 ### Checkpoint 1/5 — COMPLETE: mandatory reconstruction + exact Focus-entry/eligibility contract
@@ -59,7 +61,7 @@ Repository/source reconstruction established:
 
 ### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic coverage + semantic/diff review
 
-Reviewed implementation candidate before this checkpoint-only HANDOFF commit:
+Reviewed implementation candidate before the checkpoint-only HANDOFF commit:
 
 `b6246fab55267b9c9473edf03649a98ecbc0a1b7`
 
@@ -81,7 +83,16 @@ Implemented scope:
 
 Branch-wide semantic/diff review against `649ee01661f6c5380bb04a885bf65faca0f8c67e` found only the checkpoint `HANDOFF.md`, package preflight wiring, the focused contract script, the new Focus-entry Rust/API/control files, two-line Rust command registration, and two-line main entry wiring. The explicit main entry is intentionally functional/minimal for items 1–2; final Focus hierarchy/placement belongs to ordered M6 items 3+ and is not pulled forward here.
 
-Concurrency note: task eligibility/priority selection is read from authoritative SQLite immediately before the existing atomic M3 timer/session start. The durable start transaction independently validates that the selected task/list remains active and DB uniqueness prevents duplicate unfinished focus sessions; the renderer never supplies candidate identity. This slice does not add a second transaction/schema just to reserve a candidate. Exact Windows CI remains required to validate compilation and the full regression suite.
+Concurrency note: task eligibility/priority selection is read from authoritative SQLite immediately before the existing atomic M3 timer/session start. The durable start transaction independently validates that the selected task/list remains active and DB uniqueness prevents duplicate unfinished focus sessions; the renderer never supplies candidate identity. This slice does not add a second transaction/schema just to reserve a candidate.
+
+### Exact PR CI state
+
+- PR #101 initial exact head `03065c3a8cc9c8e38277721e661e889b610974e3` ran Windows CI #392 / run `34718784154` / job `103620662277` and **FAILED** only at `cargo fmt --check`;
+- every frontend/static contract gate passed on that head, including `test:ui-focus-entry`, and the TypeScript/Vite production build passed;
+- Rust check/clippy/tests, Windows Edge visual regression, Tauri Release and artifact uploads did not run because rustfmt stopped preflight;
+- the failure log contained only six rustfmt layout differences in the new `focus_entry.rs`; no compile/test/behavior failure was observed;
+- exact rustfmt output was applied without semantic changes in commit `070d0e76a28b13aee6aec203c319037dc4f87238`;
+- this HANDOFF commit follows that formatting-only fix, so authoritative exact-head Windows CI must be required again before checkpoint 3 can complete.
 
 ### Five checkpoints for this slice
 
@@ -108,7 +119,7 @@ Concurrency note: task eligibility/priority selection is read from authoritative
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Open or resume the M6 item-1 PR from `m6-focus-entry` and inspect its exact current head. Require authoritative Windows CI on that exact head, including repository preflight, Rust format/check/clippy/tests, production Windows Edge visual regression, required artifact upload and Tauri Release. Fix only evidence-backed failures on the same branch. Do not increment checkpoint 3 until the exact PR head passes. After that perform final exact-head review, expected-head guarded merge, resulting-main Windows CI and tracking reconciliation. If the same validated slice proves both item 1 Start Blitz and item 2 top-eligible auto-selection, reconcile both ordered TODO items together; do not start M6 item 3 before resulting-main validation and tracking are complete.
+Inspect PR #101 and its exact current head after this HANDOFF commit. Require authoritative Windows CI on that exact head. The previous CI #392 failure was rustfmt-only and has been fixed exactly; do not rework behavior unless the new exact-head CI produces evidence. Check repository preflight, Rust format/check/clippy/tests, production Windows Edge visual regression, required visual artifact upload, Tauri Release and diagnostic artifact upload. Do not increment checkpoint 3 until the exact PR head passes all required steps. Then perform final exact-head review, expected-head guarded merge, resulting-main Windows CI and tracking reconciliation. If the same validated slice proves both item 1 Start Blitz and item 2 top-eligible auto-selection, reconcile both ordered TODO items together; do not start M6 item 3 before resulting-main validation and tracking are complete.
 
 ## USER ACTION REQUIRED
 
