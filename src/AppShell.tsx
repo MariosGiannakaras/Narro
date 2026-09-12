@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { ArchivedListsPanel } from "./ArchivedListsPanel";
 import { formatInvokeError } from "./diagnosticApi";
 import { HomeDashboard, type HomeListCardSnapshot } from "./HomeDashboard";
@@ -12,6 +12,7 @@ import {
 } from "./listEditorApi";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import { archiveListFromSettings } from "./listSettingsApi";
+import { SearchPalette } from "./SearchPalette";
 import "./appShell.css";
 
 export type AppDestination =
@@ -68,7 +69,7 @@ const destinationCopy: Record<AppDestination, DestinationCopy> = {
   search: {
     eyebrow: "Find",
     title: "Search",
-    description: "The keyboard-first search palette is a later Milestone 5 item; this utility action already has a stable destination.",
+    description: "Search opens as a keyboard-first overlay rather than replacing the current workspace.",
   },
   settings: {
     eyebrow: "Preferences",
@@ -111,23 +112,46 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [archiveTarget, setArchiveTarget] = useState<HomeListCardSnapshot | null>(null);
   const [archivePending, setArchivePending] = useState(false);
   const [archiveError, setArchiveError] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
 
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (
+        !event.ctrlKey
+        || event.altKey
+        || event.shiftKey
+        || event.key.toLowerCase() !== "f"
+      ) return;
+
+      event.preventDefault();
+      if (editorState || archiveTarget) return;
+      setSearchOpen(true);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [editorState, archiveTarget]);
+
   function openCreateList() {
+    setSearchOpen(false);
     setEditorState({ mode: "create" });
   }
 
   function openEditList(list: HomeListCardSnapshot) {
+    setSearchOpen(false);
     setEditorState({ mode: "edit", list });
   }
 
   function requestArchive(list: HomeListCardSnapshot) {
+    setSearchOpen(false);
     setArchiveTarget(list);
     setArchiveError(null);
   }
 
   function openBoardTarget(target: ListBoardRequestTarget) {
+    setSearchOpen(false);
     setBoardTarget(target);
     setActiveDestination("all-lists");
   }
@@ -141,6 +165,10 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   }
 
   function handleNavigate(destination: AppDestination) {
+    if (destination === "search") {
+      setSearchOpen(true);
+      return;
+    }
     if (destination === "create-list") {
       openCreateList();
       return;
@@ -149,6 +177,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
       openAllListsBoard();
       return;
     }
+    setSearchOpen(false);
     setBoardTarget(null);
     setActiveDestination(destination);
   }
@@ -320,6 +349,23 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
           onConfirm={() => void confirmArchive()}
         />
       ) : null}
+
+      <SearchPalette
+        open={searchOpen}
+        onRequestClose={() => setSearchOpen(false)}
+        onOpenList={(listId) => openBoardTarget({ kind: "list", id: listId })}
+        onOpenTask={(task) => openBoardTarget({ kind: "list", id: task.listId })}
+        onAddList={openCreateList}
+        onGoReports={() => {
+          setSearchOpen(false);
+          setBoardTarget(null);
+          setActiveDestination("reports");
+        }}
+        onTaskCreated={(listId, _taskId) => {
+          setHomeRefreshKey((value) => value + 1);
+          openBoardTarget({ kind: "list", id: listId });
+        }}
+      />
     </>
   );
 }
