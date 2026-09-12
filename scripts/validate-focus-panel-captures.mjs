@@ -65,7 +65,14 @@ for (const theme of ["light", "dark"]) {
   const contract = JSON.parse(match[1]);
   invariant(contract.theme === theme, `${label} contract theme differs`);
   invariant(contract.panel?.width === 340, `${label} panel width is ${contract.panel?.width}; expected 340px`);
-  invariant(contract.panel?.height >= 700, `${label} panel height is unexpectedly short`);
+  invariant(
+    contract.layoutViewport?.width > 0 && contract.layoutViewport?.height > 0,
+    `${label} measured DOM layout viewport is missing or invalid`,
+  );
+  invariant(
+    contract.panel?.height >= contract.layoutViewport.height,
+    `${label} panel height ${contract.panel?.height}px does not fill measured DOM layout viewport height ${contract.layoutViewport.height}px (PNG capture remains 420x720)`,
+  );
   invariant(contract.topbar?.height > 0, `${label} top bar geometry is invalid`);
   invariant(contract.summary?.height > 0, `${label} summary geometry is invalid`);
   invariant(contract.liveCard?.height >= 80, `${label} live card emphasis geometry is too small`);
