@@ -19,6 +19,7 @@ pub mod reminder_acceptance;
 pub mod reminder_service;
 pub mod scheduling;
 pub mod shortcuts;
+pub mod theme_settings;
 pub mod timer;
 pub mod timer_service;
 pub mod windows;
@@ -645,6 +646,8 @@ pub fn run() {
             list_settings::archive_list_from_settings,
             list_settings::restore_list_from_settings,
             list_settings::permanently_delete_list_from_settings,
+            theme_settings::get_theme_preference,
+            theme_settings::set_theme_preference,
             toggle_timer,
             mutate_state,
             send_test_notification,
