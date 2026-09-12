@@ -73,10 +73,15 @@ Implemented scope:
 - PR #102 initial exact head `a981941e4e95398cf23fd265c66cf863ac7506be` ran Windows CI #396 / run `34723207498` / job `103632684937` and **FAILED** at the TypeScript/Vite build inside Repository Preflight;
 - every preceding frontend/static gate passed on that head, including `test:ui-focus-panel`, the existing Focus-entry gate, Notes URL gate and all M5 UI contract gates;
 - the sole compiler failure was `src/FocusPanel.tsx(118,80): TS2339` because TypeScript did not narrow the second `ListBoardRequestTarget` union member before reading `right.id` in `sameTarget`;
-- Edge visual capture, Rust fmt/check/clippy/tests, Tauri Release and artifact uploads did not run because preflight stopped at the TypeScript build;
-- commit `13fb8258cacea6ddbe6511b72ea962dcbe860de9` applies only the evidence-backed narrowing fix: reject mismatched kinds, return true for `all`, then explicitly require `right.kind === "list"` before comparing IDs;
-- no product behavior, read-model, visual hierarchy or scope changed in the fix;
-- this HANDOFF commit follows that source correction, so a new authoritative exact-head Windows CI run is required before checkpoint 3 can complete.
+- commit `13fb8258cacea6ddbe6511b72ea962dcbe860de9` applied only the evidence-backed union narrowing fix;
+- final-head candidate after that fix and checkpoint documentation was `503c83db08dd47a4d3b1b8d442a8303bfb848739`;
+- Windows CI #398 / run `34723326535` / job `103633154280` on that exact head passed **Repository Preflight** completely: all frontend/static gates, TypeScript/Vite production build, rustfmt, cargo check, Clippy, all Rust tests and performance harness were **SUCCESS**;
+- Focus Panel light/dark Edge screenshots and DOM captures were successfully created, as were all existing visual fixtures;
+- CI #398 then **FAILED only in `validate-focus-panel-captures.mjs`** because the validator asserted `panel.height >= 700`, while headless Edge's measured DOM layout viewport is shorter than the 720px PNG capture viewport; this is the same capture-vs-layout distinction already handled by the existing visual harness;
+- no production CSS/layout failure was reported: `.focus-panel` still uses `min-height: 100vh`, and the failure was the validator's hard-coded PNG-height approximation;
+- source/test fix commits `56725b8e0e86999290d755e831579541cce6f388` and `188db098d213f43c2575e0c8c9c8cc33a432265d` add measured `document.documentElement.clientWidth/clientHeight` to the fixture contract and validate that the panel fills at least the measured DOM layout viewport while retaining the exact 420x720 PNG assertion;
+- no production renderer behavior, CSS, domain/read-model, timer/session, scheduling or scope changed in the visual validator fix;
+- because CI #398 failed before artifact upload/Tauri Release, a new authoritative Windows CI is required on the final exact PR head after this HANDOFF commit.
 
 Local full Node/Rust preflight remains **NOT RUN** in the connector-only environment.
 
@@ -102,7 +107,7 @@ Local full Node/Rust preflight remains **NOT RUN** in the connector-only environ
 
 ## NEXT AGENT ACTION
 
-Inspect PR #102 at its exact current head after this HANDOFF commit. Require authoritative Windows CI on that exact head. CI #396 was a single TypeScript union-narrowing failure and has been corrected exactly; do not rework behavior unless the new run produces evidence. Require Repository Preflight, production Windows Edge Focus Panel light/dark capture/validation, Rust fmt/check/clippy/tests, Tauri Release and both required artifact uploads before checkpoint 3. Then perform final exact-head review, expected-head guarded merge, resulting-main Windows CI and tracking reconciliation.
+Inspect PR #102 at its exact current head after this HANDOFF commit. Require authoritative Windows CI on that exact head. CI #398 proved the full repository preflight and actual Focus Panel capture generation; its only failure was the now-corrected hard-coded DOM-height validator assumption. Do not rework production behavior unless the new exact-head run produces evidence. Require Repository Preflight, production Windows Edge Focus Panel light/dark capture/validation, visual artifact upload, Tauri Release and diagnostic artifact upload before checkpoint 3. Then perform final exact-head review, expected-head guarded merge, resulting-main Windows CI and tracking reconciliation.
 
 ## USER ACTION REQUIRED
 
