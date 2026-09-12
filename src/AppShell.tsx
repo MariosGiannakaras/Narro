@@ -13,6 +13,7 @@ import {
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import { archiveListFromSettings } from "./listSettingsApi";
 import { SearchPalette } from "./SearchPalette";
+import { ThemeSettingsPanel } from "./ThemeSettingsPanel";
 import "./appShell.css";
 
 export type AppDestination =
@@ -74,7 +75,7 @@ const destinationCopy: Record<AppDestination, DestinationCopy> = {
   settings: {
     eyebrow: "Preferences",
     title: "Settings",
-    description: "Preferences will open from this stable utility position when their ordered milestone is implemented.",
+    description: "Choose whether Narro follows Windows or uses an explicit light or dark appearance.",
   },
 };
 
@@ -293,6 +294,8 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
               runtimeHome
             ) : activeDestination === "archived-lists" ? (
               <ArchivePanel />
+            ) : activeDestination === "settings" ? (
+              <ThemeSettingsPanel />
             ) : (
               <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">
                 <p className="app-shell__eyebrow type-metadata">{copy.eyebrow}</p>
