@@ -29,7 +29,7 @@ export function BlitzEntryButton() {
         await presentFocusPanel();
       } catch (presentationFailure: unknown) {
         setError(
-          `${committedStatus} The Focus Panel could not be shown. ${formatInvokeError(presentationFailure)}`,
+          `Focus session is active, but the Focus Panel could not be shown. ${formatInvokeError(presentationFailure)}`,
         );
       }
     } catch (failure: unknown) {
