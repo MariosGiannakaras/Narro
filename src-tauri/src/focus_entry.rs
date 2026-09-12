@@ -74,9 +74,8 @@ impl Display for FocusEntryError {
             Self::DurationOverflow => {
                 formatter.write_str("Focus timer duration exceeded the supported millisecond range")
             }
-            Self::RuntimeProjectionInconsistent => formatter.write_str(
-                "authoritative timer projection has inconsistent active-session state",
-            ),
+            Self::RuntimeProjectionInconsistent => formatter
+                .write_str("authoritative timer projection has inconsistent active-session state"),
         }
     }
 }
@@ -258,8 +257,8 @@ pub fn start_blitz(
 
     let connection = app_database(&app_handle)?;
     let now = Timestamp::now();
-    let Some(plan) = select_start_plan_at(&connection, now, &display_timezone)
-        .map_err(focus_entry_error)?
+    let Some(plan) =
+        select_start_plan_at(&connection, now, &display_timezone).map_err(focus_entry_error)?
     else {
         return Ok(StartBlitzOutcome::NoEligibleTodayTasks);
     };
@@ -415,8 +414,20 @@ mod tests {
         let mut conn = setup();
         let first_list = add_list(&mut conn, "First");
         let second_list = add_list(&mut conn, "Second");
-        let expected = add_task(&mut conn, first_list, "First list", PlanningLane::Today, None);
-        add_task(&mut conn, second_list, "Second list", PlanningLane::Today, None);
+        let expected = add_task(
+            &mut conn,
+            first_list,
+            "First list",
+            PlanningLane::Today,
+            None,
+        );
+        add_task(
+            &mut conn,
+            second_list,
+            "Second list",
+            PlanningLane::Today,
+            None,
+        );
 
         let plan = select_start_plan_at(&conn, now(), "Europe/Athens")
             .expect("select Focus task")
@@ -428,15 +439,20 @@ mod tests {
     fn pomodoro_preference_overrides_task_estimate() {
         let mut conn = setup();
         let list = add_list(&mut conn, "Work");
-        let task_id = add_task(&mut conn, list, "Estimated", PlanningLane::Today, Some(1_800));
+        let task_id = add_task(
+            &mut conn,
+            list,
+            "Estimated",
+            PlanningLane::Today,
+            Some(1_800),
+        );
         let mut preferences = initialize_preferences(&mut conn, T0)
             .expect("initialize preferences")
             .payload;
         preferences.focus.pomodoro_enabled = true;
         preferences.focus.pomodoro_work_seconds = 1_500;
         preferences.focus.pomodoro_break_seconds = 300;
-        save_preferences(&mut conn, preferences, "2026-09-08T08:01:00Z")
-            .expect("save preferences");
+        save_preferences(&mut conn, preferences, "2026-09-08T08:01:00Z").expect("save preferences");
 
         let plan = select_start_plan_at(&conn, now(), "Europe/Athens")
             .expect("select Focus task")
@@ -467,8 +483,7 @@ mod tests {
             .expect("initialize preferences")
             .payload;
         preferences.general.timezone = Some("Europe/Athens".into());
-        save_preferences(&mut conn, preferences, "2026-09-08T08:01:00Z")
-            .expect("save timezone");
+        save_preferences(&mut conn, preferences, "2026-09-08T08:01:00Z").expect("save timezone");
 
         let plan = select_start_plan_at(&conn, now(), "America/Los_Angeles")
             .expect("select using persisted timezone")
