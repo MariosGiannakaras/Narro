@@ -3,7 +3,6 @@ import {
   type ReactNode,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import { listen } from "@tauri-apps/api/event";
@@ -44,7 +43,7 @@ export function ThemeRuntimeProvider({ children }: { children: ReactNode }) {
     let stopListening: (() => void) | undefined;
     let observedEvent = false;
 
-    applyThemePreference(theme);
+    applyThemePreference(rootTheme());
 
     const install = async () => {
       try {
@@ -92,8 +91,6 @@ export function ThemeRuntimeProvider({ children }: { children: ReactNode }) {
       disposed = true;
       stopListening?.();
     };
-    // The runtime installs once. Later theme changes arrive through saveTheme or the Rust event.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function saveTheme(next: ThemePreference) {
@@ -112,11 +109,7 @@ export function ThemeRuntimeProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  const value = useMemo<ThemeRuntimeValue>(
-    () => ({ theme, pending, error, saveTheme }),
-    [theme, pending, error],
-  );
-
+  const value: ThemeRuntimeValue = { theme, pending, error, saveTheme };
   return <ThemeRuntimeContext.Provider value={value}>{children}</ThemeRuntimeContext.Provider>;
 }
 
