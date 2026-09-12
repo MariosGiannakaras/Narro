@@ -1,63 +1,53 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const root = path.resolve(new URL("../", import.meta.url).pathname);
-const output = path.join(root, "artifacts", "visual-regression");
+const root = process.cwd();
+const outputDirectory = path.resolve(root, process.argv[2] ?? "artifacts/visual-regression");
 
-function readCapture(mode, theme) {
-  const capturePath = path.join(output, `search-palette-${mode}-${theme}.html`);
-  if (!fs.existsSync(capturePath)) throw new Error(`Missing search palette capture: ${capturePath}`);
-  const html = fs.readFileSync(capturePath, "utf8");
-  if (!html.includes('data-search-palette-fixture-ready="true"')) {
-    throw new Error(`Search palette fixture did not reach ready state: ${mode}/${theme}`);
-  }
-  if (!html.includes('data-search-palette="main"') || !html.includes('role="dialog"') || !html.includes('aria-modal="true"')) {
-    throw new Error(`Search palette dialog semantics missing: ${mode}/${theme}`);
-  }
-  if (html.includes("Archived done tasks")) {
-    throw new Error(`Later archive scope leaked into search palette fixture: ${mode}/${theme}`);
-  }
-  return html;
+function invariant(condition, message) {
+  if (!condition) throw new Error(`Search palette capture validation failed: ${message}`);
 }
 
-function requireText(html, needle, label) {
-  if (!html.includes(needle)) throw new Error(`Missing ${label}: ${needle}`);
+function read(label) {
+  const file = path.join(outputDirectory, `${label}.html`);
+  invariant(fs.existsSync(file), `${label} captured DOM is missing`);
+  const dom = fs.readFileSync(file, "utf8");
+  invariant(dom.includes('data-search-palette-fixture-ready="true"'), `${label} fixture did not reach ready state`);
+  invariant(dom.includes('data-search-palette="main"'), `${label} production palette is missing`);
+  invariant(dom.includes('role="dialog"'), `${label} lacks dialog semantics`);
+  invariant(dom.includes('aria-modal="true"'), `${label} lacks modal semantics`);
+  invariant(!dom.includes("Archived done tasks"), `${label} absorbed later archive scope`);
+  return dom;
 }
 
 for (const theme of ["light", "dark"]) {
-  const empty = readCapture("empty", theme);
-  for (const [needle, label] of [
-    ['placeholder="Search for tasks, lists"', "search placeholder"],
-    ["Ctrl+F", "Ctrl+F hint"],
-    ["Quick actions", "Quick actions heading"],
-    ["Add new task", "Add new task action"],
-    ["Add new list", "Add new list action"],
-    ["Go to Reports", "Go to Reports action"],
-  ]) requireText(empty, needle, `${label} (${theme})`);
+  const empty = read(`search-palette-empty-${theme}`);
+  invariant(empty.includes('placeholder="Search for tasks, lists"'), `${theme} search placeholder is missing`);
+  invariant(empty.includes("Ctrl+F"), `${theme} Ctrl+F hint is missing`);
+  invariant(empty.includes("Quick actions"), `${theme} Quick actions heading is missing`);
+  invariant(empty.includes("Add new task"), `${theme} Add new task action is missing`);
+  invariant(empty.includes("Add new list"), `${theme} Add new list action is missing`);
+  invariant(empty.includes("Go to Reports"), `${theme} Go to Reports action is missing`);
 
-  const results = readCapture("results", theme);
-  for (const [needle, label] of [
-    ['data-search-palette-results="true"', "results projection"],
-    ['data-search-result-kind="list"', "list result"],
-    ['data-search-result-kind="task"', "task result"],
-    ["Project Atlas", "matching list title"],
-    ["Draft project update", "matching task title"],
-  ]) requireText(results, needle, `${label} (${theme})`);
+  const results = read(`search-palette-results-${theme}`);
+  invariant(results.includes('data-search-palette-results="true"'), `${theme} results projection is missing`);
+  invariant(results.includes('data-search-result-kind="list"'), `${theme} list result is missing`);
+  invariant(results.includes('data-search-result-kind="task"'), `${theme} task result is missing`);
+  invariant(results.includes("Project Atlas"), `${theme} matching list title is missing`);
+  invariant(results.includes("Draft project update"), `${theme} matching task title is missing`);
 
-  const noResults = readCapture("no-results", theme);
-  requireText(noResults, 'data-search-palette-empty="true"', `empty result marker (${theme})`);
-  requireText(noResults, "No matching tasks or lists.", `empty result copy (${theme})`);
+  const noResults = read(`search-palette-no-results-${theme}`);
+  invariant(noResults.includes('data-search-palette-empty="true"'), `${theme} no-results marker is missing`);
+  invariant(noResults.includes("No matching tasks or lists."), `${theme} no-results copy is missing`);
 
-  const taskCreate = readCapture("task-create", theme);
-  for (const [needle, label] of [
-    ['data-search-palette-mode="task-create"', "task-create mode"],
-    ['data-search-task-field="title"', "task title field"],
-    ['data-search-task-field="list"', "explicit list field"],
-    ['data-search-task-field="lane"', "explicit lane field"],
-    ["Choose a list", "list placeholder"],
-    ["Choose a lane", "lane placeholder"],
-    ["Add task", "task submit action"],
-  ]) requireText(taskCreate, needle, `${label} (${theme})`);
+  const taskCreate = read(`search-palette-task-create-${theme}`);
+  invariant(taskCreate.includes('data-search-palette-mode="task-create"'), `${theme} task-create mode is missing`);
+  invariant(taskCreate.includes('data-search-task-field="title"'), `${theme} task title field is missing`);
+  invariant(taskCreate.includes('data-search-task-field="list"'), `${theme} explicit list field is missing`);
+  invariant(taskCreate.includes('data-search-task-field="lane"'), `${theme} explicit lane field is missing`);
+  invariant(taskCreate.includes("Choose a list"), `${theme} list placeholder is missing`);
+  invariant(taskCreate.includes("Choose a lane"), `${theme} lane placeholder is missing`);
+  invariant(taskCreate.includes("Add task"), `${theme} task submit action is missing`);
 }
 
 console.log("Search palette capture validation passed.");
