@@ -20,7 +20,9 @@ pub enum ThemeSettingsError {
 impl Display for ThemeSettingsError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::OpenDatabase(error) => write!(formatter, "failed to open Narro database: {error}"),
+            Self::OpenDatabase(error) => {
+                write!(formatter, "failed to open Narro database: {error}")
+            }
             Self::ConfigureDatabase(error) => {
                 write!(formatter, "failed to configure Narro database: {error}")
             }
@@ -139,8 +141,14 @@ mod tests {
         let app_dir = test_app_dir();
         setup(&app_dir);
 
-        assert_eq!(load(&app_dir, T1).expect("load default theme"), ThemePreference::System);
-        assert_eq!(load(&app_dir, T2).expect("load existing theme"), ThemePreference::System);
+        assert_eq!(
+            load(&app_dir, T1).expect("load default theme"),
+            ThemePreference::System
+        );
+        assert_eq!(
+            load(&app_dir, T2).expect("load existing theme"),
+            ThemePreference::System
+        );
 
         let connection =
             rusqlite::Connection::open(app_dir.join("narro.db")).expect("open database");
@@ -170,7 +178,10 @@ mod tests {
         save_preferences(&mut connection, payload, T1).expect("seed preferences");
         drop(connection);
 
-        assert_eq!(save(&app_dir, ThemePreference::Dark, T2).expect("save dark"), ThemePreference::Dark);
+        assert_eq!(
+            save(&app_dir, ThemePreference::Dark, T2).expect("save dark"),
+            ThemePreference::Dark
+        );
 
         let connection =
             rusqlite::Connection::open(app_dir.join("narro.db")).expect("open database");
@@ -179,8 +190,14 @@ mod tests {
             .expect("read preferences")
             .expect("preferences row");
         assert_eq!(saved.payload.general.theme, ThemePreference::Dark);
-        assert_eq!(saved.payload.general.open_on_login, expected_non_theme.general.open_on_login);
-        assert_eq!(saved.payload.general.timezone, expected_non_theme.general.timezone);
+        assert_eq!(
+            saved.payload.general.open_on_login,
+            expected_non_theme.general.open_on_login
+        );
+        assert_eq!(
+            saved.payload.general.timezone,
+            expected_non_theme.general.timezone
+        );
         assert_eq!(saved.payload.focus, expected_non_theme.focus);
         assert_eq!(saved.payload.alerts, expected_non_theme.alerts);
         assert_eq!(saved.payload.celebration, expected_non_theme.celebration);
@@ -192,8 +209,14 @@ mod tests {
     fn repeated_save_is_idempotent_and_invalid_tokens_are_rejected() {
         let app_dir = test_app_dir();
         setup(&app_dir);
-        assert_eq!(save(&app_dir, ThemePreference::Light, T1).expect("save light"), ThemePreference::Light);
-        assert_eq!(save(&app_dir, ThemePreference::Light, T2).expect("save light again"), ThemePreference::Light);
+        assert_eq!(
+            save(&app_dir, ThemePreference::Light, T1).expect("save light"),
+            ThemePreference::Light
+        );
+        assert_eq!(
+            save(&app_dir, ThemePreference::Light, T2).expect("save light again"),
+            ThemePreference::Light
+        );
         assert!(parse_theme("sepia").is_err());
         std::fs::remove_dir_all(app_dir).expect("remove app dir");
     }
