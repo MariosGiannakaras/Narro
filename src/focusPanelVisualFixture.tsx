@@ -134,6 +134,10 @@ function box(selector: string) {
 
 const contract = {
   theme,
+  layoutViewport: {
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight,
+  },
   panel: box(".focus-panel"),
   topbar: box(".focus-panel__topbar"),
   summary: box(".focus-panel__summary"),
