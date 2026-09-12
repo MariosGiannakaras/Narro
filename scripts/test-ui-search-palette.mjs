@@ -27,7 +27,7 @@ for (const [haystack, needle, label] of [
   [palette, 'aria-modal="true"', "modal semantics"],
   [palette, 'placeholder="Search for tasks, lists"', "source-shaped search placeholder"],
   [palette, 'aria-label="Control F"', "Ctrl+F hint"],
-  [palette, '>Quick actions<', "Quick actions heading"],
+  [palette, 'Quick actions', "Quick actions heading"],
   [palette, 'Add new task', "Add new task quick action"],
   [palette, 'Add new list', "Add new list quick action"],
   [palette, 'Go to Reports', "Go to Reports quick action"],
