@@ -7,6 +7,7 @@ pub mod board_task_schedule;
 pub mod board_task_subtasks;
 pub mod domain;
 pub mod error;
+pub mod focus_entry;
 pub mod home_snapshot;
 pub mod list_board;
 pub mod list_editor;
@@ -619,6 +620,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_state,
             get_home_snapshot,
+            focus_entry::start_blitz,
             list_board::get_list_board_snapshot,
             board_task_editor::create_list_board_task,
             board_task_editor::update_list_board_task_title,
