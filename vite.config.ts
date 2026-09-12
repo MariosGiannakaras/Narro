@@ -26,8 +26,11 @@ export default defineConfig(async () => ({
     },
   },
 
-  // Tauri expects a fixed port and uses TAURI_DEV_HOST only for desktop development.
+  // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
+  //
+  // 1. prevent Vite from obscuring rust errors
   clearScreen: false,
+  // 2. tauri expects a fixed port, fail if that port is not available
   server: {
     port: 1420,
     strictPort: true,
@@ -40,6 +43,7 @@ export default defineConfig(async () => ({
         }
       : undefined,
     watch: {
+      // 3. tell Vite to ignore watching `src-tauri`
       ignored: ["**/src-tauri/**"],
     },
   },
