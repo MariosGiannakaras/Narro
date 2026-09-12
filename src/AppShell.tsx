@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useState } from "react";
-import { ArchivedListsPanel } from "./ArchivedListsPanel";
+import { ArchivePanel } from "./ArchivePanel";
 import { formatInvokeError } from "./diagnosticApi";
 import { HomeDashboard, type HomeListCardSnapshot } from "./HomeDashboard";
 import { ListBoard } from "./ListBoard";
@@ -63,8 +63,8 @@ const destinationCopy: Record<AppDestination, DestinationCopy> = {
   },
   "archived-lists": {
     eyebrow: "Archive",
-    title: "Archived lists",
-    description: "Restore archived lists or permanently delete them after explicit confirmation.",
+    title: "Archived items",
+    description: "Manage archived lists and review automatically archived done tasks.",
   },
   search: {
     eyebrow: "Find",
@@ -292,7 +292,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
             ) : activeDestination === "home" ? (
               runtimeHome
             ) : activeDestination === "archived-lists" ? (
-              <ArchivedListsPanel />
+              <ArchivePanel />
             ) : (
               <section className="app-shell__placeholder" aria-labelledby="app-shell-page-title">
                 <p className="app-shell__eyebrow type-metadata">{copy.eyebrow}</p>

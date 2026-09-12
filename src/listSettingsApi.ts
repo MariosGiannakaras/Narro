@@ -7,8 +7,36 @@ export type ArchivedListSummary = {
   archivedAt: string;
 };
 
-export function getArchivedListsForSettings(): Promise<ArchivedListSummary[]> {
-  return invoke<ArchivedListSummary[]>("get_archived_lists_for_settings");
+export type ArchiveListFilterSummary = {
+  id: string;
+  title: string;
+  color: string | null;
+};
+
+export type ArchivedDoneTaskSummary = {
+  id: string;
+  listId: string;
+  listTitle: string;
+  listColor: string | null;
+  title: string;
+  completedAt: string;
+  archivedAt: string;
+  timeTakenSeconds: string;
+};
+
+export type ArchiveSnapshot = {
+  lists: ArchivedListSummary[];
+  doneTasks: ArchivedDoneTaskSummary[];
+  filterLists: ArchiveListFilterSummary[];
+};
+
+export function getArchiveSnapshot(): Promise<ArchiveSnapshot> {
+  return invoke<ArchiveSnapshot>("get_archived_lists_for_settings");
+}
+
+export async function getArchivedListsForSettings(): Promise<ArchivedListSummary[]> {
+  const snapshot = await getArchiveSnapshot();
+  return snapshot.lists;
 }
 
 export function archiveListFromSettings(listId: string): Promise<void> {

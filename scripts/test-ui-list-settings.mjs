@@ -12,6 +12,7 @@ const persistence = read("src-tauri/src/persistence/lists.rs");
 const lib = read("src-tauri/src/lib.rs");
 const api = read("src/listSettingsApi.ts");
 const shell = read("src/AppShell.tsx");
+const archivePanel = read("src/ArchivePanel.tsx");
 const home = read("src/HomeDashboard.tsx");
 const panel = read("src/ArchivedListsPanel.tsx");
 const dialog = read("src/ListMutationConfirmDialog.tsx");
@@ -32,23 +33,25 @@ for (const [haystack, needle, label] of [
   [rust, "cleanup_owned_icon_after_commit", "post-commit owned icon cleanup"],
   [rust, "refusing to remove non-owned list icon path", "non-owned icon cleanup refusal"],
   [rust, '"LIST_SETTINGS_MUST_ARCHIVE"', "typed archive-first renderer failure"],
-  [rust, "pub fn get_archived_lists_for_settings", "archived-list renderer command"],
+  [rust, "pub fn get_archived_lists_for_settings", "archive renderer command"],
   [rust, "pub fn archive_list_from_settings", "archive renderer command"],
   [rust, "pub fn restore_list_from_settings", "restore renderer command"],
   [rust, "pub fn permanently_delete_list_from_settings", "permanent-delete renderer command"],
   [lib, "pub mod list_settings;", "list settings module registration"],
-  [lib, "list_settings::get_archived_lists_for_settings,", "archived-list handler registration"],
+  [lib, "list_settings::get_archived_lists_for_settings,", "archive handler registration"],
   [lib, "list_settings::archive_list_from_settings,", "archive handler registration"],
   [lib, "list_settings::restore_list_from_settings,", "restore handler registration"],
   [lib, "list_settings::permanently_delete_list_from_settings,", "delete handler registration"],
-  [api, 'invoke<ArchivedListSummary[]>("get_archived_lists_for_settings")', "archived-list frontend IPC"],
+  [api, 'invoke<ArchiveSnapshot>("get_archived_lists_for_settings")', "shared archive snapshot frontend IPC"],
+  [api, "return snapshot.lists;", "legacy archived-list helper projection"],
   [api, 'invoke<void>("archive_list_from_settings"', "archive frontend IPC"],
   [api, 'invoke<void>("restore_list_from_settings"', "restore frontend IPC"],
   [api, 'invoke<void>("permanently_delete_list_from_settings"', "delete frontend IPC"],
   [shell, "onArchive: () => requestArchive(list)", "real Home Archive target"],
   [shell, "await archiveListFromSettings(archiveTarget.id);", "persistence-first active archive"],
   [shell, 'activeDestination === "archived-lists"', "production archived-list destination"],
-  [shell, "<ArchivedListsPanel />", "production archived-list management surface"],
+  [shell, "<ArchivePanel />", "production archive surface"],
+  [archivePanel, "<ArchivedListsPanel", "existing archived-list management nested in archive surface"],
   [home, "actions?.onArchive", "callback-gated Archive List menu action"],
   [panel, "await restoreListFromSettings(list.id);", "persistence-first restore"],
   [panel, "await permanentlyDeleteListFromSettings(deleteTarget.id);", "persistence-first permanent delete"],
@@ -97,7 +100,7 @@ if (deleteAwait < 0 || deletePublish < deleteAwait) {
 
 for (const forbidden of ["Archived done tasks", "archive search", "list archive filter"]) {
   if (panel.includes(forbidden)) {
-    throw new Error(`List-settings slice must not absorb later archive-surface scope: ${forbidden}`);
+    throw new Error(`ArchivedListsPanel must remain focused on list lifecycle behavior: ${forbidden}`);
   }
 }
 
