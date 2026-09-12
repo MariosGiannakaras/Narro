@@ -115,7 +115,9 @@ function targetFromValue(value: string): ListBoardRequestTarget {
 }
 
 function sameTarget(left: ListBoardRequestTarget, right: ListBoardRequestTarget): boolean {
-  return left.kind === right.kind && (left.kind === "all" || left.id === right.id);
+  if (left.kind !== right.kind) return false;
+  if (left.kind === "all") return true;
+  return right.kind === "list" && left.id === right.id;
 }
 
 export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: FocusPanelProps) {
