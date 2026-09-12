@@ -37,6 +37,8 @@ Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-entry.md`.
 
 Implementation branch: `m6-focus-panel-hierarchy`.
 
+Pull request: **#102 — `M6: reproduce Focus Panel hierarchy`**.
+
 Current small-slice progress: **2/5**.
 
 ### Checkpoint 1/5 — COMPLETE: mandatory reconstruction + exact hierarchy/read-model contract
@@ -48,7 +50,7 @@ Current small-slice progress: **2/5**.
 
 ### Checkpoint 2/5 — COMPLETE: narrow hierarchy implementation + deterministic/visual coverage + semantic/diff review
 
-Reviewed implementation candidate before this checkpoint-only HANDOFF commit:
+Reviewed implementation candidate before checkpoint-only documentation:
 
 `c623807be632a1845cf2ce3ce2d9a5f5781ccf48`
 
@@ -61,15 +63,22 @@ Implemented scope:
 - authoritative timer changes refresh the planning projection when a typed transition occurs, preserving event-driven behavior;
 - hierarchy includes `All` list selector, Today, structural Preferences/Home/compact controls, aggregate EST/progress, active live card, remaining queue, All-list chips, overdue/schedule/subtask metadata, structural `+ ADD TASK`, Scheduled and Done groups;
 - item-3 controls whose behavior belongs to later ordered slices are visibly present but explicitly disabled/non-mutating rather than inventing premature semantics;
-- added compact source-evidenced ~340px Focus Panel styling using existing theme/geometry/motion tokens and reduced-motion handling;
-- added deterministic fixture `focus-panel-fixture.html` using the production `FocusPanel` component with authoritative-shaped fixture snapshots;
-- added Windows Edge light/dark capture and DOM/geometry validation for hierarchy order, active/remaining/scheduled/done content, All-list chips and panel geometry;
-- added `scripts/test-ui-focus-panel.mjs` and wired it into frontend preflight; Windows visual regression now captures/validates the Focus Panel fixture;
-- no Rust/Tauri source, schema/migration, timer engine, scheduling policy, dependencies/lockfile, Notes URL behavior, Floating Timer, preferences/shortcuts, Reports or release scope changed.
+- added compact source-evidenced ~340px styling using existing theme/geometry/motion tokens and reduced-motion handling;
+- added deterministic production-component fixture plus Windows Edge light/dark capture and DOM/geometry validation;
+- added `scripts/test-ui-focus-panel.mjs` to frontend preflight and Focus Panel fixture capture/validation to Windows visual regression;
+- no Rust/Tauri source, schema/migration, timer engine, scheduling policy, dependency/lockfile, Notes URL behavior, Floating Timer, preferences/shortcuts, Reports or release scope changed.
 
-Branch diff against reconciled base `4f0624a5d865d0ef5df9c5e68c44e9e25bea9fde` is limited to this HANDOFF, Focus Panel renderer/CSS, deterministic fixture/capture/validation/static gate, Vite fixture registration and package preflight wiring. The existing two-webview architecture is unchanged.
+### Exact PR CI state
 
-Local full Node/Rust preflight is **NOT RUN** in the connector-only environment. Authoritative exact-head Windows CI is required for TypeScript/Vite compilation, static gates, Edge captures, Rust regression checks and Tauri Release before checkpoint 3 may complete.
+- PR #102 initial exact head `a981941e4e95398cf23fd265c66cf863ac7506be` ran Windows CI #396 / run `34723207498` / job `103632684937` and **FAILED** at the TypeScript/Vite build inside Repository Preflight;
+- every preceding frontend/static gate passed on that head, including `test:ui-focus-panel`, the existing Focus-entry gate, Notes URL gate and all M5 UI contract gates;
+- the sole compiler failure was `src/FocusPanel.tsx(118,80): TS2339` because TypeScript did not narrow the second `ListBoardRequestTarget` union member before reading `right.id` in `sameTarget`;
+- Edge visual capture, Rust fmt/check/clippy/tests, Tauri Release and artifact uploads did not run because preflight stopped at the TypeScript build;
+- commit `13fb8258cacea6ddbe6511b72ea962dcbe860de9` applies only the evidence-backed narrowing fix: reject mismatched kinds, return true for `all`, then explicitly require `right.kind === "list"` before comparing IDs;
+- no product behavior, read-model, visual hierarchy or scope changed in the fix;
+- this HANDOFF commit follows that source correction, so a new authoritative exact-head Windows CI run is required before checkpoint 3 can complete.
+
+Local full Node/Rust preflight remains **NOT RUN** in the connector-only environment.
 
 ### Five checkpoints for this slice
 
@@ -93,7 +102,7 @@ Local full Node/Rust preflight is **NOT RUN** in the connector-only environment.
 
 ## NEXT AGENT ACTION
 
-Inspect/open the implementation PR for `m6-focus-panel-hierarchy` and require authoritative Windows CI on its exact current head. Check repository preflight including `test:ui-focus-panel`, TypeScript/Vite build, production Windows Edge visual regression including Focus Panel light/dark captures and validator, Rust fmt/check/clippy/tests, Tauri Release and required artifacts. Fix only evidence-backed failures. Do not increment checkpoint 3 until the exact PR head is fully green.
+Inspect PR #102 at its exact current head after this HANDOFF commit. Require authoritative Windows CI on that exact head. CI #396 was a single TypeScript union-narrowing failure and has been corrected exactly; do not rework behavior unless the new run produces evidence. Require Repository Preflight, production Windows Edge Focus Panel light/dark capture/validation, Rust fmt/check/clippy/tests, Tauri Release and both required artifact uploads before checkpoint 3. Then perform final exact-head review, expected-head guarded merge, resulting-main Windows CI and tracking reconciliation.
 
 ## USER ACTION REQUIRED
 
