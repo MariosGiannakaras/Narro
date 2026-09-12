@@ -16,7 +16,9 @@ Source/test SHA: `e142ff2f7d131570f01b5daf24d1122e4f219620`
 
 Source tree: `505e62200da03b8469e7036c241dcc1e45b06e78`
 
-This is the resulting-main source merge of PR #98. The markdown-only tracking commit containing this HANDOFF does not replace this source baseline.
+Latest reconciled main tracking tip before this feature branch: `0db81e3ad0128579ac5b173083c3565824a8485f`.
+
+Markdown-only tracking/checkpoint commits do not replace the validated source baseline.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
@@ -24,57 +26,68 @@ This is the resulting-main source merge of PR #98. The markdown-only tracking co
 
 Immutable evidence: `work-log/2026-09-12-2102-chatgpt-m5-archives.md`.
 
-Implementation/validation evidence:
-
-- implementation branch: `m5-archives`;
-- final exact PR head: `221b4c888294d563c13b5b280017ca1f59b77590`;
-- PR #98: `M5: add archived lists and done task surfaces`;
+- final exact PR #98 head `221b4c888294d563c13b5b280017ca1f59b77590`;
 - Windows PR CI #385 / run `34701194858` / job `103573146278`: **SUCCESS**;
-- PR visual artifact `10299679369`, digest `sha256:62839495d4c0704d3d8de5382f4a149f178b9a8e879993cf0e998c101da9a88d`;
-- PR diagnostic artifact `10300690015`, digest `sha256:166e901be83ed5e6b135fa29e9fbc2f6f43a95450c54c3fcd1184354eb81ad4a`;
-- final PR metadata: 25 commits / 20 changed files; no submitted reviews, issue comments, or inline review comments;
-- merge source SHA: `e142ff2f7d131570f01b5daf24d1122e4f219620`;
-- Windows main CI #386 / run `34701768320` / job `103574673946`: **SUCCESS**;
-- main visual artifact `10301150038`, digest `sha256:931157337934c352a0c0a52793d0e65468902f9b3e9ea12b9130de7ae57e4ca8`;
-- main diagnostic artifact `10300770757`, digest `sha256:c19f3397e0c56dc751475924f676f1569973a0493741f3c5c6a14954d0f8ed0a`.
-
-Completed capability:
-
-- one archive destination now exposes source-evidenced sibling `Archived lists` / `Archived done tasks` segments;
-- existing archived-list Restore and archive-only permanent deletion remain persistence-first and unchanged;
-- completed tasks on active lists strictly older than 60 days are automatically archived through an idempotent Rust/SQLite sweep using existing task archive state;
-- archived-list tasks are excluded from the active-list Archived Done Tasks projection;
-- normal task archival preserves identity, completion history, sessions and authoritative Time Taken/report eligibility;
-- Archived Done Tasks is read-only in this slice and provides local Search, `All Lists` / active-list filtering, and loading/error/empty/results states;
-- no speculative archived-task Restore/Delete controls were added because they are not evidenced by the current source surface;
-- dedicated deterministic fixtures and Windows Edge light/dark capture/DOM validation cover lists-empty, done-empty, filter-open and populated-results states;
-- no schema/dependency/lockfile, timer/session engine, scheduling, Notes, Focus Panel, Reports implementation, or account/cloud/integration source changed.
+- merged source SHA `e142ff2f7d131570f01b5daf24d1122e4f219620`;
+- Windows main CI #386 / run `34701768320` / job `103574673946`: **SUCCESS**.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
 **M5 item 27/28 — Light/dark/system theme.**
 
-No item-27 implementation branch or PR should be assumed from this reconciliation. Reconstruct exact current main/open-PR state before source changes.
+Implementation branch: `m5-theme-preference`.
 
-The existing shared theme-token and visual-fixture foundation from earlier M5 work is a validated dependency. Item 27 must implement the evidenced user preference (`System`, `Dark`, `Light`) and hierarchy-preserving runtime application/persistence without redesigning the token system or absorbing unrelated Preferences work from M8.
+Current small-slice progress: **1/5**.
+
+### Checkpoint 1/5 — COMPLETE: reconstruction + narrow contract
+
+Repository reconstruction established:
+
+- no open implementation PR existed when this branch was created;
+- `ThemePreference::{System, Dark, Light}` already exists in the authoritative Rust preferences domain and `PreferencesPayload.general.theme` defaults to `System`;
+- SQLite preferences persistence already round-trips the full payload through `get_preferences`, `initialize_preferences` and `save_preferences`;
+- `src/theme.css` already provides explicit `data-theme="light"`, `dark`, `system` selectors and `prefers-color-scheme: dark` resolution for System mode;
+- both `main` and `focusSurface` import the shared theme CSS indirectly through `App.css`, but neither currently loads persisted theme or listens for preference changes;
+- the current main `Settings` utility is only a placeholder;
+- current screenshot/source evidence shows a `General` Preferences section with a segmented `System / Dark / Light` theme control;
+- item 27 must not absorb timezone, hide-times, EST parsing, Pomodoro, alerts, monitor/side, celebration or other Milestone 8 preference families.
+
+Narrow implementation contract:
+
+1. Add a theme-specific renderer boundary over the existing authoritative preferences row; do not add schema or a parallel settings store.
+2. `get_theme_preference` initializes the existing default preferences row if absent and returns the persisted theme token.
+3. `set_theme_preference` validates `system|dark|light`, mutates only `general.theme`, preserves every other persisted preference field, commits through existing `save_preferences`, and returns the committed theme.
+4. After a committed theme change, emit one `theme-preference-changed` event to synchronize both webviews. A post-commit emit failure must be logged separately and must not report the committed preference write as failed.
+5. Add one minimal shared theme runtime provider used by both `main` and `focusSurface`. It loads the persisted preference on mount, applies it to `document.documentElement.dataset.theme`, listens for the cross-webview event, and avoids polling/duplicating authority.
+6. Keep `System` as the persisted/root token `system`; existing CSS media-query resolution follows Windows/WebView2 color-scheme changes without rewriting the stored preference.
+7. Add only the evidenced theme subsection to the current Settings destination: `Preferences` → `General` → `Theme` with System/Dark/Light segmented controls. User-visible selection changes only after persistence succeeds; failures keep the prior applied theme and surface an alert.
+8. Theme changes are presentation/preferences-only and must not reset or mutate task/list/timer/session/scheduling state.
+9. Add deterministic Rust preservation/idempotence tests, frontend static contracts, and Windows Edge theme-preference fixtures/DOM validation. Existing broad light/dark fixture coverage remains the hierarchy-preserving visual baseline.
+10. No dependency/lockfile/schema change is expected.
+
+## FIVE CHECKPOINTS FOR THIS SLICE
+
+1. reconstruction + narrow theme contract — **COMPLETE**;
+2. implementation + deterministic/runtime coverage + semantic/diff review — pending;
+3. exact PR-head Windows CI — pending;
+4. final exact-head review + expected-head guarded merge — pending;
+5. resulting-main Windows CI + `TODO.md`/`STATUS.md`/`HANDOFF.md`/immutable work-log reconciliation — pending.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
-- list/task/subtask identities remain stable across edit/archive/restore/reorder/move;
-- renderer success is published only after authoritative local mutation succeeds;
-- list archive/restore preserves history and owned assets; permanent list deletion remains explicit, archive-only and irreversible;
-- automatic done-task archival is idempotent, strict at the 60-day boundary, and preserves historical task/session data;
-- archived-list tasks are not duplicated into the active-list archived-done projection;
-- `All Lists` remains a synthetic aggregate/read-only identity, never persisted as a mutable user list;
-- Search remains local/read-only; its quick task mutation continues to use the existing persistence-first create boundary;
-- timer/session/Time Taken, scheduling/date-only/timezone/recurrence/reminders and Notes behavior remain unchanged;
+- authoritative preferences remain local SQLite-backed domain state; renderer state is projection only;
+- setting theme preserves all non-theme preference fields;
+- committed local mutations are never reported as failed because a secondary event broadcast fails;
+- both normal webviews consume the same persisted theme and do not create separate theme authority;
+- System mode follows the OS/browser color scheme through the existing CSS media query, with no polling;
+- list/task/subtask identities, archives, Search, timer/session/Time Taken, scheduling/date-only/timezone/recurrence/reminders and Notes behavior remain unchanged;
+- theme changes must not destroy/recreate a webview or reset authoritative runtime state;
 - keyboard/focus-visible access and reduced-motion behavior remain required;
-- theme changes must be presentation/preferences only and may not reset authoritative domain/runtime state;
 - no auth/cloud/telemetry/trial/upgrade/profile/AI/integration authority is introduced.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Re-run the mandatory startup sequence from the current repository. Confirm `main` includes the item-26 reconciliation tracking commit, confirm no unfinished implementation PR supersedes it, then reconstruct the exact item-27 theme contract from `TODO.md`, `STATUS.md`, `docs/UI_UX_SPEC.md`, `docs/PRODUCT_SPEC.md`, current theme-token/CSS/fixture code, and existing preferences persistence. Determine where `System` resolves to the Windows/browser color scheme, how the selection is persisted, and how both normal webviews consume it without duplicating authority. Only then create a coherent item-27 branch and deterministic Windows coverage. Do not absorb other M8 Preferences families or the final M5 cloud/account-control removal item.
+Continue checkpoint 2 on `m5-theme-preference`: implement the theme-specific Rust command/event boundary, shared main/focus runtime provider, theme-only Settings surface, deterministic tests and Windows Edge fixture/DOM validation. Review the full branch diff against `0db81e3ad0128579ac5b173083c3565824a8485f` before opening a PR. Full local preflight is unavailable in the connector environment; use static/semantic checks available here, then require authoritative Windows CI on the exact PR head.
 
 ## USER ACTION REQUIRED
 
@@ -82,5 +95,5 @@ Re-run the mandatory startup sequence from the current repository. Confirm `main
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks theme reconstruction.
+- No product/user decision blocks item 27.
 - Full local repository preflight is unavailable in this connector environment; Windows GitHub Actions remains authoritative for Rust/Tauri validation.
