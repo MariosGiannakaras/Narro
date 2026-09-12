@@ -12,81 +12,78 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 26 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 27 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-The first twenty-six ordered M5 items are fully main validated. The latest completed item is **Archived lists/tasks surfaces**. The next ordered item is **Light/dark/system theme**.
+The first twenty-seven ordered M5 items are fully main validated. The latest completed item is **Light/dark/system theme**. The next ordered item is **Remove all account/trial/upgrade/cloud/integration controls**.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`e142ff2f7d131570f01b5daf24d1122e4f219620`
+`40ac4acabea105e82a1f1a1211436bda628d4526`
 
 Tree:
 
-`505e62200da03b8469e7036c241dcc1e45b06e78`
+`0e7dc95db73a5577cc83ff4aa7c933ae9aba906d`
 
-This is the merge of PR #98 — `M5: add archived lists and done task surfaces` — from exact validated PR head `221b4c888294d563c13b5b280017ca1f59b77590`.
+This is the squash merge of PR #99 — `M5: add persisted light dark and system theme` — from exact validated PR head `048f5009e5cee07cb78544f7ccd6290c43f33980`.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
-### PR #98 exact-head validation
+### PR #99 exact-head validation
 
-Windows PR CI #385:
+Windows PR CI #388:
 
-- run `34701194858`, job `103573146278`, conclusion **SUCCESS**;
-- exact head `221b4c888294d563c13b5b280017ca1f59b77590`;
+- run `34711580262`, job `103601188758`, conclusion **SUCCESS**;
+- exact head `048f5009e5cee07cb78544f7ccd6290c43f33980`;
 - Repository Preflight: **SUCCESS**;
-- production Windows Edge archive capture/DOM validation: **SUCCESS**;
+- production Windows Edge theme-settings capture/DOM validation: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - diagnostic artifact upload: **SUCCESS**;
-- visual artifact `10299679369`, digest `sha256:62839495d4c0704d3d8de5382f4a149f178b9a8e879993cf0e998c101da9a88d`;
-- diagnostic artifact `10300690015`, digest `sha256:166e901be83ed5e6b135fa29e9fbc2f6f43a95450c54c3fcd1184354eb81ad4a`;
-- final PR metadata: 25 commits / 20 changed files; no submitted reviews, issue comments, or inline review comments.
+- visual artifact `10303218552`, digest `sha256:af6a8261abb3693e3123a4551daa6f91db1c862ad49bc01712582013898ffb7b`;
+- diagnostic artifact `10303194119`, digest `sha256:77b60fa4bca214ca8bb5b30f9a349a6a7fac8b3996626559b2223d49ab8cc3e9`;
+- final PR scope: 17 changed files, all within theme IPC/runtime/UI/static/Windows-capture wiring and checkpoint documentation; no submitted reviews or PR comments.
 
 ### Resulting-main validation
 
-Windows main CI #386:
+Windows main CI #389:
 
-- run `34701768320`, job `103574673946`, conclusion **SUCCESS**;
-- exact source SHA `e142ff2f7d131570f01b5daf24d1122e4f219620`;
-- Repository Preflight: **SUCCESS**;
-- production Windows Edge archive capture/DOM validation: **SUCCESS**;
-- visual artifact upload: **SUCCESS**;
-- Tauri Release: **SUCCESS**;
-- diagnostic artifact upload: **SUCCESS**;
-- visual artifact `10301150038`, digest `sha256:931157337934c352a0c0a52793d0e65468902f9b3e9ea12b9130de7ae57e4ca8`;
-- diagnostic artifact `10300770757`, digest `sha256:c19f3397e0c56dc751475924f676f1569973a0493741f3c5c6a14954d0f8ed0a`.
+- run `34712441687`, rerun job `103608683661`, conclusion **SUCCESS**;
+- exact source SHA `40ac4acabea105e82a1f1a1211436bda628d4526`;
+- attempt 1 job `103603519635` reached successful Repository Preflight and was cancelled by the workflow's 30-minute job timeout while visual capture was running; no test failure was recorded;
+- rerun attempt 2 completed Repository Preflight, production Windows Edge theme-settings capture/DOM validation, visual artifact upload, Tauri Release and diagnostic artifact upload successfully;
+- visual artifact `10303868283`, digest `sha256:7322bd3cb3cca9cf7726ccc08819ce253dc8c113d3109c200f501c0ec51fe776`;
+- diagnostic artifact `10304293100`, digest `sha256:624df25ab71fc867fb06f14021eaed7133b88f4f4ab8d98089b721ac40388712`.
 
-Detailed immutable evidence is recorded in `work-log/2026-09-12-2102-chatgpt-m5-archives.md`.
+Detailed immutable evidence is recorded in `work-log/2026-09-12-chatgpt-m5-theme-preference.md`.
 
 ## Milestone 5 — validated ordered work
 
-Validated top-level items 1–25 remain as previously recorded. Item 26 is now additionally validated:
+Validated top-level items 1–26 remain as previously recorded. Item 27 is now additionally validated:
 
-26. Archived lists/tasks surfaces compose the source-evidenced `Archived lists` / `Archived done tasks` sibling archive view; retain validated list restore/delete behavior; automatically archive eligible completed tasks strictly older than 60 days; and expose local read-only archived-done search/filter/empty/results states with deterministic Windows Edge coverage.
+27. Light/dark/system theme persists `System`, `Dark`, or `Light` through the existing SQLite preference authority, projects the same committed theme into both normal webviews, follows Windows/WebView2 color mode in System mode through the existing CSS media query, and exposes the evidenced Preferences → General → Theme segmented control with deterministic Windows coverage.
 
-### Latest completed: Archived lists/tasks surfaces
+### Latest completed: Light/dark/system theme
 
 Validated behavior includes:
 
-- `ArchivePanel` composes sibling `Archived lists` and `Archived done tasks` segments in the existing archive destination;
-- existing archived-list Restore and archive-only permanent-delete flows remain persistence-first and unchanged;
-- completed tasks on active lists strictly older than 60 days are moved into task archive through an idempotent authoritative Rust/SQLite sweep using existing `completed_at` / `archived_at` fields;
-- archived-list tasks are excluded from the active-list Archived Done Tasks projection, preventing duplicate archive presentation;
-- archived task rows preserve task identity, completion history and authoritative Time Taken/session accounting;
-- Archived Done Tasks is read-only in this slice and provides local case-insensitive Search, `All Lists` / active-list filtering, deterministic loading/error/empty/results states, and no invented restore/delete controls;
-- board reads run the same Rust-owned archive snapshot/sweep before projecting Done so stale completed tasks are not retained visually;
-- deterministic static checks plus dedicated Windows Edge light/dark captures cover lists-empty, done-empty, filter-open and populated-results states;
-- no schema/dependency/lockfile, timer/session engine, scheduling, Notes, Focus Panel, Reports implementation or account/cloud/integration authority changed.
+- the existing `ThemePreference::{System, Dark, Light}` preference remains the single persisted authority; no schema or dependency change was needed;
+- `set_theme_preference` mutates only `general.theme`, preserves all unrelated preferences and returns success only after the SQLite write commits;
+- a post-commit cross-window event failure is logged separately and cannot turn a committed preference write into a renderer-visible failed mutation;
+- `ThemeRuntimeProvider` runs in both `main` and `focusSurface`, listens before the initial persisted read, validates incoming tokens and performs no polling;
+- System remains the persisted/root `system` token and follows the OS/WebView2 `prefers-color-scheme` media query without rewriting persistence;
+- Settings now exposes only the evidenced General → Theme System/Dark/Light control for this slice, with accessible group/pressed semantics, pending state and error rollback;
+- the focus diagnostic presentation consumes semantic theme tokens rather than hard-coded dark presentation values;
+- deterministic Rust/static tests and production Windows Edge fixtures cover System, Dark, Light and failed-save states;
+- no timer/session, scheduling, archive, Notes, Reports, account/cloud/integration authority or unrelated Milestone 8 preference family changed.
 
 ### Next ordered M5 item
 
-`Light/dark/system theme.`
+`Remove all account/trial/upgrade/cloud/integration controls.`
 
-Implement only the evidenced theme preference and hierarchy-preserving runtime theme behavior. Reuse the existing shared theme tokens/fixtures; do not absorb the final M5 account/cloud-control removal item, later Focus Panel, Reports, or unrelated preference families.
+This final M5 slice must remove or prove absent excluded service/account surfaces without deleting legitimate local Settings/Search/Reports/list/task controls or introducing replacement cloud/account behavior. Use the existing source-evidence exclusions and current implementation; do not start Milestone 6 until this item is implemented, exact-head validated, merged, resulting-main validated, and tracking reconciled.
 
 ## Durable correctness decisions
 
@@ -95,12 +92,13 @@ Future work must preserve:
 - Narro remains personal, local-only Windows 10/11 x64 software; no auth/cloud/telemetry/integration authority is introduced.
 - Tauri 2 + React/TypeScript + authoritative Rust/domain state + SQLite remains the validated architecture.
 - `main` and reusable `focusSurface` are the normal two-webview model; presentation changes must not duplicate authoritative runtime state.
-- authoritative task/list/session/timer/scheduling/note/archive state lives outside renderer memory; persistence-first mutations remain the success boundary.
+- authoritative task/list/session/timer/scheduling/note/archive/preferences state lives outside renderer memory; persistence-first mutations remain the success boundary.
 - stable task/subtask/list identities, tracked Time Taken, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress.
 - list archive/restore preserves history; permanent list deletion remains explicit, archive-only and irreversible.
 - automatic done-task archival is idempotent and preserves normal historical/session data; permanent deletion semantics remain distinct.
 - archived-list tasks must not be duplicated into the active-list Archived Done Tasks projection.
 - Search remains local/read-only; quick task creation must continue to use the existing persistence-first create path with explicit list/lane selection.
+- theme is local SQLite-backed preference state; both normal webviews project the same committed theme, and System follows OS/browser color mode without polling.
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from focus/session/window transitions.
 - hover/focus/edit interactions may not reflow task/list card geometry or move hit targets.
 - keyboard/focus-visible equivalents and accessible names/tooltips remain required for icon-only actions.

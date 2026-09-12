@@ -210,7 +210,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] List settings: name, icon, archive/delete flows.
 - [x] Search / quick-actions palette with keyboard-first behavior.
 - [x] Archived lists/tasks surfaces.
-- [ ] Light/dark/system theme.
+- [x] Light/dark/system theme.
 - [ ] Remove all account/trial/upgrade/cloud/integration controls.
 
 Acceptance criteria:
