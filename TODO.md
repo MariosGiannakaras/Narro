@@ -211,7 +211,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Search / quick-actions palette with keyboard-first behavior.
 - [x] Archived lists/tasks surfaces.
 - [x] Light/dark/system theme.
-- [ ] Remove all account/trial/upgrade/cloud/integration controls.
+- [x] Remove all account/trial/upgrade/cloud/integration controls.
 
 Acceptance criteria:
 
@@ -223,6 +223,8 @@ Acceptance criteria:
 - reduced-motion mode remains fully usable
 - no dead controls exist for excluded features
 - keyboard navigation remains usable
+
+**Gate E result: PASS / proceed to Milestone 6.** All 28 ordered Milestone 5 items are validated on authoritative Windows CI. PR #100 exact head `db78e0d6adebd51ab9e56a81185e4dac0206d1c5` passed Windows CI #390; expected-head guarded squash merge `c89526dbc40742570d8d89353244add2d6350d2d` passed resulting-main Windows CI #391.
 
 ## Milestone 6 — Blitz Mode / Focus Panel
 
