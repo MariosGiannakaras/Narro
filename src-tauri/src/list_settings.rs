@@ -99,7 +99,9 @@ impl Display for ListSettingsError {
             Self::TaskMetadata(error) => {
                 write!(formatter, "archived task metadata read failed: {error}")
             }
-            Self::Sqlite(error) => write!(formatter, "archive snapshot persistence failed: {error}"),
+            Self::Sqlite(error) => {
+                write!(formatter, "archive snapshot persistence failed: {error}")
+            }
             Self::ExpectedArchived(id) => {
                 write!(
                     formatter,
@@ -107,10 +109,16 @@ impl Display for ListSettingsError {
                 )
             }
             Self::InvalidStoredTaskId(id) => {
-                write!(formatter, "archive snapshot contains invalid task identity: {id}")
+                write!(
+                    formatter,
+                    "archive snapshot contains invalid task identity: {id}"
+                )
             }
             Self::InvalidStoredListId(id) => {
-                write!(formatter, "archive snapshot contains invalid list identity: {id}")
+                write!(
+                    formatter,
+                    "archive snapshot contains invalid list identity: {id}"
+                )
             }
             Self::InvalidStoredCompletedTimestamp(id) => write!(
                 formatter,
@@ -573,12 +581,8 @@ mod tests {
             "Archived list done task",
             "2026-07-01T00:00:00Z",
         );
-        archive_list(
-            &mut connection,
-            archived_list.id,
-            "2026-07-02T00:00:00Z",
-        )
-        .expect("archive fixture list");
+        archive_list(&mut connection, archived_list.id, "2026-07-02T00:00:00Z")
+            .expect("archive fixture list");
 
         let now = DateTime::parse_from_rfc3339("2026-09-12T00:00:00Z")
             .expect("parse now")
@@ -648,7 +652,10 @@ mod tests {
         persistence::configure_connection(&connection).expect("configure database");
         let persisted = get_task(&connection, task_id).expect("reload archived task");
         assert_eq!(persisted.id, task_id);
-        assert_eq!(persisted.completed_at.as_deref(), Some("2026-07-01T00:00:00Z"));
+        assert_eq!(
+            persisted.completed_at.as_deref(),
+            Some("2026-07-01T00:00:00Z")
+        );
         assert!(persisted.archived_at.is_some());
 
         drop(connection);
