@@ -11,11 +11,22 @@
   color: var(--color-text-primary);
 }
 
+.archived-lists-panel--embedded {
+  max-width: none;
+  margin-top: var(--space-5);
+  padding: 0;
+}
+
 .archived-lists-panel__header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--space-5);
+}
+
+.archived-lists-panel__embedded-helper {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .archived-lists-panel__header h1,
@@ -165,6 +176,10 @@
 @media (max-width: 48rem) {
   .archived-lists-panel {
     padding: var(--space-4);
+  }
+
+  .archived-lists-panel--embedded {
+    padding: 0;
   }
 
   .archived-list-row {
