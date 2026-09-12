@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { getArchiveSnapshot } from "./listSettingsApi";
 
 export type ListBoardTargetKind = "list" | "all_lists";
 
@@ -197,9 +198,10 @@ export function systemDisplayTimezone(): string {
   return timezone;
 }
 
-export function getListBoardSnapshot(
+export async function getListBoardSnapshot(
   target: ListBoardRequestTarget,
 ): Promise<ListBoardSnapshot> {
+  await getArchiveSnapshot();
   return invoke<ListBoardSnapshot>("get_list_board_snapshot", {
     listId: target.kind === "list" ? target.id : null,
     displayTimezone: systemDisplayTimezone(),
