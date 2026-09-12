@@ -47,7 +47,7 @@ for (const [haystack, needle, label] of [
   [shell, 'event.key.toLowerCase() !== "f"', "main-app Ctrl+F binding"],
   [shell, '<SearchPalette', "production palette mount"],
   [shell, 'onAddList={openCreateList}', "validated list-create reuse"],
-  [fixture, 'data.searchPaletteFixtureReady', "fixture readiness marker"],
+  [fixture, 'dataset.searchPaletteFixtureReady', "fixture readiness marker"],
   [vite, 'searchPaletteFixture: "search-palette-fixture.html"', "Vite fixture input"],
   [capture, 'search-palette-fixture.html', "Windows Edge search fixture capture"],
   [validator, 'Search palette capture validation passed.', "captured-DOM validator"],
