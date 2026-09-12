@@ -208,7 +208,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Provide a larger/resizable Notes editing presentation in addition to compact inline focus access.
 - [x] Use WebView/browser spellcheck where practical.
 - [x] List settings: name, icon, archive/delete flows.
-- [ ] Search / quick-actions palette with keyboard-first behavior.
+- [x] Search / quick-actions palette with keyboard-first behavior.
 - [ ] Archived lists/tasks surfaces.
 - [ ] Light/dark/system theme.
 - [ ] Remove all account/trial/upgrade/cloud/integration controls.

@@ -12,78 +12,79 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
-- Milestone 5: **ACTIVE / 24 of 28 top-level items validated**.
+- Milestone 5: **ACTIVE / 25 of 28 top-level items validated**.
 - Milestones 6–10: **NOT STARTED**.
 
-The first twenty-four ordered M5 items are fully main validated. The latest completed item is **List settings: name, icon, archive/delete flows**. The next ordered item is **Search / quick-actions palette with keyboard-first behavior**.
+The first twenty-five ordered M5 items are fully main validated. The latest completed item is **Search / quick-actions palette with keyboard-first behavior**. The next ordered item is **Archived lists/tasks surfaces**.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`69c98ea107090e31589bb58299de603652336228`
+`16552791479e6621deca6fa146b0cfc9a3301734`
 
 Tree:
 
-`0ae45142388df4dde7546c14ed1f1cf5b59d8c73`
+`290abfbc28e79eeb6ea0ab38e18989c759a8eea5`
 
-This is the expected-head guarded merge of PR #96 — `M5: add list settings archive and delete flows`.
+This is the expected-head guarded merge of PR #97 — `M5: add keyboard-first local search palette`.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
-### PR #96 exact-head validation
+### PR #97 exact-head validation
 
-Final validated PR head: `0a17f510f92fdb5bd364933cca04ce95624e755b`.
+Final validated PR head: `ac21ecfff142f5b131d16b153fa7f23c37e336b2`.
 
-Windows PR CI #378:
+Windows PR CI #380:
 
-- run `34655658720`, job `103447372737`, conclusion **SUCCESS**;
-- exact head `0a17f510f92fdb5bd364933cca04ce95624e755b`;
-- Repository Preflight, production Edge list-settings capture/DOM validation, Tauri Release and diagnostic artifact upload: **PASS**;
-- visual artifact `10286345586`, digest `sha256:7252b8f053ef4316c72a1c3325fba5afd0a767741d48178edc4392035264902e`;
-- diagnostic artifact `10285591255`, digest `sha256:7d467a95a6f0c4054ad4adf2ec0b853674afa6645ea488bf0aa27dbefc9408fe`;
-- final exact-head review: mergeable, 31 commits ahead / 0 behind its base, no submitted reviews, no unresolved review threads;
-- the post-review CI fixes were limited to stale deterministic guards, rustfmt-only formatting, and explicit SQLite connection drops in Windows test cleanup; no new product scope was added.
+- run `34679557187`, job `103515510436`, conclusion **SUCCESS**;
+- exact head `ac21ecfff142f5b131d16b153fa7f23c37e336b2`;
+- Repository Preflight, production Edge search-palette capture/DOM validation, Tauri Release and diagnostic artifact upload: **PASS**;
+- visual artifact `10293842373`, digest `sha256:7af4349267134d038686f476c15545ab1401b448f0b5ae4d652e53c1a888916b`;
+- diagnostic artifact `10293942591`, digest `sha256:445eba5a3e04419e97a02e7f410f9b24d3a478a19af10a4a3e8f2f57926317a5`;
+- final exact-head review: mergeable, 16 PR commits / 12 changed files, no submitted reviews and no unresolved review threads;
+- final diff remained frontend-only search/AppShell/fixture/test/capture/tracking scope; no Rust/Tauri/SQLite/schema/domain source changed.
 
-Expected-head guarded merge produced main source SHA `69c98ea107090e31589bb58299de603652336228`.
+Expected-head guarded merge produced main source SHA `16552791479e6621deca6fa146b0cfc9a3301734`.
 
 ### Resulting-main validation
 
-Windows main CI #379:
+Windows main CI #381:
 
-- run `34656547631`, job `103450115073`, conclusion **SUCCESS**;
-- exact source SHA `69c98ea107090e31589bb58299de603652336228`;
-- Repository Preflight, production Edge list-settings capture/DOM validation, Tauri Release and diagnostic artifact upload: **PASS**;
-- visual artifact `10286422012`, digest `sha256:9fdbdc0f96ae93c6d24b6be8b069e9ac7e49415846408af61b3568177e3fd848`;
-- diagnostic artifact `10285427967`, digest `sha256:b8f1f479c2ff8fe45075406980151d0ea887be369295cabafa11c14c24942678`.
+- run `34682513395`, job `103523630237`, conclusion **SUCCESS**;
+- exact source SHA `16552791479e6621deca6fa146b0cfc9a3301734`;
+- Repository Preflight, production Edge search-palette capture/DOM validation, Tauri Release and diagnostic artifact upload: **PASS**;
+- visual artifact `10294496874`, digest `sha256:efcd0975f97abf892938ba2fbda1ad4d1f62e1a82fb754b63d31a69323d7f632`;
+- diagnostic artifact `10294497209`, digest `sha256:4880b908e4092395f6717a5fa1bc55885ab9eeca1361a1ff61dccea24e03a506`.
 
-Detailed immutable evidence is recorded in `work-log/2026-09-12-0220-chatgpt-m5-list-settings.md`.
+Detailed immutable evidence is recorded in `work-log/2026-09-12-1123-chatgpt-m5-search-palette.md`.
 
 ## Milestone 5 — validated ordered work
 
-Validated top-level items 1–23 remain as previously recorded. Item 24 is now additionally validated:
+Validated top-level items 1–24 remain as previously recorded. Item 25 is now additionally validated:
 
-24. List settings reuse the validated Edit List path for name/icon/color, provide persistence-first active-list Archive with explicit confirmation, and expose minimal authoritative Archived Lists management for Restore and archive-only permanent deletion.
+25. Search / quick-actions palette opens from the main Search utility and `Ctrl+F`, searches active local tasks/lists without introducing a new persistence authority, supports keyboard-first traversal/focus containment/dismissal, and exposes only the evidenced Add task / Add list / Reports quick actions.
 
-### Latest completed: List settings
+### Latest completed: Search / quick-actions palette
 
 Validated behavior includes:
 
-- existing Create/Edit List persistence and owned-icon validation remain the name/icon/color settings path rather than a parallel editor;
-- active Home list cards expose Archive through an explicit focus-contained destructive confirmation and publish success only after `archive_list_from_settings` resolves;
-- archived list summaries come from authoritative SQLite and the production Archived lists destination exposes Restore plus archive-only permanent deletion;
-- Restore and permanent-delete renderer state changes happen only after the local mutation succeeds; failures keep the relevant surface open with an error;
-- permanent deletion commits the database delete first, then performs best-effort cleanup only for app-owned `list-icons/<filename>` assets; cleanup failure cannot turn a committed deletion into a reported mutation failure;
-- archive/restore preserves list/task/history identity and `All Lists` remains a synthetic non-mutable aggregate;
-- confirmation behavior includes modal semantics, Escape dismissal, Tab containment, initial Cancel focus and opener focus restoration;
-- deterministic source gates and real Windows Edge light/dark captures cover active Archive, archived-list Restore and permanent-delete confirmation;
-- no task/timer/Notes/scheduling/schema/search/theme/Focus Panel behavior was absorbed into the slice.
+- the Search utility and main-window `Ctrl+F` open the same centered modal palette; no focus-surface/Blitz search shortcut was introduced;
+- active lists come from the existing Home snapshot and active-workspace tasks come from the existing All Lists board snapshot, so searching remains local/read-only and adds no Rust/SQLite/schema/network authority;
+- matching is case-insensitive by task/list title with deterministic loading, error, results and no-results states;
+- list/task result activation is navigation-only and does not mutate task/list state;
+- the only quick actions are `Add new task`, `Add new list`, and `Go to Reports`, matching source evidence;
+- quick task creation requires explicit title/list/planning lane, reuses `createListBoardTask`, retains the form on failure, and transitions only after committed success;
+- Add new list reuses the validated List Editor create path; Reports uses existing navigation;
+- keyboard behavior includes initial query focus, Arrow Up/Down option traversal, focused-button Enter activation, Tab containment, Escape/backdrop dismissal and opener focus restoration;
+- deterministic static gates and real Windows Edge light/dark captures cover quick actions, matches, no-results and quick-task-create states;
+- archived list/task parity, theme switching, Focus Panel, Reports implementation and account/cloud/integration controls remained out of scope.
 
 ### Next ordered M5 item
 
-`Search / quick-actions palette with keyboard-first behavior.`
+`Archived lists/tasks surfaces.`
 
-Treat this as a focused keyboard-first search/command surface. Reconstruct current source/spec evidence before choosing its command/search scope. Do not absorb the later full archived lists/tasks surface, theme work, Focus Panel work, reports, cloud/account controls, or speculative command behavior unsupported by repository product evidence.
+Treat this as a focused archive-parity slice. Start from the already validated minimal `ArchivedListsPanel` and the existing authoritative archive/persistence semantics. Reconstruct source/spec evidence for archived lists versus archived/done tasks before expanding the production surface. Preserve archive/restore identity/history, archive-only permanent list deletion, report-history semantics, and persistence-first UI publication. Do not absorb the later theme item, Focus Panel, Reports implementation or excluded cloud/account controls.
 
 ## Durable correctness decisions
 
@@ -96,6 +97,7 @@ Future work must preserve:
 - stable task/subtask/list identities, tracked Time Taken, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress.
 - list archive/restore preserves history; permanent list deletion remains explicit, archive-only and irreversible.
 - post-commit owned-icon cleanup is best effort and cannot redefine a committed database deletion as failed.
+- Search remains local/read-only; quick task creation must continue to use the existing persistence-first create path with explicit list/lane selection.
 - Notes use one mounted compact/large editor/draft path; presentation switching cannot discard unsaved rich text.
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from focus/session/window transitions.
 - Notes spellcheck remains a native user-agent hint only; no Narro remote spelling service, custom dictionary, persistence schema or automatic text mutation.
