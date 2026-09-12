@@ -13,6 +13,7 @@ const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 
 type ArchivedListsPanelProps = {
   fixtureLists?: ArchivedListSummary[];
+  embedded?: boolean;
 };
 
 function listAccent(color: string | null): CSSProperties | undefined {
@@ -20,7 +21,7 @@ function listAccent(color: string | null): CSSProperties | undefined {
   return { "--archived-list-accent": color } as CSSProperties;
 }
 
-export function ArchivedListsPanel({ fixtureLists }: ArchivedListsPanelProps) {
+export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedListsPanelProps) {
   const [lists, setLists] = useState<ArchivedListSummary[] | null>(fixtureLists ?? null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [pendingRestoreId, setPendingRestoreId] = useState<string | null>(null);
@@ -85,14 +86,25 @@ export function ArchivedListsPanel({ fixtureLists }: ArchivedListsPanelProps) {
   }
 
   return (
-    <section className="archived-lists-panel" data-archived-lists-panel="true" aria-labelledby="archived-lists-title">
-      <header className="archived-lists-panel__header">
-        <div>
-          <p className="archived-lists-panel__eyebrow type-metadata">Archive</p>
-          <h1 id="archived-lists-title" className="type-page-title">Archived lists</h1>
+    <section
+      className={`archived-lists-panel${embedded ? " archived-lists-panel--embedded" : ""}`}
+      data-archived-lists-panel="true"
+      aria-labelledby={embedded ? undefined : "archived-lists-title"}
+      aria-label={embedded ? "Archived lists" : undefined}
+    >
+      {embedded ? (
+        <div className="archived-lists-panel__embedded-helper">
+          <span className="archived-lists-panel__helper type-metadata">Your archived lists</span>
         </div>
-        <span className="archived-lists-panel__helper type-metadata">Your archived lists</span>
-      </header>
+      ) : (
+        <header className="archived-lists-panel__header">
+          <div>
+            <p className="archived-lists-panel__eyebrow type-metadata">Archive</p>
+            <h1 id="archived-lists-title" className="type-page-title">Archived lists</h1>
+          </div>
+          <span className="archived-lists-panel__helper type-metadata">Your archived lists</span>
+        </header>
+      )}
 
       <p className="archived-lists-panel__scope-note">
         Restore a list to return it to your active workspace. Permanent deletion is available only here in the archive.
