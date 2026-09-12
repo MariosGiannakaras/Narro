@@ -30,8 +30,6 @@ Immutable evidence: `work-log/2026-09-12-0220-chatgpt-m5-list-settings.md`.
 - Windows PR CI #378 / run `34655658720` / job `103447372737`: **SUCCESS**.
 - Expected-head merge source SHA `69c98ea107090e31589bb58299de603652336228`.
 - Windows main CI #379 / run `34656547631` / job `103450115073`: **SUCCESS**.
-- Main visual artifact `10286422012`, digest `sha256:9fdbdc0f96ae93c6d24b6be8b069e9ac7e49415846408af61b3568177e3fd848`.
-- Main diagnostic artifact `10285427967`, digest `sha256:b8f1f479c2ff8fe45075406980151d0ea887be369295cabafa11c14c24942678`.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
@@ -43,24 +41,41 @@ Slice base: tracking tip `f58c35f334d46bee065c9ff050d5e1bbe2a8754f`; validated s
 
 ### Checkpoint 1 — COMPLETE: reconstruction + narrow search contract
 
-Repository/GitHub evidence:
+- no open M5 implementation PR existed at slice start and main remained at `f58c35f...`;
+- source evidence fixes the palette shape: centered/dimmed, `Ctrl+F`, `Search for tasks, lists`, and exactly `Add new task`, `Add new list`, `Go to Reports` quick actions;
+- Search remains main-app only and unavailable in Blitz/focus surface;
+- active local tasks/lists only are searchable; archive search belongs to the next ordered archives item;
+- existing `get_home_snapshot` + All Lists board snapshot are sufficient read authorities; no new Rust/SQLite/schema/network authority;
+- list/task result activation is navigation-only;
+- quick task creation reuses `createListBoardTask` and requires explicit title/list/lane rather than inventing a default;
+- Add new list reuses the validated List Editor; Reports is navigation only;
+- keyboard contract includes query autofocus, Arrow Up/Down traversal, normal button Enter activation, Tab containment, Escape/backdrop dismissal and opener focus restoration.
 
-- no open M5 implementation PR existed at slice start;
-- current main stayed at tracking tip `f58c35f334d46bee065c9ff050d5e1bbe2a8754f`;
-- source-product evidence shows a centered dimmed search palette opened by `Ctrl+F`, placeholder `Search for tasks, lists`, and only three evidenced quick actions: `Add new task`, `Add new list`, `Go to Reports`;
-- official shortcut evidence says Search is unavailable in Blitz Mode; Narro main/focus bundles are separate, so this slice binds `Ctrl+F` only inside the main `AppShell` and introduces no focus-surface search behavior;
-- Narro product spec limits main search results to local tasks and lists; this slice searches the active workspace only and deliberately excludes archived-list/task search because full archives are the next ordered M5 item;
-- existing `get_home_snapshot` already supplies authoritative active lists and `get_list_board_snapshot` with the All Lists target already supplies authoritative active task rows across planning lanes, so no new Rust/SQLite search authority or schema is required;
-- result activation is navigation-only: list results open that list board; task results open the owning list board. Opening/searching never mutates the database;
-- the existing `createListBoardTask` boundary remains authoritative for the `Add new task` quick action. Because repository evidence does not establish a safe implicit list/lane default, the quick-create state requires explicit list + planning lane + title and publishes success only after the existing mutation resolves;
-- `Add new list` reuses the validated List Editor create path; `Go to Reports` is navigation only;
-- keyboard contract: opener/Search button and `Ctrl+F`, initial focus in query input, Arrow Up/Down option traversal, Enter through the focused option/action, Tab containment, Escape/backdrop dismissal, and opener focus restoration on dismissal; action/navigation transitions suppress stale focus restoration;
-- no generic command framework, remote search, notes/subtask search, archive search, theme work, Focus Panel behavior, reports implementation, or account/cloud/integration surface is added.
+### Checkpoint 2 — COMPLETE: implementation + deterministic/runtime coverage + semantic review
+
+Reviewed implementation candidate before this HANDOFF-only checkpoint commit:
+
+`981480e0956112d54b4eb8c673d7220d3933a5bc`
+
+Implemented scope:
+
+- `src/searchPaletteApi.ts` projects authoritative active lists plus All Lists board tasks into a minimal local search model and defensively deduplicates task IDs;
+- `src/SearchPalette.tsx` implements the production modal search/quick-action surface, local case-insensitive title matching, no-results/error/loading states, result navigation, keyboard/focus containment and focus restoration;
+- quick task creation validates non-empty title plus explicit active list and Backlog/This Week/Today lane, awaits the existing `createListBoardTask` mutation, preserves the form on failure, and only transitions after committed success;
+- `src/AppShell.tsx` maps both the Search utility button and main-only `Ctrl+F` to the same overlay while preserving list-editor/archive-confirm exclusivity; list/task results open list boards, Add list reuses the existing editor, and Reports uses existing navigation;
+- deterministic fixture states cover empty/quick-actions, search results, no-results and task-create in light/dark;
+- `scripts/test-ui-search-palette.mjs` statically guards read-authority reuse, exact quick actions, keyboard semantics, explicit quick-task inputs, mutation ordering, later-scope exclusions and preflight/capture wiring;
+- Windows Edge capture pipeline now captures four search modes in both themes, and `validate-search-palette-captures.mjs` validates production DOM/dialog semantics and expected state identities;
+- package preflight and Windows visual validation include the new search gates; Vite adds exactly one fixture input; no dependencies/lockfile changes.
+
+Semantic/diff review against `f58c35f...` found only the expected frontend search component/API, AppShell wiring, fixture/test/capture/preflight files and this HANDOFF. No Rust/Tauri/SQLite/schema/timer/session/scheduling/Notes/archive production source changed. The capture script adds only the eight search captures; Vite adds one input. Static-gate brittleness found during review was corrected before candidate freeze (fixture-ready literal, multiline Quick-actions literal, Windows-safe captured-DOM path handling).
+
+Local full repository preflight is **NOT RUN** because this connector environment has no local checkout/toolchain. Windows GitHub Actions remains the authoritative compile/typecheck/Rust/Edge/release gate.
 
 ### Five checkpoints
 
 1. mandatory reconstruction + narrow search/quick-action contract — **COMPLETE**;
-2. implementation + deterministic/runtime coverage + semantic/diff review — PENDING;
+2. implementation + deterministic/runtime coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — PENDING;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
@@ -70,18 +85,16 @@ Repository/GitHub evidence:
 - list/task/subtask identities remain stable across edit/archive/restore/reorder/move;
 - renderer success is published only after authoritative local mutation succeeds;
 - search opening/querying is read-only and local; no network or new database authority is introduced;
-- quick task creation must use the existing persistence-first task create command and explicit user-selected list/lane;
-- archive/restore preserves history and owned assets; permanent list deletion remains explicit, archive-only and irreversible;
-- `All Lists` remains a synthetic aggregate/read-only list identity, never persisted as a mutable user list;
-- task timer/session/Time Taken, scheduling/date-only/timezone/recurrence and reminder semantics remain unchanged;
-- Notes retain one mounted compact/large editor path, explicit-only URL activation and native spellcheck-only behavior;
-- card/menu/modal/overlay geometry must not shift because hover/focus actions appear;
-- keyboard/focus-visible access and reduced-motion behavior remain required;
+- quick task creation uses the existing persistence-first task create command and explicit user-selected list/lane;
+- archive/restore and permanent-delete semantics remain unchanged; archive search/full archive UI is still later scope;
+- `All Lists` remains a synthetic aggregate/read-only list identity;
+- timer/session/Time Taken, scheduling/date-only/timezone/recurrence/reminders and Notes behavior remain unchanged;
+- keyboard/focus-visible and reduced-motion behavior remain required;
 - no auth/cloud/telemetry/trial/upgrade/profile/AI/integration authority is introduced.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Continue on `m5-search-palette`: implement the checkpoint-1 contract using the existing Home + All Lists read paths and existing task/list creation boundaries, add deterministic frontend static gates plus production Edge search-palette fixture/DOM validation, review the exact branch diff against `f58c35f...`, and only then open a PR for exact-head Windows CI.
+Open one PR from `m5-search-palette` to `main`, record the exact PR head SHA, and run the authoritative Windows CI. Inspect only evidence-backed failures. Require Repository Preflight (including strict TypeScript/Vite build and unchanged Rust gates), production Edge search-palette light/dark captures/DOM validation, Tauri Release and required artifact uploads before advancing to final review and expected-head merge.
 
 ## USER ACTION REQUIRED
 
