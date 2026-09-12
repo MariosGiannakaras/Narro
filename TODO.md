@@ -209,7 +209,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Use WebView/browser spellcheck where practical.
 - [x] List settings: name, icon, archive/delete flows.
 - [x] Search / quick-actions palette with keyboard-first behavior.
-- [ ] Archived lists/tasks surfaces.
+- [x] Archived lists/tasks surfaces.
 - [ ] Light/dark/system theme.
 - [ ] Remove all account/trial/upgrade/cloud/integration controls.
 
