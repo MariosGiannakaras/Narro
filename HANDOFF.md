@@ -41,35 +41,42 @@ Slice base: reconciled main tracking tip `a2a492c39bdc6bad2ee416af179fe818d10f66
 
 ### Checkpoint 1 — COMPLETE: reconstruction + narrow archive contract
 
-Repository/open-PR state:
-
 - current main remained `a2a492c39bdc6bad2ee416af179fe818d10f66dd` at slice start;
 - no open M5 implementation PR existed;
-- item 26 is the first unchecked M5 top-level item.
+- source evidence fixes one archive destination with sibling `Archived lists` / `Archived done tasks` segments;
+- existing Archived Lists Restore and archive-only permanent-delete flows remain persistence-first and unchanged;
+- Archived Done Tasks is read-only in this slice: Search, `All Lists` / individual-list filter and empty state are evidenced, but Restore/Delete controls are not;
+- completed tasks strictly older than 60 days auto-archive through an idempotent authoritative sweep over existing `completed_at` / `archived_at` fields;
+- archived-list tasks are excluded from the active-list Archived Done Tasks projection; no new schema/network/search authority is introduced;
+- normal archival must preserve task identity, completion, sessions, notes/subtasks and Time Taken/report history.
 
-Source-evidenced contract:
+### Checkpoint 2 — COMPLETE: implementation + deterministic/runtime coverage + semantic/diff review
 
-- the Archive destination is one surface with sibling `Archived lists` / `Archived done tasks` segments;
-- the existing validated `ArchivedListsPanel` remains the list-management authority: Restore and archive-only permanent deletion stay persistence-first and unchanged;
-- `Archived done tasks` is a read-only historical task surface for this slice; supplied/current evidence establishes Search, a list filter containing `All Lists` plus individual lists, and an empty state, but does **not** establish Restore/Delete controls there;
-- completed tasks older than 60 days are automatically archived; Narro will implement this as an idempotent authoritative sweep over `completed_at`/`archived_at`, with a strict older-than-60-days cutoff;
-- the sweep must not clone/change task identity, sessions, notes, subtasks, schedule fields or Time Taken; normal archive preserves report/history semantics;
-- tasks belonging to an archived list remain represented by the Archived Lists lifecycle rather than being duplicated into the active-list Archived Done Tasks projection;
-- archived-done filtering/search stays renderer-local after one authoritative local snapshot; no network/search backend/schema migration is introduced;
-- stale Done tasks are swept before relevant board/archive projections so they no longer remain visible in Done merely because the archive page has not been visited first.
+Reviewed implementation candidate before this HANDOFF-only checkpoint commit:
 
-Implementation shape:
+`fab25bc767f76f3e748ff717b2ea5adbf9fc3552`
 
-- add a narrow Rust `archived_tasks` renderer boundary reusing existing task/list persistence and metadata reads;
-- add deterministic 60-day sweep tests including exact-boundary/idempotence/archived-list exclusion/history preservation;
-- add a production archive shell/panel that segments the existing Archived Lists panel and the new Archived Done Tasks panel;
-- add static frontend guards plus Windows Edge light/dark archive captures/DOM validation;
-- do not absorb theme switching, Focus Panel, Reports implementation, account/cloud/integration controls, or speculative task-archive actions.
+Implemented scope:
+
+- extended the existing archive renderer boundary with an `ArchiveSnapshot` containing archived lists, archived completed tasks and active list-filter options;
+- added an atomic strict-60-day sweep that updates only eligible completed tasks on active lists, is idempotent, and fails closed on invalid stored completion timestamps;
+- archive projection reuses authoritative task Time Taken/session accounting and excludes tasks owned by archived lists from the sibling done-task surface;
+- board reads trigger the same authoritative archive snapshot first, so stale >60-day Done tasks are swept before Done is projected;
+- `ArchivePanel` now composes sibling Archived Lists / Archived Done Tasks tabs while reusing the already validated `ArchivedListsPanel` lifecycle actions;
+- Archived Done Tasks adds local case-insensitive task/list search, `All Lists` plus active-list filter, loading/error/empty/results states and read-only historical rows;
+- deterministic archive fixtures cover lists-empty, done-empty, filter-open and populated results in light/dark;
+- added `test-ui-archives.mjs`, a dedicated Windows Edge archive capture harness, captured-DOM validation and package/preflight wiring;
+- retained all item-24 persistence-first list restore/delete and confirmation/focus guards; stale item-24 static expectations were updated only for the new composition/API shape;
+- no dependencies/lockfile, schema, timer/session engine, scheduling, Notes, Focus Panel, Reports implementation, theme switching, or account/cloud/integration source changed.
+
+Semantic/diff review against `a2a492c...` found 18 changed files, all within archive production UI/Rust projection, deterministic test/capture/config wiring, and this HANDOFF. Two pre-CI issues found during review were corrected before candidate freeze: an undefined `--elevation-popover` token was replaced with validated `--elevation-overlay`, and `Intl.DateTimeFormat.dateStyle` was replaced with ES2020-compatible explicit year/month/day options.
+
+Full local repository preflight is **NOT RUN** because this connector environment has no local checkout/toolchain. Windows GitHub Actions remains the authoritative compile/typecheck/Rust/Edge/release gate.
 
 ### Five checkpoints
 
 1. mandatory reconstruction + narrow archive contract — **COMPLETE**;
-2. implementation + deterministic/runtime coverage + semantic/diff review — PENDING;
+2. implementation + deterministic/runtime coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — PENDING;
 4. final exact-head review + expected-head merge — PENDING;
 5. resulting-main Windows CI + TODO/STATUS/HANDOFF/work-log reconciliation — PENDING.
@@ -91,7 +98,7 @@ Implementation shape:
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Implement the item-26 contract on `m5-archives`: authoritative archived-done snapshot + 60-day sweep, segmented archive UI, local search/list filter/empty states, deterministic Rust/static coverage, and Windows Edge fixture/capture validation. Review the exact diff against `a2a492c...`, record unavailable local preflight as NOT RUN, then open one PR and validate its exact head with Windows CI before any merge.
+Open one PR from `m5-archives` to `main`, record the exact PR head SHA, and run/inspect authoritative Windows CI. Require Repository Preflight, production Edge archive light/dark captures/DOM validation, Tauri Release and required artifact uploads. Fix only evidence-backed failures; do not advance checkpoint 3 until the exact PR head succeeds.
 
 ## USER ACTION REQUIRED
 
