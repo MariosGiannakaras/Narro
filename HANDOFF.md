@@ -38,7 +38,7 @@ Immutable evidence: `work-log/2026-09-12-chatgpt-m5-excluded-controls.md`.
 
 Implementation branch: `m6-focus-entry`.
 
-Current small-slice progress: **1/5**.
+Current small-slice progress: **2/5**.
 
 ### Checkpoint 1/5 — COMPLETE: mandatory reconstruction + exact Focus-entry/eligibility contract
 
@@ -47,24 +47,46 @@ Repository/source reconstruction established:
 - reconciled `main` was `649ee01661f6c5380bb04a885bf65faca0f8c67e` when this branch was created; there was no open M6 implementation PR or M6 branch and the markdown-only tracking tip had no Windows CI run;
 - source evidence defines explicit `Blitzit now` / Start Blitz as the only product transition that begins Focus work; renderer/app launch alone must never auto-start a timer;
 - unscheduled Today tasks are eligible; scheduled Today tasks become eligible only when their scheduled local time has arrived/passed; if no Today task is eligible, no timer/session may start;
-- entering Blitz requires the top eligible Today task in existing priority order to become live automatically, so M6 item 2 selection behavior is an inseparable dependency of item 1's authoritative transition rather than a renderer guess;
+- entering Blitz requires the top eligible Today task in existing priority order to become live automatically, so M6 item 2 selection behavior is an inseparable dependency of item 1's transition rather than a renderer guess;
 - existing `scheduling::focus_eligibility_at` is the authoritative M4 eligibility policy and must be reused rather than duplicated;
-- current board priority order is active-list `sort_rank`, then task `sort_rank`, then stable task ID, while scheduled tasks can project into Today from another manual lane; candidate selection must preserve that same ordering;
-- current `TimerService` / `TimerController` / `TimerRuntime` is the M3 authoritative timer/session boundary; `timer_start_task` accepts a renderer-selected task/mode and is therefore not sufficient as the product Start Blitz policy boundary;
-- current `focusSurface` remains the minimal M1 diagnostic presentation and must stay presentation-only; no third persistent webview may be introduced;
+- current board priority order is active-list `sort_rank`, then task `sort_rank`, then stable task ID, while scheduled tasks can project into Today from another manual lane;
+- current `TimerService` / `TimerController` / `TimerRuntime` remains the M3 authoritative timer/session boundary; renderer-selected `timer_start_task` is not used as the product policy boundary;
 - the start mode is authoritative: persisted/default Pomodoro preference overrides task EST; otherwise EST starts `EstCountdown`; no EST starts `CountUp`;
-- repeated Start Blitz while a focus session is already active must be idempotent and must not create/switch/duplicate a session; it should return the existing authoritative projection;
-- the no-eligible path must be a typed outcome rather than a corrupt fallback or arbitrary task start;
-- starting a selected task must keep selection, eligibility revalidation, Focus-session/checkpoint creation and runtime publication persistence-coherent so stale/concurrent task/schedule changes cannot start an ineligible task;
-- a Focus window show/focus failure that occurs after a successful timer/session commit is a secondary presentation failure and must never be reported as if the authoritative start failed, preventing unsafe retries;
+- repeated Start Blitz while a focus session is already active must be idempotent and must not create/switch/duplicate a session;
+- the no-eligible path must be typed rather than falling back to an arbitrary task;
+- a Focus window show/focus failure after a successful timer/session commit is a secondary presentation failure and must not be reported as an authoritative start failure;
 - entering Focus must never auto-open note URLs.
 
-The narrow implementation boundary is therefore a Rust-owned `start_blitz` operation that selects/revalidates the top eligible task and resolves timer mode inside the authoritative local state transition, returning a typed started/already-active/no-eligible result. The main renderer may explicitly request this transition and then present the existing `focusSurface`; it cannot supply the selected task or timer mode.
+### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic coverage + semantic/diff review
+
+Reviewed implementation candidate before this checkpoint-only HANDOFF commit:
+
+`b6246fab55267b9c9473edf03649a98ecbc0a1b7`
+
+Implemented scope:
+
+- added Rust `focus_entry` module with typed `started`, `already_active`, and `no_eligible_today_tasks` outcomes;
+- candidate selection is fully Rust-owned and reuses validated M4 `scheduling::focus_eligibility_at`; the renderer supplies only its Windows/WebView timezone fallback and cannot choose a task or timer mode;
+- selection scans every active manual lane because a scheduled Backlog/This Week task can project into Today, then preserves the same all-lists priority order used by the board: list rank, task rank, stable task ID;
+- persisted timezone wins over renderer fallback, matching the board projection contract;
+- persisted/default Pomodoro settings override EST; otherwise task EST selects countdown and missing EST selects count-up;
+- an already-active authoritative timer/session returns its existing projection rather than starting or switching again; a competing repeated Start Blitz that loses the race is reconciled to the same `already_active` result after the durable timer boundary rejects the second start;
+- the existing M3 `TimerService::start_task` / `TimerRuntime` path remains the durable persistence-first session/checkpoint write boundary, so no second timer/session authority or schema path was introduced;
+- if no eligible task exists, the command returns before calling the timer start boundary and cannot create a session;
+- added deterministic Rust tests for future-timed filtering, scheduled tasks projected into Today from Backlog, all-future no-start, list-priority ordering, Pomodoro-over-EST precedence, and persisted-timezone precedence;
+- added typed frontend `focusEntryApi`, explicit `Blitz now` user control, and post-commit Focus Panel presentation using the existing `focusSurface`; nothing starts from render/effect;
+- presentation failure after a committed start is explicitly reported as `Focus session is active` rather than encouraging a retry of the committed mutation;
+- added `scripts/test-ui-focus-entry.mjs` covering authoritative policy reuse, priority/mode ownership, typed outcomes, explicit-only invocation, existing two-webview presentation commands, and absence of URL-opener side effects; wired it into frontend preflight;
+- no timer engine/runtime implementation, scheduling rule, schema/migration, dependency/lockfile, M5 visual fixture, Floating Timer, shortcut/preference, Reports or release scope changed.
+
+Branch-wide semantic/diff review against `649ee01661f6c5380bb04a885bf65faca0f8c67e` found only the checkpoint `HANDOFF.md`, package preflight wiring, the focused contract script, the new Focus-entry Rust/API/control files, two-line Rust command registration, and two-line main entry wiring. The explicit main entry is intentionally functional/minimal for items 1–2; final Focus hierarchy/placement belongs to ordered M6 items 3+ and is not pulled forward here.
+
+Concurrency note: task eligibility/priority selection is read from authoritative SQLite immediately before the existing atomic M3 timer/session start. The durable start transaction independently validates that the selected task/list remains active and DB uniqueness prevents duplicate unfinished focus sessions; the renderer never supplies candidate identity. This slice does not add a second transaction/schema just to reserve a candidate. Exact Windows CI remains required to validate compilation and the full regression suite.
 
 ### Five checkpoints for this slice
 
 1. mandatory reconstruction + exact Focus-entry/eligibility contract — **COMPLETE**;
-2. narrow authoritative implementation + deterministic/runtime coverage + semantic/diff review — pending;
+2. narrow authoritative implementation + deterministic coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — pending;
 4. final exact-head review + expected-head guarded merge — pending;
 5. resulting-main Windows CI + `TODO.md`/`STATUS.md`/`HANDOFF.md`/immutable work-log reconciliation — pending.
@@ -76,7 +98,7 @@ The narrow implementation boundary is therefore a Rust-owned `start_blitz` opera
 - Start Blitz preserves stable task identity, durable Time Taken/session accounting, persistence-first transitions, crash/restart recovery, sleep policy, Time's Up/overtime and Pomodoro semantics already validated in M3.
 - Future-timed Today tasks remain ineligible until due, matching validated M4 scheduling rules.
 - Repeated Start Blitz cannot duplicate or silently switch an existing live session.
-- Narro launch or focus renderer creation cannot implicitly start a timer; only the explicit Start Blitz product action may do so.
+- Narro launch or renderer creation cannot implicitly start a timer; only the explicit Start Blitz action may do so.
 - Entering Focus Mode must never auto-open note URLs.
 - Task/list/archive/Search/theme/preferences behavior validated through M5 must not regress.
 - System/Dark/Light remains shared SQLite-backed preference state across both normal webviews.
@@ -86,7 +108,7 @@ The narrow implementation boundary is therefore a Rust-owned `start_blitz` opera
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Continue on `m6-focus-entry`. Implement the narrow Rust-owned Start Blitz boundary described above, including transaction-safe eligible candidate selection, authoritative timer-mode resolution, typed started/already-active/no-eligible outcomes, and deterministic tests for future-timed filtering, priority ordering, timer mode, no mutation on no-eligible, and repeated invocation. Add the explicit production `Blitz now` entry in the Today board without starting anything on render, and distinguish committed-start presentation failure from authoritative mutation failure. Add focused frontend/static contract coverage and wire it into preflight as appropriate. Review the exact branch diff before opening a PR. Do not mark M6 item 1 or 2 complete until exact PR-head and resulting-main Windows CI plus reconciliation pass.
+Open or resume the M6 item-1 PR from `m6-focus-entry` and inspect its exact current head. Require authoritative Windows CI on that exact head, including repository preflight, Rust format/check/clippy/tests, production Windows Edge visual regression, required artifact upload and Tauri Release. Fix only evidence-backed failures on the same branch. Do not increment checkpoint 3 until the exact PR head passes. After that perform final exact-head review, expected-head guarded merge, resulting-main Windows CI and tracking reconciliation. If the same validated slice proves both item 1 Start Blitz and item 2 top-eligible auto-selection, reconcile both ordered TODO items together; do not start M6 item 3 before resulting-main validation and tracking are complete.
 
 ## USER ACTION REQUIRED
 
@@ -94,5 +116,5 @@ Continue on `m6-focus-entry`. Implement the narrow Rust-owned Start Blitz bounda
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks M6 item 1.
-- Full local Rust/Tauri validation may be unavailable in connector-only environments; authoritative Windows GitHub Actions remains required before merge.
+- No product/user decision currently blocks this slice.
+- Full local Rust/Tauri validation is unavailable in this connector-only environment; Windows GitHub Actions is authoritative before merge.
