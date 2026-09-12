@@ -228,8 +228,8 @@ Acceptance criteria:
 
 ## Milestone 6 — Blitz Mode / Focus Panel
 
-- [ ] Start Blitz from eligible Today tasks.
-- [ ] Auto-select top eligible Today task.
+- [x] Start Blitz from eligible Today tasks.
+- [x] Auto-select top eligible Today task.
 - [ ] Reproduce Focus Panel hierarchy: list selector, Today, quick controls, aggregate EST/progress, active live card, remaining queue, Add Task, scheduled group, done group.
 - [ ] Render current task and authoritative timer with fixed/tabular timer geometry.
 - [ ] Show remaining/scheduled/done sections matching documented focus workflow.

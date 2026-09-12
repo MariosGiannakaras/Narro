@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-12
+Last updated: 2026-09-13
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 
@@ -13,85 +13,90 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 0 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 2 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
-Milestone 5 is fully complete. The next ordered work is Milestone 6, beginning with **Start Blitz from eligible Today tasks** and then **Auto-select top eligible Today task**. Do not skip ahead to Floating Timer, shortcuts/preferences, Reports, or release polish.
+M6 items 1–2 are complete: **Start Blitz from eligible Today tasks** and **Auto-select top eligible Today task**. The next ordered work is item 3: **Reproduce Focus Panel hierarchy**. Do not skip ahead to Floating Timer, shortcuts/preferences, Reports, or release polish.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`c89526dbc40742570d8d89353244add2d6350d2d`
+`bea3f352c609456762f83e4911017ac9ef23f682`
 
 Tree:
 
-`26023de8bc73aef304627b014f8319d5cd74e4ed`
+`5df0821b29fa4a017a3dc84ea14c40937c85cf35`
 
-This is the expected-head guarded squash merge of PR #100 — `M5: guard excluded account and service controls` — from exact validated PR head `db78e0d6adebd51ab9e56a81185e4dac0206d1c5`.
+This is the expected-head guarded squash merge of PR #101 — `M6: start Blitz from eligible Today tasks` — from exact validated PR head `6f329f4b9217a2f68d138ac30b1027071e209b8b`.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
-### PR #100 exact-head validation
+## M6 items 1–2 — validated Focus entry boundary
 
-Windows PR CI #390:
+Implemented and validated behavior:
 
-- run `34715260353`, job `103611248532`, conclusion **SUCCESS**;
-- exact head `db78e0d6adebd51ab9e56a81185e4dac0206d1c5`;
+- explicit `Blitz now` is the only production Focus-entry action; render/app launch does not auto-start a timer;
+- task selection is Rust-owned and reuses the validated M4 `scheduling::focus_eligibility_at` policy;
+- future-timed Today tasks remain ineligible until due; scheduled Backlog/This Week tasks that project into Today can be selected when eligible;
+- candidate order matches the All Lists planning order: active-list rank, task rank, stable task ID;
+- persisted timezone overrides renderer fallback for eligibility classification;
+- persisted/default Pomodoro settings override task EST; otherwise EST selects countdown and no EST selects count-up;
+- `started`, `already_active`, and `no_eligible_today_tasks` are typed outcomes;
+- repeated/concurrent Start Blitz cannot duplicate or silently switch an existing live session;
+- the existing M3 `TimerService` / `TimerRuntime` remains the only authoritative persistence-first timer/session boundary;
+- no-eligible returns before starting a session;
+- successful timer/session commit remains success even if the secondary Focus Panel show/focus operation fails;
+- Focus entry does not auto-open task-note URLs;
+- the existing two-webview model remains unchanged: `main` plus reusable `focusSurface`.
+
+### PR #101 exact-head validation
+
+Initial PR CI #392 / run `34718784154` / job `103620662277` failed only at `cargo fmt --check`; frontend/static Focus-entry gates and the TypeScript/Vite build had passed. The exact rustfmt output was applied without semantic changes.
+
+Final exact PR head:
+
+`6f329f4b9217a2f68d138ac30b1027071e209b8b`
+
+Windows PR CI #394:
+
+- run `34718967378`, job `103621226697`, conclusion **SUCCESS**;
 - Repository Preflight: **SUCCESS**;
 - production Windows Edge visual regression: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - diagnostic artifact upload: **SUCCESS**;
-- visual artifact `10303923986`, digest `sha256:f9504c66d2d747f0cfb6b3d6e488c8b07f7820553b568146fe176242635880ff`;
-- diagnostic artifact `10304538904`, digest `sha256:a9f506019f483e60faf50fdf007eddc06780c9a2e0aec23d0ab0b1744baa3414`;
-- final PR scope: only `HANDOFF.md`, `package.json`, and `scripts/test-ui-excluded-controls.mjs`; no production renderer/Rust/schema/dependency/lockfile change;
-- no submitted reviews, PR conversation comments, or inline review comments;
-- the exact validated head remained unchanged through merge.
+- visual artifact `10305998073`, digest `sha256:3fa00578ce46e4ea16a6352486e718edc4162b6b62075dc548da7293bc87e7fa`;
+- diagnostic artifact `10305534197`, digest `sha256:ab58df8f0f630d0bbc7fcbcc116f77d1246a220222f4100803842d3f7a0ed273`;
+- final changed files: `HANDOFF.md`, `package.json`, `scripts/test-ui-focus-entry.mjs`, `src-tauri/src/focus_entry.rs`, `src-tauri/src/lib.rs`, `src/BlitzEntryButton.tsx`, `src/focusEntryApi.ts`, `src/main.tsx`;
+- no PR/review comments required action;
+- exact validated head remained unchanged through merge.
 
 ### Resulting-main validation
 
-PR #100 was squash-merged with expected-head guard `db78e0d6adebd51ab9e56a81185e4dac0206d1c5`.
+PR #101 was squash-merged with expected-head guard `6f329f4b9217a2f68d138ac30b1027071e209b8b`.
 
-Windows main CI #391:
+Windows main CI #395:
 
-- run `34716334667`, job `103614139737`, conclusion **SUCCESS**;
-- exact source SHA `c89526dbc40742570d8d89353244add2d6350d2d`;
+- run `34721633029`, job `103628495654`, conclusion **SUCCESS**;
+- exact source SHA `bea3f352c609456762f83e4911017ac9ef23f682`;
 - Repository Preflight: **SUCCESS**;
 - production Windows Edge visual regression: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - diagnostic artifact upload: **SUCCESS**;
-- visual artifact `10304734623`, digest `sha256:85d2443897558d5517d994860ad67dde373ce57e750aa1cadbbd399c057a67c0`;
-- diagnostic artifact `10304844701`, digest `sha256:92eec5b842c19837e704fd910a6c37172ec68ddbbfe9f5d824ae3bbebcd3592b`.
+- visual artifact `10306966263`, digest `sha256:038577b82dee0bd9a01fced940f05965e95bd596d868aee03e6497fa542f08dc`;
+- diagnostic artifact `10306782210`, digest `sha256:d555877e292a44e9e0b135d3bd800853b77006d45b29cd3c6d1b3b8fb8bf433f`.
 
-Detailed immutable evidence is recorded in `work-log/2026-09-12-chatgpt-m5-excluded-controls.md`.
+Detailed immutable evidence is recorded in `work-log/2026-09-13-chatgpt-m6-focus-entry.md`.
 
-## Milestone 5 — Gate E result
+## Milestone 6 — next ordered work
 
-**PASS / proceed to Milestone 6.**
+The next top-level item is:
 
-All 28 ordered M5 items are now authoritative-main validated. The final item, **Remove all account/trial/upgrade/cloud/integration controls**, was completed by proving and continuously enforcing the required absence rather than inventing replacement service UI.
+3. `Reproduce Focus Panel hierarchy: list selector, Today, quick controls, aggregate EST/progress, active live card, remaining queue, Add Task, scheduled group, done group.`
 
-Validated final-item behavior:
-
-- production renderer surfaces contain no account, trial, upgrade, profile/avatar identity, integration, billing/subscription, cloud, Blitzy/AI-assistant, sign-in, or login controls;
-- `scripts/test-ui-excluded-controls.mjs` recursively checks production `.tsx` renderer sources while excluding fixture-only entries;
-- the same deterministic gate positively requires local Search, Settings, and Reports controls and the explicit `?diagnostics=1` diagnostic gate to remain present;
-- the gate is part of `preflight:frontend` and therefore runs in authoritative Windows CI;
-- no legitimate local Settings/Search/Reports/list/task functionality was removed;
-- no auth/cloud/telemetry/trial/upgrade/profile/AI/integration authority was introduced;
-- no production renderer, Rust/Tauri source, persistence/schema, dependency/lockfile, timer/session, scheduling, archive, Notes, theme, or visual-fixture behavior changed in the final M5 slice.
-
-## Milestone 6 — active ordered work
-
-Milestone 6 must build the source-evidenced Focus Panel over the already validated authoritative timer/session, scheduling, list/task, Notes, subtasks, theme, and two-webview foundations.
-
-The first ordered item is:
-
-1. `Start Blitz from eligible Today tasks.`
-
-Before implementation, reconstruct the exact existing focus/session/window boundary and source-evidenced eligibility contract. Preserve the existing authoritative timer/session state machine and scheduling eligibility; do not create renderer-owned session authority or a third persistent webview.
+Build this hierarchy over the already validated authoritative timer/session and planning projections. Keep `focusSurface` minimal, presentation-only, event-driven, theme-consistent and within the existing two-webview architecture. Do not duplicate timer/session, task, schedule, notes or subtask authority in renderer state.
 
 ## Durable correctness decisions
 
@@ -102,8 +107,8 @@ Future work must preserve:
 - `main` and reusable `focusSurface` remain the normal two-webview model; Focus Panel and Floating Timer are presentations of the same authoritative runtime.
 - authoritative task/list/session/timer/scheduling/note/archive/preferences state lives outside renderer memory; persistence-first mutations remain the success boundary.
 - stable task/subtask/list identities, tracked Time Taken, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress.
-- live-task switching, Done, pause/resume, breaks, Time's Up/overtime, Pomodoro boundaries, recovery, and sleep accounting must continue using the validated authoritative engine rather than duplicated Focus UI logic.
 - future-timed Today tasks remain ineligible until due; Focus entry must not bypass scheduling eligibility.
+- repeated Focus entry cannot duplicate or silently switch an existing live session.
 - list archive/restore and automatic done-task archival semantics remain unchanged.
 - Search remains local/read-only; quick task creation continues to use the persistence-first create path.
 - theme is local SQLite-backed preference state; both normal webviews project the same committed theme, and System follows OS/browser color mode without polling.
