@@ -37,7 +37,11 @@ Immutable evidence: `work-log/2026-09-12-2102-chatgpt-m5-archives.md`.
 
 Implementation branch: `m5-theme-preference`.
 
-Current small-slice progress: **1/5**.
+Current small-slice progress: **2/5**.
+
+Semantic-reviewed source/test candidate before this checkpoint-only HANDOFF commit:
+
+`9662d03afdff3ec2cacdb96b3dfe0cb3a8847433`
 
 ### Checkpoint 1/5 — COMPLETE: reconstruction + narrow contract
 
@@ -47,28 +51,40 @@ Repository reconstruction established:
 - `ThemePreference::{System, Dark, Light}` already exists in the authoritative Rust preferences domain and `PreferencesPayload.general.theme` defaults to `System`;
 - SQLite preferences persistence already round-trips the full payload through `get_preferences`, `initialize_preferences` and `save_preferences`;
 - `src/theme.css` already provides explicit `data-theme="light"`, `dark`, `system` selectors and `prefers-color-scheme: dark` resolution for System mode;
-- both `main` and `focusSurface` import the shared theme CSS indirectly through `App.css`, but neither currently loads persisted theme or listens for preference changes;
-- the current main `Settings` utility is only a placeholder;
+- both `main` and `focusSurface` import the shared theme CSS indirectly through `App.css`, but neither previously loaded persisted theme or listened for preference changes;
+- the main `Settings` utility was previously only a placeholder;
 - current screenshot/source evidence shows a `General` Preferences section with a segmented `System / Dark / Light` theme control;
 - item 27 must not absorb timezone, hide-times, EST parsing, Pomodoro, alerts, monitor/side, celebration or other Milestone 8 preference families.
 
-Narrow implementation contract:
+### Checkpoint 2/5 — COMPLETE: implementation + deterministic coverage + semantic/diff review
 
-1. Add a theme-specific renderer boundary over the existing authoritative preferences row; do not add schema or a parallel settings store.
-2. `get_theme_preference` initializes the existing default preferences row if absent and returns the persisted theme token.
-3. `set_theme_preference` validates `system|dark|light`, mutates only `general.theme`, preserves every other persisted preference field, commits through existing `save_preferences`, and returns the committed theme.
-4. After a committed theme change, emit one `theme-preference-changed` event to synchronize both webviews. A post-commit emit failure must be logged separately and must not report the committed preference write as failed.
-5. Add one minimal shared theme runtime provider used by both `main` and `focusSurface`. It loads the persisted preference on mount, applies it to `document.documentElement.dataset.theme`, listens for the cross-webview event, and avoids polling/duplicating authority.
-6. Keep `System` as the persisted/root token `system`; existing CSS media-query resolution follows Windows/WebView2 color-scheme changes without rewriting the stored preference.
-7. Add only the evidenced theme subsection to the current Settings destination: `Preferences` → `General` → `Theme` with System/Dark/Light segmented controls. User-visible selection changes only after persistence succeeds; failures keep the prior applied theme and surface an alert.
-8. Theme changes are presentation/preferences-only and must not reset or mutate task/list/timer/session/scheduling state.
-9. Add deterministic Rust preservation/idempotence tests, frontend static contracts, and Windows Edge theme-preference fixtures/DOM validation. Existing broad light/dark fixture coverage remains the hierarchy-preserving visual baseline.
-10. No dependency/lockfile/schema change is expected.
+Implemented at reviewed candidate `9662d03afdff3ec2cacdb96b3dfe0cb3a8847433`:
+
+- new Rust `theme_settings` renderer boundary reuses the existing preferences row and schema; `get_theme_preference` initializes/reads the persisted theme, while `set_theme_preference` validates `system|dark|light`, mutates only `general.theme`, preserves all other preference fields and commits through the existing `save_preferences` boundary;
+- after a committed write, Rust broadcasts `theme-preference-changed`; event failure is logged separately and cannot turn a committed preference write into a renderer-visible mutation failure;
+- Rust tests cover System default initialization/idempotence, preservation of unrelated general/focus/alerts/celebration preferences, repeated theme saves and invalid theme-token rejection;
+- new shared `ThemeRuntimeProvider` is installed in both `main` and `focusSurface`; it listens before reading the persisted preference to avoid a stale startup read overwriting a newer cross-window event, projects only a valid theme token to `document.documentElement.dataset.theme`, and performs no polling;
+- `System` remains the persisted/root token `system`; existing `theme.css` `prefers-color-scheme` media queries continue to resolve Windows/WebView2 light/dark changes without rewriting persistence;
+- the Settings destination now exposes only the evidenced `Preferences → General → Theme` surface with System/Dark/Light segmented controls, accessible group/pressed semantics, persistence-pending state and role-alert failure state;
+- selected theme changes only after the authoritative write has committed; a failed write keeps/reapplies the previous projected theme;
+- the focus diagnostic presentation no longer hard-codes dark background/error colors and consumes the shared semantic theme tokens;
+- deterministic static coverage validates Rust save-before-emit ordering, module/handler/API/runtime wiring, both webview providers, System OS-following CSS contract, absence of polling, and exclusion of later M8 preference families;
+- dedicated production theme fixture/capture coverage includes System, Dark, Light and failed-save states; captured-DOM validation checks exact `data-theme`, selected `aria-pressed` option, accessible Theme group and rollback/error state;
+- package/Vite wiring adds only the new static/Windows visual gates and one fixture input; no dependency, lockfile, schema, timer/session, scheduling, archive, Notes, Reports or cloud/account/integration source changed.
+
+Branch-wide semantic/diff review against `0db81e3ad0128579ac5b173083c3565824a8485f` found:
+
+- expected theme IPC/runtime/UI/test/capture scope only;
+- `src-tauri/src/lib.rs` changes are limited to one module plus two command registrations;
+- `vite.config.ts` final diff is exactly one fixture input;
+- `package.json` changes are only the new theme static gate and Windows capture/validator wiring;
+- no `Cargo.toml`, lockfile, migration, domain preferences schema, timer engine, archive persistence, scheduling, Notes or report implementation change;
+- full local Node/Rust execution is unavailable in this connector environment, so authoritative strict TypeScript, rustfmt/clippy/tests and Windows Edge execution remain pending exact-head Windows CI.
 
 ## FIVE CHECKPOINTS FOR THIS SLICE
 
 1. reconstruction + narrow theme contract — **COMPLETE**;
-2. implementation + deterministic/runtime coverage + semantic/diff review — pending;
+2. implementation + deterministic/runtime coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — pending;
 4. final exact-head review + expected-head guarded merge — pending;
 5. resulting-main Windows CI + `TODO.md`/`STATUS.md`/`HANDOFF.md`/immutable work-log reconciliation — pending.
@@ -87,7 +103,7 @@ Narrow implementation contract:
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Continue checkpoint 2 on `m5-theme-preference`: implement the theme-specific Rust command/event boundary, shared main/focus runtime provider, theme-only Settings surface, deterministic tests and Windows Edge fixture/DOM validation. Review the full branch diff against `0db81e3ad0128579ac5b173083c3565824a8485f` before opening a PR. Full local preflight is unavailable in the connector environment; use static/semantic checks available here, then require authoritative Windows CI on the exact PR head.
+Inspect the exact current head of `m5-theme-preference` and any open PR. Open or resume the item-27 PR, then run/inspect authoritative Windows CI on that exact head. Fix only evidence-backed failures. Do not increment checkpoint 3 until Repository Preflight, production Windows Edge theme-settings captures/DOM validation, required visual artifact upload, Tauri Release and diagnostic artifact upload all succeed on the exact PR head. Then perform final exact-head review, expected-head guarded merge, resulting-main Windows CI, and tracking reconciliation before starting M5 item 28.
 
 ## USER ACTION REQUIRED
 
