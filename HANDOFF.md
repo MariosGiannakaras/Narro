@@ -16,7 +16,9 @@ Source/test SHA: `40ac4acabea105e82a1f1a1211436bda628d4526`
 
 Source tree: `0e7dc95db73a5577cc83ff4aa7c933ae9aba906d`
 
-This is the resulting-main source merge of PR #99. Markdown-only tracking descendants do not replace this source baseline.
+Latest reconciled main tracking tip before this feature branch: `610627db256a939f4dadff92477b817e5b776296`.
+
+Markdown-only tracking/checkpoint commits do not replace the validated source baseline.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
@@ -24,41 +26,51 @@ This is the resulting-main source merge of PR #99. Markdown-only tracking descen
 
 Immutable evidence: `work-log/2026-09-12-chatgpt-m5-theme-preference.md`.
 
-- implementation branch: `m5-theme-preference`;
-- final exact PR head: `048f5009e5cee07cb78544f7ccd6290c43f33980`;
-- PR #99: `M5: add persisted light dark and system theme`;
+- final exact PR #99 head `048f5009e5cee07cb78544f7ccd6290c43f33980`;
 - Windows PR CI #388 / run `34711580262` / job `103601188758`: **SUCCESS**;
-- PR visual artifact `10303218552`, digest `sha256:af6a8261abb3693e3123a4551daa6f91db1c862ad49bc01712582013898ffb7b`;
-- PR diagnostic artifact `10303194119`, digest `sha256:77b60fa4bca214ca8bb5b30f9a349a6a7fac8b3996626559b2223d49ab8cc3e9`;
-- resulting main source/test SHA `40ac4acabea105e82a1f1a1211436bda628d4526` / tree `0e7dc95db73a5577cc83ff4aa7c933ae9aba906d`;
-- Windows main CI #389 / run `34712441687` / rerun job `103608683661`: **SUCCESS**;
-- main visual artifact `10303868283`, digest `sha256:7322bd3cb3cca9cf7726ccc08819ce253dc8c113d3109c200f501c0ec51fe776`;
-- main diagnostic artifact `10304293100`, digest `sha256:624df25ab71fc867fb06f14021eaed7133b88f4f4ab8d98089b721ac40388712`.
-
-The first main attempt job `103603519635` was cancelled at the workflow's 30-minute job timeout while visual capture was running after successful Repository Preflight; rerunning the same exact main SHA completed every required gate successfully.
-
-Validated capability:
-
-- authoritative local SQLite preferences persist `System`, `Dark` or `Light` without schema changes;
-- theme writes preserve every non-theme preference and publish renderer success only after commit;
-- both `main` and `focusSurface` consume the same theme authority through `ThemeRuntimeProvider`;
-- System follows Windows/WebView2 `prefers-color-scheme` without polling or persistence rewrites;
-- Settings exposes the evidenced Preferences → General → Theme segmented control with pending/error states and accessible pressed/group semantics;
-- deterministic Rust/static coverage plus Windows Edge System/Dark/Light/failed-save fixtures are authoritative-validated;
-- no timer/session, scheduling, archive, Notes, Reports, cloud/account/integration authority or unrelated M8 preference family changed.
+- resulting main source/test SHA `40ac4acabea105e82a1f1a1211436bda628d4526`;
+- Windows main CI #389 / run `34712441687` / rerun job `103608683661`: **SUCCESS**.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
 **M5 item 28/28 — Remove all account/trial/upgrade/cloud/integration controls.**
 
-No item-28 implementation branch or PR should be assumed from this reconciliation. Reconstruct exact current main/open-PR state before source changes.
+Implementation branch: `m5-excluded-controls`.
 
-Current small-slice progress: **0/5**.
+Current small-slice progress: **2/5**.
+
+### Checkpoint 1/5 — COMPLETE: mandatory reconstruction + exact exclusion/control inventory
+
+Repository reconstruction established:
+
+- reconciled `main` was `610627db256a939f4dadff92477b817e5b776296` when this branch was created; no open item-28 implementation PR or superseding branch was found;
+- `docs/PRODUCT_SPEC.md` explicitly excludes plan/trial status, `Upgrade Now`, integrations grid, account avatar/profile identity and the Blitzy/AI floating control; these service-dependent controls are to be omitted rather than stubbed;
+- `docs/UI_UX_SPEC.md` requires Search and Settings to remain accessible while account/trial/upgrade/profile/AI/integration controls are removed;
+- `docs/SOURCE_AUDIT.md` likewise excludes subscription/billing/licensing/trial/upgrade/account-dependent surfaces;
+- current production `AppShell.tsx` exposes only local list navigation, Search, Settings, Home and Reports; current `HomeDashboard.tsx` exposes only local list/task planning content; no excluded service/account control is currently present in those source-evidenced surfaces;
+- repository code search found exclusion terms in documentation/tracking and unrelated words such as sleep `accounting`, but no production renderer control that should be deleted;
+- therefore the narrow implementation is an explicit deterministic absence gate over production renderer sources, not invented replacement UI or destructive removal of legitimate local controls.
+
+### Checkpoint 2/5 — COMPLETE: deterministic absence gate + semantic/diff review
+
+Reviewed implementation candidate before this checkpoint-only HANDOFF commit:
+
+`58172a01a1bfa3a3e661f2d7648a67b3927e7c50`
+
+Implemented scope:
+
+- added `scripts/test-ui-excluded-controls.mjs`, which recursively scans production `.tsx` renderer sources while excluding deterministic fixture-only entry files;
+- the gate rejects source-evidenced excluded service/account control terms: account, trial, upgrade, profile/avatar identity, integrations, billing/subscription, cloud controls, Blitzy/AI assistant controls and sign-in/login surfaces;
+- the same gate positively requires the local Search, Settings and Reports destinations to remain in `AppShell.tsx` and preserves the explicit `?diagnostics=1` startup gate in `App.tsx`;
+- wired `test:ui-excluded-controls` into `preflight:frontend` immediately after the existing app-shell contract gate;
+- no production renderer, Rust/Tauri source, schema, dependency/lockfile, visual fixture, timer/session, scheduling, archive, Notes, theme behavior or local product control was changed because the excluded controls were already absent rather than stubbed.
+
+Branch-wide diff review against `610627db256a939f4dadff92477b817e5b776296` found only `HANDOFF.md`, `package.json` and the new deterministic gate. The gate is intentionally limited to non-fixture `.tsx` renderer source so documentation evidence, PowerShell Edge profile paths and arbitrary fixture task copy cannot create false positives. Full local preflight is unavailable in this connector environment; exact-head Windows CI remains the authoritative execution gate.
 
 ### Five checkpoints for this slice
 
-1. mandatory reconstruction + exact exclusion/control inventory — pending;
-2. narrow implementation + deterministic coverage + semantic/diff review — pending;
+1. mandatory reconstruction + exact exclusion/control inventory — **COMPLETE**;
+2. narrow implementation + deterministic coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — pending;
 4. final exact-head review + expected-head guarded merge — pending;
 5. resulting-main Windows CI + `TODO.md`/`STATUS.md`/`HANDOFF.md`/immutable work-log reconciliation — pending.
@@ -73,7 +85,7 @@ Current small-slice progress: **0/5**.
 
 ## EXACT NEXT ACTION FOR A ZERO-CONTEXT AGENT
 
-Re-run the mandatory startup sequence from current `main`, confirm this reconciliation tracking descendant is current and no unfinished item-28 PR/branch supersedes it, then inventory source and tests for account/trial/upgrade/profile/AI/cloud/integration controls and strings. Cross-check the exclusion policy in `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md` and `docs/SOURCE_AUDIT.md`. Implement only evidence-backed removals or an explicit deterministic absence gate; do not remove legitimate local product controls and do not start Milestone 6 before item 28 completes the full five-checkpoint validation sequence.
+Inspect the exact current head of `m5-excluded-controls`, open or resume its item-28 PR, and require authoritative Windows CI on that exact head. Fix only evidence-backed failures. Do not increment checkpoint 3 until Repository Preflight, production Windows Edge visual capture/DOM validation, required visual artifact upload, Tauri Release and diagnostic artifact upload all succeed on the exact PR head. Then perform final exact-head review, expected-head guarded merge, resulting-main Windows CI, and tracking reconciliation before declaring Milestone 5 complete or starting Milestone 6.
 
 ## USER ACTION REQUIRED
 
