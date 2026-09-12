@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
+import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { TimerSessionProjection } from "./TimerSessionProjection";
 import {
   type AppStatePayload,
@@ -79,25 +80,30 @@ function FocusApp() {
       className="container"
       style={{
         padding: "0.5rem",
-        fontFamily: "sans-serif",
+        fontFamily: "var(--font-family-ui)",
         display: "flex",
         flexDirection: "column",
         height: "100vh",
         boxSizing: "border-box",
         overflow: "auto",
+        color: "var(--color-text-primary)",
+        background: "var(--color-canvas)",
       }}
     >
       <h3 style={{ margin: "0 0 0.5rem 0" }}>Focus Surface</h3>
-      {error && <div style={{ color: "red", fontSize: "0.8em" }}>{error}</div>}
+      {error && (
+        <div style={{ color: "var(--color-destructive)", fontSize: "0.8em" }}>{error}</div>
+      )}
 
       <div
         style={{
-          background: "#222",
+          background: "var(--color-surface-raised)",
+          border: "1px solid var(--color-border-subtle)",
           padding: "0.5rem",
           fontSize: "0.8em",
           overflow: "auto",
           minHeight: "8rem",
-          borderRadius: "4px",
+          borderRadius: "var(--radius-control)",
         }}
       >
         <pre style={{ margin: 0 }}>{JSON.stringify(state, null, 2)}</pre>
@@ -136,6 +142,8 @@ function FocusApp() {
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <FocusApp />
+    <ThemeRuntimeProvider>
+      <FocusApp />
+    </ThemeRuntimeProvider>
   </React.StrictMode>,
 );
