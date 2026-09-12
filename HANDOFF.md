@@ -16,7 +16,9 @@ Source/test SHA: `bea3f352c609456762f83e4911017ac9ef23f682`
 
 Source tree: `5df0821b29fa4a017a3dc84ea14c40937c85cf35`
 
-Markdown-only tracking commits do not replace the validated source/test baseline.
+Latest reconciled tracking tip before this feature branch: `4f0624a5d865d0ef5df9c5e68c44e9e25bea9fde`.
+
+Markdown-only tracking/checkpoint commits do not replace the validated source/test baseline.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
@@ -24,42 +26,40 @@ Markdown-only tracking commits do not replace the validated source/test baseline
 
 Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-entry.md`.
 
-- implementation branch `m6-focus-entry`;
-- PR #101 `M6: start Blitz from eligible Today tasks`;
-- initial PR CI #392 / run `34718784154` / job `103620662277`: **FAIL** only at rustfmt; exact formatter output was applied without semantic changes;
-- final exact PR head `6f329f4b9217a2f68d138ac30b1027071e209b8b`;
+- PR #101 final exact head `6f329f4b9217a2f68d138ac30b1027071e209b8b`;
 - Windows PR CI #394 / run `34718967378` / job `103621226697`: **SUCCESS**;
-- PR visual artifact `10305998073`, digest `sha256:3fa00578ce46e4ea16a6352486e718edc4162b6b62075dc548da7293bc87e7fa`;
-- PR diagnostic artifact `10305534197`, digest `sha256:ab58df8f0f630d0bbc7fcbcc116f77d1246a220222f4100803842d3f7a0ed273`;
 - expected-head guarded squash merge source SHA `bea3f352c609456762f83e4911017ac9ef23f682`;
 - Windows main CI #395 / run `34721633029` / job `103628495654`: **SUCCESS**;
 - main visual artifact `10306966263`, digest `sha256:038577b82dee0bd9a01fced940f05965e95bd596d868aee03e6497fa542f08dc`;
 - main diagnostic artifact `10306782210`, digest `sha256:d555877e292a44e9e0b135d3bd800853b77006d45b29cd3c6d1b3b8fb8bf433f`.
 
-Validated capability:
-
-- explicit `Blitz now` enters Focus; render/app launch does not auto-start;
-- Rust selects the top eligible Today task using validated M4 eligibility and planning priority;
-- future-timed Today tasks are skipped until due;
-- scheduled tasks projected into Today can be selected when eligible;
-- authoritative timer mode is Pomodoro when enabled, otherwise EST countdown or count-up;
-- repeated/concurrent invocation returns the existing live projection instead of duplicating/switching sessions;
-- no-eligible is typed and creates no session;
-- post-commit Focus Panel presentation failure cannot turn a committed timer/session start into an apparent mutation failure;
-- Focus entry never auto-opens note URLs;
-- the existing M3 timer/session boundary and two-webview architecture remain unchanged.
-
 ## ACTIVE IMPLEMENTATION SLICE
 
 **M6 item 3/16 — Reproduce Focus Panel hierarchy.**
 
-No item-3 implementation branch or PR should be assumed from this reconciliation. Reconstruct exact current main/open-PR state before source changes.
+Implementation branch: `m6-focus-panel-hierarchy`.
 
-Current small-slice progress: **0/5**.
+Current small-slice progress: **1/5**.
+
+### Checkpoint 1/5 — COMPLETE: mandatory reconstruction + exact hierarchy/read-model contract
+
+Reconstruction from reconciled `main` established:
+
+- current main tracking tip was `4f0624a5d865d0ef5df9c5e68c44e9e25bea9fde`; no open M6 PR and no surviving M6 branch superseded it;
+- `Screenshot_18.png` is the primary current structural reference: list selector `All`, `Today`, gear, Home, compact/collapse control, aggregate EST, teal→lime progress, done count, strongly emphasized live task, subtask progress, remaining rows, list chips in All view, overdue metadata, `+ ADD TASK`, Scheduled count/time/context and Done rows;
+- `UI_UX_SPEC.md` section 11 confirms the same hierarchy and requires stationary reserved action slots, accessible title handling and no perpetual animation; detailed timer geometry and focus action semantics are ordered later items and are not pulled into this slice;
+- current official Focus behavior says the live task is followed by remaining tasks, the list dropdown changes context, and the Focus Panel may add/rearrange/schedule/note/complete/take breaks; item 3 implements the hierarchy/read projection only, not item-6 action semantics;
+- current `focusSurface` is still the M1 diagnostic React entry and must be replaced with a product Focus Panel presentation while preserving the same webview and ThemeRuntime provider;
+- `get_list_board_snapshot` already exposes the authoritative planning read model needed here: target/list identity, Today and Done lanes, EST, Time Taken, schedule metadata, overdue state, list chips and subtask counts;
+- `get_home_snapshot` already exposes active list options for the selector; no new persisted list or renderer-owned list authority is needed;
+- `timer-session-changed` / `timer_session_snapshot` already exposes the authoritative live task ID and revision; the Focus renderer must subscribe event-first and compose live presentation with planning snapshots rather than create a parallel timer model;
+- the narrow architecture is therefore a Focus Panel component on `focusSurface` that composes existing local read APIs, refreshes the board on authoritative timer changes where needed, and supports list-context selection without introducing schema, polling or a new timer/session service;
+- screenshot-backed deterministic fixtures are required for hierarchy/visual validation, including active/remaining/scheduled/done content and All-list chips;
+- item 4 fixed/tabular live-timer geometry, item 5 deeper queue-group behavior, item 6 focus actions, item 7 subtasks interactions and later window-placement/polish items remain open unless a minimal structural dependency is unavoidable.
 
 ### Five checkpoints for this slice
 
-1. mandatory reconstruction + exact screenshot/source hierarchy and existing focusSurface projection contract — pending;
+1. mandatory reconstruction + exact screenshot/source hierarchy and existing focusSurface projection contract — **COMPLETE**;
 2. narrow Focus Panel hierarchy implementation + deterministic/visual coverage + semantic/diff review — pending;
 3. exact PR-head Windows CI — pending;
 4. final exact-head review + expected-head guarded merge — pending;
@@ -69,20 +69,17 @@ Current small-slice progress: **0/5**.
 
 - Focus Panel and Floating Timer remain presentations of the existing authoritative Rust-owned timer/session state; renderer state cannot become parallel authority.
 - `main` and `focusSurface` remain the normal two-webview architecture; do not create a third persistent focus webview.
-- Start Blitz and all later focus controls preserve stable task identity, durable Time Taken/session accounting, persistence-first transitions, crash/restart recovery, sleep policy, Time's Up/overtime and Pomodoro semantics already validated in M3.
-- Future-timed Today tasks remain ineligible until due, matching validated M4 scheduling rules.
-- Repeated Start Blitz cannot duplicate or silently switch an existing live session.
-- Narro launch or renderer creation cannot implicitly start a timer; only explicit domain actions may mutate timer/session state.
+- Start Blitz and all later focus controls preserve stable task identity, durable Time Taken/session accounting, persistence-first transitions, recovery, sleep policy, Time's Up/overtime and Pomodoro semantics validated in M3.
+- Future-timed Today tasks remain ineligible until due; Focus hierarchy cannot reinterpret scheduling eligibility.
+- Narro launch or renderer creation cannot implicitly start a timer; only explicit domain actions mutate timer/session state.
 - Entering Focus Mode or changing the live task must never auto-open note URLs.
 - Task/list/archive/Search/theme/preferences behavior validated through M5 must not regress.
-- System/Dark/Light remains shared SQLite-backed preference state across both normal webviews.
-- excluded account/trial/upgrade/profile/AI/integration controls remain absent.
 - keyboard/focus-visible access, stable action geometry, reduced-motion behavior and tabular timer numerals remain required.
-- do not absorb Milestone 7 Floating Timer polish, Milestone 8 shortcuts/preferences, Milestone 9 Reports, or Milestone 10 release work into this slice.
+- do not absorb Milestone 7 Floating Timer polish, Milestone 8 shortcuts/preferences, Milestone 9 Reports, or Milestone 10 release work.
 
 ## NEXT AGENT ACTION
 
-Re-run the mandatory startup sequence from current `main`, confirm this reconciliation tracking descendant is current and there is no unfinished newer M6 PR/branch, then reconstruct M6 item 3 from current `focusSurface` entry/bundle, timer-session projection/events, list/Today projection, existing task/list APIs, theme runtime and the screenshot/source evidence in `docs/RESEARCH_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/PRODUCT_SPEC.md`, `docs/SOURCE_AUDIT.md` and `docs/BEHAVIOR_MATRIX.md`. Determine the narrow presentation/read-model boundary for the Focus Panel hierarchy: list selector, Today identity, quick controls, aggregate EST/progress, active live card, remaining queue, Add Task, scheduled group and done group. Reuse authoritative state; do not implement item 4+ timer/action polish unless item 3 structurally requires a minimal dependency.
+Continue on `m6-focus-panel-hierarchy`. Implement the narrow product Focus Panel hierarchy over existing `get_list_board_snapshot`, `get_home_snapshot` and timer-session projection boundaries. Add deterministic screenshot-backed fixture/capture/validation coverage and a focused static/contract gate. Keep actions not belonging to item 3 non-mutating/structural rather than inventing behavior. Review the exact branch diff before opening a PR, then require exact-head Windows CI.
 
 ## USER ACTION REQUIRED
 
@@ -91,4 +88,4 @@ Re-run the mandatory startup sequence from current `main`, confirm this reconcil
 ## BLOCKERS / NOT RUN
 
 - No product/user decision currently blocks M6 item 3.
-- Full local Rust/Tauri validation may be unavailable in connector-only environments; authoritative Windows GitHub Actions remains required before merge.
+- Full local Rust/Tauri validation is unavailable in this connector-only environment; authoritative Windows GitHub Actions remains required before merge.
