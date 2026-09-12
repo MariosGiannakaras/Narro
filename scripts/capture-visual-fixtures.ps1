@@ -182,6 +182,20 @@ try {
                 -VirtualTimeBudgetMs 800
         }
 
+        foreach ($searchMode in @("empty", "results", "no-results", "task-create")) {
+            $searchLabel = "search-palette-$searchMode-$theme"
+            $searchUrl = "$baseUrl/search-palette-fixture.html?theme=$theme&mode=$searchMode"
+            $searchScreenshot = Join-Path $outputPath "$searchLabel.png"
+            $searchDom = Join-Path $outputPath "$searchLabel.html"
+            Capture-Theme `
+                -EdgePath $edge `
+                -Theme $searchLabel `
+                -Url $searchUrl `
+                -ScreenshotPath $searchScreenshot `
+                -DomPath $searchDom `
+                -VirtualTimeBudgetMs 800
+        }
+
         $reorderLabel = "task-reorder-$theme"
         $reorderUrl = "$baseUrl/task-reorder-fixture.html?theme=$theme"
         $reorderScreenshot = Join-Path $outputPath "$reorderLabel.png"
