@@ -33,6 +33,10 @@ New-Item -ItemType Directory -Path $outputPath -Force | Out-Null
 $edge = Resolve-EdgePath
 $preview = $null
 $locationPushed = $false
+$scenarios = @(
+    @{ Name = "running"; Suffix = ""; Query = "" },
+    @{ Name = "paused-metrics"; Suffix = "-paused-metrics"; Query = "&scenario=paused-metrics" }
+)
 
 try {
     Push-Location $repoRoot
@@ -44,40 +48,43 @@ try {
     Wait-ForPreview "$baseUrl/focus-panel-fixture.html?theme=dark"
 
     foreach ($theme in @("light", "dark")) {
-        $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
-        $captureId = [guid]::NewGuid().ToString('N')
-        $profile = Join-Path $tempRoot "narro-focus-panel-$theme-$captureId"
-        $stdout = Join-Path $tempRoot "narro-focus-panel-$theme-$captureId.stdout.txt"
-        $stderr = Join-Path $tempRoot "narro-focus-panel-$theme-$captureId.stderr.txt"
-        $screenshot = Join-Path $outputPath "focus-panel-$theme.png"
-        $dom = Join-Path $outputPath "focus-panel-$theme.html"
-        New-Item -ItemType Directory -Path $profile -Force | Out-Null
+        foreach ($scenario in $scenarios) {
+            $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
+            $captureId = [guid]::NewGuid().ToString('N')
+            $profile = Join-Path $tempRoot "narro-focus-panel-$theme-$($scenario.Name)-$captureId"
+            $stdout = Join-Path $tempRoot "narro-focus-panel-$theme-$($scenario.Name)-$captureId.stdout.txt"
+            $stderr = Join-Path $tempRoot "narro-focus-panel-$theme-$($scenario.Name)-$captureId.stderr.txt"
+            $screenshot = Join-Path $outputPath "focus-panel$($scenario.Suffix)-$theme.png"
+            $dom = Join-Path $outputPath "focus-panel$($scenario.Suffix)-$theme.html"
+            $url = "$baseUrl/focus-panel-fixture.html?theme=$theme$($scenario.Query)"
+            New-Item -ItemType Directory -Path $profile -Force | Out-Null
 
-        try {
-            $process = Start-Process -FilePath $edge -ArgumentList @(
-                "--headless=new",
-                "--disable-gpu",
-                "--disable-background-networking",
-                "--hide-scrollbars",
-                "--no-first-run",
-                "--force-device-scale-factor=1",
-                "--window-size=420,720",
-                "--user-data-dir=$profile",
-                "--screenshot=$screenshot",
-                "--dump-dom",
-                "$baseUrl/focus-panel-fixture.html?theme=$theme"
-            ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
+            try {
+                $process = Start-Process -FilePath $edge -ArgumentList @(
+                    "--headless=new",
+                    "--disable-gpu",
+                    "--disable-background-networking",
+                    "--hide-scrollbars",
+                    "--no-first-run",
+                    "--force-device-scale-factor=1",
+                    "--window-size=420,720",
+                    "--user-data-dir=$profile",
+                    "--screenshot=$screenshot",
+                    "--dump-dom",
+                    $url
+                ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
 
-            $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
-            if ($process.ExitCode -ne 0) { throw "Focus Panel Edge capture failed for $theme. $stderrText" }
-            if (-not (Test-Path $screenshot)) { throw "Focus Panel screenshot missing for $theme. $stderrText" }
-            $domText = if (Test-Path $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
-            if ([string]::IsNullOrWhiteSpace($domText)) { throw "Focus Panel DOM capture missing for $theme. $stderrText" }
-            [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
-        } finally {
-            Remove-Item -LiteralPath $profile -Recurse -Force -ErrorAction SilentlyContinue
-            Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
-            Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
+                $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
+                if ($process.ExitCode -ne 0) { throw "Focus Panel Edge capture failed for $theme/$($scenario.Name). $stderrText" }
+                if (-not (Test-Path $screenshot)) { throw "Focus Panel screenshot missing for $theme/$($scenario.Name). $stderrText" }
+                $domText = if (Test-Path $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
+                if ([string]::IsNullOrWhiteSpace($domText)) { throw "Focus Panel DOM capture missing for $theme/$($scenario.Name). $stderrText" }
+                [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
+            } finally {
+                Remove-Item -LiteralPath $profile -Recurse -Force -ErrorAction SilentlyContinue
+                Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
+                Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
+            }
         }
     }
 } finally {

@@ -1,0 +1,114 @@
+.focus-panel__live-metrics {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.focus-panel__metric-row {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) 4.75rem;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  min-height: 2rem;
+}
+
+.focus-panel__metric-label {
+  color: var(--color-text-secondary);
+}
+
+.focus-panel__metric-value,
+.focus-panel__metric-input {
+  min-width: 0;
+  height: 2rem;
+  border-radius: var(--radius-control);
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  font-variant-numeric: tabular-nums;
+}
+
+.focus-panel__metric-value {
+  grid-column: 2 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--space-2);
+  border: 1px solid transparent;
+  color: var(--color-text-primary);
+  background: transparent;
+  text-align: left;
+}
+
+button.focus-panel__metric-value {
+  cursor: pointer;
+}
+
+button.focus-panel__metric-value:hover {
+  border-color: var(--color-border-subtle);
+  background: var(--color-surface-interactive);
+}
+
+.focus-panel__metric-value--readonly {
+  color: var(--color-text-secondary);
+}
+
+.focus-panel__metric-input {
+  grid-column: 2;
+  width: 100%;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-accent-solid);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+}
+
+.focus-panel__metric-actions {
+  grid-column: 3;
+  display: grid;
+  grid-template-columns: repeat(2, 2.25rem);
+  justify-content: end;
+  gap: var(--space-1);
+  width: 4.75rem;
+}
+
+.focus-panel__metric-actions button {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2rem;
+  min-width: 2.25rem;
+  min-height: 2rem;
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-interactive);
+  font: inherit;
+  cursor: pointer;
+}
+
+.focus-panel__metric-actions button:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-strong);
+}
+
+.focus-panel__metric-actions button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.focus-panel__metric-value:focus-visible,
+.focus-panel__metric-input:focus-visible,
+.focus-panel__metric-actions button:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 1px;
+}
+
+.focus-panel__metric-status {
+  color: var(--color-text-secondary);
+}
+
+.focus-panel__metric-error {
+  color: var(--color-destructive);
+}

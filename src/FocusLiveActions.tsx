@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { FocusLiveMetrics, type FocusMetricKind } from "./FocusLiveMetrics";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import {
   getListBoardSnapshot,
@@ -32,6 +33,7 @@ type FocusLiveActionsProps = {
   target: ListBoardRequestTarget;
   timer: TimerSessionPayload;
   fixtureMode: boolean;
+  fixtureMetricEditor?: FocusMetricKind | null;
   onTimerPayload: (payload: TimerSessionPayload) => void;
 };
 
@@ -91,6 +93,7 @@ export function FocusLiveActions({
   target,
   timer,
   fixtureMode,
+  fixtureMetricEditor = null,
   onTimerPayload,
 }: FocusLiveActionsProps) {
   const [pendingAction, setPendingAction] = useState<FocusAction | null>(null);
@@ -222,6 +225,16 @@ export function FocusLiveActions({
 
   return (
     <div className="focus-panel__live-actions-wrap" data-focus-live-actions="true">
+      <FocusLiveMetrics
+        task={task}
+        target={target}
+        timer={timer}
+        fixtureMode={fixtureMode}
+        fixtureEditor={fixtureMetricEditor}
+        interactionBlocked={busy}
+        onTimerPayload={applyPayload}
+      />
+
       <FocusLiveSubtasks task={task} target={target} fixtureMode={fixtureMode} />
 
       <div className="focus-panel__live-actions" role="group" aria-label="Live task actions">

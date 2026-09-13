@@ -10,6 +10,8 @@ function invariant(condition, message) {
 
 const panel = read("src/FocusPanel.tsx");
 const actions = read("src/FocusLiveActions.tsx");
+const metrics = read("src/FocusLiveMetrics.tsx");
+const metricsCss = read("src/focusLiveMetrics.css");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
 const taskSubtasks = read("src/TaskSubtasks.tsx");
 const timerApi = read("src/timerSessionApi.ts");
@@ -54,6 +56,9 @@ for (const [haystack, needle, label] of [
   [panel, 'data-focus-group="done"', "done group"],
   [panel, '{scheduledTasks.length} Scheduled {scheduledTasks.length === 1 ? "task" : "tasks"}', "scheduled count heading"],
   [panel, '{doneTasks.length} Done', "done count heading"],
+  [actions, "<FocusLiveMetrics", "live metric composition"],
+  [actions, "fixtureEditor={fixtureMetricEditor}", "paused metric visual fixture wiring"],
+  [actions, "interactionBlocked={busy}", "metric/action interaction guard"],
   [actions, "<FocusLiveSubtasks", "live subtask composition"],
   [actions, "getListBoardSnapshot(target)", "fresh authoritative board read before queue-changing actions"],
   [actions, "snapshotTimerSession()", "fresh authoritative timer read before queue-changing actions"],
@@ -74,6 +79,30 @@ for (const [haystack, needle, label] of [
   [actions, 'data-focus-action="pause-resume"', "Pause/Resume control"],
   [actions, 'data-focus-action="skip"', "Skip control"],
   [actions, 'data-focus-action="done"', "Done control"],
+  [metrics, 'timer.task_id === taskId', "exact live-task metric gate"],
+  [metrics, 'timer.state === "paused" || timer.state === "overtime_paused"', "paused/overtime-paused metric gate"],
+  [metrics, "setPausedTimerEstimate({", "authoritative paused EST mutation"],
+  [metrics, "expectedEstSeconds: editor.expectedEstSeconds", "paused EST expected-value guard"],
+  [metrics, "setPausedTimerTimeTaken({", "authoritative paused Time Taken mutation"],
+  [metrics, "expectedTotalSeconds: editor.expectedTimeTakenSeconds", "paused Time Taken expected-total guard"],
+  [metrics, "getListBoardSnapshot(target)", "authoritative Focus metric board refresh"],
+  [metrics, "refreshed.listId !== task.listId", "metric task/list identity reconciliation"],
+  [metrics, "Authoritative Focus EST did not reconcile after the saved change.", "saved EST reconciliation"],
+  [metrics, "Authoritative Focus Time Taken did not reconcile after the saved change.", "saved Time Taken reconciliation"],
+  [metrics, "Metric change was saved, but authoritative Focus details could not refresh.", "committed metric refresh-failure distinction"],
+  [metrics, "setRefreshBlocked(true)", "unsafe metric retry blocker"],
+  [metrics, "if (!pausedEditable && editor) setEditor(null);", "editor closes when authoritative timer leaves paused state"],
+  [metrics, 'data-focus-live-metrics="true"', "Focus live metric surface marker"],
+  [metrics, 'data-focus-metrics-editable={pausedEditable ? "true" : "false"}', "Focus live metric editability marker"],
+  [metrics, 'data-focus-metric-control="display"', "running metric read-only marker"],
+  [metrics, 'data-focus-metric-control="open"', "paused metric edit affordance"],
+  [metrics, 'data-focus-metric-control="input"', "paused metric input"],
+  [metrics, 'data-focus-metric-control="cancel"', "paused metric cancel control"],
+  [metrics, 'data-focus-metric-control="save"', "paused metric save control"],
+  [metrics, 'const DURATION_INPUT = /^(\\d+):([0-5]\\d):([0-5]\\d)$/;', "H:MM:SS duration parser"],
+  [metrics, "MAX_EDITABLE_SECONDS = 4_294_967_295n", "Rust u32 metric range mirror"],
+  [metricsCss, "grid-template-columns: 5rem minmax(0, 1fr) 4.75rem", "stable Focus metric row geometry"],
+  [metricsCss, "grid-template-columns: repeat(2, 2.25rem)", "stable metric action geometry"],
   [subtasks, "getListBoardTaskSubtasks(task.id, task.listId)", "authoritative live-task subtask read"],
   [subtasks, "Promise.all([", "combined authoritative subtask/board refresh"],
   [subtasks, "getListBoardSnapshot(target)", "authoritative board progress refresh"],
@@ -103,6 +132,8 @@ for (const [haystack, needle, label] of [
   [timerApi, 'invoke<TimerSessionPayload>("timer_complete_task")', "typed completion mutation"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_skip_task")', "typed skip fallback mutation"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_switch_task"', "typed task-switch mutation"],
+  [timerApi, 'invoke<TimerSessionPayload>("timer_set_estimate"', "typed paused EST mutation"],
+  [timerApi, 'invoke<TimerSessionPayload>("timer_set_time_taken"', "typed paused Time Taken mutation"],
   [timerApi, 'state === "running" || state === "break" || state === "overtime_running"', "sampling limited to ticking states"],
   [timerApi, "applyTimerSessionProjection(latest, incoming)", "sample/event revision ordering"],
   [notes, "openUrl(link)", "explicit Notes URL opener remains confined to validated Notes component"],
@@ -118,20 +149,28 @@ for (const [haystack, needle, label] of [
   [css, ".focus-panel__subtasks .list-board-task__subtask-trigger { display: none; }", "single Focus subtask toggle without duplicate Main trigger"],
   [css, "prefers-reduced-motion", "reduced-motion coverage"],
   [fixture, "fixtureBoard={board}", "deterministic production-component fixture"],
+  [fixture, 'scenario = params.get("scenario") === "paused-metrics" ? "paused-metrics" : "running"', "paused metric visual scenario"],
+  [fixture, 'state: scenario === "paused-metrics" ? "paused" : "running"', "paused authoritative fixture timer"],
   [fixture, '"Review campaign notes"', "overdue remaining-row fixture"],
   [fixture, '"Plan weekend errands"', "ordinary remaining-row fixture"],
   [fixture, '"Client follow-up call"', "future-timed scheduled-row fixture"],
   [fixture, '"Confirm morning agenda"', "done-row fixture"],
   [fixture, 'liveTimer: box(".focus-panel__live-timer")', "deterministic live timer geometry fixture"],
+  [fixture, 'metrics: box(".focus-panel__live-metrics")', "deterministic live metric geometry fixture"],
+  [fixture, 'metricInput: scenario === "paused-metrics" ? box(".focus-panel__metric-input") : null', "deterministic paused metric input geometry fixture"],
   [fixture, 'subtasks: box(".focus-panel__subtasks")', "deterministic live subtask geometry fixture"],
   [fixture, 'subtaskRing: box(".focus-panel__subtask-ring")', "deterministic live subtask progress geometry fixture"],
   [fixture, 'actions: box(".focus-panel__live-actions")', "deterministic live action geometry fixture"],
   [vite, 'focusPanelFixture: "focus-panel-fixture.html"', "Vite fixture entry"],
   [capture, "focus-panel-fixture.html", "Windows Edge Focus capture"],
+  [capture, 'Name = "paused-metrics"', "paused metric Windows Edge capture"],
   [validator, "hierarchy order differs from source evidence", "visual hierarchy validation"],
   [validator, "authoritative EST countdown value is missing", "visual live timer validation"],
   [validator, "live subtask progress ring is missing", "visual live subtask validation"],
   [validator, "live action group accessible name is missing", "visual live action validation"],
+  [validator, "running metrics must remain read-only", "running metric visual restriction"],
+  [validator, "paused metrics must be editable", "paused metric visual editability"],
+  [validator, "paused EST editor input is missing", "paused metric visual editor"],
 ]) {
   invariant(haystack.includes(needle), `${label} is missing`);
 }
@@ -142,6 +181,9 @@ for (const forbidden of ["setInterval(", "Date.now(", "performance.now(", "windo
 for (const forbidden of ["setInterval(", "Date.now(", "performance.now(", "window.open(", "openUrl("]) {
   invariant(!actions.includes(forbidden), `Focus actions must not contain ${forbidden}`);
 }
+for (const forbidden of ["setInterval(", "Date.now(", "performance.now(", "window.open(", "openUrl(", "updateListBoardTaskEstimate", "updateListBoardTaskTimeTaken", "invoke<"]) {
+  invariant(!metrics.includes(forbidden), `Focus metrics must not contain ${forbidden}`);
+}
 for (const forbidden of ["setInterval(", "Date.now(", "performance.now(", "window.open(", "openUrl(", "timer_pause", "timer_resume", "timer_complete_task", "timer_switch_task"]) {
   invariant(!subtasks.includes(forbidden), `Focus subtasks must not contain ${forbidden}`);
 }
@@ -150,6 +192,7 @@ for (const forbidden of ["setInterval(", "Date.now(", "performance.now("]) {
 }
 
 invariant(timerApi.includes("window.setTimeout"), "live timer projection must schedule non-overlapping authoritative samples");
+invariant(metrics.indexOf("onTimerPayload(payload);") < metrics.indexOf("await refreshAfterCommittedMutation(metric, parsed.seconds);"), "committed metric timer payload must publish before secondary board refresh");
 invariant(actions.includes("DEFAULT_MANUAL_BREAK_MS = 10 * 60 * 1_000"), "manual Break must use the established ten-minute default until M8 exposes its preference");
 invariant(actions.includes('const breakState = timer.state === "break";'), "action state must identify an active break explicitly");
 invariant(actions.includes("breakEnabled: working"), "Break must remain available only for working states");
@@ -168,4 +211,4 @@ invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-pane
 invariant(pkg.scripts["test:visual-regression:windows"].includes("capture-focus-panel-fixtures.ps1"), "Focus Panel capture is not in Windows visual regression");
 invariant(pkg.scripts["test:visual-regression:windows"].includes("validate-focus-panel-captures.mjs"), "Focus Panel visual validation is not in Windows visual regression");
 
-console.log("Focus Panel hierarchy/live timer/workflow/actions/subtasks contract checks passed.");
+console.log("Focus Panel hierarchy/live timer/workflow/actions/metrics/subtasks contract checks passed.");
