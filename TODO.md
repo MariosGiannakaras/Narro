@@ -33,7 +33,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] physical shortcut validation
 - [x] Prove tray/background lifecycle plus explicit Quit.
   - [x] tray/background/recovery/Quit implementation and Windows CI validation
-  - [x] physical tray/background/recovery/Quit validation
+  - [x] physical tray/background/recovery/Quit physical validation
 - [x] Prove local Windows notification delivery while process remains running.
   - [x] Rust notification delivery path and Windows CI validation
   - [x] physical visible Windows notification validation from installed build
@@ -238,7 +238,7 @@ Acceptance criteria:
 - [x] Permit EST/Time Taken editing only while paused.
 - [x] Implement selected-monitor and left/right Focus Panel placement.
 - [x] React to monitor/display changes while Focus Mode is open.
-- [ ] Implement configured scrolling behavior for the live title.
+- [x] Implement configured scrolling behavior for the live title.
 - [ ] Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.
 - [ ] Reserve action slots for hover/focus controls so controls never push task text or move hit targets.
 - [ ] Add tooltips for icon-only controls.
