@@ -13,90 +13,103 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 2 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 3 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
-M6 items 1–2 are complete: **Start Blitz from eligible Today tasks** and **Auto-select top eligible Today task**. The next ordered work is item 3: **Reproduce Focus Panel hierarchy**. Do not skip ahead to Floating Timer, shortcuts/preferences, Reports, or release polish.
+General roadmap progress remains **5 of 10 milestones complete**. M6 items 1–3 are validated. The next ordered work is item 4: **Render current task and authoritative timer with fixed/tabular timer geometry.** Do not skip ahead to later Focus controls, Floating Timer, shortcuts/preferences, Reports, or release polish.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`bea3f352c609456762f83e4911017ac9ef23f682`
+`afaffaf616be89f8a967e61fb1c82b8453d83af8`
 
 Tree:
 
-`5df0821b29fa4a017a3dc84ea14c40937c85cf35`
+`14fe75bdc155fb1aeb8a101ad76948fe10f38503`
 
-This is the expected-head guarded squash merge of PR #101 — `M6: start Blitz from eligible Today tasks` — from exact validated PR head `6f329f4b9217a2f68d138ac30b1027071e209b8b`.
+This is the expected-head guarded squash merge of PR #102 — `M6: reproduce Focus Panel hierarchy` — from exact validated PR head `4f34d1e9bc108bb3a44c42be24121239b13f82f3`.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
 ## M6 items 1–2 — validated Focus entry boundary
 
+Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-entry.md`.
+
+Validated behavior remains:
+
+- explicit `Blitz now` is the production Focus-entry action; renderer/app launch does not auto-start a timer;
+- Rust owns top-eligible Today selection and reuses validated M4 scheduling eligibility;
+- future-timed Today tasks remain ineligible until due;
+- timer mode resolves authoritatively from Pomodoro preferences, task EST, then count-up fallback;
+- repeated/concurrent Start Blitz cannot duplicate or silently switch an existing live session;
+- existing M3 `TimerService` / `TimerRuntime` remains the only authoritative persistence-first timer/session boundary;
+- Focus entry does not auto-open task-note URLs;
+- the normal two-webview model remains `main` plus reusable `focusSurface`.
+
+## M6 item 3 — validated Focus Panel hierarchy
+
 Implemented and validated behavior:
 
-- explicit `Blitz now` is the only production Focus-entry action; render/app launch does not auto-start a timer;
-- task selection is Rust-owned and reuses the validated M4 `scheduling::focus_eligibility_at` policy;
-- future-timed Today tasks remain ineligible until due; scheduled Backlog/This Week tasks that project into Today can be selected when eligible;
-- candidate order matches the All Lists planning order: active-list rank, task rank, stable task ID;
-- persisted timezone overrides renderer fallback for eligibility classification;
-- persisted/default Pomodoro settings override task EST; otherwise EST selects countdown and no EST selects count-up;
-- `started`, `already_active`, and `no_eligible_today_tasks` are typed outcomes;
-- repeated/concurrent Start Blitz cannot duplicate or silently switch an existing live session;
-- the existing M3 `TimerService` / `TimerRuntime` remains the only authoritative persistence-first timer/session boundary;
-- no-eligible returns before starting a session;
-- successful timer/session commit remains success even if the secondary Focus Panel show/focus operation fails;
-- Focus entry does not auto-open task-note URLs;
-- the existing two-webview model remains unchanged: `main` plus reusable `focusSurface`.
+- normal `focusSurface` renders the product Focus Panel; the M1 diagnostic harness remains explicitly gated behind `?diagnostics=1`;
+- the panel composes existing `get_home_snapshot`, `get_list_board_snapshot`, and revisioned timer-session projection instead of introducing renderer/domain authority;
+- hierarchy reproduces the source-evidenced `All`/list selector, Today heading, quick controls, aggregate EST/progress, emphasized active live card, remaining queue, list-origin chips, overdue/schedule/subtask metadata, `+ ADD TASK`, Scheduled group, and Done group;
+- list selector changes read context only; no renderer-owned task/session authority or polling was introduced;
+- authoritative timer transitions refresh the planning projection through the existing typed event flow;
+- later-item controls visible for hierarchy fidelity remain explicitly non-mutating rather than inventing premature semantics;
+- deterministic production-component Focus fixtures and Windows Edge light/dark captures validate the same production DOM/CSS;
+- no Rust/Tauri source, schema/migration, timer engine, scheduling policy, dependencies/lockfile, Notes URL behavior, Floating Timer, preferences/shortcuts, Reports, or release scope changed.
 
-### PR #101 exact-head validation
-
-Initial PR CI #392 / run `34718784154` / job `103620662277` failed only at `cargo fmt --check`; frontend/static Focus-entry gates and the TypeScript/Vite build had passed. The exact rustfmt output was applied without semantic changes.
+### PR #102 exact-head validation
 
 Final exact PR head:
 
-`6f329f4b9217a2f68d138ac30b1027071e209b8b`
+`4f34d1e9bc108bb3a44c42be24121239b13f82f3`
 
-Windows PR CI #394:
+Windows PR CI #401:
 
-- run `34718967378`, job `103621226697`, conclusion **SUCCESS**;
+- run `34723924944`, job `103634614847`, conclusion **SUCCESS**;
 - Repository Preflight: **SUCCESS**;
-- production Windows Edge visual regression: **SUCCESS**;
+- production Windows Edge Focus Panel light/dark capture/validation: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - diagnostic artifact upload: **SUCCESS**;
-- visual artifact `10305998073`, digest `sha256:3fa00578ce46e4ea16a6352486e718edc4162b6b62075dc548da7293bc87e7fa`;
-- diagnostic artifact `10305534197`, digest `sha256:ab58df8f0f630d0bbc7fcbcc116f77d1246a220222f4100803842d3f7a0ed273`;
-- final changed files: `HANDOFF.md`, `package.json`, `scripts/test-ui-focus-entry.mjs`, `src-tauri/src/focus_entry.rs`, `src-tauri/src/lib.rs`, `src/BlitzEntryButton.tsx`, `src/focusEntryApi.ts`, `src/main.tsx`;
-- no PR/review comments required action;
-- exact validated head remained unchanged through merge.
+- visual artifact `10307940032`, digest `sha256:ff6b596e284cf65ad5aab2d36098cc6f3f296e2b68f1c76149bc704d75c64203`;
+- diagnostic artifact `10307700842`, digest `sha256:4ba893354d5ab3486db9cc11a998bc54fa41afa973cfa40ee222fd2ff3ef87ee`;
+- final changed files were limited to Focus Panel production/fixture/validation wiring plus `HANDOFF.md`;
+- no PR comments, reviews, or unresolved review threads required action;
+- exact validated head remained unchanged through guarded merge.
+
+Two earlier PR runs supplied narrow fix evidence without advancing validation: CI #396 exposed only a TypeScript union-narrowing error after the static Focus gates had passed; CI #398 passed the entire repository preflight and created the Focus captures, then exposed only a validator assumption that conflated PNG capture height with headless Edge DOM layout height. Both fixes were limited to the exact evidence and final CI #401 passed.
 
 ### Resulting-main validation
 
-PR #101 was squash-merged with expected-head guard `6f329f4b9217a2f68d138ac30b1027071e209b8b`.
+PR #102 was squash-merged with expected-head guard `4f34d1e9bc108bb3a44c42be24121239b13f82f3`.
 
-Windows main CI #395:
+Resulting source SHA:
 
-- run `34721633029`, job `103628495654`, conclusion **SUCCESS**;
-- exact source SHA `bea3f352c609456762f83e4911017ac9ef23f682`;
+`afaffaf616be89f8a967e61fb1c82b8453d83af8`
+
+Windows main CI #402:
+
+- run `34728728053`, job `103647484892`, conclusion **SUCCESS**;
 - Repository Preflight: **SUCCESS**;
 - production Windows Edge visual regression: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - diagnostic artifact upload: **SUCCESS**;
-- visual artifact `10306966263`, digest `sha256:038577b82dee0bd9a01fced940f05965e95bd596d868aee03e6497fa542f08dc`;
-- diagnostic artifact `10306782210`, digest `sha256:d555877e292a44e9e0b135d3bd800853b77006d45b29cd3c6d1b3b8fb8bf433f`.
+- visual artifact `10309072118`, digest `sha256:c17f5a7aba0fcd44defc7d5a1da4243f632bdf344791fdc1ec8b01346a9cd196`;
+- diagnostic artifact `10309022543`, digest `sha256:9c608b9033ebcb0e37d5a27cad0bc74ad30f2841890cb7e627fbdd6866b9daed`.
 
-Detailed immutable evidence is recorded in `work-log/2026-09-13-chatgpt-m6-focus-entry.md`.
+Detailed immutable evidence is recorded in `work-log/2026-09-13-chatgpt-m6-focus-panel-hierarchy.md`.
 
 ## Milestone 6 — next ordered work
 
 The next top-level item is:
 
-3. `Reproduce Focus Panel hierarchy: list selector, Today, quick controls, aggregate EST/progress, active live card, remaining queue, Add Task, scheduled group, done group.`
+4. `Render current task and authoritative timer with fixed/tabular timer geometry.`
 
-Build this hierarchy over the already validated authoritative timer/session and planning projections. Keep `focusSurface` minimal, presentation-only, event-driven, theme-consistent and within the existing two-webview architecture. Do not duplicate timer/session, task, schedule, notes or subtask authority in renderer state.
+Implement this as the next narrow Focus Panel slice on top of the validated hierarchy. Reuse the existing revisioned authoritative timer/session projection and current live task identity. Timer numerals must remain fixed/tabular, renderer lifecycle must stay presentation-only, and timer/session persistence/recovery semantics from M3 must not be duplicated or weakened.
 
 ## Durable correctness decisions
 
@@ -109,9 +122,8 @@ Future work must preserve:
 - stable task/subtask/list identities, tracked Time Taken, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress.
 - future-timed Today tasks remain ineligible until due; Focus entry must not bypass scheduling eligibility.
 - repeated Focus entry cannot duplicate or silently switch an existing live session.
-- list archive/restore and automatic done-task archival semantics remain unchanged.
-- Search remains local/read-only; quick task creation continues to use the persistence-first create path.
-- theme is local SQLite-backed preference state; both normal webviews project the same committed theme, and System follows OS/browser color mode without polling.
+- Focus hierarchy/list switching remains read-only unless a later ordered item explicitly adds a validated mutation boundary.
+- task/list/archive/Search/theme/preferences behavior validated through M5 must not regress.
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from Focus entry or task switching.
 - hover/focus interactions may not reflow sibling geometry or move hit targets; keyboard/focus-visible equivalents and accessible names/tooltips remain required.
 - motion never owns or delays domain-state completion; `prefers-reduced-motion` remains usable and timer numerals remain tabular.
