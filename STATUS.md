@@ -13,22 +13,22 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 4 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 5 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
-General roadmap progress remains **5 of 10 milestones complete**. M6 items 1–4 are validated. The next ordered work is item 5: **Show remaining/scheduled/done sections matching documented focus workflow.** Do not skip ahead to item-6 Focus controls, Floating Timer, shortcuts/preferences, Reports, or release polish.
+General roadmap progress remains **5 of 10 milestones complete**. M6 items 1–5 are validated. The next ordered work is item 6: **Implement break, notes, pause/resume, skip, finish.** Do not skip ahead to subtasks/progress, paused EST/Time Taken editing, monitor placement, later Focus polish, Floating Timer, shortcuts/preferences, Reports, or release work.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`aaefd323d0523a8129156858fc7e4f72ca849e97`
+`c74985c117aa4ac550ad6ade1442f28c998c5f49`
 
 Tree:
 
-`334aaefc45113770ef1f3c2dc94373951ac90913`
+`8eaf157fdb4d5c4d9db12091c6149e8c4ae1108b`
 
-This is the expected-head validated squash merge of PR #103 — `M6: render authoritative Focus live timer` — from exact validated PR head `84373aca8169fd19c453a27530e0e0b8ebef1eae`.
+This is the expected-head guarded squash merge of PR #104 — `M6: validate Focus workflow sections` — from exact validated PR head `129687c381b84a91e76d008e8163c5b8bade21aa`.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
@@ -63,57 +63,75 @@ Validated behavior remains:
 
 Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-live-timer.md`.
 
-Validated behavior:
+Validated behavior remains:
 
-- current live task renders an authoritative timer readout from `TimerSnapshot` only;
-- EST countdown, count-up, Pomodoro work, break countdown, explicit `Time's Up`, overtime running and overtime paused states are represented;
-- countdown display rounds upward; elapsed/overtime display rounds downward, avoiding premature zero or fabricated elapsed time;
+- current live task renders authoritative `TimerSnapshot` state only;
+- EST countdown, count-up, Pomodoro work, break countdown, explicit `Time's Up`, overtime running and overtime paused are represented;
+- countdown display rounds upward; elapsed/overtime display rounds downward;
 - timer geometry uses a fixed `10ch` slot and tabular numerals;
 - `connectLiveTimerSessionProjection` preserves listen-before-snapshot race protection and revision ordering;
-- snapshot sampling occurs at most once per second only while the authoritative state is ticking (`running`, `break`, `overtime_running`);
-- stable states stop sampling until a typed timer event changes authoritative state;
-- renderer cadence remains presentation-only and does not calculate authoritative elapsed time, mutate timer/session state, write persistence, or poll planning state;
-- production Focus fixtures and Windows validation require authoritative timer value, tabular marker, accessible label and stable light/dark timer geometry.
+- snapshot sampling occurs at most once per second only while authoritative state is ticking (`running`, `break`, `overtime_running`);
+- stable states stop sampling until a typed timer event changes state;
+- renderer cadence never becomes timer/session/persistence authority or a per-second planning-state poll.
 
-### PR #103 exact-head validation
+PR #103 exact head `84373aca8169fd19c453a27530e0e0b8ebef1eae` passed Windows PR CI #403 / run `34730948100`; resulting main `aaefd323d0523a8129156858fc7e4f72ca849e97` passed Windows main CI #404 / run `34731560893`.
+
+## M6 item 5 — validated Remaining / Scheduled / Done workflow
+
+Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-workflow-sections.md`.
+
+Validated behavior:
+
+- current live task identity is excluded from non-live queue sections;
+- ordinary Today work remains in Remaining;
+- overdue scheduled/date work remains actionable in Remaining;
+- future-timed non-overdue Today work is shown in Scheduled and cannot also appear in Remaining;
+- Done comes from authoritative `ListBoardSnapshot.done` rather than renderer-created completion history;
+- All Lists keeps list-origin chips; selected-list projection uses the same stable identities;
+- section order remains active card -> Remaining -> Add Task -> Scheduled -> Done;
+- this item adds no action mutation semantics.
+
+The production behavior already existed from the earlier hierarchy slice. PR #104 therefore added only explicit regression coverage plus in-progress handoff text; no production source rewrite was needed.
+
+### PR #104 exact-head validation
 
 Final exact PR head:
 
-`84373aca8169fd19c453a27530e0e0b8ebef1eae`
+`129687c381b84a91e76d008e8163c5b8bade21aa`
 
-Windows PR CI #403:
+Windows PR CI #405:
 
-- run `34730948100`, job `103653504912`, conclusion **SUCCESS**;
+- run `34747582849`, job `103698237432`, conclusion **SUCCESS**;
 - Repository Preflight: **SUCCESS**;
-- Focus Panel Windows Edge visual capture/validation: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - required artifact uploads: **SUCCESS**;
-- visual artifact `10308304972`, digest `sha256:ee892015a97edf36b76c72ebd9c886aceb4c21c26649af308a5a6a2f2b5d008c`;
-- diagnostic artifact `10310040153`, digest `sha256:f2e54eccaa59ba2e3b7b0ea3e03c97e91bbc72e5e94875413e5462cf6d473d9f`.
+- visual artifact `10315220318`, digest `sha256:c07fecca5f209da2c7e7e3c2acdb0e67928a834b7aff0869ae6147e2559247f7`;
+- diagnostic artifact `10315415290`, digest `sha256:f170b6fdb5516a8d90bd6ab7ae4d7013b1afdafb51ed5cd40d7bef6a768f1671`.
 
 ### Resulting-main validation
 
 Resulting source SHA:
 
-`aaefd323d0523a8129156858fc7e4f72ca849e97`
+`c74985c117aa4ac550ad6ade1442f28c998c5f49`
 
-Windows main CI #404:
+Windows main CI #406:
 
-- run `34731560893`, job `103655163926`, conclusion **SUCCESS**;
+- run `34748317733`, job `103700208950`, conclusion **SUCCESS**;
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - required artifact uploads: **SUCCESS**;
-- visual artifact `10310001250`, digest `sha256:09192116597bd121ca59db101e63c62fa213cb92150a5bdf93705cb01d57e00b`;
-- diagnostic artifact `10310336106`, digest `sha256:ad2d0cf188355cfc02b208299cd892d62dd0f32544d1fd880d54462d11de5209`.
+- visual artifact `10314173991`, digest `sha256:ef8cbf16d39b327d410605371bb81f44c359693fc151b1c68b03123df82f36df`;
+- diagnostic artifact `10315251351`, digest `sha256:628a0ad331df9dca01e1588d37ad310a3470859f7dccac727e54a8db4da514a1`.
 
 ## Milestone 6 — next ordered work
 
 The next top-level item is:
 
-5. `Show remaining/scheduled/done sections matching documented focus workflow.`
+6. `Implement break, notes, pause/resume, skip, finish.`
 
-Implement this as the next narrow Focus Panel slice on top of the validated hierarchy/live timer. Reconstruct workflow semantics from current product/UI/source evidence and existing list-board projection. Preserve stable task identities, M4 scheduling eligibility/date semantics and M3 timer/session authority. Do not absorb item-6 break/notes/pause/resume/skip/finish controls.
+Implement this as the next narrow Focus action slice. Reconstruct the exact action/state contract from current product/UI/source evidence and inspect the already validated M3 timer/session commands/events plus M5 Notes APIs before editing. Reuse those authoritative mutation boundaries instead of duplicating timer/session or note authority in React. Preserve tracked Time Taken, work/break separation, persistence-first transitions, recovery, `Time's Up`/overtime/Pomodoro semantics and explicit-only URL opening. Do not absorb item 7 subtasks/progress, item 8 paused EST/Time Taken editing, later Focus placement/title/action-slot/tooltips/visual-state work, or Milestone 7 Floating Timer polish.
 
 ## Durable correctness decisions
 
@@ -127,9 +145,9 @@ Future work must preserve:
 - future-timed Today tasks remain ineligible until due; Focus entry and queue rendering must not bypass scheduling eligibility.
 - repeated Focus entry cannot duplicate or silently switch an existing live session.
 - live timer sampling remains bounded to ticking states and cannot become a renderer-owned clock or per-second database/list-board poll.
-- Focus hierarchy/list switching remains read-only unless a later ordered item explicitly adds a validated mutation boundary.
+- Focus queue partitioning cannot clone identities or reinterpret scheduling state.
 - task/list/archive/Search/theme/preferences behavior validated through M5 must not regress.
-- Notes URLs require explicit pointer/keyboard activation and may never auto-launch from Focus entry or task switching.
+- Notes URLs require explicit pointer/keyboard activation and may never auto-launch from Focus entry, task switching or Notes opening.
 - hover/focus interactions may not reflow sibling geometry or move hit targets; keyboard/focus-visible equivalents and accessible names/tooltips remain required.
 - motion never owns or delays domain-state completion; `prefers-reduced-motion` remains usable and timer numerals remain tabular.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
