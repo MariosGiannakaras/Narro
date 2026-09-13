@@ -110,6 +110,10 @@ function timerStateNeedsLiveSampling(state: TimerStateKind): boolean {
   return state === "running" || state === "break" || state === "overtime_running";
 }
 
+export function snapshotTimerSession(): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_session_snapshot");
+}
+
 export async function connectTimerSessionProjection(
   onPayload: (payload: TimerSessionPayload) => void,
 ): Promise<() => void> {
@@ -118,7 +122,7 @@ export async function connectTimerSessionProjection(
   });
 
   try {
-    const snapshot = await invoke<TimerSessionPayload>("timer_session_snapshot");
+    const snapshot = await snapshotTimerSession();
     onPayload(snapshot);
     return unlisten;
   } catch (error: unknown) {
@@ -150,7 +154,7 @@ export async function connectLiveTimerSessionProjection(
 
     sampleTimeout = window.setTimeout(() => {
       sampleTimeout = null;
-      void invoke<TimerSessionPayload>("timer_session_snapshot")
+      void snapshotTimerSession()
         .then((snapshot) => {
           if (disposed) return;
           accept(snapshot);
@@ -174,7 +178,7 @@ export async function connectLiveTimerSessionProjection(
   });
 
   try {
-    accept(await invoke<TimerSessionPayload>("timer_session_snapshot"));
+    accept(await snapshotTimerSession());
   } catch (error: unknown) {
     disposed = true;
     clearSample();
@@ -189,8 +193,35 @@ export async function connectLiveTimerSessionProjection(
   };
 }
 
-export async function resumeTimer(): Promise<TimerSessionPayload> {
+export function pauseTimer(): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_pause");
+}
+
+export function resumeTimer(): Promise<TimerSessionPayload> {
   return invoke<TimerSessionPayload>("timer_resume");
+}
+
+export function startManualBreakTimer(durationMs: number): Promise<TimerSessionPayload> {
+  if (!Number.isSafeInteger(durationMs) || durationMs <= 0) {
+    return Promise.reject(new Error("Manual break duration must be a positive safe integer."));
+  }
+  return invoke<TimerSessionPayload>("timer_start_manual_break", { durationMs });
+}
+
+export function skipBreakTimer(): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_skip_break");
+}
+
+export function completeTimerTask(): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_complete_task");
+}
+
+export function skipTimerTask(): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_skip_task");
+}
+
+export function switchTimerTask(taskId: string, mode: TimerMode): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_switch_task", { taskId, mode });
 }
 
 export function setPausedTimerEstimate(
