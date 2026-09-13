@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
+import { FocusPanel } from "./FocusPanel";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { TimerSessionProjection } from "./TimerSessionProjection";
 import {
@@ -12,7 +13,7 @@ import {
   formatInvokeError,
 } from "./diagnosticApi";
 
-function FocusApp() {
+function FocusDiagnostics() {
   const [state, setState] = useState<AppStatePayload | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,33 +22,22 @@ function FocusApp() {
     let stopListening: (() => void) | undefined;
 
     void listen<AppStatePayload>("state-changed", (event) => {
-      if (!disposed) {
-        setState((current) => applyNewerState(current, event.payload));
-      }
+      if (!disposed) setState((current) => applyNewerState(current, event.payload));
     })
       .then((unlisten) => {
-        if (disposed) {
-          unlisten();
-        } else {
-          stopListening = unlisten;
-        }
+        if (disposed) unlisten();
+        else stopListening = unlisten;
       })
       .catch((failure: unknown) => {
-        if (!disposed) {
-          setError(formatInvokeError(failure));
-        }
+        if (!disposed) setError(formatInvokeError(failure));
       });
 
     void invoke<AppStatePayload>("get_state")
       .then((payload) => {
-        if (!disposed) {
-          setState((current) => applyNewerState(current, payload));
-        }
+        if (!disposed) setState((current) => applyNewerState(current, payload));
       })
       .catch((failure: unknown) => {
-        if (!disposed) {
-          setError(formatInvokeError(failure));
-        }
+        if (!disposed) setError(formatInvokeError(failure));
       });
 
     return () => {
@@ -90,11 +80,8 @@ function FocusApp() {
         background: "var(--color-canvas)",
       }}
     >
-      <h3 style={{ margin: "0 0 0.5rem 0" }}>Focus Surface</h3>
-      {error && (
-        <div style={{ color: "var(--color-destructive)", fontSize: "0.8em" }}>{error}</div>
-      )}
-
+      <h3 style={{ margin: "0 0 0.5rem 0" }}>Focus Surface Diagnostics</h3>
+      {error ? <div style={{ color: "var(--color-destructive)", fontSize: "0.8em" }}>{error}</div> : null}
       <div
         style={{
           background: "var(--color-surface-raised)",
@@ -108,42 +95,27 @@ function FocusApp() {
       >
         <pre style={{ margin: 0 }}>{JSON.stringify(state, null, 2)}</pre>
       </div>
-
       <TimerSessionProjection label="Focus Surface" compact />
-
-      <div
-        style={{
-          marginTop: "0.5rem",
-          display: "flex",
-          gap: "0.5rem",
-          flexWrap: "wrap",
-        }}
-      >
+      <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
         <button onClick={() => void mutateState()}>Mutate State</button>
-        <button onClick={() => void runWindowCommand("main_window_recreate")}>
-          Recreate Main
-        </button>
+        <button onClick={() => void runWindowCommand("main_window_recreate")}>Recreate Main</button>
         <button onClick={() => void runWindowCommand("main_window_show")}>Show Main</button>
         <button onClick={() => void runWindowCommand("main_window_hide")}>Hide Main</button>
-        <button onClick={() => void runWindowCommand("main_window_destroy")}>
-          Destroy Main
-        </button>
+        <button onClick={() => void runWindowCommand("main_window_destroy")}>Destroy Main</button>
         <button onClick={() => void runWindowCommand("main_window_close")}>Close Main</button>
-        <button onClick={() => void runWindowCommand("focus_surface_mode_panel")}>
-          Panel Mode
-        </button>
-        <button onClick={() => void runWindowCommand("focus_surface_mode_timer")}>
-          Timer Mode
-        </button>
+        <button onClick={() => void runWindowCommand("focus_surface_mode_panel")}>Panel Mode</button>
+        <button onClick={() => void runWindowCommand("focus_surface_mode_timer")}>Timer Mode</button>
       </div>
     </main>
   );
 }
 
+const diagnostics = new URLSearchParams(window.location.search).get("diagnostics") === "1";
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeRuntimeProvider>
-      <FocusApp />
+      {diagnostics ? <FocusDiagnostics /> : <FocusPanel />}
     </ThemeRuntimeProvider>
   </React.StrictMode>,
 );
