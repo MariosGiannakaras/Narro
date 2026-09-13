@@ -15,11 +15,15 @@ pub enum FocusPreferenceError {
 impl Display for FocusPreferenceError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::OpenDatabase(error) => write!(formatter, "failed to open Narro database: {error}"),
+            Self::OpenDatabase(error) => {
+                write!(formatter, "failed to open Narro database: {error}")
+            }
             Self::ConfigureDatabase(error) => {
                 write!(formatter, "failed to configure Narro database: {error}")
             }
-            Self::Preferences(error) => write!(formatter, "failed to read Focus preferences: {error}"),
+            Self::Preferences(error) => {
+                write!(formatter, "failed to read Focus preferences: {error}")
+            }
         }
     }
 }
@@ -53,9 +57,7 @@ fn app_data_dir(app_handle: &tauri::AppHandle) -> CommandResult<PathBuf> {
 }
 
 #[tauri::command]
-pub fn get_focus_scrolling_title_preference(
-    app_handle: tauri::AppHandle,
-) -> CommandResult<bool> {
+pub fn get_focus_scrolling_title_preference(app_handle: tauri::AppHandle) -> CommandResult<bool> {
     let app_dir = app_data_dir(&app_handle)?;
     load_scrolling_title(&app_dir)
         .map_err(|error| CommandError::new("FOCUS_PREFERENCE_FAILED", error.to_string()))
