@@ -7,101 +7,103 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 **Milestone 6 — Blitz Mode / Focus Panel.**
 
 - Milestones 1–5: COMPLETE / PASS.
-- Milestone 6: ACTIVE / **5 of 16** top-level items validated.
+- Milestone 6: ACTIVE / **6 of 16** top-level items validated.
 - Milestones 7–10: NOT STARTED.
 
-Compact progress basis: **5/10 milestones complete; item-6 slice 2/5 checkpoints; M6 5/16 items validated.**
+Compact progress basis: **5/10 milestones complete; new item-7 slice 0/5 checkpoints; M6 6/16 items validated.**
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-Source/test SHA: `c74985c117aa4ac550ad6ade1442f28c998c5f49`
+Source/test SHA: `17d7f9a2a99bd33a43f02afb7d81201c1dc23195`
 
-Source tree: `8eaf157fdb4d5c4d9db12091c6149e8c4ae1108b`
+Source tree: `3476df620697441df7d98b81e3d78d80aa08cbf4`
 
-This is the resulting-main source SHA of PR #104 after authoritative Windows main CI #406 passed. Markdown-only tracking descendants do not replace it.
+This is the resulting-main source/test SHA of PR #106 after authoritative Windows main CI #409 passed. It contains the validated PR #105 production Focus live-action implementation plus the PR #106 test-only state-contract assertions. Markdown-only tracking descendants do not replace this source/test baseline.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
-**M6 item 5/16 — Show remaining/scheduled/done sections matching documented focus workflow.**
+**M6 item 6/16 — Implement break, notes, pause/resume, skip, finish.**
 
-Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-workflow-sections.md`.
+Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-actions.md`.
 
-- PR #104 final exact head `129687c381b84a91e76d008e8163c5b8bade21aa`;
-- Windows PR CI #405 / run `34747582849` / job `103698237432`: **SUCCESS**;
-- expected-head guarded squash merge source SHA `c74985c117aa4ac550ad6ade1442f28c998c5f49`;
-- Windows main CI #406 / run `34748317733` / job `103700208950`: **SUCCESS**;
-- main visual artifact `10314173991`, digest `sha256:ef8cbf16d39b327d410605371bb81f44c359693fc151b1c68b03123df82f36df`;
-- main diagnostic artifact `10315251351`, digest `sha256:628a0ad331df9dca01e1588d37ad310a3470859f7dccac727e54a8db4da514a1`.
+Validated product behavior:
 
-Validated item-5 behavior locks live-task exclusion, ordinary/overdue Remaining work, future-timed Scheduled separation, authoritative Done projection, stable identity partitioning, section counts/markers and exact hierarchy. No production source rewrite or new mutation semantics were required.
+- fixed live action order is Break, Notes, Pause/Resume, Skip, Done;
+- Break uses the authoritative manual work->break transition and the established 10-minute default until M8 exposes the persisted preference;
+- active-break Resume uses authoritative `timer_skip_break`;
+- Pause/Resume reuses M3 idempotent timer transitions including overtime states;
+- Skip refreshes authoritative board + timer state, rejects stale live-task identity, excludes future-timed non-overdue Today work and switches through one persistence-first `timer_switch_task`, falling back to `timer_skip_task` only when no next eligible task exists;
+- Done commits through the M3 coupled completion boundary before any best-effort start-next attempt, preserving tracked Time Taken;
+- secondary start-next failure cannot convert committed completion into failure or invite unsafe retry;
+- Notes reuse the validated M5 `TaskNotes` editor and preserve explicit pointer/keyboard-only URL activation;
+- React remains presentation/orchestration only; no renderer elapsed/session authority, Rust timer rewrite, schema/migration, dependency or scheduling-policy change was introduced;
+- static and Windows light/dark visual regression coverage lock state gating and five-action geometry.
+
+### PR #105 production implementation
+
+- exact head `26c431de9f3c318bce15325c51ef767988d7ece5`;
+- Windows PR CI #407 / run `34749228254` / job `103702560465`: **SUCCESS**;
+- visual artifact `10315332440`, digest `sha256:de3579f9c3192c4c3a2e7e256ae6ef50d6bb061519bfb74e832c50863d4d7cda`;
+- diagnostic artifact `10315167944`, digest `sha256:1f8bb3ae4b443dccc6e58279a32d4e60170cbe1990898fe4344c50adf6d54d30`;
+- GitHub merge transaction temporarily advanced main to `1fdc619d120a81dbd30e88e5dfee28ac13fde8b0` / tree `df10c7fab1b13e9742787a9787562e7692b70fe2` before PR metadata closed;
+- final GitHub-reported PR #105 merge commit `e31d7b695014e32c14ab452393a521323fef4f03` had zero file changes and retained the same production tree; no push CI was emitted for that no-op completion commit, so item 6 remained open.
+
+### PR #106 test-only state-contract follow-up
+
+- diff: exactly six static assertions in `scripts/test-ui-focus-panel.mjs`; no production-source changes;
+- exact head `d6d969b7eaaf4e2fe5ee443236437e070c3b0a1f`;
+- Windows PR CI #408 / run `34750003487` / job `103704719842`: **SUCCESS**;
+- visual artifact `10315775336`, digest `sha256:d1aab4cfbadce4ae55393ba22324c7139612842b1d68f1b5c8f0c5ad2704d258`;
+- diagnostic artifact `10315568456`, digest `sha256:2157ad8e7dba35c672657984fc521179f45a5ba7aef90d65288f8da741dff8ca`;
+- expected-head guarded squash merge source/test SHA `17d7f9a2a99bd33a43f02afb7d81201c1dc23195`;
+- source tree `3476df620697441df7d98b81e3d78d80aa08cbf4`.
+
+### Resulting-main validation
+
+Windows main CI #409 / run `34750884431` / job `103707110038`: **SUCCESS** on exact main SHA `17d7f9a2a99bd33a43f02afb7d81201c1dc23195`.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- visual artifact `10315666938`, digest `sha256:e3d6e5733612f9a2f236773614271e3ed02289ca7c6836555c139c0a67665378`;
+- diagnostic artifact `10316660232`, digest `sha256:eba28cfd98279589d912e67f7c98a7963065d5b68293739add61180acb21604b`.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**M6 item 6/16 — Implement break, notes, pause/resume, skip, finish.**
+**M6 item 7/16 — Implement subtasks/progress in focus mode.**
 
-Implementation branch: `m6-focus-actions`.
+No implementation branch has been created yet for item 7.
 
-Current small-slice progress: **2/5**.
-
-### Checkpoint 1/5 — COMPLETE: exact action/state contract reconstructed
-
-Repository source/spec/evidence and the validated M3/M5 implementation establish:
-
-- action order is Break, Notes, Pause/Resume, Skip, Done;
-- Break uses the authoritative manual work->break transition, which closes the work session, opens a distinct break session and automatically resumes the same work task when a manual break expires;
-- manual break may begin from running or paused work, but not Time's Up or an existing break;
-- while a break is active, the Pause/Resume slot becomes Resume and an early return uses authoritative `timer_skip_break`; Skip and Done remain unavailable until work resumes;
-- Pause/Resume reuses the idempotent M3 transitions and supports normal and overtime running/paused states;
-- Skip must move to the next eligible task rather than stop and immediately restart the same top task; it therefore refreshes the authoritative board + timer projection, excludes the current identity/future-timed rows, and uses one persistence-first `timer_switch_task` when a next task exists, falling back to `timer_skip_task` only when no next eligible row exists;
-- Done must use the M3 coupled completion boundary so tracked Time Taken cannot become `00:00`; the next eligible row is selected from a fresh authoritative Focus projection and may be started only after completion commits;
-- a failure to start the next task after Done is a secondary failure: the committed completion remains success and must not be reported as a failed completion or invite an unsafe retry;
-- Notes reuse the validated M5 `TaskNotes` editor/viewer, including compact editing, larger/resizable presentation, spellcheck and explicit pointer/keyboard-only URL opening;
-- item 6 does not add subtasks/progress, paused EST/Time Taken editing, monitor placement, title behavior, hover-slot/tooltips polish or later visual-state/empty-state work.
-
-The current manual-break value is the established schema/product default of 10 minutes. M8 remains responsible for exposing/persisting user-configurable break duration in Preferences; item 6 does not prematurely add that settings UI.
-
-### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/visual coverage + semantic/diff review
-
-Implemented scope:
-
-- `FocusLiveActions.tsx` adds a stable five-control action strip inside the existing active live card;
-- timer mutations are typed wrappers over existing registered Rust commands; no renderer elapsed/session authority or new timer engine semantics were introduced;
-- Break, Pause/Resume and early break Resume map directly to the validated authoritative transitions;
-- Skip obtains a fresh `ListBoardSnapshot` and timer snapshot before choosing the next eligible row; a stale live-task identity aborts instead of switching from a different task;
-- next-task mode preserves the current Pomodoro work/break snapshot when Pomodoro is active, otherwise resolves EST countdown from the authoritative task estimate or count-up fallback;
-- Done commits through `timer_complete_task` first, then best-effort starts the already-selected next eligible task; secondary start failure is reported as a continuation warning while completion remains committed;
-- Notes reuse `TaskNotes`; Focus supplies the external Notes trigger and suppresses only the duplicate internal trigger while keeping the validated editor, larger presentation and explicit URL activation path intact;
-- action errors/status are local and accessible; existing revisioned timer events continue to refresh planning state in the parent Focus Panel;
-- running-state production fixture now includes and measures the five-action strip in both Windows light/dark capture validation;
-- static Focus preflight now guards authoritative command wrappers, fresh-board/timer checks, stale-task protection, committed-completion semantics, action ordering, Notes reuse, no renderer clock, no implicit URL opener and unchanged live timer/queue invariants;
-- exact branch diff from reconciled main is limited to `src/FocusLiveActions.tsx`, `src/FocusPanel.tsx`, `src/timerSessionApi.ts`, `src/focusPanel.css`, `src/focusPanelVisualFixture.tsx`, `scripts/test-ui-focus-panel.mjs`, `scripts/validate-focus-panel-captures.mjs`, plus this HANDOFF checkpoint text. No Rust/Tauri source, schema/migration, dependencies/lockfile, scheduling policy, main-window UI, Floating Timer, shortcuts/preferences, Reports or release scope changed.
-
-Attempted extra local clone/static execution is **NOT RUN** because the container cannot resolve `github.com`; existing source remains connector-only for validation. Manual semantic review found no evidence-backed reason for further source changes. Authoritative Windows CI is required on the exact PR head.
+Current small-slice progress: **0/5**.
 
 ### Five checkpoints for this slice
 
-1. mandatory reconstruction + exact Focus action/state contract from current docs/screenshots, existing M3 timer/session APIs/events and M5 Notes APIs — **COMPLETE**;
-2. narrow implementation + deterministic/component/static coverage + semantic/diff review — **COMPLETE**;
+1. mandatory reconstruction + exact Focus subtask/progress contract from current docs/source/fixtures and validated M2/M5 subtask APIs — pending;
+2. narrow implementation + deterministic/component/static coverage + semantic/diff review — pending;
 3. exact PR-head Windows CI — pending;
 4. final exact-head review + expected-head guarded merge — pending;
 5. resulting-main Windows CI + `TODO.md`/`STATUS.md`/`HANDOFF.md`/immutable work-log reconciliation — pending.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
-- Focus Panel and Floating Timer remain presentations of the existing authoritative Rust-owned timer/session state; React cannot become parallel timer/session authority.
+- Focus Panel and Floating Timer remain presentations of the existing authoritative Rust/domain state; React cannot become parallel timer/session/task authority.
 - `main` and `focusSurface` remain the normal two-webview architecture.
-- Break, pause/resume, skip and finish reuse validated M3 persistence-first timer/session transitions and preserve tracked Time Taken, work/break separation, recovery, sleep policy, Time's Up/overtime and Pomodoro semantics.
-- Successful authoritative mutation must not be reported as failed solely because a secondary continuation/event fails after commit.
-- Notes reuse the validated local Notes document/API behavior; opening Notes or changing the live task never auto-opens URLs.
-- User-visible URLs remain explicit pointer/keyboard actions only.
-- Future-timed Today tasks remain ineligible until due; action controls cannot make them live early.
-- Existing live timer geometry/sampling and Remaining/Scheduled/Done identity partitioning must not regress.
-- Item 6 must not absorb item 7 subtasks/progress, item 8 paused EST/Time Taken editing, monitor placement, title scrolling/two-line work, action-slot/tooltips polish, later visual-state/empty-state work, Milestone 7 Floating Timer polish, Milestone 8 shortcuts/preferences, Milestone 9 Reports or Milestone 10 release work.
+- stable task and subtask identities/order/completion state remain authoritative and persistence-first; Focus must not create a renderer-only subtask model.
+- item 7 must reuse the validated M2/M5 subtask mutation/read boundaries or proven equivalent existing APIs; do not invent duplicate persistence paths.
+- live Focus progress must derive from authoritative task/subtask state and update after successful local mutations; it must not be inferred from timer cadence.
+- Break, Notes, Pause/Resume, Skip and Done behavior validated in item 6 must not regress.
+- tracked Time Taken, work/break separation, recovery, sleep policy, `Time's Up`/overtime and Pomodoro semantics remain M3 authority.
+- successful authoritative completion cannot be reported as failed solely because a secondary continuation/UI refresh fails after commit.
+- Notes reuse the validated local Notes behavior; user-visible URLs remain explicit pointer/keyboard actions only.
+- future-timed Today tasks remain ineligible until due; Focus actions cannot make them live early.
+- existing live timer geometry/sampling and Remaining/Scheduled/Done identity partitioning must not regress.
+- item 7 must not absorb item 8 paused EST/Time Taken editing, monitor placement/display hotplug, title scrolling/two-line work, action-slot/tooltips polish, later visual-state/empty-state work, Milestone 7 Floating Timer polish, Milestone 8 shortcuts/preferences, Milestone 9 Reports or Milestone 10 release work.
 - diagnostics remain gated behind `?diagnostics=1`.
 
 ## UNFINISHED WORK / EXACT NEXT ACTION
 
-Open one PR for `m6-focus-actions` from the current exact branch head and require authoritative Windows CI on that exact head. Do not change implementation unless CI or final review produces evidence. Require Repository Preflight, TypeScript/Vite build, Focus Panel Windows light/dark visual capture/validation, Tauri Release and required artifact uploads before checkpoint 3.
+Reconstruct the item-7 contract before editing. Inspect current `TaskSubtasks`/subtask UI, list-board task/subtask projection, subtask mutation APIs and Focus production/fixture structure. Determine the narrowest way to expose live-task subtask rows and progress inside Focus while preserving stable identities, ordering and persistence-first mutation success. Add deterministic/static/visual coverage only for item 7. Then create one coherent feature branch/PR and require authoritative Windows CI on the exact head.
 
 ## USER ACTION REQUIRED
 
@@ -109,5 +111,5 @@ Open one PR for `m6-focus-actions` from the current exact branch head and requir
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks M6 item 6.
-- Local Node/Rust/Tauri preflight is **NOT RUN** because this environment cannot resolve GitHub to materialize the branch locally; authoritative Windows GitHub Actions is required before merge.
+- No product/user decision currently blocks M6 item 7.
+- Local Node/Rust/Tauri validation remains unavailable in this connector-only environment; authoritative Windows GitHub Actions is required before merge.
