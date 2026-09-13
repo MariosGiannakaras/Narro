@@ -7,113 +7,90 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 **Milestone 6 — Blitz Mode / Focus Panel.**
 
 - Milestones 1–5: COMPLETE / PASS.
-- Milestone 6: ACTIVE / **10 of 16** top-level items validated.
+- Milestone 6: ACTIVE / **11 of 16** top-level items validated.
 - Milestones 7–10: NOT STARTED.
 
 General roadmap progress: **5/10 milestones complete**.
 
-Item-11 implementation slice: **2/5 checkpoints complete**.
+A new item-12 implementation slice is active at **0/5 checkpoints**.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Source/test SHA:
 
-`fc0e52f6951e92f961aa8c38bee2069265bdaf1a`
+`088b9dd75a7af0aa7e5d32dcbcfffdbc501d90cb`
 
 Source tree:
 
-`c0012d64417d3791860d232a56f760b7cc12986d`
+`fbc93b4779f1f8988b4e3f38e1205facf9f7023b`
 
-This is the expected-head guarded squash merge of PR #110 after authoritative resulting-main Windows CI #418 passed. Markdown-only tracking descendants after this source SHA do **not** replace the validated source/test baseline.
+This is the expected-head guarded squash merge of PR #111 after authoritative resulting-main Windows CI #421 passed on the exact merged source SHA. Markdown-only tracking descendants after this source SHA do **not** replace the validated source/test baseline.
 
 Latest immutable completed evidence:
 
-`work-log/2026-09-14-chatgpt-m6-focus-display-reaction.md`
+`work-log/2026-09-14-chatgpt-m6-focus-live-title-scrolling.md`
 
-## ACTIVE IMPLEMENTATION SLICE
+## LATEST COMPLETED IMPLEMENTATION / CI
 
 **M6 item 11/16 — Implement configured scrolling behavior for the live title.**
 
-Implementation branch:
+Validated behavior:
 
-`m6-focus-live-title-scroll`
+- the existing persisted `focus.scrolling_title` preference is reused and its safe default remains `false`;
+- scrolling applies only to the active/live title, never ordinary Focus task rows;
+- disabled preference or no actual overflow keeps static ellipsis;
+- enabled overflowing titles use initial synchronous measurement plus `ResizeObserver` revalidation, with no polling or JavaScript animation loop;
+- motion is transform-only and does not alter timer/sibling geometry;
+- `prefers-reduced-motion` disables the animation and restores static ellipsis while full-title access remains available;
+- the production native preference boundary is read-only and adds no preference mutation, schema/migration, or Preferences UI;
+- source/product evidence does not define exact scroll speed/direction, so Narro does not claim source-fidelity for the selected animation pacing.
 
-Branch base/tracking tip:
+PR #111 evidence:
 
-`f635d2b0bf84cc87f8c5309c3c87a0a70458a34c`
+- initial Windows CI #419 / run `34783581280` / job `103794887023` failed only at `cargo fmt -- --check` after frontend/static contracts and the frontend production build passed;
+- only the exact rustfmt changes in new `src-tauri/src/focus_preferences.rs` were applied;
+- final exact PR head `fe16914c341badea32c0087cc2a45385b0988de0`;
+- authoritative Windows CI #420 / run `34783673637` / job `103795136716`: **SUCCESS** across Repository Preflight, Windows visual regression, Tauri Release and required uploads;
+- PR visual artifact `10326121804`, digest `sha256:a2f832fa137f09bfb3bcde920921a174ded832aa291082c86d418ec101089972`;
+- PR diagnostic/runtime artifact `10325962636`, digest `sha256:fa90989aadb279da4d9b526924acbaba9169b531f8740a20f87f2aaf159fb45b`;
+- final review: exact head unchanged and mergeable, exactly eight expected changed files, no PR conversation comments, reviews or inline review threads;
+- expected-head guarded squash merge source/test SHA `088b9dd75a7af0aa7e5d32dcbcfffdbc501d90cb`.
 
-Latest source/test implementation head before this handoff-only commit:
+Resulting-main Windows CI #421:
 
-`3c1a15c4243271ae0c7eeaf465c4cfcba536ae25`
+- run `34785000692`;
+- job `103798741480`;
+- exact main source SHA `088b9dd75a7af0aa7e5d32dcbcfffdbc501d90cb`;
+- conclusion **SUCCESS**;
+- Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads: **SUCCESS**;
+- main visual artifact `10326331827`, digest `sha256:aaa71f3dbb91e522a1d1c8291939819729e720f0a31ad40e4c4463aa51cf8572`;
+- main diagnostic/runtime artifact `10326422964`, digest `sha256:35abf0bba3a27fb9d42f3360eccd3e9f84abb3e252fe1f1159f9d51019a87afc`.
 
-Tree:
+Tracking reconciliation for item 11 is complete in `TODO.md`, `STATUS.md`, this handoff and the immutable work log.
 
-`36fde7b64047f9e6bfbc22d372625d05fe140ae7`
+## ACTIVE IMPLEMENTATION SLICE
 
-No item-11 PR exists yet.
+**M6 item 12/16 — Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.**
 
-### Checkpoint 1/5 — COMPLETE: contract reconstructed
+No item-12 implementation branch or PR exists yet.
 
-Repository evidence establishes the narrow contract:
+Current small-slice progress: **0/5**.
 
-- use the existing persisted `focus.scrolling_title` preference; its established safe default is `false`;
-- scrolling applies only to the **active/live title**, never every ordinary Focus task row;
-- disabled preference preserves static ellipsis behavior;
-- enabled preference scrolls only when the active title actually overflows its available horizontal slot;
-- overflow/reflow detection must be event-driven, not a polling or JavaScript animation loop;
-- title motion must use transform-only presentation and must not change sibling/timer geometry;
-- `prefers-reduced-motion` disables the scrolling animation and preserves static ellipsis/full-title access;
-- source/product evidence does not define an exact scroll speed/direction, so the implementation must not claim source-fidelity for timing details;
-- Milestone 8 owns preference editing/live settings UI; item 11 consumes the persisted setting only;
-- item 12 ordinary row-title wrapping/full-title behavior and items 13–16 remain separate.
+### Five checkpoints for this slice
 
-### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/static review
+1. reconstruct the exact item-12 contract from current ordinary Focus row markup/CSS, product/UI/source evidence, current title/full-text accessibility conventions, layout-shift invariants, and Focus visual/static tests — pending;
+2. implement the narrow presentation-only behavior plus deterministic/static/visual coverage and semantic diff review — pending;
+3. validate the exact PR head with authoritative Windows CI: Repository Preflight, Windows visual regression, Tauri Release and required artifact uploads — pending;
+4. final exact-head review + expected-head guarded squash merge — pending;
+5. validate the resulting main source SHA with Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable work log — pending.
 
-Source/test changes are limited to seven files:
+Scope boundary for item 12:
 
-- `src-tauri/src/focus_preferences.rs`
-  - new read-only native boundary for persisted `focus.scrolling_title`;
-  - no schema/migration or preference mutation;
-  - native regression proves default `false` and a persisted `true` value are read correctly.
-- `src-tauri/src/lib.rs`
-  - only module + Tauri-command registration additions.
-- `src/FocusLiveTitle.tsx`
-  - active-title-only component;
-  - synchronous initial overflow measurement plus `ResizeObserver` revalidation;
-  - no `setInterval` or `requestAnimationFrame` loop;
-  - emits explicit off/idle/active scroll state and measured overflow CSS variable.
-- `src/focusLiveTitle.css`
-  - static ellipsis by default;
-  - transform-only overflow animation for active state;
-  - reduced-motion override disables animation and restores ellipsis.
-- `src/FocusPanel.tsx`
-  - loads the persisted preference through the narrow native command in production;
-  - preference-read failure fails closed to non-scrolling and remains visible as a nonfatal Focus status error;
-  - only the live title uses `FocusLiveTitle`; ordinary task rows remain unchanged.
-- `scripts/test-ui-focus-live-title.mjs`
-  - locks preference source/default, native read-only boundary/registration, active-title-only wiring, overflow measurement, absence of polling/JS animation loop, transform-only motion, reduced-motion fallback and ordinary-row separation.
-- `package.json`
-  - registers the new deterministic contract test in frontend preflight.
-
-Review evidence:
-
-- semantic diff from base contains exactly those seven files;
-- `src-tauri/src/lib.rs` diff is exactly two added registration lines; no unrelated native code changed;
-- no database schema/migration, lockfile/dependency, timer/session/task/scheduling behavior, ordinary row-title presentation, display topology, Preferences UI, Floating Timer or later Focus visual-state work changed;
-- exact new `.mjs` syntax check with Node: **PASS**;
-- local Rust/rustfmt/Tauri validation: **NOT RUN / unavailable locally**; Windows CI remains authoritative.
-
-### Checkpoint 3/5 — PENDING
-
-Open one PR from this branch and require authoritative Windows CI on the exact PR head: Repository Preflight (including the new static test, TypeScript build, rustfmt/check/Clippy/tests), Windows visual regression, Tauri Release and both required artifact uploads.
-
-### Checkpoint 4/5 — PENDING
-
-After exact-head CI success, verify unchanged head, mergeability, changed-file scope and all comments/reviews/threads; then squash merge with expected-head guard.
-
-### Checkpoint 5/5 — PENDING
-
-Validate the resulting main source SHA with authoritative Windows CI. Only after full success reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable work log; M6 then becomes 11/16.
+- change ordinary Focus row-title presentation only, not the active/live title scrolling behavior completed in item 11;
+- permit up to two lines where the existing layout can support them without moving reserved hit targets or destabilizing surrounding geometry;
+- provide full-title access through an established accessible mechanism rather than pointer-only disclosure;
+- preserve reduced-motion behavior and all authoritative task/timer/session/scheduling boundaries;
+- do not absorb item 13 reserved action-slot implementation, item 14 icon-only tooltips, item 15 visual-state polish, item 16 empty/no-eligible states, Milestone 7 Floating Timer work, or Milestone 8 Preferences UI.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -121,17 +98,20 @@ Validate the resulting main source SHA with authoritative Windows CI. Only after
 - native/Rust window coordination remains monitor/work-area/DPI/physical-position authority.
 - display handling remains event-driven/coalesced and item-10 recovery semantics remain intact.
 - task/list/subtask identities, queue partitioning, scheduling eligibility and tracked Time Taken remain authoritative and unchanged by title presentation.
-- renderer motion cannot become timer/session authority.
+- renderer title presentation cannot become timer/session/task authority.
+- item-11 active/live title scrolling remains preference-driven, overflow-aware, transform-only and reduced-motion-safe.
 - Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions.
 - future-timed Today tasks remain ineligible until due.
 - Notes URLs remain explicit pointer/keyboard activation only.
-- ordinary Focus task-row title behavior remains item 12 scope.
+- hover/focus interactions may not reflow sibling geometry or move established pointer targets.
 - reduced-motion remains usable and timer numerals retain fixed/tabular geometry.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
 
 ## NEXT AGENT ACTION
 
-Open/inspect the item-11 PR from `m6-focus-live-title-scroll`, record its exact head SHA, and run authoritative Windows CI. If CI fails, inspect the exact failure and fix only evidence-backed issues on the same branch/PR. Do not start item 12.
+Reconstruct item 12 before editing. Inspect the current ordinary Focus row-title markup and CSS in `src/FocusPanel.tsx` / `src/focusPanel.css`, existing Focus static/visual tests and fixtures, current accessible full-title conventions in the repository, and the relevant title-density/screenshots/product evidence in `docs/UI_UX_SPEC.md`, `docs/PRODUCT_SPEC.md`, `docs/SOURCE_AUDIT.md` and `docs/BEHAVIOR_MATRIX.md`.
+
+Define the narrowest two-line rule that preserves stable row/action geometry and full-title accessibility. Then create one coherent item-12 branch. Do not start item 13 or later work in parallel.
 
 ## USER ACTION REQUIRED
 
@@ -139,5 +119,5 @@ Open/inspect the item-11 PR from `m6-focus-live-title-scroll`, record its exact 
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks item 11.
-- Local Rust/rustfmt/Tauri validation remains unavailable; authoritative Windows CI is required.
+- No product/user decision currently blocks item 12.
+- Local Rust/Tauri capability may remain unavailable in the current environment; use the strongest applicable local frontend/static checks and record unavailable native checks as `NOT RUN` before authoritative Windows CI.
