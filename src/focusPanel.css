@@ -48,6 +48,15 @@
 .focus-panel__live-timer { width: 10ch; flex: 0 0 10ch; overflow: hidden; text-align: right; white-space: nowrap; color: var(--color-text-primary); font-size: 1.05rem; font-weight: var(--font-weight-semibold); line-height: 1; }
 .focus-panel__live-state { flex: none; margin-left: auto; text-transform: capitalize; color: var(--color-accent-solid); }
 .focus-panel__live-meta, .focus-panel__task-meta { gap: var(--space-2); min-width: 0; color: var(--color-text-secondary); }
+.focus-panel__live-actions-wrap { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.focus-panel__live-actions { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-1); padding-top: var(--space-2); border-top: 1px solid var(--color-border-subtle); }
+.focus-panel__live-actions button { min-width: 0; min-height: 30px; padding: var(--space-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--font-size-metadata); }
+.focus-panel__live-actions button:disabled { opacity: 0.52; }
+.focus-panel__notes { min-width: 0; }
+.focus-panel__notes .task-notes__trigger { display: none; }
+.focus-panel__notes .task-notes { width: 100%; min-width: 0; }
+.focus-panel__action-status { color: var(--color-text-secondary); }
+.focus-panel__action-error { color: var(--color-destructive); }
 .focus-panel__remaining, .focus-panel__group { display: flex; flex-direction: column; gap: var(--space-1); }
 .focus-panel__task-row { min-height: 54px; padding: var(--space-2) var(--space-3); justify-content: space-between; gap: var(--space-2); border: 1px solid var(--color-border-subtle); }
 .focus-panel__task-main { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: var(--space-1); }
