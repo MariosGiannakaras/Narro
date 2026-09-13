@@ -29,6 +29,7 @@ use domain::{AppState, AppStatePayload};
 use error::{CommandError, CommandResult};
 use shortcuts::{ShortcutDiagnostics, ShortcutManager};
 use std::fmt::Display;
+use std::sync::atomic::{AtomicU8, Ordering as AtomicOrdering};
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Emitter, Manager, State};
@@ -46,6 +47,23 @@ const MAIN_WINDOW_LABEL: &str = "main";
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const STATE_CHANGED_EVENT: &str = "state-changed";
 const MAX_MONITOR_KEY_LEN: usize = 2048;
+const FOCUS_SURFACE_MODE_UNKNOWN: u8 = 0;
+const FOCUS_SURFACE_MODE_PANEL: u8 = 1;
+const FOCUS_SURFACE_MODE_TIMER: u8 = 2;
+
+static FOCUS_SURFACE_MODE_STATE: AtomicU8 = AtomicU8::new(FOCUS_SURFACE_MODE_UNKNOWN);
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum FocusSurfaceMode {
+    Panel,
+    Timer,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum FocusPanelPlacementIntent {
+    Present,
+    Revalidate,
+}
 
 fn report_state_change(app_handle: &tauri::AppHandle, payload: &AppStatePayload) {
     if let Err(error) = app_handle.emit(STATE_CHANGED_EVENT, payload.clone()) {
@@ -385,7 +403,23 @@ fn preferred_focus_panel_work_area(
     Ok((work_area, side))
 }
 
-fn configure_focus_surface_mode(
+fn record_focus_surface_mode(mode: FocusSurfaceMode) {
+    let mode_code = match mode {
+        FocusSurfaceMode::Panel => FOCUS_SURFACE_MODE_PANEL,
+        FocusSurfaceMode::Timer => FOCUS_SURFACE_MODE_TIMER,
+    };
+    FOCUS_SURFACE_MODE_STATE.store(mode_code, AtomicOrdering::Release);
+}
+
+fn current_focus_surface_mode() -> Option<FocusSurfaceMode> {
+    match FOCUS_SURFACE_MODE_STATE.load(AtomicOrdering::Acquire) {
+        FOCUS_SURFACE_MODE_PANEL => Some(FocusSurfaceMode::Panel),
+        FOCUS_SURFACE_MODE_TIMER => Some(FocusSurfaceMode::Timer),
+        _ => None,
+    }
+}
+
+fn apply_focus_surface_mode(
     window: &tauri::WebviewWindow,
     mode: FocusSurfaceMode,
 ) -> CommandResult<()> {
@@ -403,9 +437,18 @@ fn configure_focus_surface_mode(
     window
         .set_skip_taskbar(skip_taskbar)
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "set taskbar visibility", error))?;
+    Ok(())
+}
+
+fn configure_focus_surface_mode(
+    window: &tauri::WebviewWindow,
+    mode: FocusSurfaceMode,
+) -> CommandResult<()> {
+    apply_focus_surface_mode(window, mode)?;
     window
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
+    record_focus_surface_mode(mode);
     Ok(())
 }
 
@@ -413,6 +456,7 @@ fn position_focus_panel_in_work_area(
     app_handle: &tauri::AppHandle,
     work_area: GeometryRect,
     side: FocusPanelSide,
+    intent: FocusPanelPlacementIntent,
 ) -> CommandResult<()> {
     validate_work_area(work_area).map_err(CommandError::window_geometry)?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
@@ -427,7 +471,14 @@ fn position_focus_panel_in_work_area(
         }))
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error))?;
 
-    configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
+    match intent {
+        FocusPanelPlacementIntent::Present => {
+            configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
+        }
+        FocusPanelPlacementIntent::Revalidate => {
+            apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
+        }
+    }
 
     let window_size = window
         .outer_size()
@@ -450,9 +501,12 @@ fn position_focus_panel_in_work_area(
         .map_err(|error| {
             map_window_error(FOCUS_SURFACE_LABEL, "position at monitor edge", error)
         })?;
-    window
-        .set_focus()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus", error))?;
+
+    if intent == FocusPanelPlacementIntent::Present {
+        window
+            .set_focus()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus", error))?;
+    }
     Ok(())
 }
 
@@ -463,13 +517,48 @@ fn position_focus_panel(
     side: FocusPanelSide,
 ) -> CommandResult<()> {
     let (_monitor, descriptor) = resolve_monitor_by_key(&app_handle, &monitor_key)?;
-    position_focus_panel_in_work_area(&app_handle, descriptor.work_area, side)
+    position_focus_panel_in_work_area(
+        &app_handle,
+        descriptor.work_area,
+        side,
+        FocusPanelPlacementIntent::Present,
+    )
 }
 
 #[tauri::command]
 fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
     let (work_area, side) = preferred_focus_panel_work_area(&app_handle)?;
-    position_focus_panel_in_work_area(&app_handle, work_area, side)
+    position_focus_panel_in_work_area(
+        &app_handle,
+        work_area,
+        side,
+        FocusPanelPlacementIntent::Present,
+    )
+}
+
+pub(crate) fn revalidate_open_focus_panel_after_display_change(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<bool> {
+    if current_focus_surface_mode() != Some(FocusSurfaceMode::Panel) {
+        return Ok(false);
+    }
+
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    let visible = window
+        .is_visible()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
+    if !visible {
+        return Ok(false);
+    }
+
+    let (work_area, side) = preferred_focus_panel_work_area(app_handle)?;
+    position_focus_panel_in_work_area(
+        app_handle,
+        work_area,
+        side,
+        FocusPanelPlacementIntent::Revalidate,
+    )?;
+    Ok(true)
 }
 
 fn build_main_window(app_handle: &tauri::AppHandle) -> CommandResult<tauri::WebviewWindow> {
@@ -579,11 +668,6 @@ fn focus_surface_focus(app_handle: tauri::AppHandle) -> CommandResult<()> {
     window
         .set_focus()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus", error))
-}
-
-enum FocusSurfaceMode {
-    Panel,
-    Timer,
 }
 
 #[tauri::command]
