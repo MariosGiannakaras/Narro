@@ -13,22 +13,22 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 7 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 8 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
-General roadmap progress remains **5 of 10 milestones complete**. M6 items 1–7 are validated. The next ordered work is item 8: **Permit EST/Time Taken editing only while paused.** Do not skip ahead to monitor placement/display hotplug, later Focus polish, Floating Timer, shortcuts/preferences, Reports, or release work.
+General roadmap progress remains **5 of 10 milestones complete**. M6 items 1–8 are validated. The next ordered work is item 9: **Implement selected-monitor and left/right Focus Panel placement.** Do not skip ahead to display-hotplug reaction, later Focus polish, Floating Timer, shortcuts/preferences, Reports, or release work.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`cadc4eab7a04c2b4defccf085f7658d031ff8328`
+`7cfe942f9dda573106f8143772ebc87f498e5cc0`
 
 Tree:
 
-`be9c421f2e769ff2842c103b92203680609ef32a`
+`eb6977360e8803166a35549e24af9f25fb12e2d3`
 
-This is the expected-head guarded squash merge of PR #107 — `M6: add Focus live subtasks and progress` — from exact validated PR head `00b1d7290cf8ea09fe3b5b986b203bd44406d720`. Resulting-main Windows CI #411 passed on this exact SHA.
+This is the expected-head guarded squash merge of PR #108 — `M6: add paused Focus EST and Time Taken editing` — from exact validated PR head `39b399fa053b63763d8e3b5243feeccfd13a4295`. Resulting-main Windows CI #413 passed on this exact SHA.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
@@ -166,13 +166,74 @@ Windows main CI #411:
 - visual artifact `10317784445`, digest `sha256:240f3330e0c6ee0935d25d67abdab90d7852d0ea1c194ea9c90cf50788dcb0e9`;
 - diagnostic/runtime-harness artifact `10318046699`, digest `sha256:f5195bda2a5d8902e916dffdda79b074d909184be5cb564f0762812d38a67bea`.
 
+### Item 8 — paused Focus EST / Time Taken editing
+
+Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-paused-metrics.md`.
+
+Validated behavior:
+
+- Focus always shows authoritative EST and Time Taken for the live task;
+- editing is exposed only when the exact authoritative live task is `paused` or `overtime_paused`; running, break, `time_up`, `overtime_running`, idle and mismatched task identities remain read-only;
+- EST reuses `setPausedTimerEstimate` / `timer_set_estimate` and Time Taken reuses `setPausedTimerTimeTaken` / `timer_set_time_taken`; no Focus-only persistence/timer authority was introduced;
+- expected EST / authoritative-total guards and M5 `H:MM:SS` / Rust `u32` validation remain the concurrency/validation boundary;
+- the returned authoritative timer payload is projected before secondary board refresh so EST/runtime rebasing is immediately visible;
+- board refresh must reconcile the same task/list identity and exact saved metric value;
+- if a metric mutation committed but secondary refresh/reconciliation fails, Focus reports saved-but-not-refreshed, blocks further metric edits and requires reopening/refreshed Focus rather than enabling unsafe retries;
+- leaving paused/overtime-paused closes an open metric editor; backend paused/task/expected-value guards remain final authority;
+- item-6 actions and item-7 subtask/progress behavior remain unchanged;
+- static plus Windows running/paused-metrics light/dark visual coverage locks read-only/editable state and compact geometry;
+- no Rust/Tauri source, schema/migration, dependency/lockfile, scheduling policy, monitor/display behavior, Floating Timer, shortcuts/preferences, Reports or release behavior changed.
+
+#### PR #108 exact-head validation
+
+Exact PR head:
+
+`39b399fa053b63763d8e3b5243feeccfd13a4295`
+
+Tree:
+
+`eb6977360e8803166a35549e24af9f25fb12e2d3`
+
+Windows PR CI #412:
+
+- run `34768156548`, job `103752758975`, conclusion **SUCCESS**;
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- visual artifact `10321605266`, digest `sha256:128c4b29d02e0242ee21e4e1d12423a2ea5a5582663485c8a9d49e242c6bf7d6`;
+- diagnostic/runtime-harness artifact `10321750409`, digest `sha256:a724ec7d152c27d3c035a4212c21c1030ed8608f37b569442539e8bab05ebe46`.
+
+Final exact-head review found the validated head unchanged and mergeable, the eight-file scope limited to Focus metric/action source/CSS, Focus static/visual scripts and in-progress handoff, with no comments/reviews/unresolved threads.
+
+Expected-head guarded squash merge resulting source/test SHA:
+
+`7cfe942f9dda573106f8143772ebc87f498e5cc0`
+
+Tree:
+
+`eb6977360e8803166a35549e24af9f25fb12e2d3`
+
+#### Resulting-main validation
+
+Windows main CI #413:
+
+- run `34768987050`, job `103754978629`, conclusion **SUCCESS**;
+- exact main SHA `7cfe942f9dda573106f8143772ebc87f498e5cc0`;
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- visual artifact `10321826013`, digest `sha256:cbf7539eb309156f6dd961d0563d79765a0ac3d760b8d780fb304115988edf08`;
+- diagnostic/runtime-harness artifact `10321502031`, digest `sha256:84b9f3e90eee84367192e11b21b48bc044b6f0d3fa6b3c8496572e7fa84f4c4e`.
+
 ## Milestone 6 — next ordered work
 
 The next top-level item is:
 
-8. `Permit EST/Time Taken editing only while paused.`
+9. `Implement selected-monitor and left/right Focus Panel placement.`
 
-Start this as the next narrow Focus slice. Reconstruct the exact paused metric-edit contract from the validated M3 paused timer/session mutation boundaries, M5 task metric editor behavior and current Focus live-card/product evidence. Reuse `setPausedTimerEstimate` / `setPausedTimerTimeTaken` or the existing proven authoritative equivalents. Do not introduce renderer-only metric authority, and do not absorb item 9 monitor placement, display hotplug, title behavior, action-slot/tooltips work, later visual-state/empty-state work, Milestone 7 Floating Timer, Milestone 8 shortcuts/preferences, Reports or release work.
+Start this as the next narrow Focus slice. Reconstruct the exact placement contract from the validated M1 monitor-enumeration/edge-positioning primitives, current window-coordination code, relevant Focus product/UI evidence and current preferences model. Reuse the existing native monitor/window authority rather than implementing renderer geometry authority. Do not absorb item 10 display-topology/hotplug reaction or later title behavior, action-slot/tooltips work, visual-state/empty-state work, Milestone 7 Floating Timer, Milestone 8 shortcuts/preferences, Reports or release work unless item 9 proves a direct dependency.
 
 ## Durable correctness decisions
 
@@ -190,6 +251,7 @@ Future work must preserve:
 - Focus subtask progress must remain backed by the same persisted records as Main; committed subtask changes cannot be converted into reported mutation failures solely by secondary refresh failure.
 - Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions; successful committed completion cannot be rolled back semantically by secondary UI continuation failure.
 - paused manual Time Taken editing must rebase the authoritative live runtime/session so later resume/pause/Done cannot snap back or double-count.
+- live EST and Time Taken editing remain available only for the exact authoritative paused/overtime-paused live task; successful writes use existing typed timer/session mutation boundaries and cannot become renderer-owned metadata authority.
 - task/list/archive/Search/theme/preferences behavior validated through M5 must not regress.
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from Focus entry, task switching or Notes opening.
 - hover/focus interactions may not reflow sibling geometry or move hit targets; keyboard/focus-visible equivalents and accessible names/tooltips remain required.
