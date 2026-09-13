@@ -13,22 +13,22 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 5 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 6 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
-General roadmap progress remains **5 of 10 milestones complete**. M6 items 1–5 are validated. The next ordered work is item 6: **Implement break, notes, pause/resume, skip, finish.** Do not skip ahead to subtasks/progress, paused EST/Time Taken editing, monitor placement, later Focus polish, Floating Timer, shortcuts/preferences, Reports, or release work.
+General roadmap progress remains **5 of 10 milestones complete**. M6 items 1–6 are validated. The next ordered work is item 7: **Implement subtasks/progress in focus mode.** Do not skip ahead to paused EST/Time Taken editing, monitor placement, later Focus polish, Floating Timer, shortcuts/preferences, Reports, or release work.
 
 ## Current validated source baseline
 
 Latest fully main-validated **source/test** baseline:
 
-`c74985c117aa4ac550ad6ade1442f28c998c5f49`
+`17d7f9a2a99bd33a43f02afb7d81201c1dc23195`
 
 Tree:
 
-`8eaf157fdb4d5c4d9db12091c6149e8c4ae1108b`
+`3476df620697441df7d98b81e3d78d80aa08cbf4`
 
-This is the expected-head guarded squash merge of PR #104 — `M6: validate Focus workflow sections` — from exact validated PR head `129687c381b84a91e76d008e8163c5b8bade21aa`.
+This is the expected-head guarded squash merge of PR #106 — `M6: lock Focus action state contract` — from exact validated PR head `d6d969b7eaaf4e2fe5ee443236437e070c3b0a1f`. It contains the PR #105 production Focus action implementation plus six test-only state-contract assertions. Resulting-main Windows CI #409 passed on this exact SHA.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
@@ -80,7 +80,7 @@ PR #103 exact head `84373aca8169fd19c453a27530e0e0b8ebef1eae` passed Windows PR 
 
 Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-workflow-sections.md`.
 
-Validated behavior:
+Validated behavior remains:
 
 - current live task identity is excluded from non-live queue sections;
 - ordinary Today work remains in Remaining;
@@ -91,47 +91,90 @@ Validated behavior:
 - section order remains active card -> Remaining -> Add Task -> Scheduled -> Done;
 - this item adds no action mutation semantics.
 
-The production behavior already existed from the earlier hierarchy slice. PR #104 therefore added only explicit regression coverage plus in-progress handoff text; no production source rewrite was needed.
+PR #104 exact head `129687c381b84a91e76d008e8163c5b8bade21aa` passed Windows PR CI #405 / run `34747582849`; resulting source SHA `c74985c117aa4ac550ad6ade1442f28c998c5f49` passed Windows main CI #406 / run `34748317733`.
 
-### PR #104 exact-head validation
+## M6 item 6 — validated Focus live actions
 
-Final exact PR head:
+Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-actions.md`.
 
-`129687c381b84a91e76d008e8163c5b8bade21aa`
+Validated behavior:
 
-Windows PR CI #405:
+- the live action strip is fixed in source-evidenced order: Break, Notes, Pause/Resume, Skip, Done;
+- Break uses the authoritative manual work-to-break transition and the established 10-minute default until M8 exposes the persisted preference;
+- active-break Resume maps to authoritative `timer_skip_break`;
+- Pause/Resume reuses the validated idempotent M3 transitions, including overtime states;
+- Skip refreshes authoritative board/timer snapshots, rejects stale live-task identity, excludes future-timed non-overdue Today rows and uses one persistence-first `timer_switch_task` to the next eligible task, falling back to `timer_skip_task` only when no next eligible task exists;
+- Done commits through the M3 coupled completion boundary before any start-next attempt, preserving durable Time Taken;
+- a failed best-effort start-next after committed Done remains a continuation warning, not a failed completion or retry invitation;
+- Notes reuse the validated M5 `TaskNotes` component, including explicit pointer/keyboard-only URL activation;
+- no renderer-owned elapsed clock, Rust timer/session rewrite, schema/migration, dependency or scheduling-policy change was introduced;
+- static Focus contract coverage locks break-state identification plus Break/Pause-Resume/Skip/Done state gating;
+- Windows light/dark visual regression covers the fixed five-action geometry.
 
-- run `34747582849`, job `103698237432`, conclusion **SUCCESS**;
+### PR #105 production implementation validation
+
+Exact PR head:
+
+`26c431de9f3c318bce15325c51ef767988d7ece5`
+
+Windows PR CI #407:
+
+- run `34749228254`, job `103702560465`, conclusion **SUCCESS**;
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - required artifact uploads: **SUCCESS**;
-- visual artifact `10315220318`, digest `sha256:c07fecca5f209da2c7e7e3c2acdb0e67928a834b7aff0869ae6147e2559247f7`;
-- diagnostic artifact `10315415290`, digest `sha256:f170b6fdb5516a8d90bd6ab7ae4d7013b1afdafb51ed5cd40d7bef6a768f1671`.
+- visual artifact `10315332440`, digest `sha256:de3579f9c3192c4c3a2e7e256ae6ef50d6bb061519bfb74e832c50863d4d7cda`;
+- diagnostic artifact `10315167944`, digest `sha256:1f8bb3ae4b443dccc6e58279a32d4e60170cbe1990898fe4344c50adf6d54d30`.
+
+GitHub's merge transaction temporarily advanced main to source commit `1fdc619d120a81dbd30e88e5dfee28ac13fde8b0` with production tree `df10c7fab1b13e9742787a9787562e7692b70fe2` while PR metadata remained open and no push workflow event was emitted. Retrying the same expected-head guarded merge closed PR #105 at GitHub-reported merge commit `e31d7b695014e32c14ab452393a521323fef4f03`, which had zero file changes and retained the same production tree. This did not by itself satisfy resulting-main CI requirements.
+
+### PR #106 test-only follow-up validation
+
+PR #106 added exactly six static contract assertions and no production-source changes.
+
+Exact PR head:
+
+`d6d969b7eaaf4e2fe5ee443236437e070c3b0a1f`
+
+Windows PR CI #408:
+
+- run `34750003487`, job `103704719842`, conclusion **SUCCESS**;
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- visual artifact `10315775336`, digest `sha256:d1aab4cfbadce4ae55393ba22324c7139612842b1d68f1b5c8f0c5ad2704d258`;
+- diagnostic artifact `10315568456`, digest `sha256:2157ad8e7dba35c672657984fc521179f45a5ba7aef90d65288f8da741dff8ca`.
+
+Expected-head guarded squash merge resulting source/test SHA:
+
+`17d7f9a2a99bd33a43f02afb7d81201c1dc23195`
+
+Tree:
+
+`3476df620697441df7d98b81e3d78d80aa08cbf4`
 
 ### Resulting-main validation
 
-Resulting source SHA:
+Windows main CI #409:
 
-`c74985c117aa4ac550ad6ade1442f28c998c5f49`
-
-Windows main CI #406:
-
-- run `34748317733`, job `103700208950`, conclusion **SUCCESS**;
+- run `34750884431`, job `103707110038`, conclusion **SUCCESS**;
+- exact head SHA `17d7f9a2a99bd33a43f02afb7d81201c1dc23195`;
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - required artifact uploads: **SUCCESS**;
-- visual artifact `10314173991`, digest `sha256:ef8cbf16d39b327d410605371bb81f44c359693fc151b1c68b03123df82f36df`;
-- diagnostic artifact `10315251351`, digest `sha256:628a0ad331df9dca01e1588d37ad310a3470859f7dccac727e54a8db4da514a1`.
+- visual artifact `10315666938`, digest `sha256:e3d6e5733612f9a2f236773614271e3ed02289ca7c6836555c139c0a67665378`;
+- diagnostic artifact `10316660232`, digest `sha256:eba28cfd98279589d912e67f7c98a7963065d5b68293739add61180acb21604b`.
 
 ## Milestone 6 — next ordered work
 
 The next top-level item is:
 
-6. `Implement break, notes, pause/resume, skip, finish.`
+7. `Implement subtasks/progress in focus mode.`
 
-Implement this as the next narrow Focus action slice. Reconstruct the exact action/state contract from current product/UI/source evidence and inspect the already validated M3 timer/session commands/events plus M5 Notes APIs before editing. Reuse those authoritative mutation boundaries instead of duplicating timer/session or note authority in React. Preserve tracked Time Taken, work/break separation, persistence-first transitions, recovery, `Time's Up`/overtime/Pomodoro semantics and explicit-only URL opening. Do not absorb item 7 subtasks/progress, item 8 paused EST/Time Taken editing, later Focus placement/title/action-slot/tooltips/visual-state work, or Milestone 7 Floating Timer polish.
+Start this as the next narrow Focus slice. Reconstruct the exact subtask/progress contract from repository source/spec/fixture evidence, inspect the validated M2/M5 subtask APIs/components and current `ListBoardTask` projection, then reuse those identity-preserving boundaries in Focus. Do not absorb item 8 paused EST/Time Taken editing, monitor placement, title behavior, hover/action-slot/tooltips work, later visual-state/empty-state work, Milestone 7 Floating Timer polish, Milestone 8 shortcuts/preferences, Reports or release work.
 
 ## Durable correctness decisions
 
@@ -142,10 +185,11 @@ Future work must preserve:
 - `main` and reusable `focusSurface` remain the normal two-webview model; Focus Panel and Floating Timer are presentations of the same authoritative runtime.
 - authoritative task/list/session/timer/scheduling/note/archive/preferences state lives outside renderer memory; persistence-first mutations remain the success boundary.
 - stable task/subtask/list identities, tracked Time Taken, scheduling/date-only/timezone/recurrence semantics and All Lists aggregate semantics must not regress.
-- future-timed Today tasks remain ineligible until due; Focus entry and queue rendering must not bypass scheduling eligibility.
+- future-timed Today tasks remain ineligible until due; Focus entry, queue rendering and Skip/Done next-task selection must not bypass scheduling eligibility.
 - repeated Focus entry cannot duplicate or silently switch an existing live session.
 - live timer sampling remains bounded to ticking states and cannot become a renderer-owned clock or per-second database/list-board poll.
 - Focus queue partitioning cannot clone identities or reinterpret scheduling state.
+- Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions; successful committed completion cannot be rolled back semantically by secondary UI continuation failure.
 - task/list/archive/Search/theme/preferences behavior validated through M5 must not regress.
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from Focus entry, task switching or Notes opening.
 - hover/focus interactions may not reflow sibling geometry or move hit targets; keyboard/focus-visible equivalents and accessible names/tooltips remain required.
