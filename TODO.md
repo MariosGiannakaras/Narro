@@ -237,7 +237,7 @@ Acceptance criteria:
 - [x] Implement subtasks/progress in focus mode.
 - [x] Permit EST/Time Taken editing only while paused.
 - [x] Implement selected-monitor and left/right Focus Panel placement.
-- [ ] React to monitor/display changes while Focus Mode is open.
+- [x] React to monitor/display changes while Focus Mode is open.
 - [ ] Implement configured scrolling behavior for the live title.
 - [ ] Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.
 - [ ] Reserve action slots for hover/focus controls so controls never push task text or move hit targets.
