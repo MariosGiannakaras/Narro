@@ -235,7 +235,7 @@ Acceptance criteria:
 - [x] Show remaining/scheduled/done sections matching documented focus workflow.
 - [x] Implement break, notes, pause/resume, skip, finish.
 - [x] Implement subtasks/progress in focus mode.
-- [ ] Permit EST/Time Taken editing only while paused.
+- [x] Permit EST/Time Taken editing only while paused.
 - [ ] Implement selected-monitor and left/right Focus Panel placement.
 - [ ] React to monitor/display changes while Focus Mode is open.
 - [ ] Implement configured scrolling behavior for the live title.
