@@ -12,6 +12,7 @@ const panel = read("src/FocusPanel.tsx");
 const title = read("src/FocusLiveTitle.tsx");
 const css = read("src/focusLiveTitle.css");
 const rust = read("src-tauri/src/focus_preferences.rs");
+const rustProduction = rust.split("#[cfg(test)]")[0];
 const lib = read("src-tauri/src/lib.rs");
 const preferences = read("src-tauri/src/domain/preferences.rs");
 const pkg = JSON.parse(read("package.json"));
@@ -41,7 +42,7 @@ for (const [haystack, needle, label] of [
   invariant(haystack.includes(needle), `${label} is missing`);
 }
 
-invariant(!rust.includes("save_preferences("), "read-only native command must not mutate preferences");
+invariant(!rustProduction.includes("save_preferences("), "production read command must not mutate preferences");
 invariant(!title.includes("setInterval("), "live-title scrolling must not use polling intervals");
 invariant(!title.includes("requestAnimationFrame("), "live-title scrolling must not use a JavaScript animation loop");
 invariant((panel.match(/<FocusLiveTitle/g) ?? []).length === 1, "scrolling component must apply only to the active/live title");
