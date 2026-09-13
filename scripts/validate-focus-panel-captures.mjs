@@ -4,6 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const outputDirectory = path.resolve(root, process.argv[2] ?? "artifacts/visual-regression");
 let baselineLiveTimerWidth = null;
+let baselineSubtaskRingWidth = null;
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`Focus Panel visual validation failed: ${message}`);
@@ -42,7 +43,13 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-timer-numerals="true"'), `${label} tabular timer numeral marker is missing`);
   invariant(dom.includes('aria-label="Running: 38:00 remaining"'), `${label} live timer accessible label is missing`);
   invariant(dom.includes(">38:00<"), `${label} authoritative EST countdown value is missing`);
-  invariant(dom.includes('data-focus-live-actions="true"'), `${label} live action strip is missing`);
+  invariant(dom.includes('data-focus-live-actions="true"'), `${label} live action wrapper is missing`);
+  invariant(dom.includes('data-focus-subtasks="collapsed"'), `${label} collapsed live subtask surface is missing`);
+  invariant(dom.includes('data-focus-subtask-progress="true"'), `${label} live subtask progress ring is missing`);
+  invariant(dom.includes('aria-label="1 of 4 subtasks complete"'), `${label} live subtask progress accessible value is missing`);
+  invariant(dom.includes('data-focus-subtask-control="toggle"'), `${label} live subtask expand/collapse control is missing`);
+  invariant(dom.includes('data-focus-subtask-control="add"'), `${label} live subtask add control is missing`);
+  invariant(dom.includes(">1/4 Subtasks<"), `${label} live subtask count is missing`);
   invariant(dom.includes('aria-label="Live task actions"'), `${label} live action group accessible name is missing`);
   for (const action of ["break", "notes", "pause-resume", "skip", "done"]) {
     invariant(dom.includes(`data-focus-action="${action}"`), `${label} ${action} Focus action is missing`);
@@ -68,7 +75,8 @@ for (const theme of ["light", "dark"]) {
     'class="focus-panel__topbar"',
     'class="focus-panel__summary"',
     'data-focus-live-card="true"',
-    'data-focus-live-actions="true"',
+    'data-focus-subtasks="collapsed"',
+    'class="focus-panel__live-actions"',
     'data-focus-group="remaining"',
     'class="focus-panel__add-task"',
     'data-focus-group="scheduled"',
@@ -92,7 +100,7 @@ for (const theme of ["light", "dark"]) {
   );
   invariant(contract.topbar?.height > 0, `${label} top bar geometry is invalid`);
   invariant(contract.summary?.height > 0, `${label} summary geometry is invalid`);
-  invariant(contract.liveCard?.height >= 112, `${label} live card/action geometry is too small`);
+  invariant(contract.liveCard?.height >= 148, `${label} live card/subtask/action geometry is too small`);
   invariant(
     contract.liveTimer?.width >= 72 && contract.liveTimer?.width <= 96,
     `${label} live timer width ${contract.liveTimer?.width}px is outside the fixed compact slot`,
@@ -102,6 +110,16 @@ for (const theme of ["light", "dark"]) {
   invariant(
     contract.liveTimer.width === baselineLiveTimerWidth,
     `${label} live timer width ${contract.liveTimer.width}px differs from the opposite theme ${baselineLiveTimerWidth}px`,
+  );
+  invariant(contract.subtasks?.width > 0 && contract.subtasks?.height >= 36, `${label} live subtask surface geometry is invalid`);
+  invariant(
+    contract.subtaskRing?.width >= 34 && contract.subtaskRing?.width <= 38 && contract.subtaskRing?.height === contract.subtaskRing?.width,
+    `${label} live subtask progress ring geometry is invalid`,
+  );
+  if (baselineSubtaskRingWidth === null) baselineSubtaskRingWidth = contract.subtaskRing.width;
+  invariant(
+    contract.subtaskRing.width === baselineSubtaskRingWidth,
+    `${label} subtask ring width ${contract.subtaskRing.width}px differs from the opposite theme ${baselineSubtaskRingWidth}px`,
   );
   invariant(contract.actions?.width > 0 && contract.actions?.height >= 30, `${label} live action geometry is invalid`);
   invariant(contract.firstRow?.height >= 50, `${label} remaining row geometry is too small`);
