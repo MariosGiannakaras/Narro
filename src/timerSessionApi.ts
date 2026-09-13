@@ -193,6 +193,10 @@ export async function connectLiveTimerSessionProjection(
   };
 }
 
+export function startTimerTask(taskId: string, mode: TimerMode): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_start_task", { taskId, mode });
+}
+
 export function pauseTimer(): Promise<TimerSessionPayload> {
   return invoke<TimerSessionPayload>("timer_pause");
 }
