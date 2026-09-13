@@ -35,14 +35,16 @@ for (const [haystack, needle, label] of [
   [lib, "preferences.general.focus_panel_side", "Focus Panel side preference"],
   [lib, "domain::preferences::FocusPanelSide::Left => FocusPanelSide::Left", "left side mapping"],
   [lib, "domain::preferences::FocusPanelSide::Right => FocusPanelSide::Right", "right side mapping"],
-  [lib, "Some(monitor_key) => resolve_monitor_by_key(app_handle, &monitor_key)?.1.work_area", "exact saved monitor resolution"],
+  [lib, "Some(monitor_key) =>", "saved monitor branch"],
+  [lib, "resolve_monitor_by_key(app_handle, &monitor_key)?", "exact saved monitor resolution"],
   [lib, ".primary_monitor()", "primary monitor fallback when no monitor is selected"],
   [lib, "monitor_descriptor(0, &monitor)?.work_area", "validated primary monitor work area"],
   [lib, "fn position_focus_panel_in_work_area(", "shared native panel positioning boundary"],
   [lib, "focus_panel_edge_position(", "validated M1 edge geometry reuse"],
   [lib, "fn present_focus_panel(app_handle: tauri::AppHandle)", "production native Focus presentation command"],
   [lib, "preferred_focus_panel_work_area(&app_handle)?", "preference-aware production placement"],
-  [lib, "present_focus_panel\n        ])", "production placement command registration"],
+  [lib, "position_focus_panel,", "diagnostic placement command registration"],
+  [lib, "present_focus_panel", "production placement command registration"],
   [lib, "Err(CommandError::stale_monitor_selection())", "stale selected-monitor rejection"],
   [preferences, "selected_monitor_key: None", "safe no-selection default"],
   [preferences, "focus_panel_side: FocusPanelSide::Right", "default right side"],
@@ -89,10 +91,21 @@ if (startCall < 0 || presentationCall < startCall) {
   throw new Error("Focus Panel presentation must occur only after authoritative Start Blitz resolves.");
 }
 
-const savedMonitorBranch = lib.indexOf("Some(monitor_key) => resolve_monitor_by_key");
-const primaryFallback = lib.indexOf(".primary_monitor()", savedMonitorBranch);
-if (savedMonitorBranch < 0 || primaryFallback < savedMonitorBranch) {
-  throw new Error("Saved monitor selection must be resolved exactly before the no-selection primary-monitor fallback.");
+const savedMonitorBranch = lib.indexOf("Some(monitor_key) =>");
+const savedMonitorResolution = lib.indexOf("resolve_monitor_by_key(app_handle, &monitor_key)?", savedMonitorBranch);
+const primaryFallback = lib.indexOf(".primary_monitor()", savedMonitorResolution);
+if (
+  savedMonitorBranch < 0 ||
+  savedMonitorResolution < savedMonitorBranch ||
+  primaryFallback < savedMonitorResolution
+) {
+  throw new Error("Saved monitor selection must resolve exactly before the no-selection primary-monitor fallback.");
+}
+
+const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
+const registeredPresentation = lib.indexOf("present_focus_panel", handler);
+if (handler < 0 || registeredPresentation < handler) {
+  throw new Error("The native production Focus presentation command must be registered in Tauri IPC.");
 }
 
 console.log("Focus entry and native selected-monitor/side placement contract checks passed.");
