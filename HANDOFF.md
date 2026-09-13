@@ -10,7 +10,7 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 - Milestone 6: ACTIVE / **4 of 16** top-level items validated.
 - Milestones 7–10: NOT STARTED.
 
-Compact progress basis: **5/10 milestones complete; current new item-5 slice 0/5 checkpoints; M6 4/16 items validated.**
+Compact progress basis: **5/10 milestones complete; current item-5 slice 2/5 checkpoints; M6 4/16 items validated.**
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
@@ -39,12 +39,48 @@ Validated item-4 behavior includes authoritative `TimerSnapshot` rendering for E
 
 **M6 item 5/16 — Show remaining/scheduled/done sections matching documented focus workflow.**
 
-Current small-slice progress: **0/5**.
+Implementation branch: `m6-focus-workflow-sections`.
+
+Current small-slice progress: **2/5**.
+
+### Checkpoint 1/5 — COMPLETE: exact workflow contract reconstructed
+
+Current source/spec/screenshot evidence and existing authoritative projections establish:
+
+- Focus executes the Today workflow from the current live task through the remaining Today queue;
+- the live task identity is excluded from non-live queue sections;
+- an ordinary Today task remains in **Remaining**;
+- an overdue timed/date task remains actionable in **Remaining** rather than being hidden merely because it carries schedule metadata;
+- a future-timed Today task remains visible in **Scheduled** and is not treated as currently eligible work before its due time;
+- date-only Today scheduling affects metadata/lane classification, not premature exclusion from the Today workflow;
+- **Done** projects the authoritative completed-task lane supplied by `ListBoardSnapshot`; item 5 does not invent a second completion-history authority or reinterpret completion timestamps in the renderer;
+- All view preserves list-origin chips; selected-list view uses the same authoritative board target without cloning/reordering identities;
+- section ordering remains active card -> Remaining -> Add Task -> Scheduled -> Done;
+- item 5 is read-only presentation/grouping. Break/Notes/Pause/Resume/Skip/Finish mutations remain item 6.
+
+The existing production `FocusPanel` already implements this contract because item 3 reproduced the full hierarchy ahead of the ordered item-5 validation. No speculative production rewrite is warranted.
+
+### Checkpoint 2/5 — COMPLETE: narrow contract coverage + semantic/diff review
+
+Branch change is deliberately limited to `scripts/test-ui-focus-panel.mjs`:
+
+- explicitly locks live-task exclusion from queued sections;
+- locks the future-timed/non-overdue predicate used for Scheduled;
+- locks the identity partition preventing a task from appearing in both Remaining and Scheduled;
+- locks authoritative `board.done.tasks` projection rather than renderer-created completion data;
+- locks `remaining` / `scheduled` / `done` row identity markers and section count headings;
+- requires deterministic fixture coverage for ordinary Remaining, overdue Remaining, future-timed Scheduled and Done rows;
+- retains anti-regressions against renderer timer authority, implicit Focus start, URL auto-open and premature item-6 actions;
+- existing Windows visual validator already checks both light/dark captures for section contents, metadata, counts and exact hierarchy order, so no duplicate visual harness was added.
+
+Exact reviewed branch diff from reconciled `main` contains one file only: `scripts/test-ui-focus-panel.mjs`, +15/-3. Production source, Rust/Tauri, schema/migrations, dependencies, timer/session engine, scheduling policy and UI geometry are unchanged.
+
+Local Node/Rust preflight is **NOT RUN** because this implementation environment is connector-only. Authoritative Windows CI is required on the exact PR head.
 
 ### Five checkpoints for this slice
 
-1. mandatory reconstruction + exact remaining/scheduled/done workflow contract from current docs/screenshots/source and existing `FocusPanel`/list-board projection — pending;
-2. narrow implementation + deterministic/visual coverage + semantic/diff review — pending;
+1. mandatory reconstruction + exact remaining/scheduled/done workflow contract from current docs/screenshots/source and existing `FocusPanel`/list-board projection — **COMPLETE**;
+2. narrow implementation + deterministic/visual coverage + semantic/diff review — **COMPLETE**;
 3. exact PR-head Windows CI — pending;
 4. final exact-head review + expected-head guarded merge — pending;
 5. resulting-main Windows CI + `TODO.md`/`STATUS.md`/`HANDOFF.md`/immutable work-log reconciliation — pending.
@@ -64,7 +100,7 @@ Current small-slice progress: **0/5**.
 
 ## UNFINISHED WORK / EXACT NEXT ACTION
 
-Reconstruct the item-5 presentation contract from current Focus screenshots/specification and existing production `FocusPanel`/`ListBoardSnapshot` behavior. Determine exactly which tasks belong in Remaining, Scheduled and Done for All versus a selected list; preserve existing source-evidenced metadata and scheduling eligibility; then implement the narrowest read-only projection/rendering changes and deterministic Focus fixture/static validation needed. Create a coherent feature branch from current reconciled `main`. Do not add item-6 action semantics.
+Open one PR for `m6-focus-workflow-sections` from the current exact branch head and require authoritative Windows CI on that exact head. Do not change production implementation unless CI or final review produces evidence. Require Repository Preflight, Windows Edge visual regression, Tauri Release and required artifact uploads before checkpoint 3.
 
 ## USER ACTION REQUIRED
 
@@ -72,5 +108,5 @@ Reconstruct the item-5 presentation contract from current Focus screenshots/spec
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks M6 item 5.
-- Full local Rust/Tauri/Node validation is unavailable in this connector-only environment; local preflight will be **NOT RUN** and authoritative Windows GitHub Actions is required before merge.
+- No product/user decision blocks M6 item 5.
+- Full local Rust/Tauri/Node validation is unavailable in this connector-only environment; local preflight is **NOT RUN** and authoritative Windows GitHub Actions is required before merge.
