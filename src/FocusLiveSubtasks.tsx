@@ -11,7 +11,6 @@ import {
   type BoardSubtask,
   type BoardSubtaskSnapshot,
   type ListBoardRequestTarget,
-  type ListBoardSnapshot,
   type ListBoardTask,
 } from "./listBoardApi";
 import { TaskSubtasks, type TaskSubtasksModel } from "./TaskSubtasks";
@@ -22,7 +21,6 @@ type FocusLiveSubtasksProps = {
   fixtureMode: boolean;
   fixtureSnapshot?: BoardSubtaskSnapshot | null;
   fixtureExpanded?: boolean;
-  onBoardSnapshot: (snapshot: ListBoardSnapshot) => void;
 };
 
 function progressState(task: ListBoardTask, snapshot: BoardSubtaskSnapshot | null) {
@@ -53,7 +51,6 @@ export function FocusLiveSubtasks({
   fixtureMode,
   fixtureSnapshot = null,
   fixtureExpanded = false,
-  onBoardSnapshot,
 }: FocusLiveSubtasksProps) {
   const mountedRef = useRef(true);
   const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
@@ -124,10 +121,19 @@ export function FocusLiveSubtasks({
     if (subtasksPayload.taskId !== task.id || subtasksPayload.listId !== task.listId) {
       throw new Error("Authoritative subtask refresh did not match the live task.");
     }
+    const projectedTask = boardPayload.today.tasks.find((candidate) => candidate.id === task.id);
+    if (!projectedTask) {
+      throw new Error("The live task was missing from the authoritative Focus board refresh.");
+    }
+    const projectedTotal = projectedTask.subtaskTotalCount ?? 0;
+    const projectedCompleted = projectedTask.subtaskCompletedCount ?? 0;
+    const actualCompleted = subtasksPayload.subtasks.filter((subtask) => subtask.completedAt !== null).length;
+    if (projectedTotal !== subtasksPayload.subtasks.length || projectedCompleted !== actualCompleted) {
+      throw new Error("Authoritative Focus subtask progress did not reconcile after the saved change.");
+    }
     if (!mountedRef.current) return;
     setSnapshot(subtasksPayload);
     setError(null);
-    onBoardSnapshot(boardPayload);
   };
 
   const handleCommittedRefreshFailure = (failure: unknown) => {
