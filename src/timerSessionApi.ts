@@ -135,14 +135,14 @@ export async function connectLiveTimerSessionProjection(
   let latest: TimerSessionPayload | null = null;
   let sampleTimeout: number | null = null;
 
-  const clearSample = () => {
+  function clearSample(): void {
     if (sampleTimeout !== null) {
       window.clearTimeout(sampleTimeout);
       sampleTimeout = null;
     }
-  };
+  }
 
-  const scheduleSample = () => {
+  function scheduleSample(): void {
     clearSample();
     if (disposed || latest === null || !timerStateNeedsLiveSampling(latest.runtime.timer.state)) {
       return;
@@ -161,13 +161,13 @@ export async function connectLiveTimerSessionProjection(
           scheduleSample();
         });
     }, LIVE_TIMER_SAMPLE_INTERVAL_MS);
-  };
+  }
 
-  const accept = (incoming: TimerSessionPayload) => {
+  function accept(incoming: TimerSessionPayload): void {
     latest = applyTimerSessionProjection(latest, incoming);
     onPayload(incoming);
     scheduleSample();
-  };
+  }
 
   const unlisten = await listen<TimerSessionPayload>(TIMER_SESSION_EVENT_NAME, (event) => {
     if (!disposed) accept(event.payload);
