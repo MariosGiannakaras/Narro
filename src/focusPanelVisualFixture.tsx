@@ -143,6 +143,8 @@ const contract = {
   summary: box(".focus-panel__summary"),
   liveCard: box(".focus-panel__live-card"),
   liveTimer: box(".focus-panel__live-timer"),
+  subtasks: box(".focus-panel__subtasks"),
+  subtaskRing: box(".focus-panel__subtask-ring"),
   actions: box(".focus-panel__live-actions"),
   firstRow: box('.focus-panel__task-row[data-focus-task-row="remaining"]'),
   addTask: box(".focus-panel__add-task"),
