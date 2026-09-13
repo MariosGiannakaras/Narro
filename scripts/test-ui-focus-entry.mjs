@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-const [rust, lib, api, button, main, preferences, windows] = await Promise.all([
+const [rust, lib, api, button, main, preferences, windows, topology] = await Promise.all([
   readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/focusEntryApi.ts", import.meta.url), "utf8"),
@@ -8,6 +8,7 @@ const [rust, lib, api, button, main, preferences, windows] = await Promise.all([
   readFile(new URL("../src/main.tsx", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/domain/preferences.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/windows/mod.rs", import.meta.url), "utf8"),
+  readFile(new URL("../src-tauri/src/windows/topology.rs", import.meta.url), "utf8"),
 ]);
 
 function requireText(haystack, needle, label) {
@@ -41,6 +42,11 @@ for (const [haystack, needle, label] of [
   [lib, "monitor_descriptor(0, &monitor)?.work_area", "validated primary monitor work area"],
   [lib, "fn position_focus_panel_in_work_area(", "shared native panel positioning boundary"],
   [lib, "focus_panel_edge_position(", "validated M1 edge geometry reuse"],
+  [lib, "FocusPanelPlacementIntent::Present", "explicit activating placement intent"],
+  [lib, "FocusPanelPlacementIntent::Revalidate", "explicit non-activating revalidation intent"],
+  [lib, "pub(crate) fn revalidate_open_focus_panel_after_display_change(", "open-panel display revalidation boundary"],
+  [lib, "current_focus_surface_mode() != Some(FocusSurfaceMode::Panel)", "Panel-mode guard"],
+  [lib, ".is_visible()", "visible Focus surface guard"],
   [lib, "fn present_focus_panel(app_handle: tauri::AppHandle)", "production native Focus presentation command"],
   [lib, "preferred_focus_panel_work_area(&app_handle)?", "preference-aware production placement"],
   [lib, "position_focus_panel,", "diagnostic placement command registration"],
@@ -50,6 +56,15 @@ for (const [haystack, needle, label] of [
   [preferences, "focus_panel_side: FocusPanelSide::Right", "default right side"],
   [windows, "pub fn focus_panel_edge_position(", "M1 physical work-area edge helper"],
   [windows, "supports_monitors_with_negative_desktop_coordinates", "negative desktop coordinate regression"],
+  [topology, "WM_DISPLAY_CHANGE", "event-driven display-change trigger"],
+  [topology, "WM_DPICHANGED", "event-driven DPI trigger"],
+  [topology, "WM_SETTING_CHANGE", "event-driven work-area trigger"],
+  [topology, "SPI_SETWORKAREA", "work-area setting filter"],
+  [topology, "is_power_resume_event(wparam)", "resume-triggered display revalidation"],
+  [topology, "recover_visible_windows(&recovery_handle)", "M1 generic visible-area recovery first"],
+  [topology, "crate::revalidate_open_focus_panel_after_display_change(&recovery_handle)", "preference-aware open Panel revalidation"],
+  [topology, "display_geometry_messages_schedule_recovery", "native trigger regression test"],
+  [topology, "only_resume_power_events_request_display_revalidation", "resume trigger regression test"],
   [api, 'invoke<StartBlitzOutcome>("start_blitz"', "typed Start Blitz IPC"],
   [api, 'invoke<void>("present_focus_panel")', "preference-aware native Focus presentation IPC"],
   [button, 'data-start-blitz="true"', "explicit Start Blitz control"],
@@ -102,10 +117,30 @@ if (
   throw new Error("Saved monitor selection must resolve exactly before the no-selection primary-monitor fallback.");
 }
 
+const genericRecovery = topology.indexOf("recover_visible_windows(&recovery_handle)");
+const panelRevalidation = topology.indexOf(
+  "crate::revalidate_open_focus_panel_after_display_change(&recovery_handle)",
+);
+if (genericRecovery < 0 || panelRevalidation < genericRecovery) {
+  throw new Error("Generic visible-area recovery must run before selected-monitor Focus Panel revalidation.");
+}
+
+const revalidationStart = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(");
+const revalidationEnd = lib.indexOf("\nfn build_main_window", revalidationStart);
+const revalidationBlock = lib.slice(revalidationStart, revalidationEnd);
+if (
+  revalidationStart < 0 ||
+  revalidationEnd < revalidationStart ||
+  revalidationBlock.includes("set_focus") ||
+  revalidationBlock.includes(".show()")
+) {
+  throw new Error("Display-change revalidation must not show or focus the Focus Panel.");
+}
+
 const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
 const registeredPresentation = lib.indexOf("present_focus_panel", handler);
 if (handler < 0 || registeredPresentation < handler) {
   throw new Error("The native production Focus presentation command must be registered in Tauri IPC.");
 }
 
-console.log("Focus entry and native selected-monitor/side placement contract checks passed.");
+console.log("Focus entry, placement, and display-revalidation contract checks passed.");
