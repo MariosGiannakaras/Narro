@@ -119,6 +119,12 @@ for (const forbidden of ["setInterval(", "Date.now(", "performance.now("]) {
 
 invariant(timerApi.includes("window.setTimeout"), "live timer projection must schedule non-overlapping authoritative samples");
 invariant(actions.includes("DEFAULT_MANUAL_BREAK_MS = 10 * 60 * 1_000"), "manual Break must use the established ten-minute default until M8 exposes its preference");
+invariant(actions.includes('const breakState = timer.state === "break";'), "action state must identify an active break explicitly");
+invariant(actions.includes("breakEnabled: working"), "Break must remain available only for working states");
+invariant(actions.includes("pauseResumeEnabled: working || breakState"), "Pause/Resume slot must remain available for work and break states");
+invariant(actions.includes('pauseResumeLabel: paused || breakState ? "Resume" : "Pause"'), "Pause/Resume label must switch to Resume for paused work and active break");
+invariant(actions.includes('skipEnabled: working || timer.state === "time_up"'), "Skip must remain unavailable during break but available for work and Time's Up");
+invariant(actions.includes('doneEnabled: working || timer.state === "time_up"'), "Done must remain unavailable during break but available for work and Time's Up");
 invariant(actions.indexOf('data-focus-action="break"') < actions.indexOf('data-focus-action="notes"'), "Break must precede Notes in action strip");
 invariant(actions.indexOf('data-focus-action="notes"') < actions.indexOf('data-focus-action="pause-resume"'), "Notes must precede Pause/Resume in action strip");
 invariant(actions.indexOf('data-focus-action="pause-resume"') < actions.indexOf('data-focus-action="skip"'), "Pause/Resume must precede Skip in action strip");
