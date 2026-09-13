@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 
 export const TIMER_SESSION_EVENT_NAME = "timer-session-changed";
+const LIVE_TIMER_SAMPLE_INTERVAL_MS = 1_000;
 
 export type TimerStateKind =
   | "idle"
@@ -105,6 +106,10 @@ export function applyTimerSessionProjection(
   return current;
 }
 
+function timerStateNeedsLiveSampling(state: TimerStateKind): boolean {
+  return state === "running" || state === "break" || state === "overtime_running";
+}
+
 export async function connectTimerSessionProjection(
   onPayload: (payload: TimerSessionPayload) => void,
 ): Promise<() => void> {
@@ -120,6 +125,68 @@ export async function connectTimerSessionProjection(
     unlisten();
     throw error;
   }
+}
+
+export async function connectLiveTimerSessionProjection(
+  onPayload: (payload: TimerSessionPayload) => void,
+  onSampleError?: (error: unknown) => void,
+): Promise<() => void> {
+  let disposed = false;
+  let latest: TimerSessionPayload | null = null;
+  let sampleTimeout: number | null = null;
+
+  function clearSample(): void {
+    if (sampleTimeout !== null) {
+      window.clearTimeout(sampleTimeout);
+      sampleTimeout = null;
+    }
+  }
+
+  function scheduleSample(): void {
+    clearSample();
+    if (disposed || latest === null || !timerStateNeedsLiveSampling(latest.runtime.timer.state)) {
+      return;
+    }
+
+    sampleTimeout = window.setTimeout(() => {
+      sampleTimeout = null;
+      void invoke<TimerSessionPayload>("timer_session_snapshot")
+        .then((snapshot) => {
+          if (disposed) return;
+          accept(snapshot);
+        })
+        .catch((error: unknown) => {
+          if (disposed) return;
+          onSampleError?.(error);
+          scheduleSample();
+        });
+    }, LIVE_TIMER_SAMPLE_INTERVAL_MS);
+  }
+
+  function accept(incoming: TimerSessionPayload): void {
+    latest = applyTimerSessionProjection(latest, incoming);
+    onPayload(incoming);
+    scheduleSample();
+  }
+
+  const unlisten = await listen<TimerSessionPayload>(TIMER_SESSION_EVENT_NAME, (event) => {
+    if (!disposed) accept(event.payload);
+  });
+
+  try {
+    accept(await invoke<TimerSessionPayload>("timer_session_snapshot"));
+  } catch (error: unknown) {
+    disposed = true;
+    clearSample();
+    unlisten();
+    throw error;
+  }
+
+  return () => {
+    disposed = true;
+    clearSample();
+    unlisten();
+  };
 }
 
 export async function resumeTimer(): Promise<TimerSessionPayload> {
