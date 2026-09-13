@@ -3,6 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const outputDirectory = path.resolve(root, process.argv[2] ?? "artifacts/visual-regression");
+let baselineLiveTimerWidth = null;
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`Focus Panel visual validation failed: ${message}`);
@@ -36,6 +37,11 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes("1/5 Done"), `${label} completion count is missing`);
   invariant(dom.includes('data-focus-live-card="true"'), `${label} active live card is missing`);
   invariant(dom.includes("Prepare BFCM strategy"), `${label} active task title is missing`);
+  invariant(dom.includes('data-focus-live-timer="true"'), `${label} authoritative live timer marker is missing`);
+  invariant(dom.includes('data-focus-live-timer-mode="est_countdown"'), `${label} EST countdown mode marker is missing`);
+  invariant(dom.includes('data-timer-numerals="true"'), `${label} tabular timer numeral marker is missing`);
+  invariant(dom.includes('aria-label="Running: 38:00 remaining"'), `${label} live timer accessible label is missing`);
+  invariant(dom.includes(">38:00<"), `${label} authoritative EST countdown value is missing`);
   invariant(dom.includes('data-focus-task-row="remaining"'), `${label} remaining queue is missing`);
   invariant(dom.includes("Review campaign notes"), `${label} overdue remaining task is missing`);
   invariant(dom.includes("Plan weekend errands"), `${label} second remaining task is missing`);
@@ -76,6 +82,16 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.topbar?.height > 0, `${label} top bar geometry is invalid`);
   invariant(contract.summary?.height > 0, `${label} summary geometry is invalid`);
   invariant(contract.liveCard?.height >= 80, `${label} live card emphasis geometry is too small`);
+  invariant(
+    contract.liveTimer?.width >= 72 && contract.liveTimer?.width <= 96,
+    `${label} live timer width ${contract.liveTimer?.width}px is outside the fixed compact slot`,
+  );
+  invariant(contract.liveTimer?.height > 0, `${label} live timer geometry is invalid`);
+  if (baselineLiveTimerWidth === null) baselineLiveTimerWidth = contract.liveTimer.width;
+  invariant(
+    contract.liveTimer.width === baselineLiveTimerWidth,
+    `${label} live timer width ${contract.liveTimer.width}px differs from the opposite theme ${baselineLiveTimerWidth}px`,
+  );
   invariant(contract.firstRow?.height >= 50, `${label} remaining row geometry is too small`);
   invariant(contract.addTask?.height >= 34, `${label} Add Task geometry is too small`);
 }
