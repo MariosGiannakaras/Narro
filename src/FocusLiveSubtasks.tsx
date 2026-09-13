@@ -62,8 +62,11 @@ export function FocusLiveSubtasks({
   const [pending, setPending] = useState(false);
   const [refreshBlocked, setRefreshBlocked] = useState(false);
 
-  useEffect(() => () => {
-    mountedRef.current = false;
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
   }, []);
 
   useEffect(() => {
