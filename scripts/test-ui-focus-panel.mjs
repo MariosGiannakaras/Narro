@@ -37,10 +37,18 @@ for (const [haystack, needle, label] of [
   [panel, 'timer.state === "break"', "break countdown projection"],
   [panel, 'timer.state === "time_up"', "Time's Up display projection"],
   [panel, 'timer.state === "overtime_running"', "overtime display projection"],
+  [panel, 'const remainingCandidates = board.today.tasks.filter((task) => task.id !== liveTaskId);', "live task exclusion from queued sections"],
+  [panel, 'task.scheduledLocalTime !== null && !task.isOverdue', "future-timed Today scheduled grouping"],
+  [panel, 'const scheduledIds = new Set(scheduledTasks.map((task) => task.id));', "scheduled identity set"],
+  [panel, 'const remainingTasks = remainingCandidates.filter((task) => !scheduledIds.has(task.id));', "remaining/scheduled identity partition"],
+  [panel, 'const doneTasks = board.done.tasks;', "authoritative Done projection"],
   [panel, 'data-focus-group="remaining"', "remaining queue"],
+  [panel, 'data-focus-task-row={done ? "done" : scheduled ? "scheduled" : "remaining"}', "section row identity markers"],
   [panel, "+ ADD TASK", "Add Task hierarchy row"],
   [panel, 'data-focus-group="scheduled"', "scheduled group"],
   [panel, 'data-focus-group="done"', "done group"],
+  [panel, '{scheduledTasks.length} Scheduled {scheduledTasks.length === 1 ? "task" : "tasks"}', "scheduled count heading"],
+  [panel, '{doneTasks.length} Done', "done count heading"],
   [timerApi, "connectLiveTimerSessionProjection", "live projection connector"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_session_snapshot")', "authoritative Rust snapshot sampling"],
   [timerApi, 'state === "running" || state === "break" || state === "overtime_running"', "sampling limited to ticking states"],
@@ -51,6 +59,10 @@ for (const [haystack, needle, label] of [
   [css, ".focus-panel__live-timer { width: 10ch; flex: 0 0 10ch;", "fixed live timer geometry"],
   [css, "prefers-reduced-motion", "reduced-motion coverage"],
   [fixture, "fixtureBoard={board}", "deterministic production-component fixture"],
+  [fixture, '"Review campaign notes"', "overdue remaining-row fixture"],
+  [fixture, '"Plan weekend errands"', "ordinary remaining-row fixture"],
+  [fixture, '"Client follow-up call"', "future-timed scheduled-row fixture"],
+  [fixture, '"Confirm morning agenda"', "done-row fixture"],
   [fixture, 'liveTimer: box(".focus-panel__live-timer")', "deterministic live timer geometry fixture"],
   [vite, 'focusPanelFixture: "focus-panel-fixture.html"', "Vite fixture entry"],
   [capture, "focus-panel-fixture.html", "Windows Edge Focus capture"],
@@ -68,11 +80,11 @@ for (const forbidden of ["setInterval(", "Date.now(", "performance.now("]) {
 }
 
 invariant(timerApi.includes("window.setTimeout"), "live timer projection must schedule non-overlapping authoritative samples");
-invariant(panel.includes("disabled aria-label=\"Add task in Focus Panel\""), "Add Task must remain explicitly non-mutating in hierarchy-only slice");
-invariant(panel.includes("button type=\"button\" disabled aria-label=\"Preferences\""), "quick controls must remain explicitly non-mutating in hierarchy-only slice");
+invariant(panel.includes("disabled aria-label=\"Add task in Focus Panel\""), "Add Task must remain explicitly non-mutating before the ordered action slice");
+invariant(panel.includes("button type=\"button\" disabled aria-label=\"Preferences\""), "quick controls must remain explicitly non-mutating before their ordered slices");
 invariant(pkg.scripts["test:ui-focus-panel"] === "node scripts/test-ui-focus-panel.mjs", "test:ui-focus-panel script is not registered");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-panel"), "Focus Panel contract gate is not in frontend preflight");
 invariant(pkg.scripts["test:visual-regression:windows"].includes("capture-focus-panel-fixtures.ps1"), "Focus Panel capture is not in Windows visual regression");
 invariant(pkg.scripts["test:visual-regression:windows"].includes("validate-focus-panel-captures.mjs"), "Focus Panel visual validation is not in Windows visual regression");
 
-console.log("Focus Panel hierarchy/live timer contract checks passed.");
+console.log("Focus Panel hierarchy/live timer/workflow section contract checks passed.");
