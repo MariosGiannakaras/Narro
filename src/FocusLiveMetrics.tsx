@@ -11,6 +11,7 @@ import {
   type TimerSessionPayload,
   type TimerSnapshot,
 } from "./timerSessionApi";
+import "./focusLiveMetrics.css";
 
 export type FocusMetricKind = "estimate" | "time_taken";
 
@@ -159,7 +160,7 @@ export function FocusLiveMetrics({
   ) => {
     const board = await getListBoardSnapshot(target);
     const refreshed = board.today.tasks.find((candidate) => candidate.id === task.id);
-    if (!refreshed) {
+    if (!refreshed || refreshed.listId !== task.listId) {
       throw new Error("The live task was missing from the authoritative Focus board refresh.");
     }
     if (metric === "estimate" && refreshed.estSeconds !== savedSeconds) {
@@ -244,7 +245,7 @@ export function FocusLiveMetrics({
                 <input
                   className="focus-panel__metric-input timer-numerals"
                   data-focus-metric-control="input"
-                  aria-label={`${metricLabel(metric)} duration`}
+                  aria-label={`${metricLabel(metric)} duration in H:MM:SS`}
                   value={editor.value}
                   disabled={pending || interactionBlocked}
                   autoFocus={!fixtureMode}
@@ -264,28 +265,36 @@ export function FocusLiveMetrics({
                   <button
                     type="button"
                     data-focus-metric-control="cancel"
+                    aria-label={`Cancel ${metricLabel(metric)} edit`}
                     disabled={pending || interactionBlocked}
                     onClick={() => setEditor(null)}
-                  >Cancel</button>
+                  >×</button>
                   <button
                     type="button"
                     data-focus-metric-control="save"
+                    aria-label={`Save ${metricLabel(metric)}`}
                     disabled={pending || interactionBlocked}
                     onClick={() => void save()}
-                  >Save</button>
+                  >✓</button>
                 </span>
               </>
-            ) : (
+            ) : canEdit ? (
               <button
                 type="button"
                 className="focus-panel__metric-value timer-numerals motion-interactive"
                 data-focus-metric-control="open"
-                aria-label={`Edit ${metricLabel(metric)} for ${task.title}`}
-                disabled={!canEdit}
+                aria-label={`Edit ${metricLabel(metric)}: ${values[metric]}`}
                 onClick={() => startEdit(metric)}
               >
                 {values[metric]}
               </button>
+            ) : (
+              <span
+                className="focus-panel__metric-value focus-panel__metric-value--readonly timer-numerals"
+                data-focus-metric-control="display"
+              >
+                {values[metric]}
+              </span>
             )}
           </div>
         );
