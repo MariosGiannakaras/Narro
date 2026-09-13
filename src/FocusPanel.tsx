@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useMemo, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { formatInvokeError } from "./diagnosticApi";
+import { FocusLiveActions } from "./FocusLiveActions";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
   getListBoardSnapshot,
@@ -392,6 +393,18 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
               {subtaskLabel(liveTask) ? <span>{subtaskLabel(liveTask)}</span> : null}
               {timer ? <span className="focus-panel__live-state">{focusTimerStateLabel(timer.runtime.timer)}</span> : null}
             </div>
+            {timer ? (
+              <FocusLiveActions
+                key={liveTask.id}
+                task={liveTask}
+                target={target}
+                timer={timer}
+                fixtureMode={fixtureMode}
+                onTimerPayload={(incoming) => {
+                  setTimer((current) => applyTimerSessionProjection(current, incoming));
+                }}
+              />
+            ) : null}
           </article>
         ) : (
           <div className="focus-panel__live-card focus-panel__live-card--empty" data-focus-live-card="false">

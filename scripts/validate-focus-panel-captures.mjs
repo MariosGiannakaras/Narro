@@ -42,6 +42,16 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-timer-numerals="true"'), `${label} tabular timer numeral marker is missing`);
   invariant(dom.includes('aria-label="Running: 38:00 remaining"'), `${label} live timer accessible label is missing`);
   invariant(dom.includes(">38:00<"), `${label} authoritative EST countdown value is missing`);
+  invariant(dom.includes('data-focus-live-actions="true"'), `${label} live action strip is missing`);
+  invariant(dom.includes('aria-label="Live task actions"'), `${label} live action group accessible name is missing`);
+  for (const action of ["break", "notes", "pause-resume", "skip", "done"]) {
+    invariant(dom.includes(`data-focus-action="${action}"`), `${label} ${action} Focus action is missing`);
+  }
+  invariant(dom.includes(">Break<"), `${label} Break action label is missing`);
+  invariant(dom.includes(">Notes<"), `${label} Notes action label is missing`);
+  invariant(dom.includes(">Pause<"), `${label} Pause action label is missing for running fixture`);
+  invariant(dom.includes(">Skip<"), `${label} Skip action label is missing`);
+  invariant(dom.includes(">Done<"), `${label} Done action label is missing`);
   invariant(dom.includes('data-focus-task-row="remaining"'), `${label} remaining queue is missing`);
   invariant(dom.includes("Review campaign notes"), `${label} overdue remaining task is missing`);
   invariant(dom.includes("Plan weekend errands"), `${label} second remaining task is missing`);
@@ -58,6 +68,7 @@ for (const theme of ["light", "dark"]) {
     'class="focus-panel__topbar"',
     'class="focus-panel__summary"',
     'data-focus-live-card="true"',
+    'data-focus-live-actions="true"',
     'data-focus-group="remaining"',
     'class="focus-panel__add-task"',
     'data-focus-group="scheduled"',
@@ -81,7 +92,7 @@ for (const theme of ["light", "dark"]) {
   );
   invariant(contract.topbar?.height > 0, `${label} top bar geometry is invalid`);
   invariant(contract.summary?.height > 0, `${label} summary geometry is invalid`);
-  invariant(contract.liveCard?.height >= 80, `${label} live card emphasis geometry is too small`);
+  invariant(contract.liveCard?.height >= 112, `${label} live card/action geometry is too small`);
   invariant(
     contract.liveTimer?.width >= 72 && contract.liveTimer?.width <= 96,
     `${label} live timer width ${contract.liveTimer?.width}px is outside the fixed compact slot`,
@@ -92,6 +103,7 @@ for (const theme of ["light", "dark"]) {
     contract.liveTimer.width === baselineLiveTimerWidth,
     `${label} live timer width ${contract.liveTimer.width}px differs from the opposite theme ${baselineLiveTimerWidth}px`,
   );
+  invariant(contract.actions?.width > 0 && contract.actions?.height >= 30, `${label} live action geometry is invalid`);
   invariant(contract.firstRow?.height >= 50, `${label} remaining row geometry is too small`);
   invariant(contract.addTask?.height >= 34, `${label} Add Task geometry is too small`);
 }
