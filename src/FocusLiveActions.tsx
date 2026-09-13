@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import {
   getListBoardSnapshot,
   type ListBoardRequestTarget,
@@ -221,6 +222,8 @@ export function FocusLiveActions({
 
   return (
     <div className="focus-panel__live-actions-wrap" data-focus-live-actions="true">
+      <FocusLiveSubtasks task={task} target={target} fixtureMode={fixtureMode} />
+
       <div className="focus-panel__live-actions" role="group" aria-label="Live task actions">
         <button
           type="button"

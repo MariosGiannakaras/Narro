@@ -10,6 +10,8 @@ function invariant(condition, message) {
 
 const panel = read("src/FocusPanel.tsx");
 const actions = read("src/FocusLiveActions.tsx");
+const subtasks = read("src/FocusLiveSubtasks.tsx");
+const taskSubtasks = read("src/TaskSubtasks.tsx");
 const timerApi = read("src/timerSessionApi.ts");
 const notes = read("src/TaskNotes.tsx");
 const focusEntry = read("src/focus.tsx");
@@ -52,6 +54,7 @@ for (const [haystack, needle, label] of [
   [panel, 'data-focus-group="done"', "done group"],
   [panel, '{scheduledTasks.length} Scheduled {scheduledTasks.length === 1 ? "task" : "tasks"}', "scheduled count heading"],
   [panel, '{doneTasks.length} Done', "done count heading"],
+  [actions, "<FocusLiveSubtasks", "live subtask composition"],
   [actions, "getListBoardSnapshot(target)", "fresh authoritative board read before queue-changing actions"],
   [actions, "snapshotTimerSession()", "fresh authoritative timer read before queue-changing actions"],
   [actions, "assertExpectedLiveTask(authoritative, task.id)", "stale live-task guard"],
@@ -71,6 +74,25 @@ for (const [haystack, needle, label] of [
   [actions, 'data-focus-action="pause-resume"', "Pause/Resume control"],
   [actions, 'data-focus-action="skip"', "Skip control"],
   [actions, 'data-focus-action="done"', "Done control"],
+  [subtasks, "getListBoardTaskSubtasks(task.id, task.listId)", "authoritative live-task subtask read"],
+  [subtasks, "Promise.all([", "combined authoritative subtask/board refresh"],
+  [subtasks, "getListBoardSnapshot(target)", "authoritative board progress refresh"],
+  [subtasks, "projectedTotal !== subtasksPayload.subtasks.length || projectedCompleted !== actualCompleted", "subtask/list-board progress reconciliation"],
+  [subtasks, "<TaskSubtasks", "validated TaskSubtasks component reuse"],
+  [subtasks, "createListBoardSubtask({ taskId: task.id, listId: task.listId, title })", "persisted subtask create"],
+  [subtasks, "updateListBoardSubtaskTitle({", "persisted subtask title edit"],
+  [subtasks, "setListBoardSubtaskCompletion({", "persisted subtask completion toggle"],
+  [subtasks, "reorderListBoardSubtasks({", "persisted subtask reorder"],
+  [subtasks, "deleteListBoardSubtask({", "persisted subtask delete"],
+  [subtasks, "expectedOrder: order.expectedOrder", "subtask reorder expected-order guard"],
+  [subtasks, "Subtask change was saved, but authoritative Focus progress could not refresh.", "committed subtask refresh-failure distinction"],
+  [subtasks, "setRefreshBlocked(true)", "unsafe subtask retry blocker"],
+  [subtasks, 'data-focus-subtasks={expanded ? "expanded" : "collapsed"}', "Focus subtask expansion marker"],
+  [subtasks, 'data-focus-subtask-progress="true"', "Focus subtask progress marker"],
+  [subtasks, 'data-focus-subtask-control="toggle"', "Focus subtask toggle"],
+  [subtasks, 'data-focus-subtask-control="add"', "Focus subtask add control"],
+  [subtasks, 'data-focus-subtask-panel="true"', "Focus expanded subtask panel"],
+  [taskSubtasks, "belongsToRenderedTask", "subtask parent-identity guard"],
   [timerApi, "connectLiveTimerSessionProjection", "live projection connector"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_session_snapshot")', "authoritative Rust snapshot sampling"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_start_task"', "typed task-start mutation"],
@@ -90,6 +112,10 @@ for (const [haystack, needle, label] of [
   [css, ".focus-panel__live-timer { width: 10ch; flex: 0 0 10ch;", "fixed live timer geometry"],
   [css, "grid-template-columns: repeat(5, minmax(0, 1fr))", "stable five-action strip geometry"],
   [css, ".focus-panel__notes .task-notes__trigger { display: none; }", "Focus Notes use action-strip trigger without duplicate control"],
+  [css, ".focus-panel__live-meta > span:not([class]) { display: none; }", "legacy live subtask text hidden in favor of authoritative Focus progress surface"],
+  [css, "conic-gradient(", "Focus subtask progress ring"],
+  [css, "grid-template-columns: 2.25rem minmax(0, 1fr) 2rem", "stable Focus subtask toolbar geometry"],
+  [css, ".focus-panel__subtasks .list-board-task__subtask-trigger { display: none; }", "single Focus subtask toggle without duplicate Main trigger"],
   [css, "prefers-reduced-motion", "reduced-motion coverage"],
   [fixture, "fixtureBoard={board}", "deterministic production-component fixture"],
   [fixture, '"Review campaign notes"', "overdue remaining-row fixture"],
@@ -97,12 +123,15 @@ for (const [haystack, needle, label] of [
   [fixture, '"Client follow-up call"', "future-timed scheduled-row fixture"],
   [fixture, '"Confirm morning agenda"', "done-row fixture"],
   [fixture, 'liveTimer: box(".focus-panel__live-timer")', "deterministic live timer geometry fixture"],
+  [fixture, 'subtasks: box(".focus-panel__subtasks")', "deterministic live subtask geometry fixture"],
+  [fixture, 'subtaskRing: box(".focus-panel__subtask-ring")', "deterministic live subtask progress geometry fixture"],
   [fixture, 'actions: box(".focus-panel__live-actions")', "deterministic live action geometry fixture"],
   [vite, 'focusPanelFixture: "focus-panel-fixture.html"', "Vite fixture entry"],
   [capture, "focus-panel-fixture.html", "Windows Edge Focus capture"],
   [validator, "hierarchy order differs from source evidence", "visual hierarchy validation"],
   [validator, "authoritative EST countdown value is missing", "visual live timer validation"],
-  [validator, "live action strip is missing", "visual live action validation"],
+  [validator, "live subtask progress ring is missing", "visual live subtask validation"],
+  [validator, "live action group accessible name is missing", "visual live action validation"],
 ]) {
   invariant(haystack.includes(needle), `${label} is missing`);
 }
@@ -112,6 +141,9 @@ for (const forbidden of ["setInterval(", "Date.now(", "performance.now(", "windo
 }
 for (const forbidden of ["setInterval(", "Date.now(", "performance.now(", "window.open(", "openUrl("]) {
   invariant(!actions.includes(forbidden), `Focus actions must not contain ${forbidden}`);
+}
+for (const forbidden of ["setInterval(", "Date.now(", "performance.now(", "window.open(", "openUrl(", "timer_pause", "timer_resume", "timer_complete_task", "timer_switch_task"]) {
+  invariant(!subtasks.includes(forbidden), `Focus subtasks must not contain ${forbidden}`);
 }
 for (const forbidden of ["setInterval(", "Date.now(", "performance.now("]) {
   invariant(!timerApi.includes(forbidden), `live timer projection must not derive authoritative elapsed time via ${forbidden}`);
@@ -136,4 +168,4 @@ invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-pane
 invariant(pkg.scripts["test:visual-regression:windows"].includes("capture-focus-panel-fixtures.ps1"), "Focus Panel capture is not in Windows visual regression");
 invariant(pkg.scripts["test:visual-regression:windows"].includes("validate-focus-panel-captures.mjs"), "Focus Panel visual validation is not in Windows visual regression");
 
-console.log("Focus Panel hierarchy/live timer/workflow/actions contract checks passed.");
+console.log("Focus Panel hierarchy/live timer/workflow/actions/subtasks contract checks passed.");
