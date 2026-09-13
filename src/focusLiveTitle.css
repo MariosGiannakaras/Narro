@@ -1,0 +1,40 @@
+.focus-panel__live-title-text {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.focus-panel__live-title[data-focus-live-title-scroll="active"] .focus-panel__live-title-text {
+  width: max-content;
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+  animation: focus-live-title-scroll 8s linear infinite alternate;
+  will-change: transform;
+}
+
+@keyframes focus-live-title-scroll {
+  0%,
+  15% {
+    transform: translateX(0);
+  }
+
+  85%,
+  100% {
+    transform: translateX(calc(-1 * var(--focus-live-title-overflow)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-panel__live-title[data-focus-live-title-scroll="active"] .focus-panel__live-title-text {
+    width: auto;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+}

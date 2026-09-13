@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveActions } from "./FocusLiveActions";
+import { FocusLiveTitle } from "./FocusLiveTitle";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
   getListBoardSnapshot,
@@ -194,7 +195,9 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
   const [board, setBoard] = useState<ListBoardSnapshot | null>(fixtureBoard ?? null);
   const [lists, setLists] = useState<FocusListOption[]>(fixtureLists ?? []);
   const [timer, setTimer] = useState<TimerSessionPayload | null>(fixtureTimer);
+  const [scrollingTitleEnabled, setScrollingTitleEnabled] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [preferenceError, setPreferenceError] = useState<string | null>(null);
   const fixtureMode = Boolean(fixtureBoard);
 
   useEffect(() => {
@@ -249,6 +252,32 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
 
   useEffect(() => {
     if (fixtureMode) {
+      setScrollingTitleEnabled(false);
+      setPreferenceError(null);
+      return;
+    }
+
+    let disposed = false;
+    void invoke<boolean>("get_focus_scrolling_title_preference")
+      .then((enabled) => {
+        if (!disposed) {
+          setScrollingTitleEnabled(enabled);
+          setPreferenceError(null);
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setScrollingTitleEnabled(false);
+          setPreferenceError(formatInvokeError(failure));
+        }
+      });
+    return () => {
+      disposed = true;
+    };
+  }, [fixtureMode]);
+
+  useEffect(() => {
+    if (fixtureMode) {
       setTimer(fixtureTimer);
       return;
     }
@@ -295,6 +324,8 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
     }
     return options;
   }, [board, lists]);
+
+  const statusError = error ?? preferenceError;
 
   if (error && !board) {
     return (
@@ -374,7 +405,7 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
             data-focus-live-state={timer?.runtime.timer.state ?? "idle"}
           >
             <div className="focus-panel__live-heading">
-              <span className="focus-panel__live-title" title={liveTask.title}>{liveTask.title}</span>
+              <FocusLiveTitle title={liveTask.title} scrollingEnabled={scrollingTitleEnabled} />
               {liveTimer ? (
                 <span
                   className="focus-panel__live-timer timer-numerals"
@@ -441,7 +472,7 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
         </section>
       </section>
 
-      {error ? <div className="focus-panel__error type-metadata" role="status">{error}</div> : null}
+      {statusError ? <div className="focus-panel__error type-metadata" role="status">{statusError}</div> : null}
     </main>
   );
 }
