@@ -94,6 +94,18 @@ function editorFor(metric: FocusMetricKind, task: ListBoardTask): FocusMetricEdi
   };
 }
 
+function fixtureEditorFor(
+  fixtureMode: boolean,
+  fixtureEditor: FocusMetricKind | null,
+  timer: TimerSessionPayload,
+  task: ListBoardTask,
+): FocusMetricEditor | null {
+  if (!fixtureMode) return null;
+  const metric = fixtureEditor
+    ?? (timerAllowsMetricEditing(timer.runtime.timer, task.id) ? "estimate" : null);
+  return metric ? editorFor(metric, task) : null;
+}
+
 function displayValue(metric: FocusMetricKind, task: ListBoardTask): string {
   return metric === "estimate"
     ? (task.estSeconds === null ? "—" : estimateDraft(task.estSeconds))
@@ -115,7 +127,7 @@ export function FocusLiveMetrics({
 }: FocusLiveMetricsProps) {
   const [projection, setProjection] = useState(task);
   const [editor, setEditor] = useState<FocusMetricEditor | null>(() =>
-    fixtureMode && fixtureEditor ? editorFor(fixtureEditor, task) : null,
+    fixtureEditorFor(fixtureMode, fixtureEditor, timer, task),
   );
   const [pending, setPending] = useState(false);
   const [refreshBlocked, setRefreshBlocked] = useState(false);
@@ -127,7 +139,7 @@ export function FocusLiveMetrics({
 
   useEffect(() => {
     setProjection(task);
-    setEditor(fixtureMode && fixtureEditor ? editorFor(fixtureEditor, task) : null);
+    setEditor(fixtureEditorFor(fixtureMode, fixtureEditor, timer, task));
     setPending(false);
     setRefreshBlocked(false);
     setStatus(null);
