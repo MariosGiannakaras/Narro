@@ -11,8 +11,9 @@ import {
 } from "./listBoardApi";
 import {
   applyTimerSessionProjection,
-  connectTimerSessionProjection,
+  connectLiveTimerSessionProjection,
   type TimerSessionPayload,
+  type TimerSnapshot,
 } from "./timerSessionApi";
 import "./focusPanel.css";
 
@@ -21,6 +22,12 @@ const ALL_LISTS_VALUE = "__all_lists__";
 type FocusListOption = {
   id: string;
   title: string;
+};
+
+type FocusTimerPresentation = {
+  text: string;
+  label: string;
+  mode: string;
 };
 
 export type FocusPanelProps = {
@@ -48,6 +55,63 @@ function formatDuration(rawSeconds: string): string {
   if (hours === 0) return `${minutes}min`;
   if (minutes === 0) return `${hours}hr`;
   return `${hours}hr ${minutes}min`;
+}
+
+function formatTimerClock(milliseconds: number | null, rounding: "ceil" | "floor"): string {
+  if (milliseconds === null || !Number.isFinite(milliseconds) || milliseconds < 0) return "--:--";
+  const seconds = rounding === "ceil" ? Math.ceil(milliseconds / 1_000) : Math.floor(milliseconds / 1_000);
+  if (!Number.isSafeInteger(seconds)) return "--:--";
+
+  const hours = Math.floor(seconds / 3_600);
+  const minutes = Math.floor((seconds % 3_600) / 60);
+  const remainingSeconds = seconds % 60;
+  if (hours > 0) {
+    return `${hours}:${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+  }
+  return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+}
+
+function focusTimerStateLabel(timer: TimerSnapshot): string {
+  switch (timer.state) {
+    case "running":
+      return timer.mode?.kind === "pomodoro" ? "Pomodoro work" : "Running";
+    case "paused":
+      return timer.mode?.kind === "pomodoro" ? "Pomodoro paused" : "Paused";
+    case "break":
+      return timer.break_kind === "pomodoro" ? "Pomodoro break" : "Break";
+    case "time_up":
+      return "Time's Up";
+    case "overtime_running":
+      return "Overtime";
+    case "overtime_paused":
+      return "Overtime paused";
+    case "idle":
+      return "Idle";
+  }
+}
+
+function focusTimerPresentation(timer: TimerSnapshot): FocusTimerPresentation {
+  const mode = timer.mode?.kind ?? "none";
+  const stateLabel = focusTimerStateLabel(timer);
+
+  if (timer.state === "break") {
+    const text = formatTimerClock(timer.break_remaining_ms, "ceil");
+    return { text, label: `${stateLabel}: ${text} remaining`, mode };
+  }
+  if (timer.state === "time_up") {
+    return { text: "00:00", label: "Time's Up", mode };
+  }
+  if (timer.state === "overtime_running" || timer.state === "overtime_paused") {
+    const text = `+${formatTimerClock(timer.overtime_ms, "floor")}`;
+    return { text, label: `${stateLabel}: ${text}`, mode };
+  }
+  if (timer.mode?.kind === "count_up") {
+    const text = formatTimerClock(timer.work_elapsed_ms, "floor");
+    return { text, label: `${stateLabel}: ${text} elapsed`, mode };
+  }
+
+  const text = formatTimerClock(timer.countdown_remaining_ms, "ceil");
+  return { text, label: `${stateLabel}: ${text} remaining`, mode };
 }
 
 function taskScheduleLabel(task: ListBoardTask): string | null {
@@ -190,20 +254,25 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
 
     let disposed = false;
     let stopListening: (() => void) | undefined;
-    void connectTimerSessionProjection((incoming) => {
-      if (disposed) return;
-      setTimer((current) => applyTimerSessionProjection(current, incoming));
-      if (incoming.change) {
-        const refreshTarget = target;
-        void getListBoardSnapshot(refreshTarget)
-          .then((snapshot) => {
-            if (!disposed && sameTarget(refreshTarget, target)) setBoard(snapshot);
-          })
-          .catch((failure: unknown) => {
-            if (!disposed) setError(formatInvokeError(failure));
-          });
-      }
-    })
+    void connectLiveTimerSessionProjection(
+      (incoming) => {
+        if (disposed) return;
+        setTimer((current) => applyTimerSessionProjection(current, incoming));
+        if (incoming.change) {
+          const refreshTarget = target;
+          void getListBoardSnapshot(refreshTarget)
+            .then((snapshot) => {
+              if (!disposed && sameTarget(refreshTarget, target)) setBoard(snapshot);
+            })
+            .catch((failure: unknown) => {
+              if (!disposed) setError(formatInvokeError(failure));
+            });
+        }
+      },
+      (failure) => {
+        if (!disposed) setError(formatInvokeError(failure));
+      },
+    )
       .then((unlisten) => {
         if (disposed) unlisten();
         else stopListening = unlisten;
@@ -247,6 +316,7 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
   const selectedValue = aggregateView ? ALL_LISTS_VALUE : board.target.id ?? ALL_LISTS_VALUE;
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
   const liveTask = liveTaskId ? board.today.tasks.find((task) => task.id === liveTaskId) ?? null : null;
+  const liveTimer = liveTask && timer ? focusTimerPresentation(timer.runtime.timer) : null;
   const remainingCandidates = board.today.tasks.filter((task) => task.id !== liveTaskId);
   const scheduledTasks = remainingCandidates.filter(
     (task) => task.scheduledLocalTime !== null && !task.isOverdue,
@@ -304,11 +374,23 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
           >
             <div className="focus-panel__live-heading">
               <span className="focus-panel__live-title" title={liveTask.title}>{liveTask.title}</span>
-              <span className="focus-panel__live-state type-metadata">{timer?.runtime.timer.state.replace(/_/g, " ") ?? "live"}</span>
+              {liveTimer ? (
+                <span
+                  className="focus-panel__live-timer timer-numerals"
+                  data-focus-live-timer="true"
+                  data-focus-live-timer-mode={liveTimer.mode}
+                  data-timer-numerals="true"
+                  aria-label={liveTimer.label}
+                  aria-live="off"
+                >
+                  {liveTimer.text}
+                </span>
+              ) : null}
             </div>
             <div className="focus-panel__live-meta type-metadata">
               {aggregateView ? <span className="focus-panel__list-chip">{liveTask.listTitle}</span> : null}
               {subtaskLabel(liveTask) ? <span>{subtaskLabel(liveTask)}</span> : null}
+              {timer ? <span className="focus-panel__live-state">{focusTimerStateLabel(timer.runtime.timer)}</span> : null}
             </div>
           </article>
         ) : (
