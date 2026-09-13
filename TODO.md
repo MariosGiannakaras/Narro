@@ -33,7 +33,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] physical shortcut validation
 - [x] Prove tray/background lifecycle plus explicit Quit.
   - [x] tray/background/recovery/Quit implementation and Windows CI validation
-  - [x] physical tray/background/recovery/Quit physical validation
+  - [x] physical tray/background/recovery/Quit validation
 - [x] Prove local Windows notification delivery while process remains running.
   - [x] Rust notification delivery path and Windows CI validation
   - [x] physical visible Windows notification validation from installed build
