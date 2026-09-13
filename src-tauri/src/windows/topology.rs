@@ -11,9 +11,12 @@ use tauri::Manager;
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const RECOVERABLE_WINDOW_LABELS: [&str; 2] = ["main", FOCUS_SURFACE_LABEL];
 const DISPLAY_CHANGE_SUBCLASS_ID: usize = 0x4e_41_52_52_4f;
+const WM_SETTING_CHANGE: u32 = 0x001a;
 const WM_DISPLAY_CHANGE: u32 = 0x007e;
 const WM_POWER_BROADCAST: u32 = 0x0218;
+const WM_DPICHANGED: u32 = 0x02e0;
 const WM_NC_DESTROY: u32 = 0x0082;
+const SPI_SETWORKAREA: usize = 0x002f;
 const PBT_APM_SUSPEND: usize = 0x0004;
 const PBT_APM_RESUME_CRITICAL: usize = 0x0006;
 const PBT_APM_RESUME_SUSPEND: usize = 0x0007;
@@ -84,6 +87,19 @@ pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error
     Ok(())
 }
 
+fn is_display_geometry_change(message: u32, wparam: usize) -> bool {
+    message == WM_DISPLAY_CHANGE
+        || message == WM_DPICHANGED
+        || (message == WM_SETTING_CHANGE && wparam == SPI_SETWORKAREA)
+}
+
+fn is_power_resume_event(event: usize) -> bool {
+    matches!(
+        event,
+        PBT_APM_RESUME_CRITICAL | PBT_APM_RESUME_SUSPEND | PBT_APM_RESUME_AUTOMATIC
+    )
+}
+
 unsafe extern "system" fn display_change_subclass_proc(
     hwnd: RawHwnd,
     message: u32,
@@ -92,10 +108,13 @@ unsafe extern "system" fn display_change_subclass_proc(
     subclass_id: usize,
     _reference_data: usize,
 ) -> isize {
-    if message == WM_DISPLAY_CHANGE {
+    if is_display_geometry_change(message, wparam) {
         schedule_display_recovery();
     } else if message == WM_POWER_BROADCAST {
         handle_power_broadcast(wparam);
+        if is_power_resume_event(wparam) {
+            schedule_display_recovery();
+        }
     } else if message == WM_NC_DESTROY {
         let _ = unsafe {
             remove_window_subclass(hwnd, Some(display_change_subclass_proc), subclass_id)
@@ -161,6 +180,16 @@ fn schedule_display_recovery() {
                 }
                 Ok(_) => {}
                 Err(error) => eprintln!("Display topology recovery failed: {error}"),
+            }
+
+            match crate::revalidate_open_focus_panel_after_display_change(&recovery_handle) {
+                Ok(true) => {
+                    println!("Display topology recovery revalidated the open Focus Panel");
+                }
+                Ok(false) => {}
+                Err(error) => eprintln!(
+                    "Focus Panel selected-monitor revalidation failed after visible-area recovery: {error}"
+                ),
             }
 
             RECOVERY_PENDING.store(false, Ordering::Release);
@@ -280,4 +309,34 @@ fn recover_window(
         }))
         .map_err(|error| format!("move into visible work area: {error}"))?;
     Ok(true)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn display_geometry_messages_schedule_recovery() {
+        assert!(is_display_geometry_change(WM_DISPLAY_CHANGE, 0));
+        assert!(is_display_geometry_change(WM_DPICHANGED, 0));
+        assert!(is_display_geometry_change(
+            WM_SETTING_CHANGE,
+            SPI_SETWORKAREA
+        ));
+    }
+
+    #[test]
+    fn unrelated_window_messages_do_not_schedule_display_recovery() {
+        assert!(!is_display_geometry_change(WM_SETTING_CHANGE, 0));
+        assert!(!is_display_geometry_change(WM_POWER_BROADCAST, 0));
+        assert!(!is_display_geometry_change(WM_NC_DESTROY, 0));
+    }
+
+    #[test]
+    fn only_resume_power_events_request_display_revalidation() {
+        assert!(!is_power_resume_event(PBT_APM_SUSPEND));
+        assert!(is_power_resume_event(PBT_APM_RESUME_CRITICAL));
+        assert!(is_power_resume_event(PBT_APM_RESUME_SUSPEND));
+        assert!(is_power_resume_event(PBT_APM_RESUME_AUTOMATIC));
+    }
 }
