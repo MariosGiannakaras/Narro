@@ -331,7 +331,9 @@ fn load_focus_panel_placement_preferences(
     let app_dir = app_handle.path().app_data_dir().map_err(|error| {
         CommandError::new(
             "FOCUS_PANEL_PLACEMENT_FAILED",
-            format!("failed to resolve Narro app-data directory for Focus Panel placement: {error}"),
+            format!(
+                "failed to resolve Narro app-data directory for Focus Panel placement: {error}"
+            ),
         )
     })?;
     let connection = rusqlite::Connection::open(app_dir.join("narro.db")).map_err(|error| {
@@ -367,7 +369,11 @@ fn preferred_focus_panel_work_area(
 ) -> CommandResult<(GeometryRect, FocusPanelSide)> {
     let (selected_monitor_key, side) = load_focus_panel_placement_preferences(app_handle)?;
     let work_area = match selected_monitor_key {
-        Some(monitor_key) => resolve_monitor_by_key(app_handle, &monitor_key)?.1.work_area,
+        Some(monitor_key) => {
+            resolve_monitor_by_key(app_handle, &monitor_key)?
+                .1
+                .work_area
+        }
         None => {
             let monitor = app_handle
                 .primary_monitor()
