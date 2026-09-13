@@ -7,6 +7,7 @@ import type { TimerSessionPayload } from "./timerSessionApi";
 
 const params = new URLSearchParams(window.location.search);
 const theme = params.get("theme") === "light" ? "light" : "dark";
+const scenario = params.get("scenario") === "paused-metrics" ? "paused-metrics" : "running";
 document.documentElement.dataset.theme = theme;
 document.body.style.margin = "0";
 document.body.style.minHeight = "100vh";
@@ -86,10 +87,10 @@ const board: ListBoardSnapshot = {
 };
 
 const timer: TimerSessionPayload = {
-  revision: 7,
+  revision: scenario === "paused-metrics" ? 8 : 7,
   runtime: {
     timer: {
-      state: "running",
+      state: scenario === "paused-metrics" ? "paused" : "running",
       task_id: liveId,
       mode: { kind: "est_countdown", est_ms: 3_600_000 },
       work_elapsed_ms: 1_320_000,
@@ -134,6 +135,7 @@ function box(selector: string) {
 
 const contract = {
   theme,
+  scenario,
   layoutViewport: {
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight,
@@ -143,6 +145,9 @@ const contract = {
   summary: box(".focus-panel__summary"),
   liveCard: box(".focus-panel__live-card"),
   liveTimer: box(".focus-panel__live-timer"),
+  metrics: box(".focus-panel__live-metrics"),
+  metricRow: box(".focus-panel__metric-row"),
+  metricInput: scenario === "paused-metrics" ? box(".focus-panel__metric-input") : null,
   subtasks: box(".focus-panel__subtasks"),
   subtaskRing: box(".focus-panel__subtask-ring"),
   actions: box(".focus-panel__live-actions"),
