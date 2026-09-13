@@ -325,6 +325,60 @@ fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescr
         .collect()
 }
 
+fn load_focus_panel_placement_preferences(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<(Option<String>, FocusPanelSide)> {
+    let app_dir = app_handle.path().app_data_dir().map_err(|error| {
+        CommandError::new(
+            "FOCUS_PANEL_PLACEMENT_FAILED",
+            format!("failed to resolve Narro app-data directory for Focus Panel placement: {error}"),
+        )
+    })?;
+    let connection = rusqlite::Connection::open(app_dir.join("narro.db")).map_err(|error| {
+        CommandError::new(
+            "FOCUS_PANEL_PLACEMENT_FAILED",
+            format!("failed to open the Narro database for Focus Panel placement: {error}"),
+        )
+    })?;
+    persistence::configure_connection(&connection).map_err(|error| {
+        CommandError::new(
+            "FOCUS_PANEL_PLACEMENT_FAILED",
+            format!("failed to configure the Narro database for Focus Panel placement: {error}"),
+        )
+    })?;
+    let preferences = persistence::preferences::get_preferences(&connection)
+        .map_err(|error| {
+            CommandError::new(
+                "FOCUS_PANEL_PLACEMENT_FAILED",
+                format!("failed to read Focus Panel placement preferences: {error}"),
+            )
+        })?
+        .map(|record| record.payload)
+        .unwrap_or_default();
+    let side = match preferences.general.focus_panel_side {
+        domain::preferences::FocusPanelSide::Left => FocusPanelSide::Left,
+        domain::preferences::FocusPanelSide::Right => FocusPanelSide::Right,
+    };
+    Ok((preferences.general.selected_monitor_key, side))
+}
+
+fn preferred_focus_panel_work_area(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<(GeometryRect, FocusPanelSide)> {
+    let (selected_monitor_key, side) = load_focus_panel_placement_preferences(app_handle)?;
+    let work_area = match selected_monitor_key {
+        Some(monitor_key) => resolve_monitor_by_key(app_handle, &monitor_key)?.1.work_area,
+        None => {
+            let monitor = app_handle
+                .primary_monitor()
+                .map_err(CommandError::monitor_enumeration)?
+                .ok_or_else(CommandError::no_monitors_available)?;
+            monitor_descriptor(0, &monitor)?.work_area
+        }
+    };
+    Ok((work_area, side))
+}
+
 fn configure_focus_surface_mode(
     window: &tauri::WebviewWindow,
     mode: FocusSurfaceMode,
@@ -349,22 +403,21 @@ fn configure_focus_surface_mode(
     Ok(())
 }
 
-#[tauri::command(rename_all = "camelCase")]
-fn position_focus_panel(
-    app_handle: tauri::AppHandle,
-    monitor_key: String,
+fn position_focus_panel_in_work_area(
+    app_handle: &tauri::AppHandle,
+    work_area: GeometryRect,
     side: FocusPanelSide,
 ) -> CommandResult<()> {
-    let (_monitor, descriptor) = resolve_monitor_by_key(&app_handle, &monitor_key)?;
-    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    validate_work_area(work_area).map_err(CommandError::window_geometry)?;
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
 
     // Move into the target work area before applying logical panel geometry so Windows/WebView2
     // can use the target monitor's DPI. The final edge position is computed from the actual
     // physical outer size after the resize.
     window
         .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-            x: descriptor.work_area.position.x,
-            y: descriptor.work_area.position.y,
+            x: work_area.position.x,
+            y: work_area.position.y,
         }))
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error))?;
 
@@ -374,7 +427,7 @@ fn position_focus_panel(
         .outer_size()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read outer size", error))?;
     let final_position = focus_panel_edge_position(
-        descriptor.work_area,
+        work_area,
         GeometrySize {
             width: window_size.width,
             height: window_size.height,
@@ -395,6 +448,22 @@ fn position_focus_panel(
         .set_focus()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus", error))?;
     Ok(())
+}
+
+#[tauri::command(rename_all = "camelCase")]
+fn position_focus_panel(
+    app_handle: tauri::AppHandle,
+    monitor_key: String,
+    side: FocusPanelSide,
+) -> CommandResult<()> {
+    let (_monitor, descriptor) = resolve_monitor_by_key(&app_handle, &monitor_key)?;
+    position_focus_panel_in_work_area(&app_handle, descriptor.work_area, side)
+}
+
+#[tauri::command]
+fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let (work_area, side) = preferred_focus_panel_work_area(&app_handle)?;
+    position_focus_panel_in_work_area(&app_handle, work_area, side)
 }
 
 fn build_main_window(app_handle: &tauri::AppHandle) -> CommandResult<tauri::WebviewWindow> {
@@ -687,7 +756,8 @@ pub fn run() {
             focus_surface_mode_timer,
             list_windows,
             list_monitors,
-            position_focus_panel
+            position_focus_panel,
+            present_focus_panel
         ])
         .setup(|app| {
             install_tray(app)?;
