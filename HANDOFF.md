@@ -7,114 +7,108 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 **Milestone 6 — Blitz Mode / Focus Panel.**
 
 - Milestones 1–5: COMPLETE / PASS.
-- Milestone 6: ACTIVE / **9 of 16** top-level items validated.
+- Milestone 6: ACTIVE / **10 of 16** top-level items validated.
 - Milestones 7–10: NOT STARTED.
 
-Compact progress basis: **5/10 milestones complete; item-10 slice 2/5 checkpoints; M6 9/16 items validated.**
+General roadmap progress: **5/10 milestones complete**.
+
+A new item-11 implementation slice is now active at **0/5 checkpoints**.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-Source/test SHA: `3230808b61c6649b1adce166731c9ca1f5a2480b`
+Source/test SHA:
 
-Source tree: `3921eeccf00abae60bb47837bc2bcba3c4df511f`
+`fc0e52f6951e92f961aa8c38bee2069265bdaf1a`
 
-This is the expected-head guarded squash merge of PR #109 after authoritative resulting-main Windows CI #416 passed. Markdown-only tracking descendants through main tip `7d1e54e532f9bff3bbd7ccd4e6fdd30dabc576aa` do **not** replace the validated source/test baseline.
+Source tree:
+
+`c0012d64417d3791860d232a56f760b7cc12986d`
+
+This is the expected-head guarded squash merge of PR #110 after authoritative resulting-main Windows CI #418 passed on the exact merged source SHA. Markdown-only tracking descendants after this source SHA do **not** replace the validated source/test baseline.
 
 ## LATEST COMPLETED IMPLEMENTATION / CI
 
-**M6 item 9/16 — selected-monitor and left/right Focus Panel placement.**
+**M6 item 10/16 — React to monitor/display changes while Focus Mode is open.**
 
-Immutable evidence: `work-log/2026-09-13-chatgpt-m6-focus-panel-placement.md`.
+Immutable evidence:
 
-- PR #109 final exact head `c69566ebbff1318403c44958d6fd8503816e92b4`, tree `3921eeccf00abae60bb47837bc2bcba3c4df511f`.
-- Windows PR CI #415 / run `34771056631` / job `103760608623`: **SUCCESS**.
-- PR visual artifact `10322311638`, digest `sha256:15364fda13988a77bfb1ac9fbf07359a53651a27d0b8e5cb70c022f885948b90`.
-- PR diagnostic/runtime artifact `10322167265`, digest `sha256:8a8629a2732651e289764e68d0368aebfe5239dc07773c6d092a92b249f76378`.
-- expected-head guarded squash merge/source SHA `3230808b61c6649b1adce166731c9ca1f5a2480b`.
-- Windows resulting-main CI #416 / run `34775579647` / job `103772972498`: **SUCCESS**.
-- main visual artifact `10323541445`, digest `sha256:c11d16401fa22ab75ca115c9265910ed2e9237d12e4a3bc728d733b97b11f20e`.
-- main diagnostic/runtime artifact `10323662287`, digest `sha256:f8799ce43437fecbcf7291f5b06a3302323637352501eef02663b5a0c4c966ac`.
+`work-log/2026-09-14-chatgpt-m6-focus-display-reaction.md`
 
-Validated item-9 behavior remains: production Focus presentation reads persisted selected-monitor/side preferences in native code, exact saved keys remain exact/stale-safe, no-selection uses the native primary monitor, and renderer code owns no monitor/work-area/DPI/physical-position geometry.
+Validated behavior:
+
+- the existing M1 Win32 display observer remains event-driven and coalesced; no polling was added;
+- display geometry revalidation covers display change, DPI change, work-area change and Windows resume events;
+- generic M1 visible-work-area recovery runs before specialized preference-aware Focus Panel revalidation;
+- specialized revalidation runs only for an already-visible native Panel-mode `focusSurface`;
+- a display event cannot show/focus a hidden surface or convert Timer/Floating presentation into Panel;
+- exact saved-monitor semantics remain unchanged: stale explicit monitor keys are not rewritten or silently redirected; no-selection retains native primary-monitor fallback;
+- generic visible-area recovery remains effective even when specialized selected-monitor revalidation cannot resolve a stale key;
+- task/timer/session state, renderer geometry authority, Preferences UI, Floating Timer persistence/polish and webview count are unchanged.
+
+PR #110 evidence:
+
+- final exact PR head `8bd4021c9b2a2b63293acee42d9e29b5ab129ca6`;
+- tree `c0012d64417d3791860d232a56f760b7cc12986d`;
+- Windows CI #417 / run `34779023404` first job `103782478568` passed preflight/item-10 tests and then hit a transient unrelated `task-scheduling-dark` visual readiness miss;
+- evidence-backed same-head rerun job `103787883396`: **SUCCESS** across preflight, visual regression, Tauri Release and required uploads;
+- PR visual artifact `10324987092`, digest `sha256:1e0db7c3b05c28509b32d0575094369a693c8767cdd641b16ef9fccf682ae9f2`;
+- PR diagnostic/runtime artifact `10324709335`, digest `sha256:15f0a20b583a08698ecf316d705f2acee0206231a1274b0f1b6812011a521746`;
+- final review: unchanged exact head, mergeable, exactly four expected files, no PR comments/reviews/inline comments;
+- expected-head guarded squash merge source/test SHA `fc0e52f6951e92f961aa8c38bee2069265bdaf1a`.
+
+Resulting-main Windows CI #418:
+
+- run `34781877521`;
+- job `103790256608`;
+- exact main source SHA `fc0e52f6951e92f961aa8c38bee2069265bdaf1a`;
+- conclusion **SUCCESS**;
+- Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads: **SUCCESS**;
+- main visual artifact `10324493612`, digest `sha256:3abcb8e113e78cc28275cc4791fec3d8fa0e5d6a7dd1704d4301d9a6d7595388`;
+- main diagnostic/runtime artifact `10325578509`, digest `sha256:22ed8e6a29ad8679052379b97ec531a89cd5094a5845553fa19c8046f3fd3309`.
+
+Tracking reconciliation for item 10 is complete in `TODO.md`, `STATUS.md`, this handoff and the immutable work log.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**M6 item 10/16 — React to monitor/display changes while Focus Mode is open.**
+**M6 item 11/16 — Implement configured scrolling behavior for the live title.**
 
-Implementation branch: `m6-focus-display-reaction`, based on tracking tip `7d1e54e532f9bff3bbd7ccd4e6fdd30dabc576aa`.
+No item-11 implementation branch or PR exists yet.
 
-Current small-slice progress: **2/5**.
+Current small-slice progress: **0/5**.
 
-### Checkpoint 1/5 — COMPLETE: contract reconstructed
+### Five checkpoints for this slice
 
-Repository evidence establishes the narrow contract:
+1. reconstruct the exact item-11 contract from current Focus live-title rendering, persisted scrolling-title preference/domain state, product/UI/source evidence, shared motion/reduced-motion primitives and existing Focus visual/static tests — pending;
+2. implement the narrow presentation-only behavior plus deterministic/static/visual coverage and semantic diff review — pending;
+3. validate the exact PR head with authoritative Windows CI: repository preflight, Windows visual regression, Tauri Release and required artifact uploads — pending;
+4. final exact-head review + expected-head guarded squash merge — pending;
+5. validate the resulting main source SHA with Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable work log — pending.
 
-- retain the existing M1 Win32 event-driven/coalesced display recovery; no polling loop;
-- generic M1 visible-work-area recovery runs first for `main` and `focusSurface`;
-- after generic recovery, revalidate selected-monitor/side edge placement only when `focusSurface` is already visible and its established native presentation mode is Panel;
-- hotplug/revalidation must never show or focus a hidden/nonactive Focus surface and must never convert Timer mode into Panel mode;
-- revalidation reuses the item-9 persisted placement boundary and M1 physical geometry helper;
-- saved explicit monitor keys remain exact. A stale saved key is not silently rewritten or replaced; generic recovery still keeps the surface visible and the specialized revalidation failure is logged;
-- when no monitor is saved, primary-monitor fallback remains the item-9 behavior;
-- event-driven geometry triggers cover `WM_DISPLAYCHANGE`, `WM_DPICHANGED`, `WM_SETTINGCHANGE` for `SPI_SETWORKAREA`, plus Windows resume events after existing timer power handling;
-- no renderer geometry, preference editing, Floating Timer persistence/polish, new webview, timer/session mutation or later Focus polish belongs in this slice.
+Scope boundary for item 11:
 
-### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/static review
-
-Source/test changes are limited to:
-
-- `src-tauri/src/lib.rs`
-  - tracks the established native `focusSurface` Panel/Timer presentation mode in a process-local atomic guard;
-  - separates native mode application from activating `show` behavior;
-  - splits Focus placement intent into activating `Present` and non-activating `Revalidate`;
-  - preserves the item-9 move-before-resize / actual-outer-size / physical-edge placement path;
-  - adds `revalidate_open_focus_panel_after_display_change`, which returns without action unless the surface is already visible Panel mode and never calls `show` or `set_focus`;
-  - exact saved-key/primary-fallback preference semantics remain unchanged.
-- `src-tauri/src/windows/topology.rs`
-  - preserves existing M1 `RECOVERY_PENDING` / `RECOVERY_DIRTY` coalescing;
-  - adds DPI, work-area and resume triggers to the existing event-driven observer;
-  - runs generic `recover_visible_windows` before preference-aware open-Panel revalidation;
-  - logs specialized revalidation failure without undoing generic visible-area recovery;
-  - adds native unit tests for geometry-message and resume-trigger classification.
-- `scripts/test-ui-focus-entry.mjs`
-  - locks visible Panel-mode guards, non-activating revalidation, generic-recovery-before-specialized-revalidation ordering, native display/DPI/work-area/resume triggers and continued absence of renderer geometry authority.
-
-Review/local evidence:
-
-- semantic diff from base is exactly the three source/test files above before this handoff update;
-- no schema/migration, dependency/lockfile, task/timer/session/scheduling semantics, Focus content/CSS, Preferences UI, Floating Timer persistence/polish, Reports or release changes are present;
-- Node 22 exact syntax check for the modified static `.mjs`: **PASS**;
-- local `cargo` / `rustfmt`: **NOT AVAILABLE**;
-- container raw-GitHub checkout is unavailable because DNS cannot resolve `raw.githubusercontent.com`; authoritative repository preflight and Rust/Tauri validation therefore remain Windows CI responsibility;
-- an accidental missing newline at `src-tauri/src/lib.rs` EOF was found during semantic review and fixed in a newline-only commit before PR validation.
-
-### Checkpoint 3/5 — PENDING
-
-Open one PR from this exact branch state and require authoritative Windows CI on the exact PR head: repository preflight including formatting/checks/tests, Windows visual regression, Tauri Release and required artifact uploads.
-
-### Checkpoint 4/5 — PENDING
-
-After CI success, verify unchanged exact head, mergeability, changed-file scope and all comments/reviews/threads; then squash merge with an expected-head guard.
-
-### Checkpoint 5/5 — PENDING
-
-Validate the resulting main source SHA with authoritative Windows CI. Only after full success reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable work log; M6 then becomes 10/16.
+- configure scrolling behavior only for the **active/live title**;
+- derive behavior from the existing persisted preference rather than inventing a second setting or renderer-only authority;
+- preserve reduced-motion behavior and avoid continuous decorative work when scrolling is unnecessary;
+- do not absorb item 12 ordinary Focus row-title two-line/full-title behavior;
+- do not absorb item 13 reserved action slots, item 14 tooltips, item 15 visual-state polish, item 16 empty states, Milestone 7 Floating Timer work or Milestone 8 Preferences UI.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
 - `main` plus reusable `focusSurface` remain the normal two-webview architecture.
-- native/Rust window coordination remains monitor/work-area/DPI/physical-position authority; React cannot become parallel geometry or timer/session authority.
-- display handling remains event-driven and coalesced; no high-frequency polling.
-- item-9 exact saved-monitor semantics remain intact: stale explicit keys do not silently select a different monitor; no-selection may use primary monitor.
-- generic visible-area recovery must remain effective even if specialized selected-monitor revalidation fails.
-- a display event cannot show/focus a hidden surface or convert Timer/Floating presentation into Panel.
-- display changes cannot reset, duplicate, advance or otherwise mutate authoritative timer/session/task state.
-- stable task/subtask/list identities, Focus queue partitioning, item-6 live actions, item-7 subtask behavior and item-8 paused metric-edit semantics remain unchanged.
-- future-timed Today tasks remain ineligible until due; Notes URLs remain explicit activation only; diagnostics remain gated behind `?diagnostics=1`.
+- native/Rust coordination remains monitor/work-area/DPI/physical-position authority; React cannot become parallel geometry or timer/session authority.
+- display handling remains event-driven/coalesced and item-10 recovery semantics remain intact.
+- task/list/subtask identities, queue partitioning, scheduling eligibility and tracked Time Taken remain authoritative and unchanged by title presentation.
+- Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions.
+- future-timed Today tasks remain ineligible until due.
+- Notes URLs remain explicit pointer/keyboard activation only.
+- hover/focus interactions may not reflow sibling geometry; reduced-motion remains usable; timer numerals remain tabular.
+- excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
 
-## UNFINISHED WORK / EXACT NEXT ACTION
+## NEXT AGENT ACTION
 
-Open one implementation PR from `m6-focus-display-reaction`. Record its exact head SHA and run authoritative Windows CI on that exact head. If CI fails, inspect the exact log and fix only evidence-backed problems; do not start item 11 or a replacement implementation in parallel.
+Reconstruct item 11 before editing. Inspect the current Focus live-title markup/CSS and tests, the persisted scrolling-title preference/domain/schema/defaults, `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, `docs/BEHAVIOR_MATRIX.md`, shared motion/reduced-motion implementation, and the newest relevant Focus work logs.
+
+Determine the narrowest rule for when/how the active title scrolls, including overflow/no-overflow and reduced-motion behavior. Reuse the existing preference and shared motion primitives. Do not begin item 12 or later work in parallel.
 
 ## USER ACTION REQUIRED
 
@@ -122,5 +116,5 @@ Open one implementation PR from `m6-focus-display-reaction`. Record its exact he
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks M6 item 10.
-- Local Rust/rustfmt/full Tauri validation is unavailable; Windows GitHub Actions is authoritative before merge.
+- No product/user decision currently blocks item 11.
+- Local Rust/Tauri capability may remain unavailable in the current environment; use the strongest local frontend/static checks available and record unavailable native checks as `NOT RUN` before authoritative Windows CI.
