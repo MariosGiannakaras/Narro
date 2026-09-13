@@ -36,7 +36,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] physical tray/background/recovery/Quit validation
 - [x] Prove local Windows notification delivery while process remains running.
   - [x] Rust notification delivery path and Windows CI validation
-  - [x] physical visible notification validation from installed build
+  - [x] physical visible Windows notification validation from installed build
 - [x] Prove Windows autostart can be toggled locally and launches Narro after Windows restart/sign-in.
   - [x] status/enable/disable implementation, idempotence/state verification and Windows CI validation
   - [x] physical enable/disable registration observed in Windows Task Manager Startup apps
@@ -236,7 +236,7 @@ Acceptance criteria:
 - [x] Implement break, notes, pause/resume, skip, finish.
 - [x] Implement subtasks/progress in focus mode.
 - [x] Permit EST/Time Taken editing only while paused.
-- [ ] Implement selected-monitor and left/right Focus Panel placement.
+- [x] Implement selected-monitor and left/right Focus Panel placement.
 - [ ] React to monitor/display changes while Focus Mode is open.
 - [ ] Implement configured scrolling behavior for the live title.
 - [ ] Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.
