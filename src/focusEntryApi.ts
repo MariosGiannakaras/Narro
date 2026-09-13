@@ -13,7 +13,6 @@ export function startBlitz(): Promise<StartBlitzOutcome> {
   });
 }
 
-export async function presentFocusPanel(): Promise<void> {
-  await invoke<void>("focus_surface_mode_panel");
-  await invoke<void>("focus_surface_focus");
+export function presentFocusPanel(): Promise<void> {
+  return invoke<void>("present_focus_panel");
 }
