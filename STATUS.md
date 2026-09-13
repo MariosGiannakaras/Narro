@@ -13,31 +13,31 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 10 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 11 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
 General roadmap progress: **5 of 10 milestones complete**.
 
-M6 items 1–10 are validated. The next ordered work is item 11: **Implement configured scrolling behavior for the live title.** Do not skip ahead to ordinary row-title wrapping, action-slot/tooltips, later Focus visual states, Floating Timer, shortcuts/preferences, Reports, or release work.
+M6 items 1–11 are validated. The next ordered work is item 12: **Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.** Do not skip ahead to action-slot/tooltips, later Focus visual states, Floating Timer, shortcuts/preferences, Reports, or release work.
 
 ## Current validated source baseline
 
 Latest fully resulting-main-validated **source/test** baseline:
 
-`fc0e52f6951e92f961aa8c38bee2069265bdaf1a`
+`088b9dd75a7af0aa7e5d32dcbcfffdbc501d90cb`
 
 Tree:
 
-`c0012d64417d3791860d232a56f760b7cc12986d`
+`fbc93b4779f1f8988b4e3f38e1205facf9f7023b`
 
-This is the expected-head guarded squash merge of PR #110 — `M6: react Focus Panel to display changes` — from exact validated PR head `8bd4021c9b2a2b63293acee42d9e29b5ab129ca6`.
+This is the expected-head guarded squash merge of PR #111 — `M6: implement configured Focus live-title scrolling` — from exact validated PR head `fe16914c341badea32c0087cc2a45385b0988de0`.
 
-Windows resulting-main CI #418 / run `34781877521` / job `103790256608` passed on this exact source SHA. Markdown-only tracking descendants created after this source SHA do **not** replace the validated source/test baseline.
+Windows resulting-main CI #421 / run `34785000692` / job `103798741480` passed on this exact source SHA. Markdown-only tracking descendants created after this source SHA do **not** replace the validated source/test baseline.
 
 Main validation artifacts:
 
-- visual regression artifact `10324493612`, digest `sha256:3abcb8e113e78cc28275cc4791fec3d8fa0e5d6a7dd1704d4301d9a6d7595388`;
-- diagnostic/runtime-harness artifact `10325578509`, digest `sha256:22ed8e6a29ad8679052379b97ec531a89cd5094a5845553fa19c8046f3fd3309`.
+- visual regression artifact `10326331827`, digest `sha256:aaa71f3dbb91e522a1d1c8291939819729e720f0a31ad40e4c4463aa51cf8572`;
+- diagnostic/runtime-harness artifact `10326422964`, digest `sha256:35abf0bba3a27fb9d42f3360eccd3e9f84abb3e252fe1f1159f9d51019a87afc`.
 
 ## Milestone 6 validated work
 
@@ -155,13 +155,64 @@ Expected-head guarded squash merge source/test SHA:
 
 Resulting-main Windows CI #418 / run `34781877521` / job `103790256608`: **SUCCESS** with all required gates/artifacts listed above.
 
+### Item 11 — configured live-title scrolling
+
+Immutable evidence: `work-log/2026-09-14-chatgpt-m6-focus-live-title-scrolling.md`.
+
+Validated behavior:
+
+- the established persisted `focus.scrolling_title` preference is reused; its safe default remains `false`;
+- scrolling is confined to the active/live title and ordinary Focus row titles remain unchanged for item 12;
+- disabled preference and enabled-without-overflow both retain static ellipsis;
+- enabled overflowing titles use measured horizontal overflow plus `ResizeObserver` revalidation, with no polling or JavaScript animation loop;
+- title motion is transform-only and does not alter timer/sibling geometry;
+- `prefers-reduced-motion` disables the animation and restores static ellipsis while full-title access remains available;
+- the production native preference boundary is read-only and adds no schema/migration or Preferences UI;
+- timer/session/task/scheduling/display-topology authority remains unchanged.
+
+#### PR #111 validation
+
+The initial Windows CI #419 / run `34783581280` / job `103794887023` passed the frontend/static contracts and production frontend build, then failed only at `cargo fmt -- --check` for formatting in the new `src-tauri/src/focus_preferences.rs`. Only the exact rustfmt output was applied; no logic or scope change was introduced.
+
+Final exact PR head:
+
+`fe16914c341badea32c0087cc2a45385b0988de0`
+
+Authoritative Windows CI #420 / run `34783673637` / job `103795136716`: **SUCCESS**.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- PR visual artifact `10326121804`, digest `sha256:a2f832fa137f09bfb3bcde920921a174ded832aa291082c86d418ec101089972`;
+- PR diagnostic/runtime artifact `10325962636`, digest `sha256:fa90989aadb279da4d9b526924acbaba9169b531f8740a20f87f2aaf159fb45b`.
+
+Final review found the exact head unchanged and mergeable, exactly eight expected changed files, and no PR conversation comments, reviews or inline review threads.
+
+Expected-head guarded squash merge source/test SHA:
+
+`088b9dd75a7af0aa7e5d32dcbcfffdbc501d90cb`
+
+Tree:
+
+`fbc93b4779f1f8988b4e3f38e1205facf9f7023b`
+
+Resulting-main Windows CI #421 / run `34785000692` / job `103798741480`: **SUCCESS**.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- main visual artifact `10326331827`, digest `sha256:aaa71f3dbb91e522a1d1c8291939819729e720f0a31ad40e4c4463aa51cf8572`;
+- main diagnostic/runtime artifact `10326422964`, digest `sha256:35abf0bba3a27fb9d42f3360eccd3e9f84abb3e252fe1f1159f9d51019a87afc`.
+
 ## Milestone 6 — next ordered work
 
 The next top-level item is:
 
-11. `Implement configured scrolling behavior for the live title.`
+12. `Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.`
 
-Before implementation, reconstruct the current live-title rendering, the persisted scrolling-title preference/domain shape, existing shared motion/reduced-motion primitives, screenshot/source evidence and Focus visual fixture coverage. The slice must remain presentation-only: do not absorb ordinary Focus row-title wrapping, action slots/tooltips, later visual states, Floating Timer, or Milestone 8 Preferences UI.
+Before implementation, reconstruct the current ordinary Focus row-title markup/CSS, existing title/full-text accessibility conventions, screenshot/product evidence, layout-shift invariants and Focus visual/static coverage. Keep the slice presentation-only: do not absorb item 13 reserved action slots, item 14 tooltips, item 15 visual-state polish, item 16 empty states, Floating Timer, or Milestone 8 Preferences UI.
 
 ## Durable correctness decisions
 
