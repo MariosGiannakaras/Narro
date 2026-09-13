@@ -232,7 +232,7 @@ Acceptance criteria:
 - [x] Auto-select top eligible Today task.
 - [x] Reproduce Focus Panel hierarchy: list selector, Today, quick controls, aggregate EST/progress, active live card, remaining queue, Add Task, scheduled group, done group.
 - [x] Render current task and authoritative timer with fixed/tabular timer geometry.
-- [ ] Show remaining/scheduled/done sections matching documented focus workflow.
+- [x] Show remaining/scheduled/done sections matching documented focus workflow.
 - [ ] Implement break, notes, pause/resume, skip, finish.
 - [ ] Implement subtasks/progress in focus mode.
 - [ ] Permit EST/Time Taken editing only while paused.
