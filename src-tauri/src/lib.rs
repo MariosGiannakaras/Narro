@@ -8,6 +8,7 @@ pub mod board_task_subtasks;
 pub mod domain;
 pub mod error;
 pub mod focus_entry;
+pub mod focus_preferences;
 pub mod home_snapshot;
 pub mod list_board;
 pub mod list_editor;
@@ -780,6 +781,7 @@ pub fn run() {
             get_state,
             get_home_snapshot,
             focus_entry::start_blitz,
+            focus_preferences::get_focus_scrolling_title_preference,
             list_board::get_list_board_snapshot,
             board_task_editor::create_list_board_task,
             board_task_editor::update_list_board_task_title,
