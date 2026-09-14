@@ -33,7 +33,7 @@ invariant(css.includes("overflow-wrap: anywhere"), "long unbroken titles must no
 invariant(css.includes(":focus-visible"), "keyboard title focus needs a visible focus state");
 invariant(!css.includes("animation:"), "ordinary row titles must not introduce continuous animation");
 invariant(!css.includes("transform:"), "ordinary row-title wrapping must not move sibling geometry");
-invariant(fixture.includes("Plan weekend errands and confirm the pickup route before leaving home"), "visual fixture must contain a deliberately overflowing ordinary title");
+invariant(fixture.includes('["Plan weekend errands", "and confirm the pickup route before leaving home"].join(" ")'), "visual fixture must extend the established ordinary title into a deliberately overflowing title");
 invariant(fixture.includes('longTitle: titleContract(`${longRowSelector} [data-focus-task-title="true"]`)'), "visual fixture must record long-title computed layout");
 invariant(pkg.scripts["test:ui-focus-row-titles"] === "node scripts/test-ui-focus-row-titles.mjs", "package script registration differs");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-row-titles"), "frontend preflight must run the row-title contract");
