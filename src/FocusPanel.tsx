@@ -12,6 +12,7 @@ import {
   type ListBoardSnapshot,
   type ListBoardTask,
 } from "./listBoardApi";
+import { Tooltip } from "./overlayPrimitives";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
@@ -379,9 +380,13 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
         </label>
         <h1 className="focus-panel__title">Today</h1>
         <div className="focus-panel__quick-controls" aria-label="Focus Panel quick controls">
-          <button type="button" disabled aria-label="Preferences" title="Preferences">⚙</button>
+          <Tooltip content="Preferences">
+            <button type="button" aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences">⚙</button>
+          </Tooltip>
           <button type="button" disabled aria-label="Home" title="Home">Home</button>
-          <button type="button" disabled aria-label="Compact view" title="Compact view">↙</button>
+          <Tooltip content="Compact view">
+            <button type="button" aria-disabled="true" aria-label="Compact view" data-focus-placeholder-control="compact-view">↙</button>
+          </Tooltip>
         </div>
       </header>
 
