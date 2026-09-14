@@ -43,7 +43,7 @@ const workId = "11111111-1111-4111-8111-111111111111";
 const personalId = "11111111-1111-4111-8111-111111111112";
 const liveId = "21111111-1111-4111-8111-111111111111";
 const longTitleId = "21111111-1111-4111-8111-111111111113";
-const longTitle = "Plan weekend errands and confirm the pickup route before leaving home";
+const longTitle = ["Plan weekend errands", "and confirm the pickup route before leaving home"].join(" ");
 
 const board: ListBoardSnapshot = {
   target: { kind: "all_lists", id: null, title: "All Lists", color: null },
