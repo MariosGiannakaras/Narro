@@ -1,0 +1,16 @@
+.focus-panel__subtasks .list-board-task__subtask-actions {
+  min-width: 5.75rem;
+  flex: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.focus-panel__subtasks .list-board-task__subtask-row:hover .list-board-task__subtask-actions,
+.focus-panel__subtasks .list-board-task__subtask-row:focus-within .list-board-task__subtask-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.focus-panel__live-actions > button {
+  width: 100%;
+}
