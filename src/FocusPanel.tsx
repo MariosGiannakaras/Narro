@@ -4,6 +4,7 @@ import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveActions } from "./FocusLiveActions";
 import { FocusLiveTitle } from "./FocusLiveTitle";
+import { FocusTaskRowTitle } from "./FocusTaskRowTitle";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
   getListBoardSnapshot,
@@ -152,9 +153,7 @@ function FocusTaskRow({
     >
       <div className="focus-panel__task-main">
         <div className="focus-panel__task-title-row">
-          <span className="focus-panel__task-title" title={task.title}>
-            {task.title}
-          </span>
+          <FocusTaskRowTitle title={task.title} />
           {aggregateView ? (
             <span
               className="focus-panel__list-chip"
