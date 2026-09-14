@@ -12,7 +12,7 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 
 General roadmap progress: **5/10 milestones complete**.
 
-Item-13 implementation slice: **0/5 checkpoints complete**.
+Item-13 implementation slice: **2/5 checkpoints complete**.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
@@ -30,60 +30,78 @@ Latest immutable completed evidence:
 
 `work-log/2026-09-14-chatgpt-m6-focus-row-title-wrapping.md`
 
-## LATEST COMPLETED IMPLEMENTATION / CI
-
-**M6 item 12/16 — ordinary Focus row-title wrapping and accessible full-title access.**
-
-Validated behavior:
-
-- only ordinary Remaining/Scheduled/Done Focus row titles use the two-line presentation; active/live title scrolling remains separate;
-- ordinary titles clamp to two lines and safely wrap long unbroken text;
-- full-title access reuses the shared keyboard-capable `Tooltip` / `aria-describedby` primitive;
-- the Focus tooltip wrapper stays flexible with `min-width: 0` inside the existing title slot;
-- a second line may grow the row vertically, but row width/horizontal title geometry remain stable;
-- no animation/transform or authority change was introduced.
-
-PR #112 evidence:
-
-- final exact PR head `789cd1a69efca59e33035660a4b91c11d63f1a39`;
-- authoritative Windows CI #425 / run `34811100017` / job `103872454315`: **SUCCESS**;
-- PR visual artifact `10334544083`, digest `sha256:5d43cd8b449d5a854246819b6bf99fd3c641618fd65642f4a449dc624a6c261f`;
-- PR diagnostic/runtime artifact `10334883696`, digest `sha256:7927d191f6877d533129ebe9622b50e9a5ce38ae44068c0220b510dc36f18312`;
-- final review: nine expected changed files, no conversation comments, reviews or inline threads;
-- squash merge source/test SHA `a62ff3424525486ea1487429ff043d0139b85abd`, tree `7d269939de6e5812e66ef1b002796d11132b00a7`.
-
-Resulting-main Windows CI #426 / run `34819905050`:
-
-- attempt 1 job `103898850739` passed preflight and the Focus/item-12 captures, then failed only because the unrelated existing `task-scheduling-light` capture did not report ready state;
-- no source/harness change was made;
-- same exact main SHA attempt 2 job `103901669712`: **SUCCESS** across preflight, Windows visual regression, Tauri Release and both required uploads;
-- main visual artifact `10338361964`, digest `sha256:659986ba76d0ac911ea80343d6e552eaf7826d355902efed1abba5970d9b2281`;
-- main diagnostic/runtime artifact `10338572056`, digest `sha256:1f72c7c9c04cc93a65d28a495ffb8a44a081c87b0e8ec5d1b8e698f3633092f9`.
-
-Tracking reconciliation for item 12 is complete in `TODO.md`, `STATUS.md`, this handoff and the immutable work log.
-
 ## ACTIVE IMPLEMENTATION SLICE
 
 **M6 item 13/16 — Reserve action slots for hover/focus controls so controls never push task text or move hit targets.**
 
-No item-13 implementation branch or PR exists yet.
+Implementation branch:
 
-Current small-slice progress: **0/5**.
+`m6-focus-reserved-action-slots`
 
-### Five checkpoints for this slice
+Branch base/tracking tip:
 
-1. reconstruct the exact item-13 contract from current Focus ordinary/live action markup/CSS, product/UI/source evidence, shared overlay/action primitives, the validated M5 task-card reserved-action pattern, item-12 title geometry and current Focus static/visual tests — pending;
-2. implement the narrow presentation-only reserved-slot behavior plus deterministic/static/visual coverage and semantic diff review — pending;
-3. validate the exact PR head with authoritative Windows CI: repository preflight, Windows visual regression, Tauri Release and required artifact uploads — pending;
-4. final exact-head review + expected-head guarded squash merge — pending;
-5. validate the resulting main source SHA with Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable work log — pending.
+`7b49182fae61277794cd7650205149d2dfeef655`
 
-Scope boundary for item 13:
+Latest source/test candidate before this handoff-only checkpoint commit:
 
-- stabilize the space occupied by hover/focus action controls so revealing controls cannot push task text, resize the title slot or move existing pointer/focus targets;
-- reuse established shared geometry/action-slot patterns rather than inventing a second interaction system;
-- preserve the item-12 two-line/full-title title contract;
-- do not absorb item 14 tooltip work, item 15 visual-state polish, item 16 empty states, Milestone 7 Floating Timer work or Milestone 8 Preferences UI.
+`1c51472eea4c4eb791b89ff4ffb34212412f461b`
+
+Tree:
+
+`e7424ef6967b77fcaaaa1093d68323b1ea8ffc21`
+
+No item-13 PR exists yet.
+
+### Checkpoint 1/5 — COMPLETE: contract reconstructed
+
+Repository evidence establishes the narrow item-13 contract:
+
+- Blitzit public history contains a repeated Focus-control signal: action buttons that move while targeted are disproportionately frustrating; Narro explicitly requires reserved geometry;
+- `AGENTS.md` prohibits hover/focus animation from reflowing task text, moving sibling controls or changing row/card geometry and requires reserved/overlay action-icon slots;
+- item 12 already established the ordinary Focus-row two-line/full-title contract and explicitly left action-slot work for item 13;
+- the production live task already uses a stable five-column Break/Notes/Pause-Resume/Skip/Done strip; item 13 must preserve that geometry rather than redesign the action semantics;
+- the production Focus subtask path already reuses `TaskSubtasks` Move up/Move down/Delete controls inside a fixed `5.75rem` action column; this is the existing Focus hover/focus control rail that can be hardened without introducing new task mutations;
+- ordinary Remaining/Scheduled/Done rows currently expose no action controls, so item 13 does not invent reorder/delete task APIs or blank dead action geometry there;
+- item 14 still owns any additional tooltip work; item 13 changes only geometry/reveal behavior.
+
+### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/static/visual review
+
+Source/test changes before this handoff are exactly five files:
+
+- `src/focusActionSlots.css`
+  - Focus-scoped subtask action rail keeps a permanent `5.75rem` slot;
+  - resting rail uses opacity/pointer hit-state only, never `display:none` or inserted layout;
+  - row hover and `:focus-within` reveal the same existing controls in place;
+  - no transform, margin shift, animation or transition was added;
+  - live action buttons explicitly fill their existing five-column grid cells.
+- `src/FocusTaskRowTitle.tsx`
+  - one CSS side-effect import only; item-12 markup/accessibility behavior is unchanged.
+- `scripts/test-ui-focus-action-slots.mjs`
+  - locks Focus-only scope, reserved widths, hover/focus equivalence, no layout-removal/motion rules, stable live grid, existing subtask controls and item-12 title invariants.
+- `scripts/validate-focus-action-slot-captures.mjs`
+  - reuses existing Windows Focus captures and their measured live-action geometry;
+  - requires identical action-strip width/height across light/dark and running/paused fixtures.
+- `package.json`
+  - registers the deterministic test in frontend preflight and the geometry validator in Windows visual regression.
+
+Review evidence:
+
+- compare from branch base shows exactly those five files and no Rust/Tauri, SQLite, domain, timer/session/task/scheduling or dependency changes;
+- both new `.mjs` files passed local `node --check`;
+- full local repository preflight / Rust / Tauri validation: **NOT RUN** because no local repository checkout/toolchain path is available in this environment; authoritative Windows CI is required;
+- the candidate intentionally reuses existing Focus subtask mutations and live action semantics rather than adding a new renderer mutation path.
+
+### Checkpoint 3/5 — PENDING
+
+Open one PR from this branch and require authoritative Windows CI on the exact PR head: Repository Preflight, Windows visual regression including the new action-slot validator, Tauri Release and both required artifact uploads.
+
+### Checkpoint 4/5 — PENDING
+
+After exact-head CI success, verify unchanged head, mergeability, changed-file scope and all comments/reviews/threads; then squash merge with expected-head guard.
+
+### Checkpoint 5/5 — PENDING
+
+Validate the resulting main source SHA with authoritative Windows CI. Only after full success reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable work log; M6 then becomes 13/16.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -94,7 +112,7 @@ Scope boundary for item 13:
 - renderer title/action presentation cannot become timer/session/task authority.
 - item-11 active/live title scrolling remains preference-driven, overflow-aware, transform-only and reduced-motion-safe.
 - item-12 ordinary Focus row titles remain two-line-clamped with keyboard-accessible full-title access.
-- hover/focus control revelation must not reflow sibling geometry or move hit targets.
+- hidden/revealed action controls keep their reserved geometry and existing hit positions.
 - Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions.
 - future-timed Today tasks remain ineligible until due.
 - Notes URLs remain explicit pointer/keyboard activation only.
@@ -103,7 +121,7 @@ Scope boundary for item 13:
 
 ## NEXT AGENT ACTION
 
-Reconstruct item 13 before editing. Inspect current Focus ordinary/live action markup and CSS, shared overlay/action-slot primitives, the M5 task-card reserved-action implementation/tests, item-12 title component and Focus visual fixture/validators, and Focus-related product/UI/source evidence. Then implement only the narrowest reserved-action-slot contract on one coherent branch. Do not start item 14 in parallel.
+Open/inspect the item-13 PR from `m6-focus-reserved-action-slots`, record its exact head SHA, and run authoritative Windows CI. If CI fails, inspect the exact failure and fix only evidence-backed issues on the same branch/PR. Do not start item 14.
 
 ## USER ACTION REQUIRED
 
@@ -111,5 +129,5 @@ Reconstruct item 13 before editing. Inspect current Focus ordinary/live action m
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks item 13.
-- Local repository checkout/Rust/Tauri capability may remain unavailable in this environment; use the strongest connector/static checks available and authoritative Windows CI.
+- No product/user decision blocks item 13.
+- Full local repository/Rust/Tauri validation is unavailable; new script syntax checks passed locally and authoritative Windows CI remains required.
