@@ -1,5 +1,6 @@
 import { Tooltip } from "./overlayPrimitives";
 import "./focusTaskRowTitle.css";
+import "./focusActionSlots.css";
 
 export function FocusTaskRowTitle({ title }: { title: string }) {
   return (
