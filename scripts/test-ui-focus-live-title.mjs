@@ -9,6 +9,7 @@ function invariant(condition, message) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const rowTitle = read("src/FocusTaskRowTitle.tsx");
 const title = read("src/FocusLiveTitle.tsx");
 const css = read("src/focusLiveTitle.css");
 const rust = read("src-tauri/src/focus_preferences.rs");
@@ -46,7 +47,7 @@ invariant(!rustProduction.includes("save_preferences("), "production read comman
 invariant(!title.includes("setInterval("), "live-title scrolling must not use polling intervals");
 invariant(!title.includes("requestAnimationFrame("), "live-title scrolling must not use a JavaScript animation loop");
 invariant((panel.match(/<FocusLiveTitle/g) ?? []).length === 1, "scrolling component must apply only to the active/live title");
-invariant(panel.includes('className="focus-panel__task-title"'), "ordinary Focus task-row title rendering must remain separate");
+invariant(rowTitle.includes('className="focus-panel__task-title"'), "ordinary Focus task-row title rendering must remain separate");
 invariant(!css.includes("left:"), "scroll animation must not move layout geometry with left positioning");
 invariant(!css.includes("margin-left:"), "scroll animation must not move layout geometry with margins");
 invariant(pkg.scripts["test:ui-focus-live-title"] === "node scripts/test-ui-focus-live-title.mjs", "package script registration differs");
