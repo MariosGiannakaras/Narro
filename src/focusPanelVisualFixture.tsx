@@ -42,6 +42,8 @@ function task(
 const workId = "11111111-1111-4111-8111-111111111111";
 const personalId = "11111111-1111-4111-8111-111111111112";
 const liveId = "21111111-1111-4111-8111-111111111111";
+const longTitleId = "21111111-1111-4111-8111-111111111113";
+const longTitle = "Plan weekend errands and confirm the pickup route before leaving home";
 
 const board: ListBoardSnapshot = {
   target: { kind: "all_lists", id: null, title: "All Lists", color: null },
@@ -63,7 +65,7 @@ const board: ListBoardSnapshot = {
         scheduledLocalDate: "2026-09-11",
         isOverdue: true,
       }),
-      task("21111111-1111-4111-8111-111111111113", "Plan weekend errands", personalId, "Personal", "#b7d96d", {
+      task(longTitleId, longTitle, personalId, "Personal", "#b7d96d", {
         estSeconds: 900,
       }),
       task("21111111-1111-4111-8111-111111111114", "Client follow-up call", workId, "Work", "#48d6c5", {
@@ -133,6 +135,24 @@ function box(selector: string) {
   return { width: Math.round(rect.width), height: Math.round(rect.height) };
 }
 
+function titleContract(selector: string) {
+  const node = document.querySelector<HTMLElement>(selector);
+  if (!node) throw new Error(`Focus Panel title fixture selector missing: ${selector}`);
+  const rect = node.getBoundingClientRect();
+  const style = getComputedStyle(node);
+  return {
+    width: Math.round(rect.width),
+    height: Math.round(rect.height),
+    display: style.display,
+    lineClamp: style.getPropertyValue("-webkit-line-clamp"),
+    whiteSpace: style.whiteSpace,
+    overflow: style.overflow,
+    tabIndex: node.tabIndex,
+    describedBy: node.getAttribute("aria-describedby"),
+  };
+}
+
+const longRowSelector = `[data-task-id="${longTitleId}"]`;
 const contract = {
   theme,
   scenario,
@@ -152,6 +172,8 @@ const contract = {
   subtaskRing: box(".focus-panel__subtask-ring"),
   actions: box(".focus-panel__live-actions"),
   firstRow: box('.focus-panel__task-row[data-focus-task-row="remaining"]'),
+  longRow: box(longRowSelector),
+  longTitle: titleContract(`${longRowSelector} [data-focus-task-title="true"]`),
   addTask: box(".focus-panel__add-task"),
 };
 
