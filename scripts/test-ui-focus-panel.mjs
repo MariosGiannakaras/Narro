@@ -192,6 +192,27 @@ for (const forbidden of ["setInterval(", "Date.now(", "performance.now("]) {
 }
 
 invariant(timerApi.includes("window.setTimeout"), "live timer projection must schedule non-overlapping authoritative samples");
+invariant(!timerApi.includes("window.setInterval"), "live timer projection must not use overlapping interval sampling");
+invariant(css.includes("font-variant-numeric: tabular-nums"), "timer numerals must be tabular to prevent second-by-second layout jitter");
+invariant(css.includes("min-width: 32px; min-height: 32px"), "quick-control hit areas must stay stable");
+invariant(css.includes("min-height: 54px"), "task rows must reserve stable compact geometry");
+invariant(css.includes("min-height: 82px"), "live card must retain emphasis geometry");
+invariant(css.includes("@media (prefers-reduced-motion: reduce)"), "Focus Panel must suppress transitions under reduced motion");
+invariant(css.includes("transition: none"), "Focus reduced-motion rule must disable decorative transitions");
+invariant(!panel.includes("account"), "account controls are excluded from Narro Focus Panel");
+invariant(!panel.includes("upgrade"), "upgrade controls are excluded from Narro Focus Panel");
+invariant(!panel.includes("trial"), "trial controls are excluded from Narro Focus Panel");
+invariant(!panel.includes("ai-chat"), "AI controls are excluded from Narro Focus Panel");
+invariant(!panel.includes("integration"), "integration controls are excluded from Narro Focus Panel");
+invariant(!actions.includes("updateListBoardTaskEstimate"), "Focus action strip must not mutate EST through list-board renderer APIs");
+invariant(!actions.includes("updateListBoardTaskTimeTaken"), "Focus action strip must not mutate Time Taken through list-board renderer APIs");
+invariant(!actions.includes("createListBoardSubtask"), "Focus action strip must leave subtask persistence to the dedicated live-subtask component");
+invariant(!metrics.includes("updateListBoardTaskEstimate"), "Focus metrics must not use generic list-board EST mutation APIs");
+invariant(!metrics.includes("updateListBoardTaskTimeTaken"), "Focus metrics must not use generic list-board Time Taken mutation APIs");
+invariant(!subtasks.includes("updateListBoardTaskEstimate"), "Focus subtasks must not mutate EST");
+invariant(!subtasks.includes("updateListBoardTaskTimeTaken"), "Focus subtasks must not mutate Time Taken");
+invariant(!subtasks.includes("timer_"), "Focus subtasks must not become timer authority");
+invariant(!taskSubtasks.includes("invoke<"), "shared TaskSubtasks component must remain callback-driven rather than native authority");
 invariant(metrics.indexOf("onTimerPayload(payload);") < metrics.indexOf("await refreshAfterCommittedMutation(metric, parsed.seconds);"), "committed metric timer payload must publish before secondary board refresh");
 invariant(actions.includes("DEFAULT_MANUAL_BREAK_MS = 10 * 60 * 1_000"), "manual Break must use the established ten-minute default until M8 exposes its preference");
 invariant(actions.includes('const breakState = timer.state === "break";'), "action state must identify an active break explicitly");
@@ -205,7 +226,13 @@ invariant(actions.indexOf('data-focus-action="notes"') < actions.indexOf('data-f
 invariant(actions.indexOf('data-focus-action="pause-resume"') < actions.indexOf('data-focus-action="skip"'), "Pause/Resume must precede Skip in action strip");
 invariant(actions.indexOf('data-focus-action="skip"') < actions.indexOf('data-focus-action="done"'), "Skip must precede Done in action strip");
 invariant(panel.includes("disabled aria-label=\"Add task in Focus Panel\""), "Add Task must remain explicitly non-mutating before its ordered slice");
-invariant(panel.includes("button type=\"button\" disabled aria-label=\"Preferences\""), "quick controls must remain explicitly non-mutating before their ordered slices");
+invariant(
+  panel.includes('aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences"')
+    && panel.includes('aria-disabled="true" aria-label="Compact view" data-focus-placeholder-control="compact-view"')
+    && !panel.includes('data-focus-placeholder-control="preferences" onClick=')
+    && !panel.includes('data-focus-placeholder-control="compact-view" onClick='),
+  "quick controls must remain explicitly non-mutating before their ordered slices",
+);
 invariant(pkg.scripts["test:ui-focus-panel"] === "node scripts/test-ui-focus-panel.mjs", "test:ui-focus-panel script is not registered");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-panel"), "Focus Panel contract gate is not in frontend preflight");
 invariant(pkg.scripts["test:visual-regression:windows"].includes("capture-focus-panel-fixtures.ps1"), "Focus Panel capture is not in Windows visual regression");
