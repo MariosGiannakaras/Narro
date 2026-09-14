@@ -1,6 +1,6 @@
 # HANDOFF.md
 
-Canonical zero-context continuation state for Narro. Before changing source, read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, active Milestone 6 in `TODO.md`, relevant `STATUS.md`, Focus/Blitz sections in `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, `docs/BEHAVIOR_MATRIX.md`, the newest relevant immutable `work-log/*.md` entries, and `docs/BLITZIT_HISTORY_RISK_INDEX.md` whenever reliability risks apply. Inspect open implementation PRs and exact CI state before making changes.
+Canonical zero-context continuation state for Narro. Before changing source, read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, active Milestone 6 in `TODO.md`, relevant `STATUS.md`, the Focus/Blitz sections of `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, `docs/BEHAVIOR_MATRIX.md`, the newest relevant immutable `work-log/*.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md` when reliability risks apply. Inspect open implementation PRs and exact CI state before making changes.
 
 ## CURRENT MILESTONE
 
@@ -12,7 +12,7 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 
 General roadmap progress: **5/10 milestones complete**.
 
-A new item-12 implementation slice is active at **0/5 checkpoints**.
+Item-12 implementation slice: **2/5 checkpoints complete**.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
@@ -30,67 +30,84 @@ Latest immutable completed evidence:
 
 `work-log/2026-09-14-chatgpt-m6-focus-live-title-scrolling.md`
 
-## LATEST COMPLETED IMPLEMENTATION / CI
-
-**M6 item 11/16 — Implement configured scrolling behavior for the live title.**
-
-Validated behavior:
-
-- the existing persisted `focus.scrolling_title` preference is reused and its safe default remains `false`;
-- scrolling applies only to the active/live title, never ordinary Focus task rows;
-- disabled preference or no actual overflow keeps static ellipsis;
-- enabled overflowing titles use initial synchronous measurement plus `ResizeObserver` revalidation, with no polling or JavaScript animation loop;
-- motion is transform-only and does not alter timer/sibling geometry;
-- `prefers-reduced-motion` disables the animation and restores static ellipsis while full-title access remains available;
-- the production native preference boundary is read-only and adds no preference mutation, schema/migration, or Preferences UI;
-- source/product evidence does not define exact scroll speed/direction, so Narro does not claim source-fidelity for the selected animation pacing.
-
-PR #111 evidence:
-
-- initial Windows CI #419 / run `34783581280` / job `103794887023` failed only at `cargo fmt -- --check` after frontend/static contracts and the frontend production build passed;
-- only the exact rustfmt changes in new `src-tauri/src/focus_preferences.rs` were applied;
-- final exact PR head `fe16914c341badea32c0087cc2a45385b0988de0`;
-- authoritative Windows CI #420 / run `34783673637` / job `103795136716`: **SUCCESS** across Repository Preflight, Windows visual regression, Tauri Release and required uploads;
-- PR visual artifact `10326121804`, digest `sha256:a2f832fa137f09bfb3bcde920921a174ded832aa291082c86d418ec101089972`;
-- PR diagnostic/runtime artifact `10325962636`, digest `sha256:fa90989aadb279da4d9b526924acbaba9169b531f8740a20f87f2aaf159fb45b`;
-- final review: exact head unchanged and mergeable, exactly eight expected changed files, no PR conversation comments, reviews or inline review threads;
-- expected-head guarded squash merge source/test SHA `088b9dd75a7af0aa7e5d32dcbcfffdbc501d90cb`.
-
-Resulting-main Windows CI #421:
-
-- run `34785000692`;
-- job `103798741480`;
-- exact main source SHA `088b9dd75a7af0aa7e5d32dcbcfffdbc501d90cb`;
-- conclusion **SUCCESS**;
-- Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads: **SUCCESS**;
-- main visual artifact `10326331827`, digest `sha256:aaa71f3dbb91e522a1d1c8291939819729e720f0a31ad40e4c4463aa51cf8572`;
-- main diagnostic/runtime artifact `10326422964`, digest `sha256:35abf0bba3a27fb9d42f3360eccd3e9f84abb3e252fe1f1159f9d51019a87afc`.
-
-Tracking reconciliation for item 11 is complete in `TODO.md`, `STATUS.md`, this handoff and the immutable work log.
-
 ## ACTIVE IMPLEMENTATION SLICE
 
 **M6 item 12/16 — Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.**
 
-No item-12 implementation branch or PR exists yet.
+Implementation branch:
 
-Current small-slice progress: **0/5**.
+`m6-focus-row-title-wrapping`
 
-### Five checkpoints for this slice
+Branch base/tracking tip:
 
-1. reconstruct the exact item-12 contract from current ordinary Focus row markup/CSS, product/UI/source evidence, current title/full-text accessibility conventions, layout-shift invariants, and Focus visual/static tests — pending;
-2. implement the narrow presentation-only behavior plus deterministic/static/visual coverage and semantic diff review — pending;
-3. validate the exact PR head with authoritative Windows CI: Repository Preflight, Windows visual regression, Tauri Release and required artifact uploads — pending;
-4. final exact-head review + expected-head guarded squash merge — pending;
-5. validate the resulting main source SHA with Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable work log — pending.
+`4932985e5bc21cb0049ce219b9fbf699ca12dc06`
 
-Scope boundary for item 12:
+Latest source/test implementation head before this handoff-only commit:
 
-- change ordinary Focus row-title presentation only, not the active/live title scrolling behavior completed in item 11;
-- permit up to two lines where the existing layout can support them without moving reserved hit targets or destabilizing surrounding geometry;
-- provide full-title access through an established accessible mechanism rather than pointer-only disclosure;
-- preserve reduced-motion behavior and all authoritative task/timer/session/scheduling boundaries;
-- do not absorb item 13 reserved action-slot implementation, item 14 icon-only tooltips, item 15 visual-state polish, item 16 empty/no-eligible states, Milestone 7 Floating Timer work, or Milestone 8 Preferences UI.
+`8df20783a193f7dbe9f2dd7450d1254a8bc9af75`
+
+Tree:
+
+`d8d254ad455db42d5437eadde487949fbeb6ba46`
+
+No item-12 PR existed when this checkpoint handoff was written.
+
+### Checkpoint 1/5 — COMPLETE: contract reconstructed
+
+Repository evidence establishes the narrow contract:
+
+- item 12 applies only to ordinary Remaining/Scheduled/Done Focus task-row titles; item-11 active/live title scrolling remains separate and unchanged;
+- ordinary titles may use up to two lines where the compact layout permits, then remain clipped rather than expanding without bound;
+- the complete title must be available by an established accessible mechanism that works with keyboard focus, not pointer hover alone;
+- reuse the already validated shared `Tooltip` primitive rather than inventing a second tooltip implementation;
+- because the shared tooltip anchor defaults to fixed flex sizing, Focus needs a narrow title-row override so the tooltip wrapper remains `min-width: 0` and participates in the existing flexible title slot;
+- ordinary title wrapping may grow a row vertically to accommodate the second line, but it must not change row width, move established horizontal hit targets, or absorb item-13 action-slot work;
+- no continuous animation or transform is required for ordinary row titles;
+- task/timer/session/scheduling authority, item-11 scrolling, reduced-motion behavior, Floating Timer and Preferences remain unchanged.
+
+### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/static/visual review
+
+Source/test scope is seven files:
+
+- `src/FocusTaskRowTitle.tsx`
+  - new ordinary-row title presentation reusing `Tooltip`;
+  - full title remains visible to assistive technology and is associated with tooltip content through the existing `aria-describedby` primitive;
+  - the title is keyboard focusable and receives a visible focus treatment.
+- `src/focusTaskRowTitle.css`
+  - Focus-specific flexible tooltip-anchor override preserves the existing title slot;
+  - ordinary titles use a two-line clamp, normal wrapping and `overflow-wrap: anywhere` for long unbroken text;
+  - no animation or transform is introduced.
+- `src/FocusPanel.tsx`
+  - only the ordinary `FocusTaskRow` title rendering changes to `FocusTaskRowTitle`;
+  - the active/live `FocusLiveTitle` path remains unchanged.
+- `src/focusPanelVisualFixture.tsx`
+  - includes a deliberately long ordinary title and records its computed clamp/accessibility/row geometry.
+- `scripts/test-ui-focus-row-titles.mjs`
+  - locks active/live separation, Tooltip reuse, keyboard/full-title accessibility, two-line clamp, flexible wrapper geometry and no-motion scope.
+- `scripts/validate-focus-row-title-captures.mjs`
+  - validates the existing Windows Focus captures prove a two-line title, stable row width, vertical second-line growth and tooltip association across light/dark and running/paused fixtures.
+- `package.json`
+  - registers the deterministic contract test in frontend preflight and the new visual validator in Windows visual regression.
+
+Review evidence:
+
+- semantic compare from branch base to source head contains exactly the seven files above;
+- `src/FocusPanel.tsx` semantic change is only one import plus replacement of the ordinary title span with the shared row-title component;
+- no dependency/lockfile, Rust/native, database, timer/session/task/scheduling, live-title, action-slot, Floating Timer or Preferences change exists;
+- local `node --check` for both new `.mjs` files: **PASS**;
+- full local frontend/Rust/Tauri preflight: **NOT RUN / unavailable without a local repository checkout and Rust toolchain**; authoritative Windows CI remains required.
+
+### Checkpoint 3/5 — PENDING
+
+Open one item-12 PR from this branch and require authoritative Windows CI on its exact final head: Repository Preflight (including the new static contract), Windows visual regression (including the long-title geometry validator), Tauri Release and both required artifact uploads.
+
+### Checkpoint 4/5 — PENDING
+
+After exact-head CI success, verify unchanged head, mergeability, changed-file scope and all comments/reviews/threads; then squash merge with an expected-head guard.
+
+### Checkpoint 5/5 — PENDING
+
+Validate the resulting main source SHA with authoritative Windows CI. Only after full success reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable item-12 work log; Milestone 6 then becomes 12/16.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -100,18 +117,16 @@ Scope boundary for item 12:
 - task/list/subtask identities, queue partitioning, scheduling eligibility and tracked Time Taken remain authoritative and unchanged by title presentation.
 - renderer title presentation cannot become timer/session/task authority.
 - item-11 active/live title scrolling remains preference-driven, overflow-aware, transform-only and reduced-motion-safe.
+- ordinary Focus row titles may grow only vertically for the second line; established horizontal row geometry/hit targets must remain stable.
 - Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions.
 - future-timed Today tasks remain ineligible until due.
 - Notes URLs remain explicit pointer/keyboard activation only.
-- hover/focus interactions may not reflow sibling geometry or move established pointer targets.
 - reduced-motion remains usable and timer numerals retain fixed/tabular geometry.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
 
 ## NEXT AGENT ACTION
 
-Reconstruct item 12 before editing. Inspect the current ordinary Focus row-title markup and CSS in `src/FocusPanel.tsx` / `src/focusPanel.css`, existing Focus static/visual tests and fixtures, current accessible full-title conventions in the repository, and the relevant title-density/screenshots/product evidence in `docs/UI_UX_SPEC.md`, `docs/PRODUCT_SPEC.md`, `docs/SOURCE_AUDIT.md` and `docs/BEHAVIOR_MATRIX.md`.
-
-Define the narrowest two-line rule that preserves stable row/action geometry and full-title accessibility. Then create one coherent item-12 branch. Do not start item 13 or later work in parallel.
+Inspect the current exact branch/PR head for `m6-focus-row-title-wrapping`. Open the item-12 PR if it does not yet exist, then require authoritative Windows CI on that exact head. If CI fails, inspect the exact failing job/log and fix only evidence-backed issues on the same branch/PR. Do not start item 13 in parallel.
 
 ## USER ACTION REQUIRED
 
@@ -119,5 +134,5 @@ Define the narrowest two-line rule that preserves stable row/action geometry and
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks item 12.
-- Local Rust/Tauri capability may remain unavailable in the current environment; use the strongest applicable local frontend/static checks and record unavailable native checks as `NOT RUN` before authoritative Windows CI.
+- No product/user decision blocks item 12.
+- Full local frontend/Rust/Tauri validation is unavailable in the current environment; Windows CI is authoritative.

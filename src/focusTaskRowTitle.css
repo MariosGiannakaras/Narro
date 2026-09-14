@@ -1,0 +1,24 @@
+.focus-panel__task-title-row > .overlay-anchor--inline {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.focus-panel__task-title-row .focus-panel__task-title {
+  width: 100%;
+  min-width: 0;
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  font-size: var(--font-size-task-title);
+  line-height: var(--line-height-task-title);
+}
+
+.focus-panel__task-title:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 1px;
+  border-radius: var(--radius-control);
+}
