@@ -13,31 +13,31 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 12 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 13 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
 General roadmap progress: **5 of 10 milestones complete**.
 
-M6 items 1–12 are validated. The next ordered work is item 13: **Reserve action slots for hover/focus controls so controls never push task text or move hit targets.** Do not skip ahead to tooltips, later Focus visual states, Floating Timer, shortcuts/preferences, Reports, or release work.
+M6 items 1–13 are validated. The next ordered work is item 14: **Add tooltips for icon-only controls.** Do not skip ahead to later Focus visual states, empty states, Floating Timer, shortcuts/preferences, Reports, or release work.
 
 ## Current validated source baseline
 
 Latest fully resulting-main-validated **source/test** baseline:
 
-`a62ff3424525486ea1487429ff043d0139b85abd`
+`7ca86fbb9190c1e177f5913a3080e12b83ee4706`
 
 Tree:
 
-`7d269939de6e5812e66ef1b002796d11132b00a7`
+`2919ba53996bf58e2873064af09fc15e363bc406`
 
-This is the squash merge of PR #112 — `M6: allow two-line Focus row titles` — from exact validated PR head `789cd1a69efca59e33035660a4b91c11d63f1a39`.
+This is the expected-head guarded squash merge of PR #113 — `M6: reserve Focus action slots` — from exact validated PR head `864e1bb82582dcc38d1188989900ab80ff09accd`.
 
-Windows resulting-main CI #426 / run `34819905050` passed on this exact source SHA after a same-SHA rerun of one transient unrelated visual-fixture readiness miss. Markdown-only tracking descendants created after this source SHA do **not** replace the validated source/test baseline.
+Windows resulting-main CI #428 / run `34838648618` / job `103958220072` passed on this exact source SHA. Markdown-only tracking descendants created after this source SHA do **not** replace the validated source/test baseline.
 
-Main validation artifacts from successful attempt 2:
+Main validation artifacts:
 
-- visual regression artifact `10338361964`, digest `sha256:659986ba76d0ac911ea80343d6e552eaf7826d355902efed1abba5970d9b2281`;
-- diagnostic/runtime-harness artifact `10338572056`, digest `sha256:1f72c7c9c04cc93a65d28a495ffb8a44a081c87b0e8ec5d1b8e698f3633092f9`.
+- visual regression artifact `10345666316`, digest `sha256:98b2426e33fea6af375b1620c51bd5075569e6b6ced37f97eb03849154c26d93`;
+- diagnostic/runtime-harness artifact `10345880764`, digest `sha256:1a25b508373f21ccd02b4f0c0502b6ac5c9cd666204e359cf9940cd26320823e`.
 
 ## Milestone 6 validated work
 
@@ -257,13 +257,62 @@ Successful attempt 2 job `103901669712`: **SUCCESS**.
 - main visual artifact `10338361964`, digest `sha256:659986ba76d0ac911ea80343d6e552eaf7826d355902efed1abba5970d9b2281`;
 - main diagnostic/runtime artifact `10338572056`, digest `sha256:1f72c7c9c04cc93a65d28a495ffb8a44a081c87b0e8ec5d1b8e698f3633092f9`.
 
+### Item 13 — reserved Focus action slots
+
+Immutable evidence: `work-log/2026-09-14-chatgpt-m6-focus-reserved-action-slots.md`.
+
+Validated behavior:
+
+- Focus subtask Move up/Move down/Delete controls reuse the existing fixed `5.75rem` action column rather than creating a second geometry model;
+- the action rail remains reserved at rest and hidden controls are pointer-inert;
+- row hover and `:focus-within` reveal the controls in place through opacity/pointer state only;
+- revealing controls does not change title width, sibling geometry or action target positions;
+- no transform, margin shift, animation or transition was introduced;
+- the live Break/Notes/Pause-Resume/Skip/Done strip remains a stable five-column grid;
+- ordinary Focus task rows retain the item-12 two-line/full-title contract and do not gain invented task-action APIs;
+- task/timer/session/scheduling/domain/native authority remains unchanged.
+
+#### PR #113 validation
+
+Final exact PR head:
+
+`864e1bb82582dcc38d1188989900ab80ff09accd`
+
+Authoritative Windows CI #427 / run `34825911944` / job `103917914647`: **SUCCESS**.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression, including the new Focus action-slot geometry validator: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- PR visual artifact `10340298598`, digest `sha256:b0e3e14719b52c419b8d8c7db39f2769076bbc30cd8d5ea21cfd18c3a7535fe0`;
+- PR diagnostic/runtime artifact `10340327995`, digest `sha256:a971057b66273e86a3a84f21d25a7f656cdcf0301377075ebc9eaa34c5ae2ca5`.
+
+Final changed-file scope was six expected files: `HANDOFF.md`, `package.json`, `scripts/test-ui-focus-action-slots.mjs`, `scripts/validate-focus-action-slot-captures.mjs`, `src/FocusTaskRowTitle.tsx` and `src/focusActionSlots.css`. PR #113 had no conversation comments, submitted reviews or inline review threads.
+
+Expected-head guarded squash merge source/test SHA:
+
+`7ca86fbb9190c1e177f5913a3080e12b83ee4706`
+
+Tree:
+
+`2919ba53996bf58e2873064af09fc15e363bc406`
+
+Resulting-main Windows CI #428 / run `34838648618` / job `103958220072`: **SUCCESS**.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- main visual artifact `10345666316`, digest `sha256:98b2426e33fea6af375b1620c51bd5075569e6b6ced37f97eb03849154c26d93`;
+- main diagnostic/runtime artifact `10345880764`, digest `sha256:1a25b508373f21ccd02b4f0c0502b6ac5c9cd666204e359cf9940cd26320823e`.
+
 ## Milestone 6 — next ordered work
 
 The next top-level item is:
 
-13. `Reserve action slots for hover/focus controls so controls never push task text or move hit targets.`
+14. `Add tooltips for icon-only controls.`
 
-Before implementation, reconstruct the current Focus row/action markup and CSS, current hover/focus behavior, the shared overlay/action-slot primitives and the already validated Milestone-5 task-card reserved-action pattern. Lock stable horizontal title geometry and hit targets without absorbing item 14 tooltips or later Focus visual-state work.
+Before implementation, reconstruct the current Focus icon-only controls and their accessible names, the shared `Tooltip` primitive, current disabled/placeholder controls, Focus keyboard/focus behavior and the already validated Milestone-5 tooltip/accessibility patterns. Add tooltips without changing control geometry or absorbing item 15 visual-state polish or item 16 empty states.
 
 ## Durable correctness decisions
 
@@ -284,6 +333,7 @@ Future work must preserve:
 - Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions.
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from Focus entry/task switching/Notes opening.
 - item-11 active/live title scrolling remains preference-driven, overflow-aware, transform-only and reduced-motion-safe.
-- ordinary Focus row titles remain two-line-clamped with accessible full-title access; item-13 action controls must not shrink/reflow that established title slot or move pointer targets.
+- ordinary Focus row titles remain two-line-clamped with accessible full-title access.
+- Focus action controls keep item-13 reserved geometry and existing hit positions; item-14 tooltip work must not resize or move them.
 - hover/focus interactions may not reflow sibling geometry; reduced-motion remains usable and timer numerals remain tabular.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
