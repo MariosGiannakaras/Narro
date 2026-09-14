@@ -44,9 +44,11 @@ Branch base/tracking tip:
 
 Latest source/test implementation head before this handoff-only commit:
 
-`e8d0221d36ac45056189d7a7df7fae5febe77775`
+`66bf83ad1a1e14d4d63fe5cd3051fd164f0ef9e7`
 
-No item-14 PR exists yet.
+Open implementation PR:
+
+**#114 — `M6: add Focus icon tooltips`**
 
 ### Checkpoint 1/5 — COMPLETE: contract reconstructed
 
@@ -70,10 +72,10 @@ The actual missing icon-only Focus tooltip surfaces are:
 
 ### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/static review
 
-Changed source/test/config scope before this handoff is exactly six files:
+Implementation scope:
 
 - `src/FocusPanel.tsx`
-  - Preferences and Compact-view icon placeholders now reuse the shared `Tooltip` primitive;
+  - Preferences and Compact-view icon placeholders reuse the shared `Tooltip` primitive;
   - native `title` duplication was removed for those two controls;
   - they use `aria-disabled="true"` with their existing accessible names so keyboard focus can disclose the tooltip while no click/action handler exists;
   - text-labelled Home remains native-disabled and outside the icon-only slice.
@@ -86,21 +88,38 @@ Changed source/test/config scope before this handoff is exactly six files:
   - adds only Focus-topbar styling that keeps keyboard-discoverable `aria-disabled` placeholders visually non-actionable and neutralizes active hover/press styling without changing geometry.
 - `scripts/test-ui-focus-icon-tooltips.mjs`
   - locks exact icon-only coverage, reuse of the shared accessible tooltip primitive, placeholder non-activation, preservation of existing TaskSubtasks/TaskNotes tooltips, and unchanged topbar/metric geometry.
+- `scripts/test-ui-focus-panel.mjs`
+  - legacy non-mutating-placeholder contract was evolved after exact CI evidence so it accepts the item-14 keyboard-discoverable `aria-disabled` placeholders only when both remain handler-free.
 - `package.json`
   - registers the deterministic item-14 contract in `preflight:frontend`.
 
 Review evidence:
 
-- compare from base `c162d159a4e69eb3ee8312a9b11c589135cb435c` is ahead only, with exactly the six files above before this handoff;
 - no Rust/Tauri, SQLite/schema, dependency/lockfile, task/domain, timer/session, scheduling, display-topology or persistence code changed;
 - no new action handlers or functional behavior were added to Preferences or Compact view;
 - no transform, margin, transition or alternate layout model was added to the validated item-13 geometry path;
-- the new `.mjs` test passes local `node --check`;
+- the new item-14 `.mjs` test passes local `node --check`;
 - full local repository/frontend/Rust/Tauri preflight is **NOT RUN** because no local repository checkout/toolchain path is available in this implementation environment; authoritative Windows CI remains required.
+
+### Exact CI evidence so far
+
+Initial PR exact head:
+
+`fa43d369769d296462a044ba0cb8e59953655476`
+
+Windows CI #429:
+
+- run `34861136189`;
+- job `104033361648`;
+- **FAILED** at Repository Preflight;
+- setup, dependency install and all frontend checks before `test:ui-focus-panel` passed;
+- exact failure: legacy `scripts/test-ui-focus-panel.mjs` required Preferences to remain native `disabled`, conflicting with item-14 keyboard-focus tooltip discovery;
+- no visual regression, Tauri Release or artifact upload ran after the failed preflight;
+- evidence-backed fix commit `66bf83ad1a1e14d4d63fe5cd3051fd164f0ef9e7` changes only that legacy deterministic invariant; production behavior is unchanged.
 
 ### Checkpoint 3/5 — PENDING
 
-Open one PR from `m6-focus-icon-tooltips`, fetch its exact head SHA, and require authoritative Windows CI on that exact head: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads. If CI fails, inspect the exact failure and fix only evidence-backed problems on the same branch/PR.
+Require a new authoritative Windows CI run on the exact PR head after this handoff commit: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads. If it fails, inspect the exact failure and fix only evidence-backed problems on the same branch/PR. A failed run does not increment progress.
 
 ### Checkpoint 4/5 — PENDING
 
@@ -128,7 +147,7 @@ Validate the resulting main source SHA with authoritative Windows CI. Only after
 
 ## NEXT AGENT ACTION
 
-Open/inspect the item-14 PR from `m6-focus-icon-tooltips`, record its exact head SHA, and run authoritative Windows CI. Do not start item 15 in parallel. If CI fails, inspect the exact failing log and make only an evidence-backed correction on this same branch/PR.
+Inspect PR #114 and the exact latest head after this handoff commit. Check the new authoritative Windows CI run first. If CI fails, fetch the exact job log and fix only the evidenced issue on `m6-focus-icon-tooltips`. If CI succeeds, record artifacts and proceed to final exact-head review and expected-head guarded squash merge. Do not start item 15 in parallel.
 
 ## USER ACTION REQUIRED
 
@@ -137,4 +156,4 @@ Open/inspect the item-14 PR from `m6-focus-icon-tooltips`, record its exact head
 ## BLOCKERS / NOT RUN
 
 - No product/user decision blocks item 14.
-- Full local repository/Rust/Tauri preflight remains unavailable in this environment; the new deterministic test itself passed `node --check`, and Windows CI is the authoritative validation gate.
+- Full local repository/Rust/Tauri preflight remains unavailable in this environment; the new item-14 deterministic test itself passed `node --check`, and Windows CI is the authoritative validation gate.
