@@ -13,31 +13,31 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 11 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 12 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
 General roadmap progress: **5 of 10 milestones complete**.
 
-M6 items 1–11 are validated. The next ordered work is item 12: **Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.** Do not skip ahead to action-slot/tooltips, later Focus visual states, Floating Timer, shortcuts/preferences, Reports, or release work.
+M6 items 1–12 are validated. The next ordered work is item 13: **Reserve action slots for hover/focus controls so controls never push task text or move hit targets.** Do not skip ahead to tooltips, later Focus visual states, Floating Timer, shortcuts/preferences, Reports, or release work.
 
 ## Current validated source baseline
 
 Latest fully resulting-main-validated **source/test** baseline:
 
-`088b9dd75a7af0aa7e5d32dcbcfffdbc501d90cb`
+`a62ff3424525486ea1487429ff043d0139b85abd`
 
 Tree:
 
-`fbc93b4779f1f8988b4e3f38e1205facf9f7023b`
+`7d269939de6e5812e66ef1b002796d11132b00a7`
 
-This is the expected-head guarded squash merge of PR #111 — `M6: implement configured Focus live-title scrolling` — from exact validated PR head `fe16914c341badea32c0087cc2a45385b0988de0`.
+This is the squash merge of PR #112 — `M6: allow two-line Focus row titles` — from exact validated PR head `789cd1a69efca59e33035660a4b91c11d63f1a39`.
 
-Windows resulting-main CI #421 / run `34785000692` / job `103798741480` passed on this exact source SHA. Markdown-only tracking descendants created after this source SHA do **not** replace the validated source/test baseline.
+Windows resulting-main CI #426 / run `34819905050` passed on this exact source SHA after a same-SHA rerun of one transient unrelated visual-fixture readiness miss. Markdown-only tracking descendants created after this source SHA do **not** replace the validated source/test baseline.
 
-Main validation artifacts:
+Main validation artifacts from successful attempt 2:
 
-- visual regression artifact `10326331827`, digest `sha256:aaa71f3dbb91e522a1d1c8291939819729e720f0a31ad40e4c4463aa51cf8572`;
-- diagnostic/runtime-harness artifact `10326422964`, digest `sha256:35abf0bba3a27fb9d42f3360eccd3e9f84abb3e252fe1f1159f9d51019a87afc`.
+- visual regression artifact `10338361964`, digest `sha256:659986ba76d0ac911ea80343d6e552eaf7826d355902efed1abba5970d9b2281`;
+- diagnostic/runtime-harness artifact `10338572056`, digest `sha256:1f72c7c9c04cc93a65d28a495ffb8a44a081c87b0e8ec5d1b8e698f3633092f9`.
 
 ## Milestone 6 validated work
 
@@ -206,13 +206,64 @@ Resulting-main Windows CI #421 / run `34785000692` / job `103798741480`: **SUCCE
 - main visual artifact `10326331827`, digest `sha256:aaa71f3dbb91e522a1d1c8291939819729e720f0a31ad40e4c4463aa51cf8572`;
 - main diagnostic/runtime artifact `10326422964`, digest `sha256:35abf0bba3a27fb9d42f3360eccd3e9f84abb3e252fe1f1159f9d51019a87afc`.
 
+### Item 12 — ordinary Focus row-title wrapping and full-title access
+
+Immutable evidence: `work-log/2026-09-14-chatgpt-m6-focus-row-title-wrapping.md`.
+
+Validated behavior:
+
+- only ordinary Remaining/Scheduled/Done Focus row titles use the new presentation; the active/live title remains on the separate item-11 path;
+- ordinary titles can use up to two lines, then clamp rather than grow without bound;
+- full text remains keyboard-accessible through the established shared `Tooltip` / `aria-describedby` mechanism;
+- the Focus-specific tooltip anchor remains flexible with `min-width: 0`, preserving the existing horizontal title slot;
+- long unbroken titles wrap safely with `overflow-wrap: anywhere`;
+- second-line growth is vertical only; row width remains stable and item-13 action-slot behavior remains separate;
+- no animation or transform was introduced for ordinary row titles;
+- task/timer/session/scheduling authority and the item-11 active-title scrolling contract remain unchanged.
+
+#### PR #112 validation
+
+Final exact PR head:
+
+`789cd1a69efca59e33035660a4b91c11d63f1a39`
+
+Authoritative Windows CI #425 / run `34811100017` / job `103872454315`: **SUCCESS**.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression, including the ordinary-row long-title geometry validator: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- PR visual artifact `10334544083`, digest `sha256:5d43cd8b449d5a854246819b6bf99fd3c641618fd65642f4a449dc624a6c261f`;
+- PR diagnostic/runtime artifact `10334883696`, digest `sha256:7927d191f6877d533129ebe9622b50e9a5ce38ae44068c0220b510dc36f18312`.
+
+Final changed-file scope was nine expected files: `HANDOFF.md`, `package.json`, the live-title preservation contract, the two new row-title test/validator scripts, `FocusPanel.tsx`, `FocusTaskRowTitle.tsx`, the Focus visual fixture and `focusTaskRowTitle.css`. PR #112 had no conversation comments, reviews or inline review threads.
+
+Squash merge source/test SHA:
+
+`a62ff3424525486ea1487429ff043d0139b85abd`
+
+Tree:
+
+`7d269939de6e5812e66ef1b002796d11132b00a7`
+
+Resulting-main Windows CI #426 / run `34819905050` initially failed only in the unrelated existing scheduling visual validator after item-12 preflight and Focus captures had already passed. Attempt 1 job `103898850739` reported `task-scheduling-light fixture did not report ready state`; no source change was made. The same exact main SHA was rerun.
+
+Successful attempt 2 job `103901669712`: **SUCCESS**.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- main visual artifact `10338361964`, digest `sha256:659986ba76d0ac911ea80343d6e552eaf7826d355902efed1abba5970d9b2281`;
+- main diagnostic/runtime artifact `10338572056`, digest `sha256:1f72c7c9c04cc93a65d28a495ffb8a44a081c87b0e8ec5d1b8e698f3633092f9`.
+
 ## Milestone 6 — next ordered work
 
 The next top-level item is:
 
-12. `Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.`
+13. `Reserve action slots for hover/focus controls so controls never push task text or move hit targets.`
 
-Before implementation, reconstruct the current ordinary Focus row-title markup/CSS, existing title/full-text accessibility conventions, screenshot/product evidence, layout-shift invariants and Focus visual/static coverage. Keep the slice presentation-only: do not absorb item 13 reserved action slots, item 14 tooltips, item 15 visual-state polish, item 16 empty states, Floating Timer, or Milestone 8 Preferences UI.
+Before implementation, reconstruct the current Focus row/action markup and CSS, current hover/focus behavior, the shared overlay/action-slot primitives and the already validated Milestone-5 task-card reserved-action pattern. Lock stable horizontal title geometry and hit targets without absorbing item 14 tooltips or later Focus visual-state work.
 
 ## Durable correctness decisions
 
@@ -232,5 +283,7 @@ Future work must preserve:
 - Focus queue partitioning cannot clone identities or reinterpret scheduling state.
 - Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions.
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from Focus entry/task switching/Notes opening.
+- item-11 active/live title scrolling remains preference-driven, overflow-aware, transform-only and reduced-motion-safe.
+- ordinary Focus row titles remain two-line-clamped with accessible full-title access; item-13 action controls must not shrink/reflow that established title slot or move pointer targets.
 - hover/focus interactions may not reflow sibling geometry; reduced-motion remains usable and timer numerals remain tabular.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
