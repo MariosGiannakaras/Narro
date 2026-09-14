@@ -22,6 +22,9 @@ const slotCss = read("src/focusActionSlots.css");
 const panelCss = read("src/focusPanel.css");
 const metricCss = read("src/focusLiveMetrics.css");
 const pkg = JSON.parse(read("package.json"));
+const quickDisabledCss = slotCss.match(
+  /\.focus-panel__quick-controls button\[aria-disabled="true"\] \{([\s\S]*?)\}/,
+)?.[1] ?? "";
 
 invariant(panel.includes('import { Tooltip } from "./overlayPrimitives";'), "Focus quick controls must reuse the shared Tooltip primitive");
 invariant(panel.includes('<Tooltip content="Preferences">'), "Preferences icon must expose a shared tooltip");
@@ -57,10 +60,10 @@ invariant(overlay.includes("onPointerEnter: mergeHandler("), "shared Tooltip mus
 invariant(overlay.includes("onFocus: mergeHandler("), "shared Tooltip must support keyboard-focus discovery");
 invariant(overlay.includes('if (event.key === "Escape")'), "shared Tooltip must remain dismissible with Escape");
 
-invariant(slotCss.includes('.focus-panel__quick-controls button[aria-disabled="true"]'), "keyboard-discoverable quick placeholders must keep disabled visual treatment");
-invariant(slotCss.includes("cursor: default"), "quick placeholders must remain visually non-actionable");
-invariant(slotCss.includes("opacity: 0.65"), "quick placeholders must retain disabled emphasis");
-invariant(!slotCss.includes("pointer-events: none"), "quick placeholder triggers must stay hover-discoverable for tooltips");
+invariant(quickDisabledCss.length > 0, "keyboard-discoverable quick placeholders must keep disabled visual treatment");
+invariant(quickDisabledCss.includes("cursor: default"), "quick placeholders must remain visually non-actionable");
+invariant(quickDisabledCss.includes("opacity: 0.65"), "quick placeholders must retain disabled emphasis");
+invariant(!quickDisabledCss.includes("pointer-events: none"), "quick placeholder triggers must stay hover-discoverable for tooltips");
 invariant(panelCss.includes("grid-template-columns: minmax(88px, 1fr) auto minmax(112px, 1fr)"), "Focus topbar geometry must remain unchanged");
 invariant(panelCss.includes(".focus-panel__quick-controls { display: flex; justify-content: flex-end; gap: var(--space-1); }"), "quick-control slot geometry must remain stable");
 invariant(metricCss.includes("grid-template-columns: repeat(2, 2.25rem)"), "metric action hit slots must remain fixed while adding tooltips");
