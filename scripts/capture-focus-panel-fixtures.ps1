@@ -35,7 +35,12 @@ $preview = $null
 $locationPushed = $false
 $scenarios = @(
     @{ Name = "running"; Suffix = ""; Query = "" },
-    @{ Name = "paused-metrics"; Suffix = "-paused-metrics"; Query = "&scenario=paused-metrics" }
+    @{ Name = "paused-metrics"; Suffix = "-paused-metrics"; Query = "&scenario=paused-metrics" },
+    @{ Name = "break"; Suffix = "-break"; Query = "&scenario=break" },
+    @{ Name = "time-up"; Suffix = "-time-up"; Query = "&scenario=time-up" },
+    @{ Name = "overtime"; Suffix = "-overtime"; Query = "&scenario=overtime" },
+    @{ Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded" },
+    @{ Name = "no-eligible"; Suffix = "-no-eligible"; Query = "&scenario=no-eligible" }
 )
 
 try {
