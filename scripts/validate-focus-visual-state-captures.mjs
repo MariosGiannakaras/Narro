@@ -87,7 +87,7 @@ for (const theme of ["light", "dark"]) {
   const timeUp = readCapture(theme, "time-up");
   requireLiveState(timeUp, "time_up");
   requireDistinctCardState(timeUp, running);
-  invariant(timeUp.dom.includes('aria-label="Time\'s Up"'), `${timeUp.label} Time's Up accessible label is missing`);
+  invariant(timeUp.dom.includes("aria-label=\"Time's Up\""), `${timeUp.label} Time's Up accessible label is missing`);
   invariant(timeUp.dom.includes(">00:00<"), `${timeUp.label} Time's Up zero display is missing`);
 
   const overtime = readCapture(theme, "overtime");
