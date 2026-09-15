@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-14
+Last updated: 2026-09-15
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
@@ -13,31 +13,31 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS** — all 28 top-level items validated.
-- Milestone 6: **ACTIVE / 13 of 16 top-level items validated**.
+- Milestone 6: **ACTIVE / 14 of 16 top-level items validated**.
 - Milestones 7–10: **NOT STARTED**.
 
 General roadmap progress: **5 of 10 milestones complete**.
 
-M6 items 1–13 are validated. The next ordered work is item 14: **Add tooltips for icon-only controls.** Do not skip ahead to later Focus visual states, empty states, Floating Timer, shortcuts/preferences, Reports, or release work.
+M6 items 1–14 are validated. The next ordered work is item 15: **Implement active-card, paused, break, time-up/overtime, overdue, notes-expanded and no-eligible-task visual states.** Do not skip ahead to item 16 empty-state behavior, Floating Timer, shortcuts/preferences, Reports, or release work.
 
 ## Current validated source baseline
 
 Latest fully resulting-main-validated **source/test** baseline:
 
-`7ca86fbb9190c1e177f5913a3080e12b83ee4706`
+`08d06b6fcf9167d832c3e2f51e04756141f02b7b`
 
 Tree:
 
-`2919ba53996bf58e2873064af09fc15e363bc406`
+`3fa724f6fd92c6952729ab6f826d9fa8fd96cb47`
 
-This is the expected-head guarded squash merge of PR #113 — `M6: reserve Focus action slots` — from exact validated PR head `864e1bb82582dcc38d1188989900ab80ff09accd`.
+This is the expected-head guarded squash merge of PR #114 — `M6: add Focus icon tooltips` — from exact validated PR head `b5f21b93d36c84b9fbb83f75796f0f1d7ad7b680`.
 
-Windows resulting-main CI #428 / run `34838648618` / job `103958220072` passed on this exact source SHA. Markdown-only tracking descendants created after this source SHA do **not** replace the validated source/test baseline.
+Windows resulting-main CI #432 / run `34999410686` / job `104483783226` passed on this exact source SHA. Markdown-only tracking descendants created after this source SHA do **not** replace the validated source/test baseline.
 
 Main validation artifacts:
 
-- visual regression artifact `10345666316`, digest `sha256:98b2426e33fea6af375b1620c51bd5075569e6b6ced37f97eb03849154c26d93`;
-- diagnostic/runtime-harness artifact `10345880764`, digest `sha256:1a25b508373f21ccd02b4f0c0502b6ac5c9cd666204e359cf9940cd26320823e`.
+- visual regression artifact `10408799567`, digest `sha256:b7921a3d487e7189a9d25293ab452f6a71ffa03d2e16b44ffd7a1386ea780b8b`;
+- diagnostic/runtime-harness artifact `10409522085`, digest `sha256:dae179c6b33294e79db6a05da415172620d4752dd524402a138097238839551c`.
 
 ## Milestone 6 validated work
 
@@ -306,13 +306,64 @@ Resulting-main Windows CI #428 / run `34838648618` / job `103958220072`: **SUCCE
 - main visual artifact `10345666316`, digest `sha256:98b2426e33fea6af375b1620c51bd5075569e6b6ced37f97eb03849154c26d93`;
 - main diagnostic/runtime artifact `10345880764`, digest `sha256:1a25b508373f21ccd02b4f0c0502b6ac5c9cd666204e359cf9940cd26320823e`.
 
+### Item 14 — Focus icon-only tooltips
+
+Immutable evidence: `work-log/2026-09-15-chatgpt-m6-focus-icon-tooltips.md`.
+
+Validated behavior:
+
+- topbar Preferences and Compact-view icon placeholders, live-subtask Add, and paused metric Cancel/Save reuse the established shared `Tooltip` primitive;
+- existing accessible names are preserved, and duplicate native `title` tooltips are removed from Preferences/Compact view;
+- Preferences and Compact view remain functionally inactive and handler-free while `aria-disabled="true"` permits keyboard-focus tooltip discovery;
+- Add subtask and paused metric Cancel/Save retain their existing handlers and disabled semantics;
+- existing TaskSubtasks and TaskNotes tooltip paths are unchanged;
+- tooltip disclosure is pointer/keyboard discoverable, associated through `aria-describedby`, and dismissible with Escape through the shared primitive;
+- item-13 reserved geometry and hit targets remain unchanged; no transform, margin shift, transition or alternate layout model was added;
+- no Rust/Tauri, SQLite/schema, dependency/lockfile, task/domain, timer/session, scheduling, display-topology or persistence behavior changed.
+
+#### PR #114 validation
+
+The initial Windows CI #429 / run `34861136189` / job `104033361648` failed only at Repository Preflight because the legacy Focus panel contract still required Preferences to be native `disabled`. Production behavior was not changed to address that failure; the stale deterministic assertion was evolved to permit the item-14 keyboard-discoverable `aria-disabled` placeholders only while both remain handler-free.
+
+Final exact PR head:
+
+`b5f21b93d36c84b9fbb83f75796f0f1d7ad7b680`
+
+Authoritative Windows CI #431 / run `34861579858` / job `104035182883`: **SUCCESS**.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- PR visual artifact `10355218307`, digest `sha256:ceed21c226b08e25a86eb23c7fb394460aeef463b21c035745192615af9e6931`;
+- PR diagnostic/runtime artifact `10355048819`, digest `sha256:a8f7e5cc1ecb4a9e2593c7305c14347a8b199ee3d859be883441dc723f26c80a`.
+
+Final review found the exact head unchanged and mergeable, exactly eight expected files, no PR conversation comments, no submitted reviews and no inline review threads. `main` remained at the PR base before merge.
+
+Expected-head guarded squash merge source/test SHA:
+
+`08d06b6fcf9167d832c3e2f51e04756141f02b7b`
+
+Tree:
+
+`3fa724f6fd92c6952729ab6f826d9fa8fd96cb47`
+
+Resulting-main Windows CI #432 / run `34999410686` / job `104483783226`: **SUCCESS**.
+
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- required artifact uploads: **SUCCESS**;
+- main visual artifact `10408799567`, digest `sha256:b7921a3d487e7189a9d25293ab452f6a71ffa03d2e16b44ffd7a1386ea780b8b`;
+- main diagnostic/runtime artifact `10409522085`, digest `sha256:dae179c6b33294e79db6a05da415172620d4752dd524402a138097238839551c`.
+
 ## Milestone 6 — next ordered work
 
 The next top-level item is:
 
-14. `Add tooltips for icon-only controls.`
+15. `Implement active-card, paused, break, time-up/overtime, overdue, notes-expanded and no-eligible-task visual states.`
 
-Before implementation, reconstruct the current Focus icon-only controls and their accessible names, the shared `Tooltip` primitive, current disabled/placeholder controls, Focus keyboard/focus behavior and the already validated Milestone-5 tooltip/accessibility patterns. Add tooltips without changing control geometry or absorbing item 15 visual-state polish or item 16 empty states.
+Before implementation, reconstruct the exact current visual-state projection from `FocusPanel`, live timer/actions/metrics/notes components, authoritative timer/session state definitions, the Focus visual fixtures and validators, and the Focus/Blitz sections of `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md` and `docs/BEHAVIOR_MATRIX.md`. Distinguish item-15 visual treatment from item-16 empty/no-eligible behavior before editing. Preserve item-11 title motion, item-12 row-title access, item-13 geometry and item-14 tooltip/accessibility contracts. Do not absorb Milestone 7 or later work.
 
 ## Durable correctness decisions
 
@@ -334,6 +385,7 @@ Future work must preserve:
 - Notes URLs require explicit pointer/keyboard activation and may never auto-launch from Focus entry/task switching/Notes opening.
 - item-11 active/live title scrolling remains preference-driven, overflow-aware, transform-only and reduced-motion-safe.
 - ordinary Focus row titles remain two-line-clamped with accessible full-title access.
-- Focus action controls keep item-13 reserved geometry and existing hit positions; item-14 tooltip work must not resize or move them.
+- Focus action controls keep item-13 reserved geometry and existing hit positions.
+- item-14 icon-only tooltips preserve accessible names, placeholder inactivity and stable geometry; later visual-state work must not remove keyboard/pointer discovery or move their hit targets.
 - hover/focus interactions may not reflow sibling geometry; reduced-motion remains usable and timer numerals remain tabular.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
