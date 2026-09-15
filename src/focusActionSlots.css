@@ -1,3 +1,5 @@
+@import "./focusVisualStates.css";
+
 .focus-panel__subtasks .list-board-task__subtask-actions {
   min-width: 5.75rem;
   flex: none;
