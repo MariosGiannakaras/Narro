@@ -12,7 +12,7 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 
 General roadmap progress: **5/10 milestones complete**.
 
-Item-14 implementation slice: **0/5 checkpoints complete**.
+Item-14 implementation slice: **2/5 checkpoints complete**.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
@@ -24,72 +24,110 @@ Source tree:
 
 `2919ba53996bf58e2873064af09fc15e363bc406`
 
-This is the expected-head guarded squash merge of PR #113 after authoritative resulting-main Windows CI #428 passed on the exact merged source SHA. Markdown-only tracking descendants after this source SHA do **not** replace the validated source/test baseline.
+This remains the expected-head guarded squash merge of PR #113 after authoritative resulting-main Windows CI #428 passed on the exact merged source SHA. Markdown-only tracking descendants and the current unvalidated item-14 branch do **not** replace this validated source/test baseline.
 
 Latest immutable completed evidence:
 
 `work-log/2026-09-14-chatgpt-m6-focus-reserved-action-slots.md`
 
-## LATEST COMPLETED IMPLEMENTATION / CI
-
-**M6 item 13/16 — Reserve action slots for hover/focus controls so controls never push task text or move hit targets.**
-
-Validated behavior:
-
-- Focus subtask Move up/Move down/Delete controls reuse the existing fixed `5.75rem` action column;
-- the action rail remains reserved while hidden and is revealed in place by row hover or `:focus-within` through opacity/pointer state only;
-- disclosure cannot change task-title width, sibling geometry or action target positions;
-- no alternate absolute-position geometry model, margin shift, transform, animation or transition was introduced;
-- the live Break/Notes/Pause-Resume/Skip/Done strip remains a stable five-column grid;
-- ordinary Focus task rows retain item-12 title behavior and do not gain invented mutation controls;
-- no Rust/Tauri, SQLite, task/domain, timer/session, scheduling, display-topology, dependency or persistence behavior changed.
-
-PR #113 evidence:
-
-- final exact PR head `864e1bb82582dcc38d1188989900ab80ff09accd`;
-- authoritative Windows CI #427 / run `34825911944` / job `103917914647`: **SUCCESS**;
-- Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads: **SUCCESS**;
-- PR visual artifact `10340298598`, digest `sha256:b0e3e14719b52c419b8d8c7db39f2769076bbc30cd8d5ea21cfd18c3a7535fe0`;
-- PR diagnostic/runtime artifact `10340327995`, digest `sha256:a971057b66273e86a3a84f21d25a7f656cdcf0301377075ebc9eaa34c5ae2ca5`;
-- final review found exactly six expected files, no conversation comments, no submitted reviews and no inline review threads;
-- expected-head guarded squash merge source/test SHA `7ca86fbb9190c1e177f5913a3080e12b83ee4706`, tree `2919ba53996bf58e2873064af09fc15e363bc406`.
-
-Resulting-main Windows CI #428:
-
-- run `34838648618`;
-- job `103958220072`;
-- exact main source SHA `7ca86fbb9190c1e177f5913a3080e12b83ee4706`;
-- conclusion **SUCCESS**;
-- Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads: **SUCCESS**;
-- main visual artifact `10345666316`, digest `sha256:98b2426e33fea6af375b1620c51bd5075569e6b6ced37f97eb03849154c26d93`;
-- main diagnostic/runtime artifact `10345880764`, digest `sha256:1a25b508373f21ccd02b4f0c0502b6ac5c9cd666204e359cf9940cd26320823e`.
-
-Tracking reconciliation for item 13 is complete in `TODO.md`, `STATUS.md`, this handoff and the immutable work log. The tracking commits are Markdown-only descendants and do not replace the validated source/test baseline above.
-
 ## ACTIVE IMPLEMENTATION SLICE
 
 **M6 item 14/16 — Add tooltips for icon-only controls.**
 
-No item-14 implementation branch or PR exists yet.
+Implementation branch:
 
-Current small-slice progress: **0/5**.
+`m6-focus-icon-tooltips`
 
-### Five checkpoints for this slice
+Branch base/tracking tip:
 
-1. reconstruct the exact item-14 contract from current Focus icon-only controls, shared accessible tooltip primitives, current keyboard/focus behavior, disabled/placeholder controls, product/UI evidence, validated M5 tooltip behavior and current Focus tests/fixtures — pending;
-2. implement the narrow tooltip/accessibility behavior plus deterministic/static/visual coverage and semantic diff review — pending;
-3. validate the exact PR head with authoritative Windows CI: repository preflight, Windows visual regression, Tauri Release and required artifact uploads — pending;
-4. final exact-head review + expected-head guarded squash merge — pending;
-5. validate the resulting main source SHA with Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable work log — pending.
+`c162d159a4e69eb3ee8312a9b11c589135cb435c`
 
-Scope boundary for item 14:
+Latest source/test implementation head before this handoff-only commit:
 
-- identify actual icon-only Focus controls and ensure their purpose is available through the established keyboard-capable tooltip/accessibility primitive;
-- preserve item-13 reserved geometry and hit-target positions; tooltip disclosure must not resize or move controls;
-- preserve existing accessible names and disabled semantics rather than creating duplicate/conflicting announcements;
-- do not make currently disabled placeholder controls functionally active merely to add tooltips;
-- do not absorb item 15 active/paused/break/overtime/notes-expanded visual-state polish or item 16 empty-state work;
-- do not absorb Milestone 7 Floating Timer, Milestone 8 Preferences/shortcuts, Reports or release scope.
+`66bf83ad1a1e14d4d63fe5cd3051fd164f0ef9e7`
+
+Open implementation PR:
+
+**#114 — `M6: add Focus icon tooltips`**
+
+### Checkpoint 1/5 — COMPLETE: contract reconstructed
+
+Repository/code evidence establishes the narrow contract:
+
+- reuse the validated shared `Tooltip` primitive, including pointer intent, keyboard-focus discovery, `aria-describedby` association and Escape dismissal;
+- add tooltips only where Focus currently has genuinely icon-only controls without the shared tooltip path;
+- preserve every existing accessible name and existing action/disabled behavior;
+- preserve item-13 reserved geometry and hit-target locations; tooltip disclosure must not resize or move controls;
+- already-tooltipped shared `TaskSubtasks` and `TaskNotes` controls must remain unchanged rather than gaining duplicate tooltip layers;
+- text-labelled Home, live Break/Notes/Pause-Resume/Skip/Done controls, metric values and the labelled subtask toggle are outside the icon-only slice;
+- disabled Preferences and Compact-view placeholders must remain functionally inactive; item 14 must not implement their later product behavior;
+- item 15 visual-state polish, item 16 empty-state work, Milestone 7 Floating Timer and Milestone 8 settings/shortcuts remain separate.
+
+The actual missing icon-only Focus tooltip surfaces are:
+
+- topbar Preferences (`⚙`) placeholder;
+- topbar Compact view (`↙`) placeholder;
+- live-subtask Add (`+`) control;
+- paused metric Cancel (`×`) and Save (`✓`) controls.
+
+### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/static review
+
+Implementation scope:
+
+- `src/FocusPanel.tsx`
+  - Preferences and Compact-view icon placeholders reuse the shared `Tooltip` primitive;
+  - native `title` duplication was removed for those two controls;
+  - they use `aria-disabled="true"` with their existing accessible names so keyboard focus can disclose the tooltip while no click/action handler exists;
+  - text-labelled Home remains native-disabled and outside the icon-only slice.
+- `src/FocusLiveSubtasks.tsx`
+  - wraps the existing `+` Add-subtask control in `Tooltip content="Add subtask"` while retaining its contextual accessible label and existing disabled/action semantics.
+- `src/FocusLiveMetrics.tsx`
+  - wraps the existing paused-editor Cancel/Save icon controls in contextual shared tooltips while retaining their aria labels, handlers and disabled state.
+- `src/focusActionSlots.css`
+  - preserves the validated item-13 action-slot rules;
+  - adds only Focus-topbar styling that keeps keyboard-discoverable `aria-disabled` placeholders visually non-actionable and neutralizes active hover/press styling without changing geometry.
+- `scripts/test-ui-focus-icon-tooltips.mjs`
+  - locks exact icon-only coverage, reuse of the shared accessible tooltip primitive, placeholder non-activation, preservation of existing TaskSubtasks/TaskNotes tooltips, and unchanged topbar/metric geometry.
+- `scripts/test-ui-focus-panel.mjs`
+  - legacy non-mutating-placeholder contract was evolved after exact CI evidence so it accepts the item-14 keyboard-discoverable `aria-disabled` placeholders only when both remain handler-free.
+- `package.json`
+  - registers the deterministic item-14 contract in `preflight:frontend`.
+
+Review evidence:
+
+- no Rust/Tauri, SQLite/schema, dependency/lockfile, task/domain, timer/session, scheduling, display-topology or persistence code changed;
+- no new action handlers or functional behavior were added to Preferences or Compact view;
+- no transform, margin, transition or alternate layout model was added to the validated item-13 geometry path;
+- the new item-14 `.mjs` test passes local `node --check`;
+- full local repository/frontend/Rust/Tauri preflight is **NOT RUN** because no local repository checkout/toolchain path is available in this implementation environment; authoritative Windows CI remains required.
+
+### Exact CI evidence so far
+
+Initial PR exact head:
+
+`fa43d369769d296462a044ba0cb8e59953655476`
+
+Windows CI #429:
+
+- run `34861136189`;
+- job `104033361648`;
+- **FAILED** at Repository Preflight;
+- setup, dependency install and all frontend checks before `test:ui-focus-panel` passed;
+- exact failure: legacy `scripts/test-ui-focus-panel.mjs` required Preferences to remain native `disabled`, conflicting with item-14 keyboard-focus tooltip discovery;
+- no visual regression, Tauri Release or artifact upload ran after the failed preflight;
+- evidence-backed fix commit `66bf83ad1a1e14d4d63fe5cd3051fd164f0ef9e7` changes only that legacy deterministic invariant; production behavior is unchanged.
+
+### Checkpoint 3/5 — PENDING
+
+Require a new authoritative Windows CI run on the exact PR head after this handoff commit: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads. If it fails, inspect the exact failure and fix only evidence-backed problems on the same branch/PR. A failed run does not increment progress.
+
+### Checkpoint 4/5 — PENDING
+
+After exact-head CI success, verify the unchanged exact head, mergeability, changed-file scope and all PR conversation comments/reviews/inline threads. Then squash merge with an expected-head guard.
+
+### Checkpoint 5/5 — PENDING
+
+Validate the resulting main source SHA with authoritative Windows CI. Only after full success reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable item-14 work log; M6 then becomes 14/16.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -109,7 +147,7 @@ Scope boundary for item 14:
 
 ## NEXT AGENT ACTION
 
-Reconstruct item 14 before editing. Inspect every current Focus icon-only control and its accessible name/disabled state, the shared `Tooltip` implementation and existing M5 tooltip consumers/tests, item-13 reserved action CSS, Focus quick controls/subtask controls, and current Focus visual/static fixtures. Determine the smallest set of controls that genuinely require a tooltip, then implement only that tooltip/accessibility slice on one coherent branch. Do not start item 15 in parallel.
+Inspect PR #114 and the exact latest head after this handoff commit. Check the new authoritative Windows CI run first. If CI fails, fetch the exact job log and fix only the evidenced issue on `m6-focus-icon-tooltips`. If CI succeeds, record artifacts and proceed to final exact-head review and expected-head guarded squash merge. Do not start item 15 in parallel.
 
 ## USER ACTION REQUIRED
 
@@ -117,5 +155,5 @@ Reconstruct item 14 before editing. Inspect every current Focus icon-only contro
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks item 14.
-- Local repository/Rust/Tauri capability may remain unavailable in this environment; use the strongest connector/static checks available and authoritative Windows CI.
+- No product/user decision blocks item 14.
+- Full local repository/Rust/Tauri preflight remains unavailable in this environment; the new item-14 deterministic test itself passed `node --check`, and Windows CI is the authoritative validation gate.

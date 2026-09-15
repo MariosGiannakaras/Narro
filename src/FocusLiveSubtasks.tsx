@@ -13,6 +13,7 @@ import {
   type ListBoardRequestTarget,
   type ListBoardTask,
 } from "./listBoardApi";
+import { Tooltip } from "./overlayPrimitives";
 import { TaskSubtasks, type TaskSubtasksModel } from "./TaskSubtasks";
 
 type FocusLiveSubtasksProps = {
@@ -210,16 +211,18 @@ export function FocusLiveSubtasks({
           <span>{progress.total === 0 ? "Subtasks" : `${progress.completed}/${progress.total} Subtasks`}</span>
           <span aria-hidden="true">{expanded ? "⌃" : "⌄"}</span>
         </button>
-        <button
-          type="button"
-          className="focus-panel__subtask-add motion-interactive"
-          data-focus-subtask-control="add"
-          aria-label={`Add subtask for ${task.title}`}
-          disabled={fixtureMode || refreshBlocked}
-          onClick={ensureExpanded}
-        >
-          +
-        </button>
+        <Tooltip content="Add subtask">
+          <button
+            type="button"
+            className="focus-panel__subtask-add motion-interactive"
+            data-focus-subtask-control="add"
+            aria-label={`Add subtask for ${task.title}`}
+            disabled={fixtureMode || refreshBlocked}
+            onClick={ensureExpanded}
+          >
+            +
+          </button>
+        </Tooltip>
       </div>
 
       {expanded ? (

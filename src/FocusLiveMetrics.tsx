@@ -5,6 +5,7 @@ import {
   type ListBoardRequestTarget,
   type ListBoardTask,
 } from "./listBoardApi";
+import { Tooltip } from "./overlayPrimitives";
 import {
   setPausedTimerEstimate,
   setPausedTimerTimeTaken,
@@ -274,20 +275,24 @@ export function FocusLiveMetrics({
                   }}
                 />
                 <span className="focus-panel__metric-actions">
-                  <button
-                    type="button"
-                    data-focus-metric-control="cancel"
-                    aria-label={`Cancel ${metricLabel(metric)} edit`}
-                    disabled={pending || interactionBlocked}
-                    onClick={() => setEditor(null)}
-                  >×</button>
-                  <button
-                    type="button"
-                    data-focus-metric-control="save"
-                    aria-label={`Save ${metricLabel(metric)}`}
-                    disabled={pending || interactionBlocked}
-                    onClick={() => void save()}
-                  >✓</button>
+                  <Tooltip content={`Cancel ${metricLabel(metric)} edit`}>
+                    <button
+                      type="button"
+                      data-focus-metric-control="cancel"
+                      aria-label={`Cancel ${metricLabel(metric)} edit`}
+                      disabled={pending || interactionBlocked}
+                      onClick={() => setEditor(null)}
+                    >×</button>
+                  </Tooltip>
+                  <Tooltip content={`Save ${metricLabel(metric)}`}>
+                    <button
+                      type="button"
+                      data-focus-metric-control="save"
+                      aria-label={`Save ${metricLabel(metric)}`}
+                      disabled={pending || interactionBlocked}
+                      onClick={() => void save()}
+                    >✓</button>
+                  </Tooltip>
                 </span>
               </>
             ) : canEdit ? (
