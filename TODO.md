@@ -241,7 +241,7 @@ Acceptance criteria:
 - [x] Implement configured scrolling behavior for the live title.
 - [x] Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.
 - [x] Reserve action slots for hover/focus controls so controls never push task text or move hit targets.
-- [ ] Add tooltips for icon-only controls.
+- [x] Add tooltips for icon-only controls.
 - [ ] Implement active-card, paused, break, time-up/overtime, overdue, notes-expanded and no-eligible-task visual states.
 - [ ] Handle empty/no-eligible-task states.
 
