@@ -148,8 +148,9 @@ function FocusTaskRow({
   const schedule = taskScheduleLabel(task);
   return (
     <article
-      className={`focus-panel__task-row${done ? " focus-panel__task-row--done" : ""}`}
+      className={`focus-panel__task-row${done ? " focus-panel__task-row--done" : ""}${task.isOverdue ? " focus-panel__task-row--overdue" : ""}`}
       data-focus-task-row={done ? "done" : scheduled ? "scheduled" : "remaining"}
+      data-focus-overdue={task.isOverdue ? "true" : "false"}
       data-task-id={task.id}
     >
       <div className="focus-panel__task-main">
@@ -355,6 +356,7 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
   );
   const scheduledIds = new Set(scheduledTasks.map((task) => task.id));
   const remainingTasks = remainingCandidates.filter((task) => !scheduledIds.has(task.id));
+  const noEligibleVisualState = liveTask === null && remainingTasks.length === 0 && scheduledTasks.length > 0;
   const doneTasks = board.done.tasks;
   const totalCount = board.today.count + board.done.count;
   const donePercent = totalCount > 0 ? Math.min(100, Math.round((board.done.count / totalCount) * 100)) : 0;
@@ -442,7 +444,11 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
             ) : null}
           </article>
         ) : (
-          <div className="focus-panel__live-card focus-panel__live-card--empty" data-focus-live-card="false">
+          <div
+            className={`focus-panel__live-card focus-panel__live-card--empty${noEligibleVisualState ? " focus-panel__live-card--no-eligible" : ""}`}
+            data-focus-live-card="false"
+            data-focus-live-state={noEligibleVisualState ? "no-eligible" : "idle"}
+          >
             <span className="type-metadata">No live task in this view</span>
           </div>
         )}
