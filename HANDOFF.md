@@ -47,11 +47,13 @@ Branch base / tracking tip when the slice started:
 
 `8a335e9bc186e65fe673b24b640c715bf01bdb20`
 
-Latest implementation head before this handoff-only checkpoint:
+Latest source/test implementation head before this handoff-only checkpoint:
 
-`71082eca28ba55aaad2b7ad696594d5453b91de6`
+`0cba2e14dbf76bec92592ffcd723dda3e48806fb`
 
-No PR existed before this handoff update. Open one coherent item-15 PR after this checkpoint commit; do not create a parallel replacement branch.
+Open implementation PR:
+
+**#115 — `M6: add Focus visual states`**
 
 ### Checkpoint 1/5 — COMPLETE: exact visual-state contract reconstructed
 
@@ -84,25 +86,27 @@ Production presentation changes:
 
 Coverage changes:
 
-- `src/focusPanelVisualFixture.tsx` now supports deterministic `running`, `paused-metrics`, `break`, `time-up`, `overtime`, `notes-expanded` and `no-eligible` scenarios while preserving the established running/paused geometry contract;
+- `src/focusPanelVisualFixture.tsx` supports deterministic `running`, `paused-metrics`, `break`, `time-up`, `overtime`, `notes-expanded` and `no-eligible` scenarios while preserving established running/paused geometry contracts;
 - Notes-expanded fixture execution uses the production Notes toggle and a fixture-only mock of the authoritative note-read boundary;
 - `scripts/capture-focus-panel-fixtures.ps1` captures all seven scenarios in light and dark themes;
 - new `scripts/test-ui-focus-visual-states.mjs` locks scope, state projection, item-15/item-16 separation, token use and no-motion/no-layout-shift rules;
 - new `scripts/validate-focus-visual-state-captures.mjs` validates semantic state markers, computed visual distinction, Notes expansion, overdue distinction and no-eligible non-activation;
-- `scripts/test-ui-focus-action-slots.mjs` was narrowly evolved so the fixture may omit live-action geometry only in the no-live scenario while retaining the existing live-scenario geometry checks;
+- `scripts/test-ui-focus-action-slots.mjs` was narrowly evolved so the fixture may omit live-action geometry only in the no-live scenario while retaining existing live-scenario geometry checks;
+- `scripts/test-ui-focus-panel.mjs` was evolved after exact CI evidence so the legacy production-fixture contract recognizes the expanded scenario matrix and optional live-only geometry without weakening paused-state/timer/action invariants;
 - `package.json` registers the new deterministic test and Windows visual validator.
 
-Semantic compare against `8a335e9bc186e65fe673b24b640c715bf01bdb20` shows exactly nine item-15 files:
+Current semantic scope against the item-15 base is ten implementation/test/config files plus this handoff checkpoint:
 
 1. `package.json`;
 2. `scripts/capture-focus-panel-fixtures.ps1`;
 3. `scripts/test-ui-focus-action-slots.mjs`;
-4. `scripts/test-ui-focus-visual-states.mjs`;
-5. `scripts/validate-focus-visual-state-captures.mjs`;
-6. `src/FocusPanel.tsx`;
-7. `src/focusActionSlots.css`;
-8. `src/focusPanelVisualFixture.tsx`;
-9. `src/focusVisualStates.css`.
+4. `scripts/test-ui-focus-panel.mjs`;
+5. `scripts/test-ui-focus-visual-states.mjs`;
+6. `scripts/validate-focus-visual-state-captures.mjs`;
+7. `src/FocusPanel.tsx`;
+8. `src/focusActionSlots.css`;
+9. `src/focusPanelVisualFixture.tsx`;
+10. `src/focusVisualStates.css`.
 
 No Rust/Tauri, SQLite/schema, dependency/lockfile, task/domain, authoritative timer/session transition, scheduling classification, display-topology or persistence code changed.
 
@@ -112,9 +116,25 @@ Local validation available in this environment:
 - `node --check scripts/validate-focus-visual-state-captures.mjs`: **PASS**;
 - full repository/frontend/Rust/Tauri preflight: **NOT RUN** because no local repository checkout/network path is available; authoritative Windows CI remains required.
 
+### Exact CI evidence so far
+
+Initial PR exact head:
+
+`72c7dc9a61b06816ff49c0ec149a1f0d492cb294`
+
+Windows CI #433:
+
+- run `35003897863`;
+- job `104498736068`;
+- **FAILED** at Repository Preflight;
+- setup, dependency install and all frontend checks before `test:ui-focus-panel` passed;
+- exact failure: legacy `scripts/test-ui-focus-panel.mjs` still required the old two-scenario fixture source shape and reported `paused metric visual scenario is missing`;
+- Windows visual regression, Tauri Release and artifact uploads were skipped after the failed preflight;
+- evidence-backed fix commit `0cba2e14dbf76bec92592ffcd723dda3e48806fb` changes only that legacy deterministic fixture contract; production behavior is unchanged.
+
 ### Checkpoint 3/5 — PENDING
 
-Open the single item-15 PR, inspect its exact head SHA, and require authoritative Windows CI to pass on that exact head:
+Require a fresh authoritative Windows CI run on the exact latest PR head after this handoff commit:
 
 - Repository Preflight;
 - Windows visual regression, including all new Focus state captures/validator;
@@ -151,7 +171,7 @@ Validate the resulting main source SHA with authoritative Windows CI. Only after
 
 ## NEXT AGENT ACTION
 
-Open/inspect the item-15 PR from `m6-focus-visual-states` and check authoritative Windows CI on its exact head first. If CI fails, fix only the exact evidenced problem on the same branch/PR. If CI succeeds, record artifacts and proceed to final exact-head review plus expected-head guarded squash merge. Do not start item 16 in parallel.
+Check PR #115 and authoritative Windows CI on its exact latest head first. If CI fails, fetch the exact job log and fix only the evidenced problem on `m6-focus-visual-states`. If CI succeeds, record artifacts and proceed to final exact-head review plus expected-head guarded squash merge. Do not start item 16 in parallel.
 
 ## USER ACTION REQUIRED
 
