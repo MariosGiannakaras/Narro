@@ -78,6 +78,14 @@ for (const scenario of ["running", "paused-metrics", "break", "time-up", "overti
     invariant(capture.includes(`scenario=${scenario}`), `Windows capture harness is missing ${scenario} scenario`);
   }
 }
+invariant(
+  capture.includes('Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded"; VirtualTimeBudgetMs = 500'),
+  "Notes-expanded Windows capture must reserve virtual time for the asynchronous production Notes read/toggle path",
+);
+invariant(
+  capture.includes('$edgeArguments = @("--virtual-time-budget=$($scenario.VirtualTimeBudgetMs)") + $edgeArguments'),
+  "Focus capture harness must apply scenario-specific virtual time without changing synchronous scenarios",
+);
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");
 invariant(fixture.includes("notesButton.click();"), "Notes-expanded fixture must exercise the production Notes toggle");
 invariant(fixture.includes('scenario === "no-eligible" ? [scheduledTask] : normalTodayTasks'), "no-eligible fixture must retain scheduled work while removing eligible/live work");
