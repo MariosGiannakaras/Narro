@@ -57,7 +57,10 @@ invariant(styles.includes('var(--color-accent-solid)'), "running state must reus
 invariant(styles.includes('var(--color-warning)'), "paused/overtime states must reuse warning tokens");
 invariant(styles.includes('var(--color-success)'), "break state must reuse success tokens");
 invariant(styles.includes('var(--color-destructive)'), "Time's Up and overdue states must reuse destructive tokens");
-invariant(styles.includes('.focus-panel__live-card--no-eligible'), "no-eligible visual marker needs explicit styling");
+invariant(
+  styles.includes('.focus-panel__live-card.focus-panel__live-card--no-eligible[data-focus-live-state="no-eligible"]'),
+  "no-eligible styling must outrank the base live-card border shorthand regardless of stylesheet import order",
+);
 invariant(styles.includes('.focus-panel__task-row[data-focus-overdue="true"]'), "overdue rows need explicit visual treatment");
 invariant(styles.includes('.focus-panel__notes:not([hidden])'), "expanded Focus Notes need an explicit visual surface");
 for (const forbidden of ["transform:", "animation:", "transition:", "position: absolute", "margin-left:", "margin-right:"]) {
