@@ -48,7 +48,7 @@
   color: var(--color-destructive);
 }
 
-.focus-panel__live-card--no-eligible {
+.focus-panel__live-card.focus-panel__live-card--no-eligible[data-focus-live-state="no-eligible"] {
   border-style: dashed;
   border-color: var(--color-warning);
   background: color-mix(in srgb, var(--color-warning-surface) 28%, var(--color-surface-raised));
