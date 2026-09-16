@@ -49,7 +49,7 @@ Branch base / tracking tip when the slice started:
 
 Latest source/test implementation head before this handoff-only checkpoint:
 
-`260a5ea2abc35d85fe12057b2ab12545c9827ff4`
+`6bbf5e1c0071291a14fa7d967851b2e91c8506fc`
 
 Open implementation PR:
 
@@ -80,6 +80,7 @@ Production presentation changes:
   - leaves authoritative live timer state projection unchanged.
 - `src/focusVisualStates.css`
   - adds token-based active/running, paused, break, Time's Up, overtime, overdue, Notes-expanded and no-eligible presentation;
+  - uses a state-qualified no-eligible selector with enough specificity to outrank the base live-card `border` shorthand regardless of stylesheet import order;
   - adds no transform, animation, transition, absolute positioning or margin-based target movement.
 - `src/focusActionSlots.css`
   - loads the new Focus-scoped state stylesheet while retaining the validated item-13 fixed action geometry unchanged.
@@ -89,7 +90,7 @@ Coverage changes:
 - `src/focusPanelVisualFixture.tsx` supports deterministic `running`, `paused-metrics`, `break`, `time-up`, `overtime`, `notes-expanded` and `no-eligible` scenarios while preserving established running/paused geometry contracts;
 - Notes-expanded fixture execution uses the production Notes toggle and a fixture-only mock of the authoritative note-read boundary;
 - `scripts/capture-focus-panel-fixtures.ps1` captures all seven scenarios in light and dark themes and gives only the asynchronous Notes-expanded scenario a 500 ms Edge virtual-time budget so its established production note-read/toggle path can settle before `--dump-dom`;
-- new `scripts/test-ui-focus-visual-states.mjs` locks scope, state projection, item-15/item-16 separation, token use, no-motion/no-layout-shift rules and the Notes-specific virtual-time wait contract;
+- new `scripts/test-ui-focus-visual-states.mjs` locks scope, state projection, item-15/item-16 separation, token use, no-motion/no-layout-shift rules, the Notes-specific virtual-time wait contract and the no-eligible cascade-specificity contract;
 - new `scripts/validate-focus-visual-state-captures.mjs` validates semantic state markers, computed visual distinction, Notes expansion, overdue distinction and no-eligible non-activation;
 - `scripts/test-ui-focus-action-slots.mjs` was narrowly evolved so the fixture may omit live-action geometry only in the no-live scenario while retaining existing live-scenario geometry checks;
 - `scripts/test-ui-focus-panel.mjs` was evolved after exact CI evidence so the legacy production-fixture contract recognizes the expanded scenario matrix and optional live-only geometry without weakening paused-state/timer/action invariants;
@@ -112,7 +113,7 @@ No Rust/Tauri, SQLite/schema, dependency/lockfile, task/domain, authoritative ti
 
 Local validation available in this environment:
 
-- `node --check scripts/test-ui-focus-visual-states.mjs`: **PASS** on the pre-wait contract version; the current file is simple deterministic Node source and remains covered by authoritative preflight;
+- `node --check scripts/test-ui-focus-visual-states.mjs`: **PASS** on an earlier version; current deterministic source remains covered by authoritative preflight;
 - `node --check scripts/validate-focus-visual-state-captures.mjs`: **PASS**;
 - full local repository/frontend/Rust/Tauri preflight: **NOT RUN** because no local repository checkout/network path is available; authoritative Windows CI remains required.
 
@@ -153,6 +154,28 @@ Evidence-backed Notes fixture fix:
 - commit `7006c7e79f81b106f0e97a46de702c0aa5ce5be9` adds `VirtualTimeBudgetMs = 500` only to the Notes-expanded Focus scenario and passes that argument to Edge only when nonzero;
 - commit `260a5ea2abc35d85fe12057b2ab12545c9827ff4` locks this asynchronous capture-wait contract in `test-ui-focus-visual-states.mjs`;
 - no production rendering, timer/session, scheduling, persistence or native behavior changed in either fix.
+
+Exact PR head after the Notes fix/handoff:
+
+`7bc574a53b10d2a21a3771820a3da9e43923c40a`
+
+Windows CI #438:
+
+- run `35087031493`;
+- job `104764225335`;
+- Repository Preflight: **SUCCESS**, including all frontend deterministic tests/build, Rust fmt/check/clippy, 254 Rust unit tests plus integration suites and performance harness;
+- Focus capture generation: **SUCCESS**;
+- existing Focus Panel, row-title and action-slot visual validators: **SUCCESS**;
+- the prior Notes-expanded readiness failure is resolved: validation advanced beyond Notes-expanded;
+- new Focus visual-state validator: **FAILED** only at the no-eligible computed-style assertion: `focus-panel-no-eligible-light no-eligible card must use the restrained dashed state treatment`;
+- exact CSS evidence: `focusVisualStates.css` used `.focus-panel__live-card--no-eligible { border-style: dashed; ... }`, while `focusPanel.css` contains the base `.focus-panel__live-card { ... border: 1px solid ... }`; because the state stylesheet is loaded through a child Focus-scoped stylesheet, the equal-specificity base shorthand could win by bundle/import order and reset `border-style` to `solid`;
+- Tauri Release and both artifact uploads were skipped after the visual-regression failure.
+
+Evidence-backed no-eligible cascade fix:
+
+- commit `db447e52ce6ace7193b84b60c1eb2d790df10f6c` changes only the intended presentation selector to `.focus-panel__live-card.focus-panel__live-card--no-eligible[data-focus-live-state="no-eligible"]`, so the no-eligible dashed treatment outranks the base live-card shorthand independent of stylesheet import order;
+- commit `6bbf5e1c0071291a14fa7d967851b2e91c8506fc` locks that cascade-specificity contract in `test-ui-focus-visual-states.mjs`;
+- no timer/session, scheduling, persistence, domain, native/window or item-16 behavior changed.
 
 ### Checkpoint 3/5 — PENDING
 
