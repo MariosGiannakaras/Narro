@@ -34,13 +34,13 @@ $edge = Resolve-EdgePath
 $preview = $null
 $locationPushed = $false
 $scenarios = @(
-    @{ Name = "running"; Suffix = ""; Query = "" },
-    @{ Name = "paused-metrics"; Suffix = "-paused-metrics"; Query = "&scenario=paused-metrics" },
-    @{ Name = "break"; Suffix = "-break"; Query = "&scenario=break" },
-    @{ Name = "time-up"; Suffix = "-time-up"; Query = "&scenario=time-up" },
-    @{ Name = "overtime"; Suffix = "-overtime"; Query = "&scenario=overtime" },
-    @{ Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded" },
-    @{ Name = "no-eligible"; Suffix = "-no-eligible"; Query = "&scenario=no-eligible" }
+    @{ Name = "running"; Suffix = ""; Query = ""; VirtualTimeBudgetMs = 0 },
+    @{ Name = "paused-metrics"; Suffix = "-paused-metrics"; Query = "&scenario=paused-metrics"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "break"; Suffix = "-break"; Query = "&scenario=break"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "time-up"; Suffix = "-time-up"; Query = "&scenario=time-up"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "overtime"; Suffix = "-overtime"; Query = "&scenario=overtime"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded"; VirtualTimeBudgetMs = 500 },
+    @{ Name = "no-eligible"; Suffix = "-no-eligible"; Query = "&scenario=no-eligible"; VirtualTimeBudgetMs = 0 }
 )
 
 try {
@@ -65,7 +65,7 @@ try {
             New-Item -ItemType Directory -Path $profile -Force | Out-Null
 
             try {
-                $process = Start-Process -FilePath $edge -ArgumentList @(
+                $edgeArguments = @(
                     "--headless=new",
                     "--disable-gpu",
                     "--disable-background-networking",
@@ -77,7 +77,12 @@ try {
                     "--screenshot=$screenshot",
                     "--dump-dom",
                     $url
-                ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
+                )
+                if ($scenario.VirtualTimeBudgetMs -gt 0) {
+                    $edgeArguments = @("--virtual-time-budget=$($scenario.VirtualTimeBudgetMs)") + $edgeArguments
+                }
+
+                $process = Start-Process -FilePath $edge -ArgumentList $edgeArguments -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
 
                 $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
                 if ($process.ExitCode -ne 0) { throw "Focus Panel Edge capture failed for $theme/$($scenario.Name). $stderrText" }
