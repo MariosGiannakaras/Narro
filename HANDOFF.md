@@ -49,7 +49,7 @@ Branch base / tracking tip when the slice started:
 
 Latest source/test implementation head before this handoff-only checkpoint:
 
-`0cba2e14dbf76bec92592ffcd723dda3e48806fb`
+`260a5ea2abc35d85fe12057b2ab12545c9827ff4`
 
 Open implementation PR:
 
@@ -88,8 +88,8 @@ Coverage changes:
 
 - `src/focusPanelVisualFixture.tsx` supports deterministic `running`, `paused-metrics`, `break`, `time-up`, `overtime`, `notes-expanded` and `no-eligible` scenarios while preserving established running/paused geometry contracts;
 - Notes-expanded fixture execution uses the production Notes toggle and a fixture-only mock of the authoritative note-read boundary;
-- `scripts/capture-focus-panel-fixtures.ps1` captures all seven scenarios in light and dark themes;
-- new `scripts/test-ui-focus-visual-states.mjs` locks scope, state projection, item-15/item-16 separation, token use and no-motion/no-layout-shift rules;
+- `scripts/capture-focus-panel-fixtures.ps1` captures all seven scenarios in light and dark themes and gives only the asynchronous Notes-expanded scenario a 500 ms Edge virtual-time budget so its established production note-read/toggle path can settle before `--dump-dom`;
+- new `scripts/test-ui-focus-visual-states.mjs` locks scope, state projection, item-15/item-16 separation, token use, no-motion/no-layout-shift rules and the Notes-specific virtual-time wait contract;
 - new `scripts/validate-focus-visual-state-captures.mjs` validates semantic state markers, computed visual distinction, Notes expansion, overdue distinction and no-eligible non-activation;
 - `scripts/test-ui-focus-action-slots.mjs` was narrowly evolved so the fixture may omit live-action geometry only in the no-live scenario while retaining existing live-scenario geometry checks;
 - `scripts/test-ui-focus-panel.mjs` was evolved after exact CI evidence so the legacy production-fixture contract recognizes the expanded scenario matrix and optional live-only geometry without weakening paused-state/timer/action invariants;
@@ -112,9 +112,9 @@ No Rust/Tauri, SQLite/schema, dependency/lockfile, task/domain, authoritative ti
 
 Local validation available in this environment:
 
-- `node --check scripts/test-ui-focus-visual-states.mjs`: **PASS**;
+- `node --check scripts/test-ui-focus-visual-states.mjs`: **PASS** on the pre-wait contract version; the current file is simple deterministic Node source and remains covered by authoritative preflight;
 - `node --check scripts/validate-focus-visual-state-captures.mjs`: **PASS**;
-- full repository/frontend/Rust/Tauri preflight: **NOT RUN** because no local repository checkout/network path is available; authoritative Windows CI remains required.
+- full local repository/frontend/Rust/Tauri preflight: **NOT RUN** because no local repository checkout/network path is available; authoritative Windows CI remains required.
 
 ### Exact CI evidence so far
 
@@ -130,7 +130,29 @@ Windows CI #433:
 - setup, dependency install and all frontend checks before `test:ui-focus-panel` passed;
 - exact failure: legacy `scripts/test-ui-focus-panel.mjs` still required the old two-scenario fixture source shape and reported `paused metric visual scenario is missing`;
 - Windows visual regression, Tauri Release and artifact uploads were skipped after the failed preflight;
-- evidence-backed fix commit `0cba2e14dbf76bec92592ffcd723dda3e48806fb` changes only that legacy deterministic fixture contract; production behavior is unchanged.
+- evidence-backed fix commit `0cba2e14dbf76bec92592ffcd723dda3e48806fb` changed only that legacy deterministic fixture contract; production behavior was unchanged.
+
+Next exact PR head:
+
+`2fd45c98030e0497d6357ad9190d4ccd9f18963c`
+
+Windows CI #435:
+
+- run `35004348203`;
+- job `104500535711`;
+- Repository Preflight: **SUCCESS**, including frontend build, Rust fmt/check/clippy/tests and performance harness;
+- Focus capture generation: completed and wrote all fixture files;
+- existing Focus Panel, row-title and action-slot visual validators: **SUCCESS**;
+- new Focus visual-state validator: **FAILED** only because `focus-panel-notes-expanded-light` lacked `data-focus-panel-fixture-ready="true"` in the dumped DOM;
+- exact evidence: the Notes-expanded fixture intentionally executes `notesButton.click()` and waits 80 ms after the asynchronous authoritative-note read mock, while the Focus Edge capture had no virtual-time budget and could dump DOM before that async path settled;
+- repository precedent: existing asynchronous visual capture harnesses use Edge `--virtual-time-budget`;
+- Tauri Release and both artifact uploads were skipped after the visual-regression failure.
+
+Evidence-backed Notes fixture fix:
+
+- commit `7006c7e79f81b106f0e97a46de702c0aa5ce5be9` adds `VirtualTimeBudgetMs = 500` only to the Notes-expanded Focus scenario and passes that argument to Edge only when nonzero;
+- commit `260a5ea2abc35d85fe12057b2ab12545c9827ff4` locks this asynchronous capture-wait contract in `test-ui-focus-visual-states.mjs`;
+- no production rendering, timer/session, scheduling, persistence or native behavior changed in either fix.
 
 ### Checkpoint 3/5 — PENDING
 
