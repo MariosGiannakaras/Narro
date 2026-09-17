@@ -46,7 +46,7 @@ invariant(subtasks.includes('data-task-subtask-control="delete"'), "existing Del
 invariant(liveActions.includes('className="focus-panel__live-actions"'), "existing live action strip must remain the production path");
 invariant(rowTitleCss.includes("-webkit-line-clamp: 2"), "item-12 two-line ordinary title contract must remain intact");
 invariant(rowTitleCss.includes("flex: 1 1 auto"), "item-12 flexible title slot must remain intact");
-invariant(fixture.includes('actions: box(".focus-panel__live-actions")'), "Windows visual fixture must continue measuring live action geometry");
+invariant(fixture.includes('actions: optionalBox(".focus-panel__live-actions")'), "Windows visual fixture must keep measuring live action geometry whenever a live surface exists");
 invariant(visualValidator.includes("baselineActionWidth"), "Windows visual validator must compare Focus action width across captures");
 invariant(visualValidator.includes("baselineActionHeight"), "Windows visual validator must compare Focus action height across captures");
 invariant(pkg.scripts["test:ui-focus-action-slots"] === "node scripts/test-ui-focus-action-slots.mjs", "package script registration differs");
