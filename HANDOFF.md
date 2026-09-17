@@ -7,206 +7,112 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 **Milestone 6 — Blitz Mode / Focus Panel.**
 
 - Milestones 1–5: COMPLETE / PASS.
-- Milestone 6: ACTIVE / **14 of 16** top-level items validated.
+- Milestone 6: ACTIVE / **15 of 16** top-level items validated.
 - Milestones 7–10: NOT STARTED.
 - General roadmap progress: **5/10 milestones complete**.
-- Current item-15 implementation slice: **2/5 checkpoints complete**.
+- Item 15 closed at **5/5 checkpoints complete**.
+- Current item-16 implementation slice: **0/5 checkpoints complete**.
+
+Repository compact progress source values: `5/10M || 0/5 | 15/16`.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Source/test SHA:
 
-`08d06b6fcf9167d832c3e2f51e04756141f02b7b`
+`1ddf7daf60c1507f12fc87b67119aa65fc8621bb`
 
 Source tree:
 
-`3fa724f6fd92c6952729ab6f826d9fa8fd96cb47`
+`e6e984689ea8a82c34b60790fdcee328c6d7b37b`
 
-This is the expected-head guarded squash merge of PR #114 after authoritative resulting-main Windows CI #432 passed on the exact merged source SHA. Markdown-only tracking descendants after this SHA do **not** replace the validated source/test baseline.
+This is the expected-head guarded squash merge of PR #115 after authoritative resulting-main Windows CI #442 passed on the exact merged source SHA. Markdown-only tracking descendants after this SHA do **not** replace the validated source/test baseline.
 
 Latest immutable completed evidence:
 
-`work-log/2026-09-15-chatgpt-m6-focus-icon-tooltips.md`
+`work-log/2026-09-17-2215-chatgpt-m6-focus-visual-states.md`
 
-Latest completed validation evidence:
+## LATEST VALIDATION EVIDENCE — M6 ITEM 15
 
-- PR #114 exact head `b5f21b93d36c84b9fbb83f75796f0f1d7ad7b680`;
-- PR Windows CI #431 / run `34861579858` / job `104035182883`: **SUCCESS**;
-- resulting-main Windows CI #432 / run `34999410686` / job `104483783226` on source SHA `08d06b6fcf9167d832c3e2f51e04756141f02b7b`: **SUCCESS**;
-- Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads passed on both gates.
+PR #115 — `M6: add Focus visual states`
+
+Final exact PR head:
+
+`9e68c546826513255d2e9538e6fc9baae428a432`
+
+Authoritative PR Windows CI #441:
+
+- run `35088139238`;
+- job `104767793017`;
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- both required artifact uploads: **SUCCESS**;
+- visual artifact `10443108727`, digest `sha256:b7bf9c7372e744e4e46879581c56e94cf23dc32d94b601f917d6f1ef568ab99f`;
+- diagnostic/runtime artifact `10444005797`, digest `sha256:af4846a9b2c554c73dc5179a8dce986beb423006277742b06798df6ef3ec5364`.
+
+Final review verified the exact head unchanged and mergeable, `main` still at the PR base, exactly 11 expected changed files, and no PR conversation comments, submitted reviews or inline review threads.
+
+Expected-head guarded squash merge:
+
+`1ddf7daf60c1507f12fc87b67119aa65fc8621bb`
+
+Authoritative resulting-main Windows CI #442:
+
+- run `35264051291`;
+- job `105346638723`;
+- exact main source SHA `1ddf7daf60c1507f12fc87b67119aa65fc8621bb`;
+- Repository Preflight: **SUCCESS**;
+- Windows visual regression: **SUCCESS**;
+- Tauri Release: **SUCCESS**;
+- both required artifact uploads: **SUCCESS**;
+- visual artifact `10515379819`, digest `sha256:a99b0bdec30c42ae5f572a4142a90fb99027e8fe7e6f135b0c145bc6d447279c`;
+- diagnostic/runtime artifact `10516970405`, digest `sha256:fe3b6317750b0bedc24c4a4f538bf5c0063191dec88ec5dc541be42a4d86ed75`.
+
+Validated item-15 capability:
+
+- running/active, paused, break, Time's Up, overtime, overdue, Notes-expanded and no-eligible visual states are deterministic token-based projections of authoritative existing state;
+- overdue presentation reuses `task.isOverdue` rather than recalculating scheduling state;
+- Notes-expanded presentation reuses the existing production Notes path;
+- no-eligible presentation is marked only when there is no live task, no Remaining task and at least one Scheduled future-timed Today task;
+- existing empty-card copy/action behavior was intentionally left unchanged for item 16;
+- item-11 live-title motion, item-12 row-title access, item-13 reserved action geometry and item-14 tooltips/accessibility remain intact;
+- no Rust/Tauri, persistence, scheduling classification, task/domain or timer/session transition authority changed.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**M6 item 15/16 — Implement active-card, paused, break, time-up/overtime, overdue, notes-expanded and no-eligible-task visual states.**
+**M6 item 16/16 — Handle empty/no-eligible-task states.**
 
-Implementation branch:
+No item-16 implementation branch or PR is established by this handoff yet.
 
-`m6-focus-visual-states`
+### Checkpoint plan — 0/5 complete
 
-Branch base / tracking tip when the slice started:
+1. Reconstruct the exact empty/no-eligible behavior/content contract from current production code, item-15 visual projection, authoritative Focus entry/eligibility rules and relevant product/UI/evidence docs.
+2. Implement the narrow behavior/content slice with deterministic/static/visual coverage and semantic review; preserve timer/session/scheduling/native authority and all M6 items 1–15 invariants.
+3. Validate the exact PR head with authoritative Windows CI: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
+4. Verify exact head unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; squash merge with an expected-head guard.
+5. Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable item-16 work log. Only after that may Milestone 6 be considered complete and general roadmap progress advance.
 
-`8a335e9bc186e65fe673b24b640c715bf01bdb20`
+### Item-16 starting boundary already established
 
-Latest source/test implementation head before this handoff-only checkpoint:
-
-`6bbf5e1c0071291a14fa7d967851b2e91c8506fc`
-
-Open implementation PR:
-
-**#115 — `M6: add Focus visual states`**
-
-### Checkpoint 1/5 — COMPLETE: exact visual-state contract reconstructed
-
-Repository/code/spec evidence establishes the following boundary:
-
-- item 15 is **presentation only** over state already owned by authoritative timer/session, scheduling and board projections;
-- the existing `data-focus-live-state` projection is the source for running, paused, break, `time_up`, `overtime_running` and `overtime_paused` visual treatment;
-- running/active remains the strong accent presentation;
-- paused and overtime use warning-state emphasis; break uses success-state emphasis; Time's Up uses destructive-state emphasis;
-- overdue styling projects the existing authoritative `task.isOverdue` field and does not recalculate due state in the renderer;
-- Notes-expanded styling reuses the existing `FocusLiveActions` -> `TaskNotes` expansion path and must not alter timer state or URL activation rules;
-- the item-15 no-eligible **visual marker** is derived only when the existing Focus partition has no live task, no Remaining task and at least one Scheduled future-timed task;
-- item 15 preserves the existing empty-card copy and adds no empty-state action/control flow; **item 16 remains responsible for actual empty/no-eligible behavior/content**;
-- no new timer/session transition, eligibility rule, scheduling classification, task mutation, persistence boundary, native/window behavior, Preferences behavior or Floating Timer behavior belongs in this slice.
-
-### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/static/visual coverage + semantic review
-
-Production presentation changes:
-
-- `src/FocusPanel.tsx`
-  - projects overdue rows through `data-focus-overdue` / a presentation class using existing `task.isOverdue`;
-  - derives `noEligibleVisualState` only from the already-established Remaining/Scheduled partition;
-  - adds `data-focus-live-state="no-eligible"` and a no-eligible presentation class without changing the existing `No live task in this view` copy or creating actions;
-  - leaves authoritative live timer state projection unchanged.
-- `src/focusVisualStates.css`
-  - adds token-based active/running, paused, break, Time's Up, overtime, overdue, Notes-expanded and no-eligible presentation;
-  - uses a state-qualified no-eligible selector with enough specificity to outrank the base live-card `border` shorthand regardless of stylesheet import order;
-  - adds no transform, animation, transition, absolute positioning or margin-based target movement.
-- `src/focusActionSlots.css`
-  - loads the new Focus-scoped state stylesheet while retaining the validated item-13 fixed action geometry unchanged.
-
-Coverage changes:
-
-- `src/focusPanelVisualFixture.tsx` supports deterministic `running`, `paused-metrics`, `break`, `time-up`, `overtime`, `notes-expanded` and `no-eligible` scenarios while preserving established running/paused geometry contracts;
-- Notes-expanded fixture execution uses the production Notes toggle and a fixture-only mock of the authoritative note-read boundary;
-- `scripts/capture-focus-panel-fixtures.ps1` captures all seven scenarios in light and dark themes and gives only the asynchronous Notes-expanded scenario a 500 ms Edge virtual-time budget so its established production note-read/toggle path can settle before `--dump-dom`;
-- new `scripts/test-ui-focus-visual-states.mjs` locks scope, state projection, item-15/item-16 separation, token use, no-motion/no-layout-shift rules, the Notes-specific virtual-time wait contract and the no-eligible cascade-specificity contract;
-- new `scripts/validate-focus-visual-state-captures.mjs` validates semantic state markers, computed visual distinction, Notes expansion, overdue distinction and no-eligible non-activation;
-- `scripts/test-ui-focus-action-slots.mjs` was narrowly evolved so the fixture may omit live-action geometry only in the no-live scenario while retaining existing live-scenario geometry checks;
-- `scripts/test-ui-focus-panel.mjs` was evolved after exact CI evidence so the legacy production-fixture contract recognizes the expanded scenario matrix and optional live-only geometry without weakening paused-state/timer/action invariants;
-- `package.json` registers the new deterministic test and Windows visual validator.
-
-Current semantic scope against the item-15 base is ten implementation/test/config files plus this handoff checkpoint:
-
-1. `package.json`;
-2. `scripts/capture-focus-panel-fixtures.ps1`;
-3. `scripts/test-ui-focus-action-slots.mjs`;
-4. `scripts/test-ui-focus-panel.mjs`;
-5. `scripts/test-ui-focus-visual-states.mjs`;
-6. `scripts/validate-focus-visual-state-captures.mjs`;
-7. `src/FocusPanel.tsx`;
-8. `src/focusActionSlots.css`;
-9. `src/focusPanelVisualFixture.tsx`;
-10. `src/focusVisualStates.css`.
-
-No Rust/Tauri, SQLite/schema, dependency/lockfile, task/domain, authoritative timer/session transition, scheduling classification, display-topology or persistence code changed.
-
-Local validation available in this environment:
-
-- `node --check scripts/test-ui-focus-visual-states.mjs`: **PASS** on an earlier version; current deterministic source remains covered by authoritative preflight;
-- `node --check scripts/validate-focus-visual-state-captures.mjs`: **PASS**;
-- full local repository/frontend/Rust/Tauri preflight: **NOT RUN** because no local repository checkout/network path is available; authoritative Windows CI remains required.
-
-### Exact CI evidence so far
-
-Initial PR exact head:
-
-`72c7dc9a61b06816ff49c0ec149a1f0d492cb294`
-
-Windows CI #433:
-
-- run `35003897863`;
-- job `104498736068`;
-- **FAILED** at Repository Preflight;
-- setup, dependency install and all frontend checks before `test:ui-focus-panel` passed;
-- exact failure: legacy `scripts/test-ui-focus-panel.mjs` still required the old two-scenario fixture source shape and reported `paused metric visual scenario is missing`;
-- Windows visual regression, Tauri Release and artifact uploads were skipped after the failed preflight;
-- evidence-backed fix commit `0cba2e14dbf76bec92592ffcd723dda3e48806fb` changed only that legacy deterministic fixture contract; production behavior was unchanged.
-
-Next exact PR head:
-
-`2fd45c98030e0497d6357ad9190d4ccd9f18963c`
-
-Windows CI #435:
-
-- run `35004348203`;
-- job `104500535711`;
-- Repository Preflight: **SUCCESS**, including frontend build, Rust fmt/check/clippy/tests and performance harness;
-- Focus capture generation: completed and wrote all fixture files;
-- existing Focus Panel, row-title and action-slot visual validators: **SUCCESS**;
-- new Focus visual-state validator: **FAILED** only because `focus-panel-notes-expanded-light` lacked `data-focus-panel-fixture-ready="true"` in the dumped DOM;
-- exact evidence: the Notes-expanded fixture intentionally executes `notesButton.click()` and waits 80 ms after the asynchronous authoritative-note read mock, while the Focus Edge capture had no virtual-time budget and could dump DOM before that async path settled;
-- repository precedent: existing asynchronous visual capture harnesses use Edge `--virtual-time-budget`;
-- Tauri Release and both artifact uploads were skipped after the visual-regression failure.
-
-Evidence-backed Notes fixture fix:
-
-- commit `7006c7e79f81b106f0e97a46de702c0aa5ce5be9` adds `VirtualTimeBudgetMs = 500` only to the Notes-expanded Focus scenario and passes that argument to Edge only when nonzero;
-- commit `260a5ea2abc35d85fe12057b2ab12545c9827ff4` locks this asynchronous capture-wait contract in `test-ui-focus-visual-states.mjs`;
-- no production rendering, timer/session, scheduling, persistence or native behavior changed in either fix.
-
-Exact PR head after the Notes fix/handoff:
-
-`7bc574a53b10d2a21a3771820a3da9e43923c40a`
-
-Windows CI #438:
-
-- run `35087031493`;
-- job `104764225335`;
-- Repository Preflight: **SUCCESS**, including all frontend deterministic tests/build, Rust fmt/check/clippy, 254 Rust unit tests plus integration suites and performance harness;
-- Focus capture generation: **SUCCESS**;
-- existing Focus Panel, row-title and action-slot visual validators: **SUCCESS**;
-- the prior Notes-expanded readiness failure is resolved: validation advanced beyond Notes-expanded;
-- new Focus visual-state validator: **FAILED** only at the no-eligible computed-style assertion: `focus-panel-no-eligible-light no-eligible card must use the restrained dashed state treatment`;
-- exact CSS evidence: `focusVisualStates.css` used `.focus-panel__live-card--no-eligible { border-style: dashed; ... }`, while `focusPanel.css` contains the base `.focus-panel__live-card { ... border: 1px solid ... }`; because the state stylesheet is loaded through a child Focus-scoped stylesheet, the equal-specificity base shorthand could win by bundle/import order and reset `border-style` to `solid`;
-- Tauri Release and both artifact uploads were skipped after the visual-regression failure.
-
-Evidence-backed no-eligible cascade fix:
-
-- commit `db447e52ce6ace7193b84b60c1eb2d790df10f6c` changes only the intended presentation selector to `.focus-panel__live-card.focus-panel__live-card--no-eligible[data-focus-live-state="no-eligible"]`, so the no-eligible dashed treatment outranks the base live-card shorthand independent of stylesheet import order;
-- commit `6bbf5e1c0071291a14fa7d967851b2e91c8506fc` locks that cascade-specificity contract in `test-ui-focus-visual-states.mjs`;
-- no timer/session, scheduling, persistence, domain, native/window or item-16 behavior changed.
-
-### Checkpoint 3/5 — PENDING
-
-Require a fresh authoritative Windows CI run on the exact latest PR head after this handoff commit:
-
-- Repository Preflight;
-- Windows visual regression, including all new Focus state captures/validator;
-- Tauri Release;
-- both required artifact uploads.
-
-If it fails, inspect the exact failing step/log and fix only evidence-backed issues on `m6-focus-visual-states`. A failed run does not increment progress.
-
-### Checkpoint 4/5 — PENDING
-
-After exact-head CI success, verify the head is unchanged, the PR remains mergeable, the changed-file scope is expected, and all PR conversation comments/reviews/inline threads are clear. Then squash merge with an expected-head guard.
-
-### Checkpoint 5/5 — PENDING
-
-Validate the resulting main source SHA with authoritative Windows CI. Only after full success reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable item-15 work log. M6 then becomes 15/16 and item 16 becomes the next ordered slice.
+- item 15 owns only visual state styling/markers; item 16 owns actual empty/no-eligible content and user-facing behavior;
+- a future-timed Today task remains visible in Scheduled but is not Focus-eligible until due;
+- genuinely empty Today work and no-currently-eligible-but-scheduled-later work are distinct states and must not be conflated;
+- the renderer must not invent eligibility rules or auto-start timers;
+- existing authoritative Focus entry, scheduling partitioning and timer/session transitions remain unchanged unless repository evidence proves an item-16 dependency requires a narrow change;
+- no Floating Timer, Preferences, Reports, account/cloud/integration or Milestone 7+ scope belongs in item 16.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
 - `main` plus reusable `focusSurface` remain the normal two-webview architecture.
 - native/Rust window coordination remains monitor/work-area/DPI/physical-position authority.
 - display handling remains event-driven/coalesced and item-10 recovery semantics remain intact.
-- task/list/subtask identities, queue partitioning, scheduling eligibility and tracked Time Taken remain authoritative and unchanged by presentation work.
-- renderer visual-state presentation cannot become timer/session/task/scheduling authority.
+- task/list/subtask identities, queue partitioning, scheduling eligibility and tracked Time Taken remain authoritative.
+- renderer presentation cannot become timer/session/task/scheduling authority.
 - item-11 active/live title scrolling remains preference-driven, overflow-aware, transform-only and reduced-motion-safe.
 - item-12 ordinary Focus row titles remain two-line-clamped with keyboard-accessible full-title access.
-- item-13 hidden/revealed action controls keep their reserved geometry and existing hit positions.
+- item-13 hidden/revealed action controls keep reserved geometry and existing hit positions.
 - item-14 icon-only tooltips retain keyboard/pointer discovery, accessible names, placeholder inactivity and stable geometry.
+- item-15 visual state projection remains intact and presentation-only.
 - Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions.
 - future-timed Today tasks remain ineligible until due.
 - Focus queue partitioning must not duplicate task identities or reinterpret scheduling state.
@@ -216,7 +122,7 @@ Validate the resulting main source SHA with authoritative Windows CI. Only after
 
 ## NEXT AGENT ACTION
 
-Check PR #115 and authoritative Windows CI on its exact latest head first. If CI fails, fetch the exact job log and fix only the evidenced problem on `m6-focus-visual-states`. If CI succeeds, record artifacts and proceed to final exact-head review plus expected-head guarded squash merge. Do not start item 16 in parallel.
+Reconstruct the exact item-16 empty/no-eligible behavior/content contract from `FocusPanel`, current Focus fixtures/tests, authoritative Focus-entry/scheduling eligibility code and the relevant Focus/Blitz spec/evidence sections. Then create the item-16 implementation branch from the latest `main` tracking tip and implement only the narrow evidence-backed slice. Do not start Milestone 7 in parallel.
 
 ## USER ACTION REQUIRED
 
@@ -224,5 +130,5 @@ Check PR #115 and authoritative Windows CI on its exact latest head first. If CI
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision blocks item 15.
-- Full local repository/frontend/Rust/Tauri preflight is not available in this environment; Windows CI is the authoritative validation gate.
+- No product/user decision currently blocks item 16.
+- Full local repository/frontend/Rust/Tauri preflight is not available in this connector-only environment; use the strongest available static checks before push and authoritative Windows CI for the complete gate.
