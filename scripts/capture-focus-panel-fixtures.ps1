@@ -40,7 +40,8 @@ $scenarios = @(
     @{ Name = "time-up"; Suffix = "-time-up"; Query = "&scenario=time-up"; VirtualTimeBudgetMs = 0 },
     @{ Name = "overtime"; Suffix = "-overtime"; Query = "&scenario=overtime"; VirtualTimeBudgetMs = 0 },
     @{ Name = "notes-expanded"; Suffix = "-notes-expanded"; Query = "&scenario=notes-expanded"; VirtualTimeBudgetMs = 500 },
-    @{ Name = "no-eligible"; Suffix = "-no-eligible"; Query = "&scenario=no-eligible"; VirtualTimeBudgetMs = 0 }
+    @{ Name = "no-eligible"; Suffix = "-no-eligible"; Query = "&scenario=no-eligible"; VirtualTimeBudgetMs = 0 },
+    @{ Name = "empty"; Suffix = "-empty"; Query = "&scenario=empty"; VirtualTimeBudgetMs = 0 }
 )
 
 try {

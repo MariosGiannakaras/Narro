@@ -11,9 +11,9 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 - Milestones 7–10: NOT STARTED.
 - General roadmap progress: **5/10 milestones complete**.
 - Item 15 closed at **5/5 checkpoints complete**.
-- Current item-16 implementation slice: **0/5 checkpoints complete**.
+- Current item-16 implementation slice: **2/5 checkpoints complete**.
 
-Repository compact progress source values: `5/10M || 0/5 | 15/16`.
+Repository compact progress source values: `5/10M || 2/5 | 15/16`.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
@@ -82,24 +82,83 @@ Validated item-15 capability:
 
 **M6 item 16/16 — Handle empty/no-eligible-task states.**
 
-No item-16 implementation branch or PR is established by this handoff yet.
+Implementation branch:
 
-### Checkpoint plan — 0/5 complete
+`m6-focus-empty-states`
 
-1. Reconstruct the exact empty/no-eligible behavior/content contract from current production code, item-15 visual projection, authoritative Focus entry/eligibility rules and relevant product/UI/evidence docs.
-2. Implement the narrow behavior/content slice with deterministic/static/visual coverage and semantic review; preserve timer/session/scheduling/native authority and all M6 items 1–15 invariants.
-3. Validate the exact PR head with authoritative Windows CI: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
-4. Verify exact head unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; squash merge with an expected-head guard.
-5. Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable item-16 work log. Only after that may Milestone 6 be considered complete and general roadmap progress advance.
+Branch base / tracking tip:
 
-### Item-16 starting boundary already established
+`50557554d326ec49ba21da46f80139cb7be009d2`
 
-- item 15 owns only visual state styling/markers; item 16 owns actual empty/no-eligible content and user-facing behavior;
-- a future-timed Today task remains visible in Scheduled but is not Focus-eligible until due;
-- genuinely empty Today work and no-currently-eligible-but-scheduled-later work are distinct states and must not be conflated;
-- the renderer must not invent eligibility rules or auto-start timers;
-- existing authoritative Focus entry, scheduling partitioning and timer/session transitions remain unchanged unless repository evidence proves an item-16 dependency requires a narrow change;
-- no Floating Timer, Preferences, Reports, account/cloud/integration or Milestone 7+ scope belongs in item 16.
+Latest source/test implementation head before this handoff-only checkpoint:
+
+`ffc7b3f64f3899026f9a5672ee76295940aa547c`
+
+No item-16 PR is established yet.
+
+### Checkpoint 1/5 — COMPLETE: exact empty/no-eligible contract reconstructed
+
+Repository code/spec/evidence establishes three distinct no-live presentations:
+
+- **generic idle**: a live task is absent but Remaining work exists in the selected view; preserve the established `No live task in this view` copy;
+- **no eligible yet**: no live task, no Remaining task, and at least one future-timed Scheduled task; show `Nothing eligible yet` plus `Scheduled tasks will be ready when due.`, preserve the Scheduled rows, and do not fabricate timer/actions;
+- **genuinely empty Today**: no live task, no Remaining task, and no Scheduled task; use the screenshot-backed `All Clear` heading plus `No Today tasks left to focus on.`.
+
+The state boundary reuses the already validated Focus queue partition. The renderer must not recalculate scheduling eligibility, mutate task/session state, or implicitly start a timer. Existing authoritative Focus entry remains unchanged.
+
+The existing `+ ADD TASK` hierarchy control remains non-mutating in this slice. The persistence-first create API exists, but activating it here would require additional list-selection/start-flow product behavior in aggregate/idle states that is not necessary to satisfy the ordered empty-state item and would broaden scope.
+
+### Checkpoint 2/5 — COMPLETE: narrow implementation + deterministic/static/visual coverage + semantic review
+
+Production changes:
+
+- `src/FocusPanel.tsx` derives `emptyTodayState` only from the established live/Remaining/Scheduled partition, exposes `data-focus-empty-state`, renders distinct no-eligible and genuinely empty content, and preserves the generic idle copy;
+- `src/focusPanel.css` adds only scoped empty-state content layout/typography and no motion/overlay behavior.
+
+Coverage changes:
+
+- `src/focusPanelVisualFixture.tsx` adds a deterministic `empty` scenario and guarantees both `empty` and `no-eligible` fixtures have no live timer;
+- `scripts/capture-focus-panel-fixtures.ps1` captures the new empty scenario in light/dark;
+- new `scripts/test-ui-focus-empty-states.mjs` locks the state partition, copy, no-authority boundary, fixture/capture coverage and package registration;
+- `scripts/validate-focus-visual-state-captures.mjs` now validates both no-eligible and empty semantic/content states, absence of fabricated live timer/actions, Scheduled preservation for no-eligible, and their visual distinction;
+- `scripts/test-ui-focus-visual-states.mjs` retains the item-15 generic-idle copy invariant with item-16-aware wording;
+- `package.json` registers the new deterministic contract in frontend preflight.
+
+Semantic diff against the item-16 base is exactly eight implementation/test/config files. No Rust/Tauri, SQLite/schema, dependency/lockfile, task/domain, timer/session transition, scheduling classification, display-topology or persistence code changed.
+
+Local repository preflight: **NOT RUN**. A local clone attempt failed because this execution environment cannot resolve `github.com`; do not treat local checks as PASS. Authoritative Windows CI remains required.
+
+### Checkpoint 3/5 — PENDING
+
+PR #116 — `M6: handle Focus empty states` — is open from `m6-focus-empty-states`.
+
+Initial exact PR head:
+
+`6deeebdf240a9a7e22000c79d98ddea24d13eb07`
+
+Windows CI #443:
+
+- run `35366559621`;
+- job `105670327157`;
+- **FAILED** at Repository Preflight;
+- checkout, Node/Rust setup and dependency installation succeeded;
+- exact failure: legacy item-15 `scripts/test-ui-focus-visual-states.mjs` still required the old two-way no-eligible fixture source shape and reported `Focus visual-state contract failed: no-eligible fixture must retain scheduled work while removing eligible/live work`;
+- Windows visual regression, Tauri Release and both artifact uploads were skipped after the failed preflight.
+
+Evidence-backed correction:
+
+- commit `096f6fe0fa8f052ae125f1711f2370aadeb5aa57` updates only the stale deterministic fixture-source assertions so they recognize item 16's explicit `empty` branch and shared `noLiveScenario`;
+- production rendering, queue partitioning, scheduling eligibility, timer/session, persistence and native behavior are unchanged.
+
+Require a fresh authoritative Windows CI run on the exact latest PR head after this handoff commit: Repository Preflight, Windows visual regression (including light/dark `empty` and `no-eligible` captures), Tauri Release and both required artifact uploads.
+
+### Checkpoint 4/5 — PENDING
+
+After exact-head CI success, verify the head is unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; then squash merge with an expected-head guard.
+
+### Checkpoint 5/5 — PENDING
+
+Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable item-16 work log. Only after that may Milestone 6 be considered complete and general roadmap progress advance.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -122,7 +181,7 @@ No item-16 implementation branch or PR is established by this handoff yet.
 
 ## NEXT AGENT ACTION
 
-Reconstruct the exact item-16 empty/no-eligible behavior/content contract from `FocusPanel`, current Focus fixtures/tests, authoritative Focus-entry/scheduling eligibility code and the relevant Focus/Blitz spec/evidence sections. Then create the item-16 implementation branch from the latest `main` tracking tip and implement only the narrow evidence-backed slice. Do not start Milestone 7 in parallel.
+Check PR #116 and authoritative Windows CI on its exact latest head first. If CI fails, inspect the exact failing step/log and fix only evidence-backed issues on `m6-focus-empty-states`. If it succeeds, record artifacts and proceed to final exact-head review plus expected-head guarded squash merge. Do not start Milestone 7 in parallel.
 
 ## USER ACTION REQUIRED
 
