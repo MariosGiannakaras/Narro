@@ -111,7 +111,9 @@ for (const theme of ["light", "dark"]) {
   const noEligible = readCapture(theme, "no-eligible");
   invariant(noEligible.dom.includes('data-focus-live-card="false"'), `${noEligible.label} must not fabricate a live card`);
   invariant(noEligible.dom.includes('data-focus-live-state="no-eligible"'), `${noEligible.label} no-eligible visual marker is missing`);
-  invariant(noEligible.dom.includes("No live task in this view"), `${noEligible.label} existing idle copy changed before item 16`);
+  invariant(noEligible.dom.includes('data-focus-empty-state="no-eligible"'), `${noEligible.label} no-eligible semantic marker is missing`);
+  invariant(noEligible.dom.includes("Nothing eligible yet"), `${noEligible.label} no-eligible heading is missing`);
+  invariant(noEligible.dom.includes("Scheduled tasks will be ready when due."), `${noEligible.label} no-eligible guidance is missing`);
   invariant(noEligible.dom.includes("1 Scheduled task"), `${noEligible.label} future scheduled work must remain visible`);
   invariant(noEligible.dom.includes("Client follow-up call"), `${noEligible.label} scheduled task fixture is missing`);
   invariant(!noEligible.dom.includes('data-focus-live-actions="true"'), `${noEligible.label} must not fabricate live actions`);
@@ -119,6 +121,20 @@ for (const theme of ["light", "dark"]) {
   invariant(noEligible.contract.liveTimer === null, `${noEligible.label} live timer geometry must be absent`);
   invariant(noEligible.contract.actions === null, `${noEligible.label} action-strip geometry must be absent`);
   invariant(noEligible.contract.liveCardStyle?.borderStyle === "dashed", `${noEligible.label} no-eligible card must use the restrained dashed state treatment`);
+
+  const empty = readCapture(theme, "empty");
+  invariant(empty.dom.includes('data-focus-live-card="false"'), `${empty.label} must not fabricate a live card`);
+  invariant(empty.dom.includes('data-focus-live-state="idle"'), `${empty.label} must remain an idle timer projection`);
+  invariant(empty.dom.includes('data-focus-empty-state="empty"'), `${empty.label} genuinely empty semantic marker is missing`);
+  invariant(empty.dom.includes("All Clear"), `${empty.label} All Clear heading is missing`);
+  invariant(empty.dom.includes("No Today tasks left to focus on."), `${empty.label} empty Today guidance is missing`);
+  invariant(empty.dom.includes("0 Scheduled tasks"), `${empty.label} scheduled group must remain structurally present`);
+  invariant(!empty.dom.includes("Client follow-up call"), `${empty.label} must not contain future scheduled fixture work`);
+  invariant(!empty.dom.includes('data-focus-live-actions="true"'), `${empty.label} must not fabricate live actions`);
+  invariant(!empty.dom.includes('data-focus-live-timer="true"'), `${empty.label} must not fabricate a live timer`);
+  invariant(empty.contract.liveTimer === null, `${empty.label} live timer geometry must be absent`);
+  invariant(empty.contract.actions === null, `${empty.label} action-strip geometry must be absent`);
+  invariant(empty.contract.liveCardStyle?.borderStyle !== "dashed", `${empty.label} genuinely empty state must remain visually distinct from no-eligible`);
 }
 
-console.log("Focus active, paused, break, Time's Up/overtime, overdue, Notes-expanded, and no-eligible visual captures validated.");
+console.log("Focus active, paused, break, Time's Up/overtime, overdue, Notes-expanded, no-eligible, and empty visual captures validated.");
