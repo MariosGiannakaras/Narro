@@ -34,7 +34,7 @@ invariant(
 );
 invariant(
   panel.includes('<span className="type-metadata">No live task in this view</span>'),
-  "item 15 must preserve existing empty-card copy and leave empty/no-eligible behavior to item 16",
+  "generic idle copy must remain available outside the item-16 empty/no-eligible states",
 );
 for (const forbidden of [
   "startTimerTask(",
