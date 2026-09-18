@@ -91,8 +91,9 @@ invariant(
 );
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");
 invariant(fixture.includes("notesButton.click();"), "Notes-expanded fixture must exercise the production Notes toggle");
-invariant(fixture.includes('scenario === "no-eligible" ? [scheduledTask] : normalTodayTasks'), "no-eligible fixture must retain scheduled work while removing eligible/live work");
-invariant(fixture.includes('scenario === "no-eligible" ? null : {'), "no-eligible fixture must not fabricate a live timer");
+invariant(fixture.includes('scenario === "no-eligible" ? [scheduledTask] : scenario === "empty" ? [] : normalTodayTasks'), "no-eligible fixture must retain scheduled work while the new empty fixture removes all Today work");
+invariant(fixture.includes('const noLiveScenario = scenario === "no-eligible" || scenario === "empty";'), "no-live visual scenarios must be explicit");
+invariant(fixture.includes('const timer: TimerSessionPayload | null = noLiveScenario ? null : {'), "no-eligible and empty fixtures must not fabricate a live timer");
 
 invariant(
   pkg.scripts["test:ui-focus-visual-states"] === "node scripts/test-ui-focus-visual-states.mjs",
