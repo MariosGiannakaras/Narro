@@ -21,6 +21,7 @@ const scenarios = [
   "overtime",
   "notes-expanded",
   "no-eligible",
+  "empty",
 ] as const;
 type Scenario = (typeof scenarios)[number];
 const scenario: Scenario = scenarios.includes(requestedScenario as Scenario)
@@ -92,7 +93,7 @@ const doneTask = task("21111111-1111-4111-8111-111111111115", "Confirm morning a
 });
 
 const normalTodayTasks = [liveTask, overdueTask, longTitleTask, scheduledTask];
-const todayTasks = scenario === "no-eligible" ? [scheduledTask] : normalTodayTasks;
+const todayTasks = scenario === "no-eligible" ? [scheduledTask] : scenario === "empty" ? [] : normalTodayTasks;
 const board: ListBoardSnapshot = {
   target: { kind: "all_lists", id: null, title: "All Lists", color: null },
   displayTimezone: "Europe/Athens",
@@ -126,7 +127,8 @@ function timerState(): TimerStateKind {
 }
 
 const state = timerState();
-const timer: TimerSessionPayload | null = scenario === "no-eligible" ? null : {
+const noLiveScenario = scenario === "no-eligible" || scenario === "empty";
+const timer: TimerSessionPayload | null = noLiveScenario ? null : {
   revision: scenarios.indexOf(scenario) + 7,
   runtime: {
     timer: {
