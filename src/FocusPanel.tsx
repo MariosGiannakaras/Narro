@@ -357,6 +357,8 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
   const scheduledIds = new Set(scheduledTasks.map((task) => task.id));
   const remainingTasks = remainingCandidates.filter((task) => !scheduledIds.has(task.id));
   const noEligibleVisualState = liveTask === null && remainingTasks.length === 0 && scheduledTasks.length > 0;
+  const emptyTodayState = liveTask === null && remainingTasks.length === 0 && scheduledTasks.length === 0;
+  const emptyStateKind = noEligibleVisualState ? "no-eligible" : emptyTodayState ? "empty" : "none";
   const doneTasks = board.done.tasks;
   const totalCount = board.today.count + board.done.count;
   const donePercent = totalCount > 0 ? Math.min(100, Math.round((board.done.count / totalCount) * 100)) : 0;
@@ -448,8 +450,21 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
             className={`focus-panel__live-card focus-panel__live-card--empty${noEligibleVisualState ? " focus-panel__live-card--no-eligible" : ""}`}
             data-focus-live-card="false"
             data-focus-live-state={noEligibleVisualState ? "no-eligible" : "idle"}
+            data-focus-empty-state={emptyStateKind}
           >
-            <span className="type-metadata">No live task in this view</span>
+            {noEligibleVisualState ? (
+              <div className="focus-panel__empty-state">
+                <strong>Nothing eligible yet</strong>
+                <span className="type-metadata">Scheduled tasks will be ready when due.</span>
+              </div>
+            ) : emptyTodayState ? (
+              <div className="focus-panel__empty-state">
+                <strong>All Clear</strong>
+                <span className="type-metadata">No Today tasks left to focus on.</span>
+              </div>
+            ) : (
+              <span className="type-metadata">No live task in this view</span>
+            )}
           </div>
         )}
 
