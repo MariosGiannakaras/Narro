@@ -130,7 +130,27 @@ Local repository preflight: **NOT RUN**. A local clone attempt failed because th
 
 ### Checkpoint 3/5 — PENDING
 
-Create the item-16 PR from `m6-focus-empty-states`, then validate its exact head with authoritative Windows CI: Repository Preflight, Windows visual regression (including light/dark `empty` and `no-eligible` captures), Tauri Release and both required artifact uploads.
+PR #116 — `M6: handle Focus empty states` — is open from `m6-focus-empty-states`.
+
+Initial exact PR head:
+
+`6deeebdf240a9a7e22000c79d98ddea24d13eb07`
+
+Windows CI #443:
+
+- run `35366559621`;
+- job `105670327157`;
+- **FAILED** at Repository Preflight;
+- checkout, Node/Rust setup and dependency installation succeeded;
+- exact failure: legacy item-15 `scripts/test-ui-focus-visual-states.mjs` still required the old two-way no-eligible fixture source shape and reported `Focus visual-state contract failed: no-eligible fixture must retain scheduled work while removing eligible/live work`;
+- Windows visual regression, Tauri Release and both artifact uploads were skipped after the failed preflight.
+
+Evidence-backed correction:
+
+- commit `096f6fe0fa8f052ae125f1711f2370aadeb5aa57` updates only the stale deterministic fixture-source assertions so they recognize item 16's explicit `empty` branch and shared `noLiveScenario`;
+- production rendering, queue partitioning, scheduling eligibility, timer/session, persistence and native behavior are unchanged.
+
+Require a fresh authoritative Windows CI run on the exact latest PR head after this handoff commit: Repository Preflight, Windows visual regression (including light/dark `empty` and `no-eligible` captures), Tauri Release and both required artifact uploads.
 
 ### Checkpoint 4/5 — PENDING
 
@@ -161,7 +181,7 @@ Validate the resulting-main source SHA with authoritative Windows CI, then recon
 
 ## NEXT AGENT ACTION
 
-Create the item-16 PR from `m6-focus-empty-states` and validate its exact head with authoritative Windows CI. If CI fails, inspect the exact failing step/log and fix only evidence-backed issues on the same branch. Do not start Milestone 7 in parallel.
+Check PR #116 and authoritative Windows CI on its exact latest head first. If CI fails, inspect the exact failing step/log and fix only evidence-backed issues on `m6-focus-empty-states`. If it succeeds, record artifacts and proceed to final exact-head review plus expected-head guarded squash merge. Do not start Milestone 7 in parallel.
 
 ## USER ACTION REQUIRED
 
