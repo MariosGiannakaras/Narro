@@ -243,7 +243,7 @@ Acceptance criteria:
 - [x] Reserve action slots for hover/focus controls so controls never push task text or move hit targets.
 - [x] Add tooltips for icon-only controls.
 - [x] Implement active-card, paused, break, time-up/overtime, overdue, notes-expanded and no-eligible-task visual states.
-- [ ] Handle empty/no-eligible-task states.
+- [x] Handle empty/no-eligible-task states.
 
 Acceptance criteria:
 
@@ -253,6 +253,9 @@ Acceptance criteria:
 - focus hover/focus controls do not move sibling content or change pointer targets
 - display hotplug cannot strand the panel off-screen
 - normal and reduced-motion behavior pass interaction tests
+
+**Gate F result: PASS / proceed to Milestone 7.** All 16 Milestone 6 items are validated. PR #116 exact head `f0e02570308d86416861c53e1d296e5edb309ef8` passed Windows CI #445; expected-head guarded squash merge `ab5818fa92970655b63323839111a1977a5837a7` passed resulting-main Windows CI #446.
+
 
 ## Milestone 7 — Floating Timer mode
 
