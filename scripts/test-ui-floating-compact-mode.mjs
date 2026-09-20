@@ -53,8 +53,13 @@ invariant(
   lib.includes("FocusSurfaceMode::Timer => (300.0, 100.0, true, true)"),
   "item 1 must retain the M1-validated compact window geometry/top/taskbar foundation until later visual sizing work",
 );
+const diagnosticTimer = functionSlice(
+  lib,
+  "fn focus_surface_mode_timer(app_handle: tauri::AppHandle) -> CommandResult<()>",
+  "#[tauri::command]\nfn list_windows",
+);
 invariant(
-  lib.includes("fn focus_surface_mode_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {\n    present_floating_timer(app_handle)"),
+  diagnosticTimer.includes("present_floating_timer(app_handle)"),
   "M1 diagnostic Timer command must delegate to the production same-window compact transition",
 );
 for (const command of ["focus_surface_mode_snapshot", "present_floating_timer", "present_focus_panel"]) {
