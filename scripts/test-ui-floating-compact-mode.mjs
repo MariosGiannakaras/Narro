@@ -79,12 +79,14 @@ for (const forbidden of ["timer_start_task", "timer_pause", "timer_resume", "tim
 
 invariant(focusEntry.includes("function FocusSurfaceProduct()"), "product focus-surface root is missing");
 invariant(focusEntry.includes("void getFocusSurfaceMode()"), "product root must reconcile native mode on mount");
+const enterCompact = functionSlice(focusEntry, "async function enterCompactMode()", "async function returnToPanel()");
+const returnPanel = functionSlice(focusEntry, "async function returnToPanel()", "if (mode === null)");
 invariant(
-  focusEntry.indexOf("await presentFloatingTimer();") < focusEntry.indexOf('setMode("timer");'),
+  enterCompact.indexOf("await presentFloatingTimer();") < enterCompact.indexOf('setMode("timer");'),
   "renderer must not publish compact UI before the native transition succeeds",
 );
 invariant(
-  focusEntry.indexOf("await presentFocusPanel();") < focusEntry.indexOf('setMode("panel");'),
+  returnPanel.indexOf("await presentFocusPanel();") < returnPanel.indexOf('setMode("panel");'),
   "renderer must not publish panel UI before native panel presentation succeeds",
 );
 invariant(
