@@ -38,6 +38,8 @@ export type FocusPanelProps = {
   fixtureBoard?: ListBoardSnapshot;
   fixtureLists?: FocusListOption[];
   fixtureTimer?: TimerSessionPayload | null;
+  onRequestCompact?: () => void;
+  compactTransitionPending?: boolean;
 };
 
 function formatEstimate(totalSeconds: number): string {
@@ -187,7 +189,13 @@ function sameTarget(left: ListBoardRequestTarget, right: ListBoardRequestTarget)
   return right.kind === "list" && left.id === right.id;
 }
 
-export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: FocusPanelProps) {
+export function FocusPanel({
+  fixtureBoard,
+  fixtureLists,
+  fixtureTimer = null,
+  onRequestCompact,
+  compactTransitionPending = false,
+}: FocusPanelProps) {
   const [target, setTarget] = useState<ListBoardRequestTarget>(() =>
     fixtureBoard?.target.kind === "list" && fixtureBoard.target.id
       ? { kind: "list", id: fixtureBoard.target.id }
@@ -389,7 +397,15 @@ export function FocusPanel({ fixtureBoard, fixtureLists, fixtureTimer = null }: 
           </Tooltip>
           <button type="button" disabled aria-label="Home" title="Home">Home</button>
           <Tooltip content="Compact view">
-            <button type="button" aria-disabled="true" aria-label="Compact view" data-focus-placeholder-control="compact-view">↙</button>
+            <button
+              type="button"
+              aria-label="Compact view"
+              data-focus-compact-control="true"
+              disabled={!onRequestCompact || compactTransitionPending}
+              onClick={onRequestCompact}
+            >
+              ↙
+            </button>
           </Tooltip>
         </div>
       </header>
