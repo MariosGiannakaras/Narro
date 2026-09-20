@@ -4,11 +4,13 @@ import "./floatingTimerFoundation.css";
 export type FloatingTimerFoundationProps = {
   onReturnToPanel: () => void;
   transitionPending?: boolean;
+  transitionError?: string | null;
 };
 
 export function FloatingTimerFoundation({
   onReturnToPanel,
   transitionPending = false,
+  transitionError = null,
 }: FloatingTimerFoundationProps) {
   return (
     <main
@@ -16,7 +18,14 @@ export function FloatingTimerFoundation({
       data-floating-timer="foundation"
       aria-label="Floating Timer"
     >
-      <span className="floating-timer-foundation__label type-metadata">Floating Timer</span>
+      <div className="floating-timer-foundation__status">
+        <span className="floating-timer-foundation__label type-metadata">Floating Timer</span>
+        {transitionError ? (
+          <span className="floating-timer-foundation__error type-metadata" role="alert">
+            {transitionError}
+          </span>
+        ) : null}
+      </div>
       <Tooltip content="Return to Focus Panel">
         <button
           type="button"
