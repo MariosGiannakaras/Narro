@@ -29,14 +29,15 @@ const quickDisabledCss = slotCss.match(
 invariant(panel.includes('import { Tooltip } from "./overlayPrimitives";'), "Focus quick controls must reuse the shared Tooltip primitive");
 invariant(panel.includes('<Tooltip content="Preferences">'), "Preferences icon must expose a shared tooltip");
 invariant(panel.includes('aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences"'), "Preferences placeholder must retain an accessible disabled name without becoming active");
-invariant(panel.includes('<Tooltip content="Compact view">'), "Compact-view icon must expose a shared tooltip");
-invariant(panel.includes('aria-disabled="true" aria-label="Compact view" data-focus-placeholder-control="compact-view"'), "Compact-view placeholder must retain an accessible disabled name without becoming active");
-invariant(occurrences(panel, 'data-focus-placeholder-control=') === 2, "only the two icon-only quick placeholders should use the tooltip-discoverable aria-disabled contract");
+invariant(panel.includes('<Tooltip content="Compact view">'), "Compact-view icon must keep the shared tooltip after M7 activation");
+invariant(panel.includes('aria-label="Compact view"'), "Compact-view control must retain its accessible name");
+invariant(panel.includes('data-focus-compact-control="true"'), "Compact-view control must use the M7 active-control marker");
+invariant(occurrences(panel, 'data-focus-placeholder-control=') === 1, "only the still-inactive Preferences icon should use the placeholder contract");
 invariant(!panel.includes('title="Preferences"'), "Preferences must not stack a native title tooltip on top of the shared tooltip");
 invariant(!panel.includes('title="Compact view"'), "Compact view must not stack a native title tooltip on top of the shared tooltip");
 invariant(panel.includes('<button type="button" disabled aria-label="Home" title="Home">Home</button>'), "text-labeled Home placeholder must remain outside the icon-only tooltip slice");
-invariant(!panel.includes('data-focus-placeholder-control="preferences" onClick='), "Preferences placeholder must not gain behavior in item 14");
-invariant(!panel.includes('data-focus-placeholder-control="compact-view" onClick='), "Compact-view placeholder must not gain behavior in item 14");
+invariant(!panel.includes('data-focus-placeholder-control="preferences" onClick='), "Preferences placeholder must remain inactive");
+invariant(panel.includes('onClick={onRequestCompact}'), "Compact-view activation must stay on the explicit M7 callback");
 
 invariant(liveSubtasks.includes('import { Tooltip } from "./overlayPrimitives";'), "Focus live subtasks must reuse the shared Tooltip primitive");
 invariant(liveSubtasks.includes('<Tooltip content="Add subtask">'), "icon-only Focus subtask add control needs a tooltip");
