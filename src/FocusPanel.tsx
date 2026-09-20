@@ -40,6 +40,7 @@ export type FocusPanelProps = {
   fixtureTimer?: TimerSessionPayload | null;
   onRequestCompact?: () => void;
   compactTransitionPending?: boolean;
+  modeTransitionError?: string | null;
 };
 
 function formatEstimate(totalSeconds: number): string {
@@ -195,6 +196,7 @@ export function FocusPanel({
   fixtureTimer = null,
   onRequestCompact,
   compactTransitionPending = false,
+  modeTransitionError = null,
 }: FocusPanelProps) {
   const [target, setTarget] = useState<ListBoardRequestTarget>(() =>
     fixtureBoard?.target.kind === "list" && fixtureBoard.target.id
@@ -334,7 +336,7 @@ export function FocusPanel({
     return options;
   }, [board, lists]);
 
-  const statusError = error ?? preferenceError;
+  const statusError = error ?? preferenceError ?? modeTransitionError;
 
   if (error && !board) {
     return (
