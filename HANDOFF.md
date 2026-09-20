@@ -162,7 +162,27 @@ Local validation:
 
 ### Checkpoint 3/5 — PENDING
 
-Create the M7 item-1 PR from `m7-floating-compact-mode`, then validate its exact head with authoritative Windows CI: Repository Preflight, relevant Windows visual/native regression, Tauri Release and both required artifact uploads.
+PR #117 — `M7: add Floating Timer compact-mode foundation` — is open from `m7-floating-compact-mode`.
+
+Initial exact PR head:
+
+`04b612d274c6e04b827d46f82542a6eede9552d7`
+
+Windows CI #447:
+
+- run `35533002557`;
+- job `106136907926`;
+- **FAILED** at Repository Preflight;
+- checkout, Node/Rust setup and dependency installation succeeded;
+- exact failure: legacy M6 `scripts/test-ui-focus-panel.mjs` still required the old normal root `<FocusPanel />` and reported `Focus Panel UI contract failed: product Focus Panel default rendering is missing`;
+- Windows visual regression, Tauri Release and both artifact uploads were skipped after the failed preflight.
+
+Evidence-backed correction:
+
+- commit `d861ffa5ef6d21b180548c7821864786914851f8` changes only that stale deterministic root expectation to the ordered M7 `<FocusSurfaceProduct />` root;
+- production source, native window behavior, timer/session state and compact-mode semantics are unchanged.
+
+Require a fresh authoritative Windows CI run on the exact latest PR head after this handoff commit: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
 
 ### Checkpoint 4/5 — PENDING
 
@@ -189,7 +209,7 @@ Validate the resulting-main source SHA with authoritative Windows CI, then recon
 
 ## NEXT AGENT ACTION
 
-Create the M7 item-1 PR from `m7-floating-compact-mode` and validate its exact latest head with authoritative Windows CI. If CI fails, inspect the exact failing step/log and fix only evidence-backed problems on the same branch. Do not start M7 item 2 in parallel.
+Check PR #117 and authoritative Windows CI on its exact latest head first. If CI fails, inspect the exact failing step/log and fix only evidence-backed problems on `m7-floating-compact-mode`. If it succeeds, record artifacts and proceed to final exact-head review plus expected-head guarded squash merge. Do not start M7 item 2 in parallel.
 
 ## USER ACTION REQUIRED
 
