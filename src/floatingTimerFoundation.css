@@ -12,12 +12,26 @@
   background: var(--color-canvas);
 }
 
-.floating-timer-foundation__label {
+.floating-timer-foundation__status {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.floating-timer-foundation__label,
+.floating-timer-foundation__error {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.floating-timer-foundation__label {
   color: var(--color-text-secondary);
+}
+
+.floating-timer-foundation__error {
+  color: var(--color-destructive);
 }
 
 .floating-timer-foundation__return {
