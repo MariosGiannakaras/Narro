@@ -182,6 +182,20 @@ Evidence-backed correction:
 - commit `d861ffa5ef6d21b180548c7821864786914851f8` changes only that stale deterministic root expectation to the ordered M7 `<FocusSurfaceProduct />` root;
 - production source, native window behavior, timer/session state and compact-mode semantics are unchanged.
 
+Windows CI #449:
+
+- run `35533079926`;
+- job `106137172020`;
+- **FAILED** at Repository Preflight inside the new `test:ui-floating-compact-mode` contract;
+- exact failure: `Floating compact-mode contract failed: M1 diagnostic Timer command must delegate to the production same-window compact transition`;
+- source inspection confirmed the delegation is present exactly as intended; the test was brittle because it embedded a literal LF-only multi-line source string while Windows checkout uses CRLF;
+- visual regression, Tauri Release and both artifact uploads were skipped after preflight failure.
+
+Evidence-backed correction:
+
+- commit `e8b4961f98b6c0c8c5c3e4ed84fc81eb928a197b` changes only that new deterministic assertion to use the existing function-slice semantic check and ignore line-ending formatting;
+- production source remains unchanged.
+
 Require a fresh authoritative Windows CI run on the exact latest PR head after this handoff commit: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
 
 ### Checkpoint 4/5 — PENDING
