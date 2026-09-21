@@ -259,7 +259,7 @@ Acceptance criteria:
 
 ## Milestone 7 — Floating Timer mode
 
-- [ ] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
+- [x] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
 - [ ] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.
 - [ ] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
 - [ ] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
