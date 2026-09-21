@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-20
+Last updated: 2026-09-21
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
@@ -14,56 +14,56 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS**.
 - Milestone 6 / Gate F: **PASS** — all 16 top-level items validated.
-- Milestone 7: **ACTIVE / 0 of 14 top-level items validated**.
+- Milestone 7: **ACTIVE / 1 of 14 top-level items validated**.
 - Milestones 8–10: **NOT STARTED**.
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-The next ordered work is M7 item 1: **Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.**
+M7 item 1 is validated. The next ordered work is item 2: **Make the Floating Timer movable, always-on-top, and absent from normal taskbar presentation where appropriate.**
 
 ## Current validated source baseline
 
 Latest fully resulting-main-validated **source/test** baseline:
 
-`ab5818fa92970655b63323839111a1977a5837a7`
+`8a42e84265b426eb1e7a1d7723cc56637604c750`
 
 Tree:
 
-`60a01fa240b8ff903d99d7da87c597587ff816b8`
+`ed21649ac72f9bf6de1d9fe40d9b0549830464f1`
 
-This is the expected-head guarded squash merge of PR #116 — `M6: handle Focus empty states` — from exact validated PR head `f0e02570308d86416861c53e1d296e5edb309ef8`.
+This is the expected-head guarded squash merge of PR #117 — `M7: add Floating Timer compact-mode foundation` — from exact validated PR head `2bd3144c00d1fd99be35bd43a5ed661f51beaf3c`.
 
 Markdown-only tracking descendants after this source SHA do **not** replace the validated source/test baseline.
 
-### PR #116 exact-head validation
+### PR #117 exact-head validation
 
-Windows CI #445 / run `35366848885` / job `105671693894`: **SUCCESS**.
+Windows CI #451 / run `35533171618` / job `106137420110`: **SUCCESS**.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- PR visual artifact `10557321916`, digest `sha256:829ca1d136cd2c48947f8f401295de81729486f7924cc6a49cb2d2d32b04baf3`;
-- PR diagnostic/runtime artifact `10556649008`, digest `sha256:13859a5d3b70377a3c1898e9cddaba062aaa941786a81c85ca8ed6080da78c50`.
+- PR visual artifact `10612486287`, digest `sha256:413902b9a659246e818a7275a2d9cda852f69f125e8442f11afd00a8df3f2377`;
+- PR diagnostic/runtime artifact `10611533572`, digest `sha256:1f33793cc15b5983d851f7f5927ff655fc8d84d88f13ca284d1e13ea384b41e4`.
 
-Final PR review verified the head unchanged and mergeable, `main` still exactly at PR base `50557554d326ec49ba21da46f80139cb7be009d2`, exactly nine expected changed files, and no conversation comments, submitted reviews or inline review comments.
+Final review verified exact head unchanged and mergeable, `main` still exactly at PR base `42e2cd905e9dda58b6d40eecccd8bbe735377f55`, exactly eleven expected changed files, and no conversation comments, submitted reviews or inline review comments.
 
 Expected-head guarded squash merge:
 
-`ab5818fa92970655b63323839111a1977a5837a7`
+`8a42e84265b426eb1e7a1d7723cc56637604c750`
 
 ### Resulting-main validation
 
-Windows CI #446 / run `35527458034` / job `106122008480`: **SUCCESS** on exact main source SHA `ab5818fa92970655b63323839111a1977a5837a7`.
+Windows CI #452 / run `35577507700` / job `106262581005`: **SUCCESS** on exact main source SHA `8a42e84265b426eb1e7a1d7723cc56637604c750`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- main visual artifact `10610393632`, digest `sha256:bae649a3d22b004b2732a7499a4a280fef287e819695c27cde821653c3d7e402`;
-- main diagnostic/runtime artifact `10609968144`, digest `sha256:79b448f6c1f3d6f6515ed440808b8c7e42904d2790cb6001e41fb1f3ed66ab4f`.
+- main visual artifact `10629191288`, digest `sha256:beaa8d1da636da62fe54a0a055d60a7f21fc6f45fbc9de243ba30a0d8a78e286`;
+- main diagnostic/runtime artifact `10629786016`, digest `sha256:1f69c7413051eb596c63bb62e1e820dc5e7313b442f06945de36ffc3ec8c7215`.
 
 ## Milestone 6 validated work
 
@@ -101,13 +101,31 @@ Validated behavior:
 - Windows light/dark fixtures and deterministic contracts cover both states;
 - no Rust/Tauri, SQLite/schema, persistence, scheduling classification, task/domain or timer/session transition behavior changed.
 
+## Milestone 7 validated work
+
+### Item 1 — Same-window compact-mode foundation
+
+Immutable evidence: `work-log/2026-09-21-1120-chatgpt-m7-floating-compact-mode.md`.
+
+Validated behavior:
+
+- the existing `focusSurface` webview transforms between product Panel and compact modes without creating another persistent webview;
+- native Rust mode state remains presentation authority and is reconciled by the renderer on mount;
+- product Compact control calls the native same-window transition and renderer mode publishes only after native success;
+- compact -> Panel return uses the existing preference-aware `present_focus_panel` path;
+- the minimal compact foundation preserves M1 always-on-top/skip-taskbar behavior without absorbing later collapsed/expanded content items;
+- mode switching remains presentation-only and does not mutate timer/session/task/scheduling state;
+- `?diagnostics=1` retains the M1 diagnostic surface.
+
+CI history included two test-contract-only failures (#447 stale M6 root assertion; #449 LF/CRLF-brittle compact assertion). Both were corrected without production changes before exact-head CI #451 and resulting-main CI #452 passed all required gates.
+
 ## Milestone 7 — next ordered work
 
-Start M7 item 1:
+Start M7 item 2:
 
-1. `Implement compact mode by transforming the existing focusSurface window; do not create a third persistent webview.`
+2. `Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.`
 
-Before implementation, reconstruct the current `focusSurface` mode-switch/window-coordination contract from M1, M6, native window authority, current focus entry points and the Floating Timer evidence/spec sections. Preserve the two-webview architecture, authoritative timer/session identity, native monitor/work-area/DPI/position ownership, display-topology recovery and M1 performance constraints. Do not start later M7 polish before the compact-mode transformation contract is validated.
+M1 already physically validated Timer always-on-top and skip-taskbar behavior. Before source changes, reconstruct what remains missing for product-grade **movability** and whether the current Tauri/native chrome permits user dragging in the frameless/compact presentation. Preserve native window authority and keep item 2 separate from later safe-position persistence (item 10), full-screen validation (item 11), and collapsed visual content (item 3).
 
 ## Durable correctness decisions
 
