@@ -7,204 +7,107 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 **Milestone 7 — Floating Timer mode.**
 
 - Milestones 1–6: COMPLETE / PASS.
-- Milestone 7: ACTIVE / **0 of 14** top-level items validated.
+- Milestone 7: ACTIVE / **1 of 14** top-level items validated.
 - Milestones 8–10: NOT STARTED.
 - General roadmap progress: **6/10 milestones complete**.
-- M6 item 16 closed at **5/5 checkpoints complete**.
-- Current M7 item-1 implementation slice: **2/5 checkpoints complete**.
+- M7 item 1 closed at **5/5 checkpoints complete**.
+- Current M7 item-2 implementation slice: **0/5 checkpoints complete**.
 
-Repository compact progress source values: `6/10M || 2/5 | 0/14`.
+Repository compact progress source values: `6/10M || 0/5 | 1/14`.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Source/test SHA:
 
-`ab5818fa92970655b63323839111a1977a5837a7`
+`8a42e84265b426eb1e7a1d7723cc56637604c750`
 
 Source tree:
 
-`60a01fa240b8ff903d99d7da87c597587ff816b8`
+`ed21649ac72f9bf6de1d9fe40d9b0549830464f1`
 
-This is the expected-head guarded squash merge of PR #116 after authoritative resulting-main Windows CI #446 passed on the exact merged source SHA. Markdown-only tracking descendants after this SHA do **not** replace the validated source/test baseline.
+This is the expected-head guarded squash merge of PR #117 after authoritative resulting-main Windows CI #452 passed on the exact merged source SHA. Markdown-only tracking descendants after this SHA do **not** replace the validated source/test baseline.
 
 Latest immutable completed evidence:
 
-`work-log/2026-09-20-2229-chatgpt-m6-focus-empty-states.md`
+`work-log/2026-09-21-1120-chatgpt-m7-floating-compact-mode.md`
 
-## LATEST VALIDATION EVIDENCE — M6 ITEM 16 / GATE F
+## LATEST VALIDATION EVIDENCE — M7 ITEM 1
 
-PR #116 — `M6: handle Focus empty states`
+PR #117 — `M7: add Floating Timer compact-mode foundation`
 
 Final exact PR head:
 
-`f0e02570308d86416861c53e1d296e5edb309ef8`
+`2bd3144c00d1fd99be35bd43a5ed661f51beaf3c`
 
-Authoritative PR Windows CI #445:
+Authoritative PR Windows CI #451:
 
-- run `35366848885`;
-- job `105671693894`;
+- run `35533171618`;
+- job `106137420110`;
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - both required artifact uploads: **SUCCESS**;
-- visual artifact `10557321916`, digest `sha256:829ca1d136cd2c48947f8f401295de81729486f7924cc6a49cb2d2d32b04baf3`;
-- diagnostic/runtime artifact `10556649008`, digest `sha256:13859a5d3b70377a3c1898e9cddaba062aaa941786a81c85ca8ed6080da78c50`.
+- visual artifact `10612486287`, digest `sha256:413902b9a659246e818a7275a2d9cda852f69f125e8442f11afd00a8df3f2377`;
+- diagnostic/runtime artifact `10611533572`, digest `sha256:1f33793cc15b5983d851f7f5927ff655fc8d84d88f13ca284d1e13ea384b41e4`.
 
-Evidence-backed CI history:
+CI history before the final gate:
 
-- Windows CI #443 / run `35366559621` / job `105670327157` failed only on a stale item-15 fixture-source assertion;
-- correction `096f6fe0fa8f052ae125f1711f2370aadeb5aa57` changed only deterministic test expectations for the new empty scenario;
-- intermediate CI #444 was superseded/cancelled and was not used as a merge gate;
-- final exact-head CI #445 passed all gates.
+- Windows CI #447 failed only because legacy M6 `scripts/test-ui-focus-panel.mjs` required direct `<FocusPanel />` rendering; commit `d861ffa5ef6d21b180548c7821864786914851f8` updated only that stale deterministic assertion;
+- Windows CI #449 failed only because the new compact-mode contract used an LF-only literal against CRLF Windows checkout; commit `e8b4961f98b6c0c8c5c3e4ed84fc81eb928a197b` made that assertion whitespace/line-ending safe;
+- production source was unchanged by both corrections.
 
-Final review verified the exact head unchanged and mergeable, `main` still exactly at base `50557554d326ec49ba21da46f80139cb7be009d2`, exactly nine expected changed files, and no conversation comments, submitted reviews or inline review comments.
+Final review verified the exact head unchanged and mergeable, `main` still exactly at base `42e2cd905e9dda58b6d40eecccd8bbe735377f55`, exactly eleven expected changed files, and no conversation comments, submitted reviews or inline review comments.
 
 Expected-head guarded squash merge:
 
-`ab5818fa92970655b63323839111a1977a5837a7`
+`8a42e84265b426eb1e7a1d7723cc56637604c750`
 
-Authoritative resulting-main Windows CI #446:
+Authoritative resulting-main Windows CI #452:
 
-- run `35527458034`;
-- job `106122008480`;
-- exact main source SHA `ab5818fa92970655b63323839111a1977a5837a7`;
+- run `35577507700`;
+- job `106262581005`;
+- exact main source SHA `8a42e84265b426eb1e7a1d7723cc56637604c750`;
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - both required artifact uploads: **SUCCESS**;
-- visual artifact `10610393632`, digest `sha256:bae649a3d22b004b2732a7499a4a280fef287e819695c27cde821653c3d7e402`;
-- diagnostic/runtime artifact `10609968144`, digest `sha256:79b448f6c1f3d6f6515ed440808b8c7e42904d2790cb6001e41fb1f3ed66ab4f`.
+- visual artifact `10629191288`, digest `sha256:beaa8d1da636da62fe54a0a055d60a7f21fc6f45fbc9de243ba30a0d8a78e286`;
+- diagnostic/runtime artifact `10629786016`, digest `sha256:1f69c7413051eb596c63bb62e1e820dc5e7313b442f06945de36ffc3ec8c7215`.
 
-Validated M6 item-16 capability:
+Validated item-1 capability:
 
-- generic idle, no-eligible-yet and genuinely empty Today presentations are distinct;
-- future-timed Today work remains visible in Scheduled but ineligible until due;
-- genuinely empty Today uses the screenshot-backed `All Clear` state;
-- empty/no-eligible states do not fabricate live timer/actions or own timer/session/scheduling authority;
-- all prior M6 item 1–15 invariants remain intact.
-
-Milestone 6 is **16/16 validated / Gate F PASS**.
+- normal product `focusSurface` now projects native Panel/Timer presentation mode instead of always rendering Panel;
+- Compact switches the existing `focusSurface` through the M1-validated native Timer mode rather than creating another webview;
+- native mode snapshot reconciles renderer reload;
+- compact -> Panel uses preference-aware `present_focus_panel`;
+- mode publication happens only after native transition success;
+- the item-1 compact shell remains intentionally minimal and does not absorb later title/timer/subtask/action-strip work;
+- timer/session/task/scheduling state remains authoritative outside renderer presentation.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**M7 item 1/14 — Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.**
+**M7 item 2/14 — Make the Floating Timer movable, always-on-top, and absent from normal taskbar presentation where appropriate.**
 
-Implementation branch:
+No item-2 implementation branch or PR is established yet.
 
-`m7-floating-compact-mode`
+### Checkpoint plan — 0/5 complete
 
-Branch base / latest `main` tracking tip when the slice started:
+1. Reconstruct the exact product-grade movability/topmost/taskbar contract from M1 physical evidence, current Tauri window configuration, item-1 compact shell, product/UI specs and Windows-native constraints. Identify what is already validated versus actually missing.
+2. Implement only the missing narrow item-2 behavior with deterministic/native/UI coverage and semantic review. Do not absorb safe-position persistence, full-screen validation, collapsed visual content or shortcuts.
+3. Validate the exact PR head with authoritative Windows CI: Repository Preflight, relevant Windows visual/native regression, Tauri Release and both required artifact uploads.
+4. Verify exact head unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; squash merge with an expected-head guard.
+5. Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable M7 item-2 work log.
 
-`42e2cd905e9dda58b6d40eecccd8bbe735377f55`
+### M7 item-2 starting boundary
 
-Latest source/test implementation head before this handoff-only checkpoint:
-
-`720d6cce37004d77171de8e3fa1650fb70abc96d`
-
-No M7 item-1 PR is established yet.
-
-### Checkpoint 1/5 — COMPLETE: compact-mode transformation contract reconstructed
-
-Repository/M1/M6/product/UI evidence establishes:
-
-- the product must reuse the single existing `focusSurface` webview; no third persistent webview is allowed;
-- M1 already physically validated Panel -> Timer -> Panel reuse, Timer always-on-top and skip-taskbar behavior;
-- Rust/native already owns mode-dependent size/restyle through `configure_focus_surface_mode` and keeps presentation mode in `FOCUS_SURFACE_MODE_STATE`;
-- normal product `focus.tsx` previously ignored that mode and always rendered `FocusPanel`; the M6 Compact control was intentionally inactive;
-- M7 item 1 therefore owns product mode projection/wiring, not a new timer engine or new native window primitive;
-- mode transitions are presentation-only and must not start/pause/resume/switch/complete the authoritative session;
-- renderer reload must reconcile the existing Rust presentation mode rather than blindly assuming Panel;
-- compact -> Panel return must use the production preference-aware `present_focus_panel` path so selected monitor/side placement is restored;
-- item 1 does **not** absorb later M7 collapsed screenshot content, expanded actions/subtasks, shortcut behavior, safe floating position persistence, transition animation or final performance remeasurement.
-
-### Checkpoint 2/5 — COMPLETE: narrow foundation implementation + deterministic coverage + semantic review
-
-Native/product implementation:
-
-- `src-tauri/src/lib.rs`
-  - exposes read-only `focus_surface_mode_snapshot`;
-  - adds production `present_floating_timer`, which resolves the existing `FOCUS_SURFACE_LABEL` and reuses `configure_focus_surface_mode(...Timer)`;
-  - retains the M1-validated Timer foundation geometry/properties `300x100 / always-on-top / skip-taskbar` until later visual sizing work;
-  - makes the legacy diagnostic Timer command delegate to the production same-window transition;
-  - registers the new read/presentation commands;
-- `src/focusSurfaceModeApi.ts` provides typed renderer wrappers for native mode snapshot, compact presentation and preference-aware Panel return;
-- `src/focus.tsx` adds a product `FocusSurfaceProduct` root that:
-  - reconciles native presentation mode on mount;
-  - changes renderer mode only after the native transition succeeds;
-  - keeps failures visible without changing timer/session state;
-  - preserves `?diagnostics=1` as the explicit M1 diagnostic path;
-- `src/FocusPanel.tsx` activates the Compact control only when the product callback is present and disables it during a pending transition; deterministic Focus fixtures without the callback remain inert;
-- `src/FloatingTimerFoundation.tsx` + `src/floatingTimerFoundation.css` provide only the minimal compact product shell and accessible return-to-Panel control required to make the transformation reversible. They intentionally contain no live timer/title/subtask/action-strip implementation from later M7 items.
-
-Coverage:
-
-- new `scripts/test-ui-floating-compact-mode.mjs` locks:
-  - reuse of `FOCUS_SURFACE_LABEL`;
-  - absence of `WebviewWindowBuilder` in the production compact transition;
-  - existing compact always-on-top/skip-taskbar native foundation;
-  - mode snapshot/reconciliation;
-  - native-success-before-renderer-mode publication;
-  - active Compact callback semantics;
-  - accessible reversible return path;
-  - prohibition on timer/session mutations and later M7 content leakage;
-  - no decorative animation/overlay behavior in item 1;
-  - frontend preflight registration;
-- `scripts/test-ui-focus-panel.mjs` and `scripts/test-ui-focus-icon-tooltips.mjs` are evolved only so Compact becomes the ordered M7 active control while Preferences remains the sole icon-only placeholder;
-- `package.json` registers the new deterministic contract in frontend preflight.
-
-Semantic diff against the slice base is exactly ten files. No SQLite/schema, task/domain, timer/session transition, scheduling classification, persistence, monitor-selection, display-topology recovery or dependency/lockfile behavior changed.
-
-Local validation:
-
-- attempted local branch clone + targeted deterministic tests/frontend build;
-- **NOT RUN** because the execution environment failed before checkout with `Could not resolve host: github.com`;
-- do not treat any local test/build as PASS.
-
-### Checkpoint 3/5 — PENDING
-
-PR #117 — `M7: add Floating Timer compact-mode foundation` — is open from `m7-floating-compact-mode`.
-
-Initial exact PR head:
-
-`04b612d274c6e04b827d46f82542a6eede9552d7`
-
-Windows CI #447:
-
-- run `35533002557`;
-- job `106136907926`;
-- **FAILED** at Repository Preflight;
-- checkout, Node/Rust setup and dependency installation succeeded;
-- exact failure: legacy M6 `scripts/test-ui-focus-panel.mjs` still required the old normal root `<FocusPanel />` and reported `Focus Panel UI contract failed: product Focus Panel default rendering is missing`;
-- Windows visual regression, Tauri Release and both artifact uploads were skipped after the failed preflight.
-
-Evidence-backed correction:
-
-- commit `d861ffa5ef6d21b180548c7821864786914851f8` changes only that stale deterministic root expectation to the ordered M7 `<FocusSurfaceProduct />` root;
-- production source, native window behavior, timer/session state and compact-mode semantics are unchanged.
-
-Windows CI #449:
-
-- run `35533079926`;
-- job `106137172020`;
-- **FAILED** at Repository Preflight inside the new `test:ui-floating-compact-mode` contract;
-- exact failure: `Floating compact-mode contract failed: M1 diagnostic Timer command must delegate to the production same-window compact transition`;
-- source inspection confirmed the delegation is present exactly as intended; the test was brittle because it embedded a literal LF-only multi-line source string while Windows checkout uses CRLF;
-- visual regression, Tauri Release and both artifact uploads were skipped after preflight failure.
-
-Evidence-backed correction:
-
-- commit `e8b4961f98b6c0c8c5c3e4ed84fc81eb928a197b` changes only that new deterministic assertion to use the existing function-slice semantic check and ignore line-ending formatting;
-- production source remains unchanged.
-
-Require a fresh authoritative Windows CI run on the exact latest PR head after this handoff commit: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
-
-### Checkpoint 4/5 — PENDING
-
-After exact-head CI success, verify the head unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; then squash merge with an expected-head guard.
-
-### Checkpoint 5/5 — PENDING
-
-Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable M7 item-1 work log.
+- M1 already physically proved the Timer mode can be always-on-top and skipped from the normal taskbar;
+- item 1 reuses those native properties in the product compact transition;
+- item 2 must therefore avoid reimplementing already validated topmost/taskbar primitives and focus on any missing product-grade **movability** / window-chrome interaction;
+- native/Rust remains window geometry authority; renderer may request an OS-native drag operation only if required, but must not implement JS pointer-loop geometry;
+- safe last-position persistence/recovery belongs to item 10 and must not be pulled forward;
+- borderless-full-screen always-on-top validation belongs to item 11;
+- collapsed title/timer/subtask/add/expand content belongs to item 3;
+- no continuous polling or decorative animation belongs in this item.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -212,18 +115,18 @@ Validate the resulting-main source SHA with authoritative Windows CI, then recon
 - `main` plus reusable `focusSurface` remain the normal two-webview architecture.
 - native/Rust window coordination remains monitor/work-area/DPI/physical-position authority.
 - display handling remains event-driven/coalesced and off-screen recovery semantics remain intact.
-- task/list/subtask identities, queue partitioning, scheduling eligibility and tracked Time Taken remain authoritative.
-- renderer presentation cannot become timer/session/task/scheduling authority.
+- timer/session/task/scheduling state remains authoritative outside renderer presentation.
+- Focus Panel <-> Floating Timer transformation cannot reset, duplicate, start, stop or switch a session.
 - future-timed Today tasks remain ineligible until due.
-- Break/Pause-Resume/Skip/Done remain authoritative timer/session transitions.
-- M6 item-11 live-title motion, item-12 row-title access, item-13 reserved action geometry, item-14 tooltips/accessibility, item-15 visual states and item-16 empty-state semantics remain intact.
+- M6 Focus Panel accessibility/geometry/visual-state/empty-state invariants remain intact.
+- item-1 native mode reconciliation and same-window Compact/Panel switching remain intact.
 - Notes URLs remain explicit pointer/keyboard activation only.
-- reduced-motion remains usable and timer numerals retain fixed/tabular geometry.
+- reduced-motion remains usable and no continuous decorative animation/polling is introduced.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
 
 ## NEXT AGENT ACTION
 
-Check PR #117 and authoritative Windows CI on its exact latest head first. If CI fails, inspect the exact failing step/log and fix only evidence-backed problems on `m7-floating-compact-mode`. If it succeeds, record artifacts and proceed to final exact-head review plus expected-head guarded squash merge. Do not start M7 item 2 in parallel.
+Reconstruct item 2 from repository evidence before editing source. Inspect current `focusSurface` Tauri config/window decorations and resizability, native Timer-mode properties, any existing `start_dragging`/window-drag path, the item-1 compact shell, M1 physical observations and Floating Timer screenshot/spec evidence. Determine whether the missing product behavior is only a native drag affordance or includes a narrow window property correction. Then create one item-2 branch from the latest `main` tracking tip.
 
 ## USER ACTION REQUIRED
 
@@ -231,5 +134,5 @@ Check PR #117 and authoritative Windows CI on its exact latest head first. If CI
 
 ## BLOCKERS / NOT RUN
 
-- No product/user decision currently blocks M7 item 1.
+- No product/user decision currently blocks M7 item 2.
 - Full local repository/frontend/Rust/Tauri preflight is unavailable in this connector-only environment; record unavailable checks as **NOT RUN** and use authoritative Windows CI for the complete gate.
