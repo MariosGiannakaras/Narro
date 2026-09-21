@@ -16,12 +16,17 @@ export function FloatingTimerFoundation({
     <main
       className="floating-timer-foundation"
       data-floating-timer="foundation"
+      data-tauri-drag-region="true"
       aria-label="Floating Timer"
     >
-      <div className="floating-timer-foundation__status">
-        <span className="floating-timer-foundation__label type-metadata">Floating Timer</span>
+      <div className="floating-timer-foundation__status" data-tauri-drag-region="true">
+        <span className="floating-timer-foundation__label type-metadata" data-tauri-drag-region="true">Floating Timer</span>
         {transitionError ? (
-          <span className="floating-timer-foundation__error type-metadata" role="alert">
+          <span
+            className="floating-timer-foundation__error type-metadata"
+            role="alert"
+            data-tauri-drag-region="true"
+          >
             {transitionError}
           </span>
         ) : null}

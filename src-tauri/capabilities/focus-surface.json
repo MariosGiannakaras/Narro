@@ -1,0 +1,9 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "focus-surface",
+  "description": "Additional capability for native focus-surface window dragging",
+  "windows": ["focusSurface"],
+  "permissions": [
+    "core:window:allow-start-dragging"
+  ]
+}
