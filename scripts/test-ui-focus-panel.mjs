@@ -137,7 +137,7 @@ for (const [haystack, needle, label] of [
   [timerApi, 'state === "running" || state === "break" || state === "overtime_running"', "sampling limited to ticking states"],
   [timerApi, "applyTimerSessionProjection(latest, incoming)", "sample/event revision ordering"],
   [notes, "openUrl(link)", "explicit Notes URL opener remains confined to validated Notes component"],
-  [focusEntry, "<FocusPanel />", "product Focus Panel default rendering"],
+  [focusEntry, "<FocusSurfaceProduct />", "product focus-surface mode root"],
   [focusEntry, 'get("diagnostics") === "1"', "explicit diagnostic-mode preservation"],
   [css, "width: min(100%, 340px)", "compact source-evidenced panel width"],
   [css, ".focus-panel__live-timer { width: 10ch; flex: 0 0 10ch;", "fixed live timer geometry"],
@@ -229,10 +229,14 @@ invariant(actions.indexOf('data-focus-action="skip"') < actions.indexOf('data-fo
 invariant(panel.includes("disabled aria-label=\"Add task in Focus Panel\""), "Add Task must remain explicitly non-mutating before its ordered slice");
 invariant(
   panel.includes('aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences"')
-    && panel.includes('aria-disabled="true" aria-label="Compact view" data-focus-placeholder-control="compact-view"')
-    && !panel.includes('data-focus-placeholder-control="preferences" onClick=')
-    && !panel.includes('data-focus-placeholder-control="compact-view" onClick='),
-  "quick controls must remain explicitly non-mutating before their ordered slices",
+    && !panel.includes('data-focus-placeholder-control="preferences" onClick='),
+  "Preferences quick control must remain explicitly non-mutating before its ordered slice",
+);
+invariant(
+  panel.includes('data-focus-compact-control="true"')
+    && panel.includes('disabled={!onRequestCompact || compactTransitionPending}')
+    && panel.includes('onClick={onRequestCompact}'),
+  "Compact view must activate only through the M7 product callback and remain disabled in fixtures without that callback",
 );
 invariant(pkg.scripts["test:ui-focus-panel"] === "node scripts/test-ui-focus-panel.mjs", "test:ui-focus-panel script is not registered");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-panel"), "Focus Panel contract gate is not in frontend preflight");

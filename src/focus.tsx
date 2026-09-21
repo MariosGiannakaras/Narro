@@ -3,7 +3,14 @@ import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
+import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusPanel } from "./FocusPanel";
+import {
+  getFocusSurfaceMode,
+  presentFloatingTimer,
+  presentFocusPanel,
+  type FocusSurfaceMode,
+} from "./focusSurfaceModeApi";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { TimerSessionProjection } from "./TimerSessionProjection";
 import {
@@ -12,6 +19,87 @@ import {
   applyNewerState,
   formatInvokeError,
 } from "./diagnosticApi";
+
+function FocusSurfaceProduct() {
+  const [mode, setMode] = useState<FocusSurfaceMode | null>(null);
+  const [transitionPending, setTransitionPending] = useState(false);
+  const [transitionError, setTransitionError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let disposed = false;
+    void getFocusSurfaceMode()
+      .then((currentMode) => {
+        if (!disposed) {
+          setMode(currentMode);
+          setTransitionError(null);
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setMode("panel");
+          setTransitionError(formatInvokeError(failure));
+        }
+      });
+
+    return () => {
+      disposed = true;
+    };
+  }, []);
+
+  async function enterCompactMode() {
+    if (transitionPending) return;
+    setTransitionPending(true);
+    try {
+      await presentFloatingTimer();
+      setMode("timer");
+      setTransitionError(null);
+    } catch (failure: unknown) {
+      setTransitionError(formatInvokeError(failure));
+    } finally {
+      setTransitionPending(false);
+    }
+  }
+
+  async function returnToPanel() {
+    if (transitionPending) return;
+    setTransitionPending(true);
+    try {
+      await presentFocusPanel();
+      setMode("panel");
+      setTransitionError(null);
+    } catch (failure: unknown) {
+      setTransitionError(formatInvokeError(failure));
+    } finally {
+      setTransitionPending(false);
+    }
+  }
+
+  if (mode === null) {
+    return (
+      <main className="focus-panel focus-panel--message" data-focus-surface-mode="loading" role="status">
+        Loading Focus surface…
+      </main>
+    );
+  }
+
+  if (mode === "timer") {
+    return (
+      <FloatingTimerFoundation
+        onReturnToPanel={() => void returnToPanel()}
+        transitionPending={transitionPending}
+        transitionError={transitionError}
+      />
+    );
+  }
+
+  return (
+    <FocusPanel
+      onRequestCompact={() => void enterCompactMode()}
+      compactTransitionPending={transitionPending}
+      modeTransitionError={transitionError}
+    />
+  );
+}
 
 function FocusDiagnostics() {
   const [state, setState] = useState<AppStatePayload | null>(null);
@@ -115,7 +203,7 @@ const diagnostics = new URLSearchParams(window.location.search).get("diagnostics
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeRuntimeProvider>
-      {diagnostics ? <FocusDiagnostics /> : <FocusPanel />}
+      {diagnostics ? <FocusDiagnostics /> : <FocusSurfaceProduct />}
     </ThemeRuntimeProvider>
   </React.StrictMode>,
 );

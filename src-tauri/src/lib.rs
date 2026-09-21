@@ -420,6 +420,15 @@ fn current_focus_surface_mode() -> Option<FocusSurfaceMode> {
     }
 }
 
+#[tauri::command]
+fn focus_surface_mode_snapshot() -> Option<&'static str> {
+    match current_focus_surface_mode() {
+        Some(FocusSurfaceMode::Panel) => Some("panel"),
+        Some(FocusSurfaceMode::Timer) => Some("timer"),
+        None => None,
+    }
+}
+
 fn apply_focus_surface_mode(
     window: &tauri::WebviewWindow,
     mode: FocusSurfaceMode,
@@ -535,6 +544,12 @@ fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
         side,
         FocusPanelPlacementIntent::Present,
     )
+}
+
+#[tauri::command]
+fn present_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    configure_focus_surface_mode(&window, FocusSurfaceMode::Timer)
 }
 
 pub(crate) fn revalidate_open_focus_panel_after_display_change(
@@ -679,8 +694,7 @@ fn focus_surface_mode_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
 
 #[tauri::command]
 fn focus_surface_mode_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
-    configure_focus_surface_mode(&window, FocusSurfaceMode::Timer)
+    present_floating_timer(app_handle)
 }
 
 #[tauri::command]
@@ -844,8 +858,10 @@ pub fn run() {
             focus_surface_show,
             focus_surface_hide,
             focus_surface_focus,
+            focus_surface_mode_snapshot,
             focus_surface_mode_panel,
             focus_surface_mode_timer,
+            present_floating_timer,
             list_windows,
             list_monitors,
             position_focus_panel,

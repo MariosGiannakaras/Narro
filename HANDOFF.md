@@ -11,9 +11,9 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 - Milestones 8–10: NOT STARTED.
 - General roadmap progress: **6/10 milestones complete**.
 - M6 item 16 closed at **5/5 checkpoints complete**.
-- Current M7 item-1 implementation slice: **0/5 checkpoints complete**.
+- Current M7 item-1 implementation slice: **2/5 checkpoints complete**.
 
-Repository compact progress source values: `6/10M || 0/5 | 0/14`.
+Repository compact progress source values: `6/10M || 2/5 | 0/14`.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
@@ -89,27 +89,122 @@ Milestone 6 is **16/16 validated / Gate F PASS**.
 
 **M7 item 1/14 — Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.**
 
-No M7 implementation branch or PR is established yet.
+Implementation branch:
 
-### Checkpoint plan — 0/5 complete
+`m7-floating-compact-mode`
 
-1. Reconstruct the exact compact-mode transformation contract from current `focusSurface` native/window code, M1 validated window/performance behavior, M6 Focus Panel implementation, timer/session projection, and relevant Floating Timer product/UI/evidence docs.
-2. Implement the narrow compact-mode transformation slice with deterministic/static/native coverage and semantic review; preserve the two-webview architecture, authoritative timer/session state, native geometry ownership and display recovery.
-3. Validate the exact PR head with authoritative Windows CI: Repository Preflight, relevant Windows visual/native regression, Tauri Release and both required artifact uploads.
-4. Verify exact head unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; squash merge with an expected-head guard.
-5. Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable M7 item-1 work log.
+Branch base / latest `main` tracking tip when the slice started:
 
-### M7 item-1 starting boundary
+`42e2cd905e9dda58b6d40eecccd8bbe735377f55`
 
-- normal architecture remains exactly two webviews: `main` and reusable `focusSurface`;
-- Focus Panel <-> Floating Timer is a presentation/window-mode change and must not reset, duplicate, start, stop or switch the authoritative session;
-- Rust/native window coordination remains monitor/work-area/DPI/physical-position authority;
-- current display-topology recovery and work-area clamping must not regress;
-- Floating Timer must retain always-on-top / skip-taskbar behavior already proved in M1;
-- the compact frontend path must remain lightweight and must not import dashboard/reports/settings/editor code into its initial bundle;
-- renderer refresh cadence cannot become timer authority;
-- no continuous decorative animation/polling may be introduced;
-- M7 item 1 is transformation foundation only; later collapsed/expanded content polish, shortcuts, safe-position persistence and final performance remeasurement remain ordered later M7 items unless a narrow dependency is required.
+Latest source/test implementation head before this handoff-only checkpoint:
+
+`720d6cce37004d77171de8e3fa1650fb70abc96d`
+
+No M7 item-1 PR is established yet.
+
+### Checkpoint 1/5 — COMPLETE: compact-mode transformation contract reconstructed
+
+Repository/M1/M6/product/UI evidence establishes:
+
+- the product must reuse the single existing `focusSurface` webview; no third persistent webview is allowed;
+- M1 already physically validated Panel -> Timer -> Panel reuse, Timer always-on-top and skip-taskbar behavior;
+- Rust/native already owns mode-dependent size/restyle through `configure_focus_surface_mode` and keeps presentation mode in `FOCUS_SURFACE_MODE_STATE`;
+- normal product `focus.tsx` previously ignored that mode and always rendered `FocusPanel`; the M6 Compact control was intentionally inactive;
+- M7 item 1 therefore owns product mode projection/wiring, not a new timer engine or new native window primitive;
+- mode transitions are presentation-only and must not start/pause/resume/switch/complete the authoritative session;
+- renderer reload must reconcile the existing Rust presentation mode rather than blindly assuming Panel;
+- compact -> Panel return must use the production preference-aware `present_focus_panel` path so selected monitor/side placement is restored;
+- item 1 does **not** absorb later M7 collapsed screenshot content, expanded actions/subtasks, shortcut behavior, safe floating position persistence, transition animation or final performance remeasurement.
+
+### Checkpoint 2/5 — COMPLETE: narrow foundation implementation + deterministic coverage + semantic review
+
+Native/product implementation:
+
+- `src-tauri/src/lib.rs`
+  - exposes read-only `focus_surface_mode_snapshot`;
+  - adds production `present_floating_timer`, which resolves the existing `FOCUS_SURFACE_LABEL` and reuses `configure_focus_surface_mode(...Timer)`;
+  - retains the M1-validated Timer foundation geometry/properties `300x100 / always-on-top / skip-taskbar` until later visual sizing work;
+  - makes the legacy diagnostic Timer command delegate to the production same-window transition;
+  - registers the new read/presentation commands;
+- `src/focusSurfaceModeApi.ts` provides typed renderer wrappers for native mode snapshot, compact presentation and preference-aware Panel return;
+- `src/focus.tsx` adds a product `FocusSurfaceProduct` root that:
+  - reconciles native presentation mode on mount;
+  - changes renderer mode only after the native transition succeeds;
+  - keeps failures visible without changing timer/session state;
+  - preserves `?diagnostics=1` as the explicit M1 diagnostic path;
+- `src/FocusPanel.tsx` activates the Compact control only when the product callback is present and disables it during a pending transition; deterministic Focus fixtures without the callback remain inert;
+- `src/FloatingTimerFoundation.tsx` + `src/floatingTimerFoundation.css` provide only the minimal compact product shell and accessible return-to-Panel control required to make the transformation reversible. They intentionally contain no live timer/title/subtask/action-strip implementation from later M7 items.
+
+Coverage:
+
+- new `scripts/test-ui-floating-compact-mode.mjs` locks:
+  - reuse of `FOCUS_SURFACE_LABEL`;
+  - absence of `WebviewWindowBuilder` in the production compact transition;
+  - existing compact always-on-top/skip-taskbar native foundation;
+  - mode snapshot/reconciliation;
+  - native-success-before-renderer-mode publication;
+  - active Compact callback semantics;
+  - accessible reversible return path;
+  - prohibition on timer/session mutations and later M7 content leakage;
+  - no decorative animation/overlay behavior in item 1;
+  - frontend preflight registration;
+- `scripts/test-ui-focus-panel.mjs` and `scripts/test-ui-focus-icon-tooltips.mjs` are evolved only so Compact becomes the ordered M7 active control while Preferences remains the sole icon-only placeholder;
+- `package.json` registers the new deterministic contract in frontend preflight.
+
+Semantic diff against the slice base is exactly ten files. No SQLite/schema, task/domain, timer/session transition, scheduling classification, persistence, monitor-selection, display-topology recovery or dependency/lockfile behavior changed.
+
+Local validation:
+
+- attempted local branch clone + targeted deterministic tests/frontend build;
+- **NOT RUN** because the execution environment failed before checkout with `Could not resolve host: github.com`;
+- do not treat any local test/build as PASS.
+
+### Checkpoint 3/5 — PENDING
+
+PR #117 — `M7: add Floating Timer compact-mode foundation` — is open from `m7-floating-compact-mode`.
+
+Initial exact PR head:
+
+`04b612d274c6e04b827d46f82542a6eede9552d7`
+
+Windows CI #447:
+
+- run `35533002557`;
+- job `106136907926`;
+- **FAILED** at Repository Preflight;
+- checkout, Node/Rust setup and dependency installation succeeded;
+- exact failure: legacy M6 `scripts/test-ui-focus-panel.mjs` still required the old normal root `<FocusPanel />` and reported `Focus Panel UI contract failed: product Focus Panel default rendering is missing`;
+- Windows visual regression, Tauri Release and both artifact uploads were skipped after the failed preflight.
+
+Evidence-backed correction:
+
+- commit `d861ffa5ef6d21b180548c7821864786914851f8` changes only that stale deterministic root expectation to the ordered M7 `<FocusSurfaceProduct />` root;
+- production source, native window behavior, timer/session state and compact-mode semantics are unchanged.
+
+Windows CI #449:
+
+- run `35533079926`;
+- job `106137172020`;
+- **FAILED** at Repository Preflight inside the new `test:ui-floating-compact-mode` contract;
+- exact failure: `Floating compact-mode contract failed: M1 diagnostic Timer command must delegate to the production same-window compact transition`;
+- source inspection confirmed the delegation is present exactly as intended; the test was brittle because it embedded a literal LF-only multi-line source string while Windows checkout uses CRLF;
+- visual regression, Tauri Release and both artifact uploads were skipped after preflight failure.
+
+Evidence-backed correction:
+
+- commit `e8b4961f98b6c0c8c5c3e4ed84fc81eb928a197b` changes only that new deterministic assertion to use the existing function-slice semantic check and ignore line-ending formatting;
+- production source remains unchanged.
+
+Require a fresh authoritative Windows CI run on the exact latest PR head after this handoff commit: Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
+
+### Checkpoint 4/5 — PENDING
+
+After exact-head CI success, verify the head unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; then squash merge with an expected-head guard.
+
+### Checkpoint 5/5 — PENDING
+
+Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable M7 item-1 work log.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -128,7 +223,7 @@ No M7 implementation branch or PR is established yet.
 
 ## NEXT AGENT ACTION
 
-Reconstruct M7 item-1 compact-mode transformation from the repository before editing source. Inspect the current native `focusSurface` mode switch, window configuration, focus entry/frontend routing, authoritative timer projection, M1 performance/native validation evidence and Floating Timer product/UI evidence. Then create one narrow implementation branch from the latest `main` tracking tip and implement only the evidence-backed transformation foundation.
+Check PR #117 and authoritative Windows CI on its exact latest head first. If CI fails, inspect the exact failing step/log and fix only evidence-backed problems on `m7-floating-compact-mode`. If it succeeds, record artifacts and proceed to final exact-head review plus expected-head guarded squash merge. Do not start M7 item 2 in parallel.
 
 ## USER ACTION REQUIRED
 
