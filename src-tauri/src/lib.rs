@@ -435,7 +435,7 @@ fn apply_focus_surface_mode(
 ) -> CommandResult<()> {
     let (width, height, always_on_top, skip_taskbar) = match mode {
         FocusSurfaceMode::Panel => (400.0, 700.0, false, false),
-        FocusSurfaceMode::Timer => (300.0, 100.0, true, true),
+        FocusSurfaceMode::Timer => (340.0, 110.0, true, true),
     };
 
     window

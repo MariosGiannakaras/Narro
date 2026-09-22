@@ -2,20 +2,29 @@
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
   overflow: hidden;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
   color: var(--color-text-primary);
-  background: var(--color-canvas);
+  background: var(--color-surface-raised);
 }
 
-.floating-timer-foundation__status {
+.floating-timer-foundation__content {
+  min-width: 0;
+  height: 100%;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-content: center;
+  gap: 8px;
+}
+
+.floating-timer-foundation__heading {
   min-width: 0;
   display: grid;
-  gap: var(--space-1);
+  grid-template-columns: minmax(0, 1fr) 7ch 32px;
+  align-items: center;
+  gap: 8px;
 }
 
 .floating-timer-foundation [data-tauri-drag-region="true"] {
@@ -23,37 +32,118 @@
   user-select: none;
 }
 
-.floating-timer-foundation__label,
-.floating-timer-foundation__error {
+.floating-timer-foundation__title {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: var(--font-size-body);
+  font-weight: 650;
+  line-height: 1.2;
 }
 
-.floating-timer-foundation__label {
-  color: var(--color-text-secondary);
+.floating-timer-foundation__timer {
+  width: 7ch;
+  min-width: 7ch;
+  overflow: hidden;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--color-accent-solid);
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
-.floating-timer-foundation__error {
-  color: var(--color-destructive);
-}
-
-.floating-timer-foundation__return {
+.floating-timer-foundation__return,
+.floating-timer-foundation__subtask-control {
   width: 32px;
   height: 32px;
   min-width: 32px;
   min-height: 32px;
   padding: 0;
-  flex: none;
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid transparent;
   border-radius: var(--radius-control);
-  color: var(--color-text-primary);
-  background: var(--color-surface-interactive);
+  color: var(--color-text-secondary);
+  background: transparent;
+  font: inherit;
   cursor: pointer;
 }
 
-.floating-timer-foundation__return:focus-visible {
+.floating-timer-foundation__return {
+  border-color: var(--color-border-subtle);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.floating-timer-foundation__return:hover:not(:disabled),
+.floating-timer-foundation__subtask-control:hover:not([aria-disabled="true"]) {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.floating-timer-foundation__return:focus-visible,
+.floating-timer-foundation__subtask-control:focus-visible {
   outline: 2px solid var(--color-accent-solid);
   outline-offset: 1px;
+}
+
+.floating-timer-foundation__return:disabled {
+  cursor: default;
+  opacity: 0.52;
+}
+
+.floating-timer-foundation__subtask-toolbar {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 32px 32px;
+  align-items: center;
+  gap: 6px;
+}
+
+.floating-timer-foundation__subtask-ring {
+  --floating-subtask-progress: 0deg;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--color-success) var(--floating-subtask-progress),
+    var(--color-surface-interactive) 0
+  );
+  font-variant-numeric: tabular-nums;
+}
+
+.floating-timer-foundation__subtask-ring > span {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-raised);
+  font-size: 9px;
+  line-height: 1;
+}
+
+.floating-timer-foundation__subtask-count {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+}
+
+.floating-timer-foundation__subtask-control[aria-disabled="true"] {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.floating-timer-foundation__error {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-destructive);
 }
