@@ -28,6 +28,36 @@ type FocusListOption = {
   title: string;
 };
 
+export type FocusPanelProps = {
+  fixtureBoard?: ListBoardSnapshot;
+  fixtureLists?: FocusListOption[];
+  fixtureTimer?: TimerSessionPayload | null;
+  onRequestCompact?: () => void;
+  compactTransitionPending?: boolean;
+  modeTransitionError?: string | null;
+};
+
+function formatEstimate(totalSeconds: number): string {
+  if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) return "—";
+  const totalMinutes = Math.max(1, Math.ceil(totalSeconds / 60));
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (hours === 0) return `${minutes}min`;
+  if (minutes === 0) return `${hours}hr`;
+  return `${hours}hr ${minutes}min`;
+}
+
+function formatDuration(rawSeconds: string): string {
+  const seconds = Number(rawSeconds);
+  if (!Number.isFinite(seconds) || seconds <= 0) return "0min";
+  const totalMinutes = Math.max(1, Math.round(seconds / 60));
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (hours === 0) return `${minutes}min`;
+  if (minutes === 0) return `${hours}hr`;
+  return `${hours}hr ${minutes}min`;
+}
+
 function taskScheduleLabel(task: ListBoardTask): string | null {
   if (!task.scheduledLocalDate) return null;
   try {
