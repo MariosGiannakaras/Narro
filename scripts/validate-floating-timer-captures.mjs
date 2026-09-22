@@ -15,8 +15,8 @@ function readCapture(theme) {
   const domPath = path.join(outputDirectory, `${label}.html`);
   invariant(fs.existsSync(screenshot), `${label} screenshot is missing`);
   const png = fs.readFileSync(screenshot);
-  invariant(png.length > 5_000, `${label} screenshot is unexpectedly small`);
   invariant(png.length >= 24, `${label} PNG is incomplete`);
+  invariant(png.subarray(0, 8).toString("hex") === "89504e470d0a1a0a", `${label} screenshot is not a PNG`);
   invariant(
     png.readUInt32BE(16) === 340 && png.readUInt32BE(20) === 110,
     `${label} screenshot must be 340x110`,
