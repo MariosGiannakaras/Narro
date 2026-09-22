@@ -14,12 +14,12 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS**.
 - Milestone 6 / Gate F: **PASS** — all 16 top-level items validated.
-- Milestone 7: **ACTIVE / 1 of 14 top-level items validated**.
+- Milestone 7: **ACTIVE / 2 of 14 top-level items validated**.
 - Milestones 8–10: **NOT STARTED**.
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 item 1 is validated. M7 item 2 is implemented and automated-validated on Windows, but remains open until the new product drag affordance is physically observed on a real Windows desktop.
+M7 items 1–2 are validated. The next ordered work is M7 item 3: implement the collapsed Floating Timer content matching the supplied compact screenshot hierarchy.
 
 ## Current validated source baseline
 
@@ -33,7 +33,7 @@ Tree:
 
 This is the expected-head guarded squash merge of PR #118 — `M7: make Floating Timer movable` — from exact validated PR head `2ca6b59958e368c27024b06a652c9eb56ca30b44`.
 
-Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline. M7 item 2 is not yet promoted to a completed top-level item because physical drag behavior has not been observed on a real Windows desktop.
+Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline. M7 item 2 is now physically validated on the same exact source build.
 
 ### PR #118 exact-head validation
 
@@ -65,7 +65,9 @@ Windows CI #454 / run `35593002396` / job `106311386561`: **SUCCESS** on exact m
 - main visual artifact `10635408100`, digest `sha256:1b4a398bc4f4b9b82efb23876c25f803eafd391ad14c99d14d8e2dd6a6da6b0c`;
 - main diagnostic/runtime artifact `10636128018`, digest `sha256:8d2113cfd00bc73a84d96294380f43f33fef460ddc86e8d880b3f986ae124cb5`.
 
-Automated validation proves the Tauri capability/configuration, deterministic contract, frontend/Rust preflight, release build and artifact generation. It does **not** prove that a real user can physically drag the frameless product Floating Timer; that observation remains the final item-2 gate.
+Automated validation proves the Tauri capability/configuration, deterministic contract, frontend/Rust preflight, release build and artifact generation.
+
+Physical Windows validation on 2026-09-23 using the exact CI #454 build additionally recorded **PASS** for drag, Return-to-Panel control, always-on-top and absence of a normal taskbar button. The user observed one non-blocking visual issue: Timer -> Panel briefly flashes at the left side before settling back at the correct original right-side Panel position. That observation is carried forward to the dedicated M7 transition item.
 
 ## Milestone 6 validated work
 
@@ -135,16 +137,31 @@ Automated-validated behavior:
 - safe-position persistence/recovery remains item 10 and borderless-full-screen topmost validation remains item 11;
 - no timer/session/task/scheduling/persistence semantics changed.
 
-Validation boundary:
+Physical Windows validation:
 
-- PR CI #453 and resulting-main CI #454 are **PASS**;
-- physical Windows drag observation is **NOT RUN** and is required before item 2 can become `[x]`.
+- Drag Floating Timer: **PASS**;
+- Return to Focus Panel button: **PASS**;
+- always-on-top over normal apps: **PASS**;
+- no normal Floating Timer taskbar button: **PASS**;
+- final Panel position after return: correct original right-side position;
+- observed transition artifact: a very brief left-side Panel flicker before settling right. This does not invalidate item 2 and is assigned to the later transition slice.
 
 ## Milestone 7 — next ordered work
 
-Finish M7 item 2 by physically validating the merged product Floating Timer on Windows. Use Windows CI #454 artifact `narro-m1-runtime-harness-windows-x64` (artifact `10636128018`, exact source SHA `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`). Confirm the compact product surface can be dragged from its non-interactive area while the return-to-Panel control remains clickable. Re-check normal-app topmost/taskbar presentation during the same short test if practical.
+Start M7 item 3:
 
-Do **not** start item 3 until this item-2 physical blocker is resolved and tracking is reconciled.
+3. `Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.`
+
+Item-3 boundaries:
+
+- reuse authoritative M6 Focus/timer/task/subtask projections and mutations; do not create renderer timer/session authority;
+- implement only the collapsed hierarchy/content and its direct add/expand affordances;
+- expanded action strip remains item 4;
+- expanded subtask rows/reorder/delete remain item 5;
+- stable tooltip/hit-target work remains item 6;
+- transition motion and the physically observed Timer -> Panel left-side flicker remain item 7;
+- position persistence/recovery remains item 10;
+- no continuous decorative animation or high-frequency geometry loop.
 
 ## Durable correctness decisions
 

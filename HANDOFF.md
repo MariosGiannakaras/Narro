@@ -7,15 +7,16 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 **Milestone 7 — Floating Timer mode.**
 
 - Milestones 1–6: COMPLETE / PASS.
-- Milestone 7: ACTIVE / **1 of 14** top-level items validated.
+- Milestone 7: ACTIVE / **2 of 14** top-level items validated.
 - Milestones 8–10: NOT STARTED.
 - General roadmap progress: **6/10 milestones complete**.
-- M7 item 1: **COMPLETE / VALIDATED**.
-- Current M7 item-2 slice: **4/5 checkpoints complete**; implementation and automated validation are complete, physical Windows drag validation is pending.
+- M7 item 1: COMPLETE / VALIDATED.
+- M7 item 2: COMPLETE / AUTOMATED + PHYSICAL WINDOWS VALIDATED.
+- Current M7 item-3 slice: **0/5 checkpoints complete**.
 
-Repository compact progress source values: `6/10M || 4/5 | 1/14`.
+Repository compact progress source values: `6/10M || 0/5 | 2/14`.
 
-## CURRENT AUTOMATED-VALIDATED SOURCE BASELINE
+## CURRENT VALIDATED SOURCE BASELINE
 
 Source/test SHA:
 
@@ -25,97 +26,67 @@ Source tree:
 
 `adf0342eba2944bca5e986d80f977bb06864682a`
 
-This is the expected-head guarded squash merge of PR #118 after authoritative resulting-main Windows CI #454 passed on the exact merged source SHA. Markdown-only tracking descendants after this SHA do **not** replace the source/test baseline.
+This is the expected-head guarded squash merge of PR #118. PR Windows CI #453 and resulting-main Windows CI #454 passed on the exact source. The exact CI #454 runtime build was then physically validated on Windows on 2026-09-23.
 
-Latest immutable item-2 evidence:
+Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
-`work-log/2026-09-22-1545-chatgpt-m7-floating-movability.md`
+Latest immutable validation evidence:
 
-## M7 ITEM 2 IMPLEMENTATION / CI EVIDENCE
+`work-log/2026-09-23-0153-chatgpt-m7-floating-movability-physical-pass.md`
 
-PR #118 — `M7: make Floating Timer movable`
+## M7 ITEM 2 FINAL PHYSICAL EVIDENCE
 
-Final exact PR head:
+Exact source/build under test:
 
-`2ca6b59958e368c27024b06a652c9eb56ca30b44`
-
-Authoritative PR Windows CI #453:
-
-- run `35591332492`;
-- job `106306156731`;
-- Repository Preflight: **SUCCESS**;
-- Windows visual regression: **SUCCESS**;
-- Tauri Release: **SUCCESS**;
-- both required artifact uploads: **SUCCESS**;
-- visual artifact `10634403550`, digest `sha256:f2850ed4be8e9c588004657d03a74c20a30d218fe128a01e8cad17beff313215`;
-- diagnostic/runtime artifact `10635435409`, digest `sha256:1b51f68a27180dbfdd93d0840612c477abbd0ecaa4ba38a34379262032084066`.
-
-Final review verified exact head unchanged, exactly five expected changed files, no conversation comments, submitted reviews or inline review threads, and mergeability.
-
-Expected-head guarded squash merge:
-
-`f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`
-
-Authoritative resulting-main Windows CI #454:
-
-- run `35593002396`;
-- job `106311386561`;
-- exact main source SHA `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`;
-- Repository Preflight: **SUCCESS**;
-- Windows visual regression: **SUCCESS**;
-- Tauri Release: **SUCCESS**;
-- both required artifact uploads: **SUCCESS**;
-- visual artifact `10635408100`, digest `sha256:1b4a398bc4f4b9b82efb23876c25f803eafd391ad14c99d14d8e2dd6a6da6b0c`;
+- source SHA `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`;
+- Windows CI #454 / run `35593002396`;
 - diagnostic/runtime artifact `10636128018`, digest `sha256:8d2113cfd00bc73a84d96294380f43f33fef460ddc86e8d880b3f986ae124cb5`.
 
-Implemented behavior:
+User-observed Windows results:
 
-- product compact surface uses Tauri-native `data-tauri-drag-region` on non-interactive content;
-- return-to-Panel remains outside the drag region and clickable;
-- drag capability is scoped only to `focusSurface`;
-- existing native Timer-mode always-on-top and skip-taskbar properties are retained;
-- renderer does not own geometry and no JS drag/mousemove loop was introduced;
-- later safe-position/full-screen/collapsed-content items were not absorbed.
+- Drag: **PASS** — Floating Timer moved and remained at the released position.
+- Return button: **PASS** — Return to Focus Panel restored the Panel at its original right-side position.
+- Always on top: **PASS**.
+- Taskbar: **PASS** — no normal Floating Timer taskbar button.
+
+Observed but non-blocking transition artifact:
+
+- Timer -> Panel produces a very brief flash/flicker of the Panel on the left side before it settles back at the correct original right-side Panel position.
+- Final position correctness is intact.
+- This is recorded for M7 item 7 (Focus Panel <-> Floating Timer transition), not treated as an item-2 failure.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**M7 item 2/14 — Make the Floating Timer movable, always-on-top, and absent from normal taskbar presentation where appropriate.**
+**M7 item 3/14 — Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.**
 
-### Checkpoint status — 4/5 complete
+### Checkpoint plan — 0/5 complete
 
-1. **COMPLETE** — reconstructed item-2 contract; topmost/taskbar primitives were already M1-validated and the missing behavior was native movability.
-2. **COMPLETE** — implemented scoped native drag affordance plus deterministic contract coverage.
-3. **COMPLETE** — exact PR head passed authoritative Windows CI #453.
-4. **COMPLETE** — exact-head final review passed and PR #118 was expected-head guarded squash merged.
-5. **PENDING PHYSICAL OBSERVATION** — resulting-main Windows CI #454 passed, but actual drag interaction on a real Windows desktop is **NOT RUN**. After physical PASS, mark item 2 `[x]`, advance M7 to 2/14, reset the next item-3 slice to 0/5, and reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` plus a new immutable validation log.
+1. Reconstruct the exact collapsed hierarchy, dimensions, authoritative data/mutation sources, screenshot evidence, and item-3 scope boundaries from repository evidence.
+2. Implement only collapsed title/live timer/subtask progress/add/expand behavior with deterministic UI contracts and Windows visual fixtures where appropriate.
+3. Validate the exact PR head with authoritative Windows CI: Repository Preflight, relevant visual regression, Tauri Release and both required artifact uploads.
+4. Verify exact head unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; squash merge with expected-head guard.
+5. Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable item-3 work log.
 
-## USER ACTION REQUIRED
+## ITEM-3 BOUNDARIES
 
-Use the exact Windows CI #454 artifact:
-
-- artifact name: `narro-m1-runtime-harness-windows-x64`;
-- artifact ID: `10636128018`;
-- source SHA: `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`.
-
-On a real Windows 10/11 desktop:
-
-1. Download/extract the artifact and run the included raw `narro.exe`.
-2. Ensure an eligible Today task exists, enter Blitz/Focus mode, then use **Compact view** to show the product Floating Timer.
-3. Drag the Floating Timer from its label/background/non-button area and release it somewhere visibly different.
-4. Confirm **PASS/FAIL**: the same Floating Timer window follows the pointer and remains usable after release.
-5. Confirm **PASS/FAIL**: the **Return to Focus Panel** button is still clickable and does not start a drag.
-6. If practical, briefly confirm the Timer still stays above a normal app and has no normal taskbar button.
-
-Only the drag observation is the new blocking evidence; M1 already physically validated the native Timer topmost/taskbar primitives.
+- The existing `focusSurface` remains the only focus webview and native Timer mode remains window authority.
+- Reuse M6 authoritative task/timer/subtask reads and existing safe mutations; do not create renderer-owned timer/session state.
+- Item 3 owns only the collapsed hierarchy: task title, live timer, subtask progress, add affordance and expand affordance.
+- Expanded action strip is item 4.
+- Expanded subtask rows/reorder/delete is item 5.
+- Stable tooltip/hit-target work is item 6.
+- Transition animation and the recorded Timer -> Panel left-side flash are item 7.
+- Position persistence/recovery is item 10.
+- Borderless-full-screen topmost validation is item 11.
+- No continuous polling/decorative animation or JS native-window geometry loop.
 
 ## NEXT AGENT ACTION
 
-Do not start M7 item 3 while the USER ACTION REQUIRED blocker above is unresolved.
+Reconstruct item 3 from `Screenshot_19.png`, `docs/RESEARCH_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/PRODUCT_SPEC.md`, `docs/BEHAVIOR_MATRIX.md`, the current `FloatingTimerFoundation`, and the already-validated M6 Focus live timer/subtask/add implementations. Determine the narrowest reuse path, then create one coherent item-3 branch from the latest main tracking tip.
 
-When the user reports the physical result:
+## USER ACTION REQUIRED
 
-- on **PASS**, record the observation in a new immutable work log, mark M7 item 2 complete, advance milestone progress to 2/14, reset item-3 slice progress to 0/5, and begin item 3;
-- on **FAIL**, record the exact symptom and fix only the evidence-backed drag problem on a new coherent branch from current main.
+**None.**
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -127,12 +98,12 @@ When the user reports the physical result:
 - Focus Panel <-> Floating Timer presentation changes cannot reset, duplicate, start, stop or switch a session.
 - future-timed Today tasks remain ineligible until due.
 - M6 Focus Panel accessibility/geometry/visual-state/empty-state invariants remain intact.
+- item-2 native drag capability remains scoped only to `focusSurface` and interactive controls remain non-drag regions.
 - Notes URLs remain explicit pointer/keyboard activation only.
 - reduced-motion remains usable and no continuous decorative animation/polling is introduced.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
 
 ## BLOCKERS / NOT RUN
 
-- Physical product Floating Timer drag validation on real Windows: **NOT RUN / BLOCKING ITEM-2 COMPLETION**.
-- No additional product decision is required.
-- Full local repository/frontend/Rust/Tauri preflight is unavailable in this connector-only environment; authoritative Windows CI #453/#454 provides the automated gate.
+- No user/product decision blocks M7 item 3.
+- Full local repository/frontend/Rust/Tauri preflight is unavailable in this connector-only environment; authoritative Windows CI remains the complete automated gate.

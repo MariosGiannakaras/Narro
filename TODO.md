@@ -260,14 +260,15 @@ Acceptance criteria:
 ## Milestone 7 — Floating Timer mode
 
 - [x] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
-- [ ] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.
+- [x] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.
   - [x] Native drag affordance, focusSurface-scoped drag capability, exact-head PR CI, guarded merge, and resulting-main CI are automated-validated.
-  - [ ] Physical Windows validation: the product Floating Timer can actually be dragged by the user on a real Windows desktop.
+  - [x] Physical Windows validation: Drag PASS; Return button PASS; Always-on-top PASS; no normal taskbar button PASS.
 - [ ] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
 - [ ] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
 - [ ] Implement expanded subtask rows with completion, reorder, delete and progress.
 - [ ] Keep icon hit targets stable and show tooltips without changing window width.
 - [ ] Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop.
+  - Known Windows observation (2026-09-23): Timer -> Panel briefly flickers at the left side before settling back at the configured right-side Panel position; preserve final-position correctness and remove/validate this flash in the transition slice.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
 - [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
