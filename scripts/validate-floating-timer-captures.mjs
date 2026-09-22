@@ -18,8 +18,8 @@ function readCapture(theme) {
   invariant(png.length > 5_000, `${label} screenshot is unexpectedly small`);
   invariant(png.length >= 24, `${label} PNG is incomplete`);
   invariant(
-    png.readUInt32BE(16) === 380 && png.readUInt32BE(20) === 150,
-    `${label} screenshot must be 380x150`,
+    png.readUInt32BE(16) === 340 && png.readUInt32BE(20) === 110,
+    `${label} screenshot must be 340x110`,
   );
   invariant(fs.existsSync(domPath), `${label} DOM capture is missing`);
   return { label, dom: fs.readFileSync(domPath, "utf8") };
