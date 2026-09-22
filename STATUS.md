@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-21
+Last updated: 2026-09-22
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
@@ -19,51 +19,53 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 item 1 is validated. The next ordered work is item 2: **Make the Floating Timer movable, always-on-top, and absent from normal taskbar presentation where appropriate.**
+M7 item 1 is validated. M7 item 2 is implemented and automated-validated on Windows, but remains open until the new product drag affordance is physically observed on a real Windows desktop.
 
 ## Current validated source baseline
 
-Latest fully resulting-main-validated **source/test** baseline:
+Latest resulting-main automated-validated **source/test** baseline:
 
-`8a42e84265b426eb1e7a1d7723cc56637604c750`
+`f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`
 
 Tree:
 
-`ed21649ac72f9bf6de1d9fe40d9b0549830464f1`
+`adf0342eba2944bca5e986d80f977bb06864682a`
 
-This is the expected-head guarded squash merge of PR #117 — `M7: add Floating Timer compact-mode foundation` — from exact validated PR head `2bd3144c00d1fd99be35bd43a5ed661f51beaf3c`.
+This is the expected-head guarded squash merge of PR #118 — `M7: make Floating Timer movable` — from exact validated PR head `2ca6b59958e368c27024b06a652c9eb56ca30b44`.
 
-Markdown-only tracking descendants after this source SHA do **not** replace the validated source/test baseline.
+Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline. M7 item 2 is not yet promoted to a completed top-level item because physical drag behavior has not been observed on a real Windows desktop.
 
-### PR #117 exact-head validation
+### PR #118 exact-head validation
 
-Windows CI #451 / run `35533171618` / job `106137420110`: **SUCCESS**.
+Windows CI #453 / run `35591332492` / job `106306156731`: **SUCCESS** on exact PR head `2ca6b59958e368c27024b06a652c9eb56ca30b44`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- PR visual artifact `10612486287`, digest `sha256:413902b9a659246e818a7275a2d9cda852f69f125e8442f11afd00a8df3f2377`;
-- PR diagnostic/runtime artifact `10611533572`, digest `sha256:1f33793cc15b5983d851f7f5927ff655fc8d84d88f13ca284d1e13ea384b41e4`.
+- PR visual artifact `10634403550`, digest `sha256:f2850ed4be8e9c588004657d03a74c20a30d218fe128a01e8cad17beff313215`;
+- PR diagnostic/runtime artifact `10635435409`, digest `sha256:1b51f68a27180dbfdd93d0840612c477abbd0ecaa4ba38a34379262032084066`.
 
-Final review verified exact head unchanged and mergeable, `main` still exactly at PR base `42e2cd905e9dda58b6d40eecccd8bbe735377f55`, exactly eleven expected changed files, and no conversation comments, submitted reviews or inline review comments.
+Final review verified the exact head unchanged, exactly five expected changed files, no conversation comments, no submitted reviews, no inline review threads, and mergeability before the expected-head guarded squash merge.
 
 Expected-head guarded squash merge:
 
-`8a42e84265b426eb1e7a1d7723cc56637604c750`
+`f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`
 
 ### Resulting-main validation
 
-Windows CI #452 / run `35577507700` / job `106262581005`: **SUCCESS** on exact main source SHA `8a42e84265b426eb1e7a1d7723cc56637604c750`.
+Windows CI #454 / run `35593002396` / job `106311386561`: **SUCCESS** on exact main source SHA `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- main visual artifact `10629191288`, digest `sha256:beaa8d1da636da62fe54a0a055d60a7f21fc6f45fbc9de243ba30a0d8a78e286`;
-- main diagnostic/runtime artifact `10629786016`, digest `sha256:1f69c7413051eb596c63bb62e1e820dc5e7313b442f06945de36ffc3ec8c7215`.
+- main visual artifact `10635408100`, digest `sha256:1b4a398bc4f4b9b82efb23876c25f803eafd391ad14c99d14d8e2dd6a6da6b0c`;
+- main diagnostic/runtime artifact `10636128018`, digest `sha256:8d2113cfd00bc73a84d96294380f43f33fef460ddc86e8d880b3f986ae124cb5`.
+
+Automated validation proves the Tauri capability/configuration, deterministic contract, frontend/Rust preflight, release build and artifact generation. It does **not** prove that a real user can physically drag the frameless product Floating Timer; that observation remains the final item-2 gate.
 
 ## Milestone 6 validated work
 
@@ -119,13 +121,30 @@ Validated behavior:
 
 CI history included two test-contract-only failures (#447 stale M6 root assertion; #449 LF/CRLF-brittle compact assertion). Both were corrected without production changes before exact-head CI #451 and resulting-main CI #452 passed all required gates.
 
+### Item 2 — Floating Timer movability/topmost/taskbar
+
+Implementation source: PR #118 / merge `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`.
+
+Automated-validated behavior:
+
+- the frameless product `FloatingTimerFoundation` exposes Tauri-native drag regions over non-interactive content;
+- the return-to-Panel button is deliberately excluded from the drag region and remains interactive;
+- `core:window:allow-start-dragging` is scoped to `focusSurface` only rather than broadened to `main`;
+- native Timer mode remains authority for always-on-top and skip-taskbar state;
+- no JS pointer/mouse move loop or renderer-owned `setPosition` path was added;
+- safe-position persistence/recovery remains item 10 and borderless-full-screen topmost validation remains item 11;
+- no timer/session/task/scheduling/persistence semantics changed.
+
+Validation boundary:
+
+- PR CI #453 and resulting-main CI #454 are **PASS**;
+- physical Windows drag observation is **NOT RUN** and is required before item 2 can become `[x]`.
+
 ## Milestone 7 — next ordered work
 
-Start M7 item 2:
+Finish M7 item 2 by physically validating the merged product Floating Timer on Windows. Use Windows CI #454 artifact `narro-m1-runtime-harness-windows-x64` (artifact `10636128018`, exact source SHA `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`). Confirm the compact product surface can be dragged from its non-interactive area while the return-to-Panel control remains clickable. Re-check normal-app topmost/taskbar presentation during the same short test if practical.
 
-2. `Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.`
-
-M1 already physically validated Timer always-on-top and skip-taskbar behavior. Before source changes, reconstruct what remains missing for product-grade **movability** and whether the current Tauri/native chrome permits user dragging in the frameless/compact presentation. Preserve native window authority and keep item 2 separate from later safe-position persistence (item 10), full-screen validation (item 11), and collapsed visual content (item 3).
+Do **not** start item 3 until this item-2 physical blocker is resolved and tracking is reconciled.
 
 ## Durable correctness decisions
 

@@ -261,6 +261,8 @@ Acceptance criteria:
 
 - [x] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
 - [ ] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.
+  - [x] Native drag affordance, focusSurface-scoped drag capability, exact-head PR CI, guarded merge, and resulting-main CI are automated-validated.
+  - [ ] Physical Windows validation: the product Floating Timer can actually be dragged by the user on a real Windows desktop.
 - [ ] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
 - [ ] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
 - [ ] Implement expanded subtask rows with completion, reorder, delete and progress.
