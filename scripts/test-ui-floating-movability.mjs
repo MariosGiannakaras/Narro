@@ -40,7 +40,7 @@ invariant(
 );
 
 invariant(
-  lib.includes("FocusSurfaceMode::Timer => (300.0, 100.0, true, true)"),
+  lib.includes("FocusSurfaceMode::Timer => (340.0, 110.0, true, true)"),
   "Timer mode must retain the validated always-on-top and skip-taskbar native properties",
 );
 invariant(
