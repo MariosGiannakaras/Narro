@@ -10,8 +10,8 @@ const theme = params.get("theme") === "light" ? "light" : "dark";
 
 document.documentElement.dataset.theme = theme;
 document.body.style.margin = "0";
-document.body.style.width = "380px";
-document.body.style.height = "150px";
+document.body.style.width = "340px";
+document.body.style.height = "110px";
 document.body.style.overflow = "hidden";
 document.body.style.background = "var(--color-canvas)";
 
@@ -62,9 +62,8 @@ const timer: TimerSessionPayload = {
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Floating Timer fixture root is missing.");
-root.style.width = "340px";
-root.style.height = "110px";
-root.style.margin = "20px";
+root.style.width = "100%";
+root.style.height = "100%";
 
 flushSync(() => {
   createRoot(root).render(
