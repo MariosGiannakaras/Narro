@@ -90,11 +90,13 @@ invariant(!revalidate.includes(".set_focus()"), "display revalidation must not s
 
 const timerRoot = slice(focus, 'if (mode === "timer") {', '\n  return (');
 const panelRoot = slice(focus, 'key="panel"', '\n      <FocusPanel');
-for (const [name, root] of [["Timer", timerRoot], ["Panel", panelRoot]]) {
+for (const [name, mode, root] of [["Timer", "timer", timerRoot], ["Panel", "panel", panelRoot]]) {
   invariant(
-    root.includes('exiting={pendingMode !== null}')
+    root.includes(`key="${mode}"`)
+      && root.includes(`mode="${mode}"`)
+      && root.includes('exiting={pendingMode !== null}')
       && root.includes('onExitComplete={() => void commitPendingModeTransition()}'),
-    `${name} product root must complete exit before native mode sequencing`,
+    `${name} product root must stay keyed and complete exit before native mode sequencing`,
   );
 }
 const requestMode = slice(focus, "function requestMode(", "async function commitPendingModeTransition()");
