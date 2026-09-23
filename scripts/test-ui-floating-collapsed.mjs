@@ -10,6 +10,7 @@ function invariant(condition, message) {
 
 const lib = read("src-tauri/src/lib.rs");
 const foundation = read("src/FloatingTimerFoundation.tsx");
+const presentationFrame = read("src/presentationFrame.ts");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
 const css = read("src/floatingTimerFoundation.css");
 const timerPresentation = read("src/focusTimerPresentation.ts");
@@ -70,9 +71,11 @@ for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `renderer must not create a duplicate timer clock through ${forbidden}`);
 }
 invariant(
-  (foundation.match(/requestAnimationFrame\(/g) ?? []).length === 1
-    && foundation.includes("function nextPaint(): Promise<void>"),
-  "collapsed timer may use exactly one finite paint-boundary rAF helper, not a renderer clock/loop",
+  foundation.includes('import { waitForPresentedFrame } from "./presentationFrame";')
+    && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 2
+    && !presentationFrame.includes("setInterval(")
+    && !presentationFrame.includes("setTimeout("),
+  "collapsed timer may use only the shared finite two-frame presentation barrier, not a renderer clock/loop",
 );
 
 for (const needle of [
