@@ -43,7 +43,7 @@ invariant(
 const position = slice(
   lib,
   "fn position_focus_panel_in_work_area(",
-  "#[tauri::command(rename_all = \"camelCase\")]\nfn position_focus_panel(",
+  "fn position_focus_panel(",
 );
 const stageMove = position.indexOf("x: work_area.position.x");
 const finalMove = position.indexOf("x: final_position.x");
