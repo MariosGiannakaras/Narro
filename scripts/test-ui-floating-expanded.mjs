@@ -11,6 +11,7 @@ function invariant(condition, message) {
 const lib = read("src-tauri/src/lib.rs");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const foundation = read("src/FloatingTimerFoundation.tsx");
+const presentationFrame = read("src/presentationFrame.ts");
 const actions = read("src/FocusLiveActions.tsx");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
 const overlay = read("src/overlayPrimitives.tsx");
@@ -38,28 +39,34 @@ invariant(
 );
 
 const exitWait = foundation.indexOf('await waitForResizeTransition("exiting");');
-const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);");
+const resizingPhase = foundation.indexOf('setResizePhase("resizing");', exitWait);
+const preResizePaint = foundation.indexOf("await waitForPresentedFrame();", resizingPhase);
+const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);", preResizePaint);
 const publishExpanded = foundation.indexOf("setExpanded(nextExpanded);", resizeCall);
 const enteringPhase = foundation.indexOf('setResizePhase("entering");', publishExpanded);
-const paintBoundary = foundation.indexOf("await nextPaint();", enteringPhase);
-const entranceWait = foundation.indexOf('await waitForResizeTransition("idle");', paintBoundary);
+const postResizePaint = foundation.indexOf("await waitForPresentedFrame();", enteringPhase);
+const entranceWait = foundation.indexOf('await waitForResizeTransition("idle");', postResizePaint);
 invariant(
   foundation.includes('data-floating-resize-pending={resizePending ? "true" : "false"}')
     && foundation.includes("data-floating-resize-phase={resizePhase}")
     && exitWait >= 0
-    && exitWait < resizeCall
+    && exitWait < resizingPhase
+    && resizingPhase < preResizePaint
+    && preResizePaint < resizeCall
     && resizeCall < publishExpanded
     && publishExpanded < enteringPhase
-    && enteringPhase < paintBoundary
-    && paintBoundary < entranceWait,
-  "expanded resize must animate out, resize natively, publish final content, then animate in",
+    && enteringPhase < postResizePaint
+    && postResizePaint < entranceWait,
+  "expanded resize must animate out, present a hidden frame, resize natively, publish final content hidden, then animate in",
 );
 invariant(
   foundation.includes("onTransitionEnd")
     && !foundation.includes("onTransitionCancel")
     && foundation.includes("finishResizeTransition()")
     && css.includes('[data-floating-resize-phase="exiting"]')
+    && css.includes('[data-floating-resize-phase="resizing"]')
     && css.includes('[data-floating-resize-phase="entering"]')
+    && css.includes("visibility: hidden")
     && css.includes("transition-duration: var(--motion-duration-inline)")
     && css.includes("transition-timing-function: var(--motion-ease-exit)")
     && css.includes("transition-duration: 0ms"),
@@ -79,9 +86,11 @@ for (const forbidden of ["setPosition", "@tauri-apps/api/window", "setInterval("
   invariant(!foundation.includes(forbidden), `expanded renderer must not own native position/clock through ${forbidden}`);
 }
 invariant(
-  (foundation.match(/requestAnimationFrame\(/g) ?? []).length === 1
-    && foundation.includes("function nextPaint(): Promise<void>"),
-  "expanded transition may use exactly one finite paint-boundary helper and no animation loop",
+  foundation.includes('import { waitForPresentedFrame } from "./presentationFrame";')
+    && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 2
+    && !presentationFrame.includes("setInterval(")
+    && !presentationFrame.includes("setTimeout("),
+  "expanded transition must use the shared two-frame compositor barrier without an animation loop",
 );
 
 for (const action of ["break", "notes", "pause-resume", "skip", "done", "return-to-panel"]) {
