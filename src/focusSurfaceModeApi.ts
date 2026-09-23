@@ -14,3 +14,7 @@ export async function presentFloatingTimer(): Promise<void> {
 export async function presentFocusPanel(): Promise<void> {
   await invoke<void>("present_focus_panel");
 }
+
+export async function setFloatingTimerExpanded(expanded: boolean): Promise<void> {
+  await invoke<void>("set_floating_timer_expanded", { expanded });
+}

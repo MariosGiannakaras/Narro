@@ -13,6 +13,7 @@ const defaultCapability = JSON.parse(read("src-tauri/capabilities/default.json")
 const focusCapability = JSON.parse(read("src-tauri/capabilities/focus-surface.json"));
 const lib = read("src-tauri/src/lib.rs");
 const foundation = read("src/FloatingTimerFoundation.tsx");
+const actions = read("src/FocusLiveActions.tsx");
 const foundationCss = read("src/floatingTimerFoundation.css");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const pkg = JSON.parse(read("package.json"));
@@ -22,10 +23,7 @@ invariant(focusWindow, "focusSurface Tauri window config is missing");
 invariant(focusWindow.decorations === false, "focusSurface must remain frameless for the compact surface");
 invariant(focusWindow.alwaysOnTop === true, "focusSurface must retain the existing always-on-top foundation");
 
-invariant(
-  defaultCapability.windows.includes("focusSurface"),
-  "focusSurface must retain the default core capability",
-);
+invariant(defaultCapability.windows.includes("focusSurface"), "focusSurface must retain the default core capability");
 invariant(
   !defaultCapability.permissions.includes("core:window:allow-start-dragging"),
   "native drag permission must not be broadened to every default-capability window",
@@ -41,39 +39,25 @@ invariant(
 
 invariant(
   lib.includes("FocusSurfaceMode::Timer => (340.0, 110.0, true, true)"),
-  "Timer mode must retain the validated always-on-top and skip-taskbar native properties",
+  "Timer mode must retain the validated always-on-top and skip-taskbar properties",
 );
 invariant(
-  lib.includes(".set_always_on_top(always_on_top)")
-    && lib.includes(".set_skip_taskbar(skip_taskbar)"),
+  lib.includes(".set_always_on_top(always_on_top)") && lib.includes(".set_skip_taskbar(skip_taskbar)"),
   "native focus-surface mode application must remain authority for topmost/taskbar state",
 );
 
 const dragRegionMatches = foundation.match(/data-tauri-drag-region="true"/g) ?? [];
-invariant(
-  dragRegionMatches.length >= 3,
-  "compact surface must expose native drag regions across its non-interactive content",
-);
-const returnButtonStart = foundation.indexOf('data-floating-return-to-panel="true"');
+invariant(dragRegionMatches.length >= 3, "compact surface must expose native drag regions across non-interactive content");
+const returnButtonStart = actions.indexOf('action="return-to-panel"');
 invariant(returnButtonStart >= 0, "return-to-panel button marker is missing");
-const returnButtonEnd = foundation.indexOf("</button>", returnButtonStart);
-const returnButtonSlice = foundation.slice(returnButtonStart, returnButtonEnd);
-invariant(
-  !returnButtonSlice.includes("data-tauri-drag-region"),
-  "interactive return-to-panel control must not become a window drag region",
-);
+const returnButtonEnd = actions.indexOf("/>", returnButtonStart);
+const returnButtonSlice = actions.slice(returnButtonStart, returnButtonEnd);
+invariant(!returnButtonSlice.includes("data-tauri-drag-region"), "interactive return control must not become a drag region");
 
-for (const forbidden of [
-  "@tauri-apps/api/window",
-  "startDragging",
-  "pointermove",
-  "mousemove",
-  "touchmove",
-  "setPosition",
-]) {
+for (const forbidden of ["@tauri-apps/api/window", "startDragging", "pointermove", "mousemove", "touchmove", "setPosition"]) {
   invariant(
     !foundation.includes(forbidden) && !modeApi.includes(forbidden),
-    `renderer must not own window geometry through ${forbidden}`,
+    `renderer must not own window position through ${forbidden}`,
   );
 }
 
@@ -84,9 +68,8 @@ invariant(
   "native drag regions need an explicit non-selecting drag affordance",
 );
 invariant(
-  foundationCss.includes(".floating-timer-foundation__return")
-    && foundationCss.includes("cursor: pointer"),
-  "interactive return control must remain visually distinct from drag regions",
+  foundationCss.includes(".floating-timer-foundation__action") && foundationCss.includes("cursor: pointer"),
+  "interactive expanded controls must remain visually distinct from drag regions",
 );
 
 invariant(

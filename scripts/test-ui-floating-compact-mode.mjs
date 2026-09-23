@@ -20,6 +20,7 @@ const focusEntry = read("src/focus.tsx");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const panel = read("src/FocusPanel.tsx");
 const foundation = read("src/FloatingTimerFoundation.tsx");
+const actions = read("src/FocusLiveActions.tsx");
 const foundationCss = read("src/floatingTimerFoundation.css");
 const pkg = JSON.parse(read("package.json"));
 
@@ -127,19 +128,16 @@ invariant(
   "item-1 compact product shell marker is missing",
 );
 invariant(
-  foundation.includes('data-floating-return-to-panel="true"')
-    && foundation.includes('aria-label="Return to Focus Panel"'),
-  "minimal compact shell must provide an accessible reversible return path",
+  foundation.includes("onReturnToPanel={onReturnToPanel}")
+    && actions.includes('action="return-to-panel"')
+    && actions.includes('label="Return to Focus Panel"'),
+  "expanded compact shell must provide an accessible reversible return path",
 );
-for (const laterScope of [
-  "FocusLiveActions",
-  "FocusLiveSubtasks",
-  "TaskSubtasks",
-  "subtask progress",
-  "data-focus-action=",
-]) {
-  invariant(!foundation.includes(laterScope), `item 1 must not absorb later Floating Timer content via ${laterScope}`);
-}
+invariant(
+  foundation.includes('data-floating-fallback-action="return-to-panel"')
+    && foundation.includes('aria-label="Return to Focus Panel"'),
+  "a missing/finished live task must retain an explicit return-to-panel escape path",
+);
 for (const forbidden of ["animation:", "transition:", "position: absolute", "@keyframes"]) {
   invariant(!foundationCss.includes(forbidden), `foundation compact mode must not introduce decorative motion/overlay behavior via ${forbidden}`);
 }

@@ -552,6 +552,25 @@ fn present_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
     configure_focus_surface_mode(&window, FocusSurfaceMode::Timer)
 }
 
+#[tauri::command(rename_all = "camelCase")]
+fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> CommandResult<()> {
+    if current_focus_surface_mode() != Some(FocusSurfaceMode::Timer) {
+        return Err(CommandError::new(
+            "FOCUS_SURFACE_MODE_CONFLICT",
+            "Floating Timer expansion is available only while the focus surface is in Timer mode",
+        ));
+    }
+
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    let height = if expanded { 300.0 } else { 110.0 };
+    window
+        .set_size(tauri::Size::Logical(tauri::LogicalSize {
+            width: 340.0,
+            height,
+        }))
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "resize expanded Timer", error))
+}
+
 pub(crate) fn revalidate_open_focus_panel_after_display_change(
     app_handle: &tauri::AppHandle,
 ) -> CommandResult<bool> {
@@ -862,6 +881,7 @@ pub fn run() {
             focus_surface_mode_panel,
             focus_surface_mode_timer,
             present_floating_timer,
+            set_floating_timer_expanded,
             list_windows,
             list_monitors,
             position_focus_panel,

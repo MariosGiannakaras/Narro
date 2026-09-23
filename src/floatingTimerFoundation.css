@@ -8,10 +8,12 @@
   border-radius: 12px;
   color: var(--color-text-primary);
   background: var(--color-surface-raised);
+  text-align: left;
 }
 
 .floating-timer-foundation__content {
   min-width: 0;
+  min-height: 0;
   height: 100%;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
@@ -19,12 +21,17 @@
   gap: 8px;
 }
 
+.floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__content {
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: stretch;
+}
+
 .floating-timer-foundation__heading {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 7ch 32px;
+  grid-template-columns: minmax(0, 1fr) 8ch;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .floating-timer-foundation [data-tauri-drag-region="true"] {
@@ -43,54 +50,112 @@
 }
 
 .floating-timer-foundation__timer {
-  width: 7ch;
-  min-width: 7ch;
+  width: 8ch;
+  min-width: 8ch;
   overflow: hidden;
   text-align: right;
   white-space: nowrap;
-  color: var(--color-accent-solid);
+  color: var(--color-text-primary);
   font-size: var(--font-size-body);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
-.floating-timer-foundation__return,
-.floating-timer-foundation__subtask-control {
+.floating-timer-foundation__actions-wrap {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.floating-timer-foundation__actions {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 32px);
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.floating-timer-foundation__actions > .overlay-anchor,
+.floating-timer-foundation__subtask-actions > .overlay-anchor {
+  width: 32px;
+  height: 32px;
+}
+
+.floating-timer-foundation__action,
+.floating-timer-foundation__subtask-control,
+.floating-timer-foundation__subtask-check,
+.floating-timer-foundation__subtask-action {
   width: 32px;
   height: 32px;
   min-width: 32px;
   min-height: 32px;
+  display: inline-grid;
+  place-items: center;
   padding: 0;
   border: 1px solid transparent;
   border-radius: var(--radius-control);
   color: var(--color-text-secondary);
   background: transparent;
   font: inherit;
+  line-height: 1;
   cursor: pointer;
 }
 
-.floating-timer-foundation__return {
-  border-color: var(--color-border-subtle);
-  color: var(--color-text-primary);
-  background: var(--color-surface-interactive);
-}
-
-.floating-timer-foundation__return:hover:not(:disabled),
-.floating-timer-foundation__subtask-control:hover:not([aria-disabled="true"]) {
+.floating-timer-foundation__action:hover:not(:disabled),
+.floating-timer-foundation__subtask-control:hover:not(:disabled),
+.floating-timer-foundation__subtask-check:hover:not(:disabled),
+.floating-timer-foundation__subtask-action:hover:not(:disabled) {
   border-color: var(--color-border-strong);
   color: var(--color-text-primary);
   background: var(--color-surface-interactive);
 }
 
-.floating-timer-foundation__return:focus-visible,
-.floating-timer-foundation__subtask-control:focus-visible {
+.floating-timer-foundation__action[data-floating-action="done"] {
+  color: var(--color-success);
+}
+
+.floating-timer-foundation__action:focus-visible,
+.floating-timer-foundation__subtask-control:focus-visible,
+.floating-timer-foundation__subtask-check:focus-visible,
+.floating-timer-foundation__subtask-action:focus-visible,
+.floating-timer-foundation__subtask-create input:focus-visible,
+.floating-timer-foundation__subtask-create button:focus-visible {
   outline: 2px solid var(--color-accent-solid);
   outline-offset: 1px;
 }
 
-.floating-timer-foundation__return:disabled {
+.floating-timer-foundation__action:disabled,
+.floating-timer-foundation__subtask-control:disabled,
+.floating-timer-foundation__subtask-check:disabled,
+.floating-timer-foundation__subtask-action:disabled {
   cursor: default;
-  opacity: 0.52;
+  opacity: 0.45;
+}
+
+.floating-timer-foundation__notes {
+  min-width: 0;
+  max-height: 116px;
+  overflow: auto;
+}
+
+.floating-timer-foundation__notes .task-notes__trigger {
+  display: none;
+}
+
+.floating-timer-foundation__notes .task-notes {
+  width: 100%;
+  min-width: 0;
+}
+
+.floating-timer-foundation__subtasks {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 8px;
 }
 
 .floating-timer-foundation__subtask-toolbar {
@@ -135,15 +200,122 @@
   color: var(--color-text-secondary);
 }
 
-.floating-timer-foundation__subtask-control[aria-disabled="true"] {
-  cursor: default;
-  opacity: 0.72;
+.floating-timer-foundation__subtask-panel {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;
+  scrollbar-width: thin;
 }
 
-.floating-timer-foundation__error {
+.floating-timer-foundation__subtask-list {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.floating-timer-foundation__subtask-row {
+  min-width: 0;
+  min-height: 36px;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 104px;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  border-radius: var(--radius-control);
+}
+
+.floating-timer-foundation__subtask-row:hover,
+.floating-timer-foundation__subtask-row:focus-within {
+  background: color-mix(in srgb, var(--color-surface-interactive) 70%, transparent);
+}
+
+.floating-timer-foundation__subtask-row[data-floating-subtask-completed="true"] {
+  color: var(--color-text-secondary);
+}
+
+.floating-timer-foundation__subtask-check {
+  color: var(--color-accent-solid);
+}
+
+.floating-timer-foundation__subtask-title {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: var(--font-size-metadata);
+}
+
+.floating-timer-foundation__subtask-actions {
+  width: 104px;
+  min-width: 104px;
+  display: grid;
+  grid-template-columns: repeat(3, 32px);
+  justify-content: end;
+  gap: 4px;
+}
+
+.floating-timer-foundation__subtask-action--delete:hover:not(:disabled) {
+  border-color: var(--color-destructive);
+  color: var(--color-destructive);
+  background: var(--color-destructive-surface);
+}
+
+.floating-timer-foundation__subtask-create {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.floating-timer-foundation__subtask-create input {
+  min-width: 0;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-deep);
+  font: inherit;
+  font-size: var(--font-size-metadata);
+}
+
+.floating-timer-foundation__subtask-create button {
+  min-width: 48px;
+  min-height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--color-accent-solid);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: color-mix(in srgb, var(--color-accent-solid) 16%, var(--color-surface-deep));
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  cursor: pointer;
+}
+
+.floating-timer-foundation__subtask-create button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.floating-timer-foundation__subtask-empty,
+.floating-timer-foundation__subtask-error,
+.floating-timer-foundation__action-status,
+.floating-timer-foundation__action-error,
+.floating-timer-foundation__error {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.floating-timer-foundation__subtask-empty,
+.floating-timer-foundation__action-status {
+  color: var(--color-text-secondary);
+}
+
+.floating-timer-foundation__subtask-error,
+.floating-timer-foundation__action-error,
+.floating-timer-foundation__error {
   color: var(--color-destructive);
 }
