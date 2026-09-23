@@ -89,9 +89,11 @@ invariant(
     && focus.includes('<FocusSurfaceTransition key="panel" mode="panel">'),
   "Panel and Timer product roots must each mount through a keyed transition surface",
 );
+const enterCompact = slice(focus, "async function enterCompactMode()", "async function returnToPanel()");
+const returnPanel = slice(focus, "async function returnToPanel()", "if (mode === null)");
 invariant(
-  focus.indexOf("await presentFloatingTimer();") < focus.indexOf('setMode("timer");')
-    && focus.indexOf("await presentFocusPanel();") < focus.indexOf('setMode("panel");'),
+  enterCompact.indexOf("await presentFloatingTimer();") < enterCompact.indexOf('setMode("timer");')
+    && returnPanel.indexOf("await presentFocusPanel();") < returnPanel.indexOf('setMode("panel");'),
   "renderer mode publication must remain after successful native transition",
 );
 
