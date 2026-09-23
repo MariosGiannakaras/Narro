@@ -42,10 +42,6 @@ export function FocusSurfaceTransition({
         if (event.propertyName !== "opacity" && event.propertyName !== "transform") return;
         completeExit();
       }}
-      onTransitionCancel={(event) => {
-        if (event.currentTarget !== event.target) return;
-        completeExit();
-      }}
     >
       {children}
     </div>
