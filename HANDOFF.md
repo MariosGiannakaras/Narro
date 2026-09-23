@@ -1,6 +1,6 @@
 # HANDOFF.md
 
-Canonical zero-context continuation state for Narro. Before changing source, read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, this file, active Milestone 7 in `TODO.md`, relevant `STATUS.md`, the newest relevant immutable `work-log/*.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md`. Inspect open/recent PRs and exact CI state before making changes.
+Canonical zero-context continuation state for Narro. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, active Milestone 7 in `TODO.md`, relevant `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, the newest relevant immutable `work-log/*.md`, and current PR/CI state before changing source.
 
 ## CURRENT MILESTONE
 
@@ -8,162 +8,125 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 
 - Milestones 1–6: COMPLETE / PASS.
 - Milestone 7: ACTIVE / **6 of 14** top-level items validated.
-- Milestones 8–10: NOT STARTED.
-- General roadmap progress: **6/10 milestones complete**.
 - M7 items 1–6: COMPLETE / VALIDATED.
-- M7 item 7: MOTION CORRECTION AUTOMATED-VALIDATED; PHYSICAL WINDOWS RE-TEST PENDING.
+- M7 item 7: COMPOSITOR CORRECTION AUTOMATED-VALIDATED; PHYSICAL WINDOWS RE-TEST PENDING.
 - Current item-7 slice: **4/5 checkpoints complete**.
-
-Repository compact progress values: `6/10M || 4/5 | 6/14`.
+- Compact progress: `6/10M || 4/5 | 6/14`.
 
 ## CURRENT AUTOMATED-VALIDATED SOURCE BASELINE
 
 Source/test SHA:
 
-`36a3f6f6a1ecd5249839100e1e1249305050fa07`
+`6f99e9b1869b927e5a792cc569b6c8131859c7d8`
 
 Source tree:
 
-`207b9bbef4fdcf5d4aec95a81ae6604bc56b55a0`
+`a8108fc403e94ab90dc9a85c2070b8852667109f`
 
-This is the expected-head guarded squash merge of PR #123 from exact validated PR head `861f1866c4a9dbf5dd721352b41bc969c18087dd`.
+PR #124 exact validated head:
 
-The merge tree is byte-identical to the final validated PR head tree. Markdown-only tracking descendants do **not** replace this source/test baseline.
+`2db045ef82286d8364d77a3ba9654842b9a66eb3`
+
+The merge tree is byte-identical to the validated PR-head tree. Tracking-only Markdown descendants do not replace this source baseline.
 
 Latest immutable evidence:
 
-`work-log/2026-09-23-1930-codex-m7-transition-motion-smoothing-automated.md`
+`work-log/2026-09-24-chatgpt-m7-compositor-paint-barrier-automated.md`
 
-## PHYSICAL EVIDENCE THAT TRIGGERED THIS CORRECTION
+## PHYSICAL EVIDENCE FROM CI #477
 
-Exact prior resulting-main CI #472 build physically produced:
+Manual Windows re-test of exact resulting-main CI #477 produced:
 
-- left/staging Flicker: PASS;
-- final configured right-side Panel position: PASS;
-- normal product-size horizontal overflow: PASS;
-- session/timer continuity: PASS;
+- Panel -> Timer: PASS;
+- Timer -> Panel: functional PASS, but small flicker remained;
 - Expand/Collapse: FAIL;
-- overall Transition UX: FAIL because return-to-Panel still felt slightly flickery/instantaneous.
+- Panel returns to configured right side: PASS;
+- normal product-size horizontal scrollbar: PASS;
+- timer/session continuity: PASS;
+- overall smoothness: not accepted because motion defects remained.
 
-Repository/UI evidence keeps the expanded Timer at the established `340 x 300` viewport. Empty vertical space without subtasks is not evidence to redesign that geometry.
+Supplied screenshots showed stale/duplicated expanded action-strip pixels during resize and old expanded pixels surviving into collapsed geometry. This is treated as a transient compositor/presentation failure, not evidence to redesign the established `340 x 300` expanded viewport.
 
-## MOTION CORRECTION NOW AUTOMATED-VALIDATED
+## CORRECTION NOW AUTOMATED-VALIDATED
 
-- both keyed Panel and Timer roots animate the current surface out through the existing finite 150ms opacity/transform primitive before native geometry;
-- native success remains the boundary before renderer mode publication and the new keyed entrance;
-- a semantic-review defect that originally omitted Panel -> Timer exit completion was fixed before merge;
-- deterministic contracts now inspect both directions independently and preserve each keyed mode root;
-- Floating Timer collapsed/expanded presentation performs finite inline exit, native resize, final hierarchy publication and finite entrance;
-- transition completion uses filtered DOM `transitionend` boundaries and one-shot refs rather than polling/timeouts;
-- reduced motion remains 1ms/zero-displacement through shared tokens;
-- native/Rust remains geometry/DPI authority;
-- same reusable `focusSurface` remains the only focus webview;
-- timer/session/task/scheduling transitions are unchanged.
+PR #124 adds only a narrow presentation/compositor barrier:
+
+- outgoing Panel/Timer content still performs the finite exit, then becomes fully hidden before native geometry;
+- a shared finite two-frame presented barrier lets the hidden state reach WebView composition before native mode geometry;
+- Floating Timer expand/collapse now has an explicit hidden `resizing` phase;
+- the final expanded/collapsed hierarchy is committed while hidden, held through another finite presented barrier, then enters through existing motion;
+- no polling, timer clock, continuous animation, renderer-owned native position, third webview, or timer/session/task/scheduling authority was introduced;
+- reduced-motion behavior and native/Rust geometry authority remain intact.
 
 ## VALIDATION EVIDENCE
 
-Local:
+PR #124 final head `2db045ef82286d8364d77a3ba9654842b9a66eb3`:
 
-- `git diff --check`: PASS;
-- `npm run preflight:frontend`: PASS on the final production source before the last test-only hardening commit;
-- final exact-head focus transition contract: PASS;
-- strict TypeScript + Vite production build: PASS;
-- local Rust fmt/check/clippy/tests: NOT RUN because this environment has no Rust toolchain.
-
-PR #123 exact final head:
-
-`861f1866c4a9dbf5dd721352b41bc969c18087dd`
-
-PR Windows CI #476:
-
-- run `35905921052`;
-- job `107333499742`;
+- CI #479 / run `35929764331` / job `107413269935`: PASS;
 - Repository Preflight: PASS;
 - Windows visual regression: PASS;
 - Tauri Release: PASS;
-- visual artifact `10771406771`, digest `sha256:865db1cc4048b107769d5b463503822e42daef8d85f93937758515c1e280f093`;
-- runtime artifact `10772355711`, digest `sha256:76d5657febe7f898374e50da666840207afeb854989a2a4607d3811cce69a577`.
+- runtime artifact `10781486137`, digest `sha256:e0ee9c832e1a770e10460b4b85f9815b406759ebf34ed0194bbdf89c008832c1`.
 
-Expected-head guarded squash merge:
+PR CI #478 failed only a stale deterministic collapsed contract after centralizing the paint helper; the contract was corrected in the final test-only commit and CI #479 passed.
 
-`36a3f6f6a1ecd5249839100e1e1249305050fa07`
+Resulting-main source `6f99e9b1869b927e5a792cc569b6c8131859c7d8`:
 
-Resulting-main Windows CI #477:
-
-- run `35907803574`;
-- job `107339752322`;
+- CI #480 / run `35931208957` / job `107417960065`: PASS;
 - Repository Preflight: PASS;
 - Windows visual regression: PASS;
 - Tauri Release: PASS;
-- visual artifact `10772656537`, digest `sha256:1e6077f496a1f726887cc7dc4e3871174ee0330e48d543ebe375d5fdccc38235`;
-- runtime artifact `10771699056`, digest `sha256:1da888a05d0158b6db30c5e6f3b17688cb660cac2ef103ec5c949997fad1daa2`.
+- visual artifact `10781109686`, digest `sha256:9d81fc5ce5c6041797a8f8754cb501fe91599c71a6f76411028ceed05eda752f`;
+- runtime artifact `10781866423`, digest `sha256:2c203f4c5cc62a645781fdb4ad341527bed6d60f8d0cb3b3cec2139be37c9f29`.
 
-Earlier PR CI #474 was superseded after semantic review found the missing Panel callback. CI #475 was cancelled only because the final test-only hardening commit superseded its head. Neither is the authoritative final validation; #476/#477 are.
+Local checkout/npm/Rust preflight: NOT RUN in this environment. Connector-side deterministic source-contract review: PASS.
 
 ## CHECKPOINT PLAN — 4/5 COMPLETE
 
-1. COMPLETE — reconstructed transition ordering, prior physical evidence and Blitzit parity boundary.
-2. COMPLETE — implemented prior target-edge staging/overflow/presentation gating and the final finite motion sequencing.
-3. COMPLETE — exact semantic review found and fixed the missing Panel -> Timer exit path; both directions now have deterministic contracts.
-4. COMPLETE — final exact head passed PR CI #476, guarded merge succeeded and resulting-main CI #477 passed.
-5. **PENDING PHYSICAL WINDOWS RE-TEST** — automated CI cannot prove transient desktop flicker or perceived motion smoothness.
+1. COMPLETE — reconstructed transition ordering, prior physical evidence and parity boundary.
+2. COMPLETE — corrected native staging/overflow and finite mode/resize motion.
+3. COMPLETE — semantic review and deterministic contracts cover both Panel/Timer directions.
+4. COMPLETE — latest compositor correction passed exact-head PR CI #479, merged, and resulting-main CI #480 passed.
+5. **PENDING PHYSICAL WINDOWS RE-TEST** — transient desktop flicker/stale-pixel behavior cannot be proven by CI.
 
 ## USER ACTION REQUIRED
 
-Use the exact resulting-main CI #477 runtime artifact, not a PR or older artifact:
+Use the exact resulting-main CI #480 runtime artifact:
 
 - name: `narro-m1-runtime-harness-windows-x64`;
-- artifact ID: `10771699056`;
-- source SHA: `36a3f6f6a1ecd5249839100e1e1249305050fa07`;
-- digest: `sha256:1da888a05d0158b6db30c5e6f3b17688cb660cac2ef103ec5c949997fad1daa2`.
+- artifact ID: `10781866423`;
+- source SHA: `6f99e9b1869b927e5a792cc569b6c8131859c7d8`;
+- digest: `sha256:2c203f4c5cc62a645781fdb4ad341527bed6d60f8d0cb3b3cec2139be37c9f29`.
 
-2026-09-24 attempt: the already-running installed process (PID 13816 at inspection, `C:\Users\MariosG\AppData\Local\Narro\narro.exe`) had executable SHA-256 `78515bdb3a05bb9ef27920b1c3c67b56b7950a7759ef0e3a93abd0c978f58dd0`; the downloaded CI #477 raw executable had SHA-256 `d0c82a2fea79d4100ae4bb398207a1b2300ead7eec68071d291b6bc8de4c1fc0`. Computer Use failed before window enumeration with `codex/sandbox-state-meta: sandboxCwd is not a local file URI`. This is an **untested** checkpoint, not a motion PASS or FAIL. See `work-log/2026-09-24-codex-m7-computer-use-blocked.md`.
+Repeat the same physical flow with a visible running timer: Panel -> Timer -> Panel several times, then collapsed -> expanded -> collapsed several times. Confirm right-side Panel return, no normal-size horizontal scrollbar, and timer/session continuity.
 
-Follow-up on 2026-09-24: the Desktop `narro-m1-runtime-harness-windows-x64.zip` contains a raw executable with the exact CI #477 SHA-256. The older installed process was terminated with user authorization, and the portable build was launched from `E:\SystemFiles\Desktop\narro-m7-item7-main-ci477-windows-x64\narro.exe`. At final inspection it was the sole `narro.exe` process (PID 5180); reverify PID/path/hash before testing. Computer Use remained blocked because this active Codex task still passes a WSL `file:///mnt/c/...` URI to the Windows `node_repl.exe`, despite the desktop setting now specifying native Windows execution. See `work-log/2026-09-24-codex-m7-portable-launch-bridge-blocked.md`.
-
-2026-09-24 native-Windows follow-up: this task could initialize Computer Use and enumerate the portable Narro window. The extracted executable and live portable process path/hash matched CI #477, but screenshot capture failed repeatedly with `SetIsBorderRequired failed: No such interface supported (0x80004002)`, and an accessibility-index click failed with `coordinate input geometry is unavailable`. Zero valid repetitions or visual results were obtained. See `work-log/2026-09-24-0119-codex-m7-computer-use-capture-blocked.md`. Reverify the transient process PID/path/hash before testing.
-
-Physical procedure:
-
-1. Verify the running portable `narro.exe` still matches the extracted CI #477 artifact by process path and executable hash. If it is no longer running, launch it from the extracted Desktop folder.
-2. Put Focus Panel on the right side and start/resume a visible live timer.
-3. Repeat Panel -> Floating Timer -> Return to Focus Panel several times.
-4. Mode motion PASS only if both directions visibly exit before the geometry swap and enter smoothly, with no stuck pending state, blank freeze, left/staging flash or abrupt return flicker.
-5. Confirm the Panel returns directly to the configured right side.
-6. Repeat collapsed -> expanded -> collapsed several times.
-7. Expand/Collapse PASS only if motion is finite/smooth and no enlarged/shrunken compact hierarchy appears at an intermediate size.
-8. Overflow PASS only if there is no horizontal scrollbar at normal Panel/collapsed/expanded product geometry.
-9. Session PASS only if timer state and elapsed time continue through every switch without reset, duplicate, pause or task change.
-10. Report overall Transition UX PASS/FAIL and any remaining concrete symptom/direction.
+PASS requires no left/staging flash, no stale/duplicated expanded pixels during resize, no old expanded pixels in collapsed geometry, no stuck/blank state, and no small abrupt Timer -> Panel return flicker.
 
 ## NEXT AGENT ACTION
 
 **Do not start M7 item 8 until item 7 physical re-validation passes.**
 
-First recover Computer Use screenshot capture and input geometry in native Windows (or obtain equivalent directly observed Windows visual evidence). Verify the exact CI #477 process path and executable hash before testing. Repeat each requested direction and collapsed/expanded cycle five times. The 2026-09-24 attempts produced zero valid repetitions.
+- On full PASS: create a new immutable physical-pass work log; mark item 7 `[x]`; advance M7 to **7/14**; reset the item-8 slice to **0/5**; reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md`; then begin item 8.
+- On any FAIL: record exact CI #480 build identity plus symptom/direction in a new immutable log; make only an evidence-backed correction; keep item 7 at **6/14** and slice **4/5**.
 
-- On full PASS: create a new immutable physical-pass work log; mark item 7 `[x]`; advance M7 to **7/14**; reset the active item-8 slice to **0/5**; reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md`; then begin ordered item 8.
-- On any FAIL: record exact build identity and symptom/direction in a new immutable work log; make only an evidence-backed correction from current `main`; keep item 7 at **6/14** and the slice at **4/5**.
-
-No autonomous source item is unblocked while the physical result is pending.
+No autonomous later item is unblocked while this physical gate is pending.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
-- Narro remains personal, local-only Windows 10/11 x64 software.
-- `main` plus reusable `focusSurface` remain the normal two-webview architecture.
-- native/Rust remains monitor/work-area/DPI/physical-position authority.
-- Timer-mode topmost/taskbar state remains native authority.
-- renderer cannot become timer/session/task/scheduling authority.
-- mode/expand presentation changes cannot reset, duplicate, start, stop or switch the live session.
-- item-2 drag/topmost/taskbar behavior and items 4–6 actions/subtasks/tooltips remain intact.
-- future-timed Today tasks remain ineligible until due.
-- Notes URLs remain explicit activation only.
-- no continuous decorative animation, polling or high-frequency JS native-window geometry loop.
+- personal, local-only Windows 10/11 x64 scope;
+- `main` plus reusable `focusSurface` remain the normal two-webview architecture;
+- native/Rust remains monitor/work-area/DPI/physical-position authority;
+- Timer-mode topmost/taskbar state remains native authority;
+- renderer cannot become timer/session/task/scheduling authority;
+- mode/expand changes cannot reset, duplicate, start, stop or switch the live session;
+- item-2 drag/topmost/taskbar and items 4–6 actions/subtasks/tooltips remain intact;
+- future-timed Today tasks remain ineligible until due;
+- Notes URLs remain explicit activation only;
+- no continuous decorative animation, polling or high-frequency JS native-window geometry loop;
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain `?diagnostics=1` gated.
 
 ## BLOCKERS / NOT RUN
 
-- **Physical Windows motion re-test: PENDING / BLOCKING item 7 completion and item 8 start.**
-- **Codex Computer Use Windows test: NOT RUN** on 2026-09-24. An earlier WSL task failed before window enumeration; this native-Windows task enumerated the exact portable app but screenshot capture returned `0x80004002` and accessibility clicks lacked input geometry. No motion symptom or valid repetition was observed.
-- Local Rust/Tauri validation: NOT RUN because no local Rust toolchain is installed; exact-head PR CI #476 and resulting-main CI #477 passed the authoritative Windows native gates.
-- No user/product decision blocks the already implemented correction.
+- **Physical Windows CI #480 motion re-test: PENDING / BLOCKING item 7 completion and item 8 start.**
+- Local Rust/Tauri/npm checkout validation: NOT RUN in this environment; exact-head PR CI #479 and resulting-main CI #480 passed authoritative Windows gates.
+- No product decision blocks the implemented correction.

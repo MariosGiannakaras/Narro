@@ -271,7 +271,8 @@ Acceptance criteria:
   - [x] Initial native hidden-stage transition correction, finite 150ms content motion, reduced-motion contract, exact-head PR CI, guarded merge and resulting-main CI are automated-validated.
   - [x] Physical-fail corrective candidate is automated-validated: target-edge DPI staging, focus-surface horizontal overflow suppression, and paint-gated collapsed/expanded resize publication; PR #122 exact-head CI #471 and resulting-main CI #472 PASS.
   - [x] Motion-smoothing corrective candidate is automated-validated: keyed Panel/Timer exit-before-native sequencing in both directions plus finite collapsed/expanded exit/resize/entrance sequencing; PR #123 exact-head CI #476 and resulting-main CI #477 PASS.
-  - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, and no visible enlarged-compact intermediate state during expand/collapse.
+  - [x] Physical-fail compositor corrective candidate is automated-validated: settled Focus content is fully masked before native Panel/Timer geometry, collapsed/expanded resize uses an explicit hidden `resizing` phase, and a finite two-frame presented-frame barrier brackets native geometry; PR #124 exact-head CI #479 and resulting-main CI #480 PASS.
+  - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
 - [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
