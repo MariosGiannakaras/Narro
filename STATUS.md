@@ -19,53 +19,53 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–6 are validated. The next ordered work is M7 item 7: Focus Panel <-> Floating Timer content transition, including correction/validation of the physically observed brief left-side flash on Timer -> Panel return.
+M7 items 1–6 are validated. M7 item 7 is implemented and automated-validated on Windows, but remains open until the Timer -> Panel transition is physically observed without the previously reported left-side/staging flash.
 
 ## Current validated source baseline
 
 Latest resulting-main automated-validated **source/test** baseline:
 
-`97931f89ff2b6b9f1aa0ceb628732602be8fd587`
+`c6f28fcfede74c02afff875b6322e4743ed01549`
 
 Tree:
 
-`10972bbc672b9fae13c891be22f90fe275b3a4d5`
+`06f56b2bb2e16a111900b8c1209460a03b897145`
 
-This is the expected-head guarded squash merge of PR #120 — `M7: add expanded Floating Timer interactions` — from exact validated PR head `468e202ef24eb52b8d00e5a2452824f8d4739cdc`.
+This is the expected-head guarded squash merge of PR #121 — `M7: fix Focus surface transition flicker` — from exact validated PR head `f53efc250b20149aee920e9831e21173ffd618eb`.
 
-PR Windows CI #462 and resulting-main Windows CI #463 passed all required repository gates on the exact source SHAs. Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline.
+PR Windows CI #468 and resulting-main Windows CI #469 passed all required repository gates on the exact source SHAs. Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline.
 
-### PR #120 exact-head validation
+### PR #121 exact-head validation
 
-Windows CI #462 / run `35860985798` / job `107180862046`: **SUCCESS** on exact PR head `468e202ef24eb52b8d00e5a2452824f8d4739cdc`.
+Windows CI #468 / run `35871031356` / job `107214857096`: **SUCCESS** on exact PR head `f53efc250b20149aee920e9831e21173ffd618eb`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- PR visual artifact `10750039724`, digest `sha256:b0b48a2b6251b08982ca744f985d2f7a5e7e12f9af3d7fc0e34948cabaac276e`;
-- PR diagnostic/runtime artifact `10751310552`, digest `sha256:edefb1f6502f6566bc1f82a78a392369d139d0c81d95214120bac5e3468f7ab1`.
+- PR visual artifact `10754608474`, digest `sha256:6d4df7b273cadbf916b4fdb5e972673f27e8199231c4df694619efe285639b20`;
+- PR diagnostic/runtime artifact `10755089049`, digest `sha256:730c6eaa28ac8c4da5e7714474fccb11a25ec358629a830ecc17874962d0225e`.
 
-Final review verified exact head unchanged, expected 16-file scope, no conversation comments, no submitted reviews/inline review comments, and clean mergeability.
+Final review verified exact head unchanged, expected six-file item-7 scope, no PR discussion comments/reviews and clean mergeability.
 
 Expected-head guarded squash merge:
 
-`97931f89ff2b6b9f1aa0ceb628732602be8fd587`
+`c6f28fcfede74c02afff875b6322e4743ed01549`
 
 ### Resulting-main validation
 
-Windows CI #463 / run `35866857101` / job `107200548328`: **SUCCESS** on exact main source SHA `97931f89ff2b6b9f1aa0ceb628732602be8fd587`.
+Windows CI #469 / run `35878281929` / job `107239838245`: **SUCCESS** on exact main source SHA `c6f28fcfede74c02afff875b6322e4743ed01549`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- main visual artifact `10753152243`, digest `sha256:29646293c3bf76e44ac3874649721b3a0ebd3c5d708eb4be743c913aa5a9f0b0`;
-- main diagnostic/runtime artifact `10753217431`, digest `sha256:085d35fd86dd01054f8cd60265cceb92d4ab1d6a5f3da187cbb8429da5814263`.
+- main visual artifact `10760500725`, digest `sha256:fb14171a4d5fe3b001c553a21a81068851af9f8e5e22603bb6746ff145b3e040`;
+- main diagnostic/runtime artifact `10760351396`, digest `sha256:a2a8a43ae013e9897f376d6f85535945cf54673656662def7f27f48e1f9614f0`.
 
-Automated validation proves the expanded/collapsed Floating Timer geometry and visual contracts, authoritative Focus action/subtask reuse contracts, frontend/Rust preflight, release build and artifact generation. The PR records local `npm run preflight:frontend` and `git diff --check` as passing; local Rust/Tauri validation was unavailable in that environment, so Windows CI remains authoritative.
+Automated validation proves the native transition ordering contracts, renderer one-shot motion/reduced-motion contracts, frontend/Rust preflight, visual regression, release build and artifact generation. It does **not** prove absence of a transient real-desktop window flash; physical Windows observation remains the final item-7 gate.
 
 ## Milestone 6 validated work
 
@@ -183,15 +183,18 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-Implement M7 item 7:
+Finish M7 item 7 physical validation before starting item 8.
 
-7. `Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop.`
+Use the exact resulting-main Windows CI #469 runtime build from source `c6f28fcfede74c02afff875b6322e4743ed01549`. With Focus Panel positioned on the right side, switch Panel -> Floating Timer -> Return to Focus Panel repeatedly.
 
-Known Windows evidence to close in this slice:
+Physical PASS requires:
 
-- Timer -> Panel currently produces a very brief Panel flash on the left side before settling back at the correct configured right-side Panel position.
-- Final Panel position is correct; item 7 must preserve that correctness while removing/validating the transient flash.
-- Keep native/Rust as physical window geometry/monitor authority. Renderer motion may be one-shot content opacity/transform only and must honor reduced motion.
+- no visible Panel flash at the left/staging work-area position;
+- Panel appears directly at the correct final right-side position;
+- finite content entrance remains usable and reduced motion remains usable;
+- mode switching does not reset, duplicate, start, stop or switch the active session.
+
+On PASS: record a new immutable physical-validation work log, mark item 7 complete, advance M7 to 7/14 and start ordered item 8. On FAIL: record the exact observed symptom and fix only that evidence-backed transition issue on a new branch from the current main source.
 
 ## Durable correctness decisions
 
