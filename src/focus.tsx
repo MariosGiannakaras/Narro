@@ -4,6 +4,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
+import { FocusSurfaceTransition } from "./FocusSurfaceTransition";
 import { FocusPanel } from "./FocusPanel";
 import {
   getFocusSurfaceMode,
@@ -84,20 +85,24 @@ function FocusSurfaceProduct() {
 
   if (mode === "timer") {
     return (
-      <FloatingTimerFoundation
-        onReturnToPanel={() => void returnToPanel()}
-        transitionPending={transitionPending}
-        transitionError={transitionError}
-      />
+      <FocusSurfaceTransition key="timer" mode="timer">
+        <FloatingTimerFoundation
+          onReturnToPanel={() => void returnToPanel()}
+          transitionPending={transitionPending}
+          transitionError={transitionError}
+        />
+      </FocusSurfaceTransition>
     );
   }
 
   return (
-    <FocusPanel
-      onRequestCompact={() => void enterCompactMode()}
-      compactTransitionPending={transitionPending}
-      modeTransitionError={transitionError}
-    />
+    <FocusSurfaceTransition key="panel" mode="panel">
+      <FocusPanel
+        onRequestCompact={() => void enterCompactMode()}
+        compactTransitionPending={transitionPending}
+        modeTransitionError={transitionError}
+      />
+    </FocusSurfaceTransition>
   );
 }
 
