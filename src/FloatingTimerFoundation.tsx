@@ -220,10 +220,6 @@ export function FloatingTimerFoundation({
           if (event.propertyName !== "opacity") return;
           finishResizeTransition();
         }}
-        onTransitionCancel={(event) => {
-          if (event.currentTarget !== event.target) return;
-          finishResizeTransition();
-        }}
       >
         {expanded && liveTask && timer ? (
           <FocusLiveActions
