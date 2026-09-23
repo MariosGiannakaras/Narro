@@ -56,7 +56,7 @@ invariant(
 );
 invariant(
   foundation.includes("onTransitionEnd")
-    && foundation.includes("onTransitionCancel")
+    && !foundation.includes("onTransitionCancel")
     && foundation.includes("finishResizeTransition()")
     && css.includes('[data-floating-resize-phase="exiting"]')
     && css.includes('[data-floating-resize-phase="entering"]')
