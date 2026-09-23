@@ -37,23 +37,33 @@ invariant(
   "renderer resize API must use the typed native command",
 );
 
+const exitWait = foundation.indexOf('await waitForResizeTransition("exiting");');
 const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);");
-const firstPaint = foundation.indexOf("await nextPaint();");
 const publishExpanded = foundation.indexOf("setExpanded(nextExpanded);", resizeCall);
-const secondPaint = foundation.indexOf("await nextPaint();", publishExpanded);
+const enteringPhase = foundation.indexOf('setResizePhase("entering");', publishExpanded);
+const paintBoundary = foundation.indexOf("await nextPaint();", enteringPhase);
+const entranceWait = foundation.indexOf('await waitForResizeTransition("idle");', paintBoundary);
 invariant(
   foundation.includes('data-floating-resize-pending={resizePending ? "true" : "false"}')
-    && firstPaint >= 0
-    && firstPaint < resizeCall
+    && foundation.includes("data-floating-resize-phase={resizePhase}")
+    && exitWait >= 0
+    && exitWait < resizeCall
     && resizeCall < publishExpanded
-    && publishExpanded < secondPaint,
-  "expanded resize must hide for one paint, resize natively, publish final content, then wait one paint before reveal",
+    && publishExpanded < enteringPhase
+    && enteringPhase < paintBoundary
+    && paintBoundary < entranceWait,
+  "expanded resize must animate out, resize natively, publish final content, then animate in",
 );
 invariant(
-  css.includes('.floating-timer-foundation[data-floating-resize-pending="true"]')
-    && css.includes("pointer-events: none")
-    && css.includes("opacity: 0"),
-  "resize-pending presentation must suppress the visible intermediate Floating Timer state",
+  foundation.includes("onTransitionEnd")
+    && !foundation.includes("onTransitionCancel")
+    && foundation.includes("finishResizeTransition()")
+    && css.includes('[data-floating-resize-phase="exiting"]')
+    && css.includes('[data-floating-resize-phase="entering"]')
+    && css.includes("transition-duration: var(--motion-duration-inline)")
+    && css.includes("transition-timing-function: var(--motion-ease-exit)")
+    && css.includes("transition-duration: 0ms"),
+  "expanded resize must use finite CSS transition boundaries without exposing an intermediate hierarchy",
 );
 invariant(
   foundation.includes('presentation="floating"')

@@ -88,23 +88,40 @@ const revalidate = slice(
 invariant(!revalidate.includes(".show()"), "display revalidation must remain non-activating");
 invariant(!revalidate.includes(".set_focus()"), "display revalidation must not steal focus");
 
+const timerRoot = slice(focus, 'if (mode === "timer") {', '\n  return (');
+const panelRoot = slice(focus, 'key="panel"', '\n      <FocusPanel');
+for (const [name, mode, root] of [["Timer", "timer", timerRoot], ["Panel", "panel", panelRoot]]) {
+  invariant(
+    root.includes(`key="${mode}"`)
+      && root.includes(`mode="${mode}"`)
+      && root.includes('exiting={pendingMode !== null}')
+      && root.includes('onExitComplete={() => void commitPendingModeTransition()}'),
+    `${name} product root must stay keyed and complete exit before native mode sequencing`,
+  );
+}
+const requestMode = slice(focus, "function requestMode(", "async function commitPendingModeTransition()");
+const commitMode = slice(focus, "async function commitPendingModeTransition()", "function enterCompactMode()");
 invariant(
-  focus.includes('<FocusSurfaceTransition key="timer" mode="timer">')
-    && focus.includes('<FocusSurfaceTransition key="panel" mode="panel">'),
-  "Panel and Timer product roots must each mount through a keyed transition surface",
+  requestMode.includes("setTransitionPending(true)")
+    && requestMode.includes("setPendingMode(targetMode)")
+    && !requestMode.includes("presentFloatingTimer")
+    && !requestMode.includes("presentFocusPanel"),
+  "mode request must begin renderer exit without invoking native geometry immediately",
 );
-const enterCompact = slice(focus, "async function enterCompactMode()", "async function returnToPanel()");
-const returnPanel = slice(focus, "async function returnToPanel()", "if (mode === null)");
 invariant(
-  enterCompact.indexOf("await presentFloatingTimer();") < enterCompact.indexOf('setMode("timer");')
-    && returnPanel.indexOf("await presentFocusPanel();") < returnPanel.indexOf('setMode("panel");'),
-  "renderer mode publication must remain after successful native transition",
+  commitMode.indexOf('await presentFloatingTimer();') < commitMode.indexOf("setMode(targetMode);")
+    && commitMode.indexOf('await presentFocusPanel();') < commitMode.indexOf("setMode(targetMode);"),
+  "native mode switch must run only after exit completion and publish renderer mode after success",
 );
 
 invariant(
   transition.includes("window.requestAnimationFrame(() => setEntered(true))")
-    && transition.includes("window.cancelAnimationFrame(frame)"),
-  "content entrance must use one cancellable paint-boundary frame",
+    && transition.includes("window.cancelAnimationFrame(frame)")
+    && transition.includes('data-focus-surface-exiting={exiting ? "true" : "false"}')
+    && transition.includes("onTransitionEnd")
+    && transition.includes("onExitComplete?.()")
+    && !transition.includes("onTransitionCancel"),
+  "content transition must provide cancellable entrance plus transition-end exit completion",
 );
 for (const forbidden of ["setInterval(", "setTimeout(", "@tauri-apps/api/window", "setPosition("]) {
   invariant(!transition.includes(forbidden), `transition wrapper must not introduce ${forbidden}`);
@@ -126,8 +143,10 @@ invariant(
   transitionCss.includes("opacity: 0")
     && transitionCss.includes("transform: translateY(var(--motion-distance-overlay))")
     && transitionCss.includes("opacity: 1")
-    && transitionCss.includes("transform: translateY(0)"),
-  "transition presentation must be opacity/transform only",
+    && transitionCss.includes("transform: translateY(0)")
+    && transitionCss.includes('[data-focus-surface-exiting="true"]')
+    && transitionCss.includes("transition-timing-function: var(--motion-ease-exit)"),
+  "transition presentation must provide finite opacity/transform entrance and exit",
 );
 for (const forbidden of ["animation:", "@keyframes"]) {
   invariant(!transitionCss.includes(forbidden), `transition CSS must not start keyframe/decorative animation via ${forbidden}`);
