@@ -1,4 +1,10 @@
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
+
+function nextPaint(): Promise<void> {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => resolve());
+  });
+}
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveActions } from "./FocusLiveActions";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
@@ -152,8 +158,13 @@ export function FloatingTimerFoundation({
     setResizePending(true);
     setResizeError(null);
     try {
+      // Hide the product surface for one paint before native resize so the user never sees
+      // an enlarged collapsed (or shrunken expanded) intermediate presentation.
+      await nextPaint();
       await setFloatingTimerExpanded(nextExpanded);
       setExpanded(nextExpanded);
+      // Let React commit the final collapsed/expanded hierarchy while the surface is hidden.
+      await nextPaint();
       return true;
     } catch (failure: unknown) {
       setResizeError(formatInvokeError(failure));
@@ -179,6 +190,7 @@ export function FloatingTimerFoundation({
       data-floating-live-state={timer?.runtime.timer.state ?? "idle"}
       data-floating-live-task-id={liveTaskId ?? ""}
       data-floating-expanded={expanded ? "true" : "false"}
+      data-floating-resize-pending={resizePending ? "true" : "false"}
       data-tauri-drag-region="true"
       aria-label="Floating Timer"
     >

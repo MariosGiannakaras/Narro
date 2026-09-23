@@ -38,9 +38,22 @@ invariant(
 );
 
 const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);");
+const firstPaint = foundation.indexOf("await nextPaint();");
+const publishExpanded = foundation.indexOf("setExpanded(nextExpanded);", resizeCall);
+const secondPaint = foundation.indexOf("await nextPaint();", publishExpanded);
 invariant(
-  resizeCall >= 0 && resizeCall < foundation.indexOf("setExpanded(nextExpanded);", resizeCall),
-  "expanded presentation must not publish before native resize succeeds",
+  foundation.includes('data-floating-resize-pending={resizePending ? "true" : "false"}')
+    && firstPaint >= 0
+    && firstPaint < resizeCall
+    && resizeCall < publishExpanded
+    && publishExpanded < secondPaint,
+  "expanded resize must hide for one paint, resize natively, publish final content, then wait one paint before reveal",
+);
+invariant(
+  css.includes('.floating-timer-foundation[data-floating-resize-pending="true"]')
+    && css.includes("pointer-events: none")
+    && css.includes("opacity: 0"),
+  "resize-pending presentation must suppress the visible intermediate Floating Timer state",
 );
 invariant(
   foundation.includes('presentation="floating"')
@@ -52,9 +65,14 @@ invariant(
   foundation.includes("onTaskProjection={applyTaskProjection}"),
   "subtask mutations must reconcile the authoritative task progress projection",
 );
-for (const forbidden of ["setPosition", "@tauri-apps/api/window", "requestAnimationFrame(", "setInterval("]) {
+for (const forbidden of ["setPosition", "@tauri-apps/api/window", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `expanded renderer must not own native position/clock through ${forbidden}`);
 }
+invariant(
+  (foundation.match(/requestAnimationFrame\(/g) ?? []).length === 1
+    && foundation.includes("function nextPaint(): Promise<void>"),
+  "expanded transition may use exactly one finite paint-boundary helper and no animation loop",
+);
 
 for (const action of ["break", "notes", "pause-resume", "skip", "done", "return-to-panel"]) {
   invariant(actions.includes(`action="${action}"`), `expanded action ${action} is missing`);

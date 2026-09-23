@@ -507,16 +507,30 @@ fn position_focus_panel_in_work_area(
     }
 
     let placement_result = (|| -> CommandResult<()> {
-        // Move into the target work area while hidden during an activating transition so
-        // Windows/WebView2 can resolve the target monitor DPI without exposing the staging
-        // position. The final edge position is computed from the actual physical outer size.
+        // Stage on the target monitor at the configured Panel edge rather than the raw
+        // work-area origin. This still lets Windows/WebView2 resolve the target-monitor DPI
+        // before logical resize, but if hide/show compositor latency exposes one frame, the
+        // window is already on the correct edge instead of flashing on the opposite side.
+        let staging_size = window
+            .outer_size()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read staging size", error))?;
+        let staging_position = focus_panel_edge_position(
+            work_area,
+            GeometrySize {
+                width: staging_size.width,
+                height: staging_size.height,
+            },
+            side,
+        )
+        .map_err(CommandError::window_geometry)?;
+
         window
             .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-                x: work_area.position.x,
-                y: work_area.position.y,
+                x: staging_position.x,
+                y: staging_position.y,
             }))
             .map_err(|error| {
-                map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error)
+                map_window_error(FOCUS_SURFACE_LABEL, "stage on target panel edge", error)
             })?;
 
         apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
