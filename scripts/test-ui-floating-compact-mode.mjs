@@ -50,8 +50,8 @@ invariant(
   "production compact transition must never create another webview",
 );
 invariant(
-  lib.includes("FocusSurfaceMode::Timer => (300.0, 100.0, true, true)"),
-  "item 1 must retain the M1-validated compact window geometry/top/taskbar foundation until later visual sizing work",
+  lib.includes("FocusSurfaceMode::Timer => (340.0, 110.0, true, true)"),
+  "compact mode must retain the current validated collapsed geometry/top/taskbar foundation",
 );
 const diagnosticTimer = functionSlice(
   lib,
@@ -132,7 +132,6 @@ invariant(
   "minimal compact shell must provide an accessible reversible return path",
 );
 for (const laterScope of [
-  "timerSessionApi",
   "FocusLiveActions",
   "FocusLiveSubtasks",
   "TaskSubtasks",

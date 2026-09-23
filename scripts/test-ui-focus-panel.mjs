@@ -15,6 +15,7 @@ const metricsCss = read("src/focusLiveMetrics.css");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
 const taskSubtasks = read("src/TaskSubtasks.tsx");
 const timerApi = read("src/timerSessionApi.ts");
+const timerPresentation = read("src/focusTimerPresentation.ts");
 const notes = read("src/TaskNotes.tsx");
 const focusEntry = read("src/focus.tsx");
 const css = read("src/focusPanel.css");
@@ -39,11 +40,11 @@ for (const [haystack, needle, label] of [
   [panel, 'data-focus-live-card="true"', "active live card"],
   [panel, 'data-focus-live-timer="true"', "authoritative live timer readout"],
   [panel, 'data-timer-numerals="true"', "tabular live timer numeral marker"],
-  [panel, 'timer.mode?.kind === "count_up"', "count-up display projection"],
-  [panel, 'timer.mode?.kind === "pomodoro"', "Pomodoro display projection"],
-  [panel, 'timer.state === "break"', "break countdown projection"],
-  [panel, 'timer.state === "time_up"', "Time's Up display projection"],
-  [panel, 'timer.state === "overtime_running"', "overtime display projection"],
+  [timerPresentation, 'timer.mode?.kind === "count_up"', "count-up display projection"],
+  [timerPresentation, 'timer.mode?.kind === "pomodoro"', "Pomodoro display projection"],
+  [timerPresentation, 'timer.state === "break"', "break countdown projection"],
+  [timerPresentation, 'timer.state === "time_up"', "Time's Up display projection"],
+  [timerPresentation, 'timer.state === "overtime_running"', "overtime display projection"],
   [panel, 'const remainingCandidates = board.today.tasks.filter((task) => task.id !== liveTaskId);', "live task exclusion from queued sections"],
   [panel, 'task.scheduledLocalTime !== null && !task.isOverdue', "future-timed Today scheduled grouping"],
   [panel, 'const scheduledIds = new Set(scheduledTasks.map((task) => task.id));', "scheduled identity set"],
