@@ -100,6 +100,28 @@ Blitzit parity note:
 
 The current item-7 implementation therefore remains **4/5**, and item 8 must not start.
 
+## ACTIVE CORRECTIVE PR
+
+PR #122 — `M7: fix physical Focus transition artifacts`
+
+Branch:
+
+`m7-transition-physical-fix`
+
+Current exact head:
+
+`b5d65917ea75f50ab351b20fe750c56366923ae6`
+
+Expected changed-file scope: seven files — three product/native/CSS transition files plus four deterministic contract files.
+
+CI history:
+
+- Windows CI #470 / run `35884992614` on previous head `3f66457a0f7164ecbb0d16601a2ee8408394ee92`: **FAILED** in Repository Preflight only because the older collapsed deterministic contract still prohibited any `requestAnimationFrame`. Product/native code did not fail; visuals/release were skipped.
+- The contract was narrowed to permit exactly one finite `nextPaint()` paint-boundary rAF while continuing to prohibit renderer clock/loop ownership.
+- Windows CI #471 / run `35885188470` on exact current head `b5d65917ea75f50ab351b20fe750c56366923ae6`: **IN PROGRESS** at Repository Preflight when this handoff was written.
+
+Do not merge until #471 (or a newer exact-head run if the branch moves) passes Repository Preflight, Windows visual regression, Tauri Release and both artifact uploads. After PASS, perform final exact-head/diff/discussion/mergeability review and guarded squash merge, then resulting-main CI and physical Windows re-test.
+
 ## CORRECTIVE SLICE
 
 Create a narrow branch from the latest tracking main. Fix only evidence-backed transition/overflow issues:
@@ -157,5 +179,6 @@ None until the corrective candidate has passed automated validation; then repeat
 ## BLOCKERS / NOT RUN
 
 - **Physical Windows flash-removal observation: FAIL / BLOCKING item 7 completion.**
+- **Corrective PR #122 exact-head Windows CI #471: IN PROGRESS / BLOCKING merge.**
 - No user/product decision blocks the implementation.
 - Local Rust/Tauri validation remains unavailable in connector-only execution; authoritative Windows CI supplies the automated native gate.
