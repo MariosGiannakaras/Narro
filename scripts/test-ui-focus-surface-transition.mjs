@@ -45,7 +45,8 @@ const position = slice(
   "fn position_focus_panel_in_work_area(",
   "fn position_focus_panel(",
 );
-const stageMove = position.indexOf("x: work_area.position.x");
+const stagePosition = position.indexOf("let staging_position = focus_panel_edge_position(");
+const stageMove = position.indexOf("x: staging_position.x");
 const finalMove = position.indexOf("x: final_position.x");
 const show = position.indexOf(".show()", finalMove);
 const record = position.indexOf("record_focus_surface_mode(FocusSurfaceMode::Panel)", show);
@@ -53,8 +54,10 @@ const focusWindow = position.indexOf(".set_focus()", record);
 invariant(
   position.includes("let hide_for_present = intent == FocusPanelPlacementIntent::Present")
     && position.includes("let previous_position = if hide_for_present")
-    && position.indexOf(".hide()") < stageMove,
-  "activating Panel transition must capture recovery position and hide before the DPI staging move",
+    && stagePosition >= 0
+    && position.indexOf(".hide()") < stagePosition
+    && stagePosition < stageMove,
+  "activating Panel transition must capture recovery position, hide, and calculate target-edge DPI staging before the staging move",
 );
 invariant(
   position.includes("if let Err(error) = placement_result")
@@ -64,8 +67,9 @@ invariant(
 );
 invariant(
   position.indexOf("apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?") > stageMove
-    && finalMove > position.indexOf("apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?"),
-  "Panel transition must preserve move-before-resize/DPI staging and physical final edge calculation",
+    && finalMove > position.indexOf("apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?")
+    && !position.includes("x: work_area.position.x"),
+  "Panel transition must stage on the configured edge before resize and must not expose the raw work-area origin",
 );
 invariant(
   finalMove >= 0 && show > finalMove && record > show && focusWindow > record,
@@ -108,6 +112,15 @@ for (const forbidden of ["setInterval(", "setTimeout(", "@tauri-apps/api/window"
 invariant(
   transition.includes('className="focus-surface-transition motion-focus-surface"'),
   "transition must reuse the shared focus-surface motion primitive",
+);
+invariant(
+  transitionCss.includes("width: 100%")
+    && transitionCss.includes("min-width: 0")
+    && transitionCss.includes("overflow-x: clip")
+    && transitionCss.includes('[data-focus-surface-transition="timer"]')
+    && transitionCss.includes("position: fixed")
+    && transitionCss.includes("overflow: hidden"),
+  "focus-surface transition must prevent horizontal overflow and keep Timer mode out of document scrolling",
 );
 invariant(
   transitionCss.includes("opacity: 0")

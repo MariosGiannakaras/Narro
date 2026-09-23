@@ -66,9 +66,14 @@ invariant(
     && foundation.includes('className="floating-timer-foundation__heading"'),
   "collapsed mode must retain the title/timer heading while expanded mode swaps in actions",
 );
-for (const forbidden of ["Date.now(", "performance.now(", "setInterval(", "requestAnimationFrame("]) {
+for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `renderer must not create a duplicate timer clock through ${forbidden}`);
 }
+invariant(
+  (foundation.match(/requestAnimationFrame\(/g) ?? []).length === 1
+    && foundation.includes("function nextPaint(): Promise<void>"),
+  "collapsed timer may use exactly one finite paint-boundary rAF helper, not a renderer clock/loop",
+);
 
 for (const needle of [
   'timer.state === "break"',
