@@ -116,9 +116,9 @@ invariant(
     && transition.includes("window.cancelAnimationFrame(frame)")
     && transition.includes('data-focus-surface-exiting={exiting ? "true" : "false"}')
     && transition.includes("onTransitionEnd")
-    && transition.includes("onTransitionCancel")
-    && transition.includes("onExitComplete?.()"),
-  "content transition must provide cancellable entrance plus transition-end/cancel exit completion",
+    && transition.includes("onExitComplete?.()")
+    && !transition.includes("onTransitionCancel"),
+  "content transition must provide cancellable entrance plus transition-end exit completion",
 );
 for (const forbidden of ["setInterval(", "setTimeout(", "@tauri-apps/api/window", "setPosition("]) {
   invariant(!transition.includes(forbidden), `transition wrapper must not introduce ${forbidden}`);
