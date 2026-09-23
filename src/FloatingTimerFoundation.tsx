@@ -11,18 +11,13 @@ import {
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import { waitForPresentedFrame } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
   type TimerSessionPayload,
 } from "./timerSessionApi";
 import "./floatingTimerFoundation.css";
-
-function nextPaint(): Promise<void> {
-  return new Promise((resolve) => {
-    window.requestAnimationFrame(() => resolve());
-  });
-}
 
 export type FloatingTimerFoundationProps = {
   onReturnToPanel: () => void;
@@ -60,7 +55,7 @@ export function FloatingTimerFoundation({
   const [timerError, setTimerError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
   const [resizePending, setResizePending] = useState(false);
-  const [resizePhase, setResizePhase] = useState<"idle" | "exiting" | "entering">("idle");
+  const [resizePhase, setResizePhase] = useState<"idle" | "exiting" | "resizing" | "entering">("idle");
   const resizeTransitionResolverRef = useRef<(() => void) | null>(null);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
@@ -175,10 +170,12 @@ export function FloatingTimerFoundation({
     setResizeError(null);
     try {
       await waitForResizeTransition("exiting");
+      setResizePhase("resizing");
+      await waitForPresentedFrame();
       await setFloatingTimerExpanded(nextExpanded);
       setExpanded(nextExpanded);
       setResizePhase("entering");
-      await nextPaint();
+      await waitForPresentedFrame();
       await waitForResizeTransition("idle");
       return true;
     } catch (failure: unknown) {
