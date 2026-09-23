@@ -14,6 +14,7 @@ export function FocusSurfaceTransition({
   onExitComplete?: () => void;
 }) {
   const [entered, setEntered] = useState(false);
+  const [exitSettled, setExitSettled] = useState(false);
   const exitNotifiedRef = useRef(false);
 
   useEffect(() => {
@@ -22,12 +23,16 @@ export function FocusSurfaceTransition({
   }, []);
 
   useEffect(() => {
-    if (!exiting) exitNotifiedRef.current = false;
+    if (!exiting) {
+      exitNotifiedRef.current = false;
+      setExitSettled(false);
+    }
   }, [exiting]);
 
   const completeExit = () => {
     if (!exiting || exitNotifiedRef.current) return;
     exitNotifiedRef.current = true;
+    setExitSettled(true);
     onExitComplete?.();
   };
 
@@ -37,6 +42,7 @@ export function FocusSurfaceTransition({
       data-focus-surface-transition={mode}
       data-focus-surface-entered={entered ? "true" : "false"}
       data-focus-surface-exiting={exiting ? "true" : "false"}
+      data-focus-surface-exit-settled={exitSettled ? "true" : "false"}
       onTransitionEnd={(event) => {
         if (event.currentTarget !== event.target) return;
         if (event.propertyName !== "opacity" && event.propertyName !== "transform") return;
