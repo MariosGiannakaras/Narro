@@ -19,60 +19,62 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–6 are validated. M7 item 7 remains open after the CI #472 physical re-test: left/staging flicker, final position, normal product-size horizontal overflow and session continuity now PASS, but expand/collapse and overall transition smoothness remain FAIL.
+M7 items 1–6 are validated. M7 item 7 now has an automated-validated motion-smoothing correction merged through PR #123 and resulting-main CI #477. The prior CI #472 physical re-test established PASS for left/staging flicker, final position, normal product-size horizontal overflow and session continuity, but FAIL for expand/collapse and overall transition smoothness. A physical re-test of the exact CI #477 build remains the final item-7 gate.
 
 ## Current validated source baseline
 
 Latest resulting-main automated-validated **source/test** baseline:
 
-`91a28ba7c5389130b6edb45deabe62a9e01f9d08`
+`36a3f6f6a1ecd5249839100e1e1249305050fa07`
 
 Tree:
 
-`e4ecb48ab3ca84915d4d7972e83f7bfd5ed5ad78`
+`207b9bbef4fdcf5d4aec95a81ae6604bc56b55a0`
 
-This is the expected-head guarded squash merge of PR #122 — `M7: fix physical Focus transition artifacts` — from exact validated PR head `b5d65917ea75f50ab351b20fe750c56366923ae6`.
+This is the expected-head guarded squash merge of PR #123 — `M7: smooth Focus surface transitions` — from exact validated PR head `861f1866c4a9dbf5dd721352b41bc969c18087dd`.
 
-The corrective source addresses the physical Windows evidence from CI #469 without broadening scope:
+The current corrective source addresses the remaining physical Windows motion evidence without broadening scope:
 
-- Panel target-monitor DPI staging remains native/Rust authority but stages at the configured Panel edge rather than raw work-area origin;
-- focus-surface transition geometry clips horizontal overflow while preserving required Panel vertical scrolling;
-- Floating Timer collapsed/expanded native resize is presentation-gated across finite paint boundaries so one expand/collapse action does not visibly expose an enlarged/shrunken intermediate hierarchy;
-- no renderer-owned native positioning, timer/session/task/scheduling authority, polling clock, third webview or high-frequency geometry loop was introduced.
+- both keyed Panel and Timer roots animate the current content out before invoking native mode geometry;
+- renderer mode publication still occurs only after the corresponding native transition succeeds, and the final keyed root then enters through the existing finite motion primitive;
+- collapsed/expanded Floating Timer presentation now performs a finite inline exit, native resize, final hierarchy publication and finite entrance;
+- transition completion uses filtered DOM `transitionend` boundaries with duplicate-completion protection;
+- reduced motion remains 1ms/zero-displacement through the shared tokens;
+- native/Rust remains geometry authority; no renderer-owned native positioning, timer/session/task/scheduling authority, polling clock, third webview or high-frequency geometry loop was introduced.
 
-### PR #122 exact-head validation
+### PR #123 exact-head validation
 
-Windows CI #471 / run `35885188470` / job `107263411613`: **SUCCESS** on exact PR head `b5d65917ea75f50ab351b20fe750c56366923ae6`.
+Windows CI #476 / run `35905921052` / job `107333499742`: **SUCCESS** on exact PR head `861f1866c4a9dbf5dd721352b41bc969c18087dd`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- PR visual artifact `10761689991`, digest `sha256:442ad79b52565c9481379987b66dc81a996a794ffd40dfed95bf380283fa8b2c`;
-- PR runtime artifact `10763131609`, digest `sha256:6a06cc70202189f620ee30ada78afa4769ba04befa3509e7e8e0da657535af84`.
+- PR visual artifact `10771406771`, digest `sha256:865db1cc4048b107769d5b463503822e42daef8d85f93937758515c1e280f093`;
+- PR runtime artifact `10772355711`, digest `sha256:76d5657febe7f898374e50da666840207afeb854989a2a4607d3811cce69a577`.
 
-Windows CI #470 on previous head `3f66457a0f7164ecbb0d16601a2ee8408394ee92` failed only because a stale collapsed deterministic contract still prohibited every `requestAnimationFrame`; the contract was narrowed to allow exactly one finite paint-boundary helper while continuing to prohibit renderer clock/loop ownership. No production change was made for that failure.
+Semantic review after an earlier green PR run found that the initial branch wired exit completion only for Timer -> Panel. The production Panel root and deterministic contract were corrected so both directions must remain keyed and exit-complete before native geometry. CI #475 was then cancelled only because the test-only contract-hardening commit superseded its head; final CI #476 validates the corrected exact head.
 
-Final PR review verified the exact head unchanged, seven expected files, no discussion comments/reviews and clean mergeability.
+Final PR review verified the exact head unchanged, eight expected files, no discussion comments/reviews and clean mergeability.
 
 Expected-head guarded squash merge:
 
-`91a28ba7c5389130b6edb45deabe62a9e01f9d08`
+`36a3f6f6a1ecd5249839100e1e1249305050fa07`
 
 ### Resulting-main validation
 
-Windows CI #472 / run `35887924927` / job `107272742116`: **SUCCESS** on exact main source SHA `91a28ba7c5389130b6edb45deabe62a9e01f9d08`.
+Windows CI #477 / run `35907803574` / job `107339752322`: **SUCCESS** on exact main source SHA `36a3f6f6a1ecd5249839100e1e1249305050fa07`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- main visual artifact `10763618553`, digest `sha256:8f25127a7b924fbada100d85826ae553a9e92f755554e6a6f20c985b32b16710`;
-- main runtime artifact `10763339801`, digest `sha256:2a763e673486fa60fd87b2af358846db1a5a00e7d7c9b7658ef3cb3301239c94`.
+- main visual artifact `10772656537`, digest `sha256:1e6077f496a1f726887cc7dc4e3871174ee0330e48d543ebe375d5fdccc38235`;
+- main runtime artifact `10771699056`, digest `sha256:1da888a05d0158b6db30c5e6f3b17688cb660cac2ef103ec5c949997fad1daa2`.
 
-Automated validation does **not** prove real-desktop transient behavior. Physical Windows re-validation remains the final item-7 gate.
+The resulting-main tree is byte-identical to the validated PR head tree. Automated validation does **not** prove real-desktop transient behavior, so physical Windows re-validation remains the final item-7 gate.
 
 ## Milestone 6 validated work
 
@@ -190,7 +192,7 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-Continue M7 item 7 motion corrective slice; do **not** start item 8.
+Physically re-test M7 item 7 on the exact resulting-main CI #477 runtime artifact; do **not** start item 8.
 
 Physical Windows re-test of exact CI #472 source `91a28ba7c5389130b6edb45deabe62a9e01f9d08`:
 
@@ -203,14 +205,7 @@ Physical Windows re-test of exact CI #472 source `91a28ba7c5389130b6edb45deabe62
 
 Repository/UI evidence keeps the expanded viewport at established `340 x 300`; unused vertical space in a no-subtask case is not sufficient evidence to redesign that geometry.
 
-Next correction:
-1. animate the current Panel/Timer content out using the existing finite 150ms focus-surface opacity/transform primitive **before** invoking the native mode transition;
-2. keep the existing keyed 150ms entrance after native success;
-3. replace the expand/collapse opacity cut with a finite inline exit -> native resize -> final hierarchy commit -> inline entrance sequence using transition-end boundaries;
-4. preserve reduced-motion 1ms/no-displacement behavior;
-5. keep all native geometry authority in Rust and introduce no polling/high-frequency native geometry animation.
-
-After exact-head Windows CI + guarded merge + resulting-main CI, repeat the physical transition test before item 7 can close.
+The correction is now implemented and automated-validated through PR CI #476, guarded merge `36a3f6f6a1ecd5249839100e1e1249305050fa07` and resulting-main CI #477. Use runtime artifact `10771699056`, digest `sha256:1da888a05d0158b6db30c5e6f3b17688cb660cac2ef103ec5c949997fad1daa2`, for the final physical transition test before item 7 can close.
 
 ## Durable correctness decisions
 
