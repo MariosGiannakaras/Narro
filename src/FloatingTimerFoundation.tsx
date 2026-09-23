@@ -1,10 +1,4 @@
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
-
-function nextPaint(): Promise<void> {
-  return new Promise((resolve) => {
-    window.requestAnimationFrame(() => resolve());
-  });
-}
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveActions } from "./FocusLiveActions";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
@@ -23,6 +17,12 @@ import {
   type TimerSessionPayload,
 } from "./timerSessionApi";
 import "./floatingTimerFoundation.css";
+
+function nextPaint(): Promise<void> {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => resolve());
+  });
+}
 
 export type FloatingTimerFoundationProps = {
   onReturnToPanel: () => void;
