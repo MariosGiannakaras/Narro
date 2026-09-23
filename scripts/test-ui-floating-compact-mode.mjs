@@ -85,15 +85,31 @@ for (const forbidden of ["timer_start_task", "timer_pause", "timer_resume", "tim
 
 invariant(focusEntry.includes("function FocusSurfaceProduct()"), "product focus-surface root is missing");
 invariant(focusEntry.includes("void getFocusSurfaceMode()"), "product root must reconcile native mode on mount");
-const enterCompact = functionSlice(focusEntry, "async function enterCompactMode()", "async function returnToPanel()");
-const returnPanel = functionSlice(focusEntry, "async function returnToPanel()", "if (mode === null)");
-invariant(
-  enterCompact.indexOf("await presentFloatingTimer();") < enterCompact.indexOf('setMode("timer");'),
-  "renderer must not publish compact UI before the native transition succeeds",
+const requestMode = functionSlice(
+  focusEntry,
+  "function requestMode(targetMode: FocusSurfaceMode)",
+  "async function commitPendingModeTransition()",
+);
+const commitMode = functionSlice(
+  focusEntry,
+  "async function commitPendingModeTransition()",
+  "function enterCompactMode()",
 );
 invariant(
-  returnPanel.indexOf("await presentFocusPanel();") < returnPanel.indexOf('setMode("panel");'),
-  "renderer must not publish panel UI before native panel presentation succeeds",
+  requestMode.includes("setPendingMode(targetMode)")
+    && !requestMode.includes("presentFloatingTimer")
+    && !requestMode.includes("presentFocusPanel"),
+  "renderer mode request must begin presentation exit without invoking native geometry immediately",
+);
+invariant(
+  commitMode.indexOf('await presentFloatingTimer();') < commitMode.indexOf("setMode(targetMode);")
+    && commitMode.indexOf('await presentFocusPanel();') < commitMode.indexOf("setMode(targetMode);"),
+  "renderer must publish compact/panel UI only after the corresponding native transition succeeds",
+);
+invariant(
+  focusEntry.includes('requestMode("timer")')
+    && focusEntry.includes('requestMode("panel")'),
+  "explicit compact/return callbacks must delegate to the shared transition request path",
 );
 invariant(
   focusEntry.includes('mode === "timer"') && focusEntry.includes("<FloatingTimerFoundation"),
