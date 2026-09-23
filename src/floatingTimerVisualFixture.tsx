@@ -10,8 +10,8 @@ const theme = params.get("theme") === "light" ? "light" : "dark";
 
 document.documentElement.dataset.theme = theme;
 document.body.style.margin = "0";
-document.body.style.width = "340px";
-document.body.style.height = "110px";
+document.body.style.width = "420px";
+document.body.style.height = "240px";
 document.body.style.overflow = "hidden";
 document.body.style.background = "var(--color-canvas)";
 
@@ -62,8 +62,9 @@ const timer: TimerSessionPayload = {
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Floating Timer fixture root is missing.");
-root.style.width = "100%";
-root.style.height = "100%";
+root.style.width = "340px";
+root.style.height = "110px";
+root.style.margin = "20px";
 
 flushSync(() => {
   createRoot(root).render(
@@ -74,6 +75,11 @@ flushSync(() => {
     />,
   );
 });
+
+const renderedTimer = document.querySelector<HTMLElement>(".floating-timer-foundation");
+if (!renderedTimer) throw new Error("Floating Timer fixture production surface is missing.");
+renderedTimer.style.width = "340px";
+renderedTimer.style.height = "110px";
 
 function box(selector: string) {
   const node = document.querySelector<HTMLElement>(selector);
