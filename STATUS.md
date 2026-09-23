@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-22
+Last updated: 2026-09-23
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
@@ -14,60 +14,58 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS**.
 - Milestone 6 / Gate F: **PASS** — all 16 top-level items validated.
-- Milestone 7: **ACTIVE / 2 of 14 top-level items validated**.
+- Milestone 7: **ACTIVE / 3 of 14 top-level items validated**.
 - Milestones 8–10: **NOT STARTED**.
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–2 are validated. The next ordered work is M7 item 3: implement the collapsed Floating Timer content matching the supplied compact screenshot hierarchy.
+M7 items 1–3 are validated. The next coherent ordered work is M7 items 4–6: expanded Floating Timer actions and subtask interactions with stable tooltip/hit-target behavior.
 
 ## Current validated source baseline
 
 Latest resulting-main automated-validated **source/test** baseline:
 
-`f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`
+`14db934e998b2bb619f04bf7e7a1b0fe7b5553fe`
 
 Tree:
 
-`adf0342eba2944bca5e986d80f977bb06864682a`
+`b17136a7b622fcdbf0346e589092613806627e46`
 
-This is the expected-head guarded squash merge of PR #118 — `M7: make Floating Timer movable` — from exact validated PR head `2ca6b59958e368c27024b06a652c9eb56ca30b44`.
+This is the expected-head guarded squash merge of PR #119 — `M7: add collapsed Floating Timer content` — from exact validated PR head `63afd1d9ce659ba9aaf1a928dcfce4c28150d368`.
 
-Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline. M7 item 2 is now physically validated on the same exact source build.
+PR Windows CI #458 and resulting-main Windows CI #459 passed all required repository gates on the exact source SHAs. Local `npm run preflight:frontend` also passed on the resulting-main source. Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline.
 
-### PR #118 exact-head validation
+### PR #119 exact-head validation
 
-Windows CI #453 / run `35591332492` / job `106306156731`: **SUCCESS** on exact PR head `2ca6b59958e368c27024b06a652c9eb56ca30b44`.
+Windows CI #458 / run `35803896750` / job `107000513340`: **SUCCESS** on exact PR head `63afd1d9ce659ba9aaf1a928dcfce4c28150d368`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- PR visual artifact `10634403550`, digest `sha256:f2850ed4be8e9c588004657d03a74c20a30d218fe128a01e8cad17beff313215`;
-- PR diagnostic/runtime artifact `10635435409`, digest `sha256:1b51f68a27180dbfdd93d0840612c477abbd0ecaa4ba38a34379262032084066`.
+- PR visual artifact `10727446474`, digest `sha256:210ee6267ddf38704f61dda1ed8fc87a772587e661609be3c8252b4c356fe245`;
+- PR diagnostic/runtime artifact `10727552219`, digest `sha256:852f593d91f4178ac03b55d053804d46ad4130dfe8d08294cadf16095c5d77c1`.
 
-Final review verified the exact head unchanged, exactly five expected changed files, no conversation comments, no submitted reviews, no inline review threads, and mergeability before the expected-head guarded squash merge.
+Final review verified the exact merged head, no conversation comments, no submitted reviews and no inline review threads.
 
 Expected-head guarded squash merge:
 
-`f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`
+`14db934e998b2bb619f04bf7e7a1b0fe7b5553fe`
 
 ### Resulting-main validation
 
-Windows CI #454 / run `35593002396` / job `106311386561`: **SUCCESS** on exact main source SHA `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`.
+Windows CI #459 / run `35805195941` / job `107004336705`: **SUCCESS** on exact main source SHA `14db934e998b2bb619f04bf7e7a1b0fe7b5553fe`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- main visual artifact `10635408100`, digest `sha256:1b4a398bc4f4b9b82efb23876c25f803eafd391ad14c99d14d8e2dd6a6da6b0c`;
-- main diagnostic/runtime artifact `10636128018`, digest `sha256:8d2113cfd00bc73a84d96294380f43f33fef460ddc86e8d880b3f986ae124cb5`.
+- main visual artifact `10727982576`, digest `sha256:efbf207156b3fcda9c7eb0426c254da86837744156f5507203bad80f637fc2ee`;
+- main diagnostic/runtime artifact `10727344941`, digest `sha256:2931734365cb648474d96ddb317f767b5be141511224cdf71a71ee3fa216f033`.
 
-Automated validation proves the Tauri capability/configuration, deterministic contract, frontend/Rust preflight, release build and artifact generation.
-
-Physical Windows validation on 2026-09-23 using the exact CI #454 build additionally recorded **PASS** for drag, Return-to-Panel control, always-on-top and absence of a normal taskbar button. The user observed one non-blocking visual issue: Timer -> Panel briefly flashes at the left side before settling back at the correct original right-side Panel position. That observation is carried forward to the dedicated M7 transition item.
+Automated validation proves the collapsed Timer geometry/content contracts, deterministic Windows visual fixture, frontend/Rust preflight, release build and artifact generation. Local `npm run preflight:frontend` independently passed on the resulting-main source; local Rust/Tauri checks were **NOT RUN** because this environment has no Rust toolchain.
 
 ## Milestone 6 validated work
 
@@ -146,22 +144,33 @@ Physical Windows validation:
 - final Panel position after return: correct original right-side position;
 - observed transition artifact: a very brief left-side Panel flicker before settling right. This does not invalidate item 2 and is assigned to the later transition slice.
 
+### Item 3 — Collapsed Floating Timer content
+
+Immutable evidence: `work-log/2026-09-23-1421-codex-m7-floating-collapsed.md`.
+
+Implementation source: PR #119 / merge `14db934e998b2bb619f04bf7e7a1b0fe7b5553fe`.
+
+Validated behavior:
+
+- native Timer mode uses the screenshot/spec-backed `340 x 110` collapsed viewport while retaining item-2 topmost/taskbar/drag authority;
+- the title and subtask progress derive from the authoritative list-board projection;
+- the timer derives from the existing revision-ordered authoritative timer/session projection;
+- Focus Panel and Floating Timer share one timer presentation helper covering EST, count-up, Pomodoro, break, Time's Up and overtime states;
+- Add and Expand affordances are visible but intentionally non-mutating until the ordered expanded-content slice;
+- deterministic Windows light/dark fixtures validate the collapsed hierarchy and stable geometry;
+- no renderer timer/session/task authority, polling, per-second persistence, continuous decorative animation or position loop was introduced.
+
+PR Windows CI #458 and resulting-main Windows CI #459 passed Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads. Local frontend preflight also passed; local Rust/Tauri checks were unavailable because the local environment has no Rust toolchain.
+
 ## Milestone 7 — next ordered work
 
-Start M7 item 3:
+Implement the coherent M7 items 4–6 expanded-interactions slice:
 
-3. `Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.`
+4. expanded action strip for Break, Notes, Pause/Resume, Skip, Done and Return to Panel;
+5. expanded subtask rows with completion, reorder, delete and progress;
+6. stable icon hit targets and tooltips without changing window width.
 
-Item-3 boundaries:
-
-- reuse authoritative M6 Focus/timer/task/subtask projections and mutations; do not create renderer timer/session authority;
-- implement only the collapsed hierarchy/content and its direct add/expand affordances;
-- expanded action strip remains item 4;
-- expanded subtask rows/reorder/delete remain item 5;
-- stable tooltip/hit-target work remains item 6;
-- transition motion and the physically observed Timer -> Panel left-side flicker remain item 7;
-- position persistence/recovery remains item 10;
-- no continuous decorative animation or high-frequency geometry loop.
+Reuse the existing authoritative Focus action and list-board subtask mutation paths. Expansion is renderer presentation state only. Keep transition motion/flicker correction in item 7, shortcuts in items 8–9, position persistence in item 10 and edge anchoring in item 12.
 
 ## Durable correctness decisions
 

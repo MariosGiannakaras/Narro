@@ -263,7 +263,7 @@ Acceptance criteria:
 - [x] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.
   - [x] Native drag affordance, focusSurface-scoped drag capability, exact-head PR CI, guarded merge, and resulting-main CI are automated-validated.
   - [x] Physical Windows validation: Drag PASS; Return button PASS; Always-on-top PASS; no normal taskbar button PASS.
-- [ ] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
+- [x] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
 - [ ] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
 - [ ] Implement expanded subtask rows with completion, reorder, delete and progress.
 - [ ] Keep icon hit targets stable and show tooltips without changing window width.
