@@ -21,6 +21,8 @@ General roadmap progress: **6 of 10 milestones complete**.
 
 M7 items 1–6 are validated. M7 item 7 now has an automated-validated motion-smoothing correction merged through PR #123 and resulting-main CI #477. The prior CI #472 physical re-test established PASS for left/staging flicker, final position, normal product-size horizontal overflow and session continuity, but FAIL for expand/collapse and overall transition smoothness. A physical re-test of the exact CI #477 build remains the final item-7 gate.
 
+2026-09-24 Codex Computer Use Windows test attempt: **NOT RUN**. The already-running installed `narro.exe` does not match the CI #477 executable, and the Computer Use helper failed before window enumeration. No transition repetitions or visual results were obtained; item 7 remains open. See `work-log/2026-09-24-codex-m7-computer-use-blocked.md`.
+
 ## Current validated source baseline
 
 Latest resulting-main automated-validated **source/test** baseline:

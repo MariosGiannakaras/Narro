@@ -117,9 +117,11 @@ Use the exact resulting-main CI #477 runtime artifact, not a PR or older artifac
 - source SHA: `36a3f6f6a1ecd5249839100e1e1249305050fa07`;
 - digest: `sha256:1da888a05d0158b6db30c5e6f3b17688cb660cac2ef103ec5c949997fad1daa2`.
 
+2026-09-24 attempt: the already-running installed process (PID 13816 at inspection, `C:\Users\MariosG\AppData\Local\Narro\narro.exe`) had executable SHA-256 `78515bdb3a05bb9ef27920b1c3c67b56b7950a7759ef0e3a93abd0c978f58dd0`; the downloaded CI #477 raw executable had SHA-256 `d0c82a2fea79d4100ae4bb398207a1b2300ead7eec68071d291b6bc8de4c1fc0`. Computer Use failed before window enumeration with `codex/sandbox-state-meta: sandboxCwd is not a local file URI`. This is an **untested** checkpoint, not a motion PASS or FAIL. See `work-log/2026-09-24-codex-m7-computer-use-blocked.md`.
+
 Physical procedure:
 
-1. Run raw `narro.exe` from the extracted artifact.
+1. Close the older installed instance through the app's normal UI, then run raw `narro.exe` from the extracted artifact; verify the process path and executable hash before testing.
 2. Put Focus Panel on the right side and start/resume a visible live timer.
 3. Repeat Panel -> Floating Timer -> Return to Focus Panel several times.
 4. Mode motion PASS only if both directions visibly exit before the geometry swap and enter smoothly, with no stuck pending state, blank freeze, left/staging flash or abrupt return flicker.
@@ -133,6 +135,8 @@ Physical procedure:
 ## NEXT AGENT ACTION
 
 **Do not start M7 item 8 until item 7 physical re-validation passes.**
+
+First recover Computer Use access and run the exact CI #477 executable. Repeat each requested direction and collapsed/expanded cycle five times. The 2026-09-24 attempt produced zero valid repetitions.
 
 - On full PASS: create a new immutable physical-pass work log; mark item 7 `[x]`; advance M7 to **7/14**; reset the active item-8 slice to **0/5**; reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md`; then begin ordered item 8.
 - On any FAIL: record exact build identity and symptom/direction in a new immutable work log; make only an evidence-backed correction from current `main`; keep item 7 at **6/14** and the slice at **4/5**.
@@ -156,5 +160,6 @@ No autonomous source item is unblocked while the physical result is pending.
 ## BLOCKERS / NOT RUN
 
 - **Physical Windows motion re-test: PENDING / BLOCKING item 7 completion and item 8 start.**
+- **Codex Computer Use Windows test: NOT RUN** on 2026-09-24 because window enumeration failed and the running installed binary did not match CI #477. No motion symptom was observed in this attempt.
 - Local Rust/Tauri validation: NOT RUN because no local Rust toolchain is installed; exact-head PR CI #476 and resulting-main CI #477 passed the authoritative Windows native gates.
 - No user/product decision blocks the already implemented correction.
