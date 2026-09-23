@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
@@ -25,6 +25,8 @@ function FocusSurfaceProduct() {
   const [mode, setMode] = useState<FocusSurfaceMode | null>(null);
   const [transitionPending, setTransitionPending] = useState(false);
   const [transitionError, setTransitionError] = useState<string | null>(null);
+  const [pendingMode, setPendingMode] = useState<FocusSurfaceMode | null>(null);
+  const transitionCommitRef = useRef(false);
 
   useEffect(() => {
     let disposed = false;
@@ -47,32 +49,41 @@ function FocusSurfaceProduct() {
     };
   }, []);
 
-  async function enterCompactMode() {
-    if (transitionPending) return;
+  function requestMode(targetMode: FocusSurfaceMode) {
+    if (transitionPending || mode === targetMode) return;
     setTransitionPending(true);
+    setTransitionError(null);
+    setPendingMode(targetMode);
+  }
+
+  async function commitPendingModeTransition() {
+    const targetMode = pendingMode;
+    if (!targetMode || transitionCommitRef.current) return;
+
+    transitionCommitRef.current = true;
     try {
-      await presentFloatingTimer();
-      setMode("timer");
+      if (targetMode === "timer") {
+        await presentFloatingTimer();
+      } else {
+        await presentFocusPanel();
+      }
+      setMode(targetMode);
       setTransitionError(null);
     } catch (failure: unknown) {
       setTransitionError(formatInvokeError(failure));
     } finally {
+      transitionCommitRef.current = false;
+      setPendingMode(null);
       setTransitionPending(false);
     }
   }
 
-  async function returnToPanel() {
-    if (transitionPending) return;
-    setTransitionPending(true);
-    try {
-      await presentFocusPanel();
-      setMode("panel");
-      setTransitionError(null);
-    } catch (failure: unknown) {
-      setTransitionError(formatInvokeError(failure));
-    } finally {
-      setTransitionPending(false);
-    }
+  function enterCompactMode() {
+    requestMode("timer");
+  }
+
+  function returnToPanel() {
+    requestMode("panel");
   }
 
   if (mode === null) {
@@ -85,7 +96,12 @@ function FocusSurfaceProduct() {
 
   if (mode === "timer") {
     return (
-      <FocusSurfaceTransition key="timer" mode="timer">
+      <FocusSurfaceTransition
+        key="timer"
+        mode="timer"
+        exiting={pendingMode !== null}
+        onExitComplete={() => void commitPendingModeTransition()}
+      >
         <FloatingTimerFoundation
           onReturnToPanel={() => void returnToPanel()}
           transitionPending={transitionPending}

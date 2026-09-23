@@ -1,4 +1,4 @@
-import { type CSSProperties, useEffect, useMemo, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveActions } from "./FocusLiveActions";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
@@ -60,12 +60,16 @@ export function FloatingTimerFoundation({
   const [timerError, setTimerError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
   const [resizePending, setResizePending] = useState(false);
+  const [resizePhase, setResizePhase] = useState<"idle" | "exiting" | "entering">("idle");
+  const resizeTransitionResolverRef = useRef<(() => void) | null>(null);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!fixtureMode) return;
     setExpanded(fixtureExpanded);
     setResizePending(false);
+    setResizePhase("idle");
+    resizeTransitionResolverRef.current = null;
     setResizeError(null);
   }, [fixtureExpanded, fixtureMode]);
 
@@ -146,6 +150,18 @@ export function FloatingTimerFoundation({
   const error = transitionError ?? resizeError ?? timerError ?? boardError;
   const title = liveTask?.title ?? (liveTaskId ? "Loading focus task…" : "No active focus task");
 
+  const waitForResizeTransition = (phase: "idle" | "exiting") => new Promise<void>((resolve) => {
+    resizeTransitionResolverRef.current = resolve;
+    setResizePhase(phase);
+  });
+
+  const finishResizeTransition = () => {
+    const resolve = resizeTransitionResolverRef.current;
+    if (!resolve) return;
+    resizeTransitionResolverRef.current = null;
+    resolve();
+  };
+
   const requestExpanded = async (nextExpanded: boolean) => {
     if (transitionPending || resizePending) return false;
     if (nextExpanded === expanded) return true;
@@ -158,18 +174,19 @@ export function FloatingTimerFoundation({
     setResizePending(true);
     setResizeError(null);
     try {
-      // Hide the product surface for one paint before native resize so the user never sees
-      // an enlarged collapsed (or shrunken expanded) intermediate presentation.
-      await nextPaint();
+      await waitForResizeTransition("exiting");
       await setFloatingTimerExpanded(nextExpanded);
       setExpanded(nextExpanded);
-      // Let React commit the final collapsed/expanded hierarchy while the surface is hidden.
+      setResizePhase("entering");
       await nextPaint();
+      await waitForResizeTransition("idle");
       return true;
     } catch (failure: unknown) {
       setResizeError(formatInvokeError(failure));
       return false;
     } finally {
+      resizeTransitionResolverRef.current = null;
+      setResizePhase("idle");
       setResizePending(false);
     }
   };
@@ -191,10 +208,23 @@ export function FloatingTimerFoundation({
       data-floating-live-task-id={liveTaskId ?? ""}
       data-floating-expanded={expanded ? "true" : "false"}
       data-floating-resize-pending={resizePending ? "true" : "false"}
+      data-floating-resize-phase={resizePhase}
       data-tauri-drag-region="true"
       aria-label="Floating Timer"
     >
-      <div className="floating-timer-foundation__content" data-tauri-drag-region="true">
+      <div
+        className="floating-timer-foundation__content"
+        data-tauri-drag-region="true"
+        onTransitionEnd={(event) => {
+          if (event.currentTarget !== event.target) return;
+          if (event.propertyName !== "opacity") return;
+          finishResizeTransition();
+        }}
+        onTransitionCancel={(event) => {
+          if (event.currentTarget !== event.target) return;
+          finishResizeTransition();
+        }}
+      >
         {expanded && liveTask && timer ? (
           <FocusLiveActions
             key={liveTask.id}

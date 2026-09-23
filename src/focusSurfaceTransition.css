@@ -21,3 +21,9 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+.focus-surface-transition[data-focus-surface-exiting="true"] {
+  opacity: 0;
+  transform: translateY(calc(0rem - var(--motion-distance-overlay)));
+  transition-timing-function: var(--motion-ease-exit);
+}
