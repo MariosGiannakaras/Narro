@@ -122,7 +122,10 @@ invariant(css.includes("width: 32px") && css.includes("height: 32px"), "interact
 
 invariant(fixture.includes('fixtureState === "expanded"'), "expanded visual fixture state is missing");
 invariant(fixture.includes("fixtureExpanded={expanded}"), "expanded fixture is not wired to the production surface");
-invariant(fixture.includes("fixtureSubtasks={subtaskSnapshot}"), "expanded fixture must render representative subtasks");
+invariant(
+  fixture.includes("fixtureSubtasks={expanded ? subtaskSnapshot : null}"),
+  "expanded fixture must render representative subtasks without changing the collapsed progress fixture",
+);
 invariant(capture.includes('"floating-timer-expanded-$theme"'), "expanded light/dark captures are missing");
 invariant(validator.includes("expanded timer must be exactly 340x300"), "expanded geometry validation is missing");
 invariant(validator.includes('data-floating-subtask-action="delete"'), "expanded DOM behavior validation is missing");

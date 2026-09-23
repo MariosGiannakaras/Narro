@@ -89,7 +89,7 @@ flushSync(() => {
       fixtureBoard={board}
       fixtureTimer={timer}
       fixtureExpanded={expanded}
-      fixtureSubtasks={subtaskSnapshot}
+      fixtureSubtasks={expanded ? subtaskSnapshot : null}
     />,
   );
 });
