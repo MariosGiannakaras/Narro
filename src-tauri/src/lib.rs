@@ -454,7 +454,23 @@ fn configure_focus_surface_mode(
     window: &tauri::WebviewWindow,
     mode: FocusSurfaceMode,
 ) -> CommandResult<()> {
-    apply_focus_surface_mode(window, mode)?;
+    let was_visible = window
+        .is_visible()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
+
+    if was_visible {
+        window
+            .hide()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "hide for mode transition", error))?;
+    }
+
+    if let Err(error) = apply_focus_surface_mode(window, mode) {
+        if was_visible {
+            let _ = window.show();
+        }
+        return Err(error);
+    }
+
     window
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
@@ -470,10 +486,20 @@ fn position_focus_panel_in_work_area(
 ) -> CommandResult<()> {
     validate_work_area(work_area).map_err(CommandError::window_geometry)?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    let hide_for_present = intent == FocusPanelPlacementIntent::Present
+        && window
+            .is_visible()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
 
-    // Move into the target work area before applying logical panel geometry so Windows/WebView2
-    // can use the target monitor's DPI. The final edge position is computed from the actual
-    // physical outer size after the resize.
+    if hide_for_present {
+        window
+            .hide()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "hide for panel transition", error))?;
+    }
+
+    // Move into the target work area while hidden during an activating transition so
+    // Windows/WebView2 can resolve the target monitor DPI without exposing the staging
+    // position. The final edge position is computed from the actual physical outer size.
     window
         .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
             x: work_area.position.x,
@@ -481,14 +507,7 @@ fn position_focus_panel_in_work_area(
         }))
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error))?;
 
-    match intent {
-        FocusPanelPlacementIntent::Present => {
-            configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
-        }
-        FocusPanelPlacementIntent::Revalidate => {
-            apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
-        }
-    }
+    apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
 
     let window_size = window
         .outer_size()
@@ -513,6 +532,10 @@ fn position_focus_panel_in_work_area(
         })?;
 
     if intent == FocusPanelPlacementIntent::Present {
+        window
+            .show()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
+        record_focus_surface_mode(FocusSurfaceMode::Panel);
         window
             .set_focus()
             .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus", error))?;

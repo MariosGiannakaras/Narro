@@ -1,0 +1,12 @@
+.focus-surface-transition {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateY(var(--motion-distance-overlay));
+}
+
+.focus-surface-transition[data-focus-surface-entered="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
