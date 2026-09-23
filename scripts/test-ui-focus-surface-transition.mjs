@@ -88,14 +88,15 @@ const revalidate = slice(
 invariant(!revalidate.includes(".show()"), "display revalidation must remain non-activating");
 invariant(!revalidate.includes(".set_focus()"), "display revalidation must not steal focus");
 
-invariant(
-  focus.includes('<FocusSurfaceTransition')
-    && focus.includes('key="timer"')
-    && focus.includes('key="panel"')
-    && focus.includes('exiting={pendingMode !== null}')
-    && focus.includes('onExitComplete={() => void commitPendingModeTransition()}'),
-  "Panel and Timer product roots must share keyed exit-before-native transition sequencing",
-);
+const timerRoot = slice(focus, 'if (mode === "timer") {', '\n  return (');
+const panelRoot = slice(focus, 'key="panel"', '\n      <FocusPanel');
+for (const [name, root] of [["Timer", timerRoot], ["Panel", panelRoot]]) {
+  invariant(
+    root.includes('exiting={pendingMode !== null}')
+      && root.includes('onExitComplete={() => void commitPendingModeTransition()}'),
+    `${name} product root must complete exit before native mode sequencing`,
+  );
+}
 const requestMode = slice(focus, "function requestMode(", "async function commitPendingModeTransition()");
 const commitMode = slice(focus, "async function commitPendingModeTransition()", "function enterCompactMode()");
 invariant(

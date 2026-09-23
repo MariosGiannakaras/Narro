@@ -112,7 +112,12 @@ function FocusSurfaceProduct() {
   }
 
   return (
-    <FocusSurfaceTransition key="panel" mode="panel">
+    <FocusSurfaceTransition
+      key="panel"
+      mode="panel"
+      exiting={pendingMode !== null}
+      onExitComplete={() => void commitPendingModeTransition()}
+    >
       <FocusPanel
         onRequestCompact={() => void enterCompactMode()}
         compactTransitionPending={transitionPending}
