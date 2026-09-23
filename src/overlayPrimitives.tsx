@@ -16,6 +16,8 @@ import {
 const TOOLTIP_INTENT_DELAY_MS = 400;
 
 type OverlayAlign = "start" | "end";
+type TooltipAlign = "start" | "center" | "end";
+type TooltipPlacement = "top" | "bottom";
 
 type TriggerElement = ReactElement<Record<string, unknown>>;
 
@@ -40,9 +42,16 @@ function requireSingleElement(children: ReactNode, componentName: string): Trigg
 export interface TooltipProps {
   content: ReactNode;
   children: ReactNode;
+  align?: TooltipAlign;
+  placement?: TooltipPlacement;
 }
 
-export function Tooltip({ content, children }: TooltipProps) {
+export function Tooltip({
+  content,
+  children,
+  align = "center",
+  placement = "top",
+}: TooltipProps) {
   const tooltipId = useId();
   const timeoutRef = useRef<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -115,6 +124,8 @@ export function Tooltip({ content, children }: TooltipProps) {
         role="tooltip"
         className="overlay-tooltip motion-overlay"
         data-open={open ? "true" : "false"}
+        data-align={align}
+        data-placement={placement}
       >
         {content}
       </span>

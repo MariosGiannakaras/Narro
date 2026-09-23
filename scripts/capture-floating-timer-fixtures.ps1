@@ -46,41 +46,45 @@ try {
     Wait-ForPreview "$baseUrl/floating-timer-fixture.html?theme=dark"
 
     foreach ($theme in @("light", "dark")) {
-        $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
-        $captureId = [guid]::NewGuid().ToString('N')
-        $profile = Join-Path $tempRoot "narro-floating-timer-$theme-$captureId"
-        $stdout = Join-Path $tempRoot "narro-floating-timer-$theme-$captureId.stdout.txt"
-        $stderr = Join-Path $tempRoot "narro-floating-timer-$theme-$captureId.stderr.txt"
-        $screenshot = Join-Path $outputPath "floating-timer-$theme.png"
-        $dom = Join-Path $outputPath "floating-timer-$theme.html"
-        $url = "$baseUrl/floating-timer-fixture.html?theme=$theme"
-        New-Item -ItemType Directory -Path $profile -Force | Out-Null
+        foreach ($state in @("collapsed", "expanded")) {
+            $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
+            $captureId = [guid]::NewGuid().ToString('N')
+            $label = if ($state -eq "collapsed") { "floating-timer-$theme" } else { "floating-timer-expanded-$theme" }
+            $windowHeight = if ($state -eq "expanded") { 380 } else { 240 }
+            $profile = Join-Path $tempRoot "narro-$label-$captureId"
+            $stdout = Join-Path $tempRoot "narro-$label-$captureId.stdout.txt"
+            $stderr = Join-Path $tempRoot "narro-$label-$captureId.stderr.txt"
+            $screenshot = Join-Path $outputPath "$label.png"
+            $dom = Join-Path $outputPath "$label.html"
+            $url = "$baseUrl/floating-timer-fixture.html?theme=$theme&state=$state"
+            New-Item -ItemType Directory -Path $profile -Force | Out-Null
 
-        try {
-            $process = Start-Process -FilePath $edge -ArgumentList @(
-                "--headless=new",
-                "--disable-gpu",
-                "--disable-background-networking",
-                "--hide-scrollbars",
-                "--no-first-run",
-                "--force-device-scale-factor=1",
-                "--window-size=420,240",
-                "--user-data-dir=$profile",
-                "--screenshot=$screenshot",
-                "--dump-dom",
-                $url
-            ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
+            try {
+                $process = Start-Process -FilePath $edge -ArgumentList @(
+                    "--headless=new",
+                    "--disable-gpu",
+                    "--disable-background-networking",
+                    "--hide-scrollbars",
+                    "--no-first-run",
+                    "--force-device-scale-factor=1",
+                    "--window-size=420,$windowHeight",
+                    "--user-data-dir=$profile",
+                    "--screenshot=$screenshot",
+                    "--dump-dom",
+                    $url
+                ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
 
-            $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
-            if ($process.ExitCode -ne 0) { throw "Floating Timer Edge capture failed for $theme. $stderrText" }
-            if (-not (Test-Path $screenshot)) { throw "Floating Timer screenshot missing for $theme. $stderrText" }
-            $domText = if (Test-Path $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
-            if ([string]::IsNullOrWhiteSpace($domText)) { throw "Floating Timer DOM capture missing for $theme. $stderrText" }
-            [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
-        } finally {
-            Remove-Item -LiteralPath $profile -Recurse -Force -ErrorAction SilentlyContinue
-            Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
-            Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
+                $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
+                if ($process.ExitCode -ne 0) { throw "Floating Timer Edge capture failed for $state/$theme. $stderrText" }
+                if (-not (Test-Path $screenshot)) { throw "Floating Timer screenshot missing for $state/$theme. $stderrText" }
+                $domText = if (Test-Path $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
+                if ([string]::IsNullOrWhiteSpace($domText)) { throw "Floating Timer DOM capture missing for $state/$theme. $stderrText" }
+                [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
+            } finally {
+                Remove-Item -LiteralPath $profile -Recurse -Force -ErrorAction SilentlyContinue
+                Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
+                Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
+            }
         }
     }
 } finally {

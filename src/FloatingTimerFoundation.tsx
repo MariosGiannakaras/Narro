@@ -1,7 +1,15 @@
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { FocusLiveActions } from "./FocusLiveActions";
+import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { focusTimerPresentation } from "./focusTimerPresentation";
-import { getListBoardSnapshot, type ListBoardSnapshot, type ListBoardTask } from "./listBoardApi";
+import { setFloatingTimerExpanded } from "./focusSurfaceModeApi";
+import {
+  getListBoardSnapshot,
+  type BoardSubtaskSnapshot,
+  type ListBoardSnapshot,
+  type ListBoardTask,
+} from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
 import {
   applyTimerSessionProjection,
@@ -16,6 +24,8 @@ export type FloatingTimerFoundationProps = {
   transitionError?: string | null;
   fixtureBoard?: ListBoardSnapshot;
   fixtureTimer?: TimerSessionPayload | null;
+  fixtureExpanded?: boolean;
+  fixtureSubtasks?: BoardSubtaskSnapshot | null;
 };
 
 function subtaskProgress(task: ListBoardTask | null) {
@@ -34,12 +44,24 @@ export function FloatingTimerFoundation({
   transitionError = null,
   fixtureBoard,
   fixtureTimer = null,
+  fixtureExpanded = false,
+  fixtureSubtasks = null,
 }: FloatingTimerFoundationProps) {
   const fixtureMode = fixtureBoard !== undefined;
   const [board, setBoard] = useState<ListBoardSnapshot | null>(fixtureBoard ?? null);
   const [timer, setTimer] = useState<TimerSessionPayload | null>(fixtureMode ? fixtureTimer : null);
   const [boardError, setBoardError] = useState<string | null>(null);
   const [timerError, setTimerError] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
+  const [resizePending, setResizePending] = useState(false);
+  const [resizeError, setResizeError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!fixtureMode) return;
+    setExpanded(fixtureExpanded);
+    setResizePending(false);
+    setResizeError(null);
+  }, [fixtureExpanded, fixtureMode]);
 
   useEffect(() => {
     if (fixtureMode) {
@@ -115,8 +137,40 @@ export function FloatingTimerFoundation({
   );
   const liveTimer = timer ? focusTimerPresentation(timer.runtime.timer) : null;
   const progress = useMemo(() => subtaskProgress(liveTask), [liveTask]);
-  const error = transitionError ?? timerError ?? boardError;
+  const error = transitionError ?? resizeError ?? timerError ?? boardError;
   const title = liveTask?.title ?? (liveTaskId ? "Loading focus task…" : "No active focus task");
+
+  const requestExpanded = async (nextExpanded: boolean) => {
+    if (transitionPending || resizePending) return false;
+    if (nextExpanded === expanded) return true;
+    if (fixtureMode) {
+      setExpanded(nextExpanded);
+      setResizeError(null);
+      return true;
+    }
+
+    setResizePending(true);
+    setResizeError(null);
+    try {
+      await setFloatingTimerExpanded(nextExpanded);
+      setExpanded(nextExpanded);
+      return true;
+    } catch (failure: unknown) {
+      setResizeError(formatInvokeError(failure));
+      return false;
+    } finally {
+      setResizePending(false);
+    }
+  };
+
+  const applyTaskProjection = (projectedTask: ListBoardTask) => {
+    setBoard((current) => {
+      if (!current) return current;
+      const todayTasks = current.today.tasks.map((task) => task.id === projectedTask.id ? projectedTask : task);
+      if (!todayTasks.some((task, index) => task !== current.today.tasks[index])) return current;
+      return { ...current, today: { ...current.today, tasks: todayTasks } };
+    });
+  };
 
   return (
     <main
@@ -124,84 +178,96 @@ export function FloatingTimerFoundation({
       data-floating-timer="foundation"
       data-floating-live-state={timer?.runtime.timer.state ?? "idle"}
       data-floating-live-task-id={liveTaskId ?? ""}
+      data-floating-expanded={expanded ? "true" : "false"}
       data-tauri-drag-region="true"
       aria-label="Floating Timer"
     >
       <div className="floating-timer-foundation__content" data-tauri-drag-region="true">
-        <div className="floating-timer-foundation__heading" data-tauri-drag-region="true">
-          <strong
-            className="floating-timer-foundation__title"
-            data-floating-task-title="true"
-            data-tauri-drag-region="true"
-            title={liveTask?.title}
-          >
-            {title}
-          </strong>
-          <span
-            className="floating-timer-foundation__timer timer-numerals"
-            data-floating-live-timer="true"
-            data-floating-live-timer-mode={liveTimer?.mode ?? "none"}
-            data-timer-numerals="true"
-            data-tauri-drag-region="true"
-            aria-label={liveTimer?.label ?? "Timer unavailable"}
-            aria-live="off"
-          >
-            {liveTimer?.text ?? "--:--"}
-          </span>
-          <Tooltip content="Return to Focus Panel">
-            <button
-              type="button"
-              className="floating-timer-foundation__return"
-              aria-label="Return to Focus Panel"
-              data-floating-return-to-panel="true"
-              disabled={transitionPending}
-              onClick={onReturnToPanel}
+        {expanded && liveTask && timer ? (
+          <FocusLiveActions
+            key={liveTask.id}
+            task={liveTask}
+            target={{ kind: "all" }}
+            timer={timer}
+            fixtureMode={fixtureMode}
+            presentation="floating"
+            transitionPending={transitionPending || resizePending}
+            onReturnToPanel={onReturnToPanel}
+            onTimerPayload={(payload) => {
+              setTimer((current) => applyTimerSessionProjection(current, payload));
+            }}
+          />
+        ) : (
+          <div className="floating-timer-foundation__heading" data-tauri-drag-region="true">
+            <strong
+              className="floating-timer-foundation__title"
+              data-floating-task-title="true"
+              data-tauri-drag-region="true"
+              title={liveTask?.title}
             >
-              ↗
-            </button>
-          </Tooltip>
-        </div>
+              {title}
+            </strong>
+            <span
+              className="floating-timer-foundation__timer timer-numerals"
+              data-floating-live-timer="true"
+              data-floating-live-timer-mode={liveTimer?.mode ?? "none"}
+              data-timer-numerals="true"
+              data-tauri-drag-region="true"
+              aria-label={liveTimer?.label ?? "Timer unavailable"}
+              aria-live="off"
+            >
+              {liveTimer?.text ?? "--:--"}
+            </span>
+          </div>
+        )}
 
-        <div className="floating-timer-foundation__subtask-toolbar" aria-label="Floating Timer subtask summary">
-          <span
-            className="floating-timer-foundation__subtask-ring"
-            role="progressbar"
-            aria-label={`${progress.completed} of ${progress.total} subtasks complete`}
-            aria-valuemin={0}
-            aria-valuemax={progress.total}
-            aria-valuenow={progress.completed}
-            data-floating-subtask-progress="true"
-            data-tauri-drag-region="true"
-            style={{ "--floating-subtask-progress": `${progress.percent * 3.6}deg` } as CSSProperties}
-          >
-            <span aria-hidden="true">{progress.completed}/{progress.total}</span>
-          </span>
-          <span
-            className="floating-timer-foundation__subtask-count type-metadata"
-            data-floating-subtask-count="true"
-            data-tauri-drag-region="true"
-          >
-            {progress.total === 0 ? "Subtasks" : `${progress.completed}/${progress.total} Subtasks`}
-          </span>
-          <button
-            type="button"
-            className="floating-timer-foundation__subtask-control"
-            data-floating-subtask-control="add"
-            aria-label={liveTask ? `Add subtask for ${liveTask.title}` : "Add subtask"}
-            aria-disabled="true"
-          >
-            +
-          </button>
-          <button
-            type="button"
-            className="floating-timer-foundation__subtask-control"
-            data-floating-subtask-control="expand"
-            aria-label="Expand Floating Timer"
-            aria-disabled="true"
-          >
-            ⌄
-          </button>
-        </div>
+        {liveTask ? (
+          <FocusLiveSubtasks
+            key={liveTask.id}
+            task={liveTask}
+            target={{ kind: "all" }}
+            fixtureMode={fixtureMode}
+            fixtureSnapshot={fixtureSubtasks}
+            fixtureExpanded={fixtureExpanded}
+            presentation="floating"
+            expanded={expanded}
+            interactionPending={transitionPending || resizePending}
+            onExpandedChange={requestExpanded}
+            onTaskProjection={applyTaskProjection}
+          />
+        ) : (
+          <div className="floating-timer-foundation__subtask-toolbar" aria-label="Floating Timer subtask summary">
+            <span
+              className="floating-timer-foundation__subtask-ring"
+              role="progressbar"
+              aria-label={`${progress.completed} of ${progress.total} subtasks complete`}
+              aria-valuemin={0}
+              aria-valuemax={progress.total}
+              aria-valuenow={progress.completed}
+              data-floating-subtask-progress="true"
+              data-tauri-drag-region="true"
+              style={{ "--floating-subtask-progress": `${progress.percent * 3.6}deg` } as CSSProperties}
+            >
+              <span aria-hidden="true">{progress.completed}/{progress.total}</span>
+            </span>
+            <span className="floating-timer-foundation__subtask-count type-metadata" data-floating-subtask-count="true" data-tauri-drag-region="true">
+              Subtasks
+            </span>
+            <Tooltip content="Add subtask" align="end">
+              <button type="button" className="floating-timer-foundation__subtask-control" aria-label="Add subtask" disabled>+</button>
+            </Tooltip>
+            <Tooltip content="Return to Focus Panel" align="end">
+              <button
+                type="button"
+                className="floating-timer-foundation__subtask-control motion-interactive"
+                data-floating-fallback-action="return-to-panel"
+                aria-label="Return to Focus Panel"
+                disabled={transitionPending}
+                onClick={onReturnToPanel}
+              >↗</button>
+            </Tooltip>
+          </div>
+        )}
 
         {error ? (
           <span className="floating-timer-foundation__error type-metadata" role="alert" data-tauri-drag-region="true">
