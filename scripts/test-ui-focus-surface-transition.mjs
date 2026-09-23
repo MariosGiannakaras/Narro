@@ -27,9 +27,10 @@ const configure = slice(
   "fn configure_focus_surface_mode(",
   "fn position_focus_panel_in_work_area(",
 );
+const applyMode = configure.indexOf("apply_focus_surface_mode(window, mode)");
 invariant(
-  configure.indexOf(".hide()") < configure.indexOf("apply_focus_surface_mode(window, mode)?")
-    && configure.indexOf("apply_focus_surface_mode(window, mode)?") < configure.indexOf(".show()"),
+  configure.indexOf(".hide()") < applyMode
+    && applyMode < configure.indexOf(".show()"),
   "Timer-mode native transition must hide before reconfiguration and show only after mode geometry is applied",
 );
 invariant(
