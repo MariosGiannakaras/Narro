@@ -51,8 +51,15 @@ const record = position.indexOf("record_focus_surface_mode(FocusSurfaceMode::Pan
 const focusWindow = position.indexOf(".set_focus()", record);
 invariant(
   position.includes("let hide_for_present = intent == FocusPanelPlacementIntent::Present")
+    && position.includes("let previous_position = if hide_for_present")
     && position.indexOf(".hide()") < stageMove,
-  "activating Panel transition must hide before the DPI staging move",
+  "activating Panel transition must capture recovery position and hide before the DPI staging move",
+);
+invariant(
+  position.includes("if let Err(error) = placement_result")
+    && position.includes("window.set_position(tauri::Position::Physical(previous_position))")
+    && position.includes("let _ = window.show();"),
+  "failed hidden Panel staging must best-effort restore the prior visible position",
 );
 invariant(
   position.indexOf("apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?") > stageMove
@@ -106,8 +113,7 @@ invariant(
     && transitionCss.includes("transform: translateY(0)"),
   "transition presentation must be opacity/transform only",
 );
-for (const forbidden of ["animation:", "@keyframes", "width:", "height:"]) {
-  if (forbidden === "width:" || forbidden === "height:") continue;
+for (const forbidden of ["animation:", "@keyframes"]) {
   invariant(!transitionCss.includes(forbidden), `transition CSS must not start keyframe/decorative animation via ${forbidden}`);
 }
 invariant(
