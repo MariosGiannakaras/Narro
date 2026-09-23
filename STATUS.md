@@ -19,7 +19,7 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–6 are validated. M7 item 7 is implemented and automated-validated on Windows, but remains open until the Timer -> Panel transition is physically observed without the previously reported left-side/staging flash.
+M7 items 1–6 are validated. M7 item 7 remains open: the first automated-validated correction physically FAILED the transition acceptance test. Position and session continuity passed, but visible flicker/transition UX remains unacceptable.
 
 ## Current validated source baseline
 
@@ -183,18 +183,24 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-Finish M7 item 7 physical validation before starting item 8.
+Continue M7 item 7 corrective slice; do **not** start item 8.
 
-Use the exact resulting-main Windows CI #469 runtime build from source `c6f28fcfede74c02afff875b6322e4743ed01549`. With Focus Panel positioned on the right side, switch Panel -> Floating Timer -> Return to Focus Panel repeatedly.
+Physical Windows evidence from exact main CI #469 source `c6f28fcfede74c02afff875b6322e4743ed01549`:
 
-Physical PASS requires:
+- Flicker: **FAIL**;
+- Panel final/right-side position: **PASS**;
+- active session/timer continuity across Panel/Timer switches: **PASS**;
+- transition UX: **FAIL / not accepted**;
+- screenshots additionally expose horizontal overflow/scrollbars and a visible intermediate enlarged compact presentation during Floating Timer expansion.
 
-- no visible Panel flash at the left/staging work-area position;
-- Panel appears directly at the correct final right-side position;
-- finite content entrance remains usable and reduced motion remains usable;
-- mode switching does not reset, duplicate, start, stop or switch the active session.
+The next source branch must be narrow and evidence-backed:
 
-On PASS: record a new immutable physical-validation work log, mark item 7 complete, advance M7 to 7/14 and start ordered item 8. On FAIL: record the exact observed symptom and fix only that evidence-backed transition issue on a new branch from the current main source.
+1. preserve target-monitor DPI staging but stage at the final Panel edge rather than the work-area origin, so any compositor-latency exposure cannot flash at the opposite edge;
+2. remove horizontal focus-surface overflow while preserving required vertical Panel scrolling;
+3. coordinate Floating Timer expanded resize/content publication so one expand action does not visibly expose a third intermediate presentation state;
+4. retain native geometry authority, same `focusSurface`, session continuity, reduced-motion behavior and no high-frequency JS geometry loop.
+
+After exact-head Windows CI + guarded merge + resulting-main CI, repeat physical Windows validation before item 7 can become complete.
 
 ## Durable correctness decisions
 

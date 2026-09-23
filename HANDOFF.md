@@ -83,7 +83,33 @@ Resulting-main Windows CI #469:
 4. COMPLETE — exact-head/diff/discussion/mergeability review passed and expected-head squash merge completed.
 5. PENDING PHYSICAL OBSERVATION — resulting-main Windows CI #469 is PASS, but automated CI cannot prove absence of the transient real-desktop left-side flash.
 
-## PHYSICAL WINDOWS VALIDATION REQUIRED
+## PHYSICAL WINDOWS VALIDATION RESULT — FAIL
+
+Exact resulting-main CI #469 build was physically tested on Windows.
+
+Observed:
+- Flicker: **FAIL** — the transition still does not satisfy the no-visible-flash acceptance criterion.
+- Position: **PASS** — Focus Panel consistently returns to the configured right side; moving Floating Timer left does not change the Panel's preferred right-side return position.
+- Session: **PASS** — after Resume and repeated Panel/Timer switching, the timer continued rather than resetting/duplicating/switching the live session.
+- Transition: **FAIL / UX NOT ACCEPTED** — the current visual transition still looks incomplete.
+- Additional screenshot evidence: horizontal overflow/scrollbars are visible in Focus/Timer surfaces, and expansion exposes a visually intermediate enlarged compact state before the fully expanded Floating Timer content settles.
+
+Blitzit parity note:
+- repository evidence establishes Panel -> Floating Timer mode switching and a separate collapsed <-> expanded control;
+- there is no evidence for a required third intermediate presentation step.
+
+The current item-7 implementation therefore remains **4/5**, and item 8 must not start.
+
+## CORRECTIVE SLICE
+
+Create a narrow branch from the latest tracking main. Fix only evidence-backed transition/overflow issues:
+1. eliminate residual left/staging flash by making any unavoidable DPI staging occur at the target Panel edge rather than work-area origin, while retaining native geometry authority;
+2. prevent focus-surface horizontal overflow without removing required vertical Panel scrolling;
+3. remove the visible expanded-window-before-expanded-content intermediate state by coordinating native resize and renderer publication without renderer-owned geometry loops.
+
+After implementation: exact-head Windows CI, guarded merge, resulting-main CI, then repeat physical Windows validation.
+
+## PREVIOUS PHYSICAL WINDOWS VALIDATION INSTRUCTIONS
 
 Use the exact resulting-main CI #469 runtime artifact:
 
@@ -104,14 +130,14 @@ Test:
 
 ## NEXT AGENT ACTION
 
-**Do not start M7 item 8 while the item-7 physical blocker is unresolved.**
+**Do not start M7 item 8 while the item-7 physical FAIL is unresolved.**
 
 - On physical PASS: create a new immutable physical-validation work log; mark item 7 `[x]`; advance M7 to **7/14**; reset the next item-8 slice to **0/5**; reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md`; then begin ordered item 8.
-- On physical FAIL: record the exact observed symptom and create a narrow evidence-backed fix branch from the current main source. Do not start item 8.
+- Physical FAIL has now been recorded. Resume the narrow corrective slice described above; do not start item 8.
 
 ## USER ACTION REQUIRED
 
-Physical Windows Timer -> Panel transition observation using the exact resulting-main CI #469 artifact.
+None until the corrective candidate has passed automated validation; then repeat the physical transition check.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -130,6 +156,6 @@ Physical Windows Timer -> Panel transition observation using the exact resulting
 
 ## BLOCKERS / NOT RUN
 
-- **Physical Windows flash-removal observation: NOT RUN / BLOCKING item 7 completion.**
+- **Physical Windows flash-removal observation: FAIL / BLOCKING item 7 completion.**
 - No user/product decision blocks the implementation.
 - Local Rust/Tauri validation remains unavailable in connector-only execution; authoritative Windows CI supplies the automated native gate.
