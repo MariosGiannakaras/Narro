@@ -459,9 +459,9 @@ fn configure_focus_surface_mode(
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
 
     if was_visible {
-        window
-            .hide()
-            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "hide for mode transition", error))?;
+        window.hide().map_err(|error| {
+            map_window_error(FOCUS_SURFACE_LABEL, "hide for mode transition", error)
+        })?;
     }
 
     if let Err(error) = apply_focus_surface_mode(window, mode) {
@@ -501,9 +501,9 @@ fn position_focus_panel_in_work_area(
     };
 
     if hide_for_present {
-        window
-            .hide()
-            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "hide for panel transition", error))?;
+        window.hide().map_err(|error| {
+            map_window_error(FOCUS_SURFACE_LABEL, "hide for panel transition", error)
+        })?;
     }
 
     let placement_result = (|| -> CommandResult<()> {
@@ -515,7 +515,9 @@ fn position_focus_panel_in_work_area(
                 x: work_area.position.x,
                 y: work_area.position.y,
             }))
-            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error))?;
+            .map_err(|error| {
+                map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error)
+            })?;
 
         apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
 
