@@ -13,6 +13,7 @@ import {
   type FocusSurfaceMode,
 } from "./focusSurfaceModeApi";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
+import { waitForPresentedFrame } from "./presentationFrame";
 import { TimerSessionProjection } from "./TimerSessionProjection";
 import {
   type AppStatePayload,
@@ -62,6 +63,7 @@ function FocusSurfaceProduct() {
 
     transitionCommitRef.current = true;
     try {
+      await waitForPresentedFrame();
       if (targetMode === "timer") {
         await presentFloatingTimer();
       } else {
