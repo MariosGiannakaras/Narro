@@ -45,18 +45,18 @@ const nativeVisibilityRead = resizeFn.indexOf("let was_visible = window");
 const nativeHide = resizeFn.indexOf(".hide()", nativeVisibilityRead);
 const nativeResize = resizeFn.indexOf(".set_size(", nativeHide);
 const nativeRecovery = resizeFn.indexOf("if let Err(error) = resize_result", nativeResize);
-const nativeShow = resizeFn.indexOf(".show()", nativeRecovery);
+const nativeRecoveryShow = resizeFn.indexOf("let _ = window.show();", nativeRecovery);
+const nativeSuccessShow = resizeFn.indexOf('"show Timer after resize"', nativeRecoveryShow);
 invariant(
   nativeVisibilityRead >= 0
     && nativeVisibilityRead < nativeHide
     && nativeHide < nativeResize
     && nativeResize < nativeRecovery
-    && nativeRecovery < nativeShow
+    && nativeRecovery < nativeRecoveryShow
+    && nativeRecoveryShow < nativeSuccessShow
     && resizeFn.includes("if was_visible")
-    && resizeFn.includes("let _ = window.show();")
-    && resizeFn.includes('"hide Timer for resize"')
-    && resizeFn.includes('"show Timer after resize"'),
-  "native Floating Timer resize must hide the visible window, resize while hidden, restore on failure, and show only after resize",
+    && resizeFn.includes('"hide Timer for resize"'),
+  "native Floating Timer resize must hide the visible window, resize while hidden, restore visibility on failure, and show only after resize succeeds",
 );
 
 const exitWait = foundation.indexOf('await waitForResizeTransition("exiting");');
@@ -81,6 +81,10 @@ invariant(
     && resizeCall < postResizePaint
     && postResizePaint < entranceWait,
   "expanded resize must publish the final hierarchy hidden, stage it transparent, resize the native window hidden, then animate in",
+);
+invariant(
+  foundation.indexOf("setExpanded(expanded);", resizeCall) > resizeCall,
+  "failed native resize must roll the renderer hierarchy back to the previously committed expanded state",
 );
 invariant(
   foundation.includes("onTransitionEnd")

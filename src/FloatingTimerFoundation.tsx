@@ -180,6 +180,7 @@ export function FloatingTimerFoundation({
       await waitForResizeTransition("idle");
       return true;
     } catch (failure: unknown) {
+      setExpanded(expanded);
       setResizeError(formatInvokeError(failure));
       return false;
     } finally {
