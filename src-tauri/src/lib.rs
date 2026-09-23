@@ -553,10 +553,7 @@ fn present_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
 }
 
 #[tauri::command(rename_all = "camelCase")]
-fn set_floating_timer_expanded(
-    app_handle: tauri::AppHandle,
-    expanded: bool,
-) -> CommandResult<()> {
+fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> CommandResult<()> {
     if current_focus_surface_mode() != Some(FocusSurfaceMode::Timer) {
         return Err(CommandError::new(
             "FOCUS_SURFACE_MODE_CONFLICT",
