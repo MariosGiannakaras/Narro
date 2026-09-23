@@ -18,6 +18,7 @@ function slice(source, startMarker, endMarker) {
 const lib = read("src-tauri/src/lib.rs");
 const focus = read("src/focus.tsx");
 const transition = read("src/FocusSurfaceTransition.tsx");
+const presentationFrame = read("src/presentationFrame.ts");
 const transitionCss = read("src/focusSurfaceTransition.css");
 const motionCss = read("src/motion.css");
 const pkg = JSON.parse(read("package.json"));
@@ -108,16 +109,22 @@ invariant(
     && !requestMode.includes("presentFocusPanel"),
   "mode request must begin renderer exit without invoking native geometry immediately",
 );
+const paintBarrier = commitMode.indexOf("await waitForPresentedFrame();");
 invariant(
-  commitMode.indexOf('await presentFloatingTimer();') < commitMode.indexOf("setMode(targetMode);")
+  paintBarrier >= 0
+    && paintBarrier < commitMode.indexOf('await presentFloatingTimer();')
+    && paintBarrier < commitMode.indexOf('await presentFocusPanel();')
+    && commitMode.indexOf('await presentFloatingTimer();') < commitMode.indexOf("setMode(targetMode);")
     && commitMode.indexOf('await presentFocusPanel();') < commitMode.indexOf("setMode(targetMode);"),
-  "native mode switch must run only after exit completion and publish renderer mode after success",
+  "native mode switch must wait for a presented hidden frame, then publish renderer mode only after native success",
 );
 
 invariant(
   transition.includes("window.requestAnimationFrame(() => setEntered(true))")
     && transition.includes("window.cancelAnimationFrame(frame)")
     && transition.includes('data-focus-surface-exiting={exiting ? "true" : "false"}')
+    && transition.includes('data-focus-surface-exit-settled={exitSettled ? "true" : "false"}')
+    && transition.includes("setExitSettled(true)")
     && transition.includes("onTransitionEnd")
     && transition.includes("onExitComplete?.()")
     && !transition.includes("onTransitionCancel"),
@@ -145,12 +152,21 @@ invariant(
     && transitionCss.includes("opacity: 1")
     && transitionCss.includes("transform: translateY(0)")
     && transitionCss.includes('[data-focus-surface-exiting="true"]')
+    && transitionCss.includes('[data-focus-surface-exit-settled="true"]')
+    && transitionCss.includes("visibility: hidden")
     && transitionCss.includes("transition-timing-function: var(--motion-ease-exit)"),
   "transition presentation must provide finite opacity/transform entrance and exit",
 );
 for (const forbidden of ["animation:", "@keyframes"]) {
   invariant(!transitionCss.includes(forbidden), `transition CSS must not start keyframe/decorative animation via ${forbidden}`);
 }
+invariant(
+  focus.includes('import { waitForPresentedFrame } from "./presentationFrame";')
+    && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 2
+    && !presentationFrame.includes("setInterval(")
+    && !presentationFrame.includes("setTimeout("),
+  "mode transition must use the shared finite two-frame compositor barrier",
+);
 invariant(
   motionCss.includes(".motion-focus-surface")
     && motionCss.includes("--motion-duration-focus-surface: 150ms")
