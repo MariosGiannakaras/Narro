@@ -490,6 +490,15 @@ fn position_focus_panel_in_work_area(
         && window
             .is_visible()
             .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
+    let previous_position = if hide_for_present {
+        Some(
+            window
+                .outer_position()
+                .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read position", error))?,
+        )
+    } else {
+        None
+    };
 
     if hide_for_present {
         window
@@ -497,39 +506,51 @@ fn position_focus_panel_in_work_area(
             .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "hide for panel transition", error))?;
     }
 
-    // Move into the target work area while hidden during an activating transition so
-    // Windows/WebView2 can resolve the target monitor DPI without exposing the staging
-    // position. The final edge position is computed from the actual physical outer size.
-    window
-        .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-            x: work_area.position.x,
-            y: work_area.position.y,
-        }))
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error))?;
+    let placement_result = (|| -> CommandResult<()> {
+        // Move into the target work area while hidden during an activating transition so
+        // Windows/WebView2 can resolve the target monitor DPI without exposing the staging
+        // position. The final edge position is computed from the actual physical outer size.
+        window
+            .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
+                x: work_area.position.x,
+                y: work_area.position.y,
+            }))
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "move to target monitor", error))?;
 
-    apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
+        apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?;
 
-    let window_size = window
-        .outer_size()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read outer size", error))?;
-    let final_position = focus_panel_edge_position(
-        work_area,
-        GeometrySize {
-            width: window_size.width,
-            height: window_size.height,
-        },
-        side,
-    )
-    .map_err(CommandError::window_geometry)?;
+        let window_size = window
+            .outer_size()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read outer size", error))?;
+        let final_position = focus_panel_edge_position(
+            work_area,
+            GeometrySize {
+                width: window_size.width,
+                height: window_size.height,
+            },
+            side,
+        )
+        .map_err(CommandError::window_geometry)?;
 
-    window
-        .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-            x: final_position.x,
-            y: final_position.y,
-        }))
-        .map_err(|error| {
-            map_window_error(FOCUS_SURFACE_LABEL, "position at monitor edge", error)
-        })?;
+        window
+            .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
+                x: final_position.x,
+                y: final_position.y,
+            }))
+            .map_err(|error| {
+                map_window_error(FOCUS_SURFACE_LABEL, "position at monitor edge", error)
+            })?;
+
+        Ok(())
+    })();
+
+    if let Err(error) = placement_result {
+        if let Some(previous_position) = previous_position {
+            let _ = window.set_position(tauri::Position::Physical(previous_position));
+            let _ = window.show();
+        }
+        return Err(error);
+    }
 
     if intent == FocusPanelPlacementIntent::Present {
         window
