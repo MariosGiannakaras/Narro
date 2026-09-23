@@ -264,9 +264,9 @@ Acceptance criteria:
   - [x] Native drag affordance, focusSurface-scoped drag capability, exact-head PR CI, guarded merge, and resulting-main CI are automated-validated.
   - [x] Physical Windows validation: Drag PASS; Return button PASS; Always-on-top PASS; no normal taskbar button PASS.
 - [x] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
-- [ ] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
-- [ ] Implement expanded subtask rows with completion, reorder, delete and progress.
-- [ ] Keep icon hit targets stable and show tooltips without changing window width.
+- [x] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
+- [x] Implement expanded subtask rows with completion, reorder, delete and progress.
+- [x] Keep icon hit targets stable and show tooltips without changing window width.
 - [ ] Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop.
   - Known Windows observation (2026-09-23): Timer -> Panel briefly flickers at the left side before settling back at the configured right-side Panel position; preserve final-position correctness and remove/validate this flash in the transition slice.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.

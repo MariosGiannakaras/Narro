@@ -7,88 +7,113 @@ Canonical zero-context continuation state for Narro. Before changing source, rea
 **Milestone 7 — Floating Timer mode.**
 
 - Milestones 1–6: COMPLETE / PASS.
-- Milestone 7: ACTIVE / **3 of 14** top-level items validated.
+- Milestone 7: ACTIVE / **6 of 14** top-level items validated.
 - Milestones 8–10: NOT STARTED.
 - General roadmap progress: **6/10 milestones complete**.
-- M7 item 1: COMPLETE / VALIDATED.
-- M7 item 2: COMPLETE / AUTOMATED + PHYSICAL WINDOWS VALIDATED.
-- M7 item 3: COMPLETE / AUTOMATED-VALIDATED.
-- Current M7 items 4–6 expanded-interactions slice: **0/5 checkpoints complete**.
+- M7 items 1–6: COMPLETE / VALIDATED.
+- Current M7 item-7 transition slice: **0/5 checkpoints complete**.
 
-Repository compact progress source values: `6/10M || 0/5 | 3/14`.
+Repository compact progress source values: `6/10M || 0/5 | 6/14`.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
 Source/test SHA:
 
-`14db934e998b2bb619f04bf7e7a1b0fe7b5553fe`
+`97931f89ff2b6b9f1aa0ceb628732602be8fd587`
 
 Source tree:
 
-`b17136a7b622fcdbf0346e589092613806627e46`
+`10972bbc672b9fae13c891be22f90fe275b3a4d5`
 
-This is the expected-head guarded squash merge of PR #119. PR Windows CI #458 and resulting-main Windows CI #459 passed Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads on the exact source. Local frontend preflight also passed on the resulting-main source.
+This is the expected-head guarded squash merge of PR #120. Exact PR head `468e202ef24eb52b8d00e5a2452824f8d4739cdc` passed Windows CI #462; resulting-main source passed Windows CI #463. Both runs passed Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
 
 Markdown-only tracking descendants do **not** replace this validated source/test baseline.
 
 Latest immutable validation evidence:
 
-`work-log/2026-09-23-1421-codex-m7-floating-collapsed.md`
+`work-log/2026-09-23-chatgpt-m7-floating-expanded-interactions.md`
 
-## M7 ITEM 2 FINAL PHYSICAL EVIDENCE
+## ITEMS 4–6 VALIDATED EVIDENCE
 
-Exact source/build under test:
+PR #120 — `M7: add expanded Floating Timer interactions`.
 
-- source SHA `f6c6b0fd58ab168f1f93d8a1ca19527bc4bfa044`;
-- Windows CI #454 / run `35593002396`;
-- diagnostic/runtime artifact `10636128018`, digest `sha256:8d2113cfd00bc73a84d96294380f43f33fef460ddc86e8d880b3f986ae124cb5`.
+Exact validated PR head:
 
-User-observed Windows results:
+`468e202ef24eb52b8d00e5a2452824f8d4739cdc`
 
-- Drag: **PASS** — Floating Timer moved and remained at the released position.
-- Return button: **PASS** — Return to Focus Panel restored the Panel at its original right-side position.
-- Always on top: **PASS**.
-- Taskbar: **PASS** — no normal Floating Timer taskbar button.
+PR Windows CI #462:
 
-Observed but non-blocking transition artifact:
+- run `35860985798`;
+- job `107180862046`;
+- Repository Preflight: PASS;
+- Windows visual regression: PASS;
+- Tauri Release: PASS;
+- visual artifact `10750039724`, digest `sha256:b0b48a2b6251b08982ca744f985d2f7a5e7e12f9af3d7fc0e34948cabaac276e`;
+- runtime artifact `10751310552`, digest `sha256:edefb1f6502f6566bc1f82a78a392369d139d0c81d95214120bac5e3468f7ab1`.
 
-- Timer -> Panel produces a very brief flash/flicker of the Panel on the left side before it settles back at the correct original right-side Panel position.
-- Final position correctness is intact.
-- This is recorded for M7 item 7 (Focus Panel <-> Floating Timer transition), not treated as an item-2 failure.
+Expected-head guarded squash merge:
+
+`97931f89ff2b6b9f1aa0ceb628732602be8fd587`
+
+Resulting-main Windows CI #463:
+
+- run `35866857101`;
+- job `107200548328`;
+- Repository Preflight: PASS;
+- Windows visual regression: PASS;
+- Tauri Release: PASS;
+- visual artifact `10753152243`, digest `sha256:29646293c3bf76e44ac3874649721b3a0ebd3c5d708eb4be743c913aa5a9f0b0`;
+- runtime artifact `10753217431`, digest `sha256:085d35fd86dd01054f8cd60265cceb92d4ab1d6a5f3da187cbb8429da5814263`.
+
+Validated product behavior:
+
+- `focusSurface` remains the only focus webview.
+- Native expanded/collapsed sizing is `340 x 300` / `340 x 110`; native mode/window authority remains outside React.
+- Expanded Break/Notes/Pause-Resume/Skip/Done reuse authoritative M6 Focus action paths.
+- Expanded subtask create/complete/reopen/reorder/delete reuse persisted list-board mutations with concurrency guards and authoritative refresh reconciliation.
+- Stable icon controls use 32 px slots, accessible names and shared tooltips.
+- Windows visual fixtures cover both collapsed and expanded light/dark states.
 
 ## ACTIVE IMPLEMENTATION SLICE
 
-**M7 items 4–6/14 — Expanded Floating Timer interactions: action strip, subtask management, stable tooltips/hit targets.**
+**M7 item 7/14 — Focus Panel <-> Floating Timer content transition.**
 
 ### Checkpoint plan — 0/5 complete
 
-1. Reconstruct the exact expanded action/subtask hierarchy, existing authoritative Focus action/subtask mutation paths, screenshot evidence and items 4–6 scope boundaries.
-2. Implement expanded/collapsed presentation, action strip, subtask add/complete/reorder/delete, and stable tooltip/hit-target behavior with deterministic contracts and Windows visual fixtures.
-3. Validate the exact PR head with authoritative Windows CI: Repository Preflight, relevant visual regression, Tauri Release and both required artifact uploads.
+1. Reconstruct the current Panel/Timer native transition ordering, renderer mode publication, reduced-motion contract and exact cause/evidence boundary for the observed Timer -> Panel left-side flash.
+2. Implement the narrowest transition correction plus short one-shot opacity/transform content motion, preserving native geometry authority and no high-frequency JS geometry loop; add deterministic contracts/fixtures.
+3. Validate the exact PR head with authoritative Windows CI: Repository Preflight, visual regression, Tauri Release and both required artifact uploads.
 4. Verify exact head unchanged, expected changed-file scope, clean PR comments/reviews/threads and mergeability; squash merge with expected-head guard.
-5. Validate the resulting-main source SHA with authoritative Windows CI, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable items 4–6 work log.
+5. Validate resulting-main Windows CI. If automated evidence cannot prove removal of the native desktop flash, produce the exact Windows artifact and record physical PASS/FAIL before marking item 7 complete; then reconcile tracking.
 
-## ITEMS 4–6 BOUNDARIES
+## ITEM-7 KNOWN WINDOWS OBSERVATION
 
-- The existing `focusSurface` remains the only focus webview and native Timer mode remains window authority.
-- Reuse M6 authoritative task/timer/subtask reads and existing safe mutations; do not create renderer-owned timer/session state.
-- Reuse the existing `FocusLiveActions` authoritative action path and list-board subtask mutation APIs; do not duplicate timer/session/task authority.
-- Expansion/collapse is local presentation state only and must not reset, duplicate, start, stop or switch the active session.
-- The action strip owns Break, Notes, Pause/Resume, Skip, Done and Return to Panel only.
-- Expanded subtasks own add, completion, reorder and delete against the same stable subtask identities used by Main/Focus.
-- Icon-only controls require stable >=32 px hit boxes, accessible names and tooltips without width reflow.
-- Transition animation and the recorded Timer -> Panel left-side flash are item 7.
-- Position persistence/recovery is item 10.
-- Borderless-full-screen topmost validation is item 11.
-- No continuous polling/decorative animation or JS native-window geometry loop.
+Physical Windows evidence from item 2:
+
+- Focus Panel was positioned on the right side.
+- Floating Timer drag/return/topmost/taskbar all passed.
+- Timer -> Panel return briefly flashes the Panel on the left side before it settles back at the correct original right-side position.
+
+Item 7 must preserve final-position correctness and eliminate/validate that transient flash. Do not mask it with continuous animation or renderer-owned window positioning.
+
+## ITEM-7 BOUNDARIES
+
+- Existing `focusSurface` only; no third persistent webview.
+- Native/Rust remains physical window geometry/monitor/DPI/position authority.
+- Renderer transition motion may be finite content opacity/transform only.
+- No high-frequency JS native-window geometry animation.
+- Reduced motion must remove nonessential translation/scale while keeping usable feedback.
+- Transition changes cannot reset, duplicate, start, stop or switch the active timer/session.
+- Items 8–9 shortcuts, item 10 persisted position, item 11 full-screen topmost validation and item 12 bottom/taskbar anchoring remain later scope.
+- Items 4–6 expanded actions/subtasks/tooltips must not regress.
 
 ## NEXT AGENT ACTION
 
-Reconstruct items 4–6 from `Screenshot_17.png`, `docs/RESEARCH_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/PRODUCT_SPEC.md`, `docs/BEHAVIOR_MATRIX.md`, the current `FloatingTimerFoundation`, `FocusLiveActions`, `TaskSubtasks`, and the validated M6 Focus mutations. Determine the narrowest reuse path, then create one coherent expanded-interactions branch from the latest main tracking tip.
+Reconstruct item 7 from the current `focus.tsx`, `focusSurfaceModeApi.ts`, native focus-surface mode/presentation functions in `src-tauri/src/lib.rs`, `motion.css`, `FloatingTimerFoundation`, `FocusPanel`, the item-2 physical observation and the relevant UI/product evidence. Determine whether the left-side flash is caused by native resize/reposition ordering, show/hide ordering, or renderer publication. Then implement only evidence-backed correction and finite transition motion.
 
 ## USER ACTION REQUIRED
 
-**None.**
+**None right now.** A physical Windows transition check may become required after an automated-validated item-7 candidate exists, because CI cannot by itself prove absence of a transient desktop window flash.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -99,13 +124,14 @@ Reconstruct items 4–6 from `Screenshot_17.png`, `docs/RESEARCH_EVIDENCE.md`, `
 - renderer presentation cannot become timer/session/task/scheduling authority.
 - Focus Panel <-> Floating Timer presentation changes cannot reset, duplicate, start, stop or switch a session.
 - future-timed Today tasks remain ineligible until due.
-- M6 Focus Panel accessibility/geometry/visual-state/empty-state invariants remain intact.
-- item-2 native drag capability remains scoped only to `focusSurface` and interactive controls remain non-drag regions.
+- item-2 native drag capability remains scoped only to `focusSurface`; interactive controls remain non-drag regions.
+- items 4–6 expanded action/subtask mutations remain persistence-first and concurrency-guarded.
 - Notes URLs remain explicit pointer/keyboard activation only.
-- reduced-motion remains usable and no continuous decorative animation/polling is introduced.
+- no continuous decorative animation/polling is introduced.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
 
 ## BLOCKERS / NOT RUN
 
-- No user/product decision blocks M7 items 4–6.
-- Local frontend preflight is available and passed for item 3. Local Rust fmt/check/Clippy/tests/Tauri release remain unavailable because this environment has no Rust toolchain; authoritative Windows CI remains the complete native automated gate.
+- No user/product decision currently blocks item 7.
+- Physical Windows confirmation of flash removal is not yet runnable because item 7 has not been implemented.
+- Local Rust fmt/check/Clippy/tests/Tauri release are unavailable in connector-only execution; authoritative Windows CI remains the native automated gate.

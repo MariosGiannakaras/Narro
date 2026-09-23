@@ -14,58 +14,58 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS**.
 - Milestone 6 / Gate F: **PASS** — all 16 top-level items validated.
-- Milestone 7: **ACTIVE / 3 of 14 top-level items validated**.
+- Milestone 7: **ACTIVE / 6 of 14 top-level items validated**.
 - Milestones 8–10: **NOT STARTED**.
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–3 are validated. The next coherent ordered work is M7 items 4–6: expanded Floating Timer actions and subtask interactions with stable tooltip/hit-target behavior.
+M7 items 1–6 are validated. The next ordered work is M7 item 7: Focus Panel <-> Floating Timer content transition, including correction/validation of the physically observed brief left-side flash on Timer -> Panel return.
 
 ## Current validated source baseline
 
 Latest resulting-main automated-validated **source/test** baseline:
 
-`14db934e998b2bb619f04bf7e7a1b0fe7b5553fe`
+`97931f89ff2b6b9f1aa0ceb628732602be8fd587`
 
 Tree:
 
-`b17136a7b622fcdbf0346e589092613806627e46`
+`10972bbc672b9fae13c891be22f90fe275b3a4d5`
 
-This is the expected-head guarded squash merge of PR #119 — `M7: add collapsed Floating Timer content` — from exact validated PR head `63afd1d9ce659ba9aaf1a928dcfce4c28150d368`.
+This is the expected-head guarded squash merge of PR #120 — `M7: add expanded Floating Timer interactions` — from exact validated PR head `468e202ef24eb52b8d00e5a2452824f8d4739cdc`.
 
-PR Windows CI #458 and resulting-main Windows CI #459 passed all required repository gates on the exact source SHAs. Local `npm run preflight:frontend` also passed on the resulting-main source. Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline.
+PR Windows CI #462 and resulting-main Windows CI #463 passed all required repository gates on the exact source SHAs. Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline.
 
-### PR #119 exact-head validation
+### PR #120 exact-head validation
 
-Windows CI #458 / run `35803896750` / job `107000513340`: **SUCCESS** on exact PR head `63afd1d9ce659ba9aaf1a928dcfce4c28150d368`.
+Windows CI #462 / run `35860985798` / job `107180862046`: **SUCCESS** on exact PR head `468e202ef24eb52b8d00e5a2452824f8d4739cdc`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- PR visual artifact `10727446474`, digest `sha256:210ee6267ddf38704f61dda1ed8fc87a772587e661609be3c8252b4c356fe245`;
-- PR diagnostic/runtime artifact `10727552219`, digest `sha256:852f593d91f4178ac03b55d053804d46ad4130dfe8d08294cadf16095c5d77c1`.
+- PR visual artifact `10750039724`, digest `sha256:b0b48a2b6251b08982ca744f985d2f7a5e7e12f9af3d7fc0e34948cabaac276e`;
+- PR diagnostic/runtime artifact `10751310552`, digest `sha256:edefb1f6502f6566bc1f82a78a392369d139d0c81d95214120bac5e3468f7ab1`.
 
-Final review verified the exact merged head, no conversation comments, no submitted reviews and no inline review threads.
+Final review verified exact head unchanged, expected 16-file scope, no conversation comments, no submitted reviews/inline review comments, and clean mergeability.
 
 Expected-head guarded squash merge:
 
-`14db934e998b2bb619f04bf7e7a1b0fe7b5553fe`
+`97931f89ff2b6b9f1aa0ceb628732602be8fd587`
 
 ### Resulting-main validation
 
-Windows CI #459 / run `35805195941` / job `107004336705`: **SUCCESS** on exact main source SHA `14db934e998b2bb619f04bf7e7a1b0fe7b5553fe`.
+Windows CI #463 / run `35866857101` / job `107200548328`: **SUCCESS** on exact main source SHA `97931f89ff2b6b9f1aa0ceb628732602be8fd587`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- main visual artifact `10727982576`, digest `sha256:efbf207156b3fcda9c7eb0426c254da86837744156f5507203bad80f637fc2ee`;
-- main diagnostic/runtime artifact `10727344941`, digest `sha256:2931734365cb648474d96ddb317f767b5be141511224cdf71a71ee3fa216f033`.
+- main visual artifact `10753152243`, digest `sha256:29646293c3bf76e44ac3874649721b3a0ebd3c5d708eb4be743c913aa5a9f0b0`;
+- main diagnostic/runtime artifact `10753217431`, digest `sha256:085d35fd86dd01054f8cd60265cceb92d4ab1d6a5f3da187cbb8429da5814263`.
 
-Automated validation proves the collapsed Timer geometry/content contracts, deterministic Windows visual fixture, frontend/Rust preflight, release build and artifact generation. Local `npm run preflight:frontend` independently passed on the resulting-main source; local Rust/Tauri checks were **NOT RUN** because this environment has no Rust toolchain.
+Automated validation proves the expanded/collapsed Floating Timer geometry and visual contracts, authoritative Focus action/subtask reuse contracts, frontend/Rust preflight, release build and artifact generation. The PR records local `npm run preflight:frontend` and `git diff --check` as passing; local Rust/Tauri validation was unavailable in that environment, so Windows CI remains authoritative.
 
 ## Milestone 6 validated work
 
@@ -162,15 +162,36 @@ Validated behavior:
 
 PR Windows CI #458 and resulting-main Windows CI #459 passed Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads. Local frontend preflight also passed; local Rust/Tauri checks were unavailable because the local environment has no Rust toolchain.
 
+### Items 4–6 — Expanded Floating Timer interactions
+
+Immutable evidence: `work-log/2026-09-23-chatgpt-m7-floating-expanded-interactions.md`.
+
+Implementation source: PR #120 / merge `97931f89ff2b6b9f1aa0ceb628732602be8fd587`.
+
+Validated behavior:
+
+- native Timer sizing supports the established `340 x 110` collapsed viewport and `340 x 300` expanded viewport without another focus webview;
+- expand/collapse remains renderer presentation state and native resizing publishes before the renderer commits the corresponding presentation;
+- expanded actions reuse the existing authoritative Focus paths for Break, Notes, Pause/Resume, Skip and Done, plus Return to Panel;
+- expanded subtasks reuse persisted list-board subtask identities and mutations for create, completion/reopen, reorder and delete, including expected-value/order concurrency guards;
+- saved subtask mutations refresh and reconcile authoritative subtask and board projections before more mutations continue;
+- icon-only action/subtask controls retain stable 32 px geometry, accessible names and shared tooltips without changing Timer width;
+- deterministic Windows light/dark visual fixtures cover collapsed and expanded density/geometry;
+- no renderer timer/session/task/scheduling authority, high-frequency native geometry loop, polling clock or continuous decorative animation was introduced.
+
+PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
+
 ## Milestone 7 — next ordered work
 
-Implement the coherent M7 items 4–6 expanded-interactions slice:
+Implement M7 item 7:
 
-4. expanded action strip for Break, Notes, Pause/Resume, Skip, Done and Return to Panel;
-5. expanded subtask rows with completion, reorder, delete and progress;
-6. stable icon hit targets and tooltips without changing window width.
+7. `Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop.`
 
-Reuse the existing authoritative Focus action and list-board subtask mutation paths. Expansion is renderer presentation state only. Keep transition motion/flicker correction in item 7, shortcuts in items 8–9, position persistence in item 10 and edge anchoring in item 12.
+Known Windows evidence to close in this slice:
+
+- Timer -> Panel currently produces a very brief Panel flash on the left side before settling back at the correct configured right-side Panel position.
+- Final Panel position is correct; item 7 must preserve that correctness while removing/validating the transient flash.
+- Keep native/Rust as physical window geometry/monitor authority. Renderer motion may be one-shot content opacity/transform only and must honor reduced motion.
 
 ## Durable correctness decisions
 
