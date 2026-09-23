@@ -622,13 +622,38 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
     }
 
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    let was_visible = window
+        .is_visible()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read Timer visibility before resize", error))?;
+
+    if was_visible {
+        window.hide().map_err(|error| {
+            map_window_error(FOCUS_SURFACE_LABEL, "hide Timer for resize", error)
+        })?;
+    }
+
     let height = if expanded { 300.0 } else { 110.0 };
-    window
+    let resize_result = window
         .set_size(tauri::Size::Logical(tauri::LogicalSize {
             width: 340.0,
             height,
         }))
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "resize expanded Timer", error))
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "resize expanded Timer", error));
+
+    if let Err(error) = resize_result {
+        if was_visible {
+            let _ = window.show();
+        }
+        return Err(error);
+    }
+
+    if was_visible {
+        window
+            .show()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show Timer after resize", error))?;
+    }
+
+    Ok(())
 }
 
 pub(crate) fn revalidate_open_focus_panel_after_display_change(
