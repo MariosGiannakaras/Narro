@@ -64,7 +64,7 @@ try {
                 "--hide-scrollbars",
                 "--no-first-run",
                 "--force-device-scale-factor=1",
-                "--window-size=340,110",
+                "--window-size=420,240",
                 "--user-data-dir=$profile",
                 "--screenshot=$screenshot",
                 "--dump-dom",
