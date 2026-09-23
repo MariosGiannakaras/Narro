@@ -19,53 +19,60 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–6 are validated. M7 item 7 remains open: the first automated-validated correction physically FAILED the transition acceptance test. Position and session continuity passed, but visible flicker/transition UX remains unacceptable.
+M7 items 1–6 are validated. M7 item 7 remains open: the first automated-validated correction physically FAILED, and the evidence-backed corrective source is now automated-validated on Windows. A new physical Windows re-test is required before item 7 can close.
 
 ## Current validated source baseline
 
 Latest resulting-main automated-validated **source/test** baseline:
 
-`c6f28fcfede74c02afff875b6322e4743ed01549`
+`91a28ba7c5389130b6edb45deabe62a9e01f9d08`
 
 Tree:
 
-`06f56b2bb2e16a111900b8c1209460a03b897145`
+`e4ecb48ab3ca84915d4d7972e83f7bfd5ed5ad78`
 
-This is the expected-head guarded squash merge of PR #121 — `M7: fix Focus surface transition flicker` — from exact validated PR head `f53efc250b20149aee920e9831e21173ffd618eb`.
+This is the expected-head guarded squash merge of PR #122 — `M7: fix physical Focus transition artifacts` — from exact validated PR head `b5d65917ea75f50ab351b20fe750c56366923ae6`.
 
-PR Windows CI #468 and resulting-main Windows CI #469 passed all required repository gates on the exact source SHAs. Markdown-only tracking descendants after this source SHA do **not** replace the source/test baseline.
+The corrective source addresses the physical Windows evidence from CI #469 without broadening scope:
 
-### PR #121 exact-head validation
+- Panel target-monitor DPI staging remains native/Rust authority but stages at the configured Panel edge rather than raw work-area origin;
+- focus-surface transition geometry clips horizontal overflow while preserving required Panel vertical scrolling;
+- Floating Timer collapsed/expanded native resize is presentation-gated across finite paint boundaries so one expand/collapse action does not visibly expose an enlarged/shrunken intermediate hierarchy;
+- no renderer-owned native positioning, timer/session/task/scheduling authority, polling clock, third webview or high-frequency geometry loop was introduced.
 
-Windows CI #468 / run `35871031356` / job `107214857096`: **SUCCESS** on exact PR head `f53efc250b20149aee920e9831e21173ffd618eb`.
+### PR #122 exact-head validation
+
+Windows CI #471 / run `35885188470` / job `107263411613`: **SUCCESS** on exact PR head `b5d65917ea75f50ab351b20fe750c56366923ae6`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- PR visual artifact `10754608474`, digest `sha256:6d4df7b273cadbf916b4fdb5e972673f27e8199231c4df694619efe285639b20`;
-- PR diagnostic/runtime artifact `10755089049`, digest `sha256:730c6eaa28ac8c4da5e7714474fccb11a25ec358629a830ecc17874962d0225e`.
+- PR visual artifact `10761689991`, digest `sha256:442ad79b52565c9481379987b66dc81a996a794ffd40dfed95bf380283fa8b2c`;
+- PR runtime artifact `10763131609`, digest `sha256:6a06cc70202189f620ee30ada78afa4769ba04befa3509e7e8e0da657535af84`.
 
-Final review verified exact head unchanged, expected six-file item-7 scope, no PR discussion comments/reviews and clean mergeability.
+Windows CI #470 on previous head `3f66457a0f7164ecbb0d16601a2ee8408394ee92` failed only because a stale collapsed deterministic contract still prohibited every `requestAnimationFrame`; the contract was narrowed to allow exactly one finite paint-boundary helper while continuing to prohibit renderer clock/loop ownership. No production change was made for that failure.
+
+Final PR review verified the exact head unchanged, seven expected files, no discussion comments/reviews and clean mergeability.
 
 Expected-head guarded squash merge:
 
-`c6f28fcfede74c02afff875b6322e4743ed01549`
+`91a28ba7c5389130b6edb45deabe62a9e01f9d08`
 
 ### Resulting-main validation
 
-Windows CI #469 / run `35878281929` / job `107239838245`: **SUCCESS** on exact main source SHA `c6f28fcfede74c02afff875b6322e4743ed01549`.
+Windows CI #472 / run `35887924927` / job `107272742116`: **SUCCESS** on exact main source SHA `91a28ba7c5389130b6edb45deabe62a9e01f9d08`.
 
 - Repository Preflight: **SUCCESS**;
 - Windows visual regression: **SUCCESS**;
 - Tauri Release: **SUCCESS**;
 - visual artifact upload: **SUCCESS**;
 - diagnostic/runtime artifact upload: **SUCCESS**;
-- main visual artifact `10760500725`, digest `sha256:fb14171a4d5fe3b001c553a21a81068851af9f8e5e22603bb6746ff145b3e040`;
-- main diagnostic/runtime artifact `10760351396`, digest `sha256:a2a8a43ae013e9897f376d6f85535945cf54673656662def7f27f48e1f9614f0`.
+- main visual artifact `10763618553`, digest `sha256:8f25127a7b924fbada100d85826ae553a9e92f755554e6a6f20c985b32b16710`;
+- main runtime artifact `10763339801`, digest `sha256:2a763e673486fa60fd87b2af358846db1a5a00e7d7c9b7658ef3cb3301239c94`.
 
-Automated validation proves the native transition ordering contracts, renderer one-shot motion/reduced-motion contracts, frontend/Rust preflight, visual regression, release build and artifact generation. It does **not** prove absence of a transient real-desktop window flash; physical Windows observation remains the final item-7 gate.
+Automated validation does **not** prove real-desktop transient behavior. Physical Windows re-validation remains the final item-7 gate.
 
 ## Milestone 6 validated work
 
@@ -183,24 +190,22 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-Continue M7 item 7 corrective slice; do **not** start item 8.
+Finish M7 item 7 physical Windows re-validation before starting item 8.
 
-Physical Windows evidence from exact main CI #469 source `c6f28fcfede74c02afff875b6322e4743ed01549`:
+Use the exact resulting-main CI #472 runtime build from source `91a28ba7c5389130b6edb45deabe62a9e01f9d08`.
 
-- Flicker: **FAIL**;
-- Panel final/right-side position: **PASS**;
-- active session/timer continuity across Panel/Timer switches: **PASS**;
-- transition UX: **FAIL / not accepted**;
-- screenshots additionally expose horizontal overflow/scrollbars and a visible intermediate enlarged compact presentation during Floating Timer expansion.
+Required physical checks:
 
-The next source branch must be narrow and evidence-backed:
+1. Put Focus Panel on the configured right side, then repeat Panel -> Floating Timer -> Return to Focus Panel.
+2. **Flicker PASS** only if there is no visible left/work-area staging flash.
+3. **Position PASS** if Panel returns directly to the configured right side.
+4. In Floating Timer, repeat collapsed -> expanded -> collapsed.
+5. **Overflow PASS** only if no horizontal focus-surface scrollbar appears in collapsed, expanded or Panel presentation.
+6. **Expand transition PASS** only if one click produces the final expanded/collapsed presentation without a visible enlarged/shrunken intermediate compact state.
+7. **Session PASS** if mode/expand switching does not reset, duplicate or switch the active session/timer.
+8. Report overall transition UX PASS/FAIL with any remaining concrete visual symptom.
 
-1. preserve target-monitor DPI staging but stage at the final Panel edge rather than the work-area origin, so any compositor-latency exposure cannot flash at the opposite edge;
-2. remove horizontal focus-surface overflow while preserving required vertical Panel scrolling;
-3. coordinate Floating Timer expanded resize/content publication so one expand action does not visibly expose a third intermediate presentation state;
-4. retain native geometry authority, same `focusSurface`, session continuity, reduced-motion behavior and no high-frequency JS geometry loop.
-
-After exact-head Windows CI + guarded merge + resulting-main CI, repeat physical Windows validation before item 7 can become complete.
+On full physical PASS: create a new immutable physical-validation log, mark item 7 complete, advance M7 to **7/14**, reset item-8 slice to **0/5**, reconcile tracking, then start ordered item 8. On any FAIL: record the exact symptom and fix only evidence-backed behavior; do not start item 8.
 
 ## Durable correctness decisions
 

@@ -268,8 +268,9 @@ Acceptance criteria:
 - [x] Implement expanded subtask rows with completion, reorder, delete and progress.
 - [x] Keep icon hit targets stable and show tooltips without changing window width.
 - [ ] Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop.
-  - [x] Native hidden-stage transition correction, finite 150ms content motion, reduced-motion contract, exact-head PR CI, guarded merge and resulting-main CI are automated-validated.
-  - [ ] Physical Windows validation: Timer -> Panel must not visibly flash at the left/staging position before appearing at the correct final Panel position.
+  - [x] Initial native hidden-stage transition correction, finite 150ms content motion, reduced-motion contract, exact-head PR CI, guarded merge and resulting-main CI are automated-validated.
+  - [x] Physical-fail corrective candidate is automated-validated: target-edge DPI staging, focus-surface horizontal overflow suppression, and paint-gated collapsed/expanded resize publication; PR #122 exact-head CI #471 and resulting-main CI #472 PASS.
+  - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, and no visible enlarged-compact intermediate state during expand/collapse.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
 - [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
