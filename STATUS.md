@@ -19,7 +19,7 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–6 are validated. M7 item 7 remains open: the first automated-validated correction physically FAILED, and the evidence-backed corrective source is now automated-validated on Windows. A new physical Windows re-test is required before item 7 can close.
+M7 items 1–6 are validated. M7 item 7 remains open after the CI #472 physical re-test: left/staging flicker, final position, normal product-size horizontal overflow and session continuity now PASS, but expand/collapse and overall transition smoothness remain FAIL.
 
 ## Current validated source baseline
 
@@ -190,22 +190,27 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-Finish M7 item 7 physical Windows re-validation before starting item 8.
+Continue M7 item 7 motion corrective slice; do **not** start item 8.
 
-Use the exact resulting-main CI #472 runtime build from source `91a28ba7c5389130b6edb45deabe62a9e01f9d08`.
+Physical Windows re-test of exact CI #472 source `91a28ba7c5389130b6edb45deabe62a9e01f9d08`:
 
-Required physical checks:
+- left/staging Flicker: **PASS**;
+- final right-side Panel position: **PASS**;
+- horizontal scrollbar at normal product-controlled Panel/collapsed/expanded geometry: **PASS**;
+- session/timer continuity: **PASS**;
+- Expand/Collapse: **FAIL**;
+- overall Transition UX: **FAIL** because a very small return-to-Panel flicker/instantaneous swap remains.
 
-1. Put Focus Panel on the configured right side, then repeat Panel -> Floating Timer -> Return to Focus Panel.
-2. **Flicker PASS** only if there is no visible left/work-area staging flash.
-3. **Position PASS** if Panel returns directly to the configured right side.
-4. In Floating Timer, repeat collapsed -> expanded -> collapsed.
-5. **Overflow PASS** only if no horizontal focus-surface scrollbar appears in collapsed, expanded or Panel presentation.
-6. **Expand transition PASS** only if one click produces the final expanded/collapsed presentation without a visible enlarged/shrunken intermediate compact state.
-7. **Session PASS** if mode/expand switching does not reset, duplicate or switch the active session/timer.
-8. Report overall transition UX PASS/FAIL with any remaining concrete visual symptom.
+Repository/UI evidence keeps the expanded viewport at established `340 x 300`; unused vertical space in a no-subtask case is not sufficient evidence to redesign that geometry.
 
-On full physical PASS: create a new immutable physical-validation log, mark item 7 complete, advance M7 to **7/14**, reset item-8 slice to **0/5**, reconcile tracking, then start ordered item 8. On any FAIL: record the exact symptom and fix only evidence-backed behavior; do not start item 8.
+Next correction:
+1. animate the current Panel/Timer content out using the existing finite 150ms focus-surface opacity/transform primitive **before** invoking the native mode transition;
+2. keep the existing keyed 150ms entrance after native success;
+3. replace the expand/collapse opacity cut with a finite inline exit -> native resize -> final hierarchy commit -> inline entrance sequence using transition-end boundaries;
+4. preserve reduced-motion 1ms/no-displacement behavior;
+5. keep all native geometry authority in Rust and introduce no polling/high-frequency native geometry animation.
+
+After exact-head Windows CI + guarded merge + resulting-main CI, repeat the physical transition test before item 7 can close.
 
 ## Durable correctness decisions
 

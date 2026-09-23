@@ -98,7 +98,33 @@ CI #470 on the previous corrective head failed only a stale deterministic contra
 4. COMPLETE — exact-head/diff/discussion review, expected-head merge and resulting-main Windows CI #472 passed.
 5. **PENDING PHYSICAL WINDOWS RE-TEST** — automated CI cannot prove transient desktop flicker/overflow/intermediate-state absence.
 
-## USER ACTION REQUIRED
+## PHYSICAL WINDOWS RE-TEST RESULT — PARTIAL FAIL
+
+Exact resulting-main CI #472 source `91a28ba7c5389130b6edb45deabe62a9e01f9d08` was physically re-tested.
+
+Observed:
+- left/staging Flicker: **PASS** — the prior left-side flash is gone;
+- Position: **PASS** — Panel returns directly to the configured right side;
+- Horizontal scrollbar: **PASS at product-controlled Panel/collapsed/expanded sizes**; manual host-window resizing can expose scrollbars but is not the normal product geometry path;
+- Session: **PASS** — timer/session continuity remains intact;
+- Expand/Collapse: **FAIL** — presentation still feels abrupt/non-smooth;
+- overall Transition UX: **FAIL** — a very small flicker remains when restoring Panel; user specifically notes Blitzit appears to use a short animation rather than an instantaneous swap.
+
+The 340x300 expanded viewport remains established repository evidence and is not changed merely because an empty-subtask state has unused vertical space.
+
+## ACTIVE MOTION CORRECTIVE SLICE
+
+Keep M7 item 7 open at 6/14 and 4/5. Do not start item 8.
+
+Implement only finite presentation sequencing:
+1. current Panel/Timer content performs the existing 150ms focus-surface **exit** before native hide/resize/reposition;
+2. after native success, the new keyed mode performs the existing 150ms entrance;
+3. Floating Timer collapsed/expanded content performs a finite inline fade/transform exit, native resize, final hierarchy publication, then inline entrance;
+4. use CSS transitions/transition-end boundaries only; no setInterval, polling, high-frequency JS window geometry animation, or renderer-owned native position.
+
+After exact-head Windows CI, guarded merge and resulting-main CI, repeat physical validation.
+
+## PREVIOUS USER ACTION
 
 Use exact resulting-main CI #472 runtime artifact:
 
@@ -143,6 +169,7 @@ Physical checks:
 
 ## BLOCKERS / NOT RUN
 
-- **Physical Windows corrective re-test: NOT RUN / BLOCKING item 7 completion.**
+- **Physical Windows corrective re-test: PARTIAL FAIL / BLOCKING item 7 completion.**
+- Left/staging flash, final position, normal-size horizontal overflow and session continuity are now physically PASS; smooth Panel/Timer + expand/collapse motion remains unresolved.
 - No user/product decision blocks implementation.
 - Local Rust/Tauri validation is unavailable in connector-only execution; authoritative Windows CI supplies the automated native gate.
