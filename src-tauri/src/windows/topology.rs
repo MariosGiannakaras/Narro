@@ -192,8 +192,24 @@ fn schedule_display_recovery() {
                 ),
             }
 
-            if let Err(error) = crate::floating_placement::save_if_timer_visible(&recovery_handle) {
-                eprintln!("Floating Timer placement revalidation failed after display change: {error}");
+            let timer_recovery_ok = match crate::floating_placement::revalidate_visible_timer_after_display_change(
+                &recovery_handle,
+            ) {
+                Ok(true) => {
+                    println!("Display topology recovery resized or moved the open Timer");
+                    true
+                }
+                Ok(false) => true,
+                Err(error) => {
+                    eprintln!("Floating Timer visible-area recovery failed after display change: {error}");
+                    false
+                }
+            };
+
+            if timer_recovery_ok {
+                if let Err(error) = crate::floating_placement::save_if_timer_visible(&recovery_handle) {
+                    eprintln!("Floating Timer placement revalidation failed after display change: {error}");
+                }
             }
 
             RECOVERY_PENDING.store(false, Ordering::Release);
@@ -246,6 +262,13 @@ fn recover_visible_windows(app_handle: &tauri::AppHandle) -> Result<Vec<&'static
     let mut failures = Vec::new();
 
     for label in RECOVERABLE_WINDOW_LABELS {
+        // The Timer has a separate recovery path that can also shrink its outer size. Moving it
+        // here first would discard the pre-change monitor overlap used to choose that work area.
+        if label == FOCUS_SURFACE_LABEL
+            && crate::current_focus_surface_mode() == Some(crate::FocusSurfaceMode::Timer)
+        {
+            continue;
+        }
         let Some(window) = app_handle.get_webview_window(label) else {
             continue;
         };
