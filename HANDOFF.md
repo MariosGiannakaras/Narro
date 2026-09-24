@@ -9,7 +9,7 @@ Canonical zero-context continuation state for Narro. Read `AI_START_HERE.md`, `A
 - Milestones 1–6: COMPLETE / PASS.
 - Milestone 7: ACTIVE / **6 of 14** top-level items validated.
 - M7 items 1–6: COMPLETE / VALIDATED.
-- M7 item 7: COMPOSITOR CORRECTION AUTOMATED-VALIDATED; PHYSICAL WINDOWS RE-TEST PENDING.
+- M7 item 7: CI #480 PHYSICAL FAIL RECORDED; PR #125 NATIVE HIDDEN-RESIZE CORRECTION IN PROGRESS.
 - Current item-7 slice: **4/5 checkpoints complete**.
 - Compact progress: `6/10M || 4/5 | 6/14`.
 
@@ -89,27 +89,65 @@ Local checkout/npm/Rust preflight: NOT RUN in this environment. Connector-side d
 4. COMPLETE — latest compositor correction passed exact-head PR CI #479, merged, and resulting-main CI #480 passed.
 5. **PENDING PHYSICAL WINDOWS RE-TEST** — transient desktop flicker/stale-pixel behavior cannot be proven by CI.
 
-## USER ACTION REQUIRED
+## LATEST PHYSICAL EVIDENCE — CI #480 FAIL
 
-Use the exact resulting-main CI #480 runtime artifact:
+The user physically re-tested the exact resulting-main CI #480 runtime artifact.
 
-- name: `narro-m1-runtime-harness-windows-x64`;
-- artifact ID: `10781866423`;
-- source SHA: `6f99e9b1869b927e5a792cc569b6c8131859c7d8`;
-- digest: `sha256:2c203f4c5cc62a645781fdb4ad341527bed6d60f8d0cb3b3cec2139be37c9f29`.
+- Panel -> Timer: PASS.
+- Timer -> Panel: borderline/functional PASS; do not close the motion gate from this evidence.
+- Expand/Collapse: **FAIL**.
+- Panel returns to configured right side: PASS.
+- Horizontal scrollbar at normal product geometry: PASS.
+- Timer/session continuity: PASS.
 
-Repeat the same physical flow with a visible running timer: Panel -> Timer -> Panel several times, then collapsed -> expanded -> collapsed several times. Confirm right-side Panel return, no normal-size horizontal scrollbar, and timer/session continuity.
+Screenshots show each expand/collapse cycle retaining another stale copy of the expanded action strip and old expanded pixels surviving into collapsed geometry. Treat this as concrete native/WebView presentation evidence.
 
-PASS requires no left/staging flash, no stale/duplicated expanded pixels during resize, no old expanded pixels in collapsed geometry, no stuck/blank state, and no small abrupt Timer -> Panel return flicker.
+## ACTIVE CORRECTIVE PR
+
+PR #125 — `M7: hide Floating Timer during native expand resize`.
+
+Exact current head:
+
+`62e40ca34c86fe5fc19da447448aa1d540e80754`
+
+Changed production scope is deliberately narrow:
+
+- `set_floating_timer_expanded` reads native visibility, hides a visible `focusSurface`, performs `set_size` while hidden, best-effort restores visibility on resize failure, and shows only after resize succeeds;
+- renderer publishes the target expanded/collapsed hierarchy while hidden, stages it transparently, invokes native hidden resize, waits one finite presented-frame boundary, then runs the existing entrance;
+- renderer rolls back the prior expanded state if native resize fails;
+- same focusSurface webview, same 340x110/340x300 geometry, native geometry authority, timer/session/task state and reduced-motion contracts remain unchanged.
+
+Connector-side source-contract review: PASS.
+
+Windows CI #481:
+
+- run `35936338414`;
+- exact head `62e40ca34c86fe5fc19da447448aa1d540e80754`;
+- state at this handoff commit: **IN PROGRESS**.
+
+Do not call PR #125 automated-validated until exact-head CI succeeds, semantic review confirms the exact head unchanged, it is merged with an expected-head guard, and resulting-main Windows CI succeeds.
+
+## USER AVAILABILITY / ROADMAP AUTHORIZATION
+
+The user cannot perform physical Windows tests for several hours and explicitly wants Codex Goal to continue useful implementation work rather than idle.
+
+This authorizes **parallel progress on independent later Milestone 7 items while the item-7 physical gate is waiting**, provided all of the following remain true:
+
+- item 7 stays open and must not be marked complete without physical evidence;
+- later work must not depend on assuming item 7 passed;
+- keep each later item in its own coherent branch/PR/checkpoint and preserve rollback/isolation from item 7;
+- do not skip to Milestone 8 or later milestones;
+- do not merge a later M7 slice if doing so would make item-7 diagnosis or re-test ambiguous;
+- repository tracking must continue to state clearly that item 7 is physically blocked.
 
 ## NEXT AGENT ACTION
 
-**Do not start M7 item 8 until item 7 physical re-validation passes.**
-
-- On full PASS: create a new immutable physical-pass work log; mark item 7 `[x]`; advance M7 to **7/14**; reset the item-8 slice to **0/5**; reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md`; then begin item 8.
-- On any FAIL: record exact CI #480 build identity plus symptom/direction in a new immutable log; make only an evidence-backed correction; keep item 7 at **6/14** and slice **4/5**.
-
-No autonomous later item is unblocked while this physical gate is pending.
+1. Inspect PR #125 exact head and CI #481 first.
+2. If CI #481 fails, inspect the exact failing log and fix only evidence-backed problems on the same PR/branch.
+3. If CI #481 passes, review the exact head, require the expected three changed files and no unresolved review feedback, merge with expected-head guard `62e40ca34c86fe5fc19da447448aa1d540e80754`, then validate the resulting main source SHA with Windows CI and record artifact evidence.
+4. Update `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable `work-log/*.md` after the automated validation sequence.
+5. Attempt the final item-7 physical validation autonomously only if a reliable native-Windows visual/input path is actually available; never infer PASS from CI.
+6. If physical validation remains unavailable, keep item 7 open and use the user's explicit authorization above to begin the next independent M7 top-level item in roadmap order. Do not claim item 7 complete. Keep later work isolated in coherent PRs and stop at any dependency on the unresolved transition behavior.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 

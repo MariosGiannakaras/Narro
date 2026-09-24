@@ -23,6 +23,10 @@ M7 items 1–6 are validated. M7 item 7 remains open at the final physical Windo
 
 A narrow compositor/presentation correction is now merged and automated-validated through PR #124 and resulting-main CI #480. Physical Windows re-test of the exact CI #480 runtime artifact is required before item 7 can close or item 8 can start.
 
+A second physical re-test of the exact CI #480 build on 2026-09-24 confirmed that the renderer-only compositor masking still does not solve expand/collapse: repeated cycles accumulate duplicated/stale action-strip pixels in the resized WebView. Panel -> Timer, right-side Panel return, normal product-size horizontal overflow and timer/session continuity passed; Timer -> Panel was only a borderline/functional PASS and remains part of the final motion gate.
+
+A narrower native correction is now under review in PR #125 at exact head `62e40ca34c86fe5fc19da447448aa1d540e80754`. It keeps the same `focusSurface` webview and 340x110/340x300 geometry, stages the target hierarchy transparently, hides the native Tauri window for `set_size`, restores visibility on resize failure, shows only after resize succeeds, and then runs the existing finite entrance. Windows CI #481 / run `35936338414` is currently in progress. This candidate is **implemented, not yet validated**.
+
 ## Current validated source baseline
 
 Latest resulting-main automated-validated **source/test** baseline:
