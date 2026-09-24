@@ -22,6 +22,10 @@ export type ShortcutDiagnostics = {
   triggerCount: number;
   revision: number;
   lastError: ShortcutErrorSnapshot | null;
+  focusToggleRegistered: boolean;
+  focusToggleChord: string;
+  focusToggleTriggerCount: number;
+  focusToggleLastError: ShortcutErrorSnapshot | null;
 };
 
 export type FocusPanelSide = "left" | "right";

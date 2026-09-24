@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
@@ -28,18 +28,51 @@ function FocusSurfaceProduct() {
   const [transitionError, setTransitionError] = useState<string | null>(null);
   const [pendingMode, setPendingMode] = useState<FocusSurfaceMode | null>(null);
   const transitionCommitRef = useRef(false);
+  const modeRef = useRef<FocusSurfaceMode | null>(null);
+  const transitionBusyRef = useRef(false);
+  const resizeBusyRef = useRef(false);
+  const lastToggleRequestRef = useRef(0);
+  const toggleRequestRef = useRef<() => void>(() => {});
+  const reportResizePending = useCallback((pending: boolean) => {
+    resizeBusyRef.current = pending;
+  }, []);
+
+  useEffect(() => {
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    void listen<number>("focus-surface-toggle-requested", (event) => {
+      const sequence = event.payload;
+      if (disposed || !Number.isSafeInteger(sequence) || sequence <= lastToggleRequestRef.current) return;
+      lastToggleRequestRef.current = sequence;
+      toggleRequestRef.current();
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopListening = unlisten;
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) setTransitionError(formatInvokeError(failure));
+      });
+
+    return () => {
+      disposed = true;
+      stopListening?.();
+    };
+  }, []);
 
   useEffect(() => {
     let disposed = false;
     void getFocusSurfaceMode()
       .then((currentMode) => {
         if (!disposed) {
+          modeRef.current = currentMode;
           setMode(currentMode);
           setTransitionError(null);
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
+          modeRef.current = "panel";
           setMode("panel");
           setTransitionError(formatInvokeError(failure));
         }
@@ -51,7 +84,8 @@ function FocusSurfaceProduct() {
   }, []);
 
   function requestMode(targetMode: FocusSurfaceMode) {
-    if (transitionPending || mode === targetMode) return;
+    if (transitionBusyRef.current || resizeBusyRef.current || modeRef.current === targetMode) return;
+    transitionBusyRef.current = true;
     setTransitionPending(true);
     setTransitionError(null);
     setPendingMode(targetMode);
@@ -69,16 +103,25 @@ function FocusSurfaceProduct() {
       } else {
         await presentFocusPanel();
       }
+      modeRef.current = targetMode;
       setMode(targetMode);
       setTransitionError(null);
     } catch (failure: unknown) {
       setTransitionError(formatInvokeError(failure));
     } finally {
       transitionCommitRef.current = false;
+      transitionBusyRef.current = false;
       setPendingMode(null);
       setTransitionPending(false);
     }
   }
+
+  toggleRequestRef.current = () => {
+    const currentMode = modeRef.current;
+    if (currentMode !== null) {
+      requestMode(currentMode === "panel" ? "timer" : "panel");
+    }
+  };
 
   function enterCompactMode() {
     requestMode("timer");
@@ -108,6 +151,7 @@ function FocusSurfaceProduct() {
           onReturnToPanel={() => void returnToPanel()}
           transitionPending={transitionPending}
           transitionError={transitionError}
+          onResizePendingChange={reportResizePending}
         />
       </FocusSurfaceTransition>
     );
