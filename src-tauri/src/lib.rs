@@ -622,9 +622,13 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
     }
 
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
-    let was_visible = window
-        .is_visible()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read Timer visibility before resize", error))?;
+    let was_visible = window.is_visible().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Timer visibility before resize",
+            error,
+        )
+    })?;
 
     if was_visible {
         window.hide().map_err(|error| {
@@ -648,9 +652,9 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
     }
 
     if was_visible {
-        window
-            .show()
-            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show Timer after resize", error))?;
+        window.show().map_err(|error| {
+            map_window_error(FOCUS_SURFACE_LABEL, "show Timer after resize", error)
+        })?;
     }
 
     Ok(())
