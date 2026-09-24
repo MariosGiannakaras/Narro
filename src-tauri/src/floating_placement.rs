@@ -113,6 +113,50 @@ fn best_work_area_for_window<'a>(
         .unwrap_or(fallback)
 }
 
+fn position_after_resize(
+    previous_window: PhysicalRect,
+    resized_size: PhysicalSize,
+    areas: &[WorkArea],
+    fallback: &WorkArea,
+) -> CommandResult<PhysicalPoint> {
+    let selected = best_work_area_for_window(previous_window, areas, fallback);
+    clamp_top_left(selected.rect, resized_size, previous_window.position)
+        .map_err(|error| placement_error("clamp resized Timer position", error))
+}
+
+pub fn keep_resized_timer_in_work_area(
+    app_handle: &tauri::AppHandle,
+    window: &tauri::WebviewWindow,
+    previous_window: PhysicalRect,
+) -> CommandResult<()> {
+    let areas = available_work_areas(app_handle)?;
+    let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
+    let size = window
+        .outer_size()
+        .map_err(|error| placement_error("read resized Timer outer size", error))?;
+    let safe = position_after_resize(
+        previous_window,
+        PhysicalSize {
+            width: size.width,
+            height: size.height,
+        },
+        &areas,
+        &fallback,
+    )?;
+    let current_position = window
+        .outer_position()
+        .map_err(|error| placement_error("read resized Timer position", error))?;
+    if safe.x != current_position.x || safe.y != current_position.y {
+        window
+            .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
+                x: safe.x,
+                y: safe.y,
+            }))
+            .map_err(|error| placement_error("move resized Timer into work area", error))?;
+    }
+    Ok(())
+}
+
 fn target_work_area<'a>(
     saved: &SavedFloatingPlacement,
     areas: &'a [WorkArea],
@@ -363,5 +407,31 @@ mod tests {
         let restored = restored_position(&saved, selected.rect, saved.outer_size).expect("restore");
         assert!(restored.x >= 0);
         assert!(restored.x <= 1580);
+    }
+
+    #[test]
+    fn expansion_near_taskbar_moves_up_on_the_same_monitor() {
+        let primary = area("primary", 0, 1920);
+        let secondary = area("secondary", 1920, 1920);
+        let previous = PhysicalRect {
+            position: PhysicalPoint { x: 3400, y: 930 },
+            size: PhysicalSize {
+                width: 340,
+                height: 110,
+            },
+        };
+        assert_eq!(
+            position_after_resize(
+                previous,
+                PhysicalSize {
+                    width: 340,
+                    height: 300,
+                },
+                &[primary.clone(), secondary],
+                &primary,
+            )
+            .expect("expanded position"),
+            PhysicalPoint { x: 3400, y: 740 }
+        );
     }
 }

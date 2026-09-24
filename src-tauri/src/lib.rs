@@ -649,11 +649,15 @@ fn present_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
 fn restore_floating_timer_after_failed_resize(
     window: &tauri::WebviewWindow,
     previous_size: tauri::PhysicalSize<u32>,
+    previous_position: tauri::PhysicalPosition<i32>,
     was_visible: bool,
 ) -> CommandResult<()> {
     let size_result = window
         .set_size(tauri::Size::Physical(previous_size))
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "restore Timer size", error));
+    let position_result = window
+        .set_position(tauri::Position::Physical(previous_position))
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "restore Timer position", error));
     let visibility_result = if was_visible {
         window.show().map_err(|error| {
             map_window_error(FOCUS_SURFACE_LABEL, "restore Timer visibility", error)
@@ -662,13 +666,21 @@ fn restore_floating_timer_after_failed_resize(
         Ok(())
     };
 
-    match (size_result, visibility_result) {
-        (Ok(()), Ok(())) => Ok(()),
-        (Err(error), Ok(())) | (Ok(()), Err(error)) => Err(error),
-        (Err(size_error), Err(visibility_error)) => Err(CommandError::new(
+    let errors: Vec<_> = [size_result, position_result, visibility_result]
+        .into_iter()
+        .filter_map(Result::err)
+        .collect();
+    if errors.is_empty() {
+        Ok(())
+    } else {
+        Err(CommandError::new(
             "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
-            format!("{size_error}; {visibility_error}"),
-        )),
+            errors
+                .iter()
+                .map(ToString::to_string)
+                .collect::<Vec<_>>()
+                .join("; "),
+        ))
     }
 }
 
@@ -692,6 +704,30 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
     let previous_size = window.inner_size().map_err(|error| {
         map_window_error(FOCUS_SURFACE_LABEL, "read Timer size before resize", error)
     })?;
+    let previous_position = window.outer_position().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Timer position before resize",
+            error,
+        )
+    })?;
+    let previous_outer_size = window.outer_size().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Timer outer size before resize",
+            error,
+        )
+    })?;
+    let previous_window = GeometryRect {
+        position: GeometryPoint {
+            x: previous_position.x,
+            y: previous_position.y,
+        },
+        size: GeometrySize {
+            width: previous_outer_size.width,
+            height: previous_outer_size.height,
+        },
+    };
 
     if was_visible {
         window.hide().map_err(|error| {
@@ -708,9 +744,29 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "resize expanded Timer", error));
 
     if let Err(error) = resize_result {
-        if let Err(recovery_error) =
-            restore_floating_timer_after_failed_resize(&window, previous_size, was_visible)
-        {
+        if let Err(recovery_error) = restore_floating_timer_after_failed_resize(
+            &window,
+            previous_size,
+            previous_position,
+            was_visible,
+        ) {
+            return Err(CommandError::new(
+                "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
+                format!("{error}; recovery failed: {recovery_error}"),
+            ));
+        }
+        return Err(error);
+    }
+
+    if let Err(error) =
+        floating_placement::keep_resized_timer_in_work_area(&app_handle, &window, previous_window)
+    {
+        if let Err(recovery_error) = restore_floating_timer_after_failed_resize(
+            &window,
+            previous_size,
+            previous_position,
+            was_visible,
+        ) {
             return Err(CommandError::new(
                 "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
                 format!("{error}; recovery failed: {recovery_error}"),
@@ -723,9 +779,12 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
         if let Err(error) = window.show().map_err(|error| {
             map_window_error(FOCUS_SURFACE_LABEL, "show Timer after resize", error)
         }) {
-            if let Err(recovery_error) =
-                restore_floating_timer_after_failed_resize(&window, previous_size, was_visible)
-            {
+            if let Err(recovery_error) = restore_floating_timer_after_failed_resize(
+                &window,
+                previous_size,
+                previous_position,
+                was_visible,
+            ) {
                 return Err(CommandError::new(
                     "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
                     format!("{error}; recovery failed: {recovery_error}"),
