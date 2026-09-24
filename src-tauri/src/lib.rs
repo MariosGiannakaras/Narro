@@ -656,11 +656,7 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
         )
     })?;
     let previous_size = window.inner_size().map_err(|error| {
-        map_window_error(
-            FOCUS_SURFACE_LABEL,
-            "read Timer size before resize",
-            error,
-        )
+        map_window_error(FOCUS_SURFACE_LABEL, "read Timer size before resize", error)
     })?;
 
     if was_visible {
