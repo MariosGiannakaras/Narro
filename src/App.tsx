@@ -224,6 +224,17 @@ function App() {
     }
   }
 
+  async function retryFindTimerRegistration() {
+    try {
+      const payload = await invoke<ShortcutDiagnostics>("global_find_timer_register");
+      setShortcutDiagnostics((current) => applyNewerShortcutDiagnostics(current, payload));
+      setError(null);
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+      await refreshShortcutDiagnostics();
+    }
+  }
+
   async function runShortcutConflictProbe() {
     try {
       await invoke<void>("global_shortcut_conflict_probe");
@@ -389,6 +400,14 @@ function App() {
         <div className="app-shell__error" role="alert">
           {shortcutDiagnostics.focusToggleChord}: {shortcutDiagnostics.focusToggleLastError.message}
           <button type="button" onClick={() => void retryFocusToggleRegistration()}>
+            Retry shortcut
+          </button>
+        </div>
+      )}
+      {shortcutDiagnostics?.findTimerLastError && (
+        <div className="app-shell__error" role="alert">
+          {shortcutDiagnostics.findTimerChord}: {shortcutDiagnostics.findTimerLastError.message}
+          <button type="button" onClick={() => void retryFindTimerRegistration()}>
             Retry shortcut
           </button>
         </div>

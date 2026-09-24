@@ -9,6 +9,8 @@ pub const SHORTCUT_DIAGNOSTIC_EVENT: &str = "shortcut-diagnostic-changed";
 pub const DEFAULT_SHORTCUT_CHORD: &str = "Ctrl+Shift+B";
 pub const FOCUS_TOGGLE_CHORD: &str = "Ctrl+Shift+T";
 pub const FOCUS_TOGGLE_EVENT: &str = "focus-surface-toggle-requested";
+pub const FIND_TIMER_CHORD: &str = "Ctrl+Shift+P";
+pub const FIND_TIMER_EVENT: &str = "focus-timer-find-requested";
 
 #[derive(Debug, Clone, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -30,6 +32,10 @@ pub struct ShortcutDiagnostics {
     pub focus_toggle_chord: String,
     pub focus_toggle_trigger_count: u64,
     pub focus_toggle_last_error: Option<ShortcutErrorSnapshot>,
+    pub find_timer_registered: bool,
+    pub find_timer_chord: String,
+    pub find_timer_trigger_count: u64,
+    pub find_timer_last_error: Option<ShortcutErrorSnapshot>,
 }
 
 #[derive(Debug, Default)]
@@ -42,6 +48,9 @@ struct ShortcutState {
     focus_toggle_registered: bool,
     focus_toggle_trigger_count: u64,
     focus_toggle_last_error: Option<ShortcutErrorSnapshot>,
+    find_timer_registered: bool,
+    find_timer_trigger_count: u64,
+    find_timer_last_error: Option<ShortcutErrorSnapshot>,
 }
 
 #[derive(Debug, Default)]
@@ -170,6 +179,51 @@ impl ShortcutManager {
         state.revision = next_revision;
         Ok(snapshot_from_state(&state))
     }
+
+    fn set_find_timer_registered(&self, registered: bool) -> CommandResult<ShortcutDiagnostics> {
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        if state.find_timer_registered == registered && state.find_timer_last_error.is_none() {
+            return Ok(snapshot_from_state(&state));
+        }
+        let next_revision = checked_next_revision(&state)?;
+        state.find_timer_registered = registered;
+        state.find_timer_last_error = None;
+        state.revision = next_revision;
+        Ok(snapshot_from_state(&state))
+    }
+
+    fn record_find_timer_error(&self, error: &CommandError) -> CommandResult<ShortcutDiagnostics> {
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        let next_revision = checked_next_revision(&state)?;
+        state.find_timer_last_error = Some(ShortcutErrorSnapshot {
+            code: error.code.to_owned(),
+            message: error.message.clone(),
+        });
+        state.revision = next_revision;
+        Ok(snapshot_from_state(&state))
+    }
+
+    fn record_find_timer_trigger(&self) -> CommandResult<ShortcutDiagnostics> {
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        let next_count = state
+            .find_timer_trigger_count
+            .checked_add(1)
+            .ok_or_else(CommandError::shortcut_trigger_overflow)?;
+        let next_revision = checked_next_revision(&state)?;
+        state.find_timer_trigger_count = next_count;
+        state.find_timer_last_error = None;
+        state.revision = next_revision;
+        Ok(snapshot_from_state(&state))
+    }
 }
 
 fn snapshot_from_state(state: &ShortcutState) -> ShortcutDiagnostics {
@@ -184,6 +238,10 @@ fn snapshot_from_state(state: &ShortcutState) -> ShortcutDiagnostics {
         focus_toggle_chord: FOCUS_TOGGLE_CHORD.to_owned(),
         focus_toggle_trigger_count: state.focus_toggle_trigger_count,
         focus_toggle_last_error: state.focus_toggle_last_error.clone(),
+        find_timer_registered: state.find_timer_registered,
+        find_timer_chord: FIND_TIMER_CHORD.to_owned(),
+        find_timer_trigger_count: state.find_timer_trigger_count,
+        find_timer_last_error: state.find_timer_last_error.clone(),
     }
 }
 
@@ -227,6 +285,18 @@ fn record_and_report_focus_toggle_error(
     error
 }
 
+fn record_and_report_find_timer_error(
+    app_handle: &tauri::AppHandle,
+    manager: &ShortcutManager,
+    error: CommandError,
+) -> CommandError {
+    match manager.record_find_timer_error(&error) {
+        Ok(payload) => report_shortcut_change(app_handle, &payload),
+        Err(state_error) => return state_error,
+    }
+    error
+}
+
 pub fn install(app: &tauri::App) {
     let manager = app.state::<ShortcutManager>();
 
@@ -235,6 +305,16 @@ pub fn install(app: &tauri::App) {
         if let Err(error) = native::install_observer(app) {
             let command_error = CommandError::shortcut_operation("install observer", error);
             let recorded = record_and_report_error(app.handle(), manager.inner(), command_error);
+            let _ = record_and_report_focus_toggle_error(
+                app.handle(),
+                manager.inner(),
+                CommandError::shortcut_observer_unavailable(),
+            );
+            let _ = record_and_report_find_timer_error(
+                app.handle(),
+                manager.inner(),
+                CommandError::shortcut_observer_unavailable(),
+            );
             eprintln!("Global shortcut observer unavailable: {recorded}");
             return;
         }
@@ -252,6 +332,9 @@ pub fn install(app: &tauri::App) {
         }
         if let Err(error) = register_focus_toggle(app.handle(), manager.inner()) {
             eprintln!("Focus toggle shortcut startup registration unavailable: {error}");
+        }
+        if let Err(error) = register_find_timer(app.handle(), manager.inner()) {
+            eprintln!("Find Timer shortcut startup registration unavailable: {error}");
         }
     }
 
@@ -395,6 +478,59 @@ pub fn register_focus_toggle(
     }
 }
 
+pub fn register_find_timer(
+    app_handle: &tauri::AppHandle,
+    manager: &ShortcutManager,
+) -> CommandResult<ShortcutDiagnostics> {
+    let current = manager.snapshot()?;
+    if current.find_timer_registered {
+        return Ok(current);
+    }
+    if !current.observer_installed {
+        let error = CommandError::shortcut_observer_unavailable();
+        return Err(record_and_report_find_timer_error(
+            app_handle, manager, error,
+        ));
+    }
+
+    #[cfg(windows)]
+    {
+        let hwnd = native::focus_surface_hwnd(app_handle).map_err(|error| {
+            record_and_report_find_timer_error(
+                app_handle,
+                manager,
+                CommandError::shortcut_operation("resolve focusSurface HWND", error),
+            )
+        })?;
+        if let Err(error) = native::register_find_timer(hwnd) {
+            let mapped = map_register_error_for_chord(error, FIND_TIMER_CHORD);
+            return Err(record_and_report_find_timer_error(
+                app_handle, manager, mapped,
+            ));
+        }
+
+        let payload = match manager.set_find_timer_registered(true) {
+            Ok(payload) => payload,
+            Err(error) => {
+                if let Err(cleanup_error) = native::unregister_find_timer(hwnd) {
+                    eprintln!("Failed to release Find Timer after state failure: {cleanup_error}");
+                }
+                return Err(error);
+            }
+        };
+        report_shortcut_change(app_handle, &payload);
+        Ok(payload)
+    }
+
+    #[cfg(not(windows))]
+    {
+        let error = CommandError::shortcut_unsupported_platform();
+        Err(record_and_report_find_timer_error(
+            app_handle, manager, error,
+        ))
+    }
+}
+
 pub fn conflict_probe(
     app_handle: &tauri::AppHandle,
     manager: &ShortcutManager,
@@ -463,6 +599,7 @@ mod native {
     const DEFAULT_HOTKEY_ID: i32 = 0x4e41;
     const CONFLICT_PROBE_HOTKEY_ID: i32 = 0x4e42;
     const FOCUS_TOGGLE_HOTKEY_ID: i32 = 0x4e43;
+    const FIND_TIMER_HOTKEY_ID: i32 = 0x4e44;
     const HOTKEY_SUBCLASS_ID: usize = 0x4e_41_52_52_4f_48_4b;
     const WM_HOTKEY: u32 = 0x0312;
     const WM_NC_DESTROY: u32 = 0x0082;
@@ -471,6 +608,7 @@ mod native {
     const MOD_NOREPEAT: u32 = 0x4000;
     const VK_B: u32 = 0x42;
     const VK_T: u32 = 0x54;
+    const VK_P: u32 = 0x50;
 
     pub(super) type RawHwnd = *mut c_void;
     type SubclassProc =
@@ -566,6 +704,14 @@ mod native {
         unregister(hwnd, FOCUS_TOGGLE_HOTKEY_ID)
     }
 
+    pub(super) fn register_find_timer(hwnd: RawHwnd) -> Result<(), io::Error> {
+        register(hwnd, FIND_TIMER_HOTKEY_ID, VK_P)
+    }
+
+    pub(super) fn unregister_find_timer(hwnd: RawHwnd) -> Result<(), io::Error> {
+        unregister(hwnd, FIND_TIMER_HOTKEY_ID)
+    }
+
     pub(super) fn unregister_conflict_probe(hwnd: RawHwnd) -> Result<(), io::Error> {
         unregister(hwnd, CONFLICT_PROBE_HOTKEY_ID)
     }
@@ -607,10 +753,13 @@ mod native {
             schedule_default_shortcut_trigger();
         } else if message == WM_HOTKEY && wparam == FOCUS_TOGGLE_HOTKEY_ID as usize {
             schedule_focus_toggle_trigger();
+        } else if message == WM_HOTKEY && wparam == FIND_TIMER_HOTKEY_ID as usize {
+            schedule_find_timer_trigger();
         } else if message == WM_NC_DESTROY {
             let _ = unsafe { unregister_hot_key(hwnd, DEFAULT_HOTKEY_ID) };
             let _ = unsafe { unregister_hot_key(hwnd, CONFLICT_PROBE_HOTKEY_ID) };
             let _ = unsafe { unregister_hot_key(hwnd, FOCUS_TOGGLE_HOTKEY_ID) };
+            let _ = unsafe { unregister_hot_key(hwnd, FIND_TIMER_HOTKEY_ID) };
             let _ =
                 unsafe { remove_window_subclass(hwnd, Some(shortcut_subclass_proc), subclass_id) };
         }
@@ -692,6 +841,53 @@ mod native {
                 }
             }) {
                 eprintln!("Failed to schedule focus toggle shortcut on the main thread: {error}");
+            }
+        });
+    }
+
+    fn schedule_find_timer_trigger() {
+        let Some(app_handle) = SHORTCUT_APP_HANDLE.get().cloned() else {
+            eprintln!("Find Timer shortcut fired before the Narro app handle was available");
+            return;
+        };
+
+        tauri::async_runtime::spawn(async move {
+            let trigger_handle = app_handle.clone();
+            if let Err(error) = app_handle.run_on_main_thread(move || {
+                if crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer) {
+                    return;
+                }
+
+                let manager = trigger_handle.state::<ShortcutManager>();
+                let result = trigger_handle
+                    .get_webview_window(FOCUS_SURFACE_LABEL)
+                    .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))
+                    .and_then(|window| crate::show_and_focus(&window));
+                if let Err(error) = result {
+                    let recorded =
+                        record_and_report_find_timer_error(&trigger_handle, manager.inner(), error);
+                    eprintln!("Find Timer shortcut could not show the surface: {recorded}");
+                    return;
+                }
+
+                match manager.record_find_timer_trigger() {
+                    Ok(payload) => {
+                        report_shortcut_change(&trigger_handle, &payload);
+                        if let Err(error) =
+                            trigger_handle.emit(FIND_TIMER_EVENT, payload.find_timer_trigger_count)
+                        {
+                            let recorded = record_and_report_find_timer_error(
+                                &trigger_handle,
+                                manager.inner(),
+                                CommandError::shortcut_operation("deliver Find Timer", error),
+                            );
+                            eprintln!("Find Timer shortcut delivery failed: {recorded}");
+                        }
+                    }
+                    Err(error) => eprintln!("Find Timer shortcut state update failed: {error}"),
+                }
+            }) {
+                eprintln!("Failed to schedule Find Timer shortcut on the main thread: {error}");
             }
         });
     }
@@ -798,6 +994,41 @@ mod tests {
             .expect("register after conflict clears");
         assert!(registered.focus_toggle_last_error.is_none());
         assert_eq!(registered.revision, 2);
+    }
+
+    #[test]
+    fn find_timer_registration_and_trigger_are_revisioned() {
+        let manager = ShortcutManager::new();
+        let initial = manager.snapshot().expect("initial shortcut state");
+        assert!(!initial.find_timer_registered);
+        assert_eq!(initial.find_timer_chord, FIND_TIMER_CHORD);
+
+        let registered = manager
+            .set_find_timer_registered(true)
+            .expect("register Find Timer");
+        assert_eq!(registered.revision, 1);
+        assert!(registered.find_timer_registered);
+        let triggered = manager
+            .record_find_timer_trigger()
+            .expect("trigger Find Timer");
+        assert_eq!(triggered.revision, 2);
+        assert_eq!(triggered.find_timer_trigger_count, 1);
+
+        let conflict = CommandError::shortcut_conflict(FIND_TIMER_CHORD);
+        let failed = manager
+            .record_find_timer_error(&conflict)
+            .expect("record conflict");
+        assert_eq!(
+            failed
+                .find_timer_last_error
+                .as_ref()
+                .map(|error| error.code.as_str()),
+            Some("SHORTCUT_CONFLICT")
+        );
+        let recovered = manager
+            .set_find_timer_registered(true)
+            .expect("clear conflict");
+        assert!(recovered.find_timer_last_error.is_none());
     }
 
     #[test]

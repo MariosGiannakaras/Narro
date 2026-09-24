@@ -99,9 +99,13 @@ invariant(
 );
 invariant(css.includes("font-variant-numeric: tabular-nums"), "timer/progress numerals must remain stable");
 
-for (const forbidden of ["animation:", "@keyframes", "transition:"]) {
-  invariant(!css.includes(forbidden), `collapsed state must not introduce unvalidated motion via ${forbidden}`);
-}
+invariant(
+  !css.includes("transition:")
+    && !/animation\s*:\s*[^;]*infinite/.test(css)
+    && (css.match(/@keyframes/g) ?? []).length === 1
+    && css.includes("animation: floating-timer-attention 720ms ease-out 1;"),
+  "collapsed state may only add the finite Find Timer attention pulse",
+);
 
 invariant(fixtureHtml.includes("/src/floatingTimerVisualFixture.tsx"), "Floating Timer fixture entry module is missing");
 invariant(vite.includes('floatingTimerFixture: "floating-timer-fixture.html"'), "Vite Floating Timer fixture input is missing");

@@ -21,6 +21,8 @@ import "./floatingTimerFoundation.css";
 
 export type FloatingTimerFoundationProps = {
   onReturnToPanel: () => void;
+  attentionPulseSequence?: number | null;
+  onAttentionPulseEnd?: (sequence: number) => void;
   onResizePendingChange?: (pending: boolean) => void;
   transitionPending?: boolean;
   transitionError?: string | null;
@@ -42,6 +44,8 @@ function subtaskProgress(task: ListBoardTask | null) {
 
 export function FloatingTimerFoundation({
   onReturnToPanel,
+  attentionPulseSequence = null,
+  onAttentionPulseEnd,
   onResizePendingChange,
   transitionPending = false,
   transitionError = null,
@@ -220,6 +224,14 @@ export function FloatingTimerFoundation({
       data-tauri-drag-region="true"
       aria-label="Floating Timer"
     >
+      {attentionPulseSequence !== null && (
+        <span
+          key={attentionPulseSequence}
+          className="floating-timer-foundation__attention-pulse"
+          aria-hidden="true"
+          onAnimationEnd={() => onAttentionPulseEnd?.(attentionPulseSequence)}
+        />
+      )}
       <div
         className="floating-timer-foundation__content"
         data-tauri-drag-region="true"
