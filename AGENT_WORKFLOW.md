@@ -82,7 +82,7 @@ Before every source/config push that will trigger Windows CI:
 
 Windows CI is the reproducible second gate. Inspect the real failing step/log before changing code or rerunning. Do not retry a deterministic failure without a corrective change.
 
-After an expected-head guarded merge, compare the validated PR-head Git tree with the resulting main tree. If they are identical, the exact-head CI validates that source tree; do not manually dispatch another equivalent CI run. Inspect any automatically triggered main run and use a main artifact only after that run passes. If the trees differ, validate the resulting main before claiming its source is covered. Physical Windows behavior still requires observation.
+After an expected-head guarded merge, compare the validated PR-head Git tree with the resulting main tree. If they are identical, the exact-head CI validates that source tree; do not manually dispatch another equivalent CI run. An automatically triggered duplicate main run may be cancelled after identity is proven when the validated PR artifact is suitable for any pending Windows test. Record that cancellation, and identify the PR artifact precisely. If the trees differ, validate the resulting main before claiming its source is covered. Physical Windows behavior still requires observation.
 
 Documentation-only commits should not consume Windows CI unless they affect build/test semantics.
 
