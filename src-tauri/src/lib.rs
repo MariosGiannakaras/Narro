@@ -192,6 +192,14 @@ fn global_shortcut_register(
 }
 
 #[tauri::command]
+fn global_focus_toggle_register(
+    app_handle: tauri::AppHandle,
+    shortcut_manager: State<'_, ShortcutManager>,
+) -> CommandResult<ShortcutDiagnostics> {
+    shortcuts::register_focus_toggle(&app_handle, shortcut_manager.inner())
+}
+
+#[tauri::command]
 fn global_shortcut_unregister(
     app_handle: tauri::AppHandle,
     shortcut_manager: State<'_, ShortcutManager>,
@@ -986,6 +994,7 @@ pub fn run() {
             autostart_disable,
             global_shortcut_status,
             global_shortcut_register,
+            global_focus_toggle_register,
             global_shortcut_unregister,
             global_shortcut_conflict_probe,
             timer_session_snapshot,

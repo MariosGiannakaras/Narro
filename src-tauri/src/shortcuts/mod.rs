@@ -7,6 +7,8 @@ use tauri::{Emitter, Manager};
 
 pub const SHORTCUT_DIAGNOSTIC_EVENT: &str = "shortcut-diagnostic-changed";
 pub const DEFAULT_SHORTCUT_CHORD: &str = "Ctrl+Shift+B";
+pub const FOCUS_TOGGLE_CHORD: &str = "Ctrl+Shift+T";
+pub const FOCUS_TOGGLE_EVENT: &str = "focus-surface-toggle-requested";
 
 #[derive(Debug, Clone, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -24,6 +26,10 @@ pub struct ShortcutDiagnostics {
     pub trigger_count: u64,
     pub revision: u64,
     pub last_error: Option<ShortcutErrorSnapshot>,
+    pub focus_toggle_registered: bool,
+    pub focus_toggle_chord: String,
+    pub focus_toggle_trigger_count: u64,
+    pub focus_toggle_last_error: Option<ShortcutErrorSnapshot>,
 }
 
 #[derive(Debug, Default)]
@@ -33,6 +39,9 @@ struct ShortcutState {
     trigger_count: u64,
     revision: u64,
     last_error: Option<ShortcutErrorSnapshot>,
+    focus_toggle_registered: bool,
+    focus_toggle_trigger_count: u64,
+    focus_toggle_last_error: Option<ShortcutErrorSnapshot>,
 }
 
 #[derive(Debug, Default)]
@@ -112,6 +121,55 @@ impl ShortcutManager {
         state.revision = next_revision;
         Ok(snapshot_from_state(&state))
     }
+
+    fn set_focus_toggle_registered(&self, registered: bool) -> CommandResult<ShortcutDiagnostics> {
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        if state.focus_toggle_registered == registered && state.focus_toggle_last_error.is_none() {
+            return Ok(snapshot_from_state(&state));
+        }
+
+        let next_revision = checked_next_revision(&state)?;
+        state.focus_toggle_registered = registered;
+        state.focus_toggle_last_error = None;
+        state.revision = next_revision;
+        Ok(snapshot_from_state(&state))
+    }
+
+    fn record_focus_toggle_error(
+        &self,
+        error: &CommandError,
+    ) -> CommandResult<ShortcutDiagnostics> {
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        let next_revision = checked_next_revision(&state)?;
+        state.focus_toggle_last_error = Some(ShortcutErrorSnapshot {
+            code: error.code.to_owned(),
+            message: error.message.clone(),
+        });
+        state.revision = next_revision;
+        Ok(snapshot_from_state(&state))
+    }
+
+    fn record_focus_toggle_trigger(&self) -> CommandResult<ShortcutDiagnostics> {
+        let mut state = self
+            .state
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        let next_trigger_count = state
+            .focus_toggle_trigger_count
+            .checked_add(1)
+            .ok_or_else(CommandError::shortcut_trigger_overflow)?;
+        let next_revision = checked_next_revision(&state)?;
+        state.focus_toggle_trigger_count = next_trigger_count;
+        state.focus_toggle_last_error = None;
+        state.revision = next_revision;
+        Ok(snapshot_from_state(&state))
+    }
 }
 
 fn snapshot_from_state(state: &ShortcutState) -> ShortcutDiagnostics {
@@ -122,6 +180,10 @@ fn snapshot_from_state(state: &ShortcutState) -> ShortcutDiagnostics {
         trigger_count: state.trigger_count,
         revision: state.revision,
         last_error: state.last_error.clone(),
+        focus_toggle_registered: state.focus_toggle_registered,
+        focus_toggle_chord: FOCUS_TOGGLE_CHORD.to_owned(),
+        focus_toggle_trigger_count: state.focus_toggle_trigger_count,
+        focus_toggle_last_error: state.focus_toggle_last_error.clone(),
     }
 }
 
@@ -153,6 +215,18 @@ fn record_and_report_error(
     error
 }
 
+fn record_and_report_focus_toggle_error(
+    app_handle: &tauri::AppHandle,
+    manager: &ShortcutManager,
+    error: CommandError,
+) -> CommandError {
+    match manager.record_focus_toggle_error(&error) {
+        Ok(payload) => report_shortcut_change(app_handle, &payload),
+        Err(state_error) => return state_error,
+    }
+    error
+}
+
 pub fn install(app: &tauri::App) {
     let manager = app.state::<ShortcutManager>();
 
@@ -175,6 +249,9 @@ pub fn install(app: &tauri::App) {
 
         if let Err(error) = register_default(app.handle(), manager.inner()) {
             eprintln!("Global shortcut startup registration unavailable: {error}");
+        }
+        if let Err(error) = register_focus_toggle(app.handle(), manager.inner()) {
+            eprintln!("Focus toggle shortcut startup registration unavailable: {error}");
         }
     }
 
@@ -262,6 +339,62 @@ pub fn unregister_default(
     }
 }
 
+pub fn register_focus_toggle(
+    app_handle: &tauri::AppHandle,
+    manager: &ShortcutManager,
+) -> CommandResult<ShortcutDiagnostics> {
+    let current = manager.snapshot()?;
+    if current.focus_toggle_registered {
+        return Ok(current);
+    }
+    if !current.observer_installed {
+        let error = CommandError::shortcut_observer_unavailable();
+        return Err(record_and_report_focus_toggle_error(
+            app_handle, manager, error,
+        ));
+    }
+
+    #[cfg(windows)]
+    {
+        let hwnd = native::focus_surface_hwnd(app_handle).map_err(|error| {
+            record_and_report_focus_toggle_error(
+                app_handle,
+                manager,
+                CommandError::shortcut_operation("resolve focusSurface HWND", error),
+            )
+        })?;
+
+        if let Err(error) = native::register_focus_toggle(hwnd) {
+            let mapped = map_register_error_for_chord(error, FOCUS_TOGGLE_CHORD);
+            return Err(record_and_report_focus_toggle_error(
+                app_handle, manager, mapped,
+            ));
+        }
+
+        let payload = match manager.set_focus_toggle_registered(true) {
+            Ok(payload) => payload,
+            Err(error) => {
+                if let Err(cleanup_error) = native::unregister_focus_toggle(hwnd) {
+                    eprintln!(
+                        "Failed to release focus toggle after state failure: {cleanup_error}"
+                    );
+                }
+                return Err(error);
+            }
+        };
+        report_shortcut_change(app_handle, &payload);
+        Ok(payload)
+    }
+
+    #[cfg(not(windows))]
+    {
+        let error = CommandError::shortcut_unsupported_platform();
+        Err(record_and_report_focus_toggle_error(
+            app_handle, manager, error,
+        ))
+    }
+}
+
 pub fn conflict_probe(
     app_handle: &tauri::AppHandle,
     manager: &ShortcutManager,
@@ -308,8 +441,12 @@ pub fn conflict_probe(
 }
 
 fn map_register_error(error: std::io::Error) -> CommandError {
+    map_register_error_for_chord(error, DEFAULT_SHORTCUT_CHORD)
+}
+
+fn map_register_error_for_chord(error: std::io::Error, chord: &str) -> CommandError {
     if error.raw_os_error() == Some(1409) {
-        CommandError::shortcut_conflict(DEFAULT_SHORTCUT_CHORD)
+        CommandError::shortcut_conflict(chord)
     } else {
         CommandError::shortcut_operation("register", error)
     }
@@ -325,6 +462,7 @@ mod native {
     const FOCUS_SURFACE_LABEL: &str = "focusSurface";
     const DEFAULT_HOTKEY_ID: i32 = 0x4e41;
     const CONFLICT_PROBE_HOTKEY_ID: i32 = 0x4e42;
+    const FOCUS_TOGGLE_HOTKEY_ID: i32 = 0x4e43;
     const HOTKEY_SUBCLASS_ID: usize = 0x4e_41_52_52_4f_48_4b;
     const WM_HOTKEY: u32 = 0x0312;
     const WM_NC_DESTROY: u32 = 0x0082;
@@ -332,6 +470,7 @@ mod native {
     const MOD_SHIFT: u32 = 0x0004;
     const MOD_NOREPEAT: u32 = 0x4000;
     const VK_B: u32 = 0x42;
+    const VK_T: u32 = 0x54;
 
     pub(super) type RawHwnd = *mut c_void;
     type SubclassProc =
@@ -408,7 +547,7 @@ mod native {
     }
 
     pub(super) fn register_default(hwnd: RawHwnd) -> Result<(), io::Error> {
-        register(hwnd, DEFAULT_HOTKEY_ID)
+        register(hwnd, DEFAULT_HOTKEY_ID, VK_B)
     }
 
     pub(super) fn unregister_default(hwnd: RawHwnd) -> Result<(), io::Error> {
@@ -416,16 +555,30 @@ mod native {
     }
 
     pub(super) fn register_conflict_probe(hwnd: RawHwnd) -> Result<(), io::Error> {
-        register(hwnd, CONFLICT_PROBE_HOTKEY_ID)
+        register(hwnd, CONFLICT_PROBE_HOTKEY_ID, VK_B)
+    }
+
+    pub(super) fn register_focus_toggle(hwnd: RawHwnd) -> Result<(), io::Error> {
+        register(hwnd, FOCUS_TOGGLE_HOTKEY_ID, VK_T)
+    }
+
+    pub(super) fn unregister_focus_toggle(hwnd: RawHwnd) -> Result<(), io::Error> {
+        unregister(hwnd, FOCUS_TOGGLE_HOTKEY_ID)
     }
 
     pub(super) fn unregister_conflict_probe(hwnd: RawHwnd) -> Result<(), io::Error> {
         unregister(hwnd, CONFLICT_PROBE_HOTKEY_ID)
     }
 
-    fn register(hwnd: RawHwnd, id: i32) -> Result<(), io::Error> {
-        let registered =
-            unsafe { register_hot_key(hwnd, id, MOD_CONTROL | MOD_SHIFT | MOD_NOREPEAT, VK_B) };
+    fn register(hwnd: RawHwnd, id: i32, virtual_key: u32) -> Result<(), io::Error> {
+        let registered = unsafe {
+            register_hot_key(
+                hwnd,
+                id,
+                MOD_CONTROL | MOD_SHIFT | MOD_NOREPEAT,
+                virtual_key,
+            )
+        };
         if registered == 0 {
             Err(io::Error::last_os_error())
         } else {
@@ -452,9 +605,12 @@ mod native {
     ) -> isize {
         if message == WM_HOTKEY && wparam == DEFAULT_HOTKEY_ID as usize {
             schedule_default_shortcut_trigger();
+        } else if message == WM_HOTKEY && wparam == FOCUS_TOGGLE_HOTKEY_ID as usize {
+            schedule_focus_toggle_trigger();
         } else if message == WM_NC_DESTROY {
             let _ = unsafe { unregister_hot_key(hwnd, DEFAULT_HOTKEY_ID) };
             let _ = unsafe { unregister_hot_key(hwnd, CONFLICT_PROBE_HOTKEY_ID) };
+            let _ = unsafe { unregister_hot_key(hwnd, FOCUS_TOGGLE_HOTKEY_ID) };
             let _ =
                 unsafe { remove_window_subclass(hwnd, Some(shortcut_subclass_proc), subclass_id) };
         }
@@ -486,6 +642,56 @@ mod native {
                 eprintln!(
                     "Failed to schedule global shortcut handling on the main thread: {error}"
                 );
+            }
+        });
+    }
+
+    fn schedule_focus_toggle_trigger() {
+        let Some(app_handle) = SHORTCUT_APP_HANDLE.get().cloned() else {
+            eprintln!("Focus toggle shortcut fired before the Narro app handle was available");
+            return;
+        };
+
+        tauri::async_runtime::spawn(async move {
+            let trigger_handle = app_handle.clone();
+            if let Err(error) = app_handle.run_on_main_thread(move || {
+                if crate::current_focus_surface_mode().is_none() {
+                    return;
+                }
+
+                let manager = trigger_handle.state::<ShortcutManager>();
+                let result = trigger_handle
+                    .get_webview_window(FOCUS_SURFACE_LABEL)
+                    .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))
+                    .and_then(|window| crate::show_and_focus(&window));
+                if let Err(error) = result {
+                    let recorded = record_and_report_focus_toggle_error(
+                        &trigger_handle,
+                        manager.inner(),
+                        error,
+                    );
+                    eprintln!("Focus toggle shortcut could not show the surface: {recorded}");
+                    return;
+                }
+
+                match manager.record_focus_toggle_trigger() {
+                    Ok(payload) => {
+                        report_shortcut_change(&trigger_handle, &payload);
+                        if let Err(error) = trigger_handle
+                            .emit(FOCUS_TOGGLE_EVENT, payload.focus_toggle_trigger_count)
+                        {
+                            let recorded = record_and_report_focus_toggle_error(
+                                &trigger_handle,
+                                manager.inner(),
+                                CommandError::shortcut_operation("deliver focus toggle", error),
+                            );
+                            eprintln!("Focus toggle shortcut delivery failed: {recorded}");
+                        }
+                    }
+                    Err(error) => eprintln!("Focus toggle shortcut state update failed: {error}"),
+                }
+            }) {
+                eprintln!("Failed to schedule focus toggle shortcut on the main thread: {error}");
             }
         });
     }
@@ -536,6 +742,62 @@ mod tests {
         let error = map_register_error(std::io::Error::from_raw_os_error(1409));
         assert_eq!(error.code, "SHORTCUT_CONFLICT");
         assert!(error.message.contains(DEFAULT_SHORTCUT_CHORD));
+
+        let toggle_error = map_register_error_for_chord(
+            std::io::Error::from_raw_os_error(1409),
+            FOCUS_TOGGLE_CHORD,
+        );
+        assert_eq!(toggle_error.code, "SHORTCUT_CONFLICT");
+        assert!(toggle_error.message.contains(FOCUS_TOGGLE_CHORD));
+    }
+
+    #[test]
+    fn focus_toggle_registration_and_trigger_state_are_revisioned() {
+        let manager = ShortcutManager::new();
+        let initial = manager.snapshot().expect("initial shortcut state");
+        assert!(!initial.focus_toggle_registered);
+        assert_eq!(initial.focus_toggle_chord, FOCUS_TOGGLE_CHORD);
+
+        let registered = manager
+            .set_focus_toggle_registered(true)
+            .expect("register focus toggle");
+        assert!(registered.focus_toggle_registered);
+        assert_eq!(registered.revision, 1);
+        assert_eq!(
+            manager
+                .set_focus_toggle_registered(true)
+                .expect("repeat registration"),
+            registered,
+        );
+
+        let triggered = manager
+            .record_focus_toggle_trigger()
+            .expect("record focus toggle");
+        assert_eq!(triggered.focus_toggle_trigger_count, 1);
+        assert_eq!(triggered.revision, 2);
+    }
+
+    #[test]
+    fn focus_toggle_error_is_visible_and_cleared_after_success() {
+        let manager = ShortcutManager::new();
+        let conflict = CommandError::shortcut_conflict(FOCUS_TOGGLE_CHORD);
+        let failed = manager
+            .record_focus_toggle_error(&conflict)
+            .expect("record conflict");
+        assert_eq!(failed.revision, 1);
+        assert_eq!(
+            failed
+                .focus_toggle_last_error
+                .as_ref()
+                .map(|error| error.code.as_str()),
+            Some("SHORTCUT_CONFLICT"),
+        );
+
+        let registered = manager
+            .set_focus_toggle_registered(true)
+            .expect("register after conflict clears");
+        assert!(registered.focus_toggle_last_error.is_none());
+        assert_eq!(registered.revision, 2);
     }
 
     #[test]

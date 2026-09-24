@@ -150,41 +150,34 @@ function App() {
         }
       });
 
-    if (diagnosticMode) {
-      void listen<ShortcutDiagnostics>("shortcut-diagnostic-changed", (event) => {
+    void listen<ShortcutDiagnostics>("shortcut-diagnostic-changed", (event) => {
+      if (!disposed) {
+        setShortcutDiagnostics((current) =>
+          applyNewerShortcutDiagnostics(current, event.payload),
+        );
+      }
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopShortcutListening = unlisten;
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) setError(formatInvokeError(failure));
+      });
+
+    void invoke<ShortcutDiagnostics>("global_shortcut_status")
+      .then((payload) => {
         if (!disposed) {
           setShortcutDiagnostics((current) =>
-            applyNewerShortcutDiagnostics(current, event.payload),
+            applyNewerShortcutDiagnostics(current, payload),
           );
         }
       })
-        .then((unlisten) => {
-          if (disposed) {
-            unlisten();
-          } else {
-            stopShortcutListening = unlisten;
-          }
-        })
-        .catch((failure: unknown) => {
-          if (!disposed) {
-            setError(formatInvokeError(failure));
-          }
-        });
+      .catch((failure: unknown) => {
+        if (!disposed) setError(formatInvokeError(failure));
+      });
 
-      void invoke<ShortcutDiagnostics>("global_shortcut_status")
-        .then((payload) => {
-          if (!disposed) {
-            setShortcutDiagnostics((current) =>
-              applyNewerShortcutDiagnostics(current, payload),
-            );
-          }
-        })
-        .catch((failure: unknown) => {
-          if (!disposed) {
-            setError(formatInvokeError(failure));
-          }
-        });
-
+    if (diagnosticMode) {
       void refreshAutostartStatus();
       void refreshWindows();
       void refreshMonitors();
@@ -215,6 +208,17 @@ function App() {
       setError(null);
     } catch (failure: unknown) {
       setShortcutProbeStatus(null);
+      setError(formatInvokeError(failure));
+      await refreshShortcutDiagnostics();
+    }
+  }
+
+  async function retryFocusToggleRegistration() {
+    try {
+      const payload = await invoke<ShortcutDiagnostics>("global_focus_toggle_register");
+      setShortcutDiagnostics((current) => applyNewerShortcutDiagnostics(current, payload));
+      setError(null);
+    } catch (failure: unknown) {
       setError(formatInvokeError(failure));
       await refreshShortcutDiagnostics();
     }
@@ -379,6 +383,14 @@ function App() {
       {error && (
         <div className="app-shell__error" role="alert">
           {error}
+        </div>
+      )}
+      {shortcutDiagnostics?.focusToggleLastError && (
+        <div className="app-shell__error" role="alert">
+          {shortcutDiagnostics.focusToggleChord}: {shortcutDiagnostics.focusToggleLastError.message}
+          <button type="button" onClick={() => void retryFocusToggleRegistration()}>
+            Retry shortcut
+          </button>
         </div>
       )}
 

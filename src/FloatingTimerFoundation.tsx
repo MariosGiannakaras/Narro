@@ -21,6 +21,7 @@ import "./floatingTimerFoundation.css";
 
 export type FloatingTimerFoundationProps = {
   onReturnToPanel: () => void;
+  onResizePendingChange?: (pending: boolean) => void;
   transitionPending?: boolean;
   transitionError?: string | null;
   fixtureBoard?: ListBoardSnapshot;
@@ -41,6 +42,7 @@ function subtaskProgress(task: ListBoardTask | null) {
 
 export function FloatingTimerFoundation({
   onReturnToPanel,
+  onResizePendingChange,
   transitionPending = false,
   transitionError = null,
   fixtureBoard,
@@ -57,6 +59,7 @@ export function FloatingTimerFoundation({
   const [resizePending, setResizePending] = useState(false);
   const [resizePhase, setResizePhase] = useState<"idle" | "exiting" | "resizing" | "entering">("idle");
   const resizeTransitionResolverRef = useRef<(() => void) | null>(null);
+  const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -67,6 +70,8 @@ export function FloatingTimerFoundation({
     resizeTransitionResolverRef.current = null;
     setResizeError(null);
   }, [fixtureExpanded, fixtureMode]);
+
+  useEffect(() => () => onResizePendingChange?.(false), [onResizePendingChange]);
 
   useEffect(() => {
     if (fixtureMode) {
@@ -158,7 +163,7 @@ export function FloatingTimerFoundation({
   };
 
   const requestExpanded = async (nextExpanded: boolean) => {
-    if (transitionPending || resizePending) return false;
+    if (transitionPending || resizeRequestInFlightRef.current) return false;
     if (nextExpanded === expanded) return true;
     if (fixtureMode) {
       setExpanded(nextExpanded);
@@ -166,6 +171,8 @@ export function FloatingTimerFoundation({
       return true;
     }
 
+    resizeRequestInFlightRef.current = true;
+    onResizePendingChange?.(true);
     setResizePending(true);
     setResizeError(null);
     try {
@@ -184,6 +191,8 @@ export function FloatingTimerFoundation({
       setResizeError(formatInvokeError(failure));
       return false;
     } finally {
+      resizeRequestInFlightRef.current = false;
+      onResizePendingChange?.(false);
       resizeTransitionResolverRef.current = null;
       setResizePhase("idle");
       setResizePending(false);
@@ -299,7 +308,7 @@ export function FloatingTimerFoundation({
                 className="floating-timer-foundation__subtask-control motion-interactive"
                 data-floating-fallback-action="return-to-panel"
                 aria-label="Return to Focus Panel"
-                disabled={transitionPending}
+                disabled={transitionPending || resizePending}
                 onClick={onReturnToPanel}
               >↗</button>
             </Tooltip>
