@@ -108,7 +108,7 @@ PR #125 — `M7: hide Floating Timer during native expand resize`.
 
 Exact current head:
 
-`62e40ca34c86fe5fc19da447448aa1d540e80754`
+`a652116dacda255bcb22a551ee6750504c72bc6a`
 
 Changed production scope is deliberately narrow:
 
@@ -119,13 +119,14 @@ Changed production scope is deliberately narrow:
 
 Connector-side source-contract review: PASS.
 
-Windows CI #481:
+CI history for PR #125:
 
-- run `35936338414`;
-- exact head `62e40ca34c86fe5fc19da447448aa1d540e80754`;
-- state at this handoff commit: **IN PROGRESS**.
+- CI #481 / run `35936338414` on prior head `62e40ca34c86fe5fc19da447448aa1d540e80754`: **FAIL** only at `cargo fmt --check`.
+- The CI-provided rustfmt diff was applied with no behavioral change.
+- Current exact head: `a652116dacda255bcb22a551ee6750504c72bc6a`.
+- CI #482 / run `35936606645`: **IN PROGRESS**.
 
-Do not call PR #125 automated-validated until exact-head CI succeeds, semantic review confirms the exact head unchanged, it is merged with an expected-head guard, and resulting-main Windows CI succeeds.
+Do not call PR #125 automated-validated until CI #482 succeeds, semantic review confirms the exact head unchanged, it is merged with expected-head guard `a652116dacda255bcb22a551ee6750504c72bc6a`, and resulting-main Windows CI succeeds.
 
 ## USER AVAILABILITY / ROADMAP AUTHORIZATION
 
@@ -142,9 +143,9 @@ This authorizes **parallel progress on independent later Milestone 7 items while
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #125 exact head and CI #481 first.
-2. If CI #481 fails, inspect the exact failing log and fix only evidence-backed problems on the same PR/branch.
-3. If CI #481 passes, review the exact head, require the expected three changed files and no unresolved review feedback, merge with expected-head guard `62e40ca34c86fe5fc19da447448aa1d540e80754`, then validate the resulting main source SHA with Windows CI and record artifact evidence.
+1. Inspect PR #125 exact head `a652116dacda255bcb22a551ee6750504c72bc6a` and CI #482 first.
+2. If CI #482 fails, inspect the exact failing log and fix only evidence-backed problems on the same PR/branch.
+3. If CI #482 passes, review the exact head, require the expected three changed files and no unresolved review feedback, merge with expected-head guard `a652116dacda255bcb22a551ee6750504c72bc6a`, then validate the resulting main source SHA with Windows CI and record artifact evidence.
 4. Update `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable `work-log/*.md` after the automated validation sequence.
 5. Attempt the final item-7 physical validation autonomously only if a reliable native-Windows visual/input path is actually available; never infer PASS from CI.
 6. If physical validation remains unavailable, keep item 7 open and use the user's explicit authorization above to begin the next independent M7 top-level item in roadmap order. Do not claim item 7 complete. Keep later work isolated in coherent PRs and stop at any dependency on the unresolved transition behavior.
