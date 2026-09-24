@@ -282,10 +282,17 @@ Acceptance criteria:
   - [x] Ctrl+Shift+P and finite attention pulse passed PR #127 exact-head CI #490, guarded merge `53c0376`, and resulting-main CI #491.
   - [ ] Physical Windows hotkey/conflict/pulse/session-continuity check remains open.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
-  - [ ] Native SQLite placement/relative recovery candidate is in PR #128 at `65b16c4`; local preflight/rustfmt PASS, Windows CI #492 and physical drag/restart/monitor checks pending.
+  - [x] Native SQLite placement/relative recovery passed PR #128 exact-head CI #492, expected-head guarded merge `778a1bc`, and resulting-main CI #493.
+  - [ ] Physical drag, Panel return/reopen, restart, and monitor-change recovery checks remain open.
 - [ ] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
+  - [x] Document the Windows DirectFlip/Independent Flip composition caveat and separate exclusive-fullscreen observation in `docs/M7_FLOATING_RUNTIME_VALIDATION.md`.
+  - [ ] Physical maximized, borderless, and optional exclusive-fullscreen stacking checks remain open.
 - [ ] Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.
+  - [x] Native hidden-resize work-area anchoring passed PR #130 exact-head CI #494, expected-head guarded merge `50cef42`, and resulting-main CI #495.
+  - [ ] Physical bottom/taskbar, secondary-monitor, and DPI checks remain open.
 - [ ] Verify no decorative animation runs continuously while idle.
+  - [x] Static Floating Timer motion audit: finite attention pulse and transitions only; live timer sampling is conditional on active states. The only `infinite` title scroll belongs to the Focus Panel. See `work-log/2026-09-24-codex-m7-idle-motion-audit.md`.
+  - [ ] Physical idle observation on the final M7 build remains open.
 - [ ] Re-run Milestone 1 floating-only CPU/memory measurements after final UI is present.
 
 Acceptance criteria:

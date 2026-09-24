@@ -23,13 +23,17 @@ M7 items 1–6 are validated. Item 7 remains open at its physical Windows gate. 
 
 PR #125 corrected the native/WebView presentation sequence. Exact head `fb3547855433b87d576e1e78a5bbe58d5fc2570b` passed Windows CI #486; expected-head guarded squash merge `a7161acdf6a400147af0bbc44d52b1ec6ee64ea5` and resulting-main CI #487 both passed. The new physical item-7 re-test is NOT RUN; no automated run can close that gate.
 
-The user explicitly authorized independent later M7 work while physical testing is unavailable. Item 8 Ctrl+Shift+T passed PR #126 CI #488, guarded merge `77e535f73593be59f4a82b9052cba9ade5c36611`, and resulting-main CI #489. Item 9 Ctrl+Shift+P passed PR #127 CI #490, guarded merge `53c03767d5303067c14da9740f4a450c59e6afc4`, and resulting-main CI #491. Both top-level TODO items remain unchecked pending physical behavior checks. Item 10 native safe-position persistence is in PR #128 at exact head `65b16c40473a36a217db6789f8b7c791c92e88fd`, with Windows CI #492 in progress.
+The user explicitly authorized independent later M7 work while physical testing is unavailable. Item 8 Ctrl+Shift+T passed PR #126 CI #488, guarded merge `77e535f73593be59f4a82b9052cba9ade5c36611`, and resulting-main CI #489. Item 9 Ctrl+Shift+P passed PR #127 CI #490, guarded merge `53c03767d5303067c14da9740f4a450c59e6afc4`, and resulting-main CI #491. Item 10 safe-position persistence passed PR #128 CI #492, guarded merge `778a1bc4e1276128d6ae859e1a15b6f9c413e89b`, and resulting-main CI #493. Item 12 native bottom/taskbar anchoring passed PR #130 CI #494, guarded merge `50cef428785ff522ab614eae3f4299241b69fb9f`, and resulting-main CI #495. Their top-level TODO items remain unchecked pending physical behavior checks. Item 11 has a documented full-screen composition caveat; item 13 has a static motion audit. Physical idle observation and final-UI resource measurements remain open.
 
 ## Current automated-validated source baseline
 
 PR #126 exact head `e3dd947dc82a98fd0df68866467753849f35c5bf`: Windows CI #488 / run `35940850134` PASS. Guarded squash merge `77e535f73593be59f4a82b9052cba9ade5c36611` passed resulting-main CI #489 / run `35942198710`. Runtime artifact `10785728177`, digest `sha256:91081c9d7a1ed23597c00fd7c3951d130fde1a3c2d67b18aa58310f9badb9ae8`.
 
 PR #127 exact head `a12946b1320e43800b54181a0dfbc9f95df31b92`: Windows CI #490 / run `35942309332` PASS. Guarded squash merge `53c03767d5303067c14da9740f4a450c59e6afc4` passed resulting-main CI #491 / run `35970230227` / job `107537965229`. Main runtime artifact `10796720324`, digest `sha256:bf5fe346447dfea09ac4bd9c16aa09ad4daa914549290b95747d1f1c341748c5`. Visual artifact `10796097074`, digest `sha256:c086aed06b7a3f081e1ebdbfb1c5095a21acaa78b232d31c5669b1bc5cf6de27`.
+
+PR #128 exact head `65b16c40473a36a217db6789f8b7c791c92e88fd`: Windows CI #492 / run `35971573057` / job `107542270058` PASS. Guarded squash merge `778a1bc4e1276128d6ae859e1a15b6f9c413e89b` passed resulting-main CI #493 / run `35973135926` / job `107547263277`. Main runtime artifact `10797865741`, digest `sha256:886b22f887fbc8a629dfbae3d823d637c7bad07e3b11e7bdcbd5e1e683b098a2`; visual artifact `10797401278`, digest `sha256:7b3496ce53b9525f18a2d10cdea0949253c7c8f53c894b5633ce401907251d26`.
+
+PR #130 exact head `da0671f3af29cff200f23ab4c27f934beb135680`: Windows CI #494 / run `35973232038` / job `107547567628` PASS. Guarded squash merge `50cef428785ff522ab614eae3f4299241b69fb9f` passed resulting-main CI #495 / run `35974887744` / job `107552924508`. Main runtime artifact `10798282284`, digest `sha256:da84e0ec12865bb088835c6279b04229db6848673de332d20a45ea90d97f3aa3`; visual artifact `10798415363`, digest `sha256:e36dd83a1219f45abcd8a07c377c5ce8052502e961c0377fc0ea673088110f0e`.
 
 ## Item 7 physical candidate
 
@@ -212,7 +216,7 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 Resulting-main CI #487 passed on source `a7161ac`. Physical re-test candidate: runtime artifact `10785466061`, digest `sha256:f84bee3216cfe5d1762916cd54cd0d7703db283bdd7d1930b9b540a100764413`. Physical checks remain open: Panel -> Timer, Timer -> Panel, right-side Panel return, collapsed -> expanded -> collapsed, normal product-size horizontal overflow, timer/session continuity, and perceived smoothness. Expand/Collapse passes only if no stale/duplicated action-strip content survives either resize direction.
 
-Verify item-10 PR #128 exact-head CI #492, correct any exact failure, then merge on full required PASS with expected-head guard and verify resulting-main CI. Physical checks for Ctrl+Shift+T, Ctrl+Shift+P, and safe Timer position remain open. Continue later M7 items in TODO order, preserving each physical limitation and without advancing to Milestone 8.
+The independent M7 source slices are automated-validated through resulting-main CI #495 on source `50cef428`. No further unblocked M7 source implementation is identified without physical Windows observations. One consolidated physical session remains for item 7 transitions/compositor, item 8/9 shortcuts/pulse, item 10 restart/monitor placement, item 11 topmost/borderless behavior, item 12 taskbar-edge expansion, item 13 idle motion, and item 14 final-UI CPU/memory. Use `docs/M7_FLOATING_RUNTIME_VALIDATION.md`; keep all applicable top-level TODO items open until that evidence is recorded. Do not advance to Milestone 8.
 
 ## Durable correctness decisions
 
