@@ -131,10 +131,11 @@ invariant(
     && transition.includes('data-focus-surface-exiting={exiting ? "true" : "false"}')
     && transition.includes('data-focus-surface-exit-settled={exitSettled ? "true" : "false"}')
     && transition.includes("setExitSettled(true)")
-    && transition.includes("onTransitionEnd")
-    && transition.includes("onExitComplete?.()")
-    && !transition.includes("onTransitionCancel"),
-  "content transition must provide cancellable entrance plus transition-end exit completion",
+    && transition.includes("waitForOpacityTransition(root, 0)")
+    && transition.includes("completionRef.current?.()")
+    && transition.includes("failureRef.current?.(failure)")
+    && focus.includes("onExitFailure={failPendingModeTransition}"),
+  "content transition must wait for actual opacity completion and recover when the boundary is not reached",
 );
 for (const forbidden of ["setInterval(", "setTimeout(", "@tauri-apps/api/window", "setPosition("]) {
   invariant(!transition.includes(forbidden), `transition wrapper must not introduce ${forbidden}`);

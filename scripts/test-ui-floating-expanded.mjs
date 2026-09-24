@@ -68,7 +68,8 @@ invariant(
   "native Floating Timer resize must snapshot geometry, hide before resizing, show only after success, and restore both size and visibility after resize or show failure",
 );
 
-const exitWait = foundation.indexOf('await waitForResizeTransition("exiting");');
+const exitStart = foundation.indexOf('setResizePhase("exiting");');
+const exitWait = foundation.indexOf('await waitForOpacityTransition(content, 0);', exitStart);
 const resizingPhase = foundation.indexOf('setResizePhase("resizing");', exitWait);
 const publishExpanded = foundation.indexOf("setExpanded(nextExpanded);", resizingPhase);
 const hiddenPaint = foundation.indexOf("await waitForPresentedFrame();", publishExpanded);
@@ -76,10 +77,13 @@ const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpand
 const postResizePaint = foundation.indexOf("await waitForPresentedFrame();", resizeCall);
 const enteringPhase = foundation.indexOf('setResizePhase("entering");', postResizePaint);
 const transparentPaint = foundation.indexOf("await waitForPresentedFrame();", enteringPhase);
-const entranceWait = foundation.indexOf('await waitForResizeTransition("idle");', transparentPaint);
+const entranceStart = foundation.indexOf('setResizePhase("idle");', transparentPaint);
+const entranceWait = foundation.indexOf('await waitForOpacityTransition(content, 1);', entranceStart);
 invariant(
   foundation.includes('data-floating-resize-pending={resizePending ? "true" : "false"}')
     && foundation.includes("data-floating-resize-phase={resizePhase}")
+    && exitStart >= 0
+    && exitStart < exitWait
     && exitWait >= 0
     && exitWait < resizingPhase
     && resizingPhase < publishExpanded
@@ -88,6 +92,7 @@ invariant(
     && resizeCall < postResizePaint
     && postResizePaint < enteringPhase
     && enteringPhase < transparentPaint
+    && transparentPaint < entranceStart
     && transparentPaint < entranceWait,
   "expanded hierarchy must stay visibility-hidden through native hide/resize/show and a post-show paint opportunity before the transparent entrance",
 );
@@ -97,13 +102,13 @@ invariant(
   "native resize must not expose a merely transparent child hierarchy while its backing surface is changing",
 );
 invariant(
-  foundation.indexOf("setExpanded(expanded);", resizeCall) > resizeCall,
-  "failed native resize must roll the renderer hierarchy back to the previously committed expanded state",
+  foundation.includes("if (!nativeResizeCommitted) setExpanded(expanded)")
+    && foundation.includes("return nativeResizeCommitted;"),
+  "failed native resize must restore the old hierarchy, while a post-commit animation failure keeps the committed hierarchy",
 );
 invariant(
-  foundation.includes("onTransitionEnd")
-    && !foundation.includes("onTransitionCancel")
-    && foundation.includes("finishResizeTransition()")
+  foundation.includes("waitForOpacityTransition(content, 0)")
+    && foundation.includes("waitForOpacityTransition(content, 1)")
     && css.includes('[data-floating-resize-phase="exiting"]')
     && css.includes('[data-floating-resize-phase="resizing"]')
     && css.includes('[data-floating-resize-phase="entering"]')
