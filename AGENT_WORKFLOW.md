@@ -53,31 +53,7 @@ The user should never have to relay one agent's explanation to another.
 
 ## User progress reporting
 
-For every implementation task, keep the user informed with one compact progress line in this exact shape:
-
-`M-{active milestone}/{total roadmap milestones} | {completed current-slice checkpoints}/{total current-slice checkpoints} | {completed active-milestone items}/{total active-milestone items}`
-
-The three fields are presentation-only views over existing repository state:
-
-- `M-{active milestone}/{total roadmap milestones}` identifies the currently active ordered milestone and the total number of milestones in the authoritative roadmap in `TODO.md`. It does **not** mean completed milestones over total milestones.
-- `{completed current-slice checkpoints}/{total current-slice checkpoints}` is the existing small-slice progress counter and keeps exactly the same checkpoint definitions, reset rules, validation requirements and denominator discipline already recorded in `HANDOFF.md` and this workflow.
-- `{completed active-milestone items}/{total active-milestone items}` is derived directly from the active milestone's **top-level checkbox items** in `TODO.md`: numerator = top-level `[x]` items; denominator = all top-level checkbox items in that milestone. Do not count acceptance criteria, explanatory bullets, prose, or nested validation/checkpoint bullets as separate milestone implementation items unless the repository contract explicitly promotes them to top-level implementation items.
-
-Always derive all three fields from current authoritative repository state. Never hardcode example values or carry a stale value forward from conversation memory.
-
-This display-format change does not change what counts as progress. Existing completion semantics remain authoritative:
-
-- Increment the current-slice numerator only when that checkpoint is actually completed and validated to the level required by repository rules.
-- A failed CI run is evidence and does **not** increment the current-slice counter unless resolving that failure was itself an explicitly defined checkpoint that is now finished.
-- The current-slice counter may reset only when moving to a genuinely new implementation slice; make that reset explicit and record the new slice/progress basis in `HANDOFF.md`.
-- Do not change the current-slice denominator unless the actual slice plan materially changes under the existing rules; if it changes, state why rather than silently changing it.
-- The active-milestone item field is descriptive only. It never replaces slice tracking, never changes checkpoint completion, and never changes milestone completion or gate semantics.
-- A top-level milestone item counts as completed in the third field only when its checkbox is already `[x]` under the repository's existing evidence/validation rules.
-- Do not present an implementation item, checkpoint, or milestone as complete until the validation already required by the repository has passed.
-- If the ordered roadmap is explicitly revised, derive the first-field denominator from the revised authoritative `TODO.md`; do not silently invent a new roadmap denominator.
-- Keep detailed technical evidence in repository work logs; the compact line is only the user-facing summary.
-
-Use the compact line in substantive implementation progress updates and in final implementation status. Do not add parallel legacy `Γενική υλοποίηση` / `Μικρή τρέχουσα υλοποίηση` counters unless the user explicitly asks for them.
+Use the compact progress format, counter semantics, and reporting cadence in `AI_START_HERE.md`. Derive all counters from current `TODO.md` and `HANDOFF.md`; physical gates do not close from compilation or static contracts. Keep detailed evidence in immutable work logs instead of repeating it in progress messages.
 
 ## Evidence and TODO discipline
 
@@ -105,6 +81,8 @@ Before every source/config push that will trigger Windows CI:
 7. never use CI as a blind syntax/formatting probe when the equivalent local tool is available.
 
 Windows CI is the reproducible second gate. Inspect the real failing step/log before changing code or rerunning. Do not retry a deterministic failure without a corrective change.
+
+After an expected-head guarded merge, compare the validated PR-head Git tree with the resulting main tree. If they are identical, the exact-head CI validates that source tree; do not manually dispatch another equivalent CI run. Inspect any automatically triggered main run and use a main artifact only after that run passes. If the trees differ, validate the resulting main before claiming its source is covered. Physical Windows behavior still requires observation.
 
 Documentation-only commits should not consume Windows CI unless they affect build/test semantics.
 

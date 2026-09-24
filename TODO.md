@@ -283,6 +283,7 @@ Acceptance criteria:
   - [ ] Physical Windows hotkey/conflict/pulse/session-continuity check remains open.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
   - [x] Native SQLite placement/relative recovery passed PR #128 exact-head CI #492, expected-head guarded merge `778a1bc`, and resulting-main CI #493.
+  - [x] Visible Timer topology recovery now fits and repositions the measured outer window, including when no saved placement exists; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
   - [ ] Physical drag, Panel return/reopen, restart, and monitor-change recovery checks remain open.
 - [ ] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
   - [x] Document the Windows DirectFlip/Independent Flip composition caveat and separate exclusive-fullscreen observation in `docs/M7_FLOATING_RUNTIME_VALIDATION.md`.
@@ -290,6 +291,7 @@ Acceptance criteria:
 - [ ] Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.
   - [x] Native hidden-resize work-area anchoring passed PR #130 exact-head CI #494, expected-head guarded merge `50cef42`, and resulting-main CI #495.
   - [x] Constrained work-area recovery fits native outer size before placement and keeps expanded controls scrollable at narrow/short DPI-scaled sizes; PR #132 exact-head CI #497, guarded merge `59bdc2d`, and resulting-main CI #498 PASS.
+  - [x] Restore and live display-change paths reuse measured native fit/placement, with rollback on failure; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
   - [ ] Physical bottom/taskbar, secondary-monitor, and DPI checks remain open.
 - [ ] Verify no decorative animation runs continuously while idle.
   - [x] Static Floating Timer motion audit: finite attention pulse and transitions only; live timer sampling is conditional on active states. The only `infinite` title scroll belongs to the Focus Panel. See `work-log/2026-09-24-codex-m7-idle-motion-audit.md`.
