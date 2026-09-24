@@ -42,14 +42,25 @@ PR #127 adds Ctrl+Shift+P registration, typed failure/retry, Timer-only show/foc
 
 ## ITEM 10 — SAFE LAST TIMER POSITION
 
-PR #128 exact head `65b16c40473a36a217db6789f8b7c791c92e88fd` adds a SQLite placement record, settled-move persistence, safe relative restore before Timer show, and event-driven display recovery. Windows CI #492 / run `35971573057` is in progress at this edit. Local frontend preflight, `cargo fmt --check`, and diff check passed. Local `cargo check` could not compile because MSVC `link.exe` is missing from the desktop shell. Physical drag/restart/monitor-hotplug checks are NOT RUN, and the top-level TODO item remains open.
+PR #128 exact head `65b16c40473a36a217db6789f8b7c791c92e88fd` adds a SQLite placement record, settled-move persistence, safe relative restore before Timer show, and event-driven display recovery. Windows PR CI #492 / run `35971573057` / job `107542270058` PASS. Expected-head guarded squash merge `778a1bc4e1276128d6ae859e1a15b6f9c413e89b` passed resulting-main CI #493 / run `35973135926` / job `107547263277`, including Repository Preflight, visual fixtures, Tauri Release, and diagnostic artifact. Main runtime artifact `10797865741`, digest `sha256:886b22f887fbc8a629dfbae3d823d637c7bad07e3b11e7bdcbd5e1e683b098a2`; visual artifact `10797401278`, digest `sha256:7b3496ce53b9525f18a2d10cdea0949253c7c8f53c894b5633ce401907251d26`. Local frontend preflight, `cargo fmt --check`, and diff check passed. Local `cargo check` could not compile because MSVC `link.exe` is missing from the desktop shell. Physical drag/restart/monitor-hotplug checks are NOT RUN, and the top-level TODO item remains open.
+
+## ITEM 11–14 — LATER M7 GATES
+
+Item 11 topmost against maximized/borderless apps is a physical Windows gate. Microsoft [DXGI flip model guidance](https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/for-best-performance--use-dxgi-flip-model) explains that DirectFlip/Independent Flip may bypass desktop composition; record exclusive-fullscreen observations separately and do not promise universal overlay behavior.
+
+Item 12 native hidden-resize work-area anchoring passed PR #130 at exact head `da0671f3af29cff200f23ab4c27f934beb135680`, based on item-10 main `778a1bc`. Local `cargo fmt --check` and diff check passed. Windows PR CI #494 / run `35973232038` / job `107547567628`: PASS, including Repository Preflight, visual fixtures, Tauri Release, and diagnostic artifact. Expected-head guarded squash merge `50cef428785ff522ab614eae3f4299241b69fb9f` passed resulting-main CI #495 / run `35974887744` / job `107552924508` with the same required stages. Exact final source runtime artifact `10798282284`, digest `sha256:da84e0ec12865bb088835c6279b04229db6848673de332d20a45ea90d97f3aa3`; visual artifact `10798415363`, digest `sha256:e36dd83a1219f45abcd8a07c377c5ce8052502e961c0377fc0ea673088110f0e`. The native code clamps the actual resized outer rectangle within the previous monitor work area before show and rolls back size and position on failure. Physical bottom/taskbar check remains open.
+
+Item 13 static audit found no continuous decorative Floating Timer animation at idle; only the one-shot Find Timer pulse and finite user-triggered transitions are present. The only infinite CSS title scroll is on the Focus Panel. Physical idle observation remains open. Item 14 final-UI CPU/memory measurements remain open. The consolidated physical matrix is `docs/M7_FLOATING_RUNTIME_VALIDATION.md`.
 
 ## NEXT AGENT ACTION
 
-1. Validate item-10 PR #128 exact head `65b16c40473a36a217db6789f8b7c791c92e88fd` with Windows CI #492 / run `35971573057`; inspect and correct exact failures, then review and merge only after full required PASS and verify resulting-main CI.
-2. Keep item-7 compositor and item-8/9 shortcut/pulse physical gates open; preserve exact CI #487/#489/#491 runtime artifacts for isolated re-test.
-3. Continue M7 item 11 topmost physical validation when Windows observation is available, and item 12 bottom/taskbar anchoring as an independent implementation slice. Do not advance to Milestone 8.
-4. Update `TODO.md`, `STATUS.md`, this handoff, and immutable `work-log/*.md` with each verified result. Do not claim manual PASS from automated fixtures.
+1. The next independent M7 action needs physical Windows evidence. Use the exact resulting-main CI #495 source `50cef428785ff522ab614eae3f4299241b69fb9f` and runtime artifact `10798282284` with `docs/M7_FLOATING_RUNTIME_VALIDATION.md` for one consolidated session covering items 7–14. Verify the installed/running executable belongs to this artifact before attributing observations to it.
+2. Record each physical PASS/FAIL/NOT RUN, captures, monitor and app conditions, and final-UI resource measurements in a new immutable work log. If a gate fails, inspect that exact failure and fix the coherent affected behavior before another source CI cycle.
+3. Update `TODO.md`, `STATUS.md`, and this handoff only from observed evidence. Do not advance to Milestone 8 while M7 acceptance criteria remain open.
+
+## USER ACTION REQUIRED
+
+Physical Windows interaction/observation is required to close the remaining M7 gates. The user has said testing is unavailable for several hours, so do not request repeated one-off tests. `docs/M7_FLOATING_RUNTIME_VALIDATION.md` consolidates the eventual session. Source/CI validation cannot prove compositor pixels, global shortcut conflict behavior, taskbar/monitor placement, topmost stacking, or real idle CPU/memory.
 
 ## INVARIANTS
 
