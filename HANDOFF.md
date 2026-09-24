@@ -37,15 +37,19 @@ PR #126 implements global Ctrl+Shift+T on the existing Windows hotkey observer, 
 PR #127 adds Ctrl+Shift+P registration, typed failure/retry, Timer-only show/focus, and one finite 720 ms border pulse with a reduced-motion path. Its branch was rebased onto item-8 main before PR creation. Local frontend preflight, TypeScript build, `cargo fmt --check`, and diff check passed. Local Rust compilation could not start offline because `chrono` was absent from cache.
 
 - PR #127 exact head `a12946b1320e43800b54181a0dfbc9f95df31b92`; Windows CI #490 / run `35942309332`: PASS, including Repository Preflight, visual fixtures, Tauri Release, and diagnostic artifact.
-- Expected-head guarded squash merge `53c03767d5303067c14da9740f4a450c59e6afc4`; resulting-main CI #491 / run `35970230227`: in progress at this edit.
+- Expected-head guarded squash merge `53c03767d5303067c14da9740f4a450c59e6afc4`; resulting-main CI #491 / run `35970230227` / job `107537965229`: PASS. Runtime artifact `10796720324`, digest `sha256:bf5fe346447dfea09ac4bd9c16aa09ad4daa914549290b95747d1f1c341748c5`.
 - Physical hotkey/conflict/pulse/session-continuity checks: NOT RUN. Keep the top-level TODO item open.
+
+## ITEM 10 — SAFE LAST TIMER POSITION
+
+PR #128 exact head `65b16c40473a36a217db6789f8b7c791c92e88fd` adds a SQLite placement record, settled-move persistence, safe relative restore before Timer show, and event-driven display recovery. Windows CI #492 / run `35971573057` is in progress at this edit. Local frontend preflight, `cargo fmt --check`, and diff check passed. Local `cargo check` could not compile because MSVC `link.exe` is missing from the desktop shell. Physical drag/restart/monitor-hotplug checks are NOT RUN, and the top-level TODO item remains open.
 
 ## NEXT AGENT ACTION
 
-1. Verify resulting-main CI #491 on `53c0376` and record its exact runtime artifact ID/digest. Diagnose any exact failure.
-2. Continue independent item 10 (safe last Timer position and recovery after monitor changes/restart) in its own branch. Preserve native/Rust geometry authority and event-driven topology handling.
-3. Update `TODO.md`, `STATUS.md`, this handoff, and new immutable `work-log/*.md` entries with completed #126/#127 evidence. Keep the item-7 physical gate and shortcut/pulse physical checks open.
-4. Continue M7 in TODO order without claiming manual PASS from automated fixtures. Do not advance to Milestone 8.
+1. Validate item-10 PR #128 exact head `65b16c40473a36a217db6789f8b7c791c92e88fd` with Windows CI #492 / run `35971573057`; inspect and correct exact failures, then review and merge only after full required PASS and verify resulting-main CI.
+2. Keep item-7 compositor and item-8/9 shortcut/pulse physical gates open; preserve exact CI #487/#489/#491 runtime artifacts for isolated re-test.
+3. Continue M7 item 11 topmost physical validation when Windows observation is available, and item 12 bottom/taskbar anchoring as an independent implementation slice. Do not advance to Milestone 8.
+4. Update `TODO.md`, `STATUS.md`, this handoff, and immutable `work-log/*.md` with each verified result. Do not claim manual PASS from automated fixtures.
 
 ## INVARIANTS
 

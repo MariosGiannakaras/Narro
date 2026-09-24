@@ -279,9 +279,10 @@ Acceptance criteria:
   - [x] Ctrl+Shift+T implementation passed PR #126 exact-head CI #488, guarded merge `77e535f`, and resulting-main CI #489.
   - [ ] Physical Windows shortcut/conflict/session-continuity check remains open.
 - [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
-  - [x] Ctrl+Shift+P and finite attention pulse passed PR #127 exact-head CI #490 and guarded merge `53c0376`. Resulting-main CI #491 is pending at this edit.
+  - [x] Ctrl+Shift+P and finite attention pulse passed PR #127 exact-head CI #490, guarded merge `53c0376`, and resulting-main CI #491.
   - [ ] Physical Windows hotkey/conflict/pulse/session-continuity check remains open.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
+  - [ ] Native SQLite placement/relative recovery candidate is in PR #128 at `65b16c4`; local preflight/rustfmt PASS, Windows CI #492 and physical drag/restart/monitor checks pending.
 - [ ] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
 - [ ] Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.
 - [ ] Verify no decorative animation runs continuously while idle.

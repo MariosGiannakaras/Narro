@@ -23,13 +23,13 @@ M7 items 1–6 are validated. Item 7 remains open at its physical Windows gate. 
 
 PR #125 corrected the native/WebView presentation sequence. Exact head `fb3547855433b87d576e1e78a5bbe58d5fc2570b` passed Windows CI #486; expected-head guarded squash merge `a7161acdf6a400147af0bbc44d52b1ec6ee64ea5` and resulting-main CI #487 both passed. The new physical item-7 re-test is NOT RUN; no automated run can close that gate.
 
-The user explicitly authorized independent later M7 work while physical testing is unavailable. Item 8 Ctrl+Shift+T passed PR #126 CI #488, guarded merge `77e535f73593be59f4a82b9052cba9ade5c36611`, and resulting-main CI #489. Item 9 Ctrl+Shift+P passed PR #127 CI #490 and guarded merge `53c03767d5303067c14da9740f4a450c59e6afc4`; resulting-main CI #491 is in progress. Both top-level TODO items remain unchecked pending physical behavior checks. Item 10 safe position persistence is the next independent implementation slice.
+The user explicitly authorized independent later M7 work while physical testing is unavailable. Item 8 Ctrl+Shift+T passed PR #126 CI #488, guarded merge `77e535f73593be59f4a82b9052cba9ade5c36611`, and resulting-main CI #489. Item 9 Ctrl+Shift+P passed PR #127 CI #490, guarded merge `53c03767d5303067c14da9740f4a450c59e6afc4`, and resulting-main CI #491. Both top-level TODO items remain unchecked pending physical behavior checks. Item 10 native safe-position persistence is in PR #128 at exact head `65b16c40473a36a217db6789f8b7c791c92e88fd`, with Windows CI #492 in progress.
 
 ## Current automated-validated source baseline
 
 PR #126 exact head `e3dd947dc82a98fd0df68866467753849f35c5bf`: Windows CI #488 / run `35940850134` PASS. Guarded squash merge `77e535f73593be59f4a82b9052cba9ade5c36611` passed resulting-main CI #489 / run `35942198710`. Runtime artifact `10785728177`, digest `sha256:91081c9d7a1ed23597c00fd7c3951d130fde1a3c2d67b18aa58310f9badb9ae8`.
 
-PR #127 exact head `a12946b1320e43800b54181a0dfbc9f95df31b92`: Windows CI #490 / run `35942309332` PASS. Guarded squash merge `53c03767d5303067c14da9740f4a450c59e6afc4` is on main; resulting-main CI #491 / run `35970230227` is in progress. PR runtime artifact `10785871986`, digest `sha256:c0e1f83328688ef55145776e0a9956a8e5c8cfe74324d47aad11906ddfa28537`.
+PR #127 exact head `a12946b1320e43800b54181a0dfbc9f95df31b92`: Windows CI #490 / run `35942309332` PASS. Guarded squash merge `53c03767d5303067c14da9740f4a450c59e6afc4` passed resulting-main CI #491 / run `35970230227` / job `107537965229`. Main runtime artifact `10796720324`, digest `sha256:bf5fe346447dfea09ac4bd9c16aa09ad4daa914549290b95747d1f1c341748c5`. Visual artifact `10796097074`, digest `sha256:c086aed06b7a3f081e1ebdbfb1c5095a21acaa78b232d31c5669b1bc5cf6de27`.
 
 ## Item 7 physical candidate
 
@@ -212,7 +212,7 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 Resulting-main CI #487 passed on source `a7161ac`. Physical re-test candidate: runtime artifact `10785466061`, digest `sha256:f84bee3216cfe5d1762916cd54cd0d7703db283bdd7d1930b9b540a100764413`. Physical checks remain open: Panel -> Timer, Timer -> Panel, right-side Panel return, collapsed -> expanded -> collapsed, normal product-size horizontal overflow, timer/session continuity, and perceived smoothness. Expand/Collapse passes only if no stale/duplicated action-strip content survives either resize direction.
 
-Verify resulting-main CI #491 for item 9 and record its runtime artifact. Physical checks for Ctrl+Shift+T and Ctrl+Shift+P remain open. Continue item 10 safe last position/recovery in an isolated branch, followed by later M7 items in TODO order. Keep each physical limitation explicit and do not advance to Milestone 8.
+Verify item-10 PR #128 exact-head CI #492, correct any exact failure, then merge on full required PASS with expected-head guard and verify resulting-main CI. Physical checks for Ctrl+Shift+T, Ctrl+Shift+P, and safe Timer position remain open. Continue later M7 items in TODO order, preserving each physical limitation and without advancing to Milestone 8.
 
 ## Durable correctness decisions
 
