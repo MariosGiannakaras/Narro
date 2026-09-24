@@ -373,3 +373,26 @@
 .floating-timer-foundation__error {
   color: var(--color-destructive);
 }
+
+@media (max-width: 260px) {
+  .floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__actions {
+    grid-template-columns: repeat(3, 32px);
+  }
+}
+
+@media (max-width: 260px), (max-height: 299px) {
+  .floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__content {
+    overflow: auto;
+    grid-template-rows: auto auto;
+    align-content: start;
+    scrollbar-width: thin;
+  }
+
+  .floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__subtasks {
+    grid-template-rows: auto auto;
+  }
+
+  .floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__subtask-panel {
+    overflow: visible;
+  }
+}
