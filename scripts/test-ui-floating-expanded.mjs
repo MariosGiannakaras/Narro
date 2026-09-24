@@ -38,36 +38,45 @@ invariant(
   "renderer resize API must use the typed native command",
 );
 
+const restoreFnStart = lib.indexOf("fn restore_floating_timer_after_failed_resize(");
 const resizeFnStart = lib.indexOf("fn set_floating_timer_expanded(");
 const resizeFnEnd = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(", resizeFnStart);
+const restoreFn = lib.slice(restoreFnStart, resizeFnStart);
 const resizeFn = lib.slice(resizeFnStart, resizeFnEnd);
 const nativeVisibilityRead = resizeFn.indexOf("let was_visible = window");
-const nativeHide = resizeFn.indexOf(".hide()", nativeVisibilityRead);
+const nativeSizeRead = resizeFn.indexOf(".inner_size()", nativeVisibilityRead);
+const nativeHide = resizeFn.indexOf(".hide()", nativeSizeRead);
 const nativeResize = resizeFn.indexOf(".set_size(", nativeHide);
-const nativeRecovery = resizeFn.indexOf("if let Err(error) = resize_result", nativeResize);
-const nativeRecoveryShow = resizeFn.indexOf("let _ = window.show();", nativeRecovery);
-const nativeSuccessShow = resizeFn.indexOf('"show Timer after resize"', nativeRecoveryShow);
+const nativeResizeRecovery = resizeFn.indexOf("restore_floating_timer_after_failed_resize(", nativeResize);
+const nativeSuccessShow = resizeFn.indexOf('"show Timer after resize"', nativeResizeRecovery);
+const nativeShowRecovery = resizeFn.indexOf("restore_floating_timer_after_failed_resize(", nativeSuccessShow);
 invariant(
-  nativeVisibilityRead >= 0
-    && nativeVisibilityRead < nativeHide
+  restoreFnStart >= 0
+    && restoreFnStart < resizeFnStart
+    && nativeVisibilityRead >= 0
+    && nativeVisibilityRead < nativeSizeRead
+    && nativeSizeRead < nativeHide
     && nativeHide < nativeResize
-    && nativeResize < nativeRecovery
-    && nativeRecovery < nativeRecoveryShow
-    && nativeRecoveryShow < nativeSuccessShow
+    && nativeResize < nativeResizeRecovery
+    && nativeResizeRecovery < nativeSuccessShow
+    && nativeSuccessShow < nativeShowRecovery
     && resizeFn.includes("if was_visible")
-    && resizeFn.includes('"hide Timer for resize"'),
-  "native Floating Timer resize must hide the visible window, resize while hidden, restore visibility on failure, and show only after resize succeeds",
+    && resizeFn.includes('"hide Timer for resize"')
+    && resizeFn.includes('"FLOATING_TIMER_RESIZE_RECOVERY_FAILED"')
+    && restoreFn.includes("tauri::Size::Physical(previous_size)")
+    && restoreFn.includes('"restore Timer visibility"'),
+  "native Floating Timer resize must snapshot geometry, hide before resizing, show only after success, and restore both size and visibility after resize or show failure",
 );
 
 const exitWait = foundation.indexOf('await waitForResizeTransition("exiting");');
 const resizingPhase = foundation.indexOf('setResizePhase("resizing");', exitWait);
 const publishExpanded = foundation.indexOf("setExpanded(nextExpanded);", resizingPhase);
 const hiddenPaint = foundation.indexOf("await waitForPresentedFrame();", publishExpanded);
-const enteringPhase = foundation.indexOf('setResizePhase("entering");', hiddenPaint);
-const transparentPaint = foundation.indexOf("await waitForPresentedFrame();", enteringPhase);
-const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);", transparentPaint);
+const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);", hiddenPaint);
 const postResizePaint = foundation.indexOf("await waitForPresentedFrame();", resizeCall);
-const entranceWait = foundation.indexOf('await waitForResizeTransition("idle");', postResizePaint);
+const enteringPhase = foundation.indexOf('setResizePhase("entering");', postResizePaint);
+const transparentPaint = foundation.indexOf("await waitForPresentedFrame();", enteringPhase);
+const entranceWait = foundation.indexOf('await waitForResizeTransition("idle");', transparentPaint);
 invariant(
   foundation.includes('data-floating-resize-pending={resizePending ? "true" : "false"}')
     && foundation.includes("data-floating-resize-phase={resizePhase}")
@@ -75,12 +84,17 @@ invariant(
     && exitWait < resizingPhase
     && resizingPhase < publishExpanded
     && publishExpanded < hiddenPaint
-    && hiddenPaint < enteringPhase
-    && enteringPhase < transparentPaint
-    && transparentPaint < resizeCall
+    && hiddenPaint < resizeCall
     && resizeCall < postResizePaint
-    && postResizePaint < entranceWait,
-  "expanded resize must publish the final hierarchy hidden, stage it transparent, resize the native window hidden, then animate in",
+    && postResizePaint < enteringPhase
+    && enteringPhase < transparentPaint
+    && transparentPaint < entranceWait,
+  "expanded hierarchy must stay visibility-hidden through native hide/resize/show and a post-show paint opportunity before the transparent entrance",
+);
+invariant(
+  /\[data-floating-resize-phase="resizing"\] \.floating-timer-foundation__content \{\s*visibility: hidden;/.test(css)
+    && /\[data-floating-resize-phase="entering"\] \.floating-timer-foundation__content \{\s*visibility: visible;\s*opacity: 0;/.test(css),
+  "native resize must not expose a merely transparent child hierarchy while its backing surface is changing",
 );
 invariant(
   foundation.indexOf("setExpanded(expanded);", resizeCall) > resizeCall,
