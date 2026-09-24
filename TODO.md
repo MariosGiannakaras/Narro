@@ -289,6 +289,7 @@ Acceptance criteria:
   - [ ] Physical maximized, borderless, and optional exclusive-fullscreen stacking checks remain open.
 - [ ] Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.
   - [x] Native hidden-resize work-area anchoring passed PR #130 exact-head CI #494, expected-head guarded merge `50cef42`, and resulting-main CI #495.
+  - [x] Constrained work-area recovery fits native outer size before placement and keeps expanded controls scrollable at narrow/short DPI-scaled sizes; PR #132 exact-head CI #497, guarded merge `59bdc2d`, and resulting-main CI #498 PASS.
   - [ ] Physical bottom/taskbar, secondary-monitor, and DPI checks remain open.
 - [ ] Verify no decorative animation runs continuously while idle.
   - [x] Static Floating Timer motion audit: finite attention pulse and transitions only; live timer sampling is conditional on active states. The only `infinite` title scroll belongs to the Focus Panel. See `work-log/2026-09-24-codex-m7-idle-motion-audit.md`.
