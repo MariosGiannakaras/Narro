@@ -68,10 +68,10 @@ try {
                     "--no-first-run",
                     "--force-device-scale-factor=1",
                     "--window-size=420,$windowHeight",
-                    "--user-data-dir=$profile",
-                    "--screenshot=$screenshot",
+                    "--user-data-dir=`"$profile`"",
+                    "--screenshot=`"$screenshot`"",
                     "--dump-dom",
-                    $url
+                    "`"$url`""
                 ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
 
                 $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
@@ -86,6 +86,46 @@ try {
                 Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
             }
         }
+    }
+
+    $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
+    $captureId = [guid]::NewGuid().ToString('N')
+    $profile = Join-Path $tempRoot "narro-floating-cycle-$captureId"
+    $stdout = Join-Path $tempRoot "narro-floating-cycle-$captureId.stdout.txt"
+    $stderr = Join-Path $tempRoot "narro-floating-cycle-$captureId.stderr.txt"
+    $dom = Join-Path $outputPath "floating-timer-cycle.html"
+    New-Item -ItemType Directory -Path $profile -Force | Out-Null
+
+    try {
+        $process = Start-Process -FilePath $edge -ArgumentList @(
+            "--headless=new",
+            "--disable-gpu",
+            "--disable-background-networking",
+            "--no-first-run",
+            "--force-device-scale-factor=1",
+            "--window-size=420,380",
+            "--virtual-time-budget=3000",
+            "--user-data-dir=`"$profile`"",
+            "--dump-dom",
+            "`"$baseUrl/floating-timer-fixture.html?theme=light&state=cycle`""
+        ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
+
+        $stderrText = if (Test-Path -LiteralPath $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
+        if ($process.ExitCode -ne 0) { throw "Floating Timer lifecycle capture failed. $stderrText" }
+        $domText = if (Test-Path -LiteralPath $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
+        if (-not $domText.Contains('data-floating-timer-cycle-ready="true"')) {
+            throw "Floating Timer lifecycle capture did not finish. $stderrText"
+        }
+        [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
+    } finally {
+        $tempRootFull = [System.IO.Path]::GetFullPath($tempRoot).TrimEnd('\') + '\'
+        $profileFull = [System.IO.Path]::GetFullPath($profile)
+        if (-not $profileFull.StartsWith($tempRootFull, [StringComparison]::OrdinalIgnoreCase)) {
+            throw "Floating Timer lifecycle profile escaped the temporary directory"
+        }
+        Remove-Item -LiteralPath $profileFull -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {

@@ -158,4 +158,20 @@ for (const state of ["collapsed", "expanded"]) {
   }
 }
 
-console.log("Floating Timer collapsed/expanded light/dark visual contracts passed.");
+const cyclePath = path.join(outputDirectory, "floating-timer-cycle.html");
+invariant(fs.existsSync(cyclePath), "interactive resize lifecycle DOM capture is missing");
+const cycleDom = fs.readFileSync(cyclePath, "utf8");
+invariant(cycleDom.includes('data-floating-timer-cycle-ready="true"'), "interactive resize lifecycle did not finish");
+const cycleMatch = cycleDom.match(/<script id="floating-timer-cycle-contract" type="application\/json">([\s\S]*?)<\/script>/);
+invariant(cycleMatch, "interactive resize lifecycle contract is missing");
+const observations = JSON.parse(cycleMatch[1]);
+invariant(observations.length === 7, "interactive resize lifecycle must include three complete cycles");
+for (const [index, observation] of observations.entries()) {
+  const expanded = index % 2 === 1;
+  invariant(observation.expanded === String(expanded), `cycle phase ${index} has the wrong expanded state`);
+  invariant(observation.actionStrips === Number(expanded), `cycle phase ${index} retained or duplicated the action strip`);
+  invariant(observation.headings === Number(!expanded), `cycle phase ${index} retained or duplicated the heading`);
+  invariant(observation.subtaskPanels === Number(expanded), `cycle phase ${index} retained or duplicated the subtask panel`);
+}
+
+console.log("Floating Timer visual contracts and interactive resize lifecycle passed.");

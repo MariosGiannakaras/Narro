@@ -137,3 +137,40 @@ contractNode.type = "application/json";
 contractNode.textContent = JSON.stringify(contract);
 document.body.append(contractNode);
 document.documentElement.dataset.floatingTimerFixtureReady = "true";
+
+if (params.get("state") === "cycle") {
+  const observations: Array<{
+    expanded: string | undefined;
+    actionStrips: number;
+    headings: number;
+    subtaskPanels: number;
+  }> = [];
+  const observe = () => {
+    observations.push({
+      expanded: renderedTimer.dataset.floatingExpanded,
+      actionStrips: renderedTimer.querySelectorAll(".floating-timer-foundation__actions").length,
+      headings: renderedTimer.querySelectorAll(".floating-timer-foundation__heading").length,
+      subtaskPanels: renderedTimer.querySelectorAll(".floating-timer-foundation__subtask-panel").length,
+    });
+  };
+  const toggle = () => {
+    const button = renderedTimer.querySelector<HTMLButtonElement>('[data-floating-subtask-control="expand"]');
+    if (!button || button.disabled) throw new Error("Floating Timer resize control is unavailable");
+    flushSync(() => button.click());
+  };
+
+  observe();
+  for (let cycle = 0; cycle < 3; cycle += 1) {
+    toggle();
+    observe();
+    toggle();
+    observe();
+  }
+
+  const node = document.createElement("script");
+  node.id = "floating-timer-cycle-contract";
+  node.type = "application/json";
+  node.textContent = JSON.stringify(observations);
+  document.body.append(node);
+  document.documentElement.dataset.floatingTimerCycleReady = "true";
+}

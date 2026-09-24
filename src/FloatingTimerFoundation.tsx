@@ -232,7 +232,7 @@ export function FloatingTimerFoundation({
       >
         {expanded && liveTask && timer ? (
           <FocusLiveActions
-            key={liveTask.id}
+            key={`actions:${liveTask.id}`}
             task={liveTask}
             target={{ kind: "all" }}
             timer={timer}
@@ -270,7 +270,7 @@ export function FloatingTimerFoundation({
 
         {liveTask ? (
           <FocusLiveSubtasks
-            key={liveTask.id}
+            key={`subtasks:${liveTask.id}`}
             task={liveTask}
             target={{ kind: "all" }}
             fixtureMode={fixtureMode}
