@@ -49,7 +49,8 @@ function Capture-Theme {
         [string]$Url,
         [string]$ScreenshotPath,
         [string]$DomPath,
-        [int]$VirtualTimeBudgetMs = 0
+        [int]$VirtualTimeBudgetMs = 0,
+        [string]$ReadyMarker = ""
     )
 
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
@@ -77,41 +78,52 @@ function Capture-Theme {
             $arguments = @("--virtual-time-budget=$VirtualTimeBudgetMs") + $arguments
         }
 
-        $edgeProcess = Start-Process `
-            -FilePath $EdgePath `
-            -ArgumentList $arguments `
-            -RedirectStandardOutput $stdoutPath `
-            -RedirectStandardError $stderrPath `
-            -PassThru `
-            -Wait
+        $maxAttempts = if ($ReadyMarker) { 2 } else { 1 }
+        for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+            $edgeProcess = Start-Process `
+                -FilePath $EdgePath `
+                -ArgumentList $arguments `
+                -RedirectStandardOutput $stdoutPath `
+                -RedirectStandardError $stderrPath `
+                -PassThru `
+                -Wait
 
-        $stderrText = if (Test-Path $stderrPath) {
-            [System.IO.File]::ReadAllText($stderrPath)
-        } else {
-            ""
-        }
+            $stderrText = if (Test-Path $stderrPath) {
+                [System.IO.File]::ReadAllText($stderrPath)
+            } else {
+                ""
+            }
 
-        if ($edgeProcess.ExitCode -ne 0) {
-            throw "Edge visual capture failed for theme '$Theme' with exit code $($edgeProcess.ExitCode). $stderrText"
-        }
-        if (-not (Test-Path $ScreenshotPath)) {
-            throw "Edge did not create the screenshot for theme '$Theme'. $stderrText"
-        }
+            if ($edgeProcess.ExitCode -ne 0) {
+                throw "Edge visual capture failed for theme '$Theme' with exit code $($edgeProcess.ExitCode). $stderrText"
+            }
+            if (-not (Test-Path $ScreenshotPath)) {
+                throw "Edge did not create the screenshot for theme '$Theme'. $stderrText"
+            }
 
-        $domText = if (Test-Path $stdoutPath) {
-            [System.IO.File]::ReadAllText($stdoutPath)
-        } else {
-            ""
-        }
-        if ([string]::IsNullOrWhiteSpace($domText)) {
-            throw "Edge did not return captured DOM for theme '$Theme'. $stderrText"
-        }
+            $domText = if (Test-Path $stdoutPath) {
+                [System.IO.File]::ReadAllText($stdoutPath)
+            } else {
+                ""
+            }
+            if ([string]::IsNullOrWhiteSpace($domText)) {
+                throw "Edge did not return captured DOM for theme '$Theme'. $stderrText"
+            }
+            if ($ReadyMarker -and -not $domText.Contains($ReadyMarker)) {
+                if ($attempt -lt $maxAttempts) {
+                    Write-Warning "Fixture '$Theme' was captured before it reported ready; recapturing once."
+                    continue
+                }
+                throw "Fixture '$Theme' did not report ready after $maxAttempts captures. $stderrText"
+            }
 
-        [System.IO.File]::WriteAllText(
-            $DomPath,
-            $domText,
-            [System.Text.UTF8Encoding]::new($false)
-        )
+            [System.IO.File]::WriteAllText(
+                $DomPath,
+                $domText,
+                [System.Text.UTF8Encoding]::new($false)
+            )
+            break
+        }
 
         if (-not (Test-Path $DomPath) -or (Get-Item $DomPath).Length -eq 0) {
             throw "Captured DOM file is missing or empty for theme '$Theme'."
@@ -263,7 +275,8 @@ try {
             -Url $scheduleUrl `
             -ScreenshotPath $scheduleScreenshot `
             -DomPath $scheduleDom `
-            -VirtualTimeBudgetMs 6000
+            -VirtualTimeBudgetMs 6000 `
+            -ReadyMarker 'data-task-schedule-fixture-ready="true"'
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {

@@ -113,6 +113,25 @@ fn best_work_area_for_window<'a>(
         .unwrap_or(fallback)
 }
 
+fn fitted_outer_size(
+    work_area: PhysicalRect,
+    requested: PhysicalSize,
+) -> CommandResult<PhysicalSize> {
+    if work_area.size.width == 0 || work_area.size.height == 0 {
+        return Err(placement_error(
+            "fit resized Timer",
+            "empty monitor work area",
+        ));
+    }
+    if requested.width == 0 || requested.height == 0 {
+        return Err(placement_error("fit resized Timer", "empty window size"));
+    }
+    Ok(PhysicalSize {
+        width: requested.width.min(work_area.size.width),
+        height: requested.height.min(work_area.size.height),
+    })
+}
+
 fn position_after_resize(
     previous_window: PhysicalRect,
     resized_size: PhysicalSize,
@@ -134,11 +153,34 @@ pub fn keep_resized_timer_in_work_area(
     let size = window
         .outer_size()
         .map_err(|error| placement_error("read resized Timer outer size", error))?;
+    let selected = best_work_area_for_window(previous_window, &areas, &fallback);
+    let requested = PhysicalSize {
+        width: size.width,
+        height: size.height,
+    };
+    let fitted = fitted_outer_size(selected.rect, requested)?;
+    if fitted != requested {
+        window
+            .set_size(tauri::Size::Physical(tauri::PhysicalSize {
+                width: fitted.width,
+                height: fitted.height,
+            }))
+            .map_err(|error| placement_error("fit resized Timer to work area", error))?;
+    }
+    let actual = window
+        .outer_size()
+        .map_err(|error| placement_error("read fitted Timer outer size", error))?;
+    if actual.width > selected.rect.size.width || actual.height > selected.rect.size.height {
+        return Err(placement_error(
+            "fit resized Timer to work area",
+            "native window remained larger than the selected monitor work area",
+        ));
+    }
     let safe = position_after_resize(
         previous_window,
         PhysicalSize {
-            width: size.width,
-            height: size.height,
+            width: actual.width,
+            height: actual.height,
         },
         &areas,
         &fallback,
@@ -432,6 +474,70 @@ mod tests {
             )
             .expect("expanded position"),
             PhysicalPoint { x: 3400, y: 740 }
+        );
+    }
+
+    #[test]
+    fn oversized_expansion_fits_short_secondary_work_area_before_clamping() {
+        let primary = area("primary", 0, 1920);
+        let secondary = WorkArea {
+            name: Some("secondary".into()),
+            rect: PhysicalRect {
+                position: PhysicalPoint { x: -1200, y: 80 },
+                size: PhysicalSize {
+                    width: 1200,
+                    height: 680,
+                },
+            },
+        };
+        let previous = PhysicalRect {
+            position: PhysicalPoint { x: -900, y: 520 },
+            size: PhysicalSize {
+                width: 850,
+                height: 275,
+            },
+        };
+        let fitted = fitted_outer_size(
+            secondary.rect,
+            PhysicalSize {
+                width: 850,
+                height: 750,
+            },
+        )
+        .expect("fit high-DPI expanded size");
+        assert_eq!(
+            fitted,
+            PhysicalSize {
+                width: 850,
+                height: 680
+            }
+        );
+        assert_eq!(
+            position_after_resize(previous, fitted, &[primary.clone(), secondary], &primary)
+                .expect("clamp to secondary"),
+            PhysicalPoint { x: -900, y: 80 }
+        );
+    }
+
+    #[test]
+    fn oversized_width_and_height_fit_tiny_work_area() {
+        let area = PhysicalRect {
+            position: PhysicalPoint { x: 0, y: 0 },
+            size: PhysicalSize {
+                width: 600,
+                height: 500,
+            },
+        };
+        assert_eq!(
+            fitted_outer_size(
+                area,
+                PhysicalSize {
+                    width: 1020,
+                    height: 900,
+                }
+            )
+            .expect("fit both axes"),
+            area.size
         );
     }
 }
