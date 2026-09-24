@@ -7,6 +7,7 @@ pub mod board_task_schedule;
 pub mod board_task_subtasks;
 pub mod domain;
 pub mod error;
+pub mod floating_placement;
 pub mod focus_entry;
 pub mod focus_preferences;
 pub mod home_snapshot;
@@ -470,6 +471,8 @@ fn configure_focus_surface_mode(
     window: &tauri::WebviewWindow,
     mode: FocusSurfaceMode,
 ) -> CommandResult<()> {
+    let _placement_guard =
+        (mode == FocusSurfaceMode::Panel).then(floating_placement::suspend_saves);
     let was_visible = window
         .is_visible()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
@@ -487,6 +490,12 @@ fn configure_focus_surface_mode(
         return Err(error);
     }
 
+    if mode == FocusSurfaceMode::Timer {
+        if let Err(error) = floating_placement::restore_for_timer(window.app_handle(), window) {
+            eprintln!("Could not restore Floating Timer position: {error}");
+        }
+    }
+
     window
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
@@ -501,6 +510,15 @@ fn position_focus_panel_in_work_area(
     intent: FocusPanelPlacementIntent,
 ) -> CommandResult<()> {
     validate_work_area(work_area).map_err(CommandError::window_geometry)?;
+    if intent == FocusPanelPlacementIntent::Present
+        && current_focus_surface_mode() == Some(FocusSurfaceMode::Timer)
+    {
+        if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
+            eprintln!("Could not save Floating Timer position before Panel return: {error}");
+        }
+    }
+    let _placement_guard =
+        (intent == FocusPanelPlacementIntent::Present).then(floating_placement::suspend_saves);
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
     let hide_for_present = intent == FocusPanelPlacementIntent::Present
         && window
@@ -840,6 +858,9 @@ fn focus_surface_show(app_handle: tauri::AppHandle) -> CommandResult<()> {
 
 #[tauri::command]
 fn focus_surface_hide(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    if let Err(error) = floating_placement::save_if_timer_visible(&app_handle) {
+        eprintln!("Could not save Floating Timer position before hide: {error}");
+    }
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     window
         .hide()
@@ -856,6 +877,9 @@ fn focus_surface_focus(app_handle: tauri::AppHandle) -> CommandResult<()> {
 
 #[tauri::command]
 fn focus_surface_mode_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    if let Err(error) = floating_placement::save_if_timer_visible(&app_handle) {
+        eprintln!("Could not save Floating Timer position before Panel mode: {error}");
+    }
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)
 }
@@ -897,6 +921,9 @@ fn install_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
                     Err(error) => eprintln!("Failed to show Narro focus surface: {error}"),
                 }
             } else if event.id() == "quit" {
+                if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
+                    eprintln!("Could not save Floating Timer position before exit: {error}");
+                }
                 app_handle.exit(0);
             }
         })
@@ -951,6 +978,25 @@ fn initialize_persistence(
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let result = tauri::Builder::default()
+        .on_window_event(|window, event| {
+            if window.label() == FOCUS_SURFACE_LABEL {
+                match event {
+                    tauri::WindowEvent::Moved(_) => {
+                        floating_placement::note_timer_moved(window.app_handle());
+                    }
+                    tauri::WindowEvent::CloseRequested { .. } => {
+                        if let Err(error) =
+                            floating_placement::save_if_timer_visible(window.app_handle())
+                        {
+                            eprintln!(
+                                "Could not save Floating Timer position before close: {error}"
+                            );
+                        }
+                    }
+                    _ => {}
+                }
+            }
+        })
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_autostart::init(

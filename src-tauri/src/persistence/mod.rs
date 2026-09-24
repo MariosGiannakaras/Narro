@@ -1,3 +1,4 @@
+pub mod floating_placement;
 pub mod lists;
 pub mod live_completion;
 pub mod live_estimate_error_conversions;
@@ -77,6 +78,9 @@ fn migrations() -> Migrations<'static> {
         M::up(include_str!(
             "../../migrations/0006_sleep_accounting_policy.sql"
         )),
+        M::up(include_str!(
+            "../../migrations/0007_floating_timer_placement.sql"
+        )),
     ])
 }
 
@@ -144,6 +148,7 @@ mod tests {
             "timer_runtime_checkpoint",
             "pomodoro_boundary_effects",
             "task_timer_preferences",
+            "floating_timer_placement",
         ] {
             assert!(
                 table_exists(&conn, table),

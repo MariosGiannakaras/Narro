@@ -192,6 +192,10 @@ fn schedule_display_recovery() {
                 ),
             }
 
+            if let Err(error) = crate::floating_placement::save_if_timer_visible(&recovery_handle) {
+                eprintln!("Floating Timer placement revalidation failed after display change: {error}");
+            }
+
             RECOVERY_PENDING.store(false, Ordering::Release);
             if RECOVERY_DIRTY.load(Ordering::Acquire) {
                 schedule_display_recovery();
