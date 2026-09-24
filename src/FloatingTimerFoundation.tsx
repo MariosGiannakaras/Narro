@@ -171,14 +171,16 @@ export function FloatingTimerFoundation({
     try {
       await waitForResizeTransition("exiting");
       setResizePhase("resizing");
+      setExpanded(nextExpanded);
       await waitForPresentedFrame();
       await setFloatingTimerExpanded(nextExpanded);
-      setExpanded(nextExpanded);
+      await waitForPresentedFrame();
       setResizePhase("entering");
       await waitForPresentedFrame();
       await waitForResizeTransition("idle");
       return true;
     } catch (failure: unknown) {
+      setExpanded(expanded);
       setResizeError(formatInvokeError(failure));
       return false;
     } finally {
