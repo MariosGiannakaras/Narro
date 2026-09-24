@@ -173,9 +173,9 @@ export function FloatingTimerFoundation({
       setResizePhase("resizing");
       setExpanded(nextExpanded);
       await waitForPresentedFrame();
-      setResizePhase("entering");
-      await waitForPresentedFrame();
       await setFloatingTimerExpanded(nextExpanded);
+      await waitForPresentedFrame();
+      setResizePhase("entering");
       await waitForPresentedFrame();
       await waitForResizeTransition("idle");
       return true;
