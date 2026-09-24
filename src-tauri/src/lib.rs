@@ -471,11 +471,32 @@ fn configure_focus_surface_mode(
     window: &tauri::WebviewWindow,
     mode: FocusSurfaceMode,
 ) -> CommandResult<()> {
-    let _placement_guard =
-        (mode == FocusSurfaceMode::Panel).then(floating_placement::suspend_saves);
+    let _placement_guard = floating_placement::suspend_saves();
+    let previous_mode = current_focus_surface_mode();
     let was_visible = window
         .is_visible()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
+    let previous_size = window.inner_size().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read size before mode transition",
+            error,
+        )
+    })?;
+    let previous_position = window.outer_position().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read position before mode transition",
+            error,
+        )
+    })?;
+    let previous_topmost = window.is_always_on_top().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read topmost state before mode transition",
+            error,
+        )
+    })?;
 
     if was_visible {
         window.hide().map_err(|error| {
@@ -483,22 +504,84 @@ fn configure_focus_surface_mode(
         })?;
     }
 
-    if let Err(error) = apply_focus_surface_mode(window, mode) {
-        if was_visible {
-            let _ = window.show();
+    let transition = (|| -> CommandResult<()> {
+        apply_focus_surface_mode(window, mode)?;
+        if mode == FocusSurfaceMode::Timer {
+            floating_placement::restore_for_timer(window.app_handle(), window)?;
+        }
+        window
+            .show()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))
+    })();
+
+    if let Err(error) = transition {
+        let results = [
+            window
+                .set_size(tauri::Size::Physical(previous_size))
+                .map_err(|failure| {
+                    map_window_error(
+                        FOCUS_SURFACE_LABEL,
+                        "restore size after mode failure",
+                        failure,
+                    )
+                }),
+            window
+                .set_position(tauri::Position::Physical(previous_position))
+                .map_err(|failure| {
+                    map_window_error(
+                        FOCUS_SURFACE_LABEL,
+                        "restore position after mode failure",
+                        failure,
+                    )
+                }),
+            window
+                .set_always_on_top(previous_topmost)
+                .map_err(|failure| {
+                    map_window_error(
+                        FOCUS_SURFACE_LABEL,
+                        "restore topmost state after mode failure",
+                        failure,
+                    )
+                }),
+            window
+                .set_skip_taskbar(previous_mode == Some(FocusSurfaceMode::Timer))
+                .map_err(|failure| {
+                    map_window_error(
+                        FOCUS_SURFACE_LABEL,
+                        "restore taskbar state after mode failure",
+                        failure,
+                    )
+                }),
+            if was_visible {
+                window.show()
+            } else {
+                window.hide()
+            }
+            .map_err(|failure| {
+                map_window_error(
+                    FOCUS_SURFACE_LABEL,
+                    "restore visibility after mode failure",
+                    failure,
+                )
+            }),
+        ];
+        let failures: Vec<_> = results.into_iter().filter_map(Result::err).collect();
+        if !failures.is_empty() {
+            return Err(CommandError::new(
+                "FOCUS_SURFACE_MODE_RECOVERY_FAILED",
+                format!(
+                    "{error}; rollback failed: {}",
+                    failures
+                        .iter()
+                        .map(ToString::to_string)
+                        .collect::<Vec<_>>()
+                        .join("; ")
+                ),
+            ));
         }
         return Err(error);
     }
 
-    if mode == FocusSurfaceMode::Timer {
-        if let Err(error) = floating_placement::restore_for_timer(window.app_handle(), window) {
-            eprintln!("Could not restore Floating Timer position: {error}");
-        }
-    }
-
-    window
-        .show()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
     record_focus_surface_mode(mode);
     Ok(())
 }

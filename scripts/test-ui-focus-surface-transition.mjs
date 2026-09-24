@@ -37,8 +37,14 @@ invariant(
 invariant(
   configure.includes("let was_visible = window")
     && configure.includes("if was_visible")
-    && configure.includes("let _ = window.show();"),
-  "failed native Timer reconfiguration must make a best-effort restoration of a previously visible surface",
+    && configure.includes("if let Err(error) = transition")
+    && configure.includes("set_size(tauri::Size::Physical(previous_size))")
+    && configure.includes("set_position(tauri::Position::Physical(previous_position))")
+    && configure.includes("set_always_on_top(previous_topmost)")
+    && configure.includes("set_skip_taskbar(previous_mode == Some(FocusSurfaceMode::Timer))")
+    && /if was_visible \{\s*window\.show\(\)\s*\} else \{\s*window\.hide\(\)/.test(configure)
+    && configure.includes("FOCUS_SURFACE_MODE_RECOVERY_FAILED"),
+  "failed native Timer reconfiguration must restore prior geometry and mode flags or report rollback failure",
 );
 
 const position = slice(

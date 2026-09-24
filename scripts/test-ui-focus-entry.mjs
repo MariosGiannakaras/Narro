@@ -124,6 +124,19 @@ const panelRevalidation = topology.indexOf(
 if (genericRecovery < 0 || panelRevalidation < genericRecovery) {
   throw new Error("Generic visible-area recovery must run before selected-monitor Focus Panel revalidation.");
 }
+const timerRevalidation = topology.indexOf(
+  "revalidate_visible_timer_after_display_change(",
+  panelRevalidation,
+);
+const timerSave = topology.indexOf("save_if_timer_visible(&recovery_handle)", timerRevalidation);
+if (
+  timerRevalidation < panelRevalidation
+  || timerSave < timerRevalidation
+  || !topology.includes("label == FOCUS_SURFACE_LABEL")
+  || !topology.includes("current_focus_surface_mode() == Some(crate::FocusSurfaceMode::Timer)")
+) {
+  throw new Error("Visible Timer recovery must fit and place before persistence, without an earlier generic move.");
+}
 
 const revalidationStart = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(");
 const revalidationEnd = lib.indexOf("\nfn build_main_window", revalidationStart);
