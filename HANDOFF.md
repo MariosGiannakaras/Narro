@@ -9,7 +9,7 @@ Canonical zero-context continuation state for Narro. Read `AI_START_HERE.md`, `A
 - Milestones 1–6: COMPLETE / PASS.
 - Milestone 7: ACTIVE / **6 of 14** top-level items validated.
 - M7 items 1–6: COMPLETE / VALIDATED.
-- M7 item 7: CI #480 PHYSICAL FAIL RECORDED; PR #125 NATIVE HIDDEN-RESIZE CORRECTION IN PROGRESS.
+- M7 item 7: CI #480 PHYSICAL FAIL RECORDED; PR #125 IS AN UNVALIDATED CANDIDATE HANDED OFF TO CODEX FOR FURTHER ANALYSIS/IMPLEMENTATION.
 - Current item-7 slice: **4/5 checkpoints complete**.
 - Compact progress: `6/10M || 4/5 | 6/14`.
 
@@ -102,31 +102,31 @@ The user physically re-tested the exact resulting-main CI #480 runtime artifact.
 
 Screenshots show each expand/collapse cycle retaining another stale copy of the expanded action strip and old expanded pixels surviving into collapsed geometry. Treat this as concrete native/WebView presentation evidence.
 
-## ACTIVE CORRECTIVE PR
+## ACTIVE CORRECTIVE PR — CODEX OWNERSHIP
 
 PR #125 — `M7: hide Floating Timer during native expand resize`.
 
-Exact current head:
+Current exact head:
 
 `a652116dacda255bcb22a551ee6750504c72bc6a`
 
-Changed production scope is deliberately narrow:
+Current candidate scope:
 
 - `set_floating_timer_expanded` reads native visibility, hides a visible `focusSurface`, performs `set_size` while hidden, best-effort restores visibility on resize failure, and shows only after resize succeeds;
 - renderer publishes the target expanded/collapsed hierarchy while hidden, stages it transparently, invokes native hidden resize, waits one finite presented-frame boundary, then runs the existing entrance;
 - renderer rolls back the prior expanded state if native resize fails;
 - same focusSurface webview, same 340x110/340x300 geometry, native geometry authority, timer/session/task state and reduced-motion contracts remain unchanged.
 
-Connector-side source-contract review: PASS.
+Evidence/CI:
 
-CI history for PR #125:
+- connector-side source-contract review before PR: PASS;
+- CI #481 / run `35936338414` on prior head `62e40ca34c86fe5fc19da447448aa1d540e80754`: FAIL only at `cargo fmt --check`;
+- rustfmt-only correction head: `a652116dacda255bcb22a551ee6750504c72bc6a`;
+- CI #482 / run `35936606645`, attempt 2: **manually stopped by the user before completion** so Codex can take over the analysis/implementation;
+- no automated PASS exists for PR #125;
+- do not assume the native hidden-resize approach is the right final fix merely because it is currently implemented.
 
-- CI #481 / run `35936338414` on prior head `62e40ca34c86fe5fc19da447448aa1d540e80754`: **FAIL** only at `cargo fmt --check`.
-- The CI-provided rustfmt diff was applied with no behavioral change.
-- Current exact head: `a652116dacda255bcb22a551ee6750504c72bc6a`.
-- CI #482 / run `35936606645`: **IN PROGRESS**.
-
-Do not call PR #125 automated-validated until CI #482 succeeds, semantic review confirms the exact head unchanged, it is merged with expected-head guard `a652116dacda255bcb22a551ee6750504c72bc6a`, and resulting-main Windows CI succeeds.
+The user explicitly wants Codex Goal to own the next technical analysis, corrections and implementation. A zero-context Codex agent must inspect the physical CI #480 screenshots/evidence and current PR #125 source critically, preserve the existing PR when appropriate, and change course only when repository evidence supports it. Do not blindly rerun CI before reviewing the candidate.
 
 ## USER AVAILABILITY / ROADMAP AUTHORIZATION
 
@@ -143,12 +143,15 @@ This authorizes **parallel progress on independent later Milestone 7 items while
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #125 exact head `a652116dacda255bcb22a551ee6750504c72bc6a` and CI #482 first.
-2. If CI #482 fails, inspect the exact failing log and fix only evidence-backed problems on the same PR/branch.
-3. If CI #482 passes, review the exact head, require the expected three changed files and no unresolved review feedback, merge with expected-head guard `a652116dacda255bcb22a551ee6750504c72bc6a`, then validate the resulting main source SHA with Windows CI and record artifact evidence.
-4. Update `TODO.md`, `STATUS.md`, `HANDOFF.md` and a new immutable `work-log/*.md` after the automated validation sequence.
-5. Attempt the final item-7 physical validation autonomously only if a reliable native-Windows visual/input path is actually available; never infer PASS from CI.
-6. If physical validation remains unavailable, keep item 7 open and use the user's explicit authorization above to begin the next independent M7 top-level item in roadmap order. Do not claim item 7 complete. Keep later work isolated in coherent PRs and stop at any dependency on the unresolved transition behavior.
+The next implementation agent is **Codex Goal**, not this ChatGPT session.
+
+1. Reconstruct current repository state and inspect PR #125, its exact current head, CI history, and the CI #480 physical-fail evidence before changing or rerunning anything.
+2. Treat PR #125 as an unvalidated hypothesis. Analyze the repeated stale/duplicated WebView action-strip pixels and determine whether the current native hide/resize/show approach is technically sound. Keep and refine it if evidence supports it; replace it only if the current approach is proven inadequate.
+3. Do not request or wait for physical Windows testing from the user for the next several hours. The user is unavailable for manual system tests.
+4. Continue implementation work that can be validated without the user's physical interaction. This includes automated analysis/corrections for item 7 and, if item 7 remains physically blocked, independent later Milestone 7 items in roadmap order under the authorization below.
+5. Keep item 7 OPEN until direct valid Windows physical evidence passes. Do not infer PASS from CI.
+6. Do not advance to Milestone 8. Do not let later independent M7 work obscure the exact item-7 candidate/build that will need physical validation later.
+7. For each coherent validated slice, maintain TODO/STATUS/HANDOFF/new immutable work-log evidence, exact SHAs, PR/CI state and artifact identity. Use expected-head guarded merges and resulting-main CI as required.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -166,6 +169,6 @@ This authorizes **parallel progress on independent later Milestone 7 items while
 
 ## BLOCKERS / NOT RUN
 
-- **Physical Windows CI #480 motion re-test: PENDING / BLOCKING item 7 completion and item 8 start.**
+- **Physical Windows validation remains BLOCKING only for item 7 completion; the user is unavailable for manual testing for several hours. Independent later M7 work is explicitly allowed in the meantime.**
 - Local Rust/Tauri/npm checkout validation: NOT RUN in this environment; exact-head PR CI #479 and resulting-main CI #480 passed authoritative Windows gates.
 - No product decision blocks the implemented correction.
