@@ -144,6 +144,14 @@ function FocusSurfaceProduct() {
     }
   }
 
+  function failPendingModeTransition(failure: unknown) {
+    if (transitionCommitRef.current) return;
+    transitionBusyRef.current = false;
+    setPendingMode(null);
+    setTransitionPending(false);
+    setTransitionError(formatInvokeError(failure));
+  }
+
   toggleRequestRef.current = () => {
     const currentMode = modeRef.current;
     if (currentMode !== null) {
@@ -174,6 +182,7 @@ function FocusSurfaceProduct() {
         mode="timer"
         exiting={pendingMode !== null}
         onExitComplete={() => void commitPendingModeTransition()}
+        onExitFailure={failPendingModeTransition}
       >
         <FloatingTimerFoundation
           onReturnToPanel={() => void returnToPanel()}
@@ -195,6 +204,7 @@ function FocusSurfaceProduct() {
       mode="panel"
       exiting={pendingMode !== null}
       onExitComplete={() => void commitPendingModeTransition()}
+      onExitFailure={failPendingModeTransition}
     >
       <FocusPanel
         onRequestCompact={() => void enterCompactMode()}

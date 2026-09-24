@@ -11,6 +11,7 @@ import {
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import { waitForOpacityTransition } from "./opacityTransition";
 import { waitForPresentedFrame } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
@@ -62,7 +63,7 @@ export function FloatingTimerFoundation({
   const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
   const [resizePending, setResizePending] = useState(false);
   const [resizePhase, setResizePhase] = useState<"idle" | "exiting" | "resizing" | "entering">("idle");
-  const resizeTransitionResolverRef = useRef<(() => void) | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
@@ -71,7 +72,6 @@ export function FloatingTimerFoundation({
     setExpanded(fixtureExpanded);
     setResizePending(false);
     setResizePhase("idle");
-    resizeTransitionResolverRef.current = null;
     setResizeError(null);
   }, [fixtureExpanded, fixtureMode]);
 
@@ -154,18 +154,6 @@ export function FloatingTimerFoundation({
   const error = transitionError ?? resizeError ?? timerError ?? boardError;
   const title = liveTask?.title ?? (liveTaskId ? "Loading focus task…" : "No active focus task");
 
-  const waitForResizeTransition = (phase: "idle" | "exiting") => new Promise<void>((resolve) => {
-    resizeTransitionResolverRef.current = resolve;
-    setResizePhase(phase);
-  });
-
-  const finishResizeTransition = () => {
-    const resolve = resizeTransitionResolverRef.current;
-    if (!resolve) return;
-    resizeTransitionResolverRef.current = null;
-    resolve();
-  };
-
   const requestExpanded = async (nextExpanded: boolean) => {
     if (transitionPending || resizeRequestInFlightRef.current) return false;
     if (nextExpanded === expanded) return true;
@@ -179,25 +167,30 @@ export function FloatingTimerFoundation({
     onResizePendingChange?.(true);
     setResizePending(true);
     setResizeError(null);
+    let nativeResizeCommitted = false;
     try {
-      await waitForResizeTransition("exiting");
+      const content = contentRef.current;
+      if (!content) throw new Error("Floating Timer content is unavailable");
+      setResizePhase("exiting");
+      await waitForOpacityTransition(content, 0);
       setResizePhase("resizing");
       setExpanded(nextExpanded);
       await waitForPresentedFrame();
       await setFloatingTimerExpanded(nextExpanded);
+      nativeResizeCommitted = true;
       await waitForPresentedFrame();
       setResizePhase("entering");
       await waitForPresentedFrame();
-      await waitForResizeTransition("idle");
+      setResizePhase("idle");
+      await waitForOpacityTransition(content, 1);
       return true;
     } catch (failure: unknown) {
-      setExpanded(expanded);
+      if (!nativeResizeCommitted) setExpanded(expanded);
       setResizeError(formatInvokeError(failure));
-      return false;
+      return nativeResizeCommitted;
     } finally {
       resizeRequestInFlightRef.current = false;
       onResizePendingChange?.(false);
-      resizeTransitionResolverRef.current = null;
       setResizePhase("idle");
       setResizePending(false);
     }
@@ -233,13 +226,9 @@ export function FloatingTimerFoundation({
         />
       )}
       <div
+        ref={contentRef}
         className="floating-timer-foundation__content"
         data-tauri-drag-region="true"
-        onTransitionEnd={(event) => {
-          if (event.currentTarget !== event.target) return;
-          if (event.propertyName !== "opacity") return;
-          finishResizeTransition();
-        }}
       >
         {expanded && liveTask && timer ? (
           <FocusLiveActions
