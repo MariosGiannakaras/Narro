@@ -273,11 +273,16 @@ Acceptance criteria:
   - [x] Motion-smoothing corrective candidate is automated-validated: keyed Panel/Timer exit-before-native sequencing in both directions plus finite collapsed/expanded exit/resize/entrance sequencing; PR #123 exact-head CI #476 and resulting-main CI #477 PASS.
   - [x] Physical-fail compositor corrective candidate is automated-validated: settled Focus content is fully masked before native Panel/Timer geometry, collapsed/expanded resize uses an explicit hidden `resizing` phase, and a finite two-frame presented-frame barrier brackets native geometry; PR #124 exact-head CI #479 and resulting-main CI #480 PASS.
   - [x] Physical Windows CI #480 re-test evidence recorded: Panel -> Timer PASS; Timer -> Panel borderline/functional PASS; right-side return PASS; normal-size horizontal overflow PASS; timer/session continuity PASS; Expand/Collapse FAIL with repeated stale/duplicated action-strip pixels.
-  - [ ] Native hidden-resize corrective candidate: PR #125 exact head `a652116dacda255bcb22a551ee6750504c72bc6a`; CI #481 failed only the Rust formatting gate and the rustfmt-only correction is pushed. CI #482 attempt 2 was manually stopped by the user before completion so Codex can take over analysis/implementation; re-inspect the candidate before deciding whether to rerun CI. Do not count this as validated.
+  - [x] Native hidden-resize corrective candidate: target hierarchy stays visibility-hidden through native hide/resize/show and a post-show frame opportunity, with physical-size/visibility rollback on error; PR #125 exact-head CI #486, guarded merge `a7161ac`, and resulting-main CI #487 PASS. Physical re-test remains open.
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
+  - [x] Ctrl+Shift+T implementation passed PR #126 exact-head CI #488, guarded merge `77e535f`, and resulting-main CI #489.
+  - [ ] Physical Windows shortcut/conflict/session-continuity check remains open.
 - [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
+  - [x] Ctrl+Shift+P and finite attention pulse passed PR #127 exact-head CI #490, guarded merge `53c0376`, and resulting-main CI #491.
+  - [ ] Physical Windows hotkey/conflict/pulse/session-continuity check remains open.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
+  - [ ] Native SQLite placement/relative recovery candidate is in PR #128 at `65b16c4`; local preflight/rustfmt PASS, Windows CI #492 and physical drag/restart/monitor checks pending.
 - [ ] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
 - [ ] Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.
 - [ ] Verify no decorative animation runs continuously while idle.

@@ -19,17 +19,29 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–6 are validated. M7 item 7 remains open at the final physical Windows gate. The exact CI #477 build was manually re-tested on 2026-09-24: Panel -> Timer passed, Timer -> Panel returned correctly but retained a small flicker, right-side Panel return passed, normal product-size horizontal overflow passed, timer/session continuity passed, and Expand/Collapse failed. The supplied screenshots showed stale/duplicated expanded action-strip pixels during native resize and old expanded pixels surviving into collapsed geometry.
+M7 items 1–6 are validated. Item 7 remains open at its physical Windows gate. The physical re-test of exact resulting-main CI #480 on 2026-09-24 showed Panel -> Timer PASS, Timer -> Panel borderline/functional PASS, Expand/Collapse FAIL with accumulating stale/duplicated action-strip pixels, right-side Panel return PASS, normal-size horizontal scrollbar PASS, and timer/session continuity PASS.
 
-A narrow compositor/presentation correction is now merged and automated-validated through PR #124 and resulting-main CI #480. Physical Windows re-test of the exact CI #480 runtime artifact is required before item 7 can close or item 8 can start.
+PR #125 corrected the native/WebView presentation sequence. Exact head `fb3547855433b87d576e1e78a5bbe58d5fc2570b` passed Windows CI #486; expected-head guarded squash merge `a7161acdf6a400147af0bbc44d52b1ec6ee64ea5` and resulting-main CI #487 both passed. The new physical item-7 re-test is NOT RUN; no automated run can close that gate.
 
-A second physical re-test of the exact CI #480 build on 2026-09-24 confirmed that the renderer-only compositor masking still does not solve expand/collapse: repeated cycles accumulate duplicated/stale action-strip pixels in the resized WebView. Panel -> Timer, right-side Panel return, normal product-size horizontal overflow and timer/session continuity passed; Timer -> Panel was only a borderline/functional PASS and remains part of the final motion gate.
+The user explicitly authorized independent later M7 work while physical testing is unavailable. Item 8 Ctrl+Shift+T passed PR #126 CI #488, guarded merge `77e535f73593be59f4a82b9052cba9ade5c36611`, and resulting-main CI #489. Item 9 Ctrl+Shift+P passed PR #127 CI #490, guarded merge `53c03767d5303067c14da9740f4a450c59e6afc4`, and resulting-main CI #491. Both top-level TODO items remain unchecked pending physical behavior checks. Item 10 native safe-position persistence is in PR #128 at exact head `65b16c40473a36a217db6789f8b7c791c92e88fd`, with Windows CI #492 in progress.
 
-A narrower native correction is under review in PR #125. CI #481 / run `35936338414` on head `62e40ca34c86fe5fc19da447448aa1d540e80754` failed only `cargo fmt --check`; the exact rustfmt diff from the CI log was applied without behavioral changes. The current exact head is `a652116dacda255bcb22a551ee6750504c72bc6a`. CI #482 / run `35936606645` attempt 2 was manually stopped by the user before completion so Codex can take over the technical analysis and implementation. The current candidate is **implemented, not validated and not assumed correct**; Codex must inspect the physical evidence and current source before deciding whether to keep, revise, or replace this approach.
+## Current automated-validated source baseline
 
-## Current validated source baseline
+PR #126 exact head `e3dd947dc82a98fd0df68866467753849f35c5bf`: Windows CI #488 / run `35940850134` PASS. Guarded squash merge `77e535f73593be59f4a82b9052cba9ade5c36611` passed resulting-main CI #489 / run `35942198710`. Runtime artifact `10785728177`, digest `sha256:91081c9d7a1ed23597c00fd7c3951d130fde1a3c2d67b18aa58310f9badb9ae8`.
 
-Latest resulting-main automated-validated **source/test** baseline:
+PR #127 exact head `a12946b1320e43800b54181a0dfbc9f95df31b92`: Windows CI #490 / run `35942309332` PASS. Guarded squash merge `53c03767d5303067c14da9740f4a450c59e6afc4` passed resulting-main CI #491 / run `35970230227` / job `107537965229`. Main runtime artifact `10796720324`, digest `sha256:bf5fe346447dfea09ac4bd9c16aa09ad4daa914549290b95747d1f1c341748c5`. Visual artifact `10796097074`, digest `sha256:c086aed06b7a3f081e1ebdbfb1c5095a21acaa78b232d31c5669b1bc5cf6de27`.
+
+## Item 7 physical candidate
+
+PR #125 exact head `fb3547855433b87d576e1e78a5bbe58d5fc2570b`: Windows CI #486 / run `35939359726` / job `107443605380` PASS, including Repository Preflight, visual fixtures, Tauri Release, and diagnostic artifact.
+
+Expected-head guarded squash merge `a7161acdf6a400147af0bbc44d52b1ec6ee64ea5` (tree `077435c468d4e5358b7a2e2b98417332d4e20a05`) passed resulting-main Windows CI #487 / run `35940723610` / job `107447795591` with the same required gates. Runtime artifact `10785466061`, `narro-m1-runtime-harness-windows-x64`, digest `sha256:f84bee3216cfe5d1762916cd54cd0d7703db283bdd7d1930b9b540a100764413`. Visual artifact `10785301496`, digest `sha256:c385e00fe2c06cb0084d17f002c9f82f77b0d9cfa67e95f491a7a0b12f7f941a`.
+
+The target expanded/collapsed hierarchy stays visibility-hidden during native window hide/resize/show and a post-show presented-frame opportunity. Native failure attempts physical-size/visibility rollback, and renderer failure restores the previous expanded hierarchy. This is automated-validated source, not a physical compositor PASS.
+
+## Prior compositor baseline before PR #125
+
+Historical resulting-main automated-validated **source/test** baseline:
 
 `6f99e9b1869b927e5a792cc569b6c8131859c7d8`
 
@@ -39,7 +51,7 @@ Tree:
 
 This is the squash merge of PR #124 — `M7: mask stale focus content across native resize` — from exact validated PR head `2db045ef82286d8364d77a3ba9654842b9a66eb3`. The merge tree is byte-identical to the exact validated PR-head tree. Markdown-only tracking descendants do **not** replace this source/test baseline.
 
-The current corrective source:
+The PR #124 corrective source:
 
 - preserves the existing finite exit transition, then marks the settled outgoing Focus root `visibility: hidden` before native Panel/Timer geometry runs;
 - waits through a shared finite two-`requestAnimationFrame` presented-frame barrier before invoking native mode geometry;
@@ -198,18 +210,9 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-Physically re-test M7 item 7 on the exact resulting-main CI #480 runtime artifact; do **not** start item 8.
+Resulting-main CI #487 passed on source `a7161ac`. Physical re-test candidate: runtime artifact `10785466061`, digest `sha256:f84bee3216cfe5d1762916cd54cd0d7703db283bdd7d1930b9b540a100764413`. Physical checks remain open: Panel -> Timer, Timer -> Panel, right-side Panel return, collapsed -> expanded -> collapsed, normal product-size horizontal overflow, timer/session continuity, and perceived smoothness. Expand/Collapse passes only if no stale/duplicated action-strip content survives either resize direction.
 
-Exact artifact:
-
-- source SHA `6f99e9b1869b927e5a792cc569b6c8131859c7d8`;
-- run `35931208957` / CI #480;
-- runtime artifact `10781866423`, `narro-m1-runtime-harness-windows-x64`;
-- artifact digest `sha256:2c203f4c5cc62a645781fdb4ad341527bed6d60f8d0cb3b3cec2139be37c9f29`.
-
-Required physical checks remain: Panel -> Timer, Timer -> Panel, right-side Panel return, collapsed -> expanded -> collapsed, normal product-size horizontal overflow, timer/session continuity, and overall perceived smoothness. Expand/Collapse passes only if no stale/duplicated expanded content or old pixels remain visible during either resize direction. Timer -> Panel passes the motion gate only if the small return flicker observed on CI #477 is gone.
-
-On full physical PASS, close item 7 and advance to ordered item 8. On any FAIL, record the exact CI #480 build identity and concrete direction/symptom before making another source change.
+Verify item-10 PR #128 exact-head CI #492, correct any exact failure, then merge on full required PASS with expected-head guard and verify resulting-main CI. Physical checks for Ctrl+Shift+T, Ctrl+Shift+P, and safe Timer position remain open. Continue later M7 items in TODO order, preserving each physical limitation and without advancing to Milestone 8.
 
 ## Durable correctness decisions
 
