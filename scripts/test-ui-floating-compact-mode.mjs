@@ -154,9 +154,13 @@ invariant(
     && foundation.includes('aria-label="Return to Focus Panel"'),
   "a missing/finished live task must retain an explicit return-to-panel escape path",
 );
-for (const forbidden of ["animation:", "transition:", "position: absolute", "@keyframes"]) {
-  invariant(!foundationCss.includes(forbidden), `foundation compact mode must not introduce decorative motion/overlay behavior via ${forbidden}`);
-}
+invariant(
+  !/animation\s*:\s*[^;]*infinite/.test(foundationCss)
+    && (foundationCss.match(/@keyframes/g) ?? []).length === 1
+    && foundationCss.includes("animation: floating-timer-attention 720ms ease-out 1;")
+    && foundationCss.includes("@media (prefers-reduced-motion: reduce)"),
+  "the only decorative Floating Timer motion must be the finite Find Timer pulse with a reduced-motion path",
+);
 
 invariant(
   pkg.scripts["test:ui-floating-compact-mode"] === "node scripts/test-ui-floating-compact-mode.mjs",

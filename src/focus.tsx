@@ -32,6 +32,8 @@ function FocusSurfaceProduct() {
   const transitionBusyRef = useRef(false);
   const resizeBusyRef = useRef(false);
   const lastToggleRequestRef = useRef(0);
+  const lastFindRequestRef = useRef(0);
+  const [findTimerPulse, setFindTimerPulse] = useState<number | null>(null);
   const toggleRequestRef = useRef<() => void>(() => {});
   const reportResizePending = useCallback((pending: boolean) => {
     resizeBusyRef.current = pending;
@@ -45,6 +47,31 @@ function FocusSurfaceProduct() {
       if (disposed || !Number.isSafeInteger(sequence) || sequence <= lastToggleRequestRef.current) return;
       lastToggleRequestRef.current = sequence;
       toggleRequestRef.current();
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopListening = unlisten;
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) setTransitionError(formatInvokeError(failure));
+      });
+
+    return () => {
+      disposed = true;
+      stopListening?.();
+    };
+  }, []);
+
+  useEffect(() => {
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    void listen<number>("focus-timer-find-requested", (event) => {
+      const sequence = event.payload;
+      if (disposed || !Number.isSafeInteger(sequence) || sequence <= lastFindRequestRef.current) return;
+      lastFindRequestRef.current = sequence;
+      if (modeRef.current === "timer" && !transitionBusyRef.current && !resizeBusyRef.current) {
+        setFindTimerPulse(sequence);
+      }
     })
       .then((unlisten) => {
         if (disposed) unlisten();
@@ -86,6 +113,7 @@ function FocusSurfaceProduct() {
   function requestMode(targetMode: FocusSurfaceMode) {
     if (transitionBusyRef.current || resizeBusyRef.current || modeRef.current === targetMode) return;
     transitionBusyRef.current = true;
+    setFindTimerPulse(null);
     setTransitionPending(true);
     setTransitionError(null);
     setPendingMode(targetMode);
@@ -152,6 +180,10 @@ function FocusSurfaceProduct() {
           transitionPending={transitionPending}
           transitionError={transitionError}
           onResizePendingChange={reportResizePending}
+          attentionPulseSequence={findTimerPulse}
+          onAttentionPulseEnd={(sequence) => {
+            setFindTimerPulse((current) => current === sequence ? null : current);
+          }}
         />
       </FocusSurfaceTransition>
     );
