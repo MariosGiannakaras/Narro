@@ -103,7 +103,9 @@ invariant(
   "failed hidden Panel preparation must restore the complete prior native presentation",
 );
 
-const preparePanel = slice(lib, "fn prepare_focus_panel(", "#[tauri::command]\nfn reveal_focus_panel");
+const preparePanel = slice(lib, "fn prepare_focus_panel(", "#[tauri::command]\nfn prewarm_focus_surface");
+const prewarmNative = slice(lib, "fn prewarm_focus_surface(", "#[tauri::command]\nfn clear_focus_surface_prewarm");
+const clearPrewarmNative = slice(lib, "fn clear_focus_surface_prewarm(", "#[tauri::command]\nfn reveal_focus_panel");
 const revealPanel = slice(lib, "fn reveal_focus_panel(", "#[tauri::command]\nfn present_focus_panel");
 const prepareTimer = slice(lib, "fn prepare_floating_timer(", "#[tauri::command]\nfn reveal_floating_timer");
 const revealTimer = slice(lib, "fn reveal_floating_timer(", "#[tauri::command]\nfn present_floating_timer");
@@ -113,13 +115,25 @@ invariant(
   "both product modes must expose hidden native prepare commands",
 );
 invariant(
-  revealPanel.indexOf(".show()") < revealPanel.indexOf(".set_focus()")
+  lib.includes("SetLayeredWindowAttributes")
+    && lib.includes("set_layered_alpha(hwnd, 0)")
+    && lib.includes("set_layered_alpha(hwnd, 255)")
+    && prewarmNative.indexOf("focus_surface_prewarm::cloak(&window)") < prewarmNative.indexOf(".show()")
+    && clearPrewarmNative.includes("focus_surface_prewarm::uncloak(&window)"),
+  "native prewarm must show the real host fully transparent, then expose an explicit alpha cleanup boundary",
+);
+invariant(
+  revealPanel.indexOf(".show()") < revealPanel.indexOf("focus_surface_prewarm::uncloak(&window)")
+    && revealPanel.indexOf("focus_surface_prewarm::uncloak(&window)") < revealPanel.indexOf(".set_focus()")
     && revealPanel.indexOf(".set_focus()") < revealPanel.indexOf("record_focus_surface_mode(FocusSurfaceMode::Panel)")
-    && revealTimer.indexOf(".show()") < revealTimer.indexOf("record_focus_surface_mode(FocusSurfaceMode::Timer)"),
-  "reveal commands must publish native visibility before authoritative presentation mode",
+    && revealTimer.indexOf(".show()") < revealTimer.indexOf("focus_surface_prewarm::uncloak(&window)")
+    && revealTimer.indexOf("focus_surface_prewarm::uncloak(&window)") < revealTimer.indexOf("record_focus_surface_mode(FocusSurfaceMode::Timer)"),
+  "reveal commands must remove the transparent prewarm before publishing authoritative presentation mode",
 );
 for (const command of [
   "prepare_floating_timer",
+  "prewarm_focus_surface",
+  "clear_focus_surface_prewarm",
   "reveal_floating_timer",
   "prepare_focus_panel",
   "reveal_focus_panel",
@@ -144,10 +158,11 @@ invariant(
     && commitMode.includes("setPreparedMode(nextMode)")
     && commitMode.includes("setPendingMode(null)")
     && commitMode.includes("setMode(nextMode)")
+    && commitMode.includes("await prewarmFocusSurface()")
     && commitMode.includes("waitForPresentedFrame")
     && commitMode.includes("await revealFloatingTimer()")
     && commitMode.includes("await revealFocusPanel()"),
-  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, pass a frame barrier, then reveal",
+  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, transparently prewarm the visible host, pass a frame barrier, then reveal",
 );
 invariant(
   focus.includes('prepainted={preparedMode === "timer"}')
@@ -157,15 +172,17 @@ invariant(
 
 invariant(
   coordinator.indexOf("await prepareMode(targetMode)") < coordinator.indexOf("publishMode(targetMode)")
-    && coordinator.indexOf("publishMode(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
+    && coordinator.indexOf("publishMode(targetMode)") < coordinator.indexOf("await prewarmMode(targetMode)")
+    && coordinator.indexOf("await prewarmMode(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
     && coordinator.indexOf("await waitForPresentedFrame()") < coordinator.indexOf("await revealMode(targetMode)"),
-  "coordinator success order must be prepare -> publish -> frame -> reveal",
+  "coordinator success order must be prepare -> publish -> transparent prewarm -> frame -> reveal",
 );
 const recovery = coordinator.indexOf("await prepareMode(previousMode)");
 invariant(
   recovery > coordinator.indexOf("catch (transitionFailure)")
     && recovery < coordinator.indexOf("publishMode(previousMode)", recovery)
-    && coordinator.indexOf("publishMode(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
+    && coordinator.indexOf("publishMode(previousMode)", recovery) < coordinator.indexOf("await prewarmMode(previousMode)", recovery)
+    && coordinator.indexOf("await prewarmMode(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
     && coordinator.includes("FocusModeTransitionRecoveryError")
     && coordinator.includes("FocusModeTransitionCancelledError"),
   "coordinator must rollback hidden geometry and renderer state on failure/cancellation and report failed recovery explicitly",

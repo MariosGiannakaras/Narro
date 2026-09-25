@@ -11,6 +11,14 @@ export async function prepareFloatingTimer(): Promise<void> {
   await invoke<void>("prepare_floating_timer");
 }
 
+export async function prewarmFocusSurface(): Promise<void> {
+  await invoke<void>("prewarm_focus_surface");
+}
+
+export async function clearFocusSurfacePrewarm(): Promise<void> {
+  await invoke<void>("clear_focus_surface_prewarm");
+}
+
 export async function revealFloatingTimer(): Promise<void> {
   await invoke<void>("reveal_floating_timer");
 }
