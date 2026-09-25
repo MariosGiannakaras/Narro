@@ -27,6 +27,7 @@ export type FloatingTimerFoundationProps = {
   onResizePendingChange?: (pending: boolean) => void;
   transitionPending?: boolean;
   transitionError?: string | null;
+  onPresentationReady?: () => void;
   fixtureBoard?: ListBoardSnapshot;
   fixtureTimer?: TimerSessionPayload | null;
   fixtureExpanded?: boolean;
@@ -50,6 +51,7 @@ export function FloatingTimerFoundation({
   onResizePendingChange,
   transitionPending = false,
   transitionError = null,
+  onPresentationReady,
   fixtureBoard,
   fixtureTimer = null,
   fixtureExpanded = false,
@@ -60,6 +62,10 @@ export function FloatingTimerFoundation({
   const [timer, setTimer] = useState<TimerSessionPayload | null>(fixtureMode ? fixtureTimer : null);
   const [boardError, setBoardError] = useState<string | null>(null);
   const [timerError, setTimerError] = useState<string | null>(null);
+  const [timerSettled, setTimerSettled] = useState(fixtureMode);
+  const [boardTaskId, setBoardTaskId] = useState<string | null>(
+    fixtureMode ? fixtureTimer?.runtime.timer.task_id ?? null : null,
+  );
   const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
   const [resizePending, setResizePending] = useState(false);
   const [resizePhase, setResizePhase] = useState<"idle" | "exiting" | "resizing" | "entering">("idle");
@@ -80,11 +86,13 @@ export function FloatingTimerFoundation({
   useEffect(() => {
     if (fixtureMode) {
       setTimer(fixtureTimer);
+      setTimerSettled(true);
       setTimerError(null);
       return;
     }
 
     let disposed = false;
+    setTimerSettled(false);
     let disconnect: (() => void) | undefined;
     void connectLiveTimerSessionProjection(
       (incoming) => {
@@ -99,10 +107,16 @@ export function FloatingTimerFoundation({
     )
       .then((stop) => {
         if (disposed) stop();
-        else disconnect = stop;
+        else {
+          disconnect = stop;
+          setTimerSettled(true);
+        }
       })
       .catch((failure: unknown) => {
-        if (!disposed) setTimerError(formatInvokeError(failure));
+        if (!disposed) {
+          setTimerSettled(true);
+          setTimerError(formatInvokeError(failure));
+        }
       });
 
     return () => {
@@ -121,21 +135,27 @@ export function FloatingTimerFoundation({
     }
     if (liveTaskId === null) {
       setBoard(null);
+      setBoardTaskId(null);
       setBoardError(null);
       return;
     }
 
     let disposed = false;
+    setBoard(null);
+    setBoardTaskId(null);
+    setBoardError(null);
     void getListBoardSnapshot({ kind: "all" })
       .then((snapshot) => {
         if (!disposed) {
           setBoard(snapshot);
+          setBoardTaskId(liveTaskId);
           setBoardError(null);
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
           setBoard(null);
+          setBoardTaskId(liveTaskId);
           setBoardError(formatInvokeError(failure));
         }
       });
@@ -145,6 +165,13 @@ export function FloatingTimerFoundation({
     };
   }, [fixtureBoard, fixtureMode, liveTaskId]);
 
+  const presentationReady = fixtureMode
+    || (timerSettled && (liveTaskId === null || boardTaskId === liveTaskId));
+
+  useEffect(() => {
+    if (presentationReady) onPresentationReady?.();
+  }, [onPresentationReady, presentationReady]);
+
   const liveTask = useMemo(
     () => liveTaskId === null ? null : board?.today.tasks.find((task) => task.id === liveTaskId) ?? null,
     [board, liveTaskId],
@@ -152,7 +179,10 @@ export function FloatingTimerFoundation({
   const liveTimer = timer ? focusTimerPresentation(timer.runtime.timer) : null;
   const progress = useMemo(() => subtaskProgress(liveTask), [liveTask]);
   const error = transitionError ?? resizeError ?? timerError ?? boardError;
-  const title = liveTask?.title ?? (liveTaskId ? "Loading focus task…" : "No active focus task");
+  const title = liveTask?.title
+    ?? (liveTaskId
+      ? boardTaskId === liveTaskId ? "Focus task unavailable" : "Loading focus task…"
+      : "No active focus task");
 
   const requestExpanded = async (nextExpanded: boolean) => {
     if (transitionPending || resizeRequestInFlightRef.current) return false;
