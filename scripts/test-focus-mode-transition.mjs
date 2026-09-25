@@ -68,8 +68,8 @@ test("success prepares hidden geometry, publishes target, paints, then reveals",
   assert.deepEqual(h.calls, [
     "prepare:timer",
     "publish:timer",
-    "prewarm:timer",
     "ready:timer",
+    "prewarm:timer",
     "frame",
     "reveal:timer",
   ]);
@@ -83,7 +83,7 @@ test("prepare failure leaves renderer unpublished and does not run recovery", as
   assert.deepEqual(h.calls, ["prepare:timer"]);
 });
 
-test("transparent prewarm failure recovers the previous renderer and native presentation", async () => {
+test("transparent prewarm failure occurs only after target readiness and recovers the previous renderer", async () => {
   const h = harness();
   const failure = new Error("prewarm failed");
   h.failures.prewarm.set("timer", failure);
@@ -94,14 +94,14 @@ test("transparent prewarm failure recovers the previous renderer and native pres
     "prewarm:timer",
     "prepare:panel",
     "publish:panel",
-    "prewarm:panel",
     "ready:panel",
+    "prewarm:panel",
     "frame",
     "reveal:panel",
   ]);
 });
 
-test("target readiness failure recovers without revealing the unready target", async () => {
+test("target readiness failure never prewarms or reveals the unready target", async () => {
   const h = harness();
   const failure = new Error("target not ready");
   h.failures.ready.set("timer", failure);
@@ -113,8 +113,8 @@ test("target readiness failure recovers without revealing the unready target", a
     "ready:timer",
     "prepare:panel",
     "publish:panel",
-    "prewarm:panel",
     "ready:panel",
+    "prewarm:panel",
     "frame",
     "reveal:panel",
   ]);
@@ -129,13 +129,13 @@ test("presented-frame failure restores previous hidden geometry and renderer bef
   assert.deepEqual(h.calls, [
     "prepare:timer",
     "publish:timer",
-    "prewarm:timer",
     "ready:timer",
+    "prewarm:timer",
     "frame",
     "prepare:panel",
     "publish:panel",
-    "prewarm:panel",
     "ready:panel",
+    "prewarm:panel",
     "frame",
     "reveal:panel",
   ]);
@@ -149,14 +149,14 @@ test("reveal failure rolls back through the same prepare-publish-frame-reveal se
   assert.deepEqual(h.calls, [
     "prepare:timer",
     "publish:timer",
-    "prewarm:timer",
     "ready:timer",
+    "prewarm:timer",
     "frame",
     "reveal:timer",
     "prepare:panel",
     "publish:panel",
-    "prewarm:panel",
     "ready:panel",
+    "prewarm:panel",
     "frame",
     "reveal:panel",
   ]);
@@ -177,8 +177,8 @@ test("cancellation after native prepare recovers the previous presentation", asy
     "prepare:timer",
     "prepare:panel",
     "publish:panel",
-    "prewarm:panel",
     "ready:panel",
+    "prewarm:panel",
     "frame",
     "reveal:panel",
   ]);
