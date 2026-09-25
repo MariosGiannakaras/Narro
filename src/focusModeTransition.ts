@@ -29,6 +29,7 @@ export type FocusModeTransitionDependencies = {
   targetMode: FocusSurfaceMode;
   prepareMode: (mode: FocusSurfaceMode) => Promise<void>;
   publishMode: (mode: FocusSurfaceMode) => void;
+  prewarmMode: (mode: FocusSurfaceMode) => Promise<void>;
   waitForPresentedFrame: () => Promise<void>;
   revealMode: (mode: FocusSurfaceMode) => Promise<void>;
   isCancelled?: () => boolean;
@@ -43,6 +44,7 @@ export async function coordinateFocusModeTransition({
   targetMode,
   prepareMode,
   publishMode,
+  prewarmMode,
   waitForPresentedFrame,
   revealMode,
   isCancelled,
@@ -61,6 +63,11 @@ export async function coordinateFocusModeTransition({
     if (afterPrepareCancellation) throw afterPrepareCancellation;
 
     publishMode(targetMode);
+
+    const afterPublishCancellation = cancellationFailure(isCancelled);
+    if (afterPublishCancellation) throw afterPublishCancellation;
+
+    await prewarmMode(targetMode);
     await waitForPresentedFrame();
 
     const beforeRevealCancellation = cancellationFailure(isCancelled);
@@ -73,6 +80,7 @@ export async function coordinateFocusModeTransition({
     try {
       await prepareMode(previousMode);
       publishMode(previousMode);
+      await prewarmMode(previousMode);
       await waitForPresentedFrame();
       await revealMode(previousMode);
     } catch (recoveryFailure) {

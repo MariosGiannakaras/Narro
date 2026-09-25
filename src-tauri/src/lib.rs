@@ -55,6 +55,144 @@ const FOCUS_SURFACE_MODE_TIMER: u8 = 2;
 
 static FOCUS_SURFACE_MODE_STATE: AtomicU8 = AtomicU8::new(FOCUS_SURFACE_MODE_UNKNOWN);
 
+#[cfg(windows)]
+mod focus_surface_prewarm {
+    use super::{CommandError, CommandResult, FOCUS_SURFACE_LABEL};
+    use std::ffi::c_void;
+    use std::sync::atomic::{AtomicBool, Ordering};
+
+    const GWL_EXSTYLE: i32 = -20;
+    const WS_EX_LAYERED: isize = 0x0008_0000;
+    const LWA_ALPHA: u32 = 0x0000_0002;
+
+    static OWNS_LAYERED_STYLE: AtomicBool = AtomicBool::new(false);
+
+    #[link(name = "user32")]
+    extern "system" {
+        fn GetWindowLongPtrW(hwnd: *mut c_void, index: i32) -> isize;
+        fn SetWindowLongPtrW(hwnd: *mut c_void, index: i32, new_long: isize) -> isize;
+        fn SetLayeredWindowAttributes(
+            hwnd: *mut c_void,
+            color_key: u32,
+            alpha: u8,
+            flags: u32,
+        ) -> i32;
+    }
+
+    #[link(name = "kernel32")]
+    extern "system" {
+        fn GetLastError() -> u32;
+        fn SetLastError(code: u32);
+    }
+
+    fn native_hwnd(window: &tauri::WebviewWindow) -> CommandResult<*mut c_void> {
+        let hwnd = window.hwnd().map_err(|error| {
+            CommandError::new(
+                "FOCUS_SURFACE_PREWARM_FAILED",
+                format!("failed to resolve {FOCUS_SURFACE_LABEL} HWND: {error}"),
+            )
+        })?;
+        Ok(hwnd.0 as isize as *mut c_void)
+    }
+
+    fn read_extended_style(hwnd: *mut c_void) -> CommandResult<isize> {
+        unsafe {
+            SetLastError(0);
+            let style = GetWindowLongPtrW(hwnd, GWL_EXSTYLE);
+            let error = GetLastError();
+            if style == 0 && error != 0 {
+                Err(CommandError::new(
+                    "FOCUS_SURFACE_PREWARM_FAILED",
+                    format!("GetWindowLongPtrW failed with Win32 error {error}"),
+                ))
+            } else {
+                Ok(style)
+            }
+        }
+    }
+
+    fn write_extended_style(hwnd: *mut c_void, style: isize) -> CommandResult<()> {
+        unsafe {
+            SetLastError(0);
+            let previous = SetWindowLongPtrW(hwnd, GWL_EXSTYLE, style);
+            let error = GetLastError();
+            if previous == 0 && error != 0 {
+                Err(CommandError::new(
+                    "FOCUS_SURFACE_PREWARM_FAILED",
+                    format!("SetWindowLongPtrW failed with Win32 error {error}"),
+                ))
+            } else {
+                Ok(())
+            }
+        }
+    }
+
+    fn set_layered_alpha(hwnd: *mut c_void, alpha: u8) -> CommandResult<()> {
+        let result = unsafe { SetLayeredWindowAttributes(hwnd, 0, alpha, LWA_ALPHA) };
+        if result == 0 {
+            let error = unsafe { GetLastError() };
+            Err(CommandError::new(
+                "FOCUS_SURFACE_PREWARM_FAILED",
+                format!("SetLayeredWindowAttributes({alpha}) failed with Win32 error {error}"),
+            ))
+        } else {
+            Ok(())
+        }
+    }
+
+    pub fn cloak(window: &tauri::WebviewWindow) -> CommandResult<()> {
+        let hwnd = native_hwnd(window)?;
+        let style = read_extended_style(hwnd)?;
+        let added_layered_style = style & WS_EX_LAYERED == 0;
+
+        if added_layered_style {
+            write_extended_style(hwnd, style | WS_EX_LAYERED)?;
+            OWNS_LAYERED_STYLE.store(true, Ordering::Release);
+        }
+
+        if let Err(error) = set_layered_alpha(hwnd, 0) {
+            if added_layered_style {
+                let _ = write_extended_style(hwnd, style);
+                OWNS_LAYERED_STYLE.store(false, Ordering::Release);
+            }
+            return Err(error);
+        }
+
+        Ok(())
+    }
+
+    pub fn uncloak(window: &tauri::WebviewWindow) -> CommandResult<()> {
+        let hwnd = native_hwnd(window)?;
+        let style = read_extended_style(hwnd)?;
+        if style & WS_EX_LAYERED == 0 {
+            OWNS_LAYERED_STYLE.store(false, Ordering::Release);
+            return Ok(());
+        }
+
+        set_layered_alpha(hwnd, 255)?;
+
+        if OWNS_LAYERED_STYLE.swap(false, Ordering::AcqRel) {
+            let current_style = read_extended_style(hwnd)?;
+            write_extended_style(hwnd, current_style & !WS_EX_LAYERED)?;
+        }
+
+        Ok(())
+    }
+}
+
+#[cfg(not(windows))]
+mod focus_surface_prewarm {
+    use super::CommandResult;
+
+    pub fn cloak(_window: &tauri::WebviewWindow) -> CommandResult<()> {
+        Ok(())
+    }
+
+    pub fn uncloak(_window: &tauri::WebviewWindow) -> CommandResult<()> {
+        Ok(())
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum FocusSurfaceMode {
     Panel,
@@ -827,11 +965,35 @@ fn prepare_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
 }
 
 #[tauri::command]
+fn prewarm_focus_surface(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    focus_surface_prewarm::cloak(&window)?;
+    if let Err(error) = window.show() {
+        let show_error = map_window_error(FOCUS_SURFACE_LABEL, "show transparent prewarm", error);
+        if let Err(cleanup_error) = focus_surface_prewarm::uncloak(&window) {
+            return Err(CommandError::new(
+                "FOCUS_SURFACE_PREWARM_RECOVERY_FAILED",
+                format!("{show_error}; prewarm cleanup also failed: {cleanup_error}"),
+            ));
+        }
+        return Err(show_error);
+    }
+    Ok(())
+}
+
+#[tauri::command]
+fn clear_focus_surface_prewarm(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    focus_surface_prewarm::uncloak(&window)
+}
+
+#[tauri::command]
 fn reveal_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     window
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "reveal Panel", error))?;
+    focus_surface_prewarm::uncloak(&window)?;
     window
         .set_focus()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus revealed Panel", error))?;
@@ -862,6 +1024,7 @@ fn reveal_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
     window
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "reveal Timer", error))?;
+    focus_surface_prewarm::uncloak(&window)?;
     record_focus_surface_mode(FocusSurfaceMode::Timer);
     Ok(())
 }
@@ -1363,6 +1526,8 @@ pub fn run() {
             focus_surface_mode_panel,
             focus_surface_mode_timer,
             prepare_floating_timer,
+            prewarm_focus_surface,
+            clear_focus_surface_prewarm,
             reveal_floating_timer,
             present_floating_timer,
             set_floating_timer_expanded,

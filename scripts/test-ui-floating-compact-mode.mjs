@@ -82,9 +82,11 @@ invariant(
   "return transition must split hidden Panel preparation from reveal",
 );
 invariant(
-  modeApi.includes('invoke<void>("present_floating_timer")')
+  modeApi.includes('invoke<void>("prewarm_focus_surface")')
+    && modeApi.includes('invoke<void>("clear_focus_surface_prewarm")')
+    && modeApi.includes('invoke<void>("present_floating_timer")')
     && modeApi.includes('invoke<void>("present_focus_panel")'),
-  "legacy/native diagnostic presenters must remain available outside product transition orchestration",
+  "transparent prewarm cleanup and legacy/native diagnostic presenters must remain available outside product transition orchestration",
 );
 for (const forbidden of ["timer_start_task", "timer_pause", "timer_resume", "timer_complete_task", "timer_switch_task"]) {
   invariant(!modeApi.includes(forbidden), `mode API must not become timer/session authority via ${forbidden}`);
@@ -114,9 +116,10 @@ invariant(
     && commitMode.includes("await prepareFocusPanel()")
     && commitMode.includes("flushSync(() => {")
     && commitMode.includes("setMode(nextMode)")
+    && commitMode.includes("await prewarmFocusSurface()")
     && commitMode.includes("await revealFloatingTimer()")
     && commitMode.includes("await revealFocusPanel()"),
-  "renderer must prepare native geometry hidden, publish the target root, then reveal through the shared coordinator",
+  "renderer must prepare native geometry hidden, publish the target root, transparently prewarm the host, then reveal through the shared coordinator",
 );
 invariant(
   focusEntry.includes('requestMode("timer")')

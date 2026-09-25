@@ -63,9 +63,10 @@ invariant(
     && focus.includes("await coordinateFocusModeTransition({")
     && focus.includes("await prepareFloatingTimer()")
     && focus.includes("await prepareFocusPanel()")
+    && focus.includes("await prewarmFocusSurface()")
     && focus.includes("await revealFloatingTimer()")
     && focus.includes("await revealFocusPanel()"),
-  "global toggle must use the serialized hidden-prepare transition coordinator and ignore reentrant mode or resize requests",
+  "global toggle must use the serialized hidden-prepare/transparent-prewarm transition coordinator and ignore reentrant mode or resize requests",
 );
 invariant(
   floating.includes("onResizePendingChange?.(true)")

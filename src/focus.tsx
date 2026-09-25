@@ -8,9 +8,11 @@ import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusSurfaceTransition } from "./FocusSurfaceTransition";
 import { FocusPanel } from "./FocusPanel";
 import {
+  clearFocusSurfacePrewarm,
   getFocusSurfaceMode,
   prepareFloatingTimer,
   prepareFocusPanel,
+  prewarmFocusSurface,
   revealFloatingTimer,
   revealFocusPanel,
   type FocusSurfaceMode,
@@ -148,6 +150,9 @@ function FocusSurfaceProduct() {
             setMode(nextMode);
           });
         },
+        prewarmMode: async () => {
+          await prewarmFocusSurface();
+        },
         waitForPresentedFrame,
         revealMode: async (nextMode) => {
           if (nextMode === "timer") {
@@ -160,7 +165,15 @@ function FocusSurfaceProduct() {
       modeRef.current = targetMode;
       setTransitionError(null);
     } catch (failure: unknown) {
-      setTransitionError(formatInvokeError(failure));
+      const transitionFailure = formatInvokeError(failure);
+      try {
+        await clearFocusSurfacePrewarm();
+        setTransitionError(transitionFailure);
+      } catch (cleanupFailure: unknown) {
+        setTransitionError(
+          `${transitionFailure}; prewarm cleanup failed: ${formatInvokeError(cleanupFailure)}`,
+        );
+      }
     } finally {
       transitionCommitRef.current = false;
       transitionBusyRef.current = false;
