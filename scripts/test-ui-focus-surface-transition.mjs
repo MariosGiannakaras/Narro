@@ -44,7 +44,11 @@ invariant(
     && configure.includes("set_always_on_top(previous_topmost)")
     && configure.includes("set_skip_taskbar(previous_mode == Some(FocusSurfaceMode::Timer))")
     && configure.includes("FOCUS_SURFACE_MODE_RECOVERY_FAILED")
-    && configure.includes("if reveal_after_configuration {\n        record_focus_surface_mode(mode);"),
+    && configure.indexOf("if reveal_after_configuration {", applyMode) >= 0
+    && configure.indexOf(
+      "record_focus_surface_mode(mode);",
+      configure.indexOf("if reveal_after_configuration {", applyMode),
+    ) > configure.indexOf("if reveal_after_configuration {", applyMode),
   "native Timer preparation must retain rollback and must not publish mode authority while hidden",
 );
 
