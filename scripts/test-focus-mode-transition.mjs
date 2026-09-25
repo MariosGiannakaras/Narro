@@ -12,6 +12,7 @@ function harness(overrides = {}) {
   const failures = {
     prepare: new Map(),
     prewarm: new Map(),
+    ready: new Map(),
     frame: [],
     reveal: new Map(),
   };
@@ -36,6 +37,11 @@ function harness(overrides = {}) {
       async prewarmMode(mode) {
         calls.push(`prewarm:${mode}`);
         const failure = failures.prewarm.get(mode);
+        if (failure) throw failure;
+      },
+      async waitForModeReady(mode) {
+        calls.push(`ready:${mode}`);
+        const failure = failures.ready.get(mode);
         if (failure) throw failure;
       },
       async waitForPresentedFrame() {
@@ -63,6 +69,7 @@ test("success prepares hidden geometry, publishes target, paints, then reveals",
     "prepare:timer",
     "publish:timer",
     "prewarm:timer",
+    "ready:timer",
     "frame",
     "reveal:timer",
   ]);
@@ -88,6 +95,26 @@ test("transparent prewarm failure recovers the previous renderer and native pres
     "prepare:panel",
     "publish:panel",
     "prewarm:panel",
+    "ready:panel",
+    "frame",
+    "reveal:panel",
+  ]);
+});
+
+test("target readiness failure recovers without revealing the unready target", async () => {
+  const h = harness();
+  const failure = new Error("target not ready");
+  h.failures.ready.set("timer", failure);
+  await assert.rejects(coordinateFocusModeTransition(h.deps), failure);
+  assert.deepEqual(h.calls, [
+    "prepare:timer",
+    "publish:timer",
+    "prewarm:timer",
+    "ready:timer",
+    "prepare:panel",
+    "publish:panel",
+    "prewarm:panel",
+    "ready:panel",
     "frame",
     "reveal:panel",
   ]);
@@ -103,10 +130,12 @@ test("presented-frame failure restores previous hidden geometry and renderer bef
     "prepare:timer",
     "publish:timer",
     "prewarm:timer",
+    "ready:timer",
     "frame",
     "prepare:panel",
     "publish:panel",
     "prewarm:panel",
+    "ready:panel",
     "frame",
     "reveal:panel",
   ]);
@@ -121,11 +150,13 @@ test("reveal failure rolls back through the same prepare-publish-frame-reveal se
     "prepare:timer",
     "publish:timer",
     "prewarm:timer",
+    "ready:timer",
     "frame",
     "reveal:timer",
     "prepare:panel",
     "publish:panel",
     "prewarm:panel",
+    "ready:panel",
     "frame",
     "reveal:panel",
   ]);
@@ -147,6 +178,7 @@ test("cancellation after native prepare recovers the previous presentation", asy
     "prepare:panel",
     "publish:panel",
     "prewarm:panel",
+    "ready:panel",
     "frame",
     "reveal:panel",
   ]);
