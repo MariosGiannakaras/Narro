@@ -36,12 +36,35 @@ function FocusSurfaceProduct() {
   const modeRef = useRef<FocusSurfaceMode | null>(null);
   const transitionBusyRef = useRef(false);
   const resizeBusyRef = useRef(false);
+  const modeReadyRef = useRef<Record<FocusSurfaceMode, boolean>>({ panel: false, timer: false });
+  const modeReadyWaitersRef = useRef<Record<FocusSurfaceMode, Set<() => void>>>({
+    panel: new Set(),
+    timer: new Set(),
+  });
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
   const [findTimerPulse, setFindTimerPulse] = useState<number | null>(null);
   const toggleRequestRef = useRef<() => void>(() => {});
   const reportResizePending = useCallback((pending: boolean) => {
     resizeBusyRef.current = pending;
+  }, []);
+
+  const resetModeReady = useCallback((readyMode: FocusSurfaceMode) => {
+    modeReadyRef.current[readyMode] = false;
+  }, []);
+
+  const markModeReady = useCallback((readyMode: FocusSurfaceMode) => {
+    modeReadyRef.current[readyMode] = true;
+    const waiters = modeReadyWaitersRef.current[readyMode];
+    for (const resolve of waiters) resolve();
+    waiters.clear();
+  }, []);
+
+  const waitForModeReady = useCallback((readyMode: FocusSurfaceMode): Promise<void> => {
+    if (modeReadyRef.current[readyMode]) return Promise.resolve();
+    return new Promise((resolve) => {
+      modeReadyWaitersRef.current[readyMode].add(resolve);
+    });
   }, []);
 
   useEffect(() => {
@@ -142,12 +165,14 @@ function FocusSurfaceProduct() {
           }
         },
         publishMode: (nextMode) => {
+          resetModeReady(nextMode);
           flushSync(() => {
             setPreparedMode(nextMode);
             setPendingMode(null);
             setMode(nextMode);
           });
         },
+        waitForModeReady,
         waitForPresentedFrame,
         revealMode: async (nextMode) => {
           if (nextMode === "timer") {
@@ -220,6 +245,7 @@ function FocusSurfaceProduct() {
           onAttentionPulseEnd={(sequence) => {
             setFindTimerPulse((current) => current === sequence ? null : current);
           }}
+          onPresentationReady={() => markModeReady("timer")}
         />
       </FocusSurfaceTransition>
     );
@@ -238,6 +264,7 @@ function FocusSurfaceProduct() {
         onRequestCompact={() => void enterCompactMode()}
         compactTransitionPending={transitionPending}
         modeTransitionError={transitionError}
+        onPresentationReady={() => markModeReady("panel")}
       />
     </FocusSurfaceTransition>
   );
