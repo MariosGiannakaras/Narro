@@ -69,8 +69,8 @@ export async function coordinateFocusModeTransition({
     const afterPublishCancellation = cancellationFailure(isCancelled);
     if (afterPublishCancellation) throw afterPublishCancellation;
 
-    await prewarmMode(targetMode);
     await waitForModeReady(targetMode);
+    await prewarmMode(targetMode);
     await waitForPresentedFrame();
 
     const beforeRevealCancellation = cancellationFailure(isCancelled);
@@ -83,8 +83,8 @@ export async function coordinateFocusModeTransition({
     try {
       await prepareMode(previousMode);
       publishMode(previousMode);
-      await prewarmMode(previousMode);
       await waitForModeReady(previousMode);
+      await prewarmMode(previousMode);
       await waitForPresentedFrame();
       await revealMode(previousMode);
     } catch (recoveryFailure) {
