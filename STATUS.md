@@ -23,7 +23,7 @@ M7 items 1–6 and 13–14 are validated. The earlier CI #480/#501 physical expa
 
 ## Current automated-validated source baseline
 
-Latest source is PR #140 exact head `7f446d59070baee64a19314889fb94c0e141cd52`; Windows CI #505 / run `36101936170` / job `107966099159` passed preflight (including Rust tests), visual fixtures and Tauri release. Guarded squash merge `aafa7de082e39afad34f32730f7c83a532805b15` has identical tree `4c63c18da98b07f164a71fed685ef8aff1736863`; duplicate main CI #506 was cancelled. Runtime artifact `10850405881`, digest `sha256:eb58b673d3d448664cb12bfd280e9c5d3dc98cd0ebd13882e65064e978fd8bd8`. This source keeps an expanded Timer collapsible after its task ends and avoids an empty SQLite write reservation every 250 ms. A real Windows keyboard test verified the idle collapse. Local frontend preflight, Edge idle-recovery click fixture, Rust formatting and performance-harness self-test passed; local Rust compilation was unavailable because MSVC `link.exe` is absent. The full evidence matrix, prior #138 artifact, machine conditions, and resource caveats are in `work-log/2026-09-25-codex-m7-physical-runtime-and-idle-recovery.md`.
+Latest automated-validated source is PR #143 head `9b80ee19c6678fca998b58740410f94c821cff26`, guarded merge `fce15f8ed7a70cd83e05f3b9448d627413b719e7`, identical tree `608aec06f64a3184568bc0d171adc1b085220fa9`. Windows CI #507 / run `36136277164` passed the full preflight (including executable Rust concurrency/retry/rollback tests), visual fixtures and Tauri release; duplicate main CI #508 was cancelled after tree identity. This source serializes Ctrl+Shift+T/P native registration with diagnostic-state updates and reconciles retry errors in the UI. It has not yet been physically shortcut-tested. The earlier #140/CI #505 executable supplied the physical idle-collapse and final-UI resource evidence; details and caveats remain in `work-log/2026-09-25-codex-m7-physical-runtime-and-idle-recovery.md`. Current exact artifact and continuation are in `HANDOFF.md`.
 
 ## Item 7 earlier physical candidate
 
@@ -204,7 +204,7 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-The current #140 source and the prior #138 DOM fix were physically exercised as detailed above. Continue only the still-missing conditions in `docs/M7_FLOATING_RUNTIME_VALIDATION.md`: continuous transition/reduced-motion observation, shortcut conflict/retry, unavailable monitor/taskbar/DPI recovery, and independent borderless/exclusive fullscreen. Use the latest immutable work log to avoid retesting the observed three clean native resize cycles or repeating completed resource runs without a relevant source change. Do not advance to Milestone 8.
+The prior #140 source and #138 DOM fix were physically exercised as detailed above. The new #143 shortcut registration/retry source has only automated validation; use its artifact for the consolidated remaining conditions in `docs/M7_FLOATING_RUNTIME_VALIDATION.md`, including basic shortcut recheck, conflict/retry, continuous transition/reduced-motion observation, unavailable monitor/taskbar/DPI recovery, and independent borderless/exclusive fullscreen. Avoid repeating completed resource runs without a performance-relevant source change. Do not advance to Milestone 8.
 
 ## Durable correctness decisions
 

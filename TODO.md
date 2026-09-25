@@ -281,10 +281,12 @@ Acceptance criteria:
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
   - [x] Ctrl+Shift+T implementation passed PR #126 exact-head CI #488, guarded merge `77e535f`, and resulting-main CI #489.
+  - [x] Concurrent native registration/retry and diagnostic publication are serialized; executable Rust concurrency/conflict/rollback tests and frontend retry-state tests passed PR #143 exact-head CI #507. Guarded merge `fce15f8` has the same tree; duplicate main CI #508 was cancelled. New executable physical shortcut retest remains open.
   - [x] Physical Panel/Timer shortcut use and session continuity passed on CI #503; one rapid repeated press settled to one Timer window.
   - [ ] Physical hotkey ownership conflict/retry and transition-boundary repetition remain open.
 - [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
   - [x] Ctrl+Shift+P and finite attention pulse passed PR #127 exact-head CI #490, guarded merge `53c0376`, and resulting-main CI #491.
+  - [x] The shared PR #143 registration/retry state machine and executable concurrency/conflict/rollback tests passed exact-head CI #507; guarded merge `fce15f8` has the identical tree. Current-build physical use remains open.
   - [x] Physical visible/hidden Timer and Panel-mode shortcut behavior passed on CI #503; pulses ended in about 729/726 ms, or about 186 ms with reduced-motion media emulation.
   - [ ] Physical Windows OS reduced-motion preference and repeated hidden/Panel interactions remain open.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
