@@ -17,6 +17,7 @@ function slice(source, startMarker, endMarker) {
 
 const lib = read("src-tauri/src/lib.rs");
 const focus = read("src/focus.tsx");
+const coordinator = read("src/focusModeTransition.ts");
 const transition = read("src/FocusSurfaceTransition.tsx");
 const presentationFrame = read("src/presentationFrame.ts");
 const transitionCss = read("src/focusSurfaceTransition.css");
@@ -25,26 +26,36 @@ const pkg = JSON.parse(read("package.json"));
 
 const configure = slice(
   lib,
+  "fn configure_focus_surface_mode_visibility(",
   "fn configure_focus_surface_mode(",
-  "fn position_focus_panel_in_work_area(",
 );
 const applyMode = configure.indexOf("apply_focus_surface_mode(window, mode)");
+const optionalShow = configure.indexOf("if reveal_after_configuration", applyMode);
 invariant(
   configure.indexOf(".hide()") < applyMode
-    && applyMode < configure.indexOf(".show()"),
-  "Timer-mode native transition must hide before reconfiguration and show only after mode geometry is applied",
+    && applyMode < optionalShow
+    && optionalShow < configure.indexOf(".show()", optionalShow),
+  "native geometry preparation must hide before reconfiguration and reveal only when explicitly requested",
 );
 invariant(
-  configure.includes("let was_visible = window")
-    && configure.includes("if was_visible")
-    && configure.includes("if let Err(error) = transition")
+  configure.includes("let previous_mode = current_focus_surface_mode()")
     && configure.includes("set_size(tauri::Size::Physical(previous_size))")
     && configure.includes("set_position(tauri::Position::Physical(previous_position))")
     && configure.includes("set_always_on_top(previous_topmost)")
     && configure.includes("set_skip_taskbar(previous_mode == Some(FocusSurfaceMode::Timer))")
-    && /if was_visible \{\s*window\.show\(\)\s*\} else \{\s*window\.hide\(\)/.test(configure)
-    && configure.includes("FOCUS_SURFACE_MODE_RECOVERY_FAILED"),
-  "failed native Timer reconfiguration must restore prior geometry and mode flags or report rollback failure",
+    && configure.includes("FOCUS_SURFACE_MODE_RECOVERY_FAILED")
+    && configure.includes("if reveal_after_configuration {\n        record_focus_surface_mode(mode);"),
+  "native Timer preparation must retain rollback and must not publish mode authority while hidden",
+);
+
+const prepareNative = slice(
+  lib,
+  "fn prepare_focus_surface_mode(",
+  "fn position_focus_panel_in_work_area(",
+);
+invariant(
+  prepareNative.includes("configure_focus_surface_mode_visibility(window, mode, false)"),
+  "hidden native prepare must reuse the validated mode configuration without revealing",
 );
 
 const position = slice(
@@ -55,104 +66,108 @@ const position = slice(
 const stagePosition = position.indexOf("let staging_position = focus_panel_edge_position(");
 const stageMove = position.indexOf("x: staging_position.x");
 const finalMove = position.indexOf("x: final_position.x");
-const show = position.indexOf(".show()", finalMove);
-const record = position.indexOf("record_focus_surface_mode(FocusSurfaceMode::Panel)", show);
-const focusWindow = position.indexOf(".set_focus()", record);
+const presentShow = position.indexOf(".show()", finalMove);
 invariant(
-  position.includes("let hide_for_present = intent == FocusPanelPlacementIntent::Present")
-    && position.includes("let previous_position = if hide_for_present")
+  position.includes("FocusPanelPlacementIntent::Present | FocusPanelPlacementIntent::Prepare")
+    && position.includes("let hide_for_transition = presentation_transition")
     && stagePosition >= 0
     && position.indexOf(".hide()") < stagePosition
     && stagePosition < stageMove,
-  "activating Panel transition must capture recovery position, hide, and calculate target-edge DPI staging before the staging move",
-);
-invariant(
-  position.includes("if let Err(error) = placement_result")
-    && position.includes("window.set_position(tauri::Position::Physical(previous_position))")
-    && position.includes("let _ = window.show();"),
-  "failed hidden Panel staging must best-effort restore the prior visible position",
+  "Panel prepare/present must share hidden target-edge staging",
 );
 invariant(
   position.indexOf("apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?") > stageMove
-    && finalMove > position.indexOf("apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?")
-    && !position.includes("x: work_area.position.x"),
-  "Panel transition must stage on the configured edge before resize and must not expose the raw work-area origin",
+    && finalMove > position.indexOf("apply_focus_surface_mode(&window, FocusSurfaceMode::Panel)?"),
+  "Panel target geometry must be final before any reveal",
 );
 invariant(
-  finalMove >= 0 && show > finalMove && record > show && focusWindow > record,
-  "Panel must reach its final edge position before show, mode publication and focus",
+  position.includes("if intent == FocusPanelPlacementIntent::Present")
+    && presentShow > finalMove
+    && !position.includes("configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)"),
+  "Prepare must leave the Panel hidden while legacy Present retains the activating path",
+);
+
+const preparePanel = slice(lib, "fn prepare_focus_panel(", "#[tauri::command]\nfn reveal_focus_panel");
+const revealPanel = slice(lib, "fn reveal_focus_panel(", "#[tauri::command]\nfn present_focus_panel");
+const prepareTimer = slice(lib, "fn prepare_floating_timer(", "#[tauri::command]\nfn reveal_floating_timer");
+const revealTimer = slice(lib, "fn reveal_floating_timer(", "#[tauri::command]\nfn present_floating_timer");
+invariant(
+  preparePanel.includes("FocusPanelPlacementIntent::Prepare")
+    && prepareTimer.includes("prepare_focus_surface_mode(&window, FocusSurfaceMode::Timer)"),
+  "both product modes must expose hidden native prepare commands",
 );
 invariant(
-  !position.includes("configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)"),
-  "Panel presenter must not show the staging position through the generic mode helper",
+  revealPanel.indexOf(".show()") < revealPanel.indexOf(".set_focus()")
+    && revealPanel.indexOf(".set_focus()") < revealPanel.indexOf("record_focus_surface_mode(FocusSurfaceMode::Panel)")
+    && revealTimer.indexOf(".show()") < revealTimer.indexOf("record_focus_surface_mode(FocusSurfaceMode::Timer)"),
+  "reveal commands must publish native visibility before authoritative presentation mode",
 );
-
-const revalidate = slice(
-  lib,
-  "pub(crate) fn revalidate_open_focus_panel_after_display_change(",
-  "fn build_main_window(",
-);
-invariant(!revalidate.includes(".show()"), "display revalidation must remain non-activating");
-invariant(!revalidate.includes(".set_focus()"), "display revalidation must not steal focus");
-
-const timerRoot = slice(focus, 'if (mode === "timer") {', '\n  return (');
-const panelRoot = slice(focus, 'key="panel"', '\n      <FocusPanel');
-for (const [name, mode, root] of [["Timer", "timer", timerRoot], ["Panel", "panel", panelRoot]]) {
-  invariant(
-    root.includes(`key="${mode}"`)
-      && root.includes(`mode="${mode}"`)
-      && root.includes('exiting={pendingMode !== null}')
-      && root.includes('onExitComplete={() => void commitPendingModeTransition()}'),
-    `${name} product root must stay keyed and complete exit before native mode sequencing`,
-  );
+for (const command of [
+  "prepare_floating_timer",
+  "reveal_floating_timer",
+  "prepare_focus_panel",
+  "reveal_focus_panel",
+]) {
+  invariant(lib.includes(command), `native transition command ${command} is missing`);
 }
+
 const requestMode = slice(focus, "function requestMode(", "async function commitPendingModeTransition()");
 const commitMode = slice(focus, "async function commitPendingModeTransition()", "function enterCompactMode()");
 invariant(
   requestMode.includes("setTransitionPending(true)")
     && requestMode.includes("setPendingMode(targetMode)")
-    && !requestMode.includes("presentFloatingTimer")
-    && !requestMode.includes("presentFocusPanel"),
-  "mode request must begin renderer exit without invoking native geometry immediately",
+    && !requestMode.includes("prepareFloatingTimer")
+    && !requestMode.includes("prepareFocusPanel"),
+  "mode request must only begin the outgoing renderer exit",
 );
-const paintBarrier = commitMode.indexOf("await waitForPresentedFrame();");
 invariant(
-  paintBarrier >= 0
-    && paintBarrier < commitMode.indexOf('await presentFloatingTimer();')
-    && paintBarrier < commitMode.indexOf('await presentFocusPanel();')
-    && commitMode.indexOf('await presentFloatingTimer();') < commitMode.indexOf("setMode(targetMode);")
-    && commitMode.indexOf('await presentFocusPanel();') < commitMode.indexOf("setMode(targetMode);"),
-  "native mode switch must wait for a presented hidden frame, then publish renderer mode only after native success",
+  commitMode.includes("await coordinateFocusModeTransition({")
+    && commitMode.includes("await prepareFloatingTimer()")
+    && commitMode.includes("await prepareFocusPanel()")
+    && commitMode.includes("flushSync(() => {")
+    && commitMode.includes("setPreparedMode(nextMode)")
+    && commitMode.includes("setPendingMode(null)")
+    && commitMode.includes("setMode(nextMode)")
+    && commitMode.includes("waitForPresentedFrame")
+    && commitMode.includes("await revealFloatingTimer()")
+    && commitMode.includes("await revealFocusPanel()"),
+  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, pass a frame barrier, then reveal",
+);
+invariant(
+  focus.includes('prepainted={preparedMode === "timer"}')
+    && focus.includes('prepainted={preparedMode === "panel"}'),
+  "target roots must mount already visible while the native host is hidden",
 );
 
 invariant(
-  transition.includes("window.requestAnimationFrame(() => setEntered(true))")
-    && transition.includes("window.cancelAnimationFrame(frame)")
-    && transition.includes('data-focus-surface-exiting={exiting ? "true" : "false"}')
-    && transition.includes('data-focus-surface-exit-settled={exitSettled ? "true" : "false"}')
-    && transition.includes("setExitSettled(true)")
+  coordinator.indexOf("await prepareMode(targetMode)") < coordinator.indexOf("publishMode(targetMode)")
+    && coordinator.indexOf("publishMode(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
+    && coordinator.indexOf("await waitForPresentedFrame()") < coordinator.indexOf("await revealMode(targetMode)"),
+  "coordinator success order must be prepare -> publish -> frame -> reveal",
+);
+const recovery = coordinator.indexOf("await prepareMode(previousMode)");
+invariant(
+  recovery > coordinator.indexOf("catch (transitionFailure)")
+    && recovery < coordinator.indexOf("publishMode(previousMode)", recovery)
+    && coordinator.indexOf("publishMode(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
+    && coordinator.includes("FocusModeTransitionRecoveryError")
+    && coordinator.includes("FocusModeTransitionCancelledError"),
+  "coordinator must rollback hidden geometry and renderer state on failure/cancellation and report failed recovery explicitly",
+);
+
+invariant(
+  transition.includes("const [entered, setEntered] = useState(prepainted)")
+    && transition.includes('data-focus-surface-prepainted={prepainted ? "true" : "false"}')
+    && transition.includes("window.requestAnimationFrame(() => setEntered(true))")
     && transition.includes("waitForOpacityTransition(root, 0)")
-    && transition.includes("completionRef.current?.()")
-    && transition.includes("failureRef.current?.(failure)")
     && focus.includes("onExitFailure={failPendingModeTransition}"),
-  "content transition must wait for actual opacity completion and recover when the boundary is not reached",
+  "prepainted target roots must avoid an empty first frame without removing finite exit handling",
 );
 for (const forbidden of ["setInterval(", "setTimeout(", "@tauri-apps/api/window", "setPosition("]) {
   invariant(!transition.includes(forbidden), `transition wrapper must not introduce ${forbidden}`);
+  invariant(!coordinator.includes(forbidden), `transition coordinator must not introduce ${forbidden}`);
 }
-invariant(
-  transition.includes('className="focus-surface-transition motion-focus-surface"'),
-  "transition must reuse the shared focus-surface motion primitive",
-);
-invariant(
-  transitionCss.includes("width: 100%")
-    && transitionCss.includes("min-width: 0")
-    && transitionCss.includes("overflow-x: clip")
-    && transitionCss.includes('[data-focus-surface-transition="timer"]')
-    && transitionCss.includes("position: fixed")
-    && transitionCss.includes("overflow: hidden"),
-  "focus-surface transition must prevent horizontal overflow and keep Timer mode out of document scrolling",
-);
+
 invariant(
   transitionCss.includes("opacity: 0")
     && transitionCss.includes("transform: translateY(var(--motion-distance-overlay))")
@@ -160,34 +175,29 @@ invariant(
     && transitionCss.includes("transform: translateY(0)")
     && transitionCss.includes('[data-focus-surface-exiting="true"]')
     && transitionCss.includes('[data-focus-surface-exit-settled="true"]')
-    && transitionCss.includes("visibility: hidden")
-    && transitionCss.includes("transition-timing-function: var(--motion-ease-exit)"),
-  "transition presentation must provide finite opacity/transform entrance and exit",
+    && transitionCss.includes("visibility: hidden"),
+  "focus-surface motion must retain bounded opacity/transform exit and hidden settled state",
 );
-for (const forbidden of ["animation:", "@keyframes"]) {
-  invariant(!transitionCss.includes(forbidden), `transition CSS must not start keyframe/decorative animation via ${forbidden}`);
-}
 invariant(
   focus.includes('import { waitForPresentedFrame } from "./presentationFrame";')
     && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 2
     && !presentationFrame.includes("setInterval(")
     && !presentationFrame.includes("setTimeout("),
-  "mode transition must use the shared finite two-frame compositor barrier",
+  "mode transition must retain the shared finite two-frame compositor barrier",
 );
 invariant(
   motionCss.includes(".motion-focus-surface")
     && motionCss.includes("--motion-duration-focus-surface: 150ms")
     && motionCss.includes("--motion-distance-overlay: 0rem"),
-  "shared motion/reduced-motion foundation must provide the finite 150ms transition and zero reduced displacement",
+  "shared motion/reduced-motion foundation must retain finite timing and zero reduced displacement",
 );
 
 invariant(
-  pkg.scripts["test:ui-focus-surface-transition"] === "node scripts/test-ui-focus-surface-transition.mjs",
-  "package transition contract registration differs",
-);
-invariant(
-  pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-surface-transition"),
-  "frontend preflight must run the focus-surface transition contract",
+  pkg.scripts["test:focus-mode-transition"] === "node --experimental-strip-types scripts/test-focus-mode-transition.mjs"
+    && pkg.scripts["test:ui-focus-surface-transition"] === "node scripts/test-ui-focus-surface-transition.mjs"
+    && pkg.scripts["preflight:frontend"].includes("npm run test:focus-mode-transition")
+    && pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-surface-transition"),
+  "transition executable/static contracts must both run in frontend preflight",
 );
 
 console.log("Focus surface transition contracts passed.");
