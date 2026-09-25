@@ -39,7 +39,7 @@ export function FocusSurfaceTransition({
     const root = rootRef.current;
     if (!root) return;
     let cancelled = false;
-    void waitForOpacityTransition(root, 0)
+    void waitForOpacityTransition(root, 0.45)
       .then(() => {
         if (cancelled) return;
         setExitSettled(true);
