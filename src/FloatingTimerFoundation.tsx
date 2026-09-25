@@ -1,9 +1,15 @@
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveActions } from "./FocusLiveActions";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { focusTimerPresentation } from "./focusTimerPresentation";
-import { setFloatingTimerExpanded } from "./focusSurfaceModeApi";
+import {
+  prepareFloatingTimerExpanded,
+  revealFloatingTimerExpanded,
+  rollbackFloatingTimerExpanded,
+} from "./focusSurfaceModeApi";
+import { coordinateFloatingTimerResize } from "./floatingTimerResizeTransition";
 import {
   getListBoardSnapshot,
   type BoardSubtaskSnapshot,
@@ -66,7 +72,7 @@ export function FloatingTimerFoundation({
   const [boardTaskId, setBoardTaskId] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
   const [resizePending, setResizePending] = useState(false);
-  const [resizePhase, setResizePhase] = useState<"idle" | "exiting" | "resizing" | "entering">("idle");
+  const [resizePhase, setResizePhase] = useState<"idle" | "exiting">("idle");
   const contentRef = useRef<HTMLDivElement>(null);
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
@@ -195,27 +201,32 @@ export function FloatingTimerFoundation({
     onResizePendingChange?.(true);
     setResizePending(true);
     setResizeError(null);
-    let nativeResizeCommitted = false;
     try {
       const content = contentRef.current;
       if (!content) throw new Error("Floating Timer content is unavailable");
       setResizePhase("exiting");
-      await waitForOpacityTransition(content, 0);
-      setResizePhase("resizing");
-      setExpanded(nextExpanded);
-      await waitForPresentedFrame();
-      await setFloatingTimerExpanded(nextExpanded);
-      nativeResizeCommitted = true;
-      await waitForPresentedFrame();
-      setResizePhase("entering");
-      await waitForPresentedFrame();
-      setResizePhase("idle");
-      await waitForOpacityTransition(content, 1);
+      await waitForOpacityTransition(content, 0.45);
+
+      await coordinateFloatingTimerResize({
+        previousExpanded: expanded,
+        targetExpanded: nextExpanded,
+        prepareResize: prepareFloatingTimerExpanded,
+        publishExpanded: (candidateExpanded) => {
+          flushSync(() => {
+            setExpanded(candidateExpanded);
+            setResizePhase("idle");
+          });
+        },
+        waitForPresentedFrame,
+        revealResize: revealFloatingTimerExpanded,
+        rollbackResize: rollbackFloatingTimerExpanded,
+      });
+
+      setResizeError(null);
       return true;
     } catch (failure: unknown) {
-      if (!nativeResizeCommitted) setExpanded(expanded);
       setResizeError(formatInvokeError(failure));
-      return nativeResizeCommitted;
+      return false;
     } finally {
       resizeRequestInFlightRef.current = false;
       onResizePendingChange?.(false);
