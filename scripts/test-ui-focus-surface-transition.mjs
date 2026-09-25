@@ -17,6 +17,7 @@ function slice(source, startMarker, endMarker) {
 
 const lib = read("src-tauri/src/lib.rs");
 const focus = read("src/focus.tsx");
+const panel = read("src/FocusPanel.tsx");
 const coordinator = read("src/focusModeTransition.ts");
 const transition = read("src/FocusSurfaceTransition.tsx");
 const presentationFrame = read("src/presentationFrame.ts");
@@ -159,10 +160,24 @@ invariant(
     && commitMode.includes("setPendingMode(null)")
     && commitMode.includes("setMode(nextMode)")
     && commitMode.includes("await prewarmFocusSurface()")
+    && commitMode.includes("waitForModeReady:")
+    && commitMode.includes("await waitForPanelReady()")
     && commitMode.includes("waitForPresentedFrame")
     && commitMode.includes("await revealFloatingTimer()")
     && commitMode.includes("await revealFocusPanel()"),
-  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, transparently prewarm the visible host, pass a frame barrier, then reveal",
+  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, transparently prewarm the visible host, wait for Panel projections, pass a frame barrier, then reveal",
+);
+invariant(
+  focus.includes('onPresentationReady={markPanelReady}')
+    && focus.includes('if (nextMode === "panel") resetPanelReady()')
+    && panel.includes("onPresentationReady?: () => void")
+    && panel.includes("setBoardReadyTargetKey(null)")
+    && panel.includes("setBoardReadyTargetKey(targetKey(target))")
+    && panel.includes("setTimerSettled(false)")
+    && panel.includes("setTimerSettled(true)")
+    && panel.includes("timerSettled && boardReadyTargetKey === currentTargetKey")
+    && panel.includes("onPresentationReady?.()"),
+  "Panel reveal must be gated until its requested board snapshot and timer projection have both settled",
 );
 invariant(
   focus.includes('prepainted={preparedMode === "timer"}')
@@ -173,16 +188,18 @@ invariant(
 invariant(
   coordinator.indexOf("await prepareMode(targetMode)") < coordinator.indexOf("publishMode(targetMode)")
     && coordinator.indexOf("publishMode(targetMode)") < coordinator.indexOf("await prewarmMode(targetMode)")
-    && coordinator.indexOf("await prewarmMode(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
+    && coordinator.indexOf("await prewarmMode(targetMode)") < coordinator.indexOf("await waitForModeReady(targetMode)")
+    && coordinator.indexOf("await waitForModeReady(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
     && coordinator.indexOf("await waitForPresentedFrame()") < coordinator.indexOf("await revealMode(targetMode)"),
-  "coordinator success order must be prepare -> publish -> transparent prewarm -> frame -> reveal",
+  "coordinator success order must be prepare -> publish -> transparent prewarm -> target readiness -> frame -> reveal",
 );
 const recovery = coordinator.indexOf("await prepareMode(previousMode)");
 invariant(
   recovery > coordinator.indexOf("catch (transitionFailure)")
     && recovery < coordinator.indexOf("publishMode(previousMode)", recovery)
     && coordinator.indexOf("publishMode(previousMode)", recovery) < coordinator.indexOf("await prewarmMode(previousMode)", recovery)
-    && coordinator.indexOf("await prewarmMode(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
+    && coordinator.indexOf("await prewarmMode(previousMode)", recovery) < coordinator.indexOf("await waitForModeReady(previousMode)", recovery)
+    && coordinator.indexOf("await waitForModeReady(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
     && coordinator.includes("FocusModeTransitionRecoveryError")
     && coordinator.includes("FocusModeTransitionCancelledError"),
   "coordinator must rollback hidden geometry and renderer state on failure/cancellation and report failed recovery explicitly",

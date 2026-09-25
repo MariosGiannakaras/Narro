@@ -35,6 +35,7 @@ export type FocusPanelProps = {
   onRequestCompact?: () => void;
   compactTransitionPending?: boolean;
   modeTransitionError?: string | null;
+  onPresentationReady?: () => void;
 };
 
 function formatEstimate(totalSeconds: number): string {
@@ -121,6 +122,10 @@ function targetFromValue(value: string): ListBoardRequestTarget {
   return value === ALL_LISTS_VALUE ? { kind: "all" } : { kind: "list", id: value };
 }
 
+function targetKey(target: ListBoardRequestTarget): string {
+  return target.kind === "all" ? "all" : `list:${target.id}`;
+}
+
 function sameTarget(left: ListBoardRequestTarget, right: ListBoardRequestTarget): boolean {
   if (left.kind !== right.kind) return false;
   if (left.kind === "all") return true;
@@ -134,6 +139,7 @@ export function FocusPanel({
   onRequestCompact,
   compactTransitionPending = false,
   modeTransitionError = null,
+  onPresentationReady,
 }: FocusPanelProps) {
   const [target, setTarget] = useState<ListBoardRequestTarget>(() =>
     fixtureBoard?.target.kind === "list" && fixtureBoard.target.id
@@ -146,7 +152,10 @@ export function FocusPanel({
   const [scrollingTitleEnabled, setScrollingTitleEnabled] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [preferenceError, setPreferenceError] = useState<string | null>(null);
+  const [boardReadyTargetKey, setBoardReadyTargetKey] = useState<string | null>(null);
+  const [timerSettled, setTimerSettled] = useState(Boolean(fixtureBoard));
   const fixtureMode = Boolean(fixtureBoard);
+  const currentTargetKey = targetKey(target);
 
   useEffect(() => {
     if (fixtureBoard) {
@@ -162,16 +171,19 @@ export function FocusPanel({
 
     let disposed = false;
     setBoard(null);
+    setBoardReadyTargetKey(null);
     void getListBoardSnapshot(target)
       .then((snapshot) => {
         if (!disposed) {
           setBoard(snapshot);
+          setBoardReadyTargetKey(targetKey(target));
           setError(null);
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
           setBoard(null);
+          setBoardReadyTargetKey(targetKey(target));
           setError(formatInvokeError(failure));
         }
       });
@@ -227,11 +239,13 @@ export function FocusPanel({
   useEffect(() => {
     if (fixtureMode) {
       setTimer(fixtureTimer);
+      setTimerSettled(true);
       return;
     }
 
     let disposed = false;
     let stopListening: (() => void) | undefined;
+    setTimerSettled(false);
     void connectLiveTimerSessionProjection(
       (incoming) => {
         if (disposed) return;
@@ -253,10 +267,16 @@ export function FocusPanel({
     )
       .then((unlisten) => {
         if (disposed) unlisten();
-        else stopListening = unlisten;
+        else {
+          stopListening = unlisten;
+          setTimerSettled(true);
+        }
       })
       .catch((failure: unknown) => {
-        if (!disposed) setError(formatInvokeError(failure));
+        if (!disposed) {
+          setTimerSettled(true);
+          setError(formatInvokeError(failure));
+        }
       });
 
     return () => {
@@ -264,6 +284,12 @@ export function FocusPanel({
       stopListening?.();
     };
   }, [fixtureMode, fixtureTimer, target.kind, target.kind === "list" ? target.id : null]);
+
+  useEffect(() => {
+    if (fixtureMode || (timerSettled && boardReadyTargetKey === currentTargetKey)) {
+      onPresentationReady?.();
+    }
+  }, [boardReadyTargetKey, currentTargetKey, fixtureMode, onPresentationReady, timerSettled]);
 
   const selectorOptions = useMemo(() => {
     const options = [...lists];

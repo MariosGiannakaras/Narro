@@ -38,12 +38,31 @@ function FocusSurfaceProduct() {
   const modeRef = useRef<FocusSurfaceMode | null>(null);
   const transitionBusyRef = useRef(false);
   const resizeBusyRef = useRef(false);
+  const panelReadyRef = useRef(false);
+  const panelReadyWaitersRef = useRef(new Set<() => void>());
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
   const [findTimerPulse, setFindTimerPulse] = useState<number | null>(null);
   const toggleRequestRef = useRef<() => void>(() => {});
   const reportResizePending = useCallback((pending: boolean) => {
     resizeBusyRef.current = pending;
+  }, []);
+
+  const resetPanelReady = useCallback(() => {
+    panelReadyRef.current = false;
+  }, []);
+
+  const markPanelReady = useCallback(() => {
+    panelReadyRef.current = true;
+    for (const resolve of panelReadyWaitersRef.current) resolve();
+    panelReadyWaitersRef.current.clear();
+  }, []);
+
+  const waitForPanelReady = useCallback((): Promise<void> => {
+    if (panelReadyRef.current) return Promise.resolve();
+    return new Promise((resolve) => {
+      panelReadyWaitersRef.current.add(resolve);
+    });
   }, []);
 
   useEffect(() => {
@@ -144,6 +163,7 @@ function FocusSurfaceProduct() {
           }
         },
         publishMode: (nextMode) => {
+          if (nextMode === "panel") resetPanelReady();
           flushSync(() => {
             setPreparedMode(nextMode);
             setPendingMode(null);
@@ -152,6 +172,9 @@ function FocusSurfaceProduct() {
         },
         prewarmMode: async () => {
           await prewarmFocusSurface();
+        },
+        waitForModeReady: async (nextMode) => {
+          if (nextMode === "panel") await waitForPanelReady();
         },
         waitForPresentedFrame,
         revealMode: async (nextMode) => {
@@ -251,6 +274,7 @@ function FocusSurfaceProduct() {
         onRequestCompact={() => void enterCompactMode()}
         compactTransitionPending={transitionPending}
         modeTransitionError={transitionError}
+        onPresentationReady={markPanelReady}
       />
     </FocusSurfaceTransition>
   );
