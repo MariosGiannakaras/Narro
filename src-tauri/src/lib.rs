@@ -624,8 +624,7 @@ fn position_focus_panel_in_work_area(
             eprintln!("Could not save Floating Timer position before Panel return: {error}");
         }
     }
-    let _placement_guard =
-        presentation_transition.then(floating_placement::suspend_saves);
+    let _placement_guard = presentation_transition.then(floating_placement::suspend_saves);
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
     let recovery_snapshot = if presentation_transition {
         Some((
