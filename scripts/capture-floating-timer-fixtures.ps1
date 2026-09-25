@@ -88,12 +88,13 @@ try {
         }
     }
 
+    foreach ($lifecycleState in @("cycle", "idle-recovery")) {
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
     $captureId = [guid]::NewGuid().ToString('N')
-    $profile = Join-Path $tempRoot "narro-floating-cycle-$captureId"
-    $stdout = Join-Path $tempRoot "narro-floating-cycle-$captureId.stdout.txt"
-    $stderr = Join-Path $tempRoot "narro-floating-cycle-$captureId.stderr.txt"
-    $dom = Join-Path $outputPath "floating-timer-cycle.html"
+    $profile = Join-Path $tempRoot "narro-floating-$lifecycleState-$captureId"
+    $stdout = Join-Path $tempRoot "narro-floating-$lifecycleState-$captureId.stdout.txt"
+    $stderr = Join-Path $tempRoot "narro-floating-$lifecycleState-$captureId.stderr.txt"
+    $dom = Join-Path $outputPath "floating-timer-$lifecycleState.html"
     New-Item -ItemType Directory -Path $profile -Force | Out-Null
 
     try {
@@ -107,14 +108,15 @@ try {
             "--virtual-time-budget=3000",
             "--user-data-dir=`"$profile`"",
             "--dump-dom",
-            "`"$baseUrl/floating-timer-fixture.html?theme=light&state=cycle`""
+            "`"$baseUrl/floating-timer-fixture.html?theme=light&state=$lifecycleState`""
         ) -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
 
         $stderrText = if (Test-Path -LiteralPath $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
-        if ($process.ExitCode -ne 0) { throw "Floating Timer lifecycle capture failed. $stderrText" }
+        if ($process.ExitCode -ne 0) { throw "Floating Timer $lifecycleState capture failed. $stderrText" }
         $domText = if (Test-Path -LiteralPath $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
-        if (-not $domText.Contains('data-floating-timer-cycle-ready="true"')) {
-            throw "Floating Timer lifecycle capture did not finish. $stderrText"
+        $readyAttribute = if ($lifecycleState -eq "cycle") { 'data-floating-timer-cycle-ready="true"' } else { 'data-floating-timer-idle-recovery-ready="true"' }
+        if (-not $domText.Contains($readyAttribute)) {
+            throw "Floating Timer $lifecycleState capture did not finish. $stderrText"
         }
         [System.IO.File]::WriteAllText($dom, $domText, [System.Text.UTF8Encoding]::new($false))
     } finally {
@@ -126,6 +128,7 @@ try {
         Remove-Item -LiteralPath $profileFull -Recurse -Force -ErrorAction SilentlyContinue
         Remove-Item -LiteralPath $stdout -Force -ErrorAction SilentlyContinue
         Remove-Item -LiteralPath $stderr -Force -ErrorAction SilentlyContinue
+    }
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {

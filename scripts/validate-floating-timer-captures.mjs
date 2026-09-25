@@ -174,4 +174,15 @@ for (const [index, observation] of observations.entries()) {
   invariant(observation.subtaskPanels === Number(expanded), `cycle phase ${index} retained or duplicated the subtask panel`);
 }
 
-console.log("Floating Timer visual contracts and interactive resize lifecycle passed.");
+const idlePath = path.join(outputDirectory, "floating-timer-idle-recovery.html");
+invariant(fs.existsSync(idlePath), "idle expanded Timer recovery DOM capture is missing");
+const idleDom = fs.readFileSync(idlePath, "utf8");
+invariant(idleDom.includes('data-floating-timer-idle-recovery-ready="true"'), "idle Timer recovery did not finish");
+const idleMatch = idleDom.match(/<script id="floating-timer-idle-recovery-contract" type="application\/json">([\s\S]*?)<\/script>/);
+invariant(idleMatch, "idle Timer recovery contract is missing");
+const idle = JSON.parse(idleMatch[1]);
+invariant(idle.before.liveState === "idle" && idle.after.liveState === "idle", "collapse changed the idle timer state");
+invariant(idle.before.expanded === "true" && idle.before.collapseButtons === 1 && idle.before.headings === 1, "idle expanded Timer must expose one collapse control");
+invariant(idle.after.expanded === "false" && idle.after.collapseButtons === 0 && idle.after.headings === 1, "idle Timer collapse did not restore compact content");
+
+console.log("Floating Timer visual contracts, resize lifecycle, and idle recovery passed.");

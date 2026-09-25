@@ -300,9 +300,22 @@ export function FloatingTimerFoundation({
             <span className="floating-timer-foundation__subtask-count type-metadata" data-floating-subtask-count="true" data-tauri-drag-region="true">
               Subtasks
             </span>
-            <Tooltip content="Add subtask" align="end">
-              <button type="button" className="floating-timer-foundation__subtask-control" aria-label="Add subtask" disabled>+</button>
-            </Tooltip>
+            {expanded ? (
+              <Tooltip content="Collapse Timer" align="end">
+                <button
+                  type="button"
+                  className="floating-timer-foundation__subtask-control motion-interactive"
+                  data-floating-fallback-action="collapse"
+                  aria-label="Collapse Timer"
+                  disabled={transitionPending || resizePending}
+                  onClick={() => { void requestExpanded(false); }}
+                >⌃</button>
+              </Tooltip>
+            ) : (
+              <Tooltip content="Add subtask" align="end">
+                <button type="button" className="floating-timer-foundation__subtask-control" aria-label="Add subtask" disabled>+</button>
+              </Tooltip>
+            )}
             <Tooltip content="Return to Focus Panel" align="end">
               <button
                 type="button"

@@ -188,10 +188,37 @@ pub fn claim_pending_notifications(
     claimed_at: &str,
 ) -> Result<Vec<PomodoroBoundaryEffect>, PomodoroBoundaryEffectError> {
     validate_timestamp(claimed_at)?;
+    // The timer service checks for effects every 250 ms. Do not acquire a SQLite
+    // write reservation when there is nothing to deliver.
+    if read_claimable_notifications(conn)?.is_empty() {
+        return Ok(Vec::new());
+    }
     let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
-    let pending = {
-        let mut statement = tx.prepare(
-            "SELECT effect.session_id, effect.effect_kind, effect.decided_at
+    // Re-read under the write reservation: another connection can claim an effect
+    // between the cheap read and this transaction.
+    let pending = read_claimable_notifications(&tx)?;
+
+    for effect in &pending {
+        let changed = tx.execute(
+            "UPDATE pomodoro_boundary_effects
+             SET notification_claimed_at = ?1
+             WHERE session_id = ?2 AND notification_claimed_at IS NULL",
+            params![claimed_at, effect.session_id.to_string()],
+        )?;
+        if changed != 1 {
+            return Err(PomodoroBoundaryEffectError::ClaimRace(effect.session_id));
+        }
+    }
+
+    tx.commit()?;
+    Ok(pending)
+}
+
+fn read_claimable_notifications(
+    conn: &Connection,
+) -> Result<Vec<PomodoroBoundaryEffect>, PomodoroBoundaryEffectError> {
+    let mut statement = conn.prepare(
+        "SELECT effect.session_id, effect.effect_kind, effect.decided_at
              FROM pomodoro_boundary_effects effect
              JOIN sessions source ON source.id = effect.session_id
              WHERE effect.notification_claimed_at IS NULL
@@ -208,43 +235,64 @@ pub fn claim_pending_notifications(
                  ))
                )
              ORDER BY effect.decided_at, effect.session_id",
-        )?;
-        let rows = statement.query_map([], |row| {
-            Ok((
-                row.get::<_, String>(0)?,
-                row.get::<_, String>(1)?,
-                row.get::<_, String>(2)?,
-            ))
-        })?;
+    )?;
+    let rows = statement.query_map([], |row| {
+        Ok((
+            row.get::<_, String>(0)?,
+            row.get::<_, String>(1)?,
+            row.get::<_, String>(2)?,
+        ))
+    })?;
 
-        let mut pending = Vec::new();
-        for row in rows {
-            let (session_id, kind, decided_at) = row?;
-            let session_id = SessionId::parse_str(&session_id)
-                .map_err(|_| PomodoroBoundaryEffectError::CorruptSessionId(session_id))?;
-            let kind = PomodoroBoundaryEffectKind::parse(&kind)
-                .ok_or(PomodoroBoundaryEffectError::CorruptKind(kind))?;
-            pending.push(PomodoroBoundaryEffect {
-                session_id,
-                kind,
-                decided_at,
-            });
-        }
-        pending
-    };
-
-    for effect in &pending {
-        let changed = tx.execute(
-            "UPDATE pomodoro_boundary_effects
-             SET notification_claimed_at = ?1
-             WHERE session_id = ?2 AND notification_claimed_at IS NULL",
-            params![claimed_at, effect.session_id.to_string()],
-        )?;
-        if changed != 1 {
-            return Err(PomodoroBoundaryEffectError::ClaimRace(effect.session_id));
-        }
+    let mut pending = Vec::new();
+    for row in rows {
+        let (session_id, kind, decided_at) = row?;
+        let session_id = SessionId::parse_str(&session_id)
+            .map_err(|_| PomodoroBoundaryEffectError::CorruptSessionId(session_id))?;
+        let kind = PomodoroBoundaryEffectKind::parse(&kind)
+            .ok_or(PomodoroBoundaryEffectError::CorruptKind(kind))?;
+        pending.push(PomodoroBoundaryEffect {
+            session_id,
+            kind,
+            decided_at,
+        });
     }
-
-    tx.commit()?;
     Ok(pending)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::persistence::run_migrations;
+    use std::time::Duration;
+    use uuid::Uuid;
+
+    #[test]
+    fn empty_claim_checks_do_not_request_a_write_lock() {
+        let path = std::env::temp_dir().join(format!(
+            "narro-empty-pomodoro-effects-{}.db",
+            Uuid::new_v4()
+        ));
+        let mut writer = Connection::open(&path).expect("open test database");
+        run_migrations(&mut writer).expect("migrate test database");
+        let mut claimant = Connection::open(&path).expect("open claimant connection");
+        claimant
+            .busy_timeout(Duration::ZERO)
+            .expect("disable busy retry");
+
+        let reservation = writer
+            .transaction_with_behavior(TransactionBehavior::Immediate)
+            .expect("reserve write access");
+        for _ in 0..3 {
+            assert!(
+                claim_pending_notifications(&mut claimant, "2026-09-05T12:00:00Z")
+                    .expect("idle claim must remain read-only")
+                    .is_empty()
+            );
+        }
+        reservation.rollback().expect("release write reservation");
+        drop(claimant);
+        drop(writer);
+        std::fs::remove_file(path).expect("remove test database");
+    }
 }
