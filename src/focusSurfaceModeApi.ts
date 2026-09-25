@@ -31,6 +31,18 @@ export async function presentFocusPanel(): Promise<void> {
   await invoke<void>("present_focus_panel");
 }
 
+export async function prepareFloatingTimerExpanded(expanded: boolean): Promise<void> {
+  await invoke<void>("prepare_floating_timer_expanded", { expanded });
+}
+
+export async function revealFloatingTimerExpanded(): Promise<void> {
+  await invoke<void>("reveal_floating_timer_expanded");
+}
+
+export async function rollbackFloatingTimerExpanded(): Promise<void> {
+  await invoke<void>("rollback_floating_timer_expanded");
+}
+
 export async function setFloatingTimerExpanded(expanded: boolean): Promise<void> {
   await invoke<void>("set_floating_timer_expanded", { expanded });
 }
