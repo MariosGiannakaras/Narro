@@ -18,6 +18,7 @@ function slice(source, startMarker, endMarker) {
 const lib = read("src-tauri/src/lib.rs");
 const focus = read("src/focus.tsx");
 const panel = read("src/FocusPanel.tsx");
+const floating = read("src/FloatingTimerFoundation.tsx");
 const coordinator = read("src/focusModeTransition.ts");
 const transition = read("src/FocusSurfaceTransition.tsx");
 const presentationFrame = read("src/presentationFrame.ts");
@@ -162,10 +163,11 @@ invariant(
     && commitMode.includes("await prewarmFocusSurface()")
     && commitMode.includes("waitForModeReady:")
     && commitMode.includes("await waitForPanelReady()")
+    && commitMode.includes("await waitForTimerReady()")
     && commitMode.includes("waitForPresentedFrame")
     && commitMode.includes("await revealFloatingTimer()")
     && commitMode.includes("await revealFocusPanel()"),
-  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, transparently prewarm the visible host, wait for Panel projections, pass a frame barrier, then reveal",
+  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, transparently prewarm the visible host, wait for target projections, pass a frame barrier, then reveal",
 );
 invariant(
   focus.includes('onPresentationReady={markPanelReady}')
@@ -179,6 +181,22 @@ invariant(
     && panel.includes("onPresentationReady?.()"),
   "Panel reveal must be gated until its requested board snapshot and timer projection have both settled",
 );
+invariant(
+  focus.includes("timerReadyRef")
+    && focus.includes("timerReadyWaitersRef")
+    && focus.includes("resetTimerReady")
+    && focus.includes("waitForTimerReady")
+    && focus.includes('onPresentationReady={markTimerReady}')
+    && floating.includes("onPresentationReady?: () => void")
+    && floating.includes("setTimerSettled(false)")
+    && floating.includes("setTimerSettled(true)")
+    && floating.includes("setBoardTaskId(null)")
+    && floating.includes("setBoardTaskId(liveTaskId)")
+    && floating.includes("timerSettled && (liveTaskId === null || boardTaskId === liveTaskId)")
+    && floating.includes("onPresentationReady?.()"),
+  "Timer reveal must be gated until its timer projection and matching live-task board snapshot have settled",
+);
+
 invariant(
   focus.includes('prepainted={preparedMode === "timer"}')
     && focus.includes('prepainted={preparedMode === "panel"}'),

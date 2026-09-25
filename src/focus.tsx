@@ -40,6 +40,8 @@ function FocusSurfaceProduct() {
   const resizeBusyRef = useRef(false);
   const panelReadyRef = useRef(false);
   const panelReadyWaitersRef = useRef(new Set<() => void>());
+  const timerReadyRef = useRef(false);
+  const timerReadyWaitersRef = useRef(new Set<() => void>());
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
   const [findTimerPulse, setFindTimerPulse] = useState<number | null>(null);
@@ -62,6 +64,23 @@ function FocusSurfaceProduct() {
     if (panelReadyRef.current) return Promise.resolve();
     return new Promise((resolve) => {
       panelReadyWaitersRef.current.add(resolve);
+    });
+  }, []);
+
+  const resetTimerReady = useCallback(() => {
+    timerReadyRef.current = false;
+  }, []);
+
+  const markTimerReady = useCallback(() => {
+    timerReadyRef.current = true;
+    for (const resolve of timerReadyWaitersRef.current) resolve();
+    timerReadyWaitersRef.current.clear();
+  }, []);
+
+  const waitForTimerReady = useCallback((): Promise<void> => {
+    if (timerReadyRef.current) return Promise.resolve();
+    return new Promise((resolve) => {
+      timerReadyWaitersRef.current.add(resolve);
     });
   }, []);
 
@@ -164,6 +183,7 @@ function FocusSurfaceProduct() {
         },
         publishMode: (nextMode) => {
           if (nextMode === "panel") resetPanelReady();
+          else resetTimerReady();
           flushSync(() => {
             setPreparedMode(nextMode);
             setPendingMode(null);
@@ -175,6 +195,7 @@ function FocusSurfaceProduct() {
         },
         waitForModeReady: async (nextMode) => {
           if (nextMode === "panel") await waitForPanelReady();
+          else await waitForTimerReady();
         },
         waitForPresentedFrame,
         revealMode: async (nextMode) => {
@@ -256,6 +277,7 @@ function FocusSurfaceProduct() {
           onAttentionPulseEnd={(sequence) => {
             setFindTimerPulse((current) => current === sequence ? null : current);
           }}
+          onPresentationReady={markTimerReady}
         />
       </FocusSurfaceTransition>
     );
