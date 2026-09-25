@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-24
+Last updated: 2026-09-25
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
@@ -14,22 +14,16 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS**.
 - Milestone 6 / Gate F: **PASS** — all 16 top-level items validated.
-- Milestone 7: **ACTIVE / 6 of 14 top-level items validated**.
+- Milestone 7: **ACTIVE / 8 of 14 top-level items validated**.
 - Milestones 8–10: **NOT STARTED**.
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–6 are validated. Item 7 remains open at its physical Windows gate. The physical re-test of exact resulting-main CI #480 on 2026-09-24 showed Panel -> Timer PASS, Timer -> Panel borderline/functional PASS, Expand/Collapse FAIL with accumulating stale/duplicated action-strip pixels, right-side Panel return PASS, normal-size horizontal scrollbar PASS, and timer/session continuity PASS.
-
-PR #125 corrected the native/WebView presentation sequence. Exact head `fb3547855433b87d576e1e78a5bbe58d5fc2570b` passed Windows CI #486; expected-head guarded squash merge `a7161acdf6a400147af0bbc44d52b1ec6ee64ea5` and resulting-main CI #487 both passed. The new physical item-7 re-test is NOT RUN; no automated run can close that gate.
-
-The user explicitly authorized independent later M7 work while physical testing is unavailable. Item 8 Ctrl+Shift+T passed PR #126 CI #488, guarded merge `77e535f73593be59f4a82b9052cba9ade5c36611`, and resulting-main CI #489. Item 9 Ctrl+Shift+P passed PR #127 CI #490, guarded merge `53c03767d5303067c14da9740f4a450c59e6afc4`, and resulting-main CI #491. Item 10 safe-position persistence passed PR #128 CI #492, guarded merge `778a1bc4e1276128d6ae859e1a15b6f9c413e89b`, and resulting-main CI #493. Item 12 native bottom/taskbar anchoring passed PR #130 CI #494, guarded merge `50cef428785ff522ab614eae3f4299241b69fb9f`, and resulting-main CI #495. Their top-level TODO items remain unchecked pending physical behavior checks. Item 11 has a documented full-screen composition caveat; item 13 has a static motion audit. Physical idle observation and final-UI resource measurements remain open.
+M7 items 1–6 and 13–14 are validated. The earlier CI #480/#501 physical expand/collapse failures are superseded by the physical CI #503 re-test: three complete native resize cycles, including expanded subtask controls, showed no retained/duplicated action strip in the collapsed DOM or pixels. Normal-size horizontal overflow and timer/session continuity passed. Item 7 remains open for continuous compositor smoothness and reduced-motion transition observation. Items 8–12 received the partial physical checks recorded in the latest work log; conflict/retry, display-topology/DPI, and independent fullscreen cases remain. Item 14's final-UI physical resource protocol completed on CI #505: three valid idle runs per state, each with zero churn, plus a separate running sample. Idle CPU medians were 0.000% of one core in both states; running average was 0.155%. Memory and caveats are in the work log. No M8 work has started.
 
 ## Current automated-validated source baseline
 
-CI #501's real Windows runtime reproduced the item-7 failure: after Timer collapse, the expanded action strip and collapsed heading were both present in the live WebView DOM. PR #138 corrects duplicate React sibling keys for the action strip and subtask component. Its executable Edge fixture checks three complete expand/collapse cycles and fails against the original keys. Local frontend preflight and exact PR head `7900825ca474c49fdf297a8d7a42cff043ea325c` Windows CI #503 / run `36046718991` / job `107791974753` passed, including preflight, visual fixtures, and Tauri release. Guarded squash merge `5e0e0c1018d319ee39cc30f8abce9d1febdbdd94` has the identical tree `a44422e0cc8c3b6842408adffc6b615dd7637c0d`; duplicate main CI #504 was cancelled after tree identity. PR runtime artifact `10829228469`, digest `sha256:6670cdf19365cbfe381fa0f6ff488556595942038cac9b16bd3d5626f310a0ec`; visual artifact `10829780583`, digest `sha256:d058febbb441c34ecb9e4279c3499787fa56e11fef85064311c21b686b349b78`. The new runtime has not yet been physically tested; item 7 and other physical Windows gates remain open. Use `docs/M7_FLOATING_RUNTIME_VALIDATION.md` for the consolidated session.
-
-Earlier PR #125–#134 implementation and artifact evidence is preserved in immutable `work-log/` entries. Those artifacts are superseded for the next physical session by the current source above.
+Latest source is PR #140 exact head `7f446d59070baee64a19314889fb94c0e141cd52`; Windows CI #505 / run `36101936170` / job `107966099159` passed preflight (including Rust tests), visual fixtures and Tauri release. Guarded squash merge `aafa7de082e39afad34f32730f7c83a532805b15` has identical tree `4c63c18da98b07f164a71fed685ef8aff1736863`; duplicate main CI #506 was cancelled. Runtime artifact `10850405881`, digest `sha256:eb58b673d3d448664cb12bfd280e9c5d3dc98cd0ebd13882e65064e978fd8bd8`. This source keeps an expanded Timer collapsible after its task ends and avoids an empty SQLite write reservation every 250 ms. A real Windows keyboard test verified the idle collapse. Local frontend preflight, Edge idle-recovery click fixture, Rust formatting and performance-harness self-test passed; local Rust compilation was unavailable because MSVC `link.exe` is absent. The full evidence matrix, prior #138 artifact, machine conditions, and resource caveats are in `work-log/2026-09-25-codex-m7-physical-runtime-and-idle-recovery.md`.
 
 ## Item 7 earlier physical candidate
 
@@ -210,9 +204,7 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-Resulting-main CI #487 passed on source `a7161ac`. Its earlier physical re-test artifact was `10785466061`, digest `sha256:f84bee3216cfe5d1762916cd54cd0d7703db283bdd7d1930b9b540a100764413`; the current candidate is recorded above. Physical checks remain open: Panel -> Timer, Timer -> Panel, right-side Panel return, collapsed -> expanded -> collapsed, normal product-size horizontal overflow, timer/session continuity, and perceived smoothness. Expand/Collapse passes only if no stale/duplicated action-strip content survives either resize direction.
-
-The independent M7 source slices are automated-validated through exact-head CI #503 and identical resulting-main source tree `5e0e0c1`. The last physical run used the older CI #501 tree and failed item 7; the #503 artifact needs retesting. One consolidated physical session remains for item 7 transitions/compositor, item 8/9 shortcuts/pulse, item 10 restart/monitor placement, item 11 topmost/borderless behavior, item 12 taskbar-edge expansion including constrained high-DPI work areas, item 13 idle motion, and item 14 final-UI CPU/memory. Use `docs/M7_FLOATING_RUNTIME_VALIDATION.md`; keep all applicable top-level TODO items open until that evidence is recorded. Do not advance to Milestone 8.
+The current #140 source and the prior #138 DOM fix were physically exercised as detailed above. Continue only the still-missing conditions in `docs/M7_FLOATING_RUNTIME_VALIDATION.md`: continuous transition/reduced-motion observation, shortcut conflict/retry, unavailable monitor/taskbar/DPI recovery, and independent borderless/exclusive fullscreen. Use the latest immutable work log to avoid retesting the observed three clean native resize cycles or repeating completed resource runs without a relevant source change. Do not advance to Milestone 8.
 
 ## Durable correctness decisions
 
