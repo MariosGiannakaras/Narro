@@ -60,9 +60,12 @@ invariant(
     && request.includes("transitionBusyRef.current")
     && request.includes("resizeBusyRef.current")
     && request.includes("setPendingMode(targetMode)")
-    && focus.includes("await presentFloatingTimer()")
-    && focus.includes("await presentFocusPanel()"),
-  "global toggle must use the existing presentation transition and ignore reentrant mode or resize requests",
+    && focus.includes("await coordinateFocusModeTransition({")
+    && focus.includes("await prepareFloatingTimer()")
+    && focus.includes("await prepareFocusPanel()")
+    && focus.includes("await revealFloatingTimer()")
+    && focus.includes("await revealFocusPanel()"),
+  "global toggle must use the serialized hidden-prepare transition coordinator and ignore reentrant mode or resize requests",
 );
 invariant(
   floating.includes("onResizePendingChange?.(true)")
