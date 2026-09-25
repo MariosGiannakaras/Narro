@@ -19,6 +19,8 @@ const lib = read("src-tauri/src/lib.rs");
 const focus = read("src/focus.tsx");
 const coordinator = read("src/focusModeTransition.ts");
 const transition = read("src/FocusSurfaceTransition.tsx");
+const panel = read("src/FocusPanel.tsx");
+const timer = read("src/FloatingTimerFoundation.tsx");
 const presentationFrame = read("src/presentationFrame.ts");
 const transitionCss = read("src/focusSurfaceTransition.css");
 const motionCss = read("src/motion.css");
@@ -144,10 +146,11 @@ invariant(
     && commitMode.includes("setPreparedMode(nextMode)")
     && commitMode.includes("setPendingMode(null)")
     && commitMode.includes("setMode(nextMode)")
+    && commitMode.includes("waitForModeReady")
     && commitMode.includes("waitForPresentedFrame")
     && commitMode.includes("await revealFloatingTimer()")
     && commitMode.includes("await revealFocusPanel()"),
-  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, pass a frame barrier, then reveal",
+  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, await target data readiness, pass a frame barrier, then reveal",
 );
 invariant(
   focus.includes('prepainted={preparedMode === "timer"}')
@@ -157,15 +160,17 @@ invariant(
 
 invariant(
   coordinator.indexOf("await prepareMode(targetMode)") < coordinator.indexOf("publishMode(targetMode)")
-    && coordinator.indexOf("publishMode(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
+    && coordinator.indexOf("publishMode(targetMode)") < coordinator.indexOf("await waitForModeReady(targetMode)")
+    && coordinator.indexOf("await waitForModeReady(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
     && coordinator.indexOf("await waitForPresentedFrame()") < coordinator.indexOf("await revealMode(targetMode)"),
-  "coordinator success order must be prepare -> publish -> frame -> reveal",
+  "coordinator success order must be prepare -> publish -> ready -> frame -> reveal",
 );
 const recovery = coordinator.indexOf("await prepareMode(previousMode)");
 invariant(
   recovery > coordinator.indexOf("catch (transitionFailure)")
     && recovery < coordinator.indexOf("publishMode(previousMode)", recovery)
-    && coordinator.indexOf("publishMode(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
+    && coordinator.indexOf("publishMode(previousMode)", recovery) < coordinator.indexOf("await waitForModeReady(previousMode)", recovery)
+    && coordinator.indexOf("await waitForModeReady(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
     && coordinator.includes("FocusModeTransitionRecoveryError")
     && coordinator.includes("FocusModeTransitionCancelledError"),
   "coordinator must rollback hidden geometry and renderer state on failure/cancellation and report failed recovery explicitly",
@@ -175,9 +180,18 @@ invariant(
   transition.includes("const [entered, setEntered] = useState(prepainted)")
     && transition.includes('data-focus-surface-prepainted={prepainted ? "true" : "false"}')
     && transition.includes("window.requestAnimationFrame(() => setEntered(true))")
-    && transition.includes("waitForOpacityTransition(root, 0)")
+    && transition.includes("waitForOpacityTransition(root, 0.45)")
     && focus.includes("onExitFailure={failPendingModeTransition}"),
   "prepainted target roots must avoid an empty first frame without removing finite exit handling",
+);
+invariant(
+  panel.includes("onPresentationReady?: () => void")
+    && panel.includes("timerSettled && boardReadyTargetKey === currentTargetKey")
+    && timer.includes("onPresentationReady?: () => void")
+    && timer.includes("timerSettled && (liveTaskId === null || boardTaskId === liveTaskId)")
+    && focus.includes('onPresentationReady={() => markModeReady("timer")}')
+    && focus.includes('onPresentationReady={() => markModeReady("panel")}'),
+  "target reveal must wait for settled Panel/Timer projections instead of exposing loading placeholders",
 );
 for (const forbidden of ["setInterval(", "setTimeout(", "@tauri-apps/api/window", "setPosition("]) {
   invariant(!transition.includes(forbidden), `transition wrapper must not introduce ${forbidden}`);
@@ -185,14 +199,14 @@ for (const forbidden of ["setInterval(", "setTimeout(", "@tauri-apps/api/window"
 }
 
 invariant(
-  transitionCss.includes("opacity: 0")
+  transitionCss.includes("opacity: 0.45")
     && transitionCss.includes("transform: translateY(var(--motion-distance-overlay))")
     && transitionCss.includes("opacity: 1")
     && transitionCss.includes("transform: translateY(0)")
     && transitionCss.includes('[data-focus-surface-exiting="true"]')
     && transitionCss.includes('[data-focus-surface-exit-settled="true"]')
-    && transitionCss.includes("visibility: hidden"),
-  "focus-surface motion must retain bounded opacity/transform exit and hidden settled state",
+    && !transitionCss.includes("visibility: hidden"),
+  "focus-surface motion must retain bounded opacity/transform exit without blanking the host before native hide",
 );
 invariant(
   focus.includes('import { waitForPresentedFrame } from "./presentationFrame";')
