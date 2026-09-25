@@ -56,23 +56,9 @@
 }
 
 .floating-timer-foundation[data-floating-resize-phase="exiting"] .floating-timer-foundation__content {
-  opacity: 0;
+  opacity: 0.45;
   transform: translateY(calc(0rem - var(--motion-distance-overlay)));
   transition-timing-function: var(--motion-ease-exit);
-}
-
-.floating-timer-foundation[data-floating-resize-phase="resizing"] .floating-timer-foundation__content {
-  visibility: hidden;
-  opacity: 0;
-  transform: none;
-  transition-duration: 0ms;
-}
-
-.floating-timer-foundation[data-floating-resize-phase="entering"] .floating-timer-foundation__content {
-  visibility: visible;
-  opacity: 0;
-  transform: translateY(var(--motion-distance-overlay));
-  transition-duration: 0ms;
 }
 
 .floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__content {
