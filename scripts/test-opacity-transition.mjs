@@ -37,6 +37,18 @@ function element(opacity, animations = []) {
 
 {
   const exit = deferred();
+  const root = element("0.7", [
+    { transitionProperty: "opacity", finished: exit.finished },
+  ]);
+  const completion = waitForOpacityTransition(root, 0.45);
+  frame();
+  root.opacity = "0.45";
+  exit.resolve();
+  await completion;
+}
+
+{
+  const exit = deferred();
   const root = element("0.5", [
     { transitionProperty: "opacity", finished: exit.finished },
     { transitionProperty: "transform", finished: new Promise(() => {}) },
