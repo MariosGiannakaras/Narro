@@ -86,6 +86,16 @@ invariant(
     && !position.includes("configure_focus_surface_mode(&window, FocusSurfaceMode::Panel)"),
   "Prepare must leave the Panel hidden while legacy Present retains the activating path",
 );
+invariant(
+  position.includes("read size before Panel transition")
+    && position.includes("restore size after Panel transition failure")
+    && position.includes("restore position after Panel transition failure")
+    && position.includes("restore topmost state after Panel transition failure")
+    && position.includes("restore taskbar state after Panel transition failure")
+    && position.includes("restore visibility after Panel transition failure")
+    && position.includes("FOCUS_SURFACE_MODE_RECOVERY_FAILED"),
+  "failed hidden Panel preparation must restore the complete prior native presentation",
+);
 
 const preparePanel = slice(lib, "fn prepare_focus_panel(", "#[tauri::command]\nfn reveal_focus_panel");
 const revealPanel = slice(lib, "fn reveal_focus_panel(", "#[tauri::command]\nfn present_focus_panel");
