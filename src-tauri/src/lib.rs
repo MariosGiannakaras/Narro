@@ -64,6 +64,7 @@ enum FocusSurfaceMode {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum FocusPanelPlacementIntent {
     Present,
+    Prepare,
     Revalidate,
 }
 
@@ -467,9 +468,10 @@ fn apply_focus_surface_mode(
     Ok(())
 }
 
-fn configure_focus_surface_mode(
+fn configure_focus_surface_mode_visibility(
     window: &tauri::WebviewWindow,
     mode: FocusSurfaceMode,
+    reveal_after_configuration: bool,
 ) -> CommandResult<()> {
     let _placement_guard = floating_placement::suspend_saves();
     let previous_mode = current_focus_surface_mode();
@@ -509,9 +511,12 @@ fn configure_focus_surface_mode(
         if mode == FocusSurfaceMode::Timer {
             floating_placement::restore_for_timer(window.app_handle(), window)?;
         }
-        window
-            .show()
-            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))
+        if reveal_after_configuration {
+            window
+                .show()
+                .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))?;
+        }
+        Ok(())
     })();
 
     if let Err(error) = transition {
@@ -582,8 +587,24 @@ fn configure_focus_surface_mode(
         return Err(error);
     }
 
-    record_focus_surface_mode(mode);
+    if reveal_after_configuration {
+        record_focus_surface_mode(mode);
+    }
     Ok(())
+}
+
+fn configure_focus_surface_mode(
+    window: &tauri::WebviewWindow,
+    mode: FocusSurfaceMode,
+) -> CommandResult<()> {
+    configure_focus_surface_mode_visibility(window, mode, true)
+}
+
+fn prepare_focus_surface_mode(
+    window: &tauri::WebviewWindow,
+    mode: FocusSurfaceMode,
+) -> CommandResult<()> {
+    configure_focus_surface_mode_visibility(window, mode, false)
 }
 
 fn position_focus_panel_in_work_area(
@@ -593,31 +614,49 @@ fn position_focus_panel_in_work_area(
     intent: FocusPanelPlacementIntent,
 ) -> CommandResult<()> {
     validate_work_area(work_area).map_err(CommandError::window_geometry)?;
-    if intent == FocusPanelPlacementIntent::Present
-        && current_focus_surface_mode() == Some(FocusSurfaceMode::Timer)
-    {
+    let presentation_transition = matches!(
+        intent,
+        FocusPanelPlacementIntent::Present | FocusPanelPlacementIntent::Prepare
+    );
+    let previous_mode = current_focus_surface_mode();
+    if presentation_transition && previous_mode == Some(FocusSurfaceMode::Timer) {
         if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
             eprintln!("Could not save Floating Timer position before Panel return: {error}");
         }
     }
-    let _placement_guard =
-        (intent == FocusPanelPlacementIntent::Present).then(floating_placement::suspend_saves);
+    let _placement_guard = presentation_transition.then(floating_placement::suspend_saves);
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
-    let hide_for_present = intent == FocusPanelPlacementIntent::Present
-        && window
-            .is_visible()
-            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
-    let previous_position = if hide_for_present {
-        Some(
+    let recovery_snapshot = if presentation_transition {
+        Some((
+            window.inner_size().map_err(|error| {
+                map_window_error(
+                    FOCUS_SURFACE_LABEL,
+                    "read size before Panel transition",
+                    error,
+                )
+            })?,
             window
                 .outer_position()
                 .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read position", error))?,
-        )
+            window.is_always_on_top().map_err(|error| {
+                map_window_error(
+                    FOCUS_SURFACE_LABEL,
+                    "read topmost state before Panel transition",
+                    error,
+                )
+            })?,
+            window
+                .is_visible()
+                .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?,
+        ))
     } else {
         None
     };
+    let hide_for_transition = recovery_snapshot
+        .as_ref()
+        .is_some_and(|(_, _, _, was_visible)| *was_visible);
 
-    if hide_for_present {
+    if hide_for_transition {
         window.hide().map_err(|error| {
             map_window_error(FOCUS_SURFACE_LABEL, "hide for panel transition", error)
         })?;
@@ -678,9 +717,73 @@ fn position_focus_panel_in_work_area(
     })();
 
     if let Err(error) = placement_result {
-        if let Some(previous_position) = previous_position {
-            let _ = window.set_position(tauri::Position::Physical(previous_position));
-            let _ = window.show();
+        if let Some((previous_size, previous_position, previous_topmost, was_visible)) =
+            recovery_snapshot
+        {
+            let results = [
+                window
+                    .set_size(tauri::Size::Physical(previous_size))
+                    .map_err(|failure| {
+                        map_window_error(
+                            FOCUS_SURFACE_LABEL,
+                            "restore size after Panel transition failure",
+                            failure,
+                        )
+                    }),
+                window
+                    .set_position(tauri::Position::Physical(previous_position))
+                    .map_err(|failure| {
+                        map_window_error(
+                            FOCUS_SURFACE_LABEL,
+                            "restore position after Panel transition failure",
+                            failure,
+                        )
+                    }),
+                window
+                    .set_always_on_top(previous_topmost)
+                    .map_err(|failure| {
+                        map_window_error(
+                            FOCUS_SURFACE_LABEL,
+                            "restore topmost state after Panel transition failure",
+                            failure,
+                        )
+                    }),
+                window
+                    .set_skip_taskbar(previous_mode == Some(FocusSurfaceMode::Timer))
+                    .map_err(|failure| {
+                        map_window_error(
+                            FOCUS_SURFACE_LABEL,
+                            "restore taskbar state after Panel transition failure",
+                            failure,
+                        )
+                    }),
+                if was_visible {
+                    window.show()
+                } else {
+                    window.hide()
+                }
+                .map_err(|failure| {
+                    map_window_error(
+                        FOCUS_SURFACE_LABEL,
+                        "restore visibility after Panel transition failure",
+                        failure,
+                    )
+                }),
+            ];
+            let failures: Vec<_> = results.into_iter().filter_map(Result::err).collect();
+            if !failures.is_empty() {
+                return Err(CommandError::new(
+                    "FOCUS_SURFACE_MODE_RECOVERY_FAILED",
+                    format!(
+                        "{error}; Panel rollback failed: {}",
+                        failures
+                            .iter()
+                            .map(ToString::to_string)
+                            .collect::<Vec<_>>()
+                            .join("; ")
+                    ),
+                ));
+            }
         }
         return Err(error);
     }
@@ -713,6 +816,30 @@ fn position_focus_panel(
 }
 
 #[tauri::command]
+fn prepare_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let (work_area, side) = preferred_focus_panel_work_area(&app_handle)?;
+    position_focus_panel_in_work_area(
+        &app_handle,
+        work_area,
+        side,
+        FocusPanelPlacementIntent::Prepare,
+    )
+}
+
+#[tauri::command]
+fn reveal_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    window
+        .show()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "reveal Panel", error))?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus revealed Panel", error))?;
+    record_focus_surface_mode(FocusSurfaceMode::Panel);
+    Ok(())
+}
+
+#[tauri::command]
 fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
     let (work_area, side) = preferred_focus_panel_work_area(&app_handle)?;
     position_focus_panel_in_work_area(
@@ -721,6 +848,22 @@ fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
         side,
         FocusPanelPlacementIntent::Present,
     )
+}
+
+#[tauri::command]
+fn prepare_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    prepare_focus_surface_mode(&window, FocusSurfaceMode::Timer)
+}
+
+#[tauri::command]
+fn reveal_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    window
+        .show()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "reveal Timer", error))?;
+    record_focus_surface_mode(FocusSurfaceMode::Timer);
+    Ok(())
 }
 
 #[tauri::command]
@@ -1219,11 +1362,15 @@ pub fn run() {
             focus_surface_mode_snapshot,
             focus_surface_mode_panel,
             focus_surface_mode_timer,
+            prepare_floating_timer,
+            reveal_floating_timer,
             present_floating_timer,
             set_floating_timer_expanded,
             list_windows,
             list_monitors,
             position_focus_panel,
+            prepare_focus_panel,
+            reveal_focus_panel,
             present_focus_panel
         ])
         .setup(|app| {

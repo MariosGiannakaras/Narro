@@ -7,16 +7,18 @@ export function FocusSurfaceTransition({
   mode,
   children,
   exiting = false,
+  prepainted = false,
   onExitComplete,
   onExitFailure,
 }: {
   mode: FocusSurfaceMode;
   children: ReactNode;
   exiting?: boolean;
+  prepainted?: boolean;
   onExitComplete?: () => void;
   onExitFailure?: (failure: unknown) => void;
 }) {
-  const [entered, setEntered] = useState(false);
+  const [entered, setEntered] = useState(prepainted);
   const [exitSettled, setExitSettled] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const completionRef = useRef(onExitComplete);
@@ -58,6 +60,7 @@ export function FocusSurfaceTransition({
       data-focus-surface-transition={mode}
       data-focus-surface-entered={entered ? "true" : "false"}
       data-focus-surface-exiting={exiting ? "true" : "false"}
+      data-focus-surface-prepainted={prepainted ? "true" : "false"}
       data-focus-surface-exit-settled={exitSettled ? "true" : "false"}
     >
       {children}

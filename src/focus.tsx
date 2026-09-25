@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
@@ -8,10 +9,13 @@ import { FocusSurfaceTransition } from "./FocusSurfaceTransition";
 import { FocusPanel } from "./FocusPanel";
 import {
   getFocusSurfaceMode,
-  presentFloatingTimer,
-  presentFocusPanel,
+  prepareFloatingTimer,
+  prepareFocusPanel,
+  revealFloatingTimer,
+  revealFocusPanel,
   type FocusSurfaceMode,
 } from "./focusSurfaceModeApi";
+import { coordinateFocusModeTransition } from "./focusModeTransition";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { waitForPresentedFrame } from "./presentationFrame";
 import { TimerSessionProjection } from "./TimerSessionProjection";
@@ -27,6 +31,7 @@ function FocusSurfaceProduct() {
   const [transitionPending, setTransitionPending] = useState(false);
   const [transitionError, setTransitionError] = useState<string | null>(null);
   const [pendingMode, setPendingMode] = useState<FocusSurfaceMode | null>(null);
+  const [preparedMode, setPreparedMode] = useState<FocusSurfaceMode | null>(null);
   const transitionCommitRef = useRef(false);
   const modeRef = useRef<FocusSurfaceMode | null>(null);
   const transitionBusyRef = useRef(false);
@@ -121,24 +126,45 @@ function FocusSurfaceProduct() {
 
   async function commitPendingModeTransition() {
     const targetMode = pendingMode;
-    if (!targetMode || transitionCommitRef.current) return;
+    const previousMode = modeRef.current;
+    if (!targetMode || !previousMode || transitionCommitRef.current) return;
 
     transitionCommitRef.current = true;
     try {
-      await waitForPresentedFrame();
-      if (targetMode === "timer") {
-        await presentFloatingTimer();
-      } else {
-        await presentFocusPanel();
-      }
+      await coordinateFocusModeTransition({
+        previousMode,
+        targetMode,
+        prepareMode: async (nextMode) => {
+          if (nextMode === "timer") {
+            await prepareFloatingTimer();
+          } else {
+            await prepareFocusPanel();
+          }
+        },
+        publishMode: (nextMode) => {
+          flushSync(() => {
+            setPreparedMode(nextMode);
+            setPendingMode(null);
+            setMode(nextMode);
+          });
+        },
+        waitForPresentedFrame,
+        revealMode: async (nextMode) => {
+          if (nextMode === "timer") {
+            await revealFloatingTimer();
+          } else {
+            await revealFocusPanel();
+          }
+        },
+      });
       modeRef.current = targetMode;
-      setMode(targetMode);
       setTransitionError(null);
     } catch (failure: unknown) {
       setTransitionError(formatInvokeError(failure));
     } finally {
       transitionCommitRef.current = false;
       transitionBusyRef.current = false;
+      setPreparedMode(null);
       setPendingMode(null);
       setTransitionPending(false);
     }
@@ -181,6 +207,7 @@ function FocusSurfaceProduct() {
         key="timer"
         mode="timer"
         exiting={pendingMode !== null}
+        prepainted={preparedMode === "timer"}
         onExitComplete={() => void commitPendingModeTransition()}
         onExitFailure={failPendingModeTransition}
       >
@@ -203,6 +230,7 @@ function FocusSurfaceProduct() {
       key="panel"
       mode="panel"
       exiting={pendingMode !== null}
+      prepainted={preparedMode === "panel"}
       onExitComplete={() => void commitPendingModeTransition()}
       onExitFailure={failPendingModeTransition}
     >
