@@ -274,31 +274,39 @@ Acceptance criteria:
   - [x] Physical-fail compositor corrective candidate is automated-validated: settled Focus content is fully masked before native Panel/Timer geometry, collapsed/expanded resize uses an explicit hidden `resizing` phase, and a finite two-frame presented-frame barrier brackets native geometry; PR #124 exact-head CI #479 and resulting-main CI #480 PASS.
   - [x] Physical Windows CI #480 re-test evidence recorded: Panel -> Timer PASS; Timer -> Panel borderline/functional PASS; right-side return PASS; normal-size horizontal overflow PASS; timer/session continuity PASS; Expand/Collapse FAIL with repeated stale/duplicated action-strip pixels.
   - [x] Native hidden-resize corrective candidate: target hierarchy stays visibility-hidden through native hide/resize/show and a post-show frame opportunity, with physical-size/visibility rollback on error; PR #125 exact-head CI #486, guarded merge `a7161ac`, and resulting-main CI #487 PASS. Physical re-test remains open.
-  - [x] Transition completion now observes the actual opacity animation or verified no-animation state for both mode changes and Timer expand/collapse; executable cancellation/no-transition tests and PR #136 exact-head CI #501 PASS. Guarded merge `0fc7401` has an identical tree; automatic main CI #502 was cancelled as redundant. Physical re-test remains open.
-  - [x] CI #501 physical retest found the expanded action strip still mounted alongside the collapsed heading. PR #138 gives action and subtask siblings distinct React keys; a three-cycle executable Edge DOM test passes and fails against the original duplicate keys. Exact-head CI #503 PASS; guarded merge `5e0e0c1` has an identical tree, and duplicate main CI #504 was cancelled. Physical retest of this fix remains open.
+  - [x] Transition completion now observes the actual opacity animation or verified no-animation state for both mode changes and Timer expand/collapse; executable cancellation/no-transition tests and PR #136 exact-head CI #501 PASS. Guarded merge `0fc7401` has an identical tree; automatic main CI #502 was cancelled as redundant. Its later physical finding is recorded below.
+  - [x] CI #501 physical retest found the expanded action strip still mounted alongside the collapsed heading. PR #138 gives action and subtask siblings distinct React keys; a three-cycle executable Edge DOM test passes and fails against the original duplicate keys. Exact-head CI #503 PASS; guarded merge `5e0e0c1` has an identical tree, and duplicate main CI #504 was cancelled. The physical result is recorded below.
+  - [x] CI #503 physical retest: three native expand/collapse cycles, including visible subtask controls, showed no stale/duplicated action strip or collapsed-state pixels; Panel/Timer session continuity and normal-size no-overflow passed. Continuous transition smoothness and the unavailable display conditions remain open; see the 2026-09-25 work log.
+  - [x] PR #140 keeps a usable collapse control after the last live task ends while Timer is expanded and avoids empty Pomodoro notification write locks. Executable Edge click and Rust contention tests passed CI #505; guarded merge `aafa7de` has the identical source tree and duplicate main CI #506 was cancelled. Physical keyboard collapse to native 356×118 PASS.
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
   - [x] Ctrl+Shift+T implementation passed PR #126 exact-head CI #488, guarded merge `77e535f`, and resulting-main CI #489.
-  - [ ] Physical Windows shortcut/conflict/session-continuity check remains open.
+  - [x] Physical Panel/Timer shortcut use and session continuity passed on CI #503; one rapid repeated press settled to one Timer window.
+  - [ ] Physical hotkey ownership conflict/retry and transition-boundary repetition remain open.
 - [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
   - [x] Ctrl+Shift+P and finite attention pulse passed PR #127 exact-head CI #490, guarded merge `53c0376`, and resulting-main CI #491.
-  - [ ] Physical Windows hotkey/conflict/pulse/session-continuity check remains open.
+  - [x] Physical visible/hidden Timer and Panel-mode shortcut behavior passed on CI #503; pulses ended in about 729/726 ms, or about 186 ms with reduced-motion media emulation.
+  - [ ] Physical Windows OS reduced-motion preference and repeated hidden/Panel interactions remain open.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
   - [x] Native SQLite placement/relative recovery passed PR #128 exact-head CI #492, expected-head guarded merge `778a1bc`, and resulting-main CI #493.
   - [x] Visible Timer topology recovery now fits and repositions the measured outer window, including when no saved placement exists; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
-  - [ ] Physical drag, Panel return/reopen, restart, and monitor-change recovery checks remain open.
+  - [x] Physical drag, Panel return/reopen, and same-monitor process restart restored the Timer at the moved position with the same paused session on CI #503.
+  - [ ] Physical secondary-monitor/topology change and no-saved-position recovery checks remain open.
 - [ ] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
   - [x] Document the Windows DirectFlip/Independent Flip composition caveat and separate exclusive-fullscreen observation in `docs/M7_FLOATING_RUNTIME_VALIDATION.md`.
-  - [ ] Physical maximized, borderless, and optional exclusive-fullscreen stacking checks remain open.
+  - [x] Physical stacking above maximized Edge and Edge F11 fullscreen passed on CI #503.
+  - [ ] Physical independent borderless-app and optional exclusive-fullscreen stacking checks remain open.
 - [ ] Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.
   - [x] Native hidden-resize work-area anchoring passed PR #130 exact-head CI #494, expected-head guarded merge `50cef42`, and resulting-main CI #495.
   - [x] Constrained work-area recovery fits native outer size before placement and keeps expanded controls scrollable at narrow/short DPI-scaled sizes; PR #132 exact-head CI #497, guarded merge `59bdc2d`, and resulting-main CI #498 PASS.
   - [x] Restore and live display-change paths reuse measured native fit/placement, with rollback on failure; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
-  - [ ] Physical bottom/taskbar, secondary-monitor, and DPI checks remain open.
-- [ ] Verify no decorative animation runs continuously while idle.
+  - [x] Physical primary-work-area bottom expansion fitted the 356×308 native outer window at y=772 with lowest controls reachable and collapse usable on CI #503.
+  - [ ] Physical non-default taskbar, secondary-monitor, constrained work area and high-DPI checks remain open.
+- [x] Verify no decorative animation runs continuously while idle.
   - [x] Static Floating Timer motion audit: finite attention pulse and transitions only; live timer sampling is conditional on active states. The only `infinite` title scroll belongs to the Focus Panel. See `work-log/2026-09-24-codex-m7-idle-motion-audit.md`.
-  - [ ] Physical idle observation on the final M7 build remains open.
-- [ ] Re-run Milestone 1 floating-only CPU/memory measurements after final UI is present.
+  - [x] Physical CI #503 collapsed/expanded paused idle: zero running DOM animations/pulse nodes, and paired settled screenshots byte-identical. True-idle collapsed CI #505 also showed zero animations. Revalidate if later source changes idle motion.
+- [x] Re-run Milestone 1 floating-only CPU/memory measurements after final UI is present.
+  - [x] CI #505 executable on Windows 10 with `main` destroyed: three valid 30s/60s runs per collapsed/expanded true-idle state, zero churn, idle CPU median 0.000% of one core in each state; separate running-timer run averaged 0.155%. Working set medians were 429.76/421.39 MiB, private medians 375.19/327.56 MiB. See 2026-09-25 work log for per-run ranges, warm-state caveat, source/artifact identity, and profile restoration. Re-measure after future performance-relevant source changes.
 
 Acceptance criteria:
 
