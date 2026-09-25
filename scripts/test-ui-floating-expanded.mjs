@@ -11,6 +11,7 @@ function invariant(condition, message) {
 const lib = read("src-tauri/src/lib.rs");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const foundation = read("src/FloatingTimerFoundation.tsx");
+const resizeCoordinator = read("src/floatingTimerResizeTransition.ts");
 const presentationFrame = read("src/presentationFrame.ts");
 const actions = read("src/FocusLiveActions.tsx");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
@@ -21,7 +22,15 @@ const capture = read("scripts/capture-floating-timer-fixtures.ps1");
 const validator = read("scripts/validate-floating-timer-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
-invariant(lib.includes("fn set_floating_timer_expanded("), "native expanded-size command is missing");
+invariant(lib.includes("fn set_floating_timer_expanded("), "legacy native expanded-size command is missing");
+for (const command of [
+  "prepare_floating_timer_expanded",
+  "reveal_floating_timer_expanded",
+  "rollback_floating_timer_expanded",
+  "set_floating_timer_expanded",
+]) {
+  invariant(lib.includes(command), `native resize command ${command} is missing`);
+}
 invariant(
   lib.includes("current_focus_surface_mode() != Some(FocusSurfaceMode::Timer)")
     && lib.includes('"FOCUS_SURFACE_MODE_CONFLICT"'),
@@ -32,92 +41,111 @@ invariant(
     && lib.includes("width: 340.0"),
   "native expanded/collapsed geometry must remain 340x300 and 340x110",
 );
-invariant(lib.includes("set_floating_timer_expanded,"), "native command is not registered");
 invariant(
-  modeApi.includes('invoke<void>("set_floating_timer_expanded", { expanded })'),
-  "renderer resize API must use the typed native command",
+  modeApi.includes('invoke<void>("prepare_floating_timer_expanded", { expanded })')
+    && modeApi.includes('invoke<void>("reveal_floating_timer_expanded")')
+    && modeApi.includes('invoke<void>("rollback_floating_timer_expanded")')
+    && modeApi.includes('invoke<void>("set_floating_timer_expanded", { expanded })'),
+  "renderer API must expose transactional resize boundaries while retaining the legacy command",
 );
 
 const restoreFnStart = lib.indexOf("fn restore_floating_timer_after_failed_resize(");
-const resizeFnStart = lib.indexOf("fn set_floating_timer_expanded(");
-const resizeFnEnd = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(", resizeFnStart);
-const restoreFn = lib.slice(restoreFnStart, resizeFnStart);
-const resizeFn = lib.slice(resizeFnStart, resizeFnEnd);
-const nativeVisibilityRead = resizeFn.indexOf("let was_visible = window");
-const nativeSizeRead = resizeFn.indexOf(".inner_size()", nativeVisibilityRead);
-const nativeHide = resizeFn.indexOf(".hide()", nativeSizeRead);
-const nativeResize = resizeFn.indexOf(".set_size(", nativeHide);
-const nativeResizeRecovery = resizeFn.indexOf("restore_floating_timer_after_failed_resize(", nativeResize);
-const nativeSuccessShow = resizeFn.indexOf('"show Timer after resize"', nativeResizeRecovery);
-const nativeShowRecovery = resizeFn.indexOf("restore_floating_timer_after_failed_resize(", nativeSuccessShow);
+const prepareFnStart = lib.indexOf("fn prepare_floating_timer_expanded_impl(");
+const revealFnStart = lib.indexOf("fn reveal_floating_timer_expanded_impl(");
+const rollbackFnStart = lib.indexOf("fn rollback_floating_timer_expanded_impl(");
+const commandFnStart = lib.indexOf("#[tauri::command(rename_all = \"camelCase\")]\nfn prepare_floating_timer_expanded(");
+const restoreFn = lib.slice(restoreFnStart, prepareFnStart);
+const prepareFn = lib.slice(prepareFnStart, revealFnStart);
+const revealFn = lib.slice(revealFnStart, rollbackFnStart);
+const rollbackFn = lib.slice(rollbackFnStart, commandFnStart);
+const nativeHide = prepareFn.indexOf(".hide()");
+const nativeResize = prepareFn.indexOf(".set_size(", nativeHide);
+const nativePlacement = prepareFn.indexOf("keep_resized_timer_in_work_area", nativeResize);
+const nativeSnapshotStore = prepareFn.indexOf("store_floating_timer_resize_snapshot", nativePlacement);
 invariant(
   restoreFnStart >= 0
-    && restoreFnStart < resizeFnStart
-    && nativeVisibilityRead >= 0
-    && nativeVisibilityRead < nativeSizeRead
-    && nativeSizeRead < nativeHide
+    && prepareFnStart > restoreFnStart
+    && prepareFn.includes("begin_floating_timer_resize_transaction()")
+    && nativeHide >= 0
     && nativeHide < nativeResize
-    && nativeResize < nativeResizeRecovery
-    && nativeResizeRecovery < nativeSuccessShow
-    && nativeSuccessShow < nativeShowRecovery
-    && resizeFn.includes("if was_visible")
-    && resizeFn.includes('"hide Timer for resize"')
-    && resizeFn.includes('"FLOATING_TIMER_RESIZE_RECOVERY_FAILED"')
+    && nativeResize < nativePlacement
+    && nativePlacement < nativeSnapshotStore
+    && !prepareFn.includes('"reveal resized Timer"')
     && restoreFn.includes("tauri::Size::Physical(previous_size)")
     && restoreFn.includes('"restore Timer visibility"'),
-  "native Floating Timer resize must snapshot geometry, hide before resizing, show only after success, and restore both size and visibility after resize or show failure",
+  "native prepare must snapshot, hide, resize, fit and remain hidden with exact rollback state",
+);
+invariant(
+  revealFn.includes("prepared_floating_timer_resize_snapshot()")
+    && revealFn.indexOf(".show()") < revealFn.indexOf("clear_floating_timer_resize_transaction()"),
+  "native reveal must show only a prepared resize and clear the transaction after success",
+);
+invariant(
+  rollbackFn.includes("prepared_floating_timer_resize_snapshot()")
+    && rollbackFn.includes("restore_floating_timer_after_failed_resize")
+    && rollbackFn.indexOf("restore_floating_timer_after_failed_resize") < rollbackFn.indexOf("clear_floating_timer_resize_transaction()"),
+  "native rollback must restore the exact previous size/position/visibility before clearing transaction state",
+);
+invariant(
+  lib.includes('"FLOATING_TIMER_RESIZE_BUSY"')
+    && lib.includes('"FLOATING_TIMER_RESIZE_NOT_PREPARED"')
+    && lib.includes('"FLOATING_TIMER_RESIZE_RECOVERY_FAILED"'),
+  "native resize transaction must reject overlap and surface explicit recovery failures",
 );
 
 const exitStart = foundation.indexOf('setResizePhase("exiting");');
-const exitWait = foundation.indexOf('await waitForOpacityTransition(content, 0);', exitStart);
-const resizingPhase = foundation.indexOf('setResizePhase("resizing");', exitWait);
-const publishExpanded = foundation.indexOf("setExpanded(nextExpanded);", resizingPhase);
-const hiddenPaint = foundation.indexOf("await waitForPresentedFrame();", publishExpanded);
-const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);", hiddenPaint);
-const postResizePaint = foundation.indexOf("await waitForPresentedFrame();", resizeCall);
-const enteringPhase = foundation.indexOf('setResizePhase("entering");', postResizePaint);
-const transparentPaint = foundation.indexOf("await waitForPresentedFrame();", enteringPhase);
-const entranceStart = foundation.indexOf('setResizePhase("idle");', transparentPaint);
-const entranceWait = foundation.indexOf('await waitForOpacityTransition(content, 1);', entranceStart);
+const exitWait = foundation.indexOf('await waitForOpacityTransition(content, 0.45);', exitStart);
+const coordinatorCall = foundation.indexOf("await coordinateFloatingTimerResize({", exitWait);
+const prepareWire = foundation.indexOf("prepareResize: prepareFloatingTimerExpanded", coordinatorCall);
+const publishWire = foundation.indexOf("publishExpanded: (candidateExpanded)", prepareWire);
+const flushPublish = foundation.indexOf("flushSync(() => {", publishWire);
+const paintWire = foundation.indexOf("waitForPresentedFrame,", flushPublish);
+const revealWire = foundation.indexOf("revealResize: revealFloatingTimerExpanded", paintWire);
+const rollbackWire = foundation.indexOf("rollbackResize: rollbackFloatingTimerExpanded", revealWire);
 invariant(
   foundation.includes('data-floating-resize-pending={resizePending ? "true" : "false"}')
     && foundation.includes("data-floating-resize-phase={resizePhase}")
     && exitStart >= 0
     && exitStart < exitWait
-    && exitWait >= 0
-    && exitWait < resizingPhase
-    && resizingPhase < publishExpanded
-    && publishExpanded < hiddenPaint
-    && hiddenPaint < resizeCall
-    && resizeCall < postResizePaint
-    && postResizePaint < enteringPhase
-    && enteringPhase < transparentPaint
-    && transparentPaint < entranceStart
-    && transparentPaint < entranceWait,
-  "expanded hierarchy must stay visibility-hidden through native hide/resize/show and a post-show paint opportunity before the transparent entrance",
+    && exitWait < coordinatorCall
+    && coordinatorCall < prepareWire
+    && prepareWire < publishWire
+    && publishWire < flushPublish
+    && flushPublish < paintWire
+    && paintWire < revealWire
+    && revealWire < rollbackWire,
+  "expanded resize must keep bounded outgoing content visible, then prepaint the target while native geometry is hidden before reveal",
 );
 invariant(
-  /\[data-floating-resize-phase="resizing"\] \.floating-timer-foundation__content \{\s*visibility: hidden;/.test(css)
-    && /\[data-floating-resize-phase="entering"\] \.floating-timer-foundation__content \{\s*visibility: visible;\s*opacity: 0;/.test(css),
-  "native resize must not expose a merely transparent child hierarchy while its backing surface is changing",
+  resizeCoordinator.indexOf("await prepareResize(targetExpanded)") < resizeCoordinator.indexOf("publishExpanded(targetExpanded)")
+    && resizeCoordinator.indexOf("publishExpanded(targetExpanded)") < resizeCoordinator.indexOf("await waitForPresentedFrame()")
+    && resizeCoordinator.indexOf("await waitForPresentedFrame()") < resizeCoordinator.indexOf("await revealResize()"),
+  "resize coordinator success order must be prepare -> publish -> frame -> reveal",
+);
+const resizeRecovery = resizeCoordinator.indexOf("publishExpanded(previousExpanded)");
+invariant(
+  resizeRecovery > resizeCoordinator.indexOf("catch (transitionFailure)")
+    && resizeRecovery < resizeCoordinator.indexOf("await waitForPresentedFrame()", resizeRecovery)
+    && resizeCoordinator.indexOf("await waitForPresentedFrame()", resizeRecovery) < resizeCoordinator.indexOf("await rollbackResize()", resizeRecovery)
+    && resizeCoordinator.includes("FloatingTimerResizeRecoveryError"),
+  "resize failure must republish the previous hierarchy while hidden before exact native rollback",
 );
 invariant(
-  foundation.includes("if (!nativeResizeCommitted) setExpanded(expanded)")
-    && foundation.includes("return nativeResizeCommitted;"),
-  "failed native resize must restore the old hierarchy, while a post-commit animation failure keeps the committed hierarchy",
-);
-invariant(
-  foundation.includes("waitForOpacityTransition(content, 0)")
-    && foundation.includes("waitForOpacityTransition(content, 1)")
+  foundation.includes("waitForOpacityTransition(content, 0.45)")
     && css.includes('[data-floating-resize-phase="exiting"]')
-    && css.includes('[data-floating-resize-phase="resizing"]')
-    && css.includes('[data-floating-resize-phase="entering"]')
-    && css.includes("visibility: hidden")
+    && css.includes("opacity: 0.45")
+    && !css.includes('[data-floating-resize-phase="resizing"]')
+    && !css.includes('[data-floating-resize-phase="entering"]')
     && css.includes("transition-duration: var(--motion-duration-inline)")
-    && css.includes("transition-timing-function: var(--motion-ease-exit)")
-    && css.includes("transition-duration: 0ms"),
-  "expanded resize must use finite CSS transition boundaries without exposing an intermediate hierarchy",
+    && css.includes("transition-timing-function: var(--motion-ease-exit)"),
+  "expanded resize must retain finite opacity/transform motion without a visible blank hierarchy",
 );
+invariant(
+  pkg.scripts["test:floating-timer-resize-transition"] === "node --experimental-strip-types scripts/test-floating-timer-resize-transition.mjs"
+    && pkg.scripts["preflight:frontend"].includes("npm run test:floating-timer-resize-transition"),
+  "floating resize coordinator behavioral tests must run in frontend preflight",
+);
+
 invariant(
   foundation.includes('presentation="floating"')
     && foundation.includes("<FocusLiveActions")
