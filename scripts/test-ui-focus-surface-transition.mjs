@@ -73,7 +73,9 @@ const finalMove = position.indexOf("x: final_position.x");
 const presentShow = position.indexOf(".show()", finalMove);
 invariant(
   position.includes("FocusPanelPlacementIntent::Present | FocusPanelPlacementIntent::Prepare")
-    && position.includes("let hide_for_transition = presentation_transition")
+    && position.includes("let recovery_snapshot = if presentation_transition")
+    && position.includes("let hide_for_transition = recovery_snapshot")
+    && position.includes(".is_some_and(|(_, _, _, was_visible)| *was_visible)")
     && stagePosition >= 0
     && position.indexOf(".hide()") < stagePosition
     && stagePosition < stageMove,
