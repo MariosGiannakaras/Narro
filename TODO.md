@@ -278,6 +278,7 @@ Acceptance criteria:
   - [x] CI #501 physical retest found the expanded action strip still mounted alongside the collapsed heading. PR #138 gives action and subtask siblings distinct React keys; a three-cycle executable Edge DOM test passes and fails against the original duplicate keys. Exact-head CI #503 PASS; guarded merge `5e0e0c1` has an identical tree, and duplicate main CI #504 was cancelled. The physical result is recorded below.
   - [x] CI #503 physical retest: three native expand/collapse cycles, including visible subtask controls, showed no stale/duplicated action strip or collapsed-state pixels; Panel/Timer session continuity and normal-size no-overflow passed. Continuous transition smoothness and the unavailable display conditions remain open; see the 2026-09-25 work log.
   - [x] CI #507 follow-up: settled expand/collapse and session continuity again passed, but two 20 fps Panel→Timer captures showed blank/pale staging frames before Timer content rendered. The continuous no-flash criterion is FAIL; see `work-log/2026-09-25-codex-m7-panel-timer-flash-reproduction.md`.
+  - [x] With actual Windows animations Off on CI #507, Panel→Timer and Timer→Panel both showed blank frames before the target content; nonessential translation was absent. Visual no-flash criterion remains FAIL; see `work-log/2026-09-25-codex-m7-os-reduced-motion-physical.md`.
   - [x] PR #140 keeps a usable collapse control after the last live task ends while Timer is expanded and avoids empty Pomodoro notification write locks. Executable Edge click and Rust contention tests passed CI #505; guarded merge `aafa7de` has the identical source tree and duplicate main CI #506 was cancelled. Physical keyboard collapse to native 356×118 PASS.
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
@@ -290,7 +291,8 @@ Acceptance criteria:
   - [x] The shared PR #143 registration/retry state machine and executable concurrency/conflict/rollback tests passed exact-head CI #507; guarded merge `fce15f8` has the identical tree. Scoped current-build physical results appear below.
   - [x] Physical visible/hidden Timer and Panel-mode shortcut behavior passed on CI #503; pulses ended in about 729/726 ms, or about 186 ms with reduced-motion media emulation.
   - [x] Physical CI #507 visible-Timer Ctrl+Shift+P pulse and Panel-mode no-op passed; native-hidden Timer on this exact build was not retested.
-  - [ ] Physical Windows OS reduced-motion preference and repeated hidden/Panel interactions remain open.
+  - [x] Physical Windows OS animations Off: visible-Timer Ctrl+Shift+P gave one finite pulse and returned to settled state on CI #507. The original OS setting was restored.
+  - [ ] Repeated native-hidden/Panel interactions and post-fix reduced-motion retest remain open.
 - [ ] Persist a safe last position and recover after monitor changes/restart.
   - [x] Native SQLite placement/relative recovery passed PR #128 exact-head CI #492, expected-head guarded merge `778a1bc`, and resulting-main CI #493.
   - [x] Visible Timer topology recovery now fits and repositions the measured outer window, including when no saved placement exists; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
