@@ -32,6 +32,7 @@ use error::{CommandError, CommandResult};
 use shortcuts::{ShortcutDiagnostics, ShortcutManager};
 use std::fmt::Display;
 use std::sync::atomic::{AtomicU8, Ordering as AtomicOrdering};
+use std::sync::Mutex;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Emitter, Manager, State};
@@ -54,6 +55,22 @@ const FOCUS_SURFACE_MODE_PANEL: u8 = 1;
 const FOCUS_SURFACE_MODE_TIMER: u8 = 2;
 
 static FOCUS_SURFACE_MODE_STATE: AtomicU8 = AtomicU8::new(FOCUS_SURFACE_MODE_UNKNOWN);
+
+#[derive(Debug, Clone, Copy)]
+struct FloatingTimerResizeSnapshot {
+    previous_size: tauri::PhysicalSize<u32>,
+    previous_position: tauri::PhysicalPosition<i32>,
+    was_visible: bool,
+}
+
+#[derive(Debug, Clone, Copy)]
+enum FloatingTimerResizeTransaction {
+    Preparing,
+    Prepared(FloatingTimerResizeSnapshot),
+}
+
+static FLOATING_TIMER_RESIZE_TRANSACTION: Mutex<Option<FloatingTimerResizeTransaction>> =
+    Mutex::new(None);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum FocusSurfaceMode {
@@ -910,8 +927,79 @@ fn restore_floating_timer_after_failed_resize(
     }
 }
 
-#[tauri::command(rename_all = "camelCase")]
-fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> CommandResult<()> {
+fn begin_floating_timer_resize_transaction() -> CommandResult<()> {
+    let mut transaction = FLOATING_TIMER_RESIZE_TRANSACTION.lock().map_err(|_| {
+        CommandError::new(
+            "FLOATING_TIMER_RESIZE_STATE_POISONED",
+            "Floating Timer resize transaction state is unavailable",
+        )
+    })?;
+    if transaction.is_some() {
+        return Err(CommandError::new(
+            "FLOATING_TIMER_RESIZE_BUSY",
+            "Another Floating Timer resize transaction is already active",
+        ));
+    }
+    *transaction = Some(FloatingTimerResizeTransaction::Preparing);
+    Ok(())
+}
+
+fn store_floating_timer_resize_snapshot(
+    snapshot: FloatingTimerResizeSnapshot,
+) -> CommandResult<()> {
+    let mut transaction = FLOATING_TIMER_RESIZE_TRANSACTION.lock().map_err(|_| {
+        CommandError::new(
+            "FLOATING_TIMER_RESIZE_STATE_POISONED",
+            "Floating Timer resize transaction state is unavailable",
+        )
+    })?;
+    match *transaction {
+        Some(FloatingTimerResizeTransaction::Preparing) => {
+            *transaction = Some(FloatingTimerResizeTransaction::Prepared(snapshot));
+            Ok(())
+        }
+        _ => Err(CommandError::new(
+            "FLOATING_TIMER_RESIZE_STATE_INVALID",
+            "Floating Timer resize transaction was not preparing",
+        )),
+    }
+}
+
+fn prepared_floating_timer_resize_snapshot() -> CommandResult<FloatingTimerResizeSnapshot> {
+    let transaction = FLOATING_TIMER_RESIZE_TRANSACTION.lock().map_err(|_| {
+        CommandError::new(
+            "FLOATING_TIMER_RESIZE_STATE_POISONED",
+            "Floating Timer resize transaction state is unavailable",
+        )
+    })?;
+    match *transaction {
+        Some(FloatingTimerResizeTransaction::Prepared(snapshot)) => Ok(snapshot),
+        Some(FloatingTimerResizeTransaction::Preparing) => Err(CommandError::new(
+            "FLOATING_TIMER_RESIZE_BUSY",
+            "Floating Timer resize preparation has not finished",
+        )),
+        None => Err(CommandError::new(
+            "FLOATING_TIMER_RESIZE_NOT_PREPARED",
+            "No Floating Timer resize transaction is prepared",
+        )),
+    }
+}
+
+fn clear_floating_timer_resize_transaction() -> CommandResult<()> {
+    let mut transaction = FLOATING_TIMER_RESIZE_TRANSACTION.lock().map_err(|_| {
+        CommandError::new(
+            "FLOATING_TIMER_RESIZE_STATE_POISONED",
+            "Floating Timer resize transaction state is unavailable",
+        )
+    })?;
+    *transaction = None;
+    Ok(())
+}
+
+fn prepare_floating_timer_expanded_impl(
+    app_handle: &tauri::AppHandle,
+    expanded: bool,
+) -> CommandResult<()> {
     if current_focus_surface_mode() != Some(FocusSurfaceMode::Timer) {
         return Err(CommandError::new(
             "FOCUS_SURFACE_MODE_CONFLICT",
@@ -919,7 +1007,7 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
         ));
     }
 
-    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
     let was_visible = window.is_visible().map_err(|error| {
         map_window_error(
             FOCUS_SURFACE_LABEL,
@@ -954,28 +1042,124 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
             height: previous_outer_size.height,
         },
     };
+    let snapshot = FloatingTimerResizeSnapshot {
+        previous_size,
+        previous_position,
+        was_visible,
+    };
 
-    if was_visible {
-        window.hide().map_err(|error| {
-            map_window_error(FOCUS_SURFACE_LABEL, "hide Timer for resize", error)
+    begin_floating_timer_resize_transaction()?;
+
+    let operation = (|| -> CommandResult<()> {
+        if was_visible {
+            window.hide().map_err(|error| {
+                map_window_error(FOCUS_SURFACE_LABEL, "hide Timer for resize", error)
+            })?;
+        }
+
+        let height = if expanded { 300.0 } else { 110.0 };
+        window
+            .set_size(tauri::Size::Logical(tauri::LogicalSize {
+                width: 340.0,
+                height,
+            }))
+            .map_err(|error| {
+                map_window_error(FOCUS_SURFACE_LABEL, "resize expanded Timer", error)
+            })?;
+
+        floating_placement::keep_resized_timer_in_work_area(app_handle, &window, previous_window)?;
+        Ok(())
+    })();
+
+    if let Err(error) = operation {
+        let recovery = restore_floating_timer_after_failed_resize(
+            &window,
+            snapshot.previous_size,
+            snapshot.previous_position,
+            snapshot.was_visible,
+        );
+        let clear = clear_floating_timer_resize_transaction();
+        if let Err(recovery_error) = recovery {
+            return Err(CommandError::new(
+                "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
+                format!("{error}; recovery failed: {recovery_error}"),
+            ));
+        }
+        if let Err(clear_error) = clear {
+            return Err(CommandError::new(
+                "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
+                format!("{error}; transaction cleanup failed: {clear_error}"),
+            ));
+        }
+        return Err(error);
+    }
+
+    if let Err(state_error) = store_floating_timer_resize_snapshot(snapshot) {
+        let recovery = restore_floating_timer_after_failed_resize(
+            &window,
+            snapshot.previous_size,
+            snapshot.previous_position,
+            snapshot.was_visible,
+        );
+        let _ = clear_floating_timer_resize_transaction();
+        if let Err(recovery_error) = recovery {
+            return Err(CommandError::new(
+                "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
+                format!("{state_error}; recovery failed: {recovery_error}"),
+            ));
+        }
+        return Err(state_error);
+    }
+
+    Ok(())
+}
+
+fn reveal_floating_timer_expanded_impl(app_handle: &tauri::AppHandle) -> CommandResult<()> {
+    let snapshot = prepared_floating_timer_resize_snapshot()?;
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    if snapshot.was_visible {
+        window.show().map_err(|error| {
+            map_window_error(FOCUS_SURFACE_LABEL, "reveal resized Timer", error)
         })?;
     }
+    clear_floating_timer_resize_transaction()
+}
 
-    let height = if expanded { 300.0 } else { 110.0 };
-    let resize_result = window
-        .set_size(tauri::Size::Logical(tauri::LogicalSize {
-            width: 340.0,
-            height,
-        }))
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "resize expanded Timer", error));
+fn rollback_floating_timer_expanded_impl(app_handle: &tauri::AppHandle) -> CommandResult<()> {
+    let snapshot = prepared_floating_timer_resize_snapshot()?;
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    restore_floating_timer_after_failed_resize(
+        &window,
+        snapshot.previous_size,
+        snapshot.previous_position,
+        snapshot.was_visible,
+    )?;
+    clear_floating_timer_resize_transaction()
+}
 
-    if let Err(error) = resize_result {
-        if let Err(recovery_error) = restore_floating_timer_after_failed_resize(
-            &window,
-            previous_size,
-            previous_position,
-            was_visible,
-        ) {
+#[tauri::command(rename_all = "camelCase")]
+fn prepare_floating_timer_expanded(
+    app_handle: tauri::AppHandle,
+    expanded: bool,
+) -> CommandResult<()> {
+    prepare_floating_timer_expanded_impl(&app_handle, expanded)
+}
+
+#[tauri::command]
+fn reveal_floating_timer_expanded(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    reveal_floating_timer_expanded_impl(&app_handle)
+}
+
+#[tauri::command]
+fn rollback_floating_timer_expanded(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    rollback_floating_timer_expanded_impl(&app_handle)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> CommandResult<()> {
+    prepare_floating_timer_expanded_impl(&app_handle, expanded)?;
+    if let Err(error) = reveal_floating_timer_expanded_impl(&app_handle) {
+        if let Err(recovery_error) = rollback_floating_timer_expanded_impl(&app_handle) {
             return Err(CommandError::new(
                 "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
                 format!("{error}; recovery failed: {recovery_error}"),
@@ -983,43 +1167,6 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
         }
         return Err(error);
     }
-
-    if let Err(error) =
-        floating_placement::keep_resized_timer_in_work_area(&app_handle, &window, previous_window)
-    {
-        if let Err(recovery_error) = restore_floating_timer_after_failed_resize(
-            &window,
-            previous_size,
-            previous_position,
-            was_visible,
-        ) {
-            return Err(CommandError::new(
-                "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
-                format!("{error}; recovery failed: {recovery_error}"),
-            ));
-        }
-        return Err(error);
-    }
-
-    if was_visible {
-        if let Err(error) = window.show().map_err(|error| {
-            map_window_error(FOCUS_SURFACE_LABEL, "show Timer after resize", error)
-        }) {
-            if let Err(recovery_error) = restore_floating_timer_after_failed_resize(
-                &window,
-                previous_size,
-                previous_position,
-                was_visible,
-            ) {
-                return Err(CommandError::new(
-                    "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
-                    format!("{error}; recovery failed: {recovery_error}"),
-                ));
-            }
-            return Err(error);
-        }
-    }
-
     Ok(())
 }
 
@@ -1365,6 +1512,9 @@ pub fn run() {
             prepare_floating_timer,
             reveal_floating_timer,
             present_floating_timer,
+            prepare_floating_timer_expanded,
+            reveal_floating_timer_expanded,
+            rollback_floating_timer_expanded,
             set_floating_timer_expanded,
             list_windows,
             list_monitors,
