@@ -7,7 +7,8 @@ import type { TimerSessionPayload } from "./timerSessionApi";
 
 const params = new URLSearchParams(window.location.search);
 const theme = params.get("theme") === "light" ? "light" : "dark";
-const fixtureState = params.get("state") === "expanded" ? "expanded" : "collapsed";
+const idleRecovery = params.get("state") === "idle-recovery";
+const fixtureState = params.get("state") === "expanded" || idleRecovery ? "expanded" : "collapsed";
 const expanded = fixtureState === "expanded";
 const fixtureHeight = expanded ? 300 : 110;
 const viewportHeight = expanded ? 380 : 240;
@@ -75,6 +76,24 @@ const timer: TimerSessionPayload = {
   awaitingResume: false,
   change: null,
 };
+const fixtureTimer: TimerSessionPayload = idleRecovery ? {
+  ...timer,
+  revision: timer.revision + 1,
+  runtime: {
+    timer: {
+      state: "idle",
+      task_id: null,
+      mode: null,
+      work_elapsed_ms: 0,
+      total_break_ms: 0,
+      countdown_remaining_ms: null,
+      overtime_ms: 0,
+      break_kind: null,
+      break_remaining_ms: null,
+    },
+    open_session_id: null,
+  },
+} : timer;
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Floating Timer fixture root is missing.");
@@ -87,7 +106,7 @@ flushSync(() => {
     <FloatingTimerFoundation
       onReturnToPanel={() => undefined}
       fixtureBoard={board}
-      fixtureTimer={timer}
+      fixtureTimer={fixtureTimer}
       fixtureExpanded={expanded}
       fixtureSubtasks={expanded ? subtaskSnapshot : null}
     />,
@@ -113,6 +132,7 @@ function optionalBox(selector: string) {
   return { width: Math.round(rect.width), height: Math.round(rect.height) };
 }
 
+if (!idleRecovery) {
 const contract = {
   theme,
   state: fixtureState,
@@ -173,4 +193,23 @@ if (params.get("state") === "cycle") {
   node.textContent = JSON.stringify(observations);
   document.body.append(node);
   document.documentElement.dataset.floatingTimerCycleReady = "true";
+}
+} else {
+  const observe = () => ({
+    expanded: renderedTimer.dataset.floatingExpanded,
+    liveState: renderedTimer.dataset.floatingLiveState,
+    collapseButtons: renderedTimer.querySelectorAll('[data-floating-fallback-action="collapse"]').length,
+    headings: renderedTimer.querySelectorAll(".floating-timer-foundation__heading").length,
+  });
+  const before = observe();
+  const collapse = renderedTimer.querySelector<HTMLButtonElement>('[data-floating-fallback-action="collapse"]');
+  if (!collapse || collapse.disabled) throw new Error("Idle expanded Timer has no usable collapse control");
+  flushSync(() => collapse.click());
+  const after = observe();
+  const node = document.createElement("script");
+  node.id = "floating-timer-idle-recovery-contract";
+  node.type = "application/json";
+  node.textContent = JSON.stringify({ before, after });
+  document.body.append(node);
+  document.documentElement.dataset.floatingTimerIdleRecoveryReady = "true";
 }
