@@ -73,6 +73,7 @@ export type DiagnosticCommand =
   | "focus_surface_mode_timer";
 
 export type ShortcutCommand = "global_shortcut_register" | "global_shortcut_unregister";
+export type FocusShortcutKind = "toggle" | "findTimer";
 
 export function isCommandErrorPayload(value: unknown): value is CommandErrorPayload {
   if (typeof value !== "object" || value === null) {
@@ -99,6 +100,17 @@ export function formatInvokeError(error: unknown): string {
   } catch {
     return "Unknown command failure";
   }
+}
+
+/** Keep a failed retry from leaving a stale generic error after a concurrent success. */
+export function focusShortcutRetryError(
+  failure: unknown,
+  latest: ShortcutDiagnostics,
+  kind: FocusShortcutKind,
+): string | null {
+  const registered = kind === "toggle" ? latest.focusToggleRegistered : latest.findTimerRegistered;
+  const reported = kind === "toggle" ? latest.focusToggleLastError : latest.findTimerLastError;
+  return registered || reported ? null : formatInvokeError(failure);
 }
 
 export function applyNewerState(

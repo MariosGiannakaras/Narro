@@ -56,6 +56,14 @@ struct ShortcutState {
 #[derive(Debug, Default)]
 pub struct ShortcutManager {
     state: Mutex<ShortcutState>,
+    registration_gate: Mutex<()>,
+}
+
+#[cfg(windows)]
+#[derive(Clone, Copy)]
+enum FocusShortcutKind {
+    Toggle,
+    FindTimer,
 }
 
 impl ShortcutManager {
@@ -223,6 +231,61 @@ impl ShortcutManager {
         state.find_timer_last_error = None;
         state.revision = next_revision;
         Ok(snapshot_from_state(&state))
+    }
+
+    #[cfg(windows)]
+    fn register_focus_shortcut<Resource>(
+        &self,
+        kind: FocusShortcutKind,
+        register: impl FnOnce() -> CommandResult<Resource>,
+        unregister: impl FnOnce(Resource) -> CommandResult<()>,
+    ) -> CommandResult<ShortcutDiagnostics> {
+        // The native registration and its diagnostic snapshot must be one
+        // serialized operation. Otherwise two retry calls can race and leave
+        // a false conflict displayed after one of them successfully registers.
+        let _gate = self
+            .registration_gate
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        let result = (|| {
+            let current = self.snapshot()?;
+            let already_registered = match kind {
+                FocusShortcutKind::Toggle => current.focus_toggle_registered,
+                FocusShortcutKind::FindTimer => current.find_timer_registered,
+            };
+            if already_registered {
+                return match kind {
+                    FocusShortcutKind::Toggle => self.set_focus_toggle_registered(true),
+                    FocusShortcutKind::FindTimer => self.set_find_timer_registered(true),
+                };
+            }
+            if !current.observer_installed {
+                return Err(CommandError::shortcut_observer_unavailable());
+            }
+
+            let resource = register()?;
+            let updated = match kind {
+                FocusShortcutKind::Toggle => self.set_focus_toggle_registered(true),
+                FocusShortcutKind::FindTimer => self.set_find_timer_registered(true),
+            };
+            match updated {
+                Ok(payload) => Ok(payload),
+                Err(error) => match unregister(resource) {
+                    Ok(()) => Err(error),
+                    Err(rollback_error) => Err(CommandError::shortcut_operation(
+                        "rollback registration",
+                        format!("{error}; rollback failed: {rollback_error}"),
+                    )),
+                },
+            }
+        })();
+        if let Err(error) = &result {
+            match kind {
+                FocusShortcutKind::Toggle => self.record_focus_toggle_error(error)?,
+                FocusShortcutKind::FindTimer => self.record_find_timer_error(error)?,
+            };
+        }
+        result
     }
 }
 
@@ -426,47 +489,36 @@ pub fn register_focus_toggle(
     app_handle: &tauri::AppHandle,
     manager: &ShortcutManager,
 ) -> CommandResult<ShortcutDiagnostics> {
-    let current = manager.snapshot()?;
-    if current.focus_toggle_registered {
-        return Ok(current);
-    }
-    if !current.observer_installed {
-        let error = CommandError::shortcut_observer_unavailable();
-        return Err(record_and_report_focus_toggle_error(
-            app_handle, manager, error,
-        ));
-    }
-
     #[cfg(windows)]
     {
-        let hwnd = native::focus_surface_hwnd(app_handle).map_err(|error| {
-            record_and_report_focus_toggle_error(
-                app_handle,
-                manager,
-                CommandError::shortcut_operation("resolve focusSurface HWND", error),
-            )
-        })?;
-
-        if let Err(error) = native::register_focus_toggle(hwnd) {
-            let mapped = map_register_error_for_chord(error, FOCUS_TOGGLE_CHORD);
-            return Err(record_and_report_focus_toggle_error(
-                app_handle, manager, mapped,
-            ));
-        }
-
-        let payload = match manager.set_focus_toggle_registered(true) {
-            Ok(payload) => payload,
-            Err(error) => {
-                if let Err(cleanup_error) = native::unregister_focus_toggle(hwnd) {
-                    eprintln!(
-                        "Failed to release focus toggle after state failure: {cleanup_error}"
-                    );
-                }
-                return Err(error);
+        let result = manager.register_focus_shortcut(
+            FocusShortcutKind::Toggle,
+            || {
+                let hwnd = native::focus_surface_hwnd(app_handle).map_err(|error| {
+                    CommandError::shortcut_operation("resolve focusSurface HWND", error)
+                })?;
+                native::register_focus_toggle(hwnd)
+                    .map_err(|error| map_register_error_for_chord(error, FOCUS_TOGGLE_CHORD))?;
+                Ok(hwnd)
+            },
+            |hwnd| {
+                native::unregister_focus_toggle(hwnd).map_err(|error| {
+                    CommandError::shortcut_operation("unregister focus toggle", error)
+                })
+            },
+        );
+        match result {
+            Ok(payload) => {
+                report_shortcut_change(app_handle, &payload);
+                Ok(payload)
             }
-        };
-        report_shortcut_change(app_handle, &payload);
-        Ok(payload)
+            Err(error) => {
+                if let Ok(payload) = manager.snapshot() {
+                    report_shortcut_change(app_handle, &payload);
+                }
+                Err(error)
+            }
+        }
     }
 
     #[cfg(not(windows))]
@@ -482,44 +534,36 @@ pub fn register_find_timer(
     app_handle: &tauri::AppHandle,
     manager: &ShortcutManager,
 ) -> CommandResult<ShortcutDiagnostics> {
-    let current = manager.snapshot()?;
-    if current.find_timer_registered {
-        return Ok(current);
-    }
-    if !current.observer_installed {
-        let error = CommandError::shortcut_observer_unavailable();
-        return Err(record_and_report_find_timer_error(
-            app_handle, manager, error,
-        ));
-    }
-
     #[cfg(windows)]
     {
-        let hwnd = native::focus_surface_hwnd(app_handle).map_err(|error| {
-            record_and_report_find_timer_error(
-                app_handle,
-                manager,
-                CommandError::shortcut_operation("resolve focusSurface HWND", error),
-            )
-        })?;
-        if let Err(error) = native::register_find_timer(hwnd) {
-            let mapped = map_register_error_for_chord(error, FIND_TIMER_CHORD);
-            return Err(record_and_report_find_timer_error(
-                app_handle, manager, mapped,
-            ));
-        }
-
-        let payload = match manager.set_find_timer_registered(true) {
-            Ok(payload) => payload,
-            Err(error) => {
-                if let Err(cleanup_error) = native::unregister_find_timer(hwnd) {
-                    eprintln!("Failed to release Find Timer after state failure: {cleanup_error}");
-                }
-                return Err(error);
+        let result = manager.register_focus_shortcut(
+            FocusShortcutKind::FindTimer,
+            || {
+                let hwnd = native::focus_surface_hwnd(app_handle).map_err(|error| {
+                    CommandError::shortcut_operation("resolve focusSurface HWND", error)
+                })?;
+                native::register_find_timer(hwnd)
+                    .map_err(|error| map_register_error_for_chord(error, FIND_TIMER_CHORD))?;
+                Ok(hwnd)
+            },
+            |hwnd| {
+                native::unregister_find_timer(hwnd).map_err(|error| {
+                    CommandError::shortcut_operation("unregister Find Timer", error)
+                })
+            },
+        );
+        match result {
+            Ok(payload) => {
+                report_shortcut_change(app_handle, &payload);
+                Ok(payload)
             }
-        };
-        report_shortcut_change(app_handle, &payload);
-        Ok(payload)
+            Err(error) => {
+                if let Ok(payload) = manager.snapshot() {
+                    report_shortcut_change(app_handle, &payload);
+                }
+                Err(error)
+            }
+        }
     }
 
     #[cfg(not(windows))]
@@ -896,6 +940,143 @@ mod native {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[cfg(windows)]
+    #[test]
+    fn concurrent_focus_shortcut_retries_register_each_chord_once() {
+        use std::sync::atomic::{AtomicUsize, Ordering};
+        use std::sync::{Arc, Barrier};
+
+        for kind in [FocusShortcutKind::Toggle, FocusShortcutKind::FindTimer] {
+            let manager = Arc::new(ShortcutManager::new());
+            manager
+                .set_observer_installed(true)
+                .expect("install observer");
+            let start = Arc::new(Barrier::new(17));
+            let attempts = Arc::new(AtomicUsize::new(0));
+            std::thread::scope(|scope| {
+                let mut workers = Vec::new();
+                for _ in 0..16 {
+                    let manager = Arc::clone(&manager);
+                    let start = Arc::clone(&start);
+                    let attempts = Arc::clone(&attempts);
+                    workers.push(scope.spawn(move || {
+                        start.wait();
+                        manager.register_focus_shortcut(
+                            kind,
+                            || {
+                                attempts.fetch_add(1, Ordering::SeqCst);
+                                std::thread::yield_now();
+                                Ok(())
+                            },
+                            |_| Ok(()),
+                        )
+                    }));
+                }
+                start.wait();
+                for worker in workers {
+                    let snapshot = worker.join().expect("retry thread").expect("registration");
+                    assert!(match kind {
+                        FocusShortcutKind::Toggle => snapshot.focus_toggle_registered,
+                        FocusShortcutKind::FindTimer => snapshot.find_timer_registered,
+                    });
+                }
+            });
+            assert_eq!(attempts.load(Ordering::SeqCst), 1);
+        }
+    }
+
+    #[cfg(windows)]
+    #[test]
+    fn focus_shortcut_conflict_retry_and_idempotent_retry_clear_diagnostics() {
+        for (kind, chord) in [
+            (FocusShortcutKind::Toggle, FOCUS_TOGGLE_CHORD),
+            (FocusShortcutKind::FindTimer, FIND_TIMER_CHORD),
+        ] {
+            let manager = ShortcutManager::new();
+            manager
+                .set_observer_installed(true)
+                .expect("install observer");
+            let conflict = manager.register_focus_shortcut(
+                kind,
+                || Err::<(), _>(CommandError::shortcut_conflict(chord)),
+                |_| panic!("failed native registration has nothing to roll back"),
+            );
+            assert_eq!(conflict.expect_err("conflict").code, "SHORTCUT_CONFLICT");
+            let failed = manager.snapshot().expect("conflict snapshot");
+            assert_eq!(
+                match kind {
+                    FocusShortcutKind::Toggle => failed.focus_toggle_last_error,
+                    FocusShortcutKind::FindTimer => failed.find_timer_last_error,
+                }
+                .expect("recorded conflict")
+                .code,
+                "SHORTCUT_CONFLICT",
+            );
+
+            let registered = manager
+                .register_focus_shortcut(kind, || Ok(()), |_| Ok(()))
+                .expect("retry succeeds");
+            assert!(match kind {
+                FocusShortcutKind::Toggle => registered.focus_toggle_last_error.is_none(),
+                FocusShortcutKind::FindTimer => registered.find_timer_last_error.is_none(),
+            });
+            let transient = CommandError::shortcut_operation("deliver", "temporary failure");
+            match kind {
+                FocusShortcutKind::Toggle => manager.record_focus_toggle_error(&transient),
+                FocusShortcutKind::FindTimer => manager.record_find_timer_error(&transient),
+            }
+            .expect("record transient error");
+            let already_registered = manager
+                .register_focus_shortcut(
+                    kind,
+                    || -> CommandResult<()> {
+                        panic!("idempotent retry must not touch native registration")
+                    },
+                    |_| Ok(()),
+                )
+                .expect("idempotent retry clears stale error");
+            assert!(match kind {
+                FocusShortcutKind::Toggle => already_registered.focus_toggle_last_error.is_none(),
+                FocusShortcutKind::FindTimer => already_registered.find_timer_last_error.is_none(),
+            });
+        }
+    }
+
+    #[cfg(windows)]
+    #[test]
+    fn focus_shortcut_state_failure_rolls_back_native_registration() {
+        use std::sync::atomic::{AtomicBool, Ordering};
+
+        let manager = ShortcutManager::new();
+        manager
+            .set_observer_installed(true)
+            .expect("install observer");
+        manager.state.lock().expect("state lock").revision = u64::MAX;
+        let native_registered = AtomicBool::new(false);
+        let result = manager.register_focus_shortcut(
+            FocusShortcutKind::Toggle,
+            || {
+                native_registered.store(true, Ordering::SeqCst);
+                Ok(())
+            },
+            |_| {
+                native_registered.store(false, Ordering::SeqCst);
+                Ok(())
+            },
+        );
+        assert_eq!(
+            result.expect_err("revision overflow").code,
+            "SHORTCUT_REVISION_OVERFLOW"
+        );
+        assert!(!native_registered.load(Ordering::SeqCst));
+        assert!(
+            !manager
+                .snapshot()
+                .expect("snapshot")
+                .focus_toggle_registered
+        );
+    }
 
     #[test]
     fn registration_state_changes_are_idempotent() {

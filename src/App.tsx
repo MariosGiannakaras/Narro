@@ -7,12 +7,14 @@ import {
   type AppStatePayload,
   type DiagnosticCommand,
   type FocusPanelSide,
+  type FocusShortcutKind,
   type MonitorDescriptor,
   type ShortcutCommand,
   type ShortcutDiagnostics,
   applyNewerShortcutDiagnostics,
   applyNewerState,
   findSelectedMonitor,
+  focusShortcutRetryError,
   formatInvokeError,
   formatMonitorLabel,
   isCommandErrorPayload,
@@ -219,8 +221,7 @@ function App() {
       setShortcutDiagnostics((current) => applyNewerShortcutDiagnostics(current, payload));
       setError(null);
     } catch (failure: unknown) {
-      setError(formatInvokeError(failure));
-      await refreshShortcutDiagnostics();
+      await reconcileFocusShortcutRetry(failure, "toggle");
     }
   }
 
@@ -230,8 +231,17 @@ function App() {
       setShortcutDiagnostics((current) => applyNewerShortcutDiagnostics(current, payload));
       setError(null);
     } catch (failure: unknown) {
-      setError(formatInvokeError(failure));
-      await refreshShortcutDiagnostics();
+      await reconcileFocusShortcutRetry(failure, "findTimer");
+    }
+  }
+
+  async function reconcileFocusShortcutRetry(failure: unknown, kind: FocusShortcutKind) {
+    try {
+      const latest = await invoke<ShortcutDiagnostics>("global_shortcut_status");
+      setShortcutDiagnostics((current) => applyNewerShortcutDiagnostics(current, latest));
+      setError(focusShortcutRetryError(failure, latest, kind));
+    } catch (refreshFailure: unknown) {
+      setError(`${formatInvokeError(failure)} | Shortcut status refresh failed: ${formatInvokeError(refreshFailure)}`);
     }
   }
 
