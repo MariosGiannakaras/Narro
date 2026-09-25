@@ -11,6 +11,7 @@ function harness(overrides = {}) {
   let cancel = false;
   const failures = {
     prepare: new Map(),
+    ready: new Map(),
     frame: [],
     reveal: new Map(),
   };
@@ -31,6 +32,11 @@ function harness(overrides = {}) {
       },
       publishMode(mode) {
         calls.push(`publish:${mode}`);
+      },
+      async waitForModeReady(mode) {
+        calls.push(`ready:${mode}`);
+        const failure = failures.ready.get(mode);
+        if (failure) throw failure;
       },
       async waitForPresentedFrame() {
         calls.push("frame");
@@ -56,6 +62,7 @@ test("success prepares hidden geometry, publishes target, paints, then reveals",
   assert.deepEqual(h.calls, [
     "prepare:timer",
     "publish:timer",
+    "ready:timer",
     "frame",
     "reveal:timer",
   ]);
@@ -69,6 +76,23 @@ test("prepare failure leaves renderer unpublished and does not run recovery", as
   assert.deepEqual(h.calls, ["prepare:timer"]);
 });
 
+test("target readiness failure restores previous hidden geometry and renderer before reveal", async () => {
+  const h = harness();
+  const failure = new Error("target data failed");
+  h.failures.ready.set("timer", failure);
+  await assert.rejects(coordinateFocusModeTransition(h.deps), failure);
+  assert.deepEqual(h.calls, [
+    "prepare:timer",
+    "publish:timer",
+    "ready:timer",
+    "prepare:panel",
+    "publish:panel",
+    "ready:panel",
+    "frame",
+    "reveal:panel",
+  ]);
+});
+
 test("presented-frame failure restores previous hidden geometry and renderer before reveal", async () => {
   const h = harness();
   const failure = new Error("paint failed");
@@ -77,9 +101,11 @@ test("presented-frame failure restores previous hidden geometry and renderer bef
   assert.deepEqual(h.calls, [
     "prepare:timer",
     "publish:timer",
+    "ready:timer",
     "frame",
     "prepare:panel",
     "publish:panel",
+    "ready:panel",
     "frame",
     "reveal:panel",
   ]);
@@ -93,10 +119,12 @@ test("reveal failure rolls back through the same prepare-publish-frame-reveal se
   assert.deepEqual(h.calls, [
     "prepare:timer",
     "publish:timer",
+    "ready:timer",
     "frame",
     "reveal:timer",
     "prepare:panel",
     "publish:panel",
+    "ready:panel",
     "frame",
     "reveal:panel",
   ]);
@@ -117,6 +145,7 @@ test("cancellation after native prepare recovers the previous presentation", asy
     "prepare:timer",
     "prepare:panel",
     "publish:panel",
+    "ready:panel",
     "frame",
     "reveal:panel",
   ]);
