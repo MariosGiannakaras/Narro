@@ -10,8 +10,12 @@ function isOpacityTransition(animation: Animation): animation is CSSTransition {
 /** Wait for the actual opacity transition, including the no-transition case. */
 export async function waitForOpacityTransition(
   element: HTMLElement,
-  expectedOpacity: 0 | 1,
+  expectedOpacity: number,
 ): Promise<void> {
+  if (!Number.isFinite(expectedOpacity) || expectedOpacity < 0 || expectedOpacity > 1) {
+    throw new Error(`Expected opacity must be within [0, 1], received ${expectedOpacity}`);
+  }
+
   // React must first publish the phase class before getAnimations can observe it.
   await nextFrame();
   const transitions = element.getAnimations().filter(isOpacityTransition);
