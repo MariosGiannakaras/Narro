@@ -23,12 +23,11 @@
 }
 
 .focus-surface-transition[data-focus-surface-exiting="true"] {
-  opacity: 0;
+  opacity: 0.45;
   transform: translateY(calc(0rem - var(--motion-distance-overlay)));
   transition-timing-function: var(--motion-ease-exit);
 }
 
 .focus-surface-transition[data-focus-surface-exit-settled="true"] {
-  visibility: hidden;
   transition-duration: 0ms;
 }
