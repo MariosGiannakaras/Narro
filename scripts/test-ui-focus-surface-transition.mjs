@@ -167,7 +167,7 @@ invariant(
     && commitMode.includes("waitForPresentedFrame")
     && commitMode.includes("await revealFloatingTimer()")
     && commitMode.includes("await revealFocusPanel()"),
-  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, transparently prewarm the visible host, wait for target projections, pass a frame barrier, then reveal",
+  "mode commit must prepare hidden geometry, synchronously publish a prepainted target, wait for target projections while hidden, transparently prewarm the host, pass a frame barrier, then reveal",
 );
 invariant(
   focus.includes('onPresentationReady={markPanelReady}')
@@ -205,19 +205,19 @@ invariant(
 
 invariant(
   coordinator.indexOf("await prepareMode(targetMode)") < coordinator.indexOf("publishMode(targetMode)")
-    && coordinator.indexOf("publishMode(targetMode)") < coordinator.indexOf("await prewarmMode(targetMode)")
-    && coordinator.indexOf("await prewarmMode(targetMode)") < coordinator.indexOf("await waitForModeReady(targetMode)")
-    && coordinator.indexOf("await waitForModeReady(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
+    && coordinator.indexOf("publishMode(targetMode)") < coordinator.indexOf("await waitForModeReady(targetMode)")
+    && coordinator.indexOf("await waitForModeReady(targetMode)") < coordinator.indexOf("await prewarmMode(targetMode)")
+    && coordinator.indexOf("await prewarmMode(targetMode)") < coordinator.indexOf("await waitForPresentedFrame()")
     && coordinator.indexOf("await waitForPresentedFrame()") < coordinator.indexOf("await revealMode(targetMode)"),
-  "coordinator success order must be prepare -> publish -> transparent prewarm -> target readiness -> frame -> reveal",
+  "coordinator success order must be prepare -> publish -> hidden target readiness -> transparent prewarm -> frame -> reveal",
 );
 const recovery = coordinator.indexOf("await prepareMode(previousMode)");
 invariant(
   recovery > coordinator.indexOf("catch (transitionFailure)")
     && recovery < coordinator.indexOf("publishMode(previousMode)", recovery)
-    && coordinator.indexOf("publishMode(previousMode)", recovery) < coordinator.indexOf("await prewarmMode(previousMode)", recovery)
-    && coordinator.indexOf("await prewarmMode(previousMode)", recovery) < coordinator.indexOf("await waitForModeReady(previousMode)", recovery)
-    && coordinator.indexOf("await waitForModeReady(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
+    && coordinator.indexOf("publishMode(previousMode)", recovery) < coordinator.indexOf("await waitForModeReady(previousMode)", recovery)
+    && coordinator.indexOf("await waitForModeReady(previousMode)", recovery) < coordinator.indexOf("await prewarmMode(previousMode)", recovery)
+    && coordinator.indexOf("await prewarmMode(previousMode)", recovery) < coordinator.indexOf("await revealMode(previousMode)", recovery)
     && coordinator.includes("FocusModeTransitionRecoveryError")
     && coordinator.includes("FocusModeTransitionCancelledError"),
   "coordinator must rollback hidden geometry and renderer state on failure/cancellation and report failed recovery explicitly",
