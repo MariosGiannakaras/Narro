@@ -72,12 +72,19 @@ invariant(
   "renderer must reconcile native presentation mode on mount",
 );
 invariant(
-  modeApi.includes('invoke<void>("present_floating_timer")'),
-  "renderer compact transition must use the production native boundary",
+  modeApi.includes('invoke<void>("prepare_floating_timer")')
+    && modeApi.includes('invoke<void>("reveal_floating_timer")'),
+  "renderer compact transition must split hidden Timer preparation from reveal",
 );
 invariant(
-  modeApi.includes('invoke<void>("present_focus_panel")'),
-  "return transition must use the production preference-aware panel presenter",
+  modeApi.includes('invoke<void>("prepare_focus_panel")')
+    && modeApi.includes('invoke<void>("reveal_focus_panel")'),
+  "return transition must split hidden Panel preparation from reveal",
+);
+invariant(
+  modeApi.includes('invoke<void>("present_floating_timer")')
+    && modeApi.includes('invoke<void>("present_focus_panel")'),
+  "legacy/native diagnostic presenters must remain available outside product transition orchestration",
 );
 for (const forbidden of ["timer_start_task", "timer_pause", "timer_resume", "timer_complete_task", "timer_switch_task"]) {
   invariant(!modeApi.includes(forbidden), `mode API must not become timer/session authority via ${forbidden}`);
@@ -102,9 +109,14 @@ invariant(
   "renderer mode request must begin presentation exit without invoking native geometry immediately",
 );
 invariant(
-  commitMode.indexOf('await presentFloatingTimer();') < commitMode.indexOf("setMode(targetMode);")
-    && commitMode.indexOf('await presentFocusPanel();') < commitMode.indexOf("setMode(targetMode);"),
-  "renderer must publish compact/panel UI only after the corresponding native transition succeeds",
+  commitMode.includes("await coordinateFocusModeTransition({")
+    && commitMode.includes("await prepareFloatingTimer()")
+    && commitMode.includes("await prepareFocusPanel()")
+    && commitMode.includes("flushSync(() => {")
+    && commitMode.includes("setMode(nextMode)")
+    && commitMode.includes("await revealFloatingTimer()")
+    && commitMode.includes("await revealFocusPanel()"),
+  "renderer must prepare native geometry hidden, publish the target root, then reveal through the shared coordinator",
 );
 invariant(
   focusEntry.includes('requestMode("timer")')
