@@ -91,6 +91,7 @@ test("transparent prewarm failure occurs only after target readiness and recover
   assert.deepEqual(h.calls, [
     "prepare:timer",
     "publish:timer",
+    "ready:timer",
     "prewarm:timer",
     "prepare:panel",
     "publish:panel",
@@ -109,7 +110,6 @@ test("target readiness failure never prewarms or reveals the unready target", as
   assert.deepEqual(h.calls, [
     "prepare:timer",
     "publish:timer",
-    "prewarm:timer",
     "ready:timer",
     "prepare:panel",
     "publish:panel",
