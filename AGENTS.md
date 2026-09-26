@@ -16,7 +16,8 @@ Before making changes:
 Use:
 
 - `docs/REFERENCES.md` as the compact direct-link index and guidance for re-checking original sources;
-- `docs/RESEARCH_EVIDENCE.md` for supplied screenshots, visual evidence and source precedence;
+- `docs/RESEARCH_EVIDENCE.md` for supplied screenshots/video evidence, visual evidence and source precedence;
+- `docs/BLITZIT_VIDEO_EVIDENCE.md` for user-supplied recordings/transcripts, timestamped interaction/motion findings and their dispositions;
 - `docs/SOURCE_AUDIT.md` for exhaustive Help Center page-by-page research, official videos, roadmap, bug reports and public user-feedback synthesis.
 
 ## Evidence is guidance, not an oracle
@@ -38,11 +39,13 @@ A materially different durable decision must be recorded in `STATUS.md` with the
 When evidence disagrees, investigate rather than mechanically applying a hierarchy. Use this order as a default:
 
 1. latest explicit user instruction
-2. current supplied screenshots for visible state/layout
+2. current supplied direct recordings and screenshots — recordings are strongest for interaction/motion/transient-state evidence; screenshots are strongest for static visual detail
 3. current official Blitzit documentation/material for behavior intent
 4. older supplied public-review screenshots
 5. public reviews/feature-board comments for corroboration, bug evidence or UX-friction evidence only
 6. inference
+
+For supplied recordings, distinguish what is directly visible/audible from transcript/narration claims and from inference; use `docs/BLITZIT_VIDEO_EVIDENCE.md` for timestamped classification and disposition.
 
 This precedence does **not** mean higher-ranked sources are automatically correct implementations for Narro. Current Blitzit can contain bugs and documentation can lag the product. Resolve meaningful conflicts using the evidence, the project goals and implementation validation.
 
