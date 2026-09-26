@@ -12,6 +12,7 @@ import { Tooltip } from "./overlayPrimitives";
 import { TaskNotes } from "./TaskNotes";
 import {
   completeTimerTask,
+  extendTimer,
   pauseTimer,
   resumeTimer,
   skipBreakTimer,
@@ -36,12 +37,13 @@ type FocusLiveActionsProps = {
   fixtureMode: boolean;
   fixtureMetricEditor?: FocusMetricKind | null;
   onTimerPayload: (payload: TimerSessionPayload) => void;
+  onTaskTitleCommitted?: (title: string) => void | Promise<void>;
   presentation?: "panel" | "floating";
   onReturnToPanel?: () => void;
   transitionPending?: boolean;
 };
 
-type FocusAction = "break" | "pause_resume" | "skip" | "done";
+type FocusAction = "break" | "extend" | "pause_resume" | "skip" | "done";
 
 function isEligibleQueueTask(task: ListBoardTask): boolean {
   return task.scheduledLocalTime === null || task.isOverdue;
@@ -168,6 +170,7 @@ export function FocusLiveActions({
   fixtureMode,
   fixtureMetricEditor = null,
   onTimerPayload,
+  onTaskTitleCommitted,
   presentation = "panel",
   onReturnToPanel,
   transitionPending = false,
@@ -308,6 +311,8 @@ export function FocusLiveActions({
       expanded={notesExpanded}
       canExpand
       readOnly={false}
+      allowTaskTitleEdit={!floating}
+      onTaskTitleCommitted={onTaskTitleCommitted}
       onToggleExpanded={() => setNotesExpanded((expanded) => !expanded)}
       onMutationStatus={(message, detail) => {
         setStatus(message || null);
@@ -343,11 +348,17 @@ export function FocusLiveActions({
           <div className="focus-panel__live-actions" role="group" aria-label="Live task actions">
             <button
               type="button"
-              data-focus-action="break"
-              disabled={busy || !state.breakEnabled}
-              onClick={() => void run("break", () => startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS), "Break started.")}
+              data-focus-action={timer.runtime.timer.state === "time_up" ? "extend" : "break"}
+              disabled={busy || (timer.runtime.timer.state === "time_up" ? false : !state.breakEnabled)}
+              onClick={() => {
+                if (timer.runtime.timer.state === "time_up") {
+                  void run("extend", extendTimer, "Work extended into overtime.");
+                } else {
+                  void run("break", () => startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS), "Break started.");
+                }
+              }}
             >
-              Break
+              {timer.runtime.timer.state === "time_up" ? "Extend" : "Break"}
             </button>
             <button
               type="button"
