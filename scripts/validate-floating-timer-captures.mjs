@@ -89,7 +89,11 @@ function validateCollapsed(dom, contract, label) {
   ]) {
     invariant(dom.includes(needle), `${label} is missing ${needle}`);
   }
-  invariant(!dom.includes('data-floating-action="return-to-panel"'), `${label} must keep the return action in expanded mode`);
+  invariant(
+    dom.includes('data-floating-actions-controller="true"')
+      && dom.includes('style="display: none;"'),
+    `${label} must keep the shortcut controller mounted but visually absent while collapsed`,
+  );
   invariant(
     contract.timer?.width === 340 && contract.timer?.height === 110,
     `${label} collapsed timer must be exactly 340x110`,
