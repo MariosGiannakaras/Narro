@@ -9,6 +9,7 @@ function invariant(condition, message) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const row = read("src/FocusTaskRow.tsx");
 const actions = read("src/FocusLiveActions.tsx");
 const metrics = read("src/FocusLiveMetrics.tsx");
 const metricsCss = read("src/focusLiveMetrics.css");
@@ -51,7 +52,15 @@ for (const [haystack, needle, label] of [
   [panel, 'const remainingTasks = remainingCandidates.filter((task) => !scheduledIds.has(task.id));', "remaining/scheduled identity partition"],
   [panel, 'const doneTasks = board.done.tasks;', "authoritative Done projection"],
   [panel, 'data-focus-group="remaining"', "remaining queue"],
-  [panel, 'data-focus-task-row={done ? "done" : scheduled ? "scheduled" : "remaining"}', "section row identity markers"],
+  [row, 'data-focus-task-row={done ? "done" : scheduled ? "scheduled" : "remaining"}', "section row identity markers"],
+  [row, 'data-focus-task-action="complete"', "ordinary completion control"],
+  [row, 'data-focus-task-action="make-live"', "Rocket/make-live control"],
+  [row, 'data-focus-task-action="notes"', "ordinary Notes control"],
+  [row, "Update Schedule", "ordinary schedule action"],
+  [row, "Move up", "ordinary queue move-up action"],
+  [row, "Move down", "ordinary queue move-down action"],
+  [row, "Permanently delete", "ordinary destructive action"],
+  [row, "<FocusLiveSubtasks", "ordinary subtask expansion reuse"],
   [panel, "+ ADD TASK", "Add Task hierarchy row"],
   [panel, 'data-focus-group="scheduled"', "scheduled group"],
   [panel, 'data-focus-group="done"', "done group"],
@@ -75,7 +84,8 @@ for (const [haystack, needle, label] of [
   [actions, "pauseTimer", "authoritative Pause boundary"],
   [actions, "resumeTimer", "authoritative Resume boundary"],
   [actions, "<TaskNotes", "validated Notes component reuse"],
-  [actions, 'data-focus-action="break"', "Break control"],
+  [actions, 'data-focus-action={timer.runtime.timer.state === "time_up" ? "extend" : "break"}', "Break/Extend stable slot"],
+  [actions, 'void run("extend", extendTimer, "Work extended into overtime.")', "authoritative Time's Up Extend"],
   [actions, 'data-focus-action="notes"', "Notes control"],
   [actions, 'data-focus-action="pause-resume"', "Pause/Resume control"],
   [actions, 'data-focus-action="skip"', "Skip control"],
@@ -128,6 +138,7 @@ for (const [haystack, needle, label] of [
   [timerApi, 'invoke<TimerSessionPayload>("timer_start_task"', "typed task-start mutation"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_pause")', "typed pause mutation"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_resume")', "typed resume mutation"],
+  [timerApi, 'invoke<TimerSessionPayload>("timer_extend")', "typed Extend mutation"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_start_manual_break"', "typed manual-break mutation"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_skip_break")', "typed break-skip mutation"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_complete_task")', "typed completion mutation"],
@@ -223,11 +234,14 @@ invariant(actions.includes("pauseResumeEnabled: working || breakState"), "Pause/
 invariant(actions.includes('pauseResumeLabel: paused || breakState ? "Resume" : "Pause"'), "Pause/Resume label must switch to Resume for paused work and active break");
 invariant(actions.includes('skipEnabled: working || timer.state === "time_up"'), "Skip must remain unavailable during break but available for work and Time's Up");
 invariant(actions.includes('doneEnabled: working || timer.state === "time_up"'), "Done must remain unavailable during break but available for work and Time's Up");
-invariant(actions.indexOf('data-focus-action="break"') < actions.indexOf('data-focus-action="notes"'), "Break must precede Notes in action strip");
+invariant(actions.indexOf('data-focus-action={timer.runtime.timer.state === "time_up" ? "extend" : "break"}') < actions.indexOf('data-focus-action="notes"'), "Break/Extend slot must precede Notes in action strip");
 invariant(actions.indexOf('data-focus-action="notes"') < actions.indexOf('data-focus-action="pause-resume"'), "Notes must precede Pause/Resume in action strip");
 invariant(actions.indexOf('data-focus-action="pause-resume"') < actions.indexOf('data-focus-action="skip"'), "Pause/Resume must precede Skip in action strip");
 invariant(actions.indexOf('data-focus-action="skip"') < actions.indexOf('data-focus-action="done"'), "Skip must precede Done in action strip");
-invariant(panel.includes("disabled aria-label=\"Add task in Focus Panel\""), "Add Task must remain explicitly non-mutating before its ordered slice");
+invariant(panel.includes('data-focus-add-task-control="true"'), "Focus Add Task production control is missing");
+invariant(panel.includes("createListBoardTask({"), "Focus Add Task must persist through the validated create boundary");
+invariant(panel.includes('aria-label="List for new Focus task"'), "All Lists Add Task must require an explicit owning list");
+invariant(panel.includes('data-focus-home-control="true"') && panel.includes('invoke<void>("exit_focus_to_main")'), "Home must use the presentation-only Focus exit lifecycle");
 invariant(
   panel.includes('aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences"')
     && !panel.includes('data-focus-placeholder-control="preferences" onClick='),
