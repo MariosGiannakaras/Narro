@@ -1,5 +1,6 @@
 import { type CSSProperties, useEffect, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { ListIcon } from "./ListIcon";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import {
   getArchivedListsForSettings,
@@ -132,7 +133,14 @@ export function ArchivedListsPanel({ fixtureLists, embedded = false }: ArchivedL
                 data-archived-list-id={list.id}
                 style={listAccent(list.color)}
               >
-                <span className="archived-list-row__icon" aria-hidden="true">{initial}</span>
+                <span className="archived-list-row__icon" aria-hidden="true">
+                  <ListIcon
+                    listId={list.id}
+                    iconAsset={list.iconAsset}
+                    fallback={initial}
+                    imageClassName="archived-list-row__icon-image"
+                  />
+                </span>
                 <div className="archived-list-row__copy">
                   <h2 className="archived-list-row__title type-section-title">{list.title}</h2>
                   <span className="type-metadata">Archived · history preserved</span>
