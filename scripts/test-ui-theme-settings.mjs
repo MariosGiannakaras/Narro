@@ -49,7 +49,7 @@ for (const [source, needle, label] of [
   [rust, "pub fn set_theme_preference", "theme write command"],
   [rust, '"theme-preference-changed"', "cross-webview event"],
   [rust, "preferences.general.theme = theme;", "theme-only payload mutation"],
-  [rust, "save_preferences(&mut connection, preferences, now)?", "existing preference persistence"],
+  [rust, "mutate_preferences(&mut connection, now", "atomic preference persistence"],
   [lib, "pub mod theme_settings;", "theme module registration"],
   [lib, "theme_settings::get_theme_preference", "read command registration"],
   [lib, "theme_settings::set_theme_preference", "write command registration"],
