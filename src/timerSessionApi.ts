@@ -205,6 +205,10 @@ export function resumeTimer(): Promise<TimerSessionPayload> {
   return invoke<TimerSessionPayload>("timer_resume");
 }
 
+export function extendTimer(): Promise<TimerSessionPayload> {
+  return invoke<TimerSessionPayload>("timer_extend");
+}
+
 export function startManualBreakTimer(durationMs: number): Promise<TimerSessionPayload> {
   if (!Number.isSafeInteger(durationMs) || durationMs <= 0) {
     return Promise.reject(new Error("Manual break duration must be a positive safe integer."));
