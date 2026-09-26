@@ -560,6 +560,7 @@ export function FocusPanel({
       await invoke<void>("focus_surface_exit_to_main");
     } catch (failure: unknown) {
       setError(formatInvokeError(failure));
+    } finally {
       setHomePending(false);
     }
   };
