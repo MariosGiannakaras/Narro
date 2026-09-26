@@ -78,7 +78,9 @@ Before every source/config push that will trigger Windows CI:
 4. otherwise run the valid subset (`check:config`, frontend build/type check, Rust fmt/check/clippy/tests where possible) and record unavailable checks as `NOT RUN`;
 5. fix known local failures before pushing;
 6. prefer building/reviewing a coherent slice off `main`, then advance `main` once so one source slice causes one Windows CI run;
-7. never use CI as a blind syntax/formatting probe when the equivalent local tool is available.
+7. before opening that CI, look ahead within the active milestone for other **independently evidenced, compatible, unblocked** changes that can safely share the same validation run; implement those in the same branch/PR with their tests instead of creating a sequence of micro-PRs;
+8. do not enlarge a batch merely to increase line count: exclude unrelated milestones, speculative cleanup, architecture changes without evidence, and any work whose correct implementation depends on the pending CI/manual result;
+9. never use CI as a blind syntax/formatting probe when the equivalent local tool is available.
 
 Windows CI is the reproducible second gate. Inspect the real failing step/log before changing code or rerunning. Do not retry a deterministic failure without a corrective change.
 
@@ -129,14 +131,25 @@ When a user test is pending, include exact artifact/run/build identity so an old
 
 Use automated Windows CI for reproducible compilation/tests. When a behavior genuinely requires an interactive Windows desktop:
 
-1. implement the narrowest testable path;
+1. implement the narrowest testable path or coherent batch whose members are independently safe;
 2. run local preflight before pushing;
 3. keep CI green;
 4. produce a clearly identified downloadable artifact when practical;
 5. document a short exact manual procedure;
 6. ask the user only for observations automation cannot provide;
 7. record returned PASS/FAIL evidence in the repository;
-8. fix failures before broadening work.
+8. fix failures before broadening work when the physical result is needed to determine the next safe implementation.
+
+### Manual-test batching
+
+A pending physical Windows gate is not automatically a stop condition.
+
+- If the manual result would determine the next implementation, could invalidate dependent work, or protects a correctness/safety boundary, stop at that gate and obtain the evidence before continuing.
+- If later work is independently evidenced and safe regardless of the pending observation, continue implementing it while keeping the manual gate explicitly OPEN.
+- Batch compatible physical checks into one consolidated Windows session on the latest relevant artifact when that avoids redundant user testing.
+- If a later source change supersedes an earlier physical candidate, prefer testing the latest build against the combined still-relevant acceptance matrix rather than asking the user to repeat obsolete intermediate builds.
+- Automated CI, static contracts, screenshots, or inference never convert a deferred physical gate into PASS.
+- Do not end an implementation session merely because one CI run or merge finished when another unblocked repository-recorded action is available; continue and send concise progress updates instead.
 
 The user's Windows PC is primarily a **test bench**, not where ordinary code must be written.
 

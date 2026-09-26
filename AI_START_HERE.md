@@ -66,11 +66,18 @@ A capable agent should normally:
 
 - inspect before editing;
 - implement the narrow coherent slice;
+- when several independently evidenced changes in the active milestone can be implemented safely without waiting for one another's CI/manual result, batch them into one coherent branch/PR with their regression coverage before triggering Windows CI;
+- prefer fewer high-value CI runs over micro-PRs or CI after only a few incremental lines, while never inflating scope merely to make a diff larger;
+- keep batching within compatible scope: do not mix unrelated milestones, architecture rewrites, or changes whose correctness depends on an earlier unresolved result;
 - validate inputs/state and define explicit failure paths before adding side effects;
 - add/update tests for boundary conditions and real regressions;
 - run the strongest meaningful local preflight available **before** a source/config push that triggers Windows CI;
 - record unavailable local checks as `NOT RUN`, never as PASS;
 - use GitHub Actions as the reproducible second gate, not as a replacement for avoidable local checking;
+- when a physical Windows check is required but does not determine whether independent next work is safe, keep the manual gate OPEN and batch compatible manual checks into one later session on the latest relevant build;
+- never mark a deferred manual check PASS from automated evidence, and do not defer a manual result when that result is needed to choose or validate the next safe implementation;
+- after CI or another intermediate checkpoint completes, continue immediately with the next unblocked repository-recorded action instead of ending the implementation session merely because a checkpoint was reached;
+- provide brief progress updates during long work without turning those updates into stop points;
 - prepare downloadable Windows artifacts when physical user testing is required;
 - review actual CI results rather than assuming success;
 - keep source/docs/checklists consistent;

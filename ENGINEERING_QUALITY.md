@@ -99,6 +99,16 @@ If the current environment lacks dependencies/toolchains/network, run the subset
 
 Prefer preparing/reviewing a coherent slice off `main`, then advancing `main` once so one source slice creates one Windows CI run. Avoid a series of intermediate pushes to `main` that each trigger expensive duplicate builds.
 
+Before triggering that CI, batch additional active-milestone work when all of the following are true:
+- each change is supported by existing evidence or an already-recorded requirement;
+- each change can be implemented correctly without needing the pending CI/manual result of another change;
+- the combined diff remains reviewable and preserves one coherent validation story;
+- regression coverage for every included behavior is part of the same candidate.
+
+Do **not** optimize for line count. Split the batch when changes are unrelated, speculative, cross milestone/architecture boundaries, materially increase blast radius, or when an earlier result is needed to know what the later code should be.
+
+A physical Windows check may be deferred and consolidated with later compatible checks only when subsequent work is independent of its outcome. Keep the gate OPEN until real evidence exists; never convert deferred physical validation into automated PASS.
+
 Documentation-only updates should not consume Windows CI unless they affect build/test behavior.
 
 ## CI contract
