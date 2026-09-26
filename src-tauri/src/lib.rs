@@ -22,6 +22,7 @@ pub mod reminder_acceptance;
 pub mod reminder_service;
 pub mod scheduling;
 pub mod shortcuts;
+pub mod shortcut_settings;
 pub mod theme_settings;
 pub mod timer;
 pub mod timer_service;
@@ -1535,6 +1536,8 @@ pub fn run() {
             global_find_timer_register,
             global_shortcut_unregister,
             global_shortcut_conflict_probe,
+            shortcut_settings::get_global_shortcut_settings,
+            shortcut_settings::set_global_shortcut_enabled,
             timer_session_snapshot,
             timer_start_task,
             timer_pause,
@@ -1578,7 +1581,12 @@ pub fn run() {
         ])
         .setup(|app| {
             install_tray(app)?;
-            let connection = initialize_persistence(app)?;
+            let mut connection = initialize_persistence(app)?;
+            let shortcut_preferences = shortcut_settings::load_from_connection(
+                &mut connection,
+                &chrono::Utc::now().to_rfc3339(),
+            )
+            .map_err(|error| startup_error("load global shortcut preferences", error))?;
             let background_database_path = connection
                 .path()
                 .filter(|path| !path.is_empty())
@@ -1603,7 +1611,7 @@ pub fn run() {
             #[cfg(windows)]
             windows::install_display_change_observer(app)
                 .map_err(|error| startup_error("install display topology observer", error))?;
-            shortcuts::install(app);
+            shortcuts::install(app, &shortcut_preferences);
             Ok(())
         })
         .run(tauri::generate_context!());
