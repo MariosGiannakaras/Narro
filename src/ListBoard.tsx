@@ -335,6 +335,7 @@ function BoardLane({
   laneKey,
   lane,
   title,
+  doneMonthCompletionCount,
   aggregateView,
   presentationReorderEnabled,
   interactionReorderEnabled,
@@ -375,6 +376,7 @@ function BoardLane({
   laneKey: LaneKey;
   lane: ListBoardLane;
   title: string;
+  doneMonthCompletionCount?: number;
   aggregateView: boolean;
   presentationReorderEnabled: boolean;
   interactionReorderEnabled: boolean;
@@ -444,8 +446,13 @@ function BoardLane({
           <h2 id={headingId} className="type-section-title">
             {title}
           </h2>
-          <span className="list-board-lane__count type-metadata">
-            {lane.count} {lane.count === 1 ? "task" : "tasks"}
+          <span
+            className="list-board-lane__count type-metadata"
+            data-done-month-count={laneKey === "done" ? doneMonthCompletionCount : undefined}
+          >
+            {laneKey === "done" && doneMonthCompletionCount !== undefined
+              ? `${doneMonthCompletionCount} completed this month`
+              : `${lane.count} ${lane.count === 1 ? "task" : "tasks"}`}
           </span>
         </div>
         <span className="list-board-lane__est type-metadata">
@@ -1800,6 +1807,7 @@ export function ListBoard({
             laneKey={key}
             lane={snapshot[key]}
             title={title}
+            doneMonthCompletionCount={key === "done" ? snapshot.doneMonthCompletionCount : undefined}
             aggregateView={aggregateView}
             presentationReorderEnabled={presentationReorderEnabled}
             interactionReorderEnabled={interactionReorderEnabled}
