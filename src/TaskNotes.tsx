@@ -14,6 +14,7 @@ import {
   deleteListBoardTaskNote,
   getListBoardTaskNote,
   saveListBoardTaskNote,
+  updateListBoardTaskTitle,
   type BoardTaskNoteSnapshot,
   type NoteBlock,
   type NoteDocument,
@@ -30,6 +31,8 @@ type TaskNotesProps = {
   expanded: boolean;
   canExpand: boolean;
   readOnly: boolean;
+  allowTitleEdit?: boolean;
+  onTitleCommitted?: (title: string) => Promise<void> | void;
   onToggleExpanded: () => void;
   onMutationStatus: (status: string, error: string | null) => void;
   onRefreshBlocked: (message: string) => void;
@@ -479,6 +482,8 @@ export function TaskNotes({
   expanded,
   canExpand,
   readOnly,
+  allowTitleEdit = false,
+  onTitleCommitted,
   onToggleExpanded,
   onMutationStatus,
   onRefreshBlocked,
@@ -488,6 +493,13 @@ export function TaskNotes({
   const [panelError, setPanelError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [locallyBlocked, setLocallyBlocked] = useState(false);
+  const [titleDraft, setTitleDraft] = useState(taskTitle);
+  const [titleError, setTitleError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setTitleDraft(taskTitle);
+    setTitleError(null);
+  }, [taskTitle]);
 
   useEffect(() => {
     if (!expanded) return;
@@ -534,6 +546,51 @@ export function TaskNotes({
     setLocallyBlocked(true);
     setPanelError("Notes changed, but this panel is stale. Reopen the board before editing again.");
     onRefreshBlocked(message);
+  };
+
+  const saveTitle = async () => {
+    if (!allowTitleEdit || readOnly || pending || locallyBlocked) return;
+    const title = titleDraft.trim();
+    if (!title) {
+      setTitleError("Task title must not be empty.");
+      return;
+    }
+    if (title === taskTitle) {
+      setTitleError(null);
+      return;
+    }
+
+    setPending(true);
+    setTitleError(null);
+    onMutationStatus("", null);
+    try {
+      await updateListBoardTaskTitle({
+        taskId,
+        listId,
+        expectedTitle: taskTitle,
+        title,
+      });
+    } catch (failure: unknown) {
+      const detail = formatInvokeError(failure);
+      setTitleError(detail);
+      onMutationStatus("Could not save task title.", detail);
+      setPending(false);
+      return;
+    }
+
+    onMutationStatus("Task title saved.", null);
+    try {
+      await onTitleCommitted?.(title);
+    } catch (failure: unknown) {
+      const detail = formatInvokeError(failure);
+      setLocallyBlocked(true);
+      setTitleError("Title changed, but this Focus view is stale. Reopen Focus before editing again.");
+      onRefreshBlocked(
+        `Task title was saved, but authoritative Focus details could not refresh. ${detail}`,
+      );
+    } finally {
+      setPending(false);
+    }
   };
 
   const saveNote = async (document: NoteDocument) => {
@@ -629,6 +686,41 @@ export function TaskNotes({
             <span className="task-notes__error type-metadata" role="alert">{panelError}</span>
           ) : snapshot ? (
             <>
+              {editable && allowTitleEdit ? (
+                <form
+                  className="task-notes__title-editor"
+                  data-task-note-title-editor="true"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    void saveTitle();
+                  }}
+                >
+                  <label>
+                    <span className="type-metadata">Live task title</span>
+                    <input
+                      value={titleDraft}
+                      disabled={pending}
+                      aria-label="Live task title"
+                      onChange={(event) => {
+                        setTitleDraft(event.target.value);
+                        setTitleError(null);
+                      }}
+                    />
+                  </label>
+                  <button
+                    type="submit"
+                    className="task-notes__save motion-interactive"
+                    data-task-note-control="save-title"
+                    disabled={pending || titleDraft.trim().length === 0 || titleDraft.trim() === taskTitle}
+                  >
+                    Save title
+                  </button>
+                  {titleError ? (
+                    <span className="task-notes__error type-metadata" role="alert">{titleError}</span>
+                  ) : null}
+                </form>
+              ) : null}
+
               {editable ? (
                 <RichNoteEditor
                   key={note?.updatedAt ?? "new-note"}
