@@ -362,6 +362,60 @@ pub fn create_task(
     decode_task(created)
 }
 
+pub fn create_task_at_top(
+    conn: &mut Connection,
+    input: NewTaskInput,
+    now: &str,
+) -> Result<TaskRecord, TaskStoreError> {
+    validate_timestamp(now)?;
+    let title = normalize_title(&input.title)?;
+    let est_seconds = validate_estimate(input.est_seconds)?;
+    let id = TaskId::generate();
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
+    validate_active_list(&tx, input.list_id)?;
+
+    let max_rank: Option<i64> = tx.query_row(
+        "SELECT MAX(sort_rank)
+         FROM tasks
+         WHERE list_id = ?1
+           AND manual_lane = ?2
+           AND completed_at IS NULL
+           AND archived_at IS NULL",
+        params![input.list_id.to_string(), input.manual_lane.as_str()],
+        |row| row.get(0),
+    )?;
+    if matches!(max_rank, Some(rank) if rank >= i64::from(u32::MAX)) {
+        return Err(TaskStoreError::RankOverflow);
+    }
+
+    tx.execute(
+        "UPDATE tasks
+         SET sort_rank = sort_rank + 1, updated_at = ?1
+         WHERE list_id = ?2
+           AND manual_lane = ?3
+           AND completed_at IS NULL
+           AND archived_at IS NULL",
+        params![now, input.list_id.to_string(), input.manual_lane.as_str()],
+    )?;
+    tx.execute(
+        "INSERT INTO tasks (
+            id, list_id, title, manual_lane, sort_rank, est_seconds,
+            created_at, updated_at
+         ) VALUES (?1, ?2, ?3, ?4, 0, ?5, ?6, ?6)",
+        params![
+            id.to_string(),
+            input.list_id.to_string(),
+            title,
+            input.manual_lane.as_str(),
+            est_seconds,
+            now
+        ],
+    )?;
+    let created = get_raw_task(&tx, id)?.ok_or(TaskStoreError::NotFound(id))?;
+    tx.commit()?;
+    decode_task(created)
+}
+
 pub fn update_task(
     conn: &mut Connection,
     id: TaskId,
@@ -626,6 +680,42 @@ mod tests {
 
     fn task_ids(tasks: &[TaskRecord]) -> Vec<TaskId> {
         tasks.iter().map(|task| task.id).collect()
+    }
+
+    #[test]
+    fn top_create_is_atomic_highest_priority_and_preserves_estimate() {
+        let mut conn = migrated();
+        let list_id = create_test_list(&mut conn, "Inbox");
+        let first = create_task(
+            &mut conn,
+            input(list_id, "First", PlanningLane::Today),
+            T1,
+        )
+        .expect("create first");
+        let second = create_task(
+            &mut conn,
+            input(list_id, "Second", PlanningLane::Today),
+            T1,
+        )
+        .expect("create second");
+
+        let top = create_task_at_top(
+            &mut conn,
+            NewTaskInput {
+                list_id,
+                title: "Top".into(),
+                manual_lane: PlanningLane::Today,
+                est_seconds: Some(1_500),
+            },
+            T2,
+        )
+        .expect("create top task");
+
+        let tasks = active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
+            .expect("load ordered lane");
+        assert_eq!(task_ids(&tasks), vec![top.id, first.id, second.id]);
+        assert_eq!(tasks.iter().map(|task| task.sort_rank).collect::<Vec<_>>(), vec![0, 1, 2]);
+        assert_eq!(top.est_seconds, Some(1_500));
     }
 
     #[test]
