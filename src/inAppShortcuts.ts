@@ -7,6 +7,15 @@ export type InAppShortcut =
   | "notes"
   | "search";
 
+export type FocusActionShortcut =
+  | "start-break"
+  | "pause-resume"
+  | "skip-task"
+  | "finish-task"
+  | "notes";
+
+export const FOCUS_IN_APP_SHORTCUT_EVENT = "focus-in-app-shortcut-requested";
+
 export type ShortcutChord = {
   key: string;
   ctrlKey: boolean;
@@ -43,4 +52,12 @@ export function resolveInAppShortcut(chord: ShortcutChord): InAppShortcut | null
 export function isEditableShortcutTarget(target: EventTarget | null): boolean {
   if (!(target instanceof Element)) return false;
   return Boolean(target.closest("input, textarea, select, [contenteditable='true'], [contenteditable='']"));
+}
+
+export function isFocusActionShortcut(shortcut: InAppShortcut | null): shortcut is FocusActionShortcut {
+  return shortcut === "start-break"
+    || shortcut === "pause-resume"
+    || shortcut === "skip-task"
+    || shortcut === "finish-task"
+    || shortcut === "notes";
 }
