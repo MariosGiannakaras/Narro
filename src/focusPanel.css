@@ -44,7 +44,7 @@
 .focus-panel__empty-state { display: grid; gap: var(--space-1); min-width: 0; }
 .focus-panel__empty-state strong { color: var(--color-text-primary); font-size: var(--font-size-task-title); font-weight: var(--font-weight-semibold); }
 .focus-panel__empty-state .type-metadata { color: var(--color-text-secondary); }
-.focus-panel__live-heading, .focus-panel__task-title-row, .focus-panel__task-row, .focus-panel__live-meta, .focus-panel__task-meta { display: flex; align-items: center; }
+.focus-panel__live-heading, .focus-panel__task-title-row, .focus-panel__live-meta, .focus-panel__task-meta { display: flex; align-items: center; }
 .focus-panel__live-heading, .focus-panel__task-title-row { gap: var(--space-2); }
 .focus-panel__live-heading { justify-content: space-between; min-width: 0; }
 .focus-panel__live-title { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--font-size-task-title); font-weight: var(--font-weight-semibold); }
@@ -53,7 +53,7 @@
 .focus-panel__live-meta, .focus-panel__task-meta { gap: var(--space-2); min-width: 0; color: var(--color-text-secondary); }
 .focus-panel__live-meta > span:not([class]) { display: none; }
 .focus-panel__live-actions-wrap { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
-.focus-panel__live-actions { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-1); padding-top: var(--space-2); border-top: 1px solid var(--color-border-subtle); }
+.focus-panel__live-actions { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-1); padding-top: var(--space-2); border-top: 1px solid var(--color-border-subtle); }
 .focus-panel__live-actions button { min-width: 0; min-height: 30px; padding: var(--space-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--font-size-metadata); }
 .focus-panel__live-actions button:disabled { opacity: 0.52; }
 .focus-panel__notes { min-width: 0; }
@@ -187,18 +187,82 @@
 .focus-panel__subtasks .list-board-task__subtask-readonly { color: var(--color-text-secondary); }
 
 .focus-panel__remaining, .focus-panel__group { display: flex; flex-direction: column; gap: var(--space-1); }
-.focus-panel__task-row { min-height: 54px; padding: var(--space-2) var(--space-3); justify-content: space-between; gap: var(--space-2); border: 1px solid var(--color-border-subtle); }
-.focus-panel__task-main { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: var(--space-1); }
+.focus-panel__task-row {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+  min-height: 54px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+}
+.focus-panel__task-row-mainline {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr) 7.75rem;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.focus-panel__task-completion-slot {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  min-width: 1.75rem;
+  height: 1.75rem;
+}
+.focus-panel__done-mark { color: var(--color-success); }
+.focus-panel__task-main { min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
 .focus-panel__task-title-row { min-width: 0; }
 .focus-panel__task-title { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--font-size-task-title); }
 .focus-panel__list-chip { max-width: 92px; flex: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 1px var(--space-2); border: 1px solid var(--color-border-strong); border-radius: 999px; color: var(--color-text-secondary); font-size: var(--font-size-metadata); }
 .focus-panel__task-meta { min-height: 16px; }
 .focus-panel__overdue { color: var(--color-destructive); }
-.focus-panel__done-time { flex: none; color: var(--color-text-secondary); }
+.focus-panel__done-time { justify-self: end; color: var(--color-text-secondary); }
 .focus-panel__task-row--done .focus-panel__task-title { color: var(--color-text-secondary); text-decoration: line-through; }
 .focus-panel__add-task { width: 100%; min-height: 36px; margin: var(--space-1) 0; border-style: dashed; color: var(--color-text-secondary); background: transparent; letter-spacing: 0.04em; font-size: var(--font-size-metadata); }
+.focus-panel__add-task-editor {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-task-card);
+  background: var(--color-surface-raised);
+}
+.focus-panel__add-task-editor label {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.focus-panel__add-task-editor input,
+.focus-panel__add-task-editor select {
+  width: 100%;
+  min-width: 0;
+  min-height: 2rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-deep);
+  font: inherit;
+}
+.focus-panel__add-task-editor input:focus-visible,
+.focus-panel__add-task-editor select:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 1px;
+}
+.focus-panel__add-task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+.focus-panel__row-notes {
+  min-width: 0;
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-border-subtle);
+}
+.focus-panel__row-notes .task-notes__trigger { display: none; }
 .focus-panel__group { padding-top: var(--space-2); border-top: 1px solid var(--color-border-subtle); }
 .focus-panel__group-title { margin: 0 0 var(--space-1); color: var(--color-text-secondary); font-size: var(--font-size-metadata); font-weight: var(--font-weight-semibold); line-height: var(--line-height-metadata); }
+.focus-panel__status { color: var(--color-text-secondary); }
 .focus-panel__error { padding: var(--space-2); border: 1px solid color-mix(in srgb, var(--color-destructive) 45%, transparent); border-radius: var(--radius-control); color: var(--color-destructive); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
