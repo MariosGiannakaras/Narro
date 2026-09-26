@@ -4,59 +4,106 @@ Canonical continuation point. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING
 
 GitHub `main` is the durable source truth.
 
+## CURRENT VALIDATED SOURCE BASELINE
+
+M5/Main parity reconciliation is complete.
+
+- PR #156 exact validated head: `2cde42c10389c2417e1b6e356eae59150ebff8ce`.
+- PR Windows CI #539: PASS.
+- Required visual artifact: `narro-m5-visual-regression` / artifact id `10905522707`.
+- Required diagnostic harness artifact: `narro-m1-runtime-harness-windows-x64`.
+- Expected-head guarded squash merge: `4e315f551737d729f76e5f561dd8d7404717e157`.
+- Resulting-main Windows CI #540: PASS through the repository identical-tree validation gate.
+- The validated source baseline is `4e315f551737d729f76e5f561dd8d7404717e157`. Later markdown-only tracking commits do not replace it.
+
 ## CURRENT ORDERED WORK
 
-New repository-backed parity evidence on 2026-09-26 reopens Milestone 5 and Milestone 6 acceptance without erasing their historical validated slices.
+The repository-backed parity audit reopened M5 and M6 without erasing their historical validated slices.
 
-Current ordered implementation is:
-1. M5 parity/reliability reconciliation (A1–A9, A19).
-2. M6 Focus reconciliation (A10–A17).
-3. Return to M7, including A18 plus the existing physical/compositor gates.
-4. M8 only after M7 is complete.
+Current order:
+1. **M5 parity/reliability reconciliation (A1–A9, A19): COMPLETE.**
+2. **M6 Focus reconciliation (A10–A17): ACTIVE NEXT WORK.**
+3. **STOP before M7 after M6 is fully validated and tracked.** The user explicitly has another instruction to provide before any M7 work resumes.
+4. M7/A18/compositor work remains preserved but untouched until that user instruction.
+5. M8 remains blocked on eventual M7 completion.
 
-Roadmap completion is therefore currently 4/10 milestones until the reopened M5/M6 gates are revalidated.
+Roadmap completion is now **5/10 milestones**. Do not increment to 6/10 until the reopened M6 gate has implementation, exact-head Windows CI, guarded merge, resulting-main validation, and tracking reconciliation.
+
+## M5 RECONCILIATION — COMPLETED CAPABILITIES
+
+A1–A9 and A19 are implemented and validated:
+
+- A1 durable List Duplicate with independent list/task identities and no completed-history cloning;
+- A2 persisted owned list-icon rendering on active/archive surfaces with safe fallback;
+- A3 atomic top-priority create without create-then-reorder partial success;
+- A4 optional EST in the same create persistence operation;
+- A5/A6 authoritative completion and explicit confirmed permanent deletion, with live completion remaining timer/session-authoritative and Done excluded from planning reorder;
+- A7 safe identity-based All Lists per-task edits while aggregate create/reorder remain disabled;
+- A8 matched-text Search highlighting without keyboard/focus regression;
+- A9 normal Main split from diagnostic timer JSON while preserving the user-facing Pomodoro resume workflow;
+- A19 display-timezone local-month Done completion count;
+- obsolete static and visual contracts were converted to positive final invariants.
+
+Do not reopen these items without new evidence.
+
+## ACTIVE M6 RECONCILIATION BATCH
+
+Implement A10–A17 as one coherent Focus reconciliation batch:
+
+- A10 ordinary Focus rows expose the documented source-backed task actions with reserved geometry and keyboard/focus equivalents;
+- A11 Rocket / Make Live switches through authoritative timer/session APIs and preserves prior work;
+- A12 Focus queue reorder reuses validated persisted ordering and stable task identities;
+- A13 ordinary-row delete, schedule, Notes and non-live completion reuse validated Main/domain boundaries;
+- A14 replace disabled Focus `+ ADD TASK` with persistence-first creation; All Lists requires explicit owning-list choice;
+- A15 Focus Home exits the Focus surface through existing lifecycle without silently resetting timer/session state;
+- A16 live-task title editing is available only through Notes and reuses stale-safe title persistence;
+- A17 Time's Up exposes Extend through the existing authoritative `timer_extend` transition;
+- evolve temporary M6 static tests that froze placeholder/non-mutating controls into positive final invariants.
+
+Preserve authoritative Rust/domain/session/scheduling ownership. Do not introduce renderer timer authority, renderer-side scheduling classification, identity cloning, polling, or create-then-reorder partial success.
 
 ## AUDIT CLASSIFICATION
 
-Verified against current main:
-- A1–A19: still applicable production/UI omissions.
-- B1: unresolved task-menu fidelity requirement; no implementation without stronger evidence/decision.
-- B2/B3: visual-fidelity questions; defer to existing parity/fidelity work unless promoted by stronger evidence.
-- B4: current Done auto-start-next behavior is explicitly unresolved in source evidence; preserve it for now rather than silently changing product semantics.
-- Audit section C intentional Narro deviations remain unchanged.
+- A1–A9, A19: COMPLETE and validated in M5 reconciliation.
+- A10–A17: ACTIVE M6 reconciliation.
+- A18: M7 parity sub-gap; do not implement yet.
+- B1: unresolved task-menu fidelity requirement; no implementation without stronger evidence or explicit decision.
+- B2/B3: visual-fidelity questions; defer to the final parity/fidelity pass unless stronger evidence promotes them.
+- B4: Done auto-start-next remains unresolved in source evidence; preserve current behavior.
+- Audit section C intentional Narro deviations remain binding.
 
-## OPEN M7 PR — PRESERVE
+## OPEN M7 PR — PRESERVE, DO NOT TOUCH YET
 
-PR #155 `M7: cover focus transitions with a temporary native visual hold` remains open.
-- exact head `2755d598ad2b13b974cda02760ebf44cd5e60b13`;
-- Windows CI #532 PASS;
-- physical compositor validation NOT RUN;
-- do not merge merely because CI passed.
+PR #155 `M7: cover focus transitions with a temporary native visual hold` remains open and draft.
 
-The M5/M6 reconciliation work is independent of #155's compositor hypothesis and may proceed while the physical gate remains open.
+- exact head: `2755d598ad2b13b974cda02760ebf44cd5e60b13`;
+- Windows CI #532: PASS;
+- physical compositor validation: NOT RUN;
+- after the M5 merge, GitHub reports it non-mergeable against the newer `main`;
+- do not merge, rebase, rewrite, or contaminate it during M6 reconciliation;
+- after M6 is complete, stop and await the user's instruction before taking any M7 action.
 
-## FIRST CORRECTIVE BATCH
+## INVARIANTS THAT MUST NOT REGRESS
 
-Build a coherent M5/Main batch rather than micro-PRs:
-- A1 List Duplicate;
-- A2 stored list icon rendering;
-- A3 atomic top-priority create;
-- A4 create-with-EST;
-- A5/A6 board completion/delete/Done transitions;
-- A7 safe All Lists per-task edits while aggregate reorder stays disabled;
-- A8 search result matched-text highlighting;
-- A9 split normal user-facing Pomodoro resume from diagnostic JSON;
-- A19 Done monthly count;
-- evolve obsolete static tests into positive final invariants.
+- Narro remains local-only Windows software with Tauri 2 + React/TypeScript, SQLite, and authoritative Rust/domain state.
+- `main` and reusable `focusSurface` remain the normal two-webview architecture.
+- native/Rust remains monitor/work-area/DPI/window-position authority.
+- persistence-first mutation boundaries remain authoritative for list/task/subtask/note/scheduling/archive state.
+- stable task identities, tracked Time Taken, date-only/timezone/recurrence semantics, and All Lists aggregate semantics must remain intact.
+- future-timed Today tasks remain ineligible until due.
+- Focus entry and task switching cannot duplicate or silently reset live sessions.
+- Break/Pause-Resume/Skip/Done/Extend/Make Live must reuse authoritative timer/session transitions.
+- Notes URLs require explicit activation.
+- hover/focus actions must retain reserved geometry, accessibility, and reduced-motion usability.
+- excluded account/trial/upgrade/profile/AI/integration controls remain absent.
+- diagnostics remain gated rather than shown in normal product surfaces.
 
-Reuse existing list/task/session/scheduling/note/subtask persistence boundaries. Do not introduce create-then-reorder partial success or renderer authority.
+## EXACT NEXT ACTION
 
-## FOLLOWING BATCHES
-
-M6 batch: A10–A17 ordinary Focus row actions, Rocket/make-live, reorder, completion/delete/schedule/Notes, Add Task, Home exit, live title edit through Notes, Time's Up Extend.
-
-M7 parity sub-gap: A18 Floating Timer subtask title editing. Fold into a compatible M7 batch when #155's physical result allows it; do not contaminate the compositor candidate before its physical evidence.
+A zero-context agent must reconstruct current `main`, confirm this M5 tracking reconciliation is present, inspect live PR/CI state, then start/resume the coherent **M6 A10–A17 Focus reconciliation** from the validated source baseline. Do not start M7.
 
 ## USER ACTION REQUIRED
 
-PR #155 ultimately needs physical Windows validation, but it does not block the independent M5/M6 reconciliation requested by the user.
+No user decision blocks M6 reconciliation.
+
+After M6 reconciliation is fully validated, merged, main-validated, and tracked, **stop before M7**. The user explicitly said they have another instruction to provide first.
