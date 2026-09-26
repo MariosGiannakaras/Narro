@@ -26,6 +26,7 @@ import { FocusVisualHoldOwner } from "./focusVisualHoldOwner";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { waitForPresentedFrame } from "./presentationFrame";
 import { TimerSessionProjection } from "./TimerSessionProjection";
+import { snapshotTimerSession } from "./timerSessionApi";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
@@ -150,6 +151,20 @@ function FocusSurfaceProduct() {
       if (shortcut === "search") {
         event.preventDefault();
         setShortcutStatus("Search is unavailable while Focus mode is open.");
+        return;
+      }
+      if (isFocusActionShortcut(shortcut)) {
+        if (isEditableShortcutTarget(event.target)) return;
+        event.preventDefault();
+        void snapshotTimerSession()
+          .then((payload) => {
+            if (payload.runtime.timer.state === "idle" || payload.runtime.timer.task_id === null) {
+              setShortcutStatus("No active Focus task is available for this shortcut.");
+            }
+          })
+          .catch((failure: unknown) => {
+            setShortcutStatus(`Focus shortcut state could not be read. ${formatInvokeError(failure)}`);
+          });
         return;
       }
       if (shortcut !== "create-task" || isEditableShortcutTarget(event.target)) return;
