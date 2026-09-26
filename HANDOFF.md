@@ -29,7 +29,7 @@ The parity audit reconciliation is complete through M6.
 4. M7/A18/compositor work remains preserved but untouched until that instruction.
 5. M8 remains blocked on eventual M7 completion.
 
-Roadmap completion is now **6/10 milestones** once this markdown-only tracking reconciliation is merged.
+Roadmap completion is now **6/10 milestones**.
 
 ## M6 RECONCILIATION — COMPLETED CAPABILITIES
 
