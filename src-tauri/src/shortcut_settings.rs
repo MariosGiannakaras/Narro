@@ -42,7 +42,7 @@ fn app_data_dir(app_handle: &tauri::AppHandle) -> CommandResult<PathBuf> {
     })
 }
 
-fn enabled(preferences: &ShortcutPreferences, kind: GlobalShortcutKind) -> bool {
+fn preference_enabled(preferences: &ShortcutPreferences, kind: GlobalShortcutKind) -> bool {
     match kind {
         GlobalShortcutKind::GoToNarro => preferences.go_to_narro_enabled,
         GlobalShortcutKind::ToggleFocusMode => preferences.toggle_focus_mode_enabled,
@@ -111,7 +111,7 @@ pub fn set_global_shortcut_enabled(
     let app_dir = app_data_dir(&app_handle)?;
     let current_preferences = load_preferences(&app_dir)?;
     let current_diagnostics = shortcut_manager.snapshot()?;
-    let previous_enabled = enabled(&current_preferences, kind);
+    let previous_enabled = preference_enabled(&current_preferences, kind);
     let previous_registered = shortcuts::is_registered(&current_diagnostics, kind);
 
     if previous_registered != enabled {
@@ -148,7 +148,7 @@ pub fn set_global_shortcut_enabled(
     };
 
     let diagnostics = shortcut_manager.snapshot()?;
-    let committed_enabled = enabled(&saved_preferences, kind);
+    let committed_enabled = preference_enabled(&saved_preferences, kind);
     if committed_enabled != enabled {
         return Err(preference_error(format!(
             "saved shortcut preference does not match requested state (previous enabled: {previous_enabled})"
@@ -171,13 +171,13 @@ mod tests {
     fn preference_field_mapping_is_independent() {
         let mut preferences = ShortcutPreferences::default();
         set_enabled(&mut preferences, GlobalShortcutKind::FindFocusTimer, false);
-        assert!(enabled(&preferences, GlobalShortcutKind::GoToNarro));
-        assert!(enabled(&preferences, GlobalShortcutKind::ToggleFocusMode));
-        assert!(!enabled(&preferences, GlobalShortcutKind::FindFocusTimer));
+        assert!(preference_enabled(&preferences, GlobalShortcutKind::GoToNarro));
+        assert!(preference_enabled(&preferences, GlobalShortcutKind::ToggleFocusMode));
+        assert!(!preference_enabled(&preferences, GlobalShortcutKind::FindFocusTimer));
 
         set_enabled(&mut preferences, GlobalShortcutKind::GoToNarro, false);
-        assert!(!enabled(&preferences, GlobalShortcutKind::GoToNarro));
-        assert!(enabled(&preferences, GlobalShortcutKind::ToggleFocusMode));
+        assert!(!preference_enabled(&preferences, GlobalShortcutKind::GoToNarro));
+        assert!(preference_enabled(&preferences, GlobalShortcutKind::ToggleFocusMode));
     }
 
     #[test]
