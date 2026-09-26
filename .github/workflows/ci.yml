@@ -91,20 +91,26 @@ jobs:
               return "false";
             }
 
-            const { data: workflowRuns } = await github.rest.actions.listWorkflowRunsForRepo({
-              owner,
-              repo,
-              event: "pull_request",
-              head_sha: mergedPull.head.sha,
-              per_page: 100,
-            });
+            const [{ data: currentRun }, { data: workflowRuns }] = await Promise.all([
+              github.rest.actions.getWorkflowRun({
+                owner,
+                repo,
+                run_id: context.runId,
+              }),
+              github.rest.actions.listWorkflowRunsForRepo({
+                owner,
+                repo,
+                event: "pull_request",
+                head_sha: mergedPull.head.sha,
+                per_page: 100,
+              }),
+            ]);
             const exactHeadValidated = workflowRuns.workflow_runs.some(
               (run) =>
-                run.name === context.workflow
+                run.workflow_id === currentRun.workflow_id
                 && run.head_sha === mergedPull.head.sha
                 && run.status === "completed"
-                && run.conclusion === "success"
-                && run.pull_requests.some((pull) => pull.number === mergedPull.number),
+                && run.conclusion === "success",
             );
 
             if (!exactHeadValidated) {
