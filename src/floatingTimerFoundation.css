@@ -330,6 +330,10 @@
   gap: 4px;
 }
 
+.floating-timer-foundation__subtask-actions[data-floating-subtask-editing="true"] {
+  grid-template-columns: repeat(2, 32px);
+}
+
 .floating-timer-foundation__subtask-action--delete:hover:not(:disabled) {
   border-color: var(--color-destructive);
   color: var(--color-destructive);
