@@ -1,5 +1,6 @@
 //! Windows global-shortcut registration and conflict-handling capability boundary.
 
+use crate::domain::preferences::ShortcutPreferences;
 use crate::error::{CommandError, CommandResult};
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
@@ -417,7 +418,7 @@ fn record_and_report_find_timer_error(
     error
 }
 
-pub fn install(app: &tauri::App) {
+pub fn install(app: &tauri::App, preferences: &ShortcutPreferences) {
     let manager = app.state::<ShortcutManager>();
 
     #[cfg(windows)]
@@ -447,14 +448,20 @@ pub fn install(app: &tauri::App) {
             }
         }
 
-        if let Err(error) = register_default(app.handle(), manager.inner()) {
-            eprintln!("Global shortcut startup registration unavailable: {error}");
+        if preferences.go_to_narro_enabled {
+            if let Err(error) = register_default(app.handle(), manager.inner()) {
+                eprintln!("Global shortcut startup registration unavailable: {error}");
+            }
         }
-        if let Err(error) = register_focus_toggle(app.handle(), manager.inner()) {
-            eprintln!("Focus toggle shortcut startup registration unavailable: {error}");
+        if preferences.toggle_focus_mode_enabled {
+            if let Err(error) = register_focus_toggle(app.handle(), manager.inner()) {
+                eprintln!("Focus toggle shortcut startup registration unavailable: {error}");
+            }
         }
-        if let Err(error) = register_find_timer(app.handle(), manager.inner()) {
-            eprintln!("Find Timer shortcut startup registration unavailable: {error}");
+        if preferences.find_focus_timer_enabled {
+            if let Err(error) = register_find_timer(app.handle(), manager.inner()) {
+                eprintln!("Find Timer shortcut startup registration unavailable: {error}");
+            }
         }
     }
 
