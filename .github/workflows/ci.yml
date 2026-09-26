@@ -131,6 +131,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -148,6 +150,7 @@ jobs:
       uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
       with:
         workspaces: './src-tauri -> target'
+        save-if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
     - name: Install Frontend Dependencies
       run: npm ci
