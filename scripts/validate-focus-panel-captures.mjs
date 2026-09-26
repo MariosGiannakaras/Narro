@@ -77,6 +77,8 @@ function validateSharedGeometry(contract, label, theme) {
   );
   invariant(contract.actions?.width > 0 && contract.actions?.height >= 30, `${label} live action geometry is invalid`);
   invariant(contract.firstRow?.height >= 50, `${label} remaining row geometry is too small`);
+  invariant(contract.rowActionSlot?.width === 124, `${label} ordinary row action slot must reserve 7.75rem/124px`);
+  invariant(contract.rowActionSlot?.height === 28, `${label} ordinary row action slot height must remain 1.75rem/28px`);
   invariant(contract.addTask?.height >= 34, `${label} Add Task geometry is too small`);
 }
 
@@ -109,13 +111,17 @@ function validateSharedDom(dom, label) {
   invariant(dom.includes('data-focus-subtask-control="add"'), `${label} live subtask add control is missing`);
   invariant(dom.includes(">1/4 Subtasks<"), `${label} live subtask count is missing`);
   invariant(dom.includes('aria-label="Live task actions"'), `${label} live action group accessible name is missing`);
-  for (const action of ["break", "notes", "pause-resume", "skip", "done"]) {
+  for (const action of ["break", "notes", "pause-resume", "skip", "extend", "done"]) {
     invariant(dom.includes(`data-focus-action="${action}"`), `${label} ${action} Focus action is missing`);
   }
   invariant(dom.includes(">Break<"), `${label} Break action label is missing`);
   invariant(dom.includes(">Notes<"), `${label} Notes action label is missing`);
   invariant(dom.includes(">Skip<"), `${label} Skip action label is missing`);
+  invariant(dom.includes(">Extend<"), `${label} Extend action label is missing`);
   invariant(dom.includes(">Done<"), `${label} Done action label is missing`);
+  for (const action of ["complete", "make-live", "move-up", "move-down", "more"]) {
+    invariant(dom.includes(`data-focus-row-action="${action}"`), `${label} ordinary row ${action} action is missing`);
+  }
   invariant(dom.includes('data-focus-task-row="remaining"'), `${label} remaining queue is missing`);
   invariant(dom.includes("Review campaign notes"), `${label} overdue remaining task is missing`);
   invariant(dom.includes("Plan weekend errands"), `${label} second remaining task is missing`);
