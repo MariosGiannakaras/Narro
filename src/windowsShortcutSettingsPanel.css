@@ -1,0 +1,160 @@
+.windows-shortcuts {
+  margin-top: var(--space-5);
+}
+
+.windows-shortcuts__intro {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.windows-shortcuts__rows {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.windows-shortcuts__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-5);
+  min-height: 72px;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.windows-shortcuts__row:last-child {
+  border-bottom: 0;
+}
+
+.windows-shortcuts__copy {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-1);
+}
+
+.windows-shortcuts__copy > span {
+  color: var(--color-text-secondary);
+}
+
+.windows-shortcuts__status--error {
+  color: var(--color-destructive) !important;
+}
+
+.windows-shortcuts__controls {
+  display: grid;
+  grid-template-columns: minmax(132px, auto) 42px minmax(48px, auto);
+  align-items: center;
+  justify-items: end;
+  gap: var(--space-2);
+}
+
+.windows-shortcuts__keycap {
+  min-width: 132px;
+  padding: 5px 8px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-deep);
+  box-shadow: inset 0 -1px 0 var(--color-border-subtle);
+  text-align: center;
+  font: inherit;
+  font-size: var(--font-size-metadata);
+  white-space: nowrap;
+}
+
+.windows-shortcuts__toggle {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  display: inline-block;
+}
+
+.windows-shortcuts__toggle input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+}
+
+.windows-shortcuts__toggle > span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-surface-interactive);
+  cursor: pointer;
+}
+
+.windows-shortcuts__toggle > span::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+  transition: transform var(--motion-duration-inline) var(--motion-ease-enter);
+}
+
+.windows-shortcuts__toggle input:checked + span {
+  border-color: var(--color-accent-solid);
+  background: color-mix(in srgb, var(--color-accent-solid) 34%, var(--color-surface-interactive));
+}
+
+.windows-shortcuts__toggle input:checked + span::after {
+  background: var(--color-accent-solid);
+  transform: translateX(18px);
+}
+
+.windows-shortcuts__toggle input:focus-visible + span {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
+.windows-shortcuts__toggle input:disabled + span {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.windows-shortcuts__retry {
+  min-width: 48px;
+  min-height: 32px;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+  font: inherit;
+}
+
+.windows-shortcuts__unavailable {
+  padding: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--color-destructive) 45%, transparent);
+  border-radius: var(--radius-control);
+  color: var(--color-destructive);
+  background: var(--color-destructive-surface);
+}
+
+@media (max-width: 720px) {
+  .windows-shortcuts__row {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .windows-shortcuts__controls {
+    justify-content: stretch;
+    justify-items: start;
+    grid-template-columns: minmax(132px, 1fr) 42px minmax(48px, auto);
+  }
+
+  .windows-shortcuts__keycap {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .windows-shortcuts__toggle > span::after {
+    transition-duration: var(--motion-duration-reduced);
+  }
+}
