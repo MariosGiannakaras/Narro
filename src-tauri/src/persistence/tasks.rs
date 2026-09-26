@@ -742,18 +742,10 @@ mod tests {
     fn top_create_is_atomic_highest_priority_and_preserves_estimate() {
         let mut conn = migrated();
         let list_id = create_test_list(&mut conn, "Inbox");
-        let first = create_task(
-            &mut conn,
-            input(list_id, "First", PlanningLane::Today),
-            T1,
-        )
-        .expect("create first");
-        let second = create_task(
-            &mut conn,
-            input(list_id, "Second", PlanningLane::Today),
-            T1,
-        )
-        .expect("create second");
+        let first = create_task(&mut conn, input(list_id, "First", PlanningLane::Today), T1)
+            .expect("create first");
+        let second = create_task(&mut conn, input(list_id, "Second", PlanningLane::Today), T1)
+            .expect("create second");
 
         let top = create_task_at_top(
             &mut conn,
@@ -767,10 +759,13 @@ mod tests {
         )
         .expect("create top task");
 
-        let tasks = active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
-            .expect("load ordered lane");
+        let tasks =
+            active_tasks_in_bucket(&conn, list_id, PlanningLane::Today).expect("load ordered lane");
         assert_eq!(task_ids(&tasks), vec![top.id, first.id, second.id]);
-        assert_eq!(tasks.iter().map(|task| task.sort_rank).collect::<Vec<_>>(), vec![0, 1, 2]);
+        assert_eq!(
+            tasks.iter().map(|task| task.sort_rank).collect::<Vec<_>>(),
+            vec![0, 1, 2]
+        );
         assert_eq!(top.est_seconds, Some(1_500));
     }
 
@@ -979,7 +974,10 @@ mod tests {
             permanently_delete_task_confirmed(&mut conn, task.id, list_id, T2),
             Err(TaskStoreError::ActiveSession(id)) if id == task.id
         ));
-        assert_eq!(get_task(&conn, task.id).expect("task preserved").id, task.id);
+        assert_eq!(
+            get_task(&conn, task.id).expect("task preserved").id,
+            task.id
+        );
 
         conn.execute(
             "UPDATE sessions SET ended_at = ?1, duration_seconds = 60, updated_at = ?1
@@ -990,7 +988,10 @@ mod tests {
         permanently_delete_task_confirmed(&mut conn, task.id, list_id, T3)
             .expect("confirmed permanent delete");
 
-        assert!(matches!(get_task(&conn, task.id), Err(TaskStoreError::NotFound(_))));
+        assert!(matches!(
+            get_task(&conn, task.id),
+            Err(TaskStoreError::NotFound(_))
+        ));
         let sessions: i64 = conn
             .query_row(
                 "SELECT COUNT(*) FROM sessions WHERE task_id = ?1",
