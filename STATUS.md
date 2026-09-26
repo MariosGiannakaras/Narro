@@ -230,6 +230,14 @@ This Expand/Collapse evidence is distinct from PR #151 and must not be folded in
 
 No persistent horizontal scrollbar was established by the CI #521 recording. UX observations about expanded information hierarchy or caret grouping are not correctness blockers and are not promoted into M7 implementation work without separate product evidence.
 
+## Latest M7 automated state
+
+PR #153 fixes the independently confirmed Expand/Collapse empty-surface transition by reusing native transparent prewarm around the resize. Exact head `ed046af079038952f5877b19324b6bf36912e69f` passed Windows CI #527. Merged main `57a18a2b9ffd81b1b2d968c54bf1e997311c0cd8` passed resulting-main CI #528. The physical Expand/Collapse acceptance gate remains OPEN and is intentionally batched with the remaining M7 manual matrix.
+
+PR #154 fixed the first post-merge dedup lookup after #528 showed the optimization was still running a full duplicate main job. The gate now binds exact-head evidence by workflow ID rather than run display name / PR-list metadata. Exact head `0ddd837d5aabbdb6284a63fad37cb964dc10f8aa` passed Windows CI #529; merged main `449eb5d1fda4a8d26832e803433209025a6dec38` passed full CI #530 because the workflow itself changed. This is the current validated source baseline before later documentation-only commits.
+
+The general implementation policy now prefers coherent batching of independently safe active-milestone work before CI and consolidation of compatible physical Windows checks when their unknown result does not determine subsequent implementation. Required tests, CI, milestone order and manual acceptance remain unchanged.
+
 ## CI efficiency baseline
 
 PR #152 / main `3dac35988ba03d9b12f5eb58dbb13d9e2792e488` optimizes Windows CI without removing tests or release validation:

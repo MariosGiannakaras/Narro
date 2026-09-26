@@ -6,75 +6,63 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT MILESTONE
 
-Milestone 7 — Floating Timer mode. Milestones 1–6 are complete. M7 physical gates remain open; do not advance to M8.
+Milestone 7 — Floating Timer mode. Milestones 1–6 are complete. M7 remaining blockers are physical Windows acceptance gates; do not advance to M8.
 
 ## CURRENT VALIDATED SOURCE
 
-Current validated source baseline:
-`3dac35988ba03d9b12f5eb58dbb13d9e2792e488`, tree `57a9b7258059c2ba35088c48f74585953aa1d580`.
+Latest source with completed Windows validation:
+`449eb5d1fda4a8d26832e803433209025a6dec38`, tree `51b27ba7a867dcea79a49927cb1ed4e0ee7bda6b`.
 
-This includes:
-- PR #151 readiness-before-prewarm ordering; exact-head CI #522 PASS, merged source `8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`, resulting-main CI #523 PASS.
-- PR #152 CI optimization; exact head `299f46c4f8953d6f0a30bfc9953925c11def7eda`, CI #525 PASS; guarded squash merge `3dac35988ba03d9b12f5eb58dbb13d9e2792e488`, resulting-main CI #526 PASS.
+Relevant source validation:
+- PR #151 readiness-before-prewarm: exact-head CI #522 PASS; merged source `8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`; resulting-main CI #523 PASS.
+- PR #153 atomic Expand/Collapse transparent-host resize: exact head `ed046af079038952f5877b19324b6bf36912e69f`; CI #527 PASS; merged source `57a18a2b9ffd81b1b2d968c54bf1e997311c0cd8`; resulting-main CI #528 PASS.
+- PR #154 CI dedup correction: exact head `0ddd837d5aabbdb6284a63fad37cb964dc10f8aa`; CI #529 PASS; merged source `449eb5d1fda4a8d26832e803433209025a6dec38`; resulting-main CI #530 PASS.
 
-CI #526 runtime artifact:
-`10899467604`, digest `sha256:b8e412e4b0e9164da968aaa52d319d79125b968d83757bf29b38cf97840b891c`.
+Subsequent commits `8d3b488226c7fdc7ed23deae6bfc9f6acb0d8d62` and later tracking reconciliation are documentation-only and do not replace the validated source baseline.
 
-CI #526 visual artifact:
-`10899945114`, digest `sha256:d2cd12e230558ec8f15944098c1382889f6dbddc4b7408f287125bb144945a0c`.
+## GENERAL IMPLEMENTATION CADENCE
 
-## CI OPTIMIZATION NOW VALIDATED
+The repository now explicitly requires:
+- batch multiple independently evidenced, compatible active-milestone changes into one coherent branch/PR before CI when none depends on another pending CI/manual result;
+- prefer fewer high-value CI runs over micro-PRs;
+- do not inflate scope or line count artificially;
+- keep unrelated milestones, speculative cleanup and unresolved dependency chains separate;
+- defer/batch compatible physical Windows checks only when later implementation is independent of their unknown result;
+- keep deferred manual gates OPEN until real Windows evidence exists;
+- continue to the next unblocked repository-recorded action after intermediate CI/merge checkpoints rather than stopping merely because a checkpoint completed;
+- keep the user informed with concise progress updates during long work.
 
-PR #152 preserves the full PR Windows validation contract while reducing redundant work:
-- exact-head PR runs still execute full preflight, visual regression, release build and artifact upload;
-- main skips the heavy job only after proving merged PR association, identical Git tree and successful exact-head PR Windows CI;
-- unsafe/unknown cases fail safe to full CI;
-- workflow/Rust cache-key input changes force a full main run;
-- Rust/Cargo cache is pinned and only trusted main pushes save reusable cache state;
-- Tauri packaging reuses the frontend `dist` already built by preflight, with an explicit output check before packaging.
+See `AI_START_HERE.md`, `AGENT_WORKFLOW.md`, and `ENGINEERING_QUALITY.md`.
 
-## PHYSICAL EVIDENCE STILL OPEN
+## PHYSICAL WINDOWS GATES STILL OPEN
 
-The CI #521 recording proved Panel↔Timer staging before PR #151:
-- normal animations ~8.300s `No active focus task`, ~10.600s `Loading Focus Panel…`;
-- animations Off ~35.267s `Loading focus task…`, ~40.700s `Loading Focus Panel…`.
+A single consolidated latest-build session should cover:
+1. Panel ↔ Timer continuity with Windows animations On and Off after PR #151: no `No active focus task`, `Loading focus task…`, `Loading Focus Panel…`, blank/pale/staging frames, or abrupt flicker.
+2. Timer Expand ↔ Collapse after PR #153: no enlarged/shrinking empty white surface, stale/duplicated pixels, or session discontinuity.
+3. Ctrl+Shift+T transition-boundary stress: one accepted mode change, no duplicated session/window.
+4. Ctrl+Shift+P repeated native-hidden/Panel interactions and post-fix actual Windows reduced-motion behavior.
+5. Secondary-monitor/topology/no-saved-position recovery.
+6. Borderless full-screen stacking; exclusive full-screen only if available and recorded separately.
+7. Non-default taskbar, secondary-monitor constrained work area and high-DPI expanded placement.
 
-PR #151 is automated-validated but still needs physical confirmation. This manual gate remains OPEN.
+Previously validated scoped physical evidence remains valid where later source did not affect it, but the open acceptance conditions above must not be marked PASS without new physical evidence.
 
-Separately, the same recording independently proves an Expand/Collapse continuity failure:
-- Expand animations On ~9.53–9.65s: enlarged mostly blank Timer before expanded content;
-- Collapse animations On ~17.2s: content disappears before shrink completes;
-- Expand animations Off ~43.02–43.13s: same enlarged-empty-surface sequence;
-- Collapse animations Off ~37.38s: same content-hidden-before-resize-completes sequence.
+## CI EFFICIENCY STATE
 
-## USER-DIRECTED MANUAL-TEST BATCHING
-
-The user explicitly requested that implementation continue across multiple safe, independently evidenced slices instead of stopping at each manual Windows gate. Therefore:
-- do not fabricate or mark deferred physical checks PASS;
-- continue evidence-backed implementation where the next slice does not depend on the unknown manual result;
-- batch compatible manual Windows checks later to reduce user interruption;
-- if a later source change would make an earlier manual test obsolete, test only the latest relevant build for the combined acceptance matrix.
-
-## INVARIANTS
-
-Preserve:
-- two-webview model only: `main` plus reusable `focusSurface`;
-- Rust/native geometry, monitor/work-area/DPI and presentation authority;
-- authoritative timer/session/task/persistence outside renderer memory;
-- no fixed delay, polling loop, additional webview or high-frequency JS geometry loop;
-- solved duplicate/stale-pixel behavior must not regress;
-- CI optimization must never skip validation unless identical-tree + successful exact-head PR evidence is proven.
+PR #152 introduced Rust/Cargo caching, frontend build reuse, and identical-tree main dedup without removing tests.
+#528 exposed a bug in the first dedup lookup, so PR #154 corrected the proof to use the same GitHub workflow ID. #530 validated the corrected workflow change. The next ordinary identical-tree merge is the first expected real-world proof that the heavy main job is skipped automatically.
 
 ## NEXT AGENT ACTION
 
-1. Recheck live main/open PR/CI state.
-2. Start the narrow Expand/Collapse resize content-readiness/visibility corrective slice from the validated baseline.
-3. Preserve existing native hidden-resize rollback and duplicate-key/stale-pixel fixes.
-4. Add deterministic regression coverage for the visible ordering: content must be ready for the target layout before resized geometry is exposed; outgoing content must not disappear into a blank resized surface.
-5. Validate exact PR head on Windows CI, guarded merge, then rely on the new identical-tree dedup gate when applicable.
-6. Continue other independently automatable M7 work rather than stopping for manual checks.
-7. Later provide one combined Windows manual matrix covering PR #151 Panel↔Timer continuity, Expand/Collapse continuity, shortcut boundary stress, find/hidden behavior, monitor/topology/taskbar/DPI cases and stacking. Do not start M8 until all required M7 physical gates pass.
+There is no further evidence-backed M7 source correction currently recorded. Do not invent code merely to enlarge a batch.
+
+1. Recheck live repo/CI/PR state.
+2. If new evidence or a real automated gap appears inside M7, batch compatible independent fixes before the next CI according to the general workflow.
+3. Otherwise prepare/use the latest source artifact for one consolidated Windows M7 physical session covering the open matrix above.
+4. Record physical PASS/FAIL evidence in a new immutable work log.
+5. If any gate fails, batch compatible evidence-backed corrections where safe, validate with one coherent PR CI, merge with expected-head protection, and continue.
+6. Do not start M8 until all required M7 physical gates pass.
 
 ## USER ACTION REQUIRED
 
-None immediately. Manual Windows validation is intentionally deferred for batching, not waived.
+A consolidated physical Windows M7 validation session is ultimately required. It is intentionally batched rather than requested one gate at a time.
