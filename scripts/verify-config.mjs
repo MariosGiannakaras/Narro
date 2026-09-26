@@ -79,7 +79,9 @@ for (const contract of [
   ['filename === ".github/workflows/ci.yml"', "workflow changes must force one full main validation"],
   ["/(^|\\/)Cargo\\.(toml|lock)$/", "Rust dependency changes must force main cache warmup"],
   ["Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6", "Rust cache action must remain pinned"],
+  ["ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}", "pull_request CI must checkout the exact PR head while push CI checks the pushed SHA"],
   ["workspaces: './src-tauri -> target'", "Rust cache must target the Tauri Cargo workspace"],
+  ["save-if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}", "only trusted main pushes may save the reusable Rust cache"],
   ["Verify Reused Frontend Dist", "CI must verify frontend build output before Tauri packaging"],
   ["run: npm run tauri:ci", "CI release build must reuse the preflight frontend output"],
 ]) {
