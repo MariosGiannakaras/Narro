@@ -477,17 +477,21 @@ pub fn register_default(
     app_handle: &tauri::AppHandle,
     manager: &ShortcutManager,
 ) -> CommandResult<ShortcutDiagnostics> {
-    let current = manager.snapshot()?;
-    if current.registered {
-        return Ok(current);
-    }
-    if !current.observer_installed {
-        let error = CommandError::shortcut_observer_unavailable();
-        return Err(record_and_report_error(app_handle, manager, error));
-    }
-
     #[cfg(windows)]
     {
+        let _gate = manager
+            .registration_gate
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        let current = manager.snapshot()?;
+        if current.registered {
+            return Ok(current);
+        }
+        if !current.observer_installed {
+            let error = CommandError::shortcut_observer_unavailable();
+            return Err(record_and_report_error(app_handle, manager, error));
+        }
+
         let hwnd = native::focus_surface_hwnd(app_handle).map_err(|error| {
             record_and_report_error(
                 app_handle,
@@ -501,9 +505,21 @@ pub fn register_default(
             return Err(record_and_report_error(app_handle, manager, mapped));
         }
 
-        let payload = manager.set_registered(true)?;
-        report_shortcut_change(app_handle, &payload);
-        Ok(payload)
+        match manager.set_registered(true) {
+            Ok(payload) => {
+                report_shortcut_change(app_handle, &payload);
+                Ok(payload)
+            }
+            Err(error) => {
+                match native::unregister_default(hwnd) {
+                    Ok(()) => Err(error),
+                    Err(rollback_error) => Err(CommandError::shortcut_operation(
+                        "rollback default registration",
+                        format!("{error}; rollback failed: {rollback_error}"),
+                    )),
+                }
+            }
+        }
     }
 
     #[cfg(not(windows))]
@@ -517,13 +533,17 @@ pub fn unregister_default(
     app_handle: &tauri::AppHandle,
     manager: &ShortcutManager,
 ) -> CommandResult<ShortcutDiagnostics> {
-    let current = manager.snapshot()?;
-    if !current.registered {
-        return Ok(current);
-    }
-
     #[cfg(windows)]
     {
+        let _gate = manager
+            .registration_gate
+            .lock()
+            .map_err(|_| CommandError::shortcut_state_poisoned())?;
+        let current = manager.snapshot()?;
+        if !current.registered {
+            return Ok(current);
+        }
+
         let hwnd = native::focus_surface_hwnd(app_handle).map_err(|error| {
             record_and_report_error(
                 app_handle,
@@ -537,9 +557,21 @@ pub fn unregister_default(
             return Err(record_and_report_error(app_handle, manager, mapped));
         }
 
-        let payload = manager.set_registered(false)?;
-        report_shortcut_change(app_handle, &payload);
-        Ok(payload)
+        match manager.set_registered(false) {
+            Ok(payload) => {
+                report_shortcut_change(app_handle, &payload);
+                Ok(payload)
+            }
+            Err(error) => {
+                match native::register_default(hwnd) {
+                    Ok(()) => Err(error),
+                    Err(rollback_error) => Err(CommandError::shortcut_operation(
+                        "rollback default unregistration",
+                        format!("{error}; rollback failed: {rollback_error}"),
+                    )),
+                }
+            }
+        }
     }
 
     #[cfg(not(windows))]
