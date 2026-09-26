@@ -166,12 +166,19 @@ if (params.get("state") === "cycle") {
     headings: number;
     subtaskPanels: number;
   }> = [];
+  const visibleCount = (selector: string) => Array.from(
+    renderedTimer.querySelectorAll<HTMLElement>(selector),
+  ).filter((node) => {
+    const rect = node.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0;
+  }).length;
+
   const observe = () => {
     observations.push({
       expanded: renderedTimer.dataset.floatingExpanded,
-      actionStrips: renderedTimer.querySelectorAll(".floating-timer-foundation__actions").length,
-      headings: renderedTimer.querySelectorAll(".floating-timer-foundation__heading").length,
-      subtaskPanels: renderedTimer.querySelectorAll(".floating-timer-foundation__subtask-panel").length,
+      actionStrips: visibleCount(".floating-timer-foundation__actions"),
+      headings: visibleCount(".floating-timer-foundation__heading"),
+      subtaskPanels: visibleCount(".floating-timer-foundation__subtask-panel"),
     });
   };
   const toggle = () => {
