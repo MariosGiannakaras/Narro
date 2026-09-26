@@ -4,7 +4,10 @@ use crate::domain::tasks::{TaskDestination, TaskRecord};
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::task_identity::{reorder_active_bucket, TaskIdentityError};
-use crate::persistence::tasks::{active_tasks_in_bucket, get_task, move_task, TaskStoreError};
+use crate::persistence::tasks::{
+    active_tasks_in_bucket, complete_task, get_task, move_task, permanently_delete_task_confirmed,
+    TaskStoreError,
+};
 use rusqlite::Connection;
 use std::fmt::{Display, Formatter};
 use std::path::PathBuf;
@@ -190,6 +193,45 @@ fn move_unscheduled_task_to_lane(
     .map_err(BoardTaskMutationError::from)
 }
 
+fn validate_expected_list(
+    task: &TaskRecord,
+    expected_list_id: ListId,
+) -> Result<(), BoardTaskMutationError> {
+    if task.list_id != expected_list_id {
+        return Err(BoardTaskMutationError::ExpectedListMismatch {
+            expected: expected_list_id,
+            actual: task.list_id,
+        });
+    }
+    Ok(())
+}
+
+fn complete_board_task(
+    conn: &mut Connection,
+    id: TaskId,
+    expected_list_id: ListId,
+    now: &str,
+) -> Result<TaskRecord, BoardTaskMutationError> {
+    let current = get_task(conn, id)?;
+    validate_expected_list(&current, expected_list_id)?;
+    if current.archived_at.is_some() {
+        return Err(TaskStoreError::ArchivedTask(id).into());
+    }
+    complete_task(conn, id, now).map_err(BoardTaskMutationError::from)
+}
+
+fn permanently_delete_board_task(
+    conn: &mut Connection,
+    id: TaskId,
+    expected_list_id: ListId,
+    now: &str,
+) -> Result<(), BoardTaskMutationError> {
+    let current = get_task(conn, id)?;
+    validate_expected_list(&current, expected_list_id)?;
+    permanently_delete_task_confirmed(conn, id, expected_list_id, now)
+        .map_err(BoardTaskMutationError::from)
+}
+
 fn app_database(app_handle: &tauri::AppHandle) -> CommandResult<Connection> {
     let app_dir: PathBuf = app_handle.path().app_data_dir().map_err(|error| {
         CommandError::new(
@@ -310,6 +352,56 @@ pub fn move_list_board_task(
     .map_err(map_move_error)
 }
 
+#[tauri::command(rename_all = "camelCase")]
+pub fn complete_list_board_task(
+    app_handle: tauri::AppHandle,
+    task_id: String,
+    list_id: String,
+) -> CommandResult<()> {
+    let task_id = parse_id("taskId", &task_id)?;
+    let list_id = parse_list_id("listId", &list_id)?;
+    let mut connection = app_database(&app_handle)?;
+    complete_board_task(
+        &mut connection,
+        task_id,
+        list_id,
+        &chrono::Utc::now().to_rfc3339(),
+    )
+    .map(|_| ())
+    .map_err(|error| match error {
+        BoardTaskMutationError::ExpectedListMismatch { .. } => {
+            CommandError::new("TASK_COMPLETE_STALE", error.to_string())
+        }
+        _ => CommandError::new("TASK_COMPLETE_FAILED", error.to_string()),
+    })
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn permanently_delete_list_board_task(
+    app_handle: tauri::AppHandle,
+    task_id: String,
+    list_id: String,
+) -> CommandResult<()> {
+    let task_id = parse_id("taskId", &task_id)?;
+    let list_id = parse_list_id("listId", &list_id)?;
+    let mut connection = app_database(&app_handle)?;
+    permanently_delete_board_task(
+        &mut connection,
+        task_id,
+        list_id,
+        &chrono::Utc::now().to_rfc3339(),
+    )
+    .map_err(|error| match error {
+        BoardTaskMutationError::ExpectedListMismatch { .. } => {
+            CommandError::new("TASK_DELETE_STALE", error.to_string())
+        }
+        BoardTaskMutationError::Task(TaskStoreError::ActiveSession(_)) => {
+            CommandError::new("TASK_DELETE_LIVE", error.to_string())
+        }
+        _ => CommandError::new("TASK_DELETE_FAILED", error.to_string()),
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -359,6 +451,30 @@ mod tests {
 
     fn ids(tasks: &[TaskRecord]) -> Vec<TaskId> {
         tasks.iter().map(|task| task.id).collect()
+    }
+
+    #[test]
+    fn board_completion_and_confirmed_delete_validate_owning_list() {
+        let mut conn = setup();
+        let list_id = list(&mut conn);
+        let other_list = list(&mut conn);
+        let task = task(&mut conn, list_id, "Task", PlanningLane::Today);
+
+        assert!(matches!(
+            complete_board_task(&mut conn, task.id, other_list, T1),
+            Err(BoardTaskMutationError::ExpectedListMismatch { .. })
+        ));
+        let completed = complete_board_task(&mut conn, task.id, list_id, T1)
+            .expect("complete board task");
+        assert!(completed.completed_at.is_some());
+
+        assert!(matches!(
+            permanently_delete_board_task(&mut conn, task.id, other_list, T1),
+            Err(BoardTaskMutationError::ExpectedListMismatch { .. })
+        ));
+        permanently_delete_board_task(&mut conn, task.id, list_id, T1)
+            .expect("delete board task");
+        assert!(matches!(get_task(&conn, task.id), Err(TaskStoreError::NotFound(_))));
     }
 
     #[test]
