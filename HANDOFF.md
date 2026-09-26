@@ -8,6 +8,8 @@ GitHub `main` is the durable source truth.
 
 Milestone 7 — Floating Timer mode. Milestones 1–6 are complete. M7 remaining blockers are physical Windows acceptance gates; do not advance to M8.
 
+Current progress: `6/10M || 2/2 | 8/14` — consolidated validation preparation is complete; physical acceptance remains open.
+
 ## CURRENT VALIDATED SOURCE
 
 Latest source with completed Windows validation:
@@ -33,6 +35,15 @@ The repository now explicitly requires:
 - keep the user informed with concise progress updates during long work.
 
 See `AI_START_HERE.md`, `AGENT_WORKFLOW.md`, and `ENGINEERING_QUALITY.md`.
+
+## LATEST CONSOLIDATED VALIDATION PACKAGE
+
+Use CI #530 runtime artifact:
+- artifact ID `10902390320`;
+- digest `sha256:726991f5a92eadda25eaa833d0a7443c21531896eb56e462609a0db6988cc6de`;
+- prepared filename `narro-m7-latest-main-ci530-windows-x64.zip`.
+
+The exact latest procedure is `docs/M7_FLOATING_RUNTIME_VALIDATION.md`. It batches all unresolved M7 gates into one Windows session and explicitly avoids repeating already-settled checks.
 
 ## PHYSICAL WINDOWS GATES STILL OPEN
 
@@ -65,4 +76,4 @@ There is no further evidence-backed M7 source correction currently recorded. Do 
 
 ## USER ACTION REQUIRED
 
-A consolidated physical Windows M7 validation session is ultimately required. It is intentionally batched rather than requested one gate at a time.
+A consolidated physical Windows M7 validation session is now the only remaining blocker. Use the prepared CI #530 package and `docs/M7_FLOATING_RUNTIME_VALIDATION.md`. It is intentionally one batched session covering gates 7–12 rather than repeated small interruptions.

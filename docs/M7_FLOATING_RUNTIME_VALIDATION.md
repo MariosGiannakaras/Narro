@@ -1,20 +1,154 @@
-# Milestone 7 consolidated Windows runtime check
+# Milestone 7 consolidated Windows runtime validation
 
-Use one real Windows 10/11 x64 session for the **remaining conditions**, without repeating checks already recorded in `work-log/2026-09-25-codex-m7-physical-runtime-and-idle-recovery.md`. The current source is guarded merge `fce15f8ed7a70cd83e05f3b9448d627413b719e7`, whose tree `608aec06f64a3184568bc0d171adc1b085220fa9` is identical to validated PR #143 head `9b80ee19c6678fca998b58740410f94c821cff26`. Windows CI #507 / run `36136277164` passed; its runtime artifact is `10865303816` (`narro-m1-runtime-harness-windows-x64`), digest `sha256:539f70706847c5938226a7dc9c65a31860c544b9d30b59f09d91620cd5fc52f3`. Automatic duplicate main CI #508 was cancelled after tree identity was verified. Verify the running executable comes from that artifact; an older installed Narro binary cannot validate this source. Record the Windows version, monitor layout/scaling, taskbar location, and app used for the borderless test. Keep each remaining result as `PASS`, `FAIL`, or `NOT RUN`; screenshots or a short capture are useful for visual failures. `HANDOFF.md` carries the current artifact if a later source candidate supersedes this one.
+Use one real Windows 10/11 x64 session for the **remaining M7 physical gates only**. Do not repeat checks already established by earlier work logs unless a later source change directly affects them.
 
-On the current single-monitor, 100%-scaling Windows 10 machine, three real Timer expand/collapse cycles, basic mode/shortcut/placement/topmost/work-area behavior, idle motion, and the final-UI resource protocol were recorded on earlier source. CI #507 then physically passed basic T/P and both-chord conflict/retry, while two 20 fps Panel→Timer captures showed a blank/pale staging interval. Actual Windows animations Off removed nonessential translation but both mode directions still showed blank frames; one visible Timer Find Timer pulse was finite. See `work-log/2026-09-25-codex-m7-os-reduced-motion-physical.md`; fix and physically retest the visual failure before calling item 7 complete. These scoped results do not close items 7–12. Start remaining tests with one active task and note its session ID and displayed elapsed time. Preserve that task through mode, shortcut, resize, and monitor checks so session continuity can be checked across the sequence. Retest the actual Windows reduced-motion preference after the source fix; prior CDP media emulation is not the OS-level check.
+## Exact build
 
-| Gate | Physical action | Pass evidence |
-| --- | --- | --- |
-| 7: compositor and transitions | Observe Panel → Timer → Panel and Timer expand/collapse continuously, including with the Windows reduced-motion preference enabled. Prior three-cycle settled DOM/pixel checks passed. | No left/staging flash, stale pixels during motion, or abrupt return flicker; the reduced-motion transition remains clear without nonessential translation/scale. |
-| 8: alternate shortcut | Recheck basic Ctrl+Shift+T Panel/Timer switching and session continuity on #507, then press during a mode/resize transition. If another app owns the combination, exercise conflict reporting and retry after releasing it. | One mode change per accepted request, no duplicated session or overlap; a conflict is reported and recoverable. |
-| 9: Find Timer | Recheck basic visible/hidden Timer and Panel-mode Ctrl+Shift+P behavior on #507, then repeat with the actual Windows reduced-motion preference enabled. Prior CDP media emulation passed. | The existing window receives one finite, restrained pulse in Timer mode; Panel and session remain unchanged in Panel mode. |
-| 10: last position | Change resolution/scaling or disconnect/reconnect a secondary monitor while Timer is visible; also check a fresh/no-saved-placement profile. Prior drag, Panel return, and same-monitor restart passed. | Position remains on an available monitor, or recovers fully into a visible work area; no off-screen trap or duplicate window. |
-| 11: topmost | Place Timer over an independent borderless full-screen application and switch focus back and forth. If available, separately try exclusive full-screen. Prior maximized and Edge F11 checks passed. | Record actual stacking and taskbar behavior for each app/mode. Do not infer exclusive full-screen behavior from the borderless result. |
-| 12: bottom/taskbar | Expand near the bottom on a secondary monitor or with a non-default taskbar position. If available, repeat on a short/narrow work area at high scaling. Prior primary-monitor bottom expansion passed. | Expanded outer window remains inside the selected monitor work area; wrapped or scrolled controls stay reachable, collapse remains usable, and session state is unchanged. |
+Validated source baseline:
 
-Items 13–14 are complete on the current source. The three valid settled idle runs per state and separate running-timer sample are in the 2026-09-25 work log. Re-run `scripts/measure-floating.ps1` per `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md` only if later source changes long-lived rendering/runtime behavior; do not treat hosted CI runner resource numbers as the physical result.
+`449eb5d1fda4a8d26832e803433209025a6dec38`, tree `51b27ba7a867dcea79a49927cb1ed4e0ee7bda6b`.
 
-Windows presentation behavior can differ by graphics mode. Microsoft documents that DirectFlip/Independent Flip can bypass desktop composition and can change how other desktop content is composed above a full-screen surface: [DXGI flip model guidance](https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/for-best-performance--use-dxgi-flip-model). This is a reason to record the exact app and display mode for item 11, not a claim that every exclusive full-screen app must hide the Timer.
+Latest full resulting-main validation:
+- Windows CI #530 — PASS.
+- Runtime artifact ID `10902390320`, name `narro-m1-runtime-harness-windows-x64`.
+- Runtime artifact digest `sha256:726991f5a92eadda25eaa833d0a7443c21531896eb56e462609a0db6988cc6de`.
+- Local validation package filename prepared for the user: `narro-m7-latest-main-ci530-windows-x64.zip`.
 
-Record the completed matrix and any captures in a new immutable `work-log/` entry. Keep top-level TODO gates open wherever physical evidence is missing or fails.
+Later commits `8d3b488226c7fdc7ed23deae6bfc9f6acb0d8d62` and `34d75da3dfe54b7c52e06f90e38871b85681a97f` are documentation-only and do not replace the validated source baseline.
+
+Fully quit any older Narro instance before launching `narro.exe` from the extracted #530 artifact.
+
+## Test setup
+
+Use one active task/session for the entire matrix where practical. Record:
+- Windows version;
+- monitor count/layout and scaling;
+- taskbar edge for the taskbar/DPI checks;
+- the active task title and visible timer value at the start;
+- the application used for the borderless/full-screen stacking check.
+
+For transition checks, a 60 fps recording is preferred. Keep each gate as `PASS`, `FAIL`, or `NOT RUN`.
+
+## Remaining consolidated matrix
+
+### Gate 7 — Panel/Timer and Expand/Collapse continuity
+
+With **Show animations in Windows = On**:
+1. Run at least 3 cycles of `Panel -> Timer -> Panel`.
+2. Run at least 3 cycles of `collapsed -> expanded -> collapsed`.
+
+Then turn **Show animations in Windows = Off** and repeat at least 2 cycles of each direction/state. Restore the original OS setting afterward.
+
+PASS requires:
+- no transient `No active focus task`, `Loading focus task…`, or `Loading Focus Panel…`;
+- no blank/pale/staging frame or abrupt return flicker;
+- no enlarged or shrinking empty white Timer surface;
+- no stale/duplicated expanded pixels;
+- no horizontal focus-surface scrollbar;
+- same active task/session identity and continuous timer state.
+
+This validates PR #151 readiness-before-prewarm and PR #153 atomic transparent-host resize on the latest build.
+
+### Gate 8 — Ctrl+Shift+T transition-boundary stress
+
+With one active session:
+1. Trigger Ctrl+Shift+T during/near a Panel/Timer transition.
+2. Repeat rapidly several times.
+3. If practical, also trigger during Timer expand/collapse.
+
+PASS requires:
+- one settled Focus window;
+- one accepted mode change per non-conflicting request;
+- no duplicated session/window;
+- task/session/timer continuity;
+- no permanent busy/locked state.
+
+Basic shortcut operation and conflict/retry already passed earlier builds; this gate is only the unresolved transition-boundary stress.
+
+### Gate 9 — Find Timer edge behavior
+
+Test Ctrl+Shift+P:
+1. repeatedly while Timer is visible;
+2. while focus surface is in Panel mode;
+3. after a native hide/show scenario if available in the validation flow;
+4. with actual Windows animations Off.
+
+PASS requires:
+- visible Timer receives one finite restrained pulse per accepted request and settles;
+- Panel mode does not mutate session/mode;
+- no duplicate window or stuck pulse;
+- reduced-motion behavior remains finite and clear.
+
+### Gate 10 — Position/topology recovery
+
+Using a secondary monitor if available:
+1. move Timer to that monitor and restart Narro;
+2. disconnect/reconnect or otherwise change display topology while Timer is visible;
+3. exercise a fresh/no-saved-placement profile if practical.
+
+PASS requires:
+- Timer remains or recovers fully inside an available work area;
+- no off-screen trap;
+- no duplicate focus window;
+- active session identity remains continuous.
+
+Same-monitor restart/restore already passed earlier and does not need repeating unless a failure suggests regression.
+
+### Gate 11 — Topmost stacking
+
+Test Timer above an independent borderless full-screen Windows application and switch focus back and forth.
+
+If true exclusive full-screen is available, record it separately rather than inferring from borderless behavior.
+
+PASS evidence should record:
+- application/mode used;
+- whether Timer remains visible/topmost;
+- taskbar behavior;
+- any exclusive-fullscreen limitation observed.
+
+Maximized Edge and Edge F11 already passed earlier and need not be repeated unless regression appears.
+
+### Gate 12 — Taskbar / constrained work area / DPI
+
+Using the strongest available combination:
+- non-default taskbar position;
+- secondary monitor;
+- constrained/short work area;
+- 125%, 150%, 200% scaling where available.
+
+Place Timer near the bottom/work-area edge and expand it.
+
+PASS requires:
+- expanded outer window stays inside the selected monitor work area;
+- all controls remain reachable through fit/scroll behavior;
+- collapse remains usable;
+- no off-screen placement;
+- no session/timer discontinuity.
+
+Primary-monitor bottom expansion already passed earlier; prioritize the still-unvalidated configurations.
+
+## Already-settled M7 evidence — do not repeat by default
+
+Do not spend time re-running these unless a new failure directly implicates them:
+- native drag and return-to-Panel affordance;
+- normal always-on-top and normal taskbar absence;
+- collapsed/expanded content functionality;
+- action/subtask mutations;
+- duplicate React-key stale-pixel fix;
+- ordinary Panel/Timer shortcut use and shortcut conflict/retry;
+- same-monitor last-position restore;
+- primary-monitor bottom expansion;
+- maximized Edge / Edge F11 stacking;
+- idle-animation audit and final Floating Timer CPU/memory measurements.
+
+## Recording result
+
+After the session, record one immutable `work-log/` entry with:
+- exact source/artifact identity;
+- environment details;
+- one PASS/FAIL/NOT RUN row per gate 7–12;
+- timestamps/screenshots/recording references for any visual failure;
+- session continuity observation;
+- any source correction required.
+
+Do not close M7 or start M8 until every required remaining physical gate passes or is explicitly re-scoped by the user.
