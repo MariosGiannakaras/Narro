@@ -46,7 +46,7 @@ for (const [haystack, needle, label] of [
   [component, "Links open only after explicit activation.", "explicit-only note URL policy"],
   [component, "This presentation does not perform a deletion.", "non-mutating destructive confirmation"],
   [board, "actions={taskActions}", "production board task-card action callbacks"],
-  [css, "grid-template-columns: 1rem minmax(0, 1fr) 4.25rem;", "reserved production action geometry"],
+  [css, "grid-template-columns: 1rem minmax(0, 1fr) 6.25rem;", "reserved production action geometry"],
   [css, ".list-board-task__action-slot", "stable action slot"],
   [css, 'data-task-card-state="overdue"', "overdue visual state"],
   [css, 'data-task-card-state="done"', "done visual state"],
