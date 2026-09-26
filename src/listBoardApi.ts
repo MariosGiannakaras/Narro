@@ -104,6 +104,8 @@ export type CreateListBoardTaskRequest = {
   listId: string;
   lane: PlanningLaneToken;
   title: string;
+  estSeconds: number | null;
+  insertAtTop: boolean;
 };
 
 export type UpdateListBoardTaskTitleRequest = {
