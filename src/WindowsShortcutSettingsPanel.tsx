@@ -21,6 +21,14 @@ type ShortcutRow = {
   chord: string;
 };
 
+type WindowsShortcutSettingsPanelViewProps = {
+  snapshot: GlobalShortcutSettingsSnapshot | null;
+  loading?: boolean;
+  pendingKind?: GlobalShortcutKind | null;
+  error?: string | null;
+  onChange: (kind: GlobalShortcutKind, enabled: boolean) => void;
+};
+
 const SHORTCUT_ROWS: ShortcutRow[] = [
   {
     kind: "goToNarro",
@@ -86,6 +94,111 @@ function availabilityLabel(
   if (registered(snapshot.diagnostics, kind)) return "Registered";
   const error = lastError(snapshot.diagnostics, kind);
   return error?.code === "SHORTCUT_CONFLICT" ? "Shortcut conflict" : "Unavailable";
+}
+
+export function WindowsShortcutSettingsPanelView({
+  snapshot,
+  loading = false,
+  pendingKind = null,
+  error = null,
+  onChange,
+}: WindowsShortcutSettingsPanelViewProps) {
+  if (loading) {
+    return (
+      <section className="theme-settings__section windows-shortcuts" aria-labelledby="windows-shortcuts-title">
+        <div className="theme-settings__section-heading">
+          <div>
+            <p className="theme-settings__section-kicker type-metadata">Windows</p>
+            <h2 id="windows-shortcuts-title" className="type-section-title">Shortcuts</h2>
+          </div>
+          <span className="theme-settings__saving" role="status">Loading…</span>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section
+      className="theme-settings__section windows-shortcuts"
+      data-windows-shortcut-settings="true"
+      aria-labelledby="windows-shortcuts-title"
+    >
+      <div className="theme-settings__section-heading">
+        <div>
+          <p className="theme-settings__section-kicker type-metadata">Windows</p>
+          <h2 id="windows-shortcuts-title" className="type-section-title">Shortcuts</h2>
+        </div>
+        {pendingKind ? <span className="theme-settings__saving" role="status">Saving…</span> : null}
+      </div>
+
+      <p className="windows-shortcuts__intro type-metadata">
+        Global shortcuts work both inside and outside Narro. Disable any chord you do not want Narro to register.
+      </p>
+
+      {snapshot ? (
+        <div className="windows-shortcuts__rows">
+          {SHORTCUT_ROWS.map((row) => {
+            const enabled = preferenceEnabled(snapshot, row.kind);
+            const isRegistered = registered(snapshot.diagnostics, row.kind);
+            const rowError = lastError(snapshot.diagnostics, row.kind);
+            const pending = pendingKind === row.kind;
+            return (
+              <div
+                key={row.kind}
+                className="windows-shortcuts__row"
+                data-global-shortcut-kind={row.kind}
+                data-global-shortcut-enabled={enabled ? "true" : "false"}
+                data-global-shortcut-registered={isRegistered ? "true" : "false"}
+              >
+                <div className="windows-shortcuts__copy">
+                  <strong>{row.label}</strong>
+                  <span className="type-metadata">{row.description}</span>
+                  <span
+                    className={"windows-shortcuts__status type-metadata" + (enabled && !isRegistered ? " windows-shortcuts__status--error" : "")}
+                    role={enabled && !isRegistered ? "alert" : "status"}
+                  >
+                    {availabilityLabel(snapshot, row.kind)}
+                    {enabled && !isRegistered && rowError ? " — " + rowError.message : ""}
+                  </span>
+                </div>
+
+                <div className="windows-shortcuts__controls">
+                  <kbd className="windows-shortcuts__keycap">{row.chord}</kbd>
+                  <label className="windows-shortcuts__toggle">
+                    <span className="sr-only">Enable {row.label}</span>
+                    <input
+                      type="checkbox"
+                      checked={enabled}
+                      disabled={pendingKind !== null}
+                      aria-busy={pending || undefined}
+                      onChange={(event) => onChange(row.kind, event.currentTarget.checked)}
+                    />
+                    <span aria-hidden="true" />
+                  </label>
+                  {enabled && !isRegistered ? (
+                    <button
+                      type="button"
+                      className="windows-shortcuts__retry motion-interactive"
+                      disabled={pendingKind !== null}
+                      onClick={() => onChange(row.kind, true)}
+                    >
+                      Retry
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="windows-shortcuts__unavailable" role="alert">
+          Shortcut settings are unavailable. Retry after the settings state can be read.
+        </div>
+      )}
+
+      {error ? <div className="theme-settings__error" role="alert">{error}</div> : null}
+    </section>
+  );
 }
 
 export function WindowsShortcutSettingsPanel() {
@@ -162,100 +275,13 @@ export function WindowsShortcutSettingsPanel() {
     }
   }
 
-  if (loading) {
-    return (
-      <section className="theme-settings__section windows-shortcuts" aria-labelledby="windows-shortcuts-title">
-        <div className="theme-settings__section-heading">
-          <div>
-            <p className="theme-settings__section-kicker type-metadata">Windows</p>
-            <h2 id="windows-shortcuts-title" className="type-section-title">Shortcuts</h2>
-          </div>
-          <span className="theme-settings__saving" role="status">Loading…</span>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section
-      className="theme-settings__section windows-shortcuts"
-      data-windows-shortcut-settings="true"
-      aria-labelledby="windows-shortcuts-title"
-    >
-      <div className="theme-settings__section-heading">
-        <div>
-          <p className="theme-settings__section-kicker type-metadata">Windows</p>
-          <h2 id="windows-shortcuts-title" className="type-section-title">Shortcuts</h2>
-        </div>
-        {pendingKind ? <span className="theme-settings__saving" role="status">Saving…</span> : null}
-      </div>
-
-      <p className="windows-shortcuts__intro type-metadata">
-        Global shortcuts work both inside and outside Narro. Disable any chord you do not want Narro to register.
-      </p>
-
-      {snapshot ? (
-        <div className="windows-shortcuts__rows">
-          {SHORTCUT_ROWS.map((row) => {
-            const enabled = preferenceEnabled(snapshot, row.kind);
-            const isRegistered = registered(snapshot.diagnostics, row.kind);
-            const rowError = lastError(snapshot.diagnostics, row.kind);
-            const pending = pendingKind === row.kind;
-            return (
-              <div
-                key={row.kind}
-                className="windows-shortcuts__row"
-                data-global-shortcut-kind={row.kind}
-                data-global-shortcut-enabled={enabled ? "true" : "false"}
-                data-global-shortcut-registered={isRegistered ? "true" : "false"}
-              >
-                <div className="windows-shortcuts__copy">
-                  <strong>{row.label}</strong>
-                  <span className="type-metadata">{row.description}</span>
-                  <span
-                    className={"windows-shortcuts__status type-metadata" + (enabled && !isRegistered ? " windows-shortcuts__status--error" : "")}
-                    role={enabled && !isRegistered ? "alert" : "status"}
-                  >
-                    {availabilityLabel(snapshot, row.kind)}
-                    {enabled && !isRegistered && rowError ? " — " + rowError.message : ""}
-                  </span>
-                </div>
-
-                <div className="windows-shortcuts__controls">
-                  <kbd className="windows-shortcuts__keycap">{row.chord}</kbd>
-                  <label className="windows-shortcuts__toggle">
-                    <span className="sr-only">Enable {row.label}</span>
-                    <input
-                      type="checkbox"
-                      checked={enabled}
-                      disabled={pendingKind !== null}
-                      aria-busy={pending || undefined}
-                      onChange={(event) => void change(row.kind, event.currentTarget.checked)}
-                    />
-                    <span aria-hidden="true" />
-                  </label>
-                  {enabled && !isRegistered ? (
-                    <button
-                      type="button"
-                      className="windows-shortcuts__retry motion-interactive"
-                      disabled={pendingKind !== null}
-                      onClick={() => void change(row.kind, true)}
-                    >
-                      Retry
-                    </button>
-                  ) : null}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="windows-shortcuts__unavailable" role="alert">
-          Shortcut settings are unavailable. Retry after the settings state can be read.
-        </div>
-      )}
-
-      {error ? <div className="theme-settings__error" role="alert">{error}</div> : null}
-    </section>
+    <WindowsShortcutSettingsPanelView
+      snapshot={snapshot}
+      loading={loading}
+      pendingKind={pendingKind}
+      error={error}
+      onChange={(kind, enabled) => void change(kind, enabled)}
+    />
   );
 }
