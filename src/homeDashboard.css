@@ -102,10 +102,17 @@
   place-items: center;
   width: 2rem;
   height: 2rem;
+  overflow: hidden;
   border-radius: var(--radius-control);
   color: var(--color-accent-contrast);
   background: var(--home-list-accent);
   font-weight: var(--font-weight-semibold);
+}
+
+.home-list-card__icon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .home-list-card__title {

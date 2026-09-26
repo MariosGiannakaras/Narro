@@ -1,4 +1,4 @@
-use crate::domain::ids::ListId;
+use crate::domain::ids::{ListId, TaskId};
 use crate::domain::lists::{ListRecord, NewListInput, UpdateListInput};
 use chrono::DateTime;
 use rusqlite::{params, Connection, OptionalExtension, Row, Transaction};
@@ -17,6 +17,7 @@ pub enum ListStoreError {
     DuplicateReorderId,
     ReorderSetMismatch,
     MustArchiveBeforePermanentDelete(ListId),
+    ArchivedList(ListId),
 }
 
 impl Display for ListStoreError {
@@ -42,6 +43,7 @@ impl Display for ListStoreError {
                 formatter,
                 "list must be archived before permanent deletion: {id}"
             ),
+            Self::ArchivedList(id) => write!(formatter, "list is archived: {id}"),
         }
     }
 }
@@ -233,6 +235,111 @@ pub fn create_list(
     let created = get_raw_list(&tx, id)?.ok_or(ListStoreError::NotFound(id))?;
     tx.commit()?;
     decode_list(created)
+}
+
+pub fn duplicate_list(
+    conn: &mut Connection,
+    source_id: ListId,
+    duplicated_icon_asset: Option<String>,
+    now: &str,
+) -> Result<ListRecord, ListStoreError> {
+    validate_timestamp(now)?;
+    let source = get_raw_list(conn, source_id)?.ok_or(ListStoreError::NotFound(source_id))?;
+    if source.archived_at.is_some() {
+        return Err(ListStoreError::ArchivedList(source_id));
+    }
+
+    let new_id = ListId::generate();
+    let tx = conn.transaction()?;
+    let rank = next_active_rank(&tx)?;
+    tx.execute(
+        "INSERT INTO lists (
+            id, title, color, icon_asset, sort_rank, archived_at, created_at, updated_at
+         ) VALUES (?1, ?2, ?3, ?4, ?5, NULL, ?6, ?6)",
+        params![
+            new_id.to_string(),
+            source.title,
+            source.color,
+            duplicated_icon_asset,
+            rank,
+            now
+        ],
+    )?;
+
+    let source_tasks = {
+        let mut statement = tx.prepare(
+            "SELECT title, manual_lane, sort_rank, est_seconds,
+                    schedule_kind, scheduled_local_date, scheduled_local_time, schedule_timezone
+             FROM tasks
+             WHERE list_id = ?1
+               AND completed_at IS NULL
+               AND archived_at IS NULL
+             ORDER BY manual_lane, sort_rank, id",
+        )?;
+        let rows = statement.query_map([source_id.to_string()], |row| {
+            Ok((
+                row.get::<_, String>(0)?,
+                row.get::<_, String>(1)?,
+                row.get::<_, i64>(2)?,
+                row.get::<_, Option<i64>>(3)?,
+                row.get::<_, String>(4)?,
+                row.get::<_, Option<String>>(5)?,
+                row.get::<_, Option<String>>(6)?,
+                row.get::<_, Option<String>>(7)?,
+            ))
+        })?;
+        let mut tasks = Vec::new();
+        for row in rows {
+            tasks.push(row?);
+        }
+        tasks
+    };
+
+    for (
+        title,
+        manual_lane,
+        sort_rank,
+        est_seconds,
+        schedule_kind,
+        scheduled_local_date,
+        scheduled_local_time,
+        schedule_timezone,
+    ) in source_tasks
+    {
+        let task_id = TaskId::generate();
+        tx.execute(
+            "INSERT INTO tasks (
+                id, list_id, title, manual_lane, sort_rank, est_seconds,
+                manual_time_adjustment_seconds,
+                schedule_kind, scheduled_local_date, scheduled_local_time, schedule_timezone,
+                recurrence_rule_id, recurrence_parent_task_id,
+                completed_at, archived_at, created_at, updated_at
+             ) VALUES (
+                ?1, ?2, ?3, ?4, ?5, ?6,
+                0,
+                ?7, ?8, ?9, ?10,
+                NULL, NULL,
+                NULL, NULL, ?11, ?11
+             )",
+            params![
+                task_id.to_string(),
+                new_id.to_string(),
+                title,
+                manual_lane,
+                sort_rank,
+                est_seconds,
+                schedule_kind,
+                scheduled_local_date,
+                scheduled_local_time,
+                schedule_timezone,
+                now
+            ],
+        )?;
+    }
+
+    let duplicated = get_raw_list(&tx, new_id)?.ok_or(ListStoreError::NotFound(new_id))?;
+    tx.commit()?;
+    decode_list(duplicated)
 }
 
 pub fn update_list(
@@ -443,6 +550,88 @@ mod tests {
             assert_eq!(persisted.icon_asset.as_deref(), Some("icons/work.png"));
         }
         fs::remove_file(path).expect("remove temporary database");
+    }
+
+    #[test]
+    fn duplicate_creates_independent_active_list_and_task_identities() {
+        let mut conn = migrated();
+        let source = create_list(
+            &mut conn,
+            NewListInput {
+                title: "Work".into(),
+                color: Some("#123456".into()),
+                icon_asset: Some("list-icons/source.png".into()),
+            },
+            T1,
+        )
+        .expect("create source list");
+        let active_task = TaskId::generate();
+        conn.execute(
+            "INSERT INTO tasks (
+                id, list_id, title, manual_lane, sort_rank, est_seconds,
+                manual_time_adjustment_seconds, schedule_kind, scheduled_local_date,
+                scheduled_local_time, schedule_timezone, created_at, updated_at
+             ) VALUES (?1, ?2, 'Planned', 'today', 0, 1800, 300,
+                       'date_only', '2026-09-10', NULL, NULL, ?3, ?3)",
+            params![active_task.to_string(), source.id.to_string(), T1],
+        )
+        .expect("insert source task");
+        let completed_task = TaskId::generate();
+        conn.execute(
+            "INSERT INTO tasks (
+                id, list_id, title, manual_lane, sort_rank, completed_at, created_at, updated_at
+             ) VALUES (?1, ?2, 'Done history', 'today', 1, ?3, ?3, ?3)",
+            params![completed_task.to_string(), source.id.to_string(), T1],
+        )
+        .expect("insert completed history");
+
+        let duplicated =
+            duplicate_list(&mut conn, source.id, Some("list-icons/copy.png".into()), T2)
+                .expect("duplicate list");
+
+        assert_ne!(duplicated.id, source.id);
+        assert_eq!(duplicated.title, source.title);
+        assert_eq!(duplicated.color, source.color);
+        assert_eq!(
+            duplicated.icon_asset.as_deref(),
+            Some("list-icons/copy.png")
+        );
+        assert_eq!(duplicated.sort_rank, 1);
+
+        let mut statement = conn
+            .prepare(
+                "SELECT id, title, est_seconds, manual_time_adjustment_seconds,
+                        schedule_kind, completed_at
+                 FROM tasks
+                 WHERE list_id = ?1
+                 ORDER BY sort_rank, id",
+            )
+            .expect("prepare duplicated task query");
+        let duplicated_tasks = statement
+            .query_map([duplicated.id.to_string()], |row| {
+                Ok((
+                    row.get::<_, String>(0)?,
+                    row.get::<_, String>(1)?,
+                    row.get::<_, Option<i64>>(2)?,
+                    row.get::<_, i64>(3)?,
+                    row.get::<_, String>(4)?,
+                    row.get::<_, Option<String>>(5)?,
+                ))
+            })
+            .expect("query duplicated tasks")
+            .collect::<Result<Vec<_>, _>>()
+            .expect("decode duplicated tasks");
+        assert_eq!(
+            duplicated_tasks.len(),
+            1,
+            "completed history must not be cloned"
+        );
+        assert_ne!(duplicated_tasks[0].0, active_task.to_string());
+        assert_eq!(duplicated_tasks[0].1, "Planned");
+        assert_eq!(duplicated_tasks[0].2, Some(1800));
+        assert_eq!(duplicated_tasks[0].3, 0, "tracked history must reset");
+        assert_eq!(duplicated_tasks[0].4, "date_only");
+        assert!(duplicated_tasks[0].5.is_none());
     }
 
     #[test]

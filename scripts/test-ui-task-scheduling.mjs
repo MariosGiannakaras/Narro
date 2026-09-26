@@ -91,7 +91,7 @@ for (const [haystack, needle, label] of [
   [dialog, "await removeTaskRecurrence({", "recurrence removal boundary"],
   [board, "const [scheduleEditorTaskId, setScheduleEditorTaskId]", "board schedule-editor state"],
   [board, "scheduleEditorTaskId === null", "schedule editor interaction lock"],
-  [board, "canStartScheduleEditor = canStartCreate", "fail-closed scheduling readiness"],
+  [board, "const canStartScheduleEditor = interactionIdle", "fail-closed scheduling readiness including All Lists identity edits"],
   [board, "task.completedAt === null && !isLiveTask", "Done/live scheduling restriction"],
   [board, "onScheduleEdit={canEditSchedule", "production task-card scheduling wiring"],
   [board, "setMutationPendingTaskId(taskId);", "post-commit refresh interaction lock"],

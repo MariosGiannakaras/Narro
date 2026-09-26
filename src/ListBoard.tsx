@@ -12,12 +12,14 @@ import {
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
+  completeListBoardTask,
   createListBoardSubtask,
   createListBoardTask,
   deleteListBoardSubtask,
   getListBoardSnapshot,
   getListBoardTaskSubtasks,
   moveListBoardTask,
+  permanentlyDeleteListBoardTask,
   reorderListBoardSubtasks,
   reorderListBoardTask,
   setListBoardSubtaskCompletion,
@@ -34,9 +36,11 @@ import {
   type PlanningLaneToken,
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
+import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
   applyTimerSessionProjection,
+  completeTimerTask,
   connectTimerSessionProjection,
   setPausedTimerEstimate,
   setPausedTimerTimeTaken,
@@ -73,8 +77,14 @@ type DropTarget = {
 };
 
 type TaskEditorState =
-  | { kind: "create"; lane: PendingLaneKey; title: string }
-  | { kind: "edit"; taskId: string; expectedTitle: string; title: string }
+  | {
+      kind: "create";
+      lane: PendingLaneKey;
+      title: string;
+      est: string;
+      insertAtTop: boolean;
+    }
+  | { kind: "edit"; taskId: string; listId: string; expectedTitle: string; title: string }
   | {
       kind: "metric";
       taskId: string;
@@ -252,16 +262,20 @@ function DropPlaceholder() {
 
 function InlineCreateEditor({
   title,
+  est,
   pending,
   laneTitle,
   onChange,
+  onEstChange,
   onSubmit,
   onCancel,
 }: {
   title: string;
+  est: string;
   pending: boolean;
   laneTitle: string;
   onChange: (value: string) => void;
+  onEstChange: (value: string) => void;
   onSubmit: () => void;
   onCancel: () => void;
 }) {
@@ -292,6 +306,23 @@ function InlineCreateEditor({
           autoFocus
         />
       </label>
+      <label className="list-board-task-create__field list-board-task-create__field--est">
+        <span className="type-metadata">EST (optional)</span>
+        <input
+          value={est}
+          onChange={(event) => onEstChange(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key !== "Escape" || pending) return;
+            event.preventDefault();
+            onCancel();
+          }}
+          placeholder="0:25:00"
+          inputMode="numeric"
+          disabled={pending}
+          aria-label={`New ${laneTitle} task EST`}
+          data-task-create-est="true"
+        />
+      </label>
       <div className="list-board-task-create__actions">
         <button type="button" onClick={onCancel} disabled={pending}>Cancel</button>
         <button type="submit" disabled={pending || title.trim().length === 0}>Add task</button>
@@ -304,6 +335,7 @@ function BoardLane({
   laneKey,
   lane,
   title,
+  doneMonthCompletionCount,
   aggregateView,
   presentationReorderEnabled,
   interactionReorderEnabled,
@@ -328,7 +360,10 @@ function BoardLane({
   onMoveWithinLane,
   onStartCreate,
   onCreateTitleChange,
+  onCreateEstChange,
   onSubmitCreate,
+  onCompleteTask,
+  onDeleteTask,
   onStartTitleEdit,
   onEditTitleChange,
   onSubmitTitleEdit,
@@ -341,6 +376,7 @@ function BoardLane({
   laneKey: LaneKey;
   lane: ListBoardLane;
   title: string;
+  doneMonthCompletionCount?: number;
   aggregateView: boolean;
   presentationReorderEnabled: boolean;
   interactionReorderEnabled: boolean;
@@ -363,9 +399,12 @@ function BoardLane({
   onDragEnd: () => void;
   onTaskKeyDown: (task: ListBoardTask, lane: PendingLaneKey, event: ReactKeyboardEvent<HTMLDivElement>) => void;
   onMoveWithinLane: (task: ListBoardTask, lane: PendingLaneKey, direction: WithinLaneDirection) => void;
-  onStartCreate: (lane: PendingLaneKey) => void;
+  onStartCreate: (lane: PendingLaneKey, insertAtTop: boolean) => void;
   onCreateTitleChange: (value: string) => void;
+  onCreateEstChange: (value: string) => void;
   onSubmitCreate: () => void;
+  onCompleteTask: (task: ListBoardTask) => void;
+  onDeleteTask: (task: ListBoardTask) => void;
   onStartTitleEdit: (task: ListBoardTask) => void;
   onEditTitleChange: (value: string) => void;
   onSubmitTitleEdit: () => void;
@@ -407,8 +446,13 @@ function BoardLane({
           <h2 id={headingId} className="type-section-title">
             {title}
           </h2>
-          <span className="list-board-lane__count type-metadata">
-            {lane.count} {lane.count === 1 ? "task" : "tasks"}
+          <span
+            className="list-board-lane__count type-metadata"
+            data-done-month-count={laneKey === "done" ? doneMonthCompletionCount : undefined}
+          >
+            {laneKey === "done" && doneMonthCompletionCount !== undefined
+              ? `${doneMonthCompletionCount} completed this month`
+              : `${lane.count} ${lane.count === 1 ? "task" : "tasks"}`}
           </span>
         </div>
         <span className="list-board-lane__est type-metadata">
@@ -416,7 +460,28 @@ function BoardLane({
         </span>
       </header>
 
-      <div className="list-board-lane__reserved-action" aria-hidden="true" data-board-add-slot="reserved" />
+      {pendingLane !== null && !aggregateView ? (
+        <div className="list-board-lane__top-action" data-board-add-slot="top">
+          {!createEditor ? (
+            <button
+              type="button"
+              className="list-board-lane__add-task motion-interactive"
+              onClick={() => onStartCreate(pendingLane, true)}
+              disabled={!canStartCreate}
+              aria-label={`Add task to top of ${title}`}
+              data-board-add-task-top={pendingLane}
+            >
+              <span aria-hidden="true">+</span> ADD TO TOP
+            </button>
+          ) : (
+            <span className="list-board-lane__add-placeholder type-metadata" aria-hidden="true">
+              Adding task
+            </span>
+          )}
+        </div>
+      ) : (
+        <div className="list-board-lane__reserved-action" aria-hidden="true" data-board-add-slot="reserved" />
+      )}
 
       <div
         className="list-board-lane__tasks"
@@ -427,6 +492,18 @@ function BoardLane({
           : undefined}
         onDrop={acceptsDrop && interactionReorderEnabled ? onDrop : undefined}
       >
+        {createEditor?.insertAtTop ? (
+          <InlineCreateEditor
+            title={createEditor.title}
+            est={createEditor.est}
+            pending={editorMutationPending}
+            laneTitle={title}
+            onChange={onCreateTitleChange}
+            onEstChange={onCreateEstChange}
+            onSubmit={onSubmitCreate}
+            onCancel={onCancelEditor}
+          />
+        ) : null}
         {showLeadingPlaceholder ? <DropPlaceholder /> : null}
         {lane.tasks.length > 0 ? (
           lane.tasks.map((task) => {
@@ -444,7 +521,6 @@ function BoardLane({
             const onMoveDown = actionsEnabled && reorderIndex >= 0 && reorderIndex < eligibleTasks.length - 1
               ? () => onMoveWithinLane(task, pendingLane, "down")
               : undefined;
-            const taskActions = onMoveUp || onMoveDown ? { onMoveUp, onMoveDown } : undefined;
             const titleEditor = editorState?.kind === "edit" && editorState.taskId === task.id
               ? {
                   value: editorState.title,
@@ -467,6 +543,13 @@ function BoardLane({
             const liveState = liveStateForTask(timerPayload, task.id);
             const isLiveTask = liveState !== null && liveState !== "idle";
             const liveMetricEditable = liveState === "paused" || liveState === "overtime_paused";
+            const taskActions = onMoveUp || onMoveDown || (canStartTaskEditor && !isLiveTask)
+              ? {
+                  onMoveUp,
+                  onMoveDown,
+                  onDelete: canStartTaskEditor && !isLiveTask ? () => onDeleteTask(task) : undefined,
+                }
+              : undefined;
             const canEditMetric = canStartTaskEditor && (!isLiveTask || liveMetricEditable);
             const canEditSchedule = canStartScheduleEditor && task.completedAt === null && !isLiveTask;
             const noteExpanded = noteControls?.taskId === task.id;
@@ -478,7 +561,7 @@ function BoardLane({
                   expanded: true,
                   loading: taskSubtaskPanel.loading,
                   error: taskSubtaskPanel.error,
-                  mutable: Boolean(taskSubtaskPanel.snapshot?.mutable) && !aggregateView,
+                  mutable: Boolean(taskSubtaskPanel.snapshot?.mutable),
                   subtasks: taskSubtaskPanel.snapshot?.subtasks ?? [],
                   createValue: taskSubtaskPanel.createValue,
                   editor: taskSubtaskPanel.editor,
@@ -525,6 +608,9 @@ function BoardLane({
                     task={task}
                     aggregateView={aggregateView}
                     actions={taskActions}
+                    onComplete={canStartTaskEditor && task.completedAt === null
+                      ? () => onCompleteTask(task)
+                      : undefined}
                     onTitleEdit={canStartTaskEditor && !isLiveTask
                       ? () => onStartTitleEdit(task)
                       : undefined}
@@ -540,7 +626,7 @@ function BoardLane({
                     notes={noteControls ? {
                       expanded: Boolean(noteExpanded),
                       canExpand: noteExpanded ? true : noteControls.canOpen,
-                      readOnly: aggregateView,
+                      readOnly: false,
                       onToggleExpanded: () => noteControls.onToggle(task),
                       onMutationStatus: noteControls.onMutationStatus,
                       onRefreshBlocked: noteControls.onRefreshBlocked,
@@ -570,12 +656,14 @@ function BoardLane({
           <div className="list-board-lane__empty type-metadata">No tasks</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder /> : null}
-        {createEditor ? (
+        {createEditor && !createEditor.insertAtTop ? (
           <InlineCreateEditor
             title={createEditor.title}
+            est={createEditor.est}
             pending={editorMutationPending}
             laneTitle={title}
             onChange={onCreateTitleChange}
+            onEstChange={onCreateEstChange}
             onSubmit={onSubmitCreate}
             onCancel={onCancelEditor}
           />
@@ -588,7 +676,7 @@ function BoardLane({
             <button
               type="button"
               className="list-board-lane__add-task motion-interactive"
-              onClick={() => onStartCreate(pendingLane)}
+              onClick={() => onStartCreate(pendingLane, false)}
               disabled={!canStartCreate}
               aria-label={`Add task to ${title}`}
               data-board-add-task={pendingLane}
@@ -637,6 +725,9 @@ export function ListBoard({
   const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
   const [notePanelTaskId, setNotePanelTaskId] = useState<string | null>(null);
   const [subtaskPanel, setSubtaskPanel] = useState<SubtaskPanelState | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<ListBoardTask | null>(null);
+  const [deletePending, setDeletePending] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
@@ -658,6 +749,9 @@ export function ListBoard({
       setScheduleEditorTaskId(null);
       setNotePanelTaskId(null);
       setSubtaskPanel(null);
+      setDeleteTarget(null);
+      setDeletePending(false);
+      setDeleteError(null);
       setListOptions(fixtureOptions(fixtureSnapshot));
       return;
     }
@@ -673,6 +767,9 @@ export function ListBoard({
     setScheduleEditorTaskId(null);
     setNotePanelTaskId(null);
     setSubtaskPanel(null);
+    setDeleteTarget(null);
+    setDeletePending(false);
+    setDeleteError(null);
     void getListBoardSnapshot(target)
       .then((payload) => {
         if (!disposed) {
@@ -778,26 +875,30 @@ export function ListBoard({
   const selectedTarget = aggregateView ? ALL_LISTS_VALUE : snapshot.target.id ?? ALL_LISTS_VALUE;
   const interactionBoardEnabled = !fixtureSnapshot
     && !mutationRefreshBlocked
-    && target.kind === "list"
-    && snapshot.target.kind === "list"
-    && snapshot.target.id === target.id;
-  const interactionReorderEnabled = interactionBoardEnabled
-    && editorState === null
-    && !editorMutationPending
-    && scheduleEditorTaskId === null
-    && notePanelTaskId === null
-    && subtaskPanel === null;
-  const canStartCreate = interactionBoardEnabled
+    && (
+      (target.kind === "list"
+        && snapshot.target.kind === "list"
+        && snapshot.target.id === target.id)
+      || (target.kind === "all" && snapshot.target.kind === "all_lists")
+    );
+  const interactionIdle = interactionBoardEnabled
     && mutationPendingTaskId === null
     && editorState === null
     && !editorMutationPending
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
-    && subtaskPanel === null;
-  const canStartTaskEditor = canStartCreate
+    && subtaskPanel === null
+    && deleteTarget === null;
+  const interactionReorderEnabled = interactionIdle
+    && target.kind === "list"
+    && snapshot.target.kind === "list";
+  const canStartCreate = interactionIdle
+    && target.kind === "list"
+    && snapshot.target.kind === "list";
+  const canStartTaskEditor = interactionIdle
     && timerPayload !== null
     && timerProjectionError === null;
-  const canStartScheduleEditor = canStartCreate
+  const canStartScheduleEditor = interactionIdle
     && timerPayload !== null
     && timerProjectionError === null;
   const canOpenNotes = !fixtureSnapshot
@@ -807,7 +908,8 @@ export function ListBoard({
     && !editorMutationPending
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
-    && subtaskPanel === null;
+    && subtaskPanel === null
+    && deleteTarget === null;
   const canOpenSubtasks = !fixtureSnapshot
     && !mutationRefreshBlocked
     && mutationPendingTaskId === null
@@ -815,7 +917,8 @@ export function ListBoard({
     && !editorMutationPending
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
-    && subtaskPanel === null;
+    && subtaskPanel === null
+    && deleteTarget === null;
   const presentationReorderEnabled = interactionReorderEnabled || fixtureReorderState !== undefined;
   const displayedDragState = fixtureReorderState?.draggingTaskId && fixtureReorderState.sourceLane
     ? {
@@ -990,6 +1093,13 @@ export function ListBoard({
       return;
     }
 
+    const parsedEstimate = parseMetricDuration(editorState.est, "estimate");
+    if (!parsedEstimate.ok) {
+      setMutationError(parsedEstimate.message);
+      setMutationStatus("Could not add task.");
+      return;
+    }
+
     setEditorMutationPending(true);
     setMutationError(null);
     let createdTaskId: string;
@@ -998,6 +1108,8 @@ export function ListBoard({
         listId: target.id,
         lane: LANE_TOKEN[editorState.lane],
         title,
+        estSeconds: parsedEstimate.seconds,
+        insertAtTop: editorState.insertAtTop,
       });
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
@@ -1006,8 +1118,9 @@ export function ListBoard({
       return;
     }
 
+    const createdAtTop = editorState.insertAtTop;
     setEditorState(null);
-    setMutationStatus(`Added ${title}.`);
+    setMutationStatus(createdAtTop ? `Added ${title} to the top.` : `Added ${title}.`);
     try {
       await refreshAfterMutation(createdTaskId);
       setMutationRefreshBlocked(false);
@@ -1021,7 +1134,6 @@ export function ListBoard({
   const submitTitleEdit = async () => {
     if (
       !interactionBoardEnabled
-      || target.kind !== "list"
       || editorState?.kind !== "edit"
       || editorMutationPending
       || mutationPendingTaskId
@@ -1043,13 +1155,13 @@ export function ListBoard({
       return;
     }
 
-    const { taskId, expectedTitle } = editorState;
+    const { taskId, listId, expectedTitle } = editorState;
     setEditorMutationPending(true);
     setMutationError(null);
     try {
       await updateListBoardTaskTitle({
         taskId,
-        listId: target.id,
+        listId,
         expectedTitle,
         title,
       });
@@ -1075,7 +1187,6 @@ export function ListBoard({
   const submitMetricEdit = async () => {
     if (
       !interactionBoardEnabled
-      || target.kind !== "list"
       || editorState?.kind !== "metric"
       || editorMutationPending
       || mutationPendingTaskId
@@ -1158,6 +1269,79 @@ export function ListBoard({
     }
   };
 
+  const completeTaskFromBoard = async (task: ListBoardTask) => {
+    if (!canStartTaskEditor || mutationPendingTaskId || task.completedAt !== null) return;
+    setMutationPendingTaskId(task.id);
+    setMutationError(null);
+    setMutationStatus("");
+    try {
+      const liveState = liveStateForTask(timerPayload, task.id);
+      if (liveState !== null && liveState !== "idle") {
+        const payload = await completeTimerTask();
+        setTimerPayload((current) => applyTimerSessionProjection(current, payload));
+      } else {
+        await completeListBoardTask({ taskId: task.id, listId: task.listId });
+      }
+    } catch (failure: unknown) {
+      setMutationError(formatInvokeError(failure));
+      setMutationStatus(`Could not complete ${task.title}.`);
+      setMutationPendingTaskId(null);
+      return;
+    }
+
+    setMutationStatus(`Completed ${task.title}.`);
+    try {
+      await refreshAfterMutation(task.id);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setMutationPendingTaskId(null);
+    }
+  };
+
+  const requestTaskDelete = (task: ListBoardTask) => {
+    if (!canStartTaskEditor || mutationPendingTaskId) return;
+    const liveState = liveStateForTask(timerPayload, task.id);
+    if (liveState !== null && liveState !== "idle") {
+      setMutationError("Stop or complete the live task before permanently deleting it.");
+      return;
+    }
+    setMutationError(null);
+    setDeleteError(null);
+    setDeleteTarget(task);
+  };
+
+  const confirmTaskDelete = async () => {
+    if (!deleteTarget || deletePending) return;
+    const task = deleteTarget;
+    setDeletePending(true);
+    setDeleteError(null);
+    setMutationPendingTaskId(task.id);
+    try {
+      await permanentlyDeleteListBoardTask({ taskId: task.id, listId: task.listId });
+    } catch (failure: unknown) {
+      setDeleteError(formatInvokeError(failure));
+      setMutationPendingTaskId(null);
+      setDeletePending(false);
+      return;
+    }
+
+    setDeleteTarget(null);
+    setDeletePending(false);
+    setMutationStatus(`Permanently deleted ${task.title}.`);
+    setMutationError(null);
+    try {
+      const payload = await getListBoardSnapshot(target);
+      setSnapshot(payload);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setMutationPendingTaskId(null);
+    }
+  };
+
   const toggleNotePanel = (task: ListBoardTask) => {
     if (notePanelTaskId === task.id) {
       setNotePanelTaskId(null);
@@ -1207,13 +1391,11 @@ export function ListBoard({
   const beginSubtaskMutation = (): SubtaskPanelState | null => {
     if (
       !interactionBoardEnabled
-      || target.kind !== "list"
       || !subtaskPanel
       || subtaskPanel.loading
       || subtaskPanel.error
       || !subtaskPanel.snapshot?.mutable
       || subtaskPanel.pending
-      || subtaskPanel.listId !== target.id
     ) return null;
     setSubtaskPanel((current) => current ? { ...current, pending: true } : current);
     setMutationError(null);
@@ -1600,7 +1782,8 @@ export function ListBoard({
                 || editorMutationPending
                 || scheduleEditorTaskId !== null
                 || notePanelTaskId !== null
-                || subtaskPanel !== null}
+                || subtaskPanel !== null
+                || deleteTarget !== null}
               aria-label="Planning list"
             >
               <option value={ALL_LISTS_VALUE}>All Lists</option>
@@ -1624,6 +1807,7 @@ export function ListBoard({
             laneKey={key}
             lane={snapshot[key]}
             title={title}
+            doneMonthCompletionCount={key === "done" ? snapshot.doneMonthCompletionCount : undefined}
             aggregateView={aggregateView}
             presentationReorderEnabled={presentationReorderEnabled}
             interactionReorderEnabled={interactionReorderEnabled}
@@ -1649,18 +1833,25 @@ export function ListBoard({
             }}
             onTaskKeyDown={handleTaskKeyDown}
             onMoveWithinLane={handleMoveWithinLane}
-            onStartCreate={(lane) => {
+            onStartCreate={(lane, insertAtTop) => {
               if (!canStartCreate) return;
               setMutationError(null);
               setMutationStatus("");
-              setEditorState({ kind: "create", lane, title: "" });
+              setEditorState({ kind: "create", lane, title: "", est: "", insertAtTop });
             }}
             onCreateTitleChange={(value) => {
               setEditorState((current) => current?.kind === "create"
                 ? { ...current, title: value }
                 : current);
             }}
+            onCreateEstChange={(value) => {
+              setEditorState((current) => current?.kind === "create"
+                ? { ...current, est: value }
+                : current);
+            }}
             onSubmitCreate={() => void submitCreate()}
+            onCompleteTask={(task) => void completeTaskFromBoard(task)}
+            onDeleteTask={requestTaskDelete}
             onStartTitleEdit={(task) => {
               if (!canStartTaskEditor || liveStateForTask(timerPayload, task.id) !== null) return;
               setMutationError(null);
@@ -1668,6 +1859,7 @@ export function ListBoard({
               setEditorState({
                 kind: "edit",
                 taskId: task.id,
+                listId: task.listId,
                 expectedTitle: task.title,
                 title: task.title,
               });
@@ -1720,10 +1912,24 @@ export function ListBoard({
         ))}
       </div>
 
-      {scheduleEditorTask && target.kind === "list" ? (
+      {deleteTarget ? (
+        <TaskDeleteConfirmDialog
+          taskTitle={deleteTarget.title}
+          pending={deletePending}
+          error={deleteError}
+          onCancel={() => {
+            if (deletePending) return;
+            setDeleteTarget(null);
+            setDeleteError(null);
+          }}
+          onConfirm={() => void confirmTaskDelete()}
+        />
+      ) : null}
+
+      {scheduleEditorTask ? (
         <TaskScheduleDialog
           taskId={scheduleEditorTask.id}
-          listId={target.id}
+          listId={scheduleEditorTask.listId}
           taskTitle={scheduleEditorTask.title}
           displayTimezone={snapshot.displayTimezone}
           onClose={() => setScheduleEditorTaskId(null)}

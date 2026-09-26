@@ -21,7 +21,9 @@ const captureValidator = read("scripts/validate-task-create-edit-captures.mjs");
 
 for (const [haystack, needle, label] of [
   [rust, "create_task(", "M2 transactional task-create reuse"],
-  [rust, "est_seconds: None", "title-only create leaves EST to the next ordered slice"],
+  [rust, "est_seconds: Option<u32>", "atomic optional EST create input"],
+  [rust, "insert_at_top: bool", "atomic create position input"],
+  [rust, "create_task_at_top", "atomic top-priority persistence boundary"],
   [rust, "update_task_title_if_expected(", "persistence title-edit boundary reuse"],
   [persistenceMod, "pub mod task_title_edit;", "task-title persistence module registration"],
   [titlePersistence, "let tx = conn.transaction()", "atomic inline-title transaction"],
@@ -45,6 +47,8 @@ for (const [haystack, needle, label] of [
   [board, "data-board-add-task={pendingLane}", "pending-lane add target"],
   [board, "> ADD TASK", "source-shaped Add Task label"],
   [board, "pendingLane !== null && !aggregateView", "Done and aggregate create exclusion"],
+  [board, 'data-board-add-task-top={pendingLane}', "top-priority create target"],
+  [board, 'data-task-create-est="true"', "optional EST create input"],
   [board, 'data-board-task-create="editor"', "production inline create editor"],
   [board, "createListBoardTask({", "production create mutation"],
   [board, "updateListBoardTaskTitle({", "production title-edit mutation"],
@@ -61,7 +65,7 @@ for (const [haystack, needle, label] of [
   [taskCard, 'event.key !== "Escape"', "Escape cancellation"],
   [taskCard, "onSubmit={handleSubmit}", "Enter/form title commit"],
   [taskCard, 'data-task-action-slot="reserved"', "reserved action geometry during edit"],
-  [css, "grid-template-columns: 1rem minmax(0, 1fr) 4.25rem;", "stable title-row geometry"],
+  [css, "grid-template-columns: 1rem minmax(0, 1fr) 6.25rem;", "stable expanded title/action geometry"],
   [css, ".list-board-task__title-edit-actions", "overlay title-edit actions"],
   [css, ".list-board-task--inline-create", "production inline-create styling"],
   [captureValidator, "data-board-add-task", "captured production Add Task validation"],
@@ -85,16 +89,14 @@ const createStart = board.indexOf("function InlineCreateEditor");
 const createEnd = board.indexOf("function BoardLane", createStart);
 if (createStart < 0 || createEnd < 0) throw new Error("Could not isolate production inline create editor.");
 const createEditor = board.slice(createStart, createEnd);
-for (const forbidden of ["Est. time", "Time Taken", "schedule", "recurrence"]) {
+for (const forbidden of ["Time Taken", "schedule", "recurrence"]) {
   if (createEditor.includes(forbidden)) {
     throw new Error(`Task create slice must not activate later task metadata UI: ${forbidden}`);
   }
 }
 
-for (const forbidden of ["onTaskComplete", "onTaskDelete", "completeListBoardTask", "deleteListBoardTask"]) {
-  if (board.includes(forbidden)) {
-    throw new Error(`Task create/edit slice must not activate an unordered parent-task action: ${forbidden}`);
-  }
-}
+requireText(board, "completeListBoardTask({", "validated non-live completion boundary");
+requireText(board, "permanentlyDeleteListBoardTask({", "confirmed task delete boundary");
+requireText(board, "<TaskDeleteConfirmDialog", "explicit task delete confirmation UI");
 
 console.log("Task creation and inline editing contract checks passed.");

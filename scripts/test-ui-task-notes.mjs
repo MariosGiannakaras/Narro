@@ -50,7 +50,7 @@ for (const [haystack, needle, label] of [
   [card, "titleEditor || metricEditor || noteExpanded || subtaskExpanded", "action rail Notes geometry lock"],
   [board, "const [notePanelTaskId, setNotePanelTaskId]", "single board Notes panel state"],
   [board, "&& notePanelTaskId === null", "Notes interaction lock"],
-  [board, "readOnly: aggregateView", "All Lists Notes read-only projection"],
+  [board, "readOnly: false", "All Lists Notes use authoritative task/list mutation boundary"],
   [board, 'data-board-note-panel={notePanelTaskId ?? "closed"}', "board Notes state marker"],
   [board, "setMutationRefreshBlocked(true);", "board unsafe retry blocker"],
   [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]"', "parent drag isolation for note controls"],

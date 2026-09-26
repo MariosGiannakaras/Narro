@@ -41,6 +41,7 @@ export type ListBoardSnapshot = {
   thisWeek: ListBoardLane;
   today: ListBoardLane;
   done: ListBoardLane;
+  doneMonthCompletionCount: number;
 };
 
 export type ListBoardRequestTarget =
@@ -104,6 +105,8 @@ export type CreateListBoardTaskRequest = {
   listId: string;
   lane: PlanningLaneToken;
   title: string;
+  estSeconds: number | null;
+  insertAtTop: boolean;
 };
 
 export type UpdateListBoardTaskTitleRequest = {
@@ -140,6 +143,17 @@ export type MoveListBoardTaskRequest = {
   sourceLane: PlanningLaneToken;
   targetLane: PlanningLaneToken;
 };
+
+export type CompleteListBoardTaskRequest = {
+  taskId: string;
+  listId: string;
+};
+
+export type PermanentlyDeleteListBoardTaskRequest = {
+  taskId: string;
+  listId: string;
+};
+
 
 export type SaveListBoardTaskNoteRequest = {
   taskId: string;
@@ -234,6 +248,16 @@ export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Prom
 
 export function moveListBoardTask(request: MoveListBoardTaskRequest): Promise<void> {
   return invoke<void>("move_list_board_task", request);
+}
+
+export function completeListBoardTask(request: CompleteListBoardTaskRequest): Promise<void> {
+  return invoke<void>("complete_list_board_task", request);
+}
+
+export function permanentlyDeleteListBoardTask(
+  request: PermanentlyDeleteListBoardTaskRequest,
+): Promise<void> {
+  return invoke<void>("permanently_delete_list_board_task", request);
 }
 
 export function getListBoardTaskNote(

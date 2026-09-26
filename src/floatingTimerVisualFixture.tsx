@@ -55,6 +55,7 @@ const board: ListBoardSnapshot = {
   thisWeek: { tasks: [], count: 0, aggregateEstSeconds: 0 },
   today: { tasks: [task], count: 1, aggregateEstSeconds: 3600 },
   done: { tasks: [], count: 0, aggregateEstSeconds: 0 },
+  doneMonthCompletionCount: 0,
 };
 
 const timer: TimerSessionPayload = {

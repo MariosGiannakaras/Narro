@@ -19,6 +19,7 @@ for (const [haystack, needle, label] of [
   [component, 'data-task-actions="reorder"', "production reorder action rail"],
   [component, 'label="Move task up"', "Move up accessible action"],
   [component, 'label="Move task down"', "Move down accessible action"],
+  [component, 'label="Permanently delete task"', "Delete accessible action"],
   [component, "onPointerDown={(event) => event.stopPropagation()}", "pointer action drag isolation"],
   [component, "onClick={action}", "callback-gated pointer action"],
   [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]"', "parent drag-start interactive-control guard including notes and subtasks"],
@@ -28,11 +29,11 @@ for (const [haystack, needle, label] of [
   [board, 'handleMoveWithinLane(task, lane, "up")', "keyboard Move up helper reuse"],
   [board, 'handleMoveWithinLane(task, lane, "down")', "keyboard Move down helper reuse"],
   [board, "void commitDrop(task.id, lane, lane", "validated persistence-first reorder helper reuse"],
-  [css, "grid-template-columns: 1rem minmax(0, 1fr) 4.25rem;", "fixed reserved title/action columns"],
+  [css, "grid-template-columns: 1rem minmax(0, 1fr) 6.25rem;", "fixed reserved title/action columns"],
   [css, "min-height: 1.25rem;", "validated title-row slot baseline"],
   [css, "height: 1.25rem;", "fixed reserved action-slot baseline height"],
   [css, "position: absolute;", "overlay action rail positioning"],
-  [css, "width: 4.25rem;", "fixed action-slot/rail width"],
+  [css, "width: 6.25rem;", "fixed action-slot/rail width"],
   [css, "height: 1.75rem;", "fixed overlay action rail/button height"],
   [css, "opacity: 0;", "rest-state hidden action rail"],
   [css, "visibility: hidden;", "rest-state non-visible action rail"],
@@ -84,7 +85,7 @@ if (slotStart < 0 || slotEnd < 0) {
   throw new Error("Could not isolate reserved task action slot styles.");
 }
 const slotCss = css.slice(slotStart, slotEnd);
-for (const required of ["position: relative;", "width: 4.25rem;", "height: 1.25rem;"]) {
+for (const required of ["position: relative;", "width: 6.25rem;", "height: 1.25rem;"]) {
   if (!slotCss.includes(required)) {
     throw new Error(`Reserved task action slot must preserve validated baseline geometry; missing ${required}`);
   }

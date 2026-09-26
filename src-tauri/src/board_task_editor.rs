@@ -4,7 +4,7 @@ use crate::domain::tasks::{NewTaskInput, TaskRecord};
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::task_title_edit::{update_task_title_if_expected, TaskTitleEditError};
-use crate::persistence::tasks::{create_task, TaskStoreError};
+use crate::persistence::tasks::{create_task, create_task_at_top, TaskStoreError};
 use rusqlite::Connection;
 use std::path::PathBuf;
 use tauri::Manager;
@@ -52,24 +52,30 @@ fn create_board_task(
     list_id: ListId,
     lane: PlanningLane,
     title: String,
+    est_seconds: Option<u32>,
+    insert_at_top: bool,
     now: &str,
 ) -> Result<TaskRecord, TaskStoreError> {
-    create_task(
-        conn,
-        NewTaskInput {
-            list_id,
-            title,
-            manual_lane: lane,
-            est_seconds: None,
-        },
-        now,
-    )
+    let input = NewTaskInput {
+        list_id,
+        title,
+        manual_lane: lane,
+        est_seconds,
+    };
+    if insert_at_top {
+        create_task_at_top(conn, input, now)
+    } else {
+        create_task(conn, input, now)
+    }
 }
 
 fn map_create_error(error: TaskStoreError) -> CommandError {
     match error {
         TaskStoreError::InvalidTitle => {
             CommandError::invalid_argument("title", "must not be empty")
+        }
+        TaskStoreError::InvalidEstimate => {
+            CommandError::invalid_argument("estSeconds", "must be greater than zero when set")
         }
         TaskStoreError::ListNotFound(_) | TaskStoreError::ListArchived(_) => {
             CommandError::new("TASK_CREATE_STALE", error.to_string())
@@ -104,6 +110,8 @@ pub fn create_list_board_task(
     list_id: String,
     lane: String,
     title: String,
+    est_seconds: Option<u32>,
+    insert_at_top: bool,
 ) -> CommandResult<String> {
     let list_id = parse_list_id("listId", &list_id)?;
     let lane = parse_pending_lane("lane", &lane)?;
@@ -113,6 +121,8 @@ pub fn create_list_board_task(
         list_id,
         lane,
         title,
+        est_seconds,
+        insert_at_top,
         &chrono::Utc::now().to_rfc3339(),
     )
     .map(|task| task.id.to_string())
@@ -182,6 +192,8 @@ mod tests {
             list_id,
             PlanningLane::Today,
             "First".to_owned(),
+            None,
+            false,
             T0,
         )
         .expect("create first task");
@@ -190,6 +202,8 @@ mod tests {
             list_id,
             PlanningLane::Today,
             "  Second  ".to_owned(),
+            Some(900),
+            false,
             T1,
         )
         .expect("create second task");
@@ -198,11 +212,48 @@ mod tests {
         assert_eq!(second.title, "Second");
         assert_eq!(second.list_id, list_id);
         assert_eq!(second.manual_lane, PlanningLane::Today);
+        assert_eq!(second.est_seconds, Some(900));
         assert_eq!(second.sort_rank, first.sort_rank + 1);
         assert_eq!(
             get_task(&conn, second.id).expect("reload created task"),
             second
         );
+    }
+
+    #[test]
+    fn board_top_create_is_atomic_and_highest_priority() {
+        let mut conn = setup();
+        let list_id = list(&mut conn);
+        let bottom = create_board_task(
+            &mut conn,
+            list_id,
+            PlanningLane::Today,
+            "Bottom".to_owned(),
+            None,
+            false,
+            T0,
+        )
+        .expect("create bottom");
+        let top = create_board_task(
+            &mut conn,
+            list_id,
+            PlanningLane::Today,
+            "Top".to_owned(),
+            Some(1200),
+            true,
+            T1,
+        )
+        .expect("create top");
+
+        let tasks =
+            crate::persistence::tasks::active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
+                .expect("load lane");
+        assert_eq!(
+            tasks.iter().map(|task| task.id).collect::<Vec<_>>(),
+            vec![top.id, bottom.id]
+        );
+        assert_eq!(top.sort_rank, 0);
+        assert_eq!(top.est_seconds, Some(1200));
     }
 
     #[test]
@@ -218,6 +269,8 @@ mod tests {
             list_id,
             PlanningLane::Backlog,
             "   ".to_owned(),
+            None,
+            false,
             T1,
         );
         assert!(matches!(result, Err(TaskStoreError::InvalidTitle)));

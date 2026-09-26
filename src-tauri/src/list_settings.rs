@@ -23,6 +23,7 @@ pub struct ArchivedListSummary {
     pub id: String,
     pub title: String,
     pub color: Option<String>,
+    pub icon_asset: Option<String>,
     pub archived_at: String,
 }
 
@@ -37,6 +38,7 @@ impl TryFrom<ListRecord> for ArchivedListSummary {
             id: value.id.to_string(),
             title: value.title,
             color: value.color,
+            icon_asset: value.icon_asset,
             archived_at,
         })
     }

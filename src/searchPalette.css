@@ -164,6 +164,13 @@
   font-weight: var(--font-weight-medium);
 }
 
+.search-palette__match {
+  padding: 0 0.08em;
+  border-radius: 0.15em;
+  color: inherit;
+  background: color-mix(in srgb, var(--color-accent-solid) 24%, transparent);
+}
+
 .search-palette__option-copy span {
   color: var(--color-text-secondary);
   font-size: var(--font-size-metadata);

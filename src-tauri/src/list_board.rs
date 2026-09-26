@@ -75,6 +75,7 @@ pub struct ListBoardSnapshot {
     pub this_week: ListBoardLane,
     pub today: ListBoardLane,
     pub done: ListBoardLane,
+    pub done_month_completion_count: u64,
 }
 
 #[derive(Debug)]
@@ -86,6 +87,7 @@ pub enum ListBoardError {
     Scheduling(SchedulingError),
     Sqlite(rusqlite::Error),
     InvalidStoredTaskId,
+    InvalidStoredCompletedTimestamp(TaskId),
     TargetListNotFound(ListId),
     DuplicateTaskProjection(TaskId),
     CountOverflow,
@@ -104,6 +106,12 @@ impl Display for ListBoardError {
             Self::Sqlite(error) => write!(formatter, "list-board read failed: {error}"),
             Self::InvalidStoredTaskId => {
                 formatter.write_str("stored completed task identity is invalid")
+            }
+            Self::InvalidStoredCompletedTimestamp(id) => {
+                write!(
+                    formatter,
+                    "completed task has an invalid RFC 3339 timestamp: {id}"
+                )
             }
             Self::TargetListNotFound(id) => {
                 write!(formatter, "active list-board target not found: {id}")
@@ -267,6 +275,30 @@ fn display_local_date(now: Timestamp, display_timezone: &str) -> Result<String, 
     Ok(timezone.to_datetime(now).date().to_string())
 }
 
+fn display_local_month_key(
+    timestamp: Timestamp,
+    display_timezone: &str,
+) -> Result<String, ListBoardError> {
+    Ok(display_local_date(timestamp, display_timezone)?
+        .chars()
+        .take(7)
+        .collect())
+}
+
+fn task_completed_in_display_month(
+    task: &TaskRecord,
+    current_month: &str,
+    display_timezone: &str,
+) -> Result<bool, ListBoardError> {
+    let Some(completed_at) = task.completed_at.as_deref() else {
+        return Ok(false);
+    };
+    let completed_timestamp = completed_at
+        .parse::<Timestamp>()
+        .map_err(|_| ListBoardError::InvalidStoredCompletedTimestamp(task.id))?;
+    Ok(display_local_month_key(completed_timestamp, display_timezone)? == current_month)
+}
+
 fn task_is_overdue_at(
     task: &TaskRecord,
     now: Timestamp,
@@ -372,11 +404,13 @@ pub fn load_at(
     };
 
     let display_timezone = selected_timezone(conn, fallback_display_timezone)?;
+    let current_display_month = display_local_month_key(now, &display_timezone)?;
     let mut seen = HashSet::new();
     let mut backlog = LaneAccumulator::default();
     let mut this_week = LaneAccumulator::default();
     let mut today = LaneAccumulator::default();
     let mut done = LaneAccumulator::default();
+    let mut done_month_completion_count = 0_u64;
 
     for list in selected_lists {
         for manual_lane in ACTIVE_MANUAL_LANES {
@@ -404,6 +438,11 @@ pub fn load_at(
         }
 
         for task in completed_tasks_for_list(conn, list.id)? {
+            if task_completed_in_display_month(&task, &current_display_month, &display_timezone)? {
+                done_month_completion_count = done_month_completion_count
+                    .checked_add(1)
+                    .ok_or(ListBoardError::CountOverflow)?;
+            }
             if !seen.insert(task.id) {
                 return Err(ListBoardError::DuplicateTaskProjection(task.id));
             }
@@ -426,6 +465,7 @@ pub fn load_at(
         this_week: this_week.finish()?,
         today: today.finish()?,
         done: done.finish()?,
+        done_month_completion_count,
     })
 }
 
@@ -615,6 +655,35 @@ mod tests {
             .map(|task| task.id)
             .collect();
         assert_eq!(projected.len(), 4);
+    }
+
+    #[test]
+    fn done_month_count_uses_display_timezone_local_month() {
+        let mut conn = setup();
+        let list_id = create_named_list(&mut conn, "Work", None);
+        let local_september = add_task(
+            &mut conn,
+            list_id,
+            "Local September",
+            PlanningLane::Today,
+            None,
+        );
+        let local_august = add_task(
+            &mut conn,
+            list_id,
+            "Local August",
+            PlanningLane::Today,
+            None,
+        );
+        complete_task(&mut conn, local_september, "2026-08-31T21:30:00Z")
+            .expect("complete local September task");
+        complete_task(&mut conn, local_august, "2026-08-31T20:30:00Z")
+            .expect("complete local August task");
+
+        let board = load_at(&conn, Some(list_id), now(), "Europe/Athens")
+            .expect("load board with local month");
+        assert_eq!(board.done.count, 2);
+        assert_eq!(board.done_month_completion_count, 1);
     }
 
     #[test]

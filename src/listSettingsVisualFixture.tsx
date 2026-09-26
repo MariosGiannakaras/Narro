@@ -38,12 +38,14 @@ const archivedLists: ArchivedListSummary[] = [
     id: "83111111-1111-4111-8111-111111111111",
     title: "Old project",
     color: "#48d6c5",
+    iconAsset: null,
     archivedAt: "2026-09-11T18:00:00Z",
   },
   {
     id: "83111111-1111-4111-8111-111111111112",
     title: "Reading backlog",
     color: "#b7d96d",
+    iconAsset: null,
     archivedAt: "2026-09-10T18:00:00Z",
   },
 ];

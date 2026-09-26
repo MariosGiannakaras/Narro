@@ -42,6 +42,23 @@ function normalized(value: string): string {
   return value.trim().toLowerCase();
 }
 
+function HighlightedMatch({ text, query }: { text: string; query: string }) {
+  const token = normalized(query);
+  if (!token) return <>{text}</>;
+  const start = text.toLowerCase().indexOf(token);
+  if (start < 0) return <>{text}</>;
+  const end = start + token.length;
+  return (
+    <>
+      {text.slice(0, start)}
+      <mark className="search-palette__match" data-search-match="true">
+        {text.slice(start, end)}
+      </mark>
+      {text.slice(end)}
+    </>
+  );
+}
+
 function SearchIcon() {
   return (
     <svg className="search-palette__search-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -250,6 +267,8 @@ export function SearchPalette({
         listId: quickTaskListId,
         lane: quickTaskLane,
         title,
+        estSeconds: null,
+        insertAtTop: false,
       });
     } catch (failure: unknown) {
       setQuickTaskPending(false);
@@ -313,7 +332,7 @@ export function SearchPalette({
                         >
                           <span className="search-palette__option-icon" aria-hidden="true">L</span>
                           <span className="search-palette__option-copy">
-                            <strong>{list.title}</strong>
+                            <strong><HighlightedMatch text={list.title} query={queryToken} /></strong>
                             <span>List</span>
                           </span>
                         </button>
@@ -340,7 +359,7 @@ export function SearchPalette({
                         >
                           <span className="search-palette__option-icon" aria-hidden="true">✓</span>
                           <span className="search-palette__option-copy">
-                            <strong>{task.title}</strong>
+                            <strong><HighlightedMatch text={task.title} query={queryToken} /></strong>
                             <span>{task.listTitle} · {task.lane}</span>
                           </span>
                         </button>

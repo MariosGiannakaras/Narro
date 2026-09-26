@@ -131,8 +131,11 @@ const metricStart = board.indexOf("const submitMetricEdit");
 const metricEnd = board.indexOf("const handleDragStart", metricStart);
 if (metricStart < 0 || metricEnd < 0) throw new Error("Could not isolate metric mutation flow.");
 const metricCommit = board.slice(metricStart, metricEnd);
-if (!metricCommit.includes('target.kind !== "list"')) {
-  throw new Error("Metric mutation must remain restricted to a real individual List Board.");
+if (metricCommit.includes('target.kind !== "list"')) {
+  throw new Error("Identity-based metric mutation must remain available in All Lists.");
+}
+if (!metricCommit.includes("listId: editorState.listId")) {
+  throw new Error("All Lists metric mutation must bind the task's real owning list identity.");
 }
 
 if (taskCard.includes("setInterval") || board.includes("setInterval")) {

@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BlitzEntryButton } from "./BlitzEntryButton";
+import { PomodoroResumePrompt } from "./PomodoroResumePrompt";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
-import { TimerSessionProjection } from "./TimerSessionProjection";
 import "./taskScheduleDialog.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <ThemeRuntimeProvider>
       <App />
       <BlitzEntryButton />
-      <TimerSessionProjection label="Main" />
+      <PomodoroResumePrompt />
     </ThemeRuntimeProvider>
   </React.StrictMode>,
 );

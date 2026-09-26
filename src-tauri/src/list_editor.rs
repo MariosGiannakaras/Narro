@@ -2,8 +2,10 @@ use crate::domain::ids::ListId;
 use crate::domain::lists::{ListRecord, NewListInput, UpdateListInput};
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
-use crate::persistence::lists::{create_list, get_list, update_list, ListStoreError};
-use serde::Deserialize;
+use crate::persistence::lists::{
+    create_list, duplicate_list, get_list, update_list, ListStoreError,
+};
+use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 use std::path::{Component, Path, PathBuf};
 use tauri::Manager;
@@ -24,6 +26,13 @@ pub struct ListEditorRequest {
     pub title: String,
     pub color: Option<String>,
     pub icon_upload: Option<ListIconUpload>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ListIconAssetPayload {
+    pub mime_type: String,
+    pub bytes: Vec<u8>,
 }
 
 #[derive(Debug)]
@@ -170,6 +179,46 @@ fn write_imported_icon(app_dir: &Path, upload: &ListIconUpload) -> Result<String
     Ok(format!("{ICON_DIRECTORY}/{filename}"))
 }
 
+fn duplicate_owned_icon(app_dir: &Path, relative: &str) -> Result<String, ListEditorError> {
+    let path = resolve_owned_icon(app_dir, relative).ok_or(ListEditorError::UnsupportedIconType)?;
+    let filename = path
+        .file_name()
+        .and_then(|value| value.to_str())
+        .ok_or(ListEditorError::UnsupportedIconType)?;
+    let bytes = std::fs::read(&path)?;
+    write_imported_icon(
+        app_dir,
+        &ListIconUpload {
+            filename: filename.to_owned(),
+            bytes,
+        },
+    )
+}
+
+fn read_owned_icon(
+    app_dir: &Path,
+    relative: &str,
+) -> Result<ListIconAssetPayload, ListEditorError> {
+    let path = resolve_owned_icon(app_dir, relative).ok_or(ListEditorError::UnsupportedIconType)?;
+    let filename = path
+        .file_name()
+        .and_then(|value| value.to_str())
+        .ok_or(ListEditorError::UnsupportedIconType)?;
+    let extension = normalized_extension(filename)?;
+    let bytes = std::fs::read(path)?;
+    validate_icon_bytes(extension, &bytes)?;
+    let mime_type = match extension {
+        "jpg" => "image/jpeg",
+        "png" => "image/png",
+        "svg" => "image/svg+xml",
+        _ => return Err(ListEditorError::UnsupportedIconType),
+    };
+    Ok(ListIconAssetPayload {
+        mime_type: mime_type.to_owned(),
+        bytes,
+    })
+}
+
 fn cleanup_icon(app_dir: &Path, relative: &str) {
     let Some(path) = resolve_owned_icon(app_dir, relative) else {
         eprintln!("Warning: refusing to remove non-owned list icon path: {relative}");
@@ -270,6 +319,39 @@ pub fn update(
     }
 }
 
+pub fn duplicate(app_dir: &Path, id: ListId, now: &str) -> Result<ListRecord, ListEditorError> {
+    let mut connection = open_database(app_dir)?;
+    let existing = get_list(&connection, id)?;
+    let duplicated_icon = existing
+        .icon_asset
+        .as_deref()
+        .map(|relative| duplicate_owned_icon(app_dir, relative))
+        .transpose()?;
+
+    let result = duplicate_list(&mut connection, id, duplicated_icon.clone(), now);
+    match result {
+        Ok(duplicated) => Ok(duplicated),
+        Err(error) => {
+            if let Some(relative) = duplicated_icon.as_deref() {
+                cleanup_icon(app_dir, relative);
+            }
+            Err(ListEditorError::Store(error))
+        }
+    }
+}
+
+pub fn icon_asset(
+    app_dir: &Path,
+    id: ListId,
+) -> Result<Option<ListIconAssetPayload>, ListEditorError> {
+    let connection = open_database(app_dir)?;
+    let list = get_list(&connection, id)?;
+    list.icon_asset
+        .as_deref()
+        .map(|relative| read_owned_icon(app_dir, relative))
+        .transpose()
+}
+
 fn command_error(error: ListEditorError) -> CommandError {
     let code = match &error {
         ListEditorError::InvalidColor
@@ -317,6 +399,30 @@ pub fn update_list_from_editor(
     update(&app_dir, id, request, &now)
         .map(|_| ())
         .map_err(command_error)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn duplicate_list_from_home(
+    app_handle: tauri::AppHandle,
+    list_id: String,
+) -> CommandResult<()> {
+    let id = ListId::parse_str(&list_id)
+        .map_err(|_| CommandError::invalid_argument("listId", "must be a valid UUID"))?;
+    let app_dir = app_data_dir(&app_handle)?;
+    duplicate(&app_dir, id, &chrono::Utc::now().to_rfc3339())
+        .map(|_| ())
+        .map_err(command_error)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn get_list_icon_asset(
+    app_handle: tauri::AppHandle,
+    list_id: String,
+) -> CommandResult<Option<ListIconAssetPayload>> {
+    let id = ListId::parse_str(&list_id)
+        .map_err(|_| CommandError::invalid_argument("listId", "must be a valid UUID"))?;
+    let app_dir = app_data_dir(&app_handle)?;
+    icon_asset(&app_dir, id).map_err(command_error)
 }
 
 #[cfg(test)]
@@ -373,6 +479,56 @@ mod tests {
         .expect("update list");
         assert_eq!(updated.title, "Deep Work");
         assert_eq!(updated.icon_asset.as_deref(), Some(icon.as_str()));
+        std::fs::remove_dir_all(app_dir).expect("remove test app dir");
+    }
+
+    #[test]
+    fn duplicate_copies_managed_icon_and_icon_asset_reads_validated_bytes() {
+        let app_dir = test_app_dir();
+        setup(&app_dir);
+        let png = vec![0x89, b'P', b'N', b'G', 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4];
+        let created = create(
+            &app_dir,
+            ListEditorRequest {
+                title: "Work".into(),
+                color: Some("#48d6c5".into()),
+                icon_upload: Some(ListIconUpload {
+                    filename: "work.png".into(),
+                    bytes: png.clone(),
+                }),
+            },
+            "2026-09-08T00:00:00Z",
+        )
+        .expect("create list with icon");
+
+        let duplicated =
+            duplicate(&app_dir, created.id, "2026-09-08T00:01:00Z").expect("duplicate list");
+        let source_icon = created.icon_asset.as_deref().expect("source icon");
+        let duplicate_icon = duplicated.icon_asset.as_deref().expect("duplicate icon");
+        assert_ne!(
+            source_icon, duplicate_icon,
+            "duplicate must own a distinct icon file"
+        );
+        assert!(resolve_owned_icon(&app_dir, source_icon)
+            .expect("source path")
+            .exists());
+        assert!(resolve_owned_icon(&app_dir, duplicate_icon)
+            .expect("duplicate path")
+            .exists());
+
+        let payload = icon_asset(&app_dir, duplicated.id)
+            .expect("read duplicated icon")
+            .expect("icon payload");
+        assert_eq!(payload.mime_type, "image/png");
+        assert_eq!(payload.bytes, png);
+
+        cleanup_icon(&app_dir, source_icon);
+        assert!(
+            resolve_owned_icon(&app_dir, duplicate_icon)
+                .expect("duplicate path")
+                .exists(),
+            "source icon cleanup must not remove duplicate icon"
+        );
         std::fs::remove_dir_all(app_dir).expect("remove test app dir");
     }
 

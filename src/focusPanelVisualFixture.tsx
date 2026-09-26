@@ -109,6 +109,7 @@ const board: ListBoardSnapshot = {
     aggregateEstSeconds: 1200,
     tasks: [doneTask],
   },
+  doneMonthCompletionCount: 1,
 };
 
 function timerState(): TimerStateKind {

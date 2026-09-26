@@ -100,8 +100,8 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.editableCard.width === contract.readonlyCard.width, `${label} Notes state changed task-card width`);
   invariant(contract.editableTitleRow.width === contract.readonlyTitleRow.width, `${label} Notes state changed title-row width`);
   invariant(contract.editableTitleRow.height === contract.readonlyTitleRow.height, `${label} Notes state changed title-row height`);
-  invariant(contract.editableActionSlot.width === 68, `${label} editable Notes lost the reserved 4.25rem action slot`);
-  invariant(contract.readonlyActionSlot.width === 68, `${label} read-only Notes lost the reserved 4.25rem action slot`);
+  invariant(contract.editableActionSlot.width === 100, `${label} editable Notes lost the reserved 6.25rem action slot`);
+  invariant(contract.readonlyActionSlot.width === 100, `${label} read-only Notes lost the reserved 6.25rem action slot`);
   invariant(contract.editableActionSlot.height === contract.readonlyActionSlot.height, `${label} Notes state changed action-slot height`);
   invariant(contract.formattingControls >= 8, `${label} expected rich formatting controls are incomplete`);
   invariant(contract.presentationControls === 1, `${label} expected one editable presentation control`);

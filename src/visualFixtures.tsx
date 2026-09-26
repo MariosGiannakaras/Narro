@@ -168,6 +168,7 @@ const listBoardFixtureSnapshot: ListBoardSnapshot = {
       ),
     ],
   },
+  doneMonthCompletionCount: 1,
   done: {
     count: 1,
     aggregateEstSeconds: 1200,
@@ -187,6 +188,7 @@ const listBoardFixtureSnapshot: ListBoardSnapshot = {
 
 const allListsBoardFixtureSnapshot: ListBoardSnapshot = {
   ...listBoardFixtureSnapshot,
+  doneMonthCompletionCount: 2,
   target: {
     kind: "all_lists",
     id: null,
