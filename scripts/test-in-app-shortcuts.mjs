@@ -98,6 +98,13 @@ invariant(
   "Focus surface must surface unavailable live-action shortcuts when no task is active",
 );
 invariant(
+  focusEntry.includes('modeRef.current === "timer"')
+    && focusEntry.includes("pendingQuickTaskAfterPanelRef.current = true")
+    && focusEntry.includes('requestMode("panel")')
+    && focusEntry.includes("setQuickTaskOpen(true)"),
+  "Ctrl+Alt+T from Floating Timer must transition to the usable Panel viewport before opening quick-create",
+);
+invariant(
   searchPalette.includes("taskCreateOnly")
     && searchPalette.includes('openingMode === "task-create"')
     && searchPalette.includes("onRequestClose"),
