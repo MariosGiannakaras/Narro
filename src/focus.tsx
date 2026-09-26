@@ -7,7 +7,11 @@ import "./App.css";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusSurfaceTransition } from "./FocusSurfaceTransition";
 import { FocusPanel } from "./FocusPanel";
-import { isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
+import {
+  isEditableShortcutTarget,
+  isFocusActionShortcut,
+  resolveInAppShortcut,
+} from "./inAppShortcuts";
 import { SearchPalette } from "./SearchPalette";
 import {
   beginFocusVisualHold,
