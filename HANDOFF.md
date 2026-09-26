@@ -25,18 +25,20 @@ The parity audit reconciliation remains complete through M6.
 
 1. **M5 parity/reliability reconciliation (A1–A9, A19): COMPLETE.**
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
-3. Current task is repository evidence/tracking setup only: create the durable Blitzit video/transcript upload inbox, analysis index, evidence rules, and roadmap tasks. Do not modify or validate Narro application/UI behavior as part of this slice.
+3. Blitzit video/transcript evidence ingestion setup is **COMPLETE**:
+   - upload inbox: `reference/original-blitzit-videos/inbox/`;
+   - raw evidence guide: `reference/original-blitzit-videos/README.md`;
+   - timestamped analysis/index: `docs/BLITZIT_VIDEO_EVIDENCE.md`;
+   - Git LFS rules for common inbox video formats are active;
+   - PR #162 exact head `8bf3d2d5f34b870b1a38fe4afa493df73f81f42c` passed Windows CI #547 and merged as `4de310d29cee623cba54da514ba2a74193ba758a`.
 4. On a later implementation instruction, resume **M7/A18/compositor work from repository state**, preserving existing validated M7 evidence and reconciling PR #155 against the newer `main`.
-5. If user-supplied Focus/Floating Timer recordings are present before M7 closes, analyze the materially relevant subset first and route findings through `docs/BLITZIT_VIDEO_EVIDENCE.md`; do not ignore known video evidence merely because a post-M10 review also exists.
-6. Continue M8 → M9 → M10 in the existing order only after prerequisites close.
+5. Before closing M7, check the video inbox. If Focus/Floating Timer/transition/expand-collapse recordings are present, analyze the materially relevant subset first and route timestamped findings through `docs/BLITZIT_VIDEO_EVIDENCE.md`.
+6. Continue M8 → M9 → M10 in order after prerequisites close.
 7. After M10, the Final Comprehensive Review Stage must include the complete uploaded video/transcript corpus as well as screenshots/docs.
 
 Roadmap completion remains **6/10 milestones**.
 
-Video evidence paths:
-- upload inbox: `reference/original-blitzit-videos/inbox/`;
-- analysis index: `docs/BLITZIT_VIDEO_EVIDENCE.md`;
-- corpus status: **NOT YET ANALYZED**.
+Video corpus status: **upload inbox ready; corpus analysis not yet started**.
 
 For each remaining milestone M7–M10:
 - require sufficient error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone;
@@ -99,14 +101,12 @@ PR #155 `M7: cover focus transitions with a temporary native visual hold` remain
 
 ## EXACT NEXT ACTION
 
-Finish and merge only this evidence/tracking setup. No application source/UI change or application validation belongs to this slice.
+On the next explicit implementation instruction, reconstruct current `main`, inspect live PR/CI state and PR #155, check whether any new files exist under `reference/original-blitzit-videos/inbox/`, then resume M7 from the repository-recorded checkpoint.
 
-After this setup is merged, a later explicit implementation instruction should reconstruct current `main`, inspect PR #155/current M7 evidence, check whether any files have been uploaded under `reference/original-blitzit-videos/inbox/`, and then:
-- if relevant M7 recordings exist, analyze the relevant subset first and record timestamped findings;
-- otherwise resume M7 from the repository-recorded checkpoint without restarting it.
-
-The complete video/transcript corpus remains a mandatory evidence source for the post-M10 Final Comprehensive Review Stage.
+- If relevant M7 recordings/transcripts exist, analyze that relevant subset first and record timestamped findings in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
+- If no relevant recordings are present, resume M7/A18/compositor work without restarting or re-auditing completed milestones.
+- Do not begin the full corpus/final comprehensive review before M10 is complete.
 
 ## USER ACTION REQUIRED
 
-The upload inbox is ready for future use. The user may place raw Blitzit videos and transcripts/captions in `reference/original-blitzit-videos/inbox/` at any time. Uploading the corpus is not a blocker for unrelated implementation work unless already-uploaded evidence materially affects the milestone being closed.
+No action is required to continue unrelated implementation. When ready, the user may upload raw Blitzit videos and transcripts/captions directly to `reference/original-blitzit-videos/inbox/`; no pre-classification or renaming is required.

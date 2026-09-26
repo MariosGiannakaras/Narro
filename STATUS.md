@@ -348,7 +348,7 @@ The repository now has a durable inbox for future user-supplied Blitzit recordin
 - interaction/motion methodology: `docs/INTERACTION_CAPTURE_GUIDE.md`;
 - common video formats in the inbox are configured for Git LFS; transcripts remain normal Git text.
 
-Status: **INBOX READY / CORPUS ANALYSIS NOT STARTED**. No video-derived product finding is claimed until files are actually uploaded and inspected.
+Status: **INBOX READY / CORPUS ANALYSIS NOT STARTED**. Setup was merged through PR #162: exact head `8bf3d2d5f34b870b1a38fe4afa493df73f81f42c`, Windows CI #547 PASS, guarded squash merge `4de310d29cee623cba54da514ba2a74193ba758a`. No video-derived product finding is claimed until files are actually uploaded and inspected.
 
 When recordings exist before an affected remaining milestone closes, materially relevant evidence must be analyzed before that milestone is declared complete. In particular, Focus Panel/Floating Timer/transition/expand-collapse recordings available before M7 closure are M7 evidence. Independently of earlier milestone routing, the complete uploaded corpus is a required evidence source for the post-M10 Final Comprehensive Review Stage.
 
