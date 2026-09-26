@@ -86,6 +86,7 @@ const snapshot: ListBoardSnapshot = {
     aggregateEstSeconds: 0,
     tasks: [],
   },
+  doneMonthCompletionCount: 0,
 };
 
 const rootElement = document.getElementById("root");
