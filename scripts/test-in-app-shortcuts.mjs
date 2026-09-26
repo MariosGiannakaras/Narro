@@ -75,7 +75,7 @@ invariant(
 );
 invariant(
   searchPalette.includes("taskCreateOnly")
-    && searchPalette.includes('initialMode === "task-create"')
+    && searchPalette.includes('openingMode === "task-create"')
     && searchPalette.includes("onRequestClose"),
   "Focus quick-create must reuse SearchPalette without exposing Search mode",
 );
