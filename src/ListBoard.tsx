@@ -73,7 +73,13 @@ type DropTarget = {
 };
 
 type TaskEditorState =
-  | { kind: "create"; lane: PendingLaneKey; title: string }
+  | {
+      kind: "create";
+      lane: PendingLaneKey;
+      title: string;
+      est: string;
+      insertAtTop: boolean;
+    }
   | { kind: "edit"; taskId: string; expectedTitle: string; title: string }
   | {
       kind: "metric";
@@ -252,16 +258,20 @@ function DropPlaceholder() {
 
 function InlineCreateEditor({
   title,
+  est,
   pending,
   laneTitle,
   onChange,
+  onEstChange,
   onSubmit,
   onCancel,
 }: {
   title: string;
+  est: string;
   pending: boolean;
   laneTitle: string;
   onChange: (value: string) => void;
+  onEstChange: (value: string) => void;
   onSubmit: () => void;
   onCancel: () => void;
 }) {
@@ -290,6 +300,23 @@ function InlineCreateEditor({
           aria-label={`New ${laneTitle} task title`}
           data-task-create-title="true"
           autoFocus
+        />
+      </label>
+      <label className="list-board-task-create__field list-board-task-create__field--est">
+        <span className="type-metadata">EST (optional)</span>
+        <input
+          value={est}
+          onChange={(event) => onEstChange(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key !== "Escape" || pending) return;
+            event.preventDefault();
+            onCancel();
+          }}
+          placeholder="0:25:00"
+          inputMode="numeric"
+          disabled={pending}
+          aria-label={`New ${laneTitle} task EST`}
+          data-task-create-est="true"
         />
       </label>
       <div className="list-board-task-create__actions">
@@ -328,6 +355,7 @@ function BoardLane({
   onMoveWithinLane,
   onStartCreate,
   onCreateTitleChange,
+  onCreateEstChange,
   onSubmitCreate,
   onStartTitleEdit,
   onEditTitleChange,
@@ -363,8 +391,9 @@ function BoardLane({
   onDragEnd: () => void;
   onTaskKeyDown: (task: ListBoardTask, lane: PendingLaneKey, event: ReactKeyboardEvent<HTMLDivElement>) => void;
   onMoveWithinLane: (task: ListBoardTask, lane: PendingLaneKey, direction: WithinLaneDirection) => void;
-  onStartCreate: (lane: PendingLaneKey) => void;
+  onStartCreate: (lane: PendingLaneKey, insertAtTop: boolean) => void;
   onCreateTitleChange: (value: string) => void;
+  onCreateEstChange: (value: string) => void;
   onSubmitCreate: () => void;
   onStartTitleEdit: (task: ListBoardTask) => void;
   onEditTitleChange: (value: string) => void;
@@ -416,7 +445,28 @@ function BoardLane({
         </span>
       </header>
 
-      <div className="list-board-lane__reserved-action" aria-hidden="true" data-board-add-slot="reserved" />
+      {pendingLane !== null && !aggregateView ? (
+        <div className="list-board-lane__top-action" data-board-add-slot="top">
+          {!createEditor ? (
+            <button
+              type="button"
+              className="list-board-lane__add-task motion-interactive"
+              onClick={() => onStartCreate(pendingLane, true)}
+              disabled={!canStartCreate}
+              aria-label={`Add task to top of ${title}`}
+              data-board-add-task-top={pendingLane}
+            >
+              <span aria-hidden="true">+</span> ADD TO TOP
+            </button>
+          ) : (
+            <span className="list-board-lane__add-placeholder type-metadata" aria-hidden="true">
+              Adding task
+            </span>
+          )}
+        </div>
+      ) : (
+        <div className="list-board-lane__reserved-action" aria-hidden="true" data-board-add-slot="reserved" />
+      )}
 
       <div
         className="list-board-lane__tasks"
@@ -427,6 +477,18 @@ function BoardLane({
           : undefined}
         onDrop={acceptsDrop && interactionReorderEnabled ? onDrop : undefined}
       >
+        {createEditor?.insertAtTop ? (
+          <InlineCreateEditor
+            title={createEditor.title}
+            est={createEditor.est}
+            pending={editorMutationPending}
+            laneTitle={title}
+            onChange={onCreateTitleChange}
+            onEstChange={onCreateEstChange}
+            onSubmit={onSubmitCreate}
+            onCancel={onCancelEditor}
+          />
+        ) : null}
         {showLeadingPlaceholder ? <DropPlaceholder /> : null}
         {lane.tasks.length > 0 ? (
           lane.tasks.map((task) => {
@@ -570,12 +632,14 @@ function BoardLane({
           <div className="list-board-lane__empty type-metadata">No tasks</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder /> : null}
-        {createEditor ? (
+        {createEditor && !createEditor.insertAtTop ? (
           <InlineCreateEditor
             title={createEditor.title}
+            est={createEditor.est}
             pending={editorMutationPending}
             laneTitle={title}
             onChange={onCreateTitleChange}
+            onEstChange={onCreateEstChange}
             onSubmit={onSubmitCreate}
             onCancel={onCancelEditor}
           />
@@ -588,7 +652,7 @@ function BoardLane({
             <button
               type="button"
               className="list-board-lane__add-task motion-interactive"
-              onClick={() => onStartCreate(pendingLane)}
+              onClick={() => onStartCreate(pendingLane, false)}
               disabled={!canStartCreate}
               aria-label={`Add task to ${title}`}
               data-board-add-task={pendingLane}
@@ -990,6 +1054,13 @@ export function ListBoard({
       return;
     }
 
+    const parsedEstimate = parseMetricDuration(editorState.est, "estimate");
+    if (!parsedEstimate.ok) {
+      setMutationError(parsedEstimate.message);
+      setMutationStatus("Could not add task.");
+      return;
+    }
+
     setEditorMutationPending(true);
     setMutationError(null);
     let createdTaskId: string;
@@ -998,6 +1069,8 @@ export function ListBoard({
         listId: target.id,
         lane: LANE_TOKEN[editorState.lane],
         title,
+        estSeconds: parsedEstimate.seconds,
+        insertAtTop: editorState.insertAtTop,
       });
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
@@ -1006,8 +1079,9 @@ export function ListBoard({
       return;
     }
 
+    const createdAtTop = editorState.insertAtTop;
     setEditorState(null);
-    setMutationStatus(`Added ${title}.`);
+    setMutationStatus(createdAtTop ? `Added ${title} to the top.` : `Added ${title}.`);
     try {
       await refreshAfterMutation(createdTaskId);
       setMutationRefreshBlocked(false);
@@ -1649,15 +1723,20 @@ export function ListBoard({
             }}
             onTaskKeyDown={handleTaskKeyDown}
             onMoveWithinLane={handleMoveWithinLane}
-            onStartCreate={(lane) => {
+            onStartCreate={(lane, insertAtTop) => {
               if (!canStartCreate) return;
               setMutationError(null);
               setMutationStatus("");
-              setEditorState({ kind: "create", lane, title: "" });
+              setEditorState({ kind: "create", lane, title: "", est: "", insertAtTop });
             }}
             onCreateTitleChange={(value) => {
               setEditorState((current) => current?.kind === "create"
                 ? { ...current, title: value }
+                : current);
+            }}
+            onCreateEstChange={(value) => {
+              setEditorState((current) => current?.kind === "create"
+                ? { ...current, est: value }
                 : current);
             }}
             onSubmitCreate={() => void submitCreate()}
