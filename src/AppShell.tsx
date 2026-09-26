@@ -1,3 +1,4 @@
+import { emitTo } from "@tauri-apps/api/event";
 import { type ReactNode, useEffect, useState } from "react";
 import { ArchivePanel } from "./ArchivePanel";
 import { formatInvokeError } from "./diagnosticApi";
@@ -13,8 +14,15 @@ import {
 } from "./listEditorApi";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import { archiveListFromSettings } from "./listSettingsApi";
-import { SearchPalette } from "./SearchPalette";
+import { SearchPalette, type SearchPaletteMode } from "./SearchPalette";
+import {
+  FOCUS_IN_APP_SHORTCUT_EVENT,
+  isEditableShortcutTarget,
+  isFocusActionShortcut,
+  resolveInAppShortcut,
+} from "./inAppShortcuts";
 import { ThemeSettingsPanel } from "./ThemeSettingsPanel";
+import { snapshotTimerSession } from "./timerSessionApi";
 import "./appShell.css";
 
 export type AppDestination =
@@ -117,26 +125,50 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [duplicatePendingId, setDuplicatePendingId] = useState<string | null>(null);
   const [homeMutationError, setHomeMutationError] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchMode, setSearchMode] = useState<SearchPaletteMode>("search");
+  const [shortcutFeedback, setShortcutFeedback] = useState<string | null>(null);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (
-        !event.ctrlKey
-        || event.altKey
-        || event.shiftKey
-        || event.key.toLowerCase() !== "f"
-      ) return;
+      const shortcut = resolveInAppShortcut(event);
+      if (!shortcut || editorState || archiveTarget) return;
 
+      if (shortcut === "search" || shortcut === "create-task") {
+        if (shortcut === "create-task" && isEditableShortcutTarget(event.target)) return;
+        event.preventDefault();
+        setShortcutFeedback(null);
+        setSearchMode(shortcut === "create-task" ? "task-create" : "search");
+        setSearchOpen(true);
+        return;
+      }
+
+      if (!isFocusActionShortcut(shortcut) || isEditableShortcutTarget(event.target)) return;
       event.preventDefault();
-      if (editorState || archiveTarget) return;
-      setSearchOpen(true);
+      setShortcutFeedback(null);
+      void snapshotTimerSession()
+        .then((payload) => {
+          if (payload.runtime.timer.state === "idle" || payload.runtime.timer.task_id === null) {
+            setShortcutFeedback("No active Focus task is available for this shortcut.");
+            return;
+          }
+          return emitTo("focusSurface", FOCUS_IN_APP_SHORTCUT_EVENT, shortcut);
+        })
+        .catch((failure: unknown) => {
+          setShortcutFeedback(`Focus shortcut could not be delivered. ${formatInvokeError(failure)}`);
+        });
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [editorState, archiveTarget]);
+
+  useEffect(() => {
+    if (!shortcutFeedback) return;
+    const timeout = window.setTimeout(() => setShortcutFeedback(null), 3200);
+    return () => window.clearTimeout(timeout);
+  }, [shortcutFeedback]);
 
   function openCreateList() {
     setSearchOpen(false);
@@ -185,6 +217,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
 
   function handleNavigate(destination: AppDestination) {
     if (destination === "search") {
+      setSearchMode("search");
       setSearchOpen(true);
       return;
     }
@@ -373,8 +406,13 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
         />
       ) : null}
 
+      {shortcutFeedback ? (
+        <div className="app-shell__shortcut-feedback type-metadata" role="alert">{shortcutFeedback}</div>
+      ) : null}
+
       <SearchPalette
         open={searchOpen}
+        initialMode={searchMode}
         onRequestClose={() => setSearchOpen(false)}
         onOpenList={(listId) => openBoardTarget({ kind: "list", id: listId })}
         onOpenTask={(task) => openBoardTarget({ kind: "list", id: task.listId })}

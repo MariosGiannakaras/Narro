@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { listen } from "@tauri-apps/api/event";
+import { useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveMetrics, type FocusMetricKind } from "./FocusLiveMetrics";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
@@ -8,6 +9,13 @@ import {
   type ListBoardSnapshot,
   type ListBoardTask,
 } from "./listBoardApi";
+import {
+  FOCUS_IN_APP_SHORTCUT_EVENT,
+  isEditableShortcutTarget,
+  isFocusActionShortcut,
+  resolveInAppShortcut,
+  type InAppShortcut,
+} from "./inAppShortcuts";
 import { Tooltip } from "./overlayPrimitives";
 import { TaskNotes } from "./TaskNotes";
 import {
@@ -41,6 +49,7 @@ type FocusLiveActionsProps = {
   presentation?: "panel" | "floating";
   onReturnToPanel?: () => void;
   transitionPending?: boolean;
+  onEnsureNotesVisible?: () => boolean | Promise<boolean>;
 };
 
 type FocusAction = "break" | "pause_resume" | "skip" | "done" | "extend";
@@ -176,11 +185,13 @@ export function FocusLiveActions({
   presentation = "panel",
   onReturnToPanel,
   transitionPending = false,
+  onEnsureNotesVisible,
 }: FocusLiveActionsProps) {
   const [pendingAction, setPendingAction] = useState<FocusAction | null>(null);
   const [notesExpanded, setNotesExpanded] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const shortcutHandlerRef = useRef<(shortcut: InAppShortcut) => void>(() => {});
   const state = actionState(timer.runtime.timer);
   const busy = pendingAction !== null || (presentation === "floating" && transitionPending);
 
@@ -303,6 +314,100 @@ export function FocusLiveActions({
       setPendingAction(null);
     }
   };
+
+  shortcutHandlerRef.current = (shortcut: InAppShortcut) => {
+    if (!isFocusActionShortcut(shortcut)) return;
+    setError(null);
+
+    switch (shortcut) {
+      case "start-break":
+        if (!state.breakEnabled) {
+          setStatus("Break is unavailable until an active task is running or paused.");
+          return;
+        }
+        void run("break", () => startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS), "Break started.");
+        return;
+      case "pause-resume":
+        if (!state.pauseResumeEnabled) {
+          setStatus("Pause or resume is unavailable without an active task or break.");
+          return;
+        }
+        handlePauseResume();
+        return;
+      case "skip-task":
+        if (!state.skipEnabled) {
+          setStatus(
+            timer.runtime.timer.state === "break"
+              ? "Skip task is unavailable during a break. Resume work first."
+              : "Skip task is unavailable without an active task.",
+          );
+          return;
+        }
+        void handleSkip();
+        return;
+      case "finish-task":
+        if (!state.doneEnabled) {
+          setStatus(
+            timer.runtime.timer.state === "break"
+              ? "Finish task is unavailable during a break. Resume work first."
+              : "Finish task is unavailable without an active task.",
+          );
+          return;
+        }
+        void handleDone();
+        return;
+      case "notes":
+        if (busy) {
+          setStatus("Notes are unavailable while another Focus action is in progress.");
+          return;
+        }
+        setStatus(null);
+        if (!onEnsureNotesVisible) {
+          setNotesExpanded(true);
+          return;
+        }
+        void Promise.resolve(onEnsureNotesVisible())
+          .then((accepted) => {
+            if (accepted) setNotesExpanded(true);
+            else setStatus("Notes could not be opened while the Floating Timer is changing size.");
+          })
+          .catch((failure: unknown) => fail(failure));
+        return;
+    }
+  };
+
+  useEffect(() => {
+    if (fixtureMode) return;
+
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    const onKeyDown = (event: KeyboardEvent) => {
+      const shortcut = resolveInAppShortcut(event);
+      if (!isFocusActionShortcut(shortcut) || isEditableShortcutTarget(event.target)) return;
+      event.preventDefault();
+      shortcutHandlerRef.current(shortcut);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    void listen<InAppShortcut>(FOCUS_IN_APP_SHORTCUT_EVENT, (event) => {
+      if (!disposed && isFocusActionShortcut(event.payload)) {
+        shortcutHandlerRef.current(event.payload);
+      }
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopListening = unlisten;
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) setError(`Focus shortcut routing could not start. ${formatInvokeError(failure)}`);
+      });
+
+    return () => {
+      disposed = true;
+      window.removeEventListener("keydown", onKeyDown);
+      stopListening?.();
+    };
+  }, [fixtureMode]);
 
   const floating = presentation === "floating";
   const notesEditor = (

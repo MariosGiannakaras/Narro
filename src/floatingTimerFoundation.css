@@ -12,6 +12,24 @@
   text-align: left;
 }
 
+.floating-timer-foundation__shortcut-status {
+  position: absolute;
+  z-index: 6;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  min-width: 0;
+  padding: 3px 6px;
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: color-mix(in srgb, var(--color-surface-deep) 92%, transparent);
+  box-shadow: var(--elevation-overlay);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 .floating-timer-foundation__attention-pulse {
   position: absolute;
   inset: 0;

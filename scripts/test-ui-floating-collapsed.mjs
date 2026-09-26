@@ -63,9 +63,11 @@ for (const needle of [
 }
 
 invariant(
-  foundation.includes("expanded && liveTask && timer")
+  foundation.includes('data-floating-actions-controller="true"')
+    && foundation.includes('style={{ display: expanded ? "contents" : "none" }}')
+    && foundation.includes("!expanded || !liveTask || !timer")
     && foundation.includes('className="floating-timer-foundation__heading"'),
-  "collapsed mode must retain the title/timer heading while expanded mode swaps in actions",
+  "collapsed mode must retain the title/timer heading while keeping the Focus action controller mounted but non-visible for in-app shortcuts",
 );
 for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `renderer must not create a duplicate timer clock through ${forbidden}`);

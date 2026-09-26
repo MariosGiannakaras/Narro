@@ -130,6 +130,7 @@ function optionalBox(selector: string) {
   const node = document.querySelector<HTMLElement>(selector);
   if (!node) return null;
   const rect = node.getBoundingClientRect();
+  if (rect.width <= 0 || rect.height <= 0) return null;
   return { width: Math.round(rect.width), height: Math.round(rect.height) };
 }
 
@@ -166,10 +167,17 @@ if (params.get("state") === "cycle") {
     headings: number;
     subtaskPanels: number;
   }> = [];
+  const visibleCount = (selector: string) => Array.from(
+    renderedTimer.querySelectorAll<HTMLElement>(selector),
+  ).filter((node) => {
+    const rect = node.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0;
+  }).length;
+
   const observe = () => {
     observations.push({
       expanded: renderedTimer.dataset.floatingExpanded,
-      actionStrips: renderedTimer.querySelectorAll(".floating-timer-foundation__actions").length,
+      actionStrips: visibleCount(".floating-timer-foundation__actions"),
       headings: renderedTimer.querySelectorAll(".floating-timer-foundation__heading").length,
       subtaskPanels: renderedTimer.querySelectorAll(".floating-timer-foundation__subtask-panel").length,
     });
@@ -178,6 +186,10 @@ if (params.get("state") === "cycle") {
     const button = renderedTimer.querySelector<HTMLButtonElement>('[data-floating-subtask-control="expand"]');
     if (!button || button.disabled) throw new Error("Floating Timer resize control is unavailable");
     flushSync(() => button.click());
+    const nextExpanded = renderedTimer.dataset.floatingExpanded === "true";
+    const nextHeight = nextExpanded ? 300 : 110;
+    root.style.height = `${nextHeight}px`;
+    renderedTimer.style.height = `${nextHeight}px`;
   };
 
   observe();
