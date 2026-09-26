@@ -226,6 +226,23 @@ Acceptance criteria:
 
 **Gate E result: PASS / proceed to Milestone 6.** All 28 ordered Milestone 5 items are validated on authoritative Windows CI. PR #100 exact head `db78e0d6adebd51ab9e56a81185e4dac0206d1c5` passed Windows CI #390; expected-head guarded squash merge `c89526dbc40742570d8d89353244add2d6350d2d` passed resulting-main Windows CI #391.
 
+### 2026-09-26 parity/reliability reconciliation
+
+- [ ] Reconcile confirmed production omissions discovered after Gate E without redoing the validated M5 foundation:
+  - [ ] A1 List Duplicate: production wiring plus durable independent list/task identities.
+  - [ ] A2 Render persisted local list icons on active/archive list surfaces with safe fallback.
+  - [ ] A3 Top-of-lane `+` creates at highest priority atomically.
+  - [ ] A4 Normal task create accepts optional EST atomically using existing duration validation.
+  - [ ] A5 Main board task completion and explicit permanent-delete confirmation use validated persistence/session/report semantics.
+  - [ ] A6 Pointer/keyboard completion into Done without treating Done as a normal planning reorder lane.
+  - [ ] A7 Re-enable safe identity-based per-task edits in All Lists; aggregate reorder remains disabled.
+  - [ ] A8 Search matched-substring highlighting with unchanged keyboard/focus behavior.
+  - [ ] A9 Remove normal-main diagnostic JSON projection while preserving the user-facing Pomodoro resume prompt.
+  - [ ] A19 Done lane shows the documented local-month completion count.
+  - [ ] Evolve temporary static tests that encoded these earlier absences into final safety/product invariants.
+
+**Gate E status: REOPENED by new repository-backed parity evidence on 2026-09-26.** The original 28 slices remain historically validated; this reconciliation gate must pass before Milestone 5 is again complete.
+
 ## Milestone 6 — Blitz Mode / Focus Panel
 
 - [x] Start Blitz from eligible Today tasks.
@@ -256,6 +273,21 @@ Acceptance criteria:
 
 **Gate F result: PASS / proceed to Milestone 7.** All 16 Milestone 6 items are validated. PR #116 exact head `f0e02570308d86416861c53e1d296e5edb309ef8` passed Windows CI #445; expected-head guarded squash merge `ab5818fa92970655b63323839111a1977a5837a7` passed resulting-main Windows CI #446.
 
+### 2026-09-26 parity/reliability reconciliation
+
+- [ ] Reconcile confirmed Focus production omissions discovered after Gate F:
+  - [ ] A10 Ordinary Focus rows expose the documented source-backed task actions with reserved geometry and keyboard/focus equivalents.
+  - [ ] A11 Rocket / Make Live switches through authoritative timer/session APIs and preserves prior work.
+  - [ ] A12 Focus queue reorder reuses validated persisted task ordering and stable IDs.
+  - [ ] A13 Ordinary-row delete, schedule, notes and non-live completion reuse validated Main/domain boundaries.
+  - [ ] A14 Replace disabled Focus `+ ADD TASK` with persistence-first creation; All Lists requires explicit owning-list choice.
+  - [ ] A15 Focus Home exits the Focus surface through existing lifecycle without silently resetting timer/session state.
+  - [ ] A16 Live-task title editing is available only through Notes and reuses stale-safe title persistence.
+  - [ ] A17 Time's Up exposes Extend using the existing authoritative `timer_extend` transition.
+  - [ ] Evolve temporary M6 static tests that froze placeholder/non-mutating controls.
+
+**Gate F status: REOPENED by new repository-backed parity evidence on 2026-09-26.** The original 16 slices remain historically validated; this reconciliation gate must pass before Milestone 6 is again complete.
+
 
 ## Milestone 7 — Floating Timer mode
 
@@ -265,7 +297,9 @@ Acceptance criteria:
   - [x] Physical Windows validation: Drag PASS; Return button PASS; Always-on-top PASS; no normal taskbar button PASS.
 - [x] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
 - [x] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
-- [x] Implement expanded subtask rows with completion, reorder, delete and progress.
+- [ ] Implement expanded subtask rows with completion, title editing, reorder, delete and progress.
+  - [x] Completion/reopen, reorder, delete, add and progress were automated-validated in the original M7 expanded-content slice.
+  - [ ] A18 parity reconciliation: expanded Floating Timer must support stale-safe subtask title editing using the existing authoritative subtask mutation boundary.
 - [x] Keep icon hit targets stable and show tooltips without changing window width.
 - [ ] Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop.
   - [x] Initial native hidden-stage transition correction, finite 150ms content motion, reduced-motion contract, exact-head PR CI, guarded merge and resulting-main CI are automated-validated.

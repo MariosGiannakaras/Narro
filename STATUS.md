@@ -251,6 +251,21 @@ PR #152 / main `3dac35988ba03d9b12f5eb58dbb13d9e2792e488` optimizes Windows CI w
 
 PR #152 exact head `299f46c4f8953d6f0a30bfc9953925c11def7eda` passed Windows CI #525. Guarded squash merge `3dac35988ba03d9b12f5eb58dbb13d9e2792e488` intentionally forced one full main validation because the workflow itself changed; resulting-main CI #526 passed all gates and produced both required artifacts. In #526, preflight took about 6m01s and Tauri release about 4m46s; earlier recent release steps were commonly about 6–8 minutes. The larger expected saving is elimination of redundant full main jobs after ordinary identical-tree merges.
 
+## 2026-09-26 parity audit reconciliation
+
+A repository-only parity/reliability audit was verified one finding at a time against current `main`. All A1–A19 findings remain applicable as production/UI wiring gaps; none requires discarding validated Rust/domain reliability architecture. Several underlying capabilities already exist and must be reused rather than rebuilt.
+
+Classification:
+- **M5/Main reconciliation:** A1–A9 and A19.
+- **M6/Focus reconciliation:** A10–A17.
+- **M7/Floating reconciliation:** A18, plus the already-active compositor/physical work.
+- **B1 Task Change list/Duplicate:** unresolved fidelity/product requirement; do not implement until current requirement is established.
+- **B2 exact Blitz now placement / B3 exact swatch palette:** visual-fidelity questions for the scheduled final parity pass unless stronger current evidence promotes them.
+- **B4 Done auto-start next task:** current Narro auto-starts the next eligible task after committed completion, but source behavior is explicitly unresolved. Preserve current behavior until an explicit product decision or stronger evidence exists.
+- Intentional Narro deviations in audit section C remain binding and are not regressions.
+
+The new evidence reopens Gate E and Gate F acceptance without invalidating the historical CI evidence for their original slices. Ordered implementation therefore returns to the M5 reconciliation gate, then M6, then resumes M7. PR #155 remains an open M7 physical-compositor candidate with exact-head CI #532 PASS and must not be merged without the required physical evidence.
+
 ## Durable correctness decisions
 
 Future work must preserve:
