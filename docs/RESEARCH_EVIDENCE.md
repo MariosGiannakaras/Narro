@@ -9,15 +9,31 @@ This file is the evidence index for Narro. It records what was observed, what wa
 Use this order when evidence disagrees:
 
 1. latest explicit user requirement
-2. supplied current/direct screenshots
+2. supplied current/direct recordings and screenshots
 3. current official Blitzit Help Center documentation
 4. older supplied public-review screenshots
 5. public reviews/feature-board comments used only as corroboration or UX feedback
 6. inference
 
-A screenshot proves only visible state. It does not by itself prove what clicking a control does; official Help Center behavior is used for transitions where available.
+For interaction, motion, animation, transient-state, and window-transition questions, a direct recording is stronger evidence than a static screenshot when the relevant sequence is actually visible. For static layout, typography, spacing, color, and pixel-level visual detail, the clearest direct screenshot/frame remains the stronger visual reference.
 
-## 2. Supplied archive
+A screenshot proves only visible state. A recording proves only what can actually be observed in the captured sequence. Narration/transcript claims, hidden persistence assumptions, and inferred internal behavior must be classified separately. User-supplied video/transcript evidence is indexed in `docs/BLITZIT_VIDEO_EVIDENCE.md` and stored raw under `reference/original-blitzit-videos/inbox/`.
+
+## 2. User-supplied video/transcript evidence
+
+Repository upload inbox:
+
+- `reference/original-blitzit-videos/inbox/`
+
+Durable timestamped analysis/index:
+
+- `docs/BLITZIT_VIDEO_EVIDENCE.md`
+
+Status as of 2026-09-26: **inbox prepared; corpus not yet uploaded/analyzed**.
+
+When recordings arrive, preserve the raw originals, inventory every video/transcript, distinguish direct observation from narration/inference, and route milestone-relevant findings before the affected milestone closes when the evidence already exists. The complete corpus must also be covered by the required final comprehensive review.
+
+## 3. Supplied screenshot archive
 
 Source: `blitzit Ss.rar`
 

@@ -19,7 +19,8 @@ Treat sources and project documents as follows:
 
 The detailed source synthesis lives in:
 
-- `docs/RESEARCH_EVIDENCE.md` — screenshot inventory and visible-state evidence.
+- `docs/RESEARCH_EVIDENCE.md` — screenshot/video evidence inventory and evidence precedence.
+- `docs/BLITZIT_VIDEO_EVIDENCE.md` — user-supplied recording/transcript manifest plus timestamped UI/UX/motion findings.
 - `docs/SOURCE_AUDIT.md` — exhaustive Help Center/page-by-page audit, official video inventory, roadmap/bugs, reviews, and feedback synthesis.
 
 ## Optional planning and verification aids
@@ -87,6 +88,20 @@ The research environment could identify embedded video IDs/context but could not
 - do not infer spoken claims from an ID alone;
 - use the accompanying official Help Center article as the behavioral source unless a transcript/video can actually be inspected;
 - if Codex has direct browser/video access in a later session, it may inspect the videos to refine interaction details, but must distinguish newly observed details from existing confirmed requirements.
+
+## User-supplied Blitzit video/transcript source
+
+Repository upload inbox:
+
+- `reference/original-blitzit-videos/inbox/`
+
+The user may upload raw videos and transcripts/captions there without pre-classifying them. Common video formats in that inbox are configured for Git LFS; transcripts remain normal searchable text.
+
+Analysis must be preserved in:
+
+- `docs/BLITZIT_VIDEO_EVIDENCE.md`
+
+Use `docs/INTERACTION_CAPTURE_GUIDE.md` for the observation/motion methodology. Direct recordings are primary evidence for interaction sequences, animations, transition ordering, transient states, and visible window behavior; narration/transcript statements remain a distinct evidence class unless independently visible/corroborated.
 
 ## Supplied screenshot source
 

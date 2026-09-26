@@ -21,16 +21,22 @@ Markdown-only tracking commits after that source SHA do not replace the validate
 
 ## CURRENT ORDERED WORK
 
-The parity audit reconciliation is complete through M6.
+The parity audit reconciliation remains complete through M6.
 
 1. **M5 parity/reliability reconciliation (A1–A9, A19): COMPLETE.**
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
-3. This conversation's current task is **planning/tracking only**. No M7 source/UI implementation, refactor, or application validation belongs in this task.
-4. On a later implementation instruction, resume **M7/A18/compositor work from repository state**, preserving already validated M7 evidence and reconciling the existing PR #155 against the newer `main` rather than restarting M7.
-5. Continue M8 → M9 → M10 in the existing order only after their prerequisites close.
-6. After M10 is fully complete, run the required **Final Comprehensive Review Stage** in `TODO.md`. It is a post-roadmap gate, not Milestone 11; the roadmap denominator remains 10.
+3. Current task is repository evidence/tracking setup only: create the durable Blitzit video/transcript upload inbox, analysis index, evidence rules, and roadmap tasks. Do not modify or validate Narro application/UI behavior as part of this slice.
+4. On a later implementation instruction, resume **M7/A18/compositor work from repository state**, preserving existing validated M7 evidence and reconciling PR #155 against the newer `main`.
+5. If user-supplied Focus/Floating Timer recordings are present before M7 closes, analyze the materially relevant subset first and route findings through `docs/BLITZIT_VIDEO_EVIDENCE.md`; do not ignore known video evidence merely because a post-M10 review also exists.
+6. Continue M8 → M9 → M10 in the existing order only after prerequisites close.
+7. After M10, the Final Comprehensive Review Stage must include the complete uploaded video/transcript corpus as well as screenshots/docs.
 
-Roadmap completion is now **6/10 milestones**.
+Roadmap completion remains **6/10 milestones**.
+
+Video evidence paths:
+- upload inbox: `reference/original-blitzit-videos/inbox/`;
+- analysis index: `docs/BLITZIT_VIDEO_EVIDENCE.md`;
+- corpus status: **NOT YET ANALYZED**.
 
 For each remaining milestone M7–M10:
 - require sufficient error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone;
@@ -93,10 +99,14 @@ PR #155 `M7: cover focus transitions with a temporary native visual hold` remain
 
 ## EXACT NEXT ACTION
 
-For the current planning/tracking task: finish and merge only the documentation changes that add the cross-cutting M7–M10 quality requirements and the post-M10 Final Comprehensive Review Stage. Do not run application/UI validation and do not change source code.
+Finish and merge only this evidence/tracking setup. No application source/UI change or application validation belongs to this slice.
 
-After this planning task is complete, a zero-context agent receiving a later implementation instruction must reconstruct current `main`, inspect PR #155/current M7 evidence, and resume M7 from the repository-recorded checkpoint rather than restarting it. The Final Comprehensive Review Stage must not begin before M10 is complete.
+After this setup is merged, a later explicit implementation instruction should reconstruct current `main`, inspect PR #155/current M7 evidence, check whether any files have been uploaded under `reference/original-blitzit-videos/inbox/`, and then:
+- if relevant M7 recordings exist, analyze the relevant subset first and record timestamped findings;
+- otherwise resume M7 from the repository-recorded checkpoint without restarting it.
+
+The complete video/transcript corpus remains a mandatory evidence source for the post-M10 Final Comprehensive Review Stage.
 
 ## USER ACTION REQUIRED
 
-No product decision blocks the planning update. Application implementation remains intentionally paused for this task; resume M7 only on a subsequent implementation instruction from the user.
+The upload inbox is ready for future use. The user may place raw Blitzit videos and transcripts/captions in `reference/original-blitzit-videos/inbox/` at any time. Uploading the corpus is not a blocker for unrelated implementation work unless already-uploaded evidence materially affects the milestone being closed.

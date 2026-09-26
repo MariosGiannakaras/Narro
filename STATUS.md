@@ -338,6 +338,20 @@ The future stage will combine:
 - a single findings register with explicit disposition and evidence-backed remediation/revalidation before the final gate can pass.
 
 For every remaining milestone M7–M10, completion now also requires sufficient user-facing error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone. Every milestone completion report must include its total validated source diff as `+A/-B` lines, measured from its validated starting source SHA to its final validated source SHA.
+## Blitzit video/transcript evidence ingestion
+
+The repository now has a durable inbox for future user-supplied Blitzit recordings and transcripts:
+
+- raw upload path: `reference/original-blitzit-videos/inbox/`;
+- raw evidence guide: `reference/original-blitzit-videos/README.md`;
+- durable manifest/timestamped analysis: `docs/BLITZIT_VIDEO_EVIDENCE.md`;
+- interaction/motion methodology: `docs/INTERACTION_CAPTURE_GUIDE.md`;
+- common video formats in the inbox are configured for Git LFS; transcripts remain normal Git text.
+
+Status: **INBOX READY / CORPUS ANALYSIS NOT STARTED**. No video-derived product finding is claimed until files are actually uploaded and inspected.
+
+When recordings exist before an affected remaining milestone closes, materially relevant evidence must be analyzed before that milestone is declared complete. In particular, Focus Panel/Floating Timer/transition/expand-collapse recordings available before M7 closure are M7 evidence. Independently of earlier milestone routing, the complete uploaded corpus is a required evidence source for the post-M10 Final Comprehensive Review Stage.
+
 ## Durable correctness decisions
 
 Future work must preserve:
