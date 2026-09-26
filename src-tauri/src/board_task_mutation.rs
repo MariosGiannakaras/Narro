@@ -464,17 +464,19 @@ mod tests {
             complete_board_task(&mut conn, task.id, other_list, T1),
             Err(BoardTaskMutationError::ExpectedListMismatch { .. })
         ));
-        let completed = complete_board_task(&mut conn, task.id, list_id, T1)
-            .expect("complete board task");
+        let completed =
+            complete_board_task(&mut conn, task.id, list_id, T1).expect("complete board task");
         assert!(completed.completed_at.is_some());
 
         assert!(matches!(
             permanently_delete_board_task(&mut conn, task.id, other_list, T1),
             Err(BoardTaskMutationError::ExpectedListMismatch { .. })
         ));
-        permanently_delete_board_task(&mut conn, task.id, list_id, T1)
-            .expect("delete board task");
-        assert!(matches!(get_task(&conn, task.id), Err(TaskStoreError::NotFound(_))));
+        permanently_delete_board_task(&mut conn, task.id, list_id, T1).expect("delete board task");
+        assert!(matches!(
+            get_task(&conn, task.id),
+            Err(TaskStoreError::NotFound(_))
+        ));
     }
 
     #[test]
