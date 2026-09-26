@@ -12,6 +12,6 @@ Preferred behavior:
 - include any companion note file if you know the Blitzit version, date, OS/display setup, or what the recording demonstrates;
 - do not overwrite an older raw recording with a newer one.
 
-Common video formats in this folder are tracked through Git LFS. Text transcripts remain ordinary Git files.
+Videos and transcripts in this folder are uploaded/committed as normal repository files. No Git LFS setup is required.
 
 After upload, the durable analysis will be maintained in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
