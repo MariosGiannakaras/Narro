@@ -204,15 +204,31 @@ PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Prefligh
 
 ## Milestone 7 — next ordered work
 
-The user-provided 60 fps physical retest of CI #517 narrowed item 7 further. The Win32 alpha-0 transparent prewarm from PR #147 removes the earlier blank white native-host flash, but the target renderer can still reveal before its authoritative projections settle. Two frame-precise examples are recorded: around ~4.55s Panel→Timer briefly shows `No active focus task` while the outgoing Panel already has live task `fas`, then settles to `fas` by ~4.60s; around ~20.25s Timer→Panel briefly shows `Loading Focus Panel…`, then the settled Panel is present by ~20.30s.
+The CI #521 60 fps physical retest is still a scoped **FAIL** for M7 item 7. PR #148/#150 added Panel and Timer readiness callbacks, but the coordinator waited for readiness only after transparent native prewarm. Frame inspection shows that this ordering still lets temporary renderer states become visible.
 
-PR #148 adds the Panel-side readiness boundary only: FocusPanel reports ready after the requested board snapshot and live timer projection have both settled, and the existing coordinator does not reveal the Panel until that readiness boundary plus transparent prewarm and the finite presented-frame barrier complete. Exact head `d63d1f3ce49e77ceae99d7ce1c8e95d19e1aed42` passed Windows CI #518; merged main `d462a85ba1fb91c1dfd1df09baa6cf33fb48dc86` passed resulting-main CI #519.
+Observed with normal Windows animations:
+- ~8.300s: `No active focus task`;
+- ~8.333s: the same live task `fas` appears;
+- ~10.600s: `Loading Focus Panel…`;
+- ~10.633s: the settled Panel appears.
 
-PR #150 adds the corresponding Timer-side readiness boundary on top of #148 without changing native geometry or coordinator semantics. Floating Timer reports ready only after the timer projection settles and, when a live task exists, the matching board snapshot resolves or reaches an explicit error state. Exact head `a4dd2839a84fc4cd69c2d7ed55beb224cc6d811f`, tree `e90ad9af52f4f37fbda976b8839f8a69ab2f17c8`, passed Windows CI #520 / run `36197064882`. The merged resulting main source is `445aa37b9b8441c9351d5dd87ff353690b3050c2` with the identical tree, and Windows CI #521 / run `36198699903` passed Repository Preflight, visual regression, Tauri Release and both required artifact uploads.
-- #521 runtime artifact `10890859242`, digest `sha256:88ffd7a3e838ec4199cfa8ac933d2451f785c530c564670f5d7fdbd4bdf674d4`;
-- #521 visual artifact `10890679899`, digest `sha256:b8cce0c7944d9a2e96208ad2a680ee93dfdb550dfa11dca5b6d0a20bd0d3a03f`.
+Observed again with the real Windows animation preference Off:
+- ~35.267s: `Loading focus task…` before the settled Timer;
+- ~40.700s: `Loading Focus Panel…` before the settled Panel.
 
-The overlapping PR #149 was closed after #148 merged so the final implementation line remains narrow: #148 owns Panel readiness and #150 owns Timer readiness. Automated validation still does **not** close item 7. Exact next action is a physical 60 fps retest from the #521 runtime artifact with normal Windows animations and with the actual OS animation setting Off. Require no blank/pale/loading/staging frame in either direction, no abrupt return flicker, no horizontal scrollbar, no stale expand/collapse pixels, and continuous session identity/time. If clean, continue the remaining M7 physical matrix; do not advance to Milestone 8.
+The active session remains continuous across these frames; this is a transient representation/readiness failure, not evidence of a persistent session reset.
+
+PR #151 makes only the evidence-backed ordering correction: `prepare -> publish -> readiness while hidden -> transparent prewarm -> finite presented-frame barrier -> reveal`, with the same order in recovery. Exact PR head `077c2ea4b74e1f346a7ca3b9e9ec7cb76b2ca451` passed Windows CI #522. It merged to main as `8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`. Resulting-main Windows CI #523 / run `36203003936` is already running on that exact source and must complete before any further source work. No additional CI should be started while it is active.
+
+A second independent audit of the same CI #521 recording was compared against the primary frame review. Its Panel↔Timer findings are corroborative rather than new. One additional technical finding was independently confirmed and must be retained as a separate M7 issue: Timer Expand/Collapse exposes native resized geometry while content is hidden/empty.
+- animations On, Expand ~9.53–9.65s: enlarged mostly blank Timer before expanded controls;
+- animations On, Collapse ~17.2s: expanded content disappears, an empty enlarged surface shrinks, then collapsed content republishes;
+- animations Off, Expand ~43.02–43.13s: same enlarged-empty-surface pattern;
+- animations Off, Collapse ~37.38s: same content-hidden-before-resize-completes pattern.
+
+This Expand/Collapse evidence is distinct from PR #151 and must not be folded into it. The next ordered source slice, only after #523 validation and isolated physical confirmation of #151, is a narrow resize content-readiness/visibility correction that preserves native geometry authority and does not reopen the already-settled duplicate-pixel fix.
+
+No persistent horizontal scrollbar was established by the CI #521 recording. UX observations about expanded information hierarchy or caret grouping are not correctness blockers and are not promoted into M7 implementation work without separate product evidence.
 
 ## Durable correctness decisions
 

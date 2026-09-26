@@ -1,82 +1,81 @@
 # HANDOFF.md
 
-Canonical continuation point. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, active M7 `TODO.md`, relevant `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md` when applicable, the newest immutable `work-log/` entry, and live PR/CI state before implementation.
+Canonical continuation point. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, active M7 `TODO.md`, relevant `STATUS.md`, the newest immutable `work-log/` entry, and live PR/CI state before implementation.
 
 GitHub `main` is the durable source truth.
 
 ## CURRENT MILESTONE
 
-Milestone 7 — Floating Timer mode. Milestones 1–6 are complete. M7 item 7 remains open for physical Windows compositor/readiness verification. Do not advance to M8 before the remaining M7 acceptance conditions are observed.
+Milestone 7 — Floating Timer mode. Milestones 1–6 are complete. M7 item 7 remains open for physical Windows transition continuity. Do not advance to M8.
 
-## CURRENT VALIDATED SOURCE
+## LAST FULLY VALIDATED SOURCE
 
-Validated source baseline: `445aa37b9b8441c9351d5dd87ff353690b3050c2` (merged PR #150), tree `e90ad9af52f4f37fbda976b8839f8a69ab2f17c8`. The tree is identical to exact PR #150 head `a4dd2839a84fc4cd69c2d7ed55beb224cc6d811f`.
+The last source with completed exact-head and resulting-main Windows CI is:
+`445aa37b9b8441c9351d5dd87ff353690b3050c2`, tree `e90ad9af52f4f37fbda976b8839f8a69ab2f17c8`.
 
-PR #150 exact-head Windows CI #520 / run `36197064882`: **PASS**.
-Resulting-main Windows CI #521 / run `36198699903`: **PASS**.
-- runtime artifact `10890859242`, digest `sha256:88ffd7a3e838ec4199cfa8ac933d2451f785c530c564670f5d7fdbd4bdf674d4`;
-- visual artifact `10890679899`, digest `sha256:b8cce0c7944d9a2e96208ad2a680ee93dfdb550dfa11dca5b6d0a20bd0d3a03f`.
+PR #150 exact-head CI #520: **PASS**.
+Resulting-main CI #521: **PASS**.
 
-The immediately preceding Panel-readiness source is PR #148 exact head `d63d1f3ce49e77ceae99d7ce1c8e95d19e1aed42` (CI #518 PASS), merged as `d462a85ba1fb91c1dfd1df09baa6cf33fb48dc86` (resulting-main CI #519 PASS). PR #150 builds on that source and adds only Timer readiness.
+## CURRENT SOURCE CANDIDATE
 
-Any later markdown-only tracking commit does **not** replace the validated source baseline above.
+PR #151 exact head:
+`077c2ea4b74e1f346a7ca3b9e9ec7cb76b2ca451`
 
-## PHYSICAL EVIDENCE FROM CI #517
+PR #151 Windows CI #522: **PASS**.
 
-The user supplied a new 60 fps recording from the CI #517 runtime build.
+Merged main source:
+`8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`
 
-The native-host blank flash fixed by PR #147 is no longer the primary failure. Remaining observed staging is renderer projection readiness:
-- Panel→Timer around ~4.55s briefly shows `No active focus task` while the outgoing Panel already shows live task `fas`; by ~4.60s the Timer shows `fas`.
-- Timer→Panel around ~20.25s briefly shows `Loading Focus Panel…`; by ~20.30s the full settled Panel is visible.
+Resulting-main Windows CI #523 / run `36203003936`: **IN PROGRESS** at the time of this handoff update.
 
-This is a physical **FAIL** for CI #517 item-7 continuity, but it is narrower than the CI #514 failure: transparent native prewarm removed the blank-host boundary and exposed the remaining target-projection race.
+Do not treat `8c3a108e...` as the new validated baseline until #523 completes successfully. There are no open implementation PRs.
 
-## COMPLETED CAPABILITY
+## CI #521 PHYSICAL EVIDENCE
 
-PR #148:
-- adds a Panel presentation-readiness callback;
-- marks Panel ready only after its current board target has settled and the timer projection has settled;
-- uses the existing shared `waitForModeReady` coordinator boundary before final frame/reveal;
-- keeps native transparent prewarm, geometry authority and rollback unchanged.
+The user-provided 60 fps recording still fails Panel↔Timer continuity even after PR #148/#150 readiness callbacks:
+- normal animations ~8.300s: `No active focus task`, then live task `fas` by ~8.333s;
+- normal animations ~10.600s: `Loading Focus Panel…`, then settled Panel by ~10.633s;
+- Windows animations Off ~35.267s: `Loading focus task…`;
+- Windows animations Off ~40.700s: `Loading Focus Panel…`.
 
-PR #150:
-- adds the symmetric Timer presentation-readiness callback;
-- marks Timer ready only after its timer projection has settled and, when a live task exists, the matching board snapshot has settled;
-- wires Timer readiness into the same existing mode-readiness boundary;
-- keeps the coordinator order and native geometry/prewarm implementation unchanged;
-- adds static regression contracts for Timer readiness state.
+The session itself remains continuous. The defect is renderer representation/readiness ordering.
 
-PR #149 was closed as overlapping after PR #148 merged. There are no open implementation PRs at this checkpoint.
+Root cause demonstrated by the recording: readiness was awaited after transparent prewarm, and the prewarm-visible WebView2 child can expose temporary renderer content.
+
+PR #151 reorders success and recovery to:
+`prepare -> publish -> readiness while hidden -> transparent prewarm -> presented-frame barrier -> reveal`.
+
+## SEPARATE EXPAND/COLLAPSE EVIDENCE
+
+A second independent audit of the same recording was compared with the primary review. Its Panel↔Timer observations duplicate already-known evidence. One additional correctness issue was independently verified:
+
+- Expand, animations On, ~9.53–9.65s: native Timer grows while content is still mostly absent;
+- Collapse, animations On, ~17.2s: expanded content disappears before shrink completes, leaving a blank enlarged/shrinking surface before collapsed content republishes;
+- Expand, animations Off, ~43.02–43.13s: same enlarged-empty-surface sequence;
+- Collapse, animations Off, ~37.38s: same content-hidden-before-resize-completes sequence.
+
+This is a distinct resize visibility/readiness problem. It is not part of PR #151 and must be handled as the next narrow M7 source slice only after #151 is validated and physically isolated.
+
+The recording does not establish a persistent scrollbar regression. Information-hierarchy/caret-grouping comments are UX observations, not current correctness blockers.
 
 ## INVARIANTS
 
 Preserve:
 - normal two-webview model only: `main` plus reusable `focusSurface`;
-- Rust/native authority for geometry, monitor/work-area/DPI placement and presentation mode;
-- authoritative timer/session/task/scheduling/persistence outside renderer memory;
-- transparent host prewarm remains one-shot and finite, with complete cleanup/rollback;
-- target reveal must not precede authoritative projection readiness;
-- no fixed delay, polling loop, extra webview or high-frequency JS geometry loop;
-- live session continuity and all validated M1–M6 correctness invariants.
-
-## UNFINISHED M7 WORK
-
-Immediate item-7 retest on CI #521:
-- record Panel→Timer→Panel at 60 fps with normal Windows animations;
-- repeat after actual Windows `Show animations in Windows` / animation effects is Off, then restore the user's setting;
-- verify no `No active focus task`, `Loading Focus Panel…`, blank/pale frame or other target staging is ever revealed;
-- verify no abrupt return flicker or horizontal focus-surface scrollbar;
-- verify expand/collapse retains no stale/duplicated pixels;
-- verify active task/session identity and elapsed/remaining time remain continuous.
-
-Other M7 physical gates remain as tracked in `TODO.md` and `docs/M7_FLOATING_RUNTIME_VALIDATION.md`: native-hidden/Panel shortcut follow-up, secondary-monitor/topology/no-saved-position recovery, taskbar/DPI/constrained-work-area cases, and independent borderless/optional exclusive-fullscreen stacking.
+- native/Rust authority for geometry, monitor/work-area/DPI placement and presentation mode;
+- authoritative timer/session/task/persistence outside renderer memory;
+- live session continuity across Panel↔Timer and expand/collapse;
+- one-shot finite transparent prewarm with complete rollback/cleanup;
+- no fixed delay, polling loop, additional webview or high-frequency JS geometry loop;
+- existing solved duplicate/stale-pixel behavior must not regress.
 
 ## EXACT NEXT ACTION
 
-1. Recheck `main`, open PRs and CI before any source change.
-2. Use CI #521 runtime artifact `10890859242`.
-3. Run the same 60 fps Panel↔Timer test that exposed the CI #517 staging states, first with normal animations and then with Windows animations Off.
-4. Inspect the returned recording frame-by-frame.
-5. If any staging/loading/blank frame remains, fix only that observed sequence. If clean, record physical PASS and continue the remaining M7 physical matrix. Do not start M8.
+1. Check CI #523 first. Do not start another CI while it is running.
+2. If #523 fails, inspect only its exact failure and fix that evidence; do not start Expand/Collapse work.
+3. If #523 passes, record `8c3a108e...` as the validated source and use the #523 runtime artifact for an isolated 60 fps Panel↔Timer retest with animations On and Off.
+4. If Panel↔Timer still exposes loading/empty/staging content, diagnose only that exact sequence.
+5. If Panel↔Timer passes, start the separate narrow Expand/Collapse resize content-readiness/visibility slice from the validated baseline.
+6. After that slice passes exact-head CI, guarded merge, resulting-main CI and physical Expand/Collapse retest, continue the remaining M7 physical matrix. Do not start M8.
 
 No product-policy decision blocks the next action.
