@@ -200,7 +200,9 @@ invariant(
 invariant(
   css.includes(".floating-timer-foundation__subtask-title-input")
     && css.includes("width: 104px")
-    && css.includes("grid-template-columns: repeat(3, 32px)"),
+    && css.includes("grid-template-columns: repeat(3, 32px)")
+    && css.includes('[data-floating-subtask-editing="true"]')
+    && css.includes("grid-template-columns: repeat(2, 32px)"),
   "Floating Timer subtask editing must preserve the reserved action rail and compact title geometry",
 );
 invariant(
