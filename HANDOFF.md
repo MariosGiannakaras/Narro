@@ -6,76 +6,75 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT MILESTONE
 
-Milestone 7 — Floating Timer mode. Milestones 1–6 are complete. M7 item 7 remains open for physical Windows transition continuity. Do not advance to M8.
+Milestone 7 — Floating Timer mode. Milestones 1–6 are complete. M7 physical gates remain open; do not advance to M8.
 
-## LAST FULLY VALIDATED SOURCE
+## CURRENT VALIDATED SOURCE
 
-The last source with completed exact-head and resulting-main Windows CI is:
-`445aa37b9b8441c9351d5dd87ff353690b3050c2`, tree `e90ad9af52f4f37fbda976b8839f8a69ab2f17c8`.
+Current validated source baseline:
+`3dac35988ba03d9b12f5eb58dbb13d9e2792e488`, tree `57a9b7258059c2ba35088c48f74585953aa1d580`.
 
-PR #150 exact-head CI #520: **PASS**.
-Resulting-main CI #521: **PASS**.
+This includes:
+- PR #151 readiness-before-prewarm ordering; exact-head CI #522 PASS, merged source `8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`, resulting-main CI #523 PASS.
+- PR #152 CI optimization; exact head `299f46c4f8953d6f0a30bfc9953925c11def7eda`, CI #525 PASS; guarded squash merge `3dac35988ba03d9b12f5eb58dbb13d9e2792e488`, resulting-main CI #526 PASS.
 
-## CURRENT SOURCE CANDIDATE
+CI #526 runtime artifact:
+`10899467604`, digest `sha256:b8e412e4b0e9164da968aaa52d319d79125b968d83757bf29b38cf97840b891c`.
 
-PR #151 exact head:
-`077c2ea4b74e1f346a7ca3b9e9ec7cb76b2ca451`
+CI #526 visual artifact:
+`10899945114`, digest `sha256:d2cd12e230558ec8f15944098c1382889f6dbddc4b7408f287125bb144945a0c`.
 
-PR #151 Windows CI #522: **PASS**.
+## CI OPTIMIZATION NOW VALIDATED
 
-Merged main source:
-`8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`
+PR #152 preserves the full PR Windows validation contract while reducing redundant work:
+- exact-head PR runs still execute full preflight, visual regression, release build and artifact upload;
+- main skips the heavy job only after proving merged PR association, identical Git tree and successful exact-head PR Windows CI;
+- unsafe/unknown cases fail safe to full CI;
+- workflow/Rust cache-key input changes force a full main run;
+- Rust/Cargo cache is pinned and only trusted main pushes save reusable cache state;
+- Tauri packaging reuses the frontend `dist` already built by preflight, with an explicit output check before packaging.
 
-Resulting-main Windows CI #523 / run `36203003936`: **IN PROGRESS** at the time of this handoff update.
+## PHYSICAL EVIDENCE STILL OPEN
 
-Do not treat `8c3a108e...` as the new validated baseline until #523 completes successfully. There are no open implementation PRs.
+The CI #521 recording proved Panel↔Timer staging before PR #151:
+- normal animations ~8.300s `No active focus task`, ~10.600s `Loading Focus Panel…`;
+- animations Off ~35.267s `Loading focus task…`, ~40.700s `Loading Focus Panel…`.
 
-## CI #521 PHYSICAL EVIDENCE
+PR #151 is automated-validated but still needs physical confirmation. This manual gate remains OPEN.
 
-The user-provided 60 fps recording still fails Panel↔Timer continuity even after PR #148/#150 readiness callbacks:
-- normal animations ~8.300s: `No active focus task`, then live task `fas` by ~8.333s;
-- normal animations ~10.600s: `Loading Focus Panel…`, then settled Panel by ~10.633s;
-- Windows animations Off ~35.267s: `Loading focus task…`;
-- Windows animations Off ~40.700s: `Loading Focus Panel…`.
+Separately, the same recording independently proves an Expand/Collapse continuity failure:
+- Expand animations On ~9.53–9.65s: enlarged mostly blank Timer before expanded content;
+- Collapse animations On ~17.2s: content disappears before shrink completes;
+- Expand animations Off ~43.02–43.13s: same enlarged-empty-surface sequence;
+- Collapse animations Off ~37.38s: same content-hidden-before-resize-completes sequence.
 
-The session itself remains continuous. The defect is renderer representation/readiness ordering.
+## USER-DIRECTED MANUAL-TEST BATCHING
 
-Root cause demonstrated by the recording: readiness was awaited after transparent prewarm, and the prewarm-visible WebView2 child can expose temporary renderer content.
-
-PR #151 reorders success and recovery to:
-`prepare -> publish -> readiness while hidden -> transparent prewarm -> presented-frame barrier -> reveal`.
-
-## SEPARATE EXPAND/COLLAPSE EVIDENCE
-
-A second independent audit of the same recording was compared with the primary review. Its Panel↔Timer observations duplicate already-known evidence. One additional correctness issue was independently verified:
-
-- Expand, animations On, ~9.53–9.65s: native Timer grows while content is still mostly absent;
-- Collapse, animations On, ~17.2s: expanded content disappears before shrink completes, leaving a blank enlarged/shrinking surface before collapsed content republishes;
-- Expand, animations Off, ~43.02–43.13s: same enlarged-empty-surface sequence;
-- Collapse, animations Off, ~37.38s: same content-hidden-before-resize-completes sequence.
-
-This is a distinct resize visibility/readiness problem. It is not part of PR #151 and must be handled as the next narrow M7 source slice only after #151 is validated and physically isolated.
-
-The recording does not establish a persistent scrollbar regression. Information-hierarchy/caret-grouping comments are UX observations, not current correctness blockers.
+The user explicitly requested that implementation continue across multiple safe, independently evidenced slices instead of stopping at each manual Windows gate. Therefore:
+- do not fabricate or mark deferred physical checks PASS;
+- continue evidence-backed implementation where the next slice does not depend on the unknown manual result;
+- batch compatible manual Windows checks later to reduce user interruption;
+- if a later source change would make an earlier manual test obsolete, test only the latest relevant build for the combined acceptance matrix.
 
 ## INVARIANTS
 
 Preserve:
-- normal two-webview model only: `main` plus reusable `focusSurface`;
-- native/Rust authority for geometry, monitor/work-area/DPI placement and presentation mode;
+- two-webview model only: `main` plus reusable `focusSurface`;
+- Rust/native geometry, monitor/work-area/DPI and presentation authority;
 - authoritative timer/session/task/persistence outside renderer memory;
-- live session continuity across Panel↔Timer and expand/collapse;
-- one-shot finite transparent prewarm with complete rollback/cleanup;
 - no fixed delay, polling loop, additional webview or high-frequency JS geometry loop;
-- existing solved duplicate/stale-pixel behavior must not regress.
+- solved duplicate/stale-pixel behavior must not regress;
+- CI optimization must never skip validation unless identical-tree + successful exact-head PR evidence is proven.
 
-## EXACT NEXT ACTION
+## NEXT AGENT ACTION
 
-1. Check CI #523 first. Do not start another CI while it is running.
-2. If #523 fails, inspect only its exact failure and fix that evidence; do not start Expand/Collapse work.
-3. If #523 passes, record `8c3a108e...` as the validated source and use the #523 runtime artifact for an isolated 60 fps Panel↔Timer retest with animations On and Off.
-4. If Panel↔Timer still exposes loading/empty/staging content, diagnose only that exact sequence.
-5. If Panel↔Timer passes, start the separate narrow Expand/Collapse resize content-readiness/visibility slice from the validated baseline.
-6. After that slice passes exact-head CI, guarded merge, resulting-main CI and physical Expand/Collapse retest, continue the remaining M7 physical matrix. Do not start M8.
+1. Recheck live main/open PR/CI state.
+2. Start the narrow Expand/Collapse resize content-readiness/visibility corrective slice from the validated baseline.
+3. Preserve existing native hidden-resize rollback and duplicate-key/stale-pixel fixes.
+4. Add deterministic regression coverage for the visible ordering: content must be ready for the target layout before resized geometry is exposed; outgoing content must not disappear into a blank resized surface.
+5. Validate exact PR head on Windows CI, guarded merge, then rely on the new identical-tree dedup gate when applicable.
+6. Continue other independently automatable M7 work rather than stopping for manual checks.
+7. Later provide one combined Windows manual matrix covering PR #151 Panel↔Timer continuity, Expand/Collapse continuity, shortcut boundary stress, find/hidden behavior, monitor/topology/taskbar/DPI cases and stacking. Do not start M8 until all required M7 physical gates pass.
 
-No product-policy decision blocks the next action.
+## USER ACTION REQUIRED
+
+None immediately. Manual Windows validation is intentionally deferred for batching, not waived.

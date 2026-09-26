@@ -218,7 +218,7 @@ Observed again with the real Windows animation preference Off:
 
 The active session remains continuous across these frames; this is a transient representation/readiness failure, not evidence of a persistent session reset.
 
-PR #151 makes only the evidence-backed ordering correction: `prepare -> publish -> readiness while hidden -> transparent prewarm -> finite presented-frame barrier -> reveal`, with the same order in recovery. Exact PR head `077c2ea4b74e1f346a7ca3b9e9ec7cb76b2ca451` passed Windows CI #522. It merged to main as `8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`. Resulting-main Windows CI #523 / run `36203003936` is already running on that exact source and must complete before any further source work. No additional CI should be started while it is active.
+PR #151 makes only the evidence-backed ordering correction: `prepare -> publish -> readiness while hidden -> transparent prewarm -> finite presented-frame barrier -> reveal`, with the same order in recovery. Exact PR head `077c2ea4b74e1f346a7ca3b9e9ec7cb76b2ca451` passed Windows CI #522. It merged to main as `8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`. Resulting-main Windows CI #523 / run `36203003936` passed on that exact source. The Panel↔Timer physical retest remains required, but by explicit user direction it may be batched with later M7 manual checks while independent evidence-backed source work continues.
 
 A second independent audit of the same CI #521 recording was compared against the primary frame review. Its Panel↔Timer findings are corroborative rather than new. One additional technical finding was independently confirmed and must be retained as a separate M7 issue: Timer Expand/Collapse exposes native resized geometry while content is hidden/empty.
 - animations On, Expand ~9.53–9.65s: enlarged mostly blank Timer before expanded controls;
@@ -226,9 +226,20 @@ A second independent audit of the same CI #521 recording was compared against th
 - animations Off, Expand ~43.02–43.13s: same enlarged-empty-surface pattern;
 - animations Off, Collapse ~37.38s: same content-hidden-before-resize-completes pattern.
 
-This Expand/Collapse evidence is distinct from PR #151 and must not be folded into it. The next ordered source slice, only after #523 validation and isolated physical confirmation of #151, is a narrow resize content-readiness/visibility correction that preserves native geometry authority and does not reopen the already-settled duplicate-pixel fix.
+This Expand/Collapse evidence is distinct from PR #151 and must not be folded into it. With #523 validated, the next ordered source slice is a narrow resize content-readiness/visibility correction that preserves native geometry authority and does not reopen the already-settled duplicate-pixel fix. The deferred Panel↔Timer physical confirmation remains open and must be included in the later batched M7 manual matrix.
 
 No persistent horizontal scrollbar was established by the CI #521 recording. UX observations about expanded information hierarchy or caret grouping are not correctness blockers and are not promoted into M7 implementation work without separate product evidence.
+
+## CI efficiency baseline
+
+PR #152 / main `3dac35988ba03d9b12f5eb58dbb13d9e2792e488` optimizes Windows CI without removing tests or release validation:
+- exact-head PR CI remains the full authoritative Windows gate;
+- a lightweight main validation gate skips the heavy duplicate job only when GitHub proves an associated merged PR, an identical PR-head/main Git tree, and a successful exact-head PR `Windows CI` run;
+- direct/unproven main pushes, different trees, workflow changes and Rust cache-key input changes fall back to full CI;
+- Rust/Cargo build state is cached with pinned `Swatinem/rust-cache` for `src-tauri -> target`, with cache writes restricted to trusted main pushes;
+- Tauri CI packaging reuses the frontend `dist` already produced by repository preflight and verifies required outputs before packaging instead of running a second frontend production build.
+
+PR #152 exact head `299f46c4f8953d6f0a30bfc9953925c11def7eda` passed Windows CI #525. Guarded squash merge `3dac35988ba03d9b12f5eb58dbb13d9e2792e488` intentionally forced one full main validation because the workflow itself changed; resulting-main CI #526 passed all gates and produced both required artifacts. In #526, preflight took about 6m01s and Tauri release about 4m46s; earlier recent release steps were commonly about 6–8 minutes. The larger expected saving is elimination of redundant full main jobs after ordinary identical-tree merges.
 
 ## Durable correctness decisions
 
