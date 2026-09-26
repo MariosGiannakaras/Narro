@@ -357,7 +357,7 @@ export function FloatingTimerFoundation({
               {liveTimer?.text ?? "--:--"}
             </span>
           </div>
-        )}
+        ) : null}
 
         {liveTask ? (
           <FocusLiveSubtasks
