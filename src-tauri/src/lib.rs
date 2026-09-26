@@ -1479,6 +1479,8 @@ pub fn run() {
             board_task_subtasks::delete_list_board_subtask,
             board_task_mutation::reorder_list_board_task,
             board_task_mutation::move_list_board_task,
+            board_task_mutation::complete_list_board_task,
+            board_task_mutation::permanently_delete_list_board_task,
             list_editor::create_list_from_editor,
             list_editor::update_list_from_editor,
             list_editor::duplicate_list_from_home,
