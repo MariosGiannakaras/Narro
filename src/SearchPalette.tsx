@@ -28,6 +28,7 @@ type SearchPaletteProps = {
   fixtureData?: SearchPaletteData;
   initialQuery?: string;
   initialMode?: SearchPaletteMode;
+  taskCreateOnly?: boolean;
 };
 
 const FOCUSABLE_SELECTOR = [
@@ -79,6 +80,7 @@ export function SearchPalette({
   fixtureData,
   initialQuery = "",
   initialMode = "search",
+  taskCreateOnly = false,
 }: SearchPaletteProps) {
   const dialogRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -104,7 +106,8 @@ export function SearchPalette({
     previousFocusRef.current = document.activeElement instanceof HTMLElement
       ? document.activeElement
       : null;
-    setMode(initialMode);
+    const openingMode: SearchPaletteMode = taskCreateOnly ? "task-create" : initialMode;
+    setMode(openingMode);
     setQuery(initialQuery);
     setQuickTaskTitle("");
     setQuickTaskListId("");
@@ -113,7 +116,7 @@ export function SearchPalette({
     setQuickTaskError(null);
 
     const animationFrame = window.requestAnimationFrame(() => {
-      if (initialMode === "task-create") quickTaskTitleRef.current?.focus();
+      if (openingMode === "task-create") quickTaskTitleRef.current?.focus();
       else searchInputRef.current?.focus();
     });
 
@@ -122,7 +125,7 @@ export function SearchPalette({
       if (!suppressFocusRestoreRef.current) previousFocusRef.current?.focus();
       previousFocusRef.current = null;
     };
-  }, [open, initialMode, initialQuery]);
+  }, [open, initialMode, initialQuery, taskCreateOnly]);
 
   useEffect(() => {
     if (!open) return;
@@ -426,13 +429,17 @@ export function SearchPalette({
           type="button"
           className="search-palette__back motion-interactive"
           onClick={() => {
+            if (taskCreateOnly) {
+              dismiss();
+              return;
+            }
             setMode("search");
             setQuickTaskError(null);
             window.requestAnimationFrame(() => searchInputRef.current?.focus());
           }}
           disabled={quickTaskPending}
         >
-          ← Back
+          {taskCreateOnly ? "Cancel" : "← Back"}
         </button>
         <div>
           <p className="search-palette__eyebrow type-metadata">Quick action</p>
@@ -448,9 +455,13 @@ export function SearchPalette({
         <div className="search-palette__message">
           <strong>Create a list first.</strong>
           <span>Quick task creation requires an explicit active list.</span>
-          <button type="button" className="motion-interactive" onClick={() => transition(onAddList)}>
-            Add new list
-          </button>
+          {taskCreateOnly ? (
+            <span className="type-metadata">Open the Main window to create a list first.</span>
+          ) : (
+            <button type="button" className="motion-interactive" onClick={() => transition(onAddList)}>
+              Add new list
+            </button>
+          )}
         </div>
       ) : (
         <form className="search-palette__task-form" onSubmit={(event) => void submitQuickTask(event)}>
@@ -501,7 +512,10 @@ export function SearchPalette({
             <button
               type="button"
               className="search-palette__secondary motion-interactive"
-              onClick={() => setMode("search")}
+              onClick={() => {
+                if (taskCreateOnly) dismiss();
+                else setMode("search");
+              }}
               disabled={quickTaskPending}
             >
               Cancel
@@ -537,7 +551,7 @@ export function SearchPalette({
         data-search-palette-mode={mode}
         onKeyDown={onDialogKeyDown}
       >
-        {mode === "search" ? renderSearchSurface() : renderQuickTask()}
+        {mode === "search" && !taskCreateOnly ? renderSearchSurface() : renderQuickTask()}
       </section>
     </div>
   );
