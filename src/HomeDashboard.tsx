@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { ListIcon } from "./ListIcon";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import "./homeDashboard.css";
 
@@ -38,6 +39,7 @@ type HomeDashboardProps = {
   fixtureHour?: number;
   fixtureHoverListId?: string;
   refreshKey?: number;
+  actionError?: string | null;
   getListCardActions?: (list: HomeListCardSnapshot) => HomeListCardActions | undefined;
   onOpenAllLists?: () => void;
   onCreateList?: () => void;
@@ -47,6 +49,7 @@ type DisplayCard = {
   id: string;
   title: string;
   color: string | null;
+  iconAsset: string | null;
   previewTasks: HomeTaskPreview[];
   pendingCount: number;
   aggregateEstSeconds: number;
@@ -101,7 +104,14 @@ function ListCard({
       style={safeAccent(card.color)}
     >
       <header className="home-list-card__header">
-        <span className="home-list-card__icon" aria-hidden="true">{initial}</span>
+        <span className="home-list-card__icon" aria-hidden="true">
+          <ListIcon
+            listId={card.id}
+            iconAsset={card.iconAsset}
+            fallback={initial}
+            imageClassName="home-list-card__icon-image"
+          />
+        </span>
         <h3 className="home-list-card__title">{card.title}</h3>
         <span className="home-list-card__action-slot">
           {hasMenu ? (
@@ -178,6 +188,7 @@ export function HomeDashboard({
   fixtureHour,
   fixtureHoverListId,
   refreshKey = 0,
+  actionError = null,
   getListCardActions,
   onOpenAllLists,
   onCreateList,
@@ -215,6 +226,7 @@ export function HomeDashboard({
       id: "all-lists",
       title: "All Lists",
       color: null,
+      iconAsset: null,
       previewTasks: snapshot.lists.flatMap((list) => list.previewTasks).slice(0, 4),
       pendingCount: snapshot.pendingCount,
       aggregateEstSeconds: snapshot.aggregateEstSeconds,
@@ -239,6 +251,12 @@ export function HomeDashboard({
             <p>Lists with your upcoming tasks</p>
           </div>
         </div>
+
+        {actionError ? (
+          <div className="home-dashboard__error" role="alert">
+            List action failed. {actionError}
+          </div>
+        ) : null}
 
         {error ? (
           <div className="home-dashboard__error" role="alert">
