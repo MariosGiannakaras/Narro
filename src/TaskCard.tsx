@@ -21,6 +21,7 @@ type FixturePresentationState =
 export type TaskCardActions = {
   onMoveUp?: () => void;
   onMoveDown?: () => void;
+  onDelete?: () => void;
 };
 
 export type TaskCardTitleEditor = {
@@ -71,6 +72,7 @@ type TaskCardProps = {
   aggregateView: boolean;
   fixtureState?: FixturePresentationState;
   actions?: TaskCardActions;
+  onComplete?: () => void;
   onTitleEdit?: () => void;
   titleEditor?: TaskCardTitleEditor;
   onEstimateEdit?: () => void;
@@ -173,7 +175,7 @@ function TaskActionButton({
   label: string;
   glyph: string;
   action: () => void;
-  actionId: "move-up" | "move-down";
+  actionId: "move-up" | "move-down" | "delete";
 }) {
   return (
     <Tooltip content={label}>
@@ -212,6 +214,16 @@ function TaskActionRail({ actions }: { actions: TaskCardActions }) {
             glyph="↓"
             action={actions.onMoveDown}
             actionId="move-down"
+          />
+        ) : null}
+      </span>
+      <span className="list-board-task__action-position" data-task-action-position="delete">
+        {actions.onDelete ? (
+          <TaskActionButton
+            label="Permanently delete task"
+            glyph="×"
+            action={actions.onDelete}
+            actionId="delete"
           />
         ) : null}
       </span>
@@ -454,6 +466,7 @@ export function TaskCard({
   aggregateView,
   fixtureState,
   actions,
+  onComplete,
   onTitleEdit,
   titleEditor,
   onEstimateEdit,
@@ -478,7 +491,9 @@ export function TaskCard({
         ? FIXTURE_REORDER_ACTIONS
         : undefined
     );
-  const hasActions = Boolean(effectiveActions?.onMoveUp || effectiveActions?.onMoveDown);
+  const hasActions = Boolean(
+    effectiveActions?.onMoveUp || effectiveActions?.onMoveDown || effectiveActions?.onDelete,
+  );
   const liveLabel = liveStateLabel(liveState);
   const scheduleStateLabel = task.isOverdue
     ? repeatStatus ? `Overdue · ${repeatStatus}` : "Overdue"
@@ -508,9 +523,23 @@ export function TaskCard({
             <InlineTitleEditor editor={titleEditor} done={state === "done"} />
           ) : (
             <div className="list-board-task__title-row">
-              <span className="list-board-task__completion-slot" aria-hidden="true">
-                <span className="list-board-task__completion-mark">{state === "done" ? "✓" : "○"}</span>
-              </span>
+              {onComplete && state !== "done" ? (
+                <button
+                  type="button"
+                  className="list-board-task__completion-slot list-board-task__completion-button motion-interactive"
+                  aria-label={`Complete task: ${task.title}`}
+                  data-task-completion-control="complete"
+                  draggable={false}
+                  onPointerDown={(event) => event.stopPropagation()}
+                  onClick={onComplete}
+                >
+                  <span className="list-board-task__completion-mark">○</span>
+                </button>
+              ) : (
+                <span className="list-board-task__completion-slot" aria-hidden="true">
+                  <span className="list-board-task__completion-mark">{state === "done" ? "✓" : "○"}</span>
+                </span>
+              )}
               {onTitleEdit ? (
                 <button
                   type="button"
