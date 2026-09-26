@@ -8,6 +8,20 @@ Static screenshots and Help Center articles already cover most product structure
 
 This guide is therefore not a request to record everything and not a requirement to copy every observed behavior. Source-product behavior may be buggy or less suitable for a Windows-only local app. Record observations first; decide later whether Narro should reproduce, improve, or intentionally reject them.
 
+## Repository storage and analysis workflow
+
+User-supplied raw recordings and transcripts should be placed in:
+
+- `reference/original-blitzit-videos/inbox/`
+
+The user does not need to rename or classify them first. Preserve originals and perform cataloging/timestamp analysis in:
+
+- `docs/BLITZIT_VIDEO_EVIDENCE.md`
+
+If a newly uploaded recording is materially relevant to an unfinished milestone, analyze that relevant subset before closing the milestone rather than deferring known evidence to the final review. Focus Panel/Floating Timer recordings present before M7 closure are therefore M7 evidence.
+
+The full uploaded corpus must still be rechecked during the required Final Comprehensive Review Stage after M10.
+
 ## 1. Capture principles
 
 When recording the original app:
