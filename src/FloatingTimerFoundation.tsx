@@ -314,22 +314,29 @@ export function FloatingTimerFoundation({
         className="floating-timer-foundation__content"
         data-tauri-drag-region="true"
       >
-        {expanded && liveTask && timer ? (
-          <FocusLiveActions
-            key={`actions:${liveTask.id}`}
-            task={liveTask}
-            target={{ kind: "all" }}
-            timer={timer}
-            fixtureMode={fixtureMode}
-            presentation="floating"
-            transitionPending={transitionPending || resizePending}
-            onReturnToPanel={onReturnToPanel}
-            onTimerPayload={(payload) => {
-              setTimer((current) => applyTimerSessionProjection(current, payload));
-            }}
-          />
-        ) : (
-          <div className="floating-timer-foundation__heading" data-tauri-drag-region="true">
+        {liveTask && timer ? (
+          <div
+            key={`actions-host:${liveTask.id}`}
+            data-floating-actions-controller="true"
+            style={{ display: expanded ? "contents" : "none" }}
+          >
+            <FocusLiveActions
+              task={liveTask}
+              target={{ kind: "all" }}
+              timer={timer}
+              fixtureMode={fixtureMode}
+              presentation="floating"
+              transitionPending={transitionPending || resizePending}
+              onReturnToPanel={onReturnToPanel}
+              onEnsureNotesVisible={() => requestExpanded(true)}
+              onTimerPayload={(payload) => {
+                setTimer((current) => applyTimerSessionProjection(current, payload));
+              }}
+            />
+          </div>
+        ) : null}
+        {!expanded || !liveTask || !timer ? (
+          <div key="collapsed-heading" className="floating-timer-foundation__heading" data-tauri-drag-region="true">
             <strong
               className="floating-timer-foundation__title"
               data-floating-task-title="true"
