@@ -130,6 +130,7 @@ function optionalBox(selector: string) {
   const node = document.querySelector<HTMLElement>(selector);
   if (!node) return null;
   const rect = node.getBoundingClientRect();
+  if (rect.width <= 0 || rect.height <= 0) return null;
   return { width: Math.round(rect.width), height: Math.round(rect.height) };
 }
 
