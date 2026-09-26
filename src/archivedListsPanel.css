@@ -121,10 +121,17 @@
   place-items: center;
   width: 2.5rem;
   height: 2.5rem;
+  overflow: hidden;
   border-radius: var(--radius-control);
   color: var(--color-accent-contrast);
   background: var(--archived-list-accent);
   font-weight: var(--font-weight-semibold);
+}
+
+.archived-list-row__icon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .archived-list-row__copy {
