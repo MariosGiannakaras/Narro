@@ -1,9 +1,14 @@
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveActions } from "./FocusLiveActions";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { focusTimerPresentation } from "./focusTimerPresentation";
-import { setFloatingTimerExpanded } from "./focusSurfaceModeApi";
+import {
+  clearFocusSurfacePrewarm,
+  prewarmFocusSurface,
+  setFloatingTimerExpanded,
+} from "./focusSurfaceModeApi";
 import {
   getListBoardSnapshot,
   type BoardSubtaskSnapshot,
@@ -11,7 +16,6 @@ import {
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
-import { waitForOpacityTransition } from "./opacityTransition";
 import { waitForPresentedFrame } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
@@ -68,8 +72,7 @@ export function FloatingTimerFoundation({
   );
   const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
   const [resizePending, setResizePending] = useState(false);
-  const [resizePhase, setResizePhase] = useState<"idle" | "exiting" | "resizing" | "entering">("idle");
-  const contentRef = useRef<HTMLDivElement>(null);
+  const [resizePhase, setResizePhase] = useState<"idle" | "resizing" | "prewarming">("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
@@ -198,25 +201,53 @@ export function FloatingTimerFoundation({
     setResizePending(true);
     setResizeError(null);
     let nativeResizeCommitted = false;
+    let prewarmActive = false;
     try {
-      const content = contentRef.current;
-      if (!content) throw new Error("Floating Timer content is unavailable");
-      setResizePhase("exiting");
-      await waitForOpacityTransition(content, 0);
+      await prewarmFocusSurface();
+      prewarmActive = true;
       setResizePhase("resizing");
-      setExpanded(nextExpanded);
-      await waitForPresentedFrame();
+
       await setFloatingTimerExpanded(nextExpanded);
       nativeResizeCommitted = true;
+
+      flushSync(() => {
+        setExpanded(nextExpanded);
+        setResizePhase("prewarming");
+      });
       await waitForPresentedFrame();
-      setResizePhase("entering");
-      await waitForPresentedFrame();
+
+      await clearFocusSurfacePrewarm();
+      prewarmActive = false;
       setResizePhase("idle");
-      await waitForOpacityTransition(content, 1);
+      await waitForPresentedFrame();
       return true;
     } catch (failure: unknown) {
-      if (!nativeResizeCommitted) setExpanded(expanded);
-      setResizeError(formatInvokeError(failure));
+      let resizeFailure = formatInvokeError(failure);
+
+      if (!nativeResizeCommitted) {
+        flushSync(() => {
+          setExpanded(expanded);
+          setResizePhase("prewarming");
+        });
+        try {
+          await waitForPresentedFrame();
+        } catch (recoveryFrameFailure: unknown) {
+          resizeFailure =
+            `${resizeFailure}; renderer recovery frame failed: ${formatInvokeError(recoveryFrameFailure)}`;
+        }
+      }
+
+      if (prewarmActive) {
+        try {
+          await clearFocusSurfacePrewarm();
+          prewarmActive = false;
+        } catch (cleanupFailure: unknown) {
+          resizeFailure =
+            `${resizeFailure}; resize prewarm cleanup failed: ${formatInvokeError(cleanupFailure)}`;
+        }
+      }
+
+      setResizeError(resizeFailure);
       return nativeResizeCommitted;
     } finally {
       resizeRequestInFlightRef.current = false;
@@ -256,7 +287,6 @@ export function FloatingTimerFoundation({
         />
       )}
       <div
-        ref={contentRef}
         className="floating-timer-foundation__content"
         data-tauri-drag-region="true"
       >

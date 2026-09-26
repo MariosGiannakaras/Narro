@@ -68,56 +68,56 @@ invariant(
   "native Floating Timer resize must snapshot geometry, hide before resizing, show only after success, and restore both size and visibility after resize or show failure",
 );
 
-const exitStart = foundation.indexOf('setResizePhase("exiting");');
-const exitWait = foundation.indexOf('await waitForOpacityTransition(content, 0);', exitStart);
-const resizingPhase = foundation.indexOf('setResizePhase("resizing");', exitWait);
-const publishExpanded = foundation.indexOf("setExpanded(nextExpanded);", resizingPhase);
-const hiddenPaint = foundation.indexOf("await waitForPresentedFrame();", publishExpanded);
-const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);", hiddenPaint);
-const postResizePaint = foundation.indexOf("await waitForPresentedFrame();", resizeCall);
-const enteringPhase = foundation.indexOf('setResizePhase("entering");', postResizePaint);
-const transparentPaint = foundation.indexOf("await waitForPresentedFrame();", enteringPhase);
-const entranceStart = foundation.indexOf('setResizePhase("idle");', transparentPaint);
-const entranceWait = foundation.indexOf('await waitForOpacityTransition(content, 1);', entranceStart);
+const prewarmCall = foundation.indexOf("await prewarmFocusSurface();");
+const resizingPhase = foundation.indexOf('setResizePhase("resizing");', prewarmCall);
+const resizeCall = foundation.indexOf("await setFloatingTimerExpanded(nextExpanded);", resizingPhase);
+const nativeCommit = foundation.indexOf("nativeResizeCommitted = true;", resizeCall);
+const publishTarget = foundation.indexOf("flushSync(() => {", nativeCommit);
+const publishExpanded = foundation.indexOf("setExpanded(nextExpanded);", publishTarget);
+const prewarmingPhase = foundation.indexOf('setResizePhase("prewarming");', publishExpanded);
+const targetPaint = foundation.indexOf("await waitForPresentedFrame();", prewarmingPhase);
+const revealCall = foundation.indexOf("await clearFocusSurfacePrewarm();", targetPaint);
+const idlePhase = foundation.indexOf('setResizePhase("idle");', revealCall);
+const revealedPaint = foundation.indexOf("await waitForPresentedFrame();", idlePhase);
 invariant(
   foundation.includes('data-floating-resize-pending={resizePending ? "true" : "false"}')
     && foundation.includes("data-floating-resize-phase={resizePhase}")
-    && exitStart >= 0
-    && exitStart < exitWait
-    && exitWait >= 0
-    && exitWait < resizingPhase
-    && resizingPhase < publishExpanded
-    && publishExpanded < hiddenPaint
-    && hiddenPaint < resizeCall
-    && resizeCall < postResizePaint
-    && postResizePaint < enteringPhase
-    && enteringPhase < transparentPaint
-    && transparentPaint < entranceStart
-    && transparentPaint < entranceWait,
-  "expanded hierarchy must stay visibility-hidden through native hide/resize/show and a post-show paint opportunity before the transparent entrance",
+    && prewarmCall >= 0
+    && prewarmCall < resizingPhase
+    && resizingPhase < resizeCall
+    && resizeCall < nativeCommit
+    && nativeCommit < publishTarget
+    && publishTarget < publishExpanded
+    && publishExpanded < prewarmingPhase
+    && prewarmingPhase < targetPaint
+    && targetPaint < revealCall
+    && revealCall < idlePhase
+    && idlePhase < revealedPaint,
+  "resize must cloak the visible host before native geometry, publish the target only after native resize, prepaint it while cloaked, and reveal only after the target frame barrier",
 );
 invariant(
   /\[data-floating-resize-phase="resizing"\] \.floating-timer-foundation__content \{\s*visibility: hidden;/.test(css)
-    && /\[data-floating-resize-phase="entering"\] \.floating-timer-foundation__content \{\s*visibility: visible;\s*opacity: 0;/.test(css),
-  "native resize must not expose a merely transparent child hierarchy while its backing surface is changing",
+    && /\[data-floating-resize-phase="prewarming"\] \.floating-timer-foundation__content \{\s*visibility: visible;\s*opacity: 1;\s*transform: none;\s*transition-duration: 0ms;/.test(css),
+  "resized Timer content must become fully paintable while the native host remains transparent",
 );
 invariant(
-  foundation.includes("if (!nativeResizeCommitted) setExpanded(expanded)")
+  foundation.includes("if (!nativeResizeCommitted)")
+    && foundation.includes("setExpanded(expanded)")
+    && foundation.includes('setResizePhase("prewarming")')
+    && foundation.includes("if (prewarmActive)")
+    && foundation.includes("resize prewarm cleanup failed")
     && foundation.includes("return nativeResizeCommitted;"),
-  "failed native resize must restore the old hierarchy, while a post-commit animation failure keeps the committed hierarchy",
+  "failed native resize must restore the old hierarchy before uncloaking, while post-commit failure keeps the committed hierarchy and cleans native transparency",
 );
 invariant(
-  foundation.includes("waitForOpacityTransition(content, 0)")
-    && foundation.includes("waitForOpacityTransition(content, 1)")
-    && css.includes('[data-floating-resize-phase="exiting"]')
-    && css.includes('[data-floating-resize-phase="resizing"]')
-    && css.includes('[data-floating-resize-phase="entering"]')
-    && css.includes("visibility: hidden")
-    && css.includes("transition-duration: var(--motion-duration-inline)")
-    && css.includes("transition-timing-function: var(--motion-ease-exit)")
-    && css.includes("transition-duration: 0ms"),
-  "expanded resize must use finite CSS transition boundaries without exposing an intermediate hierarchy",
+  foundation.includes("await prewarmFocusSurface()")
+    && foundation.includes("await clearFocusSurfacePrewarm()")
+    && !foundation.includes("waitForOpacityTransition(")
+    && !foundation.includes('setResizePhase("exiting")')
+    && !foundation.includes('setResizePhase("entering")'),
+  "resize must use one native-transparent atomic swap instead of exposing blank content fade phases",
 );
+
 invariant(
   foundation.includes('presentation="floating"')
     && foundation.includes("<FocusLiveActions")
