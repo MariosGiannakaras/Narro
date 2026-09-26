@@ -30,3 +30,28 @@
   border-color: var(--color-border-subtle);
   background: var(--color-surface-interactive);
 }
+
+
+.focus-panel__task-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 2rem);
+  justify-content: end;
+  gap: var(--space-1);
+  width: 6.5rem;
+  min-width: 6.5rem;
+  flex: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.focus-panel__task-actions > .overlay-anchor,
+.focus-panel__task-actions > .focus-panel__task-menu {
+  width: 2rem;
+  min-width: 2rem;
+}
+
+.focus-panel__task-row:hover .focus-panel__task-actions,
+.focus-panel__task-row:focus-within .focus-panel__task-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
