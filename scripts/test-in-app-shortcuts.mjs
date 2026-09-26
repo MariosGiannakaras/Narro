@@ -86,7 +86,7 @@ invariant(
   "Start Break and break-resume shortcuts must reuse the established authoritative manual-break lifecycle",
 );
 invariant(
-  focusEntry.includes('shortcut === "create-task"')
+  focusEntry.includes('shortcut !== "create-task"')
     && focusEntry.includes('shortcut === "search"')
     && focusEntry.includes('taskCreateOnly')
     && focusEntry.includes("Search is unavailable while Focus mode is open."),
