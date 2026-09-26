@@ -164,13 +164,14 @@ invariant(actions.includes('<Tooltip content={label} placement="bottom"'), "all 
 
 for (const mutation of [
   "createListBoardSubtask",
+  "updateListBoardSubtaskTitle",
   "setListBoardSubtaskCompletion",
   "reorderListBoardSubtasks",
   "deleteListBoardSubtask",
 ]) {
   invariant(subtasks.includes(mutation), `expanded subtasks are missing authoritative behavior ${mutation}`);
 }
-for (const field of ["expectedCompletedAt", "expectedOrder", "orderedIds", "expectedUpdatedAt"]) {
+for (const field of ["expectedTitle", "expectedCompletedAt", "expectedOrder", "orderedIds", "expectedUpdatedAt"]) {
   invariant(subtasks.includes(field), `expanded subtask mutation is missing concurrency field ${field}`);
 }
 invariant(
@@ -179,15 +180,28 @@ invariant(
     && subtasks.includes("onTaskProjection?.(projectedTask)"),
   "saved subtask changes must refresh and reconcile both subtask and board projections",
 );
-for (const action of ["complete", "move-up", "move-down", "delete"]) {
+for (const action of ["complete", "edit", "title-input", "cancel-edit", "save-edit", "move-up", "move-down", "delete"]) {
   invariant(subtasks.includes(`data-floating-subtask-action="${action}"`), `expanded subtask action ${action} is missing`);
 }
-for (const tooltip of ["Complete subtask", "Move subtask up", "Move subtask down", "Delete subtask"]) {
+for (const tooltip of ["Complete subtask", "Cancel subtask edit", "Save subtask title", "Move subtask up", "Move subtask down", "Delete subtask"]) {
   invariant(subtasks.includes(tooltip), `expanded subtask tooltip ${tooltip} is missing`);
 }
 invariant(
   subtasks.includes("{completed ? <s>{subtask.title}</s> : subtask.title}"),
   "completed expanded subtasks must retain a screenshot-backed strikethrough",
+);
+invariant(
+  subtasks.includes("expectedTitle: editor.expectedTitle")
+    && subtasks.includes('event.key === "Escape"')
+    && subtasks.includes('event.key === "Enter"')
+    && subtasks.includes("setEditor(null)"),
+  "Floating Timer subtask title editing must be stale-safe and support explicit keyboard save/cancel",
+);
+invariant(
+  css.includes(".floating-timer-foundation__subtask-title-input")
+    && css.includes("width: 104px")
+    && css.includes("grid-template-columns: repeat(3, 32px)"),
+  "Floating Timer subtask editing must preserve the reserved action rail and compact title geometry",
 );
 invariant(
   overlay.includes('type TooltipAlign = "start" | "center" | "end"')
