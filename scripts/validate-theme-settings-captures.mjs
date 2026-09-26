@@ -24,6 +24,13 @@ for (const preference of ["system", "dark", "light"]) {
   invariant(dom.includes('data-theme-option="system"'), `${label} System option is missing`);
   invariant(dom.includes('data-theme-option="dark"'), `${label} Dark option is missing`);
   invariant(dom.includes('data-theme-option="light"'), `${label} Light option is missing`);
+  invariant(dom.includes('data-windows-shortcut-settings="true"'), `${label} Windows Shortcuts section is missing`);
+  for (const shortcut of ["goToNarro", "toggleFocusMode", "findFocusTimer"]) {
+    invariant(dom.includes(`data-global-shortcut-kind="${shortcut}"`), `${label} is missing shortcut row ${shortcut}`);
+  }
+  invariant(dom.includes("Ctrl + Shift + B"), `${label} Go to Narro chord is missing`);
+  invariant(dom.includes("Ctrl + Shift + T"), `${label} alternate Focus chord is missing`);
+  invariant(dom.includes("Ctrl + Shift + P"), `${label} Find Timer chord is missing`);
 
   const selected = new RegExp(`data-theme-option="${preference}"[^>]*aria-pressed="true"|aria-pressed="true"[^>]*data-theme-option="${preference}"`);
   invariant(selected.test(dom), `${label} selected theme is not exposed through aria-pressed`);
@@ -38,4 +45,13 @@ invariant(errorDom.includes('role="alert"'), "error state must expose an alert")
 invariant(errorDom.includes("THEME_PREFERENCE_FAILED"), "error state must retain the persistence failure code");
 invariant(/data-theme-option="system"[^>]*aria-pressed="true"|aria-pressed="true"[^>]*data-theme-option="system"/.test(errorDom), "error state must keep System selected after a failed save");
 
-console.log("Theme settings Windows Edge capture contract: PASS");
+const shortcutConflictDom = await read("theme-settings-shortcut-conflict");
+invariant(shortcutConflictDom.includes('data-theme-settings-shortcut-conflict="true"'), "shortcut conflict fixture marker is missing");
+invariant(shortcutConflictDom.includes('data-global-shortcut-kind="findFocusTimer"'), "Find Timer row is missing in conflict state");
+invariant(shortcutConflictDom.includes('data-global-shortcut-enabled="true"'), "conflicted shortcut must retain enabled preference intent");
+invariant(shortcutConflictDom.includes('data-global-shortcut-registered="false"'), "conflicted shortcut must expose unavailable native state");
+invariant(shortcutConflictDom.includes("Shortcut conflict"), "shortcut conflict status is missing");
+invariant(shortcutConflictDom.includes("Retry"), "shortcut conflict state must expose retry");
+invariant(shortcutConflictDom.includes('role="alert"'), "shortcut conflict must be announced as an alert");
+
+console.log("Theme settings + Windows shortcuts Edge capture contract: PASS");
