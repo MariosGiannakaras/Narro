@@ -79,6 +79,13 @@ for (const authority of [
   invariant(focusActions.includes(authority), `Focus shortcuts must reuse authoritative API ${authority}`);
 }
 invariant(
+  focusActions.includes('case "start-break"')
+    && focusActions.includes('startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS)')
+    && focusActions.includes('timerState === "break"')
+    && focusActions.includes("skipBreakTimer"),
+  "Start Break and break-resume shortcuts must reuse the established authoritative manual-break lifecycle",
+);
+invariant(
   focusEntry.includes('shortcut === "create-task"')
     && focusEntry.includes('shortcut === "search"')
     && focusEntry.includes('taskCreateOnly')
