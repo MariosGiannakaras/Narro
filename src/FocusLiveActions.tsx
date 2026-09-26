@@ -12,6 +12,7 @@ import { Tooltip } from "./overlayPrimitives";
 import { TaskNotes } from "./TaskNotes";
 import {
   completeTimerTask,
+  extendTimer,
   pauseTimer,
   resumeTimer,
   skipBreakTimer,
@@ -36,12 +37,13 @@ type FocusLiveActionsProps = {
   fixtureMode: boolean;
   fixtureMetricEditor?: FocusMetricKind | null;
   onTimerPayload: (payload: TimerSessionPayload) => void;
+  onTaskMutationCommitted?: () => Promise<void>;
   presentation?: "panel" | "floating";
   onReturnToPanel?: () => void;
   transitionPending?: boolean;
 };
 
-type FocusAction = "break" | "pause_resume" | "skip" | "done";
+type FocusAction = "break" | "pause_resume" | "skip" | "done" | "extend";
 
 function isEligibleQueueTask(task: ListBoardTask): boolean {
   return task.scheduledLocalTime === null || task.isOverdue;
@@ -53,7 +55,7 @@ function nextEligibleTask(board: ListBoardSnapshot, currentTaskId: string): List
   ) ?? null;
 }
 
-function modeForNextTask(currentMode: TimerMode | null, task: ListBoardTask): TimerMode {
+export function focusModeForTask(currentMode: TimerMode | null, task: ListBoardTask): TimerMode {
   if (currentMode?.kind === "pomodoro") {
     return currentMode;
   }
@@ -70,6 +72,7 @@ function actionState(timer: TimerSnapshot): {
   pauseResumeLabel: "Pause" | "Resume";
   skipEnabled: boolean;
   doneEnabled: boolean;
+  extendEnabled: boolean;
 } {
   const working = timer.state === "running"
     || timer.state === "paused"
@@ -83,6 +86,7 @@ function actionState(timer: TimerSnapshot): {
     pauseResumeLabel: paused || breakState ? "Resume" : "Pause",
     skipEnabled: working || timer.state === "time_up",
     doneEnabled: working || timer.state === "time_up",
+    extendEnabled: timer.state === "time_up",
   };
 }
 
@@ -168,6 +172,7 @@ export function FocusLiveActions({
   fixtureMode,
   fixtureMetricEditor = null,
   onTimerPayload,
+  onTaskMutationCommitted,
   presentation = "panel",
   onReturnToPanel,
   transitionPending = false,
@@ -238,7 +243,7 @@ export function FocusLiveActions({
 
       const next = nextEligibleTask(freshBoard, task.id);
       const payload = next
-        ? await switchTimerTask(next.id, modeForNextTask(authoritative.runtime.timer.mode, next))
+        ? await switchTimerTask(next.id, focusModeForTask(authoritative.runtime.timer.mode, next))
         : await skipTimerTask();
       applyPayload(payload);
       setNotesExpanded(false);
@@ -266,7 +271,7 @@ export function FocusLiveActions({
       }
 
       const next = nextEligibleTask(freshBoard, task.id);
-      const nextMode = next ? modeForNextTask(authoritative.runtime.timer.mode, next) : null;
+      const nextMode = next ? focusModeForTask(authoritative.runtime.timer.mode, next) : null;
       const completed = await completeTimerTask();
       applyPayload(completed);
       setNotesExpanded(false);
@@ -308,6 +313,8 @@ export function FocusLiveActions({
       expanded={notesExpanded}
       canExpand
       readOnly={false}
+      allowTitleEdit={!fixtureMode && presentation === "panel"}
+      onTitleCommitted={onTaskMutationCommitted}
       onToggleExpanded={() => setNotesExpanded((expanded) => !expanded)}
       onMutationStatus={(message, detail) => {
         setStatus(message || null);
@@ -373,6 +380,14 @@ export function FocusLiveActions({
               onClick={() => void handleSkip()}
             >
               Skip
+            </button>
+            <button
+              type="button"
+              data-focus-action="extend"
+              disabled={busy || !state.extendEnabled}
+              onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
+            >
+              Extend
             </button>
             <button
               type="button"

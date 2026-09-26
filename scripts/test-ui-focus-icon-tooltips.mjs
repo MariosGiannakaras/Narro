@@ -35,7 +35,10 @@ invariant(panel.includes('data-focus-compact-control="true"'), "Compact-view con
 invariant(occurrences(panel, 'data-focus-placeholder-control=') === 1, "only the still-inactive Preferences icon should use the placeholder contract");
 invariant(!panel.includes('title="Preferences"'), "Preferences must not stack a native title tooltip on top of the shared tooltip");
 invariant(!panel.includes('title="Compact view"'), "Compact view must not stack a native title tooltip on top of the shared tooltip");
-invariant(panel.includes('<button type="button" disabled aria-label="Home" title="Home">Home</button>'), "text-labeled Home placeholder must remain outside the icon-only tooltip slice");
+invariant(panel.includes('<Tooltip content="Home">'), "Home must use the shared tooltip after activation");
+invariant(panel.includes('data-focus-home-control="true"'), "Home must use the active Focus lifecycle marker");
+invariant(panel.includes('onClick={() => void exitFocusHome()}'), "Home must activate the Focus-exit lifecycle");
+invariant(!panel.includes('title="Home"'), "Home must not stack a native title tooltip on the shared tooltip");
 invariant(!panel.includes('data-focus-placeholder-control="preferences" onClick='), "Preferences placeholder must remain inactive");
 invariant(panel.includes('onClick={onRequestCompact}'), "Compact-view activation must stay on the explicit M7 callback");
 

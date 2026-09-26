@@ -286,6 +286,7 @@ const contract = {
   notes: optionalBox(".focus-panel__notes:not([hidden])"),
   notesStyle: styleContract(".focus-panel__notes:not([hidden])"),
   firstRow: optionalBox('.focus-panel__task-row[data-focus-task-row="remaining"]'),
+  rowActionSlot: optionalBox('.focus-panel__task-row[data-focus-task-row="remaining"] .focus-panel__row-action-slot'),
   overdueRow: optionalBox(overdueSelector),
   overdueRowStyle: styleContract(overdueSelector),
   longRow: optionalBox(longRowSelector),

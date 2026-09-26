@@ -3,20 +3,30 @@ import { useEffect, useMemo, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { formatInvokeError } from "./diagnosticApi";
 import { focusTimerPresentation, focusTimerStateLabel } from "./focusTimerPresentation";
-import { FocusLiveActions } from "./FocusLiveActions";
+import { FocusLiveActions, focusModeForTask } from "./FocusLiveActions";
 import { FocusLiveTitle } from "./FocusLiveTitle";
 import { FocusTaskRowTitle } from "./FocusTaskRowTitle";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
+  completeListBoardTask,
+  createListBoardTask,
   getListBoardSnapshot,
+  permanentlyDeleteListBoardTask,
+  reorderListBoardTask,
   type ListBoardRequestTarget,
   type ListBoardSnapshot,
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
+import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
+import { TaskNotes } from "./TaskNotes";
+import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
+  snapshotTimerSession,
+  startTimerTask,
+  switchTimerTask,
   type TimerSessionPayload,
 } from "./timerSessionApi";
 import "./focusPanel.css";
@@ -36,6 +46,27 @@ export type FocusPanelProps = {
   compactTransitionPending?: boolean;
   modeTransitionError?: string | null;
   onPresentationReady?: () => void;
+};
+
+type FocusTaskRowProps = {
+  task: ListBoardTask;
+  aggregateView: boolean;
+  done?: boolean;
+  scheduled?: boolean;
+  disabled: boolean;
+  notesExpanded: boolean;
+  canMakeLive: boolean;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
+  onMakeLive: () => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  onComplete: () => void;
+  onToggleNotes: () => void;
+  onSchedule: () => void;
+  onDelete: () => void;
+  onMutationStatus: (status: string, error: string | null) => void;
+  onRefreshBlocked: (message: string) => void;
 };
 
 function formatEstimate(totalSeconds: number): string {
@@ -80,13 +111,30 @@ function FocusTaskRow({
   aggregateView,
   done = false,
   scheduled = false,
-}: {
-  task: ListBoardTask;
-  aggregateView: boolean;
-  done?: boolean;
-  scheduled?: boolean;
-}) {
+  disabled,
+  notesExpanded,
+  canMakeLive,
+  canMoveUp,
+  canMoveDown,
+  onMakeLive,
+  onMoveUp,
+  onMoveDown,
+  onComplete,
+  onToggleNotes,
+  onSchedule,
+  onDelete,
+  onMutationStatus,
+  onRefreshBlocked,
+}: FocusTaskRowProps) {
+  const [moreOpen, setMoreOpen] = useState(false);
   const schedule = taskScheduleLabel(task);
+  const ordinary = !done;
+
+  const runMoreAction = (action: () => void) => {
+    setMoreOpen(false);
+    action();
+  };
+
   return (
     <article
       className={`focus-panel__task-row${done ? " focus-panel__task-row--done" : ""}${task.isOverdue ? " focus-panel__task-row--overdue" : ""}`}
@@ -94,26 +142,147 @@ function FocusTaskRow({
       data-focus-overdue={task.isOverdue ? "true" : "false"}
       data-task-id={task.id}
     >
-      <div className="focus-panel__task-main">
-        <div className="focus-panel__task-title-row">
-          <FocusTaskRowTitle title={task.title} />
-          {aggregateView ? (
-            <span
-              className="focus-panel__list-chip"
-              title={task.listTitle}
-              style={task.listColor ? { borderColor: task.listColor } : undefined}
-            >
-              {task.listTitle}
-            </span>
-          ) : null}
+      <div className="focus-panel__task-row-mainline">
+        <span className="focus-panel__task-completion-slot">
+          {ordinary ? (
+            <Tooltip content="Complete task">
+              <button
+                type="button"
+                className="focus-panel__row-action focus-panel__row-action--complete motion-interactive"
+                data-focus-row-action="complete"
+                aria-label={`Complete task: ${task.title}`}
+                disabled={disabled}
+                onClick={onComplete}
+              >
+                ○
+              </button>
+            </Tooltip>
+          ) : (
+            <span className="focus-panel__done-mark" aria-hidden="true">✓</span>
+          )}
+        </span>
+
+        <div className="focus-panel__task-main">
+          <div className="focus-panel__task-title-row">
+            <FocusTaskRowTitle title={task.title} />
+            {aggregateView ? (
+              <span
+                className="focus-panel__list-chip"
+                title={task.listTitle}
+                style={task.listColor ? { borderColor: task.listColor } : undefined}
+              >
+                {task.listTitle}
+              </span>
+            ) : null}
+          </div>
+          <div className="focus-panel__task-meta type-metadata">
+            {task.isOverdue ? <span className="focus-panel__overdue">Overdue</span> : null}
+            {schedule ? <span>{schedule}</span> : null}
+            {subtaskLabel(task) ? <span>{subtaskLabel(task)}</span> : null}
+          </div>
         </div>
-        <div className="focus-panel__task-meta type-metadata">
-          {task.isOverdue ? <span className="focus-panel__overdue">Overdue</span> : null}
-          {schedule ? <span>{schedule}</span> : null}
-          {subtaskLabel(task) ? <span>{subtaskLabel(task)}</span> : null}
-        </div>
+
+        {ordinary ? (
+          <div
+            className="focus-panel__row-action-slot"
+            data-focus-row-action-slot="reserved"
+            onKeyDown={(event) => {
+              if (event.key === "Escape") {
+                event.stopPropagation();
+                setMoreOpen(false);
+              }
+            }}
+          >
+            <div className="focus-panel__row-actions">
+              <Tooltip content="Make live">
+                <button
+                  type="button"
+                  className="focus-panel__row-action motion-interactive"
+                  data-focus-row-action="make-live"
+                  aria-label={`Make live: ${task.title}`}
+                  disabled={disabled || !canMakeLive}
+                  onClick={onMakeLive}
+                >
+                  🚀
+                </button>
+              </Tooltip>
+              <Tooltip content="Move up">
+                <button
+                  type="button"
+                  className="focus-panel__row-action motion-interactive"
+                  data-focus-row-action="move-up"
+                  aria-label={`Move up: ${task.title}`}
+                  disabled={disabled || !canMoveUp}
+                  onClick={onMoveUp}
+                >
+                  ↑
+                </button>
+              </Tooltip>
+              <Tooltip content="Move down">
+                <button
+                  type="button"
+                  className="focus-panel__row-action motion-interactive"
+                  data-focus-row-action="move-down"
+                  aria-label={`Move down: ${task.title}`}
+                  disabled={disabled || !canMoveDown}
+                  onClick={onMoveDown}
+                >
+                  ↓
+                </button>
+              </Tooltip>
+              <Tooltip content="More task actions">
+                <button
+                  type="button"
+                  className="focus-panel__row-action motion-interactive"
+                  data-focus-row-action="more"
+                  aria-label={`More actions for ${task.title}`}
+                  aria-expanded={moreOpen}
+                  disabled={disabled}
+                  onClick={() => setMoreOpen((open) => !open)}
+                >
+                  ⋯
+                </button>
+              </Tooltip>
+            </div>
+            {moreOpen ? (
+              <div className="focus-panel__row-menu" role="menu" aria-label={`Actions for ${task.title}`}>
+                <button type="button" role="menuitem" onClick={() => runMoreAction(onToggleNotes)}>
+                  {notesExpanded ? "Close Notes" : "Notes"}
+                </button>
+                <button type="button" role="menuitem" onClick={() => runMoreAction(onSchedule)}>
+                  Schedule
+                </button>
+                <button
+                  type="button"
+                  role="menuitem"
+                  className="focus-panel__row-menu-delete"
+                  onClick={() => runMoreAction(onDelete)}
+                >
+                  Permanently delete
+                </button>
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <span className="focus-panel__done-time type-metadata">{formatDuration(task.timeTakenSeconds)}</span>
+        )}
       </div>
-      {done ? <span className="focus-panel__done-time type-metadata">{formatDuration(task.timeTakenSeconds)}</span> : null}
+
+      {ordinary && notesExpanded ? (
+        <div className="focus-panel__row-notes">
+          <TaskNotes
+            taskId={task.id}
+            listId={task.listId}
+            taskTitle={task.title}
+            expanded
+            canExpand
+            readOnly={false}
+            onToggleExpanded={onToggleNotes}
+            onMutationStatus={onMutationStatus}
+            onRefreshBlocked={onRefreshBlocked}
+          />
+        </div>
+      ) : null}
     </article>
   );
 }
@@ -154,6 +323,18 @@ export function FocusPanel({
   const [preferenceError, setPreferenceError] = useState<string | null>(null);
   const [boardReadyTargetKey, setBoardReadyTargetKey] = useState<string | null>(null);
   const [timerSettled, setTimerSettled] = useState(Boolean(fixtureBoard));
+  const [mutationPendingTaskId, setMutationPendingTaskId] = useState<string | null>(null);
+  const [mutationStatus, setMutationStatus] = useState<string | null>(null);
+  const [notesTaskId, setNotesTaskId] = useState<string | null>(null);
+  const [scheduleTaskId, setScheduleTaskId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<ListBoardTask | null>(null);
+  const [deletePending, setDeletePending] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [addTaskOpen, setAddTaskOpen] = useState(false);
+  const [addTaskTitle, setAddTaskTitle] = useState("");
+  const [addTaskListId, setAddTaskListId] = useState("");
+  const [addTaskPending, setAddTaskPending] = useState(false);
+  const [homePending, setHomePending] = useState(false);
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
 
@@ -191,6 +372,16 @@ export function FocusPanel({
       disposed = true;
     };
   }, [fixtureBoard, target.kind, target.kind === "list" ? target.id : null]);
+
+  useEffect(() => {
+    setNotesTaskId(null);
+    setScheduleTaskId(null);
+    setDeleteTarget(null);
+    setDeleteError(null);
+    setAddTaskOpen(false);
+    setAddTaskTitle("");
+    setMutationStatus(null);
+  }, [target.kind, target.kind === "list" ? target.id : null]);
 
   useEffect(() => {
     if (fixtureLists) {
@@ -299,6 +490,143 @@ export function FocusPanel({
     return options;
   }, [board, lists]);
 
+  const refreshBoard = async (): Promise<ListBoardSnapshot> => {
+    const refreshed = await getListBoardSnapshot(target);
+    setBoard(refreshed);
+    setError(null);
+    return refreshed;
+  };
+
+  const commitRowMutation = async (
+    task: ListBoardTask,
+    mutation: () => Promise<void>,
+    success: string,
+  ) => {
+    if (fixtureMode || mutationPendingTaskId !== null) return;
+    setMutationPendingTaskId(task.id);
+    setMutationStatus(null);
+    setError(null);
+    try {
+      await mutation();
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+      setMutationPendingTaskId(null);
+      return;
+    }
+
+    setMutationStatus(success);
+    try {
+      await refreshBoard();
+    } catch (failure: unknown) {
+      setError(
+        `Task change was saved, but Focus could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more task changes.`,
+      );
+    } finally {
+      setMutationPendingTaskId(null);
+    }
+  };
+
+  const makeTaskLive = async (task: ListBoardTask) => {
+    if (fixtureMode || mutationPendingTaskId !== null) return;
+    setMutationPendingTaskId(task.id);
+    setMutationStatus(null);
+    setError(null);
+    try {
+      const authoritative = await snapshotTimerSession();
+      if (authoritative.runtime.timer.state === "break") {
+        throw new Error("Resume work before switching the live task.");
+      }
+      const mode = focusModeForTask(authoritative.runtime.timer.mode, task);
+      const payload = authoritative.runtime.timer.task_id === null
+        || authoritative.runtime.timer.state === "idle"
+        ? await startTimerTask(task.id, mode)
+        : await switchTimerTask(task.id, mode);
+      setTimer((current) => applyTimerSessionProjection(current, payload));
+      setNotesTaskId(null);
+      setMutationStatus(`${task.title} is now live.`);
+      await refreshBoard();
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    } finally {
+      setMutationPendingTaskId(null);
+    }
+  };
+
+  const exitFocusHome = async () => {
+    if (fixtureMode || homePending) return;
+    setHomePending(true);
+    setError(null);
+    try {
+      await invoke<void>("focus_surface_exit_to_main");
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    } finally {
+      setHomePending(false);
+    }
+  };
+
+  const submitAddTask = async () => {
+    if (fixtureMode || addTaskPending) return;
+    const title = addTaskTitle.trim();
+    const listId = target.kind === "list" ? target.id : addTaskListId;
+    if (!title) {
+      setError("Task title must not be empty.");
+      return;
+    }
+    if (!listId) {
+      setError("Choose the list that will own this task.");
+      return;
+    }
+
+    setAddTaskPending(true);
+    setError(null);
+    setMutationStatus(null);
+    try {
+      await createListBoardTask({
+        listId,
+        lane: "today",
+        title,
+        estSeconds: null,
+        insertAtTop: false,
+      });
+      await refreshBoard();
+      setAddTaskTitle("");
+      setAddTaskOpen(false);
+      setMutationStatus(`Added ${title} to Today.`);
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    } finally {
+      setAddTaskPending(false);
+    }
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteTarget || deletePending) return;
+    const task = deleteTarget;
+    setDeletePending(true);
+    setDeleteError(null);
+    setError(null);
+    try {
+      await permanentlyDeleteListBoardTask({ taskId: task.id, listId: task.listId });
+    } catch (failure: unknown) {
+      setDeleteError(formatInvokeError(failure));
+      setDeletePending(false);
+      return;
+    }
+
+    setDeleteTarget(null);
+    setDeletePending(false);
+    setNotesTaskId((current) => current === task.id ? null : current);
+    setMutationStatus(`Permanently deleted ${task.title}.`);
+    try {
+      await refreshBoard();
+    } catch (failure: unknown) {
+      setError(
+        `Task was deleted, but Focus could not refresh. ${formatInvokeError(failure)} Reopen Focus before making more task changes.`,
+      );
+    }
+  };
+
   const statusError = error ?? preferenceError ?? modeTransitionError;
 
   if (error && !board) {
@@ -329,12 +657,85 @@ export function FocusPanel({
   );
   const scheduledIds = new Set(scheduledTasks.map((task) => task.id));
   const remainingTasks = remainingCandidates.filter((task) => !scheduledIds.has(task.id));
+  const reorderableTasks = target.kind === "list"
+    ? remainingTasks.filter((task) => task.scheduledLocalDate === null && task.listId === target.id)
+    : [];
+  const reorderIndex = new Map(reorderableTasks.map((task, index) => [task.id, index]));
   const noEligibleVisualState = liveTask === null && remainingTasks.length === 0 && scheduledTasks.length > 0;
   const emptyTodayState = liveTask === null && remainingTasks.length === 0 && scheduledTasks.length === 0;
   const emptyStateKind = noEligibleVisualState ? "no-eligible" : emptyTodayState ? "empty" : "none";
   const doneTasks = board.done.tasks;
   const totalCount = board.today.count + board.done.count;
   const donePercent = totalCount > 0 ? Math.min(100, Math.round((board.done.count / totalCount) * 100)) : 0;
+  const rowInteractionDisabled = fixtureMode
+    || mutationPendingTaskId !== null
+    || scheduleTaskId !== null
+    || deleteTarget !== null
+    || addTaskPending;
+  const scheduleTask = scheduleTaskId
+    ? [...remainingTasks, ...scheduledTasks].find((task) => task.id === scheduleTaskId) ?? null
+    : null;
+
+  const moveFocusTask = (task: ListBoardTask, direction: "up" | "down") => {
+    const index = reorderIndex.get(task.id);
+    if (index === undefined) return;
+    const beforeTaskId = direction === "up"
+      ? reorderableTasks[index - 1]?.id ?? null
+      : reorderableTasks[index + 2]?.id ?? null;
+    void commitRowMutation(
+      task,
+      () => reorderListBoardTask({
+        taskId: task.id,
+        listId: task.listId,
+        sourceLane: "today",
+        beforeTaskId,
+      }),
+      `Moved ${task.title} ${direction}.`,
+    );
+  };
+
+  const renderTaskRow = (task: ListBoardTask, scheduled = false) => {
+    const index = reorderIndex.get(task.id);
+    return (
+      <FocusTaskRow
+        key={task.id}
+        task={task}
+        aggregateView={aggregateView}
+        scheduled={scheduled}
+        disabled={rowInteractionDisabled || mutationPendingTaskId === task.id}
+        notesExpanded={notesTaskId === task.id}
+        canMakeLive={!scheduled}
+        canMoveUp={index !== undefined && index > 0}
+        canMoveDown={index !== undefined && index < reorderableTasks.length - 1}
+        onMakeLive={() => void makeTaskLive(task)}
+        onMoveUp={() => moveFocusTask(task, "up")}
+        onMoveDown={() => moveFocusTask(task, "down")}
+        onComplete={() => void commitRowMutation(
+          task,
+          () => completeListBoardTask({ taskId: task.id, listId: task.listId }),
+          `Completed ${task.title}.`,
+        )}
+        onToggleNotes={() => setNotesTaskId((current) => current === task.id ? null : task.id)}
+        onSchedule={() => {
+          setNotesTaskId(null);
+          setScheduleTaskId(task.id);
+        }}
+        onDelete={() => {
+          setNotesTaskId(null);
+          setDeleteError(null);
+          setDeleteTarget(task);
+        }}
+        onMutationStatus={(status, detail) => {
+          setMutationStatus(status || null);
+          setError(detail);
+        }}
+        onRefreshBlocked={(message) => {
+          setMutationStatus(null);
+          setError(message);
+        }}
+      />
+    );
+  };
 
   return (
     <main className="focus-panel" data-focus-panel="main" data-focus-target={board.target.kind}>
@@ -346,7 +747,7 @@ export function FocusPanel({
             aria-label="Focus list"
             data-focus-list-selector="true"
             value={selectedValue}
-            disabled={fixtureMode}
+            disabled={fixtureMode || mutationPendingTaskId !== null || addTaskPending}
             onChange={(event) => setTarget(targetFromValue(event.currentTarget.value))}
           >
             <option value={ALL_LISTS_VALUE}>All</option>
@@ -360,7 +761,17 @@ export function FocusPanel({
           <Tooltip content="Preferences">
             <button type="button" aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences">⚙</button>
           </Tooltip>
-          <button type="button" disabled aria-label="Home" title="Home">Home</button>
+          <Tooltip content="Home">
+            <button
+              type="button"
+              aria-label="Home"
+              data-focus-home-control="true"
+              disabled={fixtureMode || homePending}
+              onClick={() => void exitFocusHome()}
+            >
+              Home
+            </button>
+          </Tooltip>
           <Tooltip content="Compact view">
             <button
               type="button"
@@ -423,6 +834,9 @@ export function FocusPanel({
                 onTimerPayload={(incoming) => {
                   setTimer((current) => applyTimerSessionProjection(current, incoming));
                 }}
+                onTaskMutationCommitted={async () => {
+                  await refreshBoard();
+                }}
               />
             ) : null}
           </article>
@@ -450,22 +864,88 @@ export function FocusPanel({
         )}
 
         <div className="focus-panel__remaining" data-focus-group="remaining">
-          {remainingTasks.map((task) => (
-            <FocusTaskRow key={task.id} task={task} aggregateView={aggregateView} />
-          ))}
+          {remainingTasks.map((task) => renderTaskRow(task))}
         </div>
 
-        <button className="focus-panel__add-task" type="button" disabled aria-label="Add task in Focus Panel">
-          + ADD TASK
-        </button>
+        {!addTaskOpen ? (
+          <button
+            className="focus-panel__add-task"
+            type="button"
+            data-focus-add-task="open"
+            disabled={fixtureMode || addTaskPending || mutationPendingTaskId !== null}
+            aria-label="Add task in Focus Panel"
+            onClick={() => {
+              setAddTaskOpen(true);
+              setAddTaskTitle("");
+              setAddTaskListId(target.kind === "list" ? target.id : selectorOptions[0]?.id ?? "");
+              setError(null);
+            }}
+          >
+            + ADD TASK
+          </button>
+        ) : (
+          <form
+            className="focus-panel__add-task-editor"
+            data-focus-add-task="editor"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void submitAddTask();
+            }}
+          >
+            {aggregateView ? (
+              <label>
+                <span className="type-metadata">List</span>
+                <select
+                  value={addTaskListId}
+                  data-focus-add-task-list="true"
+                  disabled={addTaskPending}
+                  onChange={(event) => setAddTaskListId(event.target.value)}
+                >
+                  <option value="">Choose list</option>
+                  {selectorOptions.map((list) => (
+                    <option key={list.id} value={list.id}>{list.title}</option>
+                  ))}
+                </select>
+              </label>
+            ) : null}
+            <label>
+              <span className="type-metadata">Task title</span>
+              <input
+                value={addTaskTitle}
+                data-focus-add-task-title="true"
+                autoFocus
+                disabled={addTaskPending}
+                onChange={(event) => setAddTaskTitle(event.target.value)}
+                placeholder="What needs doing?"
+              />
+            </label>
+            <div className="focus-panel__add-task-actions">
+              <button
+                type="button"
+                disabled={addTaskPending}
+                onClick={() => {
+                  setAddTaskOpen(false);
+                  setAddTaskTitle("");
+                  setError(null);
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={addTaskPending || addTaskTitle.trim().length === 0 || (aggregateView && !addTaskListId)}
+              >
+                {addTaskPending ? "Adding…" : "Add task"}
+              </button>
+            </div>
+          </form>
+        )}
 
         <section className="focus-panel__group" data-focus-group="scheduled" aria-labelledby="focus-scheduled-title">
           <h2 id="focus-scheduled-title" className="focus-panel__group-title">
             {scheduledTasks.length} Scheduled {scheduledTasks.length === 1 ? "task" : "tasks"}
           </h2>
-          {scheduledTasks.map((task) => (
-            <FocusTaskRow key={task.id} task={task} aggregateView={aggregateView} scheduled />
-          ))}
+          {scheduledTasks.map((task) => renderTaskRow(task, true))}
         </section>
 
         <section className="focus-panel__group" data-focus-group="done" aria-labelledby="focus-done-title">
@@ -473,12 +953,63 @@ export function FocusPanel({
             {doneTasks.length} Done
           </h2>
           {doneTasks.map((task) => (
-            <FocusTaskRow key={task.id} task={task} aggregateView={aggregateView} done />
+            <FocusTaskRow
+              key={task.id}
+              task={task}
+              aggregateView={aggregateView}
+              done
+              disabled
+              notesExpanded={false}
+              canMakeLive={false}
+              canMoveUp={false}
+              canMoveDown={false}
+              onMakeLive={() => {}}
+              onMoveUp={() => {}}
+              onMoveDown={() => {}}
+              onComplete={() => {}}
+              onToggleNotes={() => {}}
+              onSchedule={() => {}}
+              onDelete={() => {}}
+              onMutationStatus={() => {}}
+              onRefreshBlocked={() => {}}
+            />
           ))}
         </section>
       </section>
 
-      {statusError ? <div className="focus-panel__error type-metadata" role="status">{statusError}</div> : null}
+      {deleteTarget ? (
+        <TaskDeleteConfirmDialog
+          taskTitle={deleteTarget.title}
+          pending={deletePending}
+          error={deleteError}
+          onCancel={() => {
+            if (deletePending) return;
+            setDeleteTarget(null);
+            setDeleteError(null);
+          }}
+          onConfirm={() => void confirmDelete()}
+        />
+      ) : null}
+
+      {scheduleTask ? (
+        <TaskScheduleDialog
+          taskId={scheduleTask.id}
+          listId={scheduleTask.listId}
+          taskTitle={scheduleTask.title}
+          displayTimezone={board.displayTimezone}
+          onClose={() => setScheduleTaskId(null)}
+          onCommitted={async (_taskId, message, warning) => {
+            setMutationStatus(warning ? `${message} ${warning}` : message);
+            await refreshBoard();
+            setScheduleTaskId(null);
+          }}
+        />
+      ) : null}
+
+      {mutationStatus ? (
+        <div className="focus-panel__status type-metadata" role="status">{mutationStatus}</div>
+      ) : null}
+      {statusError ? <div className="focus-panel__error type-metadata" role="alert">{statusError}</div> : null}
     </main>
   );
 }
