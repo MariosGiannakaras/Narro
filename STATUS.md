@@ -280,18 +280,46 @@ Validation evidence:
 - guarded squash merge: `4e315f551737d729f76e5f561dd8d7404717e157`;
 - resulting-main Windows CI #540: PASS through the repository's identical-tree validation gate; the heavy duplicate job was correctly skipped only after GitHub proved the merged tree equals the exact-head PR tree and that #539 had passed.
 
-The current validated source baseline is therefore `4e315f551737d729f76e5f561dd8d7404717e157`. Markdown-only tracking commits after this point do not replace that source SHA.
+The M5 validated source baseline was `4e315f551737d729f76e5f561dd8d7404717e157`. Markdown-only tracking commits did not replace that source SHA.
+
+### M6/Focus parity reconciliation — COMPLETE
+
+A10–A17 are implemented and validated:
+
+- A10 ordinary Focus rows expose stable reserved completion/Rocket/reorder/overflow action geometry with pointer and keyboard/focus access;
+- A11 Rocket / Make Live samples authoritative timer/session state and starts or switches through the timer service without completing or discarding prior work;
+- A12 individual-list Focus queue reorder reuses the persisted stable-identity reorder boundary; aggregate All Lists reorder remains disabled;
+- A13 ordinary-row Notes, scheduling, non-live completion and confirmed permanent delete reuse validated Main/domain boundaries;
+- A14 Focus `+ ADD TASK` is persistence-first; All Lists requires explicit owning-list selection before creation;
+- A15 Focus Home uses native Main/focus-surface lifecycle and does not reset timer/session state;
+- A16 live-task title editing exists only inside Focus Panel Notes and reuses stale-safe persisted title mutation followed by authoritative Focus refresh;
+- A17 Time's Up exposes Extend through the existing authoritative `timer_extend` transition;
+- obsolete M6 placeholder/non-mutating static contracts were replaced with positive product/safety invariants and Windows visual geometry checks.
+
+Validation evidence:
+- PR #158 exact validated head `c13e7f6cfbec3accde4841fd4fd61b68d0924ff6`;
+- Windows CI #545 / run `36243619057`: PASS;
+- repository preflight, Rust fmt/check/clippy/tests: PASS;
+- Windows visual regression: PASS;
+- visual artifact: `narro-m5-visual-regression`, artifact id `10906627762`, digest `sha256:4f58feb6526ad3624e07897f58377b620936e4316f60fb64c9de0f83e45d671a`;
+- Tauri release build: PASS;
+- diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, artifact id `10906727736`, digest `sha256:97dd86ad64f12ffa35da0ce5d0b10dadb1375df6f70178d0584751d234ec65ef`;
+- expected-head guarded squash merge: `b1ff5910abec82272c4ee57479a44eb62248a88f`;
+- resulting-main Windows CI #546 / run `36244258977`: PASS through the identical-tree validation gate; the heavy duplicate job was correctly skipped after GitHub proved the merged tree equals the exact validated PR-head tree.
+
+The current validated source baseline is therefore `b1ff5910abec82272c4ee57479a44eb62248a88f`. Markdown-only tracking commits after this point do not replace that source SHA.
 
 ### Remaining audit classification
 
-- **M6/Focus reconciliation — ACTIVE:** A10–A17.
-- **M7/Floating reconciliation — DEFERRED:** A18 plus the already-active compositor/physical work. By explicit user direction, after the M6 audit reconciliation is fully validated and tracked, implementation must stop before M7 and await the user's next instruction.
+- **M5/Main reconciliation — COMPLETE:** A1–A9 and A19.
+- **M6/Focus reconciliation — COMPLETE:** A10–A17.
+- **M7/Floating reconciliation — DEFERRED:** A18 plus the already-active compositor/physical work. By explicit user direction, implementation stops before M7 and awaits the user's next instruction.
 - **B1 Task Change list/Duplicate:** unresolved fidelity/product requirement; do not implement until the current requirement is established.
 - **B2 exact Blitz now placement / B3 exact swatch palette:** visual-fidelity questions for the scheduled final parity pass unless stronger current evidence promotes them.
 - **B4 Done auto-start next task:** current Narro auto-starts the next eligible task after committed completion, but source behavior remains explicitly unresolved. Preserve current behavior until an explicit product decision or stronger evidence exists.
 - Intentional Narro deviations in audit section C remain binding and are not regressions.
 
-PR #155 remains an open draft M7 physical-compositor candidate at exact head `2755d598ad2b13b974cda02760ebf44cd5e60b13`; Windows CI #532 passed, physical compositor validation has not run, and the PR is now non-mergeable against the newer `main` after the M5 merge. It must be preserved without rebase/merge/source modification while M6 reconciliation proceeds and until the user lifts the pre-M7 pause.
+PR #155 remains open and draft at exact head `2755d598ad2b13b974cda02760ebf44cd5e60b13`; Windows CI #532 passed, physical compositor validation has not run, and GitHub reports the PR non-mergeable against the newer `main`. Preserve it without rebase/merge/source modification until the user explicitly resumes M7.
 
 ## Durable correctness decisions
 

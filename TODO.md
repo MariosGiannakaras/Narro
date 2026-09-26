@@ -275,19 +275,20 @@ Acceptance criteria:
 
 ### 2026-09-26 parity/reliability reconciliation
 
-- [ ] Reconcile confirmed Focus production omissions discovered after Gate F:
-  - [ ] A10 Ordinary Focus rows expose the documented source-backed task actions with reserved geometry and keyboard/focus equivalents.
-  - [ ] A11 Rocket / Make Live switches through authoritative timer/session APIs and preserves prior work.
-  - [ ] A12 Focus queue reorder reuses validated persisted task ordering and stable IDs.
-  - [ ] A13 Ordinary-row delete, schedule, notes and non-live completion reuse validated Main/domain boundaries.
-  - [ ] A14 Replace disabled Focus `+ ADD TASK` with persistence-first creation; All Lists requires explicit owning-list choice.
-  - [ ] A15 Focus Home exits the Focus surface through existing lifecycle without silently resetting timer/session state.
-  - [ ] A16 Live-task title editing is available only through Notes and reuses stale-safe title persistence.
-  - [ ] A17 Time's Up exposes Extend using the existing authoritative `timer_extend` transition.
-  - [ ] Evolve temporary M6 static tests that froze placeholder/non-mutating controls.
+- [x] Reconcile confirmed Focus production omissions discovered after Gate F:
+  - [x] A10 Ordinary Focus rows expose the documented source-backed task actions with reserved geometry and keyboard/focus equivalents.
+  - [x] A11 Rocket / Make Live switches through authoritative timer/session APIs and preserves prior work.
+  - [x] A12 Focus queue reorder reuses validated persisted task ordering and stable IDs.
+  - [x] A13 Ordinary-row delete, schedule, notes and non-live completion reuse validated Main/domain boundaries.
+  - [x] A14 Replace disabled Focus `+ ADD TASK` with persistence-first creation; All Lists requires explicit owning-list choice.
+  - [x] A15 Focus Home exits the Focus surface through existing lifecycle without silently resetting timer/session state.
+  - [x] A16 Live-task title editing is available only through Notes and reuses stale-safe title persistence.
+  - [x] A17 Time's Up exposes Extend using the existing authoritative `timer_extend` transition.
+  - [x] Evolve temporary M6 static tests that froze placeholder/non-mutating controls.
 
-**Gate F status: REOPENED by new repository-backed parity evidence on 2026-09-26.** The original 16 slices remain historically validated; this reconciliation gate must pass before Milestone 6 is again complete.
+**Gate F reconciliation result: PASS / Milestone 6 complete again.** PR #158 exact head `c13e7f6cfbec3accde4841fd4fd61b68d0924ff6` passed Windows CI #545 / run `36243619057`, including repository preflight, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release build, visual artifact `narro-m5-visual-regression` (artifact id `10906627762`, digest `sha256:4f58feb6526ad3624e07897f58377b620936e4316f60fb64c9de0f83e45d671a`) and diagnostic artifact `narro-m1-runtime-harness-windows-x64` (artifact id `10906727736`, digest `sha256:97dd86ad64f12ffa35da0ce5d0b10dadb1375df6f70178d0584751d234ec65ef`). Expected-head guarded squash merge `b1ff5910abec82272c4ee57479a44eb62248a88f` passed resulting-main Windows CI #546 / run `36244258977` through the repository identical-tree validation gate. The current validated source baseline is `b1ff5910abec82272c4ee57479a44eb62248a88f`.
 
+By explicit user direction, **stop before Milestone 7** and wait for the user's next instruction.
 
 ## Milestone 7 — Floating Timer mode
 
