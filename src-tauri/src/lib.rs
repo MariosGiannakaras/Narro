@@ -56,6 +56,20 @@ const FOCUS_SURFACE_MODE_TIMER: u8 = 2;
 static FOCUS_SURFACE_MODE_STATE: AtomicU8 = AtomicU8::new(FOCUS_SURFACE_MODE_UNKNOWN);
 
 #[cfg(windows)]
+mod focus_visual_hold;
+
+#[cfg(not(windows))]
+mod focus_visual_hold {
+    use super::CommandResult;
+    pub fn begin(_window: &tauri::WebviewWindow) -> CommandResult<()> {
+        Ok(())
+    }
+    pub fn end() -> CommandResult<()> {
+        Ok(())
+    }
+}
+
+#[cfg(windows)]
 mod focus_surface_prewarm {
     use super::{CommandError, CommandResult, FOCUS_SURFACE_LABEL};
     use std::ffi::c_void;
@@ -982,6 +996,17 @@ fn prewarm_focus_surface(app_handle: tauri::AppHandle) -> CommandResult<()> {
 }
 
 #[tauri::command]
+fn begin_focus_visual_hold(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    focus_visual_hold::begin(&window)
+}
+
+#[tauri::command]
+fn end_focus_visual_hold() -> CommandResult<()> {
+    focus_visual_hold::end()
+}
+
+#[tauri::command]
 fn clear_focus_surface_prewarm(app_handle: tauri::AppHandle) -> CommandResult<()> {
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     focus_surface_prewarm::uncloak(&window)
@@ -1538,6 +1563,8 @@ pub fn run() {
             focus_surface_mode_timer,
             prepare_floating_timer,
             prewarm_focus_surface,
+            begin_focus_visual_hold,
+            end_focus_visual_hold,
             clear_focus_surface_prewarm,
             reveal_floating_timer,
             present_floating_timer,

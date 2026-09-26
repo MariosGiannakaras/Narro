@@ -5,7 +5,9 @@ import { FocusLiveActions } from "./FocusLiveActions";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { focusTimerPresentation } from "./focusTimerPresentation";
 import {
+  beginFocusVisualHold,
   clearFocusSurfacePrewarm,
+  endFocusVisualHold,
   prewarmFocusSurface,
   setFloatingTimerExpanded,
 } from "./focusSurfaceModeApi";
@@ -202,7 +204,10 @@ export function FloatingTimerFoundation({
     setResizeError(null);
     let nativeResizeCommitted = false;
     let prewarmActive = false;
+    let visualHoldActive = false;
     try {
+      await beginFocusVisualHold();
+      visualHoldActive = true;
       await prewarmFocusSurface();
       prewarmActive = true;
       setResizePhase("resizing");
@@ -220,6 +225,8 @@ export function FloatingTimerFoundation({
       prewarmActive = false;
       setResizePhase("idle");
       await waitForPresentedFrame();
+      await endFocusVisualHold();
+      visualHoldActive = false;
       return true;
     } catch (failure: unknown) {
       let resizeFailure = formatInvokeError(failure);
@@ -244,6 +251,16 @@ export function FloatingTimerFoundation({
         } catch (cleanupFailure: unknown) {
           resizeFailure =
             `${resizeFailure}; resize prewarm cleanup failed: ${formatInvokeError(cleanupFailure)}`;
+        }
+      }
+
+      if (visualHoldActive) {
+        try {
+          await endFocusVisualHold();
+          visualHoldActive = false;
+        } catch (cleanupFailure: unknown) {
+          resizeFailure =
+            `${resizeFailure}; visual hold cleanup failed: ${formatInvokeError(cleanupFailure)}`;
         }
       }
 

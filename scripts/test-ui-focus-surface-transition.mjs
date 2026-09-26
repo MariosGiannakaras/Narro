@@ -24,6 +24,7 @@ const transition = read("src/FocusSurfaceTransition.tsx");
 const presentationFrame = read("src/presentationFrame.ts");
 const transitionCss = read("src/focusSurfaceTransition.css");
 const motionCss = read("src/motion.css");
+const visualHold = read("src-tauri/src/focus_visual_hold.rs");
 const pkg = JSON.parse(read("package.json"));
 
 const configure = slice(
@@ -148,9 +149,24 @@ const commitMode = slice(focus, "async function commitPendingModeTransition()", 
 invariant(
   requestMode.includes("setTransitionPending(true)")
     && requestMode.includes("setPendingMode(targetMode)")
+    && requestMode.indexOf("visualHoldOwnerRef.current.acquire()") < requestMode.indexOf("setPendingMode(targetMode)")
     && !requestMode.includes("prepareFloatingTimer")
     && !requestMode.includes("prepareFocusPanel"),
   "mode request must only begin the outgoing renderer exit",
+);
+invariant(
+  commitMode.includes("await clearVisualHold()")
+    && focus.includes("async function failPendingModeTransition(failure: unknown)")
+    && visualHold.includes("BitBlt(")
+    && visualHold.includes("CreateWindowExW(")
+    && visualHold.includes("DwmFlush()")
+    && visualHold.includes("DestroyWindow(hold.window as Handle)"),
+  "the outgoing native copy must cover the blank host through normal and failed transitions",
+);
+invariant(
+  floating.indexOf("await beginFocusVisualHold()") < floating.indexOf("await prewarmFocusSurface()")
+    && floating.indexOf("await clearFocusSurfacePrewarm()") < floating.indexOf("await endFocusVisualHold()"),
+  "Timer resize must retain the previous bitmap until the resized target is visible",
 );
 invariant(
   commitMode.includes("await coordinateFocusModeTransition({")
@@ -263,6 +279,7 @@ invariant(
 invariant(
   pkg.scripts["test:focus-mode-transition"] === "node --experimental-strip-types scripts/test-focus-mode-transition.mjs"
     && pkg.scripts["test:ui-focus-surface-transition"] === "node scripts/test-ui-focus-surface-transition.mjs"
+    && pkg.scripts["preflight:frontend"].includes("npm run test:focus-visual-hold-owner")
     && pkg.scripts["preflight:frontend"].includes("npm run test:focus-mode-transition")
     && pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-surface-transition"),
   "transition executable/static contracts must both run in frontend preflight",
