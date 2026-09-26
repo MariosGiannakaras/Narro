@@ -1,5 +1,7 @@
+import type { ReactNode } from "react";
 import { useThemeRuntime } from "./ThemeRuntime";
 import type { ThemePreference } from "./themeApi";
+import { WindowsShortcutSettingsPanel } from "./WindowsShortcutSettingsPanel";
 import "./themeSettingsPanel.css";
 
 type ThemeSettingsPanelViewProps = {
@@ -7,6 +9,7 @@ type ThemeSettingsPanelViewProps = {
   pending?: boolean;
   error?: string | null;
   onSelectTheme: (theme: ThemePreference) => void;
+  children?: ReactNode;
 };
 
 const THEME_OPTIONS: Array<{ value: ThemePreference; label: string; description: string }> = [
@@ -20,6 +23,7 @@ export function ThemeSettingsPanelView({
   pending = false,
   error = null,
   onSelectTheme,
+  children,
 }: ThemeSettingsPanelViewProps) {
   return (
     <section className="theme-settings" data-theme-settings="true" aria-labelledby="theme-settings-title">
@@ -66,6 +70,8 @@ export function ThemeSettingsPanelView({
 
         {error ? <div className="theme-settings__error" role="alert">{error}</div> : null}
       </section>
+
+      {children}
     </section>
   );
 }
@@ -78,6 +84,8 @@ export function ThemeSettingsPanel() {
       pending={pending}
       error={error}
       onSelectTheme={(next) => void saveTheme(next)}
-    />
+    >
+      <WindowsShortcutSettingsPanel />
+    </ThemeSettingsPanelView>
   );
 }
