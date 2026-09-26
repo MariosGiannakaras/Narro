@@ -21,3 +21,17 @@ export function updateListFromEditor(
 ): Promise<void> {
   return invoke<void>("update_list_from_editor", { listId, request });
 }
+
+
+export type ListIconAssetPayload = {
+  mimeType: string;
+  bytes: number[];
+};
+
+export function duplicateListFromHome(listId: string): Promise<void> {
+  return invoke<void>("duplicate_list_from_home", { listId });
+}
+
+export function getListIconAsset(listId: string): Promise<ListIconAssetPayload | null> {
+  return invoke<ListIconAssetPayload | null>("get_list_icon_asset", { listId });
+}
