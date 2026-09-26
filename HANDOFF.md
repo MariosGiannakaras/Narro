@@ -6,42 +6,38 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-M5/Main and M6/Focus parity reconciliation are complete.
+M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementation has advanced through A18 and the latest compositor correction.
 
-- M5 validated source merge: `4e315f551737d729f76e5f561dd8d7404717e157` from PR #156; PR CI #539 PASS; resulting-main CI #540 PASS.
-- M6 PR #158 exact validated head: `c13e7f6cfbec3accde4841fd4fd61b68d0924ff6`.
-- M6 Windows CI #545 / run `36243619057`: PASS.
-- Required M6 visual artifact: `narro-m5-visual-regression`, artifact id `10906627762`, digest `sha256:4f58feb6526ad3624e07897f58377b620936e4316f60fb64c9de0f83e45d671a`.
-- Required M6 diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, artifact id `10906727736`, digest `sha256:97dd86ad64f12ffa35da0ce5d0b10dadb1375df6f70178d0584751d234ec65ef`.
-- M6 expected-head guarded squash merge: `b1ff5910abec82272c4ee57479a44eb62248a88f`.
-- Resulting-main Windows CI #546 / run `36244258977`: PASS through the repository identical-tree validation gate.
-- **Current validated source baseline:** `b1ff5910abec82272c4ee57479a44eb62248a88f`.
+- M7 PR #155 exact validated head: `c630a57346c067ab04c0fa086703582542f4f7e5`.
+- Windows CI #559 / run `36250265344`: PASS.
+- Visual artifact: `narro-m5-visual-regression`, id `10908029994`, digest `sha256:9ba27fd6184a4f0a01e056a9a087569ddd3e35a3784a363a366dec658cba9419`.
+- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10908554507`, digest `sha256:90a9cd51164278499283e77062e4dd2227580857583801b2aeac583da08aa8d8`.
+- Expected-head guarded squash merge: `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`.
+- Resulting-main Windows CI #560 / run `36251631523`: PASS through the identical-tree validation gate.
+- **Current validated source baseline:** `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`.
 
-Markdown-only tracking commits after that source SHA do not replace the validated source baseline.
+Tracking-only commits after this SHA do not replace the validated application source baseline.
 
 ## CURRENT ORDERED WORK
 
-The parity audit reconciliation remains complete through M6.
-
 1. **M5 parity/reliability reconciliation (A1–A9, A19): COMPLETE.**
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
-3. Blitzit video/transcript evidence ingestion setup is **COMPLETE**:
-   - upload inbox: `reference/original-blitzit-videos/inbox/`;
-   - raw evidence guide: `reference/original-blitzit-videos/README.md`;
-   - timestamped analysis/index: `docs/BLITZIT_VIDEO_EVIDENCE.md`;
-   - PR #162 exact head `8bf3d2d5f34b870b1a38fe4afa493df73f81f42c` passed Windows CI #547 and merged as `4de310d29cee623cba54da514ba2a74193ba758a`.
-4. On a later implementation instruction, resume **M7/A18/compositor work from repository state**, preserving existing validated M7 evidence and reconciling PR #155 against the newer `main`.
-5. Video/manual evidence is explicitly non-blocking for independent source work. Check the video inbox before final M7 closure; if relevant recordings have actually been uploaded by then, analyze the materially relevant subset and route timestamped findings through `docs/BLITZIT_VIDEO_EVIDENCE.md`. If none are present, continue and batch that evidence reconciliation later.
-6. Continue M8 → M9 → M10 in order after prerequisites close.
-7. After M10, the Final Comprehensive Review Stage must include the complete uploaded video/transcript corpus as well as screenshots/docs.
+3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
+   - A18 is complete and automated-validated.
+   - PR #155 visual-hold correction is merged and automated-validated.
+   - physical continuous-transition, repeated shortcut, topology/placement, borderless/fullscreen, and non-default taskbar/high-DPI checks remain OPEN/NOT RUN on the latest build.
+4. By explicit user direction on 2026-09-26, missing Blitzit videos and deferred M7 manual checks are **not blockers for independent source implementation**. Do not mark them PASS; batch them later on the latest relevant build.
+5. **Next source implementation: M8 Windows shortcuts and preferences.** This is an explicit roadmap execution exception while M7 manual closure remains pending; it does not increment the 6/10 milestone completion counter.
+6. Continue M9 → M10 only according to their source prerequisites and the same evidence discipline.
+7. After M10, run the required Final Comprehensive Review Stage, including the complete uploaded video/transcript corpus.
 
 Roadmap completion remains **6/10 milestones**.
-
-Video corpus status: **upload inbox ready; corpus analysis not yet started**.
 
 For each remaining milestone M7–M10:
 - require sufficient error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone;
 - include the milestone's total validated source diff as `+A/-B` lines in its completion report, measured from validated starting source SHA to final validated source SHA.
+
+Video corpus status: upload inbox ready; corpus not yet uploaded/analyzed; not an implementation blocker.
 
 ## M6 RECONCILIATION — COMPLETED CAPABILITIES
 
@@ -63,22 +59,25 @@ Do not reopen A10–A17 without new repository-backed evidence.
 
 - A1–A9, A19: COMPLETE and validated in M5 reconciliation.
 - A10–A17: COMPLETE and validated in M6 reconciliation.
-- A18: M7 parity sub-gap; do not implement yet.
+- A18: COMPLETE and automated-validated in M7 PR #155 / CI #559 / main CI #560.
 - B1: unresolved task-menu fidelity requirement; no implementation without stronger evidence or explicit decision.
 - B2/B3: visual-fidelity questions; defer to the final parity/fidelity pass unless stronger evidence promotes them.
 - B4: Done auto-start-next remains unresolved in source evidence; preserve current behavior.
 - Audit section C intentional Narro deviations remain binding.
 
-## OPEN M7 PR — PRESERVE DURING THIS PLANNING TASK
+## M7 DEFERRED PHYSICAL CLOSURE
 
-PR #155 `M7: cover focus transitions with a temporary native visual hold` remains open and draft.
+PR #155 is merged. No open M7 source PR remains from that slice.
 
-- exact head: `2755d598ad2b13b974cda02760ebf44cd5e60b13`;
-- Windows CI #532: PASS;
-- physical compositor validation: NOT RUN;
-- GitHub reports it non-mergeable against the newer `main`;
-- do not merge, rebase, rewrite, validate, or contaminate it as part of this planning/tracking task;
-- when M7 implementation is explicitly resumed later, reconstruct current repository state first and reconcile this preserved work carefully rather than replacing validated M7 history.
+The following physical/manual acceptance remains OPEN and must be batched later on the latest relevant build:
+- Panel↔Timer and Expand/Collapse continuous visual continuity, including Windows animations On/Off;
+- transition-boundary shortcut stress;
+- locate-timer native-hidden/reduced-motion follow-up;
+- secondary monitor/topology/no-saved-placement recovery;
+- independent borderless/fullscreen stacking;
+- non-default taskbar, constrained work area, secondary monitor and high-DPI placement.
+
+Do not mark M7 complete until these required checks close, but do not block independent M8 source implementation on them.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -100,12 +99,16 @@ PR #155 `M7: cover focus transitions with a temporary native visual hold` remain
 
 ## EXACT NEXT ACTION
 
-On the next explicit implementation instruction, reconstruct current `main`, inspect live PR/CI state and PR #155, check whether any new files exist under `reference/original-blitzit-videos/inbox/`, then resume M7 from the repository-recorded checkpoint.
+Start the first coherent M8 source slice from validated baseline `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`.
 
-- Resume M7/A18/compositor source work immediately; missing videos or deferred manual checks are not blockers for independent evidence-backed implementation.
-- If relevant recordings/transcripts are already present when a closure decision is reached, analyze them then and record timestamped findings in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
-- Do not begin the full corpus/final comprehensive review before M10 is complete.
+Priority:
+1. inspect the confirmed in-app shortcut requirements and existing timer/list mutation boundaries;
+2. implement the confirmed in-app shortcuts without duplicating domain logic;
+3. include clear unavailable/error behavior and regression coverage;
+4. batch compatible M8 work before authoritative Windows CI where safe.
+
+Do not rerun the deferred M7 manual matrix yet unless a new M8 change depends on its result. Missing videos are not a blocker.
 
 ## USER ACTION REQUIRED
 
-No action is required to continue unrelated implementation. When ready, the user may upload raw Blitzit videos and transcripts/captions directly to `reference/original-blitzit-videos/inbox/`; no pre-classification or renaming is required.
+No action is required for M8 source implementation. The deferred M7 physical matrix and Blitzit video upload/analysis will be requested only when needed for closure or when the user chooses to provide them. Videos may be uploaded normally to `reference/original-blitzit-videos/inbox/` without pre-classification.

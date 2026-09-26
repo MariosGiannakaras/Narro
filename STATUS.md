@@ -204,41 +204,30 @@ Validated behavior:
 
 PR Windows CI #462 and resulting-main Windows CI #463 passed Repository Preflight, Windows visual regression, Tauri Release and both required artifact uploads.
 
-## Milestone 7 — next ordered work
+## Milestone 7 — source implementation advanced; physical closure deferred
 
-The CI #521 60 fps physical retest is still a scoped **FAIL** for M7 item 7. PR #148/#150 added Panel and Timer readiness callbacks, but the coordinator waited for readiness only after transparent native prewarm. Frame inspection shows that this ordering still lets temporary renderer states become visible.
+M7 source work through A18 is now reconciled on current `main`.
 
-Observed with normal Windows animations:
-- ~8.300s: `No active focus task`;
-- ~8.333s: the same live task `fas` appears;
-- ~10.600s: `Loading Focus Panel…`;
-- ~10.633s: the settled Panel appears.
+Latest authoritative source evidence:
+- PR #155 exact head: `c630a57346c067ab04c0fa086703582542f4f7e5`;
+- Windows CI #559 / run `36250265344`: **PASS**;
+- repository preflight, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release build and required artifact uploads: PASS;
+- visual artifact: `narro-m5-visual-regression`, artifact id `10908029994`, digest `sha256:9ba27fd6184a4f0a01e056a9a087569ddd3e35a3784a363a366dec658cba9419`;
+- diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, artifact id `10908554507`, digest `sha256:90a9cd51164278499283e77062e4dd2227580857583801b2aeac583da08aa8d8`;
+- expected-head guarded squash merge: `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`;
+- resulting-main Windows CI #560 / run `36251631523`: **PASS** through the identical-tree validation gate.
 
-Observed again with the real Windows animation preference Off:
-- ~35.267s: `Loading focus task…` before the settled Timer;
-- ~40.700s: `Loading Focus Panel…` before the settled Panel.
+Validated capabilities added in this batch:
+- A18 expanded Floating Timer subtask title editing is complete: click-to-edit, stale-safe `expectedTitle`, Enter/Save commit, Escape/Cancel, authoritative subtask mutation, and post-commit subtask/board refresh reuse;
+- the CI #530 Panel/Timer blank/desktop corrective candidate is merged: a short-lived native bitmap/tool-window visual hold covers the same `focusSurface` while renderer/native geometry work is hidden, without adding a third webview or domain authority;
+- visual-hold ownership is serialized and cleanup is exercised on success/failure paths;
+- M5/M6 parity gates remain in frontend preflight.
 
-The active session remains continuous across these frames; this is a transient representation/readiness failure, not evidence of a persistent session reset.
+Physical status is deliberately not overstated. The merged visual-hold candidate has **NOT** yet received the consolidated Windows continuous-capture/manual matrix. The transition, repeated shortcut, monitor/topology, independent borderless/fullscreen, and non-default taskbar/high-DPI gates remain OPEN.
 
-PR #151 makes only the evidence-backed ordering correction: `prepare -> publish -> readiness while hidden -> transparent prewarm -> finite presented-frame barrier -> reveal`, with the same order in recovery. Exact PR head `077c2ea4b74e1f346a7ca3b9e9ec7cb76b2ca451` passed Windows CI #522. It merged to main as `8c3a108ec2c8ebdea0e5c1aa2b234490d718aff2`. Resulting-main Windows CI #523 / run `36203003936` passed on that exact source. The Panel↔Timer physical retest remains required, but by explicit user direction it may be batched with later M7 manual checks while independent evidence-backed source work continues.
+M7 therefore remains **incomplete at 9/14 top-level items**. By explicit user direction on 2026-09-26, these deferred physical checks and the absent Blitzit video corpus are not blockers for independent source implementation. M8 source work may proceed while M7 stays open; this is an explicit roadmap execution exception and must not be represented as M7 completion.
 
-A second independent audit of the same CI #521 recording was compared against the primary frame review. Its Panel↔Timer findings are corroborative rather than new. One additional technical finding was independently confirmed and must be retained as a separate M7 issue: Timer Expand/Collapse exposes native resized geometry while content is hidden/empty.
-- animations On, Expand ~9.53–9.65s: enlarged mostly blank Timer before expanded controls;
-- animations On, Collapse ~17.2s: expanded content disappears, an empty enlarged surface shrinks, then collapsed content republishes;
-- animations Off, Expand ~43.02–43.13s: same enlarged-empty-surface pattern;
-- animations Off, Collapse ~37.38s: same content-hidden-before-resize-completes pattern.
-
-This Expand/Collapse evidence is distinct from PR #151 and must not be folded into it. With #523 validated, the next ordered source slice is a narrow resize content-readiness/visibility correction that preserves native geometry authority and does not reopen the already-settled duplicate-pixel fix. The deferred Panel↔Timer physical confirmation remains open and must be included in the later batched M7 manual matrix.
-
-No persistent horizontal scrollbar was established by the CI #521 recording. UX observations about expanded information hierarchy or caret grouping are not correctness blockers and are not promoted into M7 implementation work without separate product evidence.
-
-## Latest M7 automated state
-
-PR #153 fixes the independently confirmed Expand/Collapse empty-surface transition by reusing native transparent prewarm around the resize. Exact head `ed046af079038952f5877b19324b6bf36912e69f` passed Windows CI #527. Merged main `57a18a2b9ffd81b1b2d968c54bf1e997311c0cd8` passed resulting-main CI #528. The physical Expand/Collapse acceptance gate remains OPEN and is intentionally batched with the remaining M7 manual matrix.
-
-PR #154 fixed the first post-merge dedup lookup after #528 showed the optimization was still running a full duplicate main job. The gate now binds exact-head evidence by workflow ID rather than run display name / PR-list metadata. Exact head `0ddd837d5aabbdb6284a63fad37cb964dc10f8aa` passed Windows CI #529; merged main `449eb5d1fda4a8d26832e803433209025a6dec38` passed full CI #530 because the workflow itself changed. This is the current validated source baseline before later documentation-only commits.
-
-The general implementation policy now prefers coherent batching of independently safe active-milestone work before CI and consolidation of compatible physical Windows checks when their unknown result does not determine subsequent implementation. Required tests, CI, milestone order and manual acceptance remain unchanged.
+The current validated application source baseline is `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`. Documentation/tracking-only commits do not replace it.
 
 ## CI efficiency baseline
 

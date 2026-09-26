@@ -309,9 +309,9 @@ These requirements apply separately to every remaining roadmap milestone. They d
   - [x] Physical Windows validation: Drag PASS; Return button PASS; Always-on-top PASS; no normal taskbar button PASS.
 - [x] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
 - [x] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
-- [ ] Implement expanded subtask rows with completion, title editing, reorder, delete and progress.
+- [x] Implement expanded subtask rows with completion, title editing, reorder, delete and progress.
   - [x] Completion/reopen, reorder, delete, add and progress were automated-validated in the original M7 expanded-content slice.
-  - [ ] A18 parity reconciliation: expanded Floating Timer must support stale-safe subtask title editing using the existing authoritative subtask mutation boundary.
+  - [x] A18 parity reconciliation: expanded Floating Timer supports stale-safe subtask title editing through the existing authoritative subtask mutation boundary. PR #155 exact head `c630a57346c067ab04c0fa086703582542f4f7e5` passed Windows CI #559; guarded squash merge `76ef5dadf1d6587ee52d029d980ad4de7a9abd93` passed resulting-main Windows CI #560.
 - [x] Keep icon hit targets stable and show tooltips without changing window width.
 - [ ] Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop.
   - [x] Initial native hidden-stage transition correction, finite 150ms content motion, reduced-motion contract, exact-head PR CI, guarded merge and resulting-main CI are automated-validated.
@@ -333,6 +333,7 @@ These requirements apply separately to every remaining roadmap milestone. They d
   - [x] CI #530 exact-build physical re-test on 2026-09-26: three settled Panel→Timer→Panel shortcut cycles retained one Focus window and paused task, but continuous capture with Windows animations On visibly exposed a pale empty focus frame and then desktop before Timer. Gate 7 visual continuity remains **FAIL**. See `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md`; animations Off and the rest of the latest-build matrix were not run.
   - [x] Independent second audit of the same CI #521 recording, rechecked frame-by-frame, confirms a separate Expand/Collapse continuity failure not covered by PR #151: with animations On, Expand around ~9.53–9.65s exposes an enlarged mostly empty Timer before expanded controls; Collapse around ~17.2s hides expanded content before the native surface finishes shrinking and then republishes collapsed content. The same class reproduces with Windows animations Off around ~43.02–43.13s on Expand and ~37.38s on Collapse. Treat this as a distinct resize visibility/readiness issue. #151 resulting-main validation is complete; by explicit user direction, the Panel↔Timer physical retest may be batched later, so this independently evidenced corrective slice may proceed now without marking the deferred manual gate PASS.
   - [x] Expand/Collapse empty-surface corrective source is automated-validated: PR #153 replaces the visible child fade/hide resize sequence with an atomic transparent-host swap (`cloak -> native resize -> synchronous target publish -> finite frame barrier -> uncloak`) while preserving native geometry/rollback authority and the solved duplicate-key/stale-pixel behavior. Exact head `ed046af079038952f5877b19324b6bf36912e69f` passed Windows CI #527; merged main `57a18a2b9ffd81b1b2d968c54bf1e997311c0cd8` passed Windows CI #528. Physical Expand/Collapse confirmation remains open and is batched with the remaining M7 Windows matrix.
+  - [x] CI #530 blank/desktop continuity corrective source is automated-validated: PR #155 adds a short-lived native bitmap/tool-window visual hold over the same `focusSurface` during hidden geometry/readiness/prewarm/reveal work, with serialized ownership and cleanup on success/failure. Exact head `c630a57346c067ab04c0fa086703582542f4f7e5` passed Windows CI #559; guarded squash merge `76ef5dadf1d6587ee52d029d980ad4de7a9abd93` passed resulting-main CI #560. Physical continuous-capture confirmation remains OPEN/NOT RUN.
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
   - [x] Ctrl+Shift+T implementation passed PR #126 exact-head CI #488, guarded merge `77e535f`, and resulting-main CI #489.
@@ -377,6 +378,8 @@ Acceptance criteria:
 - lost/off-screen position is recoverable
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
+
+**Current M7 gate state:** 9/14 top-level items are validated. The remaining five top-level items are held open by deferred physical/manual Windows checks. By explicit user direction on 2026-09-26, those deferred checks and the not-yet-uploaded Blitzit video corpus do **not** block independent M8 source implementation; M7 must nevertheless remain incomplete until its required physical acceptance closes.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
