@@ -9,6 +9,7 @@ function invariant(condition, message) {
 }
 
 const titleModule = read("src/FocusTaskRowTitle.tsx");
+const row = read("src/FocusTaskRow.tsx");
 const slotCss = read("src/focusActionSlots.css");
 const panelCss = read("src/focusPanel.css");
 const rowTitleCss = read("src/focusTaskRowTitle.css");
@@ -19,6 +20,14 @@ const visualValidator = read("scripts/validate-focus-action-slot-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
 invariant(titleModule.includes('import "./focusActionSlots.css";'), "Focus surface must load the reserved-slot stylesheet");
+invariant(row.includes('className="focus-panel__task-actions"'), "ordinary task action rail must use the reserved production path");
+invariant(row.includes('data-focus-task-action="make-live"'), "ordinary Make Live control must remain in a fixed slot");
+invariant(row.includes('data-focus-task-action="notes"'), "ordinary Notes control must remain in a fixed slot");
+invariant(slotCss.includes(".focus-panel__task-actions"), "ordinary Focus action rail must have a reserved stylesheet contract");
+invariant(slotCss.includes("grid-template-columns: repeat(3, 2rem)"), "ordinary Focus action positions must stay fixed-size");
+invariant(slotCss.includes("width: 6.5rem"), "ordinary Focus action rail must reserve fixed width");
+invariant(slotCss.includes(".focus-panel__task-row:hover .focus-panel__task-actions"), "pointer hover must reveal ordinary actions in place");
+invariant(slotCss.includes(".focus-panel__task-row:focus-within .focus-panel__task-actions"), "keyboard focus must reveal ordinary actions in place");
 invariant(slotCss.includes(".focus-panel__subtasks .list-board-task__subtask-actions"), "reserved subtask action rail must be scoped to Focus");
 invariant(slotCss.includes("min-width: 5.75rem"), "hidden Focus subtask controls must retain their reserved width");
 invariant(slotCss.includes("flex: none"), "reserved Focus subtask action width must not flex with title content");
