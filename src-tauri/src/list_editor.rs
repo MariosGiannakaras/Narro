@@ -319,11 +319,7 @@ pub fn update(
     }
 }
 
-pub fn duplicate(
-    app_dir: &Path,
-    id: ListId,
-    now: &str,
-) -> Result<ListRecord, ListEditorError> {
+pub fn duplicate(app_dir: &Path, id: ListId, now: &str) -> Result<ListRecord, ListEditorError> {
     let mut connection = open_database(app_dir)?;
     let existing = get_list(&connection, id)?;
     let duplicated_icon = existing
@@ -505,13 +501,20 @@ mod tests {
         )
         .expect("create list with icon");
 
-        let duplicated = duplicate(&app_dir, created.id, "2026-09-08T00:01:00Z")
-            .expect("duplicate list");
+        let duplicated =
+            duplicate(&app_dir, created.id, "2026-09-08T00:01:00Z").expect("duplicate list");
         let source_icon = created.icon_asset.as_deref().expect("source icon");
         let duplicate_icon = duplicated.icon_asset.as_deref().expect("duplicate icon");
-        assert_ne!(source_icon, duplicate_icon, "duplicate must own a distinct icon file");
-        assert!(resolve_owned_icon(&app_dir, source_icon).expect("source path").exists());
-        assert!(resolve_owned_icon(&app_dir, duplicate_icon).expect("duplicate path").exists());
+        assert_ne!(
+            source_icon, duplicate_icon,
+            "duplicate must own a distinct icon file"
+        );
+        assert!(resolve_owned_icon(&app_dir, source_icon)
+            .expect("source path")
+            .exists());
+        assert!(resolve_owned_icon(&app_dir, duplicate_icon)
+            .expect("duplicate path")
+            .exists());
 
         let payload = icon_asset(&app_dir, duplicated.id)
             .expect("read duplicated icon")
