@@ -383,11 +383,11 @@ Acceptance criteria:
 
 ## Milestone 8 — Windows shortcuts and preferences
 
-- [ ] Implement confirmed Windows in-app shortcuts.
+- [x] Implement confirmed Windows in-app shortcuts. PR #166 exact head `18a4d2b5a26bc705bf7cdf7bea647275b4877890` passed Windows CI #569; guarded squash merge `030274149cafdf590c5aa08f2cd1c9409595c7aa` passed resulting-main CI #570.
 - [ ] Implement confirmed Windows global shortcuts plus per-global enable toggles.
 - [ ] Add conflict/error feedback for unavailable global shortcuts.
 - [ ] Implement Preferences sections evidenced in screenshots/docs: monitor/side, hide times, EST parsing, theme, timezone, Pomodoro, break/work durations, scrolling title, timed alerts, sounds/previews, timer flash, notification alerts, schedule reminders, completion celebration.
-- [ ] Ensure Start Break shortcut pauses the current task, starts break, and follows documented resume/skip behavior.
+- [x] Ensure Start Break shortcut pauses the current task, starts break, and follows documented resume/skip behavior. The in-app shortcut reuses the existing authoritative Focus break/pause/resume/skip lifecycle and passed PR #166 / CI #569.
 - [ ] Preserve conditional/nested setting behavior without disruptive scroll jumps.
 - [ ] Use Windows locale for date/time presentation by default.
 - [ ] Persist preferences in SQLite or a versioned local settings layer.
