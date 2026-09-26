@@ -186,6 +186,10 @@ if (params.get("state") === "cycle") {
     const button = renderedTimer.querySelector<HTMLButtonElement>('[data-floating-subtask-control="expand"]');
     if (!button || button.disabled) throw new Error("Floating Timer resize control is unavailable");
     flushSync(() => button.click());
+    const nextExpanded = renderedTimer.dataset.floatingExpanded === "true";
+    const nextHeight = nextExpanded ? 300 : 110;
+    root.style.height = `${nextHeight}px`;
+    renderedTimer.style.height = `${nextHeight}px`;
   };
 
   observe();
