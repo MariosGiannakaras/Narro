@@ -1288,6 +1288,46 @@ mod tests {
         );
     }
 
+    #[cfg(windows)]
+    #[test]
+    fn focus_shortcut_state_failure_rolls_back_native_unregistration() {
+        use std::sync::atomic::{AtomicBool, Ordering};
+
+        let manager = ShortcutManager::new();
+        manager
+            .set_observer_installed(true)
+            .expect("install observer");
+        manager
+            .set_focus_toggle_registered(true)
+            .expect("seed registered state");
+        manager.state.lock().expect("state lock").revision = u64::MAX;
+        let native_registered = AtomicBool::new(true);
+
+        let result = manager.unregister_focus_shortcut(
+            FocusShortcutKind::Toggle,
+            || {
+                native_registered.store(false, Ordering::SeqCst);
+                Ok(())
+            },
+            |_| {
+                native_registered.store(true, Ordering::SeqCst);
+                Ok(())
+            },
+        );
+
+        assert_eq!(
+            result.expect_err("revision overflow").code,
+            "SHORTCUT_REVISION_OVERFLOW"
+        );
+        assert!(native_registered.load(Ordering::SeqCst));
+        assert!(
+            manager
+                .snapshot()
+                .expect("snapshot")
+                .focus_toggle_registered
+        );
+    }
+
     #[test]
     fn registration_state_changes_are_idempotent() {
         let manager = ShortcutManager::new();
