@@ -8,7 +8,9 @@ import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusSurfaceTransition } from "./FocusSurfaceTransition";
 import { FocusPanel } from "./FocusPanel";
 import {
+  beginFocusVisualHold,
   clearFocusSurfacePrewarm,
+  endFocusVisualHold,
   getFocusSurfaceMode,
   prepareFloatingTimer,
   prepareFocusPanel,
@@ -18,6 +20,7 @@ import {
   type FocusSurfaceMode,
 } from "./focusSurfaceModeApi";
 import { coordinateFocusModeTransition } from "./focusModeTransition";
+import { FocusVisualHoldOwner } from "./focusVisualHoldOwner";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { waitForPresentedFrame } from "./presentationFrame";
 import { TimerSessionProjection } from "./TimerSessionProjection";
@@ -37,6 +40,10 @@ function FocusSurfaceProduct() {
   const transitionCommitRef = useRef(false);
   const modeRef = useRef<FocusSurfaceMode | null>(null);
   const transitionBusyRef = useRef(false);
+  const visualHoldOwnerRef = useRef<FocusVisualHoldOwner | null>(null);
+  const visualHoldOwner = visualHoldOwnerRef.current
+    ?? new FocusVisualHoldOwner(beginFocusVisualHold, endFocusVisualHold);
+  visualHoldOwnerRef.current = visualHoldOwner;
   const resizeBusyRef = useRef(false);
   const panelReadyRef = useRef(false);
   const panelReadyWaitersRef = useRef(new Set<() => void>());
@@ -155,13 +162,31 @@ function FocusSurfaceProduct() {
     };
   }, []);
 
-  function requestMode(targetMode: FocusSurfaceMode) {
+  async function requestMode(targetMode: FocusSurfaceMode) {
     if (transitionBusyRef.current || resizeBusyRef.current || modeRef.current === targetMode) return;
     transitionBusyRef.current = true;
     setFindTimerPulse(null);
     setTransitionPending(true);
     setTransitionError(null);
-    setPendingMode(targetMode);
+    try {
+      // Capture the complete outgoing surface before its exit animation or
+      // native hide. The copy remains visible through target preparation.
+      await visualHoldOwner.release();
+      await visualHoldOwner.acquire();
+      setPendingMode(targetMode);
+    } catch (failure: unknown) {
+      transitionBusyRef.current = false;
+      setTransitionPending(false);
+      setTransitionError(formatInvokeError(failure));
+    }
+  }
+
+  async function clearVisualHold() {
+    try {
+      await visualHoldOwner.release();
+    } catch (failure: unknown) {
+      setTransitionError(formatInvokeError(failure));
+    }
   }
 
   async function commitPendingModeTransition() {
@@ -219,6 +244,7 @@ function FocusSurfaceProduct() {
         );
       }
     } finally {
+      await clearVisualHold();
       transitionCommitRef.current = false;
       transitionBusyRef.current = false;
       setPreparedMode(null);
@@ -227,8 +253,9 @@ function FocusSurfaceProduct() {
     }
   }
 
-  function failPendingModeTransition(failure: unknown) {
+  async function failPendingModeTransition(failure: unknown) {
     if (transitionCommitRef.current) return;
+    await clearVisualHold();
     transitionBusyRef.current = false;
     setPendingMode(null);
     setTransitionPending(false);
@@ -238,16 +265,16 @@ function FocusSurfaceProduct() {
   toggleRequestRef.current = () => {
     const currentMode = modeRef.current;
     if (currentMode !== null) {
-      requestMode(currentMode === "panel" ? "timer" : "panel");
+      void requestMode(currentMode === "panel" ? "timer" : "panel");
     }
   };
 
   function enterCompactMode() {
-    requestMode("timer");
+    void requestMode("timer");
   }
 
   function returnToPanel() {
-    requestMode("panel");
+    void requestMode("panel");
   }
 
   if (mode === null) {
