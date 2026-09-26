@@ -1244,6 +1244,12 @@ pub(crate) fn request_show_or_recreate_main(app_handle: tauri::AppHandle) {
 }
 
 #[tauri::command]
+async fn focus_surface_exit_to_main(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    show_or_recreate_main(app_handle.clone()).await?;
+    focus_surface_hide(app_handle)
+}
+
+#[tauri::command]
 fn main_window_show(app_handle: tauri::AppHandle) -> CommandResult<()> {
     let window = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
     window
@@ -1517,6 +1523,7 @@ pub fn run() {
             timer_switch_task,
             timer_set_estimate,
             timer_set_time_taken,
+            focus_surface_exit_to_main,
             main_window_show,
             main_window_hide,
             main_window_focus,
