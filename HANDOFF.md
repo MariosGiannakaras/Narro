@@ -6,15 +6,15 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementation has advanced through A18 and the latest compositor correction.
+M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementation is validated through A18 but still awaits deferred physical closure. M8 has begun and its confirmed in-app shortcut slice is validated.
 
-- M7 PR #155 exact validated head: `c630a57346c067ab04c0fa086703582542f4f7e5`.
-- Windows CI #559 / run `36250265344`: PASS.
-- Visual artifact: `narro-m5-visual-regression`, id `10908029994`, digest `sha256:9ba27fd6184a4f0a01e056a9a087569ddd3e35a3784a363a366dec658cba9419`.
-- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10908554507`, digest `sha256:90a9cd51164278499283e77062e4dd2227580857583801b2aeac583da08aa8d8`.
-- Expected-head guarded squash merge: `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`.
-- Resulting-main Windows CI #560 / run `36251631523`: PASS through the identical-tree validation gate.
-- **Current validated source baseline:** `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`.
+- M8 PR #166 exact validated head: `18a4d2b5a26bc705bf7cdf7bea647275b4877890`.
+- Windows CI #569 / run `36255993870`: PASS.
+- Visual artifact: `narro-m5-visual-regression`, id `10911290878`, digest `sha256:7f7b8bb93f54d437edb8751a43fc0da9e4b5d0fd1832abee5583581a0bdb7aea`.
+- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10910393452`, digest `sha256:faff93e41553adc51a0ced99172795517f51d918f2873ce6a294af6c59d56ec9`.
+- Expected-head guarded squash merge: `030274149cafdf590c5aa08f2cd1c9409595c7aa`.
+- Resulting-main Windows CI #570 / run `36262618691`: PASS via identical-tree validation gate.
+- **Current validated application source baseline:** `030274149cafdf590c5aa08f2cd1c9409595c7aa`.
 
 Tracking-only commits after this SHA do not replace the validated application source baseline.
 
@@ -23,15 +23,13 @@ Tracking-only commits after this SHA do not replace the validated application so
 1. **M5 parity/reliability reconciliation (A1–A9, A19): COMPLETE.**
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
 3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
-   - A18 is complete and automated-validated.
-   - PR #155 visual-hold correction is merged and automated-validated.
-   - physical continuous-transition, repeated shortcut, topology/placement, borderless/fullscreen, and non-default taskbar/high-DPI checks remain OPEN/NOT RUN on the latest build.
-4. By explicit user direction on 2026-09-26, missing Blitzit videos and deferred M7 manual checks are **not blockers for independent source implementation**. Do not mark them PASS; batch them later on the latest relevant build.
-5. **Next source implementation: M8 Windows shortcuts and preferences.** This is an explicit roadmap execution exception while M7 manual closure remains pending; it does not increment the 6/10 milestone completion counter.
-6. Continue M9 → M10 only according to their source prerequisites and the same evidence discipline.
-7. After M10, run the required Final Comprehensive Review Stage, including the complete uploaded video/transcript corpus.
+4. By explicit user direction, missing Blitzit videos and deferred M7 manual checks are not blockers for independent source implementation; do not mark them PASS.
+5. **M8 in progress.** Confirmed in-app shortcuts and Start Break shortcut lifecycle reuse are validated through PR #166 / CI #569 / main CI #570.
+6. **Next M8 source slice:** existing native global shortcuts `Ctrl+Shift+B/T/P` + persisted per-global enable toggles + clear conflict/error feedback. Reuse the current Rust `RegisterHotKey` authority and diagnostic serialization; do not replace it.
+7. Continue M8 Preferences after the shortcut slice, then M9 → M10 according to prerequisites.
+8. After M10, run the required Final Comprehensive Review Stage, including the complete uploaded video/transcript corpus.
 
-Roadmap completion remains **6/10 milestones**.
+Roadmap completion remains **6/10 milestones**. M8 is not complete yet.
 
 For each remaining milestone M7–M10:
 - require sufficient error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone;
@@ -99,15 +97,16 @@ Do not mark M7 complete until these required checks close, but do not block inde
 
 ## EXACT NEXT ACTION
 
-Start the first coherent M8 source slice from validated baseline `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`.
+Start the next coherent M8 source slice from validated source baseline `030274149cafdf590c5aa08f2cd1c9409595c7aa`.
 
 Priority:
-1. inspect the confirmed in-app shortcut requirements and existing timer/list mutation boundaries;
-2. implement the confirmed in-app shortcuts without duplicating domain logic;
-3. include clear unavailable/error behavior and regression coverage;
-4. batch compatible M8 work before authoritative Windows CI where safe.
+1. inspect the existing native `Ctrl+Shift+B`, `Ctrl+Shift+T`, and `Ctrl+Shift+P` registration/diagnostic authority and current Preferences schema;
+2. add persisted per-global enable toggles without duplicating or weakening native registration conflict handling;
+3. startup must honor persisted enable state rather than unconditionally registering disabled shortcuts;
+4. toggle failures/conflicts must leave committed preference/native state coherent and surface actionable feedback;
+5. add focused Rust/frontend contracts before authoritative Windows CI.
 
-Do not rerun the deferred M7 manual matrix yet unless a new M8 change depends on its result. Missing videos are not a blocker.
+Do not rerun deferred M7 manual checks unless this M8 slice directly depends on them. Missing Blitzit videos remain non-blocking.
 
 ## USER ACTION REQUIRED
 

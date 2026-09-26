@@ -229,6 +229,34 @@ M7 therefore remains **incomplete at 9/14 top-level items**. By explicit user di
 
 The current validated application source baseline is `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`. Documentation/tracking-only commits do not replace it.
 
+## Milestone 8 — first source slice validated
+
+Confirmed Windows in-app shortcuts are now implemented and validated.
+
+Authoritative evidence:
+- PR #166 exact head: `18a4d2b5a26bc705bf7cdf7bea647275b4877890`;
+- Windows CI #569 / run `36255993870`: **PASS**;
+- Repository Preflight, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release build, and required artifact uploads: PASS;
+- visual artifact: `narro-m5-visual-regression`, id `10911290878`, digest `sha256:7f7b8bb93f54d437edb8751a43fc0da9e4b5d0fd1832abee5583581a0bdb7aea`;
+- diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10910393452`, digest `sha256:faff93e41553adc51a0ced99172795517f51d918f2873ce6a294af6c59d56ec9`;
+- expected-head guarded squash merge: `030274149cafdf590c5aa08f2cd1c9409595c7aa`;
+- resulting-main Windows CI #570 / run `36262618691`: **PASS** through the identical-tree validation gate.
+
+Validated behavior:
+- `Ctrl+Alt+T` opens the persistence-first quick-task workflow;
+- `Ctrl+Alt+B/P/S/F/N` reuse existing authoritative Focus Break/Pause-Resume/Skip/Done/Notes handlers rather than duplicating domain logic;
+- `Ctrl+F` opens Search in Main and returns explicit unavailable feedback in Focus mode;
+- Main routes live Focus actions to `focusSurface` after a read-only authoritative timer snapshot;
+- unavailable/no-active-task and routing failures are surfaced to the user;
+- collapsed Floating Timer keeps the live-action controller mounted but visually absent so shortcuts remain active without changing compact layout;
+- Notes safely expands the Floating Timer before opening the editor;
+- editable text/select/contenteditable surfaces suppress destructive shortcut handling;
+- Start Break follows the already-validated authoritative break lifecycle.
+
+The current validated application source baseline is `030274149cafdf590c5aa08f2cd1c9409595c7aa`. Tracking-only commits after it do not replace the source baseline.
+
+M8 remains incomplete. Next source slice: preserve the existing native `Ctrl+Shift+B/T/P` registration/diagnostics implementation while adding persisted per-global enable toggles and product-facing conflict/error state.
+
 ## CI efficiency baseline
 
 PR #152 / main `3dac35988ba03d9b12f5eb58dbb13d9e2792e488` optimizes Windows CI without removing tests or release validation:
