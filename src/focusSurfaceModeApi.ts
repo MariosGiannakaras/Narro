@@ -15,6 +15,14 @@ export async function prewarmFocusSurface(): Promise<void> {
   await invoke<void>("prewarm_focus_surface");
 }
 
+export async function beginFocusVisualHold(): Promise<void> {
+  await invoke<void>("begin_focus_visual_hold");
+}
+
+export async function endFocusVisualHold(): Promise<void> {
+  await invoke<void>("end_focus_visual_hold");
+}
+
 export async function clearFocusSurfacePrewarm(): Promise<void> {
   await invoke<void>("clear_focus_surface_prewarm");
 }
