@@ -65,7 +65,8 @@
     "test:ui-focus-surface-transition": "node scripts/test-ui-focus-surface-transition.mjs",
     "test:opacity-transition": "node --experimental-strip-types scripts/test-opacity-transition.mjs",
     "test:ui-focus-toggle-shortcut": "node scripts/test-ui-focus-toggle-shortcut.mjs",
-    "test:shortcut-retry": "node --experimental-strip-types scripts/test-shortcut-retry.mjs"
+    "test:shortcut-retry": "node --experimental-strip-types scripts/test-shortcut-retry.mjs",
+    "tauri:ci": "tauri build --config src-tauri/tauri.ci.conf.json"
   },
   "dependencies": {
     "react": "^19.1.0",

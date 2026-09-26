@@ -18,6 +18,15 @@ async function readJson(relativePath) {
   }
 }
 
+async function readText(relativePath) {
+  const absolutePath = path.join(root, relativePath);
+  try {
+    return await readFile(absolutePath, "utf8");
+  } catch (error) {
+    throw new Error(`Unable to read ${relativePath}: ${error.message}`, { cause: error });
+  }
+}
+
 async function requireFile(relativePath) {
   try {
     await access(path.join(root, relativePath));
@@ -26,10 +35,12 @@ async function requireFile(relativePath) {
   }
 }
 
-const [packageJson, tauriConfig, capability] = await Promise.all([
+const [packageJson, tauriConfig, tauriCiConfig, capability, ciWorkflow] = await Promise.all([
   readJson("package.json"),
   readJson("src-tauri/tauri.conf.json"),
+  readJson("src-tauri/tauri.ci.conf.json"),
   readJson("src-tauri/capabilities/default.json"),
+  readText(".github/workflows/ci.yml"),
 ]);
 
 invariant(packageJson.name === "narro", "package name must remain 'narro'");
@@ -43,7 +54,37 @@ invariant(
   "package.json and tauri.conf.json versions must match",
 );
 invariant(tauriConfig.build?.frontendDist === "../dist", "frontendDist must be ../dist");
+invariant(
+  tauriConfig.build?.beforeBuildCommand === "npm run build",
+  "normal Tauri builds must retain the frontend beforeBuildCommand",
+);
+invariant(
+  tauriCiConfig.build?.beforeBuildCommand === null,
+  "CI Tauri override must reuse the preflight-built frontend instead of rebuilding it",
+);
+invariant(
+  packageJson.scripts?.["tauri:ci"] === "tauri build --config src-tauri/tauri.ci.conf.json",
+  "tauri:ci must build with the CI config override",
+);
 invariant(tauriConfig.bundle?.active === true, "Windows bundle generation must remain enabled");
+
+for (const contract of [
+  ["validation-gate:", "CI must retain the main-tree validation gate"],
+  ["skip-full-ci:", "CI gate must publish the duplicate-validation decision"],
+  ['context.eventName !== "push"', "CI gate must only deduplicate main push runs"],
+  ["pull.merge_commit_sha === currentSha", "CI gate must bind the main commit to the merged PR"],
+  ["mainCommit.data.commit.tree.sha !== prHeadCommit.data.commit.tree.sha", "CI gate must compare exact Git trees"],
+  ['run.name === context.workflow', "CI gate must require the same Windows CI workflow"],
+  ['run.conclusion === "success"', "CI gate must require successful exact-head PR validation"],
+  ['filename === ".github/workflows/ci.yml"', "workflow changes must force one full main validation"],
+  ["/(^|\\/)Cargo\\.(toml|lock)$/", "Rust dependency changes must force main cache warmup"],
+  ["Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6", "Rust cache action must remain pinned"],
+  ["workspaces: './src-tauri -> target'", "Rust cache must target the Tauri Cargo workspace"],
+  ["Verify Reused Frontend Dist", "CI must verify frontend build output before Tauri packaging"],
+  ["run: npm run tauri:ci", "CI release build must reuse the preflight frontend output"],
+]) {
+  invariant(ciWorkflow.includes(contract[0]), contract[1]);
+}
 
 const windows = tauriConfig.app?.windows;
 invariant(Array.isArray(windows), "Tauri app.windows must be an array");

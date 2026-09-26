@@ -11,12 +11,121 @@ on:
       - "**/*.md"
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+
 concurrency:
   group: windows-ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  validation-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      skip-full-ci: ${{ steps.deduplicate.outputs.result }}
+
+    steps:
+    - name: Check for already validated identical PR tree
+      id: deduplicate
+      uses: actions/github-script@v7
+      with:
+        result-encoding: string
+        script: |
+          if (context.eventName !== "push" || context.ref !== "refs/heads/main") {
+            core.info("Full CI required: this is not a push to main.");
+            return "false";
+          }
+
+          try {
+            const { owner, repo } = context.repo;
+            const currentSha = context.sha;
+            const { data: associatedPulls } = await github.request(
+              "GET /repos/{owner}/{repo}/commits/{commit_sha}/pulls",
+              {
+                owner,
+                repo,
+                commit_sha: currentSha,
+                per_page: 100,
+              },
+            );
+
+            const mergedPull = associatedPulls.find(
+              (pull) =>
+                pull.merged_at
+                && pull.base.ref === "main"
+                && pull.merge_commit_sha === currentSha,
+            );
+
+            if (!mergedPull) {
+              core.info("Full CI required: main commit is not the merge result of an associated PR.");
+              return "false";
+            }
+
+            const changedFiles = await github.paginate(github.rest.pulls.listFiles, {
+              owner,
+              repo,
+              pull_number: mergedPull.number,
+              per_page: 100,
+            });
+            const requiresMainWarmup = changedFiles.some(({ filename }) =>
+              filename === ".github/workflows/ci.yml"
+              || /(^|\/)Cargo\.(toml|lock)$/.test(filename)
+              || /(^|\/)rust-toolchain(\.toml)?$/.test(filename)
+              || /(^|\/)\.cargo\/config\.toml$/.test(filename)
+            );
+
+            if (requiresMainWarmup) {
+              core.info("Full CI required: workflow or Rust cache-key inputs changed.");
+              return "false";
+            }
+
+            const [mainCommit, prHeadCommit] = await Promise.all([
+              github.rest.repos.getCommit({ owner, repo, ref: currentSha }),
+              github.rest.repos.getCommit({ owner, repo, ref: mergedPull.head.sha }),
+            ]);
+
+            if (mainCommit.data.commit.tree.sha !== prHeadCommit.data.commit.tree.sha) {
+              core.info("Full CI required: merged main tree differs from the validated PR head tree.");
+              return "false";
+            }
+
+            const { data: workflowRuns } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner,
+              repo,
+              event: "pull_request",
+              head_sha: mergedPull.head.sha,
+              per_page: 100,
+            });
+            const exactHeadValidated = workflowRuns.workflow_runs.some(
+              (run) =>
+                run.name === context.workflow
+                && run.head_sha === mergedPull.head.sha
+                && run.status === "completed"
+                && run.conclusion === "success"
+                && run.pull_requests.some((pull) => pull.number === mergedPull.number),
+            );
+
+            if (!exactHeadValidated) {
+              core.info("Full CI required: no successful exact-head pull_request Windows CI run was found.");
+              return "false";
+            }
+
+            core.notice(
+              `Skipping duplicate full main CI: PR #${mergedPull.number} exact-head Windows CI already validated identical tree ${mainCommit.data.commit.tree.sha}.`,
+            );
+            return "true";
+          } catch (error) {
+            core.warning(
+              `Could not prove duplicate validation safely; running full CI instead. ${error instanceof Error ? error.message : String(error)}`,
+            );
+            return "false";
+          }
+
   build-and-test:
+    needs: validation-gate
+    if: needs.validation-gate.outputs.skip-full-ci != 'true'
     runs-on: windows-latest
     timeout-minutes: 30
 
@@ -34,6 +143,11 @@ jobs:
       with:
         targets: x86_64-pc-windows-msvc
         components: rustfmt, clippy
+
+    - name: Restore Rust cache
+      uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+      with:
+        workspaces: './src-tauri -> target'
 
     - name: Install Frontend Dependencies
       run: npm ci
@@ -60,8 +174,17 @@ jobs:
         path: artifacts/visual-regression/*
         if-no-files-found: error
 
+    - name: Verify Reused Frontend Dist
+      shell: pwsh
+      run: |
+        foreach ($required in @("dist/index.html", "dist/focus.html")) {
+          if (-not (Test-Path $required -PathType Leaf)) {
+            throw "Preflight frontend build output is missing: $required"
+          }
+        }
+
     - name: Build Tauri Release
-      run: npm run tauri build
+      run: npm run tauri:ci
 
     - name: Upload Diagnostic Harness Artifact
       uses: actions/upload-artifact@v4
