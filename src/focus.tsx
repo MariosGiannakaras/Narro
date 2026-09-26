@@ -62,6 +62,7 @@ function FocusSurfaceProduct() {
   const [quickTaskOpen, setQuickTaskOpen] = useState(false);
   const [focusRefreshKey, setFocusRefreshKey] = useState(0);
   const [shortcutStatus, setShortcutStatus] = useState<string | null>(null);
+  const pendingQuickTaskAfterPanelRef = useRef(false);
   const toggleRequestRef = useRef<() => void>(() => {});
   const reportResizePending = useCallback((pending: boolean) => {
     resizeBusyRef.current = pending;
@@ -179,6 +180,11 @@ function FocusSurfaceProduct() {
         return;
       }
       setShortcutStatus(null);
+      if (modeRef.current === "timer") {
+        pendingQuickTaskAfterPanelRef.current = true;
+        void requestMode("panel");
+        return;
+      }
       setQuickTaskOpen(true);
     };
 
@@ -230,7 +236,12 @@ function FocusSurfaceProduct() {
     } catch (failure: unknown) {
       transitionBusyRef.current = false;
       setTransitionPending(false);
-      setTransitionError(formatInvokeError(failure));
+      if (targetMode === "panel" && pendingQuickTaskAfterPanelRef.current) {
+        pendingQuickTaskAfterPanelRef.current = false;
+        setShortcutStatus(`Quick task creation could not open the Focus Panel. ${formatInvokeError(failure)}`);
+      } else {
+        setTransitionError(formatInvokeError(failure));
+      }
     }
   }
 
@@ -286,8 +297,16 @@ function FocusSurfaceProduct() {
       });
       modeRef.current = targetMode;
       setTransitionError(null);
+      if (targetMode === "panel" && pendingQuickTaskAfterPanelRef.current) {
+        pendingQuickTaskAfterPanelRef.current = false;
+        setQuickTaskOpen(true);
+      }
     } catch (failure: unknown) {
       const transitionFailure = formatInvokeError(failure);
+      if (targetMode === "panel" && pendingQuickTaskAfterPanelRef.current) {
+        pendingQuickTaskAfterPanelRef.current = false;
+        setShortcutStatus(`Quick task creation could not open the Focus Panel. ${transitionFailure}`);
+      }
       try {
         await clearFocusSurfacePrewarm();
         setTransitionError(transitionFailure);
