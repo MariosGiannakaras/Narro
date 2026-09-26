@@ -18,6 +18,9 @@ const api = read("src/globalShortcutSettingsApi.ts");
 const panel = read("src/WindowsShortcutSettingsPanel.tsx");
 const settings = read("src/ThemeSettingsPanel.tsx");
 const css = read("src/windowsShortcutSettingsPanel.css");
+const fixture = read("src/themeSettingsVisualFixture.tsx");
+const capture = read("scripts/capture-theme-settings-fixtures.ps1");
+const validator = read("scripts/validate-theme-settings-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
 for (const needle of [
@@ -118,6 +121,19 @@ for (const behavior of [
 invariant(
   settings.includes("<WindowsShortcutSettingsPanel />"),
   "Windows shortcuts must be exposed through the existing product Settings route",
+);
+invariant(
+  panel.includes("export function WindowsShortcutSettingsPanelView")
+    && fixture.includes("<WindowsShortcutSettingsPanelView")
+    && fixture.includes("SHORTCUT_CONFLICT"),
+  "Windows shortcut Settings need a deterministic production-view conflict fixture",
+);
+invariant(
+  capture.includes("shortcut-conflict")
+    && validator.includes("theme-settings-shortcut-conflict")
+    && validator.includes("Shortcut conflict")
+    && validator.includes("Retry"),
+  "Windows visual regression must capture and validate shortcut conflict/retry state",
 );
 invariant(
   css.includes("@media (max-width: 720px)")
