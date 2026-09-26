@@ -1,3 +1,4 @@
+import { emitTo } from "@tauri-apps/api/event";
 import { type ReactNode, useEffect, useState } from "react";
 import { ArchivePanel } from "./ArchivePanel";
 import { formatInvokeError } from "./diagnosticApi";
@@ -14,7 +15,12 @@ import {
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import { archiveListFromSettings } from "./listSettingsApi";
 import { SearchPalette, type SearchPaletteMode } from "./SearchPalette";
-import { isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
+import {
+  FOCUS_IN_APP_SHORTCUT_EVENT,
+  isEditableShortcutTarget,
+  isFocusActionShortcut,
+  resolveInAppShortcut,
+} from "./inAppShortcuts";
 import { ThemeSettingsPanel } from "./ThemeSettingsPanel";
 import "./appShell.css";
 
@@ -119,24 +125,41 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [homeMutationError, setHomeMutationError] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchMode, setSearchMode] = useState<SearchPaletteMode>("search");
+  const [shortcutFeedback, setShortcutFeedback] = useState<string | null>(null);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
-      if (shortcut !== "search" && shortcut !== "create-task") return;
-      if (editorState || archiveTarget) return;
-      if (shortcut === "create-task" && isEditableShortcutTarget(event.target)) return;
+      if (!shortcut || editorState || archiveTarget) return;
 
+      if (shortcut === "search" || shortcut === "create-task") {
+        if (shortcut === "create-task" && isEditableShortcutTarget(event.target)) return;
+        event.preventDefault();
+        setShortcutFeedback(null);
+        setSearchMode(shortcut === "create-task" ? "task-create" : "search");
+        setSearchOpen(true);
+        return;
+      }
+
+      if (!isFocusActionShortcut(shortcut) || isEditableShortcutTarget(event.target)) return;
       event.preventDefault();
-      setSearchMode(shortcut === "create-task" ? "task-create" : "search");
-      setSearchOpen(true);
+      setShortcutFeedback(null);
+      void emitTo("focusSurface", FOCUS_IN_APP_SHORTCUT_EVENT, shortcut).catch((failure: unknown) => {
+        setShortcutFeedback(`Focus shortcut could not be delivered. ${formatInvokeError(failure)}`);
+      });
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [editorState, archiveTarget]);
+
+  useEffect(() => {
+    if (!shortcutFeedback) return;
+    const timeout = window.setTimeout(() => setShortcutFeedback(null), 3200);
+    return () => window.clearTimeout(timeout);
+  }, [shortcutFeedback]);
 
   function openCreateList() {
     setSearchOpen(false);
@@ -372,6 +395,10 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
           }}
           onConfirm={() => void confirmArchive()}
         />
+      ) : null}
+
+      {shortcutFeedback ? (
+        <div className="app-shell__shortcut-feedback type-metadata" role="alert">{shortcutFeedback}</div>
       ) : null}
 
       <SearchPalette
