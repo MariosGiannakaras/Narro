@@ -143,6 +143,17 @@ export type MoveListBoardTaskRequest = {
   targetLane: PlanningLaneToken;
 };
 
+export type CompleteListBoardTaskRequest = {
+  taskId: string;
+  listId: string;
+};
+
+export type PermanentlyDeleteListBoardTaskRequest = {
+  taskId: string;
+  listId: string;
+};
+
+
 export type SaveListBoardTaskNoteRequest = {
   taskId: string;
   listId: string;
@@ -236,6 +247,16 @@ export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Prom
 
 export function moveListBoardTask(request: MoveListBoardTaskRequest): Promise<void> {
   return invoke<void>("move_list_board_task", request);
+}
+
+export function completeListBoardTask(request: CompleteListBoardTaskRequest): Promise<void> {
+  return invoke<void>("complete_list_board_task", request);
+}
+
+export function permanentlyDeleteListBoardTask(
+  request: PermanentlyDeleteListBoardTaskRequest,
+): Promise<void> {
+  return invoke<void>("permanently_delete_list_board_task", request);
 }
 
 export function getListBoardTaskNote(
