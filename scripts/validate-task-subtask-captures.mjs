@@ -89,9 +89,9 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.expandedTitleRow.width === contract.readonlyTitleRow.width, `${label} read-only subtask state changed title-row width`);
   invariant(contract.expandedTitleRow.height === contract.editingTitleRow.height, `${label} inline subtask edit changed title-row height`);
   invariant(contract.expandedTitleRow.height === contract.readonlyTitleRow.height, `${label} read-only subtask state changed title-row height`);
-  invariant(contract.expandedActionSlot.width === 68, `${label} expanded state lost the reserved 4.25rem action slot`);
-  invariant(contract.editingActionSlot.width === 68, `${label} editing state lost the reserved 4.25rem action slot`);
-  invariant(contract.readonlyActionSlot.width === 68, `${label} read-only state lost the reserved 4.25rem action slot`);
+  invariant(contract.expandedActionSlot.width === 100, `${label} expanded state lost the reserved 6.25rem action slot`);
+  invariant(contract.editingActionSlot.width === 100, `${label} editing state lost the reserved 6.25rem action slot`);
+  invariant(contract.readonlyActionSlot.width === 100, `${label} read-only state lost the reserved 6.25rem action slot`);
   invariant(contract.expandedActionSlot.height === contract.editingActionSlot.height, `${label} action-slot height changed during subtask edit`);
   invariant(contract.expandedActionSlot.height === contract.readonlyActionSlot.height, `${label} action-slot height changed in read-only state`);
 
