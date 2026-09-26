@@ -7,6 +7,8 @@ import "./App.css";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusSurfaceTransition } from "./FocusSurfaceTransition";
 import { FocusPanel } from "./FocusPanel";
+import { isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
+import { SearchPalette } from "./SearchPalette";
 import {
   beginFocusVisualHold,
   clearFocusSurfacePrewarm,
@@ -52,6 +54,9 @@ function FocusSurfaceProduct() {
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
   const [findTimerPulse, setFindTimerPulse] = useState<number | null>(null);
+  const [quickTaskOpen, setQuickTaskOpen] = useState(false);
+  const [focusRefreshKey, setFocusRefreshKey] = useState(0);
+  const [shortcutStatus, setShortcutStatus] = useState<string | null>(null);
   const toggleRequestRef = useRef<() => void>(() => {});
   const reportResizePending = useCallback((pending: boolean) => {
     resizeBusyRef.current = pending;
@@ -138,6 +143,35 @@ function FocusSurfaceProduct() {
       stopListening?.();
     };
   }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const shortcut = resolveInAppShortcut(event);
+      if (shortcut === "search") {
+        event.preventDefault();
+        setShortcutStatus("Search is unavailable while Focus mode is open.");
+        return;
+      }
+      if (shortcut !== "create-task" || isEditableShortcutTarget(event.target)) return;
+
+      event.preventDefault();
+      if (transitionBusyRef.current || resizeBusyRef.current) {
+        setShortcutStatus("Quick task creation is unavailable during a Focus window transition.");
+        return;
+      }
+      setShortcutStatus(null);
+      setQuickTaskOpen(true);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
+    if (!shortcutStatus) return;
+    const timeout = window.setTimeout(() => setShortcutStatus(null), 2400);
+    return () => window.clearTimeout(timeout);
+  }, [shortcutStatus]);
 
   useEffect(() => {
     let disposed = false;
@@ -277,6 +311,26 @@ function FocusSurfaceProduct() {
     void requestMode("panel");
   }
 
+  const quickTaskOverlay = (
+    <SearchPalette
+      open={quickTaskOpen}
+      initialMode="task-create"
+      taskCreateOnly
+      onRequestClose={() => setQuickTaskOpen(false)}
+      onOpenList={() => {}}
+      onOpenTask={() => {}}
+      onAddList={() => {
+        setQuickTaskOpen(false);
+        setShortcutStatus("Open the Main window to create a list first.");
+      }}
+      onGoReports={() => {}}
+      onTaskCreated={() => {
+        setFocusRefreshKey((value) => value + 1);
+        setShortcutStatus("Task added.");
+      }}
+    />
+  );
+
   if (mode === null) {
     return (
       <main className="focus-panel focus-panel--message" data-focus-surface-mode="loading" role="status">
@@ -287,45 +341,55 @@ function FocusSurfaceProduct() {
 
   if (mode === "timer") {
     return (
-      <FocusSurfaceTransition
-        key="timer"
-        mode="timer"
-        exiting={pendingMode !== null}
-        prepainted={preparedMode === "timer"}
-        onExitComplete={() => void commitPendingModeTransition()}
-        onExitFailure={failPendingModeTransition}
-      >
-        <FloatingTimerFoundation
-          onReturnToPanel={() => void returnToPanel()}
-          transitionPending={transitionPending}
-          transitionError={transitionError}
-          onResizePendingChange={reportResizePending}
-          attentionPulseSequence={findTimerPulse}
-          onAttentionPulseEnd={(sequence) => {
-            setFindTimerPulse((current) => current === sequence ? null : current);
-          }}
-          onPresentationReady={markTimerReady}
-        />
-      </FocusSurfaceTransition>
+      <>
+        <FocusSurfaceTransition
+          key="timer"
+          mode="timer"
+          exiting={pendingMode !== null}
+          prepainted={preparedMode === "timer"}
+          onExitComplete={() => void commitPendingModeTransition()}
+          onExitFailure={failPendingModeTransition}
+        >
+          <FloatingTimerFoundation
+            onReturnToPanel={() => void returnToPanel()}
+            transitionPending={transitionPending}
+            transitionError={transitionError}
+            shortcutStatus={shortcutStatus}
+            refreshKey={focusRefreshKey}
+            onResizePendingChange={reportResizePending}
+            attentionPulseSequence={findTimerPulse}
+            onAttentionPulseEnd={(sequence) => {
+              setFindTimerPulse((current) => current === sequence ? null : current);
+            }}
+            onPresentationReady={markTimerReady}
+          />
+        </FocusSurfaceTransition>
+        {quickTaskOverlay}
+      </>
     );
   }
 
   return (
-    <FocusSurfaceTransition
-      key="panel"
-      mode="panel"
-      exiting={pendingMode !== null}
-      prepainted={preparedMode === "panel"}
-      onExitComplete={() => void commitPendingModeTransition()}
-      onExitFailure={failPendingModeTransition}
-    >
-      <FocusPanel
-        onRequestCompact={() => void enterCompactMode()}
-        compactTransitionPending={transitionPending}
-        modeTransitionError={transitionError}
-        onPresentationReady={markPanelReady}
-      />
-    </FocusSurfaceTransition>
+    <>
+      <FocusSurfaceTransition
+        key="panel"
+        mode="panel"
+        exiting={pendingMode !== null}
+        prepainted={preparedMode === "panel"}
+        onExitComplete={() => void commitPendingModeTransition()}
+        onExitFailure={failPendingModeTransition}
+      >
+        <FocusPanel
+          onRequestCompact={() => void enterCompactMode()}
+          compactTransitionPending={transitionPending}
+          modeTransitionError={transitionError}
+          shortcutStatus={shortcutStatus}
+          refreshKey={focusRefreshKey}
+          onPresentationReady={markPanelReady}
+        />
+      </FocusSurfaceTransition>
+      {quickTaskOverlay}
+    </>
   );
 }
 
