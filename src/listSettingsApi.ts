@@ -4,6 +4,7 @@ export type ArchivedListSummary = {
   id: string;
   title: string;
   color: string | null;
+  iconAsset: string | null;
   archivedAt: string;
 };
 
