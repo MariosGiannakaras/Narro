@@ -46,7 +46,9 @@ for (const [haystack, needle, label] of [
   [component, 'data-board-add-slot="reserved"', "stable reserved add geometry"],
   [component, 'data-board-add-slot="bottom"', "production bottom add region"],
   [component, "data-board-add-task={pendingLane}", "pending-lane Add Task target"],
-  [component, "pendingLane !== null && !aggregateView", "Done and All Lists Add Task exclusion"],
+  [component, "pendingLane !== null && !aggregateView", "Done and All Lists create exclusion"],
+  [component, 'data-board-add-task-top={pendingLane}', "top-priority Add Task target"],
+  [component, 'data-done-month-count=', "Done local-month count marker"],
   [component, "<TaskCard", "task-card presentation projection"],
   [component, "actions={taskActions}", "task-card callback action projection"],
   [taskCard, 'data-board-task="task-card"', "task-card identity"],
@@ -76,14 +78,14 @@ for (const [haystack, needle, label] of [
   requireText(haystack, needle, label);
 }
 
-for (const forbidden of [
-  "onTaskComplete",
-  "onTaskDelete",
-  "completeListBoardTask",
-  "deleteListBoardTask",
+for (const required of [
+  "completeListBoardTask({",
+  "permanentlyDeleteListBoardTask({",
+  "completeTimerTask()",
+  "<TaskDeleteConfirmDialog",
 ]) {
-  if (component.includes(forbidden)) {
-    throw new Error(`List-board hierarchy must not activate an unordered parent-task interaction: ${forbidden}`);
+  if (!component.includes(required)) {
+    throw new Error(`List-board reconciliation is missing required task interaction: ${required}`);
   }
 }
 
@@ -93,9 +95,7 @@ for (const forbidden of ["create_task", "move_task", "update_task", "complete_ta
   }
 }
 
-if (shell.includes("onDuplicate: () =>")) {
-  throw new Error("List-board slice must not activate the separately ordered Duplicate target.");
-}
+requireText(shell, "onDuplicate:", "Home List Duplicate production wiring");
 
 for (const forbidden of ["--color-text-muted", "--motion-duration-interactive", "--motion-distance-interactive"]) {
   if (css.includes(forbidden)) {
