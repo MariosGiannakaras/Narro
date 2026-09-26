@@ -585,18 +585,17 @@ mod tests {
         )
         .expect("insert completed history");
 
-        let duplicated = duplicate_list(
-            &mut conn,
-            source.id,
-            Some("list-icons/copy.png".into()),
-            T2,
-        )
-        .expect("duplicate list");
+        let duplicated =
+            duplicate_list(&mut conn, source.id, Some("list-icons/copy.png".into()), T2)
+                .expect("duplicate list");
 
         assert_ne!(duplicated.id, source.id);
         assert_eq!(duplicated.title, source.title);
         assert_eq!(duplicated.color, source.color);
-        assert_eq!(duplicated.icon_asset.as_deref(), Some("list-icons/copy.png"));
+        assert_eq!(
+            duplicated.icon_asset.as_deref(),
+            Some("list-icons/copy.png")
+        );
         assert_eq!(duplicated.sort_rank, 1);
 
         let mut statement = conn
@@ -622,7 +621,11 @@ mod tests {
             .expect("query duplicated tasks")
             .collect::<Result<Vec<_>, _>>()
             .expect("decode duplicated tasks");
-        assert_eq!(duplicated_tasks.len(), 1, "completed history must not be cloned");
+        assert_eq!(
+            duplicated_tasks.len(),
+            1,
+            "completed history must not be cloned"
+        );
         assert_ne!(duplicated_tasks[0].0, active_task.to_string());
         assert_eq!(duplicated_tasks[0].1, "Planned");
         assert_eq!(duplicated_tasks[0].2, Some(1800));
