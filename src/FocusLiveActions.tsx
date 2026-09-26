@@ -49,6 +49,7 @@ type FocusLiveActionsProps = {
   presentation?: "panel" | "floating";
   onReturnToPanel?: () => void;
   transitionPending?: boolean;
+  onEnsureNotesVisible?: () => boolean | Promise<boolean>;
 };
 
 type FocusAction = "break" | "pause_resume" | "skip" | "done" | "extend";
@@ -184,6 +185,7 @@ export function FocusLiveActions({
   presentation = "panel",
   onReturnToPanel,
   transitionPending = false,
+  onEnsureNotesVisible,
 }: FocusLiveActionsProps) {
   const [pendingAction, setPendingAction] = useState<FocusAction | null>(null);
   const [notesExpanded, setNotesExpanded] = useState(false);
@@ -360,7 +362,16 @@ export function FocusLiveActions({
           return;
         }
         setStatus(null);
-        setNotesExpanded((expanded) => !expanded);
+        if (!onEnsureNotesVisible) {
+          setNotesExpanded(true);
+          return;
+        }
+        void Promise.resolve(onEnsureNotesVisible())
+          .then((accepted) => {
+            if (accepted) setNotesExpanded(true);
+            else setStatus("Notes could not be opened while the Floating Timer is changing size.");
+          })
+          .catch((failure: unknown) => fail(failure));
         return;
     }
   };
