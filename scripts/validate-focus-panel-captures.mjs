@@ -77,6 +77,11 @@ function validateSharedGeometry(contract, label, theme) {
   );
   invariant(contract.actions?.width > 0 && contract.actions?.height >= 30, `${label} live action geometry is invalid`);
   invariant(contract.firstRow?.height >= 50, `${label} remaining row geometry is too small`);
+  invariant(
+    contract.firstRowActions?.width === 104,
+    `${label} ordinary action rail width is ${contract.firstRowActions?.width}px; expected reserved 104px`,
+  );
+  invariant(contract.firstRowActions?.height >= 32, `${label} ordinary action rail geometry is invalid`);
   invariant(contract.addTask?.height >= 34, `${label} Add Task geometry is too small`);
 }
 
