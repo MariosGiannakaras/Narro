@@ -37,15 +37,22 @@ invariant(
   "generic idle copy must remain available outside the item-16 empty/no-eligible states",
 );
 for (const forbidden of [
-  "startTimerTask(",
   "pauseTimer(",
   "resumeTimer(",
   "startManualBreakTimer(",
   "completeTimerTask(",
-  "switchTimerTask(",
 ]) {
-  invariant(!panel.includes(forbidden), `FocusPanel presentation must not become timer authority via ${forbidden}`);
+  invariant(!panel.includes(forbidden), `FocusPanel presentation must not become general timer authority via ${forbidden}`);
 }
+
+const makeLiveStart = panel.indexOf("const makeTaskLive");
+const makeLiveEnd = panel.indexOf("const exitFocusHome", makeLiveStart);
+invariant(makeLiveStart >= 0 && makeLiveEnd > makeLiveStart, "Rocket Make Live orchestration boundary is missing");
+const makeLive = panel.slice(makeLiveStart, makeLiveEnd);
+invariant(makeLive.includes("snapshotTimerSession()"), "Rocket must read authoritative timer state before switching");
+invariant(makeLive.includes("startTimerTask(task.id, mode)"), "Rocket must start through the authoritative timer API when idle");
+invariant(makeLive.includes("switchTimerTask(task.id, mode)"), "Rocket must switch through the authoritative timer API when work is live");
+invariant(!makeLive.includes("completeTimerTask("), "Rocket must not complete the prior task while switching work");
 
 for (const state of ["running", "paused", "break", "time_up", "overtime_running", "overtime_paused"]) {
   invariant(
