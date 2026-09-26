@@ -12,12 +12,14 @@ import {
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
+  completeListBoardTask,
   createListBoardSubtask,
   createListBoardTask,
   deleteListBoardSubtask,
   getListBoardSnapshot,
   getListBoardTaskSubtasks,
   moveListBoardTask,
+  permanentlyDeleteListBoardTask,
   reorderListBoardSubtasks,
   reorderListBoardTask,
   setListBoardSubtaskCompletion,
@@ -34,9 +36,11 @@ import {
   type PlanningLaneToken,
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
+import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
   applyTimerSessionProjection,
+  completeTimerTask,
   connectTimerSessionProjection,
   setPausedTimerEstimate,
   setPausedTimerTimeTaken,
@@ -80,7 +84,7 @@ type TaskEditorState =
       est: string;
       insertAtTop: boolean;
     }
-  | { kind: "edit"; taskId: string; expectedTitle: string; title: string }
+  | { kind: "edit"; taskId: string; listId: string; expectedTitle: string; title: string }
   | {
       kind: "metric";
       taskId: string;
@@ -357,6 +361,8 @@ function BoardLane({
   onCreateTitleChange,
   onCreateEstChange,
   onSubmitCreate,
+  onCompleteTask,
+  onDeleteTask,
   onStartTitleEdit,
   onEditTitleChange,
   onSubmitTitleEdit,
@@ -395,6 +401,8 @@ function BoardLane({
   onCreateTitleChange: (value: string) => void;
   onCreateEstChange: (value: string) => void;
   onSubmitCreate: () => void;
+  onCompleteTask: (task: ListBoardTask) => void;
+  onDeleteTask: (task: ListBoardTask) => void;
   onStartTitleEdit: (task: ListBoardTask) => void;
   onEditTitleChange: (value: string) => void;
   onSubmitTitleEdit: () => void;
@@ -506,7 +514,6 @@ function BoardLane({
             const onMoveDown = actionsEnabled && reorderIndex >= 0 && reorderIndex < eligibleTasks.length - 1
               ? () => onMoveWithinLane(task, pendingLane, "down")
               : undefined;
-            const taskActions = onMoveUp || onMoveDown ? { onMoveUp, onMoveDown } : undefined;
             const titleEditor = editorState?.kind === "edit" && editorState.taskId === task.id
               ? {
                   value: editorState.title,
@@ -529,6 +536,13 @@ function BoardLane({
             const liveState = liveStateForTask(timerPayload, task.id);
             const isLiveTask = liveState !== null && liveState !== "idle";
             const liveMetricEditable = liveState === "paused" || liveState === "overtime_paused";
+            const taskActions = onMoveUp || onMoveDown || (canStartTaskEditor && !isLiveTask)
+              ? {
+                  onMoveUp,
+                  onMoveDown,
+                  onDelete: canStartTaskEditor && !isLiveTask ? () => onDeleteTask(task) : undefined,
+                }
+              : undefined;
             const canEditMetric = canStartTaskEditor && (!isLiveTask || liveMetricEditable);
             const canEditSchedule = canStartScheduleEditor && task.completedAt === null && !isLiveTask;
             const noteExpanded = noteControls?.taskId === task.id;
@@ -540,7 +554,7 @@ function BoardLane({
                   expanded: true,
                   loading: taskSubtaskPanel.loading,
                   error: taskSubtaskPanel.error,
-                  mutable: Boolean(taskSubtaskPanel.snapshot?.mutable) && !aggregateView,
+                  mutable: Boolean(taskSubtaskPanel.snapshot?.mutable),
                   subtasks: taskSubtaskPanel.snapshot?.subtasks ?? [],
                   createValue: taskSubtaskPanel.createValue,
                   editor: taskSubtaskPanel.editor,
@@ -587,6 +601,9 @@ function BoardLane({
                     task={task}
                     aggregateView={aggregateView}
                     actions={taskActions}
+                    onComplete={canStartTaskEditor && task.completedAt === null
+                      ? () => onCompleteTask(task)
+                      : undefined}
                     onTitleEdit={canStartTaskEditor && !isLiveTask
                       ? () => onStartTitleEdit(task)
                       : undefined}
@@ -602,7 +619,7 @@ function BoardLane({
                     notes={noteControls ? {
                       expanded: Boolean(noteExpanded),
                       canExpand: noteExpanded ? true : noteControls.canOpen,
-                      readOnly: aggregateView,
+                      readOnly: false,
                       onToggleExpanded: () => noteControls.onToggle(task),
                       onMutationStatus: noteControls.onMutationStatus,
                       onRefreshBlocked: noteControls.onRefreshBlocked,
@@ -701,6 +718,9 @@ export function ListBoard({
   const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
   const [notePanelTaskId, setNotePanelTaskId] = useState<string | null>(null);
   const [subtaskPanel, setSubtaskPanel] = useState<SubtaskPanelState | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<ListBoardTask | null>(null);
+  const [deletePending, setDeletePending] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
@@ -722,6 +742,9 @@ export function ListBoard({
       setScheduleEditorTaskId(null);
       setNotePanelTaskId(null);
       setSubtaskPanel(null);
+      setDeleteTarget(null);
+      setDeletePending(false);
+      setDeleteError(null);
       setListOptions(fixtureOptions(fixtureSnapshot));
       return;
     }
@@ -737,6 +760,9 @@ export function ListBoard({
     setScheduleEditorTaskId(null);
     setNotePanelTaskId(null);
     setSubtaskPanel(null);
+    setDeleteTarget(null);
+    setDeletePending(false);
+    setDeleteError(null);
     void getListBoardSnapshot(target)
       .then((payload) => {
         if (!disposed) {
@@ -842,26 +868,30 @@ export function ListBoard({
   const selectedTarget = aggregateView ? ALL_LISTS_VALUE : snapshot.target.id ?? ALL_LISTS_VALUE;
   const interactionBoardEnabled = !fixtureSnapshot
     && !mutationRefreshBlocked
-    && target.kind === "list"
-    && snapshot.target.kind === "list"
-    && snapshot.target.id === target.id;
-  const interactionReorderEnabled = interactionBoardEnabled
-    && editorState === null
-    && !editorMutationPending
-    && scheduleEditorTaskId === null
-    && notePanelTaskId === null
-    && subtaskPanel === null;
-  const canStartCreate = interactionBoardEnabled
+    && (
+      (target.kind === "list"
+        && snapshot.target.kind === "list"
+        && snapshot.target.id === target.id)
+      || (target.kind === "all" && snapshot.target.kind === "all_lists")
+    );
+  const interactionIdle = interactionBoardEnabled
     && mutationPendingTaskId === null
     && editorState === null
     && !editorMutationPending
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
-    && subtaskPanel === null;
-  const canStartTaskEditor = canStartCreate
+    && subtaskPanel === null
+    && deleteTarget === null;
+  const interactionReorderEnabled = interactionIdle
+    && target.kind === "list"
+    && snapshot.target.kind === "list";
+  const canStartCreate = interactionIdle
+    && target.kind === "list"
+    && snapshot.target.kind === "list";
+  const canStartTaskEditor = interactionIdle
     && timerPayload !== null
     && timerProjectionError === null;
-  const canStartScheduleEditor = canStartCreate
+  const canStartScheduleEditor = interactionIdle
     && timerPayload !== null
     && timerProjectionError === null;
   const canOpenNotes = !fixtureSnapshot
@@ -871,7 +901,8 @@ export function ListBoard({
     && !editorMutationPending
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
-    && subtaskPanel === null;
+    && subtaskPanel === null
+    && deleteTarget === null;
   const canOpenSubtasks = !fixtureSnapshot
     && !mutationRefreshBlocked
     && mutationPendingTaskId === null
@@ -879,7 +910,8 @@ export function ListBoard({
     && !editorMutationPending
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
-    && subtaskPanel === null;
+    && subtaskPanel === null
+    && deleteTarget === null;
   const presentationReorderEnabled = interactionReorderEnabled || fixtureReorderState !== undefined;
   const displayedDragState = fixtureReorderState?.draggingTaskId && fixtureReorderState.sourceLane
     ? {
@@ -1095,7 +1127,6 @@ export function ListBoard({
   const submitTitleEdit = async () => {
     if (
       !interactionBoardEnabled
-      || target.kind !== "list"
       || editorState?.kind !== "edit"
       || editorMutationPending
       || mutationPendingTaskId
@@ -1117,13 +1148,13 @@ export function ListBoard({
       return;
     }
 
-    const { taskId, expectedTitle } = editorState;
+    const { taskId, listId, expectedTitle } = editorState;
     setEditorMutationPending(true);
     setMutationError(null);
     try {
       await updateListBoardTaskTitle({
         taskId,
-        listId: target.id,
+        listId,
         expectedTitle,
         title,
       });
@@ -1149,7 +1180,6 @@ export function ListBoard({
   const submitMetricEdit = async () => {
     if (
       !interactionBoardEnabled
-      || target.kind !== "list"
       || editorState?.kind !== "metric"
       || editorMutationPending
       || mutationPendingTaskId
@@ -1232,6 +1262,79 @@ export function ListBoard({
     }
   };
 
+  const completeTaskFromBoard = async (task: ListBoardTask) => {
+    if (!canStartTaskEditor || mutationPendingTaskId || task.completedAt !== null) return;
+    setMutationPendingTaskId(task.id);
+    setMutationError(null);
+    setMutationStatus("");
+    try {
+      const liveState = liveStateForTask(timerPayload, task.id);
+      if (liveState !== null && liveState !== "idle") {
+        const payload = await completeTimerTask();
+        setTimerPayload((current) => applyTimerSessionProjection(current, payload));
+      } else {
+        await completeListBoardTask({ taskId: task.id, listId: task.listId });
+      }
+    } catch (failure: unknown) {
+      setMutationError(formatInvokeError(failure));
+      setMutationStatus(`Could not complete ${task.title}.`);
+      setMutationPendingTaskId(null);
+      return;
+    }
+
+    setMutationStatus(`Completed ${task.title}.`);
+    try {
+      await refreshAfterMutation(task.id);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setMutationPendingTaskId(null);
+    }
+  };
+
+  const requestTaskDelete = (task: ListBoardTask) => {
+    if (!canStartTaskEditor || mutationPendingTaskId) return;
+    const liveState = liveStateForTask(timerPayload, task.id);
+    if (liveState !== null && liveState !== "idle") {
+      setMutationError("Stop or complete the live task before permanently deleting it.");
+      return;
+    }
+    setMutationError(null);
+    setDeleteError(null);
+    setDeleteTarget(task);
+  };
+
+  const confirmTaskDelete = async () => {
+    if (!deleteTarget || deletePending) return;
+    const task = deleteTarget;
+    setDeletePending(true);
+    setDeleteError(null);
+    setMutationPendingTaskId(task.id);
+    try {
+      await permanentlyDeleteListBoardTask({ taskId: task.id, listId: task.listId });
+    } catch (failure: unknown) {
+      setDeleteError(formatInvokeError(failure));
+      setMutationPendingTaskId(null);
+      setDeletePending(false);
+      return;
+    }
+
+    setDeleteTarget(null);
+    setDeletePending(false);
+    setMutationStatus(`Permanently deleted ${task.title}.`);
+    setMutationError(null);
+    try {
+      const payload = await getListBoardSnapshot(target);
+      setSnapshot(payload);
+      setMutationRefreshBlocked(false);
+    } catch (failure: unknown) {
+      handleCommittedRefreshFailure(failure);
+    } finally {
+      setMutationPendingTaskId(null);
+    }
+  };
+
   const toggleNotePanel = (task: ListBoardTask) => {
     if (notePanelTaskId === task.id) {
       setNotePanelTaskId(null);
@@ -1281,13 +1384,11 @@ export function ListBoard({
   const beginSubtaskMutation = (): SubtaskPanelState | null => {
     if (
       !interactionBoardEnabled
-      || target.kind !== "list"
       || !subtaskPanel
       || subtaskPanel.loading
       || subtaskPanel.error
       || !subtaskPanel.snapshot?.mutable
       || subtaskPanel.pending
-      || subtaskPanel.listId !== target.id
     ) return null;
     setSubtaskPanel((current) => current ? { ...current, pending: true } : current);
     setMutationError(null);
@@ -1674,7 +1775,8 @@ export function ListBoard({
                 || editorMutationPending
                 || scheduleEditorTaskId !== null
                 || notePanelTaskId !== null
-                || subtaskPanel !== null}
+                || subtaskPanel !== null
+                || deleteTarget !== null}
               aria-label="Planning list"
             >
               <option value={ALL_LISTS_VALUE}>All Lists</option>
@@ -1740,6 +1842,8 @@ export function ListBoard({
                 : current);
             }}
             onSubmitCreate={() => void submitCreate()}
+            onCompleteTask={(task) => void completeTaskFromBoard(task)}
+            onDeleteTask={requestTaskDelete}
             onStartTitleEdit={(task) => {
               if (!canStartTaskEditor || liveStateForTask(timerPayload, task.id) !== null) return;
               setMutationError(null);
@@ -1747,6 +1851,7 @@ export function ListBoard({
               setEditorState({
                 kind: "edit",
                 taskId: task.id,
+                listId: task.listId,
                 expectedTitle: task.title,
                 title: task.title,
               });
@@ -1799,10 +1904,24 @@ export function ListBoard({
         ))}
       </div>
 
-      {scheduleEditorTask && target.kind === "list" ? (
+      {deleteTarget ? (
+        <TaskDeleteConfirmDialog
+          taskTitle={deleteTarget.title}
+          pending={deletePending}
+          error={deleteError}
+          onCancel={() => {
+            if (deletePending) return;
+            setDeleteTarget(null);
+            setDeleteError(null);
+          }}
+          onConfirm={() => void confirmTaskDelete()}
+        />
+      ) : null}
+
+      {scheduleEditorTask ? (
         <TaskScheduleDialog
           taskId={scheduleEditorTask.id}
-          listId={target.id}
+          listId={scheduleEditorTask.listId}
           taskTitle={scheduleEditorTask.title}
           displayTimezone={snapshot.displayTimezone}
           onClose={() => setScheduleEditorTaskId(null)}
