@@ -361,7 +361,10 @@ export function FocusLiveSubtasks({
                           </button>
                         )}
 
-                        <span className="floating-timer-foundation__subtask-actions">
+                        <span
+                          className="floating-timer-foundation__subtask-actions"
+                          data-floating-subtask-editing={editing ? "true" : "false"}
+                        >
                           {editing && editor ? (
                             <>
                               <Tooltip content="Cancel subtask edit" align="end">
