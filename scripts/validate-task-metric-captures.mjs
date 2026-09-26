@@ -86,8 +86,8 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.displayTitleRow.width === contract.timeTakenTitleRow.width, `${label} Time Taken edit changed title-row width`);
   invariant(contract.displayTitleRow.height === contract.estimateTitleRow.height, `${label} EST edit changed title-row height`);
   invariant(contract.displayTitleRow.height === contract.timeTakenTitleRow.height, `${label} Time Taken edit changed title-row height`);
-  invariant(contract.estimateActionSlot.width === 68, `${label} EST edit lost the reserved 4.25rem action slot`);
-  invariant(contract.timeTakenActionSlot.width === 68, `${label} Time Taken edit lost the reserved 4.25rem action slot`);
+  invariant(contract.estimateActionSlot.width === 100, `${label} EST edit lost the reserved 6.25rem action slot`);
+  invariant(contract.timeTakenActionSlot.width === 100, `${label} Time Taken edit lost the reserved 6.25rem action slot`);
   invariant(contract.estimateActionSlot.height === contract.timeTakenActionSlot.height, `${label} metric action-slot heights differ`);
   invariant(contract.estimateMeta.height === contract.timeTakenMeta.height, `${label} EST and Time Taken editor rows have different heights`);
   invariant(contract.estimateInput.height === contract.timeTakenInput.height, `${label} metric input heights differ`);
