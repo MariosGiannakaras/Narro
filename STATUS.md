@@ -253,18 +253,45 @@ PR #152 exact head `299f46c4f8953d6f0a30bfc9953925c11def7eda` passed Windows CI 
 
 ## 2026-09-26 parity audit reconciliation
 
-A repository-only parity/reliability audit was verified one finding at a time against current `main`. All A1–A19 findings remain applicable as production/UI wiring gaps; none requires discarding validated Rust/domain reliability architecture. Several underlying capabilities already exist and must be reused rather than rebuilt.
+A repository-only parity/reliability audit was verified one finding at a time against the then-current `main`. The findings are being reconciled in roadmap order without discarding the validated Rust/domain reliability architecture or re-auditing already-settled milestone foundations.
 
-Classification:
-- **M5/Main reconciliation:** A1–A9 and A19.
-- **M6/Focus reconciliation:** A10–A17.
-- **M7/Floating reconciliation:** A18, plus the already-active compositor/physical work.
-- **B1 Task Change list/Duplicate:** unresolved fidelity/product requirement; do not implement until current requirement is established.
+### M5/Main reconciliation — COMPLETE
+
+A1–A9 and A19 are implemented and validated:
+
+- A1 List Duplicate creates independent list/task identities and does not clone completed history.
+- A2 persisted local list icons render on active and archived list surfaces through validated owned-asset reads with fallback.
+- A3 top-of-lane creation is atomic and rank-safe; no create-then-reorder partial-success path exists.
+- A4 normal create accepts optional EST in the same persistence operation.
+- A5/A6 Main completion and explicit permanent deletion use authoritative persistence/session/report boundaries; live completion remains timer/session-authoritative and Done is not a planning reorder lane.
+- A7 identity-based per-task edits work in All Lists while aggregate create/reorder remain disabled.
+- A8 Search highlights matched text without changing keyboard/focus behavior.
+- A9 normal Main no longer mounts diagnostic timer JSON; the user-facing Pomodoro resume prompt remains projection-driven and authoritative-transition-backed.
+- A19 Done shows a display-timezone local-month completion count.
+- obsolete static/visual contracts that froze the earlier omissions were replaced with positive product/safety invariants.
+
+Validation evidence:
+- PR #156 exact head `2cde42c10389c2417e1b6e356eae59150ebff8ce`;
+- Windows CI #539: PASS;
+- repository preflight, Rust fmt/check/clippy/tests: PASS;
+- Windows visual regression: PASS;
+- visual artifact: `narro-m5-visual-regression`, artifact id `10905522707`, digest `sha256:45339a39e3c0105bb3085646bb40687fbd29969e3ede476383d7933f39a07218`;
+- Tauri release build and diagnostic harness upload: PASS;
+- guarded squash merge: `4e315f551737d729f76e5f561dd8d7404717e157`;
+- resulting-main Windows CI #540: PASS through the repository's identical-tree validation gate; the heavy duplicate job was correctly skipped only after GitHub proved the merged tree equals the exact-head PR tree and that #539 had passed.
+
+The current validated source baseline is therefore `4e315f551737d729f76e5f561dd8d7404717e157`. Markdown-only tracking commits after this point do not replace that source SHA.
+
+### Remaining audit classification
+
+- **M6/Focus reconciliation — ACTIVE:** A10–A17.
+- **M7/Floating reconciliation — DEFERRED:** A18 plus the already-active compositor/physical work. By explicit user direction, after the M6 audit reconciliation is fully validated and tracked, implementation must stop before M7 and await the user's next instruction.
+- **B1 Task Change list/Duplicate:** unresolved fidelity/product requirement; do not implement until the current requirement is established.
 - **B2 exact Blitz now placement / B3 exact swatch palette:** visual-fidelity questions for the scheduled final parity pass unless stronger current evidence promotes them.
-- **B4 Done auto-start next task:** current Narro auto-starts the next eligible task after committed completion, but source behavior is explicitly unresolved. Preserve current behavior until an explicit product decision or stronger evidence exists.
+- **B4 Done auto-start next task:** current Narro auto-starts the next eligible task after committed completion, but source behavior remains explicitly unresolved. Preserve current behavior until an explicit product decision or stronger evidence exists.
 - Intentional Narro deviations in audit section C remain binding and are not regressions.
 
-The new evidence reopens Gate E and Gate F acceptance without invalidating the historical CI evidence for their original slices. Ordered implementation therefore returns to the M5 reconciliation gate, then M6, then resumes M7. PR #155 remains an open M7 physical-compositor candidate with exact-head CI #532 PASS and must not be merged without the required physical evidence.
+PR #155 remains an open draft M7 physical-compositor candidate at exact head `2755d598ad2b13b974cda02760ebf44cd5e60b13`; Windows CI #532 passed, physical compositor validation has not run, and the PR is now non-mergeable against the newer `main` after the M5 merge. It must be preserved without rebase/merge/source modification while M6 reconciliation proceeds and until the user lifts the pre-M7 pause.
 
 ## Durable correctness decisions
 
