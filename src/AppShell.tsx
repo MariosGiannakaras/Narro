@@ -7,6 +7,7 @@ import type { ListBoardRequestTarget } from "./listBoardApi";
 import { ListEditorModal } from "./ListEditorModal";
 import {
   createListFromEditor,
+  duplicateListFromHome,
   type ListEditorRequest,
   updateListFromEditor,
 } from "./listEditorApi";
@@ -113,6 +114,8 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [archiveTarget, setArchiveTarget] = useState<HomeListCardSnapshot | null>(null);
   const [archivePending, setArchivePending] = useState(false);
   const [archiveError, setArchiveError] = useState<string | null>(null);
+  const [duplicatePendingId, setDuplicatePendingId] = useState<string | null>(null);
+  const [homeMutationError, setHomeMutationError] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
@@ -149,6 +152,21 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     setSearchOpen(false);
     setArchiveTarget(list);
     setArchiveError(null);
+  }
+
+  async function duplicateList(list: HomeListCardSnapshot) {
+    if (duplicatePendingId) return;
+    setSearchOpen(false);
+    setDuplicatePendingId(list.id);
+    setHomeMutationError(null);
+    try {
+      await duplicateListFromHome(list.id);
+      setHomeRefreshKey((value) => value + 1);
+    } catch (failure) {
+      setHomeMutationError(formatInvokeError(failure));
+    } finally {
+      setDuplicatePendingId(null);
+    }
   }
 
   function openBoardTarget(target: ListBoardRequestTarget) {
@@ -219,11 +237,13 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const runtimeHome = homeContent ?? (
     <HomeDashboard
       refreshKey={homeRefreshKey}
+      actionError={homeMutationError}
       onOpenAllLists={openAllListsBoard}
       onCreateList={openCreateList}
       getListCardActions={(list) => ({
         onOpen: () => openListBoard(list),
         onEdit: () => openEditList(list),
+        onDuplicate: duplicatePendingId ? undefined : () => void duplicateList(list),
         onArchive: () => requestArchive(list),
       })}
     />
