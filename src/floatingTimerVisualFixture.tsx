@@ -178,8 +178,8 @@ if (params.get("state") === "cycle") {
     observations.push({
       expanded: renderedTimer.dataset.floatingExpanded,
       actionStrips: visibleCount(".floating-timer-foundation__actions"),
-      headings: visibleCount(".floating-timer-foundation__heading"),
-      subtaskPanels: visibleCount(".floating-timer-foundation__subtask-panel"),
+      headings: renderedTimer.querySelectorAll(".floating-timer-foundation__heading").length,
+      subtaskPanels: renderedTimer.querySelectorAll(".floating-timer-foundation__subtask-panel").length,
     });
   };
   const toggle = () => {
