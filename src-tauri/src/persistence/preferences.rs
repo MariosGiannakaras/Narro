@@ -358,6 +358,29 @@ mod tests {
     }
 
     #[test]
+    fn legacy_v2_payload_without_shortcut_preferences_defaults_enabled() {
+        let mut conn = Connection::open_in_memory().expect("open database");
+        run_migrations(&mut conn).expect("migrate database");
+        let mut value = serde_json::to_value(PreferencesPayload::default()).unwrap();
+        value
+            .as_object_mut()
+            .expect("preferences object")
+            .remove("shortcuts");
+        conn.execute(
+            "INSERT INTO preferences (id, schema_version, payload_json, updated_at)
+             VALUES (1, 2, ?1, ?2)",
+            params![value.to_string(), NOW],
+        )
+        .unwrap();
+
+        let loaded = get_preferences(&conn).unwrap().unwrap();
+        assert_eq!(loaded.schema_version, 2);
+        assert!(loaded.payload.shortcuts.go_to_narro_enabled);
+        assert!(loaded.payload.shortcuts.toggle_focus_mode_enabled);
+        assert!(loaded.payload.shortcuts.find_focus_timer_enabled);
+    }
+
+    #[test]
     fn save_writes_current_schema_and_round_trips_count_sleep_policy() {
         let mut conn = Connection::open_in_memory().expect("open database");
         run_migrations(&mut conn).expect("migrate database");
