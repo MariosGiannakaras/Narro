@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-pub const PREFERENCES_SCHEMA_VERSION: u32 = 2;
+pub const PREFERENCES_SCHEMA_VERSION: u32 = 3;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
 #[serde(rename_all = "snake_case")]
@@ -70,6 +70,24 @@ pub struct FocusPreferences {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
+pub struct ShortcutPreferences {
+    pub go_to_narro_enabled: bool,
+    pub toggle_focus_mode_enabled: bool,
+    pub find_focus_timer_enabled: bool,
+}
+
+impl Default for ShortcutPreferences {
+    fn default() -> Self {
+        Self {
+            go_to_narro_enabled: true,
+            toggle_focus_mode_enabled: true,
+            find_focus_timer_enabled: true,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AlertPreferences {
     pub timed_alerts_enabled: bool,
     pub task_alert_interval_seconds: u32,
@@ -94,6 +112,8 @@ pub struct CelebrationPreferences {
 pub struct PreferencesPayload {
     pub general: GeneralPreferences,
     pub focus: FocusPreferences,
+    #[serde(default)]
+    pub shortcuts: ShortcutPreferences,
     pub alerts: AlertPreferences,
     pub celebration: CelebrationPreferences,
 }
@@ -118,6 +138,7 @@ impl Default for PreferencesPayload {
                 scrolling_title: false,
                 sleep_accounting_policy: SleepAccountingPolicy::Exclude,
             },
+            shortcuts: ShortcutPreferences::default(),
             alerts: AlertPreferences {
                 timed_alerts_enabled: false,
                 task_alert_interval_seconds: 10 * 60,
@@ -161,6 +182,9 @@ mod tests {
             defaults.focus.sleep_accounting_policy,
             SleepAccountingPolicy::Exclude
         );
+        assert!(defaults.shortcuts.go_to_narro_enabled);
+        assert!(defaults.shortcuts.toggle_focus_mode_enabled);
+        assert!(defaults.shortcuts.find_focus_timer_enabled);
         assert!(!defaults.alerts.schedule_reminders_enabled);
         assert!(!defaults.celebration.show_success_screen);
     }
@@ -216,6 +240,20 @@ mod tests {
             decoded.focus.sleep_accounting_policy,
             SleepAccountingPolicy::Exclude
         );
+    }
+
+    #[test]
+    fn legacy_payload_without_shortcuts_defaults_all_global_shortcuts_enabled() {
+        let mut value = serde_json::to_value(PreferencesPayload::default())
+            .expect("serialize default preferences");
+        value
+            .as_object_mut()
+            .expect("preferences object")
+            .remove("shortcuts");
+
+        let decoded: PreferencesPayload =
+            serde_json::from_value(value).expect("decode legacy preferences");
+        assert_eq!(decoded.shortcuts, ShortcutPreferences::default());
     }
 
     #[test]
