@@ -227,6 +227,33 @@ pub fn initialize_preferences(
     Ok(created)
 }
 
+pub fn mutate_preferences(
+    conn: &mut Connection,
+    now: &str,
+    mutate: impl FnOnce(&mut PreferencesPayload),
+) -> Result<PreferencesRecord, PreferenceStoreError> {
+    validate_timestamp(now)?;
+    let tx = conn.transaction()?;
+    let mut payload = get_preferences(&tx)?
+        .map(|record| record.payload)
+        .unwrap_or_default();
+    mutate(&mut payload);
+    validate_preferences(&payload)?;
+    let payload_json = serde_json::to_string(&payload)?;
+    tx.execute(
+        "INSERT INTO preferences (id, schema_version, payload_json, updated_at)
+         VALUES (1, ?1, ?2, ?3)
+         ON CONFLICT(id) DO UPDATE SET
+            schema_version = excluded.schema_version,
+            payload_json = excluded.payload_json,
+            updated_at = excluded.updated_at",
+        params![i64::from(PREFERENCES_SCHEMA_VERSION), payload_json, now],
+    )?;
+    let saved = get_preferences(&tx)?.ok_or(PreferenceStoreError::MissingAfterWrite)?;
+    tx.commit()?;
+    Ok(saved)
+}
+
 pub fn save_preferences(
     conn: &mut Connection,
     payload: PreferencesPayload,
@@ -310,6 +337,24 @@ mod tests {
             loaded.payload.focus.sleep_accounting_policy,
             SleepAccountingPolicy::Exclude
         );
+    }
+
+    #[test]
+    fn atomic_mutation_preserves_unrelated_latest_fields() {
+        let mut conn = Connection::open_in_memory().expect("open database");
+        run_migrations(&mut conn).expect("migrate database");
+        mutate_preferences(&mut conn, NOW, |payload| {
+            payload.general.open_on_login = true;
+        })
+        .expect("save first field");
+        mutate_preferences(&mut conn, "2026-09-05T14:01:00Z", |payload| {
+            payload.shortcuts.find_focus_timer_enabled = false;
+        })
+        .expect("save shortcut field");
+
+        let saved = get_preferences(&conn).unwrap().unwrap();
+        assert!(saved.payload.general.open_on_login);
+        assert!(!saved.payload.shortcuts.find_focus_timer_enabled);
     }
 
     #[test]
