@@ -47,6 +47,8 @@ The exact latest procedure is `docs/M7_FLOATING_RUNTIME_VALIDATION.md`. It batch
 
 ## PHYSICAL WINDOWS GATES STILL OPEN
 
+**Latest physical result (2026-09-26): Gate 7 FAIL on exact CI #530 runtime.** A continuous capture of three Panel→Timer→Panel shortcut cycles with Windows animations On caught a nearly empty pale focus window followed by exposed desktop before the Timer appeared. The settled mode and paused task remained intact, but visual continuity failed. See `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md` and its retained frame evidence. Expand/Collapse, animations Off, and gates 8–12 were not run on #530. M7 remains 8/14.
+
 A single consolidated latest-build session should cover:
 1. Panel ↔ Timer continuity with Windows animations On and Off after PR #151: no `No active focus task`, `Loading focus task…`, `Loading Focus Panel…`, blank/pale/staging frames, or abrupt flicker.
 2. Timer Expand ↔ Collapse after PR #153: no enlarged/shrinking empty white surface, stale/duplicated pixels, or session discontinuity.
@@ -65,15 +67,15 @@ PR #152 introduced Rust/Cargo caching, frontend build reuse, and identical-tree 
 
 ## NEXT AGENT ACTION
 
-There is no further evidence-backed M7 source correction currently recorded. Do not invent code merely to enlarge a batch.
+The CI #530 physical Gate 7 failure is an evidence-backed source correction target. The likely transition sequencing path is documented in the newest work log; the exact compositor cause remains unproven.
 
 1. Recheck live repo/CI/PR state.
 2. If new evidence or a real automated gap appears inside M7, batch compatible independent fixes before the next CI according to the general workflow.
-3. Otherwise prepare/use the latest source artifact for one consolidated Windows M7 physical session covering the open matrix above.
+3. Correct the observed Panel→Timer blank/desktop exposure as one coherent source slice, including recovery behavior and executable transition tests. Validate locally, then use exact-head CI and a guarded merge. A new runtime artifact is needed for physical acceptance.
 4. Record physical PASS/FAIL evidence in a new immutable work log.
 5. If any gate fails, batch compatible evidence-backed corrections where safe, validate with one coherent PR CI, merge with expected-head protection, and continue.
 6. Do not start M8 until all required M7 physical gates pass.
 
 ## USER ACTION REQUIRED
 
-A consolidated physical Windows M7 validation session is now the only remaining blocker. Use the prepared CI #530 package and `docs/M7_FLOATING_RUNTIME_VALIDATION.md`. It is intentionally one batched session covering gates 7–12 rather than repeated small interruptions.
+The CI #530 Gate 7 failure requires a correction and new exact-build physical validation. The remaining checks should still be consolidated using `docs/M7_FLOATING_RUNTIME_VALIDATION.md` after that correction.
