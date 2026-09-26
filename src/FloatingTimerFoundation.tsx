@@ -33,6 +33,8 @@ export type FloatingTimerFoundationProps = {
   onResizePendingChange?: (pending: boolean) => void;
   transitionPending?: boolean;
   transitionError?: string | null;
+  shortcutStatus?: string | null;
+  refreshKey?: number;
   onPresentationReady?: () => void;
   fixtureBoard?: ListBoardSnapshot;
   fixtureTimer?: TimerSessionPayload | null;
@@ -57,6 +59,8 @@ export function FloatingTimerFoundation({
   onResizePendingChange,
   transitionPending = false,
   transitionError = null,
+  shortcutStatus = null,
+  refreshKey = 0,
   onPresentationReady,
   fixtureBoard,
   fixtureTimer = null,
@@ -168,7 +172,7 @@ export function FloatingTimerFoundation({
     return () => {
       disposed = true;
     };
-  }, [fixtureBoard, fixtureMode, liveTaskId]);
+  }, [fixtureBoard, fixtureMode, liveTaskId, refreshKey]);
 
   const presentationReady = fixtureMode
     || (timerSettled && (liveTaskId === null || boardTaskId === liveTaskId));
@@ -295,6 +299,11 @@ export function FloatingTimerFoundation({
       data-tauri-drag-region="true"
       aria-label="Floating Timer"
     >
+      {shortcutStatus ? (
+        <span className="floating-timer-foundation__shortcut-status type-metadata" role="status">
+          {shortcutStatus}
+        </span>
+      ) : null}
       {attentionPulseSequence !== null && (
         <span
           key={attentionPulseSequence}
