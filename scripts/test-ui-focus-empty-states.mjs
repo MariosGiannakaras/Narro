@@ -44,16 +44,18 @@ invariant(
 );
 
 for (const forbidden of [
-  "startTimerTask(",
   "pauseTimer(",
   "resumeTimer(",
   "startManualBreakTimer(",
   "completeTimerTask(",
-  "switchTimerTask(",
   "start_blitz",
 ]) {
-  invariant(!panel.includes(forbidden), `empty-state rendering must not become timer/session authority via ${forbidden}`);
+  invariant(!panel.includes(forbidden), `empty-state rendering must not become general timer/session authority via ${forbidden}`);
 }
+invariant(
+  panel.includes("canMakeLive={!scheduled}"),
+  "future scheduled rows in the no-eligible state must not expose an enabled Rocket Make Live path",
+);
 
 invariant(css.includes(".focus-panel__empty-state {"), "empty-state content needs a scoped layout rule");
 for (const forbidden of ["transform:", "animation:", "position: absolute"]) {
