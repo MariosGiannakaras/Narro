@@ -108,7 +108,10 @@ impl Display for ListBoardError {
                 formatter.write_str("stored completed task identity is invalid")
             }
             Self::InvalidStoredCompletedTimestamp(id) => {
-                write!(formatter, "completed task has an invalid RFC 3339 timestamp: {id}")
+                write!(
+                    formatter,
+                    "completed task has an invalid RFC 3339 timestamp: {id}"
+                )
             }
             Self::TargetListNotFound(id) => {
                 write!(formatter, "active list-board target not found: {id}")
