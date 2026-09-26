@@ -9,14 +9,16 @@ function invariant(condition, message) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const row = read("src/FocusTaskRow.tsx");
 const title = read("src/FocusTaskRowTitle.tsx");
 const css = read("src/focusTaskRowTitle.css");
 const overlay = read("src/overlayPrimitives.tsx");
 const fixture = read("src/focusPanelVisualFixture.tsx");
 const pkg = JSON.parse(read("package.json"));
 
-invariant(panel.includes('import { FocusTaskRowTitle } from "./FocusTaskRowTitle";'), "ordinary title component import is missing");
-invariant((panel.match(/<FocusTaskRowTitle/g) ?? []).length === 1, "ordinary Focus rows must use one shared row-title component path");
+invariant(row.includes('import { FocusTaskRowTitle } from "./FocusTaskRowTitle";'), "ordinary title component import is missing");
+invariant((row.match(/<FocusTaskRowTitle/g) ?? []).length === 1, "ordinary Focus rows must use one shared row-title component path");
+invariant(panel.includes('import { FocusTaskRow } from "./FocusTaskRow";'), "Focus Panel must compose the interactive ordinary-row path");
 invariant(panel.includes('<FocusLiveTitle title={liveTask.title} scrollingEnabled={scrollingTitleEnabled} />'), "active/live title path must remain separate");
 invariant(title.includes('import { Tooltip } from "./overlayPrimitives";'), "full-title disclosure must reuse the validated Tooltip primitive");
 invariant(title.includes('data-focus-task-title="true"'), "ordinary title marker is missing");
