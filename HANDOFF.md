@@ -29,10 +29,9 @@ The parity audit reconciliation remains complete through M6.
    - upload inbox: `reference/original-blitzit-videos/inbox/`;
    - raw evidence guide: `reference/original-blitzit-videos/README.md`;
    - timestamped analysis/index: `docs/BLITZIT_VIDEO_EVIDENCE.md`;
-   - Git LFS rules for common inbox video formats are active;
    - PR #162 exact head `8bf3d2d5f34b870b1a38fe4afa493df73f81f42c` passed Windows CI #547 and merged as `4de310d29cee623cba54da514ba2a74193ba758a`.
 4. On a later implementation instruction, resume **M7/A18/compositor work from repository state**, preserving existing validated M7 evidence and reconciling PR #155 against the newer `main`.
-5. Before closing M7, check the video inbox. If Focus/Floating Timer/transition/expand-collapse recordings are present, analyze the materially relevant subset first and route timestamped findings through `docs/BLITZIT_VIDEO_EVIDENCE.md`.
+5. Video/manual evidence is explicitly non-blocking for independent source work. Check the video inbox before final M7 closure; if relevant recordings have actually been uploaded by then, analyze the materially relevant subset and route timestamped findings through `docs/BLITZIT_VIDEO_EVIDENCE.md`. If none are present, continue and batch that evidence reconciliation later.
 6. Continue M8 → M9 → M10 in order after prerequisites close.
 7. After M10, the Final Comprehensive Review Stage must include the complete uploaded video/transcript corpus as well as screenshots/docs.
 
@@ -103,8 +102,8 @@ PR #155 `M7: cover focus transitions with a temporary native visual hold` remain
 
 On the next explicit implementation instruction, reconstruct current `main`, inspect live PR/CI state and PR #155, check whether any new files exist under `reference/original-blitzit-videos/inbox/`, then resume M7 from the repository-recorded checkpoint.
 
-- If relevant M7 recordings/transcripts exist, analyze that relevant subset first and record timestamped findings in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
-- If no relevant recordings are present, resume M7/A18/compositor work without restarting or re-auditing completed milestones.
+- Resume M7/A18/compositor source work immediately; missing videos or deferred manual checks are not blockers for independent evidence-backed implementation.
+- If relevant recordings/transcripts are already present when a closure decision is reached, analyze them then and record timestamped findings in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
 - Do not begin the full corpus/final comprehensive review before M10 is complete.
 
 ## USER ACTION REQUIRED
