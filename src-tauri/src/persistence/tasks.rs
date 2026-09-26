@@ -21,6 +21,7 @@ pub enum TaskStoreError {
     NotFound(TaskId),
     ArchivedTask(TaskId),
     CompletedTask(TaskId),
+    ActiveSession(TaskId),
     MustArchiveBeforePermanentDelete(TaskId),
 }
 
@@ -49,6 +50,7 @@ impl Display for TaskStoreError {
             Self::NotFound(id) => write!(formatter, "task not found: {id}"),
             Self::ArchivedTask(id) => write!(formatter, "task is archived: {id}"),
             Self::CompletedTask(id) => write!(formatter, "task is completed: {id}"),
+            Self::ActiveSession(id) => write!(formatter, "task has an active timer session: {id}"),
             Self::MustArchiveBeforePermanentDelete(id) => write!(
                 formatter,
                 "task must be archived before permanent deletion: {id}"
@@ -620,6 +622,60 @@ pub fn restore_task(
     decode_task(restored)
 }
 
+pub fn permanently_delete_task_confirmed(
+    conn: &mut Connection,
+    id: TaskId,
+    expected_list_id: ListId,
+    now: &str,
+) -> Result<(), TaskStoreError> {
+    validate_timestamp(now)?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
+    let current = get_task(&tx, id)?;
+    ensure_mutable_task(&tx, &current)?;
+    if current.list_id != expected_list_id {
+        return Err(TaskStoreError::ListNotFound(expected_list_id));
+    }
+
+    let has_open_session = tx
+        .query_row(
+            "SELECT 1
+             FROM sessions
+             WHERE task_id = ?1
+               AND ended_at IS NULL
+             LIMIT 1",
+            [id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some();
+    if has_open_session {
+        return Err(TaskStoreError::ActiveSession(id));
+    }
+
+    if current.archived_at.is_none() {
+        let changed = tx.execute(
+            "UPDATE tasks
+             SET archived_at = ?1, updated_at = ?1
+             WHERE id = ?2
+               AND archived_at IS NULL",
+            params![now, id.to_string()],
+        )?;
+        if changed != 1 {
+            return Err(TaskStoreError::NotFound(id));
+        }
+    }
+
+    let changed = tx.execute("DELETE FROM tasks WHERE id = ?1", [id.to_string()])?;
+    if changed != 1 {
+        return Err(TaskStoreError::NotFound(id));
+    }
+    if current.completed_at.is_none() {
+        compact_bucket_ranks(&tx, current.list_id, current.manual_lane, now)?;
+    }
+    tx.commit()?;
+    Ok(())
+}
+
 pub fn permanently_delete_task(conn: &mut Connection, id: TaskId) -> Result<(), TaskStoreError> {
     let tx = conn.transaction()?;
     let current = get_task(&tx, id)?;
@@ -898,6 +954,51 @@ mod tests {
                 "{table} should be removed by permanent delete cascade"
             );
         }
+    }
+
+    #[test]
+    fn confirmed_permanent_delete_rejects_open_session_then_cascades_history() {
+        let mut conn = migrated();
+        let list_id = create_test_list(&mut conn, "Inbox");
+        let task = create_task(&mut conn, input(list_id, "Delete", PlanningLane::Today), T1)
+            .expect("create task");
+        conn.execute(
+            "INSERT INTO sessions (
+                id, task_id, kind, started_at, ended_at, duration_seconds,
+                source, created_at, updated_at
+             ) VALUES (?1, ?2, 'work', ?3, NULL, 0, 'focus', ?3, ?3)",
+            params![
+                crate::domain::ids::SessionId::generate().to_string(),
+                task.id.to_string(),
+                T1
+            ],
+        )
+        .expect("insert open session");
+
+        assert!(matches!(
+            permanently_delete_task_confirmed(&mut conn, task.id, list_id, T2),
+            Err(TaskStoreError::ActiveSession(id)) if id == task.id
+        ));
+        assert_eq!(get_task(&conn, task.id).expect("task preserved").id, task.id);
+
+        conn.execute(
+            "UPDATE sessions SET ended_at = ?1, duration_seconds = 60, updated_at = ?1
+             WHERE task_id = ?2",
+            params![T2, task.id.to_string()],
+        )
+        .expect("close session");
+        permanently_delete_task_confirmed(&mut conn, task.id, list_id, T3)
+            .expect("confirmed permanent delete");
+
+        assert!(matches!(get_task(&conn, task.id), Err(TaskStoreError::NotFound(_))));
+        let sessions: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM sessions WHERE task_id = ?1",
+                [task.id.to_string()],
+                |row| row.get(0),
+            )
+            .expect("count cascaded sessions");
+        assert_eq!(sessions, 0);
     }
 
     #[test]
