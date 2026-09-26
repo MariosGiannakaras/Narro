@@ -290,6 +290,16 @@ Acceptance criteria:
 
 By explicit user direction, **stop before Milestone 7** and wait for the user's next instruction.
 
+## Cross-cutting completion requirements for remaining milestones (M7–M10)
+
+These requirements apply separately to every remaining roadmap milestone. They do not reopen or invalidate work already validated in Milestones 1–6.
+
+- Error handling and significant state coverage must be sufficient for the milestone's real user-facing surface and domain behavior. Relevant failures, unavailable states, loading/waiting states, empty states, invalid input, stale/conflicting state, recovery paths, and other meaningful edge cases must provide clear, complete feedback rather than silent failure or ambiguous UI.
+- Automated tests/fixtures and physical Windows checks must cover the meaningful edge cases appropriate to the milestone, following `ENGINEERING_QUALITY.md`; unavailable checks remain `NOT RUN`, never implied PASS.
+- User-facing operations must define what the user sees while work is pending, when it fails, when required state/resources are unavailable, and after recovery/retry where applicable.
+- A milestone cannot be reported complete while known significant error, loading, unavailable, recovery, or edge-case states in that milestone remain unhandled or untracked.
+- Every milestone completion report must include that milestone's **total source diff** as `+A/-B` lines. Calculate it from the milestone's validated starting source SHA to its final validated source SHA; documentation/tracking-only commits do not replace the source baseline and are excluded from this source-diff figure.
+
 ## Milestone 7 — Floating Timer mode
 
 - [x] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
@@ -430,9 +440,57 @@ Acceptance criteria:
 - [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, and no post-pause/manual-edit timer-vs-ledger divergence.
 - [ ] Update `README.md`, `STATUS.md`, and `TODO.md` for release-candidate reality.
 
+## Final Comprehensive Review Stage — after Milestone 10
+
+This is a required post-roadmap quality stage and **does not become an 11th roadmap milestone**. The normal roadmap progress denominator remains 10 milestones. No item in this stage may be marked complete before Milestones 1–10 are complete and the corresponding review work has actually been performed and validated.
+
+### Review preparation and evidence inventory
+
+- [ ] Freeze the final review baseline at the validated Milestone 10 source SHA and record the complete application/version/environment under review.
+- [ ] Inventory all relevant Narro specifications, validated work logs, screenshots, visual fixtures, and current product states that define expected behavior.
+- [ ] Inventory **all available Blitzit screenshots, images, and visual references**, including the supplied reference screenshots and the evidence indexed by `docs/RESEARCH_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md`.
+- [ ] Build a complete screen/state/interaction matrix so every relevant application surface has an explicit final-review entry rather than relying on spot checks.
+
+### End-to-end implementation and engineering quality review
+
+- [ ] Review the application end to end against `ENGINEERING_QUALITY.md`, established Rust/TypeScript/Tauri/SQLite engineering practices, and the repository's validated architecture/invariants.
+- [ ] Review state ownership, persistence boundaries, identity integrity, timer/session accounting, scheduling/timezone/recurrence behavior, lifecycle/window coordination, local-only/privacy boundaries, failure semantics, recovery paths, concurrency/stale-state handling, dependency/configuration hygiene, and release behavior for correctness and maintainability.
+- [ ] Review code structure for unnecessary duplication, brittle coupling, dead/obsolete paths, unsafe assumptions, unclear ownership, weak typing/error models, and avoidable complexity without performing broad rewrites merely for style.
+- [ ] Review performance-sensitive paths for unnecessary polling, idle work, excess renderer/native churn, avoidable persistence writes, memory/CPU regressions, and animation/transition overhead.
+- [ ] Re-run the complete regression/anti-regression matrix appropriate to the release candidate, including the source-product reliability risks recorded in `docs/BLITZIT_HISTORY_RISK_INDEX.md`.
+- [ ] Verify that meaningful edge cases and user-facing failure/loading/unavailable/recovery states have clear feedback throughout the application; record any missing state handling as a final-review finding.
+
+### Professional UI/UX, accessibility, and visual-system review
+
+- [ ] Review usability, discoverability, interaction consistency, information architecture, visual hierarchy, alignment, spacing rhythm, density, typography, readability, iconography, control affordance, feedback, and overall cross-surface consistency using established professional desktop-product design principles.
+- [ ] Review keyboard operation, focus order/visibility, accessible names, target sizes, reduced-motion behavior, semantic state communication, and color/contrast against applicable accessibility standards, targeting WCAG 2.2 AA where relevant to the desktop UI.
+- [ ] Review the final color palette and semantic color usage for contrast, state distinction, consistency, dark/light behavior, destructive/warning/success communication, and legibility.
+- [ ] Review responsive/adaptive behavior across supported window sizes, Focus Panel/Floating Timer modes, Windows DPI/scaling levels, monitor configurations, long content, locale/time-format variation, and other layout-pressure states.
+- [ ] Review hover, focus, pressed, selected, disabled, pending, loading, empty, error, unavailable, confirmation, success, notification, overlay, dialog, menu, tooltip, and transition states for consistent behavior and visual treatment.
+
+### Detailed Blitzit visual and functional fidelity verification
+
+- [ ] Compare every relevant Narro screen, state, component, and interaction against the available Blitzit visual/source evidence; do not limit this pass to screens already covered by automated fixtures.
+- [ ] Verify layout structure, dimensions, proportions, alignment, spacing, typography, wrapping/truncation, icons, colors, borders, radii, shadows/elevation, dividers, progress/timer presentation, states, overlays, dialogs, menus, empty states, error states, loading/waiting states, and interaction details.
+- [ ] Compare light/dark variants and any state-specific references separately when source evidence exists.
+- [ ] Verify that functionality shown or documented in the source product was not silently omitted during implementation. Any apparent missing transfer must be traced to implementation, an intentional Narro deviation, superseded/ambiguous source evidence, or an explicit product decision.
+- [ ] Where stable comparable screenshots exist, use repeatable screenshot/capture comparison with recorded viewport/DPI/theme/state; where exact pixel comparison is not meaningful, record the design-system/behavioral comparison and rationale instead.
+- [ ] Explicitly revisit deferred audit/fidelity questions such as B1/B2/B3/B4 and resolve or disposition them from the strongest final evidence rather than silently carrying them into release.
+
+### Finding disposition, remediation, and final gate
+
+- [ ] Create a single final-review findings register covering engineering, correctness, usability, accessibility, visual fidelity, missing functionality, state coverage, and reliability findings with severity/evidence/owner/disposition.
+- [ ] For every finding, record one explicit disposition: fixed and validated; intentional Narro deviation; source ambiguity requiring a documented product decision; or accepted limitation with rationale. No finding may disappear without disposition.
+- [ ] Implement remediation in narrow evidence-backed slices only after the review finding exists; do not use the final review as justification for an unrelated architecture rewrite.
+- [ ] Re-run affected automated, Windows, visual, accessibility, and regression evidence after remediation and confirm fixes did not regress previously validated behavior.
+- [ ] Perform a final end-to-end release-candidate pass after all review findings are dispositioned.
+- [ ] Publish the final comprehensive review report with the reviewed source SHA, evidence matrix, unresolved/accepted limitations, final validation evidence, and aggregate final-review remediation diff.
+
+**Final comprehensive review gate:** remains OPEN until all tasks above are actually performed after Milestone 10. Planning this stage does not satisfy any checkbox.
+
 ## Post-parity candidates — recorded, not scheduled
 
-Do not implement these until Milestones 1–10 parity/reliability work is stable or the user explicitly changes scope:
+Do not implement these until Milestones 1–10 and the Final Comprehensive Review Stage are complete, unless the user explicitly changes scope:
 
 - Tags/labels
 - Calendar week/month view

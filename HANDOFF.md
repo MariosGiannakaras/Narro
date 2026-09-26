@@ -25,11 +25,16 @@ The parity audit reconciliation is complete through M6.
 
 1. **M5 parity/reliability reconciliation (A1–A9, A19): COMPLETE.**
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
-3. **STOP before M7.** The user explicitly has another instruction to provide before any M7 work resumes.
-4. M7/A18/compositor work remains preserved but untouched until that instruction.
-5. M8 remains blocked on eventual M7 completion.
+3. This conversation's current task is **planning/tracking only**. No M7 source/UI implementation, refactor, or application validation belongs in this task.
+4. On a later implementation instruction, resume **M7/A18/compositor work from repository state**, preserving already validated M7 evidence and reconciling the existing PR #155 against the newer `main` rather than restarting M7.
+5. Continue M8 → M9 → M10 in the existing order only after their prerequisites close.
+6. After M10 is fully complete, run the required **Final Comprehensive Review Stage** in `TODO.md`. It is a post-roadmap gate, not Milestone 11; the roadmap denominator remains 10.
 
 Roadmap completion is now **6/10 milestones**.
+
+For each remaining milestone M7–M10:
+- require sufficient error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone;
+- include the milestone's total validated source diff as `+A/-B` lines in its completion report, measured from validated starting source SHA to final validated source SHA.
 
 ## M6 RECONCILIATION — COMPLETED CAPABILITIES
 
@@ -57,7 +62,7 @@ Do not reopen A10–A17 without new repository-backed evidence.
 - B4: Done auto-start-next remains unresolved in source evidence; preserve current behavior.
 - Audit section C intentional Narro deviations remain binding.
 
-## OPEN M7 PR — PRESERVE, DO NOT TOUCH
+## OPEN M7 PR — PRESERVE DURING THIS PLANNING TASK
 
 PR #155 `M7: cover focus transitions with a temporary native visual hold` remains open and draft.
 
@@ -65,7 +70,8 @@ PR #155 `M7: cover focus transitions with a temporary native visual hold` remain
 - Windows CI #532: PASS;
 - physical compositor validation: NOT RUN;
 - GitHub reports it non-mergeable against the newer `main`;
-- do not merge, rebase, rewrite, or contaminate it until the user explicitly resumes M7.
+- do not merge, rebase, rewrite, validate, or contaminate it as part of this planning/tracking task;
+- when M7 implementation is explicitly resumed later, reconstruct current repository state first and reconcile this preserved work carefully rather than replacing validated M7 history.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -87,8 +93,10 @@ PR #155 `M7: cover focus transitions with a temporary native visual hold` remain
 
 ## EXACT NEXT ACTION
 
-A zero-context agent must reconstruct current `main`, confirm this M6 tracking reconciliation is present, inspect live PR/CI state, and **stop before M7**. No M7 implementation, rebase, merge, physical compositor action, or A18 work should begin until the user provides the promised next instruction.
+For the current planning/tracking task: finish and merge only the documentation changes that add the cross-cutting M7–M10 quality requirements and the post-M10 Final Comprehensive Review Stage. Do not run application/UI validation and do not change source code.
+
+After this planning task is complete, a zero-context agent receiving a later implementation instruction must reconstruct current `main`, inspect PR #155/current M7 evidence, and resume M7 from the repository-recorded checkpoint rather than restarting it. The Final Comprehensive Review Stage must not begin before M10 is complete.
 
 ## USER ACTION REQUIRED
 
-Further implementation is intentionally paused before M7 by explicit user direction. The next implementation step requires the user's next instruction; there is no unresolved decision blocking the already-completed M5/M6 reconciliation.
+No product decision blocks the planning update. Application implementation remains intentionally paused for this task; resume M7 only on a subsequent implementation instruction from the user.

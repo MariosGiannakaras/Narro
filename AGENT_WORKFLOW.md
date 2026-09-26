@@ -55,6 +55,10 @@ The user should never have to relay one agent's explanation to another.
 
 Use the compact progress format, counter semantics, and reporting cadence in `AI_START_HERE.md`. Derive all counters from current `TODO.md` and `HANDOFF.md`; physical gates do not close from compilation or static contracts. Keep detailed evidence in immutable work logs instead of repeating it in progress messages.
 
+The roadmap milestone denominator remains **10**. The required Final Comprehensive Review Stage runs only after Milestone 10 and is tracked as a separate post-roadmap gate, not as Milestone 11.
+
+For every milestone completion report, include the milestone's **total source diff** in the exact compact form `+A/-B` lines. Compute it from the milestone's validated starting source SHA to its final validated source SHA. Documentation/tracking-only commits do not replace the validated source baseline and are excluded from this source-diff figure. Record the compared SHAs with the completion evidence so another agent can reproduce the count.
+
 ## Evidence and TODO discipline
 
 Use precise levels:
