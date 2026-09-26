@@ -299,6 +299,7 @@ These requirements apply separately to every remaining roadmap milestone. They d
 - User-facing operations must define what the user sees while work is pending, when it fails, when required state/resources are unavailable, and after recovery/retry where applicable.
 - A milestone cannot be reported complete while known significant error, loading, unavailable, recovery, or edge-case states in that milestone remain unhandled or untracked.
 - Every milestone completion report must include that milestone's **total source diff** as `+A/-B` lines. Calculate it from the milestone's validated starting source SHA to its final validated source SHA; documentation/tracking-only commits do not replace the source baseline and are excluded from this source-diff figure.
+
 ## Milestone 7 — Floating Timer mode
 
 - [x] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
@@ -486,6 +487,7 @@ This is a required post-roadmap quality stage and **does not become an 11th road
 - [ ] Publish the final comprehensive review report with the reviewed source SHA, evidence matrix, unresolved/accepted limitations, final validation evidence, and aggregate final-review remediation diff.
 
 **Final comprehensive review gate:** remains OPEN until all tasks above are actually performed after Milestone 10. Planning this stage does not satisfy any checkbox.
+
 ## Post-parity candidates — recorded, not scheduled
 
 Do not implement these until Milestones 1–10 and the Final Comprehensive Review Stage are complete, unless the user explicitly changes scope:
