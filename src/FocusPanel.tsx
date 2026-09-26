@@ -45,6 +45,8 @@ export type FocusPanelProps = {
   onRequestCompact?: () => void;
   compactTransitionPending?: boolean;
   modeTransitionError?: string | null;
+  shortcutStatus?: string | null;
+  refreshKey?: number;
   onPresentationReady?: () => void;
 };
 
@@ -308,6 +310,8 @@ export function FocusPanel({
   onRequestCompact,
   compactTransitionPending = false,
   modeTransitionError = null,
+  shortcutStatus = null,
+  refreshKey = 0,
   onPresentationReady,
 }: FocusPanelProps) {
   const [target, setTarget] = useState<ListBoardRequestTarget>(() =>
@@ -371,7 +375,7 @@ export function FocusPanel({
     return () => {
       disposed = true;
     };
-  }, [fixtureBoard, target.kind, target.kind === "list" ? target.id : null]);
+  }, [fixtureBoard, refreshKey, target.kind, target.kind === "list" ? target.id : null]);
 
   useEffect(() => {
     setNotesTaskId(null);
@@ -1006,8 +1010,8 @@ export function FocusPanel({
         />
       ) : null}
 
-      {mutationStatus ? (
-        <div className="focus-panel__status type-metadata" role="status">{mutationStatus}</div>
+      {shortcutStatus || mutationStatus ? (
+        <div className="focus-panel__status type-metadata" role="status">{shortcutStatus ?? mutationStatus}</div>
       ) : null}
       {statusError ? <div className="focus-panel__error type-metadata" role="alert">{statusError}</div> : null}
     </main>
