@@ -89,6 +89,8 @@ for (const theme of ["light", "dark"]) {
   requireDistinctCardState(timeUp, running);
   invariant(timeUp.dom.includes("aria-label=\"Time's Up\""), `${timeUp.label} Time's Up accessible label is missing`);
   invariant(timeUp.dom.includes(">00:00<"), `${timeUp.label} Time's Up zero display is missing`);
+  invariant(timeUp.dom.includes('data-focus-action="extend"'), `${timeUp.label} Time's Up Extend action is missing`);
+  invariant(timeUp.dom.includes(">Extend<"), `${timeUp.label} Time's Up Extend label is missing`);
 
   const overtime = readCapture(theme, "overtime");
   requireLiveState(overtime, "overtime_running");
