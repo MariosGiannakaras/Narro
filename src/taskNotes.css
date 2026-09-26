@@ -30,6 +30,7 @@
 }
 
 .task-notes__trigger:focus-visible,
+.task-notes__title-editor input:focus-visible,
 .task-notes__toolbar-button:focus-visible,
 .task-notes__save:focus-visible,
 .task-notes__delete:focus-visible,
@@ -45,6 +46,38 @@
 .task-notes__delete:disabled {
   cursor: default;
   opacity: 0.55;
+}
+
+.task-notes__title-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--space-2);
+  min-width: 0;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.task-notes__title-editor label {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.task-notes__title-editor input {
+  width: 100%;
+  min-width: 0;
+  height: 2rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-deep);
+  font: inherit;
+}
+
+.task-notes__title-editor .task-notes__error {
+  grid-column: 1 / -1;
 }
 
 .task-notes__panel,
