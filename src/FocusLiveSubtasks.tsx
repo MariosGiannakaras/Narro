@@ -284,6 +284,7 @@ export function FocusLiveSubtasks({
                     <span className="floating-timer-foundation__subtask-empty type-metadata">No subtasks yet.</span>
                   ) : (snapshot?.subtasks ?? []).map((subtask, index, subtasks) => {
                     const completed = subtask.completedAt !== null;
+                    const editing = editor?.id === subtask.id;
                     return (
                       <div
                         key={subtask.id}
@@ -298,7 +299,7 @@ export function FocusLiveSubtasks({
                             className="floating-timer-foundation__subtask-check motion-interactive"
                             data-floating-subtask-action="complete"
                             aria-label={`${completed ? "Reopen" : "Complete"} subtask: ${subtask.title}`}
-                            disabled={interactionBlocked}
+                            disabled={interactionBlocked || editing}
                             onClick={() => void runMutation(() => setListBoardSubtaskCompletion({
                               subtaskId: subtask.id,
                               taskId: task.id,
@@ -311,62 +312,147 @@ export function FocusLiveSubtasks({
                           </button>
                         </Tooltip>
 
-                        <span className="floating-timer-foundation__subtask-title" title={subtask.title}>
-                          {completed ? <s>{subtask.title}</s> : subtask.title}
-                        </span>
+                        {editing && editor ? (
+                          <input
+                            className="floating-timer-foundation__subtask-title-input"
+                            data-floating-subtask-action="title-input"
+                            aria-label="Subtask title"
+                            value={editor.value}
+                            disabled={pending}
+                            autoFocus={!fixtureMode}
+                            onChange={(event) => setEditor((current) => current ? { ...current, value: event.target.value } : current)}
+                            onKeyDown={(event) => {
+                              if (event.key === "Escape") {
+                                event.preventDefault();
+                                if (!pending) setEditor(null);
+                              } else if (event.key === "Enter") {
+                                event.preventDefault();
+                                if (pending) return;
+                                const title = editor.value.trim();
+                                if (!title) return;
+                                void runMutation(
+                                  () => updateListBoardSubtaskTitle({
+                                    subtaskId: editor.id,
+                                    taskId: task.id,
+                                    listId: task.listId,
+                                    expectedTitle: editor.expectedTitle,
+                                    title,
+                                  }),
+                                  () => setEditor(null),
+                                );
+                              }
+                            }}
+                          />
+                        ) : (
+                          <button
+                            type="button"
+                            className="floating-timer-foundation__subtask-title motion-interactive"
+                            data-floating-subtask-action="edit"
+                            title={subtask.title}
+                            aria-label={`Edit subtask: ${subtask.title}`}
+                            disabled={interactionBlocked}
+                            onClick={() => setEditor({
+                              id: subtask.id,
+                              expectedTitle: subtask.title,
+                              value: subtask.title,
+                            })}
+                          >
+                            {completed ? <s>{subtask.title}</s> : subtask.title}
+                          </button>
+                        )}
 
                         <span className="floating-timer-foundation__subtask-actions">
-                          <Tooltip content="Move subtask up" align="end">
-                            <button
-                              type="button"
-                              className="floating-timer-foundation__subtask-action motion-interactive"
-                              data-floating-subtask-action="move-up"
-                              aria-label={`Move subtask up: ${subtask.title}`}
-                              disabled={interactionBlocked || index === 0}
-                              onClick={() => {
-                                const order = movedOrder(subtasks, subtask.id, "up");
-                                if (order) void runMutation(() => reorderListBoardSubtasks({
-                                  taskId: task.id,
-                                  listId: task.listId,
-                                  expectedOrder: order.expectedOrder,
-                                  orderedIds: order.orderedIds,
-                                }));
-                              }}
-                            >↑</button>
-                          </Tooltip>
-                          <Tooltip content="Move subtask down" align="end">
-                            <button
-                              type="button"
-                              className="floating-timer-foundation__subtask-action motion-interactive"
-                              data-floating-subtask-action="move-down"
-                              aria-label={`Move subtask down: ${subtask.title}`}
-                              disabled={interactionBlocked || index === subtasks.length - 1}
-                              onClick={() => {
-                                const order = movedOrder(subtasks, subtask.id, "down");
-                                if (order) void runMutation(() => reorderListBoardSubtasks({
-                                  taskId: task.id,
-                                  listId: task.listId,
-                                  expectedOrder: order.expectedOrder,
-                                  orderedIds: order.orderedIds,
-                                }));
-                              }}
-                            >↓</button>
-                          </Tooltip>
-                          <Tooltip content="Delete subtask" align="end">
-                            <button
-                              type="button"
-                              className="floating-timer-foundation__subtask-action floating-timer-foundation__subtask-action--delete motion-interactive"
-                              data-floating-subtask-action="delete"
-                              aria-label={`Delete subtask: ${subtask.title}`}
-                              disabled={interactionBlocked}
-                              onClick={() => void runMutation(() => deleteListBoardSubtask({
-                                subtaskId: subtask.id,
-                                taskId: task.id,
-                                listId: task.listId,
-                                expectedUpdatedAt: subtask.updatedAt,
-                              }))}
-                            >×</button>
-                          </Tooltip>
+                          {editing && editor ? (
+                            <>
+                              <Tooltip content="Cancel subtask edit" align="end">
+                                <button
+                                  type="button"
+                                  className="floating-timer-foundation__subtask-action motion-interactive"
+                                  data-floating-subtask-action="cancel-edit"
+                                  aria-label="Cancel subtask edit"
+                                  disabled={pending}
+                                  onClick={() => setEditor(null)}
+                                >×</button>
+                              </Tooltip>
+                              <Tooltip content="Save subtask title" align="end">
+                                <button
+                                  type="button"
+                                  className="floating-timer-foundation__subtask-action motion-interactive"
+                                  data-floating-subtask-action="save-edit"
+                                  aria-label="Save subtask title"
+                                  disabled={pending || !editor.value.trim()}
+                                  onClick={() => {
+                                    const title = editor.value.trim();
+                                    if (!title) return;
+                                    void runMutation(
+                                      () => updateListBoardSubtaskTitle({
+                                        subtaskId: editor.id,
+                                        taskId: task.id,
+                                        listId: task.listId,
+                                        expectedTitle: editor.expectedTitle,
+                                        title,
+                                      }),
+                                      () => setEditor(null),
+                                    );
+                                  }}
+                                >✓</button>
+                              </Tooltip>
+                            </>
+                          ) : (
+                            <>
+                              <Tooltip content="Move subtask up" align="end">
+                                <button
+                                  type="button"
+                                  className="floating-timer-foundation__subtask-action motion-interactive"
+                                  data-floating-subtask-action="move-up"
+                                  aria-label={`Move subtask up: ${subtask.title}`}
+                                  disabled={interactionBlocked || index === 0}
+                                  onClick={() => {
+                                    const order = movedOrder(subtasks, subtask.id, "up");
+                                    if (order) void runMutation(() => reorderListBoardSubtasks({
+                                      taskId: task.id,
+                                      listId: task.listId,
+                                      expectedOrder: order.expectedOrder,
+                                      orderedIds: order.orderedIds,
+                                    }));
+                                  }}
+                                >↑</button>
+                              </Tooltip>
+                              <Tooltip content="Move subtask down" align="end">
+                                <button
+                                  type="button"
+                                  className="floating-timer-foundation__subtask-action motion-interactive"
+                                  data-floating-subtask-action="move-down"
+                                  aria-label={`Move subtask down: ${subtask.title}`}
+                                  disabled={interactionBlocked || index === subtasks.length - 1}
+                                  onClick={() => {
+                                    const order = movedOrder(subtasks, subtask.id, "down");
+                                    if (order) void runMutation(() => reorderListBoardSubtasks({
+                                      taskId: task.id,
+                                      listId: task.listId,
+                                      expectedOrder: order.expectedOrder,
+                                      orderedIds: order.orderedIds,
+                                    }));
+                                  }}
+                                >↓</button>
+                              </Tooltip>
+                              <Tooltip content="Delete subtask" align="end">
+                                <button
+                                  type="button"
+                                  className="floating-timer-foundation__subtask-action floating-timer-foundation__subtask-action--delete motion-interactive"
+                                  data-floating-subtask-action="delete"
+                                  aria-label={`Delete subtask: ${subtask.title}`}
+                                  disabled={interactionBlocked}
+                                  onClick={() => void runMutation(() => deleteListBoardSubtask({
+                                    subtaskId: subtask.id,
+                                    taskId: task.id,
+                                    listId: task.listId,
+                                    expectedUpdatedAt: subtask.updatedAt,
+                                  }))}
+                                >×</button>
+                              </Tooltip>
+                            </>
+                          )}
                         </span>
                       </div>
                     );
