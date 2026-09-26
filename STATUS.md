@@ -321,6 +321,23 @@ The current validated source baseline is therefore `b1ff5910abec82272c4ee57479a4
 
 PR #155 remains open and draft at exact head `2755d598ad2b13b974cda02760ebf44cd5e60b13`; Windows CI #532 passed, physical compositor validation has not run, and GitHub reports the PR non-mergeable against the newer `main`. Preserve it without rebase/merge/source modification until the user explicitly resumes M7.
 
+## Planned post-M10 final comprehensive review
+
+A required **Final Comprehensive Review Stage** is now scheduled after Milestone 10. It is not Milestone 11; the roadmap milestone denominator remains 10.
+
+Planning status only:
+- no final-review task has started or been marked complete;
+- no application source/UI implementation, refactor, or validation is part of this planning update;
+- all previously validated milestone evidence remains unchanged.
+
+The future stage will combine:
+- end-to-end engineering/correctness review against `ENGINEERING_QUALITY.md`, repository invariants, and established Rust/TypeScript/Tauri/SQLite practices;
+- professional UI/UX review covering usability, consistency, visual hierarchy, alignment, spacing, typography, color palette, contrast, accessibility, responsive/adaptive behavior, interaction feedback, and significant application states;
+- exhaustive visual/fidelity comparison against all available Blitzit screenshots/images/references and the indexed source evidence, including screen/state/component/interaction coverage rather than selected spot checks;
+- explicit detection of visual deviations, missing states, missing functionality, incorrect transfers, and source-product parity gaps;
+- a single findings register with explicit disposition and evidence-backed remediation/revalidation before the final gate can pass.
+
+For every remaining milestone M7–M10, completion now also requires sufficient user-facing error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone. Every milestone completion report must include its total validated source diff as `+A/-B` lines, measured from its validated starting source SHA to its final validated source SHA.
 ## Durable correctness decisions
 
 Future work must preserve:
