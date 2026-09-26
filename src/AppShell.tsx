@@ -13,7 +13,8 @@ import {
 } from "./listEditorApi";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import { archiveListFromSettings } from "./listSettingsApi";
-import { SearchPalette } from "./SearchPalette";
+import { SearchPalette, type SearchPaletteMode } from "./SearchPalette";
+import { isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
 import { ThemeSettingsPanel } from "./ThemeSettingsPanel";
 import "./appShell.css";
 
@@ -117,20 +118,19 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [duplicatePendingId, setDuplicatePendingId] = useState<string | null>(null);
   const [homeMutationError, setHomeMutationError] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchMode, setSearchMode] = useState<SearchPaletteMode>("search");
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (
-        !event.ctrlKey
-        || event.altKey
-        || event.shiftKey
-        || event.key.toLowerCase() !== "f"
-      ) return;
+      const shortcut = resolveInAppShortcut(event);
+      if (shortcut !== "search" && shortcut !== "create-task") return;
+      if (editorState || archiveTarget) return;
+      if (shortcut === "create-task" && isEditableShortcutTarget(event.target)) return;
 
       event.preventDefault();
-      if (editorState || archiveTarget) return;
+      setSearchMode(shortcut === "create-task" ? "task-create" : "search");
       setSearchOpen(true);
     };
 
@@ -185,6 +185,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
 
   function handleNavigate(destination: AppDestination) {
     if (destination === "search") {
+      setSearchMode("search");
       setSearchOpen(true);
       return;
     }
@@ -375,6 +376,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
 
       <SearchPalette
         open={searchOpen}
+        initialMode={searchMode}
         onRequestClose={() => setSearchOpen(false)}
         onOpenList={(listId) => openBoardTarget({ kind: "list", id: listId })}
         onOpenTask={(task) => openBoardTarget({ kind: "list", id: task.listId })}
