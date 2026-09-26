@@ -34,7 +34,6 @@ export type FloatingTimerFoundationProps = {
   transitionPending?: boolean;
   transitionError?: string | null;
   shortcutStatus?: string | null;
-  refreshKey?: number;
   onPresentationReady?: () => void;
   fixtureBoard?: ListBoardSnapshot;
   fixtureTimer?: TimerSessionPayload | null;
@@ -60,7 +59,6 @@ export function FloatingTimerFoundation({
   transitionPending = false,
   transitionError = null,
   shortcutStatus = null,
-  refreshKey = 0,
   onPresentationReady,
   fixtureBoard,
   fixtureTimer = null,
@@ -172,7 +170,7 @@ export function FloatingTimerFoundation({
     return () => {
       disposed = true;
     };
-  }, [fixtureBoard, fixtureMode, liveTaskId, refreshKey]);
+  }, [fixtureBoard, fixtureMode, liveTaskId]);
 
   const presentationReady = fixtureMode
     || (timerSettled && (liveTaskId === null || boardTaskId === liveTaskId));
