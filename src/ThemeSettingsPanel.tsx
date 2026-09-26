@@ -30,7 +30,7 @@ export function ThemeSettingsPanelView({
       <header className="theme-settings__header">
         <p className="theme-settings__eyebrow type-metadata">Settings</p>
         <h1 id="theme-settings-title" className="type-page-title">Preferences</h1>
-        <p className="theme-settings__intro">Choose how Narro appears on this device.</p>
+        <p className="theme-settings__intro">Manage Narro's local Windows appearance and shortcuts.</p>
       </header>
 
       <section className="theme-settings__section" aria-labelledby="theme-general-title">
