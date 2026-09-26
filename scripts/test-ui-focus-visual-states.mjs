@@ -9,7 +9,9 @@ function invariant(condition, message) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const row = read("src/FocusTaskRow.tsx");
 const actions = read("src/FocusLiveActions.tsx");
+const timerApi = read("src/timerSessionApi.ts");
 const styles = read("src/focusVisualStates.css");
 const actionSlots = read("src/focusActionSlots.css");
 const fixture = read("src/focusPanelVisualFixture.tsx");
@@ -21,7 +23,7 @@ invariant(
   "live-card visual state must project the authoritative timer state directly",
 );
 invariant(
-  panel.includes('data-focus-overdue={task.isOverdue ? "true" : "false"}'),
+  row.includes('data-focus-overdue={task.isOverdue ? "true" : "false"}'),
   "ordinary Focus rows must project authoritative overdue state",
 );
 invariant(
@@ -37,15 +39,17 @@ invariant(
   "generic idle copy must remain available outside the item-16 empty/no-eligible states",
 );
 for (const forbidden of [
-  "startTimerTask(",
-  "pauseTimer(",
-  "resumeTimer(",
-  "startManualBreakTimer(",
-  "completeTimerTask(",
-  "switchTimerTask(",
+  'invoke<TimerSessionPayload>("timer_',
+  'invoke("timer_',
+  "Date.now(",
+  "performance.now(",
+  "setInterval(",
 ]) {
-  invariant(!panel.includes(forbidden), `FocusPanel presentation must not become timer authority via ${forbidden}`);
+  invariant(!panel.includes(forbidden), `FocusPanel must not bypass typed timer/session authority via ${forbidden}`);
 }
+invariant(panel.includes("snapshotTimerSession()"), "Make Live must read fresh authoritative timer state");
+invariant(panel.includes("switchTimerTask(task.id, mode)"), "Make Live must switch through the typed authoritative timer API");
+invariant(timerApi.includes('invoke<TimerSessionPayload>("timer_switch_task"'), "typed switch API must remain the native timer boundary");
 
 for (const state of ["running", "paused", "break", "time_up", "overtime_running", "overtime_paused"]) {
   invariant(
@@ -74,6 +78,7 @@ invariant(
 invariant(actions.includes('aria-expanded={notesExpanded}'), "Notes control must expose its existing expanded state");
 invariant(actions.includes('className="focus-panel__notes" hidden={!notesExpanded}'), "Notes visual state must reuse existing expansion behavior");
 invariant(actions.includes('<TaskNotes'), "expanded Notes must keep the established TaskNotes editor path");
+invariant(actions.includes('void run("extend", extendTimer, "Work extended into overtime.")'), "Time's Up must expose authoritative Extend");
 
 for (const scenario of ["running", "paused-metrics", "break", "time-up", "overtime", "notes-expanded", "no-eligible"]) {
   invariant(fixture.includes(`"${scenario}"`), `visual fixture is missing ${scenario} scenario`);
