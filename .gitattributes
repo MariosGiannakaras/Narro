@@ -1,7 +1,0 @@
-# Blitzit raw video evidence can be large; keep common video formats in Git LFS.
-reference/original-blitzit-videos/inbox/*.mp4 filter=lfs diff=lfs merge=lfs -text
-reference/original-blitzit-videos/inbox/*.mov filter=lfs diff=lfs merge=lfs -text
-reference/original-blitzit-videos/inbox/*.mkv filter=lfs diff=lfs merge=lfs -text
-reference/original-blitzit-videos/inbox/*.webm filter=lfs diff=lfs merge=lfs -text
-reference/original-blitzit-videos/inbox/*.avi filter=lfs diff=lfs merge=lfs -text
-reference/original-blitzit-videos/inbox/*.m4v filter=lfs diff=lfs merge=lfs -text

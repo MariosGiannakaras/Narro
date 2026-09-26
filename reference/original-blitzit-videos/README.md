@@ -41,13 +41,11 @@ Visual/source precedence and interpretation remain governed by:
 - `docs/BLITZIT_HISTORY_RISK_INDEX.md`
 - `AGENTS.md`
 
-## Large video files
+## Video file storage
 
-Common video formats in the `inbox/` path are configured for Git LFS in the repository `.gitattributes`.
+Videos in this inbox are intended to be committed/uploaded as normal repository files. No Git LFS requirement applies.
 
-Transcripts and notes should remain normal Git text files so they are searchable and diffable.
-
-If an upload method cannot handle a large binary directly, use a Git client with Git LFS enabled rather than splitting or recompressing the source merely to fit a transport limit.
+Keep original source files intact where practical. If GitHub itself rejects an individual file because of a platform file-size limit, record that transport limitation rather than silently recompressing or altering the evidence.
 
 ## Future processing
 
