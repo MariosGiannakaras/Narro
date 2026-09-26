@@ -245,13 +245,13 @@ mod tests {
         )
         .expect("create top");
 
-        let tasks = crate::persistence::tasks::active_tasks_in_bucket(
-            &conn,
-            list_id,
-            PlanningLane::Today,
-        )
-        .expect("load lane");
-        assert_eq!(tasks.iter().map(|task| task.id).collect::<Vec<_>>(), vec![top.id, bottom.id]);
+        let tasks =
+            crate::persistence::tasks::active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
+                .expect("load lane");
+        assert_eq!(
+            tasks.iter().map(|task| task.id).collect::<Vec<_>>(),
+            vec![top.id, bottom.id]
+        );
         assert_eq!(top.sort_rank, 0);
         assert_eq!(top.est_seconds, Some(1200));
     }
