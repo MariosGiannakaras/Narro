@@ -228,20 +228,20 @@ Acceptance criteria:
 
 ### 2026-09-26 parity/reliability reconciliation
 
-- [ ] Reconcile confirmed production omissions discovered after Gate E without redoing the validated M5 foundation:
-  - [ ] A1 List Duplicate: production wiring plus durable independent list/task identities.
-  - [ ] A2 Render persisted local list icons on active/archive list surfaces with safe fallback.
-  - [ ] A3 Top-of-lane `+` creates at highest priority atomically.
-  - [ ] A4 Normal task create accepts optional EST atomically using existing duration validation.
-  - [ ] A5 Main board task completion and explicit permanent-delete confirmation use validated persistence/session/report semantics.
-  - [ ] A6 Pointer/keyboard completion into Done without treating Done as a normal planning reorder lane.
-  - [ ] A7 Re-enable safe identity-based per-task edits in All Lists; aggregate reorder remains disabled.
-  - [ ] A8 Search matched-substring highlighting with unchanged keyboard/focus behavior.
-  - [ ] A9 Remove normal-main diagnostic JSON projection while preserving the user-facing Pomodoro resume prompt.
-  - [ ] A19 Done lane shows the documented local-month completion count.
-  - [ ] Evolve temporary static tests that encoded these earlier absences into final safety/product invariants.
+- [x] Reconcile confirmed production omissions discovered after Gate E without redoing the validated M5 foundation:
+  - [x] A1 List Duplicate: production wiring plus durable independent list/task identities.
+  - [x] A2 Render persisted local list icons on active/archive list surfaces with safe fallback.
+  - [x] A3 Top-of-lane `+` creates at highest priority atomically.
+  - [x] A4 Normal task create accepts optional EST atomically using existing duration validation.
+  - [x] A5 Main board task completion and explicit permanent-delete confirmation use validated persistence/session/report semantics.
+  - [x] A6 Pointer/keyboard completion into Done without treating Done as a normal planning reorder lane.
+  - [x] A7 Re-enable safe identity-based per-task edits in All Lists; aggregate reorder remains disabled.
+  - [x] A8 Search matched-substring highlighting with unchanged keyboard/focus behavior.
+  - [x] A9 Remove normal-main diagnostic JSON projection while preserving the user-facing Pomodoro resume prompt.
+  - [x] A19 Done lane shows the documented local-month completion count.
+  - [x] Evolve temporary static tests that encoded these earlier absences into final safety/product invariants.
 
-**Gate E status: REOPENED by new repository-backed parity evidence on 2026-09-26.** The original 28 slices remain historically validated; this reconciliation gate must pass before Milestone 5 is again complete.
+**Gate E reconciliation result: PASS / proceed to the reopened Milestone 6 reconciliation gate.** PR #156 exact head `2cde42c10389c2417e1b6e356eae59150ebff8ce` passed Windows CI #539, including repository preflight, Rust checks/tests, Windows visual regression, Tauri release build, visual artifact `narro-m5-visual-regression`, and diagnostic harness artifact. Expected-head guarded squash merge `4e315f551737d729f76e5f561dd8d7404717e157` passed resulting-main Windows CI #540 through the repository's identical-tree validation gate. The validated source baseline for this reconciliation is `4e315f551737d729f76e5f561dd8d7404717e157`.
 
 ## Milestone 6 — Blitz Mode / Focus Panel
 
