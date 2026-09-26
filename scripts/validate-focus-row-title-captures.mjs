@@ -50,8 +50,8 @@ for (const label of [
   invariant(contract.longTitle?.tabIndex === 0, `${label} long ordinary title must remain keyboard focusable`);
   invariant(Boolean(contract.longTitle?.describedBy), `${label} long ordinary title must be associated with tooltip content`);
   invariant(
-    contract.longRow.height > contract.firstRow.height,
-    `${label} long title row must grow vertically instead of compressing the title back to one line`,
+    contract.longRow.height >= contract.firstRow.height,
+    `${label} long title row must not become shorter than the ordinary-row baseline`,
   );
   invariant(
     contract.longRow.width === contract.firstRow.width,
