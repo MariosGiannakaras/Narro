@@ -355,7 +355,6 @@ function FocusSurfaceProduct() {
             transitionPending={transitionPending}
             transitionError={transitionError}
             shortcutStatus={shortcutStatus}
-            refreshKey={focusRefreshKey}
             onResizePendingChange={reportResizePending}
             attentionPulseSequence={findTimerPulse}
             onAttentionPulseEnd={(sequence) => {
