@@ -51,12 +51,24 @@ invariant(
     && appShell.includes('initialMode={searchMode}'),
   "Main must route Ctrl+Alt+T to task-create and Ctrl+F to SearchPalette",
 );
+invariant(
+  appShell.includes('emitTo("focusSurface", FOCUS_IN_APP_SHORTCUT_EVENT, shortcut)')
+    && appShell.includes("snapshotTimerSession()")
+    && !appShell.includes("pauseTimer(")
+    && !appShell.includes("completeTimerTask("),
+  "Main focus shortcuts must be routed cross-window after a read-only authoritative snapshot, without duplicating timer mutations",
+);
 for (const shortcut of ["start-break", "pause-resume", "skip-task", "finish-task", "notes"]) {
   invariant(
     focusActions.includes(`case "${shortcut}"`),
     `Focus action shortcut ${shortcut} is not wired`,
   );
 }
+invariant(
+  focusActions.includes("listen<InAppShortcut>(FOCUS_IN_APP_SHORTCUT_EVENT")
+    && focusActions.includes("shortcutHandlerRef.current(event.payload)"),
+  "Focus action shortcuts routed from Main must reach the same live-action handler",
+);
 for (const authority of [
   "startManualBreakTimer",
   "pauseTimer",
@@ -74,10 +86,22 @@ invariant(
   "Focus surface must support quick task creation and explicitly reject Search",
 );
 invariant(
+  focusEntry.includes("isFocusActionShortcut(shortcut)")
+    && focusEntry.includes("No active Focus task is available for this shortcut."),
+  "Focus surface must surface unavailable live-action shortcuts when no task is active",
+);
+invariant(
   searchPalette.includes("taskCreateOnly")
     && searchPalette.includes('openingMode === "task-create"')
     && searchPalette.includes("onRequestClose"),
   "Focus quick-create must reuse SearchPalette without exposing Search mode",
+);
+const floating = fs.readFileSync("src/FloatingTimerFoundation.tsx", "utf8");
+invariant(
+  floating.includes('data-floating-actions-controller="true"')
+    && floating.includes('style={{ display: expanded ? "contents" : "none" }}')
+    && floating.includes("onEnsureNotesVisible={() => requestExpanded(true)}"),
+  "Collapsed Floating Timer must keep the shortcut controller mounted and expand safely for Notes",
 );
 
 console.log("In-app shortcut contracts passed.");
