@@ -298,6 +298,7 @@ These requirements apply separately to every remaining roadmap milestone. They d
 - Automated tests/fixtures and physical Windows checks must cover the meaningful edge cases appropriate to the milestone, following `ENGINEERING_QUALITY.md`; unavailable checks remain `NOT RUN`, never implied PASS.
 - User-facing operations must define what the user sees while work is pending, when it fails, when required state/resources are unavailable, and after recovery/retry where applicable.
 - A milestone cannot be reported complete while known significant error, loading, unavailable, recovery, or edge-case states in that milestone remain unhandled or untracked.
+- When user-supplied Blitzit videos/transcripts exist before an affected unfinished milestone closes, analyze the materially relevant subset before milestone completion rather than deferring known interaction/motion evidence to the final review. Focus Panel/Floating Timer/transition/expand-collapse evidence present before M7 closure is M7 evidence.
 - Every milestone completion report must include that milestone's **total source diff** as `+A/-B` lines. Calculate it from the milestone's validated starting source SHA to its final validated source SHA; documentation/tracking-only commits do not replace the source baseline and are excluded from this source-diff figure.
 
 ## Milestone 7 — Floating Timer mode
@@ -448,7 +449,10 @@ This is a required post-roadmap quality stage and **does not become an 11th road
 
 - [ ] Freeze the final review baseline at the validated Milestone 10 source SHA and record the complete application/version/environment under review.
 - [ ] Inventory all relevant Narro specifications, validated work logs, screenshots, visual fixtures, and current product states that define expected behavior.
-- [ ] Inventory **all available Blitzit screenshots, images, and visual references**, including the supplied reference screenshots and the evidence indexed by `docs/RESEARCH_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md`.
+- [ ] Inventory **all available Blitzit screenshots, images, videos, transcripts/captions, and visual references**, including the supplied reference screenshots, `reference/original-blitzit-videos/inbox/`, and the evidence indexed by `docs/RESEARCH_EVIDENCE.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md`.
+- [ ] Ingest and catalog the complete user-supplied Blitzit video/transcript corpus in `docs/BLITZIT_VIDEO_EVIDENCE.md`: account for every uploaded raw file, pair or explicitly mark transcripts/captions, record source/version/environment metadata when available, and preserve traceability to originals.
+- [ ] Complete timestamped analysis of the uploaded recordings for interaction flow, UI states, animations/motion, transition/resize ordering, transient/loading/error/empty/unavailable states, visible accessibility cues, and material transcript claims; distinguish direct observation from narration and inference.
+- [ ] Route every material video-derived discrepancy, missing transfer, source conflict, reliability issue, or UX finding into the final findings register and any affected specification/tracking document; confirm no uploaded video/transcript was silently skipped.
 - [ ] Build a complete screen/state/interaction matrix so every relevant application surface has an explicit final-review entry rather than relying on spot checks.
 
 ### End-to-end implementation and engineering quality review
@@ -470,7 +474,7 @@ This is a required post-roadmap quality stage and **does not become an 11th road
 
 ### Detailed Blitzit visual and functional fidelity verification
 
-- [ ] Compare every relevant Narro screen, state, component, and interaction against the available Blitzit visual/source evidence; do not limit this pass to screens already covered by automated fixtures.
+- [ ] Compare every relevant Narro screen, state, component, and interaction against the available Blitzit screenshot, video, transcript, and source evidence; do not limit this pass to screens already covered by automated fixtures. Use direct video evidence specifically for motion, sequencing, transient states, and interaction behavior where the sequence is visible.
 - [ ] Verify layout structure, dimensions, proportions, alignment, spacing, typography, wrapping/truncation, icons, colors, borders, radii, shadows/elevation, dividers, progress/timer presentation, states, overlays, dialogs, menus, empty states, error states, loading/waiting states, and interaction details.
 - [ ] Compare light/dark variants and any state-specific references separately when source evidence exists.
 - [ ] Verify that functionality shown or documented in the source product was not silently omitted during implementation. Any apparent missing transfer must be traced to implementation, an intentional Narro deviation, superseded/ambiguous source evidence, or an explicit product decision.
