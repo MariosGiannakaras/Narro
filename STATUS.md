@@ -229,33 +229,43 @@ M7 therefore remains **incomplete at 9/14 top-level items**. By explicit user di
 
 The current validated application source baseline is `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`. Documentation/tracking-only commits do not replace it.
 
-## Milestone 8 — first source slice validated
+## Milestone 8 — shortcut foundation validated; Preferences implementation next
 
-Confirmed Windows in-app shortcuts are now implemented and validated.
+M8 has validated its confirmed in-app and global shortcut surfaces plus the versioned local preference persistence foundation.
 
-Authoritative evidence:
-- PR #166 exact head: `18a4d2b5a26bc705bf7cdf7bea647275b4877890`;
-- Windows CI #569 / run `36255993870`: **PASS**;
+Latest authoritative source evidence:
+- PR #168 exact validated head: `e63dbd3107fca8ccf95d35506c7a16e4eeaac9f6`;
+- Windows CI #574 / run `36284019516`: **PASS**;
 - Repository Preflight, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release build, and required artifact uploads: PASS;
-- visual artifact: `narro-m5-visual-regression`, id `10911290878`, digest `sha256:7f7b8bb93f54d437edb8751a43fc0da9e4b5d0fd1832abee5583581a0bdb7aea`;
-- diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10910393452`, digest `sha256:faff93e41553adc51a0ced99172795517f51d918f2873ce6a294af6c59d56ec9`;
-- expected-head guarded squash merge: `030274149cafdf590c5aa08f2cd1c9409595c7aa`;
-- resulting-main Windows CI #570 / run `36262618691`: **PASS** through the identical-tree validation gate.
+- visual artifact: `narro-m5-visual-regression`, id `10919562623`, digest `sha256:781ff8dd2dea000db2ba7e1dc6be602fc551f119e30e6d47e88e8242baf9a766`;
+- diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10919742072`, digest `sha256:b2febb1520437238b2ed21e8271116c0a823a8984f592296401f3e80abc63528`;
+- expected-head guarded squash merge: `699b6ac46bcc6ebcabbcded21f929a7b32018b42`;
+- resulting-main Windows CI #575 / run `36284525078`: **PASS** through the identical-tree validation gate.
 
-Validated behavior:
-- `Ctrl+Alt+T` opens the persistence-first quick-task workflow;
-- `Ctrl+Alt+B/P/S/F/N` reuse existing authoritative Focus Break/Pause-Resume/Skip/Done/Notes handlers rather than duplicating domain logic;
-- `Ctrl+F` opens Search in Main and returns explicit unavailable feedback in Focus mode;
-- Main routes live Focus actions to `focusSurface` after a read-only authoritative timer snapshot;
-- unavailable/no-active-task and routing failures are surfaced to the user;
-- collapsed Floating Timer keeps the live-action controller mounted but visually absent so shortcuts remain active without changing compact layout;
-- Notes safely expands the Floating Timer before opening the editor;
-- editable text/select/contenteditable surfaces suppress destructive shortcut handling;
-- Start Break follows the already-validated authoritative break lifecycle.
+Validated global-shortcut behavior:
+- existing native `Ctrl+Shift+B/T/P` RegisterHotKey authority is preserved;
+- preferences schema v3 adds persisted per-global enable intent, defaulting all three enabled for legacy compatibility;
+- startup loads persisted shortcut intent before native registration and skips disabled shortcuts;
+- enable/disable operations serialize native transitions with atomic SQLite preference mutation;
+- persistence failure after native transition restores the previous native registration state where possible;
+- enabled intent is distinct from actual registered/conflict state;
+- Settings exposes Loading/Saving/Registered/Disabled/Shortcut conflict/Unavailable/Retry states with explicit feedback;
+- deterministic visual fixtures cover the conflict/retry state;
+- Theme writes now reuse the same atomic preference mutation boundary rather than overwriting an independently changed payload.
 
-The current validated application source baseline is `030274149cafdf590c5aa08f2cd1c9409595c7aa`. Tracking-only commits after it do not replace the source baseline.
+The typed/versioned SQLite preference payload already covers the current General, Focus, Alerts and Celebration domains and is regression-tested across database reopen; ShortcutPreferences is now part of that same durable model.
 
-M8 remains incomplete. Next source slice: preserve the existing native `Ctrl+Shift+B/T/P` registration/diagnostics implementation while adding persisted per-global enable toggles and product-facing conflict/error state.
+M8 validated top-level state is now **5/8**:
+- in-app shortcuts: complete;
+- global shortcuts + toggles: complete;
+- global conflict/error feedback: complete;
+- Start Break shortcut lifecycle: complete;
+- versioned local preference persistence: complete;
+- full Preferences UI/behavior, conditional/nested behavior, and Windows-locale date/time presentation remain open.
+
+The current validated application source baseline is `699b6ac46bcc6ebcabbcded21f929a7b32018b42`. Tracking-only commits do not replace it.
+
+Next source slice: implement the documented Preferences sections using the existing typed persistence model and atomic mutation boundary, with deterministic upper/middle/lower visual fixtures and explicit loading/error/conditional state handling.
 
 ## CI efficiency baseline
 

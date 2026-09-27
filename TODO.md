@@ -384,13 +384,13 @@ Acceptance criteria:
 ## Milestone 8 — Windows shortcuts and preferences
 
 - [x] Implement confirmed Windows in-app shortcuts. PR #166 exact head `18a4d2b5a26bc705bf7cdf7bea647275b4877890` passed Windows CI #569; guarded squash merge `030274149cafdf590c5aa08f2cd1c9409595c7aa` passed resulting-main CI #570.
-- [ ] Implement confirmed Windows global shortcuts plus per-global enable toggles.
-- [ ] Add conflict/error feedback for unavailable global shortcuts.
+- [x] Implement confirmed Windows global shortcuts plus per-global enable toggles. PR #168 exact head `e63dbd3107fca8ccf95d35506c7a16e4eeaac9f6` passed Windows CI #574; guarded squash merge `699b6ac46bcc6ebcabbcded21f929a7b32018b42` passed resulting-main CI #575.
+- [x] Add conflict/error feedback for unavailable global shortcuts. Persisted enabled intent remains distinct from native registration; conflict/unavailable/retry and persistence/native rollback paths are explicit and validated in PR #168 / CI #574.
 - [ ] Implement Preferences sections evidenced in screenshots/docs: monitor/side, hide times, EST parsing, theme, timezone, Pomodoro, break/work durations, scrolling title, timed alerts, sounds/previews, timer flash, notification alerts, schedule reminders, completion celebration.
 - [x] Ensure Start Break shortcut pauses the current task, starts break, and follows documented resume/skip behavior. The in-app shortcut reuses the existing authoritative Focus break/pause/resume/skip lifecycle and passed PR #166 / CI #569.
 - [ ] Preserve conditional/nested setting behavior without disruptive scroll jumps.
 - [ ] Use Windows locale for date/time presentation by default.
-- [ ] Persist preferences in SQLite or a versioned local settings layer.
+- [x] Persist preferences in SQLite or a versioned local settings layer. The typed versioned SQLite payload already persists all current General/Focus/Alerts/Celebration fields and now v3 ShortcutPreferences; reopen/migration/atomic mutation coverage passed PR #168 / CI #574.
 
 Acceptance criteria:
 
