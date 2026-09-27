@@ -1,7 +1,7 @@
 import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
 import type { BoardSubtask, ListBoardTask } from "./listBoardApi";
-import { Tooltip } from "./overlayPrimitives";
+import { Menu, MenuItem, Tooltip } from "./overlayPrimitives";
 import { TaskNotes } from "./TaskNotes";
 import { TaskSubtasks, type TaskSubtasksModel } from "./TaskSubtasks";
 import type { TimerStateKind } from "./timerSessionApi";
@@ -21,6 +21,9 @@ type FixturePresentationState =
 export type TaskCardActions = {
   onMoveUp?: () => void;
   onMoveDown?: () => void;
+  onSchedule?: () => void;
+  onChangeList?: () => void;
+  onDuplicate?: () => void;
   onDelete?: () => void;
 };
 
@@ -175,7 +178,7 @@ function TaskActionButton({
   label: string;
   glyph: string;
   action: () => void;
-  actionId: "move-up" | "move-down" | "delete";
+  actionId: "move-up" | "move-down";
 }) {
   return (
     <Tooltip content={label}>
@@ -194,9 +197,55 @@ function TaskActionButton({
   );
 }
 
-function TaskActionRail({ actions }: { actions: TaskCardActions }) {
+function TaskOverflowMenu({
+  actions,
+  scheduleActionLabel,
+}: {
+  actions: TaskCardActions;
+  scheduleActionLabel: "Schedule" | "Update Schedule";
+}) {
+  const hasMenuAction = Boolean(
+    actions.onSchedule || actions.onChangeList || actions.onDuplicate || actions.onDelete,
+  );
+  if (!hasMenuAction) return null;
+
   return (
-    <span className="list-board-task__actions" data-task-actions="reorder">
+    <span
+      className="list-board-task__overflow"
+      data-task-action="overflow"
+      onPointerDown={(event) => event.stopPropagation()}
+    >
+      <Menu
+        triggerLabel="Task actions"
+        align="end"
+        trigger={<span aria-hidden="true">…</span>}
+      >
+        {actions.onSchedule ? (
+          <MenuItem onSelect={actions.onSchedule}>{scheduleActionLabel}</MenuItem>
+        ) : null}
+        {actions.onChangeList ? (
+          <MenuItem onSelect={actions.onChangeList}>Change List</MenuItem>
+        ) : null}
+        {actions.onDuplicate ? (
+          <MenuItem onSelect={actions.onDuplicate}>Duplicate</MenuItem>
+        ) : null}
+        {actions.onDelete ? (
+          <MenuItem destructive onSelect={actions.onDelete}>Delete</MenuItem>
+        ) : null}
+      </Menu>
+    </span>
+  );
+}
+
+function TaskActionRail({
+  actions,
+  scheduleActionLabel,
+}: {
+  actions: TaskCardActions;
+  scheduleActionLabel: "Schedule" | "Update Schedule";
+}) {
+  return (
+    <span className="list-board-task__actions" data-task-actions="reorder-overflow">
       <span className="list-board-task__action-position" data-task-action-position="move-up">
         {actions.onMoveUp ? (
           <TaskActionButton
@@ -217,15 +266,8 @@ function TaskActionRail({ actions }: { actions: TaskCardActions }) {
           />
         ) : null}
       </span>
-      <span className="list-board-task__action-position" data-task-action-position="delete">
-        {actions.onDelete ? (
-          <TaskActionButton
-            label="Permanently delete task"
-            glyph="×"
-            action={actions.onDelete}
-            actionId="delete"
-          />
-        ) : null}
+      <span className="list-board-task__action-position" data-task-action-position="overflow">
+        <TaskOverflowMenu actions={actions} scheduleActionLabel={scheduleActionLabel} />
       </span>
     </span>
   );
@@ -492,7 +534,12 @@ export function TaskCard({
         : undefined
     );
   const hasActions = Boolean(
-    effectiveActions?.onMoveUp || effectiveActions?.onMoveDown || effectiveActions?.onDelete,
+    effectiveActions?.onMoveUp
+      || effectiveActions?.onMoveDown
+      || effectiveActions?.onSchedule
+      || effectiveActions?.onChangeList
+      || effectiveActions?.onDuplicate
+      || effectiveActions?.onDelete,
   );
   const liveLabel = liveStateLabel(liveState);
   const scheduleStateLabel = task.isOverdue
@@ -562,7 +609,12 @@ export function TaskCard({
                 aria-hidden={hasActions || metricEditor ? undefined : true}
               >
                 {metricEditor ? <MetricEditActions editor={metricEditor} /> : null}
-                {effectiveActions && hasActions ? <TaskActionRail actions={effectiveActions} /> : null}
+                {effectiveActions && hasActions ? (
+                  <TaskActionRail
+                    actions={effectiveActions}
+                    scheduleActionLabel={scheduled || repeatStatus ? "Update Schedule" : "Schedule"}
+                  />
+                ) : null}
               </span>
             </div>
           )}
