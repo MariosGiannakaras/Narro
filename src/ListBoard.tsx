@@ -777,10 +777,10 @@ export function ListBoard({
       setScheduleEditorTaskId(null);
       setNotePanelTaskId(null);
       setSubtaskPanel(null);
-    setChangeListState(null);
-    setChangeListPending(false);
-    setChangeListError(null);
-    setDeleteTarget(null);
+      setChangeListState(null);
+      setChangeListPending(false);
+      setChangeListError(null);
+      setDeleteTarget(null);
       setDeletePending(false);
       setDeleteError(null);
       setListOptions(fixtureOptions(fixtureSnapshot));
@@ -799,9 +799,9 @@ export function ListBoard({
     setNotePanelTaskId(null);
     setSubtaskPanel(null);
     setChangeListState(null);
-      setChangeListPending(false);
-      setChangeListError(null);
-      setDeleteTarget(null);
+    setChangeListPending(false);
+    setChangeListError(null);
+    setDeleteTarget(null);
     setDeletePending(false);
     setDeleteError(null);
     void getListBoardSnapshot(target)
