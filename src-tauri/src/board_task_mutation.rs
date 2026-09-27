@@ -480,9 +480,7 @@ pub fn duplicate_list_board_task(
         BoardTaskMutationError::Task(TaskStoreError::ActiveSession(_))
         | BoardTaskMutationError::Identity(TaskIdentityError::Task(
             TaskStoreError::ActiveSession(_),
-        )) => {
-            CommandError::new("TASK_DUPLICATE_LIVE", error.to_string())
-        }
+        )) => CommandError::new("TASK_DUPLICATE_LIVE", error.to_string()),
         BoardTaskMutationError::Identity(TaskIdentityError::SourceArchived(_))
         | BoardTaskMutationError::Identity(TaskIdentityError::ListArchived(_))
         | BoardTaskMutationError::Identity(TaskIdentityError::ListNotFound(_)) => {
@@ -619,14 +617,8 @@ mod tests {
         )
         .expect("insert closed source session");
 
-        let moved = change_board_task_list(
-            &mut conn,
-            moving.id,
-            source_list,
-            target_list,
-            T1,
-        )
-        .expect("change task list");
+        let moved = change_board_task_list(&mut conn, moving.id, source_list, target_list, T1)
+            .expect("change task list");
 
         assert_eq!(moved.id, moving.id);
         assert_eq!(moved.list_id, target_list);
@@ -635,13 +627,17 @@ mod tests {
         assert_eq!(moved.scheduled_local_date.as_deref(), Some("2026-09-10"));
         assert_eq!(moved.recurrence_parent_task_id, Some(stay.id));
         assert_eq!(
-            ids(&active_tasks_in_bucket(&conn, source_list, PlanningLane::Today)
-                .expect("load compacted source")),
+            ids(
+                &active_tasks_in_bucket(&conn, source_list, PlanningLane::Today)
+                    .expect("load compacted source")
+            ),
             vec![stay.id]
         );
         assert_eq!(
-            ids(&active_tasks_in_bucket(&conn, target_list, PlanningLane::Today)
-                .expect("load appended target")),
+            ids(
+                &active_tasks_in_bucket(&conn, target_list, PlanningLane::Today)
+                    .expect("load appended target")
+            ),
             vec![target.id, moving.id]
         );
         let history_count: i64 = conn
@@ -668,18 +664,17 @@ mod tests {
             .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
             .expect("count initial tasks");
 
-        let stale = change_board_task_list(
-            &mut conn,
-            source.id,
-            target_list,
-            target_list,
-            T1,
-        );
+        let stale = change_board_task_list(&mut conn, source.id, target_list, target_list, T1);
         assert!(matches!(
             stale,
             Err(BoardTaskMutationError::ExpectedListMismatch { .. })
         ));
-        assert_eq!(get_task(&conn, source.id).expect("reload stale source").list_id, source_list);
+        assert_eq!(
+            get_task(&conn, source.id)
+                .expect("reload stale source")
+                .list_id,
+            source_list
+        );
 
         let open_session = crate::domain::ids::SessionId::generate();
         conn.execute(
@@ -704,7 +699,12 @@ mod tests {
             duplicate_board_task(&mut conn, source.id, source_list, T1),
             Err(BoardTaskMutationError::Task(TaskStoreError::ActiveSession(id))) if id == source.id
         ));
-        assert_eq!(get_task(&conn, source.id).expect("reload live source").list_id, source_list);
+        assert_eq!(
+            get_task(&conn, source.id)
+                .expect("reload live source")
+                .list_id,
+            source_list
+        );
         let task_count_after: i64 = conn
             .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
             .expect("count tasks after live rejection");
