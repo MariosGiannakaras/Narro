@@ -19,6 +19,20 @@ Use:
 - `docs/RESEARCH_EVIDENCE.md` for supplied screenshots/video evidence, visual evidence and source precedence;
 - `docs/BLITZIT_VIDEO_EVIDENCE.md` for user-supplied recordings/transcripts, timestamped interaction/motion findings and their dispositions;
 - `docs/SOURCE_AUDIT.md` for exhaustive Help Center page-by-page research, official videos, roadmap, bug reports and public user-feedback synthesis.
+- `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` for the mandatory finding→implementation disposition of parity, video, Help Center, UI/UX and reliability findings.
+
+## Audit incorporation rule
+
+A previously validated milestone is not permission to ignore stronger evidence discovered later.
+
+Before implementing an affected surface, inspect `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`:
+- if the surface has a `FIX_NOW` finding, correct and validate that narrow discrepancy before unrelated forward work;
+- if the finding is routed to a later milestone, ensure it is represented in that milestone's TODO and do not front-run it;
+- if evidence is ambiguous, do not invent behavior;
+- if it is an intentional Narro deviation, preserve the documented reliability/accessibility/agency improvement;
+- when new material evidence is discovered, update the crosswalk and roadmap before continuing implementation based on older assumptions.
+
+This prevents repeated implementation/rework while preserving the ordered 10-milestone roadmap.
 
 ## Evidence is guidance, not an oracle
 
