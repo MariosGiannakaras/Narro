@@ -207,7 +207,7 @@ Examples of supported intent:
 
 Current Preferences screenshot contains `Auto-parse Est. time from title`. [S]
 
-Narro should parse common suffixes case-insensitively and remove/normalize the estimate suffix from the title after successful parse if the implemented interaction matches the source behavior during validation. Exact text-normalization is not directly evidenced. [I]
+Current supplied video evidence resolves the normalization for the demonstrated parser path: when auto-parse is enabled and a supported terminal duration is successfully parsed, the duration is stored as EST and the parsed suffix is removed from the saved visible title. Preserve ordinary titles when no supported terminal suffix parses successfully. See VE-002 in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
 
 ### 4.2 Time Taken
 
@@ -546,6 +546,8 @@ All sounds in Narro must be bundled/local user assets; no remote playback depend
 - Fun GIF on success screen
 - Success sound effect [O/S]
 
+Current supplied video evidence adds one conditional completion rule: when the success screen is enabled, completing the live task shows the success state before any next task starts. `Next Task` and `Take a Break` are directly visible choices. The recording proves `Next Task` starts the next task only after explicit activation; it does **not** prove the post-click domain semantics of `Take a Break`, and it does not resolve the success-screen-disabled progression. [VIDEO-DIRECT/TRANSCRIPT-CLAIM; VE-003]
+
 Use local bundled assets only. [L]
 
 ## 13. Reports
@@ -691,9 +693,9 @@ These are deliberate local UX decisions, not claims about the original product:
 These are intentionally not guessed:
 
 1. Exact animation/effect for `Find focus timer`.
-2. Exact success-screen visuals/GIF rotation behavior.
-3. Whether finishing an active task automatically starts the next eligible task or merely selects it.
-4. Exact title-text mutation after EST suffix parsing.
+2. Exact success-screen visuals/GIF rotation behavior beyond the directly observed success-state structure.
+3. The completion progression when the success screen is **disabled**; VE-003 resolves only the enabled case.
+4. The exact post-click domain transition for the success-screen `Take a Break` choice.
 5. Exact behavior of active-session shutdown in the original Blitzit app.
 6. Exact ordering policy when scheduled tasks and manual tasks share a Today lane outside Focus Panel.
 

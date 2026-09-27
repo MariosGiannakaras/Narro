@@ -379,7 +379,13 @@ Acceptance criteria:
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
 
-**Current M7 gate state:** 9/14 top-level items are validated. The remaining five top-level items are held open by deferred physical/manual Windows checks. By explicit user direction on 2026-09-26, those deferred checks and the not-yet-uploaded Blitzit video corpus do **not** block independent M8 source implementation; M7 must nevertheless remain incomplete until its required physical acceptance closes.
+**Current M7 gate state:** 9/14 top-level items are validated. The remaining five top-level items are held open by deferred physical/manual Windows checks. By explicit user direction on 2026-09-26, those deferred checks do **not** block independent M8 source implementation; M7 must nevertheless remain incomplete until its required physical acceptance closes. The uploaded Blitzit video corpus has now been analyzed separately and does not convert those deferred manual checks into PASS.
+
+### Post-validation video-evidence correction — VE-F003
+
+This correction was discovered from current direct VE-005 evidence after M5 validation. It does **not** reopen M5 as an incomplete roadmap milestone and does not change the 6/10 roadmap counter. It must be implemented narrowly before unrelated M8 Preferences work because it is a confirmed current-source capability missing from a previously validated production surface.
+
+- [ ] Expose current task-menu `Change List` and `Duplicate` behavior using existing persistence/domain authority: Change List moves the same stable task identity atomically to the chosen active list without corrupting schedule/session/history state; Duplicate creates one independent new task identity without aliasing source history/recurrence/session records. Preserve live-task safety, persistence-first UI publication, stale guards, All Lists identity semantics, and explicit error/recovery feedback.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
@@ -387,6 +393,10 @@ Acceptance criteria:
 - [x] Implement confirmed Windows global shortcuts plus per-global enable toggles. PR #168 exact head `e63dbd3107fca8ccf95d35506c7a16e4eeaac9f6` passed Windows CI #574; guarded squash merge `699b6ac46bcc6ebcabbcded21f929a7b32018b42` passed resulting-main CI #575.
 - [x] Add conflict/error feedback for unavailable global shortcuts. Persisted enabled intent remains distinct from native registration; conflict/unavailable/retry and persistence/native rollback paths are explicit and validated in PR #168 / CI #574.
 - [ ] Implement Preferences sections evidenced in screenshots/docs: monitor/side, hide times, EST parsing, theme, timezone, Pomodoro, break/work durations, scrolling title, timed alerts, sounds/previews, timer flash, notification alerts, schedule reminders, completion celebration.
+  - [ ] VE-F001: when `auto_parse_est_from_title` is enabled and a supported terminal duration parses successfully, persist it as EST and remove that parsed suffix from the saved visible title; failed/non-matching parses leave the title untouched.
+  - [ ] VE-F002: when `show_success_screen` is enabled, Done must commit completion and enter the success state before any next task starts; explicit `Next Task` may then start the next eligible task. The success-screen-disabled path keeps current Narro behavior pending stronger evidence/decision.
+  - [ ] Do not invent the post-click timer/session semantics for the directly visible success-screen `Take a Break` control; keep that exact transition unresolved until evidence or an explicit Narro product decision exists.
+  - [ ] VE-F008: preserve in-place conditional children for Pomodoro durations, timed-alert detail, notification-alert detail, reminder lead, and celebration children; hide-times must retain explicit hover disclosure.
 - [x] Ensure Start Break shortcut pauses the current task, starts break, and follows documented resume/skip behavior. The in-app shortcut reuses the existing authoritative Focus break/pause/resume/skip lifecycle and passed PR #166 / CI #569.
 - [ ] Preserve conditional/nested setting behavior without disruptive scroll jumps.
 - [ ] Use Windows locale for date/time presentation by default.

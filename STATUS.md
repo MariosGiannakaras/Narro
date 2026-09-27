@@ -263,9 +263,22 @@ M8 validated top-level state is now **5/8**:
 - versioned local preference persistence: complete;
 - full Preferences UI/behavior, conditional/nested behavior, and Windows-locale date/time presentation remain open.
 
-The current validated application source baseline is `699b6ac46bcc6ebcabbcded21f929a7b32018b42`. Tracking-only commits do not replace it.
+The current validated application source baseline is `699b6ac46bcc6ebcabbcded21f929a7b32018b42`. Tracking/evidence-only commits do not replace it.
 
-Next source slice: implement the documented Preferences sections using the existing typed persistence model and atomic mutation boundary, with deterministic upper/middle/lower visual fixtures and explicit loading/error/conditional state handling.
+### Uploaded Blitzit video corpus — reconciled 2026-09-27
+
+The repository now contains **19/19 paired MP4/SRT sources (38/38 raw files)** under `reference/original-blitzit-videos/inbox/`. Initial ingestion is complete: **19/19 analyzed, 19/19 Narro-reconciled, 19/19 dispositioned**. Coverage lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`; detailed timestamps/classes/dispositions live in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
+
+Material implementation consequences:
+- VE-F003 promotes task-menu `Change List` + `Duplicate` from old B1 ambiguity to current direct behavior evidence; current production lacks those paths, so one narrow post-M5 corrective slice is ordered before unrelated M8 Preferences work. M5 roadmap completion remains intact rather than being re-audited wholesale.
+- VE-F001 resolves EST parser title normalization: a successfully parsed terminal duration is removed from the saved visible title and stored as EST.
+- VE-F002 resolves only the success-screen-enabled Done path: success UI appears before next-task start and `Next Task` is explicit. Success-screen-disabled progression remains unresolved; the visible `Take a Break` post-click domain semantics are not shown and must not be guessed.
+- VE-F008 directly corroborates M8 nested Preferences behavior and hide-times hover disclosure.
+- VE-F004 corroborates Blitzit's live-task note-URL auto-open; Narro's explicit-activation deviation remains binding.
+- VE-F007 adds a coarse ~0.2–0.3 s source Panel→Floating visual sequence but does not close any deferred M7 physical Windows checks.
+- Reports/Sessions findings are routed to M9 and do not front-run M8.
+
+Next source slice: implement the narrow VE-F003 task-menu Change List + Duplicate correction using existing persistence/domain authority and Windows CI discipline. After it validates/merges, resume the documented M8 Preferences sections on the existing typed persistence model and atomic mutation boundary, incorporating VE-F001/VE-F002/VE-F008.
 
 ## CI efficiency baseline
 
@@ -341,9 +354,9 @@ The current validated source baseline is therefore `b1ff5910abec82272c4ee57479a4
 - **M5/Main reconciliation — COMPLETE:** A1–A9 and A19.
 - **M6/Focus reconciliation — COMPLETE:** A10–A17.
 - **M7/Floating reconciliation — DEFERRED:** A18 plus the already-active compositor/physical work. By explicit user direction, implementation stops before M7 and awaits the user's next instruction.
-- **B1 Task Change list/Duplicate:** unresolved fidelity/product requirement; do not implement until the current requirement is established.
+- **B1 Task Change List/Duplicate:** RESOLVED by current direct VE-005 evidence. Both are present current task-menu actions; implement the missing Narro production path narrowly without reopening unrelated M5 work.
 - **B2 exact Blitz now placement / B3 exact swatch palette:** visual-fidelity questions for the scheduled final parity pass unless stronger current evidence promotes them.
-- **B4 Done auto-start next task:** current Narro auto-starts the next eligible task after committed completion, but source behavior remains explicitly unresolved. Preserve current behavior until an explicit product decision or stronger evidence exists.
+- **B4 Done auto-start next task:** PARTIALLY RESOLVED by VE-003. With success screen enabled, completion enters success UI first and next-task start waits for explicit `Next Task`. The success-screen-disabled path remains unresolved; preserve current Narro behavior there until stronger evidence/decision. `Take a Break` is visible but its post-click timer/session semantics remain unproven.
 - Intentional Narro deviations in audit section C remain binding and are not regressions.
 
 PR #155 remains open and draft at exact head `2755d598ad2b13b974cda02760ebf44cd5e60b13`; Windows CI #532 passed, physical compositor validation has not run, and GitHub reports the PR non-mergeable against the newer `main`. Preserve it without rebase/merge/source modification until the user explicitly resumes M7.
