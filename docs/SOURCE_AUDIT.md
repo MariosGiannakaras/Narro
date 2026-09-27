@@ -18,6 +18,23 @@ Evidence classes:
 
 Do not convert planned Blitzit features into Narro parity requirements merely because they appear on a roadmap.
 
+## 1.1 User-supplied current video/transcript reconciliation — 2026-09-27
+
+The uploaded corpus under `reference/original-blitzit-videos/inbox/` contains 19 MP4/SRT pairs. All 19 are inventoried, analyzed, reconciled and dispositioned in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
+
+Direct video evidence materially changes or sharpens these source conclusions:
+
+- **Tasks / current overflow:** VE-005 directly shows `Schedule`, `Change List`, `Duplicate`, and `Delete`. `Change List` and `Duplicate` are promoted from older screenshot-only ambiguity to current direct behavior evidence.
+- **EST title parsing:** VE-002 directly shows that a successfully parsed terminal duration is removed from the saved visible task title and stored separately as EST.
+- **Completion progression:** VE-003 resolves the success-screen-enabled case only. Done enters the success state first; `Next Task` and `Take a Break` are visible; the next task starts after explicit `Next Task`. The success-screen-disabled path and the post-click domain result of `Take a Break` remain unresolved.
+- **Preferences:** VE-014 directly confirms nested conditional controls for Pomodoro, timed alerts, notification alerts and completion celebration, plus the same monitor/side, hide-times, theme and scrolling-title families already present in screenshots/docs.
+- **Notes:** VE-010 corroborates Blitzit's automatic note-URL opening when a task becomes live. Narro intentionally diverges and requires explicit activation.
+- **Recurrence:** VE-017 confirms Replace Existing / No Repeat / Delete Existing controls and explains intentional detached-child coexistence. This must not weaken Narro's idempotent-occurrence/anti-duplication invariant.
+- **Reports/Sessions:** VE-011/012/015 reinforce session-ledger-derived reporting and session editing. The visible PDF control in VE-015 is not proof of a working export because the narration says that export was still “available soon”.
+- **Panel → Floating motion:** VE-003 permits only a coarse ~0.2–0.3 s visible resize/reposition estimate; it does not establish exact easing and cannot close Narro's physical Windows M7 matrix.
+
+Tutorial narration about accounts, pricing, integrations, AI, mobile, community and future plans is contextual unless the same sequence supplies relevant in-product behavior. It must not be converted into Narro requirements.
+
 ## 2. Complete current Help Center navigation
 
 The current Help Center exposes these pages.
