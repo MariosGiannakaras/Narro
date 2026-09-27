@@ -53,7 +53,8 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-task-recurrence-control="replace-existing"'), `${label} Replace Existing Tasks control is missing`);
   invariant(dom.includes('data-task-recurrence-weekday="monday"'), `${label} custom recurrence weekday controls are missing`);
   invariant(dom.includes('Date-only schedules never round-trip through UTC.'), `${label} date-only semantic explanation is missing`);
-  invariant(dom.includes('modified/history-bearing children remain independent'), `${label} replace-existing preservation warning is missing`);
+  invariant(dom.includes("Replace existing tasks (3)"), `${label} authoritative replace-existing count is missing`);
+  invariant(dom.includes("customized or history-bearing tasks are preserved"), `${label} replace-existing preservation guidance is missing`);
 
   const contractMatch = dom.match(/<script id="task-schedule-visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
   invariant(contractMatch, `${label} geometry contract is missing`);
