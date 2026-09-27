@@ -85,15 +85,15 @@ pub fn cleanup_stale_schedule_preference_effects(
     conn: &Connection,
 ) -> Result<usize, SchedulePreferenceReminderError> {
     conn.execute(
-        "DELETE FROM schedule_preference_reminder_effects AS e
+        "DELETE FROM schedule_preference_reminder_effects
          WHERE NOT EXISTS (
              SELECT 1
              FROM tasks t
-             WHERE t.id = e.task_id
+             WHERE t.id = schedule_preference_reminder_effects.task_id
                AND t.schedule_kind = 'local_datetime'
-               AND t.scheduled_local_date = e.scheduled_local_date
-               AND t.scheduled_local_time = e.scheduled_local_time
-               AND t.schedule_timezone = e.timezone
+               AND t.scheduled_local_date = schedule_preference_reminder_effects.scheduled_local_date
+               AND t.scheduled_local_time = schedule_preference_reminder_effects.scheduled_local_time
+               AND t.schedule_timezone = schedule_preference_reminder_effects.timezone
          )",
         [],
     )
@@ -187,9 +187,9 @@ pub fn mark_schedule_preference_reminder_submitted(
          ON CONFLICT(task_id, scheduled_local_date, scheduled_local_time, timezone) DO NOTHING",
         params![
             candidate.task_id.to_string(),
-            candidate.scheduled_local_date,
-            candidate.scheduled_local_time,
-            candidate.timezone,
+            &candidate.scheduled_local_date,
+            &candidate.scheduled_local_time,
+            &candidate.timezone,
             i64::from(candidate.reminder_lead_seconds),
             now,
         ],
