@@ -439,3 +439,14 @@ Future work must preserve:
 - Help screenshots reinforce task/list/Focus/Preferences/scheduling/recurrence/report visual hierarchy but do not establish exact animation timings.
 - Troubleshooting documents source server-delay and second-monitor-restart limitations; Narro retains persistence-first local behavior and runtime display-topology recovery.
 - Detailed evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`; tracker: `docs/BLITZIT_HELP_CENTER_TRACKER.md`.
+
+
+## Blitzit reference-image canonicalization (2026-09-27)
+
+- The local reference folder now contains **46 canonical image files** with content-based descriptive filenames.
+- **22** are current supplied v2.6.69 references, **17** are retained official Help Center originals, and **7** are historical Tool Finder references.
+- One near-identical supplied Reports screenshot was removed from the working tree; Git history preserves it.
+- Nine Help Center overlaps were not retained because stronger current/direct screenshots already cover the same state.
+- Selection precedence is current/direct → newer version → complete state → resolution/sharpness → minimal unrelated chrome.
+- Canonical inventory: `reference/original-blitzit-screenshots/CANONICAL_INDEX.md`.
+- No application source/config/build semantics changed.
