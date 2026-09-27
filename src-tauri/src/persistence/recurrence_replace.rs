@@ -219,7 +219,7 @@ pub struct RecurrenceRemovalPreview {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct RecurrenceRemovalReport {
     pub removed_child_ids: Vec<TaskId>,
-    pub detached_protected_child_ids: Vec<TaskId>,
+    pub detached_child_ids: Vec<TaskId>,
 }
 
 #[derive(Debug)]
@@ -356,7 +356,7 @@ pub fn remove_recurrence_if_expected(
 
     let candidates = linked_child_candidates(&tx, rule_id, parent.id)?;
     let mut removed_child_ids = Vec::new();
-    let mut detached_protected_child_ids = Vec::new();
+    let mut detached_child_ids = Vec::new();
 
     for child in candidates {
         if delete_existing_tasks && child_is_safely_deletable(&tx, &child)? {
@@ -385,7 +385,7 @@ pub fn remove_recurrence_if_expected(
         if detached != 1 {
             return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
         }
-        detached_protected_child_ids.push(child.id);
+        detached_child_ids.push(child.id);
     }
 
     // Fail safe for legacy/corrupt linkage: if a task still points at the recurrence
@@ -415,8 +415,8 @@ pub fn remove_recurrence_if_expected(
         if detached != 1 {
             return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
         }
-        if !detached_protected_child_ids.contains(&child_id) {
-            detached_protected_child_ids.push(child_id);
+        if !detached_child_ids.contains(&child_id) {
+            detached_child_ids.push(child_id);
         }
     }
 
@@ -442,7 +442,7 @@ pub fn remove_recurrence_if_expected(
     tx.commit()?;
     Ok(RecurrenceRemovalReport {
         removed_child_ids,
-        detached_protected_child_ids,
+        detached_child_ids,
     })
 }
 
