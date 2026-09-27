@@ -328,14 +328,14 @@ export function TaskScheduleDialog({
           expectedRuleUpdatedAt: existingRule.updatedAt,
           deleteExistingTasks: deleteExisting,
         });
-        const preserved = result.preservedExistingCount > 0
-          ? ` ${result.preservedExistingCount} customized or history-bearing task${result.preservedExistingCount === 1 ? "" : "s"} were kept as independent tasks.`
+        const protectedMessage = deleteExisting && result.preservedExistingCount > 0
+          ? ` ${result.preservedExistingCount} customized, completed, archived, or history-bearing task${result.preservedExistingCount === 1 ? "" : "s"} were preserved as independent tasks.`
           : "";
         await onCommitted(
           taskId,
           deleteExisting
-            ? `Recurrence removed; ${result.removedExistingCount} untouched generated task${result.removedExistingCount === 1 ? "" : "s"} deleted.${preserved}`
-            : `Recurrence removed; existing tasks remain independent.${preserved}`,
+            ? `Recurrence removed; ${result.removedExistingCount} untouched generated task${result.removedExistingCount === 1 ? "" : "s"} deleted.${protectedMessage}`
+            : `Recurrence removed; ${result.preservedExistingCount} existing task${result.preservedExistingCount === 1 ? "" : "s"} remain independent.`,
         );
       } catch (failure: unknown) {
         setMutationError(formatInvokeError(failure));
@@ -707,7 +707,7 @@ export function TaskScheduleDialog({
                         data-task-recurrence-control="replace-existing"
                         onChange={(event) => setReplaceExisting(event.target.checked)}
                       />
-                      <span>Replace existing tasks — untouched generated tasks may be regenerated; customized or history-bearing tasks stay independent.</span>
+                      <span>Replace existing tasks ({snapshot.deleteExistingEligibleCount}) — untouched generated tasks may be regenerated; customized or history-bearing tasks are preserved.</span>
                     </label>
                   ) : null}
 
