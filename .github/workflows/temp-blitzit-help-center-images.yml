@@ -1,72 +1,107 @@
-name: Temporary Blitzit Help Center image capture
+name: Temporary Blitzit reference image canonicalization
 
 on:
   pull_request:
     branches: [main]
     paths:
       - ".github/workflows/temp-blitzit-help-center-images.yml"
-  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  capture:
+  canonicalize:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
 
-      - name: Download original Help Center images
+      - name: Rename existing screenshots descriptively
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p captured/help-center
-          urls=(
-            "https://framerusercontent.com/images/DNfRInKrA20di6Wj6JO6AcBAlys.png"
-            "https://framerusercontent.com/images/FSr99pZtFWhuLkzSQ6zEpbp9TLk.png"
-            "https://framerusercontent.com/images/j9hEBVlSNGRM0cSUFl7cebecg.png?height=750&width=1160"
-            "https://framerusercontent.com/images/wv4znAMGFovLUBAdMpk7Nu4Klms.png"
-            "https://framerusercontent.com/images/CwxlTCSfz9VGphjtXJadB9O4Zzw.png?height=1031&width=1160"
-            "https://framerusercontent.com/images/GwACIize9RBH2kbOZqq6T5gpcI.png"
-            "https://framerusercontent.com/images/JTtEepSacGObloMxzzoD1Uc.png"
-            "https://framerusercontent.com/images/6xwkgciiAoKB6plxZxzqDcoxCY.png"
-            "https://framerusercontent.com/images/OTCpZgcwVZDej3fcAFivAt25vDM.png"
-            "https://framerusercontent.com/images/CRexOs0FutrUnEDN6pe96UWMFBM.png"
-            "https://framerusercontent.com/images/z9VdxDhqqO2Fbc8eioZFAS4dgI.png"
-            "https://framerusercontent.com/images/KYE1LcJjWOzKSZnSYNA6zNyGSs.png"
-            "https://framerusercontent.com/images/mSVblVyTyZqsOub4FURh5tJjblU.png"
-            "https://framerusercontent.com/images/46SzIQBMKFc3TFDZDacn1yz5P18.png"
-            "https://framerusercontent.com/images/8SZZpe7MgU1TrR4jewCLcWtEEoI.png"
-            "https://framerusercontent.com/images/hhkOtEmQYAJfJzcMtsXEH5HKBY.png"
-            "https://framerusercontent.com/images/Ti6EJrNtaYAUQ14cwKE7u4taHw.png"
-            "https://framerusercontent.com/images/Sxgz1A0jWhEd2JIIjWh3TN4L8vo.png"
-            "https://framerusercontent.com/images/udqL8eWSP0SHyF7SabuRSDxej0.png"
-            "https://framerusercontent.com/images/3x5RTLOxaD2ATQNZFwpSBLjXdok.png"
-            "https://framerusercontent.com/images/MVvFzAUBrWV0aqE8br8ajVQ4qk8.png"
-            "https://framerusercontent.com/images/LdYRyXQOGTi2ppTNik5sUNzjNEc.png"
-            "https://framerusercontent.com/images/hqALKsRoRuh0QqLVKBSOE3OhAzk.png"
-            "https://framerusercontent.com/images/nqcaGP6yHLJofjZXxtH1cHTG90Q.png"
-            "https://framerusercontent.com/images/kRie6ehi9W4xdzBdZJW0qqP5I.png"
-            "https://framerusercontent.com/images/LsKapZzTc459kbKdqU8E3Yo8Oqk.png"
-          )
-          i=1
-          for url in "${urls[@]}"; do
-            printf -v name "hc-%02d.png" "$i"
-            curl --fail --location --retry 3 --retry-delay 2 "$url" -o "captured/help-center/$name"
-            test -s "captured/help-center/$name"
-            i=$((i+1))
-          done
-          sha256sum captured/help-center/* > captured/help-center/SHA256SUMS.txt
+          d="reference/original-blitzit-screenshots"
 
-      - name: Copy existing Blitzit references for local comparison
+          git mv "$d/490270ab-01ec-41ef-866d-605d9d1b43c7.png" "$d/current-v2.6.69-create-list-dialog.png"
+          git mv "$d/86d1bc8e-50c8-45f8-8d45-ff84e011cd27.png" "$d/current-v2.6.69-reports-date-range-picker.png"
+          git mv "$d/Screenshot_1.png" "$d/current-v2.6.69-home-dark.png"
+          git mv "$d/Screenshot_2.png" "$d/current-v2.6.69-create-list-tile.png"
+          git mv "$d/Screenshot_3.png" "$d/current-v2.6.69-list-card-hover-overflow-menu.png"
+          git mv "$d/Screenshot_4.png" "$d/current-v2.6.69-search-command-palette.png"
+          git mv "$d/Screenshot_5.png" "$d/current-v2.6.69-preferences-general.png"
+          git mv "$d/Screenshot_6.png" "$d/current-v2.6.69-preferences-blitz-mode-alerts.png"
+          git mv "$d/Screenshot_7.png" "$d/current-v2.6.69-preferences-alerts-celebration.png"
+          git mv "$d/Screenshot_8.png" "$d/current-v2.6.69-archived-lists-empty.png"
+          git mv "$d/Screenshot_9.png" "$d/current-v2.6.69-archived-done-tasks-filter-empty.png"
+          git mv "$d/Screenshot_10.png" "$d/current-v2.6.69-reports-overview-chart-tooltip.png"
+          git rm "$d/Screenshot_11.png"
+          git mv "$d/Screenshot_12.png" "$d/current-v2.6.69-reports-overview-lower-panels.png"
+          git mv "$d/Screenshot_13.png" "$d/current-v2.6.69-sessions-dashboard-empty.png"
+          git mv "$d/Screenshot_14.png" "$d/current-v2.6.69-reports-list-filter-open.png"
+          git mv "$d/Screenshot_15.png" "$d/current-v2.6.69-home-light-list-hover.png"
+          git mv "$d/Screenshot_16.png" "$d/current-v2.6.69-windows-shortcuts-dialog.png"
+          git mv "$d/Screenshot_17.png" "$d/current-v2.6.69-floating-timer-expanded-subtasks.png"
+          git mv "$d/Screenshot_18.png" "$d/current-v2.6.69-focus-panel-full.png"
+          git mv "$d/Screenshot_19.png" "$d/current-v2.6.69-floating-timer-collapsed.png"
+          git mv "$d/Screenshot_20.png" "$d/current-v2.6.69-focus-panel-notes-expanded.png"
+          git mv "$d/Screenshot_21.png" "$d/current-v2.6.69-sessions-task-detail-inline-edit.png"
+
+          git mv "$d/Tool Finder - Blitzit Review Is it Worth It for Task Management [H-UgdTxQJKc - 1280x720 - 1m54s].png" "$d/historical-tool-finder-board-four-columns-light.png"
+          git mv "$d/Tool Finder - Blitzit Review Is it Worth It for Task Management [H-UgdTxQJKc - 1280x720 - 2m01s].png" "$d/historical-tool-finder-inline-task-create.png"
+          git mv "$d/Tool Finder - Blitzit Review Is it Worth It for Task Management [H-UgdTxQJKc - 1280x720 - 2m10s].png" "$d/historical-tool-finder-task-card-est-time-taken.png"
+          git mv "$d/Tool Finder - Blitzit Review Is it Worth It for Task Management [H-UgdTxQJKc - 1280x720 - 2m19s].png" "$d/historical-tool-finder-focus-panel-task-hover-actions.png"
+          git mv "$d/Tool Finder - Blitzit Review Is it Worth It for Task Management [H-UgdTxQJKc - 1280x720 - 2m28s].png" "$d/historical-tool-finder-preferences-full.png"
+          git mv "$d/Tool Finder - Blitzit Review Is it Worth It for Task Management [H-UgdTxQJKc - 1280x720 - 2m41s].png" "$d/historical-tool-finder-focus-task-overflow-schedule-menu.png"
+          git mv "$d/Tool Finder - Blitzit Review Is it Worth It for Task Management [H-UgdTxQJKc - 1280x720 - 4m33s].png" "$d/historical-tool-finder-board-notes-inline-expanded.png"
+
+      - name: Download retained Help Center originals with descriptive names
         shell: bash
         run: |
-          mkdir -p captured/existing
-          cp reference/original-blitzit-screenshots/* captured/existing/
+          set -euo pipefail
+          d="reference/original-blitzit-screenshots"
+          download() {
+            curl --fail --location --retry 3 --retry-delay 2 "$1" -o "$d/$2"
+            test -s "$d/$2"
+          }
 
-      - name: Upload comparison corpus
-        uses: actions/upload-artifact@v4
-        with:
-          name: blitzit-help-center-image-comparison
-          path: captured/
-          if-no-files-found: error
+          download "https://framerusercontent.com/images/DNfRInKrA20di6Wj6JO6AcBAlys.png" "help-v2x-board-four-columns-dark.png"
+          download "https://framerusercontent.com/images/FSr99pZtFWhuLkzSQ6zEpbp9TLk.png" "help-v2x-today-column-task-progress-dark.png"
+          download "https://framerusercontent.com/images/j9hEBVlSNGRM0cSUFl7cebecg.png?height=750&width=1160" "help-v2x-focus-panel-docked-left-desktop-context.png"
+          download "https://framerusercontent.com/images/wv4znAMGFovLUBAdMpk7Nu4Klms.png" "help-v2x-focus-panel-list-selector-open.png"
+          download "https://framerusercontent.com/images/CwxlTCSfz9VGphjtXJadB9O4Zzw.png?height=1031&width=1160" "help-v2x-focus-panel-quick-preferences-open.png"
+          download "https://framerusercontent.com/images/GwACIize9RBH2kbOZqq6T5gpcI.png" "help-v2x-preferences-pomodoro-settings-expanded.png"
+          download "https://framerusercontent.com/images/JTtEepSacGObloMxzzoD1Uc.png" "help-v2x-schedule-date-picker.png"
+          download "https://framerusercontent.com/images/6xwkgciiAoKB6plxZxzqDcoxCY.png" "help-v2x-recurrence-no-repeat-delete-existing-tasks.jpg"
+          download "https://framerusercontent.com/images/OTCpZgcwVZDej3fcAFivAt25vDM.png" "help-v2x-floating-timer-action-strip-notes-selected.png"
+          download "https://framerusercontent.com/images/CRexOs0FutrUnEDN6pe96UWMFBM.png" "help-v2x-task-notes-inline-expanded.png"
+          download "https://framerusercontent.com/images/z9VdxDhqqO2Fbc8eioZFAS4dgI.png" "help-v2x-subtasks-inline-add-input.png"
+          download "https://framerusercontent.com/images/KYE1LcJjWOzKSZnSYNA6zNyGSs.png" "help-v2x-subtasks-expanded-progress-actions.png"
+          download "https://framerusercontent.com/images/mSVblVyTyZqsOub4FURh5tJjblU.png" "help-v2x-task-overflow-menu-open.png"
+          download "https://framerusercontent.com/images/8SZZpe7MgU1TrR4jewCLcWtEEoI.png" "help-v2x-archived-lists-unarchive-delete-forever.png"
+          download "https://framerusercontent.com/images/hhkOtEmQYAJfJzcMtsXEH5HKBY.png" "help-v2x-archived-done-tasks-populated.png"
+          download "https://framerusercontent.com/images/udqL8eWSP0SHyF7SabuRSDxej0.png" "help-v2x-sessions-dashboard-populated-export-pdf.png"
+          download "https://framerusercontent.com/images/LdYRyXQOGTi2ppTNik5sUNzjNEc.png" "help-v2x-sessions-add-session-task-picker-open.png"
+
+      - name: Verify retained source bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          d="reference/original-blitzit-screenshots"
+          count=$(find "$d" -maxdepth 1 -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' \) | wc -l)
+          test "$count" -eq 46
+          sha256sum "$d"/help-v2x-* > /tmp/help-sha256.txt
+          cat /tmp/help-sha256.txt
+
+      - name: Remove temporary workflow and commit canonical corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/temp-blitzit-help-center-images.yml
+          git add reference/original-blitzit-screenshots
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "docs: canonicalize Blitzit reference screenshots"
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
