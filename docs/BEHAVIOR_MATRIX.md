@@ -41,7 +41,7 @@ Detailed evidence: `docs/RESEARCH_EVIDENCE.md` and `docs/SOURCE_AUDIT.md`.
 | Lane | `+ ADD TASK` | Insert task at bottom | Stable new task ID | HIGH |
 | Lane | top `+` | Insert task at highest priority | Stable new task ID | HIGH |
 | Task | Edit title | Title updates inline | Same task identity | HIGH |
-| Title ends with estimate and parsing enabled | Confirm/create | EST may be parsed from suffix | Exact title-normalization remains validation item | MEDIUM |
+| Title ends with supported estimate suffix and parsing enabled | Confirm/create | Parse terminal suffix into EST and remove that parsed suffix from the saved visible title | Same task/create identity; no title mutation when parsing does not succeed | HIGH direct video (VE-002) |
 | Task | Edit EST | Estimate changes | Does not rewrite historical work sessions | HIGH |
 | Non-live task | Edit Time Taken | Manual adjustment/edit accepted | Reporting model must remain internally reconcilable | HIGH behavior / proposal implementation |
 | Live running task | Edit EST / Time Taken | Source restricts editing while running | Pause first or equivalent safer UX | HIGH |
@@ -111,9 +111,9 @@ Detailed evidence: `docs/RESEARCH_EVIDENCE.md` and `docs/SOURCE_AUDIT.md`.
 | Start state | Action | Expected result / current model | Persistence / invariant | Confidence |
 |---|---|---|---|---|
 | Live task running/paused | Done | Close work segment, mark task complete | Preserve all work duration/history | HIGH |
-| Live task completed | Determine next task | Source behavior for auto-start vs select-next is not fully established | **Do not guess silently**; validate during implementation | LOW |
-| Completion celebration enabled | Done | Optional success feedback | Must not block persistence or timer correctness | HIGH behavior / NARRO implementation |
-| Completion celebration disabled | Done | Immediate normal transition | No hidden delay | MEDIUM |
+| Live task completed, success screen enabled | Done | Enter success state first; `Next Task` is an explicit choice and starts the next task only after activation | Completion persistence remains committed before secondary progression | HIGH direct video (VE-003) |
+| Success state | Activate `Take a Break` | Control is directly visible, but exact post-click timer/session result is not shown | **Do not guess silently**; preserve completion correctness | LOW / unresolved |
+| Completion celebration disabled | Done | Source next-task progression remains unresolved by the supplied success-screen sequence | Preserve current Narro behavior until stronger evidence or an explicit decision | LOW/MEDIUM |
 
 ## 8. Notes and URLs
 
@@ -175,8 +175,8 @@ Detailed evidence: `docs/RESEARCH_EVIDENCE.md` and `docs/SOURCE_AUDIT.md`.
 
 These are intentionally left as questions rather than requirements:
 
-1. Does Done auto-start the next eligible task, select it paused, or return to an idle state?
-2. What exact title mutation occurs after successful EST suffix parsing?
+1. What does Done do next when the completion success screen is **disabled**?
+2. What exact timer/session transition follows the success-screen `Take a Break` control?
 3. What is the current exact `Find focus timer` animation?
 4. What happens if Blitzit is closed normally while an active task runs?
 5. What are the current exact ordering rules when scheduled and manually planned tasks coexist in Today?
