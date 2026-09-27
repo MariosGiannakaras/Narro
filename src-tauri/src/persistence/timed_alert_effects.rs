@@ -473,8 +473,7 @@ mod tests {
 
         for _ in 0..3 {
             assert_eq!(
-                observe!(&mut conn, task_id, run_id, 59, true, 60, false, T1)
-                    .unwrap(),
+                observe!(&mut conn, task_id, run_id, 59, true, 60, false, T1).unwrap(),
                 0
             );
         }
@@ -522,8 +521,7 @@ mod tests {
             .unwrap()
             .is_empty());
         assert_eq!(
-            observe!(&mut conn, task_id, second_run, 60, true, 60, false, T1)
-                .unwrap(),
+            observe!(&mut conn, task_id, second_run, 60, true, 60, false, T1).unwrap(),
             1
         );
     }
@@ -564,8 +562,7 @@ mod tests {
             .expect("create recovery task");
             task_id = task.id;
 
-            observe!(&mut conn, task_id, run_id, 0, true, 60, true, T0)
-                .expect("seed alert run");
+            observe!(&mut conn, task_id, run_id, 0, true, 60, true, T0).expect("seed alert run");
             observe!(&mut conn, task_id, run_id, 59, true, 60, false, T0)
                 .expect("persist pre-boundary cursor");
         }
