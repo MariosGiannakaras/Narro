@@ -16,6 +16,7 @@ use crate::persistence::preferences::get_preferences;
 use crate::persistence::sleep_accounting::session_sleep_accounting_policy;
 use crate::persistence::timed_alert_effects::{
     claim_pending_timed_alerts, observe_timed_alert_run, retire_timed_alert_run, TimedAlertEffect,
+    TimedAlertObservation,
 };
 use crate::persistence::timer_controller::{TimerController, TimerControllerError};
 use crate::persistence::{configure_connection, PersistenceError};
@@ -674,12 +675,14 @@ fn observe_timed_alerts_best_effort(
     };
     if let Err(error) = observe_timed_alert_run(
         effects_connection,
-        task_id,
-        seed_run_id,
-        work_elapsed_seconds(payload),
-        preferences.alerts.timed_alerts_enabled,
-        u64::from(preferences.alerts.task_alert_interval_seconds),
-        reset_run,
+        TimedAlertObservation {
+            task_id,
+            seed_run_id,
+            work_elapsed_seconds: work_elapsed_seconds(payload),
+            enabled: preferences.alerts.timed_alerts_enabled,
+            interval_seconds: u64::from(preferences.alerts.task_alert_interval_seconds),
+            reset_run,
+        },
         wall_time,
     ) {
         eprintln!("Timed-alert observation failed; no undurable effect was emitted: {error}");
