@@ -495,4 +495,89 @@ mod tests {
             1
         );
     }
+
+    #[test]
+    fn cursor_survives_database_reopen_and_delayed_observation_stays_idempotent() {
+        use std::fs;
+        use uuid::Uuid;
+
+        let path = std::env::temp_dir().join(format!(
+            "narro-timed-alert-recovery-{}.db",
+            Uuid::new_v4()
+        ));
+        let task_id;
+        let run_id = SessionId::generate();
+
+        {
+            let mut conn = Connection::open(&path).expect("open timed-alert recovery database");
+            run_migrations(&mut conn).expect("migrate timed-alert recovery database");
+            let list = create_list(
+                &mut conn,
+                NewListInput {
+                    title: "Recovery".into(),
+                    color: None,
+                    icon_asset: None,
+                },
+                T0,
+            )
+            .expect("create recovery list");
+            let task = create_task(
+                &mut conn,
+                NewTaskInput {
+                    list_id: list.id,
+                    title: "Recovery alert".into(),
+                    manual_lane: PlanningLane::Today,
+                    est_seconds: None,
+                },
+                T0,
+            )
+            .expect("create recovery task");
+            task_id = task.id;
+
+            observe_timed_alert_run(&mut conn, task_id, run_id, 0, true, 60, true, T0)
+                .expect("seed alert run");
+            observe_timed_alert_run(&mut conn, task_id, run_id, 59, true, 60, false, T0)
+                .expect("persist pre-boundary cursor");
+        }
+
+        {
+            let mut conn = Connection::open(&path).expect("reopen timed-alert recovery database");
+            crate::persistence::configure_connection(&conn).expect("configure reopened database");
+
+            assert_eq!(
+                observe_timed_alert_run(&mut conn, task_id, run_id, 120, true, 60, false, T1)
+                    .expect("catch up delayed alert boundaries"),
+                2
+            );
+            assert_eq!(
+                observe_timed_alert_run(&mut conn, task_id, run_id, 120, true, 60, false, T1)
+                    .expect("repeat delayed observation"),
+                0
+            );
+
+            let pending = claim_pending_timed_alerts(&mut conn, T1)
+                .expect("claim recovered timed alert effects");
+            assert_eq!(
+                pending
+                    .iter()
+                    .map(|effect| effect.boundary_seconds)
+                    .collect::<Vec<_>>(),
+                vec![60, 120]
+            );
+        }
+
+        fs::remove_file(path).expect("remove timed-alert recovery database");
+    }
+
+    #[test]
+    fn retiring_run_removes_pending_effects_and_cursor() {
+        let (mut conn, task_id, run_id) = fixture();
+        observe_timed_alert_run(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
+        observe_timed_alert_run(&mut conn, task_id, run_id, 60, true, 60, false, T1).unwrap();
+
+        retire_timed_alert_run(&mut conn, task_id).expect("retire timed-alert run");
+
+        assert!(claim_pending_timed_alerts(&mut conn, T1).unwrap().is_empty());
+        assert!(load_cursor(&conn, task_id).unwrap().is_none());
+    }
 }
