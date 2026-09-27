@@ -274,7 +274,6 @@ fn dispatch_due_from_path(
     )
 }
 
-
 fn dispatch_schedule_preference_due_with<Submit>(
     conn: &mut Connection,
     now: &str,
@@ -291,11 +290,8 @@ where
         return Ok(SchedulePreferenceReminderDispatchReport::default());
     }
 
-    let due = pending_schedule_preference_reminders(
-        conn,
-        now,
-        preferences.alerts.reminder_lead_seconds,
-    )?;
+    let due =
+        pending_schedule_preference_reminders(conn, now, preferences.alerts.reminder_lead_seconds)?;
     let mut report = SchedulePreferenceReminderDispatchReport {
         due_count: due.len(),
         ..SchedulePreferenceReminderDispatchReport::default()
@@ -462,11 +458,7 @@ mod tests {
         .expect("schedule task");
     }
 
-    fn set_schedule_reminder_preferences(
-        conn: &mut Connection,
-        enabled: bool,
-        lead_seconds: u32,
-    ) {
+    fn set_schedule_reminder_preferences(conn: &mut Connection, enabled: bool, lead_seconds: u32) {
         mutate_preferences(conn, T0, |payload| {
             payload.alerts.schedule_reminders_enabled = enabled;
             payload.alerts.reminder_lead_seconds = lead_seconds;
