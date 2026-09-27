@@ -249,6 +249,8 @@ Use this section as the fast lookup before working on a milestone.
 
 **Known Blitzit failure class**: one-hour offsets, wrong-day completion, scheduled items not appearing until overdue, current wrong-day reports, timezone/recurring/reminder fixes on mobile.
 
+The 2026-09-27 uploaded tutorial corpus adds a useful distinction. VE-017 explicitly describes recurrence removal without deleting existing children, followed by a later new recurrence, as a path that can leave old detached tasks beside newly generated ones. That intentional coexistence is not the same failure as accidentally generating the same occurrence twice. Narro must preserve independent detached/history-bearing children while keeping recurrence materialization idempotent and occurrence identities singular.
+
 **Narro tests**
 
 - date-only values never convert through UTC and shift calendar date;
@@ -263,6 +265,8 @@ Use this section as the fast lookup before working on a milestone.
 ### M5/M6 — Main UI and Focus Panel
 
 **Known Blitzit pitfalls**: jumping action buttons, compact notes, auto-opening note URLs, subtasks disappearing in focus reports, surprise navigation/timer coupling.
+
+VE-010 now directly/transcript-corroborates the source behavior that note URLs may auto-open when a task becomes live. This strengthens, rather than weakens, Narro's existing reliability/agency decision to require explicit link activation.
 
 **Narro tests**
 
