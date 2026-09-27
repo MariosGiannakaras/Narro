@@ -82,12 +82,16 @@ for (const needle of [
   "previous_registered != enabled",
   "mutate_preferences(&mut connection",
   "set_enabled(&mut payload.shortcuts, kind, enabled)",
-  "kind,\n                    previous_registered",
   "get_global_shortcut_settings",
   "set_global_shortcut_enabled",
 ]) {
   invariant(shortcutSettings.includes(needle), "persisted/native coherence boundary is missing " + needle);
 }
+
+invariant(
+  /set_native_enabled\([\s\S]*?kind,\s*previous_registered,/.test(shortcutSettings),
+  "persistence failure must restore the previous native registration state",
+);
 invariant(
   lib.includes("shortcut_settings::get_global_shortcut_settings")
     && lib.includes("shortcut_settings::set_global_shortcut_enabled"),
