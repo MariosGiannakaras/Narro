@@ -1,0 +1,351 @@
+1
+00:00:00,420 --> 00:00:00,960
+[Music]
+
+2
+00:00:00,960 --> 00:00:03,360
+Hi everyone. In this video, we'll
+
+3
+00:00:03,360 --> 00:00:05,279
+explore how to access and use a reports
+
+4
+00:00:05,279 --> 00:00:06,799
+feature in Blitzet to track your
+
+5
+00:00:06,799 --> 00:00:08,960
+productivity and get insights on how you
+
+6
+00:00:08,960 --> 00:00:11,519
+spend your work time. First, let's see
+
+7
+00:00:11,519 --> 00:00:14,400
+how to access reports. From the home
+
+8
+00:00:14,400 --> 00:00:16,560
+screen, simply tap the reports icon in
+
+9
+00:00:16,560 --> 00:00:19,039
+the bottom navigation bar. This opens
+
+10
+00:00:19,039 --> 00:00:20,480
+your reports dashboard where all your
+
+11
+00:00:20,480 --> 00:00:23,199
+productivity data is displayed. At the
+
+12
+00:00:23,199 --> 00:00:25,039
+top of the reports page, you'll find
+
+13
+00:00:25,039 --> 00:00:27,680
+filters to customize your view. You can
+
+14
+00:00:27,680 --> 00:00:29,599
+filter by specific lists to focus on
+
+15
+00:00:29,599 --> 00:00:31,920
+particular projects or areas of work or
+
+16
+00:00:31,920 --> 00:00:33,600
+select all lists to see your overall
+
+17
+00:00:33,600 --> 00:00:36,399
+stats. You can also select date range to
+
+18
+00:00:36,399 --> 00:00:38,239
+analyze your productivity over time
+
+19
+00:00:38,239 --> 00:00:41,200
+using quick shortcuts or a custom range.
+
+20
+00:00:41,200 --> 00:00:42,960
+Below the filters, you'll see a graph
+
+21
+00:00:42,960 --> 00:00:44,559
+and key stats that summarize your
+
+22
+00:00:44,559 --> 00:00:47,280
+activity. These stats reflect data
+
+23
+00:00:47,280 --> 00:00:49,120
+collected from when you rent tasks live
+
+24
+00:00:49,120 --> 00:00:52,559
+or took breaks. Total work days. It
+
+25
+00:00:52,559 --> 00:00:54,160
+shows the number of days you actively
+
+26
+00:00:54,160 --> 00:00:55,760
+worked in Blitzer during the selected
+
+27
+00:00:55,760 --> 00:00:57,280
+period.
+
+28
+00:00:57,280 --> 00:00:59,920
+Total tasks done. This one shows how
+
+29
+00:00:59,920 --> 00:01:01,440
+many tasks you completed during this
+
+30
+00:01:01,440 --> 00:01:03,920
+period. Plus the average number of tasks
+
+31
+00:01:03,920 --> 00:01:06,000
+completed per workday, meaning the days
+
+32
+00:01:06,000 --> 00:01:08,320
+you actually worked in Blitz. Total
+
+33
+00:01:08,320 --> 00:01:10,479
+hours worked. It is a total time spent
+
+34
+00:01:10,479 --> 00:01:12,560
+on tasks and breaks along with your
+
+35
+00:01:12,560 --> 00:01:15,119
+average daily hours worked.
+
+36
+00:01:15,119 --> 00:01:17,040
+Average time per task. This one tells
+
+37
+00:01:17,040 --> 00:01:18,640
+you how long you typically spend on each
+
+38
+00:01:18,640 --> 00:01:21,119
+task, including both completed tasks and
+
+39
+00:01:21,119 --> 00:01:23,840
+those started but not finished yet. The
+
+40
+00:01:23,840 --> 00:01:25,439
+graph breaks down your daily sessions
+
+41
+00:01:25,439 --> 00:01:28,479
+into task time, break time, and total
+
+42
+00:01:28,479 --> 00:01:30,960
+session time, giving you a clear visual
+
+43
+00:01:30,960 --> 00:01:34,159
+presentation of how each day is spent.
+
+44
+00:01:34,159 --> 00:01:35,759
+You can click on this metrics here to
+
+45
+00:01:35,759 --> 00:01:37,920
+toggle them on or off and select the
+
+46
+00:01:37,920 --> 00:01:40,799
+data you want to see. Next, let's scroll
+
+47
+00:01:40,799 --> 00:01:43,119
+down to see the most productive times.
+
+48
+00:01:43,119 --> 00:01:44,880
+The most productive hour shows when
+
+49
+00:01:44,880 --> 00:01:46,799
+you're most focused during the day.
+
+50
+00:01:46,799 --> 00:01:48,799
+Blitz tracks when you go live as tasks
+
+51
+00:01:48,799 --> 00:01:50,960
+and identifies a pick active hour within
+
+52
+00:01:50,960 --> 00:01:53,200
+the selected date range. The most
+
+53
+00:01:53,200 --> 00:01:54,720
+productive day highlights a week day
+
+54
+00:01:54,720 --> 00:01:56,880
+with the most sessions run. The most
+
+55
+00:01:56,880 --> 00:01:58,719
+productive month shows the month you
+
+56
+00:01:58,719 --> 00:02:00,719
+were most active. If your selected range
+
+57
+00:02:00,719 --> 00:02:03,600
+covers multiple month range covers only
+
+58
+00:02:03,600 --> 00:02:05,439
+one month, that month will be displayed
+
+59
+00:02:05,439 --> 00:02:07,680
+here. Here goes the time by list
+
+60
+00:02:07,680 --> 00:02:09,599
+section. It breaks down your total work
+
+61
+00:02:09,599 --> 00:02:11,680
+time by each list. So you can see where
+
+62
+00:02:11,680 --> 00:02:13,440
+you are investing the most effort and
+
+63
+00:02:13,440 --> 00:02:16,080
+how much time you spent per list.
+
+64
+00:02:16,080 --> 00:02:18,080
+Finally, we have the done tasks section.
+
+65
+00:02:18,080 --> 00:02:20,160
+Here the list shows all your completed
+
+66
+00:02:20,160 --> 00:02:22,160
+tasks with timestamps showing the exact
+
+67
+00:02:22,160 --> 00:02:24,480
+day you finished them. It also tells you
+
+68
+00:02:24,480 --> 00:02:27,200
+if you completed tasks early or late.
+
+69
+00:02:27,200 --> 00:02:29,120
+This data is available only if you set
+
+70
+00:02:29,120 --> 00:02:32,000
+an AS for the task. On the right, you'll
+
+71
+00:02:32,000 --> 00:02:33,840
+see how much time you spent on each task
+
+72
+00:02:33,840 --> 00:02:37,120
+based on the tasks time taken field. The
+
+73
+00:02:37,120 --> 00:02:38,959
+punctuality graph shows what percentage
+
+74
+00:02:38,959 --> 00:02:40,480
+of your task time was finished early
+
+75
+00:02:40,480 --> 00:02:43,120
+versus late. For example, if you spend
+
+76
+00:02:43,120 --> 00:02:45,760
+15 hours finishing tasks early and 5
+
+77
+00:02:45,760 --> 00:02:47,840
+hours finishing them late, the graph
+
+78
+00:02:47,840 --> 00:02:51,040
+will display the ratio as 75% early and
+
+79
+00:02:51,040 --> 00:02:54,640
+25% late. So, that's how Blit Reports
+
+80
+00:02:54,640 --> 00:02:56,800
+work. Use this insights to better
+
+81
+00:02:56,800 --> 00:02:58,720
+understand your work patterns, improve
+
+82
+00:02:58,720 --> 00:03:00,160
+your planning, and boost your
+
+83
+00:03:00,160 --> 00:03:02,319
+productivity. If you found this video
+
+84
+00:03:02,319 --> 00:03:04,239
+helpful, be sure to check out our other
+
+85
+00:03:04,239 --> 00:03:06,080
+tutorials and join our Discord community
+
+86
+00:03:06,080 --> 00:03:07,920
+for more tips and support. Happy
+
+87
+00:03:07,920 --> 00:03:09,020
+blitzing.
+
+88
+00:03:09,020 --> 00:03:12,219
+[Music]

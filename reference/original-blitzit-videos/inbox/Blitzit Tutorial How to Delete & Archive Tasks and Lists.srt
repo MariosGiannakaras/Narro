@@ -1,0 +1,147 @@
+1
+00:00:01,040 --> 00:00:03,280
+Hi everyone. In this video, I'm going to
+
+2
+00:00:03,280 --> 00:00:05,440
+show you how to delete and archive tasks
+
+3
+00:00:05,440 --> 00:00:07,759
+and lists in Blitzet. Two handy ways to
+
+4
+00:00:07,759 --> 00:00:10,400
+keep your workspace tidy and organized.
+
+5
+00:00:10,400 --> 00:00:12,639
+To delete a task, simply hover over the
+
+6
+00:00:12,639 --> 00:00:14,559
+task you want to remove, open the
+
+7
+00:00:14,559 --> 00:00:17,840
+expanded menu, and click delete. Keep in
+
+8
+00:00:17,840 --> 00:00:19,840
+mind that this is permanent. Deleted
+
+9
+00:00:19,840 --> 00:00:22,000
+tasks cannot be recovered and won't show
+
+10
+00:00:22,000 --> 00:00:23,840
+up in your reports where you track your
+
+11
+00:00:23,840 --> 00:00:26,880
+progress. When it comes to lists, the
+
+12
+00:00:26,880 --> 00:00:29,119
+process is a bit different. Instead of
+
+13
+00:00:29,119 --> 00:00:31,359
+deleting right away, you first archive
+
+14
+00:00:31,359 --> 00:00:34,079
+it. Click the three dot menu next to the
+
+15
+00:00:34,079 --> 00:00:36,800
+list name and select archive list.
+
+16
+00:00:36,800 --> 00:00:38,559
+Archiving and moves the list out of your
+
+17
+00:00:38,559 --> 00:00:40,800
+active workspace, but keeps it safe for
+
+18
+00:00:40,800 --> 00:00:43,280
+later. Your archived lists will appear
+
+19
+00:00:43,280 --> 00:00:45,200
+in the archived list section on the left
+
+20
+00:00:45,200 --> 00:00:47,200
+side of your home screen. From there,
+
+21
+00:00:47,200 --> 00:00:49,200
+you can choose to unarchive the list to
+
+22
+00:00:49,200 --> 00:00:51,440
+make it active again, or click delete
+
+23
+00:00:51,440 --> 00:00:53,360
+forever to remove the list and all of
+
+24
+00:00:53,360 --> 00:00:55,840
+its tasks. Just be sure you really don't
+
+25
+00:00:55,840 --> 00:00:57,920
+need it anymore as this action cannot be
+
+26
+00:00:57,920 --> 00:00:59,440
+undone.
+
+27
+00:00:59,440 --> 00:01:01,520
+You can also go to the archived done
+
+28
+00:01:01,520 --> 00:01:04,159
+tasks section here. It is a list of the
+
+29
+00:01:04,159 --> 00:01:06,400
+tasks which are done and are older than
+
+30
+00:01:06,400 --> 00:01:08,560
+60 days. So they get automatically
+
+31
+00:01:08,560 --> 00:01:10,159
+archived.
+
+32
+00:01:10,159 --> 00:01:11,680
+So that's your quick guide to deleting
+
+33
+00:01:11,680 --> 00:01:13,920
+and archiving tasks and list in Blitzet.
+
+34
+00:01:13,920 --> 00:01:15,920
+For more tips and support, don't forget
+
+35
+00:01:15,920 --> 00:01:18,000
+to explore our other tutorials and join
+
+36
+00:01:18,000 --> 00:01:20,080
+our Discord community. We'd love to see
+
+37
+00:01:20,080 --> 00:01:24,360
+you there. Happy Blitzing.

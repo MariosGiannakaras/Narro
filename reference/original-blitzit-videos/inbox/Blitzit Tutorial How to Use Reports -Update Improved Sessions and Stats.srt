@@ -1,0 +1,719 @@
+1
+00:00:00,040 --> 00:00:01,920
+hey blitzers we recently rolled out some
+
+2
+00:00:01,920 --> 00:00:04,080
+new updates to our reports making it
+
+3
+00:00:04,080 --> 00:00:06,240
+more user friendly and accurate and in
+
+4
+00:00:06,240 --> 00:00:07,319
+this video we're going to run through
+
+5
+00:00:07,319 --> 00:00:09,120
+those updates let's jump in as you can
+
+6
+00:00:09,120 --> 00:00:11,559
+see we've got a live task on my list and
+
+7
+00:00:11,559 --> 00:00:13,960
+below that I have done uh a few tasks
+
+8
+00:00:13,960 --> 00:00:15,400
+over the course of the day we'll head
+
+9
+00:00:15,400 --> 00:00:17,400
+over to home and in the navigation menu
+
+10
+00:00:17,400 --> 00:00:19,680
+we'll click reports and I'll go ahead
+
+11
+00:00:19,680 --> 00:00:23,800
+and choose 30 days uh to view that time
+
+12
+00:00:23,800 --> 00:00:25,880
+period uh as you can see there's new
+
+13
+00:00:25,880 --> 00:00:27,519
+stats at the top in this new update
+
+14
+00:00:27,519 --> 00:00:29,199
+we're actually recording daily session
+
+15
+00:00:29,199 --> 00:00:31,480
+times with Blitz it so whenever you pull
+
+16
+00:00:31,480 --> 00:00:33,840
+out Blitz it and run a task live or take
+
+17
+00:00:33,840 --> 00:00:36,040
+breaks we're recording those sessions
+
+18
+00:00:36,040 --> 00:00:37,719
+daily to give you more accurate
+
+19
+00:00:37,719 --> 00:00:39,960
+representation of your daily
+
+20
+00:00:39,960 --> 00:00:42,160
+productivity within your reports so
+
+21
+00:00:42,160 --> 00:00:43,879
+let's jump into these stats so you can
+
+22
+00:00:43,879 --> 00:00:46,559
+see over here we have total work days
+
+23
+00:00:46,559 --> 00:00:48,480
+essentially for this 30-day time period
+
+24
+00:00:48,480 --> 00:00:50,520
+total work days represents the days that
+
+25
+00:00:50,520 --> 00:00:53,160
+I actually worked on Blitz it the days I
+
+26
+00:00:53,160 --> 00:00:55,280
+pulled up Blitz it and made a task live
+
+27
+00:00:55,280 --> 00:00:56,800
+and you know did a couple of tasks to
+
+28
+00:00:56,800 --> 00:01:00,079
+breaks etc those are counted as uh one
+
+29
+00:01:00,079 --> 00:01:02,039
+day if I did that on a single day within
+
+30
+00:01:02,039 --> 00:01:05,040
+a 24hour period Then it counts as I have
+
+31
+00:01:05,040 --> 00:01:07,880
+used Blitz it as one day and you can
+
+32
+00:01:07,880 --> 00:01:10,040
+mirror that across the daily sessions
+
+33
+00:01:10,040 --> 00:01:12,640
+graph for as you can see this 30 days
+
+34
+00:01:12,640 --> 00:01:14,280
+there there should be 17 days that
+
+35
+00:01:14,280 --> 00:01:16,960
+actually did work uh Within These
+
+36
+00:01:16,960 --> 00:01:18,400
+individual days and the days that are
+
+37
+00:01:18,400 --> 00:01:21,200
+empty are which show zero total hours
+
+38
+00:01:21,200 --> 00:01:22,920
+worked will be days that I didn't
+
+39
+00:01:22,920 --> 00:01:24,360
+actually I didn't actually pull out
+
+40
+00:01:24,360 --> 00:01:26,960
+Blitz it or made any task live great so
+
+41
+00:01:26,960 --> 00:01:30,360
+next up we have total task done task
+
+42
+00:01:30,360 --> 00:01:32,880
+done essentially across this entire time
+
+43
+00:01:32,880 --> 00:01:35,960
+period how many tasks did I actually do
+
+44
+00:01:35,960 --> 00:01:38,079
+within that time period in my case
+
+45
+00:01:38,079 --> 00:01:41,079
+across those 30 days I did a total of 44
+
+46
+00:01:41,079 --> 00:01:43,880
+tasks and to get an average of that
+
+47
+00:01:43,880 --> 00:01:47,439
+across those work days that equals to
+
+48
+00:01:47,439 --> 00:01:51,040
+2.6 tasks per day and that to be
+
+49
+00:01:51,040 --> 00:01:53,280
+specific is workday so what we're doing
+
+50
+00:01:53,280 --> 00:01:55,840
+here is taking this 44 and divide it by
+
+51
+00:01:55,840 --> 00:01:59,119
+the by 17 your work days which gives you
+
+52
+00:01:59,119 --> 00:02:03,159
+on average 2.6 tasks per day on average
+
+53
+00:02:03,159 --> 00:02:04,759
+uh that you're accomplishing across all
+
+54
+00:02:04,759 --> 00:02:06,680
+your work days next we got total hours
+
+55
+00:02:06,680 --> 00:02:09,119
+work total hours work is exactly what it
+
+56
+00:02:09,119 --> 00:02:10,879
+says essentially across the entire time
+
+57
+00:02:10,879 --> 00:02:13,480
+period how many hours did you work in
+
+58
+00:02:13,480 --> 00:02:15,640
+Total and again the average of that will
+
+59
+00:02:15,640 --> 00:02:19,720
+be dividing the 81 hours by 17 total
+
+60
+00:02:19,720 --> 00:02:22,360
+work days which will give you 4.8 hours
+
+61
+00:02:22,360 --> 00:02:25,040
+per day or to be more specific per work
+
+62
+00:02:25,040 --> 00:02:27,360
+day across the time period is your
+
+63
+00:02:27,360 --> 00:02:30,080
+average finally we have average time per
+
+64
+00:02:30,080 --> 00:02:31,800
+task how much time on average do you
+
+65
+00:02:31,800 --> 00:02:34,599
+spend uh in a session per task and this
+
+66
+00:02:34,599 --> 00:02:36,599
+includes your done tasks as well as your
+
+67
+00:02:36,599 --> 00:02:38,000
+tasks that are incomplete but have
+
+68
+00:02:38,000 --> 00:02:40,159
+recorded session times in my case will
+
+69
+00:02:40,159 --> 00:02:42,920
+be 86 minutes on average across all of
+
+70
+00:02:42,920 --> 00:02:46,239
+my tasks I'm expected to spend around 86
+
+71
+00:02:46,239 --> 00:02:48,599
+minutes per task of course give or take
+
+72
+00:02:48,599 --> 00:02:50,200
+depending on the task some tasks I
+
+73
+00:02:50,200 --> 00:02:51,879
+probably took way more hours but it's an
+
+74
+00:02:51,879 --> 00:02:53,599
+average to give you an idea of how much
+
+75
+00:02:53,599 --> 00:02:55,200
+time you spend on average per task
+
+76
+00:02:55,200 --> 00:02:57,239
+across those 44 tasks that you completed
+
+77
+00:02:57,239 --> 00:02:59,480
+within the time period finally of course
+
+78
+00:02:59,480 --> 00:03:00,879
+we have have the graph sessions and the
+
+79
+00:03:00,879 --> 00:03:02,480
+graph sessions has a new update making
+
+80
+00:03:02,480 --> 00:03:03,959
+it more easy and more user friendly
+
+81
+00:03:03,959 --> 00:03:07,400
+we've converted the metrics to task
+
+82
+00:03:07,400 --> 00:03:10,239
+breakes and total out of all all of them
+
+83
+00:03:10,239 --> 00:03:12,319
+for example let's take this session over
+
+84
+00:03:12,319 --> 00:03:14,000
+here I don't haven't taken much breaks
+
+85
+00:03:14,000 --> 00:03:15,840
+as you can see I just go straight
+
+86
+00:03:15,840 --> 00:03:17,760
+complete blazing
+
+87
+00:03:17,760 --> 00:03:20,040
+24/7 but you can see over here I've got
+
+88
+00:03:20,040 --> 00:03:23,920
+task 5.6 hours I did I had a 0.2 hour
+
+89
+00:03:23,920 --> 00:03:26,280
+break so not sure what that would be
+
+90
+00:03:26,280 --> 00:03:29,799
+maybe 15 minutes or so but from that or
+
+91
+00:03:29,799 --> 00:03:31,920
+less than that but from that you can see
+
+92
+00:03:31,920 --> 00:03:33,239
+that it's calculated the total
+
+93
+00:03:33,239 --> 00:03:35,840
+underneath so the on total I spent 5.6
+
+94
+00:03:35,840 --> 00:03:39,519
+hours on tasks and on breaks I took 0.2
+
+95
+00:03:39,519 --> 00:03:42,879
+hours on breaks that total being 5.7
+
+96
+00:03:42,879 --> 00:03:46,159
+hours across my entire daily session so
+
+97
+00:03:46,159 --> 00:03:49,519
+I spent in total working let's say 5.7
+
+98
+00:03:49,519 --> 00:03:51,560
+hours including the break uh and of
+
+99
+00:03:51,560 --> 00:03:53,040
+course you can turn off these stats
+
+100
+00:03:53,040 --> 00:03:55,599
+within the graph if you wish great so
+
+101
+00:03:55,599 --> 00:03:57,519
+that is the new stats below that we have
+
+102
+00:03:57,519 --> 00:03:59,959
+most productive hour so most productive
+
+103
+00:03:59,959 --> 00:04:02,840
+hour or hours is essentially across the
+
+104
+00:04:02,840 --> 00:04:04,799
+time period that you selected which
+
+105
+00:04:04,799 --> 00:04:06,840
+hours do you have blitzed running the
+
+106
+00:04:06,840 --> 00:04:09,480
+most session times right and and when we
+
+107
+00:04:09,480 --> 00:04:11,400
+see that consistency throughout the day
+
+108
+00:04:11,400 --> 00:04:12,879
+perhaps there's a specific range of
+
+109
+00:04:12,879 --> 00:04:15,079
+hours or hour that you always are
+
+110
+00:04:15,079 --> 00:04:17,120
+pulling up Blitz it and running session
+
+111
+00:04:17,120 --> 00:04:19,759
+times and in that Focus mode then we'll
+
+112
+00:04:19,759 --> 00:04:21,759
+record that hour for you in my case it's
+
+113
+00:04:21,759 --> 00:04:24,040
+3:00 p.m. to 400 p.m. finally we have
+
+114
+00:04:24,040 --> 00:04:26,520
+most productive day across all of your
+
+115
+00:04:26,520 --> 00:04:28,160
+days in the week across the time period
+
+116
+00:04:28,160 --> 00:04:30,039
+which day do you have the most sessions
+
+117
+00:04:30,039 --> 00:04:32,479
+being run in my case is Thursday and
+
+118
+00:04:32,479 --> 00:04:34,759
+then finally we have most productive
+
+119
+00:04:34,759 --> 00:04:37,280
+month across all the time period if of
+
+120
+00:04:37,280 --> 00:04:39,199
+course is within a month then it'll be
+
+121
+00:04:39,199 --> 00:04:41,120
+that month but if you take a larger
+
+122
+00:04:41,120 --> 00:04:44,160
+range perhaps 90 days or one year then
+
+123
+00:04:44,160 --> 00:04:45,800
+you can see out of that you know which
+
+124
+00:04:45,800 --> 00:04:47,840
+month you had the most sessions run
+
+125
+00:04:47,840 --> 00:04:49,639
+which will give you the most productive
+
+126
+00:04:49,639 --> 00:04:52,039
+month and next we have time by list
+
+127
+00:04:52,039 --> 00:04:54,360
+essentially taking your total time
+
+128
+00:04:54,360 --> 00:04:56,440
+worked across the time period how is
+
+129
+00:04:56,440 --> 00:04:58,520
+that divided across your various lists
+
+130
+00:04:58,520 --> 00:05:00,320
+and here you can see I've worked on
+
+131
+00:05:00,320 --> 00:05:02,919
+glorify the most 51 hours and the rest
+
+132
+00:05:02,919 --> 00:05:05,960
+you can see how it is divided uh finally
+
+133
+00:05:05,960 --> 00:05:08,720
+we have done tasks done tasks gives you
+
+134
+00:05:08,720 --> 00:05:10,479
+a list of all your done tasks with the
+
+135
+00:05:10,479 --> 00:05:12,639
+time stamp of the day where you actually
+
+136
+00:05:12,639 --> 00:05:15,240
+did it according to this uh header as
+
+137
+00:05:15,240 --> 00:05:16,840
+you can see 26th of February I did all
+
+138
+00:05:16,840 --> 00:05:19,880
+these tasks on the 25th I did this Etc
+
+139
+00:05:19,880 --> 00:05:22,080
+and it also gives you an idea of how
+
+140
+00:05:22,080 --> 00:05:24,240
+early or late you are for example this
+
+141
+00:05:24,240 --> 00:05:26,800
+task that was 30 minutes late uh early
+
+142
+00:05:26,800 --> 00:05:29,560
+uh this one early by 1 hour and 19
+
+143
+00:05:29,560 --> 00:05:32,160
+minutes whereas this task I was late by
+
+144
+00:05:32,160 --> 00:05:35,280
+1 hour and 56 minutes total time taken
+
+145
+00:05:35,280 --> 00:05:38,000
+is 3 hours and 16 for example yeah so if
+
+146
+00:05:38,000 --> 00:05:39,720
+something Z minutes essentially I just
+
+147
+00:05:39,720 --> 00:05:41,240
+probably marked it as done without
+
+148
+00:05:41,240 --> 00:05:44,039
+recording in time taken perhaps maybe I
+
+149
+00:05:44,039 --> 00:05:45,680
+you know outsourced it to someone else
+
+150
+00:05:45,680 --> 00:05:48,880
+to do it Etc so those are different ways
+
+151
+00:05:48,880 --> 00:05:51,000
+of how the stats actually look so if you
+
+152
+00:05:51,000 --> 00:05:52,639
+just mark it as done without adding any
+
+153
+00:05:52,639 --> 00:05:54,440
+recorded time taken then it'll show at
+
+154
+00:05:54,440 --> 00:05:56,120
+zero whereas if you have any session
+
+155
+00:05:56,120 --> 00:05:58,160
+times you can see here there's a session
+
+156
+00:05:58,160 --> 00:06:00,240
+time of 43 minutes I was 16 minutes
+
+157
+00:06:00,240 --> 00:06:02,319
+early I probably made this task for 1
+
+158
+00:06:02,319 --> 00:06:05,000
+hour so there you go 60 minutes early
+
+159
+00:06:05,000 --> 00:06:08,000
+Etc and now when you see the percentage
+
+160
+00:06:08,000 --> 00:06:09,960
+here you can see by how much of a
+
+161
+00:06:09,960 --> 00:06:12,800
+percentage am I uh showing up as early
+
+162
+00:06:12,800 --> 00:06:15,479
+in my task versus late and this is
+
+163
+00:06:15,479 --> 00:06:18,400
+divided on the amount of hours stacked
+
+164
+00:06:18,400 --> 00:06:20,039
+let's say you know you're in total
+
+165
+00:06:20,039 --> 00:06:21,880
+across the time period you have a total
+
+166
+00:06:21,880 --> 00:06:23,680
+of uh you know I think I was laate for
+
+167
+00:06:23,680 --> 00:06:26,319
+one task by quite a lot like 14 hours
+
+168
+00:06:26,319 --> 00:06:28,360
+late by this task so that could stack up
+
+169
+00:06:28,360 --> 00:06:31,080
+a lot so the total hours late let's say
+
+170
+00:06:31,080 --> 00:06:32,919
+you know in total you spend 20 hours
+
+171
+00:06:32,919 --> 00:06:35,840
+late and in total time early is probably
+
+172
+00:06:35,840 --> 00:06:38,759
+10 hours so the ratio between those two
+
+173
+00:06:38,759 --> 00:06:40,400
+will give you the percentage so in my
+
+174
+00:06:40,400 --> 00:06:43,520
+case I'm 32% of the time I am early
+
+175
+00:06:43,520 --> 00:06:47,120
+versus 67% of the time late so that is
+
+176
+00:06:47,120 --> 00:06:48,880
+the new updates to reports we're going
+
+177
+00:06:48,880 --> 00:06:50,440
+to keep making this more sophisticated
+
+178
+00:06:50,440 --> 00:06:52,440
+gamified and better and always looking
+
+179
+00:06:52,440 --> 00:06:54,880
+for your feedback hope this helps guys
+
+180
+00:06:54,880 --> 00:06:58,240
+that's it for this video take care

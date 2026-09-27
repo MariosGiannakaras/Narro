@@ -1,0 +1,263 @@
+1
+00:00:00,960 --> 00:00:03,360
+Hi everyone. If you haven't yet seen our
+
+2
+00:00:03,360 --> 00:00:05,040
+video on recurrent schedules, I
+
+3
+00:00:05,040 --> 00:00:07,120
+recommend watching that first. It covers
+
+4
+00:00:07,120 --> 00:00:09,120
+the basics of setting up tasks to repeat
+
+5
+00:00:09,120 --> 00:00:11,519
+automatically. In this video, we'll
+
+6
+00:00:11,519 --> 00:00:13,599
+focus on the new update, custom
+
+7
+00:00:13,599 --> 00:00:16,480
+recurring schedules. Sometimes your
+
+8
+00:00:16,480 --> 00:00:18,560
+routines don't fit into daily, weekly,
+
+9
+00:00:18,560 --> 00:00:21,199
+or monthly presets. That's where custom
+
+10
+00:00:21,199 --> 00:00:23,199
+comes in. It gives you full flexibility
+
+11
+00:00:23,199 --> 00:00:25,680
+to stop exactly the interval you need.
+
+12
+00:00:25,680 --> 00:00:28,320
+To use it, choose a task you want. Open
+
+13
+00:00:28,320 --> 00:00:31,199
+the expanded menu. Click schedule.
+
+14
+00:00:31,199 --> 00:00:33,520
+Select the date of the task and click
+
+15
+00:00:33,520 --> 00:00:35,680
+next. At the bottom of the recurrent
+
+16
+00:00:35,680 --> 00:00:38,320
+schedule options, you'll see custom.
+
+17
+00:00:38,320 --> 00:00:40,079
+Select it for the most flexible way to
+
+18
+00:00:40,079 --> 00:00:43,360
+set repeating tasks. So with custom, you
+
+19
+00:00:43,360 --> 00:00:46,559
+set two things. The time interval, days,
+
+20
+00:00:46,559 --> 00:00:49,840
+weeks, month or years, and the number of
+
+21
+00:00:49,840 --> 00:00:52,559
+intervals. For example, we have every
+
+22
+00:00:52,559 --> 00:00:54,559
+one day selected. So the task will
+
+23
+00:00:54,559 --> 00:00:57,360
+repeat daily. Change it to every 3 days.
+
+24
+00:00:57,360 --> 00:00:59,120
+and Blitz will schedule this task for
+
+25
+00:00:59,120 --> 00:01:01,760
+every third day. A small tip line under
+
+26
+00:01:01,760 --> 00:01:03,600
+the settings explains your choice in
+
+27
+00:01:03,600 --> 00:01:06,400
+plain words as in this case every three
+
+28
+00:01:06,400 --> 00:01:08,880
+days. This makes it easy to double check
+
+29
+00:01:08,880 --> 00:01:11,520
+your setup before saving. When you
+
+30
+00:01:11,520 --> 00:01:13,680
+choose weeks as an interval, you also
+
+31
+00:01:13,680 --> 00:01:15,840
+get to pick the exact week days you want
+
+32
+00:01:15,840 --> 00:01:18,960
+the task to repeat on. Let's say we set
+
+33
+00:01:18,960 --> 00:01:21,600
+it to repeat every four weeks and select
+
+34
+00:01:21,600 --> 00:01:24,400
+Monday and Friday. The summary below
+
+35
+00:01:24,400 --> 00:01:27,280
+confirms it. every four weeks on Monday,
+
+36
+00:01:27,280 --> 00:01:30,240
+Friday. To remove a week day, just click
+
+37
+00:01:30,240 --> 00:01:33,200
+it again. For month, you get a different
+
+38
+00:01:33,200 --> 00:01:35,759
+type of control than with weeks. After
+
+39
+00:01:35,759 --> 00:01:37,439
+choosing the interval, you can decide
+
+40
+00:01:37,439 --> 00:01:39,280
+whether the task repeats on the same
+
+41
+00:01:39,280 --> 00:01:42,159
+date you chose each month, for example,
+
+42
+00:01:42,159 --> 00:01:44,560
+the 14th, or on the same day of the
+
+43
+00:01:44,560 --> 00:01:47,280
+week, like every second Sunday. This is
+
+44
+00:01:47,280 --> 00:01:49,520
+especially useful for monthly meetings
+
+45
+00:01:49,520 --> 00:01:51,600
+or deadlines that always fall on a
+
+46
+00:01:51,600 --> 00:01:54,320
+specific weekday. For years, the setup
+
+47
+00:01:54,320 --> 00:01:56,640
+is simple. The task repeats on the same
+
+48
+00:01:56,640 --> 00:01:58,479
+date and you can adjust the number of
+
+49
+00:01:58,479 --> 00:02:01,600
+years. So, if you set every four years,
+
+50
+00:02:01,600 --> 00:02:03,680
+the task will appear again on the date
+
+51
+00:02:03,680 --> 00:02:05,840
+four years later. That's some real
+
+52
+00:02:05,840 --> 00:02:08,080
+long-term planning.
+
+53
+00:02:08,080 --> 00:02:10,319
+Once you've chosen your settings, click
+
+54
+00:02:10,319 --> 00:02:12,480
+schedule and Blitz will generate child
+
+55
+00:02:12,480 --> 00:02:14,400
+tasks just like with regular recurrent
+
+56
+00:02:14,400 --> 00:02:16,000
+schedules.
+
+57
+00:02:16,000 --> 00:02:17,599
+Custom recurrent schedules give you
+
+58
+00:02:17,599 --> 00:02:19,680
+maximum flexibility for handling the
+
+59
+00:02:19,680 --> 00:02:22,480
+rhythms of your work. Try it out and
+
+60
+00:02:22,480 --> 00:02:24,080
+make your task management even more
+
+61
+00:02:24,080 --> 00:02:27,120
+precise. If this video was helpful,
+
+62
+00:02:27,120 --> 00:02:29,440
+check out our other tutorials and join
+
+63
+00:02:29,440 --> 00:02:30,959
+the Discord community where you can
+
+64
+00:02:30,959 --> 00:02:33,120
+share your productivity strategies, get
+
+65
+00:02:33,120 --> 00:02:36,160
+feedback, and connect with fellow users.
+
+66
+00:02:36,160 --> 00:02:39,560
+Happy blitzing.

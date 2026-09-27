@@ -1,0 +1,307 @@
+1
+00:00:00,880 --> 00:00:03,439
+Hi everyone. Today I'm going to walk you
+
+2
+00:00:03,439 --> 00:00:05,200
+through how to schedule task reminders
+
+3
+00:00:05,200 --> 00:00:07,680
+in Blitzet. A simple but an effective
+
+4
+00:00:07,680 --> 00:00:09,599
+way to keep your tasks on track and
+
+5
+00:00:09,599 --> 00:00:12,800
+never miss an important deadline. So to
+
+6
+00:00:12,800 --> 00:00:15,679
+schedule a reminder, hover over a task,
+
+7
+00:00:15,679 --> 00:00:18,000
+open the expanded menu, and click
+
+8
+00:00:18,000 --> 00:00:20,240
+schedule. This opens a scheduleuling
+
+9
+00:00:20,240 --> 00:00:22,800
+popup, your command panel foruling your
+
+10
+00:00:22,800 --> 00:00:24,400
+reminders.
+
+11
+00:00:24,400 --> 00:00:26,640
+In the popup, you can choose a specific
+
+12
+00:00:26,640 --> 00:00:29,599
+date and time for your reminder. Blitzet
+
+13
+00:00:29,599 --> 00:00:31,279
+also offers quick shortcuts for date
+
+14
+00:00:31,279 --> 00:00:33,200
+selections to help you pick a feeding
+
+15
+00:00:33,200 --> 00:00:35,120
+option fast.
+
+16
+00:00:35,120 --> 00:00:37,760
+Today is today's date. Later today sets
+
+17
+00:00:37,760 --> 00:00:39,440
+the reminder for two hours ahead of your
+
+18
+00:00:39,440 --> 00:00:41,680
+current time. Tomorrow's picks
+
+19
+00:00:41,680 --> 00:00:44,000
+tomorrow's date and next week schedule
+
+20
+00:00:44,000 --> 00:00:47,440
+the reminder exactly 7 days from today.
+
+21
+00:00:47,440 --> 00:00:49,520
+So yeah, just select the date that works
+
+22
+00:00:49,520 --> 00:00:51,840
+best for you. Then hit next to go to the
+
+23
+00:00:51,840 --> 00:00:54,399
+time selection screen. Here you can
+
+24
+00:00:54,399 --> 00:00:56,320
+click the add button to specify an exact
+
+25
+00:00:56,320 --> 00:00:58,559
+time for your reminder.
+
+26
+00:00:58,559 --> 00:01:00,640
+If you don't set a specific time, the
+
+27
+00:01:00,640 --> 00:01:02,239
+task will automatically move to the due
+
+28
+00:01:02,239 --> 00:01:06,320
+today column on its due date.
+
+29
+00:01:06,320 --> 00:01:08,960
+Let's also supports recurring schedules.
+
+30
+00:01:08,960 --> 00:01:10,880
+Recurring tasks create a parent task in
+
+31
+00:01:10,880 --> 00:01:12,640
+your backlog which automatically
+
+32
+00:01:12,640 --> 00:01:14,640
+generates individual child tasks each
+
+33
+00:01:14,640 --> 00:01:17,360
+week. These child tasks are pretty much
+
+34
+00:01:17,360 --> 00:01:19,119
+regular tasks you can manage and
+
+35
+00:01:19,119 --> 00:01:21,280
+complete independently.
+
+36
+00:01:21,280 --> 00:01:23,200
+In the schedule popup, you can set
+
+37
+00:01:23,200 --> 00:01:25,119
+different intervals.
+
+38
+00:01:25,119 --> 00:01:27,280
+Every day it creates seven new child
+
+39
+00:01:27,280 --> 00:01:30,320
+tasks every Monday, one for each day.
+
+40
+00:01:30,320 --> 00:01:32,799
+Every weekday, this one creates five new
+
+41
+00:01:32,799 --> 00:01:35,040
+child tasks every Monday for Monday to
+
+42
+00:01:35,040 --> 00:01:37,840
+Friday. Every specific day, the tasks
+
+43
+00:01:37,840 --> 00:01:39,600
+repeat on the same weekday you picked in
+
+44
+00:01:39,600 --> 00:01:41,920
+the date section, like every Saturday in
+
+45
+00:01:41,920 --> 00:01:45,119
+this case. Every month, task repeat
+
+46
+00:01:45,119 --> 00:01:47,520
+monthly on the date you chose. This is
+
+47
+00:01:47,520 --> 00:01:49,439
+perfect for routine tasks like weekly
+
+48
+00:01:49,439 --> 00:01:52,399
+reports or monthly check-ins. For a
+
+49
+00:01:52,399 --> 00:01:53,840
+detailed look at how the recurrent
+
+50
+00:01:53,840 --> 00:01:55,840
+schedules feature works, check out our
+
+51
+00:01:55,840 --> 00:01:58,479
+tutorial on recurrent schedules. Once
+
+52
+00:01:58,479 --> 00:02:00,399
+you're done, click schedule to save your
+
+53
+00:02:00,399 --> 00:02:03,280
+reminder. Once saved, your schedule
+
+54
+00:02:03,280 --> 00:02:05,360
+tasks will appear in one of the columns
+
+55
+00:02:05,360 --> 00:02:08,000
+depending on the reminder date. This
+
+56
+00:02:08,000 --> 00:02:09,599
+way, you get a clear view of what's
+
+57
+00:02:09,599 --> 00:02:11,039
+coming up and can plan your day
+
+58
+00:02:11,039 --> 00:02:13,120
+accordingly.
+
+59
+00:02:13,120 --> 00:02:15,120
+If your plans change, you can easily
+
+60
+00:02:15,120 --> 00:02:17,040
+edit a scheduled reminder by opening the
+
+61
+00:02:17,040 --> 00:02:19,599
+tasks expanded menu and clicking update
+
+62
+00:02:19,599 --> 00:02:21,440
+schedule. Then you can adjust the
+
+63
+00:02:21,440 --> 00:02:23,040
+parameters.
+
+64
+00:02:23,040 --> 00:02:25,360
+To remove a scheduled reminder, simply
+
+65
+00:02:25,360 --> 00:02:27,200
+click the X icon next to the schedule
+
+66
+00:02:27,200 --> 00:02:30,480
+details. The task itself stays intact.
+
+67
+00:02:30,480 --> 00:02:33,280
+Only the reminder is removed.
+
+68
+00:02:33,280 --> 00:02:35,040
+Sheduling reminders in Blitzet helps you
+
+69
+00:02:35,040 --> 00:02:36,640
+stay ahead of your tasks without the
+
+70
+00:02:36,640 --> 00:02:39,599
+usual oops, I forgot moments. Try it out
+
+71
+00:02:39,599 --> 00:02:42,080
+and see how much easier your days got.
+
+72
+00:02:42,080 --> 00:02:44,080
+If you found this tutorial helpful,
+
+73
+00:02:44,080 --> 00:02:45,599
+don't forget to check out our other
+
+74
+00:02:45,599 --> 00:02:47,519
+videos and join our Discord community
+
+75
+00:02:47,519 --> 00:02:49,840
+for more tips and support. Happy
+
+76
+00:02:49,840 --> 00:02:51,380
+blitzing.
+
+77
+00:02:51,380 --> 00:02:54,490
+[Music]

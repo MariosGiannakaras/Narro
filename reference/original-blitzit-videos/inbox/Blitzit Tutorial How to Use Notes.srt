@@ -1,0 +1,135 @@
+1
+00:00:00,440 --> 00:00:01,040
+[Music]
+
+2
+00:00:01,040 --> 00:00:03,360
+Hi everyone. Today we'll take a look at
+
+3
+00:00:03,360 --> 00:00:05,520
+Blitz's notes feature. A handy way to
+
+4
+00:00:05,520 --> 00:00:07,839
+quickly note down important details or
+
+5
+00:00:07,839 --> 00:00:09,920
+reminders right within your tasks so you
+
+6
+00:00:09,920 --> 00:00:11,599
+can keep essential information close at
+
+7
+00:00:11,599 --> 00:00:13,920
+hand without slowing you down. Notes
+
+8
+00:00:13,920 --> 00:00:16,000
+allow you to capture essential details,
+
+9
+00:00:16,000 --> 00:00:18,560
+instructions or context, helping you
+
+10
+00:00:18,560 --> 00:00:21,039
+keep your workflow streamlined.
+
+11
+00:00:21,039 --> 00:00:24,080
+To add notes, simply hover over a task,
+
+12
+00:00:24,080 --> 00:00:26,320
+click the notes icon, and start typing
+
+13
+00:00:26,320 --> 00:00:28,480
+in the notes field.
+
+14
+00:00:28,480 --> 00:00:30,000
+Blitzed supports basic formatting
+
+15
+00:00:30,000 --> 00:00:32,640
+options like bold, italics, strike
+
+16
+00:00:32,640 --> 00:00:35,360
+through, and bullet points so you can
+
+17
+00:00:35,360 --> 00:00:37,280
+structure your notes clearly and make
+
+18
+00:00:37,280 --> 00:00:39,920
+key points stand out. There are also
+
+19
+00:00:39,920 --> 00:00:42,079
+undo and redo buttons so you can easily
+
+20
+00:00:42,079 --> 00:00:43,920
+fix any little mistakes or changes as
+
+21
+00:00:43,920 --> 00:00:45,760
+you go.
+
+22
+00:00:45,760 --> 00:00:47,600
+A neat detail about this feature is that
+
+23
+00:00:47,600 --> 00:00:49,520
+Blitzet automatically recognizes links
+
+24
+00:00:49,520 --> 00:00:51,760
+within your notes. They become clickable
+
+25
+00:00:51,760 --> 00:00:54,239
+immediately once you paste them. When
+
+26
+00:00:54,239 --> 00:00:56,239
+your task goes live, these links will
+
+27
+00:00:56,239 --> 00:00:57,840
+automatically open in your default
+
+28
+00:00:57,840 --> 00:00:59,920
+browser, saving you the hassle of copy
+
+29
+00:00:59,920 --> 00:01:01,440
+pasting.
+
+30
+00:01:01,440 --> 00:01:03,280
+That's it. A simple but effective
+
+31
+00:01:03,280 --> 00:01:05,840
+feature. If you found this helpful, feel
+
+32
+00:01:05,840 --> 00:01:08,000
+free to explore our other tutorials and
+
+33
+00:01:08,000 --> 00:01:09,920
+join our Discord community for ongoing
+
+34
+00:01:09,920 --> 00:01:14,520
+support and tips. Happy blitzing.

@@ -1,0 +1,351 @@
+1
+00:00:00,800 --> 00:00:02,960
+Hi everyone. Today we are diving into
+
+2
+00:00:02,960 --> 00:00:04,880
+Blitz mode. The core feature of Blitz
+
+3
+00:00:04,880 --> 00:00:07,040
+that helps you get into a flow state and
+
+4
+00:00:07,040 --> 00:00:08,840
+stay fully focused like a productivity
+
+5
+00:00:08,840 --> 00:00:11,120
+pro. This mode is built to help you
+
+6
+00:00:11,120 --> 00:00:12,880
+eliminate distractions and work on one
+
+7
+00:00:12,880 --> 00:00:15,200
+task at a time. Instead of juggling
+
+8
+00:00:15,200 --> 00:00:17,199
+multiple things, Litz mode keeps you
+
+9
+00:00:17,199 --> 00:00:19,240
+focused, making your workday more
+
+10
+00:00:19,240 --> 00:00:21,680
+productive. To start blitz mode, first
+
+11
+00:00:21,680 --> 00:00:23,720
+add your task to today column in order
+
+12
+00:00:23,720 --> 00:00:25,920
+priority, the top being the most
+
+13
+00:00:25,920 --> 00:00:28,160
+important. When you're ready, just hit
+
+14
+00:00:28,160 --> 00:00:30,240
+the blitzes now button and you'll enter
+
+15
+00:00:30,240 --> 00:00:33,200
+focus mode. This opens the focus panel
+
+16
+00:00:33,200 --> 00:00:35,520
+showing your top task in a lifetime with
+
+17
+00:00:35,520 --> 00:00:37,320
+the rest of your tasks neatly lined up
+
+18
+00:00:37,320 --> 00:00:40,000
+below. From here, you get a bird's eye
+
+19
+00:00:40,000 --> 00:00:41,840
+view of your day while tackling tasks
+
+20
+00:00:41,840 --> 00:00:44,239
+one by one. You can easily rearrange
+
+21
+00:00:44,239 --> 00:00:46,719
+tasks by dragging them, add new tasks on
+
+22
+00:00:46,719 --> 00:00:49,440
+the fly, delete tasks you no longer
+
+23
+00:00:49,440 --> 00:00:52,239
+need, or add notes to keep important
+
+24
+00:00:52,239 --> 00:00:55,199
+details handy.
+
+25
+00:00:55,199 --> 00:00:57,039
+Keep in mind that you cannot move or
+
+26
+00:00:57,039 --> 00:00:59,199
+delete the task set to the live timer,
+
+27
+00:00:59,199 --> 00:01:02,000
+but you can skip it or mark it as done.
+
+28
+00:01:02,000 --> 00:01:03,920
+Or you can set another task live by
+
+29
+00:01:03,920 --> 00:01:06,080
+hitting the rocket button next to it. It
+
+30
+00:01:06,080 --> 00:01:07,760
+jumps right into the timer so you can
+
+31
+00:01:07,760 --> 00:01:09,600
+start working on it while keeping the
+
+32
+00:01:09,600 --> 00:01:11,400
+previous task waiting for your comeback
+
+33
+00:01:11,400 --> 00:01:13,760
+below. You can also see the tasks you've
+
+34
+00:01:13,760 --> 00:01:15,280
+completed during the session to track
+
+35
+00:01:15,280 --> 00:01:17,119
+your progress.
+
+36
+00:01:17,119 --> 00:01:18,880
+In case you have tasks across different
+
+37
+00:01:18,880 --> 00:01:20,799
+lists, you can use the list drop down at
+
+38
+00:01:20,799 --> 00:01:22,640
+the top of the focus panel to switch
+
+39
+00:01:22,640 --> 00:01:25,040
+between your lists quickly. You can
+
+40
+00:01:25,040 --> 00:01:26,960
+select the all lists view to see all the
+
+41
+00:01:26,960 --> 00:01:28,799
+tasks from all the lists assigned for
+
+42
+00:01:28,799 --> 00:01:31,600
+today at the same time. Here you can see
+
+43
+00:01:31,600 --> 00:01:33,799
+the gear icon you can use to open
+
+44
+00:01:33,799 --> 00:01:35,840
+preferences. That's where you can tweak
+
+45
+00:01:35,840 --> 00:01:37,280
+settings like which screen the focus
+
+46
+00:01:37,280 --> 00:01:39,119
+panel appears on if you have multiple
+
+47
+00:01:39,119 --> 00:01:41,520
+monitors and whether it sits on the left
+
+48
+00:01:41,520 --> 00:01:44,000
+or right side of the screen. It's all
+
+49
+00:01:44,000 --> 00:01:47,000
+about making Blitz mode fit your setup
+
+50
+00:01:47,000 --> 00:01:49,040
+perfectly. Below you can see more
+
+51
+00:01:49,040 --> 00:01:50,880
+settings you can customize like setting
+
+52
+00:01:50,880 --> 00:01:53,920
+up the Pomodoro timer, break duration,
+
+53
+00:01:53,920 --> 00:01:56,079
+time alerts, and other aspects of your
+
+54
+00:01:56,079 --> 00:01:58,560
+workflow with Blitzet. When you are
+
+55
+00:01:58,560 --> 00:02:00,399
+done, just click the home icon at the
+
+56
+00:02:00,399 --> 00:02:02,240
+top right to exit and return to your
+
+57
+00:02:02,240 --> 00:02:04,640
+home screen.
+
+58
+00:02:04,640 --> 00:02:06,320
+If you want to keep your timer always
+
+59
+00:02:06,320 --> 00:02:07,840
+visible without distracting you from
+
+60
+00:02:07,840 --> 00:02:09,679
+your work, click the arrow icon at the
+
+61
+00:02:09,679 --> 00:02:11,599
+top right or the focus mode button at
+
+62
+00:02:11,599 --> 00:02:13,520
+the bottom to minimize the focus panel
+
+63
+00:02:13,520 --> 00:02:16,239
+into the floating timer. You can drag it
+
+64
+00:02:16,239 --> 00:02:18,160
+anywhere on your screen and it always
+
+65
+00:02:18,160 --> 00:02:20,080
+stays on top so you're always reminded
+
+66
+00:02:20,080 --> 00:02:22,560
+of your current task. The floating timer
+
+67
+00:02:22,560 --> 00:02:24,959
+includes several controls. You can take
+
+68
+00:02:24,959 --> 00:02:26,800
+a quick break with a countdown based on
+
+69
+00:02:26,800 --> 00:02:29,120
+your preferences. You can add quick
+
+70
+00:02:29,120 --> 00:02:30,520
+notes to your
+
+71
+00:02:30,520 --> 00:02:33,440
+task. You can pause and resume the timer
+
+72
+00:02:33,440 --> 00:02:37,000
+as needed. Move to the next task
+
+73
+00:02:37,000 --> 00:02:39,319
+instantly. Mark the current task as
+
+74
+00:02:39,319 --> 00:02:41,840
+complete and you can return to the full
+
+75
+00:02:41,840 --> 00:02:44,280
+focus panel with the resize icon on the
+
+76
+00:02:44,280 --> 00:02:46,800
+right. When you finish a task, click
+
+77
+00:02:46,800 --> 00:02:48,840
+done. It feels great to check things
+
+78
+00:02:48,840 --> 00:02:51,760
+off. Blitz it then moves you smoothly to
+
+79
+00:02:51,760 --> 00:02:54,000
+the next task or offers you to take a
+
+80
+00:02:54,000 --> 00:02:57,680
+break. Balance is key, right? So that's
+
+81
+00:02:57,680 --> 00:03:00,000
+Blitz mode in a nutshell. Give it a try
+
+82
+00:03:00,000 --> 00:03:02,400
+and see how it transforms your workflow.
+
+83
+00:03:02,400 --> 00:03:04,560
+If you found this video helpful, be sure
+
+84
+00:03:04,560 --> 00:03:06,640
+to check out our other tutorials and
+
+85
+00:03:06,640 --> 00:03:09,120
+join our Discord community to share your
+
+86
+00:03:09,120 --> 00:03:12,159
+own productivity tips and get inspired.
+
+87
+00:03:12,159 --> 00:03:13,790
+Happy blitzing.
+
+88
+00:03:13,790 --> 00:03:17,400
+[Music]

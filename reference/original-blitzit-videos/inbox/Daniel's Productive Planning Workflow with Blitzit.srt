@@ -1,0 +1,363 @@
+1
+00:00:00,440 --> 00:00:00,800
+[Music]
+
+2
+00:00:00,800 --> 00:00:02,960
+Hi everyone. In this video, I'll show
+
+3
+00:00:02,960 --> 00:00:04,960
+you my practical workflow for planning a
+
+4
+00:00:04,960 --> 00:00:07,359
+productive day and week using Blitzet.
+
+5
+00:00:07,359 --> 00:00:09,360
+I'll walk you through my process and
+
+6
+00:00:09,360 --> 00:00:11,440
+share why I do things this way. So, you
+
+7
+00:00:11,440 --> 00:00:13,880
+can adapt these tips for your own
+
+8
+00:00:13,880 --> 00:00:16,480
+routine. First, I organize my work by
+
+9
+00:00:16,480 --> 00:00:18,560
+creating separate lists for each major
+
+10
+00:00:18,560 --> 00:00:21,680
+area or project. For example, I have one
+
+11
+00:00:21,680 --> 00:00:23,920
+list for freelance work tasks, another
+
+12
+00:00:23,920 --> 00:00:26,320
+for my own creative project, one for my
+
+13
+00:00:26,320 --> 00:00:28,400
+music projects, and one for personal
+
+14
+00:00:28,400 --> 00:00:30,720
+tasks. This helps me keep everything
+
+15
+00:00:30,720 --> 00:00:32,800
+organized and makes it easy to focus on
+
+16
+00:00:32,800 --> 00:00:34,960
+one area at a time without getting lost
+
+17
+00:00:34,960 --> 00:00:36,600
+in a large number of
+
+18
+00:00:36,600 --> 00:00:39,200
+processes. Next, I add task to each
+
+19
+00:00:39,200 --> 00:00:41,680
+list. For example, let's go to personal
+
+20
+00:00:41,680 --> 00:00:44,480
+list. When I plan my week, I start
+
+21
+00:00:44,480 --> 00:00:47,200
+creating tasks into this week column.
+
+22
+00:00:47,200 --> 00:00:47,800
+For
+
+23
+00:00:47,800 --> 00:00:51,200
+example, hug my dog. As I create each
+
+24
+00:00:51,200 --> 00:00:55,039
+task, I set an estimated time or is t as
+
+25
+00:00:55,039 --> 00:00:57,600
+we call it in Blitzet. That's how long I
+
+26
+00:00:57,600 --> 00:00:59,920
+think the task will take. This is me
+
+27
+00:00:59,920 --> 00:01:01,760
+pretending I know exactly how long
+
+28
+00:01:01,760 --> 00:01:05,760
+things take. And spoiler alert, I don't.
+
+29
+00:01:05,760 --> 00:01:08,159
+But it helps me estimate my workload.
+
+30
+00:01:08,159 --> 00:01:10,240
+And thanks to this feature, I really
+
+31
+00:01:10,240 --> 00:01:12,880
+improved my time estimation skills. This
+
+32
+00:01:12,880 --> 00:01:15,200
+way, I can realistically plan my day and
+
+33
+00:01:15,200 --> 00:01:18,960
+avoid overloading myself. Then I review
+
+34
+00:01:18,960 --> 00:01:20,640
+my tasks and move the ones I want to
+
+35
+00:01:20,640 --> 00:01:23,439
+tackle today into the today column. I
+
+36
+00:01:23,439 --> 00:01:25,600
+try not to move everything here to not
+
+37
+00:01:25,600 --> 00:01:27,840
+overload myself and get disappointed
+
+38
+00:01:27,840 --> 00:01:30,320
+later. Let's be real, not everything
+
+39
+00:01:30,320 --> 00:01:33,439
+gets done today, and that's okay. So,
+
+40
+00:01:33,439 --> 00:01:35,520
+this way, I'm clear on my priorities
+
+41
+00:01:35,520 --> 00:01:38,720
+before I start working. Other tasks stay
+
+42
+00:01:38,720 --> 00:01:40,880
+in the this week column so I can get
+
+43
+00:01:40,880 --> 00:01:43,360
+back to them later in the week. And then
+
+44
+00:01:43,360 --> 00:01:45,840
+there is the backlog column. This is
+
+45
+00:01:45,840 --> 00:01:47,520
+where I put tasks that don't need my
+
+46
+00:01:47,520 --> 00:01:49,360
+attention right now, but that I want to
+
+47
+00:01:49,360 --> 00:01:51,920
+keep safely recorded. It's like a
+
+48
+00:01:51,920 --> 00:01:54,079
+holding area for future work so I can
+
+49
+00:01:54,079 --> 00:01:56,479
+focus on what matters today without ever
+
+50
+00:01:56,479 --> 00:01:58,240
+forgetting anything important that's
+
+51
+00:01:58,240 --> 00:02:00,240
+planned for later. Within the today
+
+52
+00:02:00,240 --> 00:02:02,079
+column, I drag and drop tasks to arrange
+
+53
+00:02:02,079 --> 00:02:04,399
+them by priority. The most urgent or
+
+54
+00:02:04,399 --> 00:02:06,880
+important tasks go to the top. This
+
+55
+00:02:06,880 --> 00:02:09,440
+helps me focus on what matters most and
+
+56
+00:02:09,440 --> 00:02:11,720
+builds momentum as I walk through my
+
+57
+00:02:11,720 --> 00:02:14,640
+list. Once my to-do list is set, I hit
+
+58
+00:02:14,640 --> 00:02:16,640
+the blitz now button to enter blitz
+
+59
+00:02:16,640 --> 00:02:19,200
+mode. This launches the focus panel
+
+60
+00:02:19,200 --> 00:02:21,280
+where my top task goes into a lifetime
+
+61
+00:02:21,280 --> 00:02:24,160
+timer and the rest are lined up below. I
+
+62
+00:02:24,160 --> 00:02:25,800
+use this mode to work with full
+
+63
+00:02:25,800 --> 00:02:28,599
+concentration one task at a time without
+
+64
+00:02:28,599 --> 00:02:31,040
+distractions. If I need a break, I just
+
+65
+00:02:31,040 --> 00:02:33,200
+pose a timer or hit the break button
+
+66
+00:02:33,200 --> 00:02:34,800
+which starts a countdown for my break
+
+67
+00:02:34,800 --> 00:02:37,120
+time. You can set the break duration in
+
+68
+00:02:37,120 --> 00:02:37,959
+the
+
+69
+00:02:37,959 --> 00:02:40,640
+settings. As I complete each task, I
+
+70
+00:02:40,640 --> 00:02:42,800
+mark it as done and move on to the next
+
+71
+00:02:42,800 --> 00:02:44,959
+one. At the end of the day, I get a
+
+72
+00:02:44,959 --> 00:02:47,040
+clearer sense of progress. And every
+
+73
+00:02:47,040 --> 00:02:49,040
+time I finish something, Blitz reminds
+
+74
+00:02:49,040 --> 00:02:51,599
+me to reward myself with some rest so I
+
+75
+00:02:51,599 --> 00:02:54,400
+don't get to swallow up in work. Not a
+
+76
+00:02:54,400 --> 00:02:56,879
+healthy habit, right? If I don't finish
+
+77
+00:02:56,879 --> 00:02:58,800
+all my tasks, I simply come back to them
+
+78
+00:02:58,800 --> 00:03:00,879
+tomorrow or later in the week, keeping
+
+79
+00:03:00,879 --> 00:03:03,000
+my workflow flexible and
+
+80
+00:03:03,000 --> 00:03:06,480
+stress-free. And that's it. As you can
+
+81
+00:03:06,480 --> 00:03:08,319
+see, with Blitzet, you can plan and
+
+82
+00:03:08,319 --> 00:03:09,920
+execute your day and week more
+
+83
+00:03:09,920 --> 00:03:13,120
+effectively and more satisfying. If you
+
+84
+00:03:13,120 --> 00:03:15,120
+found this workflow helpful, be sure to
+
+85
+00:03:15,120 --> 00:03:16,879
+check out our other tutorials and the
+
+86
+00:03:16,879 --> 00:03:18,959
+help center for more tips. And don't
+
+87
+00:03:18,959 --> 00:03:20,720
+forget to join our Discord community to
+
+88
+00:03:20,720 --> 00:03:23,040
+share your own productivity strategies
+
+89
+00:03:23,040 --> 00:03:25,040
+and get inspired by like-minded people
+
+90
+00:03:25,040 --> 00:03:28,239
+from around the globe. So, have a great
+
+91
+00:03:28,239 --> 00:03:32,360
+blitzing. See you.

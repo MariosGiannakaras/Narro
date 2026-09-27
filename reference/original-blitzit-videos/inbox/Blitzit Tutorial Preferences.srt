@@ -1,0 +1,307 @@
+1
+00:00:00,880 --> 00:00:03,040
+Hi everyone. In this video, I'll show
+
+2
+00:00:03,040 --> 00:00:04,799
+you how to customize Blitzet to fit your
+
+3
+00:00:04,799 --> 00:00:06,480
+workflow perfectly by exploring
+
+4
+00:00:06,480 --> 00:00:08,080
+preferences and key customization
+
+5
+00:00:08,080 --> 00:00:10,800
+options. To open preferences, click the
+
+6
+00:00:10,800 --> 00:00:12,639
+cog icon in the top right corner of the
+
+7
+00:00:12,639 --> 00:00:14,960
+app. You can also access preferences
+
+8
+00:00:14,960 --> 00:00:16,480
+quickly during a focus session by
+
+9
+00:00:16,480 --> 00:00:18,080
+clicking the same cog icon in the top
+
+10
+00:00:18,080 --> 00:00:20,880
+right of the Blitz panel. First is blitz
+
+11
+00:00:20,880 --> 00:00:23,119
+panel customization. The Blitz panel is
+
+12
+00:00:23,119 --> 00:00:25,279
+your main focus session interface. If
+
+13
+00:00:25,279 --> 00:00:27,119
+you have multiple monitors, you can
+
+14
+00:00:27,119 --> 00:00:28,560
+choose which screen the Blitz panel
+
+15
+00:00:28,560 --> 00:00:30,720
+appears on. And you can also select
+
+16
+00:00:30,720 --> 00:00:32,719
+whether the panel appears on the left or
+
+17
+00:00:32,719 --> 00:00:34,480
+right side of your screen, whatever
+
+18
+00:00:34,480 --> 00:00:37,440
+suits your setup best. Blitz supports
+
+19
+00:00:37,440 --> 00:00:39,920
+both dark and light themes to reduce eye
+
+20
+00:00:39,920 --> 00:00:42,320
+strain and match your preferences. You
+
+21
+00:00:42,320 --> 00:00:44,480
+can toggle between these modes here or
+
+22
+00:00:44,480 --> 00:00:46,239
+set Blitz to automatically follow your
+
+23
+00:00:46,239 --> 00:00:48,320
+devices theme.
+
+24
+00:00:48,320 --> 00:00:50,399
+Here you can choose whether to hide or
+
+25
+00:00:50,399 --> 00:00:52,640
+show estimated time and time taken on
+
+26
+00:00:52,640 --> 00:00:54,879
+tasks to keep your workspace clean or
+
+27
+00:00:54,879 --> 00:00:57,280
+detailed. If you hide them, you can
+
+28
+00:00:57,280 --> 00:00:59,280
+still see this data by hovering over a
+
+29
+00:00:59,280 --> 00:01:01,760
+task. In Blitz mode settings, you can
+
+30
+00:01:01,760 --> 00:01:04,400
+enable Pomodoro mode. Set your preferred
+
+31
+00:01:04,400 --> 00:01:07,040
+work sprint length and break times and
+
+32
+00:01:07,040 --> 00:01:08,640
+the timer will automatically switch
+
+33
+00:01:08,640 --> 00:01:10,640
+between them when a task is live based
+
+34
+00:01:10,640 --> 00:01:13,280
+on these settings. You can also set a
+
+35
+00:01:13,280 --> 00:01:15,439
+default brake length for a station when
+
+36
+00:01:15,439 --> 00:01:17,759
+you manually switch to break. Plus,
+
+37
+00:01:17,759 --> 00:01:19,360
+there is a scrolling title feature on
+
+38
+00:01:19,360 --> 00:01:21,520
+the live timer. This lets you read long
+
+39
+00:01:21,520 --> 00:01:24,720
+task titles fully during Blitz mode.
+
+40
+00:01:24,720 --> 00:01:26,640
+Next, you can personalize how Blizzard
+
+41
+00:01:26,640 --> 00:01:29,280
+keeps you on track. Enable timed alerts
+
+42
+00:01:29,280 --> 00:01:31,200
+during tasks to get regular reminders
+
+43
+00:01:31,200 --> 00:01:33,840
+with sound and optional animation. You
+
+44
+00:01:33,840 --> 00:01:35,439
+can also customize how often you get
+
+45
+00:01:35,439 --> 00:01:37,040
+this alerts by picking your preferred
+
+46
+00:01:37,040 --> 00:01:39,520
+alert timing, for example, every 30
+
+47
+00:01:39,520 --> 00:01:41,360
+minutes.
+
+48
+00:01:41,360 --> 00:01:43,040
+Here you can choose the sound you prefer
+
+49
+00:01:43,040 --> 00:01:45,200
+as notification sound and select the
+
+50
+00:01:45,200 --> 00:01:47,680
+volume. Personally, I like it to be
+
+51
+00:01:47,680 --> 00:01:49,759
+quiet but still be present because this
+
+52
+00:01:49,759 --> 00:01:52,720
+feature really helps me stay focused.
+
+53
+00:01:52,720 --> 00:01:54,320
+Here you can enable alerts for all
+
+54
+00:01:54,320 --> 00:01:56,240
+notifications which include task due
+
+55
+00:01:56,240 --> 00:01:59,119
+reminders, task or break times and
+
+56
+00:01:59,119 --> 00:02:02,000
+pomodoro sprint ends. You can choose a
+
+57
+00:02:02,000 --> 00:02:04,240
+sound and preferred volume level here as
+
+58
+00:02:04,240 --> 00:02:06,000
+well.
+
+59
+00:02:06,000 --> 00:02:07,920
+Blitz it lets you add a bit of fun and
+
+60
+00:02:07,920 --> 00:02:10,479
+motivation when you finish tasks.
+
+61
+00:02:10,479 --> 00:02:12,560
+You can enable the success screen to see
+
+62
+00:02:12,560 --> 00:02:14,560
+a motivating success message after
+
+63
+00:02:14,560 --> 00:02:16,959
+completing a task. You can add a fun
+
+64
+00:02:16,959 --> 00:02:18,959
+gift to your success screen for some
+
+65
+00:02:18,959 --> 00:02:21,200
+extra encouragement and choose a
+
+66
+00:02:21,200 --> 00:02:22,959
+celebration sound that plays every time
+
+67
+00:02:22,959 --> 00:02:26,720
+you check off a task. Victorious, right?
+
+68
+00:02:26,720 --> 00:02:28,560
+That's an overview of how to customize
+
+69
+00:02:28,560 --> 00:02:30,800
+Blitzet to your liking. We will continue
+
+70
+00:02:30,800 --> 00:02:32,959
+to add more preferences over time,
+
+71
+00:02:32,959 --> 00:02:34,480
+giving you even more control to
+
+72
+00:02:34,480 --> 00:02:35,760
+personalize your experience with
+
+73
+00:02:35,760 --> 00:02:37,599
+Blitzet. If you found this video
+
+74
+00:02:37,599 --> 00:02:39,599
+helpful, check out our other tutorials
+
+75
+00:02:39,599 --> 00:02:41,680
+and join our Discord community which is
+
+76
+00:02:41,680 --> 00:02:44,640
+supportive and always well mostly
+
+77
+00:02:44,640 --> 00:02:49,080
+productive. Happy blitzing.

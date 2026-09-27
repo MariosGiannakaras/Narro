@@ -1,0 +1,427 @@
+1
+00:00:00,370 --> 00:00:00,719
+[Music]
+
+2
+00:00:00,719 --> 00:00:03,120
+Hi everyone. In this tutorial, I'm going
+
+3
+00:00:03,120 --> 00:00:04,600
+to show you how to get started with
+
+4
+00:00:04,600 --> 00:00:07,120
+Blitzet. Blitzet helps you plan your day
+
+5
+00:00:07,120 --> 00:00:08,960
+and week by breaking down your work into
+
+6
+00:00:08,960 --> 00:00:11,440
+manageable tasks using smart timers and
+
+7
+00:00:11,440 --> 00:00:13,679
+focus modes and many other cool features
+
+8
+00:00:13,679 --> 00:00:15,200
+that are all built to help you achieve
+
+9
+00:00:15,200 --> 00:00:18,480
+an invarian flow state. So, as we say,
+
+10
+00:00:18,480 --> 00:00:21,359
+you can win your day every day. To get
+
+11
+00:00:21,359 --> 00:00:23,279
+started, you'll need a Mac or Windows
+
+12
+00:00:23,279 --> 00:00:26,880
+computer. Blitz works on Mac OS 12.3 or
+
+13
+00:00:26,880 --> 00:00:29,279
+later, supporting both Intel and Apple
+
+14
+00:00:29,279 --> 00:00:31,599
+Silicon processors, as well as Windows
+
+15
+00:00:31,599 --> 00:00:35,040
+10 and Windows 11. Mobile apps for iOS
+
+16
+00:00:35,040 --> 00:00:36,800
+and Android are coming soon, so you'll
+
+17
+00:00:36,800 --> 00:00:39,520
+be able to stay productive on the go.
+
+18
+00:00:39,520 --> 00:00:41,360
+Setting up your account is super easy,
+
+19
+00:00:41,360 --> 00:00:43,760
+but first you need to download the app.
+
+20
+00:00:43,760 --> 00:00:46,160
+Head over to Blitz.app and go to the
+
+21
+00:00:46,160 --> 00:00:48,559
+download section. There, choose your
+
+22
+00:00:48,559 --> 00:00:51,360
+operating system, Mac OS, Intel, Apple
+
+23
+00:00:51,360 --> 00:00:53,920
+Silicon, or Windows.
+
+24
+00:00:53,920 --> 00:00:55,920
+Once you install and open the app,
+
+25
+00:00:55,920 --> 00:00:57,680
+you'll be asked to enter the email you
+
+26
+00:00:57,680 --> 00:01:00,239
+want to use with
+
+27
+00:01:00,680 --> 00:01:02,879
+Blitzet. Then you'll need to agree to
+
+28
+00:01:02,879 --> 00:01:04,879
+the privacy and data collection terms.
+
+29
+00:01:04,879 --> 00:01:06,640
+And yeah, be sure to go ahead and give
+
+30
+00:01:06,640 --> 00:01:09,080
+it a quick read or simply pretend you
+
+31
+00:01:09,080 --> 00:01:11,760
+did. After that, Blitzet will send you a
+
+32
+00:01:11,760 --> 00:01:14,159
+confirmation code to your email. Just
+
+33
+00:01:14,159 --> 00:01:16,320
+enter that code in the app and you are
+
+34
+00:01:16,320 --> 00:01:18,000
+signed up.
+
+35
+00:01:18,000 --> 00:01:19,840
+The last step is to enter your first and
+
+36
+00:01:19,840 --> 00:01:22,000
+last name and then you are all set to
+
+37
+00:01:22,000 --> 00:01:24,200
+start crushing your
+
+38
+00:01:24,200 --> 00:01:26,840
+tasks. Here's a quick look at the Blitz
+
+39
+00:01:26,840 --> 00:01:29,200
+interface. This is your home section
+
+40
+00:01:29,200 --> 00:01:31,439
+where you can create and manage lists.
+
+41
+00:01:31,439 --> 00:01:32,960
+They help you organize different
+
+42
+00:01:32,960 --> 00:01:35,360
+projects or areas of your work. Let's
+
+43
+00:01:35,360 --> 00:01:38,320
+create the first list. Choose a name and
+
+44
+00:01:38,320 --> 00:01:41,439
+icon for it and press create. You can
+
+45
+00:01:41,439 --> 00:01:43,360
+edit your list anytime by clicking the
+
+46
+00:01:43,360 --> 00:01:45,799
+three dot button and pressing
+
+47
+00:01:45,799 --> 00:01:49,600
+edit. Now let's open it. Okay. So inside
+
+48
+00:01:49,600 --> 00:01:51,680
+the list you can see the columns which
+
+49
+00:01:51,680 --> 00:01:54,119
+help you organize your tasks based on
+
+50
+00:01:54,119 --> 00:01:56,880
+priority. Here we have columns titled
+
+51
+00:01:56,880 --> 00:02:00,399
+today, this week and backlog. This one
+
+52
+00:02:00,399 --> 00:02:03,680
+is for tasks scheduled beyond one week.
+
+53
+00:02:03,680 --> 00:02:05,840
+Blitz lets you switch between all lists
+
+54
+00:02:05,840 --> 00:02:08,239
+view which shows all of your tasks and
+
+55
+00:02:08,239 --> 00:02:10,720
+single list view focusing on one project
+
+56
+00:02:10,720 --> 00:02:13,680
+at a time. To add a task, click the add
+
+57
+00:02:13,680 --> 00:02:16,160
+task button. Type your task and hit
+
+58
+00:02:16,160 --> 00:02:18,400
+enter or confirm button. You can edit
+
+59
+00:02:18,400 --> 00:02:21,360
+tasks anytime. Add notes, subtasks, or
+
+60
+00:02:21,360 --> 00:02:23,280
+estimated time to plan timelines for
+
+61
+00:02:23,280 --> 00:02:25,520
+task completion. Check out other
+
+62
+00:02:25,520 --> 00:02:27,200
+tutorials or help center for more
+
+63
+00:02:27,200 --> 00:02:28,680
+details about these
+
+64
+00:02:28,680 --> 00:02:31,280
+tools. One of Blitz's core features is
+
+65
+00:02:31,280 --> 00:02:33,680
+Blitz mode, a focused work mode designed
+
+66
+00:02:33,680 --> 00:02:36,080
+to keep distractions away. Hit Blitz it
+
+67
+00:02:36,080 --> 00:02:37,680
+now button when you have the tasks
+
+68
+00:02:37,680 --> 00:02:40,000
+added. Your top task will automatically
+
+69
+00:02:40,000 --> 00:02:42,480
+go into lifetime with the rest of your
+
+70
+00:02:42,480 --> 00:02:45,519
+tasks organized in a clean list below.
+
+71
+00:02:45,519 --> 00:02:47,200
+Here you can see everything you have
+
+72
+00:02:47,200 --> 00:02:49,200
+planned for the day. Organize your tasks
+
+73
+00:02:49,200 --> 00:02:51,360
+and add the new ones and view the tasks
+
+74
+00:02:51,360 --> 00:02:53,840
+you completed during the day session.
+
+75
+00:02:53,840 --> 00:02:55,959
+You can also switch between the
+
+76
+00:02:55,959 --> 00:02:58,640
+lists to switch the panel into a little
+
+77
+00:02:58,640 --> 00:03:00,640
+floating focus timer that is always
+
+78
+00:03:00,640 --> 00:03:02,560
+visible on the screen. You can either
+
+79
+00:03:02,560 --> 00:03:04,959
+click the top right arrow icon or click
+
+80
+00:03:04,959 --> 00:03:07,920
+the focus mode button at the bottom. Now
+
+81
+00:03:07,920 --> 00:03:09,680
+you can work on your tasks having the
+
+82
+00:03:09,680 --> 00:03:12,319
+timer always visible. You can always
+
+83
+00:03:12,319 --> 00:03:15,440
+take a break, pause or skip the task,
+
+84
+00:03:15,440 --> 00:03:18,560
+add a note or once you are done, mark it
+
+85
+00:03:18,560 --> 00:03:19,560
+as
+
+86
+00:03:19,560 --> 00:03:21,720
+done.
+
+87
+00:03:21,720 --> 00:03:24,640
+Yes, and it's just a brief overview.
+
+88
+00:03:24,640 --> 00:03:26,959
+Blitz offers you lots of other features
+
+89
+00:03:26,959 --> 00:03:30,120
+like sheduling, anti-distraction alerts,
+
+90
+00:03:30,120 --> 00:03:33,440
+integrations, customizations, and other
+
+91
+00:03:33,440 --> 00:03:35,680
+helpful tools. We'll talk about them in
+
+92
+00:03:35,680 --> 00:03:38,080
+our next tutorials. Blitz offers
+
+93
+00:03:38,080 --> 00:03:39,519
+different pricing plans to fit your
+
+94
+00:03:39,519 --> 00:03:41,440
+needs. You get a 7-day free trial to
+
+95
+00:03:41,440 --> 00:03:43,120
+explore all features, and you can choose
+
+96
+00:03:43,120 --> 00:03:44,959
+a plan anytime during or after your
+
+97
+00:03:44,959 --> 00:03:47,360
+trial period. There is a monthly plan
+
+98
+00:03:47,360 --> 00:03:48,440
+for
+
+99
+00:03:48,440 --> 00:03:50,879
+$4.99, or you can buy a lifetime access
+
+100
+00:03:50,879 --> 00:03:54,239
+to Blitzet for $97. You pay once and use
+
+101
+00:03:54,239 --> 00:03:57,040
+Blitz forever. Well, let's pretend there
+
+102
+00:03:57,040 --> 00:03:59,519
+is anything that lasts forever. I hope
+
+103
+00:03:59,519 --> 00:04:01,120
+now you have a general picture of what
+
+104
+00:04:01,120 --> 00:04:03,920
+Blitzet is and how to get start with it.
+
+105
+00:04:03,920 --> 00:04:05,680
+Be sure to check other videos on our
+
+106
+00:04:05,680 --> 00:04:07,680
+YouTube channel and join our Discord
+
+107
+00:04:07,680 --> 00:04:10,680
+community.
