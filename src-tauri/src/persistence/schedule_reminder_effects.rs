@@ -29,14 +29,26 @@ pub enum SchedulePreferenceReminderError {
 impl Display for SchedulePreferenceReminderError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Sqlite(error) => write!(formatter, "schedule-reminder effect persistence failed: {error}"),
+            Self::Sqlite(error) => write!(
+                formatter,
+                "schedule-reminder effect persistence failed: {error}"
+            ),
             Self::Scheduling(error) => Display::fmt(error, formatter),
-            Self::InvalidNow => formatter.write_str("schedule-reminder observation timestamp must be RFC 3339"),
-            Self::InvalidLeadSeconds(seconds) => write!(formatter, "schedule-reminder lead must be positive: {seconds}"),
-            Self::InvalidStoredTaskIdentity => formatter.write_str("scheduled task identity is not a valid UUID"),
+            Self::InvalidNow => {
+                formatter.write_str("schedule-reminder observation timestamp must be RFC 3339")
+            }
+            Self::InvalidLeadSeconds(seconds) => write!(
+                formatter,
+                "schedule-reminder lead must be positive: {seconds}"
+            ),
+            Self::InvalidStoredTaskIdentity => {
+                formatter.write_str("scheduled task identity is not a valid UUID")
+            }
             Self::InvalidStoredLocalDate => formatter.write_str("scheduled local date is invalid"),
             Self::InvalidStoredLocalTime => formatter.write_str("scheduled local time is invalid"),
-            Self::InvalidResolvedTimestamp => formatter.write_str("resolved scheduled timestamp is invalid"),
+            Self::InvalidResolvedTimestamp => {
+                formatter.write_str("resolved scheduled timestamp is invalid")
+            }
         }
     }
 }
@@ -63,7 +75,9 @@ impl From<SchedulingError> for SchedulePreferenceReminderError {
     }
 }
 
-fn parse_now(value: &str) -> Result<DateTime<chrono::FixedOffset>, SchedulePreferenceReminderError> {
+fn parse_now(
+    value: &str,
+) -> Result<DateTime<chrono::FixedOffset>, SchedulePreferenceReminderError> {
     DateTime::parse_from_rfc3339(value).map_err(|_| SchedulePreferenceReminderError::InvalidNow)
 }
 
@@ -106,7 +120,9 @@ pub fn pending_schedule_preference_reminders(
     reminder_lead_seconds: u32,
 ) -> Result<Vec<SchedulePreferenceReminderCandidate>, SchedulePreferenceReminderError> {
     if reminder_lead_seconds == 0 {
-        return Err(SchedulePreferenceReminderError::InvalidLeadSeconds(reminder_lead_seconds));
+        return Err(SchedulePreferenceReminderError::InvalidLeadSeconds(
+            reminder_lead_seconds,
+        ));
     }
     let now = parse_now(now)?;
 
@@ -214,9 +230,14 @@ mod tests {
         run_migrations(&mut conn).expect("migrate database");
         let list = create_list(
             &mut conn,
-            NewListInput { title: "Work".into(), color: None, icon_asset: None },
+            NewListInput {
+                title: "Work".into(),
+                color: None,
+                icon_asset: None,
+            },
             T0,
-        ).expect("create list");
+        )
+        .expect("create list");
         let task = create_task(
             &mut conn,
             NewTaskInput {
@@ -226,7 +247,8 @@ mod tests {
                 est_seconds: None,
             },
             T0,
-        ).expect("create task");
+        )
+        .expect("create task");
         conn.execute(
             "UPDATE tasks
              SET schedule_kind = 'local_datetime',
@@ -235,67 +257,55 @@ mod tests {
                  schedule_timezone = 'Europe/Athens'
              WHERE id = ?1",
             [task.id.to_string()],
-        ).expect("schedule task");
+        )
+        .expect("schedule task");
         (conn, task.id)
     }
 
     #[test]
     fn lead_window_produces_one_due_candidate_and_submission_is_idempotent() {
         let (conn, task_id) = fixture();
-        let before = pending_schedule_preference_reminders(
-            &conn,
-            "2026-09-05T11:59:59Z",
-            600,
-        ).unwrap();
+        let before =
+            pending_schedule_preference_reminders(&conn, "2026-09-05T11:59:59Z", 600).unwrap();
         assert!(before.is_empty());
 
-        let due = pending_schedule_preference_reminders(
-            &conn,
-            "2026-09-05T12:00:00Z",
-            600,
-        ).unwrap();
+        let due =
+            pending_schedule_preference_reminders(&conn, "2026-09-05T12:00:00Z", 600).unwrap();
         assert_eq!(due.len(), 1);
         assert_eq!(due[0].task_id, task_id);
         assert!(mark_schedule_preference_reminder_submitted(
             &conn,
             &due[0],
             "2026-09-05T12:00:01Z",
-        ).unwrap());
+        )
+        .unwrap());
 
-        assert!(pending_schedule_preference_reminders(
-            &conn,
-            "2026-09-05T12:05:00Z",
-            1_200,
-        ).unwrap().is_empty());
+        assert!(
+            pending_schedule_preference_reminders(&conn, "2026-09-05T12:05:00Z", 1_200,)
+                .unwrap()
+                .is_empty()
+        );
     }
 
     #[test]
     fn schedule_change_cleanup_allows_a_new_schedule_effect() {
         let (conn, task_id) = fixture();
-        let due = pending_schedule_preference_reminders(
-            &conn,
-            "2026-09-05T12:00:00Z",
-            600,
-        ).unwrap();
-        mark_schedule_preference_reminder_submitted(
-            &conn,
-            &due[0],
-            "2026-09-05T12:00:01Z",
-        ).unwrap();
+        let due =
+            pending_schedule_preference_reminders(&conn, "2026-09-05T12:00:00Z", 600).unwrap();
+        mark_schedule_preference_reminder_submitted(&conn, &due[0], "2026-09-05T12:00:01Z")
+            .unwrap();
 
         conn.execute(
             "UPDATE tasks
              SET scheduled_local_time = '16:10'
              WHERE id = ?1",
             [task_id.to_string()],
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(cleanup_stale_schedule_preference_effects(&conn).unwrap(), 1);
 
-        let next = pending_schedule_preference_reminders(
-            &conn,
-            "2026-09-05T13:00:00Z",
-            600,
-        ).unwrap();
+        let next =
+            pending_schedule_preference_reminders(&conn, "2026-09-05T13:00:00Z", 600).unwrap();
         assert_eq!(next.len(), 1);
         assert_eq!(next[0].scheduled_local_time, "16:10");
     }
