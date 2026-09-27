@@ -136,7 +136,6 @@ type BoardSubtaskControls = {
 
 type ChangeListState = {
   task: ListBoardTask;
-  sourceLane: PlanningLaneToken;
   targetListId: string;
 };
 
@@ -417,7 +416,7 @@ function BoardLane({
   onCreateEstChange: (value: string) => void;
   onSubmitCreate: () => void;
   onCompleteTask: (task: ListBoardTask) => void;
-  onChangeListTask: (task: ListBoardTask, sourceLane: PlanningLaneToken) => void;
+  onChangeListTask: (task: ListBoardTask) => void;
   onDuplicateTask: (task: ListBoardTask) => void;
   onDeleteTask: (task: ListBoardTask) => void;
   onStartTitleEdit: (task: ListBoardTask) => void;
@@ -570,9 +569,7 @@ function BoardLane({
                   onMoveUp,
                   onMoveDown,
                   onSchedule: canEditSchedule ? () => onStartScheduleEdit(task) : undefined,
-                  onChangeList: canChangeList && pendingLane !== null
-                    ? () => onChangeListTask(task, LANE_TOKEN[pendingLane])
-                    : undefined,
+                  onChangeList: canChangeList ? () => onChangeListTask(task) : undefined,
                   onDuplicate: canUseTaskMenu ? () => onDuplicateTask(task) : undefined,
                   onDelete: canUseTaskMenu ? () => onDeleteTask(task) : undefined,
                 }
@@ -1002,7 +999,7 @@ export function ListBoard({
     );
   };
 
-  const requestTaskChangeList = (task: ListBoardTask, sourceLane: PlanningLaneToken) => {
+  const requestTaskChangeList = (task: ListBoardTask) => {
     if (mutationPendingTaskId || mutationRefreshBlocked) return;
     const destination = selectorOptions.find((option) => option.id !== task.listId);
     if (!destination) {
@@ -1015,7 +1012,6 @@ export function ListBoard({
     setChangeListError(null);
     setChangeListState({
       task,
-      sourceLane,
       targetListId: destination.id,
     });
   };
@@ -1030,7 +1026,7 @@ export function ListBoard({
       return;
     }
 
-    const { task, sourceLane } = changeListState;
+    const { task } = changeListState;
     setChangeListPending(true);
     setMutationPendingTaskId(task.id);
     setChangeListError(null);
@@ -1038,7 +1034,6 @@ export function ListBoard({
       await changeListBoardTask({
         taskId: task.id,
         expectedListId: task.listId,
-        sourceLane,
         targetListId: destination.id,
       });
       setMutationStatus(`Moved ${task.title} to ${destination.title}.`);
