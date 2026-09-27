@@ -20,6 +20,16 @@ struct TimedAlertCursor {
     was_enabled: bool,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct TimedAlertObservation {
+    pub task_id: TaskId,
+    pub seed_run_id: SessionId,
+    pub work_elapsed_seconds: u64,
+    pub enabled: bool,
+    pub interval_seconds: u64,
+    pub reset_run: bool,
+}
+
 #[derive(Debug)]
 pub enum TimedAlertEffectError {
     Sqlite(rusqlite::Error),
@@ -147,11 +157,7 @@ fn load_cursor(
 fn write_cursor(
     conn: &Connection,
     task_id: TaskId,
-    run_id: SessionId,
-    interval_seconds: u64,
-    next_boundary_seconds: u64,
-    work_elapsed_seconds: u64,
-    enabled: bool,
+    cursor: &TimedAlertCursor,
     now: &str,
 ) -> Result<(), TimedAlertEffectError> {
     conn.execute(
@@ -168,11 +174,11 @@ fn write_cursor(
             updated_at = excluded.updated_at",
         params![
             task_id.to_string(),
-            run_id.to_string(),
-            sql_duration(interval_seconds)?,
-            sql_duration(next_boundary_seconds)?,
-            sql_duration(work_elapsed_seconds)?,
-            if enabled { 1_i64 } else { 0_i64 },
+            cursor.run_id.to_string(),
+            sql_duration(cursor.interval_seconds)?,
+            sql_duration(cursor.next_boundary_seconds)?,
+            sql_duration(cursor.last_observed_work_seconds)?,
+            if cursor.was_enabled { 1_i64 } else { 0_i64 },
             now,
         ],
     )?;
@@ -181,15 +187,18 @@ fn write_cursor(
 
 pub fn observe_timed_alert_run(
     conn: &mut Connection,
-    task_id: TaskId,
-    seed_run_id: SessionId,
-    work_elapsed_seconds: u64,
-    enabled: bool,
-    interval_seconds: u64,
-    reset_run: bool,
+    observation: TimedAlertObservation,
     now: &str,
 ) -> Result<usize, TimedAlertEffectError> {
     validate_timestamp(now)?;
+    let TimedAlertObservation {
+        task_id,
+        seed_run_id,
+        work_elapsed_seconds,
+        enabled,
+        interval_seconds,
+        reset_run,
+    } = observation;
     if interval_seconds == 0 {
         return Err(TimedAlertEffectError::InvalidInterval);
     }
@@ -205,11 +214,13 @@ pub fn observe_timed_alert_run(
         write_cursor(
             &tx,
             task_id,
-            seed_run_id,
-            interval_seconds,
-            next_boundary(work_elapsed_seconds, interval_seconds)?,
-            work_elapsed_seconds,
-            enabled,
+            &TimedAlertCursor {
+                run_id: seed_run_id,
+                interval_seconds,
+                next_boundary_seconds: next_boundary(work_elapsed_seconds, interval_seconds)?,
+                last_observed_work_seconds: work_elapsed_seconds,
+                was_enabled: enabled,
+            },
             now,
         )?;
         tx.commit()?;
@@ -228,11 +239,13 @@ pub fn observe_timed_alert_run(
         write_cursor(
             &tx,
             task_id,
-            cursor.run_id,
-            interval_seconds,
-            next_boundary(work_elapsed_seconds, interval_seconds)?,
-            work_elapsed_seconds,
-            enabled,
+            &TimedAlertCursor {
+                run_id: cursor.run_id,
+                interval_seconds,
+                next_boundary_seconds: next_boundary(work_elapsed_seconds, interval_seconds)?,
+                last_observed_work_seconds: work_elapsed_seconds,
+                was_enabled: enabled,
+            },
             now,
         )?;
         tx.commit()?;
@@ -263,11 +276,13 @@ pub fn observe_timed_alert_run(
     write_cursor(
         &tx,
         task_id,
-        cursor.run_id,
-        interval_seconds,
-        boundary,
-        work_elapsed_seconds,
-        enabled,
+        &TimedAlertCursor {
+            run_id: cursor.run_id,
+            interval_seconds,
+            next_boundary_seconds: boundary,
+            last_observed_work_seconds: work_elapsed_seconds,
+            was_enabled: enabled,
+        },
         now,
     )?;
     tx.commit()?;
@@ -379,6 +394,23 @@ mod tests {
     const T0: &str = "2026-09-28T08:00:00Z";
     const T1: &str = "2026-09-28T08:20:00Z";
 
+    macro_rules! observe {
+        ($conn:expr, $task:expr, $run:expr, $elapsed:expr, $enabled:expr, $interval:expr, $reset:expr, $now:expr) => {
+            observe!(
+                $conn,
+                TimedAlertObservation {
+                    task_id: $task,
+                    seed_run_id: $run,
+                    work_elapsed_seconds: $elapsed,
+                    enabled: $enabled,
+                    interval_seconds: $interval,
+                    reset_run: $reset,
+                },
+                $now,
+            )
+        };
+    }
+
     fn fixture() -> (Connection, TaskId, SessionId) {
         let mut conn = Connection::open_in_memory().expect("open database");
         run_migrations(&mut conn).expect("migrate database");
@@ -409,14 +441,14 @@ mod tests {
     #[test]
     fn delayed_observation_materializes_each_boundary_once() {
         let (mut conn, task_id, run_id) = fixture();
-        observe_timed_alert_run(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
+        observe!(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
 
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 190, true, 60, false, T1).unwrap(),
+            observe!(&mut conn, task_id, run_id, 190, true, 60, false, T1).unwrap(),
             3
         );
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 190, true, 60, false, T1).unwrap(),
+            observe!(&mut conn, task_id, run_id, 190, true, 60, false, T1).unwrap(),
             0
         );
 
@@ -436,12 +468,12 @@ mod tests {
     #[test]
     fn unchanged_work_elapsed_does_not_advance_alert_progress() {
         let (mut conn, task_id, run_id) = fixture();
-        observe_timed_alert_run(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
-        observe_timed_alert_run(&mut conn, task_id, run_id, 59, true, 60, false, T1).unwrap();
+        observe!(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
+        observe!(&mut conn, task_id, run_id, 59, true, 60, false, T1).unwrap();
 
         for _ in 0..3 {
             assert_eq!(
-                observe_timed_alert_run(&mut conn, task_id, run_id, 59, true, 60, false, T1)
+                observe!(&mut conn, task_id, run_id, 59, true, 60, false, T1)
                     .unwrap(),
                 0
             );
@@ -454,25 +486,25 @@ mod tests {
     #[test]
     fn enabling_or_changing_interval_does_not_backfill_old_work() {
         let (mut conn, task_id, run_id) = fixture();
-        observe_timed_alert_run(&mut conn, task_id, run_id, 0, false, 60, true, T0).unwrap();
-        observe_timed_alert_run(&mut conn, task_id, run_id, 120, false, 60, false, T1).unwrap();
-        observe_timed_alert_run(&mut conn, task_id, run_id, 120, true, 60, false, T1).unwrap();
+        observe!(&mut conn, task_id, run_id, 0, false, 60, true, T0).unwrap();
+        observe!(&mut conn, task_id, run_id, 120, false, 60, false, T1).unwrap();
+        observe!(&mut conn, task_id, run_id, 120, true, 60, false, T1).unwrap();
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 179, true, 60, false, T1).unwrap(),
+            observe!(&mut conn, task_id, run_id, 179, true, 60, false, T1).unwrap(),
             0
         );
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 180, true, 60, false, T1).unwrap(),
+            observe!(&mut conn, task_id, run_id, 180, true, 60, false, T1).unwrap(),
             1
         );
 
-        observe_timed_alert_run(&mut conn, task_id, run_id, 180, true, 30, false, T1).unwrap();
+        observe!(&mut conn, task_id, run_id, 180, true, 30, false, T1).unwrap();
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 209, true, 30, false, T1).unwrap(),
+            observe!(&mut conn, task_id, run_id, 209, true, 30, false, T1).unwrap(),
             0
         );
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 210, true, 30, false, T1).unwrap(),
+            observe!(&mut conn, task_id, run_id, 210, true, 30, false, T1).unwrap(),
             1
         );
     }
@@ -480,17 +512,17 @@ mod tests {
     #[test]
     fn resetting_run_retires_old_pending_effects() {
         let (mut conn, task_id, first_run) = fixture();
-        observe_timed_alert_run(&mut conn, task_id, first_run, 0, true, 60, true, T0).unwrap();
-        observe_timed_alert_run(&mut conn, task_id, first_run, 60, true, 60, false, T1).unwrap();
+        observe!(&mut conn, task_id, first_run, 0, true, 60, true, T0).unwrap();
+        observe!(&mut conn, task_id, first_run, 60, true, 60, false, T1).unwrap();
 
         let second_run = SessionId::generate();
-        observe_timed_alert_run(&mut conn, task_id, second_run, 0, true, 60, true, T1).unwrap();
+        observe!(&mut conn, task_id, second_run, 0, true, 60, true, T1).unwrap();
 
         assert!(claim_pending_timed_alerts(&mut conn, T1)
             .unwrap()
             .is_empty());
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, second_run, 60, true, 60, false, T1)
+            observe!(&mut conn, task_id, second_run, 60, true, 60, false, T1)
                 .unwrap(),
             1
         );
@@ -532,9 +564,9 @@ mod tests {
             .expect("create recovery task");
             task_id = task.id;
 
-            observe_timed_alert_run(&mut conn, task_id, run_id, 0, true, 60, true, T0)
+            observe!(&mut conn, task_id, run_id, 0, true, 60, true, T0)
                 .expect("seed alert run");
-            observe_timed_alert_run(&mut conn, task_id, run_id, 59, true, 60, false, T0)
+            observe!(&mut conn, task_id, run_id, 59, true, 60, false, T0)
                 .expect("persist pre-boundary cursor");
         }
 
@@ -543,12 +575,12 @@ mod tests {
             crate::persistence::configure_connection(&conn).expect("configure reopened database");
 
             assert_eq!(
-                observe_timed_alert_run(&mut conn, task_id, run_id, 120, true, 60, false, T1)
+                observe!(&mut conn, task_id, run_id, 120, true, 60, false, T1)
                     .expect("catch up delayed alert boundaries"),
                 2
             );
             assert_eq!(
-                observe_timed_alert_run(&mut conn, task_id, run_id, 120, true, 60, false, T1)
+                observe!(&mut conn, task_id, run_id, 120, true, 60, false, T1)
                     .expect("repeat delayed observation"),
                 0
             );
@@ -570,8 +602,8 @@ mod tests {
     #[test]
     fn retiring_run_removes_pending_effects_and_cursor() {
         let (mut conn, task_id, run_id) = fixture();
-        observe_timed_alert_run(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
-        observe_timed_alert_run(&mut conn, task_id, run_id, 60, true, 60, false, T1).unwrap();
+        observe!(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
+        observe!(&mut conn, task_id, run_id, 60, true, 60, false, T1).unwrap();
 
         retire_timed_alert_run(&mut conn, task_id).expect("retire timed-alert run");
 
