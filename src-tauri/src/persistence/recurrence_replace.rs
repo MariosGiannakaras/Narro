@@ -376,6 +376,38 @@ pub fn remove_recurrence_if_expected(
         detached_protected_child_ids.push(child.id);
     }
 
+    // Fail safe for legacy/corrupt linkage: if a task still points at the recurrence
+    // parent but lacks a recurrence_occurrences row, never leave that relationship
+    // dangling after the rule is deleted. Such tasks are preserved and detached.
+    let mut remaining_statement = tx.prepare(
+        "SELECT id
+         FROM tasks
+         WHERE recurrence_parent_task_id = ?1
+         ORDER BY id",
+    )?;
+    let remaining_rows = remaining_statement.query_map([parent.id.to_string()], |row| {
+        row.get::<_, String>(0)
+    })?;
+    let remaining_raw_ids: Vec<_> = remaining_rows.collect::<Result<_, _>>()?;
+    drop(remaining_statement);
+
+    for raw_id in remaining_raw_ids {
+        let child_id = parse_child_id(raw_id)?;
+        let detached = tx.execute(
+            "UPDATE tasks
+             SET recurrence_parent_task_id = NULL, updated_at = ?1
+             WHERE id = ?2
+               AND recurrence_parent_task_id = ?3",
+            params![now, child_id.to_string(), parent.id.to_string()],
+        )?;
+        if detached != 1 {
+            return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
+        }
+        if !detached_protected_child_ids.contains(&child_id) {
+            detached_protected_child_ids.push(child_id);
+        }
+    }
+
     let deleted_rule = tx.execute(
         "DELETE FROM recurrence_rules WHERE id = ?1",
         [rule_id.to_string()],
