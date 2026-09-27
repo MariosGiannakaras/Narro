@@ -11,21 +11,45 @@ const component = read("src/TaskCard.tsx");
 const board = read("src/ListBoard.tsx");
 const css = read("src/listBoard.css");
 const overlay = read("src/overlayPrimitives.tsx");
+const api = read("src/listBoardApi.ts");
+const rust = read("src-tauri/src/board_task_mutation.rs");
+const lib = read("src-tauri/src/lib.rs");
+const changeListDialog = read("src/TaskChangeListDialog.tsx");
 const validator = read("scripts/validate-task-card-state-captures.mjs");
 
 for (const [haystack, needle, label] of [
-  [component, 'import { Tooltip } from "./overlayPrimitives";', "shared Tooltip reuse"],
+  [component, 'import { Menu, MenuItem, Tooltip } from "./overlayPrimitives";', "shared overlay primitive reuse"],
   [component, 'data-task-action-slot="reserved"', "reserved action slot marker"],
-  [component, 'data-task-actions="reorder"', "production reorder action rail"],
+  [component, 'data-task-actions="reorder-overflow"', "production reorder/overflow action rail"],
   [component, 'label="Move task up"', "Move up accessible action"],
   [component, 'label="Move task down"', "Move down accessible action"],
-  [component, 'label="Permanently delete task"', "Delete accessible action"],
+  [component, 'triggerLabel="Task actions"', "accessible overflow trigger"],
+  [component, 'data-task-action-position="overflow"', "fixed overflow action position"],
+  [component, '<MenuItem onSelect={actions.onChangeList}>Change List</MenuItem>', "Change List menu action"],
+  [component, '<MenuItem onSelect={actions.onDuplicate}>Duplicate</MenuItem>', "Duplicate menu action"],
+  [component, '<MenuItem destructive onSelect={actions.onDelete}>Delete</MenuItem>', "destructive Delete menu action"],
   [component, "onPointerDown={(event) => event.stopPropagation()}", "pointer action drag isolation"],
   [component, "onClick={action}", "callback-gated pointer action"],
   [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]"', "parent drag-start interactive-control guard including notes and subtasks"],
   [board, "const handleMoveWithinLane = (", "shared within-lane action helper"],
   [board, "actions={taskActions}", "production TaskCard callback wiring"],
   [board, "onMoveWithinLane={handleMoveWithinLane}", "BoardLane callback wiring"],
+  [board, "onChangeListTask={requestTaskChangeList}", "Change List board wiring"],
+  [board, "onDuplicateTask={(task) => void duplicateTaskFromBoard(task)}", "Duplicate board wiring"],
+  [board, "await changeListBoardTask({", "persistence-first Change List mutation"],
+  [board, "await duplicateListBoardTask({", "persistence-first Duplicate mutation"],
+  [board, "<TaskChangeListDialog", "explicit Change List chooser"],
+  [api, 'invoke<void>("change_list_board_task"', "typed Change List IPC"],
+  [api, 'invoke<string>("duplicate_list_board_task"', "typed Duplicate IPC"],
+  [rust, "fn change_board_task_list(", "Change List command boundary"],
+  [rust, "fn duplicate_board_task(", "Duplicate command boundary"],
+  [rust, "ensure_no_open_session(conn, id)?;", "live-session command guard"],
+  [rust, "change_list_preserves_identity_schedule_recurrence_and_session_history", "Change List metadata/history regression"],
+  [rust, "change_list_and_duplicate_reject_stale_or_live_source_without_writing", "stale/live rejection regression"],
+  [lib, "board_task_mutation::change_list_board_task,", "Change List Tauri registration"],
+  [lib, "board_task_mutation::duplicate_list_board_task,", "Duplicate Tauri registration"],
+  [changeListDialog, 'data-task-change-list-dialog="true"', "accessible Change List dialog"],
+  [changeListDialog, 'data-task-change-list-select="true"', "destination-list chooser"],
   [board, 'handleMoveWithinLane(task, lane, "up")', "keyboard Move up helper reuse"],
   [board, 'handleMoveWithinLane(task, lane, "down")', "keyboard Move down helper reuse"],
   [board, "void commitDrop(task.id, lane, lane", "validated persistence-first reorder helper reuse"],
@@ -43,6 +67,8 @@ for (const [haystack, needle, label] of [
   [css, ".list-board-task-drag-shell:focus-visible .list-board-task__actions", "keyboard card-focus reveal"],
   [css, "transition-property: opacity;", "layout-stable action reveal transition"],
   [overlay, 'role="tooltip"', "accessible Tooltip semantics"],
+  [overlay, 'role="menu"', "accessible Menu semantics"],
+  [overlay, 'role="menuitem"', "accessible MenuItem semantics"],
   [validator, "action reveal changed card width", "captured card-width no-reflow validation"],
   [validator, "action reveal changed card height", "captured card-height no-reflow validation"],
   [validator, "action reveal changed title-row width", "captured title-row-width no-reflow validation"],
@@ -106,4 +132,22 @@ for (const forbidden of ["reorderListBoardTask(", "moveListBoardTask(", "setSnap
   }
 }
 
-console.log("Task hover-action geometry contract checks passed.");
+
+const scheduleIndex = component.indexOf("<MenuItem onSelect={actions.onSchedule}");
+const changeListIndex = component.indexOf("<MenuItem onSelect={actions.onChangeList}");
+const duplicateIndex = component.indexOf("<MenuItem onSelect={actions.onDuplicate}");
+const deleteIndex = component.indexOf("<MenuItem destructive onSelect={actions.onDelete}");
+if (!(scheduleIndex >= 0 && scheduleIndex < changeListIndex && changeListIndex < duplicateIndex && duplicateIndex < deleteIndex)) {
+  throw new Error("Task overflow menu must preserve source-confirmed order: Schedule, Change List, Duplicate, Delete.");
+}
+
+for (const forbidden of ["setSnapshot(", "crypto.randomUUID(", "Math.random("]) {
+  const changeStart = board.indexOf("const requestTaskChangeList");
+  const changeEnd = board.indexOf("const handleCommittedSubtaskRefreshFailure", changeStart);
+  const slice = board.slice(changeStart, changeEnd);
+  if (slice.includes(forbidden)) {
+    throw new Error(`Task menu mutations must publish only after authoritative persistence; found ${forbidden}`);
+  }
+}
+
+console.log("Task hover/action-menu geometry and persistence contracts passed.");
