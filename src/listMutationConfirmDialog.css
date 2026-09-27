@@ -47,6 +47,29 @@
   line-height: 1.5;
 }
 
+.list-confirm-dialog__field {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+.list-confirm-dialog__field select {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+  font: inherit;
+}
+
+.list-confirm-dialog__field select:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
+}
+
 .list-confirm-dialog__error {
   margin-top: var(--space-4);
   padding: var(--space-3);
