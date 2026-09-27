@@ -6,17 +6,17 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementation is validated through A18 but still awaits deferred physical closure. M8 shortcut foundation and versioned preference persistence are validated.
+M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementation is validated through A18 but still awaits deferred physical closure. M8 shortcut foundation/versioned preference persistence remain validated, and the post-validation VE-F003 task-menu correction is now validated.
 
-- M8 global-shortcut PR #168 exact validated head: `e63dbd3107fca8ccf95d35506c7a16e4eeaac9f6`.
-- Windows CI #574 / run `36284019516`: PASS.
-- Visual artifact: `narro-m5-visual-regression`, id `10919562623`, digest `sha256:781ff8dd2dea000db2ba7e1dc6be602fc551f119e30e6d47e88e8242baf9a766`.
-- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10919742072`, digest `sha256:b2febb1520437238b2ed21e8271116c0a823a8984f592296401f3e80abc63528`.
-- Expected-head guarded squash merge: `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
-- Resulting-main Windows CI #575 / run `36284525078`: PASS through the identical-tree validation gate.
-- **Current validated application source baseline:** `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
+- VE-F003 PR #177 exact validated head: `e80034f481bc8d9368bb670cadfce2cdcbe61797`.
+- Windows CI #602 / run `36349274182`: PASS — Repository Preflight, visual regression fixtures, Tauri Release and diagnostic artifact upload all succeeded.
+- Visual artifact: `narro-m5-visual-regression`, id `10941762475`, digest `sha256:cad2d6f2b0210c1fb2d3213e564d8f0193a8b71ee8488331027fe5206dba85d5`.
+- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10941867097`, digest `sha256:0f0daac870f0f5d13f88be0f970b341cfcc859c92bc07e5a599d6a2f88391979`.
+- Expected-head guarded squash merge: `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`.
+- Resulting-main Windows CI #603 / run `36349966245`: PASS through the identical-tree validation gate.
+- **Current validated application source baseline:** `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`.
 
-Tracking-only commits after this SHA do not replace the validated application source baseline. Reference-image canonicalization is tracking/evidence-only and does not change the validated application source SHA.
+Tracking/evidence-only commits after this SHA do not replace the validated application source baseline.
 
 ## CURRENT ORDERED WORK
 
@@ -27,8 +27,8 @@ Tracking-only commits after this SHA do not replace the validated application so
 5. **User-requested second-pass UI/UX video forensics is COMPLETE: 19/19 deep-reviewed.** Durable evidence is in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`, `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, and the reconciled `docs/UI_UX_SPEC.md`.
 6. **User-requested Help Center text + image evidence pass is COMPLETE:** 34/34 visible legacy-navigation pages inventoried/classified and 15/15 Narro-relevant pages deep-reviewed. The canonical local screenshot corpus is also reconciled: **46 retained images** (22 current v2.6.69, 17 Help Center originals, 7 historical), content-named and deduplicated. Evidence PR #175 exact validated head `8d2ade29eff3e3be3550e6d0638f875d0097237d`; Windows CI #594 PASS; expected-head guarded squash merge `72e825c991a53aee9c68a2411fa2439a9e599f26`; resulting-main Windows CI #595 PASS through the identical-tree validation gate. Durable evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`, `docs/BLITZIT_HELP_CENTER_TRACKER.md`, and `reference/original-blitzit-screenshots/CANONICAL_INDEX.md`. Newer 3.0 docs remain version-separated.
 7. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation.
-8. **Post-validation VE-F003 remains the next source correction:** current direct VE-005 evidence confirms task-menu `Change List` + `Duplicate`, while current Narro production lacks those paths. Current Help Center additionally confirms the existing permanent-delete confirmation step. Implement narrowly without reopening unrelated M5 work.
-9. **M8 remains in progress: 5/8 top-level items validated.** After VE-F003 validates/merges, resume the documented Preferences sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
+8. **Post-validation VE-F003 task-menu correction: COMPLETE / VALIDATED.** `Change List` now performs a persistence-first same-identity move to another active list while preserving authoritative lane/schedule/recurrence/session history; `Duplicate` creates one independent identity; live/open-session mutation is rejected transactionally; the fixed action geometry and confirmed `Schedule → Change List → Duplicate → Delete` hierarchy are covered by regression/visual validation. PR #177 / CI #602 / main CI #603.
+9. **M8 remains in progress: 5/8 top-level items validated.** Resume the documented Preferences/runtime sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
 10. Then close Windows-locale date/time presentation and any remaining M8 acceptance gaps before M9.
 11. After M10, run the required Final Comprehensive Review Stage and re-reference the complete uploaded corpus and Help Center evidence as part of end-state validation.
 
@@ -61,7 +61,7 @@ Do not reopen A10–A17 without new repository-backed evidence.
 - A1–A9, A19: COMPLETE and validated in M5 reconciliation.
 - A10–A17: COMPLETE and validated in M6 reconciliation.
 - A18: COMPLETE and automated-validated in M7 PR #155 / CI #559 / main CI #560.
-- B1: unresolved task-menu fidelity requirement; no implementation without stronger evidence or explicit decision.
+- B1: RESOLVED and VALIDATED by direct VE-005 evidence plus VE-F003 PR #177. Current task overflow exposes `Schedule / Update Schedule`, `Change List`, `Duplicate`, and destructive `Delete` while preserving explicit permanent-delete confirmation.
 - B2/B3: visual-fidelity questions; defer to the final parity/fidelity pass unless stronger evidence promotes them.
 - B4: Done auto-start-next remains unresolved in source evidence; preserve current behavior.
 - Audit section C intentional Narro deviations remain binding.
@@ -100,16 +100,18 @@ Do not mark M7 complete until these required checks close, but do not block inde
 
 ## EXACT NEXT ACTION
 
-1. The Blitzit video UI/UX forensic pass (**19/19**), Help Center text+image pass (**34/34 classified; 15/15 relevant deep-reviewed**), and canonical screenshot/image reconciliation (**46 retained, deduplicated references**) are complete. Do not repeat either without new source evidence or a material source update.
-2. Re-read the exact live state of open source PR #170 before touching it; it predates the evidence reconciliation and must not be merged or treated as current merely because its prior CI passed.
-3. Resume the ordered source work with the narrow **VE-F003 task-menu correction** from latest main:
-   - expose `Change List` through one persistence-first same-identity move to a chosen active list;
-   - expose `Duplicate` through existing durable duplicate semantics, producing one independent identity with no aliased history/session/recurrence state;
-   - match the confirmed compact anchored menu hierarchy/order and destructive-red treatment from VE-005;
-   - preserve live-task safety, All Lists projection semantics, stale guards, scheduling/session integrity, explicit error/recovery feedback and Narro's stationary/reserved hover action geometry;
-   - preserve explicit permanent-delete confirmation; VE-006 did not visibly expose it, but current official Help Center documentation explicitly specifies `Delete → Confirm`.
-4. After VE-F003 validates/merges, resume M8 Preferences/runtime completion over the existing typed/versioned persistence model, incorporating VE-F001 / VE-F002 / VE-F008 plus the completed UI/UX forensic evidence.
-5. Then close Windows-locale date/time presentation and remaining M8 acceptance gaps before M9.
+1. The Blitzit video UI/UX forensic pass (**19/19**), Help Center text+image pass (**34/34 classified; 15/15 relevant deep-reviewed**), canonical screenshot/image reconciliation (**46 retained, deduplicated references**), and VE-F003 task-menu correction are complete. Do not repeat them without new source evidence or a material source update.
+2. Resume **existing open M8 PR #170** rather than creating a replacement:
+   - current recorded head before reconciliation: `a22b552623195e40d7f88cf0e23a9b05a1eb0792`;
+   - it diverges from current validated main and overlaps VE-F003 in `src/ListBoard.tsx`, `src/TaskCard.tsx`, and `src-tauri/src/lib.rs`;
+   - reconcile/update it onto validated main `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`, preserving the newly validated VE-F003 overflow/menu and persistence invariants;
+   - its old CI #586 is historical only; require a new exact-head Windows CI after reconciliation.
+3. Complete the coherent M8 Preferences/runtime slice over the existing typed/versioned persistence model:
+   - VE-F001 terminal EST parsing: store parsed EST and strip only the successfully parsed terminal suffix from the visible saved title;
+   - VE-F002 success-screen-enabled Done: commit completion, enter success UI, and wait for explicit `Next Task` before starting the next eligible task;
+   - preserve unresolved success-screen-disabled progression and do not invent `Take a Break` post-click semantics;
+   - VE-F008 nested controls remain in place without scroll jumps; hidden task times stay available on hover.
+4. Then close Windows-locale date/time presentation and remaining M8 acceptance gaps before M9.
 
 Measured/source-specific fidelity note:
 - VE-003 Panel→Floating shows ~0.27 s continuous geometry transformation at 60 fps.

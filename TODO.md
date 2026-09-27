@@ -385,7 +385,7 @@ Acceptance criteria:
 
 This correction was discovered from current direct VE-005 evidence after M5 validation. It does **not** reopen M5 as an incomplete roadmap milestone and does not change the 6/10 roadmap counter. It must be implemented narrowly before unrelated M8 Preferences work because it is a confirmed current-source capability missing from a previously validated production surface.
 
-- [ ] Expose current task-menu `Change List` and `Duplicate` behavior using existing persistence/domain authority: Change List moves the same stable task identity atomically to the chosen active list without corrupting schedule/session/history state; Duplicate creates one independent new task identity without aliasing source history/recurrence/session records. Preserve live-task safety, persistence-first UI publication, stale guards, All Lists identity semantics, and explicit error/recovery feedback.
+- [x] Expose current task-menu `Change List` and `Duplicate` behavior using existing persistence/domain authority: Change List moves the same stable task identity atomically to the chosen active list without corrupting schedule/session/history state; Duplicate creates one independent new task identity without aliasing source history/recurrence/session records. Preserve live-task safety, persistence-first UI publication, stale guards, All Lists identity semantics, and explicit error/recovery feedback. **Validated in PR #177** at exact head `e80034f481bc8d9368bb670cadfce2cdcbe61797`; Windows CI #602 PASS; expected-head guarded squash merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`; resulting-main Windows CI #603 PASS.
 
 ## Milestone 8 — Windows shortcuts and preferences
 

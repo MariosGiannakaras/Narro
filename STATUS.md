@@ -278,7 +278,7 @@ Material implementation consequences:
 - VE-F007 adds a coarse ~0.2–0.3 s source Panel→Floating visual sequence but does not close any deferred M7 physical Windows checks.
 - Reports/Sessions findings are routed to M9 and do not front-run M8.
 
-Next source slice: implement the narrow VE-F003 task-menu Change List + Duplicate correction using existing persistence/domain authority and Windows CI discipline. After it validates/merges, resume the documented M8 Preferences sections on the existing typed persistence model and atomic mutation boundary, incorporating VE-F001/VE-F002/VE-F008.
+VE-F003 task-menu Change List + Duplicate is now validated in PR #177 / CI #602 / merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57` / main CI #603. The next source action is to reconcile existing M8 PR #170 onto that validated main baseline, preserve VE-F003 overlaps, rerun exact-head Windows CI, and continue VE-F001/VE-F002/VE-F008 Preferences/runtime completion.
 
 ## CI efficiency baseline
 
@@ -354,7 +354,7 @@ The current validated source baseline is therefore `b1ff5910abec82272c4ee57479a4
 - **M5/Main reconciliation — COMPLETE:** A1–A9 and A19.
 - **M6/Focus reconciliation — COMPLETE:** A10–A17.
 - **M7/Floating reconciliation — DEFERRED:** A18 plus the already-active compositor/physical work. By explicit user direction, implementation stops before M7 and awaits the user's next instruction.
-- **B1 Task Change List/Duplicate:** RESOLVED by current direct VE-005 evidence. Both are present current task-menu actions; implement the missing Narro production path narrowly without reopening unrelated M5 work.
+- **B1 Task Change List/Duplicate:** RESOLVED and IMPLEMENTED/VALIDATED. PR #177 exact head `e80034f481bc8d9368bb670cadfce2cdcbe61797` passed Windows CI #602; guarded squash merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57` passed resulting-main CI #603. Change List preserves the stable task identity and authoritative persisted lane/schedule/history; Duplicate creates an independent identity; live/open-session sources are rejected transactionally.
 - **B2 exact Blitz now placement / B3 exact swatch palette:** visual-fidelity questions for the scheduled final parity pass unless stronger current evidence promotes them.
 - **B4 Done auto-start next task:** PARTIALLY RESOLVED by VE-003. With success screen enabled, completion enters success UI first and next-task start waits for explicit `Next Task`. The success-screen-disabled path remains unresolved; preserve current Narro behavior there until stronger evidence/decision. `Take a Break` is visible but its post-click timer/session semantics remain unproven.
 - Intentional Narro deviations in audit section C remain binding and are not regressions.
@@ -454,3 +454,28 @@ Future work must preserve:
 - Expected-head guarded squash merge: `72e825c991a53aee9c68a2411fa2439a9e599f26`.
 - Resulting-main Windows CI #595 PASS through the repository identical-tree validation gate; heavy duplicate build job correctly skipped.
 - Validated application source baseline remains `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
+
+
+## VE-F003 task overflow correction — validated 2026-09-27
+
+Current direct VE-005 evidence is now implemented without reopening M5:
+
+- task overflow order: `Schedule / Update Schedule → Change List → Duplicate → Delete`;
+- `Change List` moves the same TaskId to another active list, preserving the authoritative persisted lane plus schedule, recurrence linkage and prior closed-session history;
+- `Duplicate` reuses M2 duplication semantics and creates exactly one independent TaskId without copying session history, manual-time adjustment, recurrence-parent/rule identity or completion/archive state;
+- command-level stale/live checks are backed by transactional persistence guards so concurrent open-session state cannot silently cross the mutation boundary;
+- All Lists remains a projection; task ownership is the persisted `listId`;
+- the existing 6.25rem action slot remains fixed, with move up/down hit positions retained and the third slot used by the anchored overflow menu;
+- permanent deletion still requires the existing explicit confirmation dialog.
+
+Validation:
+- PR #177 exact head `e80034f481bc8d9368bb670cadfce2cdcbe61797`;
+- Windows CI #602 / run `36349274182`: PASS;
+- visual artifact `10941762475`, digest `sha256:cad2d6f2b0210c1fb2d3213e564d8f0193a8b71ee8488331027fe5206dba85d5`;
+- diagnostic artifact `10941867097`, digest `sha256:0f0daac870f0f5d13f88be0f970b341cfcc859c92bc07e5a599d6a2f88391979`;
+- exact-head guarded squash merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`;
+- resulting-main Windows CI #603 / run `36349966245`: PASS through identical-tree validation;
+- source slice diff: **+879/-28** across 14 files;
+- **current validated application source baseline: `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`**.
+
+M8 remains 5/8 top-level validated; roadmap remains 6/10. Existing PR #170 must be reconciled onto this baseline before its historical CI can be reused for any purpose.
