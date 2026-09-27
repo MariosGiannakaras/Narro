@@ -1,0 +1,72 @@
+name: Temporary Blitzit Help Center image capture
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/temp-blitzit-help-center-images.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download original Help Center images
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p captured/help-center
+          urls=(
+            "https://framerusercontent.com/images/DNfRInKrA20di6Wj6JO6AcBAlys.png"
+            "https://framerusercontent.com/images/FSr99pZtFWhuLkzSQ6zEpbp9TLk.png"
+            "https://framerusercontent.com/images/j9hEBVlSNGRM0cSUFl7cebecg.png?height=750&width=1160"
+            "https://framerusercontent.com/images/wv4znAMGFovLUBAdMpk7Nu4Klms.png"
+            "https://framerusercontent.com/images/CwxlTCSfz9VGphjtXJadB9O4Zzw.png?height=1031&width=1160"
+            "https://framerusercontent.com/images/GwACIize9RBH2kbOZqq6T5gpcI.png"
+            "https://framerusercontent.com/images/JTtEepSacGObloMxzzoD1Uc.png"
+            "https://framerusercontent.com/images/6xwkgciiAoKB6plxZxzqDcoxCY.png"
+            "https://framerusercontent.com/images/OTCpZgcwVZDej3fcAFivAt25vDM.png"
+            "https://framerusercontent.com/images/CRexOs0FutrUnEDN6pe96UWMFBM.png"
+            "https://framerusercontent.com/images/z9VdxDhqqO2Fbc8eioZFAS4dgI.png"
+            "https://framerusercontent.com/images/KYE1LcJjWOzKSZnSYNA6zNyGSs.png"
+            "https://framerusercontent.com/images/mSVblVyTyZqsOub4FURh5tJjblU.png"
+            "https://framerusercontent.com/images/46SzIQBMKFc3TFDZDacn1yz5P18.png"
+            "https://framerusercontent.com/images/8SZZpe7MgU1TrR4jewCLcWtEEoI.png"
+            "https://framerusercontent.com/images/hhkOtEmQYAJfJzcMtsXEH5HKBY.png"
+            "https://framerusercontent.com/images/Ti6EJrNtaYAUQ14cwKE7u4taHw.png"
+            "https://framerusercontent.com/images/Sxgz1A0jWhEd2JIIjWh3TN4L8vo.png"
+            "https://framerusercontent.com/images/udqL8eWSP0SHyF7SabuRSDxej0.png"
+            "https://framerusercontent.com/images/3x5RTLOxaD2ATQNZFwpSBLjXdok.png"
+            "https://framerusercontent.com/images/MVvFzAUBrWV0aqE8br8ajVQ4qk8.png"
+            "https://framerusercontent.com/images/LdYRyXQOGTi2ppTNik5sUNzjNEc.png"
+            "https://framerusercontent.com/images/hqALKsRoRuh0QqLVKBSOE3OhAzk.png"
+            "https://framerusercontent.com/images/nqcaGP6yHLJofjZXxtH1cHTG90Q.png"
+            "https://framerusercontent.com/images/kRie6ehi9W4xdzBdZJW0qqP5I.png"
+            "https://framerusercontent.com/images/LsKapZzTc459kbKdqU8E3Yo8Oqk.png"
+          )
+          i=1
+          for url in "${urls[@]}"; do
+            printf -v name "hc-%02d.png" "$i"
+            curl --fail --location --retry 3 --retry-delay 2 "$url" -o "captured/help-center/$name"
+            test -s "captured/help-center/$name"
+            i=$((i+1))
+          done
+          sha256sum captured/help-center/* > captured/help-center/SHA256SUMS.txt
+
+      - name: Copy existing Blitzit references for local comparison
+        shell: bash
+        run: |
+          mkdir -p captured/existing
+          cp reference/original-blitzit-screenshots/* captured/existing/
+
+      - name: Upload comparison corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: blitzit-help-center-image-comparison
+          path: captured/
+          if-no-files-found: error
