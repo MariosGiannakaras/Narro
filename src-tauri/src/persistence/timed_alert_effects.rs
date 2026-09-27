@@ -412,13 +412,11 @@ mod tests {
         observe_timed_alert_run(&mut conn, task_id, run_id, 0, true, 60, true, T0).unwrap();
 
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 190, true, 60, false, T1)
-                .unwrap(),
+            observe_timed_alert_run(&mut conn, task_id, run_id, 190, true, 60, false, T1).unwrap(),
             3
         );
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 190, true, 60, false, T1)
-                .unwrap(),
+            observe_timed_alert_run(&mut conn, task_id, run_id, 190, true, 60, false, T1).unwrap(),
             0
         );
 
@@ -430,7 +428,9 @@ mod tests {
                 .collect::<Vec<_>>(),
             vec![60, 120, 180]
         );
-        assert!(claim_pending_timed_alerts(&mut conn, T1).unwrap().is_empty());
+        assert!(claim_pending_timed_alerts(&mut conn, T1)
+            .unwrap()
+            .is_empty());
     }
 
     #[test]
@@ -446,7 +446,9 @@ mod tests {
                 0
             );
         }
-        assert!(claim_pending_timed_alerts(&mut conn, T1).unwrap().is_empty());
+        assert!(claim_pending_timed_alerts(&mut conn, T1)
+            .unwrap()
+            .is_empty());
     }
 
     #[test]
@@ -456,25 +458,21 @@ mod tests {
         observe_timed_alert_run(&mut conn, task_id, run_id, 120, false, 60, false, T1).unwrap();
         observe_timed_alert_run(&mut conn, task_id, run_id, 120, true, 60, false, T1).unwrap();
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 179, true, 60, false, T1)
-                .unwrap(),
+            observe_timed_alert_run(&mut conn, task_id, run_id, 179, true, 60, false, T1).unwrap(),
             0
         );
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 180, true, 60, false, T1)
-                .unwrap(),
+            observe_timed_alert_run(&mut conn, task_id, run_id, 180, true, 60, false, T1).unwrap(),
             1
         );
 
         observe_timed_alert_run(&mut conn, task_id, run_id, 180, true, 30, false, T1).unwrap();
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 209, true, 30, false, T1)
-                .unwrap(),
+            observe_timed_alert_run(&mut conn, task_id, run_id, 209, true, 30, false, T1).unwrap(),
             0
         );
         assert_eq!(
-            observe_timed_alert_run(&mut conn, task_id, run_id, 210, true, 30, false, T1)
-                .unwrap(),
+            observe_timed_alert_run(&mut conn, task_id, run_id, 210, true, 30, false, T1).unwrap(),
             1
         );
     }
@@ -488,7 +486,9 @@ mod tests {
         let second_run = SessionId::generate();
         observe_timed_alert_run(&mut conn, task_id, second_run, 0, true, 60, true, T1).unwrap();
 
-        assert!(claim_pending_timed_alerts(&mut conn, T1).unwrap().is_empty());
+        assert!(claim_pending_timed_alerts(&mut conn, T1)
+            .unwrap()
+            .is_empty());
         assert_eq!(
             observe_timed_alert_run(&mut conn, task_id, second_run, 60, true, 60, false, T1)
                 .unwrap(),
@@ -501,10 +501,8 @@ mod tests {
         use std::fs;
         use uuid::Uuid;
 
-        let path = std::env::temp_dir().join(format!(
-            "narro-timed-alert-recovery-{}.db",
-            Uuid::new_v4()
-        ));
+        let path =
+            std::env::temp_dir().join(format!("narro-timed-alert-recovery-{}.db", Uuid::new_v4()));
         let task_id;
         let run_id = SessionId::generate();
 
@@ -577,7 +575,9 @@ mod tests {
 
         retire_timed_alert_run(&mut conn, task_id).expect("retire timed-alert run");
 
-        assert!(claim_pending_timed_alerts(&mut conn, T1).unwrap().is_empty());
+        assert!(claim_pending_timed_alerts(&mut conn, T1)
+            .unwrap()
+            .is_empty());
         assert!(load_cursor(&conn, task_id).unwrap().is_none());
     }
 }
