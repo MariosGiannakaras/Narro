@@ -20,7 +20,11 @@ M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementa
 - Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10942122319`, digest `sha256:53543709c13df1a17bd76ed95fa5d6aba14d1f8092e3236cf16e43bceb4b2782`.
 - Expected-head guarded squash merge: `0a54b20f16f5cb69a32602148750b10d533ad470`.
 - Resulting-main Windows CI #605 / run `36351530441`: PASS through the identical-tree validation gate.
-- **Current validated application source baseline:** `0a54b20f16f5cb69a32602148750b10d533ad470`.
+- PR #180 exact validated head: `0309c879998f43ff8c6e39e65f02c44669fa48b8`.
+- Windows CI #607 / run `36352510898`: PASS.
+- Expected-head guarded squash merge: `643528ca223b29fd8fbd215db5b1b525c912c6fc`.
+- Resulting-main Windows CI #608 / run `36353206934`: PASS.
+- **Current validated application source baseline:** `643528ca223b29fd8fbd215db5b1b525c912c6fc`.
 
 Tracking/evidence-only commits after this SHA do not replace the validated application source baseline.
 
@@ -35,7 +39,7 @@ Tracking/evidence-only commits after this SHA do not replace the validated appli
 7. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation.
 8. **Post-validation VE-F003 task-menu correction: COMPLETE / VALIDATED.** `Change List` now performs a persistence-first same-identity move to another active list while preserving authoritative lane/schedule/recurrence/session history; `Duplicate` creates one independent identity; live/open-session mutation is rejected transactionally; the fixed action geometry and confirmed `Schedule → Change List → Duplicate → Delete` hierarchy are covered by regression/visual validation. PR #177 / CI #602 / main CI #603.
 9. **M8 remains in progress: 6/8 top-level items validated.** VE-F001, VE-F002 and VE-F008 are validated in reconciled PR #170 / CI #604 / main CI #605; conditional/nested Preferences behavior is validated without scroll-jump remounts. The top-level Preferences item remains open only for runtime effects the validated slice explicitly did not claim.
-10. Close the remaining M8 Preferences runtime effects, then the Windows-locale date/time presentation item, before M9.
+10. The audit-incorporation gate is active. Resolve current `FIX_NOW` discrepancies before unrelated M8 forward work; first is CORR-01 recurrence No Repeat / Delete Existing. Then close remaining M8 Preferences runtime effects and Windows-locale date/time before M9.
 11. After M10, run the required Final Comprehensive Review Stage and re-reference the complete uploaded corpus and Help Center evidence as part of end-state validation.
 
 Roadmap completion remains **6/10 milestones**. M8 is not complete yet.
@@ -106,22 +110,24 @@ Do not mark M7 complete until these required checks close, but do not block inde
 
 ## EXACT NEXT ACTION
 
-1. The Blitzit video UI/UX forensic pass (**19/19**), Help Center text+image pass (**34/34 classified; 15/15 relevant deep-reviewed**), canonical screenshot reconciliation (**46 retained references**), VE-F003 task-menu correction, and M8 Preferences evidence-driven reconciliation are complete. Do not repeat them without new evidence.
-2. Continue M8 from validated application source `0a54b20f16f5cb69a32602148750b10d533ad470`.
-3. Close the remaining Preferences runtime effects that PR #170 intentionally did not claim:
-   - timed task-alert runtime effect and interval semantics;
-   - animated timer-flash runtime effect, reduced-motion safe;
-   - notification-alert gating for relevant local events without duplicating authoritative M3 notifications;
-   - schedule-reminder preference/lead-time integration without regressing M4 reminder idempotence;
-   - local sound catalog/preview behavior only if validated Narro-owned or user-local assets exist; otherwise retain explicit unavailable feedback.
-4. Preserve the now-validated VE-F001 / VE-F002 / VE-F008 behavior, VE-F003 overflow behavior, v3 atomic Preferences persistence, persistence-first cross-window events, and existing timer/session/reminder idempotence.
-5. Then close the separate M8 Windows-locale date/time presentation acceptance item before M9.
-6. M7 deferred physical checks remain OPEN and can continue to be batched later unless a source change directly affects them.
-
-Measured/source-specific fidelity note:
-- VE-003 Panel→Floating shows ~0.27 s continuous geometry transformation at 60 fps.
-- Do not copy the source's clipped/sparse intermediate content.
-- Generic hover/menu/modal/inline/chart timing values in `docs/UI_UX_SPEC.md` are Narro calibration targets, not measured Blitzit constants.
+1. Read `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` before any source work. It is the mandatory finding→implementation routing layer.
+2. **Resolve CORR-01 before unrelated M8 forward work:** recurrence update / No Repeat flow.
+   - current Narro shows generic `Replace Existing Tasks` plus separate `Remove recurrence`;
+   - current VE-017 + Help Center evidence shows `No Repeat` as the recurrence choice and a conditional warm/red `Delete existing tasks(n)` row;
+   - unchecked No Repeat detaches existing generated children as independent tasks;
+   - checked Delete Existing removes only safely eligible generated children through one authoritative transactional boundary;
+   - do not silently delete historical/session-bearing/customized user work merely to copy source behavior;
+   - preserve expected-version/stale guards, parent identity, recurrence idempotence, persistence-first publication and explicit failure/recovery feedback;
+   - add Rust/frontend/visual regression coverage and validate exact PR head on Windows.
+3. After CORR-01 passes exact-head CI, guarded merge and resulting-main validation, resume audited M8 work in order:
+   - PREF-R01 timed task alerts;
+   - PREF-R02 finite/reduced-motion-safe timer flash;
+   - PREF-R03 notification-alert gating without duplicate M3 effects;
+   - PREF-R05 local sound/preview only with validated Narro-owned or user-local assets;
+   - PREF-R06 Windows locale/system 12/24-hour presentation.
+4. PREF-R04 schedule-reminder preference/lead integration is already validated in PR #180 / CI #607 / main CI #608. Do not reimplement it.
+5. M7 physical compositor/monitor/DPI validation remains OPEN; VE-F007/UX-F004 remain validation-open rather than guessed from automation.
+6. M9 must consume the routed VE-F006 / HC-F002 / UX-F012 / UX-F013 findings when reached.
 
 ## USER ACTION REQUIRED
 
