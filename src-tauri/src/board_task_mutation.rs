@@ -488,7 +488,10 @@ pub fn duplicate_list_board_task(
         BoardTaskMutationError::ExpectedListMismatch { .. } => {
             CommandError::new("TASK_DUPLICATE_STALE", error.to_string())
         }
-        BoardTaskMutationError::Task(TaskStoreError::ActiveSession(_)) => {
+        BoardTaskMutationError::Task(TaskStoreError::ActiveSession(_))
+        | BoardTaskMutationError::Identity(TaskIdentityError::Task(
+            TaskStoreError::ActiveSession(_),
+        )) => {
             CommandError::new("TASK_DUPLICATE_LIVE", error.to_string())
         }
         BoardTaskMutationError::Identity(TaskIdentityError::SourceArchived(_))
