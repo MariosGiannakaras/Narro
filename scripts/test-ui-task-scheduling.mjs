@@ -92,7 +92,7 @@ for (const [haystack, needle, label] of [
   [dialog, 'data-task-recurrence-control="delete-existing"', "conditional Delete Existing Tasks control"],
   [dialog, "snapshot.deleteExistingEligibleCount", "authoritative safe-delete count"],
   [dialog, "snapshot.protectedExistingCount", "protected child disclosure"],
-  [dialog, "customized or history-bearing tasks stay independent", "replace child-preservation guidance"],
+  [dialog, "customized or history-bearing tasks are preserved", "replace child-preservation guidance"],
   [dialog, "generated recurrence occurrence", "generated occurrence explanation"],
   [dialog, "without creating a nested rule", "nested recurrence UI guard"],
   [dialog, "await updateTaskSchedule({", "schedule save boundary"],
