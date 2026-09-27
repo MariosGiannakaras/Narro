@@ -172,7 +172,7 @@ fn write_cursor(
             sql_duration(interval_seconds)?,
             sql_duration(next_boundary_seconds)?,
             sql_duration(work_elapsed_seconds)?,
-            i64::from(enabled),
+            if enabled { 1_i64 } else { 0_i64 },
             now,
         ],
     )?;
