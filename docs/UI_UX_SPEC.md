@@ -504,7 +504,7 @@ Preferences are a vertically scrollable modal/panel with clear section dividers.
 - Open on wake/login;
 - Hide EST / Time Taken;
 - hidden values remain available on hover;
-- Auto-parse EST from title;
+- Auto-parse EST from title; current direct video shows a successfully parsed terminal estimate is removed from the saved visible title and stored as EST;
 - System/Dark/Light theme;
 - timezone.
 
@@ -758,13 +758,13 @@ Uses the Notes behavior from Section 7:
 
 ## 11.7 Overflow
 
-Corroborated older capture:
-- Update Schedule;
-- schedule summary;
-- Change list;
+Current supplied VE-005 video directly confirms the task overflow menu includes:
+- Schedule / Update Schedule;
+- Change List;
 - Duplicate;
-- destructive action/confirmation;
-- original Open in Calendar excluded.
+- Delete / destructive confirmation.
+
+Older captures additionally show schedule summary and original `Open in Calendar`; Narro excludes external-calendar integration. `Change List` and `Duplicate` are therefore current direct behavior evidence, not merely historical screenshot fidelity.
 
 ---
 
@@ -866,7 +866,9 @@ Subtasks:
 **Completed**
 - Done transition;
 - optional success moment;
-- exact next-task auto-start behavior remains intentionally unresolved until fidelity testing.
+- when the success screen is enabled, direct video evidence shows the success state appears before the next task starts and exposes explicit `Next Task` / `Take a Break` choices;
+- `Next Task` starts the next task only after activation in the observed sequence;
+- success-screen-disabled progression and the exact post-click `Take a Break` timer/session semantics remain intentionally unresolved.
 
 ---
 
