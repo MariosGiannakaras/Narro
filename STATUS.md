@@ -479,3 +479,33 @@ Validation:
 - **current validated application source baseline: `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`**.
 
 M8 remains 5/8 top-level validated; roadmap remains 6/10. Existing PR #170 must be reconciled onto this baseline before its historical CI can be reused for any purpose.
+
+
+## M8 Preferences/runtime reconciliation — validated 2026-09-27
+
+The existing M8 PR #170 was preserved and reconciled onto the validated VE-F003/main state rather than replaced.
+
+Validation:
+- reconciled exact head: `633877b1e64b2de3c8b24fad388bef2af6c1793b`;
+- Windows CI #604 / run `36350930729`: PASS — Repository Preflight, Preferences visual fixtures, Tauri Release and diagnostic artifact upload all succeeded;
+- visual artifact `narro-m5-visual-regression`, id `10942775993`, digest `sha256:5be194669c48d3442a3ac301ccdc4168a51f378d00b332ac690f8defb61413b5`;
+- diagnostic artifact `narro-m1-runtime-harness-windows-x64`, id `10942122319`, digest `sha256:53543709c13df1a17bd76ed95fa5d6aba14d1f8092e3236cf16e43bceb4b2782`;
+- expected-head guarded squash merge: `0a54b20f16f5cb69a32602148750b10d533ad470`;
+- resulting-main Windows CI #605 / run `36351530441`: PASS through the repository identical-tree validation gate;
+- validated source diff from prior source baseline `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`: **+2273/-105 across 38 files**;
+- **current validated application source baseline: `0a54b20f16f5cb69a32602148750b10d533ad470`**.
+
+Validated product/runtime checkpoints:
+- VE-F001: terminal EST suffix parsing is preference-gated; successful parse stores EST and strips only the parsed terminal suffix from the saved visible title across List Board, Search/quick-create and Focus Add Task;
+- VE-F002: when success screen is enabled, Done commits completion and enters success UI before any next task starts; `Next Task` performs the explicit start transition;
+- unresolved success-screen-disabled progression remains unchanged;
+- source-visible success-screen `Take a Break` remains explicit but unavailable rather than inventing post-click timer/session semantics;
+- VE-F008: nested Preferences controls stay mounted/in place and parent-gate without scroll-jump remounts;
+- Hide EST / Time Taken preserves hover/focus disclosure;
+- manual Start Break consumes persisted default break duration;
+- event-driven Preferences projection updates consumers across windows without polling;
+- no remote sound/media catalog was invented.
+
+Scope remains partial at the top-level Preferences item: runtime effects not claimed by the slice (including any remaining timed-alert/timer-flash/notification/schedule-reminder/local-sound behavior) remain open, as does the separate Windows-locale date/time item.
+
+M8 is now **6/8 top-level items validated**. Roadmap remains **6/10 milestones complete**.
