@@ -358,7 +358,7 @@ fn no_repeat_without_delete_detaches_all_generated_children_and_keeps_tasks() {
 
     assert!(report.removed_child_ids.is_empty());
     assert_eq!(
-        report.detached_protected_child_ids,
+        report.detached_child_ids,
         materialized.created_child_ids
     );
     assert!(get_recurrence_rule(&conn, rule_id).is_err());
@@ -403,7 +403,7 @@ fn no_repeat_delete_removes_only_pristine_generated_children_and_preserves_user_
     .expect("remove recurrence and safely delete untouched child");
 
     assert_eq!(report.removed_child_ids, vec![deleted_id]);
-    assert_eq!(report.detached_protected_child_ids, vec![preserved_id]);
+    assert_eq!(report.detached_child_ids, vec![preserved_id]);
     assert!(get_task(&conn, deleted_id).is_err());
 
     let preserved = get_task(&conn, preserved_id).expect("customized child survives");
@@ -454,7 +454,7 @@ fn no_repeat_delete_preserves_history_bearing_completed_and_archived_children() 
 
     assert!(report.removed_child_ids.is_empty());
     assert_eq!(
-        report.detached_protected_child_ids,
+        report.detached_child_ids,
         vec![history_id, archived_id]
     );
     for child_id in [history_id, archived_id] {
@@ -545,7 +545,7 @@ fn no_repeat_preserves_and_detaches_linked_child_missing_occurrence_row() {
     .expect("remove recurrence with linked orphan");
 
     assert!(report.removed_child_ids.is_empty());
-    assert_eq!(report.detached_protected_child_ids, vec![orphan.id]);
+    assert_eq!(report.detached_child_ids, vec![orphan.id]);
     let preserved = get_task(&conn, orphan.id).expect("linked orphan survives");
     assert!(preserved.recurrence_parent_task_id.is_none());
 }
