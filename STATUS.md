@@ -450,3 +450,7 @@ Future work must preserve:
 - Selection precedence is current/direct → newer version → complete state → resolution/sharpness → minimal unrelated chrome.
 - Canonical inventory: `reference/original-blitzit-screenshots/CANONICAL_INDEX.md`.
 - No application source/config/build semantics changed.
+- PR #175 exact validated head `8d2ade29eff3e3be3550e6d0638f875d0097237d`: Windows CI #594 PASS (Repository Preflight, visual fixtures, Tauri Release, diagnostic artifact upload).
+- Expected-head guarded squash merge: `72e825c991a53aee9c68a2411fa2439a9e599f26`.
+- Resulting-main Windows CI #595 PASS through the repository identical-tree validation gate; heavy duplicate build job correctly skipped.
+- Validated application source baseline remains `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
