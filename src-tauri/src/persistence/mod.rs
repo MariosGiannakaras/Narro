@@ -295,6 +295,14 @@ mod tests {
             [NOW],
         )
         .expect("insert task timer preference");
+        conn.execute(
+            "INSERT INTO schedule_preference_reminder_effects (
+                task_id, scheduled_local_date, scheduled_local_time, timezone,
+                reminder_lead_seconds, submitted_at
+             ) VALUES ('task-1', '2026-09-04', '09:00', 'Europe/Athens', 600, ?1)",
+            [NOW],
+        )
+        .expect("insert schedule reminder effect");
 
         conn.execute("DELETE FROM tasks WHERE id = 'task-1'", [])
             .expect("delete task");
