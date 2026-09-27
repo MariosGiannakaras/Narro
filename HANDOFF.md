@@ -6,15 +6,15 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT VALIDATED SOURCE BASELINE
 
-M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementation is validated through A18 but still awaits deferred physical closure. M8 has begun and its confirmed in-app shortcut slice is validated.
+M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementation is validated through A18 but still awaits deferred physical closure. M8 shortcut foundation and versioned preference persistence are validated.
 
-- M8 PR #166 exact validated head: `18a4d2b5a26bc705bf7cdf7bea647275b4877890`.
-- Windows CI #569 / run `36255993870`: PASS.
-- Visual artifact: `narro-m5-visual-regression`, id `10911290878`, digest `sha256:7f7b8bb93f54d437edb8751a43fc0da9e4b5d0fd1832abee5583581a0bdb7aea`.
-- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10910393452`, digest `sha256:faff93e41553adc51a0ced99172795517f51d918f2873ce6a294af6c59d56ec9`.
-- Expected-head guarded squash merge: `030274149cafdf590c5aa08f2cd1c9409595c7aa`.
-- Resulting-main Windows CI #570 / run `36262618691`: PASS via identical-tree validation gate.
-- **Current validated application source baseline:** `030274149cafdf590c5aa08f2cd1c9409595c7aa`.
+- M8 global-shortcut PR #168 exact validated head: `e63dbd3107fca8ccf95d35506c7a16e4eeaac9f6`.
+- Windows CI #574 / run `36284019516`: PASS.
+- Visual artifact: `narro-m5-visual-regression`, id `10919562623`, digest `sha256:781ff8dd2dea000db2ba7e1dc6be602fc551f119e30e6d47e88e8242baf9a766`.
+- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10919742072`, digest `sha256:b2febb1520437238b2ed21e8271116c0a823a8984f592296401f3e80abc63528`.
+- Expected-head guarded squash merge: `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
+- Resulting-main Windows CI #575 / run `36284525078`: PASS through the identical-tree validation gate.
+- **Current validated application source baseline:** `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
 
 Tracking-only commits after this SHA do not replace the validated application source baseline.
 
@@ -24,10 +24,11 @@ Tracking-only commits after this SHA do not replace the validated application so
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
 3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
 4. By explicit user direction, missing Blitzit videos and deferred M7 manual checks are not blockers for independent source implementation; do not mark them PASS.
-5. **M8 in progress.** Confirmed in-app shortcuts and Start Break shortcut lifecycle reuse are validated through PR #166 / CI #569 / main CI #570.
-6. **Next M8 source slice:** existing native global shortcuts `Ctrl+Shift+B/T/P` + persisted per-global enable toggles + clear conflict/error feedback. Reuse the current Rust `RegisterHotKey` authority and diagnostic serialization; do not replace it.
-7. Continue M8 Preferences after the shortcut slice, then M9 → M10 according to prerequisites.
-8. After M10, run the required Final Comprehensive Review Stage, including the complete uploaded video/transcript corpus.
+5. **M8 in progress: 5/8 top-level items validated.** In-app shortcuts, global shortcuts/toggles, global conflict/error feedback, Start Break lifecycle, and versioned SQLite preference persistence are validated.
+6. **Next M8 source slice:** implement the documented Preferences sections on the existing typed/versioned persistence model. Preserve atomic read-modify-write semantics and existing Theme/global-shortcut behavior.
+7. The Preferences slice must cover explicit loading/error/unavailable states, nested/conditional behavior without scroll jumps, both windows where a preference applies, and deterministic upper/middle/lower fixtures.
+8. Then close Windows-locale date/time presentation and any remaining M8 acceptance gaps before M9.
+9. After M10, run the required Final Comprehensive Review Stage, including the complete uploaded video/transcript corpus.
 
 Roadmap completion remains **6/10 milestones**. M8 is not complete yet.
 
@@ -97,14 +98,17 @@ Do not mark M7 complete until these required checks close, but do not block inde
 
 ## EXACT NEXT ACTION
 
-Start the next coherent M8 source slice from validated source baseline `030274149cafdf590c5aa08f2cd1c9409595c7aa`.
+Start the next coherent M8 Preferences source slice from validated source baseline `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
 
 Priority:
-1. inspect the existing native `Ctrl+Shift+B`, `Ctrl+Shift+T`, and `Ctrl+Shift+P` registration/diagnostic authority and current Preferences schema;
-2. add persisted per-global enable toggles without duplicating or weakening native registration conflict handling;
-3. startup must honor persisted enable state rather than unconditionally registering disabled shortcuts;
-4. toggle failures/conflicts must leave committed preference/native state coherent and surface actionable feedback;
-5. add focused Rust/frontend contracts before authoritative Windows CI.
+1. build a typed Preferences snapshot/mutation command over the existing v3 `PreferencesPayload` and atomic `mutate_preferences` boundary; do not create a second settings store;
+2. expose documented Blitz Panel, General, Blitz Mode, Alerts, and Celebration settings through the existing Preferences route;
+3. preserve existing Theme and Windows Shortcut panels/behavior while consolidating shared loading/error/persistence semantics;
+4. implement conditional/nested rows (Pomodoro durations, alert details, reminder lead, celebration children) without disruptive scroll repositioning;
+5. wire immediately relevant runtime consumers where already established: Focus Panel monitor/side, hide task times, EST parsing, timezone/scheduling display basis, Pomodoro/default break/scrolling title, notifications/reminders;
+6. add deterministic upper/middle/lower Preferences fixtures and focused source tests before authoritative Windows CI.
+
+Sound assets/previews must remain local-only and must not overlap indefinitely. If the repository has no validated local sound catalog yet, implement the preference/state boundary and explicit unavailable feedback rather than inventing remote assets.
 
 Do not rerun deferred M7 manual checks unless this M8 slice directly depends on them. Missing Blitzit videos remain non-blocking.
 
