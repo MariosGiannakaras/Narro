@@ -191,10 +191,7 @@ fn parse_child_id(value: String) -> Result<TaskId, ReplaceExistingError> {
     TaskId::parse_str(&value).map_err(|_| ReplaceExistingError::InvalidStoredChildIdentity)
 }
 
-fn has_owned_history(
-    conn: &Connection,
-    child_id: TaskId,
-) -> Result<bool, ReplaceExistingError> {
+fn has_owned_history(conn: &Connection, child_id: TaskId) -> Result<bool, ReplaceExistingError> {
     let child_id = child_id.to_string();
     let exists: i64 = conn.query_row(
         "SELECT EXISTS(
@@ -282,11 +279,9 @@ fn child_is_safely_deletable(
     if child.completed_at.is_some() || child.archived_at.is_some() {
         return Ok(false);
     }
-    Ok(
-        child.created_at == child.updated_at
-            && child.manual_adjustment == 0
-            && !has_owned_history(conn, child.id)?,
-    )
+    Ok(child.created_at == child.updated_at
+        && child.manual_adjustment == 0
+        && !has_owned_history(conn, child.id)?)
 }
 
 pub fn recurrence_removal_preview(
@@ -397,9 +392,8 @@ pub fn remove_recurrence_if_expected(
          WHERE recurrence_parent_task_id = ?1
          ORDER BY id",
     )?;
-    let remaining_rows = remaining_statement.query_map([parent.id.to_string()], |row| {
-        row.get::<_, String>(0)
-    })?;
+    let remaining_rows =
+        remaining_statement.query_map([parent.id.to_string()], |row| row.get::<_, String>(0))?;
     let remaining_raw_ids: Vec<_> = remaining_rows.collect::<Result<_, _>>()?;
     drop(remaining_statement);
 
