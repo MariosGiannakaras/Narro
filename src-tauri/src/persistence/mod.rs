@@ -22,9 +22,9 @@ pub mod task_schedule_edit;
 pub mod task_time_taken_edit;
 pub mod task_title_edit;
 pub mod tasks;
+pub mod timed_alert_effects;
 pub mod timer_controller;
 pub mod timer_runtime;
-pub mod timed_alert_effects;
 
 use rusqlite::Connection;
 use rusqlite_migration::{Migrations, M};
@@ -86,7 +86,9 @@ fn migrations() -> Migrations<'static> {
         M::up(include_str!(
             "../../migrations/0008_schedule_preference_reminder_effects.sql"
         )),
-        M::up(include_str!("../../migrations/0009_timed_alert_effects.sql")),
+        M::up(include_str!(
+            "../../migrations/0009_timed_alert_effects.sql"
+        )),
     ])
 }
 
