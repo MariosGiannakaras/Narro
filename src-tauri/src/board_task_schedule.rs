@@ -12,8 +12,8 @@ use crate::persistence::recurrence::{
     RecurrenceStoreError,
 };
 use crate::persistence::recurrence_replace::{
-    recurrence_removal_preview, remove_recurrence_if_expected,
-    replace_existing_tasks_if_expected, ReplaceExistingError,
+    recurrence_removal_preview, remove_recurrence_if_expected, replace_existing_tasks_if_expected,
+    ReplaceExistingError,
 };
 use crate::persistence::task_schedule_edit::{
     update_task_schedule_if_expected, TaskScheduleEditError,
@@ -396,21 +396,21 @@ pub fn get_list_board_task_schedule_editor(
     let list_id = parse_list_id("listId", &list_id)?;
     let connection = app_database(&app_handle)?;
     let task = validate_task_binding(&connection, task_id, list_id)?;
-    let (recurrence, delete_existing_eligible_count, protected_existing_count) =
-        match task.recurrence_rule_id {
-            Some(rule_id) => {
-                let rule = get_recurrence_rule(&connection, rule_id)
-                    .map_err(map_recurrence_error)?;
-                let preview = recurrence_removal_preview(&connection, rule_id)
-                    .map_err(map_replace_existing_error)?;
-                (
-                    Some(rule.into()),
-                    preview.deletable_child_count,
-                    preview.protected_child_count,
-                )
-            }
-            None => (None, 0, 0),
-        };
+    let (recurrence, delete_existing_eligible_count, protected_existing_count) = match task
+        .recurrence_rule_id
+    {
+        Some(rule_id) => {
+            let rule = get_recurrence_rule(&connection, rule_id).map_err(map_recurrence_error)?;
+            let preview = recurrence_removal_preview(&connection, rule_id)
+                .map_err(map_replace_existing_error)?;
+            (
+                Some(rule.into()),
+                preview.deletable_child_count,
+                preview.protected_child_count,
+            )
+        }
+        None => (None, 0, 0),
+    };
     Ok(BoardTaskScheduleEditorSnapshot {
         task_id: task.id.to_string(),
         list_id: task.list_id.to_string(),
