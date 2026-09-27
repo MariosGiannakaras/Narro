@@ -8,6 +8,7 @@ import "./taskScheduleVisualFixture.css";
 
 const searchParams = new URLSearchParams(window.location.search);
 const theme = searchParams.get("theme") === "dark" ? "dark" : "light";
+const mode = searchParams.get("mode") === "no-repeat" ? "no-repeat" : "repeat";
 document.documentElement.dataset.theme = theme;
 document.body.classList.add("visual-fixture-body");
 
@@ -36,6 +37,8 @@ const snapshot: TaskScheduleEditorSnapshot = {
     isActive: true,
     updatedAt: "2026-09-09T16:00:00Z",
   },
+  deleteExistingEligibleCount: 3,
+  protectedExistingCount: 2,
 };
 
 type TauriInternalsMock = {
@@ -91,6 +94,13 @@ async function waitForReady(): Promise<void> {
 }
 
 await waitForReady();
+if (mode === "no-repeat") {
+  const preset = document.querySelector<HTMLSelectElement>('[data-task-recurrence-control="preset"]');
+  if (!preset) throw new Error("Task scheduling fixture recurrence preset is missing.");
+  preset.value = "none";
+  preset.dispatchEvent(new Event("change", { bubbles: true }));
+}
+await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
 await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
 
 type Geometry = { x: number; y: number; width: number; height: number };
@@ -106,8 +116,13 @@ const geometry = (selector: string): Geometry => {
   };
 };
 
+const consequenceSelector = mode === "no-repeat"
+  ? '[data-task-recurrence-control="delete-existing"]'
+  : '[data-task-recurrence-control="replace-existing"]';
+
 const contract = {
   fixture: "task-scheduling",
+  mode,
   theme,
   viewport: { width: 1280, height: 720 },
   dialog: geometry(".task-schedule-dialog"),
@@ -115,7 +130,7 @@ const contract = {
   scheduleSection: geometry("#task-schedule-section-title"),
   recurrenceSection: geometry("#task-recurrence-section-title"),
   shortcuts: geometry(".task-schedule-dialog__shortcuts"),
-  replaceExisting: geometry('[data-task-recurrence-control="replace-existing"]'),
+  consequence: geometry(consequenceSelector),
   footer: geometry(".task-schedule-dialog__footer"),
 };
 
