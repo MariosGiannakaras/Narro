@@ -39,7 +39,7 @@ for (const [haystack, needle, label] of [
   [component, '"destructive_confirm"', "destructive-confirm state"],
   [component, "formatVisibleDateTime", "Windows-locale schedule formatting"],
   [component, "BigInt(rawSeconds)", "lossless Time Taken formatting"],
-  [component, 'data-task-actions="reorder"', "production reorder action rail"],
+  [component, 'data-task-actions="reorder-overflow"', "production reorder/overflow action rail"],
   [component, 'data-task-action-slot="reserved"', "reserved action slot marker"],
   [component, 'aria-label={label}', "accessible action labels"],
   [component, 'data-fixture-only-body="notes-expanded"', "fixture-only notes expansion"],
