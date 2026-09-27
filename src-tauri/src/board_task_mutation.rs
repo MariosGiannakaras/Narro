@@ -220,7 +220,8 @@ fn ensure_no_open_session(
             [task_id.to_string()],
             |_| Ok(()),
         )
-        .optional()?
+        .optional()
+        .map_err(TaskStoreError::from)?
         .is_some();
     if has_open_session {
         return Err(TaskStoreError::ActiveSession(task_id).into());
@@ -725,13 +726,14 @@ mod tests {
     fn board_duplicate_creates_exactly_one_independent_identity() {
         let mut conn = setup();
         let list_id = list(&mut conn);
+        let parent = task(&mut conn, list_id, "Parent", PlanningLane::Backlog);
         let source = task(&mut conn, list_id, "Source", PlanningLane::Backlog);
         conn.execute(
             "UPDATE tasks
              SET manual_time_adjustment_seconds = 120,
                  recurrence_parent_task_id = ?2
              WHERE id = ?1",
-            rusqlite::params![source.id.to_string(), TaskId::generate().to_string()],
+            rusqlite::params![source.id.to_string(), parent.id.to_string()],
         )
         .expect("configure source history marker");
 
@@ -750,7 +752,7 @@ mod tests {
         let count: i64 = conn
             .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
             .expect("count duplicated tasks");
-        assert_eq!(count, 2);
+        assert_eq!(count, 3);
     }
 
     #[test]
