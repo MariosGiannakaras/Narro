@@ -24,12 +24,13 @@ Tracking-only commits after this SHA do not replace the validated application so
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
 3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
 4. The uploaded Blitzit corpus remains fully inventoried and functionally reconciled: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 product-behavior analyses/reconciliations/dispositions complete**. Details: `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
-5. **User-requested second-pass UI/UX video forensics is COMPLETE: 19/19 deep-reviewed.** This distinct pass covered layout, exact copy, inputs, hover/focus states, animations, micro-animations, micro-interactions and overall interaction grammar. Durable evidence is in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`, `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, and the reconciled `docs/UI_UX_SPEC.md`.
-6. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation; video evidence does not convert them into PASS.
-7. After the UI/UX forensic pass reaches 19/19 and the findings are reconciled into `docs/UI_UX_SPEC.md`, **Post-validation VE-F003 remains the next source correction:** current direct VE-005 evidence confirms task-menu `Change List` + `Duplicate`, while current Narro production lacks those paths. Implement narrowly without reopening unrelated M5 work.
-8. **M8 remains in progress: 5/8 top-level items validated.** After VE-F003 validates/merges, resume the documented Preferences sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
-9. Then close Windows-locale date/time presentation and any remaining M8 acceptance gaps before M9.
-10. After M10, run the required Final Comprehensive Review Stage and re-reference the complete uploaded corpus as part of end-state validation.
+5. **User-requested second-pass UI/UX video forensics is COMPLETE: 19/19 deep-reviewed.** Durable evidence is in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`, `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, and the reconciled `docs/UI_UX_SPEC.md`.
+6. **User-requested Help Center text + image evidence pass is COMPLETE:** 34/34 visible legacy-navigation pages inventoried/classified and 15/15 Narro-relevant pages deep-reviewed. Durable evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md` and `docs/BLITZIT_HELP_CENTER_TRACKER.md`. Newer 3.0 docs are version-separated and do not override v2.6.69/direct supplied evidence.
+7. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation.
+8. **Post-validation VE-F003 remains the next source correction:** current direct VE-005 evidence confirms task-menu `Change List` + `Duplicate`, while current Narro production lacks those paths. Current Help Center additionally confirms the existing permanent-delete confirmation step. Implement narrowly without reopening unrelated M5 work.
+9. **M8 remains in progress: 5/8 top-level items validated.** After VE-F003 validates/merges, resume the documented Preferences sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
+10. Then close Windows-locale date/time presentation and any remaining M8 acceptance gaps before M9.
+11. After M10, run the required Final Comprehensive Review Stage and re-reference the complete uploaded corpus and Help Center evidence as part of end-state validation.
 
 Roadmap completion remains **6/10 milestones**. M8 is not complete yet.
 
@@ -99,14 +100,14 @@ Do not mark M7 complete until these required checks close, but do not block inde
 
 ## EXACT NEXT ACTION
 
-1. The Blitzit UI/UX video forensic second pass is now complete at **19/19**. Do not repeat it without new source evidence.
+1. The Blitzit video UI/UX forensic pass (**19/19**) and Help Center text+image pass (**34/34 classified; 15/15 relevant deep-reviewed**) are complete. Do not repeat either without new source evidence or a material source update.
 2. Re-read the exact live state of open source PR #170 before touching it; it predates the evidence reconciliation and must not be merged or treated as current merely because its prior CI passed.
 3. Resume the ordered source work with the narrow **VE-F003 task-menu correction** from latest main:
    - expose `Change List` through one persistence-first same-identity move to a chosen active list;
    - expose `Duplicate` through existing durable duplicate semantics, producing one independent identity with no aliased history/session/recurrence state;
    - match the confirmed compact anchored menu hierarchy/order and destructive-red treatment from VE-005;
    - preserve live-task safety, All Lists projection semantics, stale guards, scheduling/session integrity, explicit error/recovery feedback and Narro's stationary/reserved hover action geometry;
-   - preserve explicit permanent-delete confirmation even though VE-006 does not visibly show one.
+   - preserve explicit permanent-delete confirmation; VE-006 did not visibly expose it, but current official Help Center documentation explicitly specifies `Delete → Confirm`.
 4. After VE-F003 validates/merges, resume M8 Preferences/runtime completion over the existing typed/versioned persistence model, incorporating VE-F001 / VE-F002 / VE-F008 plus the completed UI/UX forensic evidence.
 5. Then close Windows-locale date/time presentation and remaining M8 acceptance gaps before M9.
 

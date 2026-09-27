@@ -35,6 +35,27 @@ Direct video evidence materially changes or sharpens these source conclusions:
 
 Tutorial narration about accounts, pricing, integrations, AI, mobile, community and future plans is contextual unless the same sequence supplies relevant in-product behavior. It must not be converted into Narro requirements.
 
+## 1.2 Help Center text + embedded-image reconciliation — 2026-09-27
+
+The current Help Center was re-reviewed specifically at the user's request for **text plus instructional image evidence**, not just article prose.
+
+Durable detailed evidence:
+- `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`
+- `docs/BLITZIT_HELP_CENTER_TRACKER.md`
+
+Coverage:
+- all **34/34** pages exposed by the visible legacy navigation were inventoried/classified;
+- the **15/15** Narro-relevant core/product pages were deep-reviewed for behavior, labels, component states and available official screenshots;
+- newer Blitzit 3.0 pages were explicitly separated because multiple 3.0 integration guides warn that their features may not be present in the current public v2.6.69 product.
+
+Material source changes/clarifications:
+- **Permanent task delete confirmation is OFFICIAL CURRENT.** The Deleting/Archiving article explicitly says hover → expanded menu → Delete → Confirm. VE-006 simply failed to expose that transient confirm state clearly.
+- **Sessions export conflict remains.** Current Help prose says Export PDF; supplied current screenshot says `Export .csv`. Direct current screenshot retains precedence: Overview → PDF, Sessions → CSV.
+- **Troubleshooting corroborates Narro improvements.** Source can require Home→list refresh for delayed server state and app restart to detect a monitor added after launch; Narro's local persistence-first and runtime topology handling intentionally avoid those source limitations.
+- Help screenshots reinforce the established visual grammar: compact dark anchored popovers, inline editors, mint active toggles, nested control guides, red/warm destructive consequence rows, and gradient primary CTAs.
+
+Static Help screenshots are not animation evidence. Exact motion still requires direct video.
+
 ## 2. Complete current Help Center navigation
 
 The current Help Center exposes these pages.

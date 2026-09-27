@@ -427,3 +427,15 @@ Future work must preserve:
 - Generic hover/menu/modal/inline/chart timings in `docs/UI_UX_SPEC.md` are Narro calibration targets rather than measured Blitzit constants because tutorial edits prevent trustworthy exact timing for those interactions.
 - VE-006 shows task deletion without a separately visible confirmation in the demonstrated source sequence; Narro retains explicit permanent-delete confirmation as an intentional safety improvement.
 - Detailed evidence: `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`; coverage tracker: `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`.
+
+
+## Blitzit Help Center text + image evidence pass (2026-09-27)
+
+- Current visible legacy Help Center navigation: **34/34 pages inventoried/classified**.
+- Narro-relevant core/product pages: **15/15 deep-reviewed for article text and available official image evidence**.
+- Newer Blitzit 3.0 migration/integration material is explicitly version-separated from the v2.6.69/current-reference family and does not override supplied direct evidence.
+- Permanent task delete confirmation is now source-confirmed: current Deleting/Archiving docs specify `Delete → Confirm`.
+- Sessions export conflict remains deliberate: Help prose says PDF; current supplied screenshot says `Export .csv`; screenshot wins for Narro.
+- Help screenshots reinforce task/list/Focus/Preferences/scheduling/recurrence/report visual hierarchy but do not establish exact animation timings.
+- Troubleshooting documents source server-delay and second-monitor-restart limitations; Narro retains persistence-first local behavior and runtime display-topology recovery.
+- Detailed evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`; tracker: `docs/BLITZIT_HELP_CENTER_TRACKER.md`.

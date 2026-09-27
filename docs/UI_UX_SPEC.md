@@ -382,7 +382,8 @@ Required states:
 - progress + rows.
 
 **Destructive confirm**
-- explicit confirmation for permanent task deletion.
+- **[CONFIRMED current Help Center]** permanent task deletion uses an explicit Confirm step after Delete;
+- deletion remains irreversible and deleted tasks are excluded from user-facing Reports.
 
 ## 5.4 Reorder UX and reliability
 
@@ -494,7 +495,7 @@ Expanded Floating state shows per-row checkbox, reorder arrows, delete and compl
 
 # 8. Preferences
 
-Preferences are a vertically scrollable tall right-side drawer/panel with a close control and clear section dividers. Current VE-014 video directly confirms the drawer hierarchy, segmented controls, mint active toggles and in-place nested setting families; exact drawer/nested-control animation duration is not established because the tutorial contains edits.
+Preferences are a vertically scrollable tall right-side drawer/panel with a close control and clear section dividers. The 2026-09-27 Help Center image pass independently confirms compact dark selects, mint active toggles, nested vertical-guide indentation for Pomodoro/Alerts/Celebration children, and destructive warm/red recurrence consequence rows. Current VE-014 video directly confirms the drawer hierarchy, segmented controls, mint active toggles and in-place nested setting families; exact drawer/nested-control animation duration is not established because the tutorial contains edits.
 
 ## 8.1 Blitz Panel
 
@@ -772,7 +773,7 @@ Current supplied VE-005 video directly confirms the compact anchored task overfl
 - Duplicate;
 - Delete.
 
-Delete uses destructive red treatment. VE-006 demonstrates deletion without a separately visible confirmation modal in that recording; Narro intentionally retains explicit permanent-delete confirmation for destructive safety.
+Delete uses destructive red treatment. VE-006 did not visibly expose a separate confirmation state, but the current official Help Center explicitly documents `Delete → Confirm`; explicit permanent-delete confirmation is therefore source-confirmed, not merely a Narro safety deviation.
 
 Older captures additionally show schedule summary and original `Open in Calendar`; Narro excludes external-calendar integration. `Change List` and `Duplicate` are therefore current direct behavior evidence, not merely historical screenshot fidelity.
 
