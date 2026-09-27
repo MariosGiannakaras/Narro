@@ -333,6 +333,8 @@ mod tests {
             "sessions",
             "task_timer_preferences",
             "schedule_preference_reminder_effects",
+            "timed_alert_runs",
+            "timed_alert_effects",
         ] {
             let count: i64 = conn
                 .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |row| {
