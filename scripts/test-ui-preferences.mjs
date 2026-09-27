@@ -29,6 +29,8 @@ const [
   capture,
   validator,
   css,
+  reminderService,
+  scheduleReminderEffects,
   packageText,
 ] = await Promise.all([
   read("src-tauri/src/preference_settings.rs"),
@@ -51,6 +53,8 @@ const [
   read("scripts/capture-theme-settings-fixtures.ps1"),
   read("scripts/validate-theme-settings-captures.mjs"),
   read("src/preferenceSettingsSections.css"),
+  read("src-tauri/src/reminder_service.rs"),
+  read("src-tauri/src/persistence/schedule_reminder_effects.rs"),
   read("package.json"),
 ]);
 
@@ -85,6 +89,18 @@ for (const needle of [
 invariant(runtime.includes("PREFERENCES_CHANGED_EVENT"), "Preferences runtime must consume cross-window committed updates");
 invariant(!runtime.includes("setInterval("), "Preferences runtime must not poll");
 invariant(runtime.includes("setSnapshot(await getPreferenceSettings())"), "failed writes must refresh authoritative Preferences");
+
+invariant(
+  reminderService.includes("schedule_reminders_enabled")
+    && reminderService.includes("reminder_lead_seconds")
+    && reminderService.includes("dispatch_schedule_preference_due_with"),
+  "Schedule-reminder Preferences must drive the authoritative background reminder service",
+);
+invariant(
+  scheduleReminderEffects.includes("schedule_preference_reminder_effects")
+    && scheduleReminderEffects.includes("ON CONFLICT(task_id, scheduled_local_date, scheduled_local_time, timezone) DO NOTHING"),
+  "Schedule-reminder Preferences must use a durable idempotent effect ledger",
+);
 
 for (const label of [
   "Blitz Panel",
