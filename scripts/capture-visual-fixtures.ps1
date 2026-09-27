@@ -265,18 +265,20 @@ try {
             -ScreenshotPath $subtaskScreenshot `
             -DomPath $subtaskDom
 
-        $scheduleLabel = "task-scheduling-$theme"
-        $scheduleUrl = "$baseUrl/task-schedule-fixture.html?theme=$theme"
-        $scheduleScreenshot = Join-Path $outputPath "$scheduleLabel.png"
-        $scheduleDom = Join-Path $outputPath "$scheduleLabel.html"
-        Capture-Theme `
-            -EdgePath $edge `
-            -Theme $scheduleLabel `
-            -Url $scheduleUrl `
-            -ScreenshotPath $scheduleScreenshot `
-            -DomPath $scheduleDom `
-            -VirtualTimeBudgetMs 6000 `
-            -ReadyMarker 'data-task-schedule-fixture-ready="true"'
+        foreach ($scheduleMode in @("repeat", "no-repeat")) {
+            $scheduleLabel = if ($scheduleMode -eq "repeat") { "task-scheduling-$theme" } else { "task-scheduling-no-repeat-$theme" }
+            $scheduleUrl = "$baseUrl/task-schedule-fixture.html?theme=$theme&mode=$scheduleMode"
+            $scheduleScreenshot = Join-Path $outputPath "$scheduleLabel.png"
+            $scheduleDom = Join-Path $outputPath "$scheduleLabel.html"
+            Capture-Theme `
+                -EdgePath $edge `
+                -Theme $scheduleLabel `
+                -Url $scheduleUrl `
+                -ScreenshotPath $scheduleScreenshot `
+                -DomPath $scheduleDom `
+                -VirtualTimeBudgetMs 6000 `
+                -ReadyMarker 'data-task-schedule-fixture-ready="true"'
+        }
     }
 } finally {
     if ($preview -and -not $preview.HasExited) {
