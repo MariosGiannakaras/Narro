@@ -507,3 +507,45 @@ fn no_repeat_delete_stale_rule_version_rejects_before_child_mutation() {
         );
     }
 }
+
+
+#[test]
+fn no_repeat_preserves_and_detaches_linked_child_missing_occurrence_row() {
+    let (mut conn, parent_id, rule_id) = fixture();
+    let list_id = get_task(&conn, parent_id).expect("load parent").list_id;
+    let orphan = create_task(
+        &mut conn,
+        NewTaskInput {
+            list_id,
+            title: "Legacy linked child".into(),
+            manual_lane: PlanningLane::Today,
+            est_seconds: None,
+        },
+        T1,
+    )
+    .expect("create linked child");
+    conn.execute(
+        "UPDATE tasks SET recurrence_parent_task_id = ?1 WHERE id = ?2",
+        params![parent_id.to_string(), orphan.id.to_string()],
+    )
+    .expect("link child without occurrence row");
+
+    let preview = recurrence_removal_preview(&conn, rule_id).expect("preview linked orphan");
+    assert_eq!(preview.deletable_child_count, 0);
+    assert_eq!(preview.protected_child_count, 1);
+
+    let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
+    let report = remove_recurrence_if_expected(
+        &mut conn,
+        rule_id,
+        &current.updated_at,
+        true,
+        T2,
+    )
+    .expect("remove recurrence with linked orphan");
+
+    assert!(report.removed_child_ids.is_empty());
+    assert_eq!(report.detached_protected_child_ids, vec![orphan.id]);
+    let preserved = get_task(&conn, orphan.id).expect("linked orphan survives");
+    assert!(preserved.recurrence_parent_task_id.is_none());
+}
