@@ -510,15 +510,13 @@ pub fn register_default(
                 report_shortcut_change(app_handle, &payload);
                 Ok(payload)
             }
-            Err(error) => {
-                match native::unregister_default(hwnd) {
-                    Ok(()) => Err(error),
-                    Err(rollback_error) => Err(CommandError::shortcut_operation(
-                        "rollback default registration",
-                        format!("{error}; rollback failed: {rollback_error}"),
-                    )),
-                }
-            }
+            Err(error) => match native::unregister_default(hwnd) {
+                Ok(()) => Err(error),
+                Err(rollback_error) => Err(CommandError::shortcut_operation(
+                    "rollback default registration",
+                    format!("{error}; rollback failed: {rollback_error}"),
+                )),
+            },
         }
     }
 
@@ -562,15 +560,13 @@ pub fn unregister_default(
                 report_shortcut_change(app_handle, &payload);
                 Ok(payload)
             }
-            Err(error) => {
-                match native::register_default(hwnd) {
-                    Ok(()) => Err(error),
-                    Err(rollback_error) => Err(CommandError::shortcut_operation(
-                        "rollback default unregistration",
-                        format!("{error}; rollback failed: {rollback_error}"),
-                    )),
-                }
-            }
+            Err(error) => match native::register_default(hwnd) {
+                Ok(()) => Err(error),
+                Err(rollback_error) => Err(CommandError::shortcut_operation(
+                    "rollback default unregistration",
+                    format!("{error}; rollback failed: {rollback_error}"),
+                )),
+            },
         }
     }
 
@@ -771,7 +767,9 @@ pub fn set_native_enabled(
         (GlobalShortcutKind::GoToNarro, true) => register_default(app_handle, manager),
         (GlobalShortcutKind::GoToNarro, false) => unregister_default(app_handle, manager),
         (GlobalShortcutKind::ToggleFocusMode, true) => register_focus_toggle(app_handle, manager),
-        (GlobalShortcutKind::ToggleFocusMode, false) => unregister_focus_toggle(app_handle, manager),
+        (GlobalShortcutKind::ToggleFocusMode, false) => {
+            unregister_focus_toggle(app_handle, manager)
+        }
         (GlobalShortcutKind::FindFocusTimer, true) => register_find_timer(app_handle, manager),
         (GlobalShortcutKind::FindFocusTimer, false) => unregister_find_timer(app_handle, manager),
     }
