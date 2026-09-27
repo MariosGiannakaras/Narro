@@ -4,6 +4,7 @@ import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { formatInvokeError } from "./diagnosticApi";
 import { focusTimerPresentation, focusTimerStateLabel } from "./focusTimerPresentation";
 import { FocusLiveActions, focusModeForTask } from "./FocusLiveActions";
+import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveTitle } from "./FocusLiveTitle";
 import { FocusTaskRowTitle } from "./FocusTaskRowTitle";
 import type { HomeSnapshot } from "./HomeDashboard";
@@ -19,6 +20,8 @@ import {
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
 import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
+import { parseEstimateSuffix } from "./taskEstimateParser";
+import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskNotes } from "./TaskNotes";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
@@ -48,6 +51,7 @@ export type FocusPanelProps = {
   shortcutStatus?: string | null;
   refreshKey?: number;
   onPresentationReady?: () => void;
+  onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
 type FocusTaskRowProps = {
@@ -69,6 +73,7 @@ type FocusTaskRowProps = {
   onDelete: () => void;
   onMutationStatus: (status: string, error: string | null) => void;
   onRefreshBlocked: (message: string) => void;
+  hideTaskTimes: boolean;
 };
 
 function formatEstimate(totalSeconds: number): string {
@@ -127,6 +132,7 @@ function FocusTaskRow({
   onDelete,
   onMutationStatus,
   onRefreshBlocked,
+  hideTaskTimes,
 }: FocusTaskRowProps) {
   const [moreOpen, setMoreOpen] = useState(false);
   const schedule = taskScheduleLabel(task);
@@ -142,6 +148,7 @@ function FocusTaskRow({
       className={`focus-panel__task-row${done ? " focus-panel__task-row--done" : ""}${task.isOverdue ? " focus-panel__task-row--overdue" : ""}`}
       data-focus-task-row={done ? "done" : scheduled ? "scheduled" : "remaining"}
       data-focus-overdue={task.isOverdue ? "true" : "false"}
+      data-focus-task-times-hidden={hideTaskTimes ? "true" : "false"}
       data-task-id={task.id}
     >
       <div className="focus-panel__task-row-mainline">
@@ -313,6 +320,7 @@ export function FocusPanel({
   shortcutStatus = null,
   refreshKey = 0,
   onPresentationReady,
+  onCompletionSuccess,
 }: FocusPanelProps) {
   const [target, setTarget] = useState<ListBoardRequestTarget>(() =>
     fixtureBoard?.target.kind === "list" && fixtureBoard.target.id
@@ -322,9 +330,7 @@ export function FocusPanel({
   const [board, setBoard] = useState<ListBoardSnapshot | null>(fixtureBoard ?? null);
   const [lists, setLists] = useState<FocusListOption[]>(fixtureLists ?? []);
   const [timer, setTimer] = useState<TimerSessionPayload | null>(fixtureTimer);
-  const [scrollingTitleEnabled, setScrollingTitleEnabled] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [preferenceError, setPreferenceError] = useState<string | null>(null);
   const [boardReadyTargetKey, setBoardReadyTargetKey] = useState<string | null>(null);
   const [timerSettled, setTimerSettled] = useState(Boolean(fixtureBoard));
   const [mutationPendingTaskId, setMutationPendingTaskId] = useState<string | null>(null);
@@ -341,6 +347,10 @@ export function FocusPanel({
   const [homePending, setHomePending] = useState(false);
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
+  const preferences = usePreferenceSettingsProjection(fixtureMode);
+  const scrollingTitleEnabled = preferences.snapshot?.focus.scrollingTitle ?? false;
+  const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
+  const autoParseEstFromTitle = preferences.snapshot?.general.autoParseEstFromTitle ?? false;
 
   useEffect(() => {
     if (fixtureBoard) {
@@ -404,32 +414,6 @@ export function FocusPanel({
       disposed = true;
     };
   }, [fixtureLists]);
-
-  useEffect(() => {
-    if (fixtureMode) {
-      setScrollingTitleEnabled(false);
-      setPreferenceError(null);
-      return;
-    }
-
-    let disposed = false;
-    void invoke<boolean>("get_focus_scrolling_title_preference")
-      .then((enabled) => {
-        if (!disposed) {
-          setScrollingTitleEnabled(enabled);
-          setPreferenceError(null);
-        }
-      })
-      .catch((failure: unknown) => {
-        if (!disposed) {
-          setScrollingTitleEnabled(false);
-          setPreferenceError(formatInvokeError(failure));
-        }
-      });
-    return () => {
-      disposed = true;
-    };
-  }, [fixtureMode]);
 
   useEffect(() => {
     if (fixtureMode) {
@@ -582,6 +566,9 @@ export function FocusPanel({
       return;
     }
 
+    const automaticEstimate = autoParseEstFromTitle ? parseEstimateSuffix(title) : null;
+    const persistedTitle = automaticEstimate?.titleWithoutSuffix ?? title;
+
     setAddTaskPending(true);
     setError(null);
     setMutationStatus(null);
@@ -589,14 +576,14 @@ export function FocusPanel({
       await createListBoardTask({
         listId,
         lane: "today",
-        title,
-        estSeconds: null,
+        title: persistedTitle,
+        estSeconds: automaticEstimate?.seconds ?? null,
         insertAtTop: false,
       });
       await refreshBoard();
       setAddTaskTitle("");
       setAddTaskOpen(false);
-      setMutationStatus(`Added ${title} to Today.`);
+      setMutationStatus(`Added ${persistedTitle} to Today.`);
     } catch (failure: unknown) {
       setError(formatInvokeError(failure));
     } finally {
@@ -631,7 +618,7 @@ export function FocusPanel({
     }
   };
 
-  const statusError = error ?? preferenceError ?? modeTransitionError;
+  const statusError = error ?? preferences.error ?? modeTransitionError;
 
   if (error && !board) {
     return (
@@ -737,6 +724,7 @@ export function FocusPanel({
           setMutationStatus(null);
           setError(message);
         }}
+        hideTaskTimes={hideTaskTimes}
       />
     );
   };
@@ -841,6 +829,7 @@ export function FocusPanel({
                 onTaskMutationCommitted={async () => {
                   await refreshBoard();
                 }}
+                onCompletionSuccess={onCompletionSuccess}
               />
             ) : null}
           </article>
@@ -976,6 +965,7 @@ export function FocusPanel({
               onDelete={() => {}}
               onMutationStatus={() => {}}
               onRefreshBlocked={() => {}}
+              hideTaskTimes={hideTaskTimes}
             />
           ))}
         </section>

@@ -34,9 +34,10 @@ for (const preference of ["system", "dark", "light"]) {
 
   const selected = new RegExp(`data-theme-option="${preference}"[^>]*aria-pressed="true"|aria-pressed="true"[^>]*data-theme-option="${preference}"`);
   invariant(selected.test(dom), `${label} selected theme is not exposed through aria-pressed`);
-  invariant(!dom.includes("Timezone"), `${label} must not absorb timezone preferences`);
-  invariant(!dom.includes("Pomodoro"), `${label} must not absorb Pomodoro preferences`);
-  invariant(!dom.includes("Timed alerts"), `${label} must not absorb alert preferences`);
+  invariant(dom.includes("Blitz Panel"), `${label} Blitz Panel section is missing`);
+  invariant(dom.includes("Timezone"), `${label} timezone preference is missing`);
+  invariant(dom.includes("Pomodoros"), `${label} Pomodoro preference is missing`);
+  invariant(dom.includes("Timed alerts during a task"), `${label} timed-alert preference is missing`);
 }
 
 const errorDom = await read("theme-settings-error");
@@ -54,4 +55,31 @@ invariant(shortcutConflictDom.includes("Shortcut conflict"), "shortcut conflict 
 invariant(shortcutConflictDom.includes("Retry"), "shortcut conflict state must expose retry");
 invariant(shortcutConflictDom.includes('role="alert"'), "shortcut conflict must be announced as an alert");
 
-console.log("Theme settings + Windows shortcuts Edge capture contract: PASS");
+for (const section of ["upper", "middle", "lower"]) {
+  const dom = await read(`theme-settings-preferences-${section}`);
+  invariant(dom.includes('data-theme-settings-fixture-ready="true"'), `Preferences ${section} capture did not reach readiness`);
+  invariant(dom.includes(`data-theme-settings-section="${section}"`), `Preferences ${section} marker is missing`);
+  invariant(dom.includes("Blitz Panel"), `Preferences ${section} Blitz Panel section is missing`);
+  invariant(dom.includes("General"), `Preferences ${section} General section is missing`);
+  invariant(dom.includes("Blitz Mode"), `Preferences ${section} Blitz Mode section is missing`);
+  invariant(dom.includes("Alerts"), `Preferences ${section} Alerts section is missing`);
+  invariant(dom.includes("Celebration"), `Preferences ${section} Celebration section is missing`);
+  invariant(dom.includes('data-windows-shortcut-settings="true"'), `Preferences ${section} Windows Shortcuts section is missing`);
+  invariant(dom.includes("Preview unavailable"), `Preferences ${section} must expose unavailable sound-preview feedback`);
+}
+const upperDom = await read("theme-settings-preferences-upper");
+invariant(upperDom.includes("Secondary display"), "Preferences upper capture monitor inventory is missing");
+invariant(upperDom.includes('data-panel-side="right"'), "Preferences upper capture Panel side control is missing");
+invariant(upperDom.includes("Europe/Athens"), "Preferences upper capture timezone value is missing");
+
+const middleDom = await read("theme-settings-preferences-middle");
+invariant(middleDom.includes("Default break length"), "Preferences middle capture default break control is missing");
+invariant(middleDom.includes("Scrolling title on live timer"), "Preferences middle capture scrolling-title control is missing");
+invariant(middleDom.includes("Schedule reminders"), "Preferences middle capture reminder control is missing");
+
+const lowerDom = await read("theme-settings-preferences-lower");
+invariant(lowerDom.includes("Show success screen"), "Preferences lower capture success-screen control is missing");
+invariant(lowerDom.includes("Fun GIF"), "Preferences lower capture nested GIF control is missing");
+invariant(lowerDom.includes("Success sound"), "Preferences lower capture success-sound state is missing");
+
+console.log("Theme settings + Windows shortcuts + Preferences Edge capture contract: PASS");

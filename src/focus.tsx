@@ -5,6 +5,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
+import { FocusCompletionSuccess, type FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusSurfaceTransition } from "./FocusSurfaceTransition";
 import { FocusPanel } from "./FocusPanel";
 import {
@@ -30,7 +31,7 @@ import { FocusVisualHoldOwner } from "./focusVisualHoldOwner";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { waitForPresentedFrame } from "./presentationFrame";
 import { TimerSessionProjection } from "./TimerSessionProjection";
-import { snapshotTimerSession } from "./timerSessionApi";
+import { snapshotTimerSession, startTimerTask } from "./timerSessionApi";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
@@ -62,6 +63,9 @@ function FocusSurfaceProduct() {
   const [quickTaskOpen, setQuickTaskOpen] = useState(false);
   const [focusRefreshKey, setFocusRefreshKey] = useState(0);
   const [shortcutStatus, setShortcutStatus] = useState<string | null>(null);
+  const [completionSuccess, setCompletionSuccess] = useState<FocusCompletionSuccessState | null>(null);
+  const [completionSuccessPending, setCompletionSuccessPending] = useState(false);
+  const [completionSuccessError, setCompletionSuccessError] = useState<string | null>(null);
   const pendingQuickTaskAfterPanelRef = useRef(false);
   const toggleRequestRef = useRef<() => void>(() => {});
   const reportResizePending = useCallback((pending: boolean) => {
@@ -349,6 +353,47 @@ function FocusSurfaceProduct() {
     void requestMode("panel");
   }
 
+  const recordCompletionSuccess = (state: FocusCompletionSuccessState) => {
+    setCompletionSuccess(state);
+    setCompletionSuccessPending(false);
+    setCompletionSuccessError(null);
+    setFocusRefreshKey((value) => value + 1);
+  };
+
+  const startNextTaskFromSuccess = async () => {
+    const success = completionSuccess;
+    if (!success?.nextTask || completionSuccessPending) return;
+    setCompletionSuccessPending(true);
+    setCompletionSuccessError(null);
+    try {
+      const authoritative = await snapshotTimerSession();
+      if (authoritative.runtime.timer.state !== "idle" || authoritative.runtime.timer.task_id !== null) {
+        throw new Error("Another Focus task is already active. Close this success screen to continue.");
+      }
+      await startTimerTask(success.nextTask.id, success.nextTask.mode);
+      setCompletionSuccess(null);
+      setFocusRefreshKey((value) => value + 1);
+    } catch (failure: unknown) {
+      setCompletionSuccessError(formatInvokeError(failure));
+    } finally {
+      setCompletionSuccessPending(false);
+    }
+  };
+
+  const completionOverlay = completionSuccess ? (
+    <FocusCompletionSuccess
+      state={completionSuccess}
+      pending={completionSuccessPending}
+      error={completionSuccessError}
+      onNextTask={() => void startNextTaskFromSuccess()}
+      onClose={() => {
+        if (completionSuccessPending) return;
+        setCompletionSuccess(null);
+        setCompletionSuccessError(null);
+      }}
+    />
+  ) : null;
+
   const quickTaskOverlay = (
     <SearchPalette
       open={quickTaskOpen}
@@ -399,8 +444,10 @@ function FocusSurfaceProduct() {
               setFindTimerPulse((current) => current === sequence ? null : current);
             }}
             onPresentationReady={markTimerReady}
+            onCompletionSuccess={recordCompletionSuccess}
           />
         </FocusSurfaceTransition>
+        {completionOverlay}
         {quickTaskOverlay}
       </>
     );
@@ -423,8 +470,10 @@ function FocusSurfaceProduct() {
           shortcutStatus={shortcutStatus}
           refreshKey={focusRefreshKey}
           onPresentationReady={markPanelReady}
+          onCompletionSuccess={recordCompletionSuccess}
         />
       </FocusSurfaceTransition>
+      {completionOverlay}
       {quickTaskOverlay}
     </>
   );

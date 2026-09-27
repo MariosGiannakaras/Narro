@@ -1,0 +1,11 @@
+.focus-completion-success{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:var(--space-3);box-sizing:border-box;overflow:auto;background:var(--color-canvas)}
+.focus-completion-success__card{width:min(100%,30rem);display:grid;gap:var(--space-3);padding:var(--space-5);border:1px solid var(--color-border-strong);border-radius:var(--radius-panel);background:var(--color-surface-raised)}
+.focus-completion-success__card>p,.focus-completion-success__card>h1{margin:0}
+.focus-completion-success__task{font-size:var(--font-size-section-title);font-weight:var(--font-weight-semibold);overflow-wrap:anywhere}
+.focus-completion-success__metrics,.focus-completion-success__actions{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.focus-completion-success__metrics{font-variant-numeric:tabular-nums}
+.focus-completion-success__metrics span{display:inline-flex;gap:var(--space-1)}
+.focus-completion-success__actions button{min-height:36px}
+.focus-completion-success__unavailable{color:var(--color-text-secondary)}
+.focus-completion-success__error{color:var(--color-destructive)}
+@media (prefers-reduced-motion:reduce){.focus-completion-success *{animation:none!important;transition:none!important}}

@@ -573,6 +573,17 @@
   font-weight: var(--font-weight-semibold);
 }
 
+.list-board-task[data-task-times-hidden="true"] .list-board-task__times {
+  opacity: 0;
+  transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter);
+}
+
+.list-board-task[data-task-times-hidden="true"]:hover .list-board-task__times,
+.list-board-task[data-task-times-hidden="true"]:focus-within .list-board-task__times,
+.list-board-task[data-task-times-hidden="true"][data-task-metric-editing]:not([data-task-metric-editing="none"]) .list-board-task__times {
+  opacity: 1;
+}
+
 .list-board-task__times {
   display: inline-flex;
   align-items: center;

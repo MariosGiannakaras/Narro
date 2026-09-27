@@ -30,6 +30,7 @@ type FocusLiveMetricsProps = {
   fixtureMode: boolean;
   fixtureEditor?: FocusMetricKind | null;
   interactionBlocked?: boolean;
+  hideTaskTimes?: boolean;
   onTimerPayload: (payload: TimerSessionPayload) => void;
 };
 
@@ -124,6 +125,7 @@ export function FocusLiveMetrics({
   fixtureMode,
   fixtureEditor = null,
   interactionBlocked = false,
+  hideTaskTimes = false,
   onTimerPayload,
 }: FocusLiveMetricsProps) {
   const [projection, setProjection] = useState(task);
@@ -246,6 +248,7 @@ export function FocusLiveMetrics({
       data-focus-live-metrics="true"
       data-focus-metrics-editable={pausedEditable ? "true" : "false"}
       data-focus-metrics-refresh-blocked={refreshBlocked ? "true" : "false"}
+      data-focus-times-hidden={hideTaskTimes ? "true" : "false"}
       aria-label="Live task time details"
     >
       {(["estimate", "time_taken"] as FocusMetricKind[]).map((metric) => {

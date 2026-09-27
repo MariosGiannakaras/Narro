@@ -70,7 +70,7 @@ for (const [haystack, needle, label] of [
   [actions, "const completed = await completeTimerTask();", "authoritative Done completion boundary"],
   [actions, "const started = await startTimerTask(next.id, nextMode);", "best-effort start-next after committed Done"],
   [actions, "Completion has already committed", "committed completion retry safety"],
-  [actions, "startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS)", "authoritative manual Break boundary"],
+  [actions, "startManualBreakTimer(defaultBreakMs)", "persisted authoritative manual Break boundary"],
   [actions, "skipBreakTimer", "Resume from break via authoritative break skip"],
   [actions, "pauseTimer", "authoritative Pause boundary"],
   [actions, "resumeTimer", "authoritative Resume boundary"],
@@ -218,7 +218,9 @@ invariant(!subtasks.includes("updateListBoardTaskTimeTaken"), "Focus subtasks mu
 invariant(!subtasks.includes("timer_"), "Focus subtasks must not become timer authority");
 invariant(!taskSubtasks.includes("invoke<"), "shared TaskSubtasks component must remain callback-driven rather than native authority");
 invariant(metrics.indexOf("onTimerPayload(payload);") < metrics.indexOf("await refreshAfterCommittedMutation(metric, parsed.seconds);"), "committed metric timer payload must publish before secondary board refresh");
-invariant(actions.includes("DEFAULT_MANUAL_BREAK_MS = 10 * 60 * 1_000"), "manual Break must use the established ten-minute default until M8 exposes its preference");
+invariant(actions.includes("usePreferenceSettingsProjection(fixtureMode)"), "manual Break must consume the live Preferences projection");
+invariant(actions.includes("preferences.snapshot.focus.defaultBreakSeconds * 1_000"), "manual Break must derive milliseconds from persisted M8 default-break seconds");
+invariant(!actions.includes("DEFAULT_MANUAL_BREAK_MS"), "manual Break must not retain the pre-M8 hard-coded duration");
 invariant(actions.includes('const breakState = timer.state === "break";'), "action state must identify an active break explicitly");
 invariant(actions.includes("breakEnabled: working"), "Break must remain available only for working states");
 invariant(actions.includes("pauseResumeEnabled: working || breakState"), "Pause/Resume slot must remain available for work and break states");

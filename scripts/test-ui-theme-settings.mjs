@@ -90,18 +90,8 @@ invariant(themeCss.includes("@media (prefers-color-scheme: dark)"), "System them
 invariant(!runtime.includes("setInterval"), "theme runtime must not poll");
 invariant(!runtime.includes("matchMedia(") || themeCss.includes("prefers-color-scheme"), "System resolution must remain CSS-owned");
 
-for (const forbidden of [
-  "Timezone",
-  "Pomodoro",
-  "Timed alerts",
-  "Schedule reminders",
-  "Celebrate task completion",
-  "Blitz Panel Side",
-  "Hide EST",
-  "Auto-parse",
-]) {
-  invariant(!panel.includes(forbidden), `item 27 must not absorb later preference family: ${forbidden}`);
-}
+invariant(panel.includes("beforeGeneral"), "ThemeSettingsPanelView must expose the pre-General Preferences slot");
+invariant(panel.includes("generalChildren"), "ThemeSettingsPanelView must expose additional General preference rows");
 
 invariant(!focus.includes('background: "#222"'), "focus surface must not hard-code a dark background");
 invariant(!focus.includes('color: "red"'), "focus error state must consume semantic theme tokens");

@@ -40,6 +40,8 @@ import {
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
+import { parseEstimateSuffix } from "./taskEstimateParser";
+import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
   applyTimerSessionProjection,
@@ -352,6 +354,7 @@ function BoardLane({
   canStartScheduleEditor,
   canChangeListTask,
   timerPayload,
+  hideTaskTimes,
   editorState,
   editorMutationPending,
   dragState,
@@ -396,6 +399,7 @@ function BoardLane({
   canStartScheduleEditor: boolean;
   canChangeListTask: (task: ListBoardTask) => boolean;
   timerPayload: TimerSessionPayload | null;
+  hideTaskTimes: boolean;
   editorState: TaskEditorState | null;
   editorMutationPending: boolean;
   dragState: DragState | null;
@@ -668,6 +672,7 @@ function BoardLane({
                       onDelete: subtaskControls.onDelete,
                     } : undefined}
                     liveState={liveState}
+                    hideTaskTimes={hideTaskTimes}
                   />
                 </div>
                 {placeholderAfter ? <DropPlaceholder /> : null}
@@ -757,6 +762,9 @@ export function ListBoard({
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
   const settleTimer = useRef<number | null>(null);
+  const preferences = usePreferenceSettingsProjection(Boolean(fixtureSnapshot));
+  const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
+  const autoParseEstFromTitle = preferences.snapshot?.general.autoParseEstFromTitle ?? false;
 
   useEffect(() => () => {
     if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
@@ -1211,6 +1219,11 @@ export function ListBoard({
       setMutationStatus("Could not add task.");
       return;
     }
+    const automaticEstimate = parsedEstimate.seconds === null && autoParseEstFromTitle
+      ? parseEstimateSuffix(title)
+      : null;
+    const estSeconds = parsedEstimate.seconds ?? automaticEstimate?.seconds ?? null;
+    const persistedTitle = automaticEstimate?.titleWithoutSuffix ?? title;
 
     setEditorMutationPending(true);
     setMutationError(null);
@@ -1219,20 +1232,20 @@ export function ListBoard({
       createdTaskId = await createListBoardTask({
         listId: target.id,
         lane: LANE_TOKEN[editorState.lane],
-        title,
-        estSeconds: parsedEstimate.seconds,
+        title: persistedTitle,
+        estSeconds,
         insertAtTop: editorState.insertAtTop,
       });
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
-      setMutationStatus(`Could not add ${title}.`);
+      setMutationStatus(`Could not add ${persistedTitle}.`);
       setEditorMutationPending(false);
       return;
     }
 
     const createdAtTop = editorState.insertAtTop;
     setEditorState(null);
-    setMutationStatus(createdAtTop ? `Added ${title} to the top.` : `Added ${title}.`);
+    setMutationStatus(createdAtTop ? `Added ${persistedTitle} to the top.` : `Added ${persistedTitle}.`);
     try {
       await refreshAfterMutation(createdTaskId);
       setMutationRefreshBlocked(false);
@@ -1928,6 +1941,7 @@ export function ListBoard({
             canStartScheduleEditor={canStartScheduleEditor}
             canChangeListTask={(task) => selectorOptions.some((option) => option.id !== task.listId)}
             timerPayload={timerPayload}
+            hideTaskTimes={hideTaskTimes}
             editorState={editorState}
             editorMutationPending={editorMutationPending}
             dragState={displayedDragState}

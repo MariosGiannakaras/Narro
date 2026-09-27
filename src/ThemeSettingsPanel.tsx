@@ -1,4 +1,13 @@
 import type { ReactNode } from "react";
+import {
+  BlitzPanelPreferenceSection,
+  GeneralPreferenceRows,
+  LowerPreferenceSections,
+} from "./PreferenceSettingsSections";
+import {
+  PreferenceSettingsRuntimeProvider,
+  usePreferenceSettingsRuntime,
+} from "./PreferenceSettingsRuntime";
 import { useThemeRuntime } from "./ThemeRuntime";
 import type { ThemePreference } from "./themeApi";
 import { WindowsShortcutSettingsPanel } from "./WindowsShortcutSettingsPanel";
@@ -9,6 +18,8 @@ type ThemeSettingsPanelViewProps = {
   pending?: boolean;
   error?: string | null;
   onSelectTheme: (theme: ThemePreference) => void;
+  beforeGeneral?: ReactNode;
+  generalChildren?: ReactNode;
   children?: ReactNode;
 };
 
@@ -23,6 +34,8 @@ export function ThemeSettingsPanelView({
   pending = false,
   error = null,
   onSelectTheme,
+  beforeGeneral,
+  generalChildren,
   children,
 }: ThemeSettingsPanelViewProps) {
   return (
@@ -33,7 +46,9 @@ export function ThemeSettingsPanelView({
         <p className="theme-settings__intro">Manage Narro's local Windows appearance and shortcuts.</p>
       </header>
 
-      <section className="theme-settings__section" aria-labelledby="theme-general-title">
+      {beforeGeneral}
+
+      <section className="theme-settings__section preference-settings__section" aria-labelledby="theme-general-title">
         <div className="theme-settings__section-heading">
           <div>
             <p className="theme-settings__section-kicker type-metadata">Appearance</p>
@@ -68,6 +83,7 @@ export function ThemeSettingsPanelView({
           </div>
         </div>
 
+        {generalChildren}
         {error ? <div className="theme-settings__error" role="alert">{error}</div> : null}
       </section>
 
@@ -76,16 +92,65 @@ export function ThemeSettingsPanelView({
   );
 }
 
-export function ThemeSettingsPanel() {
-  const { theme, pending, error, saveTheme } = useThemeRuntime();
+function ThemeSettingsPanelContent() {
+  const { theme, pending, error: themeError, saveTheme } = useThemeRuntime();
+  const preferences = usePreferenceSettingsRuntime();
+  const save = (patch: Parameters<typeof preferences.save>[0], key: Parameters<typeof preferences.save>[1]) => {
+    void preferences.save(patch, key);
+  };
+
+  const beforeGeneral = preferences.snapshot ? (
+    <>
+      {preferences.error ? (
+        <div className="theme-settings__error preference-settings__error" role="alert">
+          {preferences.error}
+        </div>
+      ) : null}
+      <BlitzPanelPreferenceSection
+        snapshot={preferences.snapshot}
+        monitors={preferences.monitors}
+        pendingKey={preferences.pendingKey}
+        onSave={save}
+        onRefreshMonitors={() => void preferences.refreshMonitors()}
+      />
+    </>
+  ) : (
+    <div className="preference-settings__loading" role="status">
+      {preferences.loading ? "Loading Preferences…" : "Preferences could not be loaded."}
+    </div>
+  );
+
   return (
     <ThemeSettingsPanelView
       theme={theme}
       pending={pending}
-      error={error}
+      error={themeError}
       onSelectTheme={(next) => void saveTheme(next)}
+      beforeGeneral={beforeGeneral}
+      generalChildren={preferences.snapshot ? (
+        <GeneralPreferenceRows
+          snapshot={preferences.snapshot}
+          pendingKey={preferences.pendingKey}
+          onSave={save}
+        />
+      ) : null}
     >
+      {preferences.snapshot ? (
+        <LowerPreferenceSections
+          snapshot={preferences.snapshot}
+          pendingKey={preferences.pendingKey}
+          onSave={save}
+        />
+      ) : null}
       <WindowsShortcutSettingsPanel />
     </ThemeSettingsPanelView>
+  );
+}
+
+export function ThemeSettingsPanel() {
+  return (
+    <PreferenceSettingsRuntimeProvider>
+      <ThemeSettingsPanelContent />
+    </PreferenceSettingsRuntimeProvider>
   );
 }

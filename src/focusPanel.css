@@ -217,6 +217,9 @@
 .focus-panel__task-meta { min-height: 16px; }
 .focus-panel__overdue { color: var(--color-destructive); }
 .focus-panel__done-time { justify-self: end; color: var(--color-text-secondary); }
+.focus-panel__task-row[data-focus-task-times-hidden="true"] .focus-panel__done-time { opacity: 0; transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter); }
+.focus-panel__task-row[data-focus-task-times-hidden="true"]:hover .focus-panel__done-time,
+.focus-panel__task-row[data-focus-task-times-hidden="true"]:focus-within .focus-panel__done-time { opacity: 1; }
 .focus-panel__task-row--done .focus-panel__task-title { color: var(--color-text-secondary); text-decoration: line-through; }
 .focus-panel__add-task { width: 100%; min-height: 36px; margin: var(--space-1) 0; border-style: dashed; color: var(--color-text-secondary); background: transparent; letter-spacing: 0.04em; font-size: var(--font-size-metadata); }
 .focus-panel__add-task-editor {
