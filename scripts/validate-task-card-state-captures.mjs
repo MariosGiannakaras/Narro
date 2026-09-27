@@ -70,9 +70,9 @@ for (const theme of themes) {
     );
   }
 
-  const productionRails = dom.match(/data-task-actions="reorder"/g) ?? [];
+  const productionRails = dom.match(/data-task-actions="reorder-overflow"/g) ?? [];
   const actionReadyCards = dom.match(/data-task-actions-available="true"/g) ?? [];
-  invariant(productionRails.length >= 2, `${label} normal/revealed production reorder rails are missing`);
+  invariant(productionRails.length >= 2, `${label} normal/revealed production action rails are missing`);
   invariant(actionReadyCards.length >= 2, `${label} normal/revealed action-ready card markers are missing`);
   invariant(dom.includes('aria-label="Move task up"'), `${label} Move task up action is missing`);
   invariant(dom.includes('aria-label="Move task down"'), `${label} Move task down action is missing`);
