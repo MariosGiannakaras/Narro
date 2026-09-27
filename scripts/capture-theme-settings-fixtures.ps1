@@ -109,7 +109,8 @@ try {
         @{ Label = "system"; Url = "$baseUrl/theme-settings-fixture.html?preference=system" },
         @{ Label = "dark"; Url = "$baseUrl/theme-settings-fixture.html?preference=dark" },
         @{ Label = "light"; Url = "$baseUrl/theme-settings-fixture.html?preference=light" },
-        @{ Label = "error"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&error=1" }
+        @{ Label = "error"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&error=1" },
+        @{ Label = "shortcut-conflict"; Url = "$baseUrl/theme-settings-fixture.html?preference=system&shortcutConflict=1" }
     )
 
     foreach ($state in $states) {

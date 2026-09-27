@@ -2,7 +2,7 @@ use crate::domain::preferences::ThemePreference;
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::preferences::{
-    initialize_preferences, save_preferences, PreferenceStoreError,
+    initialize_preferences, mutate_preferences, PreferenceStoreError,
 };
 use std::fmt::{Display, Formatter};
 use std::path::{Path, PathBuf};
@@ -84,9 +84,9 @@ pub fn save(
     now: &str,
 ) -> Result<ThemePreference, ThemeSettingsError> {
     let mut connection = open_database(app_dir)?;
-    let mut preferences = initialize_preferences(&mut connection, now)?.payload;
-    preferences.general.theme = theme;
-    let saved = save_preferences(&mut connection, preferences, now)?;
+    let saved = mutate_preferences(&mut connection, now, |preferences| {
+        preferences.general.theme = theme;
+    })?;
     Ok(saved.payload.general.theme)
 }
 
