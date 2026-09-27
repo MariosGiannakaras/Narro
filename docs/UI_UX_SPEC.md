@@ -159,6 +159,8 @@ Motion is functional feedback, not decoration.
 
 ## 3.1 Rules
 
+The completed video-forensics pass in `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md` distinguishes observed source motion from Narro motion policy. Unless a line below is explicitly labeled source-measured, these rules are **[NARRO IMPROVEMENT / CALIBRATION]**, not claims about Blitzit's internal design tokens or exact durations.
+
 - hover/focus must never reflow sibling content or move action targets;
 - reserve/overlay action slots;
 - prefer opacity/transform;
@@ -170,6 +172,10 @@ Motion is functional feedback, not decoration.
 - reduced-motion keeps state clarity but removes nonessential translation/scale.
 
 ## 3.2 Timing targets
+
+[NARRO IMPROVEMENT / CALIBRATION TARGETS]
+
+These values are Narro implementation targets. Supplied Blitzit tutorials contain edits/cuts around most hover, menu, modal, inline-expansion and chart interactions, so their exact source durations/easings are not established.
 
 - press: 70–90 ms;
 - hover/focus: 110–140 ms;
@@ -208,8 +214,10 @@ Progress:
 - no shimmer.
 
 Focus Panel ↔ Floating Timer:
-- native geometry changes directly or in a short controlled native sequence;
-- content may crossfade/scale 120–180 ms;
+- **[SOURCE-MEASURED]** VE-003 shows one continuous visible geometry transformation of roughly **0.27 s** at 60 fps;
+- the source sequence progressively changes window geometry rather than using only an opacity crossfade;
+- **[SOURCE-ARTIFACT]** the recording exposes clipped/sparse intermediate content; Narro should preserve continuity without deliberately reproducing that artifact;
+- **[NARRO IMPROVEMENT]** content may use a restrained crossfade/scale as needed, but domain state must remain continuous;
 - never drive native resize with high-frequency JS loops.
 
 Find Timer:
@@ -339,9 +347,9 @@ Required states:
 - Time Taken.
 
 **Hover/focus**
-- completion checkbox;
-- movement/actions;
-- no geometry shift.
+- **[CONFIRMED current video]** completion checkbox appears at the left and a compact icon action cluster appears at the right while the task remains in the same card context;
+- movement/actions include Notes/Subtasks/lane actions plus final overflow according to context;
+- **[NARRO IMPROVEMENT]** reserve/overlay the action geometry so reveal never shifts sibling content or makes targets move.
 
 **Scheduled**
 - date/time metadata;
@@ -486,7 +494,7 @@ Expanded Floating state shows per-row checkbox, reorder arrows, delete and compl
 
 # 8. Preferences
 
-Preferences are a vertically scrollable modal/panel with clear section dividers.
+Preferences are a vertically scrollable tall right-side drawer/panel with a close control and clear section dividers. Current VE-014 video directly confirms the drawer hierarchy, segmented controls, mint active toggles and in-place nested setting families; exact drawer/nested-control animation duration is not established because the tutorial contains edits.
 
 ## 8.1 Blitz Panel
 
@@ -758,11 +766,13 @@ Uses the Notes behavior from Section 7:
 
 ## 11.7 Overflow
 
-Current supplied VE-005 video directly confirms the task overflow menu includes:
+Current supplied VE-005 video directly confirms the compact anchored task overflow menu order:
 - Schedule / Update Schedule;
 - Change List;
 - Duplicate;
-- Delete / destructive confirmation.
+- Delete.
+
+Delete uses destructive red treatment. VE-006 demonstrates deletion without a separately visible confirmation modal in that recording; Narro intentionally retains explicit permanent-delete confirmation for destructive safety.
 
 Older captures additionally show schedule summary and original `Open in Calendar`; Narro excludes external-calendar integration. `Change List` and `Duplicate` are therefore current direct behavior evidence, not merely historical screenshot fidelity.
 
@@ -866,6 +876,7 @@ Subtasks:
 **Completed**
 - Done transition;
 - optional success moment;
+- **[CONFIRMED current video]** with success screen enabled, the completed/struck-through task title remains in context, the celebration/media area dominates the active card, `Next Task` is the primary gradient CTA, `Take a Break` is secondary, EST/Taken metrics remain visible, and the remaining queue stays below;
 - when the success screen is enabled, direct video evidence shows the success state appears before the next task starts and exposes explicit `Next Task` / `Take a Break` choices;
 - `Next Task` starts the next task only after activation in the observed sequence;
 - success-screen-disabled progression and the exact post-click `Take a Break` timer/session semantics remain intentionally unresolved.
