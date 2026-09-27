@@ -1,7 +1,12 @@
 use crate::domain::ids::{ListId, TaskId};
 use crate::domain::preferences::SleepAccountingPolicy;
 use crate::domain::tasks::SetTaskTimeTakenInput;
-use crate::domain::timer_events::{TimerSessionPayload, TIMER_SESSION_EVENT_NAME};
+use crate::domain::timed_alert_events::{
+    TimedAlertEffectPayload, TIMED_ALERT_EFFECT_EVENT_NAME,
+};
+use crate::domain::timer_events::{
+    TimerSessionChange, TimerSessionPayload, TIMER_SESSION_EVENT_NAME,
+};
 use crate::error::{CommandError, CommandResult};
 use crate::notifications;
 use crate::persistence::pomodoro_effects::{
@@ -9,7 +14,11 @@ use crate::persistence::pomodoro_effects::{
     claim_pending_notifications, ensure_boundary_decision, PomodoroBoundaryEffect,
     PomodoroBoundaryEffectError, PomodoroBoundaryEffectKind,
 };
+use crate::persistence::preferences::get_preferences;
 use crate::persistence::sleep_accounting::session_sleep_accounting_policy;
+use crate::persistence::timed_alert_effects::{
+    claim_pending_timed_alerts, observe_timed_alert_run, retire_timed_alert_run, TimedAlertEffect,
+};
 use crate::persistence::timer_controller::{TimerController, TimerControllerError};
 use crate::persistence::{configure_connection, PersistenceError};
 use crate::timer::{BreakKind, TimerMode, TimerSnapshot, TimerStateKind};
@@ -157,8 +166,12 @@ impl TimerService {
             &wall_time,
             |payload| report_timer_change(app_handle, payload),
         )?;
+        let projection = controller.snapshot();
+        observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
+        let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
+        submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
         Ok(())
     }
@@ -200,8 +213,12 @@ impl TimerService {
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
         *observed_ms = now_ms;
+        let projection = controller.snapshot();
+        observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
+        let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
+        submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
         Ok(())
     }
@@ -245,9 +262,13 @@ impl TimerService {
             .checkpoint(now_ms, &wall_time)
             .map_err(CommandError::timer_operation)?;
         *observed_ms = now_ms;
-        *recovered_awaiting_resume &= is_paused_pomodoro_projection(&controller.snapshot());
+        let projection = controller.snapshot();
+        *recovered_awaiting_resume &= is_paused_pomodoro_projection(&projection);
+        observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
+        let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
+        submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
         Ok(())
     }
@@ -394,10 +415,24 @@ impl TimerService {
             |payload| report_timer_change(app_handle, payload),
         )?;
 
+        let before_transition = controller.snapshot();
+        observe_timed_alerts_best_effort(
+            effects_connection,
+            &before_transition,
+            false,
+            &wall_time,
+        );
+        let mut timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
+
         let payload =
             transition(controller, now_ms, &wall_time).map_err(CommandError::timer_operation)?;
         *observed_ms = now_ms;
         *recovered_awaiting_resume &= is_paused_pomodoro_projection(&payload);
+        reconcile_timed_alert_transition_best_effort(effects_connection, &payload, &wall_time);
+        timed_alerts.extend(claim_timed_alerts_best_effort(
+            effects_connection,
+            &wall_time,
+        ));
         let payload =
             decorate_timer_payload(effects_connection, payload, *recovered_awaiting_resume)?;
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
@@ -406,6 +441,7 @@ impl TimerService {
         if payload.change.is_some() {
             report_timer_change(app_handle, &payload);
         }
+        submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
         Ok(payload)
     }
@@ -616,6 +652,105 @@ where
     }
 
     Ok(())
+}
+
+fn work_elapsed_seconds(payload: &TimerSessionPayload) -> u64 {
+    payload.runtime.timer.work_elapsed_ms / 1_000
+}
+
+fn observe_timed_alerts_best_effort(
+    effects_connection: &mut Connection,
+    payload: &TimerSessionPayload,
+    reset_run: bool,
+    wall_time: &str,
+) {
+    let Some(task_id) = payload.runtime.timer.task_id else {
+        return;
+    };
+    let Some(seed_run_id) = payload.runtime.open_session_id else {
+        return;
+    };
+
+    let preferences = match get_preferences(effects_connection) {
+        Ok(Some(record)) => record.payload,
+        Ok(None) => Default::default(),
+        Err(error) => {
+            eprintln!("Timed-alert Preferences read failed; no effect was recorded: {error}");
+            return;
+        }
+    };
+    if let Err(error) = observe_timed_alert_run(
+        effects_connection,
+        task_id,
+        seed_run_id,
+        work_elapsed_seconds(payload),
+        preferences.alerts.timed_alerts_enabled,
+        u64::from(preferences.alerts.task_alert_interval_seconds),
+        reset_run,
+        wall_time,
+    ) {
+        eprintln!("Timed-alert observation failed; no undurable effect was emitted: {error}");
+    }
+}
+
+fn reconcile_timed_alert_transition_best_effort(
+    effects_connection: &mut Connection,
+    payload: &TimerSessionPayload,
+    wall_time: &str,
+) {
+    match payload.change.as_ref() {
+        Some(TimerSessionChange::Started { .. }) => {
+            observe_timed_alerts_best_effort(effects_connection, payload, true, wall_time);
+        }
+        Some(TimerSessionChange::TaskSwitched {
+            previous_task_id, ..
+        }) => {
+            if let Err(error) = retire_timed_alert_run(effects_connection, *previous_task_id) {
+                eprintln!("Timed-alert previous-run retirement failed: {error}");
+            }
+            observe_timed_alerts_best_effort(effects_connection, payload, true, wall_time);
+        }
+        Some(TimerSessionChange::TaskCompleted { task_id, .. })
+        | Some(TimerSessionChange::TaskSkipped { task_id, .. }) => {
+            if let Err(error) = retire_timed_alert_run(effects_connection, *task_id) {
+                eprintln!("Timed-alert completed-run retirement failed: {error}");
+            }
+        }
+        _ => observe_timed_alerts_best_effort(effects_connection, payload, false, wall_time),
+    }
+}
+
+fn claim_timed_alerts_best_effort(
+    effects_connection: &mut Connection,
+    wall_time: &str,
+) -> Vec<TimedAlertEffect> {
+    match claim_pending_timed_alerts(effects_connection, wall_time) {
+        Ok(pending) => pending,
+        Err(error) => {
+            eprintln!("Timed-alert claim failed; effects remain pending for a later observation: {error}");
+            Vec::new()
+        }
+    }
+}
+
+fn submit_claimed_timed_alerts(
+    app_handle: &tauri::AppHandle,
+    effects: Vec<TimedAlertEffect>,
+) {
+    for effect in effects {
+        let payload = TimedAlertEffectPayload {
+            run_id: effect.run_id,
+            task_id: effect.task_id,
+            boundary_seconds: effect.boundary_seconds,
+            decided_at: effect.decided_at,
+        };
+        if let Err(error) = app_handle.emit(TIMED_ALERT_EFFECT_EVENT_NAME, payload) {
+            eprintln!(
+                "Timed-alert boundary {}s for task {} was durably claimed but broadcast failed: {error}",
+                effect.boundary_seconds, effect.task_id
+            );
+        }
+    }
 }
 
 fn claim_notifications_best_effort(
