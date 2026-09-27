@@ -586,7 +586,7 @@ pub fn remove_list_board_task_recurrence(
     )
     .map(|report| BoardRecurrenceRemovalResult {
         removed_existing_count: report.removed_child_ids.len(),
-        preserved_existing_count: report.detached_protected_child_ids.len(),
+        preserved_existing_count: report.detached_child_ids.len(),
     })
     .map_err(map_replace_existing_error)
 }
