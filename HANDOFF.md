@@ -24,7 +24,7 @@ Tracking-only commits after this SHA do not replace the validated application so
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
 3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
 4. The uploaded Blitzit corpus remains fully inventoried and functionally reconciled: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 product-behavior analyses/reconciliations/dispositions complete**. Details: `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
-5. **User-requested second-pass UI/UX video forensics is now ACTIVE and takes temporary execution priority over new source work.** This is a distinct pass for layout, exact copy, inputs, hover/focus states, animations, micro-animations, micro-interactions and overall interaction grammar. Current deep-pass state: **12/19 complete**, tracked in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`.
+5. **User-requested second-pass UI/UX video forensics is COMPLETE: 19/19 deep-reviewed.** This distinct pass covered layout, exact copy, inputs, hover/focus states, animations, micro-animations, micro-interactions and overall interaction grammar. Durable evidence is in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`, `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, and the reconciled `docs/UI_UX_SPEC.md`.
 6. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation; video evidence does not convert them into PASS.
 7. After the UI/UX forensic pass reaches 19/19 and the findings are reconciled into `docs/UI_UX_SPEC.md`, **Post-validation VE-F003 remains the next source correction:** current direct VE-005 evidence confirms task-menu `Change List` + `Duplicate`, while current Narro production lacks those paths. Implement narrowly without reopening unrelated M5 work.
 8. **M8 remains in progress: 5/8 top-level items validated.** After VE-F003 validates/merges, resume the documented Preferences sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
@@ -37,7 +37,7 @@ For each remaining milestone M7–M10:
 - require sufficient error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone;
 - include the milestone's total validated source diff as `+A/-B` lines in its completion report, measured from validated starting source SHA to final validated source SHA.
 
-Video corpus status: **initial product-behavior ingestion COMPLETE** — 38/38 raw files inventoried; 19/19 paired, analyzed, Narro-reconciled and dispositioned. Evidence PR #172 carries that durable reconciliation. A separate user-requested **UI/UX forensic second pass is OPEN at 12/19**; do not conflate these counters. The post-M10 final comprehensive review remains a separate required end-state gate.
+Video corpus status: **initial product-behavior ingestion COMPLETE** — 38/38 raw files inventoried; 19/19 paired, analyzed, Narro-reconciled and dispositioned. Evidence PR #172 carries that durable reconciliation. A separate user-requested **UI/UX forensic second pass is COMPLETE at 19/19**; keep it distinct from the functional-ingestion counter. The post-M10 final comprehensive review remains a separate required end-state gate.
 
 ## M6 RECONCILIATION — COMPLETED CAPABILITIES
 
@@ -99,28 +99,21 @@ Do not mark M7 complete until these required checks close, but do not block inde
 
 ## EXACT NEXT ACTION
 
-1. Continue the user-requested Blitzit UI/UX video forensic second pass from `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`. Current checkpoint is **12/19 deep-reviewed**.
-2. Review the remaining seven pairs in this recorded order:
-   - VE-006 destructive confirmation + archive/restore/empty states;
-   - VE-008 recurring parent/child visual distinctions;
-   - VE-017 Replace Existing / Delete Existing conditional recurrence controls;
-   - VE-019 historical light-theme transition + Floating-subtask interactions;
-   - VE-018 unique drag/reorder/focus micro-interactions;
-   - VE-004 onboarding — extract only unique local-product UI, excluding auth/account/trial;
-   - VE-001 explainer — verify whether any unique UI remains after detailed tutorials.
-3. For each pair, inspect the real MP4, not only SRT. Use broad timeline coverage plus dense temporal sampling around every interaction/transition that could affect implementation. Classify timing as measured, approximate, cut/unmeasurable or Narro design choice rather than guessing.
-4. When the forensic counter reaches 19/19:
-   - reconcile `docs/UI_UX_SPEC.md` so observed Blitzit facts and measured motion are explicitly separated from Narro timing/design targets;
-   - route any genuinely new implementation discrepancies to the correct milestone;
-   - preserve intentional Narro reliability/accessibility improvements;
-   - create a final immutable work-log and update this handoff.
-5. Only after that evidence reconciliation, resume the narrow VE-F003 source correction, followed by the M8 Preferences work already recorded below.
-6. Do **not** merge or reinterpret open source PR #170 merely because this evidence work exists. Re-read its exact head/base/CI state before any later source continuation.
+1. The Blitzit UI/UX video forensic second pass is now complete at **19/19**. Do not repeat it without new source evidence.
+2. Re-read the exact live state of open source PR #170 before touching it; it predates the evidence reconciliation and must not be merged or treated as current merely because its prior CI passed.
+3. Resume the ordered source work with the narrow **VE-F003 task-menu correction** from latest main:
+   - expose `Change List` through one persistence-first same-identity move to a chosen active list;
+   - expose `Duplicate` through existing durable duplicate semantics, producing one independent identity with no aliased history/session/recurrence state;
+   - match the confirmed compact anchored menu hierarchy/order and destructive-red treatment from VE-005;
+   - preserve live-task safety, All Lists projection semantics, stale guards, scheduling/session integrity, explicit error/recovery feedback and Narro's stationary/reserved hover action geometry;
+   - preserve explicit permanent-delete confirmation even though VE-006 does not visibly show one.
+4. After VE-F003 validates/merges, resume M8 Preferences/runtime completion over the existing typed/versioned persistence model, incorporating VE-F001 / VE-F002 / VE-F008 plus the completed UI/UX forensic evidence.
+5. Then close Windows-locale date/time presentation and remaining M8 acceptance gaps before M9.
 
-After the forensic pass, the existing source ordering remains:
-- VE-F003 task-menu `Change List` + `Duplicate`;
-- then M8 Preferences/runtime completion using VE-F001 / VE-F002 / VE-F008;
-- then Windows-locale date/time presentation and remaining M8 gaps.
+Measured/source-specific fidelity note:
+- VE-003 Panel→Floating shows ~0.27 s continuous geometry transformation at 60 fps.
+- Do not copy the source's clipped/sparse intermediate content.
+- Generic hover/menu/modal/inline/chart timing values in `docs/UI_UX_SPEC.md` are Narro calibration targets, not measured Blitzit constants.
 
 Sound assets/previews remain local-only. If no validated local sound catalog exists, expose the preference/state boundary and explicit unavailable feedback rather than inventing remote assets. Deferred M7 physical checks remain OPEN and need not be rerun unless a source change directly affects them.
 
