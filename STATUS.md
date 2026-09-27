@@ -415,3 +415,15 @@ Future work must preserve:
 - item-15 visual states remain presentation-only projections of authoritative state; item 16 must not turn those markers into domain authority.
 - hover/focus interactions may not reflow sibling geometry; reduced-motion remains usable and timer numerals remain tabular.
 - excluded account/trial/upgrade/profile/AI/integration controls remain absent; diagnostics remain gated behind `?diagnostics=1`.
+
+
+## Blitzit video UI/UX forensic second pass (2026-09-27)
+
+- The separate product-behavior ingestion remains complete at 19/19 video/transcript pairs.
+- The user-requested deep UI/UX forensic pass is also complete at **19/19**.
+- Coverage explicitly includes layout, visible copy, inputs, task/menu states, overlays, Notes, Subtasks, Preferences, scheduling/recurrence, Focus/Floating, success UI, Reports/Sessions, animations, micro-animations and micro-interactions.
+- Direct 60 fps VE-003 evidence measures the visible Focus Panel → Floating Timer geometry transformation at roughly **0.27 s**.
+- The source's clipped/sparse intermediate content during that transition is classified as a source artifact, not a Narro fidelity target.
+- Generic hover/menu/modal/inline/chart timings in `docs/UI_UX_SPEC.md` are Narro calibration targets rather than measured Blitzit constants because tutorial edits prevent trustworthy exact timing for those interactions.
+- VE-006 shows task deletion without a separately visible confirmation in the demonstrated source sequence; Narro retains explicit permanent-delete confirmation as an intentional safety improvement.
+- Detailed evidence: `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`; coverage tracker: `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`.
