@@ -193,6 +193,21 @@ pub fn duplicate_task(
         return Err(TaskIdentityError::SourceArchived(source_id));
     }
     validate_active_list(&tx, source.list_id)?;
+    let has_open_session = tx
+        .query_row(
+            "SELECT 1
+             FROM sessions
+             WHERE task_id = ?1
+               AND ended_at IS NULL
+             LIMIT 1",
+            [source_id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some();
+    if has_open_session {
+        return Err(TaskStoreError::ActiveSession(source_id).into());
+    }
 
     let id = TaskId::generate();
     let rank = next_bucket_rank(&tx, source.list_id, source.manual_lane)?;
@@ -494,6 +509,35 @@ mod tests {
             .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
             .expect("count task rows after duplicate");
         assert_eq!(count, 2);
+    }
+
+    #[test]
+    fn duplicate_rejects_open_session_without_creating_an_identity() {
+        let mut conn = migrated();
+        let list_id = create_test_list(&mut conn, "Inbox");
+        let source = create_test_task(&mut conn, list_id, "Live source", PlanningLane::Today);
+        conn.execute(
+            "INSERT INTO sessions (
+                id, task_id, kind, started_at, ended_at, duration_seconds, source, created_at, updated_at
+             ) VALUES (?1, ?2, 'work', ?3, NULL, 0, 'focus', ?3, ?3)",
+            params![SessionId::generate().to_string(), source.id.to_string(), T1],
+        )
+        .expect("insert open session");
+
+        let duplicate = duplicate_task(&mut conn, source.id, T2);
+        assert!(matches!(
+            duplicate,
+            Err(TaskIdentityError::Task(TaskStoreError::ActiveSession(id))) if id == source.id
+        ));
+
+        let count: i64 = conn
+            .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
+            .expect("count tasks after rejected live duplicate");
+        assert_eq!(count, 1);
+        assert_eq!(
+            get_task(&conn, source.id).expect("reload source").id,
+            source.id
+        );
     }
 
     #[test]

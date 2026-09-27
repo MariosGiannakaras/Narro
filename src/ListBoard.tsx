@@ -12,10 +12,12 @@ import {
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
+  changeListBoardTask,
   completeListBoardTask,
   createListBoardSubtask,
   createListBoardTask,
   deleteListBoardSubtask,
+  duplicateListBoardTask,
   getListBoardSnapshot,
   getListBoardTaskSubtasks,
   moveListBoardTask,
@@ -36,6 +38,7 @@ import {
   type PlanningLaneToken,
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
+import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
@@ -129,6 +132,11 @@ type BoardSubtaskControls = {
   onToggleCompleted: (subtask: BoardSubtask) => void;
   onMove: (subtask: BoardSubtask, direction: SubtaskDirection) => void;
   onDelete: (subtask: BoardSubtask) => void;
+};
+
+type ChangeListState = {
+  task: ListBoardTask;
+  targetListId: string;
 };
 
 export type ListBoardFixtureReorderState = {
@@ -342,6 +350,7 @@ function BoardLane({
   canStartCreate,
   canStartTaskEditor,
   canStartScheduleEditor,
+  canChangeListTask,
   timerPayload,
   editorState,
   editorMutationPending,
@@ -363,6 +372,8 @@ function BoardLane({
   onCreateEstChange,
   onSubmitCreate,
   onCompleteTask,
+  onChangeListTask,
+  onDuplicateTask,
   onDeleteTask,
   onStartTitleEdit,
   onEditTitleChange,
@@ -383,6 +394,7 @@ function BoardLane({
   canStartCreate: boolean;
   canStartTaskEditor: boolean;
   canStartScheduleEditor: boolean;
+  canChangeListTask: (task: ListBoardTask) => boolean;
   timerPayload: TimerSessionPayload | null;
   editorState: TaskEditorState | null;
   editorMutationPending: boolean;
@@ -404,6 +416,8 @@ function BoardLane({
   onCreateEstChange: (value: string) => void;
   onSubmitCreate: () => void;
   onCompleteTask: (task: ListBoardTask) => void;
+  onChangeListTask: (task: ListBoardTask) => void;
+  onDuplicateTask: (task: ListBoardTask) => void;
   onDeleteTask: (task: ListBoardTask) => void;
   onStartTitleEdit: (task: ListBoardTask) => void;
   onEditTitleChange: (value: string) => void;
@@ -543,15 +557,23 @@ function BoardLane({
             const liveState = liveStateForTask(timerPayload, task.id);
             const isLiveTask = liveState !== null && liveState !== "idle";
             const liveMetricEditable = liveState === "paused" || liveState === "overtime_paused";
-            const taskActions = onMoveUp || onMoveDown || (canStartTaskEditor && !isLiveTask)
+            const canEditMetric = canStartTaskEditor && (!isLiveTask || liveMetricEditable);
+            const canEditSchedule = canStartScheduleEditor && task.completedAt === null && !isLiveTask;
+            const canUseTaskMenu = canStartTaskEditor && !isLiveTask;
+            const canChangeList = canUseTaskMenu
+              && pendingLane !== null
+              && task.completedAt === null
+              && canChangeListTask(task);
+            const taskActions = onMoveUp || onMoveDown || canUseTaskMenu || canEditSchedule
               ? {
                   onMoveUp,
                   onMoveDown,
-                  onDelete: canStartTaskEditor && !isLiveTask ? () => onDeleteTask(task) : undefined,
+                  onSchedule: canEditSchedule ? () => onStartScheduleEdit(task) : undefined,
+                  onChangeList: canChangeList ? () => onChangeListTask(task) : undefined,
+                  onDuplicate: canUseTaskMenu ? () => onDuplicateTask(task) : undefined,
+                  onDelete: canUseTaskMenu ? () => onDeleteTask(task) : undefined,
                 }
               : undefined;
-            const canEditMetric = canStartTaskEditor && (!isLiveTask || liveMetricEditable);
-            const canEditSchedule = canStartScheduleEditor && task.completedAt === null && !isLiveTask;
             const noteExpanded = noteControls?.taskId === task.id;
             const taskSubtaskPanel = subtaskControls?.panel?.taskId === task.id
               ? subtaskControls.panel
@@ -725,6 +747,9 @@ export function ListBoard({
   const [scheduleEditorTaskId, setScheduleEditorTaskId] = useState<string | null>(null);
   const [notePanelTaskId, setNotePanelTaskId] = useState<string | null>(null);
   const [subtaskPanel, setSubtaskPanel] = useState<SubtaskPanelState | null>(null);
+  const [changeListState, setChangeListState] = useState<ChangeListState | null>(null);
+  const [changeListPending, setChangeListPending] = useState(false);
+  const [changeListError, setChangeListError] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<ListBoardTask | null>(null);
   const [deletePending, setDeletePending] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
@@ -749,6 +774,9 @@ export function ListBoard({
       setScheduleEditorTaskId(null);
       setNotePanelTaskId(null);
       setSubtaskPanel(null);
+      setChangeListState(null);
+      setChangeListPending(false);
+      setChangeListError(null);
       setDeleteTarget(null);
       setDeletePending(false);
       setDeleteError(null);
@@ -767,6 +795,9 @@ export function ListBoard({
     setScheduleEditorTaskId(null);
     setNotePanelTaskId(null);
     setSubtaskPanel(null);
+    setChangeListState(null);
+    setChangeListPending(false);
+    setChangeListError(null);
     setDeleteTarget(null);
     setDeletePending(false);
     setDeleteError(null);
@@ -888,6 +919,7 @@ export function ListBoard({
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
     && subtaskPanel === null
+    && changeListState === null
     && deleteTarget === null;
   const interactionReorderEnabled = interactionIdle
     && target.kind === "list"
@@ -909,6 +941,7 @@ export function ListBoard({
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
     && subtaskPanel === null
+    && changeListState === null
     && deleteTarget === null;
   const canOpenSubtasks = !fixtureSnapshot
     && !mutationRefreshBlocked
@@ -918,6 +951,7 @@ export function ListBoard({
     && scheduleEditorTaskId === null
     && notePanelTaskId === null
     && subtaskPanel === null
+    && changeListState === null
     && deleteTarget === null;
   const presentationReorderEnabled = interactionReorderEnabled || fixtureReorderState !== undefined;
   const displayedDragState = fixtureReorderState?.draggingTaskId && fixtureReorderState.sourceLane
@@ -963,6 +997,84 @@ export function ListBoard({
     setMutationError(
       `Task change was saved, but the board could not refresh. ${formatInvokeError(failure)} Switch lists or reopen this board before making more task changes.`,
     );
+  };
+
+  const requestTaskChangeList = (task: ListBoardTask) => {
+    if (mutationPendingTaskId || mutationRefreshBlocked) return;
+    const destination = selectorOptions.find((option) => option.id !== task.listId);
+    if (!destination) {
+      setMutationStatus("");
+      setMutationError("No other active list is available for this task.");
+      return;
+    }
+    setMutationError(null);
+    setMutationStatus("");
+    setChangeListError(null);
+    setChangeListState({
+      task,
+      targetListId: destination.id,
+    });
+  };
+
+  const confirmTaskChangeList = async () => {
+    if (!changeListState || changeListPending || mutationRefreshBlocked) return;
+    const destination = selectorOptions.find(
+      (option) => option.id === changeListState.targetListId && option.id !== changeListState.task.listId,
+    );
+    if (!destination) {
+      setChangeListError("Choose another active list.");
+      return;
+    }
+
+    const { task } = changeListState;
+    setChangeListPending(true);
+    setMutationPendingTaskId(task.id);
+    setChangeListError(null);
+    try {
+      await changeListBoardTask({
+        taskId: task.id,
+        expectedListId: task.listId,
+        targetListId: destination.id,
+      });
+      setMutationStatus(`Moved ${task.title} to ${destination.title}.`);
+      setMutationError(null);
+      setChangeListState(null);
+      try {
+        await refreshAfterMutation(task.id);
+        setMutationRefreshBlocked(false);
+      } catch (failure: unknown) {
+        handleCommittedRefreshFailure(failure);
+      }
+    } catch (failure: unknown) {
+      setChangeListError(formatInvokeError(failure));
+    } finally {
+      setChangeListPending(false);
+      setMutationPendingTaskId(null);
+    }
+  };
+
+  const duplicateTaskFromBoard = async (task: ListBoardTask) => {
+    if (mutationPendingTaskId || mutationRefreshBlocked) return;
+    setMutationPendingTaskId(task.id);
+    setMutationError(null);
+    setMutationStatus("");
+    try {
+      const duplicateTaskId = await duplicateListBoardTask({
+        taskId: task.id,
+        expectedListId: task.listId,
+      });
+      setMutationStatus(`Duplicated ${task.title}.`);
+      try {
+        await refreshAfterMutation(duplicateTaskId);
+        setMutationRefreshBlocked(false);
+      } catch (failure: unknown) {
+        handleCommittedRefreshFailure(failure);
+      }
+    } catch (failure: unknown) {
+      setMutationError(`Could not duplicate ${task.title}. ${formatInvokeError(failure)}`);
+    } finally {
+      setMutationPendingTaskId(null);
+    }
   };
 
   const handleCommittedSubtaskRefreshFailure = (failure: unknown) => {
@@ -1814,6 +1926,7 @@ export function ListBoard({
             canStartCreate={canStartCreate}
             canStartTaskEditor={canStartTaskEditor}
             canStartScheduleEditor={canStartScheduleEditor}
+            canChangeListTask={(task) => selectorOptions.some((option) => option.id !== task.listId)}
             timerPayload={timerPayload}
             editorState={editorState}
             editorMutationPending={editorMutationPending}
@@ -1851,6 +1964,8 @@ export function ListBoard({
             }}
             onSubmitCreate={() => void submitCreate()}
             onCompleteTask={(task) => void completeTaskFromBoard(task)}
+            onChangeListTask={requestTaskChangeList}
+            onDuplicateTask={(task) => void duplicateTaskFromBoard(task)}
             onDeleteTask={requestTaskDelete}
             onStartTitleEdit={(task) => {
               if (!canStartTaskEditor || liveStateForTask(timerPayload, task.id) !== null) return;
@@ -1911,6 +2026,27 @@ export function ListBoard({
           />
         ))}
       </div>
+
+      {changeListState ? (
+        <TaskChangeListDialog
+          taskTitle={changeListState.task.title}
+          options={selectorOptions.filter((option) => option.id !== changeListState.task.listId)}
+          selectedListId={changeListState.targetListId}
+          pending={changeListPending}
+          error={changeListError}
+          onSelectedListChange={(targetListId) => {
+            if (changeListPending) return;
+            setChangeListState((current) => current ? { ...current, targetListId } : current);
+            setChangeListError(null);
+          }}
+          onCancel={() => {
+            if (changeListPending) return;
+            setChangeListState(null);
+            setChangeListError(null);
+          }}
+          onConfirm={() => void confirmTaskChangeList()}
+        />
+      ) : null}
 
       {deleteTarget ? (
         <TaskDeleteConfirmDialog

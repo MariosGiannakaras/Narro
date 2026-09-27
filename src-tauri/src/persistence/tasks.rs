@@ -462,6 +462,21 @@ pub fn move_task(
         drop(tx);
         return Ok(current);
     }
+    let has_open_session = tx
+        .query_row(
+            "SELECT 1
+             FROM sessions
+             WHERE task_id = ?1
+               AND ended_at IS NULL
+             LIMIT 1",
+            [id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some();
+    if has_open_session {
+        return Err(TaskStoreError::ActiveSession(id));
+    }
 
     let target_rank = next_bucket_rank(&tx, destination.list_id, destination.manual_lane)?;
     let changed = tx.execute(
@@ -736,6 +751,43 @@ mod tests {
 
     fn task_ids(tasks: &[TaskRecord]) -> Vec<TaskId> {
         tasks.iter().map(|task| task.id).collect()
+    }
+
+    #[test]
+    fn move_rejects_open_session_without_changing_identity_or_bucket() {
+        let mut conn = migrated();
+        let source_list = create_test_list(&mut conn, "Source");
+        let target_list = create_test_list(&mut conn, "Target");
+        let moving = create_task(
+            &mut conn,
+            input(source_list, "Live task", PlanningLane::Today),
+            T1,
+        )
+        .expect("create moving task");
+        conn.execute(
+            "INSERT INTO sessions (
+                id, task_id, kind, started_at, ended_at, duration_seconds, source, created_at, updated_at
+             ) VALUES (?1, ?2, 'work', ?3, NULL, 0, 'focus', ?3, ?3)",
+            params![uuid::Uuid::new_v4().to_string(), moving.id.to_string(), T1],
+        )
+        .expect("insert open work session");
+
+        let result = move_task(
+            &mut conn,
+            moving.id,
+            TaskDestination {
+                list_id: target_list,
+                manual_lane: PlanningLane::Today,
+            },
+            T2,
+        );
+
+        assert!(matches!(result, Err(TaskStoreError::ActiveSession(id)) if id == moving.id));
+        let persisted = get_task(&conn, moving.id).expect("reload live task");
+        assert_eq!(persisted.id, moving.id);
+        assert_eq!(persisted.list_id, source_list);
+        assert_eq!(persisted.manual_lane, PlanningLane::Today);
+        assert_eq!(persisted.sort_rank, 0);
     }
 
     #[test]

@@ -59,6 +59,12 @@ for (const [haystack, needle, label] of [
   [component, "getListBoardSnapshot(target)", "authoritative board read"],
   [component, 'data-board-reorder-enabled={interactionReorderEnabled ? "true" : "false"}', "ordered reorder interaction gate"],
   [component, "onScheduleEdit={canEditSchedule", "ordered scheduling interaction"],
+  [component, "onChangeListTask={requestTaskChangeList}", "current-source Change List interaction"],
+  [component, "onDuplicateTask={(task) => void duplicateTaskFromBoard(task)}", "current-source Duplicate interaction"],
+  [api, 'invoke<void>("change_list_board_task"', "typed Change List board IPC"],
+  [api, 'invoke<string>("duplicate_list_board_task"', "typed Duplicate board IPC"],
+  [lib, "board_task_mutation::change_list_board_task,", "Change List command registration"],
+  [lib, "board_task_mutation::duplicate_list_board_task,", "Duplicate command registration"],
   [shell, "openBoardTarget", "shared board navigation target"],
   [shell, "onTargetChange={openBoardTarget}", "real selector target switching"],
   [shell, "onOpenAllLists={openAllListsBoard}", "All Lists Home navigation"],
@@ -79,6 +85,8 @@ for (const [haystack, needle, label] of [
 }
 
 for (const required of [
+  "changeListBoardTask({",
+  "duplicateListBoardTask({",
   "completeListBoardTask({",
   "permanentlyDeleteListBoardTask({",
   "completeTimerTask()",

@@ -144,6 +144,17 @@ export type MoveListBoardTaskRequest = {
   targetLane: PlanningLaneToken;
 };
 
+export type ChangeListBoardTaskRequest = {
+  taskId: string;
+  expectedListId: string;
+  targetListId: string;
+};
+
+export type DuplicateListBoardTaskRequest = {
+  taskId: string;
+  expectedListId: string;
+};
+
 export type CompleteListBoardTaskRequest = {
   taskId: string;
   listId: string;
@@ -248,6 +259,14 @@ export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Prom
 
 export function moveListBoardTask(request: MoveListBoardTaskRequest): Promise<void> {
   return invoke<void>("move_list_board_task", request);
+}
+
+export function changeListBoardTask(request: ChangeListBoardTaskRequest): Promise<void> {
+  return invoke<void>("change_list_board_task", request);
+}
+
+export function duplicateListBoardTask(request: DuplicateListBoardTaskRequest): Promise<string> {
+  return invoke<string>("duplicate_list_board_task", request);
 }
 
 export function completeListBoardTask(request: CompleteListBoardTaskRequest): Promise<void> {

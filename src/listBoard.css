@@ -490,6 +490,42 @@
   opacity: 0.5;
 }
 
+.list-board-task__overflow,
+.list-board-task__overflow .overlay-anchor {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.list-board-task__overflow .overlay-trigger {
+  width: 1.75rem;
+  height: 1.75rem;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-deep);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.list-board-task__overflow .overlay-trigger:hover:not(:disabled) {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.list-board-task__overflow .overlay-trigger:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 1px;
+}
+
+.list-board-task__overflow .overlay-menu {
+  min-width: 10.5rem;
+}
+
 .list-board-task__schedule {
   display: flex;
   align-items: center;
