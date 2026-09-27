@@ -1,6 +1,6 @@
 # Blitzit video UI/UX forensic analysis
 
-Status: **SECOND-PASS UI/UX FORENSIC REVIEW IN PROGRESS — 12/19 pairs at deep interaction-detail level**
+Status: **SECOND-PASS UI/UX FORENSIC REVIEW COMPLETE — 19/19 pairs deep-reviewed for interface and interaction evidence**
 
 Date started: 2026-09-27
 
@@ -325,39 +325,117 @@ Deep-pass status: **COMPLETE for EST / Time's Up / Extend visible states**.
 
 Exact expiry visual effect/sound is not established reliably by the supplied footage.
 
+### VE-006 — Delete & Archive
+
+Deep-pass status: **COMPLETE for destructive/archive navigation and archived-card states**.
+
+**UI-DIRECT**
+- task overflow uses the same compact menu anatomy as VE-005 and presents `Delete` in red;
+- in the demonstrated task-delete sequence the task disappears after activation without a separately visible confirmation modal in the recording;
+- Archived Lists reuses the main Home shell rather than opening a separate window;
+- `Archived lists` and `Archived done tasks` use a compact segmented/tab control;
+- archived list cards are visibly muted, retain a small task preview, and expose bottom-edge `Unarchive` and `Delete Forever` actions;
+- archive screens intentionally leave substantial whitespace when the collection is small.
+
+**NARRO-DECISION**
+Narro's explicit permanent-delete confirmation remains the safer binding behavior. The source recording's lack of a visible confirmation is evidence about Blitzit, not a reason to regress destructive-action safety.
+
+### VE-008 — Recurring task setup
+
+Deep-pass status: **COMPLETE for parent/child visual distinctions and schedule metadata**.
+
+**UI-DIRECT**
+- the recurring parent stays in a dedicated `Recurring tasks` group at the bottom of Backlog;
+- the parent uses the normal task-card visual family but carries recurrence metadata/iconography rather than looking like a separate entity type;
+- generated children look like ordinary task cards inside Today/This Week and show compact due-day/date metadata;
+- scheduled children are grouped beneath scheduled-count labels rather than visually nested under the parent;
+- recurrence editing continues through the same compact schedule-dialog family.
+
+This supports Narro's domain distinction without requiring a visually heavy parent/child tree.
+
+### VE-017 — Update recurring schedules
+
+Deep-pass status: **COMPLETE for conditional destructive/update controls**.
+
+**UI-DIRECT**
+- when an existing recurring rule is edited, `Replace existing tasks(n)` appears as a full-width checkbox row below the recurrence summary and above the footer;
+- the row is visually subordinate to recurrence controls but clearly separated as an optional consequence-changing action;
+- selecting `No Repeat` conditionally replaces that row with `Delete existing tasks(n)`;
+- `Delete existing tasks(n)` receives a dark red/warm-tinted container, making the destructive consequence distinct from the neutral Replace row;
+- both states retain the same Cancel + gradient Schedule footer and do not navigate to a separate confirmation page.
+
+Exact reveal/collapse easing is **CUT/UNMEASURABLE** from the edited tutorial sequence.
+
+### VE-018 — Planning workflow
+
+Deep-pass status: **COMPLETE; no unique UI family beyond the detailed tutorials**.
+
+**UI-DIRECT**
+- the workflow reinforces direct drag reorder inside a planning lane and top-to-bottom priority semantics;
+- during drag/reorder the board remains in place; the operation does not switch into a dedicated reorder mode;
+- the same task-card, EST, Today, Blitz and Focus visual grammar already documented in VE-003/005 is reused.
+
+Dense sampling did not establish a trustworthy unique drag-lift/drop-settle duration. Those exact timings remain Narro calibration choices.
+
+### VE-019 — historical light-theme / Floating-subtask update
+
+Deep-pass status: **COMPLETE as historical corroboration**.
+
+**UI-DIRECT**
+- the historical Floating Timer expands vertically in-place to reveal subtasks while retaining its compact top action strip;
+- the expanded compact surface shows progress, `n/m Subtasks`, add `+`, collapse affordance, checkbox rows and compact per-row management;
+- light theme preserves the same four-column board structure, card hierarchy, green/mint outline/accent system and gradient Blitz CTA rather than simply inverting colors;
+- settings/preferences remain accessible from the application shell.
+
+**HISTORICAL / NARRO-DECISION**
+The old first-subtask-while-live limitation remains historical source behavior only and must not be copied.
+
+### VE-004 — Getting Started
+
+Deep-pass status: **COMPLETE; unique local UI extracted, auth/commerce excluded**.
+
+**UI-DIRECT**
+- local-product footage repeats the same Home → list creation → board → inline task creation → Blitz/Focus → Floating → completion-success sequence documented in stronger dedicated tutorials;
+- no unique task/focus control family was found that changes the detailed findings above.
+
+Account setup, email verification, plan/trial and commerce footage are outside Narro scope and were not converted into UI requirements.
+
+### VE-001 — general explainer
+
+Deep-pass status: **COMPLETE; montage/context only after reconciliation**.
+
+**UI-DIRECT**
+- short product glimpses corroborate the planning board, Focus/Floating surfaces, notes/subtasks, Preferences and Reports visual families;
+- the video intercuts external applications, integrations, talking-head footage and marketing scenes.
+
+Because of the heavy montage/cuts, it is not a trustworthy source for exact interaction timing. No unique local UI requirement remained after comparison with the dedicated tutorials.
+
+## Final cross-video UI/UX synthesis
+
+The second pass closes at **19/19** with these source-level conclusions:
+
+- Blitzit's interaction grammar is predominantly **inline and contextual**: task creation, metrics, Notes and Subtasks stay attached to the task; scheduling/recurrence uses compact overlay dialogs; Preferences uses a tall side drawer; success stays in Focus context.
+- Visual state is communicated with **small contrast changes, accent outlines, muted metadata and compact icon actions**, not large decorative motion.
+- The pink→mint/green gradient is reserved for high-salience primary actions; mint/green alone commonly marks enabled/selected/success states; destructive consequences use red/warm treatment.
+- Dark and light themes preserve information architecture, density and accent hierarchy.
+- The only supplied sequence strong enough for a useful exact motion measurement is Focus Panel→Floating Timer at roughly **0.27 s**. Generic hover/menu/modal/inline/chart timings remain Narro calibration targets, not observed Blitzit constants.
+- Tutorial edits prevent reliable easing/duration claims for most nested controls, menus and dialogs.
+- Where Blitzit visibly exposes weak behavior — transition clipping/blank content, surprise URL launch, destructive flows without clearly visible confirmation, first-subtask-live limitation — Narro keeps its documented reliability/accessibility improvements instead of copying the weakness.
+
 ## Pass-2 tracker status
 
-Deep UI/UX forensic review complete:
-- VE-002
-- VE-003
-- VE-005
-- VE-007
-- VE-009
-- VE-010
-- VE-011
-- VE-012
-- VE-013
-- VE-014
-- VE-015
-- VE-016
+Deep UI/UX forensic review: **19/19 COMPLETE**.
 
-Still requiring the same interaction-level pass:
-- VE-001 general explainer — verify unique visual states versus duplicated tutorial footage
-- VE-004 Getting Started — onboarding footage contains out-of-scope auth plus duplicated core UI; extract only unique local-product UI
-- VE-006 Delete & Archive — destructive confirmations/archive navigation/empty states need denser review
-- VE-008 recurring-task setup — parent/child visual distinctions and schedule badges need denser review
-- VE-017 update recurring — Replace/Delete Existing conditional controls need denser review
-- VE-018 planning workflow — verify any unique drag/reorder/focus micro-interactions
-- VE-019 historical update — inspect light-theme transition and historical Floating-subtask interaction without promoting obsolete limitations
+All supplied video/transcript pairs have now been reviewed specifically for interface anatomy, text/copy, inputs, interaction states and material motion/micro-motion. The initial functional 19/19 pass remains separately complete.
 
 ## Important correction to prior documentation
 
-The existing `docs/UI_UX_SPEC.md` contains several motion timing values that are **Narro implementation targets**, not directly measured Blitzit facts. Until this forensic pass is complete:
+The existing `docs/UI_UX_SPEC.md` contains several motion timing values that are **Narro implementation targets**, not directly measured Blitzit facts. The completed forensic pass establishes:
 
 - do not cite generic hover/menu/modal timings in that document as observed source behavior;
 - keep source-measured timings separate from Narro design timings;
-- only Panel→Floating currently has a sufficiently uninterrupted supplied sequence for a useful measured duration (~0.27 s);
-- other exact easings/durations must remain Narro decisions unless this pass finds uninterrupted evidence.
+- Panel→Floating is the only supplied sequence with sufficiently uninterrupted evidence for a useful measured duration (~0.27 s);
+- other exact easings/durations remain Narro design/calibration decisions because the relevant footage is edited, cut, or otherwise insufficient for exact timing.
 
 ## Completion rule for this forensic pass
 
