@@ -396,7 +396,7 @@ mod tests {
 
     macro_rules! observe {
         ($conn:expr, $task:expr, $run:expr, $elapsed:expr, $enabled:expr, $interval:expr, $reset:expr, $now:expr) => {
-            observe!(
+            observe_timed_alert_run(
                 $conn,
                 TimedAlertObservation {
                     task_id: $task,
