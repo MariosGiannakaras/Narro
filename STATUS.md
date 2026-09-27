@@ -509,3 +509,28 @@ Validated product/runtime checkpoints:
 Scope remains partial at the top-level Preferences item: runtime effects not claimed by the slice (including any remaining timed-alert/timer-flash/notification/schedule-reminder/local-sound behavior) remain open, as does the separate Windows-locale date/time item.
 
 M8 is now **6/8 top-level items validated**. Roadmap remains **6/10 milestones complete**.
+
+## Schedule-reminder Preferences runtime — validated 2026-09-28
+
+- PR #180 exact head: `0309c879998f43ff8c6e39e65f02c44669fa48b8`.
+- Windows CI #607 / run `36352510898`: PASS — Repository Preflight, visual fixtures, Tauri Release and artifact uploads succeeded.
+- Visual artifact `narro-m5-visual-regression`, id `10942113822`, digest `sha256:3428b6e380deab43abfaa031d140bb5ba47782f0a8d09393a4077773868bb16e`.
+- Runtime artifact `narro-m1-runtime-harness-windows-x64`, id `10942647770`, digest `sha256:fd036e89988fd34cf0170bace0ec3d81bff1b5b38e9020b29c716e49e0597724`.
+- Expected-head guarded squash merge: `643528ca223b29fd8fbd215db5b1b525c912c6fc`.
+- Resulting-main Windows CI #608 / run `36353206934`: PASS.
+- Schedule-reminder Preferences now use a dedicated durable idempotent effect ledger, persisted enable/lead settings and the existing authoritative background reminder thread. Failed notification submission remains retryable and manual/explicit M4 reminder rows remain separate.
+- **Current validated application source baseline: `643528ca223b29fd8fbd215db5b1b525c912c6fc`.**
+
+## Audit incorporation gate — active 2026-09-28
+
+The project now uses `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` as the mandatory finding→implementation routing layer.
+
+Binding execution rule:
+- known actionable findings on already-built/current surfaces are corrected before unrelated forward feature work;
+- future-milestone findings remain routed to their ordered milestone;
+- source ambiguities are not guessed;
+- intentional Narro reliability/accessibility/agency improvements are retained;
+- no material parity/video/Help/UIUX/reliability finding may remain orphaned only inside an evidence document.
+
+Current immediate correction:
+- **CORR-01 recurrence update / No Repeat flow** — current Narro recurrence UI still reflects an older assumption. VE-017 plus current Help Center evidence shows No Repeat conditionally exposing a destructive `Delete existing tasks(n)` row. This correction is ordered before remaining M8 alert/sound runtime work.
