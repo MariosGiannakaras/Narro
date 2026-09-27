@@ -32,7 +32,7 @@ const WEEKDAYS = [
 
 const WEEKDAY_MASK = 31;
 
-type RecurrencePreset = "daily" | "weekdays" | "weekly" | "monthly" | "custom";
+type RecurrencePreset = "none" | "daily" | "weekdays" | "weekly" | "monthly" | "custom";
 type MonthPattern = "date" | "weekdays";
 
 type Props = {
@@ -146,6 +146,7 @@ export function TaskScheduleDialog({
   const [recurrenceLocalTime, setRecurrenceLocalTime] = useState("");
   const [recurrenceTimezone, setRecurrenceTimezone] = useState(displayTimezone);
   const [replaceExisting, setReplaceExisting] = useState(false);
+  const [deleteExisting, setDeleteExisting] = useState(false);
   const [customInterval, setCustomInterval] = useState(1);
   const [customUnit, setCustomUnit] = useState<RecurrenceUnit>("week");
   const [customWeekdayMask, setCustomWeekdayMask] = useState(1);
@@ -181,6 +182,7 @@ export function TaskScheduleDialog({
           setRecurrenceLocalTime(rule.localTime ?? "");
           setRecurrenceTimezone(rule.timezone ?? displayTimezone);
           setReplaceExisting(rule.replaceExisting);
+          setDeleteExisting(false);
           setCustomInterval(rule.intervalCount);
           setCustomUnit(rule.unit);
           setCustomWeekdayMask(rule.weekdayMask || 1);
@@ -190,6 +192,7 @@ export function TaskScheduleDialog({
           setStartsLocalDate(draft.localDate);
           setRecurrenceTimezone(displayTimezone);
           setReplaceExisting(false);
+          setDeleteExisting(false);
         }
       })
       .catch((failure: unknown) => {
@@ -270,6 +273,7 @@ export function TaskScheduleDialog({
   };
 
   const recurrenceDraft = (startDate: string): RecurrenceDraft | null => {
+    if (preset === "none") return null;
     if (!/^\d{4}-\d{2}-\d{2}$/.test(startDate)) return null;
     const timed = recurrenceUseTime;
     if (timed && !/^([01]\d|2[0-3]):[0-5]\d$/.test(recurrenceLocalTime)) return null;
@@ -314,6 +318,32 @@ export function TaskScheduleDialog({
     if (!snapshot || pending || !recurrenceEnabled) return;
     setPending(true);
     setMutationError(null);
+
+    if (existingRule && preset === "none") {
+      try {
+        const result = await removeTaskRecurrence({
+          taskId,
+          listId,
+          expectedRuleId: existingRule.id,
+          expectedRuleUpdatedAt: existingRule.updatedAt,
+          deleteExistingTasks: deleteExisting,
+        });
+        const preserved = result.preservedExistingCount > 0
+          ? ` ${result.preservedExistingCount} customized or history-bearing task${result.preservedExistingCount === 1 ? "" : "s"} were kept as independent tasks.`
+          : "";
+        await onCommitted(
+          taskId,
+          deleteExisting
+            ? `Recurrence removed; ${result.removedExistingCount} untouched generated task${result.removedExistingCount === 1 ? "" : "s"} deleted.${preserved}`
+            : `Recurrence removed; existing tasks remain independent.${preserved}`,
+        );
+      } catch (failure: unknown) {
+        setMutationError(formatInvokeError(failure));
+        setPending(false);
+      }
+      return;
+    }
+
     const startDate = await ensureRecurrenceStartDate();
     if (!startDate) {
       setPending(false);
@@ -339,24 +369,6 @@ export function TaskScheduleDialog({
         existingRule ? "Task recurrence saved." : "Task recurrence created.",
         result.materializationWarning,
       );
-    } catch (failure: unknown) {
-      setMutationError(formatInvokeError(failure));
-      setPending(false);
-    }
-  };
-
-  const removeRecurrence = async () => {
-    if (!snapshot || !existingRule || pending) return;
-    setPending(true);
-    setMutationError(null);
-    try {
-      await removeTaskRecurrence({
-        taskId,
-        listId,
-        expectedRuleId: existingRule.id,
-        expectedRuleUpdatedAt: existingRule.updatedAt,
-      });
-      await onCommitted(taskId, "Task recurrence removed; existing occurrences remain independent.");
     } catch (failure: unknown) {
       setMutationError(formatInvokeError(failure));
       setPending(false);
@@ -544,8 +556,13 @@ export function TaskScheduleDialog({
                       value={preset}
                       disabled={pending}
                       data-task-recurrence-control="preset"
-                      onChange={(event) => setPreset(event.target.value as RecurrencePreset)}
+                      onChange={(event) => {
+                        const next = event.target.value as RecurrencePreset;
+                        setPreset(next);
+                        if (next !== "none") setDeleteExisting(false);
+                      }}
                     >
+                      {existingRule ? <option value="none">No Repeat</option> : null}
                       <option value="daily">Every day</option>
                       <option value="weekdays">Every weekday</option>
                       <option value="weekly">Weekly on start weekday</option>
@@ -553,16 +570,18 @@ export function TaskScheduleDialog({
                       <option value="custom">Custom</option>
                     </select>
                   </label>
-                  <label>
-                    <span className="type-metadata">Starts</span>
-                    <input
-                      type="date"
-                      value={startsLocalDate}
-                      disabled={pending}
-                      data-task-recurrence-control="start-date"
-                      onChange={(event) => setStartsLocalDate(event.target.value)}
-                    />
-                  </label>
+                  {preset !== "none" ? (
+                    <label>
+                      <span className="type-metadata">Starts</span>
+                      <input
+                        type="date"
+                        value={startsLocalDate}
+                        disabled={pending}
+                        data-task-recurrence-control="start-date"
+                        onChange={(event) => setStartsLocalDate(event.target.value)}
+                      />
+                    </label>
+                  ) : null}
 
                   {preset === "custom" ? (
                     <div className="task-schedule-dialog__custom-rule">
@@ -647,36 +666,40 @@ export function TaskScheduleDialog({
                     </div>
                   ) : null}
 
-                  <label className="task-schedule-dialog__check">
-                    <input
-                      type="checkbox"
-                      checked={recurrenceUseTime}
-                      disabled={pending}
-                      data-task-recurrence-control="time-toggle"
-                      onChange={(event) => setRecurrenceUseTime(event.target.checked)}
-                    />
-                    <span>Use a local occurrence time</span>
-                  </label>
-                  {recurrenceUseTime ? (
-                    <label>
-                      <span className="type-metadata">Occurrence time</span>
-                      <input
-                        type="time"
-                        value={recurrenceLocalTime}
-                        disabled={pending}
-                        data-task-recurrence-control="time"
-                        onChange={(event) => setRecurrenceLocalTime(event.target.value)}
-                      />
-                    </label>
+                  {preset !== "none" ? (
+                    <>
+                      <label className="task-schedule-dialog__check">
+                        <input
+                          type="checkbox"
+                          checked={recurrenceUseTime}
+                          disabled={pending}
+                          data-task-recurrence-control="time-toggle"
+                          onChange={(event) => setRecurrenceUseTime(event.target.checked)}
+                        />
+                        <span>Use a local occurrence time</span>
+                      </label>
+                      {recurrenceUseTime ? (
+                        <label>
+                          <span className="type-metadata">Occurrence time</span>
+                          <input
+                            type="time"
+                            value={recurrenceLocalTime}
+                            disabled={pending}
+                            data-task-recurrence-control="time"
+                            onChange={(event) => setRecurrenceLocalTime(event.target.value)}
+                          />
+                        </label>
+                      ) : null}
+                      <p className="task-schedule-dialog__timezone type-metadata">
+                        {recurrenceUseTime
+                          ? `Timed occurrences use ${recurrenceTimezone}.`
+                          : "Date-only occurrences retain their local calendar date."}
+                      </p>
+                    </>
                   ) : null}
-                  <p className="task-schedule-dialog__timezone type-metadata">
-                    {recurrenceUseTime
-                      ? `Timed occurrences use ${recurrenceTimezone}.`
-                      : "Date-only occurrences retain their local calendar date."}
-                  </p>
 
-                  {existingRule ? (
-                    <label className="task-schedule-dialog__check task-schedule-dialog__check--warning">
+                  {existingRule && preset !== "none" ? (
+                    <label className="task-schedule-dialog__check task-schedule-dialog__check--consequence">
                       <input
                         type="checkbox"
                         checked={replaceExisting}
@@ -684,22 +707,32 @@ export function TaskScheduleDialog({
                         data-task-recurrence-control="replace-existing"
                         onChange={(event) => setReplaceExisting(event.target.checked)}
                       />
-                      <span>Replace Existing Tasks — pristine generated children may be regenerated; modified/history-bearing children remain independent.</span>
+                      <span>Replace existing tasks — untouched generated tasks may be regenerated; customized or history-bearing tasks stay independent.</span>
+                    </label>
+                  ) : null}
+
+                  {existingRule && preset === "none" ? (
+                    <label className="task-schedule-dialog__check task-schedule-dialog__check--destructive">
+                      <input
+                        type="checkbox"
+                        checked={deleteExisting}
+                        disabled={pending || snapshot.deleteExistingEligibleCount === 0}
+                        data-task-recurrence-control="delete-existing"
+                        onChange={(event) => setDeleteExisting(event.target.checked)}
+                      />
+                      <span>
+                        <strong>Delete existing tasks ({snapshot.deleteExistingEligibleCount})</strong>
+                        <small>
+                          {snapshot.protectedExistingCount > 0
+                            ? ` ${snapshot.protectedExistingCount} customized, completed, archived, or history-bearing task${snapshot.protectedExistingCount === 1 ? "" : "s"} will be kept as independent tasks.`
+                            : " Only untouched generated tasks are eligible for deletion."}
+                        </small>
+                      </span>
                     </label>
                   ) : null}
 
                   <div className="task-schedule-dialog__section-actions">
-                    {existingRule ? (
-                      <button
-                        type="button"
-                        className="task-schedule-dialog__danger motion-interactive"
-                        data-task-recurrence-control="remove"
-                        disabled={pending}
-                        onClick={() => void removeRecurrence()}
-                      >
-                        Remove recurrence
-                      </button>
-                    ) : <span />}
+                    <span />
                     <button
                       type="button"
                       className="task-schedule-dialog__primary motion-interactive"
@@ -707,7 +740,7 @@ export function TaskScheduleDialog({
                       disabled={pending}
                       onClick={() => void saveRecurrence()}
                     >
-                      {existingRule ? "Save recurrence" : "Create recurrence"}
+                      {preset === "none" ? "Schedule" : existingRule ? "Save recurrence" : "Create recurrence"}
                     </button>
                   </div>
                 </div>
