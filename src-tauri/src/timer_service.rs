@@ -1,9 +1,7 @@
 use crate::domain::ids::{ListId, TaskId};
 use crate::domain::preferences::SleepAccountingPolicy;
 use crate::domain::tasks::SetTaskTimeTakenInput;
-use crate::domain::timed_alert_events::{
-    TimedAlertEffectPayload, TIMED_ALERT_EFFECT_EVENT_NAME,
-};
+use crate::domain::timed_alert_events::{TimedAlertEffectPayload, TIMED_ALERT_EFFECT_EVENT_NAME};
 use crate::domain::timer_events::{
     TimerSessionChange, TimerSessionPayload, TIMER_SESSION_EVENT_NAME,
 };
@@ -416,12 +414,7 @@ impl TimerService {
         )?;
 
         let before_transition = controller.snapshot();
-        observe_timed_alerts_best_effort(
-            effects_connection,
-            &before_transition,
-            false,
-            &wall_time,
-        );
+        observe_timed_alerts_best_effort(effects_connection, &before_transition, false, &wall_time);
         let mut timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
 
         let payload =
@@ -727,16 +720,15 @@ fn claim_timed_alerts_best_effort(
     match claim_pending_timed_alerts(effects_connection, wall_time) {
         Ok(pending) => pending,
         Err(error) => {
-            eprintln!("Timed-alert claim failed; effects remain pending for a later observation: {error}");
+            eprintln!(
+                "Timed-alert claim failed; effects remain pending for a later observation: {error}"
+            );
             Vec::new()
         }
     }
 }
 
-fn submit_claimed_timed_alerts(
-    app_handle: &tauri::AppHandle,
-    effects: Vec<TimedAlertEffect>,
-) {
+fn submit_claimed_timed_alerts(app_handle: &tauri::AppHandle, effects: Vec<TimedAlertEffect>) {
     for effect in effects {
         let payload = TimedAlertEffectPayload {
             run_id: effect.run_id,
