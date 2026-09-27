@@ -84,7 +84,7 @@ Unresolved video ambiguities remain explicit:
 | --- | --- | --- | --- |
 | HC-F001 | Permanent task delete is `Delete → Confirm` | Keep explicit confirmation/report exclusion | **VALIDATED** |
 | HC-F002 | Sessions prose says PDF but current screenshot says CSV | Overview PDF / Sessions CSV | **ROUTED_M9** |
-| HC-F003 | Recurrence edit: No Repeat conditionally shows warm/red `Delete existing tasks(n)` | Current scheduling UI does not match | **FIX_NOW** |
+| HC-F003 | Recurrence edit: No Repeat conditionally shows warm/red `Delete existing tasks(n)` | Source-evidenced No Repeat flow with safe generated-child cleanup | **VALIDATED** — PR #182 / CI #617 / main #618 |
 | HC-F004 | Source may require restart after monitor hotplug | Narro must recover dynamically | **VALIDATION_OPEN M7/M10** |
 | HC-F005 | Done tasks older than 60 days auto-archive | Existing strict-60-day sweep | **VALIDATED** |
 | HC-F006 | Today / Later today +2h / Tomorrow / Next week +7d | M4 schedule shortcuts | **VALIDATED** |
@@ -103,12 +103,12 @@ Unresolved video ambiguities remain explicit:
 | UX-F003 | Dark/light preserve hierarchy/density | Themes | **VALIDATED**, M10 parity |
 | UX-F004 | Panel→Floating ≈0.27 s; clipping/blank is source artifact | M7 continuity gate | **VALIDATION_OPEN** |
 | UX-F005 | Generic hover/menu/modal/chart timings are not source-measured | Treat tokens as Narro calibration | **VALIDATED documentation rule** |
-| UX-F006 | No Repeat replaces neutral Replace row with destructive Delete Existing row | Same gap as HC-F003 | **FIX_NOW** |
+| UX-F006 | No Repeat replaces neutral Replace row with destructive Delete Existing row | Source-evidenced recurrence consequence hierarchy | **VALIDATED** — PR #182 visual fixtures / CI #617 |
 | UX-F007 | Task hover keeps geometry; completion left/actions right; anchored overflow | M5 task geometry | **VALIDATED** |
 | UX-F008 | Success hierarchy: completed title/context, dominant Next Task, EST/Taken, queue | M8 success UI | **VALIDATED** |
 | UX-F009 | Preferences nested controls stay in place | M8 | **VALIDATED** |
 | UX-F010 | Floating Timer expands vertically for subtasks | M7 | **VALIDATED source**, physical continuity open |
-| UX-F011 | Schedule/recurrence footer uses secondary Cancel + primary gradient action | Scheduling fidelity | **CHECK WITH CORR-01** |
+| UX-F011 | Schedule/recurrence footer uses secondary Cancel + primary gradient action | Narro combined Schedule/Repeat dialog preserves the secondary Cancel + gradient primary hierarchy without splitting state authority | **VALIDATED NARRO ADAPTATION** — PR #182 visual fixtures / CI #617 |
 | UX-F012 | Reports hierarchy: four metrics → main chart → secondary panels | M9 | **ROUTED_M9** |
 | UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **ROUTED_M9** |
 
@@ -140,27 +140,27 @@ Unresolved video ambiguities remain explicit:
 
 Evidence: VE-017, HC-F003, UX-F006, `help-v2x-recurrence-no-repeat-delete-existing-tasks.jpg`.
 
-Current mismatch:
-- Narro always shows warning-styled `Replace Existing Tasks` for an existing recurrence;
-- Narro uses a separate `Remove recurrence` button;
-- source evidence shows `No Repeat` inside the recurrence flow;
-- selecting No Repeat conditionally exposes `Delete existing tasks(n)` in a destructive warm/red row;
-- unchecked No Repeat detaches existing children as independent tasks;
-- checked Delete Existing removes existing generated scheduled children and leaves the parent as one non-recurring item.
+**Status: VALIDATED / CLOSED.**
 
-Required correction:
-1. expose No Repeat for existing recurrence;
-2. replace the normal Replace row with destructive Delete Existing when No Repeat is chosen;
-3. preserve expected-version/stale guards and parent identity;
-4. unchecked behavior detaches children;
-5. checked deletion uses one authoritative transaction;
-6. do not silently destroy historical/session-bearing user work — define/test eligible-child deletion rule before mutation;
-7. preserve Cancel + primary gradient action hierarchy;
-8. add Rust/frontend/visual regressions.
+Validation:
+- PR #182 exact head: `72ab6c77d5e5f5e50c7f3f7e6a0c11b98c7c606c`;
+- Windows CI #617 / run `36354972305`: PASS;
+- visual artifact `narro-m5-visual-regression`, id `10943374010`, digest `sha256:4d9b5005e53d842c1c8eb9774b6f29e9b950c0447a651914243d84c9f7b776b6`;
+- runtime artifact `narro-m1-runtime-harness-windows-x64`, id `10943557612`, digest `sha256:1a9325c54af943de7ba05cf375ab313447f3a10b004e81a6f85a858a91a02ee6`;
+- guarded squash merge: `50006f29b0329037aecfdab772104db8670768b0`;
+- resulting-main Windows CI #618 / run `36355523089`: PASS via the repository validation gate.
 
-**Status: FIX_NOW. Unrelated M8 forward work is paused until this validates.**
+Validated behavior:
+1. existing recurrence exposes `No Repeat` inside the recurrence flow;
+2. normal updates keep a neutral `Replace existing tasks(n)` consequence row;
+3. No Repeat swaps that row for warm/red `Delete existing tasks(n)`;
+4. unchecked No Repeat removes the rule and detaches existing linked children as independent tasks;
+5. checked Delete Existing deletes only pristine active generated children;
+6. customized, history-bearing, completed, archived, or legacy-linked children are preserved and detached;
+7. stale rule/version guards, parent identity, persistence-first publication and recurrence idempotence remain intact;
+8. Repeat + No Repeat states are captured/validated in light and dark themes.
 
-After CORR-01: PREF-R01 → PREF-R02 → PREF-R03 → PREF-R05 → PREF-R06 → M9.
+There are currently **no active `FIX_NOW` rows**. Forward M8 work resumes with PREF-R01.
 
 ## 8. No-orphan gate
 

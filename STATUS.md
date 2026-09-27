@@ -533,4 +533,21 @@ Binding execution rule:
 - no material parity/video/Help/UIUX/reliability finding may remain orphaned only inside an evidence document.
 
 Current immediate correction:
-- **CORR-01 recurrence update / No Repeat flow** — current Narro recurrence UI still reflects an older assumption. VE-017 plus current Help Center evidence shows No Repeat conditionally exposing a destructive `Delete existing tasks(n)` row. This correction is ordered before remaining M8 alert/sound runtime work.
+- **CORR-01 recurrence update / No Repeat flow:** VALIDATED in PR #182 / CI #617 / main CI #618. There are currently no active `FIX_NOW` findings; forward M8 work resumes with `PREF-R01` timed task alerts.
+
+## CORR-01 recurrence No Repeat correction — validated 2026-09-28
+
+- Evidence: VE-017 + current Help Center recurrence state + UI/UX forensic reconciliation.
+- PR #182 exact validated head: `72ab6c77d5e5f5e50c7f3f7e6a0c11b98c7c606c`.
+- Windows CI #617 / run `36354972305`: PASS — Repository Preflight, Rust checks/tests, light/dark Repeat + No Repeat visual fixtures, Tauri Release and required artifact uploads all succeeded.
+- Visual artifact `narro-m5-visual-regression`, id `10943374010`, digest `sha256:4d9b5005e53d842c1c8eb9774b6f29e9b950c0447a651914243d84c9f7b776b6`.
+- Runtime artifact `narro-m1-runtime-harness-windows-x64`, id `10943557612`, digest `sha256:1a9325c54af943de7ba05cf375ab313447f3a10b004e81a6f85a858a91a02ee6`.
+- Expected-head guarded squash merge: `50006f29b0329037aecfdab772104db8670768b0`.
+- Resulting-main Windows CI #618 / run `36355523089`: PASS.
+- Existing recurrence now exposes `No Repeat` in-flow. Normal updates show neutral `Replace existing tasks(n)`; No Repeat shows the warm/red `Delete existing tasks(n)` consequence.
+- Unchecked No Repeat detaches existing linked children as independent tasks. Checked Delete Existing removes only pristine active generated children; customized, history-bearing, completed, archived and legacy-linked children survive and detach.
+- Stale expected-version guards, parent identity, recurrence idempotence and persistence-first publication remain intact.
+- There are currently no active `FIX_NOW` audit rows. The next audited M8 source task is `PREF-R01` timed task alerts.
+- **Current validated application source baseline: `50006f29b0329037aecfdab772104db8670768b0`.**
+
+Roadmap remains **6/10 milestones complete**. M8 remains **6/8 top-level items validated**; M7 physical/manual closure remains open.
