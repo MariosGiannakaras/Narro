@@ -308,6 +308,18 @@ pub fn recurrence_removal_preview(
             protected_child_count += 1;
         }
     }
+
+    let linked_child_count: usize = conn
+        .query_row(
+            "SELECT COUNT(*) FROM tasks WHERE recurrence_parent_task_id = ?1",
+            [parent.id.to_string()],
+            |row| row.get::<_, i64>(0),
+        )?
+        .try_into()
+        .map_err(|_| ReplaceExistingError::InvalidStoredChildIdentity)?;
+    let classified_child_count = deletable_child_count + protected_child_count;
+    protected_child_count += linked_child_count.saturating_sub(classified_child_count);
+
     Ok(RecurrenceRemovalPreview {
         deletable_child_count,
         protected_child_count,
