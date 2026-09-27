@@ -1,0 +1,307 @@
+1
+00:00:00,640 --> 00:00:03,040
+Hi everyone. If you haven't yet seen our
+
+2
+00:00:03,040 --> 00:00:05,040
+video on recurrent schedules and the one
+
+3
+00:00:05,040 --> 00:00:06,550
+diving into custom recurrent feature,
+
+4
+00:00:06,550 --> 00:00:08,800
+[music] I recommend watching them first.
+
+5
+00:00:08,800 --> 00:00:10,480
+They cover the setting up tasks to
+
+6
+00:00:10,480 --> 00:00:12,639
+repeat automatically. In this video,
+
+7
+00:00:12,639 --> 00:00:14,400
+we'll focus on how updating recurrent
+
+8
+00:00:14,400 --> 00:00:16,240
+schedules works with two important
+
+9
+00:00:16,240 --> 00:00:19,359
+aspects, replacing and deleting. [music]
+
+10
+00:00:19,359 --> 00:00:21,359
+These options give you more control when
+
+11
+00:00:21,359 --> 00:00:23,920
+managing your recurrent schedules. Let's
+
+12
+00:00:23,920 --> 00:00:26,400
+start with replace. Imagine you've set
+
+13
+00:00:26,400 --> 00:00:29,199
+up a task to repeat every day. Later you
+
+14
+00:00:29,199 --> 00:00:31,599
+decide you only want it on Friday,
+
+15
+00:00:31,599 --> 00:00:34,239
+Saturday [music] and Sunday.
+
+16
+00:00:34,239 --> 00:00:36,719
+Here you can see the parent task. Open
+
+17
+00:00:36,719 --> 00:00:38,800
+the expanded menu and click update
+
+18
+00:00:38,800 --> 00:00:40,000
+recurring. [music]
+
+19
+00:00:40,000 --> 00:00:42,640
+Let's set the custom recurrent schedule
+
+20
+00:00:42,640 --> 00:00:46,160
+every one week, Friday, Saturday,
+
+21
+00:00:46,160 --> 00:00:47,920
+Sunday. [music]
+
+22
+00:00:47,920 --> 00:00:49,440
+Now you can see the option replace
+
+23
+00:00:49,440 --> 00:00:51,920
+existing tasks. Choosing this will reset
+
+24
+00:00:51,920 --> 00:00:54,000
+the recurring schedule and only keep the
+
+25
+00:00:54,000 --> 00:00:57,039
+new days you've selected. This way your
+
+26
+00:00:57,039 --> 00:00:58,399
+schedule stays clean and [music]
+
+27
+00:00:58,399 --> 00:01:00,960
+accurate. If you haven't selected the
+
+28
+00:01:00,960 --> 00:01:03,199
+replace existing tasks option, all the
+
+29
+00:01:03,199 --> 00:01:05,439
+child task we already had would stay
+
+30
+00:01:05,439 --> 00:01:07,119
+while the recurrent schedule would get
+
+31
+00:01:07,119 --> 00:01:09,840
+updated. So you would have both the old
+
+32
+00:01:09,840 --> 00:01:12,720
+child tasks and the new ones. Now what
+
+33
+00:01:12,720 --> 00:01:14,159
+if you want to remove the scheduled
+
+34
+00:01:14,159 --> 00:01:16,159
+tasks altogether? [music]
+
+35
+00:01:16,159 --> 00:01:18,320
+You have two choices. You can delete
+
+36
+00:01:18,320 --> 00:01:21,439
+tasks manually or you can simply update
+
+37
+00:01:21,439 --> 00:01:23,280
+the schedule itself to the no repeat
+
+38
+00:01:23,280 --> 00:01:24,400
+option. [music]
+
+39
+00:01:24,400 --> 00:01:27,040
+So again click update recurring and
+
+40
+00:01:27,040 --> 00:01:29,360
+select no repeat. [music]
+
+41
+00:01:29,360 --> 00:01:31,600
+Now you'll see the delete existing tasks
+
+42
+00:01:31,600 --> 00:01:34,000
+option. This removes the recurring
+
+43
+00:01:34,000 --> 00:01:36,720
+schedule completely and leaves the task
+
+44
+00:01:36,720 --> 00:01:38,880
+as a single item in your list. [music]
+
+45
+00:01:38,880 --> 00:01:40,560
+If we haven't selected the delete
+
+46
+00:01:40,560 --> 00:01:42,720
+existing tasks option, all the child
+
+47
+00:01:42,720 --> 00:01:45,520
+task would stay as individual tasks.
+
+48
+00:01:45,520 --> 00:01:46,960
+There is also something important to
+
+49
+00:01:46,960 --> 00:01:48,960
+know about detaching schedules. [music]
+
+50
+00:01:48,960 --> 00:01:50,880
+If you remove a recurring schedule, it
+
+51
+00:01:50,880 --> 00:01:52,720
+detaches a parent task from its child
+
+52
+00:01:52,720 --> 00:01:55,680
+tasks. Then if you later create a new
+
+53
+00:01:55,680 --> 00:01:57,680
+schedule for that same task, the replace
+
+54
+00:01:57,680 --> 00:01:59,840
+option won't appear anymore. [music]
+
+55
+00:01:59,840 --> 00:02:01,759
+Instead, the system will simply add new
+
+56
+00:02:01,759 --> 00:02:04,079
+entries alongside the old ones, which
+
+57
+00:02:04,079 --> 00:02:06,240
+can lead to duplicates.
+
+58
+00:02:06,240 --> 00:02:07,726
+Why have we designed it this way?
+
+59
+00:02:07,726 --> 00:02:09,520
+[music] Because if you've already
+
+60
+00:02:09,520 --> 00:02:12,160
+customized those child tasks by renaming
+
+61
+00:02:12,160 --> 00:02:14,931
+them, setting time estimates, or adding
+
+62
+00:02:14,931 --> 00:02:17,040
+[music] notes, we don't want an update
+
+63
+00:02:17,040 --> 00:02:19,520
+to override all of your changes. This
+
+64
+00:02:19,520 --> 00:02:21,440
+approach gives you two different options
+
+65
+00:02:21,440 --> 00:02:23,520
+depending on your needs. either keep all
+
+66
+00:02:23,520 --> 00:02:25,840
+of your schedule tasks intact or start
+
+67
+00:02:25,840 --> 00:02:28,160
+fresh with a new schedule. [music]
+
+68
+00:02:28,160 --> 00:02:29,599
+We keep working on improving this
+
+69
+00:02:29,599 --> 00:02:31,840
+feature, so be sure to subscribe to the
+
+70
+00:02:31,840 --> 00:02:34,239
+channel to not miss any updates. [music]
+
+71
+00:02:34,239 --> 00:02:36,319
+I hope this clears up how updating the
+
+72
+00:02:36,319 --> 00:02:38,640
+current schedules works in Blitz. If
+
+73
+00:02:38,640 --> 00:02:40,160
+this video was helpful, [music] check
+
+74
+00:02:40,160 --> 00:02:42,160
+out our other tutorials and join the
+
+75
+00:02:42,160 --> 00:02:44,080
+Blitz Discord community where you can
+
+76
+00:02:44,080 --> 00:02:45,680
+connect with other productivity-driven
+
+77
+00:02:45,680 --> 00:02:50,040
+users. Happy Blitzing.

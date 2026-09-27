@@ -1,0 +1,119 @@
+1
+00:00:01,040 --> 00:00:03,520
+Hi everyone. In this quick video, we'll
+
+2
+00:00:03,520 --> 00:00:05,600
+look at a small but powerful shortcut in
+
+3
+00:00:05,600 --> 00:00:08,080
+Blitzet. Add an estimated time directly
+
+4
+00:00:08,080 --> 00:00:10,800
+in the task name. Normally, when
+
+5
+00:00:10,800 --> 00:00:13,200
+creating a task, you type the title and
+
+6
+00:00:13,200 --> 00:00:15,200
+then add the estimated time in the ST
+
+7
+00:00:15,200 --> 00:00:17,920
+field. But Blitz now gives you a new way
+
+8
+00:00:17,920 --> 00:00:20,080
+to do this. Just type the time at the
+
+9
+00:00:20,080 --> 00:00:22,400
+end of your task description and Blitz
+
+10
+00:00:22,400 --> 00:00:23,920
+will automatically parse it into the
+
+11
+00:00:23,920 --> 00:00:27,519
+estimated time field. For example, if I
+
+12
+00:00:27,519 --> 00:00:31,679
+type prepare slides 28 m, blit set field
+
+13
+00:00:31,679 --> 00:00:35,360
+to 28 minutes. If I type write blog post
+
+14
+00:00:35,360 --> 00:00:39,840
+1 HR, this field shows 1 hour. If I type
+
+15
+00:00:39,840 --> 00:00:44,480
+email campaign to HR 15 m, this field
+
+16
+00:00:44,480 --> 00:00:47,920
+shows 2 hours and 15 minutes. So to set
+
+17
+00:00:47,920 --> 00:00:49,840
+minutes, just write the number followed
+
+18
+00:00:49,840 --> 00:00:53,199
+by MIN. And to set hours, write the
+
+19
+00:00:53,199 --> 00:00:55,920
+number and either HR or the full word
+
+20
+00:00:55,920 --> 00:00:58,559
+hours. And if you ever need to adjust
+
+21
+00:00:58,559 --> 00:01:00,879
+it, you can still add it or remove the
+
+22
+00:01:00,879 --> 00:01:04,000
+time in the SD field as usual. This
+
+23
+00:01:04,000 --> 00:01:05,840
+little shortcut makes task creation
+
+24
+00:01:05,840 --> 00:01:07,600
+smoother and saves you clicks,
+
+25
+00:01:07,600 --> 00:01:08,960
+especially when you're creating lots of
+
+26
+00:01:08,960 --> 00:01:12,240
+tasks at once. Thanks for watching and
+
+27
+00:01:12,240 --> 00:01:13,760
+don't forget to check out our other
+
+28
+00:01:13,760 --> 00:01:15,520
+tutorials and join our Discord
+
+29
+00:01:15,520 --> 00:01:18,240
+community. Happy blitzing.
+
+30
+00:01:18,240 --> 00:01:21,440
+[Music]
