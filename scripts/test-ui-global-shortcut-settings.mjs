@@ -26,7 +26,6 @@ const pkg = JSON.parse(read("package.json"));
 for (const needle of [
   "pub const PREFERENCES_SCHEMA_VERSION: u32 = 3",
   "pub struct ShortcutPreferences",
-  "#[serde(default)]\n    pub shortcuts: ShortcutPreferences",
   "go_to_narro_enabled: true",
   "toggle_focus_mode_enabled: true",
   "find_focus_timer_enabled: true",
@@ -34,6 +33,11 @@ for (const needle of [
 ]) {
   invariant(domain.includes(needle), "preference schema/default is missing " + needle);
 }
+
+invariant(
+  /#\[serde\(default\)\]\s+pub shortcuts: ShortcutPreferences/.test(domain),
+  "preference schema/default is missing serde default on PreferencesPayload.shortcuts",
+);
 
 invariant(
   persistence.includes("pub fn mutate_preferences(")
