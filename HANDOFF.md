@@ -25,7 +25,7 @@ Tracking-only commits after this SHA do not replace the validated application so
 3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
 4. The uploaded Blitzit corpus remains fully inventoried and functionally reconciled: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 product-behavior analyses/reconciliations/dispositions complete**. Details: `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
 5. **User-requested second-pass UI/UX video forensics is COMPLETE: 19/19 deep-reviewed.** Durable evidence is in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`, `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, and the reconciled `docs/UI_UX_SPEC.md`.
-6. **User-requested Help Center text + image evidence pass is COMPLETE:** 34/34 visible legacy-navigation pages inventoried/classified and 15/15 Narro-relevant pages deep-reviewed. Durable evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md` and `docs/BLITZIT_HELP_CENTER_TRACKER.md`. Newer 3.0 docs are version-separated and do not override v2.6.69/direct supplied evidence.
+6. **User-requested Help Center text + image evidence pass is COMPLETE:** 34/34 visible legacy-navigation pages inventoried/classified and 15/15 Narro-relevant pages deep-reviewed. The canonical local screenshot corpus is also reconciled: **46 retained images** (22 current v2.6.69, 17 Help Center originals, 7 historical), content-named and deduplicated. Durable evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`, `docs/BLITZIT_HELP_CENTER_TRACKER.md`, and `reference/original-blitzit-screenshots/CANONICAL_INDEX.md`. Newer 3.0 docs remain version-separated.
 7. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation.
 8. **Post-validation VE-F003 remains the next source correction:** current direct VE-005 evidence confirms task-menu `Change List` + `Duplicate`, while current Narro production lacks those paths. Current Help Center additionally confirms the existing permanent-delete confirmation step. Implement narrowly without reopening unrelated M5 work.
 9. **M8 remains in progress: 5/8 top-level items validated.** After VE-F003 validates/merges, resume the documented Preferences sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
@@ -100,7 +100,7 @@ Do not mark M7 complete until these required checks close, but do not block inde
 
 ## EXACT NEXT ACTION
 
-1. The Blitzit video UI/UX forensic pass (**19/19**) and Help Center text+image pass (**34/34 classified; 15/15 relevant deep-reviewed**) are complete. Do not repeat either without new source evidence or a material source update.
+1. The Blitzit video UI/UX forensic pass (**19/19**), Help Center text+image pass (**34/34 classified; 15/15 relevant deep-reviewed**), and canonical screenshot/image reconciliation (**46 retained, deduplicated references**) are complete. Do not repeat either without new source evidence or a material source update.
 2. Re-read the exact live state of open source PR #170 before touching it; it predates the evidence reconciliation and must not be merged or treated as current merely because its prior CI passed.
 3. Resume the ordered source work with the narrow **VE-F003 task-menu correction** from latest main:
    - expose `Change List` through one persistence-first same-identity move to a chosen active list;

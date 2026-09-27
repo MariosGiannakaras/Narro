@@ -69,14 +69,15 @@ Source: `blitzit Ss.rar`
 - RAR5 archive
 - SHA-256: `18ab981eebbdf8327976c09bf732f62857d501dae08e6057dfc743c7378b5fab`
 - extracted PNG count: 30
+- canonical retained from that archive: **29** (one near-identical Reports duplicate removed from the working tree; preserved in Git history)
 - current direct captures visibly include Blitzit `v2.6.69`
 - archive also contains seven older Tool Finder review captures
 
-Current direct captures win for visual hierarchy/labels when they differ from older review material.
+Current direct captures win for visual hierarchy/labels when they differ from older review material. The working image corpus is normalized under `reference/original-blitzit-screenshots/`; `reference/original-blitzit-screenshots/CANONICAL_INDEX.md` records the current canonical filename, provenance and duplicate decisions.
 
 ## 3. Screenshot-by-screenshot inventory
 
-### `490270ab-01ec-41ef-866d-605d9d1b43c7.png`
+### `current-v2.6.69-create-list-dialog.png`
 Create New List modal.
 
 Visible:
@@ -97,7 +98,7 @@ Evidence use:
 - accent-button visual language
 - selected swatch state
 
-### `86d1bc8e-50c8-45f8-8d45-ff84e011cd27.png`
+### `current-v2.6.69-reports-date-range-picker.png`
 Reports date-range picker.
 
 Visible:
@@ -114,7 +115,7 @@ Evidence use:
 - report date filtering UI
 - date-range selected/hover states
 
-### `Screenshot_1.png`
+### `current-v2.6.69-home-dark.png`
 Current dark Home, Blitzit v2.6.69.
 
 Visible:
@@ -136,7 +137,7 @@ Visible:
 Narro scope action:
 - account/trial/upgrade/integration/profile/AI controls are omitted, not stubbed
 
-### `Screenshot_2.png`
+### `current-v2.6.69-create-list-tile.png`
 Create List tile close-up.
 
 Visible:
@@ -145,7 +146,7 @@ Visible:
 - uppercase `CREATE LIST`
 - teal/lime accent treatment
 
-### `Screenshot_3.png`
+### `current-v2.6.69-list-card-hover-overflow-menu.png`
 List card hover/overflow.
 
 Visible:
@@ -159,7 +160,7 @@ Visible:
 Evidence use:
 - list-card rest/hover/menu states
 
-### `Screenshot_4.png`
+### `current-v2.6.69-search-command-palette.png`
 Search / command palette.
 
 Visible:
@@ -173,7 +174,7 @@ Visible:
 - `Add new list`
 - `Go to Reports`
 
-### `Screenshot_5.png`
+### `current-v2.6.69-preferences-general.png`
 Preferences upper section.
 
 Visible:
@@ -189,7 +190,7 @@ Visible:
 
 Official Preferences wording uses `Hide EST / Time Taken`; treat as same setting family.
 
-### `Screenshot_6.png`
+### `current-v2.6.69-preferences-blitz-mode-alerts.png`
 Preferences middle section.
 
 Visible:
@@ -210,7 +211,7 @@ Visible:
 - Schedule reminders (system) toggle
 - Reminder timing (`10 mins before`)
 
-### `Screenshot_7.png`
+### `current-v2.6.69-preferences-alerts-celebration.png`
 Preferences lower section.
 
 Visible:
@@ -223,7 +224,7 @@ Visible:
 - sound selector (`Victory B...`)
 - enable toggle
 
-### `Screenshot_8.png`
+### `current-v2.6.69-archived-lists-empty.png`
 Archived Lists empty state.
 
 Visible:
@@ -235,7 +236,7 @@ Visible:
 - `No archived lists found`
 - explanation text
 
-### `Screenshot_9.png`
+### `current-v2.6.69-archived-done-tasks-filter-empty.png`
 Archived Done Tasks empty/filter-open state.
 
 Visible:
@@ -246,7 +247,7 @@ Visible:
 - `No Archived tasks found`
 - empty-state explanation
 
-### `Screenshot_10.png`
+### `current-v2.6.69-reports-overview-chart-tooltip.png`
 Reports Overview top.
 
 Visible:
@@ -262,15 +263,9 @@ Visible:
 - graph menu icon
 - lower Most Productive cards
 
-### `Screenshot_11.png`
-Reports Overview alternate/hover capture.
+The prior `Screenshot_11.png` Reports capture was removed from the canonical working set on 2026-09-27 because it is a near-identical duplicate of `current-v2.6.69-reports-overview-chart-tooltip.png`; Git history preserves the original.
 
-Confirms:
-- same graph hierarchy
-- same tooltip interaction
-- same four top metrics and filters
-
-### `Screenshot_12.png`
+### `current-v2.6.69-reports-overview-lower-panels.png`
 Reports Overview lower viewport.
 
 Visible:
@@ -281,7 +276,7 @@ Visible:
 - green/red percentage legend
 - `No report on the selected date range` empty copy
 
-### `Screenshot_13.png`
+### `current-v2.6.69-sessions-dashboard-empty.png`
 Sessions dashboard.
 
 Visible:
@@ -301,7 +296,7 @@ Important conflict:
 - Help Center Sessions article describes PDF export
 - current screenshot wins for Narro Sessions: CSV
 
-### `Screenshot_14.png`
+### `current-v2.6.69-reports-list-filter-open.png`
 Reports list filter open.
 
 Visible:
@@ -312,7 +307,7 @@ Visible:
 - STUDY
 - list-specific color/icon chips
 
-### `Screenshot_15.png`
+### `current-v2.6.69-home-light-list-hover.png`
 Current light Home.
 
 Visible:
@@ -324,7 +319,7 @@ Visible:
 Evidence use:
 - theme is hierarchy-preserving, not simple color inversion
 
-### `Screenshot_16.png`
+### `current-v2.6.69-windows-shortcuts-dialog.png`
 Windows Shortcuts modal.
 
 Visible Global section:
@@ -343,7 +338,7 @@ Visible App section:
 - Add Notes (Active task) — Ctrl + Alt + N
 - Search — Ctrl + F
 
-### `Screenshot_17.png`
+### `current-v2.6.69-floating-timer-expanded-subtasks.png`
 Floating Timer expanded/subtasks state.
 
 Visible:
@@ -361,7 +356,7 @@ Visible:
 
 Official Focus article maps common action strip semantics to Break, Notes, Pause, Skip and Done.
 
-### `Screenshot_18.png`
+### `current-v2.6.69-focus-panel-full.png`
 Current Focus Panel full state.
 
 Visible:
@@ -387,7 +382,7 @@ Visible:
 
 This screenshot is the primary structural reference for Focus Panel implementation.
 
-### `Screenshot_19.png`
+### `current-v2.6.69-floating-timer-collapsed.png`
 Floating Timer collapsed.
 
 Visible:
@@ -399,7 +394,7 @@ Visible:
 - expand chevron
 - very small desktop footprint
 
-### `Screenshot_20.png`
+### `current-v2.6.69-focus-panel-notes-expanded.png`
 Focus Panel Notes expanded.
 
 Visible:
@@ -414,7 +409,7 @@ Evidence use:
 - Notes do not require navigating away from focus context
 - voice transcription control exists in original but is excluded from initial local-only Narro scope
 
-### `Screenshot_21.png`
+### `current-v2.6.69-sessions-task-detail-inline-edit.png`
 Sessions task-detail editing modal.
 
 Visible:
@@ -443,7 +438,7 @@ Evidence use:
 
 These are secondary/corroborative. They show an older visual generation and external-service UI that Narro will not copy.
 
-### `... 1m54s.png`
+### `historical-tool-finder-board-four-columns-light.png`
 - full four-column board: Backlog / This Week / Today / Done
 - list selector
 - pending count + aggregate EST
@@ -454,7 +449,7 @@ These are secondary/corroborative. They show an older visual generation and exte
 - All Clear empty states
 - bottom Home / Reports
 
-### `... 2m01s.png`
+### `historical-tool-finder-inline-task-create.png`
 Inline Add Task state:
 - Cancel
 - Title
@@ -462,14 +457,14 @@ Inline Add Task state:
 - Confirm
 - helper `Add a new task`
 
-### `... 2m10s.png`
+### `historical-tool-finder-task-card-est-time-taken.png`
 Normal created task state:
 - title
 - list chip
 - EST lower-left
 - Time Taken lower-right (`0min`)
 
-### `... 2m19s.png`
+### `historical-tool-finder-focus-panel-task-hover-actions.png`
 Older Focus Panel hover state:
 - active timer
 - overdue task
@@ -477,7 +472,7 @@ Older Focus Panel hover state:
 - Rocket/make-live action visibly present
 - additional subtasks/notes/menu actions
 
-### `... 2m28s.png`
+### `historical-tool-finder-preferences-full.png`
 Older Preferences:
 - two monitor cards
 - panel side
@@ -489,7 +484,7 @@ Older Preferences:
 
 This corroborates that the preference families are stable across versions.
 
-### `... 2m41s.png`
+### `historical-tool-finder-focus-task-overflow-schedule-menu.png`
 Focus task expanded menu:
 - Update Schedule
 - visible scheduled date/time
@@ -500,7 +495,7 @@ Focus task expanded menu:
 
 Narro omits Open in Calendar because external calendar integration is out of scope.
 
-### `... 4m33s.png`
+### `historical-tool-finder-board-notes-inline-expanded.png`
 Older board with inline Notes editor:
 - rich formatting toolbar
 - multiline note body

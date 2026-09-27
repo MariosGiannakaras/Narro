@@ -1,104 +1,64 @@
 # Original Blitzit Screenshots — Reference Only
 
-This folder is reserved for screenshots of the original Blitzit application that may be uploaded later for implementation/fidelity review.
+This directory contains the canonical visual-evidence set used for Blitzit/Narro fidelity work.
+
+Current canonical corpus after the 2026-09-27 reconciliation:
+- **22** current supplied Blitzit v2.6.69 references;
+- **17** official Help Center originals that add a distinct state/context;
+- **7** historical Tool Finder references retained only for version/history context;
+- **46 total** retained image files.
+
+See `CANONICAL_INDEX.md` for the exact state-by-state inventory, dimensions, provenance classes and duplicate decisions.
+
+## Naming convention
+
+Every retained file is named from its visible content, with a provenance/version prefix:
+
+- `current-v2.6.69-...` — current supplied direct screenshots;
+- `help-v2x-...` — official Help Center imagery from the v2.x/current-reference documentation family;
+- `historical-tool-finder-...` — older review captures used only as corroborative/history evidence.
+
+Do not reintroduce opaque names such as `Screenshot_5.png`, UUID-only filenames, CDN hashes, or long video-title filenames. New files should identify the actual visible surface/state.
+
+## Canonical-selection rule
+
+When multiple images show materially the same state, keep the strongest evidence rather than accumulating duplicates. Rank candidates by:
+
+1. current/direct supplied evidence;
+2. newer source-product version;
+3. completeness of the visible UI state;
+4. resolution/sharpness;
+5. minimal unrelated OS/tutorial chrome.
+
+Retain a second image only if it adds a genuinely distinct state, interaction, crop detail or desktop/window context.
+
+The 2026-09-27 pass removed one near-identical supplied duplicate (`Screenshot_11.png`) and declined nine Help Center overlaps because stronger current/direct references already cover those states.
 
 ## Purpose
 
-Use these images as visual evidence for:
+Use these files as evidence for layout, hierarchy, spacing/density, typography, radii/borders, dark/light relationships, task/list states, Focus/Floating composition, Preferences, Reports, Search, archive states and captured hover/expanded/destructive states.
 
-- layout and information hierarchy
-- spacing, density, typography, radii and borders
-- dark/light theme relationships
-- task/list states
-- Focus Panel and Floating Timer composition
-- Preferences, Reports, Search and archive surfaces
-- hover/focus/expanded/destructive states where captured
-
-They are **reference material, not implementation assets**. Do not ship, import, trace, or reuse Blitzit logos, branding, proprietary artwork, screenshots, or other source assets inside Narro.
+They are **reference material, not implementation assets**. Do not ship, import, trace, or reuse Blitzit logos, branding, artwork or screenshots in Narro.
 
 ## Interpretation rule
 
-Do not treat a screenshot as complete product truth.
+A screenshot proves only the visible state/version captured. It does not prove hidden behavior, exact CSS values, animation timing/easing, persistence semantics, or that a visible source-product limitation should be copied.
 
-A screenshot proves what was visible in one captured state/version. It does not necessarily prove:
+Use this corpus together with:
+- `docs/UI_UX_SPEC.md`
+- `docs/BEHAVIOR_MATRIX.md`
+- `docs/RESEARCH_EVIDENCE.md`
+- `docs/SOURCE_AUDIT.md`
+- `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`
+- `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`
 
-- what happens after clicking a control
-- whether the behavior is current or obsolete
-- whether a visible limitation is intentional
-- exact CSS values, fonts, colors, animation timings, or native-window mechanics
-- that Narro should reproduce a source-product bug or usability problem
+Direct recordings remain stronger for motion/transient behavior when the sequence is visible. Current direct screenshots remain stronger than older/help imagery for current static UI when the state materially overlaps.
 
-Use screenshots together with `docs/PRODUCT_SPEC.md`, `docs/UI_UX_SPEC.md`, `docs/BEHAVIOR_MATRIX.md`, `docs/RESEARCH_EVIDENCE.md`, `docs/SOURCE_AUDIT.md`, and original references when necessary.
+## Source archive
 
-If a screenshot conflicts with newer evidence or a demonstrably better implementation can preserve the same product intent, investigate and document the decision rather than copying blindly.
-
-## Suggested filenames
-
-Existing filenames may be kept as-is. For new captures, descriptive names make later inspection easier, for example:
-
-```text
-home-dark-default.png
-home-light-default.png
-home-list-card-hover.png
-list-board-default.png
-list-board-task-hover.png
-list-board-inline-create.png
-list-board-scheduled-overdue.png
-search-command-palette.png
-preferences-general.png
-preferences-focus-alerts.png
-reports-overview.png
-reports-date-picker.png
-reports-sessions.png
-focus-panel-default.png
-focus-panel-task-hover.png
-focus-panel-notes.png
-focus-panel-paused.png
-floating-collapsed.png
-floating-expanded.png
-time-up.png
-pomodoro-break.png
-shortcuts-windows.png
-```
-
-If multiple versions of the source app are captured, include a version/date suffix when known, e.g. `focus-panel-default-v2.6.69.png`.
-
-## Subfolders are optional
-
-Do not reorganize uploads merely for neatness. If the screenshot set becomes large, optional grouping can be used:
-
-```text
-home/
-board/
-focus/
-floating/
-preferences/
-reports/
-archives/
-interaction-states/
-older-versions/
-```
-
-A flat folder is also acceptable if filenames are descriptive.
-
-## For Codex / implementation agents
-
-Open the exact relevant screenshot when visual fidelity matters instead of relying only on prose measurements. Compare proportions and relationships first; screenshot pixel dimensions are not hard CSS dimensions because Windows scaling and capture resolution may differ.
-
-When implementing a screenshot-backed surface:
-
-1. identify which screenshot/version is the best visual reference;
-2. inspect the corresponding behavior/spec evidence;
-3. reproduce the recognizable hierarchy and interaction character;
-4. improve obvious accessibility/reliability/friction issues where consistent with project goals;
-5. create Narro-owned visual-regression baselines rather than using these original screenshots as shipping assets.
-
-## Existing researched archive
-
-The previously supplied research archive was:
-
+The supplied research archive was:
 - `blitzit Ss.rar`
 - SHA-256: `18ab981eebbdf8327976c09bf732f62857d501dae08e6057dfc743c7378b5fab`
-- 30 PNG screenshots were reviewed during the research pass.
+- 30 PNG source captures reviewed originally.
 
-If those exact images are uploaded here later, `docs/RESEARCH_EVIDENCE.md` already contains their screenshot-by-screenshot interpretation.
+The canonical working set retains 29 of those source files under descriptive names; the near-identical Reports duplicate was removed from the working tree but remains recoverable from Git history.

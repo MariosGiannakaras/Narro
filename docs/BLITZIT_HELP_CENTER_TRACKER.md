@@ -15,6 +15,9 @@ Date: 2026-09-27
   - video-hidden delete confirmation vs Help Center explicit confirmation (resolved in favor of confirmation because evidence is complementary, not contradictory).
 - New source-confirmed behavior promoted: **1**
   - permanent task delete uses an explicit Confirm step.
+- Canonical local reference images retained from Help Center: **17**
+- Help Center overlaps rejected in favor of stronger existing current/direct evidence: **9**
+- Canonical screenshot corpus after dedupe: **46 image files**
 - Application source changes in this slice: **0**
 
 ## Deep-review set

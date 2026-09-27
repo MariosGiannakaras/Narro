@@ -103,6 +103,8 @@ Analysis must be preserved in:
 
 Use `docs/INTERACTION_CAPTURE_GUIDE.md` for the observation/motion methodology. Direct recordings are primary evidence for interaction sequences, animations, transition ordering, transient states, and visible window behavior; narration/transcript statements remain a distinct evidence class unless independently visible/corroborated.
 
+- `reference/original-blitzit-screenshots/CANONICAL_INDEX.md` — canonical local screenshot/image inventory, descriptive filenames, provenance classes, dimensions, and dedupe decisions.
+
 ## Supplied screenshot source
 
 Repository location reserved for direct source screenshots:
