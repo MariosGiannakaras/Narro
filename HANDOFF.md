@@ -23,12 +23,13 @@ Tracking-only commits after this SHA do not replace the validated application so
 1. **M5 parity/reliability reconciliation (A1–A9, A19): COMPLETE.**
 2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
 3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
-4. The uploaded Blitzit corpus is now fully inventoried and initially reconciled: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 analyzed, 19/19 reconciled, 19/19 dispositioned**. Details: `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
-5. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation; video evidence does not convert them into PASS.
-6. **Post-validation VE-F003 correction is now the next source slice:** current direct VE-005 evidence confirms task-menu `Change List` + `Duplicate`, while current Narro production lacks those paths. Implement narrowly without reopening unrelated M5 work.
-7. **M8 remains in progress: 5/8 top-level items validated.** After VE-F003 validates/merges, resume the documented Preferences sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
-8. Then close Windows-locale date/time presentation and any remaining M8 acceptance gaps before M9.
-9. After M10, run the required Final Comprehensive Review Stage and re-reference the complete uploaded corpus as part of end-state validation.
+4. The uploaded Blitzit corpus remains fully inventoried and functionally reconciled: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 product-behavior analyses/reconciliations/dispositions complete**. Details: `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
+5. **User-requested second-pass UI/UX video forensics is now ACTIVE and takes temporary execution priority over new source work.** This is a distinct pass for layout, exact copy, inputs, hover/focus states, animations, micro-animations, micro-interactions and overall interaction grammar. Current deep-pass state: **12/19 complete**, tracked in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`.
+6. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation; video evidence does not convert them into PASS.
+7. After the UI/UX forensic pass reaches 19/19 and the findings are reconciled into `docs/UI_UX_SPEC.md`, **Post-validation VE-F003 remains the next source correction:** current direct VE-005 evidence confirms task-menu `Change List` + `Duplicate`, while current Narro production lacks those paths. Implement narrowly without reopening unrelated M5 work.
+8. **M8 remains in progress: 5/8 top-level items validated.** After VE-F003 validates/merges, resume the documented Preferences sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
+9. Then close Windows-locale date/time presentation and any remaining M8 acceptance gaps before M9.
+10. After M10, run the required Final Comprehensive Review Stage and re-reference the complete uploaded corpus as part of end-state validation.
 
 Roadmap completion remains **6/10 milestones**. M8 is not complete yet.
 
@@ -36,7 +37,7 @@ For each remaining milestone M7–M10:
 - require sufficient error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone;
 - include the milestone's total validated source diff as `+A/-B` lines in its completion report, measured from validated starting source SHA to final validated source SHA.
 
-Video corpus status: **initial ingestion COMPLETE** — 38/38 raw files inventoried; 19/19 paired, analyzed, Narro-reconciled and dispositioned. Evidence PR #172 carries the durable reconciliation. The post-M10 final comprehensive review remains a separate required end-state gate.
+Video corpus status: **initial product-behavior ingestion COMPLETE** — 38/38 raw files inventoried; 19/19 paired, analyzed, Narro-reconciled and dispositioned. Evidence PR #172 carries that durable reconciliation. A separate user-requested **UI/UX forensic second pass is OPEN at 12/19**; do not conflate these counters. The post-M10 final comprehensive review remains a separate required end-state gate.
 
 ## M6 RECONCILIATION — COMPLETED CAPABILITIES
 
@@ -98,18 +99,28 @@ Do not mark M7 complete until these required checks close, but do not block inde
 
 ## EXACT NEXT ACTION
 
-1. If evidence PR #172 is still open, validate its exact current head and merge it with an expected-head guard. It is evidence/tracking only and does not replace validated application source baseline `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
-2. From latest main, implement the narrow VE-F003 task-menu correction:
-   - expose `Change List` through one persistence-first same-identity move to a chosen active list;
-   - expose `Duplicate` through the existing durable duplicate semantics, producing one independent identity with no aliased history/session/recurrence state;
-   - preserve live-task safety, All Lists projection semantics, stale guards, schedule/session integrity, explicit error/recovery feedback, and reserved action geometry;
-   - add focused persistence/command/UI regression coverage and run authoritative Windows CI.
-3. After VE-F003 validates/merges, resume the coherent M8 Preferences source slice over the existing v3 `PreferencesPayload` / atomic `mutate_preferences` boundary. Incorporate:
-   - VE-F001: supported terminal EST suffix parses into EST and is removed from the saved visible title;
-   - VE-F002: with success screen enabled, completion enters success UI before any next-task start; `Next Task` is explicit;
-   - VE-F008: conditional Pomodoro/alert/celebration children appear in-place without disruptive scroll repositioning and hidden task times remain available on hover.
-4. Do **not** invent the post-click domain semantics of the success-screen `Take a Break` control or change the success-screen-disabled Done progression without stronger evidence/explicit decision.
-5. Then close Windows-locale date/time presentation and remaining M8 acceptance gaps before M9.
+1. Continue the user-requested Blitzit UI/UX video forensic second pass from `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`. Current checkpoint is **12/19 deep-reviewed**.
+2. Review the remaining seven pairs in this recorded order:
+   - VE-006 destructive confirmation + archive/restore/empty states;
+   - VE-008 recurring parent/child visual distinctions;
+   - VE-017 Replace Existing / Delete Existing conditional recurrence controls;
+   - VE-019 historical light-theme transition + Floating-subtask interactions;
+   - VE-018 unique drag/reorder/focus micro-interactions;
+   - VE-004 onboarding — extract only unique local-product UI, excluding auth/account/trial;
+   - VE-001 explainer — verify whether any unique UI remains after detailed tutorials.
+3. For each pair, inspect the real MP4, not only SRT. Use broad timeline coverage plus dense temporal sampling around every interaction/transition that could affect implementation. Classify timing as measured, approximate, cut/unmeasurable or Narro design choice rather than guessing.
+4. When the forensic counter reaches 19/19:
+   - reconcile `docs/UI_UX_SPEC.md` so observed Blitzit facts and measured motion are explicitly separated from Narro timing/design targets;
+   - route any genuinely new implementation discrepancies to the correct milestone;
+   - preserve intentional Narro reliability/accessibility improvements;
+   - create a final immutable work-log and update this handoff.
+5. Only after that evidence reconciliation, resume the narrow VE-F003 source correction, followed by the M8 Preferences work already recorded below.
+6. Do **not** merge or reinterpret open source PR #170 merely because this evidence work exists. Re-read its exact head/base/CI state before any later source continuation.
+
+After the forensic pass, the existing source ordering remains:
+- VE-F003 task-menu `Change List` + `Duplicate`;
+- then M8 Preferences/runtime completion using VE-F001 / VE-F002 / VE-F008;
+- then Windows-locale date/time presentation and remaining M8 gaps.
 
 Sound assets/previews remain local-only. If no validated local sound catalog exists, expose the preference/state boundary and explicit unavailable feedback rather than inventing remote assets. Deferred M7 physical checks remain OPEN and need not be rerun unless a source change directly affects them.
 
