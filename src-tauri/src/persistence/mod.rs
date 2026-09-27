@@ -10,6 +10,7 @@ pub mod preferences;
 pub mod recurrence;
 pub mod recurrence_replace;
 pub mod reminders;
+pub mod schedule_reminder_effects;
 pub mod sessions;
 pub mod sleep_accounting;
 pub mod subtask_board;
@@ -81,6 +82,9 @@ fn migrations() -> Migrations<'static> {
         M::up(include_str!(
             "../../migrations/0007_floating_timer_placement.sql"
         )),
+        M::up(include_str!(
+            "../../migrations/0008_schedule_preference_reminder_effects.sql"
+        )),
     ])
 }
 
@@ -149,6 +153,7 @@ mod tests {
             "pomodoro_boundary_effects",
             "task_timer_preferences",
             "floating_timer_placement",
+            "schedule_preference_reminder_effects",
         ] {
             assert!(
                 table_exists(&conn, table),
@@ -300,6 +305,7 @@ mod tests {
             "reminders",
             "sessions",
             "task_timer_preferences",
+            "schedule_preference_reminder_effects",
         ] {
             let count: i64 = conn
                 .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |row| {
