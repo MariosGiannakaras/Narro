@@ -147,7 +147,6 @@ export type MoveListBoardTaskRequest = {
 export type ChangeListBoardTaskRequest = {
   taskId: string;
   expectedListId: string;
-  sourceLane: PlanningLaneToken;
   targetListId: string;
 };
 
