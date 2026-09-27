@@ -3,12 +3,12 @@ use crate::domain::model::{PlanningLane, ScheduleKind};
 use crate::domain::tasks::{TaskDestination, TaskRecord};
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
-use crate::persistence::task_identity::{reorder_active_bucket, TaskIdentityError};
+use crate::persistence::task_identity::{duplicate_task, reorder_active_bucket, TaskIdentityError};
 use crate::persistence::tasks::{
     active_tasks_in_bucket, complete_task, get_task, move_task, permanently_delete_task_confirmed,
     TaskStoreError,
 };
-use rusqlite::Connection;
+use rusqlite::{Connection, OptionalExtension};
 use std::fmt::{Display, Formatter};
 use std::path::PathBuf;
 use tauri::Manager;
@@ -206,6 +206,81 @@ fn validate_expected_list(
     Ok(())
 }
 
+fn ensure_no_open_session(
+    conn: &Connection,
+    task_id: TaskId,
+) -> Result<(), BoardTaskMutationError> {
+    let has_open_session = conn
+        .query_row(
+            "SELECT 1
+             FROM sessions
+             WHERE task_id = ?1
+               AND ended_at IS NULL
+             LIMIT 1",
+            [task_id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?
+        .is_some();
+    if has_open_session {
+        return Err(TaskStoreError::ActiveSession(task_id).into());
+    }
+    Ok(())
+}
+
+fn change_board_task_list(
+    conn: &mut Connection,
+    id: TaskId,
+    expected_list_id: ListId,
+    expected_source_lane: PlanningLane,
+    target_list_id: ListId,
+    now: &str,
+) -> Result<TaskRecord, BoardTaskMutationError> {
+    let current = get_task(conn, id)?;
+    if current.list_id != expected_list_id {
+        return Err(BoardTaskMutationError::ExpectedListMismatch {
+            expected: expected_list_id,
+            actual: current.list_id,
+        });
+    }
+    if current.manual_lane != expected_source_lane {
+        return Err(BoardTaskMutationError::ExpectedLaneMismatch {
+            expected: expected_source_lane,
+            actual: current.manual_lane,
+        });
+    }
+    if current.completed_at.is_some() {
+        return Err(TaskStoreError::CompletedTask(id).into());
+    }
+    if current.archived_at.is_some() {
+        return Err(TaskStoreError::ArchivedTask(id).into());
+    }
+    ensure_no_open_session(conn, id)?;
+
+    move_task(
+        conn,
+        id,
+        TaskDestination {
+            list_id: target_list_id,
+            manual_lane: current.manual_lane,
+        },
+        now,
+    )
+    .map_err(BoardTaskMutationError::from)
+}
+
+fn duplicate_board_task(
+    conn: &mut Connection,
+    id: TaskId,
+    expected_list_id: ListId,
+    now: &str,
+) -> Result<TaskRecord, BoardTaskMutationError> {
+    let current = get_task(conn, id)?;
+    validate_expected_list(&current, expected_list_id)?;
+    ensure_no_open_session(conn, id)?;
+    duplicate_task(conn, id, now).map_err(BoardTaskMutationError::from)
+}
+
 fn complete_board_task(
     conn: &mut Connection,
     id: TaskId,
@@ -353,6 +428,78 @@ pub fn move_list_board_task(
 }
 
 #[tauri::command(rename_all = "camelCase")]
+pub fn change_list_board_task(
+    app_handle: tauri::AppHandle,
+    task_id: String,
+    expected_list_id: String,
+    source_lane: String,
+    target_list_id: String,
+) -> CommandResult<()> {
+    let task_id = parse_id("taskId", &task_id)?;
+    let expected_list_id = parse_list_id("expectedListId", &expected_list_id)?;
+    let source_lane = parse_lane("sourceLane", &source_lane)?;
+    let target_list_id = parse_list_id("targetListId", &target_list_id)?;
+    let mut connection = app_database(&app_handle)?;
+    change_board_task_list(
+        &mut connection,
+        task_id,
+        expected_list_id,
+        source_lane,
+        target_list_id,
+        &chrono::Utc::now().to_rfc3339(),
+    )
+    .map(|_| ())
+    .map_err(|error| match error {
+        BoardTaskMutationError::ExpectedListMismatch { .. }
+        | BoardTaskMutationError::ExpectedLaneMismatch { .. } => {
+            CommandError::new("TASK_CHANGE_LIST_STALE", error.to_string())
+        }
+        BoardTaskMutationError::Task(TaskStoreError::ActiveSession(_)) => {
+            CommandError::new("TASK_CHANGE_LIST_LIVE", error.to_string())
+        }
+        BoardTaskMutationError::Task(TaskStoreError::CompletedTask(_))
+        | BoardTaskMutationError::Task(TaskStoreError::ArchivedTask(_))
+        | BoardTaskMutationError::Task(TaskStoreError::ListArchived(_))
+        | BoardTaskMutationError::Task(TaskStoreError::ListNotFound(_)) => {
+            CommandError::new("TASK_CHANGE_LIST_NOT_ALLOWED", error.to_string())
+        }
+        _ => CommandError::new("TASK_CHANGE_LIST_FAILED", error.to_string()),
+    })
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn duplicate_list_board_task(
+    app_handle: tauri::AppHandle,
+    task_id: String,
+    expected_list_id: String,
+) -> CommandResult<String> {
+    let task_id = parse_id("taskId", &task_id)?;
+    let expected_list_id = parse_list_id("expectedListId", &expected_list_id)?;
+    let mut connection = app_database(&app_handle)?;
+    duplicate_board_task(
+        &mut connection,
+        task_id,
+        expected_list_id,
+        &chrono::Utc::now().to_rfc3339(),
+    )
+    .map(|task| task.id.to_string())
+    .map_err(|error| match error {
+        BoardTaskMutationError::ExpectedListMismatch { .. } => {
+            CommandError::new("TASK_DUPLICATE_STALE", error.to_string())
+        }
+        BoardTaskMutationError::Task(TaskStoreError::ActiveSession(_)) => {
+            CommandError::new("TASK_DUPLICATE_LIVE", error.to_string())
+        }
+        BoardTaskMutationError::Identity(TaskIdentityError::SourceArchived(_))
+        | BoardTaskMutationError::Identity(TaskIdentityError::ListArchived(_))
+        | BoardTaskMutationError::Identity(TaskIdentityError::ListNotFound(_)) => {
+            CommandError::new("TASK_DUPLICATE_NOT_ALLOWED", error.to_string())
+        }
+        _ => CommandError::new("TASK_DUPLICATE_FAILED", error.to_string()),
+    })
+}
+
+#[tauri::command(rename_all = "camelCase")]
 pub fn complete_list_board_task(
     app_handle: tauri::AppHandle,
     task_id: String,
@@ -451,6 +598,159 @@ mod tests {
 
     fn ids(tasks: &[TaskRecord]) -> Vec<TaskId> {
         tasks.iter().map(|task| task.id).collect()
+    }
+
+    #[test]
+    fn change_list_preserves_identity_schedule_recurrence_and_session_history() {
+        let mut conn = setup();
+        let source_list = list(&mut conn);
+        let target_list = list(&mut conn);
+        let moving = task(&mut conn, source_list, "Move me", PlanningLane::Today);
+        let stay = task(&mut conn, source_list, "Stay", PlanningLane::Today);
+        let target = task(&mut conn, target_list, "Target", PlanningLane::Today);
+        conn.execute(
+            "UPDATE tasks
+             SET schedule_kind = 'date_only',
+                 scheduled_local_date = '2026-09-10',
+                 recurrence_parent_task_id = ?2
+             WHERE id = ?1",
+            rusqlite::params![moving.id.to_string(), stay.id.to_string()],
+        )
+        .expect("configure move metadata");
+        let session_id = crate::domain::ids::SessionId::generate();
+        conn.execute(
+            "INSERT INTO sessions (
+                id, task_id, kind, started_at, ended_at, duration_seconds, source, created_at, updated_at
+             ) VALUES (?1, ?2, 'work', ?3, ?3, 90, 'focus', ?3, ?3)",
+            rusqlite::params![session_id.to_string(), moving.id.to_string(), T0],
+        )
+        .expect("insert closed source session");
+
+        let moved = change_board_task_list(
+            &mut conn,
+            moving.id,
+            source_list,
+            PlanningLane::Today,
+            target_list,
+            T1,
+        )
+        .expect("change task list");
+
+        assert_eq!(moved.id, moving.id);
+        assert_eq!(moved.list_id, target_list);
+        assert_eq!(moved.manual_lane, PlanningLane::Today);
+        assert_eq!(moved.schedule_kind, ScheduleKind::DateOnly);
+        assert_eq!(moved.scheduled_local_date.as_deref(), Some("2026-09-10"));
+        assert_eq!(moved.recurrence_parent_task_id, Some(stay.id));
+        assert_eq!(
+            ids(&active_tasks_in_bucket(&conn, source_list, PlanningLane::Today)
+                .expect("load compacted source")),
+            vec![stay.id]
+        );
+        assert_eq!(
+            ids(&active_tasks_in_bucket(&conn, target_list, PlanningLane::Today)
+                .expect("load appended target")),
+            vec![target.id, moving.id]
+        );
+        let history_count: i64 = conn
+            .query_row(
+                "SELECT COUNT(*) FROM sessions WHERE task_id = ?1",
+                [moving.id.to_string()],
+                |row| row.get(0),
+            )
+            .expect("count preserved session history");
+        assert_eq!(history_count, 1);
+        let total_count: i64 = conn
+            .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
+            .expect("count tasks after list move");
+        assert_eq!(total_count, 3);
+    }
+
+    #[test]
+    fn change_list_and_duplicate_reject_stale_or_live_source_without_writing() {
+        let mut conn = setup();
+        let source_list = list(&mut conn);
+        let target_list = list(&mut conn);
+        let source = task(&mut conn, source_list, "Source", PlanningLane::Today);
+        let task_count_before: i64 = conn
+            .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
+            .expect("count initial tasks");
+
+        let stale = change_board_task_list(
+            &mut conn,
+            source.id,
+            target_list,
+            PlanningLane::Today,
+            target_list,
+            T1,
+        );
+        assert!(matches!(
+            stale,
+            Err(BoardTaskMutationError::ExpectedListMismatch { .. })
+        ));
+        assert_eq!(get_task(&conn, source.id).expect("reload stale source").list_id, source_list);
+
+        let open_session = crate::domain::ids::SessionId::generate();
+        conn.execute(
+            "INSERT INTO sessions (
+                id, task_id, kind, started_at, ended_at, duration_seconds, source, created_at, updated_at
+             ) VALUES (?1, ?2, 'work', ?3, NULL, 0, 'focus', ?3, ?3)",
+            rusqlite::params![open_session.to_string(), source.id.to_string(), T0],
+        )
+        .expect("insert live session");
+
+        assert!(matches!(
+            change_board_task_list(
+                &mut conn,
+                source.id,
+                source_list,
+                PlanningLane::Today,
+                target_list,
+                T1,
+            ),
+            Err(BoardTaskMutationError::Task(TaskStoreError::ActiveSession(id))) if id == source.id
+        ));
+        assert!(matches!(
+            duplicate_board_task(&mut conn, source.id, source_list, T1),
+            Err(BoardTaskMutationError::Task(TaskStoreError::ActiveSession(id))) if id == source.id
+        ));
+        assert_eq!(get_task(&conn, source.id).expect("reload live source").list_id, source_list);
+        let task_count_after: i64 = conn
+            .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
+            .expect("count tasks after live rejection");
+        assert_eq!(task_count_after, task_count_before);
+    }
+
+    #[test]
+    fn board_duplicate_creates_exactly_one_independent_identity() {
+        let mut conn = setup();
+        let list_id = list(&mut conn);
+        let source = task(&mut conn, list_id, "Source", PlanningLane::Backlog);
+        conn.execute(
+            "UPDATE tasks
+             SET manual_time_adjustment_seconds = 120,
+                 recurrence_parent_task_id = ?2
+             WHERE id = ?1",
+            rusqlite::params![source.id.to_string(), TaskId::generate().to_string()],
+        )
+        .expect("configure source history marker");
+
+        let duplicate =
+            duplicate_board_task(&mut conn, source.id, list_id, T1).expect("duplicate board task");
+
+        assert_ne!(duplicate.id, source.id);
+        assert_eq!(duplicate.list_id, source.list_id);
+        assert_eq!(duplicate.manual_lane, source.manual_lane);
+        assert_eq!(duplicate.title, source.title);
+        assert_eq!(duplicate.manual_time_adjustment_seconds, 0);
+        assert!(duplicate.completed_at.is_none());
+        assert!(duplicate.archived_at.is_none());
+        assert!(duplicate.recurrence_rule_id.is_none());
+        assert!(duplicate.recurrence_parent_task_id.is_none());
+        let count: i64 = conn
+            .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
+            .expect("count duplicated tasks");
+        assert_eq!(count, 2);
     }
 
     #[test]
