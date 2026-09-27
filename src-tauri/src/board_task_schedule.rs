@@ -8,10 +8,11 @@ use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::lists::get_list;
 use crate::persistence::recurrence::{
-    create_recurrence_rule, delete_recurrence_rule_if_expected, get_recurrence_rule,
-    update_recurrence_rule_if_expected, RecurrenceStoreError,
+    create_recurrence_rule, get_recurrence_rule, update_recurrence_rule_if_expected,
+    RecurrenceStoreError,
 };
 use crate::persistence::recurrence_replace::{
+    recurrence_removal_preview, remove_recurrence_if_expected,
     replace_existing_tasks_if_expected, ReplaceExistingError,
 };
 use crate::persistence::task_schedule_edit::{
@@ -71,6 +72,8 @@ pub struct BoardTaskScheduleEditorSnapshot {
     pub schedule: TaskSchedule,
     pub recurrence_parent_task_id: Option<String>,
     pub recurrence: Option<BoardRecurrenceRule>,
+    pub delete_existing_eligible_count: usize,
+    pub protected_existing_count: usize,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
@@ -119,6 +122,13 @@ impl BoardRecurrenceDraft {
 #[serde(rename_all = "camelCase")]
 pub struct BoardRecurrenceMutationResult {
     pub materialization_warning: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct BoardRecurrenceRemovalResult {
+    pub removed_existing_count: usize,
+    pub preserved_existing_count: usize,
 }
 
 fn app_database(app_handle: &tauri::AppHandle) -> CommandResult<Connection> {
@@ -386,20 +396,29 @@ pub fn get_list_board_task_schedule_editor(
     let list_id = parse_list_id("listId", &list_id)?;
     let connection = app_database(&app_handle)?;
     let task = validate_task_binding(&connection, task_id, list_id)?;
-    let recurrence = match task.recurrence_rule_id {
-        Some(rule_id) => Some(
-            get_recurrence_rule(&connection, rule_id)
-                .map_err(map_recurrence_error)?
-                .into(),
-        ),
-        None => None,
-    };
+    let (recurrence, delete_existing_eligible_count, protected_existing_count) =
+        match task.recurrence_rule_id {
+            Some(rule_id) => {
+                let rule = get_recurrence_rule(&connection, rule_id)
+                    .map_err(map_recurrence_error)?;
+                let preview = recurrence_removal_preview(&connection, rule_id)
+                    .map_err(map_replace_existing_error)?;
+                (
+                    Some(rule.into()),
+                    preview.deletable_child_count,
+                    preview.protected_child_count,
+                )
+            }
+            None => (None, 0, 0),
+        };
     Ok(BoardTaskScheduleEditorSnapshot {
         task_id: task.id.to_string(),
         list_id: task.list_id.to_string(),
         schedule: task_schedule(&task)?,
         recurrence_parent_task_id: task.recurrence_parent_task_id.map(|id| id.to_string()),
         recurrence,
+        delete_existing_eligible_count,
+        protected_existing_count,
     })
 }
 
@@ -537,7 +556,8 @@ pub fn remove_list_board_task_recurrence(
     list_id: String,
     expected_rule_id: String,
     expected_rule_updated_at: String,
-) -> CommandResult<()> {
+    delete_existing_tasks: bool,
+) -> CommandResult<BoardRecurrenceRemovalResult> {
     let task_id = parse_task_id("taskId", &task_id)?;
     let list_id = parse_list_id("listId", &list_id)?;
     let rule_id = parse_rule_id("expectedRuleId", &expected_rule_id)?;
@@ -556,13 +576,19 @@ pub fn remove_list_board_task_recurrence(
             "recurrence rule changed before removal",
         ));
     }
-    delete_recurrence_rule_if_expected(
+
+    remove_recurrence_if_expected(
         &mut connection,
         rule_id,
         &expected_rule_updated_at,
+        delete_existing_tasks,
         &Utc::now().to_rfc3339(),
     )
-    .map_err(map_recurrence_error)
+    .map(|report| BoardRecurrenceRemovalResult {
+        removed_existing_count: report.removed_child_ids.len(),
+        preserved_existing_count: report.detached_protected_child_ids.len(),
+    })
+    .map_err(map_replace_existing_error)
 }
 
 #[cfg(test)]
