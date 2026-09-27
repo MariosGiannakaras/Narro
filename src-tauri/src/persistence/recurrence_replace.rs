@@ -191,12 +191,9 @@ fn parse_child_id(value: String) -> Result<TaskId, ReplaceExistingError> {
     TaskId::parse_str(&value).map_err(|_| ReplaceExistingError::InvalidStoredChildIdentity)
 }
 
-fn has_owned_history(
-    tx: &rusqlite::Transaction<'_>,
-    child_id: TaskId,
-) -> Result<bool, ReplaceExistingError> {
+fn has_owned_history(conn: &Connection, child_id: TaskId) -> Result<bool, ReplaceExistingError> {
     let child_id = child_id.to_string();
-    let exists: i64 = tx.query_row(
+    let exists: i64 = conn.query_row(
         "SELECT EXISTS(
             SELECT 1 FROM subtasks WHERE task_id = ?1
             UNION ALL SELECT 1 FROM task_notes WHERE task_id = ?1
@@ -208,6 +205,239 @@ fn has_owned_history(
         |row| row.get(0),
     )?;
     Ok(exists == 1)
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct RecurrenceRemovalPreview {
+    pub deletable_child_count: usize,
+    pub protected_child_count: usize,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct RecurrenceRemovalReport {
+    pub removed_child_ids: Vec<TaskId>,
+    pub detached_child_ids: Vec<TaskId>,
+}
+
+#[derive(Debug)]
+struct LinkedChildCandidate {
+    id: TaskId,
+    completed_at: Option<String>,
+    archived_at: Option<String>,
+    created_at: String,
+    updated_at: String,
+    manual_adjustment: i64,
+}
+
+fn linked_child_candidates(
+    conn: &Connection,
+    rule_id: RecurrenceRuleId,
+    parent_id: TaskId,
+) -> Result<Vec<LinkedChildCandidate>, ReplaceExistingError> {
+    let mut statement = conn.prepare(
+        "SELECT t.id, t.completed_at, t.archived_at, t.created_at, t.updated_at,
+                t.manual_time_adjustment_seconds
+         FROM recurrence_occurrences ro
+         JOIN tasks t ON t.id = ro.child_task_id
+         WHERE ro.recurrence_rule_id = ?1
+           AND t.recurrence_parent_task_id = ?2
+         ORDER BY ro.occurrence_local_date, COALESCE(ro.occurrence_local_time, ''), t.id",
+    )?;
+    let rows = statement.query_map(params![rule_id.to_string(), parent_id.to_string()], |row| {
+        Ok((
+            row.get::<_, String>(0)?,
+            row.get::<_, Option<String>>(1)?,
+            row.get::<_, Option<String>>(2)?,
+            row.get::<_, String>(3)?,
+            row.get::<_, String>(4)?,
+            row.get::<_, i64>(5)?,
+        ))
+    })?;
+    let raw: Vec<_> = rows.collect::<Result<_, _>>()?;
+    drop(statement);
+
+    raw.into_iter()
+        .map(
+            |(raw_id, completed_at, archived_at, created_at, updated_at, manual_adjustment)| {
+                Ok(LinkedChildCandidate {
+                    id: parse_child_id(raw_id)?,
+                    completed_at,
+                    archived_at,
+                    created_at,
+                    updated_at,
+                    manual_adjustment,
+                })
+            },
+        )
+        .collect()
+}
+
+fn child_is_safely_deletable(
+    conn: &Connection,
+    child: &LinkedChildCandidate,
+) -> Result<bool, ReplaceExistingError> {
+    if child.completed_at.is_some() || child.archived_at.is_some() {
+        return Ok(false);
+    }
+    Ok(child.created_at == child.updated_at
+        && child.manual_adjustment == 0
+        && !has_owned_history(conn, child.id)?)
+}
+
+pub fn recurrence_removal_preview(
+    conn: &Connection,
+    rule_id: RecurrenceRuleId,
+) -> Result<RecurrenceRemovalPreview, ReplaceExistingError> {
+    let current = get_recurrence_rule(conn, rule_id)?;
+    let parent = get_task(conn, current.parent_task_id)?;
+    if parent.recurrence_rule_id != Some(rule_id) {
+        return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
+    }
+    let candidates = linked_child_candidates(conn, rule_id, parent.id)?;
+    let mut deletable_child_count = 0;
+    let mut protected_child_count = 0;
+    for child in candidates {
+        if child_is_safely_deletable(conn, &child)? {
+            deletable_child_count += 1;
+        } else {
+            protected_child_count += 1;
+        }
+    }
+
+    let linked_child_count: usize = conn
+        .query_row(
+            "SELECT COUNT(*) FROM tasks WHERE recurrence_parent_task_id = ?1",
+            [parent.id.to_string()],
+            |row| row.get::<_, i64>(0),
+        )?
+        .try_into()
+        .map_err(|_| ReplaceExistingError::InvalidStoredChildIdentity)?;
+    let classified_child_count = deletable_child_count + protected_child_count;
+    protected_child_count += linked_child_count.saturating_sub(classified_child_count);
+
+    Ok(RecurrenceRemovalPreview {
+        deletable_child_count,
+        protected_child_count,
+    })
+}
+
+pub fn remove_recurrence_if_expected(
+    conn: &mut Connection,
+    rule_id: RecurrenceRuleId,
+    expected_updated_at: &str,
+    delete_existing_tasks: bool,
+    now: &str,
+) -> Result<RecurrenceRemovalReport, ReplaceExistingError> {
+    DateTime::parse_from_rfc3339(now).map_err(|_| ReplaceExistingError::InvalidTimestamp)?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    let current = get_recurrence_rule(&tx, rule_id)?;
+    if current.updated_at != expected_updated_at {
+        return Err(ReplaceExistingError::Store(
+            RecurrenceStoreError::ExpectedVersionMismatch(rule_id),
+        ));
+    }
+
+    let parent = get_task(&tx, current.parent_task_id)?;
+    if parent.archived_at.is_some() {
+        return Err(ReplaceExistingError::ParentArchived(parent.id));
+    }
+    let list = get_list(&tx, parent.list_id)?;
+    if list.archived_at.is_some() {
+        return Err(ReplaceExistingError::ParentListArchived);
+    }
+    if parent.recurrence_rule_id != Some(rule_id) {
+        return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
+    }
+
+    let candidates = linked_child_candidates(&tx, rule_id, parent.id)?;
+    let mut removed_child_ids = Vec::new();
+    let mut detached_child_ids = Vec::new();
+
+    for child in candidates {
+        if delete_existing_tasks && child_is_safely_deletable(&tx, &child)? {
+            let deleted = tx.execute(
+                "DELETE FROM tasks
+                 WHERE id = ?1
+                   AND recurrence_parent_task_id = ?2
+                   AND completed_at IS NULL
+                   AND archived_at IS NULL",
+                params![child.id.to_string(), parent.id.to_string()],
+            )?;
+            if deleted != 1 {
+                return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
+            }
+            removed_child_ids.push(child.id);
+            continue;
+        }
+
+        let detached = tx.execute(
+            "UPDATE tasks
+             SET recurrence_parent_task_id = NULL, updated_at = ?1
+             WHERE id = ?2
+               AND recurrence_parent_task_id = ?3",
+            params![now, child.id.to_string(), parent.id.to_string()],
+        )?;
+        if detached != 1 {
+            return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
+        }
+        detached_child_ids.push(child.id);
+    }
+
+    // Fail safe for legacy/corrupt linkage: if a task still points at the recurrence
+    // parent but lacks a recurrence_occurrences row, never leave that relationship
+    // dangling after the rule is deleted. Such tasks are preserved and detached.
+    let mut remaining_statement = tx.prepare(
+        "SELECT id
+         FROM tasks
+         WHERE recurrence_parent_task_id = ?1
+         ORDER BY id",
+    )?;
+    let remaining_rows =
+        remaining_statement.query_map([parent.id.to_string()], |row| row.get::<_, String>(0))?;
+    let remaining_raw_ids: Vec<_> = remaining_rows.collect::<Result<_, _>>()?;
+    drop(remaining_statement);
+
+    for raw_id in remaining_raw_ids {
+        let child_id = parse_child_id(raw_id)?;
+        let detached = tx.execute(
+            "UPDATE tasks
+             SET recurrence_parent_task_id = NULL, updated_at = ?1
+             WHERE id = ?2
+               AND recurrence_parent_task_id = ?3",
+            params![now, child_id.to_string(), parent.id.to_string()],
+        )?;
+        if detached != 1 {
+            return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
+        }
+        if !detached_child_ids.contains(&child_id) {
+            detached_child_ids.push(child_id);
+        }
+    }
+
+    let deleted_rule = tx.execute(
+        "DELETE FROM recurrence_rules WHERE id = ?1",
+        [rule_id.to_string()],
+    )?;
+    if deleted_rule != 1 {
+        return Err(ReplaceExistingError::Store(RecurrenceStoreError::NotFound(
+            rule_id,
+        )));
+    }
+    tx.execute(
+        "UPDATE tasks SET updated_at = ?1 WHERE id = ?2",
+        params![now, parent.id.to_string()],
+    )?;
+
+    let parent_after = get_task(&tx, parent.id)?;
+    if parent_after.recurrence_rule_id.is_some() {
+        return Err(ReplaceExistingError::ParentRuleLinkMismatch(parent.id));
+    }
+
+    tx.commit()?;
+    Ok(RecurrenceRemovalReport {
+        removed_child_ids,
+        detached_child_ids,
+    })
 }
 
 fn replace_existing_tasks_inner(

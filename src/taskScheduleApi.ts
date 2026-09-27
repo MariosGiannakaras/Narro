@@ -39,6 +39,8 @@ export type TaskScheduleEditorSnapshot = {
   schedule: TaskSchedule;
   recurrenceParentTaskId: string | null;
   recurrence: BoardRecurrenceRule | null;
+  deleteExistingEligibleCount: number;
+  protectedExistingCount: number;
 };
 
 export type RecurrenceDraft = {
@@ -54,6 +56,11 @@ export type RecurrenceDraft = {
 
 export type RecurrenceMutationResult = {
   materializationWarning: string | null;
+};
+
+export type RecurrenceRemovalResult = {
+  removedExistingCount: number;
+  preservedExistingCount: number;
 };
 
 export function getTaskScheduleEditor(taskId: string, listId: string): Promise<TaskScheduleEditorSnapshot> {
@@ -91,6 +98,7 @@ export function removeTaskRecurrence(request: {
   listId: string;
   expectedRuleId: string;
   expectedRuleUpdatedAt: string;
-}): Promise<void> {
-  return invoke<void>("remove_list_board_task_recurrence", request);
+  deleteExistingTasks: boolean;
+}): Promise<RecurrenceRemovalResult> {
+  return invoke<RecurrenceRemovalResult>("remove_list_board_task_recurrence", request);
 }

@@ -4,7 +4,10 @@ use narro_lib::domain::recurrence::{NewRecurrenceRuleInput, UpdateRecurrenceRule
 use narro_lib::domain::tasks::NewTaskInput;
 use narro_lib::persistence::lists::create_list;
 use narro_lib::persistence::recurrence::{create_recurrence_rule, get_recurrence_rule};
-use narro_lib::persistence::recurrence_replace::{replace_existing_tasks, ReplaceExistingError};
+use narro_lib::persistence::recurrence_replace::{
+    recurrence_removal_preview, remove_recurrence_if_expected, replace_existing_tasks,
+    ReplaceExistingError,
+};
 use narro_lib::persistence::run_migrations;
 use narro_lib::persistence::tasks::{complete_task, create_task, get_task};
 use narro_lib::recurrence::materialize_recurrence_week;
@@ -334,4 +337,173 @@ fn replace_requires_explicit_replace_flag_before_any_write() {
     for child_id in original.created_child_ids {
         assert!(get_task(&conn, child_id).is_ok());
     }
+}
+
+#[test]
+fn no_repeat_without_delete_detaches_all_generated_children_and_keeps_tasks() {
+    let (mut conn, parent_id, rule_id) = fixture();
+    let materialized = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
+        .expect("materialize generated children");
+    let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
+
+    let report = remove_recurrence_if_expected(&mut conn, rule_id, &current.updated_at, false, T2)
+        .expect("remove recurrence without deleting children");
+
+    assert!(report.removed_child_ids.is_empty());
+    assert_eq!(report.detached_child_ids, materialized.created_child_ids);
+    assert!(get_recurrence_rule(&conn, rule_id).is_err());
+    assert!(get_task(&conn, parent_id)
+        .expect("parent survives")
+        .recurrence_rule_id
+        .is_none());
+    for child_id in materialized.created_child_ids {
+        let child = get_task(&conn, child_id).expect("detached child survives");
+        assert!(child.recurrence_parent_task_id.is_none());
+    }
+}
+
+#[test]
+fn no_repeat_delete_removes_only_pristine_generated_children_and_preserves_user_work() {
+    let (mut conn, parent_id, rule_id) = fixture();
+    let materialized = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
+        .expect("materialize generated children");
+    let preserved_id = materialized.created_child_ids[0];
+    let deleted_id = materialized.created_child_ids[1];
+
+    conn.execute(
+        "UPDATE tasks SET title = 'Keep my customized task', updated_at = ?1 WHERE id = ?2",
+        params![T2, preserved_id.to_string()],
+    )
+    .expect("customize generated child");
+
+    let preview = recurrence_removal_preview(&conn, rule_id).expect("preview no-repeat deletion");
+    assert_eq!(preview.deletable_child_count, 1);
+    assert_eq!(preview.protected_child_count, 1);
+
+    let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
+    let report = remove_recurrence_if_expected(&mut conn, rule_id, &current.updated_at, true, T2)
+        .expect("remove recurrence and safely delete untouched child");
+
+    assert_eq!(report.removed_child_ids, vec![deleted_id]);
+    assert_eq!(report.detached_child_ids, vec![preserved_id]);
+    assert!(get_task(&conn, deleted_id).is_err());
+
+    let preserved = get_task(&conn, preserved_id).expect("customized child survives");
+    assert_eq!(preserved.title, "Keep my customized task");
+    assert!(preserved.recurrence_parent_task_id.is_none());
+    assert!(get_task(&conn, parent_id)
+        .expect("parent survives")
+        .recurrence_rule_id
+        .is_none());
+}
+
+#[test]
+fn no_repeat_delete_preserves_history_bearing_completed_and_archived_children() {
+    let (mut conn, _parent_id, rule_id) = fixture();
+    let materialized = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
+        .expect("materialize generated children");
+    let history_id = materialized.created_child_ids[0];
+    let archived_id = materialized.created_child_ids[1];
+
+    conn.execute(
+        "INSERT INTO sessions (
+            id, task_id, kind, started_at, ended_at, duration_seconds, source, created_at, updated_at
+         ) VALUES (?1, ?2, 'work', ?3, ?3, 120, 'manual', ?3, ?3)",
+        params![uuid::Uuid::new_v4().to_string(), history_id.to_string(), T1],
+    )
+    .expect("add child history");
+    conn.execute(
+        "UPDATE tasks SET archived_at = ?1, updated_at = ?1 WHERE id = ?2",
+        params![T2, archived_id.to_string()],
+    )
+    .expect("archive child");
+
+    let preview = recurrence_removal_preview(&conn, rule_id).expect("preview protected children");
+    assert_eq!(preview.deletable_child_count, 0);
+    assert_eq!(preview.protected_child_count, 2);
+
+    let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
+    let report = remove_recurrence_if_expected(&mut conn, rule_id, &current.updated_at, true, T2)
+        .expect("remove recurrence while preserving protected children");
+
+    assert!(report.removed_child_ids.is_empty());
+    assert_eq!(report.detached_child_ids, vec![history_id, archived_id]);
+    for child_id in [history_id, archived_id] {
+        let child = get_task(&conn, child_id).expect("protected child survives");
+        assert!(child.recurrence_parent_task_id.is_none());
+    }
+    let sessions: i64 = conn
+        .query_row(
+            "SELECT COUNT(*) FROM sessions WHERE task_id = ?1",
+            [history_id.to_string()],
+            |row| row.get(0),
+        )
+        .expect("history survives");
+    assert_eq!(sessions, 1);
+}
+
+#[test]
+fn no_repeat_delete_stale_rule_version_rejects_before_child_mutation() {
+    let (mut conn, parent_id, rule_id) = fixture();
+    let materialized = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
+        .expect("materialize generated children");
+
+    let error = remove_recurrence_if_expected(&mut conn, rule_id, "2026-09-07T00:00:00Z", true, T2)
+        .expect_err("stale no-repeat removal must fail before writes");
+    assert!(matches!(
+        error,
+        ReplaceExistingError::Store(
+            narro_lib::persistence::recurrence::RecurrenceStoreError::ExpectedVersionMismatch(id)
+        ) if id == rule_id
+    ));
+    assert!(get_recurrence_rule(&conn, rule_id).is_ok());
+    assert_eq!(
+        get_task(&conn, parent_id)
+            .expect("parent still linked")
+            .recurrence_rule_id,
+        Some(rule_id)
+    );
+    for child_id in materialized.created_child_ids {
+        assert_eq!(
+            get_task(&conn, child_id)
+                .expect("child remains linked after stale rejection")
+                .recurrence_parent_task_id,
+            Some(parent_id)
+        );
+    }
+}
+
+#[test]
+fn no_repeat_preserves_and_detaches_linked_child_missing_occurrence_row() {
+    let (mut conn, parent_id, rule_id) = fixture();
+    let list_id = get_task(&conn, parent_id).expect("load parent").list_id;
+    let orphan = create_task(
+        &mut conn,
+        NewTaskInput {
+            list_id,
+            title: "Legacy linked child".into(),
+            manual_lane: PlanningLane::Today,
+            est_seconds: None,
+        },
+        T1,
+    )
+    .expect("create linked child");
+    conn.execute(
+        "UPDATE tasks SET recurrence_parent_task_id = ?1 WHERE id = ?2",
+        params![parent_id.to_string(), orphan.id.to_string()],
+    )
+    .expect("link child without occurrence row");
+
+    let preview = recurrence_removal_preview(&conn, rule_id).expect("preview linked orphan");
+    assert_eq!(preview.deletable_child_count, 0);
+    assert_eq!(preview.protected_child_count, 1);
+
+    let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
+    let report = remove_recurrence_if_expected(&mut conn, rule_id, &current.updated_at, true, T2)
+        .expect("remove recurrence with linked orphan");
+
+    assert!(report.removed_child_ids.is_empty());
+    assert_eq!(report.detached_child_ids, vec![orphan.id]);
+    let preserved = get_task(&conn, orphan.id).expect("linked orphan survives");
+    assert!(preserved.recurrence_parent_task_id.is_none());
 }

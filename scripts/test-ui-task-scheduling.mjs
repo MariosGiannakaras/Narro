@@ -54,7 +54,8 @@ for (const [haystack, needle, label] of [
   [boardSchedule, "expected_rule_updated_at", "recurrence version guard"],
   [boardSchedule, "replace_existing_tasks_if_expected(", "atomic special replace-existing path"],
   [boardSchedule, "update_recurrence_rule_if_expected(", "atomic non-replace recurrence update path"],
-  [boardSchedule, "delete_recurrence_rule_if_expected(", "atomic recurrence removal path"],
+  [boardSchedule, "recurrence_removal_preview(", "No Repeat child-impact preview"],
+  [boardSchedule, "remove_recurrence_if_expected(", "atomic No Repeat removal path"],
   [boardSchedule, "materialize_after_commit", "post-commit recurrence materialization"],
   [recurrencePersistence, "ExpectedVersionMismatch", "recurrence expected-version error"],
   [recurrencePersistence, "update_recurrence_rule_if_expected(", "expected-version recurrence update persistence"],
@@ -65,6 +66,10 @@ for (const [haystack, needle, label] of [
   [replacePersistence, "replace_existing_tasks_if_expected(", "expected-version replace-existing persistence"],
   [replacePersistence, "ExpectedVersionMismatch", "replace-existing stale-version guard"],
   [replacePersistence, "detached_modified_child_ids", "modified-child detachment preservation"],
+  [replacePersistence, "pub fn recurrence_removal_preview(", "No Repeat safe-deletion preview"],
+  [replacePersistence, "pub fn remove_recurrence_if_expected(", "No Repeat atomic removal"],
+  [replacePersistence, "child_is_safely_deletable", "shared pristine/protected child classifier"],
+  [replacePersistence, "legacy/corrupt linkage", "No Repeat unmatched-link fail-safe"],
   [replacePersistence, "Keep the occurrence row as the durable idempotency reservation", "detached-child duplicate prevention"],
   [recurrencePersistence, "recurrence_parent_task_id = NULL", "recurrence removal child detachment"],
   [lib, "pub mod board_task_schedule;", "board scheduling module registration"],
@@ -77,13 +82,17 @@ for (const [haystack, needle, label] of [
   [api, 'invoke<TaskSchedule>("resolve_list_board_schedule_shortcut"', "typed shortcut IPC"],
   [api, 'invoke<void>("update_list_board_task_schedule"', "typed schedule write IPC"],
   [api, 'invoke<RecurrenceMutationResult>("save_list_board_task_recurrence"', "typed recurrence save IPC"],
-  [api, 'invoke<void>("remove_list_board_task_recurrence"', "typed recurrence remove IPC"],
+  [api, 'invoke<RecurrenceRemovalResult>("remove_list_board_task_recurrence"', "typed recurrence remove IPC"],
   [dialog, 'data-task-schedule-shortcut={shortcut.kind}', "production schedule shortcuts"],
   [dialog, 'data-task-schedule-control="time-toggle"', "optional schedule time control"],
   [dialog, "Date-only schedules never round-trip through UTC.", "date-only semantic guidance"],
   [dialog, 'data-task-recurrence-control="preset"', "recurrence preset control"],
+  [dialog, '<option value="none">No Repeat</option>', "source-evidenced No Repeat option"],
   [dialog, 'data-task-recurrence-control="replace-existing"', "Replace Existing Tasks control"],
-  [dialog, "modified/history-bearing children remain independent", "replace child-preservation guidance"],
+  [dialog, 'data-task-recurrence-control="delete-existing"', "conditional Delete Existing Tasks control"],
+  [dialog, "snapshot.deleteExistingEligibleCount", "authoritative safe-delete count"],
+  [dialog, "snapshot.protectedExistingCount", "protected child disclosure"],
+  [dialog, "customized or history-bearing tasks are preserved", "replace child-preservation guidance"],
   [dialog, "generated recurrence occurrence", "generated occurrence explanation"],
   [dialog, "without creating a nested rule", "nested recurrence UI guard"],
   [dialog, "await updateTaskSchedule({", "schedule save boundary"],
@@ -107,15 +116,20 @@ for (const [haystack, needle, label] of [
   [boardCss, "width: 4.25rem;", "reserved title action slot remains fixed"],
   [dialogCss, ".task-schedule-dialog__backdrop", "dialog backdrop presentation"],
   [dialogCss, ".task-schedule-dialog__shortcuts", "shortcut layout"],
-  [dialogCss, ".task-schedule-dialog__check--warning", "replace-existing warning presentation"],
+  [dialogCss, ".task-schedule-dialog__check--consequence", "neutral replace-existing consequence presentation"],
+  [dialogCss, ".task-schedule-dialog__check--destructive", "destructive No Repeat consequence presentation"],
   [fixtureHtml, "/src/taskScheduleVisualFixture.tsx", "scheduling fixture entry module"],
   [fixture, 'data-task-schedule-visual-fixture="true"', "production scheduling visual fixture"],
   [fixture, 'command === "get_list_board_task_schedule_editor"', "fixture-only authoritative read mock"],
   [fixture, "<TaskScheduleDialog", "production dialog fixture"],
   [fixture, 'fixture: "task-scheduling"', "scheduling geometry contract"],
+  [fixture, 'mode === "no-repeat"', "No Repeat fixture mode"],
+  [fixture, 'data-task-recurrence-control="delete-existing"', "No Repeat visual consequence geometry"],
   [vite, 'taskScheduleFixture: "task-schedule-fixture.html"', "Vite scheduling fixture registration"],
   [capture, 'task-scheduling-$theme', "Windows scheduling captures"],
+  [capture, 'task-scheduling-no-repeat-$theme', "Windows No Repeat scheduling captures"],
   [validator, "scheduling editor geometry differs between light and dark themes", "theme geometry parity gate"],
+  [validator, "No Repeat", "No Repeat capture validation"],
 ]) {
   requireText(haystack, needle, label);
 }
@@ -145,6 +159,10 @@ if (boardSchedule.includes("UPDATE tasks") || boardSchedule.includes("INSERT INT
 
 if (dialog.includes("setInterval") || board.includes("setInterval")) {
   throw new Error("Scheduling UI must not introduce renderer polling.");
+}
+
+if (dialog.includes('data-task-recurrence-control="remove"')) {
+  throw new Error("No Repeat must own recurrence removal; the old separate Remove recurrence control must not return.");
 }
 
 if (/reminder/i.test(dialog)) {

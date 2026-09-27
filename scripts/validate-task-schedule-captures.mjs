@@ -53,7 +53,8 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-task-recurrence-control="replace-existing"'), `${label} Replace Existing Tasks control is missing`);
   invariant(dom.includes('data-task-recurrence-weekday="monday"'), `${label} custom recurrence weekday controls are missing`);
   invariant(dom.includes('Date-only schedules never round-trip through UTC.'), `${label} date-only semantic explanation is missing`);
-  invariant(dom.includes('modified/history-bearing children remain independent'), `${label} replace-existing preservation warning is missing`);
+  invariant(dom.includes("Replace existing tasks (3)"), `${label} authoritative replace-existing count is missing`);
+  invariant(dom.includes("customized or history-bearing tasks are preserved"), `${label} replace-existing preservation guidance is missing`);
 
   const contractMatch = dom.match(/<script id="task-schedule-visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
   invariant(contractMatch, `${label} geometry contract is missing`);
@@ -68,7 +69,7 @@ for (const theme of ["light", "dark"]) {
     "scheduleSection",
     "recurrenceSection",
     "shortcuts",
-    "replaceExisting",
+    "consequence",
     "footer",
   ]) {
     invariant(contract[key]?.width > 0 && contract[key]?.height > 0, `${label} ${key} geometry is invalid`);
@@ -93,6 +94,65 @@ const dark = geometryByTheme.get("dark");
 invariant(
   stableJson({ ...light, theme: undefined }) === stableJson({ ...dark, theme: undefined }),
   "scheduling editor geometry differs between light and dark themes",
+);
+
+const noRepeatGeometryByTheme = new Map();
+for (const theme of ["light", "dark"]) {
+  const label = `task-scheduling-no-repeat-${theme}`;
+  const screenshotPath = path.join(outputDirectory, `${label}.png`);
+  const domPath = path.join(outputDirectory, `${label}.html`);
+  validatePng(screenshotPath, label);
+  invariant(fs.existsSync(domPath), `${label} captured DOM is missing`);
+
+  const dom = fs.readFileSync(domPath, "utf8");
+  invariant(dom.includes('data-task-schedule-fixture-ready="true"'), `${label} fixture did not report ready state`);
+  invariant(dom.includes('data-task-schedule-visual-fixture="true"'), `${label} fixture identity is missing`);
+  invariant(dom.includes('data-task-schedule-state="ready"'), `${label} production scheduling dialog did not load`);
+  invariant(dom.includes(">No Repeat<"), `${label} No Repeat option is missing`);
+  invariant(dom.includes('data-task-recurrence-control="delete-existing"'), `${label} Delete Existing Tasks consequence is missing`);
+  invariant(!dom.includes('data-task-recurrence-control="replace-existing"'), `${label} Replace Existing must be hidden while No Repeat is selected`);
+  invariant(dom.includes("Delete existing tasks (3)"), `${label} authoritative deletable-child count is missing`);
+  invariant(dom.includes("2 customized, completed, archived, or history-bearing tasks will be kept as independent tasks."), `${label} protected-child disclosure is missing`);
+
+  const contractMatch = dom.match(/<script id="task-schedule-visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
+  invariant(contractMatch, `${label} geometry contract is missing`);
+  const contract = JSON.parse(contractMatch[1]);
+  invariant(contract.fixture === "task-scheduling", `${label} fixture contract identity differs`);
+  invariant(contract.mode === "no-repeat", `${label} fixture mode differs`);
+  invariant(contract.theme === theme, `${label} theme identity differs`);
+  invariant(contract.viewport?.width === 1280 && contract.viewport?.height === 720, `${label} viewport contract differs`);
+
+  for (const key of [
+    "dialog",
+    "header",
+    "scheduleSection",
+    "recurrenceSection",
+    "shortcuts",
+    "consequence",
+    "footer",
+  ]) {
+    invariant(contract[key]?.width > 0 && contract[key]?.height > 0, `${label} ${key} geometry is invalid`);
+  }
+
+  invariant(contract.dialog.width >= 560 && contract.dialog.width <= 760, `${label} dialog width left the compact desktop range`);
+  invariant(contract.dialog.height <= 680, `${label} dialog no longer fits the 720px capture viewport`);
+  invariant(contract.dialog.x >= 0 && contract.dialog.y >= 0, `${label} dialog begins outside the viewport`);
+  invariant(
+    contract.dialog.x + contract.dialog.width <= 1280 && contract.dialog.y + contract.dialog.height <= 720,
+    `${label} dialog extends outside the viewport`,
+  );
+  const dialogContentWidth = contract.dialog.width - 2;
+  invariant(contract.header.width === dialogContentWidth, `${label} sticky header does not fill the dialog content box`);
+  invariant(contract.footer.width === dialogContentWidth, `${label} sticky footer does not fill the dialog content box`);
+
+  noRepeatGeometryByTheme.set(theme, contract);
+}
+
+const noRepeatLight = noRepeatGeometryByTheme.get("light");
+const noRepeatDark = noRepeatGeometryByTheme.get("dark");
+invariant(
+  stableJson({ ...noRepeatLight, theme: undefined }) === stableJson({ ...noRepeatDark, theme: undefined }),
+  "No Repeat scheduling editor geometry differs between light and dark themes",
 );
 
 console.log("Task scheduling captured visual contracts: PASS");
