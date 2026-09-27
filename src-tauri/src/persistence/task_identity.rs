@@ -534,7 +534,10 @@ mod tests {
             .query_row("SELECT COUNT(*) FROM tasks", [], |row| row.get(0))
             .expect("count tasks after rejected live duplicate");
         assert_eq!(count, 1);
-        assert_eq!(get_task(&conn, source.id).expect("reload source").id, source.id);
+        assert_eq!(
+            get_task(&conn, source.id).expect("reload source").id,
+            source.id
+        );
     }
 
     #[test]
