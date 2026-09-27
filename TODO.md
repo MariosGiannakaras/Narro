@@ -395,8 +395,8 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 - [x] Build one master finding→implementation register covering parity/code audit, video findings, Help Center/image findings, UI/UX forensic findings and reliability-history risks.
 - [x] Route every material finding to one explicit disposition: validated, fix-now, future milestone, validation-open, ambiguity, intentional deviation or excluded scope.
-- [ ] Resolve every current `FIX_NOW` discrepancy affecting an already-built/current surface before unrelated forward work.
-  - [ ] CORR-01 recurrence update / No Repeat flow: source-evidenced conditional `Delete existing tasks(n)` destructive row and authoritative detach/delete behavior.
+- [x] Resolve every current `FIX_NOW` discrepancy affecting an already-built/current surface before unrelated forward work.
+  - [x] CORR-01 recurrence update / No Repeat flow: source-evidenced conditional `Delete existing tasks(n)` destructive row plus authoritative safe detach/delete behavior. PR #182 exact head `72ab6c77d5e5f5e50c7f3f7e6a0c11b98c7c606c` passed Windows CI #617; expected-head guarded squash merge `50006f29b0329037aecfdab772104db8670768b0`; resulting-main Windows CI #618 PASS.
 - [x] Preserve future-milestone routing instead of prematurely implementing M9/M10 work.
 - [x] Preserve ambiguities/intentional Narro improvements instead of inventing source behavior.
 
