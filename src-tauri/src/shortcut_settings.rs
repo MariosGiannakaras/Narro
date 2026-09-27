@@ -2,9 +2,7 @@ use crate::domain::preferences::ShortcutPreferences;
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::preferences::{initialize_preferences, mutate_preferences};
-use crate::shortcuts::{
-    self, GlobalShortcutKind, ShortcutDiagnostics, ShortcutManager,
-};
+use crate::shortcuts::{self, GlobalShortcutKind, ShortcutDiagnostics, ShortcutManager};
 use serde::Serialize;
 use std::path::{Path, PathBuf};
 use std::sync::Mutex;
@@ -84,7 +82,11 @@ pub fn load_from_connection(
 ) -> CommandResult<ShortcutPreferences> {
     initialize_preferences(connection, now)
         .map(|record| record.payload.shortcuts)
-        .map_err(|error| preference_error(format!("failed to initialize shortcut preferences: {error}")))
+        .map_err(|error| {
+            preference_error(format!(
+                "failed to initialize shortcut preferences: {error}"
+            ))
+        })
 }
 
 #[tauri::command]
@@ -171,13 +173,28 @@ mod tests {
     fn preference_field_mapping_is_independent() {
         let mut preferences = ShortcutPreferences::default();
         set_enabled(&mut preferences, GlobalShortcutKind::FindFocusTimer, false);
-        assert!(preference_enabled(&preferences, GlobalShortcutKind::GoToNarro));
-        assert!(preference_enabled(&preferences, GlobalShortcutKind::ToggleFocusMode));
-        assert!(!preference_enabled(&preferences, GlobalShortcutKind::FindFocusTimer));
+        assert!(preference_enabled(
+            &preferences,
+            GlobalShortcutKind::GoToNarro
+        ));
+        assert!(preference_enabled(
+            &preferences,
+            GlobalShortcutKind::ToggleFocusMode
+        ));
+        assert!(!preference_enabled(
+            &preferences,
+            GlobalShortcutKind::FindFocusTimer
+        ));
 
         set_enabled(&mut preferences, GlobalShortcutKind::GoToNarro, false);
-        assert!(!preference_enabled(&preferences, GlobalShortcutKind::GoToNarro));
-        assert!(preference_enabled(&preferences, GlobalShortcutKind::ToggleFocusMode));
+        assert!(!preference_enabled(
+            &preferences,
+            GlobalShortcutKind::GoToNarro
+        ));
+        assert!(preference_enabled(
+            &preferences,
+            GlobalShortcutKind::ToggleFocusMode
+        ));
     }
 
     #[test]
