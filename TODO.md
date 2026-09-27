@@ -387,6 +387,21 @@ This correction was discovered from current direct VE-005 evidence after M5 vali
 
 - [x] Expose current task-menu `Change List` and `Duplicate` behavior using existing persistence/domain authority: Change List moves the same stable task identity atomically to the chosen active list without corrupting schedule/session/history state; Duplicate creates one independent new task identity without aliasing source history/recurrence/session records. Preserve live-task safety, persistence-first UI publication, stale guards, All Lists identity semantics, and explicit error/recovery feedback. **Validated in PR #177** at exact head `e80034f481bc8d9368bb670cadfce2cdcbe61797`; Windows CI #602 PASS; expected-head guarded squash merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`; resulting-main Windows CI #603 PASS.
 
+## Active audit-incorporation gate — 2026-09-28
+
+This cross-cutting gate applies before further forward implementation and **does not change the 10-milestone denominator**.
+
+Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
+
+- [x] Build one master finding→implementation register covering parity/code audit, video findings, Help Center/image findings, UI/UX forensic findings and reliability-history risks.
+- [x] Route every material finding to one explicit disposition: validated, fix-now, future milestone, validation-open, ambiguity, intentional deviation or excluded scope.
+- [ ] Resolve every current `FIX_NOW` discrepancy affecting an already-built/current surface before unrelated forward work.
+  - [ ] CORR-01 recurrence update / No Repeat flow: source-evidenced conditional `Delete existing tasks(n)` destructive row and authoritative detach/delete behavior.
+- [x] Preserve future-milestone routing instead of prematurely implementing M9/M10 work.
+- [x] Preserve ambiguities/intentional Narro improvements instead of inventing source behavior.
+
+**Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
+
 ## Milestone 8 — Windows shortcuts and preferences
 
 - [x] Implement confirmed Windows in-app shortcuts. PR #166 exact head `18a4d2b5a26bc705bf7cdf7bea647275b4877890` passed Windows CI #569; guarded squash merge `030274149cafdf590c5aa08f2cd1c9409595c7aa` passed resulting-main CI #570.
@@ -397,7 +412,12 @@ This correction was discovered from current direct VE-005 evidence after M5 vali
   - [x] VE-F002: when `show_success_screen` is enabled, Done must commit completion and enter the success state before any next task starts; explicit `Next Task` may then start the next eligible task. The success-screen-disabled path keeps current Narro behavior pending stronger evidence/decision.
   - [x] Do not invent the post-click timer/session semantics for the directly visible success-screen `Take a Break` control; keep that exact transition unresolved until evidence or an explicit Narro product decision exists.
   - [x] VE-F008: preserve in-place conditional children for Pomodoro durations, timed-alert detail, notification-alert detail, reminder lead, and celebration children; hide-times must retain explicit hover disclosure.
-  - [ ] Remaining Preferences runtime closure: implement/validate any still-unclaimed timed-alert, timer-flash, notification-alert, schedule-reminder and local sound/preview effects before closing this top-level Preferences item.
+  - [ ] Remaining Preferences runtime closure:
+    - [ ] PREF-R01 timed task-alert runtime effect and persisted interval semantics.
+    - [ ] PREF-R02 animated timer-flash runtime effect, finite and reduced-motion safe.
+    - [ ] PREF-R03 Notification Alerts gating without duplicating authoritative M3 notification effects.
+    - [x] PREF-R04 schedule-reminder preference/lead integration through durable idempotent background delivery. PR #180 exact head `0309c879998f43ff8c6e39e65f02c44669fa48b8` passed Windows CI #607; guarded squash merge `643528ca223b29fd8fbd215db5b1b525c912c6fc` passed resulting-main CI #608.
+    - [ ] PREF-R05 local sound catalog/preview behavior only from validated Narro-owned or user-local assets; previews must not overlap indefinitely.
 - [x] Ensure Start Break shortcut pauses the current task, starts break, and follows documented resume/skip behavior. The in-app shortcut reuses the existing authoritative Focus break/pause/resume/skip lifecycle and passed PR #166 / CI #569.
 - [x] Preserve conditional/nested setting behavior without disruptive scroll jumps. Validated in reconciled PR #170 / Windows CI #604 with nested controls mounted in place and parent-gated rather than remounted.
 - [ ] Use Windows locale for date/time presentation by default.
