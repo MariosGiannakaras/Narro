@@ -16,7 +16,7 @@ M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementa
 - Resulting-main Windows CI #575 / run `36284525078`: PASS through the identical-tree validation gate.
 - **Current validated application source baseline:** `699b6ac46bcc6ebcabbcded21f929a7b32018b42`.
 
-Tracking-only commits after this SHA do not replace the validated application source baseline.
+Tracking-only commits after this SHA do not replace the validated application source baseline. Reference-image canonicalization is tracking/evidence-only and does not change the validated application source SHA.
 
 ## CURRENT ORDERED WORK
 
@@ -25,7 +25,7 @@ Tracking-only commits after this SHA do not replace the validated application so
 3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
 4. The uploaded Blitzit corpus remains fully inventoried and functionally reconciled: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 product-behavior analyses/reconciliations/dispositions complete**. Details: `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
 5. **User-requested second-pass UI/UX video forensics is COMPLETE: 19/19 deep-reviewed.** Durable evidence is in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`, `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, and the reconciled `docs/UI_UX_SPEC.md`.
-6. **User-requested Help Center text + image evidence pass is COMPLETE:** 34/34 visible legacy-navigation pages inventoried/classified and 15/15 Narro-relevant pages deep-reviewed. The canonical local screenshot corpus is also reconciled: **46 retained images** (22 current v2.6.69, 17 Help Center originals, 7 historical), content-named and deduplicated. Durable evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`, `docs/BLITZIT_HELP_CENTER_TRACKER.md`, and `reference/original-blitzit-screenshots/CANONICAL_INDEX.md`. Newer 3.0 docs remain version-separated.
+6. **User-requested Help Center text + image evidence pass is COMPLETE:** 34/34 visible legacy-navigation pages inventoried/classified and 15/15 Narro-relevant pages deep-reviewed. The canonical local screenshot corpus is also reconciled: **46 retained images** (22 current v2.6.69, 17 Help Center originals, 7 historical), content-named and deduplicated. Evidence PR #175 exact validated head `8d2ade29eff3e3be3550e6d0638f875d0097237d`; Windows CI #594 PASS; expected-head guarded squash merge `72e825c991a53aee9c68a2411fa2439a9e599f26`; resulting-main Windows CI #595 PASS through the identical-tree validation gate. Durable evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`, `docs/BLITZIT_HELP_CENTER_TRACKER.md`, and `reference/original-blitzit-screenshots/CANONICAL_INDEX.md`. Newer 3.0 docs remain version-separated.
 7. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation.
 8. **Post-validation VE-F003 remains the next source correction:** current direct VE-005 evidence confirms task-menu `Change List` + `Duplicate`, while current Narro production lacks those paths. Current Help Center additionally confirms the existing permanent-delete confirmation step. Implement narrowly without reopening unrelated M5 work.
 9. **M8 remains in progress: 5/8 top-level items validated.** After VE-F003 validates/merges, resume the documented Preferences sections on the existing typed/versioned persistence model, incorporating VE-F001 EST normalization, VE-F002 success-screen-enabled completion gating, and VE-F008 nested Preferences evidence.
