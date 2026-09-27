@@ -233,7 +233,6 @@ fn change_board_task_list(
     conn: &mut Connection,
     id: TaskId,
     expected_list_id: ListId,
-    expected_source_lane: PlanningLane,
     target_list_id: ListId,
     now: &str,
 ) -> Result<TaskRecord, BoardTaskMutationError> {
@@ -242,12 +241,6 @@ fn change_board_task_list(
         return Err(BoardTaskMutationError::ExpectedListMismatch {
             expected: expected_list_id,
             actual: current.list_id,
-        });
-    }
-    if current.manual_lane != expected_source_lane {
-        return Err(BoardTaskMutationError::ExpectedLaneMismatch {
-            expected: expected_source_lane,
-            actual: current.manual_lane,
         });
     }
     if current.completed_at.is_some() {
@@ -433,26 +426,22 @@ pub fn change_list_board_task(
     app_handle: tauri::AppHandle,
     task_id: String,
     expected_list_id: String,
-    source_lane: String,
     target_list_id: String,
 ) -> CommandResult<()> {
     let task_id = parse_id("taskId", &task_id)?;
     let expected_list_id = parse_list_id("expectedListId", &expected_list_id)?;
-    let source_lane = parse_lane("sourceLane", &source_lane)?;
     let target_list_id = parse_list_id("targetListId", &target_list_id)?;
     let mut connection = app_database(&app_handle)?;
     change_board_task_list(
         &mut connection,
         task_id,
         expected_list_id,
-        source_lane,
         target_list_id,
         &chrono::Utc::now().to_rfc3339(),
     )
     .map(|_| ())
     .map_err(|error| match error {
-        BoardTaskMutationError::ExpectedListMismatch { .. }
-        | BoardTaskMutationError::ExpectedLaneMismatch { .. } => {
+        BoardTaskMutationError::ExpectedListMismatch { .. } => {
             CommandError::new("TASK_CHANGE_LIST_STALE", error.to_string())
         }
         BoardTaskMutationError::Task(TaskStoreError::ActiveSession(_)) => {
@@ -634,7 +623,6 @@ mod tests {
             &mut conn,
             moving.id,
             source_list,
-            PlanningLane::Today,
             target_list,
             T1,
         )
@@ -684,7 +672,6 @@ mod tests {
             &mut conn,
             source.id,
             target_list,
-            PlanningLane::Today,
             target_list,
             T1,
         );
@@ -708,7 +695,6 @@ mod tests {
                 &mut conn,
                 source.id,
                 source_list,
-                PlanningLane::Today,
                 target_list,
                 T1,
             ),
