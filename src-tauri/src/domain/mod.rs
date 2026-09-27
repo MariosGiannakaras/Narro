@@ -8,8 +8,8 @@ pub mod reminders;
 pub mod sessions;
 pub mod subtasks;
 pub mod tasks;
-pub mod timer_events;
 pub mod timed_alert_events;
+pub mod timer_events;
 
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
