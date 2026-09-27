@@ -339,7 +339,6 @@ fn replace_requires_explicit_replace_flag_before_any_write() {
     }
 }
 
-
 #[test]
 fn no_repeat_without_delete_detaches_all_generated_children_and_keeps_tasks() {
     let (mut conn, parent_id, rule_id) = fixture();
@@ -347,27 +346,16 @@ fn no_repeat_without_delete_detaches_all_generated_children_and_keeps_tasks() {
         .expect("materialize generated children");
     let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
 
-    let report = remove_recurrence_if_expected(
-        &mut conn,
-        rule_id,
-        &current.updated_at,
-        false,
-        T2,
-    )
-    .expect("remove recurrence without deleting children");
+    let report = remove_recurrence_if_expected(&mut conn, rule_id, &current.updated_at, false, T2)
+        .expect("remove recurrence without deleting children");
 
     assert!(report.removed_child_ids.is_empty());
-    assert_eq!(
-        report.detached_child_ids,
-        materialized.created_child_ids
-    );
+    assert_eq!(report.detached_child_ids, materialized.created_child_ids);
     assert!(get_recurrence_rule(&conn, rule_id).is_err());
-    assert!(
-        get_task(&conn, parent_id)
-            .expect("parent survives")
-            .recurrence_rule_id
-            .is_none()
-    );
+    assert!(get_task(&conn, parent_id)
+        .expect("parent survives")
+        .recurrence_rule_id
+        .is_none());
     for child_id in materialized.created_child_ids {
         let child = get_task(&conn, child_id).expect("detached child survives");
         assert!(child.recurrence_parent_task_id.is_none());
@@ -393,14 +381,8 @@ fn no_repeat_delete_removes_only_pristine_generated_children_and_preserves_user_
     assert_eq!(preview.protected_child_count, 1);
 
     let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
-    let report = remove_recurrence_if_expected(
-        &mut conn,
-        rule_id,
-        &current.updated_at,
-        true,
-        T2,
-    )
-    .expect("remove recurrence and safely delete untouched child");
+    let report = remove_recurrence_if_expected(&mut conn, rule_id, &current.updated_at, true, T2)
+        .expect("remove recurrence and safely delete untouched child");
 
     assert_eq!(report.removed_child_ids, vec![deleted_id]);
     assert_eq!(report.detached_child_ids, vec![preserved_id]);
@@ -409,12 +391,10 @@ fn no_repeat_delete_removes_only_pristine_generated_children_and_preserves_user_
     let preserved = get_task(&conn, preserved_id).expect("customized child survives");
     assert_eq!(preserved.title, "Keep my customized task");
     assert!(preserved.recurrence_parent_task_id.is_none());
-    assert!(
-        get_task(&conn, parent_id)
-            .expect("parent survives")
-            .recurrence_rule_id
-            .is_none()
-    );
+    assert!(get_task(&conn, parent_id)
+        .expect("parent survives")
+        .recurrence_rule_id
+        .is_none());
 }
 
 #[test]
@@ -443,20 +423,11 @@ fn no_repeat_delete_preserves_history_bearing_completed_and_archived_children() 
     assert_eq!(preview.protected_child_count, 2);
 
     let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
-    let report = remove_recurrence_if_expected(
-        &mut conn,
-        rule_id,
-        &current.updated_at,
-        true,
-        T2,
-    )
-    .expect("remove recurrence while preserving protected children");
+    let report = remove_recurrence_if_expected(&mut conn, rule_id, &current.updated_at, true, T2)
+        .expect("remove recurrence while preserving protected children");
 
     assert!(report.removed_child_ids.is_empty());
-    assert_eq!(
-        report.detached_child_ids,
-        vec![history_id, archived_id]
-    );
+    assert_eq!(report.detached_child_ids, vec![history_id, archived_id]);
     for child_id in [history_id, archived_id] {
         let child = get_task(&conn, child_id).expect("protected child survives");
         assert!(child.recurrence_parent_task_id.is_none());
@@ -477,14 +448,8 @@ fn no_repeat_delete_stale_rule_version_rejects_before_child_mutation() {
     let materialized = materialize_recurrence_week(&mut conn, rule_id, CURRENT_LOCAL_DATE, T1)
         .expect("materialize generated children");
 
-    let error = remove_recurrence_if_expected(
-        &mut conn,
-        rule_id,
-        "2026-09-07T00:00:00Z",
-        true,
-        T2,
-    )
-    .expect_err("stale no-repeat removal must fail before writes");
+    let error = remove_recurrence_if_expected(&mut conn, rule_id, "2026-09-07T00:00:00Z", true, T2)
+        .expect_err("stale no-repeat removal must fail before writes");
     assert!(matches!(
         error,
         ReplaceExistingError::Store(
@@ -507,7 +472,6 @@ fn no_repeat_delete_stale_rule_version_rejects_before_child_mutation() {
         );
     }
 }
-
 
 #[test]
 fn no_repeat_preserves_and_detaches_linked_child_missing_occurrence_row() {
@@ -535,14 +499,8 @@ fn no_repeat_preserves_and_detaches_linked_child_missing_occurrence_row() {
     assert_eq!(preview.protected_child_count, 1);
 
     let current = get_recurrence_rule(&conn, rule_id).expect("load current rule");
-    let report = remove_recurrence_if_expected(
-        &mut conn,
-        rule_id,
-        &current.updated_at,
-        true,
-        T2,
-    )
-    .expect("remove recurrence with linked orphan");
+    let report = remove_recurrence_if_expected(&mut conn, rule_id, &current.updated_at, true, T2)
+        .expect("remove recurrence with linked orphan");
 
     assert!(report.removed_child_ids.is_empty());
     assert_eq!(report.detached_child_ids, vec![orphan.id]);
