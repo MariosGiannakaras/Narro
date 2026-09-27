@@ -16,6 +16,7 @@ pub mod list_editor;
 pub mod list_settings;
 pub mod notifications;
 pub mod persistence;
+pub mod preference_settings;
 pub mod recurrence;
 pub mod recurrence_service;
 pub mod reminder_acceptance;
@@ -1525,6 +1526,8 @@ pub fn run() {
             list_settings::permanently_delete_list_from_settings,
             theme_settings::get_theme_preference,
             theme_settings::set_theme_preference,
+            preference_settings::get_preference_settings,
+            preference_settings::update_preference_settings,
             toggle_timer,
             mutate_state,
             send_test_notification,

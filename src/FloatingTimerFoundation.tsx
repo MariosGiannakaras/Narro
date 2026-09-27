@@ -2,6 +2,7 @@ import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react"
 import { flushSync } from "react-dom";
 import { formatInvokeError } from "./diagnosticApi";
 import { FocusLiveActions } from "./FocusLiveActions";
+import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { focusTimerPresentation } from "./focusTimerPresentation";
 import {
@@ -39,6 +40,7 @@ export type FloatingTimerFoundationProps = {
   fixtureTimer?: TimerSessionPayload | null;
   fixtureExpanded?: boolean;
   fixtureSubtasks?: BoardSubtaskSnapshot | null;
+  onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
 function subtaskProgress(task: ListBoardTask | null) {
@@ -64,6 +66,7 @@ export function FloatingTimerFoundation({
   fixtureTimer = null,
   fixtureExpanded = false,
   fixtureSubtasks = null,
+  onCompletionSuccess,
 }: FloatingTimerFoundationProps) {
   const fixtureMode = fixtureBoard !== undefined;
   const [board, setBoard] = useState<ListBoardSnapshot | null>(fixtureBoard ?? null);
@@ -332,6 +335,7 @@ export function FloatingTimerFoundation({
               onTimerPayload={(payload) => {
                 setTimer((current) => applyTimerSessionProjection(current, payload));
               }}
+              onCompletionSuccess={onCompletionSuccess}
             />
           </div>
         ) : null}

@@ -1,6 +1,7 @@
 import { listen } from "@tauri-apps/api/event";
 import { useEffect, useRef, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveMetrics, type FocusMetricKind } from "./FocusLiveMetrics";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import {
@@ -17,6 +18,7 @@ import {
   type InAppShortcut,
 } from "./inAppShortcuts";
 import { Tooltip } from "./overlayPrimitives";
+import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskNotes } from "./TaskNotes";
 import {
   completeTimerTask,
@@ -34,10 +36,6 @@ import {
   type TimerSnapshot,
 } from "./timerSessionApi";
 
-// M8 will expose this already-established preference in the Settings UI. Until then the Focus
-// action uses the schema/product default rather than inventing a second configurable value.
-const DEFAULT_MANUAL_BREAK_MS = 10 * 60 * 1_000;
-
 type FocusLiveActionsProps = {
   task: ListBoardTask;
   target: ListBoardRequestTarget;
@@ -50,6 +48,7 @@ type FocusLiveActionsProps = {
   onReturnToPanel?: () => void;
   transitionPending?: boolean;
   onEnsureNotesVisible?: () => boolean | Promise<boolean>;
+  onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
 type FocusAction = "break" | "pause_resume" | "skip" | "done" | "extend";
@@ -186,6 +185,7 @@ export function FocusLiveActions({
   onReturnToPanel,
   transitionPending = false,
   onEnsureNotesVisible,
+  onCompletionSuccess,
 }: FocusLiveActionsProps) {
   const [pendingAction, setPendingAction] = useState<FocusAction | null>(null);
   const [notesExpanded, setNotesExpanded] = useState(false);
@@ -194,6 +194,12 @@ export function FocusLiveActions({
   const shortcutHandlerRef = useRef<(shortcut: InAppShortcut) => void>(() => {});
   const state = actionState(timer.runtime.timer);
   const busy = pendingAction !== null || (presentation === "floating" && transitionPending);
+  const preferences = usePreferenceSettingsProjection(fixtureMode);
+  const defaultBreakMs = preferences.snapshot
+    ? preferences.snapshot.focus.defaultBreakSeconds * 1_000
+    : null;
+  const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
+  const showSuccessScreen = preferences.snapshot?.celebration.showSuccessScreen ?? true;
 
   const applyPayload = (payload: TimerSessionPayload) => {
     onTimerPayload(payload);
@@ -222,6 +228,17 @@ export function FocusLiveActions({
     } finally {
       setPendingAction(null);
     }
+  };
+
+  const beginBreak = () => {
+    if (defaultBreakMs === null) {
+      setStatus(null);
+      setError(preferences.error
+        ? `Break settings are unavailable. ${preferences.error}`
+        : "Break settings are still loading.");
+      return;
+    }
+    void run("break", () => startManualBreakTimer(defaultBreakMs), "Break started.");
   };
 
   const handlePauseResume = () => {
@@ -284,6 +301,40 @@ export function FocusLiveActions({
       const next = nextEligibleTask(freshBoard, task.id);
       const nextMode = next ? focusModeForTask(authoritative.runtime.timer.mode, next) : null;
       const completed = await completeTimerTask();
+
+      if (showSuccessScreen) {
+        let postCompletionBoard: ListBoardSnapshot | null = null;
+        try {
+          postCompletionBoard = await getListBoardSnapshot(target);
+        } catch {
+          // Completion is committed; keep the success gate if the secondary board read fails.
+        }
+        const completedTask = postCompletionBoard?.done.tasks.find((candidate) => candidate.id === task.id) ?? task;
+        const nextAfterCompletion = postCompletionBoard ? nextEligibleTask(postCompletionBoard, task.id) : next;
+        const nextAfterCompletionMode = nextAfterCompletion
+          ? focusModeForTask(authoritative.runtime.timer.mode, nextAfterCompletion)
+          : null;
+        onCompletionSuccess?.({
+          completedTaskId: completedTask.id,
+          completedTaskTitle: completedTask.title,
+          estSeconds: completedTask.estSeconds,
+          timeTakenSeconds: completedTask.timeTakenSeconds,
+          nextTask: nextAfterCompletion && nextAfterCompletionMode
+            ? { id: nextAfterCompletion.id, title: nextAfterCompletion.title, mode: nextAfterCompletionMode }
+            : null,
+        });
+        applyPayload(completed);
+        setNotesExpanded(false);
+        if (onTaskMutationCommitted) {
+          try {
+            await onTaskMutationCommitted();
+          } catch {
+            // Do not turn a committed completion into a retryable failure.
+          }
+        }
+        return;
+      }
+
       applyPayload(completed);
       setNotesExpanded(false);
 
@@ -325,7 +376,7 @@ export function FocusLiveActions({
           setStatus("Break is unavailable until an active task is running or paused.");
           return;
         }
-        void run("break", () => startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS), "Break started.");
+        beginBreak();
         return;
       case "pause-resume":
         if (!state.pauseResumeEnabled) {
@@ -447,6 +498,7 @@ export function FocusLiveActions({
             fixtureMode={fixtureMode}
             fixtureEditor={fixtureMetricEditor}
             interactionBlocked={busy}
+            hideTaskTimes={hideTaskTimes}
             onTimerPayload={applyPayload}
           />
 
@@ -456,8 +508,8 @@ export function FocusLiveActions({
             <button
               type="button"
               data-focus-action="break"
-              disabled={busy || !state.breakEnabled}
-              onClick={() => void run("break", () => startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS), "Break started.")}
+              disabled={busy || !state.breakEnabled || defaultBreakMs === null}
+              onClick={beginBreak}
             >
               Break
             </button>
@@ -511,8 +563,8 @@ export function FocusLiveActions({
             label="Start break"
             icon="break"
             align="start"
-            disabled={busy || !state.breakEnabled}
-            onClick={() => void run("break", () => startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS), "Break started.")}
+            disabled={busy || !state.breakEnabled || defaultBreakMs === null}
+            onClick={beginBreak}
           />
           <FloatingActionButton
             action="notes"
@@ -565,9 +617,9 @@ export function FocusLiveActions({
           {status}
         </div>
       ) : null}
-      {error ? (
+      {error || preferences.error ? (
         <div className={floating ? "floating-timer-foundation__action-error type-metadata" : "focus-panel__action-error type-metadata"} role="alert">
-          {error}
+          {error ?? preferences.error}
         </div>
       ) : null}
     </div>

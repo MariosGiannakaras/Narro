@@ -1,7 +1,14 @@
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./App.css";
+import {
+  BlitzPanelPreferenceSection,
+  GeneralPreferenceRows,
+  LowerPreferenceSections,
+} from "./PreferenceSettingsSections";
+import type { PreferenceSettingsSnapshot } from "./preferencesApi";
 import { ThemeSettingsPanelView } from "./ThemeSettingsPanel";
+import type { MonitorDescriptor } from "./diagnosticApi";
 import type { ThemePreference } from "./themeApi";
 import { WindowsShortcutSettingsPanelView } from "./WindowsShortcutSettingsPanel";
 import type { GlobalShortcutSettingsSnapshot } from "./globalShortcutSettingsApi";
@@ -13,6 +20,64 @@ const error = params.get("error") === "1"
   ? "[THEME_PREFERENCE_FAILED] The theme preference could not be saved."
   : null;
 const shortcutConflict = params.get("shortcutConflict") === "1";
+const section = params.get("section") ?? "upper";
+
+const preferenceSnapshot: PreferenceSettingsSnapshot = {
+  schemaVersion: 3,
+  general: {
+    selectedMonitorKey: "fixture-monitor-secondary",
+    focusPanelSide: "right",
+    openOnLogin: true,
+    autostartEnabled: true,
+    hideTaskTimes: true,
+    autoParseEstFromTitle: true,
+    timezone: "Europe/Athens",
+  },
+  focus: {
+    pomodoroEnabled: true,
+    pomodoroWorkSeconds: 25 * 60,
+    pomodoroBreakSeconds: 5 * 60,
+    defaultBreakSeconds: 10 * 60,
+    scrollingTitle: true,
+  },
+  alerts: {
+    timedAlertsEnabled: true,
+    taskAlertIntervalSeconds: 10 * 60,
+    taskAlertSound: null,
+    animatedTimerFlash: true,
+    notificationAlertsEnabled: true,
+    notificationSound: null,
+    scheduleRemindersEnabled: true,
+    reminderLeadSeconds: 10 * 60,
+  },
+  celebration: {
+    showSuccessScreen: true,
+    funGif: true,
+    successSound: null,
+  },
+  localSoundCatalogAvailable: false,
+};
+
+const preferenceMonitors: MonitorDescriptor[] = [
+  {
+    key: "fixture-monitor-primary",
+    index: 0,
+    name: "Primary display",
+    scaleFactor: 1,
+    position: { x: 0, y: 0 },
+    size: { width: 1920, height: 1080 },
+    workArea: { position: { x: 0, y: 0 }, size: { width: 1920, height: 1040 } },
+  },
+  {
+    key: "fixture-monitor-secondary",
+    index: 1,
+    name: "Secondary display",
+    scaleFactor: 1.25,
+    position: { x: 1920, y: 0 },
+    size: { width: 2560, height: 1440 },
+    workArea: { position: { x: 1920, y: 0 }, size: { width: 2560, height: 1400 } },
+  },
+];
 
 const shortcutSnapshot: GlobalShortcutSettingsSnapshot = {
   goToNarroEnabled: true,
@@ -54,7 +119,28 @@ flushSync(() => {
       theme={theme}
       error={error}
       onSelectTheme={() => undefined}
+      beforeGeneral={(
+        <BlitzPanelPreferenceSection
+          snapshot={preferenceSnapshot}
+          monitors={preferenceMonitors}
+          pendingKey={null}
+          onSave={() => undefined}
+          onRefreshMonitors={() => undefined}
+        />
+      )}
+      generalChildren={(
+        <GeneralPreferenceRows
+          snapshot={preferenceSnapshot}
+          pendingKey={null}
+          onSave={() => undefined}
+        />
+      )}
     >
+      <LowerPreferenceSections
+        snapshot={preferenceSnapshot}
+        pendingKey={null}
+        onSave={() => undefined}
+      />
       <WindowsShortcutSettingsPanelView
         snapshot={shortcutSnapshot}
         onChange={() => undefined}
@@ -64,4 +150,17 @@ flushSync(() => {
 });
 
 document.documentElement.dataset.themeSettingsShortcutConflict = shortcutConflict ? "true" : "false";
-document.documentElement.dataset.themeSettingsFixtureReady = "true";
+document.documentElement.dataset.themeSettingsSection = section;
+
+const sectionTarget: Record<string, string> = {
+  upper: "preferences-blitz-panel-title",
+  middle: "preferences-blitz-mode-title",
+  lower: "preferences-celebration-title",
+};
+
+window.requestAnimationFrame(() => {
+  document.getElementById(sectionTarget[section] ?? sectionTarget.upper)?.scrollIntoView({ block: "start" });
+  window.requestAnimationFrame(() => {
+    document.documentElement.dataset.themeSettingsFixtureReady = "true";
+  });
+});

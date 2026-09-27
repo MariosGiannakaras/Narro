@@ -1,3 +1,14 @@
+.focus-panel__live-metrics[data-focus-times-hidden="true"] .focus-panel__metric-row {
+  opacity: 0;
+  transition: opacity var(--motion-duration-hover-focus) var(--motion-ease-enter);
+}
+
+.focus-panel__live-card:hover .focus-panel__live-metrics[data-focus-times-hidden="true"] .focus-panel__metric-row,
+.focus-panel__live-card:focus-within .focus-panel__live-metrics[data-focus-times-hidden="true"] .focus-panel__metric-row,
+.focus-panel__live-metrics[data-focus-times-hidden="true"][data-focus-metrics-editable="true"]:focus-within .focus-panel__metric-row {
+  opacity: 1;
+}
+
 .focus-panel__live-metrics {
   display: grid;
   gap: var(--space-1);

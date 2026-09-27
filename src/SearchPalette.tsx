@@ -7,6 +7,8 @@ import {
   useState,
 } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { parseEstimateSuffix } from "./taskEstimateParser";
+import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { createListBoardTask, type PlanningLaneToken } from "./listBoardApi";
 import {
   getSearchPaletteData,
@@ -98,6 +100,7 @@ export function SearchPalette({
   const [quickTaskLane, setQuickTaskLane] = useState<PlanningLaneToken | "">("");
   const [quickTaskPending, setQuickTaskPending] = useState(false);
   const [quickTaskError, setQuickTaskError] = useState<string | null>(null);
+  const preferences = usePreferenceSettingsProjection(Boolean(fixtureData));
 
   useEffect(() => {
     if (!open) return;
@@ -262,6 +265,11 @@ export function SearchPalette({
       return;
     }
 
+    const automaticEstimate = preferences.snapshot?.general.autoParseEstFromTitle
+      ? parseEstimateSuffix(title)
+      : null;
+    const persistedTitle = automaticEstimate?.titleWithoutSuffix ?? title;
+
     setQuickTaskPending(true);
     setQuickTaskError(null);
     let taskId: string;
@@ -269,8 +277,8 @@ export function SearchPalette({
       taskId = await createListBoardTask({
         listId: quickTaskListId,
         lane: quickTaskLane,
-        title,
-        estSeconds: null,
+        title: persistedTitle,
+        estSeconds: automaticEstimate?.seconds ?? null,
         insertAtTop: false,
       });
     } catch (failure: unknown) {
@@ -506,6 +514,11 @@ export function SearchPalette({
             </select>
           </label>
 
+          {preferences.error ? (
+            <div className="search-palette__error" role="alert">
+              Preferences could not be loaded; automatic EST parsing is unavailable. {preferences.error}
+            </div>
+          ) : null}
           {quickTaskError ? <div className="search-palette__error" role="alert">{quickTaskError}</div> : null}
 
           <footer className="search-palette__task-footer">

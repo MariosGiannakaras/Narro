@@ -80,10 +80,12 @@ for (const authority of [
 }
 invariant(
   focusActions.includes('case "start-break"')
-    && focusActions.includes('startManualBreakTimer(DEFAULT_MANUAL_BREAK_MS)')
+    && focusActions.includes("usePreferenceSettingsProjection(fixtureMode)")
+    && focusActions.includes("startManualBreakTimer(defaultBreakMs)")
+    && !focusActions.includes("DEFAULT_MANUAL_BREAK_MS")
     && focusActions.includes('timerState === "break"')
     && focusActions.includes("skipBreakTimer"),
-  "Start Break and break-resume shortcuts must reuse the established authoritative manual-break lifecycle",
+  "Start Break and break-resume shortcuts must reuse the authoritative manual-break lifecycle with persisted M8 duration",
 );
 invariant(
   focusEntry.includes('shortcut !== "create-task"')

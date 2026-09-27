@@ -85,6 +85,7 @@ type TaskCardProps = {
   notes?: TaskCardNotes;
   subtasks?: TaskCardSubtasks;
   liveState?: TimerStateKind | null;
+  hideTaskTimes?: boolean;
 };
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
@@ -518,6 +519,7 @@ export function TaskCard({
   notes,
   subtasks,
   liveState,
+  hideTaskTimes = false,
 }: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
   const scheduled = scheduleLabel(task);
@@ -557,6 +559,7 @@ export function TaskCard({
       data-task-title-editing={titleEditor ? "true" : "false"}
       data-task-metric-editing={metricEditor?.metric ?? "none"}
       data-task-live-state={liveState ?? "none"}
+      data-task-times-hidden={hideTaskTimes ? "true" : "false"}
       data-task-recurrence={recurrenceState(task)}
       data-task-notes-expanded={noteExpanded ? "true" : "false"}
       data-task-subtasks-expanded={subtaskExpanded ? "true" : "false"}
