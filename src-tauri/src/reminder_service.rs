@@ -2,8 +2,14 @@ use crate::domain::ids::{ReminderId, TaskId};
 use crate::domain::reminders::ReminderRecord;
 use crate::notifications;
 use crate::persistence::lists::{get_list, ListStoreError};
+use crate::persistence::preferences::{get_preferences, PreferenceStoreError};
 use crate::persistence::reminders::{
     mark_reminder_fired, pending_due_reminders, ReminderStoreError,
+};
+use crate::persistence::schedule_reminder_effects::{
+    cleanup_stale_schedule_preference_effects, mark_schedule_preference_reminder_submitted,
+    pending_schedule_preference_reminders, SchedulePreferenceReminderCandidate,
+    SchedulePreferenceReminderError,
 };
 use crate::persistence::tasks::{get_task, TaskStoreError};
 use crate::persistence::{configure_connection, PersistenceError};
@@ -21,6 +27,13 @@ pub struct ReminderDispatchReport {
     pub submitted_count: usize,
     pub submission_failed_count: usize,
     pub skipped_inactive_count: usize,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub struct SchedulePreferenceReminderDispatchReport {
+    pub due_count: usize,
+    pub submitted_count: usize,
+    pub submission_failed_count: usize,
 }
 
 #[derive(Debug)]
@@ -62,6 +75,8 @@ impl std::error::Error for ReminderDispatchError {
 pub enum ReminderDeliveryCycleError {
     Sqlite(rusqlite::Error),
     Persistence(PersistenceError),
+    Preferences(PreferenceStoreError),
+    SchedulePreference(SchedulePreferenceReminderError),
     Dispatch(ReminderDispatchError),
 }
 
@@ -70,6 +85,8 @@ impl Display for ReminderDeliveryCycleError {
         match self {
             Self::Sqlite(error) => write!(formatter, "open reminder delivery database: {error}"),
             Self::Persistence(error) => Display::fmt(error, formatter),
+            Self::Preferences(error) => Display::fmt(error, formatter),
+            Self::SchedulePreference(error) => Display::fmt(error, formatter),
             Self::Dispatch(error) => Display::fmt(error, formatter),
         }
     }
@@ -80,6 +97,8 @@ impl std::error::Error for ReminderDeliveryCycleError {
         match self {
             Self::Sqlite(error) => Some(error),
             Self::Persistence(error) => Some(error),
+            Self::Preferences(error) => Some(error),
+            Self::SchedulePreference(error) => Some(error),
             Self::Dispatch(error) => Some(error),
         }
     }
@@ -94,6 +113,18 @@ impl From<rusqlite::Error> for ReminderDeliveryCycleError {
 impl From<PersistenceError> for ReminderDeliveryCycleError {
     fn from(value: PersistenceError) -> Self {
         Self::Persistence(value)
+    }
+}
+
+impl From<PreferenceStoreError> for ReminderDeliveryCycleError {
+    fn from(value: PreferenceStoreError) -> Self {
+        Self::Preferences(value)
+    }
+}
+
+impl From<SchedulePreferenceReminderError> for ReminderDeliveryCycleError {
+    fn from(value: SchedulePreferenceReminderError) -> Self {
+        Self::SchedulePreference(value)
     }
 }
 
@@ -243,6 +274,66 @@ fn dispatch_due_from_path(
     )
 }
 
+
+fn dispatch_schedule_preference_due_with<Submit>(
+    conn: &mut Connection,
+    now: &str,
+    mut submit: Submit,
+) -> Result<SchedulePreferenceReminderDispatchReport, ReminderDeliveryCycleError>
+where
+    Submit: FnMut(&SchedulePreferenceReminderCandidate) -> bool,
+{
+    cleanup_stale_schedule_preference_effects(conn)?;
+    let preferences = get_preferences(conn)?
+        .map(|record| record.payload)
+        .unwrap_or_default();
+    if !preferences.alerts.schedule_reminders_enabled {
+        return Ok(SchedulePreferenceReminderDispatchReport::default());
+    }
+
+    let due = pending_schedule_preference_reminders(
+        conn,
+        now,
+        preferences.alerts.reminder_lead_seconds,
+    )?;
+    let mut report = SchedulePreferenceReminderDispatchReport {
+        due_count: due.len(),
+        ..SchedulePreferenceReminderDispatchReport::default()
+    };
+
+    for candidate in due {
+        if !submit(&candidate) {
+            report.submission_failed_count += 1;
+            continue;
+        }
+
+        mark_schedule_preference_reminder_submitted(conn, &candidate, now)?;
+        report.submitted_count += 1;
+    }
+
+    Ok(report)
+}
+
+fn dispatch_schedule_preference_due_from_path(
+    database_path: &Path,
+    app_handle: &tauri::AppHandle,
+    now: &str,
+) -> Result<SchedulePreferenceReminderDispatchReport, ReminderDeliveryCycleError> {
+    let mut connection = open_delivery_connection(database_path)?;
+    dispatch_schedule_preference_due_with(&mut connection, now, |candidate| {
+        match notifications::send_task_reminder(app_handle, &candidate.task_title) {
+            Ok(()) => true,
+            Err(error) => {
+                eprintln!(
+                    "Preference-generated schedule reminder for task {} is due, but Windows notification submission failed; it remains eligible for retry: {error}",
+                    candidate.task_id
+                );
+                false
+            }
+        }
+    })
+}
+
 pub fn install_background_delivery(
     app_handle: tauri::AppHandle,
     database_path: PathBuf,
@@ -268,6 +359,18 @@ pub fn install_background_delivery(
                     eprintln!("Reminder delivery cycle failed; pending rows remain durable: {error}");
                 }
             }
+            match dispatch_schedule_preference_due_from_path(&database_path, &app_handle, &now) {
+                Ok(report) if report.submission_failed_count > 0 => {
+                    eprintln!(
+                        "Schedule-preference reminder cycle completed with {} submission failure(s); effects remain eligible for retry",
+                        report.submission_failed_count
+                    );
+                }
+                Ok(_) => {}
+                Err(error) => {
+                    eprintln!("Schedule-preference reminder cycle failed; no effect is acknowledged on failure: {error}");
+                }
+            }
             std::thread::sleep(REMINDER_POLL_INTERVAL);
         })
         .map(|_| ())
@@ -282,6 +385,7 @@ mod tests {
     use crate::domain::reminders::NewReminderInput;
     use crate::domain::tasks::NewTaskInput;
     use crate::persistence::lists::create_list;
+    use crate::persistence::preferences::mutate_preferences;
     use crate::persistence::reminders::{create_reminder, get_reminder};
     use crate::persistence::run_migrations;
     use crate::persistence::tasks::{complete_task, create_task};
@@ -337,6 +441,96 @@ mod tests {
             T0,
         )
         .expect("create reminder")
+    }
+
+    fn schedule_task(
+        conn: &Connection,
+        task_id: TaskId,
+        local_date: &str,
+        local_time: &str,
+        timezone: &str,
+    ) {
+        conn.execute(
+            "UPDATE tasks
+             SET schedule_kind = 'local_datetime',
+                 scheduled_local_date = ?1,
+                 scheduled_local_time = ?2,
+                 schedule_timezone = ?3
+             WHERE id = ?4",
+            rusqlite::params![local_date, local_time, timezone, task_id.to_string()],
+        )
+        .expect("schedule task");
+    }
+
+    fn set_schedule_reminder_preferences(
+        conn: &mut Connection,
+        enabled: bool,
+        lead_seconds: u32,
+    ) {
+        mutate_preferences(conn, T0, |payload| {
+            payload.alerts.schedule_reminders_enabled = enabled;
+            payload.alerts.reminder_lead_seconds = lead_seconds;
+        })
+        .expect("save schedule reminder preferences");
+    }
+
+    #[test]
+    fn schedule_preference_is_disabled_by_default_and_does_not_submit() {
+        let mut conn = fixture();
+        let task = create_task_fixture(&mut conn, "Default off");
+        schedule_task(&conn, task.id, "2026-09-05", "15:10", "Europe/Athens");
+        let mut called = false;
+
+        let report = dispatch_schedule_preference_due_with(&mut conn, T1, |_| {
+            called = true;
+            true
+        })
+        .expect("disabled schedule reminder cycle");
+
+        assert_eq!(report.due_count, 0);
+        assert!(!called);
+    }
+
+    #[test]
+    fn schedule_preference_uses_persisted_lead_and_submits_once() {
+        let mut conn = fixture();
+        let task = create_task_fixture(&mut conn, "Preference reminder");
+        schedule_task(&conn, task.id, "2026-09-05", "15:10", "Europe/Athens");
+        set_schedule_reminder_preferences(&mut conn, true, 10 * 60);
+        let mut submissions = Vec::new();
+
+        let first = dispatch_schedule_preference_due_with(&mut conn, T1, |candidate| {
+            submissions.push(candidate.task_title.clone());
+            true
+        })
+        .expect("first schedule preference cycle");
+        assert_eq!(first.due_count, 1);
+        assert_eq!(first.submitted_count, 1);
+        assert_eq!(submissions, vec!["Preference reminder"]);
+
+        let second = dispatch_schedule_preference_due_with(&mut conn, T1, |candidate| {
+            submissions.push(candidate.task_title.clone());
+            true
+        })
+        .expect("second schedule preference cycle");
+        assert_eq!(second.due_count, 0);
+        assert_eq!(submissions, vec!["Preference reminder"]);
+    }
+
+    #[test]
+    fn schedule_preference_submission_failure_retries_without_acknowledging() {
+        let mut conn = fixture();
+        let task = create_task_fixture(&mut conn, "Retry preference reminder");
+        schedule_task(&conn, task.id, "2026-09-05", "15:10", "Europe/Athens");
+        set_schedule_reminder_preferences(&mut conn, true, 10 * 60);
+
+        let failed = dispatch_schedule_preference_due_with(&mut conn, T1, |_| false)
+            .expect("failed preference notification remains retryable");
+        assert_eq!(failed.submission_failed_count, 1);
+
+        let retried = dispatch_schedule_preference_due_with(&mut conn, T1, |_| true)
+            .expect("retry preference notification");
+        assert_eq!(retried.submitted_count, 1);
     }
 
     #[test]
