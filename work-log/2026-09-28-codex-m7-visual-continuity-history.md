@@ -15,4 +15,8 @@ Gate 7 requires uninterrupted visible Panel↔Timer and Timer Expand/Collapse tr
 
 The `f1ef35a` and `12707c0` physical failures alone cross the new repeated-failure threshold in `AGENTS.md`; `d505b93` adds another failing build. Repeated adjustments to one WebView/bitmap-hold transition must stop pending a bounded architecture assessment. That assessment should map the complete native/React/DWM sequence, test a materially different scoped Timer/window composition, and compare continuous On/Off capture, authoritative session continuity, keyboard behavior, CPU/memory, and DPI/topology recovery. Do not begin a whole-app framework migration from the current evidence alone. Do not close Gate 7 until the chosen exact build passes its full physical matrix.
 
-This record is historical evidence and a decision gate. It does not perform the architecture assessment or validate `b23c8ab`. The original SQLite profile backup and test-environment restoration are still outstanding as described in `HANDOFF.md`.
+This paragraph records the earlier decision gate. At that point, the architecture assessment, `b23c8ab` physical validation, and original SQLite profile restoration were still outstanding. Their later results are appended below.
+
+## Subsequent result
+
+The above `b23c8ab` row was the state when this history was first committed. Its exact CI artifact has since been physically tested: **Gate 7 FAIL** with Windows animations Off. Frame 1394 is fully white during expansion; frames 1489 and 1552 show blank/white areas during collapse. The same paused session survived. The full current-build evidence, architecture comparison, and restored profile/OS state are recorded in `2026-09-28-codex-m7-architecture-assessment.md`.

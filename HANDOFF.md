@@ -11,8 +11,8 @@ GitHub `main` is the durable source truth.
 - Roadmap: **6/10 milestones complete**.
 - M7: **12/14 top-level checklist items validated** after the CI #624 physical batch; Gates 7 and 12 remain FAIL and M7 closure remains OPEN.
 - M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
-- Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**, both correction candidates in PR #191 and pending exact-build physical validation.
-- Open implementation PR: **#191**, targeted M7 visual-hold and mixed-DPI corrections. Three CI-validated heads failed physical Gate 7. Current head `b23c8ab` passed CI but is physically untested; the repeated-failure architecture assessment is next.
+- Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 needs the chosen alternative-composition experiment; Gate 12 still needs the secondary-display physical retest.
+- Open implementation PR: **#191**, targeted M7 visual-hold and mixed-DPI corrections. Four CI-validated heads failed physical Gate 7, including current head `b23c8ab`. The repeated-failure architecture assessment chose a separate fixed-size Timer WebView/region experiment; it is not yet built or physically compared.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -41,7 +41,7 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 - Canonical screenshot corpus: **46 retained images** — 22 current v2.6.69, 17 Help Center originals, 7 historical.
 - `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` is authoritative for finding disposition.
 - CORR-01 recurrence No Repeat/Delete Existing correction is VALIDATED.
-- New exact-build physical findings `M7-PHYS-01` and `M7-PHYS-02` are `FIX_NOW` in the audit crosswalk until their PR #191 corrections pass physical acceptance.
+- New exact-build physical findings `M7-PHYS-01` and `M7-PHYS-02` remain `FIX_NOW` in the audit crosswalk until exact-build physical acceptance passes.
 - M9 findings remain routed to M9; M10/final-review findings remain routed to later gates; unresolved source ambiguities remain explicit.
 
 ## M7 PHYSICAL CLOSURE — ACTIVE
@@ -88,13 +88,13 @@ The abandoned CI dedup regression guard was recovered, validated and merged in P
 
 ## NEXT AGENT ACTION
 
-The repeated Gate 7 failure history is consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. The `AGENTS.md` repeated-failure rule is triggered: three CI-validated PR #191 builds (`f1ef35a`, `12707c0`, `d505b93`) failed physical Gate 7. `b23c8ab` passed CI run `36397349549` but is **physically NOT RUN**. Pause further small hold-mechanism changes; the next technical step is a bounded architecture assessment of a materially different scoped Timer/window composition, with the same continuous physical acceptance and correctness/performance measures. The user will change effort before that assessment. The original SQLite profile backup remains to be restored, and Windows currently exposes one display, so secondary-monitor Gate 12 cannot be claimed.
+The repeated Gate 7 failure history is consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. The completed assessment and latest exact-build physical FAIL are in `work-log/2026-09-28-codex-m7-architecture-assessment.md`. Four CI-validated PR #191 builds, including `b23c8ab`, failed physical Gate 7. The next technical step is the **bounded alternative-composition experiment**, not another bitmap-hold patch. The original SQLite profile has been restored and verified byte-for-byte; both animation settings are On. Windows exposes one display, so secondary-monitor Gate 12 remains open.
 
-1. Read live PR #191/CI state; the latest known head is `b23c8ab518c5b654dd33b3cb582388b193ce82e5` with CI PASS and physical NOT RUN.
+1. Read live PR #191/CI state; the latest known source head is `b23c8ab518c5b654dd33b3cb582388b193ce82e5` with CI PASS and physical Gate 7 **FAIL**. The following local documentation commits do not change that executable.
 2. Do **not** begin PREF-R02 yet.
-3. After the user adjusts effort, perform the bounded architecture assessment before another small hold-mechanism change. Later physical retests must use the exact validated runtime artifact. Restore the original SQLite backup when testing ends.
+3. Prototype the separate persistent Timer WebView with fixed expanded outer size/native compact clipping in isolation, following the assessment's full acceptance and resource comparison. Later physical retests must use the exact validated runtime artifact. Preserve the restored original profile; use an isolated test copy for further app runs.
 4. Record the retest in a new immutable work log; update `TODO.md`, `STATUS.md`, and this handoff from evidence.
-5. Restore the user's original profile and monitor scale; keep M7 open if either gate remains failed/unverified.
+5. After further testing, restore the user's original profile and OS display/animation settings; keep M7 open if either gate remains failed/unverified.
 6. Stop at M7. The user has not authorized a new M8 slice in this goal.
 
 ## USER ACTION REQUIRED
