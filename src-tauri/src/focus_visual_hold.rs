@@ -410,7 +410,7 @@ pub fn cover_resized_timer(focus: &tauri::WebviewWindow) -> CommandResult<()> {
                 hold.window as Handle,
                 STM_SETIMAGE,
                 IMAGE_BITMAP,
-                hold.bitmap as isize,
+                hold.bitmap,
             );
             DeleteObject(bitmap);
         }
