@@ -530,7 +530,9 @@ Binding interpretation:
 - cloud/account/subscription/AI/integration dependencies remain excluded by the local-only scope;
 - documented source bugs/reliability failures are not reproduced when doing so would compromise correctness/data integrity;
 - accessibility/Windows correctness and genuine evidence ambiguity remain explicit exceptions;
-- every material exception must stay documented in the audit crosswalk rather than becoming a silent deviation.
+- ambiguity does **not** mean implementation should remain frozen when the exact source detail is unrecoverable: after exhausting relevant evidence, choose the strongest professional reconstruction using adjacent Blitzit patterns, Narro's established UI/UX system, Windows conventions, accessibility, reliability and standard engineering/design practice; record it as inference/design decision rather than confirmed source behavior;
+- the Blitzit history/risk research is preventive: known failure families must inform implementation architecture, edge cases and regression tests before the affected feature is built;
+- every material exception or inferred decision must stay documented in the audit crosswalk/STATUS rather than becoming a silent deviation.
 
 This clarification does not reopen validated milestones wholesale. Existing validated source remains valid unless a concrete parity discrepancy is evidenced; the final comprehensive review must treat unexplained in-scope deviations as findings.
 
@@ -541,7 +543,7 @@ The project now uses `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` as the mandatory f
 Binding execution rule:
 - known actionable findings on already-built/current surfaces are corrected before unrelated forward feature work;
 - future-milestone findings remain routed to their ordered milestone;
-- source ambiguities are not guessed;
+- source ambiguities are not guessed arbitrarily: exhaust relevant evidence, then use the professional evidence-consistent fallback defined in `AGENTS.md` and record material inference explicitly;
 - intentional Narro reliability/accessibility/agency improvements are retained;
 - no material parity/video/Help/UIUX/reliability finding may remain orphaned only inside an evidence document.
 
