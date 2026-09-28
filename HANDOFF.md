@@ -73,7 +73,7 @@ PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
-- Product-fidelity default: for in-scope personal/local functionality, confirmed Blitzit behavior and visuals are the target. Do not introduce discretionary redesign; any material deviation must be explicitly justified by local-only scope, documented reliability/data-integrity protection, accessibility/Windows correctness, genuine source ambiguity, or technical impossibility.
+- Product-fidelity default: for in-scope personal/local functionality, confirmed Blitzit behavior and visuals are the target. Do not introduce discretionary redesign. Known Blitzit reliability failures are preventive engineering input and must shape implementation/tests before affected work. If an exact source detail remains unknowable after relevant evidence is exhausted, choose the strongest professional reconstruction consistent with adjacent Blitzit patterns, Narro's established UI/UX, Windows conventions, accessibility and reliability, and record it as inference/design decision rather than confirmed source behavior.
 - Narro remains local-only Windows software with Tauri 2 + React/TypeScript, SQLite, and authoritative Rust/domain state.
 - `main` + reusable `focusSurface` remain the normal two-webview architecture.
 - persistence-first mutations, stable task identities, session/time accounting, recurrence idempotence and Windows-local scheduling semantics remain authoritative.
