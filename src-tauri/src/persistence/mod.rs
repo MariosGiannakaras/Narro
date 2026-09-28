@@ -22,6 +22,7 @@ pub mod task_schedule_edit;
 pub mod task_time_taken_edit;
 pub mod task_title_edit;
 pub mod tasks;
+pub mod timed_alert_effects;
 pub mod timer_controller;
 pub mod timer_runtime;
 
@@ -84,6 +85,9 @@ fn migrations() -> Migrations<'static> {
         )),
         M::up(include_str!(
             "../../migrations/0008_schedule_preference_reminder_effects.sql"
+        )),
+        M::up(include_str!(
+            "../../migrations/0009_timed_alert_effects.sql"
         )),
     ])
 }
@@ -154,6 +158,8 @@ mod tests {
             "task_timer_preferences",
             "floating_timer_placement",
             "schedule_preference_reminder_effects",
+            "timed_alert_runs",
+            "timed_alert_effects",
         ] {
             assert!(
                 table_exists(&conn, table),
@@ -303,6 +309,21 @@ mod tests {
             [NOW],
         )
         .expect("insert schedule reminder effect");
+        conn.execute(
+            "INSERT INTO timed_alert_runs (
+                task_id, run_id, interval_seconds, next_boundary_seconds,
+                last_observed_work_seconds, was_enabled, updated_at
+             ) VALUES ('task-1', '20000000-0000-0000-0000-000000000001', 600, 600, 0, 1, ?1)",
+            [NOW],
+        )
+        .expect("insert timed alert run");
+        conn.execute(
+            "INSERT INTO timed_alert_effects (
+                run_id, task_id, boundary_seconds, decided_at, claimed_at
+             ) VALUES ('20000000-0000-0000-0000-000000000001', 'task-1', 600, ?1, NULL)",
+            [NOW],
+        )
+        .expect("insert timed alert effect");
 
         conn.execute("DELETE FROM tasks WHERE id = 'task-1'", [])
             .expect("delete task");
@@ -314,6 +335,8 @@ mod tests {
             "sessions",
             "task_timer_preferences",
             "schedule_preference_reminder_effects",
+            "timed_alert_runs",
+            "timed_alert_effects",
         ] {
             let count: i64 = conn
                 .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |row| {
