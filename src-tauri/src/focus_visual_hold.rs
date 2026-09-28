@@ -67,7 +67,8 @@ extern "system" {
     fn UpdateWindow(hwnd: Handle) -> i32;
     fn IsWindowVisible(hwnd: Handle) -> i32;
     fn DestroyWindow(hwnd: Handle) -> i32;
-    #[allow(dead_code)] // Retained with the old resize hold until the clipped Timer is physically compared.
+    #[allow(dead_code)]
+    // Retained with the old resize hold until the clipped Timer is physically compared.
     fn GetSystemMetrics(index: i32) -> i32;
 }
 
