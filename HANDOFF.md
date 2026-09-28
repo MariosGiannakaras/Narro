@@ -82,6 +82,10 @@ PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 - No Repeat may delete only pristine active generated children when explicitly requested; customized/history-bearing/completed/archived/legacy-linked children survive detached.
 - excluded account/cloud/trial/upgrade/profile/AI/integration controls remain absent.
 
+## REPOSITORY HYGIENE NOTE
+
+The current GitHub connector cannot delete remote refs/branches. Source/tracking reconciliation is complete, but stale remote branch deletion remains one manual administrative cleanup step. It is non-blocking for Narro correctness. See `work-log/2026-09-28-chatgpt-repository-hygiene-pref-r01.md` and delete only verified merged/superseded or clearly temporary branches; never delete `main`, an open-PR branch, or unverified unique work.
+
 ## NEXT AGENT ACTION
 
 1. Re-read live repository/PR/CI state; there should be no open implementation PR from this handoff.
