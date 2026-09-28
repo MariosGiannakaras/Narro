@@ -41,14 +41,22 @@ The repository specifications are a researched starting point. They are not assu
 Distinguish three levels:
 
 1. **Requirements and invariants** — binding unless the user explicitly changes them. Examples: personal/local-only Windows scope, no auth/cloud/telemetry, data-integrity rules, timer/session correctness, explicit user decisions, and the core planning-to-focus product loop.
-2. **Observed Blitzit behavior and visuals** — fidelity evidence. Preserve the recognizable workflow and experience, but do not blindly reproduce source bugs, obsolete behavior, accidental limitations, or implementation compromises.
-3. **Current proposals** — architecture sketches, library choices, schema details, dimensions, timings, interaction mechanics and other implementation recommendations. These are strong defaults, not immutable truths.
+2. **Observed Blitzit behavior and visuals** — the default fidelity target for every in-scope user-visible surface. Narro is a personal/local reconstruction of the evidenced Blitzit desktop experience: confirmed layout, visible copy, hierarchy, spacing, states, interaction flow, sequencing, motion character and product behavior should match the strongest available Blitzit evidence as closely as practical.
+3. **Current proposals** — architecture sketches, library choices, schema details and implementation mechanics that are not themselves user-visible source behavior. These remain strong defaults, not immutable truths.
 
-Codex may choose a better implementation or UX treatment when it has concrete evidence that the alternative is simpler, more reliable, faster, lighter, more accessible, or better suited to Windows while preserving the intended behavior and visual character.
+Do **not** redesign, simplify, restyle or otherwise "improve" an evidenced Blitzit user-visible behavior merely because another treatment seems preferable. A user-visible deviation is permitted only when it is required by the explicit local-only scope, prevents a documented source reliability/data-integrity failure, is necessary for accessibility/Windows-platform correctness, or the source evidence is genuinely ambiguous or technically impossible to reproduce safely. Every material deviation must be explicit in the audit crosswalk/STATUS with its evidence and rationale.
+
+Implementation internals may differ freely where needed for local-only correctness, performance and maintainability, provided the observable in-scope experience remains maximally faithful to Blitzit and the internal change does not introduce an unexplained user-visible deviation.
 
 A materially different durable decision must be recorded in `STATUS.md` with the reason and relevant validation. Do not change major architecture or confirmed product semantics silently.
 
 ## Source and decision precedence
+
+### Maximum observable parity rule
+
+The user's current product direction is to reproduce the in-scope Blitzit desktop product as closely as the available evidence permits, while keeping Narro local and personal-use oriented. Treat confirmed Blitzit behavior/visuals as the default answer, not as optional inspiration.
+
+"Exact" means **maximum observable parity from evidence**, not copying unavailable backend infrastructure or deliberately recreating defects. Where evidence is incomplete, preserve the ambiguity and use the closest evidence-backed reconstruction rather than inventing a different product treatment.
 
 When evidence disagrees, investigate rather than mechanically applying a hierarchy. Use this order as a default:
 
