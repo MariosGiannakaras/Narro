@@ -28,7 +28,7 @@ A previously validated milestone is not permission to ignore stronger evidence d
 Before implementing an affected surface, inspect `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`:
 - if the surface has a `FIX_NOW` finding, correct and validate that narrow discrepancy before unrelated forward work;
 - if the finding is routed to a later milestone, ensure it is represented in that milestone's TODO and do not front-run it;
-- if evidence is ambiguous, do not invent behavior;
+- if evidence is ambiguous, do not misrepresent inference as confirmed Blitzit behavior. First exhaust the relevant available evidence; if the exact source detail remains unknowable and implementation cannot reasonably remain blocked, make the strongest professional product/design/engineering decision consistent with the evidence, Narro's established visual/interaction language, Windows desktop conventions, accessibility, and the surrounding Blitzit experience. Record material inferred decisions explicitly;
 - if it is an intentional Narro deviation, preserve the documented reliability/accessibility/agency improvement;
 - when new material evidence is discovered, update the crosswalk and roadmap before continuing implementation based on older assumptions.
 
@@ -56,7 +56,7 @@ A materially different durable decision must be recorded in `STATUS.md` with the
 
 The user's current product direction is to reproduce the in-scope Blitzit desktop product as closely as the available evidence permits, while keeping Narro local and personal-use oriented. Treat confirmed Blitzit behavior/visuals as the default answer, not as optional inspiration.
 
-"Exact" means **maximum observable parity from evidence**, not copying unavailable backend infrastructure or deliberately recreating defects. Where evidence is incomplete, preserve the ambiguity and use the closest evidence-backed reconstruction rather than inventing a different product treatment.
+"Exact" means **maximum observable parity from evidence**, not copying unavailable backend infrastructure or deliberately recreating defects. Where evidence is incomplete, preserve the distinction between confirmed behavior and inference, but do not leave ordinary implementation decisions unresolved indefinitely. After exhausting relevant evidence, choose the best professional reconstruction: use the strongest evidence, established UX/UI and engineering practice, Narro's existing design system, Windows desktop conventions, accessibility, and neighboring evidenced Blitzit patterns so the result feels native to the same product rather than like a separate redesign.
 
 When evidence disagrees, investigate rather than mechanically applying a hierarchy. Use this order as a default:
 
@@ -71,7 +71,7 @@ For supplied recordings, distinguish what is directly visible/audible from trans
 
 This precedence does **not** mean higher-ranked sources are automatically correct implementations for Narro. Current Blitzit can contain bugs and documentation can lag the product. Resolve meaningful conflicts using the evidence, the project goals and implementation validation.
 
-Never silently convert inference into confirmed behavior. Record necessary implementation choices that are not confirmed Blitzit behavior as Narro design decisions in `STATUS.md`.
+Never silently convert inference into confirmed behavior. When exact source behavior cannot be established, make a reasoned professional decision rather than an arbitrary guess: prefer consistency with adjacent evidenced Blitzit behavior, established desktop UX patterns, accessibility, reliability and Narro's existing design system. Record material implementation choices that are not confirmed Blitzit behavior as Narro design decisions in `STATUS.md`.
 
 A planned or requested Blitzit feature is not automatically a Narro requirement. Post-parity ideas recorded in `docs/SOURCE_AUDIT.md` stay out of implementation until the ordered parity/reliability milestones pass or the user explicitly changes scope.
 
