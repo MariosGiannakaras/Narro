@@ -19,9 +19,14 @@ struct Rect {
 const WS_POPUP: u32 = 0x8000_0000;
 const SS_BITMAP: u32 = 0x000e;
 const WS_EX_TOPMOST: u32 = 0x0000_0008;
-const WS_EX_TRANSPARENT: u32 = 0x0000_0020;
 const WS_EX_TOOLWINDOW: u32 = 0x0000_0080;
 const WS_EX_NOACTIVATE: u32 = 0x0800_0000;
+const HWND_TOPMOST: Handle = -1_isize as Handle;
+const SWP_NOSIZE: u32 = 0x0001;
+const SWP_NOMOVE: u32 = 0x0002;
+const SWP_NOACTIVATE: u32 = 0x0010;
+const SWP_SHOWWINDOW: u32 = 0x0040;
+const DWMWA_TRANSITIONS_FORCEDISABLED: u32 = 3;
 const STM_SETIMAGE: u32 = 0x0172;
 const IMAGE_BITMAP: usize = 0;
 const SRCCOPY: u32 = 0x00cc_0020;
@@ -49,6 +54,15 @@ extern "system" {
     ) -> Handle;
     fn SendMessageW(hwnd: Handle, message: u32, w_param: usize, l_param: isize) -> isize;
     fn ShowWindow(hwnd: Handle, command: i32) -> i32;
+    fn SetWindowPos(
+        hwnd: Handle,
+        insert_after: Handle,
+        x: i32,
+        y: i32,
+        width: i32,
+        height: i32,
+        flags: u32,
+    ) -> i32;
     fn UpdateWindow(hwnd: Handle) -> i32;
     fn IsWindowVisible(hwnd: Handle) -> i32;
     fn DestroyWindow(hwnd: Handle) -> i32;
@@ -77,6 +91,7 @@ extern "system" {
 #[link(name = "dwmapi")]
 extern "system" {
     fn DwmFlush() -> i32;
+    fn DwmSetWindowAttribute(hwnd: Handle, attribute: u32, value: *const c_void, size: u32) -> i32;
 }
 
 #[derive(Clone, Copy)]
@@ -112,6 +127,24 @@ pub fn begin(focus: &tauri::WebviewWindow) -> CommandResult<()> {
         )
     })?;
     let hwnd = hwnd.0 as isize as Handle;
+    // The native snapshot, rather than the outgoing WebView's CSS fade, must
+    // own the visible transition. Windows' own show/hide animation can expose
+    // the blank host even when the snapshot has already been created.
+    let disable_transitions: i32 = 1;
+    let transition_result = unsafe {
+        DwmSetWindowAttribute(
+            hwnd,
+            DWMWA_TRANSITIONS_FORCEDISABLED,
+            &disable_transitions as *const i32 as *const c_void,
+            std::mem::size_of::<i32>() as u32,
+        )
+    };
+    if transition_result < 0 {
+        return Err(CommandError::new(
+            "FOCUS_VISUAL_HOLD_FAILED",
+            format!("disable Focus DWM transitions failed: HRESULT {transition_result:#x}"),
+        ));
+    }
     let mut rect = Rect {
         left: 0,
         top: 0,
@@ -180,7 +213,7 @@ pub fn begin(focus: &tauri::WebviewWindow) -> CommandResult<()> {
     let class: Vec<u16> = "STATIC\0".encode_utf16().collect();
     let overlay = unsafe {
         CreateWindowExW(
-            WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE,
+            WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE,
             class.as_ptr(),
             class.as_ptr(),
             WS_POPUP | SS_BITMAP,
@@ -198,10 +231,50 @@ pub fn begin(focus: &tauri::WebviewWindow) -> CommandResult<()> {
         unsafe { DeleteObject(bitmap) };
         return Err(failure("CreateWindowExW"));
     }
+    let overlay_transition_result = unsafe {
+        DwmSetWindowAttribute(
+            overlay,
+            DWMWA_TRANSITIONS_FORCEDISABLED,
+            &disable_transitions as *const i32 as *const c_void,
+            std::mem::size_of::<i32>() as u32,
+        )
+    };
+    if overlay_transition_result < 0 {
+        unsafe {
+            DestroyWindow(overlay);
+            DeleteObject(bitmap)
+        };
+        return Err(CommandError::new(
+            "FOCUS_VISUAL_HOLD_FAILED",
+            format!(
+                "disable snapshot DWM transitions failed: HRESULT {overlay_transition_result:#x}"
+            ),
+        ));
+    }
     unsafe {
         SendMessageW(overlay, STM_SETIMAGE, IMAGE_BITMAP, bitmap as isize);
         ShowWindow(overlay, SW_SHOWNOACTIVATE);
         UpdateWindow(overlay);
+    }
+    // Both windows are topmost. Explicitly raise the opaque bitmap above the
+    // outgoing WebView before React starts its exit transition.
+    if unsafe {
+        SetWindowPos(
+            overlay,
+            HWND_TOPMOST,
+            0,
+            0,
+            0,
+            0,
+            SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_SHOWWINDOW,
+        )
+    } == 0
+    {
+        unsafe {
+            DestroyWindow(overlay);
+            DeleteObject(bitmap)
+        };
+        return Err(failure("SetWindowPos"));
     }
     if unsafe { IsWindowVisible(overlay) } == 0 || unsafe { DwmFlush() } < 0 {
         unsafe {
