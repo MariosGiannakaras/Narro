@@ -8,6 +8,18 @@ This register exists so Narro does not keep implementing against superseded assu
 
 It does **not** add an eleventh milestone. `TODO.md` remains the ordered 10-milestone roadmap.
 
+## Fidelity interpretation — user direction 2026-09-28
+
+For all in-scope personal/local functionality, the default disposition is **maximum observable Blitzit parity** from the strongest available evidence. Confirmed source behavior/visuals are not optional inspiration and must not be replaced by discretionary redesign.
+
+An `INTENTIONAL_DEVIATION` or `EXCLUDED` disposition is valid only when supported by one of these reasons:
+- explicit local-only/personal-use scope removes a cloud/account/subscription/AI/integration dependency;
+- reproducing the source behavior would reintroduce a documented reliability/data-integrity defect;
+- accessibility or Windows-platform correctness requires a different treatment;
+- the source evidence is genuinely ambiguous or technically impossible to reproduce safely.
+
+Every other unexplained visual or functional mismatch is a parity finding to fix or route, including small interaction/state/copy/layout/motion discrepancies when evidence exists.
+
 ## Binding routing rule
 
 Before changing any surface:
