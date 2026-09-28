@@ -33,7 +33,7 @@ use domain::{AppState, AppStatePayload};
 use error::{CommandError, CommandResult};
 use shortcuts::{ShortcutDiagnostics, ShortcutManager};
 use std::fmt::Display;
-use std::sync::atomic::{AtomicU8, Ordering as AtomicOrdering};
+use std::sync::atomic::{AtomicBool, AtomicU8, Ordering as AtomicOrdering};
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Emitter, Manager, State};
@@ -56,6 +56,7 @@ const FOCUS_SURFACE_MODE_PANEL: u8 = 1;
 const FOCUS_SURFACE_MODE_TIMER: u8 = 2;
 
 static FOCUS_SURFACE_MODE_STATE: AtomicU8 = AtomicU8::new(FOCUS_SURFACE_MODE_UNKNOWN);
+static FLOATING_TIMER_EXPANDED: AtomicBool = AtomicBool::new(false);
 
 #[cfg(windows)]
 mod focus_visual_hold;
@@ -592,6 +593,17 @@ fn current_focus_surface_mode() -> Option<FocusSurfaceMode> {
     }
 }
 
+fn floating_timer_logical_size() -> tauri::LogicalSize<f64> {
+    tauri::LogicalSize {
+        width: 340.0,
+        height: if FLOATING_TIMER_EXPANDED.load(AtomicOrdering::Acquire) {
+            300.0
+        } else {
+            110.0
+        },
+    }
+}
+
 #[tauri::command]
 fn focus_surface_mode_snapshot() -> Option<&'static str> {
     match current_focus_surface_mode() {
@@ -619,6 +631,9 @@ fn apply_focus_surface_mode(
     window
         .set_skip_taskbar(skip_taskbar)
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "set taskbar visibility", error))?;
+    if mode == FocusSurfaceMode::Timer {
+        FLOATING_TIMER_EXPANDED.store(false, AtomicOrdering::Release);
+    }
     Ok(())
 }
 
@@ -1210,6 +1225,7 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
         }
     }
 
+    FLOATING_TIMER_EXPANDED.store(expanded, AtomicOrdering::Release);
     Ok(())
 }
 

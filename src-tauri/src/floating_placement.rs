@@ -132,6 +132,34 @@ fn fitted_outer_size(
     })
 }
 
+fn timer_needs_dpi_size_recovery(
+    actual: PhysicalSize,
+    logical: tauri::LogicalSize<f64>,
+    scale_factor: f64,
+    work_area: PhysicalRect,
+) -> CommandResult<bool> {
+    if !scale_factor.is_finite() || scale_factor <= 0.0 {
+        return Err(placement_error(
+            "compare Timer DPI size",
+            "invalid scale factor",
+        ));
+    }
+    let expected_width = (logical.width * scale_factor).round() as u32;
+    let expected_height = (logical.height * scale_factor).round() as u32;
+    let expected = PhysicalSize {
+        width: expected_width.min(work_area.size.width),
+        height: expected_height.min(work_area.size.height),
+    };
+    // A normal outer frame can be a little larger than the requested content.
+    // A monitor-DPI transition can instead shrink the whole WebView far below
+    // the requested logical dimensions while still leaving it in the work area.
+    let differs = |actual: u32, expected: u32| {
+        u64::from(actual) * 100 < u64::from(expected) * 90
+            || u64::from(actual) * 100 > u64::from(expected) * 115
+    };
+    Ok(differs(actual.width, expected.width) || differs(actual.height, expected.height))
+}
+
 fn current_outer_rect(window: &tauri::WebviewWindow) -> CommandResult<PhysicalRect> {
     let position = window
         .outer_position()
@@ -417,10 +445,17 @@ pub fn revalidate_visible_timer_after_display_change(
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let previous = current_outer_rect(&window)?;
     let selected = best_work_area_for_window(previous, &areas, &fallback);
+    let logical_size = crate::floating_timer_logical_size();
+    let scale_factor = window
+        .scale_factor()
+        .map_err(|error| placement_error("read Timer scale factor", error))?;
+    let needs_dpi_resize =
+        timer_needs_dpi_size_recovery(previous.size, logical_size, scale_factor, selected.rect)?;
     let planned_size = fitted_outer_size(selected.rect, previous.size)?;
     let planned_position = clamp_top_left(selected.rect, planned_size, previous.position)
         .map_err(|error| placement_error("plan Timer display recovery", error))?;
-    let needs_hide = planned_size != previous.size || planned_position != previous.position;
+    let needs_hide =
+        needs_dpi_resize || planned_size != previous.size || planned_position != previous.position;
     let previous_inner_size = if needs_hide {
         Some(
             window
@@ -438,6 +473,13 @@ pub fn revalidate_visible_timer_after_display_change(
     }
 
     let recovery = (|| -> CommandResult<bool> {
+        if needs_dpi_resize {
+            window
+                .set_size(tauri::Size::Logical(logical_size))
+                .map_err(|error| {
+                    placement_error("restore Timer logical size after DPI change", error)
+                })?;
+        }
         for _ in 0..2 {
             let actual_size = fit_window_outer_size(&window, selected.rect)?;
             let safe = clamp_top_left(selected.rect, actual_size, previous.position)
@@ -656,6 +698,65 @@ mod tests {
                 .expect("clamp to secondary"),
             PhysicalPoint { x: -900, y: 80 }
         );
+    }
+
+    #[test]
+    fn mixed_dpi_timer_shrink_requires_logical_size_recovery() {
+        let secondary = PhysicalRect {
+            position: PhysicalPoint { x: -1920, y: 0 },
+            size: PhysicalSize {
+                width: 1920,
+                height: 1080,
+            },
+        };
+        let logical = tauri::LogicalSize {
+            width: 340.0,
+            height: 110.0,
+        };
+        assert!(timer_needs_dpi_size_recovery(
+            PhysicalSize {
+                width: 271,
+                height: 75,
+            },
+            logical,
+            1.25,
+            secondary,
+        )
+        .expect("detect observed DPI shrink"));
+        assert!(!timer_needs_dpi_size_recovery(
+            PhysicalSize {
+                width: 425,
+                height: 138,
+            },
+            logical,
+            1.25,
+            secondary,
+        )
+        .expect("keep correctly sized Timer"));
+    }
+
+    #[test]
+    fn fitted_small_work_area_is_not_misclassified_as_dpi_shrink() {
+        let short_area = PhysicalRect {
+            position: PhysicalPoint { x: 0, y: 0 },
+            size: PhysicalSize {
+                width: 250,
+                height: 200,
+            },
+        };
+        assert!(!timer_needs_dpi_size_recovery(
+            PhysicalSize {
+                width: 250,
+                height: 200,
+            },
+            tauri::LogicalSize {
+                width: 340.0,
+                height: 300.0,
+            },
+            1.5,
+            short_area,
+        )
+        .expect("keep work-area-fitted Timer"));
     }
 
     #[test]
