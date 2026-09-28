@@ -1,7 +1,7 @@
 .floating-timer-foundation {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 110px;
   box-sizing: border-box;
   overflow: hidden;
   padding: 10px 12px;
@@ -10,6 +10,10 @@
   color: var(--color-text-primary);
   background: var(--color-surface-raised);
   text-align: left;
+}
+
+.floating-timer-foundation[data-floating-expanded="true"] {
+  height: 300px;
 }
 
 .floating-timer-foundation__shortcut-status {
@@ -73,20 +77,6 @@
   gap: 8px;
 }
 
-.floating-timer-foundation[data-floating-resize-phase="resizing"] .floating-timer-foundation__content {
-  visibility: hidden;
-  opacity: 0;
-  transform: none;
-  transition-duration: 0ms;
-}
-
-.floating-timer-foundation[data-floating-resize-phase="prewarming"] .floating-timer-foundation__content {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-  transition-duration: 0ms;
-}
-
 .floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__content {
   grid-template-rows: auto minmax(0, 1fr);
   align-content: stretch;
@@ -98,6 +88,16 @@
   grid-template-columns: minmax(0, 1fr) 8ch;
   align-items: center;
   gap: 10px;
+}
+
+.floating-timer-foundation[data-floating-expanded="true"][data-floating-region-expanded="false"] .floating-timer-foundation__heading {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  left: 12px;
+  right: 12px;
+  height: 50px;
+  background: var(--color-surface-raised);
 }
 
 .floating-timer-foundation [data-tauri-drag-region="true"] {

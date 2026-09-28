@@ -10,7 +10,7 @@ function invariant(condition, message) {
 
 const shortcuts = read("src-tauri/src/shortcuts/mod.rs");
 const lib = read("src-tauri/src/lib.rs");
-const focus = read("src/focus.tsx");
+const panelRoot = read("src/focusPanelWindow.tsx");
 const floating = read("src/FloatingTimerFoundation.tsx");
 const app = read("src/App.tsx");
 const diagnosticApi = read("src/diagnosticApi.ts");
@@ -39,8 +39,10 @@ const emit = handler.indexOf(".emit(FOCUS_TOGGLE_EVENT, payload.focus_toggle_tri
 invariant(
   handlerStart >= 0 && show >= 0 && show < trigger && trigger < emit
     && handler.includes("crate::current_focus_surface_mode().is_none()")
+    && handler.includes("FLOATING_TIMER_LABEL")
+    && handler.includes("FOCUS_SURFACE_LABEL")
     && handler.includes("record_and_report_focus_toggle_error"),
-  "shortcut must require an active focus mode, bring the surface forward, then emit a revisioned request with typed failure state",
+  "shortcut must bring the active Panel or Timer window forward before emitting a revisioned request",
 );
 invariant(
   shortcuts.includes("map_register_error_for_chord(error, FOCUS_TOGGLE_CHORD)")
@@ -50,29 +52,26 @@ invariant(
   "registration conflicts must be reported locally and allow an explicit retry",
 );
 
-const requestStart = focus.indexOf("function requestMode(");
-const commitStart = focus.indexOf("async function commitPendingModeTransition()", requestStart);
-const request = focus.slice(requestStart, commitStart);
+const requestStart = panelRoot.indexOf("async function requestMode(");
+const requestEnd = panelRoot.indexOf("requestModeRef.current = requestMode", requestStart);
+const request = panelRoot.slice(requestStart, requestEnd);
 invariant(
-  focus.includes('listen<number>("focus-surface-toggle-requested"')
-    && focus.includes('requestMode(currentMode === "panel" ? "timer" : "panel")')
-    && focus.includes("sequence <= lastToggleRequestRef.current")
-    && request.includes("transitionBusyRef.current")
-    && request.includes("resizeBusyRef.current")
-    && request.includes("setPendingMode(targetMode)")
-    && focus.includes("await coordinateFocusModeTransition({")
-    && focus.includes("await prepareFloatingTimer()")
-    && focus.includes("await prepareFocusPanel()")
-    && focus.includes("await prewarmFocusSurface()")
-    && focus.includes("await revealFloatingTimer()")
-    && focus.includes("await revealFocusPanel()"),
-  "global toggle must use the serialized hidden-prepare/transparent-prewarm transition coordinator and ignore reentrant mode or resize requests",
+  panelRoot.includes('subscribe<number>("focus-surface-toggle-requested"')
+    && panelRoot.includes('modeRef.current === "panel" ? "timer" : "panel"')
+    && panelRoot.includes("sequence <= lastToggleRequestRef.current")
+    && request.includes("busyRef.current")
+    && request.includes("switchPersistentFocusWindows({")
+    && request.includes("prepareFloatingTimer()")
+    && request.includes("prepareFocusPanel()")
+    && request.includes("revealFloatingTimer()")
+    && request.includes("revealFocusPanel()"),
+  "global toggle must use the serialized persistent-window coordinator and ignore reentrant mode requests",
 );
 invariant(
   floating.includes("onResizePendingChange?.(true)")
     && floating.includes("onResizePendingChange?.(false)")
     && floating.includes("resizeRequestInFlightRef.current"),
-  "floating resize must expose an immediate busy boundary to the mode transition",
+  "floating resize must expose an immediate busy boundary within Timer",
 );
 invariant(
   diagnosticApi.includes("focusToggleLastError: ShortcutErrorSnapshot | null")

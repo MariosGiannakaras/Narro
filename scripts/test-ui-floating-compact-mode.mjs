@@ -1,189 +1,77 @@
 import fs from "node:fs";
 
-function read(path) {
-  return fs.readFileSync(path, "utf8");
-}
-
-function invariant(condition, message) {
+const read = (path) => fs.readFileSync(path, "utf8").replace(/\r\n/g, "\n");
+const invariant = (condition, message) => {
   if (!condition) throw new Error(`Floating compact-mode contract failed: ${message}`);
-}
+};
+const slice = (source, begin, end) => {
+  const start = source.indexOf(begin);
+  invariant(start >= 0, `${begin} is missing`);
+  const stop = source.indexOf(end, start + begin.length);
+  return source.slice(start, stop < 0 ? undefined : stop);
+};
 
-function functionSlice(source, marker, nextMarker) {
-  const start = source.indexOf(marker);
-  invariant(start >= 0, `${marker} is missing`);
-  const end = nextMarker ? source.indexOf(nextMarker, start + marker.length) : -1;
-  return source.slice(start, end >= 0 ? end : source.length);
-}
-
+const config = JSON.parse(read("src-tauri/tauri.conf.json"));
 const lib = read("src-tauri/src/lib.rs");
-const focusEntry = read("src/focus.tsx");
 const modeApi = read("src/focusSurfaceModeApi.ts");
+const panelRoot = read("src/focusPanelWindow.tsx");
+const timerRoot = read("src/floatingTimerWindow.tsx");
 const panel = read("src/FocusPanel.tsx");
 const foundation = read("src/FloatingTimerFoundation.tsx");
 const actions = read("src/FocusLiveActions.tsx");
-const foundationCss = read("src/floatingTimerFoundation.css");
+const css = read("src/floatingTimerFoundation.css");
 const pkg = JSON.parse(read("package.json"));
 
-invariant(
-  lib.includes("fn focus_surface_mode_snapshot() -> Option<&'static str>"),
-  "native read-only focus-surface mode snapshot is missing",
-);
-invariant(
-  lib.includes('Some(FocusSurfaceMode::Panel) => Some("panel")')
-    && lib.includes('Some(FocusSurfaceMode::Timer) => Some("timer")'),
-  "native mode snapshot must project only panel/timer presentation state",
-);
-const presentFloating = functionSlice(
-  lib,
-  "fn present_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()>",
-  "pub(crate) fn revalidate_open_focus_panel_after_display_change",
-);
-invariant(
-  presentFloating.includes("get_window(&app_handle, FOCUS_SURFACE_LABEL)?"),
-  "production compact transition must reuse the existing focusSurface window",
-);
-invariant(
-  presentFloating.includes("configure_focus_surface_mode(&window, FocusSurfaceMode::Timer)"),
-  "production compact transition must reuse the validated native Timer-mode configuration",
-);
-invariant(
-  !presentFloating.includes("WebviewWindowBuilder"),
-  "production compact transition must never create another webview",
-);
-invariant(
-  lib.includes("FocusSurfaceMode::Timer => (340.0, 110.0, true, true)"),
-  "compact mode must retain the current validated collapsed geometry/top/taskbar foundation",
-);
-const diagnosticTimer = functionSlice(
-  lib,
-  "fn focus_surface_mode_timer(app_handle: tauri::AppHandle) -> CommandResult<()>",
-  "#[tauri::command]\nfn list_windows",
-);
-invariant(
-  diagnosticTimer.includes("present_floating_timer(app_handle)"),
-  "M1 diagnostic Timer command must delegate to the production same-window compact transition",
-);
-for (const command of ["focus_surface_mode_snapshot", "present_floating_timer", "present_focus_panel"]) {
-  invariant(lib.includes(command), `native command ${command} is missing`);
-}
+const windows = new Map(config.app.windows.map((window) => [window.label, window]));
+invariant(windows.size === 3, "Panel and Timer need separate persistent WebViews beside Main");
+invariant(windows.get("focusSurface")?.url === "focus.html", "Panel must keep its own entry");
+invariant(windows.get("floatingTimer")?.url === "timer.html", "Timer must load its own entry");
+invariant(windows.get("floatingTimer")?.visible === false, "Timer must start hidden until its renderer is ready");
+invariant(windows.get("floatingTimer")?.width === 340 && windows.get("floatingTimer")?.height === 300,
+  "Timer host must start at expanded geometry and clip compact content without a resize");
 
-invariant(
-  modeApi.includes('invoke<FocusSurfaceMode | null>("focus_surface_mode_snapshot")'),
-  "renderer must reconcile native presentation mode on mount",
-);
-invariant(
-  modeApi.includes('invoke<void>("prepare_floating_timer")')
-    && modeApi.includes('invoke<void>("reveal_floating_timer")'),
-  "renderer compact transition must split hidden Timer preparation from reveal",
-);
-invariant(
-  modeApi.includes('invoke<void>("prepare_focus_panel")')
-    && modeApi.includes('invoke<void>("reveal_focus_panel")'),
-  "return transition must split hidden Panel preparation from reveal",
-);
-invariant(
-  modeApi.includes('invoke<void>("prewarm_focus_surface")')
-    && modeApi.includes('invoke<void>("clear_focus_surface_prewarm")')
-    && modeApi.includes('invoke<void>("present_floating_timer")')
-    && modeApi.includes('invoke<void>("present_focus_panel")'),
-  "transparent prewarm cleanup and legacy/native diagnostic presenters must remain available outside product transition orchestration",
-);
+invariant(lib.includes("fn focus_surface_mode_snapshot() -> Option<&'static str>"), "native mode snapshot is missing");
+invariant(lib.includes('Some(FocusSurfaceMode::Panel) => Some("panel")')
+  && lib.includes('Some(FocusSurfaceMode::Timer) => Some("timer")'), "native mode snapshot must be limited to Panel/Timer");
+const prepareTimer = slice(lib, "fn prepare_floating_timer(", "#[tauri::command]\nfn reveal_floating_timer");
+const revealTimer = slice(lib, "fn reveal_floating_timer(", "#[tauri::command]\nfn present_floating_timer");
+const revealPanel = slice(lib, "fn reveal_focus_panel(", "#[tauri::command]\nfn present_focus_panel");
+invariant(prepareTimer.includes("FLOATING_TIMER_LABEL") && !prepareTimer.includes("FOCUS_SURFACE_LABEL"),
+  "Timer preparation must target only the separate Timer HWND");
+invariant(prepareTimer.includes("timer_region::apply"), "Timer must be clipped before it becomes visible");
+invariant(revealTimer.includes(".show()") && revealTimer.indexOf(".show()") < revealTimer.search(/panel\s*\.hide\(\)/),
+  "Timer must become visible before Panel is hidden");
+invariant(revealPanel.includes("FLOATING_TIMER_LABEL")
+  && revealPanel.indexOf(".show()") < revealPanel.search(/timer\s*\.hide\(\)/),
+  "Panel must become visible before Timer is hidden");
+invariant(!revealTimer.includes("focus_visual_hold") && !revealPanel.includes("focus_visual_hold"),
+  "separate-window reveals must not use the failed bitmap-hold path");
+
+invariant(modeApi.includes('invoke<FocusSurfaceMode | null>("focus_surface_mode_snapshot")'),
+  "renderer must reconcile native presentation state");
+for (const command of ["prepare_floating_timer", "reveal_floating_timer", "prepare_focus_panel", "reveal_focus_panel"]) {
+  invariant(modeApi.includes(`"${command}"`), `renderer bridge is missing ${command}`);
+}
 for (const forbidden of ["timer_start_task", "timer_pause", "timer_resume", "timer_complete_task", "timer_switch_task"]) {
-  invariant(!modeApi.includes(forbidden), `mode API must not become timer/session authority via ${forbidden}`);
+  invariant(!modeApi.includes(forbidden), `mode bridge must not become timer/session authority via ${forbidden}`);
 }
 
-invariant(focusEntry.includes("function FocusSurfaceProduct()"), "product focus-surface root is missing");
-invariant(focusEntry.includes("void getFocusSurfaceMode()"), "product root must reconcile native mode on mount");
-const requestMode = functionSlice(
-  focusEntry,
-  "function requestMode(targetMode: FocusSurfaceMode)",
-  "async function commitPendingModeTransition()",
-);
-const commitMode = functionSlice(
-  focusEntry,
-  "async function commitPendingModeTransition()",
-  "function enterCompactMode()",
-);
-invariant(
-  requestMode.includes("setPendingMode(targetMode)")
-    && !requestMode.includes("presentFloatingTimer")
-    && !requestMode.includes("presentFocusPanel"),
-  "renderer mode request must begin presentation exit without invoking native geometry immediately",
-);
-invariant(
-  commitMode.includes("await coordinateFocusModeTransition({")
-    && commitMode.includes("await prepareFloatingTimer()")
-    && commitMode.includes("await prepareFocusPanel()")
-    && commitMode.includes("flushSync(() => {")
-    && commitMode.includes("setMode(nextMode)")
-    && commitMode.includes("await prewarmFocusSurface()")
-    && commitMode.includes("await revealFloatingTimer()")
-    && commitMode.includes("await revealFocusPanel()"),
-  "renderer must prepare native geometry hidden, publish the target root, transparently prewarm the host, then reveal through the shared coordinator",
-);
-invariant(
-  focusEntry.includes('requestMode("timer")')
-    && focusEntry.includes('requestMode("panel")'),
-  "explicit compact/return callbacks must delegate to the shared transition request path",
-);
-invariant(
-  focusEntry.includes('mode === "timer"') && focusEntry.includes("<FloatingTimerFoundation"),
-  "native timer mode must project the compact product root",
-);
-invariant(
-  focusEntry.includes("<FocusPanel") && focusEntry.includes("onRequestCompact={() => void enterCompactMode()}"),
-  "panel must enter compact mode only through the explicit product callback",
-);
-invariant(
-  focusEntry.includes("{diagnostics ? <FocusDiagnostics /> : <FocusSurfaceProduct />}"),
-  "M1 diagnostics must remain explicitly gated while normal focusSurface uses the product mode root",
-);
+invariant(panelRoot.includes("<FocusPanel") && panelRoot.includes('requestMode("timer")'),
+  "Panel must have an explicit transition into compact Timer mode");
+invariant(timerRoot.includes("<FloatingTimerFoundation") && timerRoot.includes("onReturnToPanel"),
+  "Timer must have an explicit return path to Panel");
+invariant(panel.includes('data-focus-compact-control="true"')
+  && panel.includes("disabled={!onRequestCompact || compactTransitionPending}")
+  && panel.includes("onClick={onRequestCompact}"), "Panel compact control must be actionable and busy-safe");
+invariant(foundation.includes('data-floating-timer="foundation"')
+  && foundation.includes('data-floating-task-title="true"')
+  && foundation.includes('data-floating-live-timer="true"'), "Timer compact hierarchy is missing");
+invariant(foundation.includes("onReturnToPanel={onReturnToPanel}")
+  && actions.includes('action="return-to-panel"')
+  && foundation.includes('aria-label="Return to Focus Panel"'), "Timer return must remain accessible even without a live task");
+invariant(!/animation\s*:\s*[^;]*infinite/.test(css) && css.includes("@media (prefers-reduced-motion: reduce)"),
+  "compact Timer must have only finite motion with reduced-motion support");
+invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-floating-compact-mode"),
+  "frontend preflight must retain the compact Timer contract");
 
-invariant(panel.includes('data-focus-compact-control="true"'), "Focus Panel compact control marker is missing");
-invariant(
-  panel.includes("disabled={!onRequestCompact || compactTransitionPending}"),
-  "compact control must remain disabled in fixtures/unwired states and while a transition is pending",
-);
-invariant(panel.includes("onClick={onRequestCompact}"), "compact control must use its explicit callback");
-invariant(
-  !panel.includes('data-focus-placeholder-control="compact-view"'),
-  "Compact view must no longer be an inactive M6 placeholder",
-);
-invariant(
-  panel.includes('data-focus-placeholder-control="preferences"'),
-  "unrelated Preferences placeholder must remain unchanged",
-);
-
-invariant(
-  foundation.includes('data-floating-timer="foundation"'),
-  "item-1 compact product shell marker is missing",
-);
-invariant(
-  foundation.includes("onReturnToPanel={onReturnToPanel}")
-    && actions.includes('action="return-to-panel"')
-    && actions.includes('label="Return to Focus Panel"'),
-  "expanded compact shell must provide an accessible reversible return path",
-);
-invariant(
-  foundation.includes('data-floating-fallback-action="return-to-panel"')
-    && foundation.includes('aria-label="Return to Focus Panel"'),
-  "a missing/finished live task must retain an explicit return-to-panel escape path",
-);
-invariant(
-  !/animation\s*:\s*[^;]*infinite/.test(foundationCss)
-    && (foundationCss.match(/@keyframes/g) ?? []).length === 1
-    && foundationCss.includes("animation: floating-timer-attention 720ms ease-out 1;")
-    && foundationCss.includes("@media (prefers-reduced-motion: reduce)"),
-  "the only decorative Floating Timer motion must be the finite Find Timer pulse with a reduced-motion path",
-);
-
-invariant(
-  pkg.scripts["test:ui-floating-compact-mode"] === "node scripts/test-ui-floating-compact-mode.mjs",
-  "package script registration differs",
-);
-invariant(
-  pkg.scripts["preflight:frontend"].includes("npm run test:ui-floating-compact-mode"),
-  "frontend preflight must run the compact-mode foundation contract",
-);
-
-console.log("Floating Timer same-window compact-mode foundation contracts passed.");
+console.log("Floating Timer separate-window compact-mode contracts passed.");

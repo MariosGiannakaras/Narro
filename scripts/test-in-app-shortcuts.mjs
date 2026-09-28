@@ -41,7 +41,8 @@ invariant(resolveInAppShortcut(chord("x")) === null, "unknown Ctrl+Alt chords mu
 
 const appShell = fs.readFileSync("src/AppShell.tsx", "utf8");
 const focusActions = fs.readFileSync("src/FocusLiveActions.tsx", "utf8");
-const focusEntry = fs.readFileSync("src/focus.tsx", "utf8");
+const panelRoot = fs.readFileSync("src/focusPanelWindow.tsx", "utf8");
+const timerRoot = fs.readFileSync("src/floatingTimerWindow.tsx", "utf8");
 const searchPalette = fs.readFileSync("src/SearchPalette.tsx", "utf8");
 
 invariant(
@@ -52,11 +53,12 @@ invariant(
   "Main must route Ctrl+Alt+T to task-create and Ctrl+F to SearchPalette",
 );
 invariant(
-  appShell.includes('emitTo("focusSurface", FOCUS_IN_APP_SHORTCUT_EVENT, shortcut)')
+  appShell.includes('getFocusSurfaceMode().then((mode) =>')
+    && appShell.includes('emitTo(mode === "timer" ? "floatingTimer" : "focusSurface", FOCUS_IN_APP_SHORTCUT_EVENT, shortcut)')
     && appShell.includes("snapshotTimerSession()")
     && !appShell.includes("pauseTimer(")
     && !appShell.includes("completeTimerTask("),
-  "Main focus shortcuts must be routed cross-window after a read-only authoritative snapshot, without duplicating timer mutations",
+  "Main focus shortcuts must target the currently visible renderer after a read-only authoritative snapshot",
 );
 for (const shortcut of ["start-break", "pause-resume", "skip-task", "finish-task", "notes"]) {
   invariant(
@@ -88,22 +90,25 @@ invariant(
   "Start Break and break-resume shortcuts must reuse the authoritative manual-break lifecycle with persisted M8 duration",
 );
 invariant(
-  focusEntry.includes('shortcut !== "create-task"')
-    && focusEntry.includes('shortcut === "search"')
-    && focusEntry.includes('taskCreateOnly')
-    && focusEntry.includes("Search is unavailable while Focus mode is open."),
-  "Focus surface must support quick task creation and explicitly reject Search",
+  panelRoot.includes('shortcut !== "create-task"')
+    && panelRoot.includes('shortcut === "search"')
+    && panelRoot.includes('taskCreateOnly')
+    && timerRoot.includes('shortcut !== "create-task"')
+    && timerRoot.includes('shortcut === "search"'),
+  "both Focus renderers must support quick-create and explicitly reject Search",
 );
 invariant(
-  focusEntry.includes("isFocusActionShortcut(shortcut)")
-    && focusEntry.includes("No active Focus task is available for this shortcut."),
-  "Focus surface must surface unavailable live-action shortcuts when no task is active",
+  panelRoot.includes("isFocusActionShortcut(shortcut)")
+    && timerRoot.includes("isFocusActionShortcut(shortcut)")
+    && panelRoot.includes("No active Focus task is available for this shortcut.")
+    && timerRoot.includes("No active Focus task is available for this shortcut."),
+  "both Focus renderers must surface unavailable live-action shortcuts when no task is active",
 );
 invariant(
-  focusEntry.includes('modeRef.current === "timer"')
-    && focusEntry.includes("pendingQuickTaskAfterPanelRef.current = true")
-    && focusEntry.includes('requestMode("panel")')
-    && focusEntry.includes("setQuickTaskOpen(true)"),
+  timerRoot.includes("void requestPanel(true)")
+    && timerRoot.includes('emitTo("focusSurface", FOCUS_MODE_REQUEST_EVENT, payload)')
+    && panelRoot.includes("quickTaskAfterPanelRef.current = true")
+    && panelRoot.includes("setQuickTaskOpen(true)"),
   "Ctrl+Alt+T from Floating Timer must transition to the usable Panel viewport before opening quick-create",
 );
 invariant(

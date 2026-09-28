@@ -12,6 +12,7 @@ export default defineConfig(async () => ({
       input: {
         main: "index.html",
         focus: "focus.html",
+        timer: "timer.html",
         visualFixtures: "visual-fixtures.html",
         focusPanelFixture: "focus-panel-fixture.html",
         floatingTimerFixture: "floating-timer-fixture.html",

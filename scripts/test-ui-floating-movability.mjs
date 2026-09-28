@@ -12,38 +12,39 @@ const tauriConfig = JSON.parse(read("src-tauri/tauri.conf.json"));
 const defaultCapability = JSON.parse(read("src-tauri/capabilities/default.json"));
 const focusCapability = JSON.parse(read("src-tauri/capabilities/focus-surface.json"));
 const lib = read("src-tauri/src/lib.rs");
+const placement = read("src-tauri/src/floating_placement.rs");
 const foundation = read("src/FloatingTimerFoundation.tsx");
 const actions = read("src/FocusLiveActions.tsx");
 const foundationCss = read("src/floatingTimerFoundation.css");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const pkg = JSON.parse(read("package.json"));
 
-const focusWindow = tauriConfig.app.windows.find((window) => window.label === "focusSurface");
-invariant(focusWindow, "focusSurface Tauri window config is missing");
-invariant(focusWindow.decorations === false, "focusSurface must remain frameless for the compact surface");
-invariant(focusWindow.alwaysOnTop === true, "focusSurface must retain the existing always-on-top foundation");
+const timerWindow = tauriConfig.app.windows.find((window) => window.label === "floatingTimer");
+invariant(timerWindow, "separate floatingTimer Tauri window config is missing");
+invariant(timerWindow.url === "timer.html" && timerWindow.visible === false, "Timer must load its own entry while initially hidden");
+invariant(timerWindow.decorations === false && timerWindow.transparent === true, "Timer must remain a frameless transparent surface");
+invariant(timerWindow.alwaysOnTop === true && timerWindow.skipTaskbar === true, "Timer must remain topmost and absent from the taskbar");
 
-invariant(defaultCapability.windows.includes("focusSurface"), "focusSurface must retain the default core capability");
+invariant(defaultCapability.windows.includes("floatingTimer"), "Timer must retain the default core capability");
 invariant(
   !defaultCapability.permissions.includes("core:window:allow-start-dragging"),
   "native drag permission must not be broadened to every default-capability window",
 );
 invariant(
-  focusCapability.windows.length === 1 && focusCapability.windows[0] === "focusSurface",
-  "native drag capability must be scoped only to focusSurface",
+  focusCapability.windows.length === 2
+    && focusCapability.windows.includes("focusSurface")
+    && focusCapability.windows.includes("floatingTimer"),
+  "native drag capability must cover only Panel and Timer windows",
 );
 invariant(
   focusCapability.permissions.includes("core:window:allow-start-dragging"),
-  "focusSurface native start-dragging permission is missing",
+  "Panel/Timer native start-dragging permission is missing",
 );
 
 invariant(
-  lib.includes("FocusSurfaceMode::Timer => (340.0, 110.0, true, true)"),
-  "Timer mode must retain the validated always-on-top and skip-taskbar properties",
-);
-invariant(
-  lib.includes(".set_always_on_top(always_on_top)") && lib.includes(".set_skip_taskbar(skip_taskbar)"),
-  "native focus-surface mode application must remain authority for topmost/taskbar state",
+  lib.includes('const FLOATING_TIMER_LABEL: &str = "floatingTimer"')
+    && placement.includes('const FLOATING_TIMER_LABEL: &str = "floatingTimer"'),
+  "native Timer placement must target the separate Timer window",
 );
 
 const dragRegionMatches = foundation.match(/data-tauri-drag-region="true"/g) ?? [];

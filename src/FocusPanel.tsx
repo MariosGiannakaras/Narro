@@ -50,7 +50,7 @@ export type FocusPanelProps = {
   modeTransitionError?: string | null;
   shortcutStatus?: string | null;
   refreshKey?: number;
-  onPresentationReady?: () => void;
+  onPresentationReady?: (payload: TimerSessionPayload | null) => void;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
@@ -332,6 +332,7 @@ export function FocusPanel({
   const [timer, setTimer] = useState<TimerSessionPayload | null>(fixtureTimer);
   const [error, setError] = useState<string | null>(null);
   const [boardReadyTargetKey, setBoardReadyTargetKey] = useState<string | null>(null);
+  const [boardReadyRefreshKey, setBoardReadyRefreshKey] = useState(0);
   const [timerSettled, setTimerSettled] = useState(Boolean(fixtureBoard));
   const [mutationPendingTaskId, setMutationPendingTaskId] = useState<string | null>(null);
   const [mutationStatus, setMutationStatus] = useState<string | null>(null);
@@ -355,6 +356,7 @@ export function FocusPanel({
   useEffect(() => {
     if (fixtureBoard) {
       setBoard(fixtureBoard);
+      setBoardReadyRefreshKey(refreshKey);
       setTarget(
         fixtureBoard.target.kind === "list" && fixtureBoard.target.id
           ? { kind: "list", id: fixtureBoard.target.id }
@@ -371,6 +373,7 @@ export function FocusPanel({
       .then((snapshot) => {
         if (!disposed) {
           setBoard(snapshot);
+          setBoardReadyRefreshKey(refreshKey);
           setBoardReadyTargetKey(targetKey(target));
           setError(null);
         }
@@ -378,6 +381,7 @@ export function FocusPanel({
       .catch((failure: unknown) => {
         if (!disposed) {
           setBoard(null);
+          setBoardReadyRefreshKey(refreshKey);
           setBoardReadyTargetKey(targetKey(target));
           setError(formatInvokeError(failure));
         }
@@ -465,10 +469,11 @@ export function FocusPanel({
   }, [fixtureMode, fixtureTimer, target.kind, target.kind === "list" ? target.id : null]);
 
   useEffect(() => {
-    if (fixtureMode || (timerSettled && boardReadyTargetKey === currentTargetKey)) {
-      onPresentationReady?.();
+    if (fixtureMode || (timerSettled && timer !== null
+      && boardReadyTargetKey === currentTargetKey && boardReadyRefreshKey === refreshKey)) {
+      onPresentationReady?.(timer);
     }
-  }, [boardReadyTargetKey, currentTargetKey, fixtureMode, onPresentationReady, timerSettled]);
+  }, [boardReadyRefreshKey, boardReadyTargetKey, currentTargetKey, fixtureMode, onPresentationReady, refreshKey, timer, timerSettled]);
 
   const selectorOptions = useMemo(() => {
     const options = [...lists];

@@ -5,13 +5,7 @@ import { FocusLiveActions } from "./FocusLiveActions";
 import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { focusTimerPresentation } from "./focusTimerPresentation";
-import {
-  beginFocusVisualHold,
-  clearFocusSurfacePrewarm,
-  endFocusVisualHold,
-  prewarmFocusSurface,
-  setFloatingTimerExpanded,
-} from "./focusSurfaceModeApi";
+import { setFloatingTimerExpanded } from "./focusSurfaceModeApi";
 import {
   getListBoardSnapshot,
   type BoardSubtaskSnapshot,
@@ -35,7 +29,8 @@ export type FloatingTimerFoundationProps = {
   transitionPending?: boolean;
   transitionError?: string | null;
   shortcutStatus?: string | null;
-  onPresentationReady?: () => void;
+  onPresentationReady?: (payload: TimerSessionPayload | null) => void;
+  refreshKey?: number;
   fixtureBoard?: ListBoardSnapshot;
   fixtureTimer?: TimerSessionPayload | null;
   fixtureExpanded?: boolean;
@@ -62,6 +57,7 @@ export function FloatingTimerFoundation({
   transitionError = null,
   shortcutStatus = null,
   onPresentationReady,
+  refreshKey = 0,
   fixtureBoard,
   fixtureTimer = null,
   fixtureExpanded = false,
@@ -74,18 +70,22 @@ export function FloatingTimerFoundation({
   const [boardError, setBoardError] = useState<string | null>(null);
   const [timerError, setTimerError] = useState<string | null>(null);
   const [timerSettled, setTimerSettled] = useState(fixtureMode);
+  const [timerSettledKey, setTimerSettledKey] = useState(0);
+  const [boardSettledKey, setBoardSettledKey] = useState(0);
   const [boardTaskId, setBoardTaskId] = useState<string | null>(
     fixtureMode ? fixtureTimer?.runtime.timer.task_id ?? null : null,
   );
   const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
+  const [regionExpanded, setRegionExpanded] = useState(fixtureMode && fixtureExpanded);
   const [resizePending, setResizePending] = useState(false);
-  const [resizePhase, setResizePhase] = useState<"idle" | "resizing" | "prewarming">("idle");
+  const [resizePhase, setResizePhase] = useState<"idle" | "prepainting" | "clipping">("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!fixtureMode) return;
     setExpanded(fixtureExpanded);
+    setRegionExpanded(fixtureExpanded);
     setResizePending(false);
     setResizePhase("idle");
     setResizeError(null);
@@ -97,6 +97,7 @@ export function FloatingTimerFoundation({
     if (fixtureMode) {
       setTimer(fixtureTimer);
       setTimerSettled(true);
+      setTimerSettledKey(refreshKey);
       setTimerError(null);
       return;
     }
@@ -120,11 +121,13 @@ export function FloatingTimerFoundation({
         else {
           disconnect = stop;
           setTimerSettled(true);
+          setTimerSettledKey(refreshKey);
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
           setTimerSettled(true);
+          setTimerSettledKey(refreshKey);
           setTimerError(formatInvokeError(failure));
         }
       });
@@ -133,7 +136,7 @@ export function FloatingTimerFoundation({
       disposed = true;
       disconnect?.();
     };
-  }, [fixtureMode, fixtureTimer]);
+  }, [fixtureMode, fixtureTimer, refreshKey]);
 
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
 
@@ -141,12 +144,14 @@ export function FloatingTimerFoundation({
     if (fixtureMode) {
       setBoard(fixtureBoard ?? null);
       setBoardError(null);
+      setBoardSettledKey(refreshKey);
       return;
     }
     if (liveTaskId === null) {
       setBoard(null);
       setBoardTaskId(null);
       setBoardError(null);
+      setBoardSettledKey(refreshKey);
       return;
     }
 
@@ -160,6 +165,7 @@ export function FloatingTimerFoundation({
           setBoard(snapshot);
           setBoardTaskId(liveTaskId);
           setBoardError(null);
+          setBoardSettledKey(refreshKey);
         }
       })
       .catch((failure: unknown) => {
@@ -167,20 +173,22 @@ export function FloatingTimerFoundation({
           setBoard(null);
           setBoardTaskId(liveTaskId);
           setBoardError(formatInvokeError(failure));
+          setBoardSettledKey(refreshKey);
         }
       });
 
     return () => {
       disposed = true;
     };
-  }, [fixtureBoard, fixtureMode, liveTaskId]);
+  }, [fixtureBoard, fixtureMode, liveTaskId, refreshKey]);
 
   const presentationReady = fixtureMode
-    || (timerSettled && (liveTaskId === null || boardTaskId === liveTaskId));
+    || (timerSettled && timer !== null && timerSettledKey === refreshKey && boardSettledKey === refreshKey
+      && (liveTaskId === null || (boardTaskId === liveTaskId && board !== null)));
 
   useEffect(() => {
-    if (presentationReady) onPresentationReady?.();
-  }, [onPresentationReady, presentationReady]);
+    if (presentationReady) onPresentationReady?.(timer);
+  }, [onPresentationReady, presentationReady, timer]);
 
   const liveTask = useMemo(
     () => liveTaskId === null ? null : board?.today.tasks.find((task) => task.id === liveTaskId) ?? null,
@@ -199,6 +207,7 @@ export function FloatingTimerFoundation({
     if (nextExpanded === expanded) return true;
     if (fixtureMode) {
       setExpanded(nextExpanded);
+      setRegionExpanded(nextExpanded);
       setResizeError(null);
       return true;
     }
@@ -207,70 +216,44 @@ export function FloatingTimerFoundation({
     onResizePendingChange?.(true);
     setResizePending(true);
     setResizeError(null);
-    let nativeResizeCommitted = false;
-    let prewarmActive = false;
-    let visualHoldActive = false;
+    let nativeRegionCommitted = false;
     try {
-      await beginFocusVisualHold();
-      visualHoldActive = true;
-      await prewarmFocusSurface();
-      prewarmActive = true;
-      setResizePhase("resizing");
-
-      await setFloatingTimerExpanded(nextExpanded);
-      nativeResizeCommitted = true;
-
-      flushSync(() => {
-        setExpanded(nextExpanded);
-        setResizePhase("prewarming");
-      });
-      await waitForPresentedFrame();
-
-      await clearFocusSurfacePrewarm();
-      prewarmActive = false;
-      setResizePhase("idle");
-      await waitForPresentedFrame();
-      await endFocusVisualHold();
-      visualHoldActive = false;
+      if (nextExpanded) {
+        // Expanded content is painted beneath the compact native region.
+        // Only after two renderer frames does Win32 expose the larger region.
+        flushSync(() => {
+          setExpanded(true);
+          setResizePhase("prepainting");
+        });
+        await waitForPresentedFrame();
+        await setFloatingTimerExpanded(true);
+        nativeRegionCommitted = true;
+        flushSync(() => {
+          setRegionExpanded(true);
+          setResizePhase("idle");
+        });
+      } else {
+        // Clip expanded content first, then return the renderer to compact
+        // layout. The outer Timer HWND and WebView dimensions never change.
+        setResizePhase("clipping");
+        await setFloatingTimerExpanded(false);
+        nativeRegionCommitted = true;
+        flushSync(() => {
+          setRegionExpanded(false);
+          setExpanded(false);
+          setResizePhase("idle");
+        });
+      }
       return true;
     } catch (failure: unknown) {
-      let resizeFailure = formatInvokeError(failure);
-
-      if (!nativeResizeCommitted) {
+      if (!nativeRegionCommitted) {
         flushSync(() => {
           setExpanded(expanded);
-          setResizePhase("prewarming");
+          setRegionExpanded(expanded);
         });
-        try {
-          await waitForPresentedFrame();
-        } catch (recoveryFrameFailure: unknown) {
-          resizeFailure =
-            `${resizeFailure}; renderer recovery frame failed: ${formatInvokeError(recoveryFrameFailure)}`;
-        }
       }
-
-      if (prewarmActive) {
-        try {
-          await clearFocusSurfacePrewarm();
-          prewarmActive = false;
-        } catch (cleanupFailure: unknown) {
-          resizeFailure =
-            `${resizeFailure}; resize prewarm cleanup failed: ${formatInvokeError(cleanupFailure)}`;
-        }
-      }
-
-      if (visualHoldActive) {
-        try {
-          await endFocusVisualHold();
-          visualHoldActive = false;
-        } catch (cleanupFailure: unknown) {
-          resizeFailure =
-            `${resizeFailure}; visual hold cleanup failed: ${formatInvokeError(cleanupFailure)}`;
-        }
-      }
-
-      setResizeError(resizeFailure);
-      return nativeResizeCommitted;
+      setResizeError(formatInvokeError(failure));
+      return nativeRegionCommitted;
     } finally {
       resizeRequestInFlightRef.current = false;
       onResizePendingChange?.(false);
@@ -295,6 +278,7 @@ export function FloatingTimerFoundation({
       data-floating-live-state={timer?.runtime.timer.state ?? "idle"}
       data-floating-live-task-id={liveTaskId ?? ""}
       data-floating-expanded={expanded ? "true" : "false"}
+      data-floating-region-expanded={regionExpanded ? "true" : "false"}
       data-floating-resize-pending={resizePending ? "true" : "false"}
       data-floating-resize-phase={resizePhase}
       data-tauri-drag-region="true"
@@ -322,6 +306,8 @@ export function FloatingTimerFoundation({
             key={`actions-host:${liveTask.id}`}
             data-floating-actions-controller="true"
             style={{ display: expanded ? "contents" : "none" }}
+            inert={expanded && !regionExpanded}
+            aria-hidden={expanded && !regionExpanded ? true : undefined}
           >
             <FocusLiveActions
               task={liveTask}
@@ -339,7 +325,7 @@ export function FloatingTimerFoundation({
             />
           </div>
         ) : null}
-        {!expanded || !liveTask || !timer ? (
+        {!regionExpanded || !liveTask || !timer ? (
           <div key="collapsed-heading" className="floating-timer-foundation__heading" data-tauri-drag-region="true">
             <strong
               className="floating-timer-foundation__title"
@@ -373,6 +359,7 @@ export function FloatingTimerFoundation({
             fixtureExpanded={fixtureExpanded}
             presentation="floating"
             expanded={expanded}
+            contentInert={expanded && !regionExpanded}
             interactionPending={transitionPending || resizePending}
             onExpandedChange={requestExpanded}
             onTaskProjection={applyTaskProjection}

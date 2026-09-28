@@ -28,6 +28,18 @@
         "alwaysOnTop": true,
         "decorations": false,
         "transparent": true
+      },
+      {
+        "label": "floatingTimer",
+        "title": "Narro - Floating Timer",
+        "url": "timer.html",
+        "width": 340,
+        "height": 300,
+        "visible": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "decorations": false,
+        "transparent": true
       }
     ],
     "security": {

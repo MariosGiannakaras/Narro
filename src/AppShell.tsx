@@ -23,6 +23,7 @@ import {
 } from "./inAppShortcuts";
 import { ThemeSettingsPanel } from "./ThemeSettingsPanel";
 import { snapshotTimerSession } from "./timerSessionApi";
+import { getFocusSurfaceMode } from "./focusSurfaceModeApi";
 import "./appShell.css";
 
 export type AppDestination =
@@ -153,7 +154,9 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
             setShortcutFeedback("No active Focus task is available for this shortcut.");
             return;
           }
-          return emitTo("focusSurface", FOCUS_IN_APP_SHORTCUT_EVENT, shortcut);
+          return getFocusSurfaceMode().then((mode) =>
+            emitTo(mode === "timer" ? "floatingTimer" : "focusSurface", FOCUS_IN_APP_SHORTCUT_EVENT, shortcut),
+          );
         })
         .catch((failure: unknown) => {
           setShortcutFeedback(`Focus shortcut could not be delivered. ${formatInvokeError(failure)}`);

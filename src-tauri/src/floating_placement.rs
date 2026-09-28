@@ -6,7 +6,7 @@ use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
 use std::time::Duration;
 use tauri::Manager;
 
-const FOCUS_SURFACE_LABEL: &str = "focusSurface";
+const FLOATING_TIMER_LABEL: &str = "floatingTimer";
 const MOVE_SETTLE_DELAY: Duration = Duration::from_millis(600);
 static MOVE_REVISION: AtomicU64 = AtomicU64::new(0);
 static MOVE_WORKER_ACTIVE: AtomicBool = AtomicBool::new(false);
@@ -160,6 +160,35 @@ fn timer_needs_dpi_size_recovery(
     Ok(differs(actual.width, expected.width) || differs(actual.height, expected.height))
 }
 
+pub fn ensure_fixed_timer_host_size(window: &tauri::WebviewWindow) -> CommandResult<bool> {
+    let actual = current_outer_rect(window)?;
+    let scale = window
+        .scale_factor()
+        .map_err(|error| placement_error("read Timer DPI before host-size check", error))?;
+    if !scale.is_finite() || scale <= 0.0 {
+        return Err(placement_error(
+            "read Timer DPI before host-size check",
+            "invalid scale",
+        ));
+    }
+    // Only a real DPI/host-size mismatch should resize the persistent WebView.
+    // Ordinary Panel/Timer and compact/expanded transitions leave its HWND alone.
+    let expected = crate::floating_timer_logical_size();
+    let desired_width = (expected.width * scale).round() as u32;
+    let desired_height = (expected.height * scale).round() as u32;
+    let differs = |actual: u32, desired: u32| {
+        u64::from(actual) * 100 < u64::from(desired) * 90
+            || u64::from(actual) * 100 > u64::from(desired) * 115
+    };
+    if differs(actual.size.width, desired_width) || differs(actual.size.height, desired_height) {
+        window
+            .set_size(tauri::Size::Logical(expected))
+            .map_err(|error| placement_error("restore fixed Timer host size", error))?;
+        return Ok(true);
+    }
+    Ok(false)
+}
+
 fn current_outer_rect(window: &tauri::WebviewWindow) -> CommandResult<PhysicalRect> {
     let position = window
         .outer_position()
@@ -177,6 +206,46 @@ fn current_outer_rect(window: &tauri::WebviewWindow) -> CommandResult<PhysicalRe
             height: size.height,
         },
     })
+}
+
+fn current_visible_rect(
+    window: &tauri::WebviewWindow,
+    expanded: bool,
+) -> CommandResult<PhysicalRect> {
+    let outer = current_outer_rect(window)?;
+    let visible = crate::timer_region::visible_size(window, expanded)?;
+    Ok(PhysicalRect {
+        position: outer.position,
+        size: PhysicalSize {
+            width: visible.width,
+            height: visible.height,
+        },
+    })
+}
+
+pub fn safe_position_for_timer_region(
+    app_handle: &tauri::AppHandle,
+    window: &tauri::WebviewWindow,
+    target_expanded: bool,
+    preferred: Option<PhysicalPoint>,
+) -> CommandResult<PhysicalPoint> {
+    let current = current_visible_rect(
+        window,
+        crate::FLOATING_TIMER_EXPANDED.load(Ordering::Acquire),
+    )?;
+    let areas = available_work_areas(app_handle)?;
+    let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
+    let selected = best_work_area_for_window(current, &areas, &fallback);
+    let target = crate::timer_region::visible_size(window, target_expanded)?;
+    clamp_top_left(
+        selected.rect,
+        PhysicalSize {
+            width: target.width,
+            height: target.height,
+        },
+        preferred.unwrap_or(current.position),
+    )
+    .map_err(|error| placement_error("clamp clipped Timer to work area", error))
 }
 
 fn fit_window_outer_size(
@@ -238,6 +307,23 @@ fn confirm_window_in_work_area(
         return Err(placement_error(
             "confirm Timer work-area placement",
             "native window remained outside the selected monitor work area",
+        ));
+    }
+    Ok(current)
+}
+
+fn confirm_visible_window_in_work_area(
+    window: &tauri::WebviewWindow,
+    work_area: PhysicalRect,
+    expanded: bool,
+) -> CommandResult<PhysicalRect> {
+    let current = current_visible_rect(window, expanded)?;
+    let safe = clamp_top_left(work_area, current.size, current.position)
+        .map_err(|error| placement_error("confirm clipped Timer placement", error))?;
+    if safe != current.position {
+        return Err(placement_error(
+            "confirm clipped Timer placement",
+            "visible Timer region remained outside the monitor work area",
         ));
     }
     Ok(current)
@@ -345,30 +431,18 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
         return Ok(false);
     }
     let window = app_handle
-        .get_webview_window(FOCUS_SURFACE_LABEL)
-        .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))?;
+        .get_webview_window(FLOATING_TIMER_LABEL)
+        .ok_or_else(|| CommandError::window_not_found(FLOATING_TIMER_LABEL))?;
     if !window
         .is_visible()
         .map_err(|error| placement_error("read Timer visibility", error))?
     {
         return Ok(false);
     }
-    let position = window
-        .outer_position()
-        .map_err(|error| placement_error("read Timer position", error))?;
-    let size = window
-        .outer_size()
-        .map_err(|error| placement_error("read Timer size", error))?;
-    let current_window = PhysicalRect {
-        position: PhysicalPoint {
-            x: position.x,
-            y: position.y,
-        },
-        size: PhysicalSize {
-            width: size.width,
-            height: size.height,
-        },
-    };
+    let current_window = current_visible_rect(
+        &window,
+        crate::FLOATING_TIMER_EXPANDED.load(Ordering::Acquire),
+    )?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let selected = best_work_area_for_window(current_window, &areas, &fallback);
@@ -396,23 +470,32 @@ pub fn restore_for_timer(
         .map_err(|error| placement_error("load Timer position", error))?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
-    let current = current_outer_rect(window)?;
+    let expanded = crate::FLOATING_TIMER_EXPANDED.load(Ordering::Acquire);
+    let current = current_visible_rect(window, expanded)?;
     let selected = match saved.as_ref() {
         Some(saved) => target_work_area(saved, &areas, &fallback),
         None => best_work_area_for_window(current, &areas, &fallback),
     };
-    for _ in 0..2 {
+    for pass in 0..2 {
         // The first placement can cross monitors and change the window's physical DPI size.
         // Read, fit, and position again on the selected monitor before the caller shows it.
-        let actual_size = fit_window_outer_size(window, selected.rect)?;
+        fit_window_outer_size(window, selected.rect)?;
+        let visible = crate::timer_region::visible_size(window, expanded)?;
+        let actual_size = PhysicalSize {
+            width: visible.width,
+            height: visible.height,
+        };
         let restored = match saved.as_ref() {
             Some(saved) => restored_position(saved, selected.rect, actual_size)?,
             None => clamp_top_left(selected.rect, actual_size, current.position)
                 .map_err(|error| placement_error("clamp first Timer position", error))?,
         };
         position_window_if_needed(window, restored)?;
+        if pass == 0 {
+            ensure_fixed_timer_host_size(window)?;
+        }
     }
-    confirm_window_in_work_area(window, selected.rect)?;
+    confirm_visible_window_in_work_area(window, selected.rect, expanded)?;
     Ok(saved.is_some())
 }
 
@@ -423,8 +506,8 @@ pub fn revalidate_visible_timer_after_display_change(
         return Ok(false);
     }
     let window = app_handle
-        .get_webview_window(FOCUS_SURFACE_LABEL)
-        .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))?;
+        .get_webview_window(FLOATING_TIMER_LABEL)
+        .ok_or_else(|| CommandError::window_not_found(FLOATING_TIMER_LABEL))?;
     if !window
         .is_visible()
         .map_err(|error| placement_error("read Timer visibility", error))?
@@ -443,19 +526,26 @@ pub fn revalidate_visible_timer_after_display_change(
 
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
-    let previous = current_outer_rect(&window)?;
+    let expanded = crate::FLOATING_TIMER_EXPANDED.load(Ordering::Acquire);
+    let previous_outer = current_outer_rect(&window)?;
+    let previous = current_visible_rect(&window, expanded)?;
     let selected = best_work_area_for_window(previous, &areas, &fallback);
     let logical_size = crate::floating_timer_logical_size();
     let scale_factor = window
         .scale_factor()
         .map_err(|error| placement_error("read Timer scale factor", error))?;
-    let needs_dpi_resize =
-        timer_needs_dpi_size_recovery(previous.size, logical_size, scale_factor, selected.rect)?;
-    let planned_size = fitted_outer_size(selected.rect, previous.size)?;
-    let planned_position = clamp_top_left(selected.rect, planned_size, previous.position)
+    let needs_dpi_resize = timer_needs_dpi_size_recovery(
+        previous_outer.size,
+        logical_size,
+        scale_factor,
+        selected.rect,
+    )?;
+    let planned_size = fitted_outer_size(selected.rect, previous_outer.size)?;
+    let planned_position = clamp_top_left(selected.rect, previous.size, previous.position)
         .map_err(|error| placement_error("plan Timer display recovery", error))?;
-    let needs_hide =
-        needs_dpi_resize || planned_size != previous.size || planned_position != previous.position;
+    let needs_hide = needs_dpi_resize
+        || planned_size != previous_outer.size
+        || planned_position != previous.position;
     let previous_inner_size = if needs_hide {
         Some(
             window
@@ -480,18 +570,27 @@ pub fn revalidate_visible_timer_after_display_change(
                     placement_error("restore Timer logical size after DPI change", error)
                 })?;
         }
-        for _ in 0..2 {
-            let actual_size = fit_window_outer_size(&window, selected.rect)?;
+        for pass in 0..2 {
+            fit_window_outer_size(&window, selected.rect)?;
+            let actual = crate::timer_region::visible_size(&window, expanded)?;
+            let actual_size = PhysicalSize {
+                width: actual.width,
+                height: actual.height,
+            };
             let safe = clamp_top_left(selected.rect, actual_size, previous.position)
                 .map_err(|error| placement_error("clamp Timer after display change", error))?;
             position_window_if_needed(&window, safe)?;
+            if pass == 0 {
+                ensure_fixed_timer_host_size(&window)?;
+            }
         }
+        crate::timer_region::apply(&window, expanded)?;
         if needs_hide {
             window
                 .show()
                 .map_err(|error| placement_error("show Timer after display recovery", error))?;
         }
-        let final_rect = confirm_window_in_work_area(&window, selected.rect)?;
+        let final_rect = confirm_visible_window_in_work_area(&window, selected.rect, expanded)?;
         Ok(final_rect != previous)
     })();
 
@@ -557,14 +656,15 @@ fn schedule_settled_save(app_handle: tauri::AppHandle) {
     });
 }
 
-pub fn note_timer_moved(app_handle: &tauri::AppHandle) {
+pub fn note_timer_moved(app_handle: &tauri::AppHandle) -> bool {
     if SAVE_SUSPENSIONS.load(Ordering::Acquire) != 0
         || crate::current_focus_surface_mode() != Some(crate::FocusSurfaceMode::Timer)
     {
-        return;
+        return false;
     }
     MOVE_REVISION.fetch_add(1, Ordering::AcqRel);
     schedule_settled_save(app_handle.clone());
+    true
 }
 
 #[cfg(test)]

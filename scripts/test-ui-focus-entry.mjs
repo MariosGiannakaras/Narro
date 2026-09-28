@@ -132,10 +132,10 @@ const timerSave = topology.indexOf("save_if_timer_visible(&recovery_handle)", ti
 if (
   timerRevalidation < panelRevalidation
   || timerSave < timerRevalidation
-  || !topology.includes("label == FOCUS_SURFACE_LABEL")
-  || !topology.includes("current_focus_surface_mode() == Some(crate::FocusSurfaceMode::Timer)")
+  || !topology.includes('RECOVERABLE_WINDOW_LABELS: [&str; 2] = ["main", FOCUS_SURFACE_LABEL]')
+  || !topology.includes("OBSERVED_WINDOW_LABELS: [&str; 2] = [FOCUS_SURFACE_LABEL, FLOATING_TIMER_LABEL]")
 ) {
-  throw new Error("Visible Timer recovery must fit and place before persistence, without an earlier generic move.");
+  throw new Error("The separate Timer must receive display events and use visible-region recovery before persistence, outside generic Panel/main recovery.");
 }
 
 const revalidationStart = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(");

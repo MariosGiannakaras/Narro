@@ -8,7 +8,7 @@ function invariant(condition, message) {
   if (!condition) throw new Error(`Floating Timer collapsed contract failed: ${message}`);
 }
 
-const lib = read("src-tauri/src/lib.rs");
+const tauriConfig = JSON.parse(read("src-tauri/tauri.conf.json"));
 const foundation = read("src/FloatingTimerFoundation.tsx");
 const presentationFrame = read("src/presentationFrame.ts");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
@@ -22,9 +22,10 @@ const capture = read("scripts/capture-floating-timer-fixtures.ps1");
 const validator = read("scripts/validate-floating-timer-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
+const timerWindow = tauriConfig.app.windows.find((window) => window.label === "floatingTimer");
 invariant(
-  lib.includes("FocusSurfaceMode::Timer => (340.0, 110.0, true, true)"),
-  "native Timer mode must enter at the screenshot/spec-backed 340x110 collapsed geometry",
+  timerWindow?.width === 340 && timerWindow?.height === 300 && timerWindow?.url === "timer.html",
+  "Timer must keep the expanded host fixed at 340x300 while its visible compact region is 340x110",
 );
 invariant(
   foundation.includes('getListBoardSnapshot({ kind: "all" })'),
@@ -65,7 +66,7 @@ for (const needle of [
 invariant(
   foundation.includes('data-floating-actions-controller="true"')
     && foundation.includes('style={{ display: expanded ? "contents" : "none" }}')
-    && foundation.includes("!expanded || !liveTask || !timer")
+    && foundation.includes("!regionExpanded || !liveTask || !timer")
     && foundation.includes('className="floating-timer-foundation__heading"'),
   "collapsed mode must retain the title/timer heading while keeping the Focus action controller mounted but non-visible for in-app shortcuts",
 );

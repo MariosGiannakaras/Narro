@@ -2,7 +2,7 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "Capability for the windows",
-  "windows": ["main", "focusSurface"],
+  "windows": ["main", "focusSurface", "floatingTimer"],
   "permissions": [
     "core:default",
     "opener:default"

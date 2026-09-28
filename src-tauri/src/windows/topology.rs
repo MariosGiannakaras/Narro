@@ -9,6 +9,8 @@ use std::sync::OnceLock;
 use tauri::Manager;
 
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
+const FLOATING_TIMER_LABEL: &str = "floatingTimer";
+const OBSERVED_WINDOW_LABELS: [&str; 2] = [FOCUS_SURFACE_LABEL, FLOATING_TIMER_LABEL];
 const RECOVERABLE_WINDOW_LABELS: [&str; 2] = ["main", FOCUS_SURFACE_LABEL];
 const DISPLAY_CHANGE_SUBCLASS_ID: usize = 0x4e_41_52_52_4f;
 const WM_SETTING_CHANGE: u32 = 0x001a;
@@ -58,30 +60,52 @@ static RECOVERY_PENDING: AtomicBool = AtomicBool::new(false);
 static RECOVERY_DIRTY: AtomicBool = AtomicBool::new(false);
 
 pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error> {
-    let focus_surface = app.get_webview_window(FOCUS_SURFACE_LABEL).ok_or_else(|| {
-        io::Error::other("focusSurface does not exist during display/power observer setup")
-    })?;
-    let hwnd = focus_surface
-        .hwnd()
-        .map_err(|error| io::Error::other(format!("resolve focusSurface HWND: {error}")))?;
-
     DISPLAY_APP_HANDLE.set(app.handle().clone()).map_err(|_| {
         io::Error::other("display/power observer app handle was already initialized")
     })?;
 
-    let raw_hwnd = hwnd.0 as RawHwnd;
-    let installed = unsafe {
-        set_window_subclass(
-            raw_hwnd,
-            Some(display_change_subclass_proc),
-            DISPLAY_CHANGE_SUBCLASS_ID,
-            0,
-        )
-    };
-    if installed == 0 {
-        return Err(io::Error::other(
-            "SetWindowSubclass returned false while installing display/power observer",
-        ));
+    let mut installed_hwnds = Vec::new();
+    for label in OBSERVED_WINDOW_LABELS {
+        let result = (|| -> Result<RawHwnd, io::Error> {
+            let window = app.get_webview_window(label).ok_or_else(|| {
+                io::Error::other(format!(
+                    "{label} missing during display/power observer setup"
+                ))
+            })?;
+            let hwnd = window
+                .hwnd()
+                .map_err(|error| io::Error::other(format!("resolve {label} HWND: {error}")))?;
+            let raw_hwnd = hwnd.0 as isize as RawHwnd;
+            if unsafe {
+                set_window_subclass(
+                    raw_hwnd,
+                    Some(display_change_subclass_proc),
+                    DISPLAY_CHANGE_SUBCLASS_ID,
+                    0,
+                )
+            } == 0
+            {
+                return Err(io::Error::other(format!(
+                    "SetWindowSubclass failed for {label} display/power observer"
+                )));
+            }
+            Ok(raw_hwnd)
+        })();
+        match result {
+            Ok(hwnd) => installed_hwnds.push(hwnd),
+            Err(error) => {
+                for hwnd in installed_hwnds {
+                    unsafe {
+                        remove_window_subclass(
+                            hwnd,
+                            Some(display_change_subclass_proc),
+                            DISPLAY_CHANGE_SUBCLASS_ID,
+                        );
+                    }
+                }
+                return Err(error);
+            }
+        }
     }
 
     Ok(())
@@ -262,13 +286,8 @@ fn recover_visible_windows(app_handle: &tauri::AppHandle) -> Result<Vec<&'static
     let mut failures = Vec::new();
 
     for label in RECOVERABLE_WINDOW_LABELS {
-        // The Timer has a separate recovery path that can also shrink its outer size. Moving it
-        // here first would discard the pre-change monitor overlap used to choose that work area.
-        if label == FOCUS_SURFACE_LABEL
-            && crate::current_focus_surface_mode() == Some(crate::FocusSurfaceMode::Timer)
-        {
-            continue;
-        }
+        // The separately hosted Timer uses its clipped visible bounds and is
+        // recovered by floating_placement after this generic Panel/main pass.
         let Some(window) = app_handle.get_webview_window(label) else {
             continue;
         };

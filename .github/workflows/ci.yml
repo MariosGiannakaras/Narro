@@ -186,7 +186,7 @@ jobs:
     - name: Verify Reused Frontend Dist
       shell: pwsh
       run: |
-        foreach ($required in @("dist/index.html", "dist/focus.html")) {
+        foreach ($required in @("dist/index.html", "dist/focus.html", "dist/timer.html")) {
           if (-not (Test-Path $required -PathType Leaf)) {
             throw "Preflight frontend build output is missing: $required"
           }
