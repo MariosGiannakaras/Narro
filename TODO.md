@@ -402,6 +402,8 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
+**Current execution priority (user direction 2026-09-28):** PREF-R01 is validated. Before opening another M8 source slice, run and reconcile the deferred M7 physical Windows acceptance batch on the latest suitable validated build. M7 remains 9/14 until those physical gates pass; after reconciliation, resume M8 at PREF-R02.
+
 ## Milestone 8 — Windows shortcuts and preferences
 
 - [x] Implement confirmed Windows in-app shortcuts. PR #166 exact head `18a4d2b5a26bc705bf7cdf7bea647275b4877890` passed Windows CI #569; guarded squash merge `030274149cafdf590c5aa08f2cd1c9409595c7aa` passed resulting-main CI #570.
@@ -413,7 +415,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
   - [x] Do not invent the post-click timer/session semantics for the directly visible success-screen `Take a Break` control; keep that exact transition unresolved until evidence or an explicit Narro product decision exists.
   - [x] VE-F008: preserve in-place conditional children for Pomodoro durations, timed-alert detail, notification-alert detail, reminder lead, and celebration children; hide-times must retain explicit hover disclosure.
   - [ ] Remaining Preferences runtime closure:
-    - [ ] PREF-R01 timed task-alert runtime effect and persisted interval semantics.
+    - [x] PREF-R01 timed task-alert runtime effect and persisted interval semantics. PR #184 exact head `fc61ed5926fdb1c605de8ce1e1a9fb28ea0dfd7e` passed Windows CI #624 / run `36357415253`; expected-head guarded squash merge `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`. The merged main source tree was verified identical to the validated PR source for all nine changed files by matching blob SHAs.
     - [ ] PREF-R02 animated timer-flash runtime effect, finite and reduced-motion safe.
     - [ ] PREF-R03 Notification Alerts gating without duplicating authoritative M3 notification effects.
     - [x] PREF-R04 schedule-reminder preference/lead integration through durable idempotent background delivery. PR #180 exact head `0309c879998f43ff8c6e39e65f02c44669fa48b8` passed Windows CI #607; guarded squash merge `643528ca223b29fd8fbd215db5b1b525c912c6fc` passed resulting-main CI #608.
