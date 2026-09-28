@@ -156,8 +156,11 @@ export function FloatingTimerFoundation({
     }
 
     let disposed = false;
-    setBoard(null);
-    setBoardTaskId(null);
+    const retainCurrentBoard = board !== null && boardTaskId === liveTaskId;
+    if (!retainCurrentBoard) {
+      setBoard(null);
+      setBoardTaskId(null);
+    }
     setBoardError(null);
     void getListBoardSnapshot({ kind: "all" })
       .then((snapshot) => {
@@ -170,7 +173,7 @@ export function FloatingTimerFoundation({
       })
       .catch((failure: unknown) => {
         if (!disposed) {
-          setBoard(null);
+          if (!retainCurrentBoard) setBoard(null);
           setBoardTaskId(liveTaskId);
           setBoardError(formatInvokeError(failure));
           setBoardSettledKey(refreshKey);

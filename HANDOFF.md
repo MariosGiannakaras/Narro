@@ -12,7 +12,7 @@ GitHub `main` is the durable source truth.
 - M7: **12/14 top-level checklist items validated** after the CI #624 physical batch; Gates 7 and 12 remain FAIL and M7 closure remains OPEN.
 - M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
 - Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 needs the chosen alternative-composition experiment; Gate 12 still needs the secondary-display physical retest.
-- Open implementation PR: **#191**, targeted M7 visual-hold and mixed-DPI corrections. Four CI-validated heads failed physical Gate 7, including current head `b23c8ab`. The repeated-failure architecture assessment chose a separate fixed-size Timer WebView/region experiment; it is not yet built or physically compared.
+- Open implementation PR: **#191**. Four same-HWND visual-hold heads failed physical Gate 7. The separate fixed-size Timer WebView/region candidate `8b94946` passed CI `36493571169` and physical On/Off batches avoided the old white resize frames, but On mode transitions exposed brief loading placeholders. A same-target board-refresh correction is local and frontend-validated; exact-head CI, physical retest and CPU/memory comparison remain pending. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 

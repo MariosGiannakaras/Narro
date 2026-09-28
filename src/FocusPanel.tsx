@@ -367,8 +367,11 @@ export function FocusPanel({
     }
 
     let disposed = false;
-    setBoard(null);
-    setBoardReadyTargetKey(null);
+    const retainCurrentBoard = board !== null && boardReadyTargetKey === currentTargetKey;
+    if (!retainCurrentBoard) {
+      setBoard(null);
+      setBoardReadyTargetKey(null);
+    }
     void getListBoardSnapshot(target)
       .then((snapshot) => {
         if (!disposed) {
@@ -380,7 +383,7 @@ export function FocusPanel({
       })
       .catch((failure: unknown) => {
         if (!disposed) {
-          setBoard(null);
+          if (!retainCurrentBoard) setBoard(null);
           setBoardReadyRefreshKey(refreshKey);
           setBoardReadyTargetKey(targetKey(target));
           setError(formatInvokeError(failure));
