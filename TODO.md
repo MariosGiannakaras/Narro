@@ -510,6 +510,8 @@ This is a required post-roadmap quality stage and **does not become an 11th road
 
 ### Detailed Blitzit visual and functional fidelity verification
 
+**Binding final-review rule:** for in-scope personal/local functionality, an unexplained deviation from confirmed Blitzit behavior or visuals is a defect/finding, not an acceptable redesign. The release-candidate goal is maximum observable Blitzit parity from the strongest available evidence. Exceptions are limited to documented local-only exclusions, reliability/data-integrity corrections, accessibility/Windows correctness, genuine source ambiguity, or technical impossibility; each exception must have an explicit disposition.
+
 - [ ] Compare every relevant Narro screen, state, component, and interaction against the available Blitzit screenshot, video, transcript, and source evidence; do not limit this pass to screens already covered by automated fixtures. Use direct video evidence specifically for motion, sequencing, transient states, and interaction behavior where the sequence is visible.
 - [ ] Verify layout structure, dimensions, proportions, alignment, spacing, typography, wrapping/truncation, icons, colors, borders, radii, shadows/elevation, dividers, progress/timer presentation, states, overlays, dialogs, menus, empty states, error states, loading/waiting states, and interaction details.
 - [ ] Compare light/dark variants and any state-specific references separately when source evidence exists.

@@ -1,5 +1,11 @@
 # UI / UX Specification
 
+## Fidelity default
+
+For every in-scope user-visible surface with Blitzit evidence, **Blitzit is the visual/interaction target, not merely inspiration**. Match confirmed layout, density, hierarchy, spacing, typography character, component geometry, colors, states, menus/dialogs, interaction sequencing, transitions and motion character as closely as the evidence permits.
+
+Do not introduce a discretionary Narro redesign during implementation or final polish. Existing `[NARRO IMPROVEMENT]` items remain valid only where they are already evidence-backed/documented as local-only, reliability, accessibility, Windows-platform, or source-artifact corrections. Where exact measurements are unavailable, calibrate against the strongest screenshots/videos and record approximation rather than inventing a different aesthetic.
+
 Last updated: 2026-08-20
 
 This document defines the visible Windows desktop experience for Narro. It combines current supplied screenshots, current official Blitzit documentation, and explicitly labeled Narro improvements derived from user feedback and reliability research.

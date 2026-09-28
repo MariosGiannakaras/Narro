@@ -2,6 +2,12 @@
 
 Research baseline: 2026-08-15
 
+## Fidelity target
+
+Narro is a **local, personal-use reconstruction of the in-scope Blitzit desktop experience**. For any behavior or visual treatment established by current direct screenshots/recordings or stronger source evidence, the implementation target is maximum observable parity: same user-visible workflow, information hierarchy, states, interaction sequencing, copy where evidenced, and visual/motion character as closely as practical.
+
+This does not require reproducing Blitzit's cloud/account/subscription/AI/integration infrastructure, nor deliberately recreating documented reliability defects. Internal architecture may differ. Any material user-visible deviation from confirmed Blitzit evidence must be explicitly justified by local-only scope, reliability/data integrity, accessibility/Windows correctness, genuine source ambiguity, or a technical impossibility, and must be recorded rather than silently treated as a redesign opportunity.
+
 Evidence labels used below:
 
 - **[O]** confirmed by current official Blitzit documentation

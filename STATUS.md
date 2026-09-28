@@ -519,6 +519,21 @@ M8 is now **6/8 top-level items validated**. Roadmap remains **6/10 milestones c
 - Schedule-reminder Preferences now use a dedicated durable idempotent effect ledger, persisted enable/lead settings and the existing authoritative background reminder thread. Failed notification submission remains retryable and manual/explicit M4 reminder rows remain separate.
 - The validated application source baseline immediately after this schedule-reminder slice was `643528ca223b29fd8fbd215db5b1b525c912c6fc`; later validated source slices supersede it.
 
+## Product fidelity direction — clarified 2026-09-28
+
+The user explicitly confirmed that Narro is intended as a **local, personal-use reconstruction of Blitzit**, with maximum observable visual and functional parity for all in-scope features supported by evidence.
+
+Binding interpretation:
+- confirmed Blitzit UX/visual/product behavior is the default target;
+- do not introduce discretionary redesigns or "better UX" substitutions on evidenced surfaces;
+- internal architecture may differ freely;
+- cloud/account/subscription/AI/integration dependencies remain excluded by the local-only scope;
+- documented source bugs/reliability failures are not reproduced when doing so would compromise correctness/data integrity;
+- accessibility/Windows correctness and genuine evidence ambiguity remain explicit exceptions;
+- every material exception must stay documented in the audit crosswalk rather than becoming a silent deviation.
+
+This clarification does not reopen validated milestones wholesale. Existing validated source remains valid unless a concrete parity discrepancy is evidenced; the final comprehensive review must treat unexplained in-scope deviations as findings.
+
 ## Audit incorporation gate — active 2026-09-28
 
 The project now uses `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` as the mandatory finding→implementation routing layer.
