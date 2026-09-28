@@ -84,7 +84,14 @@ PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 
 ## REPOSITORY HYGIENE NOTE
 
-The current GitHub connector cannot delete remote refs/branches. Source/tracking reconciliation is complete, but stale remote branch deletion remains one manual administrative cleanup step. It is non-blocking for Narro correctness. See `work-log/2026-09-28-chatgpt-repository-hygiene-pref-r01.md` and delete only verified merged/superseded or clearly temporary branches; never delete `main`, an open-PR branch, or unverified unique work.
+The CI dedup regression guard that had been left only on `test/ci-dedup-metadata-regression` is now durably merged:
+- PR #186 exact head `152dcee10594eaa8399a3c4e45a3c141b240ea37`;
+- Windows CI #626 / run `36364443693`: PASS, including Repository Preflight, visual fixtures, Tauri Release and required artifact uploads;
+- expected-head guarded squash merge: `1a03c1129a7153ed00a42ce89e9d32bcd3912c13`;
+- merged `scripts/verify-config.mjs` blob is exactly identical to the prior regression branch blob `be0a4ea1e77c8ae773af04b4ef63a7652961bc30`;
+- this changes repository validation only; the validated application source baseline remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
+
+At this checkpoint the only remote branches are `main` and `test/ci-dedup-metadata-regression`. The latter contains no remaining unique useful work and is safe to delete manually. The current GitHub connector cannot delete remote refs/branches, so that final deletion remains a user-admin action.
 
 ## NEXT AGENT ACTION
 
