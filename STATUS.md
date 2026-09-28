@@ -536,6 +536,17 @@ Binding interpretation:
 
 This clarification does not reopen validated milestones wholesale. Existing validated source remains valid unless a concrete parity discrepancy is evidenced; the final comprehensive review must treat unexplained in-scope deviations as findings.
 
+## Final audit-method hardening — 2026-09-28
+
+A self-audit of the audit plan found that the existing evidence work is already broad/deep, but three final-review requirements needed to be made explicit rather than implied:
+- **reference completeness:** every canonical Blitzit image must receive an individual final disposition, so a general screen matrix cannot silently skip a reference;
+- **named professional UI/UX methodology:** final review must apply explicit evaluation lenses (including Nielsen heuristics, Gestalt, Fitts, Hick-Hyman, progressive disclosure/recognition-over-recall, Windows conventions) plus measurable WCAG 2.2 AA contrast evidence where applicable, while preserving confirmed Blitzit parity as the product target;
+- **local desktop security/privacy sweep:** final engineering review must explicitly inspect Tauri capabilities/IPC, external URL/filesystem/network/telemetry boundaries, SQLite/query boundaries, dependency advisories and release configuration.
+
+The final visual comparison gate also now requires repeatable capture context plus key geometry/typography/color measurements where useful, not subjective visual inspection alone.
+
+This is audit methodology only. It does not change application source, milestone completion, or the current validated application source baseline.
+
 ## Audit incorporation gate — active 2026-09-28
 
 The project now uses `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` as the mandatory finding→implementation routing layer.
