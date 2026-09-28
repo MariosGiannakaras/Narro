@@ -28,7 +28,7 @@ Before changing any surface:
 2. use the newest evidence/specification, not an older implementation assumption;
 3. if a known finding for an already-built/current surface is `FIX_NOW`, correct and validate it before unrelated forward feature work;
 4. if the finding belongs to a genuinely later milestone, keep it routed there and ensure that milestone's TODO contains it;
-5. if evidence is ambiguous, do not invent behavior;
+5. if evidence is ambiguous, exhaust the relevant evidence and keep the uncertainty explicit; when the exact source detail remains unknowable, use the strongest available evidence plus established professional UX/engineering practice, Narro's existing design language, Windows conventions and accessibility to choose the most coherent implementation, then record the inferred decision rather than presenting it as confirmed Blitzit behavior;
 6. if Narro intentionally improves on a source limitation/bug, retain the improvement as `INTENTIONAL_DEVIATION`;
 7. no material finding may exist only in an evidence document without one explicit disposition here.
 
@@ -37,7 +37,7 @@ Disposition values:
 - **FIX_NOW**
 - **ROUTED_Mx**
 - **VALIDATION_OPEN**
-- **AMBIGUOUS**
+- **AMBIGUOUS** — exact Blitzit behavior is not established; this preserves evidence uncertainty, but does not automatically block implementation. After relevant research is exhausted, a professional evidence-consistent Narro decision may be implemented and recorded without pretending it is confirmed source behavior.
 - **INTENTIONAL_DEVIATION**
 - **EXCLUDED**
 
