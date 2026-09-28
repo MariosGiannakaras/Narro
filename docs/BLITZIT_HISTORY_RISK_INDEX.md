@@ -10,6 +10,8 @@ This document is the historical/reliability companion to `SOURCE_AUDIT.md` and `
 
 The purpose is not to copy every Blitzit decision. It is to preserve evidence about what has failed, what users repeatedly value, and which edge cases deserve explicit Narro acceptance tests.
 
+Treat this document as a **pre-implementation hazard register**, not merely a post-hoc bug list. When work touches a recorded failure family, use the historical evidence before implementation to shape state ownership, persistence boundaries, edge-case handling, regression tests and acceptance criteria so Narro avoids known Blitzit failure modes by construction wherever practical.
+
 ---
 
 ## 1. Executive findings
