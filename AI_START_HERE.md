@@ -41,9 +41,9 @@ These files have distinct jobs:
 - `AGENTS.md` — durable product, engineering, correctness, scope and architecture rules.
 - `ENGINEERING_QUALITY.md` — mandatory implementation quality bar: typed failures, validation, edge cases, preflight and CI discipline.
 - `AGENT_WORKFLOW.md` — multi-agent synchronization, evidence, logging and handoff protocol.
-- `HANDOFF.md` — **current** exact continuation point; rewritten as work advances.
+- `HANDOFF.md` — **current** exact continuation point; rewritten as work advances and never used as append-only history.
 - `TODO.md` — ordered executable milestones; `[x]` means implemented **and validated**.
-- `STATUS.md` — concise durable project-level state, measurements, accepted/rejected architecture findings and important limitations.
+- `STATUS.md` — concise durable project-level truth, measurements, accepted/rejected architecture findings and important limitations. Current-state sections must not retain superseded claims as if they were still active; move historical checkpoints to `work-log/` or label them explicitly as historical.
 - `work-log/*.md` — preferred immutable per-slice implementation/validation logs for new work.
 - `WORK_LOG.md` — legacy historical archive retained for older context; do not replace or truncate it.
 - `docs/*` — specifications, research evidence, validation procedures and optional design/decision aids.
@@ -134,5 +134,6 @@ Before stopping, every agent must leave a complete repository handoff:
    - `USER ACTION REQUIRED` — physical/manual decision or validation only the user can provide;
    - blockers/NOT RUN evidence.
 8. Leave no required continuation context only in chat, local scratch files, or unpushed commits.
+9. Re-scan `HANDOFF.md`, `STATUS.md`, `TODO.md` and `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` for stale current baselines, obsolete open-PR claims, superseded next actions, and contradictory evidence counters.
 
 The success condition is simple: **a different AI with access only to the latest repository should be able to continue correctly without asking the user to reconstruct prior context.**

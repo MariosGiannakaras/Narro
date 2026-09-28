@@ -127,7 +127,7 @@ Unresolved video ambiguities remain explicit:
 
 | ID | Runtime effect | Status |
 | --- | --- | --- |
-| PREF-R01 | Timed alerts during live task using persisted interval + authoritative timer/session state | **OPEN M8** |
+| PREF-R01 | Timed alerts during live task using persisted interval + authoritative timer/session state | **VALIDATED** — PR #184 exact head `fc61ed5926fdb1c605de8ce1e1a9fb28ea0dfd7e`, CI #624, guarded merge `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`; merged source verified identical to validated PR source for all changed blobs |
 | PREF-R02 | Finite animated timer flash; reduced-motion safe | **OPEN M8** |
 | PREF-R03 | Notification Alerts gating without duplicating authoritative M3 effects | **OPEN M8** |
 | PREF-R04 | Schedule reminders enable + lead integrated with durable/idempotent delivery | **VALIDATED** — PR #180 exact head `0309c879998f43ff8c6e39e65f02c44669fa48b8`, CI #607, merge `643528ca223b29fd8fbd215db5b1b525c912c6fc`, main CI #608 |
@@ -160,7 +160,7 @@ Validated behavior:
 7. stale rule/version guards, parent identity, persistence-first publication and recurrence idempotence remain intact;
 8. Repeat + No Repeat states are captured/validated in light and dark themes.
 
-There are currently **no active `FIX_NOW` rows**. Forward M8 work resumes with PREF-R01.
+There are currently **no active `FIX_NOW` rows**. PREF-R01 is validated. By user direction on 2026-09-28, run and reconcile the deferred M7 physical Windows acceptance batch before starting PREF-R02.
 
 ## 8. No-orphan gate
 

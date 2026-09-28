@@ -1,138 +1,102 @@
 # HANDOFF.md
 
-Canonical continuation point. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, active `TODO.md`, relevant `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, newest immutable `work-log/`, and live PR/CI state before implementation.
+Canonical continuation point. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, active `TODO.md`, relevant `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, the newest relevant immutable `work-log/` entry, and live PR/CI state before implementation.
 
 GitHub `main` is the durable source truth.
 
-## CURRENT VALIDATED SOURCE BASELINE
+## CURRENT STATE
 
-M5/Main and M6/Focus parity reconciliation remain complete. M7 source implementation is validated through A18 but still awaits deferred physical closure. M8 shortcut foundation/versioned preference persistence, VE-F003 task-menu correction, and the reconciled Preferences/runtime evidence slice are now validated.
+`6/10M || 4/4 | 6/8`
 
-- VE-F003 PR #177 exact validated head: `e80034f481bc8d9368bb670cadfce2cdcbe61797`.
-- Windows CI #602 / run `36349274182`: PASS — Repository Preflight, visual regression fixtures, Tauri Release and diagnostic artifact upload all succeeded.
-- Visual artifact: `narro-m5-visual-regression`, id `10941762475`, digest `sha256:cad2d6f2b0210c1fb2d3213e564d8f0193a8b71ee8488331027fe5206dba85d5`.
-- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10941867097`, digest `sha256:0f0daac870f0f5d13f88be0f970b341cfcc859c92bc07e5a599d6a2f88391979`.
-- Expected-head guarded squash merge: `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`.
-- Resulting-main Windows CI #603 / run `36349966245`: PASS through the identical-tree validation gate.
-- M8 Preferences/runtime PR #170 reconciled exact head: `633877b1e64b2de3c8b24fad388bef2af6c1793b`.
-- Windows CI #604 / run `36350930729`: PASS — Repository Preflight, Preferences visual regression fixtures, Tauri Release and diagnostic artifact upload all succeeded.
-- Visual artifact: `narro-m5-visual-regression`, id `10942775993`, digest `sha256:5be194669c48d3442a3ac301ccdc4168a51f378d00b332ac690f8defb61413b5`.
-- Diagnostic artifact: `narro-m1-runtime-harness-windows-x64`, id `10942122319`, digest `sha256:53543709c13df1a17bd76ed95fa5d6aba14d1f8092e3236cf16e43bceb4b2782`.
-- Expected-head guarded squash merge: `0a54b20f16f5cb69a32602148750b10d533ad470`.
-- Resulting-main Windows CI #605 / run `36351530441`: PASS through the identical-tree validation gate.
-- PR #180 exact validated head: `0309c879998f43ff8c6e39e65f02c44669fa48b8`.
-- Windows CI #607 / run `36352510898`: PASS.
-- Expected-head guarded squash merge: `643528ca223b29fd8fbd215db5b1b525c912c6fc`.
-- Resulting-main Windows CI #608 / run `36353206934`: PASS.
-- PR #182 exact validated head: `72ab6c77d5e5f5e50c7f3f7e6a0c11b98c7c606c`.
-- Windows CI #617 / run `36354972305`: PASS — Repository Preflight, Rust checks/tests, Repeat + No Repeat light/dark visual fixtures, Tauri Release and required artifacts.
-- Visual artifact: `narro-m5-visual-regression`, id `10943374010`, digest `sha256:4d9b5005e53d842c1c8eb9774b6f29e9b950c0447a651914243d84c9f7b776b6`.
-- Runtime artifact: `narro-m1-runtime-harness-windows-x64`, id `10943557612`, digest `sha256:1a9325c54af943de7ba05cf375ab313447f3a10b004e81a6f85a858a91a02ee6`.
-- Expected-head guarded squash merge: `50006f29b0329037aecfdab772104db8670768b0`.
-- Resulting-main Windows CI #618 / run `36355523089`: PASS.
-- **Current validated application source baseline:** `50006f29b0329037aecfdab772104db8670768b0`.
+- Roadmap: **6/10 milestones complete**.
+- M7 source implementation: **9/14 top-level items validated**; required physical/manual closure remains OPEN.
+- M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
+- Current audit `FIX_NOW` queue: **clear**.
+- Open implementation PRs: **none** at this handoff.
 
-Tracking/evidence-only commits after this SHA do not replace the validated application source baseline.
+## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
-## CURRENT ORDERED WORK
+**`e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`**
 
-1. **M5 parity/reliability reconciliation (A1–A9, A19): COMPLETE.**
-2. **M6 Focus reconciliation (A10–A17): COMPLETE.**
-3. **M7 source implementation: 9/14 top-level items validated; M7 remains OPEN for deferred physical/manual acceptance.**
-4. The uploaded Blitzit corpus remains fully inventoried and functionally reconciled: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 product-behavior analyses/reconciliations/dispositions complete**. Details: `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
-5. **User-requested second-pass UI/UX video forensics is COMPLETE: 19/19 deep-reviewed.** Durable evidence is in `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md`, `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, and the reconciled `docs/UI_UX_SPEC.md`.
-6. **User-requested Help Center text + image evidence pass is COMPLETE:** 34/34 visible legacy-navigation pages inventoried/classified and 15/15 Narro-relevant pages deep-reviewed. The canonical local screenshot corpus is also reconciled: **46 retained images** (22 current v2.6.69, 17 Help Center originals, 7 historical), content-named and deduplicated. Evidence PR #175 exact validated head `8d2ade29eff3e3be3550e6d0638f875d0097237d`; Windows CI #594 PASS; expected-head guarded squash merge `72e825c991a53aee9c68a2411fa2439a9e599f26`; resulting-main Windows CI #595 PASS through the identical-tree validation gate. Durable evidence: `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`, `docs/BLITZIT_HELP_CENTER_TRACKER.md`, and `reference/original-blitzit-screenshots/CANONICAL_INDEX.md`. Newer 3.0 docs remain version-separated.
-7. Deferred M7 manual checks remain OPEN/NOT RUN and do not block independent source implementation.
-8. **Post-validation VE-F003 task-menu correction: COMPLETE / VALIDATED.** `Change List` now performs a persistence-first same-identity move to another active list while preserving authoritative lane/schedule/recurrence/session history; `Duplicate` creates one independent identity; live/open-session mutation is rejected transactionally; the fixed action geometry and confirmed `Schedule → Change List → Duplicate → Delete` hierarchy are covered by regression/visual validation. PR #177 / CI #602 / main CI #603.
-9. **M8 remains in progress: 6/8 top-level items validated.** VE-F001, VE-F002 and VE-F008 are validated in reconciled PR #170 / CI #604 / main CI #605; conditional/nested Preferences behavior is validated without scroll-jump remounts. The top-level Preferences item remains open only for runtime effects the validated slice explicitly did not claim.
-10. The audit-incorporation gate remains active and the current `FIX_NOW` queue is clear. CORR-01 No Repeat / Delete Existing is validated in PR #182 / CI #617 / main #618. Resume audited M8 work with PREF-R01, then PREF-R02, PREF-R03, PREF-R05 and PREF-R06 before M9.
-11. After M10, run the required Final Comprehensive Review Stage and re-reference the complete uploaded corpus and Help Center evidence as part of end-state validation.
+Latest source slice: **PREF-R01 authoritative timed task alerts**.
 
-Roadmap completion remains **6/10 milestones**. M8 is not complete yet.
+Validation evidence:
+- PR #184 exact validated head: `fc61ed5926fdb1c605de8ce1e1a9fb28ea0dfd7e`;
+- Windows CI #624 / run `36357415253`: PASS;
+- Repository Preflight, Windows visual regression and Tauri Release: PASS;
+- visual artifact `narro-m5-visual-regression`: id `10944696812`, digest `sha256:2569c35b4aef14a713b4d73d4f80b9bd6e02114e764b6e9f8646aa29a781c769`;
+- runtime artifact `narro-m1-runtime-harness-windows-x64`: id `10944304485`, digest `sha256:4f76740bc6f69dcd1d664c9fb80011520567612c9eb6d87ab4e09e02e3b1bf7c`;
+- expected-head guarded squash merge: `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`;
+- resulting-main source-tree identity: PASS. The merge used base `0770e3d41b3f5a55b2d23b6874975cbd420ef379`, and all nine files changed by PR #184 have identical blob SHAs at the validated PR head and merged main SHA.
 
-For each remaining milestone M7–M10:
-- require sufficient error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone;
-- include the milestone's total validated source diff as `+A/-B` lines in its completion report, measured from validated starting source SHA to final validated source SHA.
+PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work elapsed state, durable idempotent run/boundary effects, delayed catch-up without backfill, lifecycle retirement/reset, and a typed local `timed-alert-effect` boundary. Timer flash, sound playback and PREF-R03 notification gating remain intentionally outside this validated slice.
 
-Video corpus status: **initial product-behavior ingestion COMPLETE** — 38/38 raw files inventoried; 19/19 paired, analyzed, Narro-reconciled and dispositioned. Evidence PR #172 carries that durable reconciliation. A separate user-requested **UI/UX forensic second pass is COMPLETE at 19/19**; keep it distinct from the functional-ingestion counter. The post-M10 final comprehensive review remains a separate required end-state gate.
+## EVIDENCE / AUDIT STATE
 
-## M6 RECONCILIATION — COMPLETED CAPABILITIES
+- Uploaded video corpus: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 analyzed/reconciled/dispositioned**.
+- UI/UX forensic second pass: **19/19 complete**.
+- Help Center pass: **34/34 visible legacy-navigation pages inventoried/classified; 15/15 Narro-relevant pages deep-reviewed**.
+- Canonical screenshot corpus: **46 retained images** — 22 current v2.6.69, 17 Help Center originals, 7 historical.
+- `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` is authoritative for finding disposition.
+- CORR-01 recurrence No Repeat/Delete Existing correction is VALIDATED.
+- No material finding is currently classified `FIX_NOW`.
+- M9 findings remain routed to M9; M10/final-review findings remain routed to later gates; unresolved source ambiguities remain explicit.
 
-A10–A17 are implemented and validated:
+## M7 PHYSICAL CLOSURE — NEXT GATE
 
-- A10 ordinary Focus rows expose completion, Rocket/Make Live, reorder and overflow actions with fixed reserved geometry and keyboard/focus equivalents.
-- A11 Rocket samples authoritative timer/session state and starts or switches through the timer service, preserving prior work instead of completing/skipping it.
-- A12 individual-list Focus queue reorder reuses persisted stable task identities; aggregate All Lists reorder remains disabled.
-- A13 ordinary-row Notes, scheduling, non-live completion and explicit permanent delete reuse validated Main/domain boundaries.
-- A14 Focus `+ ADD TASK` persists first; All Lists requires an explicit owning-list choice.
-- A15 Focus Home shows/recreates Main and hides Focus through native lifecycle without timer/session reset.
-- A16 live-task title editing exists only inside Focus Panel Notes and reuses stale-safe persisted title mutation followed by authoritative refresh.
-- A17 Time's Up exposes Extend through authoritative `timer_extend`.
-- obsolete placeholder/static contracts were evolved into positive final invariants; Windows visual fixtures validate row/action geometry.
+By the user's 2026-09-28 direction, **do not start another M8 source slice before the deferred M7 physical batch is run**.
 
-Do not reopen A10–A17 without new repository-backed evidence.
+Use the latest suitable validated Windows runtime artifact from CI #624:
+- artifact id: `10944304485`;
+- digest: `sha256:4f76740bc6f69dcd1d664c9fb80011520567612c9eb6d87ab4e09e02e3b1bf7c`;
+- source tree is identical to merged main `e3a9abf8...`.
 
-## AUDIT CLASSIFICATION
+The consolidated physical batch remains:
+1. Panel ↔ Floating Timer continuous visual continuity with normal Windows animations.
+2. Repeat Panel ↔ Floating Timer with Windows animations Off.
+3. Floating Timer Expand/Collapse continuity and stale-pixel/blank-frame check.
+4. Transition-boundary shortcut stress and Locate Timer native-hidden/reduced-motion behavior.
+5. Secondary-monitor/topology/no-saved-placement recovery, including non-default taskbar/constrained work area/high-DPI placement.
+6. Always-on-top stacking over normal maximized and borderless/fullscreen applications where Windows permits it.
 
-- A1–A9, A19: COMPLETE and validated in M5 reconciliation.
-- A10–A17: COMPLETE and validated in M6 reconciliation.
-- A18: COMPLETE and automated-validated in M7 PR #155 / CI #559 / main CI #560.
-- B1: RESOLVED and VALIDATED by direct VE-005 evidence plus VE-F003 PR #177. Current task overflow exposes `Schedule / Update Schedule`, `Change List`, `Duplicate`, and destructive `Delete` while preserving explicit permanent-delete confirmation.
-- B2/B3: visual-fidelity questions; defer to the final parity/fidelity pass unless stronger evidence promotes them.
-- B4: Done auto-start-next remains unresolved in source evidence; preserve current behavior.
-- Audit section C intentional Narro deviations remain binding.
+Record PASS/FAIL/NOT RUN per gate. Automated evidence must not close these physical gates.
 
-## M7 DEFERRED PHYSICAL CLOSURE
+## REMAINING M8 ORDER
 
-PR #155 is merged. No open M7 source PR remains from that slice.
+After the M7 physical batch is reconciled:
+1. PREF-R02 — finite animated timer flash, reduced-motion safe.
+2. PREF-R03 — Notification Alerts gating without duplicating authoritative M3 effects.
+3. PREF-R05 — local/Narro-owned sound catalog and non-overlapping preview behavior.
+4. PREF-R06 — Windows locale/system 12/24-hour date/time presentation.
 
-The following physical/manual acceptance remains OPEN and must be batched later on the latest relevant build:
-- Panel↔Timer and Expand/Collapse continuous visual continuity, including Windows animations On/Off;
-- transition-boundary shortcut stress;
-- locate-timer native-hidden/reduced-motion follow-up;
-- secondary monitor/topology/no-saved-placement recovery;
-- independent borderless/fullscreen stacking;
-- non-default taskbar, constrained work area, secondary monitor and high-DPI placement.
-
-Do not mark M7 complete until these required checks close, but do not block independent M8 source implementation on them.
+PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
 - Narro remains local-only Windows software with Tauri 2 + React/TypeScript, SQLite, and authoritative Rust/domain state.
-- `main` and reusable `focusSurface` remain the normal two-webview architecture.
-- native/Rust remains monitor/work-area/DPI/window-position authority.
-- persistence-first mutation boundaries remain authoritative for list/task/subtask/note/scheduling/archive state.
-- stable task identities, tracked Time Taken, date-only/timezone/recurrence semantics, and All Lists aggregate semantics remain intact.
-- future-timed Today tasks remain ineligible until due.
-- Focus entry and task switching cannot duplicate or silently reset live sessions.
-- Break/Pause-Resume/Skip/Done/Extend/Make Live reuse authoritative timer/session transitions.
-- Focus Home cannot reset timer/session state.
-- live-task title editing remains confined to Notes.
-- aggregate All Lists reorder remains disabled.
-- Notes URLs require explicit activation.
-- hover/focus actions retain reserved geometry, accessibility, and reduced-motion usability.
-- excluded account/trial/upgrade/profile/AI/integration controls remain absent.
-- diagnostics remain gated rather than shown in normal product surfaces.
-- No Repeat is the recurrence-removal entry point; checked Delete Existing may delete only pristine active generated children, while customized/history-bearing/completed/archived/legacy-linked children survive detached.
-- Do not reintroduce a separate recurrence-removal UI path without stronger evidence or an explicit product decision.
+- `main` + reusable `focusSurface` remain the normal two-webview architecture.
+- persistence-first mutations, stable task identities, session/time accounting, recurrence idempotence and Windows-local scheduling semantics remain authoritative.
+- Focus/Floating presentation changes cannot reset, duplicate or independently advance a live session.
+- Notes URLs require explicit activation; aggregate All Lists reorder remains disabled.
+- hover/focus actions keep reserved geometry and keyboard/reduced-motion accessibility.
+- No Repeat may delete only pristine active generated children when explicitly requested; customized/history-bearing/completed/archived/legacy-linked children survive detached.
+- excluded account/cloud/trial/upgrade/profile/AI/integration controls remain absent.
 
-## EXACT NEXT ACTION
+## REPOSITORY HYGIENE NOTE
 
-1. Read `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` before source work. There are currently no active `FIX_NOW` rows.
-2. Continue M8 from validated application source `50006f29b0329037aecfdab772104db8670768b0` with **PREF-R01 timed task alerts**.
-3. Before changing source, inspect the persisted timed-alert Preferences fields and the authoritative timer/session runtime/effect paths. Do not infer field names or semantics.
-4. PREF-R01 must:
-   - consume the persisted timed-alert enable/interval preference;
-   - derive boundaries from authoritative work-session/timer elapsed state rather than renderer tick ownership;
-   - fire each eligible interval boundary at most once, including delayed observation/recovery;
-   - avoid counting paused/break time as work-alert progress;
-   - remain independent from M3 time-up/Pomodoro notification effects and from PREF-R03 notification gating;
-   - expose a narrow effect boundary that PREF-R02 timer flash and PREF-R05 local sound can consume later without coupling those later features into this slice;
-   - include deterministic boundary/idempotence/recovery tests and persistence-first failure semantics where durable effect state is required.
-5. Validate PREF-R01 exact PR head on authoritative Windows CI, expected-head guarded merge, and resulting-main CI before PREF-R02.
-6. Then continue PREF-R02 → PREF-R03 → PREF-R05 → PREF-R06. PREF-R04 is already validated and must not be reimplemented.
-7. M7 physical compositor/monitor/DPI checks remain OPEN. M9 routed findings remain deferred until M8 closes.
+The current GitHub connector cannot delete remote refs/branches. Source/tracking reconciliation is complete, but stale remote branch deletion remains one manual administrative cleanup step. It is non-blocking for Narro correctness. See `work-log/2026-09-28-chatgpt-repository-hygiene-pref-r01.md` and delete only verified merged/superseded or clearly temporary branches; never delete `main`, an open-PR branch, or unverified unique work.
+
+## NEXT AGENT ACTION
+
+1. Re-read live repository/PR/CI state; there should be no open implementation PR from this handoff.
+2. Do **not** begin PREF-R02 yet.
+3. When the user is ready, use the CI #624 runtime artifact and run the consolidated M7 physical batch above.
+4. Reconcile the physical result into a new immutable work-log plus `TODO.md`, `STATUS.md`, and `HANDOFF.md`.
+5. Fix evidence-backed M7 failures before further M8 work when a failed gate can affect acceptance.
+6. After M7 physical closure is safely reconciled, resume M8 at PREF-R02.
 
 ## USER ACTION REQUIRED
 
-No action is required for M8 source implementation. The deferred M7 physical matrix and Blitzit video upload/analysis will be requested only when needed for closure or when the user chooses to provide them. Videos may be uploaded normally to `reference/original-blitzit-videos/inbox/` without pre-classification.
+**Deferred until the user is ready:** the M7 physical Windows batch above.
+
+No Blitzit evidence upload is pending. The uploaded corpus and its analysis are complete.
