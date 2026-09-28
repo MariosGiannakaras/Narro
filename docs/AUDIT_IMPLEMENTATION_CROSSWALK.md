@@ -172,7 +172,16 @@ Validated behavior:
 7. stale rule/version guards, parent identity, persistence-first publication and recurrence idempotence remain intact;
 8. Repeat + No Repeat states are captured/validated in light and dark themes.
 
-There are currently **no active `FIX_NOW` rows**. PREF-R01 is validated. By user direction on 2026-09-28, run and reconcile the deferred M7 physical Windows acceptance batch before starting PREF-R02.
+### M7-PHYS — exact-build physical corrections
+
+CI #624 physical Windows evidence is in `work-log/2026-09-28-codex-m7-ci624-physical-batch.md`.
+
+| ID | Physical finding | Route | Disposition |
+| --- | --- | --- | --- |
+| M7-PHYS-01 | Timer→Panel with Windows animations On exposes pure-white frames; Timer Expand/Collapse exposes enlarged/shrinking empty surfaces | M7 visual continuity | **FIX_NOW / ARCHITECTURE ASSESSMENT REQUIRED** — exact CI-validated builds `f1ef35a`, `12707c0`, and `d505b93` failed physical Gate 7 with distinct frame signatures. See `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. `b23c8ab` has CI PASS only; physical NOT RUN. Apply the `AGENTS.md` repeated-failure rule before another hold-mechanism patch. |
+| M7-PHYS-02 | Moving visible compact Timer to 125% secondary monitor shrinks its outer size and clips controls with both scrollbars; mode reapply restores size | M7 topology/DPI | **FIX_NOW / PR #191 CANDIDATE** — exact-build mixed-DPI retest pending |
+
+Both findings concern already-built M7 surfaces. PR #191 is not validation: their disposition remains `FIX_NOW` until successful CI plus physical acceptance on that exact artifact. PREF-R01 is validated. No further M8 source slice starts while these M7 findings remain open.
 
 ## 8. No-orphan gate
 

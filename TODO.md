@@ -334,34 +334,41 @@ These requirements apply separately to every remaining roadmap milestone. They d
   - [x] Independent second audit of the same CI #521 recording, rechecked frame-by-frame, confirms a separate Expand/Collapse continuity failure not covered by PR #151: with animations On, Expand around ~9.53–9.65s exposes an enlarged mostly empty Timer before expanded controls; Collapse around ~17.2s hides expanded content before the native surface finishes shrinking and then republishes collapsed content. The same class reproduces with Windows animations Off around ~43.02–43.13s on Expand and ~37.38s on Collapse. Treat this as a distinct resize visibility/readiness issue. #151 resulting-main validation is complete; by explicit user direction, the Panel↔Timer physical retest may be batched later, so this independently evidenced corrective slice may proceed now without marking the deferred manual gate PASS.
   - [x] Expand/Collapse empty-surface corrective source is automated-validated: PR #153 replaces the visible child fade/hide resize sequence with an atomic transparent-host swap (`cloak -> native resize -> synchronous target publish -> finite frame barrier -> uncloak`) while preserving native geometry/rollback authority and the solved duplicate-key/stale-pixel behavior. Exact head `ed046af079038952f5877b19324b6bf36912e69f` passed Windows CI #527; merged main `57a18a2b9ffd81b1b2d968c54bf1e997311c0cd8` passed Windows CI #528. Physical Expand/Collapse confirmation remains open and is batched with the remaining M7 Windows matrix.
   - [x] CI #530 blank/desktop continuity corrective source is automated-validated: PR #155 adds a short-lived native bitmap/tool-window visual hold over the same `focusSurface` during hidden geometry/readiness/prewarm/reveal work, with serialized ownership and cleanup on success/failure. Exact head `c630a57346c067ab04c0fa086703582542f4f7e5` passed Windows CI #559; guarded squash merge `76ef5dadf1d6587ee52d029d980ad4de7a9abd93` passed resulting-main CI #560. Physical continuous-capture confirmation remains OPEN/NOT RUN.
+  - [x] CI #624 exact-artifact physical batch on 2026-09-28: Gate 7 **FAIL** with Windows animations On. Three Timer→Panel cycles exposed 3–5 pure-white frames; three Expand/Collapse cycles exposed white/mostly empty resized surfaces. Two valid Panel↔Timer cycles with animations Off had no blank frame; Off Expand/Collapse remains untested. See `work-log/2026-09-28-codex-m7-ci624-physical-batch.md` and sanitized frame evidence.
+  - [x] PR #191 first candidate `f1ef35a` passed exact-head Windows CI, but three physically recorded Off Expand/Collapse cycles still exposed the old expanded white surface beneath compact content. The On attempt was interrupted before cycles; Gate 7 remains FAIL. See `work-log/2026-09-28-codex-m7-pr191-retest-in-progress.md`.
+  - [x] PR #191 second visual-hold candidate `12707c0` passed exact-head Windows CI run `36373768756`; physical animations-On 3× Panel↔Timer and 3× Expand/Collapse retest still showed the old expanded white area under compact content, so Gate 7 remains FAIL. Preceding `788fb87` compiled but failed CI Clippy on a redundant cast, which `12707c0` removed.
+  - [x] PR #191 target-bounds correction `d505b93` passed exact-head CI run `36374929708`; physical On cycles no longer showed the prior expanded white tail, but the Off resize capture contained full-white expanded Timer frames 570 and 677. Gate 7 remains FAIL; see `work-log/2026-09-28-codex-m7-visual-continuity-history.md`.
+  - [ ] Repeated-failure escalation: `f1ef35a`, `12707c0`, and `d505b93` each passed CI and then physically failed Gate 7. Before another small visual-hold fix, perform the bounded architecture assessment required by `AGENTS.md`; compare a materially different scoped Timer/window composition with the current WebView/bitmap hold using continuous On/Off capture, session correctness, CPU/memory, and Windows positioning. `b23c8ab` passed CI run `36397349549` but has **no physical verdict**. Do not call Gate 7 PASS or merge PR #191 from CI alone.
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
-- [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
+- [x] Implement shortcut to alternate Focus Panel/Floating Timer.
   - [x] Ctrl+Shift+T implementation passed PR #126 exact-head CI #488, guarded merge `77e535f`, and resulting-main CI #489.
   - [x] Concurrent native registration/retry and diagnostic publication are serialized; executable Rust concurrency/conflict/rollback tests and frontend retry-state tests passed PR #143 exact-head CI #507. Guarded merge `fce15f8` has the same tree; duplicate main CI #508 was cancelled. Scoped physical results appear below.
   - [x] Physical Panel/Timer shortcut use and session continuity passed on CI #503; one rapid repeated press settled to one Timer window.
   - [x] Physical CI #507 Ctrl+Shift+T, rapid repeated press, both-chord ownership conflict and retry after release passed with one Focus window and the same paused session. Further transition-boundary stress remains open.
-- [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
+  - [x] CI #624 Gate 8 physical boundary stress PASS: two bursts of five rapid presses settled to one Focus window with the same paused task/session/time and no stuck busy state; see 2026-09-28 M7 work log.
+- [x] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
   - [x] Ctrl+Shift+P and finite attention pulse passed PR #127 exact-head CI #490, guarded merge `53c0376`, and resulting-main CI #491.
   - [x] The shared PR #143 registration/retry state machine and executable concurrency/conflict/rollback tests passed exact-head CI #507; guarded merge `fce15f8` has the identical tree. Scoped current-build physical results appear below.
   - [x] Physical visible/hidden Timer and Panel-mode shortcut behavior passed on CI #503; pulses ended in about 729/726 ms, or about 186 ms with reduced-motion media emulation.
   - [x] Physical CI #507 visible-Timer Ctrl+Shift+P pulse and Panel-mode no-op passed; native-hidden Timer on this exact build was not retested.
   - [x] Physical Windows OS animations Off: visible-Timer Ctrl+Shift+P gave one finite pulse and returned to settled state on CI #507. The original OS setting was restored.
-  - [ ] Repeated native-hidden/Panel interactions and post-fix reduced-motion retest remain open.
-- [ ] Persist a safe last position and recover after monitor changes/restart.
+  - [x] CI #624 Gate 9 physical PASS: repeated visible-Timer P pulses on actual animations On and Off settled; Panel P did not change mode/session; the Off pulse followed native mode hide/show. See 2026-09-28 M7 work log.
+- [x] Persist a safe last position and recover after monitor changes/restart.
   - [x] Native SQLite placement/relative recovery passed PR #128 exact-head CI #492, expected-head guarded merge `778a1bc`, and resulting-main CI #493.
   - [x] Visible Timer topology recovery now fits and repositions the measured outer window, including when no saved placement exists; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
   - [x] Physical drag, Panel return/reopen, and same-monitor process restart restored the Timer at the moved position with the same paused session on CI #503.
-  - [ ] Physical secondary-monitor/topology change and no-saved-position recovery checks remain open.
-- [ ] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
+  - [x] CI #624 Gate 10 physical PASS: secondary-monitor move, disconnect-to-primary recovery, reconnection, restart with saved position on DISPLAY2, and separate no-saved-placement restart with safe primary placement all retained the same paused session. Mixed-DPI size failure is separately Gate 12.
+- [x] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
   - [x] Document the Windows DirectFlip/Independent Flip composition caveat and separate exclusive-fullscreen observation in `docs/M7_FLOATING_RUNTIME_VALIDATION.md`.
   - [x] Physical stacking above maximized Edge and Edge F11 fullscreen passed on CI #503.
-  - [ ] Physical independent borderless-app and optional exclusive-fullscreen stacking checks remain open.
+  - [x] CI #624 Gate 11 physical PASS over a separate borderless fullscreen Windows Forms application with probe→Timer→probe focus switching; Timer stayed visible/topmost. True exclusive fullscreen was unavailable and is not inferred.
 - [ ] Verify expanded content remains on-screen when the widget is close to bottom/taskbar; reposition/anchor safely rather than overflowing unusably.
   - [x] Native hidden-resize work-area anchoring passed PR #130 exact-head CI #494, expected-head guarded merge `50cef42`, and resulting-main CI #495.
   - [x] Constrained work-area recovery fits native outer size before placement and keeps expanded controls scrollable at narrow/short DPI-scaled sizes; PR #132 exact-head CI #497, guarded merge `59bdc2d`, and resulting-main CI #498 PASS.
   - [x] Restore and live display-change paths reuse measured native fit/placement, with rollback on failure; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
   - [x] Physical primary-work-area bottom expansion fitted the 356×308 native outer window at y=772 with lowest controls reachable and collapse usable on CI #503.
-  - [ ] Physical non-default taskbar, secondary-monitor, constrained work area and high-DPI checks remain open.
+  - [x] CI #624 physical secondary-monitor bottom-edge expansion at 125% fit the 443×384 expanded Timer at y=696 (bottom=1080) with controls reachable and collapse usable after a Panel→Timer size reapply.
+  - [x] CI #624 Gate 12 **FAIL** on dynamic mixed-DPI placement: moving the visible compact Timer to 125% DISPLAY2 left an approximately 271×75 outer window with both scrollbars and clipped controls. A Panel→Timer mode reapply restored 425×138. PR #191 includes a narrow display-recovery logical-size correction with regression tests; exact-build physical retest remains open. Non-default taskbar edge and separately shortened work area were not run.
 - [x] Verify no decorative animation runs continuously while idle.
   - [x] Static Floating Timer motion audit: finite attention pulse and transitions only; live timer sampling is conditional on active states. The only `infinite` title scroll belongs to the Focus Panel. See `work-log/2026-09-24-codex-m7-idle-motion-audit.md`.
   - [x] Physical CI #503 collapsed/expanded paused idle: zero running DOM animations/pulse nodes, and paired settled screenshots byte-identical. True-idle collapsed CI #505 also showed zero animations. Revalidate if later source changes idle motion.
@@ -379,7 +386,7 @@ Acceptance criteria:
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
 
-**Current M7 gate state:** 9/14 top-level items are validated. The remaining five top-level items are held open by deferred physical/manual Windows checks. By explicit user direction on 2026-09-26, those deferred checks do **not** block independent M8 source implementation; M7 must nevertheless remain incomplete until its required physical acceptance closes. The uploaded Blitzit video corpus has now been analyzed separately and does not convert those deferred manual checks into PASS.
+**Current M7 gate state:** 12/14 top-level checklist items are validated by the 2026-09-28 CI #624 physical batch; Panel/Timer visual continuity and mixed-DPI/work-area acceptance remain open. The earlier 9/14 shorthand did not match the 14 top-level checkboxes (eight were checked before this batch); this count is reconciled directly against the checklist. M7 remains incomplete, and no further M8 source slice starts before M7 acceptance.
 
 ### Post-validation video-evidence correction — VE-F003
 
@@ -402,7 +409,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority (user direction 2026-09-28):** PREF-R01 is validated. Before opening another M8 source slice, run and reconcile the deferred M7 physical Windows acceptance batch on the latest suitable validated build. M7 remains 9/14 until those physical gates pass; after reconciliation, resume M8 at PREF-R02.
+**Current execution priority (2026-09-28 physical evidence):** Gate 7 has failed across multiple exact CI-validated builds, including three PR #191 corrections. Follow the repeated-failure escalation above before more small visual-hold changes; `b23c8ab` has only an automated CI PASS. Gate 12's exact-build mixed-DPI/secondary-monitor branch remains open. Restore the original profile and OS test state before closure. Keep M7 open at 12/14 and do not start another M8 source slice.
 
 ## Milestone 8 — Windows shortcuts and preferences
 

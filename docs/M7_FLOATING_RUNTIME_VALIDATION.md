@@ -4,19 +4,16 @@ Use one real Windows 10/11 x64 session for the **remaining M7 physical gates onl
 
 ## Exact build
 
-Validated source baseline:
+Latest physically tested validated source baseline: `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`, tree identical to CI #624 PR head `fc61ed5926fdb1c605de8ce1e1a9fb28ea0dfd7e`.
 
-`449eb5d1fda4a8d26832e803433209025a6dec38`, tree `51b27ba7a867dcea79a49927cb1ed4e0ee7bda6b`.
+- Windows CI #624 / run `36357415253` — PASS for repository preflight, visual regression and Tauri release.
+- Runtime artifact ID `10944304485`, name `narro-m1-runtime-harness-windows-x64`, digest `sha256:4f76740bc6f69dcd1d664c9fb80011520567612c9eb6d87ab4e09e02e3b1bf7c`.
+- 2026-09-28 physical batch: gates 7 and 12 **FAIL**; gates 8–11 **PASS** with their recorded scope. See `work-log/2026-09-28-codex-m7-ci624-physical-batch.md` and its sanitized frame evidence.
+- PR #191 first candidate `f1ef35a` passed Windows CI run `36371772752` and was physically tested with animations Off. Three Panel↔Timer and three Expand/Collapse cycles settled, but the latter still exposed the old expanded white surface beneath compact content; Gate 7 remains **FAIL**. The On attempt was interrupted before cycles and Gate 12 was not run. See `work-log/2026-09-28-codex-m7-pr191-retest-in-progress.md`.
+- PR #191 second candidate `12707c0` passed exact-head Windows CI run `36373768756`; runtime artifact id `10949818132`, digest `sha256:5d03ce449875167e9c559316df980c0ec9f64a1b74baf153985d376b0f3b2850`. Three animations-On Panel↔Timer and Expand/Collapse cycles settled but the resize still exposed the old expanded white area, so Gate 7 remained FAIL.
+- Target-bounds candidate `d505b93` passed CI run `36374929708` but physically failed Off resize with two full-white expanded Timer frames. The full repeated-failure history and exact evidence are in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. Current head `b23c8ab` passed CI run `36397349549` but has no physical verdict. The `AGENTS.md` architecture-escalation rule applies before further small hold-mechanism changes.
 
-Latest full resulting-main validation:
-- Windows CI #530 — PASS.
-- Runtime artifact ID `10902390320`, name `narro-m1-runtime-harness-windows-x64`.
-- Runtime artifact digest `sha256:726991f5a92eadda25eaa833d0a7443c21531896eb56e462609a0db6988cc6de`.
-- Local validation package filename prepared for the user: `narro-m7-latest-main-ci530-windows-x64.zip`.
-
-Later commits `8d3b488226c7fdc7ed23deae6bfc9f6acb0d8d62` and `34d75da3dfe54b7c52e06f90e38871b85681a97f` are documentation-only and do not replace the validated source baseline.
-
-Fully quit any older Narro instance before launching `narro.exe` from the extracted #530 artifact.
+Fully quit the older Narro instance before launching the next exact-build `narro.exe`.
 
 ## Test setup
 

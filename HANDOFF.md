@@ -9,10 +9,10 @@ GitHub `main` is the durable source truth.
 `6/10M || 4/4 | 6/8`
 
 - Roadmap: **6/10 milestones complete**.
-- M7 source implementation: **9/14 top-level items validated**; required physical/manual closure remains OPEN.
+- M7: **12/14 top-level checklist items validated** after the CI #624 physical batch; Gates 7 and 12 remain FAIL and M7 closure remains OPEN.
 - M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
-- Current audit `FIX_NOW` queue: **clear**.
-- Open implementation PRs: **none** at this handoff.
+- Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**, both correction candidates in PR #191 and pending exact-build physical validation.
+- Open implementation PR: **#191**, targeted M7 visual-hold and mixed-DPI corrections. Three CI-validated heads failed physical Gate 7. Current head `b23c8ab` passed CI but is physically untested; the repeated-failure architecture assessment is next.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -41,27 +41,24 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 - Canonical screenshot corpus: **46 retained images** — 22 current v2.6.69, 17 Help Center originals, 7 historical.
 - `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` is authoritative for finding disposition.
 - CORR-01 recurrence No Repeat/Delete Existing correction is VALIDATED.
-- No material finding is currently classified `FIX_NOW`.
+- New exact-build physical findings `M7-PHYS-01` and `M7-PHYS-02` are `FIX_NOW` in the audit crosswalk until their PR #191 corrections pass physical acceptance.
 - M9 findings remain routed to M9; M10/final-review findings remain routed to later gates; unresolved source ambiguities remain explicit.
 
-## M7 PHYSICAL CLOSURE — NEXT GATE
+## M7 PHYSICAL CLOSURE — ACTIVE
 
 By the user's 2026-09-28 direction, **do not start another M8 source slice before the deferred M7 physical batch is run**.
 
-Use the latest suitable validated Windows runtime artifact from CI #624:
+The CI #624 physical batch has now run on its exact artifact:
 - artifact id: `10944304485`;
 - digest: `sha256:4f76740bc6f69dcd1d664c9fb80011520567612c9eb6d87ab4e09e02e3b1bf7c`;
-- source tree is identical to merged main `e3a9abf8...`.
+- source tree is identical to merged main `e3a9abf8...`;
+- immutable result: `work-log/2026-09-28-codex-m7-ci624-physical-batch.md` with sanitized frames in `work-log/evidence/`;
+- Gate 7 **FAIL** (On white frames on Timer→Panel and Expand/Collapse), Gate 12 **FAIL** (125% secondary-monitor Timer shrink/scrollbars);
+- Gates 8, 9, 10 and 11 **PASS** within the documented physical scope.
 
-The consolidated physical batch remains:
-1. Panel ↔ Floating Timer continuous visual continuity with normal Windows animations.
-2. Repeat Panel ↔ Floating Timer with Windows animations Off.
-3. Floating Timer Expand/Collapse continuity and stale-pixel/blank-frame check.
-4. Transition-boundary shortcut stress and Locate Timer native-hidden/reduced-motion behavior.
-5. Secondary-monitor/topology/no-saved-placement recovery, including non-default taskbar/constrained work area/high-DPI placement.
-6. Always-on-top stacking over normal maximized and borderless/fullscreen applications where Windows permits it.
+PR #191 exact-build and physical chronology is consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. CI success on three corrected heads was followed by physical Gate 7 failure, so the `AGENTS.md` repeated-failure rule now applies. Gate 12's exact-build secondary-monitor result remains open. Do not merge PR #191 until the required physical gates pass.
 
-Record PASS/FAIL/NOT RUN per gate. Automated evidence must not close these physical gates.
+The original SQLite profile backup is in ignored `artifacts/m7-ci624-runtime/profile-before.db`. The test profile currently has a temporary no-saved-placement row deletion; restore the full original backup after the final test. The user restored the second monitor to its original 100%. Windows animations are currently On, confirmed by `SPI_GETANIMATION=1` and `SPI_GETCLIENTAREAANIMATION=1`; restore this original On state after any Off retest.
 
 ## REMAINING M8 ORDER
 
@@ -91,15 +88,17 @@ The abandoned CI dedup regression guard was recovered, validated and merged in P
 
 ## NEXT AGENT ACTION
 
-1. Re-read live repository/PR/CI state; there should be no open implementation PR from this handoff.
+The repeated Gate 7 failure history is consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. The `AGENTS.md` repeated-failure rule is triggered: three CI-validated PR #191 builds (`f1ef35a`, `12707c0`, `d505b93`) failed physical Gate 7. `b23c8ab` passed CI run `36397349549` but is **physically NOT RUN**. Pause further small hold-mechanism changes; the next technical step is a bounded architecture assessment of a materially different scoped Timer/window composition, with the same continuous physical acceptance and correctness/performance measures. The user will change effort before that assessment. The original SQLite profile backup remains to be restored, and Windows currently exposes one display, so secondary-monitor Gate 12 cannot be claimed.
+
+1. Read live PR #191/CI state; the latest known head is `b23c8ab518c5b654dd33b3cb582388b193ce82e5` with CI PASS and physical NOT RUN.
 2. Do **not** begin PREF-R02 yet.
-3. When the user is ready, use the CI #624 runtime artifact and run the consolidated M7 physical batch above.
-4. Reconcile the physical result into a new immutable work-log plus `TODO.md`, `STATUS.md`, and `HANDOFF.md`.
-5. Fix evidence-backed M7 failures before further M8 work when a failed gate can affect acceptance.
-6. After M7 physical closure is safely reconciled, resume M8 at PREF-R02.
+3. After the user adjusts effort, perform the bounded architecture assessment before another small hold-mechanism change. Later physical retests must use the exact validated runtime artifact. Restore the original SQLite backup when testing ends.
+4. Record the retest in a new immutable work log; update `TODO.md`, `STATUS.md`, and this handoff from evidence.
+5. Restore the user's original profile and monitor scale; keep M7 open if either gate remains failed/unverified.
+6. Stop at M7. The user has not authorized a new M8 slice in this goal.
 
 ## USER ACTION REQUIRED
 
-**Deferred until the user is ready:** the M7 physical Windows batch above.
+For the exact-build retest, the user may need to toggle Windows animations Off and move the Timer between the two physical monitors. Those actions should be requested only when the candidate artifact is ready.
 
 No Blitzit evidence upload is pending. The uploaded corpus and its analysis are complete.

@@ -284,6 +284,12 @@ For each milestone:
 
 Do not perform unrelated cleanup or broad rewrites.
 
+### Repeated-failure escalation
+
+Keep an evidence history for any acceptance failure that recurs: exact source/build, environment, reproduction steps, observed frames or state, attempted mechanism, and what the attempt actually proved. Distinguish the same failed acceptance criterion from a genuinely identical visual symptom; do not call a new symptom a recurrence without evidence.
+
+If the same acceptance criterion still fails on two separately corrected, CI-validated builds that were physically tested, stop making successive small fixes to the same mechanism. Reassess the whole failure path and the underlying window/rendering composition. Compare at least one materially different, scoped solution against the current approach using the same physical acceptance capture and relevant correctness/performance measures. Record the alternatives, tradeoffs and decision in `STATUS.md`/`TODO.md` before more implementation. Do not claim a fix from CI, static screenshots, or a single sampled frame when continuous physical behavior is the criterion. A framework-wide migration requires evidence that a narrower alternative is insufficient.
+
 ## Git discipline
 
 - Preserve unrelated user changes.
