@@ -67,6 +67,7 @@ extern "system" {
     fn UpdateWindow(hwnd: Handle) -> i32;
     fn IsWindowVisible(hwnd: Handle) -> i32;
     fn DestroyWindow(hwnd: Handle) -> i32;
+    #[allow(dead_code)] // Retained with the old resize hold until the clipped Timer is physically compared.
     fn GetSystemMetrics(index: i32) -> i32;
 }
 
@@ -314,6 +315,7 @@ pub fn begin(focus: &tauri::WebviewWindow) -> CommandResult<()> {
 /// Keep the outgoing pixels above a resized/revealed WebView until the new
 /// renderer frame is ready. A show/focus call can otherwise raise that WebView
 /// over the hold even though the hold was topmost when it was created.
+#[allow(dead_code)] // The previous hold path remains available during the bounded architecture experiment.
 pub fn raise() -> CommandResult<()> {
     let active = ACTIVE
         .lock()
@@ -347,6 +349,7 @@ pub fn raise() -> CommandResult<()> {
 /// Match the hold to the target window before revealing a resized Focus surface.
 /// On collapse the old lower area must be uncovered immediately; retaining the
 /// union of both rectangles leaves a visible white tail from the old surface.
+#[allow(dead_code)] // Remove with the old resize hold after the physical architecture verdict.
 pub fn cover_resized_focus_surface(focus: &tauri::WebviewWindow) -> CommandResult<()> {
     let mut active = ACTIVE
         .lock()
