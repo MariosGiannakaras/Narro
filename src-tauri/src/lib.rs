@@ -67,6 +67,12 @@ mod focus_visual_hold {
     pub fn begin(_window: &tauri::WebviewWindow) -> CommandResult<()> {
         Ok(())
     }
+    pub fn cover_resized_timer(_window: &tauri::WebviewWindow) -> CommandResult<()> {
+        Ok(())
+    }
+    pub fn raise() -> CommandResult<()> {
+        Ok(())
+    }
     pub fn end() -> CommandResult<()> {
         Ok(())
     }
@@ -1039,6 +1045,7 @@ fn reveal_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
     window
         .set_focus()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus revealed Panel", error))?;
+    focus_visual_hold::raise()?;
     record_focus_surface_mode(FocusSurfaceMode::Panel);
     Ok(())
 }
@@ -1067,6 +1074,7 @@ fn reveal_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "reveal Timer", error))?;
     focus_surface_prewarm::uncloak(&window)?;
+    focus_visual_hold::raise()?;
     record_focus_surface_mode(FocusSurfaceMode::Timer);
     Ok(())
 }
@@ -1206,6 +1214,21 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
         return Err(error);
     }
 
+    if let Err(error) = focus_visual_hold::cover_resized_timer(&window) {
+        if let Err(recovery_error) = restore_floating_timer_after_failed_resize(
+            &window,
+            previous_size,
+            previous_position,
+            was_visible,
+        ) {
+            return Err(CommandError::new(
+                "FLOATING_TIMER_RESIZE_RECOVERY_FAILED",
+                format!("{error}; recovery failed: {recovery_error}"),
+            ));
+        }
+        return Err(error);
+    }
+
     if was_visible {
         if let Err(error) = window.show().map_err(|error| {
             map_window_error(FOCUS_SURFACE_LABEL, "show Timer after resize", error)
@@ -1223,6 +1246,7 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
             }
             return Err(error);
         }
+        focus_visual_hold::raise()?;
     }
 
     FLOATING_TIMER_EXPANDED.store(expanded, AtomicOrdering::Release);

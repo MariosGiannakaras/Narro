@@ -8,6 +8,7 @@ use std::sync::Mutex;
 
 type Handle = *mut c_void;
 
+#[derive(Clone, Copy)]
 #[repr(C)]
 struct Rect {
     left: i32,
@@ -109,6 +110,65 @@ fn failure(operation: &str) -> CommandError {
     )
 }
 
+fn capture_bitmap(rect: Rect) -> CommandResult<Handle> {
+    let width = rect
+        .right
+        .checked_sub(rect.left)
+        .filter(|value| *value > 0)
+        .ok_or_else(|| CommandError::new("FOCUS_VISUAL_HOLD_FAILED", "invalid capture width"))?;
+    let height = rect
+        .bottom
+        .checked_sub(rect.top)
+        .filter(|value| *value > 0)
+        .ok_or_else(|| CommandError::new("FOCUS_VISUAL_HOLD_FAILED", "invalid capture height"))?;
+
+    let screen = unsafe { GetDC(std::ptr::null_mut()) };
+    if screen.is_null() {
+        return Err(failure("GetDC"));
+    }
+    let memory = unsafe { CreateCompatibleDC(screen) };
+    if memory.is_null() {
+        unsafe { ReleaseDC(std::ptr::null_mut(), screen) };
+        return Err(failure("CreateCompatibleDC"));
+    }
+    let bitmap = unsafe { CreateCompatibleBitmap(screen, width, height) };
+    if bitmap.is_null() {
+        unsafe {
+            DeleteDC(memory);
+            ReleaseDC(std::ptr::null_mut(), screen)
+        };
+        return Err(failure("CreateCompatibleBitmap"));
+    }
+    let previous = unsafe { SelectObject(memory, bitmap) };
+    let selected = !previous.is_null() && previous as isize != -1;
+    let captured = selected
+        && unsafe {
+            BitBlt(
+                memory,
+                0,
+                0,
+                width,
+                height,
+                screen,
+                rect.left,
+                rect.top,
+                SRCCOPY | CAPTUREBLT,
+            )
+        } != 0;
+    if selected {
+        unsafe { SelectObject(memory, previous) };
+    }
+    unsafe {
+        DeleteDC(memory);
+        ReleaseDC(std::ptr::null_mut(), screen)
+    };
+    if !captured {
+        unsafe { DeleteObject(bitmap) };
+        return Err(failure("BitBlt"));
+    }
+    Ok(bitmap)
+}
+
 pub fn begin(focus: &tauri::WebviewWindow) -> CommandResult<()> {
     let mut active = ACTIVE
         .lock()
@@ -165,50 +225,7 @@ pub fn begin(focus: &tauri::WebviewWindow) -> CommandResult<()> {
         .filter(|value| *value > 0)
         .ok_or_else(|| CommandError::new("FOCUS_VISUAL_HOLD_FAILED", "invalid Focus height"))?;
 
-    let screen = unsafe { GetDC(std::ptr::null_mut()) };
-    if screen.is_null() {
-        return Err(failure("GetDC"));
-    }
-    let memory = unsafe { CreateCompatibleDC(screen) };
-    if memory.is_null() {
-        unsafe { ReleaseDC(std::ptr::null_mut(), screen) };
-        return Err(failure("CreateCompatibleDC"));
-    }
-    let bitmap = unsafe { CreateCompatibleBitmap(screen, width, height) };
-    if bitmap.is_null() {
-        unsafe {
-            DeleteDC(memory);
-            ReleaseDC(std::ptr::null_mut(), screen)
-        };
-        return Err(failure("CreateCompatibleBitmap"));
-    }
-    let previous = unsafe { SelectObject(memory, bitmap) };
-    let selected = !previous.is_null() && previous as isize != -1;
-    let captured = selected
-        && unsafe {
-            BitBlt(
-                memory,
-                0,
-                0,
-                width,
-                height,
-                screen,
-                rect.left,
-                rect.top,
-                SRCCOPY | CAPTUREBLT,
-            )
-        } != 0;
-    if selected {
-        unsafe { SelectObject(memory, previous) };
-    }
-    unsafe {
-        DeleteDC(memory);
-        ReleaseDC(std::ptr::null_mut(), screen)
-    };
-    if !captured {
-        unsafe { DeleteObject(bitmap) };
-        return Err(failure("BitBlt"));
-    }
+    let bitmap = capture_bitmap(rect)?;
 
     let class: Vec<u16> = "STATIC\0".encode_utf16().collect();
     let overlay = unsafe {
@@ -290,6 +307,126 @@ pub fn begin(focus: &tauri::WebviewWindow) -> CommandResult<()> {
         window: overlay as isize,
         bitmap: bitmap as isize,
     });
+    Ok(())
+}
+
+/// Keep the outgoing pixels above a resized/revealed WebView until the new
+/// renderer frame is ready. A show/focus call can otherwise raise that WebView
+/// over the hold even though the hold was topmost when it was created.
+pub fn raise() -> CommandResult<()> {
+    let active = ACTIVE
+        .lock()
+        .map_err(|_| CommandError::new("FOCUS_VISUAL_HOLD_FAILED", "visual hold lock poisoned"))?;
+    let Some(hold) = *active else {
+        return Ok(());
+    };
+    if unsafe {
+        SetWindowPos(
+            hold.window as Handle,
+            HWND_TOPMOST,
+            0,
+            0,
+            0,
+            0,
+            SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_SHOWWINDOW,
+        )
+    } == 0
+    {
+        return Err(failure("raise visual hold"));
+    }
+    if unsafe { DwmFlush() } < 0 {
+        return Err(CommandError::new(
+            "FOCUS_VISUAL_HOLD_FAILED",
+            "raised visual hold could not be composed",
+        ));
+    }
+    Ok(())
+}
+
+/// Before showing a resized Timer, cover both its old and new rectangles with
+/// one frozen desktop image. This prevents the newly exposed area on expand
+/// from appearing as an empty WebView surface before the atomic reveal.
+pub fn cover_resized_timer(focus: &tauri::WebviewWindow) -> CommandResult<()> {
+    let mut active = ACTIVE
+        .lock()
+        .map_err(|_| CommandError::new("FOCUS_VISUAL_HOLD_FAILED", "visual hold lock poisoned"))?;
+    let Some(hold) = active.as_mut() else {
+        return Ok(());
+    };
+    let hwnd = focus.hwnd().map_err(|error| {
+        CommandError::new(
+            "FOCUS_VISUAL_HOLD_FAILED",
+            format!("focus HWND unavailable: {error}"),
+        )
+    })?;
+    let mut old = Rect {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+    };
+    let mut target = old;
+    if unsafe { GetWindowRect(hold.window as Handle, &mut old) } == 0
+        || unsafe { GetWindowRect(hwnd.0 as isize as Handle, &mut target) } == 0
+    {
+        return Err(failure("GetWindowRect for resized Timer"));
+    }
+    let union = Rect {
+        left: old.left.min(target.left),
+        top: old.top.min(target.top),
+        right: old.right.max(target.right),
+        bottom: old.bottom.max(target.bottom),
+    };
+    if union.left == old.left
+        && union.top == old.top
+        && union.right == old.right
+        && union.bottom == old.bottom
+    {
+        return Ok(());
+    }
+    let bitmap = capture_bitmap(union)?;
+    unsafe {
+        SendMessageW(
+            hold.window as Handle,
+            STM_SETIMAGE,
+            IMAGE_BITMAP,
+            bitmap as isize,
+        )
+    };
+    if unsafe {
+        SetWindowPos(
+            hold.window as Handle,
+            HWND_TOPMOST,
+            union.left,
+            union.top,
+            union.right - union.left,
+            union.bottom - union.top,
+            SWP_NOACTIVATE | SWP_SHOWWINDOW,
+        )
+    } == 0
+    {
+        unsafe {
+            SendMessageW(
+                hold.window as Handle,
+                STM_SETIMAGE,
+                IMAGE_BITMAP,
+                hold.bitmap as isize,
+            );
+            DeleteObject(bitmap);
+        }
+        return Err(failure("cover resized Timer"));
+    }
+    unsafe {
+        DeleteObject(hold.bitmap as Handle);
+        UpdateWindow(hold.window as Handle);
+    }
+    hold.bitmap = bitmap as isize;
+    if unsafe { DwmFlush() } < 0 {
+        return Err(CommandError::new(
+            "FOCUS_VISUAL_HOLD_FAILED",
+            "resized Timer visual hold could not be composed",
+        ));
+    }
     Ok(())
 }
 
