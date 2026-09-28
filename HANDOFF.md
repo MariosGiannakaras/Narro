@@ -33,6 +33,8 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 
 ## EVIDENCE / AUDIT STATE
 
+- Final audit methodology is hardened for explicit 46/46 canonical-image disposition, named professional UI/UX evaluation lenses, measurable accessibility/contrast evidence, repeatable visual measurements, and a local-desktop security/privacy sweep. These are post-M10 final-review requirements and do not change current milestone counters.
+
 - Uploaded video corpus: **38/38 raw files, 19/19 MP4/SRT pairs, 19/19 analyzed/reconciled/dispositioned**.
 - UI/UX forensic second pass: **19/19 complete**.
 - Help Center pass: **34/34 visible legacy-navigation pages inventoried/classified; 15/15 Narro-relevant pages deep-reviewed**.
@@ -85,14 +87,7 @@ PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 
 ## REPOSITORY HYGIENE NOTE
 
-The CI dedup regression guard that had been left only on `test/ci-dedup-metadata-regression` is now durably merged:
-- PR #186 exact head `152dcee10594eaa8399a3c4e45a3c141b240ea37`;
-- Windows CI #626 / run `36364443693`: PASS, including Repository Preflight, visual fixtures, Tauri Release and required artifact uploads;
-- expected-head guarded squash merge: `1a03c1129a7153ed00a42ce89e9d32bcd3912c13`;
-- merged `scripts/verify-config.mjs` blob is exactly identical to the prior regression branch blob `be0a4ea1e77c8ae773af04b4ef63a7652961bc30`;
-- this changes repository validation only; the validated application source baseline remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
-
-At this checkpoint the only remote branches are `main` and `test/ci-dedup-metadata-regression`. The latter contains no remaining unique useful work and is safe to delete manually. The current GitHub connector cannot delete remote refs/branches, so that final deletion remains a user-admin action.
+The abandoned CI dedup regression guard was recovered, validated and merged in PR #186 / Windows CI #626. The old regression branch was subsequently removed. Before this audit-method slice, live branch state was clean with only `main` and no open PRs. The validated application source baseline remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
 
 ## NEXT AGENT ACTION
 
