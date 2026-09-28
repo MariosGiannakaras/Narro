@@ -598,15 +598,35 @@ pub fn revalidate_visible_timer_after_display_change(
         Ok(changed) => Ok(changed),
         Err(error) => {
             let rollback = if let Some(previous_inner_size) = previous_inner_size {
-                crate::restore_floating_timer_after_failed_resize(
-                    &window,
-                    previous_inner_size,
-                    tauri::PhysicalPosition {
+                let size = window
+                    .set_size(tauri::Size::Physical(previous_inner_size))
+                    .map_err(|failure| placement_error("restore Timer size", failure));
+                let position = window
+                    .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
                         x: previous.position.x,
                         y: previous.position.y,
-                    },
-                    true,
-                )
+                    }))
+                    .map_err(|failure| placement_error("restore Timer position", failure));
+                let region = crate::timer_region::apply(&window, expanded);
+                let visibility = window
+                    .show()
+                    .map_err(|failure| placement_error("restore Timer visibility", failure));
+                let failures: Vec<_> = [size, position, region, visibility]
+                    .into_iter()
+                    .filter_map(Result::err)
+                    .collect();
+                if failures.is_empty() {
+                    Ok(())
+                } else {
+                    Err(placement_error(
+                        "restore Timer after display change",
+                        failures
+                            .iter()
+                            .map(ToString::to_string)
+                            .collect::<Vec<_>>()
+                            .join("; "),
+                    ))
+                }
             } else {
                 window
                     .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
