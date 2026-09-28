@@ -518,6 +518,7 @@ This is a required post-roadmap quality stage and **does not become an 11th road
 - [ ] Verify that functionality shown or documented in the source product was not silently omitted during implementation. Any apparent missing transfer must be traced to implementation, an intentional Narro deviation, superseded/ambiguous source evidence, or an explicit product decision.
 - [ ] Where stable comparable screenshots exist, use repeatable screenshot/capture comparison with recorded viewport/DPI/theme/state; where exact pixel comparison is not meaningful, record the design-system/behavioral comparison and rationale instead.
 - [ ] Explicitly revisit deferred audit/fidelity questions such as B1/B2/B3/B4 and resolve or disposition them from the strongest final evidence rather than silently carrying them into release.
+- [ ] For any final evidence gap that remains genuinely unrecoverable after the relevant audit/reference pass, make and record the strongest professional product/design/engineering decision consistent with adjacent Blitzit evidence, Narro's established design system, Windows desktop conventions, accessibility and reliability; do not leave ordinary product behavior unfinished solely because an exact source detail is unavailable, and do not present the inferred choice as confirmed Blitzit behavior.
 
 ### Finding disposition, remediation, and final gate
 
