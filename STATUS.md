@@ -225,11 +225,11 @@ Validated capabilities added in this batch:
 
 Physical status is deliberately not overstated. The merged visual-hold candidate has **NOT** yet received the consolidated Windows continuous-capture/manual matrix. The transition, repeated shortcut, monitor/topology, independent borderless/fullscreen, and non-default taskbar/high-DPI gates remain OPEN.
 
-M7 therefore remains **incomplete at 9/14 top-level items**. By explicit user direction on 2026-09-26, these deferred physical checks and the absent Blitzit video corpus are not blockers for independent source implementation. M8 source work may proceed while M7 stays open; this is an explicit roadmap execution exception and must not be represented as M7 completion.
+M7 remains **incomplete at 9/14 top-level items**. The 2026-09-26 exception allowed independent M8 source work while those physical checks stayed open. That execution exception is now superseded by the user's 2026-09-28 direction: after validated PREF-R01, the next implementation gate is the consolidated M7 physical Windows batch before any further M8 source slice.
 
-The current validated application source baseline is `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`. Documentation/tracking-only commits do not replace it.
+The M7 source checkpoint baseline at that time was `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`; it is historical evidence, not the current project source baseline.
 
-## Milestone 8 — shortcut foundation validated; Preferences implementation next
+## Milestone 8 — Preferences/runtime in progress
 
 M8 has validated its confirmed in-app and global shortcut surfaces plus the versioned local preference persistence foundation.
 
@@ -255,22 +255,24 @@ Validated global-shortcut behavior:
 
 The typed/versioned SQLite preference payload already covers the current General, Focus, Alerts and Celebration domains and is regression-tested across database reopen; ShortcutPreferences is now part of that same durable model.
 
-M8 validated top-level state is now **5/8**:
+M8 validated top-level state is **6/8**:
 - in-app shortcuts: complete;
 - global shortcuts + toggles: complete;
 - global conflict/error feedback: complete;
 - Start Break shortcut lifecycle: complete;
+- conditional/nested Preferences behavior: complete;
 - versioned local preference persistence: complete;
-- full Preferences UI/behavior, conditional/nested behavior, and Windows-locale date/time presentation remain open.
+- the top-level Preferences item remains open because PREF-R02, PREF-R03 and PREF-R05 are still open; PREF-R01 and PREF-R04 are validated;
+- Windows-locale/system 12/24-hour presentation remains open as PREF-R06.
 
-The current validated application source baseline is `699b6ac46bcc6ebcabbcded21f929a7b32018b42`. Tracking/evidence-only commits do not replace it.
+The shortcut-foundation checkpoint baseline was `699b6ac46bcc6ebcabbcded21f929a7b32018b42`; it is historical evidence, not the current project source baseline.
 
 ### Uploaded Blitzit video corpus — reconciled 2026-09-27
 
 The repository now contains **19/19 paired MP4/SRT sources (38/38 raw files)** under `reference/original-blitzit-videos/inbox/`. Initial ingestion is complete: **19/19 analyzed, 19/19 Narro-reconciled, 19/19 dispositioned**. Coverage lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`; detailed timestamps/classes/dispositions live in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
 
 Material implementation consequences:
-- VE-F003 promotes task-menu `Change List` + `Duplicate` from old B1 ambiguity to current direct behavior evidence; current production lacks those paths, so one narrow post-M5 corrective slice is ordered before unrelated M8 Preferences work. M5 roadmap completion remains intact rather than being re-audited wholesale.
+- VE-F003 promoted task-menu `Change List` + `Duplicate` from old B1 ambiguity to current direct behavior evidence; the narrow post-M5 correction was completed and validated in PR #177 without reopening M5 wholesale.
 - VE-F001 resolves EST parser title normalization: a successfully parsed terminal duration is removed from the saved visible title and stored as EST.
 - VE-F002 resolves only the success-screen-enabled Done path: success UI appears before next-task start and `Next Task` is explicit. Success-screen-disabled progression remains unresolved; the visible `Take a Break` post-click domain semantics are not shown and must not be guessed.
 - VE-F008 directly corroborates M8 nested Preferences behavior and hide-times hover disclosure.
@@ -278,7 +280,7 @@ Material implementation consequences:
 - VE-F007 adds a coarse ~0.2–0.3 s source Panel→Floating visual sequence but does not close any deferred M7 physical Windows checks.
 - Reports/Sessions findings are routed to M9 and do not front-run M8.
 
-VE-F003 task-menu Change List + Duplicate is now validated in PR #177 / CI #602 / merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57` / main CI #603. The next source action is to reconcile existing M8 PR #170 onto that validated main baseline, preserve VE-F003 overlaps, rerun exact-head Windows CI, and continue VE-F001/VE-F002/VE-F008 Preferences/runtime completion.
+VE-F003 task-menu Change List + Duplicate is validated in PR #177 / CI #602 / merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57` / main CI #603. PR #170 was subsequently reconciled and validated; this paragraph is retained only as evidence history, not as a current continuation instruction.
 
 ## CI efficiency baseline
 
@@ -359,7 +361,7 @@ The current validated source baseline is therefore `b1ff5910abec82272c4ee57479a4
 - **B4 Done auto-start next task:** PARTIALLY RESOLVED by VE-003. With success screen enabled, completion enters success UI first and next-task start waits for explicit `Next Task`. The success-screen-disabled path remains unresolved; preserve current Narro behavior there until stronger evidence/decision. `Take a Break` is visible but its post-click timer/session semantics remain unproven.
 - Intentional Narro deviations in audit section C remain binding and are not regressions.
 
-PR #155 remains open and draft at exact head `2755d598ad2b13b974cda02760ebf44cd5e60b13`; Windows CI #532 passed, physical compositor validation has not run, and GitHub reports the PR non-mergeable against the newer `main`. Preserve it without rebase/merge/source modification until the user explicitly resumes M7.
+PR #155 is merged. Its later reconciled exact head `c630a57346c067ab04c0fa086703582542f4f7e5` passed Windows CI #559 and merged as `76ef5dadf1d6587ee52d029d980ad4de7a9abd93`; the remaining M7 state is physical/manual acceptance, not an open source PR.
 
 ## Planned post-M10 final comprehensive review
 
@@ -378,19 +380,15 @@ The future stage will combine:
 - a single findings register with explicit disposition and evidence-backed remediation/revalidation before the final gate can pass.
 
 For every remaining milestone M7–M10, completion now also requires sufficient user-facing error/failure/loading/waiting/unavailable/recovery feedback and meaningful edge-case coverage appropriate to that milestone. Every milestone completion report must include its total validated source diff as `+A/-B` lines, measured from its validated starting source SHA to its final validated source SHA.
-## Blitzit video/transcript evidence ingestion
+## Blitzit evidence corpus — current state
 
-The repository now has a durable inbox for future user-supplied Blitzit recordings and transcripts:
+The earlier inbox-setup state is superseded. The uploaded corpus is present and fully reconciled:
+- 38/38 raw files;
+- 19/19 MP4/SRT pairs;
+- 19/19 product-behavior analyses/reconciliations/dispositions complete;
+- 19/19 second-pass UI/UX forensic reviews complete.
 
-- raw upload path: `reference/original-blitzit-videos/inbox/`;
-- raw evidence guide: `reference/original-blitzit-videos/README.md`;
-- durable manifest/timestamped analysis: `docs/BLITZIT_VIDEO_EVIDENCE.md`;
-- interaction/motion methodology: `docs/INTERACTION_CAPTURE_GUIDE.md`;
-- videos and transcripts are uploaded/committed as normal repository files; no Git LFS requirement applies.
-
-Status: **INBOX READY / CORPUS ANALYSIS NOT STARTED**. Setup was merged through PR #162: exact head `8bf3d2d5f34b870b1a38fe4afa493df73f81f42c`, Windows CI #547 PASS, guarded squash merge `4de310d29cee623cba54da514ba2a74193ba758a`. No video-derived product finding is claimed until files are actually uploaded and inspected.
-
-When recordings have actually been uploaded before an affected remaining milestone closes, materially relevant evidence should be analyzed before that milestone is declared complete. The absence of recordings is not an implementation blocker; independent roadmap work continues and the full corpus can be reconciled later. In particular, Focus Panel/Floating Timer/transition/expand-collapse recordings available before M7 closure are M7 evidence. Independently of earlier milestone routing, the complete uploaded corpus is a required evidence source for the post-M10 Final Comprehensive Review Stage.
+Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No video upload/analysis prerequisite remains open. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
 
 ## Durable correctness decisions
 
@@ -519,7 +517,7 @@ M8 is now **6/8 top-level items validated**. Roadmap remains **6/10 milestones c
 - Expected-head guarded squash merge: `643528ca223b29fd8fbd215db5b1b525c912c6fc`.
 - Resulting-main Windows CI #608 / run `36353206934`: PASS.
 - Schedule-reminder Preferences now use a dedicated durable idempotent effect ledger, persisted enable/lead settings and the existing authoritative background reminder thread. Failed notification submission remains retryable and manual/explicit M4 reminder rows remain separate.
-- **Current validated application source baseline: `643528ca223b29fd8fbd215db5b1b525c912c6fc`.**
+- The validated application source baseline immediately after this schedule-reminder slice was `643528ca223b29fd8fbd215db5b1b525c912c6fc`; later validated source slices supersede it.
 
 ## Audit incorporation gate — active 2026-09-28
 
@@ -532,8 +530,11 @@ Binding execution rule:
 - intentional Narro reliability/accessibility/agency improvements are retained;
 - no material parity/video/Help/UIUX/reliability finding may remain orphaned only inside an evidence document.
 
-Current immediate correction:
-- **CORR-01 recurrence update / No Repeat flow:** VALIDATED in PR #182 / CI #617 / main CI #618. There are currently no active `FIX_NOW` findings; forward M8 work resumes with `PREF-R01` timed task alerts.
+Current audit state:
+- **CORR-01 recurrence update / No Repeat flow:** VALIDATED in PR #182 / CI #617 / main CI #618.
+- **PREF-R01 timed task alerts:** VALIDATED in PR #184 / CI #624 / merge `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
+- There are currently no active `FIX_NOW` findings.
+- By user direction on 2026-09-28, the next gate is the deferred M7 physical Windows batch before another M8 source slice.
 
 ## CORR-01 recurrence No Repeat correction — validated 2026-09-28
 
@@ -547,7 +548,26 @@ Current immediate correction:
 - Existing recurrence now exposes `No Repeat` in-flow. Normal updates show neutral `Replace existing tasks(n)`; No Repeat shows the warm/red `Delete existing tasks(n)` consequence.
 - Unchecked No Repeat detaches existing linked children as independent tasks. Checked Delete Existing removes only pristine active generated children; customized, history-bearing, completed, archived and legacy-linked children survive and detach.
 - Stale expected-version guards, parent identity, recurrence idempotence and persistence-first publication remain intact.
-- There are currently no active `FIX_NOW` audit rows. The next audited M8 source task is `PREF-R01` timed task alerts.
-- **Current validated application source baseline: `50006f29b0329037aecfdab772104db8670768b0`.**
+- There are currently no active `FIX_NOW` audit rows. PREF-R01 was subsequently validated; the next gate is the deferred M7 physical Windows batch.
+- The validated application source baseline immediately after CORR-01 was `50006f29b0329037aecfdab772104db8670768b0`; later validated source slices supersede it.
 
 Roadmap remains **6/10 milestones complete**. M8 remains **6/8 top-level items validated**; M7 physical/manual closure remains open.
+
+
+## PREF-R01 timed task alerts — validated 2026-09-28
+
+- PR #184 exact validated head: `fc61ed5926fdb1c605de8ce1e1a9fb28ea0dfd7e`.
+- Windows CI #624 / run `36357415253`: PASS — Repository Preflight, Windows visual regression, Tauri Release and required artifact uploads succeeded.
+- Visual artifact `narro-m5-visual-regression`: id `10944696812`, digest `sha256:2569c35b4aef14a713b4d73d4f80b9bd6e02114e764b6e9f8646aa29a781c769`.
+- Runtime artifact `narro-m1-runtime-harness-windows-x64`: id `10944304485`, digest `sha256:4f76740bc6f69dcd1d664c9fb80011520567612c9eb6d87ab4e09e02e3b1bf7c`.
+- Expected-head guarded squash merge: `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
+- Resulting-main source identity was verified against the validated PR head: same base `0770e3d41b3f5a55b2d23b6874975cbd420ef379` and identical blob SHAs for all nine changed files.
+- Timed alerts consume persisted enable/interval Preferences and authoritative Rust work elapsed state.
+- Pause/break time does not advance timed-alert progress.
+- Durable run/boundary effects provide delayed catch-up and at-most-once/idempotent behavior across repeated observation and database reopen.
+- Enabling alerts late or changing interval does not backfill prior work.
+- Typed local `timed-alert-effect` events form the later PREF-R02/PREF-R05 consumption boundary without implementing flash/sound prematurely.
+- PREF-R02, PREF-R03, PREF-R05 and PREF-R06 remain open.
+- **Current validated application source baseline: `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.**
+- Roadmap remains **6/10**; M8 remains **6/8**; M7 physical/manual closure remains **OPEN at 9/14**.
+- Current user-directed next gate: consolidated M7 physical Windows validation before further M8 source implementation.
