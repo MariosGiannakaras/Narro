@@ -8,6 +8,8 @@ Narro is a **local, personal-use reconstruction of the in-scope Blitzit desktop 
 
 This does not require reproducing Blitzit's cloud/account/subscription/AI/integration infrastructure, nor deliberately recreating documented reliability defects. Internal architecture may differ. Any material user-visible deviation from confirmed Blitzit evidence must be explicitly justified by local-only scope, reliability/data integrity, accessibility/Windows correctness, genuine source ambiguity, or a technical impossibility, and must be recorded rather than silently treated as a redesign opportunity.
 
+When the exact Blitzit detail is genuinely not recoverable after consulting the available direct and official evidence, implementation should still converge on a complete professional product. Use the strongest nearby evidence first, then established desktop UX/UI and engineering standards, Narro's existing component/motion/color language, Windows conventions, accessibility and consistency with adjacent Blitzit interactions. Such a choice is a documented Narro inference/design decision, not a claim that Blitzit was observed to behave exactly that way.
+
 Evidence labels used below:
 
 - **[O]** confirmed by current official Blitzit documentation
