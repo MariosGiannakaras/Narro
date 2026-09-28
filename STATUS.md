@@ -474,7 +474,7 @@ Validation:
 - exact-head guarded squash merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`;
 - resulting-main Windows CI #603 / run `36349966245`: PASS through identical-tree validation;
 - source slice diff: **+879/-28** across 14 files;
-- **current validated application source baseline: `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`**.
+- Validated application source baseline immediately after this VE-F003 slice: `f4c80d04b25f58637c0ef04c03b60dcd52fcff57` (historical checkpoint).
 
 M8 remains 5/8 top-level validated; roadmap remains 6/10. Existing PR #170 must be reconciled onto this baseline before its historical CI can be reused for any purpose.
 
@@ -491,7 +491,7 @@ Validation:
 - expected-head guarded squash merge: `0a54b20f16f5cb69a32602148750b10d533ad470`;
 - resulting-main Windows CI #605 / run `36351530441`: PASS through the repository identical-tree validation gate;
 - validated source diff from prior source baseline `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`: **+2273/-105 across 38 files**;
-- **current validated application source baseline: `0a54b20f16f5cb69a32602148750b10d533ad470`**.
+- Validated application source baseline immediately after this M8 reconciliation slice: `0a54b20f16f5cb69a32602148750b10d533ad470` (historical checkpoint).
 
 Validated product/runtime checkpoints:
 - VE-F001: terminal EST suffix parsing is preference-gated; successful parse stores EST and strips only the parsed terminal suffix from the saved visible title across List Board, Search/quick-create and Focus Add Task;
