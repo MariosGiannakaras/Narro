@@ -343,10 +343,10 @@ pub fn raise() -> CommandResult<()> {
     Ok(())
 }
 
-/// Before showing a resized Timer, cover both its old and new rectangles with
-/// one frozen desktop image. This prevents the newly exposed area on expand
-/// from appearing as an empty WebView surface before the atomic reveal.
-pub fn cover_resized_timer(focus: &tauri::WebviewWindow) -> CommandResult<()> {
+/// Match the hold to the target window before revealing a resized Focus surface.
+/// On collapse the old lower area must be uncovered immediately; retaining the
+/// union of both rectangles leaves a visible white tail from the old surface.
+pub fn cover_resized_focus_surface(focus: &tauri::WebviewWindow) -> CommandResult<()> {
     let mut active = ACTIVE
         .lock()
         .map_err(|_| CommandError::new("FOCUS_VISUAL_HOLD_FAILED", "visual hold lock poisoned"))?;
@@ -371,20 +371,14 @@ pub fn cover_resized_timer(focus: &tauri::WebviewWindow) -> CommandResult<()> {
     {
         return Err(failure("GetWindowRect for resized Timer"));
     }
-    let union = Rect {
-        left: old.left.min(target.left),
-        top: old.top.min(target.top),
-        right: old.right.max(target.right),
-        bottom: old.bottom.max(target.bottom),
-    };
-    if union.left == old.left
-        && union.top == old.top
-        && union.right == old.right
-        && union.bottom == old.bottom
+    if target.left == old.left
+        && target.top == old.top
+        && target.right == old.right
+        && target.bottom == old.bottom
     {
         return Ok(());
     }
-    let bitmap = capture_bitmap(union)?;
+    let bitmap = capture_bitmap(target)?;
     unsafe {
         SendMessageW(
             hold.window as Handle,
@@ -397,10 +391,10 @@ pub fn cover_resized_timer(focus: &tauri::WebviewWindow) -> CommandResult<()> {
         SetWindowPos(
             hold.window as Handle,
             HWND_TOPMOST,
-            union.left,
-            union.top,
-            union.right - union.left,
-            union.bottom - union.top,
+            target.left,
+            target.top,
+            target.right - target.left,
+            target.bottom - target.top,
             SWP_NOACTIVATE | SWP_SHOWWINDOW,
         )
     } == 0

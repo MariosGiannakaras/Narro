@@ -1038,6 +1038,7 @@ fn clear_focus_surface_prewarm(app_handle: tauri::AppHandle) -> CommandResult<()
 #[tauri::command]
 fn reveal_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    focus_visual_hold::cover_resized_focus_surface(&window)?;
     window
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "reveal Panel", error))?;
@@ -1070,6 +1071,7 @@ fn prepare_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
 #[tauri::command]
 fn reveal_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    focus_visual_hold::cover_resized_focus_surface(&window)?;
     window
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "reveal Timer", error))?;
@@ -1214,7 +1216,7 @@ fn set_floating_timer_expanded(app_handle: tauri::AppHandle, expanded: bool) -> 
         return Err(error);
     }
 
-    if let Err(error) = focus_visual_hold::cover_resized_timer(&window) {
+    if let Err(error) = focus_visual_hold::cover_resized_focus_surface(&window) {
         if let Err(recovery_error) = restore_floating_timer_after_failed_resize(
             &window,
             previous_size,
