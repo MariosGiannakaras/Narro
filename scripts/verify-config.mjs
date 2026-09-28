@@ -88,6 +88,10 @@ for (const contract of [
 ]) {
   invariant(ciWorkflow.includes(contract[0]), contract[1]);
 }
+invariant(
+  !ciWorkflow.includes("run.pull_requests"),
+  "CI dedup must not depend on workflow_run.pull_requests metadata, which can be empty after merge",
+);
 
 const windows = tauriConfig.app?.windows;
 invariant(Array.isArray(windows), "Tauri app.windows must be an array");
