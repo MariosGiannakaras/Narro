@@ -4,7 +4,7 @@
 
 For every in-scope user-visible surface with Blitzit evidence, **Blitzit is the visual/interaction target, not merely inspiration**. Match confirmed layout, density, hierarchy, spacing, typography character, component geometry, colors, states, menus/dialogs, interaction sequencing, transitions and motion character as closely as the evidence permits.
 
-Do not introduce a discretionary Narro redesign during implementation or final polish. Existing `[NARRO IMPROVEMENT]` items remain valid only where they are already evidence-backed/documented as local-only, reliability, accessibility, Windows-platform, or source-artifact corrections. Where exact measurements are unavailable, calibrate against the strongest screenshots/videos and record approximation rather than inventing a different aesthetic.
+Do not introduce a discretionary Narro redesign during implementation or final polish. Existing `[NARRO IMPROVEMENT]` items remain valid only where they are already evidence-backed/documented as local-only, reliability, accessibility, Windows-platform, or source-artifact corrections. Where exact measurements or interactions are unavailable after the relevant evidence has been exhausted, calibrate from the strongest screenshots/videos and adjacent Blitzit patterns, then apply established professional desktop-design practice, Narro's existing visual system, Windows conventions and accessibility. Record the result as an inferred/calibrated Narro decision rather than pretending an exact source value was observed.
 
 Last updated: 2026-08-20
 
