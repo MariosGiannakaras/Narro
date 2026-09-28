@@ -12,6 +12,19 @@ Before emitting a substantive progress/status update after a new chat, interrupt
 
 Never decrement a previously validated user-facing progress counter because an older conversational checkpoint was loaded. The small progress counter may reset only when a genuinely new implementation slice has explicitly begun. When resetting it, state the new slice and denominator in the same update and ensure `HANDOFF.md` records either the latest completed slice progress or the currently active slice progress so another zero-context agent cannot infer an older value.
 
+### Current-truth hygiene
+
+`HANDOFF.md` and the current-state portions of `STATUS.md` are **not append-only history**. Immutable history belongs in `work-log/`.
+
+When a later validated event supersedes a current-state claim:
+- rewrite or remove the stale claim in the same reconciliation slice;
+- do not leave phrases such as "not started", "open PR", "next action", or "current baseline" active elsewhere when they are no longer true;
+- historical checkpoints may remain only when explicitly labeled as historical/at-that-time evidence;
+- before closing a reconciliation, search `HANDOFF.md`, `STATUS.md`, `TODO.md` and the audit crosswalk for superseded PR numbers, baselines, counters and next-action text.
+
+A zero-context agent must not need to infer which of two contradictory "current" statements is newer.
+
+
 ## Start of every zero-context session
 
 1. Synchronize with latest `main` and inspect recent commits/current Git state.
@@ -175,6 +188,15 @@ Before stopping:
 5. update `STATUS.md` if project-level truth changed;
 6. rewrite `HANDOFF.md`;
 7. ensure no required continuation context exists only in chat/local files.
+
+### Branch and tracking hygiene
+
+- Prefer one coherent tracking reconciliation after a validated source merge instead of chaining multiple tracking-only PRs that add no new project fact.
+- A second tracking-only PR is justified only when genuinely new evidence, validation, user direction, or a correction appeared after the first reconciliation.
+- After a PR is merged or an abandoned line is conclusively superseded, delete its remote feature branch when it has no open PR and no unique unmerged work that must remain reachable.
+- Temporary `noop`, `tmp-*`, CI-probe and superseded experiment branches must not accumulate indefinitely.
+- Never delete `main`, an open-PR branch, a branch containing intentionally preserved unique work, or a branch whose status has not been verified.
+- If the available GitHub tooling cannot delete refs, record that limitation plus the verified cleanup procedure for the user instead of pretending branch cleanup occurred.
 
 A handoff is complete only when a different AI with repository access alone can continue correctly.
 
