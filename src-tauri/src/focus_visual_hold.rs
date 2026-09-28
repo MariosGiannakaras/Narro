@@ -67,6 +67,7 @@ extern "system" {
     fn UpdateWindow(hwnd: Handle) -> i32;
     fn IsWindowVisible(hwnd: Handle) -> i32;
     fn DestroyWindow(hwnd: Handle) -> i32;
+    fn GetSystemMetrics(index: i32) -> i32;
 }
 
 #[link(name = "gdi32")]
@@ -379,17 +380,60 @@ pub fn cover_resized_focus_surface(focus: &tauri::WebviewWindow) -> CommandResul
         return Ok(());
     }
     let bitmap = capture_bitmap(target)?;
-    unsafe {
-        SendMessageW(
-            hold.window as Handle,
-            STM_SETIMAGE,
-            IMAGE_BITMAP,
-            bitmap as isize,
+    // STM_SETIMAGE can resize/repaint a visible STATIC before SetWindowPos runs.
+    // Prepare its replacement beyond the virtual desktop while the old hold
+    // remains on screen, then present the already-painted replacement at once.
+    let offscreen_x = unsafe { GetSystemMetrics(76) }
+        .saturating_add(unsafe { GetSystemMetrics(78) })
+        .saturating_add(4096);
+    let class: Vec<u16> = "STATIC\0".encode_utf16().collect();
+    let replacement = unsafe {
+        CreateWindowExW(
+            WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE,
+            class.as_ptr(),
+            class.as_ptr(),
+            WS_POPUP | SS_BITMAP,
+            offscreen_x,
+            target.top,
+            target.right - target.left,
+            target.bottom - target.top,
+            std::ptr::null_mut(),
+            std::ptr::null_mut(),
+            std::ptr::null_mut(),
+            std::ptr::null_mut(),
         )
     };
+    if replacement.is_null() {
+        unsafe { DeleteObject(bitmap) };
+        return Err(failure("CreateWindowExW for resized Focus hold"));
+    }
+    let disable_transitions: i32 = 1;
+    let transition_result = unsafe {
+        DwmSetWindowAttribute(
+            replacement,
+            DWMWA_TRANSITIONS_FORCEDISABLED,
+            &disable_transitions as *const i32 as *const c_void,
+            std::mem::size_of::<i32>() as u32,
+        )
+    };
+    if transition_result < 0 {
+        unsafe {
+            DestroyWindow(replacement);
+            DeleteObject(bitmap)
+        };
+        return Err(CommandError::new(
+            "FOCUS_VISUAL_HOLD_FAILED",
+            format!("disable replacement DWM transitions failed: HRESULT {transition_result:#x}"),
+        ));
+    }
+    unsafe {
+        SendMessageW(replacement, STM_SETIMAGE, IMAGE_BITMAP, bitmap as isize);
+        ShowWindow(replacement, SW_SHOWNOACTIVATE);
+        UpdateWindow(replacement);
+    }
     if unsafe {
         SetWindowPos(
-            hold.window as Handle,
+            replacement,
             HWND_TOPMOST,
             target.left,
             target.top,
@@ -400,26 +444,36 @@ pub fn cover_resized_focus_surface(focus: &tauri::WebviewWindow) -> CommandResul
     } == 0
     {
         unsafe {
-            SendMessageW(
-                hold.window as Handle,
-                STM_SETIMAGE,
-                IMAGE_BITMAP,
-                hold.bitmap,
-            );
+            DestroyWindow(replacement);
             DeleteObject(bitmap);
         }
         return Err(failure("cover resized Timer"));
     }
-    unsafe {
-        DeleteObject(hold.bitmap as Handle);
-        UpdateWindow(hold.window as Handle);
-    }
-    hold.bitmap = bitmap as isize;
-    if unsafe { DwmFlush() } < 0 {
+    unsafe { UpdateWindow(replacement) };
+    if unsafe { IsWindowVisible(replacement) } == 0 || unsafe { DwmFlush() } < 0 {
+        unsafe {
+            DestroyWindow(replacement);
+            DeleteObject(bitmap);
+        }
         return Err(CommandError::new(
             "FOCUS_VISUAL_HOLD_FAILED",
             "resized Timer visual hold could not be composed",
         ));
+    }
+    if unsafe { DestroyWindow(hold.window as Handle) } == 0 {
+        unsafe {
+            DestroyWindow(replacement);
+            DeleteObject(bitmap);
+        }
+        return Err(failure("DestroyWindow for previous Focus hold"));
+    }
+    let old_bitmap = hold.bitmap;
+    *hold = VisualHold {
+        window: replacement as isize,
+        bitmap: bitmap as isize,
+    };
+    if unsafe { DeleteObject(old_bitmap as Handle) } == 0 {
+        return Err(failure("DeleteObject for previous Focus hold"));
     }
     Ok(())
 }
