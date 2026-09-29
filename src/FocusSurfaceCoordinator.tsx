@@ -193,15 +193,16 @@ export function FocusSurfaceCoordinator() {
     try {
       await waitForReady(targetMode);
 
-      // The target subtree has already been rendered in this same WebView at
-      // opacity 0. Commit its renderer state synchronously, then change only
-      // native region/position/window attributes. No Focus WebView is hidden,
-      // resized, destroyed or created during this ordinary mode switch.
+      // The target subtree is fully painted below the committed presentation.
+      // Change only the native region/position/window attributes while the
+      // outgoing view still covers it, then atomically transfer React
+      // interaction ownership. No Focus WebView is hidden, resized, destroyed
+      // or created during this ordinary mode switch.
+      await applyFocusSurfacePresentation(targetPresentation);
+
       flushSync(() => {
         publishPresentation(targetPresentation);
       });
-
-      await applyFocusSurfacePresentation(targetPresentation);
 
       pendingModeRef.current = null;
       setPendingMode(null);
@@ -214,15 +215,11 @@ export function FocusSurfaceCoordinator() {
       }
     } catch (failure: unknown) {
       const primary = formatInvokeError(failure);
-      try {
-        await applyFocusSurfacePresentation(previousPresentation);
-        flushSync(() => publishPresentation(previousPresentation));
-        setTransitionError(primary);
-      } catch (recoveryFailure: unknown) {
-        setTransitionError(
-          `${primary} | Focus presentation rollback also failed: ${formatInvokeError(recoveryFailure)}`,
-        );
-      }
+      // Native presentation commands own their physical rollback. Because the
+      // committed React presentation was never changed before native success,
+      // the outgoing view remains visible and authoritative on failure.
+      publishPresentation(previousPresentation);
+      setTransitionError(primary);
       pendingModeRef.current = null;
       setPendingMode(null);
       if (quickTaskAfterPanelRef.current) {
