@@ -127,6 +127,13 @@ invariant(
   "out-of-order native presentation snapshots must not overwrite a newer renderer reconciliation",
 );
 invariant(
+  coordinator.includes("presentationHydrated")
+    && coordinator.includes('data-focus-presentation-hydrated={presentationHydrated ? "true" : "false"}')
+    && coordinatorCss.includes('data-focus-presentation-hydrated="false"')
+    && coordinatorCss.includes("visibility: hidden"),
+  "Focus renderer must stay visually and interactively gated until the authoritative native presentation is hydrated",
+);
+invariant(
   lib.includes("floating_placement::save_if_timer_visible(app_handle)")
     && lib.indexOf("floating_placement::save_if_timer_visible(app_handle)") < lib.indexOf("let _save_guard = floating_placement::suspend_saves()"),
   "Timer placement must be saved before transition-time save suppression begins",
