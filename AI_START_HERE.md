@@ -109,6 +109,19 @@ Rules:
 
 This section records the user's latest explicit reporting preference and supersedes older/conflicting presentation-only wording elsewhere in the repository. It changes only presentation cadence/format, not validation or completion semantics. Reconcile older wording when those files are next edited.
 
+## User-directed autonomy and validation batching policy
+
+The user's current explicit operating direction is durable repository policy:
+
+- continue the ordered implementation autonomously instead of stopping at routine validation checkpoints;
+- choose validation timing by engineering risk: batch tests/CI/manual checks when later work is genuinely independent, but run targeted validation earlier when an unresolved result could invalidate dependent work, enlarge rework, or make failures materially harder to isolate;
+- physical/manual Windows checks may be consolidated into a later compatible batch when their result is not required to choose the next safe implementation; keep those gates explicitly OPEN until observed;
+- a previous instruction requiring fresh user permission merely to start ordinary tests/CI is superseded. The agent may initiate proportionate automated validation when it is the technically appropriate next step;
+- when a genuine restriction, permission issue, destructive/external action, physical-only observation, or unresolved product decision requires the user, explain the exact constraint, the realistic options, the recommended option, and why before asking for the decision;
+- do not ask the user for routine implementation sequencing that the repository can resolve.
+
+This policy changes execution timing, not evidence semantics: implementation is not validation, deferred checks are not PASS, and destructive or externally consequential actions still require the approvals defined elsewhere in the repository.
+
 ## Validation boundary
 
 Distinguish these clearly:
