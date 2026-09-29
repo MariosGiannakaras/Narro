@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="assets/branding/narro-logo-master.svg" alt="Narro logo" width="160">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/branding/narro-logo-stacked-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/branding/narro-logo-stacked-light.svg">
+    <img src="assets/branding/narro-logo-stacked-light.svg" alt="Narro logo" width="160">
+  </picture>
 </p>
 
 # Narro
@@ -130,15 +134,20 @@ Optional planning/verification aids live in `docs/BEHAVIOR_MATRIX.md`, `docs/DEC
 
 ## Branding
 
-The logo shown above is the official Narro identity supplied by the project owner.
+Narro branding is maintained from the owner-supplied pure-vector artwork under `assets/branding/`.
 
-Canonical scalable source:
+Canonical scalable sources:
 
-`assets/branding/narro-logo-master.svg`
+- `narro-logo-stacked-light.svg` / `narro-logo-stacked-dark.svg` — stacked lockups for light/dark surfaces;
+- `narro-logo-horizontal-light.svg` / `narro-logo-horizontal-dark.svg` — horizontal lockups;
+- `narro-symbol.svg` — symbol-only transparent vector;
+- `narro-app-icon-light.svg` / `narro-app-icon-dark.svg` — square launcher/app-icon compositions.
 
-The owner-supplied PureVector kit was independently audited: all 16 SVGs are genuine vector XML with paths/rectangles/gradients, no embedded raster images, no external image references and no live text/font dependency. Dedicated square app-icon vectors and the symbol-only vector are retained under `assets/branding/`; PNG files are compatibility/platform derivatives rather than the editable source of truth.
+`narro-logo-master.svg` is retained as a compatibility alias of the stacked-light vector. PNG files in the same folder are raster derivatives, not the editable source of truth.
 
-Do not substitute Blitzit branding, independently redesign the Narro mark, or use a raster derivative as the canonical scalable source.
+The supplied PureVector kit was independently audited: all 16 SVG files are genuine vector XML with paths/rectangles/gradients, no embedded raster images, no external image resources, no scripts and no live text/font dependency. Platform-specific Android, iOS and web/PWA export trees are intentionally not copied into this Windows-only repository.
+
+Do not substitute Blitzit branding or independently redraw/recolor/distort the Narro mark.
 
 ## Development principle
 

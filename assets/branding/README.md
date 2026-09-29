@@ -1,53 +1,71 @@
 # Narro Branding Assets
 
-This folder contains the canonical Narro-owned branding sources curated from the owner-supplied `Narro_Brand_Kit_PureVector.zip`.
+This directory is the curated **Windows-project brand source set** derived from the owner-supplied `Narro_Brand_Kit_PureVector.zip`. It intentionally does not mirror the entire cross-platform kit.
 
-## Canonical assets
+## Independent audit of the supplied kit
 
-- `narro-logo-master.svg` — canonical stacked logo for light surfaces; true vector source, dark `#171717` wordmark.
-- `narro-logo-master.png` — 1536×1536 RGBA raster compatibility derivative of the canonical stacked logo.
-- `narro-logo-stacked-dark.svg` — stacked logo for dark surfaces; `#F4F4F4` wordmark.
-- `narro-logo-horizontal-light.svg` — horizontal lockup for light surfaces.
-- `narro-logo-horizontal-dark.svg` — horizontal lockup for dark surfaces.
-- `narro-symbol.svg` — symbol-only true vector mark with transparent background.
-- `narro-app-icon-light.svg` — square true-vector launcher composition on Narro Snow.
-- `narro-app-icon-dark.svg` — square true-vector launcher composition on Narro Ink.
-- `narro-symbol-transparent.png` — 1024×1024 transparent, padded symbol-only raster derivative.
-- `narro-app-icon-light.png` — 1024×1024 opaque app-icon raster derivative on Narro Snow.
-- `narro-app-icon-dark.png` — 1024×1024 opaque app-icon raster derivative on Narro Ink.
-- `brand-tokens.json` — Narro brand neutrals.
+The uploaded kit contains 101 files: **16 SVG**, **73 PNG**, and 12 documentation/platform metadata files.
+
+The SVG set was independently inspected rather than trusting only the included audit JSON:
+
+- **16/16 SVG files parse as standalone XML**;
+- no `<image>`, `<feImage>`, `<foreignObject>`, `<script>` or live `<text>` elements;
+- no `data:image` / base64 raster payloads;
+- no external image/resource references;
+- artwork is made from vector paths, rounded rectangles and SVG linear gradients;
+- the wordmark is outlined geometry, so rendering has no font dependency.
+
+Result: the current PureVector kit is genuinely vector. The earlier kit problem where app-icon SVG wrappers embedded PNG data is no longer present.
+
+The kit also contains many intentional duplicates. Examples: the vertical and stacked lockups are byte-identical, all light/dark symbol aliases are byte-identical, and the web favicon SVGs are byte-identical to the corresponding app-icon SVGs. These duplicates are not all useful in a Windows-only source tree.
+
+## Retained canonical sources
+
+| Asset | Role | Status |
+| --- | --- | --- |
+| `narro-logo-stacked-light.svg` | Stacked logo for light surfaces | canonical vector |
+| `narro-logo-stacked-dark.svg` | Stacked logo for dark surfaces | canonical vector |
+| `narro-logo-horizontal-light.svg` | Horizontal logo for light surfaces | canonical vector |
+| `narro-logo-horizontal-dark.svg` | Horizontal logo for dark surfaces | canonical vector |
+| `narro-symbol.svg` | Symbol-only transparent mark | canonical vector |
+| `narro-app-icon-light.svg` | Square light launcher/app composition | canonical vector |
+| `narro-app-icon-dark.svg` | Square dark launcher/app composition | canonical vector |
+| `brand-tokens.json` | Brand neutral tokens | canonical data |
+
+`narro-logo-master.svg` is retained as a compatibility alias of `narro-logo-stacked-light.svg`; both point to the same exact vector blob. There is no separate light/dark symbol file because the symbol artwork itself is identical on both themes.
+
+## Retained raster derivatives
+
+- `narro-logo-master.png` — stacked-light raster compatibility asset;
+- `narro-symbol-transparent.png` — square transparent symbol derivative;
+- `narro-app-icon-light.png` / `narro-app-icon-dark.png` — square opaque launcher derivatives.
+
+These PNGs are convenience/platform derivatives. **They are not canonical editable artwork.**
+
+The PureVector kit's two launcher PNG masters are opaque even though its bundled `validation.json` labels them RGBA. Independent image inspection reports RGB with no alpha, which is consistent with their full Snow/Ink backgrounds. The transparent symbol PNG is RGBA.
+
+## Windows integration policy
+
+Narro is Windows-only at the current project scope, so Android, iOS and web/PWA export directories from the source kit are intentionally excluded.
+
+Windows uses two different brand treatments:
+
+1. **Application/installer identity** — generated from the square app-icon vector, producing the Tauri/Windows PNG and multi-resolution ICO outputs.
+2. **System tray identity** — a dedicated symbol-only transparent 64 px raster derivative, because a tiny tray surface should not use the full wordmark or the plated launcher composition.
+
+The Tauri-generated files under `src-tauri/icons/` are **generated platform outputs**, not brand masters. The authoritative build/dev preparation must regenerate them from the retained Narro vector source. A generated file must never become the source from which another branding asset is resampled.
 
 ## Brand neutrals
 
 - Narro Ink: `#171717`
 - Narro Snow: `#F4F4F4`
 
-The Ink/Snow pair has approximately 16.3:1 contrast, so either wordmark variant has strong contrast on its intended neutral background.
+The Ink/Snow pair is approximately 16.3:1 contrast.
 
-## Variant naming
+## Usage
 
-`light` means **for light surfaces** and therefore uses the dark Ink wordmark. `dark` means **for dark surfaces** and uses the Snow wordmark.
-
-The supplied kit also contains vertical aliases and symbol aliases. Those duplicates are intentionally not retained when they do not add a distinct Narro asset. Android, iOS and web/PWA exports also remain outside this Windows-only repository because they can be regenerated from the canonical vector sources if product scope changes.
-
-## Pure-vector audit
-
-The uploaded `Narro_Brand_Kit_PureVector.zip` was independently checked rather than trusting only its included audit metadata:
-
-- all **16/16 SVG files** parse as standalone XML;
-- no SVG contains `<image>`, `<feImage>`, `<foreignObject>`, `<script>` or `<text>`;
-- no SVG contains a `data:image` / base64 raster payload;
-- no SVG references an external URL or external image resource;
-- the artwork is composed from vector paths/rectangles and SVG gradients;
-- wordmarks are outlined paths, so the SVGs have no runtime font dependency;
-- both `narro-app-icon-*.svg` files are now genuine vector compositions. This supersedes the previous kit, whose app-icon SVG wrappers embedded PNG data.
-
-The core logo/symbol SVGs in this repository were already byte-identical to the corresponding files in the PureVector kit. The meaningful source correction is the addition of the audited pure-vector app-icon SVGs and use of vector sources for scalable branding.
-
-## Repository usage
-
-Prefer SVG for repository/UI/documentation branding. Use the stacked/horizontal lockup for logo surfaces, the square app-icon composition for launcher/package identity, and the symbol-only mark for very small system surfaces such as the tray.
-
-PNG files are derivatives for integrations that require raster input; they are not the canonical editable brand source.
-
-Do not recolor, distort, rotate, add effects, or substitute Blitzit/source-product branding.
+- Prefer SVG for scalable UI, documentation and repository branding.
+- Use the light wordmark variants on light surfaces and dark variants on dark surfaces.
+- Use the symbol-only asset for small identity surfaces.
+- Use the square app-icon compositions only where an application/launcher icon is appropriate.
+- Do not recolor, distort, rotate, add effects, stretch, or substitute source-product/Blitzit branding.
