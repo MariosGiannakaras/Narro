@@ -33,6 +33,11 @@ export type FloatingTimerFoundationProps = {
   refreshKey?: number;
   fixtureBoard?: ListBoardSnapshot;
   fixtureTimer?: TimerSessionPayload | null;
+  sharedTimerProjection?: {
+    payload: TimerSessionPayload | null;
+    settled: boolean;
+  };
+  presentationActive?: boolean;
   fixtureExpanded?: boolean;
   fixtureSubtasks?: BoardSubtaskSnapshot | null;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
@@ -60,6 +65,8 @@ export function FloatingTimerFoundation({
   refreshKey = 0,
   fixtureBoard,
   fixtureTimer = null,
+  sharedTimerProjection,
+  presentationActive = true,
   fixtureExpanded = false,
   fixtureSubtasks = null,
   onCompletionSuccess,
@@ -101,6 +108,13 @@ export function FloatingTimerFoundation({
       setTimerError(null);
       return;
     }
+    if (sharedTimerProjection !== undefined) {
+      setTimer(sharedTimerProjection.payload);
+      setTimerSettled(sharedTimerProjection.settled);
+      setTimerSettledKey(refreshKey);
+      setTimerError(null);
+      return;
+    }
 
     let disposed = false;
     setTimerSettled(false);
@@ -136,7 +150,7 @@ export function FloatingTimerFoundation({
       disposed = true;
       disconnect?.();
     };
-  }, [fixtureMode, fixtureTimer, refreshKey]);
+  }, [fixtureMode, fixtureTimer, refreshKey, sharedTimerProjection]);
 
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
 
@@ -319,6 +333,7 @@ export function FloatingTimerFoundation({
               fixtureMode={fixtureMode}
               presentation="floating"
               transitionPending={transitionPending || resizePending}
+              presentationActive={presentationActive}
               onReturnToPanel={onReturnToPanel}
               onEnsureNotesVisible={() => requestExpanded(true)}
               onTimerPayload={(payload) => {
