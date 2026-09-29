@@ -18,6 +18,7 @@ import {
   type FocusSurfacePresentation,
 } from "./focusSurfaceModeApi";
 import { isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
+import { commitPreparedFocusPresentation } from "./focusPresentationTransition";
 import { waitForPresentedFrame } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
@@ -195,17 +196,17 @@ export function FocusSurfaceCoordinator() {
     const targetPresentation = modePresentation(targetMode);
 
     try {
-      await waitForReady(targetMode);
-
       // The target subtree is fully painted below the committed presentation.
-      // Change only the native region/position/window attributes while the
-      // outgoing view still covers it, then atomically transfer React
-      // interaction ownership. No Focus WebView is hidden, resized, destroyed
-      // or created during this ordinary mode switch.
-      await applyFocusSurfacePresentation(targetPresentation);
-
-      flushSync(() => {
-        publishPresentation(targetPresentation);
+      // The helper enforces prepaint -> native transaction -> renderer ownership,
+      // and restores native state if renderer publication itself ever throws.
+      await commitPreparedFocusPresentation({
+        previousPresentation,
+        targetPresentation,
+        waitForTargetReady: () => waitForReady(targetMode),
+        applyNativePresentation: applyFocusSurfacePresentation,
+        commitRendererPresentation: (next) => {
+          flushSync(() => publishPresentation(next));
+        },
       });
 
       pendingModeRef.current = null;
@@ -249,14 +250,13 @@ export function FocusSurfaceCoordinator() {
 
     transitionGateRef.current = true;
     try {
-      await applyFocusSurfacePresentation(target);
-      publishPresentation(target);
-    } catch (failure: unknown) {
-      // Native code owns physical rollback. Keep renderer presentation aligned
-      // with the previously committed native state and surface the primary error
-      // to FloatingTimerFoundation for its own prepaint rollback.
-      publishPresentation(previous);
-      throw failure;
+      await commitPreparedFocusPresentation({
+        previousPresentation: previous,
+        targetPresentation: target,
+        waitForTargetReady: async () => {},
+        applyNativePresentation: applyFocusSurfacePresentation,
+        commitRendererPresentation: publishPresentation,
+      });
     } finally {
       transitionGateRef.current = false;
     }
