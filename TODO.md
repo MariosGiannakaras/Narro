@@ -10,15 +10,20 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Add Rust modules for app state, persistence, timers, scheduling, and window coordination.
 - [x] Add SQLite plus migration harness; create migration `0001` even if the initial schema is minimal.
 - [ ] Validate the replacement composition still uses only two initial webview windows: `main` and one persistent `focusSurface`; no third persistent Focus/Timer webview. Historical M1 PASS applies to the superseded implementation only.
+  - [ ] Repository/runtime contracts contain no production `floatingTimer` window label, `timer.html` runtime entry, or split Focus/Timer capability/config expectation.
 - [x] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state (fixed 800x600 recreation geometry only).
   - [x] implementation compiles in Windows CI
   - [x] interactive hide/show/destroy and background state mutation validation
   - [x] interactive async recreate opens and remains responsive
   - [x] exact Rust state visibly survives and updates correctly in recreated `main`
 - [ ] Validate Focus Panel, compact Timer and expanded Timer presentations inside the single persistent `focusSurface` replacement host.
+  - [ ] One React root/coordinator owns committed/pending presentation state and shared authoritative projections; Panel/Timer are components, not independent window renderers.
+  - [ ] Incoming presentation is prepared in the same WebView while outgoing content remains painted; preparing/inactive controls are inert and excluded from focus/accessibility navigation, without `display:none`/unmount-first prepaint.
   - [x] implementation compiles in Windows CI
   - [x] interactive validation
 - [ ] Prove Panel ↔ compact Timer ↔ expanded Timer switching on the same persistent secondary WebView using the replacement fixed-host/native-region model, without creating parallel Focus webviews, resetting state, or routinely resizing the HWND/WebView for ordinary presentation changes.
+  - [ ] Ordinary presentation switching preserves the same Focus HWND/WebView identity and does not use Focus create/destroy/close/open/hide/show/host-resize as the switch mechanism; show/hide is reserved for entering/exiting Focus itself.
+  - [ ] Native region/position/topmost/taskbar changes and renderer presentation commit form one serialized, rollback-safe state machine.
   - [x] implementation compiles in Windows CI
   - [x] interactive Panel -> Timer -> Panel reuse validation
 - [ ] Revalidate always-on-top and skip-taskbar behavior for Floating Timer presentation on the replacement single Focus host.
@@ -55,6 +60,7 @@ Acceptance criteria:
 
 - `main` and `focusSurface` both project the same authoritative Rust application state
 - Focus Panel -> Floating Timer -> Focus Panel does not create parallel secondary webviews or reset state
+- ordinary Focus presentation changes preserve one `focusSurface` HWND/WebView identity and use component/region switching rather than Focus WebView hide/show/create/destroy/resize
 - Floating Timer remains above normal Windows apps and can be moved
 - Focus Panel can move to selected monitor edge
 - display connect/disconnect does not require app restart and cannot strand the focus surface off-screen
@@ -346,6 +352,8 @@ These requirements apply to every open or reopened roadmap milestone. A later re
   - [x] Record the separate persistent Timer WebView experiment's verdict. `8b94946` passed CI and On/Off clipping captures avoided the old white resize frames but On transitions showed loading copy. `a6a9459` passed CI and removed that copy but exposed the compact Timer over Panel controls. `4e4960b` passed CI `36530577060`; one exact-build animations-On capture of three settled Panel↔Timer cycles reduced the overlap to about 0.07–0.10 seconds, with no white host/loading copy in the six inspected boundary sequences. **Strict Gate 7 remains OPEN/FAIL.** The separate-WebView candidate used about +95 MiB floating-only working set versus the old composition; PR #191 stays unmerged. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
   - [ ] Reimplement the affected M1 window foundation, M6 Focus presentation composition and M7 Timer presentation/transition path as one coherent replacement, following the milestone map in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. Preserve validated domain and product behavior; historical milestone PASS records do not validate the new code.
   - [ ] Implement the replacement composition specified in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`: one fixed-size Focus HWND/WebView; native region for Panel, compact Timer and expanded Timer; one React mode coordinator; visible-region placement/DPI recovery; remove the second Timer WebView and obsolete cross-window switching. Preserve timer/session authority and error rollback. **Implementation phase only:** do not run tests, builds, CI, app launches or physical checks until implementation is complete and the user explicitly authorizes testing.
+  - [ ] Migrate all repository architecture contracts before implementation is called complete: `verify-config`, CI dist requirements, M1/M6/M7/M8 static/integration tests, Main/global/in-app shortcut routing and package preflight must assert one `focusSurface` and dynamic component toggling, not split-window or old hide/resize/show behavior. Editing tests is required now; executing them remains deferred by user direction.
+  - [ ] Remove/retire live split-window artifacts after replacement paths exist: separate Timer renderer/window wrappers, cross-window readiness/query/request protocol, persistent two-window transition helper, split `prepare/reveal/present` native commands and obsolete visual-hold/DWM/prewarm code. Historical work logs/prompts remain untouched as evidence.
   - [ ] After explicit user authorization, validate the completed replacement on its exact executable against the continuous Panel↔Timer and Timer Expand/Collapse Gate 7 criterion. No source/CI result alone may close the physical gate.
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
