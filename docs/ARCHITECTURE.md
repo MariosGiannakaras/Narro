@@ -92,8 +92,8 @@ Do not keep separate persistent Focus Panel and Floating Timer webviews.
 nominal 340 × 700 logical px fixed-size `focusSurface` HWND/WebView and select
 Panel (340×700), compact Timer (340×110) or expanded Timer (340×300) inside that React entry. Use a DPI-aware native window region to
 expose the corresponding visible rectangle without resizing or hiding the HWND
-on ordinary presentation changes. The unmerged PR #191's second `floatingTimer`
-WebView is an unsuccessful physical candidate, not the target architecture.
+on ordinary presentation changes. The now-closed, unmerged PR #191 second
+`floatingTimer` WebView is an unsuccessful historical physical candidate, not the target architecture.
 The executable plan and deferred validation boundary are in
 `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`.
 
