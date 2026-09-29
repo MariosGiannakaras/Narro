@@ -8,22 +8,24 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains the active ordered roadmap work.** PR #192 implementation and the exact-head automated checkpoint are now complete; physical Windows acceptance is the next unresolved boundary. The binding architecture remains one persistent fixed-host `focusSurface` with dynamic React Panel/compact Timer/expanded Timer presentations plus DPI-aware native visible-region/position coordination.
+**Reopened Milestone 1 corrective foundation remains the active ordered roadmap work.** PR #192 implementation and exact-head automated validation are complete, but the first exact-artifact physical Gate 7 retest has **FAILED**. Continue the same PR with the narrow evidence-backed correction; do not restart or replace the selected architecture.
 
 - Roadmap: **4/10 milestones currently complete**. M1 and M6 remain reopened in the exact scope invalidated by the single-Focus replacement; M2–M5 remain complete.
-- Current corrective slice: **2/5** — (1) implementation/static migration closure PASS, (2) exact-head automated validation PASS, (3) Gate 7 physical continuity OPEN, (4) Gate 12 mixed-DPI physical recovery OPEN, (5) guarded merge/resulting-main/tracking closure OPEN.
-- M1: **11/19 top-level items currently validated**. Windows CI now closes the two-window replacement composition and consolidated Focus-only production entry; interactive presentation/topology, physical behavior and performance items remain open.
-- M6: **15/18 top-level items currently validated**; Focus placement/topology and full replacement-host integration remain open.
-- M7: **1/15 top-level items currently validated**; host/presentation/placement/shortcut/performance-dependent items remain reopened except the unrelated validated Change List/Duplicate capability.
-- M8: **3/8 top-level items currently validated**; in-app/global Focus routing and Start Break remain reopened because their integration target changed. Unaffected conflict handling, nested Preferences behavior and settings persistence remain validated.
-- Audit `FIX_NOW`: **M7-PHYS-01 and M7-PHYS-02** remain open solely for required physical acceptance.
-- PR #192 is **OPEN** on `plan/m7-single-focus`, current exact head `73d10ab6a21d731ca363e9932b4ccaf13a000b43`, mergeable. Windows CI #672 / run `36589997295` is PASS on that exact head.
-- Runtime artifact: `narro-m1-runtime-harness-windows-x64`, id `11043444940`, digest `sha256:e1110b10c6d7cb867401126df931f3b52af414f097bb6a0bd9d790f6dac2fd76`.
-- Visual artifact: `narro-m5-visual-regression`, id `11043762203`, digest `sha256:51f21e05abd5aace6147f6be86c4645371d8dd06dc1f459375752d72c69a46cb`.
-- CI #672 passed Repository Preflight, the single-Focus architecture/transition contracts, frontend build, Rust fmt/check/clippy/tests, Windows visual regression, reused frontend-dist verification and Tauri release.
-- The prior old-head CI #666 lexical-order failure is superseded. Do not treat it as a current blocker.
-- Documentation/process truth continues to live directly on `main`; later Markdown-only `main` commits do not change the exact validated PR source tree. Before any further source edit, reconcile the active branch with current `main` tracking truth without reinterpreting that merge as new source validation.
-- The parked `brand/pure-vector-runtime` branch at `92551eaba723ce5ae94fa2cc92e0027e46df1942` remains preserved and is not the active slice.
+- Current corrective slice: **2/5** — (1) implementation/static migration closure PASS, (2) exact-head automated validation PASS, (3) Gate 7 physical continuity FAIL/OPEN, (4) Gate 12 mixed-DPI recovery OPEN/NOT RUN, (5) guarded merge/resulting-main/tracking closure OPEN.
+- M1: **11/19 top-level items currently validated**. No counter advances from the failed physical retest.
+- M6: **15/18** validated; placement/topology/full replacement-host integration remain open.
+- M7: **1/15** validated; Gate 7 remains a blocking FIX_NOW defect.
+- M8: **3/8** validated; affected Focus shortcut work remains blocked behind the corrective chain.
+- PR #192 remains **OPEN** on `plan/m7-single-focus`. Exact failed physical candidate: `73d10ab6a21d731ca363e9932b4ccaf13a000b43`.
+- Windows CI #672 / run `36589997295` is PASS on that exact head.
+- Runtime artifact id `11043444940`, digest `sha256:e1110b10c6d7cb867401126df931f3b52af414f097bb6a0bd9d790f6dac2fd76`.
+- User recording `2026-09-29 20-49-29.mkv`: SHA-256 `b843eaa81d8296fe03febfb79e6dbb1f95b2a0834caf11acec68f2f467df4536`, H.264 2560×1080, 60 fps, 49.384 s. Windows “Show animations in Windows” is visibly On.
+- Four Panel→Timer boundaries repeatedly expose a large blank/light 340×700 host area for about 0.23–0.25 s: ~4.883–5.117, 11.167–11.383, 21.950–22.167 and 25.400–25.617 s. Shorter reverse-boundary exposure occurs around 8.050–8.100, 19.100–19.150 and 24.367–24.417 s.
+- Compact↔expanded Timer cycles in the same recording do not show the same full-height blank tail. The same task/session remains active and the running timer advances without reset.
+- Evidence-backed cause: the Tauri `focusSurface` is already transparent, but shared `App.css` paints `:root` and `body` with opaque `var(--color-canvas)`. During the intentional renderer-clip/native-region offset, that document canvas becomes visible.
+- Corrective scope: make the runtime `focus.html` document root/body/#root transparent, preserve opaque backgrounds inside actual Panel/Timer surfaces, and add a preflight/static invariant. Do not alter window count, native presentation architecture, timer/session authority, or compact/expanded sequencing from this evidence alone.
+- Immutable physical-fail record: `work-log/2026-09-29-chatgpt-m7-ci672-physical-fail.md`.
+- The parked `brand/pure-vector-runtime` branch remains preserved and is not active.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -55,19 +57,19 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 - New exact-build physical findings `M7-PHYS-01` and `M7-PHYS-02` remain `FIX_NOW` in the audit crosswalk until exact-build physical acceptance passes.
 - M9 findings remain routed to M9; M10/final-review findings remain routed to later gates; unresolved source ambiguities remain explicit.
 
-## M7 PHYSICAL CLOSURE — OPEN; AUTOMATED VALIDATION PASS, PHYSICAL ACCEPTANCE NEXT
+## M7 PHYSICAL CLOSURE — OPEN; CI PASS, EXACT-ARTIFACT GATE 7 FAIL
 
-Exact PR #192 head `73d10ab6a21d731ca363e9932b4ccaf13a000b43` passed authoritative Windows CI #672 / run `36589997295`. The replacement now has reproducible automated evidence for the one-`focusSurface` architecture, fixed 340×700 host, 340×110/340×300 Timer regions, prepaint/inert transition ordering, rollback-safe native commits, topology/DPI logic, frontend/Rust tests, visual fixtures and release packaging.
+The single-Focus replacement passed authoritative CI on exact head `73d10ab6...`, then failed Gate 7 on its exact runtime artifact with Windows animations On.
 
-This **does not close Gate 7 or Gate 12**. The earlier exact-build physical failures were compositor/window-runtime observations and can only be replaced by physical evidence from this exact candidate (or a later corrected exact head).
+The failure is now specific and reproducible rather than architectural speculation:
+- Panel→Timer leaves the transparent Tauri host backed by an opaque HTML document canvas while the Panel clip contracts before native Win32 clipping.
+- Timer→Panel briefly exposes the same canvas after native expansion and before the prepared Panel clip finishes revealing.
+- This produces the observed blank/light host intervals.
+- Compact↔expanded Timer did not reproduce the full-height defect in the submitted recording.
 
-Required physical evidence now:
-- **Gate 7:** Windows animations On; use the exact #672 runtime artifact. With one live/paused task/session, run at least 3× Panel→Timer→Panel and 3× compact Timer Expand→Collapse cycles. Confirm no pure-white host frame, no old/stale expanded tail, no Timer/Panel overlap, no loading copy, no scrollbar flash, no abrupt visual discontinuity, and unchanged task/session/time across each cycle.
-- **Gate 12:** when a Windows-visible secondary display is available, set/use 125% scaling on the secondary monitor, move the compact Timer there, and confirm its logical 340×110 presentation does not shrink or expose scrollbars. Expand near the bottom/work-area edge and confirm controls remain reachable, then collapse. Preserve session/time throughout.
-- Keep Windows animation settings and the user's profile state restored after testing.
-- If either gate fails, record exact artifact/build identity plus the observed signature and fix only that evidence-backed defect on PR #192. Do not start a replacement architecture or revive PR #191 mechanisms without new evidence.
+The next candidate must change only the focus-document canvas transparency plus its regression contracts, then pass exact-head CI before another Gate 7 physical retest.
 
-M8 forward feature work remains blocked until the corrective M1→M6→M7 replacement chain has sufficient physical acceptance to re-close the affected integration basis.
+Gate 12 remains OPEN/NOT RUN on the replacement because the submitted recording does not provide the required visible 125% secondary-display scenario.
 
 ## REMAINING M8 ORDER
 
@@ -99,28 +101,20 @@ Current `main` contains newer documentation/tracking commits recording CI #672. 
 
 ## NEXT AGENT ACTION
 
-Obtain **Gate 7 physical continuity evidence on the exact PR #192 CI #672 runtime artifact**. Gate 7 is now the first unresolved acceptance criterion that cannot be established by the available non-interactive tooling.
+1. Reconcile `plan/m7-single-focus` with current `main` Markdown/process truth.
+2. On the same PR branch, implement the narrow Gate 7 correction:
+   - add a focus-entry-only stylesheet or equivalent that makes the runtime `focus.html` `:root`/html/body/#root background transparent;
+   - leave Main and diagnostics/component surface backgrounds unchanged/opaque where they are intentionally painted;
+   - assert `focusSurface.transparent === true` in repository config validation;
+   - add a static transition contract requiring the focus-entry transparency override.
+3. Run the narrow frontend/config/transition checks available locally, then authoritative exact-head Windows CI.
+4. If CI passes, produce/use the exact new runtime artifact for another animations-On Gate 7 recording.
+5. Only after Gate 7 passes continue to Gate 12 and later guarded merge/tracking closure.
 
-If Gate 7 passes:
-1. record the exact observation and artifact identity in a new immutable work log;
-2. perform Gate 12 mixed-DPI validation when a visible secondary display is available;
-3. after all required replacement physical evidence passes, expected-head-guard merge PR #192, verify resulting-main tree/source identity or run required main validation if it differs, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md`, audit crosswalk and work log;
-4. only after the affected M1→M6→M7 basis is reclosed, revalidate the reopened M8 Focus shortcut integration and resume remaining M8 work.
-
-If Gate 7 fails, keep PR #192 open and fix only the observed exact-build failure on the same branch; repeat exact-head CI before another physical attempt.
+Do not revive PR #191 visual-hold/split-window mechanisms and do not broaden this correction into native-region animation unless the transparent-document candidate still physically fails.
 
 ## USER ACTION REQUIRED
 
-**Gate 7 requires a physical Windows observation now.** Available CI/browser/repository tooling cannot prove continuous desktop compositor behavior. Use runtime artifact id `11043444940` from Windows CI #672 / run `36589997295`, exact source head `73d10ab6a21d731ca363e9932b4ccaf13a000b43`.
+None while the correction and CI are pending.
 
-Required observation:
-- Windows animations **On**;
-- retain one identifiable live/paused task/session and visible time;
-- 3× Panel→Timer→Panel;
-- 3× compact Timer Expand→Collapse;
-- report whether any white/blank frame, stale tail, Timer/Panel overlap, loading copy, scrollbar flash or abrupt discontinuity appears;
-- confirm the same task/session/time survives the cycles.
-
-For Gate 12, a Windows-visible secondary monitor at 125% scaling is required later. If no second display is currently available, record Gate 12 as unavailable rather than inferring PASS.
-
-No other user/product decision is blocking implementation.
+After a corrected exact-head CI artifact exists, a new Gate 7 physical recording will again be required because compositor continuity cannot be proven by automated CI. Gate 12 will later require a Windows-visible 125% secondary display; if unavailable, keep it NOT RUN.
