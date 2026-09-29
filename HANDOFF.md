@@ -53,9 +53,9 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 - New exact-build physical findings `M7-PHYS-01` and `M7-PHYS-02` remain `FIX_NOW` in the audit crosswalk until exact-build physical acceptance passes.
 - M9 findings remain routed to M9; M10/final-review findings remain routed to later gates; unresolved source ambiguities remain explicit.
 
-## M7 PHYSICAL CLOSURE — OPEN; IMPLEMENTATION COMPLETE, VALIDATION DEFERRED
+## M7 PHYSICAL CLOSURE — OPEN; IMPLEMENTATION COMPLETE, AUTOMATED VALIDATION NEXT
 
-The coherent replacement implementation is now complete by static repository reconciliation. By current user direction, do not run tests/builds/CI/app launches/physical checks until explicitly authorized. When validation is authorized, re-close the reopened milestones in dependency order: **M1 → M6 → M7 → affected M8 shortcut items**. Do not start unrelated remaining M8 feature work before that corrective chain is validated/reconciled.
+The coherent replacement implementation is complete by static repository reconciliation. The user's current direction delegates validation timing to the agent: routine tests/CI no longer require a fresh permission checkpoint. Because this replacement is a high-blast-radius foundation for M1/M6/M7 and affected M8 routing, the recommended next step is an exact-head automated validation checkpoint **before** stacking dependent M8 source work. Re-close the affected chain in dependency order: **M1 → M6 → M7 → affected M8 shortcut items**. Physical Gate 7/12 checks may be consolidated later when they are not needed to choose the next safe source change; they remain OPEN until observed.
 
 The CI #624 physical batch has now run on its exact artifact:
 - artifact id: `10944304485`;
@@ -97,7 +97,7 @@ The abandoned CI dedup regression guard was recovered, validated and merged in P
 
 ## NEXT AGENT ACTION
 
-**Do not start another implementation slice.** PR #192 implementation is complete at exact source head `b506fd016eea2d3c45635a2cbdc74acde831d674`; the next ordered action is the **deferred validation phase**, and it must not begin until the user explicitly authorizes testing.
+**Do not start dependent M8 source work yet.** PR #192 implementation is complete at exact source head `b506fd016eea2d3c45635a2cbdc74acde831d674`. Reconcile the PR branch with current `main` process/tracking Markdown, then begin the **exact-head automated validation checkpoint**. This checkpoint is recommended now because later M8 work depends on the replaced Focus foundation and stacking it on an uncompiled/unvalidated architecture would make regressions harder to isolate.
 
 Before validation:
 - read current `main` tracking truth and confirm PR #192 still points to `b506fd016eea2d3c45635a2cbdc74acde831d674` or record any newer exact head;
@@ -105,7 +105,7 @@ Before validation:
 - preserve the parked `brand/pure-vector-runtime` branch at `92551eaba723ce5ae94fa2cc92e0027e46df1942`;
 - do not resurrect `timer.html`, `focusPanelWindow.tsx`, a second Timer WebView, bitmap visual hold, or ordinary Focus WebView hide/show/resize switching.
 
-When the user explicitly authorizes testing, validate the exact then-current PR head in this order:
+Validate the exact then-current PR head in this order:
 1. Repository Preflight and the narrow single-Focus/transition contracts first.
 2. Full authoritative Windows frontend/Rust checks/tests and visual regression.
 3. Tauri release build plus required artifacts.
@@ -119,6 +119,6 @@ Immutable implementation-complete record: `work-log/2026-09-29-chatgpt-m7-single
 
 ## USER ACTION REQUIRED
 
-After the implementation phase, the user's explicit instruction is required to begin tests/CI/physical validation. A future secondary-display Gate 12 retest also requires a Windows-visible second monitor. Neither condition blocks the implementation work above.
+None for ordinary automated validation. A future mixed-DPI Gate 12 retest requires a Windows-visible secondary monitor and therefore may require user participation; when that becomes the next necessary gate, explain why it is needed and provide the recommended test procedure before asking. Physical Gate 7 observation may likewise be batched on the latest suitable artifact.
 
 No Blitzit evidence upload is pending. The uploaded corpus and its analysis are complete.
