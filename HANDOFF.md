@@ -8,54 +8,27 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains the active ordered roadmap work.** PR #192 now contains the two evidence-backed corrections from the CI #674 physical failures, and exact head `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93` passed authoritative Windows CI #679. Gate 7 and Gate 12 are **PHYSICAL RETEST OPEN** on this new exact artifact.
+**Reopened Milestone 1 corrective foundation remains active.** Exact CI #679 physical evidence failed both strict gates, a narrow sequencing correction is implemented on the same PR #192, and Windows CI #682 is pending on the new exact head.
 
-- Roadmap: **4/10 milestones complete**. M1 and M6 remain reopened in the exact scope invalidated by the single-Focus replacement; M2–M5 remain complete.
-- Current corrective slice: **2/5** — (1) implementation/static migration closure PASS, (2) exact-head automated validation PASS, (3) Gate 7 physical continuity RETEST OPEN, (4) Gate 12 mixed-DPI recovery RETEST OPEN, (5) guarded merge/resulting-main/tracking closure OPEN.
-- M1: **11/19** top-level items validated.
-- M6: **15/18** validated.
-- M7: **1/15** validated.
-- M8: **3/8** validated; affected Focus shortcut work remains blocked.
 - PR #192 remains **OPEN** on `plan/m7-single-focus`.
-- Current exact candidate: `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`.
-- Windows CI #679 / run `36630411679`: PASS on that exact head after rerunning the initially cancelled build-and-test job.
-- Runtime artifact: `narro-m1-runtime-harness-windows-x64`, id `11065275562`, digest `sha256:8b50e089fdaf6e5eaf572dd2b469eac42a521a8ea447c4532161edbc35163400`.
-- Visual artifact: `narro-m5-visual-regression`, id `11064761303`, digest `sha256:00f25712f57349bb70bbbbaddacc177c220967bbb6bfb9006c7307bbb89f4e7e`.
-- The preceding exact-build physical failure evidence is `work-log/2026-09-29-chatgpt-m7-ci674-physical-gates-fail.md`.
-- The current automated-green corrective candidate is recorded in `work-log/2026-09-30-chatgpt-m7-ci679-position-dpi-candidate.md`.
+- Last physically tested source: `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`.
+- CI #679 / run `36630411679`: automated PASS, physical Gate 7 + Gate 12 FAIL.
+- #679 runtime artifact id `11065275562`, digest `sha256:8b50e089fdaf6e5eaf572dd2b469eac42a521a8ea447c4532161edbc35163400`.
+- Physical recording: `2026-09-30 01-11-12.mp4`, SHA-256 `e128d5fb08392f08312d237a9dab2a6d0d75a50611ac34331aa7454077a69642`, H.264 4480×1080 @ 60 fps, 58.483 s.
+- Gate 7: position teleport is fixed, but Panel→Timer exposes the full transparent 340×700 host/outline under the moving compact surface for multiple frames (~40.70–40.90 s and repeated later).
+- Gate 12: one normal drag now crosses to the user-confirmed 125% display and Timer geometry is correct (~425×138 compact / ~425×375 expanded), but Timer→Panel return still briefly exposes a narrow stale viewport/browser scrollbar state (~53.50–53.60 s; same family around ~21.9–22.1 s).
+- Task/session `fas` and elapsed-time continuity remain intact.
+- Immutable physical failure evidence: `work-log/2026-09-30-chatgpt-m7-ci679-physical-fail.md`.
 
-## WHY CI #674 FAILED PHYSICALLY
+Current unvalidated corrective candidate:
+- exact head `8a60e92e47ae407098a1f3170ae4170848d262eb`;
+- Panel→Timer clips to target Timer region before native position motion;
+- cross-DPI Timer→Panel keeps the previous Timer region clipped through target-size correction, waits bounded 50 ms viewport settlement, then reveals full Panel;
+- same-DPI Timer→Panel keeps the existing continuous reveal;
+- regression contracts enforce this sequencing;
+- Windows CI #682 / run `36639559040`: **PENDING**.
 
-Exact #674 source `44119dbe829131d38f56fd35250142ed973b2574` removed the earlier opaque white/blank host tail, but its dual-monitor physical recording still proved:
-
-- **Gate 7 FAIL:** Panel↔Timer spatially teleported the same persistent HWND between Panel edge placement and saved Timer placement.
-- **Gate 12 FAIL:** the 125% display showed correct Timer scaling, but mixed-DPI movement/recovery could interfere with the native drag and the return-to-Panel path could leave a stale WebView viewport with horizontal/vertical browser scrollbars.
-- The same task/session `fas` and elapsed-time continuity survived those failures.
-- Earlier 21:32/21:33 chat recordings were CI #672 and are not #674/#679 acceptance evidence.
-
-## CI #679 CORRECTIVE IMPLEMENTATION
-
-The selected one-`focusSurface` architecture and transparent Focus document remain intact.
-
-- `WM_ENTERSIZEMOVE` / `WM_EXITSIZEMOVE` delimit interactive native movement.
-- DPI/topology recovery is deferred/coalesced while the interactive move is active, then requested once after move exit when dirty.
-- Programmatic presentation movement also suspends competing display recovery.
-- Panel host geometry is computed from the selected target monitor scale; target-monitor staging occurs before the exceptional DPI host-size correction and final full-host region.
-- Timer destination planning uses target-monitor scale.
-- Panel↔Timer mode changes plan the final native destination and use finite native position motion coordinated with the existing ~270 ms same-WebView geometry motion.
-- Native transition rollback, saved Timer placement, transparent document canvas, one HWND/WebView identity, authoritative timer/session state, and ordinary no-hide/show/no-resize presentation mechanics remain invariants.
-- Static/transition architecture contracts cover these corrective mechanisms.
-
-CI #679 exact-head evidence:
-- validation gate PASS;
-- Repository Preflight PASS;
-- Rust checks/tests PASS;
-- Windows visual-regression capture/validation PASS;
-- reused frontend-dist verification PASS;
-- Tauri release PASS;
-- runtime + visual artifacts uploaded.
-
-The first build-and-test attempt for #679 was cancelled during visual fixture capture without a code failure signature. The same job was rerun against the unchanged exact head and completed PASS.
+No progress counter advances from this implementation until exact-head automated validation and physical acceptance complete.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -85,28 +58,20 @@ This remains the fully merged/physically accepted application-source baseline (P
 
 ## NEXT AGENT ACTION
 
-The next unresolved boundary is **physical Windows validation of exact CI #679 artifact id `11065275562`**.
-
-After the user supplies the combined recording:
-1. Analyze Gate 7 repeated Panel↔Timer cycles for both blank/opaque host exposure **and** spatial teleport/jump.
-2. Analyze compact↔expanded Timer cycles for stale/blank tails.
-3. Analyze a normal single drag to the user-confirmed 125% display; verify DPI-correct compact/expanded geometry and no drag resistance caused by Narro recovery.
-4. Analyze return to Panel; reject any horizontal/vertical browser scrollbar, clipped/offset content, stale viewport or malformed host.
-5. Confirm the same task/session/time remains continuous.
-6. If both gates PASS, record immutable evidence and continue guarded merge/resulting-main validation. If either fails, keep PR #192 open and fix only the observed exact-build signature.
+1. Check Windows CI #682 / run `36639559040` first.
+2. If CI fails, inspect only the exact failure and fix evidence-backed issues on PR #192.
+3. If CI passes, download the exact runtime artifact and request one combined physical recording:
+   - 3× Panel→Timer→Panel;
+   - 3× compact Expand→Collapse;
+   - one normal drag to the 125% display;
+   - compact/expanded checks there;
+   - return to Panel.
+4. Reject any transparent/full-height host tail, white/blank host, spatial teleport, repeated-push drag behavior, stale viewport, clipping, or browser scrollbar flash.
+5. Confirm the same task/session/time.
+6. Only after both gates pass may guarded merge/resulting-main validation proceed.
 
 Do not merge PR #192 before both physical gates pass.
 
 ## USER ACTION REQUIRED
 
-Use only the CI #679 runtime artifact from exact head `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`.
-
-Record one combined Windows session with animations On:
-- at least 3× Panel→Timer→Panel;
-- at least 3× compact Timer Expand→Collapse;
-- one ordinary drag to the 125% secondary display;
-- compact + expanded checks there;
-- return to Panel;
-- keep one identifiable active/paused task/session visible enough to prove timer continuity.
-
-Acceptance requires no blank/light host tail, no Panel/Timer spatial teleport, no repeated-push requirement to cross displays, no browser scrollbars/stale viewport after return, and preserved task/session/time.
+None while CI #682 is pending. After it passes, use only its exact runtime artifact for the next combined physical recording.
