@@ -34,7 +34,7 @@ use domain::{AppState, AppStatePayload};
 use error::{CommandError, CommandResult};
 use shortcuts::{ShortcutDiagnostics, ShortcutManager};
 use std::fmt::Display;
-use std::sync::atomic::{AtomicBool, AtomicU8, Ordering as AtomicOrdering};
+use std::sync::atomic::{AtomicU8, Ordering as AtomicOrdering};
 use std::sync::{Mutex, MutexGuard};
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
@@ -54,12 +54,13 @@ const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const STATE_CHANGED_EVENT: &str = "state-changed";
 const FOCUS_SURFACE_PRESENTATION_CHANGED_EVENT: &str = "focus-surface-presentation-changed";
 const MAX_MONITOR_KEY_LEN: usize = 2048;
-const FOCUS_SURFACE_MODE_UNKNOWN: u8 = 0;
-const FOCUS_SURFACE_MODE_PANEL: u8 = 1;
-const FOCUS_SURFACE_MODE_TIMER: u8 = 2;
+const FOCUS_PRESENTATION_UNKNOWN: u8 = 0;
+const FOCUS_PRESENTATION_PANEL: u8 = 1;
+const FOCUS_PRESENTATION_TIMER_COMPACT: u8 = 2;
+const FOCUS_PRESENTATION_TIMER_EXPANDED: u8 = 3;
 
-static FOCUS_SURFACE_MODE_STATE: AtomicU8 = AtomicU8::new(FOCUS_SURFACE_MODE_UNKNOWN);
-static FLOATING_TIMER_EXPANDED: AtomicBool = AtomicBool::new(false);
+static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8 =
+    AtomicU8::new(FOCUS_PRESENTATION_UNKNOWN);
 static COMPACT_TIMER_ORIGIN: Mutex<Option<GeometryPoint>> = Mutex::new(None);
 static FOCUS_PRESENTATION_GATE: Mutex<()> = Mutex::new(());
 
@@ -469,32 +470,32 @@ fn preferred_focus_panel_work_area(
 }
 
 fn record_focus_surface_presentation(presentation: FocusSurfacePresentation) {
-    let mode_code = match presentation.mode() {
-        FocusSurfaceMode::Panel => FOCUS_SURFACE_MODE_PANEL,
-        FocusSurfaceMode::Timer => FOCUS_SURFACE_MODE_TIMER,
+    let state = match presentation {
+        FocusSurfacePresentation::Panel => FOCUS_PRESENTATION_PANEL,
+        FocusSurfacePresentation::TimerCompact => FOCUS_PRESENTATION_TIMER_COMPACT,
+        FocusSurfacePresentation::TimerExpanded => FOCUS_PRESENTATION_TIMER_EXPANDED,
     };
-    FOCUS_SURFACE_MODE_STATE.store(mode_code, AtomicOrdering::Release);
-    FLOATING_TIMER_EXPANDED.store(presentation.expanded(), AtomicOrdering::Release);
+    FOCUS_SURFACE_PRESENTATION_STATE.store(state, AtomicOrdering::Release);
 }
 
-pub(crate) fn current_focus_surface_mode() -> Option<FocusSurfaceMode> {
-    match FOCUS_SURFACE_MODE_STATE.load(AtomicOrdering::Acquire) {
-        FOCUS_SURFACE_MODE_PANEL => Some(FocusSurfaceMode::Panel),
-        FOCUS_SURFACE_MODE_TIMER => Some(FocusSurfaceMode::Timer),
+fn current_focus_surface_presentation() -> Option<FocusSurfacePresentation> {
+    match FOCUS_SURFACE_PRESENTATION_STATE.load(AtomicOrdering::Acquire) {
+        FOCUS_PRESENTATION_PANEL => Some(FocusSurfacePresentation::Panel),
+        FOCUS_PRESENTATION_TIMER_COMPACT => Some(FocusSurfacePresentation::TimerCompact),
+        FOCUS_PRESENTATION_TIMER_EXPANDED => Some(FocusSurfacePresentation::TimerExpanded),
         _ => None,
     }
 }
 
-fn current_focus_surface_presentation() -> Option<FocusSurfacePresentation> {
-    match current_focus_surface_mode() {
-        Some(FocusSurfaceMode::Panel) => Some(FocusSurfacePresentation::Panel),
-        Some(FocusSurfaceMode::Timer) => Some(if FLOATING_TIMER_EXPANDED.load(AtomicOrdering::Acquire) {
-            FocusSurfacePresentation::TimerExpanded
-        } else {
-            FocusSurfacePresentation::TimerCompact
-        }),
-        None => None,
-    }
+pub(crate) fn current_focus_surface_mode() -> Option<FocusSurfaceMode> {
+    current_focus_surface_presentation().map(FocusSurfacePresentation::mode)
+}
+
+pub(crate) fn current_focus_surface_expanded() -> bool {
+    matches!(
+        current_focus_surface_presentation(),
+        Some(FocusSurfacePresentation::TimerExpanded)
+    )
 }
 
 fn parse_focus_surface_presentation(value: &str) -> CommandResult<FocusSurfacePresentation> {
@@ -1173,7 +1174,7 @@ pub fn run() {
                 match event {
                     tauri::WindowEvent::Moved(_) => {
                         if floating_placement::note_timer_moved(window.app_handle())
-                            && FLOATING_TIMER_EXPANDED.load(AtomicOrdering::Acquire)
+                            && current_focus_surface_expanded()
                         {
                             if let Ok(mut origin) = COMPACT_TIMER_ORIGIN.lock() {
                                 *origin = None;
