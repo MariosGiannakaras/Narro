@@ -848,7 +848,6 @@ mod native {
     use std::sync::OnceLock;
 
     const FOCUS_SURFACE_LABEL: &str = "focusSurface";
-    const FLOATING_TIMER_LABEL: &str = "floatingTimer";
     const DEFAULT_HOTKEY_ID: i32 = 0x4e41;
     const CONFLICT_PROBE_HOTKEY_ID: i32 = 0x4e42;
     const FOCUS_TOGGLE_HOTKEY_ID: i32 = 0x4e43;
@@ -1062,16 +1061,9 @@ mod native {
                 }
 
                 let manager = trigger_handle.state::<ShortcutManager>();
-                let label = if crate::current_focus_surface_mode()
-                    == Some(crate::FocusSurfaceMode::Timer)
-                {
-                    FLOATING_TIMER_LABEL
-                } else {
-                    FOCUS_SURFACE_LABEL
-                };
                 let result = trigger_handle
-                    .get_webview_window(label)
-                    .ok_or_else(|| CommandError::window_not_found(label))
+                    .get_webview_window(FOCUS_SURFACE_LABEL)
+                    .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))
                     .and_then(|window| crate::show_and_focus(&window));
                 if let Err(error) = result {
                     let recorded = record_and_report_focus_toggle_error(
@@ -1120,8 +1112,8 @@ mod native {
 
                 let manager = trigger_handle.state::<ShortcutManager>();
                 let result = trigger_handle
-                    .get_webview_window(FLOATING_TIMER_LABEL)
-                    .ok_or_else(|| CommandError::window_not_found(FLOATING_TIMER_LABEL))
+                    .get_webview_window(FOCUS_SURFACE_LABEL)
+                    .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))
                     .and_then(|window| crate::show_and_focus(&window));
                 if let Err(error) = result {
                     let recorded =
