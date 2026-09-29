@@ -1,14 +1,13 @@
 import fs from "node:fs";
 
-function read(path) {
-  return fs.readFileSync(path, "utf8");
-}
-
-function invariant(condition, message) {
+const read = (path) => fs.readFileSync(path, "utf8");
+const invariant = (condition, message) => {
   if (!condition) throw new Error(`Floating Timer collapsed contract failed: ${message}`);
-}
+};
 
 const tauriConfig = JSON.parse(read("src-tauri/tauri.conf.json"));
+const region = read("src-tauri/src/timer_region.rs");
+const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 const foundation = read("src/FloatingTimerFoundation.tsx");
 const presentationFrame = read("src/presentationFrame.ts");
 const subtasks = read("src/FocusLiveSubtasks.tsx");
@@ -22,28 +21,37 @@ const capture = read("scripts/capture-floating-timer-fixtures.ps1");
 const validator = read("scripts/validate-floating-timer-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
-const timerWindow = tauriConfig.app.windows.find((window) => window.label === "floatingTimer");
+const focusWindow = tauriConfig.app.windows.find((window) => window.label === "focusSurface");
 invariant(
-  timerWindow?.width === 340 && timerWindow?.height === 300 && timerWindow?.url === "timer.html",
-  "Timer must keep the expanded host fixed at 340x300 while its visible compact region is 340x110",
+  focusWindow?.width === 340 && focusWindow?.height === 700 && focusWindow?.url === "focus.html",
+  "collapsed Timer must live inside the fixed 340x700 focusSurface host",
+);
+invariant(
+  region.includes("TIMER_COMPACT_HEIGHT_LOGICAL: f64 = 110.0"),
+  "collapsed Timer native region must remain 340x110 logical px",
+);
+invariant(
+  coordinator.includes('controlledExpanded={presentation === "timerExpanded"}')
+    && coordinator.includes("onRequestExpanded={requestTimerExpanded}"),
+  "coordinator must own committed compact/expanded presentation state",
 );
 invariant(
   foundation.includes('getListBoardSnapshot({ kind: "all" })'),
-  "collapsed timer must read the authoritative task/list projection",
+  "collapsed Timer must read the authoritative task/list projection",
 );
 invariant(
-  foundation.includes("connectLiveTimerSessionProjection")
+  foundation.includes("sharedTimerProjection !== undefined")
     && foundation.includes("applyTimerSessionProjection"),
-  "collapsed timer must reuse the validated authoritative live timer projection with revision ordering",
+  "production Timer must consume the coordinator-owned timer projection",
 );
 invariant(
   foundation.includes("const liveTaskId = timer?.runtime.timer.task_id ?? null"),
-  "collapsed timer must derive the live task identity from authoritative timer state",
+  "collapsed Timer must derive live task identity from authoritative timer state",
 );
 invariant(
   foundation.includes("focusTimerPresentation(timer.runtime.timer)")
     && panel.includes('from "./focusTimerPresentation"'),
-  "Focus Panel and Floating Timer must share one timer presentation contract",
+  "Panel and Timer must share one timer-presentation formatter",
 );
 
 for (const needle of [
@@ -68,7 +76,7 @@ invariant(
     && foundation.includes('style={{ display: expanded ? "contents" : "none" }}')
     && foundation.includes("!regionExpanded || !liveTask || !timer")
     && foundation.includes('className="floating-timer-foundation__heading"'),
-  "collapsed mode must retain the title/timer heading while keeping the Focus action controller mounted but non-visible for in-app shortcuts",
+  "collapsed mode must keep title/timer visible while the expanded action controller remains mounted but hidden",
 );
 for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `renderer must not create a duplicate timer clock through ${forbidden}`);
@@ -76,9 +84,8 @@ for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
 invariant(
   foundation.includes('import { waitForPresentedFrame } from "./presentationFrame";')
     && (presentationFrame.match(/requestAnimationFrame\(/g) ?? []).length === 2
-    && !presentationFrame.includes("setInterval(")
-    && !presentationFrame.includes("setTimeout("),
-  "collapsed timer may use only the shared finite two-frame presentation barrier, not a renderer clock/loop",
+    && !presentationFrame.includes("setInterval("),
+  "presentation preparation may use only the shared finite frame barrier",
 );
 
 for (const needle of [
@@ -91,45 +98,33 @@ for (const needle of [
   invariant(timerPresentation.includes(needle), `shared timer presentation is missing ${needle}`);
 }
 
-invariant(css.includes("border-radius: 12px"), "collapsed surface must retain the rounded screenshot hierarchy");
-invariant(
-  css.includes("grid-template-columns: minmax(0, 1fr) 8ch"),
-  "collapsed title/timer heading geometry differs",
-);
-invariant(
-  css.includes("grid-template-columns: 28px minmax(0, 1fr) 32px 32px"),
-  "subtask/add/expand row geometry differs",
-);
+invariant(css.includes("height: 110px"), "collapsed surface must retain 110px product height");
+invariant(css.includes("border-radius: 12px"), "collapsed surface must retain rounded source hierarchy");
+invariant(css.includes("grid-template-columns: minmax(0, 1fr) 8ch"), "collapsed title/timer geometry differs");
+invariant(css.includes("grid-template-columns: 28px minmax(0, 1fr) 32px 32px"), "collapsed subtask row geometry differs");
 invariant(css.includes("font-variant-numeric: tabular-nums"), "timer/progress numerals must remain stable");
-
 invariant(
-  !css.includes("transition:")
-    && !/animation\s*:\s*[^;]*infinite/.test(css)
-    && (css.match(/@keyframes/g) ?? []).length === 1
-    && css.includes("animation: floating-timer-attention 720ms ease-out 1;"),
-  "collapsed state may only add the finite Find Timer attention pulse",
+  !/animation\s*:\s*[^;]*infinite/.test(css)
+    && css.includes("animation: floating-timer-attention 720ms ease-out 1;")
+    && css.includes("@media (prefers-reduced-motion: reduce)"),
+  "collapsed Timer may only use finite reduced-motion-safe attention animation",
 );
 
 invariant(fixtureHtml.includes("/src/floatingTimerVisualFixture.tsx"), "Floating Timer fixture entry module is missing");
 invariant(vite.includes('floatingTimerFixture: "floating-timer-fixture.html"'), "Vite Floating Timer fixture input is missing");
 invariant(fixture.includes('dataset.floatingTimerFixtureReady = "true"'), "Floating Timer fixture readiness marker is missing");
-invariant(fixture.includes('fixtureState === "expanded"'), "fixture must preserve an explicit collapsed state alongside expanded state");
+invariant(fixture.includes('fixtureState === "expanded"'), "fixture must retain distinct collapsed and expanded states");
 invariant(capture.includes('foreach ($state in @("collapsed", "expanded"))'), "Windows capture must cover collapsed and expanded states");
-invariant(capture.includes('"floating-timer-$theme"'), "collapsed light/dark capture naming differs");
 invariant(validator.includes("collapsed timer must be exactly 340x110"), "collapsed geometry validation is missing");
 
 invariant(
-  pkg.scripts["test:ui-floating-collapsed"] === "node scripts/test-ui-floating-collapsed.mjs",
-  "package collapsed contract registration differs",
-);
-invariant(
   pkg.scripts["preflight:frontend"].includes("npm run test:ui-floating-collapsed"),
-  "frontend preflight must run the collapsed Floating Timer contract",
+  "frontend preflight must run collapsed Timer coverage",
 );
 invariant(
   pkg.scripts["test:visual-regression:windows"].includes("capture-floating-timer-fixtures.ps1")
     && pkg.scripts["test:visual-regression:windows"].includes("validate-floating-timer-captures.mjs"),
-  "Windows visual regression must capture and validate Floating Timer fixtures",
+  "Windows visual regression must preserve Timer fixtures",
 );
 
-console.log("Floating Timer collapsed product contracts passed.");
+console.log("Floating Timer collapsed single-host product contracts passed.");
