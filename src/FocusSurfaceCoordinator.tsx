@@ -61,7 +61,10 @@ export function FocusSurfaceCoordinator() {
   const pendingModeRef = useRef<FocusSurfaceMode | null>(null);
   const transitionGateRef = useRef(false);
   const readinessRef = useRef<PresentationReadiness>({ panel: false, timer: false });
-  const readinessWaitersRef = useRef(new Set<() => void>());
+  const readinessWaitersRef = useRef<Record<FocusSurfaceMode, Set<() => void>>>({
+    panel: new Set(),
+    timer: new Set(),
+  });
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
   const quickTaskAfterPanelRef = useRef(false);
@@ -74,8 +77,9 @@ export function FocusSurfaceCoordinator() {
 
   const markReady = useCallback((mode: FocusSurfaceMode) => {
     readinessRef.current[mode] = true;
-    for (const resolve of readinessWaitersRef.current) resolve();
-    readinessWaitersRef.current.clear();
+    const waiters = readinessWaitersRef.current[mode];
+    for (const resolve of waiters) resolve();
+    waiters.clear();
   }, []);
 
   const waitForReady = useCallback(async (mode: FocusSurfaceMode) => {
@@ -89,9 +93,9 @@ export function FocusSurfaceCoordinator() {
     try {
       await new Promise<void>((resolve, reject) => {
         waiter = resolve;
-        readinessWaitersRef.current.add(resolve);
+        readinessWaitersRef.current[mode].add(resolve);
         timeout = window.setTimeout(() => {
-          readinessWaitersRef.current.delete(resolve);
+          readinessWaitersRef.current[mode].delete(resolve);
           reject(new Error(
             mode === "panel"
               ? "Focus Panel did not finish preparing."
@@ -102,7 +106,7 @@ export function FocusSurfaceCoordinator() {
       await waitForPresentedFrame();
     } finally {
       if (timeout !== undefined) window.clearTimeout(timeout);
-      if (waiter) readinessWaitersRef.current.delete(waiter);
+      if (waiter) readinessWaitersRef.current[mode].delete(waiter);
     }
   }, []);
 
@@ -243,6 +247,7 @@ export function FocusSurfaceCoordinator() {
     const target: FocusSurfacePresentation = expanded ? "timerExpanded" : "timerCompact";
     if (previous === target) return;
 
+    transitionGateRef.current = true;
     try {
       await applyFocusSurfacePresentation(target);
       publishPresentation(target);
@@ -252,6 +257,8 @@ export function FocusSurfaceCoordinator() {
       // to FloatingTimerFoundation for its own prepaint rollback.
       publishPresentation(previous);
       throw failure;
+    } finally {
+      transitionGateRef.current = false;
     }
   }, [publishPresentation]);
 
