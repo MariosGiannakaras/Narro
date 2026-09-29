@@ -27,18 +27,19 @@ code. M2–M5 and M8 remain outside this rewrite unless directly affected.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS**.
 - Milestone 6 / Gate F: **PASS** — all 16 top-level items validated.
-- Milestone 7: **ACTIVE / 8 of 14 top-level items validated**.
-- Milestones 8–10: **NOT STARTED**.
+- Milestone 7: **ACTIVE / 12 of 14 top-level items validated**; Gate 7 visual continuity and Gate 12 mixed-DPI/work-area acceptance remain open.
+- Milestone 8: **6 of 8 top-level items validated**; remaining work is sequencing-blocked behind M7 closure.
+- Milestones 9–10: **NOT STARTED**.
 
 General roadmap progress: **6 of 10 milestones complete**.
 
-M7 items 1–6 and 13–14 are validated. The earlier CI #480/#501 physical expand/collapse failures are superseded by the physical CI #503 re-test: three complete native resize cycles, including expanded subtask controls, showed no retained/duplicated action strip in the collapsed DOM or pixels. Normal-size horizontal overflow and timer/session continuity passed. Two #507 20 fps Panel→Timer captures showed blank/pale staging frames before Timer content rendered; the no-flash part of item 7 is **FAIL reproduced**. Actual Windows animations Off removed nonessential translation but both Panel→Timer and Timer→Panel still showed blank frames. The native show-before-React-mode-publication order directly permits an empty surface; the exact compositor contribution still needs testing. #507 basic T/P and both-chord ownership conflict/retry received scoped physical PASS. Visible Timer P gave one finite pulse with Windows animations Off. Hidden Timer P on #507, display-topology/DPI, and independent fullscreen cases remain open; see `work-log/2026-09-25-codex-m7-os-reduced-motion-physical.md`. Item 14's final-UI physical resource protocol completed on CI #505: three valid idle runs per state, each with zero churn, plus a separate running sample. Idle CPU medians were 0.000% of one core in both states; running average was 0.155%. Memory and caveats are in the earlier work log. No M8 work has started.
+The active M7 replacement may change the shared Focus foundation originally built in M1 and M6, but it does not reopen those milestones or reset their validated counters. Their materially affected behavior becomes regression obligation for the replacement. Historical PASS evidence validates the prior code only; M7 cannot close until the replacement later passes both its current Gate 7/12 criteria and the affected M1/M6 acceptance/invariant set. M2–M5 and already-validated M8 work remain outside the rewrite unless a direct dependency is demonstrated.
 
 **Latest CI #530 physical update:** three settled Panel→Timer→Panel shortcut cycles retained one Focus window and the paused task, but continuous capture with Windows animations On showed a pale empty focus frame and then the desktop before Timer appeared. Gate 7 visual continuity is **FAIL** on the latest validated source. The checked frames and exact build provenance are in `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md`. Remaining #530 physical matrix entries were not run; no M7 completion is claimed.
 
-## Current automated-validated source baseline
+## Current validated application source baseline
 
-Latest automated-validated source is `449eb5d1fda4a8d26832e803433209025a6dec38`, tree `51b27ba7a867dcea79a49927cb1ed4e0ee7bda6b`; resulting-main Windows CI #530 passed repository preflight, visual fixtures, and Tauri release. The exact CI #530 runtime artifact and source history are in `HANDOFF.md`. Passing automated gates does not override the latest physical Gate 7 failure. Earlier #507 shortcut and #505 resource findings retain only their recorded scope; see their immutable work logs.
+The current validated **merged application source baseline** is `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624), as recorded in `HANDOFF.md`. Later PR #191 experimental source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed exact-head Windows CI #639 but physically failed strict M7 Gate 7 and remains unmerged. The active `plan/m7-single-focus` replacement is incomplete and unvalidated; historical or experimental CI PASS results must not be promoted to validation of the replacement.
 
 ## Item 7 earlier physical candidate
 
