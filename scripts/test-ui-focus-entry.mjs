@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-const [rust, lib, api, button, main, preferences, windows, topology] = await Promise.all([
+const [rust, lib, api, button, main, preferences, windows, topology, region] = await Promise.all([
   readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/focusEntryApi.ts", import.meta.url), "utf8"),
@@ -9,6 +9,7 @@ const [rust, lib, api, button, main, preferences, windows, topology] = await Pro
   readFile(new URL("../src-tauri/src/domain/preferences.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/windows/mod.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/windows/topology.rs", import.meta.url), "utf8"),
+  readFile(new URL("../src-tauri/src/timer_region.rs", import.meta.url), "utf8"),
 ]);
 
 function requireText(haystack, needle, label) {
@@ -34,23 +35,20 @@ for (const [haystack, needle, label] of [
   [lib, "persistence::preferences::get_preferences(&connection)", "persisted placement preference source"],
   [lib, "preferences.general.selected_monitor_key", "selected monitor preference"],
   [lib, "preferences.general.focus_panel_side", "Focus Panel side preference"],
-  [lib, "domain::preferences::FocusPanelSide::Left => FocusPanelSide::Left", "left side mapping"],
-  [lib, "domain::preferences::FocusPanelSide::Right => FocusPanelSide::Right", "right side mapping"],
   [lib, "Some(monitor_key) =>", "saved monitor branch"],
   [lib, "resolve_monitor_by_key(app_handle, &monitor_key)?", "exact saved monitor resolution"],
   [lib, ".primary_monitor()", "primary monitor fallback when no monitor is selected"],
   [lib, "monitor_descriptor(0, &monitor)?.work_area", "validated primary monitor work area"],
-  [lib, "fn position_focus_panel_in_work_area(", "shared native panel positioning boundary"],
+  [lib, "fn apply_panel_native(", "single-host native Panel geometry boundary"],
   [lib, "focus_panel_edge_position(", "validated M1 edge geometry reuse"],
-  [lib, "FocusPanelPlacementIntent::Present", "explicit activating placement intent"],
-  [lib, "FocusPanelPlacementIntent::Revalidate", "explicit non-activating revalidation intent"],
-  [lib, "pub(crate) fn revalidate_open_focus_panel_after_display_change(", "open-panel display revalidation boundary"],
-  [lib, "current_focus_surface_mode() != Some(FocusSurfaceMode::Panel)", "Panel-mode guard"],
-  [lib, ".is_visible()", "visible Focus surface guard"],
+  [lib, "fn position_focus_panel(", "explicit diagnostic/Preferences Panel positioning command"],
   [lib, "fn present_focus_panel(app_handle: tauri::AppHandle)", "production native Focus presentation command"],
   [lib, "preferred_focus_panel_work_area(&app_handle)?", "preference-aware production placement"],
-  [lib, "position_focus_panel,", "diagnostic placement command registration"],
-  [lib, "present_focus_panel", "production placement command registration"],
+  [lib, "pub(crate) fn revalidate_open_focus_panel_after_display_change(", "open-panel display revalidation boundary"],
+  [lib, "current_focus_surface_mode() != Some(FocusSurfaceMode::Panel)", "Panel-mode revalidation guard"],
+  [lib, ".is_visible()", "visible Focus-surface revalidation guard"],
+  [lib, "position_focus_panel,", "Panel positioning command registration"],
+  [lib, "present_focus_panel", "production Panel presentation registration"],
   [lib, "Err(CommandError::stale_monitor_selection())", "stale selected-monitor rejection"],
   [preferences, "selected_monitor_key: None", "safe no-selection default"],
   [preferences, "focus_panel_side: FocusPanelSide::Right", "default right side"],
@@ -61,16 +59,21 @@ for (const [haystack, needle, label] of [
   [topology, "WM_SETTING_CHANGE", "event-driven work-area trigger"],
   [topology, "SPI_SETWORKAREA", "work-area setting filter"],
   [topology, "is_power_resume_event(wparam)", "resume-triggered display revalidation"],
-  [topology, "recover_visible_windows(&recovery_handle)", "M1 generic visible-area recovery first"],
-  [topology, "crate::revalidate_open_focus_panel_after_display_change(&recovery_handle)", "preference-aware open Panel revalidation"],
+  [topology, "recover_visible_windows(&recovery_handle)", "generic Main visible-area recovery first"],
+  [topology, "crate::revalidate_open_focus_panel_after_display_change(&recovery_handle)", "presentation-aware open Panel revalidation"],
+  [topology, "crate::revalidate_open_timer_after_display_change(", "presentation-aware open Timer revalidation"],
+  [topology, "OBSERVED_WINDOW_LABELS: [&str; 1] = [FOCUS_SURFACE_LABEL]", "single Focus HWND display observer"],
+  [topology, 'RECOVERABLE_WINDOW_LABELS: [&str; 1] = ["main"]', "generic recovery excludes presentation-aware Focus host"],
   [topology, "display_geometry_messages_schedule_recovery", "native trigger regression test"],
   [topology, "only_resume_power_events_request_display_revalidation", "resume trigger regression test"],
+  [region, "FOCUS_HOST_WIDTH_LOGICAL: f64 = 340.0", "validated single-host width"],
+  [region, "FOCUS_HOST_HEIGHT_LOGICAL: f64 = 700.0", "validated single-host maximum height"],
   [api, 'invoke<StartBlitzOutcome>("start_blitz"', "typed Start Blitz IPC"],
   [api, 'invoke<void>("present_focus_panel")', "preference-aware native Focus presentation IPC"],
   [button, 'data-start-blitz="true"', "explicit Start Blitz control"],
   [button, "const outcome = await startBlitz();", "click-only authoritative start request"],
   [button, 'outcome.status === "no_eligible_today_tasks"', "no-eligible UI handling"],
-  [button, "await presentFocusPanel();", "post-commit focus presentation"],
+  [button, "await presentFocusPanel();", "post-commit Focus presentation"],
   [button, "Focus session is active", "committed-start presentation failure distinction"],
   [main, "<BlitzEntryButton />", "production main entry surface"],
 ]) {
@@ -80,13 +83,11 @@ for (const [haystack, needle, label] of [
 if (button.includes("useEffect") || api.includes("useEffect")) {
   throw new Error("Start Blitz must require an explicit user action and cannot run from a render effect.");
 }
-
 for (const source of [rust, api, button]) {
   if (source.includes("openUrl") || source.includes("plugin-opener")) {
     throw new Error("Focus entry must not open task-note URLs or introduce opener side effects.");
   }
 }
-
 for (const forbidden of [
   "focus_surface_mode_panel",
   "focus_surface_focus",
@@ -103,17 +104,13 @@ for (const forbidden of [
 const startCall = button.indexOf("const outcome = await startBlitz();");
 const presentationCall = button.indexOf("await presentFocusPanel();", startCall);
 if (startCall < 0 || presentationCall < startCall) {
-  throw new Error("Focus Panel presentation must occur only after authoritative Start Blitz resolves.");
+  throw new Error("Focus presentation must occur only after authoritative Start Blitz resolves.");
 }
 
 const savedMonitorBranch = lib.indexOf("Some(monitor_key) =>");
 const savedMonitorResolution = lib.indexOf("resolve_monitor_by_key(app_handle, &monitor_key)?", savedMonitorBranch);
 const primaryFallback = lib.indexOf(".primary_monitor()", savedMonitorResolution);
-if (
-  savedMonitorBranch < 0 ||
-  savedMonitorResolution < savedMonitorBranch ||
-  primaryFallback < savedMonitorResolution
-) {
+if (savedMonitorBranch < 0 || savedMonitorResolution < savedMonitorBranch || primaryFallback < savedMonitorResolution) {
   throw new Error("Saved monitor selection must resolve exactly before the no-selection primary-monitor fallback.");
 }
 
@@ -121,33 +118,30 @@ const genericRecovery = topology.indexOf("recover_visible_windows(&recovery_hand
 const panelRevalidation = topology.indexOf(
   "crate::revalidate_open_focus_panel_after_display_change(&recovery_handle)",
 );
-if (genericRecovery < 0 || panelRevalidation < genericRecovery) {
-  throw new Error("Generic visible-area recovery must run before selected-monitor Focus Panel revalidation.");
-}
 const timerRevalidation = topology.indexOf(
-  "revalidate_visible_timer_after_display_change(",
+  "crate::revalidate_open_timer_after_display_change(",
   panelRevalidation,
 );
 const timerSave = topology.indexOf("save_if_timer_visible(&recovery_handle)", timerRevalidation);
 if (
-  timerRevalidation < panelRevalidation
+  genericRecovery < 0
+  || panelRevalidation < genericRecovery
+  || timerRevalidation < panelRevalidation
   || timerSave < timerRevalidation
-  || !topology.includes('RECOVERABLE_WINDOW_LABELS: [&str; 2] = ["main", FOCUS_SURFACE_LABEL]')
-  || !topology.includes("OBSERVED_WINDOW_LABELS: [&str; 2] = [FOCUS_SURFACE_LABEL, FLOATING_TIMER_LABEL]")
 ) {
-  throw new Error("The separate Timer must receive display events and use visible-region recovery before persistence, outside generic Panel/main recovery.");
+  throw new Error("Main recovery must precede presentation-aware Panel/Timer revalidation and Timer placement persistence.");
 }
 
 const revalidationStart = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(");
-const revalidationEnd = lib.indexOf("\nfn build_main_window", revalidationStart);
+const revalidationEnd = lib.indexOf("pub(crate) fn revalidate_open_timer_after_display_change(", revalidationStart);
 const revalidationBlock = lib.slice(revalidationStart, revalidationEnd);
 if (
-  revalidationStart < 0 ||
-  revalidationEnd < revalidationStart ||
-  revalidationBlock.includes("set_focus") ||
-  revalidationBlock.includes(".show()")
+  revalidationStart < 0
+  || revalidationEnd < revalidationStart
+  || revalidationBlock.includes("set_focus")
+  || revalidationBlock.includes(".show()")
 ) {
-  throw new Error("Display-change revalidation must not show or focus the Focus Panel.");
+  throw new Error("Display-change Panel revalidation must not show or focus the Focus surface.");
 }
 
 const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
@@ -156,4 +150,4 @@ if (handler < 0 || registeredPresentation < handler) {
   throw new Error("The native production Focus presentation command must be registered in Tauri IPC.");
 }
 
-console.log("Focus entry, placement, and display-revalidation contract checks passed.");
+console.log("Single-host Focus entry, placement, and display-revalidation contracts passed.");
