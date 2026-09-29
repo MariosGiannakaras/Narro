@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
-import { FocusPanelWindow } from "./focusPanelWindow";
+import { FocusSurfaceCoordinator } from "./FocusSurfaceCoordinator";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { TimerSessionProjection } from "./TimerSessionProjection";
 import {
@@ -114,7 +114,7 @@ const diagnostics = new URLSearchParams(window.location.search).get("diagnostics
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeRuntimeProvider>
-      {diagnostics ? <FocusDiagnostics /> : <FocusPanelWindow />}
+      {diagnostics ? <FocusDiagnostics /> : <FocusSurfaceCoordinator />}
     </ThemeRuntimeProvider>
   </React.StrictMode>,
 );
