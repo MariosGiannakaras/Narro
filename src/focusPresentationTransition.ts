@@ -14,7 +14,9 @@ export type PreparedFocusPresentationTransition<TPresentation extends string> = 
   previousPresentation: TPresentation;
   targetPresentation: TPresentation;
   waitForTargetReady: () => Promise<void>;
+  beforeNativeCommit?: () => Promise<void>;
   applyNativePresentation: (presentation: TPresentation) => Promise<void>;
+  afterNativeCommit?: () => Promise<void>;
   commitRendererPresentation: (presentation: TPresentation) => void;
 };
 
@@ -34,15 +36,19 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
   previousPresentation,
   targetPresentation,
   waitForTargetReady,
+  beforeNativeCommit,
   applyNativePresentation,
+  afterNativeCommit,
   commitRendererPresentation,
 }: PreparedFocusPresentationTransition<TPresentation>): Promise<boolean> {
   if (previousPresentation === targetPresentation) return false;
 
   await waitForTargetReady();
+  await beforeNativeCommit?.();
   await applyNativePresentation(targetPresentation);
 
   try {
+    await afterNativeCommit?.();
     commitRendererPresentation(targetPresentation);
     return true;
   } catch (transitionFailure) {
