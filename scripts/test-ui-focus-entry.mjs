@@ -43,7 +43,7 @@ for (const [haystack, needle, label] of [
   [lib, "focus_panel_edge_position(", "validated M1 edge geometry reuse"],
   [lib, "fn position_focus_panel(", "explicit diagnostic/Preferences Panel positioning command"],
   [lib, "fn present_focus_panel(app_handle: tauri::AppHandle)", "production native Focus presentation command"],
-  [lib, "preferred_focus_panel_work_area(&app_handle)?", "preference-aware production placement"],
+  [lib, "preferred_focus_panel_work_area(app_handle)", "preference-aware production placement"],
   [lib, "pub(crate) fn revalidate_open_focus_panel_after_display_change(", "open-panel display revalidation boundary"],
   [lib, "current_focus_surface_mode() != Some(FocusSurfaceMode::Panel)", "Panel-mode revalidation guard"],
   [lib, ".is_visible()", "visible Focus-surface revalidation guard"],
