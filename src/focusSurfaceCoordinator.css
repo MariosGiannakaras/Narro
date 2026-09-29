@@ -1,9 +1,19 @@
 .focus-surface-coordinator {
+  --focus-visible-height: 700px;
+  --focus-geometry-motion-duration: 270ms;
   position: relative;
   width: 340px;
   height: 700px;
   overflow: hidden;
   background: transparent;
+}
+
+.focus-surface-coordinator[data-focus-presentation="timerCompact"] {
+  --focus-visible-height: 110px;
+}
+
+.focus-surface-coordinator[data-focus-presentation="timerExpanded"] {
+  --focus-visible-height: 300px;
 }
 
 .focus-surface-coordinator[data-focus-presentation-hydrated="false"] {
@@ -16,9 +26,11 @@
   inset: 0 auto auto 0;
   width: 340px;
   box-sizing: border-box;
+  clip-path: inset(0 0 0 0 round 12px);
   transition:
-    opacity var(--motion-duration-inline) var(--motion-ease-enter),
-    transform var(--motion-duration-inline) var(--motion-ease-enter);
+    clip-path var(--focus-geometry-motion-duration) var(--motion-ease-enter),
+    opacity var(--focus-geometry-motion-duration) var(--motion-ease-enter),
+    transform var(--focus-geometry-motion-duration) var(--motion-ease-enter);
 }
 
 .focus-surface-coordinator__presentation[data-focus-presentation="panel"] {
@@ -45,13 +57,61 @@
   pointer-events: none;
 }
 
+/* Panel -> compact Timer contracts the already-painted Panel to the exact
+   compact visible height before Win32 clips/moves the persistent host. */
+.focus-surface-coordinator[data-focus-geometry-motion-from="panel"][data-focus-geometry-motion-to="timerCompact"][data-focus-geometry-motion-phase="running"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="active"] {
+  clip-path: inset(0 0 590px 0 round 12px);
+}
+
+.focus-surface-coordinator[data-focus-geometry-motion-from="panel"][data-focus-geometry-motion-to="timerCompact"][data-focus-geometry-motion-phase="start"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="timer"][data-focus-visibility="preparing"] {
+  opacity: 0.92;
+  transform: translateY(8px);
+}
+
+.focus-surface-coordinator[data-focus-geometry-motion-from="panel"][data-focus-geometry-motion-to="timerCompact"][data-focus-geometry-motion-phase="running"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="timer"][data-focus-visibility="preparing"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Timer -> Panel first expands the native region while the prepared Panel is
+   clipped to the Timer's current visible height, then reveals the same WebView
+   continuously. Compact and expanded Timer origins are handled separately. */
+.focus-surface-coordinator[data-focus-geometry-motion-from="timerCompact"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="start"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
+  clip-path: inset(0 0 590px 0 round 12px);
+}
+
+.focus-surface-coordinator[data-focus-geometry-motion-from="timerExpanded"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="start"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
+  clip-path: inset(0 0 400px 0 round 12px);
+}
+
+.focus-surface-coordinator[data-focus-geometry-motion-from="timerCompact"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"],
+.focus-surface-coordinator[data-focus-geometry-motion-from="timerExpanded"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
+  clip-path: inset(0 0 0 0 round 12px);
+}
+
+.focus-surface-coordinator[data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="timer"][data-focus-visibility="active"] {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
 .focus-surface-coordinator__presentation[data-focus-visibility="inactive"] {
   display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .focus-surface-coordinator {
+    --focus-geometry-motion-duration: 1ms;
+  }
+
   .focus-surface-coordinator__presentation {
-    transition-duration: 1ms;
     transform: none;
   }
 }
