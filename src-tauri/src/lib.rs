@@ -822,9 +822,38 @@ fn apply_focus_surface_presentation_internal(
     // Re-presenting an already committed Panel is not a no-op: the
     // focusSurface normally starts hidden in Panel state, and each explicit
     // Panel presentation must honor the latest selected-monitor/side
-    // preferences before it becomes visible. Same Timer presentation requests
-    // can remain no-ops because they must preserve the user's dragged position.
+    // preferences before it becomes visible.
+    //
+    // A visible Timer same-presentation request is a no-op so a user's current
+    // dragged position is preserved. A hidden Timer must instead restore its
+    // saved visible rectangle against the *current* monitor topology before it
+    // is shown again; otherwise a disconnected monitor can strand it off-screen.
     if previous == target && target != FocusSurfacePresentation::Panel {
+        let visible = window
+            .is_visible()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
+        if visible {
+            return Ok(());
+        }
+
+        let snapshot = capture_focus_native_snapshot(&window)?;
+        let _save_guard = floating_placement::suspend_saves();
+        let recovery = floating_placement::restore_for_timer(
+            app_handle,
+            &window,
+            target.expanded(),
+        )
+        .and_then(|_| timer_region::apply(&window, target.region()))
+        .and_then(|_| set_focus_presentation_attributes(&window, target));
+        if let Err(error) = recovery {
+            return match restore_focus_native_snapshot(&window, &snapshot) {
+                Ok(()) => Err(error),
+                Err(rollback) => Err(CommandError::new(
+                    "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                    format!("{error}; rollback failed: {rollback}"),
+                )),
+            };
+        }
         return Ok(());
     }
 
