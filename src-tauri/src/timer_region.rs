@@ -1,25 +1,59 @@
-//! Window-region clipping for the persistent, fixed-size Timer WebView.
+//! Native visible-region clipping for the single persistent Focus WebView.
 //!
-//! The HWND remains at expanded geometry. Compact mode changes only the native
-//! visible region, so WebView2 never receives a resize during the transition.
+//! The underlying focusSurface HWND/WebView stays at the maximum Focus host
+//! geometry. Panel, compact Timer and expanded Timer change only the visible
+//! native region during ordinary presentation switches.
 
 use crate::error::{CommandError, CommandResult};
 
-fn clipped_height(outer_height: u32, scale: f64, expanded: bool) -> Option<u32> {
-    if !scale.is_finite() || scale <= 0.0 {
+pub const FOCUS_HOST_WIDTH_LOGICAL: f64 = 340.0;
+pub const FOCUS_HOST_HEIGHT_LOGICAL: f64 = 700.0;
+pub const TIMER_COMPACT_HEIGHT_LOGICAL: f64 = 110.0;
+pub const TIMER_EXPANDED_HEIGHT_LOGICAL: f64 = 300.0;
+
+pub fn host_logical_size() -> tauri::LogicalSize<f64> {
+    tauri::LogicalSize {
+        width: FOCUS_HOST_WIDTH_LOGICAL,
+        height: FOCUS_HOST_HEIGHT_LOGICAL,
+    }
+}
+
+pub fn panel_logical_size() -> tauri::LogicalSize<f64> {
+    host_logical_size()
+}
+
+pub fn timer_logical_size(expanded: bool) -> tauri::LogicalSize<f64> {
+    tauri::LogicalSize {
+        width: FOCUS_HOST_WIDTH_LOGICAL,
+        height: if expanded {
+            TIMER_EXPANDED_HEIGHT_LOGICAL
+        } else {
+            TIMER_COMPACT_HEIGHT_LOGICAL
+        },
+    }
+}
+
+fn clipped_axis(outer: u32, logical: f64, scale: f64) -> Option<u32> {
+    if !scale.is_finite() || scale <= 0.0 || !logical.is_finite() || logical <= 0.0 {
         return None;
     }
-    let compact_height = (110.0 * scale).round().max(1.0) as u32;
-    Some(if expanded {
-        outer_height
-    } else {
-        compact_height.min(outer_height)
+    Some(((logical * scale).round().max(1.0) as u32).min(outer))
+}
+
+fn clipped_size(
+    outer: tauri::PhysicalSize<u32>,
+    scale: f64,
+    logical: tauri::LogicalSize<f64>,
+) -> Option<tauri::PhysicalSize<u32>> {
+    Some(tauri::PhysicalSize {
+        width: clipped_axis(outer.width, logical.width, scale)?,
+        height: clipped_axis(outer.height, logical.height, scale)?,
     })
 }
 
 #[cfg(windows)]
 mod native {
-    use super::{clipped_height, CommandError, CommandResult};
+    use super::{clipped_size, CommandError, CommandResult};
     use std::ffi::c_void;
 
     #[link(name = "gdi32")]
@@ -40,56 +74,67 @@ mod native {
 
     pub fn visible_size(
         window: &tauri::WebviewWindow,
-        expanded: bool,
+        logical: tauri::LogicalSize<f64>,
     ) -> CommandResult<tauri::PhysicalSize<u32>> {
         let outer = window.outer_size().map_err(|error| {
             CommandError::new(
-                "TIMER_REGION_FAILED",
-                format!("read Timer outer size: {error}"),
+                "FOCUS_REGION_FAILED",
+                format!("read focusSurface outer size: {error}"),
             )
         })?;
         let scale = window.scale_factor().map_err(|error| {
             CommandError::new(
-                "TIMER_REGION_FAILED",
-                format!("read Timer DPI scale: {error}"),
+                "FOCUS_REGION_FAILED",
+                format!("read focusSurface DPI scale: {error}"),
             )
         })?;
-        let height = clipped_height(outer.height, scale, expanded).ok_or_else(|| {
-            CommandError::new("TIMER_REGION_FAILED", "Timer DPI scale is invalid")
-        })?;
-        Ok(tauri::PhysicalSize {
-            width: outer.width,
-            height,
+        clipped_size(outer, scale, logical).ok_or_else(|| {
+            CommandError::new(
+                "FOCUS_REGION_FAILED",
+                "focusSurface logical region or DPI scale is invalid",
+            )
         })
     }
 
-    pub fn apply(window: &tauri::WebviewWindow, expanded: bool) -> CommandResult<()> {
-        let visible = visible_size(window, expanded)?;
+    pub fn apply(
+        window: &tauri::WebviewWindow,
+        logical: tauri::LogicalSize<f64>,
+    ) -> CommandResult<()> {
+        let visible = visible_size(window, logical)?;
         let hwnd = window.hwnd().map_err(|error| {
             CommandError::new(
-                "TIMER_REGION_FAILED",
-                format!("resolve Timer HWND: {error}"),
+                "FOCUS_REGION_FAILED",
+                format!("resolve focusSurface HWND: {error}"),
             )
         })?;
         let width = i32::try_from(visible.width).map_err(|_| {
-            CommandError::new("TIMER_REGION_FAILED", "Timer width exceeds Win32 limits")
+            CommandError::new(
+                "FOCUS_REGION_FAILED",
+                "focusSurface region width exceeds Win32 limits",
+            )
         })?;
         let height = i32::try_from(visible.height).map_err(|_| {
-            CommandError::new("TIMER_REGION_FAILED", "Timer height exceeds Win32 limits")
+            CommandError::new(
+                "FOCUS_REGION_FAILED",
+                "focusSurface region height exceeds Win32 limits",
+            )
         })?;
-        // On success SetWindowRgn owns the HRGN; on failure we must delete it.
+
+        // On success SetWindowRgn owns the HRGN. If SetWindowRgn fails, Narro
+        // retains ownership and must delete the region.
         let region = unsafe { CreateRectRgn(0, 0, width, height) };
         if region.is_null() {
             return Err(CommandError::new(
-                "TIMER_REGION_FAILED",
+                "FOCUS_REGION_FAILED",
                 format!("CreateRectRgn failed: {}", unsafe { GetLastError() }),
             ));
         }
+
         if unsafe { SetWindowRgn(hwnd.0 as isize as *mut c_void, region, 1) } == 0 {
             let error = unsafe { GetLastError() };
             unsafe { DeleteObject(region) };
             return Err(CommandError::new(
-                "TIMER_REGION_FAILED",
+                "FOCUS_REGION_FAILED",
                 format!("SetWindowRgn failed: {error}"),
             ));
         }
@@ -99,22 +144,22 @@ mod native {
 
 #[cfg(not(windows))]
 mod native {
-    use super::{clipped_height, CommandResult};
+    use super::{clipped_size, CommandResult};
 
     pub fn visible_size(
         window: &tauri::WebviewWindow,
-        expanded: bool,
+        logical: tauri::LogicalSize<f64>,
     ) -> CommandResult<tauri::PhysicalSize<u32>> {
         let outer = window.outer_size().map_err(|error| {
-            crate::error::CommandError::new("TIMER_REGION_FAILED", error.to_string())
+            crate::error::CommandError::new("FOCUS_REGION_FAILED", error.to_string())
         })?;
-        Ok(tauri::PhysicalSize {
-            width: outer.width,
-            height: clipped_height(outer.height, 1.0, expanded).unwrap_or(outer.height),
-        })
+        Ok(clipped_size(outer, 1.0, logical).unwrap_or(outer))
     }
 
-    pub fn apply(_window: &tauri::WebviewWindow, _expanded: bool) -> CommandResult<()> {
+    pub fn apply(
+        _window: &tauri::WebviewWindow,
+        _logical: tauri::LogicalSize<f64>,
+    ) -> CommandResult<()> {
         Ok(())
     }
 }
@@ -123,19 +168,52 @@ pub use native::{apply, visible_size};
 
 #[cfg(test)]
 mod tests {
-    use super::clipped_height;
+    use super::{clipped_size, host_logical_size, panel_logical_size, timer_logical_size};
 
     #[test]
-    fn compact_region_tracks_dpi_without_resizing_expanded_host() {
-        assert_eq!(clipped_height(300, 1.0, false), Some(110));
-        assert_eq!(clipped_height(375, 1.25, false), Some(138));
-        assert_eq!(clipped_height(600, 2.0, false), Some(220));
-        assert_eq!(clipped_height(375, 1.25, true), Some(375));
+    fn product_presentations_share_validated_340px_width() {
+        assert_eq!(host_logical_size().width, 340.0);
+        assert_eq!(panel_logical_size().width, 340.0);
+        assert_eq!(timer_logical_size(false).width, 340.0);
+        assert_eq!(timer_logical_size(true).width, 340.0);
     }
 
     #[test]
-    fn compact_region_never_exceeds_constrained_host() {
-        assert_eq!(clipped_height(92, 1.25, false), Some(92));
-        assert_eq!(clipped_height(300, 0.0, false), None);
+    fn timer_region_tracks_dpi_without_resizing_focus_host() {
+        let outer = tauri::PhysicalSize {
+            width: 425,
+            height: 875,
+        };
+        assert_eq!(
+            clipped_size(outer, 1.25, timer_logical_size(false)),
+            Some(tauri::PhysicalSize {
+                width: 425,
+                height: 138,
+            }),
+        );
+        assert_eq!(
+            clipped_size(outer, 1.25, timer_logical_size(true)),
+            Some(tauri::PhysicalSize {
+                width: 425,
+                height: 375,
+            }),
+        );
+        assert_eq!(
+            clipped_size(outer, 1.25, panel_logical_size()),
+            Some(outer),
+        );
+    }
+
+    #[test]
+    fn constrained_host_clamps_region_to_actual_outer_size() {
+        let outer = tauri::PhysicalSize {
+            width: 250,
+            height: 200,
+        };
+        assert_eq!(
+            clipped_size(outer, 1.5, timer_logical_size(true)),
+            Some(outer),
+        );
+        assert_eq!(clipped_size(outer, 0.0, timer_logical_size(false)), None);
     }
 }
