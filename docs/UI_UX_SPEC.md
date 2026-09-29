@@ -34,7 +34,7 @@ Narro normally uses two webview windows on Windows:
    - **Focus Panel** — tall/narrow focus workspace;
    - **Floating Timer** — compact always-on-top widget.
 
-Focus Panel and Floating Timer are two views of one authoritative Rust-owned active session, not independent apps or timers.
+Focus Panel and Floating Timer are two views of one authoritative Rust-owned active session, not independent apps or timers. They also share one persistent `focusSurface` WebView: Panel/compact/expanded are dynamic React presentations inside that host. Normal presentation switching must not be implemented by closing/opening, hiding/showing, or resizing separate Focus WebViews.
 
 ## 1.1 Main window
 
