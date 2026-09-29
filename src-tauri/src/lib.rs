@@ -681,9 +681,13 @@ fn focus_host_size_for_target_scale(
     }
 
     let desired = GeometrySize {
-        width: ((timer_region::FOCUS_HOST_WIDTH_LOGICAL * target_scale).round().max(1.0) as u32)
+        width: ((timer_region::FOCUS_HOST_WIDTH_LOGICAL * target_scale)
+            .round()
+            .max(1.0) as u32)
             .min(work_area.size.width),
-        height: ((timer_region::FOCUS_HOST_HEIGHT_LOGICAL * target_scale).round().max(1.0) as u32)
+        height: ((timer_region::FOCUS_HOST_HEIGHT_LOGICAL * target_scale)
+            .round()
+            .max(1.0) as u32)
             .min(work_area.size.height),
     };
     if desired.width == 0 || desired.height == 0 {
@@ -850,10 +854,11 @@ fn apply_focus_native_target(
     target: FocusSurfacePresentation,
 ) -> CommandResult<()> {
     match target {
-        FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle)
-            .and_then(|(work_area, scale_factor, side)| {
+        FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle).and_then(
+            |(work_area, scale_factor, side)| {
                 apply_panel_native(window, work_area, scale_factor, side)
-            }),
+            },
+        ),
         FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
             apply_timer_native(app_handle, window, previous, target)
         }
@@ -881,11 +886,20 @@ fn planned_focus_presentation_position(
 fn interpolate_focus_axis(start: i32, end: i32, step: u64, steps: u64) -> CommandResult<i32> {
     let start = i64::from(start);
     let delta = i64::from(end) - start;
-    let value = start + delta * i64::try_from(step).map_err(|_| {
-        CommandError::new("FOCUS_PRESENTATION_FAILED", "position animation step overflowed")
-    })? / i64::try_from(steps).map_err(|_| {
-        CommandError::new("FOCUS_PRESENTATION_FAILED", "position animation step count overflowed")
-    })?;
+    let value = start
+        + delta
+            * i64::try_from(step).map_err(|_| {
+                CommandError::new(
+                    "FOCUS_PRESENTATION_FAILED",
+                    "position animation step overflowed",
+                )
+            })?
+            / i64::try_from(steps).map_err(|_| {
+                CommandError::new(
+                    "FOCUS_PRESENTATION_FAILED",
+                    "position animation step count overflowed",
+                )
+            })?;
     i32::try_from(value).map_err(|_| {
         CommandError::new(
             "FOCUS_PRESENTATION_FAILED",
@@ -902,9 +916,7 @@ fn animate_focus_position(
     if duration_ms == 0 || duration_ms > FOCUS_POSITION_MOTION_MAX_MS {
         return Err(CommandError::invalid_argument(
             "durationMs",
-            format!(
-                "must be between 1 and {FOCUS_POSITION_MOTION_MAX_MS} milliseconds"
-            ),
+            format!("must be between 1 and {FOCUS_POSITION_MOTION_MAX_MS} milliseconds"),
         ));
     }
 
@@ -919,9 +931,7 @@ fn animate_focus_position(
         return Ok(());
     }
 
-    let steps = duration_ms
-        .div_ceil(FOCUS_POSITION_MOTION_STEP_MS)
-        .max(1);
+    let steps = duration_ms.div_ceil(FOCUS_POSITION_MOTION_STEP_MS).max(1);
     let mut elapsed_ms = 0_u64;
     for step in 1..=steps {
         let target_elapsed_ms = duration_ms * step / steps;
@@ -960,7 +970,9 @@ fn animate_focus_surface_presentation_internal(
     let snapshot = capture_focus_native_snapshot(&window)?;
     if previous.mode() == FocusSurfaceMode::Timer && target == FocusSurfacePresentation::Panel {
         if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
-            eprintln!("Could not save Floating Timer position before animated Panel return: {error}");
+            eprintln!(
+                "Could not save Floating Timer position before animated Panel return: {error}"
+            );
         }
     }
 
@@ -972,9 +984,7 @@ fn animate_focus_surface_presentation_internal(
         // Timer -> Panel must expose the already-prepared Panel clip while the
         // persistent HWND moves. The focus document itself stays transparent,
         // so expanding the native region does not reveal a blank host.
-        if previous.mode() == FocusSurfaceMode::Timer
-            && target == FocusSurfacePresentation::Panel
-        {
+        if previous.mode() == FocusSurfaceMode::Timer && target == FocusSurfacePresentation::Panel {
             timer_region::apply_full_host(&window)?;
         }
 
