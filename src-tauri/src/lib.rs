@@ -819,7 +819,12 @@ fn apply_focus_surface_presentation_internal(
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
     let previous = current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
 
-    if previous == target {
+    // Re-presenting an already committed Panel is not a no-op: the
+    // focusSurface normally starts hidden in Panel state, and each explicit
+    // Panel presentation must honor the latest selected-monitor/side
+    // preferences before it becomes visible. Same Timer presentation requests
+    // can remain no-ops because they must preserve the user's dragged position.
+    if previous == target && target != FocusSurfacePresentation::Panel {
         return Ok(());
     }
 
