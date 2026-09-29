@@ -30,6 +30,13 @@ import {
 import "./focusSurfaceCoordinator.css";
 
 const PRESENTATION_READY_TIMEOUT_MS = 7_000;
+const FOCUS_GEOMETRY_MOTION_MS = 270;
+
+type FocusGeometryMotion = {
+  from: FocusSurfacePresentation;
+  to: FocusSurfacePresentation;
+  phase: "start" | "running";
+};
 
 type PresentationReadiness = {
   panel: boolean;
@@ -58,6 +65,7 @@ export function FocusSurfaceCoordinator() {
   const [completionSuccess, setCompletionSuccess] = useState<FocusCompletionSuccessState | null>(null);
   const [completionSuccessPending, setCompletionSuccessPending] = useState(false);
   const [completionSuccessError, setCompletionSuccessError] = useState<string | null>(null);
+  const [geometryMotion, setGeometryMotion] = useState<FocusGeometryMotion | null>(null);
 
   const presentationRef = useRef<FocusSurfacePresentation>("panel");
   const presentationHydratedRef = useRef(false);
@@ -120,6 +128,23 @@ export function FocusSurfaceCoordinator() {
       if (timeout !== undefined) window.clearTimeout(timeout);
       if (waiter) readinessWaitersRef.current[mode].delete(waiter);
     }
+  }, []);
+
+  const runGeometryMotion = useCallback(async (
+    from: FocusSurfacePresentation,
+    to: FocusSurfacePresentation,
+  ) => {
+    if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
+
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? 1
+      : FOCUS_GEOMETRY_MOTION_MS;
+    flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
+    await waitForPresentedFrame();
+    flushSync(() => setGeometryMotion({ from, to, phase: "running" }));
+    await new Promise<void>((resolve) => {
+      window.setTimeout(resolve, duration);
+    });
   }, []);
 
   useEffect(() => {
@@ -200,11 +225,19 @@ export function FocusSurfaceCoordinator() {
       // The target subtree is fully painted below the committed presentation.
       // The helper enforces prepaint -> native transaction -> renderer ownership,
       // and restores native state if renderer publication itself ever throws.
+      const contractingToTimer = focusSurfaceModeOf(previousPresentation) === "panel"
+        && targetMode === "timer";
       await commitPreparedFocusPresentation({
         previousPresentation,
         targetPresentation,
         waitForTargetReady: () => waitForReady(targetMode),
+        beforeNativeCommit: contractingToTimer
+          ? () => runGeometryMotion(previousPresentation, targetPresentation)
+          : undefined,
         applyNativePresentation: applyFocusSurfacePresentation,
+        afterNativeCommit: contractingToTimer
+          ? undefined
+          : () => runGeometryMotion(previousPresentation, targetPresentation),
         commitRendererPresentation: (next) => {
           flushSync(() => publishPresentation(next));
         },
@@ -233,10 +266,11 @@ export function FocusSurfaceCoordinator() {
         setShortcutStatus(`Quick task creation could not open the Focus Panel. ${primary}`);
       }
     } finally {
+      setGeometryMotion(null);
       transitionGateRef.current = false;
       setTransitionPending(false);
     }
-  }, [presentationHydrated, publishPresentation, timerResizePending, waitForReady]);
+  }, [presentationHydrated, publishPresentation, runGeometryMotion, timerResizePending, waitForReady]);
 
   requestModeRef.current = requestMode;
 
@@ -483,6 +517,10 @@ export function FocusSurfaceCoordinator() {
       data-focus-presentation={presentation}
       data-focus-presentation-hydrated={presentationHydrated ? "true" : "false"}
       data-focus-transition-pending={transitionPending ? "true" : "false"}
+      data-focus-geometry-motion={geometryMotion ? "true" : "false"}
+      data-focus-geometry-motion-from={geometryMotion?.from ?? ""}
+      data-focus-geometry-motion-to={geometryMotion?.to ?? ""}
+      data-focus-geometry-motion-phase={geometryMotion?.phase ?? ""}
       aria-busy={!presentationHydrated || transitionPending || timerResizePending}
     >
       {renderPanel ? (
@@ -490,8 +528,8 @@ export function FocusSurfaceCoordinator() {
           className="focus-surface-coordinator__presentation"
           data-focus-presentation="panel"
           data-focus-visibility={panelActive ? "active" : "preparing"}
-          aria-hidden={panelActive ? undefined : true}
-          inert={!panelActive}
+          aria-hidden={panelActive && completionSuccess === null ? undefined : true}
+          inert={!panelActive || completionSuccess !== null}
         >
           <FocusPanel
             sharedTimerProjection={sharedTimerProjection}
@@ -512,8 +550,8 @@ export function FocusSurfaceCoordinator() {
           className="focus-surface-coordinator__presentation"
           data-focus-presentation="timer"
           data-focus-visibility={timerActive ? "active" : "preparing"}
-          aria-hidden={timerActive ? undefined : true}
-          inert={!timerActive}
+          aria-hidden={timerActive && completionSuccess === null ? undefined : true}
+          inert={!timerActive || completionSuccess !== null}
         >
           <FloatingTimerFoundation
             sharedTimerProjection={sharedTimerProjection}
