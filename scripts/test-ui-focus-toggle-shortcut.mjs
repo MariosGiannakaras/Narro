@@ -31,14 +31,14 @@ invariant(
 const handlerStart = shortcuts.indexOf("fn schedule_focus_toggle_trigger()");
 const handlerEnd = shortcuts.indexOf("fn schedule_find_timer_trigger()", handlerStart);
 const handler = shortcuts.slice(handlerStart, handlerEnd);
-const show = handler.indexOf("crate::show_and_focus(&window)");
+const show = handler.indexOf("crate::show_current_focus_surface(&trigger_handle)");
 const trigger = handler.indexOf("manager.record_focus_toggle_trigger()", show);
 const emit = handler.indexOf(".emit(FOCUS_TOGGLE_EVENT, payload.focus_toggle_trigger_count)", trigger);
 invariant(
   handlerStart >= 0 && handlerEnd > handlerStart
     && show >= 0 && show < trigger && trigger < emit
     && handler.includes("crate::current_focus_surface_mode().is_none()")
-    && handler.includes("crate::show_current_focus_surface(&trigger_handle)")
+    && !handler.includes("crate::show_and_focus(&window)")
     && !handler.includes("get_webview_window(FOCUS_SURFACE_LABEL)")
     && !handler.includes("FLOATING_TIMER_LABEL")
     && handler.includes("record_and_report_focus_toggle_error"),
