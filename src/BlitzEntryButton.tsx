@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
-import { presentFocusPanel, startBlitz } from "./focusEntryApi";
+import { presentFocusForBlitz, startBlitz } from "./focusEntryApi";
 
 export function BlitzEntryButton() {
   const [pending, setPending] = useState(false);
@@ -26,7 +26,7 @@ export function BlitzEntryButton() {
       setStatus(committedStatus);
 
       try {
-        await presentFocusPanel();
+        await presentFocusForBlitz();
       } catch (presentationFailure: unknown) {
         setError(
           `Focus session is active, but the Focus Panel could not be shown. ${formatInvokeError(presentationFailure)}`,
