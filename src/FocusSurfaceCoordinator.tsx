@@ -68,6 +68,7 @@ export function FocusSurfaceCoordinator() {
   });
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
+  const presentationReconcileRevisionRef = useRef(0);
   const quickTaskAfterPanelRef = useRef(false);
   const requestModeRef = useRef<(mode: FocusSurfaceMode, quickTask?: boolean) => Promise<void>>(async () => {});
 
@@ -291,31 +292,40 @@ export function FocusSurfaceCoordinator() {
     let disposed = false;
     let stopListening: (() => void) | undefined;
 
+    const reconcileAuthoritativePresentation = async () => {
+      const revision = presentationReconcileRevisionRef.current + 1;
+      presentationReconcileRevisionRef.current = revision;
+      try {
+        const authoritative = await getFocusSurfacePresentation();
+        if (
+          !disposed
+          && revision === presentationReconcileRevisionRef.current
+          && !transitionGateRef.current
+        ) {
+          publishPresentation(authoritative);
+        }
+      } catch (failure: unknown) {
+        if (!disposed && revision === presentationReconcileRevisionRef.current) {
+          setTransitionError(formatInvokeError(failure));
+        }
+      }
+    };
+
     // Subscribe before taking the snapshot so a native presentation commit
     // cannot fall into a snapshot/listener gap. Events are invalidation hints;
-    // the authoritative native snapshot always wins.
+    // the authoritative native snapshot always wins. The revision token also
+    // prevents slower, older IPC responses from overwriting a newer snapshot.
     void listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT, () => {
       if (disposed || transitionGateRef.current) return;
-      void getFocusSurfacePresentation()
-        .then((authoritative) => {
-          if (!disposed && !transitionGateRef.current) publishPresentation(authoritative);
-        })
-        .catch((failure: unknown) => {
-          if (!disposed) setTransitionError(formatInvokeError(failure));
-        });
+      void reconcileAuthoritativePresentation();
     })
-      .then(async (unlisten) => {
+      .then((unlisten) => {
         if (disposed) {
           unlisten();
           return;
         }
         stopListening = unlisten;
-        try {
-          const authoritative = await getFocusSurfacePresentation();
-          if (!disposed && !transitionGateRef.current) publishPresentation(authoritative);
-        } catch (failure: unknown) {
-          if (!disposed) setTransitionError(formatInvokeError(failure));
-        }
+        void reconcileAuthoritativePresentation();
       })
       .catch((failure: unknown) => {
         if (!disposed) setTransitionError(formatInvokeError(failure));
@@ -323,6 +333,7 @@ export function FocusSurfaceCoordinator() {
 
     return () => {
       disposed = true;
+      presentationReconcileRevisionRef.current += 1;
       stopListening?.();
     };
   }, [publishPresentation]);
