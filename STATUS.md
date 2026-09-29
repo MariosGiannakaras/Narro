@@ -8,16 +8,14 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 **Milestone 7 — Floating Timer mode.**
 
-**Current M7 direction, 2026-09-29:** the user chose a documentation-only planning
-handoff for a new single-`focusSurface` implementation. The next chat is to
-implement a fixed-maximum-size Focus HWND/WebView, React Panel/Timer presentation
+**Current M7 direction, 2026-09-29:** the user authorized source implementation
+of a fixed-maximum-size `focusSurface` HWND/WebView, React Panel/Timer presentation
 switching, and DPI-aware native region clipping instead of PR #191's two Focus
-WebViews. This is technically plausible from the existing `SetWindowRgn` Timer
-implementation, but **no replacement code or validation exists yet**. The user
-explicitly deferred all tests, builds, CI, app launches and physical checks
-until implementation is complete and they authorize testing. The executable
-plan is `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`; PR #191 remains unmerged and
-Gate 7/12 remain OPEN/FAIL.
+WebViews. Implementation is **in progress** on `plan/m7-single-focus`; its code
+is unvalidated. The user explicitly deferred all tests, builds, CI, app launches
+and physical checks until implementation is complete and they authorize testing.
+The executable plan is `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`; PR #191 remains
+unmerged and Gate 7/12 remain OPEN/FAIL.
 The replacement spans the affected M1 native Focus window foundation, M6 Panel
 presentation and M7 Timer/transition composition as one coherent source change.
 Earlier milestone PASS records are historical; they do not certify replacement

@@ -8,6 +8,8 @@ GitHub `main` is the durable source truth.
 
 `6/10M || 4/4 | 6/8`
 
+**Implementation in progress on `plan/m7-single-focus` (2026-09-29).** The user has now authorized source changes for the single fixed-host Focus composition. The Tauri window/capability/Vite entry cleanup has begun; native and React consolidation are being implemented in this same checkout. Until a later explicit user instruction, do not run tests, builds, CI, app launches or physical checks. Treat all newly edited source as unvalidated and keep Gate 7/12 open. If this session stops early, continue the incomplete implementation from this branch and inspect its Git diff before doing anything else.
+
 - Roadmap: **6/10 milestones complete**.
 - M7: **12/14 top-level checklist items validated** after the CI #624 physical batch; Gates 7 and 12 remain FAIL and M7 closure remains OPEN.
 - M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.

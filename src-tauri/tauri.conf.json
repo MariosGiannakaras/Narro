@@ -22,22 +22,10 @@
         "label": "focusSurface",
         "title": "Narro - Focus",
         "url": "focus.html",
-        "width": 320,
-        "height": 800,
+        "width": 400,
+        "height": 700,
         "visible": false,
         "alwaysOnTop": true,
-        "decorations": false,
-        "transparent": true
-      },
-      {
-        "label": "floatingTimer",
-        "title": "Narro - Floating Timer",
-        "url": "timer.html",
-        "width": 340,
-        "height": 300,
-        "visible": false,
-        "alwaysOnTop": true,
-        "skipTaskbar": true,
         "decorations": false,
         "transparent": true
       }
