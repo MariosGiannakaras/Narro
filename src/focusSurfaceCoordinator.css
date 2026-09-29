@@ -6,6 +6,11 @@
   background: transparent;
 }
 
+.focus-surface-coordinator[data-focus-presentation-hydrated="false"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .focus-surface-coordinator__presentation {
   position: absolute;
   inset: 0 auto auto 0;
