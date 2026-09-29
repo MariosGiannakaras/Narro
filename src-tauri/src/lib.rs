@@ -1043,12 +1043,17 @@ async fn main_window_recreate(app_handle: tauri::AppHandle) -> CommandResult<()>
     Ok(())
 }
 
+pub(crate) fn show_current_focus_surface(app_handle: &tauri::AppHandle) -> CommandResult<()> {
+    let presentation =
+        current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
+    apply_focus_surface_presentation_internal(app_handle, presentation)?;
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    show_and_focus(&window)
+}
+
 #[tauri::command]
 fn focus_surface_show(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
-    window
-        .show()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show", error))
+    show_current_focus_surface(&app_handle)
 }
 
 #[tauri::command]
@@ -1107,13 +1112,8 @@ fn install_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
             if event.id() == "show-main" {
                 request_show_or_recreate_main(app_handle.clone());
             } else if event.id() == "show-focus" {
-                match get_window(app_handle, FOCUS_SURFACE_LABEL) {
-                    Ok(window) => {
-                        if let Err(error) = show_and_focus(&window) {
-                            eprintln!("Failed to show Narro focus surface: {error}");
-                        }
-                    }
-                    Err(error) => eprintln!("Failed to show Narro focus surface: {error}"),
+                if let Err(error) = show_current_focus_surface(app_handle) {
+                    eprintln!("Failed to show Narro focus surface: {error}");
                 }
             } else if event.id() == "quit" {
                 if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
