@@ -59,7 +59,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] harness created and compiles in Windows CI
   - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation
 
-**Current replacement validation checkpoint (2026-09-29, AUTOMATED PASS / PHYSICAL OPEN):** PR #192 exact head `73d10ab6a21d731ca363e9932b4ccaf13a000b43` passed authoritative Windows CI #672 / run `36589997295`. Repository Preflight, single-Focus architecture/transition contracts, frontend build, Rust fmt/check/clippy/tests, visual-regression capture/validation, reused frontend-dist verification and Tauri release build all passed. Runtime artifact `narro-m1-runtime-harness-windows-x64`: id `11043444940`, digest `sha256:e1110b10c6d7cb867401126df931f3b52af414f097bb6a0bd9d790f6dac2fd76`. Visual artifact `narro-m5-visual-regression`: id `11043762203`, digest `sha256:51f21e05abd5aace6147f6be86c4645371d8dd06dc1f459375752d72c69a46cb`. This closes the automated-only replacement checks above; interactive Windows behavior, Gate 7 continuity, Gate 12 mixed-DPI recovery, floating performance measurement and resulting-main closure remain OPEN.
+**Current replacement validation checkpoint (2026-09-29, AUTOMATED PASS / GATE 7 PHYSICAL FAIL):** PR #192 exact head `73d10ab6a21d731ca363e9932b4ccaf13a000b43` passed authoritative Windows CI #672 / run `36589997295`, including Repository Preflight, frontend/Rust checks/tests, visual regression and Tauri release. Exact-artifact 60 fps Windows testing with animations On then **failed Gate 7**: four Panel→Timer boundaries expose ~0.23–0.25 s of blank/light 340×700 host area, with shorter reverse-boundary exposure. Compact↔expanded cycles did not show the same full-height tail. The evidence-backed cause is the opaque focus document canvas becoming visible while renderer clipping and Win32 region temporarily differ. Keep PR #192 and the single-host architecture; apply the narrow focus-document transparency correction and revalidate. Gate 12, floating performance and resulting-main closure remain OPEN.
 
 Acceptance criteria:
 
@@ -430,7 +430,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** the single-Focus replacement automated checkpoint has passed at exact PR #192 head `73d10ab6a21d731ca363e9932b4ccaf13a000b43` in Windows CI #672. Continue the affected dependency chain in order: M1/M6 interactive replacement checks → M7 Gate 7 continuity and Gate 12 mixed-DPI validation → affected M8 shortcut revalidation. Do not close any physical item from CI evidence.
+**Current execution priority:** PR #192 exact head `73d10ab6...` passed Windows CI #672 but physically failed Gate 7. Fix only the observed blank/light host exposure on the same PR by making the focus document background transparent while preserving opaque Panel/Timer component surfaces and all native/session architecture. Re-run exact-head CI, then repeat Gate 7. Gate 12 mixed-DPI remains open; affected M8 work stays blocked.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
