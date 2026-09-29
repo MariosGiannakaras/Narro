@@ -271,7 +271,7 @@ Acceptance criteria:
 - display hotplug cannot strand the panel off-screen
 - normal and reduced-motion behavior pass interaction tests
 
-**Gate F result: PASS / proceed to Milestone 7.** All 16 Milestone 6 items are validated. PR #116 exact head `f0e02570308d86416861c53e1d296e5edb309ef8` passed Windows CI #445; expected-head guarded squash merge `ab5818fa92970655b63323839111a1977a5837a7` passed resulting-main Windows CI #446.
+**Historical Gate F initial result:** all original 16 Milestone 6 items passed on the superseded Focus-host implementation. PR #116 exact head `f0e02570308d86416861c53e1d296e5edb309ef8` passed Windows CI #445; expected-head guarded squash merge `ab5818fa92970655b63323839111a1977a5837a7` passed resulting-main Windows CI #446. Current Gate F status is the reopened replacement state below.
 
 ### 2026-09-26 parity/reliability reconciliation
 
@@ -294,7 +294,7 @@ Acceptance criteria:
 
 ## Cross-cutting completion requirements for remaining milestones (M7–M10)
 
-These requirements apply separately to every remaining roadmap milestone. They do not reopen or invalidate work already validated in Milestones 1–6.
+These requirements apply to every open or reopened roadmap milestone. A later replacement may reopen earlier validated items when it changes the implementation that materially supported their acceptance; historical PASS evidence remains preserved but does not certify replacement code.
 
 - Error handling and significant state coverage must be sufficient for the milestone's real user-facing surface and domain behavior. Relevant failures, unavailable states, loading/waiting states, empty states, invalid input, stale/conflicting state, recovery paths, and other meaningful edge cases must provide clear, complete feedback rather than silent failure or ambiguous UI.
 - Automated tests/fixtures and physical Windows checks must cover the meaningful edge cases appropriate to the milestone, following `ENGINEERING_QUALITY.md`; unavailable checks remain `NOT RUN`, never implied PASS.
@@ -394,11 +394,11 @@ Acceptance criteria:
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
 
-**Current M7 gate state:** 13/15 top-level checklist items are validated; Panel/Timer visual continuity and mixed-DPI/work-area acceptance remain open. The denominator is taken directly from the current 15 top-level M7 checkboxes, including the later validated Change List/Duplicate parity item. Older 9/14 and 12/14 shorthand are historical/stale counters and must not be reused. M7 remains incomplete, and no further M8 source slice starts before M7 acceptance.
+**Current M7 gate state:** 1/15 top-level checklist items remain validated after reopening every item whose acceptance depends on the replaced Focus host/presentation/placement/shortcut/performance path. Only the unrelated Change List/Duplicate capability remains closed. Historical M7 PASS evidence is preserved in subitems/work logs but does not validate the replacement.
 
 ### Post-validation video-evidence correction — VE-F003
 
-This correction was discovered from current direct VE-005 evidence after M5 validation. It does **not** reopen M5 as an incomplete roadmap milestone and does not change the 6/10 roadmap counter. It must be implemented narrowly before unrelated M8 Preferences work because it is a confirmed current-source capability missing from a previously validated production surface.
+This correction was discovered from current direct VE-005 evidence after M5 validation. It does **not** reopen M5 because the later Focus-host replacement does not change the underlying Change List/Duplicate domain implementation. The current roadmap counter is reduced for separate M1/M6 replacement reasons, not because of this M5-derived parity correction.
 
 - [x] Expose current task-menu `Change List` and `Duplicate` behavior using existing persistence/domain authority: Change List moves the same stable task identity atomically to the chosen active list without corrupting schedule/session/history state; Duplicate creates one independent new task identity without aliasing source history/recurrence/session records. Preserve live-task safety, persistence-first UI publication, stale guards, All Lists identity semantics, and explicit error/recovery feedback. **Validated in PR #177** at exact head `e80034f481bc8d9368bb670cadfce2cdcbe61797`; Windows CI #602 PASS; expected-head guarded squash merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`; resulting-main Windows CI #603 PASS.
 
@@ -417,7 +417,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority (2026-09-28 physical evidence):** Gate 7 has failed across four exact CI-validated PR #191 builds. The architecture assessment chose a bounded separate-Timer-WebView/region experiment; its physical comparison remains open. Stop same-mechanism bitmap patches. Gate 12's exact-build mixed-DPI/secondary-monitor branch remains open because Windows currently exposes one display. The original SQLite profile and Windows animations have been restored. Keep M7 open at 13/15 and do not start another M8 source slice.
+**Current execution priority:** complete the single-Focus replacement implementation without running deferred validation. When the user authorizes testing, revalidate and re-close the dependency chain in order: M1 Gate A replacement items → M6 Gate F replacement integration → M7 replacement items including Gate 7/12 → affected M8 shortcut items. Do not start unrelated remaining M8 feature work before that chain is reconciled.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
