@@ -16,6 +16,7 @@ GitHub `main` is the durable source truth.
 - M7: **1/15 top-level items currently validated**; all host/presentation/placement/shortcut/performance-dependent items are reopened except the unrelated validated Change List/Duplicate capability.
 - M8: **3/8 top-level items currently validated**; in-app shortcuts, global Focus routing and Start Break are reopened because their integration target changes. Unaffected conflict handling, nested Preferences behavior and settings persistence remain validated.
 - Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 is now routed to the selected single-host/dynamic-component replacement; Gate 12 requires mixed-DPI validation on that replacement.
+- **Documentation/process truth policy:** Markdown-only implementation instructions/spec/tracking/work-log changes that do not affect executable/build/test/CI semantics go directly to `main` without Windows CI. Workflow YAML, scripts/tests, manifests/config and other tooling-consumed files are not docs-only. Before further source editing, the active implementation branch must be reconciled with current `main` Markdown.
 - **Repository-wide architecture re-audit completed 2026-09-29:** active specifications, M1/M7 validation docs, README, roadmap/process rules and the live partial implementation were checked against the intended Single-Activity/Dynamic Component Toggling idea. The binding desktop interpretation is one persistent `focusSurface` HWND/WebView + one React root/coordinator + Panel/compact/expanded component presentations. A live migration ledger in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md` enumerates remaining split-window/config/CI/test assumptions that must be removed or rewritten before implementation is called complete. Immutable audit log: `work-log/2026-09-29-chatgpt-single-focus-repo-wide-architecture-reaudit.md`.
 - **PR #191 is CLOSED UNMERGED as superseded.** Its split-window/visual-hold branch remains reachable only as historical implementation/evidence. There are currently no open PRs. Active implementation continues on `plan/m7-single-focus`; do not resume the closed split composition.
 - **Current binding implementation direction:** use one persistent nominal 340×700 Focus HWND/WebView and one React root/coordinator. Panel (340×700), compact Timer (340×110) and expanded Timer (340×300) are dynamic components/presentations inside that host. Ordinary presentation changes must not close/open, create/destroy, hide/show or resize the Focus WebView; use target prepaint + native region/position/topmost/taskbar coordination instead. `Single-Activity Architecture` is an analogy only, not an Android/React API requirement. The complete implementation sequence is in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`.
@@ -69,7 +70,7 @@ The original SQLite profile is restored and its SHA-256 matches the pretest copy
 
 ## REMAINING M8 ORDER
 
-After the M7 physical batch is reconciled:
+After the single-Focus replacement corrective chain is implemented, validated and reconciled:
 1. PREF-R02 — finite animated timer flash, reduced-motion safe.
 2. PREF-R03 — Notification Alerts gating without duplicating authoritative M3 effects.
 3. PREF-R05 — local/Narro-owned sound catalog and non-overlapping preview behavior.
