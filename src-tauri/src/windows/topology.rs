@@ -4,7 +4,7 @@ use super::{
 use crate::timer_service::TimerService;
 use std::ffi::c_void;
 use std::io;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::OnceLock;
 use tauri::Manager;
 
@@ -15,6 +15,8 @@ const DISPLAY_CHANGE_SUBCLASS_ID: usize = 0x4e_41_52_52_4f;
 const WM_SETTING_CHANGE: u32 = 0x001a;
 const WM_DISPLAY_CHANGE: u32 = 0x007e;
 const WM_POWER_BROADCAST: u32 = 0x0218;
+const WM_ENTERSIZEMOVE: u32 = 0x0231;
+const WM_EXITSIZEMOVE: u32 = 0x0232;
 const WM_DPICHANGED: u32 = 0x02e0;
 const WM_NC_DESTROY: u32 = 0x0082;
 const SPI_SETWORKAREA: usize = 0x002f;
@@ -57,6 +59,37 @@ unsafe extern "system" {
 static DISPLAY_APP_HANDLE: OnceLock<tauri::AppHandle> = OnceLock::new();
 static RECOVERY_PENDING: AtomicBool = AtomicBool::new(false);
 static RECOVERY_DIRTY: AtomicBool = AtomicBool::new(false);
+static INTERACTIVE_MOVE_ACTIVE: AtomicBool = AtomicBool::new(false);
+static RECOVERY_SUSPENSIONS: AtomicUsize = AtomicUsize::new(0);
+
+pub(crate) struct DisplayRecoveryGuard;
+
+pub(crate) fn suspend_focus_display_recovery() -> DisplayRecoveryGuard {
+    RECOVERY_SUSPENSIONS.fetch_add(1, Ordering::AcqRel);
+    DisplayRecoveryGuard
+}
+
+impl Drop for DisplayRecoveryGuard {
+    fn drop(&mut self) {
+        if RECOVERY_SUSPENSIONS.fetch_sub(1, Ordering::AcqRel) == 1
+            && RECOVERY_DIRTY.load(Ordering::Acquire)
+            && !INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire)
+        {
+            schedule_display_recovery();
+        }
+    }
+}
+
+fn recovery_suspended(interactive_move: bool, explicit_suspensions: usize) -> bool {
+    interactive_move || explicit_suspensions != 0
+}
+
+fn display_recovery_suspended() -> bool {
+    recovery_suspended(
+        INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire),
+        RECOVERY_SUSPENSIONS.load(Ordering::Acquire),
+    )
+}
 
 pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error> {
     DISPLAY_APP_HANDLE.set(app.handle().clone()).map_err(|_| {
@@ -131,7 +164,14 @@ unsafe extern "system" fn display_change_subclass_proc(
     subclass_id: usize,
     _reference_data: usize,
 ) -> isize {
-    if is_display_geometry_change(message, wparam) {
+    if message == WM_ENTERSIZEMOVE {
+        INTERACTIVE_MOVE_ACTIVE.store(true, Ordering::Release);
+    } else if message == WM_EXITSIZEMOVE {
+        INTERACTIVE_MOVE_ACTIVE.store(false, Ordering::Release);
+        if RECOVERY_DIRTY.load(Ordering::Acquire) {
+            schedule_display_recovery();
+        }
+    } else if is_display_geometry_change(message, wparam) {
         schedule_display_recovery();
     } else if message == WM_POWER_BROADCAST {
         handle_power_broadcast(wparam);
@@ -139,6 +179,7 @@ unsafe extern "system" fn display_change_subclass_proc(
             schedule_display_recovery();
         }
     } else if message == WM_NC_DESTROY {
+        INTERACTIVE_MOVE_ACTIVE.store(false, Ordering::Release);
         let _ = unsafe {
             remove_window_subclass(hwnd, Some(display_change_subclass_proc), subclass_id)
         };
@@ -176,6 +217,9 @@ fn handle_power_broadcast(event: usize) {
 
 fn schedule_display_recovery() {
     RECOVERY_DIRTY.store(true, Ordering::Release);
+    if display_recovery_suspended() {
+        return;
+    }
     if RECOVERY_PENDING.swap(true, Ordering::AcqRel) {
         return;
     }
@@ -374,7 +418,25 @@ mod tests {
     fn unrelated_window_messages_do_not_schedule_display_recovery() {
         assert!(!is_display_geometry_change(WM_SETTING_CHANGE, 0));
         assert!(!is_display_geometry_change(WM_POWER_BROADCAST, 0));
+        assert!(!is_display_geometry_change(WM_ENTERSIZEMOVE, 0));
+        assert!(!is_display_geometry_change(WM_EXITSIZEMOVE, 0));
         assert!(!is_display_geometry_change(WM_NC_DESTROY, 0));
+    }
+
+    #[test]
+    fn interactive_or_programmatic_moves_defer_display_recovery() {
+        assert!(recovery_suspended(true, 0));
+        assert!(recovery_suspended(false, 1));
+        assert!(recovery_suspended(true, 1));
+        assert!(!recovery_suspended(false, 0));
+    }
+
+    #[test]
+    fn native_move_loop_messages_are_distinct_from_geometry_notifications() {
+        assert_eq!(WM_ENTERSIZEMOVE, 0x0231);
+        assert_eq!(WM_EXITSIZEMOVE, 0x0232);
+        assert_ne!(WM_ENTERSIZEMOVE, WM_DPICHANGED);
+        assert_ne!(WM_EXITSIZEMOVE, WM_DPICHANGED);
     }
 
     #[test]

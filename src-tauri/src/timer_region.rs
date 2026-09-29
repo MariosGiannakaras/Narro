@@ -96,11 +96,10 @@ mod native {
         })
     }
 
-    pub fn apply(
+    fn apply_physical(
         window: &tauri::WebviewWindow,
-        logical: tauri::LogicalSize<f64>,
+        visible: tauri::PhysicalSize<u32>,
     ) -> CommandResult<()> {
-        let visible = visible_size(window, logical)?;
         let hwnd = window.hwnd().map_err(|error| {
             CommandError::new(
                 "FOCUS_REGION_FAILED",
@@ -140,6 +139,23 @@ mod native {
         }
         Ok(())
     }
+
+    pub fn apply(
+        window: &tauri::WebviewWindow,
+        logical: tauri::LogicalSize<f64>,
+    ) -> CommandResult<()> {
+        apply_physical(window, visible_size(window, logical)?)
+    }
+
+    pub fn apply_full_host(window: &tauri::WebviewWindow) -> CommandResult<()> {
+        let outer = window.outer_size().map_err(|error| {
+            CommandError::new(
+                "FOCUS_REGION_FAILED",
+                format!("read focusSurface outer size for full-host region: {error}"),
+            )
+        })?;
+        apply_physical(window, outer)
+    }
 }
 
 #[cfg(not(windows))]
@@ -162,9 +178,13 @@ mod native {
     ) -> CommandResult<()> {
         Ok(())
     }
+
+    pub fn apply_full_host(_window: &tauri::WebviewWindow) -> CommandResult<()> {
+        Ok(())
+    }
 }
 
-pub use native::{apply, visible_size};
+pub use native::{apply, apply_full_host, visible_size};
 
 #[cfg(test)]
 mod tests {

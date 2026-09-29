@@ -449,23 +449,19 @@ fn load_focus_panel_placement_preferences(
 
 fn preferred_focus_panel_work_area(
     app_handle: &tauri::AppHandle,
-) -> CommandResult<(GeometryRect, FocusPanelSide)> {
+) -> CommandResult<(GeometryRect, f64, FocusPanelSide)> {
     let (selected_monitor_key, side) = load_focus_panel_placement_preferences(app_handle)?;
-    let work_area = match selected_monitor_key {
-        Some(monitor_key) => {
-            resolve_monitor_by_key(app_handle, &monitor_key)?
-                .1
-                .work_area
-        }
+    let descriptor = match selected_monitor_key {
+        Some(monitor_key) => resolve_monitor_by_key(app_handle, &monitor_key)?.1,
         None => {
             let monitor = app_handle
                 .primary_monitor()
                 .map_err(CommandError::monitor_enumeration)?
                 .ok_or_else(CommandError::no_monitors_available)?;
-            monitor_descriptor(0, &monitor)?.work_area
+            monitor_descriptor(0, &monitor)?
         }
     };
-    Ok((work_area, side))
+    Ok((descriptor.work_area, descriptor.scale_factor, side))
 }
 
 fn record_focus_surface_presentation(presentation: FocusSurfacePresentation) {
@@ -669,40 +665,50 @@ fn restore_focus_native_snapshot(
     }
 }
 
-fn fit_focus_host_on_current_monitor(
+fn fit_focus_host_for_target_scale(
     window: &tauri::WebviewWindow,
     work_area: GeometryRect,
+    target_scale: f64,
 ) -> CommandResult<GeometrySize> {
     validate_work_area(work_area).map_err(CommandError::window_geometry)?;
-    floating_placement::ensure_fixed_focus_host_size(window)?;
+    if !target_scale.is_finite() || target_scale <= 0.0 {
+        return Err(CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            "selected monitor has an invalid DPI scale",
+        ));
+    }
 
-    let outer = window
-        .outer_size()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read Focus host size", error))?;
-    let fitted = GeometrySize {
-        width: outer.width.min(work_area.size.width),
-        height: outer.height.min(work_area.size.height),
+    let desired = GeometrySize {
+        width: ((timer_region::FOCUS_HOST_WIDTH_LOGICAL * target_scale).round().max(1.0) as u32)
+            .min(work_area.size.width),
+        height: ((timer_region::FOCUS_HOST_HEIGHT_LOGICAL * target_scale).round().max(1.0) as u32)
+            .min(work_area.size.height),
     };
-    if fitted.width == 0 || fitted.height == 0 {
+    if desired.width == 0 || desired.height == 0 {
         return Err(CommandError::new(
             "FOCUS_PRESENTATION_FAILED",
             "selected monitor has no usable work area for the Focus surface",
         ));
     }
-    if fitted.width != outer.width || fitted.height != outer.height {
+
+    let outer = window
+        .outer_size()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read Focus host size", error))?;
+    if outer.width != desired.width || outer.height != desired.height {
         window
             .set_size(tauri::Size::Physical(tauri::PhysicalSize {
-                width: fitted.width,
-                height: fitted.height,
+                width: desired.width,
+                height: desired.height,
             }))
             .map_err(|error| {
                 map_window_error(
                     FOCUS_SURFACE_LABEL,
-                    "fit Focus host to constrained work area",
+                    "set Focus host size for target monitor DPI",
                     error,
                 )
             })?;
     }
+
     let actual = window
         .outer_size()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "confirm Focus host size", error))?;
@@ -721,6 +727,7 @@ fn fit_focus_host_on_current_monitor(
 fn apply_panel_native(
     window: &tauri::WebviewWindow,
     work_area: GeometryRect,
+    target_scale: f64,
     side: FocusPanelSide,
 ) -> CommandResult<()> {
     validate_work_area(work_area).map_err(CommandError::window_geometry)?;
@@ -738,7 +745,7 @@ fn apply_panel_native(
         .map_err(CommandError::window_geometry)?;
     set_focus_position(window, staging, "stage Focus Panel on target monitor")?;
 
-    let actual_size = fit_focus_host_on_current_monitor(window, work_area)?;
+    let actual_size = fit_focus_host_for_target_scale(window, work_area, target_scale)?;
     let final_position = focus_panel_edge_position(work_area, actual_size, side)
         .map_err(CommandError::window_geometry)?;
     set_focus_position(
@@ -746,7 +753,7 @@ fn apply_panel_native(
         final_position,
         "position Focus Panel at monitor edge",
     )?;
-    timer_region::apply(window, timer_region::panel_logical_size())?;
+    timer_region::apply_full_host(window)?;
     set_focus_presentation_attributes(window, FocusSurfacePresentation::Panel)
 }
 
@@ -879,7 +886,9 @@ fn apply_focus_surface_presentation_internal(
 
     let transition = match target {
         FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle)
-            .and_then(|(work_area, side)| apply_panel_native(&window, work_area, side)),
+            .and_then(|(work_area, scale_factor, side)| {
+                apply_panel_native(&window, work_area, scale_factor, side)
+            }),
         FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
             apply_timer_native(app_handle, &window, previous, target)
         }
@@ -926,7 +935,9 @@ fn position_focus_panel(
     }
     let _save_guard = floating_placement::suspend_saves();
 
-    if let Err(error) = apply_panel_native(&window, descriptor.work_area, side) {
+    if let Err(error) =
+        apply_panel_native(&window, descriptor.work_area, descriptor.scale_factor, side)
+    {
         return match restore_focus_native_snapshot(&window, &snapshot) {
             Ok(()) => Err(error),
             Err(recovery) => Err(CommandError::new(
@@ -1001,8 +1012,8 @@ pub(crate) fn revalidate_open_focus_panel_after_display_change(
     }
 
     let snapshot = capture_focus_native_snapshot(&window)?;
-    let (work_area, side) = preferred_focus_panel_work_area(app_handle)?;
-    if let Err(error) = apply_panel_native(&window, work_area, side) {
+    let (work_area, scale_factor, side) = preferred_focus_panel_work_area(app_handle)?;
+    if let Err(error) = apply_panel_native(&window, work_area, scale_factor, side) {
         return match restore_focus_native_snapshot(&window, &snapshot) {
             Ok(()) => Err(error),
             Err(recovery) => Err(CommandError::new(
