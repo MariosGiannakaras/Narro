@@ -315,6 +315,8 @@ Keep historical PASS evidence as immutable proof of the old implementation; neve
 - Work in coherent milestones.
 - For long milestones, checkpoint after a working validated slice.
 - Use clear commits describing completed slices.
+- **Authoritative documentation/process/tracking-only changes go directly to `main` without Windows CI** when they do not alter executable/build/test/CI semantics. Do not strand newer `HANDOFF`/`TODO`/`STATUS`/spec truth on a feature branch.
+- Workflow YAML, scripts/tests, runtime/build configuration, dependency manifests and any file consumed by tooling are not "docs-only" and still require normal source validation.
 - Keep status/TODO documentation current rather than deferring it to the end.
 
 ## Definition of done for an implementation milestone
