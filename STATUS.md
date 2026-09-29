@@ -548,7 +548,7 @@ Binding interpretation:
 - the Blitzit history/risk research is preventive: known failure families must inform implementation architecture, edge cases and regression tests before the affected feature is built;
 - every material exception or inferred decision must stay documented in the audit crosswalk/STATUS rather than becoming a silent deviation.
 
-This clarification does not reopen validated milestones wholesale. Existing validated source remains valid unless a concrete parity discrepancy is evidenced; the final comprehensive review must treat unexplained in-scope deviations as findings.
+This clarification does not reopen milestones merely because stronger fidelity guidance exists. Reopening occurs when concrete evidence or a replacement implementation invalidates the acceptance basis of specific items. The current single-Focus replacement is such a case for defined M1/M6/M7 and M8-shortcut scope; unaffected milestones/items remain closed.
 
 ## Final audit-method hardening — 2026-09-28
 
@@ -575,8 +575,9 @@ Binding execution rule:
 Current audit state:
 - **CORR-01 recurrence update / No Repeat flow:** VALIDATED in PR #182 / CI #617 / main CI #618.
 - **PREF-R01 timed task alerts:** VALIDATED in PR #184 / CI #624 / merge `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
-- There are currently no active `FIX_NOW` findings.
-- By user direction on 2026-09-28, the next gate is the deferred M7 physical Windows batch before another M8 source slice.
+- **M7-PHYS-01 / M7-PHYS-02:** active `FIX_NOW` findings driving the single-Focus replacement.
+- The replacement materially invalidates prior acceptance evidence for defined M1/M6/M7 items and directly affected M8 shortcut integration; those checklist items are reopened in `TODO.md`.
+- Validation remains deferred by user direction until implementation is complete and explicitly authorized for testing.
 
 ## CORR-01 recurrence No Repeat correction — validated 2026-09-28
 
@@ -625,7 +626,7 @@ The latest suitable validated application artifact was CI #624 (runtime artifact
 - **Gate 11 PASS:** Timer stayed visible above a separate borderless fullscreen Windows Forms app through focus switching. Exclusive fullscreen was unavailable and remains unclaimed.
 - **Gate 12 FAIL:** on moving to a 125% secondary monitor, Timer shrank to about 271×75 and exposed horizontal/vertical scrollbars. A Panel→Timer logical-size reapply restored 425×138. Once correctly sized, bottom-edge expansion to 443×384 at y=696 fit exactly within the 1080 px work area and collapsed accessibly. Non-default taskbar edge and a separately shortened work area were not run.
 
-The current M7 checklist has **13/15 top-level items checked**; only the visual transition and mixed-DPI/work-area acceptance items remain open. The current denominator includes the later validated Change List/Duplicate parity item. Older 9/14 and 12/14 shorthand are historical/stale and must not be used as current progress. Roadmap completion remains **6/10**; M8 has 6/8 validated items and its remaining work is blocked behind M7 closure.
+At the time of the CI #624 batch, the M7 checklist had reached the then-current closure state recorded in its immutable work log. That state is now superseded for roadmap progress by the single-Focus replacement reopening: current M7 is **1/15**, current M8 is **3/8**, and current roadmap completion is **4/10**. The physical batch remains valid historical evidence for the superseded implementation.
 
 PR #191 (`fix/m7-visual-hold-physical`) first made the native bitmap hold opaque/explicitly topmost, disabled DWM transitions on the Focus/hold HWNDs, and added mixed-DPI Timer logical-size recovery. Exact head `f1ef35aabc97aed9e8044130e442a85276c62536` passed Windows CI run `36371772752`; its exact runtime artifact was physically retested. Three Panel↔Timer and three Expand/Collapse cycles with Windows animations **Off** retained the same paused `fas` session and 07:40, but the resize still exposed an expanded white tail under compact content, so Gate 7 remains **FAIL**. The attempted On capture was interrupted before cycles and Gate 12 was not run on this candidate. Evidence is in `work-log/2026-09-28-codex-m7-pr191-retest-in-progress.md` and its sanitized frame sequence.
 
