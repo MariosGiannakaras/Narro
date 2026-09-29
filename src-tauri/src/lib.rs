@@ -1031,9 +1031,7 @@ fn animate_focus_surface_presentation_internal(
             .map(|(_, target_scale, _)| (source_scale - target_scale).abs() > 0.01)
             .unwrap_or(false);
 
-        if previous == FocusSurfacePresentation::Panel
-            && target.mode() == FocusSurfaceMode::Timer
-        {
+        if previous == FocusSurfacePresentation::Panel && target.mode() == FocusSurfaceMode::Timer {
             // #679 moved the transparent 340x700 host before reducing the
             // native region, leaving a tall outlined tail under the compact
             // Timer for several frames. Clip to the already-prepared target
