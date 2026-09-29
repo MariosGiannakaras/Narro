@@ -6,7 +6,7 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT STATE
 
-`6/10M || 4/4 | 6/8`
+`6/10M || 4/4 | 12/14`
 
 **Implementation in progress on `plan/m7-single-focus` (2026-09-29).** The user has now authorized source changes for the single fixed-host Focus composition. The Tauri window/capability/Vite entry cleanup has begun; native and React consolidation are being implemented in this same checkout. Until a later explicit user instruction, do not run tests, builds, CI, app launches or physical checks. Treat all newly edited source as unvalidated and keep Gate 7/12 open. If this session stops early, continue the incomplete implementation from this branch and inspect its Git diff before doing anything else.
 
@@ -15,8 +15,8 @@ GitHub `main` is the durable source truth.
 - M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
 - Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 needs the chosen alternative-composition experiment; Gate 12 still needs the secondary-display physical retest.
 - Open implementation PR: **#191**. Four same-HWND visual-hold heads failed physical Gate 7. The separate fixed-size Timer WebView candidate removed the old white resize frames but first showed loading copy, then a longer Timer/Panel overlap. Head `4e4960b` passed CI `36530577060` and its exact-build On capture reduced the overlap to 0.07–0.10 seconds across three settled cycles, with no white host/loading copy in inspected boundaries. Strict Gate 7 remains OPEN/FAIL; PR #191 is unmerged. The original SQLite profile and animations On were restored. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
-- **Next implementation direction, authorized 2026-09-29:** return to one Focus HWND/WebView, keep its host at maximum Panel geometry during ordinary presentation changes, conditionally render Panel/Timer within that WebView, and clip the native visible region for Panel/compact/expanded states. The complete implementation sequence is in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. The user requires implementation to finish **before** any tests/builds/CI/app launch/physical checks, and requires a further explicit instruction to start the testing phase. No replacement code has been implemented or validated yet.
-- The replacement starts at the affected **M1 native Focus window foundation**, carries through the **M6 Panel presentation**, and completes the **M7 Timer/transition presentation**. Preserve M2–M5 and M8, the authoritative domain state, and validated user behavior; do not restart unrelated milestones. See the milestone map in the plan.
+- **Current implementation direction, authorized 2026-09-29:** return to one Focus HWND/WebView, keep its host at maximum Panel geometry during ordinary presentation changes, conditionally render Panel/Timer within that WebView, and clip the native visible region for Panel/compact/expanded states. The complete implementation sequence is in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. Replacement implementation has started on this branch but is incomplete and unvalidated. The user requires implementation to finish **before** any tests/builds/CI/app launch/physical checks, and requires a further explicit instruction to start the testing phase.
+- The replacement starts at the affected **M1 native Focus window foundation**, carries through the **M6 Panel presentation**, and completes the **M7 Timer/transition presentation**. This does **not** reopen M1 or M6 or reset their counters: their affected validated behaviors are regression obligations of the M7 replacement. Preserve M2–M5 and already-validated M8 work; do not restart unrelated milestones. M8 remaining work stays blocked until M7 closes. See the milestone map in the plan.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -50,7 +50,7 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 
 ## M7 PHYSICAL CLOSURE — OPEN; IMPLEMENTATION FIRST
 
-By the user's 2026-09-28 direction, **do not start another M8 source slice before the deferred M7 physical batch is run**.
+By current user direction, **do not start another M8 source slice while the active M7 replacement and its `FIX_NOW` Gate 7/12 findings remain unresolved**. The earlier deferred physical batch has already run; remaining M8 work resumes only after the replacement is completed, authorized for validation, validated, and tracking-reconciled.
 
 The CI #624 physical batch has now run on its exact artifact:
 - artifact id: `10944304485`;
