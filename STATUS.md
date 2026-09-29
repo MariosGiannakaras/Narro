@@ -8,6 +8,17 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 **Milestone 7 — Floating Timer mode.**
 
+**Current M7 direction, 2026-09-29:** the user chose a documentation-only planning
+handoff for a new single-`focusSurface` implementation. The next chat is to
+implement a fixed-maximum-size Focus HWND/WebView, React Panel/Timer presentation
+switching, and DPI-aware native region clipping instead of PR #191's two Focus
+WebViews. This is technically plausible from the existing `SetWindowRgn` Timer
+implementation, but **no replacement code or validation exists yet**. The user
+explicitly deferred all tests, builds, CI, app launches and physical checks
+until implementation is complete and they authorize testing. The executable
+plan is `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`; PR #191 remains unmerged and
+Gate 7/12 remain OPEN/FAIL.
+
 - Milestone 1 / Gate A: **PASS**.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
@@ -631,4 +642,4 @@ The exact `12707c0` binary was then physically recorded at 60 fps with Windows a
 
 **Second separate-Timer physical batch:** The same-target board-retention head `a6a9459` passed Windows CI `36495957450` attempt 2 and was physically captured on its exact executable with Windows animations On. The loading copy is gone, but the compact Timer still overlays the Panel's top controls for several frames during mode switching; Gate 7 remains **FAIL**. A scoped native follow-up `4e4960b` disables DWM show/hide transitions for both Focus windows and activates the destination before reveal. Exact-head CI and one Panel↔Timer physical capture are pending. The architecture experiment's measured paused floating-only working set increased by about 95 MiB versus the single-WebView comparison. Details and raw video hashes are in the 2026-09-29 work log. Gate 12 remains open; no further M8 implementation is authorized in this slice.
 
-**Time-bounded DWM retest and stop, 2026-09-29:** Exact source `4e4960b` passed Windows CI run `36530577060`; its exact executable was recorded through three settled Panel↔Timer cycles at 77.41 fps with Windows animations On. The six transition boundary sequences contain neither the old full-white host nor loading copy, but Timer→Panel still briefly overlaps the compact Timer and Panel card for about 0.07–0.10 seconds. This is an improvement, **not strict Gate 7 acceptance**. The user directed that checks remain confined to the transition and that the repeated-fix loop stop. PR #191 remains unmerged and Gate 7/12 remain open. Original SQLite profile and Windows animations On were restored and verified. The next genuinely different scoped comparison, if Gate 7 closure is resumed, is a native layered Timer/window composition, not another same-mechanism tweak or a framework-wide migration. Full evidence is in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
+**Time-bounded DWM retest and stop, 2026-09-29 (historical decision):** Exact source `4e4960b` passed Windows CI run `36530577060`; its exact executable was recorded through three settled Panel↔Timer cycles at 77.41 fps with Windows animations On. The six transition boundary sequences contain neither the old full-white host nor loading copy, but Timer→Panel still briefly overlaps the compact Timer and Panel card for about 0.07–0.10 seconds. This is an improvement, **not strict Gate 7 acceptance**. The user directed that checks remain confined to the transition and that the repeated-fix loop stop. PR #191 remains unmerged and Gate 7/12 remain open. Original SQLite profile and Windows animations On were restored and verified. At that point the next comparison was proposed as a native layered Timer/window composition; the subsequent user-selected single fixed-host Focus plan above **supersedes that next-action recommendation**. Full physical evidence remains in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.

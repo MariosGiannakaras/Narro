@@ -88,6 +88,15 @@ Persistent webview budget:
 
 Do not keep separate persistent Focus Panel and Floating Timer webviews.
 
+**M7 implementation direction (2026-09-29; pending code and validation):** retain one
+fixed-maximum-size `focusSurface` HWND/WebView and select Panel, compact Timer or
+expanded Timer inside that React entry. Use a DPI-aware native window region to
+expose the corresponding visible rectangle without resizing or hiding the HWND
+on ordinary presentation changes. The unmerged PR #191's second `floatingTimer`
+WebView is an unsuccessful physical candidate, not the target architecture.
+The executable plan and deferred validation boundary are in
+`docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`.
+
 ### `main`
 
 - normal resizable Windows window;
@@ -124,13 +133,20 @@ The active focus session is independent of this enum.
 
 ### Focus ↔ Floating transformation
 
-1. persist safe floating position when leaving floating mode;
-2. resolve target monitor/work area;
-3. update native geometry/always-on-top/taskbar attributes through Rust/Tauri;
-4. update presentation state;
-5. renderer applies a short content transition only.
+For the planned M7 correction:
+
+1. serialize the request and keep the current Focus presentation visible while
+   the target React subtree receives the authoritative state;
+2. persist/restore the Timer's safe **visible-region** position and resolve the
+   Panel's configured monitor edge;
+3. coordinate native position, visible window region, always-on-top and taskbar
+   attributes with the React presentation, using a short finite transition;
+4. keep the same maximum-size HWND/WebView throughout normal Panel/Timer and
+   compact/expanded changes, and roll back the prior presentation on failure.
 
 Never simulate native-window resizing with a high-frequency JS animation loop.
+Display topology/DPI changes may require exceptional host adjustment. The
+active focus session remains independent of every presentation change.
 
 ## 5. Dynamic Windows display model
 

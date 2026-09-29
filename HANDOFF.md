@@ -13,6 +13,7 @@ GitHub `main` is the durable source truth.
 - M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
 - Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 needs the chosen alternative-composition experiment; Gate 12 still needs the secondary-display physical retest.
 - Open implementation PR: **#191**. Four same-HWND visual-hold heads failed physical Gate 7. The separate fixed-size Timer WebView candidate removed the old white resize frames but first showed loading copy, then a longer Timer/Panel overlap. Head `4e4960b` passed CI `36530577060` and its exact-build On capture reduced the overlap to 0.07–0.10 seconds across three settled cycles, with no white host/loading copy in inspected boundaries. Strict Gate 7 remains OPEN/FAIL; PR #191 is unmerged. The original SQLite profile and animations On were restored. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
+- **Next implementation direction, authorized 2026-09-29:** return to one Focus HWND/WebView, keep its host at maximum Panel geometry during ordinary presentation changes, conditionally render Panel/Timer within that WebView, and clip the native visible region for Panel/compact/expanded states. The complete implementation sequence is in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. The user requires implementation to finish **before** any tests/builds/CI/app launch/physical checks, and requires a further explicit instruction to start the testing phase. No replacement code has been implemented or validated yet.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -44,7 +45,7 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 - New exact-build physical findings `M7-PHYS-01` and `M7-PHYS-02` remain `FIX_NOW` in the audit crosswalk until exact-build physical acceptance passes.
 - M9 findings remain routed to M9; M10/final-review findings remain routed to later gates; unresolved source ambiguities remain explicit.
 
-## M7 PHYSICAL CLOSURE — ACTIVE
+## M7 PHYSICAL CLOSURE — OPEN; IMPLEMENTATION FIRST
 
 By the user's 2026-09-28 direction, **do not start another M8 source slice before the deferred M7 physical batch is run**.
 
@@ -88,14 +89,14 @@ The abandoned CI dedup regression guard was recovered, validated and merged in P
 
 ## NEXT AGENT ACTION
 
-The repeated Gate 7 failure history and composition assessment are in `work-log/2026-09-28-codex-m7-visual-continuity-history.md` and `work-log/2026-09-28-codex-m7-architecture-assessment.md`. The separate-WebView experiment and exact-build physical captures are in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`. Latest application source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed CI `36530577060` but leaves a 0.07–0.10-second Timer/Panel overlap; strict Gate 7 remains OPEN/FAIL. The user requested a transition-only, time-bounded stop to the repeated fix/test loop.
+The repeated Gate 7 failure history and composition assessment are in `work-log/2026-09-28-codex-m7-visual-continuity-history.md` and `work-log/2026-09-28-codex-m7-architecture-assessment.md`. The separate-WebView experiment and exact-build physical captures are in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`. Latest experimental application source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed CI `36530577060` but leaves a 0.07–0.10-second Timer/Panel overlap; strict Gate 7 remains OPEN/FAIL. The prior proposal to try a native layered Timer next is superseded by the user's single fixed-host Focus direction.
 
-1. Keep PR #191 unmerged and preserve the current Gate 7/12 OPEN status. Do not infer physical acceptance from CI or the improvement in white-frame behavior.
-2. Do not repeat minor same-composition fixes. If the user resumes strict Gate 7 closure, compare a scoped native layered Timer/window composition against the same continuous Panel↔Timer criterion, including the measured separate-WebView resource cost.
-3. Do not start unrelated physical checks or another M8 source slice under this M7 turn. The original profile and Windows animations have already been restored and verified.
+1. **Implement only** `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md` from this unmerged PR #191 checkout (or a child branch), using validated `main` as the behavioral baseline. Replace the experimental second Timer WebView with one fixed-host `focusSurface`; retain useful region/DPI code. Preserve unrelated user changes and Rust timer/session authority.
+2. When implementation is complete, record the exact code state and remaining uncertainty in `TODO.md`, `STATUS.md`, the audit crosswalk, and this handoff. Do not claim Gate 7/12 PASS.
+3. **Stop before validation.** Do not run tests, builds, CI, app launches, recordings or physical checks, and do not push source in a way that automatically starts CI. Wait for the user's explicit instruction to begin testing. Do not start an unrelated M8 slice.
 
 ## USER ACTION REQUIRED
 
-No user action is currently required for this stopped transition batch. A future secondary-display Gate 12 retest requires a Windows-visible second monitor.
+After the implementation phase, the user's explicit instruction is required to begin tests/CI/physical validation. A future secondary-display Gate 12 retest also requires a Windows-visible second monitor. Neither condition blocks the implementation work above.
 
 No Blitzit evidence upload is pending. The uploaded corpus and its analysis are complete.
