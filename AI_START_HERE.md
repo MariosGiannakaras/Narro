@@ -10,7 +10,7 @@ If you are an AI taking over this repository, treat this file as the bootstrap e
 
 Before asking the user what to do next, do all of the following:
 
-1. Synchronize with the latest `main` and inspect recent commits/current working-tree state.
+1. Synchronize with the latest `main` and inspect recent commits/current working-tree state. Authoritative process/spec/tracking Markdown is maintained directly on `main`; if you are on an implementation branch, reconcile its copies with `main` before trusting branch-local instructions.
 2. Read `AGENTS.md` completely.
 3. Read `ENGINEERING_QUALITY.md` completely. Its validation, error-model, robustness and pre-CI rules apply to every implementation slice.
 4. Read `AGENT_WORKFLOW.md` completely.
@@ -47,6 +47,7 @@ These files have distinct jobs:
 - `work-log/*.md` — preferred immutable per-slice implementation/validation logs for new work.
 - `WORK_LOG.md` — legacy historical archive retained for older context; do not replace or truncate it.
 - `docs/*` — specifications, research evidence, validation procedures and optional design/decision aids.
+- Documentation/process/tracking Markdown is committed directly to `main` when it does not affect executable/build/test/CI semantics. Feature branches are for source/config/test work, not for holding newer repository truth.
 - `reference/original-blitzit-screenshots/` — original-product visual evidence, not Narro-owned UI assets.
 - `assets/branding/` — Narro branding source material; branding may evolve and should not block unrelated engineering work unless the active slice specifically concerns packaging/visual identity.
 
@@ -66,7 +67,7 @@ A capable agent should normally:
 
 - inspect before editing;
 - implement the narrow coherent slice;
-- when several independently evidenced changes in the active milestone can be implemented safely without waiting for one another's CI/manual result, batch them into one coherent branch/PR with their regression coverage before triggering Windows CI;
+- when several independently evidenced **source/config/test** changes in the active milestone can be implemented safely without waiting for one another's CI/manual result, batch them into one coherent branch/PR with their regression coverage before triggering Windows CI; keep documentation-only truth updates on `main`;
 - prefer fewer high-value CI runs over micro-PRs or CI after only a few incremental lines, while never inflating scope merely to make a diff larger;
 - keep batching within compatible scope: do not mix unrelated milestones, architecture rewrites, or changes whose correctness depends on an earlier unresolved result;
 - validate inputs/state and define explicit failure paths before adding side effects;
