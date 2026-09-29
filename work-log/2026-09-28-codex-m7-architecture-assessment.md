@@ -1,0 +1,54 @@
+# M7 Gate 7 window-composition assessment — 2026-09-28
+
+## Decision and limit
+
+**Decision for the next bounded experiment:** keep the Tauri/Rust/SQLite application and prototype a separate persistent Timer WebView window whose outer size does not change during compact/expanded switching. Clip its visible region to the compact or expanded bounds with a native window region, while the Focus Panel remains in its own WebView window. This is an experiment, **not an adopted architecture or a Gate 7 PASS**. If region clipping, paint continuity, accessibility, DPI recovery, or measured resource use fails, evaluate a native rendered Timer window using `UpdateLayeredWindow`. Do not migrate the whole app to Electron from current evidence.
+
+This decision is deliberately scoped to the Focus/Timer presentation. Rust remains the sole authority for task, timer and session state. The implementation experiment must retain the current product hierarchy, interactions, keyboard/focus behavior, and local-only scope.
+
+## Current exact-build comparison baseline
+
+The latest source candidate is PR #191 head `b23c8ab518c5b654dd33b3cb582388b193ce82e5` (Windows CI run `36397349549` **PASS**, runtime artifact `10959481539`, extracted `narro.exe` SHA-256 `1F2EF4413EB0CFC3462F334A0F4DC02333B758D0587761D240B28A1593FCAA81`). It was physically run on Windows 10 Pro 19045, with one active 1920×1080 display at 100%. The same paused task `fas`, displayed `07:40`, remained attached to SQLite session `3e77a684-e7d6-4968-a189-cf6d41fc42c3`; the checkpoint stayed paused. The new candidate prepares a replacement bitmap offscreen, but it still uses the same WebView hide/resize/reveal path.
+
+One batched sequence recorded seven Panel/Timer shortcut presses and three Timer Expand/Collapse cycles with Windows animations **On**. A second batched sequence recorded six mode presses and three resize cycles with animations **Off**. UI state settled to the same task/time and one Focus window after the actions. The desktop capture rates varied below requested 60 fps, so absence of a flagged frame in an On recording is **not a PASS**. The Off recording alone establishes **Gate 7 FAIL**: frame 1394 (~29.633 s) displays a fully white expanded Timer between compact frames; frames 1489 (~32.300 s) and 1552 (~34.050 s) display a blank white compact/head area and remnants of expanded content between valid frames. See [sanitized adjacent frames](evidence/2026-09-28-m7-ci191-r4-off-white-frames.png), SHA-256 `8E83157E07F9675A2B70D04088B3392AE88FAF907A7CDDF79BEEF59CE27D23BD`. Raw ignored recordings:
+
+| Capture | Frames / duration | SHA-256 |
+| --- | --- | --- |
+| `artifacts/m7-ci191-r4-runtime/gate7-on-batch.mp4` | 1671 / 42.0 s | `065374BFC8507BC136DBAE0AA30DA5027A28115E10917651864F502E860EC544` |
+| `artifacts/m7-ci191-r4-runtime/gate7-on-resize.mp4` | 1235 / 27.98 s | `E4ED4D76A1A7364F5D4C81C9C7D1C5ECFF45AC38100F43B5976832CCC592E2C6` |
+| `artifacts/m7-ci191-r4-runtime/gate7-off-batch.mp4` | 1632 / 36.0 s | `F86202746227034555AA75BC3A811B1D0BC280DF88BD9DBA5B2D4367E279718E` |
+
+The frame classifier is only a candidate detector. All flagged intervals were checked in adjacent-frame contact sheets; full-screen white and leftover white rectangles are directly visible. Video frame timestamps, not nominal 60 fps, should be used for any duration estimate. The uninterrupted raw videos remain ignored because they show the user's desktop. Earlier exact-build failures and their different signatures are in [the failure history](2026-09-28-codex-m7-visual-continuity-history.md).
+
+## Failure-path analysis
+
+Current mode changes acquire a native bitmap hold, fade outgoing React content, hide and resize the **same** `focusSurface` HWND, publish the target React tree, wait for data and two `requestAnimationFrame` callbacks, show it at alpha zero, reveal it, and remove the hold after `DwmFlush`. Timer Expand/Collapse similarly hides and resizes that HWND. See `src/focus.tsx`, `src/focusModeTransition.ts`, `src/FloatingTimerFoundation.tsx`, `src-tauri/src/lib.rs`, and `src-tauri/src/focus_visual_hold.rs`.
+
+The replacement hold takes a `BitBlt` of the **desktop target rectangle after the geometry change**, while the Focus HWND may be hidden or transparent. That bitmap is not a target WebView frame and can already contain desktop/blank pixels. This is a code-level vulnerability; it does **not** prove that every observed white frame has exactly that cause. A second unresolved boundary is hold removal: [Microsoft documents](https://learn.microsoft.com/en-us/windows/win32/api/dwmapi/nf-dwmapi-dwmflush) that `DwmFlush` does not flush the entire desktop session, so its return and two React frame callbacks cannot certify the new WebView pixels were actually displayed. Automated tests cover state/call order, not physical compositor output.
+
+The new offscreen replacement in `b23c8ab` improves when the bitmap HWND becomes visible, but it does not change the bitmap's source, the WebView resize, or the absence of a target-pixel readiness signal. Its Off physical failure confirms the current mechanism remains insufficient.
+
+## Scoped alternatives
+
+| Composition | What it removes | Main cost/risk | Assessment |
+| --- | --- | --- | --- |
+| One WebView plus current bitmap hold | No structural change | Repeated exact-build Gate 7 failures; target bitmap can contain non-target pixels; hidden WebView repaint is not observed | **Rejected as the next patch path.** Preserve branch for evidence; do not merge PR #191 from CI alone. |
+| Separate persistent Panel and Timer WebViews, Timer fixed at expanded outer size with a compact/expanded Win32 window region | Eliminates same-HWND Panel↔Timer geometry conversion and Timer outer-window resize. Timer can pre-render content below the compact clip before revealing it. Reuses current React Timer UI and Rust commands. | One extra WebView may raise private memory and process count; region changes may still expose a frame or complicate shadows, hit-testing, accessibility and DPI/work-area math. Both renderers must project the same Rust state without creating a second session. | **First bounded spike.** Windows [window regions](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowrgn) clip content outside the region; [child visible regions](https://learn.microsoft.com/en-us/windows/win32/gdi/child-window-update-region) are constrained by the parent. Whether this is seamless with Tauri/WebView2 must be proven physically. |
+| Separate Panel WebView plus native Win32 layered Timer | Eliminates WebView paint/resize from both mode and Timer-size transitions. [UpdateLayeredWindow](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-updatelayeredwindow) can update a layered window's pixels, bounds and opacity together. | Rebuilds compact/expanded controls, keyboard handling, UI Automation, Notes/subtasks, themes and DPI in native code; visual fidelity and accessibility burden is much larger. Native composition is still subject to physical verification. | **Fallback spike if the separate WebView/region experiment fails or costs too much.** |
+| WebView2 visual hosting / DirectComposition | More explicit visual-tree composition | Manual mouse/keyboard/scale/accessibility integration; Tauri/Wry integration changes | Defer unless the two scoped experiments fail; [Microsoft's hosting comparison](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/windowed-vs-visual-hosting) documents the added responsibilities. |
+| Whole-app Electron migration | Replaces Tauri shell | Broad rewrite of IPC/windows/packaging with no demonstrated fix for this compositor path | **No current justification.** Blitzit [uses Electron on Windows](https://www.blitzit.app/blog/building-a-cross-platform-productivity-app), but its exact Timer implementation is undisclosed. |
+
+Existing final-UI baseline: the previous M7 measurement recorded floating-only idle CPU median 0.000% of one core and roughly 421–430 MiB summed working set, with the exact protocol/caveats in `work-log/2026-09-25-codex-m7-physical-runtime-and-idle-recovery.md`. The extra-window and native alternatives have **no measured performance result yet**.
+
+## Experiment and decision gate
+
+1. In an isolated M7 diagnostic branch, add one separately labeled Timer WebView/window; retain existing `focusSurface` as Panel. Keep the Timer's outer HWND at maximum expanded geometry. Paint the shared header and expanded controls while compact content below the clip is inaccessible/inert; use a region change for compact/expanded visibility. Keep placement and mode authority in Rust. Do not duplicate timer/session state or route actions through local renderer counters.
+2. Build through exact-head Windows CI, then capture an uninterrupted visible desktop crop at a verified near-60 fps. Batch three Panel↔Timer and three Expand/Collapse cycles with Windows animations On, then at least two of each with animations Off. Record input timestamps, HWND rectangles, mode/session IDs, and full/upper/lower pixel regions. Review flagged intervals and their neighbors after each batch, not each action. Use the same task/session and visual acceptance in `docs/M7_FLOATING_RUNTIME_VALIDATION.md` as the current baseline.
+3. Compare idle CPU, working set/private bytes and process churn with the existing measured protocol; check keyboard/focus, always-on-top, work-area edges, taskbar behavior and 100%→125% DPI. The secondary-monitor Gate 12 branch remains **NOT RUN** until Windows again exposes the second display.
+4. Adopt the separate-window design only if **both** mode changes and Timer resize physically pass, the full UI remains usable/accessibly focused, session identity/time remain unchanged, and no unexplained resource regression appears. If only Panel↔Timer improves while Timer resize still flashes, stop and test the native layered Timer path; do not append another bitmap-hold patch. A native path must pass the same full acceptance matrix before adoption.
+
+No alternative has yet been built or physically compared. This assessment chooses the **next experiment**, not a verified fix. Gate 7 remains **FAIL**; Gate 12 remains open.
+
+## Environment restoration
+
+After the `b23c8ab` capture, Narro was stopped. The original SQLite profile was copied back from `artifacts/m7-ci624-runtime/profile-before.db`; live SHA-256 matches its original `D18A33C0BF5F88DACC74A513105C5E7A8FE7D3EE5E3A02F12E6EBDCBC5EC33C0`, and SQLite integrity is `ok`. The just-tested profile was preserved in ignored `artifacts/m7-ci191-r4-runtime/test-profile-after-r4.db`. Windows animations and client-area animations were both restored to **On** and verified through `SystemParametersInfoW`. Windows currently reports **one** display; the previously connected secondary display cannot be restored by software in this session.
