@@ -73,6 +73,23 @@ invariant(
   "expanded React content must prepaint before native region exposure",
 );
 invariant(
+  expandBranch.indexOf("onRequestExpanded") < expandBranch.indexOf('setResizePhase("revealing-start")')
+    && expandBranch.indexOf('setResizePhase("revealing-start")') < expandBranch.indexOf('setResizePhase("revealing")')
+    && expandBranch.indexOf('setResizePhase("revealing")') < expandBranch.indexOf("waitForFloatingTimerGeometryMotion"),
+  "expanded Timer must reveal finite painted geometry only after native region exposure",
+);
+invariant(
+  collapseBranch.indexOf('setResizePhase("contracting-start")')
+    < collapseBranch.indexOf('setResizePhase("contracting")')
+    && collapseBranch.indexOf('setResizePhase("contracting")')
+      < collapseBranch.indexOf("waitForFloatingTimerGeometryMotion")
+    && collapseBranch.indexOf("waitForFloatingTimerGeometryMotion")
+      < collapseBranch.indexOf('setResizePhase("clipping")')
+    && collapseBranch.indexOf('setResizePhase("clipping")')
+      < collapseBranch.indexOf("onRequestExpanded"),
+  "collapse must finish finite same-WebView geometry contraction before native clipping",
+);
+invariant(
   collapseBranch.indexOf("onRequestExpanded") < collapseBranch.indexOf("setExpanded(false)"),
   "collapse must commit native clipping before compact React layout returns",
 );
@@ -84,10 +101,20 @@ invariant(
   "resize requests must serialize, expose busy state and roll back uncommitted renderer state",
 );
 invariant(
-  foundation.includes("inert={expanded && !regionExpanded}")
-    && foundation.includes("contentInert={expanded && !regionExpanded}")
+  foundation.includes("inert={expanded && (!regionExpanded || resizePending)}")
+    && foundation.includes("contentInert={expanded && (!regionExpanded || resizePending)}")
     && subtasks.includes("inert={contentInert}"),
-  "prepainted controls outside the compact native region must be keyboard/accessibility inert",
+  "prepainted/in-motion controls outside committed Timer geometry must be keyboard/accessibility inert",
+);
+invariant(
+  foundation.includes("const FLOATING_TIMER_GEOMETRY_MOTION_MS = 270")
+    && foundation.includes("prefers-reduced-motion: reduce")
+    && css.includes("--floating-timer-geometry-motion-duration: 270ms")
+    && css.includes('data-floating-resize-phase="revealing"')
+    && css.includes('data-floating-resize-phase="contracting"')
+    && css.includes("clip-path: inset(0 0 190px 0 round 12px)")
+    && css.includes("--floating-timer-geometry-motion-duration: 1ms"),
+  "compact/expanded Timer must keep finite reduced-motion-safe same-WebView geometry motion",
 );
 invariant(
   css.includes("height: 110px")
