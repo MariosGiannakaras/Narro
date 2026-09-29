@@ -34,6 +34,8 @@ const nativeCommit = slice(
   "fn apply_focus_surface_presentation_internal(",
   "#[tauri::command(rename_all = \"camelCase\")]\nfn focus_surface_apply_presentation",
 );
+// Scope ordering checks to the corrective helper itself; global lib.rs ordering
+// is unrelated because other presentation paths also apply native regions.
 const crossDpiPanelHelper = slice(
   lib,
   "fn apply_panel_native_after_animated_cross_dpi_move(",
