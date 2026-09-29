@@ -19,6 +19,18 @@ Status: **approved implementation direction, not implemented or validated** (202
 
 The nominal dimensions follow existing Narro M7 geometry; compute the physical region from the current monitor scale. Adapt the host only when display/work-area constraints or DPI/topology changes genuinely require it, not on ordinary Panel↔Timer or expand/collapse transitions. CSS Timer layout must use the 340 px visible width, not the 400 px host viewport, and must not expose scrollbars or interactive content outside the clipped region.
 
+## Reimplementation scope across milestones
+
+Implement this as one replacement of the affected Focus presentation path, beginning at its native window foundation rather than adding another transition patch. The historical milestone checkmarks remain evidence of what previously passed; they do not certify the replacement code before the later testing phase.
+
+| Existing milestone | Rebuild/adapt in this implementation | Preserve |
+| --- | --- | --- |
+| M1 window foundation | One `focusSurface` host/config, native clipping, mode authority, position/DPI/topology lifecycle, Focus-only bundle | `main`, tray, startup, shortcut registration and local process/domain foundations |
+| M6 Focus Panel | Mount Panel in the shared Focus React coordinator; retain Panel layout, actions, selected-monitor/edge behavior and authoritative projections | Completed M6 product behavior and domain commands |
+| M7 Floating Timer | Mount compact/expanded Timer in that coordinator; replace split-window transition/placement; retain drag, topmost, compact/expanded actions and session continuity | Completed M7 Timer functionality, with Gate 7/12 acceptance still open |
+
+M2–M5 and M8 are outside this rewrite unless a direct dependency is discovered in the affected Focus path. Do not reset their validated counters or reimplement unrelated features. Do not carry the old hide/resize/visual-hold transition forward merely because it was part of an earlier milestone.
+
 ## Implementation order for the next chat
 
 1. **Continue from the current unmerged PR #191 checkout, or a child implementation branch of it.** Use validated `main` as the behavioral/source baseline, and replace the experimental split composition rather than layering another window over it. Retain useful Win32 region/DPI and safe-position code; remove the second WebView and its cross-window switching protocol. Keep PR #191 unmerged until later authorized validation and preserve unrelated working-tree files.

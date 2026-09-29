@@ -18,6 +18,10 @@ explicitly deferred all tests, builds, CI, app launches and physical checks
 until implementation is complete and they authorize testing. The executable
 plan is `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`; PR #191 remains unmerged and
 Gate 7/12 remain OPEN/FAIL.
+The replacement spans the affected M1 native Focus window foundation, M6 Panel
+presentation and M7 Timer/transition composition as one coherent source change.
+Earlier milestone PASS records are historical; they do not certify replacement
+code. M2–M5 and M8 remain outside this rewrite unless directly affected.
 
 - Milestone 1 / Gate A: **PASS**.
 - Milestone 2 / Gate B: **PASS**.
