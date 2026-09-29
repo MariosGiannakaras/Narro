@@ -60,6 +60,8 @@ export function FocusSurfaceCoordinator() {
   const [completionSuccessError, setCompletionSuccessError] = useState<string | null>(null);
 
   const presentationRef = useRef<FocusSurfacePresentation>("panel");
+  const presentationHydratedRef = useRef(false);
+  const timerResizePendingRef = useRef(false);
   const pendingModeRef = useRef<FocusSurfaceMode | null>(null);
   const transitionGateRef = useRef(false);
   const readinessRef = useRef<PresentationReadiness>({ panel: false, timer: false });
@@ -69,6 +71,8 @@ export function FocusSurfaceCoordinator() {
   });
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
+  const deferredToggleSequenceRef = useRef<number | null>(null);
+  const deferredFindSequenceRef = useRef<number | null>(null);
   const presentationReconcileRevisionRef = useRef(0);
   const quickTaskAfterPanelRef = useRef(false);
   const requestModeRef = useRef<(mode: FocusSurfaceMode, quickTask?: boolean) => Promise<void>>(async () => {});
@@ -76,6 +80,11 @@ export function FocusSurfaceCoordinator() {
   const publishPresentation = useCallback((next: FocusSurfacePresentation) => {
     presentationRef.current = next;
     setPresentation(next);
+  }, []);
+
+  const setTimerResizeBusy = useCallback((pending: boolean) => {
+    timerResizePendingRef.current = pending;
+    setTimerResizePending(pending);
   }, []);
 
   const markReady = useCallback((mode: FocusSurfaceMode) => {
@@ -271,20 +280,34 @@ export function FocusSurfaceCoordinator() {
     };
 
     void subscribe<number>("focus-surface-toggle-requested", (sequence) => {
-      if (!presentationHydrated) return;
       if (!Number.isSafeInteger(sequence) || sequence <= lastToggleRequestRef.current) return;
+      if (!presentationHydratedRef.current) {
+        deferredToggleSequenceRef.current = Math.max(
+          deferredToggleSequenceRef.current ?? 0,
+          sequence,
+        );
+        return;
+      }
       lastToggleRequestRef.current = sequence;
       const currentMode = focusSurfaceModeOf(presentationRef.current);
       void requestModeRef.current(currentMode === "panel" ? "timer" : "panel");
     });
 
     void subscribe<number>("focus-timer-find-requested", (sequence) => {
-      if (!presentationHydrated) return;
       if (!Number.isSafeInteger(sequence) || sequence <= lastFindRequestRef.current) return;
+      if (!presentationHydratedRef.current) {
+        deferredFindSequenceRef.current = Math.max(
+          deferredFindSequenceRef.current ?? 0,
+          sequence,
+        );
+        return;
+      }
       lastFindRequestRef.current = sequence;
-      if (focusSurfaceModeOf(presentationRef.current) === "timer"
+      if (
+        focusSurfaceModeOf(presentationRef.current) === "timer"
         && !transitionGateRef.current
-        && !timerResizePending) {
+        && !timerResizePendingRef.current
+      ) {
         setFindTimerPulse(sequence);
       }
     });
@@ -293,7 +316,7 @@ export function FocusSurfaceCoordinator() {
       disposed = true;
       for (const stop of stops) stop();
     };
-  }, [presentationHydrated, publishPresentation, timerResizePending]);
+  }, []);
 
   useEffect(() => {
     let disposed = false;
@@ -310,6 +333,7 @@ export function FocusSurfaceCoordinator() {
           && !transitionGateRef.current
         ) {
           publishPresentation(authoritative);
+          presentationHydratedRef.current = true;
           setPresentationHydrated(true);
         }
       } catch (failure: unknown) {
@@ -345,6 +369,31 @@ export function FocusSurfaceCoordinator() {
       stopListening?.();
     };
   }, [publishPresentation]);
+
+  useEffect(() => {
+    if (!presentationHydrated) return;
+
+    const deferredToggle = deferredToggleSequenceRef.current;
+    if (deferredToggle !== null && deferredToggle > lastToggleRequestRef.current) {
+      deferredToggleSequenceRef.current = null;
+      lastToggleRequestRef.current = deferredToggle;
+      const currentMode = focusSurfaceModeOf(presentationRef.current);
+      void requestModeRef.current(currentMode === "panel" ? "timer" : "panel");
+    }
+
+    const deferredFind = deferredFindSequenceRef.current;
+    if (deferredFind !== null && deferredFind > lastFindRequestRef.current) {
+      deferredFindSequenceRef.current = null;
+      lastFindRequestRef.current = deferredFind;
+      if (
+        focusSurfaceModeOf(presentationRef.current) === "timer"
+        && !transitionGateRef.current
+        && !timerResizePendingRef.current
+      ) {
+        setFindTimerPulse(deferredFind);
+      }
+    }
+  }, [presentationHydrated]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -475,7 +524,7 @@ export function FocusSurfaceCoordinator() {
             transitionPending={transitionPending}
             transitionError={transitionError ?? timerProjectionError}
             shortcutStatus={shortcutStatus}
-            onResizePendingChange={setTimerResizePending}
+            onResizePendingChange={setTimerResizeBusy}
             attentionPulseSequence={findTimerPulse}
             onAttentionPulseEnd={(sequence) => {
               setFindTimerPulse((current) => current === sequence ? null : current);
