@@ -243,6 +243,10 @@ invariant(panel.includes("permanentlyDeleteListBoardTask({"), "ordinary Focus de
 invariant(panel.includes("<TaskScheduleDialog"), "ordinary Focus scheduling must reuse the validated scheduling boundary");
 invariant(panel.includes("<TaskNotes"), "ordinary Focus Notes must reuse the validated Notes boundary");
 invariant(panel.includes("switchTimerTask(task.id, mode)"), "Rocket Make Live must use the authoritative timer/session switch");
+invariant(
+  panel.includes("if (fixtureMode || !presentationActive || mutationPendingTaskId !== null) return;"),
+  "inactive/prepainting Focus Panel must not execute Make Live mutations",
+);
 invariant(panel.includes('invoke<void>("focus_surface_exit_to_main")'), "Home must exit Focus through the native lifecycle command");
 invariant(
   panel.includes('aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences"')
