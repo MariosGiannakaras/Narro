@@ -15,8 +15,8 @@ inside that host; ordinary switching must not close/open, create/destroy,
 hide/show or resize the Focus WebView. DPI-aware native region/position/topmost/
 taskbar coordination shapes the visible surface. "Single-Activity Architecture"
 is an analogy only. Implementation is **complete by static repository reconciliation and still unvalidated** on
-`plan/m7-single-focus` at exact source head `b506fd016eea2d3c45635a2cbdc74acde831d674`; all tests/builds/CI/app launches/physical checks remain
-deferred until the user explicitly authorizes validation.
+`plan/m7-single-focus` at exact source head `b506fd016eea2d3c45635a2cbdc74acde831d674`; exact-head automated validation is now the next ordered checkpoint.
+Physical/manual checks may remain batched for a later compatible Windows session while their gates stay OPEN.
 
 **Current unvalidated PR #192 checkpoint (2026-09-29):** exact source head `b506fd016eea2d3c45635a2cbdc74acde831d674`. The branch is reconciled with the build-affecting branding state from `main` and with tracking `main` through the pre-completion checkpoint. The implementation now includes visible-region-aware completion success, modal background inertness/keyboard access, finite ~270 ms same-WebView Panel↔Timer **and compact↔expanded Timer** geometry motion with reduced-motion handling, rollback-safe transition hooks, a runtime-order subscribe→snapshot architecture contract, stale async Focus board-refresh guards keyed by target/revision/live-task/open-session identity, and static removal/rewrite of the live split-window/config/test/CI migration ledger. No validation has run on this head. The most recent actual Windows CI remains old-head #666 / run `36568312141` at `567aa177...`, which failed the now-corrected lexical-order architecture assertion during Repository Preflight.
 
@@ -589,7 +589,7 @@ Current audit state:
 - **PREF-R01 timed task alerts:** VALIDATED in PR #184 / CI #624 / merge `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
 - **M7-PHYS-01 / M7-PHYS-02:** active `FIX_NOW` findings driving the single-Focus replacement.
 - The replacement materially invalidates prior acceptance evidence for defined M1/M6/M7 items and directly affected M8 shortcut integration; those checklist items are reopened in `TODO.md`.
-- Validation remains deferred by user direction until implementation is complete and explicitly authorized for testing.
+- Implementation is complete; current user direction now delegates ordinary validation timing to the agent. Exact-head automated validation is the next recommended checkpoint, while physical Gate 7/12 evidence may remain batched until it is needed.
 
 ## CORR-01 recurrence No Repeat correction — validated 2026-09-28
 
