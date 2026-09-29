@@ -392,7 +392,7 @@ Acceptance criteria:
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
 
-**Current M7 gate state:** 12/14 top-level checklist items are validated by the 2026-09-28 CI #624 physical batch; Panel/Timer visual continuity and mixed-DPI/work-area acceptance remain open. The earlier 9/14 shorthand did not match the 14 top-level checkboxes (eight were checked before this batch); this count is reconciled directly against the checklist. M7 remains incomplete, and no further M8 source slice starts before M7 acceptance.
+**Current M7 gate state:** 13/15 top-level checklist items are validated; Panel/Timer visual continuity and mixed-DPI/work-area acceptance remain open. The denominator is taken directly from the current 15 top-level M7 checkboxes, including the later validated Change List/Duplicate parity item. Older 9/14 and 12/14 shorthand are historical/stale counters and must not be reused. M7 remains incomplete, and no further M8 source slice starts before M7 acceptance.
 
 ### Post-validation video-evidence correction — VE-F003
 
@@ -415,7 +415,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority (2026-09-28 physical evidence):** Gate 7 has failed across four exact CI-validated PR #191 builds. The architecture assessment chose a bounded separate-Timer-WebView/region experiment; its physical comparison remains open. Stop same-mechanism bitmap patches. Gate 12's exact-build mixed-DPI/secondary-monitor branch remains open because Windows currently exposes one display. The original SQLite profile and Windows animations have been restored. Keep M7 open at 12/14 and do not start another M8 source slice.
+**Current execution priority (2026-09-28 physical evidence):** Gate 7 has failed across four exact CI-validated PR #191 builds. The architecture assessment chose a bounded separate-Timer-WebView/region experiment; its physical comparison remains open. Stop same-mechanism bitmap patches. Gate 12's exact-build mixed-DPI/secondary-monitor branch remains open because Windows currently exposes one display. The original SQLite profile and Windows animations have been restored. Keep M7 open at 13/15 and do not start another M8 source slice.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
