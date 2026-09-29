@@ -10,35 +10,28 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 **Current corrective direction, 2026-09-30:** retain one persistent nominal
 340×700 logical px `focusSurface` HWND/WebView with one React root/coordinator.
-Focus Panel, compact Timer and expanded Timer remain dynamic presentations inside
-that host; ordinary switching does not close/open, create/destroy, hide/show or
-resize the Focus WebView. DPI-aware native region/position/topmost/taskbar
-coordination shapes the visible surface.
+The exact CI #679 artifact physically failed both strict gates despite fixing the
+saved-position teleport and repeated-push cross-monitor drag behavior.
 
-CI #674 exact source `44119dbe829131d38f56fd35250142ed973b2574`
-removed the earlier opaque blank-host tail but physically failed Gate 7 because
-Panel↔Timer still teleported between distinct native positions and failed Gate 12
-because the mixed-DPI return path could leave a stale viewport with browser
-scrollbars. Those two exact failure families are now corrected on PR #192 exact
-head `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`: native position motion is
-coordinated with the finite renderer transition, interactive/programmatic moves
-defer competing DPI recovery, and target-monitor scale drives Panel/Timer
-placement geometry.
+**Latest physical evidence:** source
+`c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`, CI #679 / run
+`36630411679`, recording `2026-09-30 01-11-12.mp4` (SHA-256
+`e128d5fb08392f08312d237a9dab2a6d0d75a50611ac34331aa7454077a69642`).
+Gate 7 still exposes a full-height transparent/outlined host tail during
+Panel→Timer (~40.70–40.90 s and repeated later). Gate 12 now crosses to the
+user-confirmed 125% display in one continuous drag with correct scaled Timer
+geometry, but return-to-Panel still flashes a narrow stale viewport/browser
+scrollbar state (~53.50–53.60 s; same family around ~21.9–22.1 s).
 
-**Current PR #192 checkpoint (2026-09-30):** Windows CI #679 / run
-`36630411679` is PASS on exact head
-`c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`. The first build-and-test attempt
-was cancelled during visual capture without a code-failure signature; the same
-job was rerun on the unchanged head and passed Repository Preflight, Rust
-validation, Windows visual regression, reused frontend-dist verification and
-Tauri release. Runtime artifact `narro-m1-runtime-harness-windows-x64`: id
-`11065275562`, digest
-`sha256:8b50e089fdaf6e5eaf572dd2b469eac42a521a8ea447c4532161edbc35163400`.
-Visual artifact `narro-m5-visual-regression`: id `11064761303`, digest
-`sha256:00f25712f57349bb70bbbbaddacc177c220967bbb6bfb9006c7307bbb89f4e7e`.
-Gate 7 and Gate 12 are **PHYSICAL RETEST OPEN**; automated PASS does not promote
-either physical gate. See
-`work-log/2026-09-30-chatgpt-m7-ci679-position-dpi-candidate.md`.
+**Current PR #192 corrective candidate:** exact head
+`8a60e92e47ae407098a1f3170ae4170848d262eb`. Panel→Timer now clips to the
+target Timer region before native position motion. Cross-DPI Timer→Panel keeps
+the previous Timer region clipped through target host size correction, waits a
+bounded 50 ms viewport-settlement interval, then reveals the full Panel; same-DPI
+return retains the continuous reveal. Regression contracts cover both ordering
+rules. Windows CI #682 / run `36639559040` is **IN PROGRESS**. No physical
+counter advances until exact-head CI and a new combined physical batch pass.
+See `work-log/2026-09-30-chatgpt-m7-ci679-physical-fail.md`.
 
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
