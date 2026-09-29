@@ -47,7 +47,7 @@ These files have distinct jobs:
 - `work-log/*.md` — preferred immutable per-slice implementation/validation logs for new work.
 - `WORK_LOG.md` — legacy historical archive retained for older context; do not replace or truncate it.
 - `docs/*` — specifications, research evidence, validation procedures and optional design/decision aids.
-- Documentation/process/tracking Markdown is committed directly to `main` when it does not affect executable/build/test/CI semantics. Feature branches are for source/config/test work, not for holding newer repository truth.
+- Documentation/process/tracking Markdown is committed directly to `main` when it does not affect executable/build/test/CI semantics. Non-Markdown evidence-only artifacts may also go directly to `main` when they are not runtime/build/test inputs; use `[skip ci]` on those direct-main commits so Windows CI is not started. Feature branches are for source/config/test work, not for holding newer repository truth.
 - `reference/original-blitzit-screenshots/` — original-product visual evidence, not Narro-owned UI assets.
 - `assets/branding/` — Narro branding source material; branding may evolve and should not block unrelated engineering work unless the active slice specifically concerns packaging/visual identity.
 
