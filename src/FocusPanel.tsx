@@ -549,7 +549,7 @@ export function FocusPanel({
   };
 
   const makeTaskLive = async (task: ListBoardTask) => {
-    if (fixtureMode || mutationPendingTaskId !== null) return;
+    if (fixtureMode || !presentationActive || mutationPendingTaskId !== null) return;
     setMutationPendingTaskId(task.id);
     setMutationStatus(null);
     setError(null);
