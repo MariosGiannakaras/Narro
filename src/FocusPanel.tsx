@@ -45,6 +45,11 @@ export type FocusPanelProps = {
   fixtureBoard?: ListBoardSnapshot;
   fixtureLists?: FocusListOption[];
   fixtureTimer?: TimerSessionPayload | null;
+  sharedTimerProjection?: {
+    payload: TimerSessionPayload | null;
+    settled: boolean;
+  };
+  presentationActive?: boolean;
   onRequestCompact?: () => void;
   compactTransitionPending?: boolean;
   modeTransitionError?: string | null;
@@ -314,6 +319,8 @@ export function FocusPanel({
   fixtureBoard,
   fixtureLists,
   fixtureTimer = null,
+  sharedTimerProjection,
+  presentationActive = true,
   onRequestCompact,
   compactTransitionPending = false,
   modeTransitionError = null,
@@ -428,6 +435,19 @@ export function FocusPanel({
       setTimerSettled(true);
       return;
     }
+    if (sharedTimerProjection !== undefined) {
+      setTimer(sharedTimerProjection.payload);
+      setTimerSettled(sharedTimerProjection.settled);
+      if (sharedTimerProjection.payload?.change) {
+        const refreshTarget = target;
+        void getListBoardSnapshot(refreshTarget)
+          .then((snapshot) => {
+            if (sameTarget(refreshTarget, target)) setBoard(snapshot);
+          })
+          .catch((failure: unknown) => setError(formatInvokeError(failure)));
+      }
+      return;
+    }
 
     let disposed = false;
     let stopListening: (() => void) | undefined;
@@ -469,7 +489,13 @@ export function FocusPanel({
       disposed = true;
       stopListening?.();
     };
-  }, [fixtureMode, fixtureTimer, target.kind, target.kind === "list" ? target.id : null]);
+  }, [
+    fixtureMode,
+    fixtureTimer,
+    sharedTimerProjection,
+    target.kind,
+    target.kind === "list" ? target.id : null,
+  ]);
 
   useEffect(() => {
     if (fixtureMode || (timerSettled && timer !== null
@@ -667,6 +693,7 @@ export function FocusPanel({
   const totalCount = board.today.count + board.done.count;
   const donePercent = totalCount > 0 ? Math.min(100, Math.round((board.done.count / totalCount) * 100)) : 0;
   const rowInteractionDisabled = fixtureMode
+    || !presentationActive
     || mutationPendingTaskId !== null
     || scheduleTaskId !== null
     || deleteTarget !== null
