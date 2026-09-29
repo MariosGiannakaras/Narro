@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
 import { formatInvokeError } from "./diagnosticApi";
 import { focusTimerPresentation, focusTimerStateLabel } from "./focusTimerPresentation";
@@ -355,6 +355,12 @@ export function FocusPanel({
   const [homePending, setHomePending] = useState(false);
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
+  const currentTargetKeyRef = useRef(currentTargetKey);
+  currentTargetKeyRef.current = currentTargetKey;
+  const latestSharedTimerProjectionRef = useRef<TimerSessionPayload | null>(
+    sharedTimerProjection?.payload ?? null,
+  );
+  latestSharedTimerProjectionRef.current = sharedTimerProjection?.payload ?? null;
   const preferences = usePreferenceSettingsProjection(fixtureMode);
   const scrollingTitleEnabled = preferences.snapshot?.focus.scrollingTitle ?? false;
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
@@ -435,21 +441,43 @@ export function FocusPanel({
       setTimerSettled(true);
       return;
     }
-    if (sharedTimerProjection !== undefined) {
-      setTimer(sharedTimerProjection.payload);
-      setTimerSettled(sharedTimerProjection.settled);
-      if (sharedTimerProjection.payload?.change) {
-        const refreshTarget = target;
-        void getListBoardSnapshot(refreshTarget)
-          .then((snapshot) => {
-            if (sameTarget(refreshTarget, target)) setBoard(snapshot);
-          })
-          .catch((failure: unknown) => setError(formatInvokeError(failure)));
-      }
-      return;
-    }
 
     let disposed = false;
+    if (sharedTimerProjection !== undefined) {
+      const projected = sharedTimerProjection.payload;
+      setTimer(projected);
+      setTimerSettled(sharedTimerProjection.settled);
+      if (projected?.change) {
+        const refreshTarget = target;
+        const expectedTargetKey = currentTargetKey;
+        const expectedRevision = projected.revision;
+        const expectedTaskId = projected.runtime.timer.task_id;
+        const expectedSessionId = projected.runtime.open_session_id;
+        const refreshStillCurrent = () => {
+          const latest = latestSharedTimerProjectionRef.current;
+          return !disposed
+            && currentTargetKeyRef.current === expectedTargetKey
+            && latest?.revision === expectedRevision
+            && latest.runtime.timer.task_id === expectedTaskId
+            && latest.runtime.open_session_id === expectedSessionId;
+        };
+
+        void getListBoardSnapshot(refreshTarget)
+          .then((snapshot) => {
+            if (refreshStillCurrent()) {
+              setBoard(snapshot);
+              setError(null);
+            }
+          })
+          .catch((failure: unknown) => {
+            if (refreshStillCurrent()) setError(formatInvokeError(failure));
+          });
+      }
+      return () => {
+        disposed = true;
+      };
+    }
+
     let stopListening: (() => void) | undefined;
     setTimerSettled(false);
     void connectLiveTimerSessionProjection(
