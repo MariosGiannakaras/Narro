@@ -6,13 +6,20 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT STATE
 
-`6/10M || 4/4 | 6/8`
+`4/10M || 6/6 | 9/19`
 
-- Roadmap: **6/10 milestones complete**.
-- M7 source implementation: **9/14 top-level items validated**; required physical/manual closure remains OPEN.
-- M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
-- Current audit `FIX_NOW` queue: **clear**.
-- Open implementation PRs: **none** at this handoff.
+**Reopened Milestone 1 corrective foundation is the active ordered work**, triggered by the M7 Gate 7/12 failures. Implementation is in progress on `plan/m7-single-focus`. The selected architecture is one persistent fixed-host `focusSurface` with dynamic React Panel/Timer presentation plus native visible-region/position coordination. Until a later explicit user instruction, do not run tests, builds, CI, app launches or physical checks. Treat all edited replacement source/tests/contracts as unvalidated. Continue this exact branch; do not restart from PR #191.
+
+- Roadmap: **4/10 milestones currently complete**. M1 and M6 are reopened in the exact scope invalidated by the single-Focus replacement; M2–M5 remain complete.
+- M1: **9/19 top-level items currently validated**; replacement window/presentation/DPI/topology/bundle/performance items are reopened.
+- M6: **15/18 top-level items currently validated**; Focus placement/topology and full replacement-host integration are reopened.
+- M7: **1/15 top-level items currently validated**; all host/presentation/placement/shortcut/performance-dependent items are reopened except the unrelated validated Change List/Duplicate capability.
+- M8: **3/8 top-level items currently validated**; in-app shortcuts, global Focus routing and Start Break are reopened because their integration target changes. Unaffected conflict handling, nested Preferences behavior and settings persistence remain validated.
+- Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 is now routed to the selected single-host/dynamic-component replacement; Gate 12 requires mixed-DPI validation on that replacement.
+- **Repository-wide architecture re-audit completed 2026-09-29:** active specifications, M1/M7 validation docs, README, roadmap/process rules and the live partial implementation were checked against the intended Single-Activity/Dynamic Component Toggling idea. The binding desktop interpretation is one persistent `focusSurface` HWND/WebView + one React root/coordinator + Panel/compact/expanded component presentations. A live migration ledger in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md` enumerates remaining split-window/config/CI/test assumptions that must be removed or rewritten before implementation is called complete. Immutable audit log: `work-log/2026-09-29-chatgpt-single-focus-repo-wide-architecture-reaudit.md`.
+- Open PR **#191 is a superseded architecture experiment, not a merge candidate in its current split-window form**. Its exact-build evidence remains valuable: separate persistent Timer WebView removed earlier white resize frames but retained observable overlap and added material memory. Do not merge or continue that split composition; the active implementation continuation is `plan/m7-single-focus`.
+- **Current binding implementation direction:** use one persistent Focus HWND/WebView and one React root/coordinator. Panel, compact Timer and expanded Timer are dynamic components/presentations inside that host. Ordinary presentation changes must not close/open, create/destroy, hide/show or resize the Focus WebView; use target prepaint + native region/position/topmost/taskbar coordination instead. `Single-Activity Architecture` is an analogy only, not an Android/React API requirement. The complete implementation sequence is in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`.
+- The replacement starts at the affected **M1 native Focus window foundation**, carries through **M6 Panel integration**, then **M7 Timer/transition**, and finally the directly affected **M8 Focus-shortcut integration**. The affected milestone items are explicitly reopened; historical PASS records remain evidence for the old implementation only. Preserve M2–M5 and unaffected M8 work. See the dependency map in the plan.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -41,27 +48,24 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 - Canonical screenshot corpus: **46 retained images** — 22 current v2.6.69, 17 Help Center originals, 7 historical.
 - `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` is authoritative for finding disposition.
 - CORR-01 recurrence No Repeat/Delete Existing correction is VALIDATED.
-- No material finding is currently classified `FIX_NOW`.
+- New exact-build physical findings `M7-PHYS-01` and `M7-PHYS-02` remain `FIX_NOW` in the audit crosswalk until exact-build physical acceptance passes.
 - M9 findings remain routed to M9; M10/final-review findings remain routed to later gates; unresolved source ambiguities remain explicit.
 
-## M7 PHYSICAL CLOSURE — NEXT GATE
+## M7 PHYSICAL CLOSURE — OPEN; IMPLEMENTATION FIRST
 
-By the user's 2026-09-28 direction, **do not start another M8 source slice before the deferred M7 physical batch is run**.
+By current user direction, complete the coherent replacement implementation first and do not run tests/builds/CI/app launches/physical checks until explicitly authorized. When validation is authorized, re-close the reopened milestones in dependency order: **M1 → M6 → M7 → affected M8 shortcut items**. Do not start unrelated remaining M8 feature work before that corrective chain is validated/reconciled.
 
-Use the latest suitable validated Windows runtime artifact from CI #624:
+The CI #624 physical batch has now run on its exact artifact:
 - artifact id: `10944304485`;
 - digest: `sha256:4f76740bc6f69dcd1d664c9fb80011520567612c9eb6d87ab4e09e02e3b1bf7c`;
-- source tree is identical to merged main `e3a9abf8...`.
+- source tree is identical to merged main `e3a9abf8...`;
+- immutable result: `work-log/2026-09-28-codex-m7-ci624-physical-batch.md` with sanitized frames in `work-log/evidence/`;
+- Gate 7 **FAIL** (On white frames on Timer→Panel and Expand/Collapse), Gate 12 **FAIL** (125% secondary-monitor Timer shrink/scrollbars);
+- Gates 8, 9, 10 and 11 **PASS** within the documented physical scope.
 
-The consolidated physical batch remains:
-1. Panel ↔ Floating Timer continuous visual continuity with normal Windows animations.
-2. Repeat Panel ↔ Floating Timer with Windows animations Off.
-3. Floating Timer Expand/Collapse continuity and stale-pixel/blank-frame check.
-4. Transition-boundary shortcut stress and Locate Timer native-hidden/reduced-motion behavior.
-5. Secondary-monitor/topology/no-saved-placement recovery, including non-default taskbar/constrained work area/high-DPI placement.
-6. Always-on-top stacking over normal maximized and borderless/fullscreen applications where Windows permits it.
+PR #191 exact-build and physical chronology is consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. Its split-window composition is superseded and must not be merged as the final solution. Gate 12 remains open for the replacement build.
 
-Record PASS/FAIL/NOT RUN per gate. Automated evidence must not close these physical gates.
+The original SQLite profile is restored and its SHA-256 matches the pretest copy at `artifacts/m7-separate-timer-runtime/profile-before.db`. The test profiles and raw captures remain in ignored artifacts. Windows animations are On, confirmed by both `SPI_GETANIMATION=1` and `SPI_GETCLIENTAREAANIMATION=1`. One 100% display is currently exposed; the secondary 125% Gate 12 branch remains unavailable.
 
 ## REMAINING M8 ORDER
 
@@ -77,7 +81,7 @@ PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 
 - Product-fidelity default: for in-scope personal/local functionality, confirmed Blitzit behavior and visuals are the target. Do not introduce discretionary redesign. Known Blitzit reliability failures are preventive engineering input and must shape implementation/tests before affected work. If an exact source detail remains unknowable after relevant evidence is exhausted, choose the strongest professional reconstruction consistent with adjacent Blitzit patterns, Narro's established UI/UX, Windows conventions, accessibility and reliability, and record it as inference/design decision rather than confirmed source behavior.
 - Narro remains local-only Windows software with Tauri 2 + React/TypeScript, SQLite, and authoritative Rust/domain state.
-- `main` + reusable `focusSurface` remain the normal two-webview architecture.
+- `main` + reusable `focusSurface` remain the validated main-branch architecture. PR #191's separate persistent Timer WebView is still an unmerged, physically incomplete experiment.
 - persistence-first mutations, stable task identities, session/time accounting, recurrence idempotence and Windows-local scheduling semantics remain authoritative.
 - Focus/Floating presentation changes cannot reset, duplicate or independently advance a live session.
 - Notes URLs require explicit activation; aggregate All Lists reorder remains disabled.
@@ -91,15 +95,14 @@ The abandoned CI dedup regression guard was recovered, validated and merged in P
 
 ## NEXT AGENT ACTION
 
-1. Re-read live repository/PR/CI state; there should be no open implementation PR from this handoff.
-2. Do **not** begin PREF-R02 yet.
-3. When the user is ready, use the CI #624 runtime artifact and run the consolidated M7 physical batch above.
-4. Reconcile the physical result into a new immutable work-log plus `TODO.md`, `STATUS.md`, and `HANDOFF.md`.
-5. Fix evidence-backed M7 failures before further M8 work when a failed gate can affect acceptance.
-6. After M7 physical closure is safely reconciled, resume M8 at PREF-R02.
+The repeated Gate 7 failure history and composition assessment are in `work-log/2026-09-28-codex-m7-visual-continuity-history.md` and `work-log/2026-09-28-codex-m7-architecture-assessment.md`. The separate-WebView experiment and exact-build physical captures are in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`. Latest experimental application source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed CI `36530577060` but leaves a 0.07–0.10-second Timer/Panel overlap; strict Gate 7 remains OPEN/FAIL. The prior proposal to try a native layered Timer next is superseded by the user's single fixed-host Focus direction.
+
+1. **Continue the incomplete implementation on `plan/m7-single-focus` exactly where it is.** Use validated `main` as the behavioral baseline, not as a reason to recreate completed branch work. Finish one fixed-host `focusSurface`, one React coordinator, component-level Panel/Timer toggling, native region/placement, single-target shortcut routing, and removal/rewrite of every live split-window/config/test/CI contract listed in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`.
+2. When implementation is complete, record the exact code state and remaining uncertainty in `TODO.md`, `STATUS.md`, the audit crosswalk, and this handoff. Do not claim Gate 7/12 PASS.
+3. **Stop before validation.** Do not run tests, builds, CI, app launches, recordings or physical checks, and do not push source in a way that automatically starts CI. Wait for the user's explicit instruction to begin testing. Do not start an unrelated M8 slice.
 
 ## USER ACTION REQUIRED
 
-**Deferred until the user is ready:** the M7 physical Windows batch above.
+After the implementation phase, the user's explicit instruction is required to begin tests/CI/physical validation. A future secondary-display Gate 12 retest also requires a Windows-visible second monitor. Neither condition blocks the implementation work above.
 
 No Blitzit evidence upload is pending. The uploaded corpus and its analysis are complete.
