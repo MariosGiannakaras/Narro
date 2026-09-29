@@ -61,6 +61,7 @@ const FOCUS_PRESENTATION_TIMER_COMPACT: u8 = 2;
 const FOCUS_PRESENTATION_TIMER_EXPANDED: u8 = 3;
 const FOCUS_POSITION_MOTION_STEP_MS: u64 = 16;
 const FOCUS_POSITION_MOTION_MAX_MS: u64 = 1_000;
+const FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS: u64 = 50;
 
 static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8 = AtomicU8::new(FOCUS_PRESENTATION_UNKNOWN);
 static COMPACT_TIMER_ORIGIN: Mutex<Option<GeometryPoint>> = Mutex::new(None);
@@ -772,6 +773,33 @@ fn apply_panel_native(
     set_focus_presentation_attributes(window, FocusSurfacePresentation::Panel)
 }
 
+fn apply_panel_native_after_animated_cross_dpi_move(
+    window: &tauri::WebviewWindow,
+    work_area: GeometryRect,
+    target_scale: f64,
+    side: FocusPanelSide,
+    previous: FocusSurfacePresentation,
+) -> CommandResult<()> {
+    validate_work_area(work_area).map_err(CommandError::window_geometry)?;
+
+    // Keep the previous Timer region while the fixed host adopts the target
+    // monitor's physical DPI size. The #679 physical capture proved that
+    // revealing the full Panel during this short WebView2 viewport update can
+    // expose a clipped one-column viewport and browser scrollbars.
+    let actual_size = fit_focus_host_for_target_scale(window, work_area, target_scale)?;
+    let final_position = focus_panel_edge_position(work_area, actual_size, side)
+        .map_err(CommandError::window_geometry)?;
+    set_focus_position(
+        window,
+        final_position,
+        "finish animated Focus Panel position at monitor edge",
+    )?;
+    timer_region::apply(window, previous.region())?;
+    std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS));
+    timer_region::apply_full_host(window)?;
+    set_focus_presentation_attributes(window, FocusSurfacePresentation::Panel)
+}
+
 fn apply_timer_native(
     app_handle: &tauri::AppHandle,
     window: &tauri::WebviewWindow,
@@ -979,17 +1007,61 @@ fn animate_focus_surface_presentation_internal(
     let _save_guard = floating_placement::suspend_saves();
     let _display_recovery_guard = windows::suspend_focus_display_recovery();
     let transition = (|| -> CommandResult<()> {
-        let target_position = planned_focus_presentation_position(app_handle, &window, target)?;
+        let source_scale = window.scale_factor().map_err(|error| {
+            map_window_error(
+                FOCUS_SURFACE_LABEL,
+                "read Focus scale before animated transition",
+                error,
+            )
+        })?;
+        let panel_target = if target == FocusSurfacePresentation::Panel {
+            Some(preferred_focus_panel_work_area(app_handle)?)
+        } else {
+            None
+        };
+        let target_position = match panel_target {
+            Some((work_area, target_scale, side)) => {
+                let target_size = focus_host_size_for_target_scale(work_area, target_scale)?;
+                focus_panel_edge_position(work_area, target_size, side)
+                    .map_err(CommandError::window_geometry)?
+            }
+            None => planned_focus_presentation_position(app_handle, &window, target)?,
+        };
+        let cross_dpi_panel_return = panel_target
+            .map(|(_, target_scale, _)| (source_scale - target_scale).abs() > 0.01)
+            .unwrap_or(false);
 
-        // Timer -> Panel must expose the already-prepared Panel clip while the
-        // persistent HWND moves. The focus document itself stays transparent,
-        // so expanding the native region does not reveal a blank host.
-        if previous.mode() == FocusSurfaceMode::Timer && target == FocusSurfacePresentation::Panel {
+        if previous == FocusSurfacePresentation::Panel
+            && target.mode() == FocusSurfaceMode::Timer
+        {
+            // #679 moved the transparent 340x700 host before reducing the
+            // native region, leaving a tall outlined tail under the compact
+            // Timer for several frames. Clip to the already-prepared target
+            // presentation before the finite native position motion begins.
+            timer_region::apply(&window, target.region())?;
+        } else if previous.mode() == FocusSurfaceMode::Timer
+            && target == FocusSurfacePresentation::Panel
+            && !cross_dpi_panel_return
+        {
+            // Same-DPI return keeps the continuous Panel reveal used by the
+            // normal Gate 7 transition.
             timer_region::apply_full_host(&window)?;
         }
 
         animate_focus_position(&window, target_position, duration_ms)?;
-        apply_focus_native_target(app_handle, &window, previous, target)
+
+        match panel_target {
+            Some((work_area, target_scale, side)) if cross_dpi_panel_return => {
+                apply_panel_native_after_animated_cross_dpi_move(
+                    &window,
+                    work_area,
+                    target_scale,
+                    side,
+                    previous,
+                )
+            }
+            _ => apply_focus_native_target(app_handle, &window, previous, target),
+        }
     })();
 
     if let Err(error) = transition {
