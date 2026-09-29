@@ -823,19 +823,17 @@ fn apply_focus_surface_presentation_internal(
     }
 
     let snapshot = capture_focus_native_snapshot(&window)?;
-    let _save_guard = floating_placement::suspend_saves();
 
     if previous.mode() == FocusSurfaceMode::Timer && target == FocusSurfacePresentation::Panel {
         if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
             eprintln!("Could not save Floating Timer position before Panel return: {error}");
         }
     }
+    let _save_guard = floating_placement::suspend_saves();
 
     let transition = match target {
-        FocusSurfacePresentation::Panel => {
-            let (work_area, side) = preferred_focus_panel_work_area(app_handle)?;
-            apply_panel_native(&window, work_area, side)
-        }
+        FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle)
+            .and_then(|(work_area, side)| apply_panel_native(&window, work_area, side)),
         FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
             apply_timer_native(app_handle, &window, previous, target)
         }
@@ -1169,7 +1167,9 @@ fn initialize_persistence(
 pub fn run() {
     let result = tauri::Builder::default()
         .on_window_event(|window, event| {
-            if window.label() == FLOATING_TIMER_LABEL {
+            if window.label() == FOCUS_SURFACE_LABEL
+                && current_focus_surface_mode() == Some(FocusSurfaceMode::Timer)
+            {
                 match event {
                     tauri::WindowEvent::Moved(_) => {
                         if floating_placement::note_timer_moved(window.app_handle())
