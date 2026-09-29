@@ -15,6 +15,9 @@ const shortcuts = read("src-tauri/src/shortcuts/mod.rs");
 const focusEntry = read("src/focus.tsx");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
+const completionSuccess = read("src/FocusCompletionSuccess.tsx");
+const completionSuccessCss = read("src/focusCompletionSuccess.css");
+const presentationTransition = read("src/focusPresentationTransition.ts");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const events = read("src/focusWindowEvents.ts");
 const appShell = read("src/AppShell.tsx");
@@ -77,8 +80,9 @@ invariant(
   "production coordinator must delegate prepaint -> native commit -> renderer ownership ordering to the tested transition helper",
 );
 invariant(
-  coordinator.includes("inert={!panelActive}") && coordinator.includes("inert={!timerActive}"),
-  "inactive/preparing presentations must be removed from interaction and accessibility navigation",
+  coordinator.includes("inert={!panelActive || completionSuccess !== null}")
+    && coordinator.includes("inert={!timerActive || completionSuccess !== null}"),
+  "inactive/preparing presentations and modal backgrounds must be removed from interaction and accessibility navigation",
 );
 invariant(
   coordinatorCss.includes('data-focus-visibility="preparing"')
@@ -86,6 +90,31 @@ invariant(
     && coordinatorCss.includes("opacity: 1")
     && coordinatorCss.includes("pointer-events: none"),
   "incoming presentation must be fully prepainted underneath the committed view",
+);
+
+invariant(
+  coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 270")
+    && coordinator.includes("beforeNativeCommit: contractingToTimer")
+    && coordinator.includes("afterNativeCommit: contractingToTimer")
+    && presentationTransition.includes("beforeNativeCommit?: () => Promise<void>")
+    && presentationTransition.includes("afterNativeCommit?: () => Promise<void>")
+    && coordinatorCss.includes('data-focus-geometry-motion-from="panel"')
+    && coordinatorCss.includes('data-focus-geometry-motion-from="timerCompact"')
+    && coordinatorCss.includes('data-focus-geometry-motion-from="timerExpanded"')
+    && coordinatorCss.includes("clip-path: inset(0 0 590px 0 round 12px)")
+    && coordinatorCss.includes("clip-path: inset(0 0 400px 0 round 12px)"),
+  "Panel/Timer switching must provide finite same-WebView geometry continuity around the native region transaction",
+);
+invariant(
+  coordinatorCss.includes("--focus-visible-height: 700px")
+    && coordinatorCss.includes('--focus-visible-height: 110px')
+    && coordinatorCss.includes('--focus-visible-height: 300px')
+    && completionSuccessCss.includes("height:var(--focus-visible-height,700px)")
+    && completionSuccessCss.includes("max-height:100%")
+    && completionSuccessCss.includes("overflow:auto")
+    && completionSuccess.includes('role="dialog"')
+    && completionSuccess.includes("autoFocus"),
+  "Focus completion success must stay inside the committed native visible region and keep its actions keyboard-accessible",
 );
 
 invariant(
@@ -115,11 +144,22 @@ invariant(
     && coordinator.includes("getFocusSurfacePresentation()"),
   "renderer transitions must use tested commit recovery, per-mode readiness and authoritative event reconciliation",
 );
+const presentationListenerStart = coordinator.indexOf(
+  "void listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT",
+);
+const presentationListenerInstalled = coordinator.indexOf(
+  "stopListening = unlisten;",
+  presentationListenerStart,
+);
+const initialPresentationSnapshot = coordinator.indexOf(
+  "void reconcileAuthoritativePresentation();",
+  presentationListenerInstalled,
+);
 invariant(
-  coordinator.indexOf("listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT") >= 0
-    && coordinator.indexOf("listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT")
-      < coordinator.indexOf("const authoritative = await getFocusSurfacePresentation()"),
-  "presentation projection must subscribe before its authoritative snapshot to avoid a listener/snapshot race",
+  presentationListenerStart >= 0
+    && presentationListenerInstalled > presentationListenerStart
+    && initialPresentationSnapshot > presentationListenerInstalled,
+  "presentation projection must install its listener before invoking the initial authoritative snapshot",
 );
 invariant(
   coordinator.includes("presentationReconcileRevisionRef.current")
