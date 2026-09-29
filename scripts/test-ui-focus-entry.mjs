@@ -144,6 +144,16 @@ if (
   throw new Error("Display-change Panel revalidation must not show or focus the Focus surface.");
 }
 
+const applyPresentationStart = lib.indexOf("fn apply_focus_surface_presentation_internal(");
+const applyPresentationEnd = lib.indexOf("#[tauri::command(rename_all = \"camelCase\")]\nfn focus_surface_apply_presentation", applyPresentationStart);
+const applyPresentationBlock = lib.slice(applyPresentationStart, applyPresentationEnd);
+if (
+  !applyPresentationBlock.includes("previous == target && target != FocusSurfacePresentation::Panel")
+  || !applyPresentationBlock.includes("preferred_focus_panel_work_area(app_handle)")
+) {
+  throw new Error("Explicit Panel presentation must reapply current monitor/side preferences even when Panel is already the committed mode.");
+}
+
 const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
 const registeredPresentation = lib.indexOf("present_focus_panel", handler);
 if (handler < 0 || registeredPresentation < handler) {
