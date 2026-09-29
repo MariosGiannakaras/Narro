@@ -941,6 +941,34 @@ fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus Focus Panel", error))
 }
 
+#[tauri::command]
+fn present_focus_for_blitz(app_handle: tauri::AppHandle) -> CommandResult<()> {
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    let visible = window
+        .is_visible()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read Focus visibility for Blitz entry", error))?;
+
+    if visible {
+        // A visible Focus host may already be in Timer presentation. Do not
+        // bypass the React coordinator by forcing native Panel state here.
+        // Re-entering Blitz simply foregrounds the already committed surface.
+        return window
+            .set_focus()
+            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus existing Blitz surface", error));
+    }
+
+    // Hidden Focus entry is safe to prepare natively because no intermediate
+    // renderer state is exposed to the user. The coordinator reconciles the
+    // authoritative Panel presentation while the host is still hidden.
+    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?;
+    window
+        .show()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show Focus surface for Blitz", error))?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus Focus surface for Blitz", error))
+}
+
 pub(crate) fn revalidate_open_focus_panel_after_display_change(
     app_handle: &tauri::AppHandle,
 ) -> CommandResult<bool> {
@@ -1325,7 +1353,8 @@ pub fn run() {
             list_windows,
             list_monitors,
             position_focus_panel,
-            present_focus_panel
+            present_focus_panel,
+            present_focus_for_blitz
         ])
         .setup(|app| {
             let focus = get_window(app.handle(), FOCUS_SURFACE_LABEL)?;
