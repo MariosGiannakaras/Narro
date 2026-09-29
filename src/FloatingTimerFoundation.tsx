@@ -38,6 +38,8 @@ export type FloatingTimerFoundationProps = {
     settled: boolean;
   };
   presentationActive?: boolean;
+  controlledExpanded?: boolean;
+  onRequestExpanded?: (expanded: boolean) => Promise<void>;
   fixtureExpanded?: boolean;
   fixtureSubtasks?: BoardSubtaskSnapshot | null;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
@@ -67,6 +69,8 @@ export function FloatingTimerFoundation({
   fixtureTimer = null,
   sharedTimerProjection,
   presentationActive = true,
+  controlledExpanded,
+  onRequestExpanded,
   fixtureExpanded = false,
   fixtureSubtasks = null,
   onCompletionSuccess,
@@ -82,21 +86,29 @@ export function FloatingTimerFoundation({
   const [boardTaskId, setBoardTaskId] = useState<string | null>(
     fixtureMode ? fixtureTimer?.runtime.timer.task_id ?? null : null,
   );
-  const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
-  const [regionExpanded, setRegionExpanded] = useState(fixtureMode && fixtureExpanded);
+  const initialExpanded = controlledExpanded ?? (fixtureMode && fixtureExpanded);
+  const [expanded, setExpanded] = useState(initialExpanded);
+  const [regionExpanded, setRegionExpanded] = useState(initialExpanded);
   const [resizePending, setResizePending] = useState(false);
   const [resizePhase, setResizePhase] = useState<"idle" | "prepainting" | "clipping">("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (controlledExpanded !== undefined) {
+      setExpanded(controlledExpanded);
+      setRegionExpanded(controlledExpanded);
+      setResizePending(false);
+      setResizePhase("idle");
+      return;
+    }
     if (!fixtureMode) return;
     setExpanded(fixtureExpanded);
     setRegionExpanded(fixtureExpanded);
     setResizePending(false);
     setResizePhase("idle");
     setResizeError(null);
-  }, [fixtureExpanded, fixtureMode]);
+  }, [controlledExpanded, fixtureExpanded, fixtureMode]);
 
   useEffect(() => () => onResizePendingChange?.(false), [onResizePendingChange]);
 
@@ -243,7 +255,8 @@ export function FloatingTimerFoundation({
           setResizePhase("prepainting");
         });
         await waitForPresentedFrame();
-        await setFloatingTimerExpanded(true);
+        if (onRequestExpanded) await onRequestExpanded(true);
+        else await setFloatingTimerExpanded(true);
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(true);
@@ -253,7 +266,8 @@ export function FloatingTimerFoundation({
         // Clip expanded content first, then return the renderer to compact
         // layout. The outer Timer HWND and WebView dimensions never change.
         setResizePhase("clipping");
-        await setFloatingTimerExpanded(false);
+        if (onRequestExpanded) await onRequestExpanded(false);
+        else await setFloatingTimerExpanded(false);
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(false);
