@@ -6,17 +6,19 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT STATE
 
-`6/10M || 4/4 | 13/15`
+`4/10M || 5/5 | 9/19`
 
 **Implementation in progress on `plan/m7-single-focus` (2026-09-29).** The user has now authorized source changes for the single fixed-host Focus composition. The Tauri window/capability/Vite entry cleanup has begun; native and React consolidation are being implemented in this same checkout. Until a later explicit user instruction, do not run tests, builds, CI, app launches or physical checks. Treat all newly edited source as unvalidated and keep Gate 7/12 open. If this session stops early, continue the incomplete implementation from this branch and inspect its Git diff before doing anything else.
 
-- Roadmap: **6/10 milestones complete**.
-- M7: **13/15 top-level checklist items validated**; Gates 7 and 12 remain FAIL and M7 closure remains OPEN. The denominator is the current top-level TODO list; older 12/14 shorthand predates the later validated Change List/Duplicate item and is stale.
-- M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
+- Roadmap: **4/10 milestones currently complete**. M1 and M6 are reopened in the exact scope invalidated by the single-Focus replacement; M2–M5 remain complete.
+- M1: **9/19 top-level items currently validated**; replacement window/presentation/DPI/topology/bundle/performance items are reopened.
+- M6: **15/18 top-level items currently validated**; Focus placement/topology and full replacement-host integration are reopened.
+- M7: **1/15 top-level items currently validated**; all host/presentation/placement/shortcut/performance-dependent items are reopened except the unrelated validated Change List/Duplicate capability.
+- M8: **3/8 top-level items currently validated**; in-app shortcuts, global Focus routing and Start Break are reopened because their integration target changes. Unaffected conflict handling, nested Preferences behavior and settings persistence remain validated.
 - Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 needs the chosen alternative-composition experiment; Gate 12 still needs the secondary-display physical retest.
 - Open implementation PR: **#191**. Four same-HWND visual-hold heads failed physical Gate 7. The separate fixed-size Timer WebView candidate removed the old white resize frames but first showed loading copy, then a longer Timer/Panel overlap. Head `4e4960b` passed CI `36530577060` and its exact-build On capture reduced the overlap to 0.07–0.10 seconds across three settled cycles, with no white host/loading copy in inspected boundaries. Strict Gate 7 remains OPEN/FAIL; PR #191 is unmerged. The original SQLite profile and animations On were restored. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
 - **Current implementation direction, authorized 2026-09-29:** return to one Focus HWND/WebView, keep its host at maximum Panel geometry during ordinary presentation changes, conditionally render Panel/Timer within that WebView, and clip the native visible region for Panel/compact/expanded states. The complete implementation sequence is in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. Replacement implementation has started on this branch but is incomplete and unvalidated. The user requires implementation to finish **before** any tests/builds/CI/app launch/physical checks, and requires a further explicit instruction to start the testing phase.
-- The replacement starts at the affected **M1 native Focus window foundation**, carries through the **M6 Panel presentation**, and completes the **M7 Timer/transition presentation**. This does **not** reopen M1 or M6 or reset their counters: their affected validated behaviors are regression obligations of the M7 replacement. Preserve M2–M5 and already-validated M8 work; do not restart unrelated milestones. M8 remaining work stays blocked until M7 closes. See the milestone map in the plan.
+- The replacement starts at the affected **M1 native Focus window foundation**, carries through **M6 Panel integration**, then **M7 Timer/transition**, and finally the directly affected **M8 Focus-shortcut integration**. The affected milestone items are explicitly reopened; historical PASS records remain evidence for the old implementation only. Preserve M2–M5 and unaffected M8 work. See the dependency map in the plan.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -50,7 +52,7 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 
 ## M7 PHYSICAL CLOSURE — OPEN; IMPLEMENTATION FIRST
 
-By current user direction, **do not start another M8 source slice while the active M7 replacement and its `FIX_NOW` Gate 7/12 findings remain unresolved**. The earlier deferred physical batch has already run; remaining M8 work resumes only after the replacement is completed, authorized for validation, validated, and tracking-reconciled.
+By current user direction, complete the coherent replacement implementation first and do not run tests/builds/CI/app launches/physical checks until explicitly authorized. When validation is authorized, re-close the reopened milestones in dependency order: **M1 → M6 → M7 → affected M8 shortcut items**. Do not start unrelated remaining M8 feature work before that corrective chain is validated/reconciled.
 
 The CI #624 physical batch has now run on its exact artifact:
 - artifact id: `10944304485`;
