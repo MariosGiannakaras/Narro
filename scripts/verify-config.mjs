@@ -95,13 +95,13 @@ invariant(
 
 const windows = tauriConfig.app?.windows;
 invariant(Array.isArray(windows), "Tauri app.windows must be an array");
-invariant(windows.length === 3, "M7 Timer composition must define three initial webview windows");
+invariant(windows.length === 2, "Narro must define exactly main and one persistent focusSurface WebView");
 
 const labels = windows.map((window) => window.label);
 invariant(new Set(labels).size === labels.length, "Tauri window labels must be unique");
 invariant(
-  [...labels].sort().join(",") === "floatingTimer,focusSurface,main",
-  "window labels must be exactly main, focusSurface, and floatingTimer",
+  [...labels].sort().join(",") === "focusSurface,main",
+  "window labels must be exactly main and focusSurface",
 );
 
 for (const window of windows) {
@@ -117,15 +117,18 @@ for (const window of windows) {
 
 const mainWindow = windows.find((window) => window.label === "main");
 const focusWindow = windows.find((window) => window.label === "focusSurface");
-const timerWindow = windows.find((window) => window.label === "floatingTimer");
 invariant(mainWindow?.url === "index.html", "main must load index.html");
 invariant(focusWindow?.url === "focus.html", "focusSurface must load focus.html");
 invariant(focusWindow?.visible === false, "focusSurface must start hidden");
-invariant(timerWindow?.url === "timer.html", "floatingTimer must load timer.html");
-invariant(timerWindow?.visible === false, "floatingTimer must start hidden");
-invariant(timerWindow?.alwaysOnTop === true, "floatingTimer must remain topmost");
-invariant(timerWindow?.decorations === false, "floatingTimer must remain frameless");
-invariant(timerWindow?.width === 340 && timerWindow?.height === 300, "floatingTimer must start at fixed expanded geometry");
+invariant(focusWindow?.decorations === false, "focusSurface must remain frameless");
+invariant(
+  focusWindow?.width === 340 && focusWindow?.height === 700,
+  "focusSurface must use the validated fixed 340x700 logical host",
+);
+invariant(
+  focusWindow?.alwaysOnTop !== true,
+  "focusSurface starts in Panel presentation and must not start topmost",
+);
 
 const capabilityWindows = capability.windows;
 invariant(Array.isArray(capabilityWindows), "capability windows must be an array");
@@ -134,14 +137,13 @@ invariant(
   "capability window labels must be unique",
 );
 invariant(
-  [...capabilityWindows].sort().join(",") === "floatingTimer,focusSurface,main",
-  "default capability must cover exactly main, focusSurface, and floatingTimer",
+  [...capabilityWindows].sort().join(",") === "focusSurface,main",
+  "default capability must cover exactly main and focusSurface",
 );
 
 await Promise.all([
   requireFile("index.html"),
   requireFile("focus.html"),
-  requireFile("timer.html"),
   requireFile("src-tauri/icons/narro-tray-64.png"),
 ]);
 
