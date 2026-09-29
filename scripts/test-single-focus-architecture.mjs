@@ -18,6 +18,8 @@ const coordinatorCss = read("src/focusSurfaceCoordinator.css");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const events = read("src/focusWindowEvents.ts");
 const appShell = read("src/AppShell.tsx");
+const focusEntryApi = read("src/focusEntryApi.ts");
+const blitzEntry = read("src/BlitzEntryButton.tsx");
 const verifyConfig = read("scripts/verify-config.mjs");
 const ci = read(".github/workflows/ci.yml");
 
@@ -151,6 +153,24 @@ invariant(
   appShell.includes('emitTo("focusSurface", FOCUS_IN_APP_SHORTCUT_EVENT, shortcut)')
     && !appShell.includes('emitTo("floatingTimer"'),
   "Main in-app Focus actions must route to the single host",
+);
+invariant(
+  focusEntryApi.includes('invoke<void>("present_focus_for_blitz")')
+    && !focusEntryApi.includes('invoke<void>("present_focus_panel")')
+    && blitzEntry.includes("await presentFocusForBlitz();"),
+  "production Blitz entry must use the coordinator-safe native entry boundary",
+);
+const blitzEntryNativeStart = lib.indexOf("fn present_focus_for_blitz(app_handle: tauri::AppHandle)");
+const blitzEntryNativeEnd = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(", blitzEntryNativeStart);
+const blitzEntryNative = lib.slice(blitzEntryNativeStart, blitzEntryNativeEnd);
+invariant(
+  blitzEntryNativeStart >= 0
+    && blitzEntryNative.includes("if visible {")
+    && blitzEntryNative.includes("set_focus()")
+    && blitzEntryNative.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?")
+    && blitzEntryNative.indexOf("if visible {")
+      < blitzEntryNative.indexOf("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?"),
+  "Blitz re-entry must preserve a visible Focus presentation and only prepare Panel while hidden",
 );
 invariant(
   topology.includes("const OBSERVED_WINDOW_LABELS: [&str; 1] = [FOCUS_SURFACE_LABEL]")
