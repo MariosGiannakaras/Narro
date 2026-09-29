@@ -303,6 +303,8 @@ These requirements apply separately to every remaining roadmap milestone. They d
 
 ## Milestone 7 — Floating Timer mode
 
+**Current corrective-scope rule:** the open M7 visual-continuity correction may replace the shared Focus presentation/window foundation that was originally implemented during M1 and M6, but this does **not** reopen M1 or M6 as roadmap milestones and does not reset their validated counters. Their previously validated behaviors become regression obligations of the M7 replacement. Historical PASS evidence proves the prior implementation, not the new replacement code. The replacement must preserve the applicable M1 window/lifecycle guarantees and M6 Focus Panel behavior before M7 can close.
+
 - [x] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
 - [x] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.
   - [x] Native drag affordance, focusSurface-scoped drag capability, exact-head PR CI, guarded merge, and resulting-main CI are automated-validated.
@@ -417,6 +419,8 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
+**Current sequencing rule:** remaining M8 implementation is blocked while the active M7 `FIX_NOW` visual/topology findings remain unresolved. Already validated M8 work stays validated and must not be reimplemented; resume the remaining M8 items only after the M7 replacement has completed its required validation/reconciliation.
+
 - [x] Implement confirmed Windows in-app shortcuts. PR #166 exact head `18a4d2b5a26bc705bf7cdf7bea647275b4877890` passed Windows CI #569; guarded squash merge `030274149cafdf590c5aa08f2cd1c9409595c7aa` passed resulting-main CI #570.
 - [x] Implement confirmed Windows global shortcuts plus per-global enable toggles. PR #168 exact head `e63dbd3107fca8ccf95d35506c7a16e4eeaac9f6` passed Windows CI #574; guarded squash merge `699b6ac46bcc6ebcabbcded21f929a7b32018b42` passed resulting-main CI #575.
 - [x] Add conflict/error feedback for unavailable global shortcuts. Persisted enabled intent remains distinct from native registration; conflict/unavailable/retry and persistence/native rollback paths are explicit and validated in PR #168 / CI #574.
@@ -483,6 +487,7 @@ Acceptance criteria:
 - [ ] Re-validate autostart launch after Windows restart/sign-in on the release-candidate build.
 - [ ] Add Narro-owned application icon/branding.
 - [ ] Run regression tests for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion.
+  - For any later milestone that replaced a shared foundation originally validated in an earlier milestone, explicitly rerun the affected earlier acceptance criteria against the release-candidate implementation. Prior historical PASS evidence is not sufficient for replacement code; record the dependency map and resulting regression evidence.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
 - [ ] Confirm animation does not cause task-row/card geometry changes or persistent idle CPU work.
 - [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, and no post-pause/manual-edit timer-vs-ledger divergence.
@@ -507,6 +512,7 @@ This is a required post-roadmap quality stage and **does not become an 11th road
 ### End-to-end implementation and engineering quality review
 
 - [ ] Review the application end to end against `ENGINEERING_QUALITY.md`, established Rust/TypeScript/Tauri/SQLite engineering practices, and the repository's validated architecture/invariants.
+  - Reconcile every cross-milestone replacement: when a later correction changed a foundation created in an earlier validated milestone, verify the final implementation against both the newer corrective acceptance criteria and every materially affected earlier invariant/acceptance criterion. Do not treat historical milestone PASS records as validation of replacement code.
 - [ ] Perform a final local-desktop security/privacy surface review: Tauri capabilities/permissions and IPC exposure, command/input validation boundaries, external-URL activation, filesystem scope, SQLite/query boundaries, absence of unintended remote/network/telemetry paths, secret/token handling, dependency advisories, and release configuration. Any material risk must enter the final findings register with remediation or an explicit accepted limitation.
 - [ ] Review state ownership, persistence boundaries, identity integrity, timer/session accounting, scheduling/timezone/recurrence behavior, lifecycle/window coordination, local-only/privacy boundaries, failure semantics, recovery paths, concurrency/stale-state handling, dependency/configuration hygiene, and release behavior for correctness and maintainability.
 - [ ] Review code structure for unnecessary duplication, brittle coupling, dead/obsolete paths, unsafe assumptions, unclear ownership, weak typing/error models, and avoidable complexity without performing broad rewrites merely for style.
