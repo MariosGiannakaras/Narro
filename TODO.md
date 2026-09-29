@@ -59,7 +59,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] harness created and compiles in Windows CI
   - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation
 
-**Current replacement validation checkpoint (2026-09-29, CORRECTED AUTOMATED PASS / GATE 7 RETEST OPEN):** PR #192 source `73d10ab6...` passed CI #672 then physically failed Gate 7 with repeated blank/light host exposure. The narrow focus-document transparency correction is implemented at exact head `44119dbe829131d38f56fd35250142ed973b2574` and passed authoritative Windows CI #674 / run `36609576132`, including Repository Preflight, Windows visual regression, reused frontend-dist verification and Tauri release. Runtime artifact id `11052303615`, digest `sha256:eca3865bb08d754f7f43a0b9bd436f6a83a45f89b209345a328b66ec8c534bfd`. Strict Gate 7 must now be physically retested on that exact artifact; Gate 12, floating performance and resulting-main closure remain OPEN.
+**Current replacement validation checkpoint (2026-09-29, CI #674 AUTOMATED PASS / GATE 7+12 PHYSICAL FAIL):** PR #192 exact head `44119dbe829131d38f56fd35250142ed973b2574` passed authoritative Windows CI #674 / run `36609576132`, then failed the combined exact-build physical batch. The transparency correction removed the prior opaque blank-host tail, but Panel↔Timer still jumps between distinct saved native positions. The 125% path reaches correct scaled Timer geometry (425×375 physical for 340×300 logical), but cross-monitor dragging requires repeated attempts and return-to-Panel can leave persistent browser scrollbars/stale viewport. Keep the single-host architecture and fix only native position continuity plus mixed-DPI interactive-move/recovery sequencing. Floating performance and resulting-main closure remain OPEN.
 
 Acceptance criteria:
 
@@ -430,7 +430,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** the evidence-backed transparency correction is complete and exact-head CI-green on PR #192 head `44119dbe...` / Windows CI #674. Repeat strict Gate 7 on runtime artifact `11052303615` with Windows animations On. If it passes, continue to Gate 12 mixed-DPI when a visible 125% secondary display is available. Affected M8 work stays blocked.
+**Current execution priority:** exact CI #674 physical evidence now fails both Gate 7 and Gate 12. Continue PR #192 with two narrow corrections: (1) defer/coalesce DPI recovery during the native interactive move loop and perform deterministic post-drag/Panel target-monitor recovery, and (2) coordinate finite native Panel↔Timer position motion with the existing ~270 ms same-WebView geometry motion so the host does not teleport. Re-run exact-head CI, then one combined Gate 7+12 physical batch. Affected M8 work stays blocked.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
