@@ -181,10 +181,30 @@ invariant(
     && coordinator.includes('}, []);'),
   "native Focus shortcut listeners must stay stable and defer requests that arrive before authoritative hydration",
 );
+const applyPresentationStart = lib.indexOf("fn apply_focus_surface_presentation_internal(");
+const applyPresentationEnd = lib.indexOf(
+  '#[tauri::command(rename_all = "camelCase")]\nfn focus_surface_apply_presentation(',
+  applyPresentationStart,
+);
+const applyPresentationBody = lib.slice(applyPresentationStart, applyPresentationEnd);
+const timerToPanelSaveBranch = applyPresentationBody.indexOf(
+  "if previous.mode() == FocusSurfaceMode::Timer && target == FocusSurfacePresentation::Panel {",
+);
+const timerToPanelSave = applyPresentationBody.indexOf(
+  "floating_placement::save_if_timer_visible(app_handle)",
+  timerToPanelSaveBranch,
+);
+const transitionSaveSuppression = applyPresentationBody.indexOf(
+  "let _save_guard = floating_placement::suspend_saves();",
+  timerToPanelSave,
+);
 invariant(
-  lib.includes("floating_placement::save_if_timer_visible(app_handle)")
-    && lib.indexOf("floating_placement::save_if_timer_visible(app_handle)") < lib.indexOf("let _save_guard = floating_placement::suspend_saves()"),
-  "Timer placement must be saved before transition-time save suppression begins",
+  applyPresentationStart >= 0
+    && applyPresentationEnd > applyPresentationStart
+    && timerToPanelSaveBranch >= 0
+    && timerToPanelSave > timerToPanelSaveBranch
+    && transitionSaveSuppression > timerToPanelSave,
+  "Timer -> Panel transition must save placement before transition-time save suppression begins",
 );
 invariant(
   lib.includes("if previous == target && target != FocusSurfacePresentation::Panel")
