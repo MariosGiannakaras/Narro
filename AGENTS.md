@@ -290,6 +290,12 @@ Keep an evidence history for any acceptance failure that recurs: exact source/bu
 
 If the same acceptance criterion still fails on two separately corrected, CI-validated builds that were physically tested, stop making successive small fixes to the same mechanism. Reassess the whole failure path and the underlying window/rendering composition. Compare at least one materially different, scoped solution against the current approach using the same physical acceptance capture and relevant correctness/performance measures. Record the alternatives, tradeoffs and decision in `STATUS.md`/`TODO.md` before more implementation. Do not claim a fix from CI, static screenshots, or a single sampled frame when continuous physical behavior is the criterion. A framework-wide migration requires evidence that a narrower alternative is insufficient.
 
+### Cross-milestone replacement rule
+
+A corrective slice in a later milestone may replace implementation foundations that were originally created and validated in an earlier milestone when the current evidence requires it. This does **not** reopen or reset the earlier roadmap milestone by itself. Preserve its validated product requirements as explicit regression obligations of the replacement.
+
+When this happens, record the affected milestone/acceptance map in `TODO.md` or the active implementation plan. The new code must be validated against both the current corrective criterion and every materially affected earlier invariant before the active milestone can close. Historical PASS evidence describes the superseded implementation and must never be used as proof that replacement code is valid. Do not broaden the rewrite into unaffected milestones unless a direct dependency is demonstrated.
+
 ## Git discipline
 
 - Preserve unrelated user changes.
