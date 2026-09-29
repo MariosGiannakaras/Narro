@@ -237,6 +237,27 @@ export function FocusSurfaceCoordinator() {
 
   requestModeRef.current = requestMode;
 
+  const requestTimerExpanded = useCallback(async (expanded: boolean) => {
+    if (transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
+      throw new Error("Floating Timer size cannot change during another Focus presentation transition.");
+    }
+
+    const previous = presentationRef.current;
+    const target: FocusSurfacePresentation = expanded ? "timerExpanded" : "timerCompact";
+    if (previous === target) return;
+
+    try {
+      await applyFocusSurfacePresentation(target);
+      publishPresentation(target);
+    } catch (failure: unknown) {
+      // Native code owns physical rollback. Keep renderer presentation aligned
+      // with the previously committed native state and surface the primary error
+      // to FloatingTimerFoundation for its own prepaint rollback.
+      publishPresentation(previous);
+      throw failure;
+    }
+  }, [publishPresentation]);
+
   useEffect(() => {
     let disposed = false;
     const stops: Array<() => void> = [];
@@ -401,6 +422,8 @@ export function FocusSurfaceCoordinator() {
           <FloatingTimerFoundation
             sharedTimerProjection={sharedTimerProjection}
             presentationActive={timerActive}
+            controlledExpanded={presentation === "timerExpanded"}
+            onRequestExpanded={requestTimerExpanded}
             onReturnToPanel={() => void requestMode("panel")}
             transitionPending={transitionPending}
             transitionError={transitionError ?? timerProjectionError}
