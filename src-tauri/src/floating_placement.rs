@@ -234,7 +234,7 @@ pub fn safe_position_for_timer_region(
 ) -> CommandResult<PhysicalPoint> {
     let current = current_visible_rect(
         window,
-        crate::FLOATING_TIMER_EXPANDED.load(Ordering::Acquire),
+        crate::current_focus_surface_expanded(),
     )?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
@@ -447,7 +447,7 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
     }
     let current_window = current_visible_rect(
         &window,
-        crate::FLOATING_TIMER_EXPANDED.load(Ordering::Acquire),
+        crate::current_focus_surface_expanded(),
     )?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
@@ -535,7 +535,7 @@ pub fn revalidate_visible_timer_after_display_change(
 
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
-    let expanded = crate::FLOATING_TIMER_EXPANDED.load(Ordering::Acquire);
+    let expanded = crate::current_focus_surface_expanded();
     let previous_outer = current_outer_rect(&window)?;
     let previous = current_visible_rect(&window, expanded)?;
     let selected = best_work_area_for_window(previous, &areas, &fallback);
