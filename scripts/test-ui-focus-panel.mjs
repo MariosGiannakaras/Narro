@@ -140,7 +140,7 @@ for (const [haystack, needle, label] of [
   [timerApi, 'state === "running" || state === "break" || state === "overtime_running"', "sampling limited to ticking states"],
   [timerApi, "applyTimerSessionProjection(latest, incoming)", "sample/event revision ordering"],
   [notes, "openUrl(link)", "explicit Notes URL opener remains confined to validated Notes component"],
-  [focusEntry, "<FocusPanelWindow />", "product Focus Panel root"],
+  [focusEntry, "<FocusSurfaceCoordinator />", "single-host Focus product root"],
   [focusEntry, 'get("diagnostics") === "1"', "explicit diagnostic-mode preservation"],
   [css, "width: min(100%, 340px)", "compact source-evidenced panel width"],
   [css, ".focus-panel__live-timer { width: 10ch; flex: 0 0 10ch;", "fixed live timer geometry"],
