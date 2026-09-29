@@ -2,7 +2,9 @@
 
 This document defines the repeatable evidence protocol for the Milestone 1 architecture gate:
 
-> Measure steady-state CPU and process memory with `main` destroyed, `focusSurface` left alive in Floating Timer mode, and no active animation or user interaction.
+> Measure steady-state CPU and process memory with `main` destroyed, the **single persistent `focusSurface`** left alive in Floating Timer presentation, and no active animation or user interaction.
+
+For the reopened single-Focus gate, the measured build must contain no separate persistent Timer WebView. Record the process tree/window list so the replacement cannot appear cheaper or more expensive because a stale `floatingTimer` renderer is still alive. The compact Timer may use a smaller native window region, but the underlying Focus host/WebView remains the fixed maximum host.
 
 The measurement harness is `scripts/measure-floating.ps1`.
 
