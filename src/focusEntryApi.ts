@@ -13,6 +13,6 @@ export function startBlitz(): Promise<StartBlitzOutcome> {
   });
 }
 
-export function presentFocusPanel(): Promise<void> {
-  return invoke<void>("present_focus_panel");
+export function presentFocusForBlitz(): Promise<void> {
+  return invoke<void>("present_focus_for_blitz");
 }
