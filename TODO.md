@@ -59,6 +59,8 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] harness created and compiles in Windows CI
   - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation
 
+**Current replacement implementation checkpoint (2026-09-29, UNVALIDATED):** PR #192 source head `dc9975147ebf92d462e4314d3665465bc82c6381` implements the fixed-host coordinator, visible-region success dialog correction, finite ~270 ms same-WebView Panel↔Timer clip/reveal motion, corrected subscribe→snapshot architecture contract, and revision/target/task/session guards for async Focus board refreshes. The branch incorporated build-affecting `main` through `9a4bfff39b42220dcaed103245aca455ec730995` in merge `7d6244dbcb55b5decc261faf20d20415554bd59d`; `prebuild` consumes the reconciled branding PNG. The latest actual Windows CI is still old-head run #666 / `36568312141`, which failed the now-corrected lexical-order architecture assertion. No test/build/CI/runtime/physical PASS is claimed for the current head, so all replacement checkboxes above remain open.
+
 Acceptance criteria:
 
 - `main` and `focusSurface` both project the same authoritative Rust application state
