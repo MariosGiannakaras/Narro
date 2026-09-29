@@ -32,6 +32,18 @@ Implement this as one replacement of the affected Focus presentation path, begin
 
 The replacement materially changes the implementation basis of parts of M1, M6 and M7, and directly changes M8 Focus-shortcut routing. The affected items/gates are therefore **reopened** until replacement-code validation exists. Historical PASS evidence remains immutable evidence for the superseded implementation only. M2–M5 remain closed because no direct dependency has been found. Unaffected M8 Preferences/persistence items remain closed, while the affected shortcut items are reopened. Do not broaden the rewrite beyond this dependency map. Validation must later proceed in dependency order: M1 replacement foundation → M6 Focus integration → M7 Floating Timer/Gate 7+12 → affected M8 shortcut integration.
 
+## Live migration ledger from the repository-wide audit
+
+The 2026-09-29 repository-wide scan found these **live, non-historical** split/old-transition dependencies that must be eliminated or rewritten before implementation is considered complete. This is a completeness ledger, not permission for unrelated refactoring.
+
+- Frontend ownership/routing: `src/focus.tsx`, `src/focusPanelWindow.tsx`, `src/floatingTimerWindow.tsx`, `src/focusSurfaceModeApi.ts`, `src/focusWindowEvents.ts`, `src/persistentFocusWindowTransition.ts`, `src/AppShell.tsx`.
+- Native coordination: `src-tauri/src/lib.rs`, `src-tauri/src/floating_placement.rs`, `src-tauri/src/windows/topology.rs`, `src-tauri/src/shortcuts/mod.rs`, `src-tauri/src/timer_region.rs`; retire `focus_visual_hold.rs` / `focus_window_dwm.rs` if no replacement-only use remains.
+- Config/build contracts: `src-tauri/tauri.conf.json` and capabilities are already partially migrated to two windows, while `scripts/verify-config.mjs` and `.github/workflows/ci.yml` still encode the rejected three-window/`timer.html` model. `vite.config.ts` must retain only the production `focus.html` entry while independent visual-fixture HTML files remain allowed.
+- Architecture-sensitive tests currently encoding old/split behavior: `scripts/test-focus-mode-transition.mjs`, `test-ui-focus-surface-transition.mjs`, `test-ui-floating-compact-mode.mjs`, `test-ui-floating-expanded.mjs`, `test-ui-floating-movability.mjs`, `test-ui-floating-collapsed.mjs`, `test-ui-focus-toggle-shortcut.mjs`, `test-in-app-shortcuts.mjs`, `test-ui-focus-entry.mjs`, `test-ui-focus-panel.mjs`, `test-ui-preferences.mjs`, plus the obsolete visual-hold contract registered in `package.json` if its production mechanism is retired.
+- Historical `work-log/`, old prompts and evidence files may continue to mention resize/hide/show or separate Timer experiments; they are immutable history and must not be "cleaned up" to look current.
+
+Completion grep/static checks should find no live production/config/test dependence on a `floatingTimer` runtime label, `timer.html`, cross-window Timer readiness/query protocol, or split Panel/Timer window transition helper, except explicitly historical/test-fixture names that do not create runtime windows.
+
 ## Implementation order for the next chat
 
 1. **Continue from the current unmerged PR #191 checkout, or a child implementation branch of it.** Use validated `main` as the behavioral/source baseline, and replace the experimental split composition rather than layering another window over it. Retain useful Win32 region/DPI and safe-position code; remove the second WebView and its cross-window switching protocol. Keep PR #191 unmerged until later authorized validation and preserve unrelated working-tree files.
