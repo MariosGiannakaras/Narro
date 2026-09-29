@@ -120,6 +120,11 @@ invariant(
   "presentation projection must subscribe before its authoritative snapshot to avoid a listener/snapshot race",
 );
 invariant(
+  coordinator.includes("presentationReconcileRevisionRef.current")
+    && coordinator.includes("revision === presentationReconcileRevisionRef.current"),
+  "out-of-order native presentation snapshots must not overwrite a newer renderer reconciliation",
+);
+invariant(
   lib.includes("floating_placement::save_if_timer_visible(app_handle)")
     && lib.indexOf("floating_placement::save_if_timer_visible(app_handle)") < lib.indexOf("let _save_guard = floating_placement::suspend_saves()"),
   "Timer placement must be saved before transition-time save suppression begins",
