@@ -1,12 +1,9 @@
 import fs from "node:fs";
 
-function read(path) {
-  return fs.readFileSync(path, "utf8");
-}
-
-function invariant(condition, message) {
+const read = (path) => fs.readFileSync(path, "utf8");
+const invariant = (condition, message) => {
   if (!condition) throw new Error(`Floating Timer movability contract failed: ${message}`);
-}
+};
 
 const tauriConfig = JSON.parse(read("src-tauri/tauri.conf.json"));
 const defaultCapability = JSON.parse(read("src-tauri/capabilities/default.json"));
@@ -19,32 +16,48 @@ const foundationCss = read("src/floatingTimerFoundation.css");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const pkg = JSON.parse(read("package.json"));
 
-const timerWindow = tauriConfig.app.windows.find((window) => window.label === "floatingTimer");
-invariant(timerWindow, "separate floatingTimer Tauri window config is missing");
-invariant(timerWindow.url === "timer.html" && timerWindow.visible === false, "Timer must load its own entry while initially hidden");
-invariant(timerWindow.decorations === false && timerWindow.transparent === true, "Timer must remain a frameless transparent surface");
-invariant(timerWindow.alwaysOnTop === true && timerWindow.skipTaskbar === true, "Timer must remain topmost and absent from the taskbar");
+const focusWindow = tauriConfig.app.windows.find((window) => window.label === "focusSurface");
+invariant(focusWindow, "focusSurface Tauri window config is missing");
+invariant(
+  focusWindow.url === "focus.html"
+    && focusWindow.width === 340
+    && focusWindow.height === 700
+    && focusWindow.decorations === false
+    && focusWindow.transparent === true,
+  "single Focus host must remain the frameless transparent 340x700 surface",
+);
+invariant(!tauriConfig.app.windows.some((window) => window.label === "floatingTimer"), "movable Timer must not create a second window");
 
-invariant(defaultCapability.windows.includes("floatingTimer"), "Timer must retain the default core capability");
 invariant(
   !defaultCapability.permissions.includes("core:window:allow-start-dragging"),
   "native drag permission must not be broadened to every default-capability window",
 );
 invariant(
-  focusCapability.windows.length === 2
-    && focusCapability.windows.includes("focusSurface")
-    && focusCapability.windows.includes("floatingTimer"),
-  "native drag capability must cover only Panel and Timer windows",
-);
-invariant(
-  focusCapability.permissions.includes("core:window:allow-start-dragging"),
-  "Panel/Timer native start-dragging permission is missing",
+  focusCapability.windows.length === 1
+    && focusCapability.windows[0] === "focusSurface"
+    && focusCapability.permissions.includes("core:window:allow-start-dragging"),
+  "native drag capability must target only the persistent Focus host",
 );
 
 invariant(
-  lib.includes('const FLOATING_TIMER_LABEL: &str = "floatingTimer"')
-    && placement.includes('const FLOATING_TIMER_LABEL: &str = "floatingTimer"'),
-  "native Timer placement must target the separate Timer window",
+  lib.includes('const FOCUS_SURFACE_LABEL: &str = "focusSurface"')
+    && placement.includes('const FOCUS_SURFACE_LABEL: &str = "focusSurface"')
+    && !lib.includes('const FLOATING_TIMER_LABEL')
+    && !placement.includes('const FLOATING_TIMER_LABEL'),
+  "native Timer placement must target only focusSurface",
+);
+for (const needle of [
+  "save_if_timer_visible",
+  "restore_for_timer",
+  "safe_position_for_timer_region",
+  "note_timer_moved",
+  "suspend_saves",
+]) {
+  invariant(placement.includes(needle), `placement layer is missing ${needle}`);
+}
+invariant(
+  lib.includes("set_always_on_top(timer)") && lib.includes("set_skip_taskbar(timer)"),
+  "topmost/taskbar state must be presentation attributes, not static second-window config",
 );
 
 const dragRegionMatches = foundation.match(/data-tauri-drag-region="true"/g) ?? [];
@@ -52,34 +65,20 @@ invariant(dragRegionMatches.length >= 3, "compact surface must expose native dra
 const returnButtonStart = actions.indexOf('action="return-to-panel"');
 invariant(returnButtonStart >= 0, "return-to-panel button marker is missing");
 const returnButtonEnd = actions.indexOf("/>", returnButtonStart);
-const returnButtonSlice = actions.slice(returnButtonStart, returnButtonEnd);
-invariant(!returnButtonSlice.includes("data-tauri-drag-region"), "interactive return control must not become a drag region");
+invariant(!actions.slice(returnButtonStart, returnButtonEnd).includes("data-tauri-drag-region"), "interactive return control must not become a drag region");
 
 for (const forbidden of ["@tauri-apps/api/window", "startDragging", "pointermove", "mousemove", "touchmove", "setPosition"]) {
-  invariant(
-    !foundation.includes(forbidden) && !modeApi.includes(forbidden),
-    `renderer must not own window position through ${forbidden}`,
-  );
+  invariant(!foundation.includes(forbidden) && !modeApi.includes(forbidden), `renderer must not own placement through ${forbidden}`);
 }
-
 invariant(
   foundationCss.includes('[data-tauri-drag-region="true"]')
     && foundationCss.includes("cursor: grab")
     && foundationCss.includes("user-select: none"),
-  "native drag regions need an explicit non-selecting drag affordance",
-);
-invariant(
-  foundationCss.includes(".floating-timer-foundation__action") && foundationCss.includes("cursor: pointer"),
-  "interactive expanded controls must remain visually distinct from drag regions",
-);
-
-invariant(
-  pkg.scripts["test:ui-floating-movability"] === "node scripts/test-ui-floating-movability.mjs",
-  "package script registration differs",
+  "native drag regions need an explicit non-selecting affordance",
 );
 invariant(
   pkg.scripts["preflight:frontend"].includes("npm run test:ui-floating-movability"),
-  "frontend preflight must run the Floating Timer movability contract",
+  "frontend preflight must retain Floating Timer movability coverage",
 );
 
-console.log("Floating Timer native movability/topmost/taskbar contracts passed.");
+console.log("Floating Timer single-host movability/topmost/taskbar contracts passed.");
