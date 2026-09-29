@@ -76,6 +76,9 @@ fn presentation_guard() -> CommandResult<MutexGuard<'static, ()>> {
 #[cfg(windows)]
 mod focus_visual_hold;
 
+#[cfg(windows)]
+mod focus_window_dwm;
+
 #[cfg(not(windows))]
 mod focus_visual_hold {
     use super::CommandResult;
@@ -1091,14 +1094,14 @@ fn reveal_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
     window
         .show()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "reveal Panel", error))?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus prepared Panel", error))?;
     focus_surface_prewarm::uncloak(&window)?;
     let timer = get_window(&app_handle, FLOATING_TIMER_LABEL)?;
     timer.hide().map_err(|error| {
         map_window_error(FLOATING_TIMER_LABEL, "hide after Panel reveal", error)
     })?;
-    window
-        .set_focus()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus revealed Panel", error))?;
     announce_focus_surface_mode(&app_handle, FocusSurfaceMode::Panel);
     Ok(())
 }
@@ -1150,6 +1153,9 @@ fn reveal_floating_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
     window
         .show()
         .map_err(|error| map_window_error(FLOATING_TIMER_LABEL, "reveal Timer", error))?;
+    window
+        .set_focus()
+        .map_err(|error| map_window_error(FLOATING_TIMER_LABEL, "focus prepared Timer", error))?;
     focus_surface_prewarm::uncloak(&window)?;
     let panel = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     panel
@@ -1644,6 +1650,12 @@ pub fn run() {
         ])
         .setup(|app| {
             let timer = get_window(app.handle(), FLOATING_TIMER_LABEL)?;
+            #[cfg(windows)]
+            {
+                let panel = get_window(app.handle(), FOCUS_SURFACE_LABEL)?;
+                focus_window_dwm::disable_transitions(&panel)?;
+                focus_window_dwm::disable_transitions(&timer)?;
+            }
             timer_region::apply(&timer, false)?;
             install_tray(app)?;
             let mut connection = initialize_persistence(app)?;
