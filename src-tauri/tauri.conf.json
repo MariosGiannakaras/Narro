@@ -22,7 +22,7 @@
         "label": "focusSurface",
         "title": "Narro - Focus",
         "url": "focus.html",
-        "width": 400,
+        "width": 340,
         "height": 700,
         "visible": false,
         "alwaysOnTop": true,
