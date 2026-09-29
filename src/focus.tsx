@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
+import "./focusDocument.css";
 import { FocusSurfaceCoordinator } from "./FocusSurfaceCoordinator";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { TimerSessionProjection } from "./TimerSessionProjection";

@@ -1,0 +1,13 @@
+/*
+ * focusSurface is a transparent Tauri/WebView window. App.css intentionally
+ * paints the normal application document canvas, so the Focus entry must
+ * override that shared canvas: presentation clip-path motion can temporarily
+ * reveal document pixels before/after the native Win32 region transaction.
+ * Actual Panel/Timer components paint their own opaque surfaces.
+ */
+:root,
+html,
+body,
+#root {
+  background: transparent;
+}

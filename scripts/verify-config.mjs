@@ -121,6 +121,7 @@ invariant(mainWindow?.url === "index.html", "main must load index.html");
 invariant(focusWindow?.url === "focus.html", "focusSurface must load focus.html");
 invariant(focusWindow?.visible === false, "focusSurface must start hidden");
 invariant(focusWindow?.decorations === false, "focusSurface must remain frameless");
+invariant(focusWindow?.transparent === true, "focusSurface must retain a transparent native/WebView canvas");
 invariant(
   focusWindow?.width === 340 && focusWindow?.height === 700,
   "focusSurface must use the validated fixed 340x700 logical host",

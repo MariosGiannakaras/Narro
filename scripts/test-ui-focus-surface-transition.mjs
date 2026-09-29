@@ -14,6 +14,8 @@ const slice = (source, begin, end) => {
 const lib = read("src-tauri/src/lib.rs");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
+const focusEntry = read("src/focus.tsx");
+const focusDocumentCss = read("src/focusDocument.css");
 const transition = read("src/focusPresentationTransition.ts");
 const events = read("src/focusWindowEvents.ts");
 const modeApi = read("src/focusSurfaceModeApi.ts");
@@ -92,6 +94,16 @@ invariant(
     && coordinatorCss.includes("opacity: 1")
     && coordinatorCss.includes("z-index: 1"),
   "incoming presentation must be fully painted underneath the committed presentation",
+);
+
+invariant(
+  focusEntry.includes('import "./focusDocument.css";')
+    && focusDocumentCss.includes(":root")
+    && focusDocumentCss.includes("body")
+    && focusDocumentCss.includes("#root")
+    && focusDocumentCss.includes("background: transparent")
+    && !focusDocumentCss.includes("var(--color-canvas)"),
+  "focus.html must keep its document canvas transparent so clip/region transitions cannot expose an opaque host tail",
 );
 
 invariant(
