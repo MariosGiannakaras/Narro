@@ -145,20 +145,6 @@ export function FocusSurfaceCoordinator() {
     };
   }, []);
 
-  useEffect(() => {
-    let disposed = false;
-    void getFocusSurfacePresentation()
-      .then((initial) => {
-        if (!disposed) publishPresentation(initial);
-      })
-      .catch((failure: unknown) => {
-        if (!disposed) setTransitionError(formatInvokeError(failure));
-      });
-    return () => {
-      disposed = true;
-    };
-  }, [publishPresentation]);
-
   const requestMode = useCallback(async (targetMode: FocusSurfaceMode, quickTask = false) => {
     if (quickTask) quickTaskAfterPanelRef.current = true;
 
@@ -295,12 +281,21 @@ export function FocusSurfaceCoordinator() {
       }
     });
 
-    void subscribe<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT, (next) => {
-      if (next !== "panel" && next !== "timerCompact" && next !== "timerExpanded") return;
-      // Treat the event as an invalidation hint rather than source authority.
-      // A delayed event from an earlier native command must never roll React
-      // back to stale presentation state.
-      if (transitionGateRef.current) return;
+    return () => {
+      disposed = true;
+      for (const stop of stops) stop();
+    };
+  }, [publishPresentation, timerResizePending]);
+
+  useEffect(() => {
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+
+    // Subscribe before taking the snapshot so a native presentation commit
+    // cannot fall into a snapshot/listener gap. Events are invalidation hints;
+    // the authoritative native snapshot always wins.
+    void listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT, () => {
+      if (disposed || transitionGateRef.current) return;
       void getFocusSurfacePresentation()
         .then((authoritative) => {
           if (!disposed && !transitionGateRef.current) publishPresentation(authoritative);
@@ -308,13 +303,29 @@ export function FocusSurfaceCoordinator() {
         .catch((failure: unknown) => {
           if (!disposed) setTransitionError(formatInvokeError(failure));
         });
-    });
+    })
+      .then(async (unlisten) => {
+        if (disposed) {
+          unlisten();
+          return;
+        }
+        stopListening = unlisten;
+        try {
+          const authoritative = await getFocusSurfacePresentation();
+          if (!disposed && !transitionGateRef.current) publishPresentation(authoritative);
+        } catch (failure: unknown) {
+          if (!disposed) setTransitionError(formatInvokeError(failure));
+        }
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) setTransitionError(formatInvokeError(failure));
+      });
 
     return () => {
       disposed = true;
-      for (const stop of stops) stop();
+      stopListening?.();
     };
-  }, [publishPresentation, timerResizePending]);
+  }, [publishPresentation]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
