@@ -45,11 +45,11 @@ The current validated **merged application source baseline** is `e3a9abf8f769297
 
 ## Repository documentation/process policy — 2026-09-29
 
-Authoritative process/spec/tracking Markdown now advances **directly on `main`** when it does not change executable, build, test, packaging, dependency or CI semantics. These commits do not consume Windows CI and do not replace the validated application-source baseline. Active implementation branches must reconcile their Markdown copies from `main` before continuing source work.
+Authoritative process/spec/tracking/evidence-only changes now advance **directly on `main`** when they do not change executable, build, test, packaging, dependency or CI semantics. Markdown is path-ignored by Windows CI; non-Markdown evidence-only commits use GitHub's supported `[skip ci]` commit instruction. These commits do not replace the validated application-source baseline. Active implementation branches must reconcile this repository truth from `main` before continuing source work.
 
 This exemption does **not** apply to workflow YAML, scripts/tests, package/Cargo manifests or lockfiles, Tauri/runtime/capability configuration, migrations/schemas, generated manifests, or fixtures/assets consumed by runtime/build/test/packaging. Those remain validation-affecting source and use the normal branch/PR/preflight/CI discipline.
 
-The existing Windows CI already ignores `**/*.md` on push and pull request, so no workflow edit was required for this policy. Direct-to-`main` Markdown commits made during this reconciliation started no Windows CI run.
+The existing Windows CI already ignores `**/*.md` on push and pull request, so no workflow edit was required. Sanitized M7 evidence PNGs were also published directly to `main` in commit `1655076e97c5d75e8acc0494931d6f82e0e88ff4` using `[skip ci]`; GitHub reported no Windows CI run for that commit.
 
 ## Item 7 earlier physical candidate
 
