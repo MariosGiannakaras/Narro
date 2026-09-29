@@ -34,7 +34,7 @@ Narro normally uses two webview windows on Windows:
    - **Focus Panel** — tall/narrow focus workspace;
    - **Floating Timer** — compact always-on-top widget.
 
-Focus Panel and Floating Timer are two views of one authoritative Rust-owned active session, not independent apps or timers.
+Focus Panel and Floating Timer are two views of one authoritative Rust-owned active session, not independent apps or timers. They also share one persistent `focusSurface` WebView: Panel/compact/expanded are dynamic React presentations inside that host. Normal presentation switching must not be implemented by closing/opening, hiding/showing, or resizing separate Focus WebViews.
 
 ## 1.1 Main window
 
@@ -222,8 +222,10 @@ Progress:
 Focus Panel ↔ Floating Timer:
 - **[SOURCE-MEASURED]** VE-003 shows one continuous visible geometry transformation of roughly **0.27 s** at 60 fps;
 - the source sequence progressively changes window geometry rather than using only an opacity crossfade;
+- the recording does **not** establish Blitzit's internal native-window count or component/rendering architecture;
 - **[SOURCE-ARTIFACT]** the recording exposes clipped/sparse intermediate content; Narro should preserve continuity without deliberately reproducing that artifact;
 - **[NARRO IMPROVEMENT]** content may use a restrained crossfade/scale as needed, but domain state must remain continuous;
+- **[NARRO IMPLEMENTATION PLAN / UNVALIDATED]** use one fixed-maximum-size Focus WebView with React presentation switching and a DPI-aware clipped native visible region; see `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`;
 - never drive native resize with high-frequency JS loops.
 
 Find Timer:
