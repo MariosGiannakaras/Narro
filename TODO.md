@@ -59,10 +59,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] harness created and compiles in Windows CI
   - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation
 
-**Current replacement validation checkpoint (2026-09-29, CI #674 AUTOMATED PASS / GATE 7+12 PHYSICAL FAIL):** PR #192 exact head `44119dbe829131d38f56fd35250142ed973b2574` passed authoritative Windows CI #674 / run `36609576132`, then failed the combined exact-build physical batch. The transparency correction removed the prior opaque blank-host tail, but Panel↔Timer still jumps between distinct saved native positions. The 125% path reaches correct scaled Timer geometry (425×375 physical for 340×300 logical), but cross-monitor dragging requires repeated attempts and return-to-Panel can leave persistent browser scrollbars/stale viewport. Keep the single-host architecture and fix only native position continuity plus mixed-DPI interactive-move/recovery sequencing. Floating performance and resulting-main closure remain OPEN.
-
-Acceptance criteria:
-
+**Current replacement validation checkpoint (2026-09-30, CI #679 AUTOMATED PASS / GATE 7+12 PHYSICAL RETEST OPEN):** PR #192 exact head `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93` passed authoritative Windows CI #679 / run `36630411679`. It retains the #674 transparent document fix and adds the two evidence-backed corrections: finite native Panel↔Timer position motion coordinated with the ~270 ms same-WebView transition, plus interactive/programmatic display-recovery deferral and target-monitor-scale DPI recovery. Runtime artifact id `11065275562`, digest `sha256:8b50e089fdaf6e5eaf572dd2b469eac42a521a8ea447c4532161edbc35163400`. The preceding #674 physical batch remains the failure evidence; Gate 7 and Gate 12 must now be retested physically on #679 before any checkbox/counter or merge advancement.
 - `main` and `focusSurface` both project the same authoritative Rust application state
 - Focus Panel -> Floating Timer -> Focus Panel does not create parallel secondary webviews or reset state
 - ordinary Focus presentation changes preserve one `focusSurface` HWND/WebView identity and use component/region switching rather than Focus WebView hide/show/create/destroy/resize
