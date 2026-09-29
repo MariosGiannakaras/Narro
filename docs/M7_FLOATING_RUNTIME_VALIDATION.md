@@ -1,6 +1,24 @@
 # Milestone 7 consolidated Windows runtime validation
 
-Use one real Windows 10/11 x64 session for the **remaining M7 physical gates only**. Do not repeat checks already established by earlier work logs unless a later source change directly affects them.
+## Single-Focus replacement override — current
+
+The active `plan/m7-single-focus` implementation **does directly replace** the window/presentation/placement/shortcut/performance paths that supported earlier M1/M6/M7/M8 evidence. Therefore this document's older "do not repeat" shortcuts apply only to the superseded implementation.
+
+After the user authorizes validation, validate the exact replacement build in dependency order: reopened M1 Gate A → reopened M6 Gate F integration → reopened M7 items/Gate 7+12 → affected M8 shortcut integration. Historical passes remain evidence of prior behavior but cannot close replacement-code items.
+
+Before physical testing, automated/static validation must prove all of these replacement invariants:
+- Tauri/config/capabilities expose exactly `main` and one `focusSurface`; no runtime `floatingTimer` WebView or `timer.html` entry;
+- ordinary Panel ↔ Timer and compact ↔ expanded changes preserve the same Focus HWND/WebView identity;
+- ordinary presentation switching does not close/create/destroy/hide/show or resize the Focus HWND/WebView;
+- Panel/Timer are component presentations in one React root/coordinator;
+- the incoming presentation can be prepared before exposure without `display:none`/unmount-first staging; inactive/preparing controls are inert, pointer-inactive and excluded from accessibility/focus navigation;
+- Main/global/in-app Focus shortcuts route to the single `focusSurface`, never a Timer window label;
+- the split-window readiness/query/request protocol and superseded persistent-window transition helper are absent from production paths;
+- native visible-region/position/topmost/taskbar changes have explicit rollback and do not own timer/session completion;
+- authoritative timer/session/domain state remains Rust-owned and presentation changes do not duplicate subscriptions/side effects that can mutate it.
+
+Physical replacement validation must additionally record same-HWND identity, visible-region geometry, session continuity, Panel placement/topology, Timer drag/topmost/taskbar, shortcut behavior, normal/reduced-motion transitions, mixed-DPI/work-area behavior and replacement floating-only CPU/memory.
+
 
 ## Exact build
 
@@ -124,9 +142,9 @@ PASS requires:
 
 Primary-monitor bottom expansion already passed earlier; prioritize the still-unvalidated configurations.
 
-## Already-settled M7 evidence — do not repeat by default
+## Historical settled evidence — replacement revalidation rule
 
-Do not spend time re-running these unless a new failure directly implicates them:
+The following previously passed on older implementations and remains useful historical evidence:
 - native drag and return-to-Panel affordance;
 - normal always-on-top and normal taskbar absence;
 - collapsed/expanded content functionality;
@@ -136,7 +154,9 @@ Do not spend time re-running these unless a new failure directly implicates them
 - same-monitor last-position restore;
 - primary-monitor bottom expansion;
 - maximized Edge / Edge F11 stacking;
-- idle-animation audit and final Floating Timer CPU/memory measurements.
+- idle-animation audit and earlier Floating Timer CPU/memory measurements.
+
+For the single-Focus replacement, **rerun every item above whose implementation path is touched by the replacement**. In particular drag, topmost/taskbar, Panel/Timer shortcuts, placement/topology, expand/collapse, Focus Panel integration and performance are reopened in `TODO.md`. Domain mutation semantics that are reused unchanged may rely on their existing unit/domain coverage but still require enough integration coverage to prove the new presentation host did not disconnect or duplicate them.
 
 ## Recording result
 
