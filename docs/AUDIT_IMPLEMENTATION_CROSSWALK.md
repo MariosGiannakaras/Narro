@@ -172,7 +172,16 @@ Validated behavior:
 7. stale rule/version guards, parent identity, persistence-first publication and recurrence idempotence remain intact;
 8. Repeat + No Repeat states are captured/validated in light and dark themes.
 
-There are currently **no active `FIX_NOW` rows**. PREF-R01 is validated. By user direction on 2026-09-28, run and reconcile the deferred M7 physical Windows acceptance batch before starting PREF-R02.
+### M7-PHYS — exact-build physical corrections
+
+CI #624 physical Windows evidence is in `work-log/2026-09-28-codex-m7-ci624-physical-batch.md`.
+
+| ID | Physical finding | Route | Disposition |
+| --- | --- | --- | --- |
+| M7-PHYS-01 | Timer→Panel with Windows animations On exposes pure-white frames; Timer Expand/Collapse exposes enlarged/shrinking empty surfaces | M7 visual continuity | **FIX_NOW / STRICT GATE OPEN** — four exact CI-validated same-HWND hide/resize/visual-hold builds physically failed Gate 7. Separate fixed-host Timer `8b94946` avoided old white resize frames but exposed loading copy; `a6a9459` removed that copy but overlapped Timer/Panel. `4e4960b` passed CI `36530577060` and reduced the overlap to 0.07–0.10 seconds in one exact-build On transition capture. That residual remains observable; PR #191 is unmerged. **Next implementation direction:** one fixed-maximum-size `focusSurface` HWND/WebView, React Panel/Timer presentation switching and DPI-aware native region clipping, without normal mode HWND resizing or a second Timer window. This mechanism was omitted from the earlier alternatives assessment; implementation is now in progress and remains unvalidated; see `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. By explicit user instruction, defer all tests/CI/physical checks until implementation is complete and the user authorizes the testing phase. |
+| M7-PHYS-02 | Moving visible compact Timer to 125% secondary monitor shrinks its outer size and clips controls with both scrollbars; mode reapply restores size | M7 topology/DPI | **FIX_NOW / REPLACEMENT VALIDATION OPEN** — the single-Focus replacement changes visible-region/DPI/topology handling; exact-build mixed-DPI retest is required after implementation and user-authorized validation |
+
+Both findings concern already-built M7 surfaces. PR #191 is not validation: their disposition remains `FIX_NOW` until the replacement passes successful exact-head CI plus required physical acceptance. Because the replacement changes the implementation basis of earlier/later integration points, `TODO.md` also reopens the materially affected M1 Gate A items, M6 Gate F integration items, M7 host-dependent items, and M8 Focus-shortcut items. PREF-R01 and unaffected M8 settings/persistence work remain validated.
 
 ## 8. No-orphan gate
 
