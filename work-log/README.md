@@ -11,7 +11,7 @@ Therefore:
 - root `WORK_LOG.md` is retained as **legacy historical archive**;
 - do not delete or rewrite its prior history;
 - all **new** coherent work/validation slices should create one new Markdown file in this directory;
-- new Markdown work-log entries are authoritative tracking artifacts and should be committed directly to `main` without Windows CI, even while the source implementation they describe lives on a feature branch. They record branch/SHA/validation state; they do not themselves validate or merge that source.
+- new work-log entries are authoritative tracking artifacts and should be committed directly to `main` without Windows CI, even while the source implementation they describe lives on a feature branch. Markdown entries are path-ignored by CI; sanitized non-Markdown evidence under `work-log/evidence/` may also be published directly with `[skip ci]`. They record branch/SHA/validation state; they do not themselves validate or merge that source.
 
 ## Naming
 
