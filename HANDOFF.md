@@ -12,7 +12,7 @@ GitHub `main` is the durable source truth.
 - M7: **12/14 top-level checklist items validated** after the CI #624 physical batch; Gates 7 and 12 remain FAIL and M7 closure remains OPEN.
 - M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
 - Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 needs the chosen alternative-composition experiment; Gate 12 still needs the secondary-display physical retest.
-- Open implementation PR: **#191**. Four same-HWND visual-hold heads failed physical Gate 7. The separate fixed-size Timer WebView/region candidate `8b94946` passed CI `36493571169` and physical On/Off batches avoided the old white resize frames, but On mode transitions exposed brief loading placeholders. A same-target board-refresh correction is local and frontend-validated; exact-head CI, physical retest and CPU/memory comparison remain pending. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
+- Open implementation PR: **#191**. Four same-HWND visual-hold heads failed physical Gate 7. The separate fixed-size Timer WebView candidate removed the old white resize frames but first showed loading copy, then a longer Timer/Panel overlap. Head `4e4960b` passed CI `36530577060` and its exact-build On capture reduced the overlap to 0.07–0.10 seconds across three settled cycles, with no white host/loading copy in inspected boundaries. Strict Gate 7 remains OPEN/FAIL; PR #191 is unmerged. The original SQLite profile and animations On were restored. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -58,7 +58,7 @@ The CI #624 physical batch has now run on its exact artifact:
 
 PR #191 exact-build and physical chronology is consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. CI success on three corrected heads was followed by physical Gate 7 failure, so the `AGENTS.md` repeated-failure rule now applies. Gate 12's exact-build secondary-monitor result remains open. Do not merge PR #191 until the required physical gates pass.
 
-The original SQLite profile backup is in ignored `artifacts/m7-ci624-runtime/profile-before.db`. The test profile currently has a temporary no-saved-placement row deletion; restore the full original backup after the final test. The user restored the second monitor to its original 100%. Windows animations are currently On, confirmed by `SPI_GETANIMATION=1` and `SPI_GETCLIENTAREAANIMATION=1`; restore this original On state after any Off retest.
+The original SQLite profile is restored and its SHA-256 matches the pretest copy at `artifacts/m7-separate-timer-runtime/profile-before.db`. The test profiles and raw captures remain in ignored artifacts. Windows animations are On, confirmed by both `SPI_GETANIMATION=1` and `SPI_GETCLIENTAREAANIMATION=1`. One 100% display is currently exposed; the secondary 125% Gate 12 branch remains unavailable.
 
 ## REMAINING M8 ORDER
 
@@ -74,7 +74,7 @@ PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 
 - Product-fidelity default: for in-scope personal/local functionality, confirmed Blitzit behavior and visuals are the target. Do not introduce discretionary redesign. Known Blitzit reliability failures are preventive engineering input and must shape implementation/tests before affected work. If an exact source detail remains unknowable after relevant evidence is exhausted, choose the strongest professional reconstruction consistent with adjacent Blitzit patterns, Narro's established UI/UX, Windows conventions, accessibility and reliability, and record it as inference/design decision rather than confirmed source behavior.
 - Narro remains local-only Windows software with Tauri 2 + React/TypeScript, SQLite, and authoritative Rust/domain state.
-- `main` + reusable `focusSurface` remain the normal two-webview architecture.
+- `main` + reusable `focusSurface` remain the validated main-branch architecture. PR #191's separate persistent Timer WebView is still an unmerged, physically incomplete experiment.
 - persistence-first mutations, stable task identities, session/time accounting, recurrence idempotence and Windows-local scheduling semantics remain authoritative.
 - Focus/Floating presentation changes cannot reset, duplicate or independently advance a live session.
 - Notes URLs require explicit activation; aggregate All Lists reorder remains disabled.
@@ -88,17 +88,14 @@ The abandoned CI dedup regression guard was recovered, validated and merged in P
 
 ## NEXT AGENT ACTION
 
-The repeated Gate 7 failure history is consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. The completed assessment and latest exact-build physical FAIL are in `work-log/2026-09-28-codex-m7-architecture-assessment.md`. Four CI-validated PR #191 builds, including `b23c8ab`, failed physical Gate 7. The next technical step is the **bounded alternative-composition experiment**, not another bitmap-hold patch. The original SQLite profile has been restored and verified byte-for-byte; both animation settings are On. Windows exposes one display, so secondary-monitor Gate 12 remains open.
+The repeated Gate 7 failure history and composition assessment are in `work-log/2026-09-28-codex-m7-visual-continuity-history.md` and `work-log/2026-09-28-codex-m7-architecture-assessment.md`. The separate-WebView experiment and exact-build physical captures are in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`. Latest application source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed CI `36530577060` but leaves a 0.07–0.10-second Timer/Panel overlap; strict Gate 7 remains OPEN/FAIL. The user requested a transition-only, time-bounded stop to the repeated fix/test loop.
 
-1. Read live PR #191/CI state; the latest known source head is `b23c8ab518c5b654dd33b3cb582388b193ce82e5` with CI PASS and physical Gate 7 **FAIL**. The following local documentation commits do not change that executable.
-2. Do **not** begin PREF-R02 yet.
-3. Prototype the separate persistent Timer WebView with fixed expanded outer size/native compact clipping in isolation, following the assessment's full acceptance and resource comparison. Later physical retests must use the exact validated runtime artifact. Preserve the restored original profile; use an isolated test copy for further app runs.
-4. Record the retest in a new immutable work log; update `TODO.md`, `STATUS.md`, and this handoff from evidence.
-5. After further testing, restore the user's original profile and OS display/animation settings; keep M7 open if either gate remains failed/unverified.
-6. Stop at M7. The user has not authorized a new M8 slice in this goal.
+1. Keep PR #191 unmerged and preserve the current Gate 7/12 OPEN status. Do not infer physical acceptance from CI or the improvement in white-frame behavior.
+2. Do not repeat minor same-composition fixes. If the user resumes strict Gate 7 closure, compare a scoped native layered Timer/window composition against the same continuous Panel↔Timer criterion, including the measured separate-WebView resource cost.
+3. Do not start unrelated physical checks or another M8 source slice under this M7 turn. The original profile and Windows animations have already been restored and verified.
 
 ## USER ACTION REQUIRED
 
-For the exact-build retest, the user may need to toggle Windows animations Off and move the Timer between the two physical monitors. Those actions should be requested only when the candidate artifact is ready.
+No user action is currently required for this stopped transition batch. A future secondary-display Gate 12 retest requires a Windows-visible second monitor.
 
 No Blitzit evidence upload is pending. The uploaded corpus and its analysis are complete.
