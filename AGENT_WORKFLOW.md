@@ -81,7 +81,7 @@ Use precise levels:
 - **automated validated** — relevant tests/CI pass;
 - **manual Windows validated** — behavior was physically observed on Windows when required.
 
-`[x]` is allowed only when the item's required evidence exists. Keep partially complete parent tasks open and use nested checkboxes for verified sub-parts.
+`[x]` is allowed only when the item's **current** required evidence exists. Keep partially complete parent tasks open and use nested checkboxes only for sub-parts that remain valid for the current implementation. When a replacement reopens an item, superseded PASS evidence must move to immutable work logs or explicit `Historical evidence:` prose; do not leave old `[x]` children underneath a reopened acceptance item if they no longer validate the replacement.
 
 Compilation does not prove taskbar, monitor, tray, shortcut, notification or other interactive Windows behavior.
 
