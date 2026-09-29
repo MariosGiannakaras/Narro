@@ -68,10 +68,11 @@ invariant(
   "one coordinator must own and share the continuous authoritative timer projection",
 );
 invariant(
-  coordinator.includes("await waitForReady(targetMode)")
-    && coordinator.indexOf("await waitForReady(targetMode)") < coordinator.indexOf("await applyFocusSurfacePresentation(targetPresentation)")
-    && coordinator.indexOf("await applyFocusSurfacePresentation(targetPresentation)") < coordinator.indexOf("publishPresentation(targetPresentation)"),
-  "target must prepaint before native commit, and React ownership must transfer only after native success",
+  coordinator.includes("commitPreparedFocusPresentation({")
+    && coordinator.includes("waitForTargetReady: () => waitForReady(targetMode)")
+    && coordinator.includes("applyNativePresentation: applyFocusSurfacePresentation")
+    && coordinator.includes("commitRendererPresentation: (next) =>"),
+  "production coordinator must delegate prepaint -> native commit -> renderer ownership ordering to the tested transition helper",
 );
 invariant(
   coordinator.includes("inert={!panelActive}") && coordinator.includes("inert={!timerActive}"),
