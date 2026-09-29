@@ -6,12 +6,12 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT STATE
 
-`6/10M || 4/4 | 12/14`
+`6/10M || 4/4 | 13/15`
 
 **Implementation in progress on `plan/m7-single-focus` (2026-09-29).** The user has now authorized source changes for the single fixed-host Focus composition. The Tauri window/capability/Vite entry cleanup has begun; native and React consolidation are being implemented in this same checkout. Until a later explicit user instruction, do not run tests, builds, CI, app launches or physical checks. Treat all newly edited source as unvalidated and keep Gate 7/12 open. If this session stops early, continue the incomplete implementation from this branch and inspect its Git diff before doing anything else.
 
 - Roadmap: **6/10 milestones complete**.
-- M7: **12/14 top-level checklist items validated** after the CI #624 physical batch; Gates 7 and 12 remain FAIL and M7 closure remains OPEN.
+- M7: **13/15 top-level checklist items validated**; Gates 7 and 12 remain FAIL and M7 closure remains OPEN. The denominator is the current top-level TODO list; older 12/14 shorthand predates the later validated Change List/Duplicate item and is stale.
 - M8: **6/8 top-level items validated**; the top-level Preferences item and Windows-locale presentation remain open.
 - Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 needs the chosen alternative-composition experiment; Gate 12 still needs the secondary-display physical retest.
 - Open implementation PR: **#191**. Four same-HWND visual-hold heads failed physical Gate 7. The separate fixed-size Timer WebView candidate removed the old white resize frames but first showed loading copy, then a longer Timer/Panel overlap. Head `4e4960b` passed CI `36530577060` and its exact-build On capture reduced the overlap to 0.07–0.10 seconds across three settled cycles, with no white host/loading copy in inspected boundaries. Strict Gate 7 remains OPEN/FAIL; PR #191 is unmerged. The original SQLite profile and animations On were restored. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
