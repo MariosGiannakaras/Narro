@@ -524,7 +524,7 @@ export function FocusPanel({
     mutation: () => Promise<void>,
     success: string,
   ) => {
-    if (fixtureMode || mutationPendingTaskId !== null) return;
+    if (fixtureMode || !presentationActive || mutationPendingTaskId !== null) return;
     setMutationPendingTaskId(task.id);
     setMutationStatus(null);
     setError(null);
@@ -575,7 +575,7 @@ export function FocusPanel({
   };
 
   const exitFocusHome = async () => {
-    if (fixtureMode || homePending) return;
+    if (fixtureMode || !presentationActive || homePending) return;
     setHomePending(true);
     setError(null);
     try {
@@ -588,7 +588,7 @@ export function FocusPanel({
   };
 
   const submitAddTask = async () => {
-    if (fixtureMode || addTaskPending) return;
+    if (fixtureMode || !presentationActive || addTaskPending) return;
     const title = addTaskTitle.trim();
     const listId = target.kind === "list" ? target.id : addTaskListId;
     if (!title) {
@@ -626,7 +626,7 @@ export function FocusPanel({
   };
 
   const confirmDelete = async () => {
-    if (!deleteTarget || deletePending) return;
+    if (!presentationActive || !deleteTarget || deletePending) return;
     const task = deleteTarget;
     setDeletePending(true);
     setDeleteError(null);
@@ -858,6 +858,7 @@ export function FocusPanel({
                 target={target}
                 timer={timer}
                 fixtureMode={fixtureMode}
+                presentationActive={presentationActive}
                 onTimerPayload={(incoming) => {
                   setTimer((current) => applyTimerSessionProjection(current, incoming));
                 }}
@@ -900,7 +901,7 @@ export function FocusPanel({
             className="focus-panel__add-task"
             type="button"
             data-focus-add-task="open"
-            disabled={fixtureMode || addTaskPending || mutationPendingTaskId !== null}
+            disabled={fixtureMode || !presentationActive || addTaskPending || mutationPendingTaskId !== null}
             aria-label="Add task in Focus Panel"
             onClick={() => {
               setAddTaskOpen(true);
