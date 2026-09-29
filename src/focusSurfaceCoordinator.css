@@ -32,9 +32,11 @@
 }
 
 .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
+  /* Fully paint the incoming view below the committed view. Native region
+     changes can then expose already-rendered pixels instead of a blank WebView. */
   z-index: 1;
-  opacity: 0;
-  transform: translateY(4px);
+  opacity: 1;
+  transform: translateY(0);
   pointer-events: none;
 }
 
