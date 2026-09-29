@@ -1,6 +1,6 @@
 import { listen } from "@tauri-apps/api/event";
 import { flushSync } from "react-dom";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusCompletionSuccess, type FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusPanel } from "./FocusPanel";
@@ -168,6 +168,7 @@ export function FocusSurfaceCoordinator() {
 
     if (transitionGateRef.current || timerResizePending) {
       if (quickTask) {
+        quickTaskAfterPanelRef.current = false;
         setShortcutStatus("Quick task creation is unavailable while the Focus surface is changing.");
       }
       return;
@@ -350,12 +351,14 @@ export function FocusSurfaceCoordinator() {
   const mode = focusSurfaceModeOf(presentation);
   const renderPanel = mode === "panel" || pendingMode === "panel";
   const renderTimer = mode === "timer" || pendingMode === "timer";
-  const panelActive = mode === "panel" && pendingMode !== "timer";
-  const timerActive = mode === "timer" && pendingMode !== "panel";
-  const sharedTimerProjection = {
+  // The committed presentation stays active while its target prepaints below
+  // it. Only publishPresentation() flips side-effect/interaction ownership.
+  const panelActive = mode === "panel";
+  const timerActive = mode === "timer";
+  const sharedTimerProjection = useMemo(() => ({
     payload: timerProjection,
     settled: timerProjectionSettled,
-  };
+  }), [timerProjection, timerProjectionSettled]);
 
   return (
     <main
