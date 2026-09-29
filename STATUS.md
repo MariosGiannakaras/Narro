@@ -8,8 +8,8 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 **Milestone 1 — reopened Windows/Focus foundation, driven by the M7 single-Focus corrective program.**
 
-**Current corrective direction, 2026-09-29:** implement one persistent
-fixed-maximum-size `focusSurface` HWND/WebView with one React root/coordinator.
+**Current corrective direction, 2026-09-29:** implement one persistent nominal
+340×700 logical px `focusSurface` HWND/WebView with one React root/coordinator.
 Focus Panel, compact Timer and expanded Timer are dynamic components/presentations
 inside that host; ordinary switching must not close/open, create/destroy,
 hide/show or resize the Focus WebView. DPI-aware native region/position/topmost/
@@ -20,8 +20,8 @@ deferred until implementation is complete and the user authorizes validation.
 
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
-settings/persistence remain outside the rewrite. PR #191's split-window
-composition is superseded and is not a final merge candidate.
+settings/persistence remain outside the rewrite. PR #191 is **closed unmerged**;
+its split-window composition is superseded historical evidence, not a merge candidate.
 
 - Milestone 1 / Gate A: **REOPENED / 9 of 19 top-level items currently validated**. The replacement changes the Focus window/presentation, DPI/topology, Focus-only bundle and floating performance basis.
 - Milestone 2 / Gate B: **PASS**.
@@ -37,11 +37,19 @@ General roadmap progress: **4 of 10 milestones currently complete**.
 
 This reduction is intentional and evidence-based, not loss of historical work. M1 and M6 were previously completed on the superseded Focus implementation, and their work logs remain valid historical evidence. Because the replacement changes implementation that materially supported those gates, affected items are reopened until validated on the replacement. A direct dependency was also found in M8 shortcut routing, so only those M8 items are reopened. M2–M5 remain complete because no direct dependency has been identified.
 
-**Latest CI #530 physical update:** three settled Panel→Timer→Panel shortcut cycles retained one Focus window and the paused task, but continuous capture with Windows animations On showed a pale empty focus frame and then the desktop before Timer appeared. Gate 7 visual continuity is **FAIL** on the latest validated source. The checked frames and exact build provenance are in `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md`. Remaining #530 physical matrix entries were not run; no M7 completion is claimed.
+**Historical CI #530 physical checkpoint:** three settled Panel→Timer→Panel shortcut cycles retained one Focus window and the paused task, but continuous capture with Windows animations On showed a pale empty focus frame and then the desktop before Timer appeared. This was an earlier Gate 7 FAIL and is retained only as historical evidence; CI #624 and the later PR #191 experiments provide newer pre-replacement evidence. The checked #530 frames and provenance remain in `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md`.
 
 ## Current validated application source baseline
 
-The current validated **merged application source baseline** is `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624), as recorded in `HANDOFF.md`. Later PR #191 experimental source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed exact-head Windows CI #639 but physically failed strict M7 Gate 7 and remains unmerged. The active `plan/m7-single-focus` replacement is incomplete and unvalidated; historical or experimental CI PASS results must not be promoted to validation of the replacement.
+The current validated **merged application source baseline** is `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624), as recorded in `HANDOFF.md`. Later PR #191 experimental source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed exact-head Windows CI #639 but physically failed strict M7 Gate 7; PR #191 was subsequently closed unmerged as superseded. The active `plan/m7-single-focus` replacement is incomplete and unvalidated; historical or experimental CI PASS results must not be promoted to validation of the replacement.
+
+## Repository documentation/process policy — 2026-09-29
+
+Authoritative process/spec/tracking Markdown now advances **directly on `main`** when it does not change executable, build, test, packaging, dependency or CI semantics. These commits do not consume Windows CI and do not replace the validated application-source baseline. Active implementation branches must reconcile their Markdown copies from `main` before continuing source work.
+
+This exemption does **not** apply to workflow YAML, scripts/tests, package/Cargo manifests or lockfiles, Tauri/runtime/capability configuration, migrations/schemas, generated manifests, or fixtures/assets consumed by runtime/build/test/packaging. Those remain validation-affecting source and use the normal branch/PR/preflight/CI discipline.
+
+The existing Windows CI already ignores `**/*.md` on push and pull request, so no workflow edit was required for this policy. Direct-to-`main` Markdown commits made during this reconciliation started no Windows CI run.
 
 ## Item 7 earlier physical candidate
 
