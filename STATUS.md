@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-09-29
+Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
