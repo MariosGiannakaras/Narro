@@ -81,7 +81,7 @@ Use precise levels:
 - **automated validated** — relevant tests/CI pass;
 - **manual Windows validated** — behavior was physically observed on Windows when required.
 
-`[x]` is allowed only when the item's required evidence exists. Keep partially complete parent tasks open and use nested checkboxes for verified sub-parts.
+`[x]` is allowed only when the item's **current** required evidence exists. Keep partially complete parent tasks open and use nested checkboxes only for sub-parts that remain valid for the current implementation. When a replacement reopens an item, superseded PASS evidence must move to immutable work logs or explicit `Historical evidence:` prose; do not leave old `[x]` children underneath a reopened acceptance item if they no longer validate the replacement.
 
 Compilation does not prove taskbar, monitor, tray, shortcut, notification or other interactive Windows behavior.
 
@@ -107,14 +107,15 @@ After an expected-head guarded merge, compare the validated PR-head Git tree wit
 
 Authoritative implementation instructions and tracking must not remain stranded on a feature branch.
 
-When a change is **documentation/process-only** and does not alter runtime, build, test, packaging, dependency or CI semantics:
+When a change is **documentation/process/evidence-only** and does not alter runtime, build, test, packaging, dependency or CI semantics:
 - write it directly to `main` with a normal forward commit; do not create a documentation-only feature branch or PR;
+- Markdown is already ignored by Windows CI through `paths-ignore`. For non-Markdown evidence-only artifacts (for example sanitized `work-log/evidence/**` captures), use a direct-main commit message containing `[skip ci]` so the push does not start Windows CI;
 - update `HANDOFF.md`, `TODO.md`, `STATUS.md`, `AGENTS.md`, `AGENT_WORKFLOW.md`, `AI_START_HERE.md`, relevant `docs/*.md`, and new immutable `work-log/*.md` entries on `main` as soon as that truth is established;
 - do **not** run Windows CI for the documentation-only commit;
 - do not change the validated application source baseline because of that commit;
 - if an implementation branch is active, treat `main`'s process/spec/tracking files as authoritative and sync/reconcile the branch before source work continues rather than letting the branch become a second source of process truth.
 
-A change is **not documentation-only** merely because it is not application code. These remain source/validation-affecting and use the normal branch/PR/preflight/CI discipline:
+A change is **not documentation/evidence-only** merely because it is not application code. These remain source/validation-affecting and use the normal branch/PR/preflight/CI discipline:
 - `.github/workflows/**`;
 - `scripts/**` and executable test harnesses;
 - `package.json`, lockfiles, Cargo manifests/toolchain files;

@@ -89,11 +89,11 @@ Persistent webview budget:
 Do not keep separate persistent Focus Panel and Floating Timer webviews.
 
 **M7 implementation direction (2026-09-29; pending code and validation):** retain one
-fixed-maximum-size `focusSurface` HWND/WebView and select Panel, compact Timer or
-expanded Timer inside that React entry. Use a DPI-aware native window region to
+nominal 340 × 700 logical px fixed-size `focusSurface` HWND/WebView and select
+Panel (340×700), compact Timer (340×110) or expanded Timer (340×300) inside that React entry. Use a DPI-aware native window region to
 expose the corresponding visible rectangle without resizing or hiding the HWND
-on ordinary presentation changes. The unmerged PR #191's second `floatingTimer`
-WebView is an unsuccessful physical candidate, not the target architecture.
+on ordinary presentation changes. The now-closed, unmerged PR #191 second
+`floatingTimer` WebView is an unsuccessful historical physical candidate, not the target architecture.
 The executable plan and deferred validation boundary are in
 `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`.
 
@@ -164,8 +164,10 @@ For ordinary presentation changes:
 6. after the transition settles, the inactive presentation may be unmounted if
    desired, provided all state that must survive the switch is owned above it.
 
-The host HWND/WebView remains fixed at the maximum required Focus geometry during
-ordinary Panel ↔ Timer and compact ↔ expanded changes. Native
+The host HWND/WebView remains fixed at the nominal 340×700 maximum required Focus
+geometry during ordinary Panel ↔ Timer and compact ↔ expanded changes. The 340px
+width is the validated M6 product width; the older 400px M1 diagnostic shell width
+is not a product geometry requirement. Native
 `SetWindowRgn`-style clipping defines the visible/hit-test rectangle, while
 position may move between the configured Panel edge and the saved Timer
 placement. Do **not** close/create, hide/show, or resize the Focus WebView as the

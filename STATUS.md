@@ -8,8 +8,8 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 **Milestone 1 — reopened Windows/Focus foundation, driven by the M7 single-Focus corrective program.**
 
-**Current corrective direction, 2026-09-29:** implement one persistent
-fixed-maximum-size `focusSurface` HWND/WebView with one React root/coordinator.
+**Current corrective direction, 2026-09-29:** implement one persistent nominal
+340×700 logical px `focusSurface` HWND/WebView with one React root/coordinator.
 Focus Panel, compact Timer and expanded Timer are dynamic components/presentations
 inside that host; ordinary switching must not close/open, create/destroy,
 hide/show or resize the Focus WebView. DPI-aware native region/position/topmost/
@@ -20,8 +20,8 @@ deferred until implementation is complete and the user authorizes validation.
 
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
-settings/persistence remain outside the rewrite. PR #191's split-window
-composition is superseded and is not a final merge candidate.
+settings/persistence remain outside the rewrite. PR #191 is **closed unmerged**;
+its split-window composition is superseded historical evidence, not a merge candidate.
 
 - Milestone 1 / Gate A: **REOPENED / 9 of 19 top-level items currently validated**. The replacement changes the Focus window/presentation, DPI/topology, Focus-only bundle and floating performance basis.
 - Milestone 2 / Gate B: **PASS**.
@@ -37,11 +37,19 @@ General roadmap progress: **4 of 10 milestones currently complete**.
 
 This reduction is intentional and evidence-based, not loss of historical work. M1 and M6 were previously completed on the superseded Focus implementation, and their work logs remain valid historical evidence. Because the replacement changes implementation that materially supported those gates, affected items are reopened until validated on the replacement. A direct dependency was also found in M8 shortcut routing, so only those M8 items are reopened. M2–M5 remain complete because no direct dependency has been identified.
 
-**Latest CI #530 physical update:** three settled Panel→Timer→Panel shortcut cycles retained one Focus window and the paused task, but continuous capture with Windows animations On showed a pale empty focus frame and then the desktop before Timer appeared. Gate 7 visual continuity is **FAIL** on the latest validated source. The checked frames and exact build provenance are in `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md`. Remaining #530 physical matrix entries were not run; no M7 completion is claimed.
+**Historical CI #530 physical checkpoint:** three settled Panel→Timer→Panel shortcut cycles retained one Focus window and the paused task, but continuous capture with Windows animations On showed a pale empty focus frame and then the desktop before Timer appeared. This was an earlier Gate 7 FAIL and is retained only as historical evidence; CI #624 and the later PR #191 experiments provide newer pre-replacement evidence. The checked #530 frames and provenance remain in `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md`.
 
 ## Current validated application source baseline
 
-The current validated **merged application source baseline** is `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624), as recorded in `HANDOFF.md`. Later PR #191 experimental source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed exact-head Windows CI #639 but physically failed strict M7 Gate 7 and remains unmerged. The active `plan/m7-single-focus` replacement is incomplete and unvalidated; historical or experimental CI PASS results must not be promoted to validation of the replacement.
+The current validated **merged application source baseline** is `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624), as recorded in `HANDOFF.md`. Later PR #191 experimental source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed exact-head Windows CI #639 but physically failed strict M7 Gate 7; PR #191 was subsequently closed unmerged as superseded. The active `plan/m7-single-focus` replacement is incomplete and unvalidated; historical or experimental CI PASS results must not be promoted to validation of the replacement.
+
+## Repository documentation/process policy — 2026-09-29
+
+Authoritative process/spec/tracking/evidence-only changes now advance **directly on `main`** when they do not change executable, build, test, packaging, dependency or CI semantics. Markdown is path-ignored by Windows CI; non-Markdown evidence-only commits use GitHub's supported `[skip ci]` commit instruction. These commits do not replace the validated application-source baseline. Active implementation branches must reconcile this repository truth from `main` before continuing source work.
+
+This exemption does **not** apply to workflow YAML, scripts/tests, package/Cargo manifests or lockfiles, Tauri/runtime/capability configuration, migrations/schemas, generated manifests, or fixtures/assets consumed by runtime/build/test/packaging. Those remain validation-affecting source and use the normal branch/PR/preflight/CI discipline.
+
+The existing Windows CI already ignores `**/*.md` on push and pull request, so no workflow edit was required. Sanitized M7 evidence PNGs were also published directly to `main` in commit `1655076e97c5d75e8acc0494931d6f82e0e88ff4` using `[skip ci]`; GitHub reported no Windows CI run for that commit.
 
 ## Item 7 earlier physical candidate
 
@@ -492,7 +500,7 @@ Validation:
 - source slice diff: **+879/-28** across 14 files;
 - Validated application source baseline immediately after this VE-F003 slice: `f4c80d04b25f58637c0ef04c03b60dcd52fcff57` (historical checkpoint).
 
-M8 remains 5/8 top-level validated; roadmap remains 6/10. Existing PR #170 must be reconciled onto this baseline before its historical CI can be reused for any purpose.
+**Historical checkpoint (2026-09-27):** M8 was 5/8 and roadmap was 6/10 at this point. Existing PR #170 still required reconciliation onto that baseline before its historical CI could be reused.
 
 
 ## M8 Preferences/runtime reconciliation — validated 2026-09-27
@@ -522,7 +530,7 @@ Validated product/runtime checkpoints:
 
 Scope remains partial at the top-level Preferences item: runtime effects not claimed by the slice (including any remaining timed-alert/timer-flash/notification/schedule-reminder/local-sound behavior) remain open, as does the separate Windows-locale date/time item.
 
-M8 is now **6/8 top-level items validated**. Roadmap remains **6/10 milestones complete**.
+**Historical checkpoint (2026-09-27):** this slice brought M8 to **6/8** while roadmap completion was **6/10** at that time. Current counters are defined only by the top Current phase section.
 
 ## Schedule-reminder Preferences runtime — validated 2026-09-28
 
@@ -593,10 +601,10 @@ Current audit state:
 - Existing recurrence now exposes `No Repeat` in-flow. Normal updates show neutral `Replace existing tasks(n)`; No Repeat shows the warm/red `Delete existing tasks(n)` consequence.
 - Unchecked No Repeat detaches existing linked children as independent tasks. Checked Delete Existing removes only pristine active generated children; customized, history-bearing, completed, archived and legacy-linked children survive and detach.
 - Stale expected-version guards, parent identity, recurrence idempotence and persistence-first publication remain intact.
-- There are currently no active `FIX_NOW` audit rows. PREF-R01 was subsequently validated; the next gate is the deferred M7 physical Windows batch.
+- **At this CORR-01 checkpoint** there were no active `FIX_NOW` audit rows. Later M7 physical evidence created M7-PHYS-01/02; current audit state is recorded above.
 - The validated application source baseline immediately after CORR-01 was `50006f29b0329037aecfdab772104db8670768b0`; later validated source slices supersede it.
 
-Roadmap remains **6/10 milestones complete**. M8 remains **6/8 top-level items validated**; M7 physical/manual closure remains open.
+**Historical checkpoint:** roadmap was **6/10** and M8 **6/8** before the later single-Focus replacement reopened affected M1/M6/M7/M8 items.
 
 
 ## PREF-R01 timed task alerts — validated 2026-09-28
@@ -613,9 +621,9 @@ Roadmap remains **6/10 milestones complete**. M8 remains **6/8 top-level items v
 - Enabling alerts late or changing interval does not backfill prior work.
 - Typed local `timed-alert-effect` events form the later PREF-R02/PREF-R05 consumption boundary without implementing flash/sound prematurely.
 - PREF-R02, PREF-R03, PREF-R05 and PREF-R06 remain open.
-- **Current validated application source baseline: `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.**
-- Roadmap remains **6/10**; M8 remains **6/8**; M7 physical/manual closure remains **OPEN at 9/14**.
-- Current user-directed next gate: consolidated M7 physical Windows validation before further M8 source implementation.
+- **Validated application source baseline established by this slice:** `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`; it remains the current validated application source baseline unless a later source validation supersedes it.
+- **Historical checkpoint:** roadmap was **6/10**, M8 **6/8**, and the then-current M7 physical closure shorthand was **9/14** before later evidence/reopening.
+- The then-current next gate was consolidated M7 physical Windows validation; that action was later superseded by the corrective architecture program recorded at the top of this file.
 
 ## M7 CI #624 physical Windows batch — 2026-09-28, corrections in progress
 
@@ -640,12 +648,12 @@ The exact `12707c0` binary was then physically recorded at 60 fps with Windows a
 
 **Repeated-failure escalation, 2026-09-28 (earlier snapshot):** The chronological evidence and distinct visual signatures are consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. `d505b93` passed exact-head Windows CI and its sampled animations-On cycles avoided the earlier white tail, but the 60 fps animations-Off resize capture on one 100% display shows a full-white expanded Timer frame at frames 570 and 677. Gate 7 remained **FAIL**. This is not claimed to be the identical compositor cause as earlier defects. CI-validated physical failures on `f1ef35a`, `12707c0`, and `d505b93` exceeded the new `AGENTS.md` escalation threshold. At this point, `b23c8ab` had passed CI run `36397349549` but had no physical verdict; the architecture assessment and profile restoration were still pending. The subsequent result and current state are recorded below.
 
-**Architecture assessment and latest physical result:** `work-log/2026-09-28-codex-m7-architecture-assessment.md` records the full source-to-compositor sequence, alternatives, and bounded experiment decision. Exact PR #191 head `b23c8ab` passed CI run `36397349549` but **physically FAILED Gate 7**: the batched animations-Off recording caught a fully white expanded Timer at frame 1394 and white collapse areas at frames 1489 and 1552, with valid adjacent frames and the same paused session. The desktop captures ran below requested 60 fps, so the On recordings are not asserted as PASS; the Off frames alone prove failure. The offscreen bitmap preparation did not remove the symptom. No further small hold patch is planned. The first architecture experiment is a separate persistent Timer WebView, fixed at expanded outer size and clipped natively for compact display; a native layered Timer is the fallback if that fails or costs too much. Neither alternative is implemented or validated. After capture, Narro was stopped, the original SQLite profile restored byte-for-byte (SHA-256 `D18A33C0BF5F88DACC74A513105C5E7A8FE7D3EE5E3A02F12E6EBDCBC5EC33C0`, integrity `ok`), and both Windows animation settings restored to On. Windows reports one display, so Gate 12's secondary-display branch remains open. M7 and PR #191 remain unmerged/open; no M8 work was done.
+**Architecture assessment and latest physical result:** `work-log/2026-09-28-codex-m7-architecture-assessment.md` records the full source-to-compositor sequence, alternatives, and bounded experiment decision. Exact PR #191 head `b23c8ab` passed CI run `36397349549` but **physically FAILED Gate 7**: the batched animations-Off recording caught a fully white expanded Timer at frame 1394 and white collapse areas at frames 1489 and 1552, with valid adjacent frames and the same paused session. The desktop captures ran below requested 60 fps, so the On recordings are not asserted as PASS; the Off frames alone prove failure. The offscreen bitmap preparation did not remove the symptom. No further small hold patch is planned. The first architecture experiment is a separate persistent Timer WebView, fixed at expanded outer size and clipped natively for compact display; a native layered Timer is the fallback if that fails or costs too much. Neither alternative is implemented or validated. After capture, Narro was stopped, the original SQLite profile restored byte-for-byte (SHA-256 `D18A33C0BF5F88DACC74A513105C5E7A8FE7D3EE5E3A02F12E6EBDCBC5EC33C0`, integrity `ok`), and both Windows animation settings restored to On. Windows reported one display, so Gate 12's secondary-display branch remained open. At that checkpoint M7 was open and PR #191 was still open/unmerged; PR #191 was later closed unmerged as superseded on 2026-09-29.
 
-**Separate Timer experiment in progress, 2026-09-29:** A local candidate now gives the Panel (`focusSurface`) and Timer (`floatingTimer`) persistent WebView windows. The Timer HWND remains at 340×300 logical pixels, while a DPI-aware Win32 region exposes 340×110 in compact mode; renderer content is painted before region expansion and clipped before collapse. Rust keeps authoritative mode/session state and native placement; both renderers project the same timer session. The Panel remains the single mode-transition coordinator. Frontend preflight and TypeScript/Vite build passed locally; Rust formatting passed. Local native compilation is unavailable because MSVC `link.exe` is absent, so exact-head Windows CI is the next compilation gate. No physical or performance verdict exists for this candidate, and Gate 7/12 remain open. This is a scoped experiment rather than an adopted architecture or M7 PASS.
+**Historical separate Timer experiment snapshot, 2026-09-29:** A local candidate now gives the Panel (`focusSurface`) and Timer (`floatingTimer`) persistent WebView windows. The Timer HWND remains at 340×300 logical pixels, while a DPI-aware Win32 region exposes 340×110 in compact mode; renderer content is painted before region expansion and clipped before collapse. Rust keeps authoritative mode/session state and native placement; both renderers project the same timer session. The Panel remains the single mode-transition coordinator. Frontend preflight and TypeScript/Vite build passed locally; Rust formatting passed. Local native compilation is unavailable because MSVC `link.exe` is absent, so exact-head Windows CI is the next compilation gate. No physical or performance verdict exists for this candidate, and Gate 7/12 remain open. This is a scoped experiment rather than an adopted architecture or M7 PASS.
 
 **First separate-Timer physical batch:** Exact candidate `8b94946` passed Windows CI `36493571169`; the downloaded binary SHA-256 and full capture provenance are in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`. On and Off batches each recorded 3× Expand/Collapse and 3× Timer↔Panel at about 78 actual fps on one 100% display. All 12 clipping boundaries avoided the previous full-white expanded frame/old white tail, and the frame scan found no inkless white top-window candidate. The same paused `fas` session and `07:40` survived. However, the On boundary frames exposed brief `Loading Focus Panel…` and `Loading focus task…` copy while already-mounted renderers refreshed the same board. **Gate 7 remains FAIL** for this candidate. The next candidate retains the last valid same-target board during refresh; local frontend preflight passed, while exact-head CI, repeat physical capture and resource comparison are pending. Gate 12's secondary 125% branch remains open; Windows currently exposes one display. Windows animations were restored to On after both batches.
 
 **Second separate-Timer physical batch:** The same-target board-retention head `a6a9459` passed Windows CI `36495957450` attempt 2 and was physically captured on its exact executable with Windows animations On. The loading copy is gone, but the compact Timer still overlays the Panel's top controls for several frames during mode switching; Gate 7 remains **FAIL**. A scoped native follow-up `4e4960b` disables DWM show/hide transitions for both Focus windows and activates the destination before reveal. Exact-head CI and one Panel↔Timer physical capture are pending. The architecture experiment's measured paused floating-only working set increased by about 95 MiB versus the single-WebView comparison. Details and raw video hashes are in the 2026-09-29 work log. Gate 12 remains open; no further M8 implementation is authorized in this slice.
 
-**Time-bounded DWM retest and stop, 2026-09-29 (historical decision):** Exact source `4e4960b` passed Windows CI run `36530577060`; its exact executable was recorded through three settled Panel↔Timer cycles at 77.41 fps with Windows animations On. The six transition boundary sequences contain neither the old full-white host nor loading copy, but Timer→Panel still briefly overlaps the compact Timer and Panel card for about 0.07–0.10 seconds. This is an improvement, **not strict Gate 7 acceptance**. The user directed that checks remain confined to the transition and that the repeated-fix loop stop. PR #191 remains unmerged and Gate 7/12 remain open. Original SQLite profile and Windows animations On were restored and verified. At that point the next comparison was proposed as a native layered Timer/window composition; the subsequent user-selected single fixed-host Focus plan above **supersedes that next-action recommendation**. Full physical evidence remains in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
+**Time-bounded DWM retest and stop, 2026-09-29 (historical decision):** Exact source `4e4960b` passed Windows CI run `36530577060`; its exact executable was recorded through three settled Panel↔Timer cycles at 77.41 fps with Windows animations On. The six transition boundary sequences contain neither the old full-white host nor loading copy, but Timer→Panel still briefly overlaps the compact Timer and Panel card for about 0.07–0.10 seconds. This is an improvement, **not strict Gate 7 acceptance**. The user directed that checks remain confined to the transition and that the repeated-fix loop stop. At that checkpoint PR #191 remained unmerged; it was later closed unmerged as superseded. Gate 7/12 remain open for the replacement architecture. Original SQLite profile and Windows animations On were restored and verified. At that point the next comparison was proposed as a native layered Timer/window composition; the subsequent user-selected single fixed-host Focus plan above **supersedes that next-action recommendation**. Full physical evidence remains in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
