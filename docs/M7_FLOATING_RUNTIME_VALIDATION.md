@@ -1,22 +1,37 @@
 # Milestone 7 consolidated Windows runtime validation
 
-Use one real Windows 10/11 x64 session for the **remaining M7 physical gates only**. Do not repeat checks already established by earlier work logs unless a later source change directly affects them.
+## Single-Focus replacement override — current
+
+The active `plan/m7-single-focus` implementation **does directly replace** the window/presentation/placement/shortcut/performance paths that supported earlier M1/M6/M7/M8 evidence. Therefore this document's older "do not repeat" shortcuts apply only to the superseded implementation.
+
+After the user authorizes validation, validate the exact replacement build in dependency order: reopened M1 Gate A → reopened M6 Gate F integration → reopened M7 items/Gate 7+12 → affected M8 shortcut integration. Historical passes remain evidence of prior behavior but cannot close replacement-code items.
+
+Before physical testing, automated/static validation must prove all of these replacement invariants:
+- Tauri/config/capabilities expose exactly `main` and one `focusSurface`; no runtime `floatingTimer` WebView or `timer.html` entry;
+- ordinary Panel ↔ Timer and compact ↔ expanded changes preserve the same Focus HWND/WebView identity;
+- ordinary presentation switching does not close/create/destroy/hide/show or resize the Focus HWND/WebView;
+- Panel/Timer are component presentations in one React root/coordinator;
+- the incoming presentation can be prepared before exposure without `display:none`/unmount-first staging; inactive/preparing controls are inert, pointer-inactive and excluded from accessibility/focus navigation;
+- Main/global/in-app Focus shortcuts route to the single `focusSurface`, never a Timer window label;
+- the split-window readiness/query/request protocol and superseded persistent-window transition helper are absent from production paths;
+- native visible-region/position/topmost/taskbar changes have explicit rollback and do not own timer/session completion;
+- authoritative timer/session/domain state remains Rust-owned and presentation changes do not duplicate subscriptions/side effects that can mutate it.
+
+Physical replacement validation must additionally record same-HWND identity, visible-region geometry, session continuity, Panel placement/topology, Timer drag/topmost/taskbar, shortcut behavior, normal/reduced-motion transitions, mixed-DPI/work-area behavior and replacement floating-only CPU/memory.
+
 
 ## Exact build
 
-Validated source baseline:
+Latest physically tested validated source baseline: `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`, tree identical to CI #624 PR head `fc61ed5926fdb1c605de8ce1e1a9fb28ea0dfd7e`.
 
-`449eb5d1fda4a8d26832e803433209025a6dec38`, tree `51b27ba7a867dcea79a49927cb1ed4e0ee7bda6b`.
+- Windows CI #624 / run `36357415253` — PASS for repository preflight, visual regression and Tauri release.
+- Runtime artifact ID `10944304485`, name `narro-m1-runtime-harness-windows-x64`, digest `sha256:4f76740bc6f69dcd1d664c9fb80011520567612c9eb6d87ab4e09e02e3b1bf7c`.
+- 2026-09-28 physical batch: gates 7 and 12 **FAIL**; gates 8–11 **PASS** with their recorded scope. See `work-log/2026-09-28-codex-m7-ci624-physical-batch.md` and its sanitized frame evidence.
+- PR #191 first candidate `f1ef35a` passed Windows CI run `36371772752` and was physically tested with animations Off. Three Panel↔Timer and three Expand/Collapse cycles settled, but the latter still exposed the old expanded white surface beneath compact content; Gate 7 remains **FAIL**. The On attempt was interrupted before cycles and Gate 12 was not run. See `work-log/2026-09-28-codex-m7-pr191-retest-in-progress.md`.
+- PR #191 second candidate `12707c0` passed exact-head Windows CI run `36373768756`; runtime artifact id `10949818132`, digest `sha256:5d03ce449875167e9c559316df980c0ec9f64a1b74baf153985d376b0f3b2850`. Three animations-On Panel↔Timer and Expand/Collapse cycles settled but the resize still exposed the old expanded white area, so Gate 7 remained FAIL.
+- Target-bounds candidate `d505b93` passed CI run `36374929708` but physically failed Off resize with two full-white expanded Timer frames. Current head `b23c8ab` passed CI run `36397349549` and then also physically **FAILED Gate 7** with Off full-white expansion and white collapse frames. The full history, current-build evidence and chosen bounded architecture experiment are in `work-log/2026-09-28-codex-m7-visual-continuity-history.md` and `work-log/2026-09-28-codex-m7-architecture-assessment.md`. The `AGENTS.md` rule bars further small hold-mechanism patches before the different composition is compared physically.
 
-Latest full resulting-main validation:
-- Windows CI #530 — PASS.
-- Runtime artifact ID `10902390320`, name `narro-m1-runtime-harness-windows-x64`.
-- Runtime artifact digest `sha256:726991f5a92eadda25eaa833d0a7443c21531896eb56e462609a0db6988cc6de`.
-- Local validation package filename prepared for the user: `narro-m7-latest-main-ci530-windows-x64.zip`.
-
-Later commits `8d3b488226c7fdc7ed23deae6bfc9f6acb0d8d62` and `34d75da3dfe54b7c52e06f90e38871b85681a97f` are documentation-only and do not replace the validated source baseline.
-
-Fully quit any older Narro instance before launching `narro.exe` from the extracted #530 artifact.
+Fully quit the older Narro instance before launching the next exact-build `narro.exe`.
 
 ## Test setup
 
@@ -127,9 +142,9 @@ PASS requires:
 
 Primary-monitor bottom expansion already passed earlier; prioritize the still-unvalidated configurations.
 
-## Already-settled M7 evidence — do not repeat by default
+## Historical settled evidence — replacement revalidation rule
 
-Do not spend time re-running these unless a new failure directly implicates them:
+The following previously passed on older implementations and remains useful historical evidence:
 - native drag and return-to-Panel affordance;
 - normal always-on-top and normal taskbar absence;
 - collapsed/expanded content functionality;
@@ -139,7 +154,9 @@ Do not spend time re-running these unless a new failure directly implicates them
 - same-monitor last-position restore;
 - primary-monitor bottom expansion;
 - maximized Edge / Edge F11 stacking;
-- idle-animation audit and final Floating Timer CPU/memory measurements.
+- idle-animation audit and earlier Floating Timer CPU/memory measurements.
+
+For the single-Focus replacement, **rerun every item above whose implementation path is touched by the replacement**. In particular drag, topmost/taskbar, Panel/Timer shortcuts, placement/topology, expand/collapse, Focus Panel integration and performance are reopened in `TODO.md`. Domain mutation semantics that are reused unchanged may rely on their existing unit/domain coverage but still require enough integration coverage to prove the new presentation host did not disconnect or duplicate them.
 
 ## Recording result
 
