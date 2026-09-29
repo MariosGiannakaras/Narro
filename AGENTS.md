@@ -292,9 +292,9 @@ If the same acceptance criterion still fails on two separately corrected, CI-val
 
 ### Cross-milestone replacement rule
 
-A corrective slice in a later milestone may replace implementation foundations that were originally created and validated in an earlier milestone when the current evidence requires it. This does **not** reopen or reset the earlier roadmap milestone by itself. Preserve its validated product requirements as explicit regression obligations of the replacement.
+A corrective slice in a later milestone may replace implementation foundations that were originally created and validated in an earlier milestone when current evidence requires it. When the replacement changes the implementation that materially supported an earlier milestone's acceptance, **reopen the affected earlier milestone/items** until the replacement is validated. Do not preserve a completed counter merely because the superseded implementation once passed.
 
-When this happens, record the affected milestone/acceptance map in `TODO.md` or the active implementation plan. The new code must be validated against both the current corrective criterion and every materially affected earlier invariant before the active milestone can close. Historical PASS evidence describes the superseded implementation and must never be used as proof that replacement code is valid. Do not broaden the rewrite into unaffected milestones unless a direct dependency is demonstrated.
+Keep historical PASS evidence as immutable proof of the old implementation; never rewrite history or treat that evidence as validation of replacement code. Reopen only the materially affected scope, not unrelated items. Record the dependency/acceptance map in `TODO.md` or the active implementation plan, update roadmap counters to current truth, and validate the replacement in dependency order against every affected earlier invariant plus the newer corrective criteria. If a later milestone is already partially implemented and the replacement directly changes its integration path, reopen those affected later items too. Do not broaden the rewrite into unrelated milestones unless a direct dependency is demonstrated.
 
 ## Git discipline
 
