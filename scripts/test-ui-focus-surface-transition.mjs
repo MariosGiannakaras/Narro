@@ -125,10 +125,23 @@ invariant(
 invariant(
   animatedNativeCommit.includes("planned_focus_presentation_position")
     && animatedNativeCommit.includes("animate_focus_position")
-    && animatedNativeCommit.includes("timer_region::apply_full_host")
+    && animatedNativeCommit.includes("timer_region::apply(&window, target.region())")
+    && animatedNativeCommit.indexOf("timer_region::apply(&window, target.region())")
+      < animatedNativeCommit.indexOf("animate_focus_position")
+    && animatedNativeCommit.includes("apply_panel_native_after_animated_cross_dpi_move")
     && animatedNativeCommit.includes("windows::suspend_focus_display_recovery()")
     && animatedNativeCommit.includes("restore_focus_native_snapshot"),
-  "animated native transition must plan final placement, stage Timer-to-Panel visibility, defer DPI recovery and retain rollback",
+  "animated native transition must clip Panel-to-Timer before movement, defer cross-DPI Panel reveal, plan final placement and retain rollback",
+);
+invariant(
+  lib.includes("fn apply_panel_native_after_animated_cross_dpi_move(")
+    && lib.includes("timer_region::apply(window, previous.region())?")
+    && lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS")
+    && lib.indexOf("timer_region::apply(window, previous.region())?")
+      < lib.indexOf("std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS))")
+    && lib.indexOf("std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS))")
+      < lib.indexOf("timer_region::apply_full_host(window)?"),
+  "cross-DPI Timer-to-Panel must keep the previous clipped region through target-size viewport settlement before full Panel reveal",
 );
 invariant(
   placement.includes("pub(crate) fn planned_timer_position(")
