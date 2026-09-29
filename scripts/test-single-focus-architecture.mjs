@@ -260,8 +260,11 @@ invariant(
     && topology.includes("display_recovery_suspended()")
     && placement.includes("pub(crate) fn planned_timer_position(")
     && lib.includes("fn animate_focus_surface_presentation_internal(")
-    && lib.includes("windows::suspend_focus_display_recovery()"),
-  "interactive and programmatic cross-monitor movement must defer competing DPI recovery and use planned final placement",
+    && lib.includes("windows::suspend_focus_display_recovery()")
+    && lib.includes("timer_region::apply(&window, target.region())")
+    && lib.includes("fn apply_panel_native_after_animated_cross_dpi_move(")
+    && lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS"),
+  "interactive/programmatic cross-monitor movement must defer competing DPI recovery, clip Panel-to-Timer before motion, and defer cross-DPI Panel reveal until target viewport settlement",
 );
 invariant(
   verifyConfig.includes("windows.length === 2")
