@@ -45,6 +45,17 @@ export type FloatingTimerFoundationProps = {
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
+const FLOATING_TIMER_GEOMETRY_MOTION_MS = 270;
+
+async function waitForFloatingTimerGeometryMotion(): Promise<void> {
+  const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? 1
+    : FLOATING_TIMER_GEOMETRY_MOTION_MS;
+  await new Promise<void>((resolve) => {
+    window.setTimeout(resolve, duration);
+  });
+}
+
 function subtaskProgress(task: ListBoardTask | null) {
   const total = Math.max(0, task?.subtaskTotalCount ?? 0);
   const completed = Math.min(Math.max(0, task?.subtaskCompletedCount ?? 0), total);
@@ -90,12 +101,18 @@ export function FloatingTimerFoundation({
   const [expanded, setExpanded] = useState(initialExpanded);
   const [regionExpanded, setRegionExpanded] = useState(initialExpanded);
   const [resizePending, setResizePending] = useState(false);
-  const [resizePhase, setResizePhase] = useState<"idle" | "prepainting" | "clipping">("idle");
+  const [resizePhase, setResizePhase] = useState<
+    "idle" | "prepainting" | "revealing-start" | "revealing" | "contracting-start" | "contracting" | "clipping"
+  >("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
   useEffect(() => {
     if (controlledExpanded !== undefined) {
+      // A child-initiated resize commits the authoritative parent presentation
+      // before its finite reveal/contraction finishes. Do not let the controlled
+      // prop effect erase that in-flight geometry phase.
+      if (resizeRequestInFlightRef.current) return;
       setExpanded(controlledExpanded);
       setRegionExpanded(controlledExpanded);
       setResizePending(false);
@@ -248,8 +265,9 @@ export function FloatingTimerFoundation({
     let nativeRegionCommitted = false;
     try {
       if (nextExpanded) {
-        // Expanded content is painted beneath the compact native region.
-        // Only after two renderer frames does Win32 expose the larger region.
+        // Prepaint the full 300px hierarchy while Win32 still clips the host to
+        // 110px. After the native region expands, reveal those already-painted
+        // pixels with a finite same-WebView clip animation.
         flushSync(() => {
           setExpanded(true);
           setResizePhase("prepainting");
@@ -260,19 +278,26 @@ export function FloatingTimerFoundation({
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(true);
-          setResizePhase("idle");
+          setResizePhase("revealing-start");
         });
+        await waitForPresentedFrame();
+        flushSync(() => setResizePhase("revealing"));
+        await waitForFloatingTimerGeometryMotion();
       } else {
-        // Clip expanded content first, then return the renderer to compact
-        // layout. The outer Timer HWND and WebView dimensions never change.
-        setResizePhase("clipping");
+        // Contract the painted 300px Timer to the exact 110px compact geometry
+        // before Win32 clips/restores the compact origin. The host WebView never
+        // resizes or hides during this ordinary presentation change.
+        flushSync(() => setResizePhase("contracting-start"));
+        await waitForPresentedFrame();
+        flushSync(() => setResizePhase("contracting"));
+        await waitForFloatingTimerGeometryMotion();
+        flushSync(() => setResizePhase("clipping"));
         if (onRequestExpanded) await onRequestExpanded(false);
         else await setFloatingTimerExpanded(false);
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(false);
           setExpanded(false);
-          setResizePhase("idle");
         });
       }
       return true;
@@ -337,8 +362,8 @@ export function FloatingTimerFoundation({
             key={`actions-host:${liveTask.id}`}
             data-floating-actions-controller="true"
             style={{ display: expanded ? "contents" : "none" }}
-            inert={expanded && !regionExpanded}
-            aria-hidden={expanded && !regionExpanded ? true : undefined}
+            inert={expanded && (!regionExpanded || resizePending)}
+            aria-hidden={expanded && (!regionExpanded || resizePending) ? true : undefined}
           >
             <FocusLiveActions
               task={liveTask}
@@ -391,7 +416,7 @@ export function FloatingTimerFoundation({
             fixtureExpanded={fixtureExpanded}
             presentation="floating"
             expanded={expanded}
-            contentInert={expanded && !regionExpanded}
+            contentInert={expanded && (!regionExpanded || resizePending)}
             interactionPending={transitionPending || resizePending}
             onExpandedChange={requestExpanded}
             onTaskProjection={applyTaskProjection}
