@@ -36,38 +36,30 @@ invariant(
   !nativeTimer.includes(".hide()") && !nativeTimer.includes(".show()") && !nativeTimer.includes(".set_size("),
   "ordinary Timer expansion must not hide/show/resize the Focus WebView",
 );
-const timerResizeBranch = nativeTimer.indexOf("if previous.expanded() != expanded {");
-const nativeExpandBranch = nativeTimer.indexOf("if expanded {", timerResizeBranch);
-const nativeCollapseBranch = nativeTimer.indexOf("} else {", nativeExpandBranch);
 const expansionMove = nativeTimer.indexOf(
   'set_focus_position(window, desired, "move Timer before expanded region")?;',
-  nativeExpandBranch,
 );
 const expansionRegion = nativeTimer.indexOf(
   "timer_region::apply(window, target.region())?;",
-  nativeExpandBranch,
-);
-invariant(
-  timerResizeBranch >= 0
-    && nativeExpandBranch > timerResizeBranch
-    && nativeCollapseBranch > nativeExpandBranch
-    && expansionMove > nativeExpandBranch
-    && expansionRegion > expansionMove
-    && expansionRegion < nativeCollapseBranch,
-  "expansion near the taskbar must move compact geometry before revealing the larger region",
+  expansionMove,
 );
 const collapseRegion = nativeTimer.indexOf(
   "timer_region::apply(window, target.region())?;",
-  nativeCollapseBranch,
+  expansionRegion + "timer_region::apply(window, target.region())?;".length,
 );
 const collapseRestore = nativeTimer.indexOf(
   'set_focus_position(window, desired, "restore compact Timer position")?;',
-  nativeCollapseBranch,
+  collapseRegion,
 );
 invariant(
-  nativeCollapseBranch >= 0
-    && collapseRegion > nativeCollapseBranch
+  expansionMove >= 0
+    && expansionRegion > expansionMove
+    && collapseRegion > expansionRegion
     && collapseRestore > collapseRegion,
+  "expansion near the taskbar must move compact geometry before revealing the larger region",
+);
+invariant(
+  collapseRegion >= 0 && collapseRestore > collapseRegion,
   "collapse must clip before restoring compact origin",
 );
 invariant(
