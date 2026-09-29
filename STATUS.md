@@ -6,20 +6,22 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 ## Current phase
 
-**Milestone 7 — Floating Timer mode.**
+**Milestone 1 — reopened Windows/Focus foundation, driven by the M7 single-Focus corrective program.**
 
-**Current M7 direction, 2026-09-29:** the user authorized source implementation
-of a fixed-maximum-size `focusSurface` HWND/WebView, React Panel/Timer presentation
-switching, and DPI-aware native region clipping instead of PR #191's two Focus
-WebViews. Implementation is **in progress** on `plan/m7-single-focus`; its code
-is unvalidated. The user explicitly deferred all tests, builds, CI, app launches
-and physical checks until implementation is complete and they authorize testing.
-The executable plan is `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`; PR #191 remains
-unmerged and Gate 7/12 remain OPEN/FAIL.
-The replacement spans the affected M1 native Focus window foundation, M6 Panel
-presentation and M7 Timer/transition composition as one coherent source change.
-Earlier milestone PASS records are historical; they do not certify replacement
-code. M2–M5 and M8 remain outside this rewrite unless directly affected.
+**Current corrective direction, 2026-09-29:** implement one persistent
+fixed-maximum-size `focusSurface` HWND/WebView with one React root/coordinator.
+Focus Panel, compact Timer and expanded Timer are dynamic components/presentations
+inside that host; ordinary switching must not close/open, create/destroy,
+hide/show or resize the Focus WebView. DPI-aware native region/position/topmost/
+taskbar coordination shapes the visible surface. "Single-Activity Architecture"
+is an analogy only. Implementation is **in progress and unvalidated** on
+`plan/m7-single-focus`; all tests/builds/CI/app launches/physical checks remain
+deferred until implementation is complete and the user authorizes validation.
+
+The corrective dependency chain is M1 foundation → M6 Focus integration → M7
+Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
+settings/persistence remain outside the rewrite. PR #191's split-window
+composition is superseded and is not a final merge candidate.
 
 - Milestone 1 / Gate A: **REOPENED / 9 of 19 top-level items currently validated**. The replacement changes the Focus window/presentation, DPI/topology, Focus-only bundle and floating performance basis.
 - Milestone 2 / Gate B: **PASS**.
