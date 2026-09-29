@@ -12,81 +12,102 @@ const slice = (source, begin, end) => {
 };
 
 const lib = read("src-tauri/src/lib.rs");
-const panelRoot = read("src/focusPanelWindow.tsx");
-const timerRoot = read("src/floatingTimerWindow.tsx");
+const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const coordinatorCss = read("src/focusSurfaceCoordinator.css");
+const transition = read("src/focusPresentationTransition.ts");
 const events = read("src/focusWindowEvents.ts");
-const timer = read("src/FloatingTimerFoundation.tsx");
-const panel = read("src/FocusPanel.tsx");
-const coordinator = read("src/persistentFocusWindowTransition.ts");
 const modeApi = read("src/focusSurfaceModeApi.ts");
+const region = read("src-tauri/src/timer_region.rs");
 const pkg = JSON.parse(read("package.json"));
 
-const prepareTimer = slice(lib, "fn prepare_floating_timer(", "#[tauri::command]\nfn reveal_floating_timer");
-const revealTimer = slice(lib, "fn reveal_floating_timer(", "#[tauri::command]\nfn present_floating_timer");
-const preparePanel = slice(lib, "fn prepare_focus_panel(", "#[tauri::command]\nfn prewarm_focus_surface");
-const revealPanel = slice(lib, "fn reveal_focus_panel(", "#[tauri::command]\nfn present_focus_panel");
-invariant(prepareTimer.includes("FLOATING_TIMER_LABEL") && prepareTimer.includes(".hide()")
-  && prepareTimer.includes("timer_region::apply"), "Timer must be positioned and clipped while hidden");
-invariant(preparePanel.includes("FocusPanelPlacementIntent::Prepare"), "Panel preparation must leave its target HWND hidden");
-invariant(revealTimer.indexOf(".show()") >= 0 && revealTimer.indexOf(".show()") < revealTimer.search(/panel\s*\.hide\(\)/)
-  && revealPanel.indexOf(".show()") >= 0 && revealPanel.indexOf(".show()") < revealPanel.search(/timer\s*\.hide\(\)/),
-"the prepared target must become visible before the source HWND is hidden in either direction");
-invariant(revealTimer.indexOf("announce_focus_surface_mode") > revealTimer.search(/panel\s*\.hide\(\)/)
-  && revealPanel.indexOf("announce_focus_surface_mode") > revealPanel.search(/timer\s*\.hide\(\)/),
-"native mode authority must publish only after the target is visible and source hidden");
-for (const block of [prepareTimer, revealTimer, preparePanel, revealPanel]) {
-  invariant(!block.includes("focus_visual_hold") && !block.includes("configure_focus_surface_mode_visibility"),
-    "persistent-window transitions must not use the failed bitmap or same-HWND mode reconfiguration path");
-}
+const nativeCommit = slice(
+  lib,
+  "fn apply_focus_surface_presentation_internal(",
+  "#[tauri::command(rename_all = \"camelCase\")]\nfn focus_surface_apply_presentation",
+);
 
-for (const command of ["prepare_floating_timer", "reveal_floating_timer", "prepare_focus_panel", "reveal_focus_panel", "present_floating_timer", "present_focus_panel"]) {
-  invariant(modeApi.includes(`"${command}"`), `renderer transition bridge is missing ${command}`);
+invariant(
+  nativeCommit.includes("let _presentation_guard = presentation_guard()?"),
+  "native presentation commits must be serialized",
+);
+invariant(
+  nativeCommit.includes("capture_focus_native_snapshot")
+    && nativeCommit.includes("restore_focus_native_snapshot")
+    && nativeCommit.includes("FOCUS_PRESENTATION_RECOVERY_FAILED"),
+  "native presentation commits must be rollback-safe",
+);
+for (const forbidden of [".hide()", ".show()", ".destroy()", ".close()"]) {
+  invariant(!nativeCommit.includes(forbidden), `ordinary presentation switching must not use ${forbidden}`);
 }
-invariant(events.includes('FOCUS_MODE_REQUEST_EVENT = "focus-surface-mode-requested"')
-  && events.includes('TIMER_PRESENTATION_READY_EVENT = "floating-timer-presentation-ready"')
-  && events.includes('TIMER_PRESENTATION_QUERY_EVENT = "floating-timer-presentation-query"')
-  && events.includes('FOCUS_MODE_CHANGED_EVENT = "focus-surface-mode-changed"'),
-  "cross-window requests, readiness and committed mode updates need explicit event contracts");
+invariant(
+  nativeCommit.includes("apply_panel_native") && nativeCommit.includes("apply_timer_native"),
+  "single native transaction must own Panel and Timer presentation geometry",
+);
+invariant(
+  lib.includes("static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8")
+    && !lib.includes("FOCUS_SURFACE_MODE_STATE")
+    && !lib.includes("static FLOATING_TIMER_EXPANDED"),
+  "native presentation authority must be one atomic state, not split mode/expanded flags",
+);
 
-const request = slice(panelRoot, "async function requestMode(", "requestModeRef.current = requestMode");
-invariant(panelRoot.includes('subscribe<number>("focus-surface-toggle-requested"')
-  && panelRoot.includes("sequence <= lastToggleRequestRef.current")
-  && panelRoot.includes("busyRef.current")
-  && request.includes("switchPersistentFocusWindows({"),
-  "Panel must be the sole serialized coordinator for button and global shortcut mode requests");
-invariant(request.includes("prepareFloatingTimer()") && request.includes("prepareFocusPanel()")
-  && request.includes("revealFloatingTimer()") && request.includes("revealFocusPanel()")
-  && request.includes("presentFloatingTimer()") && request.includes("presentFocusPanel()"),
-  "Panel coordinator must support target preparation/reveal and source restoration");
-invariant(coordinator.includes("await prepareMode(targetMode)")
-  && coordinator.includes("await waitForModeReady(targetMode)")
-  && coordinator.includes("await revealMode(targetMode)")
-  && coordinator.includes("await restoreMode(previousMode)"),
-  "coordinator must gate reveal on readiness and preserve rollback; executable tests verify order/failures");
-invariant(panelRoot.includes("TIMER_PRESENTATION_QUERY_EVENT")
-  && panelRoot.includes("TIMER_PRESENTATION_READY_EVENT")
-  && panelRoot.includes("Floating Timer did not finish loading."),
-  "Panel must wait for the other renderer and time out instead of showing an unready Timer");
-invariant(timerRoot.includes("onPresentationReady={onPresentationReady}")
-  && timerRoot.includes("await waitForPresentedFrame()")
-  && timerRoot.includes("await snapshotTimerSession()")
-  && timerRoot.includes("authoritative.revision !== rendered.revision")
-  && timerRoot.includes('emitTo("focusSurface", TIMER_PRESENTATION_READY_EVENT, payload)'),
-  "Timer must compare its rendered projection with authoritative state before announcing readiness");
-invariant(timer.includes("timerSettledKey === refreshKey && boardSettledKey === refreshKey")
-  && timer.includes("boardTaskId === liveTaskId")
-  && timer.includes("onPresentationReady?.(timer)"),
-  "Timer readiness must include authoritative timer state and matching task data");
-invariant(panel.includes("onPresentationReady?.(timer)"), "Panel must retain its presentation readiness signal");
-invariant(timerRoot.includes('emitTo("focusSurface", FOCUS_MODE_REQUEST_EVENT, payload)')
-  && !timerRoot.includes("prepareFloatingTimer()") && !timerRoot.includes("revealFocusPanel()"),
-  "Timer may request a mode change but must not race the Panel coordinator");
-for (const source of [panelRoot, timerRoot, timer]) {
-  invariant(!source.includes("beginFocusVisualHold") && !source.includes("prewarmFocusSurface"),
-    "production renderers must not reintroduce the old same-HWND visual hold path");
-}
-invariant(pkg.scripts["preflight:frontend"].includes("npm run test:focus-mode-transition")
-  && pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-surface-transition"),
-  "executable coordinator and cross-window integration contracts must remain in preflight");
+invariant(
+  transition.indexOf("await waitForTargetReady()") < transition.indexOf("await applyNativePresentation(targetPresentation)")
+    && transition.indexOf("await applyNativePresentation(targetPresentation)") < transition.indexOf("commitRendererPresentation(targetPresentation)"),
+  "prepared target must be ready before native commit and renderer ownership transfer",
+);
+invariant(
+  transition.includes("await applyNativePresentation(previousPresentation)")
+    && transition.includes("FocusPresentationRecoveryError"),
+  "renderer commit failure after native success must restore the previous native presentation",
+);
+invariant(
+  coordinator.includes("commitPreparedFocusPresentation({")
+    && coordinator.includes("waitForTargetReady: () => waitForReady(targetMode)")
+    && coordinator.includes("applyNativePresentation: applyFocusSurfacePresentation"),
+  "production coordinator must use the tested transition helper",
+);
+invariant(
+  coordinator.includes("useRef<Record<FocusSurfaceMode, Set<() => void>>>")
+    && coordinator.includes("readinessWaitersRef.current[mode]"),
+  "Panel and Timer readiness waiters must be isolated by presentation mode",
+);
+invariant(
+  coordinator.includes("inert={!panelActive}")
+    && coordinator.includes("inert={!timerActive}")
+    && coordinatorCss.includes('data-focus-visibility="preparing"')
+    && coordinatorCss.includes("pointer-events: none"),
+  "prepainted inactive content must be interaction/accessibility-inert",
+);
+invariant(
+  coordinatorCss.includes('data-focus-visibility="preparing"')
+    && coordinatorCss.includes("opacity: 1")
+    && coordinatorCss.includes("z-index: 1"),
+  "incoming presentation must be fully painted underneath the committed presentation",
+);
 
-console.log("Persistent Focus Panel/Timer transition contracts passed.");
+invariant(
+  modeApi.includes('invoke<void>("focus_surface_apply_presentation", { presentation })')
+    && !modeApi.includes("prepare_floating_timer")
+    && !modeApi.includes("reveal_floating_timer"),
+  "renderer bridge must expose one native presentation command only",
+);
+invariant(
+  events.includes('FOCUS_PRESENTATION_CHANGED_EVENT = "focus-surface-presentation-changed"')
+    && !events.includes("floating-timer-presentation-ready")
+    && !events.includes("focus-surface-mode-requested"),
+  "cross-WebView readiness/request events must stay retired",
+);
+invariant(
+  region.includes("FOCUS_HOST_WIDTH_LOGICAL: f64 = 340.0")
+    && region.includes("FOCUS_HOST_HEIGHT_LOGICAL: f64 = 700.0")
+    && region.includes("TIMER_COMPACT_HEIGHT_LOGICAL: f64 = 110.0")
+    && region.includes("TIMER_EXPANDED_HEIGHT_LOGICAL: f64 = 300.0"),
+  "native visible-region contract must retain validated 340x700/110/300 geometry",
+);
+invariant(
+  pkg.scripts["preflight:frontend"].includes("npm run test:focus-mode-transition")
+    && pkg.scripts["preflight:frontend"].includes("npm run test:ui-focus-surface-transition"),
+  "transition unit and integration contracts must stay in frontend preflight",
+);
+
+console.log("Single-host Focus presentation transition contracts passed.");
