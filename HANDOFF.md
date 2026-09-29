@@ -8,27 +8,30 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains active.** Exact CI #679 physical evidence failed both strict gates, a narrow sequencing correction is implemented on the same PR #192, and Windows CI #682 is pending on the new exact head.
+**Reopened Milestone 1 corrective foundation remains active.** Exact CI #679 physical evidence failed both strict gates, the resulting narrow sequencing correction is now automated-green on the same PR #192, and the next unresolved boundary is one exact-build physical Gate 7 + Gate 12 retest.
 
 - PR #192 remains **OPEN** on `plan/m7-single-focus`.
 - Last physically tested source: `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`.
 - CI #679 / run `36630411679`: automated PASS, physical Gate 7 + Gate 12 FAIL.
-- #679 runtime artifact id `11065275562`, digest `sha256:8b50e089fdaf6e5eaf572dd2b469eac42a521a8ea447c4532161edbc35163400`.
-- Physical recording: `2026-09-30 01-11-12.mp4`, SHA-256 `e128d5fb08392f08312d237a9dab2a6d0d75a50611ac34331aa7454077a69642`, H.264 4480×1080 @ 60 fps, 58.483 s.
-- Gate 7: position teleport is fixed, but Panel→Timer exposes the full transparent 340×700 host/outline under the moving compact surface for multiple frames (~40.70–40.90 s and repeated later).
-- Gate 12: one normal drag now crosses to the user-confirmed 125% display and Timer geometry is correct (~425×138 compact / ~425×375 expanded), but Timer→Panel return still briefly exposes a narrow stale viewport/browser scrollbar state (~53.50–53.60 s; same family around ~21.9–22.1 s).
-- Task/session `fas` and elapsed-time continuity remain intact.
-- Immutable physical failure evidence: `work-log/2026-09-30-chatgpt-m7-ci679-physical-fail.md`.
+- Physical recording: `2026-09-30 01-11-12.mp4`, SHA-256 `e128d5fb08392f08312d237a9dab2a6d0d75a50611ac34331aa7454077a69642`, 4480×1080 @ 60 fps, 58.483 s.
+- Gate 7 #679: saved-position teleport fixed, but Panel→Timer exposed the full transparent 340×700 host/outline below the moving Timer for multiple frames (~40.70–40.90 s and repeated later).
+- Gate 12 #679: one normal drag reached the user-confirmed 125% display with correct ~425×138 / ~425×375 Timer geometry, but cross-DPI Timer→Panel still briefly exposed a stale clipped viewport/browser scrollbar state (~53.50–53.60 s; same family ~21.9–22.1 s).
+- Same task/session `fas` and elapsed-time continuity remained intact.
+- Immutable failure evidence: `work-log/2026-09-30-chatgpt-m7-ci679-physical-fail.md`.
 
-Current unvalidated corrective candidate:
-- exact head `8a60e92e47ae407098a1f3170ae4170848d262eb`;
+Current exact corrective candidate:
+- source head `274cf727f4d5b693904c2ff10f3835224368c4e8`;
+- Windows CI #684 / run `36640613105`: **PASS**;
+- runtime artifact id `11066497568`, digest `sha256:490940fd2becb63355725b420f3ac8079b3929f9287693a847bd3a2b4fc8b4f5`;
+- visual artifact id `11066094498`, digest `sha256:d4e0d31b472ba67281149187287e962d38b56eee991952d8fbf6364ce056c735`;
+- downloaded runtime ZIP hash independently matches the GitHub digest;
 - Panel→Timer clips to target Timer region before native position motion;
-- cross-DPI Timer→Panel keeps the previous Timer region clipped through target-size correction, waits bounded 50 ms viewport settlement, then reveals full Panel;
+- cross-DPI Timer→Panel keeps the previous Timer region clipped through target host DPI-size correction, waits bounded 50 ms viewport settlement, then reveals the full Panel;
 - same-DPI Timer→Panel keeps the existing continuous reveal;
-- regression contracts enforce this sequencing;
-- Windows CI #682 / run `36639559040`: **PENDING**.
+- CI #682 failed only a new static-test scoping assertion; CI #683 then failed only rustfmt; both non-behavioral issues were corrected before final exact-head CI #684 PASS;
+- immutable candidate evidence: `work-log/2026-09-30-chatgpt-m7-ci684-corrective-candidate.md`.
 
-No progress counter advances from this implementation until exact-head automated validation and physical acceptance complete.
+No progress counter advances until exact #684 physical Gate 7 and Gate 12 acceptance completes.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -58,20 +61,17 @@ This remains the fully merged/physically accepted application-source baseline (P
 
 ## NEXT AGENT ACTION
 
-1. Check Windows CI #682 / run `36639559040` first.
-2. If CI fails, inspect only the exact failure and fix evidence-backed issues on PR #192.
-3. If CI passes, download the exact runtime artifact and request one combined physical recording:
-   - 3× Panel→Timer→Panel;
-   - 3× compact Expand→Collapse;
-   - one normal drag to the 125% display;
-   - compact/expanded checks there;
-   - return to Panel.
-4. Reject any transparent/full-height host tail, white/blank host, spatial teleport, repeated-push drag behavior, stale viewport, clipping, or browser scrollbar flash.
+Analyze the next user recording against exact CI #684 runtime artifact id `11066497568`.
+
+1. Gate 7: at least 3× Panel→Timer→Panel; reject any transparent/full-height host tail, white/blank host, spatial teleport, overlap or abrupt discontinuity.
+2. Compact/expanded: at least 3× Expand→Collapse; reject stale expanded tails or clipping.
+3. Gate 12: one ordinary drag to the user-confirmed 125% display; verify compact/expanded geometry and no repeated-push/snap-back behavior.
+4. Return to Panel; reject any narrow stale viewport, horizontal/vertical browser scrollbar flash, clipping or offset content.
 5. Confirm the same task/session/time.
-6. Only after both gates pass may guarded merge/resulting-main validation proceed.
+6. If both gates PASS, record immutable evidence and continue guarded merge/resulting-main validation. If either fails, keep PR #192 open and fix only the observed exact-build failure signature.
 
 Do not merge PR #192 before both physical gates pass.
 
 ## USER ACTION REQUIRED
 
-None while CI #682 is pending. After it passes, use only its exact runtime artifact for the next combined physical recording.
+Use only CI #684 exact runtime artifact id `11066497568` / source `274cf727f4d5b693904c2ff10f3835224368c4e8` for the next combined physical recording.
