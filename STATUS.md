@@ -21,19 +21,19 @@ presentation and M7 Timer/transition composition as one coherent source change.
 Earlier milestone PASS records are historical; they do not certify replacement
 code. M2–M5 and M8 remain outside this rewrite unless directly affected.
 
-- Milestone 1 / Gate A: **PASS**.
+- Milestone 1 / Gate A: **REOPENED / 9 of 19 top-level items currently validated**. The replacement changes the Focus window/presentation, DPI/topology, Focus-only bundle and floating performance basis.
 - Milestone 2 / Gate B: **PASS**.
 - Milestone 3 / Gate C: **PASS**.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS**.
-- Milestone 6 / Gate F: **PASS** — all 16 top-level items validated.
-- Milestone 7: **ACTIVE / 13 of 15 top-level items validated**; Gate 7 visual continuity and Gate 12 mixed-DPI/work-area acceptance remain open.
-- Milestone 8: **6 of 8 top-level items validated**; remaining work is sequencing-blocked behind M7 closure.
+- Milestone 6 / Gate F: **REOPENED / 15 of 18 top-level items currently validated**. Placement/topology plus complete Focus Panel integration on the new host require replacement-code validation.
+- Milestone 7: **OPEN / 1 of 15 top-level items currently validated**. Host/presentation/placement/shortcut/performance-dependent items are reopened; Gate 7 and Gate 12 remain open.
+- Milestone 8: **PARTIAL / 3 of 8 top-level items currently validated**. Focus shortcut routing and Start Break are reopened because the integration target changes; unaffected settings work remains validated.
 - Milestones 9–10: **NOT STARTED**.
 
-General roadmap progress: **6 of 10 milestones complete**.
+General roadmap progress: **4 of 10 milestones currently complete**.
 
-The active M7 replacement may change the shared Focus foundation originally built in M1 and M6, but it does not reopen those milestones or reset their validated counters. Their materially affected behavior becomes regression obligation for the replacement. Historical PASS evidence validates the prior code only; M7 cannot close until the replacement later passes both its current Gate 7/12 criteria and the affected M1/M6 acceptance/invariant set. M2–M5 and already-validated M8 work remain outside the rewrite unless a direct dependency is demonstrated.
+This reduction is intentional and evidence-based, not loss of historical work. M1 and M6 were previously completed on the superseded Focus implementation, and their work logs remain valid historical evidence. Because the replacement changes implementation that materially supported those gates, affected items are reopened until validated on the replacement. A direct dependency was also found in M8 shortcut routing, so only those M8 items are reopened. M2–M5 remain complete because no direct dependency has been identified.
 
 **Latest CI #530 physical update:** three settled Panel→Timer→Panel shortcut cycles retained one Focus window and the paused task, but continuous capture with Windows animations On showed a pale empty focus frame and then the desktop before Timer appeared. Gate 7 visual continuity is **FAIL** on the latest validated source. The checked frames and exact build provenance are in `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md`. Remaining #530 physical matrix entries were not run; no M7 completion is claimed.
 
