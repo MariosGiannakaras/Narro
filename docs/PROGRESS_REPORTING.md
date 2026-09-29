@@ -12,7 +12,7 @@ Rules:
 - Second field = current implementation-slice checkpoints.
 - Third field = validated top-level items in the active milestone.
 - Derive values from repository state; example numbers are never authoritative.
-- Existing validation/completion rules remain unchanged.
+- Existing validation/completion rules remain unchanged. If newer evidence or a replacement implementation invalidates the acceptance basis of previously validated items, reopen exactly that affected scope and reduce the current counters accordingly; historical PASS remains historical evidence rather than current validation.
 - Do not silently change denominators.
 - Show the line when a counter changes, when a genuinely new slice resets the small counter, or in a useful final implementation status.
 - Do not repeat an unchanged line in routine progress updates.
