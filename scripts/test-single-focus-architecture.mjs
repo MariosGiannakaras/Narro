@@ -134,6 +134,14 @@ invariant(
   "Focus renderer must stay visually and interactively gated until the authoritative native presentation is hydrated",
 );
 invariant(
+  coordinator.includes("presentationHydratedRef.current")
+    && coordinator.includes("timerResizePendingRef.current")
+    && coordinator.includes("deferredToggleSequenceRef.current")
+    && coordinator.includes("deferredFindSequenceRef.current")
+    && coordinator.includes('}, []);'),
+  "native Focus shortcut listeners must stay stable and defer requests that arrive before authoritative hydration",
+);
+invariant(
   lib.includes("floating_placement::save_if_timer_visible(app_handle)")
     && lib.indexOf("floating_placement::save_if_timer_visible(app_handle)") < lib.indexOf("let _save_guard = floating_placement::suspend_saves()"),
   "Timer placement must be saved before transition-time save suppression begins",
