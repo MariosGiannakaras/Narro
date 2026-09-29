@@ -78,7 +78,7 @@ function Capture-Theme {
             $arguments = @("--virtual-time-budget=$VirtualTimeBudgetMs") + $arguments
         }
 
-        $maxAttempts = if ($ReadyMarker) { 2 } else { 1 }
+        $maxAttempts = if ($ReadyMarker) { 3 } else { 1 }
         for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
             $edgeProcess = Start-Process `
                 -FilePath $EdgePath `
@@ -111,7 +111,7 @@ function Capture-Theme {
             }
             if ($ReadyMarker -and -not $domText.Contains($ReadyMarker)) {
                 if ($attempt -lt $maxAttempts) {
-                    Write-Warning "Fixture '$Theme' was captured before it reported ready; recapturing once."
+                    Write-Warning "Fixture '$Theme' was captured before it reported ready; recapturing ($attempt/$maxAttempts)."
                     continue
                 }
                 throw "Fixture '$Theme' did not report ready after $maxAttempts captures. $stderrText"
@@ -276,7 +276,7 @@ try {
                 -Url $scheduleUrl `
                 -ScreenshotPath $scheduleScreenshot `
                 -DomPath $scheduleDom `
-                -VirtualTimeBudgetMs 6000 `
+                -VirtualTimeBudgetMs 10000 `
                 -ReadyMarker 'data-task-schedule-fixture-ready="true"'
         }
     }

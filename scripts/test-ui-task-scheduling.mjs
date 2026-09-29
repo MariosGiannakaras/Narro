@@ -128,6 +128,8 @@ for (const [haystack, needle, label] of [
   [vite, 'taskScheduleFixture: "task-schedule-fixture.html"', "Vite scheduling fixture registration"],
   [capture, 'task-scheduling-$theme', "Windows scheduling captures"],
   [capture, 'task-scheduling-no-repeat-$theme', "Windows No Repeat scheduling captures"],
+  [capture, '$maxAttempts = if ($ReadyMarker) { 3 } else { 1 }', "ready-marker visual capture retry budget"],
+  [capture, '-VirtualTimeBudgetMs 10000', "scheduling fixture virtual-time readiness headroom"],
   [validator, "scheduling editor geometry differs between light and dark themes", "theme geometry parity gate"],
   [validator, "No Repeat", "No Repeat capture validation"],
 ]) {
