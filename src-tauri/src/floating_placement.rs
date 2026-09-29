@@ -29,6 +29,7 @@ impl Drop for PlacementTransitionGuard {
 struct WorkArea {
     name: Option<String>,
     rect: PhysicalRect,
+    scale_factor: f64,
 }
 
 fn placement_error(context: &str, error: impl std::fmt::Display) -> CommandError {
@@ -54,6 +55,7 @@ fn work_area(monitor: &tauri::window::Monitor) -> WorkArea {
     let area = monitor.work_area();
     WorkArea {
         name: monitor.name().cloned(),
+        scale_factor: monitor.scale_factor(),
         rect: PhysicalRect {
             position: PhysicalPoint {
                 x: area.position.x,
@@ -372,6 +374,45 @@ fn target_work_area<'a>(
         }
     }
     best_work_area_for_window(saved.work_area, areas, fallback)
+}
+
+fn timer_visible_size_for_area(area: &WorkArea, expanded: bool) -> CommandResult<PhysicalSize> {
+    if !area.scale_factor.is_finite() || area.scale_factor <= 0.0 {
+        return Err(placement_error(
+            "plan Timer placement",
+            "invalid target monitor scale factor",
+        ));
+    }
+    let logical = crate::timer_region::timer_logical_size(expanded);
+    Ok(PhysicalSize {
+        width: ((logical.width * area.scale_factor).round().max(1.0) as u32)
+            .min(area.rect.size.width),
+        height: ((logical.height * area.scale_factor).round().max(1.0) as u32)
+            .min(area.rect.size.height),
+    })
+}
+
+pub(crate) fn planned_timer_position(
+    app_handle: &tauri::AppHandle,
+    window: &tauri::WebviewWindow,
+    expanded: bool,
+) -> CommandResult<PhysicalPoint> {
+    let connection = app_database(app_handle)?;
+    let saved = persistence::floating_placement::load(&connection)
+        .map_err(|error| placement_error("load Timer position for transition", error))?;
+    let areas = available_work_areas(app_handle)?;
+    let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
+    let current = current_visible_rect(window, expanded)?;
+    let selected = match saved.as_ref() {
+        Some(saved) => target_work_area(saved, &areas, &fallback),
+        None => best_work_area_for_window(current, &areas, &fallback),
+    };
+    let target_size = timer_visible_size_for_area(selected, expanded)?;
+    match saved.as_ref() {
+        Some(saved) => restored_position(saved, selected.rect, target_size),
+        None => clamp_top_left(selected.rect, target_size, current.position)
+            .map_err(|error| placement_error("plan first Timer position", error)),
+    }
 }
 
 fn scaled_axis(
@@ -703,6 +744,7 @@ mod tests {
     fn area(name: &str, x: i32, width: u32) -> WorkArea {
         WorkArea {
             name: Some(name.into()),
+            scale_factor: 1.0,
             rect: PhysicalRect {
                 position: PhysicalPoint { x, y: 0 },
                 size: PhysicalSize {
@@ -792,6 +834,7 @@ mod tests {
         let primary = area("primary", 0, 1920);
         let secondary = WorkArea {
             name: Some("secondary".into()),
+            scale_factor: 1.25,
             rect: PhysicalRect {
                 position: PhysicalPoint { x: -1200, y: 80 },
                 size: PhysicalSize {
@@ -914,6 +957,7 @@ mod tests {
     fn disconnected_monitor_fits_open_expanded_timer_on_primary() {
         let primary = WorkArea {
             name: Some("primary".into()),
+            scale_factor: 1.0,
             rect: PhysicalRect {
                 position: PhysicalPoint { x: 40, y: 20 },
                 size: PhysicalSize {

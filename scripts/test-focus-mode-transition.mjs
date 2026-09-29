@@ -5,43 +5,54 @@ import {
   commitPreparedFocusPresentation,
 } from "../src/focusPresentationTransition.ts";
 
-function harness(previousPresentation = "panel", targetPresentation = "timerCompact") {
+function harness(previousPresentation = "panel", targetPresentation = "timerCompact", concurrent = false) {
   const calls = [];
   const failures = new Map();
 
-  return {
-    calls,
-    failures,
-    transition: {
-      previousPresentation,
-      targetPresentation,
-      waitForTargetReady: async () => {
-        calls.push(`ready:${targetPresentation}`);
-        const failure = failures.get("ready");
-        if (failure) throw failure;
-      },
-      beforeNativeCommit: async () => {
-        calls.push(`before:${targetPresentation}`);
-        const failure = failures.get("before");
-        if (failure) throw failure;
-      },
-      applyNativePresentation: async (presentation) => {
-        calls.push(`native:${presentation}`);
-        const failure = failures.get(`native:${presentation}`) ?? failures.get("native");
-        if (failure) throw failure;
-      },
-      afterNativeCommit: async () => {
-        calls.push(`after:${targetPresentation}`);
-        const failure = failures.get("after");
-        if (failure) throw failure;
-      },
-      commitRendererPresentation: (presentation) => {
-        calls.push(`renderer:${presentation}`);
-        const failure = failures.get(`renderer:${presentation}`) ?? failures.get("renderer");
-        if (failure) throw failure;
-      },
+  const transition = {
+    previousPresentation,
+    targetPresentation,
+    waitForTargetReady: async () => {
+      calls.push(`ready:${targetPresentation}`);
+      const failure = failures.get("ready");
+      if (failure) throw failure;
+    },
+    beforeNativeCommit: async () => {
+      calls.push(`before:${targetPresentation}`);
+      const failure = failures.get("before");
+      if (failure) throw failure;
+    },
+    applyNativePresentation: async (presentation) => {
+      calls.push(`native:${presentation}`);
+      const failure = failures.get(`native:${presentation}`) ?? failures.get("native");
+      if (failure) throw failure;
+    },
+    afterNativeCommit: async () => {
+      calls.push(`after:${targetPresentation}`);
+      const failure = failures.get("after");
+      if (failure) throw failure;
+    },
+    commitRendererPresentation: (presentation) => {
+      calls.push(`renderer:${presentation}`);
+      const failure = failures.get(`renderer:${presentation}`) ?? failures.get("renderer");
+      if (failure) throw failure;
     },
   };
+
+  if (concurrent) {
+    transition.animateNativePresentation = async (presentation) => {
+      calls.push(`animated:${presentation}`);
+      const failure = failures.get("animated");
+      if (failure) throw failure;
+    };
+    transition.runConcurrentMotion = async () => {
+      calls.push(`motion:${targetPresentation}`);
+      const failure = failures.get("motion");
+      if (failure) throw failure;
+    };
+  }
+
+  return { calls, failures, transition };
 }
 
 test("prepared Panel to Timer waits, commits native state, then transfers renderer ownership", async () => {
@@ -72,6 +83,31 @@ test("requesting the committed presentation is a no-op", async () => {
   const h = harness("timerCompact", "timerCompact");
   assert.equal(await commitPreparedFocusPresentation(h.transition), false);
   assert.deepEqual(h.calls, []);
+});
+
+test("Panel/Timer mode changes can run native position and renderer geometry concurrently", async () => {
+  const h = harness("panel", "timerCompact", true);
+  assert.equal(await commitPreparedFocusPresentation(h.transition), true);
+  assert.deepEqual(h.calls, [
+    "ready:timerCompact",
+    "animated:timerCompact",
+    "motion:timerCompact",
+    "renderer:timerCompact",
+  ]);
+});
+
+test("concurrent motion failure restores the previous native and renderer presentation", async () => {
+  const h = harness("timerCompact", "panel", true);
+  const failure = new Error("motion failed");
+  h.failures.set("motion", failure);
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
+  assert.deepEqual(h.calls, [
+    "ready:panel",
+    "animated:panel",
+    "motion:panel",
+    "native:timerCompact",
+    "renderer:timerCompact",
+  ]);
 });
 
 for (const step of ["ready", "before", "native"]) {

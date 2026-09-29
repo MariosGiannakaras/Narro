@@ -23,6 +23,13 @@ export async function applyFocusSurfacePresentation(
   await invoke<void>("focus_surface_apply_presentation", { presentation });
 }
 
+export async function animateFocusSurfacePresentation(
+  presentation: FocusSurfacePresentation,
+  durationMs: number,
+): Promise<void> {
+  await invoke<void>("focus_surface_animate_presentation", { presentation, durationMs });
+}
+
 export async function presentFocusPanel(): Promise<void> {
   await applyFocusSurfacePresentation("panel");
 }

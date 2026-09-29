@@ -20,8 +20,15 @@ const transition = read("src/focusPresentationTransition.ts");
 const events = read("src/focusWindowEvents.ts");
 const modeApi = read("src/focusSurfaceModeApi.ts");
 const region = read("src-tauri/src/timer_region.rs");
+const placement = read("src-tauri/src/floating_placement.rs");
+const topology = read("src-tauri/src/windows/topology.rs");
 const pkg = JSON.parse(read("package.json"));
 
+const animatedNativeCommit = slice(
+  lib,
+  "fn animate_focus_surface_presentation_internal(",
+  "fn apply_focus_surface_presentation_internal(",
+);
 const nativeCommit = slice(
   lib,
   "fn apply_focus_surface_presentation_internal(",
@@ -40,10 +47,14 @@ invariant(
 );
 for (const forbidden of [".hide()", ".show()", ".destroy()", ".close()"]) {
   invariant(!nativeCommit.includes(forbidden), `ordinary presentation switching must not use ${forbidden}`);
+  invariant(!animatedNativeCommit.includes(forbidden), `animated presentation switching must not use ${forbidden}`);
 }
 invariant(
-  nativeCommit.includes("apply_panel_native") && nativeCommit.includes("apply_timer_native"),
-  "single native transaction must own Panel and Timer presentation geometry",
+  nativeCommit.includes("apply_focus_native_target")
+    && lib.includes("fn apply_focus_native_target(")
+    && lib.includes("apply_panel_native")
+    && lib.includes("apply_timer_native"),
+  "single native target transaction must own Panel and Timer presentation geometry",
 );
 invariant(
   lib.includes("static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8")
@@ -53,9 +64,12 @@ invariant(
 );
 
 invariant(
-  transition.indexOf("await waitForTargetReady()") < transition.indexOf("await applyNativePresentation(targetPresentation)")
-    && transition.indexOf("await applyNativePresentation(targetPresentation)") < transition.indexOf("commitRendererPresentation(targetPresentation)"),
-  "prepared target must be ready before native commit and renderer ownership transfer",
+  transition.indexOf("await waitForTargetReady()") < transition.indexOf("if (animateNativePresentation && runConcurrentMotion)")
+    && transition.includes("await Promise.all([")
+    && transition.includes("animateNativePresentation(targetPresentation)")
+    && transition.includes("runConcurrentMotion()")
+    && transition.indexOf("await waitForTargetReady()") < transition.indexOf("commitRendererPresentation(targetPresentation)"),
+  "prepared target must be ready before coordinated native/renderer motion and renderer ownership transfer",
 );
 invariant(
   transition.includes("await applyNativePresentation(previousPresentation)")
@@ -81,13 +95,15 @@ invariant(
   "prepainted inactive content and modal backgrounds must be interaction/accessibility-inert",
 );
 invariant(
-  coordinator.includes("beforeNativeCommit: contractingToTimer")
-    && coordinator.includes("afterNativeCommit: contractingToTimer")
-    && transition.includes("beforeNativeCommit?: () => Promise<void>")
-    && transition.includes("afterNativeCommit?: () => Promise<void>")
+  coordinator.includes("animateNativePresentation: (next) =>")
+    && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs)")
+    && coordinator.includes("runConcurrentMotion: () =>")
+    && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs)")
+    && transition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
+    && transition.includes("runConcurrentMotion?: () => Promise<void>")
     && coordinatorCss.includes('data-focus-geometry-motion-from="panel"')
     && coordinatorCss.includes('data-focus-geometry-motion-to="panel"'),
-  "Panel/Timer transition must coordinate finite same-WebView geometry motion around native commit",
+  "Panel/Timer transition must run finite native position and same-WebView geometry motion concurrently",
 );
 invariant(
   coordinatorCss.includes('data-focus-visibility="preparing"')
@@ -107,10 +123,27 @@ invariant(
 );
 
 invariant(
+  animatedNativeCommit.includes("planned_focus_presentation_position")
+    && animatedNativeCommit.includes("animate_focus_position")
+    && animatedNativeCommit.includes("timer_region::apply_full_host")
+    && animatedNativeCommit.includes("windows::suspend_focus_display_recovery()")
+    && animatedNativeCommit.includes("restore_focus_native_snapshot"),
+  "animated native transition must plan final placement, stage Timer-to-Panel visibility, defer DPI recovery and retain rollback",
+);
+invariant(
+  placement.includes("pub(crate) fn planned_timer_position(")
+    && topology.includes("WM_ENTERSIZEMOVE")
+    && topology.includes("WM_EXITSIZEMOVE")
+    && topology.includes("display_recovery_suspended()"),
+  "saved Timer placement and mixed-DPI recovery must cooperate with finite cross-mode movement",
+);
+
+invariant(
   modeApi.includes('invoke<void>("focus_surface_apply_presentation", { presentation })')
+    && modeApi.includes('invoke<void>("focus_surface_animate_presentation", { presentation, durationMs })')
     && !modeApi.includes("prepare_floating_timer")
     && !modeApi.includes("reveal_floating_timer"),
-  "renderer bridge must expose one native presentation command only",
+  "renderer bridge must expose ordinary and finite animated single-host presentation commands only",
 );
 invariant(
   events.includes('FOCUS_PRESENTATION_CHANGED_EVENT = "focus-surface-presentation-changed"')

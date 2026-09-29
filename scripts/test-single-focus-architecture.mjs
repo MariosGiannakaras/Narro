@@ -94,16 +94,18 @@ invariant(
 
 invariant(
   coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 270")
-    && coordinator.includes("beforeNativeCommit: contractingToTimer")
-    && coordinator.includes("afterNativeCommit: contractingToTimer")
-    && presentationTransition.includes("beforeNativeCommit?: () => Promise<void>")
-    && presentationTransition.includes("afterNativeCommit?: () => Promise<void>")
+    && coordinator.includes("animateNativePresentation: (next) =>")
+    && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs)")
+    && coordinator.includes("runConcurrentMotion: () =>")
+    && presentationTransition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
+    && presentationTransition.includes("runConcurrentMotion?: () => Promise<void>")
+    && presentationTransition.includes("await Promise.all([")
     && coordinatorCss.includes('data-focus-geometry-motion-from="panel"')
     && coordinatorCss.includes('data-focus-geometry-motion-from="timerCompact"')
     && coordinatorCss.includes('data-focus-geometry-motion-from="timerExpanded"')
     && coordinatorCss.includes("clip-path: inset(0 0 590px 0 round 12px)")
     && coordinatorCss.includes("clip-path: inset(0 0 400px 0 round 12px)"),
-  "Panel/Timer switching must provide finite same-WebView geometry continuity around the native region transaction",
+  "Panel/Timer switching must coordinate finite same-WebView geometry and native position continuity",
 );
 invariant(
   coordinatorCss.includes("--focus-visible-height: 700px")
@@ -251,6 +253,15 @@ invariant(
   topology.includes("const OBSERVED_WINDOW_LABELS: [&str; 1] = [FOCUS_SURFACE_LABEL]")
     && topology.includes("revalidate_open_timer_after_display_change"),
   "display recovery must observe and revalidate the one Focus HWND",
+);
+invariant(
+  topology.includes("WM_ENTERSIZEMOVE")
+    && topology.includes("WM_EXITSIZEMOVE")
+    && topology.includes("display_recovery_suspended()")
+    && placement.includes("pub(crate) fn planned_timer_position(")
+    && lib.includes("fn animate_focus_surface_presentation_internal(")
+    && lib.includes("windows::suspend_focus_display_recovery()"),
+  "interactive and programmatic cross-monitor movement must defer competing DPI recovery and use planned final placement",
 );
 invariant(
   verifyConfig.includes("windows.length === 2")

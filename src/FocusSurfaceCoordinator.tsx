@@ -11,6 +11,7 @@ import {
   type FocusPresentationChanged,
 } from "./focusWindowEvents";
 import {
+  animateFocusSurfacePresentation,
   applyFocusSurfacePresentation,
   focusSurfaceModeOf,
   getFocusSurfacePresentation,
@@ -133,17 +134,15 @@ export function FocusSurfaceCoordinator() {
   const runGeometryMotion = useCallback(async (
     from: FocusSurfacePresentation,
     to: FocusSurfacePresentation,
+    durationMs: number,
   ) => {
     if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
 
-    const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? 1
-      : FOCUS_GEOMETRY_MOTION_MS;
     flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
     await waitForPresentedFrame();
     flushSync(() => setGeometryMotion({ from, to, phase: "running" }));
     await new Promise<void>((resolve) => {
-      window.setTimeout(resolve, duration);
+      window.setTimeout(resolve, durationMs);
     });
   }, []);
 
@@ -225,19 +224,18 @@ export function FocusSurfaceCoordinator() {
       // The target subtree is fully painted below the committed presentation.
       // The helper enforces prepaint -> native transaction -> renderer ownership,
       // and restores native state if renderer publication itself ever throws.
-      const contractingToTimer = focusSurfaceModeOf(previousPresentation) === "panel"
-        && targetMode === "timer";
+      const motionDurationMs = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? 1
+        : FOCUS_GEOMETRY_MOTION_MS;
       await commitPreparedFocusPresentation({
         previousPresentation,
         targetPresentation,
         waitForTargetReady: () => waitForReady(targetMode),
-        beforeNativeCommit: contractingToTimer
-          ? () => runGeometryMotion(previousPresentation, targetPresentation)
-          : undefined,
         applyNativePresentation: applyFocusSurfacePresentation,
-        afterNativeCommit: contractingToTimer
-          ? undefined
-          : () => runGeometryMotion(previousPresentation, targetPresentation),
+        animateNativePresentation: (next) =>
+          animateFocusSurfacePresentation(next, motionDurationMs),
+        runConcurrentMotion: () =>
+          runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs),
         commitRendererPresentation: (next) => {
           flushSync(() => publishPresentation(next));
         },

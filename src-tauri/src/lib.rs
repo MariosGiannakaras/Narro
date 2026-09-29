@@ -36,6 +36,7 @@ use shortcuts::{ShortcutDiagnostics, ShortcutManager};
 use std::fmt::Display;
 use std::sync::atomic::{AtomicU8, Ordering as AtomicOrdering};
 use std::sync::{Mutex, MutexGuard};
+use std::time::Duration;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Emitter, Manager, State};
@@ -58,6 +59,8 @@ const FOCUS_PRESENTATION_UNKNOWN: u8 = 0;
 const FOCUS_PRESENTATION_PANEL: u8 = 1;
 const FOCUS_PRESENTATION_TIMER_COMPACT: u8 = 2;
 const FOCUS_PRESENTATION_TIMER_EXPANDED: u8 = 3;
+const FOCUS_POSITION_MOTION_STEP_MS: u64 = 16;
+const FOCUS_POSITION_MOTION_MAX_MS: u64 = 1_000;
 
 static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8 = AtomicU8::new(FOCUS_PRESENTATION_UNKNOWN);
 static COMPACT_TIMER_ORIGIN: Mutex<Option<GeometryPoint>> = Mutex::new(None);
@@ -665,8 +668,7 @@ fn restore_focus_native_snapshot(
     }
 }
 
-fn fit_focus_host_for_target_scale(
-    window: &tauri::WebviewWindow,
+fn focus_host_size_for_target_scale(
     work_area: GeometryRect,
     target_scale: f64,
 ) -> CommandResult<GeometrySize> {
@@ -690,6 +692,15 @@ fn fit_focus_host_for_target_scale(
             "selected monitor has no usable work area for the Focus surface",
         ));
     }
+    Ok(desired)
+}
+
+fn fit_focus_host_for_target_scale(
+    window: &tauri::WebviewWindow,
+    work_area: GeometryRect,
+    target_scale: f64,
+) -> CommandResult<GeometrySize> {
+    let desired = focus_host_size_for_target_scale(work_area, target_scale)?;
 
     let outer = window
         .outer_size()
@@ -832,6 +843,159 @@ fn apply_timer_native(
     set_focus_presentation_attributes(window, target)
 }
 
+fn apply_focus_native_target(
+    app_handle: &tauri::AppHandle,
+    window: &tauri::WebviewWindow,
+    previous: FocusSurfacePresentation,
+    target: FocusSurfacePresentation,
+) -> CommandResult<()> {
+    match target {
+        FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle)
+            .and_then(|(work_area, scale_factor, side)| {
+                apply_panel_native(window, work_area, scale_factor, side)
+            }),
+        FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
+            apply_timer_native(app_handle, window, previous, target)
+        }
+    }
+}
+
+fn planned_focus_presentation_position(
+    app_handle: &tauri::AppHandle,
+    window: &tauri::WebviewWindow,
+    target: FocusSurfacePresentation,
+) -> CommandResult<GeometryPoint> {
+    match target {
+        FocusSurfacePresentation::Panel => {
+            let (work_area, scale_factor, side) = preferred_focus_panel_work_area(app_handle)?;
+            let target_size = focus_host_size_for_target_scale(work_area, scale_factor)?;
+            focus_panel_edge_position(work_area, target_size, side)
+                .map_err(CommandError::window_geometry)
+        }
+        FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
+            floating_placement::planned_timer_position(app_handle, window, target.expanded())
+        }
+    }
+}
+
+fn interpolate_focus_axis(start: i32, end: i32, step: u64, steps: u64) -> CommandResult<i32> {
+    let start = i64::from(start);
+    let delta = i64::from(end) - start;
+    let value = start + delta * i64::try_from(step).map_err(|_| {
+        CommandError::new("FOCUS_PRESENTATION_FAILED", "position animation step overflowed")
+    })? / i64::try_from(steps).map_err(|_| {
+        CommandError::new("FOCUS_PRESENTATION_FAILED", "position animation step count overflowed")
+    })?;
+    i32::try_from(value).map_err(|_| {
+        CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            "animated Focus position exceeded supported coordinates",
+        )
+    })
+}
+
+fn animate_focus_position(
+    window: &tauri::WebviewWindow,
+    target: GeometryPoint,
+    duration_ms: u64,
+) -> CommandResult<()> {
+    if duration_ms == 0 || duration_ms > FOCUS_POSITION_MOTION_MAX_MS {
+        return Err(CommandError::invalid_argument(
+            "durationMs",
+            format!(
+                "must be between 1 and {FOCUS_POSITION_MOTION_MAX_MS} milliseconds"
+            ),
+        ));
+    }
+
+    let start = window.outer_position().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Focus position before animated transition",
+            error,
+        )
+    })?;
+    if start.x == target.x && start.y == target.y {
+        return Ok(());
+    }
+
+    let steps = duration_ms
+        .div_ceil(FOCUS_POSITION_MOTION_STEP_MS)
+        .max(1);
+    let mut elapsed_ms = 0_u64;
+    for step in 1..=steps {
+        let target_elapsed_ms = duration_ms * step / steps;
+        let sleep_ms = target_elapsed_ms.saturating_sub(elapsed_ms);
+        if sleep_ms != 0 {
+            std::thread::sleep(Duration::from_millis(sleep_ms));
+        }
+        elapsed_ms = target_elapsed_ms;
+        let point = GeometryPoint {
+            x: interpolate_focus_axis(start.x, target.x, step, steps)?,
+            y: interpolate_focus_axis(start.y, target.y, step, steps)?,
+        };
+        set_focus_position(window, point, "animate Focus presentation position")?;
+    }
+    Ok(())
+}
+
+fn animate_focus_surface_presentation_internal(
+    app_handle: &tauri::AppHandle,
+    target: FocusSurfacePresentation,
+    duration_ms: u64,
+) -> CommandResult<()> {
+    let _presentation_guard = presentation_guard()?;
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    let previous = current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
+    if previous == target {
+        return Ok(());
+    }
+    if previous.mode() == target.mode() {
+        return Err(CommandError::invalid_argument(
+            "presentation",
+            "animated Focus presentation is only valid for Panel/Timer mode transitions",
+        ));
+    }
+
+    let snapshot = capture_focus_native_snapshot(&window)?;
+    if previous.mode() == FocusSurfaceMode::Timer && target == FocusSurfacePresentation::Panel {
+        if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
+            eprintln!("Could not save Floating Timer position before animated Panel return: {error}");
+        }
+    }
+
+    let _save_guard = floating_placement::suspend_saves();
+    let _display_recovery_guard = windows::suspend_focus_display_recovery();
+    let transition = (|| -> CommandResult<()> {
+        let target_position = planned_focus_presentation_position(app_handle, &window, target)?;
+
+        // Timer -> Panel must expose the already-prepared Panel clip while the
+        // persistent HWND moves. The focus document itself stays transparent,
+        // so expanding the native region does not reveal a blank host.
+        if previous.mode() == FocusSurfaceMode::Timer
+            && target == FocusSurfacePresentation::Panel
+        {
+            timer_region::apply_full_host(&window)?;
+        }
+
+        animate_focus_position(&window, target_position, duration_ms)?;
+        apply_focus_native_target(app_handle, &window, previous, target)
+    })();
+
+    if let Err(error) = transition {
+        return match restore_focus_native_snapshot(&window, &snapshot) {
+            Ok(()) => Err(error),
+            Err(recovery) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{error}; rollback failed: {recovery}"),
+            )),
+        };
+    }
+
+    announce_focus_surface_presentation(app_handle, target);
+    Ok(())
+}
+
 fn apply_focus_surface_presentation_internal(
     app_handle: &tauri::AppHandle,
     target: FocusSurfacePresentation,
@@ -884,15 +1048,7 @@ fn apply_focus_surface_presentation_internal(
     }
     let _save_guard = floating_placement::suspend_saves();
 
-    let transition = match target {
-        FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle)
-            .and_then(|(work_area, scale_factor, side)| {
-                apply_panel_native(&window, work_area, scale_factor, side)
-            }),
-        FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
-            apply_timer_native(app_handle, &window, previous, target)
-        }
-    };
+    let transition = apply_focus_native_target(app_handle, &window, previous, target);
 
     if let Err(error) = transition {
         return match restore_focus_native_snapshot(&window, &snapshot) {
@@ -915,6 +1071,25 @@ fn focus_surface_apply_presentation(
 ) -> CommandResult<()> {
     let target = parse_focus_surface_presentation(&presentation)?;
     apply_focus_surface_presentation_internal(&app_handle, target)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+async fn focus_surface_animate_presentation(
+    app_handle: tauri::AppHandle,
+    presentation: String,
+    duration_ms: u64,
+) -> CommandResult<()> {
+    let target = parse_focus_surface_presentation(&presentation)?;
+    tauri::async_runtime::spawn_blocking(move || {
+        animate_focus_surface_presentation_internal(&app_handle, target, duration_ms)
+    })
+    .await
+    .map_err(|error| {
+        CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            format!("animated Focus transition worker failed: {error}"),
+        )
+    })?
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -1373,6 +1548,7 @@ pub fn run() {
             focus_surface_focus,
             focus_surface_presentation_snapshot,
             focus_surface_apply_presentation,
+            focus_surface_animate_presentation,
             focus_surface_mode_snapshot,
             focus_surface_mode_panel,
             focus_surface_mode_timer,
