@@ -160,7 +160,7 @@ fn timer_needs_dpi_size_recovery(
     Ok(differs(actual.width, expected.width) || differs(actual.height, expected.height))
 }
 
-pub fn ensure_fixed_timer_host_size(window: &tauri::WebviewWindow) -> CommandResult<bool> {
+pub fn ensure_fixed_focus_host_size(window: &tauri::WebviewWindow) -> CommandResult<bool> {
     let actual = current_outer_rect(window)?;
     let scale = window
         .scale_factor()
@@ -470,13 +470,13 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
 pub fn restore_for_timer(
     app_handle: &tauri::AppHandle,
     window: &tauri::WebviewWindow,
+    expanded: bool,
 ) -> CommandResult<bool> {
     let connection = app_database(app_handle)?;
     let saved = persistence::floating_placement::load(&connection)
         .map_err(|error| placement_error("load Timer position", error))?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
-    let expanded = crate::FLOATING_TIMER_EXPANDED.load(Ordering::Acquire);
     let current = current_visible_rect(window, expanded)?;
     let selected = match saved.as_ref() {
         Some(saved) => target_work_area(saved, &areas, &fallback),
@@ -501,7 +501,7 @@ pub fn restore_for_timer(
         };
         position_window_if_needed(window, restored)?;
         if pass == 0 {
-            ensure_fixed_timer_host_size(window)?;
+            ensure_fixed_focus_host_size(window)?;
         }
     }
     confirm_visible_window_in_work_area(window, selected.rect, expanded)?;
@@ -593,7 +593,7 @@ pub fn revalidate_visible_timer_after_display_change(
                 .map_err(|error| placement_error("clamp Timer after display change", error))?;
             position_window_if_needed(&window, safe)?;
             if pass == 0 {
-                ensure_fixed_timer_host_size(&window)?;
+                ensure_fixed_focus_host_size(&window)?;
             }
         }
         crate::timer_region::apply(
