@@ -25,9 +25,9 @@ Suggested evidence:
 - Floating Timer is movable and remains always-on-top where Windows allows;
 - monitor connect/disconnect/scaling changes do not strand windows;
 - idle CPU and memory are measured for main, focus, and floating-only states;
-- repeated Focus↔Floating switching shows no obvious leak or accumulating renderer/window instances.
+- repeated Focus↔Floating switching preserves the same Focus HWND/WebView identity, creates no additional renderer/window instance, and does not use Focus WebView hide/show/create/destroy/ordinary resize as the switch mechanism.
 
-Current proposal: validate Tauri 2 + WebView2 and the `main` + `focusSurface` approach.
+Current corrective architecture: validate Tauri 2 + WebView2 with exactly `main` + one persistent fixed-host `focusSurface`. Focus Panel/compact Timer/expanded Timer are dynamic React presentations inside that host; ordinary presentation switching must not create/destroy, hide/show, or resize the Focus WebView.
 
 Possible conclusion examples:
 - **Proceed unchanged** — measurements and behavior are good.
