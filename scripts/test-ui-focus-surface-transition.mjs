@@ -72,11 +72,20 @@ invariant(
   "Panel and Timer readiness waiters must be isolated by presentation mode",
 );
 invariant(
-  coordinator.includes("inert={!panelActive}")
-    && coordinator.includes("inert={!timerActive}")
+  coordinator.includes("inert={!panelActive || completionSuccess !== null}")
+    && coordinator.includes("inert={!timerActive || completionSuccess !== null}")
     && coordinatorCss.includes('data-focus-visibility="preparing"')
     && coordinatorCss.includes("pointer-events: none"),
-  "prepainted inactive content must be interaction/accessibility-inert",
+  "prepainted inactive content and modal backgrounds must be interaction/accessibility-inert",
+);
+invariant(
+  coordinator.includes("beforeNativeCommit: contractingToTimer")
+    && coordinator.includes("afterNativeCommit: contractingToTimer")
+    && transition.includes("beforeNativeCommit?: () => Promise<void>")
+    && transition.includes("afterNativeCommit?: () => Promise<void>")
+    && coordinatorCss.includes('data-focus-geometry-motion-from="panel"')
+    && coordinatorCss.includes('data-focus-geometry-motion-to="panel"'),
+  "Panel/Timer transition must coordinate finite same-WebView geometry motion around native commit",
 );
 invariant(
   coordinatorCss.includes('data-focus-visibility="preparing"')
