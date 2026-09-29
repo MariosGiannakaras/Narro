@@ -88,11 +88,11 @@ Starting architecture:
 - **Rust** authoritative runtime/domain/native coordination;
 - **SQLite** durable local persistence with migrations;
 - **WebView2** Windows renderer runtime;
-- normally only two webview windows:
+- exactly two normal runtime webview windows in the current corrective architecture:
   - `main`;
-  - `focusSurface`, reused for Focus Panel and Floating Timer.
+  - one persistent fixed-host `focusSurface`, whose React root dynamically presents Focus Panel, compact Timer, or expanded Timer.
 
-This is an evidence-driven starting architecture, **not an immutable mandate**. Milestone 1 exists to validate native behavior and measure floating-only CPU/RAM before product UI is built. If concrete Windows evidence proves a better approach, future agents may change the architecture through the documented decision/evidence process in `AGENTS.md` and `AGENT_WORKFLOW.md`.
+Normal Panel/Timer switching is component/presentation toggling inside `focusSurface` plus native visible-region/position coordination; it is not implemented by opening/closing, hiding/showing, resizing, or alternating multiple Focus WebViews. This architecture is currently selected from the recorded Windows evidence. Reopen it only if exact-build validation proves the single-host design technically insufficient.
 
 ## Fidelity and reliability target
 
