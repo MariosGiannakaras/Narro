@@ -6,6 +6,8 @@ Automated CI can prove the geometry tests, Win32 observer compilation and releas
 
 ## Expected implementation behavior
 
+**Single-Focus replacement rule:** `focusSurface` keeps a fixed maximum host geometry while Panel/Timer visibility is defined by a smaller native region. Topology/placement recovery must therefore reason about the **currently visible region rectangle**, not blindly clamp the invisible full host rectangle. On DPI/topology change, recompute the presentation region at the target monitor scale, then place the visible rectangle safely. Ordinary Panel/Timer switching must not recreate or resize the WebView.
+
 - Narro observes Windows `WM_DISPLAYCHANGE` through the persistent top-level `focusSurface` HWND.
 - The observer is event-driven; it does not poll display state.
 - Repeated display-change messages are coalesced so only one recovery pass is pending at a time.
