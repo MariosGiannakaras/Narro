@@ -109,7 +109,7 @@ Do **not** optimize for line count. Split the batch when changes are unrelated, 
 
 A physical Windows check may be deferred and consolidated with later compatible checks only when subsequent work is independent of its outcome. Keep the gate OPEN until real evidence exists; never convert deferred physical validation into automated PASS.
 
-Documentation-only updates should not consume Windows CI unless they affect build/test behavior.
+Documentation/process/tracking-only Markdown should be committed directly to `main` and should not consume Windows CI when it does not affect executable/build/test/CI behavior. Workflow files, scripts/tests, manifests, runtime/build configuration and other tooling-consumed files are not documentation-only even if they contain no application feature code.
 
 ## CI contract
 
