@@ -69,11 +69,11 @@ for (const [haystack, needle, label] of [
   [region, "FOCUS_HOST_WIDTH_LOGICAL: f64 = 340.0", "validated single-host width"],
   [region, "FOCUS_HOST_HEIGHT_LOGICAL: f64 = 700.0", "validated single-host maximum height"],
   [api, 'invoke<StartBlitzOutcome>("start_blitz"', "typed Start Blitz IPC"],
-  [api, 'invoke<void>("present_focus_panel")', "preference-aware native Focus presentation IPC"],
+  [api, 'invoke<void>("present_focus_for_blitz")', "coordinator-safe Blitz Focus presentation IPC"],
   [button, 'data-start-blitz="true"', "explicit Start Blitz control"],
   [button, "const outcome = await startBlitz();", "click-only authoritative start request"],
   [button, 'outcome.status === "no_eligible_today_tasks"', "no-eligible UI handling"],
-  [button, "await presentFocusPanel();", "post-commit Focus presentation"],
+  [button, "await presentFocusForBlitz();", "post-commit coordinator-safe Focus presentation"],
   [button, "Focus session is active", "committed-start presentation failure distinction"],
   [main, "<BlitzEntryButton />", "production main entry surface"],
 ]) {
@@ -89,6 +89,7 @@ for (const source of [rust, api, button]) {
   }
 }
 for (const forbidden of [
+  "present_focus_panel",
   "focus_surface_mode_panel",
   "focus_surface_focus",
   "available_monitors",
@@ -102,7 +103,7 @@ for (const forbidden of [
 }
 
 const startCall = button.indexOf("const outcome = await startBlitz();");
-const presentationCall = button.indexOf("await presentFocusPanel();", startCall);
+const presentationCall = button.indexOf("await presentFocusForBlitz();", startCall);
 if (startCall < 0 || presentationCall < startCall) {
   throw new Error("Focus presentation must occur only after authoritative Start Blitz resolves.");
 }
@@ -154,10 +155,24 @@ if (
   throw new Error("Explicit Panel presentation must reapply current monitor/side preferences even when Panel is already the committed mode.");
 }
 
+const blitzPresentationStart = lib.indexOf("fn present_focus_for_blitz(app_handle: tauri::AppHandle)");
+const blitzPresentationEnd = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(", blitzPresentationStart);
+const blitzPresentation = lib.slice(blitzPresentationStart, blitzPresentationEnd);
+if (
+  blitzPresentationStart < 0
+  || blitzPresentationEnd < blitzPresentationStart
+  || !blitzPresentation.includes("if visible {")
+  || !blitzPresentation.includes("set_focus()")
+  || !blitzPresentation.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?")
+  || blitzPresentation.indexOf("if visible {") > blitzPresentation.indexOf("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?")
+) {
+  throw new Error("Blitz Focus entry must preserve an already-visible Timer/Panel presentation and prepare Panel only while the host is hidden.");
+}
+
 const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
-const registeredPresentation = lib.indexOf("present_focus_panel", handler);
+const registeredPresentation = lib.indexOf("present_focus_for_blitz", handler);
 if (handler < 0 || registeredPresentation < handler) {
-  throw new Error("The native production Focus presentation command must be registered in Tauri IPC.");
+  throw new Error("The coordinator-safe Blitz Focus presentation command must be registered in Tauri IPC.");
 }
 
 console.log("Single-host Focus entry, placement, and display-revalidation contracts passed.");
