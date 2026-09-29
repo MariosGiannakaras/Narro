@@ -215,7 +215,7 @@ fn schedule_display_recovery() {
                 ),
             }
 
-            let timer_recovery_ok = match crate::floating_placement::revalidate_visible_timer_after_display_change(
+            let timer_recovery_ok = match crate::revalidate_open_timer_after_display_change(
                 &recovery_handle,
             ) {
                 Ok(true) => {
