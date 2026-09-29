@@ -1,0 +1,385 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" fill="#F4F4F4"/>
+  <svg x="0" y="0" width="1024" height="1024" viewBox="112 96 1311 1086" preserveAspectRatio="xMidYMid meet">
+<defs><linearGradient id="g_L1" gradientUnits="userSpaceOnUse" x1="143.242" y1="291.262" x2="631.758" y2="103.738">
+<stop offset="0%" stop-color="#b401fa" />
+<stop offset="2.000%" stop-color="#b401fa" />
+<stop offset="6.000%" stop-color="#b401fa" />
+<stop offset="10.000%" stop-color="#ac02f9" />
+<stop offset="14.000%" stop-color="#a202fa" />
+<stop offset="18.000%" stop-color="#9802fa" />
+<stop offset="22.000%" stop-color="#8a02fb" />
+<stop offset="26.000%" stop-color="#7703fb" />
+<stop offset="30.000%" stop-color="#6204fb" />
+<stop offset="34.000%" stop-color="#4a07fb" />
+<stop offset="38.000%" stop-color="#3110fb" />
+<stop offset="42.000%" stop-color="#191afc" />
+<stop offset="46.000%" stop-color="#0628fc" />
+<stop offset="50.000%" stop-color="#0133fc" />
+<stop offset="54.000%" stop-color="#003afc" />
+<stop offset="58.000%" stop-color="#003ffc" />
+<stop offset="62.000%" stop-color="#0047fc" />
+<stop offset="66.000%" stop-color="#004efc" />
+<stop offset="70.000%" stop-color="#0057fc" />
+<stop offset="74.000%" stop-color="#0060fc" />
+<stop offset="78.000%" stop-color="#0069fc" />
+<stop offset="82.000%" stop-color="#0075fc" />
+<stop offset="86.000%" stop-color="#0182fc" />
+<stop offset="90.000%" stop-color="#008efc" />
+<stop offset="94.000%" stop-color="#0096fc" />
+<stop offset="98.000%" stop-color="#0096fc" />
+<stop offset="100%" stop-color="#0096fc" />
+</linearGradient>
+<linearGradient id="g_L2" gradientUnits="userSpaceOnUse" x1="145.593" y1="476.385" x2="663.407" y2="277.615">
+<stop offset="0%" stop-color="#b701f9" />
+<stop offset="2.000%" stop-color="#b701f9" />
+<stop offset="6.000%" stop-color="#b701f9" />
+<stop offset="10.000%" stop-color="#b202f8" />
+<stop offset="14.000%" stop-color="#ad02f9" />
+<stop offset="18.000%" stop-color="#a502f9" />
+<stop offset="22.000%" stop-color="#9c02fa" />
+<stop offset="26.000%" stop-color="#9202fb" />
+<stop offset="30.000%" stop-color="#8502fb" />
+<stop offset="34.000%" stop-color="#7603fc" />
+<stop offset="38.000%" stop-color="#6306fc" />
+<stop offset="42.000%" stop-color="#4d0afc" />
+<stop offset="46.000%" stop-color="#3512fc" />
+<stop offset="50.000%" stop-color="#1c1dfc" />
+<stop offset="54.000%" stop-color="#072bfc" />
+<stop offset="58.000%" stop-color="#0137fc" />
+<stop offset="62.000%" stop-color="#003ffc" />
+<stop offset="66.000%" stop-color="#0046fc" />
+<stop offset="70.000%" stop-color="#004efc" />
+<stop offset="74.000%" stop-color="#0057fc" />
+<stop offset="78.000%" stop-color="#0061fc" />
+<stop offset="82.000%" stop-color="#006cfd" />
+<stop offset="86.000%" stop-color="#0178fd" />
+<stop offset="90.000%" stop-color="#0184fd" />
+<stop offset="94.000%" stop-color="#018efc" />
+<stop offset="98.000%" stop-color="#018efc" />
+<stop offset="100%" stop-color="#018efc" />
+</linearGradient>
+<linearGradient id="g_L3" gradientUnits="userSpaceOnUse" x1="173.773" y1="703.345" x2="788.227" y2="403.655">
+<stop offset="0%" stop-color="#aa02ee" />
+<stop offset="2.000%" stop-color="#aa02ee" />
+<stop offset="6.000%" stop-color="#aa02ee" />
+<stop offset="10.000%" stop-color="#aa02ee" />
+<stop offset="14.000%" stop-color="#ae02f4" />
+<stop offset="18.000%" stop-color="#b102f8" />
+<stop offset="22.000%" stop-color="#ab02f9" />
+<stop offset="26.000%" stop-color="#a202fb" />
+<stop offset="30.000%" stop-color="#9903fc" />
+<stop offset="34.000%" stop-color="#8a04fc" />
+<stop offset="38.000%" stop-color="#7906fc" />
+<stop offset="42.000%" stop-color="#5f0afc" />
+<stop offset="46.000%" stop-color="#4313fc" />
+<stop offset="50.000%" stop-color="#241ffc" />
+<stop offset="54.000%" stop-color="#0832fc" />
+<stop offset="58.000%" stop-color="#0140fc" />
+<stop offset="62.000%" stop-color="#0049fc" />
+<stop offset="66.000%" stop-color="#0053fc" />
+<stop offset="70.000%" stop-color="#005ffc" />
+<stop offset="74.000%" stop-color="#006cfc" />
+<stop offset="78.000%" stop-color="#017afc" />
+<stop offset="82.000%" stop-color="#018dfc" />
+<stop offset="86.000%" stop-color="#019ffd" />
+<stop offset="90.000%" stop-color="#00b0fc" />
+<stop offset="94.000%" stop-color="#00b0fc" />
+<stop offset="98.000%" stop-color="#00b0fc" />
+<stop offset="100%" stop-color="#00b0fc" />
+</linearGradient>
+<linearGradient id="g_L4" gradientUnits="userSpaceOnUse" x1="130.729" y1="758.368" x2="569.271" y2="700.632">
+<stop offset="0%" stop-color="#dd02f4" />
+<stop offset="2.000%" stop-color="#dd02f4" />
+<stop offset="6.000%" stop-color="#dc02f4" />
+<stop offset="10.000%" stop-color="#d702f3" />
+<stop offset="14.000%" stop-color="#d302f4" />
+<stop offset="18.000%" stop-color="#ce02f4" />
+<stop offset="22.000%" stop-color="#c902f3" />
+<stop offset="26.000%" stop-color="#c502f3" />
+<stop offset="30.000%" stop-color="#bf02f4" />
+<stop offset="34.000%" stop-color="#bd02f4" />
+<stop offset="38.000%" stop-color="#b902f4" />
+<stop offset="42.000%" stop-color="#b403f5" />
+<stop offset="46.000%" stop-color="#b103f6" />
+<stop offset="50.000%" stop-color="#ad03f8" />
+<stop offset="54.000%" stop-color="#a803f8" />
+<stop offset="58.000%" stop-color="#a303fa" />
+<stop offset="62.000%" stop-color="#9e03fb" />
+<stop offset="66.000%" stop-color="#9903fb" />
+<stop offset="70.000%" stop-color="#9404fc" />
+<stop offset="74.000%" stop-color="#8e05fc" />
+<stop offset="78.000%" stop-color="#8806fd" />
+<stop offset="82.000%" stop-color="#8208fc" />
+<stop offset="86.000%" stop-color="#7b09fd" />
+<stop offset="90.000%" stop-color="#770bfd" />
+<stop offset="94.000%" stop-color="#710dfc" />
+<stop offset="98.000%" stop-color="#690eff" />
+<stop offset="100%" stop-color="#690eff" />
+</linearGradient>
+<linearGradient id="g_L5" gradientUnits="userSpaceOnUse" x1="151.574" y1="1011.917" x2="560.426" y2="799.083">
+<stop offset="0%" stop-color="#fb02ca" />
+<stop offset="2.000%" stop-color="#fb02ca" />
+<stop offset="6.000%" stop-color="#fb02ca" />
+<stop offset="10.000%" stop-color="#fb02d0" />
+<stop offset="14.000%" stop-color="#fa02d3" />
+<stop offset="18.000%" stop-color="#f902d8" />
+<stop offset="22.000%" stop-color="#f703db" />
+<stop offset="26.000%" stop-color="#f203dd" />
+<stop offset="30.000%" stop-color="#ef03e2" />
+<stop offset="34.000%" stop-color="#eb03e5" />
+<stop offset="38.000%" stop-color="#e703e5" />
+<stop offset="42.000%" stop-color="#e303e8" />
+<stop offset="46.000%" stop-color="#e103eb" />
+<stop offset="50.000%" stop-color="#dc02ee" />
+<stop offset="54.000%" stop-color="#d903f0" />
+<stop offset="58.000%" stop-color="#d603f3" />
+<stop offset="62.000%" stop-color="#d202f5" />
+<stop offset="66.000%" stop-color="#ce02f8" />
+<stop offset="70.000%" stop-color="#ca03fa" />
+<stop offset="74.000%" stop-color="#c502fb" />
+<stop offset="78.000%" stop-color="#c302fc" />
+<stop offset="82.000%" stop-color="#bf02fd" />
+<stop offset="86.000%" stop-color="#bd03fc" />
+<stop offset="90.000%" stop-color="#bb03fd" />
+<stop offset="94.000%" stop-color="#b903fd" />
+<stop offset="98.000%" stop-color="#b903fd" />
+<stop offset="100%" stop-color="#b903fd" />
+</linearGradient>
+<linearGradient id="g_L6" gradientUnits="userSpaceOnUse" x1="278.919" y1="1232.991" x2="441.081" y2="928.009">
+<stop offset="0%" stop-color="#fd02a2" />
+<stop offset="2.000%" stop-color="#fd02a2" />
+<stop offset="6.000%" stop-color="#fd02a2" />
+<stop offset="10.000%" stop-color="#fd02a2" />
+<stop offset="14.000%" stop-color="#fc02a2" />
+<stop offset="18.000%" stop-color="#fc01a4" />
+<stop offset="22.000%" stop-color="#fd01a7" />
+<stop offset="26.000%" stop-color="#fd02ac" />
+<stop offset="30.000%" stop-color="#fd02b1" />
+<stop offset="34.000%" stop-color="#fd02b6" />
+<stop offset="38.000%" stop-color="#fd02bb" />
+<stop offset="42.000%" stop-color="#fd02bf" />
+<stop offset="46.000%" stop-color="#fd02c4" />
+<stop offset="50.000%" stop-color="#fd02c9" />
+<stop offset="54.000%" stop-color="#fd02ce" />
+<stop offset="58.000%" stop-color="#fc02d5" />
+<stop offset="62.000%" stop-color="#fd02db" />
+<stop offset="66.000%" stop-color="#fd02e0" />
+<stop offset="70.000%" stop-color="#fd02e7" />
+<stop offset="74.000%" stop-color="#fd02ed" />
+<stop offset="78.000%" stop-color="#fd02f3" />
+<stop offset="82.000%" stop-color="#fc02f9" />
+<stop offset="86.000%" stop-color="#fc02fa" />
+<stop offset="90.000%" stop-color="#fc01fc" />
+<stop offset="94.000%" stop-color="#fc01fc" />
+<stop offset="98.000%" stop-color="#fc01fc" />
+<stop offset="100%" stop-color="#fc01fc" />
+</linearGradient>
+<linearGradient id="g_R1" gradientUnits="userSpaceOnUse" x1="1003.169" y1="364.684" x2="1293.831" y2="30.316">
+<stop offset="0%" stop-color="#02cb94" />
+<stop offset="2.000%" stop-color="#02cb94" />
+<stop offset="6.000%" stop-color="#02cb94" />
+<stop offset="10.000%" stop-color="#02cb94" />
+<stop offset="14.000%" stop-color="#03d191" />
+<stop offset="18.000%" stop-color="#03d58a" />
+<stop offset="22.000%" stop-color="#03da82" />
+<stop offset="26.000%" stop-color="#04de7b" />
+<stop offset="30.000%" stop-color="#04e172" />
+<stop offset="34.000%" stop-color="#05e568" />
+<stop offset="38.000%" stop-color="#06e660" />
+<stop offset="42.000%" stop-color="#08e756" />
+<stop offset="46.000%" stop-color="#0be94b" />
+<stop offset="50.000%" stop-color="#0feb41" />
+<stop offset="54.000%" stop-color="#13ed38" />
+<stop offset="58.000%" stop-color="#18ee2e" />
+<stop offset="62.000%" stop-color="#1eef26" />
+<stop offset="66.000%" stop-color="#26f01d" />
+<stop offset="70.000%" stop-color="#2df213" />
+<stop offset="74.000%" stop-color="#37f40b" />
+<stop offset="78.000%" stop-color="#44f606" />
+<stop offset="82.000%" stop-color="#50f803" />
+<stop offset="86.000%" stop-color="#5ef902" />
+<stop offset="90.000%" stop-color="#66fa01" />
+<stop offset="94.000%" stop-color="#66fa01" />
+<stop offset="98.000%" stop-color="#66fa01" />
+<stop offset="100%" stop-color="#66fa01" />
+</linearGradient>
+<linearGradient id="g_R2" gradientUnits="userSpaceOnUse" x1="980.550" y1="537.828" x2="1318.450" y2="217.172">
+<stop offset="0%" stop-color="#02c1e2" />
+<stop offset="2.000%" stop-color="#02c1e2" />
+<stop offset="6.000%" stop-color="#02c1e2" />
+<stop offset="10.000%" stop-color="#02c1e2" />
+<stop offset="14.000%" stop-color="#02c8dd" />
+<stop offset="18.000%" stop-color="#02ced9" />
+<stop offset="22.000%" stop-color="#02d3d3" />
+<stop offset="26.000%" stop-color="#02d6cc" />
+<stop offset="30.000%" stop-color="#03dac4" />
+<stop offset="34.000%" stop-color="#03ddbc" />
+<stop offset="38.000%" stop-color="#04e0b1" />
+<stop offset="42.000%" stop-color="#04e2a7" />
+<stop offset="46.000%" stop-color="#05e49c" />
+<stop offset="50.000%" stop-color="#06e692" />
+<stop offset="54.000%" stop-color="#07e989" />
+<stop offset="58.000%" stop-color="#08eb7f" />
+<stop offset="62.000%" stop-color="#0aed75" />
+<stop offset="66.000%" stop-color="#0df06b" />
+<stop offset="70.000%" stop-color="#0ff262" />
+<stop offset="74.000%" stop-color="#16f559" />
+<stop offset="78.000%" stop-color="#1cf74f" />
+<stop offset="82.000%" stop-color="#23f947" />
+<stop offset="86.000%" stop-color="#28f93f" />
+<stop offset="90.000%" stop-color="#2efa39" />
+<stop offset="94.000%" stop-color="#2efa39" />
+<stop offset="98.000%" stop-color="#2efa39" />
+<stop offset="100%" stop-color="#2efa39" />
+</linearGradient>
+<linearGradient id="g_R3" gradientUnits="userSpaceOnUse" x1="993.555" y1="717.832" x2="1305.445" y2="389.168">
+<stop offset="0%" stop-color="#01aafa" />
+<stop offset="2.000%" stop-color="#01aafa" />
+<stop offset="6.000%" stop-color="#01aafa" />
+<stop offset="10.000%" stop-color="#01aafa" />
+<stop offset="14.000%" stop-color="#01b2f8" />
+<stop offset="18.000%" stop-color="#01baf5" />
+<stop offset="22.000%" stop-color="#01c1f1" />
+<stop offset="26.000%" stop-color="#02c7ed" />
+<stop offset="30.000%" stop-color="#02cee8" />
+<stop offset="34.000%" stop-color="#02d3e3" />
+<stop offset="38.000%" stop-color="#02d6db" />
+<stop offset="42.000%" stop-color="#03d8d5" />
+<stop offset="46.000%" stop-color="#03dbcf" />
+<stop offset="50.000%" stop-color="#03dec7" />
+<stop offset="54.000%" stop-color="#03e1c0" />
+<stop offset="58.000%" stop-color="#04e4b8" />
+<stop offset="62.000%" stop-color="#04e8b0" />
+<stop offset="66.000%" stop-color="#05eba8" />
+<stop offset="70.000%" stop-color="#05eea1" />
+<stop offset="74.000%" stop-color="#05f29a" />
+<stop offset="78.000%" stop-color="#06f594" />
+<stop offset="82.000%" stop-color="#08f88d" />
+<stop offset="86.000%" stop-color="#0cf986" />
+<stop offset="90.000%" stop-color="#10fa7f" />
+<stop offset="94.000%" stop-color="#10fa7f" />
+<stop offset="98.000%" stop-color="#10fa7f" />
+<stop offset="100%" stop-color="#10fa7f" />
+</linearGradient>
+<linearGradient id="g_RM" gradientUnits="userSpaceOnUse" x1="830.584" y1="963.281" x2="1209.416" y2="503.719">
+<stop offset="0%" stop-color="#0051fc" />
+<stop offset="2.000%" stop-color="#0051fc" />
+<stop offset="6.000%" stop-color="#0051fc" />
+<stop offset="10.000%" stop-color="#0051fc" />
+<stop offset="14.000%" stop-color="#0057fc" />
+<stop offset="18.000%" stop-color="#005ffc" />
+<stop offset="22.000%" stop-color="#0068fc" />
+<stop offset="26.000%" stop-color="#0072fc" />
+<stop offset="30.000%" stop-color="#007bfc" />
+<stop offset="34.000%" stop-color="#0186fc" />
+<stop offset="38.000%" stop-color="#0192fc" />
+<stop offset="42.000%" stop-color="#019cfc" />
+<stop offset="46.000%" stop-color="#01a7fc" />
+<stop offset="50.000%" stop-color="#02b4fb" />
+<stop offset="54.000%" stop-color="#02bff6" />
+<stop offset="58.000%" stop-color="#02caef" />
+<stop offset="62.000%" stop-color="#02d3e9" />
+<stop offset="66.000%" stop-color="#03dae2" />
+<stop offset="70.000%" stop-color="#03e1da" />
+<stop offset="74.000%" stop-color="#03e7d2" />
+<stop offset="78.000%" stop-color="#03efc9" />
+<stop offset="82.000%" stop-color="#04f5c1" />
+<stop offset="86.000%" stop-color="#05f9b9" />
+<stop offset="90.000%" stop-color="#06fab4" />
+<stop offset="94.000%" stop-color="#06fab4" />
+<stop offset="98.000%" stop-color="#06fab4" />
+<stop offset="100%" stop-color="#06fab4" />
+</linearGradient>
+<linearGradient id="g_R4" gradientUnits="userSpaceOnUse" x1="988.546" y1="1083.993" x2="1267.454" y2="727.007">
+<stop offset="0%" stop-color="#0059fc" />
+<stop offset="2.000%" stop-color="#0059fc" />
+<stop offset="6.000%" stop-color="#0059fc" />
+<stop offset="10.000%" stop-color="#0059fc" />
+<stop offset="14.000%" stop-color="#005efc" />
+<stop offset="18.000%" stop-color="#0064fc" />
+<stop offset="22.000%" stop-color="#006bfc" />
+<stop offset="26.000%" stop-color="#0072fc" />
+<stop offset="30.000%" stop-color="#0179fc" />
+<stop offset="34.000%" stop-color="#0181fc" />
+<stop offset="38.000%" stop-color="#018afc" />
+<stop offset="42.000%" stop-color="#0193fc" />
+<stop offset="46.000%" stop-color="#019cfc" />
+<stop offset="50.000%" stop-color="#01a5fc" />
+<stop offset="54.000%" stop-color="#01affc" />
+<stop offset="58.000%" stop-color="#01b8fb" />
+<stop offset="62.000%" stop-color="#01c0fb" />
+<stop offset="66.000%" stop-color="#02c9f9" />
+<stop offset="70.000%" stop-color="#02d2f8" />
+<stop offset="74.000%" stop-color="#02d9f6" />
+<stop offset="78.000%" stop-color="#02e2f4" />
+<stop offset="82.000%" stop-color="#02eaf1" />
+<stop offset="86.000%" stop-color="#02f1ee" />
+<stop offset="90.000%" stop-color="#02f7ea" />
+<stop offset="94.000%" stop-color="#02f7ea" />
+<stop offset="98.000%" stop-color="#02f7ea" />
+<stop offset="100%" stop-color="#02f7ea" />
+</linearGradient>
+<linearGradient id="g_R5" gradientUnits="userSpaceOnUse" x1="1038.825" y1="1240.381" x2="1293.175" y2="920.619">
+<stop offset="0%" stop-color="#004afb" />
+<stop offset="2.000%" stop-color="#004afb" />
+<stop offset="6.000%" stop-color="#004afb" />
+<stop offset="10.000%" stop-color="#004afb" />
+<stop offset="14.000%" stop-color="#004efc" />
+<stop offset="18.000%" stop-color="#0052fc" />
+<stop offset="22.000%" stop-color="#0057fc" />
+<stop offset="26.000%" stop-color="#005dfc" />
+<stop offset="30.000%" stop-color="#0063fc" />
+<stop offset="34.000%" stop-color="#006afc" />
+<stop offset="38.000%" stop-color="#0072fc" />
+<stop offset="42.000%" stop-color="#0079fc" />
+<stop offset="46.000%" stop-color="#0082fc" />
+<stop offset="50.000%" stop-color="#018afc" />
+<stop offset="54.000%" stop-color="#0193fc" />
+<stop offset="58.000%" stop-color="#019bfc" />
+<stop offset="62.000%" stop-color="#01a3fc" />
+<stop offset="66.000%" stop-color="#01acfc" />
+<stop offset="70.000%" stop-color="#01b6fb" />
+<stop offset="74.000%" stop-color="#02befb" />
+<stop offset="78.000%" stop-color="#02c7fb" />
+<stop offset="82.000%" stop-color="#01cffa" />
+<stop offset="86.000%" stop-color="#01d8fa" />
+<stop offset="90.000%" stop-color="#02e0f9" />
+<stop offset="94.000%" stop-color="#02e0f9" />
+<stop offset="98.000%" stop-color="#02e0f9" />
+<stop offset="100%" stop-color="#02e0f9" />
+</linearGradient>
+<linearGradient id="g_connector" gradientUnits="userSpaceOnUse" x1="418" y1="640" x2="1049" y2="640">
+<stop offset="0.0%" stop-color="#0030c0" />
+<stop offset="24.0%" stop-color="#001fa6" />
+<stop offset="33.0%" stop-color="#001c94" />
+<stop offset="40.0%" stop-color="#001784" />
+<stop offset="47.0%" stop-color="#00187c" />
+<stop offset="54.0%" stop-color="#01208a" />
+<stop offset="61.0%" stop-color="#0039b4" />
+<stop offset="68.0%" stop-color="#0059e5" />
+<stop offset="75.0%" stop-color="#006afa" />
+<stop offset="100.0%" stop-color="#00a5ff" />
+</linearGradient>
+<linearGradient id="g_connector_v" gradientUnits="userSpaceOnUse" x1="0" y1="477" x2="0" y2="808">
+ <stop offset="0%" stop-color="#00002c" stop-opacity="0.20" />
+ <stop offset="45%" stop-color="#000000" stop-opacity="0" />
+ <stop offset="100%" stop-color="#006dff" stop-opacity="0.18" />
+</linearGradient></defs>
+<path id="connector" d="M 418 478 L 756 477 L 1049 807 L 710 808 Z" fill="url(#g_connector)" />
+<path d="M 418 478 L 756 477 L 1049 807 L 710 808 Z" fill="url(#g_connector_v)" />
+<rect id="L1" x="137" y="120" width="501" height="155" rx="77.500" fill="url(#g_L1)" />
+<rect id="L2" x="137" y="300" width="535" height="154" rx="77.000" fill="url(#g_L2)" />
+<rect id="R1" x="900" y="120" width="497" height="155" rx="77.500" fill="url(#g_R1)" />
+<rect id="R2" x="901" y="301" width="497" height="153" rx="76.500" fill="url(#g_R2)" />
+<rect id="R3" x="901" y="477" width="497" height="153" rx="76.500" fill="url(#g_R3)" />
+<rect id="L3" x="138" y="477" width="686" height="153" rx="76.500" fill="url(#g_L3)" />
+<rect id="L4" x="137" y="653" width="426" height="153" rx="76.500" fill="url(#g_L4)" />
+<rect id="RM" x="641" y="660" width="758" height="147" rx="73.500" fill="url(#g_RM)" />
+<rect id="L5" x="136" y="829" width="440" height="153" rx="76.500" fill="url(#g_L5)" />
+<rect id="R4" x="858" y="829" width="540" height="153" rx="76.500" fill="url(#g_R4)" />
+<rect id="L6" x="136" y="1004" width="448" height="153" rx="76.500" fill="url(#g_L6)" />
+<rect id="R5" x="934" y="1004" width="464" height="153" rx="76.500" fill="url(#g_R5)" />
+
+  </svg>
+</svg>

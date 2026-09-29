@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/branding/narro-logo-master.png" alt="Narro logo" width="160">
+  <img src="assets/branding/narro-logo-master.svg" alt="Narro logo" width="160">
 </p>
 
 # Narro
@@ -132,17 +132,13 @@ Optional planning/verification aids live in `docs/BEHAVIOR_MATRIX.md`, `docs/DEC
 
 The logo shown above is the official Narro identity supplied by the project owner.
 
-Canonical source:
+Canonical scalable source:
 
-`assets/branding/narro-logo-master.png`
+`assets/branding/narro-logo-master.svg`
 
-Verified master metadata recorded by the project:
+The owner-supplied PureVector kit was independently audited: all 16 SVGs are genuine vector XML with paths/rectangles/gradients, no embedded raster images, no external image references and no live text/font dependency. Dedicated square app-icon vectors and the symbol-only vector are retained under `assets/branding/`; PNG files are compatibility/platform derivatives rather than the editable source of truth.
 
-- 1254 x 1254 RGBA;
-- 916,927 bytes;
-- SHA-256 `c553431248aafc705ce20230a69418769e41e019f0eea4dc88d0949c9bb05a5a`.
-
-Windows application/installer/taskbar/tray derivatives should be generated from that master. Do not substitute Blitzit branding, independently redesign the Narro mark, or use a low-quality derivative as the primary brand source.
+Do not substitute Blitzit branding, independently redesign the Narro mark, or use a raster derivative as the canonical scalable source.
 
 ## Development principle
 
