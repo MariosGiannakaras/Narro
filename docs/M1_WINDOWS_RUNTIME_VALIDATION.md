@@ -81,36 +81,38 @@ Record:
 - FocusSurface responsive after recreation: `PASS / FAIL`
 - Exact Rust state survives recreation: `PASS / FAIL`
 
-## Scenario 3 — same `focusSurface` as Focus Panel / Floating Timer
+## Scenario 3 — one persistent `focusSurface` with dynamic Panel/Timer presentation
 
-**Goal:** prove that Narro can resize/restyle the same existing `focusSurface` webview instead of creating a third persistent focus webview.
+**Goal:** prove the replacement uses one persistent Focus HWND/WebView and component-level presentation switching rather than closing/opening, hiding/showing, resizing, or alternating multiple Focus WebViews.
 
-1. Ensure both windows are visible.
-2. In `main`, click **Refresh Window List**.
-3. Confirm the list contains exactly `main` and `focusSurface`.
-4. In `focusSurface`, click **Timer Mode**.
-5. **PASS/FAIL:** does the same window resize to approximately `300×100`?
-6. Open a normal Windows application such as Notepad or a browser and place/focus it over the Narro area.
-7. **PASS/FAIL:** does Timer Mode remain above the normal application?
-8. **PASS/FAIL:** is Timer Mode absent from normal taskbar presentation?
-9. In `focusSurface`, click **Panel Mode**.
-10. **PASS/FAIL:** does the same window resize to approximately `400×700`?
-11. **PASS/FAIL:** does Panel Mode stop being always-on-top and return to normal taskbar presentation?
-12. In `main`, click **Refresh Window List** again.
-13. **PASS/FAIL:** does the list still contain exactly `main` and `focusSurface`, with no third persistent webview?
+1. Launch the exact replacement artifact and enter Focus Panel.
+2. Record the `focusSurface` native/window identity through the available diagnostic path and use **Refresh Window List**.
+3. Confirm the runtime list contains exactly `main` and `focusSurface`; no `floatingTimer`/third Focus WebView exists.
+4. Trigger Panel → compact Timer.
+5. **PASS/FAIL:** does the same `focusSurface` identity remain alive and visible throughout the ordinary switch, with Timer content replacing Panel content inside that host?
+6. **PASS/FAIL:** does the visible native region become the compact Timer rectangle without changing the underlying normal host/WebView size?
+7. Expand and collapse the Timer.
+8. **PASS/FAIL:** does the same HWND/WebView remain while only presentation content/native visible region and safe position change?
+9. Open a normal Windows application and verify Timer topmost/taskbar behavior.
+10. Trigger Timer → Panel.
+11. **PASS/FAIL:** does the same `focusSurface` identity return to the Panel presentation without a second Focus window, session reset, or native hide/show/recreate transition?
+12. Use **Refresh Window List** again and confirm exactly `main` + `focusSurface`.
+13. Inspect the diagnostic transition trace, if present: ordinary presentation switches must show component/region/position coordination, not Focus WebView create/destroy/hide/show or normal host resize.
 
 Important:
 
-- monitor-edge positioning is validated separately in Scenario 5;
-- the current diagnostic window remains manually resizable after a mode command; that is acceptable for M1 and is not final product sizing behavior.
+- showing `focusSurface` when entering Focus and hiding it when Focus is genuinely exited are valid lifecycle operations; they are not Panel/Timer switching;
+- display/DPI/work-area recovery may exceptionally adjust host geometry and is validated separately;
+- native visible-region size is expected to change between Panel/compact/expanded while the normal underlying host/WebView geometry remains fixed.
 
 Record:
 
-- Timer geometry: `PASS / FAIL`
-- Timer always-on-top: `PASS / FAIL`
-- Timer skip-taskbar behavior: `PASS / FAIL`
-- Panel geometry/restyle restore: `PASS / FAIL`
-- Same `focusSurface` reused / no third webview: `PASS / FAIL`
+- Exactly two runtime WebViews: `PASS / FAIL`
+- Same Focus HWND/WebView identity across presentation switches: `PASS / FAIL`
+- No ordinary Focus hide/show/create/destroy/host-resize switching: `PASS / FAIL`
+- Panel/Timer component presentation + native region switching: `PASS / FAIL`
+- Timer always-on-top/taskbar behavior: `PASS / FAIL`
+- Session/domain continuity: `PASS / FAIL`
 
 ## Scenario 4 — tray/background recovery and explicit Quit
 
