@@ -36,6 +36,7 @@ const nativeCommit = slice(
 );
 // Scope ordering checks to the corrective helper itself; global lib.rs ordering
 // is unrelated because other presentation paths also apply native regions.
+// This keeps the contract strict without treating unrelated earlier calls as ordering failures.
 const crossDpiPanelHelper = slice(
   lib,
   "fn apply_panel_native_after_animated_cross_dpi_move(",
