@@ -18,6 +18,8 @@ is an analogy only. Implementation is **in progress and unvalidated** on
 `plan/m7-single-focus`; all tests/builds/CI/app launches/physical checks remain
 deferred until implementation is complete and the user authorizes validation.
 
+**Current unvalidated PR #192 checkpoint (2026-09-29):** exact source head `dc9975147ebf92d462e4314d3665465bc82c6381`. The branch was reconciled with build-affecting `main` `9a4bfff39b42220dcaed103245aca455ec730995` by merge `7d6244dbcb55b5decc261faf20d20415554bd59d`; this matters because `prebuild` consumes `assets/branding/narro-logo-master.png`, whose main blob changed. The current source adds visible-region-aware completion success, modal background inertness/keyboard access, finite ~270 ms same-WebView Panel↔Timer geometry motion with reduced-motion handling and rollback-safe transition hooks, a runtime-order subscribe→snapshot architecture contract, and stale async Focus board-refresh guards keyed by target/revision/live-task/open-session identity. No validation has run on this head. The most recent actual Windows CI remains old-head #666 / run `36568312141` at `567aa177...`, which failed the now-corrected lexical-order architecture assertion during Repository Preflight.
+
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
 settings/persistence remain outside the rewrite. PR #191 is **closed unmerged**;
@@ -41,7 +43,7 @@ This reduction is intentional and evidence-based, not loss of historical work. M
 
 ## Current validated application source baseline
 
-The current validated **merged application source baseline** is `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624), as recorded in `HANDOFF.md`. Later PR #191 experimental source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed exact-head Windows CI #639 but physically failed strict M7 Gate 7; PR #191 was subsequently closed unmerged as superseded. The active `plan/m7-single-focus` replacement is incomplete and unvalidated; historical or experimental CI PASS results must not be promoted to validation of the replacement.
+The current validated **merged application source baseline** is `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624), as recorded in `HANDOFF.md`. Later PR #191 experimental source `4e4960b221f4aad310080ab0b07379e059b52fdc` passed exact-head Windows CI #639 but physically failed strict M7 Gate 7; PR #191 was subsequently closed unmerged as superseded. The active PR #192 / `plan/m7-single-focus` head `dc997514...` is implementation-only and unvalidated; its source corrections and main reconciliation do **not** replace the validated baseline until exact-head Windows CI, required physical acceptance, merge, resulting-main validation and tracking reconciliation complete. Historical or experimental CI PASS results must not be promoted to validation of the replacement.
 
 ## Repository documentation/process policy — 2026-09-29
 
