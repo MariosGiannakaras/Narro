@@ -1,65 +1,71 @@
 # Narro Branding Assets
 
-This folder contains the official Narro visual identity supplied by the project owner.
+This directory is the curated **Windows-project brand source set** derived from the owner-supplied `Narro_Brand_Kit_PureVector.zip`. It intentionally does not mirror the entire cross-platform kit.
 
-## Canonical logo
+## Independent audit of the supplied kit
 
-The canonical Narro logo is committed directly in this repository at:
+The uploaded kit contains 101 files: **16 SVG**, **73 PNG**, and 12 documentation/platform metadata files.
 
-`assets/branding/narro-logo-master.png`
+The SVG set was independently inspected rather than trusting only the included audit JSON:
 
-It is the user-supplied square RGBA artwork containing:
+- **16/16 SVG files parse as standalone XML**;
+- no `<image>`, `<feImage>`, `<foreignObject>`, `<script>` or live `<text>` elements;
+- no `data:image` / base64 raster payloads;
+- no external image/resource references;
+- artwork is made from vector paths, rounded rectangles and SVG linear gradients;
+- the wordmark is outlined geometry, so rendering has no font dependency.
 
-- the multicolor rounded-bar Narro symbol;
-- the lowercase `narro` wordmark;
-- the original magenta/purple → blue/cyan → green gradient treatment;
-- transparent background.
+Result: the current PureVector kit is genuinely vector. The earlier kit problem where app-icon SVG wrappers embedded PNG data is no longer present.
 
-Verified master metadata:
+The kit also contains many intentional duplicates. Examples: the vertical and stacked lockups are byte-identical, all light/dark symbol aliases are byte-identical, and the web favicon SVGs are byte-identical to the corresponding app-icon SVGs. These duplicates are not all useful in a Windows-only source tree.
 
-- dimensions: `1254 × 1254` px;
-- color mode: RGBA with transparency;
-- file size: `916,927` bytes;
-- SHA-256: `c553431248aafc705ce20230a69418769e41e019f0eea4dc88d0949c9bb05a5a`;
-- Git blob SHA: `41781e60334c4f873805915ddc4b2f1219e938e4`.
+## Retained canonical sources
 
-Treat this PNG as the source of truth for Narro-owned visual identity. Do not replace it with a lower-resolution or heavily compressed derivative.
+| Asset | Role | Status |
+| --- | --- | --- |
+| `narro-logo-stacked-light.svg` | Stacked logo for light surfaces | canonical vector |
+| `narro-logo-stacked-dark.svg` | Stacked logo for dark surfaces | canonical vector |
+| `narro-logo-horizontal-light.svg` | Horizontal logo for light surfaces | canonical vector |
+| `narro-logo-horizontal-dark.svg` | Horizontal logo for dark surfaces | canonical vector |
+| `narro-symbol.svg` | Symbol-only transparent mark | canonical vector |
+| `narro-app-icon-light.svg` | Square light launcher/app composition | canonical vector |
+| `narro-app-icon-dark.svg` | Square dark launcher/app composition | canonical vector |
+| `brand-tokens.json` | Brand neutral tokens | canonical data |
 
-## Usage rule
+`narro-logo-master.svg` is retained as a compatibility alias of `narro-logo-stacked-light.svg`; both point to the same exact vector blob. There is no separate light/dark symbol file because the symbol artwork itself is identical on both themes.
 
-Use this Narro identity for Narro-owned application branding. Do not substitute Blitzit logos, marks, screenshots, or other source-product branding.
+## Retained raster derivatives
 
-Do not redesign, recolor, distort, stretch, rotate, add effects to, or replace the Narro logo merely for implementation convenience. Preserve its aspect ratio, transparency, gradient identity, and overall geometry.
+- `narro-logo-master.png` — stacked-light raster compatibility asset;
+- `narro-symbol-transparent.png` — square transparent symbol derivative;
+- `narro-app-icon-light.png` / `narro-app-icon-dark.png` — square opaque launcher derivatives.
 
-Platform-specific derivatives are allowed when technically necessary, for example:
+These PNGs are convenience/platform derivatives. **They are not canonical editable artwork.**
 
-- Windows application icon / `.ico` multi-size bundle;
-- installer icon;
-- executable/window icon;
-- Start menu / shortcut icon;
-- taskbar icon;
-- tray icon;
-- splash/about/help surfaces if Narro later uses them;
-- documentation and repository previews.
+The PureVector kit's two launcher PNG masters are opaque even though its bundled `validation.json` labels them RGBA. Independent image inspection reports RGB with no alpha, which is consistent with their full Snow/Ink backgrounds. The transparent symbol PNG is RGBA.
 
-Those files should be generated from `narro-logo-master.png` rather than independently redrawn.
+## Windows integration policy
 
-## Small-icon treatment
+Narro is Windows-only at the current project scope, so Android, iOS and web/PWA export directories from the source kit are intentionally excluded.
 
-The complete symbol + wordmark will not remain legible at very small Windows sizes such as 16–32 px. For tray/taskbar/app-icon derivatives, an icon-only crop/variant based on the Narro symbol portion may be more appropriate.
+Windows uses two different brand treatments:
 
-Treat that as a derived presentation of the same identity, not permission to invent a different mark. Validate the result at actual Windows icon sizes before adopting it. If a material visual reinterpretation is needed, request owner approval rather than silently changing the logo.
+1. **Application/installer identity** — generated from the square app-icon vector, producing the Tauri/Windows PNG and multi-resolution ICO outputs.
+2. **System tray identity** — a dedicated symbol-only transparent 64 px raster derivative, because a tiny tray surface should not use the full wordmark or the plated launcher composition.
 
-## Implementation guidance
+The Tauri-generated files under `src-tauri/icons/` are **generated platform outputs**, not brand masters. The authoritative build/dev preparation must regenerate them from the retained Narro vector source. A generated file must never become the source from which another branding asset is resampled.
 
-When the application scaffold exists:
+## Brand neutrals
 
-1. keep `narro-logo-master.png` unchanged as the canonical artwork;
-2. generate required Tauri/Windows icon sizes from it;
-3. keep generated platform assets in the framework-appropriate icon directory while documenting their source;
-4. use the logo only where branding is useful—do not turn every application surface into decorative branding;
-5. test dark and light contexts so transparent/white wordmark portions remain readable;
-6. regenerate derivatives from the master instead of repeatedly resampling smaller derivatives;
-7. avoid aggressive compression for user-visible branding; optimize only when the rendered result remains visually indistinguishable at its target size.
+- Narro Ink: `#171717`
+- Narro Snow: `#F4F4F4`
 
-The root `README.md` references the canonical PNG directly so repository branding is not dependent on a low-quality preview derivative.
+The Ink/Snow pair is approximately 16.3:1 contrast.
+
+## Usage
+
+- Prefer SVG for scalable UI, documentation and repository branding.
+- Use the light wordmark variants on light surfaces and dark variants on dark surfaces.
+- Use the symbol-only asset for small identity surfaces.
+- Use the square app-icon compositions only where an application/launcher icon is appropriate.
+- Do not recolor, distort, rotate, add effects, stretch, or substitute source-product/Blitzit branding.

@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="assets/branding/narro-logo-master.png" alt="Narro logo" width="160">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/branding/narro-logo-stacked-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/branding/narro-logo-stacked-light.svg">
+    <img src="assets/branding/narro-logo-stacked-light.svg" alt="Narro logo" width="160">
+  </picture>
 </p>
 
 # Narro
@@ -130,19 +134,20 @@ Optional planning/verification aids live in `docs/BEHAVIOR_MATRIX.md`, `docs/DEC
 
 ## Branding
 
-The logo shown above is the official Narro identity supplied by the project owner.
+Narro branding is maintained from the owner-supplied pure-vector artwork under `assets/branding/`.
 
-Canonical source:
+Canonical scalable sources:
 
-`assets/branding/narro-logo-master.png`
+- `narro-logo-stacked-light.svg` / `narro-logo-stacked-dark.svg` — stacked lockups for light/dark surfaces;
+- `narro-logo-horizontal-light.svg` / `narro-logo-horizontal-dark.svg` — horizontal lockups;
+- `narro-symbol.svg` — symbol-only transparent vector;
+- `narro-app-icon-light.svg` / `narro-app-icon-dark.svg` — square launcher/app-icon compositions.
 
-Verified master metadata recorded by the project:
+`narro-logo-master.svg` is retained as a compatibility alias of the stacked-light vector. PNG files in the same folder are raster derivatives, not the editable source of truth.
 
-- 1254 x 1254 RGBA;
-- 916,927 bytes;
-- SHA-256 `c553431248aafc705ce20230a69418769e41e019f0eea4dc88d0949c9bb05a5a`.
+The supplied PureVector kit was independently audited: all 16 SVG files are genuine vector XML with paths/rectangles/gradients, no embedded raster images, no external image resources, no scripts and no live text/font dependency. Platform-specific Android, iOS and web/PWA export trees are intentionally not copied into this Windows-only repository.
 
-Windows application/installer/taskbar/tray derivatives should be generated from that master. Do not substitute Blitzit branding, independently redesign the Narro mark, or use a low-quality derivative as the primary brand source.
+Do not substitute Blitzit branding or independently redraw/recolor/distort the Narro mark.
 
 ## Development principle
 
