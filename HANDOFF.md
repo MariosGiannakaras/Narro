@@ -6,22 +6,26 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT STATE
 
-`4/10M || 1/5 | 9/19`
+`4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains the active ordered roadmap work**, triggered by the M7 Gate 7/12 failures. The PR #192 **implementation phase is complete by static repository reconciliation**, but the current corrective small slice remains **1/5 completed/verified** because the four implementation/validation checkpoints that depend on tests, builds, Windows CI and physical evidence are intentionally not counted before validation. Exact implementation source head: `b506fd016eea2d3c45635a2cbdc74acde831d674`. The separate PureVector runtime branch remains preserved at its prior 2/3 implementation state and is not the active slice. The binding architecture is one persistent fixed-host `focusSurface` with dynamic React Panel/Timer presentation plus native visible-region/position coordination.
+**Reopened Milestone 1 corrective foundation remains the active ordered roadmap work.** PR #192 implementation and exact-head automated validation are complete, but the first exact-artifact physical Gate 7 retest has **FAILED**. Continue the same PR with the narrow evidence-backed correction; do not restart or replace the selected architecture.
 
-- Roadmap: **4/10 milestones currently complete**. M1 and M6 are reopened in the exact scope invalidated by the single-Focus replacement; M2–M5 remain complete.
-- M1: **9/19 top-level items currently validated**; replacement window/presentation/DPI/topology/bundle/performance items are reopened.
-- M6: **15/18 top-level items currently validated**; Focus placement/topology and full replacement-host integration are reopened.
-- M7: **1/15 top-level items currently validated**; all host/presentation/placement/shortcut/performance-dependent items are reopened except the unrelated validated Change List/Duplicate capability.
-- M8: **3/8 top-level items currently validated**; in-app shortcuts, global Focus routing and Start Break are reopened because their integration target changes. Unaffected conflict handling, nested Preferences behavior and settings persistence remain validated.
-- Current audit `FIX_NOW` queue: **M7-PHYS-01 and M7-PHYS-02**. Gate 7 is now routed to the selected single-host/dynamic-component replacement; Gate 12 requires mixed-DPI validation on that replacement.
-- **Documentation/process truth policy:** implementation instructions/spec/tracking/work-log/evidence changes that do not affect executable/build/test/CI semantics go directly to `main` without Windows CI. Markdown is already path-ignored; non-Markdown evidence-only commits use `[skip ci]`. Workflow YAML, scripts/tests, manifests/config and other tooling-consumed files are not docs/evidence-only. Before further source editing, the active implementation branch must be reconciled with current `main` repository truth.
-- **PureVector branding correction (user-directed, 2026-09-29):** uploaded kit inventory is **101 files / 16 SVG / 73 PNG**. Independent audit confirms **16/16 SVG pure vector** with no embedded raster/image, external resource, script or live text/font dependency. Duplicate platform aliases were intentionally not copied wholesale into this Windows-only repo. `main` commit `4eec40492c2ac8678ea812d94be7003feed01be0` now has the curated source set, explicit stacked-light/dark + horizontal pairs, theme-aware README branding and the original pure-vector app-icon pair. Runtime wiring is staged on `brand/pure-vector-runtime` at `92551eaba723ce5ae94fa2cc92e0027e46df1942`: Tauri icon generation uses the square light app-icon SVG, runs before both dev and build, the old app-icon→tray copy mechanism is removed, the tray uses a dedicated 64×64 transparent symbol derivative, and `scripts/verify-branding.mjs` guards the vector/raster/runtime contracts. The committed generic Tauri icon files were identified as generated outputs rather than canonical brand sources; real dev/build preparation regenerates them from the Narro SVG. No PR or workflow run has been triggered for the branding branch.
-- **Repository-wide architecture re-audit completed 2026-09-29:** active specifications, M1/M7 validation docs, README, roadmap/process rules and the live partial implementation were checked against the intended Single-Activity/Dynamic Component Toggling idea. The binding desktop interpretation is one persistent `focusSurface` HWND/WebView + one React root/coordinator + Panel/compact/expanded component presentations. The live migration ledger in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md` is now statically reconciled on PR #192 head `b506fd01...`; validation remains separate and open. Immutable audit log: `work-log/2026-09-29-chatgpt-single-focus-repo-wide-architecture-reaudit.md`.
-- **PR #191 is CLOSED UNMERGED as superseded.** Its split-window/visual-hold branch remains historical evidence only. **PR #192 is OPEN** on `plan/m7-single-focus`; exact implementation source head is `b506fd016eea2d3c45635a2cbdc74acde831d674`. Before the final implementation commits, the branch merged tracking `main` `16d9b114630280ff701f46c3d87b829ec2ea1ad8` in `f95fea42b0f799cd438031872db0cf9f45a392ec`; that tracking main already descended from the build-affecting branding state `9a4bfff...`. The current source head contains the additional compact↔expanded Timer geometry motion and corrected transition contracts. The latest actual Windows CI remains old-head #666 / run `36568312141` on `567aa177...`, which failed the now-corrected lexical listener/snapshot assertion. **No test/build/CI/runtime/physical validation has run on `b506fd01...`**, and no workflow run exists for it because the implementation commits use `[skip ci]` under the validation deferral. Newer `main` descendants are tracking/work-log Markdown only; always read current `main` before any future source edit.
-- **Current binding implementation direction:** use one persistent nominal 340×700 Focus HWND/WebView and one React root/coordinator. Panel (340×700), compact Timer (340×110) and expanded Timer (340×300) are dynamic components/presentations inside that host. Ordinary presentation changes must not close/open, create/destroy, hide/show or resize the Focus WebView; use target prepaint + native region/position/topmost/taskbar coordination instead. `Single-Activity Architecture` is an analogy only, not an Android/React API requirement. The complete implementation sequence is in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`.
-- The replacement starts at the affected **M1 native Focus window foundation**, carries through **M6 Panel integration**, then **M7 Timer/transition**, and finally the directly affected **M8 Focus-shortcut integration**. The affected milestone items are explicitly reopened; historical PASS records remain evidence for the old implementation only. Preserve M2–M5 and unaffected M8 work. See the dependency map in the plan.
+- Roadmap: **4/10 milestones currently complete**. M1 and M6 remain reopened in the exact scope invalidated by the single-Focus replacement; M2–M5 remain complete.
+- Current corrective slice: **2/5** — (1) implementation/static migration closure PASS, (2) exact-head automated validation PASS, (3) Gate 7 physical continuity FAIL/OPEN, (4) Gate 12 mixed-DPI recovery OPEN/NOT RUN, (5) guarded merge/resulting-main/tracking closure OPEN.
+- M1: **11/19 top-level items currently validated**. No counter advances from the failed physical retest.
+- M6: **15/18** validated; placement/topology/full replacement-host integration remain open.
+- M7: **1/15** validated; Gate 7 remains a blocking FIX_NOW defect.
+- M8: **3/8** validated; affected Focus shortcut work remains blocked behind the corrective chain.
+- PR #192 remains **OPEN** on `plan/m7-single-focus`. Exact failed physical candidate: `73d10ab6a21d731ca363e9932b4ccaf13a000b43`.
+- Windows CI #672 / run `36589997295` is PASS on that exact head.
+- Runtime artifact id `11043444940`, digest `sha256:e1110b10c6d7cb867401126df931f3b52af414f097bb6a0bd9d790f6dac2fd76`.
+- User recording `2026-09-29 20-49-29.mkv`: SHA-256 `b843eaa81d8296fe03febfb79e6dbb1f95b2a0834caf11acec68f2f467df4536`, H.264 2560×1080, 60 fps, 49.384 s. Windows “Show animations in Windows” is visibly On.
+- Four Panel→Timer boundaries repeatedly expose a large blank/light 340×700 host area for about 0.23–0.25 s: ~4.883–5.117, 11.167–11.383, 21.950–22.167 and 25.400–25.617 s. Shorter reverse-boundary exposure occurs around 8.050–8.100, 19.100–19.150 and 24.367–24.417 s.
+- Compact↔expanded Timer cycles in the same recording do not show the same full-height blank tail. The same task/session remains active and the running timer advances without reset.
+- Evidence-backed cause: the Tauri `focusSurface` is already transparent, but shared `App.css` paints `:root` and `body` with opaque `var(--color-canvas)`. During the intentional renderer-clip/native-region offset, that document canvas becomes visible.
+- Corrective scope: make the runtime `focus.html` document root/body/#root transparent, preserve opaque backgrounds inside actual Panel/Timer surfaces, and add a preflight/static invariant. Do not alter window count, native presentation architecture, timer/session authority, or compact/expanded sequencing from this evidence alone.
+- Immutable physical-fail record: `work-log/2026-09-29-chatgpt-m7-ci672-physical-fail.md`.
+- The parked `brand/pure-vector-runtime` branch remains preserved and is not active.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -53,21 +57,19 @@ PREF-R01 now uses persisted timed-alert preferences, authoritative Rust work ela
 - New exact-build physical findings `M7-PHYS-01` and `M7-PHYS-02` remain `FIX_NOW` in the audit crosswalk until exact-build physical acceptance passes.
 - M9 findings remain routed to M9; M10/final-review findings remain routed to later gates; unresolved source ambiguities remain explicit.
 
-## M7 PHYSICAL CLOSURE — OPEN; IMPLEMENTATION COMPLETE, AUTOMATED VALIDATION NEXT
+## M7 PHYSICAL CLOSURE — OPEN; CI PASS, EXACT-ARTIFACT GATE 7 FAIL
 
-The coherent replacement implementation is complete by static repository reconciliation. The user's current direction delegates validation timing to the agent: routine tests/CI no longer require a fresh permission checkpoint. Because this replacement is a high-blast-radius foundation for M1/M6/M7 and affected M8 routing, the recommended next step is an exact-head automated validation checkpoint **before** stacking dependent M8 source work. Re-close the affected chain in dependency order: **M1 → M6 → M7 → affected M8 shortcut items**. Physical Gate 7/12 checks may be consolidated later when they are not needed to choose the next safe source change; they remain OPEN until observed.
+The single-Focus replacement passed authoritative CI on exact head `73d10ab6...`, then failed Gate 7 on its exact runtime artifact with Windows animations On.
 
-The CI #624 physical batch has now run on its exact artifact:
-- artifact id: `10944304485`;
-- digest: `sha256:4f76740bc6f69dcd1d664c9fb80011520567612c9eb6d87ab4e09e02e3b1bf7c`;
-- source tree is identical to merged main `e3a9abf8...`;
-- immutable result: `work-log/2026-09-28-codex-m7-ci624-physical-batch.md` with sanitized frames in `work-log/evidence/`;
-- Gate 7 **FAIL** (On white frames on Timer→Panel and Expand/Collapse), Gate 12 **FAIL** (125% secondary-monitor Timer shrink/scrollbars);
-- Gates 8, 9, 10 and 11 **PASS** within the documented physical scope.
+The failure is now specific and reproducible rather than architectural speculation:
+- Panel→Timer leaves the transparent Tauri host backed by an opaque HTML document canvas while the Panel clip contracts before native Win32 clipping.
+- Timer→Panel briefly exposes the same canvas after native expansion and before the prepared Panel clip finishes revealing.
+- This produces the observed blank/light host intervals.
+- Compact↔expanded Timer did not reproduce the full-height defect in the submitted recording.
 
-PR #191 exact-build and physical chronology is consolidated in `work-log/2026-09-28-codex-m7-visual-continuity-history.md`. Its split-window composition is superseded and must not be merged as the final solution. Gate 12 remains open for the replacement build.
+The next candidate must change only the focus-document canvas transparency plus its regression contracts, then pass exact-head CI before another Gate 7 physical retest.
 
-The original SQLite profile is restored and its SHA-256 matches the pretest copy at `artifacts/m7-separate-timer-runtime/profile-before.db`. The test profiles and raw captures remain in ignored artifacts. Windows animations are On, confirmed by both `SPI_GETANIMATION=1` and `SPI_GETCLIENTAREAANIMATION=1`. One 100% display is currently exposed; the secondary 125% Gate 12 branch remains unavailable.
+Gate 12 remains OPEN/NOT RUN on the replacement because the submitted recording does not provide the required visible 125% secondary-display scenario.
 
 ## REMAINING M8 ORDER
 
@@ -93,32 +95,26 @@ PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 
 ## REPOSITORY HYGIENE NOTE
 
-The abandoned CI dedup regression guard was recovered, validated and merged in PR #186 / Windows CI #626. The old regression branch was subsequently removed. That earlier clean-state sentence is historical only. Live state now includes open PR #192 on `plan/m7-single-focus` at implementation source head `b506fd01...` plus the parked user-directed unvalidated `brand/pure-vector-runtime` branch. The PR #192 source tree has the build-affecting branding state from `main` `9a4bfff...`; later direct-main Markdown tracking commits do not replace the validated application source baseline. The validated application source baseline remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
+PR #191 is closed unmerged and remains historical evidence only. Live implementation state is PR #192 on `plan/m7-single-focus` at exact automated-validated head `73d10ab6a21d731ca363e9932b4ccaf13a000b43`. The parked PureVector runtime branch remains intentionally preserved and unmerged. The merged fully validated application-source baseline remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` until PR #192 receives required physical acceptance, guarded merge and resulting-main reconciliation.
+
+Current `main` contains newer documentation/tracking commits recording CI #672. Those Markdown-only commits do not alter the PR executable tree.
 
 ## NEXT AGENT ACTION
 
-**Do not start dependent M8 source work yet.** PR #192 implementation is complete at exact source head `b506fd016eea2d3c45635a2cbdc74acde831d674`. Reconcile the PR branch with current `main` process/tracking Markdown, then begin the **exact-head automated validation checkpoint**. This checkpoint is recommended now because later M8 work depends on the replaced Focus foundation and stacking it on an uncompiled/unvalidated architecture would make regressions harder to isolate.
+1. Reconcile `plan/m7-single-focus` with current `main` Markdown/process truth.
+2. On the same PR branch, implement the narrow Gate 7 correction:
+   - add a focus-entry-only stylesheet or equivalent that makes the runtime `focus.html` `:root`/html/body/#root background transparent;
+   - leave Main and diagnostics/component surface backgrounds unchanged/opaque where they are intentionally painted;
+   - assert `focusSurface.transparent === true` in repository config validation;
+   - add a static transition contract requiring the focus-entry transparency override.
+3. Run the narrow frontend/config/transition checks available locally, then authoritative exact-head Windows CI.
+4. If CI passes, produce/use the exact new runtime artifact for another animations-On Gate 7 recording.
+5. Only after Gate 7 passes continue to Gate 12 and later guarded merge/tracking closure.
 
-Before validation:
-- read current `main` tracking truth and confirm PR #192 still points to `b506fd016eea2d3c45635a2cbdc74acde831d674` or record any newer exact head;
-- if `main` has only newer Markdown tracking descendants, do not reinterpret them as source validation;
-- preserve the parked `brand/pure-vector-runtime` branch at `92551eaba723ce5ae94fa2cc92e0027e46df1942`;
-- do not resurrect `timer.html`, `focusPanelWindow.tsx`, a second Timer WebView, bitmap visual hold, or ordinary Focus WebView hide/show/resize switching.
-
-Validate the exact then-current PR head in this order:
-1. Repository Preflight and the narrow single-Focus/transition contracts first.
-2. Full authoritative Windows frontend/Rust checks/tests and visual regression.
-3. Tauri release build plus required artifacts.
-4. Confirm successful exact-head PR Windows CI.
-5. Perform physical Gate 7 continuity with Windows animations On.
-6. Perform mixed-DPI Gate 12 when a Windows-visible secondary display is available.
-7. Fix only evidence-backed failures on the same PR branch; revalidate the exact new head.
-8. After required evidence passes, use expected-head-guarded merge, validate resulting `main`, then reconcile `TODO.md`, `STATUS.md`, `HANDOFF.md`, crosswalk and a new immutable work log.
-
-Immutable implementation-complete record: `work-log/2026-09-29-chatgpt-m7-single-focus-implementation-complete.md`.
+Do not revive PR #191 visual-hold/split-window mechanisms and do not broaden this correction into native-region animation unless the transparent-document candidate still physically fails.
 
 ## USER ACTION REQUIRED
 
-None for ordinary automated validation. A future mixed-DPI Gate 12 retest requires a Windows-visible secondary monitor and therefore may require user participation; when that becomes the next necessary gate, explain why it is needed and provide the recommended test procedure before asking. Physical Gate 7 observation may likewise be batched on the latest suitable artifact.
+None while the correction and CI are pending.
 
-No Blitzit evidence upload is pending. The uploaded corpus and its analysis are complete.
+After a corrected exact-head CI artifact exists, a new Gate 7 physical recording will again be required because compositor continuity cannot be proven by automated CI. Gate 12 will later require a Windows-visible 125% secondary display; if unavailable, keep it NOT RUN.

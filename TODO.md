@@ -9,32 +9,32 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Create a Tauri 2 + React + TypeScript scaffold targeting Windows 10/11 x64.
 - [x] Add Rust modules for app state, persistence, timers, scheduling, and window coordination.
 - [x] Add SQLite plus migration harness; create migration `0001` even if the initial schema is minimal.
-- [ ] Validate the replacement composition still uses only two initial webview windows: `main` and one persistent `focusSurface`; no third persistent Focus/Timer webview. Historical M1 PASS applies to the superseded implementation only.
-  - [ ] Repository/runtime contracts contain no production `floatingTimer` window label, `timer.html` runtime entry, or split Focus/Timer capability/config expectation.
+- [x] Validate the replacement composition still uses only two initial webview windows: `main` and one persistent `focusSurface`; no third persistent Focus/Timer webview. Exact-head PR #192 Windows CI #672 validates the runtime/config architecture on `73d10ab6a21d731ca363e9932b4ccaf13a000b43`; historical M1 PASS remains evidence for the superseded implementation only.
+  - [x] Repository/runtime contracts contain no production `floatingTimer` window label, `timer.html` runtime entry, or split Focus/Timer capability/config expectation.
 - [x] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state (fixed 800x600 recreation geometry only).
   - [x] implementation compiles in Windows CI
   - [x] interactive hide/show/destroy and background state mutation validation
   - [x] interactive async recreate opens and remains responsive
   - [x] exact Rust state visibly survives and updates correctly in recreated `main`
 - [ ] Validate Focus Panel, compact Timer and expanded Timer presentations inside the single persistent `focusSurface` replacement host.
-  - [ ] Fixed nominal host uses the validated 340px product width: 340×700 Panel host/region, 340×110 compact region, 340×300 expanded region; the legacy 400px M1 scaffold width is not carried into product geometry.
-  - [ ] One React root/coordinator owns committed/pending presentation state and shared authoritative projections; Panel/Timer are components, not independent window renderers.
-  - [ ] Incoming presentation is prepared in the same WebView while outgoing content remains painted; preparing/inactive controls are inert and excluded from focus/accessibility navigation, without `display:none`/unmount-first prepaint.
-  - [ ] Replacement implementation compiles in authoritative Windows CI.
+  - [x] Fixed nominal host uses the validated 340px product width: 340×700 Panel host/region, 340×110 compact region, 340×300 expanded region; the legacy 400px M1 scaffold width is not carried into product geometry.
+  - [x] One React root/coordinator owns committed/pending presentation state and shared authoritative projections; Panel/Timer are components, not independent window renderers.
+  - [x] Incoming presentation is prepared in the same WebView while outgoing content remains painted; preparing/inactive controls are inert and excluded from focus/accessibility navigation, without `display:none`/unmount-first prepaint.
+  - [x] Replacement implementation compiles in authoritative Windows CI.
   - [ ] Replacement interactive validation passes on Windows.
 - [ ] Prove Panel ↔ compact Timer ↔ expanded Timer switching on the same persistent secondary WebView using the replacement fixed-host/native-region model, without creating parallel Focus webviews, resetting state, or routinely resizing the HWND/WebView for ordinary presentation changes.
-  - [ ] Ordinary presentation switching preserves the same Focus HWND/WebView identity and does not use Focus create/destroy/close/open/hide/show/host-resize as the switch mechanism; show/hide is reserved for entering/exiting Focus itself.
-  - [ ] Native region/position/topmost/taskbar changes and renderer presentation commit form one serialized, rollback-safe state machine.
+  - [x] Ordinary presentation switching preserves the same Focus HWND/WebView identity and does not use Focus create/destroy/close/open/hide/show/host-resize as the switch mechanism; show/hide is reserved for entering/exiting Focus itself.
+  - [x] Native region/position/topmost/taskbar changes and renderer presentation commit form one serialized, rollback-safe state machine.
   - [ ] Replacement implementation compiles in authoritative Windows CI.
   - [ ] Replacement interactive Panel -> Timer -> Panel same-HWND/WebView reuse validation passes.
 - [ ] Revalidate always-on-top and skip-taskbar behavior for Floating Timer presentation on the replacement single Focus host.
 - [ ] Revalidate Windows monitor enumeration and left/right positioning for Focus Panel presentation on the replacement fixed host.
   - Historical evidence: the superseded host passed implementation/geometry tests and physical selected-monitor left/right validation; this does not validate replacement geometry.
-  - [ ] Replacement automated geometry validation passes.
+  - [x] Replacement automated geometry validation passes.
   - [ ] Replacement physical selected-monitor left/right validation passes.
 - [ ] Revalidate display-topology change handling for the replacement host: connect/disconnect/re-enumerate displays, recompute visible-region geometry/DPI, and keep the visible Focus presentation inside an available work area without restarting Narro.
   - Historical evidence: the superseded host passed event-driven topology tests and physical disconnect/reconnect recovery; this does not validate replacement region/DPI recovery.
-  - [ ] Replacement automated topology/DPI/work-area recovery validation passes.
+  - [x] Replacement automated topology/DPI/work-area recovery validation passes.
   - [ ] Replacement physical disconnect/reconnect recovery validation passes.
 - [x] Prove global shortcut registration and conflict/error handling.
   - [x] native registration/unregistration/conflict implementation and Windows CI validation
@@ -49,7 +49,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] status/enable/disable implementation, idempotence/state verification and Windows CI validation
   - [x] physical enable/disable registration observed in Windows Task Manager Startup apps
   - [x] actual autostart launch observed after a real Windows restart; `main` opened normally after sign-in
-- [ ] Revalidate the consolidated `focusSurface` frontend entry/bundle remains Focus-only and does not pull dashboard/reports/settings/editor code after Panel/Timer coordination is combined.
+- [x] Revalidate the consolidated `focusSurface` frontend entry/bundle remains Focus-only and does not pull dashboard/reports/settings/editor code after Panel/Timer coordination is combined. Exact-head Windows CI #672 validates the Focus-only production entry/dist contract.
 - [ ] Re-measure replacement floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
   - Historical baseline evidence: the process-tree harness was automated-validated by Windows CI #66 and the superseded composition completed three valid physical 30s-warmup / 60s-sample runs with zero process churn and `steadyStateValid: true`.
   - [ ] Replacement composition completes the same repeatable process-tree measurement protocol with valid steady-state samples.
@@ -59,7 +59,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] harness created and compiles in Windows CI
   - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation
 
-**Current replacement implementation checkpoint (2026-09-29, IMPLEMENTATION COMPLETE / UNVALIDATED):** PR #192 exact source head `b506fd016eea2d3c45635a2cbdc74acde831d674` completes the fixed-host coordinator migration by static repository reconciliation: visible-region success UI, finite ~270 ms Panel↔Timer and compact↔expanded Timer same-WebView geometry motion, corrected runtime-order architecture contracts, stale target/revision/task/session refresh guards, retired split-window/visual-hold paths, and current single-host config/CI/preflight contracts. The branch includes the build-affecting branding input consumed by `prebuild`. No test/build/CI/runtime/physical validation has run on this head; the latest actual Windows CI remains old-head run #666 / `36568312141`. Therefore every replacement validation checkbox above remains open and no Gate A/F/7/12 PASS is claimed.
+**Current replacement validation checkpoint (2026-09-29, AUTOMATED PASS / GATE 7 PHYSICAL FAIL):** PR #192 exact head `73d10ab6a21d731ca363e9932b4ccaf13a000b43` passed authoritative Windows CI #672 / run `36589997295`, including Repository Preflight, frontend/Rust checks/tests, visual regression and Tauri release. Exact-artifact 60 fps Windows testing with animations On then **failed Gate 7**: four Panel→Timer boundaries expose ~0.23–0.25 s of blank/light 340×700 host area, with shorter reverse-boundary exposure. Compact↔expanded cycles did not show the same full-height tail. The evidence-backed cause is the opaque focus document canvas becoming visible while renderer clipping and Win32 region temporarily differ. Keep PR #192 and the single-host architecture; apply the narrow focus-document transparency correction and revalidate. Gate 12, floating performance and resulting-main closure remain OPEN.
 
 Acceptance criteria:
 
@@ -355,10 +355,10 @@ These requirements apply to every open or reopened roadmap milestone. A later re
   - Historical evidence: PR #191 target-bounds correction `d505b93` passed exact-head CI run `36374929708`; physical On cycles no longer showed the prior expanded white tail, but the Off resize capture contained full-white expanded Timer frames 570 and 677. Gate 7 remains FAIL; see `work-log/2026-09-28-codex-m7-visual-continuity-history.md`.
   - Historical evidence: Repeated-failure assessment: `f1ef35a`, `12707c0`, `d505b93` and now `b23c8ab` each passed CI and physically failed Gate 7. The exact `b23c8ab` Off recording shows full-white expansion and white collapse frames. The source path, failure signatures, alternatives and bounded experiment decision are in `work-log/2026-09-28-codex-m7-architecture-assessment.md`.
   - Historical evidence: Record the separate persistent Timer WebView experiment's verdict. `8b94946` passed CI and On/Off clipping captures avoided the old white resize frames but On transitions showed loading copy. `a6a9459` passed CI and removed that copy but exposed the compact Timer over Panel controls. `4e4960b` passed CI `36530577060`; one exact-build animations-On capture of three settled Panel↔Timer cycles reduced the overlap to about 0.07–0.10 seconds, with no white host/loading copy in the six inspected boundary sequences. **Strict Gate 7 remains OPEN/FAIL.** The separate-WebView candidate used about +95 MiB floating-only working set versus the old composition; PR #191 was later closed unmerged as a superseded architecture experiment. See `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
-  - [ ] Reimplement the affected M1 window foundation, M6 Focus presentation composition and M7 Timer presentation/transition path as one coherent replacement, following the milestone map in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. Preserve validated domain and product behavior; historical milestone PASS records do not validate the new code.
-  - [ ] Implement the replacement composition specified in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`: one fixed-size Focus HWND/WebView; native region for Panel, compact Timer and expanded Timer; one React mode coordinator; visible-region placement/DPI recovery; remove the second Timer WebView and obsolete cross-window switching. Preserve timer/session authority and error rollback. **Implementation exists but remains unvalidated:** run proportionate exact-head automated validation before dependent M8 source work; physical checks may be batched while their gates remain OPEN.
-  - [ ] Migrate all repository architecture contracts before implementation is called complete: `verify-config`, CI dist requirements, M1/M6/M7/M8 static/integration tests, Main/global/in-app shortcut routing and package preflight must assert one `focusSurface` and dynamic component toggling, not split-window or old hide/resize/show behavior. Editing is complete by static reconciliation; execution is now part of the exact-head automated validation checkpoint.
-  - [ ] Remove/retire live split-window artifacts after replacement paths exist: separate Timer renderer/window wrappers, cross-window readiness/query/request protocol, persistent two-window transition helper, split `prepare/reveal/present` native commands and obsolete visual-hold/DWM/prewarm code. Historical work logs/prompts remain untouched as evidence.
+  - [x] Reimplement the affected M1 window foundation, M6 Focus presentation composition and M7 Timer presentation/transition path as one coherent replacement, following the milestone map in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. Exact-head Windows CI #672 validates the implemented replacement contracts/build; physical acceptance remains separate.
+  - [x] Implement the replacement composition specified in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`: one fixed-size Focus HWND/WebView; native region for Panel, compact Timer and expanded Timer; one React mode coordinator; visible-region placement/DPI recovery; remove the second Timer WebView and obsolete cross-window switching. Preserve timer/session authority and error rollback. Exact-head Windows CI #672 validates preflight/tests/release on `73d10ab6a21d731ca363e9932b4ccaf13a000b43`; physical Gate 7/12 remain OPEN.
+  - [x] Migrate all repository architecture contracts before implementation is called complete: `verify-config`, CI dist requirements, M1/M6/M7/M8 static/integration tests, Main/global/in-app shortcut routing and package preflight assert one `focusSurface` and dynamic component toggling, not split-window or old hide/resize/show behavior. Exact-head Windows CI #672 executed these contracts successfully.
+  - [x] Remove/retire live split-window artifacts after replacement paths exist: separate Timer renderer/window wrappers, cross-window readiness/query/request protocol, persistent two-window transition helper, split `prepare/reveal/present` native commands and obsolete visual-hold/DWM/prewarm code. Historical work logs/prompts remain untouched as evidence.
   - [ ] Validate the completed replacement on its exact executable against the continuous Panel↔Timer and Timer Expand/Collapse Gate 7 criterion at the appropriate physical-validation checkpoint. No source/CI result alone may close the physical gate.
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
 - [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
@@ -430,7 +430,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** the single-Focus replacement implementation is statically complete. Run an exact-head automated validation checkpoint now before dependent M8 source work, then re-close the affected dependency chain in order as evidence becomes available: M1 Gate A replacement items → M6 Gate F replacement integration → M7 replacement items including Gate 7/12 → affected M8 shortcut items. Physical Gate 7/12 checks may be consolidated later when their result is not needed to choose the next safe source change; keep them OPEN until observed.
+**Current execution priority:** PR #192 exact head `73d10ab6...` passed Windows CI #672 but physically failed Gate 7. Fix only the observed blank/light host exposure on the same PR by making the focus document background transparent while preserving opaque Panel/Timer component surfaces and all native/session architecture. Re-run exact-head CI, then repeat Gate 7. Gate 12 mixed-DPI remains open; affected M8 work stays blocked.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
