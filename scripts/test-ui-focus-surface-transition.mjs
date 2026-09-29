@@ -34,6 +34,11 @@ const nativeCommit = slice(
   "fn apply_focus_surface_presentation_internal(",
   "#[tauri::command(rename_all = \"camelCase\")]\nfn focus_surface_apply_presentation",
 );
+const crossDpiPanelHelper = slice(
+  lib,
+  "fn apply_panel_native_after_animated_cross_dpi_move(",
+  "fn apply_timer_native(",
+);
 
 invariant(
   nativeCommit.includes("let _presentation_guard = presentation_guard()?"),
@@ -134,13 +139,12 @@ invariant(
   "animated native transition must clip Panel-to-Timer before movement, defer cross-DPI Panel reveal, plan final placement and retain rollback",
 );
 invariant(
-  lib.includes("fn apply_panel_native_after_animated_cross_dpi_move(")
-    && lib.includes("timer_region::apply(window, previous.region())?")
-    && lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS")
-    && lib.indexOf("timer_region::apply(window, previous.region())?")
-      < lib.indexOf("std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS))")
-    && lib.indexOf("std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS))")
-      < lib.indexOf("timer_region::apply_full_host(window)?"),
+  crossDpiPanelHelper.includes("timer_region::apply(window, previous.region())?")
+    && crossDpiPanelHelper.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS")
+    && crossDpiPanelHelper.indexOf("timer_region::apply(window, previous.region())?")
+      < crossDpiPanelHelper.indexOf("std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS))")
+    && crossDpiPanelHelper.indexOf("std::thread::sleep(Duration::from_millis(FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS))")
+      < crossDpiPanelHelper.indexOf("timer_region::apply_full_host(window)?"),
   "cross-DPI Timer-to-Panel must keep the previous clipped region through target-size viewport settlement before full Panel reveal",
 );
 invariant(
