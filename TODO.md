@@ -9,23 +9,23 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - [x] Create a Tauri 2 + React + TypeScript scaffold targeting Windows 10/11 x64.
 - [x] Add Rust modules for app state, persistence, timers, scheduling, and window coordination.
 - [x] Add SQLite plus migration harness; create migration `0001` even if the initial schema is minimal.
-- [x] Create only two initial webview windows: `main` and `focusSurface`.
+- [ ] Validate the replacement composition still uses only two initial webview windows: `main` and one persistent `focusSurface`; no third persistent Focus/Timer webview. Historical M1 PASS applies to the superseded implementation only.
 - [x] Prove programmatic create/show/hide/destroy/recreate/focus behavior for `main` without losing Rust/domain state (fixed 800x600 recreation geometry only).
   - [x] implementation compiles in Windows CI
   - [x] interactive hide/show/destroy and background state mutation validation
   - [x] interactive async recreate opens and remains responsive
   - [x] exact Rust state visibly survives and updates correctly in recreated `main`
-- [x] Implement two temporary modes on `focusSurface`: Focus Panel and compact Floating Timer.
+- [ ] Validate Focus Panel, compact Timer and expanded Timer presentations inside the single persistent `focusSurface` replacement host.
   - [x] implementation compiles in Windows CI
   - [x] interactive validation
-- [x] Prove switching those modes by resize/restyle of the same secondary webview (monitor-edge repositioning deferred).
+- [ ] Prove Panel ↔ compact Timer ↔ expanded Timer switching on the same persistent secondary WebView using the replacement fixed-host/native-region model, without creating parallel Focus webviews, resetting state, or routinely resizing the HWND/WebView for ordinary presentation changes.
   - [x] implementation compiles in Windows CI
   - [x] interactive Panel -> Timer -> Panel reuse validation
-- [x] Prove always-on-top and skip-taskbar behavior for Floating Timer mode.
-- [x] Prove Windows monitor enumeration and left/right positioning for Focus Panel mode.
+- [ ] Revalidate always-on-top and skip-taskbar behavior for Floating Timer presentation on the replacement single Focus host.
+- [ ] Revalidate Windows monitor enumeration and left/right positioning for Focus Panel presentation on the replacement fixed host.
   - [x] implementation and geometry tests automated-validated
   - [x] physical selected-monitor left/right validation
-- [x] Prove display-topology change handling: connect/disconnect/re-enumerate displays and clamp windows to a visible work area without restarting Narro.
+- [ ] Revalidate display-topology change handling for the replacement host: connect/disconnect/re-enumerate displays, recompute visible-region geometry/DPI, and keep the visible Focus presentation inside an available work area without restarting Narro.
   - [x] event-driven implementation automated-validated
   - [x] physical disconnect/reconnect recovery validation
 - [x] Prove global shortcut registration and conflict/error handling.
@@ -41,12 +41,12 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] status/enable/disable implementation, idempotence/state verification and Windows CI validation
   - [x] physical enable/disable registration observed in Windows Task Manager Startup apps
   - [x] actual autostart launch observed after a real Windows restart; `main` opened normally after sign-in
-- [x] Build the `focusSurface` as a separate minimal frontend entry/bundle that does not import dashboard/reports/settings/editor code.
-- [x] Measure floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
+- [ ] Revalidate the consolidated `focusSurface` frontend entry/bundle remains Focus-only and does not pull dashboard/reports/settings/editor code after Panel/Timer coordination is combined.
+- [ ] Re-measure replacement floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
   - [x] repeatable process-tree harness automated-validated by Windows CI #66
   - [x] three physical 30s-warmup / 60s-sample runs with zero process churn and `steadyStateValid: true`
-- [x] Record measurements and obvious WebView2/process contributors in `STATUS.md`.
-- [x] Decide the M1 floating performance baseline supports the current Tauri + WebView2 `focusSurface` architecture; retain native Win32/WinUI overlay only as a measured fallback.
+- [ ] Record the replacement composition measurements and obvious WebView2/process contributors in `STATUS.md`.
+- [ ] Reconfirm the M1 floating performance baseline supports the replacement single-`focusSurface` Tauri + WebView2 composition; if clearly unacceptable, evaluate the narrow native fallback from current evidence before proceeding.
 - [x] Add a minimal smoke-test harness for Rust commands/events.
   - [x] harness created and compiles in Windows CI
   - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation
@@ -64,7 +64,7 @@ Acceptance criteria:
 - floating-only idle CPU is stable/near-idle with no unexplained polling loop
 - floating-only memory is measured and documented; if clearly unacceptable, stop and evaluate a native Win32/WinUI overlay before product UI work
 
-**Gate A result: PASS / proceed with current Tauri 2 + WebView2 architecture.** Targeted M1 physical capability and performance evidence is now complete. Later lifecycle checks are release-candidate revalidation, not unresolved M1 architecture proof.
+**Gate A current result: REOPENED for the single-Focus replacement.** Historical M1 Gate A PASS remains valid evidence for the superseded implementation, but the replacement changes the window/presentation foundation, DPI/topology path, Focus-only bundle composition and floating performance profile. Re-close Gate A only after the open M1 replacement items above are validated on the new code.
 
 Do not implement polished Blitzit UI in this milestone.
 
@@ -253,8 +253,8 @@ Acceptance criteria:
 - [x] Implement break, notes, pause/resume, skip, finish.
 - [x] Implement subtasks/progress in focus mode.
 - [x] Permit EST/Time Taken editing only while paused.
-- [x] Implement selected-monitor and left/right Focus Panel placement.
-- [x] React to monitor/display changes while Focus Mode is open.
+- [ ] Revalidate selected-monitor and left/right Focus Panel placement on the replacement fixed Focus host.
+- [ ] Revalidate monitor/display-change reaction while Focus Mode is open on the replacement region/DPI/topology path.
 - [x] Implement configured scrolling behavior for the live title.
 - [x] Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.
 - [x] Reserve action slots for hover/focus controls so controls never push task text or move hit targets.
@@ -286,9 +286,11 @@ Acceptance criteria:
   - [x] A17 Time's Up exposes Extend using the existing authoritative `timer_extend` transition.
   - [x] Evolve temporary M6 static tests that froze placeholder/non-mutating controls.
 
-**Gate F reconciliation result: PASS / Milestone 6 complete again.** PR #158 exact head `c13e7f6cfbec3accde4841fd4fd61b68d0924ff6` passed Windows CI #545 / run `36243619057`, including repository preflight, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release build, visual artifact `narro-m5-visual-regression` (artifact id `10906627762`, digest `sha256:4f58feb6526ad3624e07897f58377b620936e4316f60fb64c9de0f83e45d671a`) and diagnostic artifact `narro-m1-runtime-harness-windows-x64` (artifact id `10906727736`, digest `sha256:97dd86ad64f12ffa35da0ce5d0b10dadb1375df6f70178d0584751d234ec65ef`). Expected-head guarded squash merge `b1ff5910abec82272c4ee57479a44eb62248a88f` passed resulting-main Windows CI #546 / run `36244258977` through the repository identical-tree validation gate. The current validated source baseline is `b1ff5910abec82272c4ee57479a44eb62248a88f`.
+**Historical Gate F reconciliation:** PR #158 exact head `c13e7f6cfbec3accde4841fd4fd61b68d0924ff6` and resulting-main `b1ff5910abec82272c4ee57479a44eb62248a88f` validated the superseded Focus-host implementation.
 
-By explicit user direction, **stop before Milestone 7** and wait for the user's next instruction.
+- [ ] Revalidate the complete M6 Focus Panel end to end inside the replacement single-`focusSurface` coordinator: entry/selection, hierarchy, authoritative timer projection, every existing action/state, keyboard/focus/reduced-motion behavior, quick task/Home flows, selected-monitor/edge placement, topology recovery, and immediate consistency with Main. Reuse the existing validated domain commands; do not reimplement unrelated M6 behavior.
+
+**Gate F current result: REOPENED for replacement integration.** Re-close M6 only after the two placement/topology items and the complete replacement-host regression item above pass on the new implementation.
 
 ## Cross-cutting completion requirements for remaining milestones (M7–M10)
 
@@ -303,18 +305,18 @@ These requirements apply separately to every remaining roadmap milestone. They d
 
 ## Milestone 7 — Floating Timer mode
 
-**Current corrective-scope rule:** the open M7 visual-continuity correction may replace the shared Focus presentation/window foundation that was originally implemented during M1 and M6, but this does **not** reopen M1 or M6 as roadmap milestones and does not reset their validated counters. Their previously validated behaviors become regression obligations of the M7 replacement. Historical PASS evidence proves the prior implementation, not the new replacement code. The replacement must preserve the applicable M1 window/lifecycle guarantees and M6 Focus Panel behavior before M7 can close.
+**Current corrective-scope rule:** the single-Focus replacement changes implementation that materially supported M1 Gate A, M6 Gate F and multiple M7 acceptance items, and directly changes M8 Focus-shortcut routing. Those affected items/gates are therefore reopened until the replacement is validated. Historical PASS evidence remains immutable evidence for the superseded code only. M2–M5 stay closed because no direct dependency has been found.
 
-- [x] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
-- [x] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.
+- [ ] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
+- [ ] Make it movable, always-on-top, and absent from normal taskbar presentation where appropriate.
   - [x] Native drag affordance, focusSurface-scoped drag capability, exact-head PR CI, guarded merge, and resulting-main CI are automated-validated.
   - [x] Physical Windows validation: Drag PASS; Return button PASS; Always-on-top PASS; no normal taskbar button PASS.
-- [x] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
-- [x] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
-- [x] Implement expanded subtask rows with completion, title editing, reorder, delete and progress.
+- [ ] Implement collapsed state matching the supplied compact screenshot: title, live timer, subtask progress, add, expand.
+- [ ] Implement expanded action strip for Break, Notes, Pause/Resume, Skip, Done, return-to-panel.
+- [ ] Implement expanded subtask rows with completion, title editing, reorder, delete and progress.
   - [x] Completion/reopen, reorder, delete, add and progress were automated-validated in the original M7 expanded-content slice.
   - [x] A18 parity reconciliation: expanded Floating Timer supports stale-safe subtask title editing through the existing authoritative subtask mutation boundary. PR #155 exact head `c630a57346c067ab04c0fa086703582542f4f7e5` passed Windows CI #559; guarded squash merge `76ef5dadf1d6587ee52d029d980ad4de7a9abd93` passed resulting-main Windows CI #560.
-- [x] Keep icon hit targets stable and show tooltips without changing window width.
+- [ ] Keep icon hit targets stable and show tooltips without changing window width.
 - [ ] Implement Focus Panel <-> Floating Timer content transition with short one-shot opacity/transform motion; do not animate native window geometry in a high-frequency JS loop. **Current implementation direction:** one fixed-maximum-size `focusSurface` WebView, conditional React presentation and DPI-aware native visible-region clipping; `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md` is the executable plan. Replacement implementation is in progress and remains unvalidated.
   - [x] Initial native hidden-stage transition correction, finite 150ms content motion, reduced-motion contract, exact-head PR CI, guarded merge and resulting-main CI are automated-validated.
   - [x] Physical-fail corrective candidate is automated-validated: target-edge DPI staging, focus-surface horizontal overflow suppression, and paint-gated collapsed/expanded resize publication; PR #122 exact-head CI #471 and resulting-main CI #472 PASS.
@@ -346,25 +348,25 @@ These requirements apply separately to every remaining roadmap milestone. They d
   - [ ] Implement the replacement composition specified in `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`: one fixed-size Focus HWND/WebView; native region for Panel, compact Timer and expanded Timer; one React mode coordinator; visible-region placement/DPI recovery; remove the second Timer WebView and obsolete cross-window switching. Preserve timer/session authority and error rollback. **Implementation phase only:** do not run tests, builds, CI, app launches or physical checks until implementation is complete and the user explicitly authorizes testing.
   - [ ] After explicit user authorization, validate the completed replacement on its exact executable against the continuous Panel↔Timer and Timer Expand/Collapse Gate 7 criterion. No source/CI result alone may close the physical gate.
   - [ ] Physical Windows re-validation: no left/staging flash, no horizontal focus-surface scrollbar, no stale/duplicated expanded pixels during expand/collapse, and no abrupt return flicker.
-- [x] Implement shortcut to alternate Focus Panel/Floating Timer.
+- [ ] Implement shortcut to alternate Focus Panel/Floating Timer.
   - [x] Ctrl+Shift+T implementation passed PR #126 exact-head CI #488, guarded merge `77e535f`, and resulting-main CI #489.
   - [x] Concurrent native registration/retry and diagnostic publication are serialized; executable Rust concurrency/conflict/rollback tests and frontend retry-state tests passed PR #143 exact-head CI #507. Guarded merge `fce15f8` has the same tree; duplicate main CI #508 was cancelled. Scoped physical results appear below.
   - [x] Physical Panel/Timer shortcut use and session continuity passed on CI #503; one rapid repeated press settled to one Timer window.
   - [x] Physical CI #507 Ctrl+Shift+T, rapid repeated press, both-chord ownership conflict and retry after release passed with one Focus window and the same paused session. Further transition-boundary stress remains open.
   - [x] CI #624 Gate 8 physical boundary stress PASS: two bursts of five rapid presses settled to one Focus window with the same paused task/session/time and no stuck busy state; see 2026-09-28 M7 work log.
-- [x] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
+- [ ] Implement shortcut to locate/animate Floating Timer using a restrained finite attention pulse.
   - [x] Ctrl+Shift+P and finite attention pulse passed PR #127 exact-head CI #490, guarded merge `53c0376`, and resulting-main CI #491.
   - [x] The shared PR #143 registration/retry state machine and executable concurrency/conflict/rollback tests passed exact-head CI #507; guarded merge `fce15f8` has the identical tree. Scoped current-build physical results appear below.
   - [x] Physical visible/hidden Timer and Panel-mode shortcut behavior passed on CI #503; pulses ended in about 729/726 ms, or about 186 ms with reduced-motion media emulation.
   - [x] Physical CI #507 visible-Timer Ctrl+Shift+P pulse and Panel-mode no-op passed; native-hidden Timer on this exact build was not retested.
   - [x] Physical Windows OS animations Off: visible-Timer Ctrl+Shift+P gave one finite pulse and returned to settled state on CI #507. The original OS setting was restored.
   - [x] CI #624 Gate 9 physical PASS: repeated visible-Timer P pulses on actual animations On and Off settled; Panel P did not change mode/session; the Off pulse followed native mode hide/show. See 2026-09-28 M7 work log.
-- [x] Persist a safe last position and recover after monitor changes/restart.
+- [ ] Persist a safe last position and recover after monitor changes/restart.
   - [x] Native SQLite placement/relative recovery passed PR #128 exact-head CI #492, expected-head guarded merge `778a1bc`, and resulting-main CI #493.
   - [x] Visible Timer topology recovery now fits and repositions the measured outer window, including when no saved placement exists; PR #134 exact-head CI #499, guarded merge `c9ae591`, and resulting-main CI #500 PASS.
   - [x] Physical drag, Panel return/reopen, and same-monitor process restart restored the Timer at the moved position with the same paused session on CI #503.
   - [x] CI #624 Gate 10 physical PASS: secondary-monitor move, disconnect-to-primary recovery, reconnection, restart with saved position on DISPLAY2, and separate no-saved-placement restart with safe primary placement all retained the same paused session. Mixed-DPI size failure is separately Gate 12.
-- [x] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
+- [ ] Validate always-on-top against normal maximized and borderless full-screen Windows apps; document exclusive-fullscreen limitations if any.
   - [x] Document the Windows DirectFlip/Independent Flip composition caveat and separate exclusive-fullscreen observation in `docs/M7_FLOATING_RUNTIME_VALIDATION.md`.
   - [x] Physical stacking above maximized Edge and Edge F11 fullscreen passed on CI #503.
   - [x] CI #624 Gate 11 physical PASS over a separate borderless fullscreen Windows Forms application with probe→Timer→probe focus switching; Timer stayed visible/topmost. True exclusive fullscreen was unavailable and is not inferred.
@@ -375,10 +377,10 @@ These requirements apply separately to every remaining roadmap milestone. They d
   - [x] Physical primary-work-area bottom expansion fitted the 356×308 native outer window at y=772 with lowest controls reachable and collapse usable on CI #503.
   - [x] CI #624 physical secondary-monitor bottom-edge expansion at 125% fit the 443×384 expanded Timer at y=696 (bottom=1080) with controls reachable and collapse usable after a Panel→Timer size reapply.
   - [x] CI #624 Gate 12 **FAIL** on dynamic mixed-DPI placement: moving the visible compact Timer to 125% DISPLAY2 left an approximately 271×75 outer window with both scrollbars and clipped controls. A Panel→Timer mode reapply restored 425×138. PR #191 includes a narrow display-recovery logical-size correction with regression tests; exact-build physical retest remains open. Non-default taskbar edge and separately shortened work area were not run.
-- [x] Verify no decorative animation runs continuously while idle.
+- [ ] Verify no decorative animation runs continuously while idle.
   - [x] Static Floating Timer motion audit: finite attention pulse and transitions only; live timer sampling is conditional on active states. The only `infinite` title scroll belongs to the Focus Panel. See `work-log/2026-09-24-codex-m7-idle-motion-audit.md`.
   - [x] Physical CI #503 collapsed/expanded paused idle: zero running DOM animations/pulse nodes, and paired settled screenshots byte-identical. True-idle collapsed CI #505 also showed zero animations. Revalidate if later source changes idle motion.
-- [x] Re-run Milestone 1 floating-only CPU/memory measurements after final UI is present.
+- [ ] Re-run Milestone 1 floating-only CPU/memory measurements after final UI is present.
   - [x] CI #505 executable on Windows 10 with `main` destroyed: three valid 30s/60s runs per collapsed/expanded true-idle state, zero churn, idle CPU median 0.000% of one core in each state; separate running-timer run averaged 0.155%. Working set medians were 429.76/421.39 MiB, private medians 375.19/327.56 MiB. See 2026-09-25 work log for per-run ranges, warm-state caveat, source/artifact identity, and profile restoration. Re-measure after future performance-relevant source changes.
 
 Acceptance criteria:
@@ -419,10 +421,10 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
-**Current sequencing rule:** remaining M8 implementation is blocked while the active M7 `FIX_NOW` visual/topology findings remain unresolved. Already validated M8 work stays validated and must not be reimplemented; resume the remaining M8 items only after the M7 replacement has completed its required validation/reconciliation.
+**Current replacement impact:** the single-Focus replacement directly changes Focus shortcut routing, so the affected M8 shortcut items below are reopened for integration validation. Unaffected validated Preferences/persistence work remains closed. New remaining M8 feature work stays blocked until the M1→M6→M7 corrective chain is revalidated.
 
-- [x] Implement confirmed Windows in-app shortcuts. PR #166 exact head `18a4d2b5a26bc705bf7cdf7bea647275b4877890` passed Windows CI #569; guarded squash merge `030274149cafdf590c5aa08f2cd1c9409595c7aa` passed resulting-main CI #570.
-- [x] Implement confirmed Windows global shortcuts plus per-global enable toggles. PR #168 exact head `e63dbd3107fca8ccf95d35506c7a16e4eeaac9f6` passed Windows CI #574; guarded squash merge `699b6ac46bcc6ebcabbcded21f929a7b32018b42` passed resulting-main CI #575.
+- [ ] Implement confirmed Windows in-app shortcuts. PR #166 exact head `18a4d2b5a26bc705bf7cdf7bea647275b4877890` passed Windows CI #569; guarded squash merge `030274149cafdf590c5aa08f2cd1c9409595c7aa` passed resulting-main CI #570.
+- [ ] Implement confirmed Windows global shortcuts plus per-global enable toggles. PR #168 exact head `e63dbd3107fca8ccf95d35506c7a16e4eeaac9f6` passed Windows CI #574; guarded squash merge `699b6ac46bcc6ebcabbcded21f929a7b32018b42` passed resulting-main CI #575.
 - [x] Add conflict/error feedback for unavailable global shortcuts. Persisted enabled intent remains distinct from native registration; conflict/unavailable/retry and persistence/native rollback paths are explicit and validated in PR #168 / CI #574.
 - [ ] Implement Preferences sections evidenced in screenshots/docs: monitor/side, hide times, EST parsing, theme, timezone, Pomodoro, break/work durations, scrolling title, timed alerts, sounds/previews, timer flash, notification alerts, schedule reminders, completion celebration.
   - [x] VE-F001: when `auto_parse_est_from_title` is enabled and a supported terminal duration parses successfully, persist it as EST and remove that parsed suffix from the saved visible title; failed/non-matching parses leave the title untouched.
@@ -435,7 +437,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
     - [ ] PREF-R03 Notification Alerts gating without duplicating authoritative M3 notification effects.
     - [x] PREF-R04 schedule-reminder preference/lead integration through durable idempotent background delivery. PR #180 exact head `0309c879998f43ff8c6e39e65f02c44669fa48b8` passed Windows CI #607; guarded squash merge `643528ca223b29fd8fbd215db5b1b525c912c6fc` passed resulting-main CI #608.
     - [ ] PREF-R05 local sound catalog/preview behavior only from validated Narro-owned or user-local assets; previews must not overlap indefinitely.
-- [x] Ensure Start Break shortcut pauses the current task, starts break, and follows documented resume/skip behavior. The in-app shortcut reuses the existing authoritative Focus break/pause/resume/skip lifecycle and passed PR #166 / CI #569.
+- [ ] Ensure Start Break shortcut pauses the current task, starts break, and follows documented resume/skip behavior. The in-app shortcut reuses the existing authoritative Focus break/pause/resume/skip lifecycle and passed PR #166 / CI #569.
 - [x] Preserve conditional/nested setting behavior without disruptive scroll jumps. Validated in reconciled PR #170 / Windows CI #604 with nested controls mounted in place and parent-gated rather than remounted.
 - [ ] Use Windows locale for date/time presentation by default.
 - [x] Persist preferences in SQLite or a versioned local settings layer. The typed versioned SQLite payload already persists all current General/Focus/Alerts/Celebration fields and now v3 ShortcutPreferences; reopen/migration/atomic mutation coverage passed PR #168 / CI #574.
@@ -487,7 +489,7 @@ Acceptance criteria:
 - [ ] Re-validate autostart launch after Windows restart/sign-in on the release-candidate build.
 - [ ] Add Narro-owned application icon/branding.
 - [ ] Run regression tests for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion.
-  - For any later milestone that replaced a shared foundation originally validated in an earlier milestone, explicitly rerun the affected earlier acceptance criteria against the release-candidate implementation. Prior historical PASS evidence is not sufficient for replacement code; record the dependency map and resulting regression evidence.
+  - For any later milestone that replaced a shared foundation originally validated in an earlier milestone, confirm the affected milestone/items were reopened during the replacement and then reclosed only from replacement-code evidence. Explicitly rerun those earlier acceptance criteria against the release-candidate implementation and record the dependency map/result.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
 - [ ] Confirm animation does not cause task-row/card geometry changes or persistent idle CPU work.
 - [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, and no post-pause/manual-edit timer-vs-ledger divergence.
