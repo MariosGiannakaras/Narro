@@ -42,6 +42,7 @@ function modePresentation(mode: FocusSurfaceMode): FocusSurfacePresentation {
 
 export function FocusSurfaceCoordinator() {
   const [presentation, setPresentation] = useState<FocusSurfacePresentation>("panel");
+  const [presentationHydrated, setPresentationHydrated] = useState(false);
   const [pendingMode, setPendingMode] = useState<FocusSurfaceMode | null>(null);
   const [transitionPending, setTransitionPending] = useState(false);
   const [transitionError, setTransitionError] = useState<string | null>(null);
@@ -147,6 +148,10 @@ export function FocusSurfaceCoordinator() {
   }, []);
 
   const requestMode = useCallback(async (targetMode: FocusSurfaceMode, quickTask = false) => {
+    if (!presentationHydrated) {
+      if (quickTask) setShortcutStatus("Focus is still reconciling its presentation.");
+      return;
+    }
     if (quickTask) quickTaskAfterPanelRef.current = true;
 
     const currentMode = focusSurfaceModeOf(presentationRef.current);
@@ -222,12 +227,12 @@ export function FocusSurfaceCoordinator() {
       transitionGateRef.current = false;
       setTransitionPending(false);
     }
-  }, [publishPresentation, timerResizePending, waitForReady]);
+  }, [presentationHydrated, publishPresentation, timerResizePending, waitForReady]);
 
   requestModeRef.current = requestMode;
 
   const requestTimerExpanded = useCallback(async (expanded: boolean) => {
-    if (transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
+    if (!presentationHydrated || transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
       throw new Error("Floating Timer size cannot change during another Focus presentation transition.");
     }
 
@@ -247,7 +252,7 @@ export function FocusSurfaceCoordinator() {
     } finally {
       transitionGateRef.current = false;
     }
-  }, [publishPresentation]);
+  }, [presentationHydrated, publishPresentation]);
 
   useEffect(() => {
     let disposed = false;
@@ -266,6 +271,7 @@ export function FocusSurfaceCoordinator() {
     };
 
     void subscribe<number>("focus-surface-toggle-requested", (sequence) => {
+      if (!presentationHydrated) return;
       if (!Number.isSafeInteger(sequence) || sequence <= lastToggleRequestRef.current) return;
       lastToggleRequestRef.current = sequence;
       const currentMode = focusSurfaceModeOf(presentationRef.current);
@@ -273,6 +279,7 @@ export function FocusSurfaceCoordinator() {
     });
 
     void subscribe<number>("focus-timer-find-requested", (sequence) => {
+      if (!presentationHydrated) return;
       if (!Number.isSafeInteger(sequence) || sequence <= lastFindRequestRef.current) return;
       lastFindRequestRef.current = sequence;
       if (focusSurfaceModeOf(presentationRef.current) === "timer"
@@ -286,7 +293,7 @@ export function FocusSurfaceCoordinator() {
       disposed = true;
       for (const stop of stops) stop();
     };
-  }, [publishPresentation, timerResizePending]);
+  }, [presentationHydrated, publishPresentation, timerResizePending]);
 
   useEffect(() => {
     let disposed = false;
@@ -303,6 +310,7 @@ export function FocusSurfaceCoordinator() {
           && !transitionGateRef.current
         ) {
           publishPresentation(authoritative);
+          setPresentationHydrated(true);
         }
       } catch (failure: unknown) {
         if (!disposed && revision === presentationReconcileRevisionRef.current) {
@@ -349,6 +357,11 @@ export function FocusSurfaceCoordinator() {
       if (shortcut !== "create-task" || isEditableShortcutTarget(event.target)) return;
       event.preventDefault();
 
+      if (!presentationHydrated) {
+        setShortcutStatus("Focus is still reconciling its presentation.");
+        return;
+      }
+
       if (transitionGateRef.current || timerResizePending) {
         setShortcutStatus("Quick task creation is unavailable while the Focus surface is changing.");
         return;
@@ -364,7 +377,7 @@ export function FocusSurfaceCoordinator() {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [timerResizePending]);
+  }, [presentationHydrated, timerResizePending]);
 
   useEffect(() => {
     if (!shortcutStatus) return;
@@ -407,8 +420,8 @@ export function FocusSurfaceCoordinator() {
   const renderTimer = mode === "timer" || pendingMode === "timer";
   // The committed presentation stays active while its target prepaints below
   // it. Only publishPresentation() flips side-effect/interaction ownership.
-  const panelActive = mode === "panel";
-  const timerActive = mode === "timer";
+  const panelActive = presentationHydrated && mode === "panel";
+  const timerActive = presentationHydrated && mode === "timer";
   const sharedTimerProjection = useMemo(() => ({
     payload: timerProjection,
     settled: timerProjectionSettled,
@@ -419,8 +432,9 @@ export function FocusSurfaceCoordinator() {
       className="focus-surface-coordinator"
       data-focus-surface-coordinator="true"
       data-focus-presentation={presentation}
+      data-focus-presentation-hydrated={presentationHydrated ? "true" : "false"}
       data-focus-transition-pending={transitionPending ? "true" : "false"}
-      aria-busy={transitionPending || timerResizePending}
+      aria-busy={!presentationHydrated || transitionPending || timerResizePending}
     >
       {renderPanel ? (
         <section
