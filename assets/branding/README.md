@@ -1,65 +1,50 @@
 # Narro Branding Assets
 
-This folder contains the official Narro visual identity supplied by the project owner.
+This folder contains the canonical Narro-owned branding sources curated from the owner-supplied `Narro_Brand_Kit_Complete.zip`.
 
-## Canonical logo
+## Canonical assets
 
-The canonical Narro logo is committed directly in this repository at:
+- `narro-logo-master.svg` — canonical stacked logo for light surfaces; true vector source, dark `#171717` wordmark.
+- `narro-logo-master.png` — 1536×1536 RGBA raster companion generated from the canonical vector for compatibility with the existing repository/build path.
+- `narro-logo-stacked-dark.svg` — stacked logo for dark surfaces; `#F4F4F4` wordmark.
+- `narro-logo-horizontal-light.svg` — horizontal lockup for light surfaces.
+- `narro-logo-horizontal-dark.svg` — horizontal lockup for dark surfaces.
+- `narro-symbol.svg` — symbol-only true vector mark with transparent background.
+- `narro-symbol-transparent.png` — 1024×1024 transparent, padded symbol-only raster derivative.
+- `narro-app-icon-light.png` — 1024×1024 opaque app-icon composition on Narro Snow.
+- `narro-app-icon-dark.png` — 1024×1024 opaque app-icon composition on Narro Ink.
+- `brand-tokens.json` — brand neutrals used by the supplied kit.
 
-`assets/branding/narro-logo-master.png`
+## Brand neutrals
 
-It is the user-supplied square RGBA artwork containing:
+- Narro Ink: `#171717`
+- Narro Snow: `#F4F4F4`
 
-- the multicolor rounded-bar Narro symbol;
-- the lowercase `narro` wordmark;
-- the original magenta/purple → blue/cyan → green gradient treatment;
-- transparent background.
+The Ink/Snow pair has approximately 16.3:1 contrast, so either wordmark variant has strong contrast on its intended neutral background.
 
-Verified master metadata:
+## Variant naming
 
-- dimensions: `1254 × 1254` px;
-- color mode: RGBA with transparency;
-- file size: `916,927` bytes;
-- SHA-256: `c553431248aafc705ce20230a69418769e41e019f0eea4dc88d0949c9bb05a5a`;
-- Git blob SHA: `41781e60334c4f873805915ddc4b2f1219e938e4`.
+`light` means **for light surfaces** and therefore uses the dark Ink wordmark. `dark` means **for dark surfaces** and uses the Snow wordmark.
 
-Treat this PNG as the source of truth for Narro-owned visual identity. Do not replace it with a lower-resolution or heavily compressed derivative.
+The supplied kit also contained `vertical` aliases identical to the stacked assets and `light`/`dark` symbol aliases that were byte-identical. Those duplicate aliases are intentionally not retained here.
 
-## Usage rule
+Android, iOS and web/PWA size exports from the kit are also intentionally not copied into this Windows-only repository. They are derivatives of the canonical sources above and can be regenerated if the product scope changes.
 
-Use this Narro identity for Narro-owned application branding. Do not substitute Blitzit logos, marks, screenshots, or other source-product branding.
+## Visual/technical validation
 
-Do not redesign, recolor, distort, stretch, rotate, add effects to, or replace the Narro logo merely for implementation convenience. Preserve its aspect ratio, transparency, gradient identity, and overall geometry.
+The supplied brand kit was checked before this replacement:
 
-Platform-specific derivatives are allowed when technically necessary, for example:
+- all retained SVG files parse as standalone vector XML;
+- retained SVGs contain vector paths/rectangles/gradients only, with no font dependency, external image, script or external URL reference;
+- the kit's two `narro-app-icon-*.svg` files are not true vectors: each embeds a PNG payload, so they are intentionally excluded;
+- the committed PNG derivatives are regenerated from the retained vector artwork at the audited kit dimensions, neutral backgrounds and spacing instead of treating those embedded-raster SVG wrappers as canonical;
+- the raster logo and transparent symbol preserve alpha; the two app-icon PNGs are intentionally fully opaque;
+- the light app icon background is exactly `#F4F4F4`; the dark app icon background is exactly `#171717`;
+- the 1024 app icon keeps the symbol centered with about 10% horizontal and 17% vertical outer clearance;
+- the symbol remains recognizable in downsample checks through 16–32 px, although final Windows tray/taskbar adoption still belongs to platform packaging validation.
 
-- Windows application icon / `.ico` multi-size bundle;
-- installer icon;
-- executable/window icon;
-- Start menu / shortcut icon;
-- taskbar icon;
-- tray icon;
-- splash/about/help surfaces if Narro later uses them;
-- documentation and repository previews.
+## Repository usage
 
-Those files should be generated from `narro-logo-master.png` rather than independently redrawn.
+`narro-logo-master.png` keeps its existing filename so current repository references remain valid. The root README and current Tauri icon-generation path can continue resolving it without a source/config change.
 
-## Small-icon treatment
-
-The complete symbol + wordmark will not remain legible at very small Windows sizes such as 16–32 px. For tray/taskbar/app-icon derivatives, an icon-only crop/variant based on the Narro symbol portion may be more appropriate.
-
-Treat that as a derived presentation of the same identity, not permission to invent a different mark. Validate the result at actual Windows icon sizes before adopting it. If a material visual reinterpretation is needed, request owner approval rather than silently changing the logo.
-
-## Implementation guidance
-
-When the application scaffold exists:
-
-1. keep `narro-logo-master.png` unchanged as the canonical artwork;
-2. generate required Tauri/Windows icon sizes from it;
-3. keep generated platform assets in the framework-appropriate icon directory while documenting their source;
-4. use the logo only where branding is useful—do not turn every application surface into decorative branding;
-5. test dark and light contexts so transparent/white wordmark portions remain readable;
-6. regenerate derivatives from the master instead of repeatedly resampling smaller derivatives;
-7. avoid aggressive compression for user-visible branding; optimize only when the rendered result remains visually indistinguishable at its target size.
-
-The root `README.md` references the canonical PNG directly so repository branding is not dependent on a low-quality preview derivative.
+Do not recolor, distort, rotate, add effects, or substitute Blitzit/source-product branding. Prefer SVG for scalable UI/documentation use. Use the dedicated app-icon or symbol assets for small icon surfaces instead of shrinking the full wordmark where the integration permits it.
