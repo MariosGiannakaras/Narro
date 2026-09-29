@@ -232,10 +232,7 @@ pub fn safe_position_for_timer_region(
     target_expanded: bool,
     preferred: Option<PhysicalPoint>,
 ) -> CommandResult<PhysicalPoint> {
-    let current = current_visible_rect(
-        window,
-        crate::current_focus_surface_expanded(),
-    )?;
+    let current = current_visible_rect(window, crate::current_focus_surface_expanded())?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let selected = best_work_area_for_window(current, &areas, &fallback);
@@ -445,10 +442,7 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
     {
         return Ok(false);
     }
-    let current_window = current_visible_rect(
-        &window,
-        crate::current_focus_surface_expanded(),
-    )?;
+    let current_window = current_visible_rect(&window, crate::current_focus_surface_expanded())?;
     let areas = available_work_areas(app_handle)?;
     let fallback = primary_work_area(app_handle).unwrap_or_else(|| areas[0].clone());
     let selected = best_work_area_for_window(current_window, &areas, &fallback);
@@ -596,10 +590,7 @@ pub fn revalidate_visible_timer_after_display_change(
                 ensure_fixed_focus_host_size(&window)?;
             }
         }
-        crate::timer_region::apply(
-            &window,
-            crate::timer_region::timer_logical_size(expanded),
-        )?;
+        crate::timer_region::apply(&window, crate::timer_region::timer_logical_size(expanded))?;
         if needs_hide {
             window
                 .show()

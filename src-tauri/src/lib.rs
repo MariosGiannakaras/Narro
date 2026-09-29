@@ -59,8 +59,7 @@ const FOCUS_PRESENTATION_PANEL: u8 = 1;
 const FOCUS_PRESENTATION_TIMER_COMPACT: u8 = 2;
 const FOCUS_PRESENTATION_TIMER_EXPANDED: u8 = 3;
 
-static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8 =
-    AtomicU8::new(FOCUS_PRESENTATION_UNKNOWN);
+static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8 = AtomicU8::new(FOCUS_PRESENTATION_UNKNOWN);
 static COMPACT_TIMER_ORIGIN: Mutex<Option<GeometryPoint>> = Mutex::new(None);
 static FOCUS_PRESENTATION_GATE: Mutex<()> = Mutex::new(());
 
@@ -548,12 +547,22 @@ struct FocusNativeSnapshot {
     compact_origin: Option<GeometryPoint>,
 }
 
-fn capture_focus_native_snapshot(window: &tauri::WebviewWindow) -> CommandResult<FocusNativeSnapshot> {
+fn capture_focus_native_snapshot(
+    window: &tauri::WebviewWindow,
+) -> CommandResult<FocusNativeSnapshot> {
     let position = window.outer_position().map_err(|error| {
-        map_window_error(FOCUS_SURFACE_LABEL, "read position before presentation change", error)
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read position before presentation change",
+            error,
+        )
     })?;
     let size = window.inner_size().map_err(|error| {
-        map_window_error(FOCUS_SURFACE_LABEL, "read size before presentation change", error)
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read size before presentation change",
+            error,
+        )
     })?;
     let always_on_top = window.is_always_on_top().map_err(|error| {
         map_window_error(
@@ -569,7 +578,8 @@ fn capture_focus_native_snapshot(window: &tauri::WebviewWindow) -> CommandResult
         )
     })?;
     Ok(FocusNativeSnapshot {
-        presentation: current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel),
+        presentation: current_focus_surface_presentation()
+            .unwrap_or(FocusSurfacePresentation::Panel),
         position,
         size,
         always_on_top,
@@ -666,9 +676,9 @@ fn fit_focus_host_on_current_monitor(
     validate_work_area(work_area).map_err(CommandError::window_geometry)?;
     floating_placement::ensure_fixed_focus_host_size(window)?;
 
-    let outer = window.outer_size().map_err(|error| {
-        map_window_error(FOCUS_SURFACE_LABEL, "read Focus host size", error)
-    })?;
+    let outer = window
+        .outer_size()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read Focus host size", error))?;
     let fitted = GeometrySize {
         width: outer.width.min(work_area.size.width),
         height: outer.height.min(work_area.size.height),
@@ -693,9 +703,9 @@ fn fit_focus_host_on_current_monitor(
                 )
             })?;
     }
-    let actual = window.outer_size().map_err(|error| {
-        map_window_error(FOCUS_SURFACE_LABEL, "confirm Focus host size", error)
-    })?;
+    let actual = window
+        .outer_size()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "confirm Focus host size", error))?;
     if actual.width > work_area.size.width || actual.height > work_area.size.height {
         return Err(CommandError::new(
             "FOCUS_PRESENTATION_FAILED",
@@ -731,7 +741,11 @@ fn apply_panel_native(
     let actual_size = fit_focus_host_on_current_monitor(window, work_area)?;
     let final_position = focus_panel_edge_position(work_area, actual_size, side)
         .map_err(CommandError::window_geometry)?;
-    set_focus_position(window, final_position, "position Focus Panel at monitor edge")?;
+    set_focus_position(
+        window,
+        final_position,
+        "position Focus Panel at monitor edge",
+    )?;
     timer_region::apply(window, timer_region::panel_logical_size())?;
     set_focus_presentation_attributes(window, FocusSurfacePresentation::Panel)
 }
@@ -838,13 +852,10 @@ fn apply_focus_surface_presentation_internal(
 
         let snapshot = capture_focus_native_snapshot(&window)?;
         let _save_guard = floating_placement::suspend_saves();
-        let recovery = floating_placement::restore_for_timer(
-            app_handle,
-            &window,
-            target.expanded(),
-        )
-        .and_then(|_| timer_region::apply(&window, target.region()))
-        .and_then(|_| set_focus_presentation_attributes(&window, target));
+        let recovery =
+            floating_placement::restore_for_timer(app_handle, &window, target.expanded())
+                .and_then(|_| timer_region::apply(&window, target.region()))
+                .and_then(|_| set_focus_presentation_attributes(&window, target));
         if let Err(error) = recovery {
             return match restore_focus_native_snapshot(&window, &snapshot) {
                 Ok(()) => Err(error),
@@ -944,29 +955,33 @@ fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
 #[tauri::command]
 fn present_focus_for_blitz(app_handle: tauri::AppHandle) -> CommandResult<()> {
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
-    let visible = window
-        .is_visible()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read Focus visibility for Blitz entry", error))?;
+    let visible = window.is_visible().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Focus visibility for Blitz entry",
+            error,
+        )
+    })?;
 
     if visible {
         // A visible Focus host may already be in Timer presentation. Do not
         // bypass the React coordinator by forcing native Panel state here.
         // Re-entering Blitz simply foregrounds the already committed surface.
-        return window
-            .set_focus()
-            .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus existing Blitz surface", error));
+        return window.set_focus().map_err(|error| {
+            map_window_error(FOCUS_SURFACE_LABEL, "focus existing Blitz surface", error)
+        });
     }
 
     // Hidden Focus entry is safe to prepare natively because no intermediate
     // renderer state is exposed to the user. The coordinator reconciles the
     // authoritative Panel presentation while the host is still hidden.
     apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?;
-    window
-        .show()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "show Focus surface for Blitz", error))?;
-    window
-        .set_focus()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus Focus surface for Blitz", error))
+    window.show().map_err(|error| {
+        map_window_error(FOCUS_SURFACE_LABEL, "show Focus surface for Blitz", error)
+    })?;
+    window.set_focus().map_err(|error| {
+        map_window_error(FOCUS_SURFACE_LABEL, "focus Focus surface for Blitz", error)
+    })
 }
 
 pub(crate) fn revalidate_open_focus_panel_after_display_change(

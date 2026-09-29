@@ -198,10 +198,7 @@ mod tests {
                 height: 375,
             }),
         );
-        assert_eq!(
-            clipped_size(outer, 1.25, panel_logical_size()),
-            Some(outer),
-        );
+        assert_eq!(clipped_size(outer, 1.25, panel_logical_size()), Some(outer),);
     }
 
     #[test]
