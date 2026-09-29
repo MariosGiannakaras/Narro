@@ -1,6 +1,6 @@
 # M7 single Focus surface implementation plan
 
-Status: **implementation complete; CI #679 automated PASS; Gate 7 and Gate 12 physical retest OPEN** (2026-09-30). PR #192 exact head `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93` passed Windows CI #679 / run `36630411679` after implementing the two exact #674 physical failure corrections: finite native Panel↔Timer position motion coordinated with renderer motion, and mixed-DPI interactive/programmatic recovery deferral with target-monitor-scale geometry. Runtime artifact id `11065275562`, digest `sha256:8b50e089fdaf6e5eaf572dd2b469eac42a521a8ea447c4532161edbc35163400`. Do not merge until one combined exact-build physical batch passes both gates.
+Status: **implementation complete; CI #679 physical FAIL; corrective CI #682 in progress** (2026-09-30). Exact #679 source `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93` removed saved-position teleport and repeated-push drag behavior but still exposed a transparent full-height host tail on Panel→Timer and a transient stale viewport/scrollbar state on cross-DPI Timer→Panel. Exact corrective head `8a60e92e47ae407098a1f3170ae4170848d262eb` clips the target Timer region before native movement and delays cross-DPI full-Panel reveal until the target viewport has had a bounded settle interval. Windows CI #682 / run `36639559040` is in progress. Do not merge before exact-build physical Gate 7 + Gate 12 acceptance.
 
 ## Decision and evidence boundary
 
