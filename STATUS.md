@@ -8,17 +8,37 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 **Milestone 1 — reopened Windows/Focus foundation, driven by the M7 single-Focus corrective program.**
 
-**Current corrective direction, 2026-09-29:** implement one persistent nominal
+**Current corrective direction, 2026-09-30:** retain one persistent nominal
 340×700 logical px `focusSurface` HWND/WebView with one React root/coordinator.
-Focus Panel, compact Timer and expanded Timer are dynamic components/presentations
-inside that host; ordinary switching must not close/open, create/destroy,
-hide/show or resize the Focus WebView. DPI-aware native region/position/topmost/
-taskbar coordination shapes the visible surface. "Single-Activity Architecture"
-is an analogy only. Implementation is **complete; the first physical candidate failed; the narrow correction is exact-head automated-validated** on
-`plan/m7-single-focus`. Source `73d10ab6a21d731ca363e9932b4ccaf13a000b43` passed CI #672 then physically failed Gate 7. Corrected source `44119dbe829131d38f56fd35250142ed973b2574` makes only the Focus document canvas transparent and passed Windows CI #674 / run `36609576132` including Repository Preflight, visual regression, reused frontend-dist verification and Tauri release.
-Physical Gate 7 and Gate 12 have now both **FAILED** on the exact #674 artifact. Gate 7 no longer shows the old opaque blank-host tail, but still has an abrupt saved-position jump. Gate 12 reaches correct 125% Timer geometry but cross-monitor dragging is resisted and return-to-Panel exposes persistent browser scrollbars/stale viewport.
+Focus Panel, compact Timer and expanded Timer remain dynamic presentations inside
+that host; ordinary switching does not close/open, create/destroy, hide/show or
+resize the Focus WebView. DPI-aware native region/position/topmost/taskbar
+coordination shapes the visible surface.
 
-**Current corrected PR #192 checkpoint (2026-09-29):** exact source head `44119dbe829131d38f56fd35250142ed973b2574`. It follows the exact #672 physical failure with one evidence-backed delta: Focus-entry root/html/body/#root transparency plus config/transition regression contracts. Windows CI #674 / run `36609576132` is PASS. Runtime artifact `narro-m1-runtime-harness-windows-x64`: id `11052303615`, digest `sha256:eca3865bb08d754f7f43a0b9bd436f6a83a45f89b209345a328b66ec8c534bfd`. Visual artifact `narro-m5-visual-regression`: id `11052433065`, digest `sha256:6815f49fe70f0226b83d1867b28a78574d2fc4e9066e95f97d28b949fbdb7b4e`. This is an automated-validated candidate that has now physically failed strict Gate 7 and Gate 12. The next correction is limited to native Panel↔Timer position continuity plus mixed-DPI interactive-move/recovery sequencing; topology-performance evidence remains open.
+CI #674 exact source `44119dbe829131d38f56fd35250142ed973b2574`
+removed the earlier opaque blank-host tail but physically failed Gate 7 because
+Panel↔Timer still teleported between distinct native positions and failed Gate 12
+because the mixed-DPI return path could leave a stale viewport with browser
+scrollbars. Those two exact failure families are now corrected on PR #192 exact
+head `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`: native position motion is
+coordinated with the finite renderer transition, interactive/programmatic moves
+defer competing DPI recovery, and target-monitor scale drives Panel/Timer
+placement geometry.
+
+**Current PR #192 checkpoint (2026-09-30):** Windows CI #679 / run
+`36630411679` is PASS on exact head
+`c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`. The first build-and-test attempt
+was cancelled during visual capture without a code-failure signature; the same
+job was rerun on the unchanged head and passed Repository Preflight, Rust
+validation, Windows visual regression, reused frontend-dist verification and
+Tauri release. Runtime artifact `narro-m1-runtime-harness-windows-x64`: id
+`11065275562`, digest
+`sha256:8b50e089fdaf6e5eaf572dd2b469eac42a521a8ea447c4532161edbc35163400`.
+Visual artifact `narro-m5-visual-regression`: id `11064761303`, digest
+`sha256:00f25712f57349bb70bbbbaddacc177c220967bbb6bfb9006c7307bbb89f4e7e`.
+Gate 7 and Gate 12 are **PHYSICAL RETEST OPEN**; automated PASS does not promote
+either physical gate. See
+`work-log/2026-09-30-chatgpt-m7-ci679-position-dpi-candidate.md`.
 
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
