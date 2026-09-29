@@ -4,7 +4,7 @@
 
 The active `plan/m7-single-focus` implementation **does directly replace** the window/presentation/placement/shortcut/performance paths that supported earlier M1/M6/M7/M8 evidence. Therefore this document's older "do not repeat" shortcuts apply only to the superseded implementation.
 
-After the user authorizes validation, validate the exact replacement build in dependency order: reopened M1 Gate A → reopened M6 Gate F integration → reopened M7 items/Gate 7+12 → affected M8 shortcut integration. Historical passes remain evidence of prior behavior but cannot close replacement-code items.
+Validate the exact replacement build in dependency order: reopened M1 Gate A → reopened M6 Gate F integration → reopened M7 items/Gate 7+12 → affected M8 shortcut integration. Begin with exact-head automated validation before dependent source work; physical Gate 7/12 checks may be consolidated later when safe. Historical passes remain evidence of prior behavior but cannot close replacement-code items.
 
 Before physical testing, automated/static validation must prove all of these replacement invariants:
 - Tauri/config/capabilities expose exactly `main` and one `focusSurface`; no runtime `floatingTimer` WebView or `timer.html` entry;
