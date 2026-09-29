@@ -114,6 +114,12 @@ invariant(
   "renderer transitions must use tested commit recovery, per-mode readiness and authoritative event reconciliation",
 );
 invariant(
+  coordinator.indexOf("listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT") >= 0
+    && coordinator.indexOf("listen<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT")
+      < coordinator.indexOf("const authoritative = await getFocusSurfacePresentation()"),
+  "presentation projection must subscribe before its authoritative snapshot to avoid a listener/snapshot race",
+);
+invariant(
   lib.includes("floating_placement::save_if_timer_visible(app_handle)")
     && lib.indexOf("floating_placement::save_if_timer_visible(app_handle)") < lib.indexOf("let _save_guard = floating_placement::suspend_saves()"),
   "Timer placement must be saved before transition-time save suppression begins",
