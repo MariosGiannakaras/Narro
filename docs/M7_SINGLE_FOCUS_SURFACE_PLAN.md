@@ -1,6 +1,6 @@
 # M7 single Focus surface implementation plan
 
-Status: **approved implementation direction, not implemented or validated** (2026-09-29). This document is the next-chat handoff for the M7 Panel/Timer transition. The user explicitly deferred all tests, builds, CI, app launches, recordings, and physical acceptance checks until the implementation is complete and they say to proceed with testing.
+Status: **approved implementation direction; implementation in progress and unvalidated** (2026-09-29). This document is the executable handoff for the M7 Panel/Timer transition. The user explicitly deferred all tests, builds, CI, app launches, recordings, and physical acceptance checks until the implementation is complete and they say to proceed with testing.
 
 ## Decision and evidence boundary
 
@@ -29,7 +29,7 @@ Implement this as one replacement of the affected Focus presentation path, begin
 | M6 Focus Panel | Mount Panel in the shared Focus React coordinator; retain Panel layout, actions, selected-monitor/edge behavior and authoritative projections | Completed M6 product behavior and domain commands |
 | M7 Floating Timer | Mount compact/expanded Timer in that coordinator; replace split-window transition/placement; retain drag, topmost, compact/expanded actions and session continuity | Completed M7 Timer functionality, with Gate 7/12 acceptance still open |
 
-M2–M5 and M8 are outside this rewrite unless a direct dependency is discovered in the affected Focus path. Do not reset their validated counters or reimplement unrelated features. Do not carry the old hide/resize/visual-hold transition forward merely because it was part of an earlier milestone.
+M1 and M6 are **not reopened as roadmap milestones** by this replacement; their affected validated behaviors are regression obligations of the active M7 correction. Historical PASS evidence validates the prior implementation only. M2–M5 and M8 are outside this rewrite unless a direct dependency is discovered in the affected Focus path. Do not reset validated counters or reimplement unrelated features. Do not carry the old hide/resize/visual-hold transition forward merely because it was part of an earlier milestone. Before M7 can close, the replacement must later be validated against both the new M7 Gate 7/12 criteria and the materially affected M1/M6 acceptance/invariant set.
 
 ## Implementation order for the next chat
 
