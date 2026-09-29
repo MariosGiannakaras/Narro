@@ -9,9 +9,8 @@ use std::sync::OnceLock;
 use tauri::Manager;
 
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
-const FLOATING_TIMER_LABEL: &str = "floatingTimer";
-const OBSERVED_WINDOW_LABELS: [&str; 2] = [FOCUS_SURFACE_LABEL, FLOATING_TIMER_LABEL];
-const RECOVERABLE_WINDOW_LABELS: [&str; 2] = ["main", FOCUS_SURFACE_LABEL];
+const OBSERVED_WINDOW_LABELS: [&str; 1] = [FOCUS_SURFACE_LABEL];
+const RECOVERABLE_WINDOW_LABELS: [&str; 1] = ["main"];
 const DISPLAY_CHANGE_SUBCLASS_ID: usize = 0x4e_41_52_52_4f;
 const WM_SETTING_CHANGE: u32 = 0x001a;
 const WM_DISPLAY_CHANGE: u32 = 0x007e;
@@ -286,8 +285,8 @@ fn recover_visible_windows(app_handle: &tauri::AppHandle) -> Result<Vec<&'static
     let mut failures = Vec::new();
 
     for label in RECOVERABLE_WINDOW_LABELS {
-        // The separately hosted Timer uses its clipped visible bounds and is
-        // recovered by floating_placement after this generic Panel/main pass.
+        // focusSurface uses presentation-aware visible-region recovery below;
+        // this generic pass is intentionally limited to ordinary windows.
         let Some(window) = app_handle.get_webview_window(label) else {
             continue;
         };
