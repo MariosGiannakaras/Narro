@@ -81,7 +81,7 @@ PREF-R01 and PREF-R04 are validated and must not be reimplemented.
 
 - Product-fidelity default: for in-scope personal/local functionality, confirmed Blitzit behavior and visuals are the target. Do not introduce discretionary redesign. Known Blitzit reliability failures are preventive engineering input and must shape implementation/tests before affected work. If an exact source detail remains unknowable after relevant evidence is exhausted, choose the strongest professional reconstruction consistent with adjacent Blitzit patterns, Narro's established UI/UX, Windows conventions, accessibility and reliability, and record it as inference/design decision rather than confirmed source behavior.
 - Narro remains local-only Windows software with Tauri 2 + React/TypeScript, SQLite, and authoritative Rust/domain state.
-- `main` + reusable `focusSurface` remain the validated main-branch architecture. PR #191's separate persistent Timer WebView is still an unmerged, physically incomplete experiment.
+- `main` + reusable `focusSurface` remain the validated two-window architectural baseline. PR #191 is closed unmerged and its separate Timer WebView is historical evidence only; the active replacement uses the single persistent `focusSurface`.
 - persistence-first mutations, stable task identities, session/time accounting, recurrence idempotence and Windows-local scheduling semantics remain authoritative.
 - Focus/Floating presentation changes cannot reset, duplicate or independently advance a live session.
 - Notes URLs require explicit activation; aggregate All Lists reorder remains disabled.
