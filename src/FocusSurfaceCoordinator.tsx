@@ -297,10 +297,17 @@ export function FocusSurfaceCoordinator() {
 
     void subscribe<FocusPresentationChanged>(FOCUS_PRESENTATION_CHANGED_EVENT, (next) => {
       if (next !== "panel" && next !== "timerCompact" && next !== "timerExpanded") return;
-      // Native commands invoked from diagnostics/tray may change presentation
-      // outside the React transition request. Reconcile only when no renderer
-      // transition is in flight; otherwise the requesting path owns the commit.
-      if (!transitionGateRef.current) publishPresentation(next);
+      // Treat the event as an invalidation hint rather than source authority.
+      // A delayed event from an earlier native command must never roll React
+      // back to stale presentation state.
+      if (transitionGateRef.current) return;
+      void getFocusSurfacePresentation()
+        .then((authoritative) => {
+          if (!disposed && !transitionGateRef.current) publishPresentation(authoritative);
+        })
+        .catch((failure: unknown) => {
+          if (!disposed) setTransitionError(formatInvokeError(failure));
+        });
     });
 
     return () => {
