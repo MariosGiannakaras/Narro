@@ -36,14 +36,38 @@ invariant(
   !nativeTimer.includes(".hide()") && !nativeTimer.includes(".show()") && !nativeTimer.includes(".set_size("),
   "ordinary Timer expansion must not hide/show/resize the Focus WebView",
 );
-invariant(
-  nativeTimer.indexOf('set_focus_position(window, desired, "move Timer before expanded region")')
-    < nativeTimer.indexOf("timer_region::apply(window, target.region())"),
-  "expansion near the taskbar must move compact geometry before revealing the larger region",
+const timerResizeBranch = nativeTimer.indexOf("if previous.expanded() != expanded {");
+const nativeExpandBranch = nativeTimer.indexOf("if expanded {", timerResizeBranch);
+const nativeCollapseBranch = nativeTimer.indexOf("} else {", nativeExpandBranch);
+const expansionMove = nativeTimer.indexOf(
+  'set_focus_position(window, desired, "move Timer before expanded region")?;',
+  nativeExpandBranch,
+);
+const expansionRegion = nativeTimer.indexOf(
+  "timer_region::apply(window, target.region())?;",
+  nativeExpandBranch,
 );
 invariant(
-  nativeTimer.includes('timer_region::apply(window, target.region())?;')
-    && nativeTimer.includes('set_focus_position(window, desired, "restore compact Timer position")?'),
+  timerResizeBranch >= 0
+    && nativeExpandBranch > timerResizeBranch
+    && nativeCollapseBranch > nativeExpandBranch
+    && expansionMove > nativeExpandBranch
+    && expansionRegion > expansionMove
+    && expansionRegion < nativeCollapseBranch,
+  "expansion near the taskbar must move compact geometry before revealing the larger region",
+);
+const collapseRegion = nativeTimer.indexOf(
+  "timer_region::apply(window, target.region())?;",
+  nativeCollapseBranch,
+);
+const collapseRestore = nativeTimer.indexOf(
+  'set_focus_position(window, desired, "restore compact Timer position")?;',
+  nativeCollapseBranch,
+);
+invariant(
+  nativeCollapseBranch >= 0
+    && collapseRegion > nativeCollapseBranch
+    && collapseRestore > collapseRegion,
   "collapse must clip before restoring compact origin",
 );
 invariant(
