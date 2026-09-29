@@ -101,6 +101,18 @@ invariant(
   "native presentation changes must be serialized and rollback-safe",
 );
 invariant(
+  lib.includes("static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8")
+    && !lib.includes("FOCUS_SURFACE_MODE_STATE")
+    && !lib.includes("static FLOATING_TIMER_EXPANDED"),
+  "Panel/compact/expanded authority must be represented by one atomic native presentation state",
+);
+invariant(
+  coordinator.includes("commitPreparedFocusPresentation({")
+    && coordinator.includes("readinessWaitersRef.current[mode]")
+    && coordinator.includes("getFocusSurfacePresentation()"),
+  "renderer transitions must use tested commit recovery, per-mode readiness and authoritative event reconciliation",
+);
+invariant(
   lib.includes("floating_placement::save_if_timer_visible(app_handle)")
     && lib.indexOf("floating_placement::save_if_timer_visible(app_handle)") < lib.indexOf("let _save_guard = floating_placement::suspend_saves()"),
   "Timer placement must be saved before transition-time save suppression begins",
