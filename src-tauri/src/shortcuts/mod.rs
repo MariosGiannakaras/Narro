@@ -1061,10 +1061,7 @@ mod native {
                 }
 
                 let manager = trigger_handle.state::<ShortcutManager>();
-                let result = trigger_handle
-                    .get_webview_window(FOCUS_SURFACE_LABEL)
-                    .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))
-                    .and_then(|window| crate::show_and_focus(&window));
+                let result = crate::show_current_focus_surface(&trigger_handle);
                 if let Err(error) = result {
                     let recorded = record_and_report_focus_toggle_error(
                         &trigger_handle,
@@ -1111,10 +1108,7 @@ mod native {
                 }
 
                 let manager = trigger_handle.state::<ShortcutManager>();
-                let result = trigger_handle
-                    .get_webview_window(FOCUS_SURFACE_LABEL)
-                    .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))
-                    .and_then(|window| crate::show_and_focus(&window));
+                let result = crate::show_current_focus_surface(&trigger_handle);
                 if let Err(error) = result {
                     let recorded =
                         record_and_report_find_timer_error(&trigger_handle, manager.inner(), error);
