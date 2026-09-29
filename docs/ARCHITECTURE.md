@@ -133,20 +133,48 @@ The active focus session is independent of this enum.
 
 ### Focus ↔ Floating transformation
 
-For the planned M7 correction:
+The desktop analogue of a "single-activity" design is one persistent
+`focusSurface` host with dynamic React presentation, **not** multiple Focus
+windows that are alternately shown/hidden.
 
-1. serialize the request and keep the current Focus presentation visible while
-   the target React subtree receives the authoritative state;
-2. persist/restore the Timer's safe **visible-region** position and resolve the
-   Panel's configured monitor edge;
-3. coordinate native position, visible window region, always-on-top and taskbar
-   attributes with the React presentation, using a short finite transition;
-4. keep the same maximum-size HWND/WebView throughout normal Panel/Timer and
-   compact/expanded changes, and roll back the prior presentation on failure.
+Use one `FocusSurfaceCoordinator`-equivalent owner with:
+- one committed presentation state (`panel`, `timer-compact`, `timer-expanded`);
+- one serialized pending transition at a time;
+- one authoritative timer/session projection and one coherent board/task
+  projection path;
+- shared presentation-level ephemeral state where losing it during a component
+  swap would be incorrect (for example transition errors, quick-create intent,
+  completion-success context and accepted shortcut requests).
+
+For ordinary presentation changes:
+
+1. keep the currently visible component painted;
+2. mount/prepare the target component in the **same React root/WebView** using
+   the same authoritative snapshot;
+3. while preparing, make the target non-interactive and excluded from
+   accessibility/focus navigation; it may be visually transparent/off-layer,
+   but must not depend on `display:none` or an unmount-first sequence if it
+   needs to be prepainted;
+4. after target readiness, coordinate the same HWND's native position,
+   visible window region, always-on-top/taskbar attributes and the finite React
+   motion;
+5. commit the new presentation only after the native+renderer sequence succeeds;
+   on failure restore the previous presentation/region/position without changing
+   timer/session/domain state;
+6. after the transition settles, the inactive presentation may be unmounted if
+   desired, provided all state that must survive the switch is owned above it.
+
+The host HWND/WebView remains fixed at the maximum required Focus geometry during
+ordinary Panel ↔ Timer and compact ↔ expanded changes. Native
+`SetWindowRgn`-style clipping defines the visible/hit-test rectangle, while
+position may move between the configured Panel edge and the saved Timer
+placement. Do **not** close/create, hide/show, or resize the Focus WebView as the
+normal presentation-switch mechanism. Entering/exiting Focus entirely may still
+show/hide the persistent host.
 
 Never simulate native-window resizing with a high-frequency JS animation loop.
-Display topology/DPI changes may require exceptional host adjustment. The
-active focus session remains independent of every presentation change.
+Display topology/DPI/work-area changes may require exceptional host adjustment.
+The active focus session remains independent of every presentation change.
 
 ## 5. Dynamic Windows display model
 
