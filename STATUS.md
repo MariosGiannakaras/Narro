@@ -27,7 +27,7 @@ code. M2–M5 and M8 remain outside this rewrite unless directly affected.
 - Milestone 4 / Gate D: **PASS**.
 - Milestone 5 / Gate E: **PASS**.
 - Milestone 6 / Gate F: **PASS** — all 16 top-level items validated.
-- Milestone 7: **ACTIVE / 12 of 14 top-level items validated**; Gate 7 visual continuity and Gate 12 mixed-DPI/work-area acceptance remain open.
+- Milestone 7: **ACTIVE / 13 of 15 top-level items validated**; Gate 7 visual continuity and Gate 12 mixed-DPI/work-area acceptance remain open.
 - Milestone 8: **6 of 8 top-level items validated**; remaining work is sequencing-blocked behind M7 closure.
 - Milestones 9–10: **NOT STARTED**.
 
@@ -625,7 +625,7 @@ The latest suitable validated application artifact was CI #624 (runtime artifact
 - **Gate 11 PASS:** Timer stayed visible above a separate borderless fullscreen Windows Forms app through focus switching. Exclusive fullscreen was unavailable and remains unclaimed.
 - **Gate 12 FAIL:** on moving to a 125% secondary monitor, Timer shrank to about 271×75 and exposed horizontal/vertical scrollbars. A Panel→Timer logical-size reapply restored 425×138. Once correctly sized, bottom-edge expansion to 443×384 at y=696 fit exactly within the 1080 px work area and collapsed accessibly. Non-default taskbar edge and a separately shortened work area were not run.
 
-The M7 checklist now has **12/14 top-level items checked**; only the visual transition and mixed-DPI/work-area acceptance items remain open. This count is taken directly from the 14 top-level M7 checkboxes; the earlier 9/14 shorthand was stale against that list. Roadmap completion remains **6/10**, and no new M8 implementation has begun.
+The current M7 checklist has **13/15 top-level items checked**; only the visual transition and mixed-DPI/work-area acceptance items remain open. The current denominator includes the later validated Change List/Duplicate parity item. Older 9/14 and 12/14 shorthand are historical/stale and must not be used as current progress. Roadmap completion remains **6/10**; M8 has 6/8 validated items and its remaining work is blocked behind M7 closure.
 
 PR #191 (`fix/m7-visual-hold-physical`) first made the native bitmap hold opaque/explicitly topmost, disabled DWM transitions on the Focus/hold HWNDs, and added mixed-DPI Timer logical-size recovery. Exact head `f1ef35aabc97aed9e8044130e442a85276c62536` passed Windows CI run `36371772752`; its exact runtime artifact was physically retested. Three Panel↔Timer and three Expand/Collapse cycles with Windows animations **Off** retained the same paused `fas` session and 07:40, but the resize still exposed an expanded white tail under compact content, so Gate 7 remains **FAIL**. The attempted On capture was interrupted before cycles and Gate 12 was not run on this candidate. Evidence is in `work-log/2026-09-28-codex-m7-pr191-retest-in-progress.md` and its sanitized frame sequence.
 
