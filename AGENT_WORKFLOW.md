@@ -6,11 +6,11 @@ Narro is maintained so different coding AIs can alternate without prior chat con
 
 ## Repository state overrides conversational memory
 
-The latest validated repository state always outranks chat history, cached summaries, or a previous agent's remembered checkpoint.
+The latest authoritative repository state on `main` always outranks chat history, cached summaries, or a previous agent's remembered checkpoint. Keep **validated application source baseline** distinct from newer documentation/process truth: documentation-only commits may advance `main` without changing the validated source SHA.
 
 Before emitting a substantive progress/status update after a new chat, interruption, resumed session, or apparent context loss, the agent must re-read current `HANDOFF.md`, the active `TODO.md` milestone, relevant `STATUS.md`, the newest relevant immutable `work-log/*.md` entry, and any open/recent PR/CI state referenced there. If conversation state conflicts with repository evidence, correct the conversation and follow the repository.
 
-Never decrement a previously validated user-facing progress counter because an older conversational checkpoint was loaded. The small progress counter may reset only when a genuinely new implementation slice has explicitly begun. When resetting it, state the new slice and denominator in the same update and ensure `HANDOFF.md` records either the latest completed slice progress or the currently active slice progress so another zero-context agent cannot infer an older value.
+Never decrement a previously validated user-facing progress counter merely because an older conversational checkpoint was loaded. **Exception:** when current evidence or a replacement implementation invalidates the acceptance basis of previously validated milestone items, reopen exactly that affected scope and reduce the current progress counters to repository truth, preserving the old PASS as historical evidence. The small progress counter may reset only when a genuinely new implementation slice has explicitly begun. When resetting it, state the new slice and denominator in the same update and ensure `HANDOFF.md` records either the latest completed slice progress or the currently active slice progress so another zero-context agent cannot infer an older value.
 
 ### Current-truth hygiene
 
@@ -103,6 +103,28 @@ Windows CI is the reproducible second gate. Inspect the real failing step/log be
 
 After an expected-head guarded merge, compare the validated PR-head Git tree with the resulting main tree. If they are identical, the exact-head CI validates that source tree; do not manually dispatch another equivalent CI run. An automatically triggered duplicate main run may be cancelled after identity is proven when the validated PR artifact is suitable for any pending Windows test. Record that cancellation, and identify the PR artifact precisely. If the trees differ, validate the resulting main before claiming its source is covered. Physical Windows behavior still requires observation.
 
+### Documentation/process changes go directly to main
+
+Authoritative implementation instructions and tracking must not remain stranded on a feature branch.
+
+When a change is **documentation/process-only** and does not alter runtime, build, test, packaging, dependency or CI semantics:
+- write it directly to `main` with a normal forward commit; do not create a documentation-only feature branch or PR;
+- update `HANDOFF.md`, `TODO.md`, `STATUS.md`, `AGENTS.md`, `AGENT_WORKFLOW.md`, `AI_START_HERE.md`, relevant `docs/*.md`, and new immutable `work-log/*.md` entries on `main` as soon as that truth is established;
+- do **not** run Windows CI for the documentation-only commit;
+- do not change the validated application source baseline because of that commit;
+- if an implementation branch is active, treat `main`'s process/spec/tracking files as authoritative and sync/reconcile the branch before source work continues rather than letting the branch become a second source of process truth.
+
+A change is **not documentation-only** merely because it is not application code. These remain source/validation-affecting and use the normal branch/PR/preflight/CI discipline:
+- `.github/workflows/**`;
+- `scripts/**` and executable test harnesses;
+- `package.json`, lockfiles, Cargo manifests/toolchain files;
+- Tauri/app/capability/runtime configuration;
+- migrations, schemas, generated manifests;
+- fixtures/assets consumed by build, tests, packaging or runtime;
+- any file whose content is parsed or enforced by build/test/CI/runtime tooling.
+
+If repository permissions ever block direct commits to `main`, use the narrowest documentation-only PR as a fallback and merge it promptly without Windows CI; record that branch-protection exception.
+
 Documentation-only commits should not consume Windows CI unless they affect build/test semantics.
 
 ## Work-log protocol
@@ -191,8 +213,8 @@ Before stopping:
 
 ### Branch and tracking hygiene
 
-- Prefer one coherent tracking reconciliation after a validated source merge instead of chaining multiple tracking-only PRs that add no new project fact.
-- A second tracking-only PR is justified only when genuinely new evidence, validation, user direction, or a correction appeared after the first reconciliation.
+- Do not create tracking-only PRs under normal conditions. Authoritative documentation/tracking changes go directly to `main` under the rule above.
+- If branch protection forces a documentation-only PR fallback, keep it narrow and merge it promptly; do not let multiple tracking-only PRs accumulate.
 - After a PR is merged or an abandoned line is conclusively superseded, delete its remote feature branch when it has no open PR and no unique unmerged work that must remain reachable.
 - Temporary `noop`, `tmp-*`, CI-probe and superseded experiment branches must not accumulate indefinitely.
 - Never delete `main`, an open-PR branch, a branch containing intentionally preserved unique work, or a branch whose status has not been verified.
