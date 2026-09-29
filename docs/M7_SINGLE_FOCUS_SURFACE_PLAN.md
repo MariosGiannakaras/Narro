@@ -1,6 +1,6 @@
 # M7 single Focus surface implementation plan
 
-Status: **approved implementation direction; implementation in progress and unvalidated** (2026-09-29). This document is the executable handoff for the M7 Panel/Timer transition. The user explicitly deferred all tests, builds, CI, app launches, recordings, and physical acceptance checks until the implementation is complete and they say to proceed with testing.
+Status: **implementation complete by static repository reconciliation; validation not started** (2026-09-29). Exact PR #192 implementation head: `b506fd016eea2d3c45635a2cbdc74acde831d674`. This document remains the executable validation handoff for the M7 Panel/Timer transition. The user explicitly deferred all tests, builds, CI, app launches, recordings, and physical acceptance checks until they say to proceed with testing.
 
 ## Decision and evidence boundary
 
@@ -43,6 +43,8 @@ The 2026-09-29 repository-wide scan found these **live, non-historical** split/o
 - Historical `work-log/`, old prompts and evidence files may continue to mention resize/hide/show or separate Timer experiments; they are immutable history and must not be "cleaned up" to look current.
 
 Completion grep/static checks should find no live production/config/test dependence on a `floatingTimer` runtime label, `timer.html`, cross-window Timer readiness/query protocol, or split Panel/Timer window transition helper, except explicitly historical/test-fixture names that do not create runtime windows.
+
+**2026-09-29 implementation-complete reconciliation:** exact branch head `b506fd016eea2d3c45635a2cbdc74acde831d674` satisfies this live migration ledger by static inspection. The retired runtime/wrapper/visual-hold files are absent; production/config/native paths no longer depend on the split model; architecture-sensitive contracts target the single-host design; compact↔expanded Timer now also uses finite ~270 ms same-WebView visual geometry motion. The `floatingTimerFixture` Vite input is an allowed independent visual fixture and does not create a runtime Timer WebView. None of these statements substitute for the deferred preflight/CI/physical validation.
 
 ## Implementation order for the next chat
 
