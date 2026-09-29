@@ -38,10 +38,11 @@ invariant(
   handlerStart >= 0 && handlerEnd > handlerStart
     && show >= 0 && show < trigger && trigger < emit
     && handler.includes("crate::current_focus_surface_mode().is_none()")
-    && handler.includes("get_webview_window(FOCUS_SURFACE_LABEL)")
+    && handler.includes("crate::show_current_focus_surface(&trigger_handle)")
+    && !handler.includes("get_webview_window(FOCUS_SURFACE_LABEL)")
     && !handler.includes("FLOATING_TIMER_LABEL")
     && handler.includes("record_and_report_focus_toggle_error"),
-  "shortcut must bring the one Focus host forward before emitting a revisioned presentation request",
+  "shortcut must restore/show the one Focus host through the presentation-safe lifecycle before emitting a revisioned request",
 );
 invariant(
   shortcuts.includes("map_register_error_for_chord(error, FOCUS_TOGGLE_CHORD)")
