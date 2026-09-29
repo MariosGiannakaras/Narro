@@ -16,9 +16,9 @@ hide/show or resize the Focus WebView. DPI-aware native region/position/topmost/
 taskbar coordination shapes the visible surface. "Single-Activity Architecture"
 is an analogy only. Implementation is **complete and exact-head automated validation has passed** on
 `plan/m7-single-focus` at exact source head `73d10ab6a21d731ca363e9932b4ccaf13a000b43`; Windows CI #672 / run `36589997295` passed Repository Preflight, frontend/Rust checks/tests, visual regression, reused frontend-dist verification and Tauri release.
-Physical Gate 7 continuity and Gate 12 mixed-DPI checks remain OPEN and cannot be inferred from CI.
+Physical Gate 7 has now **FAILED** on the exact #672 artifact; Gate 12 mixed-DPI remains OPEN/NOT RUN and cannot be inferred from CI.
 
-**Current automated-validated PR #192 checkpoint (2026-09-29):** exact source head `73d10ab6a21d731ca363e9932b4ccaf13a000b43`. After the implementation-complete checkpoint, CI-backed corrections hardened Blitz re-entry/static contracts and applied Rust formatting without changing the selected single-host architecture. Windows CI #672 / run `36589997295` is PASS on this exact head: Repository Preflight, single-Focus architecture/transition contracts, frontend build, Rust fmt/check/clippy/tests, visual-regression capture/validation, reused frontend-dist verification and Tauri release all succeeded. Runtime artifact `narro-m1-runtime-harness-windows-x64`: id `11043444940`, digest `sha256:e1110b10c6d7cb867401126df931f3b52af414f097bb6a0bd9d790f6dac2fd76`. Visual artifact `narro-m5-visual-regression`: id `11043762203`, digest `sha256:51f21e05abd5aace6147f6be86c4645371d8dd06dc1f459375752d72c69a46cb`. The prior #666 lexical-order failure is superseded. Physical continuity/topology/performance evidence is still open.
+**Current automated-validated PR #192 checkpoint (2026-09-29):** exact source head `73d10ab6a21d731ca363e9932b4ccaf13a000b43`. After the implementation-complete checkpoint, CI-backed corrections hardened Blitz re-entry/static contracts and applied Rust formatting without changing the selected single-host architecture. Windows CI #672 / run `36589997295` is PASS on this exact head: Repository Preflight, single-Focus architecture/transition contracts, frontend build, Rust fmt/check/clippy/tests, visual-regression capture/validation, reused frontend-dist verification and Tauri release all succeeded. Runtime artifact `narro-m1-runtime-harness-windows-x64`: id `11043444940`, digest `sha256:e1110b10c6d7cb867401126df931f3b52af414f097bb6a0bd9d790f6dac2fd76`. Visual artifact `narro-m5-visual-regression`: id `11043762203`, digest `sha256:51f21e05abd5aace6147f6be86c4645371d8dd06dc1f459375752d72c69a46cb`. The prior #666 lexical-order failure is superseded. Physical continuity evidence is no longer merely open: the exact #672 artifact failed Gate 7 with repeated blank/light host exposure. Topology/performance evidence remains open.
 
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
@@ -587,9 +587,10 @@ Binding execution rule:
 Current audit state:
 - **CORR-01 recurrence update / No Repeat flow:** VALIDATED in PR #182 / CI #617 / main CI #618.
 - **PREF-R01 timed task alerts:** VALIDATED in PR #184 / CI #624 / merge `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
-- **M7-PHYS-01 / M7-PHYS-02:** active `FIX_NOW` findings driving the single-Focus replacement.
+- **M7-PHYS-01:** active `FIX_NOW` physical failure on PR #192 head `73d10ab6...`; the 60 fps exact-artifact recording shows repeated blank/light host exposure during Panel↔Timer. Evidence-backed cause is the opaque focus document canvas (`App.css` root/body) becoming visible while renderer clipping and Win32 region differ.
+- **M7-PHYS-02:** active `FIX_NOW` mixed-DPI finding; replacement Gate 12 remains NOT RUN.
 - The replacement materially invalidates prior acceptance evidence for defined M1/M6/M7 items and directly affected M8 shortcut integration; those checklist items are reopened in `TODO.md`.
-- Implementation and exact-head automated validation are complete on PR #192 head `73d10ab6...` / Windows CI #672. Physical Gate 7/12 evidence is now the next unresolved acceptance boundary; no physical PASS is inferred from automation.
+- Implementation and exact-head automated validation are complete on PR #192 head `73d10ab6...` / Windows CI #672, but Gate 7 then physically failed. Continue on the same PR with the narrow document-transparency correction; do not reopen the architecture without new evidence.
 
 ## CORR-01 recurrence No Repeat correction — validated 2026-09-28
 
