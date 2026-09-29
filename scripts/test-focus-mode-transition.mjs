@@ -1,75 +1,97 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
-  PersistentFocusWindowRecoveryError,
-  switchPersistentFocusWindows,
-} from "../src/persistentFocusWindowTransition.ts";
+  FocusPresentationRecoveryError,
+  commitPreparedFocusPresentation,
+} from "../src/focusPresentationTransition.ts";
 
-function harness(previousMode = "panel", targetMode = "timer") {
+function harness(previousPresentation = "panel", targetPresentation = "timerCompact") {
   const calls = [];
   const failures = new Map();
-  const invoke = async (step, mode) => {
-    calls.push(`${step}:${mode}`);
-    const failure = failures.get(step);
-    if (failure) throw failure;
-  };
+
   return {
     calls,
     failures,
-    deps: {
-      previousMode,
-      targetMode,
-      prepareMode: (mode) => invoke("prepare", mode),
-      waitForModeReady: (mode) => invoke("ready", mode),
-      revealMode: (mode) => invoke("reveal", mode),
-      restoreMode: (mode) => invoke("restore", mode),
+    transition: {
+      previousPresentation,
+      targetPresentation,
+      waitForTargetReady: async () => {
+        calls.push(`ready:${targetPresentation}`);
+        const failure = failures.get("ready");
+        if (failure) throw failure;
+      },
+      applyNativePresentation: async (presentation) => {
+        calls.push(`native:${presentation}`);
+        const failure = failures.get(`native:${presentation}`) ?? failures.get("native");
+        if (failure) throw failure;
+      },
+      commitRendererPresentation: (presentation) => {
+        calls.push(`renderer:${presentation}`);
+        const failure = failures.get(`renderer:${presentation}`) ?? failures.get("renderer");
+        if (failure) throw failure;
+      },
     },
   };
 }
 
-test("Panel to Timer prepares and waits for target before revealing", async () => {
+test("prepared Panel to Timer waits, commits native state, then transfers renderer ownership", async () => {
   const h = harness();
-  await switchPersistentFocusWindows(h.deps);
-  assert.deepEqual(h.calls, ["prepare:timer", "ready:timer", "reveal:timer"]);
+  assert.equal(await commitPreparedFocusPresentation(h.transition), true);
+  assert.deepEqual(h.calls, [
+    "ready:timerCompact",
+    "native:timerCompact",
+    "renderer:timerCompact",
+  ]);
 });
 
-test("Timer to Panel uses the same ordered transition", async () => {
-  const h = harness("timer", "panel");
-  await switchPersistentFocusWindows(h.deps);
-  assert.deepEqual(h.calls, ["prepare:panel", "ready:panel", "reveal:panel"]);
+test("prepared Timer to Panel uses the same ordered commit", async () => {
+  const h = harness("timerExpanded", "panel");
+  assert.equal(await commitPreparedFocusPresentation(h.transition), true);
+  assert.deepEqual(h.calls, ["ready:panel", "native:panel", "renderer:panel"]);
 });
 
-test("a request for the current mode never touches either window", async () => {
-  const h = harness("timer", "timer");
-  await switchPersistentFocusWindows(h.deps);
+test("requesting the committed presentation is a no-op", async () => {
+  const h = harness("timerCompact", "timerCompact");
+  assert.equal(await commitPreparedFocusPresentation(h.transition), false);
   assert.deepEqual(h.calls, []);
 });
 
-for (const step of ["prepare", "ready", "reveal"]) {
-  test(`${step} failure restores the previously visible presentation`, async () => {
+for (const step of ["ready", "native"]) {
+  test(`${step} failure leaves renderer ownership on the previous presentation`, async () => {
     const h = harness();
     const failure = new Error(`${step} failed`);
     h.failures.set(step, failure);
-    await assert.rejects(switchPersistentFocusWindows(h.deps), failure);
-    assert.deepEqual(h.calls, [
-      ...["prepare", "ready", "reveal"].slice(0, ["prepare", "ready", "reveal"].indexOf(step) + 1)
-        .map((name) => `${name}:timer`),
-      "restore:panel",
-    ]);
+    await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
+    assert.equal(h.calls.includes("renderer:timerCompact"), false);
+    assert.equal(h.calls.includes("native:panel"), false);
   });
 }
 
-test("failed recovery preserves both errors for diagnosis", async () => {
+test("renderer commit failure after native success restores the previous native presentation", async () => {
   const h = harness();
-  const transitionFailure = new Error("target reveal failed");
-  const recoveryFailure = new Error("source restore failed");
-  h.failures.set("reveal", transitionFailure);
-  h.failures.set("restore", recoveryFailure);
-  await assert.rejects(switchPersistentFocusWindows(h.deps), (error) => {
-    assert.ok(error instanceof PersistentFocusWindowRecoveryError);
+  const failure = new Error("renderer commit failed");
+  h.failures.set("renderer:timerCompact", failure);
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
+  assert.deepEqual(h.calls, [
+    "ready:timerCompact",
+    "native:timerCompact",
+    "renderer:timerCompact",
+    "native:panel",
+    "renderer:panel",
+  ]);
+});
+
+test("failed renderer recovery preserves both failures for diagnosis", async () => {
+  const h = harness();
+  const transitionFailure = new Error("renderer commit failed");
+  const recoveryFailure = new Error("native rollback failed");
+  h.failures.set("renderer:timerCompact", transitionFailure);
+  h.failures.set("native:panel", recoveryFailure);
+
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), (error) => {
+    assert.ok(error instanceof FocusPresentationRecoveryError);
     assert.equal(error.transitionFailure, transitionFailure);
     assert.equal(error.recoveryFailure, recoveryFailure);
     return true;
   });
-  assert.deepEqual(h.calls, ["prepare:timer", "ready:timer", "reveal:timer", "restore:panel"]);
 });
