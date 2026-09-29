@@ -879,6 +879,7 @@ fn position_focus_panel(
             eprintln!("Could not save Floating Timer position before Panel placement: {error}");
         }
     }
+    let _save_guard = floating_placement::suspend_saves();
 
     if let Err(error) = apply_panel_native(&window, descriptor.work_area, side) {
         return match restore_focus_native_snapshot(&window, &snapshot) {
