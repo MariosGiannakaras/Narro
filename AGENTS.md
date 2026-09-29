@@ -106,12 +106,24 @@ This architecture was selected for the current requirements, especially the ligh
 
 Milestone 1 exists partly to validate this choice. If measured Windows behavior exposes a concrete blocker or a clearly better architecture, Codex may evaluate and adopt a different approach after documenting the evidence and updating `STATUS.md`, `README.md`, `TODO.md`, and the affected architecture rules before broad implementation proceeds.
 
-The current proposed window model has three visual presentations but normally only **two webview windows**:
+The current selected window model has three Focus presentations but exactly **two normal runtime webview windows**:
 
 - `main`
-- `focusSurface`, which changes between Focus Panel and Floating Timer modes
+- one persistent `focusSurface`
 
-Do not create separate persistent Focus Panel and Floating Timer webviews merely because the source product presents them separately. The intent is one active focus session with low floating-window overhead. If a different window composition proves measurably better without state divergence or resource regression, it may replace this proposal with the same documented-decision process.
+Within `focusSurface`, Focus Panel, compact Timer and expanded Timer are **React presentations/components of the same host**, selected by one serialized presentation coordinator. Treat "Single-Activity Architecture" only as an analogy for one persistent host with dynamic component toggling; it is not an Android Activity requirement and does not mean the whole desktop app must use one window.
+
+For ordinary Panel ↔ Timer and compact ↔ expanded changes:
+- do not create/destroy a Focus/Timer WebView;
+- do not switch between separate persistent Focus windows;
+- do not hide/show the `focusSurface` as the presentation-switch mechanism;
+- do not resize the HWND/WebView as the normal mode-switch mechanism;
+- keep the same Focus HWND/WebView identity and use React presentation state plus DPI-aware native region/position/topmost/taskbar coordination;
+- keep the outgoing presentation available until the incoming presentation has authoritative data and is render-ready; do not rely on `display:none` or unmount-first switching for prepaint;
+- inactive/preparing content must be non-interactive and absent from keyboard/accessibility navigation;
+- one shared coordinator/projection owns mode sequencing and authoritative subscriptions; presentation components must not create competing timer/session authorities.
+
+The `focusSurface` may be shown when entering Focus and hidden when Focus is genuinely exited; that lifecycle is distinct from Panel/Timer component toggling. A different persistent-window composition is no longer an ordinary implementation option for this corrective program. Reconsider it only if the single-host replacement is proven technically insufficient by exact-build evidence and the architecture decision is explicitly reopened and documented.
 
 ### Main-window lifecycle
 
@@ -125,7 +137,7 @@ The Floating Timer is a performance-sensitive surface.
 
 Current implementation guidance:
 
-- Prefer the same `focusSurface` webview when switching between full Focus Panel and Floating Timer.
+- Use the same persistent `focusSurface` WebView for Focus Panel and Floating Timer; ordinary presentation changes are component/region changes, not WebView lifecycle changes.
 - Load a dedicated minimal frontend entry/route for the focus surface; do not import dashboard, reports, archive, or settings code into its initial bundle.
 - Avoid heavyweight animation/chart/editor libraries in the floating surface.
 - Do not poll SQLite or perform writes every timer tick.
@@ -284,6 +296,18 @@ For each milestone:
 
 Do not perform unrelated cleanup or broad rewrites.
 
+### Repeated-failure escalation
+
+Keep an evidence history for any acceptance failure that recurs: exact source/build, environment, reproduction steps, observed frames or state, attempted mechanism, and what the attempt actually proved. Distinguish the same failed acceptance criterion from a genuinely identical visual symptom; do not call a new symptom a recurrence without evidence.
+
+If the same acceptance criterion still fails on two separately corrected, CI-validated builds that were physically tested, stop making successive small fixes to the same mechanism. Reassess the whole failure path and the underlying window/rendering composition. Compare at least one materially different, scoped solution against the current approach using the same physical acceptance capture and relevant correctness/performance measures. Record the alternatives, tradeoffs and decision in `STATUS.md`/`TODO.md` before more implementation. Do not claim a fix from CI, static screenshots, or a single sampled frame when continuous physical behavior is the criterion. A framework-wide migration requires evidence that a narrower alternative is insufficient.
+
+### Cross-milestone replacement rule
+
+A corrective slice in a later milestone may replace implementation foundations that were originally created and validated in an earlier milestone when current evidence requires it. When the replacement changes the implementation that materially supported an earlier milestone's acceptance, **reopen the affected earlier milestone/items** until the replacement is validated. Do not preserve a completed counter merely because the superseded implementation once passed.
+
+Keep historical PASS evidence as immutable proof of the old implementation; never rewrite history or treat that evidence as validation of replacement code. Reopen only the materially affected scope, not unrelated items. Record the dependency/acceptance map in `TODO.md` or the active implementation plan, update roadmap counters to current truth, and validate the replacement in dependency order against every affected earlier invariant plus the newer corrective criteria. If a later milestone is already partially implemented and the replacement directly changes its integration path, reopen those affected later items too. Do not broaden the rewrite into unrelated milestones unless a direct dependency is demonstrated.
+
 ## Git discipline
 
 - Preserve unrelated user changes.
@@ -291,6 +315,8 @@ Do not perform unrelated cleanup or broad rewrites.
 - Work in coherent milestones.
 - For long milestones, checkpoint after a working validated slice.
 - Use clear commits describing completed slices.
+- **Authoritative documentation/process/tracking-only changes go directly to `main` without Windows CI** when they do not alter executable/build/test/CI semantics. Do not strand newer `HANDOFF`/`TODO`/`STATUS`/spec truth on a feature branch.
+- Workflow YAML, scripts/tests, runtime/build configuration, dependency manifests and any file consumed by tooling are not "docs-only" and still require normal source validation.
 - Keep status/TODO documentation current rather than deferring it to the end.
 
 ## Definition of done for an implementation milestone
