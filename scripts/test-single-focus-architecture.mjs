@@ -119,6 +119,12 @@ invariant(
   "Timer placement must be saved before transition-time save suppression begins",
 );
 invariant(
+  lib.includes("if previous == target && target != FocusSurfacePresentation::Panel")
+    && lib.includes("if visible {")
+    && lib.includes("floating_placement::restore_for_timer("),
+  "visible same-Timer requests must preserve drag position while hidden Timer reshow restores placement against current topology",
+);
+invariant(
   !lib.includes("prepare_floating_timer")
     && !lib.includes("reveal_floating_timer")
     && !lib.includes("begin_focus_visual_hold")
