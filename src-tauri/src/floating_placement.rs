@@ -285,11 +285,7 @@ fn position_window_if_needed(
         .outer_position()
         .map_err(|error| placement_error("read Timer position", error))?;
     if desired.x != current.x || desired.y != current.y {
-        window
-            .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-                x: desired.x,
-                y: desired.y,
-            }))
+        crate::focus_webview::set_physical_position(window, desired.x, desired.y)
             .map_err(|error| placement_error("move Timer into work area", error))?;
     }
     Ok(())
@@ -648,12 +644,12 @@ pub fn revalidate_visible_timer_after_display_change(
                 let size = window
                     .set_size(tauri::Size::Physical(previous_inner_size))
                     .map_err(|failure| placement_error("restore Timer size", failure));
-                let position = window
-                    .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-                        x: previous.position.x,
-                        y: previous.position.y,
-                    }))
-                    .map_err(|failure| placement_error("restore Timer position", failure));
+                let position = crate::focus_webview::set_physical_position(
+                    window,
+                    previous.position.x,
+                    previous.position.y,
+                )
+                .map_err(|failure| placement_error("restore Timer position", failure));
                 let region = crate::timer_region::apply(
                     &window,
                     crate::timer_region::timer_logical_size(expanded),
@@ -678,14 +674,14 @@ pub fn revalidate_visible_timer_after_display_change(
                     ))
                 }
             } else {
-                window
-                    .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-                        x: previous.position.x,
-                        y: previous.position.y,
-                    }))
-                    .map_err(|failure| {
-                        placement_error("restore Timer position after display change", failure)
-                    })
+                crate::focus_webview::set_physical_position(
+                    window,
+                    previous.position.x,
+                    previous.position.y,
+                )
+                .map_err(|failure| {
+                    placement_error("restore Timer position after display change", failure)
+                })
             };
             if let Err(rollback) = rollback {
                 return Err(placement_error(
