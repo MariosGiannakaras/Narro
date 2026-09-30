@@ -29,12 +29,26 @@ GitHub `main` is the durable source truth.
 
 User explicitly authorized safe M9 work in parallel while M7 is physically blocked.
 
-- PR #197: `feat/m9-reporting-foundation`, independent of Focus/window mutation code.
-- Initial exact head `2b01fe2467c83a860908acad2d9096b19fb2589c` failed Windows CI #745 / run `36738181054` **only** at `cargo fmt --check`.
-- Formatting plus removal of obvious unused imports advanced PR #197 to exact head `041bdda72ab513d571d940e71a1e18d4027d009b`.
-- The slice adds a read-only local reporting history model: RFC3339 range boundary, optional list filter, closed work/break session rows, completed-task rows, EST, Time Taken from work sessions plus manual adjustment, archived history visibility, and permanent-delete exclusion through existing cascade semantics.
-- No timer/session mutation, Focus/window, schema/migration, or network behavior is changed.
-- Do not accept/merge PR #197 until exact-head Windows CI passes.
+#### Reporting foundation
+
+- PR #197 (`feat/m9-reporting-foundation`) exact validated head: `041bdda72ab513d571d940e71a1e18d4027d009b`.
+- Windows CI #746 / run `36739580536`: **PASS**. Repository Preflight, frontend build/contracts, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release and required artifact uploads passed.
+- PR artifact evidence:
+  - runtime harness id `11109882625`, digest `sha256:dcc7f98b80353ac7ed409fe4731d6b761ef4be55098eeda93c6aed8aa63a47ae`;
+  - visual regression id `11109393729`, digest `sha256:e7f4a1663244a8078422a1fef3a5741cccaedc2ba21d3739b618dcfb84e5e003`.
+- Expected-head guarded squash merge produced source commit `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624`.
+- Resulting-main Windows CI #748 / run `36741939684` is **IN PROGRESS** on exact source commit `f7d6d995...`. Do not mark the reporting foundation slice complete or update M9 TODO checkboxes until #748 passes.
+- The slice is read-only: typed RFC3339 date range + optional list filter, closed work/break session projection, completed-task rows, EST, Time Taken from work sessions plus manual adjustment, archived history visibility and permanent-delete exclusion through existing cascade semantics.
+- No timer/session mutation, Focus/window, schema/migration or network behavior changed.
+
+#### Reports Overview visual foundation
+
+- PR #198 (`feat/m9-reports-overview-visual`) exact head: `cd819b19fbd61f8bc0a7d37f31cfd8ee8ae9771b`.
+- Windows CI #747 / run `36741833767` is **IN PROGRESS**.
+- This is frontend-only and deliberately not production-wired yet: reusable pure `ReportsOverviewView`, accessible Tasks/Breaks/Total chart/tooltip, four summary cards, productive hour/day/month cards, Time By List, Done Tasks/punctuality, list-filter and two-month date-picker states, reduced-motion CSS, plus light/dark Windows Edge fixtures.
+- PR #198 was branched before PR #197 merged. If #747 passes, reconcile current `main` into #198 before merge, then require exact-head Windows CI again; do not merge the stale-base head directly.
+- Fixture data remains fixture-only; no hardcoded report data enters production.
+
 
 ### Independent M8
 
