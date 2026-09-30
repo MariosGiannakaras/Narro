@@ -8,6 +8,7 @@ const capture = fs.readFileSync("scripts/capture-focus-runtime.mjs", "utf8");
 const nativeProbe = fs.readFileSync("scripts/read-focus-window-metadata.ps1", "utf8");
 const nativeCapture = fs.readFileSync("scripts/capture-focus-window.ps1", "utf8");
 const nativeSequence = fs.readFileSync("scripts/capture-focus-window-sequence.ps1", "utf8");
+const nativeMotionSampler = fs.readFileSync("scripts/sample-focus-window-motion.ps1", "utf8");
 const driver = fs.readFileSync("src/focusRuntimeVisualDriver.ts", "utf8");
 const rust = fs.readFileSync("src-tauri/src/lib.rs", "utf8");
 const validator = fs.readFileSync("scripts/validate-focus-runtime-captures.mjs", "utf8");
@@ -32,7 +33,11 @@ for (const required of ["CopyFromScreen", "GetWindowRgnBox", "Narro - Focus"]) {
 for (const required of ["CopyFromScreen", "FrameCount", "IntervalMs", "GetWindowRect", "ReadyFile"]) {
   invariant(nativeSequence.includes(required), `native transition sequence capture is missing ${required}`);
 }
+for (const required of ["SampleCount", "IntervalMs", "GetWindowRect", "ReadyFile", "elapsedMs"]) {
+  invariant(nativeMotionSampler.includes(required), `native motion sampler is missing ${required}`);
+}
 invariant(capture.includes("capture-focus-window-sequence.ps1"), "transition capture must use the single-process Win32 sequence probe");
+invariant(capture.includes("sample-focus-window-motion.ps1"), "transition capture must run a high-frequency Win32 geometry sampler");
 invariant(capture.includes("ack-") && capture.includes("sequence-ready.txt"), "capture harness must handshake with renderer checkpoints before state changes");
 for (const required of [
   "main_window_hide",
@@ -66,6 +71,8 @@ for (const required of [
   'presentation === "panel"',
   "native.region.height",
   "captured no native HWND movement",
+  "fewer than two intermediate native HWND positions",
+  "native HWND motion duration",
 ]) invariant(validator.includes(required), `runtime validator is missing ${required}`);
 
 const ciWindows = ciConfig.app?.windows ?? [];
