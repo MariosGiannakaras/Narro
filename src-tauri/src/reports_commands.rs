@@ -119,7 +119,11 @@ impl From<ReportHistorySnapshot> for ReportHistoryDto {
                 end_at: value.range.end_at,
                 list_id: value.range.list_id.map(|id| id.to_string()),
             },
-            sessions: value.sessions.into_iter().map(ReportSessionDto::from).collect(),
+            sessions: value
+                .sessions
+                .into_iter()
+                .map(ReportSessionDto::from)
+                .collect(),
             completed_tasks: value
                 .completed_tasks
                 .into_iter()
@@ -191,10 +195,10 @@ fn map_reporting_error(error: ReportingError) -> CommandError {
         ReportingError::EmptyOrReversedRange => {
             CommandError::invalid_argument("endAt", "must be later than startAt")
         }
-        ReportingError::Sqlite(_) => {
+        error @ ReportingError::Sqlite(_) => {
             CommandError::new("REPORT_HISTORY_READ_FAILED", error.to_string())
         }
-        _ => CommandError::new("REPORT_HISTORY_INVALID_STORED_DATA", error.to_string()),
+        error => CommandError::new("REPORT_HISTORY_INVALID_STORED_DATA", error.to_string()),
     }
 }
 
@@ -215,20 +219,20 @@ fn map_session_error(error: SessionStoreError) -> CommandError {
             "durationSeconds",
             "exceeds the supported local session range",
         ),
-        SessionStoreError::TaskNotFound(_) => {
+        error @ SessionStoreError::TaskNotFound(_) => {
             CommandError::new("REPORT_SESSION_TASK_NOT_FOUND", error.to_string())
         }
-        SessionStoreError::OpenSessionMutation(_) => {
+        error @ SessionStoreError::OpenSessionMutation(_) => {
             CommandError::new("REPORT_SESSION_LIVE", error.to_string())
         }
-        SessionStoreError::StaleVersion { .. }
-        | SessionStoreError::TimestampBeforePreviousUpdate => {
+        error @ (SessionStoreError::StaleVersion { .. }
+        | SessionStoreError::TimestampBeforePreviousUpdate) => {
             CommandError::new("REPORT_SESSION_STALE", error.to_string())
         }
-        SessionStoreError::NotFound(_) => {
+        error @ SessionStoreError::NotFound(_) => {
             CommandError::new("REPORT_SESSION_NOT_FOUND", error.to_string())
         }
-        _ => CommandError::new("REPORT_SESSION_MUTATION_FAILED", error.to_string()),
+        error => CommandError::new("REPORT_SESSION_MUTATION_FAILED", error.to_string()),
     }
 }
 
