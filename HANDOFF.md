@@ -47,35 +47,45 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 - No top-level M9 TODO item closes until command/UI/visual integration exists.
 - Durable evidence: `work-log/2026-09-30-chatgpt-m9-session-mutations-validation.md`.
 
-#### Overview aggregation — ACTIVE
+#### Overview aggregation — MERGED / RESULTING-MAIN VALIDATION PENDING
 
-- PR #199: `feat/m9-report-aggregation`.
-- Current reconciled exact head checkpoint: `a95bd0319b5b03cab6119af135243c8b1b1d6146`.
-- CI #753 first failed only rustfmt; CI #755 then reached tests and exposed a wrong fixture expectation: Tuesday had two focus sessions vs Monday one, so documented productive-day semantics require weekday-from-Monday `1`. The test was corrected, then current `main` was merged into the branch.
-- CI #759 / run `36750257383` is **IN PROGRESS**. Do not merge until exact-head PASS and current main tracking is reconciled again if main has advanced.
+- PR #199 exact validated head: `3deec9c056e8ea449d96a9c2b9ac8572d7fabf9d`.
+- Windows CI #770 / run `36756491555`: **PASS**.
+- #770 artifacts: runtime id `11117162224`, digest `sha256:81d64afba163055cddbfcead54ad9c1d8daa69e2d5729b79f3d48a0e41ce7d26`; visual id `11116946922`, digest `sha256:69b2fc2d7d727d525c318819ed281fccc5f217d388244f28c8d4be9bec8613ec`.
+- Expected-head guarded squash merge: `f165390da50879bb7ed9740da9033cce60132d6a`.
+- Resulting-main Windows CI is still **PENDING / NOT VALIDATED**. Do not count this slice complete or expose the aggregate command until that gate passes.
 
-#### Reports Overview visual foundation — ACTIVE / HARNESS-BLOCKED
+#### Reports Overview visual foundation — ACTIVE / EXACT-HEAD REVALIDATION
 
-- PR #198 exact source head checkpoint: `8039342e4a55ee21a83dbf20e9349fb103c5b1cc`.
-- Preflight/frontend/Rust passed, but CI #752 failed twice before any Reports capture because pre-existing `task-scheduling-light` did not expose its explicit ready marker within two hosted-Edge captures.
-- An unrelated later PR #200 visual run captured that same fixture successfully, confirming intermittent harness readiness rather than a scheduling or Reports source regression.
-- Scope remains fixture-only/presentational until production wiring: pure Overview view, summary cards, accessible Tasks/Breaks/Total chart+tooltip, productive cards, Time By List, Done Tasks/punctuality, list filter, date picker, reduced-motion CSS, light/dark captures.
-- Do not weaken Reports validation or merge #198 without actual Reports PNG/DOM artifact inspection.
+- PR #198 head `5d037bca0cb3ee109e618b902edaa246362819f7` passed Windows CI #768 / run `36756417062`.
+- Visual artifact id `11116733937`, digest `sha256:95c62588f6807cd8bcc181d2bf28be0d1cea855cc69bb4bf467e377cf605b5dd`; runtime artifact id `11116982150`, digest `sha256:62446c9dacd5ade6781b7c19a71a9880dcdf41842f2c9944a852f5ef08342fae`.
+- Mandatory artifact review inspected all eight Reports light/dark PNGs and captured DOM files. Overview, list-filter and date-picker states were visually present, but both `reports-lower-*.png` images failed to show the lower `Time By List` / `Done Tasks` panels even though the DOM contained them. #198 was therefore **not merged**.
+- Narrow fixture correction on the same branch now scrolls to the actual lower grid and publishes readiness only when the entire lower region is inside the viewport. Captured-DOM validation now requires `data-reports-lower-viewport-ready="true"`.
+- Final corrected head: `7d3ab9369043424a0c35fb441a46e462c17330d8`.
+- Windows CI #774 / run `36759587923` is **IN PROGRESS**. On PASS, download and inspect the fresh Reports PNG/DOM artifact again before merge.
+
+#### Report command/API boundary — RETRY IN PROGRESS
+
+- PR #202 exact head remains `5c4ad3c1c44b5155a82b51480c8d0c7d3de5171f`.
+- Windows CI #769 / run `36756461300` initially failed before report-specific validation because pre-existing `task-scheduling-dark` did not expose its strict ready marker after four hosted-Edge captures.
+- Repository preflight passed and no #202 source defect was established. Failed jobs were rerun without source changes; that rerun is **IN PROGRESS**.
+
+#### Sessions dashboard projection — EXACT-HEAD GREEN / UNMERGED
+
+- PR #203 exact head: `59b7b2713505bdea7cf2521eaebd5f2bf164fb17`.
+- Windows CI #771 / run `36756524757`: **PASS**.
+- Keep it unmerged until the already-merged #199 source checkpoint completes resulting-main validation, then guarded-merge #203 and validate resulting main before Sessions UI work.
 
 #### Visual readiness harness — VALIDATED / MERGED
 
 - PR #201 exact validated head: `61b4bf4b73a93b5166ce12255f86960ccb84bd5d`.
 - Windows CI #762 / run `36751993652`: **PASS**.
 - Guarded squash merge: `ff4627e8013c4bc6b30a79589b49a30cc5b09d22`.
-- Resulting-main CI #765 / run `36755450984`: **PASS**; validation gate reused the byte-identical already-validated PR tree and skipped duplicate build work.
+- Resulting-main Windows CI #765 / run `36755450984`: **PASS**; validation gate reused the byte-identical already-validated PR tree and skipped duplicate build work.
 - Strict ready-marker behavior is preserved; explicit-ready fixtures receive up to four bounded captures with retry-only backoff.
 - Durable evidence: `work-log/2026-09-30-chatgpt-visual-ready-harness-validation.md`.
-- Active branches were reconciled to this validated source before their next CI:
-  - PR #198 head `5d037bca0cb3ee109e618b902edaa246362819f7`, CI #768;
-  - PR #202 head `5c4ad3c1c44b5155a82b51480c8d0c7d3de5171f`, CI #769;
-  - PR #199 head `3deec9c056e8ea449d96a9c2b9ac8572d7fabf9d`, CI #770;
-  - PR #203 head `59b7b2713505bdea7cf2521eaebd5f2bf164fb17`, CI #771.
-- PR #204 was closed unmerged as a duplicate of the pre-existing authoritative PR #202.
+
+Durable checkpoint for the current parallel lanes: `work-log/2026-09-30-chatgpt-m9-parallel-ci774-checkpoint.md`.
 
 
 ### Independent M8
@@ -105,12 +115,11 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 
 ## NEXT AGENT ACTION
 
-1. Inspect live exact-head CI #768 (PR #198), #769 (PR #202), #770 (PR #199) and #771 (PR #203). Fix only evidence-backed failures; do not poll long builds repeatedly.
-2. On PR #198 PASS, download and visually inspect every Reports Overview light/dark PNG and captured DOM before guarded merge. The validated #201 harness must remain in the tree.
-3. On PR #202 PASS, guarded-merge the exact command/API head and validate resulting main before considering report history/session mutations renderer-accessible.
-4. On PR #199 PASS, guarded-merge the exact aggregation head and validate resulting main before exposing Overview aggregates through renderer commands.
-5. On PR #203 PASS, guarded-merge the Sessions projection and validate resulting main before building the Sessions UI.
-6. Keep PR #192 at automated-green head `0ef80844...` until physical Windows access returns; Gate 7/Gate 12 remain open.
+1. Inspect the resulting-main Windows CI for merge `f165390d...`; record exact PASS/failure evidence before treating #199 as validated.
+2. Inspect #774 on PR #198 final head `7d3ab936...`. On PASS, download the new visual artifact and verify both lower light/dark PNGs visibly contain `Time By List` and `Done Tasks`, while rechecking the other Reports states. Merge only after that artifact review passes.
+3. Inspect the #769 rerun on PR #202. Fix source only if the rerun exposes an evidence-backed #202 defect; on PASS, guarded-merge the exact head and validate resulting main.
+4. After #199 resulting-main validation is complete, guarded-merge PR #203 exact head `59b7b271...` and validate resulting main before Sessions UI work.
+5. Keep PR #192 at automated-green head `0ef80844...` until physical Windows access returns; Gate 7/Gate 12 remain open.
 
 ## USER ACTION REQUIRED
 
