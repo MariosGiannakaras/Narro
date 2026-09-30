@@ -1,0 +1,22 @@
+@keyframes narro-timed-alert-flash {
+  0%,
+  100% {
+    color: inherit;
+    text-shadow: none;
+  }
+
+  45% {
+    color: var(--color-accent-solid);
+    text-shadow: 0 0 0.625rem var(--color-accent-solid);
+  }
+}
+
+.timed-alert-flash--active {
+  animation: narro-timed-alert-flash 560ms var(--motion-ease-enter) 1 both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timed-alert-flash--active {
+    animation: none !important;
+  }
+}
