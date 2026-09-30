@@ -53,10 +53,16 @@ function checkpointPath(phase) {
 async function waitCheckpoint(phase, timeoutMs = 15000) {
   return waitUntil(`Focus runtime checkpoint ${phase}`, () => {
     const file = checkpointPath(phase);
-    if (!fs.existsSync(file)) return null;
-    const payload = JSON.parse(fs.readFileSync(file, "utf8"));
-    if (payload.error) throw new Error(payload.error);
-    return payload;
+    if (fs.existsSync(file)) {
+      const payload = JSON.parse(fs.readFileSync(file, "utf8"));
+      if (payload.error) throw new Error(payload.error);
+      return payload;
+    }
+    if (phase !== "complete" && fs.existsSync(checkpointPath("complete"))) {
+      const complete = JSON.parse(fs.readFileSync(checkpointPath("complete"), "utf8"));
+      if (complete.error) throw new Error(complete.error);
+    }
+    return null;
   }, timeoutMs);
 }
 
