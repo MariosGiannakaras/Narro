@@ -428,7 +428,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** RISK-F009 is automated/main-validated through PR #206 exact-head CI #784 and resulting-main CI #785 at source SHA `4f48941939fa5114e100992280b9ea96540f0df8`. The active corrective work is now the reconciled PR #192 single-`focusSurface` candidate with B5 (`Blitz now -> Focus Panel`) and B6 (Ctrl+Shift+T only during authoritative active Focus execution). Reconcile the prepared source tree onto current docs-only main truth, require fresh exact-head Windows CI, review artifacts, then run the physical active-session Gate 7 / real mixed-DPI Gate 12 matrix before merge/reclosure.
+**Current execution priority:** PR #192 exact head `dce6933ff7a777c837822f7a5a83c37d47434e07` is automated-green through Windows CI #787 and mandatory artifact review is clean. RISK-F009 is validated on main; B5/B6 are automated-validated in the reconciled M7 candidate. The only remaining acceptance gate before final docs reconciliation/merge is physical Gate 7/Gate 12 on exact runtime harness artifact `11129693452`: one Narro process, active session continuity, repeated Panel↔Timer and Expand↔Collapse, B5/B6 behavior, no visual staging/stale/scrollbar defects, and real 100%↔125% monitor/edge/topology recovery. Do not merge #192 from automated evidence alone.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
