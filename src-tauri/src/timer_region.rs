@@ -272,7 +272,6 @@ mod tests {
         );
     }
 
-
     #[test]
     fn timer_region_matches_supported_dpi_matrix() {
         let cases = [
