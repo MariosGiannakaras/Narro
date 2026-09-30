@@ -669,3 +669,13 @@ The exact `12707c0` binary was then physically recorded at 60 fps with Windows a
 - Main artifacts: visual `11093782878`, digest `sha256:d822baa8ca1fc0f07ea8499721e28548359bac22d5196158e563accd06a75d01`; runtime `11093233909`, digest `sha256:51a9ba88c92ea36b8619df7b47ccd0dc9351ec213a202ffa898a7a02a90df433`.
 - Schedule read-only presentation now routes through the existing default-locale `Intl.DateTimeFormat` contract, so Windows locale and OS 12/24-hour convention own visible date/time formatting.
 - General roadmap remains 4/10; this closes an independent M8 Preferences sub-item only.
+
+
+## 2026-09-30 — M7 packaged-runtime native capture checkpoint (in progress)
+
+- PR #192 current branch head at this checkpoint: `fe5224fd3794a13b693490a9bb1a9ddf953c8391`.
+- #718/#720 proved the packaged executable builds/starts but hosted-runner WebView2 CDP discovery remains unreachable; no product defect was established by those failures.
+- The replacement harness removes CDP from capture transport. CI-only `focus.html?runtimeVisual=1` drives the existing production presentation commands; an environment-gated Rust checkpoint command writes DOM/presentation snapshots only when `NARRO_FOCUS_CAPTURE_DIR` is present; Win32 probes capture the actual Focus HWND, DPI/geometry and 20-frame transition sequences.
+- The transition sequence uses one PowerShell process to avoid missing the ~250ms native motion to process startup overhead.
+- This checkpoint is **NOT VALIDATED YET**. CI #732 is running on parent head `553a88f0...`; exact-head CI for `fe5224f...` is still required, followed by artifact PNG/metadata inspection.
+- Physical Gate 7/Gate 12 remain open and unavailable.
