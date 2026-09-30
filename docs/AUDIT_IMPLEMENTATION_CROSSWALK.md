@@ -68,6 +68,8 @@ Disposition values:
 | B2 | Exact Blitz-now placement fidelity | M10 final visual parity | **ROUTED_M10** |
 | B3 | Exact swatch/palette fidelity | M10 final visual parity | **ROUTED_M10** |
 | B4 | Done auto-start-next behavior | M8 success flow | **PARTIAL / AMBIGUOUS** — success-screen-enabled path validated; disabled path unproven |
+| B5 | `Blitz now` must enter/open Focus Panel; PR #192 preserves an already-visible Floating Timer instead | M7 corrective semantics | **FIX_NOW** — direct source/video evidence and original M6 contract all require Focus Panel entry; the replacement test currently encodes the wrong preservation behavior |
+| B6 | Ctrl+Shift+T can expose an idle Floating Timer with no active task | M7 semantic validation | **VALIDATION_OPEN** — source defines the shortcut during Blitz Mode and Floating Timer as task+countdown; prior Narro also allowed the idle toggle, so do not label it a new PR #192 regression without explicit closure |
 
 Audit section-C intentional Narro deviations remain binding unless newer explicit evidence/user direction supersedes them.
 
@@ -123,6 +125,8 @@ Unresolved video ambiguities remain explicit:
 | UX-F011 | Schedule/recurrence footer uses secondary Cancel + primary gradient action | Narro combined Schedule/Repeat dialog preserves the secondary Cancel + gradient primary hierarchy without splitting state authority | **VALIDATED NARRO ADAPTATION** — PR #182 visual fixtures / CI #617 |
 | UX-F012 | Reports hierarchy: four metrics → main chart → secondary panels | M9 | **ROUTED_M9** |
 | UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **ROUTED_M9** |
+| UX-F014 | Main first paint exposes blank/washed/dark staging before Home settles | M10 final quality pass | **ROUTED_M10** — visible in the 2026-09-30 CI #744 physical recording; not established as an M7 source regression |
+| UX-F015 | Global shortcut registration failures render as large persistent error cards inside ordinary Home content | M8 shortcut UX / M10 final review | **ROUTED_M8** — conflict must remain visible/retryable, but presentation should be contextual rather than diagnostic-like application content |
 
 ## 5. Reliability/history findings
 
@@ -136,6 +140,7 @@ Unresolved video ambiguities remain explicit:
 | RISK-F006 | Monitor hotplug source restart requirement | Event-driven topology recovery | **IMPLEMENTED**, physical M7/M10 open |
 | RISK-F007 | Surprise implicit timer start on fresh app launch | Fresh startup must not create/start a focus session without explicit user action; recovery may only restore an existing durable checkpoint under the validated M3 recovery policy | **VALIDATION_OPEN** — current startup/Focus/shortcut contracts expose no intended implicit-start path, but no dedicated fresh-start regression was located; close before final M10 reliability acceptance |
 | RISK-F008 | Live-task Notes/title metadata edit disturbs timer/session | Opening, editing and saving Notes/title must preserve live task/session identity and authoritative elapsed/accounting; EST/Time Taken edits remain restricted to the validated paused-runtime boundaries | **VALIDATION_OPEN** — functional Notes/title editing and paused metric safety are validated, but no dedicated integrated running-session continuity regression was located; close before final M10 reliability acceptance |
+| RISK-F009 | Multiple Narro processes can coexist against the same local SQLite/background runtime and contend for global shortcuts | M1/M7 runtime foundation | **FIX_NOW** — CI #744 physical recording shows simultaneous T/P shortcut ownership conflicts and the app has no single-instance enforcement; second launch must not create an independent competing runtime |
 
 ## 6. Active M8 audited runtime tasks
 
@@ -183,6 +188,7 @@ CI #624 physical Windows evidence is in `work-log/2026-09-28-codex-m7-ci624-phys
 | M7-PHYS-01 | Panel↔Timer visual continuity: old opaque/transparent host-tail defects are fixed, but #684 cross-monitor motion remained visually drag-like | M7 visual continuity | **IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN** — exact PR #192 head `63bb20e9c32dcaffacf96c3bd5a6c52e9114b257` replaces linear native stepping with finite Fluent point-to-point `cubic-bezier(0.55, 0.55, 0, 1)` easing aligned with renderer motion. Windows CI #708 passes; physical transition character remains unobserved on this head. See `work-log/2026-09-30-chatgpt-m7-ci708-overflow-dpi-easing.md`. |
 | M7-PHYS-02 | Mixed-DPI movement/recovery: #684 compact Timer visible-region DPI could lag the renderer during manual crossing | M7 topology/DPI | **IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN** — exact #708 head refreshes the Timer native visible region from incoming interactive `WM_DPICHANGED` DPI immediately, while full host-size/position recovery stays deferred until `WM_EXITSIZEMOVE`. Windows CI #708 passes; 100%↔125% physical confirmation remains open. |
 | M7-PHYS-03 | Settled compact/expanded Timer exposed a browser scrollbar and crowded right-edge controls in #684 | M7 layout/overflow | **IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN** — exact #708 head locks `:root/html/body/#root` to `overflow: hidden` in the Focus document while intentional component-level scroll containers remain enabled. Windows CI #708 passes; settled physical scrollbar absence remains open. |
+| M7-PHYS-04 | CI #744 physical run cannot establish exact-candidate Focus ownership because both Narro T/P global chords were already owned elsewhere and Narro has no single-instance guard | M1/M7 runtime validity | **FIX_NOW** — recording SHA-256 `eb3b862d58f69b1000f665d35dd52bf4d0703bfc1dda80f92c759de9c4809a1b`; do not promote observed idle transitions to Gate 7 PASS until one-runtime ownership is enforced and a fresh exact artifact is retested |
 
 These findings concern the active M7 replacement. The #684 reassessment remains the physical evidence for the defects; exact PR #192 head `63bb20e9c32dcaffacf96c3bd5a6c52e9114b257` implements and automated-validates their narrow corrections in Windows CI #708. Physical acceptance is unavailable, so all three rows remain open rather than VALIDATED. No architecture reset or second Timer WebView is justified. The materially affected M1 Gate A items, M6 Gate F integration items, M7 host-dependent items and M8 Focus-shortcut items remain reopened. PREF-R01 and unaffected M8 settings/persistence work remain validated.
 
