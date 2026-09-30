@@ -354,6 +354,7 @@ export function FloatingTimerFoundation({
               data-floating-live-timer="true"
               data-floating-live-timer-mode={liveTimer?.mode ?? "none"}
               data-timer-numerals="true"
+              data-timed-alert-flash-task-id={liveTaskId ?? undefined}
               data-tauri-drag-region="true"
               aria-label={liveTimer?.label ?? "Timer unavailable"}
               aria-live="off"

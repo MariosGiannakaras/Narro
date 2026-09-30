@@ -8,82 +8,25 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 **Milestone 1 — reopened Windows/Focus foundation, driven by the M7 single-Focus corrective program.**
 
-**Current corrective direction, 2026-09-30:** retain one persistent nominal
-340×700 logical px `focusSurface` HWND/WebView with one React root/coordinator.
-Exact CI #679 physical evidence proved two residual transient sequencing defects:
-a transparent full-height host/outline during Panel→Timer and a stale clipped
-viewport/browser scrollbar flash on cross-DPI Timer→Panel.
+Current roadmap counters remain **4/10 milestones complete**, active small slice **2/5**, and reopened M1 **11/19** top-level items validated. No counter advances from the latest CI or research reconciliation.
 
-**Current PR #192 checkpoint:** exact current head
-`473af660566970ad4499eceda618abb8042f5f19` passed Windows CI #695 / run
-`36680495272`. Repository Preflight, frontend contracts/build, Rust
-fmt/check/clippy/tests, performance-harness self-test, Windows visual regression,
-reused frontend-dist verification, Tauri release and required artifact uploads
-all passed. Runtime artifact id `11082430041`, digest
-`sha256:0d1affdbbfd6beec4b9127190e4e9887a4ea6a516f683cf89276cdf135bede95`;
-visual artifact id `11081437955`, digest
-`sha256:e9bb288b980ed68d9f311f4fa602781a21bdcddb13e0ac06b6bd3e3648455f38`.
+PR #192 remains the active replacement implementation on `plan/m7-single-focus`. Its current exact head is `12ec6471c2d2d63470c5ecab08ebc65748fc1e42`. Windows CI #718 / run `36695046828` **FAILED** only in the newly added packaged Focus runtime visual-capture step. Repository Preflight, frontend contracts/build, Rust fmt/check/clippy/tests, performance-harness self-test, Windows visual regression, reused frontend dist, and Tauri release all passed. The failing step timed out after 20 seconds waiting for WebView2 DevTools targets with `TypeError: fetch failed`. The uploaded `narro-m7-focus-runtime-visual` artifact (id `11088098271`, digest `sha256:1d7f00558925f2e67893b70019c660d88d19d747556b6684abd17aadec251b07`) is diagnostic failure evidence, not accepted screenshots. The normal visual-regression artifact (id `11087997897`, digest `sha256:cd9618282b7f01c950b6413ffb5d07064e030321f201a1203a0244b8a823751e`) was produced successfully.
 
-The runtime implementation is unchanged from the #693 automated-green hardening;
-the only non-Markdown delta after #693 is a stricter static contract rejecting
-direct Focus-position mutation outside the shared WebView2-aware helper. #695
-therefore revalidates the full current PR head rather than introducing another
-behavior change.
+The last automated-green PR #192 source checkpoint remains head `63bb20e9c32dcaffacf96c3bd5a6c52e9114b257` / Windows CI #708. That checkpoint implements the #684 video-reconfirmed document-overflow, interactive mixed-DPI visible-region, and linear-motion corrections. Physical Gate 7/Gate 12 remain open because the Windows test environment is unavailable.
 
-**Corrected #684 physical interpretation:** a frame-by-frame reassessment found three additional defects that the earlier review missed. The Timer shows a persistent Narro/WebView vertical document scrollbar in settled compact and expanded states; a 125%→100% manual drag briefly leaves the native compact visible height at ~138 px after renderer width/scale has moved toward the 100% target, then settles to ~110 px; and Panel→Timer crosses roughly 3250 physical px in ~0.27 s using linear native position steps, which produces a drag/fly visual character. These findings are recorded in `work-log/2026-09-30-chatgpt-m7-ci684-video-reassessment.md`. The #695 hardening does not touch Focus document overflow or motion interpolation, so these defects must not be treated as fixed by CI #695.
+Independent M8 progress:
+- PREF-R02 finite reduced-motion-safe timer flash is **VALIDATED / MERGED** via PR #193 exact head `2413de4f0e02daf829ffc753ca70b48a1e11712e`, Windows CI #714, and main source commit `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`. All eight changed blobs match the validated PR head.
+- PREF-R06 PR #194 is open with CI #713 PASS.
+- PREF-R03 PR #195 is open with CI #715 PASS.
+Open green PRs are not counted complete until merge/current-main reconciliation.
 
-The latest physical evidence is still the exact #684 recording
-`2026-09-30 02-02-23.mp4` (SHA-256
-`72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`).
-It clears both #679 defect signatures: Panel→Timer no longer exposes the
-transparent full-height host, and cross-DPI Timer→Panel no longer exposes a
-stale Narro/WebView viewport or browser scrollbars. Correct 125% Timer geometry
-and uninterrupted `fas` session time are preserved. The recording is formally
-short of the strict protocol by one complete Panel→Timer→Panel cycle, one
-complete Expand→Collapse cycle, and the 100%→125% drag direction.
-
-Because the user currently has no access to that Windows system, a supplemental
-physical run is unavailable. The #693/#695 hardening therefore addresses the
-remaining programmatic weakness instead of inventing a physical PASS:
-all Narro-initiated Focus/Timer parent HWND moves now explicitly call WebView2
-`NotifyParentWindowPositionChanged()` through one shared helper; Tauri is
-pinned to `~2.11.5` for the native `with_webview` API; and transition
-coverage includes rollback failures plus 250 repeated deterministic
-Panel↔Timer cycles. The existing physically clean bounded 50 ms cross-DPI
-clipped-settle guard is retained.
-
-CI #691 failed only rustfmt and CI #692 only two borrow-shape compile errors;
-both were corrected before #693. CI #695 is the current exact-head revalidation
-and is fully PASS. None of those earlier failures was behavioral. See
-`work-log/2026-09-30-chatgpt-m7-programmatic-hardening-ci693.md` and
-`work-log/2026-09-30-chatgpt-m7-online-audit-ci695.md`.
-
-No roadmap/current-slice counter advances from this automated hardening alone.
-Gate 7 + Gate 12 are **OPEN / CORRECTIVE**. Physical revalidation is currently unavailable, but the #684 recording itself now supplies evidence-backed defects that require source correction before the candidate can return to an automated-green waiting state.
-The corrective dependency chain is M1 foundation → M6 Focus integration → M7
-Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
-settings/persistence remain outside the rewrite. PR #191 is **closed unmerged**;
-its split-window composition is superseded historical evidence, not a merge candidate.
-
-- Milestone 1 / Gate A: **REOPENED / 11 of 19 top-level items currently validated**. Exact-head CI now validates the two-window replacement composition and consolidated Focus-only production entry; interactive presentation/topology, performance and physical acceptance items remain open.
-- Milestone 2 / Gate B: **PASS**.
-- Milestone 3 / Gate C: **PASS**.
-- Milestone 4 / Gate D: **PASS**.
-- Milestone 5 / Gate E: **PASS**.
-- Milestone 6 / Gate F: **REOPENED / 15 of 18 top-level items currently validated**. Placement/topology plus complete Focus Panel integration on the new host require replacement-code validation.
-- Milestone 7: **OPEN / 1 of 15 top-level items currently validated**. Host/presentation/placement/shortcut/performance-dependent items are reopened; Gate 7 and Gate 12 remain open.
-- Milestone 8: **PARTIAL / 3 of 8 top-level items currently validated**. Focus shortcut routing and Start Break are reopened because the integration target changes; unaffected settings work remains validated.
-- Milestones 9–10: **NOT STARTED**.
-
-General roadmap progress: **4 of 10 milestones currently complete**.
-
-This reduction is intentional and evidence-based, not loss of historical work. M1 and M6 were previously completed on the superseded Focus implementation, and their work logs remain valid historical evidence. Because the replacement changes implementation that materially supported those gates, affected items are reopened until validated on the replacement. A direct dependency was also found in M8 shortcut routing, so only those M8 items are reopened. M2–M5 remain complete because no direct dependency has been identified.
-
-**Historical CI #530 physical checkpoint:** three settled Panel→Timer→Panel shortcut cycles retained one Focus window and the paused task, but continuous capture with Windows animations On showed a pale empty focus frame and then the desktop before Timer appeared. This was an earlier Gate 7 FAIL and is retained only as historical evidence; CI #624 and the later PR #191 experiments provide newer pre-replacement evidence. The checked #530 frames and provenance remain in `work-log/2026-09-26-codex-m7-ci530-panel-timer-physical-fail.md`.
+Deep Blitzit reliability reconciliation added two explicit no-orphan obligations: `RISK-F007` (no implicit fresh-launch timer start) and `RISK-F008` (Notes/title edits preserve a running session). These are validation gaps rather than reproduced defects and are routed to deterministic regression coverage before final M10 reliability acceptance.
 
 ## Current validated application source baseline
 
-The current validated **merged application source baseline** is `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624), as recorded in `HANDOFF.md`. PR #191 remains closed historical evidence. The active PR #192 corrected head `44119dbe829131d38f56fd35250142ed973b2574` passed Windows CI #674 but then physically failed Gate 7 and Gate 12, so it does **not** replace the merged validated baseline. Continue the same PR with the exact-build corrective scope recorded in `HANDOFF.md`.
+The fully merged/physically accepted application-source baseline for the reopened M1/M6/M7 replacement acceptance chain remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624). PR #192 is still unmerged and its current head failed CI #718 in the new packaged-runtime capture harness, so it cannot replace that baseline.
+
+PREF-R02 is independently merged and automated-validated through PR #193 / CI #714 / main source commit `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`; its eight changed source/test blobs are identical to the exact validated PR-head blobs. This independent M8 merge does not close the reopened M1/M6/M7 physical acceptance chain.
 
 ## Repository documentation/process policy — 2026-09-29
 
