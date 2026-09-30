@@ -99,12 +99,13 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. PR #192 exact head `dce6933ff7a777c837822f7a5a83c37d47434e07` is automated-green through Windows CI #787 / run `36786367870`. Mandatory artifact review is clean. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci787-artifact-review.md`.
-2. The exact physical-test artifact is runtime harness id `11129693452`, digest `sha256:0f708660fd9449e3239af6d89932790df188d4f5a23152c6c22c20e9037578f3`. Prefer direct `narro.exe` for validation so installer behavior is not another variable.
-3. Await/record physical Gate 7 + Gate 12 evidence on that exact artifact: one Narro process, active task/session, repeated Panel↔Timer + Expand↔Collapse, B5 visible Timer→Blitz→Panel, B6 idle/no-task shortcut no-op, no staging/white/stale/scrollbar defects, and real 100%↔125% monitor/edge/topology recovery.
-4. If physical PASS, reconcile latest docs-only main tracking into #192 without changing executable/source blobs, run one final exact-head Windows CI, expected-head guarded merge #192, then resulting-main Windows CI.
-5. Only after resulting-main PASS reconcile/reclose the affected M1/M6/M7/M8 items. M9 state remains preserved (#198 accepted/unmerged; #203 validated/merged; #205 failure pending after M7).
+1. Inspect PR #192 exact head `c77ece58439753d92ab486d1ebb3a43605efbbd3`, Windows CI #789 / run `36791787553`. The CI787 physical recording reopened M7 with three evidence-backed defects; durable audit: `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`.
+2. Commit `6972c4e0...` fixes Timer semantics: expanded active Timer keeps task/title/live time; Find Timer requires authoritative non-Idle + task binding; settled idle/no-task Timer normalizes to Panel; packaged runtime visual harness now creates a real persisted active task/session before exercising Timer.
+3. Commit `c77ece58...` fixes cross-window stale projection: best-effort `board-data-invalidated` is emitted after authoritative task/subtask/schedule/timer mutations, and Main ListBoard, Focus Panel and Home re-read SQLite authority with stale-response guards.
+4. On #789 FAIL, inspect exact failure and fix only evidence-backed issues. On PASS, fetch/review fresh visual/runtime artifacts. The fresh packaged runtime artifact must visibly retain task/time in expanded Timer and prove an active timer/session rather than an idle placeholder.
+5. Only after clean artifact review issue a fresh physical build. Retest one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle T/P no-op, cross-window board sync, fullscreen topmost, drag/save/restart and real 100%↔125% Gate 12.
+6. Do not merge #192 until physical PASS. After physical PASS reconcile latest docs-only main without changing source blobs, run final exact-head CI, guarded merge, resulting-main CI, then reconcile reopened M1/M6/M7/M8 tracking.
 
 ## USER ACTION REQUIRED
 
-Physical Windows validation is now required on the exact CI #787 artifact. Use `narro.exe` from runtime harness artifact `11129693452`. Record failures precisely; do not merge #192 from automated evidence alone.
+None while CI #789 is running. Do not request another physical run until #789 passes and the fresh artifacts are reviewed.
