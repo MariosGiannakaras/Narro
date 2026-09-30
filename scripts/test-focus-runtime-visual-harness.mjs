@@ -59,7 +59,9 @@ for (const required of [
 
 const ciWindows = ciConfig.app?.windows ?? [];
 invariant(ciWindows.length === 2, "CI config must preserve both production window definitions when overriding the windows array");
+const mainWindow = ciWindows.find((window) => window.label === "main");
 const focusWindow = ciWindows.find((window) => window.label === "focusSurface");
+invariant(mainWindow?.url === "index.html", "CI config must preserve the production Main document URL");
 invariant(
   focusWindow?.url === "focus.html?runtimeVisual=1",
   "CI-only Focus URL must activate the native packaged visual driver",
