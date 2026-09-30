@@ -21,6 +21,7 @@ pub mod recurrence;
 pub mod recurrence_service;
 pub mod reminder_acceptance;
 pub mod reminder_service;
+pub mod report_commands;
 pub mod reporting;
 pub mod scheduling;
 pub mod shortcut_settings;
@@ -1529,6 +1530,10 @@ pub fn run() {
             theme_settings::set_theme_preference,
             preference_settings::get_preference_settings,
             preference_settings::update_preference_settings,
+            report_commands::get_report_history,
+            report_commands::create_manual_report_session,
+            report_commands::edit_report_session,
+            report_commands::delete_report_session,
             toggle_timer,
             mutate_state,
             send_test_notification,
