@@ -70,15 +70,20 @@ function validateTransition(name, startPresentation, endPresentation) {
   invariant(fs.existsSync(contractPath), `${name}/frames.json is missing`);
   const contract = JSON.parse(fs.readFileSync(contractPath, "utf8"));
   invariant(Array.isArray(contract.frames) && contract.frames.length >= 10, `${name} has too few captured frames`);
-  const observed = contract.frames.map((frame) => frame.dom?.presentation).filter(Boolean);
-  invariant(observed.includes(startPresentation), `${name} never captured ${startPresentation}`);
+  invariant(contract.start?.presentation === startPresentation, `${name} did not start in ${startPresentation}`);
   invariant(contract.settled?.presentation === endPresentation, `${name} did not settle in ${endPresentation}`);
+  invariant(contract.start?.unintendedScrollers?.length === 0, `${name} start exposed document/root overflow`);
+  invariant(contract.settled?.unintendedScrollers?.length === 0, `${name} settled state exposed document/root overflow`);
+  invariant(contract.start?.visibleTextLength > 0 && contract.settled?.visibleTextLength > 0, `${name} rendered no visible text`);
+  const positions = [];
   for (const frame of contract.frames) {
     const size = pngSize(path.join(directory, frame.fileName));
     invariant(size.width === 340 && size.height === 700, `${name}/${frame.fileName} must be 340x700`);
-    invariant(frame.dom?.unintendedScrollers?.length === 0, `${name}/${frame.fileName} exposed document/root overflow`);
-    invariant(frame.dom?.visibleTextLength > 0, `${name}/${frame.fileName} has no rendered text`);
+    invariant(frame.native?.visible === true, `${name}/${frame.fileName} Focus HWND is not visible`);
+    invariant(Number.isFinite(frame.native?.window?.x) && Number.isFinite(frame.native?.window?.y), `${name}/${frame.fileName} is missing HWND position`);
+    positions.push(`${frame.native.window.x},${frame.native.window.y}`);
   }
+  invariant(new Set(positions).size >= 2, `${name} captured no native HWND movement`);
 }
 
 invariant(fs.existsSync(outputDirectory), `output directory is missing: ${outputDirectory}`);
