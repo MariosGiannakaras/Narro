@@ -41,6 +41,7 @@ function runtimeSnapshot() {
     floatingExpanded: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-expanded") ?? null,
     floatingRegionExpanded: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-region-expanded") ?? null,
     visibleTextLength: (document.body?.innerText ?? "").trim().length,
+    prefersReducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     unintendedScrollers,
   };
 }
