@@ -60,6 +60,7 @@ invariant(
     && focusWebview.includes("NotifyParentWindowPositionChanged()")
     && focusWebview.includes(".set_position(")
     && placement.includes("crate::focus_webview::set_physical_position(")
+    && !setFocusPosition.includes(".set_position(")
     && !placement.includes(".set_position(")
     && cargoToml.includes('tauri = { version = "~2.11.5", features = ["tray-icon"] }'),
   "all programmatic Focus/Timer parent moves must notify WebView2 and native-handle access must pin the Tauri minor",
