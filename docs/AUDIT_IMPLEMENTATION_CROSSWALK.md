@@ -69,7 +69,7 @@ Disposition values:
 | B3 | Exact swatch/palette fidelity | M10 final visual parity | **ROUTED_M10** |
 | B4 | Done auto-start-next behavior | M8 success flow | **PARTIAL / AMBIGUOUS** — success-screen-enabled path validated; disabled path unproven |
 | B5 | `Blitz now` must enter/open Focus Panel; PR #192 preserves an already-visible Floating Timer instead | M7 corrective semantics | **FIX_NOW** — direct source/video evidence and original M6 contract all require Focus Panel entry; the replacement test currently encodes the wrong preservation behavior |
-| B6 | Ctrl+Shift+T can expose an idle Floating Timer with no active task | M7 semantic validation | **VALIDATION_OPEN** — source defines the shortcut during Blitz Mode and Floating Timer as task+countdown; prior Narro also allowed the idle toggle, so do not label it a new PR #192 regression without explicit closure |
+| B6 | Ctrl+Shift+T can expose an idle Floating Timer with no active task | M7 corrective semantics | **FIX_NOW** — current first-party Windows shortcut + Blitz Mode guides explicitly scope the toggle to Blitz Mode and define Floating Timer as current-task/countdown presentation; idle/no-task toggle must be a presentation no-op without timer/session mutation |
 
 Audit section-C intentional Narro deviations remain binding unless newer explicit evidence/user direction supersedes them.
 
