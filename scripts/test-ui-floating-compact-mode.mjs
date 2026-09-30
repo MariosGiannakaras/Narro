@@ -64,6 +64,10 @@ invariant(
   "compact Timer hierarchy markers are missing",
 );
 invariant(
+  foundation.includes("data-timed-alert-flash-task-id={liveTaskId ?? undefined}"),
+  "Floating Timer must preserve the validated PREF-R02 authoritative task-id flash target",
+);
+invariant(
   foundation.includes("onReturnToPanel={onReturnToPanel}")
     && actions.includes('action="return-to-panel"')
     && foundation.includes('aria-label="Return to Focus Panel"'),
