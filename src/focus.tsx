@@ -5,6 +5,7 @@ import { listen } from "@tauri-apps/api/event";
 import "./App.css";
 import "./focusDocument.css";
 import { FocusSurfaceCoordinator } from "./FocusSurfaceCoordinator";
+import { startFocusRuntimeVisualDriver } from "./focusRuntimeVisualDriver";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { TimedAlertFlashRuntime } from "./TimedAlertFlashRuntime";
 import { TimerSessionProjection } from "./TimerSessionProjection";
@@ -111,7 +112,10 @@ function FocusDiagnostics() {
   );
 }
 
-const diagnostics = new URLSearchParams(window.location.search).get("diagnostics") === "1";
+const searchParams = new URLSearchParams(window.location.search);
+const diagnostics = searchParams.get("diagnostics") === "1";
+const runtimeVisual = searchParams.get("runtimeVisual") === "1";
+if (runtimeVisual && !diagnostics) startFocusRuntimeVisualDriver();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
