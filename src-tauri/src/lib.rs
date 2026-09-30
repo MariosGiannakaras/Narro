@@ -1192,6 +1192,45 @@ fn apply_focus_surface_presentation_internal(
 }
 
 #[tauri::command(rename_all = "camelCase")]
+fn focus_runtime_capture_checkpoint(phase: String, snapshot: String) -> CommandResult<()> {
+    let output_directory = std::env::var_os("NARRO_FOCUS_CAPTURE_DIR").ok_or_else(|| {
+        CommandError::new(
+            "FOCUS_RUNTIME_CAPTURE_DISABLED",
+            "packaged Focus runtime capture is not enabled",
+        )
+    })?;
+    if !matches!(
+        phase.as_str(),
+        "panel"
+            | "panel-to-timer-start"
+            | "timer-compact"
+            | "timer-expanded"
+            | "timer-to-panel-start"
+            | "panel-returned"
+            | "complete"
+    ) {
+        return Err(CommandError::new(
+            "FOCUS_RUNTIME_CAPTURE_INVALID_PHASE",
+            "unsupported packaged Focus runtime capture phase",
+        ));
+    }
+    let directory = std::path::PathBuf::from(output_directory);
+    std::fs::create_dir_all(&directory).map_err(|error| {
+        CommandError::new(
+            "FOCUS_RUNTIME_CAPTURE_WRITE_FAILED",
+            format!("could not create capture directory: {error}"),
+        )
+    })?;
+    let path = directory.join(format!("checkpoint-{phase}.json"));
+    std::fs::write(&path, snapshot).map_err(|error| {
+        CommandError::new(
+            "FOCUS_RUNTIME_CAPTURE_WRITE_FAILED",
+            format!("could not write {}: {error}", path.display()),
+        )
+    })
+}
+
+#[tauri::command(rename_all = "camelCase")]
 fn focus_surface_apply_presentation(
     app_handle: tauri::AppHandle,
     presentation: String,
@@ -1732,6 +1771,7 @@ pub fn run() {
             focus_surface_hide,
             focus_surface_focus,
             focus_surface_presentation_snapshot,
+            focus_runtime_capture_checkpoint,
             focus_surface_apply_presentation,
             focus_surface_animate_presentation,
             focus_surface_mode_snapshot,
