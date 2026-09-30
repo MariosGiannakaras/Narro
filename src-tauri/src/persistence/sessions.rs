@@ -659,6 +659,7 @@ mod tests {
     use crate::domain::tasks::NewTaskInput;
     use crate::persistence::lists::{archive_list, create_list};
     use crate::persistence::run_migrations;
+    use crate::persistence::task_metadata::task_time_taken_seconds;
     use crate::persistence::tasks::{complete_task, create_task};
 
     const T0: &str = "2026-09-04T10:00:00Z";
@@ -861,6 +862,48 @@ mod tests {
         let remaining = sessions_for_task(&conn, task_id).unwrap();
         assert_eq!(remaining.len(), 1);
         assert_eq!(remaining[0].id, second.id);
+    }
+
+    #[test]
+    fn closed_session_edit_and_delete_reconcile_authoritative_time_taken_from_ledger() {
+        let (mut conn, task_id) = fixture();
+        let first = create_manual_work_session(
+            &mut conn,
+            task_id,
+            T0,
+            T1,
+            60,
+            T1,
+        )
+        .expect("create first manual session");
+        let second = create_manual_work_session(
+            &mut conn,
+            task_id,
+            T1,
+            T2,
+            120,
+            T2,
+        )
+        .expect("create second manual session");
+
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 180);
+
+        let edited = edit_closed_session_if_expected(
+            &mut conn,
+            first.id,
+            &first.updated_at,
+            T0,
+            T1,
+            300,
+            T2,
+        )
+        .expect("edit first manual session");
+        assert_eq!(edited.duration_seconds, 300);
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 420);
+
+        delete_closed_session_if_expected(&mut conn, second.id, &second.updated_at)
+            .expect("delete second manual session");
+        assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 300);
     }
 
     #[test]
