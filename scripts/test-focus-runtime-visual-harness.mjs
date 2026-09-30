@@ -7,6 +7,7 @@ function invariant(condition, message) {
 const capture = fs.readFileSync("scripts/capture-focus-runtime.mjs", "utf8");
 const nativeProbe = fs.readFileSync("scripts/read-focus-window-metadata.ps1", "utf8");
 const nativeCapture = fs.readFileSync("scripts/capture-focus-window.ps1", "utf8");
+const nativeSequence = fs.readFileSync("scripts/capture-focus-window-sequence.ps1", "utf8");
 const driver = fs.readFileSync("src/focusRuntimeVisualDriver.ts", "utf8");
 const rust = fs.readFileSync("src-tauri/src/lib.rs", "utf8");
 const validator = fs.readFileSync("scripts/validate-focus-runtime-captures.mjs", "utf8");
@@ -28,6 +29,10 @@ for (const required of ["GetWindowRect", "GetWindowRgnBox", "GetDpiForWindow", "
 for (const required of ["CopyFromScreen", "GetWindowRgnBox", "Narro - Focus"]) {
   invariant(nativeCapture.includes(required), `native screenshot capture is missing ${required}`);
 }
+for (const required of ["CopyFromScreen", "FrameCount", "IntervalMs", "GetWindowRect"]) {
+  invariant(nativeSequence.includes(required), `native transition sequence capture is missing ${required}`);
+}
+invariant(capture.includes("capture-focus-window-sequence.ps1"), "transition capture must use the single-process Win32 sequence probe");
 for (const required of [
   "present_focus_for_blitz",
   "focus_runtime_capture_checkpoint",
