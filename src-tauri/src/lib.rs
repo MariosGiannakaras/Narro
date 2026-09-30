@@ -1258,9 +1258,7 @@ fn focus_runtime_capture_acknowledged(phase: String) -> CommandResult<bool> {
 }
 
 #[tauri::command]
-fn focus_runtime_capture_seed_timer_placement(
-    app_handle: tauri::AppHandle,
-) -> CommandResult<()> {
+fn focus_runtime_capture_seed_timer_placement(app_handle: tauri::AppHandle) -> CommandResult<()> {
     if std::env::var_os("NARRO_FOCUS_CAPTURE_DIR").is_none() {
         return Err(CommandError::new(
             "FOCUS_RUNTIME_CAPTURE_DISABLED",
@@ -1275,15 +1273,19 @@ fn focus_runtime_capture_seed_timer_placement(
     }
 
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
-    let current = window
-        .outer_position()
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read capture seed position", error))?;
+    let current = window.outer_position().map_err(|error| {
+        map_window_error(FOCUS_SURFACE_LABEL, "read capture seed position", error)
+    })?;
     let preferred = GeometryPoint {
         x: current.x.saturating_sub(280),
         y: current.y.saturating_add(80),
     };
-    let target =
-        floating_placement::safe_position_for_timer_region(&app_handle, &window, false, Some(preferred))?;
+    let target = floating_placement::safe_position_for_timer_region(
+        &app_handle,
+        &window,
+        false,
+        Some(preferred),
+    )?;
     if target.x == current.x && target.y == current.y {
         return Err(CommandError::new(
             "FOCUS_RUNTIME_CAPTURE_SEED_FAILED",
@@ -1291,8 +1293,9 @@ fn focus_runtime_capture_seed_timer_placement(
         ));
     }
 
-    focus_webview::set_physical_position(&window, target.x, target.y)
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "seed capture Timer position", error))?;
+    focus_webview::set_physical_position(&window, target.x, target.y).map_err(|error| {
+        map_window_error(FOCUS_SURFACE_LABEL, "seed capture Timer position", error)
+    })?;
     if !floating_placement::save_if_timer_visible(&app_handle)? {
         return Err(CommandError::new(
             "FOCUS_RUNTIME_CAPTURE_SEED_FAILED",
