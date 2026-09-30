@@ -114,7 +114,7 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
   await waitUntil(`native sequence capture ${name}`, () => fs.existsSync(readyFile));
   acknowledge(startPhase);
   const sequenceJson = await sequenceFinished;
-  const frames = JSON.parse(sequenceJson.trim().split(/\\r?\\n/).filter(Boolean).at(-1));
+  const frames = JSON.parse(sequenceJson.trim().split(/\r?\n/).filter(Boolean).at(-1));
   const settled = await waitCheckpoint(endPhase);
   fs.writeFileSync(path.join(directory, "frames.json"), `${JSON.stringify({
     name, startPresentation, endPresentation,
