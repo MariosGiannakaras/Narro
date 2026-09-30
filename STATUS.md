@@ -4,6 +4,24 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-01 — CI #787 physical active-session audit reopened M7 corrections
+
+Physical recording `2026-10-01 02-02-06.mp4` (SHA-256 `0d922f55aef30d5e88ad32fab9a1c41ed8458b71013ad18e3bebc70fdf4da99c`) was captured on exact CI #787 runtime artifact `11129693452`. It is not a final Gate 7/12 PASS.
+
+Positive evidence: active Panel→Timer retained task/time continuity and the sampled single-host transition had no obvious full white/blank/stale frame. No visible shortcut-conflict card appeared.
+
+Corrections required by the recording:
+- idle/no-task Timer remained exposable through stale presentation/Find-Timer paths;
+- expanded active Timer removed task title/live time;
+- visible Main All Lists stayed stale after Focus quick-create/start against the same SQLite authority.
+
+PR #192 corrective commits:
+- `6972c4e08d8fce4b1eb4f7843123f22564c28607` — active-only Timer invariant, Find-Timer gate, expanded title/time, active packaged runtime harness;
+- `c77ece58439753d92ab486d1ebb3a43605efbbd3` — authoritative cross-window board invalidation/re-read.
+
+Current exact source head is `c77ece58...`; Windows CI #789 / run `36791787553` is queued. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`.
+
+
 ## Current phase
 
 **Milestone 1 — reopened Windows/Focus foundation, driven by the M7 single-Focus corrective program.**
