@@ -39,6 +39,7 @@ for (const required of [
   "present_focus_for_blitz",
   "focus_runtime_capture_checkpoint",
   "focus_runtime_capture_acknowledged",
+  "focus_runtime_capture_seed_timer_placement",
   "waitForCaptureAck",
   "data-focus-compact-control",
   "Return to Focus Panel",
@@ -49,6 +50,9 @@ invariant(
   rust.includes("NARRO_FOCUS_CAPTURE_DIR")
     && rust.includes("focus_runtime_capture_checkpoint")
     && rust.includes("focus_runtime_capture_acknowledged")
+    && rust.includes("focus_runtime_capture_seed_timer_placement")
+    && rust.includes("safe_position_for_timer_region")
+    && rust.includes("save_if_timer_visible")
     && rust.includes("FOCUS_RUNTIME_CAPTURE_DISABLED"),
   "Rust capture checkpoint must be environment-gated",
 );
