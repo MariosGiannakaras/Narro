@@ -50,7 +50,6 @@ pub struct ReportHistorySnapshot {
     pub completed_tasks: Vec<ReportCompletedTaskRow>,
 }
 
-
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ReportOverviewSummary {
     pub total_work_days: u64,
@@ -505,7 +504,6 @@ pub fn report_history_snapshot(
     })
 }
 
-
 #[derive(Debug, Clone)]
 struct LocalSessionBucket {
     date: String,
@@ -516,7 +514,10 @@ struct LocalSessionBucket {
 
 fn resolve_report_timezone(value: &str) -> Result<TimeZone, ReportingError> {
     let normalized = value.trim();
-    if normalized.is_empty() || normalized.len() > 128 || normalized.chars().any(char::is_control) {
+    if normalized.is_empty()
+        || normalized.len() > 128
+        || normalized.chars().any(char::is_control)
+    {
         return Err(ReportingError::InvalidDisplayTimezone(value.to_owned()));
     }
     TimeZone::get(normalized)
@@ -587,6 +588,12 @@ fn completion_timing(task: &ReportCompletedTaskRow) -> Option<ReportCompletionTi
     })
 }
 
+/// Aggregates authoritative closed-session durations into local report buckets.
+///
+/// Session duration remains the accounting authority. Calendar buckets use the
+/// local date/hour containing each session start instead of reconstructing
+/// duration from wall-clock elapsed time, which may include excluded sleep or
+/// other lifecycle gaps.
 pub fn overview_from_history(
     history: &ReportHistorySnapshot,
     display_timezone: &str,
@@ -950,8 +957,16 @@ mod tests {
         let overview = overview_from_history(&history, "UTC").expect("aggregate punctuality");
         assert_eq!(overview.punctuality.early_seconds, 1_800);
         assert_eq!(overview.punctuality.late_seconds, 3_600);
-        assert_eq!(overview.punctuality.early_percent, Some(100.0 / 3.0));
-        assert_eq!(overview.punctuality.late_percent, Some(200.0 / 3.0));
+        let early_percent = overview
+            .punctuality
+            .early_percent
+            .expect("early percentage");
+        let late_percent = overview
+            .punctuality
+            .late_percent
+            .expect("late percentage");
+        assert!((early_percent - (100.0 / 3.0)).abs() < 1e-9);
+        assert!((late_percent - (200.0 / 3.0)).abs() < 1e-9);
         assert_eq!(
             overview.done_tasks[0].timing.as_ref().map(|value| value.kind),
             Some(ReportCompletionTimingKind::Early)
