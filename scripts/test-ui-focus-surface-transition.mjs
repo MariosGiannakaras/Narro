@@ -12,6 +12,8 @@ const slice = (source, begin, end) => {
 };
 
 const lib = read("src-tauri/src/lib.rs");
+const focusWebview = read("src-tauri/src/focus_webview.rs");
+const cargoToml = read("src-tauri/Cargo.toml");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
 const focusEntry = read("src/focus.tsx");
@@ -24,6 +26,11 @@ const placement = read("src-tauri/src/floating_placement.rs");
 const topology = read("src-tauri/src/windows/topology.rs");
 const pkg = JSON.parse(read("package.json"));
 
+const setFocusPosition = slice(
+  lib,
+  "fn set_focus_position(",
+  "fn set_focus_presentation_attributes(",
+);
 const animatedNativeCommit = slice(
   lib,
   "fn animate_focus_surface_presentation_internal(",
@@ -46,6 +53,16 @@ const crossDpiPanelHelper = slice(
 invariant(
   nativeCommit.includes("let _presentation_guard = presentation_guard()?"),
   "native presentation commits must be serialized",
+);
+invariant(
+  setFocusPosition.includes("focus_webview::set_physical_position(window, point.x, point.y)")
+    && focusWebview.includes(".with_webview(")
+    && focusWebview.includes("NotifyParentWindowPositionChanged()")
+    && focusWebview.includes("window.set_position(")
+    && placement.includes("crate::focus_webview::set_physical_position(")
+    && !placement.includes(".set_position(")
+    && cargoToml.includes('tauri = { version = "~2.11.5", features = ["tray-icon"] }'),
+  "all programmatic Focus/Timer parent moves must notify WebView2 and native-handle access must pin the Tauri minor",
 );
 invariant(
   nativeCommit.includes("capture_focus_native_snapshot")
