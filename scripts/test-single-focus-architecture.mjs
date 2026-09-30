@@ -94,19 +94,23 @@ invariant(
 );
 
 invariant(
-  coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 270")
+  coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
     && coordinator.includes("animateNativePresentation: (next) =>")
     && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs)")
     && coordinator.includes("runConcurrentMotion: () =>")
     && presentationTransition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && presentationTransition.includes("runConcurrentMotion?: () => Promise<void>")
     && presentationTransition.includes("await Promise.all([")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
+    && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
+    && lib.includes("FLUENT_POINT_TO_POINT_X1: f64 = 0.55")
+    && lib.includes("fluent_point_to_point_easing")
     && coordinatorCss.includes('data-focus-geometry-motion-from="panel"')
     && coordinatorCss.includes('data-focus-geometry-motion-from="timerCompact"')
     && coordinatorCss.includes('data-focus-geometry-motion-from="timerExpanded"')
     && coordinatorCss.includes("clip-path: inset(0 0 590px 0 round 12px)")
     && coordinatorCss.includes("clip-path: inset(0 0 400px 0 round 12px)"),
-  "Panel/Timer switching must coordinate finite same-WebView geometry and native position continuity",
+  "Panel/Timer switching must coordinate finite Fluent point-to-point same-WebView geometry and native position continuity",
 );
 invariant(
   coordinatorCss.includes("--focus-visible-height: 700px")
