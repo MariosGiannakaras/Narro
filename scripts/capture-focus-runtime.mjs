@@ -50,6 +50,14 @@ function checkpointPath(phase) {
   return path.join(outputDirectory, `checkpoint-${phase}.json`);
 }
 
+function ackPath(phase) {
+  return path.join(outputDirectory, `ack-${phase}.ready`);
+}
+
+function acknowledge(phase) {
+  fs.writeFileSync(ackPath(phase), "ready\n");
+}
+
 async function waitCheckpoint(phase, timeoutMs = 15000) {
   return waitUntil(`Focus runtime checkpoint ${phase}`, () => {
     const file = checkpointPath(phase);
@@ -73,26 +81,46 @@ async function captureSettled(name, phase, presentation, width, height) {
   const native = readNativeMetadata();
   const metadata = { name, presentation, dom: checkpoint.snapshot, native };
   fs.writeFileSync(path.join(outputDirectory, `${name}.json`), `${JSON.stringify(metadata, null, 2)}\n`);
+  acknowledge(phase);
   return metadata;
 }
 
-async function captureTransition(name, startPhase, startPresentation, endPhase, endPresentation) {
+async function captureTransition(name, startPhase, startPresentation, endPhase, endPresentation, acknowledgeEnd = false) {
   const directory = path.join(outputDirectory, name);
   fs.rmSync(directory, { recursive: true, force: true });
   fs.mkdirSync(directory, { recursive: true });
   const start = await waitCheckpoint(startPhase);
-  const sequenceJson = execFileSync("powershell.exe", [
+  const readyFile = path.join(directory, "sequence-ready.txt");
+  const sequence = spawn("powershell.exe", [
     "-NoLogo", "-NoProfile", "-ExecutionPolicy", "Bypass",
     "-File", path.join(root, "scripts", "capture-focus-window-sequence.ps1"),
     "-Title", focusTitle, "-OutputDirectory", directory,
-    "-FrameCount", "20", "-IntervalMs", "15",
-  ], { cwd: root, encoding: "utf8" });
+    "-ReadyFile", readyFile,
+    "-FrameCount", "30", "-IntervalMs", "15",
+  ], { cwd: root, windowsHide: true, stdio: ["ignore", "pipe", "pipe"] });
+  let sequenceStdout = "";
+  let sequenceStderr = "";
+  sequence.stdout.setEncoding("utf8");
+  sequence.stderr.setEncoding("utf8");
+  sequence.stdout.on("data", (chunk) => { sequenceStdout += chunk; });
+  sequence.stderr.on("data", (chunk) => { sequenceStderr += chunk; });
+  const sequenceFinished = new Promise((resolve, reject) => {
+    sequence.once("error", reject);
+    sequence.once("close", (code) => {
+      if (code === 0) resolve(sequenceStdout);
+      else reject(new Error(`native sequence capture exited ${code}: ${sequenceStderr.trim()}`));
+    });
+  });
+  await waitUntil(`native sequence capture ${name}`, () => fs.existsSync(readyFile));
+  acknowledge(startPhase);
+  const sequenceJson = await sequenceFinished;
   const frames = JSON.parse(sequenceJson.trim().split(/\\r?\\n/).filter(Boolean).at(-1));
   const settled = await waitCheckpoint(endPhase);
   fs.writeFileSync(path.join(directory, "frames.json"), `${JSON.stringify({
     name, startPresentation, endPresentation,
     start: start.snapshot, settled: settled.snapshot, frames,
   }, null, 2)}\n`);
+  if (acknowledgeEnd) acknowledge(endPhase);
   return { name, startPresentation, endPresentation, start: start.snapshot, settled: settled.snapshot, frames };
 }
 
@@ -117,7 +145,7 @@ try {
   const compact = await captureSettled("floating-timer-runtime", "timer-compact", "timerCompact", 340, 110);
   const expanded = await captureSettled("floating-timer-expanded-runtime", "timer-expanded", "timerExpanded", 340, 300);
   const timerToPanel = await captureTransition(
-    "timer-to-panel-runtime", "timer-to-panel-start", "timerCompact", "panel-returned", "panel",
+    "timer-to-panel-runtime", "timer-to-panel-start", "timerCompact", "panel-returned", "panel", true,
   );
   await waitCheckpoint("complete");
 
