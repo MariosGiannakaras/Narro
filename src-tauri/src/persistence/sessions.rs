@@ -8,11 +8,17 @@ use std::fmt::{Display, Formatter};
 pub enum SessionStoreError {
     Sqlite(rusqlite::Error),
     InvalidMutationTimestamp,
+    InvalidSessionTimestamp(&'static str),
     CorruptStoredTimestamp(String),
     InvalidSessionShape,
     TaskNotFound(TaskId),
     TaskNotActive(TaskId),
     OpenSessionExists(SessionId),
+    OpenSessionMutation(SessionId),
+    StaleVersion {
+        expected: String,
+        actual: String,
+    },
     NotFound(SessionId),
     AlreadyClosed(SessionId),
     DurationDecreased {
@@ -40,6 +46,9 @@ impl Display for SessionStoreError {
             Self::InvalidMutationTimestamp => {
                 formatter.write_str("session mutation timestamp must be RFC 3339")
             }
+            Self::InvalidSessionTimestamp(field) => {
+                write!(formatter, "session {field} must be RFC 3339")
+            }
             Self::CorruptStoredTimestamp(value) => {
                 write!(formatter, "stored session timestamp is invalid: {value}")
             }
@@ -50,6 +59,15 @@ impl Display for SessionStoreError {
             Self::TaskNotActive(id) => write!(formatter, "session task is not active: {id}"),
             Self::OpenSessionExists(id) => {
                 write!(formatter, "an unfinished session already exists: {id}")
+            }
+            Self::OpenSessionMutation(id) => {
+                write!(formatter, "unfinished session cannot be edited or deleted: {id}")
+            }
+            Self::StaleVersion { expected, actual } => {
+                write!(
+                    formatter,
+                    "session changed before mutation: expected updated_at={expected}, actual={actual}"
+                )
             }
             Self::NotFound(id) => write!(formatter, "session not found: {id}"),
             Self::AlreadyClosed(id) => write!(formatter, "session is already closed: {id}"),
@@ -112,6 +130,56 @@ fn validate_mutation_timestamp(value: &str) -> Result<(), SessionStoreError> {
     DateTime::parse_from_rfc3339(value)
         .map(|_| ())
         .map_err(|_| SessionStoreError::InvalidMutationTimestamp)
+}
+
+fn parsed_input_timestamp(
+    field: &'static str,
+    value: &str,
+) -> Result<DateTime<chrono::FixedOffset>, SessionStoreError> {
+    DateTime::parse_from_rfc3339(value)
+        .map_err(|_| SessionStoreError::InvalidSessionTimestamp(field))
+}
+
+fn validate_closed_session_input(
+    started_at: &str,
+    ended_at: &str,
+    duration_seconds: u64,
+) -> Result<i64, SessionStoreError> {
+    let started = parsed_input_timestamp("started_at", started_at)?;
+    let ended = parsed_input_timestamp("ended_at", ended_at)?;
+    if ended < started {
+        return Err(SessionStoreError::EndBeforeStart);
+    }
+    duration_for_sql(duration_seconds)
+}
+
+fn ensure_task_exists(conn: &Connection, task_id: TaskId) -> Result<(), SessionStoreError> {
+    let exists = conn
+        .query_row(
+            "SELECT 1 FROM tasks WHERE id = ?1",
+            [task_id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()?;
+    if exists.is_some() {
+        Ok(())
+    } else {
+        Err(SessionStoreError::TaskNotFound(task_id))
+    }
+}
+
+fn validate_expected_updated_at(
+    current: &SessionRecord,
+    expected_updated_at: &str,
+) -> Result<(), SessionStoreError> {
+    if current.updated_at == expected_updated_at {
+        Ok(())
+    } else {
+        Err(SessionStoreError::StaleVersion {
+            expected: expected_updated_at.to_owned(),
+            actual: current.updated_at.clone(),
+        })
+    }
 }
 
 fn parsed_stored_timestamp(
@@ -450,6 +518,120 @@ pub fn replace_open_focus_session(
     Ok((closed, opened))
 }
 
+pub fn create_manual_work_session(
+    conn: &mut Connection,
+    task_id: TaskId,
+    started_at: &str,
+    ended_at: &str,
+    duration_seconds: u64,
+    now: &str,
+) -> Result<SessionRecord, SessionStoreError> {
+    validate_mutation_timestamp(now)?;
+    let duration_sql = validate_closed_session_input(started_at, ended_at, duration_seconds)?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    ensure_task_exists(&tx, task_id)?;
+
+    let id = SessionId::generate();
+    tx.execute(
+        "INSERT INTO sessions (
+            id, task_id, kind, started_at, ended_at, duration_seconds,
+            source, created_at, updated_at
+         ) VALUES (?1, ?2, 'work', ?3, ?4, ?5, 'manual', ?6, ?6)",
+        params![
+            id.to_string(),
+            task_id.to_string(),
+            started_at,
+            ended_at,
+            duration_sql,
+            now,
+        ],
+    )?;
+
+    let created = load_session(&tx, id)?;
+    tx.commit()?;
+    Ok(created)
+}
+
+pub fn edit_closed_session_if_expected(
+    conn: &mut Connection,
+    id: SessionId,
+    expected_updated_at: &str,
+    started_at: &str,
+    ended_at: &str,
+    duration_seconds: u64,
+    now: &str,
+) -> Result<SessionRecord, SessionStoreError> {
+    validate_mutation_timestamp(now)?;
+    let duration_sql = validate_closed_session_input(started_at, ended_at, duration_seconds)?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    let current = load_session(&tx, id)?;
+    if current.is_open() {
+        return Err(SessionStoreError::OpenSessionMutation(id));
+    }
+    validate_expected_updated_at(&current, expected_updated_at)?;
+    ensure_not_before_previous_update(&current.updated_at, now)?;
+
+    let changed = tx.execute(
+        "UPDATE sessions
+         SET started_at = ?1,
+             ended_at = ?2,
+             duration_seconds = ?3,
+             source = 'edit',
+             updated_at = ?4
+         WHERE id = ?5
+           AND ended_at IS NOT NULL
+           AND updated_at = ?6",
+        params![
+            started_at,
+            ended_at,
+            duration_sql,
+            now,
+            id.to_string(),
+            expected_updated_at,
+        ],
+    )?;
+    if changed != 1 {
+        return Err(SessionStoreError::StaleVersion {
+            expected: expected_updated_at.to_owned(),
+            actual: load_session(&tx, id)?.updated_at,
+        });
+    }
+
+    let updated = load_session(&tx, id)?;
+    tx.commit()?;
+    Ok(updated)
+}
+
+pub fn delete_closed_session_if_expected(
+    conn: &mut Connection,
+    id: SessionId,
+    expected_updated_at: &str,
+) -> Result<SessionRecord, SessionStoreError> {
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
+    let current = load_session(&tx, id)?;
+    if current.is_open() {
+        return Err(SessionStoreError::OpenSessionMutation(id));
+    }
+    validate_expected_updated_at(&current, expected_updated_at)?;
+
+    let changed = tx.execute(
+        "DELETE FROM sessions
+         WHERE id = ?1
+           AND ended_at IS NOT NULL
+           AND updated_at = ?2",
+        params![id.to_string(), expected_updated_at],
+    )?;
+    if changed != 1 {
+        return Err(SessionStoreError::StaleVersion {
+            expected: expected_updated_at.to_owned(),
+            actual: load_session(&tx, id)?.updated_at,
+        });
+    }
+
+    tx.commit()?;
+    Ok(current)
+}
+
 pub fn sessions_for_task(
     conn: &Connection,
     task_id: TaskId,
@@ -554,6 +736,162 @@ mod tests {
         assert_eq!(history.len(), 2);
         assert_eq!(history[0].kind, SessionKind::Work);
         assert_eq!(history[1].kind, SessionKind::Break);
+    }
+
+    #[test]
+    fn manual_closed_work_session_can_be_added_to_completed_history_without_opening_runtime() {
+        let (mut conn, task_id) = fixture();
+        complete_task(&mut conn, task_id, T1).unwrap();
+
+        let created = create_manual_work_session(
+            &mut conn,
+            task_id,
+            "2026-09-04T09:00:00Z",
+            "2026-09-04T09:30:00Z",
+            1_800,
+            T2,
+        )
+        .expect("create manual historical session");
+
+        assert_eq!(created.task_id, Some(task_id));
+        assert_eq!(created.kind, SessionKind::Work);
+        assert_eq!(created.source, SessionSource::Manual);
+        assert_eq!(created.duration_seconds, 1_800);
+        assert_eq!(created.ended_at.as_deref(), Some("2026-09-04T09:30:00Z"));
+        assert!(!created.is_open());
+        assert!(get_open_session(&conn).unwrap().is_none());
+    }
+
+    #[test]
+    fn closed_session_edit_is_stale_safe_and_preserves_identity_and_task() {
+        let (mut conn, task_id) = fixture();
+        let opened = open_focus_work_session(&mut conn, task_id, T0).unwrap();
+        let closed = close_session(&mut conn, opened.id, 60, T1).unwrap();
+
+        let edited = edit_closed_session_if_expected(
+            &mut conn,
+            closed.id,
+            &closed.updated_at,
+            "2026-09-04T09:55:00Z",
+            "2026-09-04T10:05:00Z",
+            600,
+            T2,
+        )
+        .expect("edit closed session");
+
+        assert_eq!(edited.id, closed.id);
+        assert_eq!(edited.task_id, Some(task_id));
+        assert_eq!(edited.kind, SessionKind::Work);
+        assert_eq!(edited.source, SessionSource::Edit);
+        assert_eq!(edited.created_at, closed.created_at);
+        assert_eq!(edited.started_at, "2026-09-04T09:55:00Z");
+        assert_eq!(edited.ended_at.as_deref(), Some("2026-09-04T10:05:00Z"));
+        assert_eq!(edited.duration_seconds, 600);
+
+        let stale = edit_closed_session_if_expected(
+            &mut conn,
+            closed.id,
+            &closed.updated_at,
+            T0,
+            T1,
+            60,
+            T2,
+        )
+        .expect_err("stale edit must fail");
+        assert!(matches!(stale, SessionStoreError::StaleVersion { .. }));
+
+        let after = get_session(&conn, closed.id).expect("reload edited session");
+        assert_eq!(after.updated_at, T2);
+        assert_eq!(after.duration_seconds, 600);
+    }
+
+    #[test]
+    fn open_session_cannot_be_edited_or_deleted_through_report_history_mutations() {
+        let (mut conn, task_id) = fixture();
+        let open = open_focus_work_session(&mut conn, task_id, T0).unwrap();
+
+        assert!(matches!(
+            edit_closed_session_if_expected(
+                &mut conn,
+                open.id,
+                &open.updated_at,
+                T0,
+                T1,
+                60,
+                T1,
+            ),
+            Err(SessionStoreError::OpenSessionMutation(id)) if id == open.id
+        ));
+        assert!(matches!(
+            delete_closed_session_if_expected(&mut conn, open.id, &open.updated_at),
+            Err(SessionStoreError::OpenSessionMutation(id)) if id == open.id
+        ));
+
+        let authoritative = get_open_session(&conn)
+            .unwrap()
+            .expect("live open session remains");
+        assert_eq!(authoritative.id, open.id);
+    }
+
+    #[test]
+    fn closed_session_delete_is_stale_safe_and_removes_only_the_target_row() {
+        let (mut conn, task_id) = fixture();
+        let first = open_focus_work_session(&mut conn, task_id, T0).unwrap();
+        let first = close_session(&mut conn, first.id, 60, T1).unwrap();
+        let second = create_manual_work_session(
+            &mut conn,
+            task_id,
+            T1,
+            T2,
+            60,
+            T2,
+        )
+        .expect("create second closed session");
+
+        assert!(matches!(
+            delete_closed_session_if_expected(&mut conn, first.id, "stale-version"),
+            Err(SessionStoreError::StaleVersion { .. })
+        ));
+        assert_eq!(sessions_for_task(&conn, task_id).unwrap().len(), 2);
+
+        let deleted = delete_closed_session_if_expected(&mut conn, first.id, &first.updated_at)
+            .expect("delete first closed session");
+        assert_eq!(deleted.id, first.id);
+
+        let remaining = sessions_for_task(&conn, task_id).unwrap();
+        assert_eq!(remaining.len(), 1);
+        assert_eq!(remaining[0].id, second.id);
+    }
+
+    #[test]
+    fn manual_session_input_validation_fails_before_any_history_write() {
+        let (mut conn, task_id) = fixture();
+        let before = sessions_for_task(&conn, task_id).unwrap();
+
+        assert!(matches!(
+            create_manual_work_session(
+                &mut conn,
+                task_id,
+                "not-a-time",
+                T1,
+                60,
+                T2,
+            ),
+            Err(SessionStoreError::InvalidSessionTimestamp("started_at"))
+        ));
+        assert!(matches!(
+            create_manual_work_session(
+                &mut conn,
+                task_id,
+                T2,
+                T1,
+                60,
+                T2,
+            ),
+            Err(SessionStoreError::EndBeforeStart)
+        ));
+
+        assert_eq!(sessions_for_task(&conn, task_id).unwrap(), before);
     }
 
     #[test]
