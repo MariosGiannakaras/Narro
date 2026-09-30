@@ -75,19 +75,13 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
   fs.rmSync(directory, { recursive: true, force: true });
   fs.mkdirSync(directory, { recursive: true });
   const start = await waitCheckpoint(startPhase);
-  const frames = [];
-  const started = Date.now();
-  for (let index = 0; index < 20; index += 1) {
-    const fileName = `frame-${String(index).padStart(3, "0")}.png`;
-    captureWindow(path.join(directory, fileName), 340, 700, true);
-    frames.push({
-      index,
-      elapsedMs: Date.now() - started,
-      fileName,
-      native: readNativeMetadata(),
-    });
-    await sleep(10);
-  }
+  const sequenceJson = execFileSync("powershell.exe", [
+    "-NoLogo", "-NoProfile", "-ExecutionPolicy", "Bypass",
+    "-File", path.join(root, "scripts", "capture-focus-window-sequence.ps1"),
+    "-Title", focusTitle, "-OutputDirectory", directory,
+    "-FrameCount", "20", "-IntervalMs", "15",
+  ], { cwd: root, encoding: "utf8" });
+  const frames = JSON.parse(sequenceJson.trim().split(/\\r?\\n/).filter(Boolean).at(-1));
   const settled = await waitCheckpoint(endPhase);
   fs.writeFileSync(path.join(directory, "frames.json"), `${JSON.stringify({
     name, startPresentation, endPresentation,
