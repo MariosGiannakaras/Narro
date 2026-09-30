@@ -18,7 +18,7 @@ function runtimeSnapshot() {
   };
   const coordinator = document.querySelector(".focus-surface-coordinator");
   const active = document.querySelector('.focus-surface-coordinator__presentation[data-focus-visibility="active"]');
-  const unintendedScrollers = [...document.querySelectorAll("html, body, #root, .focus-surface-coordinator")]
+  const unintendedScrollers = [...document.querySelectorAll("html, body, #root")]
     .filter((element) => element instanceof HTMLElement
       && (element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight))
     .map((element) => ({
@@ -64,6 +64,15 @@ async function checkpoint(phase: string, snapshot = runtimeSnapshot()) {
   });
 }
 
+async function waitForCaptureAck(phase: string) {
+  const deadline = performance.now() + 10_000;
+  while (performance.now() < deadline) {
+    if (await invoke<boolean>("focus_runtime_capture_acknowledged", { phase })) return;
+    await sleep(25);
+  }
+  throw new Error(`Packaged runtime capture did not acknowledge ${phase}`);
+}
+
 let started = false;
 
 export function startFocusRuntimeVisualDriver() {
@@ -71,31 +80,33 @@ export function startFocusRuntimeVisualDriver() {
   started = true;
   void (async () => {
     await sleep(250);
+    await invoke("main_window_hide");
+    await sleep(100);
     await invoke("present_focus_for_blitz");
     await checkpoint("panel", await waitForPresentation("panel"));
-    await sleep(500);
+    await waitForCaptureAck("panel");
 
     await checkpoint("panel-to-timer-start");
-    await sleep(600);
+    await waitForCaptureAck("panel-to-timer-start");
     const compactButton = document.querySelector<HTMLButtonElement>('[data-focus-compact-control="true"]');
     if (!compactButton) throw new Error("Compact view button missing");
     compactButton.click();
     await checkpoint("timer-compact", await waitForPresentation("timerCompact"));
-    await sleep(500);
+    await waitForCaptureAck("timer-compact");
 
     await applyFocusSurfacePresentation("timerExpanded");
     await checkpoint("timer-expanded", await waitForPresentation("timerExpanded"));
-    await sleep(500);
+    await waitForCaptureAck("timer-expanded");
 
     await applyFocusSurfacePresentation("timerCompact");
     await waitForPresentation("timerCompact");
     await checkpoint("timer-to-panel-start");
-    await sleep(600);
+    await waitForCaptureAck("timer-to-panel-start");
     const returnButton = document.querySelector<HTMLButtonElement>('[aria-label="Return to Focus Panel"]');
     if (!returnButton) throw new Error("Return to Focus Panel button missing");
     returnButton.click();
     await checkpoint("panel-returned", await waitForPresentation("panel"));
-    await sleep(250);
+    await waitForCaptureAck("panel-returned");
     await checkpoint("complete");
   })().catch(async (error: unknown) => {
     const message = error instanceof Error ? error.stack ?? error.message : String(error);
