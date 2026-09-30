@@ -76,7 +76,7 @@ export function startFocusRuntimeVisualDriver() {
     await sleep(500);
 
     await checkpoint("panel-to-timer-start");
-    await sleep(80);
+    await sleep(600);
     const compactButton = document.querySelector<HTMLButtonElement>('[data-focus-compact-control="true"]');
     if (!compactButton) throw new Error("Compact view button missing");
     compactButton.click();
@@ -90,7 +90,7 @@ export function startFocusRuntimeVisualDriver() {
     await applyFocusSurfacePresentation("timerCompact");
     await waitForPresentation("timerCompact");
     await checkpoint("timer-to-panel-start");
-    await sleep(80);
+    await sleep(600);
     const returnButton = document.querySelector<HTMLButtonElement>('[aria-label="Return to Focus Panel"]');
     if (!returnButton) throw new Error("Return to Focus Panel button missing");
     returnButton.click();
