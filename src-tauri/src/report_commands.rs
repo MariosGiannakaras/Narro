@@ -373,6 +373,6 @@ mod tests {
             value["durationSeconds"],
             serde_json::Value::String(u64::MAX.to_string())
         );
-        assert_eq!(value["taskId"].as_str().is_some(), true);
+        assert!(value["taskId"].as_str().is_some());
     }
 }
