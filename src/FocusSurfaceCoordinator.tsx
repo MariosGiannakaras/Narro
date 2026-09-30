@@ -31,7 +31,7 @@ import {
 import "./focusSurfaceCoordinator.css";
 
 const PRESENTATION_READY_TIMEOUT_MS = 7_000;
-const FOCUS_GEOMETRY_MOTION_MS = 270;
+const FOCUS_GEOMETRY_MOTION_MS = 250;
 
 type FocusGeometryMotion = {
   from: FocusSurfacePresentation;
