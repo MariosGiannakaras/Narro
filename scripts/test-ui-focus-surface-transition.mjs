@@ -143,21 +143,28 @@ invariant(
     && focusDocumentCss.includes(":root")
     && focusDocumentCss.includes("body")
     && focusDocumentCss.includes("#root")
+    && focusDocumentCss.includes("width: 100%")
+    && focusDocumentCss.includes("height: 100%")
+    && focusDocumentCss.includes("min-width: 0")
+    && focusDocumentCss.includes("min-height: 0")
+    && focusDocumentCss.includes("overflow: hidden")
     && focusDocumentCss.includes("background: transparent")
     && !focusDocumentCss.includes("var(--color-canvas)"),
-  "focus.html must keep its document canvas transparent so clip/region transitions cannot expose an opaque host tail",
+  "focus.html must keep an exact transparent non-scrolling document viewport so native region clipping cannot expose host pixels or browser scrollbars",
 );
 
 invariant(
   animatedNativeCommit.includes("planned_focus_presentation_position")
     && animatedNativeCommit.includes("animate_focus_position")
+    && lib.includes("3 * steps - 2 * step")
+    && lib.includes("smoothstep")
     && animatedNativeCommit.includes("timer_region::apply(&window, target.region())")
     && animatedNativeCommit.indexOf("timer_region::apply(&window, target.region())")
       < animatedNativeCommit.indexOf("animate_focus_position")
     && animatedNativeCommit.includes("apply_panel_native_after_animated_cross_dpi_move")
     && animatedNativeCommit.includes("windows::suspend_focus_display_recovery()")
     && animatedNativeCommit.includes("restore_focus_native_snapshot"),
-  "animated native transition must clip Panel-to-Timer before movement, defer cross-DPI Panel reveal, plan final placement and retain rollback",
+  "animated native transition must use finite eased point-to-point motion, clip Panel-to-Timer before movement, defer cross-DPI Panel reveal and retain rollback",
 );
 invariant(
   crossDpiPanelHelper.includes("timer_region::apply(window, previous.region())?")
@@ -172,8 +179,13 @@ invariant(
   placement.includes("pub(crate) fn planned_timer_position(")
     && topology.includes("WM_ENTERSIZEMOVE")
     && topology.includes("WM_EXITSIZEMOVE")
-    && topology.includes("display_recovery_suspended()"),
-  "saved Timer placement and mixed-DPI recovery must cooperate with finite cross-mode movement",
+    && topology.includes("display_recovery_suspended()")
+    && topology.includes("should_refresh_timer_region_for_interactive_dpi")
+    && topology.includes("schedule_focus_region_refresh_for_dpi")
+    && topology.includes("PENDING_DPI_X")
+    && region.includes("pub fn apply_with_scale(")
+    && lib.includes("refresh_open_timer_region_for_dpi_change("),
+  "saved Timer placement must defer full recovery during drag while interactive WM_DPICHANGED refreshes only the native visible region",
 );
 
 invariant(
