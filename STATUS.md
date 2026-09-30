@@ -16,9 +16,8 @@ The last automated-green PR #192 source checkpoint remains head `63bb20e9c32dcaf
 
 Independent M8 progress:
 - PREF-R02 finite reduced-motion-safe timer flash is **VALIDATED / MERGED** via PR #193 exact head `2413de4f0e02daf829ffc753ca70b48a1e11712e`, Windows CI #714, and main source commit `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`. All eight changed blobs match the validated PR head.
-- PREF-R06 PR #194 is open with CI #713 PASS.
-- PREF-R03 PR #195 is open with CI #715 PASS.
-Open green PRs are not counted complete until merge/current-main reconciliation.
+- PREF-R03 is **VALIDATED / MERGED** via PR #195 reconciled exact head `c3a09e3780871cea70d008ac540f8d62cb684be7`, Windows CI #722 / run `36704515416`, expected-head guarded squash merge `1c9f2c7dc670fddcbf8cf687ca5b1945588eb01c`, and resulting-main Windows CI #723 / run `36705536633`. The implementation gates the existing durable M3 Pomodoro boundary effects rather than introducing a second notification engine; disabled effects are consumed without later backfill and Preferences-read failures remain retryable.
+- PREF-R06 PR #194 remains open. Reconciled head `16ae996a478687ad3e61788e77de00159f4207c2` is undergoing exact-head revalidation after the first #721 attempt hit the existing `task-scheduling-dark` readiness flake; do not count it complete before a green reconciled head is merged and resulting main is validated.
 
 Deep Blitzit reliability reconciliation added two explicit no-orphan obligations: `RISK-F007` (no implicit fresh-launch timer start) and `RISK-F008` (Notes/title edits preserve a running session). These are validation gaps rather than reproduced defects and are routed to deterministic regression coverage before final M10 reliability acceptance.
 
@@ -26,7 +25,7 @@ Deep Blitzit reliability reconciliation added two explicit no-orphan obligations
 
 The fully merged/physically accepted application-source baseline for the reopened M1/M6/M7 replacement acceptance chain remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624). PR #192 is still unmerged and its current head failed CI #718 in the new packaged-runtime capture harness, so it cannot replace that baseline.
 
-PREF-R02 is independently merged and automated-validated through PR #193 / CI #714 / main source commit `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`; its eight changed source/test blobs are identical to the exact validated PR-head blobs. This independent M8 merge does not close the reopened M1/M6/M7 physical acceptance chain.
+PREF-R02 and PREF-R03 are independently merged and automated-validated through their exact PR heads and resulting-main CI. These independent M8 merges do not close the reopened M1/M6/M7 physical acceptance chain.
 
 ## Repository documentation/process policy — 2026-09-29
 
@@ -271,7 +270,7 @@ M8 validated top-level state is **6/8**:
 - Start Break shortcut lifecycle: complete;
 - conditional/nested Preferences behavior: complete;
 - versioned local preference persistence: complete;
-- the top-level Preferences item remains open because PREF-R02, PREF-R03 and PREF-R05 are still open; PREF-R01 and PREF-R04 are validated;
+- the top-level Preferences item remains open because PREF-R05 is still open; PREF-R01, PREF-R02, PREF-R03 and PREF-R04 are validated;
 - Windows-locale/system 12/24-hour presentation remains open as PREF-R06.
 
 The shortcut-foundation checkpoint baseline was `699b6ac46bcc6ebcabbcded21f929a7b32018b42`; it is historical evidence, not the current project source baseline.
@@ -660,3 +659,23 @@ The exact `12707c0` binary was then physically recorded at 60 fps with Windows a
 **Second separate-Timer physical batch:** The same-target board-retention head `a6a9459` passed Windows CI `36495957450` attempt 2 and was physically captured on its exact executable with Windows animations On. The loading copy is gone, but the compact Timer still overlays the Panel's top controls for several frames during mode switching; Gate 7 remains **FAIL**. A scoped native follow-up `4e4960b` disables DWM show/hide transitions for both Focus windows and activates the destination before reveal. Exact-head CI and one Panel↔Timer physical capture are pending. The architecture experiment's measured paused floating-only working set increased by about 95 MiB versus the single-WebView comparison. Details and raw video hashes are in the 2026-09-29 work log. Gate 12 remains open; no further M8 implementation is authorized in this slice.
 
 **Time-bounded DWM retest and stop, 2026-09-29 (historical decision):** Exact source `4e4960b` passed Windows CI run `36530577060`; its exact executable was recorded through three settled Panel↔Timer cycles at 77.41 fps with Windows animations On. The six transition boundary sequences contain neither the old full-white host nor loading copy, but Timer→Panel still briefly overlaps the compact Timer and Panel card for about 0.07–0.10 seconds. This is an improvement, **not strict Gate 7 acceptance**. The user directed that checks remain confined to the transition and that the repeated-fix loop stop. At that checkpoint PR #191 remained unmerged; it was later closed unmerged as superseded. Gate 7/12 remain open for the replacement architecture. Original SQLite profile and Windows animations On were restored and verified. At that point the next comparison was proposed as a native layered Timer/window composition; the subsequent user-selected single fixed-host Focus plan above **supersedes that next-action recommendation**. Full physical evidence remains in `work-log/2026-09-29-codex-m7-separate-timer-physical.md`.
+
+
+## 2026-09-30 — PREF-R06 Windows-locale closure
+
+- PR #194 exact head `16ae996a478687ad3e61788e77de00159f4207c2`: Windows CI #721 / run `36704495943` PASS.
+- Expected-head guarded squash merge: `88dea3bcbd988f2e77ea0edccb218be95e5b2438`.
+- Resulting-main Windows CI #724 / run `36709829221`: PASS.
+- Main artifacts: visual `11093782878`, digest `sha256:d822baa8ca1fc0f07ea8499721e28548359bac22d5196158e563accd06a75d01`; runtime `11093233909`, digest `sha256:51a9ba88c92ea36b8619df7b47ccd0dc9351ec213a202ffa898a7a02a90df433`.
+- Schedule read-only presentation now routes through the existing default-locale `Intl.DateTimeFormat` contract, so Windows locale and OS 12/24-hour convention own visible date/time formatting.
+- General roadmap remains 4/10; this closes an independent M8 Preferences sub-item only.
+
+
+## 2026-09-30 — M7 packaged-runtime native capture checkpoint (in progress)
+
+- PR #192 current branch head at this checkpoint: `fe5224fd3794a13b693490a9bb1a9ddf953c8391`.
+- #718/#720 proved the packaged executable builds/starts but hosted-runner WebView2 CDP discovery remains unreachable; no product defect was established by those failures.
+- The replacement harness removes CDP from capture transport. CI-only `focus.html?runtimeVisual=1` drives the existing production presentation commands; an environment-gated Rust checkpoint command writes DOM/presentation snapshots only when `NARRO_FOCUS_CAPTURE_DIR` is present; Win32 probes capture the actual Focus HWND, DPI/geometry and 20-frame transition sequences.
+- The transition sequence uses one PowerShell process to avoid missing the ~250ms native motion to process startup overhead.
+- This checkpoint is **NOT VALIDATED YET**. CI #732 is running on parent head `553a88f0...`; exact-head CI for `fe5224f...` is still required, followed by artifact PNG/metadata inspection.
+- Physical Gate 7/Gate 12 remain open and unavailable.

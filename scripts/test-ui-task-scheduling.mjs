@@ -7,6 +7,7 @@ function requireText(haystack, needle, label) {
   if (!haystack.includes(needle)) throw new Error(`Missing ${label}: ${needle}`);
 }
 
+const dateTimeFormat = read("src/dateTimeFormat.ts");
 const schedulePersistence = read("src-tauri/src/persistence/task_schedule_edit.rs");
 const recurrencePersistence = read("src-tauri/src/persistence/recurrence.rs");
 const replacePersistence = read("src-tauri/src/persistence/recurrence_replace.rs");
@@ -83,6 +84,11 @@ for (const [haystack, needle, label] of [
   [api, 'invoke<void>("update_list_board_task_schedule"', "typed schedule write IPC"],
   [api, 'invoke<RecurrenceMutationResult>("save_list_board_task_recurrence"', "typed recurrence save IPC"],
   [api, 'invoke<RecurrenceRemovalResult>("remove_list_board_task_recurrence"', "typed recurrence remove IPC"],
+  [dateTimeFormat, "new Intl.DateTimeFormat(locales", "system-locale date/time formatter"],
+  [dateTimeFormat, 'hour: "numeric"', "locale-owned 12/24-hour convention"],
+  [dialog, 'import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";', "schedule dialog locale formatter import"],
+  [dialog, "if (!scheduleUseTime) return visibleDate;", "date-only preview uses locale formatter"],
+  [dialog, "formatVisibleDateTime(scheduleLocalDate, scheduleLocalTime)", "timed preview uses system locale and hour convention"],
   [dialog, 'data-task-schedule-shortcut={shortcut.kind}', "production schedule shortcuts"],
   [dialog, 'data-task-schedule-control="time-toggle"', "optional schedule time control"],
   [dialog, "Date-only schedules never round-trip through UTC.", "date-only semantic guidance"],

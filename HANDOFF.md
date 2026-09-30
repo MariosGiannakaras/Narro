@@ -8,23 +8,24 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains active.** The single-`focusSurface` replacement is still unmerged and physical Gate 7 / Gate 12 evidence is unavailable. The latest PR #192 CI attempt added a packaged-runtime visual harness but failed in that harness before it could produce valid runtime screenshots.
+**Reopened Milestone 1 corrective foundation remains active.** The single-`focusSurface` replacement is still unmerged and physical Gate 7 / Gate 12 evidence is unavailable. PR #192 was semantically reconciled with current main/PREF-R02 and revalidated through build/visual stages, but its packaged-runtime visual harness still fails before it can produce valid runtime screenshots.
 
 - PR #192 remains **OPEN** on `plan/m7-single-focus`; do not merge it.
-- Current exact PR #192 head: `12ec6471c2d2d63470c5ecab08ebc65748fc1e42`.
-- Windows CI #718 / run `36695046828`: **FAIL** on that exact head.
-- CI #718 passed Repository Preflight, frontend contracts/build, Rust fmt/check/clippy/tests, performance-harness self-test, Windows visual regression, reused frontend-dist verification, and the Tauri release build.
-- CI #718 failed only at **Capture Packaged Focus Runtime**: `WebView2 DevTools targets did not become ready within 20000ms: TypeError: fetch failed`.
-- Failed-run packaged-runtime artifact `narro-m7-focus-runtime-visual`: id `11088098271`, digest `sha256:1d7f00558925f2e67893b70019c660d88d19d747556b6684abd17aadec251b07`; it contains failure diagnostics, not accepted visual evidence.
-- CI #718 visual-regression artifact `narro-m5-visual-regression`: id `11087997897`, digest `sha256:cd9618282b7f01c950b6413ffb5d07064e030321f201a1203a0244b8a823751e`.
+- Latest reconciled PR #192 candidate: exact head `3d5de00256a6ce7ec2bcd77bccad9f008839f2e5`, which semantically preserves the single-Focus replacement while carrying validated PREF-R02 and current repository tracking/work-log truth.
+- Windows CI #720 / run `36704256369`: **FAIL** only at the packaged-runtime capture on that exact head. Repository Preflight, frontend contracts/build, Rust fmt/check/clippy/tests, performance-harness self-test, Windows visual regression, reused frontend-dist verification and Tauri release all passed first.
+- Exact #720 failure: `WebView2 DevTools targets did not become ready within 20000ms: TypeError: fetch failed`, reproducing #718 after successful application build/startup. This is currently a CI harness/transport failure; no product-runtime defect is established by it.
+- #720 packaged-runtime diagnostic artifact: `narro-m7-focus-runtime-visual`, id `11091398339`, digest `sha256:d62b0733619dd85daf91c05477286ec9699dcd11e946aebb2e940bbba53ffc7e`; it contains failure diagnostics, not accepted screenshots.
+- #720 normal visual-regression artifact: `narro-m5-visual-regression`, id `11092010216`, digest `sha256:4441607340a4691df2f1e1a260e172ebf8d6bf87149a2d0dbdff93af85ea9e76`.
 - The last fully automated-green PR #192 source checkpoint remains exact head `63bb20e9c32dcaffacf96c3bd5a6c52e9114b257` / Windows CI #708, which implemented the overflow, interactive mixed-DPI region sync, and Fluent point-to-point easing corrections. #718 does not invalidate those earlier corrections; it means the newer runtime-capture candidate is not green.
+- A replacement packaged-runtime harness is now **IN PROGRESS / NOT YET VALIDATED** on PR #192. Current branch head is `fe5224fd3794a13b693490a9bb1a9ddf953c8391`. It removes the failed CDP dependency and instead uses an environment-gated renderer driver (`?runtimeVisual=1` + `NARRO_FOCUS_CAPTURE_DIR`) to exercise the existing production presentation commands, write DOM/checkpoint snapshots, and capture the real packaged Focus HWND through Win32 screen/metadata probes. A single PowerShell process captures each 20-frame native transition sequence so the ~250ms motion is not lost to process startup. No production Focus/window/timer semantics are intentionally changed.
+- Windows CI #732 currently validates parent head `553a88f0a94a970bac616ab9bb951abb27970d6a`; it is useful compiler/preflight evidence only and is **not** exact-head evidence for `fe5224f...`. Wait for a workflow run whose `head_sha` exactly equals the current PR head before any acceptance claim.
 - Physical acceptance is still **NOT RUN / UNAVAILABLE**. The last physical source remains #684 head `274cf727f4d5b693904c2ff10f3835224368c4e8`, whose recording exposed the three defects corrected by #708.
 - The fully merged/physically accepted application-source baseline for the reopened M1/M6/M7 chain remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` until the replacement passes its required gates and is merged/reconciled.
 
 Independent M8 work exists and must not be confused with M7 closure:
 - PR #193 / PREF-R02 finite reduced-motion-safe timer flash is **MERGED**. Exact PR head `2413de4f0e02daf829ffc753ca70b48a1e11712e` passed Windows CI #714 / run `36694484904`; squash merge/main source commit is `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`. All eight changed source/test blobs were verified identical between the validated PR head and merged source. PREF-R02 is therefore **VALIDATED**.
-- PR #194 / PREF-R06 Windows-locale schedule presentation remains **OPEN**; exact head `354c6efcf62f66af0539bec085960bcafed7261c` passed CI #713. Do not count it complete before merge/current-main reconciliation.
-- PR #195 / PREF-R03 notification-alert gating remains **OPEN**; exact head `edd7ee79c535df615ac8a897baa1c033152869aa` passed CI #715. Do not count it complete before merge/current-main reconciliation.
+- PREF-R03 notification-alert gating is **VALIDATED / MERGED**: PR #195 reconciled exact head `c3a09e3780871cea70d008ac540f8d62cb684be7` passed Windows CI #722 / run `36704515416`; guarded squash merge `1c9f2c7dc670fddcbf8cf687ca5b1945588eb01c` passed resulting-main CI #723 / run `36705536633`.
+- PREF-R06 Windows-locale schedule presentation is **VALIDATED / MERGED**: PR #194 exact head `16ae996a478687ad3e61788e77de00159f4207c2` passed Windows CI #721 / run `36704495943`; expected-head guarded squash merge `88dea3bcbd988f2e77ea0edccb218be95e5b2438` passed resulting-main Windows CI #724 / run `36709829221`.
 
 Deep Blitzit research reconciliation is durable:
 - `RISK-F007`: fresh app launch must never implicitly create/start a timer session; dedicated regression still open.
@@ -43,10 +44,10 @@ PR #193/PREF-R02 is independently merged and automated-validated as described ab
 
 - `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` is authoritative for finding disposition.
 - `M7-PHYS-01`, `M7-PHYS-02` and `M7-PHYS-03` remain **IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN** from exact #708 head `63bb20e9...`.
-- PR #192 current head `12ec6471...` is **CI FAILED** because the newly added packaged-runtime screenshot harness could not connect to WebView2 DevTools; do not characterize that head as automated-green.
+- PR #192 reconciled head `3d5de002...` is **CI FAILED** only because the packaged-runtime screenshot harness still cannot connect to WebView2 DevTools after preflight, visual regression and Tauri release succeed; do not characterize that head as automated-green.
 - Gate 12 still requires the real 125% secondary-display physical scenario when the Windows test environment becomes available.
 - `RISK-F007` and `RISK-F008` are explicit `VALIDATION_OPEN` items for final reliability coverage.
-- PREF-R02 is validated; PREF-R03 and PREF-R06 have green PR CI but remain unmerged/open.
+- PREF-R02, PREF-R03 and PREF-R06 are validated/merged.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -63,13 +64,13 @@ PR #193/PREF-R02 is independently merged and automated-validated as described ab
 
 ## NEXT AGENT ACTION
 
-1. Resume PR #192 first. Before changing source/test code, reconcile the latest `main` into `plan/m7-single-focus` because `main` now contains newer tracking plus merged PREF-R02.
-2. Inspect and fix only the evidence-backed CI #718 packaged-runtime visual-harness failure: WebView2 DevTools target readiness/connection. Do not change product runtime behavior unless the harness investigation proves a product startup defect.
-3. Run the narrow harness self-test/local checks available, then exact-head Windows CI. Require Repository Preflight, visual regression, Tauri release, packaged Focus runtime capture/validation and required artifact uploads to pass.
-4. If the runtime capture becomes green, inspect its exact screenshots/metadata programmatically. Keep physical Gate 7/Gate 12 open; CI screenshots are supplemental and do not replace the real Windows physical protocol.
+1. Resume PR #192 first. Before the next source/test change, reconcile latest `main` again because main now contains merged PREF-R03 plus tracking that postdates reconciled head `3d5de002...`.
+2. Continue the native packaged-runtime harness already on PR #192; do not revert to CDP unless new evidence proves the native route invalid. First require exact-head CI for the current branch SHA and fix only evidence-backed harness/compiler failures.
+3. Require Repository Preflight, visual regression, Tauri release, packaged Focus runtime capture/validation and required artifact uploads to pass on one exact head. Then download the `narro-m7-focus-runtime-visual` artifact and inspect the settled Panel/compact/expanded PNGs plus both 20-frame transition sequences and JSON/native metadata programmatically.
+4. Keep physical Gate 7/Gate 12 open even if CI screenshots pass; CI visual evidence is supplemental and does not replace the real Windows physical protocol.
 5. When physical Windows access returns, use the newest exact validated PR artifact for the remaining strict Panel↔Timer/Expand↔Collapse, 100%↔125%, geometry/scrollbar, eased-motion, topology, performance, and task/session/time continuity checks.
 6. Only after physical PASS complete replacement performance/topology acceptance, guarded-merge the exact validated PR head, validate/reconcile resulting `main`, and then reclose affected M1/M6/M7/M8 shortcut items.
-7. Independent PRs #194/#195 may be resumed only without displacing the active PR #192 failure. Reconcile them with current `main`, rerun exact-head CI after any SHA change, and merge only from validated heads.
+7. PR #195 and PR #194 are complete. No further independent M8 source slice should displace PR #192; PREF-R05 remains asset-evidence blocked and affected shortcut integration remains coupled to the M7 replacement.
 
 ## USER ACTION REQUIRED
 
