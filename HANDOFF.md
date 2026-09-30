@@ -62,12 +62,20 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 - Scope remains fixture-only/presentational until production wiring: pure Overview view, summary cards, accessible Tasks/Breaks/Total chart+tooltip, productive cards, Time By List, Done Tasks/punctuality, list filter, date picker, reduced-motion CSS, light/dark captures.
 - Do not weaken Reports validation or merge #198 without actual Reports PNG/DOM artifact inspection.
 
-#### Visual readiness harness — ACTIVE
+#### Visual readiness harness — VALIDATED / MERGED
 
-- PR #201: `ci/visual-ready-retry-hardening`, source head checkpoint `f2aa19787800d8d889a6828ec8da712313f789ed`.
-- Change is confined to `scripts/capture-visual-fixtures.ps1`: explicit ReadyMarker fixtures keep the same strict marker requirement but receive up to four bounded captures instead of two, with small retry-only backoff.
-- CI #760 is **IN PROGRESS**.
-- If #201 validates, merge it first, validate resulting main, then reconcile #198 with that main before exact-head Reports visual CI.
+- PR #201 exact validated head: `61b4bf4b73a93b5166ce12255f86960ccb84bd5d`.
+- Windows CI #762 / run `36751993652`: **PASS**.
+- Guarded squash merge: `ff4627e8013c4bc6b30a79589b49a30cc5b09d22`.
+- Resulting-main CI #765 / run `36755450984`: **PASS**; validation gate reused the byte-identical already-validated PR tree and skipped duplicate build work.
+- Strict ready-marker behavior is preserved; explicit-ready fixtures receive up to four bounded captures with retry-only backoff.
+- Durable evidence: `work-log/2026-09-30-chatgpt-visual-ready-harness-validation.md`.
+- Active branches were reconciled to this validated source before their next CI:
+  - PR #198 head `5d037bca0cb3ee109e618b902edaa246362819f7`, CI #768;
+  - PR #202 head `5c4ad3c1c44b5155a82b51480c8d0c7d3de5171f`, CI #769;
+  - PR #199 head `3deec9c056e8ea449d96a9c2b9ac8572d7fabf9d`, CI #770;
+  - PR #203 head `59b7b2713505bdea7cf2521eaebd5f2bf164fb17`, CI #771.
+- PR #204 was closed unmerged as a duplicate of the pre-existing authoritative PR #202.
 
 
 ### Independent M8
@@ -97,11 +105,12 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 
 ## NEXT AGENT ACTION
 
-1. Inspect live CI #759 for PR #199 and CI #760 for PR #201. Fix only exact evidence-backed failures.
-2. If #201 passes, expected-head merge it, validate resulting main, then reconcile PR #198 with that validated harness/main state and rerun exact-head Windows CI. On PASS, download and visually inspect every Reports Overview light/dark PNG and DOM capture before merge.
-3. If #199 passes, reconcile any newer main tracking/source state, require exact-head CI on that reconciled head, then guarded merge and resulting-main validation.
-4. Build the next M9 command/API layer from the latest validated main: Overview/history reads plus historical Sessions create/edit/delete must reuse #197/#200 authority, stable error codes and local-only SQLite. Do not mutate or duplicate the live timer authority.
-5. Keep PR #192 at automated-green head `0ef80844...` until physical Windows access returns; Gate 7/Gate 12 remain open.
+1. Inspect live exact-head CI #768 (PR #198), #769 (PR #202), #770 (PR #199) and #771 (PR #203). Fix only evidence-backed failures; do not poll long builds repeatedly.
+2. On PR #198 PASS, download and visually inspect every Reports Overview light/dark PNG and captured DOM before guarded merge. The validated #201 harness must remain in the tree.
+3. On PR #202 PASS, guarded-merge the exact command/API head and validate resulting main before considering report history/session mutations renderer-accessible.
+4. On PR #199 PASS, guarded-merge the exact aggregation head and validate resulting main before exposing Overview aggregates through renderer commands.
+5. On PR #203 PASS, guarded-merge the Sessions projection and validate resulting main before building the Sessions UI.
+6. Keep PR #192 at automated-green head `0ef80844...` until physical Windows access returns; Gate 7/Gate 12 remain open.
 
 ## USER ACTION REQUIRED
 
