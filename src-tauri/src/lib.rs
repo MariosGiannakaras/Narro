@@ -922,9 +922,7 @@ const FLUENT_POINT_TO_POINT_Y2: f64 = 1.0;
 
 fn cubic_bezier_coordinate(t: f64, p1: f64, p2: f64) -> f64 {
     let one_minus_t = 1.0 - t;
-    3.0 * one_minus_t * one_minus_t * t * p1
-        + 3.0 * one_minus_t * t * t * p2
-        + t * t * t
+    3.0 * one_minus_t * one_minus_t * t * p1 + 3.0 * one_minus_t * t * t * p2 + t * t * t
 }
 
 fn fluent_point_to_point_easing(progress: f64) -> f64 {
@@ -943,11 +941,7 @@ fn fluent_point_to_point_easing(progress: f64) -> f64 {
     let mut upper = 1.0;
     for _ in 0..20 {
         let t = (lower + upper) * 0.5;
-        let x = cubic_bezier_coordinate(
-            t,
-            FLUENT_POINT_TO_POINT_X1,
-            FLUENT_POINT_TO_POINT_X2,
-        );
+        let x = cubic_bezier_coordinate(t, FLUENT_POINT_TO_POINT_X1, FLUENT_POINT_TO_POINT_X2);
         if x < progress {
             lower = t;
         } else {
