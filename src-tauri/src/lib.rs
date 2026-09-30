@@ -22,7 +22,10 @@ pub mod recurrence;
 pub mod recurrence_service;
 pub mod reminder_acceptance;
 pub mod reminder_service;
+pub mod report_commands;
+pub mod reporting;
 pub mod scheduling;
+pub mod session_reporting;
 pub mod shortcut_settings;
 pub mod shortcuts;
 pub mod theme_settings;
@@ -55,6 +58,7 @@ const MAIN_WINDOW_LABEL: &str = "main";
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
 const STATE_CHANGED_EVENT: &str = "state-changed";
 const FOCUS_SURFACE_PRESENTATION_CHANGED_EVENT: &str = "focus-surface-presentation-changed";
+const FOCUS_PANEL_REQUEST_EVENT: &str = "focus-panel-requested";
 const MAX_MONITOR_KEY_LEN: usize = 2048;
 const FOCUS_PRESENTATION_UNKNOWN: u8 = 0;
 const FOCUS_PRESENTATION_PANEL: u8 = 1;
@@ -1391,12 +1395,21 @@ fn present_focus_for_blitz(app_handle: tauri::AppHandle) -> CommandResult<()> {
     })?;
 
     if visible {
-        // A visible Focus host may already be in Timer presentation. Do not
-        // bypass the React coordinator by forcing native Panel state here.
-        // Re-entering Blitz simply foregrounds the already committed surface.
-        return window.set_focus().map_err(|error| {
+        // A visible Timer must return to Panel through the persistent React
+        // coordinator so target prepaint and renderer/native ownership stay
+        // serialized. Focusing first preserves the existing visible surface
+        // while the coordinator commits the Panel transition.
+        window.set_focus().map_err(|error| {
             map_window_error(FOCUS_SURFACE_LABEL, "focus existing Blitz surface", error)
-        });
+        })?;
+        return app_handle
+            .emit(FOCUS_PANEL_REQUEST_EVENT, true)
+            .map_err(|error| {
+                CommandError::new(
+                    "FOCUS_PRESENTATION_FAILED",
+                    format!("failed to request Focus Panel for Blitz entry: {error}"),
+                )
+            });
     }
 
     // Hidden Focus entry is safe to prepare natively because no intermediate
@@ -1730,6 +1743,11 @@ fn initialize_persistence(
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let result = tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(
+            |app_handle, _argv, _cwd| {
+                request_show_or_recreate_main(app_handle.clone());
+            },
+        ))
         .on_window_event(|window, event| {
             if window.label() == FOCUS_SURFACE_LABEL
                 && current_focus_surface_mode() == Some(FocusSurfaceMode::Timer)
@@ -1807,6 +1825,10 @@ pub fn run() {
             theme_settings::set_theme_preference,
             preference_settings::get_preference_settings,
             preference_settings::update_preference_settings,
+            report_commands::get_report_history,
+            report_commands::create_manual_report_session,
+            report_commands::edit_report_session,
+            report_commands::delete_report_session,
             toggle_timer,
             mutate_state,
             send_test_notification,

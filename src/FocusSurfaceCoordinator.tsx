@@ -80,8 +80,10 @@ export function FocusSurfaceCoordinator() {
   });
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
+  const deferredPanelRequestRef = useRef(false);
   const deferredToggleSequenceRef = useRef<number | null>(null);
   const deferredFindSequenceRef = useRef<number | null>(null);
+  const timerProjectionRef = useRef<TimerSessionPayload | null>(null);
   const presentationReconcileRevisionRef = useRef(0);
   const quickTaskAfterPanelRef = useRef(false);
   const requestModeRef = useRef<(mode: FocusSurfaceMode, quickTask?: boolean) => Promise<void>>(async () => {});
@@ -153,7 +155,11 @@ export function FocusSurfaceCoordinator() {
     void connectLiveTimerSessionProjection(
       (incoming) => {
         if (disposed) return;
-        setTimerProjection((current) => applyTimerSessionProjection(current, incoming));
+        setTimerProjection((current) => {
+          const next = applyTimerSessionProjection(current, incoming);
+          timerProjectionRef.current = next;
+          return next;
+        });
         setTimerProjectionError(null);
       },
       (failure) => {
@@ -311,9 +317,34 @@ export function FocusSurfaceCoordinator() {
       }
     };
 
+    void subscribe<boolean>("focus-panel-requested", (requested) => {
+      if (requested !== true) return;
+      if (
+        !presentationHydratedRef.current
+        || transitionGateRef.current
+        || timerResizePendingRef.current
+      ) {
+        deferredPanelRequestRef.current = true;
+        return;
+      }
+      deferredPanelRequestRef.current = false;
+      void requestModeRef.current("panel");
+    });
+
     void subscribe<number>("focus-surface-toggle-requested", (sequence) => {
       if (!Number.isSafeInteger(sequence) || sequence <= lastToggleRequestRef.current) return;
-      if (!presentationHydratedRef.current) {
+      const timer = timerProjectionRef.current?.runtime.timer;
+      if (timer && (timer.state === "idle" || timer.task_id === null)) {
+        deferredToggleSequenceRef.current = null;
+        lastToggleRequestRef.current = sequence;
+        setShortcutStatus("No active Focus task is available for this shortcut.");
+        return;
+      }
+      if (
+        !presentationHydratedRef.current
+        || transitionGateRef.current
+        || timerResizePendingRef.current
+      ) {
         deferredToggleSequenceRef.current = Math.max(
           deferredToggleSequenceRef.current ?? 0,
           sequence,
@@ -403,14 +434,25 @@ export function FocusSurfaceCoordinator() {
   }, [publishPresentation]);
 
   useEffect(() => {
-    if (!presentationHydrated) return;
+    if (!presentationHydrated || transitionPending || timerResizePending) return;
+
+    if (deferredPanelRequestRef.current) {
+      deferredPanelRequestRef.current = false;
+      void requestModeRef.current("panel");
+      return;
+    }
 
     const deferredToggle = deferredToggleSequenceRef.current;
     if (deferredToggle !== null && deferredToggle > lastToggleRequestRef.current) {
       deferredToggleSequenceRef.current = null;
       lastToggleRequestRef.current = deferredToggle;
-      const currentMode = focusSurfaceModeOf(presentationRef.current);
-      void requestModeRef.current(currentMode === "panel" ? "timer" : "panel");
+      const timer = timerProjectionRef.current?.runtime.timer;
+      if (timer && (timer.state === "idle" || timer.task_id === null)) {
+        setShortcutStatus("No active Focus task is available for this shortcut.");
+      } else {
+        const currentMode = focusSurfaceModeOf(presentationRef.current);
+        void requestModeRef.current(currentMode === "panel" ? "timer" : "panel");
+      }
     }
 
     const deferredFind = deferredFindSequenceRef.current;
@@ -425,7 +467,7 @@ export function FocusSurfaceCoordinator() {
         setFindTimerPulse(deferredFind);
       }
     }
-  }, [presentationHydrated]);
+  }, [presentationHydrated, timerResizePending, transitionPending]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -485,7 +527,11 @@ export function FocusSurfaceCoordinator() {
         throw new Error("Another Focus task is already active. Close this success screen to continue.");
       }
       const payload = await startTimerTask(success.nextTask.id, success.nextTask.mode);
-      setTimerProjection((current) => applyTimerSessionProjection(current, payload));
+      setTimerProjection((current) => {
+        const next = applyTimerSessionProjection(current, payload);
+        timerProjectionRef.current = next;
+        return next;
+      });
       setCompletionSuccess(null);
       setPanelRefreshKey((value) => value + 1);
       setTimerRefreshKey((value) => value + 1);

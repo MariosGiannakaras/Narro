@@ -31,18 +31,26 @@ invariant(
 const handlerStart = shortcuts.indexOf("fn schedule_focus_toggle_trigger()");
 const handlerEnd = shortcuts.indexOf("fn schedule_find_timer_trigger()", handlerStart);
 const handler = shortcuts.slice(handlerStart, handlerEnd);
-const show = handler.indexOf("crate::show_current_focus_surface(&trigger_handle)");
+const snapshot = handler.indexOf("timer_service.snapshot()");
+const activeGate = handler.indexOf("focus_toggle_allowed(", snapshot);
+const show = handler.indexOf("crate::show_current_focus_surface(&trigger_handle)", activeGate);
 const trigger = handler.indexOf("manager.record_focus_toggle_trigger()", show);
 const emit = handler.indexOf(".emit(FOCUS_TOGGLE_EVENT, payload.focus_toggle_trigger_count)", trigger);
 invariant(
   handlerStart >= 0 && handlerEnd > handlerStart
-    && show >= 0 && show < trigger && trigger < emit
+    && snapshot >= 0 && snapshot < activeGate && activeGate < show
+    && show < trigger && trigger < emit
+    && handler.includes("state::<crate::timer_service::TimerService>()")
+    && handler.includes("snapshot.runtime.timer.task_id.is_some()")
+    && shortcuts.includes("state != crate::timer::TimerStateKind::Idle && has_task")
+    && shortcuts.includes("TimerStateKind::Break")
+    && shortcuts.includes("TimerStateKind::OvertimePaused")
     && handler.includes("crate::current_focus_surface_mode().is_none()")
     && !handler.includes("crate::show_and_focus(&window)")
     && !handler.includes("get_webview_window(FOCUS_SURFACE_LABEL)")
     && !handler.includes("FLOATING_TIMER_LABEL")
     && handler.includes("record_and_report_focus_toggle_error"),
-  "shortcut must restore/show the one Focus host through the presentation-safe lifecycle before emitting a revisioned request",
+  "shortcut must prove active authoritative Focus state before showing the one Focus host and emitting a revisioned request",
 );
 invariant(
   shortcuts.includes("map_register_error_for_chord(error, FOCUS_TOGGLE_CHORD)")
@@ -55,6 +63,8 @@ invariant(
 invariant(
   coordinator.includes('subscribe<number>("focus-surface-toggle-requested"')
     && coordinator.includes("sequence <= lastToggleRequestRef.current")
+    && coordinator.includes('timer.state === "idle" || timer.task_id === null')
+    && coordinator.includes("deferredToggleSequenceRef.current = null")
     && coordinator.includes('currentMode === "panel" ? "timer" : "panel"')
     && coordinator.includes("transitionGateRef.current")
     && coordinator.includes("commitPreparedFocusPresentation({"),

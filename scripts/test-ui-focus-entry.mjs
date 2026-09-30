@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-const [rust, lib, api, button, main, preferences, windows, topology, region] = await Promise.all([
+const [rust, lib, api, button, main, preferences, windows, topology, region, coordinator] = await Promise.all([
   readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/focusEntryApi.ts", import.meta.url), "utf8"),
@@ -10,6 +10,7 @@ const [rust, lib, api, button, main, preferences, windows, topology, region] = a
   readFile(new URL("../src-tauri/src/windows/mod.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/windows/topology.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/timer_region.rs", import.meta.url), "utf8"),
+  readFile(new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8"),
 ]);
 
 function requireText(haystack, needle, label) {
@@ -52,6 +53,9 @@ for (const [haystack, needle, label] of [
   [lib, ".is_visible()", "visible Focus-surface revalidation guard"],
   [lib, "position_focus_panel,", "Panel positioning command registration"],
   [lib, "present_focus_panel", "production Panel presentation registration"],
+  [lib, 'const FOCUS_PANEL_REQUEST_EVENT: &str = "focus-panel-requested";', "visible Blitz target-Panel coordinator request"],
+  [coordinator, 'subscribe<boolean>("focus-panel-requested"', "persistent coordinator Blitz Panel request listener"],
+  [coordinator, 'deferredPanelRequestRef.current = true', "Blitz Panel request transition deferral"],
   [lib, "Err(CommandError::stale_monitor_selection())", "stale selected-monitor rejection"],
   [preferences, "selected_monitor_key: None", "safe no-selection default"],
   [preferences, "focus_panel_side: FocusPanelSide::Right", "default right side"],
@@ -165,15 +169,21 @@ if (
 const blitzPresentationStart = lib.indexOf("fn present_focus_for_blitz(app_handle: tauri::AppHandle)");
 const blitzPresentationEnd = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(", blitzPresentationStart);
 const blitzPresentation = lib.slice(blitzPresentationStart, blitzPresentationEnd);
+const visibleBranchStart = blitzPresentation.indexOf("if visible {");
+const hiddenBranchStart = blitzPresentation.indexOf("// Hidden Focus entry", visibleBranchStart);
+const visibleBranch = blitzPresentation.slice(visibleBranchStart, hiddenBranchStart);
+const hiddenBranch = blitzPresentation.slice(hiddenBranchStart);
 if (
   blitzPresentationStart < 0
   || blitzPresentationEnd < blitzPresentationStart
-  || !blitzPresentation.includes("if visible {")
-  || !blitzPresentation.includes("set_focus()")
-  || !blitzPresentation.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?")
-  || blitzPresentation.indexOf("if visible {") > blitzPresentation.indexOf("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?")
+  || visibleBranchStart < 0
+  || hiddenBranchStart < visibleBranchStart
+  || !visibleBranch.includes("set_focus()")
+  || !visibleBranch.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
+  || visibleBranch.includes("apply_focus_surface_presentation_internal")
+  || !hiddenBranch.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?")
 ) {
-  throw new Error("Blitz Focus entry must preserve an already-visible Timer/Panel presentation and prepare Panel only while the host is hidden.");
+  throw new Error("Blitz Focus entry must target Panel through the coordinator when visible and may prepare Panel natively only while hidden.");
 }
 
 const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
