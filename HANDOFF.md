@@ -8,7 +8,7 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains active.** Exact CI #679 physical evidence failed both strict gates. The resulting narrow sequencing correction is automated-green on PR #192, and exact CI #684 physical evidence now shows both previously observed defect signatures corrected; formal Gate 7 + Gate 12 acceptance remains open only because the recorded batch did not complete every required repetition/direction.
+**Reopened Milestone 1 corrective foundation remains active.** Exact CI #684 physical evidence cleared both previously observed #679 defect signatures. Because the user currently has no access to the Windows test system, the missing strict repetitions/direction cannot be physically recorded. PR #192 has therefore received an additional programmatic/WebView2 hardening pass and is automated-green on exact Windows CI #693; formal Gate 7 + Gate 12 physical acceptance remains OPEN/UNAVAILABLE, not failed.
 
 - PR #192 remains **OPEN** on `plan/m7-single-focus`.
 - Last physically tested source: `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`.
@@ -42,7 +42,20 @@ Latest exact #684 physical retest:
 - same task/session `fas` and elapsed-time continuity remain intact;
 - immutable evidence: `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md`.
 
-No progress counter advances until exact #684 physical Gate 7 and Gate 12 acceptance completes.
+
+Latest programmatic hardening:
+- exact source head `22e86c5788416ebbdf249c123baf549b1820b10b`;
+- Windows CI #693 / run `36678327585`: **PASS**;
+- runtime artifact id `11080808573`, digest `sha256:ff04c3fbaf66a95c00d486ea08d66ff7f21fc8fabf27c980d9b7ebce3eb30b3c`;
+- visual artifact id `11081246096`, digest `sha256:871dc6a5ccf186e7a7ee069ede1fc76c2d23ec0d3e5a94249164174e805317d7`;
+- all programmatic Focus/Timer parent HWND moves now route through one helper that explicitly calls WebView2 `NotifyParentWindowPositionChanged()`;
+- Tauri is pinned to `~2.11.5` because the implementation intentionally uses native `with_webview` access;
+- transition tests now include animated-native rollback, renderer-failure rollback after animated native success, and 250 repeated deterministic Panel↔Timer cycles;
+- CI #691 failed only rustfmt; CI #692 failed only two Rust borrow-shape errors; both were corrected before #693 and neither was a behavioral failure;
+- no radical architecture replacement is justified by current evidence; the single persistent `focusSurface` remains the preferred design;
+- immutable evidence: `work-log/2026-09-30-chatgpt-m7-programmatic-hardening-ci693.md`.
+
+No progress counter advances from the hardening/CI alone. The strict physical gates remain unavailable because the user currently has no access to the Windows test environment.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -53,7 +66,7 @@ This remains the fully merged/physically accepted application-source baseline (P
 ## EVIDENCE / AUDIT STATE
 
 - `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` is authoritative for finding disposition.
-- `M7-PHYS-01` and `M7-PHYS-02` remain `FIX_NOW / PHYSICAL RETEST OPEN`; automated CI #679 does not close them.
+- `M7-PHYS-01` and `M7-PHYS-02` are `VALIDATION_OPEN / PHYSICAL ACCEPTANCE UNAVAILABLE`: #684 clears the known defect signatures and #693 adds automated WebView2/DPI hardening, but no current physical environment exists to close the strict acceptance protocol.
 - Uploaded tutorial/source evidence and prior validated milestones remain unchanged.
 - Gate 12 now has a real user-confirmed 125% secondary-display test environment, so it must be physically exercised rather than left NOT RUN.
 
@@ -72,19 +85,14 @@ This remains the fully merged/physically accepted application-source baseline (P
 
 ## NEXT AGENT ACTION
 
-Use the same exact CI #684 runtime artifact id `11066497568`; no source change is currently justified.
-
-Request/analyze one short supplemental recording that closes only the missing protocol items:
-1. one additional complete Panel→Timer→Panel cycle;
-2. one additional complete compact Expand→Collapse cycle;
-3. one ordinary drag from the 100% display to the user-confirmed 125% display;
-4. compact/expanded geometry there, then return to Panel with no stale viewport or browser scrollbar flash;
-5. same task/session/time continuity.
-
-Aggregate this supplemental evidence with `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md`. If all missing items pass, close Gate 7 + Gate 12 and proceed to guarded merge/resulting-main validation. If a new defect appears, keep PR #192 open and fix only that exact-build signature.
-
-Do not merge PR #192 before both physical gates pass.
+1. Treat PR #192 exact head `22e86c5788416ebbdf249c123baf549b1820b10b` / Windows CI #693 as the current automated-green M7 source candidate.
+2. Do not add more transition/DPI code without new evidence; the #684 physical defect signatures are cleared and the parent-move synchronization gap is now hardened.
+3. Do not revive the split Timer WebView architecture from PR #191.
+4. Keep Gate 7 + Gate 12 physical acceptance explicitly OPEN/UNAVAILABLE while no suitable Windows environment exists; do not invent a PASS.
+5. Do not merge PR #192 while the repository's physical-before-merge rule remains in force.
+6. If a physical environment becomes available later, only a short exact-current-build supplemental batch is needed. If a new exact-build defect appears, fix only that observed signature.
+7. If implementation proceeds elsewhere in the roadmap while the manual gate is unavailable, preserve this blocker explicitly and do not count/reclose the affected milestones prematurely.
 
 ## USER ACTION REQUIRED
 
-Use only CI #684 exact runtime. A short supplemental recording is required to close the missing cycle counts and the 100%→125% drag direction; no full retest is necessary unless new evidence contradicts the current clean paths. artifact id `11066497568` / source `274cf727f4d5b693904c2ff10f3835224368c4e8` for the next combined physical recording.
+None currently. The user has stated that the Windows test system is unavailable. Do not repeatedly request another recording until the user says physical access is available again.
