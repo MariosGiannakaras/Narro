@@ -671,6 +671,12 @@
   }
 }
 
+/* Fixture-only lower-panel capture framing. Production never sets this html data attribute. */
+html[data-reports-fixture-mode="lower"] .reports-overview__metrics,
+html[data-reports-fixture-mode="lower"] .reports-overview__chart-card {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reports-overview__chart-bar {
     transition-duration: 1ms;
