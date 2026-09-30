@@ -915,7 +915,7 @@ mod tests {
         assert_eq!(overview.daily_series[0].break_seconds, 900);
         assert_eq!(overview.daily_series[0].total_seconds, 4_500);
         assert_eq!(overview.productive.local_hour_start, Some(9));
-        assert_eq!(overview.productive.weekday_from_monday, Some(0));
+        assert_eq!(overview.productive.weekday_from_monday, Some(1));
         assert_eq!(overview.productive.month_key.as_deref(), Some("2026-09"));
         assert_eq!(overview.time_by_list.len(), 1);
         assert_eq!(overview.time_by_list[0].work_seconds, 6_000);
