@@ -83,6 +83,16 @@ export function startFocusRuntimeVisualDriver() {
     await invoke("main_window_hide");
     await sleep(100);
     await invoke("present_focus_for_blitz");
+    await waitForPresentation("panel");
+
+    // A clean CI profile has no saved Timer placement, so production correctly
+    // plans the first Timer at the current Panel position. Seed one distinct,
+    // safe placement through the production persistence path before capturing
+    // motion, then return to Panel and begin the formal sequence.
+    await applyFocusSurfacePresentation("timerCompact");
+    await waitForPresentation("timerCompact");
+    await invoke("focus_runtime_capture_seed_timer_placement");
+    await applyFocusSurfacePresentation("panel");
     await checkpoint("panel", await waitForPresentation("panel"));
     await waitForCaptureAck("panel");
 
