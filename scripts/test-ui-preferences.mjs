@@ -31,6 +31,7 @@ const [
   css,
   reminderService,
   scheduleReminderEffects,
+  timerService,
   packageText,
 ] = await Promise.all([
   read("src-tauri/src/preference_settings.rs"),
@@ -55,6 +56,7 @@ const [
   read("src/preferenceSettingsSections.css"),
   read("src-tauri/src/reminder_service.rs"),
   read("src-tauri/src/persistence/schedule_reminder_effects.rs"),
+  read("src-tauri/src/timer_service.rs"),
   read("package.json"),
 ]);
 
@@ -100,6 +102,22 @@ invariant(
   scheduleReminderEffects.includes("schedule_preference_reminder_effects")
     && scheduleReminderEffects.includes("ON CONFLICT(task_id, scheduled_local_date, scheduled_local_time, timezone) DO NOTHING"),
   "Schedule-reminder Preferences must use a durable idempotent effect ledger",
+);
+
+invariant(
+  timerService.includes("notification_alerts_enabled_best_effort")
+    && timerService.includes("record.payload.alerts.notification_alerts_enabled")
+    && timerService.includes("submit_claimed_notifications(app_handle, effects_connection, pending)"),
+  "Notification Alerts must gate the existing authoritative Pomodoro notification delivery path",
+);
+invariant(
+  timerService.indexOf("let pending = claim_notifications_best_effort")
+    < timerService.indexOf("submit_claimed_notifications(app_handle, effects_connection, pending)"),
+  "Pomodoro boundary notifications must remain durably claimed before preference-gated submission",
+);
+invariant(
+  timerService.includes("notification_alert_gate_defaults_off_and_tracks_persisted_preference"),
+  "Notification Alerts preference gate needs a Rust regression test",
 );
 
 for (const label of [
