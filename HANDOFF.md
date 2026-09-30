@@ -13,17 +13,18 @@ GitHub `main` is the durable source truth.
 ### M7 / replacement chain
 
 - PR #192 remains **OPEN / DO NOT MERGE** on `plan/m7-single-focus`.
-- Exact automated-green PR head: `0ef808445b567a4a3194296ed1dccb5a6a58b03e`.
-- Windows CI #744 / run `36737427034`: **PASS** on that exact head.
-- Passed: Repository Preflight, frontend contracts/build, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release, packaged Focus runtime capture/validation, runtime harness upload and visual artifact uploads.
-- Packaged runtime artifact `narro-m7-focus-runtime-visual`: id `11109291010`, digest `sha256:45994931d9e19d13c1ccff62634b2b616c62c59222bd2d26f02e1a278a9b9da9`.
-- Runtime harness artifact: id `11109560929`, digest `sha256:6b848df39993108d8102cd75265692ce824ec3d592d569170285b60d67ee2fef`.
-- Visual-regression artifact: id `11107169960`, digest `sha256:14b0dbc5f68995190a62079625b1a3189efbbd69f7ba899f07a726db75fc8503`.
-- Downloaded artifact inspection confirms settled Panel 340x700, compact Timer 340x110, expanded Timer 340x300, correct native region/DPI metadata, and no document/root scrollbar.
-- The hosted runner reports `prefers-reduced-motion: true`. High-frequency HWND samples therefore correctly show only start/end positions for the reduced-motion path. This **does not** prove the standard ~250 ms motion character.
-- Physical Gate 7 / Gate 12 remain **NOT RUN / UNAVAILABLE**. Do not reclose affected M1/M6/M7/M8 shortcut items or merge PR #192 from CI #744 alone.
-- Fully merged/physically accepted replacement-chain baseline remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
-- Durable evidence: `work-log/2026-09-30-chatgpt-m7-ci744-packaged-runtime-pass.md`.
+- Exact automated-green head: `0ef808445b567a4a3194296ed1dccb5a6a58b03e`.
+- Windows CI #744 / run `36737427034`: **PASS**.
+- CI artifact evidence remains valid for reduced-motion packaged geometry: Panel 340×700, compact Timer 340×110, expanded Timer 340×300, one persistent Focus HWND/WebView, DPI/region checks, and no document/root scrollbar.
+- User-provided physical recording `2026-09-30 23-13-14.mp4`, SHA-256 `eb3b862d58f69b1000f665d35dd52bf4d0703bfc1dda80f92c759de9c4809a1b`, was audited visually and semantically.
+- **The recording is not accepted as final Gate 7 evidence.** Main visibly reports simultaneous Ctrl+Shift+T and Ctrl+Shift+P registration conflicts. Narro currently has no single-instance enforcement, so another Narro runtime is the strongest explanation and exact Focus-surface process ownership cannot be proven. Even if another app owned the chords, the recording still demonstrates the runtime-validity gap.
+- **RISK-F009 / FIX_NOW:** prevent or safely redirect a second Narro instance so one process owns SQLite/background orchestration/global shortcuts.
+- **B5 / FIX_NOW:** PR #192 changed Start Blitz semantics. Authoritative source says `Blitz now` opens Focus Panel; `present_focus_for_blitz` currently preserves an already-visible Timer and the rewritten test explicitly requires that wrong behavior. Restore Focus Panel entry without abandoning the single-host architecture.
+- **B6 / VALIDATION_OPEN:** idle Ctrl+Shift+T can expose `No active focus task` Floating Timer. Source describes the shortcut during Blitz Mode and Floating Timer as task+countdown, but this behavior predates #192; resolve explicitly rather than guessing.
+- The physical recording positively confirms only limited non-final observations: empty Focus state is semantically correct; no-eligible Blitz entry does not surprise-start work; compact Timer is movable; sampled idle transitions show no obvious full-white host frame. It does **not** prove active-session continuity, expanded Timer continuity, mixed-DPI Gate 12, or exact candidate ownership.
+- PR #192 is diverged/dirty relative to current main and must be reconciled with the latest validated main source before any new physical acceptance artifact.
+- Latest fully validated current-main source checkpoint is now `f86c38102fa4516d6e2429aa26b63ceb8aabfe78` (PR #203 resulting-main Windows CI #777 PASS). Markdown-only commits after it do not replace the source SHA.
+- Durable evidence: `work-log/2026-09-30-chatgpt-m7-ci744-physical-whole-app-audit.md`.
 
 ### Parallel M9
 
@@ -54,14 +55,16 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 - PR #203 exact validated head `59b7b2713505bdea7cf2521eaebd5f2bf164fb17`.
 - Exact-head Windows CI #771: **PASS**.
 - Guarded squash merge `f86c38102fa4516d6e2429aa26b63ceb8aabfe78`.
-- Resulting-main Windows CI #777 / run `36769374384`: **IN PROGRESS**.
-- Do not begin Sessions UI until #777 passes.
+- Resulting-main Windows CI #777 / run `36769374384`: **PASS**.
+- Runtime artifact id `11123510715`, digest `sha256:171e72d4da36d73ed1f5f471a78251e7690918a4eb3535cea47872408f91bd77`.
+- Visual artifact id `11122989272`, digest `sha256:692415b0ba11d911ec8798b2b907f462efec0c74fd4df00a5ce4694837eebf35`.
+- #203 is fully validated/merged. Sessions UI is technically unblocked, but new M7 FIX_NOW findings take priority before unrelated forward feature work.
 
 #### Overview aggregation command/API — ACTIVE
 
 - PR #205: `feat/m9-overview-command`.
 - Exact head `1588d48a3f273cef360028bd549be9a70dac9ef1`, intentionally based on validated main `d8351493...` so it does not depend on pending #203.
-- Windows CI #778 / run `36769649192`: **IN PROGRESS**.
+- Windows CI #778 / run `36769649192`: **FAIL**. Do not change #205 until the exact failure is inspected after the active M7 FIX_NOW correction path is stabilized.
 - Scope: `get_report_overview` delegating to validated `report_overview`; camelCase typed IPC DTOs; decimal-string serialization for all `u64` counts/accounting/durations; stable invalid-`displayTimezone` handling; typed renderer invoke; static preflight and lossless serialization regression.
 - No SQL, timer/session mutation, schema/migration, Focus/window, polling, network or production UI changes.
 - After #777 PASS, reconcile #205 with latest validated main before final exact-head validation/merge.
@@ -96,12 +99,12 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect #777 on merged main `f86c3810...`. On PASS, record artifacts and treat #203 as fully validated.
-2. Guarded-merge accepted PR #198 exact head `a0364a72...`, then validate its resulting main before marking the visual foundation merged.
-3. Inspect PR #205 CI #778. Fix only evidence-backed failures. After #777 PASS, reconcile #205 with the latest validated main and require exact-head Windows CI before merge.
-4. After #198 merge and #205 validation, implement production Overview wiring as the next narrow M9 slice.
-5. Only after #203 resulting-main PASS, begin Sessions UI work.
-6. Keep PR #192 at automated-green head `0ef80844...` until physical Windows access returns; Gate 7/Gate 12 remain open.
+1. Treat the new CI #744 physical whole-app audit as the active corrective gate: RISK-F009 and B5 are **FIX_NOW** and precede unrelated M9 forward work.
+2. Implement a narrow single-instance runtime policy from validated main `f86c3810...`: second launch must not create a competing SQLite/background/shortcut runtime and should safely foreground the existing Narro instance. Validate through its own exact-head Windows CI / guarded merge / resulting-main CI.
+3. Reconcile that validated main plus current tracking truth into PR #192, then restore source-confirmed `Blitz now -> Focus Panel` semantics through the single `focusSurface` coordinator without reintroducing split-window behavior. Update the regression test so it protects the product contract rather than the current wrong preservation behavior.
+4. Resolve B6 explicitly from the strongest Focus/Floating evidence; do not silently preserve or remove idle Timer access.
+5. Run exact-head Windows CI for the reconciled #192, issue a fresh artifact, then physically retest with exactly one Narro runtime, an active task/session, repeated Panel↔Timer and Expand↔Collapse, and real 100%↔125% Gate 12 coverage.
+6. M9 state is preserved: #198 is exact-head/artifact accepted but unmerged; #203 is fully validated/merged via main #777; #205 CI #778 failed and awaits evidence-backed diagnosis after the active M7 correction gate.
 
 ## USER ACTION REQUIRED
 
