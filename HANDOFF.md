@@ -8,7 +8,7 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains active.** Exact CI #679 physical evidence failed both strict gates, the resulting narrow sequencing correction is now automated-green on the same PR #192, and the next unresolved boundary is one exact-build physical Gate 7 + Gate 12 retest.
+**Reopened Milestone 1 corrective foundation remains active.** Exact CI #679 physical evidence failed both strict gates. The resulting narrow sequencing correction is automated-green on PR #192, and exact CI #684 physical evidence now shows both previously observed defect signatures corrected; formal Gate 7 + Gate 12 acceptance remains open only because the recorded batch did not complete every required repetition/direction.
 
 - PR #192 remains **OPEN** on `plan/m7-single-focus`.
 - Last physically tested source: `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`.
@@ -30,6 +30,17 @@ Current exact corrective candidate:
 - same-DPI Timer→Panel keeps the existing continuous reveal;
 - CI #682 failed only a new static-test scoping assertion; CI #683 then failed only rustfmt; both non-behavioral issues were corrected before final exact-head CI #684 PASS;
 - immutable candidate evidence: `work-log/2026-09-30-chatgpt-m7-ci684-corrective-candidate.md`.
+
+Latest exact #684 physical retest:
+- recording `2026-09-30 02-02-23.mp4`, SHA-256 `72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`, H.264 4480×1080 @ 60 fps, 37.516667 s;
+- three Panel→Timer transitions are clean: no #679 transparent/full-height host tail, no white/blank host, no teleport or overlap;
+- only two complete Panel→Timer→Panel cycles are present, so the strict 3-cycle Gate 7 batch is still incomplete;
+- two complete Expand→Collapse cycles are clean; one additional complete cycle is still required by the batch protocol;
+- 125% Timer geometry is correct at approximately 425×138 compact / 425×375 expanded;
+- cross-DPI Timer→Panel return no longer exposes the #679 stale WebView viewport/browser scrollbars; the previous Timer region stays clipped only for the intended bounded ~50 ms settle before full Panel reveal;
+- one ordinary cross-monitor drag is clean with no repeated push/snap-back, but this recording captures 125%→100%, while the strict protocol still requires one ordinary drag to the 125% display;
+- same task/session `fas` and elapsed-time continuity remain intact;
+- immutable evidence: `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md`.
 
 No progress counter advances until exact #684 physical Gate 7 and Gate 12 acceptance completes.
 
@@ -61,17 +72,19 @@ This remains the fully merged/physically accepted application-source baseline (P
 
 ## NEXT AGENT ACTION
 
-Analyze the next user recording against exact CI #684 runtime artifact id `11066497568`.
+Use the same exact CI #684 runtime artifact id `11066497568`; no source change is currently justified.
 
-1. Gate 7: at least 3× Panel→Timer→Panel; reject any transparent/full-height host tail, white/blank host, spatial teleport, overlap or abrupt discontinuity.
-2. Compact/expanded: at least 3× Expand→Collapse; reject stale expanded tails or clipping.
-3. Gate 12: one ordinary drag to the user-confirmed 125% display; verify compact/expanded geometry and no repeated-push/snap-back behavior.
-4. Return to Panel; reject any narrow stale viewport, horizontal/vertical browser scrollbar flash, clipping or offset content.
-5. Confirm the same task/session/time.
-6. If both gates PASS, record immutable evidence and continue guarded merge/resulting-main validation. If either fails, keep PR #192 open and fix only the observed exact-build failure signature.
+Request/analyze one short supplemental recording that closes only the missing protocol items:
+1. one additional complete Panel→Timer→Panel cycle;
+2. one additional complete compact Expand→Collapse cycle;
+3. one ordinary drag from the 100% display to the user-confirmed 125% display;
+4. compact/expanded geometry there, then return to Panel with no stale viewport or browser scrollbar flash;
+5. same task/session/time continuity.
+
+Aggregate this supplemental evidence with `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md`. If all missing items pass, close Gate 7 + Gate 12 and proceed to guarded merge/resulting-main validation. If a new defect appears, keep PR #192 open and fix only that exact-build signature.
 
 Do not merge PR #192 before both physical gates pass.
 
 ## USER ACTION REQUIRED
 
-Use only CI #684 exact runtime artifact id `11066497568` / source `274cf727f4d5b693904c2ff10f3835224368c4e8` for the next combined physical recording.
+Use only CI #684 exact runtime. A short supplemental recording is required to close the missing cycle counts and the 100%→125% drag direction; no full retest is necessary unless new evidence contradicts the current clean paths. artifact id `11066497568` / source `274cf727f4d5b693904c2ff10f3835224368c4e8` for the next combined physical recording.
