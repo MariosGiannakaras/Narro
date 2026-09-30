@@ -49,6 +49,7 @@ for (const required of [
   "data-focus-compact-control",
   "Return to Focus Panel",
   "timerExpanded",
+  "prefersReducedMotion",
 ]) invariant(driver.includes(required), `renderer capture driver is missing ${required}`);
 
 invariant(
@@ -71,7 +72,8 @@ for (const required of [
   'presentation === "panel"',
   "native.region.height",
   "captured no native HWND movement",
-  "fewer than two intermediate native HWND positions",
+  "standard-motion path captured fewer than two intermediate native HWND positions",
+  "reduced-motion HWND transition took",
   "native HWND motion duration",
 ]) invariant(validator.includes(required), `runtime validator is missing ${required}`);
 
