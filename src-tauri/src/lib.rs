@@ -1257,6 +1257,51 @@ fn focus_runtime_capture_acknowledged(phase: String) -> CommandResult<bool> {
         .is_file())
 }
 
+#[tauri::command]
+fn focus_runtime_capture_seed_timer_placement(
+    app_handle: tauri::AppHandle,
+) -> CommandResult<()> {
+    if std::env::var_os("NARRO_FOCUS_CAPTURE_DIR").is_none() {
+        return Err(CommandError::new(
+            "FOCUS_RUNTIME_CAPTURE_DISABLED",
+            "packaged Focus runtime capture is not enabled",
+        ));
+    }
+    if current_focus_surface_mode() != Some(FocusSurfaceMode::Timer) {
+        return Err(CommandError::new(
+            "FOCUS_RUNTIME_CAPTURE_INVALID_PHASE",
+            "Timer placement can only be seeded while Timer presentation is active",
+        ));
+    }
+
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    let current = window
+        .outer_position()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read capture seed position", error))?;
+    let preferred = GeometryPoint {
+        x: current.x.saturating_sub(280),
+        y: current.y.saturating_add(80),
+    };
+    let target =
+        floating_placement::safe_position_for_timer_region(&app_handle, &window, false, Some(preferred))?;
+    if target.x == current.x && target.y == current.y {
+        return Err(CommandError::new(
+            "FOCUS_RUNTIME_CAPTURE_SEED_FAILED",
+            "hosted runner work area could not provide a distinct Timer capture position",
+        ));
+    }
+
+    focus_webview::set_physical_position(&window, target.x, target.y)
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "seed capture Timer position", error))?;
+    if !floating_placement::save_if_timer_visible(&app_handle)? {
+        return Err(CommandError::new(
+            "FOCUS_RUNTIME_CAPTURE_SEED_FAILED",
+            "seeded Timer position was not persisted through the production placement path",
+        ));
+    }
+    Ok(())
+}
+
 #[tauri::command(rename_all = "camelCase")]
 fn focus_surface_apply_presentation(
     app_handle: tauri::AppHandle,
@@ -1800,6 +1845,7 @@ pub fn run() {
             focus_surface_presentation_snapshot,
             focus_runtime_capture_checkpoint,
             focus_runtime_capture_acknowledged,
+            focus_runtime_capture_seed_timer_placement,
             focus_surface_apply_presentation,
             focus_surface_animate_presentation,
             focus_surface_mode_snapshot,
