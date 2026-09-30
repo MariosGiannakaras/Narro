@@ -645,7 +645,7 @@ pub fn revalidate_visible_timer_after_display_change(
                     .set_size(tauri::Size::Physical(previous_inner_size))
                     .map_err(|failure| placement_error("restore Timer size", failure));
                 let position = crate::focus_webview::set_physical_position(
-                    window,
+                    &window,
                     previous.position.x,
                     previous.position.y,
                 )
@@ -675,7 +675,7 @@ pub fn revalidate_visible_timer_after_display_change(
                 }
             } else {
                 crate::focus_webview::set_physical_position(
-                    window,
+                    &window,
                     previous.position.x,
                     previous.position.y,
                 )
