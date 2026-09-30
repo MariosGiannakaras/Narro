@@ -82,9 +82,17 @@ const doneTasks: ReportsDoneTask[] = [
   },
 ];
 
+type CalendarCellTuple = [
+  key: string,
+  label: string,
+  muted?: boolean,
+  selected?: boolean,
+  edge?: "start" | "end",
+];
+
 function calendarMonth(
   label: string,
-  values: Array<[string, string, boolean?, boolean?, "start" | "end"?]>,
+  values: CalendarCellTuple[],
 ): ReportsCalendarMonth {
   const cells = values.map(([key, dayLabel, muted = false, selected = false, edge]) => ({
     key,
