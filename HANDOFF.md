@@ -99,11 +99,12 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. RISK-F009 is fully automated/main-validated: PR #206 exact head `ab1e89fcabc7b8385016a738603d41002f9c3b14` passed #784, guarded merge `4f48941939fa5114e100992280b9ea96540f0df8` passed resulting-main #785. #785 artifacts: runtime id `11128833526` digest `sha256:1f9b43978387c973a451ef6283bb0fee0c08afbe954d9b8c99845c9c463ea220`; visual id `11128124562` digest `sha256:adaa4da4bb13a65bb4aac38e80d716be02eebf0621f90d7b9eff75e012219c7e`.
-2. Rebase/reconcile the already-prepared #192 source tree onto the latest docs-only main truth without changing its source/config/test content, then fast-forward existing `plan/m7-single-focus` from old head `0ef808445b567a4a3194296ed1dccb5a6a58b03e`. The earlier source candidate/tree are `1a53848c...` / `2cf50551...`; only newer Markdown tracking commits must be inherited.
-3. Require fresh exact-head Windows CI on PR #192. The reconciled candidate must include B5, B6, current M9/reporting state, #206 single-instance-first runtime ownership, current visual-ready policy, and the existing single-focus harness.
-4. If exact-head #192 CI passes, review the fresh focus runtime/visual artifacts before issuing a physical build. Then physically retest with exactly one Narro runtime, an active task/session, repeated Panel↔Timer and Expand↔Collapse, and real 100%↔125% Gate 12 coverage.
-5. M9 remains preserved: #198 exact-head/artifact accepted but unmerged; #203 fully validated/merged via main #777; #205 CI #778 failed and awaits evidence-backed diagnosis after the active M7 corrective chain.
+1. Inspect PR #192 exact head `0762aafd26dbf983f4208667f60381264956af4a`, Windows CI #786 / run `36785840236`. The branch was reconciled by non-force fast-forward after a blob-level check confirmed zero non-Markdown differences from the prepared B5/B6 candidate. Durable evidence: `work-log/2026-10-01-chatgpt-m7-pr192-ci786-checkpoint.md`.
+2. On #786 PASS, fetch and record all artifacts, then perform mandatory artifact review of the fresh Focus runtime/visual evidence. Confirm the expected one-`focusSurface` geometry/DOM/runtime contracts and check that B5/B6 did not introduce a visual/runtime regression.
+3. If artifact review is clean, provide the exact #786 Windows runtime artifact for physical testing. Do not merge #192 yet.
+4. Physical matrix on that exact artifact must use exactly one Narro runtime and an active task/session: repeated Panel↔Timer, repeated Expand↔Collapse, same task/session/time continuity, no staging/white/stale pixels or document scrollbar, and real 100%↔125% Gate 12 movement/recovery.
+5. Only after physical PASS: expected-head guarded merge #192, validate resulting main with Windows CI, then reconcile reopened M1/M6/M7/M8 tracking.
+6. M9 remains preserved: #198 exact-head/artifact accepted but unmerged; #203 fully validated/merged; #205 CI #778 failed and awaits evidence-backed diagnosis after the active M7 corrective chain.
 
 ## USER ACTION REQUIRED
 
