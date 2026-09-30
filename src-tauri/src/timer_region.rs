@@ -72,20 +72,15 @@ mod native {
         fn GetLastError() -> u32;
     }
 
-    pub fn visible_size(
+    fn visible_size_for_scale(
         window: &tauri::WebviewWindow,
         logical: tauri::LogicalSize<f64>,
+        scale: f64,
     ) -> CommandResult<tauri::PhysicalSize<u32>> {
         let outer = window.outer_size().map_err(|error| {
             CommandError::new(
                 "FOCUS_REGION_FAILED",
                 format!("read focusSurface outer size: {error}"),
-            )
-        })?;
-        let scale = window.scale_factor().map_err(|error| {
-            CommandError::new(
-                "FOCUS_REGION_FAILED",
-                format!("read focusSurface DPI scale: {error}"),
             )
         })?;
         clipped_size(outer, scale, logical).ok_or_else(|| {
@@ -94,6 +89,19 @@ mod native {
                 "focusSurface logical region or DPI scale is invalid",
             )
         })
+    }
+
+    pub fn visible_size(
+        window: &tauri::WebviewWindow,
+        logical: tauri::LogicalSize<f64>,
+    ) -> CommandResult<tauri::PhysicalSize<u32>> {
+        let scale = window.scale_factor().map_err(|error| {
+            CommandError::new(
+                "FOCUS_REGION_FAILED",
+                format!("read focusSurface DPI scale: {error}"),
+            )
+        })?;
+        visible_size_for_scale(window, logical, scale)
     }
 
     fn apply_physical(
@@ -147,6 +155,14 @@ mod native {
         apply_physical(window, visible_size(window, logical)?)
     }
 
+    pub fn apply_with_scale(
+        window: &tauri::WebviewWindow,
+        logical: tauri::LogicalSize<f64>,
+        scale: f64,
+    ) -> CommandResult<()> {
+        apply_physical(window, visible_size_for_scale(window, logical, scale)?)
+    }
+
     pub fn apply_full_host(window: &tauri::WebviewWindow) -> CommandResult<()> {
         let outer = window.outer_size().map_err(|error| {
             CommandError::new(
@@ -179,12 +195,20 @@ mod native {
         Ok(())
     }
 
+    pub fn apply_with_scale(
+        _window: &tauri::WebviewWindow,
+        _logical: tauri::LogicalSize<f64>,
+        _scale: f64,
+    ) -> CommandResult<()> {
+        Ok(())
+    }
+
     pub fn apply_full_host(_window: &tauri::WebviewWindow) -> CommandResult<()> {
         Ok(())
     }
 }
 
-pub use native::{apply, apply_full_host, visible_size};
+pub use native::{apply, apply_full_host, apply_with_scale, visible_size};
 
 #[cfg(test)]
 mod tests {
@@ -219,6 +243,33 @@ mod tests {
             }),
         );
         assert_eq!(clipped_size(outer, 1.25, panel_logical_size()), Some(outer),);
+    }
+
+    #[test]
+    fn timer_region_scales_in_both_dpi_directions() {
+        let large_host = tauri::PhysicalSize {
+            width: 425,
+            height: 875,
+        };
+        assert_eq!(
+            clipped_size(large_host, 1.0, timer_logical_size(false)),
+            Some(tauri::PhysicalSize {
+                width: 340,
+                height: 110,
+            }),
+        );
+
+        let normal_host = tauri::PhysicalSize {
+            width: 340,
+            height: 700,
+        };
+        assert_eq!(
+            clipped_size(normal_host, 1.25, timer_logical_size(false)),
+            Some(tauri::PhysicalSize {
+                width: 340,
+                height: 138,
+            }),
+        );
     }
 
     #[test]
