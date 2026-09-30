@@ -31,8 +31,7 @@ Timer region clipped through target host DPI-size correction, waits a bounded
 50 ms WebView viewport-settlement interval, then reveals the full Panel.
 Same-DPI Timer→Panel keeps the existing continuous reveal. CI #682 exposed only
 a static-contract scoping defect and CI #683 only a rustfmt diff; neither was a
-behavioral failure. Exact physical Gate 7 + Gate 12 retest is now **OPEN**.
-See `work-log/2026-09-30-chatgpt-m7-ci684-corrective-candidate.md`.
+behavioral failure. Exact physical Gate 7 + Gate 12 retest is still **OPEN**, but the first #684 recording materially clears both #679 defect signatures. Recording `2026-09-30 02-02-23.mp4` (SHA-256 `72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`) shows three clean Panel→Timer transitions, correct 125% Timer geometry, a clean cross-DPI Timer→Panel return with no Narro/WebView scrollbar flash, and uninterrupted `fas` session time. Formal acceptance remains open because it contains only two complete Panel→Timer→Panel cycles, only two complete Expand→Collapse cycles, and its ordinary cross-monitor drag is 125%→100% rather than the required 100%→125% direction. See `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md` and `work-log/2026-09-30-chatgpt-m7-ci684-corrective-candidate.md`.
 
 No roadmap/current-slice counter advances until physical acceptance.
 
