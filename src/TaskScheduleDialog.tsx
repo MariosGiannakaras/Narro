@@ -5,6 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
 import { formatInvokeError } from "./diagnosticApi";
 import {
   getTaskScheduleEditor,
@@ -209,8 +210,15 @@ export function TaskScheduleDialog({
 
   const scheduleDescription = useMemo(() => {
     if (!scheduleLocalDate) return "Unscheduled";
-    if (!scheduleUseTime) return scheduleLocalDate;
-    return `${scheduleLocalDate} at ${scheduleLocalTime || "—"} · ${scheduleTimezone}`;
+    try {
+      const visibleDate = formatVisibleDate(scheduleLocalDate);
+      if (!scheduleUseTime) return visibleDate;
+      if (!scheduleLocalTime) return `${visibleDate} · ${scheduleTimezone}`;
+      return `${formatVisibleDateTime(scheduleLocalDate, scheduleLocalTime)} · ${scheduleTimezone}`;
+    } catch {
+      if (!scheduleUseTime) return scheduleLocalDate;
+      return `${scheduleLocalDate} at ${scheduleLocalTime || "—"} · ${scheduleTimezone}`;
+    }
   }, [scheduleLocalDate, scheduleLocalTime, scheduleTimezone, scheduleUseTime]);
 
   const applyShortcut = async (shortcut: ScheduleShortcut) => {
