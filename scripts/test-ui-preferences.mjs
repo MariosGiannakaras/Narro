@@ -107,12 +107,13 @@ invariant(
 invariant(
   timerService.includes("notification_alerts_enabled_best_effort")
     && timerService.includes("record.payload.alerts.notification_alerts_enabled")
-    && timerService.includes("submit_claimed_notifications(app_handle, effects_connection, pending)"),
+    && timerService.includes("let notifications_enabled = notification_alerts_enabled_best_effort(effects_connection)")
+    && timerService.includes("submit_claimed_notifications(app_handle, pending, notifications_enabled)"),
   "Notification Alerts must gate the existing authoritative Pomodoro notification delivery path",
 );
 invariant(
   timerService.indexOf("let pending = claim_notifications_best_effort")
-    < timerService.indexOf("submit_claimed_notifications(app_handle, effects_connection, pending)"),
+    < timerService.indexOf("submit_claimed_notifications(app_handle, pending, notifications_enabled)"),
   "Pomodoro boundary notifications must remain durably claimed before preference-gated submission",
 );
 invariant(
