@@ -1,7 +1,33 @@
 import { invoke } from "@tauri-apps/api/core";
 import { applyFocusSurfacePresentation } from "./focusSurfaceModeApi";
+import type { HomeSnapshot } from "./HomeDashboard";
+import { createListBoardTask } from "./listBoardApi";
+import { createListFromEditor } from "./listEditorApi";
+import { startTimerTask } from "./timerSessionApi";
 
 const sleep = (ms: number) => new Promise<void>((resolve) => window.setTimeout(resolve, ms));
+
+async function seedActiveRuntimeFocus(): Promise<void> {
+  const listTitle = "CI Focus Runtime";
+  await createListFromEditor({
+    title: listTitle,
+    color: "#48d6c5",
+    iconUpload: null,
+  });
+  const home = await invoke<HomeSnapshot>("get_home_snapshot");
+  const list = [...home.lists].reverse().find((candidate) => candidate.title === listTitle);
+  if (!list) throw new Error("Packaged runtime capture could not resolve its Focus fixture list.");
+
+  const taskId = await createListBoardTask({
+    listId: list.id,
+    lane: "today",
+    title: "Packaged runtime focus task",
+    estSeconds: 3_600,
+    insertAtTop: true,
+  });
+  await startTimerTask(taskId, { kind: "est_countdown", est_ms: 3_600_000 });
+}
+
 
 function runtimeSnapshot() {
   const metrics = (element: Element | null) => {
@@ -81,6 +107,8 @@ export function startFocusRuntimeVisualDriver() {
   started = true;
   void (async () => {
     await sleep(250);
+    await seedActiveRuntimeFocus();
+    await sleep(100);
     await invoke("main_window_hide");
     await sleep(100);
     await invoke("present_focus_for_blitz");

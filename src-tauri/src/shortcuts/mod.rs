@@ -1133,6 +1133,23 @@ mod native {
                 }
 
                 let manager = trigger_handle.state::<ShortcutManager>();
+                let timer_service = trigger_handle.state::<crate::timer_service::TimerService>();
+                let snapshot = match timer_service.snapshot() {
+                    Ok(snapshot) => snapshot,
+                    Err(error) => {
+                        let recorded =
+                            record_and_report_find_timer_error(&trigger_handle, manager.inner(), error);
+                        eprintln!("Find Timer shortcut could not read timer state: {recorded}");
+                        return;
+                    }
+                };
+                if !focus_toggle_allowed(
+                    snapshot.runtime.timer.state,
+                    snapshot.runtime.timer.task_id.is_some(),
+                ) {
+                    return;
+                }
+
                 let result = crate::show_current_focus_surface(&trigger_handle);
                 if let Err(error) = result {
                     let recorded =

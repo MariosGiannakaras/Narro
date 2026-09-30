@@ -470,6 +470,32 @@ export function FocusSurfaceCoordinator() {
   }, [presentationHydrated, timerResizePending, transitionPending]);
 
   useEffect(() => {
+    if (
+      !presentationHydrated
+      || !timerProjectionSettled
+      || timerProjection === null
+      || transitionPending
+      || timerResizePending
+    ) {
+      return;
+    }
+
+    const timer = timerProjection.runtime.timer;
+    if (
+      focusSurfaceModeOf(presentationRef.current) === "timer"
+      && (timer.state === "idle" || timer.task_id === null)
+    ) {
+      void requestModeRef.current("panel");
+    }
+  }, [
+    presentationHydrated,
+    timerProjection,
+    timerProjectionSettled,
+    timerResizePending,
+    transitionPending,
+  ]);
+
+  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
       if (shortcut === "search") {

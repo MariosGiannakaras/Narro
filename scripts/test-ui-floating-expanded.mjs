@@ -143,6 +143,13 @@ for (const forbidden of ["beginFocusVisualHold", "prewarmFocusSurface", "setPosi
 }
 
 invariant(
+  foundation.includes('key="timer-heading"')
+    && !foundation.includes("{!regionExpanded || !liveTask || !timer ? (")
+    && foundation.indexOf('key="timer-heading"') < foundation.indexOf('data-floating-actions-controller="true"')
+    && css.includes("grid-template-rows: auto auto minmax(0, 1fr);"),
+  "expanded Timer must keep current task/title above actions and subtasks",
+);
+invariant(
   foundation.includes("<FocusLiveActions") && foundation.includes("<FocusLiveSubtasks")
     && foundation.includes("onTaskProjection={applyTaskProjection}"),
   "expanded Timer must retain authoritative actions and task projection",
@@ -154,7 +161,9 @@ for (const mutation of ["startManualBreakTimer", "pauseTimer", "resumeTimer", "s
   invariant(actions.includes(mutation), `expanded actions must retain ${mutation}`);
 }
 invariant(
-  fixture.includes('fixtureState === "expanded"') && fixture.includes("fixtureExpanded={expanded}"),
+  fixture.includes('fixtureState === "expanded"') && fixture.includes("fixtureExpanded={expanded}")
+    && fixture.includes('title: "Prepare BFCM strategy"')
+    && fixture.includes('state: "running"'),
   "visual fixture must cover the production expanded surface",
 );
 invariant(

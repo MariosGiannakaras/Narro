@@ -357,6 +357,28 @@ export function FloatingTimerFoundation({
         className="floating-timer-foundation__content"
         data-tauri-drag-region="true"
       >
+        <div key="timer-heading" className="floating-timer-foundation__heading" data-tauri-drag-region="true">
+          <strong
+            className="floating-timer-foundation__title"
+            data-floating-task-title="true"
+            data-tauri-drag-region="true"
+            title={liveTask?.title}
+          >
+            {title}
+          </strong>
+          <span
+            className="floating-timer-foundation__timer timer-numerals"
+            data-floating-live-timer="true"
+            data-floating-live-timer-mode={liveTimer?.mode ?? "none"}
+            data-timed-alert-flash-task-id={liveTaskId ?? undefined}
+            data-timer-numerals="true"
+            data-tauri-drag-region="true"
+            aria-label={liveTimer?.label ?? "Timer unavailable"}
+            aria-live="off"
+          >
+            {liveTimer?.text ?? "--:--"}
+          </span>
+        </div>
         {liveTask && timer ? (
           <div
             key={`actions-host:${liveTask.id}`}
@@ -380,30 +402,6 @@ export function FloatingTimerFoundation({
               }}
               onCompletionSuccess={onCompletionSuccess}
             />
-          </div>
-        ) : null}
-        {!regionExpanded || !liveTask || !timer ? (
-          <div key="collapsed-heading" className="floating-timer-foundation__heading" data-tauri-drag-region="true">
-            <strong
-              className="floating-timer-foundation__title"
-              data-floating-task-title="true"
-              data-tauri-drag-region="true"
-              title={liveTask?.title}
-            >
-              {title}
-            </strong>
-            <span
-              className="floating-timer-foundation__timer timer-numerals"
-              data-floating-live-timer="true"
-              data-floating-live-timer-mode={liveTimer?.mode ?? "none"}
-              data-timed-alert-flash-task-id={liveTaskId ?? undefined}
-              data-timer-numerals="true"
-              data-tauri-drag-region="true"
-              aria-label={liveTimer?.label ?? "Timer unavailable"}
-              aria-live="off"
-            >
-              {liveTimer?.text ?? "--:--"}
-            </span>
           </div>
         ) : null}
 

@@ -63,7 +63,7 @@ function validateSharedGeometry(contract, label, theme, state) {
 
   const geometryKeys = state === "collapsed"
     ? ["timer", "heading", "liveTimer", "subtaskToolbar", "subtaskRing", "add", "expand"]
-    : ["timer", "actionStrip", "subtaskToolbar", "subtaskRing", "add", "expand", "returnToPanel", "subtaskPanel", "subtaskRow", "subtaskAction"];
+    : ["timer", "heading", "title", "liveTimer", "actionStrip", "subtaskToolbar", "subtaskRing", "add", "expand", "returnToPanel", "subtaskPanel", "subtaskRow", "subtaskAction"];
   const baseline = baselines.get(state);
   if (!baseline) {
     baselines.set(state, contract);
@@ -124,6 +124,10 @@ function validateExpanded(dom, contract, label) {
     'data-floating-subtask-action="move-up"',
     'data-floating-subtask-action="move-down"',
     'data-floating-subtask-action="delete"',
+    "Prepare BFCM strategy",
+    'data-floating-live-timer="true"',
+    'aria-label="Running: 38:00 remaining"',
+    ">38:00<",
     "Plan",
     "Contacts",
     "Affiliates",
@@ -135,9 +139,9 @@ function validateExpanded(dom, contract, label) {
     contract.timer?.width === 340 && contract.timer?.height === 300,
     `${label} expanded timer must be exactly 340x300`,
   );
-  invariant(contract.heading === null, `${label} expanded heading must be replaced by the action strip`);
-  invariant(contract.title === null, `${label} expanded title must be absent`);
-  invariant(contract.liveTimer === null, `${label} expanded timer text must be absent`);
+  invariant(contract.heading?.height > 0, `${label} expanded heading geometry is invalid`);
+  invariant(contract.title?.width > 0, `${label} expanded title geometry is invalid`);
+  invariant(contract.liveTimer?.width >= 48, `${label} expanded live timer geometry is invalid`);
   invariant(contract.actionStrip?.height >= 32, `${label} expanded action strip geometry is invalid`);
   invariant(
     contract.returnToPanel?.width === 32 && contract.returnToPanel?.height === 32,
@@ -174,7 +178,7 @@ for (const [index, observation] of observations.entries()) {
   const expanded = index % 2 === 1;
   invariant(observation.expanded === String(expanded), `cycle phase ${index} has the wrong expanded state`);
   invariant(observation.actionStrips === Number(expanded), `cycle phase ${index} retained or duplicated the action strip`);
-  invariant(observation.headings === Number(!expanded), `cycle phase ${index} retained or duplicated the heading`);
+  invariant(observation.headings === 1, `cycle phase ${index} must retain exactly one task/timer heading`);
   invariant(observation.subtaskPanels === Number(expanded), `cycle phase ${index} retained or duplicated the subtask panel`);
 }
 

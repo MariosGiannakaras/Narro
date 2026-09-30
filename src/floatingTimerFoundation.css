@@ -97,7 +97,7 @@
 }
 
 .floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__content {
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   align-content: stretch;
 }
 

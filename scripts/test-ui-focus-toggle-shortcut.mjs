@@ -52,6 +52,26 @@ invariant(
     && handler.includes("record_and_report_focus_toggle_error"),
   "shortcut must prove active authoritative Focus state before showing the one Focus host and emitting a revisioned request",
 );
+const findHandlerStart = shortcuts.indexOf("fn schedule_find_timer_trigger()");
+const findHandlerEnd = shortcuts.indexOf("\n}", findHandlerStart);
+const findHandler = shortcuts.slice(findHandlerStart, findHandlerEnd > findHandlerStart ? findHandlerEnd : undefined);
+invariant(
+  findHandler.includes("state::<crate::timer_service::TimerService>()")
+    && findHandler.includes("timer_service.snapshot()")
+    && findHandler.includes("snapshot.runtime.timer.task_id.is_some()")
+    && findHandler.includes("focus_toggle_allowed(")
+    && findHandler.indexOf("timer_service.snapshot()") < findHandler.indexOf("crate::show_current_focus_surface(&trigger_handle)")
+    && findHandler.includes("record_and_report_find_timer_error"),
+  "Find Timer must not reveal a stale Timer presentation without active authoritative Focus state",
+);
+invariant(
+  coordinator.includes('focusSurfaceModeOf(presentationRef.current) === "timer"')
+    && coordinator.includes('timer.state === "idle" || timer.task_id === null')
+    && coordinator.includes('void requestModeRef.current("panel")')
+    && coordinator.includes("timerProjectionSettled"),
+  "an authoritative idle/no-task projection must normalize a committed Timer presentation back to Panel",
+);
+
 invariant(
   shortcuts.includes("map_register_error_for_chord(error, FOCUS_TOGGLE_CHORD)")
     && shortcuts.includes("focus_toggle_last_error")
