@@ -4,7 +4,7 @@ use super::{
 use crate::timer_service::TimerService;
 use std::ffi::c_void;
 use std::io;
-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU32, AtomicUsize, Ordering};
 use std::sync::OnceLock;
 use tauri::Manager;
 
@@ -24,6 +24,7 @@ const PBT_APM_SUSPEND: usize = 0x0004;
 const PBT_APM_RESUME_CRITICAL: usize = 0x0006;
 const PBT_APM_RESUME_SUSPEND: usize = 0x0007;
 const PBT_APM_RESUME_AUTOMATIC: usize = 0x0012;
+const USER_DEFAULT_SCREEN_DPI: u32 = 96;
 
 type RawHwnd = *mut c_void;
 type SubclassProc =
@@ -61,6 +62,9 @@ static RECOVERY_PENDING: AtomicBool = AtomicBool::new(false);
 static RECOVERY_DIRTY: AtomicBool = AtomicBool::new(false);
 static INTERACTIVE_MOVE_ACTIVE: AtomicBool = AtomicBool::new(false);
 static RECOVERY_SUSPENSIONS: AtomicUsize = AtomicUsize::new(0);
+static DPI_REGION_REFRESH_PENDING: AtomicBool = AtomicBool::new(false);
+static DPI_REGION_REFRESH_DIRTY: AtomicBool = AtomicBool::new(false);
+static PENDING_DPI_X: AtomicU32 = AtomicU32::new(USER_DEFAULT_SCREEN_DPI);
 
 pub(crate) struct DisplayRecoveryGuard;
 
@@ -149,6 +153,22 @@ fn is_display_geometry_change(message: u32, wparam: usize) -> bool {
         || (message == WM_SETTING_CHANGE && wparam == SPI_SETWORKAREA)
 }
 
+fn dpi_x_from_wparam(wparam: usize) -> u32 {
+    (wparam & 0xffff) as u32
+}
+
+fn dpi_scale(dpi: u32) -> Option<f64> {
+    (dpi != 0).then_some(f64::from(dpi) / f64::from(USER_DEFAULT_SCREEN_DPI))
+}
+
+fn should_refresh_timer_region_for_interactive_dpi(
+    message: u32,
+    interactive_move: bool,
+    explicit_suspensions: usize,
+) -> bool {
+    message == WM_DPICHANGED && interactive_move && explicit_suspensions == 0
+}
+
 fn is_power_resume_event(event: usize) -> bool {
     matches!(
         event,
@@ -171,6 +191,18 @@ unsafe extern "system" fn display_change_subclass_proc(
         if RECOVERY_DIRTY.load(Ordering::Acquire) {
             schedule_display_recovery();
         }
+    } else if message == WM_DPICHANGED {
+        if should_refresh_timer_region_for_interactive_dpi(
+            message,
+            INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire),
+            RECOVERY_SUSPENSIONS.load(Ordering::Acquire),
+        ) {
+            schedule_focus_region_refresh_for_dpi(dpi_x_from_wparam(wparam));
+        }
+        // Keep the existing full recovery dirty while an interactive move is
+        // active. It will resize/reposition the fixed host only after
+        // WM_EXITSIZEMOVE, so recovery cannot fight the user's drag.
+        schedule_display_recovery();
     } else if is_display_geometry_change(message, wparam) {
         schedule_display_recovery();
     } else if message == WM_POWER_BROADCAST {
@@ -213,6 +245,50 @@ fn handle_power_broadcast(event: usize) {
     if let Err(error) = result {
         eprintln!("Windows power-event timer handling failed: {error}");
     }
+}
+
+fn schedule_focus_region_refresh_for_dpi(dpi_x: u32) {
+    let Some(scale_factor) = dpi_scale(dpi_x) else {
+        return;
+    };
+
+    PENDING_DPI_X.store(dpi_x, Ordering::Release);
+    DPI_REGION_REFRESH_DIRTY.store(true, Ordering::Release);
+    if DPI_REGION_REFRESH_PENDING.swap(true, Ordering::AcqRel) {
+        return;
+    }
+
+    let Some(app_handle) = DISPLAY_APP_HANDLE.get().cloned() else {
+        DPI_REGION_REFRESH_DIRTY.store(false, Ordering::Release);
+        DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
+        eprintln!("Focus DPI region refresh arrived before the Narro app handle was available");
+        return;
+    };
+
+    tauri::async_runtime::spawn(async move {
+        let refresh_handle = app_handle.clone();
+        if let Err(error) = app_handle.run_on_main_thread(move || {
+            DPI_REGION_REFRESH_DIRTY.store(false, Ordering::Release);
+            let latest_dpi = PENDING_DPI_X.load(Ordering::Acquire);
+            let latest_scale = dpi_scale(latest_dpi).unwrap_or(scale_factor);
+
+            if let Err(error) =
+                crate::refresh_open_timer_region_for_dpi_change(&refresh_handle, latest_scale)
+            {
+                eprintln!("Floating Timer DPI-region refresh failed: {error}");
+            }
+
+            DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
+            if DPI_REGION_REFRESH_DIRTY.load(Ordering::Acquire) {
+                schedule_focus_region_refresh_for_dpi(
+                    PENDING_DPI_X.load(Ordering::Acquire),
+                );
+            }
+        }) {
+            DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
+            eprintln!("Failed to schedule Focus DPI-region refresh on the main thread: {error}");
+        }
+    });
 }
 
 fn schedule_display_recovery() {
@@ -411,6 +487,39 @@ mod tests {
         assert!(is_display_geometry_change(
             WM_SETTING_CHANGE,
             SPI_SETWORKAREA
+        ));
+    }
+
+    #[test]
+    fn dpi_message_extracts_monitor_scale() {
+        let packed = usize::from(120_u16) | (usize::from(120_u16) << 16);
+        assert_eq!(dpi_x_from_wparam(packed), 120);
+        assert_eq!(dpi_scale(120), Some(1.25));
+        assert_eq!(dpi_scale(96), Some(1.0));
+        assert_eq!(dpi_scale(0), None);
+    }
+
+    #[test]
+    fn interactive_dpi_refresh_skips_programmatic_moves() {
+        assert!(should_refresh_timer_region_for_interactive_dpi(
+            WM_DPICHANGED,
+            true,
+            0
+        ));
+        assert!(!should_refresh_timer_region_for_interactive_dpi(
+            WM_DPICHANGED,
+            false,
+            0
+        ));
+        assert!(!should_refresh_timer_region_for_interactive_dpi(
+            WM_DPICHANGED,
+            true,
+            1
+        ));
+        assert!(!should_refresh_timer_region_for_interactive_dpi(
+            WM_DISPLAY_CHANGE,
+            true,
+            0
         ));
     }
 
