@@ -43,17 +43,30 @@ Latest exact #684 physical retest:
 - immutable evidence: `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md`.
 
 
-Latest programmatic hardening:
-- exact source head `22e86c5788416ebbdf249c123baf549b1820b10b`;
-- Windows CI #693 / run `36678327585`: **PASS**;
-- runtime artifact id `11080808573`, digest `sha256:ff04c3fbaf66a95c00d486ea08d66ff7f21fc8fabf27c980d9b7ebce3eb30b3c`;
-- visual artifact id `11081246096`, digest `sha256:871dc6a5ccf186e7a7ee069ede1fc76c2d23ec0d3e5a94249164174e805317d7`;
-- all programmatic Focus/Timer parent HWND moves now route through one helper that explicitly calls WebView2 `NotifyParentWindowPositionChanged()`;
-- Tauri is pinned to `~2.11.5` because the implementation intentionally uses native `with_webview` access;
-- transition tests now include animated-native rollback, renderer-failure rollback after animated native success, and 250 repeated deterministic Panel↔Timer cycles;
-- CI #691 failed only rustfmt; CI #692 failed only two Rust borrow-shape errors; both were corrected before #693 and neither was a behavioral failure;
-- no radical architecture replacement is justified by current evidence; the single persistent `focusSurface` remains the preferred design;
-- immutable evidence: `work-log/2026-09-30-chatgpt-m7-programmatic-hardening-ci693.md`.
+Latest corrected physical reassessment:
+- exact #684 recording rechecked from zero: `2026-09-30 02-02-23.mp4`, SHA-256 `72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`;
+- persistent Narro vertical browser scrollbar is visible in settled compact and expanded Timer states (~18.4 s, ~25.8 s, ~27.8 s);
+- during the ordinary 125%→100% drag, the target 100% Timer is already narrow while visible native height remains ~138 px around ~27.3–27.5 s, then settles to ~110 px by ~27.8 s;
+- first Panel→Timer transition moves the same HWND from x≈4124 to x≈870 across ~3250 physical px in ~0.27 s with linear native stepping, then changes from ~340×110 to ~425×138 on the 125% display;
+- these findings were not corrected by #695 because the post-#684 runtime delta changed WebView2 parent-move notification/tests, not Focus document overflow or the native motion policy;
+- corrective direction: exact Focus-document overflow lock, WM_DPICHANGED visible-region refresh during interactive Timer drag while full recovery remains deferred, and eased finite native point-to-point motion;
+- immutable evidence: `work-log/2026-09-30-chatgpt-m7-ci684-video-reassessment.md`.
+
+Latest full programmatic/online M7 audit:
+- exact current PR head `473af660566970ad4499eceda618abb8042f5f19`;
+- Windows CI #695 / run `36680495272`: **PASS**;
+- runtime artifact id `11082430041`, digest `sha256:0d1affdbbfd6beec4b9127190e4e9887a4ea6a516f683cf89276cdf135bede95`;
+- visual artifact id `11081437955`, digest `sha256:e9bb288b980ed68d9f311f4fa602781a21bdcddb13e0ac06b6bd3e3648455f38`;
+- Repository Preflight, frontend contracts/build, Rust fmt/check/clippy/tests, performance-harness self-test, Windows visual regression, reused frontend-dist verification, Tauri release and artifact uploads all passed;
+- runtime implementation is unchanged from the automated-green #693 source; the only non-Markdown delta after #693 is a stricter static contract prohibiting direct Focus-position mutation outside the shared WebView2-aware helper;
+- all programmatic Focus/Timer parent HWND moves route through that helper, which explicitly calls WebView2 `NotifyParentWindowPositionChanged()`;
+- Tauri remains pinned to `~2.11.5` for native `with_webview` access;
+- transition coverage includes animated-native rollback, renderer-failure rollback after animated native success, and 250 repeated deterministic Panel↔Timer cycles;
+- online review confirms `NotifyParentWindowPositionChanged` is parent-movement notification rather than viewport-settlement acknowledgement; Wry also performs parent-position notification on Windows, so Narro's explicit helper is defense-in-depth, not claimed as the #679 root-cause fix;
+- finite `SetWindowRgn` presentation changes remain preferable to high-frequency native region animation; the physically clean bounded 50 ms cross-DPI clipped-settle guard is retained;
+- no radical architecture replacement is justified; the single persistent `focusSurface` remains the preferred design;
+- immutable evidence: `work-log/2026-09-30-chatgpt-m7-online-audit-ci695.md`.
+- PR #192 currently reports `mergeable=false` because authoritative tracking/evidence Markdown on `main` advanced after exact-head CI #695; no executable/runtime source changed on `main` in that reconciliation. Do not change the validated PR head merely to remove tracking drift while physical closure is unavailable. Before any future merge/source edit, reconcile current `main` truth into the branch and re-run exact-head automated validation because that reconciliation changes the PR commit SHA.
 
 No progress counter advances from the hardening/CI alone. The strict physical gates remain unavailable because the user currently has no access to the Windows test environment.
 
@@ -66,7 +79,7 @@ This remains the fully merged/physically accepted application-source baseline (P
 ## EVIDENCE / AUDIT STATE
 
 - `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` is authoritative for finding disposition.
-- `M7-PHYS-01` and `M7-PHYS-02` are `VALIDATION_OPEN / PHYSICAL ACCEPTANCE UNAVAILABLE`: #684 clears the known defect signatures and #693 adds automated WebView2/DPI hardening, but no current physical environment exists to close the strict acceptance protocol.
+- `M7-PHYS-01` and `M7-PHYS-02` are `VALIDATION_OPEN / PHYSICAL ACCEPTANCE UNAVAILABLE`: #684 clears the known defect signatures and exact-head CI #695 validates the current hardened candidate, but no current physical environment exists to close the strict acceptance protocol.
 - Uploaded tutorial/source evidence and prior validated milestones remain unchanged.
 - Gate 12 now has a real user-confirmed 125% secondary-display test environment, so it must be physically exercised rather than left NOT RUN.
 
@@ -85,13 +98,15 @@ This remains the fully merged/physically accepted application-source baseline (P
 
 ## NEXT AGENT ACTION
 
-1. Treat PR #192 exact head `22e86c5788416ebbdf249c123baf549b1820b10b` / Windows CI #693 as the current automated-green M7 source candidate.
-2. Do not add more transition/DPI code without new evidence; the #684 physical defect signatures are cleared and the parent-move synchronization gap is now hardened.
-3. Do not revive the split Timer WebView architecture from PR #191.
-4. Keep Gate 7 + Gate 12 physical acceptance explicitly OPEN/UNAVAILABLE while no suitable Windows environment exists; do not invent a PASS.
-5. Do not merge PR #192 while the repository's physical-before-merge rule remains in force.
-6. If a physical environment becomes available later, only a short exact-current-build supplemental batch is needed. If a new exact-build defect appears, fix only that observed signature.
-7. If implementation proceeds elsewhere in the roadmap while the manual gate is unavailable, preserve this blocker explicitly and do not count/reclose the affected milestones prematurely.
+1. Resume PR #192 on the same branch; do not merge the CI #695 candidate.
+2. Reconcile current `main` tracking truth into the branch before source edits.
+3. Fix only the newly evidenced #684 defects:
+   - remove Focus document-level scrollbars without disabling intentional internal scrolling;
+   - refresh the Timer native visible region immediately for the new DPI during an interactive `WM_DPICHANGED`, while keeping full host-size/position recovery deferred until `WM_EXITSIZEMOVE`;
+   - replace linear native Panel↔Timer position interpolation with an eased finite point-to-point curve while retaining the one persistent `focusSurface`.
+4. Add deterministic CSS/native/motion regression coverage.
+5. Run exact-head Windows CI and record artifacts.
+6. Physical closure remains unavailable until the user regains a Windows test environment; do not invent physical PASS.
 
 ## USER ACTION REQUIRED
 
