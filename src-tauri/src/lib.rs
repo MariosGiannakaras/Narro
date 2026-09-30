@@ -1344,10 +1344,8 @@ mod focus_position_motion_tests {
         let mut forward = i32::MIN;
         let mut reverse = i32::MAX;
         for step in 0..=17 {
-            let next_forward =
-                interpolate_focus_axis(-1200, 2400, step, 17).expect("forward step");
-            let next_reverse =
-                interpolate_focus_axis(2400, -1200, step, 17).expect("reverse step");
+            let next_forward = interpolate_focus_axis(-1200, 2400, step, 17).expect("forward step");
+            let next_reverse = interpolate_focus_axis(2400, -1200, step, 17).expect("reverse step");
             assert!(next_forward >= forward);
             assert!(next_reverse <= reverse);
             forward = next_forward;
