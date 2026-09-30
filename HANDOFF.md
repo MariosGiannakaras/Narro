@@ -23,7 +23,7 @@ GitHub `main` is the durable source truth.
 Independent M8 work exists and must not be confused with M7 closure:
 - PR #193 / PREF-R02 finite reduced-motion-safe timer flash is **MERGED**. Exact PR head `2413de4f0e02daf829ffc753ca70b48a1e11712e` passed Windows CI #714 / run `36694484904`; squash merge/main source commit is `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`. All eight changed source/test blobs were verified identical between the validated PR head and merged source. PREF-R02 is therefore **VALIDATED**.
 - PREF-R03 notification-alert gating is **VALIDATED / MERGED**: PR #195 reconciled exact head `c3a09e3780871cea70d008ac540f8d62cb684be7` passed Windows CI #722 / run `36704515416`; guarded squash merge `1c9f2c7dc670fddcbf8cf687ca5b1945588eb01c` passed resulting-main CI #723 / run `36705536633`.
-- PR #194 / PREF-R06 Windows-locale schedule presentation remains **OPEN**. Reconciled head `16ae996a478687ad3e61788e77de00159f4207c2`; CI #721 attempt 1 failed only the known task-scheduling visual-fixture readiness flake and attempt 2 is in progress. Reconcile again with current main after PREF-R03/tracking before any merge.
+- PREF-R06 Windows-locale schedule presentation is **VALIDATED / MERGED**: PR #194 exact head `16ae996a478687ad3e61788e77de00159f4207c2` passed Windows CI #721 / run `36704495943`; expected-head guarded squash merge `88dea3bcbd988f2e77ea0edccb218be95e5b2438` passed resulting-main Windows CI #724 / run `36709829221`.
 
 Deep Blitzit research reconciliation is durable:
 - `RISK-F007`: fresh app launch must never implicitly create/start a timer session; dedicated regression still open.
@@ -45,7 +45,7 @@ PR #193/PREF-R02 is independently merged and automated-validated as described ab
 - PR #192 reconciled head `3d5de002...` is **CI FAILED** only because the packaged-runtime screenshot harness still cannot connect to WebView2 DevTools after preflight, visual regression and Tauri release succeed; do not characterize that head as automated-green.
 - Gate 12 still requires the real 125% secondary-display physical scenario when the Windows test environment becomes available.
 - `RISK-F007` and `RISK-F008` are explicit `VALIDATION_OPEN` items for final reliability coverage.
-- PREF-R02 and PREF-R03 are validated/merged; PREF-R06 remains open and requires reconciliation/revalidation on current main.
+- PREF-R02, PREF-R03 and PREF-R06 are validated/merged.
 
 ## INVARIANTS THAT MUST NOT REGRESS
 
@@ -68,7 +68,7 @@ PR #193/PREF-R02 is independently merged and automated-validated as described ab
 4. If the runtime capture becomes green, inspect its exact screenshots/metadata programmatically. Keep physical Gate 7/Gate 12 open; CI screenshots are supplemental and do not replace the real Windows physical protocol.
 5. When physical Windows access returns, use the newest exact validated PR artifact for the remaining strict Panel↔Timer/Expand↔Collapse, 100%↔125%, geometry/scrollbar, eased-motion, topology, performance, and task/session/time continuity checks.
 6. Only after physical PASS complete replacement performance/topology acceptance, guarded-merge the exact validated PR head, validate/reconcile resulting `main`, and then reclose affected M1/M6/M7/M8 shortcut items.
-7. PR #195 is complete. PR #194 may continue independently without displacing PR #192: reconcile it with latest current `main`, rerun exact-head CI after every SHA change, and merge only from a validated head.
+7. PR #195 and PR #194 are complete. No further independent M8 source slice should displace PR #192; PREF-R05 remains asset-evidence blocked and affected shortcut integration remains coupled to the M7 replacement.
 
 ## USER ACTION REQUIRED
 
