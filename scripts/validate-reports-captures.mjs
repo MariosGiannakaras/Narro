@@ -93,6 +93,7 @@ for (const theme of ["light", "dark"]) {
 
     if (mode === "lower") {
       invariant(dom.includes('data-report-lower-panels="true"'), label + " lower panel region is missing");
+      invariant(dom.includes('data-reports-lower-viewport-ready="true"'), label + " lower panels were not fully visible in the capture viewport");
       invariant(dom.includes("Prepare interview notes"), label + " representative Done row is missing");
       invariant(dom.includes("Time Taken"), label + " Done row Time Taken is missing");
       invariant(dom.includes("10min early"), label + " early completion state is missing");
