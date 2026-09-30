@@ -110,6 +110,53 @@ test("concurrent motion failure restores the previous native and renderer presen
   ]);
 });
 
+test("animated native failure restores the previous native and renderer presentation", async () => {
+  const h = harness("panel", "timerCompact", true);
+  const failure = new Error("animated native failed");
+  h.failures.set("animated", failure);
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
+  assert.deepEqual(h.calls, [
+    "ready:timerCompact",
+    "animated:timerCompact",
+    "motion:timerCompact",
+    "native:panel",
+    "renderer:panel",
+  ]);
+});
+
+test("renderer failure after animated native success restores the previous presentation", async () => {
+  const h = harness("timerExpanded", "panel", true);
+  const failure = new Error("animated renderer commit failed");
+  h.failures.set("renderer:panel", failure);
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
+  assert.deepEqual(h.calls, [
+    "ready:panel",
+    "animated:panel",
+    "motion:panel",
+    "renderer:panel",
+    "native:timerExpanded",
+    "renderer:timerExpanded",
+  ]);
+});
+
+test("repeated Panel/Timer transitions keep deterministic commit ordering", async () => {
+  let current = "panel";
+  for (let cycle = 0; cycle < 250; cycle += 1) {
+    const target = current === "panel"
+      ? (cycle % 2 === 0 ? "timerCompact" : "timerExpanded")
+      : "panel";
+    const h = harness(current, target, true);
+    assert.equal(await commitPreparedFocusPresentation(h.transition), true);
+    assert.deepEqual(h.calls, [
+      `ready:${target}`,
+      `animated:${target}`,
+      `motion:${target}`,
+      `renderer:${target}`,
+    ]);
+    current = target;
+  }
+});
+
 for (const step of ["ready", "before", "native"]) {
   test(`${step} failure leaves renderer ownership on the previous presentation`, async () => {
     const h = harness();
