@@ -46,6 +46,13 @@ Deep Blitzit reliability reconciliation remains durable:
 - `RISK-F008`: live Notes/title edits must preserve the same authoritative task/session/accounting.
 Both remain explicit M10 validation obligations rather than reproduced Narro defects.
 
+## 2026-10-01 — Single-instance correction merged; reconciled M7 candidate prepared
+
+RISK-F009 corrective PR #206 exact head `ab1e89fcabc7b8385016a738603d41002f9c3b14` passed Windows CI #784 and was expected-head guarded-squash-merged as source SHA `4f48941939fa5114e100992280b9ea96540f0df8`. Exact-head artifacts: visual id `11128630619` / `sha256:a37be050152e27a4f34b941fa544decfa160fc2aa9df1878274da4cd0a584e5e`; runtime id `11128561273` / `sha256:f7394abc31a3ed6c42dfe755fbd7fab044cc79ff19deb3bf8f1387984bb24728`. Resulting-main Windows CI #785 / run `36782620879` is still pending; therefore `4f489419...` is not yet promoted to the validated source baseline.
+
+A complete #192 reconciliation has been prepared without moving the branch. Unreferenced tree `2cf5055191a81ca7ce9fb3a13198c515de524f7c` and two-parent merge candidate `1a53848c05100b7f3cb63cc9e7123d727bee3dcf` combine current main/M9/reporting state, #206 single-instance-first ownership, the full single-`focusSurface` replacement, B5 `Blitz now -> Focus Panel` semantics, and B6 active-Focus-only Ctrl+Shift+T semantics. `plan/m7-single-focus` remains at old validated head `0ef808445b...` until #785 passes. Durable details: `work-log/2026-10-01-chatgpt-m7-single-instance-merge-and-pr192-candidate.md`.
+
+
 ## Current validated application source baseline
 
 **`e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` for the reopened M1/M6/M7 replacement acceptance chain.**
