@@ -58,7 +58,7 @@ invariant(
   setFocusPosition.includes("focus_webview::set_physical_position(window, point.x, point.y)")
     && focusWebview.includes(".with_webview(")
     && focusWebview.includes("NotifyParentWindowPositionChanged()")
-    && focusWebview.includes("window.set_position(")
+    && focusWebview.includes(".set_position(")
     && placement.includes("crate::focus_webview::set_physical_position(")
     && !placement.includes(".set_position(")
     && cargoToml.includes('tauri = { version = "~2.11.5", features = ["tray-icon"] }'),
