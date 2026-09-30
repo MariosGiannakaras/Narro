@@ -195,6 +195,16 @@ jobs:
     - name: Build Tauri Release
       run: npm run tauri:ci
 
+    - name: Capture Packaged Focus Runtime
+      run: npm run test:focus-runtime-visual:windows
+
+    - name: Upload Packaged Focus Runtime Visual Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m7-focus-runtime-visual
+        path: artifacts/focus-runtime-visual/**
+        if-no-files-found: error
+
     - name: Upload Diagnostic Harness Artifact
       uses: actions/upload-artifact@v4
       with:

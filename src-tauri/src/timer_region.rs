@@ -272,6 +272,46 @@ mod tests {
         );
     }
 
+
+    #[test]
+    fn timer_region_matches_supported_dpi_matrix() {
+        let cases = [
+            (1.0, 340, 700, 110, 300),
+            (1.25, 425, 875, 138, 375),
+            (1.5, 510, 1050, 165, 450),
+            (1.75, 595, 1225, 193, 525),
+            (2.0, 680, 1400, 220, 600),
+        ];
+
+        for (scale, host_width, host_height, compact_height, expanded_height) in cases {
+            let outer = tauri::PhysicalSize {
+                width: host_width,
+                height: host_height,
+            };
+            assert_eq!(
+                clipped_size(outer, scale, timer_logical_size(false)),
+                Some(tauri::PhysicalSize {
+                    width: host_width,
+                    height: compact_height,
+                }),
+                "compact Timer region at {scale}x",
+            );
+            assert_eq!(
+                clipped_size(outer, scale, timer_logical_size(true)),
+                Some(tauri::PhysicalSize {
+                    width: host_width,
+                    height: expanded_height,
+                }),
+                "expanded Timer region at {scale}x",
+            );
+            assert_eq!(
+                clipped_size(outer, scale, panel_logical_size()),
+                Some(outer),
+                "Panel region at {scale}x",
+            );
+        }
+    }
+
     #[test]
     fn constrained_host_clamps_region_to_actual_outer_size() {
         let outer = tauri::PhysicalSize {
