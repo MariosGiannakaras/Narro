@@ -10,6 +10,7 @@ pub mod error;
 pub mod floating_placement;
 pub mod focus_entry;
 pub mod focus_preferences;
+pub mod focus_webview;
 pub mod home_snapshot;
 pub mod list_board;
 pub mod list_editor;
@@ -592,11 +593,7 @@ fn set_focus_position(
     point: GeometryPoint,
     context: &'static str,
 ) -> CommandResult<()> {
-    window
-        .set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-            x: point.x,
-            y: point.y,
-        }))
+    focus_webview::set_physical_position(window, point.x, point.y)
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, context, error))
 }
 
@@ -625,10 +622,14 @@ fn restore_focus_native_snapshot(
     {
         failures.push(error);
     }
-    if let Err(error) = window
-        .set_position(tauri::Position::Physical(snapshot.position))
-        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "restore position", error))
-    {
+    if let Err(error) = set_focus_position(
+        window,
+        GeometryPoint {
+            x: snapshot.position.x,
+            y: snapshot.position.y,
+        },
+        "restore position",
+    ) {
         failures.push(error);
     }
     if let Err(error) = timer_region::apply(window, snapshot.presentation.region()) {
@@ -783,9 +784,12 @@ fn apply_panel_native_after_animated_cross_dpi_move(
     validate_work_area(work_area).map_err(CommandError::window_geometry)?;
 
     // Keep the previous Timer region while the fixed host adopts the target
-    // monitor's physical DPI size. The #679 physical capture proved that
-    // revealing the full Panel during this short WebView2 viewport update can
-    // expose a clipped one-column viewport and browser scrollbars.
+    // monitor's physical DPI size. Every programmatic parent move now also
+    // calls WebView2 NotifyParentWindowPositionChanged; the bounded settle
+    // remains a conservative compositor guard because #684 physically proved
+    // this clipped reveal path clean and no further physical retest is
+    // currently available. The #679 capture proved that exposing the full
+    // Panel earlier can reveal a stale viewport/browser scrollbars.
     let actual_size = fit_focus_host_for_target_scale(window, work_area, target_scale)?;
     let final_position = focus_panel_edge_position(work_area, actual_size, side)
         .map_err(CommandError::window_geometry)?;
