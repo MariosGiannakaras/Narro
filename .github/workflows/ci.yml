@@ -199,6 +199,7 @@ jobs:
       run: npm run test:focus-runtime-visual:windows
 
     - name: Upload Packaged Focus Runtime Visual Artifact
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: narro-m7-focus-runtime-visual
