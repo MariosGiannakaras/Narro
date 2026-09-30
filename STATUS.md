@@ -14,15 +14,23 @@ Exact CI #679 physical evidence proved two residual transient sequencing defects
 a transparent full-height host/outline during Panel→Timer and a stale clipped
 viewport/browser scrollbar flash on cross-DPI Timer→Panel.
 
-**Current PR #192 checkpoint:** exact programmatic-hardening head
-`22e86c5788416ebbdf249c123baf549b1820b10b` passed Windows CI #693 / run
-`36678327585`. Repository Preflight, frontend contracts/build, Rust
-fmt/check/clippy/tests, performance harness, Windows visual regression,
+**Current PR #192 checkpoint:** exact current head
+`473af660566970ad4499eceda618abb8042f5f19` passed Windows CI #695 / run
+`36680495272`. Repository Preflight, frontend contracts/build, Rust
+fmt/check/clippy/tests, performance-harness self-test, Windows visual regression,
 reused frontend-dist verification, Tauri release and required artifact uploads
-all passed. Runtime artifact id `11080808573`, digest
-`sha256:ff04c3fbaf66a95c00d486ea08d66ff7f21fc8fabf27c980d9b7ebce3eb30b3c`;
-visual artifact id `11081246096`, digest
-`sha256:871dc6a5ccf186e7a7ee069ede1fc76c2d23ec0d3e5a94249164174e805317d7`.
+all passed. Runtime artifact id `11082430041`, digest
+`sha256:0d1affdbbfd6beec4b9127190e4e9887a4ea6a516f683cf89276cdf135bede95`;
+visual artifact id `11081437955`, digest
+`sha256:e9bb288b980ed68d9f311f4fa602781a21bdcddb13e0ac06b6bd3e3648455f38`.
+
+The runtime implementation is unchanged from the #693 automated-green hardening;
+the only non-Markdown delta after #693 is a stricter static contract rejecting
+direct Focus-position mutation outside the shared WebView2-aware helper. #695
+therefore revalidates the full current PR head rather than introducing another
+behavior change.
+
+**Corrected #684 physical interpretation:** a frame-by-frame reassessment found three additional defects that the earlier review missed. The Timer shows a persistent Narro/WebView vertical document scrollbar in settled compact and expanded states; a 125%→100% manual drag briefly leaves the native compact visible height at ~138 px after renderer width/scale has moved toward the 100% target, then settles to ~110 px; and Panel→Timer crosses roughly 3250 physical px in ~0.27 s using linear native position steps, which produces a drag/fly visual character. These findings are recorded in `work-log/2026-09-30-chatgpt-m7-ci684-video-reassessment.md`. The #695 hardening does not touch Focus document overflow or motion interpolation, so these defects must not be treated as fixed by CI #695.
 
 The latest physical evidence is still the exact #684 recording
 `2026-09-30 02-02-23.mp4` (SHA-256
@@ -35,7 +43,7 @@ short of the strict protocol by one complete Panel→Timer→Panel cycle, one
 complete Expand→Collapse cycle, and the 100%→125% drag direction.
 
 Because the user currently has no access to that Windows system, a supplemental
-physical run is unavailable. The #693 hardening therefore addresses the
+physical run is unavailable. The #693/#695 hardening therefore addresses the
 remaining programmatic weakness instead of inventing a physical PASS:
 all Narro-initiated Focus/Timer parent HWND moves now explicitly call WebView2
 `NotifyParentWindowPositionChanged()` through one shared helper; Tauri is
@@ -45,12 +53,13 @@ Panel↔Timer cycles. The existing physically clean bounded 50 ms cross-DPI
 clipped-settle guard is retained.
 
 CI #691 failed only rustfmt and CI #692 only two borrow-shape compile errors;
-both were corrected before #693. Neither was a behavioral failure. See
-`work-log/2026-09-30-chatgpt-m7-programmatic-hardening-ci693.md`.
+both were corrected before #693. CI #695 is the current exact-head revalidation
+and is fully PASS. None of those earlier failures was behavioral. See
+`work-log/2026-09-30-chatgpt-m7-programmatic-hardening-ci693.md` and
+`work-log/2026-09-30-chatgpt-m7-online-audit-ci695.md`.
 
 No roadmap/current-slice counter advances from this automated hardening alone.
-Strict Gate 7 + Gate 12 physical acceptance is **OPEN / UNAVAILABLE**, not
-failed. No known M7 defect remains reproduced by the latest physical evidence.
+Gate 7 + Gate 12 are **OPEN / CORRECTIVE**. Physical revalidation is currently unavailable, but the #684 recording itself now supplies evidence-backed defects that require source correction before the candidate can return to an automated-green waiting state.
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
 settings/persistence remain outside the rewrite. PR #191 is **closed unmerged**;
