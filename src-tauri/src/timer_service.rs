@@ -171,7 +171,7 @@ impl TimerService {
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
         submit_claimed_timed_alerts(app_handle, timed_alerts);
-        submit_claimed_notifications(app_handle, pending);
+        submit_claimed_notifications(app_handle, effects_connection, pending);
         Ok(())
     }
 
@@ -218,7 +218,7 @@ impl TimerService {
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
         submit_claimed_timed_alerts(app_handle, timed_alerts);
-        submit_claimed_notifications(app_handle, pending);
+        submit_claimed_notifications(app_handle, effects_connection, pending);
         Ok(())
     }
 
@@ -268,7 +268,7 @@ impl TimerService {
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
         submit_claimed_timed_alerts(app_handle, timed_alerts);
-        submit_claimed_notifications(app_handle, pending);
+        submit_claimed_notifications(app_handle, effects_connection, pending);
         Ok(())
     }
 
@@ -436,7 +436,7 @@ impl TimerService {
             report_timer_change(app_handle, &payload);
         }
         submit_claimed_timed_alerts(app_handle, timed_alerts);
-        submit_claimed_notifications(app_handle, pending);
+        submit_claimed_notifications(app_handle, effects_connection, pending);
         Ok(payload)
     }
 
@@ -761,10 +761,26 @@ fn claim_notifications_best_effort(
     }
 }
 
+fn notification_alerts_enabled_best_effort(effects_connection: &Connection) -> bool {
+    match get_preferences(effects_connection) {
+        Ok(Some(record)) => record.payload.alerts.notification_alerts_enabled,
+        Ok(None) => false,
+        Err(error) => {
+            eprintln!("Notification-alert Preferences read failed; claimed effects will be suppressed: {error}");
+            false
+        }
+    }
+}
+
 fn submit_claimed_notifications(
     app_handle: &tauri::AppHandle,
+    effects_connection: &Connection,
     effects: Vec<PomodoroBoundaryEffect>,
 ) {
+    if effects.is_empty() || !notification_alerts_enabled_best_effort(effects_connection) {
+        return;
+    }
+
     for effect in effects {
         let result = match effect.kind {
             PomodoroBoundaryEffectKind::BreakStarted => {
@@ -973,6 +989,7 @@ mod tests {
     use crate::domain::timer_events::TimerSessionChange;
     use crate::persistence::lists::create_list;
     use crate::persistence::pomodoro_effects::claim_pending_notifications;
+    use crate::persistence::preferences::mutate_preferences;
     use crate::persistence::run_migrations;
     use crate::persistence::sessions::{get_open_session, sessions_for_task};
     use crate::persistence::tasks::create_task;
@@ -1014,6 +1031,28 @@ mod tests {
         configure_connection(&effects_connection).expect("configure effects database");
         let controller = TimerController::recover(connection, 0, T0).expect("recover controller");
         (controller, effects_connection, task.id, path)
+    }
+
+    #[test]
+    fn notification_alert_gate_defaults_off_and_tracks_persisted_preference() {
+        let (_controller, mut effects, _task_id, path) = fixture();
+
+        assert!(!notification_alerts_enabled_best_effort(&effects));
+
+        mutate_preferences(&mut effects, T0, |payload| {
+            payload.alerts.notification_alerts_enabled = true;
+        })
+        .expect("enable notification alerts");
+        assert!(notification_alerts_enabled_best_effort(&effects));
+
+        mutate_preferences(&mut effects, T6, |payload| {
+            payload.alerts.notification_alerts_enabled = false;
+        })
+        .expect("disable notification alerts");
+        assert!(!notification_alerts_enabled_best_effort(&effects));
+
+        drop(effects);
+        let _ = fs::remove_file(path);
     }
 
     fn simulate_sleep(
