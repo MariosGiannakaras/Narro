@@ -1,8 +1,10 @@
 use crate::domain::ids::{ListId, SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionSource};
-use chrono::{DateTime, FixedOffset};
+use chrono::{DateTime, Datelike, FixedOffset, NaiveDate};
+use jiff::{tz::TimeZone, Timestamp};
 use rusqlite::{Connection, Row};
 use serde::{Deserialize, Serialize};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -48,6 +50,77 @@ pub struct ReportHistorySnapshot {
     pub completed_tasks: Vec<ReportCompletedTaskRow>,
 }
 
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ReportOverviewSummary {
+    pub total_work_days: u64,
+    pub total_tasks_done: u64,
+    pub average_tasks_per_work_day: Option<f64>,
+    pub total_time_seconds: u64,
+    pub average_time_per_work_day_seconds: Option<f64>,
+    pub average_time_per_task_seconds: Option<f64>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ReportDailySeriesPoint {
+    pub local_date: String,
+    pub task_seconds: u64,
+    pub break_seconds: u64,
+    pub total_seconds: u64,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ReportProductiveSummary {
+    pub local_hour_start: Option<u8>,
+    pub weekday_from_monday: Option<u8>,
+    pub month_key: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ReportTimeByListRow {
+    pub list_id: ListId,
+    pub list_title: String,
+    pub work_seconds: u64,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ReportCompletionTimingKind {
+    Early,
+    OnTime,
+    Late,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ReportCompletionTiming {
+    pub kind: ReportCompletionTimingKind,
+    pub difference_seconds: u64,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ReportDoneTaskInsight {
+    pub task: ReportCompletedTaskRow,
+    pub timing: Option<ReportCompletionTiming>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ReportPunctualitySummary {
+    pub early_seconds: u64,
+    pub late_seconds: u64,
+    pub early_percent: Option<f64>,
+    pub late_percent: Option<f64>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ReportOverview {
+    pub summary: ReportOverviewSummary,
+    pub daily_series: Vec<ReportDailySeriesPoint>,
+    pub productive: ReportProductiveSummary,
+    pub time_by_list: Vec<ReportTimeByListRow>,
+    pub done_tasks: Vec<ReportDoneTaskInsight>,
+    pub punctuality: ReportPunctualitySummary,
+}
+
 #[derive(Debug)]
 pub enum ReportingError {
     Sqlite(rusqlite::Error),
@@ -60,6 +133,9 @@ pub enum ReportingError {
     CorruptEstimate(i64),
     CorruptTimeTaken(i64),
     TimeTakenOverflow,
+    AggregationOverflow,
+    InvalidDisplayTimezone(String),
+    TimezoneConversionFailed(String),
     MissingJoinedTask(SessionId),
     MissingJoinedList(TaskId),
 }
@@ -105,6 +181,13 @@ impl Display for ReportingError {
                 )
             }
             Self::TimeTakenOverflow => formatter.write_str("report task time taken overflowed"),
+            Self::AggregationOverflow => formatter.write_str("report aggregation overflowed"),
+            Self::InvalidDisplayTimezone(value) => {
+                write!(formatter, "report display timezone is invalid: {value}")
+            }
+            Self::TimezoneConversionFailed(value) => {
+                write!(formatter, "report timezone conversion failed: {value}")
+            }
             Self::MissingJoinedTask(id) => {
                 write!(formatter, "report session task is missing: {id}")
             }
@@ -422,9 +505,579 @@ pub fn report_history_snapshot(
     })
 }
 
+
+#[derive(Debug, Clone)]
+struct LocalSessionBucket {
+    date: String,
+    month: String,
+    hour: u8,
+    weekday_from_monday: u8,
+}
+
+fn resolve_report_timezone(value: &str) -> Result<TimeZone, ReportingError> {
+    let normalized = value.trim();
+    if normalized.is_empty() || normalized.len() > 128 || normalized.chars().any(char::is_control) {
+        return Err(ReportingError::InvalidDisplayTimezone(value.to_owned()));
+    }
+    TimeZone::get(normalized)
+        .map_err(|_| ReportingError::InvalidDisplayTimezone(value.to_owned()))
+}
+
+fn local_session_bucket(
+    started_at: &str,
+    timezone: &TimeZone,
+) -> Result<LocalSessionBucket, ReportingError> {
+    let timestamp = started_at
+        .parse::<Timestamp>()
+        .map_err(|_| ReportingError::CorruptTimestamp {
+            field: "session.started_at",
+            value: started_at.to_owned(),
+        })?;
+    let local = timezone.to_datetime(timestamp);
+    let date = local.date().to_string();
+    let parsed_date = NaiveDate::parse_from_str(&date, "%Y-%m-%d")
+        .map_err(|_| ReportingError::TimezoneConversionFailed(date.clone()))?;
+    let local_text = local.to_string();
+    let hour = local_text
+        .get(11..13)
+        .and_then(|value| value.parse::<u8>().ok())
+        .filter(|value| *value < 24)
+        .ok_or_else(|| ReportingError::TimezoneConversionFailed(local_text.clone()))?;
+    Ok(LocalSessionBucket {
+        month: date.chars().take(7).collect(),
+        date,
+        hour,
+        weekday_from_monday: parsed_date.weekday().num_days_from_monday() as u8,
+    })
+}
+
+fn checked_aggregate_add(target: &mut u64, value: u64) -> Result<(), ReportingError> {
+    *target = target
+        .checked_add(value)
+        .ok_or(ReportingError::AggregationOverflow)?;
+    Ok(())
+}
+
+fn ratio(numerator: u64, denominator: u64) -> Option<f64> {
+    if denominator == 0 {
+        None
+    } else {
+        Some((numerator as f64) / (denominator as f64))
+    }
+}
+
+fn completion_timing(task: &ReportCompletedTaskRow) -> Option<ReportCompletionTiming> {
+    let estimate = u64::from(task.est_seconds?);
+    let taken = task.time_taken_seconds;
+    Some(if taken < estimate {
+        ReportCompletionTiming {
+            kind: ReportCompletionTimingKind::Early,
+            difference_seconds: estimate - taken,
+        }
+    } else if taken > estimate {
+        ReportCompletionTiming {
+            kind: ReportCompletionTimingKind::Late,
+            difference_seconds: taken - estimate,
+        }
+    } else {
+        ReportCompletionTiming {
+            kind: ReportCompletionTimingKind::OnTime,
+            difference_seconds: 0,
+        }
+    })
+}
+
+pub fn overview_from_history(
+    history: &ReportHistorySnapshot,
+    display_timezone: &str,
+) -> Result<ReportOverview, ReportingError> {
+    let timezone = resolve_report_timezone(display_timezone)?;
+    let mut active_dates = HashSet::<String>::new();
+    let mut daily = BTreeMap::<String, (u64, u64)>::new();
+    let mut total_time_seconds = 0_u64;
+    let mut work_by_task = HashMap::<String, u64>::new();
+    let mut work_by_hour = HashMap::<u8, u64>::new();
+    let mut work_sessions_by_weekday = HashMap::<u8, (u64, u64)>::new();
+    let mut work_by_month = HashMap::<String, u64>::new();
+    let mut work_by_list = HashMap::<String, (ListId, String, u64)>::new();
+
+    for session in &history.sessions {
+        let bucket = local_session_bucket(&session.started_at, &timezone)?;
+        active_dates.insert(bucket.date.clone());
+        checked_aggregate_add(&mut total_time_seconds, session.duration_seconds)?;
+
+        let day = daily.entry(bucket.date).or_insert((0, 0));
+        match session.kind {
+            SessionKind::Work => {
+                checked_aggregate_add(&mut day.0, session.duration_seconds)?;
+
+                let task_id = session
+                    .task_id
+                    .ok_or(ReportingError::MissingJoinedTask(session.id))?;
+                let task_total = work_by_task.entry(task_id.to_string()).or_insert(0);
+                checked_aggregate_add(task_total, session.duration_seconds)?;
+
+                let hour_total = work_by_hour.entry(bucket.hour).or_insert(0);
+                checked_aggregate_add(hour_total, session.duration_seconds)?;
+
+                let weekday = work_sessions_by_weekday
+                    .entry(bucket.weekday_from_monday)
+                    .or_insert((0, 0));
+                weekday.0 = weekday
+                    .0
+                    .checked_add(1)
+                    .ok_or(ReportingError::AggregationOverflow)?;
+                checked_aggregate_add(&mut weekday.1, session.duration_seconds)?;
+
+                let month_total = work_by_month.entry(bucket.month).or_insert(0);
+                checked_aggregate_add(month_total, session.duration_seconds)?;
+
+                let list_id = session
+                    .list_id
+                    .ok_or(ReportingError::MissingJoinedTask(session.id))?;
+                let list_title = session
+                    .list_title
+                    .as_ref()
+                    .ok_or(ReportingError::MissingJoinedTask(session.id))?;
+                let list = work_by_list
+                    .entry(list_id.to_string())
+                    .or_insert((list_id, list_title.clone(), 0));
+                checked_aggregate_add(&mut list.2, session.duration_seconds)?;
+            }
+            SessionKind::Break => {
+                checked_aggregate_add(&mut day.1, session.duration_seconds)?;
+            }
+        }
+    }
+
+    let total_work_days = u64::try_from(active_dates.len())
+        .map_err(|_| ReportingError::AggregationOverflow)?;
+    let total_tasks_done = u64::try_from(history.completed_tasks.len())
+        .map_err(|_| ReportingError::AggregationOverflow)?;
+    let tracked_task_count = u64::try_from(work_by_task.len())
+        .map_err(|_| ReportingError::AggregationOverflow)?;
+    let total_work_seconds = work_by_task
+        .values()
+        .try_fold(0_u64, |total, seconds| {
+            total
+                .checked_add(*seconds)
+                .ok_or(ReportingError::AggregationOverflow)
+        })?;
+
+    let daily_series = daily
+        .into_iter()
+        .map(|(local_date, (task_seconds, break_seconds))| {
+            let total_seconds = task_seconds
+                .checked_add(break_seconds)
+                .ok_or(ReportingError::AggregationOverflow)?;
+            Ok(ReportDailySeriesPoint {
+                local_date,
+                task_seconds,
+                break_seconds,
+                total_seconds,
+            })
+        })
+        .collect::<Result<Vec<_>, ReportingError>>()?;
+
+    let productive_hour = work_by_hour
+        .into_iter()
+        .max_by(|left, right| {
+            left.1
+                .cmp(&right.1)
+                .then_with(|| right.0.cmp(&left.0))
+        })
+        .map(|(hour, _)| hour);
+
+    let productive_day = work_sessions_by_weekday
+        .into_iter()
+        .max_by(|left, right| {
+            left.1
+                .0
+                .cmp(&right.1.0)
+                .then_with(|| left.1.1.cmp(&right.1.1))
+                .then_with(|| right.0.cmp(&left.0))
+        })
+        .map(|(weekday, _)| weekday);
+
+    let productive_month = work_by_month
+        .into_iter()
+        .max_by(|left, right| {
+            left.1
+                .cmp(&right.1)
+                .then_with(|| right.0.cmp(&left.0))
+        })
+        .map(|(month, _)| month);
+
+    let mut time_by_list = work_by_list
+        .into_values()
+        .map(|(list_id, list_title, work_seconds)| ReportTimeByListRow {
+            list_id,
+            list_title,
+            work_seconds,
+        })
+        .collect::<Vec<_>>();
+    time_by_list.sort_by(|left, right| {
+        right
+            .work_seconds
+            .cmp(&left.work_seconds)
+            .then_with(|| left.list_title.cmp(&right.list_title))
+            .then_with(|| left.list_id.to_string().cmp(&right.list_id.to_string()))
+    });
+
+    let mut early_seconds = 0_u64;
+    let mut late_seconds = 0_u64;
+    let done_tasks = history
+        .completed_tasks
+        .iter()
+        .cloned()
+        .map(|task| {
+            let timing = completion_timing(&task);
+            if let Some(timing) = &timing {
+                match timing.kind {
+                    ReportCompletionTimingKind::Early => {
+                        checked_aggregate_add(&mut early_seconds, timing.difference_seconds)?;
+                    }
+                    ReportCompletionTimingKind::Late => {
+                        checked_aggregate_add(&mut late_seconds, timing.difference_seconds)?;
+                    }
+                    ReportCompletionTimingKind::OnTime => {}
+                }
+            }
+            Ok(ReportDoneTaskInsight { task, timing })
+        })
+        .collect::<Result<Vec<_>, ReportingError>>()?;
+
+    let punctuality_total = early_seconds
+        .checked_add(late_seconds)
+        .ok_or(ReportingError::AggregationOverflow)?;
+
+    Ok(ReportOverview {
+        summary: ReportOverviewSummary {
+            total_work_days,
+            total_tasks_done,
+            average_tasks_per_work_day: ratio(total_tasks_done, total_work_days),
+            total_time_seconds,
+            average_time_per_work_day_seconds: ratio(total_time_seconds, total_work_days),
+            average_time_per_task_seconds: ratio(total_work_seconds, tracked_task_count),
+        },
+        daily_series,
+        productive: ReportProductiveSummary {
+            local_hour_start: productive_hour,
+            weekday_from_monday: productive_day,
+            month_key: productive_month,
+        },
+        time_by_list,
+        done_tasks,
+        punctuality: ReportPunctualitySummary {
+            early_seconds,
+            late_seconds,
+            early_percent: ratio(early_seconds, punctuality_total).map(|value| value * 100.0),
+            late_percent: ratio(late_seconds, punctuality_total).map(|value| value * 100.0),
+        },
+    })
+}
+
+pub fn report_overview(
+    conn: &Connection,
+    range: ReportRange,
+    display_timezone: &str,
+) -> Result<ReportOverview, ReportingError> {
+    let history = report_history_snapshot(conn, range)?;
+    overview_from_history(&history, display_timezone)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn snapshot_session(
+        task_id: Option<TaskId>,
+        list_id: Option<ListId>,
+        list_title: Option<&str>,
+        kind: SessionKind,
+        started_at: &str,
+        duration_seconds: u64,
+    ) -> ReportSessionRow {
+        ReportSessionRow {
+            id: SessionId::generate(),
+            task_id,
+            task_title: task_id.map(|_| "Task".to_owned()),
+            list_id,
+            list_title: list_title.map(str::to_owned),
+            kind,
+            source: SessionSource::Focus,
+            started_at: started_at.to_owned(),
+            ended_at: started_at.to_owned(),
+            duration_seconds,
+            task_archived: false,
+            list_archived: false,
+        }
+    }
+
+    fn completed_snapshot_task(
+        task_id: TaskId,
+        list_id: ListId,
+        title: &str,
+        est_seconds: Option<u32>,
+        time_taken_seconds: u64,
+        completed_at: &str,
+    ) -> ReportCompletedTaskRow {
+        ReportCompletedTaskRow {
+            task_id,
+            list_id,
+            task_title: title.to_owned(),
+            list_title: "Metrics".to_owned(),
+            est_seconds,
+            completed_at: completed_at.to_owned(),
+            time_taken_seconds,
+            task_archived: false,
+            list_archived: false,
+        }
+    }
+
+    #[test]
+    fn overview_metrics_follow_official_session_derived_definitions() {
+        let list_id = ListId::generate();
+        let first = TaskId::generate();
+        let second = TaskId::generate();
+        let partial = TaskId::generate();
+        let history = ReportHistorySnapshot {
+            range: ReportRange {
+                start_at: "2026-09-01T00:00:00Z".into(),
+                end_at: "2026-10-01T00:00:00Z".into(),
+                list_id: None,
+            },
+            sessions: vec![
+                snapshot_session(
+                    Some(first),
+                    Some(list_id),
+                    Some("Metrics"),
+                    SessionKind::Work,
+                    "2026-09-07T09:00:00Z",
+                    3_600,
+                ),
+                snapshot_session(
+                    Some(first),
+                    Some(list_id),
+                    Some("Metrics"),
+                    SessionKind::Break,
+                    "2026-09-07T10:00:00Z",
+                    900,
+                ),
+                snapshot_session(
+                    Some(second),
+                    Some(list_id),
+                    Some("Metrics"),
+                    SessionKind::Work,
+                    "2026-09-08T09:00:00Z",
+                    1_800,
+                ),
+                snapshot_session(
+                    Some(partial),
+                    Some(list_id),
+                    Some("Metrics"),
+                    SessionKind::Work,
+                    "2026-09-08T11:00:00Z",
+                    600,
+                ),
+            ],
+            completed_tasks: vec![
+                completed_snapshot_task(
+                    first,
+                    list_id,
+                    "First",
+                    Some(4_000),
+                    3_600,
+                    "2026-09-07T12:00:00Z",
+                ),
+                completed_snapshot_task(
+                    second,
+                    list_id,
+                    "Second",
+                    Some(1_200),
+                    1_800,
+                    "2026-09-08T12:00:00Z",
+                ),
+            ],
+        };
+
+        let overview = overview_from_history(&history, "UTC").expect("aggregate overview");
+        assert_eq!(overview.summary.total_work_days, 2);
+        assert_eq!(overview.summary.total_tasks_done, 2);
+        assert_eq!(overview.summary.average_tasks_per_work_day, Some(1.0));
+        assert_eq!(overview.summary.total_time_seconds, 6_900);
+        assert_eq!(
+            overview.summary.average_time_per_work_day_seconds,
+            Some(3_450.0)
+        );
+        assert_eq!(
+            overview.summary.average_time_per_task_seconds,
+            Some(2_000.0)
+        );
+        assert_eq!(overview.daily_series.len(), 2);
+        assert_eq!(overview.daily_series[0].task_seconds, 3_600);
+        assert_eq!(overview.daily_series[0].break_seconds, 900);
+        assert_eq!(overview.daily_series[0].total_seconds, 4_500);
+        assert_eq!(overview.productive.local_hour_start, Some(9));
+        assert_eq!(overview.productive.weekday_from_monday, Some(0));
+        assert_eq!(overview.productive.month_key.as_deref(), Some("2026-09"));
+        assert_eq!(overview.time_by_list.len(), 1);
+        assert_eq!(overview.time_by_list[0].work_seconds, 6_000);
+    }
+
+    #[test]
+    fn overview_punctuality_stacks_early_and_late_variance_and_omits_no_est_tasks() {
+        let list_id = ListId::generate();
+        let early = TaskId::generate();
+        let late = TaskId::generate();
+        let on_time = TaskId::generate();
+        let no_est = TaskId::generate();
+        let history = ReportHistorySnapshot {
+            range: ReportRange {
+                start_at: START.into(),
+                end_at: END.into(),
+                list_id: None,
+            },
+            sessions: Vec::new(),
+            completed_tasks: vec![
+                completed_snapshot_task(early, list_id, "Early", Some(3_600), 1_800, T1),
+                completed_snapshot_task(late, list_id, "Late", Some(3_600), 7_200, T2),
+                completed_snapshot_task(on_time, list_id, "On time", Some(900), 900, T3),
+                completed_snapshot_task(no_est, list_id, "No EST", None, 600, T4),
+            ],
+        };
+
+        let overview = overview_from_history(&history, "UTC").expect("aggregate punctuality");
+        assert_eq!(overview.punctuality.early_seconds, 1_800);
+        assert_eq!(overview.punctuality.late_seconds, 3_600);
+        assert_eq!(overview.punctuality.early_percent, Some(100.0 / 3.0));
+        assert_eq!(overview.punctuality.late_percent, Some(200.0 / 3.0));
+        assert_eq!(
+            overview.done_tasks[0].timing.as_ref().map(|value| value.kind),
+            Some(ReportCompletionTimingKind::Early)
+        );
+        assert_eq!(
+            overview.done_tasks[1].timing.as_ref().map(|value| value.kind),
+            Some(ReportCompletionTimingKind::Late)
+        );
+        assert_eq!(
+            overview.done_tasks[2].timing.as_ref().map(|value| value.kind),
+            Some(ReportCompletionTimingKind::OnTime)
+        );
+        assert!(overview.done_tasks[3].timing.is_none());
+    }
+
+    #[test]
+    fn overview_groups_session_starts_in_display_timezone_across_dst_fallback() {
+        let list_id = ListId::generate();
+        let task_id = TaskId::generate();
+        let history = ReportHistorySnapshot {
+            range: ReportRange {
+                start_at: "2026-11-01T00:00:00Z".into(),
+                end_at: "2026-11-02T12:00:00Z".into(),
+                list_id: None,
+            },
+            sessions: vec![
+                snapshot_session(
+                    Some(task_id),
+                    Some(list_id),
+                    Some("Metrics"),
+                    SessionKind::Work,
+                    "2026-11-01T05:30:00Z",
+                    1_200,
+                ),
+                snapshot_session(
+                    Some(task_id),
+                    Some(list_id),
+                    Some("Metrics"),
+                    SessionKind::Work,
+                    "2026-11-01T06:30:00Z",
+                    1_800,
+                ),
+                snapshot_session(
+                    Some(task_id),
+                    Some(list_id),
+                    Some("Metrics"),
+                    SessionKind::Break,
+                    "2026-11-02T05:30:00Z",
+                    300,
+                ),
+            ],
+            completed_tasks: Vec::new(),
+        };
+
+        let overview =
+            overview_from_history(&history, "America/New_York").expect("timezone aggregation");
+        assert_eq!(overview.summary.total_work_days, 2);
+        assert_eq!(overview.productive.local_hour_start, Some(1));
+        assert_eq!(overview.daily_series[0].local_date, "2026-11-01");
+        assert_eq!(overview.daily_series[0].task_seconds, 3_000);
+        assert_eq!(overview.daily_series[1].local_date, "2026-11-02");
+        assert_eq!(overview.daily_series[1].break_seconds, 300);
+    }
+
+    #[test]
+    fn overview_zero_session_completion_does_not_divide_by_zero_or_invent_productive_time() {
+        let list_id = ListId::generate();
+        let task_id = TaskId::generate();
+        let history = ReportHistorySnapshot {
+            range: ReportRange {
+                start_at: START.into(),
+                end_at: END.into(),
+                list_id: None,
+            },
+            sessions: Vec::new(),
+            completed_tasks: vec![completed_snapshot_task(
+                task_id,
+                list_id,
+                "Marked done",
+                Some(600),
+                0,
+                T1,
+            )],
+        };
+
+        let overview = overview_from_history(&history, "UTC").expect("zero-session overview");
+        assert_eq!(overview.summary.total_work_days, 0);
+        assert_eq!(overview.summary.total_tasks_done, 1);
+        assert_eq!(overview.summary.average_tasks_per_work_day, None);
+        assert_eq!(overview.summary.average_time_per_work_day_seconds, None);
+        assert_eq!(overview.summary.average_time_per_task_seconds, None);
+        assert_eq!(overview.productive.local_hour_start, None);
+        assert_eq!(overview.productive.weekday_from_monday, None);
+        assert_eq!(overview.productive.month_key, None);
+        assert_eq!(
+            overview.done_tasks[0].timing.as_ref().map(|value| value.kind),
+            Some(ReportCompletionTimingKind::Early)
+        );
+        assert_eq!(
+            overview.done_tasks[0]
+                .timing
+                .as_ref()
+                .map(|value| value.difference_seconds),
+            Some(600)
+        );
+    }
+
+    #[test]
+    fn overview_rejects_invalid_display_timezone_before_aggregation() {
+        let history = ReportHistorySnapshot {
+            range: ReportRange {
+                start_at: START.into(),
+                end_at: END.into(),
+                list_id: None,
+            },
+            sessions: Vec::new(),
+            completed_tasks: Vec::new(),
+        };
+
+        assert!(matches!(
+            overview_from_history(&history, "Not/A_Real_Zone"),
+            Err(ReportingError::InvalidDisplayTimezone(_))
+        ));
+    }
+
+
     use crate::domain::lists::NewListInput;
     use crate::domain::model::PlanningLane;
     use crate::domain::tasks::NewTaskInput;
