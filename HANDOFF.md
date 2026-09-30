@@ -99,13 +99,12 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `dce6933ff7a777c837822f7a5a83c37d47434e07`, Windows CI #787 / run `36786367870`. CI #786 failed only because branch-only scheduling regression coverage asserted the superseded 3-attempt visual-ready policy; B5/B6/Focus/single-instance contracts before it passed. The correction changes only that static test to require current main's 4 attempts + 250ms linear backoff. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci786-reconciliation-contract-failure.md`.
-2. On #787 PASS, fetch and record all artifacts, then perform mandatory artifact review of the fresh Focus runtime/visual evidence. Confirm expected one-`focusSurface` geometry/DOM/runtime contracts and inspect B5/B6-related runtime output for regression.
-3. If artifact review is clean, provide the exact #787 Windows runtime artifact for physical testing. Do not merge #192 yet.
-4. Physical matrix on that exact artifact must use exactly one Narro runtime and an active task/session: repeated Panel↔Timer, repeated Expand↔Collapse, same task/session/time continuity, no staging/white/stale pixels or document scrollbar, and real 100%↔125% Gate 12 movement/recovery.
-5. Only after physical PASS: expected-head guarded merge #192, validate resulting main with Windows CI, then reconcile reopened M1/M6/M7/M8 tracking.
-6. M9 remains preserved: #198 exact-head/artifact accepted but unmerged; #203 fully validated/merged; #205 CI #778 failed and awaits evidence-backed diagnosis after the active M7 corrective chain.
+1. PR #192 exact head `dce6933ff7a777c837822f7a5a83c37d47434e07` is automated-green through Windows CI #787 / run `36786367870`. Mandatory artifact review is clean. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci787-artifact-review.md`.
+2. The exact physical-test artifact is runtime harness id `11129693452`, digest `sha256:0f708660fd9449e3239af6d89932790df188d4f5a23152c6c22c20e9037578f3`. Prefer direct `narro.exe` for validation so installer behavior is not another variable.
+3. Await/record physical Gate 7 + Gate 12 evidence on that exact artifact: one Narro process, active task/session, repeated Panel↔Timer + Expand↔Collapse, B5 visible Timer→Blitz→Panel, B6 idle/no-task shortcut no-op, no staging/white/stale/scrollbar defects, and real 100%↔125% monitor/edge/topology recovery.
+4. If physical PASS, reconcile latest docs-only main tracking into #192 without changing executable/source blobs, run one final exact-head Windows CI, expected-head guarded merge #192, then resulting-main Windows CI.
+5. Only after resulting-main PASS reconcile/reclose the affected M1/M6/M7/M8 items. M9 state remains preserved (#198 accepted/unmerged; #203 validated/merged; #205 failure pending after M7).
 
 ## USER ACTION REQUIRED
 
-None currently. Do not request another physical run until the corrected/reconciled M7 exact-head artifact is ready.
+Physical Windows validation is now required on the exact CI #787 artifact. Use `narro.exe` from runtime harness artifact `11129693452`. Record failures precisely; do not merge #192 from automated evidence alone.
