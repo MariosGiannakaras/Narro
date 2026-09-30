@@ -29,29 +29,46 @@ GitHub `main` is the durable source truth.
 
 User explicitly authorized safe M9 work in parallel while M7 is physically blocked.
 
-#### Reporting foundation — VALIDATED / MERGED
+#### Reporting history foundation — VALIDATED / MERGED
 
-- PR #197 exact validated head: `041bdda72ab513d571d940e71a1e18d4027d009b`.
-- Windows CI #746 / run `36739580536`: **PASS**.
-- Expected-head guarded squash merge: `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624`.
-- Resulting-main Windows CI #748 / run `36741939684`: **PASS** on exact source commit `f7d6d995...`.
-- #748 artifacts:
-  - runtime harness id `11111680536`, digest `sha256:e31aeb4525023ccea67d205d12642f326a94f1ecfbb18a33f4564cc49b49a206`;
-  - visual regression id `11110314443`, digest `sha256:1bf15cdf6ba8f5005156a3d2f5a37dcedca9568c6e3e467563857dc20dbc282b`.
-- Read-only capabilities: typed RFC3339 range/filter boundary, closed work/break session rows, completed-task history, EST, Time Taken from work sessions + manual adjustment, archived-history retention, permanent-delete exclusion through existing cascade semantics.
-- No timer/session mutation, Focus/window, schema/migration or network behavior changed.
+- PR #197 exact head `041bdda72ab513d571d940e71a1e18d4027d009b` passed Windows CI #746.
+- Guarded squash merge `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624`; resulting-main CI #748 **PASS**.
+- Read-only typed range/list history, closed work/break rows, completed-task rows, archived-history retention and permanent-delete exclusion are established.
 - Durable evidence: `work-log/2026-09-30-chatgpt-m9-reporting-foundation-validation.md`.
-- No top-level M9 TODO item is closed solely by this foundation.
 
-#### Reports Overview visual foundation — ACTIVE
+#### Historical Sessions mutation persistence — VALIDATED / MERGED
 
-- PR #198: `feat/m9-reports-overview-visual`.
-- CI #747 failed at Repository Preflight only because `src/reportsVisualFixture.tsx` used invalid TypeScript optional tuple syntax; visual capture never ran and no artifact was produced.
-- The tuple typing was corrected with a named optional tuple type, and the branch was semantically reconciled with current validated M9 reporting source.
-- Latest live exact head must be read from GitHub before work; do not trust the older `cd819b19...` checkpoint.
-- Scope remains frontend-only until later production wiring: pure `ReportsOverviewView`, four metric cards, accessible Tasks/Breaks/Total chart + focus-readable tooltip, productive hour/day/month, Time By List, Done Tasks/punctuality, list-filter, two-month date picker, reduced-motion CSS, and light/dark Windows Edge fixtures.
-- Fixture data is fixture-only; production report values must come from validated local reporting/aggregation logic.
-- Require exact-head Windows CI, including Reports captured-DOM/PNG validation, then inspect the actual visual artifact before merge.
+- PR #200 exact validated head: `f2972e50eaa7e3008390544466598455e2cd16bd`.
+- Windows CI #756 / run `36747066733`: **PASS**.
+- Guarded squash merge: `10e5a97a703cff4d77141f548e66945cddda4956`.
+- Resulting-main CI #757 / run `36750152569`: **PASS**; validation gate proved merged tree `7c5fe3cfc68f0af1c3cd0b112b571d004110603c` identical to the exact validated PR tree.
+- #756 artifacts: runtime id `11113411940`, digest `sha256:e4decb648c8bc9d1ac0712dde2678796149375568e5a16f48ec2c113485b6ccf`; visual id `11113132388`, digest `sha256:b80c3d1db42bfe9bc9949bb3d362d4ded014d9fe433b57a0b4339dd132543b58`.
+- Capabilities: manual closed work-session creation, stale-safe closed-session edit/delete, strict open/live-session protection, RFC3339/range/duration validation, immediate transactions, expected-`updated_at` guards and ledger-derived Time Taken reconciliation.
+- No top-level M9 TODO item closes until command/UI/visual integration exists.
+- Durable evidence: `work-log/2026-09-30-chatgpt-m9-session-mutations-validation.md`.
+
+#### Overview aggregation — ACTIVE
+
+- PR #199: `feat/m9-report-aggregation`.
+- Current reconciled exact head checkpoint: `a95bd0319b5b03cab6119af135243c8b1b1d6146`.
+- CI #753 first failed only rustfmt; CI #755 then reached tests and exposed a wrong fixture expectation: Tuesday had two focus sessions vs Monday one, so documented productive-day semantics require weekday-from-Monday `1`. The test was corrected, then current `main` was merged into the branch.
+- CI #759 / run `36750257383` is **IN PROGRESS**. Do not merge until exact-head PASS and current main tracking is reconciled again if main has advanced.
+
+#### Reports Overview visual foundation — ACTIVE / HARNESS-BLOCKED
+
+- PR #198 exact source head checkpoint: `8039342e4a55ee21a83dbf20e9349fb103c5b1cc`.
+- Preflight/frontend/Rust passed, but CI #752 failed twice before any Reports capture because pre-existing `task-scheduling-light` did not expose its explicit ready marker within two hosted-Edge captures.
+- An unrelated later PR #200 visual run captured that same fixture successfully, confirming intermittent harness readiness rather than a scheduling or Reports source regression.
+- Scope remains fixture-only/presentational until production wiring: pure Overview view, summary cards, accessible Tasks/Breaks/Total chart+tooltip, productive cards, Time By List, Done Tasks/punctuality, list filter, date picker, reduced-motion CSS, light/dark captures.
+- Do not weaken Reports validation or merge #198 without actual Reports PNG/DOM artifact inspection.
+
+#### Visual readiness harness — ACTIVE
+
+- PR #201: `ci/visual-ready-retry-hardening`, source head checkpoint `f2aa19787800d8d889a6828ec8da712313f789ed`.
+- Change is confined to `scripts/capture-visual-fixtures.ps1`: explicit ReadyMarker fixtures keep the same strict marker requirement but receive up to four bounded captures instead of two, with small retry-only backoff.
+- CI #760 is **IN PROGRESS**.
+- If #201 validates, merge it first, validate resulting main, then reconcile #198 with that main before exact-head Reports visual CI.
+
 
 ### Independent M8
 
@@ -80,11 +97,11 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 
 ## NEXT AGENT ACTION
 
-1. Resume PR #198 from its latest live exact head. Inspect the newest exact-head Windows CI. If it fails, fix only the evidence-backed compile/fixture/visual issue; if it passes, download and inspect all Reports Overview PNG/DOM captures before acceptance.
-2. Before PR #198 merge, ensure the branch contains current `main` tracking truth and validated reporting foundation, then require exact-head CI on that reconciled head. Merge only with an expected-head guard and validate the resulting `main` source SHA.
-3. After the visual foundation is validated/merged, production-wire the Overview to local reporting/aggregation in the next narrow M9 slice; do not leak fixture data into production.
-4. Keep PR #192 at automated-green head `0ef80844...` unless new evidence justifies another M7 source/test change. Physical Gate 7/Gate 12 remain open.
-5. When physical Windows access returns, use the latest exact validated PR #192 artifact for the remaining replacement physical matrix; only then merge/reclose affected M1/M6/M7/M8 items.
+1. Inspect live CI #759 for PR #199 and CI #760 for PR #201. Fix only exact evidence-backed failures.
+2. If #201 passes, expected-head merge it, validate resulting main, then reconcile PR #198 with that validated harness/main state and rerun exact-head Windows CI. On PASS, download and visually inspect every Reports Overview light/dark PNG and DOM capture before merge.
+3. If #199 passes, reconcile any newer main tracking/source state, require exact-head CI on that reconciled head, then guarded merge and resulting-main validation.
+4. Build the next M9 command/API layer from the latest validated main: Overview/history reads plus historical Sessions create/edit/delete must reuse #197/#200 authority, stable error codes and local-only SQLite. Do not mutate or duplicate the live timer authority.
+5. Keep PR #192 at automated-green head `0ef80844...` until physical Windows access returns; Gate 7/Gate 12 remain open.
 
 ## USER ACTION REQUIRED
 

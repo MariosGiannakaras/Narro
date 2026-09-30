@@ -27,7 +27,7 @@ Independent M8 progress remains validated/merged:
 - PREF-R06: PR #194 / CI #721 / merge `88dea3bcbd988f2e77ea0edccb218be95e5b2438` / main CI #724.
 PREF-R05 remains blocked on validated Narro-owned or user-local sound assets; Focus-shortcut closure remains coupled to the M7 replacement.
 
-By explicit user direction, safe independent M9 work may proceed in parallel while M7 is physically blocked. The first read-only reporting foundation is now **VALIDATED / MERGED**: PR #197 exact head `041bdda72ab513d571d940e71a1e18d4027d009b` passed Windows CI #746 / run `36739580536`; expected-head guarded squash merge `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624` passed resulting-main Windows CI #748 / run `36741939684`. The foundation exposes typed local history queries over existing task/session persistence without changing timer/session mutation, schema, Focus/window behavior or local-only scope. No top-level M9 UI checkbox closes from the read model alone. PR #198 is the separate screenshot-backed Reports Overview presentation slice; its first CI #747 failed only at TypeScript fixture tuple typing, which has been corrected and reconciled with the validated reporting foundation for exact-head revalidation.
+By explicit user direction, safe independent M9 work may proceed in parallel while M7 is physically blocked. PR #197 reporting history foundation remains **VALIDATED / MERGED** through CI #746 / merge `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624` / resulting-main CI #748. The next independent persistence slice is also **VALIDATED / MERGED**: PR #200 exact head `f2972e50eaa7e3008390544466598455e2cd16bd` passed Windows CI #756; expected-head guarded squash merge `10e5a97a703cff4d77141f548e66945cddda4956` passed resulting-main CI #757, whose validation gate proved the merged tree byte-identical to the exact validated PR tree. It adds manual closed work-session creation plus stale-safe historical edit/delete while explicitly protecting the open/live session and preserving ledger-derived Time Taken. No top-level M9 UI checkbox closes from these backend foundations alone. PR #199 is the authoritative Overview aggregation slice; its reconciled head `a95bd031...` is in exact-head CI #759 after correcting a fixture expectation so productive day follows the documented “most focus sessions” rule. PR #198 remains the screenshot-backed Overview presentation slice, currently blocked only by a repeated hosted-Edge ready-marker false-negative in the pre-existing task-scheduling fixture before Reports capture. PR #201 isolates that CI harness hardening with strict ready-marker validation preserved and CI #760 in progress.
 
 Deep Blitzit reliability reconciliation remains durable:
 - `RISK-F007`: fresh app launch must never implicitly create/start a timer session;
@@ -48,7 +48,7 @@ PR #192 exact head `0ef80844...` is automated-green but unmerged and physically 
 - Gate 12 still requires the real 125% secondary-display scenario.
 - `RISK-F007` and `RISK-F008` remain `VALIDATION_OPEN`.
 - PREF-R02, PREF-R03 and PREF-R06 are validated/merged.
-- M9 reporting foundation is validated/merged through PR #197 / CI #746 / merge `f7d6d995...` / resulting-main CI #748. PR #198 Overview visual foundation remains in validation.
+- M9 reporting foundation (#197) and historical session-mutation persistence foundation (#200) are validated/merged. PR #199 aggregation, PR #198 Overview visual foundation, and CI-harness PR #201 remain in validation.
 
 ## Repository documentation/process policy — 2026-09-29
 
