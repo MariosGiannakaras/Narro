@@ -839,15 +839,8 @@ mod tests {
         let (mut conn, task_id) = fixture();
         let first = open_focus_work_session(&mut conn, task_id, T0).unwrap();
         let first = close_session(&mut conn, first.id, 60, T1).unwrap();
-        let second = create_manual_work_session(
-            &mut conn,
-            task_id,
-            T1,
-            T2,
-            60,
-            T2,
-        )
-        .expect("create second closed session");
+        let second = create_manual_work_session(&mut conn, task_id, T1, T2, 60, T2)
+            .expect("create second closed session");
 
         assert!(matches!(
             delete_closed_session_if_expected(&mut conn, first.id, "stale-version"),
@@ -867,24 +860,10 @@ mod tests {
     #[test]
     fn closed_session_edit_and_delete_reconcile_authoritative_time_taken_from_ledger() {
         let (mut conn, task_id) = fixture();
-        let first = create_manual_work_session(
-            &mut conn,
-            task_id,
-            T0,
-            T1,
-            60,
-            T1,
-        )
-        .expect("create first manual session");
-        let second = create_manual_work_session(
-            &mut conn,
-            task_id,
-            T1,
-            T2,
-            120,
-            T2,
-        )
-        .expect("create second manual session");
+        let first = create_manual_work_session(&mut conn, task_id, T0, T1, 60, T1)
+            .expect("create first manual session");
+        let second = create_manual_work_session(&mut conn, task_id, T1, T2, 120, T2)
+            .expect("create second manual session");
 
         assert_eq!(task_time_taken_seconds(&conn, task_id).unwrap(), 180);
 
@@ -912,25 +891,11 @@ mod tests {
         let before = sessions_for_task(&conn, task_id).unwrap();
 
         assert!(matches!(
-            create_manual_work_session(
-                &mut conn,
-                task_id,
-                "not-a-time",
-                T1,
-                60,
-                T2,
-            ),
+            create_manual_work_session(&mut conn, task_id, "not-a-time", T1, 60, T2,),
             Err(SessionStoreError::InvalidSessionTimestamp("started_at"))
         ));
         assert!(matches!(
-            create_manual_work_session(
-                &mut conn,
-                task_id,
-                T2,
-                T1,
-                60,
-                T2,
-            ),
+            create_manual_work_session(&mut conn, task_id, T2, T1, 60, T2,),
             Err(SessionStoreError::EndBeforeStart)
         ));
 
