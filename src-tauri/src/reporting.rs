@@ -1,7 +1,7 @@
 use crate::domain::ids::{ListId, SessionId, TaskId};
 use crate::domain::sessions::{SessionKind, SessionSource};
 use chrono::{DateTime, FixedOffset};
-use rusqlite::{params, Connection, OptionalExtension, Row};
+use rusqlite::{Connection, Row};
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
@@ -53,18 +53,9 @@ pub enum ReportingError {
     Sqlite(rusqlite::Error),
     InvalidRangeTimestamp(&'static str),
     EmptyOrReversedRange,
-    CorruptIdentity {
-        field: &'static str,
-        value: String,
-    },
-    CorruptToken {
-        field: &'static str,
-        value: String,
-    },
-    CorruptTimestamp {
-        field: &'static str,
-        value: String,
-    },
+    CorruptIdentity { field: &'static str, value: String },
+    CorruptToken { field: &'static str, value: String },
+    CorruptTimestamp { field: &'static str, value: String },
     CorruptDuration(i64),
     CorruptEstimate(i64),
     CorruptTimeTaken(i64),
@@ -84,22 +75,34 @@ impl Display for ReportingError {
                 formatter.write_str("report range end must be after its start")
             }
             Self::CorruptIdentity { field, value } => {
-                write!(formatter, "stored report {field} identity is invalid: {value}")
+                write!(
+                    formatter,
+                    "stored report {field} identity is invalid: {value}"
+                )
             }
             Self::CorruptToken { field, value } => {
                 write!(formatter, "stored report {field} token is invalid: {value}")
             }
             Self::CorruptTimestamp { field, value } => {
-                write!(formatter, "stored report {field} timestamp is invalid: {value}")
+                write!(
+                    formatter,
+                    "stored report {field} timestamp is invalid: {value}"
+                )
             }
             Self::CorruptDuration(value) => {
-                write!(formatter, "stored report session duration is invalid: {value}")
+                write!(
+                    formatter,
+                    "stored report session duration is invalid: {value}"
+                )
             }
             Self::CorruptEstimate(value) => {
                 write!(formatter, "stored report task estimate is invalid: {value}")
             }
             Self::CorruptTimeTaken(value) => {
-                write!(formatter, "stored report task time taken is invalid: {value}")
+                write!(
+                    formatter,
+                    "stored report task time taken is invalid: {value}"
+                )
             }
             Self::TimeTakenOverflow => formatter.write_str("report task time taken overflowed"),
             Self::MissingJoinedTask(id) => {
@@ -299,9 +302,9 @@ fn decode_completed_task_row(
     let task_id = parse_task_id("task", raw.task_id)?;
     let list_id = parse_list_id(raw.list_id)?;
     let est_seconds = match raw.est_seconds {
-        Some(value) if value > 0 => Some(
-            u32::try_from(value).map_err(|_| ReportingError::CorruptEstimate(value))?,
-        ),
+        Some(value) if value > 0 => {
+            Some(u32::try_from(value).map_err(|_| ReportingError::CorruptEstimate(value))?)
+        }
         Some(value) => return Err(ReportingError::CorruptEstimate(value)),
         None => None,
     };
@@ -428,7 +431,7 @@ mod tests {
     use crate::persistence::lists::create_list;
     use crate::persistence::run_migrations;
     use crate::persistence::tasks::{archive_task, permanently_delete_task};
-    use rusqlite::Connection;
+    use rusqlite::{params, Connection};
 
     const START: &str = "2026-09-30T00:00:00Z";
     const END: &str = "2026-10-01T00:00:00Z";
@@ -458,7 +461,12 @@ mod tests {
         .id
     }
 
-    fn create_test_task(conn: &mut Connection, list_id: ListId, title: &str, est: Option<u32>) -> TaskId {
+    fn create_test_task(
+        conn: &mut Connection,
+        list_id: ListId,
+        title: &str,
+        est: Option<u32>,
+    ) -> TaskId {
         crate::persistence::tasks::create_task(
             conn,
             NewTaskInput {
@@ -508,13 +516,7 @@ mod tests {
         insert_session(&conn, Some(alpha_task), "break", T2, 120);
         insert_session(&conn, None, "break", T3, 60);
         insert_session(&conn, Some(beta_task), "work", T4, 300);
-        insert_session(
-            &conn,
-            Some(alpha_task),
-            "work",
-            "2026-09-29T23:59:59Z",
-            30,
-        );
+        insert_session(&conn, Some(alpha_task), "work", "2026-09-29T23:59:59Z", 30);
 
         conn.execute(
             "UPDATE tasks SET completed_at = ?1 WHERE id IN (?2, ?3)",
@@ -545,7 +547,10 @@ mod tests {
         )
         .expect("alpha report");
         assert_eq!(alpha_only.sessions.len(), 2);
-        assert!(alpha_only.sessions.iter().all(|row| row.list_id == Some(alpha)));
+        assert!(alpha_only
+            .sessions
+            .iter()
+            .all(|row| row.list_id == Some(alpha)));
         assert_eq!(alpha_only.completed_tasks.len(), 1);
         assert_eq!(alpha_only.completed_tasks[0].task_id, alpha_task);
     }
