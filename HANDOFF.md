@@ -43,6 +43,15 @@ Latest exact #684 physical retest:
 - immutable evidence: `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md`.
 
 
+Latest corrected physical reassessment:
+- exact #684 recording rechecked from zero: `2026-09-30 02-02-23.mp4`, SHA-256 `72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`;
+- persistent Narro vertical browser scrollbar is visible in settled compact and expanded Timer states (~18.4 s, ~25.8 s, ~27.8 s);
+- during the ordinary 125%→100% drag, the target 100% Timer is already narrow while visible native height remains ~138 px around ~27.3–27.5 s, then settles to ~110 px by ~27.8 s;
+- first Panel→Timer transition moves the same HWND from x≈4124 to x≈870 across ~3250 physical px in ~0.27 s with linear native stepping, then changes from ~340×110 to ~425×138 on the 125% display;
+- these findings were not corrected by #695 because the post-#684 runtime delta changed WebView2 parent-move notification/tests, not Focus document overflow or the native motion policy;
+- corrective direction: exact Focus-document overflow lock, WM_DPICHANGED visible-region refresh during interactive Timer drag while full recovery remains deferred, and eased finite native point-to-point motion;
+- immutable evidence: `work-log/2026-09-30-chatgpt-m7-ci684-video-reassessment.md`.
+
 Latest full programmatic/online M7 audit:
 - exact current PR head `473af660566970ad4499eceda618abb8042f5f19`;
 - Windows CI #695 / run `36680495272`: **PASS**;
@@ -89,13 +98,15 @@ This remains the fully merged/physically accepted application-source baseline (P
 
 ## NEXT AGENT ACTION
 
-1. Treat PR #192 exact head `473af660566970ad4499eceda618abb8042f5f19` / Windows CI #695 as the current automated-green M7 candidate.
-2. Do not add more M7 transition/DPI source code without new evidence; the known #679 defects are absent in #684 physical evidence and the remaining native boundary has been programmatically hardened.
-3. Do not revive the split Timer WebView architecture from PR #191 and do not introduce high-frequency `SetWindowRgn`/resize animation.
-4. Keep Gate 7 + Gate 12 and other replacement-build interactive Windows acceptance explicitly OPEN/UNAVAILABLE while no suitable physical environment exists; do not invent a PASS.
-5. Keep PR #192 open while the repository's physical-before-merge rule remains in force.
-6. If physical access returns, resume only the remaining exact-current-build physical matrix. If a new exact-build defect appears, fix only that observed signature.
-7. If ordered roadmap work proceeds that is genuinely independent of this unavailable physical result, preserve the blocker and counters explicitly.
+1. Resume PR #192 on the same branch; do not merge the CI #695 candidate.
+2. Reconcile current `main` tracking truth into the branch before source edits.
+3. Fix only the newly evidenced #684 defects:
+   - remove Focus document-level scrollbars without disabling intentional internal scrolling;
+   - refresh the Timer native visible region immediately for the new DPI during an interactive `WM_DPICHANGED`, while keeping full host-size/position recovery deferred until `WM_EXITSIZEMOVE`;
+   - replace linear native Panel↔Timer position interpolation with an eased finite point-to-point curve while retaining the one persistent `focusSurface`.
+4. Add deterministic CSS/native/motion regression coverage.
+5. Run exact-head Windows CI and record artifacts.
+6. Physical closure remains unavailable until the user regains a Windows test environment; do not invent physical PASS.
 
 ## USER ACTION REQUIRED
 
