@@ -99,13 +99,13 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `c77ece58439753d92ab486d1ebb3a43605efbbd3`, Windows CI #789 / run `36791787553`. The CI787 physical recording reopened M7 with three evidence-backed defects; durable audit: `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`.
-2. Commit `6972c4e0...` fixes Timer semantics: expanded active Timer keeps task/title/live time; Find Timer requires authoritative non-Idle + task binding; settled idle/no-task Timer normalizes to Panel; packaged runtime visual harness now creates a real persisted active task/session before exercising Timer.
-3. Commit `c77ece58...` fixes cross-window stale projection: best-effort `board-data-invalidated` is emitted after authoritative task/subtask/schedule/timer mutations, and Main ListBoard, Focus Panel and Home re-read SQLite authority with stale-response guards.
-4. On #789 FAIL, inspect exact failure and fix only evidence-backed issues. On PASS, fetch/review fresh visual/runtime artifacts. The fresh packaged runtime artifact must visibly retain task/time in expanded Timer and prove an active timer/session rather than an idle placeholder.
-5. Only after clean artifact review issue a fresh physical build. Retest one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle T/P no-op, cross-window board sync, fullscreen topmost, drag/save/restart and real 100%↔125% Gate 12.
+1. Inspect PR #192 exact head `3ef70edde95190a3981a7f53aa57d6a1f6da189a`, Windows CI #793 / run `36792233873`. The CI787 physical recording reopened M7; durable audit: `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`.
+2. Production corrective commits remain `6972c4e0...` (active Timer/expanded task+time/Find-Timer/idle normalization/active runtime harness) and `c77ece58...` (cross-window authoritative board synchronization). CI #789 failed only because old static tests asserted direct IPC strings after the committed-mutation wrapper was introduced.
+3. The complete static-contract reconciliation is recorded in `work-log/2026-10-01-chatgpt-m7-ci789-static-contract-reconciliation.md`. Current head `3ef70edd...` contains no intentional production changes after `c77ece58...`; subsequent commits only align branch regression tests with `committedBoardMutation`, `committedScheduleMutation`, and `committedTimerMutation`.
+4. On #793 FAIL, inspect the exact failure log and fix only evidence-backed issues. On PASS, fetch/review all fresh artifacts. The packaged runtime must now use a real active task/session and the expanded 340×300 Timer must visibly retain task title + live time.
+5. Only after clean artifact review issue a new physical build. Retest one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle T/P no-op, Main/Focus/Home sync, fullscreen topmost, drag/save/restart, and real 100%↔125% Gate 12.
 6. Do not merge #192 until physical PASS. After physical PASS reconcile latest docs-only main without changing source blobs, run final exact-head CI, guarded merge, resulting-main CI, then reconcile reopened M1/M6/M7/M8 tracking.
 
 ## USER ACTION REQUIRED
 
-None while CI #789 is running. Do not request another physical run until #789 passes and the fresh artifacts are reviewed.
+None while CI #793 is running. Do not request another physical run until #793 passes and the fresh artifacts are reviewed.
