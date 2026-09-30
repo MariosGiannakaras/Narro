@@ -29,6 +29,7 @@ import {
 import { coordinateFocusModeTransition } from "./focusModeTransition";
 import { FocusVisualHoldOwner } from "./focusVisualHoldOwner";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
+import { TimedAlertFlashRuntime } from "./TimedAlertFlashRuntime";
 import { waitForPresentedFrame } from "./presentationFrame";
 import { TimerSessionProjection } from "./TimerSessionProjection";
 import { snapshotTimerSession, startTimerTask } from "./timerSessionApi";
@@ -581,7 +582,14 @@ const diagnostics = new URLSearchParams(window.location.search).get("diagnostics
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeRuntimeProvider>
-      {diagnostics ? <FocusDiagnostics /> : <FocusSurfaceProduct />}
+      {diagnostics ? (
+        <FocusDiagnostics />
+      ) : (
+        <>
+          <TimedAlertFlashRuntime />
+          <FocusSurfaceProduct />
+        </>
+      )}
     </ThemeRuntimeProvider>
   </React.StrictMode>,
 );
