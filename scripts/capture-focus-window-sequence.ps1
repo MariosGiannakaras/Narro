@@ -1,7 +1,8 @@
 param(
   [string]$Title = "Narro - Focus",
   [Parameter(Mandatory = $true)][string]$OutputDirectory,
-  [int]$FrameCount = 20,
+  [string]$ReadyFile = "",
+  [int]$FrameCount = 30,
   [int]$IntervalMs = 15
 )
 $ErrorActionPreference = "Stop"
@@ -34,6 +35,11 @@ $callback = [NarroFocusSequence+EnumWindowsProc]{
 [void][NarroFocusSequence]::EnumWindows($callback, [IntPtr]::Zero)
 if ($found -eq [IntPtr]::Zero) { throw "Could not find '$Title'." }
 New-Item -ItemType Directory -Force -Path $OutputDirectory | Out-Null
+if ($ReadyFile) {
+  $readyDirectory = Split-Path -Parent $ReadyFile
+  if ($readyDirectory) { New-Item -ItemType Directory -Force -Path $readyDirectory | Out-Null }
+  Set-Content -Path $ReadyFile -Value "ready" -NoNewline
+}
 $frames = @()
 $started = [System.Diagnostics.Stopwatch]::StartNew()
 for ($index = 0; $index -lt $FrameCount; $index++) {
