@@ -53,6 +53,17 @@ RISK-F009 corrective PR #206 exact head `ab1e89fcabc7b8385016a738603d41002f9c3b1
 A complete #192 reconciliation has been prepared without moving the branch. Unreferenced tree `2cf5055191a81ca7ce9fb3a13198c515de524f7c` and two-parent merge candidate `1a53848c05100b7f3cb63cc9e7123d727bee3dcf` combine current main/M9/reporting state, #206 single-instance-first ownership, the full single-`focusSurface` replacement, B5 `Blitz now -> Focus Panel` semantics, and B6 active-Focus-only Ctrl+Shift+T semantics. `plan/m7-single-focus` remains at old validated head `0ef808445b...` only until the already-prepared source tree is reconciled onto the newest docs-only main truth; #785 has passed. Durable details: `work-log/2026-10-01-chatgpt-m7-single-instance-merge-and-pr192-candidate.md`.
 
 
+## 2026-10-01 — Reconciled M7 CI #786 failed only on stale branch-only capture contract
+
+PR #192 was non-force fast-forwarded to reconciled head `0762aafd26dbf983f4208667f60381264956af4a` after inheriting current main tracking truth. Windows CI #786 / run `36785840236` failed during Repository Preflight only because historical M7-only `scripts/test-ui-task-scheduling.mjs` still required the superseded 3-attempt ready-marker capture policy. Single-instance, single-Focus architecture, Focus runtime harness, B5 Focus-entry, Focus Panel, transition, B6 shortcut and Reports API contracts all passed before that failure.
+
+The branch-only test is a cross-file semantic dependency on the current capture harness; current main itself does not contain that M7-only assertion. Exact correction commit `dce6933ff7a777c837822f7a5a83c37d47434e07` changes only the static test to require the validated 4-attempt policy plus `Start-Sleep -Milliseconds (250 * $attempt)` backoff. No runtime/Rust/Focus/timer/session/Cargo implementation changed.
+
+A complete three-way blob audit across all 59 M7-changed paths found only four true same-file overlaps with current main: `package.json`, `scripts/capture-visual-fixtures.ps1`, `src-tauri/Cargo.toml`, and `src-tauri/src/lib.rs`; those already use explicit combined reconciliation. A targeted scan found no second stale visual-retry contract among the remaining M7 regression scripts.
+
+Current exact-head Windows CI is #787 / run `36786367870` on `dce6933f...`, currently in progress. Do not issue a physical artifact or merge #192 until #787 passes and fresh artifacts are reviewed. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci786-reconciliation-contract-failure.md`.
+
+
 ## Current validated application source baseline
 
 **`e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` for the reopened M1/M6/M7 replacement acceptance chain.**
