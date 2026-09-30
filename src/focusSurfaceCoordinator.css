@@ -1,6 +1,7 @@
 .focus-surface-coordinator {
   --focus-visible-height: 700px;
-  --focus-geometry-motion-duration: 270ms;
+  --focus-geometry-motion-duration: 250ms;
+  --focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1);
   position: relative;
   width: 340px;
   height: 700px;
@@ -28,9 +29,9 @@
   box-sizing: border-box;
   clip-path: inset(0 0 0 0 round 12px);
   transition:
-    clip-path var(--focus-geometry-motion-duration) var(--motion-ease-enter),
-    opacity var(--focus-geometry-motion-duration) var(--motion-ease-enter),
-    transform var(--focus-geometry-motion-duration) var(--motion-ease-enter);
+    clip-path var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease),
+    opacity var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease),
+    transform var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease);
 }
 
 .focus-surface-coordinator__presentation[data-focus-presentation="panel"] {
