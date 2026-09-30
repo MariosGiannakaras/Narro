@@ -752,8 +752,20 @@ fn claim_notifications_best_effort(
     effects_connection: &mut Connection,
     wall_time: &str,
 ) -> Vec<PomodoroBoundaryEffect> {
+    let notifications_enabled = match get_preferences(effects_connection) {
+        Ok(Some(record)) => record.payload.alerts.notification_alerts_enabled,
+        Ok(None) => false,
+        Err(error) => {
+            eprintln!(
+                "Pomodoro notification Preferences read failed; effects remain pending for a later observation: {error}"
+            );
+            return Vec::new();
+        }
+    };
+
     match claim_pending_notifications(effects_connection, wall_time) {
-        Ok(pending) => pending,
+        Ok(pending) if notifications_enabled => pending,
+        Ok(_suppressed) => Vec::new(),
         Err(error) => {
             eprintln!("Pomodoro notification claim failed; will retry: {error}");
             Vec::new()
@@ -973,6 +985,7 @@ mod tests {
     use crate::domain::timer_events::TimerSessionChange;
     use crate::persistence::lists::create_list;
     use crate::persistence::pomodoro_effects::claim_pending_notifications;
+    use crate::persistence::preferences::{initialize_preferences, mutate_preferences};
     use crate::persistence::run_migrations;
     use crate::persistence::sessions::{get_open_session, sessions_for_task};
     use crate::persistence::tasks::create_task;
@@ -1203,6 +1216,106 @@ mod tests {
         assert_eq!(sessions[2].started_at, "2026-09-05T12:00:05.000Z");
 
         drop(inspection);
+        drop(effects);
+        drop(controller);
+        fs::remove_file(path).expect("remove test database");
+    }
+
+    #[test]
+    fn disabled_notification_alerts_consume_boundaries_without_submitting_or_backfilling() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        initialize_preferences(&mut effects, T0).expect("initialize notification preferences");
+        controller
+            .start_task(
+                task_id,
+                TimerMode::Pomodoro {
+                    work_ms: 2_000,
+                    break_ms: 3_000,
+                },
+                0,
+                T0,
+            )
+            .expect("start Pomodoro");
+        let mut observed_ms = 0;
+        advance_controller_to(
+            &mut controller,
+            &mut effects,
+            &mut observed_ms,
+            6_000,
+            T6,
+            |_| {},
+        )
+        .expect("advance through Pomodoro boundaries");
+
+        assert!(
+            claim_notifications_best_effort(&mut effects, T6).is_empty(),
+            "disabled Notification Alerts must suppress Windows-toast submissions"
+        );
+        assert!(
+            claim_pending_notifications(&mut effects, T6)
+                .expect("inspect suppressed notification claims")
+                .is_empty(),
+            "suppressed durable effects must be consumed so later enablement cannot backfill them"
+        );
+
+        mutate_preferences(&mut effects, "2026-09-05T12:00:07Z", |preferences| {
+            preferences.alerts.notification_alerts_enabled = true;
+        })
+        .expect("enable notification alerts after suppressed boundaries");
+        assert!(
+            claim_notifications_best_effort(&mut effects, "2026-09-05T12:00:08Z").is_empty(),
+            "enabling Notification Alerts later must not replay old Pomodoro boundaries"
+        );
+
+        drop(effects);
+        drop(controller);
+        fs::remove_file(path).expect("remove test database");
+    }
+
+    #[test]
+    fn enabled_notification_alerts_submit_each_existing_m3_boundary_once() {
+        let (mut controller, mut effects, task_id, path) = fixture();
+        initialize_preferences(&mut effects, T0).expect("initialize notification preferences");
+        mutate_preferences(&mut effects, "2026-09-05T12:00:01Z", |preferences| {
+            preferences.alerts.notification_alerts_enabled = true;
+        })
+        .expect("enable notification alerts");
+        controller
+            .start_task(
+                task_id,
+                TimerMode::Pomodoro {
+                    work_ms: 2_000,
+                    break_ms: 3_000,
+                },
+                0,
+                T0,
+            )
+            .expect("start Pomodoro");
+        let mut observed_ms = 0;
+        advance_controller_to(
+            &mut controller,
+            &mut effects,
+            &mut observed_ms,
+            6_000,
+            T6,
+            |_| {},
+        )
+        .expect("advance through Pomodoro boundaries");
+
+        let pending = claim_notifications_best_effort(&mut effects, T6);
+        assert_eq!(
+            pending.iter().map(|effect| effect.kind).collect::<Vec<_>>(),
+            vec![
+                PomodoroBoundaryEffectKind::BreakStarted,
+                PomodoroBoundaryEffectKind::BreakFinished,
+            ],
+            "PREF-R03 must gate the existing M3 effects rather than create a second notification path"
+        );
+        assert!(
+            claim_notifications_best_effort(&mut effects, "2026-09-05T12:00:07Z").is_empty(),
+            "claimed M3 boundary notifications must remain at-most-once"
+        );
+
         drop(effects);
         drop(controller);
         fs::remove_file(path).expect("remove test database");
