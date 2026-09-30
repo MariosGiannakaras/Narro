@@ -804,6 +804,7 @@ export function FocusPanel({
                   data-focus-live-timer="true"
                   data-focus-live-timer-mode={liveTimer.mode}
                   data-timer-numerals="true"
+                  data-timed-alert-flash-task-id={liveTask.id}
                   aria-label={liveTimer.label}
                   aria-live="off"
                 >
