@@ -169,9 +169,10 @@ impl TimerService {
         observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
         let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        let notifications_enabled = notification_alerts_enabled_best_effort(effects_connection);
         drop(state);
         submit_claimed_timed_alerts(app_handle, timed_alerts);
-        submit_claimed_notifications(app_handle, effects_connection, pending);
+        submit_claimed_notifications(app_handle, pending, notifications_enabled);
         Ok(())
     }
 
@@ -216,9 +217,10 @@ impl TimerService {
         observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
         let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        let notifications_enabled = notification_alerts_enabled_best_effort(effects_connection);
         drop(state);
         submit_claimed_timed_alerts(app_handle, timed_alerts);
-        submit_claimed_notifications(app_handle, effects_connection, pending);
+        submit_claimed_notifications(app_handle, pending, notifications_enabled);
         Ok(())
     }
 
@@ -266,9 +268,10 @@ impl TimerService {
         observe_timed_alerts_best_effort(effects_connection, &projection, false, &wall_time);
         let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        let notifications_enabled = notification_alerts_enabled_best_effort(effects_connection);
         drop(state);
         submit_claimed_timed_alerts(app_handle, timed_alerts);
-        submit_claimed_notifications(app_handle, effects_connection, pending);
+        submit_claimed_notifications(app_handle, pending, notifications_enabled);
         Ok(())
     }
 
@@ -430,13 +433,14 @@ impl TimerService {
         let payload =
             decorate_timer_payload(effects_connection, payload, *recovered_awaiting_resume)?;
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+        let notifications_enabled = notification_alerts_enabled_best_effort(effects_connection);
         drop(state);
 
         if payload.change.is_some() {
             report_timer_change(app_handle, &payload);
         }
         submit_claimed_timed_alerts(app_handle, timed_alerts);
-        submit_claimed_notifications(app_handle, effects_connection, pending);
+        submit_claimed_notifications(app_handle, pending, notifications_enabled);
         Ok(payload)
     }
 
@@ -774,10 +778,10 @@ fn notification_alerts_enabled_best_effort(effects_connection: &Connection) -> b
 
 fn submit_claimed_notifications(
     app_handle: &tauri::AppHandle,
-    effects_connection: &Connection,
     effects: Vec<PomodoroBoundaryEffect>,
+    notifications_enabled: bool,
 ) {
-    if effects.is_empty() || !notification_alerts_enabled_best_effort(effects_connection) {
+    if effects.is_empty() || !notifications_enabled {
         return;
     }
 
