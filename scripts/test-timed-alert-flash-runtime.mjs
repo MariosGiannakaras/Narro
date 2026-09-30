@@ -32,12 +32,14 @@ invariant(
   timedAlertApi.includes('TIMED_ALERT_EFFECT_EVENT_NAME = "timed-alert-effect"'),
   "runtime must reuse the authoritative PREF-R01 timed-alert event",
 );
-for (const source of [panel, floating]) {
-  invariant(
-    source.includes("data-timed-alert-flash-task-id={liveTask.id}"),
-    "each live Focus timer must bind the flash target to the authoritative live task id",
-  );
-}
+invariant(
+  panel.includes("data-timed-alert-flash-task-id={liveTask.id}"),
+  "Focus Panel live timer must bind the flash target to the authoritative live task id",
+);
+invariant(
+  floating.includes("data-timed-alert-flash-task-id={liveTaskId ?? undefined}"),
+  "Floating Timer must bind the flash target to its authoritative live task id projection",
+);
 invariant(
   focus.includes('import { TimedAlertFlashRuntime } from "./TimedAlertFlashRuntime"')
     && focus.includes("<TimedAlertFlashRuntime />"),
