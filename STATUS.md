@@ -64,6 +64,15 @@ A complete three-way blob audit across all 59 M7-changed paths found only four t
 Current exact-head Windows CI is #787 / run `36786367870` on `dce6933f...`, currently in progress. Do not issue a physical artifact or merge #192 until #787 passes and fresh artifacts are reviewed. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci786-reconciliation-contract-failure.md`.
 
 
+## 2026-10-01 — M7 CI #787 automated-green and artifact-reviewed
+
+PR #192 exact head `dce6933ff7a777c837822f7a5a83c37d47434e07` passed Windows CI #787 / run `36786367870`. Repository preflight, Rust validation, visual capture, release build, packaged Focus runtime capture/validation, and all required uploads passed.
+
+Artifacts: packaged Focus runtime id `11129918136` / `sha256:e8d6733de16ebe60e3e9fa2968bee87bf0db1037381e04f18c3f294225c84570`; visual regression id `11129892760` / `sha256:7ccfda9d8c80865850e8b574bb08cb9b5b4feb62c5a4fb704efc72d5381fc470`; physical runtime harness id `11129693452` / `sha256:0f708660fd9449e3239af6d89932790df188d4f5a23152c6c22c20e9037578f3`.
+
+Mandatory inspection confirms one Focus HWND, 340×700 Panel, 340×110 compact region, 340×300 expanded region, zero unintended root/document scrollers, clean Panel return, and no new static light/dark Focus/Timer layout regression. Hosted runner remains reduced-motion, and the deterministic packaged fixture is idle, so standard-motion character plus active-session B5/B6/continuity and real mixed-DPI Gate 12 remain physical-only. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci787-artifact-review.md`.
+
+
 ## Current validated application source baseline
 
 **`e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` for the reopened M1/M6/M7 replacement acceptance chain.**
