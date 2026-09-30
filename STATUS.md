@@ -627,10 +627,12 @@ Binding execution rule:
 Current audit state:
 - **CORR-01 recurrence update / No Repeat flow:** VALIDATED in PR #182 / CI #617 / main CI #618.
 - **PREF-R01 timed task alerts:** VALIDATED in PR #184 / CI #624 / merge `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`.
-- **M7-PHYS-01:** active `FIX_NOW` physical failure on PR #192 head `73d10ab6...`; the 60 fps exact-artifact recording shows repeated blank/light host exposure during Panel↔Timer. Evidence-backed cause is the opaque focus document canvas (`App.css` root/body) becoming visible while renderer clipping and Win32 region differ.
-- **M7-PHYS-02:** active `FIX_NOW` mixed-DPI finding; replacement Gate 12 remains NOT RUN.
-- The replacement materially invalidates prior acceptance evidence for defined M1/M6/M7 items and directly affected M8 shortcut integration; those checklist items are reopened in `TODO.md`.
-- Implementation and exact-head automated validation are complete on PR #192 head `73d10ab6...` / Windows CI #672, but Gate 7 then physically failed. Continue on the same PR with the narrow document-transparency correction; do not reopen the architecture without new evidence.
+- **M7-PHYS-01:** IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN on PR #192 head `63bb20e9c32dcaffacf96c3bd5a6c52e9114b257` / Windows CI #708. Linear cross-screen native interpolation is replaced by finite Fluent point-to-point easing aligned with renderer motion; physical character remains to be observed.
+- **M7-PHYS-02:** IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN on the same exact head. Interactive `WM_DPICHANGED` refreshes Timer native region DPI immediately while full host recovery remains deferred until `WM_EXITSIZEMOVE`; mixed-DPI physical confirmation remains open.
+- **M7-PHYS-03:** IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN on the same exact head. The Focus document root no longer scrolls; intended subtask/notes/content scrolling remains component-local. Settled physical scrollbar absence remains to be confirmed.
+- The replacement materially invalidates prior acceptance evidence for defined M1/M6/M7 items and directly affected M8 shortcut integration; those checklist items remain reopened in `TODO.md`.
+- No architecture reset is justified. PR #192 stays open/unmerged until physical Gate 7 + Gate 12 and the remaining replacement validation complete.
+
 
 ## CORR-01 recurrence No Repeat correction — validated 2026-09-28
 
@@ -667,6 +669,21 @@ Current audit state:
 - **Validated application source baseline established by this slice:** `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`; it remains the current validated application source baseline unless a later source validation supersedes it.
 - **Historical checkpoint:** roadmap was **6/10**, M8 **6/8**, and the then-current M7 physical closure shorthand was **9/14** before later evidence/reopening.
 - The then-current next gate was consolidated M7 physical Windows validation; that action was later superseded by the corrective architecture program recorded at the top of this file.
+
+## M7 CI #708 overflow/DPI/eased-motion corrective checkpoint — automated validated 2026-09-30
+
+- PR #192 exact automated-validated head: `63bb20e9c32dcaffacf96c3bd5a6c52e9114b257`.
+- Windows CI #708 / run `36688532688`: **PASS**.
+- Runtime artifact `narro-m1-runtime-harness-windows-x64`: id `11084209028`, digest `sha256:0082039e7ffefe48971f4398c2722643fad665cc8c69d7ffdaba3dda8dbfd51d`.
+- Visual artifact `narro-m5-visual-regression`: id `11085410196`, digest `sha256:00782b19dd444efc42d0dc56268d9a598f38aac0fcdc0df546dbed8a4e289ff2`.
+- Exact automated coverage passed for repository preflight, frontend contracts/build, Rust fmt/check/clippy/tests, performance harness self-test, visual regression, reused frontend dist, release build and required artifact uploads.
+- `src/focusDocument.css` prevents document-root scrolling for the persistent Focus WebView while leaving intentional component scroll containers available.
+- Windows topology handling extracts the new DPI from interactive `WM_DPICHANGED` and reapplies only the Timer visible region immediately; deferred full recovery still waits for `WM_EXITSIZEMOVE`.
+- Native position interpolation now solves the Fluent `cubic-bezier(0.55, 0.55, 0, 1)` timing curve deterministically and preserves exact endpoints; renderer/native motion contracts use the same easing family.
+- These changes directly target the #684 video-reconfirmed scrollbar, mixed-DPI visible-region lag and drag-like linear traversal findings. They are not a physical PASS.
+- The user's Windows test system is currently unavailable. Gate 7/Gate 12 and replacement performance/topology physical items therefore remain OPEN/UNAVAILABLE.
+- The fully merged/physically accepted application source baseline remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`; PR #192 is not promoted until physical acceptance, guarded merge and resulting-main validation complete.
+- Durable evidence: `work-log/2026-09-30-chatgpt-m7-ci708-overflow-dpi-easing.md`.
 
 ## M7 CI #624 physical Windows batch — 2026-09-28, corrections in progress
 
