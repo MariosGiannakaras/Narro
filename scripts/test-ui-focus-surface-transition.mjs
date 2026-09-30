@@ -127,6 +127,9 @@ invariant(
     && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs)")
     && transition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && transition.includes("runConcurrentMotion?: () => Promise<void>")
+    && coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
+    && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
     && coordinatorCss.includes('data-focus-geometry-motion-from="panel"')
     && coordinatorCss.includes('data-focus-geometry-motion-to="panel"'),
   "Panel/Timer transition must run finite native position and same-WebView geometry motion concurrently",
@@ -156,8 +159,11 @@ invariant(
 invariant(
   animatedNativeCommit.includes("planned_focus_presentation_position")
     && animatedNativeCommit.includes("animate_focus_position")
-    && lib.includes("3 * steps - 2 * step")
-    && lib.includes("smoothstep")
+    && lib.includes("FLUENT_POINT_TO_POINT_X1: f64 = 0.55")
+    && lib.includes("FLUENT_POINT_TO_POINT_Y1: f64 = 0.55")
+    && lib.includes("FLUENT_POINT_TO_POINT_X2: f64 = 0.0")
+    && lib.includes("FLUENT_POINT_TO_POINT_Y2: f64 = 1.0")
+    && lib.includes("fluent_point_to_point_easing")
     && animatedNativeCommit.includes("timer_region::apply(&window, target.region())")
     && animatedNativeCommit.indexOf("timer_region::apply(&window, target.region())")
       < animatedNativeCommit.indexOf("animate_focus_position")
