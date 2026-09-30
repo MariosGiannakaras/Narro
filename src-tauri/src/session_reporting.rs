@@ -63,7 +63,9 @@ pub fn project_sessions_report(
     for session in &history.sessions {
         match session.kind {
             SessionKind::Work => {
-                let task_id = session.task_id.ok_or(SessionsReportError::MissingWorkTask)?;
+                let task_id = session
+                    .task_id
+                    .ok_or(SessionsReportError::MissingWorkTask)?;
                 worked_tasks.insert(task_id);
                 total_focus_seconds = total_focus_seconds
                     .checked_add(session.duration_seconds)
@@ -187,8 +189,8 @@ mod tests {
 
     #[test]
     fn zero_history_returns_zero_totals_without_inventing_rows() {
-        let projected = project_sessions_report(&history(Vec::new()), true)
-            .expect("empty sessions projection");
+        let projected =
+            project_sessions_report(&history(Vec::new()), true).expect("empty sessions projection");
         assert_eq!(
             projected.summary,
             SessionsReportSummary {
@@ -219,7 +221,12 @@ mod tests {
     fn focus_time_overflow_fails_closed() {
         let task = TaskId::generate();
         let snapshot = history(vec![
-            row(Some(task), SessionKind::Work, "2026-09-01T09:00:00Z", u64::MAX),
+            row(
+                Some(task),
+                SessionKind::Work,
+                "2026-09-01T09:00:00Z",
+                u64::MAX,
+            ),
             row(Some(task), SessionKind::Work, "2026-09-01T10:00:00Z", 1),
         ]);
 
