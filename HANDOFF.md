@@ -99,9 +99,9 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `0762aafd26dbf983f4208667f60381264956af4a`, Windows CI #786 / run `36785840236`. The branch was reconciled by non-force fast-forward after a blob-level check confirmed zero non-Markdown differences from the prepared B5/B6 candidate. Durable evidence: `work-log/2026-10-01-chatgpt-m7-pr192-ci786-checkpoint.md`.
-2. On #786 PASS, fetch and record all artifacts, then perform mandatory artifact review of the fresh Focus runtime/visual evidence. Confirm the expected one-`focusSurface` geometry/DOM/runtime contracts and check that B5/B6 did not introduce a visual/runtime regression.
-3. If artifact review is clean, provide the exact #786 Windows runtime artifact for physical testing. Do not merge #192 yet.
+1. Inspect PR #192 exact head `dce6933ff7a777c837822f7a5a83c37d47434e07`, Windows CI #787 / run `36786367870`. CI #786 failed only because branch-only scheduling regression coverage asserted the superseded 3-attempt visual-ready policy; B5/B6/Focus/single-instance contracts before it passed. The correction changes only that static test to require current main's 4 attempts + 250ms linear backoff. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci786-reconciliation-contract-failure.md`.
+2. On #787 PASS, fetch and record all artifacts, then perform mandatory artifact review of the fresh Focus runtime/visual evidence. Confirm expected one-`focusSurface` geometry/DOM/runtime contracts and inspect B5/B6-related runtime output for regression.
+3. If artifact review is clean, provide the exact #787 Windows runtime artifact for physical testing. Do not merge #192 yet.
 4. Physical matrix on that exact artifact must use exactly one Narro runtime and an active task/session: repeated Panel↔Timer, repeated Expand↔Collapse, same task/session/time continuity, no staging/white/stale pixels or document scrollbar, and real 100%↔125% Gate 12 movement/recovery.
 5. Only after physical PASS: expected-head guarded merge #192, validate resulting main with Windows CI, then reconcile reopened M1/M6/M7/M8 tracking.
 6. M9 remains preserved: #198 exact-head/artifact accepted but unmerged; #203 fully validated/merged; #205 CI #778 failed and awaits evidence-backed diagnosis after the active M7 corrective chain.
