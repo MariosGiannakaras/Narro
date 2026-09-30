@@ -38,54 +38,58 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 
 #### Historical Sessions mutation persistence — VALIDATED / MERGED
 
-- PR #200 exact validated head: `f2972e50eaa7e3008390544466598455e2cd16bd`.
+- PR #200 exact validated head `f2972e50eaa7e3008390544466598455e2cd16bd`.
 - Windows CI #756 / run `36747066733`: **PASS**.
-- Guarded squash merge: `10e5a97a703cff4d77141f548e66945cddda4956`.
-- Resulting-main CI #757 / run `36750152569`: **PASS**; validation gate proved merged tree `7c5fe3cfc68f0af1c3cd0b112b571d004110603c` identical to the exact validated PR tree.
-- #756 artifacts: runtime id `11113411940`, digest `sha256:e4decb648c8bc9d1ac0712dde2678796149375568e5a16f48ec2c113485b6ccf`; visual id `11113132388`, digest `sha256:b80c3d1db42bfe9bc9949bb3d362d4ded014d9fe433b57a0b4339dd132543b58`.
-- Capabilities: manual closed work-session creation, stale-safe closed-session edit/delete, strict open/live-session protection, RFC3339/range/duration validation, immediate transactions, expected-`updated_at` guards and ledger-derived Time Taken reconciliation.
-- No top-level M9 TODO item closes until command/UI/visual integration exists.
+- Guarded squash merge `10e5a97a703cff4d77141f548e66945cddda4956`.
+- Resulting-main CI #757 / run `36750152569`: **PASS**.
+- Manual closed work-session creation, stale-safe closed-session edit/delete, live/open-session protection and ledger-derived Time Taken reconciliation are established.
 - Durable evidence: `work-log/2026-09-30-chatgpt-m9-session-mutations-validation.md`.
 
-#### Overview aggregation — MERGED / RESULTING-MAIN VALIDATION PENDING
+#### Overview aggregation — VALIDATED / MERGED
 
-- PR #199 exact validated head: `3deec9c056e8ea449d96a9c2b9ac8572d7fabf9d`.
+- PR #199 exact head `3deec9c056e8ea449d96a9c2b9ac8572d7fabf9d`.
 - Windows CI #770 / run `36756491555`: **PASS**.
-- #770 artifacts: runtime id `11117162224`, digest `sha256:81d64afba163055cddbfcead54ad9c1d8daa69e2d5729b79f3d48a0e41ce7d26`; visual id `11116946922`, digest `sha256:69b2fc2d7d727d525c318819ed281fccc5f217d388244f28c8d4be9bec8613ec`.
-- Expected-head guarded squash merge: `f165390da50879bb7ed9740da9033cce60132d6a`.
-- Resulting-main Windows CI is still **PENDING / NOT VALIDATED**. Do not count this slice complete or expose the aggregate command until that gate passes.
+- Expected-head guarded squash merge `f165390da50879bb7ed9740da9033cce60132d6a`.
+- Resulting-main Windows CI #772 / run `36759460205`: **PASS**.
+- Main runtime artifact id `11118855812`, digest `sha256:7070fd9a533549707314cfa789c5d1f3277ebf50c9e49cb2dc6da398cd64ed56`.
+- Main visual artifact id `11118267950`, digest `sha256:217c2372efef8333669b4156262cf65b64a231f89ac582fe80eab93e6eb8d6cd`.
+- Validated backend capability: Overview summary metrics, daily Tasks/Breaks/Total series, productive hour/day/month, Time By List, Done-task timing/punctuality, timezone/DST grouping and fail-closed edge handling.
+- User-facing Overview integration remains open.
 
-#### Reports Overview visual foundation — ACTIVE / EXACT-HEAD REVALIDATION
+#### Report command/API boundary — MERGED / RESULTING-MAIN VALIDATION PENDING
 
-- PR #198 head `5d037bca0cb3ee109e618b902edaa246362819f7` passed Windows CI #768 / run `36756417062`.
-- Visual artifact id `11116733937`, digest `sha256:95c62588f6807cd8bcc181d2bf28be0d1cea855cc69bb4bf467e377cf605b5dd`; runtime artifact id `11116982150`, digest `sha256:62446c9dacd5ade6781b7c19a71a9880dcdf41842f2c9944a852f5ef08342fae`.
-- Mandatory artifact review inspected all eight Reports light/dark PNGs and captured DOM files. Overview, list-filter and date-picker states were visually present, but both `reports-lower-*.png` images failed to show the lower `Time By List` / `Done Tasks` panels even though the DOM contained them. #198 was therefore **not merged**.
-- Narrow fixture correction on the same branch now scrolls to the actual lower grid and publishes readiness only when the entire lower region is inside the viewport. Captured-DOM validation now requires `data-reports-lower-viewport-ready="true"`.
-- Final corrected head: `7d3ab9369043424a0c35fb441a46e462c17330d8`.
-- Windows CI #774 / run `36759587923` is **IN PROGRESS**. On PASS, download and inspect the fresh Reports PNG/DOM artifact again before merge.
+- PR #202 exact head `5c4ad3c1c44b5155a82b51480c8d0c7d3de5171f`.
+- Windows CI #769 / run `36756461300`: initial hosted-Edge ready-marker failure only; failed-job rerun on the same head **PASS**.
+- Expected-head guarded squash merge `d835149371a880df5a3c4572f2815e714c37738c`.
+- Resulting-main Windows CI #776 / run `36762102643`: **IN PROGRESS**.
+- Do not count renderer accessibility validated until #776 passes.
 
-#### Report command/API boundary — RETRY IN PROGRESS
+#### Reports Overview visual foundation — ACTIVE / SECOND ARTIFACT CORRECTION
 
-- PR #202 exact head remains `5c4ad3c1c44b5155a82b51480c8d0c7d3de5171f`.
-- Windows CI #769 / run `36756461300` initially failed before report-specific validation because pre-existing `task-scheduling-dark` did not expose its strict ready marker after four hosted-Edge captures.
-- Repository preflight passed and no #202 source defect was established. Failed jobs were rerun without source changes; that rerun is **IN PROGRESS**.
+- PR #198 head `7d3ab9369043424a0c35fb441a46e462c17330d8` passed CI #774 / run `36759587923`.
+- #774 visual artifact id `11119035534`, digest `sha256:3572fa1cd573e18dfdf6092c4e8d35ce4da92001eb8ae46233e21de46054d0e8`.
+- Fresh artifact review still rejected merge: lower-mode DOM carried the expected readiness/panel markers, but both actual 1280x720 PNGs showed only the upper edge of the lower panels because the document had insufficient scroll range.
+- New fixture-only CSS correction hides only the already separately captured metrics/chart when `html[data-reports-fixture-mode="lower"]` is present, so productive cards plus the complete lower grid fit in the initial viewport. Production never sets this attribute.
+- Exact new head `a0364a72b6c01c29d1e4d5b7ca44d2883d0e2dd7`.
+- Windows CI #775 / run `36761834293`: **IN PROGRESS**.
+- Even on PASS, #198 still requires fresh PNG/DOM artifact inspection before merge.
 
 #### Sessions dashboard projection — EXACT-HEAD GREEN / UNMERGED
 
-- PR #203 exact head: `59b7b2713505bdea7cf2521eaebd5f2bf164fb17`.
+- PR #203 exact head `59b7b2713505bdea7cf2521eaebd5f2bf164fb17`.
 - Windows CI #771 / run `36756524757`: **PASS**.
-- Keep it unmerged until the already-merged #199 source checkpoint completes resulting-main validation, then guarded-merge #203 and validate resulting main before Sessions UI work.
+- Keep unmerged until #202 resulting-main validation settles, then guarded-merge #203 and validate resulting main before Sessions UI.
+- The shared `src-tauri/src/lib.rs` edits are additive/non-semantic: #202 adds `report_commands` and command registrations; #203 adds `session_reporting`.
 
 #### Visual readiness harness — VALIDATED / MERGED
 
-- PR #201 exact validated head: `61b4bf4b73a93b5166ce12255f86960ccb84bd5d`.
+- PR #201 exact validated head `61b4bf4b73a93b5166ce12255f86960ccb84bd5d`.
 - Windows CI #762 / run `36751993652`: **PASS**.
-- Guarded squash merge: `ff4627e8013c4bc6b30a79589b49a30cc5b09d22`.
-- Resulting-main Windows CI #765 / run `36755450984`: **PASS**; validation gate reused the byte-identical already-validated PR tree and skipped duplicate build work.
-- Strict ready-marker behavior is preserved; explicit-ready fixtures receive up to four bounded captures with retry-only backoff.
-- Durable evidence: `work-log/2026-09-30-chatgpt-visual-ready-harness-validation.md`.
+- Guarded squash merge `ff4627e8013c4bc6b30a79589b49a30cc5b09d22`.
+- Resulting-main CI #765 / run `36755450984`: **PASS**.
+- Strict ready-marker behavior remains intact with bounded retries.
 
-Durable checkpoint for the current parallel lanes: `work-log/2026-09-30-chatgpt-m9-parallel-ci774-checkpoint.md`.
+Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-ci772-command-merge-visual-reframe.md`.
 
 
 ### Independent M8
@@ -115,10 +119,10 @@ Durable checkpoint for the current parallel lanes: `work-log/2026-09-30-chatgpt-
 
 ## NEXT AGENT ACTION
 
-1. Inspect the resulting-main Windows CI for merge `f165390d...`; record exact PASS/failure evidence before treating #199 as validated.
-2. Inspect #774 on PR #198 final head `7d3ab936...`. On PASS, download the new visual artifact and verify both lower light/dark PNGs visibly contain `Time By List` and `Done Tasks`, while rechecking the other Reports states. Merge only after that artifact review passes.
-3. Inspect the #769 rerun on PR #202. Fix source only if the rerun exposes an evidence-backed #202 defect; on PASS, guarded-merge the exact head and validate resulting main.
-4. After #199 resulting-main validation is complete, guarded-merge PR #203 exact head `59b7b271...` and validate resulting main before Sessions UI work.
+1. Inspect #776 on merged main `d8351493...`. On PASS, record artifacts and treat #202 as validated.
+2. Inspect #775 on PR #198 head `a0364a72...`. On PASS, download the new visual artifact and visually verify every Reports light/dark capture, especially complete `Time By List` and `Done Tasks` visibility in both lower PNGs. Merge only after that review passes.
+3. After #776 PASS, guarded-merge PR #203 exact head `59b7b271...` and validate its resulting main before Sessions UI work.
+4. After #198 visual acceptance/merge and #202 validation, extend the production Overview wiring from the validated aggregation/history APIs; do not leak fixture data into production.
 5. Keep PR #192 at automated-green head `0ef80844...` until physical Windows access returns; Gate 7/Gate 12 remain open.
 
 ## USER ACTION REQUIRED
