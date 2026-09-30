@@ -134,8 +134,11 @@ invariant(
   focusEntry.includes("<FocusPanel") && focusEntry.includes("onRequestCompact={() => void enterCompactMode()}"),
   "panel must enter compact mode only through the explicit product callback",
 );
+const focusRoot = focusEntry.slice(focusEntry.lastIndexOf("ReactDOM.createRoot"));
 invariant(
-  focusEntry.includes("{diagnostics ? <FocusDiagnostics /> : <FocusSurfaceProduct />}"),
+  focusRoot.includes("{diagnostics ? (")
+    && focusRoot.includes("<FocusDiagnostics />")
+    && focusRoot.includes("<FocusSurfaceProduct />"),
   "M1 diagnostics must remain explicitly gated while normal focusSurface uses the product mode root",
 );
 
