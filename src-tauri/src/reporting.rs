@@ -514,26 +514,23 @@ struct LocalSessionBucket {
 
 fn resolve_report_timezone(value: &str) -> Result<TimeZone, ReportingError> {
     let normalized = value.trim();
-    if normalized.is_empty()
-        || normalized.len() > 128
-        || normalized.chars().any(char::is_control)
-    {
+    if normalized.is_empty() || normalized.len() > 128 || normalized.chars().any(char::is_control) {
         return Err(ReportingError::InvalidDisplayTimezone(value.to_owned()));
     }
-    TimeZone::get(normalized)
-        .map_err(|_| ReportingError::InvalidDisplayTimezone(value.to_owned()))
+    TimeZone::get(normalized).map_err(|_| ReportingError::InvalidDisplayTimezone(value.to_owned()))
 }
 
 fn local_session_bucket(
     started_at: &str,
     timezone: &TimeZone,
 ) -> Result<LocalSessionBucket, ReportingError> {
-    let timestamp = started_at
-        .parse::<Timestamp>()
-        .map_err(|_| ReportingError::CorruptTimestamp {
-            field: "session.started_at",
-            value: started_at.to_owned(),
-        })?;
+    let timestamp =
+        started_at
+            .parse::<Timestamp>()
+            .map_err(|_| ReportingError::CorruptTimestamp {
+                field: "session.started_at",
+                value: started_at.to_owned(),
+            })?;
     let local = timezone.to_datetime(timestamp);
     let date = local.date().to_string();
     let parsed_date = NaiveDate::parse_from_str(&date, "%Y-%m-%d")
@@ -646,9 +643,11 @@ pub fn overview_from_history(
                     .list_title
                     .as_ref()
                     .ok_or(ReportingError::MissingJoinedTask(session.id))?;
-                let list = work_by_list
-                    .entry(list_id.to_string())
-                    .or_insert((list_id, list_title.clone(), 0));
+                let list = work_by_list.entry(list_id.to_string()).or_insert((
+                    list_id,
+                    list_title.clone(),
+                    0,
+                ));
                 checked_aggregate_add(&mut list.2, session.duration_seconds)?;
             }
             SessionKind::Break => {
@@ -657,19 +656,17 @@ pub fn overview_from_history(
         }
     }
 
-    let total_work_days = u64::try_from(active_dates.len())
-        .map_err(|_| ReportingError::AggregationOverflow)?;
+    let total_work_days =
+        u64::try_from(active_dates.len()).map_err(|_| ReportingError::AggregationOverflow)?;
     let total_tasks_done = u64::try_from(history.completed_tasks.len())
         .map_err(|_| ReportingError::AggregationOverflow)?;
-    let tracked_task_count = u64::try_from(work_by_task.len())
-        .map_err(|_| ReportingError::AggregationOverflow)?;
-    let total_work_seconds = work_by_task
-        .values()
-        .try_fold(0_u64, |total, seconds| {
-            total
-                .checked_add(*seconds)
-                .ok_or(ReportingError::AggregationOverflow)
-        })?;
+    let tracked_task_count =
+        u64::try_from(work_by_task.len()).map_err(|_| ReportingError::AggregationOverflow)?;
+    let total_work_seconds = work_by_task.values().try_fold(0_u64, |total, seconds| {
+        total
+            .checked_add(*seconds)
+            .ok_or(ReportingError::AggregationOverflow)
+    })?;
 
     let daily_series = daily
         .into_iter()
@@ -688,31 +685,23 @@ pub fn overview_from_history(
 
     let productive_hour = work_by_hour
         .into_iter()
-        .max_by(|left, right| {
-            left.1
-                .cmp(&right.1)
-                .then_with(|| right.0.cmp(&left.0))
-        })
+        .max_by(|left, right| left.1.cmp(&right.1).then_with(|| right.0.cmp(&left.0)))
         .map(|(hour, _)| hour);
 
     let productive_day = work_sessions_by_weekday
         .into_iter()
         .max_by(|left, right| {
             left.1
-                .0
-                .cmp(&right.1.0)
-                .then_with(|| left.1.1.cmp(&right.1.1))
+                 .0
+                .cmp(&right.1 .0)
+                .then_with(|| left.1 .1.cmp(&right.1 .1))
                 .then_with(|| right.0.cmp(&left.0))
         })
         .map(|(weekday, _)| weekday);
 
     let productive_month = work_by_month
         .into_iter()
-        .max_by(|left, right| {
-            left.1
-                .cmp(&right.1)
-                .then_with(|| right.0.cmp(&left.0))
-        })
+        .max_by(|left, right| left.1.cmp(&right.1).then_with(|| right.0.cmp(&left.0)))
         .map(|(month, _)| month);
 
     let mut time_by_list = work_by_list
@@ -961,22 +950,28 @@ mod tests {
             .punctuality
             .early_percent
             .expect("early percentage");
-        let late_percent = overview
-            .punctuality
-            .late_percent
-            .expect("late percentage");
+        let late_percent = overview.punctuality.late_percent.expect("late percentage");
         assert!((early_percent - (100.0 / 3.0)).abs() < 1e-9);
         assert!((late_percent - (200.0 / 3.0)).abs() < 1e-9);
         assert_eq!(
-            overview.done_tasks[0].timing.as_ref().map(|value| value.kind),
+            overview.done_tasks[0]
+                .timing
+                .as_ref()
+                .map(|value| value.kind),
             Some(ReportCompletionTimingKind::Early)
         );
         assert_eq!(
-            overview.done_tasks[1].timing.as_ref().map(|value| value.kind),
+            overview.done_tasks[1]
+                .timing
+                .as_ref()
+                .map(|value| value.kind),
             Some(ReportCompletionTimingKind::Late)
         );
         assert_eq!(
-            overview.done_tasks[2].timing.as_ref().map(|value| value.kind),
+            overview.done_tasks[2]
+                .timing
+                .as_ref()
+                .map(|value| value.kind),
             Some(ReportCompletionTimingKind::OnTime)
         );
         assert!(overview.done_tasks[3].timing.is_none());
@@ -1062,7 +1057,10 @@ mod tests {
         assert_eq!(overview.productive.weekday_from_monday, None);
         assert_eq!(overview.productive.month_key, None);
         assert_eq!(
-            overview.done_tasks[0].timing.as_ref().map(|value| value.kind),
+            overview.done_tasks[0]
+                .timing
+                .as_ref()
+                .map(|value| value.kind),
             Some(ReportCompletionTimingKind::Early)
         );
         assert_eq!(
@@ -1091,7 +1089,6 @@ mod tests {
             Err(ReportingError::InvalidDisplayTimezone(_))
         ));
     }
-
 
     use crate::domain::lists::NewListInput;
     use crate::domain::model::PlanningLane;
