@@ -502,7 +502,7 @@ Acceptance criteria:
   - For any later milestone that replaced a shared foundation originally validated in an earlier milestone, confirm the affected milestone/items were reopened during the replacement and then reclosed only from replacement-code evidence. Explicitly rerun those earlier acceptance criteria against the release-candidate implementation and record the dependency map/result.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
 - [ ] Confirm animation does not cause task-row/card geometry changes or persistent idle CPU work.
-- [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, and no post-pause/manual-edit timer-vs-ledger divergence.
+- [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, no post-pause/manual-edit timer-vs-ledger divergence, no implicit timer/task start on a fresh app launch, and no live-session reset/desynchronisation from Notes/title metadata edits.
 - [ ] Update `README.md`, `STATUS.md`, and `TODO.md` for release-candidate reality.
 
 ## Final Comprehensive Review Stage — after Milestone 10

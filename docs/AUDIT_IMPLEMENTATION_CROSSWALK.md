@@ -134,6 +134,8 @@ Unresolved video ambiguities remain explicit:
 | RISK-F004 | Renderer/navigation/sleep timer corruption | Authoritative Rust runtime | **VALIDATED M3/M6**, M7 physical open |
 | RISK-F005 | Backend outage blocked source product | Local SQLite authority | **VALIDATED architecture** |
 | RISK-F006 | Monitor hotplug source restart requirement | Event-driven topology recovery | **IMPLEMENTED**, physical M7/M10 open |
+| RISK-F007 | Surprise implicit timer start on fresh app launch | Fresh startup must not create/start a focus session without explicit user action; recovery may only restore an existing durable checkpoint under the validated M3 recovery policy | **VALIDATION_OPEN** — current startup/Focus/shortcut contracts expose no intended implicit-start path, but no dedicated fresh-start regression was located; close before final M10 reliability acceptance |
+| RISK-F008 | Live-task Notes/title metadata edit disturbs timer/session | Opening, editing and saving Notes/title must preserve live task/session identity and authoritative elapsed/accounting; EST/Time Taken edits remain restricted to the validated paused-runtime boundaries | **VALIDATION_OPEN** — functional Notes/title editing and paused metric safety are validated, but no dedicated integrated running-session continuity regression was located; close before final M10 reliability acceptance |
 
 ## 6. Active M8 audited runtime tasks
 
