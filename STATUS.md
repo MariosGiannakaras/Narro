@@ -16,9 +16,8 @@ The last automated-green PR #192 source checkpoint remains head `63bb20e9c32dcaf
 
 Independent M8 progress:
 - PREF-R02 finite reduced-motion-safe timer flash is **VALIDATED / MERGED** via PR #193 exact head `2413de4f0e02daf829ffc753ca70b48a1e11712e`, Windows CI #714, and main source commit `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`. All eight changed blobs match the validated PR head.
-- PREF-R06 PR #194 is open with CI #713 PASS.
-- PREF-R03 PR #195 is open with CI #715 PASS.
-Open green PRs are not counted complete until merge/current-main reconciliation.
+- PREF-R03 is **VALIDATED / MERGED** via PR #195 reconciled exact head `c3a09e3780871cea70d008ac540f8d62cb684be7`, Windows CI #722 / run `36704515416`, expected-head guarded squash merge `1c9f2c7dc670fddcbf8cf687ca5b1945588eb01c`, and resulting-main Windows CI #723 / run `36705536633`. The implementation gates the existing durable M3 Pomodoro boundary effects rather than introducing a second notification engine; disabled effects are consumed without later backfill and Preferences-read failures remain retryable.
+- PREF-R06 PR #194 remains open. Reconciled head `16ae996a478687ad3e61788e77de00159f4207c2` is undergoing exact-head revalidation after the first #721 attempt hit the existing `task-scheduling-dark` readiness flake; do not count it complete before a green reconciled head is merged and resulting main is validated.
 
 Deep Blitzit reliability reconciliation added two explicit no-orphan obligations: `RISK-F007` (no implicit fresh-launch timer start) and `RISK-F008` (Notes/title edits preserve a running session). These are validation gaps rather than reproduced defects and are routed to deterministic regression coverage before final M10 reliability acceptance.
 
@@ -26,7 +25,7 @@ Deep Blitzit reliability reconciliation added two explicit no-orphan obligations
 
 The fully merged/physically accepted application-source baseline for the reopened M1/M6/M7 replacement acceptance chain remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` (PREF-R01 / Windows CI #624). PR #192 is still unmerged and its current head failed CI #718 in the new packaged-runtime capture harness, so it cannot replace that baseline.
 
-PREF-R02 is independently merged and automated-validated through PR #193 / CI #714 / main source commit `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`; its eight changed source/test blobs are identical to the exact validated PR-head blobs. This independent M8 merge does not close the reopened M1/M6/M7 physical acceptance chain.
+PREF-R02 and PREF-R03 are independently merged and automated-validated through their exact PR heads and resulting-main CI. These independent M8 merges do not close the reopened M1/M6/M7 physical acceptance chain.
 
 ## Repository documentation/process policy — 2026-09-29
 
@@ -271,7 +270,7 @@ M8 validated top-level state is **6/8**:
 - Start Break shortcut lifecycle: complete;
 - conditional/nested Preferences behavior: complete;
 - versioned local preference persistence: complete;
-- the top-level Preferences item remains open because PREF-R02, PREF-R03 and PREF-R05 are still open; PREF-R01 and PREF-R04 are validated;
+- the top-level Preferences item remains open because PREF-R05 is still open; PREF-R01, PREF-R02, PREF-R03 and PREF-R04 are validated;
 - Windows-locale/system 12/24-hour presentation remains open as PREF-R06.
 
 The shortcut-foundation checkpoint baseline was `699b6ac46bcc6ebcabbcded21f929a7b32018b42`; it is historical evidence, not the current project source baseline.
