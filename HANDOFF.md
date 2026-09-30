@@ -8,27 +8,41 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains active.** Exact CI #679 physical evidence failed both strict gates, a narrow sequencing correction is implemented on the same PR #192, and Windows CI #682 is pending on the new exact head.
+**Reopened Milestone 1 corrective foundation remains active.** Exact CI #679 physical evidence failed both strict gates. The resulting narrow sequencing correction is automated-green on PR #192, and exact CI #684 physical evidence now shows both previously observed defect signatures corrected; formal Gate 7 + Gate 12 acceptance remains open only because the recorded batch did not complete every required repetition/direction.
 
 - PR #192 remains **OPEN** on `plan/m7-single-focus`.
 - Last physically tested source: `c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`.
 - CI #679 / run `36630411679`: automated PASS, physical Gate 7 + Gate 12 FAIL.
-- #679 runtime artifact id `11065275562`, digest `sha256:8b50e089fdaf6e5eaf572dd2b469eac42a521a8ea447c4532161edbc35163400`.
-- Physical recording: `2026-09-30 01-11-12.mp4`, SHA-256 `e128d5fb08392f08312d237a9dab2a6d0d75a50611ac34331aa7454077a69642`, H.264 4480×1080 @ 60 fps, 58.483 s.
-- Gate 7: position teleport is fixed, but Panel→Timer exposes the full transparent 340×700 host/outline under the moving compact surface for multiple frames (~40.70–40.90 s and repeated later).
-- Gate 12: one normal drag now crosses to the user-confirmed 125% display and Timer geometry is correct (~425×138 compact / ~425×375 expanded), but Timer→Panel return still briefly exposes a narrow stale viewport/browser scrollbar state (~53.50–53.60 s; same family around ~21.9–22.1 s).
-- Task/session `fas` and elapsed-time continuity remain intact.
-- Immutable physical failure evidence: `work-log/2026-09-30-chatgpt-m7-ci679-physical-fail.md`.
+- Physical recording: `2026-09-30 01-11-12.mp4`, SHA-256 `e128d5fb08392f08312d237a9dab2a6d0d75a50611ac34331aa7454077a69642`, 4480×1080 @ 60 fps, 58.483 s.
+- Gate 7 #679: saved-position teleport fixed, but Panel→Timer exposed the full transparent 340×700 host/outline below the moving Timer for multiple frames (~40.70–40.90 s and repeated later).
+- Gate 12 #679: one normal drag reached the user-confirmed 125% display with correct ~425×138 / ~425×375 Timer geometry, but cross-DPI Timer→Panel still briefly exposed a stale clipped viewport/browser scrollbar state (~53.50–53.60 s; same family ~21.9–22.1 s).
+- Same task/session `fas` and elapsed-time continuity remained intact.
+- Immutable failure evidence: `work-log/2026-09-30-chatgpt-m7-ci679-physical-fail.md`.
 
-Current unvalidated corrective candidate:
-- exact head `8a60e92e47ae407098a1f3170ae4170848d262eb`;
+Current exact corrective candidate:
+- source head `274cf727f4d5b693904c2ff10f3835224368c4e8`;
+- Windows CI #684 / run `36640613105`: **PASS**;
+- runtime artifact id `11066497568`, digest `sha256:490940fd2becb63355725b420f3ac8079b3929f9287693a847bd3a2b4fc8b4f5`;
+- visual artifact id `11066094498`, digest `sha256:d4e0d31b472ba67281149187287e962d38b56eee991952d8fbf6364ce056c735`;
+- downloaded runtime ZIP hash independently matches the GitHub digest;
 - Panel→Timer clips to target Timer region before native position motion;
-- cross-DPI Timer→Panel keeps the previous Timer region clipped through target-size correction, waits bounded 50 ms viewport settlement, then reveals full Panel;
+- cross-DPI Timer→Panel keeps the previous Timer region clipped through target host DPI-size correction, waits bounded 50 ms viewport settlement, then reveals the full Panel;
 - same-DPI Timer→Panel keeps the existing continuous reveal;
-- regression contracts enforce this sequencing;
-- Windows CI #682 / run `36639559040`: **PENDING**.
+- CI #682 failed only a new static-test scoping assertion; CI #683 then failed only rustfmt; both non-behavioral issues were corrected before final exact-head CI #684 PASS;
+- immutable candidate evidence: `work-log/2026-09-30-chatgpt-m7-ci684-corrective-candidate.md`.
 
-No progress counter advances from this implementation until exact-head automated validation and physical acceptance complete.
+Latest exact #684 physical retest:
+- recording `2026-09-30 02-02-23.mp4`, SHA-256 `72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`, H.264 4480×1080 @ 60 fps, 37.516667 s;
+- three Panel→Timer transitions are clean: no #679 transparent/full-height host tail, no white/blank host, no teleport or overlap;
+- only two complete Panel→Timer→Panel cycles are present, so the strict 3-cycle Gate 7 batch is still incomplete;
+- two complete Expand→Collapse cycles are clean; one additional complete cycle is still required by the batch protocol;
+- 125% Timer geometry is correct at approximately 425×138 compact / 425×375 expanded;
+- cross-DPI Timer→Panel return no longer exposes the #679 stale WebView viewport/browser scrollbars; the previous Timer region stays clipped only for the intended bounded ~50 ms settle before full Panel reveal;
+- one ordinary cross-monitor drag is clean with no repeated push/snap-back, but this recording captures 125%→100%, while the strict protocol still requires one ordinary drag to the 125% display;
+- same task/session `fas` and elapsed-time continuity remain intact;
+- immutable evidence: `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md`.
+
+No progress counter advances until exact #684 physical Gate 7 and Gate 12 acceptance completes.
 
 ## CURRENT VALIDATED APPLICATION SOURCE BASELINE
 
@@ -58,20 +72,19 @@ This remains the fully merged/physically accepted application-source baseline (P
 
 ## NEXT AGENT ACTION
 
-1. Check Windows CI #682 / run `36639559040` first.
-2. If CI fails, inspect only the exact failure and fix evidence-backed issues on PR #192.
-3. If CI passes, download the exact runtime artifact and request one combined physical recording:
-   - 3× Panel→Timer→Panel;
-   - 3× compact Expand→Collapse;
-   - one normal drag to the 125% display;
-   - compact/expanded checks there;
-   - return to Panel.
-4. Reject any transparent/full-height host tail, white/blank host, spatial teleport, repeated-push drag behavior, stale viewport, clipping, or browser scrollbar flash.
-5. Confirm the same task/session/time.
-6. Only after both gates pass may guarded merge/resulting-main validation proceed.
+Use the same exact CI #684 runtime artifact id `11066497568`; no source change is currently justified.
+
+Request/analyze one short supplemental recording that closes only the missing protocol items:
+1. one additional complete Panel→Timer→Panel cycle;
+2. one additional complete compact Expand→Collapse cycle;
+3. one ordinary drag from the 100% display to the user-confirmed 125% display;
+4. compact/expanded geometry there, then return to Panel with no stale viewport or browser scrollbar flash;
+5. same task/session/time continuity.
+
+Aggregate this supplemental evidence with `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md`. If all missing items pass, close Gate 7 + Gate 12 and proceed to guarded merge/resulting-main validation. If a new defect appears, keep PR #192 open and fix only that exact-build signature.
 
 Do not merge PR #192 before both physical gates pass.
 
 ## USER ACTION REQUIRED
 
-None while CI #682 is pending. After it passes, use only its exact runtime artifact for the next combined physical recording.
+Use only CI #684 exact runtime. A short supplemental recording is required to close the missing cycle counts and the 100%→125% drag direction; no full retest is necessary unless new evidence contradicts the current clean paths. artifact id `11066497568` / source `274cf727f4d5b693904c2ff10f3835224368c4e8` for the next combined physical recording.
