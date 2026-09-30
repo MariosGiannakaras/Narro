@@ -1462,6 +1462,11 @@ fn initialize_persistence(
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let result = tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(
+            |app_handle, _argv, _cwd| {
+                request_show_or_recreate_main(app_handle.clone());
+            },
+        ))
         .on_window_event(|window, event| {
             if window.label() == FOCUS_SURFACE_LABEL {
                 match event {
