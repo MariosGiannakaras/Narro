@@ -915,6 +915,53 @@ fn planned_focus_presentation_position(
     }
 }
 
+const FLUENT_POINT_TO_POINT_X1: f64 = 0.55;
+const FLUENT_POINT_TO_POINT_Y1: f64 = 0.55;
+const FLUENT_POINT_TO_POINT_X2: f64 = 0.0;
+const FLUENT_POINT_TO_POINT_Y2: f64 = 1.0;
+
+fn cubic_bezier_coordinate(t: f64, p1: f64, p2: f64) -> f64 {
+    let one_minus_t = 1.0 - t;
+    3.0 * one_minus_t * one_minus_t * t * p1
+        + 3.0 * one_minus_t * t * t * p2
+        + t * t * t
+}
+
+fn fluent_point_to_point_easing(progress: f64) -> f64 {
+    if progress <= 0.0 {
+        return 0.0;
+    }
+    if progress >= 1.0 {
+        return 1.0;
+    }
+
+    // Windows Fluent "Existing Elements / Point to Point" easing:
+    // cubic-bezier(0.55, 0.55, 0, 1). CSS timing functions map elapsed
+    // progress through the Bezier x-axis, so solve x(t)=progress first and
+    // then return y(t). Bisection is deterministic and monotonic here.
+    let mut lower = 0.0;
+    let mut upper = 1.0;
+    for _ in 0..20 {
+        let t = (lower + upper) * 0.5;
+        let x = cubic_bezier_coordinate(
+            t,
+            FLUENT_POINT_TO_POINT_X1,
+            FLUENT_POINT_TO_POINT_X2,
+        );
+        if x < progress {
+            lower = t;
+        } else {
+            upper = t;
+        }
+    }
+
+    cubic_bezier_coordinate(
+        (lower + upper) * 0.5,
+        FLUENT_POINT_TO_POINT_Y1,
+        FLUENT_POINT_TO_POINT_Y2,
+    )
+}
+
 fn interpolate_focus_axis(start: i32, end: i32, step: u64, steps: u64) -> CommandResult<i32> {
     if steps == 0 || step > steps {
         return Err(CommandError::new(
@@ -922,25 +969,24 @@ fn interpolate_focus_axis(start: i32, end: i32, step: u64, steps: u64) -> Comman
             "position animation step is outside the eased motion range",
         ));
     }
+    if step == 0 {
+        return Ok(start);
+    }
+    if step == steps {
+        return Ok(end);
+    }
 
-    // Fluent point-to-point motion should not read like a cursor-driven drag.
-    // Use smoothstep (3t² - 2t³) so the persistent HWND accelerates away from
-    // the source and decelerates into its destination while preserving exact
-    // endpoints and the established finite transition duration.
-    let step = i128::from(step);
-    let steps = i128::from(steps);
-    let eased_numerator = step * step * (3 * steps - 2 * step);
-    let eased_denominator = steps * steps * steps;
-    let start = i128::from(start);
-    let delta = i128::from(end) - start;
-    let value = start + delta * eased_numerator / eased_denominator;
-
-    i32::try_from(value).map_err(|_| {
-        CommandError::new(
+    let progress = step as f64 / steps as f64;
+    let eased = fluent_point_to_point_easing(progress);
+    let value = f64::from(start) + (f64::from(end) - f64::from(start)) * eased;
+    let value = value.round();
+    if value < f64::from(i32::MIN) || value > f64::from(i32::MAX) {
+        return Err(CommandError::new(
             "FOCUS_PRESENTATION_FAILED",
             "animated Focus position exceeded supported coordinates",
-        )
-    })
+        ));
+    }
+    Ok(value as i32)
 }
 
 fn animate_focus_position(
@@ -1325,18 +1371,19 @@ mod focus_position_motion_tests {
     use super::interpolate_focus_axis;
 
     #[test]
-    fn eased_position_motion_preserves_exact_endpoints_and_midpoint() {
+    fn fluent_point_to_point_motion_preserves_exact_endpoints() {
         assert_eq!(interpolate_focus_axis(10, 110, 0, 10).expect("start"), 10);
-        assert_eq!(interpolate_focus_axis(10, 110, 5, 10).expect("mid"), 60);
         assert_eq!(interpolate_focus_axis(10, 110, 10, 10).expect("end"), 110);
     }
 
     #[test]
-    fn eased_position_motion_starts_and_finishes_more_gently_than_linear() {
+    fn fluent_point_to_point_motion_covers_distance_early_then_settles() {
         let early = interpolate_focus_axis(0, 1000, 1, 10).expect("early");
+        let midpoint = interpolate_focus_axis(0, 1000, 5, 10).expect("midpoint");
         let late = interpolate_focus_axis(0, 1000, 9, 10).expect("late");
-        assert!(early < 100);
-        assert!(late > 900);
+        assert!((100..=130).contains(&early));
+        assert!(midpoint > 900);
+        assert!(late > 990);
     }
 
     #[test]
