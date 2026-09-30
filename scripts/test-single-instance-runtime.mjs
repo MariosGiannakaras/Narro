@@ -25,8 +25,9 @@ invariant(
   "single-instance plugin must be the first registered Tauri plugin",
 );
 
-const callbackEnd = lib.indexOf("}))", singleInstance);
-const callback = lib.slice(singleInstance, callbackEnd + 3);
+const callbackEnd = lib.indexOf(".on_window_event", singleInstance);
+invariant(callbackEnd > singleInstance, "single-instance callback boundary must precede window-event setup");
+const callback = lib.slice(singleInstance, callbackEnd);
 invariant(
   callback.includes("request_show_or_recreate_main(app_handle.clone())"),
   "secondary launch must foreground/recreate the existing Main window",
