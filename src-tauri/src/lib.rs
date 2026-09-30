@@ -916,22 +916,25 @@ fn planned_focus_presentation_position(
 }
 
 fn interpolate_focus_axis(start: i32, end: i32, step: u64, steps: u64) -> CommandResult<i32> {
-    let start = i64::from(start);
-    let delta = i64::from(end) - start;
-    let value = start
-        + delta
-            * i64::try_from(step).map_err(|_| {
-                CommandError::new(
-                    "FOCUS_PRESENTATION_FAILED",
-                    "position animation step overflowed",
-                )
-            })?
-            / i64::try_from(steps).map_err(|_| {
-                CommandError::new(
-                    "FOCUS_PRESENTATION_FAILED",
-                    "position animation step count overflowed",
-                )
-            })?;
+    if steps == 0 || step > steps {
+        return Err(CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            "position animation step is outside the eased motion range",
+        ));
+    }
+
+    // Fluent point-to-point motion should not read like a cursor-driven drag.
+    // Use smoothstep (3t² - 2t³) so the persistent HWND accelerates away from
+    // the source and decelerates into its destination while preserving exact
+    // endpoints and the established finite transition duration.
+    let step = i128::from(step);
+    let steps = i128::from(steps);
+    let eased_numerator = step * step * (3 * steps - 2 * step);
+    let eased_denominator = steps * steps * steps;
+    let start = i128::from(start);
+    let delta = i128::from(end) - start;
+    let value = start + delta * eased_numerator / eased_denominator;
+
     i32::try_from(value).map_err(|_| {
         CommandError::new(
             "FOCUS_PRESENTATION_FAILED",
@@ -1284,6 +1287,29 @@ pub(crate) fn revalidate_open_focus_panel_after_display_change(
     Ok(true)
 }
 
+pub(crate) fn refresh_open_timer_region_for_dpi_change(
+    app_handle: &tauri::AppHandle,
+    scale_factor: f64,
+) -> CommandResult<bool> {
+    if current_focus_surface_mode() != Some(FocusSurfaceMode::Timer) {
+        return Ok(false);
+    }
+
+    let _presentation_guard = presentation_guard()?;
+    let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    if !window
+        .is_visible()
+        .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?
+    {
+        return Ok(false);
+    }
+
+    let presentation =
+        current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::TimerCompact);
+    timer_region::apply_with_scale(&window, presentation.region(), scale_factor)?;
+    Ok(true)
+}
+
 pub(crate) fn revalidate_open_timer_after_display_change(
     app_handle: &tauri::AppHandle,
 ) -> CommandResult<bool> {
@@ -1292,6 +1318,42 @@ pub(crate) fn revalidate_open_timer_after_display_change(
     }
     let _presentation_guard = presentation_guard()?;
     floating_placement::revalidate_visible_timer_after_display_change(app_handle)
+}
+
+#[cfg(test)]
+mod focus_position_motion_tests {
+    use super::interpolate_focus_axis;
+
+    #[test]
+    fn eased_position_motion_preserves_exact_endpoints_and_midpoint() {
+        assert_eq!(interpolate_focus_axis(10, 110, 0, 10).expect("start"), 10);
+        assert_eq!(interpolate_focus_axis(10, 110, 5, 10).expect("mid"), 60);
+        assert_eq!(interpolate_focus_axis(10, 110, 10, 10).expect("end"), 110);
+    }
+
+    #[test]
+    fn eased_position_motion_starts_and_finishes_more_gently_than_linear() {
+        let early = interpolate_focus_axis(0, 1000, 1, 10).expect("early");
+        let late = interpolate_focus_axis(0, 1000, 9, 10).expect("late");
+        assert!(early < 100);
+        assert!(late > 900);
+    }
+
+    #[test]
+    fn eased_position_motion_is_monotonic_for_forward_and_reverse_travel() {
+        let mut forward = i32::MIN;
+        let mut reverse = i32::MAX;
+        for step in 0..=17 {
+            let next_forward =
+                interpolate_focus_axis(-1200, 2400, step, 17).expect("forward step");
+            let next_reverse =
+                interpolate_focus_axis(2400, -1200, step, 17).expect("reverse step");
+            assert!(next_forward >= forward);
+            assert!(next_reverse <= reverse);
+            forward = next_forward;
+            reverse = next_reverse;
+        }
+    }
 }
 
 fn build_main_window(app_handle: &tauri::AppHandle) -> CommandResult<tauri::WebviewWindow> {
