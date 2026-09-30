@@ -68,8 +68,8 @@ Disposition values:
 | B2 | Exact Blitz-now placement fidelity | M10 final visual parity | **ROUTED_M10** |
 | B3 | Exact swatch/palette fidelity | M10 final visual parity | **ROUTED_M10** |
 | B4 | Done auto-start-next behavior | M8 success flow | **PARTIAL / AMBIGUOUS** — success-screen-enabled path validated; disabled path unproven |
-| B5 | `Blitz now` must enter/open Focus Panel; PR #192 preserves an already-visible Floating Timer instead | M7 corrective semantics | **FIX_NOW** — direct source/video evidence and original M6 contract all require Focus Panel entry; the replacement test currently encodes the wrong preservation behavior |
-| B6 | Ctrl+Shift+T can expose an idle Floating Timer with no active task | M7 corrective semantics | **FIX_NOW** — current first-party Windows shortcut + Blitz Mode guides explicitly scope the toggle to Blitz Mode and define Floating Timer as current-task/countdown presentation; idle/no-task toggle must be a presentation no-op without timer/session mutation |
+| B5 | `Blitz now` must enter/open Focus Panel; PR #192 previously preserved an already-visible Floating Timer instead | M7 corrective semantics | **AUTOMATED_VALIDATED / PHYSICAL_PENDING** — exact head `dce6933f...` routes visible Timer→Panel through the persistent coordinator and Focus-entry regression passes in CI #787; verify on the exact physical artifact before merge |
+| B6 | Ctrl+Shift+T can expose an idle Floating Timer with no active task | M7 corrective semantics | **AUTOMATED_VALIDATED / PHYSICAL_PENDING** — exact head `dce6933f...` gates native toggle on non-Idle `TimerService::snapshot()` + task binding with defensive coordinator coverage; CI #787 passes; verify idle no-op and active continuity physically before merge |
 
 Audit section-C intentional Narro deviations remain binding unless newer explicit evidence/user direction supersedes them.
 
