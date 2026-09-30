@@ -280,9 +280,7 @@ fn schedule_focus_region_refresh_for_dpi(dpi_x: u32) {
 
             DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
             if DPI_REGION_REFRESH_DIRTY.load(Ordering::Acquire) {
-                schedule_focus_region_refresh_for_dpi(
-                    PENDING_DPI_X.load(Ordering::Acquire),
-                );
+                schedule_focus_region_refresh_for_dpi(PENDING_DPI_X.load(Ordering::Acquire));
             }
         }) {
             DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
