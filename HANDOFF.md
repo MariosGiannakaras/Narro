@@ -57,6 +57,7 @@ Latest full programmatic/online M7 audit:
 - finite `SetWindowRgn` presentation changes remain preferable to high-frequency native region animation; the physically clean bounded 50 ms cross-DPI clipped-settle guard is retained;
 - no radical architecture replacement is justified; the single persistent `focusSurface` remains the preferred design;
 - immutable evidence: `work-log/2026-09-30-chatgpt-m7-online-audit-ci695.md`.
+- PR #192 currently reports `mergeable=false` because authoritative tracking/evidence Markdown on `main` advanced after exact-head CI #695; no executable/runtime source changed on `main` in that reconciliation. Do not change the validated PR head merely to remove tracking drift while physical closure is unavailable. Before any future merge/source edit, reconcile current `main` truth into the branch and re-run exact-head automated validation because that reconciliation changes the PR commit SHA.
 
 No progress counter advances from the hardening/CI alone. The strict physical gates remain unavailable because the user currently has no access to the Windows test environment.
 
