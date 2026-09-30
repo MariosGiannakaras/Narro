@@ -6,6 +6,7 @@ import "./App.css";
 import "./focusDocument.css";
 import { FocusSurfaceCoordinator } from "./FocusSurfaceCoordinator";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
+import { TimedAlertFlashRuntime } from "./TimedAlertFlashRuntime";
 import { TimerSessionProjection } from "./TimerSessionProjection";
 import {
   type AppStatePayload,
@@ -115,7 +116,14 @@ const diagnostics = new URLSearchParams(window.location.search).get("diagnostics
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeRuntimeProvider>
-      {diagnostics ? <FocusDiagnostics /> : <FocusSurfaceCoordinator />}
+      {diagnostics ? (
+        <FocusDiagnostics />
+      ) : (
+        <>
+          <TimedAlertFlashRuntime />
+          <FocusSurfaceCoordinator />
+        </>
+      )}
     </ThemeRuntimeProvider>
   </React.StrictMode>,
 );
