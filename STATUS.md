@@ -14,27 +14,43 @@ Exact CI #679 physical evidence proved two residual transient sequencing defects
 a transparent full-height host/outline during Panel→Timer and a stale clipped
 viewport/browser scrollbar flash on cross-DPI Timer→Panel.
 
-**Current PR #192 checkpoint:** exact corrective head
-`274cf727f4d5b693904c2ff10f3835224368c4e8` passed Windows CI #684 / run
-`36640613105`, including Repository Preflight, Rust fmt/check/clippy/tests,
-performance harness, Windows visual regression, reused frontend-dist
-verification, Tauri release and required artifact uploads. Runtime artifact id
-`11066497568`, digest
-`sha256:490940fd2becb63355725b420f3ac8079b3929f9287693a847bd3a2b4fc8b4f5`;
-visual artifact id `11066094498`, digest
-`sha256:d4e0d31b472ba67281149187287e962d38b56eee991952d8fbf6364ce056c735`.
-The downloaded runtime ZIP independently matches the GitHub digest.
+**Current PR #192 checkpoint:** exact programmatic-hardening head
+`22e86c5788416ebbdf249c123baf549b1820b10b` passed Windows CI #693 / run
+`36678327585`. Repository Preflight, frontend contracts/build, Rust
+fmt/check/clippy/tests, performance harness, Windows visual regression,
+reused frontend-dist verification, Tauri release and required artifact uploads
+all passed. Runtime artifact id `11080808573`, digest
+`sha256:ff04c3fbaf66a95c00d486ea08d66ff7f21fc8fabf27c980d9b7ebce3eb30b3c`;
+visual artifact id `11081246096`, digest
+`sha256:871dc6a5ccf186e7a7ee069ede1fc76c2d23ec0d3e5a94249164174e805317d7`.
 
-The #684 correction clips Panel→Timer to the target Timer native region before
-finite native position motion. On cross-DPI Timer→Panel it keeps the previous
-Timer region clipped through target host DPI-size correction, waits a bounded
-50 ms WebView viewport-settlement interval, then reveals the full Panel.
-Same-DPI Timer→Panel keeps the existing continuous reveal. CI #682 exposed only
-a static-contract scoping defect and CI #683 only a rustfmt diff; neither was a
-behavioral failure. Exact physical Gate 7 + Gate 12 retest is still **OPEN**, but the first #684 recording materially clears both #679 defect signatures. Recording `2026-09-30 02-02-23.mp4` (SHA-256 `72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`) shows three clean Panel→Timer transitions, correct 125% Timer geometry, a clean cross-DPI Timer→Panel return with no Narro/WebView scrollbar flash, and uninterrupted `fas` session time. Formal acceptance remains open because it contains only two complete Panel→Timer→Panel cycles, only two complete Expand→Collapse cycles, and its ordinary cross-monitor drag is 125%→100% rather than the required 100%→125% direction. See `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md` and `work-log/2026-09-30-chatgpt-m7-ci684-corrective-candidate.md`.
+The latest physical evidence is still the exact #684 recording
+`2026-09-30 02-02-23.mp4` (SHA-256
+`72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`).
+It clears both #679 defect signatures: Panel→Timer no longer exposes the
+transparent full-height host, and cross-DPI Timer→Panel no longer exposes a
+stale Narro/WebView viewport or browser scrollbars. Correct 125% Timer geometry
+and uninterrupted `fas` session time are preserved. The recording is formally
+short of the strict protocol by one complete Panel→Timer→Panel cycle, one
+complete Expand→Collapse cycle, and the 100%→125% drag direction.
 
-No roadmap/current-slice counter advances until physical acceptance.
+Because the user currently has no access to that Windows system, a supplemental
+physical run is unavailable. The #693 hardening therefore addresses the
+remaining programmatic weakness instead of inventing a physical PASS:
+all Narro-initiated Focus/Timer parent HWND moves now explicitly call WebView2
+`NotifyParentWindowPositionChanged()` through one shared helper; Tauri is
+pinned to `~2.11.5` for the native `with_webview` API; and transition
+coverage includes rollback failures plus 250 repeated deterministic
+Panel↔Timer cycles. The existing physically clean bounded 50 ms cross-DPI
+clipped-settle guard is retained.
 
+CI #691 failed only rustfmt and CI #692 only two borrow-shape compile errors;
+both were corrected before #693. Neither was a behavioral failure. See
+`work-log/2026-09-30-chatgpt-m7-programmatic-hardening-ci693.md`.
+
+No roadmap/current-slice counter advances from this automated hardening alone.
+Strict Gate 7 + Gate 12 physical acceptance is **OPEN / UNAVAILABLE**, not
+failed. No known M7 defect remains reproduced by the latest physical evidence.
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
 settings/persistence remain outside the rewrite. PR #191 is **closed unmerged**;
