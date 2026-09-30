@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { listenForBoardInvalidation } from "./boardInvalidation";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
   changeListBoardTask,
@@ -762,6 +763,7 @@ export function ListBoard({
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
   const settleTimer = useRef<number | null>(null);
+  const externalRefreshRevisionRef = useRef(0);
   const preferences = usePreferenceSettingsProjection(Boolean(fixtureSnapshot));
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
   const autoParseEstFromTitle = preferences.snapshot?.general.autoParseEstFromTitle ?? false;
@@ -825,6 +827,45 @@ export function ListBoard({
 
     return () => {
       disposed = true;
+    };
+  }, [fixtureSnapshot, target.kind, target.kind === "list" ? target.id : null]);
+
+  useEffect(() => {
+    if (fixtureSnapshot) return;
+
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    void listenForBoardInvalidation(() => {
+      const revision = externalRefreshRevisionRef.current + 1;
+      externalRefreshRevisionRef.current = revision;
+      const refreshTarget = target;
+      void getListBoardSnapshot(refreshTarget)
+        .then((payload) => {
+          if (!disposed && revision === externalRefreshRevisionRef.current) {
+            setSnapshot(payload);
+            setError(null);
+          }
+        })
+        .catch((failure: unknown) => {
+          if (!disposed && revision === externalRefreshRevisionRef.current) {
+            setMutationError(`The board changed, but this view could not refresh. ${formatInvokeError(failure)}`);
+          }
+        });
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopListening = unlisten;
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setMutationError(`Cross-window board refresh could not start. ${formatInvokeError(failure)}`);
+        }
+      });
+
+    return () => {
+      disposed = true;
+      externalRefreshRevisionRef.current += 1;
+      stopListening?.();
     };
   }, [fixtureSnapshot, target.kind, target.kind === "list" ? target.id : null]);
 

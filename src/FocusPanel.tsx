@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
+import { listenForBoardInvalidation } from "./boardInvalidation";
 import { formatInvokeError } from "./diagnosticApi";
 import { focusTimerPresentation, focusTimerStateLabel } from "./focusTimerPresentation";
 import { FocusLiveActions, focusModeForTask } from "./FocusLiveActions";
@@ -356,6 +357,7 @@ export function FocusPanel({
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
   const currentTargetKeyRef = useRef(currentTargetKey);
+  const externalBoardRefreshRevisionRef = useRef(0);
   currentTargetKeyRef.current = currentTargetKey;
   const latestSharedTimerProjectionRef = useRef<TimerSessionPayload | null>(
     sharedTimerProjection?.payload ?? null,
@@ -406,6 +408,52 @@ export function FocusPanel({
       disposed = true;
     };
   }, [fixtureBoard, refreshKey, target.kind, target.kind === "list" ? target.id : null]);
+
+  useEffect(() => {
+    if (fixtureMode) return;
+
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    void listenForBoardInvalidation(() => {
+      const revision = externalBoardRefreshRevisionRef.current + 1;
+      externalBoardRefreshRevisionRef.current = revision;
+      const refreshTarget = target;
+      const expectedTargetKey = targetKey(refreshTarget);
+      void getListBoardSnapshot(refreshTarget)
+        .then((snapshot) => {
+          if (
+            !disposed
+            && revision === externalBoardRefreshRevisionRef.current
+            && currentTargetKeyRef.current === expectedTargetKey
+          ) {
+            setBoard(snapshot);
+            setError(null);
+          }
+        })
+        .catch((failure: unknown) => {
+          if (
+            !disposed
+            && revision === externalBoardRefreshRevisionRef.current
+            && currentTargetKeyRef.current === expectedTargetKey
+          ) {
+            setError(`Focus data changed, but this view could not refresh. ${formatInvokeError(failure)}`);
+          }
+        });
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopListening = unlisten;
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) setError(`Cross-window Focus refresh could not start. ${formatInvokeError(failure)}`);
+      });
+
+    return () => {
+      disposed = true;
+      externalBoardRefreshRevisionRef.current += 1;
+      stopListening?.();
+    };
+  }, [fixtureMode, target.kind, target.kind === "list" ? target.id : null]);
 
   useEffect(() => {
     setNotesTaskId(null);

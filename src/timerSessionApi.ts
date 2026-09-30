@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
+import { emitBoardInvalidated } from "./boardInvalidation";
 
 export const TIMER_SESSION_EVENT_NAME = "timer-session-changed";
 const LIVE_TIMER_SAMPLE_INTERVAL_MS = 1_000;
@@ -193,53 +194,63 @@ export async function connectLiveTimerSessionProjection(
   };
 }
 
+
+async function committedTimerMutation(
+  command: string,
+  args?: Record<string, unknown>,
+): Promise<TimerSessionPayload> {
+  const result = await invoke<TimerSessionPayload>(command, args);
+  await emitBoardInvalidated();
+  return result;
+}
+
 export function startTimerTask(taskId: string, mode: TimerMode): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_start_task", { taskId, mode });
+  return committedTimerMutation("timer_start_task", { taskId, mode });
 }
 
 export function pauseTimer(): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_pause");
+  return committedTimerMutation("timer_pause");
 }
 
 export function resumeTimer(): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_resume");
+  return committedTimerMutation("timer_resume");
 }
 
 export function extendTimer(): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_extend");
+  return committedTimerMutation("timer_extend");
 }
 
 export function startManualBreakTimer(durationMs: number): Promise<TimerSessionPayload> {
   if (!Number.isSafeInteger(durationMs) || durationMs <= 0) {
     return Promise.reject(new Error("Manual break duration must be a positive safe integer."));
   }
-  return invoke<TimerSessionPayload>("timer_start_manual_break", { durationMs });
+  return committedTimerMutation("timer_start_manual_break", { durationMs });
 }
 
 export function skipBreakTimer(): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_skip_break");
+  return committedTimerMutation("timer_skip_break");
 }
 
 export function completeTimerTask(): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_complete_task");
+  return committedTimerMutation("timer_complete_task");
 }
 
 export function skipTimerTask(): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_skip_task");
+  return committedTimerMutation("timer_skip_task");
 }
 
 export function switchTimerTask(taskId: string, mode: TimerMode): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_switch_task", { taskId, mode });
+  return committedTimerMutation("timer_switch_task", { taskId, mode });
 }
 
 export function setPausedTimerEstimate(
   request: SetPausedTimerEstimateRequest,
 ): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_set_estimate", request);
+  return committedTimerMutation("timer_set_estimate", request);
 }
 
 export function setPausedTimerTimeTaken(
   request: SetPausedTimerTimeTakenRequest,
 ): Promise<TimerSessionPayload> {
-  return invoke<TimerSessionPayload>("timer_set_time_taken", request);
+  return committedTimerMutation("timer_set_time_taken", request);
 }

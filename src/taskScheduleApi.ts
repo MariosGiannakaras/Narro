@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { emitBoardInvalidated } from "./boardInvalidation";
 
 export type TaskSchedule =
   | { kind: "none" }
@@ -74,13 +75,23 @@ export function resolveTaskScheduleShortcut(
   return invoke<TaskSchedule>("resolve_list_board_schedule_shortcut", { shortcut, timezone });
 }
 
+
+async function committedScheduleMutation<T>(
+  command: string,
+  args: Record<string, unknown>,
+): Promise<T> {
+  const result = await invoke<T>(command, args);
+  await emitBoardInvalidated();
+  return result;
+}
+
 export function updateTaskSchedule(request: {
   taskId: string;
   listId: string;
   expectedSchedule: TaskSchedule;
   schedule: TaskSchedule;
 }): Promise<void> {
-  return invoke<void>("update_list_board_task_schedule", request);
+  return committedScheduleMutation<void>("update_list_board_task_schedule", request);
 }
 
 export function saveTaskRecurrence(request: {
@@ -90,7 +101,7 @@ export function saveTaskRecurrence(request: {
   expectedRuleUpdatedAt: string | null;
   recurrence: RecurrenceDraft;
 }): Promise<RecurrenceMutationResult> {
-  return invoke<RecurrenceMutationResult>("save_list_board_task_recurrence", request);
+  return committedScheduleMutation<RecurrenceMutationResult>("save_list_board_task_recurrence", request);
 }
 
 export function removeTaskRecurrence(request: {
@@ -100,5 +111,5 @@ export function removeTaskRecurrence(request: {
   expectedRuleUpdatedAt: string;
   deleteExistingTasks: boolean;
 }): Promise<RecurrenceRemovalResult> {
-  return invoke<RecurrenceRemovalResult>("remove_list_board_task_recurrence", request);
+  return committedScheduleMutation<RecurrenceRemovalResult>("remove_list_board_task_recurrence", request);
 }

@@ -1,6 +1,7 @@
 import { emitTo } from "@tauri-apps/api/event";
 import { type ReactNode, useEffect, useState } from "react";
 import { ArchivePanel } from "./ArchivePanel";
+import { listenForBoardInvalidation } from "./boardInvalidation";
 import { formatInvokeError } from "./diagnosticApi";
 import { HomeDashboard, type HomeListCardSnapshot } from "./HomeDashboard";
 import { ListBoard } from "./ListBoard";
@@ -129,6 +130,29 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [shortcutFeedback, setShortcutFeedback] = useState<string | null>(null);
   const [homeRefreshKey, setHomeRefreshKey] = useState(0);
   const copy = destinationCopy[activeDestination];
+
+  useEffect(() => {
+    if (fixtureMode) return;
+
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    void listenForBoardInvalidation(() => {
+      if (!disposed) setHomeRefreshKey((value) => value + 1);
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopListening = unlisten;
+      })
+      .catch(() => {
+        // A live board owns its own refresh error. Home will reconcile on its
+        // next local navigation/mutation if the cross-window listener fails.
+      });
+
+    return () => {
+      disposed = true;
+      stopListening?.();
+    };
+  }, [fixtureMode]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
