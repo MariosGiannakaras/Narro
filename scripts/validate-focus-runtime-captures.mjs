@@ -110,24 +110,35 @@ function validateTransition(name, startPresentation, endPresentation) {
       uniquePoints.push(sample);
     }
   }
-  invariant(uniquePoints.length >= 4, `${name} captured fewer than four distinct native HWND positions`);
+  const reducedMotion = contract.start?.prefersReducedMotion === true;
+  invariant(
+    contract.settled?.prefersReducedMotion === reducedMotion,
+    `${name} motion preference changed during the transition`,
+  );
 
   const sourceKey = `${source.x},${source.y}`;
   const targetKey = `${target.x},${target.y}`;
   invariant(sourceKey !== targetKey, `${name} high-frequency sampler saw no net HWND movement`);
-  const intermediates = uniquePoints.filter((sample) => {
-    const key = pointKey(sample);
-    return key !== sourceKey && key !== targetKey;
-  });
-  invariant(intermediates.length >= 2, `${name} captured fewer than two intermediate native HWND positions`);
 
   const movedAt = samples.findIndex((sample) => pointKey(sample) !== sourceKey);
   const reachedAt = samples.findIndex((sample, index) => index >= movedAt && pointKey(sample) === targetKey);
-  invariant(movedAt > 0 && reachedAt > movedAt, `${name} could not bracket native HWND motion`);
+  invariant(movedAt > 0 && reachedAt >= movedAt, `${name} could not bracket native HWND motion`);
   const motionStartMs = samples[movedAt - 1].elapsedMs;
   const motionEndMs = samples[reachedAt].elapsedMs;
   const observedDurationMs = motionEndMs - motionStartMs;
-  invariant(observedDurationMs >= 120 && observedDurationMs <= 500, `${name} native HWND motion duration ${observedDurationMs}ms is outside the expected finite range`);
+
+  if (reducedMotion) {
+    invariant(uniquePoints.length >= 2, `${name} reduced-motion path captured no native HWND movement`);
+    invariant(observedDurationMs <= 120, `${name} reduced-motion HWND transition took ${observedDurationMs}ms`);
+  } else {
+    invariant(uniquePoints.length >= 4, `${name} standard-motion path captured fewer than four distinct native HWND positions`);
+    const intermediates = uniquePoints.filter((sample) => {
+      const key = pointKey(sample);
+      return key !== sourceKey && key !== targetKey;
+    });
+    invariant(intermediates.length >= 2, `${name} standard-motion path captured fewer than two intermediate native HWND positions`);
+    invariant(observedDurationMs >= 120 && observedDurationMs <= 500, `${name} native HWND motion duration ${observedDurationMs}ms is outside the expected finite range`);
+  }
 
   const xDirection = Math.sign(target.x - source.x);
   const yDirection = Math.sign(target.y - source.y);
