@@ -19,6 +19,7 @@ pub mod persistence;
 pub mod preference_settings;
 pub mod recurrence;
 pub mod recurrence_service;
+pub mod reporting;
 pub mod reminder_acceptance;
 pub mod reminder_service;
 pub mod scheduling;
