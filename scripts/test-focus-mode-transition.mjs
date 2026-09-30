@@ -143,7 +143,7 @@ test("repeated Panel/Timer transitions keep deterministic commit ordering", asyn
   let current = "panel";
   for (let cycle = 0; cycle < 250; cycle += 1) {
     const target = current === "panel"
-      ? (cycle % 2 === 0 ? "timerCompact" : "timerExpanded")
+      ? (Math.floor(cycle / 2) % 2 === 0 ? "timerCompact" : "timerExpanded")
       : "panel";
     const h = harness(current, target, true);
     assert.equal(await commitPreparedFocusPresentation(h.transition), true);
