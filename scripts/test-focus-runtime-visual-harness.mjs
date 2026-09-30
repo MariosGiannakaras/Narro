@@ -29,13 +29,17 @@ for (const required of ["GetWindowRect", "GetWindowRgnBox", "GetDpiForWindow", "
 for (const required of ["CopyFromScreen", "GetWindowRgnBox", "Narro - Focus"]) {
   invariant(nativeCapture.includes(required), `native screenshot capture is missing ${required}`);
 }
-for (const required of ["CopyFromScreen", "FrameCount", "IntervalMs", "GetWindowRect"]) {
+for (const required of ["CopyFromScreen", "FrameCount", "IntervalMs", "GetWindowRect", "ReadyFile"]) {
   invariant(nativeSequence.includes(required), `native transition sequence capture is missing ${required}`);
 }
 invariant(capture.includes("capture-focus-window-sequence.ps1"), "transition capture must use the single-process Win32 sequence probe");
+invariant(capture.includes("ack-") && capture.includes("sequence-ready.txt"), "capture harness must handshake with renderer checkpoints before state changes");
 for (const required of [
+  "main_window_hide",
   "present_focus_for_blitz",
   "focus_runtime_capture_checkpoint",
+  "focus_runtime_capture_acknowledged",
+  "waitForCaptureAck",
   "data-focus-compact-control",
   "Return to Focus Panel",
   "timerExpanded",
@@ -44,6 +48,7 @@ for (const required of [
 invariant(
   rust.includes("NARRO_FOCUS_CAPTURE_DIR")
     && rust.includes("focus_runtime_capture_checkpoint")
+    && rust.includes("focus_runtime_capture_acknowledged")
     && rust.includes("FOCUS_RUNTIME_CAPTURE_DISABLED"),
   "Rust capture checkpoint must be environment-gated",
 );
@@ -53,6 +58,8 @@ for (const required of [
   'validateSettled("floating-timer-runtime", "timerCompact", 110)',
   'validateSettled("floating-timer-expanded-runtime", "timerExpanded", 300)',
   'unintendedScrollers?.length === 0',
+  "native.client.width",
+  'presentation === "panel"',
   "native.region.height",
   "captured no native HWND movement",
 ]) invariant(validator.includes(required), `runtime validator is missing ${required}`);
