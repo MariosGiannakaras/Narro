@@ -91,6 +91,7 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
   fs.mkdirSync(directory, { recursive: true });
   const start = await waitCheckpoint(startPhase);
   const readyFile = path.join(directory, "sequence-ready.txt");
+  const motionReadyFile = path.join(directory, "motion-ready.txt");
   const sequence = spawn("powershell.exe", [
     "-NoLogo", "-NoProfile", "-ExecutionPolicy", "Bypass",
     "-File", path.join(root, "scripts", "capture-focus-window-sequence.ps1"),
@@ -111,17 +112,44 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
       else reject(new Error(`native sequence capture exited ${code}: ${sequenceStderr.trim()}`));
     });
   });
-  await waitUntil(`native sequence capture ${name}`, () => fs.existsSync(readyFile));
+
+  const motion = spawn("powershell.exe", [
+    "-NoLogo", "-NoProfile", "-ExecutionPolicy", "Bypass",
+    "-File", path.join(root, "scripts", "sample-focus-window-motion.ps1"),
+    "-Title", focusTitle,
+    "-ReadyFile", motionReadyFile,
+    "-SampleCount", "160", "-IntervalMs", "8",
+  ], { cwd: root, windowsHide: true, stdio: ["ignore", "pipe", "pipe"] });
+  let motionStdout = "";
+  let motionStderr = "";
+  motion.stdout.setEncoding("utf8");
+  motion.stderr.setEncoding("utf8");
+  motion.stdout.on("data", (chunk) => { motionStdout += chunk; });
+  motion.stderr.on("data", (chunk) => { motionStderr += chunk; });
+  const motionFinished = new Promise((resolve, reject) => {
+    motion.once("error", reject);
+    motion.once("close", (code) => {
+      if (code === 0) resolve(motionStdout);
+      else reject(new Error(`native motion sampler exited ${code}: ${motionStderr.trim()}`));
+    });
+  });
+
+  await waitUntil(`native transition probes ${name}`, () =>
+    fs.existsSync(readyFile) && fs.existsSync(motionReadyFile));
   acknowledge(startPhase);
-  const sequenceJson = await sequenceFinished;
+  const [sequenceJson, motionJson] = await Promise.all([sequenceFinished, motionFinished]);
   const frames = JSON.parse(sequenceJson.trim().split(/\r?\n/).filter(Boolean).at(-1));
+  const motionSamples = JSON.parse(motionJson.trim().split(/\r?\n/).filter(Boolean).at(-1));
   const settled = await waitCheckpoint(endPhase);
   fs.writeFileSync(path.join(directory, "frames.json"), `${JSON.stringify({
     name, startPresentation, endPresentation,
-    start: start.snapshot, settled: settled.snapshot, frames,
+    start: start.snapshot, settled: settled.snapshot, frames, motionSamples,
   }, null, 2)}\n`);
   if (acknowledgeEnd) acknowledge(endPhase);
-  return { name, startPresentation, endPresentation, start: start.snapshot, settled: settled.snapshot, frames };
+  return {
+    name, startPresentation, endPresentation,
+    start: start.snapshot, settled: settled.snapshot, frames, motionSamples,
+  };
 }
 
 invariant(process.platform === "win32", "this harness must run on Windows");
