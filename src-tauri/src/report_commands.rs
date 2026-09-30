@@ -7,8 +7,10 @@ use crate::persistence::sessions::{
     SessionStoreError,
 };
 use crate::reporting::{
-    report_history_snapshot, ReportCompletedTaskRow, ReportHistorySnapshot, ReportRange,
-    ReportSessionRow, ReportingError,
+    report_history_snapshot, report_overview, ReportCompletedTaskRow, ReportCompletionTiming,
+    ReportCompletionTimingKind, ReportDailySeriesPoint, ReportDoneTaskInsight,
+    ReportHistorySnapshot, ReportOverview, ReportOverviewSummary, ReportProductiveSummary,
+    ReportPunctualitySummary, ReportRange, ReportSessionRow, ReportTimeByListRow, ReportingError,
 };
 use rusqlite::Connection;
 use serde::Serialize;
@@ -60,6 +62,76 @@ pub struct ReportHistoryPayload {
     pub range: ReportRangePayload,
     pub sessions: Vec<ReportSessionPayload>,
     pub completed_tasks: Vec<ReportCompletedTaskPayload>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportOverviewSummaryPayload {
+    pub total_work_days: String,
+    pub total_tasks_done: String,
+    pub average_tasks_per_work_day: Option<f64>,
+    pub total_time_seconds: String,
+    pub average_time_per_work_day_seconds: Option<f64>,
+    pub average_time_per_task_seconds: Option<f64>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportDailySeriesPointPayload {
+    pub local_date: String,
+    pub task_seconds: String,
+    pub break_seconds: String,
+    pub total_seconds: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportProductiveSummaryPayload {
+    pub local_hour_start: Option<u8>,
+    pub weekday_from_monday: Option<u8>,
+    pub month_key: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportTimeByListRowPayload {
+    pub list_id: String,
+    pub list_title: String,
+    pub work_seconds: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportCompletionTimingPayload {
+    pub kind: ReportCompletionTimingKind,
+    pub difference_seconds: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportDoneTaskInsightPayload {
+    pub task: ReportCompletedTaskPayload,
+    pub timing: Option<ReportCompletionTimingPayload>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportPunctualitySummaryPayload {
+    pub early_seconds: String,
+    pub late_seconds: String,
+    pub early_percent: Option<f64>,
+    pub late_percent: Option<f64>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportOverviewPayload {
+    pub summary: ReportOverviewSummaryPayload,
+    pub daily_series: Vec<ReportDailySeriesPointPayload>,
+    pub productive: ReportProductiveSummaryPayload,
+    pub time_by_list: Vec<ReportTimeByListRowPayload>,
+    pub done_tasks: Vec<ReportDoneTaskInsightPayload>,
+    pub punctuality: ReportPunctualitySummaryPayload,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -127,6 +199,92 @@ impl From<ReportHistorySnapshot> for ReportHistoryPayload {
             range: value.range.into(),
             sessions: value.sessions.into_iter().map(Into::into).collect(),
             completed_tasks: value.completed_tasks.into_iter().map(Into::into).collect(),
+        }
+    }
+}
+
+impl From<ReportOverviewSummary> for ReportOverviewSummaryPayload {
+    fn from(value: ReportOverviewSummary) -> Self {
+        Self {
+            total_work_days: value.total_work_days.to_string(),
+            total_tasks_done: value.total_tasks_done.to_string(),
+            average_tasks_per_work_day: value.average_tasks_per_work_day,
+            total_time_seconds: value.total_time_seconds.to_string(),
+            average_time_per_work_day_seconds: value.average_time_per_work_day_seconds,
+            average_time_per_task_seconds: value.average_time_per_task_seconds,
+        }
+    }
+}
+
+impl From<ReportDailySeriesPoint> for ReportDailySeriesPointPayload {
+    fn from(value: ReportDailySeriesPoint) -> Self {
+        Self {
+            local_date: value.local_date,
+            task_seconds: value.task_seconds.to_string(),
+            break_seconds: value.break_seconds.to_string(),
+            total_seconds: value.total_seconds.to_string(),
+        }
+    }
+}
+
+impl From<ReportProductiveSummary> for ReportProductiveSummaryPayload {
+    fn from(value: ReportProductiveSummary) -> Self {
+        Self {
+            local_hour_start: value.local_hour_start,
+            weekday_from_monday: value.weekday_from_monday,
+            month_key: value.month_key,
+        }
+    }
+}
+
+impl From<ReportTimeByListRow> for ReportTimeByListRowPayload {
+    fn from(value: ReportTimeByListRow) -> Self {
+        Self {
+            list_id: value.list_id.to_string(),
+            list_title: value.list_title,
+            work_seconds: value.work_seconds.to_string(),
+        }
+    }
+}
+
+impl From<ReportCompletionTiming> for ReportCompletionTimingPayload {
+    fn from(value: ReportCompletionTiming) -> Self {
+        Self {
+            kind: value.kind,
+            difference_seconds: value.difference_seconds.to_string(),
+        }
+    }
+}
+
+impl From<ReportDoneTaskInsight> for ReportDoneTaskInsightPayload {
+    fn from(value: ReportDoneTaskInsight) -> Self {
+        Self {
+            task: value.task.into(),
+            timing: value.timing.map(Into::into),
+        }
+    }
+}
+
+impl From<ReportPunctualitySummary> for ReportPunctualitySummaryPayload {
+    fn from(value: ReportPunctualitySummary) -> Self {
+        Self {
+            early_seconds: value.early_seconds.to_string(),
+            late_seconds: value.late_seconds.to_string(),
+            early_percent: value.early_percent,
+            late_percent: value.late_percent,
+        }
+    }
+}
+
+impl From<ReportOverview> for ReportOverviewPayload {
+    fn from(value: ReportOverview) -> Self {
+        Self {
+            summary: value.summary.into(),
+            daily_series: value.daily_series.into_iter().map(Into::into).collect(),
+            productive: value.productive.into(),
+            time_by_list: value.time_by_list.into_iter().map(Into::into).collect(),
+            done_tasks: value.done_tasks.into_iter().map(Into::into).collect(),
+            punctuality: value.punctuality.into(),
         }
     }
 }
@@ -201,6 +359,10 @@ fn map_reporting_error(error: ReportingError) -> CommandError {
         ReportingError::EmptyOrReversedRange => {
             CommandError::invalid_argument("endAt", "must be after startAt")
         }
+        ReportingError::InvalidDisplayTimezone(_) => CommandError::invalid_argument(
+            "displayTimezone",
+            "must be a valid IANA timezone name",
+        ),
         _ => CommandError::new("REPORT_READ_FAILED", error.to_string()),
     }
 }
@@ -248,6 +410,25 @@ pub fn get_report_history(
     };
     let connection = app_database(&app_handle)?;
     report_history_snapshot(&connection, range)
+        .map(Into::into)
+        .map_err(map_reporting_error)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn get_report_overview(
+    app_handle: tauri::AppHandle,
+    start_at: String,
+    end_at: String,
+    list_id: Option<String>,
+    display_timezone: String,
+) -> CommandResult<ReportOverviewPayload> {
+    let range = ReportRange {
+        start_at,
+        end_at,
+        list_id: parse_list_id(list_id)?,
+    };
+    let connection = app_database(&app_handle)?;
+    report_overview(&connection, range, &display_timezone)
         .map(Into::into)
         .map_err(map_reporting_error)
 }
@@ -334,6 +515,10 @@ mod tests {
             map_reporting_error(ReportingError::EmptyOrReversedRange).code,
             "INVALID_ARGUMENT"
         );
+        assert_eq!(
+            map_reporting_error(ReportingError::InvalidDisplayTimezone("Bad/Zone".into())).code,
+            "INVALID_ARGUMENT"
+        );
 
         let session_id = SessionId::generate();
         assert_eq!(
@@ -351,6 +536,31 @@ mod tests {
             })
             .code,
             "REPORT_SESSION_STALE"
+        );
+    }
+
+    #[test]
+    fn overview_payload_serializes_u64_accounting_values_losslessly_as_strings() {
+        let summary = ReportOverviewSummaryPayload::from(ReportOverviewSummary {
+            total_work_days: u64::MAX,
+            total_tasks_done: u64::MAX - 1,
+            average_tasks_per_work_day: Some(1.5),
+            total_time_seconds: u64::MAX - 2,
+            average_time_per_work_day_seconds: Some(2.5),
+            average_time_per_task_seconds: Some(3.5),
+        });
+        let value = serde_json::to_value(summary).expect("serialize overview summary");
+        assert_eq!(
+            value["totalWorkDays"],
+            serde_json::Value::String(u64::MAX.to_string())
+        );
+        assert_eq!(
+            value["totalTasksDone"],
+            serde_json::Value::String((u64::MAX - 1).to_string())
+        );
+        assert_eq!(
+            value["totalTimeSeconds"],
+            serde_json::Value::String((u64::MAX - 2).to_string())
         );
     }
 
