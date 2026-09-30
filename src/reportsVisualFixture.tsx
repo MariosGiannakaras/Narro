@@ -152,8 +152,17 @@ const markReady = () => {
 
 if (mode === "lower") {
   window.requestAnimationFrame(() => {
-    document.querySelector(".reports-overview__productive-grid")?.scrollIntoView({ block: "start" });
-    window.requestAnimationFrame(markReady);
+    const lowerPanels = document.querySelector<HTMLElement>(".reports-overview__lower-grid");
+    if (!lowerPanels) throw new Error("Reports lower-panel fixture region is missing.");
+
+    lowerPanels.scrollIntoView({ block: "start" });
+    window.requestAnimationFrame(() => {
+      const bounds = lowerPanels.getBoundingClientRect();
+      if (bounds.top < 0 || bounds.bottom > window.innerHeight) return;
+
+      document.documentElement.dataset.reportsLowerViewportReady = "true";
+      markReady();
+    });
   });
 } else {
   window.requestAnimationFrame(markReady);
