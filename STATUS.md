@@ -30,6 +30,8 @@ direct Focus-position mutation outside the shared WebView2-aware helper. #695
 therefore revalidates the full current PR head rather than introducing another
 behavior change.
 
+**Corrected #684 physical interpretation:** a frame-by-frame reassessment found three additional defects that the earlier review missed. The Timer shows a persistent Narro/WebView vertical document scrollbar in settled compact and expanded states; a 125%→100% manual drag briefly leaves the native compact visible height at ~138 px after renderer width/scale has moved toward the 100% target, then settles to ~110 px; and Panel→Timer crosses roughly 3250 physical px in ~0.27 s using linear native position steps, which produces a drag/fly visual character. These findings are recorded in `work-log/2026-09-30-chatgpt-m7-ci684-video-reassessment.md`. The #695 hardening does not touch Focus document overflow or motion interpolation, so these defects must not be treated as fixed by CI #695.
+
 The latest physical evidence is still the exact #684 recording
 `2026-09-30 02-02-23.mp4` (SHA-256
 `72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`).
@@ -57,8 +59,7 @@ and is fully PASS. None of those earlier failures was behavioral. See
 `work-log/2026-09-30-chatgpt-m7-online-audit-ci695.md`.
 
 No roadmap/current-slice counter advances from this automated hardening alone.
-Strict Gate 7 + Gate 12 physical acceptance is **OPEN / UNAVAILABLE**, not
-failed. No known M7 defect remains reproduced by the latest physical evidence.
+Gate 7 + Gate 12 are **OPEN / CORRECTIVE**. Physical revalidation is currently unavailable, but the #684 recording itself now supplies evidence-backed defects that require source correction before the candidate can return to an automated-green waiting state.
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
 settings/persistence remain outside the rewrite. PR #191 is **closed unmerged**;
