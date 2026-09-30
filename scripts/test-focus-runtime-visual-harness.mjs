@@ -8,6 +8,7 @@ const capture = fs.readFileSync("scripts/capture-focus-runtime.mjs", "utf8");
 const nativeProbe = fs.readFileSync("scripts/read-focus-window-metadata.ps1", "utf8");
 const validator = fs.readFileSync("scripts/validate-focus-runtime-captures.mjs", "utf8");
 const workflow = fs.readFileSync(".github/workflows/ci.yml", "utf8");
+const ciConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.ci.conf.json", "utf8"));
 const packageJson = fs.readFileSync("package.json", "utf8");
 
 for (const required of [
@@ -39,6 +40,16 @@ for (const required of [
   invariant(validator.includes(required), `runtime validator is missing ${required}`);
 }
 
+const ciWindows = ciConfig.app?.windows ?? [];
+invariant(ciWindows.length === 2, "CI config must preserve both production window definitions when overriding the windows array");
+for (const window of ciWindows) {
+  invariant(
+    typeof window.additionalBrowserArgs === "string"
+      && window.additionalBrowserArgs.includes("--remote-debugging-port=9223")
+      && window.additionalBrowserArgs.includes("--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection"),
+    `CI-only WebView ${window.label ?? "unknown"} must expose CDP while preserving Wry default disabled features`,
+  );
+}
 invariant(packageJson.includes('"test:focus-runtime-visual-harness"'), "frontend preflight contract test is not registered");
 invariant(packageJson.includes('"test:focus-runtime-visual:windows"'), "packaged runtime visual command is not registered");
 const buildIndex = workflow.indexOf("- name: Build Tauri Release");
