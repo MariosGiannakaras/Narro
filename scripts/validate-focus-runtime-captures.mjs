@@ -92,6 +92,51 @@ function validateTransition(name, startPresentation, endPresentation) {
     positions.push(`${frame.native.window.x},${frame.native.window.y}`);
   }
   invariant(new Set(positions).size >= 2, `${name} captured no native HWND movement`);
+
+  invariant(Array.isArray(contract.motionSamples) && contract.motionSamples.length >= 40, `${name} has too few high-frequency native motion samples`);
+  const samples = contract.motionSamples.filter((sample) =>
+    sample?.visible === true
+      && Number.isFinite(sample?.elapsedMs)
+      && Number.isFinite(sample?.window?.x)
+      && Number.isFinite(sample?.window?.y));
+  invariant(samples.length >= 40, `${name} high-frequency sampler returned invalid HWND samples`);
+
+  const source = samples[0].window;
+  const target = samples.at(-1).window;
+  const pointKey = (sample) => `${sample.window.x},${sample.window.y}`;
+  const uniquePoints = [];
+  for (const sample of samples) {
+    if (uniquePoints.length === 0 || pointKey(sample) !== pointKey(uniquePoints.at(-1))) {
+      uniquePoints.push(sample);
+    }
+  }
+  invariant(uniquePoints.length >= 4, `${name} captured fewer than four distinct native HWND positions`);
+
+  const sourceKey = `${source.x},${source.y}`;
+  const targetKey = `${target.x},${target.y}`;
+  invariant(sourceKey !== targetKey, `${name} high-frequency sampler saw no net HWND movement`);
+  const intermediates = uniquePoints.filter((sample) => {
+    const key = pointKey(sample);
+    return key !== sourceKey && key !== targetKey;
+  });
+  invariant(intermediates.length >= 2, `${name} captured fewer than two intermediate native HWND positions`);
+
+  const movedAt = samples.findIndex((sample) => pointKey(sample) !== sourceKey);
+  const reachedAt = samples.findIndex((sample, index) => index >= movedAt && pointKey(sample) === targetKey);
+  invariant(movedAt > 0 && reachedAt > movedAt, `${name} could not bracket native HWND motion`);
+  const motionStartMs = samples[movedAt - 1].elapsedMs;
+  const motionEndMs = samples[reachedAt].elapsedMs;
+  const observedDurationMs = motionEndMs - motionStartMs;
+  invariant(observedDurationMs >= 120 && observedDurationMs <= 500, `${name} native HWND motion duration ${observedDurationMs}ms is outside the expected finite range`);
+
+  const xDirection = Math.sign(target.x - source.x);
+  const yDirection = Math.sign(target.y - source.y);
+  for (let index = 1; index < uniquePoints.length; index += 1) {
+    const previous = uniquePoints[index - 1].window;
+    const current = uniquePoints[index].window;
+    if (xDirection !== 0) invariant((current.x - previous.x) * xDirection >= 0, `${name} native HWND x-axis motion reversed`);
+    if (yDirection !== 0) invariant((current.y - previous.y) * yDirection >= 0, `${name} native HWND y-axis motion reversed`);
+  }
 }
 
 invariant(fs.existsSync(outputDirectory), `output directory is missing: ${outputDirectory}`);
