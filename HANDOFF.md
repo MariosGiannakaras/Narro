@@ -29,26 +29,29 @@ GitHub `main` is the durable source truth.
 
 User explicitly authorized safe M9 work in parallel while M7 is physically blocked.
 
-#### Reporting foundation
+#### Reporting foundation — VALIDATED / MERGED
 
-- PR #197 (`feat/m9-reporting-foundation`) exact validated head: `041bdda72ab513d571d940e71a1e18d4027d009b`.
-- Windows CI #746 / run `36739580536`: **PASS**. Repository Preflight, frontend build/contracts, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release and required artifact uploads passed.
-- PR artifact evidence:
-  - runtime harness id `11109882625`, digest `sha256:dcc7f98b80353ac7ed409fe4731d6b761ef4be55098eeda93c6aed8aa63a47ae`;
-  - visual regression id `11109393729`, digest `sha256:e7f4a1663244a8078422a1fef3a5741cccaedc2ba21d3739b618dcfb84e5e003`.
-- Expected-head guarded squash merge produced source commit `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624`.
-- Resulting-main Windows CI #748 / run `36741939684` is **IN PROGRESS** on exact source commit `f7d6d995...`. Do not mark the reporting foundation slice complete or update M9 TODO checkboxes until #748 passes.
-- The slice is read-only: typed RFC3339 date range + optional list filter, closed work/break session projection, completed-task rows, EST, Time Taken from work sessions plus manual adjustment, archived history visibility and permanent-delete exclusion through existing cascade semantics.
+- PR #197 exact validated head: `041bdda72ab513d571d940e71a1e18d4027d009b`.
+- Windows CI #746 / run `36739580536`: **PASS**.
+- Expected-head guarded squash merge: `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624`.
+- Resulting-main Windows CI #748 / run `36741939684`: **PASS** on exact source commit `f7d6d995...`.
+- #748 artifacts:
+  - runtime harness id `11111680536`, digest `sha256:e31aeb4525023ccea67d205d12642f326a94f1ecfbb18a33f4564cc49b49a206`;
+  - visual regression id `11110314443`, digest `sha256:1bf15cdf6ba8f5005156a3d2f5a37dcedca9568c6e3e467563857dc20dbc282b`.
+- Read-only capabilities: typed RFC3339 range/filter boundary, closed work/break session rows, completed-task history, EST, Time Taken from work sessions + manual adjustment, archived-history retention, permanent-delete exclusion through existing cascade semantics.
 - No timer/session mutation, Focus/window, schema/migration or network behavior changed.
+- Durable evidence: `work-log/2026-09-30-chatgpt-m9-reporting-foundation-validation.md`.
+- No top-level M9 TODO item is closed solely by this foundation.
 
-#### Reports Overview visual foundation
+#### Reports Overview visual foundation — ACTIVE
 
-- PR #198 (`feat/m9-reports-overview-visual`) exact head: `cd819b19fbd61f8bc0a7d37f31cfd8ee8ae9771b`.
-- Windows CI #747 / run `36741833767` is **IN PROGRESS**.
-- This is frontend-only and deliberately not production-wired yet: reusable pure `ReportsOverviewView`, accessible Tasks/Breaks/Total chart/tooltip, four summary cards, productive hour/day/month cards, Time By List, Done Tasks/punctuality, list-filter and two-month date-picker states, reduced-motion CSS, plus light/dark Windows Edge fixtures.
-- PR #198 was branched before PR #197 merged. If #747 passes, reconcile current `main` into #198 before merge, then require exact-head Windows CI again; do not merge the stale-base head directly.
-- Fixture data remains fixture-only; no hardcoded report data enters production.
-
+- PR #198: `feat/m9-reports-overview-visual`.
+- CI #747 failed at Repository Preflight only because `src/reportsVisualFixture.tsx` used invalid TypeScript optional tuple syntax; visual capture never ran and no artifact was produced.
+- The tuple typing was corrected with a named optional tuple type, and the branch was semantically reconciled with current validated M9 reporting source.
+- Latest live exact head must be read from GitHub before work; do not trust the older `cd819b19...` checkpoint.
+- Scope remains frontend-only until later production wiring: pure `ReportsOverviewView`, four metric cards, accessible Tasks/Breaks/Total chart + focus-readable tooltip, productive hour/day/month, Time By List, Done Tasks/punctuality, list-filter, two-month date picker, reduced-motion CSS, and light/dark Windows Edge fixtures.
+- Fixture data is fixture-only; production report values must come from validated local reporting/aggregation logic.
+- Require exact-head Windows CI, including Reports captured-DOM/PNG validation, then inspect the actual visual artifact before merge.
 
 ### Independent M8
 
@@ -77,11 +80,11 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 
 ## NEXT AGENT ACTION
 
-1. Inspect live exact-head CI for PR #197 head `041bdda72...`. If it failed, fix only the exact evidence-backed preflight/compiler/test issue. If it passed, download/inspect relevant artifacts, then guarded-merge the exact validated head and validate resulting main before marking the M9 foundation slice complete.
-2. Do not poll long-running CI continuously. While CI is running, continue only an independent M9 sub-slice whose correctness does not depend on the pending result; otherwise stop at the CI boundary.
-3. Keep PR #192 at automated-green head `0ef80844...` unless new evidence justifies another source/test change. Before any such M7 change, reconcile latest `main` tracking truth into the branch and rerun exact-head Windows CI.
-4. When physical Windows access returns, use the latest exact validated PR #192 artifact for Gate 7/Gate 12 plus reopened M1/M6 replacement acceptance: standard-motion Panel<->Timer and Expand<->Collapse continuity, selected-monitor/edge placement, 100%<->125% mixed-DPI crossing, topology recovery, geometry/scrollbar, performance, and task/session/time continuity.
-5. Only after physical PASS finish replacement closure, guarded-merge PR #192, validate resulting main, and then reclose affected M1/M6/M7/M8 shortcut items.
+1. Resume PR #198 from its latest live exact head. Inspect the newest exact-head Windows CI. If it fails, fix only the evidence-backed compile/fixture/visual issue; if it passes, download and inspect all Reports Overview PNG/DOM captures before acceptance.
+2. Before PR #198 merge, ensure the branch contains current `main` tracking truth and validated reporting foundation, then require exact-head CI on that reconciled head. Merge only with an expected-head guard and validate the resulting `main` source SHA.
+3. After the visual foundation is validated/merged, production-wire the Overview to local reporting/aggregation in the next narrow M9 slice; do not leak fixture data into production.
+4. Keep PR #192 at automated-green head `0ef80844...` unless new evidence justifies another M7 source/test change. Physical Gate 7/Gate 12 remain open.
+5. When physical Windows access returns, use the latest exact validated PR #192 artifact for the remaining replacement physical matrix; only then merge/reclose affected M1/M6/M7/M8 items.
 
 ## USER ACTION REQUIRED
 
