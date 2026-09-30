@@ -10,28 +10,30 @@ For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Im
 
 **Current corrective direction, 2026-09-30:** retain one persistent nominal
 340×700 logical px `focusSurface` HWND/WebView with one React root/coordinator.
-The exact CI #679 artifact physically failed both strict gates despite fixing the
-saved-position teleport and repeated-push cross-monitor drag behavior.
+Exact CI #679 physical evidence proved two residual transient sequencing defects:
+a transparent full-height host/outline during Panel→Timer and a stale clipped
+viewport/browser scrollbar flash on cross-DPI Timer→Panel.
 
-**Latest physical evidence:** source
-`c0be4ec0fe94863182bbf0d2e1ba4931ada67d93`, CI #679 / run
-`36630411679`, recording `2026-09-30 01-11-12.mp4` (SHA-256
-`e128d5fb08392f08312d237a9dab2a6d0d75a50611ac34331aa7454077a69642`).
-Gate 7 still exposes a full-height transparent/outlined host tail during
-Panel→Timer (~40.70–40.90 s and repeated later). Gate 12 now crosses to the
-user-confirmed 125% display in one continuous drag with correct scaled Timer
-geometry, but return-to-Panel still flashes a narrow stale viewport/browser
-scrollbar state (~53.50–53.60 s; same family around ~21.9–22.1 s).
+**Current PR #192 checkpoint:** exact corrective head
+`274cf727f4d5b693904c2ff10f3835224368c4e8` passed Windows CI #684 / run
+`36640613105`, including Repository Preflight, Rust fmt/check/clippy/tests,
+performance harness, Windows visual regression, reused frontend-dist
+verification, Tauri release and required artifact uploads. Runtime artifact id
+`11066497568`, digest
+`sha256:490940fd2becb63355725b420f3ac8079b3929f9287693a847bd3a2b4fc8b4f5`;
+visual artifact id `11066094498`, digest
+`sha256:d4e0d31b472ba67281149187287e962d38b56eee991952d8fbf6364ce056c735`.
+The downloaded runtime ZIP independently matches the GitHub digest.
 
-**Current PR #192 corrective candidate:** exact head
-`8a60e92e47ae407098a1f3170ae4170848d262eb`. Panel→Timer now clips to the
-target Timer region before native position motion. Cross-DPI Timer→Panel keeps
-the previous Timer region clipped through target host size correction, waits a
-bounded 50 ms viewport-settlement interval, then reveals the full Panel; same-DPI
-return retains the continuous reveal. Regression contracts cover both ordering
-rules. Windows CI #682 / run `36639559040` is **IN PROGRESS**. No physical
-counter advances until exact-head CI and a new combined physical batch pass.
-See `work-log/2026-09-30-chatgpt-m7-ci679-physical-fail.md`.
+The #684 correction clips Panel→Timer to the target Timer native region before
+finite native position motion. On cross-DPI Timer→Panel it keeps the previous
+Timer region clipped through target host DPI-size correction, waits a bounded
+50 ms WebView viewport-settlement interval, then reveals the full Panel.
+Same-DPI Timer→Panel keeps the existing continuous reveal. CI #682 exposed only
+a static-contract scoping defect and CI #683 only a rustfmt diff; neither was a
+behavioral failure. Exact physical Gate 7 + Gate 12 retest is still **OPEN**, but the first #684 recording materially clears both #679 defect signatures. Recording `2026-09-30 02-02-23.mp4` (SHA-256 `72360756a44ab94ac95aaf245beeadf1069fc91385268b68853bb17f570fd412`) shows three clean Panel→Timer transitions, correct 125% Timer geometry, a clean cross-DPI Timer→Panel return with no Narro/WebView scrollbar flash, and uninterrupted `fas` session time. Formal acceptance remains open because it contains only two complete Panel→Timer→Panel cycles, only two complete Expand→Collapse cycles, and its ordinary cross-monitor drag is 125%→100% rather than the required 100%→125% direction. See `work-log/2026-09-30-chatgpt-m7-ci684-physical-partial-pass.md` and `work-log/2026-09-30-chatgpt-m7-ci684-corrective-candidate.md`.
+
+No roadmap/current-slice counter advances until physical acceptance.
 
 The corrective dependency chain is M1 foundation → M6 Focus integration → M7
 Timer/transition → affected M8 shortcut integration. M2–M5 and unaffected M8
