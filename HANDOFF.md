@@ -99,12 +99,12 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Treat the new CI #744 physical whole-app audit as the active corrective gate: RISK-F009 and B5 are **FIX_NOW** and precede unrelated M9 forward work.
-2. Implement a narrow single-instance runtime policy from validated main `f86c3810...`: second launch must not create a competing SQLite/background/shortcut runtime and should safely foreground the existing Narro instance. Validate through its own exact-head Windows CI / guarded merge / resulting-main CI.
-3. Reconcile that validated main plus current tracking truth into PR #192, then restore source-confirmed `Blitz now -> Focus Panel` semantics through the single `focusSurface` coordinator without reintroducing split-window behavior. Update the regression test so it protects the product contract rather than the current wrong preservation behavior.
-4. Resolve B6 explicitly from the strongest Focus/Floating evidence; do not silently preserve or remove idle Timer access.
+1. Inspect PR #206 exact head `e110b4eb0c8b3572652f864bb8eed35796a27f70`, Windows CI #779 / run `36774532337`. It is the active RISK-F009/M7-PHYS-04 single-instance corrective slice and was QUEUED at the latest checkpoint.
+2. On #779 PASS, expected-head guarded-merge #206 and require full resulting-main Windows CI because Cargo.toml/Cargo.lock changed. Record exact merge SHA and artifacts before promoting RISK-F009.
+3. Reconcile that validated main plus current tracking truth into PR #192. Then implement B5: restore source-confirmed `Blitz now -> Focus Panel` semantics through the one persistent `focusSurface` coordinator and rewrite the current regression test that incorrectly requires preserving an already-visible Timer.
+4. Resolve B6 explicitly from strongest Focus/Floating evidence; do not silently preserve or remove idle Timer access.
 5. Run exact-head Windows CI for the reconciled #192, issue a fresh artifact, then physically retest with exactly one Narro runtime, an active task/session, repeated Panel↔Timer and Expand↔Collapse, and real 100%↔125% Gate 12 coverage.
-6. M9 state is preserved: #198 is exact-head/artifact accepted but unmerged; #203 is fully validated/merged via main #777; #205 CI #778 failed and awaits evidence-backed diagnosis after the active M7 correction gate.
+6. M9 state remains preserved: #198 exact-head/artifact accepted but unmerged; #203 fully validated/merged via main #777; #205 CI #778 failed and awaits evidence-backed diagnosis after the active M7 corrective chain.
 
 ## USER ACTION REQUIRED
 
