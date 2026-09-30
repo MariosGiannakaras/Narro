@@ -31,7 +31,7 @@ function validateDom(dom, label, presentation) {
   invariant(dom?.hydrated === "true", `${label} is not presentation-hydrated`);
   invariant(dom.presentation === presentation, `${label} presentation is ${dom.presentation}, expected ${presentation}`);
   invariant(dom.unintendedScrollers?.length === 0, `${label} has document/root overflow: ${JSON.stringify(dom.unintendedScrollers)}`);
-  for (const [surface, metrics] of [["documentElement", dom.documentElement], ["body", dom.body], ["root", dom.root], ["coordinator", dom.coordinator]]) {
+  for (const [surface, metrics] of [["documentElement", dom.documentElement], ["body", dom.body], ["root", dom.root]]) {
     invariant(metrics, `${label} is missing ${surface} metrics`);
     invariant(metrics.scrollWidth <= metrics.clientWidth, `${label} ${surface} horizontally scrolls (${metrics.scrollWidth} > ${metrics.clientWidth})`);
     invariant(metrics.scrollHeight <= metrics.clientHeight, `${label} ${surface} vertically scrolls (${metrics.scrollHeight} > ${metrics.clientHeight})`);
@@ -39,27 +39,35 @@ function validateDom(dom, label, presentation) {
   for (const [surface, metrics] of [["documentElement", dom.documentElement], ["body", dom.body], ["root", dom.root]]) {
     invariant(metrics.overflowX === "hidden" && metrics.overflowY === "hidden", `${label} ${surface} must own no document scrolling`);
   }
+  invariant(dom.coordinator?.overflowX === "hidden" && dom.coordinator?.overflowY === "hidden", `${label} coordinator must clip presentation overflow`);
   invariant(dom.visibleTextLength > 0, `${label} rendered no visible text`);
 }
 
-function validateNative(native, label, visibleLogicalHeight) {
+function validateNative(native, label, presentation, visibleLogicalHeight) {
   invariant(native?.visible === true, `${label} Focus HWND is not visible`);
   invariant(Number.isFinite(native.dpi) && native.dpi >= 96, `${label} reported invalid DPI ${native?.dpi}`);
   const scale = native.dpi / 96;
-  const expectedHostWidth = Math.round(340 * scale);
-  const expectedHostHeight = Math.round(700 * scale);
+  const expectedClientWidth = Math.round(340 * scale);
+  const expectedClientHeight = Math.round(700 * scale);
   const expectedVisibleHeight = Math.round(visibleLogicalHeight * scale);
-  invariant(near(native.window.width, expectedHostWidth), `${label} HWND width ${native.window.width} != ${expectedHostWidth} at ${native.dpi} DPI`);
-  invariant(near(native.window.height, expectedHostHeight), `${label} HWND host height ${native.window.height} != ${expectedHostHeight} at ${native.dpi} DPI`);
+  invariant(near(native.client.width, expectedClientWidth), `${label} client width ${native.client.width} != ${expectedClientWidth} at ${native.dpi} DPI`);
+  invariant(near(native.client.height, expectedClientHeight), `${label} client host height ${native.client.height} != ${expectedClientHeight} at ${native.dpi} DPI`);
+  invariant(native.window.width >= native.client.width && native.window.height >= native.client.height, `${label} outer HWND is smaller than its client area`);
+  invariant(native.window.width - native.client.width <= Math.ceil(32 * scale), `${label} outer/client width delta is unexpectedly large`);
+  invariant(native.window.height - native.client.height <= Math.ceil(32 * scale), `${label} outer/client height delta is unexpectedly large`);
   invariant(native.regionKind > 0 && native.region, `${label} has no native visible region`);
-  invariant(near(native.region.width, expectedHostWidth), `${label} native region width ${native.region.width} != ${expectedHostWidth}`);
-  invariant(near(native.region.height, expectedVisibleHeight), `${label} native region height ${native.region.height} != ${expectedVisibleHeight}`);
+  if (presentation === "panel") {
+    invariant(near(native.region.width, native.window.width), `${label} Panel region width ${native.region.width} != outer width ${native.window.width}`);
+    invariant(near(native.region.height, native.window.height), `${label} Panel region height ${native.region.height} != outer height ${native.window.height}`);
+  } else {
+    invariant(near(native.region.width, expectedClientWidth), `${label} Timer region width ${native.region.width} != ${expectedClientWidth}`);
+    invariant(near(native.region.height, expectedVisibleHeight), `${label} Timer region height ${native.region.height} != ${expectedVisibleHeight}`);
+  }
 }
-
 function validateSettled(name, presentation, logicalHeight) {
   const metadata = readJson(`${name}.json`);
   validateDom(metadata.dom, name, presentation);
-  validateNative(metadata.native, name, logicalHeight);
+  validateNative(metadata.native, name, presentation, logicalHeight);
   const size = pngSize(path.join(outputDirectory, `${name}.png`));
   invariant(size.width === 340 && size.height === logicalHeight, `${name}.png must be 340x${logicalHeight}, got ${size.width}x${size.height}`);
 }
