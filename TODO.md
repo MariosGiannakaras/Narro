@@ -428,7 +428,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** PR #192 exact head `dce6933ff7a777c837822f7a5a83c37d47434e07` is automated-green through Windows CI #787 and mandatory artifact review is clean. RISK-F009 is validated on main; B5/B6 are automated-validated in the reconciled M7 candidate. The only remaining acceptance gate before final docs reconciliation/merge is physical Gate 7/Gate 12 on exact runtime harness artifact `11129693452`: one Narro process, active session continuity, repeated Panel↔Timer and Expand↔Collapse, B5/B6 behavior, no visual staging/stale/scrollbar defects, and real 100%↔125% monitor/edge/topology recovery. Do not merge #192 from automated evidence alone.
+**Current execution priority:** The CI #787 physical active-session recording reopened M7 acceptance. It confirms improved single-host Panel↔Timer continuity but exposes three correctness defects: idle/no-task Timer can still be resurfaced, expanded active Timer drops task/time, and Main board projection stays stale after Focus task creation. PR #192 now carries corrective commits `6972c4e0...` and `c77ece58...`; exact-head Windows CI #789 is the active automated gate. Do not merge or count M7 complete until #789/artifact review and a fresh physical Gate 7/Gate 12 retest pass, including cross-window projection sync and real 100%↔125% coverage.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
