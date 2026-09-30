@@ -10,7 +10,7 @@
     "prepare:icons": "tauri icon assets/branding/narro-logo-master.png && node scripts/sync-tray-icon.mjs",
     "check:config": "node scripts/verify-config.mjs",
     "check:rust:fmt": "cargo fmt --manifest-path src-tauri/Cargo.toml -- --check",
-    "check:rust": "cargo check --manifest-path src-tauri/Cargo.toml --locked",
+    "check:rust": "cargo check --manifest-path src-tauri/Cargo.toml && git diff -- src-tauri/Cargo.lock && exit 1",
     "check:rust:clippy": "cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features --locked -- -D warnings",
     "test:date-formatting": "node scripts/test-date-time-format.mjs",
     "test:ui-theme": "node scripts/test-ui-theme-tokens.mjs",
