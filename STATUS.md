@@ -27,7 +27,7 @@ Independent M8 progress remains validated/merged:
 - PREF-R06: PR #194 / CI #721 / merge `88dea3bcbd988f2e77ea0edccb218be95e5b2438` / main CI #724.
 PREF-R05 remains blocked on validated Narro-owned or user-local sound assets; Focus-shortcut closure remains coupled to the M7 replacement.
 
-By explicit user direction, safe independent M9 work may proceed in parallel while M7 is physically blocked. PR #197 (`feat/m9-reporting-foundation`) is the first read-only reporting foundation slice. Its initial head `2b01fe2467c83a860908acad2d9096b19fb2589c` failed Windows CI #745 only at `cargo fmt --check`; no product test/build failure was reached. A formatting/import-only correction advanced the branch to `041bdda72ab513d571d940e71a1e18d4027d009b`; exact-head CI is required before the M9 slice is accepted.
+By explicit user direction, safe independent M9 work may proceed in parallel while M7 is physically blocked. The first read-only reporting foundation is now **VALIDATED / MERGED**: PR #197 exact head `041bdda72ab513d571d940e71a1e18d4027d009b` passed Windows CI #746 / run `36739580536`; expected-head guarded squash merge `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624` passed resulting-main Windows CI #748 / run `36741939684`. The foundation exposes typed local history queries over existing task/session persistence without changing timer/session mutation, schema, Focus/window behavior or local-only scope. No top-level M9 UI checkbox closes from the read model alone. PR #198 is the separate screenshot-backed Reports Overview presentation slice; its first CI #747 failed only at TypeScript fixture tuple typing, which has been corrected and reconciled with the validated reporting foundation for exact-head revalidation.
 
 Deep Blitzit reliability reconciliation remains durable:
 - `RISK-F007`: fresh app launch must never implicitly create/start a timer session;
@@ -48,7 +48,7 @@ PR #192 exact head `0ef80844...` is automated-green but unmerged and physically 
 - Gate 12 still requires the real 125% secondary-display scenario.
 - `RISK-F007` and `RISK-F008` remain `VALIDATION_OPEN`.
 - PREF-R02, PREF-R03 and PREF-R06 are validated/merged.
-- M9 PR #197 is independent and unvalidated until its corrected exact head passes Windows CI.
+- M9 reporting foundation is validated/merged through PR #197 / CI #746 / merge `f7d6d995...` / resulting-main CI #748. PR #198 Overview visual foundation remains in validation.
 
 ## Repository documentation/process policy — 2026-09-29
 
