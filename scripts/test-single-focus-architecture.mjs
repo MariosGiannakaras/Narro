@@ -8,6 +8,7 @@ const invariant = (condition, message) => {
 const config = JSON.parse(read("src-tauri/tauri.conf.json"));
 const capability = JSON.parse(read("src-tauri/capabilities/default.json"));
 const lib = read("src-tauri/src/lib.rs");
+const focusWebview = read("src-tauri/src/focus_webview.rs");
 const region = read("src-tauri/src/timer_region.rs");
 const placement = read("src-tauri/src/floating_placement.rs");
 const topology = read("src-tauri/src/windows/topology.rs");
@@ -133,6 +134,13 @@ invariant(
     && lib.includes("restore_focus_native_snapshot")
     && lib.includes("FOCUS_PRESENTATION_RECOVERY_FAILED"),
   "native presentation changes must be serialized and rollback-safe",
+);
+invariant(
+  lib.includes("pub mod focus_webview;")
+    && lib.includes("focus_webview::set_physical_position(window, point.x, point.y)")
+    && focusWebview.includes("NotifyParentWindowPositionChanged()")
+    && focusWebview.includes(".with_webview("),
+  "programmatic Focus HWND movement must explicitly synchronize WebView2 parent position",
 );
 invariant(
   lib.includes("static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8")
