@@ -23,6 +23,7 @@ pub mod reminder_acceptance;
 pub mod reminder_service;
 pub mod reporting;
 pub mod scheduling;
+pub mod session_reporting;
 pub mod shortcut_settings;
 pub mod shortcuts;
 pub mod theme_settings;
