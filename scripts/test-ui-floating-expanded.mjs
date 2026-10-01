@@ -40,12 +40,12 @@ const expansionMove = nativeTimer.indexOf(
   'set_focus_position(window, desired, "move Timer before expanded region")?;',
 );
 const expansionRegion = nativeTimer.indexOf(
-  "timer_region::apply(window, target.region())?;",
+  "timer_region::apply_without_redraw(window, target.region())?;",
   expansionMove,
 );
 const collapseRegion = nativeTimer.indexOf(
-  "timer_region::apply(window, target.region())?;",
-  expansionRegion + "timer_region::apply(window, target.region())?;".length,
+  "timer_region::apply_without_redraw(window, target.region())?;",
+  expansionRegion + "timer_region::apply_without_redraw(window, target.region())?;".length,
 );
 const collapseRestore = nativeTimer.indexOf(
   'set_focus_position(window, desired, "restore compact Timer position")?;',
@@ -59,13 +59,19 @@ invariant(
   "expansion near the taskbar must move compact geometry before revealing the larger region",
 );
 invariant(
+  nativeTimer.includes("timer_region::apply_without_redraw(window, target.region())?;"),
+  "Timer-to-Timer region swaps must avoid forcing a native redraw over prepainted WebView content",
+);
+invariant(
   collapseRegion >= 0 && collapseRestore > collapseRegion,
   "collapse must clip before restoring compact origin",
 );
 invariant(
   region.includes("TIMER_EXPANDED_HEIGHT_LOGICAL: f64 = 300.0")
     && region.includes("TIMER_COMPACT_HEIGHT_LOGICAL: f64 = 110.0")
-    && region.includes("SetWindowRgn"),
+    && region.includes("SetWindowRgn")
+    && region.includes("let redraw = if redraw { 1 } else { 0 };")
+    && region.includes("pub fn apply_without_redraw("),
   "native Timer regions must remain DPI-aware 340x110/340x300",
 );
 invariant(placement.includes("safe_position_for_timer_region"), "region changes must fit the active monitor work area");
@@ -104,6 +110,15 @@ invariant(
     && collapseBranch.indexOf('setResizePhase("clipping")')
       < collapseBranch.indexOf("onRequestExpanded"),
   "collapse must finish finite same-WebView geometry contraction before native clipping",
+);
+const collapseClip = collapseBranch.indexOf('setResizePhase("clipping")');
+const collapsePresented = collapseBranch.indexOf("await waitForPresentedFrame()", collapseClip);
+const collapseNativeCommit = collapseBranch.indexOf("onRequestExpanded", collapseClip);
+invariant(
+  collapseClip >= 0
+    && collapsePresented > collapseClip
+    && collapseNativeCommit > collapsePresented,
+  "collapse must present the fully contracted compact frame before native region clipping",
 );
 invariant(
   collapseBranch.indexOf("onRequestExpanded") < collapseBranch.indexOf("setExpanded(false)"),
