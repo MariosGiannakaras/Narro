@@ -100,16 +100,32 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. M7 implementation PR #192 is merged. Exact automated-green PR head `440b172565d94fadb3e814559bec5f3b47e48012` was expected-head guarded-squash-merged as main source `1b68a602d8799ea7e19107ecc60dfd5855d38b4e`. A blob-level comparison proves zero non-Markdown differences between the validated PR head and merged main source.
-2. The short-lived process-hardening PR is #207 `ci/fast-candidate-gates`, current head `fae38241f063b89fb53f7e2f3525addc0f312f21`. Windows CI #805 / run `36852867376` is the active gate.
-3. #805 fast-gate is PASS. It successfully ran frontend/static/build contracts plus Rust formatting before starting Windows candidate work. The first #804 fast-gate also exposed a CRLF-dependent false-positive in `test-ui-focus-entry`; test-only commit `fae38241...` corrected that boundary without product/runtime changes.
-4. On #805 Windows-candidate PASS, expected-head guarded-merge #207 immediately. The PR is intentionally short-lived and contains CI/process/test-helper changes only.
-5. After merge, use the resulting main production-config physical artifact for the M7 bounded closure controller in `docs/M7_CLOSURE_PLAN.md`. C1/C2 are PASS; C3 closes once #207 is integrated/validated; C4/C5 remain the consolidated physical Gate 7/Gate 12 session.
-6. Use `scripts/prepare-m7-physical-session.ps1` from #207/main to prepare the physical evidence session and exact executable hash/checklist.
-7. If physical validation fails, create one narrow corrective PR from current `main` for the evidenced gate only; do not recreate a long-lived M7 branch.
-8. Static-test cleanup is maintenance-only and tracked in `docs/STATIC_CONTRACT_MIGRATION.md`; it is not an M7 blocker.
-9. PR #205 remains untouched until the M7 process/physical closure sequence is stable; its CI #778 failure is already known to be rustfmt-only.
+1. M7 C1/C2/C3 are PASS. PR #192 is merged; process-hardening PR #207 exact head `df6e548a059551178972b16b7d9c6e8e0dfb91b2` passed Windows CI #806 / run `36854279514` and merged as `aebc280da2ef7bcb5e4fd1d4d78fa529b63f49b7`.
+2. Blob-level validation proves zero non-Markdown differences between exact-green #207 head and merged main, so no dummy main commit/run is required. Durable evidence: `work-log/2026-10-01-chatgpt-m7-c3-main-integration-closure.md`.
+3. Use exact production physical artifact id `11159233418`, digest `sha256:33a6dfe8ed418c1466b8a0adbc4005335f5255869af151a974dc2771ae160b91`. Standalone `narro.exe` SHA-256: `a22bb0996f38720abacb6f78c79909bfd52fe295db6593937fa6e35dd2227af9`.
+4. Run one consolidated C4/C5 physical session using `scripts/prepare-m7-physical-session.ps1` where practical. Record one continuous session with the exact executable.
+5. If physical PASS: reconcile TODO/STATUS/crosswalk and close M7. Then resume the ordered roadmap from current main.
+6. If physical FAIL: open one narrow corrective PR from current main for the evidenced gate only; repeat only that affected physical portion. Do not recreate a long-lived M7 branch.
+7. Static-contract cleanup remains maintenance-only and is not an M7 blocker. PR #205 remains deferred until M7 physical closure is known.
 
 ## USER ACTION REQUIRED
 
-None while PR #207 CI #805 is running. After the process-hardening PR is merged and the final production physical artifact is identified, run one consolidated M7 C4/C5 physical session.
+Run the exact CI #806 production physical build now.
+
+Required C4/C5 session:
+- exactly one Narro runtime; second launch must not create competing authority;
+- active task/session;
+- 3x Panel→Timer→Panel and 3x compact→expanded→compact with Windows animations On;
+- 2x each with Windows animations Off, then restore the setting;
+- same task/session identity and continuous time;
+- no blank/pale/loading/stale/duplicated frame or document scrollbar;
+- Timer→Blitz now→Panel;
+- idle Ctrl+Shift+T and Find Timer no-op;
+- Main/Focus/Home mutation reconciliation;
+- Timer between 100% and 125% displays;
+- edge/taskbar expand/collapse;
+- topology disconnect/reconnect where available;
+- topmost over maximized/borderless-fullscreen app;
+- drag/save/restart safe placement.
+
+Provide the recording/results. One consolidated recording is preferred.
