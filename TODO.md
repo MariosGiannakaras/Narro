@@ -428,7 +428,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** CI #801 proved the scheduling fixture determinism fix and then exposed a real 16 px same-DPI Timer→Panel endpoint snap. Production correction `5c8f4c4e...` targets the actual outer HWND size; CI #802 failed only because the two new Rust test fixtures used `origin` instead of the repository `PhysicalRect.position` field. Test-only `440b1725...` corrects that compile issue. Exact-head Windows CI #803 / run `36840822689` is the active gate. Do not issue a physical build or count M7 complete until #803 passes, packaged motion + production artifact/runtimeVisual smoke are reviewed, and Gate 7/Gate 12 passes on that exact clean production artifact.
+**Current execution priority:** PR #192 exact head `440b1725...` passed Windows CI #803 and mandatory review of all fresh artifacts. The dedicated production-config physical artifact passed the direct no-`runtimeVisual` checkpoint smoke; its EXE is no longer the CI capture binary. The prior same-DPI Timer→Panel `388→684→668` endpoint correction is also gone in fresh samples, which now land directly `388→668`. Scheduling visual captures are hydrated and green. M7 remains open only on the real physical Gate 7/Gate 12 matrix using the exact #803 production artifact, after cleaning fixture data left by the invalid CI795 build. Do not merge #192 before physical PASS.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
