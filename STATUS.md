@@ -4,6 +4,25 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-01 — M7 current corrective gate: CI #802
+
+PR #192 exact head is `5c8f4c4ec7ae403cf05bd4b7994187da50bb0aa7`; Windows CI #802 / run `36840338653` is in progress.
+
+CI #800 attempts 1 and 2 established that the long-standing `task-scheduling-*` ready-marker misses were no longer safely classifiable as one-off hosted flakes. Fixture/test-only commit `1f9bc0185177ed9aaf9b3efc6248c5e8031da9b5` removed virtual-time timer polling from the scheduling visual bootstrap and yields bounded animation frames while the production TaskScheduleDialog passive effect loads its mocked authoritative snapshot. CI #801 subsequently passed repository preflight and the complete Windows visual-regression suite, so production scheduling behavior remains unchanged and the fixture correction is evidenced.
+
+CI #801 then failed only in packaged Focus runtime validation. Failed artifact `11149609321` / `sha256:e8c018547e8895061819f93c9c0ebd169d8f63ebb526d805de16b4ce975e4573` showed reduced-motion Timer→Panel outer-HWND samples `(388,80) → (684,0) → (668,0)`. Settled Panel width is 356 px while client width is 340 px, proving the 16 px reverse correction was an actual animation-target mismatch rather than sampler jitter.
+
+Commit `5c8f4c4ec7ae403cf05bd4b7994187da50bb0aa7` fixes that root cause: same-DPI Panel animation targets use the current actual outer HWND size; cross-DPI return retains target-scale planning and its dedicated settle path. The strict monotonic packaged-runtime validator is unchanged. Pure Rust regression tests cover same-DPI outer-size preservation and cross-DPI target-scale sizing.
+
+The separate artifact-validity correction also remains required: instrumented packaged capture is not a user physical build; physical validation must come only from `narro-m7-physical-windows-x64` built with the production Focus URL, and its direct runtimeVisual smoke must observe zero `checkpoint-*.json` files.
+
+Durable evidence:
+- `work-log/2026-10-01-chatgpt-m7-ci800-scheduling-fixture-determinism.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci801-panel-endpoint-snap.md`.
+
+No counters advance until exact-head automated validation, production-artifact review and the physical replacement gates complete.
+
+
 ## 2026-10-01 — CI #795 artifact invalid → CI #801 current gate
 
 The physical artifact boundary remains corrected: automated packaged Focus capture is instrumented, while user physical validation is rebuilt separately with the production Focus URL under `src-tauri/target-physical` and must pass the direct no-`runtimeVisual` checkpoint smoke.
