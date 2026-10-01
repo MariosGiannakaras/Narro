@@ -428,7 +428,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** M7 uses the bounded closure controller in `docs/M7_CLOSURE_PLAN.md`. C1 replacement architecture/behavior automation and C2 artifact validity/runtime evidence are PASS on PR #192 exact head `440b1725...` / Windows CI #803. C3 main integration is now the next action: expected-head guarded-merge the automated-green implementation instead of keeping the long-lived branch open for manual observation. C4 physical Gate 7 and C5 physical Gate 12/platform/tracking remain OPEN after merge. A physical failure must create a narrow corrective PR from current `main`, not resurrect a long-lived milestone branch.
+**Current execution priority:** M7 closure checkpoints C1/C2/C3 are PASS. PR #192 and short-lived CI/process PR #207 are merged to `main`; exact-green #207 head and merged main have zero non-Markdown differences, so the integrated executable/build/test/workflow tree is validated by CI #806 without a dummy main run. The only remaining blockers are consolidated physical C4 (Gate 7 continuity/session) and C5 (Gate 12/platform + tracking closure) on exact CI806 production artifact `11159233418`. Do not reopen general M7 implementation; a physical failure reopens only the evidenced gate through one narrow corrective PR from current main.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
