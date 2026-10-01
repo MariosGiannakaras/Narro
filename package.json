@@ -79,7 +79,8 @@
     "test:single-focus-architecture": "node scripts/test-single-focus-architecture.mjs",
     "test:focus-runtime-visual-harness": "node scripts/test-focus-runtime-visual-harness.mjs",
     "test:focus-runtime-visual:windows": "node scripts/capture-focus-runtime.mjs src-tauri/target/release/narro.exe artifacts/focus-runtime-visual && node scripts/validate-focus-runtime-captures.mjs artifacts/focus-runtime-visual",
-    "test:ui-cross-window-board-sync": "node scripts/test-ui-cross-window-board-sync.mjs"
+    "test:ui-cross-window-board-sync": "node scripts/test-ui-cross-window-board-sync.mjs",
+    "tauri:physical-ci": "tauri build --config src-tauri/tauri.physical.conf.json"
   },
   "dependencies": {
     "react": "^19.1.0",

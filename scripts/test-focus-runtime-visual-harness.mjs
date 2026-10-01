@@ -14,6 +14,7 @@ const rust = fs.readFileSync("src-tauri/src/lib.rs", "utf8");
 const validator = fs.readFileSync("scripts/validate-focus-runtime-captures.mjs", "utf8");
 const workflow = fs.readFileSync(".github/workflows/ci.yml", "utf8");
 const ciConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.ci.conf.json", "utf8"));
+const physicalConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.physical.conf.json", "utf8"));
 const packageJson = fs.readFileSync("package.json", "utf8");
 
 for (const required of [
@@ -93,9 +94,32 @@ invariant(
 
 invariant(packageJson.includes('"test:focus-runtime-visual-harness"'), "frontend preflight contract test is not registered");
 invariant(packageJson.includes('"test:focus-runtime-visual:windows"'), "packaged runtime visual command is not registered");
+invariant(
+  packageJson.includes('"tauri:physical-ci": "tauri build --config src-tauri/tauri.physical.conf.json"'),
+  "physical validation build must use the production-window config overlay",
+);
+invariant(
+  physicalConfig.build?.beforeBuildCommand === null
+    && physicalConfig.app === undefined,
+  "physical validation config may skip frontend rebuild but must not override production windows/URLs",
+);
 const buildIndex = workflow.indexOf("- name: Build Tauri Release");
 const captureIndex = workflow.indexOf("- name: Capture Packaged Focus Runtime");
 const uploadIndex = workflow.indexOf("name: narro-m7-focus-runtime-visual");
-invariant(buildIndex >= 0 && captureIndex > buildIndex, "packaged runtime capture must run after the Tauri release build");
+const physicalBuildIndex = workflow.indexOf("- name: Build Physical Validation Release");
+const physicalUploadIndex = workflow.indexOf("name: narro-m7-physical-windows-x64");
+invariant(buildIndex >= 0 && captureIndex > buildIndex, "packaged runtime capture must run after the instrumented Tauri release build");
 invariant(uploadIndex > captureIndex, "packaged runtime visual artifact must be uploaded after capture");
+invariant(
+  physicalBuildIndex > uploadIndex
+    && workflow.includes('$env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"')
+    && workflow.includes("npm run tauri:physical-ci"),
+  "physical release must be rebuilt after capture into an isolated target directory",
+);
+invariant(
+  physicalUploadIndex > physicalBuildIndex
+    && workflow.includes("src-tauri/target-physical/release/narro.exe")
+    && !workflow.includes("name: narro-m1-runtime-harness-windows-x64"),
+  "physical artifact must upload only the production-config isolated build, never the instrumented capture executable",
+);
 console.log("Focus packaged-runtime visual harness contracts passed.");
