@@ -41,6 +41,7 @@ for (const required of [
   "runs-on: windows-latest",
   "actions/download-artifact@v4",
   "narro-fast-frontend-dist",
+  "npm run prepare:icons",
   "npm run check:rust",
   "npm run check:rust:clippy",
   "npm run test:rust",
@@ -54,13 +55,18 @@ for (const required of [
   invariant(candidateBlock.includes(required), `windows-candidate is missing ${required}`);
 }
 
+const packagingPrepIndex = candidateBlock.indexOf("npm run prepare:icons");
 const rustCheckIndex = candidateBlock.indexOf("npm run check:rust");
 const visualIndex = candidateBlock.indexOf("npm run test:visual-regression:windows");
 const releaseIndex = candidateBlock.indexOf("npm run tauri:ci");
 const physicalIndex = candidateBlock.indexOf("npm run tauri:physical-ci");
 invariant(
-  rustCheckIndex >= 0 && visualIndex > rustCheckIndex && releaseIndex > visualIndex && physicalIndex > releaseIndex,
-  "candidate ordering must validate Rust before visual capture and package only after those gates pass",
+  packagingPrepIndex >= 0
+    && rustCheckIndex > packagingPrepIndex
+    && visualIndex > rustCheckIndex
+    && releaseIndex > visualIndex
+    && physicalIndex > releaseIndex,
+  "candidate ordering must regenerate packaging icons, validate Rust, capture visuals, then package",
 );
 
 invariant(
