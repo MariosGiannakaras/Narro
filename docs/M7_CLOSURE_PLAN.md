@@ -48,11 +48,13 @@ Requires:
 Evidence: CI #803 artifacts and `work-log/2026-10-01-chatgpt-m7-ci803-production-artifact-acceptance.md`.
 
 ### C3 — Main integration
-**OPEN until merge/resulting-main validation**
+**PASS**
 
-Merge the automated-green source with expected-head guard. Physical acceptance does not block integration; it blocks milestone completion.
+M7 implementation PR #192 merged as `1b68a602...`. Short-lived process-hardening PR #207 exact head `df6e548a...` passed Windows CI #806 (validation-gate + fast-gate + windows-candidate) and guarded-squash-merged as `aebc280d...`.
 
-If resulting `main` needs validation because workflow/build inputs changed, require that validation before C3 closes.
+The integration token did not emit a push-triggered main run. Per repository CI policy, blob-level proof was used: merged main and exact-green #207 head have zero non-Markdown differences, so executable/build/test/workflow content is byte-identical to the validated tree.
+
+Evidence: `work-log/2026-10-01-chatgpt-m7-c3-main-integration-closure.md`.
 
 ### C4 — Physical Gate 7 continuity/session acceptance
 **OPEN**
