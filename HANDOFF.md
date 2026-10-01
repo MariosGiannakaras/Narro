@@ -63,11 +63,12 @@ User explicitly authorized safe M9 work in parallel while M7 is physically block
 #### Overview aggregation command/API — ACTIVE
 
 - PR #205: `feat/m9-overview-command`.
-- Exact head `1588d48a3f273cef360028bd549be9a70dac9ef1`, intentionally based on validated main `d8351493...` so it does not depend on pending #203.
-- Windows CI #778 / run `36769649192`: **FAIL**. Do not change #205 until the exact failure is inspected after the active M7 FIX_NOW correction path is stabilized.
+- Exact head `1588d48a3f273cef360028bd549be9a70dac9ef1`, based on older reporting ancestry and now requiring reconciliation with latest validated main before final validation.
+- Windows CI #778 / run `36769649192`: **FAIL**, now fully inspected. Frontend preflight/build passed; the first failing gate was only `cargo fmt --check` in `src-tauri/src/report_commands.rs:359`, where rustfmt requires a braced `ReportingError::InvalidDisplayTimezone(_)` match arm. No reporting logic/test failure was observed before fmt stopped the run.
+- Durable inspection: `work-log/2026-10-01-chatgpt-m9-pr205-ci778-failure-inspection.md`.
 - Scope: `get_report_overview` delegating to validated `report_overview`; camelCase typed IPC DTOs; decimal-string serialization for all `u64` counts/accounting/durations; stable invalid-`displayTimezone` handling; typed renderer invoke; static preflight and lossless serialization regression.
 - No SQL, timer/session mutation, schema/migration, Focus/window, polling, network or production UI changes.
-- After #777 PASS, reconcile #205 with latest validated main before final exact-head validation/merge.
+- Do not modify #205 until the active M7 corrective path is stabilized. When resumed, reconcile latest validated main first, carry the exact rustfmt correction, then run exact-head Windows CI.
 
 Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-and-overview-api.md`.
 
