@@ -72,11 +72,12 @@ for (const needle of [
 }
 
 invariant(
-  foundation.includes('data-floating-actions-controller="true"')
+  foundation.includes('key="timer-heading"')
+    && foundation.includes('className="floating-timer-foundation__heading"')
+    && foundation.includes('data-floating-actions-controller="true"')
     && foundation.includes('style={{ display: expanded ? "contents" : "none" }}')
-    && foundation.includes("!regionExpanded || !liveTask || !timer")
-    && foundation.includes('className="floating-timer-foundation__heading"'),
-  "collapsed mode must keep title/timer visible while the expanded action controller remains mounted but hidden",
+    && !foundation.includes("{!regionExpanded || !liveTask || !timer ? ("),
+  "collapsed mode must keep the shared task/timer heading visible while the expanded action controller remains mounted but hidden",
 );
 for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `renderer must not create a duplicate timer clock through ${forbidden}`);
