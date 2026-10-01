@@ -1,4 +1,4 @@
-# M7 CI #809 residual physical acceptance
+# M7 CI #809 final residual physical acceptance
 
 Use only the CI #809 production artifact from Windows CI run `36865451660`.
 
@@ -9,76 +9,71 @@ Use only the CI #809 production artifact from Windows CI run `36865451660`.
 - `narro.exe` SHA-256: `a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675`
 - Source: PR #208 exact head `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58`, merged source `2767b3827670603d1ab259b6a843c2e0da82d85d`
 
-Before recording, make sure old CI #795 fixture state is absent. Do not use an old profile that still contains `CI Focus Runtime` / `Packaged runtime focus task` residue.
+## Why this checklist is now short
 
-At the start of the recording, show:
+The complete CI #809 recording `2026-10-01 19-03-32.mp4` was re-audited as
+one synchronized two-monitor 4480×1080 canvas (1920 + 2560), not as a 50/50
+single surface.
 
-```powershell
-Get-FileHash .\narro.exe -Algorithm SHA256
-```
+The corrected re-audit physically accepts:
+- repeated compact↔expanded compositor continuity and the PR #208 white-L fix;
+- active task/session/time continuity;
+- no document/root scrollbar;
+- Main `Blitz now` → existing Focus Panel;
+- expanded Timer task/title/time;
+- Focus/Main completion reconciliation;
+- real 125%↔100% mixed-DPI movement;
+- edge/taskbar-constrained expansion;
+- real display-removal/topology recovery;
+- topmost over a maximized application.
 
-Expected hash: `A4B8E163539F429769540480A7AA0B5DB9CA6FA2C356D6742F78D687B5CB5675`.
+Do **not** repeat those tests.
 
-## Residual run only
+The authoritative closure controller is `docs/M7_CLOSURE_PLAN.md`; the former
+operational request for exactly two animations-Off cycles is not an independent
+C4 closure checkpoint.
 
-Already-proven CI #806 behavior does not need to be repeated: general Panel↔Timer continuity, task/time continuity, Focus→Main completion reconciliation, and ordinary live dragging.
+Durable audit:
+`work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`.
 
-### 1. Corrected Timer compositor boundary — C4
+## Final three observations only
 
-- [ ] Start one normal real task/session.
-- [ ] Windows animations **On**.
-- [ ] Run **5 compact → expanded → compact** cycles.
-- [ ] Watch specifically for any white L/outline, blank, pale, loading, stale, duplicate, clipped or partially painted Timer frame.
-- [ ] No document/browser scrollbar appears.
-- [ ] Turn Windows animations **Off**.
-- [ ] Run **2 compact → expanded → compact** cycles.
-- [ ] Restore Windows animations **On** before continuing.
+### 1. Second-launch single-instance ownership — C4
 
-The CI #806 defect was visible during expanded→compact around 81.50 s. The corrected build must not reproduce it.
+- [ ] Start/keep Narro running from the exact CI #809 EXE.
+- [ ] While that process is already alive, launch the same `narro.exe` again.
+- [ ] Show Task Manager **Details** filtered to `narro.exe`, or another equally
+      unequivocal process/runtime observation.
+- [ ] Exactly one Narro application authority remains.
+- [ ] No competing Narro window/runtime, SQLite/background authority or shortcut
+      conflict appears.
 
-### 2. Single-instance ownership
+### 2. Clean idle shortcut identities — C4
 
-- [ ] While Narro is already running, launch the same `narro.exe` a second time.
-- [ ] Show Task Manager **Details** filtered to `narro.exe` (ignore WebView2 child processes).
-- [ ] Exactly one Narro application authority remains; no competing Narro runtime/window appears.
+- [ ] Finish the active task and visibly reach `All Clear`.
+- [ ] Make the next input auditable, e.g. type `TEST T` in Notepad, then press
+      **Ctrl+Shift+T**.
+- [ ] No placeholder/stale Timer appears.
+- [ ] Type `TEST P` in Notepad, then press **Ctrl+Shift+P** (Find Timer).
+- [ ] No Timer is surfaced and no stale-Timer attention pulse appears.
 
-### 3. Blitz-now entry semantics
+The marker is only to prove which otherwise invisible global shortcut was
+actually pressed.
 
-- [ ] Keep the active task in compact or expanded Timer presentation.
-- [ ] Click the Main-window `Blitz now` control while the Timer is visible.
-- [ ] The existing persistent Focus surface presents the **Focus Panel**, not another Timer/window.
+### 3. Saved placement across normal restart — C5
 
-### 4. Real mixed-DPI / work-area behavior — C5
-
-- [ ] In Windows Display settings, visibly show one monitor at **100%** and the other at **125%** before the move.
-- [ ] Move the compact Timer from the 100% display to the 125% display and back.
-- [ ] Timer remains correctly scaled and fully usable on both displays.
-- [ ] Place Timer close to a taskbar/screen edge on the secondary display.
-- [ ] Expand and collapse it; controls remain visible and the window stays inside usable work area.
-- [ ] If practical, disconnect/reconnect the secondary display and confirm safe recovery. If unavailable, say so explicitly rather than simulating it.
-
-### 5. Topmost
-
-- [ ] Open a maximized or borderless-fullscreen application; browser F11 is sufficient for a borderless-fullscreen observation.
-- [ ] Show the Timer above it.
-- [ ] Switch focus away and back; Timer remains visible/topmost as intended.
-
-### 6. Saved placement across restart
-
-- [ ] Drag Timer to an obvious safe non-default position.
+- [ ] With an active Timer, drag it to an obvious safe non-default position.
 - [ ] Quit Narro normally through tray `Quit Narro`.
-- [ ] Relaunch the same CI #809 `narro.exe`.
+- [ ] Relaunch the same exact CI #809 `narro.exe`.
 - [ ] Reopen/show the Timer for the live/recovered task as applicable.
-- [ ] Saved placement returns to a safe visible position and is not stranded/off-screen.
-
-### 7. Clean idle shortcut no-op — finish last
-
-- [ ] End/complete the active task cleanly and visibly reach `All Clear` / no active Focus task.
-- [ ] Press **Ctrl+Shift+T**. No placeholder Timer appears.
-- [ ] Press **Ctrl+Shift+P** (`Find Timer`). No Timer is surfaced and no stale-Timer attention pulse appears.
-
-Pause briefly before each idle shortcut, or type a marker in Notepad, so the otherwise invisible keypress can be audited.
+- [ ] The saved placement returns to a safe visible position and is not stranded
+      or off-screen.
 
 ## Evidence rule
 
-One continuous recording is preferred. If any item fails, keep recording long enough to show the exact stable state after the failure and note the timestamp. Do not rerun the entire M7 matrix; only the evidenced failing gate will reopen.
+One short continuous recording is enough. It does not need to repeat any other
+M7 matrix item.
+
+If all three pass, C4/C5 can be reconciled and M7 can close. If one fails, keep
+recording long enough to show the stable failed state and note the timestamp;
+only that exact behavior reopens.
