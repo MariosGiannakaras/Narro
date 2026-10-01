@@ -49,11 +49,18 @@ try {
     # list/task before inspecting the SQLite bytes.
     Start-Sleep -Seconds 2
 
-    $databaseBytes = [System.IO.File]::ReadAllBytes($database.FullName)
-    $databaseText = [System.Text.Encoding]::UTF8.GetString($databaseBytes)
-    foreach ($forbidden in @("CI Focus Runtime", "Packaged runtime focus task")) {
-        if ($databaseText.Contains($forbidden)) {
-            throw "Physical validation build activated CI fixture data: '$forbidden'."
+    $databaseFamily = Get-ChildItem -Path $database.DirectoryName -Filter "narro.db*" -File -ErrorAction SilentlyContinue
+    if (-not $databaseFamily) {
+        throw "Physical validation build created narro.db but its SQLite file family could not be inspected."
+    }
+
+    foreach ($databaseFile in $databaseFamily) {
+        $databaseBytes = [System.IO.File]::ReadAllBytes($databaseFile.FullName)
+        $databaseText = [System.Text.Encoding]::UTF8.GetString($databaseBytes)
+        foreach ($forbidden in @("CI Focus Runtime", "Packaged runtime focus task")) {
+            if ($databaseText.Contains($forbidden)) {
+                throw "Physical validation build activated CI fixture data in $($databaseFile.Name): '$forbidden'."
+            }
         }
     }
 
