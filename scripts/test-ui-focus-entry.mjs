@@ -157,11 +157,20 @@ if (
 }
 
 const applyPresentationStart = lib.indexOf("fn apply_focus_surface_presentation_internal(");
-const applyPresentationEnd = lib.indexOf("#[tauri::command(rename_all = \"camelCase\")]\nfn focus_surface_apply_presentation", applyPresentationStart);
+const applyPresentationEnd = lib.indexOf("fn focus_runtime_capture_checkpoint(", applyPresentationStart);
 const applyPresentationBlock = lib.slice(applyPresentationStart, applyPresentationEnd);
+const applyNativeTargetStart = lib.indexOf("fn apply_focus_native_target(");
+const applyNativeTargetEnd = lib.indexOf("fn planned_focus_presentation_position(", applyNativeTargetStart);
+const applyNativeTargetBlock = lib.slice(applyNativeTargetStart, applyNativeTargetEnd);
 if (
-  !applyPresentationBlock.includes("previous == target && target != FocusSurfacePresentation::Panel")
-  || !applyPresentationBlock.includes("preferred_focus_panel_work_area(app_handle)")
+  applyPresentationStart < 0
+  || applyPresentationEnd < applyPresentationStart
+  || applyNativeTargetStart < 0
+  || applyNativeTargetEnd < applyNativeTargetStart
+  || !applyPresentationBlock.includes("previous == target && target != FocusSurfacePresentation::Panel")
+  || !applyPresentationBlock.includes("apply_focus_native_target(app_handle, &window, previous, target)")
+  || !applyNativeTargetBlock.includes("FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle)")
+  || !applyNativeTargetBlock.includes("apply_panel_native(window, work_area, scale_factor, side)")
 ) {
   throw new Error("Explicit Panel presentation must reapply current monitor/side preferences even when Panel is already the committed mode.");
 }
