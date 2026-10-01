@@ -1,8 +1,37 @@
 # STATUS.md
 
-Last updated: 2026-10-01
+Last updated: 2026-10-02
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
+
+
+## 2026-10-02 — CI #809 two-monitor re-audit accepts most remaining physical gates
+
+The earlier partial interpretation of `2026-10-01 19-03-32.mp4` was corrected after recognizing the 4480×1080 file as one synchronized **two-monitor** capture with a 1920 + 2560 horizontal layout, not a 50/50 canvas. The full 161.05 s recording (SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`) was re-audited event-by-event across both monitors.
+
+Physical PASS evidence now includes:
+- PR #208's corrected compact↔expanded compositor boundary: six+ standard-motion cycles without the CI #806 white L/blank frame;
+- active task/session/time continuity and settled no-document-scrollbar behavior;
+- explicit Main `Blitz now` activation at ~5.2–5.4 s followed by the existing Focus surface presenting Panel;
+- expanded Timer retaining task/title/time;
+- Focus completion reconciling to Main Done;
+- real mixed-DPI crossing around ~116–122 s: ~425 physical px compact Timer on the 1920-wide display to ~340 px on the 2560-wide display, with Windows settings explicitly showing the latter at 100%, matching 125%→100%;
+- bottom-edge/taskbar-constrained expansion/collapse remaining usable;
+- real display-topology reduction/removal around ~136.5–142 s with Narro recovering visibly on the surviving display without restart;
+- Timer remaining topmost over a maximized Notepad++ window.
+
+Windows animations are visibly switched Off and later restored On. The operational residual checklist's requested count of two complete Off cycles is not an independent closure checkpoint in the authoritative `docs/M7_CLOSURE_PLAN.md`, so it is not retained as a milestone blocker.
+
+Three observations remain non-pixel-conclusive, not failed:
+1. second-launch single-instance ownership — one Narro app entry/no duplicate UI is visible, and PR #206 is automated-validated, but the recording does not show Task Manager process count or visibly prove a primary process was already alive immediately before launcher activation;
+2. idle Ctrl+Shift+T / Ctrl+Shift+P identities — after `All Clear` no stale Timer appears, but the key identities are not rendered/marked;
+3. drag → tray Quit → relaunch → saved-placement recovery — live drag, edge placement, DPI and topology behavior are proven, but this restart choreography is not unambiguous in the recording.
+
+Crosswalk rows B5 and M7-PHYS-01/02/03/05/06 are now physically VALIDATED. No new runtime defect was found and no corrective source PR is justified.
+
+Counters remain `4/10M || 2/5 | 11/19` until C4/C5 close. Next physical work is only the three short observations above; do not repeat already accepted compositor/DPI/topology/topmost work.
+
+Durable evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`.
 
 
 ## 2026-10-01 — CI #809 physical recording passes corrected Timer boundary; residual inputs still open
