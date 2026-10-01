@@ -100,18 +100,16 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. PR #192 exact head `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2` is automated-green: Windows CI #795 / run `36822373471` **PASS**. Mandatory artifact review is accepted; durable evidence: `work-log/2026-10-01-chatgpt-m7-ci795-pass-artifact-acceptance.md`.
-2. Accepted artifacts:
-   - packaged Focus runtime visual id `11144380370`, digest `sha256:bd048627706561ed9fc168cbe7bb34c1457204c814f04f7e151be03f4bf7b923`;
-   - runtime harness id `11144235897`, digest `sha256:4520728c8ea35aa20a5f20f71e5d208c2057f966082f8e6f44ca8015943bdd43`;
-   - visual regression id `11142994011`, digest `sha256:d5eb6e2ae6b4b6544865043a6823e9b4523d09003692e8397cea67ed2dc99f08`.
-3. Artifact review proves a real active persisted task/session in the packaged runtime. Panel, compact Timer and expanded Timer share HWND `0x201FE`; compact shows task + live countdown and expanded 340×300 retains the same task + live time. No unintended root/document scroller is reported. Hosted runner remains reduced-motion, so normal ~270 ms motion still requires physical validation.
-4. The next action is the exact physical Gate 7/Gate 12 run on the CI795 build. Validate one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5 visible Timer→Blitz→Panel, idle Ctrl+Shift+T/Find Timer no-op, Main/Focus/Home cross-window sync, fullscreen topmost, drag/save/restart and real two-monitor 100%↔125% crossing/topology recovery.
-5. Do not merge #192 before physical PASS. After physical PASS, reconcile latest docs-only main into the branch without altering validated source blobs if possible; validate any changed exact source tree, guarded merge, then perform resulting-main validation/reconciliation as required.
-6. PR #205 CI #778 has already been inspected read-only: frontend/build passed and only rustfmt failed in `report_commands.rs:359`. Do not modify #205 until this M7 physical gate is resolved.
+1. Inspect PR #192 exact head `5bda58516f9d1010d5d5b7b7f9abac76408c3db9`, Windows CI #797 / run `36825553397`.
+2. CI #795 itself was automated-green, but the physical artifact handoff was invalid: the old uploaded runtime harness was the same `tauri.ci.conf.json` instrumented EXE whose Focus URL is `focus.html?runtimeVisual=1`. User recording `2026-10-01 09-21-24.mp4` (SHA-256 `80b05a2410c752c8e56d68be37db9b4d92db3cd767b666a909cc60c6f2e20fb5`) visibly contains `CI Focus Runtime` / `Packaged runtime focus task`. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci795-physical-artifact-validity-failure.md`.
+3. Commit `907d1f97...` separates builds: instrumented capture stays in default target; production-config physical build uses `tauri.physical.conf.json` and isolated `src-tauri/target-physical`; the only user-test artifact is now `narro-m7-physical-windows-x64`.
+4. Commit `5bda5851...` adds a pre-upload isolated-profile runtime smoke: production physical EXE must create `narro.db` without `CI Focus Runtime` or `Packaged runtime focus task`; `NARRO_FOCUS_CAPTURE_DIR` is explicitly absent.
+5. On #797 FAIL, inspect exact failure and fix only evidence-backed issues. On PASS, fetch/review both the instrumented packaged-runtime visual artifact and the new production-config physical artifact. Do not hand out any old `narro-m1-runtime-harness-windows-x64` artifact.
+6. Only after clean artifact review issue the new production-config physical build. Before retest, ensure known CI fixture records left by the bad artifact are removed from the validation profile (manual cleanup or clean profile; do not add title-based production auto-deletion).
+7. Physical Gate 7/Gate 12 must then be rerun on that exact production artifact. Do not merge #192 until physical PASS.
 
 ## USER ACTION REQUIRED
 
-Run the fresh CI #795 Windows build and provide the physical result/recording for Gate 7/Gate 12. Prefer the exact `narro.exe` from artifact `11144235897`.
+None while CI #797 is running. The previous CI795 physical recording is invalid as final acceptance evidence because the supplied EXE was CI-instrumented.
 
-The recording should include an active task/session and, as practical in one pass: repeated Panel↔Timer and compact↔expanded transitions, Timer→Blitz-now→Panel, idle shortcut no-op after stopping/completing work, Main/Focus/Home mutation sync, topmost over a maximized/fullscreen app, drag/save/restart placement, and the two-monitor 100%↔125% crossing/topology checks.
+After #797 passes and the new artifact is reviewed, the next physical test must use only the new `narro-m7-physical-windows-x64` production-config artifact. Before recording, remove the known `CI Focus Runtime` / `Packaged runtime focus task` fixture data created by the bad artifact or use a clean validation profile.
