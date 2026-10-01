@@ -4,6 +4,26 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-01 — CI #803 production physical artifact accepted; physical Gate 7/12 next
+
+PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 / run `36840822689`.
+
+Accepted artifacts:
+- production physical `narro-m7-physical-windows-x64`: id `11151976720`, digest `sha256:cc193e2363c01721e8ecc16207d1faf08001dd9194e415657d8605518e0007aa`, standalone EXE SHA-256 `625caea10060e69b0148ca22c6e2f645cd675536d505a31f2e31db974df4cd43`;
+- packaged Focus runtime visual: id `11151474106`, digest `sha256:2efdb3eafdf5f8e3fd581263eceae1aec60914bf0041834c5a4ac7467fe53b64`;
+- visual regression: id `11151548652`, digest `sha256:979a58467f70b518ea236160a2b7673d7acc32c2444bcdc808345ccb335615f8`.
+
+All downloaded ZIP digests match GitHub. The physical artifact smoke passed with `Physical validation build stayed free of CI runtimeVisual checkpoints.`, closing the artifact-boundary defect that invalidated CI795 physical evidence.
+
+Fresh packaged motion also closes the same-DPI endpoint defect observed after CI801: Timer→Panel now samples `(388,80) → (668,0)` and remains there; the former `684→668` reverse correction is absent. Actual transition frames show compact active Timer followed by the correct Panel without blank/stale content. Hosted runner remains reduced-motion.
+
+Scheduling visual regression passed on #803; the fresh light scheduling capture shows the fully hydrated Schedule / Repeat dialog.
+
+Physical Gate 7 and Gate 12 remain open. The next run must use only the exact #803 production artifact. Old CI fixture records left by the invalid CI795 executable must be removed manually or avoided through a clean validation profile before recording.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci803-production-artifact-acceptance.md`.
+
+
 ## 2026-10-01 — M7 CI #803 exact corrective candidate
 
 PR #192 exact head: `440b172565d94fadb3e814559bec5f3b47e48012`.
