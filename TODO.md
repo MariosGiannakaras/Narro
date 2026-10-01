@@ -428,7 +428,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** The CI #787 physical active-session recording reopened M7 acceptance. It confirms improved single-host Panel↔Timer continuity but exposes three correctness defects: idle/no-task Timer can still be resurfaced, expanded active Timer drops task/time, and Main board projection stays stale after Focus task creation. PR #192 now carries corrective commits `6972c4e0...` and `c77ece58...`; exact-head Windows CI #789 is the active automated gate. Do not merge or count M7 complete until #789/artifact review and a fresh physical Gate 7/Gate 12 retest pass, including cross-window projection sync and real 100%↔125% coverage.
+**Current execution priority:** The CI #787 physical active-session recording reopened M7 acceptance with three correctness defects: idle/no-task Timer resurfacing, expanded active Timer losing task/time, and stale Main projection after Focus mutations. Production corrections remain in PR #192 commits `6972c4e0...` and `c77ece58...`. CI #793 failed only on a stale collapsed-Timer static assertion; test-only commit `a220e398...` corrects that contract. Exact-head Windows CI #794 / run `36822097033` is the active automated gate. Do not merge or count M7 complete until #794 passes, fresh artifacts are reviewed, and a fresh physical Gate 7/Gate 12 retest passes including cross-window sync and real 100%↔125% coverage.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
