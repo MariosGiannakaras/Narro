@@ -127,6 +127,8 @@ for (const [haystack, needle, label] of [
   [fixtureHtml, "/src/taskScheduleVisualFixture.tsx", "scheduling fixture entry module"],
   [fixture, 'data-task-schedule-visual-fixture="true"', "production scheduling visual fixture"],
   [fixture, 'command === "get_list_board_task_schedule_editor"', "fixture-only authoritative read mock"],
+  [fixture, "const maxReadyFrames = 120;", "frame-bounded scheduling fixture readiness"],
+  [fixture, "window.requestAnimationFrame", "scheduling fixture yields browser frames while React passive effects settle"],
   [fixture, "<TaskScheduleDialog", "production dialog fixture"],
   [fixture, 'fixture: "task-scheduling"', "scheduling geometry contract"],
   [fixture, 'mode === "no-repeat"', "No Repeat fixture mode"],
@@ -164,6 +166,13 @@ if (scheduleCommandStart < 0 || recurrenceCommandStart < 0 || scheduleCommandSta
 
 if (boardSchedule.includes("UPDATE tasks") || boardSchedule.includes("INSERT INTO recurrence_rules")) {
   throw new Error("Renderer-facing scheduling commands must delegate raw persistence to authoritative persistence modules.");
+}
+
+if (
+  fixture.includes("performance.now() + 5_000")
+  || fixture.includes("window.setTimeout(resolve, 10)")
+) {
+  throw new Error("Scheduling visual readiness must not spin virtual-time timer polling ahead of React passive effects.");
 }
 
 if (dialog.includes("setInterval") || board.includes("setInterval")) {
