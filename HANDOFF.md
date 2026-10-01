@@ -99,13 +99,13 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `3ef70edde95190a3981a7f53aa57d6a1f6da189a`, Windows CI #793 / run `36792233873`. The CI787 physical recording reopened M7; durable audit: `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`.
-2. Production corrective commits remain `6972c4e0...` (active Timer/expanded task+time/Find-Timer/idle normalization/active runtime harness) and `c77ece58...` (cross-window authoritative board synchronization). CI #789 failed only because old static tests asserted direct IPC strings after the committed-mutation wrapper was introduced.
-3. The complete static-contract reconciliation is recorded in `work-log/2026-10-01-chatgpt-m7-ci789-static-contract-reconciliation.md`. Current head `3ef70edd...` contains no intentional production changes after `c77ece58...`; subsequent commits only align branch regression tests with `committedBoardMutation`, `committedScheduleMutation`, and `committedTimerMutation`.
-4. On #793 FAIL, inspect the exact failure log and fix only evidence-backed issues. On PASS, fetch/review all fresh artifacts. The packaged runtime must now use a real active task/session and the expanded 340×300 Timer must visibly retain task title + live time.
-5. Only after clean artifact review issue a new physical build. Retest one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle T/P no-op, Main/Focus/Home sync, fullscreen topmost, drag/save/restart, and real 100%↔125% Gate 12.
-6. Do not merge #192 until physical PASS. After physical PASS reconcile latest docs-only main without changing source blobs, run final exact-head CI, guarded merge, resulting-main CI, then reconcile reopened M1/M6/M7/M8 tracking.
+1. Inspect PR #192 exact head `a220e398701b0ef04884ac42222485025f5aafd5`, Windows CI #794 / run `36822097033`.
+2. Production corrective commits remain `6972c4e0...` (active Timer invariant, expanded task/time, Find-Timer authority, idle Timer→Panel normalization, active packaged runtime harness) and `c77ece58...` (cross-window authoritative board synchronization).
+3. CI #793 / run `36792233873` failed only in `test-ui-floating-collapsed` because that static test still required the superseded conditional heading that hid task/time after expanded region commit. Test-only commit `a220e398...` now requires the shared heading in compact and expanded presentations. Durable checkpoint: `work-log/2026-10-01-chatgpt-m7-ci793-collapsed-contract-fix.md`.
+4. On #794 FAIL, inspect the exact failure log and fix only evidence-backed issues. On PASS, fetch/review every fresh required artifact. The packaged runtime must use a real active task/session and the expanded 340×300 Timer must visibly retain task title + live time.
+5. Only after clean artifact review issue a fresh physical Windows build. Retest one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle Ctrl+Shift+T / Find Timer no-op, Main/Focus/Home sync, fullscreen topmost, drag/save/restart and real two-monitor 100%↔125% Gate 12.
+6. Do not merge #192 until physical PASS. After physical PASS reconcile latest docs-only main without changing source blobs, run final exact-head validation if the tree changed, guarded merge, resulting-main validation as required, then reconcile reopened M1/M6/M7/M8 tracking.
 
 ## USER ACTION REQUIRED
 
-None while CI #793 is running. Do not request another physical run until #793 passes and the fresh artifacts are reviewed.
+None while CI #794 is running. Do not request another physical run until #794 passes and the fresh artifacts are reviewed.
