@@ -100,13 +100,18 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012`, Windows CI #803 / run `36840822689`.
-2. CI #801 passed the scheduling visual regression correction and exposed a real same-DPI Timer→Panel endpoint snap: `(388,80) → (684,0) → (668,0)`. Production fix `5c8f4c4e...` plans same-DPI Panel animation against actual outer HWND size while preserving cross-DPI target-scale planning and strict monotonic validation.
-3. CI #802 failed only compiling the two new regression tests because `GeometryRect` uses field `position`, not `origin`. Test-only `440b1725...` fixes those literals. Durable checkpoint: `work-log/2026-10-01-chatgpt-m7-ci802-test-literal-fix.md`.
-4. Artifact-validity correction remains active: automated capture is instrumented; user physical build must come only from `narro-m7-physical-windows-x64` built in isolated `src-tauri/target-physical`, and must pass the direct zero-`checkpoint-*.json` runtimeVisual smoke.
-5. On #803 FAIL, inspect exact failure only. On PASS, review scheduling captures, packaged motion samples, production physical build and runtimeVisual smoke. Confirm Timer→Panel no longer contains the 684→668 reverse correction.
-6. Only after clean artifact review issue the production physical build, clean old CI fixture data/use a clean profile, rerun Gate 7/Gate 12, and do not merge #192 before physical PASS.
+1. PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` is automated-green: Windows CI #803 / run `36840822689` **PASS**. Mandatory artifact review is accepted; durable evidence: `work-log/2026-10-01-chatgpt-m7-ci803-production-artifact-acceptance.md`.
+2. Use only production physical artifact `narro-m7-physical-windows-x64` id `11151976720`, digest `sha256:cc193e2363c01721e8ecc16207d1faf08001dd9194e415657d8605518e0007aa`. Its `narro.exe` SHA-256 is `625caea10060e69b0148ca22c6e2f645cd675536d505a31f2e31db974df4cd43`.
+3. CI physical smoke passed with authoritative log `Physical validation build stayed free of CI runtimeVisual checkpoints.`; therefore this artifact does not activate the CI visual driver.
+4. Fresh packaged motion review also passes: prior Timer→Panel endpoint defect `388→684→668` is gone; #803 samples move `(388,80) → (668,0)` and remain there. Scheduling visual regression also passes with hydrated fixture captures.
+5. Before physical retest, remove old `CI Focus Runtime` / `Packaged runtime focus task` records left by the invalid CI795 artifact or use a clean validation profile.
+6. Rerun physical Gate 7/Gate 12 on the exact #803 production artifact: one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle T/P no-op, Main/Focus/Home sync, fullscreen topmost, drag/save/restart, and real two-monitor 100%↔125% crossing/topology recovery.
+7. Do not merge #192 before physical PASS. After physical PASS, reconcile latest docs-only main while preserving validated source blobs where possible, run final exact-head validation if required, guarded merge, resulting-main validation, then reconcile reopened M1/M6/M7/M8 tracking.
 
 ## USER ACTION REQUIRED
 
-None while CI #803 is running. Do not perform another physical run until #803 passes and the dedicated production-config physical artifact is reviewed.
+Run the fresh CI #803 **production-config** physical build. Prefer the exact standalone `narro.exe` from artifact `11151976720`.
+
+Before recording, remove old fixture records `CI Focus Runtime` / `Packaged runtime focus task` created by the invalid CI795 executable, or use a clean validation profile.
+
+Provide the physical result/recording for Gate 7/Gate 12.
