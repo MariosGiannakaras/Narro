@@ -110,4 +110,10 @@ After expected-head guarded merge:
 - if the resulting `main` source/build/test tree is byte-identical to the exact validated PR head and the workflow itself did not change, duplicate full validation may be deduplicated/cancelled with recorded proof;
 - if workflow/build/config/Cargo inputs changed, or the resulting tree differs materially, run/require the appropriate resulting-main validation.
 
+When a merge is performed through an integration token that does not emit a new push-triggered Actions run, do not wait indefinitely for a run that cannot appear and do not create a meaningless source change just to trigger CI. Instead:
+1. prove the resulting `main` executable/source tree against the exact validated PR tree;
+2. if they are identical and no workflow/build semantics changed, record that proof as the main validation evidence;
+3. if workflow/build semantics did change, validate those semantics in one short-lived PR based exactly on the merged `main` tree (or use `workflow_dispatch` when available), then merge that validated process slice;
+4. record the tool/platform limitation in the handoff.
+
 The goal is evidence completeness, not mechanically repeating identical expensive work.
