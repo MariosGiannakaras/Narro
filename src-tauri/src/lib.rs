@@ -674,6 +674,31 @@ fn restore_focus_native_snapshot(
     }
 }
 
+fn focus_panel_animation_size(
+    current_outer: GeometrySize,
+    work_area: GeometryRect,
+    source_scale: f64,
+    target_scale: f64,
+) -> CommandResult<GeometrySize> {
+    validate_work_area(work_area).map_err(CommandError::window_geometry)?;
+
+    if (source_scale - target_scale).abs() <= 0.01 {
+        let size = GeometrySize {
+            width: current_outer.width.min(work_area.size.width),
+            height: current_outer.height.min(work_area.size.height),
+        };
+        if size.width == 0 || size.height == 0 {
+            return Err(CommandError::new(
+                "FOCUS_PRESENTATION_FAILED",
+                "current Focus host has no usable outer size for Panel animation",
+            ));
+        }
+        return Ok(size);
+    }
+
+    focus_host_size_for_target_scale(work_area, target_scale)
+}
+
 fn focus_host_size_for_target_scale(
     work_area: GeometryRect,
     target_scale: f64,
@@ -1070,17 +1095,32 @@ fn animate_focus_surface_presentation_internal(
         } else {
             None
         };
+        let cross_dpi_panel_return = panel_target
+            .map(|(_, target_scale, _)| (source_scale - target_scale).abs() > 0.01)
+            .unwrap_or(false);
         let target_position = match panel_target {
             Some((work_area, target_scale, side)) => {
-                let target_size = focus_host_size_for_target_scale(work_area, target_scale)?;
+                let current_outer = window.outer_size().map_err(|error| {
+                    map_window_error(
+                        FOCUS_SURFACE_LABEL,
+                        "read Focus outer size for Panel animation target",
+                        error,
+                    )
+                })?;
+                let target_size = focus_panel_animation_size(
+                    GeometrySize {
+                        width: current_outer.width,
+                        height: current_outer.height,
+                    },
+                    work_area,
+                    source_scale,
+                    target_scale,
+                )?;
                 focus_panel_edge_position(work_area, target_size, side)
                     .map_err(CommandError::window_geometry)?
             }
             None => planned_focus_presentation_position(app_handle, &window, target)?,
         };
-        let cross_dpi_panel_return = panel_target
-            .map(|(_, target_scale, _)| (source_scale - target_scale).abs() > 0.01)
-            .unwrap_or(false);
 
         if previous == FocusSurfacePresentation::Panel && target.mode() == FocusSurfaceMode::Timer {
             // #679 moved the transparent 340x700 host before reducing the
@@ -1489,7 +1529,58 @@ pub(crate) fn revalidate_open_timer_after_display_change(
 
 #[cfg(test)]
 mod focus_position_motion_tests {
-    use super::interpolate_focus_axis;
+    use super::{
+        focus_panel_animation_size, interpolate_focus_axis, GeometryPoint, GeometryRect,
+        GeometrySize,
+    };
+
+    #[test]
+    fn same_dpi_panel_animation_uses_actual_outer_host_size() {
+        let work_area = GeometryRect {
+            origin: GeometryPoint { x: 0, y: 0 },
+            size: GeometrySize {
+                width: 1_024,
+                height: 768,
+            },
+        };
+        let size = focus_panel_animation_size(
+            GeometrySize {
+                width: 356,
+                height: 709,
+            },
+            work_area,
+            1.0,
+            1.0,
+        )
+        .expect("same-DPI animation size");
+
+        assert_eq!(size.width, 356);
+        assert_eq!(size.height, 709);
+    }
+
+    #[test]
+    fn cross_dpi_panel_animation_keeps_target_scale_host_size() {
+        let work_area = GeometryRect {
+            origin: GeometryPoint { x: 0, y: 0 },
+            size: GeometrySize {
+                width: 1_920,
+                height: 1_080,
+            },
+        };
+        let size = focus_panel_animation_size(
+            GeometrySize {
+                width: 356,
+                height: 709,
+            },
+            work_area,
+            1.0,
+            1.25,
+        )
+        .expect("cross-DPI animation size");
+
+        assert_eq!(size.width, 425);
+        assert_eq!(size.height, 875);
+    }
 
     #[test]
     fn fluent_point_to_point_motion_preserves_exact_endpoints() {
