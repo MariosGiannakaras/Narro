@@ -1537,7 +1537,7 @@ mod focus_position_motion_tests {
     #[test]
     fn same_dpi_panel_animation_uses_actual_outer_host_size() {
         let work_area = GeometryRect {
-            origin: GeometryPoint { x: 0, y: 0 },
+            position: GeometryPoint { x: 0, y: 0 },
             size: GeometrySize {
                 width: 1_024,
                 height: 768,
@@ -1561,7 +1561,7 @@ mod focus_position_motion_tests {
     #[test]
     fn cross_dpi_panel_animation_keeps_target_scale_host_size() {
         let work_area = GeometryRect {
-            origin: GeometryPoint { x: 0, y: 0 },
+            position: GeometryPoint { x: 0, y: 0 },
             size: GeometrySize {
                 width: 1_920,
                 height: 1_080,
