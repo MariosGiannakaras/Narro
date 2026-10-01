@@ -4,21 +4,23 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
-## 2026-10-01 — CI #795 physical artifact invalid → current production-artifact gate
+## 2026-10-01 — CI #795 artifact invalid → CI #801 current gate
 
-The user recording `2026-10-01 09-21-24.mp4` remains invalid as final M7 acceptance evidence because the supplied CI795 executable loaded `focus.html?runtimeVisual=1` and visibly created `CI Focus Runtime` / `Packaged runtime focus task` in the physical profile.
+The physical artifact boundary remains corrected: automated packaged Focus capture is instrumented, while user physical validation is rebuilt separately with the production Focus URL under `src-tauri/target-physical` and must pass the direct no-`runtimeVisual` checkpoint smoke.
 
-Artifact-boundary correction `907d1f97...` separates:
-- instrumented automated packaged capture;
-- production-config physical build in `src-tauri/target-physical`, uploaded only as `narro-m7-physical-windows-x64`.
+CI #800 / run `36833625252` never reached that boundary in either attempt. Both attempts passed repository preflight and failed in Windows visual capture because `task-scheduling-light` did not expose its strict ready marker after four captures. Exact-green #795 had already shown the same fixture requiring retry. With two same-SHA failures, the cause was traced to fixture scheduling rather than product scheduling source: immediately after `flushSync` mount, the fixture spun virtual-time `performance.now` / 10ms timers while the production dialog snapshot load lives in a React passive `useEffect`.
 
-CI #799 / run `36825786468` on head `2f64d8d2...` passed preflight, visual regression, automated packaged capture and the complete production physical build. It failed only at the post-build smoke because that smoke assumed process APPDATA/LOCALAPPDATA overrides would redirect Tauri `app_data_dir()` into the test directory.
+Fixture/test-only commit `1f9bc0185177ed9aaf9b3efc6248c5e8031da9b5` replaces that timer spin with up to 120 `requestAnimationFrame` yields while checking the same production ready state. Existing strict marker, capture budget and retry/backoff remain.
 
-Current commit `7962411435bcb2ebf71c775963711273220a5186` replaces the unreliable DB-location assumption with a direct instrumentation-boundary runtime test: launch the production EXE with `NARRO_FOCUS_CAPTURE_DIR` deliberately set, keep it alive for 8 seconds, and fail if any `checkpoint-*.json` appears. Correct production `focus.html` cannot start the visual driver; an accidentally instrumented `runtimeVisual=1` build will expose itself through checkpoints.
+Current PR #192 exact head: `1f9bc0185177ed9aaf9b3efc6248c5e8031da9b5`.
+Current Windows gate: #801 / run `36836958927`, **IN PROGRESS** at this durable checkpoint.
 
-Current Windows gate: #800 / run `36833625252`, **IN PROGRESS** at this durable checkpoint.
+No physical build should be issued until #801 passes, the new production physical artifact is reviewed, and its direct runtimeVisual-boundary smoke is confirmed green.
 
-No new physical build may be issued until #800 passes and the dedicated production artifact is inspected. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci799-physical-smoke-boundary-fix.md`.
+Durable evidence:
+- `work-log/2026-10-01-chatgpt-m7-ci795-physical-artifact-validity-failure.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci799-physical-smoke-boundary-fix.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci800-scheduling-fixture-determinism.md`.
 
 
 ## 2026-10-01 — CI #787 physical audit → current corrective candidate
