@@ -133,6 +133,7 @@ invariant(
 for (const required of [
   "NARRO_FOCUS_CAPTURE_DIR",
   "narro.db",
+  'Filter "narro.db*"',
   "CI Focus Runtime",
   "Packaged runtime focus task",
   "[System.IO.File]::ReadAllBytes",
