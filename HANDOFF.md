@@ -70,7 +70,7 @@ Do not increment progress until C4/C5 both close.
 
 ## Unfinished work / exact next action
 
-Use the exact CI #809 physical artifact above with a **clean validation profile**. Do not repeat already-proven unaffected work unnecessarily.
+Use the exact CI #809 physical artifact above with a **clean validation profile**. Do not repeat already-proven unaffected work unnecessarily. Operational recording checklist: `docs/M7_CI809_RESIDUAL_PHYSICAL_CHECKLIST.md`.
 
 Residual run:
 
