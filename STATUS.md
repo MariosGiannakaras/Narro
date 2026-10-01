@@ -20,7 +20,14 @@ CI #789 failed on stale direct-IPC static contracts and those were reconciled wi
 CI #794 passed the complete frontend preflight and production build, then failed only on `cargo fmt --check` for the newly added Find-Timer error call layout. Formatting-only commit `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2` applies the exact rustfmt diff; targeted type review confirms the snapshot error remains `CommandError` end-to-end.
 
 Current PR #192 exact head: `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2`.
-Current Windows gate: #795 / run `36822373471`, **IN PROGRESS** at the latest durable checkpoint.
+Windows CI #795 / run `36822373471`: **PASS**.
+
+Accepted #795 artifacts:
+- packaged Focus runtime visual: id `11144380370`, digest `sha256:bd048627706561ed9fc168cbe7bb34c1457204c814f04f7e151be03f4bf7b923`;
+- runtime harness: id `11144235897`, digest `sha256:4520728c8ea35aa20a5f20f71e5d208c2057f966082f8e6f44ca8015943bdd43`;
+- visual regression: id `11142994011`, digest `sha256:d5eb6e2ae6b4b6544865043a6823e9b4523d09003692e8397cea67ed2dc99f08`.
+
+All downloaded ZIP hashes match GitHub artifact digests exactly. Mandatory review is accepted: packaged Panel/compact/expanded states use the same Focus HWND `0x201FE`; the harness now contains a real active `Packaged runtime focus task`; compact shows a live countdown and expanded 340×300 retains the same task/title/live timer above actions/subtasks; no unintended root/document scrollbar is reported. The hosted runner remains `prefersReducedMotion: true`, so normal ~270 ms motion character is still a physical-only gate.
 
 The newest packaged-runtime validator inspection found no stale requirement that expanded task/time be absent. No new physical build should be issued until #794 passes and fresh artifacts are reviewed.
 
@@ -28,7 +35,8 @@ Durable evidence:
 - `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`;
 - `work-log/2026-10-01-chatgpt-m7-ci789-static-contract-reconciliation.md`;
 - `work-log/2026-10-01-chatgpt-m7-ci793-collapsed-contract-fix.md`;
-- `work-log/2026-10-01-chatgpt-m7-ci794-rustfmt-fix.md`.
+- `work-log/2026-10-01-chatgpt-m7-ci794-rustfmt-fix.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci795-pass-artifact-acceptance.md`.
 
 ## Current phase
 
