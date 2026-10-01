@@ -173,7 +173,11 @@ mod native {
         logical: tauri::LogicalSize<f64>,
         scale: f64,
     ) -> CommandResult<()> {
-        apply_physical(window, visible_size_for_scale(window, logical, scale)?, true)
+        apply_physical(
+            window,
+            visible_size_for_scale(window, logical, scale)?,
+            true,
+        )
     }
 
     pub fn apply_full_host(window: &tauri::WebviewWindow) -> CommandResult<()> {
@@ -228,9 +232,7 @@ mod native {
     }
 }
 
-pub use native::{
-    apply, apply_full_host, apply_with_scale, apply_without_redraw, visible_size,
-};
+pub use native::{apply, apply_full_host, apply_with_scale, apply_without_redraw, visible_size};
 
 #[cfg(test)]
 mod tests {
