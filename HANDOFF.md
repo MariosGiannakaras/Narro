@@ -100,16 +100,14 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `7962411435bcb2ebf71c775963711273220a5186`, Windows CI #800 / run `36833625252`.
-2. CI #795 automated evidence remains valid, but its old user-facing runtime artifact was invalid because it was CI-instrumented. Artifact-validity split remains in `907d1f97...`: automated capture build keeps `runtimeVisual=1`; production physical build uses `tauri.physical.conf.json` in isolated `src-tauri/target-physical` and uploads only `narro-m7-physical-windows-x64`.
-3. CI #799 / run `36825786468` proved the production physical build itself completes, but its smoke failed only because it assumed overridden APPDATA/LOCALAPPDATA would redirect Tauri `app_data_dir()`. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci799-physical-smoke-boundary-fix.md`.
-4. Current commit `79624114...` replaces that smoke with a direct renderer-boundary test: launch the production physical EXE with `NARRO_FOCUS_CAPTURE_DIR` deliberately enabled and fail if any `checkpoint-*.json` appears. A correct production build loads plain `focus.html` and must keep the runtime visual driver dormant.
-5. On #800 FAIL, inspect exact failure only. On PASS, fetch/review the instrumented Focus visual artifact **and especially** the new production-config `narro-m7-physical-windows-x64` artifact. Never hand out the old `narro-m1-runtime-harness-windows-x64`.
-6. Only after clean artifact review issue the new physical build. Before retest, remove known CI fixture records left by the old bad artifact or use a clean validation profile.
+1. Inspect PR #192 exact head `7962411435bcb2ebf71c775963711273220a5186`, Windows CI #800 / run `36833625252`, **attempt 2**.
+2. Attempt 1 failed before the physical-build boundary only because hosted `task-scheduling-light` did not report ready after four visual-capture attempts; the same fixture retried and passed in exact-green #795. No source change was made. The failed build/test job was rerun at the same SHA. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci800-same-sha-visual-flake-retry.md`.
+3. Artifact-validity correction remains: instrumented capture build is separate from production physical build; physical output uses `tauri.physical.conf.json` + isolated `src-tauri/target-physical` and uploads only `narro-m7-physical-windows-x64`.
+4. Current smoke verifies the exact renderer boundary: the production EXE launches with `NARRO_FOCUS_CAPTURE_DIR` deliberately enabled and must produce zero `checkpoint-*.json`; an accidental `runtimeVisual=1` build would expose itself.
+5. On #800 attempt-2 PASS, fetch/review both the packaged Focus visual artifact and the new production physical artifact. Never hand out the old `narro-m1-runtime-harness-windows-x64`.
+6. Only after clean artifact review issue the production physical build. Before retest, remove old CI fixture records from the validation profile or use a clean profile.
 7. Rerun physical Gate 7/Gate 12 on that exact production artifact. Do not merge #192 until physical PASS.
 
 ## USER ACTION REQUIRED
 
-None while CI #800 is running. The previous CI795 physical recording remains invalid for final acceptance because it used an instrumented build.
-
-After #800 passes and the new artifact is reviewed, physical validation must use only `narro-m7-physical-windows-x64`.
+None while CI #800 attempt 2 is running. Do not perform another physical run until the production-config artifact passes the new runtimeVisual-boundary smoke and artifact review.
