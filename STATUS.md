@@ -4,6 +4,21 @@ Last updated: 2026-10-01
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+
+## 2026-10-01 — CI #809 physical recording passes corrected Timer boundary; residual inputs still open
+
+The complete user recording `2026-10-01 19-03-32.mp4` (SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`, 161.05 s) was audited with dense transition sampling.
+
+At least six animations-On compact <-> expanded sequences were inspected. The CI #806 white L/outline / blank native-region frame does not recur. PR #208's corrected standard-motion Timer-to-Timer compositor boundary is therefore **PHYSICAL PASS**. No new runtime/product defect is evidenced by the recording.
+
+Additional positive evidence: coherent active task/time, visible Focus -> Main completion reconciliation, animations visibly switched On -> Off and later restored On, one display visibly at 100%, and safe Narro/Focus visibility after topology is reduced to one active display.
+
+The recording does **not** conclusively prove: two complete Off compact/expanded cycles, second-launch single-instance behavior, an unambiguous Main `Blitz now` click, marked idle T/P shortcut inputs, a second display visibly at 125% and true 100%<->125% crossing, topology reconnect, fullscreen topmost, or Quit/relaunch saved placement. These are missing observations, not failures.
+
+Counters remain `4/10M || 2/5 | 11/19`. C4/C5 remain open. Do not repeat the already-passed animations-On compositor stress; run only the narrowed residual checklist in `HANDOFF.md`.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci809-partial-physical-audit.md`.
+
 ## 2026-10-01 — CI #806 physical failure corrected by PR #208; residual retest narrowed
 
 The complete user recording `2026-10-01 15-20-44.mp4` (SHA-256 `86e51a5dcc6cc8bd5cb6af41971daa3c23016a97768c7f8469f567d4f232710b`) was audited across all 172.8 s. Early stale `Blitz is already active` / missing-board-task state is contaminated by the documented invalid-CI795 profile residue risk and is not accepted as idle production evidence.
