@@ -841,6 +841,11 @@ fn map_register_error_for_chord(error: std::io::Error, chord: &str) -> CommandEr
 }
 
 #[cfg(windows)]
+fn focus_toggle_allowed(state: crate::timer::TimerStateKind, has_task: bool) -> bool {
+    state != crate::timer::TimerStateKind::Idle && has_task
+}
+
+#[cfg(windows)]
 mod native {
     use super::*;
     use std::ffi::c_void;
@@ -1061,10 +1066,27 @@ mod native {
                 }
 
                 let manager = trigger_handle.state::<ShortcutManager>();
-                let result = trigger_handle
-                    .get_webview_window(FOCUS_SURFACE_LABEL)
-                    .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))
-                    .and_then(|window| crate::show_and_focus(&window));
+                let timer_service = trigger_handle.state::<crate::timer_service::TimerService>();
+                let snapshot = match timer_service.snapshot() {
+                    Ok(snapshot) => snapshot,
+                    Err(error) => {
+                        let recorded = record_and_report_focus_toggle_error(
+                            &trigger_handle,
+                            manager.inner(),
+                            error,
+                        );
+                        eprintln!("Focus toggle shortcut could not read timer state: {recorded}");
+                        return;
+                    }
+                };
+                if !focus_toggle_allowed(
+                    snapshot.runtime.timer.state,
+                    snapshot.runtime.timer.task_id.is_some(),
+                ) {
+                    return;
+                }
+
+                let result = crate::show_current_focus_surface(&trigger_handle);
                 if let Err(error) = result {
                     let recorded = record_and_report_focus_toggle_error(
                         &trigger_handle,
@@ -1111,10 +1133,27 @@ mod native {
                 }
 
                 let manager = trigger_handle.state::<ShortcutManager>();
-                let result = trigger_handle
-                    .get_webview_window(FOCUS_SURFACE_LABEL)
-                    .ok_or_else(|| CommandError::window_not_found(FOCUS_SURFACE_LABEL))
-                    .and_then(|window| crate::show_and_focus(&window));
+                let timer_service = trigger_handle.state::<crate::timer_service::TimerService>();
+                let snapshot = match timer_service.snapshot() {
+                    Ok(snapshot) => snapshot,
+                    Err(error) => {
+                        let recorded = record_and_report_find_timer_error(
+                            &trigger_handle,
+                            manager.inner(),
+                            error,
+                        );
+                        eprintln!("Find Timer shortcut could not read timer state: {recorded}");
+                        return;
+                    }
+                };
+                if !focus_toggle_allowed(
+                    snapshot.runtime.timer.state,
+                    snapshot.runtime.timer.task_id.is_some(),
+                ) {
+                    return;
+                }
+
+                let result = crate::show_current_focus_surface(&trigger_handle);
                 if let Err(error) = result {
                     let recorded =
                         record_and_report_find_timer_error(&trigger_handle, manager.inner(), error);
@@ -1148,6 +1187,25 @@ mod native {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[cfg(windows)]
+    #[test]
+    fn focus_toggle_requires_active_task_binding() {
+        use crate::timer::TimerStateKind;
+
+        assert!(!focus_toggle_allowed(TimerStateKind::Idle, false));
+        assert!(!focus_toggle_allowed(TimerStateKind::Running, false));
+        for state in [
+            TimerStateKind::Running,
+            TimerStateKind::Paused,
+            TimerStateKind::Break,
+            TimerStateKind::TimeUp,
+            TimerStateKind::OvertimeRunning,
+            TimerStateKind::OvertimePaused,
+        ] {
+            assert!(focus_toggle_allowed(state, true), "{state:?}");
+        }
+    }
 
     #[cfg(windows)]
     #[test]

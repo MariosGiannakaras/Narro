@@ -85,10 +85,10 @@ if (!rootElement) throw new Error("Task scheduling fixture root is missing.");
 flushSync(() => createRoot(rootElement).render(<Fixture />));
 
 async function waitForReady(): Promise<void> {
-  const deadline = performance.now() + 5_000;
-  while (performance.now() < deadline) {
+  const maxReadyFrames = 120;
+  for (let frame = 0; frame < maxReadyFrames; frame += 1) {
     if (document.querySelector('[data-task-schedule-state="ready"]')) return;
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 10));
+    await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
   }
   throw new Error("Task scheduling visual fixture did not reach ready state.");
 }

@@ -5,13 +5,7 @@ import { FocusLiveActions } from "./FocusLiveActions";
 import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { focusTimerPresentation } from "./focusTimerPresentation";
-import {
-  beginFocusVisualHold,
-  clearFocusSurfacePrewarm,
-  endFocusVisualHold,
-  prewarmFocusSurface,
-  setFloatingTimerExpanded,
-} from "./focusSurfaceModeApi";
+import { setFloatingTimerExpanded } from "./focusSurfaceModeApi";
 import {
   getListBoardSnapshot,
   type BoardSubtaskSnapshot,
@@ -35,13 +29,32 @@ export type FloatingTimerFoundationProps = {
   transitionPending?: boolean;
   transitionError?: string | null;
   shortcutStatus?: string | null;
-  onPresentationReady?: () => void;
+  onPresentationReady?: (payload: TimerSessionPayload | null) => void;
+  refreshKey?: number;
   fixtureBoard?: ListBoardSnapshot;
   fixtureTimer?: TimerSessionPayload | null;
+  sharedTimerProjection?: {
+    payload: TimerSessionPayload | null;
+    settled: boolean;
+  };
+  presentationActive?: boolean;
+  controlledExpanded?: boolean;
+  onRequestExpanded?: (expanded: boolean) => Promise<void>;
   fixtureExpanded?: boolean;
   fixtureSubtasks?: BoardSubtaskSnapshot | null;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
+
+const FLOATING_TIMER_GEOMETRY_MOTION_MS = 270;
+
+async function waitForFloatingTimerGeometryMotion(): Promise<void> {
+  const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? 1
+    : FLOATING_TIMER_GEOMETRY_MOTION_MS;
+  await new Promise<void>((resolve) => {
+    window.setTimeout(resolve, duration);
+  });
+}
 
 function subtaskProgress(task: ListBoardTask | null) {
   const total = Math.max(0, task?.subtaskTotalCount ?? 0);
@@ -62,8 +75,13 @@ export function FloatingTimerFoundation({
   transitionError = null,
   shortcutStatus = null,
   onPresentationReady,
+  refreshKey = 0,
   fixtureBoard,
   fixtureTimer = null,
+  sharedTimerProjection,
+  presentationActive = true,
+  controlledExpanded,
+  onRequestExpanded,
   fixtureExpanded = false,
   fixtureSubtasks = null,
   onCompletionSuccess,
@@ -74,22 +92,40 @@ export function FloatingTimerFoundation({
   const [boardError, setBoardError] = useState<string | null>(null);
   const [timerError, setTimerError] = useState<string | null>(null);
   const [timerSettled, setTimerSettled] = useState(fixtureMode);
+  const [timerSettledKey, setTimerSettledKey] = useState(0);
+  const [boardSettledKey, setBoardSettledKey] = useState(0);
   const [boardTaskId, setBoardTaskId] = useState<string | null>(
     fixtureMode ? fixtureTimer?.runtime.timer.task_id ?? null : null,
   );
-  const [expanded, setExpanded] = useState(fixtureMode && fixtureExpanded);
+  const initialExpanded = controlledExpanded ?? (fixtureMode && fixtureExpanded);
+  const [expanded, setExpanded] = useState(initialExpanded);
+  const [regionExpanded, setRegionExpanded] = useState(initialExpanded);
   const [resizePending, setResizePending] = useState(false);
-  const [resizePhase, setResizePhase] = useState<"idle" | "resizing" | "prewarming">("idle");
+  const [resizePhase, setResizePhase] = useState<
+    "idle" | "prepainting" | "revealing-start" | "revealing" | "contracting-start" | "contracting" | "clipping"
+  >("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (controlledExpanded !== undefined) {
+      // A child-initiated resize commits the authoritative parent presentation
+      // before its finite reveal/contraction finishes. Do not let the controlled
+      // prop effect erase that in-flight geometry phase.
+      if (resizeRequestInFlightRef.current) return;
+      setExpanded(controlledExpanded);
+      setRegionExpanded(controlledExpanded);
+      setResizePending(false);
+      setResizePhase("idle");
+      return;
+    }
     if (!fixtureMode) return;
     setExpanded(fixtureExpanded);
+    setRegionExpanded(fixtureExpanded);
     setResizePending(false);
     setResizePhase("idle");
     setResizeError(null);
-  }, [fixtureExpanded, fixtureMode]);
+  }, [controlledExpanded, fixtureExpanded, fixtureMode]);
 
   useEffect(() => () => onResizePendingChange?.(false), [onResizePendingChange]);
 
@@ -97,6 +133,14 @@ export function FloatingTimerFoundation({
     if (fixtureMode) {
       setTimer(fixtureTimer);
       setTimerSettled(true);
+      setTimerSettledKey(refreshKey);
+      setTimerError(null);
+      return;
+    }
+    if (sharedTimerProjection !== undefined) {
+      setTimer(sharedTimerProjection.payload);
+      setTimerSettled(sharedTimerProjection.settled);
+      setTimerSettledKey(refreshKey);
       setTimerError(null);
       return;
     }
@@ -120,11 +164,13 @@ export function FloatingTimerFoundation({
         else {
           disconnect = stop;
           setTimerSettled(true);
+          setTimerSettledKey(refreshKey);
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
           setTimerSettled(true);
+          setTimerSettledKey(refreshKey);
           setTimerError(formatInvokeError(failure));
         }
       });
@@ -133,7 +179,7 @@ export function FloatingTimerFoundation({
       disposed = true;
       disconnect?.();
     };
-  }, [fixtureMode, fixtureTimer]);
+  }, [fixtureMode, fixtureTimer, refreshKey, sharedTimerProjection]);
 
   const liveTaskId = timer?.runtime.timer.task_id ?? null;
 
@@ -141,18 +187,23 @@ export function FloatingTimerFoundation({
     if (fixtureMode) {
       setBoard(fixtureBoard ?? null);
       setBoardError(null);
+      setBoardSettledKey(refreshKey);
       return;
     }
     if (liveTaskId === null) {
       setBoard(null);
       setBoardTaskId(null);
       setBoardError(null);
+      setBoardSettledKey(refreshKey);
       return;
     }
 
     let disposed = false;
-    setBoard(null);
-    setBoardTaskId(null);
+    const retainCurrentBoard = board !== null && boardTaskId === liveTaskId;
+    if (!retainCurrentBoard) {
+      setBoard(null);
+      setBoardTaskId(null);
+    }
     setBoardError(null);
     void getListBoardSnapshot({ kind: "all" })
       .then((snapshot) => {
@@ -160,27 +211,30 @@ export function FloatingTimerFoundation({
           setBoard(snapshot);
           setBoardTaskId(liveTaskId);
           setBoardError(null);
+          setBoardSettledKey(refreshKey);
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
-          setBoard(null);
+          if (!retainCurrentBoard) setBoard(null);
           setBoardTaskId(liveTaskId);
           setBoardError(formatInvokeError(failure));
+          setBoardSettledKey(refreshKey);
         }
       });
 
     return () => {
       disposed = true;
     };
-  }, [fixtureBoard, fixtureMode, liveTaskId]);
+  }, [fixtureBoard, fixtureMode, liveTaskId, refreshKey]);
 
   const presentationReady = fixtureMode
-    || (timerSettled && (liveTaskId === null || boardTaskId === liveTaskId));
+    || (timerSettled && timer !== null && timerSettledKey === refreshKey && boardSettledKey === refreshKey
+      && (liveTaskId === null || (boardTaskId === liveTaskId && board !== null)));
 
   useEffect(() => {
-    if (presentationReady) onPresentationReady?.();
-  }, [onPresentationReady, presentationReady]);
+    if (presentationReady) onPresentationReady?.(timer);
+  }, [onPresentationReady, presentationReady, timer]);
 
   const liveTask = useMemo(
     () => liveTaskId === null ? null : board?.today.tasks.find((task) => task.id === liveTaskId) ?? null,
@@ -199,6 +253,7 @@ export function FloatingTimerFoundation({
     if (nextExpanded === expanded) return true;
     if (fixtureMode) {
       setExpanded(nextExpanded);
+      setRegionExpanded(nextExpanded);
       setResizeError(null);
       return true;
     }
@@ -207,70 +262,54 @@ export function FloatingTimerFoundation({
     onResizePendingChange?.(true);
     setResizePending(true);
     setResizeError(null);
-    let nativeResizeCommitted = false;
-    let prewarmActive = false;
-    let visualHoldActive = false;
+    let nativeRegionCommitted = false;
     try {
-      await beginFocusVisualHold();
-      visualHoldActive = true;
-      await prewarmFocusSurface();
-      prewarmActive = true;
-      setResizePhase("resizing");
-
-      await setFloatingTimerExpanded(nextExpanded);
-      nativeResizeCommitted = true;
-
-      flushSync(() => {
-        setExpanded(nextExpanded);
-        setResizePhase("prewarming");
-      });
-      await waitForPresentedFrame();
-
-      await clearFocusSurfacePrewarm();
-      prewarmActive = false;
-      setResizePhase("idle");
-      await waitForPresentedFrame();
-      await endFocusVisualHold();
-      visualHoldActive = false;
+      if (nextExpanded) {
+        // Prepaint the full 300px hierarchy while Win32 still clips the host to
+        // 110px. After the native region expands, reveal those already-painted
+        // pixels with a finite same-WebView clip animation.
+        flushSync(() => {
+          setExpanded(true);
+          setResizePhase("prepainting");
+        });
+        await waitForPresentedFrame();
+        if (onRequestExpanded) await onRequestExpanded(true);
+        else await setFloatingTimerExpanded(true);
+        nativeRegionCommitted = true;
+        flushSync(() => {
+          setRegionExpanded(true);
+          setResizePhase("revealing-start");
+        });
+        await waitForPresentedFrame();
+        flushSync(() => setResizePhase("revealing"));
+        await waitForFloatingTimerGeometryMotion();
+      } else {
+        // Contract the painted 300px Timer to the exact 110px compact geometry
+        // before Win32 clips/restores the compact origin. The host WebView never
+        // resizes or hides during this ordinary presentation change.
+        flushSync(() => setResizePhase("contracting-start"));
+        await waitForPresentedFrame();
+        flushSync(() => setResizePhase("contracting"));
+        await waitForFloatingTimerGeometryMotion();
+        flushSync(() => setResizePhase("clipping"));
+        if (onRequestExpanded) await onRequestExpanded(false);
+        else await setFloatingTimerExpanded(false);
+        nativeRegionCommitted = true;
+        flushSync(() => {
+          setRegionExpanded(false);
+          setExpanded(false);
+        });
+      }
       return true;
     } catch (failure: unknown) {
-      let resizeFailure = formatInvokeError(failure);
-
-      if (!nativeResizeCommitted) {
+      if (!nativeRegionCommitted) {
         flushSync(() => {
           setExpanded(expanded);
-          setResizePhase("prewarming");
+          setRegionExpanded(expanded);
         });
-        try {
-          await waitForPresentedFrame();
-        } catch (recoveryFrameFailure: unknown) {
-          resizeFailure =
-            `${resizeFailure}; renderer recovery frame failed: ${formatInvokeError(recoveryFrameFailure)}`;
-        }
       }
-
-      if (prewarmActive) {
-        try {
-          await clearFocusSurfacePrewarm();
-          prewarmActive = false;
-        } catch (cleanupFailure: unknown) {
-          resizeFailure =
-            `${resizeFailure}; resize prewarm cleanup failed: ${formatInvokeError(cleanupFailure)}`;
-        }
-      }
-
-      if (visualHoldActive) {
-        try {
-          await endFocusVisualHold();
-          visualHoldActive = false;
-        } catch (cleanupFailure: unknown) {
-          resizeFailure =
-            `${resizeFailure}; visual hold cleanup failed: ${formatInvokeError(cleanupFailure)}`;
-        }
-      }
-
-      setResizeError(resizeFailure);
-      return nativeResizeCommitted;
+      setResizeError(formatInvokeError(failure));
+      return nativeRegionCommitted;
     } finally {
       resizeRequestInFlightRef.current = false;
       onResizePendingChange?.(false);
@@ -295,6 +334,7 @@ export function FloatingTimerFoundation({
       data-floating-live-state={timer?.runtime.timer.state ?? "idle"}
       data-floating-live-task-id={liveTaskId ?? ""}
       data-floating-expanded={expanded ? "true" : "false"}
+      data-floating-region-expanded={regionExpanded ? "true" : "false"}
       data-floating-resize-pending={resizePending ? "true" : "false"}
       data-floating-resize-phase={resizePhase}
       data-tauri-drag-region="true"
@@ -317,11 +357,35 @@ export function FloatingTimerFoundation({
         className="floating-timer-foundation__content"
         data-tauri-drag-region="true"
       >
+        <div key="timer-heading" className="floating-timer-foundation__heading" data-tauri-drag-region="true">
+          <strong
+            className="floating-timer-foundation__title"
+            data-floating-task-title="true"
+            data-tauri-drag-region="true"
+            title={liveTask?.title}
+          >
+            {title}
+          </strong>
+          <span
+            className="floating-timer-foundation__timer timer-numerals"
+            data-floating-live-timer="true"
+            data-floating-live-timer-mode={liveTimer?.mode ?? "none"}
+            data-timed-alert-flash-task-id={liveTaskId ?? undefined}
+            data-timer-numerals="true"
+            data-tauri-drag-region="true"
+            aria-label={liveTimer?.label ?? "Timer unavailable"}
+            aria-live="off"
+          >
+            {liveTimer?.text ?? "--:--"}
+          </span>
+        </div>
         {liveTask && timer ? (
           <div
             key={`actions-host:${liveTask.id}`}
             data-floating-actions-controller="true"
             style={{ display: expanded ? "contents" : "none" }}
+            inert={expanded && (!regionExpanded || resizePending)}
+            aria-hidden={expanded && (!regionExpanded || resizePending) ? true : undefined}
           >
             <FocusLiveActions
               task={liveTask}
@@ -330,6 +394,7 @@ export function FloatingTimerFoundation({
               fixtureMode={fixtureMode}
               presentation="floating"
               transitionPending={transitionPending || resizePending}
+              presentationActive={presentationActive}
               onReturnToPanel={onReturnToPanel}
               onEnsureNotesVisible={() => requestExpanded(true)}
               onTimerPayload={(payload) => {
@@ -337,30 +402,6 @@ export function FloatingTimerFoundation({
               }}
               onCompletionSuccess={onCompletionSuccess}
             />
-          </div>
-        ) : null}
-        {!expanded || !liveTask || !timer ? (
-          <div key="collapsed-heading" className="floating-timer-foundation__heading" data-tauri-drag-region="true">
-            <strong
-              className="floating-timer-foundation__title"
-              data-floating-task-title="true"
-              data-tauri-drag-region="true"
-              title={liveTask?.title}
-            >
-              {title}
-            </strong>
-            <span
-              className="floating-timer-foundation__timer timer-numerals"
-              data-floating-live-timer="true"
-              data-floating-live-timer-mode={liveTimer?.mode ?? "none"}
-              data-timer-numerals="true"
-              data-timed-alert-flash-task-id={liveTaskId ?? undefined}
-              data-tauri-drag-region="true"
-              aria-label={liveTimer?.label ?? "Timer unavailable"}
-              aria-live="off"
-            >
-              {liveTimer?.text ?? "--:--"}
-            </span>
           </div>
         ) : null}
 
@@ -374,6 +415,7 @@ export function FloatingTimerFoundation({
             fixtureExpanded={fixtureExpanded}
             presentation="floating"
             expanded={expanded}
+            contentInert={expanded && (!regionExpanded || resizePending)}
             interactionPending={transitionPending || resizePending}
             onExpandedChange={requestExpanded}
             onTaskProjection={applyTaskProjection}

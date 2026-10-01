@@ -35,10 +35,11 @@ async function requireFile(relativePath) {
   }
 }
 
-const [packageJson, tauriConfig, tauriCiConfig, capability, ciWorkflow] = await Promise.all([
+const [packageJson, tauriConfig, tauriCiConfig, tauriPhysicalConfig, capability, ciWorkflow] = await Promise.all([
   readJson("package.json"),
   readJson("src-tauri/tauri.conf.json"),
   readJson("src-tauri/tauri.ci.conf.json"),
+  readJson("src-tauri/tauri.physical.conf.json"),
   readJson("src-tauri/capabilities/default.json"),
   readText(".github/workflows/ci.yml"),
 ]);
@@ -66,6 +67,15 @@ invariant(
   packageJson.scripts?.["tauri:ci"] === "tauri build --config src-tauri/tauri.ci.conf.json",
   "tauri:ci must build with the CI config override",
 );
+invariant(
+  packageJson.scripts?.["tauri:physical-ci"] === "tauri build --config src-tauri/tauri.physical.conf.json",
+  "tauri:physical-ci must build with the production-window physical config overlay",
+);
+invariant(
+  tauriPhysicalConfig.build?.beforeBuildCommand === null
+    && tauriPhysicalConfig.app === undefined,
+  "physical CI config must not override production window URLs",
+);
 invariant(tauriConfig.bundle?.active === true, "Windows bundle generation must remain enabled");
 
 for (const contract of [
@@ -84,7 +94,14 @@ for (const contract of [
   ["workspaces: './src-tauri -> target'", "Rust cache must target the Tauri Cargo workspace"],
   ["save-if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}", "only trusted main pushes may save the reusable Rust cache"],
   ["Verify Reused Frontend Dist", "CI must verify frontend build output before Tauri packaging"],
-  ["run: npm run tauri:ci", "CI release build must reuse the preflight frontend output"],
+  ["run: npm run tauri:ci", "instrumented CI release build must reuse the preflight frontend output"],
+  ["Build Physical Validation Release", "CI must rebuild a production-window binary after packaged runtime capture"],
+  ['$env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"', "physical build must use an isolated Cargo target directory"],
+  ["npm run tauri:physical-ci", "physical build must use the production-window config overlay"],
+  ["Verify Physical Validation Build", "physical build must pass an isolated-profile runtime smoke check"],
+  ["verify-physical-validation-build.ps1", "CI must verify that the physical binary cannot seed capture fixtures"],
+  ["name: narro-m7-physical-windows-x64", "CI must upload a dedicated production-config physical artifact"],
+  ["src-tauri/target-physical/release/narro.exe", "physical artifact must come from the isolated production-config target"],
 ]) {
   invariant(ciWorkflow.includes(contract[0]), contract[1]);
 }
@@ -95,7 +112,7 @@ invariant(
 
 const windows = tauriConfig.app?.windows;
 invariant(Array.isArray(windows), "Tauri app.windows must be an array");
-invariant(windows.length === 2, "Milestone 1 must define exactly two initial webview windows");
+invariant(windows.length === 2, "Narro must define exactly main and one persistent focusSurface WebView");
 
 const labels = windows.map((window) => window.label);
 invariant(new Set(labels).size === labels.length, "Tauri window labels must be unique");
@@ -120,6 +137,16 @@ const focusWindow = windows.find((window) => window.label === "focusSurface");
 invariant(mainWindow?.url === "index.html", "main must load index.html");
 invariant(focusWindow?.url === "focus.html", "focusSurface must load focus.html");
 invariant(focusWindow?.visible === false, "focusSurface must start hidden");
+invariant(focusWindow?.decorations === false, "focusSurface must remain frameless");
+invariant(focusWindow?.transparent === true, "focusSurface must retain a transparent native/WebView canvas");
+invariant(
+  focusWindow?.width === 340 && focusWindow?.height === 700,
+  "focusSurface must use the validated fixed 340x700 logical host",
+);
+invariant(
+  focusWindow?.alwaysOnTop !== true,
+  "focusSurface starts in Panel presentation and must not start topmost",
+);
 
 const capabilityWindows = capability.windows;
 invariant(Array.isArray(capabilityWindows), "capability windows must be an array");
@@ -136,6 +163,7 @@ await Promise.all([
   requireFile("index.html"),
   requireFile("focus.html"),
   requireFile("src-tauri/icons/narro-tray-64.png"),
+  requireFile("scripts/verify-physical-validation-build.ps1"),
 ]);
 
 console.log("Repository configuration invariants: PASS");

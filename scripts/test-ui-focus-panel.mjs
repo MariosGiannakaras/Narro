@@ -30,6 +30,10 @@ for (const [haystack, needle, label] of [
   [panel, 'invoke<HomeSnapshot>("get_home_snapshot")', "authoritative active-list options"],
   [panel, "connectLiveTimerSessionProjection", "authoritative live timer-session projection"],
   [panel, "applyTimerSessionProjection", "timer revision ordering"],
+  [panel, "currentTargetKeyRef.current === expectedTargetKey", "shared projection target-staleness guard"],
+  [panel, "latest?.revision === expectedRevision", "shared projection revision-staleness guard"],
+  [panel, "latest.runtime.timer.task_id === expectedTaskId", "shared projection live-task identity guard"],
+  [panel, "latest.runtime.open_session_id === expectedSessionId", "shared projection session identity guard"],
   [panel, "<FocusLiveActions", "live action composition"],
   [panel, 'data-focus-list-selector="true"', "list selector hierarchy"],
   [panel, ">Today<", "Today hierarchy title"],
@@ -125,22 +129,24 @@ for (const [haystack, needle, label] of [
   [subtasks, 'data-focus-subtask-panel="true"', "Focus expanded subtask panel"],
   [taskSubtasks, "belongsToRenderedTask", "subtask parent-identity guard"],
   [timerApi, "connectLiveTimerSessionProjection", "live projection connector"],
+  [timerApi, "const result = await invoke<TimerSessionPayload>(command, args);", "typed committed timer mutation boundary"],
+  [timerApi, "await emitBoardInvalidated();", "cross-window timer mutation invalidation"],
   [timerApi, 'invoke<TimerSessionPayload>("timer_session_snapshot")', "authoritative Rust snapshot sampling"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_start_task"', "typed task-start mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_pause")', "typed pause mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_resume")', "typed resume mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_extend")', "typed Time's Up Extend mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_start_manual_break"', "typed manual-break mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_skip_break")', "typed break-skip mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_complete_task")', "typed completion mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_skip_task")', "typed skip fallback mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_switch_task"', "typed task-switch mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_set_estimate"', "typed paused EST mutation"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_set_time_taken"', "typed paused Time Taken mutation"],
+  [timerApi, 'committedTimerMutation("timer_start_task"', "typed task-start committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_pause")', "typed pause committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_resume")', "typed resume committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_extend")', "typed Time's Up Extend committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_start_manual_break"', "typed manual-break committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_skip_break")', "typed break-skip committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_complete_task")', "typed completion committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_skip_task")', "typed skip fallback committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_switch_task"', "typed task-switch committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_set_estimate"', "typed paused EST committed mutation"],
+  [timerApi, 'committedTimerMutation("timer_set_time_taken"', "typed paused Time Taken committed mutation"],
   [timerApi, 'state === "running" || state === "break" || state === "overtime_running"', "sampling limited to ticking states"],
   [timerApi, "applyTimerSessionProjection(latest, incoming)", "sample/event revision ordering"],
   [notes, "openUrl(link)", "explicit Notes URL opener remains confined to validated Notes component"],
-  [focusEntry, "<FocusSurfaceProduct />", "product focus-surface mode root"],
+  [focusEntry, "<FocusSurfaceCoordinator />", "single-host Focus product root"],
   [focusEntry, 'get("diagnostics") === "1"', "explicit diagnostic-mode preservation"],
   [css, "width: min(100%, 340px)", "compact source-evidenced panel width"],
   [css, ".focus-panel__live-timer { width: 10ch; flex: 0 0 10ch;", "fixed live timer geometry"],
@@ -243,6 +249,10 @@ invariant(panel.includes("permanentlyDeleteListBoardTask({"), "ordinary Focus de
 invariant(panel.includes("<TaskScheduleDialog"), "ordinary Focus scheduling must reuse the validated scheduling boundary");
 invariant(panel.includes("<TaskNotes"), "ordinary Focus Notes must reuse the validated Notes boundary");
 invariant(panel.includes("switchTimerTask(task.id, mode)"), "Rocket Make Live must use the authoritative timer/session switch");
+invariant(
+  panel.includes("if (fixtureMode || !presentationActive || mutationPendingTaskId !== null) return;"),
+  "inactive/prepainting Focus Panel must not execute Make Live mutations",
+);
 invariant(panel.includes('invoke<void>("focus_surface_exit_to_main")'), "Home must exit Focus through the native lifecycle command");
 invariant(
   panel.includes('aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences"')

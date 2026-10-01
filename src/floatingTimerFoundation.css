@@ -1,15 +1,34 @@
 .floating-timer-foundation {
+  --floating-timer-geometry-motion-duration: 270ms;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 110px;
   box-sizing: border-box;
   overflow: hidden;
+  clip-path: inset(0 0 0 0 round 12px);
   padding: 10px 12px;
   border: 1px solid var(--color-border-subtle);
   border-radius: 12px;
   color: var(--color-text-primary);
   background: var(--color-surface-raised);
   text-align: left;
+  transition: clip-path var(--floating-timer-geometry-motion-duration) var(--motion-ease-enter);
+}
+
+.floating-timer-foundation[data-floating-expanded="true"] {
+  height: 300px;
+}
+
+.floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="prepainting"],
+.floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="revealing-start"],
+.floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="contracting"],
+.floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="clipping"] {
+  clip-path: inset(0 0 190px 0 round 12px);
+}
+
+.floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="revealing"],
+.floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="contracting-start"] {
+  clip-path: inset(0 0 0 0 round 12px);
 }
 
 .floating-timer-foundation__shortcut-status {
@@ -49,6 +68,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .floating-timer-foundation {
+    --floating-timer-geometry-motion-duration: 1ms;
+  }
+
   .floating-timer-foundation__attention-pulse {
     animation-duration: 180ms;
   }
@@ -73,22 +96,8 @@
   gap: 8px;
 }
 
-.floating-timer-foundation[data-floating-resize-phase="resizing"] .floating-timer-foundation__content {
-  visibility: hidden;
-  opacity: 0;
-  transform: none;
-  transition-duration: 0ms;
-}
-
-.floating-timer-foundation[data-floating-resize-phase="prewarming"] .floating-timer-foundation__content {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-  transition-duration: 0ms;
-}
-
 .floating-timer-foundation[data-floating-expanded="true"] .floating-timer-foundation__content {
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   align-content: stretch;
 }
 
@@ -98,6 +107,16 @@
   grid-template-columns: minmax(0, 1fr) 8ch;
   align-items: center;
   gap: 10px;
+}
+
+.floating-timer-foundation[data-floating-expanded="true"][data-floating-region-expanded="false"] .floating-timer-foundation__heading {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  left: 12px;
+  right: 12px;
+  height: 50px;
+  background: var(--color-surface-raised);
 }
 
 .floating-timer-foundation [data-tauri-drag-region="true"] {

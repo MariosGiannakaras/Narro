@@ -47,6 +47,7 @@ type FocusLiveActionsProps = {
   presentation?: "panel" | "floating";
   onReturnToPanel?: () => void;
   transitionPending?: boolean;
+  presentationActive?: boolean;
   onEnsureNotesVisible?: () => boolean | Promise<boolean>;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
@@ -184,6 +185,7 @@ export function FocusLiveActions({
   presentation = "panel",
   onReturnToPanel,
   transitionPending = false,
+  presentationActive = true,
   onEnsureNotesVisible,
   onCompletionSuccess,
 }: FocusLiveActionsProps) {
@@ -193,7 +195,9 @@ export function FocusLiveActions({
   const [error, setError] = useState<string | null>(null);
   const shortcutHandlerRef = useRef<(shortcut: InAppShortcut) => void>(() => {});
   const state = actionState(timer.runtime.timer);
-  const busy = pendingAction !== null || (presentation === "floating" && transitionPending);
+  const busy = !presentationActive
+    || pendingAction !== null
+    || (presentation === "floating" && transitionPending);
   const preferences = usePreferenceSettingsProjection(fixtureMode);
   const defaultBreakMs = preferences.snapshot
     ? preferences.snapshot.focus.defaultBreakSeconds * 1_000
@@ -428,7 +432,7 @@ export function FocusLiveActions({
   };
 
   useEffect(() => {
-    if (fixtureMode) return;
+    if (fixtureMode || !presentationActive) return;
 
     let disposed = false;
     let stopListening: (() => void) | undefined;
@@ -458,7 +462,7 @@ export function FocusLiveActions({
       window.removeEventListener("keydown", onKeyDown);
       stopListening?.();
     };
-  }, [fixtureMode]);
+  }, [fixtureMode, presentationActive]);
 
   const floating = presentation === "floating";
   const notesEditor = (

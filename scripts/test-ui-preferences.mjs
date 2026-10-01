@@ -47,7 +47,7 @@ const [
   read("src/ListBoard.tsx"),
   read("src/SearchPalette.tsx"),
   read("src/taskEstimateParser.ts"),
-  read("src/focus.tsx"),
+  read("src/FocusSurfaceCoordinator.tsx"),
   read("src/FocusCompletionSuccess.tsx"),
   read("src/themeSettingsVisualFixture.tsx"),
   read("scripts/capture-theme-settings-fixtures.ps1"),
@@ -156,7 +156,12 @@ for (const source of [listBoard, searchPalette, focusPanel]) {
 }
 invariant(liveActions.includes("showSuccessScreen"), "Done must read the persisted success-screen preference");
 invariant(liveActions.includes("onCompletionSuccess?.({"), "success-screen-enabled Done must gate next-task start behind success state");
-invariant(focusRoot.includes("startNextTaskFromSuccess"), "Focus root must own the explicit success-screen Next Task transition");
+invariant(
+  focusRoot.includes("startNextTaskFromSuccess")
+    && focusRoot.includes("<FocusCompletionSuccess")
+    && focusRoot.includes("onCompletionSuccess={recordCompletionSuccess}"),
+  "The single Focus coordinator must own the explicit success-screen Next Task transition for both presentations",
+);
 invariant(completionSuccess.includes("Next Task"), "success state must expose explicit Next Task");
 invariant(completionSuccess.includes("Take a Break"), "success state must expose the directly evidenced Take a Break choice");
 invariant(

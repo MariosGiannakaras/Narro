@@ -277,7 +277,7 @@ try {
                 -Url $scheduleUrl `
                 -ScreenshotPath $scheduleScreenshot `
                 -DomPath $scheduleDom `
-                -VirtualTimeBudgetMs 6000 `
+                -VirtualTimeBudgetMs 10000 `
                 -ReadyMarker 'data-task-schedule-fixture-ready="true"'
         }
     }
