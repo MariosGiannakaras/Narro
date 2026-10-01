@@ -4,26 +4,21 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
-## 2026-10-01 — CI #795 physical artifact invalid; production physical build split added
+## 2026-10-01 — CI #795 physical artifact invalid → current production-artifact gate
 
-The user recording `2026-10-01 09-21-24.mp4` (SHA-256 `80b05a2410c752c8e56d68be37db9b4d92db3cd767b666a909cc60c6f2e20fb5`) cannot be used as final M7 physical acceptance evidence. The supplied executable came from the CI-instrumented Tauri build, whose `focusSurface` URL is `focus.html?runtimeVisual=1`. The video visibly contains the resulting fixture list/task `CI Focus Runtime` / `Packaged runtime focus task`, proving that the physical profile was mutated by capture instrumentation.
+The user recording `2026-10-01 09-21-24.mp4` remains invalid as final M7 acceptance evidence because the supplied CI795 executable loaded `focus.html?runtimeVisual=1` and visibly created `CI Focus Runtime` / `Packaged runtime focus task` in the physical profile.
 
-The ZIP itself contains only EXE/installers and no SQLite DB; this is a build/config artifact-boundary defect, not a bundled database.
+Artifact-boundary correction `907d1f97...` separates:
+- instrumented automated packaged capture;
+- production-config physical build in `src-tauri/target-physical`, uploaded only as `narro-m7-physical-windows-x64`.
 
-PR #192 corrections:
-- `907d1f97949153b5ccb181ad0ed3d9784efd4605`: instrumented automated capture and production physical validation now build separately; production physical output uses `src-tauri/tauri.physical.conf.json` and isolated `src-tauri/target-physical`, uploaded as `narro-m7-physical-windows-x64`.
-- `5bda58516f9d1010d5d5b7b7f9abac76408c3db9`: before physical upload, CI launches that production-config EXE with isolated APPDATA/LOCALAPPDATA, requires `narro.db`, explicitly removes capture env, and rejects any DB containing the two CI fixture strings.
+CI #799 / run `36825786468` on head `2f64d8d2...` passed preflight, visual regression, automated packaged capture and the complete production physical build. It failed only at the post-build smoke because that smoke assumed process APPDATA/LOCALAPPDATA overrides would redirect Tauri `app_data_dir()` into the test directory.
 
-Additional smoke hardening in `ea75601f...` + `2f64d8d2...` scans the complete `narro.db*` DB/WAL family for fixture leakage while avoiding WebView-cache false positives.
+Current commit `7962411435bcb2ebf71c775963711273220a5186` replaces the unreliable DB-location assumption with a direct instrumentation-boundary runtime test: launch the production EXE with `NARRO_FOCUS_CAPTURE_DIR` deliberately set, keep it alive for 8 seconds, and fail if any `checkpoint-*.json` appears. Correct production `focus.html` cannot start the visual driver; an accidentally instrumented `runtimeVisual=1` build will expose itself through checkpoints.
 
-Current PR #192 exact head: `2f64d8d223d3c2deec23b33c7e24df293758611a`.
-Current Windows gate: #799 / run `36825786468`, **IN PROGRESS** at the latest durable checkpoint.
+Current Windows gate: #800 / run `36833625252`, **IN PROGRESS** at this durable checkpoint.
 
-The previous CI795 automated packaged-runtime evidence remains valid for the instrumented capture itself, but the old `narro-m1-runtime-harness-windows-x64` artifact must never again be handed out for physical acceptance. A fresh physical Gate 7/12 run is required on the new production-config artifact after #797 passes and artifact review is complete.
-
-Durable evidence:
-- `work-log/2026-10-01-chatgpt-m7-ci795-physical-artifact-validity-failure.md`;
-- `work-log/2026-10-01-chatgpt-m7-physical-artifact-smoke-wal-hardening.md`.
+No new physical build may be issued until #800 passes and the dedicated production artifact is inspected. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci799-physical-smoke-boundary-fix.md`.
 
 
 ## 2026-10-01 — CI #787 physical audit → current corrective candidate
