@@ -100,14 +100,16 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Apply the new short-lived integration policy from `docs/CI_VALIDATION_STRATEGY.md`: PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` is automated-green through Windows CI #803 and its production physical artifact is accepted. Expected-head guarded-merge #192 now; physical Gate 7/12 remains OPEN after merge.
-2. Require resulting-main validation because #192 changes `.github/workflows/ci.yml`, build/config/test inputs and Cargo/Tauri source. Record the resulting main SHA and artifacts.
-3. After resulting-main automated PASS, close M7 closure checkpoint C3 in `docs/M7_CLOSURE_PLAN.md` / tracking. The production artifact from resulting main becomes the preferred physical candidate.
-4. Create one short-lived CI/process-hardening slice from current `main` that implements the fast-gate → Windows-candidate sequencing in `docs/CI_VALIDATION_STRATEGY.md`, plus the consolidated physical-session evidence helper. Do not mix product/runtime behavior into that slice.
-5. Merge that process slice after exact-head validation. Future branches must be short-lived automated-green integration units; physical failures use narrow follow-up PRs.
-6. Then run consolidated physical M7 C4/C5 on the latest production-config main artifact. If PASS, reconcile M1/M6/M7/M8 tracking and continue the ordered roadmap. If FAIL, open one narrow corrective PR for the evidenced gate only.
-7. PR #205 remains untouched until the M7 integration/process-hardening sequence is stable; its CI #778 failure is already known to be rustfmt-only.
+1. M7 implementation PR #192 is merged. Exact automated-green PR head `440b172565d94fadb3e814559bec5f3b47e48012` was expected-head guarded-squash-merged as main source `1b68a602d8799ea7e19107ecc60dfd5855d38b4e`. A blob-level comparison proves zero non-Markdown differences between the validated PR head and merged main source.
+2. The short-lived process-hardening PR is #207 `ci/fast-candidate-gates`, current head `fae38241f063b89fb53f7e2f3525addc0f312f21`. Windows CI #805 / run `36852867376` is the active gate.
+3. #805 fast-gate is PASS. It successfully ran frontend/static/build contracts plus Rust formatting before starting Windows candidate work. The first #804 fast-gate also exposed a CRLF-dependent false-positive in `test-ui-focus-entry`; test-only commit `fae38241...` corrected that boundary without product/runtime changes.
+4. On #805 Windows-candidate PASS, expected-head guarded-merge #207 immediately. The PR is intentionally short-lived and contains CI/process/test-helper changes only.
+5. After merge, use the resulting main production-config physical artifact for the M7 bounded closure controller in `docs/M7_CLOSURE_PLAN.md`. C1/C2 are PASS; C3 closes once #207 is integrated/validated; C4/C5 remain the consolidated physical Gate 7/Gate 12 session.
+6. Use `scripts/prepare-m7-physical-session.ps1` from #207/main to prepare the physical evidence session and exact executable hash/checklist.
+7. If physical validation fails, create one narrow corrective PR from current `main` for the evidenced gate only; do not recreate a long-lived M7 branch.
+8. Static-test cleanup is maintenance-only and tracked in `docs/STATIC_CONTRACT_MIGRATION.md`; it is not an M7 blocker.
+9. PR #205 remains untouched until the M7 process/physical closure sequence is stable; its CI #778 failure is already known to be rustfmt-only.
 
 ## USER ACTION REQUIRED
 
-No user action is required until the resulting-main/process-hardening artifact is ready for the consolidated physical M7 C4/C5 session.
+None while PR #207 CI #805 is running. After the process-hardening PR is merged and the final production physical artifact is identified, run one consolidated M7 C4/C5 physical session.
