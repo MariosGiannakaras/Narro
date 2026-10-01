@@ -107,6 +107,16 @@ Before every source/config push that will trigger Windows CI:
 
 Windows CI is the reproducible second gate. Inspect the real failing step/log before changing code or rerunning. Do not retry a deterministic failure without a corrective change.
 
+### Short-lived integration and manual gates
+
+Follow `docs/CI_VALIDATION_STRATEGY.md`.
+
+When a coherent implementation PR is exact-head automated-green and the only remaining requirement is physical/manual observation, merge it with an expected-head guard instead of keeping a long-lived integration branch open. Keep the affected TODO/milestone gate OPEN until physical evidence exists.
+
+If physical validation later fails, branch narrowly from current `main`, fix the evidenced defect, validate/merge that corrective slice, and rerun the affected manual gate. Do not rebuild the entire milestone branch or replay unrelated validated work.
+
+A branch that has already accumulated a validated source generation must not become the container for successive future generations merely because the milestone is still open.
+
 After an expected-head guarded merge, compare the validated PR-head Git tree with the resulting main tree. If they are identical, the exact-head CI validates that source tree; do not manually dispatch another equivalent CI run. An automatically triggered duplicate main run may be cancelled after identity is proven when the validated PR artifact is suitable for any pending Windows test. Record that cancellation, and identify the PR artifact precisely. If the trees differ, validate the resulting main before claiming its source is covered. Physical Windows behavior still requires observation.
 
 ### Documentation/process changes go directly to main
