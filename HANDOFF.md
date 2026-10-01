@@ -99,13 +99,13 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `a220e398701b0ef04884ac42222485025f5aafd5`, Windows CI #794 / run `36822097033`.
+1. Inspect PR #192 exact head `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2`, Windows CI #795 / run `36822373471`.
 2. Production corrective commits remain `6972c4e0...` (active Timer invariant, expanded task/time, Find-Timer authority, idle Timer→Panel normalization, active packaged runtime harness) and `c77ece58...` (cross-window authoritative board synchronization).
-3. CI #793 / run `36792233873` failed only in `test-ui-floating-collapsed` because that static test still required the superseded conditional heading that hid task/time after expanded region commit. Test-only commit `a220e398...` now requires the shared heading in compact and expanded presentations. Durable checkpoint: `work-log/2026-10-01-chatgpt-m7-ci793-collapsed-contract-fix.md`.
-4. On #794 FAIL, inspect the exact failure log and fix only evidence-backed issues. On PASS, fetch/review every fresh required artifact. The packaged runtime must use a real active task/session and the expanded 340×300 Timer must visibly retain task title + live time.
+3. CI #793 exposed one stale collapsed-Timer static contract and test-only `a220e398...` corrected it. CI #794 then passed the entire frontend preflight/build and failed first at Rust formatting only; formatting-only `26f4fc25...` applies the exact rustfmt diff in `shortcuts/mod.rs`. Durable checkpoint: `work-log/2026-10-01-chatgpt-m7-ci794-rustfmt-fix.md`.
+4. On #795 FAIL, inspect the exact failure log and fix only evidence-backed issues. On PASS, fetch/review all fresh required artifacts. The packaged runtime must use a real active task/session and expanded 340×300 Timer must visibly retain task title + live time.
 5. Only after clean artifact review issue a fresh physical Windows build. Retest one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle Ctrl+Shift+T / Find Timer no-op, Main/Focus/Home sync, fullscreen topmost, drag/save/restart and real two-monitor 100%↔125% Gate 12.
 6. Do not merge #192 until physical PASS. After physical PASS reconcile latest docs-only main without changing source blobs, run final exact-head validation if the tree changed, guarded merge, resulting-main validation as required, then reconcile reopened M1/M6/M7/M8 tracking.
 
 ## USER ACTION REQUIRED
 
-None while CI #794 is running. Do not request another physical run until #794 passes and the fresh artifacts are reviewed.
+None while CI #795 is running. Do not request another physical run until #795 passes and the fresh artifacts are reviewed.
