@@ -100,16 +100,16 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `2f64d8d223d3c2deec23b33c7e24df293758611a`, Windows CI #799 / run `36825786468`.
-2. CI #795 itself was automated-green, but the physical artifact handoff was invalid: the old uploaded runtime harness was the same `tauri.ci.conf.json` instrumented EXE whose Focus URL is `focus.html?runtimeVisual=1`. User recording `2026-10-01 09-21-24.mp4` (SHA-256 `80b05a2410c752c8e56d68be37db9b4d92db3cd767b666a909cc60c6f2e20fb5`) visibly contains `CI Focus Runtime` / `Packaged runtime focus task`. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci795-physical-artifact-validity-failure.md`.
-3. Commit `907d1f97...` separates builds: instrumented capture stays in default target; production-config physical build uses `tauri.physical.conf.json` and isolated `src-tauri/target-physical`; the only user-test artifact is now `narro-m7-physical-windows-x64`.
-4. Commit `5bda5851...` adds a pre-upload isolated-profile runtime smoke: production physical EXE must create `narro.db` without `CI Focus Runtime` or `Packaged runtime focus task`; `NARRO_FOCUS_CAPTURE_DIR` is explicitly absent. Commits `ea75601f...` + `2f64d8d2...` harden that smoke to inspect the full `narro.db*` SQLite/WAL family and protect the requirement statically, while deliberately avoiding WebView cache false positives.
-5. On #799 FAIL, inspect exact failure and fix only evidence-backed issues. On PASS, fetch/review both the instrumented packaged-runtime visual artifact and the new production-config physical artifact. Do not hand out any old `narro-m1-runtime-harness-windows-x64` artifact.
-6. Only after clean artifact review issue the new production-config physical build. Before retest, ensure known CI fixture records left by the bad artifact are removed from the validation profile (manual cleanup or clean profile; do not add title-based production auto-deletion).
-7. Physical Gate 7/Gate 12 must then be rerun on that exact production artifact. Do not merge #192 until physical PASS.
+1. Inspect PR #192 exact head `7962411435bcb2ebf71c775963711273220a5186`, Windows CI #800 / run `36833625252`.
+2. CI #795 automated evidence remains valid, but its old user-facing runtime artifact was invalid because it was CI-instrumented. Artifact-validity split remains in `907d1f97...`: automated capture build keeps `runtimeVisual=1`; production physical build uses `tauri.physical.conf.json` in isolated `src-tauri/target-physical` and uploads only `narro-m7-physical-windows-x64`.
+3. CI #799 / run `36825786468` proved the production physical build itself completes, but its smoke failed only because it assumed overridden APPDATA/LOCALAPPDATA would redirect Tauri `app_data_dir()`. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci799-physical-smoke-boundary-fix.md`.
+4. Current commit `79624114...` replaces that smoke with a direct renderer-boundary test: launch the production physical EXE with `NARRO_FOCUS_CAPTURE_DIR` deliberately enabled and fail if any `checkpoint-*.json` appears. A correct production build loads plain `focus.html` and must keep the runtime visual driver dormant.
+5. On #800 FAIL, inspect exact failure only. On PASS, fetch/review the instrumented Focus visual artifact **and especially** the new production-config `narro-m7-physical-windows-x64` artifact. Never hand out the old `narro-m1-runtime-harness-windows-x64`.
+6. Only after clean artifact review issue the new physical build. Before retest, remove known CI fixture records left by the old bad artifact or use a clean validation profile.
+7. Rerun physical Gate 7/Gate 12 on that exact production artifact. Do not merge #192 until physical PASS.
 
 ## USER ACTION REQUIRED
 
-None while CI #799 is running. The previous CI795 physical recording is invalid as final acceptance evidence because the supplied EXE was CI-instrumented.
+None while CI #800 is running. The previous CI795 physical recording remains invalid for final acceptance because it used an instrumented build.
 
-After #797 passes and the new artifact is reviewed, the next physical test must use only the new `narro-m7-physical-windows-x64` production-config artifact. Before recording, remove the known `CI Focus Runtime` / `Packaged runtime focus task` fixture data created by the bad artifact or use a clean validation profile.
+After #800 passes and the new artifact is reviewed, physical validation must use only `narro-m7-physical-windows-x64`.
