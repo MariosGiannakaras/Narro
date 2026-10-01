@@ -4,6 +4,24 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-01 — CI #795 physical artifact invalid; production physical build split added
+
+The user recording `2026-10-01 09-21-24.mp4` (SHA-256 `80b05a2410c752c8e56d68be37db9b4d92db3cd767b666a909cc60c6f2e20fb5`) cannot be used as final M7 physical acceptance evidence. The supplied executable came from the CI-instrumented Tauri build, whose `focusSurface` URL is `focus.html?runtimeVisual=1`. The video visibly contains the resulting fixture list/task `CI Focus Runtime` / `Packaged runtime focus task`, proving that the physical profile was mutated by capture instrumentation.
+
+The ZIP itself contains only EXE/installers and no SQLite DB; this is a build/config artifact-boundary defect, not a bundled database.
+
+PR #192 corrections:
+- `907d1f97949153b5ccb181ad0ed3d9784efd4605`: instrumented automated capture and production physical validation now build separately; production physical output uses `src-tauri/tauri.physical.conf.json` and isolated `src-tauri/target-physical`, uploaded as `narro-m7-physical-windows-x64`.
+- `5bda58516f9d1010d5d5b7b7f9abac76408c3db9`: before physical upload, CI launches that production-config EXE with isolated APPDATA/LOCALAPPDATA, requires `narro.db`, explicitly removes capture env, and rejects any DB containing the two CI fixture strings.
+
+Current PR #192 exact head: `5bda58516f9d1010d5d5b7b7f9abac76408c3db9`.
+Current Windows gate: #797 / run `36825553397`, pending at the latest durable checkpoint.
+
+The previous CI795 automated packaged-runtime evidence remains valid for the instrumented capture itself, but the old `narro-m1-runtime-harness-windows-x64` artifact must never again be handed out for physical acceptance. A fresh physical Gate 7/12 run is required on the new production-config artifact after #797 passes and artifact review is complete.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci795-physical-artifact-validity-failure.md`.
+
+
 ## 2026-10-01 — CI #787 physical audit → current corrective candidate
 
 Physical recording `2026-10-01 02-02-06.mp4` (SHA-256 `0d922f55aef30d5e88ad32fab9a1c41ed8458b71013ad18e3bebc70fdf4da99c`) on CI #787 exposed three correctness defects despite materially improved single-host continuity:
