@@ -100,13 +100,18 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2`, Windows CI #795 / run `36822373471`.
-2. Production corrective commits remain `6972c4e0...` (active Timer invariant, expanded task/time, Find-Timer authority, idle Timer→Panel normalization, active packaged runtime harness) and `c77ece58...` (cross-window authoritative board synchronization).
-3. CI #793 exposed one stale collapsed-Timer static contract and test-only `a220e398...` corrected it. CI #794 then passed the entire frontend preflight/build and failed first at Rust formatting only; formatting-only `26f4fc25...` applies the exact rustfmt diff in `shortcuts/mod.rs`. Durable checkpoint: `work-log/2026-10-01-chatgpt-m7-ci794-rustfmt-fix.md`.
-4. On #795 FAIL, inspect the exact failure log and fix only evidence-backed issues. On PASS, fetch/review all fresh required artifacts. The packaged runtime must use a real active task/session and expanded 340×300 Timer must visibly retain task title + live time.
-5. Only after clean artifact review issue a fresh physical Windows build. Retest one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle Ctrl+Shift+T / Find Timer no-op, Main/Focus/Home sync, fullscreen topmost, drag/save/restart and real two-monitor 100%↔125% Gate 12.
-6. Do not merge #192 until physical PASS. After physical PASS reconcile latest docs-only main without changing source blobs, run final exact-head validation if the tree changed, guarded merge, resulting-main validation as required, then reconcile reopened M1/M6/M7/M8 tracking.
+1. PR #192 exact head `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2` is automated-green: Windows CI #795 / run `36822373471` **PASS**. Mandatory artifact review is accepted; durable evidence: `work-log/2026-10-01-chatgpt-m7-ci795-pass-artifact-acceptance.md`.
+2. Accepted artifacts:
+   - packaged Focus runtime visual id `11144380370`, digest `sha256:bd048627706561ed9fc168cbe7bb34c1457204c814f04f7e151be03f4bf7b923`;
+   - runtime harness id `11144235897`, digest `sha256:4520728c8ea35aa20a5f20f71e5d208c2057f966082f8e6f44ca8015943bdd43`;
+   - visual regression id `11142994011`, digest `sha256:d5eb6e2ae6b4b6544865043a6823e9b4523d09003692e8397cea67ed2dc99f08`.
+3. Artifact review proves a real active persisted task/session in the packaged runtime. Panel, compact Timer and expanded Timer share HWND `0x201FE`; compact shows task + live countdown and expanded 340×300 retains the same task + live time. No unintended root/document scroller is reported. Hosted runner remains reduced-motion, so normal ~270 ms motion still requires physical validation.
+4. The next action is the exact physical Gate 7/Gate 12 run on the CI795 build. Validate one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5 visible Timer→Blitz→Panel, idle Ctrl+Shift+T/Find Timer no-op, Main/Focus/Home cross-window sync, fullscreen topmost, drag/save/restart and real two-monitor 100%↔125% crossing/topology recovery.
+5. Do not merge #192 before physical PASS. After physical PASS, reconcile latest docs-only main into the branch without altering validated source blobs if possible; validate any changed exact source tree, guarded merge, then perform resulting-main validation/reconciliation as required.
+6. PR #205 CI #778 has already been inspected read-only: frontend/build passed and only rustfmt failed in `report_commands.rs:359`. Do not modify #205 until this M7 physical gate is resolved.
 
 ## USER ACTION REQUIRED
 
-None while CI #795 is running. Do not request another physical run until #795 passes and the fresh artifacts are reviewed.
+Run the fresh CI #795 Windows build and provide the physical result/recording for Gate 7/Gate 12. Prefer the exact `narro.exe` from artifact `11144235897`.
+
+The recording should include an active task/session and, as practical in one pass: repeated Panel↔Timer and compact↔expanded transitions, Timer→Blitz-now→Panel, idle shortcut no-op after stopping/completing work, Main/Focus/Home mutation sync, topmost over a maximized/fullscreen app, drag/save/restart placement, and the two-monitor 100%↔125% crossing/topology checks.
