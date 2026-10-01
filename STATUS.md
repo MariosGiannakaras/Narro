@@ -17,15 +17,18 @@ Production corrections in PR #192:
 
 CI #789 failed on stale direct-IPC static contracts and those were reconciled without further production behavior changes. CI #793 then progressed through the Focus/compact Timer preflight chain and failed only because `test-ui-floating-collapsed` still required the old conditional heading that intentionally disappeared when expanded Timer began retaining task/time. Test-only commit `a220e398701b0ef04884ac42222485025f5aafd5` corrects that contract.
 
-Current PR #192 exact head: `a220e398701b0ef04884ac42222485025f5aafd5`.
-Current Windows gate: #794 / run `36822097033`, **IN PROGRESS** at the latest durable checkpoint.
+CI #794 passed the complete frontend preflight and production build, then failed only on `cargo fmt --check` for the newly added Find-Timer error call layout. Formatting-only commit `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2` applies the exact rustfmt diff; targeted type review confirms the snapshot error remains `CommandError` end-to-end.
+
+Current PR #192 exact head: `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2`.
+Current Windows gate: #795 / run `36822373471`, **IN PROGRESS** at the latest durable checkpoint.
 
 The newest packaged-runtime validator inspection found no stale requirement that expanded task/time be absent. No new physical build should be issued until #794 passes and fresh artifacts are reviewed.
 
 Durable evidence:
 - `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`;
 - `work-log/2026-10-01-chatgpt-m7-ci789-static-contract-reconciliation.md`;
-- `work-log/2026-10-01-chatgpt-m7-ci793-collapsed-contract-fix.md`.
+- `work-log/2026-10-01-chatgpt-m7-ci793-collapsed-contract-fix.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci794-rustfmt-fix.md`.
 
 ## Current phase
 
