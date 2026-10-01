@@ -4,6 +4,22 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-01 — M7 integrated; short-lived CI hardening PR #207 active
+
+PR #192 is no longer a long-lived integration branch. Exact head `440b172565d94fadb3e814559bec5f3b47e48012` was expected-head guarded-squash-merged as main source `1b68a602d8799ea7e19107ecc60dfd5855d38b4e`. Non-Markdown blob comparison between the #803 validated PR head and merged main is exactly zero differences.
+
+The active process-hardening slice is PR #207, branch `ci/fast-candidate-gates`, current head `fae38241f063b89fb53f7e2f3525addc0f312f21`. It is intentionally short-lived and changes no product/runtime behavior.
+
+Its new CI design has already demonstrated the intended ordering:
+- validation gate;
+- fast gate for frontend/static/build contracts + Rust formatting;
+- Windows candidate only after fast gate PASS.
+
+CI #804 stopped in the fast gate on a previously hidden CRLF-dependent false-positive in `test-ui-focus-entry`; Windows candidate did not run. The test was corrected semantically/line-ending-independently in `fae38241...`. CI #805 fast gate is PASS and its Windows candidate is currently running.
+
+This process change implements `docs/CI_VALIDATION_STRATEGY.md`. M7 runtime closure itself now follows `docs/M7_CLOSURE_PLAN.md`; C1/C2 are PASS, C3 is main/process integration, C4/C5 are the remaining consolidated physical gates.
+
+
 ## 2026-10-01 — M7 process correction: automated-green integration before physical closure
 
 The prior process kept PR #192 open while waiting for physical acceptance and allowed it to grow to hundreds of commits while `main` continued to advance. This is now superseded by `docs/CI_VALIDATION_STRATEGY.md`.
