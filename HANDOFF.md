@@ -100,18 +100,14 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` is automated-green: Windows CI #803 / run `36840822689` **PASS**. Mandatory artifact review is accepted; durable evidence: `work-log/2026-10-01-chatgpt-m7-ci803-production-artifact-acceptance.md`.
-2. Use only production physical artifact `narro-m7-physical-windows-x64` id `11151976720`, digest `sha256:cc193e2363c01721e8ecc16207d1faf08001dd9194e415657d8605518e0007aa`. Its `narro.exe` SHA-256 is `625caea10060e69b0148ca22c6e2f645cd675536d505a31f2e31db974df4cd43`.
-3. CI physical smoke passed with authoritative log `Physical validation build stayed free of CI runtimeVisual checkpoints.`; therefore this artifact does not activate the CI visual driver.
-4. Fresh packaged motion review also passes: prior Timer→Panel endpoint defect `388→684→668` is gone; #803 samples move `(388,80) → (668,0)` and remain there. Scheduling visual regression also passes with hydrated fixture captures.
-5. Before physical retest, remove old `CI Focus Runtime` / `Packaged runtime focus task` records left by the invalid CI795 artifact or use a clean validation profile.
-6. Rerun physical Gate 7/Gate 12 on the exact #803 production artifact: one runtime, active continuity, repeated Panel↔Timer/Expand↔Collapse, B5, idle T/P no-op, Main/Focus/Home sync, fullscreen topmost, drag/save/restart, and real two-monitor 100%↔125% crossing/topology recovery.
-7. Do not merge #192 before physical PASS. After physical PASS, reconcile latest docs-only main while preserving validated source blobs where possible, run final exact-head validation if required, guarded merge, resulting-main validation, then reconcile reopened M1/M6/M7/M8 tracking.
+1. Apply the new short-lived integration policy from `docs/CI_VALIDATION_STRATEGY.md`: PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` is automated-green through Windows CI #803 and its production physical artifact is accepted. Expected-head guarded-merge #192 now; physical Gate 7/12 remains OPEN after merge.
+2. Require resulting-main validation because #192 changes `.github/workflows/ci.yml`, build/config/test inputs and Cargo/Tauri source. Record the resulting main SHA and artifacts.
+3. After resulting-main automated PASS, close M7 closure checkpoint C3 in `docs/M7_CLOSURE_PLAN.md` / tracking. The production artifact from resulting main becomes the preferred physical candidate.
+4. Create one short-lived CI/process-hardening slice from current `main` that implements the fast-gate → Windows-candidate sequencing in `docs/CI_VALIDATION_STRATEGY.md`, plus the consolidated physical-session evidence helper. Do not mix product/runtime behavior into that slice.
+5. Merge that process slice after exact-head validation. Future branches must be short-lived automated-green integration units; physical failures use narrow follow-up PRs.
+6. Then run consolidated physical M7 C4/C5 on the latest production-config main artifact. If PASS, reconcile M1/M6/M7/M8 tracking and continue the ordered roadmap. If FAIL, open one narrow corrective PR for the evidenced gate only.
+7. PR #205 remains untouched until the M7 integration/process-hardening sequence is stable; its CI #778 failure is already known to be rustfmt-only.
 
 ## USER ACTION REQUIRED
 
-Run the fresh CI #803 **production-config** physical build. Prefer the exact standalone `narro.exe` from artifact `11151976720`.
-
-Before recording, remove old fixture records `CI Focus Runtime` / `Packaged runtime focus task` created by the invalid CI795 executable, or use a clean validation profile.
-
-Provide the physical result/recording for Gate 7/Gate 12.
+No user action is required until the resulting-main/process-hardening artifact is ready for the consolidated physical M7 C4/C5 session.
