@@ -4,6 +4,22 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-01 — M7 C3 integrated; only physical C4/C5 remain
+
+M7 implementation PR #192 is merged. Process-hardening PR #207 exact head `df6e548a059551178972b16b7d9c6e8e0dfb91b2` passed Windows CI #806 / run `36854279514` with validation-gate, fast-gate and windows-candidate all PASS, then guarded-squash-merged as `aebc280da2ef7bcb5e4fd1d4d78fa529b63f49b7`.
+
+The GitHub integration emitted no push-triggered merge run. Blob-level comparison proves zero non-Markdown differences between the exact-green PR head and merged main, satisfying the repository's integration-token validation rule without a dummy source commit.
+
+M7 closure state is now C1 PASS / C2 PASS / C3 PASS / C4 OPEN / C5 OPEN.
+
+Final physical candidate:
+- artifact id `11159233418`;
+- artifact digest `sha256:33a6dfe8ed418c1466b8a0adbc4005335f5255869af151a974dc2771ae160b91`;
+- standalone EXE SHA-256 `a22bb0996f38720abacb6f78c79909bfd52fe295db6593937fa6e35dd2227af9`.
+
+Only the consolidated physical Gate 7/Gate 12 session remains before M7 tracking closure. Durable evidence: `work-log/2026-10-01-chatgpt-m7-c3-main-integration-closure.md`.
+
+
 ## 2026-10-01 — M7 integrated; short-lived CI hardening PR #207 active
 
 PR #192 is no longer a long-lived integration branch. Exact head `440b172565d94fadb3e814559bec5f3b47e48012` was expected-head guarded-squash-merged as main source `1b68a602d8799ea7e19107ecc60dfd5855d38b4e`. Non-Markdown blob comparison between the #803 validated PR head and merged main is exactly zero differences.
