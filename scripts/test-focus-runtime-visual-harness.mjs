@@ -9,6 +9,7 @@ const nativeProbe = fs.readFileSync("scripts/read-focus-window-metadata.ps1", "u
 const nativeCapture = fs.readFileSync("scripts/capture-focus-window.ps1", "utf8");
 const nativeSequence = fs.readFileSync("scripts/capture-focus-window-sequence.ps1", "utf8");
 const nativeMotionSampler = fs.readFileSync("scripts/sample-focus-window-motion.ps1", "utf8");
+const physicalSmoke = fs.readFileSync("scripts/verify-physical-validation-build.ps1", "utf8");
 const driver = fs.readFileSync("src/focusRuntimeVisualDriver.ts", "utf8");
 const rust = fs.readFileSync("src-tauri/src/lib.rs", "utf8");
 const validator = fs.readFileSync("scripts/validate-focus-runtime-captures.mjs", "utf8");
@@ -122,4 +123,20 @@ invariant(
     && !workflow.includes("name: narro-m1-runtime-harness-windows-x64"),
   "physical artifact must upload only the production-config isolated build, never the instrumented capture executable",
 );
+const physicalVerifyIndex = workflow.indexOf("- name: Verify Physical Validation Build");
+invariant(
+  physicalVerifyIndex > physicalBuildIndex
+    && physicalVerifyIndex < physicalUploadIndex
+    && workflow.includes("scripts/verify-physical-validation-build.ps1"),
+  "physical production-config executable must pass an isolated-profile smoke check before upload",
+);
+for (const required of [
+  "NARRO_FOCUS_CAPTURE_DIR",
+  "narro.db",
+  "CI Focus Runtime",
+  "Packaged runtime focus task",
+  "[System.IO.File]::ReadAllBytes",
+]) {
+  invariant(physicalSmoke.includes(required), `physical artifact smoke check is missing ${required}`);
+}
 console.log("Focus packaged-runtime visual harness contracts passed.");

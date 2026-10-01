@@ -98,6 +98,8 @@ for (const contract of [
   ["Build Physical Validation Release", "CI must rebuild a production-window binary after packaged runtime capture"],
   ['$env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"', "physical build must use an isolated Cargo target directory"],
   ["npm run tauri:physical-ci", "physical build must use the production-window config overlay"],
+  ["Verify Physical Validation Build", "physical build must pass an isolated-profile runtime smoke check"],
+  ["verify-physical-validation-build.ps1", "CI must verify that the physical binary cannot seed capture fixtures"],
   ["name: narro-m7-physical-windows-x64", "CI must upload a dedicated production-config physical artifact"],
   ["src-tauri/target-physical/release/narro.exe", "physical artifact must come from the isolated production-config target"],
 ]) {
@@ -161,6 +163,7 @@ await Promise.all([
   requireFile("index.html"),
   requireFile("focus.html"),
   requireFile("src-tauri/icons/narro-tray-64.png"),
+  requireFile("scripts/verify-physical-validation-build.ps1"),
 ]);
 
 console.log("Repository configuration invariants: PASS");

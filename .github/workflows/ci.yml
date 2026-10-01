@@ -212,6 +212,11 @@ jobs:
         $env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"
         npm run tauri:physical-ci
 
+    - name: Verify Physical Validation Build
+      shell: pwsh
+      run: |
+        powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-physical-validation-build.ps1 -Executable src-tauri/target-physical/release/narro.exe
+
     - name: Upload Physical Validation Build Artifact
       uses: actions/upload-artifact@v4
       with:
