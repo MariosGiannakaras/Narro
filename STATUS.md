@@ -4,46 +4,42 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
-## 2026-10-01 — CI #787 physical active-session audit reopened M7 corrections
+## 2026-10-01 — CI #787 physical audit → current corrective candidate
 
-Physical recording `2026-10-01 02-02-06.mp4` (SHA-256 `0d922f55aef30d5e88ad32fab9a1c41ed8458b71013ad18e3bebc70fdf4da99c`) was captured on exact CI #787 runtime artifact `11129693452`. It is not a final Gate 7/12 PASS.
-
-Positive evidence: active Panel→Timer retained task/time continuity and the sampled single-host transition had no obvious full white/blank/stale frame. No visible shortcut-conflict card appeared.
-
-Corrections required by the recording:
-- idle/no-task Timer remained exposable through stale presentation/Find-Timer paths;
+Physical recording `2026-10-01 02-02-06.mp4` (SHA-256 `0d922f55aef30d5e88ad32fab9a1c41ed8458b71013ad18e3bebc70fdf4da99c`) on CI #787 exposed three correctness defects despite materially improved single-host continuity:
+- idle/no-task Timer could be resurfaced through stale presentation / Find-Timer paths;
 - expanded active Timer removed task title/live time;
 - visible Main All Lists stayed stale after Focus quick-create/start against the same SQLite authority.
 
-PR #192 corrective commits:
+Production corrections in PR #192:
 - `6972c4e08d8fce4b1eb4f7843123f22564c28607` — active-only Timer invariant, Find-Timer gate, expanded title/time, active packaged runtime harness;
 - `c77ece58439753d92ab486d1ebb3a43605efbbd3` — authoritative cross-window board invalidation/re-read.
 
-Current exact source head is `c77ece58...`; Windows CI #789 / run `36791787553` is queued. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`.
+CI #789 failed on stale direct-IPC static contracts and those were reconciled without further production behavior changes. CI #793 then progressed through the Focus/compact Timer preflight chain and failed only because `test-ui-floating-collapsed` still required the old conditional heading that intentionally disappeared when expanded Timer began retaining task/time. Test-only commit `a220e398701b0ef04884ac42222485025f5aafd5` corrects that contract.
 
+Current PR #192 exact head: `a220e398701b0ef04884ac42222485025f5aafd5`.
+Current Windows gate: #794 / run `36822097033`, **IN PROGRESS** at the latest durable checkpoint.
+
+The newest packaged-runtime validator inspection found no stale requirement that expanded task/time be absent. No new physical build should be issued until #794 passes and fresh artifacts are reviewed.
+
+Durable evidence:
+- `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci789-static-contract-reconciliation.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci793-collapsed-contract-fix.md`.
 
 ## Current phase
 
 **Milestone 1 — reopened Windows/Focus foundation, driven by the M7 single-Focus corrective program.**
 
-Current roadmap counters remain **4/10 milestones complete**, active small slice **2/5**, and reopened M1 **11/19** top-level items validated. No counter advances from CI #744 because the physical replacement gates remain open.
+Counters remain **4/10 milestones complete**, active small slice **2/5**, reopened M1 **11/19** top-level items validated. No counter advances from the corrective implementation alone because exact-head automated validation and the physical replacement gates remain open.
 
-PR #192 remains **OPEN / DO NOT MERGE** on `plan/m7-single-focus`. Its exact automated-green source head is now `0ef808445b567a4a3194296ed1dccb5a6a58b03e`. Windows CI #744 / run `36737427034` is **PASS** on that exact head: Repository Preflight, frontend contracts/build, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release, packaged Focus runtime capture/validation, and all required artifact uploads passed.
+PR #192 remains **OPEN / DO NOT MERGE** on `plan/m7-single-focus`. Historical CI #787 is the most recent green packaged candidate, but its subsequent physical recording invalidated final acceptance and led to the corrections above. The current `a220e398...` head is not yet promoted to automated-valid until #794 completes successfully.
 
-Accepted #744 artifacts:
-- `narro-m7-focus-runtime-visual`: id `11109291010`, digest `sha256:45994931d9e19d13c1ccff62634b2b616c62c59222bd2d26f02e1a278a9b9da9`;
-- `narro-m1-runtime-harness-windows-x64`: id `11109560929`, digest `sha256:6b848df39993108d8102cd75265692ce824ec3d592d569170285b60d67ee2fef`;
-- `narro-m5-visual-regression`: id `11107169960`, digest `sha256:14b0dbc5f68995190a62079625b1a3189efbbd69f7ba899f07a726db75fc8503`.
+Latest fully validated current-main source checkpoint for the single-instance foundation remains `4f48941939fa5114e100992280b9ea96540f0df8` (PR #206 merged; resulting-main CI #785 PASS). Documentation-only main commits after that SHA do not replace the validated application-source checkpoint.
 
-The packaged runtime artifact was downloaded and inspected. Settled Panel/compact/expanded states validate 340x700 / 340x110 / 340x300 logical presentation geometry, DPI/native-region metadata, transparent document roots, and no unintended document/root scrollbar. The hosted Windows runner reports `prefers-reduced-motion: true`; its high-frequency Win32 samples therefore validate the reduced-motion near-immediate start/end transition. CI #744 does **not** establish the visual character of the normal ~250 ms standard-motion path.
+Physical Gate 7 and Gate 12 remain **OPEN**. Physical Windows access exists, but the next run must use the fresh exact artifact after #794/artifact review and must cover active continuity, repeated Panel↔Timer and Expand↔Collapse, idle shortcut no-op, cross-window projection reconciliation, always-on-top, saved placement/restart, and real two-monitor 100%↔125% crossing/topology recovery.
 
-Physical Gate 7 and Gate 12 remain **OPEN / NOT RUN / UNAVAILABLE** because the user's physical Windows system is unavailable. Real standard-motion Panel<->Timer / Expand<->Collapse continuity, selected-monitor/edge placement, topology recovery, and mixed-monitor 100%<->125% behavior still require the physical replacement matrix. The fully merged/physically accepted application-source baseline for the reopened M1/M6/M7 chain therefore remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`; the unmerged #744 head does not replace it.
-
-Independent M8 progress remains validated/merged:
-- PREF-R02: PR #193 / CI #714 / merge `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`;
-- PREF-R03: PR #195 / CI #722 / merge `1c9f2c7dc670fddcbf8cf687ca5b1945588eb01c` / main CI #723;
-- PREF-R06: PR #194 / CI #721 / merge `88dea3bcbd988f2e77ea0edccb218be95e5b2438` / main CI #724.
-PREF-R05 remains blocked on validated Narro-owned or user-local sound assets; Focus-shortcut closure remains coupled to the M7 replacement.
+Independent validated M8 work remains closed where unaffected; Focus-shortcut integration items remain reopened until the replacement chain is physically accepted.
 
 ## 2026-09-30 — CI #744 physical whole-app audit supersedes “physical unavailable”
 
