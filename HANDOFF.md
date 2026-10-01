@@ -100,14 +100,14 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `1f9bc0185177ed9aaf9b3efc6248c5e8031da9b5`, Windows CI #801 / run `36836958927`.
-2. CI #800 attempts 1 and 2 both failed before Tauri/physical-build steps because `task-scheduling-light` repeatedly missed its ready marker. This became deterministic evidence, not a one-off flake. Durable root-cause/fix: `work-log/2026-10-01-chatgpt-m7-ci800-scheduling-fixture-determinism.md`.
-3. Commit `1f9bc018...` is fixture/test-only: scheduling visual readiness now yields up to 120 `requestAnimationFrame` turns instead of spinning `performance.now` + 10ms timers under Edge virtual time. Production scheduling/recurrence source is unchanged.
-4. Artifact-validity correction remains unchanged: automated capture uses the instrumented build; user physical build uses production Focus URL in isolated `src-tauri/target-physical`, uploaded only as `narro-m7-physical-windows-x64`.
-5. The physical-build runtime smoke deliberately enables `NARRO_FOCUS_CAPTURE_DIR` and requires zero `checkpoint-*.json`, directly proving `runtimeVisual=1` is not active in the physical EXE.
-6. On #801 FAIL, inspect the exact failure only. On PASS, fetch/review both the packaged Focus visual artifact and the production physical artifact; verify the physical smoke step itself passed. Never hand out the old instrumented runtime-harness artifact.
-7. Only after clean artifact review issue the production build, clean old fixture data/use a clean profile, and rerun physical Gate 7/Gate 12. Do not merge #192 before physical PASS.
+1. Inspect PR #192 exact head `5c8f4c4ec7ae403cf05bd4b7994187da50bb0aa7`, Windows CI #802 / run `36840338653`.
+2. CI #800 attempts 1/2 exposed deterministic hosted scheduling-fixture readiness starvation. Fixture/test-only commit `1f9bc018...` replaced virtual-time timer polling with bounded `requestAnimationFrame` yielding; CI #801 then passed preflight and the complete Windows visual-regression suite, proving that correction.
+3. CI #801 failed only at packaged Focus runtime validation. Artifact `11149609321` (digest `sha256:e8c018547e8895061819f93c9c0ebd169d8f63ebb526d805de16b4ce975e4573`) showed Timer→Panel reduced-motion geometry `(388,80) → (684,0) → (668,0)`. The 16 px reverse step was real: animation planning used 340 px client width while settled decorated HWND width is 356 px. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci801-panel-endpoint-snap.md`.
+4. Commit `5c8f4c4e...` fixes the root cause without relaxing validation: same-DPI Panel motion plans against the actual outer HWND size; cross-DPI keeps target-scale planning. New Rust tests protect both branches; the strict monotonic motion validator remains unchanged.
+5. Artifact-validity correction remains active: automated capture is instrumented; physical validation build uses production Focus URL in isolated `src-tauri/target-physical`, uploads only `narro-m7-physical-windows-x64`, and must pass the direct zero-`checkpoint-*.json` runtimeVisual smoke.
+6. On #802 FAIL, inspect the exact failure only. On PASS, review scheduling captures, packaged motion samples, the production physical build and smoke. Confirm Timer→Panel no longer contains the 684→668 endpoint correction.
+7. Only after clean artifact review issue the production physical build. Clean old CI fixture data/use a clean validation profile, rerun Gate 7/Gate 12, and do not merge #192 before physical PASS.
 
 ## USER ACTION REQUIRED
 
-None while CI #801 is running. Do not perform another physical run until #801 passes and the dedicated production-config physical artifact is reviewed.
+None while CI #802 is running. Do not perform another physical run until #802 passes and the dedicated production-config physical artifact is reviewed.
