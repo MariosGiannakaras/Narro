@@ -132,12 +132,16 @@ invariant(
 );
 for (const required of [
   "NARRO_FOCUS_CAPTURE_DIR",
-  "narro.db",
-  'Filter "narro.db*"',
-  "CI Focus Runtime",
-  "Packaged runtime focus task",
-  "[System.IO.File]::ReadAllBytes",
+  'Filter "checkpoint-*.json"',
+  "runtimeVisual instrumentation",
+  "stayed free of CI runtimeVisual checkpoints",
 ]) {
   invariant(physicalSmoke.includes(required), `physical artifact smoke check is missing ${required}`);
 }
+invariant(
+  !physicalSmoke.includes("APPDATA")
+    && !physicalSmoke.includes("LOCALAPPDATA")
+    && !physicalSmoke.includes("narro.db"),
+  "physical artifact smoke must verify the renderer activation boundary directly instead of assuming Windows app-data redirection",
+);
 console.log("Focus packaged-runtime visual harness contracts passed.");

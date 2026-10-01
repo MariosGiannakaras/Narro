@@ -7,76 +7,54 @@ $ErrorActionPreference = "Stop"
 
 $exe = (Resolve-Path $Executable).Path
 $root = Join-Path (Get-Location) "artifacts/physical-validation-smoke"
-$roaming = Join-Path $root "Roaming"
-$local = Join-Path $root "Local"
+$captureDir = Join-Path $root "capture"
 
 if (Test-Path $root) {
     Remove-Item $root -Recurse -Force
 }
-New-Item -ItemType Directory -Force -Path $roaming, $local | Out-Null
+New-Item -ItemType Directory -Force -Path $captureDir | Out-Null
 
-$oldAppData = $env:APPDATA
-$oldLocalAppData = $env:LOCALAPPDATA
 $oldCapture = $env:NARRO_FOCUS_CAPTURE_DIR
 $process = $null
 
 try {
-    $env:APPDATA = $roaming
-    $env:LOCALAPPDATA = $local
-    Remove-Item Env:NARRO_FOCUS_CAPTURE_DIR -ErrorAction SilentlyContinue
+    # Deliberately enable the native capture checkpoint transport. A correct
+    # production-config physical build still loads focus.html (no runtimeVisual
+    # query), so the renderer driver must remain dormant and write no checkpoint.
+    # An accidentally instrumented build will activate the visual driver and
+    # expose itself by writing checkpoint-*.json into this directory.
+    $env:NARRO_FOCUS_CAPTURE_DIR = $captureDir
 
     $process = Start-Process -FilePath $exe -WorkingDirectory (Split-Path $exe) -PassThru
 
-    $deadline = [DateTime]::UtcNow.AddSeconds(15)
-    $database = $null
+    $deadline = [DateTime]::UtcNow.AddSeconds(8)
     while ([DateTime]::UtcNow -lt $deadline) {
         if ($process.HasExited) {
-            throw "Physical validation build exited before creating its isolated profile. Exit code: $($process.ExitCode)"
+            throw "Physical validation build exited during production-config smoke. Exit code: $($process.ExitCode)"
         }
-        $database = Get-ChildItem -Path $root -Filter "narro.db" -File -Recurse -ErrorAction SilentlyContinue |
+
+        $checkpoint = Get-ChildItem -Path $captureDir -Filter "checkpoint-*.json" -File -ErrorAction SilentlyContinue |
             Select-Object -First 1
-        if ($database) {
-            break
+        if ($checkpoint) {
+            throw "Physical validation build activated CI runtimeVisual instrumentation: $($checkpoint.Name)"
         }
+
         Start-Sleep -Milliseconds 200
     }
 
-    if (-not $database) {
-        throw "Physical validation build did not create narro.db in the isolated APPDATA/LOCALAPPDATA profile."
+    $checkpoint = Get-ChildItem -Path $captureDir -Filter "checkpoint-*.json" -File -ErrorAction SilentlyContinue |
+        Select-Object -First 1
+    if ($checkpoint) {
+        throw "Physical validation build activated CI runtimeVisual instrumentation: $($checkpoint.Name)"
     }
 
-    # Give any accidentally activated renderer fixture enough time to persist its
-    # list/task before inspecting the SQLite bytes.
-    Start-Sleep -Seconds 2
-
-    $databaseFamily = Get-ChildItem -Path $database.DirectoryName -Filter "narro.db*" -File -ErrorAction SilentlyContinue
-    if (-not $databaseFamily) {
-        throw "Physical validation build created narro.db but its SQLite file family could not be inspected."
-    }
-
-    foreach ($databaseFile in $databaseFamily) {
-        $databaseBytes = [System.IO.File]::ReadAllBytes($databaseFile.FullName)
-        $databaseText = [System.Text.Encoding]::UTF8.GetString($databaseBytes)
-        foreach ($forbidden in @("CI Focus Runtime", "Packaged runtime focus task")) {
-            if ($databaseText.Contains($forbidden)) {
-                throw "Physical validation build activated CI fixture data in $($databaseFile.Name): '$forbidden'."
-            }
-        }
-    }
-
-    Write-Host "Physical validation build profile is clean: $($database.FullName)"
+    Write-Host "Physical validation build stayed free of CI runtimeVisual checkpoints."
 }
 finally {
     if ($process -and -not $process.HasExited) {
         Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
         try { $process.WaitForExit(5000) | Out-Null } catch {}
     }
-
-    if ($null -eq $oldAppData) { Remove-Item Env:APPDATA -ErrorAction SilentlyContinue }
-    else { $env:APPDATA = $oldAppData }
-
-    if ($null -eq $oldLocalAppData) { Remove-Item Env:LOCALAPPDATA -ErrorAction SilentlyContinue }
-    else { $env:LOCALAPPDATA = $oldLocalAppData }
 
     if ($null -eq $oldCapture) { Remove-Item Env:NARRO_FOCUS_CAPTURE_DIR -ErrorAction SilentlyContinue }
     else { $env:NARRO_FOCUS_CAPTURE_DIR = $oldCapture }
