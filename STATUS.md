@@ -4,6 +4,22 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-01 — M7 process correction: automated-green integration before physical closure
+
+The prior process kept PR #192 open while waiting for physical acceptance and allowed it to grow to hundreds of commits while `main` continued to advance. This is now superseded by `docs/CI_VALIDATION_STRATEGY.md`.
+
+Current M7 uses `docs/M7_CLOSURE_PLAN.md`:
+- C1 automated replacement architecture/behavior: PASS;
+- C2 artifact validity + automated runtime/visual evidence: PASS;
+- C3 main integration: NEXT;
+- C4 physical Gate 7: OPEN;
+- C5 physical Gate 12/platform/tracking: OPEN.
+
+PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 and is suitable for expected-head guarded integration. Physical evidence is still required for milestone completion, but no longer blocks merging an automated-green coherent implementation slice. Any later physical failure must be corrected through a narrow PR from current `main`.
+
+The historical 1/15 M7 checkbox count reflects the replacement reopening model and is not a count of independent remaining implementation projects. Current executable closure progress is 2/5 checkpoints.
+
+
 ## 2026-10-01 — CI #803 production physical artifact accepted; physical Gate 7/12 next
 
 PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 / run `36840822689`.
