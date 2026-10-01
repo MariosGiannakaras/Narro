@@ -224,6 +224,9 @@ jobs:
         rustfmt -V
         cargo clippy -V
 
+    - name: Prepare Packaging Icons
+      run: npm run prepare:icons
+
     - name: Check Rust
       run: npm run check:rust
 
