@@ -405,7 +405,7 @@ Acceptance criteria:
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
 
-**Current M7 gate state:** 1/15 top-level checklist items remain validated after reopening every item whose acceptance depends on the replaced Focus host/presentation/placement/shortcut/performance path. Only the unrelated Change List/Duplicate capability remains closed. Historical M7 PASS evidence is preserved in subitems/work logs but does not validate the replacement.
+**Current M7 historical checklist state:** 1/15 top-level historical checklist items remain formally closed after the replacement reopening. This is not the remaining-work counter. Current closure progress is **2/5 checkpoints PASS** (C1–C2); C3–C5 are the only executable closure gates. See `docs/M7_CLOSURE_PLAN.md`.
 
 ### Post-validation video-evidence correction — VE-F003
 
@@ -428,7 +428,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** PR #192 exact head `440b1725...` passed Windows CI #803 and mandatory review of all fresh artifacts. The dedicated production-config physical artifact passed the direct no-`runtimeVisual` checkpoint smoke; its EXE is no longer the CI capture binary. The prior same-DPI Timer→Panel `388→684→668` endpoint correction is also gone in fresh samples, which now land directly `388→668`. Scheduling visual captures are hydrated and green. M7 remains open only on the real physical Gate 7/Gate 12 matrix using the exact #803 production artifact, after cleaning fixture data left by the invalid CI795 build. Do not merge #192 before physical PASS.
+**Current execution priority:** M7 uses the bounded closure controller in `docs/M7_CLOSURE_PLAN.md`. C1 replacement architecture/behavior automation and C2 artifact validity/runtime evidence are PASS on PR #192 exact head `440b1725...` / Windows CI #803. C3 main integration is now the next action: expected-head guarded-merge the automated-green implementation instead of keeping the long-lived branch open for manual observation. C4 physical Gate 7 and C5 physical Gate 12/platform/tracking remain OPEN after merge. A physical failure must create a narrow corrective PR from current `main`, not resurrect a long-lived milestone branch.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
