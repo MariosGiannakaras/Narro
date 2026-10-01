@@ -882,7 +882,7 @@ fn apply_timer_native(
             // Move the still-compact visible rectangle first, then reveal the
             // prepainted lower controls.
             set_focus_position(window, desired, "move Timer before expanded region")?;
-            timer_region::apply(window, target.region())?;
+            timer_region::apply_without_redraw(window, target.region())?;
             *COMPACT_TIMER_ORIGIN.lock().map_err(|_| {
                 CommandError::new(
                     "FOCUS_PRESENTATION_FAILED",
@@ -892,7 +892,7 @@ fn apply_timer_native(
         } else {
             // Clip first so no expanded pixels are exposed while returning to
             // the compact origin.
-            timer_region::apply(window, target.region())?;
+            timer_region::apply_without_redraw(window, target.region())?;
             set_focus_position(window, desired, "restore compact Timer position")?;
             *COMPACT_TIMER_ORIGIN.lock().map_err(|_| {
                 CommandError::new(

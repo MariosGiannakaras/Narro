@@ -107,6 +107,7 @@ mod native {
     fn apply_physical(
         window: &tauri::WebviewWindow,
         visible: tauri::PhysicalSize<u32>,
+        redraw: bool,
     ) -> CommandResult<()> {
         let hwnd = window.hwnd().map_err(|error| {
             CommandError::new(
@@ -137,7 +138,8 @@ mod native {
             ));
         }
 
-        if unsafe { SetWindowRgn(hwnd.0 as isize as *mut c_void, region, 1) } == 0 {
+        let redraw = if redraw { 1 } else { 0 };
+        if unsafe { SetWindowRgn(hwnd.0 as isize as *mut c_void, region, redraw) } == 0 {
             let error = unsafe { GetLastError() };
             unsafe { DeleteObject(region) };
             return Err(CommandError::new(
@@ -152,7 +154,18 @@ mod native {
         window: &tauri::WebviewWindow,
         logical: tauri::LogicalSize<f64>,
     ) -> CommandResult<()> {
-        apply_physical(window, visible_size(window, logical)?)
+        apply_physical(window, visible_size(window, logical)?, true)
+    }
+
+    pub fn apply_without_redraw(
+        window: &tauri::WebviewWindow,
+        logical: tauri::LogicalSize<f64>,
+    ) -> CommandResult<()> {
+        // Timer-to-Timer swaps prepaint the target pixels before changing the
+        // native region. Avoid forcing a synchronous parent redraw at that
+        // boundary; WebView2 remains responsible for its already-presented
+        // surface while Win32 updates clipping.
+        apply_physical(window, visible_size(window, logical)?, false)
     }
 
     pub fn apply_with_scale(
@@ -160,7 +173,11 @@ mod native {
         logical: tauri::LogicalSize<f64>,
         scale: f64,
     ) -> CommandResult<()> {
-        apply_physical(window, visible_size_for_scale(window, logical, scale)?)
+        apply_physical(
+            window,
+            visible_size_for_scale(window, logical, scale)?,
+            true,
+        )
     }
 
     pub fn apply_full_host(window: &tauri::WebviewWindow) -> CommandResult<()> {
@@ -170,7 +187,7 @@ mod native {
                 format!("read focusSurface outer size for full-host region: {error}"),
             )
         })?;
-        apply_physical(window, outer)
+        apply_physical(window, outer, true)
     }
 }
 
@@ -195,6 +212,13 @@ mod native {
         Ok(())
     }
 
+    pub fn apply_without_redraw(
+        _window: &tauri::WebviewWindow,
+        _logical: tauri::LogicalSize<f64>,
+    ) -> CommandResult<()> {
+        Ok(())
+    }
+
     pub fn apply_with_scale(
         _window: &tauri::WebviewWindow,
         _logical: tauri::LogicalSize<f64>,
@@ -208,7 +232,7 @@ mod native {
     }
 }
 
-pub use native::{apply, apply_full_host, apply_with_scale, visible_size};
+pub use native::{apply, apply_full_host, apply_with_scale, apply_without_redraw, visible_size};
 
 #[cfg(test)]
 mod tests {

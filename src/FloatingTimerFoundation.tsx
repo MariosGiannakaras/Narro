@@ -292,6 +292,7 @@ export function FloatingTimerFoundation({
         flushSync(() => setResizePhase("contracting"));
         await waitForFloatingTimerGeometryMotion();
         flushSync(() => setResizePhase("clipping"));
+        await waitForPresentedFrame();
         if (onRequestExpanded) await onRequestExpanded(false);
         else await setFloatingTimerExpanded(false);
         nativeRegionCommitted = true;
