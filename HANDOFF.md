@@ -8,7 +8,7 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3 are validated. CI #806 physical evidence exposed one real Timer compositor defect; the narrow correction is now merged and automated-green. C4/C5 remain physical-open.
+**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3 are validated. PR #208 is merged/automated-green, and the CI #809 residual recording physically passes the corrected standard-motion Timer compositor boundary. No new product defect is evidenced. C4/C5 remain open only for the still-unproven residual physical inputs.
 
 ## Current validated source baseline
 
@@ -44,13 +44,39 @@ Important findings:
 
 Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci806-physical-failure-pr208-ci809-main810.md`.
 
+## CI #809 residual recording audit
+
+User recording `2026-10-01 19-03-32.mp4`, SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`, was audited across the complete 161.05 s timeline with dense sampling around the Timer native-region transitions.
+
+Accepted evidence:
+- at least six animations-On compact <-> expanded sequences were inspected; the former CI #806 white L/outline / blank region does **not** recur;
+- PR #208's corrected standard-motion Timer-to-Timer compositor boundary is therefore **PHYSICAL PASS**;
+- active task/time continuity remains coherent and Focus -> Main completion reconciliation is visible;
+- Windows animations are visibly switched On -> Off and later restored On;
+- one 100% display is visibly established;
+- a topology reduction to one active display leaves Narro/Focus safely visible.
+
+Still unproven rather than failed:
+- two full compact -> expanded -> compact cycles while animations are Off;
+- unequivocal second-launch/single-instance observation;
+- an unambiguous Main `Blitz now` click causing Timer -> Panel;
+- marked/observable idle Ctrl+Shift+T and Ctrl+Shift+P inputs;
+- a visibly established second display at 125% and real 100% <-> 125% crossing;
+- topology reconnect/re-enable;
+- maximized/borderless-fullscreen topmost observation;
+- normal Quit/relaunch saved-placement persistence.
+
+The recording does not visibly show the executable hash, so exact CI #809 identity is inherited from the user test context rather than proven by the recording pixels.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci809-partial-physical-audit.md`.
+
 ## M7 checkpoint state
 
 - C1: PASS
 - C2: PASS
 - C3: PASS
-- C4 / Gate 7 physical continuity: **OPEN**, but narrowed to retesting the corrected Timer-to-Timer boundary on the #809 production artifact.
-- C5 / Gate 12 + platform closure: **OPEN** for the remaining physical-only platform checks.
+- C4 / Gate 7 physical continuity: **OPEN**, with PR #208's corrected animations-On Timer-to-Timer boundary now physically PASS; only the still-unproven residual C4 inputs remain.
+- C5 / Gate 12 + platform closure: **OPEN** for the still-unproven platform observations.
 
 Do not increment progress until C4/C5 both close.
 
@@ -72,17 +98,17 @@ Do not increment progress until C4/C5 both close.
 
 Use the exact CI #809 physical artifact above with a **clean validation profile**. Do not repeat already-proven unaffected work unnecessarily. Operational recording checklist: `docs/M7_CI809_RESIDUAL_PHYSICAL_CHECKLIST.md`.
 
-Residual run:
+Residual run — **do not repeat the six animations-On compact/expanded cycles**:
 
-1. active task; 5x compact <-> expanded with Windows animations On, watching specifically for the former white L/blank frame;
-2. 2x compact <-> expanded with animations Off; restore On;
-3. verify second launch remains single-instance;
-4. Timer -> `Blitz now` -> Panel;
-5. end the task, then verify idle Ctrl+Shift+T and Find Timer no-op;
-6. real 100% <-> 125% monitor crossing plus edge/taskbar expand/collapse;
-7. topology disconnect/reconnect if available;
-8. topmost over maximized/borderless-fullscreen app;
-9. drag, close/restart, safe saved placement.
+1. start by visibly showing `Get-FileHash .\\narro.exe -Algorithm SHA256` = `a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675`;
+2. with Windows animations Off, record **2 complete compact -> expanded -> compact cycles**, then visibly restore animations On;
+3. launch the same EXE a second time and show Task Manager Details/process evidence that only one Narro application authority remains;
+4. with Timer visible, visibly click Main `Blitz now` and show the existing Focus surface become Panel;
+5. end the task; use a visible Notepad marker immediately before Ctrl+Shift+T and Ctrl+Shift+P, proving both idle inputs are no-ops;
+6. visibly establish one display at 100% and the other at 125%, move Timer across both directions, and expand/collapse near the secondary edge/taskbar;
+7. re-enable/reconnect the display after the already-demonstrated topology removal and show safe recovery;
+8. show Timer topmost over a maximized/borderless-fullscreen app;
+9. drag Timer, normal tray Quit, relaunch the same EXE, and show safe restored placement.
 
 If this residual run passes, reconcile `TODO.md`, `STATUS.md`, crosswalk and a final immutable work-log, close M7, then resume the ordered roadmap.
 
