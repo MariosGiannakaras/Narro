@@ -1,8 +1,22 @@
 # STATUS.md
 
-Last updated: 2026-09-30
+Last updated: 2026-10-01
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
+
+## 2026-10-01 — CI #806 physical failure corrected by PR #208; residual retest narrowed
+
+The complete user recording `2026-10-01 15-20-44.mp4` (SHA-256 `86e51a5dcc6cc8bd5cb6af41971daa3c23016a97768c7f8469f567d4f232710b`) was audited across all 172.8 s. Early stale `Blitz is already active` / missing-board-task state is contaminated by the documented invalid-CI795 profile residue risk and is not accepted as idle production evidence.
+
+After a clean real `Test` task becomes active, task/time continuity is preserved across repeated Focus presentations, animations Off/On, completion reconciliation and dragging. However, at ~81.50 s an expanded -> compact transition briefly becomes a white L/outline. This is a real Gate 7 physical failure independent of the stale-profile start.
+
+Narrow PR #208 corrects only that Timer-to-Timer native-region redraw boundary. Exact head `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58` passed Windows CI #809 / run `36865451660`, then merged as main source `2767b3827670603d1ab259b6a843c2e0da82d85d`. Exact-head and merged-main tree are both `7ceb264e7eff8a74449c206a7cc998b2a4f0bb54`. Resulting-main CI #810 PASSed via the identical-tree validation gate.
+
+New production physical artifact: id `11163439039`, digest `sha256:39ca0a91d7aa54be79ca35c509f82f25049a15a3fc4ffff199699eab309557a5`, standalone EXE SHA-256 `a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675`. CI smoke confirms zero `runtimeVisual` checkpoints.
+
+Counters stay `4/10M || 2/5 | 11/19`. C4/C5 remain open. Next physical work is the **residual** #809 retest only: corrected compact<->expanded boundary plus single-instance confirmation, Blitz-now Panel entry, clean idle no-op, real 100%/125% crossing/edge behavior, topology where available, fullscreen topmost and saved-placement restart.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci806-physical-failure-pr208-ci809-main810.md`.
 
 ## 2026-10-01 — M7 C3 integrated; only physical C4/C5 remain
 

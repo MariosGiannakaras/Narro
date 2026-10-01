@@ -8,124 +8,88 @@ GitHub `main` is the durable source truth.
 
 `4/10M || 2/5 | 11/19`
 
-**Reopened Milestone 1 corrective foundation remains active.** The single-`focusSurface` replacement is automated-green but unmerged; physical Gate 7 / Gate 12 evidence is unavailable.
+**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3 are validated. CI #806 physical evidence exposed one real Timer compositor defect; the narrow correction is now merged and automated-green. C4/C5 remain physical-open.
 
-### M7 / replacement chain
+## Current validated source baseline
 
-- PR #192 remains **OPEN / DO NOT MERGE** on `plan/m7-single-focus`.
-- Exact automated-green head: `0ef808445b567a4a3194296ed1dccb5a6a58b03e`.
-- Windows CI #744 / run `36737427034`: **PASS**.
-- CI artifact evidence remains valid for reduced-motion packaged geometry: Panel 340×700, compact Timer 340×110, expanded Timer 340×300, one persistent Focus HWND/WebView, DPI/region checks, and no document/root scrollbar.
-- User-provided physical recording `2026-09-30 23-13-14.mp4`, SHA-256 `eb3b862d58f69b1000f665d35dd52bf4d0703bfc1dda80f92c759de9c4809a1b`, was audited visually and semantically.
-- **The recording is not accepted as final Gate 7 evidence.** Main visibly reports simultaneous Ctrl+Shift+T and Ctrl+Shift+P registration conflicts. Narro currently has no single-instance enforcement, so another Narro runtime is the strongest explanation and exact Focus-surface process ownership cannot be proven. Even if another app owned the chords, the recording still demonstrates the runtime-validity gap.
-- **RISK-F009 / FIX_NOW:** prevent or safely redirect a second Narro instance so one process owns SQLite/background orchestration/global shortcuts.
-- **B5 / FIX_NOW:** PR #192 changed Start Blitz semantics. Authoritative source says `Blitz now` opens Focus Panel; `present_focus_for_blitz` currently preserves an already-visible Timer and the rewritten test explicitly requires that wrong behavior. Restore Focus Panel entry without abandoning the single-host architecture.
-- **B6 / FIX_NOW:** current first-party Blitzit Windows shortcut and Blitz Mode guides explicitly restrict Ctrl+Shift+T to Blitz Mode and define Floating Timer as current-task/countdown presentation. Idle/no-task Ctrl+Shift+T must not expose a placeholder Timer; it is a presentation no-op without timer/session mutation. Durable resolution: `work-log/2026-09-30-chatgpt-m7-b6-idle-toggle-semantics.md`.
-- The physical recording positively confirms only limited non-final observations: empty Focus state is semantically correct; no-eligible Blitz entry does not surprise-start work; compact Timer is movable; sampled idle transitions show no obvious full-white host frame. It does **not** prove active-session continuity, expanded Timer continuity, mixed-DPI Gate 12, or exact candidate ownership.
-- PR #192 is diverged/dirty relative to current main and must be reconciled with the latest validated main source before any new physical acceptance artifact.
-- Latest fully validated current-main source checkpoint is `4f48941939fa5114e100992280b9ea96540f0df8`. PR #206 exact head `ab1e89fc...` passed #784, was guarded-merged as `4f489419...`, and resulting-main Windows CI #785 PASS. Runtime artifact id `11128833526`, digest `sha256:1f9b43978387c973a451ef6283bb0fee0c08afbe954d9b8c99845c9c463ea220`; visual artifact id `11128124562`, digest `sha256:adaa4da4bb13a65bb4aac38e80d716be02eebf0621f90d7b9eff75e012219c7e`. RISK-F009 is automated/main-validated. Markdown-only commits do not replace this source SHA.
-- Durable evidence: `work-log/2026-09-30-chatgpt-m7-ci744-physical-whole-app-audit.md`.
+- Current main source: `2767b3827670603d1ab259b6a843c2e0da82d85d` — PR #208, narrow Gate 7 Timer-region redraw correction.
+- PR #208 exact head: `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58`.
+- Exact-head Windows CI #809 / run `36865451660`: **PASS**.
+- PR-head tree == merged-main tree: `7ceb264e7eff8a74449c206a7cc998b2a4f0bb54`.
+- Resulting-main Windows CI #810 / run `36867438874`: **PASS** via the identical-tree validation gate; heavy candidate jobs correctly skipped because #809 already validated the exact merged tree.
+- This source preserves the single persistent `focusSurface` architecture. No timer/session/persistence semantics changed in #208.
 
-### Parallel M9
+## Exact physical artifact to use next
 
-User explicitly authorized safe M9 work in parallel while M7 is physically blocked.
+CI #809 production physical artifact:
 
-#### Validated / merged foundations
+- artifact id `11163439039`
+- artifact digest `sha256:39ca0a91d7aa54be79ca35c509f82f25049a15a3fc4ffff199699eab309557a5`
+- standalone `narro.exe` SHA-256 `a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675`
+- physical-build smoke: PASS, zero CI `runtimeVisual` checkpoints
 
-- Reporting history: PR #197 / CI #746 / merge `f7d6d995...` / main CI #748 **PASS**.
-- Historical session mutations: PR #200 / CI #756 / merge `10e5a97a...` / main CI #757 **PASS**.
-- Visual ready-marker harness: PR #201 / CI #762 / merge `ff4627e8...` / main CI #765 **PASS**.
-- Overview aggregation: PR #199 exact head `3deec9c056e8ea449d96a9c2b9ac8572d7fabf9d`, CI #770 **PASS**, guarded merge `f165390da50879bb7ed9740da9033cce60132d6a`, resulting-main CI #772 **PASS**.
-- Report history/session command API: PR #202 exact head `5c4ad3c1c44b5155a82b51480c8d0c7d3de5171f`, #769 failed-job rerun **PASS**, guarded merge `d835149371a880df5a3c4572f2815e714c37738c`, resulting-main CI #776 **PASS**.
-  - #776 runtime artifact id `11118644987`, digest `sha256:6a279a7255d67d32037d94ff9476da1a40885dddc7a8709ce36ff08d5af0fe52`.
-  - #776 visual artifact id `11118599648`, digest `sha256:312bc3018872d85cae6dcf5f4ac4a371811f909cf27fc44d353eba0f0e78d712`.
+Packaged Focus visual artifact `11163582492`, digest `sha256:c184e661163bdf9ff1a9dd02859d7c9523add0a5edb6433d2f7ce8a29bf96cf9`, confirms one Focus HWND `0x1022A`, compact 340x110, expanded 340x300, active title/time and no unintended scrollers. Hosted capture is reduced-motion and cannot close the physical standard-motion gate.
 
-#### Reports Overview visual foundation — EXACT-HEAD + ARTIFACT ACCEPTED / UNMERGED
+## CI #806 recording audit
 
-- PR #198 exact head `a0364a72b6c01c29d1e4d5b7ca44d2883d0e2dd7`.
-- Windows CI #775 / run `36761834293`: **PASS**.
-- visual artifact id `11118822894`, digest `sha256:39ad0150eda65f566dc2f1cc2ded45264f770f755f2a9f3af86a314ea176b764`.
-- runtime artifact id `11119163993`, digest `sha256:9be79a1b269990c143cc2cc4f24a13143a1b2688c15b431c08b8efe18b269eda`.
-- Mandatory review inspected all eight light/dark Reports captures and captured DOM. Overview, list filter, date picker and lower panels are visibly present; both lower captures now show the full `Time By List` and `Done Tasks` panels and carry the strict lower-viewport ready marker.
-- Production UI is unchanged by the lower framing rule because only the fixture-only html data attribute activates it.
-- Ready for guarded merge after the current #203 resulting-main gate settles, preserving serial main validation.
+User recording `2026-10-01 15-20-44.mp4`, SHA-256 `86e51a5dcc6cc8bd5cb6af41971daa3c23016a97768c7f8469f567d4f232710b`, was audited across the complete 172.8 s timeline with dense transition sampling.
 
-#### Sessions dashboard projection — MERGED / RESULTING-MAIN PENDING
+Important findings:
 
-- PR #203 exact validated head `59b7b2713505bdea7cf2521eaebd5f2bf164fb17`.
-- Exact-head Windows CI #771: **PASS**.
-- Guarded squash merge `f86c38102fa4516d6e2429aa26b63ceb8aabfe78`.
-- Resulting-main Windows CI #777 / run `36769374384`: **PASS**.
-- Runtime artifact id `11123510715`, digest `sha256:171e72d4da36d73ed1f5f471a78251e7690918a4eb3535cea47872408f91bd77`.
-- Visual artifact id `11122989272`, digest `sha256:692415b0ba11d911ec8798b2b907f462efec0c74fd4df00a5ce4694837eebf35`.
-- #203 is fully validated/merged. Sessions UI is technically unblocked, but new M7 FIX_NOW findings take priority before unrelated forward feature work.
+- The early `Blitz is already active` + `Focus task unavailable` / `All Clear` mismatch is **not clean idle evidence**. It is consistent with the already-documented stale SQLite residue risk from the invalid CI #795 `runtimeVisual=1` artifact.
+- A clean real task `Test` becomes active around 78 s. From there, task identity/time remain continuous across Panel, compact Timer and expanded Timer.
+- At approximately **81.50 s**, expanded -> compact produces a real white L/outline frame. This is an independent Gate 7 failure and is the evidence that produced PR #208.
+- The same clean session supplies positive unaffected evidence for repeated Panel/Timer switching, animations Off then restored On, continuous timer identity, visible Focus->Main completion reconciliation, and Timer dragging.
+- The recording does not conclusively prove the clean idle no-op input, real 100%/125% DPI crossing, topology reconnect, fullscreen topmost, or close/restart placement persistence.
 
-#### Overview aggregation command/API — ACTIVE
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci806-physical-failure-pr208-ci809-main810.md`.
 
-- PR #205: `feat/m9-overview-command`.
-- Exact head `1588d48a3f273cef360028bd549be9a70dac9ef1`, based on older reporting ancestry and now requiring reconciliation with latest validated main before final validation.
-- Windows CI #778 / run `36769649192`: **FAIL**, now fully inspected. Frontend preflight/build passed; the first failing gate was only `cargo fmt --check` in `src-tauri/src/report_commands.rs:359`, where rustfmt requires a braced `ReportingError::InvalidDisplayTimezone(_)` match arm. No reporting logic/test failure was observed before fmt stopped the run.
-- Durable inspection: `work-log/2026-10-01-chatgpt-m9-pr205-ci778-failure-inspection.md`.
-- Scope: `get_report_overview` delegating to validated `report_overview`; camelCase typed IPC DTOs; decimal-string serialization for all `u64` counts/accounting/durations; stable invalid-`displayTimezone` handling; typed renderer invoke; static preflight and lossless serialization regression.
-- No SQL, timer/session mutation, schema/migration, Focus/window, polling, network or production UI changes.
-- Do not modify #205 until the active M7 corrective path is stabilized. When resumed, reconcile latest validated main first, carry the exact rustfmt correction, then run exact-head Windows CI.
+## M7 checkpoint state
 
-Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-and-overview-api.md`.
+- C1: PASS
+- C2: PASS
+- C3: PASS
+- C4 / Gate 7 physical continuity: **OPEN**, but narrowed to retesting the corrected Timer-to-Timer boundary on the #809 production artifact.
+- C5 / Gate 12 + platform closure: **OPEN** for the remaining physical-only platform checks.
 
+Do not increment progress until C4/C5 both close.
 
-### Independent M8
+## Invariants that must not regress
 
-- PREF-R02, PREF-R03 and PREF-R06 are validated/merged.
-- PREF-R05 remains asset-evidence blocked.
-- Affected in-app/global Focus shortcut closure remains coupled to final M7 replacement validation.
-
-### Reliability obligations
-
-- `RISK-F007`: no implicit timer/task start on fresh launch — validation open for M10.
-- `RISK-F008`: live Notes/title edits preserve authoritative running session/accounting — validation open for M10.
-
-## INVARIANTS THAT MUST NOT REGRESS
-
-- Narro remains local-only Windows software with Tauri 2 + React/TypeScript, SQLite, and authoritative Rust/domain state.
-- Runtime window composition remains only `main` + one persistent `focusSurface`.
-- Focus Panel, compact Timer and expanded Timer remain presentations inside the same persistent Focus HWND/WebView.
-- Ordinary Focus presentation changes do not create/destroy/hide/show/resize the Focus WebView.
-- Focus/Floating presentation changes cannot reset, duplicate or independently advance a live session.
-- Logical presentation geometry remains 340x700, 340x110 and 340x300 and is DPI-aware through native visible-region handling.
-- Transparent Focus document roots remain required; no browser document scrollbar may appear.
+- Narro remains local-only Windows Tauri 2 + React/TypeScript + Rust + SQLite.
+- Runtime window composition is only `main` + one persistent `focusSurface`.
+- Focus Panel, compact Timer and expanded Timer are presentations inside the same persistent Focus HWND/WebView.
+- Ordinary presentation switching must not create/destroy/hide/show/resize the WebView as its mechanism.
+- Timer/session authority remains Rust-owned and continuous through presentation changes.
+- Logical geometry remains Panel 340x700, compact Timer 340x110, expanded Timer 340x300 with DPI-aware native visible regions.
+- Focus document roots must not expose browser scrollbars.
 - Native presentation changes remain serialized and rollback-safe.
-- M9 reporting is read-only over existing authoritative task/session persistence until explicit later M9 editing slices.
-- Existing persistence-first task identity, scheduling/recurrence, accessibility, explicit-link activation, and timer/session authority invariants remain intact.
-- PR #191 remains closed/unmerged historical evidence only.
+- `Blitz now` enters Focus Panel.
+- Idle/no-task Ctrl+Shift+T and Find Timer must not expose a placeholder Timer.
+- Single-instance ownership must prevent competing SQLite/background/global-shortcut authority.
 
-## NEXT AGENT ACTION
+## Unfinished work / exact next action
 
-1. M7 C1/C2/C3 are PASS. PR #192 is merged; process-hardening PR #207 exact head `df6e548a059551178972b16b7d9c6e8e0dfb91b2` passed Windows CI #806 / run `36854279514` and merged as `aebc280da2ef7bcb5e4fd1d4d78fa529b63f49b7`.
-2. Blob-level validation proves zero non-Markdown differences between exact-green #207 head and merged main, so no dummy main commit/run is required. Durable evidence: `work-log/2026-10-01-chatgpt-m7-c3-main-integration-closure.md`.
-3. Use exact production physical artifact id `11159233418`, digest `sha256:33a6dfe8ed418c1466b8a0adbc4005335f5255869af151a974dc2771ae160b91`. Standalone `narro.exe` SHA-256: `a22bb0996f38720abacb6f78c79909bfd52fe295db6593937fa6e35dd2227af9`.
-4. Run one consolidated C4/C5 physical session using `scripts/prepare-m7-physical-session.ps1` where practical. Record one continuous session with the exact executable.
-5. If physical PASS: reconcile TODO/STATUS/crosswalk and close M7. Then resume the ordered roadmap from current main.
-6. If physical FAIL: open one narrow corrective PR from current main for the evidenced gate only; repeat only that affected physical portion. Do not recreate a long-lived M7 branch.
-7. Static-contract cleanup remains maintenance-only and is not an M7 blocker. PR #205 remains deferred until M7 physical closure is known.
+Use the exact CI #809 physical artifact above with a **clean validation profile**. Do not repeat already-proven unaffected work unnecessarily.
 
-## USER ACTION REQUIRED
+Residual run:
 
-Run the exact CI #806 production physical build now.
+1. active task; 5x compact <-> expanded with Windows animations On, watching specifically for the former white L/blank frame;
+2. 2x compact <-> expanded with animations Off; restore On;
+3. verify second launch remains single-instance;
+4. Timer -> `Blitz now` -> Panel;
+5. end the task, then verify idle Ctrl+Shift+T and Find Timer no-op;
+6. real 100% <-> 125% monitor crossing plus edge/taskbar expand/collapse;
+7. topology disconnect/reconnect if available;
+8. topmost over maximized/borderless-fullscreen app;
+9. drag, close/restart, safe saved placement.
 
-Required C4/C5 session:
-- exactly one Narro runtime; second launch must not create competing authority;
-- active task/session;
-- 3x Panel→Timer→Panel and 3x compact→expanded→compact with Windows animations On;
-- 2x each with Windows animations Off, then restore the setting;
-- same task/session identity and continuous time;
-- no blank/pale/loading/stale/duplicated frame or document scrollbar;
-- Timer→Blitz now→Panel;
-- idle Ctrl+Shift+T and Find Timer no-op;
-- Main/Focus/Home mutation reconciliation;
-- Timer between 100% and 125% displays;
-- edge/taskbar expand/collapse;
-- topology disconnect/reconnect where available;
-- topmost over maximized/borderless-fullscreen app;
-- drag/save/restart safe placement.
+If this residual run passes, reconcile `TODO.md`, `STATUS.md`, crosswalk and a final immutable work-log, close M7, then resume the ordered roadmap.
 
-Provide the recording/results. One consolidated recording is preferred.
+If it fails, create only one narrow evidence-backed corrective PR for the failing gate and repeat only the affected physical portion.
+
+## Deferred unrelated work
+
+- PR #205 (`M9: expose validated Overview aggregation command/API`) remains open/deferred until M7 physical closure.
+- PR #198 (`M9: add screenshot-backed Reports Overview visual foundation`) remains open/deferred.
+- Static-contract cleanup remains maintenance-only and is not an M7 blocker.
