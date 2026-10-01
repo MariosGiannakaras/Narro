@@ -100,14 +100,14 @@ Current durable checkpoint: `work-log/2026-09-30-chatgpt-m9-visual-acceptance-an
 
 ## NEXT AGENT ACTION
 
-1. Inspect PR #192 exact head `7962411435bcb2ebf71c775963711273220a5186`, Windows CI #800 / run `36833625252`, **attempt 2**.
-2. Attempt 1 failed before the physical-build boundary only because hosted `task-scheduling-light` did not report ready after four visual-capture attempts; the same fixture retried and passed in exact-green #795. No source change was made. The failed build/test job was rerun at the same SHA. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci800-same-sha-visual-flake-retry.md`.
-3. Artifact-validity correction remains: instrumented capture build is separate from production physical build; physical output uses `tauri.physical.conf.json` + isolated `src-tauri/target-physical` and uploads only `narro-m7-physical-windows-x64`.
-4. Current smoke verifies the exact renderer boundary: the production EXE launches with `NARRO_FOCUS_CAPTURE_DIR` deliberately enabled and must produce zero `checkpoint-*.json`; an accidental `runtimeVisual=1` build would expose itself.
-5. On #800 attempt-2 PASS, fetch/review both the packaged Focus visual artifact and the new production physical artifact. Never hand out the old `narro-m1-runtime-harness-windows-x64`.
-6. Only after clean artifact review issue the production physical build. Before retest, remove old CI fixture records from the validation profile or use a clean profile.
-7. Rerun physical Gate 7/Gate 12 on that exact production artifact. Do not merge #192 until physical PASS.
+1. Inspect PR #192 exact head `1f9bc0185177ed9aaf9b3efc6248c5e8031da9b5`, Windows CI #801 / run `36836958927`.
+2. CI #800 attempts 1 and 2 both failed before Tauri/physical-build steps because `task-scheduling-light` repeatedly missed its ready marker. This became deterministic evidence, not a one-off flake. Durable root-cause/fix: `work-log/2026-10-01-chatgpt-m7-ci800-scheduling-fixture-determinism.md`.
+3. Commit `1f9bc018...` is fixture/test-only: scheduling visual readiness now yields up to 120 `requestAnimationFrame` turns instead of spinning `performance.now` + 10ms timers under Edge virtual time. Production scheduling/recurrence source is unchanged.
+4. Artifact-validity correction remains unchanged: automated capture uses the instrumented build; user physical build uses production Focus URL in isolated `src-tauri/target-physical`, uploaded only as `narro-m7-physical-windows-x64`.
+5. The physical-build runtime smoke deliberately enables `NARRO_FOCUS_CAPTURE_DIR` and requires zero `checkpoint-*.json`, directly proving `runtimeVisual=1` is not active in the physical EXE.
+6. On #801 FAIL, inspect the exact failure only. On PASS, fetch/review both the packaged Focus visual artifact and the production physical artifact; verify the physical smoke step itself passed. Never hand out the old instrumented runtime-harness artifact.
+7. Only after clean artifact review issue the production build, clean old fixture data/use a clean profile, and rerun physical Gate 7/Gate 12. Do not merge #192 before physical PASS.
 
 ## USER ACTION REQUIRED
 
-None while CI #800 attempt 2 is running. Do not perform another physical run until the production-config artifact passes the new runtimeVisual-boundary smoke and artifact review.
+None while CI #801 is running. Do not perform another physical run until #801 passes and the dedicated production-config physical artifact is reviewed.
