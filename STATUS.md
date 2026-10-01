@@ -4,6 +4,19 @@ Last updated: 2026-09-30
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-01 — M7 CI #803 exact corrective candidate
+
+PR #192 exact head: `440b172565d94fadb3e814559bec5f3b47e48012`.
+
+The production motion correction remains `5c8f4c4ec7ae403cf05bd4b7994187da50bb0aa7`: same-DPI Timer→Panel animation now uses the actual outer HWND size so the animated endpoint matches the native settled edge; cross-DPI return retains target-scale sizing.
+
+CI #802 / run `36840338653` failed only while compiling the two new regression tests because repository `GeometryRect` is `PhysicalRect { position, size }`, while the tests used field `origin`. Test-only commit `440b1725...` changes only those literals.
+
+Windows CI #803 / run `36840822689` is **IN PROGRESS** at this durable checkpoint.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci802-test-literal-fix.md`.
+
+
 ## 2026-10-01 — M7 current corrective gate: CI #802
 
 PR #192 exact head is `5c8f4c4ec7ae403cf05bd4b7994187da50bb0aa7`; Windows CI #802 / run `36840338653` is in progress.
