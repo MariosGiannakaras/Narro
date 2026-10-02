@@ -37,26 +37,56 @@ Current source-analysis checkpoint:
 
 Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
 
-## Current validated source baseline
+## Current source / validation baseline
 
-- Latest validated implementation merge: `c372ca29824c3c3839490a19e79f7ed3482cb360` — PR #211 performance-batch validation tooling. Later tracking commits are Markdown-only.
-- Current production runtime source remains `2767b3827670603d1ab259b6a843c2e0da82d85d` — PR #208, narrow Gate 7 Timer-region redraw correction.
+- Current repository main implementation merge:
+  `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31` — PR #213 planning-board parity.
+  Later commits may be Markdown-only tracking/forensic updates.
+- The last fully resulting-main-green implementation checkpoint before the
+  concurrent source chain was PR #211 merge
+  `c372ca29824c3c3839490a19e79f7ed3482cb360` / main CI #816.
+- PR #212 exact head `c9e33c1bd12f0c5285f3a0a8807b94516dd71f33`
+  passed Windows CI #833, then merged as
+  `acdf8cc54d84247bba83e826020369003d5c244a`.
+  It adds native monitor-placement diagnostics, isolated M1 diagnostic app-data
+  identity/storage probes, and the floating-only scenario preflight.
+- PR #212 resulting-main CI #837 failed only because
+  `theme-settings-dark` did not reach visual-fixture readiness after Rust/tests
+  and performance-harness validation had passed.
+- PR #214 exact head `5073da095eef9cef86065d2813b27ed9e3a93b26`
+  passed Windows CI #838 and merged as
+  `ad6e1d84793e9a5de5a63dd5a2279d0ad67ed8da`, hardening only the Theme
+  Settings capture retry path. Its first main run #839 was cancelled by the
+  newer #213 merge.
+- PR #213 exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`
+  passed Windows CI #836 and merged as current implementation main
+  `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`.
+- Initial resulting-main CI #840 attempt 1 passed fast gate, check/clippy,
+  **346 Rust tests**, performance-harness validation, the complete visual suite
+  and Tauri release build, then failed only because the packaged Focus runtime
+  capture did not acknowledge the Panel checkpoint within 15 s.
+- CI #840 failed-jobs **attempt 2 is the active current-main validation**. Do not
+  claim current combined main fully resulting-main-green until that rerun passes.
+  If it fails again, inspect that exact capture failure before changing source.
+- Durable reconciliation:
+  `work-log/2026-10-02-chatgpt-current-main-pr212-pr214-pr213-reconciliation.md`.
+
+### M7 production physical lineage
+
+The accepted M7 C4/C5-path production physical candidate remains CI #809 source
+`2767b3827670603d1ab259b6a843c2e0da82d85d` / PR #208, because the remaining
+saved-placement observation is explicitly bound to that already-audited
+candidate and later source slices did not modify the placement-persistence
+implementation under test.
+
 - PR #208 exact head: `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58`.
 - Exact-head Windows CI #809 / run `36865451660`: **PASS**.
-- PR-head tree == merged-main tree: `7ceb264e7eff8a74449c206a7cc998b2a4f0bb54`.
-- Resulting-main Windows CI #810 / run `36867438874`: **PASS** via the identical-tree validation gate; heavy candidate jobs correctly skipped because #809 already validated the exact merged tree.
-- This source preserves the single persistent `focusSurface` architecture. No timer/session/persistence semantics changed in #208.
-- PR #209 (`M1: lock saved Timer placement on tray Quit`) exact head `5384ea7384d304a843771e225bfb50cd9394bf43` passed full Windows CI #811 / run `36973948214`, including fast gate, Rust check/clippy/tests, performance-harness self-test, visual regression, Tauri release, packaged Focus runtime and production physical-build verification.
-- PR #209 merged as `c84013dbafbce6c8d581e3e12e1793bb12281fd1`; it changes only `scripts/test-single-focus-architecture.mjs` and regression-locks tray Quit -> save Timer placement -> process exit ordering. It changes no production/runtime bytes, so CI #809 remains the correct physical candidate.
-- Durable PR #209 evidence: `work-log/2026-10-02-chatgpt-m1-saved-placement-contract-pr209-ci811.md`.
-- PR #210 (`M1: publish isolated current diagnostic artifact`) exact head `e5bf7081ec04af82635adad1366b4c6b8c489e08` passed full Windows CI #813 / run `36976416729`, then expected-head guarded-squash-merged as `07210a7b490c01687304d19555abf9cf39542940`.
-- Because #210 changes the workflow, resulting-main Windows CI #814 / run `36981516292`, attempt 2, ran the full candidate path and **PASSed**, including the new diagnostic build/upload stage.
-- Every non-Markdown merged #210 blob is byte-identical to the exact-green PR head. #210 adds test/CI diagnostic entrypoints only; product-domain/runtime semantics remain unchanged.
-- Durable PR #210/main evidence: `work-log/2026-10-02-chatgpt-m1-diagnostic-pr210-ci813-main814.md`.
-- PR #211 (`M1: automate floating performance evidence batch`) exact head `735f5f157e354c7f1aaeed051ef0a2103d08f016` passed full Windows CI #815 / run `36987461587`, including the actual PowerShell self-test for the new batch orchestrator.
-- PR #211 merged as `c372ca29824c3c3839490a19e79f7ed3482cb360`; because it changes the workflow, resulting-main Windows CI #816 / run `36989230905` ran fully and **PASSed**.
-- #211 changes only validation tooling/docs/CI/package scripts, not production Rust/React/domain behavior. The physical performance gate remains OPEN.
-- Durable PR #211/main evidence: `work-log/2026-10-02-chatgpt-m1-performance-batch-pr211-ci815-main816.md`.
+- Resulting-main Windows CI #810 / run `36867438874`: **PASS**.
+- PR #209 exact head `5384ea7384d304a843771e225bfb50cd9394bf43`
+  passed full Windows CI #811 and regression-locks tray Quit -> save Timer
+  placement -> process exit ordering without changing production runtime.
+- CI #809 physical evidence remains the accepted M7 C4 baseline; C5 still needs
+  the saved-placement restart observation and is not closed by later CI.
 
 ## Exact artifacts to use next
 
@@ -158,42 +188,34 @@ Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completio
 
 ## Unfinished work / exact next action
 
-**USER ACTION REQUIRED — real Windows access is now the only blocker.**
+Two independent tracks are permitted:
 
-PR #209/#210/#211 are integrated and their authoritative Windows validations
-(#811/#813/#814/#815/#816 as applicable) passed. The current CI #816
-diagnostic artifact includes the one-command 3× performance batch runner.
+1. **Current-main validation reconciliation (agent-actionable):**
+   - check CI #840 attempt 2 on implementation merge
+     `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`;
+   - if PASS, record the resulting-main artifacts and reconcile Candidate B to
+     that validated current-main diagnostic artifact;
+   - if FAIL, inspect the exact failed capture log and correct only an
+     evidence-backed CI/runtime-capture issue before any unrelated source work.
+2. **Remaining physical Windows gates (user-action required later):**
+   - M7 C5 saved placement on the CI #809 production artifact;
+   - M1 selected-monitor Panel Left/Right, reconnect/re-enumeration and
+     floating-only performance on the final resulting-main diagnostic artifact.
 
-Additional diagnostic-only automation may continue when it reduces future
-physical effort without changing production behavior; physical gates themselves
-must remain OPEN until observed.
+PR #212 already reduced the future manual burden:
+- diagnostic app data is isolated under
+  `com.mariosg.Narro.M1Diagnostic`;
+- runtime identifier/storage isolation is shown and must PASS before testing;
+- monitor placement has a native expected-vs-actual PASS/FAIL probe;
+- the performance runner verifies duplicate processes, destroyed Main HWND,
+  visible compact Focus region and DPI before every child measurement.
 
-When the user can test again, use:
+Do not add parallel monitor/performance automation unless current evidence shows
+one of those probes is insufficient. Do not resume deferred M9 while reopened
+Milestone 1 remains incomplete.
+
+Physical procedure:
 `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
-
-Candidate split is mandatory:
-
-1. **M7 C5 saved placement** — use CI #809 production artifact. Active Timer ->
-   drag to obvious non-default safe position -> tray `Quit Narro` -> relaunch
-   same CI #809 EXE -> reopen/show Timer -> confirm safe visible saved placement.
-   If PASS, close C5/M7 after tracking reconciliation.
-2. **M1 selected-monitor Panel placement** — use CI #816 diagnostic artifact;
-   physically validate Left/Right placement on each enabled monitor.
-3. **M1 reconnect/re-enumeration** — use CI #816 diagnostic artifact; prove
-   reconnect/re-enable, refreshed enumeration and Panel placement on the
-   restored monitor without Narro restart.
-4. **M1 replacement floating-only performance** — use CI #816 diagnostic
-   artifact; run the validated one-command 3× real-Windows `30s warm-up / 60s sample` batch
-   with `main` destroyed and the single persistent `focusSurface` Timer
-   presentation alive. Return `batch-summary.json` (plus raw failed-run evidence only if needed).
-
-Do not repeat compositor, animations, Blitz-now, idle shortcuts, second launch,
-mixed-DPI Timer crossing, edge/taskbar expansion, display-removal recovery or
-topmost-over-maximized-app tests; they are accepted.
-
-If saved placement fails, reopen only placement persistence/recovery. If the
-B/C/D batch exposes a distinct M1 failure, correct only that evidenced behavior.
-Do not resume deferred M9 while reopened Milestone 1 remains incomplete.
 
 ## Deferred unrelated work
 
