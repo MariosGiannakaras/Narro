@@ -31,13 +31,18 @@ Resulting-main history:
 - #837 failed only because `theme-settings-dark` did not reach visual-fixture readiness; this produced #214.
 - #839 was cancelled by the newer #213 main push.
 - #840 attempt 1 passed validation/fast gate, check, clippy, **346 Rust tests**, performance-harness validation, all visual-regression captures/validators and Tauri release, then failed only because packaged Focus runtime capture did not acknowledge the Panel checkpoint within 15 seconds.
-- #840 attempt 2 has been started. Until it succeeds, the combined current-main tree is not claimed fully resulting-main-green and the final Candidate B diagnostic artifact remains pending.
+- #840 attempt 2 repeated all of those upstream PASSes, then failed only because the fixed ~2.5 s native sampler ended before the slow ~6.2 s Timer→Panel renderer/native transaction reached `panel-returned`, yielding `timer-to-panel-runtime captured no native HWND movement`.
+- Artifact comparison against PR #213 exact-head CI #836 proves the reference transition returns HWND `(388,80) → (668,0)`; #840 stopped sampling at `(388,80)` before the end checkpoint. A source compare proves the existing Focus transition code is unchanged; combined `lib.rs` differences are PR #212 diagnostic additions only.
+- Narrow PR #215 exact head `03cff34c6188bd5033da389ae1dadfa3dc15d4f6` changes only the capture harness: probes remain alive until the real end checkpoint, have hard 30 s bounds, and retain all real-motion validator assertions. Windows CI #841 / run `37029033564` is active. Until it succeeds, the combined current-main tree is not claimed fully resulting-main-green and the final Candidate B diagnostic artifact remains pending.
 
 No physical progress counter changes:
 `4/10M || 4/5 | 14/19`.
 
 Durable source-chain record:
 `work-log/2026-10-02-chatgpt-current-main-pr212-pr214-pr213-reconciliation.md`.
+
+CI #840 / PR #215 capture diagnosis:
+`work-log/2026-10-02-chatgpt-ci840-focus-capture-pr215.md`.
 
 
 ## 2026-10-02 — PR #211 / CI #815 / main CI #816 automate the three-run M1 performance evidence
