@@ -20,6 +20,7 @@ const diagnosticConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.diagnostic.
 const packageJson = fs.readFileSync("package.json", "utf8");
 const performanceBatch = fs.readFileSync("scripts/run-m1-floating-performance-batch.ps1", "utf8");
 const performanceScenario = fs.readFileSync("scripts/verify-m1-floating-performance-scenario.ps1", "utf8");
+const diagnosticStorageSmoke = fs.readFileSync("scripts/verify-m1-diagnostic-storage-isolation.ps1", "utf8");
 
 for (const required of [
   "NARRO_FOCUS_CAPTURE_DIR",
@@ -28,6 +29,15 @@ for (const required of [
   "timer-to-panel-runtime",
   "read-focus-window-metadata.ps1",
 ]) invariant(capture.includes(required), `capture harness is missing ${required}`);
+
+invariant(
+  diagnosticStorageSmoke.includes("function Get-FileHashWithRetry")
+    && diagnosticStorageSmoke.includes("[DateTime]::UtcNow.AddSeconds($TimeoutSeconds)")
+    && diagnosticStorageSmoke.includes("Start-Sleep -Milliseconds $IntervalMilliseconds")
+    && diagnosticStorageSmoke.includes("$databaseHash = Get-FileHashWithRetry -Path $diagnosticDb")
+    && diagnosticStorageSmoke.indexOf("Wait-Process -Id $process.Id") < diagnosticStorageSmoke.indexOf("$databaseHash = Get-FileHashWithRetry -Path $diagnosticDb"),
+  "diagnostic storage smoke must tolerate bounded post-exit SQLite handle release before hashing the diagnostic database",
+);
 
 for (const required of ["GetWindowRect", "GetWindowRgnBox", "GetDpiForWindow", "Narro - Focus"]) {
   invariant(nativeProbe.includes(required), `native metadata probe is missing ${required}`);
