@@ -1334,14 +1334,43 @@ fn animate_focus_surface_presentation_internal(
     let _presentation_guard = presentation_guard()?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
     let previous = current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
+    diagnostic_trace::record(
+        "focus_presentation_requested",
+        serde_json::json!({
+            "previous": previous.event_name(),
+            "target": target.event_name(),
+            "animated": true,
+            "durationMs": duration_ms,
+            "before": diagnostic_focus_surface_snapshot(app_handle),
+        }),
+    );
     if previous == target {
+        diagnostic_trace::record(
+            "focus_presentation_noop",
+            serde_json::json!({
+                "presentation": target.event_name(),
+                "animated": true,
+                "reason": "already-committed",
+            }),
+        );
         return Ok(());
     }
     if previous.mode() == target.mode() {
-        return Err(CommandError::invalid_argument(
+        let error = CommandError::invalid_argument(
             "presentation",
             "animated Focus presentation is only valid for Panel/Timer mode transitions",
-        ));
+        );
+        diagnostic_trace::record(
+            "focus_presentation_failed",
+            serde_json::json!({
+                "previous": previous.event_name(),
+                "target": target.event_name(),
+                "animated": true,
+                "code": error.code,
+                "message": error.message,
+            }),
+        );
+        return Err(error);
     }
 
     let snapshot = capture_focus_native_snapshot(&window)?;
@@ -1428,11 +1457,38 @@ fn animate_focus_surface_presentation_internal(
 
     if let Err(error) = transition {
         return match restore_focus_native_snapshot(&window, &snapshot) {
-            Ok(()) => Err(error),
-            Err(recovery) => Err(CommandError::new(
-                "FOCUS_PRESENTATION_RECOVERY_FAILED",
-                format!("{error}; rollback failed: {recovery}"),
-            )),
+            Ok(()) => {
+                diagnostic_trace::record(
+                    "focus_presentation_failed",
+                    serde_json::json!({
+                        "previous": previous.event_name(),
+                        "target": target.event_name(),
+                        "animated": true,
+                        "code": error.code,
+                        "message": error.message,
+                        "rollback": "restored",
+                    }),
+                );
+                Err(error)
+            }
+            Err(recovery) => {
+                let combined = CommandError::new(
+                    "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                    format!("{error}; rollback failed: {recovery}"),
+                );
+                diagnostic_trace::record(
+                    "focus_presentation_failed",
+                    serde_json::json!({
+                        "previous": previous.event_name(),
+                        "target": target.event_name(),
+                        "animated": true,
+                        "code": combined.code,
+                        "message": combined.message,
+                        "rollback": "failed",
+                    }),
+                );
+                Err(combined)
+            }
         };
     }
 
@@ -1447,6 +1503,15 @@ fn apply_focus_surface_presentation_internal(
     let _presentation_guard = presentation_guard()?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
     let previous = current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
+    diagnostic_trace::record(
+        "focus_presentation_requested",
+        serde_json::json!({
+            "previous": previous.event_name(),
+            "target": target.event_name(),
+            "animated": false,
+            "before": diagnostic_focus_surface_snapshot(app_handle),
+        }),
+    );
 
     // Re-presenting an already committed Panel is not a no-op: the
     // focusSurface normally starts hidden in Panel state, and each explicit
@@ -1462,6 +1527,14 @@ fn apply_focus_surface_presentation_internal(
             .is_visible()
             .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "read visibility", error))?;
         if visible {
+            diagnostic_trace::record(
+                "focus_presentation_noop",
+                serde_json::json!({
+                    "presentation": target.event_name(),
+                    "animated": false,
+                    "reason": "visible-same-timer-presentation",
+                }),
+            );
             return Ok(());
         }
 
@@ -1473,13 +1546,49 @@ fn apply_focus_surface_presentation_internal(
                 .and_then(|_| set_focus_presentation_attributes(&window, target));
         if let Err(error) = recovery {
             return match restore_focus_native_snapshot(&window, &snapshot) {
-                Ok(()) => Err(error),
-                Err(rollback) => Err(CommandError::new(
-                    "FOCUS_PRESENTATION_RECOVERY_FAILED",
-                    format!("{error}; rollback failed: {rollback}"),
-                )),
+                Ok(()) => {
+                    diagnostic_trace::record(
+                        "focus_presentation_failed",
+                        serde_json::json!({
+                            "previous": previous.event_name(),
+                            "target": target.event_name(),
+                            "animated": false,
+                            "code": error.code,
+                            "message": error.message,
+                            "rollback": "restored",
+                            "phase": "hidden-timer-restore",
+                        }),
+                    );
+                    Err(error)
+                }
+                Err(rollback) => {
+                    let combined = CommandError::new(
+                        "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                        format!("{error}; rollback failed: {rollback}"),
+                    );
+                    diagnostic_trace::record(
+                        "focus_presentation_failed",
+                        serde_json::json!({
+                            "previous": previous.event_name(),
+                            "target": target.event_name(),
+                            "animated": false,
+                            "code": combined.code,
+                            "message": combined.message,
+                            "rollback": "failed",
+                            "phase": "hidden-timer-restore",
+                        }),
+                    );
+                    Err(combined)
+                }
             };
         }
+        diagnostic_trace::record(
+            "focus_presentation_restored_hidden_timer",
+            serde_json::json!({
+                "presentation": target.event_name(),
+                "after": diagnostic_focus_surface_snapshot(app_handle),
+            }),
+        );
         return Ok(());
     }
 
@@ -1496,11 +1605,38 @@ fn apply_focus_surface_presentation_internal(
 
     if let Err(error) = transition {
         return match restore_focus_native_snapshot(&window, &snapshot) {
-            Ok(()) => Err(error),
-            Err(recovery) => Err(CommandError::new(
-                "FOCUS_PRESENTATION_RECOVERY_FAILED",
-                format!("{error}; rollback failed: {recovery}"),
-            )),
+            Ok(()) => {
+                diagnostic_trace::record(
+                    "focus_presentation_failed",
+                    serde_json::json!({
+                        "previous": previous.event_name(),
+                        "target": target.event_name(),
+                        "animated": false,
+                        "code": error.code,
+                        "message": error.message,
+                        "rollback": "restored",
+                    }),
+                );
+                Err(error)
+            }
+            Err(recovery) => {
+                let combined = CommandError::new(
+                    "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                    format!("{error}; rollback failed: {recovery}"),
+                );
+                diagnostic_trace::record(
+                    "focus_presentation_failed",
+                    serde_json::json!({
+                        "previous": previous.event_name(),
+                        "target": target.event_name(),
+                        "animated": false,
+                        "code": combined.code,
+                        "message": combined.message,
+                        "rollback": "failed",
+                    }),
+                );
+                Err(combined)
+            }
         };
     }
 
