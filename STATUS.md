@@ -1,8 +1,55 @@
 # STATUS.md
 
-Last updated: 2026-10-02
+Last updated: 2026-10-03
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
+
+
+## 2026-10-03 — PR #216 exact-head validated and merged; resulting-main CI #854 active
+
+PR #216 (`M1: automate final monitor evidence and placement persistence reopen`)
+exact head `306dfc50d68477059ceb65a45c5806558db6abbf` passed full Windows
+CI #853 / run `37044645690`.
+
+The exact-head packaged Focus runtime artifact was manually inspected in
+addition to the green validator:
+- Panel→Timer HWND moved `(668,0) → (388,80)` at ~109 ms;
+- Timer→Panel HWND moved `(388,80) → (668,0)` at ~134 ms;
+- final samples remain at their targets.
+This proves the CI-only 30 s acknowledgement/capture-window alignment retains
+real native movement rather than weakening the contract.
+
+PR #216 was expected-head guarded-squash-merged as
+`007a999e688144122362ad1a4012a22b310e66f2`.
+
+The slice reduces remaining manual M1 work:
+- one-click all-monitor Left/Right placement matrix;
+- ~750 ms visible dwell per matrix position;
+- native expected-vs-actual placement PASS/FAIL evidence;
+- stale matrix invalidation after topology/selection changes;
+- SQLite close/reopen regression for saved Floating Timer placement;
+- isolated diagnostic namespace `com.mariosg.Narro.M1Diagnostic`;
+- final M7 production-session preparer that verifies the exact CI #809 EXE and
+  snapshots production `%APPDATA%\\com.mariosg.Narro` before launch;
+- floating-only performance preflight remains mandatory before each child run.
+
+Exact-head artifacts:
+- Focus runtime id `11244290826`, digest
+  `sha256:fa47826a223cd0e758471be0f1edd363a3d2a3fe5ffd35dd0c36a2cb8b298e7b`;
+- diagnostic id `11244174942`, digest
+  `sha256:f68866ae46da694d28858217aedc6d08999ce765fc19c0226a32710fe5b78570`;
+- exact-head diagnostic `narro.exe` SHA-256
+  `6f7e6667ec392b8fe7fbf79dc6374489a1e3b1d9f1e036902db9c74f17d4a56c`.
+
+These PR-head artifacts are supporting evidence only. Resulting-main Windows CI
+#854 / run `37069188509` is active on merge `007a999e...`. Final Candidate B
+for physical B/C/D must come from a successful #854 resulting-main artifact.
+
+No physical counter advances:
+`4/10M || 4/5 | 14/19`.
+
+Durable checkpoint:
+`work-log/2026-10-03-chatgpt-m1-pr216-ci853-merge-checkpoint.md`.
 
 
 ## 2026-10-02 — current main advanced through PR #212/#214/#213; combined validation rerun active
