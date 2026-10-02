@@ -39,6 +39,7 @@ import {
   type PlanningLaneToken,
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
+import { BlitzEntryButton } from "./BlitzEntryButton";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
@@ -435,6 +436,9 @@ function BoardLane({
 }) {
   const headingId = `list-board-${title.replace(/\s+/g, "-").toLowerCase()}`;
   const pendingLane = laneKey === "done" ? null : laneKey;
+  const displayedLaneEstimateSeconds = pendingLane !== null
+    ? lane.aggregateRemainingEstSeconds ?? lane.aggregateEstSeconds
+    : lane.aggregateEstSeconds;
   const acceptsDrop = pendingLane !== null && presentationReorderEnabled;
   const laneDropTarget = pendingLane !== null && dropTarget?.lane === pendingLane ? dropTarget : null;
   const crossLaneAppend = pendingLane !== null
@@ -475,7 +479,7 @@ function BoardLane({
           </span>
         </div>
         <span className="list-board-lane__est type-metadata">
-          Est: {formatEstimate(lane.aggregateEstSeconds)}
+          Est: {formatEstimate(displayedLaneEstimateSeconds)}
         </span>
       </header>
 
@@ -681,7 +685,7 @@ function BoardLane({
             );
           })
         ) : laneDropTarget ? null : (
-          <div className="list-board-lane__empty type-metadata">No tasks</div>
+          <div className="list-board-lane__empty type-metadata">{laneKey === "today" ? "No Tasks" : "No tasks"}</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder /> : null}
         {createEditor && !createEditor.insertAtTop ? (
@@ -724,6 +728,8 @@ function BoardLane({
           data-board-add-slot="reserved"
         />
       )}
+
+      {laneKey === "today" ? <BlitzEntryButton /> : null}
     </section>
   );
 }
@@ -1219,6 +1225,7 @@ export function ListBoard({
           listId: target.id,
           sourceLane: LANE_TOKEN[sourceLane],
           targetLane: LANE_TOKEN[targetLane],
+          beforeTaskId,
         });
       }
     } catch (failure: unknown) {
@@ -1737,11 +1744,6 @@ export function ListBoard({
     event.preventDefault();
     event.stopPropagation();
     event.dataTransfer.dropEffect = "move";
-
-    if (dragState.sourceLane !== lane) {
-      setDropTarget({ lane, beforeTaskId: null });
-      return;
-    }
 
     const eligible = manualTasks(snapshot[lane]);
     const hoveredIndex = taskIndex(eligible, task.id);
