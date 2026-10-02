@@ -410,37 +410,53 @@ pub fn record_presentation(app_handle: &tauri::AppHandle, presentation: &str) {
     );
 }
 
-pub fn record_timer_move(app_handle: &tauri::AppHandle) {
+pub fn record_timer_move(
+    app_handle: &tauri::AppHandle,
+    position: PhysicalPoint,
+    accepted_for_persistence: bool,
+) {
     if !enabled() {
         return;
     }
-    let position = focus_snapshot(app_handle).map(|snapshot| snapshot.position);
-    let mut metrics = json!({});
-    if let (Some(position), Some(lock)) = (position, STATE.get()) {
-        if let Ok(mut state) = lock.lock() {
-            let baseline = *state.timer_baseline.get_or_insert(position);
-            let dx = i64::from(position.x) - i64::from(baseline.x);
-            let dy = i64::from(position.y) - i64::from(baseline.y);
-            let distance_sq = dx.saturating_mul(dx).saturating_add(dy.saturating_mul(dy));
-            state.max_move_distance_sq = state.max_move_distance_sq.max(distance_sq);
-            let max_distance = integer_sqrt(state.max_move_distance_sq) as u64;
-            metrics = json!({
-                "baseline": baseline,
-                "current": position,
-                "maxMoveDistancePx": max_distance,
-                "qualifyingMove": max_distance >= QUALIFYING_MOVE_PX as u64
-            });
-            if max_distance >= QUALIFYING_MOVE_PX as u64 {
-                write_result(
-                    &state,
-                    "PENDING",
-                    "qualifying-drag-recorded-waiting-for-tray-quit",
-                    metrics.clone(),
-                );
+    let mut metrics = json!({
+        "current": position,
+        "acceptedForPersistence": accepted_for_persistence
+    });
+    if accepted_for_persistence {
+        if let Some(lock) = STATE.get() {
+            if let Ok(mut state) = lock.lock() {
+                let baseline = *state.timer_baseline.get_or_insert(position);
+                let dx = i64::from(position.x) - i64::from(baseline.x);
+                let dy = i64::from(position.y) - i64::from(baseline.y);
+                let distance_sq = dx.saturating_mul(dx).saturating_add(dy.saturating_mul(dy));
+                state.max_move_distance_sq = state.max_move_distance_sq.max(distance_sq);
+                let max_distance = integer_sqrt(state.max_move_distance_sq) as u64;
+                metrics = json!({
+                    "baseline": baseline,
+                    "current": position,
+                    "acceptedForPersistence": true,
+                    "maxMoveDistancePx": max_distance,
+                    "qualifyingMove": max_distance >= QUALIFYING_MOVE_PX as u64
+                });
+                if max_distance >= QUALIFYING_MOVE_PX as u64 {
+                    write_result(
+                        &state,
+                        "PENDING",
+                        "qualifying-drag-recorded-waiting-for-tray-quit",
+                        metrics.clone(),
+                    );
+                }
             }
         }
     }
-    record_event(app_handle, "timer-moved", metrics);
+    record_event(app_handle, "focus-window-moved", metrics);
+}
+
+pub fn record_focus_close_requested(app_handle: &tauri::AppHandle) {
+    if !enabled() {
+        return;
+    }
+    record_event(app_handle, "focus-close-requested", json!({}));
 }
 
 pub fn record_placement_saved(
@@ -631,17 +647,17 @@ pub fn record_timer_restore(
         status,
         reason,
         json!({
-            "sourceSessionId": pending.source_session_id,
-            "restoreSessionId": state.session_id,
+            "sourceSessionId": pending.source_session_id.as_str(),
+            "restoreSessionId": state.session_id.as_str(),
             "maxMoveDistancePx": pending.max_move_distance_px,
-            "savedPlacement": pending.saved_placement,
+            "savedPlacement": &pending.saved_placement,
             "loadedSavedPlacement": loaded_saved,
             "expectedPosition": expected_position,
             "actualPosition": actual_rect.position,
             "positionTolerancePx": RESTORE_TOLERANCE_PX,
             "targetWorkArea": target_work_area,
-            "topologyUnchanged": current_topology == pending.topology_signature,
-            "sourceShaUnchanged": pending.source_sha == current_source_sha
+            "topologyUnchanged": current_topology == pending.topology_signature.as_str(),
+            "sourceShaUnchanged": pending.source_sha.as_str() == current_source_sha
         }),
     );
     let _ = fs::remove_file(state.root.join("pending-c5.json"));
