@@ -279,6 +279,18 @@ invariant(
   "display recovery must observe and revalidate the one Focus HWND",
 );
 invariant(
+  lib.includes("struct FocusPanelPlacementProbe")
+    && lib.includes("fn focus_panel_placement_probe(")
+    && lib.includes("window.outer_position()")
+    && lib.includes("window.outer_size()")
+    && lib.includes("focus_panel_edge_position(descriptor.work_area, actual_size, side)")
+    && lib.includes("clamp_top_left(descriptor.work_area, actual_size, actual_position)")
+    && lib.includes("fully_within_work_area")
+    && lib.includes("edge_aligned")
+    && lib.includes("focus_panel_placement_probe,"),
+  "physical monitor diagnostics must read actual Focus HWND geometry, compare it with the selected monitor work-area edge, and remain registered",
+);
+invariant(
   topology.includes("WM_ENTERSIZEMOVE")
     && topology.includes("WM_EXITSIZEMOVE")
     && topology.includes("display_recovery_suspended()")
