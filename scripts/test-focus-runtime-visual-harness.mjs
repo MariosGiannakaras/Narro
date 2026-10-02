@@ -157,8 +157,9 @@ invariant(
   diagnosticUploadIndex > diagnosticBuildIndex
     && workflow.includes("src-tauri/target/release/narro.exe")
     && workflow.includes("scripts/measure-floating.ps1")
+    && workflow.includes("scripts/run-m1-floating-performance-batch.ps1")
     && workflow.includes("docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md"),
-  "diagnostic artifact must contain the current raw executable plus the physical performance procedure",
+  "diagnostic artifact must contain the current raw executable plus the single-run and batched physical performance procedures",
 );
 for (const required of [
   "NARRO_FOCUS_CAPTURE_DIR",
