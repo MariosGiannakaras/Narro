@@ -33,6 +33,7 @@ export type ListBoardLane = {
   tasks: ListBoardTask[];
   count: number;
   aggregateEstSeconds: number;
+  aggregateRemainingEstSeconds?: number;
 };
 
 export type ListBoardSnapshot = {
@@ -143,6 +144,7 @@ export type MoveListBoardTaskRequest = {
   listId: string;
   sourceLane: PlanningLaneToken;
   targetLane: PlanningLaneToken;
+  beforeTaskId: string | null;
 };
 
 export type ChangeListBoardTaskRequest = {
