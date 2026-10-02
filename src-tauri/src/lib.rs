@@ -5,6 +5,7 @@ pub mod board_task_mutation;
 pub mod board_task_notes;
 pub mod board_task_schedule;
 pub mod board_task_subtasks;
+pub mod diagnostic_trace;
 pub mod domain;
 pub mod error;
 pub mod floating_placement;
@@ -319,6 +320,144 @@ fn diagnostic_storage_paths(app_handle: tauri::AppHandle) -> CommandResult<Diagn
         app_data_dir: app_data_dir.to_string_lossy().into_owned(),
         app_local_data_dir: app_local_data_dir.to_string_lossy().into_owned(),
     })
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DiagnosticFocusSurfaceSnapshot {
+    exists: bool,
+    visible: Option<bool>,
+    position: Option<GeometryPoint>,
+    outer_size: Option<GeometrySize>,
+    scale_factor: Option<f64>,
+    presentation: String,
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DiagnosticRuntimeSnapshot {
+    reason: String,
+    windows: Vec<String>,
+    monitors: Vec<MonitorDescriptor>,
+    focus_surface: DiagnosticFocusSurfaceSnapshot,
+}
+
+fn diagnostic_focus_surface_snapshot(
+    app_handle: &tauri::AppHandle,
+) -> DiagnosticFocusSurfaceSnapshot {
+    let Some(window) = app_handle.get_webview_window(FOCUS_SURFACE_LABEL) else {
+        return DiagnosticFocusSurfaceSnapshot {
+            exists: false,
+            visible: None,
+            position: None,
+            outer_size: None,
+            scale_factor: None,
+            presentation: current_focus_surface_presentation()
+                .map(FocusSurfacePresentation::event_name)
+                .unwrap_or("unknown")
+                .to_owned(),
+        };
+    };
+
+    let position = window.outer_position().ok().map(|position| GeometryPoint {
+        x: position.x,
+        y: position.y,
+    });
+    let outer_size = window.outer_size().ok().map(|size| GeometrySize {
+        width: size.width,
+        height: size.height,
+    });
+
+    DiagnosticFocusSurfaceSnapshot {
+        exists: true,
+        visible: window.is_visible().ok(),
+        position,
+        outer_size,
+        scale_factor: window.scale_factor().ok(),
+        presentation: current_focus_surface_presentation()
+            .map(FocusSurfacePresentation::event_name)
+            .unwrap_or("unknown")
+            .to_owned(),
+    }
+}
+
+fn diagnostic_runtime_snapshot(
+    app_handle: &tauri::AppHandle,
+    reason: impl Into<String>,
+) -> CommandResult<DiagnosticRuntimeSnapshot> {
+    let mut windows: Vec<_> = app_handle.webview_windows().keys().cloned().collect();
+    windows.sort_unstable();
+    let monitors = enumerate_monitors(app_handle)?
+        .iter()
+        .enumerate()
+        .map(|(index, monitor)| monitor_descriptor(index, monitor))
+        .collect::<CommandResult<Vec<_>>>()?;
+
+    Ok(DiagnosticRuntimeSnapshot {
+        reason: reason.into(),
+        windows,
+        monitors,
+        focus_surface: diagnostic_focus_surface_snapshot(app_handle),
+    })
+}
+
+fn record_diagnostic_runtime_snapshot(app_handle: &tauri::AppHandle, reason: &str) {
+    match diagnostic_runtime_snapshot(app_handle, reason) {
+        Ok(snapshot) => diagnostic_trace::record(
+            "runtime_snapshot",
+            serde_json::to_value(snapshot).unwrap_or_else(|error| {
+                serde_json::json!({ "serializationError": error.to_string() })
+            }),
+        ),
+        Err(error) => diagnostic_trace::record(
+            "runtime_snapshot_failed",
+            serde_json::json!({
+                "reason": reason,
+                "code": error.code,
+                "message": error.message,
+            }),
+        ),
+    }
+}
+
+#[tauri::command]
+fn diagnostic_trace_start(
+    app_handle: tauri::AppHandle,
+) -> CommandResult<diagnostic_trace::DiagnosticTraceStatus> {
+    let status = diagnostic_trace::start(&app_handle)?;
+    record_diagnostic_runtime_snapshot(&app_handle, "trace-start");
+    Ok(status)
+}
+
+#[tauri::command]
+fn diagnostic_trace_status() -> CommandResult<diagnostic_trace::DiagnosticTraceStatus> {
+    diagnostic_trace::status()
+}
+
+#[tauri::command]
+fn diagnostic_trace_mark(label: String) -> CommandResult<()> {
+    diagnostic_trace::mark(&label)
+}
+
+#[tauri::command]
+fn diagnostic_trace_snapshot(
+    app_handle: tauri::AppHandle,
+    reason: String,
+) -> CommandResult<DiagnosticRuntimeSnapshot> {
+    diagnostic_trace::mark(&format!("snapshot:{reason}"))?;
+    let snapshot = diagnostic_runtime_snapshot(&app_handle, reason)?;
+    diagnostic_trace::record(
+        "runtime_snapshot",
+        serde_json::to_value(&snapshot).unwrap_or_else(|error| {
+            serde_json::json!({ "serializationError": error.to_string() })
+        }),
+    );
+    Ok(snapshot)
+}
+
+#[tauri::command]
+fn diagnostic_trace_stop() -> CommandResult<diagnostic_trace::DiagnosticTraceStatus> {
+    diagnostic_trace::stop()
 }
 
 fn show_and_focus(window: &tauri::WebviewWindow) -> CommandResult<()> {
