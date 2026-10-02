@@ -291,6 +291,34 @@ fn map_window_error(label: &str, operation: &str, error: impl Display) -> Comman
     CommandError::window_operation(label, operation, error)
 }
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DiagnosticStoragePaths {
+    app_data_dir: String,
+    app_local_data_dir: String,
+}
+
+#[tauri::command]
+fn diagnostic_storage_paths(app_handle: tauri::AppHandle) -> CommandResult<DiagnosticStoragePaths> {
+    let app_data_dir = app_handle.path().app_data_dir().map_err(|error| {
+        CommandError::new(
+            "DIAGNOSTIC_STORAGE_FAILED",
+            format!("failed to resolve diagnostic app-data directory: {error}"),
+        )
+    })?;
+    let app_local_data_dir = app_handle.path().app_local_data_dir().map_err(|error| {
+        CommandError::new(
+            "DIAGNOSTIC_STORAGE_FAILED",
+            format!("failed to resolve diagnostic local app-data directory: {error}"),
+        )
+    })?;
+
+    Ok(DiagnosticStoragePaths {
+        app_data_dir: app_data_dir.to_string_lossy().into_owned(),
+        app_local_data_dir: app_local_data_dir.to_string_lossy().into_owned(),
+    })
+}
+
 fn show_and_focus(window: &tauri::WebviewWindow) -> CommandResult<()> {
     let label = window.label();
     window
@@ -2042,6 +2070,7 @@ pub fn run() {
             main_window_destroy,
             main_window_close,
             main_window_recreate,
+            diagnostic_storage_paths,
             focus_surface_show,
             focus_surface_hide,
             focus_surface_focus,
