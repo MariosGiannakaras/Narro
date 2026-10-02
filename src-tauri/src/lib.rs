@@ -291,12 +291,33 @@ fn map_window_error(label: &str, operation: &str, error: impl Display) -> Comman
     CommandError::window_operation(label, operation, error)
 }
 
+const PRODUCTION_APP_IDENTIFIER: &str = "com.mariosg.Narro";
+const M1_DIAGNOSTIC_APP_IDENTIFIER: &str = "com.mariosg.Narro.M1Diagnostic";
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 struct DiagnosticStoragePaths {
     identifier: String,
     app_data_dir: String,
     app_local_data_dir: String,
+    isolation_pass: bool,
+}
+
+fn storage_path_matches_identifier(path: &std::path::Path, identifier: &str) -> bool {
+    path.file_name()
+        .and_then(std::ffi::OsStr::to_str)
+        .is_some_and(|leaf| leaf.eq_ignore_ascii_case(identifier))
+}
+
+fn diagnostic_storage_isolation_pass(
+    identifier: &str,
+    app_data_dir: &std::path::Path,
+    app_local_data_dir: &std::path::Path,
+) -> bool {
+    identifier.eq_ignore_ascii_case(M1_DIAGNOSTIC_APP_IDENTIFIER)
+        && !identifier.eq_ignore_ascii_case(PRODUCTION_APP_IDENTIFIER)
+        && storage_path_matches_identifier(app_data_dir, identifier)
+        && storage_path_matches_identifier(app_local_data_dir, identifier)
 }
 
 #[tauri::command]
@@ -313,12 +334,63 @@ fn diagnostic_storage_paths(app_handle: tauri::AppHandle) -> CommandResult<Diagn
             format!("failed to resolve diagnostic local app-data directory: {error}"),
         )
     })?;
+    let identifier = app_handle.config().identifier.clone();
+    let isolation_pass =
+        diagnostic_storage_isolation_pass(&identifier, &app_data_dir, &app_local_data_dir);
 
     Ok(DiagnosticStoragePaths {
-        identifier: app_handle.config().identifier.clone(),
+        identifier,
         app_data_dir: app_data_dir.to_string_lossy().into_owned(),
         app_local_data_dir: app_local_data_dir.to_string_lossy().into_owned(),
+        isolation_pass,
     })
+}
+
+#[cfg(test)]
+mod diagnostic_storage_tests {
+    use super::{
+        diagnostic_storage_isolation_pass, M1_DIAGNOSTIC_APP_IDENTIFIER, PRODUCTION_APP_IDENTIFIER,
+    };
+    use std::path::PathBuf;
+
+    #[test]
+    fn diagnostic_storage_requires_resolved_paths_to_use_diagnostic_namespace() {
+        let roaming =
+            PathBuf::from(r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro.M1Diagnostic");
+        let local =
+            PathBuf::from(r"C:\Users\NarroTest\AppData\Local\com.mariosg.Narro.M1Diagnostic");
+
+        assert!(diagnostic_storage_isolation_pass(
+            M1_DIAGNOSTIC_APP_IDENTIFIER,
+            &roaming,
+            &local
+        ));
+    }
+
+    #[test]
+    fn diagnostic_storage_rejects_production_identifier_even_with_matching_paths() {
+        let roaming = PathBuf::from(r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro");
+        let local = PathBuf::from(r"C:\Users\NarroTest\AppData\Local\com.mariosg.Narro");
+
+        assert!(!diagnostic_storage_isolation_pass(
+            PRODUCTION_APP_IDENTIFIER,
+            &roaming,
+            &local
+        ));
+    }
+
+    #[test]
+    fn diagnostic_storage_rejects_identifier_when_either_resolved_path_has_wrong_leaf() {
+        let diagnostic_roaming =
+            PathBuf::from(r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro.M1Diagnostic");
+        let production_local = PathBuf::from(r"C:\Users\NarroTest\AppData\Local\com.mariosg.Narro");
+
+        assert!(!diagnostic_storage_isolation_pass(
+            M1_DIAGNOSTIC_APP_IDENTIFIER,
+            &diagnostic_roaming,
+            &production_local
+        ));
+    }
 }
 
 fn show_and_focus(window: &tauri::WebviewWindow) -> CommandResult<()> {
@@ -1924,6 +1996,20 @@ fn initialize_persistence(
         .path()
         .app_data_dir()
         .map_err(|error| startup_error("resolve app data directory", error))?;
+    let identifier = app.config().identifier.as_str();
+    if identifier.eq_ignore_ascii_case(M1_DIAGNOSTIC_APP_IDENTIFIER)
+        && !storage_path_matches_identifier(&app_dir, identifier)
+    {
+        return Err(startup_error(
+            "validate diagnostic app data isolation",
+            format!(
+                "resolved app-data directory {} does not end in diagnostic identifier {}",
+                app_dir.display(),
+                identifier
+            ),
+        )
+        .into());
+    }
     std::fs::create_dir_all(&app_dir)
         .map_err(|error| startup_error("create app data directory", error))?;
 

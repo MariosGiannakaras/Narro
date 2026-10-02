@@ -287,6 +287,11 @@ jobs:
     - name: Build M1 Diagnostic Validation Release
       run: npm run tauri:diagnostic-ci
 
+    - name: Verify M1 Diagnostic Storage Isolation
+      shell: pwsh
+      run: |
+        powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-m1-diagnostic-storage-isolation.ps1 -Executable src-tauri/target/release/narro.exe -ResetDiagnosticData
+
     - name: Upload M1 Diagnostic Validation Artifact
       uses: actions/upload-artifact@v4
       with:
