@@ -120,6 +120,10 @@ invariant(
     && !JSON.stringify(diagnosticConfig).includes("runtimeVisual"),
   "M1 diagnostic config must enable Main diagnostics while retaining the real non-instrumented product Focus surface",
 );
+invariant(
+  diagnosticConfig.identifier === "com.mariosg.Narro.M1Diagnostic",
+  "M1 diagnostic config must use an isolated Tauri identifier so it cannot open the production Narro app-data/WebView namespace",
+);
 const buildIndex = workflow.indexOf("- name: Build Tauri Release");
 const captureIndex = workflow.indexOf("- name: Capture Packaged Focus Runtime");
 const uploadIndex = workflow.indexOf("name: narro-m7-focus-runtime-visual");
