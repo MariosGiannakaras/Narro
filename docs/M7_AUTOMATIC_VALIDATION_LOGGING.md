@@ -8,15 +8,16 @@ It is the same Narro runtime source with validation-only local instrumentation a
 
 ## What the user does
 
-1. Extract/download the M7 validation artifact.
-2. Run `narro-m7-validation.exe` normally. No PowerShell setup is required.
-3. Keep/start one real active task and show the compact Floating Timer.
-4. Drag the Timer by at least 64 physical pixels to an obvious safe non-default position.
-5. Quit normally through tray **Quit Narro**.
-6. Relaunch the same `narro-m7-validation.exe`.
-7. Show/reopen the Timer for the recovered/live task.
-8. Open the automatically created sibling folder `Narro-M7-Logs`.
-9. Upload the latest `session-*` folders plus `m7-c5-latest-result.json` (and preferably `m7-c5-last-terminal-result.json`) for audit/debugging.
+1. Quit any normal Narro instance first; the validation executable intentionally shares the single-instance/product-data boundary with Narro.
+2. Extract/download the M7 validation artifact.
+3. Run `narro-m7-validation.exe` normally. No PowerShell setup is required.
+4. Keep/start one real active task and show the compact Floating Timer.
+5. Drag the Timer by at least 64 physical pixels to an obvious safe non-default position.
+6. Quit normally through tray **Quit Narro**.
+7. Relaunch the same `narro-m7-validation.exe`.
+8. Show/reopen the Timer for the recovered/live task.
+9. Open the automatically created sibling folder `Narro-M7-Logs`.
+10. Upload the latest `session-*` folders plus `m7-c5-latest-result.json` (and preferably `m7-c5-last-terminal-result.json`) for audit/debugging.
 
 ## Automatic files
 
@@ -41,7 +42,7 @@ The root also contains:
 
 The JSONL trace records only technical validation data needed to diagnose M7 window/persistence behavior:
 
-- UTC timestamp, monotonic elapsed time, sequence number, process/session identity and source SHA;
+- UTC timestamp, monotonic elapsed time, sequence number, process/session identity, exact source SHA and a local byte-level executable fingerprint;
 - Focus presentation (Panel / compact Timer / expanded Timer);
 - Focus HWND outer position, size, visibility and scale factor;
 - monitor names, bounds, work areas and DPI scale factors;
@@ -58,9 +59,9 @@ The logger does **not** record task titles, task descriptions, notes, list names
 
 The evaluator reports one of:
 
-- **PASS** — a qualifying Timer drag was recorded, tray Quit saved placement successfully, a different process/session relaunched the same source build, monitor topology remained unchanged, the same persisted placement was loaded, the actual restored position matched the placement engine's expected position within 2 physical pixels, and the visible Timer region remained inside the target work area.
+- **PASS** — a qualifying Timer drag was recorded, tray Quit saved placement successfully, a different process/session relaunched the same exact executable bytes/source build, monitor topology remained unchanged, the same persisted placement was loaded, the actual restored position matched the placement engine's expected position within 2 physical pixels, and the visible Timer region remained inside the target work area.
 - **FAIL** — the recorded data proves a persistence/restore contradiction, such as a different placement being loaded after restart, restore coordinates diverging from the placement engine's expected coordinates, or the restored visible region ending outside the target work area.
-- **INCONCLUSIVE** — required evidence is missing or intentionally unsuitable for automatic acceptance, such as too-small/no drag, no visible-Timer save at tray Quit, a changed monitor topology, a different source build after restart, or inability to persist the cross-restart validation state.
+- **INCONCLUSIVE** — required evidence is missing or intentionally unsuitable for automatic acceptance, such as too-small/no drag, no visible-Timer save at tray Quit, a changed monitor topology, a different executable fingerprint/source build after restart, or inability to persist the cross-restart validation state.
 - **PENDING** — the attempt is not complete yet.
 
 A PASS is deliberately fail-closed: missing observations never become PASS.
