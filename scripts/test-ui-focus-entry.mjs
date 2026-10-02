@@ -1,11 +1,12 @@
 import { readFile } from "node:fs/promises";
 
-const [rust, lib, api, button, main, preferences, windows, topology, region, coordinator] = await Promise.all([
+const [rust, lib, api, button, main, board, preferences, windows, topology, region, coordinator] = await Promise.all([
   readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/focusEntryApi.ts", import.meta.url), "utf8"),
   readFile(new URL("../src/BlitzEntryButton.tsx", import.meta.url), "utf8"),
   readFile(new URL("../src/main.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../src/ListBoard.tsx", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/domain/preferences.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/windows/mod.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/windows/topology.rs", import.meta.url), "utf8"),
@@ -86,9 +87,13 @@ for (const [haystack, needle, label] of [
   [button, 'outcome.status === "no_eligible_today_tasks"', "no-eligible UI handling"],
   [button, "await presentFocusForBlitz();", "post-commit coordinator-safe Focus presentation"],
   [button, "Focus session is active", "committed-start presentation failure distinction"],
-  [main, "<BlitzEntryButton />", "production main entry surface"],
+  [board, 'laneKey === "today" ? <BlitzEntryButton /> : null', "production Today-lane entry surface"],
 ]) {
   requireText(haystack, needle, label);
+}
+
+if (main.includes("<BlitzEntryButton />")) {
+  throw new Error("Blitz entry must live in the Today lane rather than a global post-App strip.");
 }
 
 if (button.includes("useEffect") || api.includes("useEffect")) {

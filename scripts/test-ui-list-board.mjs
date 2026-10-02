@@ -48,6 +48,8 @@ for (const [haystack, needle, label] of [
   [component, 'data-board-add-slot="reserved"', "stable reserved add geometry"],
   [component, 'data-board-add-slot="bottom"', "production bottom add region"],
   [component, "data-board-add-task={pendingLane}", "pending-lane Add Task target"],
+  [component, "aggregateRemainingEstSeconds ?? lane.aggregateEstSeconds", "remaining estimate presentation"],
+  [component, 'laneKey === "today" ? <BlitzEntryButton /> : null', "Today-lane Blitz entry placement"],
   [component, "pendingLane !== null && !aggregateView", "Done and All Lists create exclusion"],
   [component, 'data-board-add-task-top={pendingLane}', "top-priority Add Task target"],
   [component, 'data-done-month-count=', "Done local-month count marker"],
@@ -81,6 +83,7 @@ for (const [haystack, needle, label] of [
   [createEditValidator, "data-board-add-task", "captured production Add Task validation"],
   [css, "grid-template-columns: repeat(4, minmax(9.5rem, 1fr));", "stable four-column geometry"],
   [css, ".list-board__selector select", "selector geometry contract"],
+  [css, '.list-board-lane[data-board-lane="Today"]', "Today accent boundary"],
   [css, "border-radius: var(--radius-task-card);", "shared task-card radius"],
 ]) {
   requireText(haystack, needle, label);
