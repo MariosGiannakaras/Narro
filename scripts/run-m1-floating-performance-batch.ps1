@@ -114,6 +114,7 @@ function Assert-ConsistentRunContext {
 function New-RunRecord {
     param(
         [int]$RunNumber,
+        [string]$ScenarioPreflightRelativePath,
         [string]$SummaryRelativePath,
         [object]$Summary,
         [string]$ExecutableSha256
@@ -121,6 +122,8 @@ function New-RunRecord {
 
     return [pscustomobject]@{
         runNumber = $RunNumber
+        scenarioPreflightPath = $ScenarioPreflightRelativePath
+        scenarioPreflightValidated = $true
         summaryPath = $SummaryRelativePath
         rootPid = [int]$Summary.rootPid
         rootExecutable = [string]$Summary.rootExecutable
@@ -181,7 +184,7 @@ function Invoke-SelfTest {
     }
 
     Assert-ValidSummary -Summary $validSummary
-    $record = New-RunRecord -RunNumber 1 -SummaryRelativePath "run-01/summary.json" -Summary $validSummary -ExecutableSha256 ("b" * 64)
+    $record = New-RunRecord -RunNumber 1 -ScenarioPreflightRelativePath "run-01/scenario-preflight.json" -SummaryRelativePath "run-01/summary.json" -Summary $validSummary -ExecutableSha256 ("b" * 64)
     Assert-Condition ([Math]::Abs($record.workingSetMiB.average - 100.0) -lt 0.0001) "working-set MiB conversion failed"
     Assert-Condition ([Math]::Abs($record.privateBytesMiB.average - 80.0) -lt 0.0001) "private-byte MiB conversion failed"
     Assert-ConsistentRunContext -ReferenceRun $record -Summary $validSummary
@@ -242,6 +245,11 @@ if (-not (Test-Path $measureScript -PathType Leaf)) {
     throw "measurement harness not found: $measureScript"
 }
 
+$scenarioScript = Join-Path $PSScriptRoot "verify-m1-floating-performance-scenario.ps1"
+if (-not (Test-Path $scenarioScript -PathType Leaf)) {
+    throw "scenario preflight not found: $scenarioScript"
+}
+
 if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
     $stamp = [DateTime]::UtcNow.ToString("yyyyMMdd-HHmmssZ")
     $OutputDirectory = Join-Path (Join-Path $PSScriptRoot "..") ("performance/m1-floating-batch/{0}" -f $stamp)
@@ -260,6 +268,31 @@ for ($runNumber = 1; $runNumber -le $RunCount; $runNumber += 1) {
 
     Write-Host ""
     Write-Host "=== Floating performance $runName of $RunCount ==="
+
+    $scenarioPath = Join-Path $runDirectory "scenario-preflight.json"
+    $scenarioArguments = @(
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", $scenarioScript,
+        "-OutputPath", $scenarioPath
+    )
+    if ($NarroPid -gt 0) {
+        $scenarioArguments += @("-NarroPid", [string]$NarroPid)
+    }
+
+    & $powerShell @scenarioArguments
+    $scenarioExitCode = $LASTEXITCODE
+    if ($scenarioExitCode -ne 0) {
+        throw "scenario preflight for $runName failed with exit code $scenarioExitCode; fix the physical setup before measuring"
+    }
+    if (-not (Test-Path $scenarioPath -PathType Leaf)) {
+        throw "scenario preflight for $runName did not produce scenario-preflight.json"
+    }
+
+    $scenario = Get-Content -Raw -Path $scenarioPath | ConvertFrom-Json
+    Assert-Condition ([bool]$scenario.pass) "scenario preflight for $runName did not report PASS"
+    Assert-Condition ([string]$scenario.scenario -eq "floating-only-main-destroyed") "scenario preflight for $runName reported the wrong scenario"
 
     $intervalArgument = $IntervalSeconds.ToString([Globalization.CultureInfo]::InvariantCulture)
     $arguments = @(
@@ -305,9 +338,11 @@ for ($runNumber = 1; $runNumber -le $RunCount; $runNumber += 1) {
         }
     }
 
+    $relativeScenario = "$runName/scenario-preflight.json"
     $relativeSummary = "$runName/summary.json"
     $recordParams = @{
         RunNumber = $runNumber
+        ScenarioPreflightRelativePath = $relativeScenario
         SummaryRelativePath = $relativeSummary
         Summary = $summary
         ExecutableSha256 = $actualHash
@@ -333,6 +368,7 @@ $batchSummary = [pscustomobject]@{
     scenario = "floating-only-main-destroyed"
     runCount = $RunCount
     allRunsValid = $true
+    scenarioPreflightValidatedForEveryRun = $true
     expectedExecutableSha256 = $expectedHash
     warmupSeconds = $WarmupSeconds
     requestedSampleSeconds = $SampleSeconds
