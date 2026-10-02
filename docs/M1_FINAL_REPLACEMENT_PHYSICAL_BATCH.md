@@ -93,7 +93,7 @@ A short continuous recording is sufficient.
 
 ## Batch B — Focus Panel selected-monitor left/right placement
 
-Use **Candidate B / current validated diagnostic artifact** with two enabled
+Use **Candidate B / final #212 resulting-main diagnostic artifact** with two enabled
 monitors.
 
 The diagnostic Monitor section shows:
@@ -124,7 +124,7 @@ Record:
 
 ## Batch C — reconnect / re-enumeration closure
 
-Use **Candidate B / current validated diagnostic artifact**. CI #809 already
+Use **Candidate B / final #212 resulting-main diagnostic artifact**. CI #809 already
 proves real display removal and safe recovery; this batch closes the stricter
 reconnect/re-enumeration wording.
 
