@@ -401,7 +401,7 @@ fn diagnostic_runtime_snapshot(
     })
 }
 
-fn record_diagnostic_runtime_snapshot(app_handle: &tauri::AppHandle, reason: &str) {
+pub(crate) fn record_diagnostic_runtime_snapshot(app_handle: &tauri::AppHandle, reason: &str) {
     match diagnostic_runtime_snapshot(app_handle, reason) {
         Ok(snapshot) => diagnostic_trace::record(
             "runtime_snapshot",
