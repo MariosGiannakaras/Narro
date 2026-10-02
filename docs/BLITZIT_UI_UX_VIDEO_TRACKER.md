@@ -1,10 +1,12 @@
 # Blitzit UI/UX Video Forensics Tracker
 
-Status: **COMPLETE — 19/19 pairs deep-reviewed for UI/UX**
+Status: **SECOND PASS COMPLETE — 19/19 prior UI/UX coverage; Pass 3 exhaustive source forensics ACTIVE and tracked separately**
 
-This tracker records the second-pass forensic UI/UX analysis requested after the initial 19/19 functional video reconciliation.
+This tracker records the **second-pass** forensic UI/UX analysis requested after the initial 19/19 functional video reconciliation.
 
-It does not replace `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`. That tracker remains complete for product-behavior ingestion; this tracker is complete for interface anatomy and interaction-detail coverage.
+It remains useful prior evidence, but it is **not the authoritative completion ledger for the new exhaustive Pass 3**. The 2026-10-02 planning-clip re-audit demonstrated that second-pass coverage could still miss material state/arithmetic/reflow details.
+
+Authoritative Pass-3 continuation: `docs/BLITZIT_FORENSIC_PASS3_HANDOFF.md` and `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`.
 
 ## Counters
 
@@ -40,7 +42,7 @@ It does not replace `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`. That tracker remai
 | VE-018 | Planning workflow | reviewed | reviewed | drag/reorder/focus duplicates reconciled | no trustworthy unique drag timing | COMPLETE |
 | VE-019 | Historical update | reviewed | reviewed | light theme + Floating-subtask history reviewed | historical; no obsolete limitation promoted | COMPLETE |
 
-## Completion result
+## Second-pass completion result
 
 The pass satisfies its six closure conditions:
 1. 19/19 pairs reviewed for UI anatomy, copy, inputs and visible states.
@@ -51,3 +53,8 @@ The pass satisfies its six closure conditions:
 6. Implementation implications are routed without reopening validated reliability decisions.
 
 Detailed findings: `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`.
+
+
+## Pass-3 supersession note
+
+Do not use the 19/19 counters above as proof that the exhaustive third pass is complete. Pass 3 currently has 46/46 screenshot records complete, 0/19 full MP4s complete, and one partial VE-018 excerpt at deep-review depth. See the dedicated Pass-3 tracker for current truth.
