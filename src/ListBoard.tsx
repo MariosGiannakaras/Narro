@@ -475,7 +475,7 @@ function BoardLane({
           </span>
         </div>
         <span className="list-board-lane__est type-metadata">
-          Est: {formatEstimate(lane.aggregateEstSeconds)}
+          Est: {formatEstimate(lane.aggregateRemainingEstSeconds ?? lane.aggregateEstSeconds)}
         </span>
       </header>
 
