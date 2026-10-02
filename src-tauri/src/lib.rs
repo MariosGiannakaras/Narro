@@ -50,8 +50,9 @@ use timer_service::{
     timer_skip_task, timer_start_manual_break, timer_start_task, timer_switch_task, TimerService,
 };
 use windows::{
-    focus_panel_edge_position, validate_work_area, FocusPanelSide, MonitorDescriptor,
-    PhysicalPoint as GeometryPoint, PhysicalRect as GeometryRect, PhysicalSize as GeometrySize,
+    clamp_top_left, focus_panel_edge_position, validate_work_area, FocusPanelSide,
+    MonitorDescriptor, PhysicalPoint as GeometryPoint, PhysicalRect as GeometryRect,
+    PhysicalSize as GeometrySize,
 };
 
 const MAIN_WINDOW_LABEL: &str = "main";
@@ -290,6 +291,36 @@ fn map_window_error(label: &str, operation: &str, error: impl Display) -> Comman
     CommandError::window_operation(label, operation, error)
 }
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct DiagnosticStoragePaths {
+    identifier: String,
+    app_data_dir: String,
+    app_local_data_dir: String,
+}
+
+#[tauri::command]
+fn diagnostic_storage_paths(app_handle: tauri::AppHandle) -> CommandResult<DiagnosticStoragePaths> {
+    let app_data_dir = app_handle.path().app_data_dir().map_err(|error| {
+        CommandError::new(
+            "DIAGNOSTIC_STORAGE_FAILED",
+            format!("failed to resolve diagnostic app-data directory: {error}"),
+        )
+    })?;
+    let app_local_data_dir = app_handle.path().app_local_data_dir().map_err(|error| {
+        CommandError::new(
+            "DIAGNOSTIC_STORAGE_FAILED",
+            format!("failed to resolve diagnostic local app-data directory: {error}"),
+        )
+    })?;
+
+    Ok(DiagnosticStoragePaths {
+        identifier: app_handle.config().identifier.clone(),
+        app_data_dir: app_data_dir.to_string_lossy().into_owned(),
+        app_local_data_dir: app_local_data_dir.to_string_lossy().into_owned(),
+    })
+}
+
 fn show_and_focus(window: &tauri::WebviewWindow) -> CommandResult<()> {
     let label = window.label();
     window
@@ -415,6 +446,90 @@ fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescr
         .enumerate()
         .map(|(index, monitor)| monitor_descriptor(index, monitor))
         .collect()
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct FocusPanelPlacementProbe {
+    monitor: MonitorDescriptor,
+    side: FocusPanelSide,
+    expected_position: GeometryPoint,
+    actual_position: GeometryPoint,
+    actual_size: GeometrySize,
+    visible: bool,
+    presentation: String,
+    edge_aligned: bool,
+    fully_within_work_area: bool,
+    pass: bool,
+}
+
+#[tauri::command(rename_all = "camelCase")]
+fn focus_panel_placement_probe(
+    app_handle: tauri::AppHandle,
+    monitor_key: String,
+    side: FocusPanelSide,
+) -> CommandResult<FocusPanelPlacementProbe> {
+    let (_monitor, descriptor) = resolve_monitor_by_key(&app_handle, &monitor_key)?;
+    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+
+    let outer_position = window.outer_position().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Focus Panel position for diagnostic probe",
+            error,
+        )
+    })?;
+    let outer_size = window.outer_size().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Focus Panel size for diagnostic probe",
+            error,
+        )
+    })?;
+    let actual_position = GeometryPoint {
+        x: outer_position.x,
+        y: outer_position.y,
+    };
+    let actual_size = GeometrySize {
+        width: outer_size.width,
+        height: outer_size.height,
+    };
+    let expected_position = focus_panel_edge_position(descriptor.work_area, actual_size, side)
+        .map_err(CommandError::window_geometry)?;
+    let clamped_position = clamp_top_left(descriptor.work_area, actual_size, actual_position)
+        .map_err(CommandError::window_geometry)?;
+    let fits_work_area = actual_size.width <= descriptor.work_area.size.width
+        && actual_size.height <= descriptor.work_area.size.height;
+    let fully_within_work_area = fits_work_area && clamped_position == actual_position;
+    let edge_aligned = actual_position == expected_position;
+    let visible = window.is_visible().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Focus Panel visibility for diagnostic probe",
+            error,
+        )
+    })?;
+    let presentation = current_focus_surface_presentation()
+        .map(FocusSurfacePresentation::event_name)
+        .unwrap_or("unknown")
+        .to_owned();
+    let pass = visible
+        && presentation == FocusSurfacePresentation::Panel.event_name()
+        && edge_aligned
+        && fully_within_work_area;
+
+    Ok(FocusPanelPlacementProbe {
+        monitor: descriptor,
+        side,
+        expected_position,
+        actual_position,
+        actual_size,
+        visible,
+        presentation,
+        edge_aligned,
+        fully_within_work_area,
+        pass,
+    })
 }
 
 fn load_focus_panel_placement_preferences(
@@ -1955,6 +2070,7 @@ pub fn run() {
             main_window_destroy,
             main_window_close,
             main_window_recreate,
+            diagnostic_storage_paths,
             focus_surface_show,
             focus_surface_hide,
             focus_surface_focus,
@@ -1969,6 +2085,7 @@ pub fn run() {
             focus_surface_mode_timer,
             list_windows,
             list_monitors,
+            focus_panel_placement_probe,
             position_focus_panel,
             present_focus_panel,
             present_focus_for_blitz

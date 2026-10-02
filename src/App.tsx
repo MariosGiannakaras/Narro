@@ -6,6 +6,8 @@ import { AppShell } from "./AppShell";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
+  type DiagnosticStoragePaths,
+  type FocusPanelPlacementProbe,
   type FocusPanelSide,
   type FocusShortcutKind,
   type MonitorDescriptor,
@@ -65,9 +67,11 @@ function App() {
   const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
   const [reminderAcceptanceStatus, setReminderAcceptanceStatus] = useState<string | null>(null);
   const [autostartStatus, setAutostartStatus] = useState<AutostartStatus | null>(null);
+  const [diagnosticStoragePaths, setDiagnosticStoragePaths] = useState<DiagnosticStoragePaths | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
+  const [placementProbe, setPlacementProbe] = useState<FocusPanelPlacementProbe | null>(null);
   const [error, setError] = useState<string | null>(null);
   const diagnosticMode = new URLSearchParams(window.location.search).get("diagnostics") === "1";
 
@@ -76,6 +80,17 @@ function App() {
       const labels = await invoke<string[]>("list_windows");
       setWindows(labels);
     } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function refreshDiagnosticStoragePaths() {
+    try {
+      const paths = await invoke<DiagnosticStoragePaths>("diagnostic_storage_paths");
+      setDiagnosticStoragePaths(paths);
+      setError(null);
+    } catch (failure: unknown) {
+      setDiagnosticStoragePaths(null);
       setError(formatInvokeError(failure));
     }
   }
@@ -99,6 +114,7 @@ function App() {
   function clearMonitorList() {
     setMonitors([]);
     setSelectedMonitorKey(null);
+    setPlacementProbe(null);
   }
 
   async function fetchAndApplyMonitors() {
@@ -108,6 +124,7 @@ function App() {
   }
 
   async function refreshMonitors() {
+    setPlacementProbe(null);
     try {
       await fetchAndApplyMonitors();
       setError(null);
@@ -181,6 +198,7 @@ function App() {
 
     if (diagnosticMode) {
       void refreshAutostartStatus();
+      void refreshDiagnosticStoragePaths();
       void refreshWindows();
       void refreshMonitors();
     }
@@ -352,6 +370,7 @@ function App() {
   }
 
   async function positionFocusPanel(side: FocusPanelSide) {
+    setPlacementProbe(null);
     if (!isValidMonitorSelection(selectedMonitorKey, monitors)) {
       setError("[MONITOR_SELECTION_INVALID] Select a currently available monitor first.");
       return;
@@ -362,6 +381,11 @@ function App() {
         monitorKey: selectedMonitorKey,
         side,
       });
+      const probe = await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe", {
+        monitorKey: selectedMonitorKey,
+        side,
+      });
+      setPlacementProbe(probe);
       setError(null);
 
       try {
@@ -394,10 +418,13 @@ function App() {
     }
 
     setSelectedMonitorKey(value);
+    setPlacementProbe(null);
     setError(null);
   }
 
   const selectedMonitor = findSelectedMonitor(selectedMonitorKey, monitors);
+  const diagnosticStorageIsolated =
+    diagnosticStoragePaths?.identifier === "com.mariosg.Narro.M1Diagnostic";
 
   return (
     <AppShell>
@@ -493,6 +520,27 @@ function App() {
               </section>
 
               <section className="app-shell__diagnostic-card">
+                <h2>Diagnostic Build Identity</h2>
+                <p>Expected isolated Tauri identifier: com.mariosg.Narro.M1Diagnostic</p>
+                <p>
+                  Storage isolation:{" "}
+                  <strong>
+                    {diagnosticStoragePaths
+                      ? diagnosticStorageIsolated
+                        ? "PASS"
+                        : "FAIL"
+                      : "not checked"}
+                  </strong>
+                </p>
+                <button onClick={() => void refreshDiagnosticStoragePaths()}>
+                  Refresh Storage Paths
+                </button>
+                {diagnosticStoragePaths && (
+                  <pre>{JSON.stringify(diagnosticStoragePaths, null, 2)}</pre>
+                )}
+              </section>
+
+              <section className="app-shell__diagnostic-card">
                 <h2>Window Controls</h2>
                 <p>Active Webviews: {windows.join(", ") || "none"}</p>
                 <button onClick={() => void refreshWindows()}>Refresh Window List</button>
@@ -527,6 +575,11 @@ function App() {
                 <hr />
                 <h3>Monitor Diagnostics</h3>
                 <button onClick={() => void refreshMonitors()}>Refresh Monitors</button>
+                <p>Available monitors: {monitors.length}</p>
+                <details>
+                  <summary>All monitor descriptors</summary>
+                  <pre>{JSON.stringify(monitors, null, 2)}</pre>
+                </details>
                 <div>
                   <label>
                     Monitor:{" "}
@@ -557,6 +610,14 @@ function App() {
                 >
                   Position Focus Panel Right
                 </button>
+                {placementProbe && (
+                  <>
+                    <p>
+                      Placement probe: <strong>{placementProbe.pass ? "PASS" : "FAIL"}</strong>
+                    </p>
+                    <pre>{JSON.stringify(placementProbe, null, 2)}</pre>
+                  </>
+                )}
               </section>
             </div>
           </div>

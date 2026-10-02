@@ -105,6 +105,11 @@ invariant(
   "diagnostic artifact must retain the real product Focus surface",
 );
 invariant(
+  tauriDiagnosticConfig.identifier === "com.mariosg.Narro.M1Diagnostic"
+    && tauriDiagnosticConfig.identifier !== tauriConfig.identifier,
+  "diagnostic artifact must use a distinct Tauri identifier so app-data/WebView state cannot share the production Narro namespace",
+);
+invariant(
   !JSON.stringify(tauriDiagnosticConfig).includes("runtimeVisual"),
   "diagnostic artifact must never activate runtimeVisual fixtures",
 );
