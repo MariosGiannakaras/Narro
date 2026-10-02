@@ -111,6 +111,7 @@ function App() {
   }
 
   async function refreshMonitors() {
+    setPlacementProbe(null);
     try {
       await fetchAndApplyMonitors();
       setError(null);
@@ -355,6 +356,7 @@ function App() {
   }
 
   async function positionFocusPanel(side: FocusPanelSide) {
+    setPlacementProbe(null);
     if (!isValidMonitorSelection(selectedMonitorKey, monitors)) {
       setError("[MONITOR_SELECTION_INVALID] Select a currently available monitor first.");
       return;
