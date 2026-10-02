@@ -11,16 +11,21 @@ function Get-DirectoryFingerprint {
     param([string]$Directory)
 
     if (-not (Test-Path $Directory -PathType Container)) {
-        return ""
+        return "<missing>"
     }
 
-    $entries = @(
-        Get-ChildItem -LiteralPath $Directory -File -Recurse -Force |
+    $entries = @("<present>")
+    $entries += @(
+        Get-ChildItem -LiteralPath $Directory -Recurse -Force |
             Sort-Object FullName |
             ForEach-Object {
                 $relative = $_.FullName.Substring($Directory.Length).TrimStart([char[]]"\/")
-                $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash.ToLowerInvariant()
-                "{0}|{1}|{2}" -f $relative, $_.Length, $hash
+                if ($_.PSIsContainer) {
+                    "D|{0}" -f $relative
+                } else {
+                    $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash.ToLowerInvariant()
+                    "F|{0}|{1}|{2}" -f $relative, $_.Length, $hash
+                }
             }
     )
     return [string]::Join("`n", $entries)
