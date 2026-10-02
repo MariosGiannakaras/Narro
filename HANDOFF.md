@@ -4,6 +4,25 @@ Canonical continuation point. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING
 
 GitHub `main` is the durable source truth.
 
+## LIVE RECONCILIATION — 2026-10-03
+
+This section overrides stale PR #217/#218 continuation text below until those older passages are next cleaned up.
+
+- Main source baseline: `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
+- PR #217 is merged. Resulting-main diagnostic hash-release follow-up is validated by Windows CI #866 / run `37078139295`: **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
+- PR #218 is still open but is a divergent duplicate/follow-up around that already-main hash-release fix; do not merge it blindly.
+- Active implementation PR is **#219**: `M7: add automatic local physical-validation logs`.
+- PR #219 exact head: `422230e755a373d3ccb61246e1917ff7934a1210`.
+- PR #219 Windows CI #869 / run `37079768471`: **PENDING** at this checkpoint.
+- #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
+- No progress counter advances from implementation alone. Current progress remains `4/10M || 4/5 | 14/19`.
+
+**NEXT AGENT ACTION:** check CI #869 first. On failure, inspect the exact failing evidence and fix only that on PR #219. On PASS, verify the dedicated validation artifact/executable identity, expected-head guarded merge #219, validate resulting main, then reconcile tracking. Do not wait for or redo already accepted M7 C1-C4 physical evidence.
+
+**USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
+
+Durable implementation checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-validation-logging-pr219-pending.md`.
+
 ## CURRENT STATE
 
 `4/10M || 4/5 | 14/19`
