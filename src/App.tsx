@@ -6,6 +6,7 @@ import { AppShell } from "./AppShell";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
+  type FocusPanelPlacementProbe,
   type FocusPanelSide,
   type FocusShortcutKind,
   type MonitorDescriptor,
@@ -68,6 +69,7 @@ function App() {
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
+  const [placementProbe, setPlacementProbe] = useState<FocusPanelPlacementProbe | null>(null);
   const [error, setError] = useState<string | null>(null);
   const diagnosticMode = new URLSearchParams(window.location.search).get("diagnostics") === "1";
 
@@ -99,6 +101,7 @@ function App() {
   function clearMonitorList() {
     setMonitors([]);
     setSelectedMonitorKey(null);
+    setPlacementProbe(null);
   }
 
   async function fetchAndApplyMonitors() {
@@ -362,6 +365,11 @@ function App() {
         monitorKey: selectedMonitorKey,
         side,
       });
+      const probe = await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe", {
+        monitorKey: selectedMonitorKey,
+        side,
+      });
+      setPlacementProbe(probe);
       setError(null);
 
       try {
@@ -394,6 +402,7 @@ function App() {
     }
 
     setSelectedMonitorKey(value);
+    setPlacementProbe(null);
     setError(null);
   }
 
@@ -527,6 +536,11 @@ function App() {
                 <hr />
                 <h3>Monitor Diagnostics</h3>
                 <button onClick={() => void refreshMonitors()}>Refresh Monitors</button>
+                <p>Available monitors: {monitors.length}</p>
+                <details>
+                  <summary>All monitor descriptors</summary>
+                  <pre>{JSON.stringify(monitors, null, 2)}</pre>
+                </details>
                 <div>
                   <label>
                     Monitor:{" "}
@@ -557,6 +571,14 @@ function App() {
                 >
                   Position Focus Panel Right
                 </button>
+                {placementProbe && (
+                  <>
+                    <p>
+                      Placement probe: <strong>{placementProbe.pass ? "PASS" : "FAIL"}</strong>
+                    </p>
+                    <pre>{JSON.stringify(placementProbe, null, 2)}</pre>
+                  </>
+                )}
               </section>
             </div>
           </div>
