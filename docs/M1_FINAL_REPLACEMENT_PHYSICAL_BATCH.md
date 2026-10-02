@@ -15,6 +15,12 @@ Use **two intentionally separate candidates**:
 Do not swap these candidates. The diagnostic build is for M1 testing convenience
 and does not replace the production candidate for M7 physical acceptance.
 
+Before any Candidate B test, **fully quit Candidate A / any production Narro**.
+The diagnostic build intentionally uses a different Tauri identifier so its
+SQLite/WebView data is isolated, but both executables are still named
+`narro.exe` and both can own global shortcuts. B/C/D evidence is valid only
+with the diagnostic build as the sole Narro process.
+
 ## Candidate A — M7 production physical artifact
 
 - CI #809 run: `36865451660`
