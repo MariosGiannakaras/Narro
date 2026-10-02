@@ -2059,17 +2059,25 @@ pub fn run() {
                 && current_focus_surface_mode() == Some(FocusSurfaceMode::Timer)
             {
                 match event {
-                    tauri::WindowEvent::Moved(_) => {
-                        if floating_placement::note_timer_moved(window.app_handle()) {
-                            validation_log::record_timer_move(window.app_handle());
-                            if current_focus_surface_expanded() {
-                                if let Ok(mut origin) = COMPACT_TIMER_ORIGIN.lock() {
-                                    *origin = None;
-                                }
+                    tauri::WindowEvent::Moved(position) => {
+                        let accepted_for_persistence =
+                            floating_placement::note_timer_moved(window.app_handle());
+                        validation_log::record_timer_move(
+                            window.app_handle(),
+                            GeometryPoint {
+                                x: position.x,
+                                y: position.y,
+                            },
+                            accepted_for_persistence,
+                        );
+                        if accepted_for_persistence && current_focus_surface_expanded() {
+                            if let Ok(mut origin) = COMPACT_TIMER_ORIGIN.lock() {
+                                *origin = None;
                             }
                         }
                     }
                     tauri::WindowEvent::CloseRequested { .. } => {
+                        validation_log::record_focus_close_requested(window.app_handle());
                         if let Err(error) =
                             floating_placement::save_if_timer_visible(window.app_handle())
                         {
