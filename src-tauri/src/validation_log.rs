@@ -236,7 +236,7 @@ fn record_event(app_handle: &tauri::AppHandle, event: &str, details: Value) {
         "elapsedMs": state.started.elapsed().as_millis(),
         "sessionId": state.session_id.as_str(),
         "processId": std::process::id(),
-        "sourceSha": option_env!("GITHUB_SHA").unwrap_or("unknown"),
+        "sourceSha": option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown"),
         "event": event,
         "focus": focus,
         "monitors": monitors,
@@ -259,7 +259,7 @@ fn result_document(
         "status": status,
         "reason": reason,
         "generatedUtc": utc_now(),
-        "sourceSha": option_env!("GITHUB_SHA").unwrap_or("unknown"),
+        "sourceSha": option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown"),
         "currentSessionId": state.session_id.as_str(),
         "pendingSourceSessionId": state.pending.as_ref().map(|pending| pending.source_session_id.as_str()),
         "metrics": extra
@@ -333,7 +333,7 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
         "sessionId": session_id,
         "startedUtc": utc_now(),
         "processId": std::process::id(),
-        "sourceSha": option_env!("GITHUB_SHA").unwrap_or("unknown"),
+        "sourceSha": option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown"),
         "executableName": std::env::current_exe()
             .ok()
             .and_then(|path| path.file_name().map(|name| name.to_string_lossy().into_owned()))
@@ -499,7 +499,7 @@ pub fn record_tray_quit_completed(
         topology_signature: topology,
         max_move_distance_px: max_distance,
         qualifying_move,
-        source_sha: option_env!("GITHUB_SHA").unwrap_or("unknown").to_string(),
+        source_sha: option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown").to_string(),
     };
     if let Err(error) = write_json(&state.root.join("pending-c5.json"), &pending) {
         eprintln!("M7 validation pending-state write failed: {error}");
@@ -566,7 +566,7 @@ pub fn record_timer_restore(
     state.timer_baseline.get_or_insert(actual_rect.position);
     state.restore_evaluated = true;
 
-    let current_source_sha = option_env!("GITHUB_SHA").unwrap_or("unknown");
+    let current_source_sha = option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown");
     let (status, reason) = if pending.source_sha != current_source_sha {
         (
             "INCONCLUSIVE",
