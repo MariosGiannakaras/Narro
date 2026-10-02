@@ -183,11 +183,19 @@ invariant(
   "physical production-config executable must pass an isolated-profile smoke check before upload",
 );
 const diagnosticBuildIndex = workflow.indexOf("- name: Build M1 Diagnostic Validation Release");
+const diagnosticStorageVerifyIndex = workflow.indexOf("- name: Verify M1 Diagnostic Storage Isolation");
 const diagnosticUploadIndex = workflow.indexOf("name: narro-m1-diagnostic-windows-x64");
 invariant(
   diagnosticBuildIndex > physicalUploadIndex
     && workflow.includes("npm run tauri:diagnostic-ci"),
   "diagnostic build must run only after the production physical artifact is verified and uploaded",
+);
+invariant(
+  diagnosticStorageVerifyIndex > diagnosticBuildIndex
+    && diagnosticStorageVerifyIndex < diagnosticUploadIndex
+    && workflow.includes("scripts/verify-m1-diagnostic-storage-isolation.ps1")
+    && workflow.includes("-ResetDiagnosticData"),
+  "diagnostic executable must prove real resolved AppData isolation on Windows before artifact upload",
 );
 invariant(
   diagnosticUploadIndex > diagnosticBuildIndex
