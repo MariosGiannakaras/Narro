@@ -1,0 +1,32 @@
+name: Blitzit Pass 3 Media Bridge
+
+on:
+  push:
+    branches:
+      - analysis/blitzit-pass3-media-bridge
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  publish-reference-videos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify reference corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=$(find reference/original-blitzit-videos/inbox -maxdepth 1 -type f -name '*.mp4' | wc -l)
+          test "$count" -eq 19
+          find reference/original-blitzit-videos/inbox -maxdepth 1 -type f -name '*.mp4' -printf '%f %s bytes\n' | sort
+      - name: Upload Blitzit source videos for forensic analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: blitzit-pass3-source-videos
+          path: reference/original-blitzit-videos/inbox/*.mp4
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
