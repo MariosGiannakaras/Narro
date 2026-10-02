@@ -96,6 +96,7 @@ A short continuous recording is sufficient.
 Use **Candidate B / final #212 resulting-main diagnostic artifact** with two enabled
 monitors.
 
+Before Batch B, expand **Native Event Trace** and require `Trace: recording`.
 The diagnostic Monitor section shows:
 - current **Available monitors** count;
 - all native monitor descriptors/work areas;
@@ -122,6 +123,11 @@ Record:
 - monitor 2 Left: PASS/FAIL
 - monitor 2 Right: PASS/FAIL
 
+After the four placements, click **Capture Native Snapshot**. Keep the screen
+recording and later return the trace run's `events.jsonl`. The trace adds exact
+monitor/work-area/DPI descriptors plus expected/actual placement geometry to the
+visual evidence.
+
 ## Batch C — reconnect / re-enumeration closure
 
 Use **Candidate B / final #212 resulting-main diagnostic artifact**. CI #809 already
@@ -131,15 +137,20 @@ reconnect/re-enumeration wording.
 1. Start from two displays enabled and press Refresh Monitors.
 2. Confirm `Available monitors: 2` (or the actual enabled-display count) and
    keep the all-descriptors section visible for evidence.
-3. With Narro still running, disable/disconnect the secondary display.
-4. Press Refresh Monitors. The count/descriptors must update to the surviving
+3. Confirm **Native Event Trace = recording**, then click
+   **Mark Before Monitor Change**.
+4. With Narro still running, disable/disconnect the secondary display.
+5. Press Refresh Monitors. The count/descriptors must update to the surviving
    topology; no stale placement PASS should remain.
-5. Re-enable/reconnect the display without restarting Narro.
-6. Press Refresh Monitors again. The restored display must reappear with
+6. Re-enable/reconnect the display without restarting Narro.
+7. Press Refresh Monitors again. The restored display must reappear with
    plausible geometry/scaling.
-7. Select the restored monitor and position Focus Panel Left and Right; each
+8. Click **Mark After Monitor Change** and **Capture Native Snapshot**.
+9. Select the restored monitor and position Focus Panel Left and Right; each
    native Placement probe must report PASS and the Panel must be physically
    reachable on that display.
+10. Click **Stop Trace** after B/C are complete and return the run's
+    `events.jsonl` with the screen recording.
 
 If convenient, change the reconnected display from right-of-primary to
 left-of-primary before refreshing; negative desktop coordinates are valid and
@@ -156,10 +167,12 @@ three-run batch runner, and a native Win32 scenario preflight.
 1. Fully quit the production Narro first; only the isolated diagnostic
    `narro.exe` may be running.
 2. Launch the diagnostic build and let startup settle.
-3. Put `focusSurface` in **compact Floating Timer** presentation.
-4. Leave timer/session inactive; no animations or user interaction.
-5. Click **Destroy Main** in diagnostic controls. Do not use Hide Main.
-6. From the extracted artifact directory run one command, substituting the
+3. If Native Event Trace is recording from B/C, click **Stop Trace**. Do not
+   leave the trace writer active during performance evidence.
+4. Put `focusSurface` in **compact Floating Timer** presentation.
+5. Leave timer/session inactive; no animations or user interaction.
+6. Click **Destroy Main** in diagnostic controls. Do not use Hide Main.
+7. From the extracted artifact directory run one command, substituting the
    Candidate B EXE SHA-256 listed above:
 
 ```powershell
@@ -189,6 +202,20 @@ The agent will report:
 - comparison against the historical superseded baseline;
 - whether the replacement two-WebView architecture is acceptably lightweight
   or warrants the documented native-overlay fallback review.
+
+## Diagnostic evidence package
+
+For B/C, return:
+- the continuous screen recording;
+- the corresponding `events.jsonl` trace.
+
+For D, return:
+- `batch-summary.json`;
+- failed-run raw evidence only if the batch runner rejects a run.
+
+The trace is diagnostic support and does not replace required visual physical
+observation. Full trace semantics and privacy boundaries are defined in
+`docs/M1_DIAGNOSTIC_EVENT_TRACE.md`.
 
 ## Closure order
 
