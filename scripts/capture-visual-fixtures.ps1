@@ -50,7 +50,8 @@ function Capture-Theme {
         [string]$ScreenshotPath,
         [string]$DomPath,
         [int]$VirtualTimeBudgetMs = 0,
-        [string]$ReadyMarker = ""
+        [string]$ReadyMarker = "",
+        [int]$ReadyMaxAttempts = 4
     )
 
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
@@ -78,7 +79,10 @@ function Capture-Theme {
             $arguments = @("--virtual-time-budget=$VirtualTimeBudgetMs") + $arguments
         }
 
-        $maxAttempts = if ($ReadyMarker) { 4 } else { 1 }
+        if ($ReadyMaxAttempts -lt 1) {
+            throw "ReadyMaxAttempts must be at least 1."
+        }
+        $maxAttempts = if ($ReadyMarker) { $ReadyMaxAttempts } else { 1 }
         for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
             $edgeProcess = Start-Process `
                 -FilePath $EdgePath `
@@ -278,7 +282,8 @@ try {
                 -ScreenshotPath $scheduleScreenshot `
                 -DomPath $scheduleDom `
                 -VirtualTimeBudgetMs 10000 `
-                -ReadyMarker 'data-task-schedule-fixture-ready="true"'
+                -ReadyMarker 'data-task-schedule-fixture-ready="true"' `
+                -ReadyMaxAttempts 8
         }
     }
 } finally {
