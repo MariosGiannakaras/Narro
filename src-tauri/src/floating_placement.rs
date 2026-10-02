@@ -495,6 +495,13 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
     let connection = app_database(app_handle)?;
     persistence::floating_placement::save(&connection, &saved, &chrono::Utc::now().to_rfc3339())
         .map_err(|error| placement_error("save Timer position", error))?;
+    crate::diagnostic_trace::record(
+        "timer_placement_saved",
+        serde_json::json!({
+            "placement": &saved,
+            "expanded": crate::current_focus_surface_expanded(),
+        }),
+    );
     Ok(true)
 }
 
@@ -513,6 +520,17 @@ pub fn restore_for_timer(
         Some(saved) => target_work_area(saved, &areas, &fallback),
         None => best_work_area_for_window(current, &areas, &fallback),
     };
+    crate::diagnostic_trace::record(
+        "timer_placement_restore_requested",
+        serde_json::json!({
+            "saved": saved.as_ref(),
+            "currentVisibleRect": current,
+            "targetWorkArea": selected.rect,
+            "targetMonitorName": selected.name,
+            "targetScaleFactor": selected.scale_factor,
+            "expanded": expanded,
+        }),
+    );
     for pass in 0..2 {
         // The first placement can cross monitors and change the window's physical DPI size.
         // Read, fit, and position again on the selected monitor before the caller shows it.
@@ -535,7 +553,19 @@ pub fn restore_for_timer(
             ensure_fixed_focus_host_size(window)?;
         }
     }
-    confirm_visible_window_in_work_area(window, selected.rect, expanded)?;
+    let final_rect = confirm_visible_window_in_work_area(window, selected.rect, expanded)?;
+    crate::diagnostic_trace::record(
+        "timer_placement_restored",
+        serde_json::json!({
+            "hadSavedPlacement": saved.is_some(),
+            "finalVisibleRect": final_rect,
+            "targetWorkArea": selected.rect,
+            "targetMonitorName": selected.name,
+            "targetScaleFactor": selected.scale_factor,
+            "windowScaleFactor": window.scale_factor().ok(),
+            "expanded": expanded,
+        }),
+    );
     Ok(saved.is_some())
 }
 
@@ -586,6 +616,22 @@ pub fn revalidate_visible_timer_after_display_change(
     let needs_hide = needs_dpi_resize
         || planned_size != previous_outer.size
         || planned_position != previous.position;
+    crate::diagnostic_trace::record(
+        "timer_display_recovery_plan",
+        serde_json::json!({
+            "previousOuterRect": previous_outer,
+            "previousVisibleRect": previous,
+            "targetWorkArea": selected.rect,
+            "targetMonitorName": selected.name,
+            "targetScaleFactor": selected.scale_factor,
+            "windowScaleFactor": scale_factor,
+            "needsDpiResize": needs_dpi_resize,
+            "plannedOuterSize": planned_size,
+            "plannedPosition": planned_position,
+            "needsHide": needs_hide,
+            "expanded": expanded,
+        }),
+    );
     let previous_inner_size = if needs_hide {
         Some(
             window
@@ -638,8 +684,23 @@ pub fn revalidate_visible_timer_after_display_change(
     })();
 
     match recovery {
-        Ok(changed) => Ok(changed),
+        Ok(changed) => {
+            crate::diagnostic_trace::record(
+                "timer_display_recovery_completed",
+                serde_json::json!({
+                    "changed": changed,
+                    "after": current_visible_rect(&window, expanded).ok(),
+                    "windowScaleFactor": window.scale_factor().ok(),
+                    "expanded": expanded,
+                }),
+            );
+            Ok(changed)
+        }
         Err(error) => {
+            crate::diagnostic_trace::record(
+                "timer_display_recovery_failed",
+                serde_json::json!({ "error": error.to_string() }),
+            );
             let rollback = if let Some(previous_inner_size) = previous_inner_size {
                 let size = window
                     .set_size(tauri::Size::Physical(previous_inner_size))
