@@ -47,6 +47,23 @@ type AutostartStatus = {
   changed: boolean;
 };
 
+type FocusPanelPlacementMatrixEntry = {
+  monitorKey: string;
+  monitorIndex: number;
+  monitorName: string | null;
+  side: FocusPanelSide;
+  probe: FocusPanelPlacementProbe;
+};
+
+type FocusPanelPlacementMatrix = {
+  generatedAt: string;
+  monitorCount: number;
+  entryCount: number;
+  passCount: number;
+  pass: boolean;
+  entries: FocusPanelPlacementMatrixEntry[];
+};
+
 const REMINDER_ACCEPTANCE_DELAY_MS = 2 * 60 * 1000;
 
 function twoDigits(value: number): string {
@@ -72,6 +89,8 @@ function App() {
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
   const [placementProbe, setPlacementProbe] = useState<FocusPanelPlacementProbe | null>(null);
+  const [placementMatrix, setPlacementMatrix] = useState<FocusPanelPlacementMatrix | null>(null);
+  const [placementMatrixPending, setPlacementMatrixPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const diagnosticMode = new URLSearchParams(window.location.search).get("diagnostics") === "1";
 
@@ -115,6 +134,7 @@ function App() {
     setMonitors([]);
     setSelectedMonitorKey(null);
     setPlacementProbe(null);
+    setPlacementMatrix(null);
   }
 
   async function fetchAndApplyMonitors() {
@@ -410,6 +430,72 @@ function App() {
     }
   }
 
+  async function runFocusPanelPlacementMatrix() {
+    if (placementMatrixPending) return;
+
+    setPlacementProbe(null);
+    setPlacementMatrix(null);
+    setPlacementMatrixPending(true);
+
+    try {
+      const discovered = await fetchAndApplyMonitors();
+      if (discovered.length === 0) {
+        throw new Error("No monitor is available for the Focus Panel placement matrix.");
+      }
+
+      await invoke<void>("focus_surface_mode_panel");
+      await invoke<void>("focus_surface_show");
+
+      const entries: FocusPanelPlacementMatrixEntry[] = [];
+      for (const monitor of discovered) {
+        for (const side of ["left", "right"] as const) {
+          await invoke<void>("position_focus_panel", {
+            monitorKey: monitor.key,
+            side,
+          });
+          const probe = await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe", {
+            monitorKey: monitor.key,
+            side,
+          });
+          entries.push({
+            monitorKey: monitor.key,
+            monitorIndex: monitor.index,
+            monitorName: monitor.name,
+            side,
+            probe,
+          });
+        }
+      }
+
+      const passCount = entries.filter((entry) => entry.probe.pass).length;
+      const matrix: FocusPanelPlacementMatrix = {
+        generatedAt: new Date().toISOString(),
+        monitorCount: discovered.length,
+        entryCount: entries.length,
+        passCount,
+        pass: entries.length > 0 && passCount === entries.length,
+        entries,
+      };
+      setPlacementMatrix(matrix);
+      setPlacementProbe(entries.at(-1)?.probe ?? null);
+      setError(
+        matrix.pass
+          ? null
+          : "[FOCUS_PANEL_PLACEMENT_MATRIX_FAILED] One or more native placement probes failed.",
+      );
+    } catch (failure: unknown) {
+      setPlacementMatrix(null);
+      setError(formatInvokeError(failure));
+      try {
+        await fetchAndApplyMonitors();
+      } catch {
+        clearMonitorList();
+      }
+    } finally {
+      setPlacementMatrixPending(false);
+    }
+  }
+
   function handleMonitorSelection(value: string) {
     if (!isValidMonitorSelection(value, monitors)) {
       setSelectedMonitorKey(null);
@@ -419,6 +505,7 @@ function App() {
 
     setSelectedMonitorKey(value);
     setPlacementProbe(null);
+    setPlacementMatrix(null);
     setError(null);
   }
 
@@ -599,17 +686,35 @@ function App() {
                 </div>
                 {selectedMonitor && <pre>{JSON.stringify(selectedMonitor, null, 2)}</pre>}
                 <button
-                  disabled={!selectedMonitor}
+                  disabled={!selectedMonitor || placementMatrixPending}
                   onClick={() => void positionFocusPanel("left")}
                 >
                   Position Focus Panel Left
                 </button>
                 <button
-                  disabled={!selectedMonitor}
+                  disabled={!selectedMonitor || placementMatrixPending}
                   onClick={() => void positionFocusPanel("right")}
                 >
                   Position Focus Panel Right
                 </button>
+                <button
+                  disabled={monitors.length === 0 || placementMatrixPending}
+                  onClick={() => void runFocusPanelPlacementMatrix()}
+                  data-m1-placement-matrix-run
+                >
+                  {placementMatrixPending ? "Running placement matrix…" : "Run all monitor Left/Right probes"}
+                </button>
+                {placementMatrix && (
+                  <>
+                    <p>
+                      Placement matrix: <strong>{placementMatrix.pass ? "PASS" : "FAIL"}</strong>{" "}
+                      ({placementMatrix.passCount}/{placementMatrix.entryCount})
+                    </p>
+                    <pre data-m1-placement-matrix-result>
+                      {JSON.stringify(placementMatrix, null, 2)}
+                    </pre>
+                  </>
+                )}
                 {placementProbe && (
                   <>
                     <p>
