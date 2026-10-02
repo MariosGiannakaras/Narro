@@ -5,6 +5,41 @@ Last updated: 2026-10-02
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
 
+## 2026-10-02 — current main advanced through PR #212/#214/#213; combined validation rerun active
+
+Repository implementation main is now
+`7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`, not the earlier PR #211 merge.
+
+Validated constituent heads:
+- PR #212 `M1: harden physical monitor diagnostics and isolate app data` — exact head `c9e33c1bd12f0c5285f3a0a8807b94516dd71f33`, Windows CI #833 **PASS**, merged as `acdf8cc54d84247bba83e826020369003d5c244a`.
+- PR #214 `CI: retry Theme Settings capture until fixture ready` — exact head `5073da095eef9cef86065d2813b27ed9e3a93b26`, Windows CI #838 **PASS**, merged as `ad6e1d84793e9a5de5a63dd5a2279d0ad67ed8da`.
+- PR #213 `Board: implement dense Blitzit planning parity` — exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`, Windows CI #836 **PASS**, merged as current implementation main `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`.
+
+PR #212 materially improves the still-open M1 physical validation path without closing it:
+- diagnostic identifier is isolated as `com.mariosg.Narro.M1Diagnostic`;
+- diagnostic storage identity/app-data/local-data paths are visible and must report isolation PASS;
+- Focus Panel selected-monitor placement now has a read-only native expected-vs-actual placement probe;
+- floating-only performance runs now preflight the real Windows HWND/DPI/native-region scenario before every child measurement and reject duplicate Narro processes, hidden Main, hidden Focus, or non-compact Timer geometry.
+
+Exact-head CI #833 diagnostic artifact (supporting evidence only while combined-main validation is pending):
+- artifact id `11221912668`;
+- ZIP SHA-256 `7c3e25363d8cd0556e6f671478fb816c956b0bd1923d692e4862bb2205ab51c7`;
+- contained diagnostic `narro.exe` SHA-256 `fb0798910601a29b4488a9372b01ba88c9f928070283f29debd524dcfe29bc5f`;
+- contains `measure-floating.ps1`, `run-m1-floating-performance-batch.ps1`, `verify-m1-floating-performance-scenario.ps1` and M1 Windows validation docs.
+
+Resulting-main history:
+- #837 failed only because `theme-settings-dark` did not reach visual-fixture readiness; this produced #214.
+- #839 was cancelled by the newer #213 main push.
+- #840 attempt 1 passed validation/fast gate, check, clippy, **346 Rust tests**, performance-harness validation, all visual-regression captures/validators and Tauri release, then failed only because packaged Focus runtime capture did not acknowledge the Panel checkpoint within 15 seconds.
+- #840 attempt 2 has been started. Until it succeeds, the combined current-main tree is not claimed fully resulting-main-green and the final Candidate B diagnostic artifact remains pending.
+
+No physical progress counter changes:
+`4/10M || 4/5 | 14/19`.
+
+Durable source-chain record:
+`work-log/2026-10-02-chatgpt-current-main-pr212-pr214-pr213-reconciliation.md`.
+
+
 ## 2026-10-02 — PR #211 / CI #815 / main CI #816 automate the three-run M1 performance evidence
 
 PR #211 (`M1: automate floating performance evidence batch`) adds only validation tooling/docs/CI wiring, not product runtime behavior. The new `scripts/run-m1-floating-performance-batch.ps1` invokes the existing canonical sampler for at least three consecutive runs, rejects invalid/churning/context-mismatched evidence, can enforce an expected executable SHA-256, and writes one `batch-summary.json` with all per-run metrics, median run averages and Windows/CPU environment metadata.
