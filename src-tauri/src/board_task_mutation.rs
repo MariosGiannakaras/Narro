@@ -173,6 +173,7 @@ fn move_unscheduled_task_to_lane(
     expected_list_id: ListId,
     expected_source_lane: PlanningLane,
     target_lane: PlanningLane,
+    before_id: Option<TaskId>,
     now: &str,
 ) -> Result<TaskRecord, BoardTaskMutationError> {
     let current = get_task(conn, id)?;
@@ -181,7 +182,7 @@ fn move_unscheduled_task_to_lane(
         return Ok(current);
     }
 
-    move_task(
+    let moved = move_task(
         conn,
         id,
         TaskDestination {
@@ -190,7 +191,20 @@ fn move_unscheduled_task_to_lane(
         },
         now,
     )
-    .map_err(BoardTaskMutationError::from)
+    .map_err(BoardTaskMutationError::from)?;
+
+    if before_id.is_some() {
+        reorder_unscheduled_task_before(
+            conn,
+            id,
+            expected_list_id,
+            target_lane,
+            before_id,
+            now,
+        )?;
+    }
+
+    get_task(conn, moved.id).map_err(BoardTaskMutationError::from)
 }
 
 fn validate_expected_list(
@@ -403,11 +417,16 @@ pub fn move_list_board_task(
     list_id: String,
     source_lane: String,
     target_lane: String,
+    before_task_id: Option<String>,
 ) -> CommandResult<()> {
     let task_id = parse_id("taskId", &task_id)?;
     let list_id = parse_list_id("listId", &list_id)?;
     let source_lane = parse_lane("sourceLane", &source_lane)?;
     let target_lane = parse_lane("targetLane", &target_lane)?;
+    let before_task_id = before_task_id
+        .as_deref()
+        .map(|value| parse_id("beforeTaskId", value))
+        .transpose()?;
     let mut connection = app_database(&app_handle)?;
     move_unscheduled_task_to_lane(
         &mut connection,
@@ -415,6 +434,7 @@ pub fn move_list_board_task(
         list_id,
         source_lane,
         target_lane,
+        before_task_id,
         &chrono::Utc::now().to_rfc3339(),
     )
     .map(|_| ())
@@ -853,6 +873,7 @@ mod tests {
             list_id,
             PlanningLane::Backlog,
             PlanningLane::Today,
+            None,
             T1,
         )
         .expect("move task to Today");
@@ -895,6 +916,7 @@ mod tests {
             list_id,
             PlanningLane::Today,
             PlanningLane::ThisWeek,
+            None,
             T1,
         );
         assert!(matches!(
