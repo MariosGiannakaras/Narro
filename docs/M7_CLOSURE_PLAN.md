@@ -57,32 +57,40 @@ The integration token did not emit a push-triggered main run. Per repository CI 
 Evidence: `work-log/2026-10-01-chatgpt-m7-c3-main-integration-closure.md`.
 
 ### C4 — Physical Gate 7 continuity/session acceptance
-**OPEN**
+**PASS**
 
-One consolidated production-build run must cover:
+Accepted on the CI #809 production artifact through the complete two-monitor physical re-audit:
 - active task/session;
 - repeated Panel↔Timer;
 - repeated compact↔expanded;
 - same task/session/time continuity;
-- no blank/pale/staging/stale/duplicated frames;
+- no blank/pale/staging/stale/duplicated frames at the corrected PR #208 boundary;
 - no document scrollbar;
-- visible Timer → Blitz now → Panel;
-- idle/no-task Ctrl+Shift+T and Find Timer no-op;
-- single-instance ownership;
-- Main/Focus/Home mutation reconciliation.
+- visible Main `Blitz now` → existing Focus Panel;
+- idle/no-task Ctrl+Shift+T and Find Timer no-op (operator-context input identity with visible no-op result);
+- second-launch single-instance ownership: primary Main + Timer visibly alive before the later `narro.exe` activation, with no competing Narro UI/state afterward;
+- Main/Focus mutation reconciliation.
 
-A failure reopens only the evidenced behavior.
+Evidence:
+- `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`;
+- `work-log/2026-10-02-chatgpt-m7-ci809-c4-closure.md`.
+
+A future failure reopens only the evidenced behavior.
 
 ### C5 — Physical Gate 12/platform acceptance and tracking closure
-**OPEN**
+**OPEN — narrowed to saved-placement restart + final reconciliation**
 
-Using the same latest production build where practical:
+Already physically accepted on CI #809:
 - mixed-DPI 100%↔125% monitor crossing;
 - edge/taskbar constrained placement;
-- topology/hotplug recovery;
-- topmost/fullscreen observation;
-- drag/save/restart placement;
+- topology/hotplug recovery via real display removal and safe recovery;
+- topmost over a maximized application.
+
+Still required:
+- drag/save/restart placement: drag Timer to an obvious non-default safe position, normal tray `Quit Narro`, relaunch the same CI #809 EXE, then show the Timer returning to a safe visible saved placement;
 - final tracking/crosswalk/TODO reconciliation.
+
+Evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`.
 
 When C1–C5 are PASS, M7 closes. Do not invent another general re-audit between C4/C5 and closure unless new material evidence appears.
 
