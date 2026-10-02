@@ -41,6 +41,7 @@ struct PendingC5 {
     topology_signature: String,
     max_move_distance_px: u64,
     qualifying_move: bool,
+    source_sha: String,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -233,7 +234,7 @@ fn record_event(app_handle: &tauri::AppHandle, event: &str, details: Value) {
         "sequence": state.sequence,
         "timestampUtc": timestamp_utc,
         "elapsedMs": state.started.elapsed().as_millis(),
-        "sessionId": state.session_id,
+        "sessionId": state.session_id.as_str(),
         "processId": std::process::id(),
         "sourceSha": option_env!("GITHUB_SHA").unwrap_or("unknown"),
         "event": event,
@@ -259,7 +260,7 @@ fn result_document(
         "reason": reason,
         "generatedUtc": utc_now(),
         "sourceSha": option_env!("GITHUB_SHA").unwrap_or("unknown"),
-        "currentSessionId": state.session_id,
+        "currentSessionId": state.session_id.as_str(),
         "pendingSourceSessionId": state.pending.as_ref().map(|pending| pending.source_session_id.as_str()),
         "metrics": extra
     })
@@ -482,6 +483,7 @@ pub fn record_tray_quit_completed(
         topology_signature: topology,
         max_move_distance_px: max_distance,
         qualifying_move,
+        source_sha: option_env!("GITHUB_SHA").unwrap_or("unknown").to_string(),
     };
     if let Err(error) = write_json(&state.root.join("pending-c5.json"), &pending) {
         eprintln!("M7 validation pending-state write failed: {error}");
@@ -545,9 +547,16 @@ pub fn record_timer_restore(
     if pending.source_session_id == state.session_id {
         return;
     }
+    state.timer_baseline.get_or_insert(actual_rect.position);
     state.restore_evaluated = true;
 
-    let (status, reason) = if !pending.qualifying_move {
+    let current_source_sha = option_env!("GITHUB_SHA").unwrap_or("unknown");
+    let (status, reason) = if pending.source_sha != current_source_sha {
+        (
+            "INCONCLUSIVE",
+            "validation-executable-source-changed-between-quit-and-restart",
+        )
+    } else if !pending.qualifying_move {
         (
             "INCONCLUSIVE",
             "pre-quit-drag-did-not-meet-the-automatic-validation-distance-threshold",
@@ -593,7 +602,8 @@ pub fn record_timer_restore(
             "actualPosition": actual_rect.position,
             "positionTolerancePx": RESTORE_TOLERANCE_PX,
             "targetWorkArea": target_work_area,
-            "topologyUnchanged": current_topology == pending.topology_signature
+            "topologyUnchanged": current_topology == pending.topology_signature,
+            "sourceShaUnchanged": pending.source_sha == current_source_sha
         }),
     );
     let _ = fs::remove_file(state.root.join("pending-c5.json"));
