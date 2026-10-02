@@ -492,12 +492,10 @@ fn focus_panel_placement_probe(
         width: outer_size.width,
         height: outer_size.height,
     };
-    let expected_position =
-        focus_panel_edge_position(descriptor.work_area, actual_size, side)
-            .map_err(CommandError::window_geometry)?;
-    let clamped_position =
-        clamp_top_left(descriptor.work_area, actual_size, actual_position)
-            .map_err(CommandError::window_geometry)?;
+    let expected_position = focus_panel_edge_position(descriptor.work_area, actual_size, side)
+        .map_err(CommandError::window_geometry)?;
+    let clamped_position = clamp_top_left(descriptor.work_area, actual_size, actual_position)
+        .map_err(CommandError::window_geometry)?;
     let fits_work_area = actual_size.width <= descriptor.work_area.size.width
         && actual_size.height <= descriptor.work_area.size.height;
     let fully_within_work_area = fits_work_area && clamped_position == actual_position;
