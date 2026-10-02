@@ -12,7 +12,7 @@ GitHub `main` is the durable source truth.
 
 ## Current validated source baseline
 
-- Latest validated implementation merge: `07210a7b490c01687304d19555abf9cf39542940` — PR #210 diagnostic-artifact integration. Later tracking commits are Markdown-only.
+- Latest validated implementation merge: `c372ca29824c3c3839490a19e79f7ed3482cb360` — PR #211 performance-batch validation tooling. Later tracking commits are Markdown-only.
 - Current production runtime source remains `2767b3827670603d1ab259b6a843c2e0da82d85d` — PR #208, narrow Gate 7 Timer-region redraw correction.
 - PR #208 exact head: `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58`.
 - Exact-head Windows CI #809 / run `36865451660`: **PASS**.
@@ -26,6 +26,10 @@ GitHub `main` is the durable source truth.
 - Because #210 changes the workflow, resulting-main Windows CI #814 / run `36981516292`, attempt 2, ran the full candidate path and **PASSed**, including the new diagnostic build/upload stage.
 - Every non-Markdown merged #210 blob is byte-identical to the exact-green PR head. #210 adds test/CI diagnostic entrypoints only; product-domain/runtime semantics remain unchanged.
 - Durable PR #210/main evidence: `work-log/2026-10-02-chatgpt-m1-diagnostic-pr210-ci813-main814.md`.
+- PR #211 (`M1: automate floating performance evidence batch`) exact head `735f5f157e354c7f1aaeed051ef0a2103d08f016` passed full Windows CI #815 / run `36987461587`, including the actual PowerShell self-test for the new batch orchestrator.
+- PR #211 merged as `c372ca29824c3c3839490a19e79f7ed3482cb360`; because it changes the workflow, resulting-main Windows CI #816 / run `36989230905` ran fully and **PASSed**.
+- #211 changes only validation tooling/docs/CI/package scripts, not production Rust/React/domain behavior. The physical performance gate remains OPEN.
+- Durable PR #211/main evidence: `work-log/2026-10-02-chatgpt-m1-performance-batch-pr211-ci815-main816.md`.
 
 ## Exact artifacts to use next
 
@@ -42,17 +46,19 @@ Packaged Focus visual artifact `11163582492`, digest `sha256:c184e661163bdf9ff1a
 
 ### Remaining M1 diagnostic/manual validation
 
-Use merged-main CI #814 **diagnostic** artifact for selected-monitor placement,
+Use merged-main CI #816 **diagnostic** artifact for selected-monitor placement,
 reconnect/re-enumeration and floating-only CPU/RAM measurement:
 
-- run `36981516292`, attempt 2: PASS
-- implementation merge `07210a7b490c01687304d19555abf9cf39542940`
-- artifact id `11217195491`
+- run `36989230905`: PASS
+- implementation merge `c372ca29824c3c3839490a19e79f7ed3482cb360`
+- artifact id `11218838485`
 - artifact name `narro-m1-diagnostic-windows-x64`
-- ZIP digest `sha256:e16e6e5b2da0e916678b9b34d3348fca8014774cc38d3cda8932c2d4cbfa726f`
-- contained `narro.exe` SHA-256 `4453d403ed477c4dc3041b4ee3afe51a18b83819093d6b210525640431746bd2`
+- ZIP digest `sha256:cd03347215b684fc853aa450aa1903870ed5969ac6c7150edebda72a9048c2f9`
+- contained `narro.exe` SHA-256 `f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b`
 - Main loads `index.html?diagnostics=1`; `focusSurface` remains real product `focus.html`; no `runtimeVisual`
-- artifact includes `scripts/measure-floating.ps1` and the M1 Windows validation procedures
+- artifact includes `measure-floating.ps1`, `run-m1-floating-performance-batch.ps1` and the M1 Windows validation procedures
+- performance collection is now one command; the batch runner requires >=3 runs, rejects churn/context/hash mismatches and writes one `batch-summary.json`
+
 
 Do **not** use the diagnostic artifact to substitute for M7 C5 production saved-placement acceptance.
 
@@ -127,10 +133,13 @@ Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completio
 
 **USER ACTION REQUIRED — real Windows access is now the only blocker.**
 
-No open implementation/CI work remains for the active M1 slice. PR #209 is
-integrated and exact-head CI #811 passed. PR #210 is integrated, exact-head
-CI #813 passed, and resulting-main CI #814 passed including the diagnostic
-artifact stage.
+PR #209/#210/#211 are integrated and their authoritative Windows validations
+(#811/#813/#814/#815/#816 as applicable) passed. The current CI #816
+diagnostic artifact includes the one-command 3× performance batch runner.
+
+Additional diagnostic-only automation may continue when it reduces future
+physical effort without changing production behavior; physical gates themselves
+must remain OPEN until observed.
 
 When the user can test again, use:
 `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
@@ -141,15 +150,15 @@ Candidate split is mandatory:
    drag to obvious non-default safe position -> tray `Quit Narro` -> relaunch
    same CI #809 EXE -> reopen/show Timer -> confirm safe visible saved placement.
    If PASS, close C5/M7 after tracking reconciliation.
-2. **M1 selected-monitor Panel placement** — use CI #814 diagnostic artifact;
+2. **M1 selected-monitor Panel placement** — use CI #816 diagnostic artifact;
    physically validate Left/Right placement on each enabled monitor.
-3. **M1 reconnect/re-enumeration** — use CI #814 diagnostic artifact; prove
+3. **M1 reconnect/re-enumeration** — use CI #816 diagnostic artifact; prove
    reconnect/re-enable, refreshed enumeration and Panel placement on the
    restored monitor without Narro restart.
-4. **M1 replacement floating-only performance** — use CI #814 diagnostic
-   artifact; collect three valid real-Windows `30s warm-up / 60s sample` runs
+4. **M1 replacement floating-only performance** — use CI #816 diagnostic
+   artifact; run the validated one-command 3× real-Windows `30s warm-up / 60s sample` batch
    with `main` destroyed and the single persistent `focusSurface` Timer
-   presentation alive. Return the three `summary.json` files.
+   presentation alive. Return `batch-summary.json` (plus raw failed-run evidence only if needed).
 
 Do not repeat compositor, animations, Blitz-now, idle shortcuts, second launch,
 mixed-DPI Timer crossing, edge/taskbar expansion, display-removal recovery or
