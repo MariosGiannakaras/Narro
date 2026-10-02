@@ -5,6 +5,28 @@ Last updated: 2026-10-02
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
 
+## 2026-10-02 — PR #211 / CI #815 / main CI #816 automate the three-run M1 performance evidence
+
+PR #211 (`M1: automate floating performance evidence batch`) adds only validation tooling/docs/CI wiring, not product runtime behavior. The new `scripts/run-m1-floating-performance-batch.ps1` invokes the existing canonical sampler for at least three consecutive runs, rejects invalid/churning/context-mismatched evidence, can enforce an expected executable SHA-256, and writes one `batch-summary.json` with all per-run metrics, median run averages and Windows/CPU environment metadata.
+
+Exact head `735f5f157e354c7f1aaeed051ef0a2103d08f016` passed full Windows CI #815 / run `36987461587`. The Windows `Validate Performance Harness` step therefore executed and passed both PowerShell self-tests. PR #211 merged as `c372ca29824c3c3839490a19e79f7ed3482cb360`.
+
+Because #211 changes `.github/workflows/ci.yml`, full resulting-main validation was required. Windows CI #816 / run `36989230905` completed **PASS**, including diagnostic build/upload.
+
+Current authoritative diagnostic artifact for remaining M1 manual checks:
+- id `11218838485`
+- name `narro-m1-diagnostic-windows-x64`
+- ZIP SHA-256 `cd03347215b684fc853aa450aa1903870ed5969ac6c7150edebda72a9048c2f9`
+- diagnostic `narro.exe` SHA-256 `f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b`
+- includes both `measure-floating.ps1` and `run-m1-floating-performance-batch.ps1`.
+
+Hosted CI still does not close the real performance gate; the three valid measurements remain a physical Windows observation. No progress counter advances from this tooling integration.
+
+Current progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-02-chatgpt-m1-performance-batch-pr211-ci815-main816.md`.
+
+
 ## 2026-10-02 — PR #210 / CI #813 / main CI #814 publish validated M1 diagnostic artifact
 
 PR #210 (`M1: publish isolated current diagnostic artifact`) adds a test-only diagnostic build path for the remaining reopened M1 physical checks. Main loads `index.html?diagnostics=1`, `focusSurface` remains the real product `focus.html`, and `runtimeVisual` is explicitly absent. The production physical artifact is still built/verified/uploaded before the diagnostic build, so the diagnostic path cannot contaminate M7 production acceptance.
