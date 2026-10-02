@@ -61,8 +61,8 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **2/19**
-- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists**
+- Full MP4s completed to Pass-3 standard: **3/19**
+- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
@@ -80,27 +80,31 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-013 — `Blitzit Tutorial How to Use Subtasks in Blitzit.mp4`.**
+**Continue with VE-014 — `Blitzit Tutorial Preferences.mp4`.**
 
-VE-003 and VE-005 are now SOURCE_COMPLETE from their actual full MP4s. Full findings are in `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
+Completed full sources: VE-003, VE-005, VE-013.
 
-For VE-013:
+For VE-014:
 
-1. inspect the complete **02:20.109, 1920×1080, 60 fps** MP4;
-2. build a complete timeline state map;
+1. inspect the complete **02:48.484, 1920×1080, 60 fps** MP4;
+2. build a full Preferences timeline;
 3. densely inspect:
-   - board subtask section expand/collapse;
-   - circular progress/count changes;
-   - inline add-subtask input open/cancel/commit;
-   - completed vs incomplete row styling;
-   - row hover action order;
-   - subtask reorder and delete;
-   - Focus Panel subtask state;
-   - Floating Timer subtask state/geometry if present;
-4. distinguish parent-task completion from subtask completion;
-5. record any source limitation/bug where first subtask/live state differs from later state;
+   - opening/dismissal and scroll geometry;
+   - monitor/screen selection;
+   - panel-side segmented control;
+   - General toggles;
+   - Theme segmented control;
+   - Pomodoros parent toggle and nested Work Sprint / Break Time reveal;
+   - Default break length;
+   - scrolling live-timer title;
+   - Timed alerts and every nested timing/sound/flash control;
+   - Notification Alerts and sound preview;
+   - Schedule reminders and reminder timing;
+   - success-screen / GIF / success-sound nested controls;
+4. record parent→child reveal/collapse timing/state retention;
+5. separate full Preferences from Focus Quick Preferences;
 6. update analysis Markdown only;
-7. then continue to VE-014.
+7. then continue to VE-016.
 
 ## Media-access rule
 
