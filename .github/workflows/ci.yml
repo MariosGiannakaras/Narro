@@ -299,4 +299,5 @@ jobs:
           docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md
           docs/M1_WINDOWS_RUNTIME_VALIDATION.md
           docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md
+          docs/M1_DIAGNOSTIC_EVENT_TRACE.md
         if-no-files-found: error
