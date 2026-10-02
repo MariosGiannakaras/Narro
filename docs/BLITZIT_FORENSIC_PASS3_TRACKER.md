@@ -23,9 +23,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **1/19**
+- Full MP4s completed at Pass-3 depth: **2/19**
 - Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **18**
+- Full MP4s still open: **17**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -110,7 +110,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | Queue | ID | Source | Duration / fps | Pass-3 status | Minimum dense-review targets |
 | ---: | --- | --- | --- | --- | --- |
 | 1 | VE-003 | Blitzit Tutorial Blitz Mode.mp4 | 03:15.651 / 60 | **SOURCE_COMPLETE** | Blitz entry, queue hover/actions, Make Live, Panel↔Floating, timer actions, Done/success, Next Task, Take a Break visibility |
-| 2 | VE-005 | Add & Manage Tasks and Lists | 03:38.848 / 60 | OPEN | list hover/Open, task hover rail, drag/reorder, overflow, metric edits, completion |
+| 2 | VE-005 | Add & Manage Tasks and Lists | 03:38.848 / 60 | **SOURCE_COMPLETE** | list hover/Open, task hover rail, drag/reorder, overflow, metric edits, completion |
 | 3 | VE-013 | Subtasks | 02:20.109 / 60 | OPEN | expand/collapse, add, completion ring, row hover, reorder/delete, Focus/Floating subtask transitions |
 | 4 | VE-014 | Preferences | 02:48.484 / 60 | OPEN | drawer entry/scroll, parent-child toggles, screen/side/theme controls, alert/celebration nested reveal |
 | 5 | VE-016 | Timer Modes | 02:55.380 / 60 | OPEN | expiry, Time's Up, Extend, pause/skip/done, Pomodoro transitions, count-up presentation |
