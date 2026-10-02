@@ -2,8 +2,10 @@ param(
   [string]$Title = "Narro - Focus",
   [Parameter(Mandatory = $true)][string]$OutputDirectory,
   [string]$ReadyFile = "",
+  [string]$StopFile = "",
   [int]$FrameCount = 30,
-  [int]$IntervalMs = 15
+  [int]$IntervalMs = 15,
+  [int]$MaxDurationMs = 30000
 )
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Drawing
@@ -40,9 +42,14 @@ if ($ReadyFile) {
   if ($readyDirectory) { New-Item -ItemType Directory -Force -Path $readyDirectory | Out-Null }
   Set-Content -Path $ReadyFile -Value "ready" -NoNewline
 }
+if ($FrameCount -lt 1) { throw "FrameCount must be at least 1." }
+if ($IntervalMs -lt 0) { throw "IntervalMs must be zero or greater." }
+if ($MaxDurationMs -lt 1000) { throw "MaxDurationMs must be at least 1000ms." }
+
 $frames = @()
 $started = [System.Diagnostics.Stopwatch]::StartNew()
-for ($index = 0; $index -lt $FrameCount; $index++) {
+$index = 0
+while ($true) {
   $rect = New-Object NarroFocusSequence+RECT
   if (-not [NarroFocusSequence]::GetWindowRect($found, [ref]$rect)) { throw "GetWindowRect failed." }
   $width = $rect.Right - $rect.Left
@@ -69,6 +76,16 @@ for ($index = 0; $index -lt $FrameCount; $index++) {
       window = [pscustomobject]@{ x = $rect.Left; y = $rect.Top; width = $width; height = $height }
     }
   }
-  Start-Sleep -Milliseconds $IntervalMs
+  $index += 1
+
+  $minimumCaptured = $index -ge $FrameCount
+  $stopObserved = -not [string]::IsNullOrWhiteSpace($StopFile) -and (Test-Path $StopFile -PathType Leaf)
+  if ($minimumCaptured -and ([string]::IsNullOrWhiteSpace($StopFile) -or $stopObserved)) {
+    break
+  }
+  if ($started.ElapsedMilliseconds -ge $MaxDurationMs) {
+    throw ("Native sequence capture exceeded {0}ms before the transition stop signal." -f $MaxDurationMs)
+  }
+  if ($IntervalMs -gt 0) { Start-Sleep -Milliseconds $IntervalMs }
 }
 $frames | ConvertTo-Json -Compress -Depth 6

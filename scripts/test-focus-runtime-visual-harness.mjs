@@ -35,15 +35,27 @@ for (const required of ["GetWindowRect", "GetWindowRgnBox", "GetDpiForWindow", "
 for (const required of ["CopyFromScreen", "GetWindowRgnBox", "Narro - Focus"]) {
   invariant(nativeCapture.includes(required), `native screenshot capture is missing ${required}`);
 }
-for (const required of ["CopyFromScreen", "FrameCount", "IntervalMs", "GetWindowRect", "ReadyFile"]) {
+for (const required of ["CopyFromScreen", "FrameCount", "IntervalMs", "GetWindowRect", "ReadyFile", "StopFile", "MaxDurationMs"]) {
   invariant(nativeSequence.includes(required), `native transition sequence capture is missing ${required}`);
 }
-for (const required of ["SampleCount", "IntervalMs", "GetWindowRect", "ReadyFile", "elapsedMs"]) {
+for (const required of ["SampleCount", "IntervalMs", "GetWindowRect", "ReadyFile", "StopFile", "MaxDurationMs", "elapsedMs"]) {
   invariant(nativeMotionSampler.includes(required), `native motion sampler is missing ${required}`);
 }
 invariant(capture.includes("capture-focus-window-sequence.ps1"), "transition capture must use the single-process Win32 sequence probe");
 invariant(capture.includes("sample-focus-window-motion.ps1"), "transition capture must run a high-frequency Win32 geometry sampler");
 invariant(capture.includes("ack-") && capture.includes("sequence-ready.txt"), "capture harness must handshake with renderer checkpoints before state changes");
+invariant(
+  capture.includes('const stopFile = path.join(directory, "transition-settled.stop")')
+    && capture.includes('"-StopFile", stopFile')
+    && capture.includes("settled = await waitCheckpoint(endPhase)")
+    && capture.includes('fs.writeFileSync(stopFile, "settled\\n")')
+    && capture.indexOf("settled = await waitCheckpoint(endPhase)") < capture.indexOf("Promise.all([sequenceFinished, motionFinished])"),
+  "transition probes must stay alive until the renderer emits the real end checkpoint",
+);
+invariant(
+  capture.includes("async function waitCheckpoint(phase, timeoutMs = 30000)"),
+  "packaged runtime checkpoints need a bounded 30s hosted-runner readiness window",
+);
 for (const required of [
   "main_window_hide",
   "present_focus_for_blitz",

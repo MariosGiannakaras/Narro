@@ -58,7 +58,7 @@ function acknowledge(phase) {
   fs.writeFileSync(ackPath(phase), "ready\n");
 }
 
-async function waitCheckpoint(phase, timeoutMs = 15000) {
+async function waitCheckpoint(phase, timeoutMs = 30000) {
   return waitUntil(`Focus runtime checkpoint ${phase}`, () => {
     const file = checkpointPath(phase);
     if (fs.existsSync(file)) {
@@ -92,12 +92,15 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
   const start = await waitCheckpoint(startPhase);
   const readyFile = path.join(directory, "sequence-ready.txt");
   const motionReadyFile = path.join(directory, "motion-ready.txt");
+  const stopFile = path.join(directory, "transition-settled.stop");
   const sequence = spawn("powershell.exe", [
     "-NoLogo", "-NoProfile", "-ExecutionPolicy", "Bypass",
     "-File", path.join(root, "scripts", "capture-focus-window-sequence.ps1"),
     "-Title", focusTitle, "-OutputDirectory", directory,
     "-ReadyFile", readyFile,
+    "-StopFile", stopFile,
     "-FrameCount", "30", "-IntervalMs", "15",
+    "-MaxDurationMs", "30000",
   ], { cwd: root, windowsHide: true, stdio: ["ignore", "pipe", "pipe"] });
   let sequenceStdout = "";
   let sequenceStderr = "";
@@ -118,7 +121,9 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
     "-File", path.join(root, "scripts", "sample-focus-window-motion.ps1"),
     "-Title", focusTitle,
     "-ReadyFile", motionReadyFile,
+    "-StopFile", stopFile,
     "-SampleCount", "160", "-IntervalMs", "8",
+    "-MaxDurationMs", "30000",
   ], { cwd: root, windowsHide: true, stdio: ["ignore", "pipe", "pipe"] });
   let motionStdout = "";
   let motionStderr = "";
@@ -137,10 +142,22 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
   await waitUntil(`native transition probes ${name}`, () =>
     fs.existsSync(readyFile) && fs.existsSync(motionReadyFile));
   acknowledge(startPhase);
+
+  let settled;
+  let settleFailure;
+  try {
+    settled = await waitCheckpoint(endPhase);
+  } catch (error) {
+    settleFailure = error;
+  } finally {
+    fs.writeFileSync(stopFile, "settled\n");
+  }
+
   const [sequenceJson, motionJson] = await Promise.all([sequenceFinished, motionFinished]);
+  if (settleFailure) throw settleFailure;
+
   const frames = JSON.parse(sequenceJson.trim().split(/\r?\n/).filter(Boolean).at(-1));
   const motionSamples = JSON.parse(motionJson.trim().split(/\r?\n/).filter(Boolean).at(-1));
-  const settled = await waitCheckpoint(endPhase);
   fs.writeFileSync(path.join(directory, "frames.json"), `${JSON.stringify({
     name, startPresentation, endPresentation,
     start: start.snapshot, settled: settled.snapshot, frames, motionSamples,
