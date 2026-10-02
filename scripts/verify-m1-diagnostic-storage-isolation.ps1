@@ -90,7 +90,6 @@ try {
         throw "Diagnostic Narro did not create $diagnosticDb within 20 seconds."
     }
 
-    $databaseHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $diagnosticDb).Hash.ToLowerInvariant()
     $productionRoamingDuring = Get-DirectoryFingerprint -Directory $productionRoaming
     $productionLocalDuring = Get-DirectoryFingerprint -Directory $productionLocal
     if ($productionRoamingDuring -ne $productionRoamingBefore) {
@@ -99,13 +98,6 @@ try {
     if ($productionLocalDuring -ne $productionLocalBefore) {
         throw "Production Local AppData changed while launching the diagnostic build."
     }
-
-    Write-Host "M1 diagnostic storage isolation runtime smoke: PASS"
-    Write-Host "  executable: $exe"
-    Write-Host "  diagnostic database: $diagnosticDb"
-    Write-Host "  diagnostic database SHA-256: $databaseHash"
-    Write-Host "  production Roaming unchanged: $productionRoaming"
-    Write-Host "  production Local unchanged: $productionLocal"
 }
 finally {
     if ($null -ne $process) {
@@ -122,6 +114,11 @@ finally {
     }
 }
 
+if (-not (Test-Path $diagnosticDb -PathType Leaf)) {
+    throw "Diagnostic database disappeared after the diagnostic process stopped: $diagnosticDb"
+}
+$databaseHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $diagnosticDb).Hash.ToLowerInvariant()
+
 $productionRoamingAfter = Get-DirectoryFingerprint -Directory $productionRoaming
 $productionLocalAfter = Get-DirectoryFingerprint -Directory $productionLocal
 if ($productionRoamingAfter -ne $productionRoamingBefore) {
@@ -130,3 +127,10 @@ if ($productionRoamingAfter -ne $productionRoamingBefore) {
 if ($productionLocalAfter -ne $productionLocalBefore) {
     throw "Production Local AppData changed during diagnostic storage isolation smoke."
 }
+
+Write-Host "M1 diagnostic storage isolation runtime smoke: PASS"
+Write-Host "  executable: $exe"
+Write-Host "  diagnostic database: $diagnosticDb"
+Write-Host "  diagnostic database SHA-256: $databaseHash"
+Write-Host "  production Roaming unchanged: $productionRoaming"
+Write-Host "  production Local unchanged: $productionLocal"
