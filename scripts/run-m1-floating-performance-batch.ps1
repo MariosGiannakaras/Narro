@@ -100,6 +100,17 @@ function Assert-ValidSummary {
     Assert-Condition (-not [string]::IsNullOrWhiteSpace([string]$Summary.rootExecutable)) "measurement summary is missing rootExecutable"
 }
 
+function Assert-ConsistentRunContext {
+    param(
+        [object]$ReferenceRun,
+        [object]$Summary
+    )
+
+    Assert-Condition ([int]$Summary.rootPid -eq [int]$ReferenceRun.rootPid) "Narro root PID changed between batch runs"
+    Assert-Condition ([string]$Summary.rootExecutable -eq [string]$ReferenceRun.rootExecutable) "Narro root executable changed between batch runs"
+    Assert-Condition ([int]$Summary.logicalProcessorCount -eq [int]$ReferenceRun.logicalProcessorCount) "logical processor count changed between batch runs"
+}
+
 function New-RunRecord {
     param(
         [int]$RunNumber,
@@ -173,6 +184,16 @@ function Invoke-SelfTest {
     $record = New-RunRecord -RunNumber 1 -SummaryRelativePath "run-01/summary.json" -Summary $validSummary -ExecutableSha256 ("b" * 64)
     Assert-Condition ([Math]::Abs($record.workingSetMiB.average - 100.0) -lt 0.0001) "working-set MiB conversion failed"
     Assert-Condition ([Math]::Abs($record.privateBytesMiB.average - 80.0) -lt 0.0001) "private-byte MiB conversion failed"
+    Assert-ConsistentRunContext -ReferenceRun $record -Summary $validSummary
+
+    $changedPidSummary = [pscustomobject]@{
+        rootPid = 124
+        rootExecutable = "C:\\test\\narro.exe"
+        logicalProcessorCount = 8
+    }
+    Assert-Throws -Action {
+        Assert-ConsistentRunContext -ReferenceRun $record -Summary $changedPidSummary
+    } -Message "batch accepted a changed Narro root PID"
 
     $invalidSummary = [pscustomobject]@{
         schemaVersion = 1
@@ -240,6 +261,7 @@ for ($runNumber = 1; $runNumber -le $RunCount; $runNumber += 1) {
     Write-Host ""
     Write-Host "=== Floating performance $runName of $RunCount ==="
 
+    $intervalArgument = $IntervalSeconds.ToString([Globalization.CultureInfo]::InvariantCulture)
     $arguments = @(
         "-NoLogo",
         "-NoProfile",
@@ -247,7 +269,7 @@ for ($runNumber = 1; $runNumber -le $RunCount; $runNumber += 1) {
         "-File", $measureScript,
         "-WarmupSeconds", [string]$WarmupSeconds,
         "-SampleSeconds", [string]$SampleSeconds,
-        "-IntervalSeconds", [string]$IntervalSeconds,
+        "-IntervalSeconds", $intervalArgument,
         "-OutputDirectory", $runDirectory
     )
     if ($NarroPid -gt 0) {
@@ -267,6 +289,9 @@ for ($runNumber = 1; $runNumber -le $RunCount; $runNumber += 1) {
 
     $summary = Get-Content -Raw -Path $summaryPath | ConvertFrom-Json
     Assert-ValidSummary -Summary $summary
+    if ($runRecords.Count -gt 0) {
+        Assert-ConsistentRunContext -ReferenceRun $runRecords[0] -Summary $summary
+    }
 
     $actualHash = ""
     if (-not [string]::IsNullOrWhiteSpace($expectedHash)) {
@@ -295,6 +320,14 @@ $cpuCapacityAverages = @($runRecords | ForEach-Object { [double]$_.cpuPercentTot
 $workingSetAverages = @($runRecords | ForEach-Object { [double]$_.workingSetMiB.average })
 $privateByteAverages = @($runRecords | ForEach-Object { [double]$_.privateBytesMiB.average })
 
+$operatingSystem = Get-CimInstance Win32_OperatingSystem
+$processorNames = @(
+    Get-CimInstance Win32_Processor |
+        ForEach-Object { [string]$_.Name } |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+        Sort-Object -Unique
+)
+
 $batchSummary = [pscustomobject]@{
     schemaVersion = 1
     scenario = "floating-only-main-destroyed"
@@ -306,10 +339,17 @@ $batchSummary = [pscustomobject]@{
     intervalSeconds = $IntervalSeconds
     runs = $runRecords
     medianRunAverage = [pscustomobject]@{
-        cpuPercentOneCore = Get-Median -Values $cpuOneCoreAverages
-        cpuPercentTotalCapacity = Get-Median -Values $cpuCapacityAverages
-        workingSetMiB = Get-Median -Values $workingSetAverages
-        privateBytesMiB = Get-Median -Values $privateByteAverages
+        cpuPercentOneCore = (Get-Median -Values $cpuOneCoreAverages)
+        cpuPercentTotalCapacity = (Get-Median -Values $cpuCapacityAverages)
+        workingSetMiB = (Get-Median -Values $workingSetAverages)
+        privateBytesMiB = (Get-Median -Values $privateByteAverages)
+    }
+    environment = [pscustomobject]@{
+        windowsCaption = [string]$operatingSystem.Caption
+        windowsVersion = [string]$operatingSystem.Version
+        windowsBuildNumber = [string]$operatingSystem.BuildNumber
+        processorNames = $processorNames
+        logicalProcessorCount = [int]$runRecords[0].logicalProcessorCount
     }
     generatedAtUtc = [DateTime]::UtcNow.ToString("o")
 }
