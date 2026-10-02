@@ -16,18 +16,18 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] interactive hide/show/destroy and background state mutation validation
   - [x] interactive async recreate opens and remains responsive
   - [x] exact Rust state visibly survives and updates correctly in recreated `main`
-- [ ] Validate Focus Panel, compact Timer and expanded Timer presentations inside the single persistent `focusSurface` replacement host.
+- [x] Validate Focus Panel, compact Timer and expanded Timer presentations inside the single persistent `focusSurface` replacement host. CI #809 physical acceptance plus packaged same-HWND evidence closes replacement interactive validation; see `work-log/2026-10-02-chatgpt-m7-ci809-c4-closure.md`.
   - [x] Fixed nominal host uses the validated 340px product width: 340×700 Panel host/region, 340×110 compact region, 340×300 expanded region; the legacy 400px M1 scaffold width is not carried into product geometry.
   - [x] One React root/coordinator owns committed/pending presentation state and shared authoritative projections; Panel/Timer are components, not independent window renderers.
   - [x] Incoming presentation is prepared in the same WebView while outgoing content remains painted; preparing/inactive controls are inert and excluded from focus/accessibility navigation, without `display:none`/unmount-first prepaint.
   - [x] Replacement implementation compiles in authoritative Windows CI.
-  - [ ] Replacement interactive validation passes on Windows.
-- [ ] Prove Panel ↔ compact Timer ↔ expanded Timer switching on the same persistent secondary WebView using the replacement fixed-host/native-region model, without creating parallel Focus webviews, resetting state, or routinely resizing the HWND/WebView for ordinary presentation changes.
+  - [x] Replacement interactive validation passes on Windows on the CI #809 production artifact.
+- [x] Prove Panel ↔ compact Timer ↔ expanded Timer switching on the same persistent secondary WebView using the replacement fixed-host/native-region model, without creating parallel Focus webviews, resetting state, or routinely resizing the HWND/WebView for ordinary presentation changes. CI #809 physical continuity plus automated same-HWND/WebView contracts are accepted.
   - [x] Ordinary presentation switching preserves the same Focus HWND/WebView identity and does not use Focus create/destroy/close/open/hide/show/host-resize as the switch mechanism; show/hide is reserved for entering/exiting Focus itself.
   - [x] Native region/position/topmost/taskbar changes and renderer presentation commit form one serialized, rollback-safe state machine.
-  - [ ] Replacement implementation compiles in authoritative Windows CI.
-  - [ ] Replacement interactive Panel -> Timer -> Panel same-HWND/WebView reuse validation passes.
-- [ ] Revalidate always-on-top and skip-taskbar behavior for Floating Timer presentation on the replacement single Focus host.
+  - [x] Replacement implementation compiles in authoritative Windows CI; latest corrected source passed exact-head CI #809 and resulting-main validation CI #810.
+  - [x] Replacement interactive Panel -> Timer -> Panel validation passes physically on CI #809; same-HWND/WebView reuse is independently enforced by accepted packaged/runtime architecture evidence.
+- [x] Revalidate always-on-top and skip-taskbar behavior for Floating Timer presentation on the replacement single Focus host. CI #809 physically keeps Timer above maximized Notepad++ during cross-monitor movement; Alt-Tab exposes Narro as the application, not a separate Timer task entry.
 - [ ] Revalidate Windows monitor enumeration and left/right positioning for Focus Panel presentation on the replacement fixed host.
   - Historical evidence: the superseded host passed implementation/geometry tests and physical selected-monitor left/right validation; this does not validate replacement geometry.
   - [x] Replacement automated geometry validation passes.
@@ -405,7 +405,7 @@ Acceptance criteria:
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
 
-**Current M7 historical checklist state:** 1/15 top-level historical checklist items remain formally closed after the replacement reopening. This is not the remaining-work counter. Current closure progress is **2/5 checkpoints PASS** (C1–C2); C3–C5 are the only executable closure gates. See `docs/M7_CLOSURE_PLAN.md`.
+**Current M7 historical checklist state:** 1/15 top-level historical checklist items remain formally closed after the replacement reopening. This is not the remaining-work counter. Current closure progress is **4/5 checkpoints PASS** (C1–C4); C5 is the only executable closure gate and is narrowed to saved-placement restart plus final reconciliation. See `docs/M7_CLOSURE_PLAN.md`.
 
 ### Post-validation video-evidence correction — VE-F003
 
