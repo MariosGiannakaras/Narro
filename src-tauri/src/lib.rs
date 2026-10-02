@@ -580,11 +580,16 @@ fn resolve_monitor_by_key(
 
 #[tauri::command]
 fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescriptor>> {
-    enumerate_monitors(&app_handle)?
+    let monitors = enumerate_monitors(&app_handle)?
         .iter()
         .enumerate()
         .map(|(index, monitor)| monitor_descriptor(index, monitor))
-        .collect()
+        .collect::<CommandResult<Vec<_>>>()?;
+    diagnostic_trace::record(
+        "monitor_enumeration",
+        serde_json::json!({ "monitors": &monitors }),
+    );
+    Ok(monitors)
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
@@ -657,7 +662,7 @@ fn focus_panel_placement_probe(
         && edge_aligned
         && fully_within_work_area;
 
-    Ok(FocusPanelPlacementProbe {
+    let probe = FocusPanelPlacementProbe {
         monitor: descriptor,
         side,
         expected_position,
@@ -668,7 +673,14 @@ fn focus_panel_placement_probe(
         edge_aligned,
         fully_within_work_area,
         pass,
-    })
+    };
+    diagnostic_trace::record(
+        "focus_panel_placement_probe",
+        serde_json::to_value(&probe).unwrap_or_else(|error| {
+            serde_json::json!({ "serializationError": error.to_string() })
+        }),
+    );
+    Ok(probe)
 }
 
 fn load_focus_panel_placement_preferences(
@@ -773,6 +785,13 @@ fn announce_focus_surface_presentation(
     presentation: FocusSurfacePresentation,
 ) {
     record_focus_surface_presentation(presentation);
+    diagnostic_trace::record(
+        "focus_presentation_committed",
+        serde_json::json!({
+            "presentation": presentation.event_name(),
+            "focusSurface": diagnostic_focus_surface_snapshot(app_handle),
+        }),
+    );
     if let Err(error) = app_handle.emit(
         FOCUS_SURFACE_PRESENTATION_CHANGED_EVENT,
         presentation.event_name(),
@@ -1639,6 +1658,14 @@ fn position_focus_panel(
 ) -> CommandResult<()> {
     let _presentation_guard = presentation_guard()?;
     let (_monitor, descriptor) = resolve_monitor_by_key(&app_handle, &monitor_key)?;
+    diagnostic_trace::record(
+        "focus_panel_position_requested",
+        serde_json::json!({
+            "monitor": &descriptor,
+            "side": side,
+            "before": diagnostic_focus_surface_snapshot(&app_handle),
+        }),
+    );
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     let snapshot = capture_focus_native_snapshot(&window)?;
 
@@ -1662,6 +1689,14 @@ fn position_focus_panel(
     }
 
     announce_focus_surface_presentation(&app_handle, FocusSurfacePresentation::Panel);
+    diagnostic_trace::record(
+        "focus_panel_position_committed",
+        serde_json::json!({
+            "monitor": &descriptor,
+            "side": side,
+            "after": diagnostic_focus_surface_snapshot(&app_handle),
+        }),
+    );
     Ok(())
 }
 
@@ -2210,6 +2245,11 @@ pub fn run() {
             main_window_close,
             main_window_recreate,
             diagnostic_storage_paths,
+            diagnostic_trace_start,
+            diagnostic_trace_status,
+            diagnostic_trace_mark,
+            diagnostic_trace_snapshot,
+            diagnostic_trace_stop,
             focus_surface_show,
             focus_surface_hide,
             focus_surface_focus,
