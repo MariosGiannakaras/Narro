@@ -5,6 +5,25 @@ Last updated: 2026-10-02
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
 
+## 2026-10-02 — PR #209 / CI #811 hardens saved-placement exit ordering; remaining M1 work batched
+
+PR #209 (`M1: lock saved Timer placement on tray Quit`) adds only a static regression contract in `scripts/test-single-focus-architecture.mjs`. It requires the tray `quit` branch to call `floating_placement::save_if_timer_visible(app_handle)` before `app_handle.exit(0)`; the existing hidden-Timer restore contract continues to require `restore_for_timer(...)` before Timer reshow.
+
+Exact head `5384ea7384d304a843771e225bfb50cd9394bf43` passed full Windows CI #811 / run `36973948214`: validation gate, fast gate, Rust check/clippy/tests, performance-harness self-test, visual regression, Tauri release, packaged Focus runtime capture, production physical build verification and artifact upload all PASS. PR #209 merged as `c84013dbafbce6c8d581e3e12e1793bb12281fd1`.
+
+No production Rust/React/config/runtime bytes changed, so the accepted CI #809 production artifact remains the correct physical candidate for pending Windows observations. Durable evidence: `work-log/2026-10-02-chatgpt-m1-saved-placement-contract-pr209-ci811.md`.
+
+There is no further independent source work justified before real-Windows evidence. Remaining reopened M1 physical work is consolidated in `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`:
+- M7 C5 saved Timer placement across normal tray Quit/relaunch;
+- Focus Panel selected-monitor Left/Right placement;
+- display reconnect/re-enable, re-enumeration and placement on the restored monitor;
+- three valid floating-only CPU/RAM runs using the existing 30 s warm-up / 60 s sample process-tree protocol with `main` destroyed.
+
+Hosted CI performance numbers are not canonical M1 performance evidence and are not used to close the physical performance gate.
+
+Progress remains `4/10M || 4/5 | 14/19` until saved-placement C5 and the remaining M1 physical measurements are actually observed.
+
+
 ## 2026-10-02 — M7 C4 physically closed; only saved-placement restart remains in C5
 
 The complete CI #809 recording `2026-10-01 19-03-32.mp4` (SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`, 161.05 s) has now been fully re-audited event-by-event as one synchronized 4480×1080 two-monitor canvas with a 1920 + 2560 horizontal layout.
