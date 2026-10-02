@@ -220,8 +220,17 @@ pub fn stop() -> CommandResult<DiagnosticTraceStatus> {
 
     TRACE_ACTIVE.store(false, Ordering::Release);
     enqueue_locked(&mut session, "trace_stopped", serde_json::json!({}));
-    drop(session.sender);
-    if let Some(writer) = session.writer.take() {
+
+    let TraceSession {
+        run_id,
+        directory,
+        trace_path,
+        sender,
+        writer,
+        ..
+    } = session;
+    drop(sender);
+    if let Some(writer) = writer {
         writer
             .join()
             .map_err(|_| trace_error("join diagnostic trace writer", "writer thread panicked"))?;
@@ -229,9 +238,9 @@ pub fn stop() -> CommandResult<DiagnosticTraceStatus> {
 
     Ok(DiagnosticTraceStatus {
         enabled: false,
-        run_id: Some(session.run_id),
-        directory: Some(session.directory.to_string_lossy().into_owned()),
-        trace_path: Some(session.trace_path.to_string_lossy().into_owned()),
+        run_id: Some(run_id),
+        directory: Some(directory.to_string_lossy().into_owned()),
+        trace_path: Some(trace_path.to_string_lossy().into_owned()),
     })
 }
 
