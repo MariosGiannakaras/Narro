@@ -1,0 +1,68 @@
+.blitz-entry {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.blitz-entry__button {
+  width: 100%;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 0;
+  border-radius: 999px;
+  color: var(--color-accent-contrast);
+  background:
+    linear-gradient(
+      105deg,
+      #ef8fc8 0%,
+      #f1b79f 24%,
+      #cfdb98 47%,
+      var(--color-accent-start) 70%,
+      #78b9e8 100%
+    );
+  background-size: 170% 100%;
+  background-position: 0% 50%;
+  box-shadow: var(--elevation-raised);
+  font-weight: var(--font-weight-semibold);
+  transition:
+    background-position var(--motion-duration-completion) var(--motion-ease-enter),
+    box-shadow var(--motion-duration-hover-focus) var(--motion-ease-enter),
+    transform var(--motion-duration-press) var(--motion-ease-enter),
+    opacity var(--motion-duration-hover-focus) var(--motion-ease-enter);
+}
+
+.blitz-entry__button:hover:not(:disabled),
+.blitz-entry__button:focus-visible {
+  border-color: transparent;
+  background-position: 100% 50%;
+  box-shadow: var(--elevation-overlay);
+}
+
+.blitz-entry__button:active:not(:disabled) {
+  transform: scale(var(--motion-scale-press));
+}
+
+.blitz-entry__feedback {
+  min-height: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.blitz-entry__feedback[data-error="true"] {
+  color: var(--color-destructive);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blitz-entry__button {
+    transition:
+      box-shadow var(--motion-duration-reduced) linear,
+      opacity var(--motion-duration-reduced) linear;
+  }
+
+  .blitz-entry__button:hover:not(:disabled),
+  .blitz-entry__button:focus-visible {
+    background-position: 0% 50%;
+  }
+}
