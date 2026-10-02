@@ -5,6 +5,28 @@ Last updated: 2026-10-02
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
 
+## 2026-10-02 — PR #210 / CI #813 / main CI #814 publish validated M1 diagnostic artifact
+
+PR #210 (`M1: publish isolated current diagnostic artifact`) adds a test-only diagnostic build path for the remaining reopened M1 physical checks. Main loads `index.html?diagnostics=1`, `focusSurface` remains the real product `focus.html`, and `runtimeVisual` is explicitly absent. The production physical artifact is still built/verified/uploaded before the diagnostic build, so the diagnostic path cannot contaminate M7 production acceptance.
+
+Exact PR head `e5bf7081ec04af82635adad1366b4c6b8c489e08` passed Windows CI #813 / run `36976416729` with validation-gate, fast-gate and windows-candidate all PASS. PR #210 was expected-head guarded-squash-merged as `07210a7b490c01687304d19555abf9cf39542940`.
+
+Because #210 changes `.github/workflows/ci.yml`, full resulting-main validation was required. Windows CI #814 / run `36981516292`, attempt 2, on merged main completed **PASS**, including Rust check/clippy/tests, performance-harness self-test, visual regression, Tauri release, packaged Focus runtime, production physical validation release, and the new M1 diagnostic build/upload stage.
+
+Authoritative main diagnostic artifact:
+- id `11217195491`
+- name `narro-m1-diagnostic-windows-x64`
+- ZIP digest `sha256:e16e6e5b2da0e916678b9b34d3348fca8014774cc38d3cda8932c2d4cbfa726f`
+- contained diagnostic `narro.exe` SHA-256 `4453d403ed477c4dc3041b4ee3afe51a18b83819093d6b210525640431746bd2`
+- artifact also contains `scripts/measure-floating.ps1` and the M1 performance/runtime/display validation docs.
+
+M7 C5 saved-placement physical acceptance must still use the already accepted **CI #809 production artifact**, not the diagnostic build. Remaining M1 selected-monitor placement, reconnect/re-enumeration and performance measurement should use the CI #814 diagnostic artifact.
+
+No physical counter advances from this infrastructure integration. Progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-02-chatgpt-m1-diagnostic-pr210-ci813-main814.md`.
+
+
 ## 2026-10-02 — PR #209 / CI #811 hardens saved-placement exit ordering; remaining M1 work batched
 
 PR #209 (`M1: lock saved Timer placement on tray Quit`) adds only a static regression contract in `scripts/test-single-focus-architecture.mjs`. It requires the tray `quit` branch to call `floating_placement::save_if_timer_visible(app_handle)` before `app_handle.exit(0)`; the existing hidden-Timer restore contract continues to require `restore_for_timer(...)` before Timer reshow.
