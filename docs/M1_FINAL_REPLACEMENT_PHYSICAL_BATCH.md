@@ -75,14 +75,28 @@ A short continuous recording is sufficient.
 
 ## Batch B — Focus Panel selected-monitor left/right placement
 
-Use **Candidate B / CI #816 diagnostic artifact** with two enabled monitors.
+Use **Candidate B / current validated diagnostic artifact** with two enabled
+monitors.
+
+The diagnostic Monitor section shows:
+- current **Available monitors** count;
+- all native monitor descriptors/work areas;
+- the selected monitor descriptor;
+- after each Left/Right action, a read-only native **Placement probe** containing
+  expected coordinates, actual `focusSurface` coordinates/size, edge alignment,
+  work-area containment, current presentation/visibility and one PASS/FAIL.
+
+Procedure:
 
 1. Show Focus Panel.
-2. Refresh/select monitor 1 and position Panel Left, then Right.
-3. Select monitor 2 and position Panel Left, then Right.
-4. PASS if the same persistent `focusSurface` moves to the chosen monitor's
-   correct work-area edge each time and remains fully reachable.
-5. Confirm only `main` + `focusSurface` exist; no third Timer WebView.
+2. Refresh Monitors and confirm both displays appear.
+3. Select monitor 1 and click Position Focus Panel Left.
+4. Record the visible Panel and require `Placement probe: PASS`.
+5. Click Position Focus Panel Right and again require PASS.
+6. Repeat Left/Right on monitor 2.
+
+The native probe is evidence support, not a substitute for seeing that the Panel
+is actually reachable on the intended physical display.
 
 Record:
 - monitor 1 Left: PASS/FAIL
@@ -92,20 +106,26 @@ Record:
 
 ## Batch C — reconnect / re-enumeration closure
 
-Use **Candidate B / CI #816 diagnostic artifact**. CI #809 already proves real
-display removal and safe recovery. Only the
-reconnect/re-enumeration side of the strict M1 wording remains.
+Use **Candidate B / current validated diagnostic artifact**. CI #809 already
+proves real display removal and safe recovery; this batch closes the stricter
+reconnect/re-enumeration wording.
 
-1. Start from two displays enabled.
-2. With Narro still running, disable/disconnect the secondary display.
-3. Re-enable/reconnect it without restarting Narro.
-4. Refresh monitor enumeration.
-5. PASS if Narro remains responsive, both displays are listed again with
-   plausible geometry/scaling, and Focus Panel can be placed Left/Right on the
-   reconnected display.
+1. Start from two displays enabled and press Refresh Monitors.
+2. Confirm `Available monitors: 2` (or the actual enabled-display count) and
+   keep the all-descriptors section visible for evidence.
+3. With Narro still running, disable/disconnect the secondary display.
+4. Press Refresh Monitors. The count/descriptors must update to the surviving
+   topology; no stale placement PASS should remain.
+5. Re-enable/reconnect the display without restarting Narro.
+6. Press Refresh Monitors again. The restored display must reappear with
+   plausible geometry/scaling.
+7. Select the restored monitor and position Focus Panel Left and Right; each
+   native Placement probe must report PASS and the Panel must be physically
+   reachable on that display.
 
 If convenient, change the reconnected display from right-of-primary to
-left-of-primary before refreshing; negative desktop coordinates are valid.
+left-of-primary before refreshing; negative desktop coordinates are valid and
+will be visible directly in the monitor descriptors.
 
 ## Batch D — replacement floating-only CPU/RAM
 
