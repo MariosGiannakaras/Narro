@@ -283,3 +283,18 @@ jobs:
           src-tauri/target-physical/release/bundle/nsis/*.exe
           src-tauri/target-physical/release/bundle/msi/*.msi
         if-no-files-found: error
+
+    - name: Build M1 Diagnostic Validation Release
+      run: npm run tauri:diagnostic-ci
+
+    - name: Upload M1 Diagnostic Validation Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m1-diagnostic-windows-x64
+        path: |
+          src-tauri/target/release/narro.exe
+          scripts/measure-floating.ps1
+          docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md
+          docs/M1_WINDOWS_RUNTIME_VALIDATION.md
+          docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md
+        if-no-files-found: error
