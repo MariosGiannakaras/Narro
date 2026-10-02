@@ -6,7 +6,9 @@ import { AppShell } from "./AppShell";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
+  type DiagnosticRuntimeSnapshot,
   type DiagnosticStoragePaths,
+  type DiagnosticTraceStatus,
   type FocusPanelPlacementProbe,
   type FocusPanelSide,
   type FocusShortcutKind,
@@ -68,6 +70,8 @@ function App() {
   const [reminderAcceptanceStatus, setReminderAcceptanceStatus] = useState<string | null>(null);
   const [autostartStatus, setAutostartStatus] = useState<AutostartStatus | null>(null);
   const [diagnosticStoragePaths, setDiagnosticStoragePaths] = useState<DiagnosticStoragePaths | null>(null);
+  const [diagnosticTraceStatus, setDiagnosticTraceStatus] = useState<DiagnosticTraceStatus | null>(null);
+  const [diagnosticTraceSnapshot, setDiagnosticTraceSnapshot] = useState<DiagnosticRuntimeSnapshot | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
@@ -91,6 +95,48 @@ function App() {
       setError(null);
     } catch (failure: unknown) {
       setDiagnosticStoragePaths(null);
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function startDiagnosticTrace() {
+    try {
+      const status = await invoke<DiagnosticTraceStatus>("diagnostic_trace_start");
+      setDiagnosticTraceStatus(status);
+      setError(null);
+    } catch (failure: unknown) {
+      setDiagnosticTraceStatus(null);
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function stopDiagnosticTrace() {
+    try {
+      const status = await invoke<DiagnosticTraceStatus>("diagnostic_trace_stop");
+      setDiagnosticTraceStatus(status);
+      setError(null);
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function markDiagnosticTrace(label: string) {
+    try {
+      await invoke<void>("diagnostic_trace_mark", { label });
+      setError(null);
+    } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function captureDiagnosticTraceSnapshot(reason: string) {
+    try {
+      const snapshot = await invoke<DiagnosticRuntimeSnapshot>("diagnostic_trace_snapshot", {
+        reason,
+      });
+      setDiagnosticTraceSnapshot(snapshot);
+      setError(null);
+    } catch (failure: unknown) {
       setError(formatInvokeError(failure));
     }
   }
@@ -197,6 +243,7 @@ function App() {
       });
 
     if (diagnosticMode) {
+      void startDiagnosticTrace();
       void refreshAutostartStatus();
       void refreshDiagnosticStoragePaths();
       void refreshWindows();
@@ -537,6 +584,55 @@ function App() {
                 </button>
                 {diagnosticStoragePaths && (
                   <pre>{JSON.stringify(diagnosticStoragePaths, null, 2)}</pre>
+                )}
+
+                <hr />
+                <h2>Native Event Trace</h2>
+                <p>
+                  Trace: <strong>{diagnosticTraceStatus?.enabled ? "recording" : "stopped"}</strong>
+                </p>
+                <p>
+                  Diagnostic-only JSONL. No task/list titles, notes, or other user content are
+                  recorded.
+                </p>
+                <button
+                  disabled={diagnosticTraceStatus?.enabled === true}
+                  onClick={() => void startDiagnosticTrace()}
+                >
+                  Start Trace
+                </button>
+                <button
+                  disabled={diagnosticTraceStatus?.enabled !== true}
+                  onClick={() => void captureDiagnosticTraceSnapshot("manual")}
+                >
+                  Capture Native Snapshot
+                </button>
+                <button
+                  disabled={diagnosticTraceStatus?.enabled !== true}
+                  onClick={() => void markDiagnosticTrace("before-monitor-change")}
+                >
+                  Mark Before Monitor Change
+                </button>
+                <button
+                  disabled={diagnosticTraceStatus?.enabled !== true}
+                  onClick={() => void markDiagnosticTrace("after-monitor-change")}
+                >
+                  Mark After Monitor Change
+                </button>
+                <button
+                  disabled={diagnosticTraceStatus?.enabled !== true}
+                  onClick={() => void stopDiagnosticTrace()}
+                >
+                  Stop Trace
+                </button>
+                {diagnosticTraceStatus && (
+                  <pre>{JSON.stringify(diagnosticTraceStatus, null, 2)}</pre>
+                )}
+                {diagnosticTraceSnapshot && (
+                  <>
+                    <p>Last captured native snapshot</p>
+                    <pre>{JSON.stringify(diagnosticTraceSnapshot, null, 2)}</pre>
+                  </>
                 )}
               </section>
 
