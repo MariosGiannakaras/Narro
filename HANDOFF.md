@@ -10,6 +10,32 @@ GitHub `main` is the durable source truth.
 
 **Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3/C4 are PASS. The CI #809 event-based re-audit physically accepts the corrected compositor boundary, Blitz-now entry, task/session continuity, cross-window reconciliation, second-launch single-instance behavior, idle no-op result, mixed-DPI crossing, edge/work-area behavior, topology removal recovery and topmost behavior. No new product defect is evidenced. C5 remains OPEN only for saved placement across normal Quit→relaunch plus final tracking reconciliation.
 
+## Parallel user-directed Blitzit forensic track — analysis only
+
+This section is **not** the normal implementation next action. It applies only when the user explicitly asks to continue the Blitzit forensic/source-analysis pass.
+
+User direction recorded 2026-10-02:
+- analyze all supplied Blitzit videos/images at the most detailed practical level;
+- record the evidence durably in the repository;
+- **do not modify Narro implementation in this analysis track**;
+- leave enough repository state that a zero-context chat can resume by being told only to continue the forensic pass.
+
+When that instruction is given, read in order:
+1. `docs/BLITZIT_FORENSIC_PASS3_HANDOFF.md`
+2. `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`
+3. `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`
+4. `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`
+5. `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`
+
+Current source-analysis checkpoint:
+- screenshots: **46/46 SOURCE_COMPLETE** at Pass-3 depth;
+- full repository MP4s: **0/19 SOURCE_COMPLETE** at Pass-3 depth;
+- VE-018: one 9.344 s / 560-frame planning-board excerpt is **PARTIAL** deep evidence, not full VE-018 completion;
+- exact next video: **VE-003 — Blitzit Tutorial Blitz Mode.mp4**;
+- if raw MP4 access is unavailable, do not substitute transcript/prior-pass notes and do not claim completion.
+
+Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
+
 ## Current validated source baseline
 
 - Latest validated implementation merge: `c372ca29824c3c3839490a19e79f7ed3482cb360` — PR #211 performance-batch validation tooling. Later tracking commits are Markdown-only.
