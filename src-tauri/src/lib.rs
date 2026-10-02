@@ -1996,6 +1996,20 @@ fn initialize_persistence(
         .path()
         .app_data_dir()
         .map_err(|error| startup_error("resolve app data directory", error))?;
+    let identifier = app.config().identifier.as_str();
+    if identifier.eq_ignore_ascii_case(M1_DIAGNOSTIC_APP_IDENTIFIER)
+        && !storage_path_matches_identifier(&app_dir, identifier)
+    {
+        return Err(startup_error(
+            "validate diagnostic app data isolation",
+            format!(
+                "resolved app-data directory {} does not end in diagnostic identifier {}",
+                app_dir.display(),
+                identifier
+            ),
+        )
+        .into());
+    }
     std::fs::create_dir_all(&app_dir)
         .map_err(|error| startup_error("create app data directory", error))?;
 
