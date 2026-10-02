@@ -106,32 +106,37 @@ left-of-primary before refreshing; negative desktop coordinates are valid.
 
 ## Batch D — replacement floating-only CPU/RAM
 
-Use **Candidate B / CI #814 diagnostic artifact**. This is measurement evidence,
-not a screen recording.
+Use **Candidate B / current validated diagnostic artifact**. This is measurement
+evidence, not a screen recording.
 
-The diagnostic artifact already contains `scripts/measure-floating.ps1` and the
-relevant validation docs. Run on a real Windows 10/11 x64 machine:
+The diagnostic artifact contains both the single-run sampler and the preferred
+three-run batch runner. On a real Windows 10/11 x64 machine:
 
 1. Launch Narro and let startup settle.
 2. Put `focusSurface` in Floating Timer presentation.
 3. Leave timer/session inactive; no animations or user interaction.
 4. Destroy `main` through the diagnostic/runtime harness; do not merely hide it.
 5. Confirm exactly one `narro.exe` root process.
-6. Run:
+6. From the extracted artifact directory run one command, substituting the
+   Candidate B EXE SHA-256 listed above:
 
 ```powershell
-powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/measure-floating.ps1 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 4453d403ed477c4dc3041b4ee3afe51a18b83819093d6b210525640431746bd2
 ```
 
-Repeat until **three valid runs** satisfy:
-- `scenario = floating-only-main-destroyed`;
-- `steadyStateValid = true`;
-- `churnIntervalCount = 0`.
+Do not interact with Narro while the batch is running. The runner performs the
+three required measurements, rejects process churn/invalid summaries/hash
+mismatch, and writes:
 
-Return the three generated `summary.json` files. Raw CSVs are useful only if a
-run fails or needs diagnosis.
+- `run-01/summary.json` + raw CSVs;
+- `run-02/...`;
+- `run-03/...`;
+- one `batch-summary.json` containing all run metrics and median run averages.
 
-The agent will compute/report:
+Return `batch-summary.json`. If the runner fails, also return the failed
+run directory / raw CSVs so the failure can be diagnosed.
+
+The agent will report:
 - per-run average/min/max CPU % of one core and total capacity;
 - working-set and private-byte averages/min/max;
 - median run averages;

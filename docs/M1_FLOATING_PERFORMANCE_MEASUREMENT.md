@@ -6,7 +6,7 @@ This document defines the repeatable evidence protocol for the Milestone 1 archi
 
 For the reopened single-Focus gate, the measured build must contain no separate persistent Timer WebView. Record the process tree/window list so the replacement cannot appear cheaper or more expensive because a stale `floatingTimer` renderer is still alive. The compact Timer may use a smaller native window region, but the underlying Focus host/WebView remains the fixed maximum host.
 
-The measurement harness is `scripts/measure-floating.ps1`.
+The single-run measurement harness is `scripts/measure-floating.ps1`. The preferred three-run physical workflow is `scripts/run-m1-floating-performance-batch.ps1`, which invokes the same harness repeatedly, rejects invalid runs, optionally verifies the sampled executable SHA-256, and writes one reviewed batch summary.
 
 ## What the harness measures
 
@@ -35,14 +35,22 @@ Windows preflight runs:
 npm run test:performance-harness
 ```
 
-That executes `scripts/measure-floating.ps1 -SelfTest` and validates:
+That executes both harness self-tests. The single-run self-test validates:
 
 - descendant process-tree selection;
 - memory-stat aggregation;
 - CPU delta and percentage calculation;
 - process-tree churn detection.
 
-The self-test does not claim that real runtime CPU/RAM behavior passes the M1 gate. It validates only the measurement logic that can be proven deterministically without launching Narro.
+The batch-runner self-test validates:
+
+- odd/even median calculation;
+- SHA-256 input normalization/rejection;
+- valid-summary acceptance;
+- churn/invalid-summary rejection;
+- MiB conversion used in the batch report.
+
+The self-tests do not claim that real runtime CPU/RAM behavior passes the M1 gate. They validate only deterministic measurement/orchestration logic without launching Narro.
 
 ## Physical Windows measurement setup
 
@@ -59,27 +67,46 @@ Before each run:
 
 ## Run command
 
-From the repository root in Windows PowerShell:
+From the extracted diagnostic artifact on Windows, the preferred command is:
+
+```powershell
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 <EXPECTED_DIAGNOSTIC_EXE_SHA256>
+```
+
+Use the exact diagnostic `narro.exe` SHA-256 recorded in `HANDOFF.md` /
+`docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md` for
+`<EXPECTED_DIAGNOSTIC_EXE_SHA256>`. The runner resolves the single Narro root
+process, performs all three runs without requiring interaction between them,
+validates each generated `summary.json`, and rejects an executable hash
+mismatch.
+
+By default batch output is written under:
+
+```text
+performance/m1-floating-batch/<UTC timestamp>/
+```
+
+The batch directory contains:
+
+- `run-01/summary.json`, raw samples and CPU intervals;
+- `run-02/...`;
+- `run-03/...`;
+- `batch-summary.json` with all run metrics and median run averages.
+
+For diagnosis or an intentionally isolated single run, the underlying command
+remains available:
 
 ```powershell
 powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/measure-floating.ps1 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1
 ```
 
-If exactly one `narro.exe` is running, the script resolves it automatically. If there is an intentional reason to target a specific known process, pass `-NarroPid <pid>`.
+If exactly one `narro.exe` is running, both paths resolve it automatically. If
+there is an intentional reason to target a specific known process, pass
+`-NarroPid <pid>`.
 
-By default output is written under:
-
-```text
-performance/m1-floating/<UTC timestamp>/
-```
-
-Generated timestamped measurement directories are gitignored. Promote only the concise, reviewed evidence needed for `STATUS.md` / work-log documentation; do not commit machine-local raw output by default.
-
-Each run produces:
-
-- `summary.json` — aggregate statistics and final process-name breakdown;
-- `samples.csv` — raw per-process samples;
-- `cpu-intervals.csv` — CPU deltas and stability for every interval.
+Generated measurement directories are gitignored. Promote only concise reviewed
+evidence needed for `STATUS.md` / work-log documentation; do not commit
+machine-local raw output by default.
 
 ## Validity rules
 
@@ -98,18 +125,31 @@ If a process disappears while one snapshot is being assembled, the run fails ins
 
 ## Repetition and reporting
 
-Capture at least three valid runs under the same conditions. For each run record:
+The required evidence is at least three valid runs under identical conditions.
+The preferred batch runner enforces a minimum `RunCount` of 3 and stops if any
+child measurement exits non-zero, reports process churn, or produces an invalid
+summary. When `-ExpectedExecutableSha256` is supplied, every sampled run must
+also resolve to that exact executable hash.
+
+For each run, retain:
 
 - average/min/max `% of one core`;
 - average/min/max `% total logical CPU capacity`;
 - average/min/max working set MiB;
 - average/min/max private bytes MiB;
 - final process-name breakdown and process counts;
-- Windows version, CPU/logical-processor count and the exact Narro commit/artifact used.
+- Windows version, CPU/logical-processor count and exact Narro artifact identity.
 
-For the M1 summary, report all run averages and their median rather than selecting the best run. Record obvious Narro/WebView2 contributors from `lastProcessBreakdown`.
+`batch-summary.json` records the per-run values plus the median of the three
+run averages for CPU, working set and private bytes. Report all run averages and
+their median rather than selecting the best run. Record obvious Narro/WebView2
+contributors from each run's `lastProcessBreakdown`.
 
-No arbitrary numeric pass/fail threshold is defined in the repository at this point. The evidence is used to decide whether the two-webview Tauri/WebView2 architecture is acceptably lightweight for Narro's floating-only state relative to its product goals and available fallback options. Do not invent a threshold after seeing the result merely to force a pass or fail.
+No arbitrary numeric pass/fail threshold is defined in the repository. The
+evidence is used to decide whether the two-webview Tauri/WebView2 architecture is
+acceptably lightweight for Narro's floating-only state relative to its product
+goals and available fallback options. Do not invent a threshold after seeing the
+result merely to force a pass or fail.
 
 ## What CI does and does not prove
 
