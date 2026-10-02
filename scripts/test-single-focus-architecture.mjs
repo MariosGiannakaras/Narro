@@ -226,6 +226,13 @@ invariant(
     && lib.includes("floating_placement::restore_for_timer("),
   "visible same-Timer requests must preserve drag position while hidden Timer reshow restores placement against current topology",
 );
+invariant(
+  lib.includes("identifier.eq_ignore_ascii_case(M1_DIAGNOSTIC_APP_IDENTIFIER)")
+    && lib.includes("!storage_path_matches_identifier(&app_dir, identifier)")
+    && lib.includes('"validate diagnostic app data isolation"')
+    && lib.indexOf('"validate diagnostic app data isolation"') < lib.indexOf("std::fs::create_dir_all(&app_dir)"),
+  "diagnostic persistence startup must fail closed before creating/opening SQLite outside the diagnostic app-data namespace",
+);
 const trayQuitBranch = lib.indexOf('} else if event.id() == "quit" {');
 const trayQuitSave = lib.indexOf(
   "floating_placement::save_if_timer_visible(app_handle)",
