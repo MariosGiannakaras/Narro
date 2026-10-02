@@ -423,6 +423,8 @@ function App() {
   }
 
   const selectedMonitor = findSelectedMonitor(selectedMonitorKey, monitors);
+  const diagnosticStorageIsolated =
+    diagnosticStoragePaths?.identifier === "com.mariosg.Narro.M1Diagnostic";
 
   return (
     <AppShell>
@@ -520,6 +522,16 @@ function App() {
               <section className="app-shell__diagnostic-card">
                 <h2>Diagnostic Build Identity</h2>
                 <p>Expected isolated Tauri identifier: com.mariosg.Narro.M1Diagnostic</p>
+                <p>
+                  Storage isolation:{" "}
+                  <strong>
+                    {diagnosticStoragePaths
+                      ? diagnosticStorageIsolated
+                        ? "PASS"
+                        : "FAIL"
+                      : "not checked"}
+                  </strong>
+                </p>
                 <button onClick={() => void refreshDiagnosticStoragePaths()}>
                   Refresh Storage Paths
                 </button>
