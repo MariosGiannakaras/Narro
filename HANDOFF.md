@@ -12,7 +12,7 @@ GitHub `main` is the durable source truth.
 
 ## Current validated source baseline
 
-- Current repository main tip: `8aff56e310fc74edb886b6a517de1a8f277dc2fe`.
+- Latest validated implementation merge: `07210a7b490c01687304d19555abf9cf39542940` — PR #210 diagnostic-artifact integration. Later tracking commits are Markdown-only.
 - Current production runtime source remains `2767b3827670603d1ab259b6a843c2e0da82d85d` — PR #208, narrow Gate 7 Timer-region redraw correction.
 - PR #208 exact head: `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58`.
 - Exact-head Windows CI #809 / run `36865451660`: **PASS**.
@@ -22,17 +22,39 @@ GitHub `main` is the durable source truth.
 - PR #209 (`M1: lock saved Timer placement on tray Quit`) exact head `5384ea7384d304a843771e225bfb50cd9394bf43` passed full Windows CI #811 / run `36973948214`, including fast gate, Rust check/clippy/tests, performance-harness self-test, visual regression, Tauri release, packaged Focus runtime and production physical-build verification.
 - PR #209 merged as `c84013dbafbce6c8d581e3e12e1793bb12281fd1`; it changes only `scripts/test-single-focus-architecture.mjs` and regression-locks tray Quit -> save Timer placement -> process exit ordering. It changes no production/runtime bytes, so CI #809 remains the correct physical candidate.
 - Durable PR #209 evidence: `work-log/2026-10-02-chatgpt-m1-saved-placement-contract-pr209-ci811.md`.
+- PR #210 (`M1: publish isolated current diagnostic artifact`) exact head `e5bf7081ec04af82635adad1366b4c6b8c489e08` passed full Windows CI #813 / run `36976416729`, then expected-head guarded-squash-merged as `07210a7b490c01687304d19555abf9cf39542940`.
+- Because #210 changes the workflow, resulting-main Windows CI #814 / run `36981516292`, attempt 2, ran the full candidate path and **PASSed**, including the new diagnostic build/upload stage.
+- Every non-Markdown merged #210 blob is byte-identical to the exact-green PR head. #210 adds test/CI diagnostic entrypoints only; product-domain/runtime semantics remain unchanged.
+- Durable PR #210/main evidence: `work-log/2026-10-02-chatgpt-m1-diagnostic-pr210-ci813-main814.md`.
 
-## Exact physical artifact to use next
+## Exact artifacts to use next
 
-CI #809 production physical artifact:
+### M7 C5 production physical acceptance
+
+Continue to use the already accepted CI #809 **production** physical artifact:
 
 - artifact id `11163439039`
 - artifact digest `sha256:39ca0a91d7aa54be79ca35c509f82f25049a15a3fc4ffff199699eab309557a5`
 - standalone `narro.exe` SHA-256 `a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675`
 - physical-build smoke: PASS, zero CI `runtimeVisual` checkpoints
 
-Packaged Focus visual artifact `11163582492`, digest `sha256:c184e661163bdf9ff1a9dd02859d7c9523add0a5edb6433d2f7ce8a29bf96cf9`, confirms one Focus HWND `0x1022A`, compact 340x110, expanded 340x300, active title/time and no unintended scrollers. Hosted capture is reduced-motion and cannot close the physical standard-motion gate.
+Packaged Focus visual artifact `11163582492`, digest `sha256:c184e661163bdf9ff1a9dd02859d7c9523add0a5edb6433d2f7ce8a29bf96cf9`, confirms one Focus HWND `0x1022A`, compact 340x110, expanded 340x300, active title/time and no unintended scrollers.
+
+### Remaining M1 diagnostic/manual validation
+
+Use merged-main CI #814 **diagnostic** artifact for selected-monitor placement,
+reconnect/re-enumeration and floating-only CPU/RAM measurement:
+
+- run `36981516292`, attempt 2: PASS
+- implementation merge `07210a7b490c01687304d19555abf9cf39542940`
+- artifact id `11217195491`
+- artifact name `narro-m1-diagnostic-windows-x64`
+- ZIP digest `sha256:e16e6e5b2da0e916678b9b34d3348fca8014774cc38d3cda8932c2d4cbfa726f`
+- contained `narro.exe` SHA-256 `4453d403ed477c4dc3041b4ee3afe51a18b83819093d6b210525640431746bd2`
+- Main loads `index.html?diagnostics=1`; `focusSurface` remains real product `focus.html`; no `runtimeVisual`
+- artifact includes `scripts/measure-floating.ps1` and the M1 Windows validation procedures
+
+Do **not** use the diagnostic artifact to substitute for M7 C5 production saved-placement acceptance.
 
 ## CI #806 recording audit
 
@@ -103,37 +125,39 @@ Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completio
 
 ## Unfinished work / exact next action
 
-**USER ACTION REQUIRED — physical Windows access is now the only blocker.**
+**USER ACTION REQUIRED — real Windows access is now the only blocker.**
 
-No further independent source work is justified before the remaining real-Windows
-observations. Do not start M9 while reopened Milestone 1 remains open.
+No open implementation/CI work remains for the active M1 slice. PR #209 is
+integrated and exact-head CI #811 passed. PR #210 is integrated, exact-head
+CI #813 passed, and resulting-main CI #814 passed including the diagnostic
+artifact stage.
 
-When the user can test again, use the single batched procedure:
+When the user can test again, use:
 `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
 
-Closure order:
+Candidate split is mandatory:
 
-1. **M7 C5 saved placement** — active Timer -> drag to obvious non-default safe
-   position -> tray `Quit Narro` -> relaunch same CI #809 EXE -> reopen/show
-   Timer -> confirm safe visible saved placement. This alone is enough to close
-   M7 C5 after tracking reconciliation.
-2. **M1 selected-monitor Panel placement** — physical Left/Right placement on
-   each enabled monitor.
-3. **M1 reconnect/re-enumeration** — CI #809 already proves display removal and
-   safe recovery; physically prove reconnect/re-enable, refreshed enumeration and
-   Panel placement on the restored monitor without Narro restart.
-4. **M1 replacement floating-only performance** — three valid real-Windows
-   `30s warm-up / 60s sample` runs with `main` destroyed and only the single
-   persistent `focusSurface` Timer presentation alive. Return the three
-   `summary.json` files.
+1. **M7 C5 saved placement** — use CI #809 production artifact. Active Timer ->
+   drag to obvious non-default safe position -> tray `Quit Narro` -> relaunch
+   same CI #809 EXE -> reopen/show Timer -> confirm safe visible saved placement.
+   If PASS, close C5/M7 after tracking reconciliation.
+2. **M1 selected-monitor Panel placement** — use CI #814 diagnostic artifact;
+   physically validate Left/Right placement on each enabled monitor.
+3. **M1 reconnect/re-enumeration** — use CI #814 diagnostic artifact; prove
+   reconnect/re-enable, refreshed enumeration and Panel placement on the
+   restored monitor without Narro restart.
+4. **M1 replacement floating-only performance** — use CI #814 diagnostic
+   artifact; collect three valid real-Windows `30s warm-up / 60s sample` runs
+   with `main` destroyed and the single persistent `focusSurface` Timer
+   presentation alive. Return the three `summary.json` files.
 
 Do not repeat compositor, animations, Blitz-now, idle shortcuts, second launch,
 mixed-DPI Timer crossing, edge/taskbar expansion, display-removal recovery or
 topmost-over-maximized-app tests; they are accepted.
 
-If saved placement fails, reopen only that placement behavior through one narrow
-corrective PR. If B/C/D expose a separate M1 failure, correct only the evidenced
-M1 behavior.
+If saved placement fails, reopen only placement persistence/recovery. If the
+B/C/D batch exposes a distinct M1 failure, correct only that evidenced behavior.
+Do not resume deferred M9 while reopened Milestone 1 remains incomplete.
 
 ## Deferred unrelated work
 
