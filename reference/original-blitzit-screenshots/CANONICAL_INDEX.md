@@ -4,6 +4,8 @@ Canonicalized: 2026-09-27
 
 This index maps the retained reference images in `reference/original-blitzit-screenshots/` to their provenance and visible state. These files are evidence only; they are not shipping Narro assets.
 
+Pass-3 exhaustive per-image analysis: `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`. All 46 retained images were individually inspected on 2026-10-02; this index remains the provenance/dimensions manifest rather than duplicating the forensic records.
+
 ## Selection rule
 
 When two sources depict materially the same UI state, prefer: (1) current/direct supplied evidence, (2) newer version, (3) more complete uncropped state, (4) higher resolution/sharpness, (5) less unrelated OS/tutorial chrome. Keep an alternate only when it adds a distinct state or useful context.
