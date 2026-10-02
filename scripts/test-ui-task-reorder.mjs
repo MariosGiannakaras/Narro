@@ -27,7 +27,7 @@ for (const [haystack, needle, label] of [
   [rust, "InvalidAnchor", "same-bucket reorder anchor guard"],
   [rust, "same_lane_reorder_uses_exact_set_and_keeps_scheduled_rows_singular", "same-lane identity regression"],
   [rust, "scheduled_task_manual_reorder_is_rejected_without_position_write", "scheduled rejection regression"],
-  [rust, "cross_lane_move_appends_atomically_and_preserves_exact_global_identity_set", "cross-lane identity regression"],
+  [rust, "cross_lane_move_inserts_before_anchor_atomically_and_preserves_identity_set", "cross-lane positional identity regression"],
   [rust, "stale_source_lane_and_wrong_anchor_fail_without_mutation", "stale mutation regression"],
   [lib, "pub mod board_task_mutation;", "Rust mutation module registration"],
   [lib, "board_task_mutation::reorder_list_board_task", "Tauri reorder command registration"],
