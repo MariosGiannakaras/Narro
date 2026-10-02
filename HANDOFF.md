@@ -29,10 +29,11 @@ When that instruction is given, read in order:
 
 Current source-analysis checkpoint:
 - screenshots: **46/46 SOURCE_COMPLETE** at Pass-3 depth;
-- full repository MP4s: **0/19 SOURCE_COMPLETE** at Pass-3 depth;
+- full repository MP4s: **1/19 SOURCE_COMPLETE** at Pass-3 depth;
 - VE-018: one 9.344 s / 560-frame planning-board excerpt is **PARTIAL** deep evidence, not full VE-018 completion;
-- exact next video: **VE-003 — Blitzit Tutorial Blitz Mode.mp4**;
-- if raw MP4 access is unavailable, do not substitute transcript/prior-pass notes and do not claim completion.
+- VE-003 Blitz Mode: **SOURCE_COMPLETE** from the actual full MP4;
+- exact next video: **VE-005 — Blitzit Tutorial How to Add & Manage Tasks and Lists in Blitzit.mp4**;
+- raw MP4 access is currently available through the isolated analysis-only media bridge; do not merge that bridge into main.
 
 Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
 
