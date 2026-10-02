@@ -65,11 +65,13 @@ Do not edit implementation PR #213 or any source/test/config files from this for
   **346 Rust tests**, performance-harness validation, the complete visual suite
   and Tauri release build, then failed only because the packaged Focus runtime
   capture did not acknowledge the Panel checkpoint within 15 s.
-- CI #840 failed-jobs **attempt 2 is the active current-main validation**. Do not
-  claim current combined main fully resulting-main-green until that rerun passes.
-  If it fails again, inspect that exact capture failure before changing source.
+- CI #840 attempt 2 also **FAILED**, but later and more specifically: the renderer settled back to Panel only ~6.2 s after Timer→Panel start while the fixed native sampler had stopped after ~2.5 s, producing `timer-to-panel-runtime captured no native HWND movement`.
+- Artifact/source comparison shows the existing Focus transition logic is unchanged from exact-head PR #213 CI #836 PASS; the failure is a bounded capture-window race on slow hosted runners, not evidence-backed product behavior failure.
+- PR #215 exact head `03cff34c6188bd5033da389ae1dadfa3dc15d4f6` is the active narrow CI correction: probes remain alive until the real end checkpoint, retain hard timeouts and keep all native-motion validator assertions unchanged. Windows CI #841 / run `37029033564` is authoritative for this correction.
 - Durable reconciliation:
   `work-log/2026-10-02-chatgpt-current-main-pr212-pr214-pr213-reconciliation.md`.
+- CI #840/PR #215 diagnosis:
+  `work-log/2026-10-02-chatgpt-ci840-focus-capture-pr215.md`.
 
 ### M7 production physical lineage
 
@@ -191,12 +193,13 @@ Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completio
 Two independent tracks are permitted:
 
 1. **Current-main validation reconciliation (agent-actionable):**
-   - check CI #840 attempt 2 on implementation merge
-     `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`;
-   - if PASS, record the resulting-main artifacts and reconcile Candidate B to
-     that validated current-main diagnostic artifact;
-   - if FAIL, inspect the exact failed capture log and correct only an
-     evidence-backed CI/runtime-capture issue before any unrelated source work.
+   - resume PR #215 exact head `03cff34c6188bd5033da389ae1dadfa3dc15d4f6`;
+   - inspect Windows CI #841 / run `37029033564`;
+   - require packaged runtime PASS **and** inspect the resulting Timer→Panel
+     artifact to confirm it captures actual source→target native motion;
+   - if #841 passes, guarded-merge #215 and validate the resulting combined
+     main; then reconcile Candidate B to that resulting-main diagnostic artifact;
+   - if #841 fails, inspect that exact failure before changing anything else.
 2. **Remaining physical Windows gates (user-action required later):**
    - M7 C5 saved placement on the CI #809 production artifact;
    - M1 selected-monitor Panel Left/Right, reconnect/re-enumeration and
