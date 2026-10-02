@@ -143,6 +143,7 @@ export type MoveListBoardTaskRequest = {
   listId: string;
   sourceLane: PlanningLaneToken;
   targetLane: PlanningLaneToken;
+  beforeTaskId: string | null;
 };
 
 export type ChangeListBoardTaskRequest = {
