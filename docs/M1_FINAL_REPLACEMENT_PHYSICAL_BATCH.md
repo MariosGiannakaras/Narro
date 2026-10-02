@@ -8,9 +8,9 @@ Use **two intentionally separate candidates**:
 
 - **Batch A / M7 saved-placement acceptance:** use the already accepted CI #809
   **production physical artifact**.
-- **Batches B/C/D / reopened M1 diagnostics and measurement:** use the merged-main
-  CI #814 **diagnostic artifact**, which enables diagnostics only in Main while
-  retaining the real product `focusSurface`.
+- **Batches B/C/D / reopened M1 diagnostics and measurement:** use the
+  **current validated Candidate B diagnostic artifact listed below**. Never use
+  an unvalidated PR-branch executable.
 
 Do not swap these candidates. The diagnostic build is for M1 testing convenience
 and does not replace the production candidate for M7 physical acceptance.
