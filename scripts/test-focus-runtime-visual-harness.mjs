@@ -56,6 +56,10 @@ invariant(
   capture.includes("async function waitCheckpoint(phase, timeoutMs = 30000)"),
   "packaged runtime checkpoints need a bounded 30s hosted-runner readiness window",
 );
+invariant(
+  driver.includes("const deadline = performance.now() + 30_000;"),
+  "renderer capture acknowledgements need the same bounded 30s hosted-runner window as the capture harness",
+);
 for (const required of [
   "main_window_hide",
   "present_focus_for_blitz",
