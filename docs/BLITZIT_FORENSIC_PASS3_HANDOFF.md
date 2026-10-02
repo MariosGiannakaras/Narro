@@ -61,8 +61,9 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **0/19**
-- Partial deep sequence reviewed to Pass-3 standard: **VE-018 planning-board excerpt only**
+- Full MP4s completed to Pass-3 standard: **1/19**
+- Full source completed: **VE-003 Blitz Mode**
+- Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
 See `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
@@ -79,40 +80,33 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Video Pass 3 begins with VE-003 — `Blitzit Tutorial Blitz Mode.mp4`.**
+**Continue with VE-005 — `Blitzit Tutorial How to Add & Manage Tasks and Lists in Blitzit.mp4`.**
 
-Reason: VE-003 contains the highest-density interaction/motion evidence after the planning excerpt and is the strongest place to calibrate the Pass-3 video method before processing the remaining corpus.
+VE-003 is now SOURCE_COMPLETE from the actual 03:15.651 / 60 fps MP4. Its full Pass-3 record is in `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
 
-For VE-003:
+For VE-005:
 
-1. inspect the complete **03:15.651, 1920×1080, 60 fps** MP4;
-2. build a full timeline state map;
-3. densely inspect at minimum:
-   - Blitz entry and first live-task presentation;
-   - queue task hover/action states;
-   - Make Live / task switching;
-   - Panel → Floating Timer and Floating → Panel;
-   - compact/expanded timer controls;
-   - Done → success screen;
-   - explicit Next Task;
-   - Take a Break control visibility;
-4. reconstruct every visible EST/Done/task-count value before/after state changes;
-5. record exact action ordering and any controls that appear only on hover/selection;
-6. measure motion only when uninterrupted frames support it;
-7. mark tutorial cuts as `CUT/UNMEASURABLE`;
-8. update only Pass-3 evidence/tracker docs;
-9. then continue to VE-005, followed by VE-013, VE-014, VE-016, and the remaining queue order in the video tracker.
+1. inspect the complete **03:38.848, 1920×1080, 60 fps** MP4;
+2. build a complete timeline state map;
+3. densely inspect:
+   - create/edit list modal and list-card hover/Open state;
+   - board lane/task resting anatomy;
+   - task hover reveal and exact action ordering;
+   - task creation inline flow;
+   - reorder/drag lift, source reflow, target insertion and settle;
+   - overflow menu Schedule / Change list / Duplicate / Delete;
+   - EST and Time Taken editing, including live/paused constraints;
+   - completion → success → Done movement;
+4. reconstruct every visible aggregate/counter change;
+5. distinguish board action grammar from Focus action grammar;
+6. write only source-analysis Markdown and work-log evidence;
+7. then advance to VE-013.
 
 ## Media-access rule
 
 The actual repository MP4 is mandatory for video completion.
 
-If the current tool environment cannot decode/inspect repository binary MP4 files:
-- do **not** substitute the SRT or old findings and call the asset complete;
-- leave its status `RAW_MEDIA_ACCESS_REQUIRED`;
-- preserve the exact next asset/time window in the tracker;
-- continue any screenshot/source-text work that can be completed truthfully;
-- resume MP4 work in an environment with a real repository checkout or equivalent access to the raw video.
+Raw MP4 access was established through the isolated analysis-only branch `analysis/blitzit-pass3-media-bridge`, workflow run `37002068940`, artifact `11223759761`. The branch must never be merged into main. If the artifact expires, a later analysis agent may recreate/re-run the same temporary bridge. If raw media becomes unavailable, do not substitute SRT/prior-pass notes and claim a video complete.
 
 ## Durable files
 
