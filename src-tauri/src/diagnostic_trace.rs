@@ -88,7 +88,7 @@ fn enqueue_locked(session: &mut TraceSession, kind: &str, data: Value) {
     session.next_sequence = session.next_sequence.saturating_add(1);
     let line = serde_json::json!({
         "schemaVersion": 1,
-        "runId": session.run_id,
+        "runId": &session.run_id,
         "sequence": session.next_sequence,
         "utc": chrono::Utc::now().to_rfc3339(),
         "elapsedMs": session.started.elapsed().as_secs_f64() * 1000.0,
