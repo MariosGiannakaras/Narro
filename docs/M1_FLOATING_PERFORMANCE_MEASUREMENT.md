@@ -50,20 +50,38 @@ The batch-runner self-test validates:
 - churn/invalid-summary rejection;
 - MiB conversion used in the batch report.
 
+The scenario-preflight self-test validates:
+- compact native-region expectations at 100% and 125% DPI;
+- rejection of a hidden-but-not-destroyed Main HWND;
+- rejection of expanded Timer geometry;
+- rejection of a hidden Focus window.
+
 The self-tests do not claim that real runtime CPU/RAM behavior passes the M1 gate. They validate only deterministic measurement/orchestration logic without launching Narro.
 
 ## Physical Windows measurement setup
 
 Use a real Windows 10/11 x64 machine and a release build from a successfully validated Narro commit.
 
-Before each run:
+Before the batch:
 
-1. Launch Narro normally and allow startup work to settle.
-2. Put `focusSurface` into Floating Timer mode.
-3. Leave the timer/session inactive so there are no second-by-second state changes or other active animations.
-4. Destroy `main` through the diagnostic harness. Do not merely hide it; the scenario being measured is the architecture proposal where the main webview is absent.
-5. Do not open tray menus, press the global shortcut, move the floating surface, send notifications, toggle autostart, or otherwise interact with Narro during the warm-up and sample window.
-6. Confirm there is only one `narro.exe` root process. If more than one exists, investigate the duplicate-instance condition instead of selecting one arbitrarily and calling the result valid.
+1. Fully quit any production Narro process. Run only the isolated M1 diagnostic build.
+2. Launch the diagnostic Narro and allow startup work to settle.
+3. Put `focusSurface` into **compact Floating Timer** presentation.
+4. Leave timer/session inactive so there are no second-by-second state changes or other active animations.
+5. Destroy `main` through the diagnostic harness. Do not merely hide it.
+
+Before **every** measurement, the batch runner now executes
+`verify-m1-floating-performance-scenario.ps1`. It fails before sampling unless:
+- exactly one `narro.exe` root exists;
+- the Main top-level HWND is absent, proving Main was destroyed rather than hidden;
+- exactly one `Narro - Focus` top-level HWND belongs to that process;
+- Focus is visible;
+- its native visible region is anchored at the host origin and exactly matches
+  the 340×110 logical compact Timer at the window's current DPI.
+
+Do not open tray menus, press global shortcuts, move the floating surface, send
+notifications, toggle autostart, or otherwise interact with Narro while the batch
+is running.
 
 ## Run command
 
@@ -77,8 +95,7 @@ Use the exact diagnostic `narro.exe` SHA-256 recorded in `HANDOFF.md` /
 `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md` for
 `<EXPECTED_DIAGNOSTIC_EXE_SHA256>`. The runner resolves the single Narro root
 process, performs all three runs without requiring interaction between them,
-validates each generated `summary.json`, and rejects an executable hash
-mismatch.
+validates a fresh native scenario preflight before every child run, validates each generated `summary.json`, and rejects an executable hash mismatch. Each run directory also contains `scenario-preflight.json` proving the observed HWND/DPI/region setup.
 
 By default batch output is written under:
 
