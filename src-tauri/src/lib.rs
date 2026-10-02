@@ -294,6 +294,7 @@ fn map_window_error(label: &str, operation: &str, error: impl Display) -> Comman
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 struct DiagnosticStoragePaths {
+    identifier: String,
     app_data_dir: String,
     app_local_data_dir: String,
 }
@@ -314,6 +315,7 @@ fn diagnostic_storage_paths(app_handle: tauri::AppHandle) -> CommandResult<Diagn
     })?;
 
     Ok(DiagnosticStoragePaths {
+        identifier: app_handle.config().identifier.clone(),
         app_data_dir: app_data_dir.to_string_lossy().into_owned(),
         app_local_data_dir: app_local_data_dir.to_string_lossy().into_owned(),
     })
