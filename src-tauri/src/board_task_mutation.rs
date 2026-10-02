@@ -226,8 +226,7 @@ fn move_unscheduled_task_to_lane(
         return Err(TaskStoreError::ActiveSession(id).into());
     }
 
-    let mut source_bucket =
-        active_tasks_in_bucket(&tx, expected_list_id, expected_source_lane)?;
+    let mut source_bucket = active_tasks_in_bucket(&tx, expected_list_id, expected_source_lane)?;
     let Some(source_index) = source_bucket.iter().position(|task| task.id == id) else {
         return Err(BoardTaskMutationError::InvalidAnchor(id));
     };
@@ -1008,10 +1007,8 @@ mod tests {
             vec![stay.id]
         );
         assert_eq!(
-            ids(
-                &active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
-                    .expect("load positioned target")
-            ),
+            ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
+                .expect("load positioned target")),
             vec![first.id, moving.id, last.id]
         );
         let stored: HashSet<TaskId> = [moving.id, stay.id, first.id, last.id]
