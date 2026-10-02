@@ -59,6 +59,19 @@ export type MonitorDescriptor = {
   workArea: PhysicalRect;
 };
 
+export type FocusPanelPlacementProbe = {
+  monitor: MonitorDescriptor;
+  side: FocusPanelSide;
+  expectedPosition: PhysicalPoint;
+  actualPosition: PhysicalPoint;
+  actualSize: PhysicalSize;
+  visible: boolean;
+  presentation: "panel" | "timerCompact" | "timerExpanded" | "unknown";
+  edgeAligned: boolean;
+  fullyWithinWorkArea: boolean;
+  pass: boolean;
+};
+
 export type DiagnosticCommand =
   | "main_window_hide"
   | "main_window_show"
