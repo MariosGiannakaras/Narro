@@ -1219,6 +1219,7 @@ export function ListBoard({
           listId: target.id,
           sourceLane: LANE_TOKEN[sourceLane],
           targetLane: LANE_TOKEN[targetLane],
+          beforeTaskId,
         });
       }
     } catch (failure: unknown) {
@@ -1737,11 +1738,6 @@ export function ListBoard({
     event.preventDefault();
     event.stopPropagation();
     event.dataTransfer.dropEffect = "move";
-
-    if (dragState.sourceLane !== lane) {
-      setDropTarget({ lane, beforeTaskId: null });
-      return;
-    }
 
     const eligible = manualTasks(snapshot[lane]);
     const hoveredIndex = taskIndex(eligible, task.id);
