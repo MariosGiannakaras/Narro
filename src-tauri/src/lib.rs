@@ -32,6 +32,7 @@ pub mod theme_settings;
 pub mod timer;
 pub mod timer_region;
 pub mod timer_service;
+pub mod validation_log;
 pub mod windows;
 
 use domain::{AppState, AppStatePayload};
@@ -706,6 +707,7 @@ fn announce_focus_surface_presentation(
     presentation: FocusSurfacePresentation,
 ) {
     record_focus_surface_presentation(presentation);
+    validation_log::record_presentation(app_handle, presentation.event_name());
     if let Err(error) = app_handle.emit(
         FOCUS_SURFACE_PRESENTATION_CHANGED_EVENT,
         presentation.event_name(),
@@ -1964,9 +1966,20 @@ fn install_tray(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
                     eprintln!("Failed to show Narro focus surface: {error}");
                 }
             } else if event.id() == "quit" {
-                if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
+                validation_log::record_tray_quit_requested(app_handle);
+                let save_result = floating_placement::save_if_timer_visible(app_handle);
+                let (placement_saved, save_error) = match &save_result {
+                    Ok(saved) => (*saved, None),
+                    Err(error) => (false, Some(error.to_string())),
+                };
+                if let Err(error) = save_result {
                     eprintln!("Could not save Floating Timer position before exit: {error}");
                 }
+                validation_log::record_tray_quit_completed(
+                    app_handle,
+                    placement_saved,
+                    save_error.as_deref(),
+                );
                 app_handle.exit(0);
             }
         })
@@ -2037,6 +2050,7 @@ pub fn run() {
     let result = tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(
             |app_handle, _argv, _cwd| {
+                validation_log::record_single_instance_attempt(app_handle);
                 request_show_or_recreate_main(app_handle.clone());
             },
         ))
@@ -2046,11 +2060,12 @@ pub fn run() {
             {
                 match event {
                     tauri::WindowEvent::Moved(_) => {
-                        if floating_placement::note_timer_moved(window.app_handle())
-                            && current_focus_surface_expanded()
-                        {
-                            if let Ok(mut origin) = COMPACT_TIMER_ORIGIN.lock() {
-                                *origin = None;
+                        if floating_placement::note_timer_moved(window.app_handle()) {
+                            validation_log::record_timer_move(window.app_handle());
+                            if current_focus_surface_expanded() {
+                                if let Ok(mut origin) = COMPACT_TIMER_ORIGIN.lock() {
+                                    *origin = None;
+                                }
                             }
                         }
                     }
@@ -2177,6 +2192,8 @@ pub fn run() {
             present_focus_for_blitz
         ])
         .setup(|app| {
+            validation_log::initialize(app)
+                .map_err(|error| startup_error("initialize M7 validation logging", error))?;
             let focus = get_window(app.handle(), FOCUS_SURFACE_LABEL)?;
             floating_placement::ensure_fixed_focus_host_size(&focus)?;
             timer_region::apply(&focus, timer_region::panel_logical_size())?;
