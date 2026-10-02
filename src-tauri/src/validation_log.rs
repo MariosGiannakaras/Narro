@@ -3,7 +3,7 @@ use crate::windows::{PhysicalPoint, PhysicalRect};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::fs::{self, OpenOptions};
-use std::io::Write;
+use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::sync::{Mutex, OnceLock};
 use std::time::Instant;
@@ -30,6 +30,7 @@ struct ValidationState {
     last_saved: Option<SavedFloatingPlacement>,
     pending: Option<PendingC5>,
     restore_evaluated: bool,
+    executable_fingerprint: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -43,6 +44,7 @@ struct PendingC5 {
     max_move_distance_px: u64,
     qualifying_move: bool,
     source_sha: String,
+    executable_fingerprint: String,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -71,6 +73,30 @@ fn validation_executable() -> bool {
         .ok()
         .and_then(|path| path.file_stem().map(|stem| stem.to_string_lossy().into_owned()))
         .is_some_and(|stem| stem.eq_ignore_ascii_case(VALIDATION_EXE_STEM))
+}
+
+fn executable_fingerprint() -> Result<String, String> {
+    let path = std::env::current_exe()
+        .map_err(|error| format!("resolve validation executable for fingerprint: {error}"))?;
+    let mut file = std::fs::File::open(&path)
+        .map_err(|error| format!("open validation executable for fingerprint: {error}"))?;
+    let mut hash: u64 = 0xcbf29ce484222325;
+    let mut length: u64 = 0;
+    let mut buffer = [0_u8; 64 * 1024];
+    loop {
+        let read = file
+            .read(&mut buffer)
+            .map_err(|error| format!("read validation executable for fingerprint: {error}"))?;
+        if read == 0 {
+            break;
+        }
+        length = length.saturating_add(read as u64);
+        for byte in &buffer[..read] {
+            hash ^= u64::from(*byte);
+            hash = hash.wrapping_mul(0x100000001b3);
+        }
+    }
+    Ok(format!("fnv1a64:{hash:016x}:bytes:{length}"))
 }
 
 pub fn enabled() -> bool {
@@ -313,6 +339,7 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
     fs::create_dir_all(&session_dir)
         .map_err(|error| format!("create validation session {}: {error}", session_dir.display()))?;
     let pending = read_pending(&root);
+    let executable_fingerprint = executable_fingerprint()?;
     let state = ValidationState {
         root: root.clone(),
         session_dir: session_dir.clone(),
@@ -324,6 +351,7 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
         last_saved: None,
         pending,
         restore_evaluated: false,
+        executable_fingerprint: executable_fingerprint.clone(),
     };
     STATE
         .set(Mutex::new(state))
@@ -335,6 +363,7 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
         "startedUtc": utc_now(),
         "processId": std::process::id(),
         "sourceSha": option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown"),
+        "executableFingerprint": executable_fingerprint,
         "executableName": std::env::current_exe()
             .ok()
             .and_then(|path| path.file_name().map(|name| name.to_string_lossy().into_owned()))
@@ -535,6 +564,7 @@ pub fn record_tray_quit_completed(
         max_move_distance_px: max_distance,
         qualifying_move,
         source_sha: option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown").to_string(),
+        executable_fingerprint: state.executable_fingerprint.clone(),
     };
     if let Err(error) = write_json(&state.root.join("pending-c5.json"), &pending) {
         eprintln!("M7 validation pending-state write failed: {error}");
@@ -605,7 +635,13 @@ pub fn record_timer_restore(
     state.restore_evaluated = true;
 
     let current_source_sha = option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown");
-    let (status, reason) = if pending.source_sha != current_source_sha {
+    let current_fingerprint = state.executable_fingerprint.as_str();
+    let (status, reason) = if pending.executable_fingerprint != current_fingerprint {
+        (
+            "INCONCLUSIVE",
+            "validation-executable-bytes-changed-between-quit-and-restart",
+        )
+    } else if pending.source_sha != current_source_sha {
         (
             "INCONCLUSIVE",
             "validation-executable-source-changed-between-quit-and-restart",
@@ -657,7 +693,8 @@ pub fn record_timer_restore(
             "positionTolerancePx": RESTORE_TOLERANCE_PX,
             "targetWorkArea": target_work_area,
             "topologyUnchanged": current_topology == pending.topology_signature.as_str(),
-            "sourceShaUnchanged": pending.source_sha.as_str() == current_source_sha
+            "sourceShaUnchanged": pending.source_sha.as_str() == current_source_sha,
+            "executableFingerprintUnchanged": pending.executable_fingerprint.as_str() == current_fingerprint
         }),
     );
     let _ = fs::remove_file(state.root.join("pending-c5.json"));
