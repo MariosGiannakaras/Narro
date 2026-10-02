@@ -5,6 +5,39 @@ Last updated: 2026-10-03
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
 
+## 2026-10-03 — PR #216 main CI #854 PASS; PR #217 hardens diagnostic storage fail-closed
+
+PR #216 merged as `007a999e688144122362ad1a4012a22b310e66f2` and resulting-main Windows CI #854 / run `37069188509` completed **PASS** across the full Windows candidate.
+
+Resulting-main packaged Focus artifact:
+- id `11254745758`;
+- digest `sha256:d1cfe097e56dcf1091a51db2e305f838cc530532883280879ed7e7567e77fdb1`;
+- manual inspection confirms real Panel→Timer `(668,0)→(388,80)` and Timer→Panel `(388,80)→(668,0)` native HWND movement, with final samples at target.
+
+Resulting-main diagnostic artifact:
+- id `11254037811`;
+- digest `sha256:acb24529528549762a1d7c1794268aa9ee7825197a1062b506c3b184942862b8`;
+- contained diagnostic `narro.exe` SHA-256 `a4da47d57fd08b5f3193a4f793c4df963061c094a861a4dc0fd4e6ed0b92f4af`.
+
+A follow-up code audit found one validation-safety weakness: the diagnostic UI displayed resolved storage paths but its PASS verdict used only the configured identifier. PR #217 now makes storage isolation native/path-aware and fail-closed before diagnostic SQLite creation/open:
+- exact identifier must be `com.mariosg.Narro.M1Diagnostic`;
+- resolved Roaming and Local storage path leaves must match that identifier;
+- production identifier `com.mariosg.Narro` is rejected;
+- if the diagnostic resolved SQLite app-data path is wrong, startup fails before `create_dir_all`, database open, migrations or startup insert;
+- Rust regressions cover valid diagnostic paths, production paths and one mismatched resolved path.
+
+PR #217 current exact head: `f872d2cadeeb3e22583c24bd41fba9cc218cc9a2`.
+Windows CI #858 / run `37070634779` is authoritative. The earlier #855 failure was rustfmt-only and was corrected exactly from the CI diff.
+
+CI #854 therefore remains a fully validated fallback/baseline, but physical B/C/D should wait for the post-#217 resulting-main diagnostic artifact so the strongest storage-safety guard is included.
+
+No physical counter changes:
+`4/10M || 4/5 | 14/19`.
+
+Durable #216 closure:
+`work-log/2026-10-03-chatgpt-m1-pr216-main854-closure.md`.
+
+
 ## 2026-10-03 — PR #216 exact-head validated and merged; resulting-main CI #854 active
 
 PR #216 (`M1: automate final monitor evidence and placement persistence reopen`)
