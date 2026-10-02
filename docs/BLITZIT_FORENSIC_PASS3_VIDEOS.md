@@ -396,25 +396,289 @@ Audio boundary:
 # Queue 2 — VE-005 — Add & Manage Tasks and Lists
 
 Source: `Blitzit Tutorial How to Add & Manage Tasks and Lists in Blitzit.mp4`  
-Metadata: **03:38.848, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **03:38.750 video stream / ~03:38.8 container, 1920×1080, 60 fps, 13,125 frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:22–00:00:38 — create/edit list;
-- 00:00:40–00:01:23 — board / All Lists;
-- 00:01:25–00:02:00 — task create, reorder, overflow;
-- 00:02:02–00:02:40 — EST / Time Taken;
-- 00:02:45–00:03:18 — completion/success.
+Inspection method:
+- complete source scanned across the full duration;
+- 5 s whole-video contact scan;
+- 0.5–1.5 s dense sampling across all product sections;
+- 0.25 s micro-sequences around list creation, board task hover/reorder/overflow, metric editing and completion;
+- full-resolution frame crops used for exact action ordering, metric fields/tooltips and Done-state arithmetic;
+- SRT used only to distinguish narration claims from direct pixels.
 
-Pass-3 focus:
-- list-card hover/Open reveal and overflow;
-- inline task create exact geometry/copy;
-- board card resting ordinals and hover transition;
-- direct action rail ordering;
-- drag start/lift/source reflow/drop target/settle;
-- Schedule / Change list / Duplicate / Delete exact menu;
-- metric editor states and pause restrictions;
-- completion card movement/Done treatment.
+## VE-005 chronological state map
+
+### 00:00:00–~00:00:22 — Home/list-grid baseline
+
+**VIDEO-DIRECT**
+- current dark Home shell is visible with account/navigation cards at left, list-card grid in the main area and the large Create List tile;
+- list cards show list badge/title, task previews, pending count and EST summary where present;
+- the Create List tile is a large card-sized target rather than a small toolbar action.
+
+No unique motion requirement is derived from this idle/tutorial-introduction period.
+
+### ~00:00:23–00:00:32 — Create list modal
+
+**VIDEO-DIRECT**
+- activating Create List dims the Home shell and opens one centered modal;
+- modal groups:
+  - heading `Create a new list`;
+  - optional icon/upload affordance;
+  - list-color swatches;
+  - title input;
+  - secondary Cancel;
+  - gradient Create.
+- during the demonstration the selected list color changes before commit;
+- title is entered as `Tutorials`;
+- clicking Create closes the modal and inserts a new `Tutorials` card into the list grid.
+
+**MOTION-DIRECT**
+- no wizard/page navigation is used;
+- modal removal and list-card insertion are fast; the Home grid reflows in place.
+
+### ~00:00:32–00:00:39.5 — newly created list-card hover / overflow / Open
+
+**VIDEO-DIRECT**
+- new `Tutorials` card appears with zero-content/empty treatment;
+- hover strengthens the card outline and reveals a centered gradient `Open` pill without changing card dimensions;
+- top-right ellipsis opens the list-management menu;
+- visible menu order:
+  1. `Edit List`
+  2. `Duplicate`
+  3. divider
+  4. `Archive List`
+- there is no permanent Delete item in this current list-card menu state;
+- after menu dismissal, hover `Open` is available again;
+- selecting Open navigates into the list board.
+
+**STATIC CORROBORATION**
+- current screenshot SS-C05 independently matches this hover/overflow grammar.
+
+### ~00:00:40–00:01:08 — empty single-list board
+
+**VIDEO-DIRECT**
+- `Tutorials` opens as a four-column planning board:
+  - Backlog;
+  - This Week;
+  - Today;
+  - Done.
+- empty pending lanes use centered `All Clear` state;
+- Today retains the accent outline even when empty;
+- Today bottom CTA occupies its anchored slot but is visually subdued while no runnable task exists;
+- Backlog / This Week / Today expose `+ ADD TASK` affordances;
+- Done remains a separate fourth column.
+
+**INTERACTION-DIRECT**
+- the board is the same surface used later for task creation/management; there is no separate edit mode.
+
+### ~00:01:09–00:01:23 — list selector and single-list / All Lists switching
+
+**VIDEO-DIRECT**
+- the list selector at the top-left opens a compact anchored menu;
+- menu visibly includes `All Lists`, `Tutorials`, `Blue Beach Hotel`, `Freelance` and `Music projects` in this staged dataset;
+- choosing `All Lists` repopulates the same four-column board with tasks from multiple lists;
+- task rows retain their source-list badges/colors;
+- choosing an individual list filters the same board back to that list;
+- switching back to Tutorials restores its empty state.
+
+**CAUSALITY LIMIT**
+- this demonstrates one board shell with a list-scope selector;
+- it does not establish hidden query/storage implementation details.
+
+### ~00:01:25–00:01:50 — inline task creation
+
+**VIDEO-DIRECT**
+- clicking Today `+ ADD TASK` expands an inline editor inside the lane rather than opening a modal;
+- visible editor anatomy:
+  - `× CANCEL`;
+  - title input;
+  - EST entry at right using HH:MM-style value;
+  - helper text `Add a new task`;
+  - gradient `Confirm`.
+- first created task is `Video`;
+- second created task is `Record voice`;
+- after confirming/pressing Enter, the created task appears immediately while the inline editor can remain open for rapid additional entry;
+- Cancel collapses the editor;
+- final demonstrated Today order is:
+  1. Record voice
+  2. Video
+
+**PRIORITY-DIRECT**
+- later drag/arrow actions confirm top-to-bottom order is editable priority, not creation chronology only.
+
+### ~00:01:50–00:02:03 — task hover grammar, lane movement and overflow
+
+**VIDEO-DIRECT**
+- resting board task shows a leading ordinal, title, lower-left EST affordance/value and lower-right Taken value;
+- on hover the leading slot becomes/reveals the circular completion affordance and a compact right-side action rail;
+- exact visible board action order in the high-resolution hover frame:
+  1. Subtasks/list-like control;
+  2. Notes/document;
+  3. lane-left arrow;
+  4. lane-right arrow;
+  5. overflow ellipsis.
+- this is distinct from Focus ordinary-task hover, where the leading direct action is Make Live/rocket rather than lane arrows.
+
+**LANE-MOVE-DIRECT**
+- Record voice is moved out of Today into This Week with the direct lane arrow, then returned to Today;
+- the task identity is preserved;
+- lane mutation is immediate in the demonstrated source state.
+
+**OVERFLOW-DIRECT**
+- board-task overflow menu exact order:
+  1. `Schedule`
+  2. `Change list`
+  3. `Duplicate`
+  4. `Delete` in destructive red.
+- lane arrows are not duplicated inside this menu.
+
+### ~00:02:03–00:02:18 — EST editing on an existing task
+
+**VIDEO-DIRECT**
+- Record voice lower-left EST affordance is directly editable;
+- hovering it exposes tooltip `Est. HH:MM`;
+- editor is a compact inline value field in the metric slot rather than a modal;
+- demonstrated input resolves to **8hr 45min**;
+- commit returns the card to its normal metric display;
+- lower-right Taken remains `0min`.
+
+**ARITHMETIC-DIRECT**
+- after commit, the visible list/pending estimate reflects the 8h45 task estimate;
+- Video still has no EST and therefore does not add estimate time in this staged state.
+
+### ~00:02:18–00:02:24 — EST available during task creation
+
+**VIDEO-DIRECT**
+- the inline `+ ADD TASK` editor is opened again;
+- title and EST are sibling fields in the create row;
+- this visually corroborates narration that estimate can be entered at creation time.
+
+The demonstration closes/cuts away without establishing additional validation/error behavior.
+
+### ~00:02:24–00:02:33 — Blitz entry and live-task EST/pause relationship
+
+**VIDEO-DIRECT**
+- Today Blitz CTA enters the narrow Focus Panel;
+- `Record voice` becomes the live task with countdown beginning at **08:45:00**, matching its EST;
+- Focus header shows `Est: 8hr 45min`;
+- Video remains queued below;
+- live task hover reveals the live action strip;
+- Pause changes the live timer to explicit `PAUSED`;
+- Resume returns to the running countdown.
+
+**EVIDENCE BOUNDARY**
+- narration states a live task's EST can only be added/edited while paused;
+- pixels do demonstrate the pause state immediately around the metric-edit discussion;
+- the source does **not** show a failed running-state edit attempt, so the prohibition itself remains partly `TRANSCRIPT-CLAIM` rather than a measured rejection state.
+
+### ~00:02:34–00:02:44 — manual Time Taken editing
+
+**VIDEO-DIRECT**
+- queued task `Video` exposes lower-right Taken value;
+- hovering/clicking the value uses the same compact inline metric-slot editor;
+- source tooltip/field semantics identify it as Taken using HH:MM formatting;
+- demonstrated typed value is **05:35**;
+- commit renders **5hr 35min** at the lower-right of Video;
+- Video still shows `+ EST` at lower-left.
+
+**STATIC/STRUCTURAL FINDING**
+- EST and Taken occupy stable opposing metric slots:
+  - EST left;
+  - Taken right.
+- task action rail remains in the title row above those metrics.
+
+### ~00:02:45–00:02:51 — completing the live task in Focus
+
+**VIDEO-DIRECT**
+- Record voice remains live with countdown around 08:44:4x;
+- Done is invoked from the live-task action strip;
+- success surface replaces the live-card content in-place;
+- success anatomy matches VE-003:
+  - completed title;
+  - `Well done!`;
+  - reaction GIF;
+  - gradient `Next Task`;
+  - secondary `Take a Break`;
+  - completion timing summary.
+
+**ARITHMETIC-DIRECT**
+- Record voice EST is 8hr45 = **525 minutes**;
+- its demonstrated Taken is effectively 0min at completion;
+- success copy reports completion **525 minutes early**, exactly matching EST − Taken;
+- this directly validates the early/late comparison semantics shown by the UI.
+
+### ~00:02:51–00:02:58 — board Done-state outcome
+
+**CUT/UNMEASURABLE**
+- tutorial cuts from Focus success back to the board; do not interpret this as a measured Focus→board transition.
+
+**VIDEO-DIRECT**
+- Record voice is now in Done with struck-through title and `0min` Taken;
+- Today retains pending `Video`;
+- top list summary reads one pending task and `Est: 0min` because the remaining Video has no EST;
+- Today/This Week progress shows **1/2 Done** for the two-task planning set;
+- Done groups the completed task by date and reports one task for that date/month context.
+
+**METRIC-DIRECT**
+- pending Video retains its manually entered **5hr 35min Taken** even though it has no EST.
+
+### ~00:02:58–00:03:21 — Blitz-mode completion demonstration
+
+**CUT/UNMEASURABLE**
+- source cuts back into Focus; this is a tutorial edit, not a measured navigation transition.
+
+**VIDEO-DIRECT**
+- Video is shown as the remaining task;
+- live-task Done is demonstrated again;
+- success screen appears with animated reaction media;
+- success screen prominently exposes:
+  - `Next Task`;
+  - `Take a Break`;
+  - early/late completion message relative to EST where applicable.
+- pointer hovers over the success choices during narration.
+
+**TIMING LIMIT**
+- because the sequence contains tutorial cuts and staged state changes, do not derive automatic-next-task delay or cross-surface navigation timing from this section.
+
+### ~00:03:21–00:03:38.75 — Help Center / community outro
+
+**VIDEO-DIRECT / NON-PARITY**
+- product UI gives way to Help Center web content and then Discord/community material;
+- these are tutorial/navigation outro surfaces, not Narro parity targets.
+
+## VE-005 source synthesis
+
+High-confidence source behavior established:
+- list creation is one centered modal and inserts the new list card into the Home grid;
+- current list-card hover reveals centered Open without card reflow;
+- list overflow = Edit List / Duplicate / Archive List;
+- one four-column board shell supports scoped single-list and All Lists views;
+- task creation is inline, repeat-friendly and includes a sibling EST field;
+- board resting task uses ordinal + EST-left + Taken-right;
+- board hover rail = Subtasks / Notes / lane-left / lane-right / overflow;
+- direct lane arrows preserve task identity and mutate lane immediately;
+- board overflow = Schedule / Change list / Duplicate / Delete;
+- existing EST is inline editable with `Est. HH:MM` semantics;
+- demonstrated EST is 8hr45;
+- live Record voice timer starts from that 8hr45 estimate;
+- Pause/Resume is explicitly demonstrated during the live metric discussion;
+- queued-task Taken is inline editable in HH:MM form and demonstrated as 05:35 → 5hr35min;
+- completing Record voice with effectively 0min Taken yields `525 minutes early`, numerically equal to EST − Taken;
+- completed task moves to dated Done grouping; remaining pending-task estimate excludes a task with no EST;
+- progress shows 1/2 Done across the demonstrated two-task set;
+- tutorial cuts must not be mistaken for product transition timing.
+
+Static corroboration:
+- SS-C01 current Create List dialog;
+- SS-C05 current list-card hover/overflow;
+- SS-H01 full four-column board;
+- SS-H02 Today ordinal/EST/Taken/progress;
+- SS-H13 board task hover + overflow;
+- SS-T02 historical inline task creation;
+- SS-T03 historical EST/Taken placement.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
