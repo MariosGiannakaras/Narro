@@ -72,6 +72,11 @@ export type FocusPanelPlacementProbe = {
   pass: boolean;
 };
 
+export type DiagnosticStoragePaths = {
+  appDataDir: string;
+  appLocalDataDir: string;
+};
+
 export type DiagnosticCommand =
   | "main_window_hide"
   | "main_window_show"
