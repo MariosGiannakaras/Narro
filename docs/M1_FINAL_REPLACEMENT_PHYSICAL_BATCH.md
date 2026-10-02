@@ -80,6 +80,24 @@ Required Candidate B properties:
 
 This is the only remaining M7 C5 observation.
 
+Prepare the session with the repository safety helper before launching the
+production candidate:
+
+```powershell
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-m7-physical-session.ps1 -Executable <PATH_TO_CI809_NARRO_EXE> -ExpectedSha256 a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675 -Launch
+```
+
+The helper:
+- refuses to proceed while any `narro.exe` is already running;
+- verifies the exact CI #809 executable SHA-256;
+- snapshots the complete production
+  `%APPDATA%\\com.mariosg.Narro` directory while Narro is stopped;
+- records file hashes, Windows version and monitor geometry in the evidence
+  session directory;
+- writes a short `checklist.md` for only this remaining C5 test.
+
+Then:
+
 1. Start/keep one real active task and show the compact Floating Timer.
 2. Drag it to an obvious safe non-default location.
 3. Use tray **Quit Narro**.
@@ -88,7 +106,9 @@ This is the only remaining M7 C5 observation.
 6. PASS if the Timer returns to a safe visible saved position and is not
    stranded/off-screen.
 
-A short continuous recording is sufficient.
+A short continuous recording is sufficient. Keep the generated app-data backup
+until the observation is accepted. Do not restore it over a running Narro
+process, and do not restore it merely because the test passes.
 
 ## Batch B — Focus Panel selected-monitor left/right placement
 
