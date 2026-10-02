@@ -71,7 +71,10 @@ struct FocusSnapshot {
 fn validation_executable() -> bool {
     std::env::current_exe()
         .ok()
-        .and_then(|path| path.file_stem().map(|stem| stem.to_string_lossy().into_owned()))
+        .and_then(|path| {
+            path.file_stem()
+                .map(|stem| stem.to_string_lossy().into_owned())
+        })
         .is_some_and(|stem| stem.eq_ignore_ascii_case(VALIDATION_EXE_STEM))
 }
 
@@ -146,8 +149,12 @@ fn create_log_root(app: &tauri::App) -> Result<PathBuf, String> {
         .app_local_data_dir()
         .map_err(|error| format!("resolve local app-data fallback for validation logs: {error}"))?
         .join("m7-validation-logs");
-    fs::create_dir_all(&fallback)
-        .map_err(|error| format!("create validation log fallback {}: {error}", fallback.display()))?;
+    fs::create_dir_all(&fallback).map_err(|error| {
+        format!(
+            "create validation log fallback {}: {error}",
+            fallback.display()
+        )
+    })?;
     Ok(fallback)
 }
 
@@ -274,12 +281,7 @@ fn record_event(app_handle: &tauri::AppHandle, event: &str, details: Value) {
     }
 }
 
-fn result_document(
-    status: &str,
-    reason: &str,
-    state: &ValidationState,
-    extra: Value,
-) -> Value {
+fn result_document(status: &str, reason: &str, state: &ValidationState, extra: Value) -> Value {
     json!({
         "schemaVersion": EVENT_SCHEMA_VERSION,
         "test": "M7-C5-saved-placement-restart",
@@ -304,7 +306,8 @@ fn write_result(state: &ValidationState, status: &str, reason: &str, extra: Valu
         }
     }
     if status != "PENDING" {
-        if let Err(error) = write_json(&state.root.join("m7-c5-last-terminal-result.json"), &value) {
+        if let Err(error) = write_json(&state.root.join("m7-c5-last-terminal-result.json"), &value)
+        {
             eprintln!("M7 validation terminal-result write failed: {error}");
         }
     }
@@ -336,8 +339,12 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
     write_readme(&root);
     let session_id = uuid::Uuid::new_v4().to_string();
     let session_dir = root.join(format!("session-{}-{}", safe_stamp(), std::process::id()));
-    fs::create_dir_all(&session_dir)
-        .map_err(|error| format!("create validation session {}: {error}", session_dir.display()))?;
+    fs::create_dir_all(&session_dir).map_err(|error| {
+        format!(
+            "create validation session {}: {error}",
+            session_dir.display()
+        )
+    })?;
     let pending = read_pending(&root);
     let executable_fingerprint = executable_fingerprint()?;
     let state = ValidationState {
@@ -390,7 +397,11 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
     .map_err(|error| format!("write validation LATEST.txt: {error}"))?;
 
     let app_handle = app.handle().clone();
-    record_event(&app_handle, "validation-start", json!({ "logRoot": root.file_name().and_then(|name| name.to_str()) }));
+    record_event(
+        &app_handle,
+        "validation-start",
+        json!({ "logRoot": root.file_name().and_then(|name| name.to_str()) }),
+    );
     if let Some(lock) = STATE.get() {
         if let Ok(state) = lock.lock() {
             if state.pending.is_some() {
@@ -488,10 +499,7 @@ pub fn record_focus_close_requested(app_handle: &tauri::AppHandle) {
     record_event(app_handle, "focus-close-requested", json!({}));
 }
 
-pub fn record_placement_saved(
-    app_handle: &tauri::AppHandle,
-    saved: &SavedFloatingPlacement,
-) {
+pub fn record_placement_saved(app_handle: &tauri::AppHandle, saved: &SavedFloatingPlacement) {
     if !enabled() {
         return;
     }
@@ -563,7 +571,9 @@ pub fn record_tray_quit_completed(
         topology_signature: topology,
         max_move_distance_px: max_distance,
         qualifying_move,
-        source_sha: option_env!("NARRO_VALIDATION_SOURCE_SHA").unwrap_or("unknown").to_string(),
+        source_sha: option_env!("NARRO_VALIDATION_SOURCE_SHA")
+            .unwrap_or("unknown")
+            .to_string(),
         executable_fingerprint: state.executable_fingerprint.clone(),
     };
     if let Err(error) = write_json(&state.root.join("pending-c5.json"), &pending) {
