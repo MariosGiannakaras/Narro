@@ -1,6 +1,6 @@
 # Blitzit exhaustive forensic re-audit plan
 
-Status: **REQUIRED — third-pass interaction/state forensics and screenshot-by-screenshot parity reconciliation**
+Status: **ACTIVE — third-pass source forensics; ANALYSIS ONLY; implementation reconciliation explicitly deferred**
 
 Date established: 2026-10-02
 
@@ -75,15 +75,40 @@ Inspect all 46 image references individually at native resolution. For each imag
 
 Every image must receive a row/checkpoint in the screenshot parity tracker used by M10/final review. Similar screenshots may share one implementation slice, but not one inspection result.
 
-## Implementation order
+## Analysis-only boundary
 
-1. Correct direct high-confidence gaps that are independent of the currently open M1/M7 physical gate and do not alter its validated Focus-window architecture.
-2. Batch related board parity changes together rather than producing micro-PRs.
-3. Add semantic Rust/React regressions for identity/order/arithmetic and deterministic visual fixtures for geometry/state.
-4. Run the narrowest relevant tests first, then repository preflight and Windows CI when the coherent source slice is ready.
-5. Leave physical-only conclusions open until observed on the exact candidate.
-6. Re-run the full 19-video + 46-image crosswalk after M10 against the release-candidate implementation; historical PASS records alone do not close final parity.
+By explicit user direction on 2026-10-02, Pass 3 must **not** modify Narro implementation.
 
-## Completion condition
+During this pass:
+1. inspect and document source evidence only;
+2. do not patch React/Rust/CSS/tests/configuration/CI;
+3. do not modify or merge implementation PRs;
+4. do not mark implementation gaps fixed/validated;
+5. do not use current implementation as a reason to stop source inspection early;
+6. record implementation-relevant implications as source findings only;
+7. defer all code reconciliation to a later, separately authorized implementation phase.
 
-This re-audit is complete only when all 19 video pairs and all 46 images have explicit per-item dispositions, every material direct finding is represented in the crosswalk, every implementation gap is fixed or explicitly routed, and the final release-candidate parity pass finds no orphaned source evidence.
+The source pass therefore has three conceptual phases:
+
+- **P3-A — source extraction:** per-image and per-video observation at maximum practical depth;
+- **P3-B — source synthesis:** reconcile current/direct, Help, historical and transcript evidence without code changes;
+- **P3-C — implementation reconciliation:** **DEFERRED** until the user explicitly asks the implementation track to consume Pass-3 findings.
+
+Authoritative continuation files:
+- `docs/BLITZIT_FORENSIC_PASS3_HANDOFF.md`;
+- `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`;
+- `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`;
+- `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
+
+## Source-forensics completion condition
+
+Pass 3 source analysis is complete only when:
+- all 46 retained images have explicit per-image Pass-3 records;
+- all 19 MP4s have been inspected across their full duration at Pass-3 depth;
+- every material interaction/transient-state sequence has timestamps and state-transition notes;
+- arithmetic, counters, task identity/order and visible copy are reconstructed where relevant;
+- motion claims are measured/classified without inventing timing;
+- contradictions across current/direct, Help, historical, narration and inference are explicitly resolved or left as genuine ambiguity;
+- the Pass-3 tracker contains no OPEN, PARTIAL or RAW_MEDIA_ACCESS_REQUIRED items.
+
+**Code parity is not part of this completion condition.** Implementation reconciliation is a later phase and must not block truthful completion of the source-analysis pass.
