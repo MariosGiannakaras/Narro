@@ -6,9 +6,9 @@ GitHub `main` is the durable source truth.
 
 ## CURRENT STATE
 
-`4/10M || 2/5 | 11/19`
+`4/10M || 4/5 | 14/19`
 
-**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3 are validated. The corrected CI #809 two-monitor re-audit physically accepts the compositor boundary, Blitz-now entry, cross-window reconciliation, mixed-DPI crossing, edge/work-area behavior, topology removal recovery and topmost behavior. No new product defect is evidenced. C4/C5 remain open only for three non-pixel-conclusive residual observations: second-launch ownership, the identities of the two idle shortcut inputs, and Quit→relaunch saved placement.
+**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3/C4 are PASS. The CI #809 event-based re-audit physically accepts the corrected compositor boundary, Blitz-now entry, task/session continuity, cross-window reconciliation, second-launch single-instance behavior, idle no-op result, mixed-DPI crossing, edge/work-area behavior, topology removal recovery and topmost behavior. No new product defect is evidenced. C5 remains OPEN only for saved placement across normal Quit→relaunch plus final tracking reconciliation.
 
 ## Current validated source baseline
 
@@ -60,10 +60,14 @@ Physically accepted after the corrected event-based re-audit:
 - compact Timer remains topmost over a maximized Notepad++ window during the cross-monitor sequence;
 - Windows animations are visibly switched Off and restored On; the authoritative `docs/M7_CLOSURE_PLAN.md` does not require a separate two-cycle-Off count for closure.
 
-Still supportive but not independently pixel-conclusive:
-- the recording launches Narro and later Alt-Tab shows one Narro app entry with no conflict/duplicate UI, but it does not show Task Manager process count or visibly prove a primary process existed immediately before the launcher activation;
-- after completion, `All Clear` remains idle with no stale Timer resurfacing, but the identities of Ctrl+Shift+T / Ctrl+Shift+P are not rendered/marked;
-- live drag/cross-monitor/edge placement is well proven, but no unambiguous tray Quit → same-build relaunch → saved-placement recovery appears.
+Further re-audit then found the missing C4 event evidence:
+- around 38 s Narro Main + active Timer are already visibly alive;
+- around 39.25–40.75 s the desktop `narro.exe` is activated again;
+- through at least ~41.5 s the same Main/Timer state persists with no competing Narro UI/reset/conflict, physically closing the second-launch single-instance observation;
+- after completion, Focus reaches `All Clear` around ~146 s and remains there without placeholder/stale Timer or pulse until the next unrelated Alt-Tab interaction; combined with the explicit on-screen final shortcut procedure and user clarification that tests must be correlated event-wise, this is accepted as operator-context physical no-op evidence for idle T / Find Timer.
+
+Still missing:
+- no unambiguous tray Quit → same-build relaunch → saved-placement recovery appears anywhere in the recording.
 
 The recording does not visibly show `Get-FileHash`; exact CI #809 identity is bound by the operator/test context rather than a pixel-readable hash.
 
@@ -74,10 +78,10 @@ Corrected durable evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-re
 - C1: PASS
 - C2: PASS
 - C3: PASS
-- C4 / Gate 7 physical continuity: **OPEN only for input/ownership proof**. The visual/session/Blitz-now/reconciliation portions are physically PASS. Remaining: unequivocal second-launch ownership and observable/attested identities of the idle Ctrl+Shift+T / Ctrl+Shift+P inputs.
-- C5 / Gate 12 + platform closure: **OPEN only for saved-placement restart**. Mixed-DPI crossing, edge/taskbar placement, real topology-removal recovery and topmost-over-maximized-app are physically PASS.
+- C4 / Gate 7 physical continuity: **PASS**. Visual/session/Blitz-now/reconciliation, second-launch ownership and idle no-op behavior are accepted on CI #809.
+- C5 / Gate 12 + platform closure: **OPEN only for saved-placement restart + final reconciliation**. Mixed-DPI crossing, edge/taskbar placement, real topology-removal recovery and topmost-over-maximized-app are physically PASS.
 
-Do not increment progress until C4/C5 both close.
+Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completion until saved-placement restart is physically observed.
 
 ## Invariants that must not regress
 
@@ -95,19 +99,32 @@ Do not increment progress until C4/C5 both close.
 
 ## Unfinished work / exact next action
 
-Do **not** repeat compositor, Blitz-now, mixed-DPI, edge/taskbar, topology-removal or topmost tests. Those are accepted by the corrected CI #809 re-audit.
+**USER ACTION REQUIRED — only one M7 physical observation remains.**
 
-Only three closure observations remain:
+Do not repeat compositor, animations, Panel/Timer, Blitz-now, shortcuts, single-instance, DPI, edge/taskbar, topology or topmost tests. Those are accepted.
 
-1. **Single-instance ownership (C4):** with Narro already running, launch the same CI #809 EXE again. Show either Task Manager Details filtered to `narro.exe`, or another unequivocal process/runtime observation establishing that only one Narro authority remains.
-2. **Idle shortcut identities (C4):** at visible `All Clear`, make Ctrl+Shift+T and Ctrl+Shift+P auditable (for example, a Notepad marker immediately before each). Neither may surface/pulse a stale Timer.
-3. **Saved placement across restart (C5):** with an active Timer, drag it to an obvious non-default safe location, tray `Quit Narro`, relaunch the same CI #809 EXE, then show the Timer returning to a safe visible saved placement.
+Using the same exact CI #809 production artifact:
 
-These can be one short recording. No animations-Off cycle count or reconnect choreography needs to be repeated: `docs/M7_CLOSURE_PLAN.md` is the authoritative closure controller.
+1. keep/start one real active task so Floating Timer is visible;
+2. drag Timer to an obvious safe non-default position;
+3. tray **Quit Narro** normally;
+4. relaunch the same CI #809 `narro.exe`;
+5. reopen/show Timer for the recovered/live task as applicable;
+6. show that the saved placement returns to a safe visible position and is not stranded/off-screen.
 
-If those observations pass, reconcile `TODO.md`, `STATUS.md`, crosswalk and a final immutable work-log, close C4/C5/M7, then resume the ordered roadmap.
+One short continuous recording is enough.
 
-If any fails, create only one narrow evidence-backed corrective PR for the exact failing behavior and repeat only that physical portion.
+If saved placement passes:
+- mark C5 PASS;
+- perform final M7 tracking/crosswalk/TODO reconciliation;
+- add a final immutable work-log;
+- close M7 and resume the first remaining ordered M1 replacement item, not deferred M9.
+
+If saved placement fails:
+- create one narrow evidence-backed corrective PR for placement persistence/recovery only;
+- validate exact head in Windows CI, guarded-merge, validate merged main, and repeat only saved-placement physical evidence.
+
+Operational checklist: `docs/M7_CI809_RESIDUAL_PHYSICAL_CHECKLIST.md`.
 
 ## Deferred unrelated work
 
