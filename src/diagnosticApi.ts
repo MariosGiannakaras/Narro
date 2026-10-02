@@ -73,6 +73,7 @@ export type FocusPanelPlacementProbe = {
 };
 
 export type DiagnosticStoragePaths = {
+  identifier: string;
   appDataDir: string;
   appLocalDataDir: string;
 };
