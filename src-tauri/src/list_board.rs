@@ -64,6 +64,7 @@ pub struct ListBoardLane {
     pub tasks: Vec<ListBoardTask>,
     pub count: u64,
     pub aggregate_est_seconds: u64,
+    pub aggregate_remaining_est_seconds: u64,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -76,6 +77,7 @@ pub struct ListBoardSnapshot {
     pub today: ListBoardLane,
     pub done: ListBoardLane,
     pub done_month_completion_count: u64,
+    pub done_today_completion_count: u64,
 }
 
 #[derive(Debug)]
@@ -179,7 +181,7 @@ struct ProjectedTask {
     task: TaskRecord,
     list_title: String,
     list_color: Option<String>,
-    time_taken_seconds: String,
+    time_taken_seconds: u64,
     subtask_total_count: u64,
     subtask_completed_count: u64,
     is_overdue: bool,
@@ -205,11 +207,16 @@ impl LaneAccumulator {
 
         let count = u64::try_from(self.tasks.len()).map_err(|_| ListBoardError::CountOverflow)?;
         let mut aggregate_est_seconds = 0_u64;
+        let mut aggregate_remaining_est_seconds = 0_u64;
         let mut tasks = Vec::with_capacity(self.tasks.len());
         for projected in self.tasks {
             if let Some(seconds) = projected.task.est_seconds {
+                let estimated = u64::from(seconds);
                 aggregate_est_seconds = aggregate_est_seconds
-                    .checked_add(u64::from(seconds))
+                    .checked_add(estimated)
+                    .ok_or(ListBoardError::EstimateOverflow)?;
+                aggregate_remaining_est_seconds = aggregate_remaining_est_seconds
+                    .checked_add(estimated.saturating_sub(projected.time_taken_seconds))
                     .ok_or(ListBoardError::EstimateOverflow)?;
             }
             tasks.push(ListBoardTask {
@@ -219,7 +226,7 @@ impl LaneAccumulator {
                 list_color: projected.list_color,
                 title: projected.task.title,
                 est_seconds: projected.task.est_seconds,
-                time_taken_seconds: projected.time_taken_seconds,
+                time_taken_seconds: projected.time_taken_seconds.to_string(),
                 subtask_total_count: projected.subtask_total_count,
                 subtask_completed_count: projected.subtask_completed_count,
                 scheduled_local_date: projected.task.scheduled_local_date,
@@ -235,6 +242,7 @@ impl LaneAccumulator {
             tasks,
             count,
             aggregate_est_seconds,
+            aggregate_remaining_est_seconds,
         })
     }
 }
@@ -299,6 +307,20 @@ fn task_completed_in_display_month(
     Ok(display_local_month_key(completed_timestamp, display_timezone)? == current_month)
 }
 
+fn task_completed_on_display_date(
+    task: &TaskRecord,
+    current_date: &str,
+    display_timezone: &str,
+) -> Result<bool, ListBoardError> {
+    let Some(completed_at) = task.completed_at.as_deref() else {
+        return Ok(false);
+    };
+    let completed_timestamp = completed_at
+        .parse::<Timestamp>()
+        .map_err(|_| ListBoardError::InvalidStoredCompletedTimestamp(task.id))?;
+    Ok(display_local_date(completed_timestamp, display_timezone)? == current_date)
+}
+
 fn task_is_overdue_at(
     task: &TaskRecord,
     now: Timestamp,
@@ -352,7 +374,7 @@ fn project_task(
     now: Timestamp,
     display_timezone: &str,
 ) -> Result<ProjectedTask, ListBoardError> {
-    let time_taken_seconds = task_time_taken_seconds(conn, task.id)?.to_string();
+    let time_taken_seconds = task_time_taken_seconds(conn, task.id)?;
     let (subtask_total_count, subtask_completed_count) = subtask_counts(conn, task.id)?;
     let is_overdue = task_is_overdue_at(&task, now, display_timezone)?;
     Ok(ProjectedTask {
@@ -405,12 +427,14 @@ pub fn load_at(
 
     let display_timezone = selected_timezone(conn, fallback_display_timezone)?;
     let current_display_month = display_local_month_key(now, &display_timezone)?;
+    let current_display_date = display_local_date(now, &display_timezone)?;
     let mut seen = HashSet::new();
     let mut backlog = LaneAccumulator::default();
     let mut this_week = LaneAccumulator::default();
     let mut today = LaneAccumulator::default();
     let mut done = LaneAccumulator::default();
     let mut done_month_completion_count = 0_u64;
+    let mut done_today_completion_count = 0_u64;
 
     for list in selected_lists {
         for manual_lane in ACTIVE_MANUAL_LANES {
@@ -443,6 +467,11 @@ pub fn load_at(
                     .checked_add(1)
                     .ok_or(ListBoardError::CountOverflow)?;
             }
+            if task_completed_on_display_date(&task, &current_display_date, &display_timezone)? {
+                done_today_completion_count = done_today_completion_count
+                    .checked_add(1)
+                    .ok_or(ListBoardError::CountOverflow)?;
+            }
             if !seen.insert(task.id) {
                 return Err(ListBoardError::DuplicateTaskProjection(task.id));
             }
@@ -466,6 +495,7 @@ pub fn load_at(
         today: today.finish()?,
         done: done.finish()?,
         done_month_completion_count,
+        done_today_completion_count,
     })
 }
 
@@ -634,7 +664,10 @@ mod tests {
         assert_eq!(board.today.tasks[0].id, today);
         assert_eq!(board.done.tasks[0].id, done);
         assert_eq!(board.today.aggregate_est_seconds, 1800);
+        assert_eq!(board.today.aggregate_remaining_est_seconds, 1800);
         assert_eq!(board.done.aggregate_est_seconds, 2400);
+        assert_eq!(board.done.aggregate_remaining_est_seconds, 2400);
+        assert_eq!(board.done_today_completion_count, 1);
         assert_eq!(board.today.tasks[0].time_taken_seconds, "0");
         assert_eq!(board.today.tasks[0].subtask_total_count, 2);
         assert_eq!(board.today.tasks[0].subtask_completed_count, 1);
@@ -752,6 +785,8 @@ mod tests {
         let projected = &board.today.tasks[0];
         assert_eq!(projected.id, task_id);
         assert_eq!(projected.time_taken_seconds, "375");
+        assert_eq!(board.today.aggregate_est_seconds, 900);
+        assert_eq!(board.today.aggregate_remaining_est_seconds, 525);
         assert_eq!(projected.subtask_total_count, 0);
         assert_eq!(projected.subtask_completed_count, 0);
         assert_eq!(

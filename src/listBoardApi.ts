@@ -33,6 +33,7 @@ export type ListBoardLane = {
   tasks: ListBoardTask[];
   count: number;
   aggregateEstSeconds: number;
+  aggregateRemainingEstSeconds?: number;
 };
 
 export type ListBoardSnapshot = {
@@ -43,6 +44,7 @@ export type ListBoardSnapshot = {
   today: ListBoardLane;
   done: ListBoardLane;
   doneMonthCompletionCount: number;
+  doneTodayCompletionCount?: number;
 };
 
 export type ListBoardRequestTarget =
