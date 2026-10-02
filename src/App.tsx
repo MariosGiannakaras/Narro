@@ -91,6 +91,7 @@ function App() {
   const [placementProbe, setPlacementProbe] = useState<FocusPanelPlacementProbe | null>(null);
   const [placementMatrix, setPlacementMatrix] = useState<FocusPanelPlacementMatrix | null>(null);
   const [placementMatrixPending, setPlacementMatrixPending] = useState(false);
+  const [placementMatrixStep, setPlacementMatrixStep] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const diagnosticMode = new URLSearchParams(window.location.search).get("diagnostics") === "1";
 
@@ -437,6 +438,7 @@ function App() {
 
     setPlacementProbe(null);
     setPlacementMatrix(null);
+    setPlacementMatrixStep(null);
     setPlacementMatrixPending(true);
 
     try {
@@ -451,10 +453,15 @@ function App() {
       const entries: FocusPanelPlacementMatrixEntry[] = [];
       for (const monitor of discovered) {
         for (const side of ["left", "right"] as const) {
+          const stepLabel = `Monitor ${monitor.index + 1}${monitor.name ? ` (${monitor.name})` : ""} — ${side === "left" ? "Left" : "Right"}`;
+          setPlacementMatrixStep(stepLabel);
           await invoke<void>("position_focus_panel", {
             monitorKey: monitor.key,
             side,
           });
+          // Keep every diagnostic placement visibly settled long enough for a
+          // screen recording/human observer to verify the actual monitor edge.
+          await new Promise<void>((resolve) => window.setTimeout(resolve, 750));
           const probe = await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe", {
             monitorKey: monitor.key,
             side,
@@ -494,6 +501,7 @@ function App() {
         clearMonitorList();
       }
     } finally {
+      setPlacementMatrixStep(null);
       setPlacementMatrixPending(false);
     }
   }
@@ -706,6 +714,11 @@ function App() {
                 >
                   {placementMatrixPending ? "Running placement matrix…" : "Run all monitor Left/Right probes"}
                 </button>
+                {placementMatrixPending && placementMatrixStep && (
+                  <p data-m1-placement-matrix-step>
+                    Current matrix step: <strong>{placementMatrixStep}</strong>
+                  </p>
+                )}
                 {placementMatrix && (
                   <>
                     <p>
