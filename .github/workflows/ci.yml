@@ -267,12 +267,26 @@ jobs:
       shell: pwsh
       run: |
         $env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"
+        $env:NARRO_VALIDATION_SOURCE_SHA = "${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
         npm run tauri:physical-ci
 
     - name: Verify Physical Validation Build
       shell: pwsh
       run: |
         powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-physical-validation-build.ps1 -Executable src-tauri/target-physical/release/narro.exe
+
+    - name: Prepare M7 Automatic Validation Executable
+      shell: pwsh
+      run: |
+        $output = Join-Path $PWD "artifacts/m7-validation"
+        New-Item -ItemType Directory -Force -Path $output | Out-Null
+        Copy-Item -LiteralPath "src-tauri/target-physical/release/narro.exe" -Destination (Join-Path $output "narro-m7-validation.exe") -Force
+        Copy-Item -LiteralPath "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md" -Destination (Join-Path $output "README-M7-VALIDATION.md") -Force
+
+    - name: Verify M7 Automatic Validation Logging
+      shell: pwsh
+      run: |
+        powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-m7-validation-logging.ps1 -Executable artifacts/m7-validation/narro-m7-validation.exe
 
     - name: Upload Physical Validation Build Artifact
       uses: actions/upload-artifact@v4
@@ -282,6 +296,15 @@ jobs:
           src-tauri/target-physical/release/narro.exe
           src-tauri/target-physical/release/bundle/nsis/*.exe
           src-tauri/target-physical/release/bundle/msi/*.msi
+        if-no-files-found: error
+
+    - name: Upload M7 Automatic Validation Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m7-validation-windows-x64
+        path: |
+          artifacts/m7-validation/narro-m7-validation.exe
+          artifacts/m7-validation/README-M7-VALIDATION.md
         if-no-files-found: error
 
     - name: Build M1 Diagnostic Validation Release
