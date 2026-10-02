@@ -226,6 +226,18 @@ invariant(
     && lib.includes("floating_placement::restore_for_timer("),
   "visible same-Timer requests must preserve drag position while hidden Timer reshow restores placement against current topology",
 );
+const trayQuitBranch = lib.indexOf('} else if event.id() == "quit" {');
+const trayQuitSave = lib.indexOf(
+  "floating_placement::save_if_timer_visible(app_handle)",
+  trayQuitBranch,
+);
+const trayQuitExit = lib.indexOf("app_handle.exit(0);", trayQuitSave);
+invariant(
+  trayQuitBranch >= 0
+    && trayQuitSave > trayQuitBranch
+    && trayQuitExit > trayQuitSave,
+  "tray Quit must persist visible Timer placement before terminating the Narro process",
+);
 invariant(
   !lib.includes("prepare_floating_timer")
     && !lib.includes("reveal_floating_timer")
