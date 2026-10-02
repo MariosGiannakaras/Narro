@@ -49,32 +49,33 @@ PR #209 / CI #811 regression-lock evidence:
 
 ## Candidate B — M1 diagnostic artifact
 
-Current merged implementation:
-`c372ca29824c3c3839490a19e79f7ed3482cb360`
+**PENDING final #212 resulting-main validation. Do not use the older CI #816
+diagnostic artifact for B/C/D.**
 
-Resulting-main Windows CI #816 / run `36989230905`: **PASS**.
+CI #816 remains valid evidence for the earlier performance batch runner, but it
+predates the diagnostic data-namespace isolation, runtime storage-identity
+probe, native monitor placement verdict and floating-scenario preflight added by
+PR #212.
 
-- diagnostic artifact id: `11218838485`
-- artifact name: `narro-m1-diagnostic-windows-x64`
-- ZIP digest:
-  `sha256:cd03347215b684fc853aa450aa1903870ed5969ac6c7150edebda72a9048c2f9`
-- contained diagnostic `narro.exe` SHA-256:
-  `f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b`
+Before physical B/C/D begins, this section must be reconciled with the exact
+resulting-main artifact after #212 passes:
+- exact merged implementation SHA;
+- Windows main CI run;
+- diagnostic artifact id/name;
+- ZIP SHA-256;
+- contained diagnostic `narro.exe` SHA-256.
 
-Diagnostic isolation:
-- Tauri identifier is `com.mariosg.Narro.M1Diagnostic`, distinct from production
-  `com.mariosg.Narro`; diagnostic SQLite/WebView app-data therefore uses a
-  separate namespace and must not read or mutate the production Narro database;
-- Main loads `index.html?diagnostics=1`;
-- `focusSurface` loads normal product `focus.html`;
-- no `runtimeVisual` fixture activation;
-- artifact includes `measure-floating.ps1`, the validated
-  `run-m1-floating-performance-batch.ps1` one-command orchestrator, and the
-  M1 Windows validation docs.
-
-Durable integration evidence:
-- `work-log/2026-10-02-chatgpt-m1-diagnostic-pr210-ci813-main814.md`;
-- `work-log/2026-10-02-chatgpt-m1-performance-batch-pr211-ci815-main816.md`.
+Required Candidate B properties:
+- runtime Tauri identifier `com.mariosg.Narro.M1Diagnostic`;
+- Main `index.html?diagnostics=1`;
+- product `focusSurface` `focus.html`;
+- no `runtimeVisual`;
+- native Focus Panel placement probe;
+- runtime storage identifier/path probe;
+- `measure-floating.ps1`;
+- `run-m1-floating-performance-batch.ps1`;
+- `verify-m1-floating-performance-scenario.ps1`;
+- M1 Windows validation docs.
 
 ## Batch A — saved Timer placement across normal restart
 
@@ -146,8 +147,8 @@ will be visible directly in the monitor descriptors.
 
 ## Batch D — replacement floating-only CPU/RAM
 
-Use **Candidate B / CI #816 diagnostic artifact**. This is measurement
-evidence, not a screen recording.
+Use **Candidate B / final #212 resulting-main diagnostic artifact**. This is
+measurement evidence, not a screen recording.
 
 The diagnostic artifact contains the single-run sampler, the preferred
 three-run batch runner, and a native Win32 scenario preflight.
@@ -162,7 +163,7 @@ three-run batch runner, and a native Win32 scenario preflight.
    Candidate B EXE SHA-256 listed above:
 
 ```powershell
-powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 <FINAL_CANDIDATE_B_EXE_SHA256>
 ```
 
 Do not interact with Narro while the batch is running. Before every measurement,
