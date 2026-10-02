@@ -35,26 +35,29 @@ PR #209 / CI #811 regression-lock evidence:
 
 ## Candidate B — M1 diagnostic artifact
 
-Merged main implementation:
-`07210a7b490c01687304d19555abf9cf39542940`
+Current merged implementation:
+`c372ca29824c3c3839490a19e79f7ed3482cb360`
 
-Resulting-main Windows CI #814 / run `36981516292`, attempt 2: **PASS**.
+Resulting-main Windows CI #816 / run `36989230905`: **PASS**.
 
-- diagnostic artifact id: `11217195491`
+- diagnostic artifact id: `11218838485`
 - artifact name: `narro-m1-diagnostic-windows-x64`
 - ZIP digest:
-  `sha256:e16e6e5b2da0e916678b9b34d3348fca8014774cc38d3cda8932c2d4cbfa726f`
+  `sha256:cd03347215b684fc853aa450aa1903870ed5969ac6c7150edebda72a9048c2f9`
 - contained diagnostic `narro.exe` SHA-256:
-  `4453d403ed477c4dc3041b4ee3afe51a18b83819093d6b210525640431746bd2`
+  `f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b`
 
 Diagnostic isolation:
 - Main loads `index.html?diagnostics=1`;
 - `focusSurface` loads normal product `focus.html`;
 - no `runtimeVisual` fixture activation;
-- artifact includes `measure-floating.ps1` plus the M1 Windows validation docs.
+- artifact includes `measure-floating.ps1`, the validated
+  `run-m1-floating-performance-batch.ps1` one-command orchestrator, and the
+  M1 Windows validation docs.
 
 Durable integration evidence:
-`work-log/2026-10-02-chatgpt-m1-diagnostic-pr210-ci813-main814.md`.
+- `work-log/2026-10-02-chatgpt-m1-diagnostic-pr210-ci813-main814.md`;
+- `work-log/2026-10-02-chatgpt-m1-performance-batch-pr211-ci815-main816.md`.
 
 ## Batch A — saved Timer placement across normal restart
 
@@ -72,7 +75,7 @@ A short continuous recording is sufficient.
 
 ## Batch B — Focus Panel selected-monitor left/right placement
 
-Use **Candidate B / CI #814 diagnostic artifact** with two enabled monitors.
+Use **Candidate B / CI #816 diagnostic artifact** with two enabled monitors.
 
 1. Show Focus Panel.
 2. Refresh/select monitor 1 and position Panel Left, then Right.
@@ -89,7 +92,7 @@ Record:
 
 ## Batch C — reconnect / re-enumeration closure
 
-Use **Candidate B / CI #814 diagnostic artifact**. CI #809 already proves real
+Use **Candidate B / CI #816 diagnostic artifact**. CI #809 already proves real
 display removal and safe recovery. Only the
 reconnect/re-enumeration side of the strict M1 wording remains.
 
@@ -106,7 +109,7 @@ left-of-primary before refreshing; negative desktop coordinates are valid.
 
 ## Batch D — replacement floating-only CPU/RAM
 
-Use **Candidate B / current validated diagnostic artifact**. This is measurement
+Use **Candidate B / CI #816 diagnostic artifact**. This is measurement
 evidence, not a screen recording.
 
 The diagnostic artifact contains both the single-run sampler and the preferred
@@ -121,7 +124,7 @@ three-run batch runner. On a real Windows 10/11 x64 machine:
    Candidate B EXE SHA-256 listed above:
 
 ```powershell
-powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 4453d403ed477c4dc3041b4ee3afe51a18b83819093d6b210525640431746bd2
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b
 ```
 
 Do not interact with Narro while the batch is running. The runner performs the
