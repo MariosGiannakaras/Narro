@@ -24,8 +24,12 @@ with the diagnostic build as the sole Narro process.
 After launching Candidate B, open **Diagnostic Build Identity** first and require:
 
 - runtime identifier exactly `com.mariosg.Narro.M1Diagnostic`;
-- **Storage isolation: PASS**;
-- resolved app-data/local-data paths shown under the diagnostic namespace.
+- **Storage isolation (native identifier + resolved paths): PASS**;
+- resolved app-data and local-data paths shown under the diagnostic namespace.
+
+The PASS verdict is native evidence, not an identifier-only UI assumption: Rust
+requires both resolved storage paths to end in the runtime diagnostic identifier
+and explicitly rejects the production `com.mariosg.Narro` identifier.
 
 If that check fails, stop: do not run B/C/D and do not create/edit test data.
 
