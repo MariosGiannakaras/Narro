@@ -15,6 +15,7 @@ const EVENT_SCHEMA_VERSION: u8 = 1;
 const QUALIFYING_MOVE_PX: i64 = 64;
 const RESTORE_TOLERANCE_PX: i64 = 2;
 
+static ENABLED: OnceLock<bool> = OnceLock::new();
 static STATE: OnceLock<Mutex<ValidationState>> = OnceLock::new();
 
 #[derive(Debug)]
@@ -73,7 +74,7 @@ fn validation_executable() -> bool {
 }
 
 pub fn enabled() -> bool {
-    validation_executable()
+    *ENABLED.get_or_init(validation_executable)
 }
 
 fn utc_now() -> String {
@@ -384,10 +385,16 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
 }
 
 pub fn record_single_instance_attempt(app_handle: &tauri::AppHandle) {
+    if !enabled() {
+        return;
+    }
     record_event(app_handle, "second-launch-forwarded", json!({}));
 }
 
 pub fn record_presentation(app_handle: &tauri::AppHandle, presentation: &str) {
+    if !enabled() {
+        return;
+    }
     let position = focus_snapshot(app_handle).map(|snapshot| snapshot.position);
     if presentation.starts_with("timer") {
         if let (Some(position), Some(lock)) = (position, STATE.get()) {
@@ -404,6 +411,9 @@ pub fn record_presentation(app_handle: &tauri::AppHandle, presentation: &str) {
 }
 
 pub fn record_timer_move(app_handle: &tauri::AppHandle) {
+    if !enabled() {
+        return;
+    }
     let position = focus_snapshot(app_handle).map(|snapshot| snapshot.position);
     let mut metrics = json!({});
     if let (Some(position), Some(lock)) = (position, STATE.get()) {
@@ -437,6 +447,9 @@ pub fn record_placement_saved(
     app_handle: &tauri::AppHandle,
     saved: &SavedFloatingPlacement,
 ) {
+    if !enabled() {
+        return;
+    }
     if let Some(lock) = STATE.get() {
         if let Ok(mut state) = lock.lock() {
             state.last_saved = Some(saved.clone());
@@ -450,6 +463,9 @@ pub fn record_placement_saved(
 }
 
 pub fn record_tray_quit_requested(app_handle: &tauri::AppHandle) {
+    if !enabled() {
+        return;
+    }
     record_event(app_handle, "tray-quit-requested", json!({}));
 }
 
@@ -458,6 +474,9 @@ pub fn record_tray_quit_completed(
     placement_saved: bool,
     save_error: Option<&str>,
 ) {
+    if !enabled() {
+        return;
+    }
     record_event(
         app_handle,
         "tray-quit-placement-save-complete",
@@ -535,6 +554,9 @@ pub fn record_timer_restore(
     actual_rect: PhysicalRect,
     target_work_area: PhysicalRect,
 ) {
+    if !enabled() {
+        return;
+    }
     record_event(
         app_handle,
         "timer-placement-restored",
