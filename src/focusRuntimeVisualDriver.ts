@@ -92,7 +92,7 @@ async function checkpoint(phase: string, snapshot = runtimeSnapshot()) {
 }
 
 async function waitForCaptureAck(phase: string) {
-  const deadline = performance.now() + 10_000;
+  const deadline = performance.now() + 30_000;
   while (performance.now() < deadline) {
     if (await invoke<boolean>("focus_runtime_capture_acknowledged", { phase })) return;
     await sleep(25);
