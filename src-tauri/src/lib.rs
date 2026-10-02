@@ -349,19 +349,16 @@ fn diagnostic_storage_paths(app_handle: tauri::AppHandle) -> CommandResult<Diagn
 #[cfg(test)]
 mod diagnostic_storage_tests {
     use super::{
-        diagnostic_storage_isolation_pass, M1_DIAGNOSTIC_APP_IDENTIFIER,
-        PRODUCTION_APP_IDENTIFIER,
+        diagnostic_storage_isolation_pass, M1_DIAGNOSTIC_APP_IDENTIFIER, PRODUCTION_APP_IDENTIFIER,
     };
     use std::path::PathBuf;
 
     #[test]
     fn diagnostic_storage_requires_resolved_paths_to_use_diagnostic_namespace() {
-        let roaming = PathBuf::from(
-            r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro.M1Diagnostic",
-        );
-        let local = PathBuf::from(
-            r"C:\Users\NarroTest\AppData\Local\com.mariosg.Narro.M1Diagnostic",
-        );
+        let roaming =
+            PathBuf::from(r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro.M1Diagnostic");
+        let local =
+            PathBuf::from(r"C:\Users\NarroTest\AppData\Local\com.mariosg.Narro.M1Diagnostic");
 
         assert!(diagnostic_storage_isolation_pass(
             M1_DIAGNOSTIC_APP_IDENTIFIER,
@@ -372,8 +369,7 @@ mod diagnostic_storage_tests {
 
     #[test]
     fn diagnostic_storage_rejects_production_identifier_even_with_matching_paths() {
-        let roaming =
-            PathBuf::from(r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro");
+        let roaming = PathBuf::from(r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro");
         let local = PathBuf::from(r"C:\Users\NarroTest\AppData\Local\com.mariosg.Narro");
 
         assert!(!diagnostic_storage_isolation_pass(
@@ -385,11 +381,9 @@ mod diagnostic_storage_tests {
 
     #[test]
     fn diagnostic_storage_rejects_identifier_when_either_resolved_path_has_wrong_leaf() {
-        let diagnostic_roaming = PathBuf::from(
-            r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro.M1Diagnostic",
-        );
-        let production_local =
-            PathBuf::from(r"C:\Users\NarroTest\AppData\Local\com.mariosg.Narro");
+        let diagnostic_roaming =
+            PathBuf::from(r"C:\Users\NarroTest\AppData\Roaming\com.mariosg.Narro.M1Diagnostic");
+        let production_local = PathBuf::from(r"C:\Users\NarroTest\AppData\Local\com.mariosg.Narro");
 
         assert!(!diagnostic_storage_isolation_pass(
             M1_DIAGNOSTIC_APP_IDENTIFIER,
