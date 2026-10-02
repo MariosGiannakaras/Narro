@@ -143,10 +143,8 @@ mod tests {
 
     #[test]
     fn placement_survives_database_close_and_reopen() {
-        let directory = std::env::temp_dir().join(format!(
-            "narro-floating-placement-{}",
-            uuid::Uuid::new_v4()
-        ));
+        let directory =
+            std::env::temp_dir().join(format!("narro-floating-placement-{}", uuid::Uuid::new_v4()));
         std::fs::create_dir_all(&directory).expect("create placement test directory");
         let database_path = directory.join("narro.db");
         let expected = fixture();
