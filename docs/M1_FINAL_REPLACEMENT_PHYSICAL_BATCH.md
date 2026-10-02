@@ -21,6 +21,14 @@ SQLite/WebView data is isolated, but both executables are still named
 `narro.exe` and both can own global shortcuts. B/C/D evidence is valid only
 with the diagnostic build as the sole Narro process.
 
+After launching Candidate B, open **Diagnostic Build Identity** first and require:
+
+- runtime identifier exactly `com.mariosg.Narro.M1Diagnostic`;
+- **Storage isolation: PASS**;
+- resolved app-data/local-data paths shown under the diagnostic namespace.
+
+If that check fails, stop: do not run B/C/D and do not create/edit test data.
+
 ## Candidate A — M7 production physical artifact
 
 - CI #809 run: `36865451660`
