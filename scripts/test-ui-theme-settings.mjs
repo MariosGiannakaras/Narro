@@ -93,6 +93,15 @@ invariant(!runtime.includes("matchMedia(") || themeCss.includes("prefers-color-s
 invariant(panel.includes("beforeGeneral"), "ThemeSettingsPanelView must expose the pre-General Preferences slot");
 invariant(panel.includes("generalChildren"), "ThemeSettingsPanelView must expose additional General preference rows");
 
+for (const needle of [
+  'data-theme-settings-fixture-ready="true"',
+  "$maxAttempts = 4",
+  "captured before it reported ready; retrying capture",
+  "did not report ready after $maxAttempts captures",
+]) {
+  invariant(capture.includes(needle), `theme-settings capture readiness retry is missing ${needle}`);
+}
+
 invariant(!focus.includes('background: "#222"'), "focus surface must not hard-code a dark background");
 invariant(!focus.includes('color: "red"'), "focus error state must consume semantic theme tokens");
 
