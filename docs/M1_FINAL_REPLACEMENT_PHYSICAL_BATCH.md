@@ -49,16 +49,15 @@ PR #209 / CI #811 regression-lock evidence:
 
 ## Candidate B — M1 diagnostic artifact
 
-**PENDING final #212 resulting-main validation. Do not use the older CI #816
-diagnostic artifact for B/C/D.**
+**PENDING final #216 resulting-main validation. Do not use any older diagnostic
+artifact for B/C/D once #216 is integrated.**
 
-CI #816 remains valid evidence for the earlier performance batch runner, but it
-predates the diagnostic data-namespace isolation, runtime storage-identity
-probe, native monitor placement verdict and floating-scenario preflight added by
-PR #212.
+Earlier CI artifacts remain historical evidence for their individual tooling
+slices, but they do not contain the complete combined diagnostic harness now
+required for B/C/D.
 
 Before physical B/C/D begins, this section must be reconciled with the exact
-resulting-main artifact after #212 passes:
+resulting-main artifact after #216 passes:
 - exact merged implementation SHA;
 - Windows main CI run;
 - diagnostic artifact id/name;
@@ -150,7 +149,7 @@ will be visible directly in the monitor descriptors and matrix probe payload.
 
 ## Batch D — replacement floating-only CPU/RAM
 
-Use **Candidate B / final #212 resulting-main diagnostic artifact**. This is
+Use **Candidate B / final resulting-main diagnostic artifact**. This is
 measurement evidence, not a screen recording.
 
 The diagnostic artifact contains the single-run sampler, the preferred
