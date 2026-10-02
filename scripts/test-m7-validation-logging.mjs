@@ -32,6 +32,9 @@ for (const required of [
   "record_timer_restore",
   "topology_signature",
   "NARRO_VALIDATION_SOURCE_SHA",
+  "executable_fingerprint",
+  "executableFingerprint",
+  "validation-executable-bytes-changed-between-quit-and-restart",
 ]) invariant(logger.includes(required), `logger is missing ${required}`);
 
 invariant(
