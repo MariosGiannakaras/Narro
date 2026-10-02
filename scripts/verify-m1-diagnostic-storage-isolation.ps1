@@ -117,7 +117,20 @@ finally {
 if (-not (Test-Path $diagnosticDb -PathType Leaf)) {
     throw "Diagnostic database disappeared after the diagnostic process stopped: $diagnosticDb"
 }
-$databaseHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $diagnosticDb).Hash.ToLowerInvariant()
+$databaseHash = $null
+$hashDeadline = [DateTime]::UtcNow.AddSeconds(10)
+do {
+    try {
+        $databaseHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $diagnosticDb -ErrorAction Stop).Hash.ToLowerInvariant()
+        break
+    }
+    catch [System.IO.IOException] {
+        if ([DateTime]::UtcNow -ge $hashDeadline) {
+            throw
+        }
+        Start-Sleep -Milliseconds 100
+    }
+} while ($true)
 
 $productionRoamingAfter = Get-DirectoryFingerprint -Directory $productionRoaming
 $productionLocalAfter = Get-DirectoryFingerprint -Directory $productionLocal
