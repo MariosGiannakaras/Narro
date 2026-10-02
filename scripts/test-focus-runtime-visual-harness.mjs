@@ -16,6 +16,7 @@ const validator = fs.readFileSync("scripts/validate-focus-runtime-captures.mjs",
 const workflow = fs.readFileSync(".github/workflows/ci.yml", "utf8");
 const ciConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.ci.conf.json", "utf8"));
 const physicalConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.physical.conf.json", "utf8"));
+const diagnosticConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.diagnostic.conf.json", "utf8"));
 const packageJson = fs.readFileSync("package.json", "utf8");
 
 for (const required of [
@@ -100,9 +101,24 @@ invariant(
   "physical validation build must use the production-window config overlay",
 );
 invariant(
+  packageJson.includes('"tauri:diagnostic-ci": "tauri build --no-bundle --config src-tauri/tauri.diagnostic.conf.json"'),
+  "M1 diagnostic build must use the isolated Main-diagnostics/product-Focus config without bundling",
+);
+invariant(
   physicalConfig.build?.beforeBuildCommand === null
     && physicalConfig.app === undefined,
   "physical validation config may skip frontend rebuild but must not override production windows/URLs",
+);
+const diagnosticWindows = diagnosticConfig.app?.windows ?? [];
+const diagnosticMain = diagnosticWindows.find((window) => window.label === "main");
+const diagnosticFocus = diagnosticWindows.find((window) => window.label === "focusSurface");
+invariant(
+  diagnosticConfig.build?.beforeBuildCommand === null
+    && diagnosticWindows.length === 2
+    && diagnosticMain?.url === "index.html?diagnostics=1"
+    && diagnosticFocus?.url === "focus.html"
+    && !JSON.stringify(diagnosticConfig).includes("runtimeVisual"),
+  "M1 diagnostic config must enable Main diagnostics while retaining the real non-instrumented product Focus surface",
 );
 const buildIndex = workflow.indexOf("- name: Build Tauri Release");
 const captureIndex = workflow.indexOf("- name: Capture Packaged Focus Runtime");
@@ -129,6 +145,20 @@ invariant(
     && physicalVerifyIndex < physicalUploadIndex
     && workflow.includes("scripts/verify-physical-validation-build.ps1"),
   "physical production-config executable must pass an isolated-profile smoke check before upload",
+);
+const diagnosticBuildIndex = workflow.indexOf("- name: Build M1 Diagnostic Validation Release");
+const diagnosticUploadIndex = workflow.indexOf("name: narro-m1-diagnostic-windows-x64");
+invariant(
+  diagnosticBuildIndex > physicalUploadIndex
+    && workflow.includes("npm run tauri:diagnostic-ci"),
+  "diagnostic build must run only after the production physical artifact is verified and uploaded",
+);
+invariant(
+  diagnosticUploadIndex > diagnosticBuildIndex
+    && workflow.includes("src-tauri/target/release/narro.exe")
+    && workflow.includes("scripts/measure-floating.ps1")
+    && workflow.includes("docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md"),
+  "diagnostic artifact must contain the current raw executable plus the physical performance procedure",
 );
 for (const required of [
   "NARRO_FOCUS_CAPTURE_DIR",

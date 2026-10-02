@@ -35,11 +35,19 @@ async function requireFile(relativePath) {
   }
 }
 
-const [packageJson, tauriConfig, tauriCiConfig, tauriPhysicalConfig, capability] = await Promise.all([
+const [
+  packageJson,
+  tauriConfig,
+  tauriCiConfig,
+  tauriPhysicalConfig,
+  tauriDiagnosticConfig,
+  capability,
+] = await Promise.all([
   readJson("package.json"),
   readJson("src-tauri/tauri.conf.json"),
   readJson("src-tauri/tauri.ci.conf.json"),
   readJson("src-tauri/tauri.physical.conf.json"),
+  readJson("src-tauri/tauri.diagnostic.conf.json"),
   readJson("src-tauri/capabilities/default.json"),
 ]);
 
@@ -71,9 +79,34 @@ invariant(
   "tauri:physical-ci must build with the production-window physical config overlay",
 );
 invariant(
+  packageJson.scripts?.["tauri:diagnostic-ci"]
+    === "tauri build --no-bundle --config src-tauri/tauri.diagnostic.conf.json",
+  "tauri:diagnostic-ci must build the isolated Main-diagnostics/product-Focus config",
+);
+invariant(
   tauriPhysicalConfig.build?.beforeBuildCommand === null
     && tauriPhysicalConfig.app === undefined,
   "physical CI config must not override production window URLs",
+);
+const diagnosticWindows = tauriDiagnosticConfig.app?.windows ?? [];
+const diagnosticMain = diagnosticWindows.find((window) => window.label === "main");
+const diagnosticFocus = diagnosticWindows.find((window) => window.label === "focusSurface");
+invariant(
+  tauriDiagnosticConfig.build?.beforeBuildCommand === null
+    && diagnosticWindows.length === 2,
+  "diagnostic CI config must reuse preflight dist and define exactly main + focusSurface",
+);
+invariant(
+  diagnosticMain?.url === "index.html?diagnostics=1",
+  "diagnostic artifact must enable diagnostics only in Main",
+);
+invariant(
+  diagnosticFocus?.url === "focus.html",
+  "diagnostic artifact must retain the real product Focus surface",
+);
+invariant(
+  !JSON.stringify(tauriDiagnosticConfig).includes("runtimeVisual"),
+  "diagnostic artifact must never activate runtimeVisual fixtures",
 );
 invariant(tauriConfig.bundle?.active === true, "Windows bundle generation must remain enabled");
 

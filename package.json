@@ -82,7 +82,8 @@
     "test:ui-cross-window-board-sync": "node scripts/test-ui-cross-window-board-sync.mjs",
     "tauri:physical-ci": "tauri build --config src-tauri/tauri.physical.conf.json",
     "test:ci-tiering": "node scripts/test-ci-tiering.mjs",
-    "prepare:m7-physical-session": "powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-m7-physical-session.ps1"
+    "prepare:m7-physical-session": "powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-m7-physical-session.ps1",
+    "tauri:diagnostic-ci": "tauri build --no-bundle --config src-tauri/tauri.diagnostic.conf.json"
   },
   "dependencies": {
     "react": "^19.1.0",
