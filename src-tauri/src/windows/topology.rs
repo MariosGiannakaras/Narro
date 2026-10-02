@@ -186,24 +186,62 @@ unsafe extern "system" fn display_change_subclass_proc(
 ) -> isize {
     if message == WM_ENTERSIZEMOVE {
         INTERACTIVE_MOVE_ACTIVE.store(true, Ordering::Release);
+        crate::diagnostic_trace::record(
+            "windows_enter_size_move",
+            serde_json::json!({ "message": message }),
+        );
     } else if message == WM_EXITSIZEMOVE {
         INTERACTIVE_MOVE_ACTIVE.store(false, Ordering::Release);
+        crate::diagnostic_trace::record(
+            "windows_exit_size_move",
+            serde_json::json!({
+                "message": message,
+                "recoveryDirty": RECOVERY_DIRTY.load(Ordering::Acquire),
+            }),
+        );
         if RECOVERY_DIRTY.load(Ordering::Acquire) {
             schedule_display_recovery();
         }
     } else if message == WM_DPICHANGED {
+        let interactive_move = INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire);
+        let explicit_suspensions = RECOVERY_SUSPENSIONS.load(Ordering::Acquire);
+        let dpi_x = dpi_x_from_wparam(wparam);
+        crate::diagnostic_trace::record(
+            "windows_dpi_changed",
+            serde_json::json!({
+                "message": message,
+                "dpiX": dpi_x,
+                "scaleFactor": dpi_scale(dpi_x),
+                "interactiveMove": interactive_move,
+                "recoverySuspensions": explicit_suspensions,
+            }),
+        );
         if should_refresh_timer_region_for_interactive_dpi(
             message,
-            INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire),
-            RECOVERY_SUSPENSIONS.load(Ordering::Acquire),
+            interactive_move,
+            explicit_suspensions,
         ) {
-            schedule_focus_region_refresh_for_dpi(dpi_x_from_wparam(wparam));
+            schedule_focus_region_refresh_for_dpi(dpi_x);
         }
         // Keep the existing full recovery dirty while an interactive move is
         // active. It will resize/reposition the fixed host only after
         // WM_EXITSIZEMOVE, so recovery cannot fight the user's drag.
         schedule_display_recovery();
     } else if is_display_geometry_change(message, wparam) {
+        let kind = if message == WM_DISPLAY_CHANGE {
+            "display-change"
+        } else {
+            "work-area-change"
+        };
+        crate::diagnostic_trace::record(
+            "windows_display_geometry_changed",
+            serde_json::json!({
+                "kind": kind,
+                "message": message,
+                "wparam": wparam,
+                "lparam": lparam,
+            }),
+        );
         schedule_display_recovery();
     } else if message == WM_POWER_BROADCAST {
         handle_power_broadcast(wparam);
@@ -251,6 +289,13 @@ fn schedule_focus_region_refresh_for_dpi(dpi_x: u32) {
     let Some(scale_factor) = dpi_scale(dpi_x) else {
         return;
     };
+    crate::diagnostic_trace::record(
+        "dpi_region_refresh_requested",
+        serde_json::json!({
+            "dpiX": dpi_x,
+            "scaleFactor": scale_factor,
+        }),
+    );
 
     PENDING_DPI_X.store(dpi_x, Ordering::Release);
     DPI_REGION_REFRESH_DIRTY.store(true, Ordering::Release);
@@ -272,10 +317,26 @@ fn schedule_focus_region_refresh_for_dpi(dpi_x: u32) {
             let latest_dpi = PENDING_DPI_X.load(Ordering::Acquire);
             let latest_scale = dpi_scale(latest_dpi).unwrap_or(scale_factor);
 
-            if let Err(error) =
-                crate::refresh_open_timer_region_for_dpi_change(&refresh_handle, latest_scale)
-            {
-                eprintln!("Floating Timer DPI-region refresh failed: {error}");
+            match crate::refresh_open_timer_region_for_dpi_change(&refresh_handle, latest_scale) {
+                Ok(changed) => crate::diagnostic_trace::record(
+                    "dpi_region_refresh_applied",
+                    serde_json::json!({
+                        "dpiX": latest_dpi,
+                        "scaleFactor": latest_scale,
+                        "changed": changed,
+                    }),
+                ),
+                Err(error) => {
+                    crate::diagnostic_trace::record(
+                        "dpi_region_refresh_failed",
+                        serde_json::json!({
+                            "dpiX": latest_dpi,
+                            "scaleFactor": latest_scale,
+                            "error": error.to_string(),
+                        }),
+                    );
+                    eprintln!("Floating Timer DPI-region refresh failed: {error}");
+                }
             }
 
             DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
@@ -291,7 +352,16 @@ fn schedule_focus_region_refresh_for_dpi(dpi_x: u32) {
 
 fn schedule_display_recovery() {
     RECOVERY_DIRTY.store(true, Ordering::Release);
-    if display_recovery_suspended() {
+    let suspended = display_recovery_suspended();
+    crate::diagnostic_trace::record(
+        "display_recovery_requested",
+        serde_json::json!({
+            "suspended": suspended,
+            "interactiveMove": INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire),
+            "explicitSuspensions": RECOVERY_SUSPENSIONS.load(Ordering::Acquire),
+        }),
+    );
+    if suspended {
         return;
     }
     if RECOVERY_PENDING.swap(true, Ordering::AcqRel) {
@@ -308,6 +378,10 @@ fn schedule_display_recovery() {
     tauri::async_runtime::spawn(async move {
         let recovery_handle = app_handle.clone();
         if let Err(error) = app_handle.run_on_main_thread(move || {
+            crate::record_diagnostic_runtime_snapshot(
+                &recovery_handle,
+                "display-recovery-before",
+            );
             // This pass observes the latest topology at execution time. If another display
             // event arrives while recovery is running, RECOVERY_DIRTY becomes true again and
             // schedules a follow-up pass after the current one releases RECOVERY_PENDING.
@@ -349,10 +423,22 @@ fn schedule_display_recovery() {
 
             if timer_recovery_ok {
                 if let Err(error) = crate::floating_placement::save_if_timer_visible(&recovery_handle) {
+                    crate::diagnostic_trace::record(
+                        "display_recovery_timer_save_failed",
+                        serde_json::json!({ "error": error.to_string() }),
+                    );
                     eprintln!("Floating Timer placement revalidation failed after display change: {error}");
                 }
             }
 
+            crate::record_diagnostic_runtime_snapshot(
+                &recovery_handle,
+                "display-recovery-after",
+            );
+            crate::diagnostic_trace::record(
+                "display_recovery_completed",
+                serde_json::json!({ "timerRecoveryOk": timer_recovery_ok }),
+            );
             RECOVERY_PENDING.store(false, Ordering::Release);
             if RECOVERY_DIRTY.load(Ordering::Acquire) {
                 schedule_display_recovery();
