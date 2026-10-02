@@ -68,14 +68,16 @@ Record:
 3. **PASS/FAIL:** does Narro remain responsive without restart?
 4. Click **Refresh Monitors**.
 5. **PASS/FAIL:** do reported desktop positions/work areas reflect the new topology, including negative coordinates where applicable?
-6. Place the Focus Panel left/right on the reconnected monitor.
-7. **PASS/FAIL:** does explicit placement use the new work-area geometry correctly?
+6. Click **Run all monitor Left/Right probes**.
+7. **PASS/FAIL:** does the matrix report PASS for the restored topology while the
+   Panel is visibly reachable at both edges of the reconnected monitor?
 
 Record:
 
 - Reconnect/reorder requires no restart: `PASS / FAIL`
 - New topology enumerates correctly: `PASS / FAIL`
-- New edge placement correct: `PASS / FAIL`
+- Post-reconnect placement matrix: `PASS / FAIL`
+- New edge placement physically reachable: `PASS / FAIL`
 
 ## Failure reporting
 

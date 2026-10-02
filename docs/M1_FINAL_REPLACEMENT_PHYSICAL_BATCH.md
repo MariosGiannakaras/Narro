@@ -93,57 +93,58 @@ A short continuous recording is sufficient.
 
 ## Batch B — Focus Panel selected-monitor left/right placement
 
-Use **Candidate B / final #212 resulting-main diagnostic artifact** with two enabled
+Use **Candidate B / final resulting-main diagnostic artifact** with two enabled
 monitors.
 
 The diagnostic Monitor section shows:
 - current **Available monitors** count;
 - all native monitor descriptors/work areas;
 - the selected monitor descriptor;
-- after each Left/Right action, a read-only native **Placement probe** containing
-  expected coordinates, actual `focusSurface` coordinates/size, edge alignment,
-  work-area containment, current presentation/visibility and one PASS/FAIL.
+- individual Left/Right controls and read-only native Placement probes;
+- one **Run all monitor Left/Right probes** action that executes the complete
+  current-monitor matrix and emits a single JSON evidence payload.
 
 Procedure:
 
 1. Show Focus Panel.
 2. Refresh Monitors and confirm both displays appear.
-3. Select monitor 1 and click Position Focus Panel Left.
-4. Record the visible Panel and require `Placement probe: PASS`.
-5. Click Position Focus Panel Right and again require PASS.
-6. Repeat Left/Right on monitor 2.
+3. Keep both physical displays visible in the recording.
+4. Click **Run all monitor Left/Right probes** once.
+5. Observe the same persistent Focus Panel move through both edges of every
+   enumerated monitor.
+6. Require **Placement matrix: PASS** and retain the rendered JSON payload.
 
-The native probe is evidence support, not a substitute for seeing that the Panel
-is actually reachable on the intended physical display.
+The matrix calls the existing authoritative `position_focus_panel` command and
+then the native `focus_panel_placement_probe` for every monitor × Left/Right
+pair. Each entry records expected coordinates, actual Focus HWND
+coordinates/size, edge alignment, work-area containment and PASS/FAIL.
 
-Record:
-- monitor 1 Left: PASS/FAIL
-- monitor 1 Right: PASS/FAIL
-- monitor 2 Left: PASS/FAIL
-- monitor 2 Right: PASS/FAIL
+The native matrix is evidence support, not a substitute for seeing that the
+Panel is actually reachable on each intended physical display. A valid two-
+monitor run normally contains four passing entries.
 
 ## Batch C — reconnect / re-enumeration closure
 
-Use **Candidate B / final #212 resulting-main diagnostic artifact**. CI #809 already
+Use **Candidate B / final resulting-main diagnostic artifact**. CI #809 already
 proves real display removal and safe recovery; this batch closes the stricter
 reconnect/re-enumeration wording.
 
 1. Start from two displays enabled and press Refresh Monitors.
-2. Confirm `Available monitors: 2` (or the actual enabled-display count) and
-   keep the all-descriptors section visible for evidence.
+2. Confirm the current count/descriptors and optionally run the placement matrix
+   once as the pre-change baseline.
 3. With Narro still running, disable/disconnect the secondary display.
 4. Press Refresh Monitors. The count/descriptors must update to the surviving
-   topology; no stale placement PASS should remain.
+   topology; no stale matrix result should be treated as current evidence.
 5. Re-enable/reconnect the display without restarting Narro.
 6. Press Refresh Monitors again. The restored display must reappear with
    plausible geometry/scaling.
-7. Select the restored monitor and position Focus Panel Left and Right; each
-   native Placement probe must report PASS and the Panel must be physically
-   reachable on that display.
+7. Click **Run all monitor Left/Right probes** again.
+8. Require the post-reconnect matrix to PASS and physically observe the Panel
+   reach both edges of the restored display.
 
 If convenient, change the reconnected display from right-of-primary to
-left-of-primary before refreshing; negative desktop coordinates are valid and
-will be visible directly in the monitor descriptors.
+left-of-primary before refreshing. Negative desktop coordinates are valid and
+will be visible directly in the monitor descriptors and matrix probe payload.
 
 ## Batch D — replacement floating-only CPU/RAM
 
