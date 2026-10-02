@@ -281,6 +281,7 @@ invariant(
 invariant(
   lib.includes("struct DiagnosticStoragePaths")
     && lib.includes("fn diagnostic_storage_paths(")
+    && lib.includes("app_handle.config().identifier.clone()")
     && lib.includes("app_handle.path().app_data_dir()")
     && lib.includes("app_handle.path().app_local_data_dir()")
     && lib.includes("diagnostic_storage_paths,"),
