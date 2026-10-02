@@ -18,6 +18,8 @@ const ciConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.ci.conf.json", "utf
 const physicalConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.physical.conf.json", "utf8"));
 const diagnosticConfig = JSON.parse(fs.readFileSync("src-tauri/tauri.diagnostic.conf.json", "utf8"));
 const packageJson = fs.readFileSync("package.json", "utf8");
+const performanceBatch = fs.readFileSync("scripts/run-m1-floating-performance-batch.ps1", "utf8");
+const performanceScenario = fs.readFileSync("scripts/verify-m1-floating-performance-scenario.ps1", "utf8");
 
 for (const required of [
   "NARRO_FOCUS_CAPTURE_DIR",
@@ -94,6 +96,20 @@ invariant(
   "packaged runtime capture must not depend on WebView2 DevTools arguments",
 );
 
+invariant(
+  performanceBatch.includes('Join-Path $PSScriptRoot "verify-m1-floating-performance-scenario.ps1"')
+    && performanceBatch.includes("scenario-preflight.json")
+    && performanceBatch.includes("scenarioPreflightValidatedForEveryRun"),
+  "M1 performance batch must gate every measurement on the physical floating-only scenario preflight",
+);
+for (const required of [
+  "Main HWND still exists; use Destroy Main, not Hide Main",
+  "expected exactly one Narro - Focus top-level HWND",
+  "Focus native region height does not match compact Timer 110px height at current DPI",
+  "multiple narro.exe processes are running",
+]) {
+  invariant(performanceScenario.includes(required), `M1 performance scenario preflight is missing ${required}`);
+}
 invariant(packageJson.includes('"test:focus-runtime-visual-harness"'), "frontend preflight contract test is not registered");
 invariant(packageJson.includes('"test:focus-runtime-visual:windows"'), "packaged runtime visual command is not registered");
 invariant(
@@ -162,6 +178,7 @@ invariant(
     && workflow.includes("src-tauri/target/release/narro.exe")
     && workflow.includes("scripts/measure-floating.ps1")
     && workflow.includes("scripts/run-m1-floating-performance-batch.ps1")
+    && workflow.includes("scripts/verify-m1-floating-performance-scenario.ps1")
     && workflow.includes("docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md"),
   "diagnostic artifact must contain the current raw executable plus the single-run and batched physical performance procedures",
 );
