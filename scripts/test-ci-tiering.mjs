@@ -31,7 +31,8 @@ for (const required of [
 invariant(
   !fastBlock.includes("test:visual-regression:windows")
     && !fastBlock.includes("tauri:ci")
-    && !fastBlock.includes("tauri:physical-ci"),
+    && !fastBlock.includes("tauri:physical-ci")
+    && !fastBlock.includes("tauri:diagnostic-ci"),
   "fast-gate must not perform expensive Windows visual/release work",
 );
 
@@ -51,6 +52,8 @@ for (const required of [
   "npm run tauri:physical-ci",
   "Verify Physical Validation Build",
   "narro-m7-physical-windows-x64",
+  "npm run tauri:diagnostic-ci",
+  "narro-m1-diagnostic-windows-x64",
 ]) {
   invariant(candidateBlock.includes(required), `windows-candidate is missing ${required}`);
 }
@@ -60,13 +63,15 @@ const rustCheckIndex = candidateBlock.indexOf("npm run check:rust");
 const visualIndex = candidateBlock.indexOf("npm run test:visual-regression:windows");
 const releaseIndex = candidateBlock.indexOf("npm run tauri:ci");
 const physicalIndex = candidateBlock.indexOf("npm run tauri:physical-ci");
+const diagnosticIndex = candidateBlock.indexOf("npm run tauri:diagnostic-ci");
 invariant(
   packagingPrepIndex >= 0
     && rustCheckIndex > packagingPrepIndex
     && visualIndex > rustCheckIndex
     && releaseIndex > visualIndex
-    && physicalIndex > releaseIndex,
-  "candidate ordering must regenerate packaging icons, validate Rust, capture visuals, then package",
+    && physicalIndex > releaseIndex
+    && diagnosticIndex > physicalIndex,
+  "candidate ordering must regenerate packaging icons, validate Rust, capture visuals, package production artifacts, then build diagnostics",
 );
 
 invariant(
