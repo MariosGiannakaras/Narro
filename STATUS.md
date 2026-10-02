@@ -5,34 +5,40 @@ Last updated: 2026-10-02
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
 
-## 2026-10-02 — CI #809 two-monitor re-audit accepts most remaining physical gates
+## 2026-10-02 — M7 C4 physically closed; only saved-placement restart remains in C5
 
-The earlier partial interpretation of `2026-10-01 19-03-32.mp4` was corrected after recognizing the 4480×1080 file as one synchronized **two-monitor** capture with a 1920 + 2560 horizontal layout, not a 50/50 canvas. The full 161.05 s recording (SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`) was re-audited event-by-event across both monitors.
+The complete CI #809 recording `2026-10-01 19-03-32.mp4` (SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`, 161.05 s) has now been fully re-audited event-by-event as one synchronized 4480×1080 two-monitor canvas with a 1920 + 2560 horizontal layout.
 
-Physical PASS evidence now includes:
+Accepted physical evidence:
 - PR #208's corrected compact↔expanded compositor boundary: six+ standard-motion cycles without the CI #806 white L/blank frame;
-- active task/session/time continuity and settled no-document-scrollbar behavior;
+- active task/session/time continuity and no document/root scrollbar;
 - explicit Main `Blitz now` activation at ~5.2–5.4 s followed by the existing Focus surface presenting Panel;
 - expanded Timer retaining task/title/time;
 - Focus completion reconciling to Main Done;
+- **second-launch single-instance behavior:** around 38 s Narro Main + active Timer are already visibly alive; around 39.25–40.75 s the desktop `narro.exe` is activated again; the same Main/Timer state persists afterward with no competing Narro UI/reset/conflict;
+- **idle shortcut no-op result:** by ~146 s Focus is visibly `All Clear`; through the final idle-test interval no placeholder/stale Timer or attention pulse appears. The screen recorder does not render key labels, so the input identity is classified as operator-context physical evidence together with the explicit on-screen checklist and already automated-validated B6 gates;
 - real mixed-DPI crossing around ~116–122 s: ~425 physical px compact Timer on the 1920-wide display to ~340 px on the 2560-wide display, with Windows settings explicitly showing the latter at 100%, matching 125%→100%;
 - bottom-edge/taskbar-constrained expansion/collapse remaining usable;
 - real display-topology reduction/removal around ~136.5–142 s with Narro recovering visibly on the surviving display without restart;
 - Timer remaining topmost over a maximized Notepad++ window.
 
-Windows animations are visibly switched Off and later restored On. The operational residual checklist's requested count of two complete Off cycles is not an independent closure checkpoint in the authoritative `docs/M7_CLOSURE_PLAN.md`, so it is not retained as a milestone blocker.
+Therefore **C4 is PASS**. Crosswalk B5/B6 and M7-PHYS-01/02/03/04/05/06 are VALIDATED. No new runtime defect is evidenced and no corrective source PR is justified.
 
-Three observations remain non-pixel-conclusive, not failed:
-1. second-launch single-instance ownership — one Narro app entry/no duplicate UI is visible, and PR #206 is automated-validated, but the recording does not show Task Manager process count or visibly prove a primary process was already alive immediately before launcher activation;
-2. idle Ctrl+Shift+T / Ctrl+Shift+P identities — after `All Clear` no stale Timer appears, but the key identities are not rendered/marked;
-3. drag → tray Quit → relaunch → saved-placement recovery — live drag, edge placement, DPI and topology behavior are proven, but this restart choreography is not unambiguous in the recording.
+C5 is already physically accepted for mixed-DPI, edge/taskbar work-area behavior, topology removal recovery and topmost. Dense 153–160 s reinspection proves the apparent Narro disappearance/reappearance there is only Alt-Tab switching, **not** a normal process restart. The only remaining M7 physical observation is:
+**drag Timer → tray Quit Narro → relaunch the same CI #809 EXE → verify safe visible saved placement**.
 
-Crosswalk rows B5 and M7-PHYS-01/02/03/05/06 are now physically VALIDATED. No new runtime defect was found and no corrective source PR is justified.
+Tracking reconciliation now reflects the validated state:
+- M7 closure: **4/5 PASS** (C1–C4);
+- reopened M1 top-level items: **14/19 validated**;
+- roadmap remains **4/10 milestones** because reopened Milestone 1 still has unvalidated replacement items.
 
-Counters remain `4/10M || 2/5 | 11/19` until C4/C5 close. Next physical work is only the three short observations above; do not repeat already accepted compositor/DPI/topology/topmost work.
+Current compact progress: `4/10M || 4/5 | 14/19`.
 
-Durable evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`.
+Durable evidence:
+- `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`;
+- `work-log/2026-10-02-chatgpt-m7-ci809-c4-closure.md`.
 
+Next action: run only the short saved-placement restart observation in `docs/M7_CI809_RESIDUAL_PHYSICAL_CHECKLIST.md`. Do not repeat already accepted C4/C5 tests.
 
 ## 2026-10-01 — CI #809 physical recording passes corrected Timer boundary; residual inputs still open
 
