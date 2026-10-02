@@ -414,7 +414,7 @@ pub(crate) fn record_diagnostic_runtime_snapshot(app_handle: &tauri::AppHandle, 
             serde_json::json!({
                 "reason": reason,
                 "code": error.code,
-                "message": error.message,
+                "message": &error.message,
             }),
         ),
     }
@@ -1367,7 +1367,7 @@ fn animate_focus_surface_presentation_internal(
                 "target": target.event_name(),
                 "animated": true,
                 "code": error.code,
-                "message": error.message,
+                "message": &error.message,
             }),
         );
         return Err(error);
@@ -1465,7 +1465,7 @@ fn animate_focus_surface_presentation_internal(
                         "target": target.event_name(),
                         "animated": true,
                         "code": error.code,
-                        "message": error.message,
+                        "message": &error.message,
                         "rollback": "restored",
                     }),
                 );
@@ -1483,7 +1483,7 @@ fn animate_focus_surface_presentation_internal(
                         "target": target.event_name(),
                         "animated": true,
                         "code": combined.code,
-                        "message": combined.message,
+                        "message": &combined.message,
                         "rollback": "failed",
                     }),
                 );
@@ -1554,7 +1554,7 @@ fn apply_focus_surface_presentation_internal(
                             "target": target.event_name(),
                             "animated": false,
                             "code": error.code,
-                            "message": error.message,
+                            "message": &error.message,
                             "rollback": "restored",
                             "phase": "hidden-timer-restore",
                         }),
@@ -1573,7 +1573,7 @@ fn apply_focus_surface_presentation_internal(
                             "target": target.event_name(),
                             "animated": false,
                             "code": combined.code,
-                            "message": combined.message,
+                            "message": &combined.message,
                             "rollback": "failed",
                             "phase": "hidden-timer-restore",
                         }),
@@ -1613,7 +1613,7 @@ fn apply_focus_surface_presentation_internal(
                         "target": target.event_name(),
                         "animated": false,
                         "code": error.code,
-                        "message": error.message,
+                        "message": &error.message,
                         "rollback": "restored",
                     }),
                 );
@@ -1631,7 +1631,7 @@ fn apply_focus_surface_presentation_internal(
                         "target": target.event_name(),
                         "animated": false,
                         "code": combined.code,
-                        "message": combined.message,
+                        "message": &combined.message,
                         "rollback": "failed",
                     }),
                 );
