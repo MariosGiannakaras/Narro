@@ -38,6 +38,7 @@ for (const [haystack, needle, label] of [
   [app, "Available monitors: {monitors.length}", "diagnostic monitor count"],
   [app, 'Placement probe: <strong>{placementProbe.pass ? "PASS" : "FAIL"}</strong>', "diagnostic placement verdict"],
   [app, "Run all monitor Left/Right probes", "one-click placement matrix action"],
+  [app, "data-m1-placement-matrix-step", "current placement matrix step evidence"],
   [app, "data-m1-placement-matrix-result", "placement matrix evidence payload"],
   [app, 'Placement matrix: <strong>{placementMatrix.pass ? "PASS" : "FAIL"}</strong>', "placement matrix verdict"],
   [app, "<AppShell>", "product shell as default main surface"],
@@ -61,6 +62,7 @@ for (const [needle, label] of [
   ["for (const monitor of discovered)", "matrix covers every enumerated monitor"],
   ['for (const side of ["left", "right"] as const)', "matrix covers both work-area edges"],
   ['await invoke<void>("position_focus_panel"', "matrix uses authoritative native placement"],
+  ["window.setTimeout(resolve, 750)", "matrix keeps each native placement visibly settled for physical observation"],
   ['await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe"', "matrix verifies native expected-vs-actual placement"],
   ["passCount === entries.length", "matrix requires every probe to pass"],
 ]) {
