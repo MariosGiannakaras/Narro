@@ -41,39 +41,43 @@ Do not edit implementation PR #213 or any source/test/config files from this for
 
 ## Current source / validation baseline
 
-- Current repository main implementation merge:
-  `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31` — PR #213 planning-board parity.
-  Later commits may be Markdown-only tracking/forensic updates.
-- The last fully resulting-main-green implementation checkpoint before the
-  concurrent source chain was PR #211 merge
-  `c372ca29824c3c3839490a19e79f7ed3482cb360` / main CI #816.
-- PR #212 exact head `c9e33c1bd12f0c5285f3a0a8807b94516dd71f33`
-  passed Windows CI #833, then merged as
-  `acdf8cc54d84247bba83e826020369003d5c244a`.
-  It adds native monitor-placement diagnostics, isolated M1 diagnostic app-data
-  identity/storage probes, and the floating-only scenario preflight.
-- PR #212 resulting-main CI #837 failed only because
-  `theme-settings-dark` did not reach visual-fixture readiness after Rust/tests
-  and performance-harness validation had passed.
-- PR #214 exact head `5073da095eef9cef86065d2813b27ed9e3a93b26`
-  passed Windows CI #838 and merged as
-  `ad6e1d84793e9a5de5a63dd5a2279d0ad67ed8da`, hardening only the Theme
-  Settings capture retry path. Its first main run #839 was cancelled by the
-  newer #213 merge.
-- PR #213 exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`
-  passed Windows CI #836 and merged as current implementation main
-  `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`.
-- Initial resulting-main CI #840 attempt 1 passed fast gate, check/clippy,
-  **346 Rust tests**, performance-harness validation, the complete visual suite
-  and Tauri release build, then failed only because the packaged Focus runtime
-  capture did not acknowledge the Panel checkpoint within 15 s.
-- CI #840 attempt 2 also **FAILED**, but later and more specifically: the renderer settled back to Panel only ~6.2 s after Timer→Panel start while the fixed native sampler had stopped after ~2.5 s, producing `timer-to-panel-runtime captured no native HWND movement`.
-- Artifact/source comparison shows the existing Focus transition logic is unchanged from exact-head PR #213 CI #836 PASS; the failure is a bounded capture-window race on slow hosted runners, not evidence-backed product behavior failure.
-- PR #215 exact head `03cff34c6188bd5033da389ae1dadfa3dc15d4f6` is the active narrow CI correction: probes remain alive until the real end checkpoint, retain hard timeouts and keep all native-motion validator assertions unchanged. Windows CI #841 / run `37029033564` is authoritative for this correction.
-- Durable reconciliation:
-  `work-log/2026-10-02-chatgpt-current-main-pr212-pr214-pr213-reconciliation.md`.
-- CI #840/PR #215 diagnosis:
-  `work-log/2026-10-02-chatgpt-ci840-focus-capture-pr215.md`.
+- Latest implementation merge:
+  `007a999e688144122362ad1a4012a22b310e66f2` — PR #216
+  `M1: automate final monitor evidence and placement persistence reopen`.
+  Later main commits are Markdown-only tracking/forensic updates.
+- PR #216 exact head
+  `306dfc50d68477059ceb65a45c5806558db6abbf` passed full Windows
+  CI #853 / run `37044645690`.
+- Exact-head packaged Focus artifact was manually inspected in addition to the
+  green job:
+  - Panel→Timer HWND `(668,0) → (388,80)`, native movement observed ~109 ms;
+  - Timer→Panel HWND `(388,80) → (668,0)`, native movement observed ~134 ms;
+  - both final samples remain at the target position.
+  Therefore the corrected capture path contains real source→target HWND motion;
+  the 30 s ACK/capture-window change did not weaken the movement requirement.
+- PR #216 exact-head diagnostic artifact:
+  - id `11244174942`;
+  - ZIP digest
+    `sha256:f68866ae46da694d28858217aedc6d08999ce765fc19c0226a32710fe5b78570`;
+  - contained `narro.exe` SHA-256
+    `6f7e6667ec392b8fe7fbf79dc6374489a1e3b1d9f1e036902db9c74f17d4a56c`.
+  This is **supporting PR-head evidence only**, not final Candidate B.
+- PR #216 adds:
+  - one-click all-monitor Left/Right placement matrix with ~750 ms physical dwell
+    and native expected-vs-actual PASS/FAIL probes;
+  - stale matrix invalidation after topology/selection changes;
+  - SQLite close/reopen regression for saved Timer placement;
+  - diagnostic storage isolation from production data;
+  - final M7 physical-session safety backup/hash preparation;
+  - CI-only Focus ACK/capture timeout alignment.
+- Resulting-main Windows CI #854 / run `37069188509` is active on implementation
+  merge `007a999e688144122362ad1a4012a22b310e66f2`.
+  Do not promote any diagnostic artifact to final Candidate B until #854 passes.
+- Durable exact-head/merge checkpoint:
+  `work-log/2026-10-03-chatgpt-m1-pr216-ci853-merge-checkpoint.md`.
+- Earlier combined-main failure history and #215 diagnosis remain in:
+  `work-log/2026-10-02-chatgpt-current-main-pr212-pr214-pr213-reconciliation.md`
+  and `work-log/2026-10-02-chatgpt-ci840-focus-capture-pr215.md`.
 
 ### M7 production physical lineage
 
@@ -107,18 +111,26 @@ Packaged Focus visual artifact `11163582492`, digest `sha256:c184e661163bdf9ff1a
 
 ### Remaining M1 diagnostic/manual validation
 
-Use merged-main CI #816 **diagnostic** artifact for selected-monitor placement,
-reconnect/re-enumeration and floating-only CPU/RAM measurement:
+**PENDING resulting-main CI #854.**
 
-- run `36989230905`: PASS
-- implementation merge `c372ca29824c3c3839490a19e79f7ed3482cb360`
-- artifact id `11218838485`
-- artifact name `narro-m1-diagnostic-windows-x64`
-- ZIP digest `sha256:cd03347215b684fc853aa450aa1903870ed5969ac6c7150edebda72a9048c2f9`
-- contained `narro.exe` SHA-256 `f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b`
-- Main loads `index.html?diagnostics=1`; `focusSurface` remains real product `focus.html`; no `runtimeVisual`
-- artifact includes `measure-floating.ps1`, `run-m1-floating-performance-batch.ps1` and the M1 Windows validation procedures
-- performance collection is now one command; the batch runner requires >=3 runs, rejects churn/context/hash mismatches and writes one `batch-summary.json`
+Do not use the historical CI #816 diagnostic artifact for the final B/C/D
+session. The complete current harness is merged in PR #216 and final Candidate B
+must be taken from successful resulting-main CI #854.
+
+Until #854 completes, exact-head #216 artifact `11244174942` is supporting
+evidence only. Final Candidate B must record:
+- implementation merge `007a999e688144122362ad1a4012a22b310e66f2`;
+- successful main CI run;
+- resulting-main diagnostic artifact id/digest;
+- contained diagnostic `narro.exe` SHA-256.
+
+Required isolation remains:
+- identifier `com.mariosg.Narro.M1Diagnostic`;
+- Main `index.html?diagnostics=1`;
+- product `focusSurface` `focus.html`;
+- no `runtimeVisual`;
+- storage-isolation UI must report PASS before B/C/D.
+
 
 
 Do **not** use the diagnostic artifact to substitute for M7 C5 production saved-placement acceptance.
@@ -192,32 +204,40 @@ Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completio
 
 ## Unfinished work / exact next action
 
-Two independent tracks are permitted:
+Two independent tracks remain:
 
 1. **Current-main validation reconciliation (agent-actionable):**
-   - resume PR #215 exact head `03cff34c6188bd5033da389ae1dadfa3dc15d4f6`;
-   - inspect Windows CI #841 / run `37029033564`;
-   - require packaged runtime PASS **and** inspect the resulting Timer→Panel
-     artifact to confirm it captures actual source→target native motion;
-   - if #841 passes, guarded-merge #215 and validate the resulting combined
-     main; then reconcile Candidate B to that resulting-main diagnostic artifact;
-   - if #841 fails, inspect that exact failure before changing anything else.
+   - inspect resulting-main Windows CI #854 / run `37069188509` for merge
+     `007a999e688144122362ad1a4012a22b310e66f2`;
+   - if PASS, inspect/download the resulting-main packaged Focus artifact and
+     diagnostic artifact;
+   - require the main runtime artifact to retain real Panel↔Timer HWND motion;
+   - record final Candidate B artifact id/digest and diagnostic EXE SHA-256;
+   - reconcile `HANDOFF.md`, `STATUS.md`, `TODO.md`,
+     `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`, and a new immutable
+     work-log.
+   - if #854 fails, inspect that exact failure before changing code.
 2. **Remaining physical Windows gates (user-action required later):**
-   - M7 C5 saved placement on the CI #809 production artifact;
-   - M1 selected-monitor Panel Left/Right, reconnect/re-enumeration and
-     floating-only performance on the final resulting-main diagnostic artifact.
+   - M7 C5 saved placement using the CI #809 production artifact and
+     `scripts/prepare-m7-physical-session.ps1`; the preparer verifies the EXE
+     hash and snapshots production `%APPDATA%\\com.mariosg.Narro` while Narro
+     is stopped;
+   - M1 selected-monitor/reconnect/performance using only the final successful
+     resulting-main Candidate B diagnostic artifact.
 
-PR #212 already reduced the future manual burden:
+PR #216 has already reduced the future manual burden:
 - diagnostic app data is isolated under
   `com.mariosg.Narro.M1Diagnostic`;
-- runtime identifier/storage isolation is shown and must PASS before testing;
-- monitor placement has a native expected-vs-actual PASS/FAIL probe;
-- the performance runner verifies duplicate processes, destroyed Main HWND,
-  visible compact Focus region and DPI before every child measurement.
+- runtime identifier/storage isolation is shown and must PASS;
+- monitor placement is one click for the complete monitor×Left/Right matrix,
+  with each settled placement visible ~750 ms and native PASS/FAIL evidence;
+- reconnect validation re-runs the same matrix after refreshed enumeration;
+- performance batch preflights duplicate processes, destroyed Main HWND,
+  visible compact Focus region and DPI before each of three child measurements.
 
-Do not add parallel monitor/performance automation unless current evidence shows
-one of those probes is insufficient. Do not resume deferred M9 while reopened
-Milestone 1 remains incomplete.
+Do not add parallel monitor/performance automation unless new evidence proves
+these probes insufficient. Do not resume deferred M9 while reopened Milestone 1
+remains incomplete.
 
 Physical procedure:
 `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
