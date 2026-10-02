@@ -135,14 +135,15 @@ will be visible directly in the monitor descriptors.
 Use **Candidate B / CI #816 diagnostic artifact**. This is measurement
 evidence, not a screen recording.
 
-The diagnostic artifact contains both the single-run sampler and the preferred
-three-run batch runner. On a real Windows 10/11 x64 machine:
+The diagnostic artifact contains the single-run sampler, the preferred
+three-run batch runner, and a native Win32 scenario preflight.
 
-1. Launch Narro and let startup settle.
-2. Put `focusSurface` in Floating Timer presentation.
-3. Leave timer/session inactive; no animations or user interaction.
-4. Destroy `main` through the diagnostic/runtime harness; do not merely hide it.
-5. Confirm exactly one `narro.exe` root process.
+1. Fully quit the production Narro first; only the isolated diagnostic
+   `narro.exe` may be running.
+2. Launch the diagnostic build and let startup settle.
+3. Put `focusSurface` in **compact Floating Timer** presentation.
+4. Leave timer/session inactive; no animations or user interaction.
+5. Click **Destroy Main** in diagnostic controls. Do not use Hide Main.
 6. From the extracted artifact directory run one command, substituting the
    Candidate B EXE SHA-256 listed above:
 
@@ -150,11 +151,14 @@ three-run batch runner. On a real Windows 10/11 x64 machine:
 powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b
 ```
 
-Do not interact with Narro while the batch is running. The runner performs the
-three required measurements, rejects process churn/invalid summaries/hash
-mismatch, and writes:
+Do not interact with Narro while the batch is running. Before every measurement,
+the runner automatically rejects duplicate Narro roots, an existing Main HWND,
+a hidden Focus window, or any Focus native region that is not the compact
+340×110 logical Timer at the current DPI. It then performs the three required
+measurements and rejects process churn/invalid summaries/hash mismatch. It
+writes:
 
-- `run-01/summary.json` + raw CSVs;
+- `run-01/scenario-preflight.json` + `summary.json` + raw CSVs;
 - `run-02/...`;
 - `run-03/...`;
 - one `batch-summary.json` containing all run metrics and median run averages.
