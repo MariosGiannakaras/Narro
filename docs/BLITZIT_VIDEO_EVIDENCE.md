@@ -470,3 +470,12 @@ This initial uploaded-corpus pass is complete because:
 - deferred M7 physical checks remain OPEN.
 
 The required post-M10 Final Comprehensive Review must still re-reference this corpus and verify end-state parity/reliability; completing this ingestion pass does not replace that final gate.
+
+
+## VE-020 — user-supplied planning-board drag clip (2026-10-02)
+
+A new uninterrupted 9.34 s / 60 fps source clip exposes planning-board details not captured by the original 19-video feature-level reconciliation: positional cross-lane insertion, remaining-EST arithmetic, live Today count progression and stronger Today/Blitz hierarchy.
+
+Full frame-level record and implementation disposition: `docs/BLITZIT_SUPPLIED_CLIP_2026-10-02.md`.
+
+This does not invalidate the original 19/19 ingestion; it tightens what “forensic complete” must mean. Future exhaustive review follows `docs/BLITZIT_MEDIA_FORENSIC_PLAN.md`.

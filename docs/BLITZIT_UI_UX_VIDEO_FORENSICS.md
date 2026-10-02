@@ -449,3 +449,12 @@ Completion requires:
 4. cross-video visual patterns reconciled with screenshots and current UI/UX specs;
 5. source artifacts/bugs separated from fidelity targets;
 6. implementation implications routed to the relevant Narro milestone/spec without silently reopening validated reliability decisions.
+
+
+## VE-020 correction — planning-board microinteraction depth
+
+The 2026-10-02 user-supplied planning clip is stronger uninterrupted evidence for board drag/reflow arithmetic than VE-018's edited workflow. It directly establishes positional cross-lane insertion and remaining-time lane EST, and exposes transient states the original 19/19 second pass did not enumerate individually.
+
+Detailed evidence: `docs/BLITZIT_SUPPLIED_CLIP_2026-10-02.md`.
+
+Method correction: “deep complete” now requires the per-video transient-state/data/motion ledger in `docs/BLITZIT_MEDIA_FORENSIC_PLAN.md`. Existing 19/19 findings remain valid but are not proof that every microinteraction was exhaustively decomposed.
