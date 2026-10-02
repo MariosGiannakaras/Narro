@@ -30,6 +30,8 @@ for (const [haystack, needle, label] of [
   [css, "@media (prefers-reduced-motion: reduce)", "reduced-motion shell behavior"],
   [app, 'get("diagnostics") === "1"', "explicit diagnostic-mode gate"],
   [app, "if (diagnosticMode) {", "diagnostic-only startup probes"],
+  [app, 'invoke<DiagnosticStoragePaths>("diagnostic_storage_paths"', "resolved diagnostic storage path probe"],
+  [app, "Expected isolated Tauri identifier: com.mariosg.Narro.M1Diagnostic", "diagnostic identity disclosure"],
   [app, 'invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe"', "native Focus Panel placement probe"],
   [app, "Available monitors: {monitors.length}", "diagnostic monitor count"],
   [app, 'Placement probe: <strong>{placementProbe.pass ? "PASS" : "FAIL"}</strong>', "diagnostic placement verdict"],
