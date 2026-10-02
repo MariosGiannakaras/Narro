@@ -61,8 +61,8 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **1/19**
-- Full source completed: **VE-003 Blitz Mode**
+- Full MP4s completed to Pass-3 standard: **2/19**
+- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
@@ -80,27 +80,27 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-005 — `Blitzit Tutorial How to Add & Manage Tasks and Lists in Blitzit.mp4`.**
+**Continue with VE-013 — `Blitzit Tutorial How to Use Subtasks in Blitzit.mp4`.**
 
-VE-003 is now SOURCE_COMPLETE from the actual 03:15.651 / 60 fps MP4. Its full Pass-3 record is in `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
+VE-003 and VE-005 are now SOURCE_COMPLETE from their actual full MP4s. Full findings are in `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
 
-For VE-005:
+For VE-013:
 
-1. inspect the complete **03:38.848, 1920×1080, 60 fps** MP4;
+1. inspect the complete **02:20.109, 1920×1080, 60 fps** MP4;
 2. build a complete timeline state map;
 3. densely inspect:
-   - create/edit list modal and list-card hover/Open state;
-   - board lane/task resting anatomy;
-   - task hover reveal and exact action ordering;
-   - task creation inline flow;
-   - reorder/drag lift, source reflow, target insertion and settle;
-   - overflow menu Schedule / Change list / Duplicate / Delete;
-   - EST and Time Taken editing, including live/paused constraints;
-   - completion → success → Done movement;
-4. reconstruct every visible aggregate/counter change;
-5. distinguish board action grammar from Focus action grammar;
-6. write only source-analysis Markdown and work-log evidence;
-7. then advance to VE-013.
+   - board subtask section expand/collapse;
+   - circular progress/count changes;
+   - inline add-subtask input open/cancel/commit;
+   - completed vs incomplete row styling;
+   - row hover action order;
+   - subtask reorder and delete;
+   - Focus Panel subtask state;
+   - Floating Timer subtask state/geometry if present;
+4. distinguish parent-task completion from subtask completion;
+5. record any source limitation/bug where first subtask/live state differs from later state;
+6. update analysis Markdown only;
+7. then continue to VE-014.
 
 ## Media-access rule
 
