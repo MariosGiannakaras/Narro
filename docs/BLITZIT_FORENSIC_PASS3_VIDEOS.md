@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 2/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 3/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -685,23 +685,252 @@ No implementation conclusion is made in this analysis track.
 # Queue 3 — VE-013 — Subtasks
 
 Source: `Blitzit Tutorial How to Use Subtasks in Blitzit.mp4`  
-Metadata: **02:20.109, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **~02:20.03 video stream / ~02:20.1 container, 1920×1080, 60 fps, 8,402 frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:11–00:00:59 — board subtasks;
-- 00:01:01–00:01:22 — Focus subtasks/source limitation;
-- 00:01:23–00:02:02 — integration context.
+Inspection method:
+- complete source scanned across the full duration;
+- 4 s whole-video contact scan;
+- 0.5 s dense sampling through all product sections;
+- full-resolution crops around board subtask add/reorder/delete, completion ring, Focus/Floating states and Notion-synced rows;
+- 30 fps micro-sequences around task-card expansion, subtask completion and Focus→Floating geometry change;
+- transcript used only to separate narrated limitations/integration claims from direct pixels.
 
-Pass-3 focus:
-- exact open/close state of subtask section;
-- ring/count change per completion;
-- input reveal/dismiss;
-- row hover actions;
-- reorder animation and identity persistence;
-- delete feedback;
-- Focus vs board action differences;
-- Floating compact→expanded subtask geometry if shown.
+## VE-013 chronological state map
+
+### 00:00:00–~00:00:16 — board baseline
+
+**VIDEO-DIRECT**
+- dark four-column board for the `Blue Beach Hotel` list;
+- Today contains three parent tasks:
+  1. Blue Beach Hotel;
+  2. Client's brief;
+  3. Market research.
+- parent-task progress at the lane level is `0/3 Done`;
+- Blue Beach Hotel shows about `17min` Taken and no visible EST;
+- Client's brief and Market research carry integration/source badges;
+- Client's brief already shows a collapsed `1/3 Subtasks` state;
+- Market research shows a collapsed `0/3 Subtasks` state.
+
+This establishes that subtask completion/progress is a separate metric from parent-task Done progress.
+
+### ~00:00:16–00:00:18 — subtask section open
+
+**VIDEO-DIRECT**
+- hovering Blue Beach Hotel reveals the board task action rail;
+- selecting the subtasks/list-like action expands the card in place;
+- the expanded area contains:
+  - circular subtask-progress indicator;
+  - `Subtasks` label/count;
+  - plus affordance;
+  - collapse chevron;
+  - inline input with placeholder `Enter subtask task title*`;
+  - X/cancel inside the input.
+
+**MOTION-APPROX**
+- 30 fps review shows the height reveal settling in roughly **0.10–0.15 s**;
+- later lane content is pushed downward; the board does not switch to a modal or separate subtask page.
+
+### ~00:00:18–00:00:31 — add subtasks inline
+
+**VIDEO-DIRECT**
+- first title entered: `Call with Alex`;
+- pressing Enter/commit adds it immediately;
+- input remains available for another entry;
+- second title entered: `Coffee`;
+- after commit, both rows appear under the same parent.
+
+**COUNT-DIRECT**
+- subtask count progresses from empty/no completed state through `0/1` to **`0/2 Subtasks`**;
+- parent Today progress remains **`0/3 Done`**.
+
+**INTERACTION-DIRECT**
+- add flow is repeat-friendly and inline;
+- no dialog or page transition occurs between successive subtask additions.
+
+### ~00:00:32–00:00:45 — reorder and delete
+
+**VIDEO-DIRECT**
+- hovering a subtask row exposes compact right-side row actions:
+  - up arrow;
+  - down arrow;
+  - trash/delete.
+- the source demonstrates arrow-based reordering between `Call with Alex` and `Coffee`;
+- identity is preserved while row order changes;
+- deletion is immediate and does not show a confirmation dialog;
+- `Call with Alex` is removed, leaving `Coffee`.
+
+**COUNT-DIRECT**
+- subtask count changes from **0/2 → 0/1** after deletion.
+
+**MOTION-DIRECT**
+- row mutations are fast and local;
+- no pronounced drag-lift animation is used because this source demonstrates explicit up/down controls rather than subtask drag-and-drop.
+
+### ~00:00:48–00:00:58 — complete subtask and progress ring
+
+**VIDEO-DIRECT**
+- clicking Coffee's leading checkbox marks that subtask Done;
+- Coffee changes to completed/struck-through styling with a filled multicolor check treatment;
+- the circular progress indicator fills;
+- count changes **0/1 → 1/1 Subtask**.
+
+**MOTION-APPROX**
+- completion state and ring update within only a few frames; there is no card relocation or success screen.
+
+**IMPORTANT SEMANTIC SEPARATION**
+- parent task Blue Beach Hotel remains pending;
+- Today lane still shows **0/3 Done**;
+- therefore subtask completion does not implicitly complete the parent task in this demonstrated state.
+
+### ~00:01:00–00:01:10 — Blitz/Focus subtask state
+
+**VIDEO-DIRECT**
+- Blitz entry presents the narrow Focus Panel;
+- Blue Beach Hotel becomes the live task with a running timer around 17 minutes;
+- Focus header remains `0/3 Done` and `Est: 0min`;
+- Blue Beach Hotel retains its **1/1 Subtask** state;
+- expanding the live task's subtask section shows completed Coffee in place;
+- the plus affordance remains available in Focus.
+
+**TRANSCRIPT-CLAIM / VERSION LIMITATION**
+- narration states that this source version requires at least one pre-existing subtask before subtasks can be viewed/updated in Focus mode;
+- the video does **not** show a failed no-subtask attempt, so the restriction is not promoted to VIDEO-DIRECT behavior;
+- treat it as a version-specific narrated limitation unless corroborated elsewhere.
+
+### ~00:01:10–00:01:12 — Focus Panel → Floating Timer
+
+**VIDEO-DIRECT / MOTION-MEASURED**
+- activating the Focus-mode presentation control continuously shrinks/repositions the narrow panel into the Floating Timer;
+- the same live task/subtask identity remains visible through the transition;
+- 30 fps inspection shows approximately **0.25–0.35 s** of visible geometry morph;
+- this is not a hard cut or opacity-only transition.
+
+This matches the geometry-morph family independently established in VE-003.
+
+### ~00:01:12–00:01:18 — Floating Timer subtask expansion + add
+
+**VIDEO-DIRECT**
+- Floating Timer can show the subtask section while retaining the compact top action strip;
+- visible structure:
+  - circular progress ring;
+  - `1/1 Subtask`;
+  - plus;
+  - collapse chevron;
+  - completed Coffee row;
+  - inline subtask input.
+- selecting plus/input allows a new subtask to be typed directly in Floating Timer;
+- title entered: `Another call`.
+
+**COUNT-DIRECT**
+- after commit, count becomes **1/2 Subtasks**;
+- Coffee remains completed;
+- Another call is incomplete.
+
+**GEOMETRY-DIRECT**
+- Floating Timer grows vertically to accommodate the expanded subtask content;
+- width remains essentially stable;
+- task controls remain in the top strip.
+
+### ~00:01:18–00:01:32 — Floating subtask row controls
+
+**VIDEO-DIRECT**
+- expanded Floating Timer exposes right-side subtask row actions analogous to board:
+  - up;
+  - down;
+  - delete/trash for ordinary local subtasks.
+- Coffee and Another call remain visible with their distinct completion states;
+- the source does not clearly demonstrate an additional successful delete/reorder commit in this interval, so only control availability is claimed.
+
+**COUNT-DIRECT**
+- state remains **1/2 Subtasks** through the demonstrated Floating-management section.
+
+### ~00:01:32–00:01:34 — return from Floating / board context
+
+**VIDEO-DIRECT**
+- presentation controls are used to leave the Floating state;
+- source returns to the list/board workflow shortly afterward.
+
+**TIMING LIMIT**
+- multiple presentation/navigation actions occur close together in tutorial footage;
+- do not derive a single exact Floating→board transition duration from this interval.
+
+### ~00:01:34–00:01:47 — Notion-synced subtask anatomy in Blitzit
+
+**VIDEO-DIRECT**
+- board returns with Blue Beach Hotel now showing **1/2 Subtasks**:
+  - Coffee completed;
+  - Another call incomplete.
+- `Client's brief` is expanded;
+- it shows **1/3 Subtasks** synchronized from Notion:
+  - `Deliverables and Expecta...` completed/struck through;
+  - `Objectives and Challenges` incomplete;
+  - `Basic Information and Co...` incomplete.
+- synced rows visually resemble ordinary subtasks for progress/completion state.
+
+**SYNCED-ROW ACTION GRAMMAR**
+- hovered synced row exposes up/down controls;
+- the terminal right-side control is a Notion/source icon rather than the ordinary trash icon.
+
+**TRANSCRIPT + VISUAL CORROBORATION**
+- narration states synced Notion subtasks cannot be deleted from Blitzit because they remain linked to source data;
+- absence/replacement of the local trash affordance on synced rows visually corroborates that distinction.
+
+### ~00:01:47–00:02:04 — Notion page + live Blitzit companion sync
+
+**CUT/CONTEXT**
+- tutorial cuts from Blitzit board to a Notion page titled `Client's brief`;
+- this browser/application change is tutorial context, not a product navigation animation.
+
+**VIDEO-DIRECT**
+- Notion page exposes checkbox properties matching the three Blitzit subtask labels;
+- a Blitzit Floating Timer remains visible over the Notion window;
+- its subtask list mirrors the same three identities;
+- during checkbox changes in Notion, the Floating Timer's:
+  - completed-row styling;
+  - progress ring/count;
+  - row states
+  visibly update to corresponding states.
+
+**SYNC TIMING LIMIT**
+- the source demonstrates correspondence but does not isolate network/backend latency cleanly enough for a timing requirement;
+- no exact sync-latency budget is inferred.
+
+**DIRECTION LIMIT**
+- narration discusses synchronization between Notion and Blitzit;
+- because the tutorial contains staging/cuts around the integration example, do not infer a full bidirectional conflict-resolution model from this clip alone.
+
+### ~00:02:04–00:02:20 — integration/future-feature outro
+
+**TRANSCRIPT-CLAIM / NON-PARITY**
+- narration says Notion is currently available and mentions future ClickUp/Trello integrations;
+- these roadmap claims are not direct UI evidence and are not Narro parity requirements from this pass;
+- closing community/outro material is non-product evidence.
+
+## VE-013 source synthesis
+
+High-confidence source behavior established:
+- subtasks expand inline inside a parent task card;
+- add input stays inline and supports rapid repeated entry;
+- ordinary local subtask rows expose up/down/delete actions;
+- subtask reorder/delete are immediate local mutations;
+- subtask progress uses a circular ring plus done/total count;
+- completing a subtask changes only subtask progress; parent Done progress remains independent;
+- Focus Panel retains/expands the live task's subtask state;
+- Focus→Floating preserves task/subtask identity through a geometry morph;
+- Floating Timer can add and manage subtasks in its expanded state;
+- adding Another call changes 1/1 → 1/2 without resetting Coffee's completed state;
+- Notion-synced rows use source-specific action grammar and no ordinary trash affordance;
+- Notion checkbox state is visibly mirrored in an overlaid Blitzit Floating Timer;
+- exact integration sync latency and the narrated “must already have one subtask” Focus limitation are not promoted beyond the evidence actually shown.
+
+Static corroboration:
+- SS-C18 current Floating Timer expanded subtasks;
+- SS-C19 current Focus Panel subtask summary;
+- SS-H11 inline add-subtask input;
+- SS-H12 expanded subtask progress/actions.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
