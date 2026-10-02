@@ -145,6 +145,7 @@ function App() {
 
   async function refreshMonitors() {
     setPlacementProbe(null);
+    setPlacementMatrix(null);
     try {
       await fetchAndApplyMonitors();
       setError(null);
@@ -391,6 +392,7 @@ function App() {
 
   async function positionFocusPanel(side: FocusPanelSide) {
     setPlacementProbe(null);
+    setPlacementMatrix(null);
     if (!isValidMonitorSelection(selectedMonitorKey, monitors)) {
       setError("[MONITOR_SELECTION_INVALID] Select a currently available monitor first.");
       return;
@@ -477,7 +479,7 @@ function App() {
         entries,
       };
       setPlacementMatrix(matrix);
-      setPlacementProbe(entries.at(-1)?.probe ?? null);
+      setPlacementProbe(entries[entries.length - 1]?.probe ?? null);
       setError(
         matrix.pass
           ? null
