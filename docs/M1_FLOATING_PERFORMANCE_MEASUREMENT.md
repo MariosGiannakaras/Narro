@@ -35,7 +35,7 @@ Windows preflight runs:
 npm run test:performance-harness
 ```
 
-That executes both harness self-tests. The single-run self-test validates:
+That executes all three deterministic PowerShell self-tests. The single-run self-test validates:
 
 - descendant process-tree selection;
 - memory-stat aggregation;
