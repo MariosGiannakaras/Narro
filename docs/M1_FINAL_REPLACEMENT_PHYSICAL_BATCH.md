@@ -111,7 +111,9 @@ Procedure:
 3. Keep both physical displays visible in the recording.
 4. Click **Run all monitor Left/Right probes** once.
 5. Observe the same persistent Focus Panel move through both edges of every
-   enumerated monitor.
+   enumerated monitor. The diagnostic UI names the current monitor/side and
+   intentionally holds each settled position for ~750 ms so the physical edge
+   is visible in the recording.
 6. Require **Placement matrix: PASS** and retain the rendered JSON payload.
 
 The matrix calls the existing authoritative `position_focus_panel` command and
