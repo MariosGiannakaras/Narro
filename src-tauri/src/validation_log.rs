@@ -276,6 +276,16 @@ fn write_result(state: &ValidationState, status: &str, reason: &str, extra: Valu
             eprintln!("M7 validation result write failed: {error}");
         }
     }
+    if status != "PENDING" {
+        if let Err(error) = write_json(&state.root.join("m7-c5-last-terminal-result.json"), &value) {
+            eprintln!("M7 validation terminal-result write failed: {error}");
+        }
+    }
+    if status == "PASS" {
+        if let Err(error) = write_json(&state.root.join("m7-c5-last-pass.json"), &value) {
+            eprintln!("M7 validation PASS archive write failed: {error}");
+        }
+    }
 }
 
 fn write_readme(root: &Path) {
@@ -339,7 +349,13 @@ pub fn initialize(app: &tauri::App) -> Result<(), String> {
     write_json(&session_dir.join("session.json"), &metadata)?;
     fs::write(
         root.join("LATEST.txt"),
-        format!("{}\r\n", session_dir.display()),
+        format!(
+            "{}\r\n",
+            session_dir
+                .file_name()
+                .and_then(|name| name.to_str())
+                .unwrap_or("session-unknown")
+        ),
     )
     .map_err(|error| format!("write validation LATEST.txt: {error}"))?;
 
