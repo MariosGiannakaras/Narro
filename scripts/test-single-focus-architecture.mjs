@@ -279,6 +279,14 @@ invariant(
   "display recovery must observe and revalidate the one Focus HWND",
 );
 invariant(
+  lib.includes("struct DiagnosticStoragePaths")
+    && lib.includes("fn diagnostic_storage_paths(")
+    && lib.includes("app_handle.path().app_data_dir()")
+    && lib.includes("app_handle.path().app_local_data_dir()")
+    && lib.includes("diagnostic_storage_paths,"),
+  "diagnostic build must expose its resolved data/local-data paths for physical isolation verification",
+);
+invariant(
   lib.includes("struct FocusPanelPlacementProbe")
     && lib.includes("fn focus_panel_placement_probe(")
     && lib.includes("window.outer_position()")
