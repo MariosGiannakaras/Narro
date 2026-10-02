@@ -78,6 +78,29 @@ export type DiagnosticStoragePaths = {
   appLocalDataDir: string;
 };
 
+export type DiagnosticTraceStatus = {
+  enabled: boolean;
+  runId: string | null;
+  directory: string | null;
+  tracePath: string | null;
+};
+
+export type DiagnosticFocusSurfaceSnapshot = {
+  exists: boolean;
+  visible: boolean | null;
+  position: PhysicalPoint | null;
+  outerSize: PhysicalSize | null;
+  scaleFactor: number | null;
+  presentation: "panel" | "timerCompact" | "timerExpanded" | "unknown";
+};
+
+export type DiagnosticRuntimeSnapshot = {
+  reason: string;
+  windows: string[];
+  monitors: MonitorDescriptor[];
+  focusSurface: DiagnosticFocusSurfaceSnapshot;
+};
+
 export type DiagnosticCommand =
   | "main_window_hide"
   | "main_window_show"
