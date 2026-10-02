@@ -37,6 +37,9 @@ for (const [haystack, needle, label] of [
   [app, 'invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe"', "native Focus Panel placement probe"],
   [app, "Available monitors: {monitors.length}", "diagnostic monitor count"],
   [app, 'Placement probe: <strong>{placementProbe.pass ? "PASS" : "FAIL"}</strong>', "diagnostic placement verdict"],
+  [app, "Run all monitor Left/Right probes", "one-click placement matrix action"],
+  [app, "data-m1-placement-matrix-result", "placement matrix evidence payload"],
+  [app, 'Placement matrix: <strong>{placementMatrix.pass ? "PASS" : "FAIL"}</strong>', "placement matrix verdict"],
   [app, "<AppShell>", "product shell as default main surface"],
 ]) {
   requireText(haystack, needle, label);
@@ -44,6 +47,24 @@ for (const [haystack, needle, label] of [
 
 if (/Narro Diagnostic - Main Window/.test(app)) {
   throw new Error("The default main product surface must not retain the old diagnostic heading.");
+}
+
+const matrixStart = app.indexOf("async function runFocusPanelPlacementMatrix()");
+const matrixEnd = app.indexOf("function handleMonitorSelection", matrixStart);
+if (matrixStart < 0 || matrixEnd < 0 || matrixEnd <= matrixStart) {
+  throw new Error("Could not isolate the Focus Panel placement matrix diagnostic flow.");
+}
+const matrixFlow = app.slice(matrixStart, matrixEnd);
+for (const [needle, label] of [
+  ['await invoke<void>("focus_surface_mode_panel")', "matrix forces Panel presentation"],
+  ['await invoke<void>("focus_surface_show")', "matrix makes the Focus surface visible"],
+  ["for (const monitor of discovered)", "matrix covers every enumerated monitor"],
+  ['for (const side of ["left", "right"] as const)', "matrix covers both work-area edges"],
+  ['await invoke<void>("position_focus_panel"', "matrix uses authoritative native placement"],
+  ['await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe"', "matrix verifies native expected-vs-actual placement"],
+  ["passCount === entries.length", "matrix requires every probe to pass"],
+]) {
+  requireText(matrixFlow, needle, label);
 }
 
 console.log("App shell/navigation contract checks passed.");
