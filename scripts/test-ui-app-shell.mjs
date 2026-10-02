@@ -32,6 +32,8 @@ for (const [haystack, needle, label] of [
   [app, "if (diagnosticMode) {", "diagnostic-only startup probes"],
   [app, 'invoke<DiagnosticStoragePaths>("diagnostic_storage_paths"', "resolved diagnostic storage path probe"],
   [app, "Expected isolated Tauri identifier: com.mariosg.Narro.M1Diagnostic", "diagnostic identity disclosure"],
+  [app, 'diagnosticStoragePaths?.identifier === "com.mariosg.Narro.M1Diagnostic"', "runtime diagnostic identifier check"],
+  [app, '? "PASS"', "diagnostic storage isolation verdict"],
   [app, 'invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe"', "native Focus Panel placement probe"],
   [app, "Available monitors: {monitors.length}", "diagnostic monitor count"],
   [app, 'Placement probe: <strong>{placementProbe.pass ? "PASS" : "FAIL"}</strong>', "diagnostic placement verdict"],
