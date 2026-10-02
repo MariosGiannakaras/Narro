@@ -12,12 +12,16 @@ GitHub `main` is the durable source truth.
 
 ## Current validated source baseline
 
-- Current main source: `2767b3827670603d1ab259b6a843c2e0da82d85d` — PR #208, narrow Gate 7 Timer-region redraw correction.
+- Current repository main tip: `8aff56e310fc74edb886b6a517de1a8f277dc2fe`.
+- Current production runtime source remains `2767b3827670603d1ab259b6a843c2e0da82d85d` — PR #208, narrow Gate 7 Timer-region redraw correction.
 - PR #208 exact head: `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58`.
 - Exact-head Windows CI #809 / run `36865451660`: **PASS**.
 - PR-head tree == merged-main tree: `7ceb264e7eff8a74449c206a7cc998b2a4f0bb54`.
 - Resulting-main Windows CI #810 / run `36867438874`: **PASS** via the identical-tree validation gate; heavy candidate jobs correctly skipped because #809 already validated the exact merged tree.
 - This source preserves the single persistent `focusSurface` architecture. No timer/session/persistence semantics changed in #208.
+- PR #209 (`M1: lock saved Timer placement on tray Quit`) exact head `5384ea7384d304a843771e225bfb50cd9394bf43` passed full Windows CI #811 / run `36973948214`, including fast gate, Rust check/clippy/tests, performance-harness self-test, visual regression, Tauri release, packaged Focus runtime and production physical-build verification.
+- PR #209 merged as `c84013dbafbce6c8d581e3e12e1793bb12281fd1`; it changes only `scripts/test-single-focus-architecture.mjs` and regression-locks tray Quit -> save Timer placement -> process exit ordering. It changes no production/runtime bytes, so CI #809 remains the correct physical candidate.
+- Durable PR #209 evidence: `work-log/2026-10-02-chatgpt-m1-saved-placement-contract-pr209-ci811.md`.
 
 ## Exact physical artifact to use next
 
@@ -99,32 +103,37 @@ Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completio
 
 ## Unfinished work / exact next action
 
-**USER ACTION REQUIRED — only one M7 physical observation remains.**
+**USER ACTION REQUIRED — physical Windows access is now the only blocker.**
 
-Do not repeat compositor, animations, Panel/Timer, Blitz-now, shortcuts, single-instance, DPI, edge/taskbar, topology or topmost tests. Those are accepted.
+No further independent source work is justified before the remaining real-Windows
+observations. Do not start M9 while reopened Milestone 1 remains open.
 
-Using the same exact CI #809 production artifact:
+When the user can test again, use the single batched procedure:
+`docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
 
-1. keep/start one real active task so Floating Timer is visible;
-2. drag Timer to an obvious safe non-default position;
-3. tray **Quit Narro** normally;
-4. relaunch the same CI #809 `narro.exe`;
-5. reopen/show Timer for the recovered/live task as applicable;
-6. show that the saved placement returns to a safe visible position and is not stranded/off-screen.
+Closure order:
 
-One short continuous recording is enough.
+1. **M7 C5 saved placement** — active Timer -> drag to obvious non-default safe
+   position -> tray `Quit Narro` -> relaunch same CI #809 EXE -> reopen/show
+   Timer -> confirm safe visible saved placement. This alone is enough to close
+   M7 C5 after tracking reconciliation.
+2. **M1 selected-monitor Panel placement** — physical Left/Right placement on
+   each enabled monitor.
+3. **M1 reconnect/re-enumeration** — CI #809 already proves display removal and
+   safe recovery; physically prove reconnect/re-enable, refreshed enumeration and
+   Panel placement on the restored monitor without Narro restart.
+4. **M1 replacement floating-only performance** — three valid real-Windows
+   `30s warm-up / 60s sample` runs with `main` destroyed and only the single
+   persistent `focusSurface` Timer presentation alive. Return the three
+   `summary.json` files.
 
-If saved placement passes:
-- mark C5 PASS;
-- perform final M7 tracking/crosswalk/TODO reconciliation;
-- add a final immutable work-log;
-- close M7 and resume the first remaining ordered M1 replacement item, not deferred M9.
+Do not repeat compositor, animations, Blitz-now, idle shortcuts, second launch,
+mixed-DPI Timer crossing, edge/taskbar expansion, display-removal recovery or
+topmost-over-maximized-app tests; they are accepted.
 
-If saved placement fails:
-- create one narrow evidence-backed corrective PR for placement persistence/recovery only;
-- validate exact head in Windows CI, guarded-merge, validate merged main, and repeat only saved-placement physical evidence.
-
-Operational checklist: `docs/M7_CI809_RESIDUAL_PHYSICAL_CHECKLIST.md`.
+If saved placement fails, reopen only that placement behavior through one narrow
+corrective PR. If B/C/D expose a separate M1 failure, correct only the evidenced
+M1 behavior.
 
 ## Deferred unrelated work
 
