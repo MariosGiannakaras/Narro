@@ -1,8 +1,10 @@
 param(
   [string]$Title = "Narro - Focus",
   [string]$ReadyFile = "",
+  [string]$StopFile = "",
   [int]$SampleCount = 160,
-  [int]$IntervalMs = 8
+  [int]$IntervalMs = 8,
+  [int]$MaxDurationMs = 30000
 )
 $ErrorActionPreference = "Stop"
 Add-Type -TypeDefinition @"
@@ -37,9 +39,14 @@ if ($ReadyFile) {
   if ($readyDirectory) { New-Item -ItemType Directory -Force -Path $readyDirectory | Out-Null }
   Set-Content -Path $ReadyFile -Value "ready" -NoNewline
 }
+if ($SampleCount -lt 1) { throw "SampleCount must be at least 1." }
+if ($IntervalMs -lt 0) { throw "IntervalMs must be zero or greater." }
+if ($MaxDurationMs -lt 1000) { throw "MaxDurationMs must be at least 1000ms." }
+
 $samples = @()
 $started = [System.Diagnostics.Stopwatch]::StartNew()
-for ($index = 0; $index -lt $SampleCount; $index++) {
+$index = 0
+while ($true) {
   $rect = New-Object NarroFocusMotionSample+RECT
   if (-not [NarroFocusMotionSample]::GetWindowRect($found, [ref]$rect)) { throw "GetWindowRect failed." }
   $samples += [pscustomobject]@{
@@ -53,6 +60,16 @@ for ($index = 0; $index -lt $SampleCount; $index++) {
       width = $rect.Right - $rect.Left
       height = $rect.Bottom - $rect.Top
     }
+  }
+  $index += 1
+
+  $minimumCaptured = $index -ge $SampleCount
+  $stopObserved = -not [string]::IsNullOrWhiteSpace($StopFile) -and (Test-Path $StopFile -PathType Leaf)
+  if ($minimumCaptured -and ([string]::IsNullOrWhiteSpace($StopFile) -or $stopObserved)) {
+    break
+  }
+  if ($started.ElapsedMilliseconds -ge $MaxDurationMs) {
+    throw ("Native motion sampler exceeded {0}ms before the transition stop signal." -f $MaxDurationMs)
   }
   if ($IntervalMs -gt 0) { Start-Sleep -Milliseconds $IntervalMs }
 }
