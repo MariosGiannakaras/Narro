@@ -295,6 +295,7 @@ jobs:
           src-tauri/target/release/narro.exe
           scripts/measure-floating.ps1
           scripts/run-m1-floating-performance-batch.ps1
+          scripts/verify-m1-floating-performance-scenario.ps1
           docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md
           docs/M1_WINDOWS_RUNTIME_VALIDATION.md
           docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md
