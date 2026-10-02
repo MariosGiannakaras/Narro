@@ -48,6 +48,9 @@ Resulting-main Windows CI #816 / run `36989230905`: **PASS**.
   `f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b`
 
 Diagnostic isolation:
+- Tauri identifier is `com.mariosg.Narro.M1Diagnostic`, distinct from production
+  `com.mariosg.Narro`; diagnostic SQLite/WebView app-data therefore uses a
+  separate namespace and must not read or mutate the production Narro database;
 - Main loads `index.html?diagnostics=1`;
 - `focusSurface` loads normal product `focus.html`;
 - no `runtimeVisual` fixture activation;
