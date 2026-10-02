@@ -6,6 +6,7 @@ import { AppShell } from "./AppShell";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
+  type DiagnosticStoragePaths,
   type FocusPanelPlacementProbe,
   type FocusPanelSide,
   type FocusShortcutKind,
@@ -66,6 +67,7 @@ function App() {
   const [notificationStatus, setNotificationStatus] = useState<string | null>(null);
   const [reminderAcceptanceStatus, setReminderAcceptanceStatus] = useState<string | null>(null);
   const [autostartStatus, setAutostartStatus] = useState<AutostartStatus | null>(null);
+  const [diagnosticStoragePaths, setDiagnosticStoragePaths] = useState<DiagnosticStoragePaths | null>(null);
   const [windows, setWindows] = useState<string[]>([]);
   const [monitors, setMonitors] = useState<MonitorDescriptor[]>([]);
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
@@ -78,6 +80,17 @@ function App() {
       const labels = await invoke<string[]>("list_windows");
       setWindows(labels);
     } catch (failure: unknown) {
+      setError(formatInvokeError(failure));
+    }
+  }
+
+  async function refreshDiagnosticStoragePaths() {
+    try {
+      const paths = await invoke<DiagnosticStoragePaths>("diagnostic_storage_paths");
+      setDiagnosticStoragePaths(paths);
+      setError(null);
+    } catch (failure: unknown) {
+      setDiagnosticStoragePaths(null);
       setError(formatInvokeError(failure));
     }
   }
@@ -185,6 +198,7 @@ function App() {
 
     if (diagnosticMode) {
       void refreshAutostartStatus();
+      void refreshDiagnosticStoragePaths();
       void refreshWindows();
       void refreshMonitors();
     }
@@ -501,6 +515,17 @@ function App() {
                 >
                   Disable Autostart
                 </button>
+              </section>
+
+              <section className="app-shell__diagnostic-card">
+                <h2>Diagnostic Build Identity</h2>
+                <p>Expected isolated Tauri identifier: com.mariosg.Narro.M1Diagnostic</p>
+                <button onClick={() => void refreshDiagnosticStoragePaths()}>
+                  Refresh Storage Paths
+                </button>
+                {diagnosticStoragePaths && (
+                  <pre>{JSON.stringify(diagnosticStoragePaths, null, 2)}</pre>
+                )}
               </section>
 
               <section className="app-shell__diagnostic-card">
