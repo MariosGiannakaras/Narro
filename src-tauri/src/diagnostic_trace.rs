@@ -4,6 +4,7 @@ use serde_json::Value;
 use std::fs::{self, File};
 use std::io::{BufWriter, Write};
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{self, Sender};
 use std::sync::Mutex;
 use std::thread::JoinHandle;
@@ -13,6 +14,7 @@ const DIAGNOSTIC_IDENTIFIER: &str = "com.mariosg.Narro.M1Diagnostic";
 const MAX_MARKER_LEN: usize = 80;
 
 static TRACE_SESSION: Mutex<Option<TraceSession>> = Mutex::new(None);
+static TRACE_ACTIVE: AtomicBool = AtomicBool::new(false);
 
 struct TraceSession {
     run_id: String,
@@ -168,6 +170,7 @@ pub fn start(app_handle: &tauri::AppHandle) -> CommandResult<DiagnosticTraceStat
     );
     let status = status_from_session(Some(&session));
     *guard = Some(session);
+    TRACE_ACTIVE.store(true, Ordering::Release);
     Ok(status)
 }
 
@@ -179,6 +182,9 @@ pub fn status() -> CommandResult<DiagnosticTraceStatus> {
 }
 
 pub fn record(kind: &'static str, data: Value) {
+    if !TRACE_ACTIVE.load(Ordering::Acquire) {
+        return;
+    }
     let Ok(mut guard) = TRACE_SESSION.lock() else {
         eprintln!("Diagnostic trace state mutex is poisoned");
         return;
@@ -208,9 +214,11 @@ pub fn stop() -> CommandResult<DiagnosticTraceStatus> {
         .lock()
         .map_err(|_| trace_error("lock diagnostic trace state", "trace mutex is poisoned"))?;
     let Some(mut session) = guard.take() else {
+        TRACE_ACTIVE.store(false, Ordering::Release);
         return Ok(status_from_session(None));
     };
 
+    TRACE_ACTIVE.store(false, Ordering::Release);
     enqueue_locked(&mut session, "trace_stopped", serde_json::json!({}));
     drop(session.sender);
     if let Some(writer) = session.writer.take() {
