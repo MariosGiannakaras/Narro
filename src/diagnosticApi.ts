@@ -76,6 +76,7 @@ export type DiagnosticStoragePaths = {
   identifier: string;
   appDataDir: string;
   appLocalDataDir: string;
+  isolationPass: boolean;
 };
 
 export type DiagnosticCommand =
