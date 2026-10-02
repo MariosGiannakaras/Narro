@@ -4,6 +4,19 @@ Last updated: 2026-10-03
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-03 — M7 automatic local validation logger implemented in PR #219; CI pending
+
+Main diagnostic-storage baseline is now green: Windows CI #866 / run `37078139295` completed **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d` after the bounded post-exit SQLite handle-release retry. PR #217 is merged; older current-state text describing it as open is superseded by this section. PR #218 remains an open divergent duplicate/follow-up and must not be merged blindly over current main.
+
+PR #219 (`M7: add automatic local physical-validation logs`) is open at exact head `422230e755a373d3ccb61246e1917ff7934a1210`. It adds validation-only local instrumentation activated only when the executable is named `narro-m7-validation.exe`. The executable creates `Narro-M7-Logs` automatically while it runs; normal `narro.exe` keeps the logger inert.
+
+The structured trace captures native Focus geometry/presentation, monitor bounds/work areas/DPI, process/session/source identity, executable fingerprint, accepted Timer movement, SQLite placement persistence, normal tray-Quit outcome and cross-process restore. It intentionally excludes task/list/note content and performs no upload/telemetry. The C5 evaluator reports `PENDING / PASS / FAIL / INCONCLUSIVE`, with PASS requiring complete fail-closed restart evidence rather than inference.
+
+Windows CI #869 / run `37079768471` is **PENDING** for the exact PR #219 head. No validation or progress counter advances until that CI and subsequent merge/main validation complete. Current progress remains `4/10M || 4/5 | 14/19`.
+
+Durable checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-validation-logging-pr219-pending.md`.
+
+
 
 ## 2026-10-03 — PR #216 main CI #854 PASS; PR #217 hardens diagnostic storage fail-closed
 
