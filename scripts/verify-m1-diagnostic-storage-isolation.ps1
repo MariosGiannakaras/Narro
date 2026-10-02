@@ -31,6 +31,28 @@ function Get-DirectoryFingerprint {
     return [string]::Join("`n", $entries)
 }
 
+function Get-FileHashWithRetry {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path,
+        [int]$TimeoutSeconds = 10,
+        [int]$IntervalMilliseconds = 200
+    )
+
+    $deadline = [DateTime]::UtcNow.AddSeconds($TimeoutSeconds)
+    while ($true) {
+        try {
+            return (Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash.ToLowerInvariant()
+        }
+        catch {
+            if ([DateTime]::UtcNow -ge $deadline) {
+                throw "File remained unreadable after process exit for $TimeoutSeconds seconds: $Path. Last error: $($_.Exception.Message)"
+            }
+            Start-Sleep -Milliseconds $IntervalMilliseconds
+        }
+    }
+}
+
 $exe = (Resolve-Path $Executable).Path
 $existing = @(Get-Process -Name "narro" -ErrorAction SilentlyContinue)
 if ($existing.Count -gt 0) {
@@ -117,7 +139,7 @@ finally {
 if (-not (Test-Path $diagnosticDb -PathType Leaf)) {
     throw "Diagnostic database disappeared after the diagnostic process stopped: $diagnosticDb"
 }
-$databaseHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $diagnosticDb).Hash.ToLowerInvariant()
+$databaseHash = Get-FileHashWithRetry -Path $diagnosticDb
 
 $productionRoamingAfter = Get-DirectoryFingerprint -Directory $productionRoaming
 $productionLocalAfter = Get-DirectoryFingerprint -Directory $productionLocal
