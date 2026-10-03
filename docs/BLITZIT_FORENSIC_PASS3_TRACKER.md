@@ -23,9 +23,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **8/19**
+- Full MP4s completed at Pass-3 depth: **9/19**
 - Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **11**
+- Full MP4s still open: **10**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -117,7 +117,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 6 | VE-017 | Update Recurring Schedules | 02:50.063 / 60 | **SOURCE_COMPLETE** | existing-rule edit, Replace row, No Repeat swap, destructive row, footer/state retention |
 | 7 | VE-007 | Schedule Task Reminders | 02:52.803 / 60 | **SOURCE_COMPLETE** | schedule open, quick date actions, date select, time/repeat steps, save/update/remove |
 | 8 | VE-009 | Custom Recurring Schedules | 02:39.893 / 60 | **SOURCE_COMPLETE** | frequency/unit controls, weekday/month conditional UI, summary text, footer |
-| 9 | VE-010 | Notes | 01:13.561 / 60 | OPEN | inline editor open/close, toolbar state, link treatment, geometry/reflow |
+| 9 | VE-010 | Notes | 01:13.561 / 60 | **SOURCE_COMPLETE** | inline editor open/close, toolbar state, link treatment, geometry/reflow |
 | 10 | VE-015 | Sessions Walkthrough | 02:56.216 / 60 | OPEN | filters, task detail open, field inline edit, ellipsis actions, Add Session, deletion/export state |
 | 11 | VE-011 | Reports | 03:10.450 / 60 | OPEN | filters, chart hover/tooltip, series controls, lower panels, scroll |
 | 12 | VE-012 | Improved Sessions and Stats | 06:56.357 / 30 | OPEN | daily graph, metrics, session-derived calculations, Done timing analysis, navigation/filter states |
