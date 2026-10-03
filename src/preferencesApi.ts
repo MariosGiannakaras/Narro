@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import type { MonitorDescriptor } from "./diagnosticApi";
+import type { LocalSoundId } from "./localSoundCatalog";
 
 export const PREFERENCES_CHANGED_EVENT = "preferences-changed";
 
@@ -26,10 +27,12 @@ export type FocusSettingsSnapshot = {
 export type AlertSettingsSnapshot = {
   timedAlertsEnabled: boolean;
   taskAlertIntervalSeconds: number;
-  taskAlertSound: string | null;
+  taskAlertSound: LocalSoundId | null;
+  taskAlertVolumePercent: number;
   animatedTimerFlash: boolean;
   notificationAlertsEnabled: boolean;
-  notificationSound: string | null;
+  notificationSound: LocalSoundId | null;
+  notificationVolumePercent: number;
   scheduleRemindersEnabled: boolean;
   reminderLeadSeconds: number;
 };
@@ -37,7 +40,8 @@ export type AlertSettingsSnapshot = {
 export type CelebrationSettingsSnapshot = {
   showSuccessScreen: boolean;
   funGif: boolean;
-  successSound: string | null;
+  successSound: LocalSoundId | null;
+  successSoundVolumePercent: number;
 };
 
 export type PreferenceSettingsSnapshot = {
@@ -63,12 +67,18 @@ export type PreferenceSettingsPatch = Partial<{
   scrollingTitle: boolean;
   timedAlertsEnabled: boolean;
   taskAlertIntervalSeconds: number;
+  taskAlertSound: LocalSoundId;
+  taskAlertVolumePercent: number;
   animatedTimerFlash: boolean;
   notificationAlertsEnabled: boolean;
+  notificationSound: LocalSoundId;
+  notificationVolumePercent: number;
   scheduleRemindersEnabled: boolean;
   reminderLeadSeconds: number;
   showSuccessScreen: boolean;
   funGif: boolean;
+  successSound: LocalSoundId;
+  successSoundVolumePercent: number;
 }>;
 
 export function getPreferenceSettings(): Promise<PreferenceSettingsSnapshot> {
