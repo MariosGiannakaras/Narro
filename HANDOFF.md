@@ -19,7 +19,7 @@ This section is the current continuation state.
 - #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
 - No progress counter advances from implementation alone. Current progress remains `4/10M || 4/5 | 14/19`.
 
-**NEXT AGENT ACTION:** keep the remaining M1/M7 real-Windows gates OPEN, but do not treat them as a global implementation stop. Proceed with the earliest independently safe roadmap work that does not depend on those physical results. The current unblocked source slice is M8 `PREF-R05`: local-only sound catalog/preview behavior using validated Narro-owned or user-local assets, with non-overlapping previews. Do not advance M9 while this unblocked M8 work remains.
+**NEXT AGENT ACTION:** check PR #220 Windows CI #876 / run `37108157268` first. Current exact head is `6a8b9ba8877a83921135f755def126fc32b6dc13`. CI #874 proved the full frontend/contracts/build PASS and failed only on three Rust formatting hunks; those exact hunks were corrected with no functional change. If #876 fails, inspect only the exact failure and fix narrowly. If #876 passes, validate the exact head, merge with expected-head guard, reconcile M8 PREF-R05 tracking, then continue the next independently safe ordered work. Keep M1/M7 physical gates OPEN; they are not a blanket implementation stop.
 
 **USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
 
@@ -284,3 +284,6 @@ Durable resulting-main artifact evidence: `work-log/2026-10-03-chatgpt-m7-main87
 
 
 Final resulting-main validation evidence: `work-log/2026-10-03-chatgpt-m7-main873-final-validation-artifact.md`.
+
+
+Active M8 PREF-R05 checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-ci876.md`.
