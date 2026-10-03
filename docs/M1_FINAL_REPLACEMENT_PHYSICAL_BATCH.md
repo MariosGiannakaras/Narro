@@ -53,20 +53,32 @@ PR #209 / CI #811 regression-lock evidence:
 
 ## Candidate B — M1 diagnostic artifact
 
-**PENDING final #216 resulting-main validation. Do not use any older diagnostic
-artifact for B/C/D once #216 is integrated.**
+**READY for physical B/C/D.** Use only this final resulting-main diagnostic
+candidate unless a later validated source explicitly supersedes it.
 
-Earlier CI artifacts remain historical evidence for their individual tooling
-slices, but they do not contain the complete combined diagnostic harness now
-required for B/C/D.
+- source SHA:
+  `f1a200c3624c3e25154a7023443c1dfc5be1e69d`
+- Windows main CI: **#866 / run `37078139295` — PASS**
+- diagnostic artifact: `narro-m1-diagnostic-windows-x64`
+- artifact id: `11257763093`
+- artifact ZIP SHA-256:
+  `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`
+- contained diagnostic `narro.exe` SHA-256:
+  `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`
 
-Before physical B/C/D begins, this section must be reconciled with the exact
-resulting-main artifact after #216 passes:
-- exact merged implementation SHA;
-- Windows main CI run;
-- diagnostic artifact id/name;
-- ZIP SHA-256;
-- contained diagnostic `narro.exe` SHA-256.
+CI #866's real runtime storage-isolation smoke passed against this executable.
+It created diagnostic SQLite at
+`%APPDATA%\\com.mariosg.Narro.M1Diagnostic\\narro.db`, while the production
+Roaming and Local `com.mariosg.Narro` namespaces remained unchanged. The
+bounded post-exit SQLite hash retry also passed in the same authoritative run.
+
+The artifact contains the diagnostic executable plus:
+- `measure-floating.ps1`;
+- `run-m1-floating-performance-batch.ps1`;
+- `verify-m1-floating-performance-scenario.ps1`;
+- `M1_FLOATING_PERFORMANCE_MEASUREMENT.md`;
+- `M1_WINDOWS_RUNTIME_VALIDATION.md`;
+- `M1_DISPLAY_TOPOLOGY_VALIDATION.md`.
 
 Required Candidate B properties:
 - runtime Tauri identifier `com.mariosg.Narro.M1Diagnostic`;
@@ -189,7 +201,7 @@ three-run batch runner, and a native Win32 scenario preflight.
    Candidate B EXE SHA-256 listed above:
 
 ```powershell
-powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 <FINAL_CANDIDATE_B_EXE_SHA256>
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3
 ```
 
 Do not interact with Narro while the batch is running. Before every measurement,
