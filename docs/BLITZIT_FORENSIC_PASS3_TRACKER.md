@@ -23,9 +23,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **6/19**
+- Full MP4s completed at Pass-3 depth: **7/19**
 - Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **13**
+- Full MP4s still open: **12**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -115,7 +115,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 4 | VE-014 | Preferences | 02:48.484 / 60 | **SOURCE_COMPLETE** | drawer entry/scroll, parent-child toggles, screen/side/theme controls, alert/celebration nested reveal |
 | 5 | VE-016 | Timer Modes | 02:55.380 / 60 | **SOURCE_COMPLETE** | expiry, Time's Up, Extend, pause/skip/done, Pomodoro transitions, count-up presentation |
 | 6 | VE-017 | Update Recurring Schedules | 02:50.063 / 60 | **SOURCE_COMPLETE** | existing-rule edit, Replace row, No Repeat swap, destructive row, footer/state retention |
-| 7 | VE-007 | Schedule Task Reminders | 02:52.803 / 60 | OPEN | schedule open, quick date actions, date select, time/repeat steps, save/update/remove |
+| 7 | VE-007 | Schedule Task Reminders | 02:52.803 / 60 | **SOURCE_COMPLETE** | schedule open, quick date actions, date select, time/repeat steps, save/update/remove |
 | 8 | VE-009 | Custom Recurring Schedules | 02:39.893 / 60 | OPEN | frequency/unit controls, weekday/month conditional UI, summary text, footer |
 | 9 | VE-010 | Notes | 01:13.561 / 60 | OPEN | inline editor open/close, toolbar state, link treatment, geometry/reflow |
 | 10 | VE-015 | Sessions Walkthrough | 02:56.216 / 60 | OPEN | filters, task detail open, field inline edit, ellipsis actions, Add Session, deletion/export state |
