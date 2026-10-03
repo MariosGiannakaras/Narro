@@ -322,15 +322,18 @@ Active M8 PREF-R05 checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-ci
 
 ## Parallel M9 implementation checkpoint — 2026-10-03
 
-This section does not replace the M7 physical next action above.
+This section does not replace the M7/Codex physical next action above.
 
-Validated nonvisual M9 source:
-- PR #205 merged; resulting-main CI #889 PASS.
-- PR #223 exact head `8ea467a8eeea0f3c623a82927bc3575aa4221780` PASSed CI #897 / run `37135494993`.
-- PR #223 merged source `a36125664831243faf36954f4691f9733a325d76`; resulting-main CI #898 / run `37136599839` PASS.
-- `test:ui-reports-api` reports `Reports history/session command API contracts passed.`
-- VE-015 / VE-011 / VE-012 are SOURCE_COMPLETE; their nonvisual contracts are consumed.
+Validated M9 lineage:
+- PR #205 / main CI #889: typed Overview API.
+- PR #223 / main CI #898: SOURCE_COMPLETE VE-015/011/012 nonvisual contracts.
+- PR #198 / main CI #905: reconciled Reports Overview visual foundation.
+- PR #224 final exact head `fd04d2890268819d2f8a2a202907ecd23a856e59` PASSed CI #906; merged source `ee5448d5534b44449df1ddff02c3b83d88111c7f` PASSed resulting-main CI #907.
 
-M9 exact next action when continuing this track: inspect/reconcile open PR #198 against current main and completed Reports/Sessions evidence. Preserve its useful validated visual foundation, but do not merge the historical branch wholesale. Production wiring must use the Rust-owned Overview/Sessions APIs; do not recreate metric arithmetic, polling, fake session ordinals or fixture data in production.
+Production Overview is validated. M9 is `9/12` top-level items complete. OPEN: production Sessions dashboard; Add Session + inline edit/task-session detail; local exports (Overview PDF / Sessions CSV).
 
-No top-level M9 checkbox is closed yet. M9 slice progress: `4/4` for the completed data/API-contract batch; overall roadmap remains `5/10M`.
+**M9 NEXT ACTION:** start a narrow production Sessions slice from current main. Reuse `get_report_sessions`, `get_report_task_sessions` and create/edit/delete mutation APIs. Preserve reverse-chronological rows and all-history task-relative work-session ordinals; do not invent break ordinals, renderer aggregation or polling.
+
+Sessions slice counter starts `0/5`: dashboard → mutations/detail → regressions/fixtures → exact-head CI/merge → resulting-main/tracking.
+
+Durable Overview closure: `work-log/2026-10-03-chatgpt-m9-pr224-main907-overview-closure.md`.
