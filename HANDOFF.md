@@ -298,7 +298,7 @@ Physical procedure:
 ## Deferred unrelated work
 
 - M9 remains ordered after M8; it is not blocked merely by the pending M1/M7 physical observations.
-- Historical M9 PR references must not be treated as implementation continuation points without checking live GitHub. Current open M9 PRs are #205 (nonvisual Overview command/API boundary; exact head `96498085a4bd1e9935c1a2f3ca75bee905a10678`, CI #886 PASS) and #198 (provisional Reports visual foundation; exact head `a0364a72b6c01c29d1e4d5b7ca44d2883d0e2dd7`, CI #775 PASS). Re-check their live state before acting; #198 remains subject to the Reports/Sessions Pass-3 parity-reconciliation gate.
+- M9 continuation: PR #205 is merged and resulting-main CI #889 PASSed. PR #223 exact head `8ea467a8eeea0f3c623a82927bc3575aa4221780` PASSed CI #897, merged as `a36125664831243faf36954f4691f9733a325d76`, and resulting-main CI #898 PASSed. VE-015/VE-011/VE-012 are SOURCE_COMPLETE and their nonvisual contracts are consumed. The only open M9 PR is #198 (provisional Reports Overview visual foundation, head `a0364a72b6c01c29d1e4d5b7ca44d2883d0e2dd7`); do not merge it unchanged. Reconcile its visual/runtime wiring against current main and completed Reports/Sessions evidence first.
 - Static-contract cleanup remains maintenance-only and is not an M7 blocker.
 
 
@@ -309,3 +309,19 @@ Final resulting-main validation evidence: `work-log/2026-10-03-chatgpt-m7-main87
 
 
 Active M8 PREF-R05 checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-ci876.md`.
+
+
+## Parallel M9 implementation checkpoint — 2026-10-03
+
+This section does not replace the M7 physical next action above.
+
+Validated nonvisual M9 source:
+- PR #205 merged; resulting-main CI #889 PASS.
+- PR #223 exact head `8ea467a8eeea0f3c623a82927bc3575aa4221780` PASSed CI #897 / run `37135494993`.
+- PR #223 merged source `a36125664831243faf36954f4691f9733a325d76`; resulting-main CI #898 / run `37136599839` PASS.
+- `test:ui-reports-api` reports `Reports history/session command API contracts passed.`
+- VE-015 / VE-011 / VE-012 are SOURCE_COMPLETE; their nonvisual contracts are consumed.
+
+M9 exact next action when continuing this track: inspect/reconcile open PR #198 against current main and completed Reports/Sessions evidence. Preserve its useful validated visual foundation, but do not merge the historical branch wholesale. Production wiring must use the Rust-owned Overview/Sessions APIs; do not recreate metric arithmetic, polling, fake session ordinals or fixture data in production.
+
+No top-level M9 checkbox is closed yet. M9 slice progress: `4/4` for the completed data/API-contract batch; overall roadmap remains `5/10M`.

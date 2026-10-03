@@ -1,6 +1,18 @@
 # STATUS.md
 
 Last updated: 2026-10-03
+## 2026-10-03 — M9 nonvisual reporting contracts validated through main CI #898
+
+M9 PR #205 first exposed the validated Overview aggregation through typed Tauri/renderer DTOs and PASSed resulting-main Windows CI #889 on source `f1cca810ea7d7fe6130d43ae0f6bfe649a7154af`.
+
+After VE-015 / VE-011 / VE-012 became `SOURCE_COMPLETE`, PR #223 reconciled the nonvisual reporting contracts to that evidence: live multi-select list filtering, reverse-chronological Sessions projection, all-history task-relative work-session ordinals, and task-session detail independent from the selected report range. Break-session ordinals remain intentionally absent because the source does not establish them. The renderer remains invoke-driven; no report arithmetic/polling or timer authority moved into React.
+
+PR #223 exact head `8ea467a8eeea0f3c623a82927bc3575aa4221780` PASSed Windows CI #897 / run `37135494993`. It merged as source `a36125664831243faf36954f4691f9733a325d76`, and resulting-main Windows CI #898 / run `37136599839` **PASSed all gates**. The #898 fast gate explicitly reported `Reports history/session command API contracts passed.`; Windows Rust tests, performance harness, visual regression, release/runtime build and required validation steps all passed.
+
+This validates the nonvisual M9 foundation only. No top-level M9 roadmap checkbox is closed yet because production Reports/Sessions UI, interactions and exports remain incomplete. PR #198 is still provisional visual foundation and must be reconciled against the now-complete source evidence before merge.
+
+Durable closure: `work-log/2026-10-03-chatgpt-m9-pr223-main898-closure.md`.
+
 
 ## 2026-10-03 — M7 correction merged on CI #893; physical acceptance open
 

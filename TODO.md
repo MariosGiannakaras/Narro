@@ -502,7 +502,7 @@ Acceptance criteria:
 - exports are generated fully locally
 - chart values are accessible without pointer-only hover
 - visual fixtures cover Overview, chart tooltip, list filter, date picker, Sessions and inline-edit modal
-- **M9 source-parity gate (non-counting; does not change the 12-item denominator):** before final user-facing Reports/Sessions visual wiring or parity acceptance, VE-015, VE-011 and VE-012 Pass-3 findings must be `SOURCE_COMPLETE` and reconciled against the current M9 UI/crosswalk. Nonvisual reporting/domain/API work may proceed independently. PR #198 is provisional visual foundation until this reconciliation; PR #205 is nonvisual and is not blocked by this gate.
+- **M9 source-parity gate (non-counting; does not change the 12-item denominator):** VE-015, VE-011 and VE-012 are now `SOURCE_COMPLETE`. PR #223 consumed their nonvisual contracts (multi-select report filters, reverse-chronological Sessions rows, all-history task-relative work-session ordinals/detail API) and PASSed exact-head CI #897 plus resulting-main CI #898. The prerequisite is therefore satisfied for further M9 work, but PR #198 remains a provisional visual foundation until its user-facing Reports/Sessions diff is explicitly reconciled against the completed evidence/current crosswalk. No top-level M9 item is closed by the API/data-contract slices alone.
 
 ## Milestone 10 — Windows lifecycle, packaging, visual/regression pass
 
