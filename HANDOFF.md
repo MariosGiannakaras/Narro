@@ -1,331 +1,134 @@
 # HANDOFF.md
 
-Canonical continuation point. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, active `TODO.md`, relevant `STATUS.md`, `docs/BLITZIT_HISTORY_RISK_INDEX.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, the newest relevant immutable `work-log/` entries, and live PR/CI state before implementation.
+Canonical current continuation point. GitHub `main` is authoritative. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, active `TODO.md`, relevant `STATUS.md`, `docs/EVIDENCE_ROUTING_MAP.md`, `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, `docs/BLITZIT_VISUAL_SYSTEM.md`, and the newest relevant immutable `work-log/` entries before implementation.
 
-GitHub `main` is the durable source truth.
+## CURRENT STATE — 2026-10-04
 
-## LIVE RECONCILIATION — 2026-10-03
+The required post-19/19 global Blitzit no-orphan reconciliation is **COMPLETE as source→current-Narro→disposition routing**.
 
-This section is the current continuation state.
+Reconciled source coverage:
+- repository MP4s: **19/19 SOURCE_COMPLETE**;
+- canonical screenshots: **46/46 SOURCE_COMPLETE**;
+- static visual-calibration dispositions: **46/46**;
+- calibrated visual-system families: **8/8**;
+- closure audits: no half-reviewed canonical asset detected.
 
-**CURRENT M7 NEXT ACTION:** PR225 exact head `4f9d03832743f3db90d0c61dc527b27a194886fd` PASSed full Windows CI911 and guarded-merged as `cbbaaa25dc94ec756e8bffbc731b99a8be0c4945` with byte-identical non-Markdown source. Duplicate main CI `37152106789` was cancelled after proof. Candidate artifact11284371032, EXE SHA256 `24b71ba952ff323647537465f4d5ec8026b3e8001f65d3798d0dbf9eef06541a`. [Current ledger](work-log/2026-10-03-codex-m7-pr225-ci911-merged-and-physical.md). Continue exact-EXE continuous normal/reduced retest of large Notes bounds/draft/Save, wrapped tooltip, initial expansion clipping, narrow planning title/editing and Preferences save/restart. New-source physical acceptance remains OPEN. Prior CI893 follow-up and rendered/negative-control evidence are published. Only DISPLAY2 remains; dual-display cases and separate M1 Candidate B are OPEN. Re-observe windows/processes before input.
+The runtime implementation baseline compared by the reconciliation is merged `main` commit `f53a850f51375f15a0b2b4efe106da95e30b6e73`. Commits after that baseline in this reconciliation are documentation-only `[skip ci]` updates and do not change the compared application implementation.
 
-- Historical validated M7 physical source: PR #222 merge `ccf0fef5554fe8b635807df9214d56d3b2c29457`, byte-identical in all non-Markdown files to exact head `549536c4d19b0045a928652d3feff53162f55a6e` that PASSed full Windows CI #893 / run `37134207962`. Duplicate main CI #896 / run `37135346028` was cancelled after proof. Concurrent M9 API source is preserved. Final M7 artifact id `11278482082`, ZIP SHA-256 `fa44946aa463eaf5e307524ec19dacc5dd09c51b6c16678f75e7977521631020`; EXE SHA-256 `01dd602454f10f85aeecd53eb1bfcdd53368b2eec46fa60cfb5d5cf80385018b`, `15027200` bytes. [Final candidate/merge evidence](work-log/2026-10-03-codex-m7-pr222-ci893-merged-candidate-ready.md). Physical M7 acceptance remains OPEN.
-- PR #217 is merged. Resulting-main diagnostic hash-release follow-up is validated by Windows CI #866 / run `37078139295`: **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
-- PR #218 is **closed**; do not treat it as an active continuation.
-- **Final M1 Candidate B is ready** from resulting-main CI #866 / run `37078139295` on source `f1a200c3624c3e25154a7023443c1dfc5be1e69d`: artifact id `11257763093`, ZIP SHA-256 `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`, contained diagnostic EXE SHA-256 `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`. Its runtime storage-isolation smoke PASSed and production Roaming/Local namespaces remained unchanged. Physical M1 B/C/D may use only this candidate until superseded by later validated source.
-- PR #219 (`M7: add automatic local physical-validation logs`) is now **merged**.
-- PR #219 final exact head `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1` passed Windows CI #872 / run `37101133903` and was expected-head guarded squash-merged as main commit `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`.
-- CI #869 on prior head `422230e755a373d3ccb61246e1917ff7934a1210` failed **only** because `verify-m7-validation-logging.ps1` had a PowerShell parser error before the smoke could launch; all preceding substantive Windows gates passed.
-- The smoke script was narrowly repaired and an earlier PowerShell parser preflight was added. A subsequent correctness review also fixed the evidence handoff so the entire two-session `Narro-M7-Logs` folder is retained/uploaded for debugging. Resulting-main Windows CI #873 / run `37105088285` **PASSed** on validated source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Final M7 C5 artifact: `narro-m7-validation-windows-x64`, id `11268220111`, ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`, contained EXE SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`, fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`.
-- #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
-- Milestone 8 is validated and reconciled. Current M7 corrective progress is `5/10M || 3/5 | 14/19`.
+**No `SOURCE_PARITY_PASS` is claimed by this reconciliation.** Narro-owned visual fixtures, screenshot regressions, automated CI and physical Windows PASS are separate evidence classes from direct canonical Blitzit comparison.
 
-**NEXT AGENT ACTION:** Continue the merged CI911 exact-EXE physical batch and publish continuous video, video-derived review images and whole logs. No full rebuild is pending. Preserve historical CI893 C5 PASS and concurrent M9/source-calibration work. Current roadmap3/10M, M7 closure3/5; close only affected acceptance actually validated.
+Live GitHub state at the last synchronization:
+- no open pull requests;
+- PR #226 is merged;
+- PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 / run `37151575297`;
+- all **22** files changed by PR #226 have identical blob SHAs on merged runtime `main` `f53a850f...`, so that exact-head validation applies to the merged changed files.
 
-**C5 PHYSICAL ACTION COMPLETED — 2026-10-03:** the requested exact CI #873 EXE completed active compact Timer → qualifying 328 px drag → actual tray **Quit Narro** → same-EXE relaunch → visible saved `(1640,780)` Timer. The same task/time returned paused; native two-session evaluator **PASS**. [Completed run](work-log/2026-10-03-codex-m7-ci873-c5-completed.md), [continuous video and embedded review frames](work-log/2026-10-03-codex-m7-ci873-c5-video-review.md), whole `Narro-M7-Logs` folder/ZIP and hashes are published. No C5 restart user action remains. Formal tracking and `M7-OBS-20261003-01/02` disposition remain pending; M1 Candidate B B/C/D remain separate. OBS was stopped/closed and Narro remains paused.
-
-Durable implementation checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-validation-logging-pr219-pending.md`. CI #869 correction chain: `work-log/2026-10-03-chatgpt-m7-ci869-parser-failure-ci871.md`. Candidate B evidence: `work-log/2026-10-03-chatgpt-m1-ci866-final-candidate-b.md`. Concurrency correction: `work-log/2026-10-03-chatgpt-pr218-concurrency-correction.md`.
-
-## CURRENT STATE
+Current compact progress:
 
 `3/10M || 3/5 | 14/19`
 
-**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** Historical CI #809 C1/C2/C3/C4 PASS and unrelated acceptance are preserved. CI #884 exposes six narrowly evidenced FIX_NOW defects including motion coexistence. C5 restart is physically PASS on CI #873; changed host geometry in PR #222 requires fresh relevant acceptance rather than inheriting that PASS. Final native/DPI/monitor/motion/performance and source-parity/calibration gates remain open.
-
-## Parallel user-directed Blitzit forensic track — analysis only
-
-This section is **not** the normal implementation next action. It applies only when the user explicitly asks to continue the Blitzit forensic/source-analysis pass.
-
-User direction recorded 2026-10-02:
-- analyze all supplied Blitzit videos/images at the most detailed practical level;
-- record the evidence durably in the repository;
-- **do not modify Narro implementation in this analysis track**;
-- leave enough repository state that a zero-context chat can resume safely.
-
-Read in order when this track is requested:
-1. `docs/BLITZIT_FORENSIC_PASS3_HANDOFF.md`
-2. `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`
-3. `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`
-4. `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`
-5. `docs/BLITZIT_VISUAL_SYSTEM.md`
-6. relevant detailed Pass-3 screenshot/video findings only if needed.
-
-Current source-analysis closure:
-- canonical screenshots: **46/46 SOURCE_COMPLETE**;
-- repository MP4s: **19/19 SOURCE_COMPLETE**;
-- static visual-calibration dispositions: **46/46 COMPLETE**;
-- visual-system families: **8/8 COMPLETE**;
-- canonical implementation-facing source synthesis: `docs/BLITZIT_VISUAL_SYSTEM.md`;
-- VE-018 Daniel's Planning Workflow: **SOURCE_COMPLETE** from the actual full MP4;
-- separate user-supplied 9.344 s / 560-frame planning clip: **DIRECT SOURCE / UNMAPPED LINEAGE**; do not relabel it as VE-018;
-- forensic/source-evidence pass: **COMPLETE**;
-- closure-integrity audit: `docs/BLITZIT_FORENSIC_CLOSURE_AUDIT_2026-10-04.md` — **PASS; no half-reviewed canonical asset detected**;
-- implementation reconciliation: **DEFERRED / separate track**.
-
-If the user later says “continue the forensic pass”:
-- verify these counters;
-- do **not** re-audit completed assets;
-- if no genuinely new source evidence exists, report that the source-analysis pass is complete;
-- do not begin implementation from this track.
-
-Reopen source analysis only for new source material or a concrete unresolved source ambiguity.
-
-## Blitzit parity consumption / implementation coordination
-
-This coordination rule is additive and does **not** change the active M7 next action.
-
-- Binding workflow: `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`.
-- The Pass-3 analysis agent continues source-only work and does not patch implementation.
-- Implementation agents consume canonical `SOURCE_COMPLETE` findings; they do not re-analyze every raw screenshot/video.
-- New source findings are compared with current Narro during a separate reconciliation step that updates `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and the affected milestone/tracking before parity closure.
-- VE-015, VE-011 and VE-012 are SOURCE_COMPLETE. Their nonvisual contracts are validated through PR #223 / resulting-main CI #898.
-- PR #205 nonvisual typed Overview API is merged as `f1cca810ea7d7fe6130d43ae0f6bfe649a7154af`; preserve it as the validated Overview command/API lineage.
-- PR #198 Reports Overview visual foundation is now reconciled and validated: final head `2e32eae3043f7100fdf16990f482332293ef12d0` PASSed full Windows CI #904, guarded merge `82786cb2a95bb5fdd2835dcb5e3660269425520f` PASSed resulting-main CI #905 through identical-tree validation, and both trees equal `b453e23cb1614a70ebfc1d74a0b5d8297789c6f7`. This is a pure visual/fixture foundation, not final production Reports completion. The next independent M9 action is production Overview state/API wiring; do not replace the view with fixture authority or renderer-side aggregation.
-- PR #213 already validated positional cross-lane insertion and remaining-EST projection; stale `FIX_NOW` wording for those two items is corrected in the crosswalk by the parity-workflow reconciliation commit. Remaining board progress/ordinal/hover/drag-motion/fade fidelity gaps remain open.
-
-## Historical evidence-routing audit — 2026-10-03 (superseded by forensic closure above)
-
-- Direct raw-source sampling confirms the sampled completed video Pass-3 records are genuinely deep and evidence-class disciplined.
-- The 46 screenshot records are useful qualitative source records but do not consistently preserve the measurable geometry/spacing/typography/color/radius/shadow detail needed for maximum visual parity.
-- Screenshot source inspection is 46/46 COMPLETE; static visual calibration is also COMPLETE at 46/46 dispositions with 8/8 visual-system families. Use `docs/BLITZIT_VISUAL_SYSTEM.md` as the implementation-facing synthesis; implementation reconciliation remains the separate next parity-consumption track.
-- `docs/EVIDENCE_ROUTING_MAP.md` is the common discovery entry point for ChatGPT/Codex so prior-pass trackers, current Pass-3 findings, calibration, reconciliation and physical validation are not conflated.
-- Historical checkpoint only: at the time of this audit Pass-3 video continuation was VE-015. The current forensic closure above supersedes that continuation; source analysis is now 19/19 videos plus 46/46 static dispositions.
-
-## Historical PR #216 source / validation baseline
-
-- Latest implementation merge:
-  `007a999e688144122362ad1a4012a22b310e66f2` — PR #216
-  `M1: automate final monitor evidence and placement persistence reopen`.
-  Later main commits are Markdown-only tracking/forensic updates.
-- PR #216 exact head
-  `306dfc50d68477059ceb65a45c5806558db6abbf` passed full Windows
-  CI #853 / run `37044645690`.
-- Exact-head packaged Focus artifact was manually inspected in addition to the
-  green job:
-  - Panel→Timer HWND `(668,0) → (388,80)`, native movement observed ~109 ms;
-  - Timer→Panel HWND `(388,80) → (668,0)`, native movement observed ~134 ms;
-  - both final samples remain at the target position.
-  Therefore the corrected capture path contains real source→target HWND motion;
-  the 30 s ACK/capture-window change did not weaken the movement requirement.
-- PR #216 exact-head diagnostic artifact:
-  - id `11244174942`;
-  - ZIP digest
-    `sha256:f68866ae46da694d28858217aedc6d08999ce765fc19c0226a32710fe5b78570`;
-  - contained `narro.exe` SHA-256
-    `6f7e6667ec392b8fe7fbf79dc6374489a1e3b1d9f1e036902db9c74f17d4a56c`.
-  This is **supporting PR-head evidence only**, not final Candidate B.
-- PR #216 adds:
-  - one-click all-monitor Left/Right placement matrix with ~750 ms physical dwell
-    and native expected-vs-actual PASS/FAIL probes;
-  - stale matrix invalidation after topology/selection changes;
-  - SQLite close/reopen regression for saved Timer placement;
-  - diagnostic storage isolation from production data;
-  - final M7 physical-session safety backup/hash preparation;
-  - CI-only Focus ACK/capture timeout alignment.
-- Resulting-main Windows CI #854 / run `37069188509` **PASSed** on implementation
-  merge `007a999e688144122362ad1a4012a22b310e66f2`.
-- Resulting-main packaged Focus artifact id `11254745758`, digest
-  `sha256:d1cfe097e56dcf1091a51db2e305f838cc530532883280879ed7e7567e77fdb1`,
-  was manually inspected: Panel→Timer `(668,0)→(388,80)` at ~140 ms and
-  Timer→Panel `(388,80)→(668,0)` at ~135 ms, with final samples at target.
-- Resulting-main diagnostic artifact id `11254037811`, digest
-  `sha256:acb24529528549762a1d7c1794268aa9ee7825197a1062b506c3b184942862b8`,
-  contains diagnostic `narro.exe` SHA-256
-  `a4da47d57fd08b5f3193a4f793c4df963061c094a861a4dc0fd4e6ed0b92f4af`.
-  This remains historical PR #216 fallback evidence. The final user-facing
-  Candidate B is the later CI #866 artifact recorded below and in
-  `work-log/2026-10-03-chatgpt-m1-ci866-final-candidate-b.md`.
-- Durable exact-head/merge checkpoint:
-  `work-log/2026-10-03-chatgpt-m1-pr216-ci853-merge-checkpoint.md`.
-- Earlier combined-main failure history and #215 diagnosis remain in:
-  `work-log/2026-10-02-chatgpt-current-main-pr212-pr214-pr213-reconciliation.md`
-  and `work-log/2026-10-02-chatgpt-ci840-focus-capture-pr215.md`.
+The documentation-only reconciliation advances no validation counter.
 
-### M7 production physical lineage
+## ACTIVE PHYSICAL VALIDATION — PR #225 LINEAGE
 
-The accepted M7 C4 production physical baseline remains CI #809 source `2767b3827670603d1ab259b6a843c2e0da82d85d` / PR #208. The user-directed C5 continuation used the validated automatic-logging CI #873 candidate identified in LIVE RECONCILIATION and now physically passes the saved-placement restart criterion. Do not treat the older baseline identity as an instruction to repeat a completed C5 run.
+PR #225 exact head `4f9d03832743f3db90d0c61dc527b27a194886fd` PASSed full Windows CI #911 / run `37150284172` and merged as `cbbaaa25dc94ec756e8bffbc731b99a8be0c4945` with zero non-Markdown differences.
 
-- PR #208 exact head: `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58`.
-- Exact-head Windows CI #809 / run `36865451660`: **PASS**.
-- Resulting-main Windows CI #810 / run `36867438874`: **PASS**.
-- PR #209 exact head `5384ea7384d304a843771e225bfb50cd9394bf43`
-  passed full Windows CI #811 and regression-locks tray Quit -> save Timer
-  placement -> process exit ordering without changing production runtime.
-- CI #809 physical evidence remains the accepted M7 C4 baseline; CI #873 supplies the completed C5 physical restart observation, whole two-session logs and continuous video. Formal closure remains separate from CI alone.
+Exact validation EXE SHA-256:
+`24b71ba952ff323647537465f4d5ec8026b3e8001f65d3798d0dbf9eef06541a`
 
-## Exact artifacts to use next
+Automated implementation is green for the PR #225 editor containment, wrapped-tooltip placement, expansion prepaint, narrow planning-title layout and concurrent Preferences persistence corrections. The affected exact-EXE Windows checks remain **VALIDATION_OPEN**:
+- large Notes both-axis containment, draft/resize/focus/Save;
+- wrapped left/right tooltip keyboard/Escape/opacity/no-overflow behavior;
+- compact↔expanded initial prepaint and continuous normal/reduced motion;
+- narrow planning title/editing plus hover/focus no-reflow;
+- Preferences save/restart under the corrected persistence path.
 
-### M7 C5 production physical acceptance
+Only DISPLAY2 remained available in the last physical session. Dual-display crossing/reconnect/full-screen work and separate M1 Candidate B physical/performance gates remain separate. Physical PASS must not be promoted to source parity.
 
-CI #809 below is historical C4 lineage. PR #219 is merged and its resulting-main CI #873 logging EXE has completed physical C5 PASS. Use the completed-run evidence in LIVE RECONCILIATION; no new restart run is pending. Review the recorded additional motion/label observations before formal milestone reconciliation.
+Durable physical ledger:
+`work-log/2026-10-03-codex-m7-pr225-ci911-merged-and-physical.md`.
 
-Legacy CI #809 artifact:
+## RECONCILED SOURCE IMPLEMENTATION QUEUE
 
-- artifact id `11163439039`
-- artifact digest `sha256:39ca0a91d7aa54be79ca35c509f82f25049a15a3fc4ffff199699eab309557a5`
-- standalone `narro.exe` SHA-256 `a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675`
-- physical-build smoke: PASS, zero CI `runtimeVisual` checkpoints
+Authoritative row-level detail: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
-Packaged Focus visual artifact `11163582492`, digest `sha256:c184e661163bdf9ff1a9dd02859d7c9523add0a5edb6433d2f7ce8a29bf96cf9`, confirms one Focus HWND `0x1022A`, compact 340x110, expanded 340x300, active title/time and no unintended scrollers.
+### M5 — FIX_NOW
 
-### Remaining M1 diagnostic/manual validation
+Implement one coherent planning/destructive-parity corrective batch:
+1. **P3-M5-01** — Today `done/total Done` progress while retaining the existing Today accent/CTA structure.
+2. **P3-M5-02** — resting task ordinal; hover changes the left slot to completion and exposes **Subtasks / Notes / lane-left / lane-right / overflow** without geometry reflow.
+3. **P3-M5-03** — source drag presentation: lifted card, live source reflow/placeholder and finite settle, while preserving the already-validated positional `beforeTaskId` mutation.
+4. **P3-M5-04** — task permanent delete uses an inline destructive **Confirm + X** presentation while preserving explicit confirmation, stable identity and report-exclusion safety.
+5. **P3-M5-05** — reversible list Archive applies directly from the menu; permanent archived-list deletion remains destructive/confirmed.
 
-Final Candidate B is **ready** and fixed to resulting-main CI #866:
-
-- source SHA: `f1a200c3624c3e25154a7023443c1dfc5be1e69d`
-- Windows CI: #866 / run `37078139295` — **PASS**
-- diagnostic artifact: `narro-m1-diagnostic-windows-x64`
-- artifact id: `11257763093`
-- ZIP SHA-256:
-  `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`
-- contained diagnostic `narro.exe` SHA-256:
-  `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`
-
-CI #866's real runtime storage-isolation smoke PASSed with diagnostic SQLite
-under `com.mariosg.Narro.M1Diagnostic`; production Roaming and Local
-`com.mariosg.Narro` namespaces remained unchanged.
-
-M1 B/C/D are therefore no longer blocked on repository-side candidate
-preparation. They still require the user's real Windows physical/measurement
-run using `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
-
-Do **not** use Candidate B as a substitute for the M7 C5 production/validation
-acceptance path.
-
-## CI #806 recording audit
-
-User recording `2026-10-01 15-20-44.mp4`, SHA-256 `86e51a5dcc6cc8bd5cb6af41971daa3c23016a97768c7f8469f567d4f232710b`, was audited across the complete 172.8 s timeline with dense transition sampling.
-
-Important findings:
-
-- The early `Blitz is already active` + `Focus task unavailable` / `All Clear` mismatch is **not clean idle evidence**. It is consistent with the already-documented stale SQLite residue risk from the invalid CI #795 `runtimeVisual=1` artifact.
-- A clean real task `Test` becomes active around 78 s. From there, task identity/time remain continuous across Panel, compact Timer and expanded Timer.
-- At approximately **81.50 s**, expanded -> compact produces a real white L/outline frame. This is an independent Gate 7 failure and is the evidence that produced PR #208.
-- The same clean session supplies positive unaffected evidence for repeated Panel/Timer switching, animations Off then restored On, continuous timer identity, visible Focus->Main completion reconciliation, and Timer dragging.
-- The recording does not conclusively prove the clean idle no-op input, real 100%/125% DPI crossing, topology reconnect, fullscreen topmost, or close/restart placement persistence.
-
-Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci806-physical-failure-pr208-ci809-main810.md`.
+Do not undo PR #225's narrow-card readability correction while implementing the source hover grammar.
 
-## CI #809 corrected two-monitor re-audit
+### M6 — FIX_NOW after M5
 
-User recording `2026-10-01 19-03-32.mp4`, SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`, is a synchronized **two-monitor** 4480×1080 capture. The earlier partial audit incorrectly treated the canvas too much like one surface / 50-50 split. The actual horizontal layout is 1920 + 2560; evidence must be correlated across both monitors at the same timestamp.
+1. **P3-M6-01** — reduced-motion-safe board fade before Focus presentation (~250 ms observed source transition).
+2. **P3-M6-02** — Notes source toolbar grammar/order and automatic clickable http(s) URL recognition. Retain Narro's deliberate explicit user activation before opening an external browser; do not reintroduce surprise URL auto-open.
+3. **P3-M6-03** — calibrated Focus live-card cyan→mint/lime crisp edge/glow treatment instead of the current flat single-color accent.
 
-Physically accepted after the corrected event-based re-audit:
-- six+ animations-On compact↔expanded sequences: the CI #806 white L/blank boundary does not recur;
-- active task/session/time continuity and no document scrollbar;
-- Main `Blitz now` is visibly activated at ~5.2–5.4 s and the existing Focus surface presents Panel;
-- expanded Timer retains task/title/time;
-- Focus completion reconciles to Main Done;
-- real mixed-DPI crossing around ~116–122 s: compact Timer is ~425 physical px on the 1920-wide side and ~340 px on the 2560-wide side; Windows settings explicitly show the latter at 100%, matching 125%→100%;
-- lower-edge/taskbar constrained expansion remains visible and usable;
-- real topology reduction/removal around ~136.5–142 s recovers Narro safely onto the surviving display without restart;
-- compact Timer remains topmost over a maximized Notepad++ window during the cross-monitor sequence;
-- Windows animations are visibly switched Off and restored On; the authoritative `docs/M7_CLOSURE_PLAN.md` does not require a separate two-cycle-Off count for closure.
+### M7 — FIX_NOW source parity, plus independent physical gate
 
-Further re-audit then found the missing C4 event evidence:
-- around 38 s Narro Main + active Timer are already visibly alive;
-- around 39.25–40.75 s the desktop `narro.exe` is activated again;
-- through at least ~41.5 s the same Main/Timer state persists with no competing Narro UI/reset/conflict, physically closing the second-launch single-instance observation;
-- after completion, Focus reaches `All Clear` around ~146 s and remains there without placeholder/stale Timer or pulse until the next unrelated Alt-Tab interaction; combined with the explicit on-screen final shortcut procedure and user clarification that tests must be correlated event-wise, this is accepted as operator-context physical no-op evidence for idle T / Find Timer.
+1. **P3-M7-01** — collapsed Floating Timer rest/hover converts title/time into the compact icon action strip; only the hovered action expands to a label.
+2. **P3-M7-02** — calibrate compact Floating shell to the source rounded/elevation family (~15–17 px screenshot-native radius anchor rather than the current 12 px).
 
-Still missing:
-- no unambiguous tray Quit → same-build relaunch → saved-placement recovery appears anywhere in the recording.
+These are source-parity implementation deltas. They are independent from the PR #225 Windows-correctness physical checks above and do not invalidate CI #911.
 
-The recording does not visibly show `Get-FileHash`; exact CI #809 identity is bound by the operator/test context rather than a pixel-readable hash.
+### M8 — implementation closed; validation only
 
-Corrected durable evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`. The prior `2026-10-01-chatgpt-m7-ci809-partial-physical-audit.md` remains immutable as the superseded first interpretation.
+PREF-R05 and PREF-R06 are validated. The later PR #225 concurrent Preferences writer-before-read correction PASSed CI #911. Only the exact-build physical save/restart observation remains open; do not reopen M8 sound/locale implementation.
 
-## Historical M7 checkpoint state before the CI #884 corrective batch
+### M9 — 11/12
 
-- C1: PASS
-- C2: PASS
-- C3: PASS
-- C4 / Gate 7 physical continuity: **PASS**. Visual/session/Blitz-now/reconciliation, second-launch ownership and idle no-op behavior are accepted on CI #809.
-- C5 / Gate 12 + platform closure: **saved-placement restart PHYSICAL PASS on CI #873; formal reconciliation/new-observation disposition OPEN**. Mixed-DPI crossing, edge/taskbar placement, real topology-removal recovery and topmost-over-maximized-app retain their accepted CI #809 evidence.
+Production Overview is validated. Production Sessions dashboard, Add Session, inline edit/delete/detail and local Sessions CSV are on current `main` with PR #226 / CI #915 changed-blob identity.
 
-At that historical checkpoint progress was `5/10M || 5/5 | 14/19` for the M8 slice. C5 saved-placement restart was physically observed and PASS. The current M7 corrective slice is `3/5` as specified in LIVE RECONCILIATION; changed-host acceptance remains open.
+The sole remaining top-level M9 implementation item is:
+- **P3-M9-01 / Overview PDF** — generate the Overview export fully locally.
 
-## Invariants that must not regress
+Direct canonical Reports/Sessions visual comparison remains `VALIDATION_OPEN`; Narro-owned report fixtures do not establish `SOURCE_PARITY_PASS`.
 
-- Narro remains local-only Windows Tauri 2 + React/TypeScript + Rust + SQLite.
-- Runtime window composition is only `main` + one persistent `focusSurface`.
-- Focus Panel, compact Timer and expanded Timer are presentations inside the same persistent Focus HWND/WebView.
-- Ordinary presentation switching must not create/destroy/hide/show/resize the WebView as its mechanism.
-- Timer/session authority remains Rust-owned and continuous through presentation changes.
-- Logical geometry remains Panel 340x700, compact Timer 340x110, expanded Timer 340x300 with DPI-aware native visible regions.
-- Focus document roots must not expose browser scrollbars.
-- Native presentation changes remain serialized and rollback-safe.
-- `Blitz now` enters Focus Panel.
-- Idle/no-task Ctrl+Shift+T and Find Timer must not expose a placeholder Timer.
-- Single-instance ownership must prevent competing SQLite/background/global-shortcut authority.
+### M10 / release validation
 
-## Unfinished work / exact next action
+Keep open:
+- direct canonical source side-by-side/overlay comparison for stable comparable states;
+- fresh-launch no-implicit-focus/timer-start dedicated regression;
+- running-session Notes/title edit continuity dedicated regression;
+- final anti-regression, lifecycle, DPI/topology, accessibility and release-candidate gates already recorded in `TODO.md`.
 
-Two independent tracks remain:
+## NEXT AGENT ACTION
 
-1. **M7 automatic validation logger (agent-actionable):**
-   - check PR #219 exact head
-     `422230e755a373d3ccb61246e1917ff7934a1210`;
-   - authoritative Windows CI #869 / run `37079768471` is the next decision
-     point;
-   - if CI fails, inspect the exact failing step/log and fix only the evidenced
-     issue on PR #219;
-   - if CI passes, verify the dedicated validation artifact and exact executable
-     identity, expected-head guarded-merge #219, validate resulting main, then
-     reconcile tracking;
-   - do not change the PR #219 head while the current CI is still validating it
-     unless a concrete failure requires a fix.
-2. **Remaining physical Windows gates (user-action required):**
-   - after #219 is validated, M7 C5 uses the validated
-     `narro-m7-validation.exe` and its automatic `Narro-M7-Logs` evidence;
-   - M1 B/C/D use final Candidate B from CI #866, artifact id `11257763093`,
-     EXE SHA-256
-     `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`.
+Unless live repository ownership changes first, start a **single coherent M5 parity-correction branch from latest `main`** for **P3-M5-01 through P3-M5-05**. Inspect current M5 code/tests and applicable repository rules, implement only these evidence-backed deltas, add/update narrow regressions/visual fixtures, run the narrowest relevant preflight first, then authoritative Windows CI and guarded merge according to the repository workflow.
 
-Validated #216/#866 evidence remains useful:
-- main CI #854 and #866 PASS;
-- real Panel↔Timer HWND movement physically captured by CI artifact;
-- one-click monitor matrix + reconnect reuse;
-- 3× performance batch + native scenario preflight;
-- validated diagnostic storage isolation;
-- production AppData backup helper for the legacy M7 physical path.
+Do **not**:
+- reopen the raw Blitzit corpus unless a concrete ambiguity cannot be resolved from canonical records;
+- create a competing M7 physical solution while the PR #225 exact-EXE validation line remains active;
+- replace or redo merged PR #226 Sessions work;
+- treat Narro-owned screenshots as Blitzit parity evidence;
+- defer the M5/M6/M7 implementation gaps to M10 merely because M10 contains final visual revalidation.
 
-Do not use the reopened Milestone 1 physical gates as a blanket blocker for independent later work. Continue independently safe M8 slices under the manual-test batching policy; M9 remains deferred while unblocked M8 work remains.
+The PR #225 exact-EXE physical owner may continue that observation batch independently because its result does not determine the implementation of the source-evidenced M5 gaps above. If a new physical result lands first, reconcile only the affected validation rows; it does not erase the source-parity queue.
 
-Physical procedure:
-`docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
+After the M5 batch is validated/merged, continue the routed M6 then M7 source corrections in milestone order unless newer authoritative repository state changes ownership or priority.
 
-## Deferred unrelated work
+## INVARIANTS
 
-- M9 remains ordered after M8; it is not blocked merely by the pending M1/M7 physical observations.
-- M9 continuation: PR #205 is merged and resulting-main CI #889 PASSed. PR #223 exact head `8ea467a8eeea0f3c623a82927bc3575aa4221780` PASSed CI #897, merged as `a36125664831243faf36954f4691f9733a325d76`, and resulting-main CI #898 PASSed. VE-015/VE-011/VE-012 are SOURCE_COMPLETE and their nonvisual contracts are consumed. The only open M9 PR is #198 (provisional Reports Overview visual foundation, head `a0364a72b6c01c29d1e4d5b7ca44d2883d0e2dd7`); do not merge it unchanged. Reconcile its visual/runtime wiring against current main and completed Reports/Sessions evidence first.
-- Static-contract cleanup remains maintenance-only and is not an M7 blocker.
+- Repository state beats chat memory and historical branch copies.
+- Preserve newer authoritative Markdown on `main`; stale branches must never restore old `HANDOFF`, `TODO`, `STATUS`, evidence or visual-system truth.
+- `SOURCE_COMPLETE` means source analysis is complete, not Narro parity.
+- Physical Windows correctness and `SOURCE_PARITY_PASS` are distinct gates.
+- Historical/context-only evidence does not override stronger current v2.6.69 / Help v2.x / SOURCE_COMPLETE evidence.
+- Ambiguity stays explicit; do not convert inferred behavior into confirmed Blitzit behavior.
+- No implementation file was changed by the 2026-10-04 global reconciliation.
 
+## DURABLE REFERENCES
 
-Durable resulting-main artifact evidence: `work-log/2026-10-03-chatgpt-m7-main873-validation-artifact-ready.md`.
-
-
-Final resulting-main validation evidence: `work-log/2026-10-03-chatgpt-m7-main873-final-validation-artifact.md`.
-
-
-Active M8 PREF-R05 checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-ci876.md`.
-
-
-## Parallel M9 implementation checkpoint — 2026-10-03
-
-This section does not replace the M7/Codex physical next action above.
-
-Validated M9 lineage:
-- PR #205 / main CI #889: typed Overview API.
-- PR #223 / main CI #898: SOURCE_COMPLETE VE-015/011/012 nonvisual contracts.
-- PR #198 / main CI #905: reconciled Reports Overview visual foundation.
-- PR #224 final exact head `fd04d2890268819d2f8a2a202907ecd23a856e59` PASSed CI #906; merged source `ee5448d5534b44449df1ddff02c3b83d88111c7f` PASSed resulting-main CI #907.
-
-Production Overview is validated. M9 is `9/12` top-level items complete. OPEN: production Sessions dashboard; Add Session + inline edit/task-session detail; local exports (Overview PDF / Sessions CSV).
-
-**M9 NEXT ACTION:** start a narrow production Sessions slice from current main. Reuse `get_report_sessions`, `get_report_task_sessions` and create/edit/delete mutation APIs. Preserve reverse-chronological rows and all-history task-relative work-session ordinals; do not invent break ordinals, renderer aggregation or polling.
-
-Sessions slice counter starts `0/5`: dashboard → mutations/detail → regressions/fixtures → exact-head CI/merge → resulting-main/tracking.
-
-Durable Overview closure: `work-log/2026-10-03-chatgpt-m9-pr224-main907-overview-closure.md`.
+- `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` — authoritative source→implementation dispositions.
+- `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` — binding reconciliation workflow.
+- `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` — 19/19 + 46/46 source closure.
+- `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md` — 46/46 calibration dispositions.
+- `docs/BLITZIT_VISUAL_SYSTEM.md` — 8/8 calibrated visual-system families.
+- `docs/BLITZIT_FORENSIC_CLOSURE_AUDIT_2026-10-04.md` — independent source-closure audit.
+- `work-log/2026-10-03-codex-m7-pr225-ci911-merged-and-physical.md` — active exact-EXE physical ledger.
+- `work-log/2026-10-04-0050-chatgpt-blitzit-forensic-independent-second-audit.md` — independent forensic closure re-audit.
