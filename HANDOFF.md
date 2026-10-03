@@ -81,9 +81,9 @@ This coordination rule is additive and does **not** change the active M7 next ac
 - The Pass-3 analysis agent continues source-only work and does not patch implementation.
 - Implementation agents consume canonical `SOURCE_COMPLETE` findings; they do not re-analyze every raw screenshot/video.
 - New source findings are compared with current Narro during a separate reconciliation step that updates `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and the affected milestone/tracking before parity closure.
-- Current M9 Reports/Sessions visual parity is **not ready for final acceptance** while VE-015, VE-011 and VE-012 remain OPEN. Nonvisual M9 work may continue.
-- PR #205 nonvisual typed Overview API is merged as `f1cca810ea7d7fe6130d43ae0f6bfe649a7154af`; its final exact head `389d6a3f0ad6ee5f21bd6bdd837df3b9adbc1f57` PASSed full Windows run `37129953516` and is included in PR #222's base. Preserve it; this does not close Reports visual parity.
-- PR #198 remains provisional Reports visual foundation. Do not treat or merge it as the final Blitzit-parity answer until VE-015/011/012 are source-complete and reconciled against its current implementation.
+- VE-015, VE-011 and VE-012 are SOURCE_COMPLETE. Their nonvisual contracts are validated through PR #223 / resulting-main CI #898.
+- PR #205 nonvisual typed Overview API is merged as `f1cca810ea7d7fe6130d43ae0f6bfe649a7154af`; preserve it as the validated Overview command/API lineage.
+- PR #198 Reports Overview visual foundation is now reconciled and validated: final head `2e32eae3043f7100fdf16990f482332293ef12d0` PASSed full Windows CI #904, guarded merge `82786cb2a95bb5fdd2835dcb5e3660269425520f` PASSed resulting-main CI #905 through identical-tree validation, and both trees equal `b453e23cb1614a70ebfc1d74a0b5d8297789c6f7`. This is a pure visual/fixture foundation, not final production Reports completion. The next independent M9 action is production Overview state/API wiring; do not replace the view with fixture authority or renderer-side aggregation.
 - PR #213 already validated positional cross-lane insertion and remaining-EST projection; stale `FIX_NOW` wording for those two items is corrected in the crosswalk by the parity-workflow reconciliation commit. Remaining board progress/ordinal/hover/drag-motion/fade fidelity gaps remain open.
 
 ## Evidence-routing audit — 2026-10-03

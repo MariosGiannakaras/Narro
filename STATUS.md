@@ -1,6 +1,17 @@
 # STATUS.md
 
 Last updated: 2026-10-03
+
+## 2026-10-03 — M9 Reports Overview visual foundation validated on main
+
+PR #198 final exact head `2e32eae3043f7100fdf16990f482332293ef12d0` **PASSed** full Windows CI #904 / run `37143064981`, including Reports visual captures/validation, Rust checks/tests, release/runtime capture and repository-wide validation builds. It was expected-head guarded squash-merged as source `82786cb2a95bb5fdd2835dcb5e3660269425520f`.
+
+Resulting-main CI #905 / run `37144178568` **PASSed** via the repository identical-tree validation gate. The PR-head tree and merged-main tree are exactly identical at `b453e23cb1614a70ebfc1d74a0b5d8297789c6f7`, so the full #904 validation applies to the merged application tree.
+
+This closes only the reusable/pure Overview visual foundation and its Windows regression fixtures. M9 top-level items remain OPEN until production Reports state/API wiring, Sessions UI, mutations/detail modal, exports and remaining acceptance behavior are complete. Next independent M9 source slice: thin production Overview controller/wiring over the already validated `getReportOverview` multi-select API and local Home/Preferences projections; no renderer-owned aggregation or polling.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m9-pr198-main905-closure.md`.
+
 ## 2026-10-03 — M9 nonvisual reporting contracts validated through main CI #898
 
 M9 PR #205 first exposed the validated Overview aggregation through typed Tauri/renderer DTOs and PASSed resulting-main Windows CI #889 on source `f1cca810ea7d7fe6130d43ae0f6bfe649a7154af`.
