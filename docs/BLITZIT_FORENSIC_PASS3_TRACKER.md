@@ -129,7 +129,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 16 | VE-001 | Product explainer | 02:19.088 / 30 | **SOURCE_COMPLETE** | montage state catalog; explicitly classify cuts as timing-invalid |
 | 17 | VE-004 | Getting Started | 04:09.870 / 60 | **SOURCE_COMPLETE** | Home→list→board→Focus sequence; isolate unique UI from duplicated tutorials |
 | 18 | VE-018 | Daniel planning workflow | 03:33.090 / 60 | **SOURCE_COMPLETE** | full Personal-list planning / Today priority / Focus / break / success / reconciled board source complete; separate 9.344 s clip is unmapped and not VE-018 |
-| 19 | VE-019 | Oct Update | 02:52.989 / 30 | OPEN | light-theme board, Floating subtask expansion, historical preference/theme states |
+| 19 | VE-019 | Oct Update | 02:52.989 / 30 | **SOURCE_COMPLETE** | light-theme board, Floating subtask expansion, historical preference/theme states |
 
 ## Unmapped user-supplied planning-clip checkpoint
 
@@ -148,9 +148,7 @@ The separate 9.344 s user-supplied planning clip reached Pass-3 depth and establ
 
 ## Exact next action
 
-Video Pass 3 is **19/19 SOURCE_COMPLETE**. Continue with the still-open static visual-calibration tracker; do not declare the overall forensic pass complete until that tracker is closed.
-
-VE-003, VE-005, VE-013, VE-014, VE-016 and VE-017 are SOURCE_COMPLETE from their actual full MP4s.
+The forensic/source-evidence pass is **COMPLETE**: 19/19 repository MP4s are SOURCE_COMPLETE, 46/46 canonical screenshots are source-inspected, static visual calibration is 46/46 dispositioned, and all 8/8 visual-system families are complete. Do not re-audit completed assets. Reopen source analysis only for genuinely new source material or a concrete unresolved source ambiguity.
 
 
 ## Pass-3 final closure — 2026-10-03
