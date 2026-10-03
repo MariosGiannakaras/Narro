@@ -35,6 +35,7 @@ The validation app and its dedicated running task were left open when Computer U
 
 ## Evidence
 
+- [Screenshot gallery for the reviewing chat](2026-10-03-codex-m7-ci873-c5-visual-review.md), with all 22 published PNGs embedded and explicit limits for animation review.
 - [Entire Narro-M7-Logs folder](evidence/2026-10-03-m7-ci873-c5-computer-use-attempt/Narro-M7-Logs/)
 - [Narro-M7-Logs ZIP](evidence/2026-10-03-m7-ci873-c5-computer-use-attempt/Narro-M7-Logs.zip), SHA-256 `2ea17b8388a6be2e6f47a4e8d67924cccfe0f2db0d4ef431a75b61df418f23a6`
 - [Provenance and outcome](evidence/2026-10-03-m7-ci873-c5-computer-use-attempt/provenance-and-outcome.json)

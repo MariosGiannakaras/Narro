@@ -2,7 +2,7 @@
 
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
-**Latest C5 physical attempt, 2026-10-03:** CI #873 exact-EXE task/compact Timer and qualifying drag were observed; normal tray Quit → same-EXE relaunch → restored Timer remain **OPEN** after Computer Use reported a physical-Escape interruption. Native evaluator is **PENDING**. Full logs and continuation state: [work log](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md). No milestone/counter advancement.
+**Latest C5 physical attempt, 2026-10-03:** CI #873 exact-EXE task/compact Timer and qualifying drag were observed; normal tray Quit → same-EXE relaunch → restored Timer remain **OPEN** after Computer Use reported a physical-Escape interruption. Native evaluator is **PENDING**. Full logs and continuation state: [work log](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md). All 22 screenshots are embedded in [the visual-review gallery](work-log/2026-10-03-codex-m7-ci873-c5-visual-review.md); animation review needs new continuous capture. No milestone/counter advancement.
 
 ## Milestone 1 — Windows desktop scaffold, capability and performance spike
 

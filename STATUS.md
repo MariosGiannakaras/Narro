@@ -4,7 +4,7 @@ Last updated: 2026-10-03
 
 ## 2026-10-03 — CI #873 C5 physical attempt interrupted after qualifying drag
 
-The exact requested `narro-m7-validation.exe` SHA-256 was verified locally. A dedicated real task ran in the compact Timer, native logs accepted a qualifying drag with maximum distance 268 physical pixels, and the final compact region was contained at `(1805,970)`, 340 × 110. Computer Use then reported a user physical-Escape interruption before tray Quit/relaunch. **C5 remains OPEN; evaluator PENDING; no counter advances.** The app/test task were left open. Full first-session logs, physical observations, tool-recovery evidence and continuation state are published in [the C5 attempt work log](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md).
+The exact requested `narro-m7-validation.exe` SHA-256 was verified locally. A dedicated real task ran in the compact Timer, native logs accepted a qualifying drag with maximum distance 268 physical pixels, and the final compact region was contained at `(1805,970)`, 340 × 110. Computer Use then reported a user physical-Escape interruption before tray Quit/relaunch. **C5 remains OPEN; evaluator PENDING; no counter advances.** The app/test task were left open. Full first-session logs, physical observations, tool-recovery evidence and continuation state are published in [the C5 attempt work log](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md). [The screenshot gallery](work-log/2026-10-03-codex-m7-ci873-c5-visual-review.md) embeds all 22 published PNGs for chat visual review; no continuous animation/video acceptance is claimed.
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
