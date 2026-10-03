@@ -161,7 +161,10 @@ fn validate_sound_patch(field: &'static str, value: Option<&str>) -> CommandResu
 
 fn validate_volume_patch(field: &'static str, value: Option<u8>) -> CommandResult<()> {
     if value.is_some_and(|percent| percent > 100) {
-        return Err(CommandError::invalid_argument(field, "must be between 0 and 100"));
+        return Err(CommandError::invalid_argument(
+            field,
+            "must be between 0 and 100",
+        ));
     }
     Ok(())
 }
