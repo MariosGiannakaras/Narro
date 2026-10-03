@@ -50,7 +50,7 @@ When that instruction is given, read in order:
 
 Current source-analysis checkpoint:
 - screenshots: **46/46 SOURCE_COMPLETE** at Pass-3 depth;
-- full repository MP4s: **6/19 SOURCE_COMPLETE** at Pass-3 depth;
+- full repository MP4s: **7/19 SOURCE_COMPLETE** at Pass-3 depth;
 - VE-018: one 9.344 s / 560-frame planning-board excerpt is **PARTIAL** deep evidence, not full VE-018 completion;
 - VE-003 Blitz Mode: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-005 Add & Manage Tasks and Lists: **SOURCE_COMPLETE** from the actual full MP4;
@@ -58,7 +58,8 @@ Current source-analysis checkpoint:
 - VE-014 Preferences: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-016 Timer Modes: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-017 Update Recurring Schedules: **SOURCE_COMPLETE** from the actual full MP4;
-- exact next video: **VE-007 — Blitzit Tutorial How to Schedule Task Reminders.mp4**;
+- VE-007 Schedule Task Reminders: **SOURCE_COMPLETE** from the actual full MP4;
+- exact next video: **VE-009 — Blitzit Tutorial How to Use Custom Recurring Schedules.mp4**;
 - raw MP4 access is currently available through the isolated analysis-only media bridge; do not merge that bridge into main.
 
 Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
