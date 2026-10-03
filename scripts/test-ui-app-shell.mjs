@@ -9,6 +9,7 @@ function requireText(haystack, needle, label) {
 
 const shell = read("src/AppShell.tsx");
 const reports = read("src/ReportsOverview.tsx");
+const reportsWorkspace = read("src/ReportsWorkspace.tsx");
 const css = read("src/appShell.css");
 const app = read("src/App.tsx");
 
@@ -22,7 +23,9 @@ for (const [haystack, needle, label] of [
   [shell, 'label="Archived lists"', "archive entry"],
   [shell, 'label="Home"', "Home primary destination"],
   [shell, 'label="Reports"', "Reports primary destination"],
-  [shell, '<ReportsOverview onBack={() => setActiveDestination("home")} />', "production Reports destination"],
+  [shell, '<ReportsWorkspace onBack={() => setActiveDestination("home")} />', "production Reports workspace destination"],
+  [reportsWorkspace, "<ReportsOverview", "Overview workspace tab"],
+  [reportsWorkspace, "<ReportsSessions", "Sessions workspace tab"],
   [reports, 'getReportOverview({', "typed production Reports API load"],
   [shell, 'label="Search"', "Search utility destination"],
   [shell, 'label="Settings"', "Settings utility destination"],

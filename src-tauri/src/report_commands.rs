@@ -18,7 +18,9 @@ use crate::session_reporting::{
 };
 use rusqlite::Connection;
 use serde::Serialize;
-use std::path::PathBuf;
+use std::fs::{self, OpenOptions};
+use std::io::Write;
+use std::path::{Path, PathBuf};
 use tauri::Manager;
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -42,6 +44,7 @@ pub struct ReportSessionPayload {
     pub started_at: String,
     pub ended_at: String,
     pub duration_seconds: String,
+    pub updated_at: String,
     pub task_archived: bool,
     pub list_archived: bool,
 }
@@ -188,6 +191,13 @@ pub struct ReportSessionMutationPayload {
     pub updated_at: String,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportExportPayload {
+    pub path: String,
+    pub row_count: String,
+}
+
 impl From<ReportRange> for ReportRangePayload {
     fn from(value: ReportRange) -> Self {
         Self {
@@ -215,6 +225,7 @@ impl From<ReportSessionRow> for ReportSessionPayload {
             started_at: value.started_at,
             ended_at: value.ended_at,
             duration_seconds: value.duration_seconds.to_string(),
+            updated_at: value.updated_at,
             task_archived: value.task_archived,
             list_archived: value.list_archived,
         }
@@ -393,6 +404,105 @@ impl From<SessionRecord> for ReportSessionMutationPayload {
     }
 }
 
+fn csv_cell(value: &str) -> String {
+    format!("\"{}\"", value.replace('\"', "\"\""))
+}
+
+fn csv_user_text_cell(value: &str) -> String {
+    let first_non_space = value.trim_start().chars().next();
+    let safe = if matches!(first_non_space, Some('=' | '+' | '-' | '@')) {
+        format!("'{value}")
+    } else {
+        value.to_owned()
+    };
+    csv_cell(&safe)
+}
+
+fn sessions_csv(payload: &ReportSessionsPayload) -> String {
+    let mut csv = String::from(
+        "\u{feff}\"Session\",\"Type\",\"Task\",\"List\",\"Started At\",\"Ended At\",\"Duration Seconds\",\"Source\"\r\n",
+    );
+    for row in &payload.rows {
+        let session = &row.session;
+        let values = [
+            csv_cell(row.task_session_ordinal.as_deref().unwrap_or("")),
+            csv_cell(session.kind.as_str()),
+            csv_user_text_cell(session.task_title.as_deref().unwrap_or("")),
+            csv_user_text_cell(session.list_title.as_deref().unwrap_or("")),
+            csv_cell(&session.started_at),
+            csv_cell(&session.ended_at),
+            csv_cell(&session.duration_seconds),
+            csv_cell(session.source.as_str()),
+        ];
+        csv.push_str(&values.join(","));
+        csv.push_str("\r\n");
+    }
+    csv
+}
+
+fn export_range_date(value: &str) -> &str {
+    value
+        .get(..10)
+        .filter(|candidate| {
+            candidate
+                .chars()
+                .all(|character| character.is_ascii_digit() || character == '-')
+        })
+        .unwrap_or("range")
+}
+
+fn write_unique_export(
+    directory: &Path,
+    file_stem: &str,
+    extension: &str,
+    contents: &[u8],
+) -> CommandResult<PathBuf> {
+    fs::create_dir_all(directory).map_err(|error| {
+        CommandError::new(
+            "REPORT_EXPORT_FAILED",
+            format!("failed to prepare the local export directory: {error}"),
+        )
+    })?;
+
+    for suffix in 1..=9_999_u32 {
+        let file_name = if suffix == 1 {
+            format!("{file_stem}.{extension}")
+        } else {
+            format!("{file_stem}-{suffix}.{extension}")
+        };
+        let path = directory.join(file_name);
+        match OpenOptions::new().write(true).create_new(true).open(&path) {
+            Ok(mut file) => {
+                file.write_all(contents).map_err(|error| {
+                    CommandError::new(
+                        "REPORT_EXPORT_FAILED",
+                        format!("failed to write the local report export: {error}"),
+                    )
+                })?;
+                file.flush().map_err(|error| {
+                    CommandError::new(
+                        "REPORT_EXPORT_FAILED",
+                        format!("failed to finalize the local report export: {error}"),
+                    )
+                })?;
+                return Ok(path);
+            }
+            Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => continue,
+            Err(error) => {
+                return Err(CommandError::new(
+                    "REPORT_EXPORT_FAILED",
+                    format!("failed to create the local report export: {error}"),
+                ));
+            }
+        }
+    }
+
+    Err(CommandError::new(
+        "REPORT_EXPORT_FAILED",
+        "could not choose an unused local export filename",
+    ))
+}
+
 fn app_database(app_handle: &tauri::AppHandle) -> CommandResult<Connection> {
     let app_dir: PathBuf = app_handle.path().app_data_dir().map_err(|error| {
         CommandError::new(
@@ -548,6 +658,44 @@ pub fn get_report_sessions(
     load_sessions_report(&connection, range, show_break_sessions)
         .map(Into::into)
         .map_err(map_sessions_report_error)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn export_report_sessions_csv(
+    app_handle: tauri::AppHandle,
+    start_at: String,
+    end_at: String,
+    list_ids: Vec<String>,
+    show_break_sessions: bool,
+) -> CommandResult<ReportExportPayload> {
+    let range = ReportRange {
+        start_at,
+        end_at,
+        list_ids: parse_list_ids(list_ids)?,
+    };
+    let file_stem = format!(
+        "narro-sessions-{}-to-{}",
+        export_range_date(&range.start_at),
+        export_range_date(&range.end_at)
+    );
+    let connection = app_database(&app_handle)?;
+    let payload: ReportSessionsPayload =
+        load_sessions_report(&connection, range, show_break_sessions)
+            .map(Into::into)
+            .map_err(map_sessions_report_error)?;
+    let csv = sessions_csv(&payload);
+    let download_directory = app_handle.path().download_dir().map_err(|error| {
+        CommandError::new(
+            "REPORT_EXPORT_FAILED",
+            format!("failed to resolve the local Downloads directory: {error}"),
+        )
+    })?;
+    let path = write_unique_export(&download_directory, &file_stem, "csv", csv.as_bytes())?;
+
+    Ok(ReportExportPayload {
+        path: path.to_string_lossy().into_owned(),
+        row_count: payload.rows.len().to_string(),
+    })
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -713,6 +861,7 @@ mod tests {
                 started_at: "2026-09-30T10:00:00Z".into(),
                 ended_at: "2026-09-30T11:00:00Z".into(),
                 duration_seconds: "3600".into(),
+                updated_at: "2026-09-30T11:00:00Z".into(),
                 task_archived: false,
                 list_archived: false,
             },
@@ -723,6 +872,61 @@ mod tests {
             value["taskSessionOrdinal"],
             serde_json::Value::String(u64::MAX.to_string())
         );
+    }
+
+    #[test]
+    fn sessions_csv_is_utf8_excel_safe_and_preserves_break_semantics() {
+        let work = ReportSessionsRowPayload {
+            session: ReportSessionPayload {
+                id: SessionId::generate().to_string(),
+                task_id: Some(TaskId::generate().to_string()),
+                task_title: Some("=SUM(1,2), \"quoted\"\nline".into()),
+                list_id: Some(ListId::generate().to_string()),
+                list_title: Some("@Planning".into()),
+                kind: SessionKind::Work,
+                source: SessionSource::Manual,
+                started_at: "2026-09-30T10:00:00Z".into(),
+                ended_at: "2026-09-30T11:00:00Z".into(),
+                duration_seconds: "3600".into(),
+                updated_at: "2026-09-30T11:00:00Z".into(),
+                task_archived: false,
+                list_archived: false,
+            },
+            task_session_ordinal: Some("3".into()),
+        };
+        let break_row = ReportSessionsRowPayload {
+            session: ReportSessionPayload {
+                id: SessionId::generate().to_string(),
+                task_id: None,
+                task_title: None,
+                list_id: None,
+                list_title: None,
+                kind: SessionKind::Break,
+                source: SessionSource::Focus,
+                started_at: "2026-09-30T11:00:00Z".into(),
+                ended_at: "2026-09-30T11:10:00Z".into(),
+                duration_seconds: "600".into(),
+                updated_at: "2026-09-30T11:10:00Z".into(),
+                task_archived: false,
+                list_archived: false,
+            },
+            task_session_ordinal: None,
+        };
+        let csv = sessions_csv(&ReportSessionsPayload {
+            summary: ReportSessionsSummaryPayload {
+                total_focus_seconds: "3600".into(),
+                total_tasks: "1".into(),
+                total_sessions: "2".into(),
+            },
+            rows: vec![work, break_row],
+        });
+
+        assert!(csv.starts_with('\u{feff}'));
+        assert!(csv.contains("\"3\",\"work\""));
+        assert!(csv.contains("\"'=SUM(1,2), \"\"quoted\"\"\nline\""));
+        assert!(csv.contains("\"'@Planning\""));
+        assert!(csv.contains("\"\",\"break\",\"\",\"\""));
+        assert!(csv.ends_with("\r\n"));
     }
 
     #[test]

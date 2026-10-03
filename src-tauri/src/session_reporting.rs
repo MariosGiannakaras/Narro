@@ -247,6 +247,7 @@ pub fn load_task_sessions_detail(
                 started_at: session.started_at,
                 ended_at,
                 duration_seconds: session.duration_seconds,
+                updated_at: session.updated_at,
                 task_archived: task.archived_at.is_some(),
                 list_archived: list.archived_at.is_some(),
             },
@@ -302,6 +303,7 @@ mod tests {
             started_at: started_at.to_owned(),
             ended_at: started_at.to_owned(),
             duration_seconds,
+            updated_at: started_at.to_owned(),
             task_archived: false,
             list_archived: false,
         }

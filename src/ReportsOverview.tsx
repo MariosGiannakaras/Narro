@@ -39,6 +39,7 @@ import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjecti
 
 type ReportsOverviewProps = {
   onBack?: () => void;
+  onOpenSessions?: () => void;
 };
 
 type DraftRangeState = {
@@ -117,7 +118,7 @@ function doneTaskPresentation(
   });
 }
 
-export function ReportsOverview({ onBack }: ReportsOverviewProps) {
+export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps) {
   const locale = resolvedLocale();
   const preferences = usePreferenceSettingsProjection();
   const [home, setHome] = useState<HomeSnapshot | null>(null);
@@ -336,8 +337,9 @@ export function ReportsOverview({ onBack }: ReportsOverviewProps) {
           latePercent: overview.punctuality.latePercent ?? 0,
         }}
         exportDisabled
-        sessionsDisabled
+        sessionsDisabled={!onOpenSessions}
         onBack={onBack}
+        onOpenSessions={onOpenSessions}
         onToggleListSelection={toggleListSelection}
         onToggleListFilter={() => setListFilterOpen((open) => !open)}
         onToggleDatePicker={toggleDatePicker}

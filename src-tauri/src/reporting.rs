@@ -35,6 +35,7 @@ pub struct ReportSessionRow {
     pub started_at: String,
     pub ended_at: String,
     pub duration_seconds: u64,
+    pub updated_at: String,
     pub task_archived: bool,
     pub list_archived: bool,
 }
@@ -277,6 +278,7 @@ struct RawSessionRow {
     started_at: String,
     ended_at: String,
     duration_seconds: i64,
+    updated_at: String,
     task_archived_at: Option<String>,
     list_archived_at: Option<String>,
 }
@@ -293,8 +295,9 @@ fn raw_session_row(row: &Row<'_>) -> rusqlite::Result<RawSessionRow> {
         started_at: row.get(7)?,
         ended_at: row.get(8)?,
         duration_seconds: row.get(9)?,
-        task_archived_at: row.get(10)?,
-        list_archived_at: row.get(11)?,
+        updated_at: row.get(10)?,
+        task_archived_at: row.get(11)?,
+        list_archived_at: row.get(12)?,
     })
 }
 
@@ -305,6 +308,7 @@ fn decode_session_row(
     let id = parse_session_id(raw.id)?;
     let started = parse_stored_timestamp("session.started_at", &raw.started_at)?;
     parse_stored_timestamp("session.ended_at", &raw.ended_at)?;
+    parse_stored_timestamp("session.updated_at", &raw.updated_at)?;
     if started < validated.start || started >= validated.end {
         return Ok(None);
     }
@@ -347,6 +351,7 @@ fn decode_session_row(
         ended_at: raw.ended_at,
         duration_seconds: u64::try_from(raw.duration_seconds)
             .map_err(|_| ReportingError::CorruptDuration(raw.duration_seconds))?,
+        updated_at: raw.updated_at,
         task_archived: raw.task_archived_at.is_some(),
         list_archived: raw.list_archived_at.is_some(),
     }))
@@ -441,6 +446,7 @@ fn report_sessions(
             s.started_at,
             s.ended_at,
             s.duration_seconds,
+            s.updated_at,
             t.archived_at,
             l.archived_at
          FROM sessions s
@@ -814,6 +820,7 @@ mod tests {
             started_at: started_at.to_owned(),
             ended_at: started_at.to_owned(),
             duration_seconds,
+            updated_at: started_at.to_owned(),
             task_archived: false,
             list_archived: false,
         }

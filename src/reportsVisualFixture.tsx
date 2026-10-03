@@ -10,11 +10,28 @@ import {
   type ReportsListTime,
   type ReportsMetric,
 } from "./ReportsOverviewView";
+import {
+  ReportAddSessionDialog,
+  ReportTaskSessionsDialog,
+  ReportsSessionsView,
+  type ReportsSessionViewRow,
+  type ReportsTaskDetailView,
+} from "./ReportsSessionsView";
 
 const params = new URLSearchParams(window.location.search);
 const theme = params.get("theme") === "light" ? "light" : "dark";
 const requestedMode = params.get("mode");
-const mode = ["overview", "list-filter", "date-picker", "series-toggle", "lower"].includes(requestedMode ?? "")
+const mode = [
+  "overview",
+  "list-filter",
+  "date-picker",
+  "series-toggle",
+  "lower",
+  "sessions-empty",
+  "sessions-populated",
+  "sessions-detail",
+  "sessions-add",
+].includes(requestedMode ?? "")
   ? requestedMode!
   : "overview";
 
@@ -124,28 +141,194 @@ const september = calendarMonth("Sep 2026", [
   ["oct-04", "4", true], ["oct-05", "5", true], ["oct-06", "6", true], ["oct-07", "7", true], ["oct-08", "8", true], ["oct-09", "9", true], ["oct-10", "10", true],
 ]);
 
+const sessionRows: ReportsSessionViewRow[] = [
+  {
+    id: "session-04",
+    taskId: "task-roadmap",
+    taskTitle: "Project roadmap video",
+    listTitle: "Content",
+    listColor: "#d986ff",
+    kind: "work",
+    ordinalLabel: "Session 04",
+    dateKey: "2025-12-04",
+    dateLabel: "Dec 04, 2025",
+    startLabel: "3:54 PM",
+    endLabel: "5:54 PM",
+    endTimeValue: "17:54",
+    durationLabel: "2hr",
+    updatedAt: "2025-12-04T17:54:00Z",
+  },
+  {
+    id: "session-03",
+    taskId: "task-email",
+    taskTitle: "Email newsletter",
+    listTitle: "Blitzit",
+    listColor: "#48d6c5",
+    kind: "work",
+    ordinalLabel: "Session 03",
+    dateKey: "2025-12-04",
+    dateLabel: "Dec 04, 2025",
+    startLabel: "12:39 PM",
+    endLabel: "2:51 PM",
+    endTimeValue: "14:51",
+    durationLabel: "2hr 11min",
+    updatedAt: "2025-12-04T14:51:00Z",
+    initiallyEditing: mode === "sessions-detail",
+  },
+  {
+    id: "session-break",
+    taskId: "task-email",
+    taskTitle: "Break",
+    listTitle: "Blitzit",
+    listColor: "#48d6c5",
+    kind: "break",
+    ordinalLabel: null,
+    dateKey: "2025-12-04",
+    dateLabel: "Dec 04, 2025",
+    startLabel: "12:20 PM",
+    endLabel: "12:30 PM",
+    endTimeValue: "12:30",
+    durationLabel: "10min",
+    updatedAt: "2025-12-04T12:30:00Z",
+  },
+  {
+    id: "session-02",
+    taskId: "task-email",
+    taskTitle: "Email newsletter",
+    listTitle: "Blitzit",
+    listColor: "#48d6c5",
+    kind: "work",
+    ordinalLabel: "Session 02",
+    dateKey: "2025-11-02",
+    dateLabel: "Nov 02, 2025",
+    startLabel: "7:19 PM",
+    endLabel: "7:20 PM",
+    endTimeValue: "19:20",
+    durationLabel: "0min",
+    updatedAt: "2025-11-02T19:20:00Z",
+  },
+];
+
+const taskDetail: ReportsTaskDetailView = {
+  taskId: "task-email",
+  taskTitle: "Email newsletter",
+  listTitle: "Blitzit",
+  listColor: "#48d6c5",
+  totalTime: "2hr 13min",
+  totalSessions: "3",
+  rows: [
+    sessionRows[1],
+    sessionRows[3],
+    {
+      ...sessionRows[3],
+      id: "session-01",
+      ordinalLabel: "Session 01",
+      startLabel: "7:15 PM",
+      endLabel: "7:16 PM",
+      endTimeValue: "19:16",
+      durationLabel: "1min",
+      updatedAt: "2025-11-02T19:16:00Z",
+      initiallyEditing: false,
+    },
+  ],
+};
+
+const addTasks = [
+  { id: "task-roadmap", listId: "content", listTitle: "Content", title: "Project roadmap video", lane: "Today" as const },
+  { id: "task-report", listId: "work", listTitle: "Work", title: "Prepare weekly report", lane: "This Week" as const },
+  { id: "task-ugc", listId: "content", listTitle: "Content", title: "Launch UGC campaign", lane: "Backlog" as const },
+  { id: "task-car", listId: "personal", listTitle: "Personal", title: "Repair car", lane: "Today" as const },
+  { id: "task-gift", listId: "personal", listTitle: "Personal", title: "Order a gift for Alex", lane: "Backlog" as const },
+];
+
 const root = document.getElementById("root");
 if (!root) throw new Error("Reports fixture root is missing.");
 
 flushSync(() => {
+  const sessionMode = mode.startsWith("sessions-");
   createRoot(root).render(
-    <ReportsOverviewView
-      metrics={metrics}
-      chartDays={chartDays}
-      productive={{ hour: "10 AM", day: "Thursday", month: "August" }}
-      timeByList={timeByList}
-      doneTasks={doneTasks}
-      listLabel="All Lists"
-      selectedListIds={[]}
-      listOptions={listOptions}
-      rangeLabel="Aug 07, 2026  –  Aug 14, 2026"
-      calendarMonths={[august, september]}
-      listFilterOpen={mode === "list-filter"}
-      datePickerOpen={mode === "date-picker"}
-      tooltipDayId={mode === "overview" || mode === "list-filter" ? "aug-10" : null}
-      visibleSeries={{ tasks: true, breaks: true, total: mode !== "series-toggle" }}
-      punctuality={{ earlyPercent: 67.25, latePercent: 32.75 }}
-    />,
+    sessionMode ? (
+      <>
+        <ReportsSessionsView
+          summary={mode === "sessions-empty"
+            ? { totalTime: "0min", totalTasks: "2", totalSessions: "0" }
+            : { totalTime: "17hr 22min", totalTasks: "39", totalSessions: "23" }}
+          groups={mode === "sessions-empty" ? [] : [
+            { dateKey: "2025-12-04", label: "Dec 04, 2025", rows: sessionRows.slice(0, 3) },
+            { dateKey: "2025-11-02", label: "Nov 02, 2025", rows: sessionRows.slice(3) },
+          ]}
+          listLabel="All Lists"
+          selectedListIds={[]}
+          listOptions={listOptions}
+          rangeLabel="Nov 27, 2025 – Dec 04, 2025"
+          calendarMonths={[august, september]}
+          showBreakSessions
+          listFilterOpen={false}
+          datePickerOpen={false}
+          pendingSessionId={null}
+          onOpenOverview={() => undefined}
+          onOpenAddSession={() => undefined}
+          onToggleBreakSessions={() => undefined}
+          onToggleListFilter={() => undefined}
+          onToggleListSelection={() => undefined}
+          onToggleDatePicker={() => undefined}
+          onSelectDatePreset={() => undefined}
+          onSelectCalendarDay={() => undefined}
+          onPreviousCalendarMonth={() => undefined}
+          onNextCalendarMonth={() => undefined}
+          onCancelDateRange={() => undefined}
+          onApplyDateRange={() => undefined}
+          onCommitEndTime={async () => true}
+          onOpenDetail={() => undefined}
+          onDelete={() => undefined}
+        />
+        {mode === "sessions-detail" ? (
+          <ReportTaskSessionsDialog
+            detail={taskDetail}
+            pendingSessionId={null}
+            onClose={() => undefined}
+            onAddSession={() => undefined}
+            onCommitEndTime={async () => true}
+            onDelete={() => undefined}
+          />
+        ) : null}
+        {mode === "sessions-add" ? (
+          <ReportAddSessionDialog
+            tasks={addTasks}
+            draft={{
+              taskId: "",
+              dateKey: "2025-12-04",
+              startTime: "15:54",
+              endTime: "17:54",
+              durationLabel: "2hr",
+            }}
+            pending={false}
+            error={null}
+            onDraftChange={() => undefined}
+            onClose={() => undefined}
+            onCommit={() => undefined}
+          />
+        ) : null}
+      </>
+    ) : (
+      <ReportsOverviewView
+        metrics={metrics}
+        chartDays={chartDays}
+        productive={{ hour: "10 AM", day: "Thursday", month: "August" }}
+        timeByList={timeByList}
+        doneTasks={doneTasks}
+        listLabel="All Lists"
+        selectedListIds={[]}
+        listOptions={listOptions}
+        rangeLabel="Aug 07, 2026  –  Aug 14, 2026"
+        calendarMonths={[august, september]}
+        listFilterOpen={mode === "list-filter"}
+        datePickerOpen={mode === "date-picker"}
+        tooltipDayId={mode === "overview" || mode === "list-filter" ? "aug-10" : null}
+        visibleSeries={{ tasks: true, breaks: true, total: mode !== "series-toggle" }}
+        punctuality={{ earlyPercent: 67.25, latePercent: 32.75 }}
+      />
+    ),
   );
 });
 
