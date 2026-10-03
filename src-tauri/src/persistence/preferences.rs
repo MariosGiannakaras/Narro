@@ -52,7 +52,10 @@ impl Display for PreferenceStoreError {
                 )
             }
             Self::InvalidSoundId(field) => {
-                write!(formatter, "preference sound is not in the local Narro catalog: {field}")
+                write!(
+                    formatter,
+                    "preference sound is not in the local Narro catalog: {field}"
+                )
             }
             Self::InvalidDuration(field, seconds) => {
                 write!(
@@ -364,7 +367,9 @@ mod tests {
         sound.alerts.task_alert_sound = Some("https://example.com/remote.wav".into());
         assert!(matches!(
             validate_preferences(&sound),
-            Err(PreferenceStoreError::InvalidSoundId("alerts.task_alert_sound"))
+            Err(PreferenceStoreError::InvalidSoundId(
+                "alerts.task_alert_sound"
+            ))
         ));
 
         let mut volume = PreferencesPayload::default();
