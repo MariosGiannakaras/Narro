@@ -97,6 +97,7 @@ for (const forbidden of ["Time Taken", "schedule", "recurrence"]) {
 
 requireText(board, "completeListBoardTask({", "validated non-live completion boundary");
 requireText(board, "permanentlyDeleteListBoardTask({", "confirmed task delete boundary");
-requireText(board, "<TaskDeleteConfirmDialog", "explicit task delete confirmation UI");
+requireText(taskCard, 'data-task-delete-confirm="inline"', "explicit inline task delete confirmation UI");
+if (board.includes("TaskDeleteConfirmDialog")) throw new Error("Board task delete must not reopen the legacy centered confirmation dialog.");
 
 console.log("Task creation and inline editing contract checks passed.");
