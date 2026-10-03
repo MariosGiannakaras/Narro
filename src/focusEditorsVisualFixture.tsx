@@ -26,6 +26,12 @@ const motionToPanel = scenario === "motion-timerCompact-panel";
 const panel = scenario.includes("-panel-");
 const large = scenario.endsWith("-large");
 const visibleHeight = panel ? 700 : 300;
+const requestedReducedMotion = params.get("motion")?.toLowerCase() === "true";
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+assertMotionPreference();
+function assertMotionPreference() {
+  if (reducedMotion !== requestedReducedMotion) throw new Error("Renderer motion preference did not match capture request");
+}
 document.documentElement.dataset.theme = theme;
 const taskId = "31111111-1111-4111-8111-111111111111";
 const listId = "21111111-1111-4111-8111-111111111111";
@@ -81,7 +87,7 @@ function Fixture() {
 }
 const root = find<HTMLElement>("#root");
 flushSync(() => createRoot(root).render(<Fixture />));
-const result: Record<string, unknown> = {theme, scenario};
+const result: Record<string, unknown> = {theme, scenario, reducedMotion};
 if (motion) {
   const host = find<HTMLElement>(".focus-surface-coordinator");
   const outgoing = find<HTMLElement>("#outgoing");
@@ -93,6 +99,11 @@ if (motion) {
   await wait(40);
   result.soleTargetDuringMotion = getComputedStyle(outgoing).opacity === "0";
   assert(result.soleTargetDuringMotion, "Outgoing hierarchy reappeared during native motion");
+  if (reducedMotion) {
+    result.reducedMotionRespected = getComputedStyle(incoming).transitionDuration.split(',').every(duration => parseFloat(duration) <= 0.001)
+      && getComputedStyle(incoming).transform === 'none';
+    assert(result.reducedMotionRespected, "Reduced-motion presentation retained decorative movement");
+  }
   host.dataset.focusGeometryMotion = "false";
   await wait(40);
   result.rollbackRestoredOutgoing = getComputedStyle(outgoing).opacity === "1";
@@ -140,6 +151,33 @@ if (motion) {
   const input = find<HTMLInputElement>('.task-notes__title-editor input');
   result.titleInputContained = input.getBoundingClientRect().right <= input.parentElement!.getBoundingClientRect().right + 0.5;
   assert(result.titleInputContained, "Title input padding escaped its grid column");
+  const presentation = find<HTMLButtonElement>('[data-task-note-control="presentation"]');
+  const tooltip = presentation.parentElement!.querySelector<HTMLElement>('[role="tooltip"]')!;
+  getComputedStyle(tooltip).opacity;
+  const tooltipOpened = new Promise<void>((resolve, reject) => {
+    const timeout = window.setTimeout(() => { observer.disconnect(); reject(new Error("Keyboard tooltip did not open")); }, 1000);
+    const observer = new MutationObserver(() => {
+      if (tooltip.dataset.open !== 'true') return;
+      getComputedStyle(tooltip).opacity;
+      result.reducedMotionRespected = getComputedStyle(tooltip).transitionDuration.split(',').every(duration => parseFloat(duration) <= 0.001)
+        && getComputedStyle(tooltip).transform === 'none';
+      result.tooltipTransitionRetained = reducedMotion ? result.reducedMotionRespected
+        : tooltip.getAnimations().some(animation => animation instanceof CSSTransition && animation.transitionProperty === 'opacity');
+      result.tooltipOpenedFromKeyboard = getComputedStyle(tooltip).visibility === 'visible';
+      result.tooltipContained = tooltip.getBoundingClientRect().right <= 340 && wrapper.scrollWidth <= wrapper.clientWidth;
+      observer.disconnect(); window.clearTimeout(timeout); resolve();
+    });
+    observer.observe(tooltip, {attributes: true, attributeFilter: ['data-open']});
+  });
+  presentation.focus();
+  await tooltipOpened;
+  assert(result.tooltipTransitionRetained, "Notes tooltip opening lost its opacity transition");
+  assert(result.tooltipOpenedFromKeyboard && result.tooltipContained, "Keyboard tooltip escaped the Notes width");
+  presentation.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true, cancelable: true}));
+  await wait(20);
+  result.tooltipEscapeClosed = tooltip.dataset.open === 'false';
+  assert(result.tooltipEscapeClosed, "Escape did not close keyboard tooltip");
+  input.focus();
   if (large) {
     find<HTMLButtonElement>('[data-task-note-control="presentation"]').click();
     await wait(40);

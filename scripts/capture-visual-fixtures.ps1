@@ -52,7 +52,8 @@ function Capture-Theme {
         [string]$DomPath,
         [int]$VirtualTimeBudgetMs = 0,
         [string]$ReadyMarker = "",
-        [int]$ReadyMaxAttempts = 4
+        [int]$ReadyMaxAttempts = 4,
+        [switch]$ReducedMotion
     )
 
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
@@ -79,6 +80,7 @@ function Capture-Theme {
         if ($VirtualTimeBudgetMs -gt 0) {
             $arguments = @("--virtual-time-budget=$VirtualTimeBudgetMs") + $arguments
         }
+        if ($ReducedMotion) { $arguments = @("--force-prefers-reduced-motion") + $arguments }
 
         if ($ReadyMaxAttempts -lt 1) {
             throw "ReadyMaxAttempts must be at least 1."
@@ -143,15 +145,20 @@ function Capture-Theme {
 
 function Capture-FocusEditors([string]$theme) {
     foreach ($editorScenario in @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel')) {
-        $editorLabel = "focus-editor-$editorScenario-$theme"
-        Capture-Theme `
-            -EdgePath $edge `
-            -Theme $editorLabel `
-            -Url "$baseUrl/focus-editor-fixture.html?theme=$theme&scenario=$editorScenario" `
-            -ScreenshotPath (Join-Path $outputPath "$editorLabel.png") `
-            -DomPath (Join-Path $outputPath "$editorLabel.html") `
-            -VirtualTimeBudgetMs 2500 `
-            -ReadyMarker 'data-focus-editor-fixture-ready="true"'
+        $motionVariants = if ($editorScenario.StartsWith('quick-')) { @($false) } else { @($false, $true) }
+        foreach ($reduced in $motionVariants) {
+            $suffix = if ($reduced) { '-reduced' } else { '' }
+            $editorLabel = "focus-editor-$editorScenario-$theme$suffix"
+            Capture-Theme `
+                -EdgePath $edge `
+                -Theme $editorLabel `
+                -Url "$baseUrl/focus-editor-fixture.html?theme=$theme&scenario=$editorScenario&motion=$reduced" `
+                -ScreenshotPath (Join-Path $outputPath "$editorLabel.png") `
+                -DomPath (Join-Path $outputPath "$editorLabel.html") `
+                -VirtualTimeBudgetMs 2500 `
+                -ReadyMarker 'data-focus-editor-fixture-ready="true"' `
+                -ReducedMotion:$reduced
+        }
     }
 }
 

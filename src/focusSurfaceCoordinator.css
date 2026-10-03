@@ -171,8 +171,14 @@
   max-width: 100%;
 }
 
-/* Invisible tooltip boxes must not enlarge a scrollable Notes toolbar. Closing
-   already hides visibility immediately; this does not remove a visible exit. */
+/* Keep the closed opacity/transform state painted for the opening transition,
+   while collapsing invisible boxes so they cannot enlarge the Notes scroller. */
 .focus-surface-coordinator .task-notes__toolbar .overlay-tooltip[data-open="false"] {
-  display: none;
+  width: 0;
+  height: 0;
+  max-width: 0;
+  max-height: 0;
+  padding: 0;
+  border-width: 0;
+  overflow: hidden;
 }
