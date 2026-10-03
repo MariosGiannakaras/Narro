@@ -366,9 +366,11 @@ Deep-pass status: **COMPLETE for conditional destructive/update controls**.
 
 Exact reveal/collapse easing is **CUT/UNMEASURABLE** from the edited tutorial sequence.
 
-### VE-018 — Planning workflow
+### Unmapped user-supplied planning clip — formerly misattributed to VE-018
 
-Deep-pass status: **REOPENED / DENSE RE-AUDIT COMPLETE for the supplied 9.34 s planning clip; prior second-pass disposition was too coarse**.
+Deep-pass status: **DENSE RE-AUDIT COMPLETE for the supplied 9.344 s / 560-frame planning clip; SOURCE LINEAGE UNMAPPED**.
+
+**Provenance correction — 2026-10-03:** the actual repository VE-018 MP4 uses a different Personal-list dataset (`Hug my dog`, `Pay electricity bill`, etc.) and different older weekly-aggregate semantics. This 9.344 s clip is therefore **not VE-018 footage**. Preserve it as separate direct source evidence until its version/source provenance is established.
 
 **UI-DIRECT / MOTION-DIRECT**
 - Today is not merely another neutral lane: it carries a persistent cyan→green accent outline and an anchored gradient `Blitz now` CTA.
@@ -380,7 +382,9 @@ Deep-pass status: **REOPENED / DENSE RE-AUDIT COMPLETE for the supplied 9.34 s p
 - Activating `Blitz now` animates the gradient CTA and then fades the board over roughly **250 ms** before Focus presentation; the pointer itself remains an OS-level visual and is not part of the fade.
 - The canonical screenshot `help-v2x-today-column-task-progress-dark.png` independently corroborates the Today accent outline, `4/5 Done` progress, left task ordinal, EST at lower left and Time Taken at lower right.
 
-**NARRO RECONCILIATION — 2026-10-02**
+**HISTORICAL NARRO RECONCILIATION SNAPSHOT — 2026-10-02**
+
+The bullets below describe the implementation snapshot at the time of the original clip analysis. They are retained for history only; later implementation PRs/tracking may supersede individual gap statements. This analysis-only track must not use them as current implementation truth.
 - current cross-lane pointer drag collapses to append-only because cross-lane hover forces `beforeTaskId: null`: **IMPLEMENTATION_GAP**;
 - current lane header uses full initial EST rather than visible remaining work (`EST - Time Taken`, floor at zero): **IMPLEMENTATION_GAP**;
 - current Today header renders a generic task count and lacks source progress treatment: **IMPLEMENTATION_GAP**;
@@ -389,7 +393,7 @@ Deep-pass status: **REOPENED / DENSE RE-AUDIT COMPLETE for the supplied 9.34 s p
 - current reorder UI has a placeholder and finite settle effect, but it does not fully reproduce the observed source-lane collapse/reflow character: **IMPLEMENTATION_GAP / VISUAL PARITY**;
 - exact drag-lift/drop-settle duration remains unmeasured; do not invent a source timing constant.
 
-These findings supersede the earlier claim that VE-018 had no unique UI detail. They are routed through `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and the exhaustive Pass-3 plan.
+These findings remain high-value planning-board evidence, but they must no longer be attributed to VE-018. The repository VE-018 now has its own full-source Pass-3 record in `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
 
 ### VE-019 — historical light-theme / Floating-subtask update
 
