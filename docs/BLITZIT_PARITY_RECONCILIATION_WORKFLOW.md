@@ -96,19 +96,14 @@ Keep these concepts separate:
 
 Narro-owned screenshot fixtures protect the accepted implementation from regression. They do not by themselves establish `SOURCE_PARITY_PASS`.
 
-## Current M9 coordination checkpoint — 2026-10-03
+## Reports/Sessions source-family checkpoint — reconciled 2026-10-04
 
-The Reports/Sessions source family is not yet Pass-3 complete:
+The Reports/Sessions source family is Pass-3 complete:
 
-- VE-015 Sessions Walkthrough — OPEN;
-- VE-011 Reports — OPEN;
-- VE-012 Improved Sessions and Stats — OPEN.
+- VE-015 Sessions Walkthrough — SOURCE_COMPLETE;
+- VE-011 Reports — SOURCE_COMPLETE;
+- VE-012 Improved Sessions and Stats — SOURCE_COMPLETE.
 
-Therefore:
+Canonical source findings are now available for reconciliation. Current implementation/CI state is tracked in `HANDOFF.md`, `STATUS.md` and the audit crosswalk; this workflow file must not retain the old OPEN source gate.
 
-- nonvisual M9 reporting/domain/API work may continue when otherwise unblocked;
-- PR #205 is a nonvisual typed command/API boundary and is not blocked by those source analyses;
-- PR #198 is useful provisional visual work, but it must not be treated as final Reports parity or merged as the final user-facing Reports answer until the VE-015/011/012 findings are source-complete and reconciled against it;
-- no M9 user-facing visual acceptance claim may rely only on the existing Narro visual-fixture PASS.
-
-This checkpoint does not change the M9 TODO denominator and does not modify M7 work.
+No user-facing parity claim may rely only on Narro-owned fixtures. Final acceptance still requires the canonical source findings, visual-system calibration where relevant, current-implementation comparison and the normal validation/physical gates.
