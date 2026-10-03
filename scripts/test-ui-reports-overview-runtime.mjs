@@ -11,6 +11,7 @@ const runtime = read("src/ReportsOverview.tsx");
 const presentation = read("src/reportOverviewPresentation.ts");
 const view = read("src/ReportsOverviewView.tsx");
 const shell = read("src/AppShell.tsx");
+const workspace = read("src/ReportsWorkspace.tsx");
 const api = read("src/reportsApi.ts");
 const preferences = read("src/usePreferenceSettingsProjection.ts");
 const pkg = JSON.parse(read("package.json"));
@@ -31,7 +32,8 @@ for (const [haystack, needle, label] of [
   [presentation, 'case "Last 30 days"', "source-evidenced date preset"],
   [presentation, "sundayBased === 0 ? 6 : sundayBased - 1", "Monday-starting week"],
   [view, "setInteractiveTooltipDayId(day.id)", "keyboard/pointer chart tooltip state"],
-  [shell, '<ReportsOverview onBack={() => setActiveDestination("home")} />', "production Reports destination"],
+  [shell, '<ReportsWorkspace onBack={() => setActiveDestination("home")} />', "production Reports workspace destination"],
+  [workspace, 'onOpenSessions={() => setTab("sessions")}', "production Overview-to-Sessions tab routing"],
   [api, "listIds: string[];", "typed multi-select API contract"],
   [preferences, "getPreferenceSettings()", "local Preferences source"],
 ]) {
