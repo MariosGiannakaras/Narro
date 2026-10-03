@@ -24,12 +24,18 @@ export type PreferencePendingKey =
   | "scrollingTitle"
   | "timedAlerts"
   | "taskAlertInterval"
+  | "taskAlertSound"
+  | "taskAlertVolume"
   | "timerFlash"
   | "notificationAlerts"
+  | "notificationSound"
+  | "notificationVolume"
   | "scheduleReminders"
   | "reminderLead"
   | "successScreen"
-  | "funGif";
+  | "funGif"
+  | "successSound"
+  | "successSoundVolume";
 
 type PreferenceSettingsRuntimeValue = {
   snapshot: PreferenceSettingsSnapshot | null;

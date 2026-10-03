@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
-import { presentFocusPanel, startBlitz } from "./focusEntryApi";
+import { presentFocusForBlitz, startBlitz } from "./focusEntryApi";
+import "./blitzEntryButton.css";
 
 export function BlitzEntryButton() {
   const [pending, setPending] = useState(false);
@@ -26,7 +27,7 @@ export function BlitzEntryButton() {
       setStatus(committedStatus);
 
       try {
-        await presentFocusPanel();
+        await presentFocusForBlitz();
       } catch (presentationFailure: unknown) {
         setError(
           `Focus session is active, but the Focus Panel could not be shown. ${formatInvokeError(presentationFailure)}`,
@@ -40,32 +41,26 @@ export function BlitzEntryButton() {
   };
 
   return (
-    <section
-      aria-label="Blitz entry"
-      data-blitz-entry="true"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "0.75rem",
-        padding: "0.75rem 1rem",
-        borderTop: "1px solid var(--color-border-subtle)",
-        background: "var(--color-surface-raised)",
-      }}
-    >
+    <section className="blitz-entry" aria-label="Blitz entry" data-blitz-entry="today-lane">
       <button
         type="button"
+        className="blitz-entry__button"
         onClick={() => void handleStart()}
         disabled={pending}
         data-start-blitz="true"
       >
-        {pending ? "Starting Blitz…" : "Blitz now"}
+        <span aria-hidden="true">🚀</span>
+        <span>{pending ? "Starting Blitz…" : "Blitz now"}</span>
       </button>
-      <span className="type-metadata" aria-live="polite" aria-atomic="true">
-        {status}
-      </span>
-      {error ? (
-        <span className="type-metadata" role="alert" style={{ color: "var(--color-destructive)" }}>
-          {error}
+      {status || error ? (
+        <span
+          className="blitz-entry__feedback type-metadata"
+          data-error={error ? "true" : "false"}
+          role={error ? "alert" : undefined}
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {error ?? status}
         </span>
       ) : null}
     </section>

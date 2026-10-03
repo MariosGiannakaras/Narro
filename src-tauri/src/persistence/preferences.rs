@@ -1,5 +1,5 @@
 use crate::domain::preferences::{
-    PreferencesPayload, PreferencesRecord, PREFERENCES_SCHEMA_VERSION,
+    is_local_sound_id, PreferencesPayload, PreferencesRecord, PREFERENCES_SCHEMA_VERSION,
 };
 use chrono::DateTime;
 use rusqlite::{params, Connection, OptionalExtension};
@@ -18,7 +18,9 @@ pub enum PreferenceStoreError {
     InvalidStoredSchemaVersion(i64),
     UnsupportedSchemaVersion(u32),
     InvalidToken(&'static str),
+    InvalidSoundId(&'static str),
     InvalidDuration(&'static str, u32),
+    InvalidVolume(&'static str, u8),
     FunGifRequiresSuccessScreen,
     MissingAfterWrite,
 }
@@ -49,10 +51,22 @@ impl Display for PreferenceStoreError {
                     "preference field contains an invalid token: {field}"
                 )
             }
+            Self::InvalidSoundId(field) => {
+                write!(
+                    formatter,
+                    "preference sound is not in the local Narro catalog: {field}"
+                )
+            }
             Self::InvalidDuration(field, seconds) => {
                 write!(
                     formatter,
                     "preference duration is invalid for {field}: {seconds}"
+                )
+            }
+            Self::InvalidVolume(field, percent) => {
+                write!(
+                    formatter,
+                    "preference volume is invalid for {field}: {percent}"
                 )
             }
             Self::FunGifRequiresSuccessScreen => {
@@ -109,6 +123,26 @@ fn validate_optional_token(
     Ok(())
 }
 
+fn validate_optional_sound(
+    field: &'static str,
+    value: Option<&str>,
+) -> Result<(), PreferenceStoreError> {
+    validate_optional_token(field, value)?;
+    if let Some(value) = value {
+        if !is_local_sound_id(value) {
+            return Err(PreferenceStoreError::InvalidSoundId(field));
+        }
+    }
+    Ok(())
+}
+
+fn validate_volume(field: &'static str, value: u8) -> Result<(), PreferenceStoreError> {
+    if value > 100 {
+        return Err(PreferenceStoreError::InvalidVolume(field, value));
+    }
+    Ok(())
+}
+
 fn validate_duration(field: &'static str, value: u32) -> Result<(), PreferenceStoreError> {
     if value == 0 || value > MAX_DURATION_SECONDS {
         return Err(PreferenceStoreError::InvalidDuration(field, value));
@@ -146,17 +180,29 @@ pub fn validate_preferences(payload: &PreferencesPayload) -> Result<(), Preferen
             payload.alerts.reminder_lead_seconds,
         ));
     }
-    validate_optional_token(
+    validate_optional_sound(
         "alerts.task_alert_sound",
         payload.alerts.task_alert_sound.as_deref(),
     )?;
-    validate_optional_token(
+    validate_volume(
+        "alerts.task_alert_volume_percent",
+        payload.alerts.task_alert_volume_percent,
+    )?;
+    validate_optional_sound(
         "alerts.notification_sound",
         payload.alerts.notification_sound.as_deref(),
     )?;
-    validate_optional_token(
+    validate_volume(
+        "alerts.notification_volume_percent",
+        payload.alerts.notification_volume_percent,
+    )?;
+    validate_optional_sound(
         "celebration.success_sound",
         payload.celebration.success_sound.as_deref(),
+    )?;
+    validate_volume(
+        "celebration.success_sound_volume_percent",
+        payload.celebration.success_sound_volume_percent,
     )?;
     if payload.celebration.fun_gif && !payload.celebration.show_success_screen {
         return Err(PreferenceStoreError::FunGifRequiresSuccessScreen);
@@ -312,6 +358,28 @@ mod tests {
         assert!(matches!(
             validate_preferences(&token),
             Err(PreferenceStoreError::InvalidToken("general.timezone"))
+        ));
+    }
+
+    #[test]
+    fn invalid_sound_id_and_volume_are_rejected() {
+        let mut sound = PreferencesPayload::default();
+        sound.alerts.task_alert_sound = Some("https://example.com/remote.wav".into());
+        assert!(matches!(
+            validate_preferences(&sound),
+            Err(PreferenceStoreError::InvalidSoundId(
+                "alerts.task_alert_sound"
+            ))
+        ));
+
+        let mut volume = PreferencesPayload::default();
+        volume.alerts.notification_volume_percent = 101;
+        assert!(matches!(
+            validate_preferences(&volume),
+            Err(PreferenceStoreError::InvalidVolume(
+                "alerts.notification_volume_percent",
+                101
+            ))
         ));
     }
 

@@ -1,0 +1,50 @@
+{"action":"candidate-launch-prepared","utc":"2026-10-03T12:32:05.0732798Z","source":"5cc184d87ae4f3562e439012292526940a48cb0a","mergedSource":"1a96da7d8b4c6f4aa2aa58cb7d6bd49726b0fab0","ciRun":37122117866,"artifactId":11274516121,"exeSha256":"a279664e4805eed7673ca30b1e2af6ff0f47356c1d59f8f92dacbdd8e2eb4bb3"}
+{"utc":"2026-10-03T12:33:25.526Z","action":"global-toggle-from-main","key":"Ctrl+Shift+T","phase":"normal"}
+{"utc":"2026-10-03T12:34:39.991Z","action":"compact-to-panel-1","key":"Ctrl+Shift+T","phase":"normal","windowId":82577016}
+{"utc":"2026-10-03T12:35:36.951Z","action":"panel-to-compact-1","key":"Ctrl+Shift+T","phase":"normal","windowId":82577016}
+{"utc":"2026-10-03T12:36:53.110Z","action":"compact-expand-1","phase":"normal","windowId":82577016}
+{"utc":"2026-10-03T12:38:22.229Z","action":"expanded-notes-open","phase":"normal","windowId":82577016}
+{"utc":"2026-10-03T12:39:10.941Z","action":"expanded-open-larger-notes","phase":"normal","windowId":82577016}
+{"utc":"2026-10-03T12:40:40.980Z","action":"larger-notes-escape","phase":"normal"}
+{"utc":"2026-10-03T12:41:16.171Z","action":"expanded-notes-close","phase":"normal"}
+{"utc":"2026-10-03T12:41:28.988Z","action":"expanded-quick-create-open","key":"Ctrl+Alt+T","phase":"normal"}
+{"utc":"2026-10-03T12:43:12.179Z","action":"expanded-return-panel-button","phase":"normal"}
+{"utc":"2026-10-03T12:44:12.353Z","action":"switch-greek-to-english-for-shortcut-comparison","key":"Alt+Shift"}
+{"utc":"2026-10-03T12:45:05.832Z","action":"panel-add-validation-task-button"}
+{"utc":"2026-10-03T13:26:20.761Z","action":"create-dedicated-long-title-task"}
+{"utc":"2026-10-03T13:27:54.7872272Z","action":"native-uia-invoke","button":"Add task","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1773;639;112;50","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:28:42.9017750Z","action":"native-uia-invoke","button":"Skip","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1710;402;44;38","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:28:55.9560916Z","action":"native-uia-invoke","button":"Pause","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1632;406;74;38","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:30:14.7836862Z","action":"native-uia-invoke","button":"Add subtask for M7 CI884 UI batch validation with a long title for compact overflow checks","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1840;338;40;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:31:11.4799063Z","action":"native-uia-invoke","button":"Add","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1830;451;50;43","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:31:39.4347962Z","action":"native-uia-invoke","button":"Add","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1830;481;50;43","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:38:37.3605182Z","action":"native-uia-invoke","button":"Compact view","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1856;20;40;40","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:39:25.3375120Z","action":"physical-click-expand","x":1585,"y":360}
+{"utc":"2026-10-03T13:39:37.5133589Z","action":"native-uia-invoke","button":"Complete subtask: Validation subtask A — wrap and progress","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1211;430;40;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:39:49.5712049Z","action":"native-uia-invoke","button":"Edit subtask: Validation subtask B","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1258;494;206;23","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:39:59.270Z","action":"subtask-edit-value","value":"Validation subtask B edited"}
+{"utc":"2026-10-03T13:40:08.3211079Z","action":"native-uia-invoke","button":"Save subtask title","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1561;485;41;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:40:18.1835360Z","action":"native-uia-invoke","button":"Move subtask up: Validation subtask B edited","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1471;485;41;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:40:32.6595279Z","action":"native-uia-invoke","button":"Reopen subtask: Validation subtask A — wrap and progress","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1211;485;40;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:40:42.2879014Z","action":"native-uia-invoke","button":"Delete subtask: Validation subtask B edited","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1561;430;41;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:41:41.5939908Z","action":"os-keyboard-layout","request":"english","before":"4090409","after":"4090409","installed":["4090409","4080408"]}
+{"utc":"2026-10-03T13:41:52.066Z","action":"ctrl-alt-t-english"}
+{"utc":"2026-10-03T13:42:10.7290950Z","action":"os-keyboard-layout","request":"greek","before":"4090409","after":"4090409","installed":["4090409","4080408"]}
+{"utc":"2026-10-03T13:43:27.9938275Z","action":"quick-create-cancel-pointer","x":1564,"y":228}
+{"utc":"2026-10-03T13:43:42.027Z","action":"ctrl-alt-t-greek-focused-webview-hkl-4080408"}
+{"utc":"2026-10-03T13:44:16.1492148Z","action":"focused-webview-keyboard-layout","request":"english","focus":18416596,"active":82577016,"pid":21236,"before":"4080408","after":"4090409"}
+{"utc":"2026-10-03T13:44:16.397Z","action":"ctrl-alt-t-English-focused-WebView"}
+{"utc":"2026-10-03T13:44:48.011Z","action":"quick-create-Escape-English"}
+{"utc":"2026-10-03T13:45:42.0759863Z","action":"focused-webview-keyboard-layout","request":"greek","focus":18416596,"active":82577016,"pid":21236,"before":"4090409","after":"4080408"}
+{"utc":"2026-10-03T13:45:42.3737934Z","action":"os-client-area-animation","request":"reduced","before":1,"after":0}
+{"utc":"2026-10-03T13:46:06.033Z","action":"reduced-panel-to-compact"}
+{"utc":"2026-10-03T13:46:27.548Z","action":"reduced-compact-to-panel"}
+{"utc":"2026-10-03T13:47:04.9257072Z","action":"os-client-area-animation","request":"normal","before":0,"after":1}
+{"utc":"2026-10-03T13:47:56.5121211Z","action":"native-uia-observed-pointer-click","button":"Notes","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1573;402;55;38","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:48:10.967Z","action":"set-validation-note"}
+{"utc":"2026-10-03T13:48:24.3163931Z","action":"native-uia-invoke","button":"Save note","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1782;760;87;39","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:49:09.7864142Z","action":"native-uia-observed-pointer-click","button":"Notes","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1573;402;55;38","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:49:26.6050149Z","action":"native-uia-invoke","button":"Break","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1517;402;52;38","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:49:45.2298562Z","action":"native-uia-invoke","button":"Resume","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1632;406;74;38","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:50:00.7893216Z","action":"native-uia-invoke","button":"Done","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1828;402;52;38","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-03T13:50:20.7948478Z","action":"native-uia-invoke","button":"Pause","windowId":82577016,"processId":14080,"offscreen":false,"bounds":"1632;406;74;38","authorization":"User authorized native fallback for real Windows testing"}

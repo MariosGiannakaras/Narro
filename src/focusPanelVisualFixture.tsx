@@ -283,6 +283,24 @@ const contract = {
   subtasks: optionalBox(".focus-panel__subtasks"),
   subtaskRing: optionalBox(".focus-panel__subtask-ring"),
   actions: optionalBox(".focus-panel__live-actions"),
+  actionLabels: Array.from(document.querySelectorAll<HTMLButtonElement>(".focus-panel__live-actions > button"), (button) => {
+    const rect = button.getBoundingClientRect();
+    const style = getComputedStyle(button);
+    const range = document.createRange();
+    range.selectNodeContents(button);
+    // clientWidth rounds to whole pixels and can hide subpixel truncation that
+    // still triggers CSS ellipsis. Measure the actual fractional content box.
+    const availableWidth = rect.width - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth)
+      - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    return {
+      action: button.dataset.focusAction,
+      label: button.textContent?.trim(),
+      x: rect.x,
+      width: rect.width,
+      labelWidth: range.getBoundingClientRect().width,
+      availableWidth,
+    };
+  }),
   notes: optionalBox(".focus-panel__notes:not([hidden])"),
   notesStyle: styleContract(".focus-panel__notes:not([hidden])"),
   firstRow: optionalBox('.focus-panel__task-row[data-focus-task-row="remaining"]'),

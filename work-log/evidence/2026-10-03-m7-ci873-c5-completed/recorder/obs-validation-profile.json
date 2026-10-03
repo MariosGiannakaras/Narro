@@ -1,0 +1,10 @@
+{
+  "name": "Narro UI Validation",
+  "path": "C:\\Users\\MariosG\\AppData\\Roaming\\obs-studio\\basic\\profiles\\NarroUIValidation",
+  "base": "4480x1080",
+  "fps": 60,
+  "encoder": "obs_x264 CRF18 veryfast",
+  "container": "MKV",
+  "audioTracks": 1,
+  "originalUntitledProfilePreserved": true
+}

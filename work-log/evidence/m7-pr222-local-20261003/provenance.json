@@ -1,0 +1,82 @@
+{
+  "localSourceSha": "d7b913e16fc693402a3380dd40152d008bdae390",
+  "pr": "https://github.com/MariosGiannakaras/Narro/pull/222",
+  "sourceFileHashes": [
+    {
+      "path": "focus-editor-fixture.html",
+      "sha256": "a99a31b19640ea3677c187738aa317d62f2bd36b0c3259164c38a337528d8ff0"
+    },
+    {
+      "path": "package.json",
+      "sha256": "8c82ba39cf1d66021061640a90494e87da91f276922e399aab191b8ef57be5f0"
+    },
+    {
+      "path": "scripts/capture-visual-fixtures.ps1",
+      "sha256": "efbdf046d105b9e79f7c945c79f4396d5954eebbf1b62a1f20ddf2fa333102fc"
+    },
+    {
+      "path": "scripts/test-in-app-shortcuts.mjs",
+      "sha256": "58f64cea862358e63412001f26bdb91b1fb133f0960189db380b82daad5ba5d9"
+    },
+    {
+      "path": "scripts/test-single-focus-architecture.mjs",
+      "sha256": "537436d0098d81af596cf3fd59c637e94a382978cde1f96cb9a2c4e1c867fa74"
+    },
+    {
+      "path": "scripts/validate-focus-editor-captures.mjs",
+      "sha256": "e169fd05e65bca7b3068def8062482344c5e97993a9d0eb073fe03fae220b096"
+    },
+    {
+      "path": "src-tauri/tauri.ci.conf.json",
+      "sha256": "63d0ef4c25ea989389c83f7882599488cafcdeb1de02c8a4e69446b8ce463a0d"
+    },
+    {
+      "path": "src-tauri/tauri.conf.json",
+      "sha256": "f6c2205e0c0c4d46ac96c02b2c8b75156a2142a5f296ef0403bd642f824a0512"
+    },
+    {
+      "path": "src-tauri/tauri.diagnostic.conf.json",
+      "sha256": "856dcfa026de39243f261b46a546cffcc15df77ad034b739e252efe8e8efcc51"
+    },
+    {
+      "path": "src/SearchPalette.tsx",
+      "sha256": "f966d29c3cb8d9507fe592ea187d8abe913481d6a89fd1220e4d29db36f88118"
+    },
+    {
+      "path": "src/TaskNotes.tsx",
+      "sha256": "9814425210c001ab835b49fbf6276e214330b9e5e592c671482b15163d0422ed"
+    },
+    {
+      "path": "src/floatingTimerFoundation.css",
+      "sha256": "890cffdf315e2097b2e9e878653c6ccc807c26b6a08f3f64a958d8e55937a9a2"
+    },
+    {
+      "path": "src/focusEditorsVisualFixture.tsx",
+      "sha256": "b388cda84010909a4223e82901548d3a9fe82b95c6c24e9e2559b5cf4833935c"
+    },
+    {
+      "path": "src/focusSurfaceCoordinator.css",
+      "sha256": "efa11de7672c131b220fe5c18838438e37dab15497767480c596a9f49d56f382"
+    },
+    {
+      "path": "src/inAppShortcuts.ts",
+      "sha256": "8bc4a64ff4440f1f691b0a3ce9d81bc8cf647a909059380b354f24ca20fea939"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "2c409e282069ab67b18e7c256710ee3b02ddf9260e740f45236166486fa1a011"
+    }
+  ],
+  "results": {
+    "renderedScenarios": 18,
+    "rendererAssertions": "PASS",
+    "frontendPreflight": "PASS before final scoped rollback-opacity correction",
+    "finalBuild": "PASS after correction",
+    "targetedTransitionAndReducedMotionContracts": "PASS after correction",
+    "rustFormatting": "PASS",
+    "performanceHarnessSelfTests": "PASS",
+    "localRustCompileClippyTests": "NOT RUN: MSVC link.exe unavailable",
+    "physicalWindows": "NOT RUN for this source"
+  },
+  "note": "Final source head may be rebased over documentation/evidence-only main commits. Source file hashes identify the exact locally tested implementation independently of commit SHA. Browser fixtures are not physical native acceptance."
+}

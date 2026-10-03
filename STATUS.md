@@ -1,40 +1,601 @@
 # STATUS.md
 
-Last updated: 2026-09-30
+Last updated: 2026-10-03
+## 2026-10-03 — M9 nonvisual reporting contracts validated through main CI #898
+
+M9 PR #205 first exposed the validated Overview aggregation through typed Tauri/renderer DTOs and PASSed resulting-main Windows CI #889 on source `f1cca810ea7d7fe6130d43ae0f6bfe649a7154af`.
+
+After VE-015 / VE-011 / VE-012 became `SOURCE_COMPLETE`, PR #223 reconciled the nonvisual reporting contracts to that evidence: live multi-select list filtering, reverse-chronological Sessions projection, all-history task-relative work-session ordinals, and task-session detail independent from the selected report range. Break-session ordinals remain intentionally absent because the source does not establish them. The renderer remains invoke-driven; no report arithmetic/polling or timer authority moved into React.
+
+PR #223 exact head `8ea467a8eeea0f3c623a82927bc3575aa4221780` PASSed Windows CI #897 / run `37135494993`. It merged as source `a36125664831243faf36954f4691f9733a325d76`, and resulting-main Windows CI #898 / run `37136599839` **PASSed all gates**. The #898 fast gate explicitly reported `Reports history/session command API contracts passed.`; Windows Rust tests, performance harness, visual regression, release/runtime build and required validation steps all passed.
+
+This validates the nonvisual M9 foundation only. No top-level M9 roadmap checkbox is closed yet because production Reports/Sessions UI, interactions and exports remain incomplete. PR #198 is still provisional visual foundation and must be reconciled against the now-complete source evidence before merge.
+
+Durable closure: `work-log/2026-10-03-chatgpt-m9-pr223-main898-closure.md`.
+
+
+## 2026-10-03 — M7 correction merged on CI #893; physical acceptance open
+
+PR #221 is merged as validated application source 1a96da7d8b4c6f4aa2aa58cb7d6bd49726b0fab0, tree-identical to exact head 5cc184d87ae4f3562e439012292526940a48cb0a that PASSed full Windows CI #884. The real exact EXE batch passed Create/Skip/Pause, shared projection, subtask mutations/progress, Notes save, manual-break return and exact 13-second completed-work persistence. Native frame insets, horizontal Notes overflow, clipped large Notes, Greek shortcuts/loading-modal focus and transient outgoing/incoming coexistence are FAIL and routed FIX_NOW. The complete [physical evidence](work-log/2026-10-03-codex-m7-ci884-physical-batch-evidence.md) includes full video/logs and a 360-frame dense review. No all-UI PASS is claimed.
+
+The corrective slice is **3/5**: PR #222 exact head `549536c4d19b0045a928652d3feff53162f55a6e` PASSed all Windows CI #893 gates and was guarded-merged as `ccf0fef5554fe8b635807df9214d56d3b2c29457`, with zero non-Markdown differences. Duplicate main CI #896 was cancelled. Six corrections, full local frontend preflight/Rustfmt and 30 explicit normal/reduced rendered cases are validated automatically; physical acceptance remains OPEN. Final artifact `11278482082` is downloaded/verified, EXE SHA-256 `01dd602454f10f85aeecd53eb1bfcdd53368b2eec46fa60cfb5d5cf80385018b`. [Final candidate/evidence](work-log/2026-10-03-codex-m7-pr222-ci893-merged-candidate-ready.md). Roadmap remains 5/10M and physical count 14/19. Original CI #873 C5 remains PASS for its exact build; changed-host restart/placement requires fresh acceptance. Computer Use twice returned its Escape stop after explicit resumption/reset; no further app input was issued that turn. Re-observe live state and use the [two-monitor physical recipe](work-log/2026-10-03-codex-m7-pr222-affected-physical-batch.md). Source parity/calibration is not certified by this automated PASS.
+
+## 2026-10-03 — CI #873 C5 physical restart PASS; continuous video delivered
+
+The requested exact `narro-m7-validation.exe` (`4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`) completed a real running-task compact Timer drag, normal **Quit Narro** through the tray, same-EXE relaunch and visible saved-position restore. The native evaluator is **PASS**: maximum qualifying movement **328 px**, saved/expected/actual position **`(1640,780)`**, unchanged executable/source/topology, different process sessions. The recovered task retained **2:16:57** and was visibly **Paused**. No C5 physical user action remains.
+
+Both complete logger sessions, the whole `Narro-M7-Logs` folder/ZIP, a continuous **4480×1080 / 60 fps / 5:40** two-monitor C5 video, video-derived PNGs and hashes are published in [the completed run](work-log/2026-10-03-codex-m7-ci873-c5-completed.md) and [embedded visual/motion review](work-log/2026-10-03-codex-m7-ci873-c5-video-review.md). The earlier interrupted attempt is historical. Additional motion frames document overlap/header-only intermediate content and shortened Panel labels as **REVIEW_PENDING**, not a claimed universal UI PASS. These observations are routed in the crosswalk/TODO. Formal M7 tracking reconciliation remains open; the concurrent M8 closure counters `5/10M || 5/5 | 14/19` are preserved; this C5 publication does not add a further milestone/counter advance. M1 Candidate B B/C/D were not performed in this C5 run.
+
+Operational changes: a remembered MicrosoftEdgeWebView2 NetLimiter **Allow** dismissed the blocker; a separate **Narro UI Validation** OBS profile uses native two-monitor 60 fps, CRF18 and MKV while retaining the original profile/scene. Its real recording smoke stopped normally. Narro is left paused; OBS is stopped/closed. [Windows UI video-review workflow and coverage ledger](docs/WINDOWS_UI_VIDEO_REVIEW.md) records the usable process and remaining coverage.
+
+## 2026-10-03 — Milestone 8 PASS on resulting-main CI #882
+
+M8 is now fully reconciled against the current single-`focusSurface` tree. PR #220 final head `af4420aa7610008c2dba8cf54c12158178abf7d4` passed Windows CI #881, merged with expected-head guard as source `45c3218f5923c2ff673d8c1dd562de7545be1ecb`, and resulting-main Windows CI #882 / run `37117266417` **PASSed every gate**. Later main commits are documentation/evidence only and do not replace that validated application source.
+
+The same resulting-main run explicitly passed the single-host Focus toggle, in-app shortcut, global-shortcut persistence/rollback, Preferences, local-sound, timed-alert-sound and success-sound contracts. Rust tests also passed manual-break natural/explicit resume and skipped-break-paused semantics. Therefore the three reopened shortcut rows and PREF-R05 are reconciled without another runtime patch.
+
+M1 physical monitor/topology/performance gates and formal M7 reconciliation remain OPEN; C5 saved-placement physical restart is now PASS as recorded above. These are not evidence against M8 shortcut/preferences correctness. Milestone progress advances to `5/10M`. The completed PREF-R05 implementation slice is `5/5`; the separate physical gate count remains `14/19`.
+
+Durable closure: `work-log/2026-10-03-chatgpt-m8-main882-milestone-closure.md`.
+
+
+## Historical checkpoints
+
+The dated sections below preserve their at-the-time state. They are superseded by the current C5 PASS and live M8 checkpoint above; old OPEN/PENDING, candidate identities and counters are historical, not continuation instructions. Use `HANDOFF.md` and `TODO.md` for current actions.
+
+## 2026-10-03 — M8 PREF-R05 merged; resulting-main CI #882 active
+
+PR #220 final exact head `af4420aa7610008c2dba8cf54c12158178abf7d4` passed full Windows CI #881 / run `37111582864`, including fast frontend/contracts, Rust check/Clippy/tests, visual regression, release/physical builds, M7 automatic-validation smoke, and M1 diagnostic storage isolation. The final slice includes the local-only four-sound catalog, persisted selector/volume validation, single-owner non-overlapping previews, authoritative timed-alert sound consumption, and success-screen sound playback after committed completion.
+
+PR #220 was expected-head guarded squash-merged as `45c3218f5923c2ff673d8c1dd562de7545be1ecb`. Resulting-main Windows CI #882 / run `37117266417` is active on that exact source. PREF-R05 remains OPEN until #882 passes and tracking reconciliation completes. Progress remains `4/10M || 4/5 | 14/19`.
+
+Durable checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-merged-main882-active.md`.
+
+
+### Historical checkpoint — CI #873 C5 first attempt interrupted (superseded above)
+
+The first attempt verified the requested EXE and observed a qualifying 268 px drag, then stopped after a physical-Escape interruption before tray Quit/relaunch. At that historical checkpoint the evaluator was PENDING. The continuation above completed the missing flow and delivered continuous video; use its PASS evidence for current C5 truth. [The original immutable attempt](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md) and [22-image gallery](work-log/2026-10-03-codex-m7-ci873-c5-visual-review.md) remain historical evidence.
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
+
+## 2026-10-03 — M8 PREF-R05 active on PR #220
+
+Independent implementation resumed under the manual-test batching policy while M1/M7 physical gates remain OPEN. PR #220 implements the local-only sound selector/preview/volume slice with strict local-ID persistence validation and non-overlapping preview ownership. CI #874 passed the complete fast frontend/contracts/build gate and failed only Rust formatting; the exact three formatting hunks were corrected. CI #876 / run `37108157268` is active on exact head `6a8b9ba8877a83921135f755def126fc32b6dc13`. No progress counter advances until authoritative validation and reconciliation complete.
+
+Durable checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-ci876.md`.
+
+
+## 2026-10-03 — M7 resulting-main CI #873 PASS; final physical executable fixed
+
+Windows CI #873 / run `37105088285` **PASSed** on merged source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. The final resulting-main artifact is `narro-m7-validation-windows-x64`, id `11268220111`, ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`. The contained `narro-m7-validation.exe` is SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`, size `14874624`, fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`; the downloaded artifact and CI smoke agree exactly.
+
+Repository-side preparation and the requested real Windows tray-Quit → same-EXE relaunch → saved Timer restore are complete. The whole two-process logger folder and physical video are in the completed run above. C5 physical result is PASS; formal tracking/new-observation disposition remains pending. No rebuild is required merely to repeat the successful restart criterion. Progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m7-main873-final-validation-artifact.md`.
+
+
+## 2026-10-03 — M7 resulting-main CI #873 PASS; final physical artifact ready
+
+Resulting-main Windows CI #873 / run `37105088285` **PASSed** on source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Final M7 C5 validation artifact is `narro-m7-validation-windows-x64`, id `11268220111`; ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`; contained `narro-m7-validation.exe` SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`; CI fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`. The artifact was downloaded and independently verified.
+
+The artifact-ready checkpoint has been superseded by the completed physical C5 PASS and delivered whole logger folder/video above. Formal milestone tracking/new-observation disposition remains pending; current progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m7-main873-validation-artifact-ready.md`.
+
+
+## 2026-10-03 — PR #219 exact-head PASS and merged; resulting-main CI #873 active
+
+PR #219 final exact head `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1` passed full Windows CI #872 / run `37101133903`. The dedicated validation artifact `narro-m7-validation-windows-x64` (id `11266587277`) was downloaded and verified: ZIP SHA-256 `925995634e4862e17da604f3f40566e0488738fb0caa9fed4c8f364b9cc99e28`, contained EXE SHA-256 `a016ceeb570a8c0f32042d71a4fa9658d4f146117b9ab05f130dc9ef897a9548`, fingerprint `fnv1a64:b8709c61031dee55:bytes:14874624`. CI smoke PASSed with evaluator initially PENDING.
+
+PR #219 was expected-head guarded squash-merged as `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Resulting-main Windows CI #873 / run `37105088285` is active. Final physical C5 instructions should be handed off only after #873 passes and its resulting-main artifact is verified. Progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m7-pr219-merged-main873-active.md`.
+
+
+## 2026-10-03 — M1 final Candidate B fixed from resulting-main CI #866
+
+The post-PR #217 resulting-main diagnostic candidate is now fully reconciled. Windows CI #866 / run `37078139295` **PASSed** on exact source `f1a200c3624c3e25154a7023443c1dfc5be1e69d`, including the real diagnostic storage-isolation smoke after the bounded SQLite handle-release retry.
+
+Final Candidate B for physical M1 B/C/D:
+- artifact `narro-m1-diagnostic-windows-x64`, id `11257763093`;
+- ZIP SHA-256 `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`;
+- contained diagnostic `narro.exe` SHA-256 `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`.
+
+CI #866 resolved diagnostic SQLite under `com.mariosg.Narro.M1Diagnostic` and reported both production Roaming and Local `com.mariosg.Narro` namespaces unchanged. The artifact contains the three measurement/physical helper scripts plus the M1 Windows validation docs. `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md` now contains the exact Candidate B identity and performance-run hash.
+
+Repository-side Candidate B preparation is complete; selected-monitor placement, reconnect/re-enumeration and 3× floating-only CPU/RAM remain real-Windows physical/measurement gates. No progress counter changes: `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m1-ci866-final-candidate-b.md`.
+
+
+## 2026-10-03 — M7 complete two-session evidence handoff; CI #872 active
+
+A correctness review found the generated README could have caused incomplete debugging evidence by asking for only the latest session. The C5 restart test spans two processes, so PR #219 now explicitly requires retaining/uploading the entire `Narro-M7-Logs` folder. The static contract locks this requirement. No timer/persistence semantics changed.
+
+Current PR #219 exact head: `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1`. Windows CI #872 / run `37101133903` is the active authoritative validation. PR metadata also states the two-session evidence requirement. No progress counter changes.
+
+## 2026-10-03 — M7 CI #869 failed only in validation-smoke PowerShell parsing; #871 active
+
+PR #219's prior exact head `422230e755a373d3ccb61246e1917ff7934a1210` reached and PASSed the physical build verification in Windows CI #869, then failed before the new logging smoke could launch because `scripts/verify-m7-validation-logging.ps1` had a malformed fingerprint-regex line plus duplicated trailing script content. This is validation-tool syntax evidence, not a Narro runtime/logger failure.
+
+The correction is deliberately narrow: the smoke script was reconstructed as one valid try/finally flow, and the Windows preflight now parses that script before the expensive physical build. PR #219 current exact head is `fd621696e539ab1e621e48b2ad2a2318c01219b2`; Windows CI #871 / run `37100908558` is active. No progress counter advances.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m7-ci869-parser-failure-ci871.md`.
+
+## 2026-10-03 — M7 automatic local validation logger implemented in PR #219; CI pending
+
+Main diagnostic-storage baseline is now green: Windows CI #866 / run `37078139295` completed **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d` after the bounded post-exit SQLite handle-release retry. PR #217 is merged; older current-state text describing it as open is superseded by this section. PR #218 is now **closed** and must not be treated as an active continuation.
+
+PR #219 (`M7: add automatic local physical-validation logs`) is open at exact head `fd621696e539ab1e621e48b2ad2a2318c01219b2`. It adds validation-only local instrumentation activated only when the executable is named `narro-m7-validation.exe`. The executable creates `Narro-M7-Logs` automatically while it runs; normal `narro.exe` keeps the logger inert.
+
+The structured trace captures native Focus geometry/presentation, monitor bounds/work areas/DPI, process/session/source identity, executable fingerprint, accepted Timer movement, SQLite placement persistence, normal tray-Quit outcome and cross-process restore. It intentionally excludes task/list/note content and performs no upload/telemetry. The C5 evaluator reports `PENDING / PASS / FAIL / INCONCLUSIVE`, with PASS requiring complete fail-closed restart evidence rather than inference.
+
+Windows CI #869 / run `37079768471` failed only at the malformed PowerShell smoke-script parser boundary; corrective Windows CI #871 / run `37100908558` is active for the current exact PR #219 head. No validation or progress counter advances until that CI and subsequent merge/main validation complete. Current progress remains `4/10M || 4/5 | 14/19`.
+
+Durable checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-validation-logging-pr219-pending.md`. PR #218 concurrency correction: `work-log/2026-10-03-chatgpt-pr218-concurrency-correction.md`.
+
+
+
+## 2026-10-03 — PR #216 main CI #854 PASS; PR #217 hardens diagnostic storage fail-closed
+
+PR #216 merged as `007a999e688144122362ad1a4012a22b310e66f2` and resulting-main Windows CI #854 / run `37069188509` completed **PASS** across the full Windows candidate.
+
+Resulting-main packaged Focus artifact:
+- id `11254745758`;
+- digest `sha256:d1cfe097e56dcf1091a51db2e305f838cc530532883280879ed7e7567e77fdb1`;
+- manual inspection confirms real Panel→Timer `(668,0)→(388,80)` and Timer→Panel `(388,80)→(668,0)` native HWND movement, with final samples at target.
+
+Resulting-main diagnostic artifact:
+- id `11254037811`;
+- digest `sha256:acb24529528549762a1d7c1794268aa9ee7825197a1062b506c3b184942862b8`;
+- contained diagnostic `narro.exe` SHA-256 `a4da47d57fd08b5f3193a4f793c4df963061c094a861a4dc0fd4e6ed0b92f4af`.
+
+A follow-up code audit found one validation-safety weakness: the diagnostic UI displayed resolved storage paths but its PASS verdict used only the configured identifier. PR #217 now makes storage isolation native/path-aware and fail-closed before diagnostic SQLite creation/open:
+- exact identifier must be `com.mariosg.Narro.M1Diagnostic`;
+- resolved Roaming and Local storage path leaves must match that identifier;
+- production identifier `com.mariosg.Narro` is rejected;
+- if the diagnostic resolved SQLite app-data path is wrong, startup fails before `create_dir_all`, database open, migrations or startup insert;
+- Rust regressions cover valid diagnostic paths, production paths and one mismatched resolved path.
+
+PR #217 current exact head: `f872d2cadeeb3e22583c24bd41fba9cc218cc9a2`.
+Windows CI #858 / run `37070634779` is authoritative. The earlier #855 failure was rustfmt-only and was corrected exactly from the CI diff.
+
+CI #854 therefore remains a fully validated fallback/baseline, but physical B/C/D should wait for the post-#217 resulting-main diagnostic artifact so the strongest storage-safety guard is included.
+
+No physical counter changes:
+`4/10M || 4/5 | 14/19`.
+
+Durable #216 closure:
+`work-log/2026-10-03-chatgpt-m1-pr216-main854-closure.md`.
+
+
+## 2026-10-03 — PR #216 exact-head validated and merged; resulting-main CI #854 active
+
+PR #216 (`M1: automate final monitor evidence and placement persistence reopen`)
+exact head `306dfc50d68477059ceb65a45c5806558db6abbf` passed full Windows
+CI #853 / run `37044645690`.
+
+The exact-head packaged Focus runtime artifact was manually inspected in
+addition to the green validator:
+- Panel→Timer HWND moved `(668,0) → (388,80)` at ~109 ms;
+- Timer→Panel HWND moved `(388,80) → (668,0)` at ~134 ms;
+- final samples remain at their targets.
+This proves the CI-only 30 s acknowledgement/capture-window alignment retains
+real native movement rather than weakening the contract.
+
+PR #216 was expected-head guarded-squash-merged as
+`007a999e688144122362ad1a4012a22b310e66f2`.
+
+The slice reduces remaining manual M1 work:
+- one-click all-monitor Left/Right placement matrix;
+- ~750 ms visible dwell per matrix position;
+- native expected-vs-actual placement PASS/FAIL evidence;
+- stale matrix invalidation after topology/selection changes;
+- SQLite close/reopen regression for saved Floating Timer placement;
+- isolated diagnostic namespace `com.mariosg.Narro.M1Diagnostic`;
+- final M7 production-session preparer that verifies the exact CI #809 EXE and
+  snapshots production `%APPDATA%\\com.mariosg.Narro` before launch;
+- floating-only performance preflight remains mandatory before each child run.
+
+Exact-head artifacts:
+- Focus runtime id `11244290826`, digest
+  `sha256:fa47826a223cd0e758471be0f1edd363a3d2a3fe5ffd35dd0c36a2cb8b298e7b`;
+- diagnostic id `11244174942`, digest
+  `sha256:f68866ae46da694d28858217aedc6d08999ce765fc19c0226a32710fe5b78570`;
+- exact-head diagnostic `narro.exe` SHA-256
+  `6f7e6667ec392b8fe7fbf79dc6374489a1e3b1d9f1e036902db9c74f17d4a56c`.
+
+These PR-head artifacts are supporting evidence only. Resulting-main Windows CI
+#854 / run `37069188509` is active on merge `007a999e...`. Final Candidate B
+for physical B/C/D must come from a successful #854 resulting-main artifact.
+
+No physical counter advances:
+`4/10M || 4/5 | 14/19`.
+
+Durable checkpoint:
+`work-log/2026-10-03-chatgpt-m1-pr216-ci853-merge-checkpoint.md`.
+
+
+## 2026-10-02 — current main advanced through PR #212/#214/#213; combined validation rerun active
+
+Repository implementation main is now
+`7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`, not the earlier PR #211 merge.
+
+Validated constituent heads:
+- PR #212 `M1: harden physical monitor diagnostics and isolate app data` — exact head `c9e33c1bd12f0c5285f3a0a8807b94516dd71f33`, Windows CI #833 **PASS**, merged as `acdf8cc54d84247bba83e826020369003d5c244a`.
+- PR #214 `CI: retry Theme Settings capture until fixture ready` — exact head `5073da095eef9cef86065d2813b27ed9e3a93b26`, Windows CI #838 **PASS**, merged as `ad6e1d84793e9a5de5a63dd5a2279d0ad67ed8da`.
+- PR #213 `Board: implement dense Blitzit planning parity` — exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`, Windows CI #836 **PASS**, merged as current implementation main `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`.
+
+PR #212 materially improves the still-open M1 physical validation path without closing it:
+- diagnostic identifier is isolated as `com.mariosg.Narro.M1Diagnostic`;
+- diagnostic storage identity/app-data/local-data paths are visible and must report isolation PASS;
+- Focus Panel selected-monitor placement now has a read-only native expected-vs-actual placement probe;
+- floating-only performance runs now preflight the real Windows HWND/DPI/native-region scenario before every child measurement and reject duplicate Narro processes, hidden Main, hidden Focus, or non-compact Timer geometry.
+
+Exact-head CI #833 diagnostic artifact (supporting evidence only while combined-main validation is pending):
+- artifact id `11221912668`;
+- ZIP SHA-256 `7c3e25363d8cd0556e6f671478fb816c956b0bd1923d692e4862bb2205ab51c7`;
+- contained diagnostic `narro.exe` SHA-256 `fb0798910601a29b4488a9372b01ba88c9f928070283f29debd524dcfe29bc5f`;
+- contains `measure-floating.ps1`, `run-m1-floating-performance-batch.ps1`, `verify-m1-floating-performance-scenario.ps1` and M1 Windows validation docs.
+
+Resulting-main history:
+- #837 failed only because `theme-settings-dark` did not reach visual-fixture readiness; this produced #214.
+- #839 was cancelled by the newer #213 main push.
+- #840 attempt 1 passed validation/fast gate, check, clippy, **346 Rust tests**, performance-harness validation, all visual-regression captures/validators and Tauri release, then failed only because packaged Focus runtime capture did not acknowledge the Panel checkpoint within 15 seconds.
+- #840 attempt 2 repeated all of those upstream PASSes, then failed only because the fixed ~2.5 s native sampler ended before the slow ~6.2 s Timer→Panel renderer/native transaction reached `panel-returned`, yielding `timer-to-panel-runtime captured no native HWND movement`.
+- Artifact comparison against PR #213 exact-head CI #836 proves the reference transition returns HWND `(388,80) → (668,0)`; #840 stopped sampling at `(388,80)` before the end checkpoint. A source compare proves the existing Focus transition code is unchanged; combined `lib.rs` differences are PR #212 diagnostic additions only.
+- Narrow PR #215 exact head `03cff34c6188bd5033da389ae1dadfa3dc15d4f6` changes only the capture harness: probes remain alive until the real end checkpoint, have hard 30 s bounds, and retain all real-motion validator assertions. Windows CI #841 / run `37029033564` is active. Until it succeeds, the combined current-main tree is not claimed fully resulting-main-green and the final Candidate B diagnostic artifact remains pending.
+
+No physical progress counter changes:
+`4/10M || 4/5 | 14/19`.
+
+Durable source-chain record:
+`work-log/2026-10-02-chatgpt-current-main-pr212-pr214-pr213-reconciliation.md`.
+
+CI #840 / PR #215 capture diagnosis:
+`work-log/2026-10-02-chatgpt-ci840-focus-capture-pr215.md`.
+
+
+## 2026-10-02 — PR #211 / CI #815 / main CI #816 automate the three-run M1 performance evidence
+
+PR #211 (`M1: automate floating performance evidence batch`) adds only validation tooling/docs/CI wiring, not product runtime behavior. The new `scripts/run-m1-floating-performance-batch.ps1` invokes the existing canonical sampler for at least three consecutive runs, rejects invalid/churning/context-mismatched evidence, can enforce an expected executable SHA-256, and writes one `batch-summary.json` with all per-run metrics, median run averages and Windows/CPU environment metadata.
+
+Exact head `735f5f157e354c7f1aaeed051ef0a2103d08f016` passed full Windows CI #815 / run `36987461587`. The Windows `Validate Performance Harness` step therefore executed and passed both PowerShell self-tests. PR #211 merged as `c372ca29824c3c3839490a19e79f7ed3482cb360`.
+
+Because #211 changes `.github/workflows/ci.yml`, full resulting-main validation was required. Windows CI #816 / run `36989230905` completed **PASS**, including diagnostic build/upload.
+
+Current authoritative diagnostic artifact for remaining M1 manual checks:
+- id `11218838485`
+- name `narro-m1-diagnostic-windows-x64`
+- ZIP SHA-256 `cd03347215b684fc853aa450aa1903870ed5969ac6c7150edebda72a9048c2f9`
+- diagnostic `narro.exe` SHA-256 `f3ea39a540f46455ee8e8f1e078e168ef1745d2a7d5e6520617fa655a39ebc6b`
+- includes both `measure-floating.ps1` and `run-m1-floating-performance-batch.ps1`.
+
+Hosted CI still does not close the real performance gate; the three valid measurements remain a physical Windows observation. No progress counter advances from this tooling integration.
+
+Current progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-02-chatgpt-m1-performance-batch-pr211-ci815-main816.md`.
+
+
+## 2026-10-02 — PR #210 / CI #813 / main CI #814 publish validated M1 diagnostic artifact
+
+PR #210 (`M1: publish isolated current diagnostic artifact`) adds a test-only diagnostic build path for the remaining reopened M1 physical checks. Main loads `index.html?diagnostics=1`, `focusSurface` remains the real product `focus.html`, and `runtimeVisual` is explicitly absent. The production physical artifact is still built/verified/uploaded before the diagnostic build, so the diagnostic path cannot contaminate M7 production acceptance.
+
+Exact PR head `e5bf7081ec04af82635adad1366b4c6b8c489e08` passed Windows CI #813 / run `36976416729` with validation-gate, fast-gate and windows-candidate all PASS. PR #210 was expected-head guarded-squash-merged as `07210a7b490c01687304d19555abf9cf39542940`.
+
+Because #210 changes `.github/workflows/ci.yml`, full resulting-main validation was required. Windows CI #814 / run `36981516292`, attempt 2, on merged main completed **PASS**, including Rust check/clippy/tests, performance-harness self-test, visual regression, Tauri release, packaged Focus runtime, production physical validation release, and the new M1 diagnostic build/upload stage.
+
+Authoritative main diagnostic artifact:
+- id `11217195491`
+- name `narro-m1-diagnostic-windows-x64`
+- ZIP digest `sha256:e16e6e5b2da0e916678b9b34d3348fca8014774cc38d3cda8932c2d4cbfa726f`
+- contained diagnostic `narro.exe` SHA-256 `4453d403ed477c4dc3041b4ee3afe51a18b83819093d6b210525640431746bd2`
+- artifact also contains `scripts/measure-floating.ps1` and the M1 performance/runtime/display validation docs.
+
+M7 C5 saved-placement physical acceptance must still use the already accepted **CI #809 production artifact**, not the diagnostic build. Remaining M1 selected-monitor placement, reconnect/re-enumeration and performance measurement should use the CI #814 diagnostic artifact.
+
+No physical counter advances from this infrastructure integration. Progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-02-chatgpt-m1-diagnostic-pr210-ci813-main814.md`.
+
+
+## 2026-10-02 — PR #209 / CI #811 hardens saved-placement exit ordering; remaining M1 work batched
+
+PR #209 (`M1: lock saved Timer placement on tray Quit`) adds only a static regression contract in `scripts/test-single-focus-architecture.mjs`. It requires the tray `quit` branch to call `floating_placement::save_if_timer_visible(app_handle)` before `app_handle.exit(0)`; the existing hidden-Timer restore contract continues to require `restore_for_timer(...)` before Timer reshow.
+
+Exact head `5384ea7384d304a843771e225bfb50cd9394bf43` passed full Windows CI #811 / run `36973948214`: validation gate, fast gate, Rust check/clippy/tests, performance-harness self-test, visual regression, Tauri release, packaged Focus runtime capture, production physical build verification and artifact upload all PASS. PR #209 merged as `c84013dbafbce6c8d581e3e12e1793bb12281fd1`.
+
+No production Rust/React/config/runtime bytes changed, so the accepted CI #809 production artifact remains the correct physical candidate for pending Windows observations. Durable evidence: `work-log/2026-10-02-chatgpt-m1-saved-placement-contract-pr209-ci811.md`.
+
+There is no further independent source work justified before real-Windows evidence. Remaining reopened M1 physical work is consolidated in `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`:
+- M7 C5 saved Timer placement across normal tray Quit/relaunch;
+- Focus Panel selected-monitor Left/Right placement;
+- display reconnect/re-enable, re-enumeration and placement on the restored monitor;
+- three valid floating-only CPU/RAM runs using the existing 30 s warm-up / 60 s sample process-tree protocol with `main` destroyed.
+
+Hosted CI performance numbers are not canonical M1 performance evidence and are not used to close the physical performance gate.
+
+Progress remains `4/10M || 4/5 | 14/19` until saved-placement C5 and the remaining M1 physical measurements are actually observed.
+
+
+## 2026-10-02 — M7 C4 physically closed; only saved-placement restart remains in C5
+
+The complete CI #809 recording `2026-10-01 19-03-32.mp4` (SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`, 161.05 s) has now been fully re-audited event-by-event as one synchronized 4480×1080 two-monitor canvas with a 1920 + 2560 horizontal layout.
+
+Accepted physical evidence:
+- PR #208's corrected compact↔expanded compositor boundary: six+ standard-motion cycles without the CI #806 white L/blank frame;
+- active task/session/time continuity and no document/root scrollbar;
+- explicit Main `Blitz now` activation at ~5.2–5.4 s followed by the existing Focus surface presenting Panel;
+- expanded Timer retaining task/title/time;
+- Focus completion reconciling to Main Done;
+- **second-launch single-instance behavior:** around 38 s Narro Main + active Timer are already visibly alive; around 39.25–40.75 s the desktop `narro.exe` is activated again; the same Main/Timer state persists afterward with no competing Narro UI/reset/conflict;
+- **idle shortcut no-op result:** by ~146 s Focus is visibly `All Clear`; through the final idle-test interval no placeholder/stale Timer or attention pulse appears. The screen recorder does not render key labels, so the input identity is classified as operator-context physical evidence together with the explicit on-screen checklist and already automated-validated B6 gates;
+- real mixed-DPI crossing around ~116–122 s: ~425 physical px compact Timer on the 1920-wide display to ~340 px on the 2560-wide display, with Windows settings explicitly showing the latter at 100%, matching 125%→100%;
+- bottom-edge/taskbar-constrained expansion/collapse remaining usable;
+- real display-topology reduction/removal around ~136.5–142 s with Narro recovering visibly on the surviving display without restart;
+- Timer remaining topmost over a maximized Notepad++ window.
+
+Therefore **C4 is PASS**. Crosswalk B5/B6 and M7-PHYS-01/02/03/04/05/06 are VALIDATED. No new runtime defect is evidenced and no corrective source PR is justified.
+
+C5 is already physically accepted for mixed-DPI, edge/taskbar work-area behavior, topology removal recovery and topmost. Dense 153–160 s reinspection proves the apparent Narro disappearance/reappearance there is only Alt-Tab switching, **not** a normal process restart. The only remaining M7 physical observation is:
+**drag Timer → tray Quit Narro → relaunch the same CI #809 EXE → verify safe visible saved placement**.
+
+Tracking reconciliation now reflects the validated state:
+- M7 closure: **4/5 PASS** (C1–C4);
+- reopened M1 top-level items: **14/19 validated**;
+- roadmap remains **4/10 milestones** because reopened Milestone 1 still has unvalidated replacement items.
+
+Current compact progress: `4/10M || 4/5 | 14/19`.
+
+Durable evidence:
+- `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`;
+- `work-log/2026-10-02-chatgpt-m7-ci809-c4-closure.md`.
+
+Next action: run only the short saved-placement restart observation in `docs/M7_CI809_RESIDUAL_PHYSICAL_CHECKLIST.md`. Do not repeat already accepted C4/C5 tests.
+
+## 2026-10-01 — CI #809 physical recording passes corrected Timer boundary; residual inputs still open
+
+The complete user recording `2026-10-01 19-03-32.mp4` (SHA-256 `2da82409caa7b1dc4ad74f1d188ae230d5bd8566f6939f388fb4abe7058096a6`, 161.05 s) was audited with dense transition sampling.
+
+At least six animations-On compact <-> expanded sequences were inspected. The CI #806 white L/outline / blank native-region frame does not recur. PR #208's corrected standard-motion Timer-to-Timer compositor boundary is therefore **PHYSICAL PASS**. No new runtime/product defect is evidenced by the recording.
+
+Additional positive evidence: coherent active task/time, visible Focus -> Main completion reconciliation, animations visibly switched On -> Off and later restored On, one display visibly at 100%, and safe Narro/Focus visibility after topology is reduced to one active display.
+
+The recording does **not** conclusively prove: two complete Off compact/expanded cycles, second-launch single-instance behavior, an unambiguous Main `Blitz now` click, marked idle T/P shortcut inputs, a second display visibly at 125% and true 100%<->125% crossing, topology reconnect, fullscreen topmost, or Quit/relaunch saved placement. These are missing observations, not failures.
+
+Counters remain `4/10M || 2/5 | 11/19`. C4/C5 remain open. Do not repeat the already-passed animations-On compositor stress; run only the narrowed residual checklist in `HANDOFF.md`.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci809-partial-physical-audit.md`.
+
+## 2026-10-01 — CI #806 physical failure corrected by PR #208; residual retest narrowed
+
+The complete user recording `2026-10-01 15-20-44.mp4` (SHA-256 `86e51a5dcc6cc8bd5cb6af41971daa3c23016a97768c7f8469f567d4f232710b`) was audited across all 172.8 s. Early stale `Blitz is already active` / missing-board-task state is contaminated by the documented invalid-CI795 profile residue risk and is not accepted as idle production evidence.
+
+After a clean real `Test` task becomes active, task/time continuity is preserved across repeated Focus presentations, animations Off/On, completion reconciliation and dragging. However, at ~81.50 s an expanded -> compact transition briefly becomes a white L/outline. This is a real Gate 7 physical failure independent of the stale-profile start.
+
+Narrow PR #208 corrects only that Timer-to-Timer native-region redraw boundary. Exact head `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58` passed Windows CI #809 / run `36865451660`, then merged as main source `2767b3827670603d1ab259b6a843c2e0da82d85d`. Exact-head and merged-main tree are both `7ceb264e7eff8a74449c206a7cc998b2a4f0bb54`. Resulting-main CI #810 PASSed via the identical-tree validation gate.
+
+New production physical artifact: id `11163439039`, digest `sha256:39ca0a91d7aa54be79ca35c509f82f25049a15a3fc4ffff199699eab309557a5`, standalone EXE SHA-256 `a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675`. CI smoke confirms zero `runtimeVisual` checkpoints.
+
+Counters stay `4/10M || 2/5 | 11/19`. C4/C5 remain open. Next physical work is the **residual** #809 retest only: corrected compact<->expanded boundary plus single-instance confirmation, Blitz-now Panel entry, clean idle no-op, real 100%/125% crossing/edge behavior, topology where available, fullscreen topmost and saved-placement restart.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci806-physical-failure-pr208-ci809-main810.md`.
+
+## 2026-10-01 — M7 C3 integrated; only physical C4/C5 remain
+
+M7 implementation PR #192 is merged. Process-hardening PR #207 exact head `df6e548a059551178972b16b7d9c6e8e0dfb91b2` passed Windows CI #806 / run `36854279514` with validation-gate, fast-gate and windows-candidate all PASS, then guarded-squash-merged as `aebc280da2ef7bcb5e4fd1d4d78fa529b63f49b7`.
+
+The GitHub integration emitted no push-triggered merge run. Blob-level comparison proves zero non-Markdown differences between the exact-green PR head and merged main, satisfying the repository's integration-token validation rule without a dummy source commit.
+
+M7 closure state is now C1 PASS / C2 PASS / C3 PASS / C4 OPEN / C5 OPEN.
+
+Final physical candidate:
+- artifact id `11159233418`;
+- artifact digest `sha256:33a6dfe8ed418c1466b8a0adbc4005335f5255869af151a974dc2771ae160b91`;
+- standalone EXE SHA-256 `a22bb0996f38720abacb6f78c79909bfd52fe295db6593937fa6e35dd2227af9`.
+
+Only the consolidated physical Gate 7/Gate 12 session remains before M7 tracking closure. Durable evidence: `work-log/2026-10-01-chatgpt-m7-c3-main-integration-closure.md`.
+
+
+## 2026-10-01 — M7 integrated; short-lived CI hardening PR #207 active
+
+PR #192 is no longer a long-lived integration branch. Exact head `440b172565d94fadb3e814559bec5f3b47e48012` was expected-head guarded-squash-merged as main source `1b68a602d8799ea7e19107ecc60dfd5855d38b4e`. Non-Markdown blob comparison between the #803 validated PR head and merged main is exactly zero differences.
+
+The active process-hardening slice is PR #207, branch `ci/fast-candidate-gates`, current head `fae38241f063b89fb53f7e2f3525addc0f312f21`. It is intentionally short-lived and changes no product/runtime behavior.
+
+Its new CI design has already demonstrated the intended ordering:
+- validation gate;
+- fast gate for frontend/static/build contracts + Rust formatting;
+- Windows candidate only after fast gate PASS.
+
+CI #804 stopped in the fast gate on a previously hidden CRLF-dependent false-positive in `test-ui-focus-entry`; Windows candidate did not run. The test was corrected semantically/line-ending-independently in `fae38241...`. CI #805 fast gate is PASS and its Windows candidate is currently running.
+
+This process change implements `docs/CI_VALIDATION_STRATEGY.md`. M7 runtime closure itself now follows `docs/M7_CLOSURE_PLAN.md`; C1/C2 are PASS, C3 is main/process integration, C4/C5 are the remaining consolidated physical gates.
+
+
+## 2026-10-01 — M7 process correction: automated-green integration before physical closure
+
+The prior process kept PR #192 open while waiting for physical acceptance and allowed it to grow to hundreds of commits while `main` continued to advance. This is now superseded by `docs/CI_VALIDATION_STRATEGY.md`.
+
+Current M7 uses `docs/M7_CLOSURE_PLAN.md`:
+- C1 automated replacement architecture/behavior: PASS;
+- C2 artifact validity + automated runtime/visual evidence: PASS;
+- C3 main integration: NEXT;
+- C4 physical Gate 7: OPEN;
+- C5 physical Gate 12/platform/tracking: OPEN.
+
+PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 and is suitable for expected-head guarded integration. Physical evidence is still required for milestone completion, but no longer blocks merging an automated-green coherent implementation slice. Any later physical failure must be corrected through a narrow PR from current `main`.
+
+The historical 1/15 M7 checkbox count reflects the replacement reopening model and is not a count of independent remaining implementation projects. Current executable closure progress is 2/5 checkpoints.
+
+
+## 2026-10-01 — CI #803 production physical artifact accepted; physical Gate 7/12 next
+
+PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 / run `36840822689`.
+
+Accepted artifacts:
+- production physical `narro-m7-physical-windows-x64`: id `11151976720`, digest `sha256:cc193e2363c01721e8ecc16207d1faf08001dd9194e415657d8605518e0007aa`, standalone EXE SHA-256 `625caea10060e69b0148ca22c6e2f645cd675536d505a31f2e31db974df4cd43`;
+- packaged Focus runtime visual: id `11151474106`, digest `sha256:2efdb3eafdf5f8e3fd581263eceae1aec60914bf0041834c5a4ac7467fe53b64`;
+- visual regression: id `11151548652`, digest `sha256:979a58467f70b518ea236160a2b7673d7acc32c2444bcdc808345ccb335615f8`.
+
+All downloaded ZIP digests match GitHub. The physical artifact smoke passed with `Physical validation build stayed free of CI runtimeVisual checkpoints.`, closing the artifact-boundary defect that invalidated CI795 physical evidence.
+
+Fresh packaged motion also closes the same-DPI endpoint defect observed after CI801: Timer→Panel now samples `(388,80) → (668,0)` and remains there; the former `684→668` reverse correction is absent. Actual transition frames show compact active Timer followed by the correct Panel without blank/stale content. Hosted runner remains reduced-motion.
+
+Scheduling visual regression passed on #803; the fresh light scheduling capture shows the fully hydrated Schedule / Repeat dialog.
+
+Physical Gate 7 and Gate 12 remain open. The next run must use only the exact #803 production artifact. Old CI fixture records left by the invalid CI795 executable must be removed manually or avoided through a clean validation profile before recording.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci803-production-artifact-acceptance.md`.
+
+
+## 2026-10-01 — M7 CI #803 exact corrective candidate
+
+PR #192 exact head: `440b172565d94fadb3e814559bec5f3b47e48012`.
+
+The production motion correction remains `5c8f4c4ec7ae403cf05bd4b7994187da50bb0aa7`: same-DPI Timer→Panel animation now uses the actual outer HWND size so the animated endpoint matches the native settled edge; cross-DPI return retains target-scale sizing.
+
+CI #802 / run `36840338653` failed only while compiling the two new regression tests because repository `GeometryRect` is `PhysicalRect { position, size }`, while the tests used field `origin`. Test-only commit `440b1725...` changes only those literals.
+
+Windows CI #803 / run `36840822689` is **IN PROGRESS** at this durable checkpoint.
+
+Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci802-test-literal-fix.md`.
+
+
+## 2026-10-01 — M7 current corrective gate: CI #802
+
+PR #192 exact head is `5c8f4c4ec7ae403cf05bd4b7994187da50bb0aa7`; Windows CI #802 / run `36840338653` is in progress.
+
+CI #800 attempts 1 and 2 established that the long-standing `task-scheduling-*` ready-marker misses were no longer safely classifiable as one-off hosted flakes. Fixture/test-only commit `1f9bc0185177ed9aaf9b3efc6248c5e8031da9b5` removed virtual-time timer polling from the scheduling visual bootstrap and yields bounded animation frames while the production TaskScheduleDialog passive effect loads its mocked authoritative snapshot. CI #801 subsequently passed repository preflight and the complete Windows visual-regression suite, so production scheduling behavior remains unchanged and the fixture correction is evidenced.
+
+CI #801 then failed only in packaged Focus runtime validation. Failed artifact `11149609321` / `sha256:e8c018547e8895061819f93c9c0ebd169d8f63ebb526d805de16b4ce975e4573` showed reduced-motion Timer→Panel outer-HWND samples `(388,80) → (684,0) → (668,0)`. Settled Panel width is 356 px while client width is 340 px, proving the 16 px reverse correction was an actual animation-target mismatch rather than sampler jitter.
+
+Commit `5c8f4c4ec7ae403cf05bd4b7994187da50bb0aa7` fixes that root cause: same-DPI Panel animation targets use the current actual outer HWND size; cross-DPI return retains target-scale planning and its dedicated settle path. The strict monotonic packaged-runtime validator is unchanged. Pure Rust regression tests cover same-DPI outer-size preservation and cross-DPI target-scale sizing.
+
+The separate artifact-validity correction also remains required: instrumented packaged capture is not a user physical build; physical validation must come only from `narro-m7-physical-windows-x64` built with the production Focus URL, and its direct runtimeVisual smoke must observe zero `checkpoint-*.json` files.
+
+Durable evidence:
+- `work-log/2026-10-01-chatgpt-m7-ci800-scheduling-fixture-determinism.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci801-panel-endpoint-snap.md`.
+
+No counters advance until exact-head automated validation, production-artifact review and the physical replacement gates complete.
+
+
+## 2026-10-01 — CI #795 artifact invalid → CI #801 current gate
+
+The physical artifact boundary remains corrected: automated packaged Focus capture is instrumented, while user physical validation is rebuilt separately with the production Focus URL under `src-tauri/target-physical` and must pass the direct no-`runtimeVisual` checkpoint smoke.
+
+CI #800 / run `36833625252` never reached that boundary in either attempt. Both attempts passed repository preflight and failed in Windows visual capture because `task-scheduling-light` did not expose its strict ready marker after four captures. Exact-green #795 had already shown the same fixture requiring retry. With two same-SHA failures, the cause was traced to fixture scheduling rather than product scheduling source: immediately after `flushSync` mount, the fixture spun virtual-time `performance.now` / 10ms timers while the production dialog snapshot load lives in a React passive `useEffect`.
+
+Fixture/test-only commit `1f9bc0185177ed9aaf9b3efc6248c5e8031da9b5` replaces that timer spin with up to 120 `requestAnimationFrame` yields while checking the same production ready state. Existing strict marker, capture budget and retry/backoff remain.
+
+Current PR #192 exact head: `1f9bc0185177ed9aaf9b3efc6248c5e8031da9b5`.
+Current Windows gate: #801 / run `36836958927`, **IN PROGRESS** at this durable checkpoint.
+
+No physical build should be issued until #801 passes, the new production physical artifact is reviewed, and its direct runtimeVisual-boundary smoke is confirmed green.
+
+Durable evidence:
+- `work-log/2026-10-01-chatgpt-m7-ci795-physical-artifact-validity-failure.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci799-physical-smoke-boundary-fix.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci800-scheduling-fixture-determinism.md`.
+
+
+## 2026-10-01 — CI #787 physical audit → current corrective candidate
+
+Physical recording `2026-10-01 02-02-06.mp4` (SHA-256 `0d922f55aef30d5e88ad32fab9a1c41ed8458b71013ad18e3bebc70fdf4da99c`) on CI #787 exposed three correctness defects despite materially improved single-host continuity:
+- idle/no-task Timer could be resurfaced through stale presentation / Find-Timer paths;
+- expanded active Timer removed task title/live time;
+- visible Main All Lists stayed stale after Focus quick-create/start against the same SQLite authority.
+
+Production corrections in PR #192:
+- `6972c4e08d8fce4b1eb4f7843123f22564c28607` — active-only Timer invariant, Find-Timer gate, expanded title/time, active packaged runtime harness;
+- `c77ece58439753d92ab486d1ebb3a43605efbbd3` — authoritative cross-window board invalidation/re-read.
+
+CI #789 failed on stale direct-IPC static contracts and those were reconciled without further production behavior changes. CI #793 then progressed through the Focus/compact Timer preflight chain and failed only because `test-ui-floating-collapsed` still required the old conditional heading that intentionally disappeared when expanded Timer began retaining task/time. Test-only commit `a220e398701b0ef04884ac42222485025f5aafd5` corrects that contract.
+
+CI #794 passed the complete frontend preflight and production build, then failed only on `cargo fmt --check` for the newly added Find-Timer error call layout. Formatting-only commit `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2` applies the exact rustfmt diff; targeted type review confirms the snapshot error remains `CommandError` end-to-end.
+
+Current PR #192 exact head: `26f4fc25f3e7dcb4c48df53b4123251fbcf7bce2`.
+Windows CI #795 / run `36822373471`: **PASS**.
+
+Accepted #795 artifacts:
+- packaged Focus runtime visual: id `11144380370`, digest `sha256:bd048627706561ed9fc168cbe7bb34c1457204c814f04f7e151be03f4bf7b923`;
+- runtime harness: id `11144235897`, digest `sha256:4520728c8ea35aa20a5f20f71e5d208c2057f966082f8e6f44ca8015943bdd43`;
+- visual regression: id `11142994011`, digest `sha256:d5eb6e2ae6b4b6544865043a6823e9b4523d09003692e8397cea67ed2dc99f08`.
+
+All downloaded ZIP hashes match GitHub artifact digests exactly. Mandatory review is accepted: packaged Panel/compact/expanded states use the same Focus HWND `0x201FE`; the harness now contains a real active `Packaged runtime focus task`; compact shows a live countdown and expanded 340×300 retains the same task/title/live timer above actions/subtasks; no unintended root/document scrollbar is reported. The hosted runner remains `prefersReducedMotion: true`, so normal ~270 ms motion character is still a physical-only gate.
+
+The newest packaged-runtime validator inspection found no stale requirement that expanded task/time be absent. No new physical build should be issued until #794 passes and fresh artifacts are reviewed.
+
+Durable evidence:
+- `work-log/2026-10-01-chatgpt-m7-ci787-physical-whole-app-audit.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci789-static-contract-reconciliation.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci793-collapsed-contract-fix.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci794-rustfmt-fix.md`;
+- `work-log/2026-10-01-chatgpt-m7-ci795-pass-artifact-acceptance.md`.
 
 ## Current phase
 
 **Milestone 1 — reopened Windows/Focus foundation, driven by the M7 single-Focus corrective program.**
 
-Current roadmap counters remain **4/10 milestones complete**, active small slice **2/5**, and reopened M1 **11/19** top-level items validated. No counter advances from CI #744 because the physical replacement gates remain open.
+Counters remain **4/10 milestones complete**, active small slice **2/5**, reopened M1 **11/19** top-level items validated. No counter advances from the corrective implementation alone because exact-head automated validation and the physical replacement gates remain open.
 
-PR #192 remains **OPEN / DO NOT MERGE** on `plan/m7-single-focus`. Its exact automated-green source head is now `0ef808445b567a4a3194296ed1dccb5a6a58b03e`. Windows CI #744 / run `36737427034` is **PASS** on that exact head: Repository Preflight, frontend contracts/build, Rust fmt/check/clippy/tests, Windows visual regression, Tauri release, packaged Focus runtime capture/validation, and all required artifact uploads passed.
+PR #192 remains **OPEN / DO NOT MERGE** on `plan/m7-single-focus`. Historical CI #787 is the most recent green packaged candidate, but its subsequent physical recording invalidated final acceptance and led to the corrections above. The current `a220e398...` head is not yet promoted to automated-valid until #794 completes successfully.
 
-Accepted #744 artifacts:
-- `narro-m7-focus-runtime-visual`: id `11109291010`, digest `sha256:45994931d9e19d13c1ccff62634b2b616c62c59222bd2d26f02e1a278a9b9da9`;
-- `narro-m1-runtime-harness-windows-x64`: id `11109560929`, digest `sha256:6b848df39993108d8102cd75265692ce824ec3d592d569170285b60d67ee2fef`;
-- `narro-m5-visual-regression`: id `11107169960`, digest `sha256:14b0dbc5f68995190a62079625b1a3189efbbd69f7ba899f07a726db75fc8503`.
+Latest fully validated current-main source checkpoint for the single-instance foundation remains `4f48941939fa5114e100992280b9ea96540f0df8` (PR #206 merged; resulting-main CI #785 PASS). Documentation-only main commits after that SHA do not replace the validated application-source checkpoint.
 
-The packaged runtime artifact was downloaded and inspected. Settled Panel/compact/expanded states validate 340x700 / 340x110 / 340x300 logical presentation geometry, DPI/native-region metadata, transparent document roots, and no unintended document/root scrollbar. The hosted Windows runner reports `prefers-reduced-motion: true`; its high-frequency Win32 samples therefore validate the reduced-motion near-immediate start/end transition. CI #744 does **not** establish the visual character of the normal ~250 ms standard-motion path.
+Physical Gate 7 and Gate 12 remain **OPEN**. Physical Windows access exists, but the next run must use the fresh exact artifact after #794/artifact review and must cover active continuity, repeated Panel↔Timer and Expand↔Collapse, idle shortcut no-op, cross-window projection reconciliation, always-on-top, saved placement/restart, and real two-monitor 100%↔125% crossing/topology recovery.
 
-Physical Gate 7 and Gate 12 remain **OPEN / NOT RUN / UNAVAILABLE** because the user's physical Windows system is unavailable. Real standard-motion Panel<->Timer / Expand<->Collapse continuity, selected-monitor/edge placement, topology recovery, and mixed-monitor 100%<->125% behavior still require the physical replacement matrix. The fully merged/physically accepted application-source baseline for the reopened M1/M6/M7 chain therefore remains `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed`; the unmerged #744 head does not replace it.
+Independent validated M8 work remains closed where unaffected; Focus-shortcut integration items remain reopened until the replacement chain is physically accepted.
 
-Independent M8 progress remains validated/merged:
-- PREF-R02: PR #193 / CI #714 / merge `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`;
-- PREF-R03: PR #195 / CI #722 / merge `1c9f2c7dc670fddcbf8cf687ca5b1945588eb01c` / main CI #723;
-- PREF-R06: PR #194 / CI #721 / merge `88dea3bcbd988f2e77ea0edccb218be95e5b2438` / main CI #724.
-PREF-R05 remains blocked on validated Narro-owned or user-local sound assets; Focus-shortcut closure remains coupled to the M7 replacement.
+## 2026-09-30 — CI #744 physical whole-app audit supersedes “physical unavailable”
 
-By explicit user direction, safe independent M9 work may proceed in parallel while M7 is physically blocked. PR #197 reporting history foundation remains **VALIDATED / MERGED** through CI #746 / merge `f7d6d995d2a402a04fa47b8fb781be8d1fbb6624` / resulting-main CI #748. The next independent persistence slice is also **VALIDATED / MERGED**: PR #200 exact head `f2972e50eaa7e3008390544466598455e2cd16bd` passed Windows CI #756; expected-head guarded squash merge `10e5a97a703cff4d77141f548e66945cddda4956` passed resulting-main CI #757, whose validation gate proved the merged tree byte-identical to the exact validated PR tree. It adds manual closed work-session creation plus stale-safe historical edit/delete while explicitly protecting the open/live session and preserving ledger-derived Time Taken. No top-level M9 UI checkbox closes from these backend foundations alone. PR #199 is the authoritative Overview aggregation slice; its reconciled head `a95bd031...` is in exact-head CI #759 after correcting a fixture expectation so productive day follows the documented “most focus sessions” rule. PR #198 remains the screenshot-backed Overview presentation slice, currently blocked only by a repeated hosted-Edge ready-marker false-negative in the pre-existing task-scheduling fixture before Reports capture. PR #201 isolates that CI harness hardening with strict ready-marker validation preserved and CI #760 in progress.
+User physical access returned and recording `2026-09-30 23-13-14.mp4` (SHA-256 `eb3b862d58f69b1000f665d35dd52bf4d0703bfc1dda80f92c759de9c4809a1b`) was audited frame-by-frame and against PR #192 source/product evidence.
+
+The recording is **not a Gate 7 PASS**. Main visibly reports simultaneous Ctrl+Shift+T and Ctrl+Shift+P registration conflicts; Narro has no single-instance enforcement, so exact Focus-surface runtime ownership is not trustworthy. RISK-F009 is now FIX_NOW: a second Narro launch must not create an independent competing SQLite/background/shortcut runtime.
+
+The audit also found B5, a confirmed PR #192 semantic regression: source/product evidence requires `Blitz now` to open Focus Panel, while the replacement `present_focus_for_blitz` path preserves an already-visible Timer and its rewritten preflight test requires that changed behavior. B5 is FIX_NOW. Idle Timer access with no active task is B6 VALIDATION_OPEN because it predates #192 and source evidence must be resolved explicitly.
+
+Other recording observations: Main startup exposes a short blank/washed/dark first-paint stage (UX-F014, routed M10); shortcut conflicts are visible but currently occupy large ordinary Home content cards (UX-F015, routed M8); no-eligible Blitz entry correctly avoids implicit timer/task start; empty Focus `All Clear` semantics remain correct. The recording had no active task/session, no meaningful expanded Timer cycle and no mixed-DPI crossing, so those M7 gates remain open.
+
+PR #192 remains open/unmerged at `0ef808445b567a4a3194296ed1dccb5a6a58b03e`. It is diverged from current main and must not receive another physical acceptance attempt until current validated main is reconciled, the FIX_NOW corrections are implemented, exact-head Windows CI passes, and a fresh artifact is issued. Durable evidence: `work-log/2026-09-30-chatgpt-m7-ci744-physical-whole-app-audit.md`.
+
+Previously, by explicit user direction, safe independent M9 work proceeded in parallel while M7 physical access was unavailable. The new CI #744 physical audit has now promoted RISK-F009/B5 to FIX_NOW, so unrelated forward M9 source work pauses behind that corrective gate. PR #197 reporting history, PR #200 historical session-mutation persistence, PR #201 visual ready-marker hardening, PR #199 Overview aggregation, and PR #202 report history/session mutation command API are validated/merged. PR #202 guarded merge `d835149371a880df5a3c4572f2815e714c37738c` passed resulting-main Windows CI #776. PR #198 Overview visual foundation exact head `a0364a72b6c01c29d1e4d5b7ca44d2883d0e2dd7` passed CI #775 and its third mandatory artifact inspection accepted all eight light/dark Overview/list-filter/date-picker/lower captures, including complete `Time By List` and `Done Tasks` lower panels; it remains unmerged only to preserve serial main validation. PR #203 Sessions projection exact head `59b7b2713505bdea7cf2521eaebd5f2bf164fb17` passed CI #771 and was guarded-merged as `f86c38102fa4516d6e2429aa26b63ceb8aabfe78`; resulting-main CI #777 PASS, establishing the latest validated application-source checkpoint. Independent PR #205 head `1588d48a3f273cef360028bd549be9a70dac9ef1` exposes the validated Overview aggregation through typed Tauri/renderer DTOs; CI #778 failed and awaits exact-log diagnosis after the active M7 corrective gate; it is based on the already validated `d8351493...` main and will be reconciled after #777. No top-level M9 checkbox or roadmap counter advances until the relevant user-facing production slice completes its merge/main-validation chain.
 
 Deep Blitzit reliability reconciliation remains durable:
 - `RISK-F007`: fresh app launch must never implicitly create/start a timer session;
 - `RISK-F008`: live Notes/title edits must preserve the same authoritative task/session/accounting.
 Both remain explicit M10 validation obligations rather than reproduced Narro defects.
 
-## Current validated application source baseline
+## 2026-10-01 — Single-instance correction merged; reconciled M7 candidate prepared
+
+RISK-F009 corrective PR #206 exact head `ab1e89fcabc7b8385016a738603d41002f9c3b14` passed Windows CI #784 and was expected-head guarded-squash-merged as source SHA `4f48941939fa5114e100992280b9ea96540f0df8`. Exact-head artifacts: visual id `11128630619` / `sha256:a37be050152e27a4f34b941fa544decfa160fc2aa9df1878274da4cd0a584e5e`; runtime id `11128561273` / `sha256:f7394abc31a3ed6c42dfe755fbd7fab044cc79ff19deb3bf8f1387984bb24728`. Resulting-main Windows CI #785 / run `36782620879` **PASS**. Runtime artifact id `11128833526`, digest `sha256:1f9b43978387c973a451ef6283bb0fee0c08afbe954d9b8c99845c9c463ea220`; visual artifact id `11128124562`, digest `sha256:adaa4da4bb13a65bb4aac38e80d716be02eebf0621f90d7b9eff75e012219c7e`. `4f489419...` is now the latest fully validated application-source checkpoint and RISK-F009 is automated/main-validated.
+
+A complete #192 reconciliation has been prepared without moving the branch. Unreferenced tree `2cf5055191a81ca7ce9fb3a13198c515de524f7c` and two-parent merge candidate `1a53848c05100b7f3cb63cc9e7123d727bee3dcf` combine current main/M9/reporting state, #206 single-instance-first ownership, the full single-`focusSurface` replacement, B5 `Blitz now -> Focus Panel` semantics, and B6 active-Focus-only Ctrl+Shift+T semantics. `plan/m7-single-focus` remains at old validated head `0ef808445b...` only until the already-prepared source tree is reconciled onto the newest docs-only main truth; #785 has passed. Durable details: `work-log/2026-10-01-chatgpt-m7-single-instance-merge-and-pr192-candidate.md`.
+
+
+## 2026-10-01 — Reconciled M7 CI #786 failed only on stale branch-only capture contract
+
+PR #192 was non-force fast-forwarded to reconciled head `0762aafd26dbf983f4208667f60381264956af4a` after inheriting current main tracking truth. Windows CI #786 / run `36785840236` failed during Repository Preflight only because historical M7-only `scripts/test-ui-task-scheduling.mjs` still required the superseded 3-attempt ready-marker capture policy. Single-instance, single-Focus architecture, Focus runtime harness, B5 Focus-entry, Focus Panel, transition, B6 shortcut and Reports API contracts all passed before that failure.
+
+The branch-only test is a cross-file semantic dependency on the current capture harness; current main itself does not contain that M7-only assertion. Exact correction commit `dce6933ff7a777c837822f7a5a83c37d47434e07` changes only the static test to require the validated 4-attempt policy plus `Start-Sleep -Milliseconds (250 * $attempt)` backoff. No runtime/Rust/Focus/timer/session/Cargo implementation changed.
+
+A complete three-way blob audit across all 59 M7-changed paths found only four true same-file overlaps with current main: `package.json`, `scripts/capture-visual-fixtures.ps1`, `src-tauri/Cargo.toml`, and `src-tauri/src/lib.rs`; those already use explicit combined reconciliation. A targeted scan found no second stale visual-retry contract among the remaining M7 regression scripts.
+
+Current exact-head Windows CI is #787 / run `36786367870` on `dce6933f...`, currently in progress. Do not issue a physical artifact or merge #192 until #787 passes and fresh artifacts are reviewed. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci786-reconciliation-contract-failure.md`.
+
+
+## 2026-10-01 — M7 CI #787 automated-green and artifact-reviewed
+
+PR #192 exact head `dce6933ff7a777c837822f7a5a83c37d47434e07` passed Windows CI #787 / run `36786367870`. Repository preflight, Rust validation, visual capture, release build, packaged Focus runtime capture/validation, and all required uploads passed.
+
+Artifacts: packaged Focus runtime id `11129918136` / `sha256:e8d6733de16ebe60e3e9fa2968bee87bf0db1037381e04f18c3f294225c84570`; visual regression id `11129892760` / `sha256:7ccfda9d8c80865850e8b574bb08cb9b5b4feb62c5a4fb704efc72d5381fc470`; physical runtime harness id `11129693452` / `sha256:0f708660fd9449e3239af6d89932790df188d4f5a23152c6c22c20e9037578f3`.
+
+Mandatory inspection confirms one Focus HWND, 340×700 Panel, 340×110 compact region, 340×300 expanded region, zero unintended root/document scrollers, clean Panel return, and no new static light/dark Focus/Timer layout regression. Hosted runner remains reduced-motion, and the deterministic packaged fixture is idle, so standard-motion character plus active-session B5/B6/continuity and real mixed-DPI Gate 12 remain physical-only. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci787-artifact-review.md`.
+
+
+## Historical validated application source baseline
 
 **`e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` for the reopened M1/M6/M7 replacement acceptance chain.**
 
@@ -48,7 +609,7 @@ PR #192 exact head `0ef80844...` is automated-green but unmerged and physically 
 - Gate 12 still requires the real 125% secondary-display scenario.
 - `RISK-F007` and `RISK-F008` remain `VALIDATION_OPEN`.
 - PREF-R02, PREF-R03 and PREF-R06 are validated/merged.
-- M9 reporting foundation (#197) and historical session-mutation persistence foundation (#200) are validated/merged. PR #199 aggregation, PR #198 Overview visual foundation, and CI-harness PR #201 remain in validation.
+- M9 reporting foundation (#197), historical session-mutation persistence (#200), visual ready-marker harness hardening (#201), Overview aggregation (#199 / main CI #772), and report command/API boundary (#202 / main CI #776) are validated/merged. PR #198 Overview visuals are exact-head/artifact accepted but unmerged; PR #203 Sessions projection is merged with main CI #777 pending; PR #205 Overview aggregation API exposure is in exact-head CI #778.
 
 ## Repository documentation/process policy — 2026-09-29
 
@@ -419,7 +980,21 @@ The earlier inbox-setup state is superseded. The uploaded corpus is present and 
 - 19/19 product-behavior analyses/reconciliations/dispositions complete;
 - 19/19 second-pass UI/UX forensic reviews complete.
 
-Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No video upload/analysis prerequisite remains open. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
+Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No raw-video upload prerequisite remains open; exhaustive Pass-3 source analysis remains active and is authoritative only in `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
+
+## Current Blitzit exhaustive-forensics state — 2026-10-03
+
+The older 19/19 ingestion and second-pass UI/UX counters elsewhere in this file are historical coverage, not the current exhaustive-source counter.
+
+Current authoritative state is `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`:
+- 46/46 canonical screenshots have been individually source-inspected;
+- the 2026-10-03 depth audit found their qualitative records insufficient by themselves for maximum visual reconstruction, so static visual calibration is separately OPEN in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
+- 9/19 full MP4s are SOURCE_COMPLETE at Pass-3 depth;
+- VE-018 has a partial deep planning-board sequence;
+- exact next full video is VE-015;
+- implementation reconciliation remains separate.
+
+Use `docs/EVIDENCE_ROUTING_MAP.md` for which file owns which layer of truth. Do not use historical 19/19 prior-pass statements to claim Pass-3 completion.
 
 ## Durable correctness decisions
 

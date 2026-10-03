@@ -43,19 +43,22 @@ const preferenceSnapshot: PreferenceSettingsSnapshot = {
   alerts: {
     timedAlertsEnabled: true,
     taskAlertIntervalSeconds: 10 * 60,
-    taskAlertSound: null,
+    taskAlertSound: "melodic-bell",
+    taskAlertVolumePercent: 70,
     animatedTimerFlash: true,
     notificationAlertsEnabled: true,
-    notificationSound: null,
+    notificationSound: "futuristic-ding",
+    notificationVolumePercent: 65,
     scheduleRemindersEnabled: true,
     reminderLeadSeconds: 10 * 60,
   },
   celebration: {
     showSuccessScreen: true,
     funGif: true,
-    successSound: null,
+    successSound: "victory-bell",
+    successSoundVolumePercent: 75,
   },
-  localSoundCatalogAvailable: false,
+  localSoundCatalogAvailable: true,
 };
 
 const preferenceMonitors: MonitorDescriptor[] = [

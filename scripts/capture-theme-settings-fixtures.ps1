@@ -51,39 +51,57 @@ function Capture-ThemeSettingsState {
     New-Item -ItemType Directory -Path $profilePath -Force | Out-Null
 
     try {
-        $process = Start-Process `
-            -FilePath $EdgePath `
-            -ArgumentList @(
-                "--headless=new",
-                "--disable-gpu",
-                "--disable-background-networking",
-                "--hide-scrollbars",
-                "--no-first-run",
-                "--force-device-scale-factor=1",
-                "--window-size=1280,720",
-                "--virtual-time-budget=800",
-                "--user-data-dir=$profilePath",
-                "--screenshot=$ScreenshotPath",
-                "--dump-dom",
-                $Url
-            ) `
-            -RedirectStandardOutput $stdoutPath `
-            -RedirectStandardError $stderrPath `
-            -PassThru `
-            -Wait
+        $readyMarker = 'data-theme-settings-fixture-ready="true"'
+        $maxAttempts = 4
+        for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+            $process = Start-Process `
+                -FilePath $EdgePath `
+                -ArgumentList @(
+                    "--headless=new",
+                    "--disable-gpu",
+                    "--disable-background-networking",
+                    "--hide-scrollbars",
+                    "--no-first-run",
+                    "--force-device-scale-factor=1",
+                    "--window-size=1280,720",
+                    "--virtual-time-budget=800",
+                    "--user-data-dir=$profilePath",
+                    "--screenshot=$ScreenshotPath",
+                    "--dump-dom",
+                    $Url
+                ) `
+                -RedirectStandardOutput $stdoutPath `
+                -RedirectStandardError $stderrPath `
+                -PassThru `
+                -Wait
 
-        $stderrText = if (Test-Path $stderrPath) { [System.IO.File]::ReadAllText($stderrPath) } else { "" }
-        if ($process.ExitCode -ne 0) {
-            throw "Edge theme-settings capture failed for '$Label' with exit code $($process.ExitCode). $stderrText"
+            $stderrText = if (Test-Path $stderrPath) { [System.IO.File]::ReadAllText($stderrPath) } else { "" }
+            if ($process.ExitCode -ne 0) {
+                throw "Edge theme-settings capture failed for '$Label' with exit code $($process.ExitCode). $stderrText"
+            }
+            if (-not (Test-Path $ScreenshotPath)) {
+                throw "Edge did not create theme-settings screenshot '$Label'. $stderrText"
+            }
+            $domText = if (Test-Path $stdoutPath) { [System.IO.File]::ReadAllText($stdoutPath) } else { "" }
+            if ([string]::IsNullOrWhiteSpace($domText)) {
+                throw "Edge did not return theme-settings DOM for '$Label'. $stderrText"
+            }
+            if (-not $domText.Contains($readyMarker)) {
+                if ($attempt -lt $maxAttempts) {
+                    Write-Warning "Theme-settings fixture '$Label' was captured before it reported ready; retrying capture ($attempt/$maxAttempts)."
+                    Start-Sleep -Milliseconds (250 * $attempt)
+                    continue
+                }
+                throw "Theme-settings fixture '$Label' did not report ready after $maxAttempts captures. $stderrText"
+            }
+
+            [System.IO.File]::WriteAllText($DomPath, $domText, [System.Text.UTF8Encoding]::new($false))
+            break
         }
-        if (-not (Test-Path $ScreenshotPath)) {
-            throw "Edge did not create theme-settings screenshot '$Label'. $stderrText"
+
+        if (-not (Test-Path $DomPath) -or (Get-Item $DomPath).Length -eq 0) {
+            throw "Captured theme-settings DOM file is missing or empty for '$Label'."
         }
-        $domText = if (Test-Path $stdoutPath) { [System.IO.File]::ReadAllText($stdoutPath) } else { "" }
-        if ([string]::IsNullOrWhiteSpace($domText)) {
-            throw "Edge did not return theme-settings DOM for '$Label'. $stderrText"
-        }
-        [System.IO.File]::WriteAllText($DomPath, $domText, [System.Text.UTF8Encoding]::new($false))
     } finally {
         Remove-Item -LiteralPath $profilePath -Recurse -Force -ErrorAction SilentlyContinue
         Remove-Item -LiteralPath $stdoutPath -Force -ErrorAction SilentlyContinue

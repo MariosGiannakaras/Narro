@@ -24,7 +24,7 @@ const validator = read("scripts/validate-theme-settings-captures.mjs");
 const pkg = JSON.parse(read("package.json"));
 
 for (const needle of [
-  "pub const PREFERENCES_SCHEMA_VERSION: u32 = 3",
+  "pub const PREFERENCES_SCHEMA_VERSION: u32 = 4",
   "pub struct ShortcutPreferences",
   "go_to_narro_enabled: true",
   "toggle_focus_mode_enabled: true",

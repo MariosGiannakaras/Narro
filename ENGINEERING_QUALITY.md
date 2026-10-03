@@ -113,6 +113,12 @@ Documentation/process/tracking/evidence-only changes should be committed directl
 
 ## CI contract
 
+Use the tiering defined in `docs/CI_VALIDATION_STRATEGY.md`.
+
+Cheap deterministic failures belong in a fast gate before expensive Windows release/artifact work. In particular, repository/static contracts, frontend build/type checks and Rust formatting should fail before a Windows candidate spends time on visual capture or Tauri packaging.
+
+Static source-text assertions should protect durable architecture/build boundaries only. Prefer semantic unit/integration/runtime tests for ordinary behavior; when editing an existing brittle source-string test, migrate toward the semantic boundary rather than adding more implementation-string coupling.
+
 Windows CI is the reproducible second gate, not a substitute for avoidable local checking.
 
 CI should:

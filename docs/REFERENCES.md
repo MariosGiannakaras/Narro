@@ -1,6 +1,6 @@
 # External References
 
-Last reviewed: 2026-08-20
+Last reviewed: 2026-10-03
 
 This file is a compact navigation index for Codex or any future implementation agent that wants to inspect the underlying sources directly. It is intentionally not another product specification.
 
@@ -17,7 +17,15 @@ Treat sources and project documents as follows:
 - **Do not re-research everything by default.** Open the original references when a requirement is ambiguous, a source conflict matters to the current milestone, the implementation exposes a better alternative, or current platform/framework documentation may have changed.
 - **When deviating from a recorded proposal, preserve intent and evidence.** Record a materially different durable decision in `STATUS.md` with the reason and validation evidence. Do not silently rewrite confirmed product behavior merely for implementation convenience.
 
-The detailed source synthesis lives in:
+Current repository evidence discovery starts at `docs/EVIDENCE_ROUTING_MAP.md`.
+
+For exhaustive/current direct-source work use:
+- `docs/BLITZIT_FORENSIC_PASS3_HANDOFF.md` / `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` — current continuation and counters;
+- `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md` / `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md` — canonical current source findings;
+- `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker — measurable static visual evidence;
+- `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` / `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` — finding-to-implementation handoff.
+
+The older source synthesis remains useful background:
 
 - `docs/RESEARCH_EVIDENCE.md` — screenshot/video evidence inventory and evidence precedence.
 - `docs/BLITZIT_VIDEO_EVIDENCE.md` — user-supplied recording/transcript manifest plus timestamped UI/UX/motion findings.

@@ -1,0 +1,20 @@
+{
+  "id": 11278482082,
+  "node_id": "MDg6QXJ0aWZhY3QxMTI3ODQ4MjA4Mg==",
+  "name": "narro-m7-validation-windows-x64",
+  "size_in_bytes": 5279271,
+  "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/11278482082",
+  "archive_download_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/11278482082/zip",
+  "expired": false,
+  "digest": "sha256:fa44946aa463eaf5e307524ec19dacc5dd09c51b6c16678f75e7977521631020",
+  "created_at": "2026-10-03T15:58:55Z",
+  "updated_at": "2026-10-03T15:58:55Z",
+  "expires_at": "2027-01-01T15:42:45Z",
+  "workflow_run": {
+    "id": 37134207962,
+    "repository_id": 1334565718,
+    "head_repository_id": 1334565718,
+    "head_branch": "fix/m7-native-insets-and-editors",
+    "head_sha": "549536c4d19b0045a928652d3feff53162f55a6e"
+  }
+}

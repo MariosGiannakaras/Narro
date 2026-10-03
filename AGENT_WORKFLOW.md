@@ -91,6 +91,27 @@ Use precise levels:
 
 Compilation does not prove taskbar, monitor, tray, shortcut, notification or other interactive Windows behavior.
 
+## Evidence discovery
+
+For any user-visible, source-parity, Blitzit-evidence or physical visual-validation task, read `docs/EVIDENCE_ROUTING_MAP.md` before choosing which evidence/spec files to trust. Older 19/19 trackers are historical prior-pass coverage; `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` is the only current exhaustive-source counter.
+
+A physical/native validation agent (including Codex) must not promote a Windows PASS into a Blitzit visual-parity PASS unless the check explicitly consumed the relevant canonical Pass-3/calibration evidence.
+
+## Blitzit source-analysis handoff
+
+The forensic/source-analysis track and the implementation track remain separate. Their mandatory handoff is defined in `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`.
+
+Key synchronization rules:
+
+- a forensic agent records source truth and does not patch implementation;
+- an implementation agent consumes canonical `SOURCE_COMPLETE` findings rather than repeating raw-media analysis;
+- a reconciliation step updates the audit crosswalk and affected roadmap/tracking before an evidenced discrepancy is implemented or a user-visible milestone is closed;
+- new high-confidence contradictions to an already-built surface are reconciled immediately rather than waiting for 19/19 Pass-3 completion;
+- if materially relevant source videos for a surface are still OPEN, nonvisual/domain/API work may continue, but final visual/interaction parity for that surface remains open;
+- M10/final review re-verifies original references and accepted parity; it is not the first parity comparison.
+
+Do not change milestone denominators merely to represent an evidence gate. Add a non-counting acceptance/gate note unless a genuinely new executable top-level milestone item is intentionally added and the denominator is explicitly reconciled.
+
 ## Pre-CI discipline
 
 Before every source/config push that will trigger Windows CI:
@@ -106,6 +127,16 @@ Before every source/config push that will trigger Windows CI:
 9. never use CI as a blind syntax/formatting probe when the equivalent local tool is available.
 
 Windows CI is the reproducible second gate. Inspect the real failing step/log before changing code or rerunning. Do not retry a deterministic failure without a corrective change.
+
+### Short-lived integration and manual gates
+
+Follow `docs/CI_VALIDATION_STRATEGY.md`.
+
+When a coherent implementation PR is exact-head automated-green and the only remaining requirement is physical/manual observation, merge it with an expected-head guard instead of keeping a long-lived integration branch open. Keep the affected TODO/milestone gate OPEN until physical evidence exists.
+
+If physical validation later fails, branch narrowly from current `main`, fix the evidenced defect, validate/merge that corrective slice, and rerun the affected manual gate. Do not rebuild the entire milestone branch or replay unrelated validated work.
+
+A branch that has already accumulated a validated source generation must not become the container for successive future generations merely because the milestone is still open.
 
 After an expected-head guarded merge, compare the validated PR-head Git tree with the resulting main tree. If they are identical, the exact-head CI validates that source tree; do not manually dispatch another equivalent CI run. An automatically triggered duplicate main run may be cancelled after identity is proven when the validated PR artifact is suitable for any pending Windows test. Record that cancellation, and identify the PR artifact precisely. If the trees differ, validate the resulting main before claiming its source is covered. Physical Windows behavior still requires observation.
 
@@ -217,6 +248,23 @@ Before stopping:
 5. update `STATUS.md` if project-level truth changed;
 6. rewrite `HANDOFF.md`;
 7. ensure no required continuation context exists only in chat/local files.
+
+### Authoritative-main merge preservation
+
+Implementation branches may be older than current documentation/process truth on `main`. Before merging any implementation PR:
+
+1. fetch current `main` and list the PR's changed filenames;
+2. if the PR does **not** change authoritative current-truth/evidence Markdown, a normal merge does not replace those newer `main` files; do not rebase merely to copy documentation into a code-only branch;
+3. if the PR **does** change any authoritative current-truth/evidence file, compare that patch against current `main` and reconcile it before merge — never accept an older branch copy merely because the PR head passed CI;
+4. preserve the intentional branch contribution while retaining all newer unrelated `main` truth; if reconciliation changes executable/test/config files, repeat the required exact-head validation;
+5. after merge, re-read the affected authoritative files from resulting `main` and confirm no current continuation/evidence state regressed.
+
+Protected current-truth families include at minimum:
+- `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, `HANDOFF.md`, `TODO.md`, `STATUS.md`;
+- `docs/EVIDENCE_ROUTING_MAP.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, `docs/UI_UX_SPEC.md`;
+- current `docs/BLITZIT_FORENSIC_*`, `docs/BLITZIT_PARITY_*`, `docs/BLITZIT_VISUAL_*` evidence/coordination files.
+
+An expected-head merge guard protects the validated PR head from an unvalidated branch update; it does **not** replace this semantic stale-document check.
 
 ### Branch and tracking hygiene
 

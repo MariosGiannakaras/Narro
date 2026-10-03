@@ -41,6 +41,12 @@ Disposition values:
 - **INTENTIONAL_DEVIATION**
 - **EXCLUDED**
 
+## Canonical source-analysis consumption
+
+Use `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` for the binding source-analysis -> implementation handoff.
+
+`SOURCE_COMPLETE` forensic records are the normal implementation input; implementation agents do not repeat the raw screenshot/video analysis by default. For stable screenshot-backed states, the measurable visual layer is `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`. New material findings are reconciled here against current code before the affected user-visible surface is considered parity-complete. A completed source record may therefore still be `RECONCILIATION_PENDING`, and screenshot source inspection may still be `VISUAL_CALIBRATION_OPEN`. M10/final review directly rechecks original references, but that is release-candidate verification rather than the first implementation comparison.
+
 ## 1. Parity/code audit findings
 
 | ID | Finding | Route | Disposition |
@@ -68,6 +74,8 @@ Disposition values:
 | B2 | Exact Blitz-now placement fidelity | M10 final visual parity | **ROUTED_M10** |
 | B3 | Exact swatch/palette fidelity | M10 final visual parity | **ROUTED_M10** |
 | B4 | Done auto-start-next behavior | M8 success flow | **PARTIAL / AMBIGUOUS** — success-screen-enabled path validated; disabled path unproven |
+| B5 | `Blitz now` must enter/open Focus Panel; PR #192 previously preserved an already-visible Floating Timer instead | M7 corrective semantics | **VALIDATED** — automated Focus-entry semantics are retained; CI #809 physical recording `2026-10-01 19-03-32.mp4` visibly activates Main `Blitz now` at ~5.2–5.4 s and the existing Focus surface presents the Focus Panel. See `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`. |
+| B6 | An idle/no-task Floating Timer can still be exposed through stale Timer presentation / Find-Timer paths | M7 corrective semantics | **VALIDATED** — automated active-state gating remains green; CI #809 ends in visible `All Clear` and the operator-context idle T / Find-Timer sequence surfaces no placeholder/stale Timer or attention pulse. See `work-log/2026-10-02-chatgpt-m7-ci809-c4-closure.md`. |
 
 Audit section-C intentional Narro deviations remain binding unless newer explicit evidence/user direction supersedes them.
 
@@ -84,6 +92,12 @@ Audit section-C intentional Narro deviations remain binding unless newer explici
 | VE-F007 | Panel→Floating transformation ≈0.27 s; continuous-window character | M7 physical/fidelity gate | **VALIDATION_OPEN** — PR #192 head `b506fd01...` now contains unvalidated finite ~270 ms same-WebView Panel↔Timer and compact↔expanded Timer clip/reveal implementation; physical Gate 7 evidence is still required |
 | VE-F008 | Preferences children stay in place; hidden times disclose on hover | M8 | **VALIDATED** |
 | VE-F009 | Historical first-subtask-live limitation | Do not regress Narro | **INTENTIONAL_DEVIATION** |
+| VE-F010 | Planning-board cross-lane drag supports pointer-position insertion, not append-only movement | M5 board parity correction | **VALIDATED** — PR #213 exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`, Windows CI #836 PASS, merged as `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`; persisted `beforeTaskId` now supports positional cross-lane insertion. Full drag lift/reflow/settle visual fidelity remains separately open under UX-F016. |
+| VE-F011 | Lane headline time is live remaining work, not raw initial EST sum | M5 board read-model correction | **VALIDATED** — PR #213 exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`, Windows CI #836 PASS, merged as `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`; board projection now separates nominal and saturating remaining EST and pending lane headers consume remaining work. |
+| VE-F012 | Today shows completion progress `done/total Done` and highlighted lane treatment | M5/M10 board parity | **PARTIAL / FIX_NOW** — PR #213 validated stronger Today emphasis/CTA structure; `done/total Done` semantics remain open. Exact visual calibration remains M10/review. |
+| VE-F013 | Task ordinal is visible at rest and remains attached to moved cards during demonstrated planning sequence | M5 task-card parity | **FIX_NOW** as session-stable visible ordinal; persistence beyond the demonstrated interaction remains unclaimed |
+| VE-F014 | Planning hover grammar is ordinal→completion at left plus Notes/lane-left/lane-right/overflow at right | M5 task-card interaction parity | **FIX_NOW** |
+| VE-F015 | Today owns anchored gradient `Blitz now`; activation fades board ~250 ms before Focus | M6 entry / M10 motion parity | **PARTIAL / FIX_NOW** — PR #213 validated Today-owned anchored CTA composition. Board fade before Focus remains open; exact visual/motion calibration remains M10/review. |
 
 Unresolved video ambiguities remain explicit:
 - success-screen-disabled Done progression;
@@ -123,6 +137,13 @@ Unresolved video ambiguities remain explicit:
 | UX-F011 | Schedule/recurrence footer uses secondary Cancel + primary gradient action | Narro combined Schedule/Repeat dialog preserves the secondary Cancel + gradient primary hierarchy without splitting state authority | **VALIDATED NARRO ADAPTATION** — PR #182 visual fixtures / CI #617 |
 | UX-F012 | Reports hierarchy: four metrics → main chart → secondary panels | M9 | **ROUTED_M9** |
 | UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **ROUTED_M9** |
+| UX-F014 | Main first paint exposes blank/washed/dark staging before Home settles | M10 final quality pass | **ROUTED_M10** — visible in the 2026-09-30 CI #744 physical recording; not established as an M7 source regression |
+| UX-F015 | Global shortcut registration failures render as large persistent error cards inside ordinary Home content | M8 shortcut UX / M10 final review | **ROUTED_M8** — conflict must remain visible/retryable, but presentation should be contextual rather than diagnostic-like application content |
+| UX-F016 | Cross-lane drag shows floating card, live source reflow, positional destination insertion and settle | M5 board motion/interaction | **FIX_NOW**; exact drag duration remains unmeasured |
+| UX-F017 | Today lane has persistent cyan→green accent outline and anchored gradient Blitz CTA | M5/M10 board composition | **VALIDATED STRUCTURE / ROUTED_M10 FIDELITY** — PR #213 validated stronger Today boundary plus anchored CTA structure; exact gradient/border pixel calibration remains M10/review. |
+| UX-F018 | Today progress is a done/total progress treatment, corroborated by current help-v2.x screenshot | M5 board semantics | **FIX_NOW** |
+| UX-F019 | Resting task-left affordance is ordinal; completion replaces/reveals on hover without geometry shift | M5 task-card geometry | **FIX_NOW** |
+| UX-F020 | Blitz entry fades the board before Focus presentation (~250 ms in supplied planning clip) | M6/M10 transition fidelity | **FIX_NOW** with reduced-motion-safe implementation |
 
 ## 5. Reliability/history findings
 
@@ -136,6 +157,7 @@ Unresolved video ambiguities remain explicit:
 | RISK-F006 | Monitor hotplug source restart requirement | Event-driven topology recovery | **IMPLEMENTED**, physical M7/M10 open |
 | RISK-F007 | Surprise implicit timer start on fresh app launch | Fresh startup must not create/start a focus session without explicit user action; recovery may only restore an existing durable checkpoint under the validated M3 recovery policy | **VALIDATION_OPEN** — current startup/Focus/shortcut contracts expose no intended implicit-start path, but no dedicated fresh-start regression was located; close before final M10 reliability acceptance |
 | RISK-F008 | Live-task Notes/title metadata edit disturbs timer/session | Opening, editing and saving Notes/title must preserve live task/session identity and authoritative elapsed/accounting; EST/Time Taken edits remain restricted to the validated paused-runtime boundaries | **VALIDATION_OPEN** — functional Notes/title editing and paused metric safety are validated, but no dedicated integrated running-session continuity regression was located; close before final M10 reliability acceptance |
+| RISK-F009 | Multiple Narro processes can coexist against the same local SQLite/background runtime and contend for global shortcuts | M1/M7 runtime foundation | **AUTOMATED_VALIDATED / PHYSICAL_RECHECK_PENDING** — official Tauri single-instance boundary is registered before persistence/background/shortcut authority; PR #206 exact head `ab1e89fc...` passed #784, guarded merge `4f489419...` passed resulting-main #785. Fresh M7 physical artifact must confirm one-process ownership during the final Gate 7/12 matrix |
 
 ## 6. Active M8 audited runtime tasks
 
@@ -180,11 +202,25 @@ CI #624 physical Windows evidence is in `work-log/2026-09-28-codex-m7-ci624-phys
 
 | ID | Physical finding | Route | Disposition |
 | --- | --- | --- | --- |
-| M7-PHYS-01 | Panel↔Timer visual continuity: old opaque/transparent host-tail defects are fixed, but #684 cross-monitor motion remained visually drag-like | M7 visual continuity | **IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN** — exact PR #192 head `63bb20e9c32dcaffacf96c3bd5a6c52e9114b257` replaces linear native stepping with finite Fluent point-to-point `cubic-bezier(0.55, 0.55, 0, 1)` easing aligned with renderer motion. Windows CI #708 passes; physical transition character remains unobserved on this head. See `work-log/2026-09-30-chatgpt-m7-ci708-overflow-dpi-easing.md`. |
-| M7-PHYS-02 | Mixed-DPI movement/recovery: #684 compact Timer visible-region DPI could lag the renderer during manual crossing | M7 topology/DPI | **IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN** — exact #708 head refreshes the Timer native visible region from incoming interactive `WM_DPICHANGED` DPI immediately, while full host-size/position recovery stays deferred until `WM_EXITSIZEMOVE`. Windows CI #708 passes; 100%↔125% physical confirmation remains open. |
-| M7-PHYS-03 | Settled compact/expanded Timer exposed a browser scrollbar and crowded right-edge controls in #684 | M7 layout/overflow | **IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_OPEN** — exact #708 head locks `:root/html/body/#root` to `overflow: hidden` in the Focus document while intentional component-level scroll containers remain enabled. Windows CI #708 passes; settled physical scrollbar absence remains open. |
+| M7-PHYS-01 | Panel↔Timer visual continuity: old opaque/transparent host-tail defects are fixed, but #684 cross-monitor motion remained visually drag-like | M7 visual continuity | **VALIDATED** — automated single-host motion contracts remain green; CI #809 physical re-audit confirms repeated populated presentation transitions with no blank/pale/stale/duplicate host frame, and PR #208's former expanded→compact white-L boundary no longer reproduces. See `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`. |
+| M7-PHYS-02 | Mixed-DPI movement/recovery: #684 compact Timer visible-region DPI could lag the renderer during manual crossing | M7 topology/DPI | **VALIDATED** — CI #809 physical re-audit observes the compact Timer crossing the 1920-wide display at ~425 physical px to the 2560×1080 display at ~340 physical px; Windows settings explicitly show the latter at 100%, matching the 125%→100% 1.25 ratio. Timer remains usable through the crossing. See `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`. |
+| M7-PHYS-03 | Settled compact/expanded Timer exposed a browser scrollbar and crowded right-edge controls in #684 | M7 layout/overflow | **VALIDATED** — CI #809 physical compact/expanded endpoints and edge-constrained expansion show no document/root scrollbar or unusable clipping; component-local content behavior remains intact. See `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`. |
+| M7-PHYS-04 | CI #744 physical run could not establish exact-candidate Focus ownership because both Narro T/P global chords were already owned elsewhere | M1/M7 runtime validity | **VALIDATED** — PR #206 single-instance ownership is automated-validated, and CI #809 physically shows Main + active Timer already alive around 38 s before a later `narro.exe` activation at ~39.25–40.75 s; the same runtime state persists with no competing Narro UI/reset/conflict afterward. See `work-log/2026-10-02-chatgpt-m7-ci809-c4-closure.md`. |
+| M7-PHYS-05 | Expanded active Floating Timer removes the current task title and live time | M7 Floating Timer parity | **VALIDATED** — accepted automated captures retain task title/live time, and CI #809 physical expanded Timer repetitions visibly retain the same active task/time through standard-motion presentation changes. See `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`. |
+| M7-PHYS-06 | Main All Lists remains stale after Focus quick-create/start mutates the same authoritative board | M6/M7 cross-window projection correctness | **VALIDATED** — automated board invalidation/re-read remains green; CI #809 physical recording visibly reconciles Focus completion to Main Done while both surfaces remain live against the same authoritative state. See `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`. |
+| M7-PHYS-07 | Physical validation artifact was the CI-instrumented `runtimeVisual=1` executable and mutated the user's SQLite with capture fixtures | M7 artifact validity / acceptance chain | **AUTOMATED_VALIDATED / PHYSICAL_RETEST** — recording SHA-256 `80b05a2410c752c8e56d68be37db9b4d92db3cd767b666a909cc60c6f2e20fb5`; commits `907d1f97...` + `5bda5851...` split production physical build and add isolated-profile no-fixture runtime smoke; CI #803 production physical artifact passes zero-checkpoint runtime smoke; rerun physical matrix only on exact production artifact |
+| M7-PHYS-08 | Same-DPI Timer→Panel native animation reached the client-width edge then reversed 16 px to the decorated HWND edge | M7 visual continuity / native geometry | **FIX_IMPLEMENTED / CI_PENDING** — CI #801 artifact `11149609321` sampled `(388,80) → (684,0) → (668,0)`; commit `5c8f4c4e...` plans same-DPI Panel animation from actual outer HWND size while preserving cross-DPI target-scale planning and strict monotonic validation |
+| M7-PHYS-09 | CI #806 active-session expanded→compact briefly exposed a white L/outline while the native Timer region changed | M7 visual continuity / Timer native-region swap | **FIX_IMPLEMENTED / AUTOMATED_VALIDATED / PHYSICAL_RETEST** — recording SHA-256 `86e51a5dcc6cc8bd5cb6af41971daa3c23016a97768c7f8469f567d4f232710b` shows the defect at ~81.50 s after clean task `Test` is active. PR #208 exact head `d885a577...` presents the contracted compact React frame before clipping and suppresses only the forced `SetWindowRgn` redraw for prepainted Timer↔Timer swaps; CI #809 PASS, merge `2767b382...` has the identical validated tree, main CI #810 PASS. Production artifact `11163439039` passes zero-`runtimeVisual` smoke; standard-motion physical retest remains required. |
 
-These findings concern the active M7 replacement. The #684 reassessment remains the physical evidence for the defects; exact PR #192 head `63bb20e9c32dcaffacf96c3bd5a6c52e9114b257` implements and automated-validates their narrow corrections in Windows CI #708. Physical acceptance is unavailable, so all three rows remain open rather than VALIDATED. No architecture reset or second Timer WebView is justified. The materially affected M1 Gate A items, M6 Gate F integration items, M7 host-dependent items and M8 Focus-shortcut items remain reopened. PREF-R01 and unaffected M8 settings/persistence work remain validated.
+The #684 reassessment remains historical defect evidence; the later CI #809 physical dispositions above supersede its open-retest state. CI #873 now physically passes the saved-placement restart criterion as recorded below. Separate M1 replacement/performance gates and formal M7 reconciliation remain open. No architecture reset or second Timer WebView is justified by the observations alone. Unaffected validated Preferences/persistence work remains preserved.
+
+### CI #873 continuation — 2026-10-03 physical evidence
+
+| ID | Direct observation | Route | Disposition |
+| --- | --- | --- | --- |
+| M7-C5-20261003 | Active compact Timer drag → normal tray Quit → same exact EXE relaunch → saved visible Timer at `(1640,780)`; same title/time recovered paused | C5 saved-position physical acceptance | **PHYSICAL_PASS** — native two-session evaluator PASS (328 px qualifying movement) and continuous two-monitor 60 fps video. [Completed run](../work-log/2026-10-03-codex-m7-ci873-c5-completed.md). Formal milestone reconciliation remains separate. |
+| M7-OBS-20261003-01 | CI #873 expanded→Panel overlays outgoing/incoming content; CI #884 Panel→compact still shows compact target above outgoing Panel for one normal and two reduced-motion recorded frames | M7 narrow motion-content review | **FIX_NOW / PHYSICAL_FAIL** — PR #221's prepaint promotion alone does not hide the taller outgoing hierarchy before native clipping. [CI #884 dense review](../work-log/2026-10-03-codex-m7-ci884-physical-batch-evidence.md) preserves exact frames. PR #222 adds sole target paint ownership and immediate rollback restoration alongside the host/editor batch. Exact final EXE normal/reduced-motion testing remains OPEN. No claim of white-L recurrence or universal motion/source-parity PASS. |
+| M7-OBS-20261003-02 | CI #873 settled 100% DPI Panel displays `Res...` and disabled `Exte...` action labels | M7 narrow layout/accessibility review | **IMPLEMENTED / VALIDATION_PENDING** — PR #221 reserves stable six-slot widths for complete labels. Sixteen rendered normal/paused/theme captures and CI #884 physical 125% labels PASS; native 100% DPI observation on the final changed host remains required. |
 
 ## 8. No-orphan gate
 
@@ -196,3 +232,16 @@ Before a milestone or substantial slice continues:
 - intentional deviations stay protected by tests/specs where material;
 - ambiguity is not permission to guess;
 - M10/final review rechecks all `ROUTED_M10`, `VALIDATION_OPEN` and remaining `AMBIGUOUS` rows.
+
+### M7 CI #884 runtime findings — 2026-10-03
+
+All findings use the exact CI #884 validation EXE and real Windows 125% capture in [the batched findings](../work-log/2026-10-03-codex-m7-ci884-batched-findings.md). Reconcile against that evidence; do not call the native frame strip a recurrence of an older transient symptom.
+
+| ID | Finding | Scope | Disposition |
+|---|---|---|---|
+| M7-OBS-20261003-03 | Frameless Focus shadow insets expose native frame and offset client from outer-origin region | M7 Windows host / region | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 removes native shadow/resize frame consistently in all build configs; retest exact EXE at 100%/125%, movement, transitions, saved-position restart |
+| M7-OBS-20261003-04 | Expanded inline Notes shows unnecessary horizontal scrollbar | M7 editor / layout | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 bounds box sizing and horizontal content, collapses closed tooltip geometry while preserving its opacity/transform opening state, and aligns the edge tooltip inward. Real rendered keyboard-open/transition/Escape and reduced-motion regressions PASS; preserve intentional vertical editor scroll. Exact-EXE retest remains OPEN |
+| M7-OBS-20261003-05 | Larger Notes uses full-host vh and loses footer below expanded 300px region | M7 editor reachability | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 binds to visible height, bounds grid columns/Save and resize, and retains editor node/draft. Explicit Narro Windows decision; VE-010 inline flow is preserved |
+| M7-OBS-20261003-06 | In-app shortcuts depend on translated key and fail in Greek layout | Shared shortcut boundary, exercised M7 | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 uses physical letter code with semantic fallback and controlled regressions; real Greek/English check remains OPEN |
+| M7-OBS-20261003-07 | Quick-create loading race leaves focus outside modal so Escape/trap does not run | Focus Create modal accessibility | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 owns loading shell and ready title focus; rendered delayed success/error/empty, Tab/Escape and focus restore are covered; physical retest remains OPEN |
+

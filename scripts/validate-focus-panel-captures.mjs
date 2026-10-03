@@ -7,6 +7,7 @@ let baselineLiveTimerWidth = null;
 let baselineSubtaskRingWidth = null;
 let baselineMetricsWidth = null;
 let baselinePausedMetricInputWidth = null;
+let baselineActionSlots = null;
 
 function invariant(condition, message) {
   if (!condition) throw new Error(`Focus Panel visual validation failed: ${message}`);
@@ -35,6 +36,21 @@ function readContract(dom, label) {
 }
 
 function validateSharedGeometry(contract, label, theme) {
+  if (contract.actionLabels.length) {
+    invariant(contract.actionLabels.length === 6, `${label} must retain six live-action slots`);
+    for (const action of contract.actionLabels) {
+      invariant(action.labelWidth <= action.availableWidth + 0.01,
+        `${label} ${action.label} is clipped: ${action.labelWidth}px text in ${action.availableWidth}px`);
+      invariant(action.width >= 32, `${label} ${action.label} hit target is narrower than 32px`);
+    }
+    baselineActionSlots ??= contract.actionLabels;
+    for (const [index, action] of contract.actionLabels.entries()) {
+      const baseline = baselineActionSlots[index];
+      invariant(action.action === baseline.action && Math.abs(action.x - baseline.x) < 0.5
+        && Math.abs(action.width - baseline.width) < 0.5,
+      `${label} ${action.label} moved its slot across running/paused/theme states`);
+    }
+  }
   invariant(contract.theme === theme, `${label} contract theme differs`);
   invariant(contract.panel?.width === 340, `${label} panel width is ${contract.panel?.width}; expected 340px`);
   invariant(

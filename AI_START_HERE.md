@@ -18,7 +18,7 @@ Before asking the user what to do next, do all of the following:
 6. Read the active milestone section in `TODO.md`.
 7. Read `STATUS.md` for durable project-level truth and validated architecture/capability decisions.
 8. Inspect the implementation/tests/files referenced by `HANDOFF.md`; never trust a summary without checking repository reality.
-9. Read only the product/architecture/evidence docs relevant to the active slice.
+9. Read only the product/architecture/evidence docs relevant to the active slice. For user-visible, Blitzit-parity, source-evidence, or physical visual-validation work, start evidence discovery from `docs/EVIDENCE_ROUTING_MAP.md` so deeper canonical evidence is not skipped.
 10. Inspect the newest relevant files in `work-log/` when recent rationale/validation evidence is needed. Use root `WORK_LOG.md` only for older legacy history.
 11. Continue the exact highest-priority unblocked action recorded in `HANDOFF.md`.
 
@@ -132,6 +132,14 @@ Distinguish these clearly:
 - **manual Windows validated** — the behavior was physically observed on Windows where necessary.
 
 Never promote one level to another without evidence. `TODO.md` parent items remain open when required validation is still pending.
+
+### Integration is not milestone completion
+
+An exact-head automated-green implementation slice may be expected-head guarded-merged to `main` while a purely observational physical Windows gate remains OPEN. The merge integrates validated source; it does not convert manual evidence to PASS.
+
+Do not keep automated-green implementation PRs open solely to wait for physical observation. If the later physical run fails, record the exact failure and correct it through a narrow follow-up PR from current `main`, then repeat only the affected manual gate unless evidence requires more.
+
+Use `docs/CI_VALIDATION_STRATEGY.md` for the authoritative branch/CI/manual-gate policy.
 
 ## End-of-session contract
 

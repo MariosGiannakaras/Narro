@@ -1,0 +1,37 @@
+{
+  "task": {
+    "id": "0b5dc29d-7d70-42ef-9df1-ad09d2fed7a1",
+    "title": "M7 CI884 UI batch validation with a long title for compact overflow checks",
+    "manual_time_adjustment_seconds": 0,
+    "completed_at": "2026-10-03T13:50:00.876Z"
+  },
+  "sessions": [
+    {
+      "id": "7fb6ff75-3d7d-4d42-b7c2-e5d331af4958",
+      "kind": "work",
+      "started_at": "2026-10-03T13:28:42.965Z",
+      "ended_at": "2026-10-03T13:49:26.686Z",
+      "duration_seconds": 13,
+      "source": "focus"
+    },
+    {
+      "id": "6086878d-c02b-4a00-b234-4bbd4ebd16c9",
+      "kind": "break",
+      "started_at": "2026-10-03T13:49:26.686Z",
+      "ended_at": "2026-10-03T13:49:45.274Z",
+      "duration_seconds": 18,
+      "source": "focus"
+    },
+    {
+      "id": "50cb1462-12d9-4998-a789-50e69b765085",
+      "kind": "work",
+      "started_at": "2026-10-03T13:49:45.274Z",
+      "ended_at": "2026-10-03T13:50:00.876Z",
+      "duration_seconds": 0,
+      "source": "focus"
+    }
+  ],
+  "persistedWorkSeconds": 13,
+  "completedTrackedTimePass": true,
+  "readOnly": true
+}

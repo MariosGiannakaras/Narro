@@ -8,7 +8,7 @@ use crate::persistence::tasks::{
     active_tasks_in_bucket, complete_task, get_task, move_task, permanently_delete_task_confirmed,
     TaskStoreError,
 };
-use rusqlite::{Connection, OptionalExtension};
+use rusqlite::{params, Connection, OptionalExtension};
 use std::fmt::{Display, Formatter};
 use std::path::PathBuf;
 use tauri::Manager;
@@ -173,24 +173,155 @@ fn move_unscheduled_task_to_lane(
     expected_list_id: ListId,
     expected_source_lane: PlanningLane,
     target_lane: PlanningLane,
+    before_id: Option<TaskId>,
     now: &str,
 ) -> Result<TaskRecord, BoardTaskMutationError> {
-    let current = get_task(conn, id)?;
-    validate_expected_source(&current, expected_list_id, expected_source_lane)?;
     if expected_source_lane == target_lane {
-        return Ok(current);
+        let reordered = reorder_unscheduled_task_before(
+            conn,
+            id,
+            expected_list_id,
+            expected_source_lane,
+            before_id,
+            now,
+        )?;
+        return reordered
+            .into_iter()
+            .find(|task| task.id == id)
+            .ok_or(BoardTaskMutationError::InvalidAnchor(id));
     }
 
-    move_task(
-        conn,
-        id,
-        TaskDestination {
-            list_id: expected_list_id,
-            manual_lane: target_lane,
-        },
-        now,
-    )
-    .map_err(BoardTaskMutationError::from)
+    let tx = conn.transaction().map_err(TaskStoreError::from)?;
+    let current = get_task(&tx, id)?;
+    validate_expected_source(&current, expected_list_id, expected_source_lane)?;
+
+    let archived_at: Option<Option<String>> = tx
+        .query_row(
+            "SELECT archived_at FROM lists WHERE id = ?1",
+            [expected_list_id.to_string()],
+            |row| row.get(0),
+        )
+        .optional()
+        .map_err(TaskStoreError::from)?;
+    match archived_at {
+        None => return Err(TaskIdentityError::ListNotFound(expected_list_id).into()),
+        Some(Some(_)) => return Err(TaskIdentityError::ListArchived(expected_list_id).into()),
+        Some(None) => {}
+    }
+
+    let has_open_session = tx
+        .query_row(
+            "SELECT 1
+             FROM sessions
+             WHERE task_id = ?1
+               AND ended_at IS NULL
+             LIMIT 1",
+            [id.to_string()],
+            |_| Ok(()),
+        )
+        .optional()
+        .map_err(TaskStoreError::from)?
+        .is_some();
+    if has_open_session {
+        return Err(TaskStoreError::ActiveSession(id).into());
+    }
+
+    let mut source_bucket = active_tasks_in_bucket(&tx, expected_list_id, expected_source_lane)?;
+    let Some(source_index) = source_bucket.iter().position(|task| task.id == id) else {
+        return Err(BoardTaskMutationError::InvalidAnchor(id));
+    };
+    source_bucket.remove(source_index);
+
+    let target_bucket = active_tasks_in_bucket(&tx, expected_list_id, target_lane)?;
+    let insertion_index = match before_id {
+        Some(anchor_id) => {
+            let Some(index) = target_bucket.iter().position(|task| task.id == anchor_id) else {
+                return Err(BoardTaskMutationError::InvalidAnchor(anchor_id));
+            };
+            if target_bucket[index].schedule_kind != ScheduleKind::None {
+                return Err(BoardTaskMutationError::ScheduledAnchor(anchor_id));
+            }
+            index
+        }
+        None => insertion_index_after_last_unscheduled(&target_bucket),
+    };
+
+    let mut target_ids: Vec<TaskId> = target_bucket.iter().map(|task| task.id).collect();
+    target_ids.insert(insertion_index, id);
+
+    let changed = tx
+        .execute(
+            "UPDATE tasks
+             SET manual_lane = ?1, sort_rank = ?2, updated_at = ?3
+             WHERE id = ?4
+               AND list_id = ?5
+               AND completed_at IS NULL
+               AND archived_at IS NULL",
+            params![
+                target_lane.as_str(),
+                i64::from(u32::MAX),
+                now,
+                id.to_string(),
+                expected_list_id.to_string()
+            ],
+        )
+        .map_err(TaskStoreError::from)?;
+    if changed != 1 {
+        return Err(TaskStoreError::NotFound(id).into());
+    }
+
+    for (index, task) in source_bucket.iter().enumerate() {
+        let rank = u32::try_from(index).map_err(|_| TaskIdentityError::RankOverflow)?;
+        let changed = tx
+            .execute(
+                "UPDATE tasks
+                 SET sort_rank = ?1, updated_at = ?2
+                 WHERE id = ?3
+                   AND list_id = ?4
+                   AND manual_lane = ?5
+                   AND completed_at IS NULL
+                   AND archived_at IS NULL",
+                params![
+                    i64::from(rank),
+                    now,
+                    task.id.to_string(),
+                    expected_list_id.to_string(),
+                    expected_source_lane.as_str()
+                ],
+            )
+            .map_err(TaskStoreError::from)?;
+        if changed != 1 {
+            return Err(TaskIdentityError::ReorderSetMismatch.into());
+        }
+    }
+
+    for (index, task_id) in target_ids.iter().enumerate() {
+        let rank = u32::try_from(index).map_err(|_| TaskIdentityError::RankOverflow)?;
+        let changed = tx
+            .execute(
+                "UPDATE tasks
+                 SET sort_rank = ?1, updated_at = ?2
+                 WHERE id = ?3
+                   AND list_id = ?4
+                   AND manual_lane = ?5
+                   AND completed_at IS NULL
+                   AND archived_at IS NULL",
+                params![
+                    i64::from(rank),
+                    now,
+                    task_id.to_string(),
+                    expected_list_id.to_string(),
+                    target_lane.as_str()
+                ],
+            )
+            .map_err(TaskStoreError::from)?;
+        if changed != 1 {
+            return Err(TaskIdentityError::ReorderSetMismatch.into());
+        }
+    }
+
+    tx.commit().map_err(TaskStoreError::from)?;
+    get_task(conn, id).map_err(BoardTaskMutationError::from)
 }
 
 fn validate_expected_list(
@@ -403,11 +534,16 @@ pub fn move_list_board_task(
     list_id: String,
     source_lane: String,
     target_lane: String,
+    before_task_id: Option<String>,
 ) -> CommandResult<()> {
     let task_id = parse_id("taskId", &task_id)?;
     let list_id = parse_list_id("listId", &list_id)?;
     let source_lane = parse_lane("sourceLane", &source_lane)?;
     let target_lane = parse_lane("targetLane", &target_lane)?;
+    let before_task_id = before_task_id
+        .as_deref()
+        .map(|value| parse_id("beforeTaskId", value))
+        .transpose()?;
     let mut connection = app_database(&app_handle)?;
     move_unscheduled_task_to_lane(
         &mut connection,
@@ -415,6 +551,7 @@ pub fn move_list_board_task(
         list_id,
         source_lane,
         target_lane,
+        before_task_id,
         &chrono::Utc::now().to_rfc3339(),
     )
     .map(|_| ())
@@ -839,13 +976,16 @@ mod tests {
     }
 
     #[test]
-    fn cross_lane_move_appends_atomically_and_preserves_exact_global_identity_set() {
+    fn cross_lane_move_inserts_before_anchor_atomically_and_preserves_identity_set() {
         let mut conn = setup();
         let list_id = list(&mut conn);
         let moving = task(&mut conn, list_id, "Move me", PlanningLane::Backlog);
         let stay = task(&mut conn, list_id, "Stay", PlanningLane::Backlog);
-        let target = task(&mut conn, list_id, "Target", PlanningLane::Today);
-        let expected: HashSet<TaskId> = [moving.id, stay.id, target.id].into_iter().collect();
+        let first = task(&mut conn, list_id, "First", PlanningLane::Today);
+        let last = task(&mut conn, list_id, "Last", PlanningLane::Today);
+        let expected: HashSet<TaskId> = [moving.id, stay.id, first.id, last.id]
+            .into_iter()
+            .collect();
 
         let moved = move_unscheduled_task_to_lane(
             &mut conn,
@@ -853,9 +993,10 @@ mod tests {
             list_id,
             PlanningLane::Backlog,
             PlanningLane::Today,
+            Some(last.id),
             T1,
         )
-        .expect("move task to Today");
+        .expect("move task to selected Today position");
         assert_eq!(moved.id, moving.id);
         assert_eq!(moved.manual_lane, PlanningLane::Today);
         assert_eq!(
@@ -867,10 +1008,10 @@ mod tests {
         );
         assert_eq!(
             ids(&active_tasks_in_bucket(&conn, list_id, PlanningLane::Today)
-                .expect("load appended target")),
-            vec![target.id, moving.id]
+                .expect("load positioned target")),
+            vec![first.id, moving.id, last.id]
         );
-        let stored: HashSet<TaskId> = [moving.id, stay.id, target.id]
+        let stored: HashSet<TaskId> = [moving.id, stay.id, first.id, last.id]
             .into_iter()
             .map(|id| get_task(&conn, id).expect("reload task").id)
             .collect();
@@ -895,6 +1036,7 @@ mod tests {
             list_id,
             PlanningLane::Today,
             PlanningLane::ThisWeek,
+            None,
             T1,
         );
         assert!(matches!(

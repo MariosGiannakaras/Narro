@@ -1,0 +1,37 @@
+{
+  "source": "Original OBS MKV, PNG frames extracted without UI screenshot recapture",
+  "images": [
+    {
+      "path": "images/compact-native-frame.png",
+      "sourceVideoSeconds": 735
+    },
+    {
+      "path": "images/panel-full-labels.png",
+      "sourceVideoSeconds": 793
+    },
+    {
+      "path": "images/expanded-notes-horizontal-scroll.png",
+      "sourceVideoSeconds": 1020
+    },
+    {
+      "path": "images/large-notes-clipped.png",
+      "sourceVideoSeconds": 1070
+    },
+    {
+      "path": "images/expanded-subtask-progress.png",
+      "sourceVideoSeconds": 4695
+    },
+    {
+      "path": "images/quick-create-modal.png",
+      "sourceVideoSeconds": 5020
+    },
+    {
+      "path": "images/notes-saved.png",
+      "sourceVideoSeconds": 5220
+    },
+    {
+      "path": "images/completed-task.png",
+      "sourceVideoSeconds": 5320
+    }
+  ]
+}

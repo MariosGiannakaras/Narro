@@ -64,6 +64,7 @@ pub struct ListBoardLane {
     pub tasks: Vec<ListBoardTask>,
     pub count: u64,
     pub aggregate_est_seconds: u64,
+    pub aggregate_remaining_est_seconds: u64,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -179,7 +180,7 @@ struct ProjectedTask {
     task: TaskRecord,
     list_title: String,
     list_color: Option<String>,
-    time_taken_seconds: String,
+    time_taken_seconds: u64,
     subtask_total_count: u64,
     subtask_completed_count: u64,
     is_overdue: bool,
@@ -205,11 +206,17 @@ impl LaneAccumulator {
 
         let count = u64::try_from(self.tasks.len()).map_err(|_| ListBoardError::CountOverflow)?;
         let mut aggregate_est_seconds = 0_u64;
+        let mut aggregate_remaining_est_seconds = 0_u64;
         let mut tasks = Vec::with_capacity(self.tasks.len());
         for projected in self.tasks {
             if let Some(seconds) = projected.task.est_seconds {
                 aggregate_est_seconds = aggregate_est_seconds
                     .checked_add(u64::from(seconds))
+                    .ok_or(ListBoardError::EstimateOverflow)?;
+                let remaining_seconds =
+                    u64::from(seconds).saturating_sub(projected.time_taken_seconds);
+                aggregate_remaining_est_seconds = aggregate_remaining_est_seconds
+                    .checked_add(remaining_seconds)
                     .ok_or(ListBoardError::EstimateOverflow)?;
             }
             tasks.push(ListBoardTask {
@@ -219,7 +226,7 @@ impl LaneAccumulator {
                 list_color: projected.list_color,
                 title: projected.task.title,
                 est_seconds: projected.task.est_seconds,
-                time_taken_seconds: projected.time_taken_seconds,
+                time_taken_seconds: projected.time_taken_seconds.to_string(),
                 subtask_total_count: projected.subtask_total_count,
                 subtask_completed_count: projected.subtask_completed_count,
                 scheduled_local_date: projected.task.scheduled_local_date,
@@ -235,6 +242,7 @@ impl LaneAccumulator {
             tasks,
             count,
             aggregate_est_seconds,
+            aggregate_remaining_est_seconds,
         })
     }
 }
@@ -352,7 +360,7 @@ fn project_task(
     now: Timestamp,
     display_timezone: &str,
 ) -> Result<ProjectedTask, ListBoardError> {
-    let time_taken_seconds = task_time_taken_seconds(conn, task.id)?.to_string();
+    let time_taken_seconds = task_time_taken_seconds(conn, task.id)?;
     let (subtask_total_count, subtask_completed_count) = subtask_counts(conn, task.id)?;
     let is_overdue = task_is_overdue_at(&task, now, display_timezone)?;
     Ok(ProjectedTask {
@@ -634,7 +642,9 @@ mod tests {
         assert_eq!(board.today.tasks[0].id, today);
         assert_eq!(board.done.tasks[0].id, done);
         assert_eq!(board.today.aggregate_est_seconds, 1800);
+        assert_eq!(board.today.aggregate_remaining_est_seconds, 1800);
         assert_eq!(board.done.aggregate_est_seconds, 2400);
+        assert_eq!(board.done.aggregate_remaining_est_seconds, 2400);
         assert_eq!(board.today.tasks[0].time_taken_seconds, "0");
         assert_eq!(board.today.tasks[0].subtask_total_count, 2);
         assert_eq!(board.today.tasks[0].subtask_completed_count, 1);
@@ -752,6 +762,8 @@ mod tests {
         let projected = &board.today.tasks[0];
         assert_eq!(projected.id, task_id);
         assert_eq!(projected.time_taken_seconds, "375");
+        assert_eq!(board.today.aggregate_est_seconds, 900);
+        assert_eq!(board.today.aggregate_remaining_est_seconds, 525);
         assert_eq!(projected.subtask_total_count, 0);
         assert_eq!(projected.subtask_completed_count, 0);
         assert_eq!(
@@ -759,6 +771,31 @@ mod tests {
             Some("2026-09-07")
         );
         assert!(projected.is_overdue);
+    }
+
+    #[test]
+    fn remaining_estimate_clamps_at_zero_when_time_taken_exceeds_estimate() {
+        let mut conn = setup();
+        let list_id = create_named_list(&mut conn, "Work", None);
+        let task_id = add_task(
+            &mut conn,
+            list_id,
+            "Over estimate",
+            PlanningLane::Today,
+            Some(300),
+        );
+        set_task_time_taken(
+            &mut conn,
+            task_id,
+            SetTaskTimeTakenInput { total_seconds: 600 },
+            T1,
+        )
+        .expect("set durable Time Taken");
+
+        let board = load_at(&conn, Some(list_id), now(), "Europe/Athens").expect("load board");
+        assert_eq!(board.today.aggregate_est_seconds, 300);
+        assert_eq!(board.today.aggregate_remaining_est_seconds, 0);
+        assert_eq!(board.today.tasks[0].time_taken_seconds, "600");
     }
 
     #[test]

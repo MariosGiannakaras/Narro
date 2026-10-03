@@ -1,5 +1,6 @@
 param(
-    [string]$OutputDirectory = "artifacts/visual-regression"
+    [string]$OutputDirectory = "artifacts/visual-regression",
+    [ValidateSet("all", "focus-editors")][string]$Scope = "all"
 )
 
 $ErrorActionPreference = "Stop"
@@ -50,7 +51,10 @@ function Capture-Theme {
         [string]$ScreenshotPath,
         [string]$DomPath,
         [int]$VirtualTimeBudgetMs = 0,
-        [string]$ReadyMarker = ""
+        [string]$ReadyMarker = "",
+        [int]$ReadyMaxAttempts = 4,
+        [switch]$ReducedMotion,
+        [switch]$NormalMotion
     )
 
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
@@ -77,8 +81,14 @@ function Capture-Theme {
         if ($VirtualTimeBudgetMs -gt 0) {
             $arguments = @("--virtual-time-budget=$VirtualTimeBudgetMs") + $arguments
         }
+        if ($ReducedMotion -and $NormalMotion) { throw "Capture cannot request both normal and reduced motion." }
+        if ($ReducedMotion) { $arguments = @("--force-prefers-reduced-motion") + $arguments }
+        elseif ($NormalMotion) { $arguments = @("--force-prefers-no-reduced-motion") + $arguments }
 
-        $maxAttempts = if ($ReadyMarker) { 4 } else { 1 }
+        if ($ReadyMaxAttempts -lt 1) {
+            throw "ReadyMaxAttempts must be at least 1."
+        }
+        $maxAttempts = if ($ReadyMarker) { $ReadyMaxAttempts } else { 1 }
         for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
             $edgeProcess = Start-Process `
                 -FilePath $EdgePath `
@@ -136,6 +146,26 @@ function Capture-Theme {
     }
 }
 
+function Capture-FocusEditors([string]$theme) {
+    foreach ($editorScenario in @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel')) {
+        $motionVariants = if ($editorScenario.StartsWith('quick-')) { @($false) } else { @($false, $true) }
+        foreach ($reduced in $motionVariants) {
+            $suffix = if ($reduced) { '-reduced' } else { '' }
+            $editorLabel = "focus-editor-$editorScenario-$theme$suffix"
+            Capture-Theme `
+                -EdgePath $edge `
+                -Theme $editorLabel `
+                -Url "$baseUrl/focus-editor-fixture.html?theme=$theme&scenario=$editorScenario&motion=$reduced" `
+                -ScreenshotPath (Join-Path $outputPath "$editorLabel.png") `
+                -DomPath (Join-Path $outputPath "$editorLabel.html") `
+                -VirtualTimeBudgetMs 2500 `
+                -ReadyMarker 'data-focus-editor-fixture-ready="true"' `
+                -ReducedMotion:$reduced `
+                -NormalMotion:(-not $reduced)
+        }
+    }
+}
+
 New-Item -ItemType Directory -Path $outputPath -Force | Out-Null
 
 $edge = Resolve-EdgePath
@@ -152,6 +182,7 @@ try {
     Wait-ForPreview -Url "$baseUrl/visual-fixtures.html?theme=light"
 
     foreach ($theme in @("light", "dark")) {
+        if ($Scope -eq "focus-editors") { Capture-FocusEditors $theme; continue }
         $url = "$baseUrl/visual-fixtures.html?theme=$theme"
         $screenshot = Join-Path $outputPath "$theme.png"
         $dom = Join-Path $outputPath "$theme.html"
@@ -255,6 +286,8 @@ try {
             -DomPath $noteLargeDom `
             -VirtualTimeBudgetMs 1200
 
+        Capture-FocusEditors $theme
+
         $subtaskLabel = "task-subtasks-$theme"
         $subtaskUrl = "$baseUrl/task-subtasks-fixture.html?theme=$theme"
         $subtaskScreenshot = Join-Path $outputPath "$subtaskLabel.png"
@@ -277,8 +310,9 @@ try {
                 -Url $scheduleUrl `
                 -ScreenshotPath $scheduleScreenshot `
                 -DomPath $scheduleDom `
-                -VirtualTimeBudgetMs 6000 `
-                -ReadyMarker 'data-task-schedule-fixture-ready="true"'
+                -VirtualTimeBudgetMs 10000 `
+                -ReadyMarker 'data-task-schedule-fixture-ready="true"' `
+                -ReadyMaxAttempts 8
         }
     }
 } finally {

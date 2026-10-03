@@ -1,0 +1,144 @@
+{
+  "rawLocalFile": "artifacts/m7-pr221-ci884/video/2026-10-03 15-21-27.mkv",
+  "rawSha256": "7573668b7ce06678c33e304baf6e885bae7de2d7e7c43bc05e175af581ccceab",
+  "raw": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "start_time": "0.000000",
+        "nb_read_packets": "324889"
+      }
+    ],
+    "format": {
+      "duration": "5414.850000",
+      "size": "237850105"
+    }
+  },
+  "segments": [
+    {
+      "path": "video/full-capture-part-00.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "72000000/1199999",
+          "start_time": "0.033000",
+          "duration": "1199.999000",
+          "nb_frames": "72000"
+        }
+      ],
+      "format": {
+        "duration": "1199.999000",
+        "size": "65216162"
+      },
+      "sourceFrameStart": 0,
+      "sourceTimeStartSeconds": 0
+    },
+    {
+      "path": "video/full-capture-part-01.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "72000000/1199999",
+          "start_time": "0.000000",
+          "duration": "1199.999000",
+          "nb_frames": "72000"
+        }
+      ],
+      "format": {
+        "duration": "1199.999000",
+        "size": "48460957"
+      },
+      "sourceFrameStart": 72000,
+      "sourceTimeStartSeconds": 1200
+    },
+    {
+      "path": "video/full-capture-part-02.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "72000000/1199999",
+          "start_time": "0.000000",
+          "duration": "1199.999000",
+          "nb_frames": "72000"
+        }
+      ],
+      "format": {
+        "duration": "1199.999000",
+        "size": "48773453"
+      },
+      "sourceFrameStart": 144000,
+      "sourceTimeStartSeconds": 2400
+    },
+    {
+      "path": "video/full-capture-part-03.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "72000000/1199999",
+          "start_time": "0.000000",
+          "duration": "1199.999000",
+          "nb_frames": "72000"
+        }
+      ],
+      "format": {
+        "duration": "1199.999000",
+        "size": "49859790"
+      },
+      "sourceFrameStart": 216000,
+      "sourceTimeStartSeconds": 3600
+    },
+    {
+      "path": "video/full-capture-part-04.mp4",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "4611125/76852",
+          "start_time": "0.000000",
+          "duration": "614.816000",
+          "nb_frames": "36889"
+        }
+      ],
+      "format": {
+        "duration": "614.816000",
+        "size": "26080126"
+      },
+      "sourceFrameStart": 288000,
+      "sourceTimeStartSeconds": 4800
+    }
+  ],
+  "totalVideoFrames": 324889,
+  "sourceVideoPacketCount": 324889,
+  "streamCopyContinuityPass": true,
+  "encoding": "Original H.264 video stream copied without re-encoding into consecutive MP4 segments. Audio is omitted from published UI-review copies; original MKV remains local."
+}

@@ -1,0 +1,184 @@
+.focus-surface-coordinator {
+  --focus-visible-height: 700px;
+  --focus-geometry-motion-duration: 250ms;
+  --focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1);
+  position: relative;
+  width: 340px;
+  height: 700px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.focus-surface-coordinator[data-focus-presentation="timerCompact"] {
+  --focus-visible-height: 110px;
+}
+
+.focus-surface-coordinator[data-focus-presentation="timerExpanded"] {
+  --focus-visible-height: 300px;
+}
+
+.focus-surface-coordinator[data-focus-presentation-hydrated="false"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.focus-surface-coordinator__presentation {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 340px;
+  box-sizing: border-box;
+  clip-path: inset(0 0 0 0 round 12px);
+  transition:
+    clip-path var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease),
+    opacity var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease),
+    transform var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease);
+}
+
+.focus-surface-coordinator__presentation[data-focus-presentation="panel"] {
+  height: 700px;
+}
+
+.focus-surface-coordinator__presentation[data-focus-presentation="timer"] {
+  height: 300px;
+}
+
+.focus-surface-coordinator__presentation[data-focus-visibility="active"] {
+  z-index: 2;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  /* Committed/recovered content must become fully visible in this paint.
+     Geometry animation belongs to the preparing target, never rollback. */
+  transition: none;
+}
+
+.focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
+  /* Fully paint the incoming view below the committed view. Native region
+     changes can then expose already-rendered pixels instead of a blank WebView. */
+  z-index: 1;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: none;
+}
+
+/* Preparation still paints below the outgoing view. After readiness, promote
+   the opaque target before native clipping/movement, without transferring its
+   interaction ownership. Avoid blending two task hierarchies or transporting
+   the old Panel header inside the compact Timer region. */
+.focus-surface-coordinator[data-focus-geometry-motion="true"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
+  z-index: 3;
+  opacity: 1;
+  transform: none;
+  transition: clip-path var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease);
+}
+
+/* The ready Timer is shorter than the outgoing Panel. Promotion alone leaves
+   the Panel visible below it until the first native region update. Transfer
+   visual ownership in the same paint; rollback restores the committed view. */
+.focus-surface-coordinator[data-focus-geometry-motion="true"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] {
+  opacity: 0;
+  pointer-events: none;
+  transition: none;
+}
+
+/* Establish the initial clip atomically during the presented-frame barrier;
+   only the subsequent running phase animates toward the destination geometry. */
+.focus-surface-coordinator[data-focus-geometry-motion-phase="start"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
+  transition: none;
+}
+
+/* Timer -> Panel first expands the native region while the prepared Panel is
+   clipped to the Timer's current visible height, then reveals the same WebView
+   continuously. Compact and expanded Timer origins are handled separately. */
+.focus-surface-coordinator[data-focus-geometry-motion-from="timerCompact"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="start"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
+  clip-path: inset(0 0 590px 0 round 12px);
+}
+
+.focus-surface-coordinator[data-focus-geometry-motion-from="timerExpanded"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="start"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
+  clip-path: inset(0 0 400px 0 round 12px);
+}
+
+.focus-surface-coordinator[data-focus-geometry-motion-from="timerCompact"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"],
+.focus-surface-coordinator[data-focus-geometry-motion-from="timerExpanded"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
+  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
+  clip-path: inset(0 0 0 0 round 12px);
+}
+
+.focus-surface-coordinator__presentation[data-focus-visibility="inactive"] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-surface-coordinator {
+    --focus-geometry-motion-duration: 1ms;
+  }
+
+  .focus-surface-coordinator__presentation {
+    transform: none;
+  }
+}
+
+/* Fixed native regions contain the entire usable client area, including form
+   padding/borders. Keep controls inside their reserved grid columns. */
+.focus-surface-coordinator *,
+.focus-surface-coordinator *::before,
+.focus-surface-coordinator *::after {
+  box-sizing: border-box;
+}
+
+/* The WebView remains 700px tall when the visible Timer region is only 300px.
+   A modal must use the committed visible height, never the hidden host's vh. */
+.focus-surface-coordinator .task-notes__large-backdrop {
+  bottom: auto;
+  height: var(--focus-visible-height);
+}
+
+.focus-surface-coordinator .task-notes__editor-shell[data-task-note-presentation="large"] {
+  top: 8px;
+  left: 8px;
+  width: 324px;
+  height: calc(var(--focus-visible-height) - 16px);
+  min-width: 240px;
+  min-height: min(240px, calc(var(--focus-visible-height) - 16px));
+  max-width: 324px;
+  max-height: calc(var(--focus-visible-height) - 16px);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 4px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.focus-surface-coordinator .task-notes__editor-shell[data-task-note-presentation="large"] > * {
+  min-width: 0;
+}
+
+.focus-surface-coordinator .task-notes__editor-shell[data-task-note-presentation="large"] .task-notes__editor {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.focus-surface-coordinator .task-notes__editor-shell[data-task-note-presentation="large"] .task-notes__large-title {
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+/* Keep the closed opacity/transform state painted for the opening transition,
+   while collapsing invisible boxes so they cannot enlarge the Notes scroller. */
+.focus-surface-coordinator .task-notes__toolbar .overlay-tooltip[data-open="false"] {
+  width: 0;
+  height: 0;
+  max-width: 0;
+  max-height: 0;
+  padding: 0;
+  border-width: 0;
+  overflow: hidden;
+}

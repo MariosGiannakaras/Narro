@@ -117,6 +117,13 @@
   background: var(--color-surface-deep);
 }
 
+.list-board-lane[data-board-lane="Today"] {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--color-surface-deep), var(--color-surface-deep)) padding-box,
+    linear-gradient(135deg, var(--color-accent-start), #72d6c8) border-box;
+}
+
 .list-board-lane__header {
   display: flex;
   align-items: flex-start;

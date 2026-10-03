@@ -1,0 +1,110 @@
+{
+  "phase": "complete",
+  "snapshot": {
+    "now": 14670,
+    "viewport": {
+      "width": 340,
+      "height": 700,
+      "devicePixelRatio": 1
+    },
+    "documentElement": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "body": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "root": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "coordinator": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 404,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "active": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 404,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "activePresentation": "panel",
+    "presentation": "panel",
+    "hydrated": "true",
+    "transitionPending": "false",
+    "geometryMotion": {
+      "from": "",
+      "to": "",
+      "phase": ""
+    },
+    "floatingExpanded": null,
+    "floatingRegionExpanded": null,
+    "visibleTextLength": 242,
+    "prefersReducedMotion": true,
+    "unintendedScrollers": []
+  }
+}

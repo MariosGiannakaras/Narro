@@ -5,6 +5,14 @@ mod topology;
 
 #[cfg(windows)]
 pub use topology::install_display_change_observer;
+#[cfg(windows)]
+pub(crate) use topology::suspend_focus_display_recovery;
+#[cfg(not(windows))]
+pub(crate) struct DisplayRecoveryGuard;
+#[cfg(not(windows))]
+pub(crate) fn suspend_focus_display_recovery() -> DisplayRecoveryGuard {
+    DisplayRecoveryGuard
+}
 
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};

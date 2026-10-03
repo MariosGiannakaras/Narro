@@ -1,0 +1,366 @@
+{
+  "source": "Original OBS MKV at 60 fps",
+  "cases": [
+    {
+      "name": "normal-compact-panel",
+      "actionVideoSeconds": 791.979,
+      "clipStartSeconds": 791.629,
+      "clipDurationSeconds": 2,
+      "sheets": [
+        {
+          "path": "normal-compact-panel-sheet-0.png",
+          "sourceStartSeconds": 791.629,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-compact-panel-sheet-1.png",
+          "sourceStartSeconds": 792.129,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-compact-panel-sheet-2.png",
+          "sourceStartSeconds": 792.629,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-compact-panel-sheet-3.png",
+          "sourceStartSeconds": 793.129,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        }
+      ]
+    },
+    {
+      "name": "normal-panel-compact",
+      "actionVideoSeconds": 848.939,
+      "clipStartSeconds": 848.5889999999999,
+      "clipDurationSeconds": 2,
+      "sheets": [
+        {
+          "path": "normal-panel-compact-sheet-0.png",
+          "sourceStartSeconds": 848.5889999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-panel-compact-sheet-1.png",
+          "sourceStartSeconds": 849.0889999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-panel-compact-sheet-2.png",
+          "sourceStartSeconds": 849.5889999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-panel-compact-sheet-3.png",
+          "sourceStartSeconds": 850.0889999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        }
+      ]
+    },
+    {
+      "name": "normal-expand",
+      "actionVideoSeconds": 925.098,
+      "clipStartSeconds": 924.7479999999999,
+      "clipDurationSeconds": 2,
+      "sheets": [
+        {
+          "path": "normal-expand-sheet-0.png",
+          "sourceStartSeconds": 924.7479999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-expand-sheet-1.png",
+          "sourceStartSeconds": 925.2479999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-expand-sheet-2.png",
+          "sourceStartSeconds": 925.7479999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-expand-sheet-3.png",
+          "sourceStartSeconds": 926.2479999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        }
+      ]
+    },
+    {
+      "name": "normal-expanded-panel",
+      "actionVideoSeconds": 1304.167,
+      "clipStartSeconds": 1303.817,
+      "clipDurationSeconds": 2,
+      "sheets": [
+        {
+          "path": "normal-expanded-panel-sheet-0.png",
+          "sourceStartSeconds": 1303.817,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-expanded-panel-sheet-1.png",
+          "sourceStartSeconds": 1304.317,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-expanded-panel-sheet-2.png",
+          "sourceStartSeconds": 1304.817,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "normal-expanded-panel-sheet-3.png",
+          "sourceStartSeconds": 1305.317,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        }
+      ]
+    },
+    {
+      "name": "reduced-panel-compact",
+      "actionVideoSeconds": 5078.021,
+      "clipStartSeconds": 5077.670999999999,
+      "clipDurationSeconds": 2,
+      "sheets": [
+        {
+          "path": "reduced-panel-compact-sheet-0.png",
+          "sourceStartSeconds": 5077.670999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "reduced-panel-compact-sheet-1.png",
+          "sourceStartSeconds": 5078.170999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "reduced-panel-compact-sheet-2.png",
+          "sourceStartSeconds": 5078.670999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "reduced-panel-compact-sheet-3.png",
+          "sourceStartSeconds": 5079.170999999999,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        }
+      ]
+    },
+    {
+      "name": "reduced-compact-panel",
+      "actionVideoSeconds": 5099.536,
+      "clipStartSeconds": 5099.186,
+      "clipDurationSeconds": 2,
+      "sheets": [
+        {
+          "path": "reduced-compact-panel-sheet-0.png",
+          "sourceStartSeconds": 5099.186,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "reduced-compact-panel-sheet-1.png",
+          "sourceStartSeconds": 5099.686,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "reduced-compact-panel-sheet-2.png",
+          "sourceStartSeconds": 5100.186,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        },
+        {
+          "path": "reduced-compact-panel-sheet-3.png",
+          "sourceStartSeconds": 5100.686,
+          "frames": 30,
+          "frameIntervalSeconds": 0.016666666666666666,
+          "crop": {
+            "x": 1170,
+            "y": 0,
+            "width": 750,
+            "height": 960
+          },
+          "displayScale": 0.5
+        }
+      ]
+    }
+  ],
+  "note": "Each sheet contains 30 consecutive recorded frames, row-major, at 60 fps. Clips are H.264 CRF18 review copies; full video segments retain original stream. A sampled transition does not establish universal UI/motion acceptance."
+}

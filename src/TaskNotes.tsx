@@ -411,7 +411,7 @@ function RichNoteEditor({
           <ToolbarButton label="Add link" disabled={pending} onAction={addLink}>↗</ToolbarButton>
           <ToolbarButton label="Undo" disabled={pending} onAction={() => command("undo")}>↶</ToolbarButton>
           <ToolbarButton label="Redo" disabled={pending} onAction={() => command("redo")}>↷</ToolbarButton>
-          <Tooltip content={presentationLabel}>
+          <Tooltip content={presentationLabel} align="end">
             <button
               ref={presentationButtonRef}
               type="button"

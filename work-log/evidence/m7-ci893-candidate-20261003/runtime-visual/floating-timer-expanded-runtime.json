@@ -1,0 +1,135 @@
+{
+  "name": "floating-timer-expanded-runtime",
+  "presentation": "timerExpanded",
+  "dom": {
+    "now": 9703.099999999977,
+    "viewport": {
+      "width": 340,
+      "height": 700,
+      "devicePixelRatio": 1
+    },
+    "documentElement": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "body": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "root": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "coordinator": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "active": {
+      "clientWidth": 340,
+      "clientHeight": 300,
+      "scrollWidth": 340,
+      "scrollHeight": 300,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 300
+      },
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "activePresentation": "timer",
+    "presentation": "timerExpanded",
+    "hydrated": "true",
+    "transitionPending": "false",
+    "geometryMotion": {
+      "from": "",
+      "to": "",
+      "phase": ""
+    },
+    "floatingExpanded": "true",
+    "floatingRegionExpanded": "true",
+    "visibleTextLength": 67,
+    "prefersReducedMotion": true,
+    "unintendedScrollers": []
+  },
+  "native": {
+    "title": "Narro - Focus",
+    "hwnd": "0x10232",
+    "visible": true,
+    "dpi": 96,
+    "scale": 1,
+    "window": {
+      "x": 404,
+      "y": 80,
+      "width": 340,
+      "height": 700
+    },
+    "client": {
+      "width": 340,
+      "height": 700
+    },
+    "regionKind": 2,
+    "region": {
+      "x": 0,
+      "y": 0,
+      "width": 340,
+      "height": 300
+    }
+  }
+}

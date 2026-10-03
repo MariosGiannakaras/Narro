@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { formatInvokeError } from "./diagnosticApi";
+import { listenForBoardInvalidation } from "./boardInvalidation";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
   changeListBoardTask,
@@ -38,6 +39,7 @@ import {
   type PlanningLaneToken,
 } from "./listBoardApi";
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
+import { BlitzEntryButton } from "./BlitzEntryButton";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
 import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
@@ -434,6 +436,9 @@ function BoardLane({
 }) {
   const headingId = `list-board-${title.replace(/\s+/g, "-").toLowerCase()}`;
   const pendingLane = laneKey === "done" ? null : laneKey;
+  const displayedLaneEstimateSeconds = pendingLane !== null
+    ? lane.aggregateRemainingEstSeconds ?? lane.aggregateEstSeconds
+    : lane.aggregateEstSeconds;
   const acceptsDrop = pendingLane !== null && presentationReorderEnabled;
   const laneDropTarget = pendingLane !== null && dropTarget?.lane === pendingLane ? dropTarget : null;
   const crossLaneAppend = pendingLane !== null
@@ -474,7 +479,7 @@ function BoardLane({
           </span>
         </div>
         <span className="list-board-lane__est type-metadata">
-          Est: {formatEstimate(lane.aggregateEstSeconds)}
+          Est: {formatEstimate(displayedLaneEstimateSeconds)}
         </span>
       </header>
 
@@ -680,7 +685,7 @@ function BoardLane({
             );
           })
         ) : laneDropTarget ? null : (
-          <div className="list-board-lane__empty type-metadata">No tasks</div>
+          <div className="list-board-lane__empty type-metadata">{laneKey === "today" ? "No Tasks" : "No tasks"}</div>
         )}
         {showLaneEndPlaceholder ? <DropPlaceholder /> : null}
         {createEditor && !createEditor.insertAtTop ? (
@@ -723,6 +728,8 @@ function BoardLane({
           data-board-add-slot="reserved"
         />
       )}
+
+      {laneKey === "today" ? <BlitzEntryButton /> : null}
     </section>
   );
 }
@@ -762,6 +769,7 @@ export function ListBoard({
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
   const settleTimer = useRef<number | null>(null);
+  const externalRefreshRevisionRef = useRef(0);
   const preferences = usePreferenceSettingsProjection(Boolean(fixtureSnapshot));
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
   const autoParseEstFromTitle = preferences.snapshot?.general.autoParseEstFromTitle ?? false;
@@ -825,6 +833,45 @@ export function ListBoard({
 
     return () => {
       disposed = true;
+    };
+  }, [fixtureSnapshot, target.kind, target.kind === "list" ? target.id : null]);
+
+  useEffect(() => {
+    if (fixtureSnapshot) return;
+
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    void listenForBoardInvalidation(() => {
+      const revision = externalRefreshRevisionRef.current + 1;
+      externalRefreshRevisionRef.current = revision;
+      const refreshTarget = target;
+      void getListBoardSnapshot(refreshTarget)
+        .then((payload) => {
+          if (!disposed && revision === externalRefreshRevisionRef.current) {
+            setSnapshot(payload);
+            setError(null);
+          }
+        })
+        .catch((failure: unknown) => {
+          if (!disposed && revision === externalRefreshRevisionRef.current) {
+            setMutationError(`The board changed, but this view could not refresh. ${formatInvokeError(failure)}`);
+          }
+        });
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopListening = unlisten;
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) {
+          setMutationError(`Cross-window board refresh could not start. ${formatInvokeError(failure)}`);
+        }
+      });
+
+    return () => {
+      disposed = true;
+      externalRefreshRevisionRef.current += 1;
+      stopListening?.();
     };
   }, [fixtureSnapshot, target.kind, target.kind === "list" ? target.id : null]);
 
@@ -1178,6 +1225,7 @@ export function ListBoard({
           listId: target.id,
           sourceLane: LANE_TOKEN[sourceLane],
           targetLane: LANE_TOKEN[targetLane],
+          beforeTaskId,
         });
       }
     } catch (failure: unknown) {
@@ -1696,11 +1744,6 @@ export function ListBoard({
     event.preventDefault();
     event.stopPropagation();
     event.dataTransfer.dropEffect = "move";
-
-    if (dragState.sourceLane !== lane) {
-      setDropTarget({ lane, beforeTaskId: null });
-      return;
-    }
 
     const eligible = manualTasks(snapshot[lane]);
     const hoveredIndex = taskIndex(eligible, task.id);

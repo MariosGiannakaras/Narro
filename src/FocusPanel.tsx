@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { formatVisibleDate, formatVisibleTime } from "./dateTimeFormat";
+import { listenForBoardInvalidation } from "./boardInvalidation";
 import { formatInvokeError } from "./diagnosticApi";
 import { focusTimerPresentation, focusTimerStateLabel } from "./focusTimerPresentation";
 import { FocusLiveActions, focusModeForTask } from "./FocusLiveActions";
@@ -45,12 +46,17 @@ export type FocusPanelProps = {
   fixtureBoard?: ListBoardSnapshot;
   fixtureLists?: FocusListOption[];
   fixtureTimer?: TimerSessionPayload | null;
+  sharedTimerProjection?: {
+    payload: TimerSessionPayload | null;
+    settled: boolean;
+  };
+  presentationActive?: boolean;
   onRequestCompact?: () => void;
   compactTransitionPending?: boolean;
   modeTransitionError?: string | null;
   shortcutStatus?: string | null;
   refreshKey?: number;
-  onPresentationReady?: () => void;
+  onPresentationReady?: (payload: TimerSessionPayload | null) => void;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
@@ -314,6 +320,8 @@ export function FocusPanel({
   fixtureBoard,
   fixtureLists,
   fixtureTimer = null,
+  sharedTimerProjection,
+  presentationActive = true,
   onRequestCompact,
   compactTransitionPending = false,
   modeTransitionError = null,
@@ -332,6 +340,7 @@ export function FocusPanel({
   const [timer, setTimer] = useState<TimerSessionPayload | null>(fixtureTimer);
   const [error, setError] = useState<string | null>(null);
   const [boardReadyTargetKey, setBoardReadyTargetKey] = useState<string | null>(null);
+  const [boardReadyRefreshKey, setBoardReadyRefreshKey] = useState(0);
   const [timerSettled, setTimerSettled] = useState(Boolean(fixtureBoard));
   const [mutationPendingTaskId, setMutationPendingTaskId] = useState<string | null>(null);
   const [mutationStatus, setMutationStatus] = useState<string | null>(null);
@@ -347,6 +356,13 @@ export function FocusPanel({
   const [homePending, setHomePending] = useState(false);
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
+  const currentTargetKeyRef = useRef(currentTargetKey);
+  const externalBoardRefreshRevisionRef = useRef(0);
+  currentTargetKeyRef.current = currentTargetKey;
+  const latestSharedTimerProjectionRef = useRef<TimerSessionPayload | null>(
+    sharedTimerProjection?.payload ?? null,
+  );
+  latestSharedTimerProjectionRef.current = sharedTimerProjection?.payload ?? null;
   const preferences = usePreferenceSettingsProjection(fixtureMode);
   const scrollingTitleEnabled = preferences.snapshot?.focus.scrollingTitle ?? false;
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
@@ -355,6 +371,7 @@ export function FocusPanel({
   useEffect(() => {
     if (fixtureBoard) {
       setBoard(fixtureBoard);
+      setBoardReadyRefreshKey(refreshKey);
       setTarget(
         fixtureBoard.target.kind === "list" && fixtureBoard.target.id
           ? { kind: "list", id: fixtureBoard.target.id }
@@ -365,19 +382,24 @@ export function FocusPanel({
     }
 
     let disposed = false;
-    setBoard(null);
-    setBoardReadyTargetKey(null);
+    const retainCurrentBoard = board !== null && boardReadyTargetKey === currentTargetKey;
+    if (!retainCurrentBoard) {
+      setBoard(null);
+      setBoardReadyTargetKey(null);
+    }
     void getListBoardSnapshot(target)
       .then((snapshot) => {
         if (!disposed) {
           setBoard(snapshot);
+          setBoardReadyRefreshKey(refreshKey);
           setBoardReadyTargetKey(targetKey(target));
           setError(null);
         }
       })
       .catch((failure: unknown) => {
         if (!disposed) {
-          setBoard(null);
+          if (!retainCurrentBoard) setBoard(null);
+          setBoardReadyRefreshKey(refreshKey);
           setBoardReadyTargetKey(targetKey(target));
           setError(formatInvokeError(failure));
         }
@@ -386,6 +408,52 @@ export function FocusPanel({
       disposed = true;
     };
   }, [fixtureBoard, refreshKey, target.kind, target.kind === "list" ? target.id : null]);
+
+  useEffect(() => {
+    if (fixtureMode) return;
+
+    let disposed = false;
+    let stopListening: (() => void) | undefined;
+    void listenForBoardInvalidation(() => {
+      const revision = externalBoardRefreshRevisionRef.current + 1;
+      externalBoardRefreshRevisionRef.current = revision;
+      const refreshTarget = target;
+      const expectedTargetKey = targetKey(refreshTarget);
+      void getListBoardSnapshot(refreshTarget)
+        .then((snapshot) => {
+          if (
+            !disposed
+            && revision === externalBoardRefreshRevisionRef.current
+            && currentTargetKeyRef.current === expectedTargetKey
+          ) {
+            setBoard(snapshot);
+            setError(null);
+          }
+        })
+        .catch((failure: unknown) => {
+          if (
+            !disposed
+            && revision === externalBoardRefreshRevisionRef.current
+            && currentTargetKeyRef.current === expectedTargetKey
+          ) {
+            setError(`Focus data changed, but this view could not refresh. ${formatInvokeError(failure)}`);
+          }
+        });
+    })
+      .then((unlisten) => {
+        if (disposed) unlisten();
+        else stopListening = unlisten;
+      })
+      .catch((failure: unknown) => {
+        if (!disposed) setError(`Cross-window Focus refresh could not start. ${formatInvokeError(failure)}`);
+      });
+
+    return () => {
+      disposed = true;
+      externalBoardRefreshRevisionRef.current += 1;
+      stopListening?.();
+    };
+  }, [fixtureMode, target.kind, target.kind === "list" ? target.id : null]);
 
   useEffect(() => {
     setNotesTaskId(null);
@@ -423,6 +491,41 @@ export function FocusPanel({
     }
 
     let disposed = false;
+    if (sharedTimerProjection !== undefined) {
+      const projected = sharedTimerProjection.payload;
+      setTimer(projected);
+      setTimerSettled(sharedTimerProjection.settled);
+      if (projected?.change) {
+        const refreshTarget = target;
+        const expectedTargetKey = currentTargetKey;
+        const expectedRevision = projected.revision;
+        const expectedTaskId = projected.runtime.timer.task_id;
+        const expectedSessionId = projected.runtime.open_session_id;
+        const refreshStillCurrent = () => {
+          const latest = latestSharedTimerProjectionRef.current;
+          return !disposed
+            && currentTargetKeyRef.current === expectedTargetKey
+            && latest?.revision === expectedRevision
+            && latest.runtime.timer.task_id === expectedTaskId
+            && latest.runtime.open_session_id === expectedSessionId;
+        };
+
+        void getListBoardSnapshot(refreshTarget)
+          .then((snapshot) => {
+            if (refreshStillCurrent()) {
+              setBoard(snapshot);
+              setError(null);
+            }
+          })
+          .catch((failure: unknown) => {
+            if (refreshStillCurrent()) setError(formatInvokeError(failure));
+          });
+      }
+      return () => {
+        disposed = true;
+      };
+    }
+
     let stopListening: (() => void) | undefined;
     setTimerSettled(false);
     void connectLiveTimerSessionProjection(
@@ -462,13 +565,20 @@ export function FocusPanel({
       disposed = true;
       stopListening?.();
     };
-  }, [fixtureMode, fixtureTimer, target.kind, target.kind === "list" ? target.id : null]);
+  }, [
+    fixtureMode,
+    fixtureTimer,
+    sharedTimerProjection,
+    target.kind,
+    target.kind === "list" ? target.id : null,
+  ]);
 
   useEffect(() => {
-    if (fixtureMode || (timerSettled && boardReadyTargetKey === currentTargetKey)) {
-      onPresentationReady?.();
+    if (fixtureMode || (timerSettled && timer !== null
+      && boardReadyTargetKey === currentTargetKey && boardReadyRefreshKey === refreshKey)) {
+      onPresentationReady?.(timer);
     }
-  }, [boardReadyTargetKey, currentTargetKey, fixtureMode, onPresentationReady, timerSettled]);
+  }, [boardReadyRefreshKey, boardReadyTargetKey, currentTargetKey, fixtureMode, onPresentationReady, refreshKey, timer, timerSettled]);
 
   const selectorOptions = useMemo(() => {
     const options = [...lists];
@@ -490,7 +600,7 @@ export function FocusPanel({
     mutation: () => Promise<void>,
     success: string,
   ) => {
-    if (fixtureMode || mutationPendingTaskId !== null) return;
+    if (fixtureMode || !presentationActive || mutationPendingTaskId !== null) return;
     setMutationPendingTaskId(task.id);
     setMutationStatus(null);
     setError(null);
@@ -515,7 +625,7 @@ export function FocusPanel({
   };
 
   const makeTaskLive = async (task: ListBoardTask) => {
-    if (fixtureMode || mutationPendingTaskId !== null) return;
+    if (fixtureMode || !presentationActive || mutationPendingTaskId !== null) return;
     setMutationPendingTaskId(task.id);
     setMutationStatus(null);
     setError(null);
@@ -541,7 +651,7 @@ export function FocusPanel({
   };
 
   const exitFocusHome = async () => {
-    if (fixtureMode || homePending) return;
+    if (fixtureMode || !presentationActive || homePending) return;
     setHomePending(true);
     setError(null);
     try {
@@ -554,7 +664,7 @@ export function FocusPanel({
   };
 
   const submitAddTask = async () => {
-    if (fixtureMode || addTaskPending) return;
+    if (fixtureMode || !presentationActive || addTaskPending) return;
     const title = addTaskTitle.trim();
     const listId = target.kind === "list" ? target.id : addTaskListId;
     if (!title) {
@@ -592,7 +702,7 @@ export function FocusPanel({
   };
 
   const confirmDelete = async () => {
-    if (!deleteTarget || deletePending) return;
+    if (!presentationActive || !deleteTarget || deletePending) return;
     const task = deleteTarget;
     setDeletePending(true);
     setDeleteError(null);
@@ -659,6 +769,7 @@ export function FocusPanel({
   const totalCount = board.today.count + board.done.count;
   const donePercent = totalCount > 0 ? Math.min(100, Math.round((board.done.count / totalCount) * 100)) : 0;
   const rowInteractionDisabled = fixtureMode
+    || !presentationActive
     || mutationPendingTaskId !== null
     || scheduleTaskId !== null
     || deleteTarget !== null
@@ -803,8 +914,8 @@ export function FocusPanel({
                   className="focus-panel__live-timer timer-numerals"
                   data-focus-live-timer="true"
                   data-focus-live-timer-mode={liveTimer.mode}
-                  data-timer-numerals="true"
                   data-timed-alert-flash-task-id={liveTask.id}
+                  data-timer-numerals="true"
                   aria-label={liveTimer.label}
                   aria-live="off"
                 >
@@ -824,6 +935,7 @@ export function FocusPanel({
                 target={target}
                 timer={timer}
                 fixtureMode={fixtureMode}
+                presentationActive={presentationActive}
                 onTimerPayload={(incoming) => {
                   setTimer((current) => applyTimerSessionProjection(current, incoming));
                 }}
@@ -866,7 +978,7 @@ export function FocusPanel({
             className="focus-panel__add-task"
             type="button"
             data-focus-add-task="open"
-            disabled={fixtureMode || addTaskPending || mutationPendingTaskId !== null}
+            disabled={fixtureMode || !presentationActive || addTaskPending || mutationPendingTaskId !== null}
             aria-label="Add task in Focus Panel"
             onClick={() => {
               setAddTaskOpen(true);

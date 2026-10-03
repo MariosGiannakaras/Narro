@@ -18,6 +18,7 @@ export const FOCUS_IN_APP_SHORTCUT_EVENT = "focus-in-app-shortcut-requested";
 
 export type ShortcutChord = {
   key: string;
+  code?: string;
   ctrlKey: boolean;
   altKey: boolean;
   shiftKey: boolean;
@@ -28,7 +29,11 @@ export type ShortcutChord = {
 export function resolveInAppShortcut(chord: ShortcutChord): InAppShortcut | null {
   if (chord.repeat || chord.metaKey || chord.shiftKey || !chord.ctrlKey) return null;
 
-  const key = chord.key.toLowerCase();
+  // Windows letter shortcuts follow physical keys across Greek/English layouts.
+  // Retain semantic keys for synthetic/accessibility events without a code.
+  const key = /^Key[A-Z]$/.test(chord.code ?? "")
+    ? chord.code!.slice(3).toLowerCase()
+    : chord.key.toLowerCase();
   if (!chord.altKey) return key === "f" ? "search" : null;
 
   switch (key) {

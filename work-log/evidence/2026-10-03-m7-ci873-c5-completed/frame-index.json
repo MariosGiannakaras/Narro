@@ -1,0 +1,82 @@
+[
+  {
+    "file": "video-frames/01-running-before-drag.png",
+    "sourceSeconds": 420,
+    "excerptSeconds": 10,
+    "videoCrop": "2560:1080:1920:0",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/02-running-after-drag.png",
+    "sourceSeconds": 430,
+    "excerptSeconds": 20,
+    "videoCrop": "2560:1080:1920:0",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/03-tray-quit-menu.png",
+    "sourceSeconds": 595,
+    "excerptSeconds": 185,
+    "videoCrop": "2560:1080:1920:0",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/04-after-normal-quit.png",
+    "sourceSeconds": 620,
+    "excerptSeconds": 210,
+    "videoCrop": "2560:1080:1920:0",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/05-relaunched-main.png",
+    "sourceSeconds": 675,
+    "excerptSeconds": 265,
+    "videoCrop": "2560:1080:1920:0",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/06-restored-paused-timer.png",
+    "sourceSeconds": 710,
+    "excerptSeconds": 300,
+    "videoCrop": "2560:1080:1920:0",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/07-restored-timer-detail.png",
+    "sourceSeconds": 710,
+    "excerptSeconds": 300,
+    "videoCrop": "360:130:3550:770",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/08-expanded-detail.png",
+    "sourceSeconds": 794,
+    "excerptSeconds": 384,
+    "videoCrop": "360:320:3550:770",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/09-panel-detail.png",
+    "sourceSeconds": 970,
+    "excerptSeconds": 560,
+    "videoCrop": "356:708:4124:0",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  },
+  {
+    "file": "video-frames/10-later-bottom-anchored-timer.png",
+    "sourceSeconds": 1003,
+    "excerptSeconds": 593,
+    "videoCrop": "360:110:3550:970",
+    "source": "original OBS recording, not derived excerpt",
+    "nativePixelScale": 1
+  }
+]

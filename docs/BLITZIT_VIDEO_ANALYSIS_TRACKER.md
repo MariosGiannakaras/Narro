@@ -1,12 +1,13 @@
 # Blitzit Video / Transcript Analysis Tracker
 
-Status: **INITIAL CORPUS INGESTION COMPLETE — 19/19 pairs analyzed, reconciled, and dispositioned**
+Status: **INITIAL CORPUS INGESTION COMPLETE — 19/19 prior-pass coverage; exhaustive Pass 3 ACTIVE separately**
 
 This is the dedicated durable progress tracker for the user-supplied Blitzit video/transcript corpus under `reference/original-blitzit-videos/inbox/`.
 
-It complements `docs/BLITZIT_VIDEO_EVIDENCE.md`:
-- this file tracks **coverage/progress per source pair**;
-- `docs/BLITZIT_VIDEO_EVIDENCE.md` stores the detailed timestamped evidence and findings.
+It complements `docs/BLITZIT_VIDEO_EVIDENCE.md` for the **original ingestion pass**:
+- this file tracks prior coverage/progress per source pair;
+- `docs/BLITZIT_VIDEO_EVIDENCE.md` stores the prior timestamped evidence and findings;
+- exhaustive frame/state review is tracked only in `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` and `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
 
 ## Corpus counters
 
@@ -79,3 +80,8 @@ This ingestion pass is complete because all four coverage conditions are true:
 4. All actionable confirmed findings are routed to the correct evidence/spec/TODO/status/work-log targets without reopening validated work solely because a tutorial differs.
 
 The required post-M10 Final Comprehensive Review must still re-reference this corpus and validate end-state implementation. It is a separate final gate, not a reason to repeat this ingestion analysis.
+
+
+## Pass-3 supersession note
+
+The original 19/19 completion remains valid as historical ingestion coverage only. It must not be cited as exhaustive frame/state forensic completion. Pass 3 requires full raw-MP4 review again at the stricter standard in `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`.
