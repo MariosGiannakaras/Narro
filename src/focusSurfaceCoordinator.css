@@ -110,3 +110,56 @@
     transform: none;
   }
 }
+
+/* Fixed native regions contain the entire usable client area, including form
+   padding/borders. Keep controls inside their reserved grid columns. */
+.focus-surface-coordinator *,
+.focus-surface-coordinator *::before,
+.focus-surface-coordinator *::after {
+  box-sizing: border-box;
+}
+
+/* The WebView remains 700px tall when the visible Timer region is only 300px.
+   A modal must use the committed visible height, never the hidden host's vh. */
+.focus-surface-coordinator .task-notes__large-backdrop {
+  bottom: auto;
+  height: var(--focus-visible-height);
+}
+
+.focus-surface-coordinator .task-notes__editor-shell[data-task-note-presentation="large"] {
+  top: 8px;
+  left: 8px;
+  width: 324px;
+  height: calc(var(--focus-visible-height) - 16px);
+  min-width: 240px;
+  min-height: min(240px, calc(var(--focus-visible-height) - 16px));
+  max-width: 324px;
+  max-height: calc(var(--focus-visible-height) - 16px);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 4px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.focus-surface-coordinator .task-notes__editor-shell[data-task-note-presentation="large"] > * {
+  min-width: 0;
+}
+
+.focus-surface-coordinator .task-notes__editor-shell[data-task-note-presentation="large"] .task-notes__editor {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.focus-surface-coordinator .task-notes__editor-shell[data-task-note-presentation="large"] .task-notes__large-title {
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+/* Invisible tooltip boxes must not enlarge a scrollable Notes toolbar. Closing
+   already hides visibility immediately; this does not remove a visible exit. */
+.focus-surface-coordinator .task-notes__toolbar .overlay-tooltip[data-open="false"] {
+  display: none;
+}

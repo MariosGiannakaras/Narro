@@ -33,6 +33,10 @@ invariant(
   windows.map((window) => window.label).sort().join(",") === "focusSurface,main",
   "runtime WebViews must be main + focusSurface only",
 );
+for (const file of ['src-tauri/tauri.conf.json', 'src-tauri/tauri.ci.conf.json', 'src-tauri/tauri.diagnostic.conf.json']) {
+  const host = JSON.parse(read(file)).app.windows.find(w => w.label === 'focusSurface');
+  invariant(host.shadow === false && host.resizable === false && host.maximizable === false, file + ': fixed region host must have no shadow insets or native resize/maximize affordance');
+}
 const focus = windows.find((window) => window.label === "focusSurface");
 invariant(
   focus.width === 340 && focus.height === 700 && focus.visible === false,
