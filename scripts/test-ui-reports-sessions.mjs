@@ -37,7 +37,7 @@ for (const [haystack, needle, label] of [
   [view, "Hide Break sessions", "break visibility filter"],
   [view, 'placeholder="Select tasks..."', "Add Session task search"],
   [view, ">Recent Tasks<", "Add Session recent task heading"],
-  [view, "taskSessionOrdinal", "task-relative session presentation"],
+  [sessions, "row.taskSessionOrdinal", "task-relative session presentation"],
   [view, 'type="time"', "inline time editing"],
   [view, 'aria-label="Save session end time"', "explicit green-check commit affordance"],
   [view, "ReportTaskSessionsDialog", "task session-detail overlay"],
