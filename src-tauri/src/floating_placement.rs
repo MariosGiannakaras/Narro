@@ -495,6 +495,7 @@ pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<boo
     let connection = app_database(app_handle)?;
     persistence::floating_placement::save(&connection, &saved, &chrono::Utc::now().to_rfc3339())
         .map_err(|error| placement_error("save Timer position", error))?;
+    crate::validation_log::record_placement_saved(app_handle, &saved);
     Ok(true)
 }
 
@@ -535,7 +536,18 @@ pub fn restore_for_timer(
             ensure_fixed_focus_host_size(window)?;
         }
     }
-    confirm_visible_window_in_work_area(window, selected.rect, expanded)?;
+    let actual = confirm_visible_window_in_work_area(window, selected.rect, expanded)?;
+    let expected_position = match saved.as_ref() {
+        Some(saved) => restored_position(saved, selected.rect, actual.size)?,
+        None => actual.position,
+    };
+    crate::validation_log::record_timer_restore(
+        app_handle,
+        saved.as_ref(),
+        expected_position,
+        actual,
+        selected.rect,
+    );
     Ok(saved.is_some())
 }
 
