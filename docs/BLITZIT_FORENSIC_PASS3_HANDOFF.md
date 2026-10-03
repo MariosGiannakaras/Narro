@@ -62,7 +62,7 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **18/19**
+- Full MP4s completed to Pass-3 standard: **19/19**
 - Full sources completed: **VE-004 Getting Started; VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough; VE-011 Reports; VE-012 Improved Sessions and Stats; VE-006 Delete & Archive**
 - Partial deep sequence outside mapped corpus: **unmapped user-supplied 9.344 s planning-board clip**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
@@ -81,28 +81,19 @@ Do not attribute that excerpt to VE-018. The repository VE-018 MP4 is now SOURCE
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-019 — `Oct Update Light mode and more!🚀.mp4`.**
+**Video Pass 3 is complete: 19/19 repository MP4s are SOURCE_COMPLETE.**
 
-Completed full sources: **18/19**. VE-018 is now SOURCE_COMPLETE.
+Do **not** declare the overall forensic/source-evidence pass finished. Continue the still-open static visual-calibration work:
 
-Important provenance correction:
-- the separate 9.344 s / 560-frame planning clip is **not** part of VE-018;
-- preserve it as high-value direct source evidence with **UNMAPPED / UNKNOWN lineage**;
-- do not use the repository VE-018's older weekly-superset semantics to overwrite that clip, or vice versa.
-
-For VE-019:
-
-1. inspect the complete **02:52.989, 1920×1080, 30 fps** MP4;
-2. build a full historical Oct-update timeline;
-3. densely inspect:
-   - Floating/live subtasks;
-   - compact↔expanded Floating geometry;
-   - light-theme board appearance;
-   - theme/settings transitions;
-   - any Windows/security/signing context;
-4. classify obsolete limitations and historical-only UI explicitly;
-5. update analysis Markdown only;
-6. once VE-019 is complete, reconcile the video tracker to **19/19** and continue the still-open static visual-calibration work from the forensic handoff rather than declaring the whole evidence pass finished.
+1. read `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md`;
+2. read `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
+3. continue the exact next calibration item recorded there;
+4. derive reusable visual-system rules first rather than arbitrary per-control pixel metrology;
+5. use current v2.6.69 direct screenshots as highest-precedence static source;
+6. use Help/current-state images to fill missing states and historical images only for evolution/corroboration;
+7. record geometry, spacing, typography, radii, borders, shadows, gradients and distinctive control treatments where evidence is reliable;
+8. keep calibration analysis-only; do not patch Narro implementation;
+9. preserve the separate unmapped 9.344 s planning clip as direct evidence with unknown lineage.
 
 ## Media-access rule
 
