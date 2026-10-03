@@ -2038,175 +2038,193 @@ No implementation conclusion is made in this analysis track.
 # Queue 8 — VE-009 — Custom Recurring Schedules
 
 Source: `Blitzit Tutorial How to Use Custom Recurring Schedules.mp4`  
-Verified metadata: **02:39.833 video stream / ~02:39.893 container, 1920×1080, 60 fps, 9,590 video frames**  
+Verified metadata: **02:39.893 container / 02:39.833 video stream, 1920×1080, 60 fps, 9,590 video frames**  
 Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
 Inspection method:
 - complete source reviewed across the full duration;
-- whole-video contact scan;
-- dense sampling through schedule entry and the complete Custom editor demonstration;
-- full-resolution keyframes for unit dropdown, weekday chips, monthly selector, natural-language summary and save result;
-- micro-sampling around day→week→month→year conditional reflow;
-- transcript used only to separate narrated examples from states directly visible in the source.
+- whole-video contact scan plus dense 1 s sampling through the recurrence editor;
+- full-resolution keyframes for date selection, Custom entry, interval unit dropdown, week chips, month conditional selector, year state and final saved result;
+- micro review around final Schedule/board outcome;
+- transcript used only to distinguish examples/narration from the rule actually committed.
 
 ## VE-009 chronological state map
 
-### 00:00:00–~00:00:25 — tutorial setup / board context
-
-**VIDEO-DIRECT / NON-UNIQUE**
-- source opens on the dark board and introduces custom recurring schedules;
-- `Team meeting` is the task used for the demonstrated schedule;
-- early tutorial/montage material contains editorial transitions and is not used for animation timing.
-
-### ~00:00:25–00:00:38 — Schedule → date → recurrence details
+### 00:00:00–~00:00:28 — board baseline and Schedule entry
 
 **VIDEO-DIRECT**
-- ordinary task overflow exposes Schedule;
-- scheduler uses the same calendar-first flow established in VE-007;
-- chosen date is **Sun, Sep 14th, 2025**;
-- after Next, the same scheduling surface retains the chosen date at upper-right;
-- `Add Time` remains available above recurrence settings;
-- `Custom` appears at the bottom of the recurrence preset list.
+- tutorial begins on list `PLATA` with the established four-column board;
+- Today contains `Team meeting` as an ordinary pending task in position 4;
+- hovering the task exposes the board task action rail;
+- overflow uses the ordinary Schedule / Change list / Duplicate / Delete grammar;
+- selecting Schedule opens the standard date picker.
 
-### ~00:00:38–00:00:43 — enter Custom editor
-
-**VIDEO-DIRECT**
-- selecting `Custom` replaces the preset list in-place with a conditional custom-rule editor;
-- the editor contains:
-  - `Custom` header with an X/clear control;
-  - `Repeat every`;
-  - numeric stepper/input;
-  - unit dropdown;
-  - information/summary strip in plain language;
-  - persistent Cancel / gradient Schedule footer.
-- selected date and Add Time context remain above; entering Custom does not restart the scheduling flow.
-
-### ~00:00:43–00:01:11 — day interval
+### ~00:00:31–00:00:35 — selected date
 
 **VIDEO-DIRECT**
-- initial state:
-  - numeric value **1**;
-  - unit **day**;
-  - summary **`every day`**.
-- changing numeric interval to **3** updates unit plurality to **days**;
-- summary updates to **`every 3 days`**.
+- calendar month is **September 2025**;
+- current day **12** has a purple/pink marker;
+- selected date **14** has the green/cyan selected marker;
+- selected date is Sunday, and Next advances the same scheduler workflow.
 
-**DROPDOWN-DIRECT**
-- unit dropdown exposes:
-  - `days`;
-  - `weeks`;
-  - `months`;
-  - `years`.
-
-**SEMANTIC-DIRECT**
-- summary is live derived feedback from the currently selected custom rule;
-- no separate Apply is required to preview the meaning.
-
-### ~00:01:11–00:01:31 — week interval + weekday chips
+### ~00:00:35–00:00:40 — recurrence presets → Custom
 
 **VIDEO-DIRECT**
-- selecting weeks conditionally inserts a `Repeat On` row;
-- weekday chips appear Sunday-first:
-  - S, M, T, W, T, F, S.
-- initial demonstrated weekly state selects Monday;
-- with interval 3, summary reads **`every 3 weeks on Monday`**.
+- second scheduler step contains Add Time and Recurring schedule presets;
+- `Custom` is available at the bottom of the recurring options and is selected;
+- Custom expands in-place within the same modal rather than opening another dialog.
+
+**CUSTOM BASELINE**
+- header: `< PICK DATE`;
+- selected-date summary: **`Sun, Sep 14th, 2025`**;
+- `Add Time` + `+ ADD`;
+- `Recurring schedule`;
+- `Custom` heading with X/remove affordance;
+- `Repeat every`;
+- numeric spinner;
+- interval-unit dropdown;
+- plain-language info summary;
+- Cancel + gradient Schedule footer.
+
+### ~00:00:40–00:00:59 — interval-unit selector and day example
 
 **VIDEO-DIRECT**
-- numeric interval is changed to **4**;
-- Monday and Friday are selected;
-- summary becomes **`every 4 weeks on Monday, Friday`**.
-- clicking the selected Friday chip again deselects it;
-- summary immediately reduces to **`every 4 weeks on Monday`**.
+- interval-unit dropdown exact base options:
+  - `day`;
+  - `week`;
+  - `month`;
+  - `year`.
+- with count 1, editor shows singular unit and summary **`every day`**;
+- increasing the numeric spinner pluralizes the displayed unit;
+- demonstration changes the rule to:
+  - `Repeat every 3 days`;
+  - summary **`every 3 days`**.
 
-**CONDITIONAL REFLOW**
-- weekday controls are inserted inside the same modal and push the summary/footer region downward;
-- no nested dialog/page is used;
-- at sampled resolution the conditional content appears within the next ~0.2 s sample, with no separate fade evident. Treat this as fast in-place reflow, not a precise 200 ms animation requirement.
+**DYNAMIC-SUMMARY-DIRECT**
+- the summary updates in place as interval/count changes;
+- no separate preview/confirmation screen is used.
 
-### ~00:01:31–00:01:54 — month interval + monthly subordinate selector
+### ~00:01:11–00:01:30 — week interval + weekday chips
 
 **VIDEO-DIRECT**
-- selecting months removes the weekday-chip row and inserts a different `Repeat On` selector;
-- the monthly selector directly offers two date-relative strategies:
-  - **`Monthly on day 14`**;
-  - **`Monthly on the 2nd Sunday`**.
-- with interval 4 and date option selected, summary reads:
+- switching unit to weeks inserts conditional `Repeat On` controls;
+- seven circular weekday chips are shown in Sunday→Saturday order;
+- with Monday selected, source shows:
+  - `Repeat every 3 weeks`;
+  - summary **`every 3 weeks on Monday`**.
+- numeric spinner is then changed to **4**;
+- Friday is additionally selected;
+- resulting summary is exactly:
+  - **`every 4 weeks on Monday, Friday`**.
+
+**INTERACTION-DIRECT**
+- weekday chips are independently selectable;
+- selected chips receive the bright accent fill;
+- conditional week controls appear only for the week unit.
+
+**TRANSCRIPT-CLAIM**
+- narration states clicking an already-selected weekday again removes it;
+- this source demonstrates selection changes clearly, but a clean isolated deselection result is not required to establish the editor grammar and is not given a separate timing claim.
+
+### ~00:01:31–00:01:54 — month interval + monthly-mode selector
+
+**VIDEO-DIRECT**
+- switching unit to months removes weekday chips and inserts a different `Repeat On` dropdown;
+- with selected date September 14, the dropdown offers exact alternatives:
+  1. **`Monthly on day 14`**
+  2. **`Monthly on the 2nd Sunday`**
+- with count 4 and the date-based option, summary is:
   - **`every 4 months on the 14th`**.
-- selecting the weekday-relative option changes the field to:
-  - **`Monthly on the 2nd Sunday`**
-- and summary updates to:
+- choosing the weekday-occurrence option changes the control value to:
+  - `Monthly on the 2nd Sunday`;
+- summary updates to:
   - **`every 4 months on the 2nd Sunday`**.
 
-**SEMANTIC-DIRECT**
-- month mode derives both alternatives from the chosen schedule date:
-  - ordinal calendar date;
-  - ordinal weekday occurrence.
+**CONDITIONAL-GRAMMAR-DIRECT**
+- month uses a mutually exclusive date-vs-nth-weekday selector rather than the week chip row.
 
 ### ~00:01:54–00:02:08 — year interval
 
 **VIDEO-DIRECT**
-- selecting years removes the monthly subordinate selector;
-- demonstrated value is **4 years**;
-- summary becomes **`every 4 years`**;
-- no weekday or monthly Repeat On control remains.
+- switching unit to years removes the monthly `Repeat On` selector;
+- visible rule:
+  - `Repeat every 4 years`;
+  - summary **`every 4 years`**.
+- no additional date selector is displayed because the selected schedule date is retained as context.
 
-**CONDITIONAL-GRAMMAR DIRECT**
-- day = interval only;
-- week = interval + weekday chips;
-- month = interval + monthly date/ordinal-weekday selector;
-- year = interval only.
-- all four modes share the same surrounding schedule surface and footer.
+**EVIDENCE BOUNDARY**
+- UI directly represents the four-year rule;
+- the tutorial obviously does not wait four years, so future generation on that exact date remains recurrence semantics expressed by the editor/narration rather than observed elapsed-time behavior.
 
-### ~00:02:08–00:02:14 — return to simple custom rule and save
+### ~00:02:08–00:02:13 — final rule reset before commit
+
+**IMPORTANT VIDEO-DIRECT**
+- the tutorial examples above are not all committed;
+- after showing the four-year example, the editor is changed again before Schedule;
+- source steps through `4 years → 4 days → 1 day`;
+- final committed editor state is:
+  - **Repeat every 1 day**;
+  - Custom;
+  - summary **`every day`**.
+
+This prevents the example states from being mistaken for the saved recurrence.
+
+### ~00:02:11–00:02:15 — Schedule and tutorial-cut artifact
+
+**SOURCE-ARTIFACT / CUT**
+- around the final Schedule click, the edited tutorial rapidly alternates between scheduler and board frames;
+- this is not a trustworthy continuous product-transition sequence;
+- no animation duration is derived from these alternating frames.
+
+### ~00:02:15–00:02:18 — committed board result
 
 **VIDEO-DIRECT**
-- before commit, tutorial returns the custom rule to **1 day**;
-- summary returns to **`every day`**;
-- Schedule is then activated.
-
-### ~00:02:14–00:02:18 — save result
-
-**VIDEO-DIRECT**
-- toast appears: **`Created recurring tasks successfully!`**;
-- Backlog gains a `Recurring tasks` group;
-- recurring parent is `Team meeting`;
-- parent shows:
+- success toast exact copy:
+  - **`Created recurring tasks successfully!`**.
+- Backlog now contains a dedicated `Recurring tasks` group;
+- parent:
+  - title **`Team meeting`**;
   - recurrence label **`Custom`**;
-  - loop/recurrence icon;
-  - list badge.
-- This Week shows **`1 Scheduled tasks this week`** with a generated `Team meeting` child labeled **Sun**;
-- board/list header is **8 pending tasks** in the demonstrated state;
-- This Week progress is **1/8 Done**;
-- Today progress is **0/3 Done**.
+  - recurring/loop icon.
+- the original ordinary Today `Team meeting` is no longer in Today;
+- Today denominator changes **0/4 Done → 0/3 Done**;
+- This Week gains subsection:
+  - **`1 Scheduled tasks this week`**;
+- one visible child `Team meeting` is scheduled for **Sun**;
+- list header shows **8 pending tasks**.
 
-**EVIDENCE LIMIT**
-- the visible result directly proves parent + currently materialized child representation for this saved custom rule;
-- it does not prove an unlimited/future materialization horizon or generation cadence beyond what is shown.
+**COMMIT-DIRECT**
+- this board outcome belongs to the final Custom every-1-day rule, not the earlier 3-day / 4-week / monthly / 4-year examples.
+- the source only shows the child currently falling within the visible planning horizon; do not infer the full future materialized set from this one frame.
 
-### ~00:02:18–00:02:39.83 — recap/outro
+### ~00:02:18–00:02:27 — result/context summary
 
-**TRANSCRIPT-CLAIM / NON-UNIQUE**
-- narration says custom schedules generate child tasks like regular recurring schedules;
-- the visible parent/child result corroborates that at least one child is generated;
-- later explanatory/outro content adds no new editor state.
+**VIDEO-DIRECT**
+- parent + scheduled child remain visible while narration explains that custom recurrence generates child tasks like regular recurring schedules;
+- no additional recurrence control state appears.
+
+### ~00:02:27–00:02:39.89 — outro
+
+**VIDEO-DIRECT / NON-PRODUCT**
+- tutorial/community outro;
+- excluded from application parity requirements.
 
 ## VE-009 source synthesis
 
 High-confidence direct behavior established:
-- Custom is entered from the ordinary recurrence preset list without leaving the scheduler;
-- selected date and optional Add Time context persist while editing recurrence;
-- Custom rule always has numeric interval + unit dropdown + live natural-language summary;
-- unit options are days / weeks / months / years;
-- summary pluralizes and updates immediately with interval changes;
-- week mode conditionally inserts Sunday-first weekday chips and derives selected weekday names in summary;
-- month mode replaces weekday chips with a date-relative selector offering day-of-month vs ordinal-weekday recurrence;
-- year mode removes subordinate Repeat On controls;
-- conditional mode changes use in-place reflow and preserve the Cancel/Schedule footer;
-- demonstrated weekly summary is `every 4 weeks on Monday, Friday`, then `every 4 weeks on Monday` after deselection;
-- demonstrated monthly summaries are `every 4 months on the 14th` and `every 4 months on the 2nd Sunday`;
-- demonstrated year summary is `every 4 years`;
-- saving the final every-day custom rule produces a Custom recurring parent and a visible scheduled child plus success toast;
-- no implementation assumptions or future-generation behavior beyond the visible source are inferred.
+- Custom is an inline extension of the normal scheduler's second step;
+- Custom rule consists of interval count + day/week/month/year unit + dynamic plain-language summary;
+- unit dropdown base options are day/week/month/year;
+- day example directly reaches `every 3 days`;
+- week mode conditionally adds seven weekday chips and directly reaches `every 4 weeks on Monday, Friday`;
+- month mode replaces chips with date-vs-nth-weekday options, directly demonstrating `Monthly on day 14` and `Monthly on the 2nd Sunday`;
+- month summaries directly demonstrate `every 4 months on the 14th` and `every 4 months on the 2nd Sunday`;
+- year mode directly demonstrates `every 4 years` without an additional Repeat On control;
+- summary text updates in place as controls change;
+- the tutorial's example states are not the saved rule: immediately before Schedule the source resets Custom to **every 1 day**;
+- final board directly shows Team meeting as a Custom recurring parent, one visible Sunday scheduled child, Today 0/3 Done, 8 pending tasks and toast `Created recurring tasks successfully!`;
+- rapid scheduler/board alternation around the final commit is treated as a tutorial/source cut artifact, not measurable application motion;
+- long-horizon recurrence timing is not inferred beyond the rule expressed by the UI and resulting visible near-horizon child.
 
 No implementation conclusion is made in this analysis track.
 
