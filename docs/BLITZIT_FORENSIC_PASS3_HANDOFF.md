@@ -80,28 +80,27 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-007 — `Blitzit Tutorial How to Schedule Task Reminders.mp4`.**
+**Continue with VE-016 — `Blitzit Tutorial Timer Modes.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017.
+Completed full sources: VE-003, VE-005, VE-013, VE-014.
 
-For VE-007:
+For VE-016:
 
-1. inspect the complete **~02:52.8, 1920×1080, 60 fps** MP4;
-2. verify exact ffprobe metadata before finalizing the record;
-3. build a complete scheduling/reminder chronology;
-4. densely inspect:
-   - task action/overflow that opens Schedule;
-   - quick-date shortcuts;
-   - date-calendar selected state and any date markers;
-   - Next→time/repeat flow;
-   - exact time controls and values;
-   - reminder controls/timing where directly visible;
-   - saved schedule metadata on the task card;
-   - update-schedule entry and retained values;
-   - remove/no-repeat behavior if shown;
-5. separate direct product transitions from tutorial cuts;
+1. inspect the complete **02:55.380, 1920×1080, 60 fps** MP4;
+2. build a full timer-mode timeline;
+3. densely inspect:
+   - EST countdown start and zero boundary;
+   - exact `Time's Up` state;
+   - Extend control appearance/use and resulting timer direction/value;
+   - Pause/Resume, Skip and Done adjacency/state;
+   - Pomodoro work-sprint → break transition;
+   - manual break controls;
+   - count-up/no-EST mode;
+   - displayed live timer vs Taken metric at boundaries;
+4. measure/classify transition timing only where the source is continuous;
+5. distinguish timer presentation from persisted task metrics;
 6. update analysis Markdown only;
-7. then continue to VE-009.
+7. then continue to VE-017.
 
 ## Media-access rule
 
