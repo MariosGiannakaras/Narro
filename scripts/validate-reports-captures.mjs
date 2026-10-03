@@ -55,6 +55,24 @@ function common(dom, label) {
   invariant(!dom.includes("Upgrade Now"), label + " must not reproduce excluded account/upgrade controls");
 }
 
+function sessionsCommon(dom, label) {
+  invariant(dom.includes('data-reports-sessions="true"'), label + " Sessions surface is missing");
+  invariant(dom.includes(">Reports<"), label + " Reports title is missing");
+  invariant(dom.includes('role="tablist"'), label + " Reports tablist is missing");
+  invariant(dom.includes(">Overview<"), label + " Overview tab is missing");
+  invariant(dom.includes("Sessions"), label + " Sessions tab is missing");
+  invariant(dom.includes("Beta"), label + " Sessions Beta badge is missing");
+  invariant(dom.includes("+ Add Session"), label + " Add Session action is missing");
+  invariant(dom.includes("Export .csv"), label + " current CSV export label is missing");
+  invariant(dom.includes("Hide Break sessions"), label + " break visibility filter is missing");
+  invariant(dom.includes('data-report-session-list-filter="true"'), label + " Sessions list filter is missing");
+  invariant(dom.includes('data-report-session-date-range="true"'), label + " Sessions date range is missing");
+  invariant(dom.includes("Total Time"), label + " Total Time summary is missing");
+  invariant(dom.includes("Total Tasks"), label + " Total Tasks summary is missing");
+  invariant(dom.includes("Total Sessions"), label + " Total Sessions summary is missing");
+  invariant(!dom.includes("Upgrade Now"), label + " must not reproduce excluded account/upgrade controls");
+}
+
 for (const theme of ["light", "dark"]) {
   for (const mode of ["overview", "list-filter", "date-picker", "series-toggle", "lower"]) {
     const label = "reports-" + mode + "-" + theme;
@@ -112,4 +130,45 @@ for (const theme of ["light", "dark"]) {
   }
 }
 
-console.log("Reports Overview captured visual contracts: PASS");
+
+for (const theme of ["light", "dark"]) {
+  for (const mode of ["sessions-empty", "sessions-populated", "sessions-detail", "sessions-add"]) {
+    const label = "reports-" + mode + "-" + theme;
+    validatePng(label);
+    const dom = readDom(label);
+    sessionsCommon(dom, label);
+    invariant(dom.includes('data-reports-fixture-mode="' + mode + '"'), label + " fixture mode marker differs");
+
+    if (mode === "sessions-empty") {
+      invariant(dom.includes(">0min<"), label + " empty Total Time state is missing");
+      invariant(dom.includes(">2<"), label + " empty-range task summary is missing");
+      invariant(!dom.includes('data-report-session-row='), label + " empty Sessions state must not invent rows");
+    }
+
+    if (mode === "sessions-populated") {
+      invariant(dom.includes("Project roadmap video"), label + " representative task row is missing");
+      invariant(dom.includes("Email newsletter"), label + " repeated task row is missing");
+      invariant(dom.includes("Session 04"), label + " task-relative ordinal is missing");
+      invariant(dom.includes(">Break<"), label + " break row treatment is missing");
+      invariant(dom.includes("17hr 22min"), label + " populated summary is missing");
+      invariant(dom.includes('data-session-kind="break"'), label + " visible break row is missing");
+    }
+
+    if (mode === "sessions-detail") {
+      invariant(dom.includes('data-report-session-detail="true"'), label + " task-detail modal is missing");
+      invariant(dom.includes("3 Sessions"), label + " task-detail aggregate count is missing");
+      invariant(dom.includes("2hr 13min"), label + " task-detail aggregate time is missing");
+      invariant(dom.includes('aria-label="Save session end time"'), label + " inline edit green-check commit is missing");
+      invariant(dom.includes('type="time"'), label + " inline time editor is missing");
+    }
+
+    if (mode === "sessions-add") {
+      invariant(dom.includes('data-report-add-session="true"'), label + " Add Session dialog is missing");
+      invariant(dom.includes('placeholder="Select tasks..."'), label + " Add Session task search is missing");
+      invariant(dom.includes(">Recent Tasks<"), label + " Recent Tasks group is missing");
+      invariant(dom.includes("Project roadmap video"), label + " representative Recent Task is missing");
+    }
+  }
+}
+
+console.log("Reports Overview + Sessions captured visual contracts: PASS");
