@@ -41,43 +41,34 @@ User direction recorded 2026-10-02:
 - analyze all supplied Blitzit videos/images at the most detailed practical level;
 - record the evidence durably in the repository;
 - **do not modify Narro implementation in this analysis track**;
-- leave enough repository state that a zero-context chat can resume by being told only to continue the forensic pass.
+- leave enough repository state that a zero-context chat can resume safely.
 
-When that instruction is given, read in order:
+Read in order when this track is requested:
 1. `docs/BLITZIT_FORENSIC_PASS3_HANDOFF.md`
 2. `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`
 3. `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`
-4. `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`
-5. `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`
+4. `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`
+5. `docs/BLITZIT_VISUAL_SYSTEM.md`
+6. relevant detailed Pass-3 screenshot/video findings only if needed.
 
-Current source-analysis checkpoint:
-- screenshots: **46/46 SOURCE_COMPLETE** at Pass-3 depth;
-- full repository MP4s: **19/19 SOURCE_COMPLETE** at Pass-3 depth;
+Current source-analysis closure:
+- canonical screenshots: **46/46 SOURCE_COMPLETE**;
+- repository MP4s: **19/19 SOURCE_COMPLETE**;
+- static visual-calibration dispositions: **46/46 COMPLETE**;
+- visual-system families: **8/8 COMPLETE**;
+- canonical implementation-facing source synthesis: `docs/BLITZIT_VISUAL_SYSTEM.md`;
 - VE-018 Daniel's Planning Workflow: **SOURCE_COMPLETE** from the actual full MP4;
-- separate 9.344 s / 560-frame planning clip: **DIRECT SOURCE / UNMAPPED LINEAGE**; it is not part of VE-018 and must remain separately attributed;
-- VE-003 Blitz Mode: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-005 Add & Manage Tasks and Lists: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-013 Subtasks: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-014 Preferences: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-016 Timer Modes: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-017 Update Recurring Schedules: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-007 Schedule Task Reminders: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-009 Custom Recurring Schedules: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-010 Notes: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-015 Sessions Walkthrough: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-011 Reports: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-012 Improved Sessions and Stats: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-006 Delete & Archive: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-008 Recurring Tasks: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-002 EST Suffix Parsing: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-001 Product Explainer: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-004 Getting Started: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-019 Oct Update: **SOURCE_COMPLETE / HISTORICAL** from the actual full MP4;
-- video Pass 3 is **19/19 complete**;
-- exact next forensic action: continue `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md` until static visual calibration is closed;
-- raw MP4 access is currently available through the isolated analysis-only media bridge; do not merge that bridge into main.
+- separate user-supplied 9.344 s / 560-frame planning clip: **DIRECT SOURCE / UNMAPPED LINEAGE**; do not relabel it as VE-018;
+- forensic/source-evidence pass: **COMPLETE**;
+- implementation reconciliation: **DEFERRED / separate track**.
 
-Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
+If the user later says “continue the forensic pass”:
+- verify these counters;
+- do **not** re-audit completed assets;
+- if no genuinely new source evidence exists, report that the source-analysis pass is complete;
+- do not begin implementation from this track.
+
+Reopen source analysis only for new source material or a concrete unresolved source ambiguity.
 
 ## Blitzit parity consumption / implementation coordination
 

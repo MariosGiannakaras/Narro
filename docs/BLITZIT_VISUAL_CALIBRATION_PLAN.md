@@ -1,6 +1,6 @@
 # Blitzit static visual calibration plan
 
-Status: **REQUIRED — OPEN**
+Status: **COMPLETE — 46/46 dispositions and 8/8 visual-system families calibrated**
 
 Last updated: 2026-10-03
 
@@ -115,3 +115,16 @@ Static visual calibration is complete when:
 - unique/signature treatments have targeted measurements where useful;
 - `docs/BLITZIT_VISUAL_SYSTEM.md` is sufficient for an implementation agent to style ordinary components coherently without inventing arbitrary values;
 - remaining ambiguity is explicitly labeled rather than hidden behind guessed precision.
+
+
+## Completion result — 2026-10-03
+
+Static visual calibration is complete:
+- 46/46 canonical images have explicit final dispositions in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
+- 8/8 visual-system families are documented in `docs/BLITZIT_VISUAL_SYSTEM.md`;
+- signature structural landmarks were measured where useful;
+- exact font-family and byte-exact color values remain explicitly unclaimed where screenshot evidence cannot support them;
+- historical sources are version-scoped and do not override stronger current/direct evidence;
+- no Narro implementation files were modified.
+
+Implementation reconciliation remains a separate later phase.
