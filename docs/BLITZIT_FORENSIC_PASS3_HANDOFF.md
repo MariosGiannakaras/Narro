@@ -64,7 +64,7 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 - Corpus: **19 MP4 + 19 matching SRT**
 - Full MP4s completed to Pass-3 standard: **19/19**
 - Full sources completed: **all 19 repository MP4s (VE-001 through VE-019 as mapped in the authoritative tracker)**
-- Partial deep sequence outside mapped corpus: **unmapped user-supplied 9.344 s planning-board clip**
+- Additional fully reviewed source excerpt outside mapped corpus: **user-supplied 9.344 s / 560-frame planning-board clip with unmapped lineage**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
 See `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
