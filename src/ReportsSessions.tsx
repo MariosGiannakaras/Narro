@@ -315,8 +315,21 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   }, [addDraft, timeZone]);
 
   const afterMutation = async (message: string, taskId?: string | null) => {
-    await refreshSessions();
-    if (detailTaskId && (!taskId || taskId === detailTaskId)) await refreshDetail(detailTaskId);
+    const refreshes: Array<Promise<unknown>> = [refreshSessions()];
+    if (detailTaskId && (!taskId || taskId === detailTaskId)) {
+      refreshes.push(refreshDetail(detailTaskId));
+    }
+    const results = await Promise.allSettled(refreshes);
+    const refreshFailure = results.find(
+      (result): result is PromiseRejectedResult => result.status === "rejected",
+    );
+    if (refreshFailure) {
+      setRefreshError(
+        `${message} Authoritative report data could not refresh: ${formatInvokeError(refreshFailure.reason)}`,
+      );
+      return;
+    }
+    setRefreshError(null);
     setFeedback(message);
   };
 
