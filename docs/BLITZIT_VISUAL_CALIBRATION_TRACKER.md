@@ -2,7 +2,7 @@
 
 Status: **COMPLETE — 46/46 dispositioned; 8/8 visual-system families calibrated**
 
-Last updated: 2026-10-03
+Last updated: 2026-10-04
 
 This ledger is separate from the 46/46 source-inspection count. See `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md`.
 
@@ -15,7 +15,7 @@ Statuses:
 - **CONTEXT_ONLY** — explicitly reviewed and not a visual target needing calibration.
 - **SUPERSEDED** — stronger evidence is the target; rationale recorded.
 
-This is a **coverage ledger**, not a demand to measure every input/button in every image. Completion means 46/46 explicit dispositions plus a complete `docs/BLITZIT_VISUAL_SYSTEM.md`.
+This is a **coverage ledger**, not a demand to measure every input/button in every image. Completion means 46/46 explicit dispositions plus a complete `docs/BLITZIT_VISUAL_SYSTEM.md`. The post-19/19 implementation-routing reconciliation is also complete; every calibrated family now has an implementation/validation route in `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 | ID | Canonical image | Calibration status |
 | --- | --- | --- |
@@ -86,4 +86,4 @@ Disposition totals:
 - Historical Tool Finder images are deliberately CONTEXT_ONLY or SUPERSEDED; they preserve evolution but do not override stronger current/Help calibration targets.
 - Reusable family rules and targeted measurement anchors are canonical in `docs/BLITZIT_VISUAL_SYSTEM.md`.
 
-No implementation files were changed by this calibration pass.
+No implementation files were changed by this calibration pass. The later global no-orphan reconciliation is documentation-only and does not claim `SOURCE_PARITY_PASS`.
