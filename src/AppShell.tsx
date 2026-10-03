@@ -13,7 +13,6 @@ import {
   type ListEditorRequest,
   updateListFromEditor,
 } from "./listEditorApi";
-import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import { archiveListFromSettings } from "./listSettingsApi";
 import { ReportsWorkspace } from "./ReportsWorkspace";
 import { SearchPalette, type SearchPaletteMode } from "./SearchPalette";
@@ -121,9 +120,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   const [activeDestination, setActiveDestination] = useState<AppDestination>("home");
   const [boardTarget, setBoardTarget] = useState<ListBoardRequestTarget | null>(null);
   const [editorState, setEditorState] = useState<ListEditorState | null>(null);
-  const [archiveTarget, setArchiveTarget] = useState<HomeListCardSnapshot | null>(null);
-  const [archivePending, setArchivePending] = useState(false);
-  const [archiveError, setArchiveError] = useState<string | null>(null);
+  const [archivePendingId, setArchivePendingId] = useState<string | null>(null);
   const [duplicatePendingId, setDuplicatePendingId] = useState<string | null>(null);
   const [homeMutationError, setHomeMutationError] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -158,7 +155,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
-      if (!shortcut || editorState || archiveTarget) return;
+      if (!shortcut || editorState || archivePendingId) return;
 
       if (shortcut === "search" || shortcut === "create-task") {
         if (shortcut === "create-task" && isEditableShortcutTarget(event.target)) return;
@@ -187,7 +184,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [editorState, archiveTarget]);
+  }, [editorState, archivePendingId]);
 
   useEffect(() => {
     if (!shortcutFeedback) return;
@@ -205,10 +202,19 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     setEditorState({ mode: "edit", list });
   }
 
-  function requestArchive(list: HomeListCardSnapshot) {
+  async function archiveList(list: HomeListCardSnapshot) {
+    if (archivePendingId) return;
     setSearchOpen(false);
-    setArchiveTarget(list);
-    setArchiveError(null);
+    setArchivePendingId(list.id);
+    setHomeMutationError(null);
+    try {
+      await archiveListFromSettings(list.id);
+      setHomeRefreshKey((value) => value + 1);
+    } catch (failure) {
+      setHomeMutationError(formatInvokeError(failure));
+    } finally {
+      setArchivePendingId(null);
+    }
   }
 
   async function duplicateList(list: HomeListCardSnapshot) {
@@ -277,21 +283,6 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
     setHomeRefreshKey((value) => value + 1);
   }
 
-  async function confirmArchive() {
-    if (!archiveTarget || archivePending) return;
-    setArchivePending(true);
-    setArchiveError(null);
-    try {
-      await archiveListFromSettings(archiveTarget.id);
-      setArchiveTarget(null);
-      setHomeRefreshKey((value) => value + 1);
-    } catch (failure) {
-      setArchiveError(formatInvokeError(failure));
-    } finally {
-      setArchivePending(false);
-    }
-  }
-
   const runtimeHome = homeContent ?? (
     <HomeDashboard
       refreshKey={homeRefreshKey}
@@ -302,7 +293,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
         onOpen: () => openListBoard(list),
         onEdit: () => openEditList(list),
         onDuplicate: duplicatePendingId ? undefined : () => void duplicateList(list),
-        onArchive: () => requestArchive(list),
+        onArchive: archivePendingId ? undefined : () => void archiveList(list),
       })}
     />
   );
@@ -414,22 +405,6 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
           initialList={editorState.mode === "edit" ? editorState.list : undefined}
           onRequestClose={() => setEditorState(null)}
           onSave={saveList}
-        />
-      ) : null}
-
-      {archiveTarget ? (
-        <ListMutationConfirmDialog
-          action="archive"
-          listTitle={archiveTarget.title}
-          pending={archivePending}
-          error={archiveError}
-          onCancel={() => {
-            if (!archivePending) {
-              setArchiveTarget(null);
-              setArchiveError(null);
-            }
-          }}
-          onConfirm={() => void confirmArchive()}
         />
       ) : null}
 
