@@ -62,45 +62,47 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **17/19**
+- Full MP4s completed to Pass-3 standard: **18/19**
 - Full sources completed: **VE-004 Getting Started; VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough; VE-011 Reports; VE-012 Improved Sessions and Stats; VE-006 Delete & Archive**
-- Partial deep sequence: **VE-018 planning-board excerpt**
+- Partial deep sequence outside mapped corpus: **unmapped user-supplied 9.344 s planning-board clip**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
 See `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`.
 
 ## Completed deep reference sequence
 
-The user-supplied 9.344 s / 560-frame planning-board clip has a durable Pass-3 baseline in:
+The user-supplied 9.344 s / 560-frame planning-board clip has a durable Pass-3 baseline, but its source lineage is now known to be **unmapped** rather than VE-018:
 - `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`;
-- `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, reopened VE-018 section.
+- `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`, corrected to an unmapped planning-source section.
 
 It establishes the minimum required density for every later video sequence: state-by-state drag/hover/drop inspection, arithmetic reconstruction, identity/order tracking, transient UI, and motion measurement/classification.
 
-Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4 is 03:33.090.
+Do not attribute that excerpt to VE-018. The repository VE-018 MP4 is now SOURCE_COMPLETE and uses a different Personal-list dataset and different older weekly-aggregate semantics.
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-018 — `Daniel's Productive Planning Workflow with Blitzit.mp4`.**
+**Continue with VE-019 — `Oct Update Light mode and more!🚀.mp4`.**
 
-VE-018 already contains one deeply reviewed 9.344 s / 560-frame planning-board excerpt. That excerpt is not full-source completion.
+Completed full sources: **18/19**. VE-018 is now SOURCE_COMPLETE.
 
-For VE-018:
+Important provenance correction:
+- the separate 9.344 s / 560-frame planning clip is **not** part of VE-018;
+- preserve it as high-value direct source evidence with **UNMAPPED / UNKNOWN lineage**;
+- do not use the repository VE-018's older weekly-superset semantics to overwrite that clip, or vice versa.
 
-1. inspect the complete **03:33.090, 1920×1080, 60 fps** MP4;
-2. reuse the existing deep planning excerpt rather than duplicating it;
-3. map every segment before and after that excerpt;
-4. densely inspect:
-   - task prioritization/planning before the known four-drag sequence;
-   - all remaining board mutations/count/arithmetic outside the excerpt;
-   - Blitz entry;
-   - Focus task progression;
-   - break flow if shown;
-   - Done/success/next-task behavior;
-   - any tutorial cuts vs real transitions;
-5. reconcile the full-source timeline with the already durable excerpt findings;
-6. update analysis Markdown only;
-7. then continue to VE-019.
+For VE-019:
+
+1. inspect the complete **02:52.989, 1920×1080, 30 fps** MP4;
+2. build a full historical Oct-update timeline;
+3. densely inspect:
+   - Floating/live subtasks;
+   - compact↔expanded Floating geometry;
+   - light-theme board appearance;
+   - theme/settings transitions;
+   - any Windows/security/signing context;
+4. classify obsolete limitations and historical-only UI explicitly;
+5. update analysis Markdown only;
+6. once VE-019 is complete, reconcile the video tracker to **19/19** and continue the still-open static visual-calibration work from the forensic handoff rather than declaring the whole evidence pass finished.
 
 ## Media-access rule
 
@@ -114,7 +116,7 @@ Raw MP4 access was established through the isolated analysis-only branch `analys
 - `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` — single authoritative progress ledger.
 - `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md` — all 46 static-image records.
 - `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md` — video queue, hot windows and Pass-3 records.
-- `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md` — older second pass plus reopened VE-018 evidence.
+- `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md` — older second pass plus the corrected unmapped planning-clip evidence.
 - `docs/BLITZIT_VIDEO_EVIDENCE.md` — prior timestamped functional evidence.
 - `reference/original-blitzit-screenshots/CANONICAL_INDEX.md` — source/provenance inventory.
 - `reference/original-blitzit-videos/inbox/` — raw MP4/SRT corpus.
