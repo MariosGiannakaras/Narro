@@ -61,8 +61,8 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **5/19**
-- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes**
+- Full MP4s completed to Pass-3 standard: **6/19**
+- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
@@ -80,27 +80,28 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-017 — `Blitzit Tutorial Update Recurring Schedules.mp4`.**
+**Continue with VE-007 — `Blitzit Tutorial How to Schedule Task Reminders.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017.
 
-For VE-017:
+For VE-007:
 
-1. inspect the complete **02:50.063, 1920×1080, 60 fps** MP4;
-2. build a full recurring-schedule edit chronology;
-3. densely inspect:
-   - existing recurring-rule entry/edit surface;
-   - Replace Existing Tasks row/state;
-   - rule/frequency controls;
-   - switching to No Repeat;
-   - Delete Existing Tasks row/state and count;
-   - footer actions and their persistence;
-   - task-card/board state before and after save;
-   - detached/existing child behavior where directly visible;
-4. distinguish destructive state from neutral replacement state;
-5. treat narration about child regeneration/deletion separately from direct pixels unless demonstrated;
+1. inspect the complete **~02:52.8, 1920×1080, 60 fps** MP4;
+2. verify exact ffprobe metadata before finalizing the record;
+3. build a complete scheduling/reminder chronology;
+4. densely inspect:
+   - task action/overflow that opens Schedule;
+   - quick-date shortcuts;
+   - date-calendar selected state and any date markers;
+   - Next→time/repeat flow;
+   - exact time controls and values;
+   - reminder controls/timing where directly visible;
+   - saved schedule metadata on the task card;
+   - update-schedule entry and retained values;
+   - remove/no-repeat behavior if shown;
+5. separate direct product transitions from tutorial cuts;
 6. update analysis Markdown only;
-7. then continue to VE-007.
+7. then continue to VE-009.
 
 ## Media-access rule
 
