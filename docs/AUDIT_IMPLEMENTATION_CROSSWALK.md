@@ -232,3 +232,16 @@ Before a milestone or substantial slice continues:
 - intentional deviations stay protected by tests/specs where material;
 - ambiguity is not permission to guess;
 - M10/final review rechecks all `ROUTED_M10`, `VALIDATION_OPEN` and remaining `AMBIGUOUS` rows.
+
+### M7 CI #884 runtime findings — 2026-10-03
+
+All findings use the exact CI #884 validation EXE and real Windows 125% capture in [the batched findings](../work-log/2026-10-03-codex-m7-ci884-batched-findings.md). Reconcile against that evidence; do not call the native frame strip a recurrence of an older transient symptom.
+
+| ID | Finding | Scope | Disposition |
+|---|---|---|---|
+| M7-OBS-20261003-03 | Frameless Focus shadow insets expose native frame and offset client from outer-origin region | M7 Windows host / region | **FIX_NOW** — remove native shadow/resize frame from fixed Focus host consistently in all build configs; retest exact EXE at 100%/125%, movement, transitions, saved-position restart |
+| M7-OBS-20261003-04 | Expanded inline Notes shows unnecessary horizontal scrollbar | M7 editor / layout | **FIX_NOW** — bounded box sizing and horizontal content fit; preserve intentional vertical editor scroll |
+| M7-OBS-20261003-05 | Larger Notes uses full-host vh and loses footer below expanded 300px region | M7 editor reachability | **FIX_NOW** — bind to visible presentation height, retain editor node/draft and bounded resize. Explicit Narro Windows decision; VE-010 inline flow is preserved |
+| M7-OBS-20261003-06 | In-app shortcuts depend on translated key and fail in Greek layout | Shared shortcut boundary, exercised M7 | **FIX_NOW** — physical letter code with semantic-key fallback, controlled regression cases and real Greek/English check |
+| M7-OBS-20261003-07 | Quick-create loading race leaves focus outside modal so Escape/trap does not run | Focus Create modal accessibility | **FIX_NOW** — focus loading shell, focus title once ready; test delayed success/error and focus restore |
+

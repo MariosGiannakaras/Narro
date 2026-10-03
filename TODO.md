@@ -321,6 +321,8 @@ These requirements apply to every open or reopened roadmap milestone. A later re
 
 ## Milestone 7 — Floating Timer mode
 
+**Active corrective batch (2026-10-03), 1/5:** CI #884 real Windows findings M7-OBS-20261003-03..07 are FIX_NOW: native shadow/frame insets, inline Notes overflow, large editor reachability, Greek shortcut matching, loading-modal focus. Batch compatible fixes with regression tests before one CI. Exact-EXE physical retest and complete evidence publication remain open; see [findings](work-log/2026-10-03-codex-m7-ci884-batched-findings.md).
+
 **Current corrective-scope rule:** the single-Focus replacement changes implementation that materially supported M1 Gate A, M6 Gate F and multiple M7 acceptance items, and directly changes M8 Focus-shortcut routing. Those affected items/gates are therefore reopened until the replacement is validated. Historical PASS evidence remains immutable evidence for the superseded code only. M2–M5 stay closed because no direct dependency has been found.
 
 - [ ] Implement compact mode by transforming the existing `focusSurface` window; do not create a third persistent webview.
