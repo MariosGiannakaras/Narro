@@ -62,7 +62,7 @@ function closeContext(context: AudioContext): void {
   }
 }
 
-export function stopLocalSoundPreview(): void {
+export function stopLocalSoundPlayback(): void {
   previewGeneration += 1;
   if (cleanupTimer !== null) {
     globalThis.clearTimeout(cleanupTimer);
@@ -73,14 +73,14 @@ export function stopLocalSoundPreview(): void {
   if (context) closeContext(context);
 }
 
-export async function playLocalSoundPreview(
+export async function playLocalSound(
   soundId: LocalSoundId,
   volumePercent: number,
 ): Promise<void> {
   const recipe = SOUND_RECIPES[soundId];
   if (!recipe) throw new Error("Unknown local Narro sound.");
 
-  stopLocalSoundPreview();
+  stopLocalSoundPlayback();
   const audioGlobal = globalThis as AudioContextGlobal;
   const AudioContextConstructor = audioGlobal.AudioContext ?? audioGlobal.webkitAudioContext;
   if (!AudioContextConstructor) {
@@ -142,3 +142,6 @@ export async function playLocalSoundPreview(
     }
   }, finalEndMs + 120);
 }
+
+export const playLocalSoundPreview = playLocalSound;
+export const stopLocalSoundPreview = stopLocalSoundPlayback;
