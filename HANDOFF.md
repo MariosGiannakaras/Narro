@@ -19,7 +19,7 @@ This section is the current continuation state.
 - #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
 - No progress counter advances from implementation alone. Current progress remains `4/10M || 4/5 | 14/19`.
 
-**NEXT AGENT ACTION:** the implementation/CI path is fully validated. Run the remaining real-Windows M7 C5 physical restart test using resulting-main artifact id `11268220111`; preserve/upload the entire `Narro-M7-Logs` folder plus the visual/manual observation. Do not reopen implementation unless that physical evidence reports FAIL/INCONCLUSIVE or exposes a concrete defect. Do not wait for or redo already accepted M7 C1-C4 physical evidence.
+**NEXT AGENT ACTION:** keep the remaining M1/M7 real-Windows gates OPEN, but do not treat them as a global implementation stop. Proceed with the earliest independently safe roadmap work that does not depend on those physical results. The current unblocked source slice is M8 `PREF-R05`: local-only sound catalog/preview behavior using validated Narro-owned or user-local assets, with non-overlapping previews. Do not advance M9 while this unblocked M8 work remains.
 
 **USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
 
@@ -267,15 +267,15 @@ Validated #216/#866 evidence remains useful:
 - validated diagnostic storage isolation;
 - production AppData backup helper for the legacy M7 physical path.
 
-Do not resume deferred M9 while reopened Milestone 1 remains incomplete.
+Do not use the reopened Milestone 1 physical gates as a blanket blocker for independent later work. Continue independently safe M8 slices under the manual-test batching policy; M9 remains deferred while unblocked M8 work remains.
 
 Physical procedure:
 `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
 
 ## Deferred unrelated work
 
-- PR #205 (`M9: expose validated Overview aggregation command/API`) remains open/deferred until M7 physical closure.
-- PR #198 (`M9: add screenshot-backed Reports Overview visual foundation`) remains open/deferred.
+- M9 remains ordered after M8; it is not blocked merely by the pending M1/M7 physical observations.
+- Historical M9 PR references are not active continuation points; live GitHub currently has no open PRs.
 - Static-contract cleanup remains maintenance-only and is not an M7 blocker.
 
 
