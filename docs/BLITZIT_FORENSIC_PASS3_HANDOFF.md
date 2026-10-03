@@ -80,26 +80,26 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-015 — `Blitzit Tutorial Sessions Walkthrough.mp4`.**
+**Continue with VE-009 — `Blitzit Tutorial How to Use Custom Recurring Schedules.mp4`.**
 
-Pass-3 full-video completion is now **9/19**.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007.
 
-For VE-015:
+For VE-009:
 
-1. inspect the complete **02:56.216, 1920×1080, 60 fps** MP4;
-2. map Sessions shell, filters, summaries and row/detail states;
+1. inspect the complete **02:39.893, 1920×1080, 60 fps** MP4;
+2. build a full custom-recurrence timeline;
 3. densely inspect:
-   - Overview→Sessions navigation and Beta treatment;
-   - list/date filters and Hide Break sessions;
-   - task-detail opening;
-   - inline start/end/duration edits and save/cancel semantics actually shown;
-   - row overflow actions;
-   - Add Session dialog and searchable task picker;
-   - delete behavior;
-   - export behavior/label and conflict with current screenshot evidence;
-4. reconstruct visible summary counts/times where state changes permit;
+   - recurrence entry point and Custom selection;
+   - Repeat every interval number;
+   - day/week/month/year unit selector;
+   - weekday chip selection/deselection;
+   - monthly conditional controls;
+   - natural-language recurrence summary;
+   - any generated-task consequence rows;
+   - footer continuity and save result;
+4. separate direct UI state from narration/examples not committed;
 5. update analysis Markdown only;
-6. then continue to VE-011.
+6. then continue to VE-010.
 
 ## Media-access rule
 
