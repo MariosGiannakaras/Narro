@@ -18,7 +18,7 @@ Exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 wit
 - scheduling visual fixture;
 - same-DPI Timer→Panel endpoint correction.
 
-The CI #884 physical batch supplied new material evidence: native frame insets, Notes overflow/clipped Save, Greek-layout shortcuts/loading-modal focus and transient outgoing/incoming hierarchy coexistence. These are narrowly routed FIX_NOW; PR #222 batches their corrections. Current progress is `5/10M || 2/5 | 14/19`, with exact-head CI and physical acceptance still open. See [the complete physical batch](../work-log/2026-10-03-codex-m7-ci884-physical-batch-evidence.md).
+The CI #884 physical batch supplied six narrowly routed FIX_NOW findings. PR #222 now corrects them and PASSed exact-head Windows CI #893, merged as `ccf0fef5554fe8b635807df9214d56d3b2c29457` with an identical non-Markdown tree. Its final verified EXE is ready. Current corrective progress is `5/10M || 3/5 | 14/19`; affected C4/C5 physical acceptance and reconciliation remain OPEN. See [final source/artifact evidence](../work-log/2026-10-03-codex-m7-pr222-ci893-merged-candidate-ready.md) and [complete prior physical findings](../work-log/2026-10-03-codex-m7-ci884-physical-batch-evidence.md).
 
 The remaining work is this bounded corrective batch and closure/observation, not another general M7 implementation audit. Historical acceptance below remains valid for its exact source; it does not certify changed rendering or native host geometry.
 

@@ -1,0 +1,12 @@
+{
+  "validatedPrHead": "549536c4d19b0045a928652d3feff53162f55a6e",
+  "mainMerge": "ccf0fef5554fe8b635807df9214d56d3b2c29457",
+  "nonMarkdownDifferences": [],
+  "ciRunId": 37134207962,
+  "duplicateMainCI": {
+    "number": 896,
+    "runId": 37135346028,
+    "cancellationRequested": true,
+    "reason": "Executable/build/test/workflow and existing evidence tree is byte-identical; main changes are Markdown only."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "path": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr222-ci893\\candidate\\narro-m7-validation.exe",
+  "bytes": 15027200,
+  "sha256": "01dd602454f10f85aeecd53eb1bfcdd53368b2eec46fa60cfb5d5cf80385018b",
+  "sourceSha": "549536c4d19b0045a928652d3feff53162f55a6e",
+  "mainMergeSha": "ccf0fef5554fe8b635807df9214d56d3b2c29457",
+  "artifactId": 11278482082,
+  "ciNumber": 893,
+  "ciRunId": 37134207962,
+  "launchedLocally": false
+}

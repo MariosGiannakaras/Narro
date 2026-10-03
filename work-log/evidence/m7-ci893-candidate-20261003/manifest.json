@@ -1,0 +1,489 @@
+{
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "artifact-metadata.json",
+      "bytes": 817,
+      "sha256": "004375bac101b9dbee46e2182a8da3213577a8f109c0de6c9d6f379cc0a90d00"
+    },
+    {
+      "path": "candidate-identity.json",
+      "bytes": 452,
+      "sha256": "29ac9e3e4bbcdd16663a07aa3ad163a162bfe28e028978c91708101ace143cc6"
+    },
+    {
+      "path": "ci-metadata.json",
+      "bytes": 14182,
+      "sha256": "1ac5dcbed775d73e8ae2deb773167d7e6e3c1833d564f03e87a32aed6709d4ae"
+    },
+    {
+      "path": "full-ci-log.txt",
+      "bytes": 370311,
+      "sha256": "58b859365c29e2a0766dc803f90e47633c7e8f116b618ecb742a3d60ba003436"
+    },
+    {
+      "path": "main-tree-proof.json",
+      "bytes": 418,
+      "sha256": "46dd67e7c2f5c8462899350f9dd89dc646bdde8515ccec50131df27b9fe638db"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3031,
+      "sha256": "6ef4277a1aec7ee7d9a478b69ede8b2e1566ee549fe33a404cd7d2b56aeefb52"
+    },
+    {
+      "path": "runtime-visual/ack-panel-returned.ready",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": "runtime-visual/ack-panel-to-timer-start.ready",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": "runtime-visual/ack-panel.ready",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": "runtime-visual/ack-timer-compact.ready",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": "runtime-visual/ack-timer-expanded.ready",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": "runtime-visual/ack-timer-to-panel-start.ready",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": "runtime-visual/checkpoint-complete.json",
+      "bytes": 2365,
+      "sha256": "7bede6e06da62ad471d97b3c6659da28b7325377224c06b179ec1f6920f6fee3"
+    },
+    {
+      "path": "runtime-visual/checkpoint-panel-returned.json",
+      "bytes": 2384,
+      "sha256": "61b77a6f1e5db7bf2a582cd819106b613312a0497ac3a6efa8be43d5f30dd56e"
+    },
+    {
+      "path": "runtime-visual/checkpoint-panel-to-timer-start.json",
+      "bytes": 2389,
+      "sha256": "3fa6536e91d0b3bd2662a9d79b6045d7584c7b76b9f4ab10d9975e37c7e12019"
+    },
+    {
+      "path": "runtime-visual/checkpoint-panel.json",
+      "bytes": 2375,
+      "sha256": "993e21f49ee8759253aa067cb2bb19bb87177cc437605b18fd1d1ce57b742988"
+    },
+    {
+      "path": "runtime-visual/checkpoint-timer-compact.json",
+      "bytes": 2394,
+      "sha256": "ed4853af679830dd51b2ba5639fb80fc528b17196af739b137acb051bf1b0e70"
+    },
+    {
+      "path": "runtime-visual/checkpoint-timer-expanded.json",
+      "bytes": 2394,
+      "sha256": "e6a21a54116eab56ef57970d49dcf5a6be2b78942bb3b3238863524f15fdc5bf"
+    },
+    {
+      "path": "runtime-visual/checkpoint-timer-to-panel-start.json",
+      "bytes": 2402,
+      "sha256": "aa3f24e241df5e8476e58a0963d52ceee109afb25ab7424d73fcd80490ad18a4"
+    },
+    {
+      "path": "runtime-visual/floating-timer-expanded-runtime.json",
+      "bytes": 2833,
+      "sha256": "84526f34d341be65c35568b492c0ec824a2887367cf2350f71465fdd708b5044"
+    },
+    {
+      "path": "runtime-visual/floating-timer-expanded-runtime.png",
+      "bytes": 6177,
+      "sha256": "400e625a62e664e9654826af30ac76124f559445c72f2456765c4d67b462b7dc"
+    },
+    {
+      "path": "runtime-visual/floating-timer-runtime.json",
+      "bytes": 2824,
+      "sha256": "eb91c3062f43e8ac296d0635146993babadc61cfaa9f81e8fdd7a1c0c3a33416"
+    },
+    {
+      "path": "runtime-visual/floating-timer-runtime.png",
+      "bytes": 3487,
+      "sha256": "60cd08b8777b2c5a3c19cd8b9815293bd6dcf33a0661aa98555b6deed14006a5"
+    },
+    {
+      "path": "runtime-visual/focus-panel-runtime.json",
+      "bytes": 2802,
+      "sha256": "e7d9a626fead0387b5ed5b7367193395de6b9cde6dca4ac40b923336949f6b9f"
+    },
+    {
+      "path": "runtime-visual/focus-panel-runtime.png",
+      "bytes": 19808,
+      "sha256": "7c7eadad26a9f0302bd609e2d1260f8752d5721f011f456e8c1d77a30bead71c"
+    },
+    {
+      "path": "runtime-visual/manifest.json",
+      "bytes": 403,
+      "sha256": "eaba34b902a7af5d2d1c51204767c929f93247c22bc69b4c3b98ba628e5c337f"
+    },
+    {
+      "path": "runtime-visual/narro.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runtime-visual/narro.stdout.log",
+      "bytes": 99,
+      "sha256": "c7e96d415df817d287ce077f0f1be53546ba494ebe534c8abe584a6793a230fb"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-000.png",
+      "bytes": 19808,
+      "sha256": "c0941da0060b080822982c1e662b6436c4792390cb7ca6d302d5d9cefc868c85"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-001.png",
+      "bytes": 49416,
+      "sha256": "e38aa7c8321a0575254ae09acb2c4866f75a47e730fdf25981a9799b9723c893"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-002.png",
+      "bytes": 57642,
+      "sha256": "77b12bd4c63eb6f673ae302ff183972ce4832a4f45b0a34935a1458f1b8c3998"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-003.png",
+      "bytes": 57642,
+      "sha256": "77b12bd4c63eb6f673ae302ff183972ce4832a4f45b0a34935a1458f1b8c3998"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-004.png",
+      "bytes": 57642,
+      "sha256": "77b12bd4c63eb6f673ae302ff183972ce4832a4f45b0a34935a1458f1b8c3998"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-005.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-006.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-007.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-008.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-009.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-010.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-011.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-012.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-013.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-014.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-015.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-016.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-017.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-018.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-019.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-020.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-021.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-022.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-023.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-024.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-025.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-026.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-027.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-028.png",
+      "bytes": 57606,
+      "sha256": "ed2238b03ea2e2106a58b69e672ef9674a12169fb48b0827384625f2dfc30825"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frame-029.png",
+      "bytes": 57626,
+      "sha256": "6fefbebafc49c090b7da55bbb222509de6d5f78bde0b591b1f84dc45110960c3"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/frames.json",
+      "bytes": 45492,
+      "sha256": "530c5cee71c33811801d6a059050d5c509bbbabf5f97e2516cc7964ed2f27800"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/motion-ready.txt",
+      "bytes": 5,
+      "sha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/sequence-ready.txt",
+      "bytes": 5,
+      "sha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6"
+    },
+    {
+      "path": "runtime-visual/panel-to-timer-runtime/transition-settled.stop",
+      "bytes": 8,
+      "sha256": "6983285a62ed141c39c56ed516710b6ce82b4c53e73d6c207c3e41abe21f6b8e"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-000.png",
+      "bytes": 57636,
+      "sha256": "af35cac3941a3d64222a5b7d410f3a714d61a9456341aa23b1f308cdc318e302"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-001.png",
+      "bytes": 57549,
+      "sha256": "93737fa55f1d08d9b7ad048b931614f4b7f6535df656b52054138f14ac70185c"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-002.png",
+      "bytes": 58311,
+      "sha256": "add2531cf3e0ef920745660d993cf84b551397ff5862f94c94f422ee61996ba3"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-003.png",
+      "bytes": 58182,
+      "sha256": "41789798b4418fef7a2cd0dfa837e58ced6ce19e333cc7c74981b85e0a1c5eee"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-004.png",
+      "bytes": 58182,
+      "sha256": "41789798b4418fef7a2cd0dfa837e58ced6ce19e333cc7c74981b85e0a1c5eee"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-005.png",
+      "bytes": 58182,
+      "sha256": "41789798b4418fef7a2cd0dfa837e58ced6ce19e333cc7c74981b85e0a1c5eee"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-006.png",
+      "bytes": 58182,
+      "sha256": "41789798b4418fef7a2cd0dfa837e58ced6ce19e333cc7c74981b85e0a1c5eee"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-007.png",
+      "bytes": 59688,
+      "sha256": "93a3526782700ff4417e6cf3c4363182668e4da9a804d1c48444951d6c6be4fb"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-008.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-009.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-010.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-011.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-012.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-013.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-014.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-015.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-016.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-017.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-018.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-019.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-020.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-021.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-022.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-023.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-024.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-025.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-026.png",
+      "bytes": 19786,
+      "sha256": "65d68af9249fe3f41948301220d705f6d4af78f6eafd26a60a5c62c211b0f003"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-027.png",
+      "bytes": 19805,
+      "sha256": "1d6f1b8874b2fef4099953f57a3de446c91a7fab95b58e8be91df067a6e26e6c"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-028.png",
+      "bytes": 19805,
+      "sha256": "1d6f1b8874b2fef4099953f57a3de446c91a7fab95b58e8be91df067a6e26e6c"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frame-029.png",
+      "bytes": 19805,
+      "sha256": "1d6f1b8874b2fef4099953f57a3de446c91a7fab95b58e8be91df067a6e26e6c"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/frames.json",
+      "bytes": 45337,
+      "sha256": "12c6123a782db7e19aa3781a0bfdc88ab08642bcdd9763eca63fcdaeeb7a716b"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/motion-ready.txt",
+      "bytes": 5,
+      "sha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/sequence-ready.txt",
+      "bytes": 5,
+      "sha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6"
+    },
+    {
+      "path": "runtime-visual/timer-to-panel-runtime/transition-settled.stop",
+      "bytes": 8,
+      "sha256": "6983285a62ed141c39c56ed516710b6ce82b4c53e73d6c207c3e41abe21f6b8e"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "sourceSha": "549536c4d19b0045a928652d3feff53162f55a6e",
+  "pr": "https://github.com/MariosGiannakaras/Narro/pull/222",
+  "ciNumber": 893,
+  "ciRunId": 37134207962,
+  "sourceFileHashes": [
+    {
+      "path": "focus-editor-fixture.html",
+      "sha256": "a99a31b19640ea3677c187738aa317d62f2bd36b0c3259164c38a337528d8ff0"
+    },
+    {
+      "path": "package.json",
+      "sha256": "8c82ba39cf1d66021061640a90494e87da91f276922e399aab191b8ef57be5f0"
+    },
+    {
+      "path": "scripts/capture-visual-fixtures.ps1",
+      "sha256": "ae3e5a77285071c93efb2a671071e301fbc2f2be12613b2d4afdc6fa2c582eb4"
+    },
+    {
+      "path": "scripts/test-in-app-shortcuts.mjs",
+      "sha256": "58f64cea862358e63412001f26bdb91b1fb133f0960189db380b82daad5ba5d9"
+    },
+    {
+      "path": "scripts/test-single-focus-architecture.mjs",
+      "sha256": "537436d0098d81af596cf3fd59c637e94a382978cde1f96cb9a2c4e1c867fa74"
+    },
+    {
+      "path": "scripts/validate-focus-editor-captures.mjs",
+      "sha256": "8d7987af503f6a84e24f19f96a13130e1adb04c3532f28df7a5eed6d0fa23259"
+    },
+    {
+      "path": "src-tauri/tauri.ci.conf.json",
+      "sha256": "63d0ef4c25ea989389c83f7882599488cafcdeb1de02c8a4e69446b8ce463a0d"
+    },
+    {
+      "path": "src-tauri/tauri.conf.json",
+      "sha256": "f6c2205e0c0c4d46ac96c02b2c8b75156a2142a5f296ef0403bd642f824a0512"
+    },
+    {
+      "path": "src-tauri/tauri.diagnostic.conf.json",
+      "sha256": "856dcfa026de39243f261b46a546cffcc15df77ad034b739e252efe8e8efcc51"
+    },
+    {
+      "path": "src/SearchPalette.tsx",
+      "sha256": "f966d29c3cb8d9507fe592ea187d8abe913481d6a89fd1220e4d29db36f88118"
+    },
+    {
+      "path": "src/TaskNotes.tsx",
+      "sha256": "9814425210c001ab835b49fbf6276e214330b9e5e592c671482b15163d0422ed"
+    },
+    {
+      "path": "src/floatingTimerFoundation.css",
+      "sha256": "890cffdf315e2097b2e9e878653c6ccc807c26b6a08f3f64a958d8e55937a9a2"
+    },
+    {
+      "path": "src/focusEditorsVisualFixture.tsx",
+      "sha256": "6fd874533031da2c3ac37e69486ebbb5c4b4e758e663a236662f5c354dee5069"
+    },
+    {
+      "path": "src/focusSurfaceCoordinator.css",
+      "sha256": "8d9aa63d3cf71ad710a2ee3a6dfb00ec23f5a454d3ace125c249f4f52f69f571"
+    },
+    {
+      "path": "src/inAppShortcuts.ts",
+      "sha256": "8bc4a64ff4440f1f691b0a3ce9d81bc8cf647a909059380b354f24ca20fea939"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "2c409e282069ab67b18e7c256710ee3b02ddf9260e740f45236166486fa1a011"
+    }
+  ],
+  "results": {
+    "renderedScenarios": 30,
+    "rendererAssertions": "PASS",
+    "frontendPreflight": "PASS",
+    "rustFormatting": "PASS",
+    "localRustCompileClippyTests": "NOT RUN: MSVC link.exe unavailable",
+    "physicalWindows": "NOT RUN for this source",
+    "windowsCi": "PASS"
+  },
+  "limits": [
+    "Editor/modal fixtures use production components with a controlled local API. Transition fixtures exercise real coordinator styles against controlled hierarchy states; they do not drive a native HWND.",
+    "Reduced-motion captures force and verify the renderer media preference; this does not certify OS/native motion.",
+    "PNG files show the final test state. Quick-create snapshots are closed after Escape/focus restoration; success/error/empty keyboard states are proven by captured contract JSON, not those endpoint PNGs.",
+    "Headless capture hides scrollbar chrome. Assertions test horizontal geometry and bounded controls; physical scrollbars/DPI/motion/source parity remain open."
+  ],
+  "history": "CI 887/890/891 cancelled for confirmed motion correction, current-main source integration, and reproduced tooltip regression respectively. CI 892 passed Rust and existing visual contracts, then failed because normal fixtures inherited the host reduced-motion preference. Final harness explicitly forces both preferences and verifies them. One local preflight failed at icon generation with Windows mapped-file error 1224; the complete retry passed after restoring generated icons.",
+  "mainMergeSha": "ccf0fef5554fe8b635807df9214d56d3b2c29457"
+}

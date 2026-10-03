@@ -1,0 +1,66 @@
+windows-candidate	Capture Visual Regression Fixtures	﻿2026-10-03T15:33:42.0471866Z ##[group]Run npm run test:visual-regression:windows
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.0472283Z ^[[36;1mnpm run test:visual-regression:windows^[[0m
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.0529282Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.0529582Z env:
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.0529763Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.0529980Z   CARGO_INCREMENTAL: 0
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.0530157Z   CARGO_TERM_COLOR: always
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.0530341Z   CACHE_ON_FAILURE: false
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.0530517Z ##[endgroup]
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.5725554Z 
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.5726145Z > narro@0.1.0 test:visual-regression:windows
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.5731347Z > powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-visual-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-focus-panel-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-floating-timer-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-archive-fixtures.ps1 && powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/capture-theme-settings-fixtures.ps1 && node scripts/validate-visual-fixtures.mjs && node scripts/validate-focus-panel-captures.mjs && node scripts/validate-floating-timer-captures.mjs && node scripts/validate-focus-row-title-captures.mjs && node scripts/validate-focus-action-slot-captures.mjs && node scripts/validate-focus-visual-state-captures.mjs && node scripts/validate-list-settings-captures.mjs && node scripts/validate-archive-captures.mjs && node scripts/validate-theme-settings-captures.mjs && node scripts/validate-search-palette-captures.mjs && node scripts/validate-task-card-state-captures.mjs && node scripts/validate-task-create-edit-captures.mjs && node scripts/validate-task-metric-captures.mjs && node scripts/validate-task-schedule-captures.mjs && node scripts/validate-task-note-captures.mjs && node scripts/validate-task-note-spellcheck-captures.mjs && node scripts/validate-task-subtask-captures.mjs && node scripts/validate-task-reorder-captures.mjs && node scripts/validate-focus-editor-captures.mjs
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:33:42.5735708Z 
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:34:55.2869472Z WARNING: Fixture 'task-scheduling-no-repeat-light' was captured before it reported ready; retrying capture (1/8).
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:36:08.0417666Z Visual fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:36:39.9262102Z Focus Panel visual fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:36:50.3580592Z Floating Timer visual fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:08.2874858Z Archive fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.2042101Z Theme settings fixture captures written to D:\a\Narro\Narro\artifacts\visual-regression
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.2790845Z Captured visual fixture contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.3267014Z Focus Panel visual captures validated.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.3743749Z Floating Timer visual contracts, resize lifecycle, and idle recovery passed.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.4210465Z Focus ordinary row-title visual captures validated.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.4653511Z Focus action-slot visual geometry validated.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.5154117Z Focus active, paused, break, Time's Up/overtime, overdue, Notes-expanded, no-eligible, and empty visual captures validated.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.5576792Z List settings captured DOM contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.6011884Z Archive captured DOM contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.6493726Z Theme settings + Windows shortcuts + Preferences Edge capture contract: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.6935267Z Search palette capture validation passed.
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.7397986Z Task-card state captured visual contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.7841341Z Task creation/editing captured visual contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.8287945Z Task metric captured visual contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.8742546Z Task scheduling captured visual contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.9204317Z Task note compact and large captured visual contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:26.9661617Z Task note native spellcheck captured DOM contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.0103164Z Task subtask captured visual contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.0629396Z Task reorder captured visual contracts: PASS
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1334625Z file:///D:/a/Narro/Narro/scripts/validate-focus-editor-captures.mjs:11
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1335227Z  if(result.error)throw new Error(label+": "+result.error);
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1335688Z                        ^
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1335876Z 
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1336523Z Error: focus-editor-notes-panel-compact-light: Uncaught Error: Renderer motion preference did not match capture request
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1337386Z     at file:///D:/a/Narro/Narro/scripts/validate-focus-editor-captures.mjs:11:24
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1337968Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1338481Z     at async node:internal/modules/esm/loader:647:26
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1339030Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1393415Z 
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1393768Z Node.js v24.21.0
+windows-candidate	Capture Visual Regression Fixtures	2026-10-03T15:37:27.1819526Z ##[error]Process completed with exit code 1.
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	﻿2026-10-03T15:37:27.1992870Z ##[group]Run actions/upload-artifact@v4
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1993186Z with:
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1993382Z   name: narro-m7-focus-runtime-visual
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1993636Z   path: artifacts/focus-runtime-visual/**
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1993877Z   if-no-files-found: error
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1994110Z   compression-level: 6
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1994291Z   overwrite: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1994476Z   include-hidden-files: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1994701Z env:
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1994872Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1995096Z   CARGO_INCREMENTAL: 0
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1995280Z   CARGO_TERM_COLOR: always
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1995461Z   CACHE_ON_FAILURE: false
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.1995642Z ##[endgroup]
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.3897577Z (node:8696) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.3898751Z (Use `node --trace-deprecation ...` to show where the warning was created)
+windows-candidate	Upload Packaged Focus Runtime Visual Artifact	2026-10-03T15:37:27.3943439Z ##[error]No files were found with the provided path: artifacts/focus-runtime-visual/**. No artifacts will be uploaded.

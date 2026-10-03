@@ -1,0 +1,110 @@
+{
+  "phase": "timer-to-panel-start",
+  "snapshot": {
+    "now": 11566.300000000047,
+    "viewport": {
+      "width": 340,
+      "height": 700,
+      "devicePixelRatio": 1
+    },
+    "documentElement": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "body": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "root": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "coordinator": {
+      "clientWidth": 340,
+      "clientHeight": 700,
+      "scrollWidth": 340,
+      "scrollHeight": 700,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 700
+      },
+      "overflowX": "hidden",
+      "overflowY": "hidden",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "active": {
+      "clientWidth": 340,
+      "clientHeight": 300,
+      "scrollWidth": 340,
+      "scrollHeight": 300,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 340,
+        "height": 300
+      },
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "visibility": "visible",
+      "display": "block",
+      "opacity": "1"
+    },
+    "activePresentation": "timer",
+    "presentation": "timerCompact",
+    "hydrated": "true",
+    "transitionPending": "false",
+    "geometryMotion": {
+      "from": "",
+      "to": "",
+      "phase": ""
+    },
+    "floatingExpanded": "false",
+    "floatingRegionExpanded": "false",
+    "visibleTextLength": 50,
+    "prefersReducedMotion": true,
+    "unintendedScrollers": []
+  }
+}
