@@ -479,20 +479,20 @@ Acceptance criteria:
 
 ## Milestone 9 — Reports and history
 
-- [ ] Implement local productivity overview from task/session history.
-- [ ] Implement four summary metrics and productive-hour/day/month cards according to official definitions.
-- [ ] Implement productivity chart with Tasks/Breaks/Total series and accessible hover/focus tooltip values.
-- [ ] Implement Time By List and completion/punctuality insights according to official early/late semantics.
-- [ ] Implement done-task rows with completion date, early/late when EST exists, and Time Taken.
-- [ ] Implement two-month date-range picker plus evidenced presets.
+- [x] Implement local productivity overview from task/session history. Production `ReportsOverview` consumes the validated Rust-owned `get_report_overview` boundary; PR #224 exact head `fd04d2890268819d2f8a2a202907ecd23a856e59` PASSed CI #906 and merged source `ee5448d5534b44449df1ddff02c3b83d88111c7f` PASSed resulting-main CI #907.
+- [x] Implement four summary metrics and productive-hour/day/month cards according to official definitions. Production presentation is sourced from validated Overview DTOs; CI #907 PASS.
+- [x] Implement productivity chart with Tasks/Breaks/Total series and accessible hover/focus tooltip values. Production chart/legend/focus contracts and visual fixtures PASSed CI #906/#907.
+- [x] Implement Time By List and completion/punctuality insights according to official early/late semantics. Production view consumes validated Rust aggregation; CI #907 PASS.
+- [x] Implement done-task rows with completion date, early/late when EST exists, and Time Taken. Production grouping/presentation over validated DTOs PASSed CI #907.
+- [x] Implement two-month date-range picker plus evidenced presets. Production range state, timezone-aware bounds, presets, custom calendar and Apply flow PASSed CI #906/#907.
 - [ ] Implement Sessions report with detailed work/break rows.
 - [ ] Implement manual Add Session and inline session editing/task-session detail modal.
-- [ ] Ensure permanently deleted tasks are removed from user-facing reports while normal archived data remains represented.
+- [x] Ensure permanently deleted tasks are removed from user-facing reports while normal archived data remains represented. Authoritative reporting persistence regression remains green in resulting-main CI #907.
 - [ ] Implement evidence-selected exports:
   - Overview -> PDF
   - Sessions -> CSV
-- [ ] Verify archived lists/tasks remain represented correctly in historical reports.
-- [ ] Limit chart animation to initial load/filter changes; no continuous chart motion.
+- [x] Verify archived lists/tasks remain represented correctly in historical reports. Archived-history projection/regression remains green in resulting-main CI #907.
+- [x] Limit chart animation to initial load/filter changes; no continuous chart motion. Production chart transitions are data-change driven only, with reduced-motion handling; visual/runtime contracts PASSed CI #906/#907.
 
 Acceptance criteria:
 
