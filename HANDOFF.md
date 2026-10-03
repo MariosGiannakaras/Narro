@@ -66,6 +66,19 @@ Current source-analysis checkpoint:
 
 Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
 
+## Blitzit parity consumption / implementation coordination
+
+This coordination rule is additive and does **not** change the active M7 next action.
+
+- Binding workflow: `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`.
+- The Pass-3 analysis agent continues source-only work and does not patch implementation.
+- Implementation agents consume canonical `SOURCE_COMPLETE` findings; they do not re-analyze every raw screenshot/video.
+- New source findings are compared with current Narro during a separate reconciliation step that updates `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and the affected milestone/tracking before parity closure.
+- Current M9 Reports/Sessions visual parity is **not ready for final acceptance** while VE-015, VE-011 and VE-012 remain OPEN. Nonvisual M9 work may continue.
+- PR #205 is nonvisual typed Overview API work; Windows CI #886 PASSed its current exact head `96498085a4bd1e9935c1a2f3ca75bee905a10678`. Normal implementation integration policy may continue independently of the Reports visual evidence gate.
+- PR #198 remains provisional Reports visual foundation. Do not treat or merge it as the final Blitzit-parity answer until VE-015/011/012 are source-complete and reconciled against its current implementation.
+- PR #213 already validated positional cross-lane insertion and remaining-EST projection; stale `FIX_NOW` wording for those two items is corrected in the crosswalk by the parity-workflow reconciliation commit. Remaining board progress/ordinal/hover/drag-motion/fade fidelity gaps remain open.
+
 ## Current source / validation baseline
 
 - Latest implementation merge:

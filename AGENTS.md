@@ -34,6 +34,14 @@ Before implementing an affected surface, inspect `docs/AUDIT_IMPLEMENTATION_CROS
 
 This prevents repeated implementation/rework while preserving the ordered 10-milestone roadmap.
 
+## Source-forensics consumption rule
+
+Use `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` whenever new Blitzit analysis exists or an affected user-visible surface is being implemented.
+
+Do not re-analyze every original image/video during implementation. `SOURCE_COMPLETE` Pass-3 records are the normal requirements input. Re-open raw evidence only for a material ambiguity/conflict, an uncaptured detail exposed by implementation, or direct final visual verification. A direct final screenshot/video comparison is verification against the source, not a second research pass.
+
+New source findings must pass through a reconciliation step before the affected surface is considered parity-complete: canonical finding -> current implementation comparison -> audit-crosswalk disposition -> affected milestone/tracking -> implementation/validation. Backend/domain/API work that does not prejudge an unfinished visual surface may continue while related source analysis is still open; final user-visible parity may not.
+
 ## Evidence is guidance, not an oracle
 
 The repository specifications are a researched starting point. They are not assumed to be infallible, complete, or the only valid way to implement the product.

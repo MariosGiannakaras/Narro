@@ -119,6 +119,21 @@ Raw MP4 access was established through the isolated analysis-only branch `analys
 - `reference/original-blitzit-screenshots/CANONICAL_INDEX.md` — source/provenance inventory.
 - `reference/original-blitzit-videos/inbox/` — raw MP4/SRT corpus.
 
+## Implementation handoff contract
+
+Pass 3 remains source-analysis only. It does not need to re-open screenshots already marked `SOURCE_COMPLETE` merely so implementation agents can use them.
+
+For each newly completed video/source batch:
+
+- keep the detailed source observations in the canonical Pass-3 findings files;
+- identify the affected surface/feature family and any material implementation implication in the analysis record;
+- do not patch Narro code or claim that the current implementation matches;
+- do not independently rewrite milestone completion state from the analysis track.
+
+The separate reconciliation agent defined by `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` is responsible for comparing those canonical findings with current Narro and routing the resulting implementation delta. High-confidence contradictions may be reconciled incrementally before 19/19 completion; a global no-orphan reconciliation is mandatory after 19/19.
+
+Original media is reopened after `SOURCE_COMPLETE` only for a real evidence conflict/ambiguity or for direct final visual verification. That final comparison is verification, not a repeated forensic pass.
+
 ## Completion definition
 
 Source forensics are complete only when:

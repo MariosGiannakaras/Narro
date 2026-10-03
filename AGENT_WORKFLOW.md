@@ -91,6 +91,21 @@ Use precise levels:
 
 Compilation does not prove taskbar, monitor, tray, shortcut, notification or other interactive Windows behavior.
 
+## Blitzit source-analysis handoff
+
+The forensic/source-analysis track and the implementation track remain separate. Their mandatory handoff is defined in `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`.
+
+Key synchronization rules:
+
+- a forensic agent records source truth and does not patch implementation;
+- an implementation agent consumes canonical `SOURCE_COMPLETE` findings rather than repeating raw-media analysis;
+- a reconciliation step updates the audit crosswalk and affected roadmap/tracking before an evidenced discrepancy is implemented or a user-visible milestone is closed;
+- new high-confidence contradictions to an already-built surface are reconciled immediately rather than waiting for 19/19 Pass-3 completion;
+- if materially relevant source videos for a surface are still OPEN, nonvisual/domain/API work may continue, but final visual/interaction parity for that surface remains open;
+- M10/final review re-verifies original references and accepted parity; it is not the first parity comparison.
+
+Do not change milestone denominators merely to represent an evidence gate. Add a non-counting acceptance/gate note unless a genuinely new executable top-level milestone item is intentionally added and the denominator is explicitly reconciled.
+
 ## Pre-CI discipline
 
 Before every source/config push that will trigger Windows CI:

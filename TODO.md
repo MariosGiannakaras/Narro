@@ -315,6 +315,8 @@ These requirements apply to every open or reopened roadmap milestone. A later re
 - A milestone cannot be reported complete while known significant error, loading, unavailable, recovery, or edge-case states in that milestone remain unhandled or untracked.
 - When user-supplied Blitzit videos/transcripts exist before an affected unfinished milestone closes, analyze the materially relevant subset before milestone completion rather than deferring known interaction/motion evidence to the final review. Focus Panel/Floating Timer/transition/expand-collapse evidence present before M7 closure is M7 evidence.
 - Every milestone completion report must include that milestone's **total source diff** as `+A/-B` lines. Calculate it from the milestone's validated starting source SHA to its final validated source SHA; documentation/tracking-only commits do not replace the source baseline and are excluded from this source-diff figure.
+- Blitzit Pass-3 findings are consumed through `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`. Do not repeat raw-media research by default: use canonical `SOURCE_COMPLETE` forensic records, reopen originals only for real ambiguity/conflict or direct final visual verification, and require an explicit crosswalk/milestone disposition before an affected user-visible surface is parity-complete.
+- If materially relevant Pass-3 sources for a surface are still OPEN, independent backend/domain/API work may continue, but the surface's final visual/interaction parity gate remains open. M10 is a revalidation gate, not the first Blitzit comparison.
 
 ## Milestone 7 — Floating Timer mode
 
@@ -497,6 +499,7 @@ Acceptance criteria:
 - exports are generated fully locally
 - chart values are accessible without pointer-only hover
 - visual fixtures cover Overview, chart tooltip, list filter, date picker, Sessions and inline-edit modal
+- **M9 source-parity gate (non-counting; does not change the 12-item denominator):** before final user-facing Reports/Sessions visual wiring or parity acceptance, VE-015, VE-011 and VE-012 Pass-3 findings must be `SOURCE_COMPLETE` and reconciled against the current M9 UI/crosswalk. Nonvisual reporting/domain/API work may proceed independently. PR #198 is provisional visual foundation until this reconciliation; PR #205 is nonvisual and is not blocked by this gate.
 
 ## Milestone 10 — Windows lifecycle, packaging, visual/regression pass
 
@@ -513,6 +516,7 @@ Acceptance criteria:
 - [ ] Run regression tests for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion.
   - For any later milestone that replaced a shared foundation originally validated in an earlier milestone, confirm the affected milestone/items were reopened during the replacement and then reclosed only from replacement-code evidence. Explicitly rerun those earlier acceptance criteria against the release-candidate implementation and record the dependency map/result.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
+  - Treat this as release-candidate revalidation of earlier source-parity work, not the first comparison with Blitzit. Use canonical Pass-3 records for requirements and the original references for direct side-by-side/overlay verification where stable visual comparison is meaningful.
 - [ ] Confirm animation does not cause task-row/card geometry changes or persistent idle CPU work.
 - [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, no post-pause/manual-edit timer-vs-ledger divergence, no implicit timer/task start on a fresh app launch, and no live-session reset/desynchronisation from Notes/title metadata edits.
 - [ ] Update `README.md`, `STATUS.md`, and `TODO.md` for release-candidate reality.
