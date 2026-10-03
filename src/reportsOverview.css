@@ -205,6 +205,16 @@
   background: var(--color-surface-interactive-hover);
 }
 
+.reports-overview__list-check {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  flex: 0 0 14px;
+  color: var(--color-accent-solid);
+  font-size: 11px;
+  font-weight: 700;
+}
+
 .reports-overview__list-menu i,
 .reports-overview__list-time-name i {
   width: 10px;
@@ -368,19 +378,31 @@
 }
 
 .reports-overview__chart-tooltip span,
-.reports-overview__legend span {
+.reports-overview__legend button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
 .reports-overview__legend {
-  gap: 18px;
+  gap: 8px;
   margin-top: 8px;
+}
+
+.reports-overview__legend button {
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 6px;
   color: var(--color-text-secondary);
+  background: transparent;
   font-size: 10px;
   text-transform: uppercase;
+  cursor: pointer;
 }
+
+.reports-overview__legend button[aria-pressed="false"] { opacity: .45; }
+.reports-overview__legend button:hover,
+.reports-overview__legend button:focus-visible { background: var(--color-surface-interactive); }
 
 .reports-overview__legend-dot {
   display: inline-block;
@@ -429,8 +451,18 @@
   min-height: 26px;
 }
 
-.reports-overview__panel-heading--done {
+.reports-overview__panel-heading--done,
+.reports-overview__panel-heading--time-list {
   justify-content: space-between;
+}
+
+.reports-overview__panel-heading--time-list > span {
+  color: var(--color-text-secondary);
+  font-size: 10px;
+}
+.reports-overview__panel-heading--time-list > span strong {
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
 }
 
 .reports-overview__punctuality {
@@ -441,16 +473,55 @@
 .reports-overview .is-early { color: var(--color-success); }
 .reports-overview .is-late { color: var(--color-destructive); }
 
+.reports-overview__punctuality-bar {
+  display: flex;
+  height: 5px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-surface-interactive);
+}
+.reports-overview__punctuality-bar i { display: block; height: 100%; }
+.reports-overview__punctuality-bar .is-early { background: var(--color-success); }
+.reports-overview__punctuality-bar .is-late { background: var(--color-destructive); }
+
 .reports-overview__list-time {
   display: grid;
-  gap: 14px;
+  grid-template-columns: minmax(112px, .7fr) minmax(0, 1.3fr);
+  align-items: center;
+  gap: 18px;
   margin-top: 18px;
 }
 
+.reports-overview__list-donut {
+  display: grid;
+  place-items: center;
+  width: 118px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--report-list-donut);
+}
+.reports-overview__list-donut::after {
+  content: "";
+  grid-area: 1 / 1;
+  width: 68%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-surface-raised);
+}
+.reports-overview__list-donut span {
+  z-index: 1;
+  grid-area: 1 / 1;
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.reports-overview__list-time-legend { display: grid; gap: 10px; }
 .reports-overview__list-time-row {
   display: grid;
-  grid-template-columns: minmax(110px, .8fr) minmax(80px, 1fr) 70px;
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) 72px 34px;
+  gap: 8px;
   font-size: 11px;
 }
 
@@ -461,20 +532,6 @@
   min-width: 0;
 }
 
-.reports-overview__list-time-track {
-  height: 6px;
-  overflow: hidden;
-  border-radius: 4px;
-  background: var(--color-surface-interactive);
-}
-
-.reports-overview__list-time-track i {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-end));
-}
-
 .reports-overview__list-time-row strong {
   text-align: right;
   font-variant-numeric: tabular-nums;
@@ -482,8 +539,24 @@
 
 .reports-overview__done-list {
   display: grid;
-  gap: 2px;
+  gap: 10px;
+  max-height: 224px;
   margin-top: 12px;
+  overflow-y: auto;
+}
+
+.reports-overview__done-group { display: grid; }
+.reports-overview__done-group > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+}
+.reports-overview__done-group > header strong {
+  color: var(--color-text-primary);
+  font-size: 11px;
 }
 
 .reports-overview__done-row {
@@ -650,6 +723,7 @@
 .reports-overview__export:focus-visible,
 .reports-overview__back:focus-visible,
 .reports-overview__tabs button:focus-visible,
+.reports-overview__legend button:focus-visible,
 .reports-overview__chart-hit:focus-visible,
 .reports-overview__list-menu button:focus-visible,
 .reports-overview__date-popover button:focus-visible {
