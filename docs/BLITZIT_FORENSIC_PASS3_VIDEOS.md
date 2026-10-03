@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 11/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 12/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -2930,19 +2930,249 @@ No implementation conclusion is made in this analysis track.
 # Queue 12 — VE-012 — Improved Sessions and Stats
 
 Source: `Blitzit Tutorial How to Use Reports -Update Improved Sessions and Stats.mp4`  
-Metadata: **06:56.357, 1920×1080, 30 fps**  
-Status: **OPEN**
+Verified metadata: **06:56.300 video stream / ~06:56.357 container, 1920×1080, 30 fps, 12,489 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:23–00:03:55 — session-derived metrics/daily graph;
-- 00:03:55–00:06:47 — productive/time-by-list/Done timing.
+Inspection method:
+- complete 416.3 s source reviewed end-to-end;
+- 10 s whole-video contact scan;
+- full-resolution keyframes across date filter, headline metrics, chart tooltips/toggles, productive cards, Time By List and Done Tasks;
+- 0.5 s dense sampling around chart-series toggle sequence;
+- 2 s dense sampling through Done Tasks internal scrolling;
+- visible arithmetic checked against source labels;
+- transcript used only to distinguish explicit product definitions from independently measurable pixels.
 
-Pass-3 focus:
-- exact calculations visible in UI;
-- session contribution to graph values;
-- task/break/total relations;
-- early/late Done timing presentation;
-- tooltip copy and color coding.
+## VE-012 chronological state map
+
+### 00:00:00–~00:00:18 — live-task context → Reports
+
+**VIDEO-DIRECT / NON-UNIQUE**
+- source opens with Blitzit focus/live-task context and recent Done tasks;
+- Home/Reports navigation is then used to enter Reports;
+- no unique Reports metric state is established until the 30-day range is selected.
+
+### ~00:00:18–00:00:25 — Last 30 days range
+
+**VIDEO-DIRECT**
+- date-range picker is opened;
+- left preset column shows:
+  - Today;
+  - Yesterday;
+  - This week;
+  - **Last 30 days**;
+  - Last 60 days;
+  - Last 90 days.
+- `Last 30 days` is selected;
+- resulting header range is:
+  - **Jan 27, 2024 - Feb 26, 2024**.
+- two-month calendar shows Jan 2024 and Feb 2024;
+- selected endpoints are Jan 27 and Feb 26 with connected range shading;
+- bottom actions are Cancel / Apply.
+
+### ~00:00:25–00:03:00 — updated headline metrics
+
+**VIDEO-DIRECT**
+For the selected 30-day range:
+- **TOTAL WORK DAYS — 17 days**;
+- **TOTAL TASKS DONE — 44**, secondary **2.6 per day**;
+- **TOTAL HRS WORKED — 81.7hr**, secondary **4.8hr per day**;
+- **AVG. TIME PER TASK — 86.0 mins**.
+
+**ARITHMETIC-DIRECT**
+- 44 / 17 = 2.588 → displayed **2.6 per day**;
+- 81.7 / 17 = 4.806 → displayed **4.8hr per day**;
+- both per-day values use Work Days as denominator, not the 30-day calendar span.
+
+**WORK-DAY SEMANTICS — TRANSCRIPT + GRAPH CORROBORATION**
+- narration defines a work day as a calendar day with actual Blitzit live-task/break session activity;
+- chart contains exactly the pattern of active and zero/empty days expected from that definition;
+- empty calendar days are not counted simply because they fall within the selected range.
+
+**AVG-TIME-PER-TASK SEMANTICS**
+- narration explicitly states the average includes:
+  - completed tasks;
+  - incomplete tasks that nevertheless have recorded session time.
+- the displayed 86.0 mins is therefore not `Total Hrs Worked / 44 Done Tasks`;
+- indeed 81.7hr / 44 ≈ 111.4 mins, independently confirming that Done Tasks is not the denominator.
+- exact underlying count of all session-bearing tasks is not shown and is not invented.
+
+### ~00:03:00–00:03:37 — daily session graph / tooltips
+
+**VIDEO-DIRECT**
+- chart series:
+  - TASKS — purple;
+  - BREAKS — mint;
+  - TOTAL — tan.
+- tooltip uses a dark floating card and a tall translucent hover band over the selected day;
+- visible direct examples include:
+
+**Tue 30, Jan**
+- TASKS: **10hr**
+- BREAKS: **0hr**
+- TOTAL: **10hr**
+
+**Thu 01, Feb**
+- TASKS: **10.2hr**
+- BREAKS: **0hr**
+- TOTAL: **10.2hr**
+
+**Tue 13, Feb**
+- TASKS: **5.6hr**
+- BREAKS: **0.2hr**
+- TOTAL: **5.7hr**
+
+**ROUNDING FINDING**
+- the displayed Tue 13 component labels 5.6 + 0.2 do not arithmetically equal the displayed 5.7 total;
+- this is consistent with each series being independently rounded to one decimal from more precise underlying durations;
+- therefore Pass 3 must not require arithmetic equality after display rounding for every tooltip row.
+
+**SEMANTIC-DIRECT**
+- TOTAL represents combined task-session + break-session time for the day;
+- non-zero mint Break bars occur independently of task bars.
+
+### ~00:03:32–00:03:37 — legend series toggles
+
+**VIDEO-DIRECT**
+- legend entries are interactive;
+- source hides TASKS and BREAKS, leaving only tan TOTAL bars;
+- remaining bars recenter/reflow within each date group;
+- series are then restored;
+- chart container and axes remain fixed.
+
+This independently corroborates VE-011's interactive legend behavior.
+
+### ~00:03:37–00:03:55 — scroll to lower analytics
+
+**VIDEO-DIRECT**
+- outer Reports content scrolls vertically;
+- chart moves upward;
+- lower analytics enter the viewport while bottom Home/Reports/Add new task/Help Center navigation remains pinned.
+
+### ~00:03:55–00:04:52 — productive-time cards
+
+**VIDEO-DIRECT**
+- **MOST PRODUCTIVE HOUR — 3pm-4pm**;
+- **MOST PRODUCTIVE DAY — Thursday**;
+- **MOST PRODUCTIVE MONTH — Feb '24**.
+
+**TRANSCRIPT-CLAIM**
+- narration defines these as the hour/day/month with the greatest accumulated live/session activity in the selected range;
+- the cards/values are direct, but the complete underlying aggregation dataset is not exposed.
+
+### ~00:04:52–00:05:08 — Time By List
+
+**VIDEO-DIRECT**
+- Time By List uses a donut + list legend;
+- panel total:
+  - **Total Time: 80hr 6min**.
+- visible list rows:
+  - **Glorify — 51hr 39min — 64%**;
+  - **Collabify De... — 22min — 0%**;
+  - **Blitzit — 19hr 32min — 24%**;
+  - **buildwithomar — 8hr 31min — 10%**;
+  - **Test List — 0min — 0%**.
+
+**ROUNDING-DIRECT**
+- displayed percentages sum to 98%, consistent with independent whole-percent rounding;
+- displayed list durations sum to about 80hr 4min, two minutes below the 80hr 6min panel total, also consistent with independently rounded/truncated row values.
+
+### Headline Total Hrs Worked vs Time By List — semantic reconciliation
+
+**DIRECT FACTS**
+- headline: **81.7hr Total Hrs Worked**;
+- Time By List: **80hr 6min Total Time**;
+- headline graph explicitly contains separate task and break session series;
+- Time By List categories are actual task lists only; there is no break category.
+
+**RECONCILIATION — HIGH-CONFIDENCE INFERENCE**
+- 81.7hr is approximately 81hr42min at displayed precision;
+- difference from 80hr6min is approximately **1hr36min ≈ 1.6hr**;
+- this is strongly consistent with headline Total Hrs Worked including break sessions while Time By List distributes only task-session time that can be assigned to lists.
+- exact minute equality is not expected because headline hours are rounded to one decimal and list rows/panel are shown in hour/minute form.
+
+**VE-011 CONFLICT DISPOSITION**
+- VE-012 supplies a coherent scope model for the two panels;
+- it does **not** numerically repair VE-011's much larger 9.2hr vs 18hr56min discrepancy;
+- the VE-011 pair remains a source/version inconsistency or older calculation-state issue rather than something Pass 3 should normalize by inference.
+
+### ~00:05:08–00:06:08 — Done Tasks rows
+
+**VIDEO-DIRECT**
+- Done Tasks panel has green/red punctuality bar with:
+  - **32.48%** green;
+  - **67.52%** red.
+- panel owns its own internal vertical scrollbar.
+
+**26 Feb, 2024 — 6 tasks**
+Visible rows:
+- `Test 5 Blitzit` — **30min Early** — **0min** Taken;
+- `Reply to emails` — **1hr 19min Early** — **0min**;
+- `UserPilot` — **1hr 56min Late** — **3hr 16min**;
+- `Check Blitzit Reports` — **19min Early** — **0min**;
+- `Webinar Setup` — **On Time** — **1hr**;
+- `Post webinar` — **16min Early** — **43min**.
+
+During internal scroll:
+- **25 Feb, 2024 — 1 task**;
+- `Scrintal Script` — **On Time** — **2hr**;
+- older date groups become visible lower in the list.
+
+**STATUS-GRAMMAR-DIRECT**
+- green pills are used for Early and On Time;
+- red pill is used for Late;
+- far-right value is Time Taken / recorded task-session time;
+- a task can be Early with 0min Taken if it was completed without recorded session time.
+
+**TRANSCRIPT + VISUAL CORROBORATION**
+- narration explicitly explains that 0min rows can come from marking a task Done without recorded Taken/session time;
+- source rows visibly demonstrate this combination.
+
+### ~00:06:08–00:06:47 — early/late percentage semantics
+
+**VIDEO-DIRECT**
+- 32.48% / 67.52% remains visible while narration explains the statistic;
+- percentages sum to 100%.
+
+**TRANSCRIPT-CLAIM / PARTIAL VISUAL SUPPORT**
+- narration defines the ratio using accumulated **time early vs time late**, not count of Early/Late tasks;
+- example explanation describes total hours early and total hours late being compared;
+- visible subset is insufficient to reconstruct the entire 32.48/67.52 result because not all Done rows are simultaneously visible;
+- therefore exact formula implementation is not reverse-engineered beyond the narrated definition.
+- On Time is visibly a distinct third row status even though the headline percentage visualization presents only green-vs-red totals; its exact contribution/exclusion in the ratio is not independently measurable from this source.
+
+### ~00:06:47–00:06:56.30 — outro
+
+**VIDEO-DIRECT / NON-PARITY**
+- recap/outro;
+- no additional Reports state.
+
+## VE-012 source synthesis
+
+High-confidence behavior and semantics established:
+- Last 30 days resolves to Jan 27–Feb 26, 2024 in the staged source;
+- headline metrics are 17 work days / 44 done tasks / 81.7hr worked / 86.0min average task time;
+- secondary per-day figures use **work days**, not calendar days;
+- average time/task includes unfinished tasks that have recorded sessions, so 44 Done tasks is not its denominator;
+- daily graph is session-derived and separates Tasks / Breaks / Total;
+- tooltip examples directly show 10/0/10, 10.2/0/10.2 and 5.6/0.2/5.7 hours;
+- 5.6 + 0.2 vs 5.7 directly warns that independently rounded display components need not sum exactly;
+- legend series can be hidden/restored and bars reflow in place;
+- productive cards = 3pm-4pm / Thursday / Feb '24;
+- Time By List = 80hr6min with direct per-list duration/percentage rows;
+- the ~1.6hr gap between 81.7hr headline and 80hr6min Time By List is strongly consistent with break time being included in headline total but not attributable to a task list;
+- VE-012 clarifies intended metric scope but does not erase VE-011's larger historical numeric inconsistency;
+- Done Tasks has its own internal scroll, Early/Late/On Time pills and Taken values;
+- source punctuality split is 32.48% / 67.52%, narrated as accumulated early-vs-late time ratio rather than task-count ratio;
+- current v2.6.69 screenshots still have precedence for present-day Reports shell/header styling.
+
+Static/other-video corroboration:
+- SS-C02 date-range picker;
+- SS-C12 current Overview chart/tooltip shell;
+- SS-C13 lower panel layout;
+- VE-011 earlier populated Reports interaction evidence;
+- VE-015 session-edit arithmetic supporting session-derived reporting.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
