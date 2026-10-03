@@ -27,7 +27,10 @@
         "visible": false,
         "alwaysOnTop": false,
         "decorations": false,
-        "transparent": true
+        "transparent": true,
+        "shadow": false,
+        "resizable": false,
+        "maximizable": false
       }
     ],
     "security": {

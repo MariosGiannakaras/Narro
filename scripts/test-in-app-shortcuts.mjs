@@ -36,6 +36,15 @@ invariant(resolveInAppShortcut(chord("t", { metaKey: true })) === null, "Meta va
 invariant(resolveInAppShortcut(chord("t", { repeat: true })) === null, "held keys must not repeat destructive actions");
 invariant(resolveInAppShortcut(chord("x")) === null, "unknown Ctrl+Alt chords must remain free");
 
+for (const [key, expected] of cases) {
+  const code = 'Key' + key.toUpperCase();
+  invariant(resolveInAppShortcut(chord('τ', { code })) === expected, code + ' must resolve independently of translated Greek key');
+  invariant(resolveInAppShortcut(chord(key, { code, repeat: true })) === null, 'physical held chords must not repeat');
+}
+invariant(resolveInAppShortcut(chord('φ', { code: 'KeyF', altKey: false })) === 'search', 'Greek physical Ctrl+F must resolve search');
+invariant(resolveInAppShortcut(chord('t', { code: 'KeyX' })) === null, 'a known semantic key must not override a different physical key');
+invariant(resolveInAppShortcut(chord('t', { code: 'Unidentified' })) === 'create-task', 'unknown physical codes retain semantic fallback');
+
 const appShell = fs.readFileSync("src/AppShell.tsx", "utf8");
 const coordinator = fs.readFileSync("src/FocusSurfaceCoordinator.tsx", "utf8");
 const focusActions = fs.readFileSync("src/FocusLiveActions.tsx", "utf8");

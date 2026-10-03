@@ -118,9 +118,11 @@ export function SearchPalette({
     setQuickTaskPending(false);
     setQuickTaskError(null);
 
+    // Own keyboard focus immediately, including the loading shell.
+    dialogRef.current?.focus();
     const animationFrame = window.requestAnimationFrame(() => {
-      if (openingMode === "task-create") quickTaskTitleRef.current?.focus();
-      else searchInputRef.current?.focus();
+      if (openingMode === "task-create") (quickTaskTitleRef.current ?? dialogRef.current)?.focus();
+      else (searchInputRef.current ?? dialogRef.current)?.focus();
     });
 
     return () => {
@@ -162,6 +164,19 @@ export function SearchPalette({
       disposed = true;
     };
   }, [open, fixtureData]);
+
+  // Quick-create fields mount only after the authoritative list read settles.
+  // Keep loading/error keyboard focus in the modal, then focus the ready field.
+  useEffect(() => {
+    if (!open) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const active = document.activeElement;
+    if (active !== dialog && dialog.contains(active)) return;
+    if (loading) dialog.focus();
+    else if (mode === "task-create") (quickTaskTitleRef.current ?? dialog)?.focus();
+    else (searchInputRef.current ?? dialog)?.focus();
+  }, [open, loading, mode]);
 
   const queryToken = normalized(query);
   const matchingLists = useMemo(
@@ -558,6 +573,7 @@ export function SearchPalette({
         ref={dialogRef}
         className="search-palette motion-overlay"
         role="dialog"
+        tabIndex={-1}
         aria-modal="true"
         aria-labelledby="search-palette-title"
         data-search-palette="main"
