@@ -54,7 +54,14 @@ export type ReportsDoneTask = {
 
 export type ReportsCalendarMonth = {
   label: string;
-  weeks: Array<Array<{ key: string; label: string; muted?: boolean; selected?: boolean; edge?: "start" | "end" }>>;
+  weeks: Array<Array<{
+    key: string;
+    label: string;
+    dateKey?: string;
+    muted?: boolean;
+    selected?: boolean;
+    edge?: "start" | "end";
+  }>>;
 };
 
 export type ReportsOverviewViewProps = {
