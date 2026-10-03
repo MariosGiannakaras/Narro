@@ -515,12 +515,12 @@ Acceptance criteria:
 - [x] Implement Time By List and completion/punctuality insights according to official early/late semantics. Production view consumes validated Rust aggregation; CI #907 PASS.
 - [x] Implement done-task rows with completion date, early/late when EST exists, and Time Taken. Production grouping/presentation over validated DTOs PASSed CI #907.
 - [x] Implement two-month date-range picker plus evidenced presets. Production range state, timezone-aware bounds, presets, custom calendar and Apply flow PASSed CI #906/#907.
-- [x] Implement Sessions report with detailed work/break rows. Production Sessions is on current `main`; PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 and every file changed by the PR has an identical blob SHA on merged main `f53a850f51375f15a0b2b4efe106da95e30b6e73`.
-- [x] Implement manual Add Session and inline session editing/task-session detail modal. Production Add/Edit/Delete/detail flows are on current `main` with the same PR #226 / CI #915 changed-blob identity.
+- [x] Implement Sessions report with detailed work/break rows. Production Sessions is on current `main`; PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915, every file changed by the PR has an identical blob SHA on merged main `f53a850f51375f15a0b2b4efe106da95e30b6e73`, and resulting-main Windows CI #917 / run `37157907335` PASSed all gates.
+- [x] Implement manual Add Session and inline session editing/task-session detail modal. Production Add/Edit/Delete/detail flows are on current `main` with the same PR #226 / CI #915 changed-blob identity and resulting-main CI #917 PASS.
 - [x] Ensure permanently deleted tasks are removed from user-facing reports while normal archived data remains represented. Authoritative reporting persistence regression remains green in resulting-main CI #907.
 - [ ] Implement evidence-selected exports:
   - [ ] Overview -> PDF — still unimplemented; this is the remaining M9 implementation item.
-  - [x] Sessions -> CSV — implemented locally in PR #226 / CI #915 and present on current `main`.
+  - [x] Sessions -> CSV — implemented fully locally in PR #226 / CI #915, present on current `main`, and resulting-main CI #917 PASSed. The export uses the active report range/list/break filter, writes a non-overwriting UTF-8 CSV to local Downloads, and performs CSV escaping/formula-prefix hardening.
 - [x] Verify archived lists/tasks remain represented correctly in historical reports. Archived-history projection/regression remains green in resulting-main CI #907.
 - [x] Limit chart animation to initial load/filter changes; no continuous chart motion. Production chart transitions are data-change driven only, with reduced-motion handling; visual/runtime contracts PASSed CI #906/#907.
 
@@ -532,7 +532,7 @@ Acceptance criteria:
 - exports are generated fully locally
 - chart values are accessible without pointer-only hover
 - visual fixtures cover Overview, chart tooltip, list filter, date picker, Sessions and inline-edit modal
-- **M9 source-parity gate (non-counting; does not change the 12-item denominator):** VE-015, VE-011 and VE-012 are `SOURCE_COMPLETE`. Overview production wiring PASSed PR #224 CI #906 and resulting-main CI #907. Sessions/Add/Edit/detail plus local Sessions CSV are now present on current `main` with all 22 PR #226 changed blobs identical to exact head `106d3447c6614d830b59e5464fe71b70e5552eda`, which PASSed Windows CI #915. M9 is therefore **11/12** top-level items complete; Overview PDF remains open. Direct canonical Blitzit comparison is still `VALIDATION_OPEN` and Narro-owned report fixtures do not establish `SOURCE_PARITY_PASS`.
+- **M9 source-parity gate (non-counting; does not change the 12-item denominator):** VE-015, VE-011 and VE-012 are `SOURCE_COMPLETE`. Overview production wiring PASSed PR #224 CI #906 and resulting-main CI #907. Sessions/Add/Edit/detail plus local Sessions CSV are now present on current `main` with all 22 PR #226 changed blobs identical to exact head `106d3447c6614d830b59e5464fe71b70e5552eda`, which PASSed Windows CI #915; resulting-main Windows CI #917 / run `37157907335` also PASSed all gates. The Sessions implementation slice is **5/5 checkpoints complete**. M9 is therefore **11/12** top-level items complete; Overview PDF remains open. Direct canonical Blitzit comparison is still `VALIDATION_OPEN` and Narro-owned report fixtures do not establish `SOURCE_PARITY_PASS`.
 
 ## Milestone 10 — Windows lifecycle, packaging, visual/regression pass
 

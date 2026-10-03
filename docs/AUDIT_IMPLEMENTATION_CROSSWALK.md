@@ -179,7 +179,7 @@ Audit section-C intentional Narro deviations remain binding unless newer explici
 | VE-F003 | Task overflow includes Change List + Duplicate | M5 corrective slice | **VALIDATED** |
 | VE-F004 | Help/roadmap evidence documents note-link auto-open in some Blitzit versions; VE-010 direct trigger is ambiguous | Require explicit activation | **INTENTIONAL_DEVIATION** — preserve explicit activation; do not claim VE-010 itself proves auto-open-on-live |
 | VE-F005 | Recurrence detachment can leave independent old children | Preserve customizations and idempotence | **VALIDATED reliability model**; UI gap tracked below |
-| VE-F006 | Reports/Sessions derive from session history and support editing | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — Overview plus Sessions/Add/Edit/detail and Sessions CSV are on current `main`; PR #226 exact-head CI #915 validated the 22 changed blobs now present on main. Overview PDF remains `FIX_NOW M9`; direct source visual comparison remains open. |
+| VE-F006 | Reports/Sessions derive from session history and support editing | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — Overview plus Sessions/Add/Edit/detail and Sessions CSV are on current `main`; PR #226 exact-head CI #915 validated the 22 changed blobs now present on main and resulting-main CI #917 PASSed all gates. Overview PDF remains `FIX_NOW M9`; direct source visual comparison remains open. |
 | VE-F007 | Panel→Floating transformation ≈0.27 s; continuous-window character | M7 physical/fidelity gate | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — current same-WebView finite ~270 ms path includes PR #225 corrections and PASSed exact-head CI #911; exact-EXE normal/reduced physical observation remains open and does not itself establish source parity. |
 | VE-F008 | Preferences children stay in place; hidden times disclose on hover | M8 | **VALIDATED** |
 | VE-F009 | Historical first-subtask-live limitation | Do not regress Narro | **INTENTIONAL_DEVIATION** |
@@ -200,7 +200,7 @@ Unresolved video ambiguities remain explicit:
 | ID | Finding | Consequence | Disposition |
 | --- | --- | --- | --- |
 | HC-F001 | Permanent task delete is `Delete → Confirm` | Keep explicit confirmation/report exclusion | **VALIDATED** |
-| HC-F002 | Sessions prose says PDF but current screenshot says CSV | Overview PDF / Sessions CSV | **PARTIAL / FIX_NOW M9** — current-source Sessions CSV is implemented/CI #915 validated; Overview PDF remains unimplemented. |
+| HC-F002 | Sessions prose says PDF but current screenshot says CSV | Overview PDF / Sessions CSV | **PARTIAL / FIX_NOW M9** — current-source Sessions CSV is implemented, exact-head CI #915 validated and resulting-main CI #917 validated; Overview PDF remains unimplemented. |
 | HC-F003 | Recurrence edit: No Repeat conditionally shows warm/red `Delete existing tasks(n)` | Source-evidenced No Repeat flow with safe generated-child cleanup | **VALIDATED** — PR #182 / CI #617 / main #618 |
 | HC-F004 | Source may require restart after monitor hotplug | Narro must recover dynamically | **VALIDATION_OPEN M7/M10** |
 | HC-F005 | Done tasks older than 60 days auto-archive | Existing strict-60-day sweep | **VALIDATED** |
@@ -227,7 +227,7 @@ Unresolved video ambiguities remain explicit:
 | UX-F010 | Floating Timer expands vertically for subtasks | M7 | **VALIDATED source**, physical continuity open |
 | UX-F011 | Schedule/recurrence footer uses secondary Cancel + primary gradient action | Narro combined Schedule/Repeat dialog preserves the secondary Cancel + gradient primary hierarchy without splitting state authority | **VALIDATED NARRO ADAPTATION** — PR #182 visual fixtures / CI #617 |
 | UX-F012 | Reports hierarchy: four metrics → main chart → secondary panels | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — production Overview PASSed CI #906/#907; direct canonical source comparison remains open. |
-| UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — production Sessions/Add/Edit/detail is on current main with PR #226 changed-blob identity to exact-head CI #915; direct canonical source comparison remains open. |
+| UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — production Sessions/Add/Edit/detail is on current main with PR #226 changed-blob identity to exact-head CI #915 and resulting-main CI #917 PASS; direct canonical source comparison remains open. |
 | UX-F014 | Main first paint exposes blank/washed/dark staging before Home settles | M10 final quality pass | **ROUTED_M10** — visible in the 2026-09-30 CI #744 physical recording; not established as an M7 source regression |
 | UX-F015 | Global shortcut registration failures render as large persistent error cards inside ordinary Home content | M8 shortcut UX / M10 final review | **ROUTED_M10** — conflict/retry semantics are validated; final contextual presentation remains a release-quality UX finding and must not be treated as an open M8 runtime implementation item. |
 | UX-F016 | Cross-lane drag shows floating card, live source reflow, positional destination insertion and settle | M5 board motion/interaction | **FIX_NOW**; exact drag duration remains unmeasured |

@@ -2,6 +2,18 @@
 
 Last updated: 2026-10-04
 
+## 2026-10-04 — M9 PR #226 resulting-main CI #917 PASS; Sessions slice 5/5
+
+PR #226 final exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 / run `37151575297`, then expected-head guarded squash-merged as `f53a850f51375f15a0b2b4efe106da95e30b6e73`. All 22 PR-changed files are blob-identical between the validated head and merged source. Resulting-main Windows CI #917 / run `37157907335` **PASSed all gates**, including frontend/contracts, Rust fmt/check/clippy/tests, performance harness, Reports visual-regression capture, Tauri release, packaged Focus validation and repository-wide validation builds.
+
+The validated functional scope is production Sessions rows/filters, task-relative work-session ordinals, Add Session, inline edit, stale-safe delete, all-history task detail and the local Sessions CSV export. CSV uses the active report range/list/break filter, writes a non-overwriting UTF-8 file to the user's local Downloads directory, escapes CSV content and hardens user text against spreadsheet formula interpretation. No renderer polling or report arithmetic was introduced.
+
+This closes the repository-defined Sessions implementation slice at **5/5 checkpoints** and advances M9 to **11/12 top-level items**. The exports top-level item remains open because **Overview PDF is not implemented**. Direct canonical Blitzit Reports/Sessions visual comparison and detailed visual/source-parity implementation remain **VALIDATION_OPEN**; the Narro-owned CI screenshots are regression evidence, not source-parity proof. No manual/physical M9 visual acceptance was run or claimed in this slice.
+
+For this M9 slice the compact progress is **`3/10M || 5/5 | 11/12`**. The global reconciliation/physical-validation counters remain governed by the current HANDOFF and are not advanced by this independent M9 closure.
+
+Durable evidence: `work-log/2026-10-04-chatgpt-m9-pr226-main917-functional-closure.md`.
+
 ## 2026-10-04 — Global Blitzit 19/19 no-orphan reconciliation complete
 
 The mandatory post-19/19 source→implementation reconciliation is complete on runtime baseline `f53a850f51375f15a0b2b4efe106da95e30b6e73` plus subsequent documentation-only reconciliation commits. It covers **19/19 SOURCE_COMPLETE MP4s**, **46/46 canonical screenshots/calibration dispositions**, and **8/8 visual-system families**. Detailed authoritative routing is in `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`; immutable evidence is in `work-log/2026-10-04-chatgpt-global-no-orphan-reconciliation.md`.
@@ -13,7 +25,7 @@ Current implementation truth after the reconciliation:
 - **M6 FIX_NOW:** reduced-motion-safe board fade before Focus; Notes source toolbar + automatic clickable URL recognition while keeping explicit external-browser activation; calibrated Focus live cyan→mint/lime edge treatment.
 - **M7 FIX_NOW:** collapsed Floating Timer title/time→action-strip hover grammar and calibrated compact rounded shell. These source-parity items are separate from the current PR #225 Windows-correctness physical batch.
 - **M8:** PREF-R05/PREF-R06 are validated; PR #225 concurrent Preferences fix PASSed CI #911 and only exact-build physical save/restart remains open.
-- **M9:** PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915; all 22 changed blobs are identical on merged runtime main `f53a850f51375f15a0b2b4efe106da95e30b6e73`. Sessions dashboard/Add/Edit/detail and local Sessions CSV are therefore automated-validated. M9 is **11/12**; local Overview PDF generation is the remaining implementation item.
+- **M9:** PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915; all 22 changed blobs are identical on merged runtime main `f53a850f51375f15a0b2b4efe106da95e30b6e73`; resulting-main Windows CI #917 / run `37157907335` PASSed all gates. Sessions dashboard/Add/Edit/detail and local Sessions CSV are therefore automated/main-validated. M9 is **11/12**; local Overview PDF generation is the remaining implementation item.
 - **M10:** direct canonical-source comparison/release revalidation plus fresh-launch no-implicit-start and running-session Notes/title continuity regressions remain open.
 
 The active PR #225 exact-EXE physical gate remains `3/5` with historical physical counter `14/19`; the reconciliation itself advances no validation counter. Current compact progress remains **`3/10M || 3/5 | 14/19`**.

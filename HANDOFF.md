@@ -21,7 +21,8 @@ Live GitHub state at the last synchronization:
 - no open pull requests;
 - PR #226 is merged;
 - PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 / run `37151575297`;
-- all **22** files changed by PR #226 have identical blob SHAs on merged runtime `main` `f53a850f...`, so that exact-head validation applies to the merged changed files.
+- all **22** files changed by PR #226 have identical blob SHAs on merged runtime `main` `f53a850f...`, so that exact-head validation applies to the merged changed files;
+- resulting-main Windows CI #917 / run `37157907335` PASSed all gates on merged source `f53a850f51375f15a0b2b4efe106da95e30b6e73`, closing the PR #226 Sessions validation chain.
 
 Current compact progress:
 
@@ -82,12 +83,12 @@ PREF-R05 and PREF-R06 are validated. The later PR #225 concurrent Preferences wr
 
 ### M9 — 11/12
 
-Production Overview is validated. Production Sessions dashboard, Add Session, inline edit/delete/detail and local Sessions CSV are on current `main` with PR #226 / CI #915 changed-blob identity.
+Production Overview is validated. Production Sessions dashboard, Add Session, inline edit/delete/detail and local Sessions CSV are on current `main` with PR #226 / CI #915 changed-blob identity plus resulting-main CI #917 PASS.
 
 The sole remaining top-level M9 implementation item is:
 - **P3-M9-01 / Overview PDF** — generate the Overview export fully locally.
 
-Direct canonical Reports/Sessions visual comparison remains `VALIDATION_OPEN`; Narro-owned report fixtures do not establish `SOURCE_PARITY_PASS`.
+The M9 Sessions functional slice is **5/5 checkpoints complete**: dashboard → mutations/detail → regressions/fixtures → exact-head CI/merge → resulting-main/tracking. Direct canonical Reports/Sessions visual comparison remains `VALIDATION_OPEN`; Narro-owned report fixtures do not establish `SOURCE_PARITY_PASS`. Per the user-directed split, detailed visual/source-parity implementation and the still-open Overview PDF remain for the implementation/Codex line rather than this functional slice.
 
 ### M10 / release validation
 
