@@ -1,14 +1,14 @@
 # Blitzit visual system
 
-Status: **CALIBRATION COMPLETE — source-side visual system; implementation reconciliation deferred**
+Status: **CALIBRATION COMPLETE — global implementation-routing reconciliation complete; implementation/source-parity validation still routed**
 
-Last updated: 2026-10-03
+Last updated: 2026-10-04
 
 ## Purpose
 
 This file is the implementation-facing synthesis of Blitzit's observed visual language. It is derived from the 46 canonical screenshots plus SOURCE_COMPLETE video findings according to `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md`.
 
-It is not a replacement product spec and it does not claim that Narro currently matches these rules. It exists so later implementation/reconciliation work can reproduce the source character coherently instead of inventing one-off values.
+It is not a replacement product spec and it does not claim that Narro currently matches these rules. The required global no-orphan reconciliation has now compared these families with current Narro and routed each material delta in `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`; implementation and direct canonical-source validation remain open where that crosswalk says so.
 
 ## Evidence precedence
 
