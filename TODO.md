@@ -2,6 +2,8 @@
 
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
+**Current correction:** PR #225 exact head `4f9d03832743f3db90d0c61dc527b27a194886fd`, CI #911 pending. Four visual failures and a newly observed concurrent Preferences save failure are implemented;38 local rendered cases and frontend preflight/Rustfmt PASS. [Checkpoint](work-log/2026-10-03-codex-m7-pr225-correction-and-shortcut-followup.md). Narrow M5/M8 acceptance is reopened; current roadmap3/10M pending their revalidation, M7 closure3/5 and physical14/19. Earlier5/10M lines below are historical checkpoints.
+
 **Latest pinned M7 candidate physical batch: CI #893 C5 PASS** at saved `(800,649)`, restored paused08:11 /491 durable work seconds. [Complete results/video/logs and embedded review](work-log/2026-10-03-codex-m7-ci893-physical-batch-evidence.md). This supersedes the changed-host C5 pending action, while CI873 remains historical PASS. Current corrective closure remains3/5: whole large Notes containment, wrapped tooltip, expansion prepainting geometry and small planning titles require the reconciled batch below. Monitor crossing/reconnect/full-screen and separate M1 B/C/D remain open.
 
 - [ ] FIX_NOW CI893 editor containment: compare current nested-fixed failure to root-relative anchoring without unmounting the editor; actual production wrappers, both-axis bounds, resize/draft/focus, normal/reduced motion, then exact-build Windows video. Repeated-failure reassessment is in the batch report.
@@ -217,6 +219,7 @@ Implement the screenshot hierarchy rather than an invented generic task manager.
 - [x] Create/Edit List modal with icon import, color selection, title, cancel/create states.
 - [x] List board with Backlog, This Week, Today, Done.
 - [x] Task-card state model: normal, hover/action-revealed, scheduled, overdue, done, inline-create, notes-expanded, subtasks-expanded, paused/editable, destructive-confirm.
+  - [ ] Revalidate CI893 narrow-title failure after PR #225: visible title/edit input, reserved action row, no hover/focus geometry change on the actual Windows board. Unrelated historical Gate E acceptance is retained.
 - [x] Drag/drop or equivalent reorder/move behavior with stable placeholder/drop animation.
 - [x] Ensure hover actions use reserved/overlay slots and never reflow title/card geometry.
 - [x] Task creation and inline editing.
@@ -244,7 +247,7 @@ Acceptance criteria:
 - no dead controls exist for excluded features
 - keyboard navigation remains usable
 
-**Gate E result: PASS / proceed to Milestone 6.** All 28 ordered Milestone 5 items are validated on authoritative Windows CI. PR #100 exact head `db78e0d6adebd51ab9e56a81185e4dac0206d1c5` passed Windows CI #390; expected-head guarded squash merge `c89526dbc40742570d8d89353244add2d6350d2d` passed resulting-main Windows CI #391.
+**Historical Gate E result: PASS / proceed to Milestone 6.** All 28 ordered Milestone 5 items are validated on authoritative Windows CI. PR #100 exact head `db78e0d6adebd51ab9e56a81185e4dac0206d1c5` passed Windows CI #390; expected-head guarded squash merge `c89526dbc40742570d8d89353244add2d6350d2d` passed resulting-main Windows CI #391.
 
 ### 2026-09-26 parity/reliability reconciliation
 
@@ -452,7 +455,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
-**Replacement reconciliation result: PASS.** The current single-`focusSurface` application tree was revalidated on resulting-main Windows CI #882 / run `37117266417` at source `45c3218f5923c2ff673d8c1dd562de7545be1ecb`. The reopened shortcut integrations now target only `focusSurface`, the authoritative timer engine retains documented manual-break semantics, and the final independent Preferences sound slice is validated. Pending M1/M7 physical geometry/placement gates remain OPEN but do not invalidate this M8 closure.
+**Historical replacement reconciliation result: PASS.** The current single-`focusSurface` application tree was revalidated on resulting-main Windows CI #882 / run `37117266417` at source `45c3218f5923c2ff673d8c1dd562de7545be1ecb`. The reopened shortcut integrations now target only `focusSurface`, the authoritative timer engine retains documented manual-break semantics, and the final independent Preferences sound slice is validated. Pending M1/M7 physical geometry/placement gates remain OPEN but do not invalidate this M8 closure.
 
 - [x] Implement confirmed Windows in-app shortcuts. Historical PR #166 / CI #569 + resulting-main #570 remains the original implementation evidence; current single-host routing was revalidated on resulting-main CI #882, where `test:in-app-shortcuts` reported `Single-host in-app shortcut contracts passed.`
 - [x] Implement confirmed Windows global shortcuts plus per-global enable toggles. Historical PR #168 / CI #574 + resulting-main #575 remains the original implementation evidence; current single-`focusSurface` toggle/find routing, persisted enable intent, retry/rollback and Settings contracts were revalidated on resulting-main CI #882.
@@ -473,6 +476,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 - [x] Preserve conditional/nested setting behavior without disruptive scroll jumps. Validated in reconciled PR #170 / Windows CI #604 with nested controls mounted in place and parent-gated rather than remounted.
 - [x] Use Windows locale for date/time presentation by default. PREF-R06 validated through PR #194 / CI #721 and resulting-main CI #724.
 - [x] Persist preferences in SQLite or a versioned local settings layer. The typed versioned SQLite payload already persists all current General/Focus/Alerts/Celebration fields and now v3 ShortcutPreferences; reopen/migration/atomic mutation coverage passed PR #168 / CI #574.
+  - [ ] Revalidate concurrent Preferences patch persistence after real CI893 `database is locked`: PR #225 writer-before-read correction, two-connection regression and exact-build physical save/restart. Unrelated M8 runtime/shortcut acceptance is retained.
 
 Acceptance criteria:
 

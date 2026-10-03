@@ -2,6 +2,12 @@
 
 Last updated: 2026-10-03
 
+## 2026-10-03 — M7 PR #225 batch; exact Windows CI #911 pending
+
+PR #225 exact head `4f9d03832743f3db90d0c61dc527b27a194886fd` implements the four reconciled CI893 visual failures and the newly observed Preferences `database is locked` failure. Full local frontend preflight/Rustfmt and38 rendered scenarios PASS; exact Windows CI #911 / run `37150284172` is running. CI909 was cancelled before completing validation to incorporate the Preferences correction. No new-source physical PASS is claimed. [Checkpoint and additional shortcut/completion evidence](work-log/2026-10-03-codex-m7-pr225-correction-and-shortcut-followup.md).
+
+The narrow M5 card-title and M8 concurrent-preference persistence acceptance are reopened until the changed paths validate; unrelated historical acceptance is preserved. Current roadmap temporarily3/10M; M7 closure remains3/5 and physical14/19. Next: complete exact-head CI, guarded integration, then exact-EXE continuous normal/reduced retest of Notes bounds, wrapped tooltip, expansion clipping, narrow titles and Preferences persistence. Missing dual-display crossing/reconnect and separate M1 Candidate B remain open. CI893 follow-up completed its two dedicated tasks with491/19 durable seconds, exercised Greek B/S/F and English B/F, full success card/Tab/Escape. App has no active work session, OBS stopped, OS animations On; re-observe before input.
+
 ## 2026-10-03 — CI #893 real Windows batch; C5 PASS, narrow corrections required
 
 Exact CI #893 EXE `01dd602454f10f85aeecd53eb1bfcdd53368b2eec46fa60cfb5d5cf80385018b` completed real drag, tray Quit, same-EXE relaunch and saved visible `(800,649)` Timer. Native evaluator PASS and read-only SQLite agrees with restored paused08:11 /491 work seconds. Native frame alignment/complete Panel labels, exercised Greek Create/Notes/Pause, settled modal Tab/Escape, inline Notes wrapping, Panel large-editor draft/resize/Save and maximized-Notepad topmost passed the observed paths. Three paused floating-only measurements have stable process trees, ~0–0.026% one-core CPU and404–409MiB working set.
