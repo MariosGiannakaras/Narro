@@ -66,7 +66,10 @@ impl Display for SessionsReportError {
                 formatter.write_str("report work session is missing its task identity")
             }
             Self::MissingWorkOrdinal(id) => {
-                write!(formatter, "report work session {id} is missing its all-history task ordinal")
+                write!(
+                    formatter,
+                    "report work session {id} is missing its all-history task ordinal"
+                )
             }
             Self::DurationOverflow => {
                 formatter.write_str("Sessions report focus duration overflowed")
@@ -359,8 +362,8 @@ mod tests {
             .filter(|row| row.session.kind == SessionKind::Break)
             .all(|row| row.task_session_ordinal.is_none()));
 
-        let hidden =
-            project_sessions_report(&snapshot, false, &ordinal_map).expect("hide breaks projection");
+        let hidden = project_sessions_report(&snapshot, false, &ordinal_map)
+            .expect("hide breaks projection");
         assert_eq!(hidden.summary.total_focus_seconds, 1_800);
         assert_eq!(hidden.summary.total_tasks, 2);
         assert_eq!(hidden.summary.total_sessions, 3);
