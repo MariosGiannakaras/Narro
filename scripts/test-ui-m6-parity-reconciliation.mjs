@@ -46,7 +46,7 @@ for (const [haystack, needle, label] of [
   [notes, 'data-task-note-title-editor="true"', "A16 title editor lives inside Notes"],
   [actions, 'allowTitleEdit={!fixtureMode && presentation === "panel"}', "A16 title edit limited to Focus Panel Notes"],
   [actions, "onTitleCommitted={onTaskMutationCommitted}", "A16 authoritative Focus refresh after title save"],
-  [timerApi, 'invoke<TimerSessionPayload>("timer_extend")', "A17 typed authoritative Extend API"],
+  [timerApi, 'committedTimerMutation("timer_extend")', "A17 typed authoritative committed Extend API"],
   [actions, 'extendEnabled: timer.state === "time_up"', "A17 Time's Up-only Extend state"],
   [actions, 'data-focus-action="extend"', "A17 visible Extend action"],
   [actions, 'run("extend", extendTimer', "A17 authoritative Extend mutation"],

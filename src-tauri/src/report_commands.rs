@@ -359,10 +359,9 @@ fn map_reporting_error(error: ReportingError) -> CommandError {
         ReportingError::EmptyOrReversedRange => {
             CommandError::invalid_argument("endAt", "must be after startAt")
         }
-        ReportingError::InvalidDisplayTimezone(_) => CommandError::invalid_argument(
-            "displayTimezone",
-            "must be a valid IANA timezone name",
-        ),
+        ReportingError::InvalidDisplayTimezone(_) => {
+            CommandError::invalid_argument("displayTimezone", "must be a valid IANA timezone name")
+        }
         _ => CommandError::new("REPORT_READ_FAILED", error.to_string()),
     }
 }

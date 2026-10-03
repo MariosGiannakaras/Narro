@@ -1,0 +1,28 @@
+{
+  "build": {
+    "beforeBuildCommand": null
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Narro",
+        "url": "index.html?diagnostics=1",
+        "width": 1000,
+        "height": 700
+      },
+      {
+        "label": "focusSurface",
+        "title": "Narro - Focus",
+        "url": "focus.html",
+        "width": 340,
+        "height": 700,
+        "visible": false,
+        "alwaysOnTop": false,
+        "decorations": false,
+        "transparent": true
+      }
+    ]
+  },
+  "identifier": "com.mariosg.Narro.M1Diagnostic"
+}

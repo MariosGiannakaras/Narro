@@ -2,6 +2,10 @@
 
 ## Single-Focus replacement override — current
 
+Current closure policy is defined by `docs/M7_CLOSURE_PLAN.md` and `docs/CI_VALIDATION_STRATEGY.md`.
+
+The replacement implementation may be integrated to `main` after exact-head automated validation even while physical Gate 7/12 remains OPEN. Integration is not manual PASS. Any physical failure after integration is corrected through a narrow follow-up PR from current `main`, and only the affected physical gate is repeated unless evidence requires broader scope.
+
 The active `plan/m7-single-focus` implementation **does directly replace** the window/presentation/placement/shortcut/performance paths that supported earlier M1/M6/M7/M8 evidence. Therefore this document's older "do not repeat" shortcuts apply only to the superseded implementation.
 
 Validate the exact replacement build in dependency order: reopened M1 Gate A → reopened M6 Gate F integration → reopened M7 items/Gate 7+12 → affected M8 shortcut integration. Begin with exact-head automated validation before dependent source work; physical Gate 7/12 checks may be consolidated later when safe. Historical passes remain evidence of prior behavior but cannot close replacement-code items.
@@ -168,4 +172,4 @@ After the session, record one immutable `work-log/` entry with:
 - session continuity observation;
 - any source correction required.
 
-Do not close M7 or start M8 until every required remaining physical gate passes or is explicitly re-scoped by the user.
+Do not close M7 until required physical gates pass or are explicitly re-scoped. However, an automated-green coherent source slice may already be integrated in `main`; milestone closure and merge state are intentionally separate.

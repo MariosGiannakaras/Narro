@@ -1,6 +1,6 @@
 # M7 single Focus surface implementation plan
 
-Status: **implementation/hardening present, but #684 video reassessment reopened three M7 defects: persistent Timer document scrollbar, interactive mixed-DPI visible-region lag, and linear cross-monitor drag-like motion** (2026-09-30). CI #695 remains a valid automated PASS for the prior candidate, but it did not change Focus document overflow or native motion interpolation and therefore does not close these findings. PR #192 must apply the narrow overflow/DPI/motion correction and re-run exact-head Windows CI. The one persistent `focusSurface` architecture remains preferred; no second Timer WebView is justified. Physical closure remains unavailable until the user regains a Windows test environment.
+Status: **implementation complete; closure controlled by `docs/M7_CLOSURE_PLAN.md`.** PR #192 exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 with accepted production physical artifact and corrected same-DPI Timer→Panel endpoint motion. The historical implementation-order material below is retained as design/history, not as the current remaining-work list.
 
 ## Decision and evidence boundary
 
@@ -46,7 +46,9 @@ Completion grep/static checks should find no live production/config/test depende
 
 **2026-09-29 implementation/automated-validation reconciliation:** exact branch head `73d10ab6a21d731ca363e9932b4ccaf13a000b43` satisfies this live migration ledger and passed Windows CI #672 / run `36589997295`. The retired runtime/wrapper/visual-hold files are absent; production/config/native paths no longer depend on the split model; architecture-sensitive contracts target the single-host design; compact↔expanded Timer uses finite ~270 ms same-WebView visual geometry motion; Rust formatting/check/clippy/tests, frontend preflight/build, visual regression and Tauri release all pass. The `floatingTimerFixture` Vite input remains an allowed independent visual fixture and does not create a runtime Timer WebView. These automated results do not substitute for physical Gate 7/12.
 
-## Implementation order for the next chat
+## Historical implementation order
+
+The implementation sequence below is retained for traceability. It is no longer the continuation controller. Use `docs/M7_CLOSURE_PLAN.md` for current work.
 
 1. **Continue the existing `plan/m7-single-focus` implementation branch.** PR #191 is closed unmerged as a superseded split-window experiment; retain its historical evidence only. Use validated application source `e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` as the behavioral/source baseline while preserving useful region/DPI and safe-position work already carried into the active branch. Reconcile authoritative Markdown from `main` before continuing source edits.
 2. **Native host and clipping:** configure one nominal **340 × 700 logical px** `focusSurface` host in `src-tauri/tauri.conf.json`. Generalize `src-tauri/src/timer_region.rs` (rename if useful) to apply Panel 340×700, compact Timer 340×110 and expanded Timer 340×300 DPI-aware regions. Keep HWND/WebView size stable during ordinary mode and expand/collapse transitions. The implementation may keep a generic width+height region abstraction for robustness, but current product presentations share the validated 340 px logical width. Remove `floatingTimer` window creation and references only after replacement paths exist.

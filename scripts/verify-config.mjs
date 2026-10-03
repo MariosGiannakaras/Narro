@@ -35,12 +35,20 @@ async function requireFile(relativePath) {
   }
 }
 
-const [packageJson, tauriConfig, tauriCiConfig, capability, ciWorkflow] = await Promise.all([
+const [
+  packageJson,
+  tauriConfig,
+  tauriCiConfig,
+  tauriPhysicalConfig,
+  tauriDiagnosticConfig,
+  capability,
+] = await Promise.all([
   readJson("package.json"),
   readJson("src-tauri/tauri.conf.json"),
   readJson("src-tauri/tauri.ci.conf.json"),
+  readJson("src-tauri/tauri.physical.conf.json"),
+  readJson("src-tauri/tauri.diagnostic.conf.json"),
   readJson("src-tauri/capabilities/default.json"),
-  readText(".github/workflows/ci.yml"),
 ]);
 
 invariant(packageJson.name === "narro", "package name must remain 'narro'");
@@ -66,36 +74,55 @@ invariant(
   packageJson.scripts?.["tauri:ci"] === "tauri build --config src-tauri/tauri.ci.conf.json",
   "tauri:ci must build with the CI config override",
 );
+invariant(
+  packageJson.scripts?.["tauri:physical-ci"] === "tauri build --config src-tauri/tauri.physical.conf.json",
+  "tauri:physical-ci must build with the production-window physical config overlay",
+);
+invariant(
+  packageJson.scripts?.["tauri:diagnostic-ci"]
+    === "tauri build --no-bundle --config src-tauri/tauri.diagnostic.conf.json",
+  "tauri:diagnostic-ci must build the isolated Main-diagnostics/product-Focus config",
+);
+invariant(
+  tauriPhysicalConfig.build?.beforeBuildCommand === null
+    && tauriPhysicalConfig.app === undefined,
+  "physical CI config must not override production window URLs",
+);
+const diagnosticWindows = tauriDiagnosticConfig.app?.windows ?? [];
+const diagnosticMain = diagnosticWindows.find((window) => window.label === "main");
+const diagnosticFocus = diagnosticWindows.find((window) => window.label === "focusSurface");
+invariant(
+  tauriDiagnosticConfig.build?.beforeBuildCommand === null
+    && diagnosticWindows.length === 2,
+  "diagnostic CI config must reuse preflight dist and define exactly main + focusSurface",
+);
+invariant(
+  diagnosticMain?.url === "index.html?diagnostics=1",
+  "diagnostic artifact must enable diagnostics only in Main",
+);
+invariant(
+  diagnosticFocus?.url === "focus.html",
+  "diagnostic artifact must retain the real product Focus surface",
+);
+invariant(
+  tauriDiagnosticConfig.identifier === "com.mariosg.Narro.M1Diagnostic"
+    && tauriDiagnosticConfig.identifier !== tauriConfig.identifier,
+  "diagnostic artifact must use a distinct Tauri identifier so app-data/WebView state cannot share the production Narro namespace",
+);
+invariant(
+  !JSON.stringify(tauriDiagnosticConfig).includes("runtimeVisual"),
+  "diagnostic artifact must never activate runtimeVisual fixtures",
+);
 invariant(tauriConfig.bundle?.active === true, "Windows bundle generation must remain enabled");
 
-for (const contract of [
-  ["validation-gate:", "CI must retain the main-tree validation gate"],
-  ["skip-full-ci:", "CI gate must publish the duplicate-validation decision"],
-  ['context.eventName !== "push"', "CI gate must only deduplicate main push runs"],
-  ["pull.merge_commit_sha === currentSha", "CI gate must bind the main commit to the merged PR"],
-  ["mainCommit.data.commit.tree.sha !== prHeadCommit.data.commit.tree.sha", "CI gate must compare exact Git trees"],
-  ["github.rest.actions.getWorkflowRun", "CI gate must resolve the current workflow identity"],
-  ["run.workflow_id === currentRun.workflow_id", "CI gate must bind exact-head validation to the same workflow ID"],
-  ['run.conclusion === "success"', "CI gate must require successful exact-head PR validation"],
-  ['filename === ".github/workflows/ci.yml"', "workflow changes must force one full main validation"],
-  ["/(^|\\/)Cargo\\.(toml|lock)$/", "Rust dependency changes must force main cache warmup"],
-  ["Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6", "Rust cache action must remain pinned"],
-  ["ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}", "pull_request CI must checkout the exact PR head while push CI checks the pushed SHA"],
-  ["workspaces: './src-tauri -> target'", "Rust cache must target the Tauri Cargo workspace"],
-  ["save-if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}", "only trusted main pushes may save the reusable Rust cache"],
-  ["Verify Reused Frontend Dist", "CI must verify frontend build output before Tauri packaging"],
-  ["run: npm run tauri:ci", "CI release build must reuse the preflight frontend output"],
-]) {
-  invariant(ciWorkflow.includes(contract[0]), contract[1]);
-}
 invariant(
-  !ciWorkflow.includes("run.pull_requests"),
-  "CI dedup must not depend on workflow_run.pull_requests metadata, which can be empty after merge",
+  packageJson.scripts?.["test:ci-tiering"] === "node scripts/test-ci-tiering.mjs",
+  "CI tiering contract test must be registered",
 );
 
 const windows = tauriConfig.app?.windows;
 invariant(Array.isArray(windows), "Tauri app.windows must be an array");
-invariant(windows.length === 2, "Milestone 1 must define exactly two initial webview windows");
+invariant(windows.length === 2, "Narro must define exactly main and one persistent focusSurface WebView");
 
 const labels = windows.map((window) => window.label);
 invariant(new Set(labels).size === labels.length, "Tauri window labels must be unique");
@@ -120,6 +147,16 @@ const focusWindow = windows.find((window) => window.label === "focusSurface");
 invariant(mainWindow?.url === "index.html", "main must load index.html");
 invariant(focusWindow?.url === "focus.html", "focusSurface must load focus.html");
 invariant(focusWindow?.visible === false, "focusSurface must start hidden");
+invariant(focusWindow?.decorations === false, "focusSurface must remain frameless");
+invariant(focusWindow?.transparent === true, "focusSurface must retain a transparent native/WebView canvas");
+invariant(
+  focusWindow?.width === 340 && focusWindow?.height === 700,
+  "focusSurface must use the validated fixed 340x700 logical host",
+);
+invariant(
+  focusWindow?.alwaysOnTop !== true,
+  "focusSurface starts in Panel presentation and must not start topmost",
+);
 
 const capabilityWindows = capability.windows;
 invariant(Array.isArray(capabilityWindows), "capability windows must be an array");
@@ -136,6 +173,9 @@ await Promise.all([
   requireFile("index.html"),
   requireFile("focus.html"),
   requireFile("src-tauri/icons/narro-tray-64.png"),
+  requireFile("scripts/verify-physical-validation-build.ps1"),
+  requireFile("scripts/prepare-m7-physical-session.ps1"),
+  requireFile("scripts/test-ci-tiering.mjs"),
 ]);
 
 console.log("Repository configuration invariants: PASS");

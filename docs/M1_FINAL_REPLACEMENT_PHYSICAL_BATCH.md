@@ -1,0 +1,249 @@
+# M1 final replacement physical batch
+
+This procedure batches the remaining real-Windows validation for the reopened
+single-`focusSurface` Milestone 1 so the user does not need multiple separate
+sessions.
+
+**2026-10-03 update:** Batch A / C5 saved-placement restart is now physically **PASS** on the user-requested resulting-main CI #873 automatic-logging EXE (`4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`). Whole two-session logs and continuous two-monitor video are published in [the completed C5 run](../work-log/2026-10-03-codex-m7-ci873-c5-completed.md). The Candidate A/CI #809 instructions below are historical lineage and do not require repeating C5. B/C/D remain separate Candidate B physical/performance tests and were not performed by that C5 continuation.
+
+Use **two intentionally separate candidates**:
+
+- **Batch A / M7 saved-placement acceptance:** use the already accepted CI #809
+  **production physical artifact**.
+- **Batches B/C/D / reopened M1 diagnostics and measurement:** use the
+  **current validated Candidate B diagnostic artifact listed below**. Never use
+  an unvalidated PR-branch executable.
+
+Do not swap these candidates. The diagnostic build is for M1 testing convenience
+and does not replace the production candidate for M7 physical acceptance.
+
+Before any Candidate B test, **fully quit Candidate A / any production Narro**.
+The diagnostic build intentionally uses a different Tauri identifier so its
+SQLite/WebView data is isolated, but both executables are still named
+`narro.exe` and both can own global shortcuts. B/C/D evidence is valid only
+with the diagnostic build as the sole Narro process.
+
+After launching Candidate B, open **Diagnostic Build Identity** first and require:
+
+- runtime identifier exactly `com.mariosg.Narro.M1Diagnostic`;
+- **Storage isolation (native identifier + resolved paths): PASS**;
+- resolved app-data and local-data paths shown under the diagnostic namespace.
+
+The PASS verdict is native evidence, not an identifier-only UI assumption: Rust
+requires both resolved storage paths to end in the runtime diagnostic identifier
+and explicitly rejects the production `com.mariosg.Narro` identifier.
+
+If that check fails, stop: do not run B/C/D and do not create/edit test data.
+
+## Candidate A — M7 production physical artifact
+
+- CI #809 run: `36865451660`
+- physical artifact id: `11163439039`
+- artifact digest:
+  `sha256:39ca0a91d7aa54be79ca35c509f82f25049a15a3fc4ffff199699eab309557a5`
+- standalone `narro.exe` SHA-256:
+  `a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675`
+- production runtime source:
+  `2767b3827670603d1ab259b6a843c2e0da82d85d`
+
+PR #209 / CI #811 regression-lock evidence:
+- PR head `5384ea7384d304a843771e225bfb50cd9394bf43`
+- Windows CI #811 / run `36973948214`: PASS
+- merged test-contract commit:
+  `c84013dbafbce6c8d581e3e12e1793bb12281fd1`
+- production runtime bytes unchanged
+
+## Candidate B — M1 diagnostic artifact
+
+**READY for physical B/C/D.** Use only this final resulting-main diagnostic
+candidate unless a later validated source explicitly supersedes it.
+
+- source SHA:
+  `f1a200c3624c3e25154a7023443c1dfc5be1e69d`
+- Windows main CI: **#866 / run `37078139295` — PASS**
+- diagnostic artifact: `narro-m1-diagnostic-windows-x64`
+- artifact id: `11257763093`
+- artifact ZIP SHA-256:
+  `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`
+- contained diagnostic `narro.exe` SHA-256:
+  `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`
+
+CI #866's real runtime storage-isolation smoke passed against this executable.
+It created diagnostic SQLite at
+`%APPDATA%\\com.mariosg.Narro.M1Diagnostic\\narro.db`, while the production
+Roaming and Local `com.mariosg.Narro` namespaces remained unchanged. The
+bounded post-exit SQLite hash retry also passed in the same authoritative run.
+
+The artifact contains the diagnostic executable plus:
+- `measure-floating.ps1`;
+- `run-m1-floating-performance-batch.ps1`;
+- `verify-m1-floating-performance-scenario.ps1`;
+- `M1_FLOATING_PERFORMANCE_MEASUREMENT.md`;
+- `M1_WINDOWS_RUNTIME_VALIDATION.md`;
+- `M1_DISPLAY_TOPOLOGY_VALIDATION.md`.
+
+Required Candidate B properties:
+- runtime Tauri identifier `com.mariosg.Narro.M1Diagnostic`;
+- Main `index.html?diagnostics=1`;
+- product `focusSurface` `focus.html`;
+- no `runtimeVisual`;
+- native Focus Panel placement probe;
+- runtime storage identifier/path probe;
+- `measure-floating.ps1`;
+- `run-m1-floating-performance-batch.ps1`;
+- `verify-m1-floating-performance-scenario.ps1`;
+- M1 Windows validation docs.
+
+## Batch A — saved Timer placement across normal restart
+
+This is the only remaining M7 C5 observation.
+
+Prepare the session with the repository safety helper before launching the
+production candidate:
+
+```powershell
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-m7-physical-session.ps1 -Executable <PATH_TO_CI809_NARRO_EXE> -ExpectedSha256 a4b8e163539f429769540480a7aa0b5db9ca6fa2c356d6742f78d687b5cb5675 -Launch
+```
+
+The helper:
+- refuses to proceed while any `narro.exe` is already running;
+- verifies the exact CI #809 executable SHA-256;
+- snapshots the complete production
+  `%APPDATA%\\com.mariosg.Narro` directory while Narro is stopped;
+- records file hashes, Windows version and monitor geometry in the evidence
+  session directory;
+- writes a short `checklist.md` for only this remaining C5 test.
+
+Then:
+
+1. Start/keep one real active task and show the compact Floating Timer.
+2. Drag it to an obvious safe non-default location.
+3. Use tray **Quit Narro**.
+4. Relaunch the same CI #809 `narro.exe`.
+5. Show/reopen the Timer for the recovered/live task as applicable.
+6. PASS if the Timer returns to a safe visible saved position and is not
+   stranded/off-screen.
+
+A short continuous recording is sufficient. Keep the generated app-data backup
+until the observation is accepted. Do not restore it over a running Narro
+process, and do not restore it merely because the test passes.
+
+## Batch B — Focus Panel selected-monitor left/right placement
+
+Use **Candidate B / final resulting-main diagnostic artifact** with two enabled
+monitors.
+
+The diagnostic Monitor section shows:
+- current **Available monitors** count;
+- all native monitor descriptors/work areas;
+- the selected monitor descriptor;
+- individual Left/Right controls and read-only native Placement probes;
+- one **Run all monitor Left/Right probes** action that executes the complete
+  current-monitor matrix and emits a single JSON evidence payload.
+
+Procedure:
+
+1. Show Focus Panel.
+2. Refresh Monitors and confirm both displays appear.
+3. Keep both physical displays visible in the recording.
+4. Click **Run all monitor Left/Right probes** once.
+5. Observe the same persistent Focus Panel move through both edges of every
+   enumerated monitor. The diagnostic UI names the current monitor/side and
+   intentionally holds each settled position for ~750 ms so the physical edge
+   is visible in the recording.
+6. Require **Placement matrix: PASS** and retain the rendered JSON payload.
+
+The matrix calls the existing authoritative `position_focus_panel` command and
+then the native `focus_panel_placement_probe` for every monitor × Left/Right
+pair. Each entry records expected coordinates, actual Focus HWND
+coordinates/size, edge alignment, work-area containment and PASS/FAIL.
+
+The native matrix is evidence support, not a substitute for seeing that the
+Panel is actually reachable on each intended physical display. A valid two-
+monitor run normally contains four passing entries.
+
+## Batch C — reconnect / re-enumeration closure
+
+Use **Candidate B / final resulting-main diagnostic artifact**. CI #809 already
+proves real display removal and safe recovery; this batch closes the stricter
+reconnect/re-enumeration wording.
+
+1. Start from two displays enabled and press Refresh Monitors.
+2. Confirm the current count/descriptors and optionally run the placement matrix
+   once as the pre-change baseline.
+3. With Narro still running, disable/disconnect the secondary display.
+4. Press Refresh Monitors. The count/descriptors must update to the surviving
+   topology; no stale matrix result should be treated as current evidence.
+5. Re-enable/reconnect the display without restarting Narro.
+6. Press Refresh Monitors again. The restored display must reappear with
+   plausible geometry/scaling.
+7. Click **Run all monitor Left/Right probes** again.
+8. Require the post-reconnect matrix to PASS and physically observe the Panel
+   reach both edges of the restored display.
+
+If convenient, change the reconnected display from right-of-primary to
+left-of-primary before refreshing. Negative desktop coordinates are valid and
+will be visible directly in the monitor descriptors and matrix probe payload.
+
+## Batch D — replacement floating-only CPU/RAM
+
+Use **Candidate B / final resulting-main diagnostic artifact**. This is
+measurement evidence, not a screen recording.
+
+The diagnostic artifact contains the single-run sampler, the preferred
+three-run batch runner, and a native Win32 scenario preflight.
+
+1. Fully quit the production Narro first; only the isolated diagnostic
+   `narro.exe` may be running.
+2. Launch the diagnostic build and let startup settle.
+3. Put `focusSurface` in **compact Floating Timer** presentation.
+4. Leave timer/session inactive; no animations or user interaction.
+5. Click **Destroy Main** in diagnostic controls. Do not use Hide Main.
+6. From the extracted artifact directory run one command, substituting the
+   Candidate B EXE SHA-256 listed above:
+
+```powershell
+powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/run-m1-floating-performance-batch.ps1 -RunCount 3 -WarmupSeconds 30 -SampleSeconds 60 -IntervalSeconds 1 -ExpectedExecutableSha256 7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3
+```
+
+Do not interact with Narro while the batch is running. Before every measurement,
+the runner automatically rejects duplicate Narro roots, an existing Main HWND,
+a hidden Focus window, or any Focus native region that is not the compact
+340×110 logical Timer at the current DPI. It then performs the three required
+measurements and rejects process churn/invalid summaries/hash mismatch. It
+writes:
+
+- `run-01/scenario-preflight.json` + `summary.json` + raw CSVs;
+- `run-02/...`;
+- `run-03/...`;
+- one `batch-summary.json` containing all run metrics and median run averages.
+
+Return `batch-summary.json`. If the runner fails, also return the failed
+run directory / raw CSVs so the failure can be diagnosed.
+
+The agent will report:
+- per-run average/min/max CPU % of one core and total capacity;
+- working-set and private-byte averages/min/max;
+- median run averages;
+- WebView2/Narro process contributors;
+- comparison against the historical superseded baseline;
+- whether the replacement two-WebView architecture is acceptably lightweight
+  or warrants the documented native-overlay fallback review.
+
+## Closure order
+
+If Batch A passes:
+- M7 C5 can close immediately after tracking reconciliation.
+
+Milestone 1 itself remains open until B/C/D are also complete.
+
+Do not repeat already accepted CI #809 tests:
+- compositor/white-L transition;
+- Panel/Timer continuity;
+- Blitz now;
+- idle shortcuts;
+- second launch;
+- mixed-DPI Timer crossing;
+- bottom-edge expansion;
+- display-removal recovery;
+- topmost over maximized app.

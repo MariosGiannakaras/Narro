@@ -1,0 +1,87 @@
+{
+    "programs": [
+
+    ],
+    "stream_groups": [
+
+    ],
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 4480,
+            "height": 1080,
+            "r_frame_rate": "60/1",
+            "avg_frame_rate": "60/1",
+            "start_time": "0.000000",
+            "duration": "1223.566667",
+            "nb_frames": "73414"
+        },
+        {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "start_time": "0.000000",
+            "duration": "1223.552000",
+            "nb_frames": "57355"
+        },
+        {
+            "index": 2,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "start_time": "0.000000",
+            "duration": "1223.552000",
+            "nb_frames": "57355"
+        },
+        {
+            "index": 3,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "start_time": "0.000000",
+            "duration": "1223.552000",
+            "nb_frames": "57355"
+        },
+        {
+            "index": 4,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "start_time": "0.000000",
+            "duration": "1223.552000",
+            "nb_frames": "57355"
+        },
+        {
+            "index": 5,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "start_time": "0.000000",
+            "duration": "1223.552000",
+            "nb_frames": "57355"
+        },
+        {
+            "index": 6,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "start_time": "0.000000",
+            "duration": "1223.552000",
+            "nb_frames": "57355"
+        }
+    ],
+    "format": {
+        "start_time": "0.000000",
+        "duration": "1223.566667",
+        "size": "923981528"
+    }
+}

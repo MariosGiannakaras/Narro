@@ -1,16 +1,13 @@
 import fs from "node:fs";
 
-function read(path) {
-  return fs.readFileSync(path, "utf8");
-}
-
-function invariant(condition, message) {
+const read = (path) => fs.readFileSync(path, "utf8");
+const invariant = (condition, message) => {
   if (!condition) throw new Error(`Focus toggle shortcut contract failed: ${message}`);
-}
+};
 
 const shortcuts = read("src-tauri/src/shortcuts/mod.rs");
 const lib = read("src-tauri/src/lib.rs");
-const focus = read("src/focus.tsx");
+const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 const floating = read("src/FloatingTimerFoundation.tsx");
 const app = read("src/App.tsx");
 const diagnosticApi = read("src/diagnosticApi.ts");
@@ -28,58 +25,93 @@ invariant(
   shortcuts.includes("register_focus_toggle(app.handle(), manager.inner())")
     && shortcuts.includes("wparam == FOCUS_TOGGLE_HOTKEY_ID as usize")
     && shortcuts.includes("unregister_hot_key(hwnd, FOCUS_TOGGLE_HOTKEY_ID)"),
-  "focus toggle must register at startup, dispatch through WM_HOTKEY, and unregister at window destruction",
+  "focus toggle must register at startup, dispatch through WM_HOTKEY, and unregister at HWND destruction",
 );
 
 const handlerStart = shortcuts.indexOf("fn schedule_focus_toggle_trigger()");
-const handler = shortcuts.slice(handlerStart);
-const show = handler.indexOf("crate::show_and_focus(&window)");
+const handlerEnd = shortcuts.indexOf("fn schedule_find_timer_trigger()", handlerStart);
+const handler = shortcuts.slice(handlerStart, handlerEnd);
+const snapshot = handler.indexOf("timer_service.snapshot()");
+const activeGate = handler.indexOf("focus_toggle_allowed(", snapshot);
+const show = handler.indexOf("crate::show_current_focus_surface(&trigger_handle)", activeGate);
 const trigger = handler.indexOf("manager.record_focus_toggle_trigger()", show);
 const emit = handler.indexOf(".emit(FOCUS_TOGGLE_EVENT, payload.focus_toggle_trigger_count)", trigger);
 invariant(
-  handlerStart >= 0 && show >= 0 && show < trigger && trigger < emit
+  handlerStart >= 0 && handlerEnd > handlerStart
+    && snapshot >= 0 && snapshot < activeGate && activeGate < show
+    && show < trigger && trigger < emit
+    && handler.includes("state::<crate::timer_service::TimerService>()")
+    && handler.includes("snapshot.runtime.timer.task_id.is_some()")
+    && shortcuts.includes("state != crate::timer::TimerStateKind::Idle && has_task")
+    && shortcuts.includes("TimerStateKind::Break")
+    && shortcuts.includes("TimerStateKind::OvertimePaused")
     && handler.includes("crate::current_focus_surface_mode().is_none()")
+    && !handler.includes("crate::show_and_focus(&window)")
+    && !handler.includes("get_webview_window(FOCUS_SURFACE_LABEL)")
+    && !handler.includes("FLOATING_TIMER_LABEL")
     && handler.includes("record_and_report_focus_toggle_error"),
-  "shortcut must require an active focus mode, bring the surface forward, then emit a revisioned request with typed failure state",
+  "shortcut must prove active authoritative Focus state before showing the one Focus host and emitting a revisioned request",
 );
+const findHandlerStart = shortcuts.indexOf("fn schedule_find_timer_trigger()");
+const findHandlerEnd = shortcuts.indexOf("\n}", findHandlerStart);
+const findHandler = shortcuts.slice(findHandlerStart, findHandlerEnd > findHandlerStart ? findHandlerEnd : undefined);
+invariant(
+  findHandler.includes("state::<crate::timer_service::TimerService>()")
+    && findHandler.includes("timer_service.snapshot()")
+    && findHandler.includes("snapshot.runtime.timer.task_id.is_some()")
+    && findHandler.includes("focus_toggle_allowed(")
+    && findHandler.indexOf("timer_service.snapshot()") < findHandler.indexOf("crate::show_current_focus_surface(&trigger_handle)")
+    && findHandler.includes("record_and_report_find_timer_error"),
+  "Find Timer must not reveal a stale Timer presentation without active authoritative Focus state",
+);
+invariant(
+  coordinator.includes('focusSurfaceModeOf(presentationRef.current) === "timer"')
+    && coordinator.includes('timer.state === "idle" || timer.task_id === null')
+    && coordinator.includes('void requestModeRef.current("panel")')
+    && coordinator.includes("timerProjectionSettled"),
+  "an authoritative idle/no-task projection must normalize a committed Timer presentation back to Panel",
+);
+
 invariant(
   shortcuts.includes("map_register_error_for_chord(error, FOCUS_TOGGLE_CHORD)")
     && shortcuts.includes("focus_toggle_last_error")
     && lib.includes("fn global_focus_toggle_register(")
     && lib.includes("global_focus_toggle_register,"),
-  "registration conflicts must be reported locally and allow an explicit retry",
+  "registration conflicts must be reported locally and remain explicitly retryable",
 );
 
-const requestStart = focus.indexOf("function requestMode(");
-const commitStart = focus.indexOf("async function commitPendingModeTransition()", requestStart);
-const request = focus.slice(requestStart, commitStart);
 invariant(
-  focus.includes('listen<number>("focus-surface-toggle-requested"')
-    && focus.includes('requestMode(currentMode === "panel" ? "timer" : "panel")')
-    && focus.includes("sequence <= lastToggleRequestRef.current")
-    && request.includes("transitionBusyRef.current")
-    && request.includes("resizeBusyRef.current")
-    && request.includes("setPendingMode(targetMode)")
-    && focus.includes("await coordinateFocusModeTransition({")
-    && focus.includes("await prepareFloatingTimer()")
-    && focus.includes("await prepareFocusPanel()")
-    && focus.includes("await prewarmFocusSurface()")
-    && focus.includes("await revealFloatingTimer()")
-    && focus.includes("await revealFocusPanel()"),
-  "global toggle must use the serialized hidden-prepare/transparent-prewarm transition coordinator and ignore reentrant mode or resize requests",
+  coordinator.includes('subscribe<number>("focus-surface-toggle-requested"')
+    && coordinator.includes("sequence <= lastToggleRequestRef.current")
+    && coordinator.includes('timer.state === "idle" || timer.task_id === null')
+    && coordinator.includes("deferredToggleSequenceRef.current = null")
+    && coordinator.includes('currentMode === "panel" ? "timer" : "panel"')
+    && coordinator.includes("transitionGateRef.current")
+    && coordinator.includes("commitPreparedFocusPresentation({"),
+  "global toggle must be deduplicated and serialized through the single-host coordinator",
+);
+invariant(
+  coordinator.includes("waitForTargetReady: () => waitForReady(targetMode)")
+    && coordinator.includes("applyNativePresentation: applyFocusSurfacePresentation"),
+  "global toggle must prepaint before the native presentation transaction commits",
 );
 invariant(
   floating.includes("onResizePendingChange?.(true)")
     && floating.includes("onResizePendingChange?.(false)")
     && floating.includes("resizeRequestInFlightRef.current"),
-  "floating resize must expose an immediate busy boundary to the mode transition",
+  "Timer resize must expose an immediate busy boundary so global toggles cannot race it",
 );
+invariant(
+  coordinator.includes("transitionGateRef.current || timerResizePending"),
+  "coordinator must reject conflicting mode/quick-create work during Timer resize or presentation commit",
+);
+
 invariant(
   diagnosticApi.includes("focusToggleLastError: ShortcutErrorSnapshot | null")
     && app.includes("shortcutDiagnostics?.focusToggleLastError")
     && app.includes('invoke<ShortcutDiagnostics>("global_focus_toggle_register")')
     && app.includes("Retry shortcut"),
-  "a registration failure must be visible and retryable in the normal local app",
+  "a registration failure must be visible and retryable in the local app",
 );
 for (const forbidden of ["timer_pause(", "timer_resume(", "timer_start_task(", "setInterval("]) {
   invariant(!handler.includes(forbidden), `shortcut must not mutate timer/session authority through ${forbidden}`);
@@ -90,4 +122,4 @@ invariant(
   "the focus toggle contract must run in frontend preflight",
 );
 
-console.log("Focus toggle shortcut integration contracts passed.");
+console.log("Single-host Focus toggle shortcut contracts passed.");

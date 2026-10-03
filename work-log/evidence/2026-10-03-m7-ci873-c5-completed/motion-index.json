@@ -1,0 +1,38 @@
+[
+  {
+    "name": "compact-expanded",
+    "clipSourceStartSeconds": 789.5,
+    "clipDurationSeconds": 2.5,
+    "denseFirstRequestedSourceSeconds": 789.85,
+    "denseFrames": 42,
+    "frameSpacingSeconds": 0.016666666666666666,
+    "crop": "360:320:3550:770",
+    "individualFramesNativePixelScale": 1,
+    "contactSheetScale": 1,
+    "timestampAlignment": "OBS log start anchors UTC approximately; video frame PTS is authoritative for frame spacing; no measured action-to-capture latency"
+  },
+  {
+    "name": "expanded-panel",
+    "clipSourceStartSeconds": 965.8,
+    "clipDurationSeconds": 2.5,
+    "denseFirstRequestedSourceSeconds": 966.5,
+    "denseFrames": 42,
+    "frameSpacingSeconds": 0.016666666666666666,
+    "crop": "940:1080:3540:0",
+    "individualFramesNativePixelScale": 1,
+    "contactSheetScale": 0.5,
+    "timestampAlignment": "OBS log start anchors UTC approximately; video frame PTS is authoritative for frame spacing; no measured action-to-capture latency"
+  },
+  {
+    "name": "panel-compact",
+    "clipSourceStartSeconds": 996.5,
+    "clipDurationSeconds": 2.5,
+    "denseFirstRequestedSourceSeconds": 997.0,
+    "denseFrames": 42,
+    "frameSpacingSeconds": 0.016666666666666666,
+    "crop": "940:1080:3540:0",
+    "individualFramesNativePixelScale": 1,
+    "contactSheetScale": 0.5,
+    "timestampAlignment": "OBS log start anchors UTC approximately; video frame PTS is authoritative for frame spacing; no measured action-to-capture latency"
+  }
+]

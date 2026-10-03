@@ -81,9 +81,9 @@ for (const [haystack, needle, label] of [
   [lib, "board_task_schedule::remove_list_board_task_recurrence,", "recurrence remove command registration"],
   [api, 'invoke<TaskScheduleEditorSnapshot>("get_list_board_task_schedule_editor"', "typed schedule editor IPC"],
   [api, 'invoke<TaskSchedule>("resolve_list_board_schedule_shortcut"', "typed shortcut IPC"],
-  [api, 'invoke<void>("update_list_board_task_schedule"', "typed schedule write IPC"],
-  [api, 'invoke<RecurrenceMutationResult>("save_list_board_task_recurrence"', "typed recurrence save IPC"],
-  [api, 'invoke<RecurrenceRemovalResult>("remove_list_board_task_recurrence"', "typed recurrence remove IPC"],
+  [api, 'committedScheduleMutation<void>("update_list_board_task_schedule"', "typed committed schedule write IPC"],
+  [api, 'committedScheduleMutation<RecurrenceMutationResult>("save_list_board_task_recurrence"', "typed committed recurrence save IPC"],
+  [api, 'committedScheduleMutation<RecurrenceRemovalResult>("remove_list_board_task_recurrence"', "typed committed recurrence remove IPC"],
   [dateTimeFormat, "new Intl.DateTimeFormat(locales", "system-locale date/time formatter"],
   [dateTimeFormat, 'hour: "numeric"', "locale-owned 12/24-hour convention"],
   [dialog, 'import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";', "schedule dialog locale formatter import"],
@@ -127,6 +127,8 @@ for (const [haystack, needle, label] of [
   [fixtureHtml, "/src/taskScheduleVisualFixture.tsx", "scheduling fixture entry module"],
   [fixture, 'data-task-schedule-visual-fixture="true"', "production scheduling visual fixture"],
   [fixture, 'command === "get_list_board_task_schedule_editor"', "fixture-only authoritative read mock"],
+  [fixture, "const maxReadyFrames = 120;", "frame-bounded scheduling fixture readiness"],
+  [fixture, "window.requestAnimationFrame", "scheduling fixture yields browser frames while React passive effects settle"],
   [fixture, "<TaskScheduleDialog", "production dialog fixture"],
   [fixture, 'fixture: "task-scheduling"', "scheduling geometry contract"],
   [fixture, 'mode === "no-repeat"', "No Repeat fixture mode"],
@@ -134,6 +136,10 @@ for (const [haystack, needle, label] of [
   [vite, 'taskScheduleFixture: "task-schedule-fixture.html"', "Vite scheduling fixture registration"],
   [capture, 'task-scheduling-$theme', "Windows scheduling captures"],
   [capture, 'task-scheduling-no-repeat-$theme', "Windows No Repeat scheduling captures"],
+  [capture, '$maxAttempts = if ($ReadyMarker) { $ReadyMaxAttempts } else { 1 }', "ready-marker visual capture retry budget"],
+  [capture, 'Start-Sleep -Milliseconds (250 * $attempt)', "ready-marker visual capture retry backoff"],
+  [capture, '-VirtualTimeBudgetMs 10000', "scheduling fixture virtual-time readiness headroom"],
+  [capture, '-ReadyMaxAttempts 8', "scheduling fixture bounded retry headroom after repeated four-attempt hosted misses"],
   [validator, "scheduling editor geometry differs between light and dark themes", "theme geometry parity gate"],
   [validator, "No Repeat", "No Repeat capture validation"],
 ]) {
@@ -161,6 +167,13 @@ if (scheduleCommandStart < 0 || recurrenceCommandStart < 0 || scheduleCommandSta
 
 if (boardSchedule.includes("UPDATE tasks") || boardSchedule.includes("INSERT INTO recurrence_rules")) {
   throw new Error("Renderer-facing scheduling commands must delegate raw persistence to authoritative persistence modules.");
+}
+
+if (
+  fixture.includes("performance.now() + 5_000")
+  || fixture.includes("window.setTimeout(resolve, 10)")
+) {
+  throw new Error("Scheduling visual readiness must not spin virtual-time timer polling ahead of React passive effects.");
 }
 
 if (dialog.includes("setInterval") || board.includes("setInterval")) {

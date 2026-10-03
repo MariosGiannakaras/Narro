@@ -1,0 +1,31 @@
+{
+  "purpose": "Recorder capability validation; no product acceptance is implied",
+  "capture": "Physical Windows desktop region via FFmpeg gdigrab; cursor included; no input injection or audio",
+  "startedUtc": "2026-10-03T10:45:33.6235677Z",
+  "endedUtc": "2026-10-03T10:45:37.7921028Z",
+  "region": {
+    "height": 110,
+    "width": 340,
+    "y": 970,
+    "x": 1805
+  },
+  "applicationExe": "artifacts/m7-c5-ci873-20261003/narro-m7-validation.exe",
+  "applicationSha256": "4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c",
+  "requestedFps": 30,
+  "requestedDurationSeconds": 4,
+  "decodedFrames": 120,
+  "observedFrameSpanSeconds": 3.967,
+  "observedFramesPerSecond": 29.997479203428284,
+  "medianFrameGapMs": 33.00000000000003,
+  "maximumFrameGapMs": 67.00000000000017,
+  "largeGapThresholdMs": 68.66666666666667,
+  "largeGapCount": 0,
+  "noFpsConversion": true,
+  "masterEncoding": "lossless libx264rgb CRF 0, native dimensions, MKV",
+  "previewEncoding": "lossy H264 yuv420p CRF 15; odd dimensions padded, no scaling",
+  "cadenceLimit": "Encoded timestamps and frame count do not prove every compositor/display frame was acquired; inspect content and calibration evidence",
+  "ffmpegSha256": "3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec",
+  "ffprobeSha256": "f0d36ecbbdd3bcfac3efa078c96c7271c2e68b3810595552ac3b7f17e9a65c52",
+  "masterSha256": "9360e2d5bf2981a26c31e51c59eaea09be77fbd83e2e9fc3f5fbd5e5280c6644",
+  "previewSha256": "ec93e83274b7fb60d054601ab83d693619e0fb1ab500aa5a31159bf1e5c6e84e"
+}

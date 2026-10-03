@@ -24,6 +24,7 @@ type FocusLiveSubtasksProps = {
   fixtureExpanded?: boolean;
   presentation?: "panel" | "floating";
   expanded?: boolean;
+  contentInert?: boolean;
   interactionPending?: boolean;
   onExpandedChange?: (expanded: boolean) => boolean | void | Promise<boolean | void>;
   onTaskProjection?: (task: ListBoardTask) => void;
@@ -59,6 +60,7 @@ export function FocusLiveSubtasks({
   fixtureExpanded = false,
   presentation = "panel",
   expanded: controlledExpanded,
+  contentInert = false,
   interactionPending = false,
   onExpandedChange,
   onTaskProjection,
@@ -272,7 +274,7 @@ export function FocusLiveSubtasks({
         </div>
 
         {expanded ? (
-          <div className="floating-timer-foundation__subtask-panel" data-floating-subtask-panel="true">
+          <div className="floating-timer-foundation__subtask-panel" data-floating-subtask-panel="true" inert={contentInert} aria-hidden={contentInert ? true : undefined}>
             {loading ? (
               <span className="type-metadata" role="status">Loading subtasks…</span>
             ) : error ? (

@@ -21,6 +21,10 @@ import { Tooltip } from "./overlayPrimitives";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskNotes } from "./TaskNotes";
 import {
+  DEFAULT_SUCCESS_SOUND,
+  playLocalSound,
+} from "./localSoundCatalog";
+import {
   completeTimerTask,
   extendTimer,
   pauseTimer,
@@ -47,6 +51,7 @@ type FocusLiveActionsProps = {
   presentation?: "panel" | "floating";
   onReturnToPanel?: () => void;
   transitionPending?: boolean;
+  presentationActive?: boolean;
   onEnsureNotesVisible?: () => boolean | Promise<boolean>;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
@@ -184,6 +189,7 @@ export function FocusLiveActions({
   presentation = "panel",
   onReturnToPanel,
   transitionPending = false,
+  presentationActive = true,
   onEnsureNotesVisible,
   onCompletionSuccess,
 }: FocusLiveActionsProps) {
@@ -193,7 +199,9 @@ export function FocusLiveActions({
   const [error, setError] = useState<string | null>(null);
   const shortcutHandlerRef = useRef<(shortcut: InAppShortcut) => void>(() => {});
   const state = actionState(timer.runtime.timer);
-  const busy = pendingAction !== null || (presentation === "floating" && transitionPending);
+  const busy = !presentationActive
+    || pendingAction !== null
+    || (presentation === "floating" && transitionPending);
   const preferences = usePreferenceSettingsProjection(fixtureMode);
   const defaultBreakMs = preferences.snapshot
     ? preferences.snapshot.focus.defaultBreakSeconds * 1_000
@@ -314,6 +322,17 @@ export function FocusLiveActions({
         const nextAfterCompletionMode = nextAfterCompletion
           ? focusModeForTask(authoritative.runtime.timer.mode, nextAfterCompletion)
           : null;
+        const celebration = preferences.snapshot?.celebration;
+        if (celebration) {
+          const successSound = celebration.successSound ?? DEFAULT_SUCCESS_SOUND;
+          void playLocalSound(
+            successSound,
+            celebration.successSoundVolumePercent,
+          ).catch((soundFailure: unknown) => {
+            console.warn("Success sound could not play after committed task completion.", soundFailure);
+          });
+        }
+
         onCompletionSuccess?.({
           completedTaskId: completedTask.id,
           completedTaskTitle: completedTask.title,
@@ -428,7 +447,7 @@ export function FocusLiveActions({
   };
 
   useEffect(() => {
-    if (fixtureMode) return;
+    if (fixtureMode || !presentationActive) return;
 
     let disposed = false;
     let stopListening: (() => void) | undefined;
@@ -458,7 +477,7 @@ export function FocusLiveActions({
       window.removeEventListener("keydown", onKeyDown);
       stopListening?.();
     };
-  }, [fixtureMode]);
+  }, [fixtureMode, presentationActive]);
 
   const floating = presentation === "floating";
   const notesEditor = (

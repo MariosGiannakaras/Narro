@@ -31,7 +31,18 @@ export function FocusCompletionSuccess({ state, pending, error, onNextTask, onCl
     ? Number(state.timeTakenSeconds)
     : null;
   return (
-    <section className="focus-completion-success" role="dialog" aria-modal="true" aria-labelledby="focus-completion-success-title" data-focus-completion-success="true">
+    <section
+      className="focus-completion-success"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="focus-completion-success-title"
+      data-focus-completion-success="true"
+      onKeyDown={(event) => {
+        if (event.key !== "Escape" || pending) return;
+        event.preventDefault();
+        onClose();
+      }}
+    >
       <div className="focus-completion-success__card">
         <p className="type-metadata">Task complete</p>
         <h1 id="focus-completion-success-title">Well done!</h1>
@@ -41,9 +52,9 @@ export function FocusCompletionSuccess({ state, pending, error, onNextTask, onCl
           <span>Taken <strong>{formatDuration(taken)}</strong></span>
         </div>
         <div className="focus-completion-success__actions">
-          {state.nextTask ? <button type="button" data-focus-success-action="next-task" disabled={pending} onClick={onNextTask}>{pending ? "Starting…" : "Next Task"}</button> : null}
+          {state.nextTask ? <button type="button" data-focus-success-action="next-task" disabled={pending} onClick={onNextTask} autoFocus>{pending ? "Starting…" : "Next Task"}</button> : null}
           <button type="button" data-focus-success-action="take-break" disabled title="The source shows this control, but its post-click timer/session behavior is not established.">Take a Break</button>
-          <button type="button" data-focus-success-action="close" disabled={pending} onClick={onClose}>Close</button>
+          <button type="button" data-focus-success-action="close" disabled={pending} onClick={onClose} autoFocus={!state.nextTask}>Close</button>
         </div>
         <p className="focus-completion-success__unavailable type-metadata">Take a Break is unavailable until its timer/session transition is established.</p>
         {error ? <p className="focus-completion-success__error type-metadata" role="alert">{error}</p> : null}

@@ -4,16 +4,19 @@ use super::{
 use crate::timer_service::TimerService;
 use std::ffi::c_void;
 use std::io;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU32, AtomicUsize, Ordering};
 use std::sync::OnceLock;
 use tauri::Manager;
 
 const FOCUS_SURFACE_LABEL: &str = "focusSurface";
-const RECOVERABLE_WINDOW_LABELS: [&str; 2] = ["main", FOCUS_SURFACE_LABEL];
+const OBSERVED_WINDOW_LABELS: [&str; 1] = [FOCUS_SURFACE_LABEL];
+const RECOVERABLE_WINDOW_LABELS: [&str; 1] = ["main"];
 const DISPLAY_CHANGE_SUBCLASS_ID: usize = 0x4e_41_52_52_4f;
 const WM_SETTING_CHANGE: u32 = 0x001a;
 const WM_DISPLAY_CHANGE: u32 = 0x007e;
 const WM_POWER_BROADCAST: u32 = 0x0218;
+const WM_ENTERSIZEMOVE: u32 = 0x0231;
+const WM_EXITSIZEMOVE: u32 = 0x0232;
 const WM_DPICHANGED: u32 = 0x02e0;
 const WM_NC_DESTROY: u32 = 0x0082;
 const SPI_SETWORKAREA: usize = 0x002f;
@@ -21,6 +24,7 @@ const PBT_APM_SUSPEND: usize = 0x0004;
 const PBT_APM_RESUME_CRITICAL: usize = 0x0006;
 const PBT_APM_RESUME_SUSPEND: usize = 0x0007;
 const PBT_APM_RESUME_AUTOMATIC: usize = 0x0012;
+const USER_DEFAULT_SCREEN_DPI: u32 = 96;
 
 type RawHwnd = *mut c_void;
 type SubclassProc =
@@ -56,32 +60,88 @@ unsafe extern "system" {
 static DISPLAY_APP_HANDLE: OnceLock<tauri::AppHandle> = OnceLock::new();
 static RECOVERY_PENDING: AtomicBool = AtomicBool::new(false);
 static RECOVERY_DIRTY: AtomicBool = AtomicBool::new(false);
+static INTERACTIVE_MOVE_ACTIVE: AtomicBool = AtomicBool::new(false);
+static RECOVERY_SUSPENSIONS: AtomicUsize = AtomicUsize::new(0);
+static DPI_REGION_REFRESH_PENDING: AtomicBool = AtomicBool::new(false);
+static DPI_REGION_REFRESH_DIRTY: AtomicBool = AtomicBool::new(false);
+static PENDING_DPI_X: AtomicU32 = AtomicU32::new(USER_DEFAULT_SCREEN_DPI);
+
+pub(crate) struct DisplayRecoveryGuard;
+
+pub(crate) fn suspend_focus_display_recovery() -> DisplayRecoveryGuard {
+    RECOVERY_SUSPENSIONS.fetch_add(1, Ordering::AcqRel);
+    DisplayRecoveryGuard
+}
+
+impl Drop for DisplayRecoveryGuard {
+    fn drop(&mut self) {
+        if RECOVERY_SUSPENSIONS.fetch_sub(1, Ordering::AcqRel) == 1
+            && RECOVERY_DIRTY.load(Ordering::Acquire)
+            && !INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire)
+        {
+            schedule_display_recovery();
+        }
+    }
+}
+
+fn recovery_suspended(interactive_move: bool, explicit_suspensions: usize) -> bool {
+    interactive_move || explicit_suspensions != 0
+}
+
+fn display_recovery_suspended() -> bool {
+    recovery_suspended(
+        INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire),
+        RECOVERY_SUSPENSIONS.load(Ordering::Acquire),
+    )
+}
 
 pub fn install_display_change_observer(app: &tauri::App) -> Result<(), io::Error> {
-    let focus_surface = app.get_webview_window(FOCUS_SURFACE_LABEL).ok_or_else(|| {
-        io::Error::other("focusSurface does not exist during display/power observer setup")
-    })?;
-    let hwnd = focus_surface
-        .hwnd()
-        .map_err(|error| io::Error::other(format!("resolve focusSurface HWND: {error}")))?;
-
     DISPLAY_APP_HANDLE.set(app.handle().clone()).map_err(|_| {
         io::Error::other("display/power observer app handle was already initialized")
     })?;
 
-    let raw_hwnd = hwnd.0 as RawHwnd;
-    let installed = unsafe {
-        set_window_subclass(
-            raw_hwnd,
-            Some(display_change_subclass_proc),
-            DISPLAY_CHANGE_SUBCLASS_ID,
-            0,
-        )
-    };
-    if installed == 0 {
-        return Err(io::Error::other(
-            "SetWindowSubclass returned false while installing display/power observer",
-        ));
+    let mut installed_hwnds = Vec::new();
+    for label in OBSERVED_WINDOW_LABELS {
+        let result = (|| -> Result<RawHwnd, io::Error> {
+            let window = app.get_webview_window(label).ok_or_else(|| {
+                io::Error::other(format!(
+                    "{label} missing during display/power observer setup"
+                ))
+            })?;
+            let hwnd = window
+                .hwnd()
+                .map_err(|error| io::Error::other(format!("resolve {label} HWND: {error}")))?;
+            let raw_hwnd = hwnd.0 as isize as RawHwnd;
+            if unsafe {
+                set_window_subclass(
+                    raw_hwnd,
+                    Some(display_change_subclass_proc),
+                    DISPLAY_CHANGE_SUBCLASS_ID,
+                    0,
+                )
+            } == 0
+            {
+                return Err(io::Error::other(format!(
+                    "SetWindowSubclass failed for {label} display/power observer"
+                )));
+            }
+            Ok(raw_hwnd)
+        })();
+        match result {
+            Ok(hwnd) => installed_hwnds.push(hwnd),
+            Err(error) => {
+                for hwnd in installed_hwnds {
+                    unsafe {
+                        remove_window_subclass(
+                            hwnd,
+                            Some(display_change_subclass_proc),
+                            DISPLAY_CHANGE_SUBCLASS_ID,
+                        );
+                    }
+                }
+                return Err(error);
+            }
+        }
     }
 
     Ok(())
@@ -91,6 +151,22 @@ fn is_display_geometry_change(message: u32, wparam: usize) -> bool {
     message == WM_DISPLAY_CHANGE
         || message == WM_DPICHANGED
         || (message == WM_SETTING_CHANGE && wparam == SPI_SETWORKAREA)
+}
+
+fn dpi_x_from_wparam(wparam: usize) -> u32 {
+    (wparam & 0xffff) as u32
+}
+
+fn dpi_scale(dpi: u32) -> Option<f64> {
+    (dpi != 0).then_some(f64::from(dpi) / f64::from(USER_DEFAULT_SCREEN_DPI))
+}
+
+fn should_refresh_timer_region_for_interactive_dpi(
+    message: u32,
+    interactive_move: bool,
+    explicit_suspensions: usize,
+) -> bool {
+    message == WM_DPICHANGED && interactive_move && explicit_suspensions == 0
 }
 
 fn is_power_resume_event(event: usize) -> bool {
@@ -108,7 +184,26 @@ unsafe extern "system" fn display_change_subclass_proc(
     subclass_id: usize,
     _reference_data: usize,
 ) -> isize {
-    if is_display_geometry_change(message, wparam) {
+    if message == WM_ENTERSIZEMOVE {
+        INTERACTIVE_MOVE_ACTIVE.store(true, Ordering::Release);
+    } else if message == WM_EXITSIZEMOVE {
+        INTERACTIVE_MOVE_ACTIVE.store(false, Ordering::Release);
+        if RECOVERY_DIRTY.load(Ordering::Acquire) {
+            schedule_display_recovery();
+        }
+    } else if message == WM_DPICHANGED {
+        if should_refresh_timer_region_for_interactive_dpi(
+            message,
+            INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire),
+            RECOVERY_SUSPENSIONS.load(Ordering::Acquire),
+        ) {
+            schedule_focus_region_refresh_for_dpi(dpi_x_from_wparam(wparam));
+        }
+        // Keep the existing full recovery dirty while an interactive move is
+        // active. It will resize/reposition the fixed host only after
+        // WM_EXITSIZEMOVE, so recovery cannot fight the user's drag.
+        schedule_display_recovery();
+    } else if is_display_geometry_change(message, wparam) {
         schedule_display_recovery();
     } else if message == WM_POWER_BROADCAST {
         handle_power_broadcast(wparam);
@@ -116,6 +211,7 @@ unsafe extern "system" fn display_change_subclass_proc(
             schedule_display_recovery();
         }
     } else if message == WM_NC_DESTROY {
+        INTERACTIVE_MOVE_ACTIVE.store(false, Ordering::Release);
         let _ = unsafe {
             remove_window_subclass(hwnd, Some(display_change_subclass_proc), subclass_id)
         };
@@ -151,8 +247,53 @@ fn handle_power_broadcast(event: usize) {
     }
 }
 
+fn schedule_focus_region_refresh_for_dpi(dpi_x: u32) {
+    let Some(scale_factor) = dpi_scale(dpi_x) else {
+        return;
+    };
+
+    PENDING_DPI_X.store(dpi_x, Ordering::Release);
+    DPI_REGION_REFRESH_DIRTY.store(true, Ordering::Release);
+    if DPI_REGION_REFRESH_PENDING.swap(true, Ordering::AcqRel) {
+        return;
+    }
+
+    let Some(app_handle) = DISPLAY_APP_HANDLE.get().cloned() else {
+        DPI_REGION_REFRESH_DIRTY.store(false, Ordering::Release);
+        DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
+        eprintln!("Focus DPI region refresh arrived before the Narro app handle was available");
+        return;
+    };
+
+    tauri::async_runtime::spawn(async move {
+        let refresh_handle = app_handle.clone();
+        if let Err(error) = app_handle.run_on_main_thread(move || {
+            DPI_REGION_REFRESH_DIRTY.store(false, Ordering::Release);
+            let latest_dpi = PENDING_DPI_X.load(Ordering::Acquire);
+            let latest_scale = dpi_scale(latest_dpi).unwrap_or(scale_factor);
+
+            if let Err(error) =
+                crate::refresh_open_timer_region_for_dpi_change(&refresh_handle, latest_scale)
+            {
+                eprintln!("Floating Timer DPI-region refresh failed: {error}");
+            }
+
+            DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
+            if DPI_REGION_REFRESH_DIRTY.load(Ordering::Acquire) {
+                schedule_focus_region_refresh_for_dpi(PENDING_DPI_X.load(Ordering::Acquire));
+            }
+        }) {
+            DPI_REGION_REFRESH_PENDING.store(false, Ordering::Release);
+            eprintln!("Failed to schedule Focus DPI-region refresh on the main thread: {error}");
+        }
+    });
+}
+
 fn schedule_display_recovery() {
     RECOVERY_DIRTY.store(true, Ordering::Release);
+    if display_recovery_suspended() {
+        return;
+    }
     if RECOVERY_PENDING.swap(true, Ordering::AcqRel) {
         return;
     }
@@ -192,7 +333,7 @@ fn schedule_display_recovery() {
                 ),
             }
 
-            let timer_recovery_ok = match crate::floating_placement::revalidate_visible_timer_after_display_change(
+            let timer_recovery_ok = match crate::revalidate_open_timer_after_display_change(
                 &recovery_handle,
             ) {
                 Ok(true) => {
@@ -262,13 +403,8 @@ fn recover_visible_windows(app_handle: &tauri::AppHandle) -> Result<Vec<&'static
     let mut failures = Vec::new();
 
     for label in RECOVERABLE_WINDOW_LABELS {
-        // The Timer has a separate recovery path that can also shrink its outer size. Moving it
-        // here first would discard the pre-change monitor overlap used to choose that work area.
-        if label == FOCUS_SURFACE_LABEL
-            && crate::current_focus_surface_mode() == Some(crate::FocusSurfaceMode::Timer)
-        {
-            continue;
-        }
+        // focusSurface uses presentation-aware visible-region recovery below;
+        // this generic pass is intentionally limited to ordinary windows.
         let Some(window) = app_handle.get_webview_window(label) else {
             continue;
         };
@@ -353,10 +489,61 @@ mod tests {
     }
 
     #[test]
+    fn dpi_message_extracts_monitor_scale() {
+        let packed = usize::from(120_u16) | (usize::from(120_u16) << 16);
+        assert_eq!(dpi_x_from_wparam(packed), 120);
+        assert_eq!(dpi_scale(120), Some(1.25));
+        assert_eq!(dpi_scale(96), Some(1.0));
+        assert_eq!(dpi_scale(0), None);
+    }
+
+    #[test]
+    fn interactive_dpi_refresh_skips_programmatic_moves() {
+        assert!(should_refresh_timer_region_for_interactive_dpi(
+            WM_DPICHANGED,
+            true,
+            0
+        ));
+        assert!(!should_refresh_timer_region_for_interactive_dpi(
+            WM_DPICHANGED,
+            false,
+            0
+        ));
+        assert!(!should_refresh_timer_region_for_interactive_dpi(
+            WM_DPICHANGED,
+            true,
+            1
+        ));
+        assert!(!should_refresh_timer_region_for_interactive_dpi(
+            WM_DISPLAY_CHANGE,
+            true,
+            0
+        ));
+    }
+
+    #[test]
     fn unrelated_window_messages_do_not_schedule_display_recovery() {
         assert!(!is_display_geometry_change(WM_SETTING_CHANGE, 0));
         assert!(!is_display_geometry_change(WM_POWER_BROADCAST, 0));
+        assert!(!is_display_geometry_change(WM_ENTERSIZEMOVE, 0));
+        assert!(!is_display_geometry_change(WM_EXITSIZEMOVE, 0));
         assert!(!is_display_geometry_change(WM_NC_DESTROY, 0));
+    }
+
+    #[test]
+    fn interactive_or_programmatic_moves_defer_display_recovery() {
+        assert!(recovery_suspended(true, 0));
+        assert!(recovery_suspended(false, 1));
+        assert!(recovery_suspended(true, 1));
+        assert!(!recovery_suspended(false, 0));
+    }
+
+    #[test]
+    fn native_move_loop_messages_are_distinct_from_geometry_notifications() {
+        assert_eq!(WM_ENTERSIZEMOVE, 0x0231);
+        assert_eq!(WM_EXITSIZEMOVE, 0x0232);
+        assert_ne!(WM_ENTERSIZEMOVE, WM_DPICHANGED);
+        assert_ne!(WM_EXITSIZEMOVE, WM_DPICHANGED);
     }
 
     #[test]

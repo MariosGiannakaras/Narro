@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { getArchiveSnapshot } from "./listSettingsApi";
+import { emitBoardInvalidated } from "./boardInvalidation";
 
 export type ListBoardTargetKind = "list" | "all_lists";
 
@@ -32,6 +33,7 @@ export type ListBoardLane = {
   tasks: ListBoardTask[];
   count: number;
   aggregateEstSeconds: number;
+  aggregateRemainingEstSeconds?: number;
 };
 
 export type ListBoardSnapshot = {
@@ -142,6 +144,7 @@ export type MoveListBoardTaskRequest = {
   listId: string;
   sourceLane: PlanningLaneToken;
   targetLane: PlanningLaneToken;
+  beforeTaskId: string | null;
 };
 
 export type ChangeListBoardTaskRequest = {
@@ -233,50 +236,60 @@ export async function getListBoardSnapshot(
   });
 }
 
+
+async function committedBoardMutation<T>(
+  command: string,
+  args: Record<string, unknown>,
+): Promise<T> {
+  const result = await invoke<T>(command, args);
+  await emitBoardInvalidated();
+  return result;
+}
+
 export function createListBoardTask(request: CreateListBoardTaskRequest): Promise<string> {
-  return invoke<string>("create_list_board_task", request);
+  return committedBoardMutation<string>("create_list_board_task", request);
 }
 
 export function updateListBoardTaskTitle(request: UpdateListBoardTaskTitleRequest): Promise<void> {
-  return invoke<void>("update_list_board_task_title", request);
+  return committedBoardMutation<void>("update_list_board_task_title", request);
 }
 
 export function updateListBoardTaskEstimate(
   request: UpdateListBoardTaskEstimateRequest,
 ): Promise<void> {
-  return invoke<void>("update_list_board_task_estimate", request);
+  return committedBoardMutation<void>("update_list_board_task_estimate", request);
 }
 
 export function updateListBoardTaskTimeTaken(
   request: UpdateListBoardTaskTimeTakenRequest,
 ): Promise<void> {
-  return invoke<void>("update_list_board_task_time_taken", request);
+  return committedBoardMutation<void>("update_list_board_task_time_taken", request);
 }
 
 export function reorderListBoardTask(request: ReorderListBoardTaskRequest): Promise<void> {
-  return invoke<void>("reorder_list_board_task", request);
+  return committedBoardMutation<void>("reorder_list_board_task", request);
 }
 
 export function moveListBoardTask(request: MoveListBoardTaskRequest): Promise<void> {
-  return invoke<void>("move_list_board_task", request);
+  return committedBoardMutation<void>("move_list_board_task", request);
 }
 
 export function changeListBoardTask(request: ChangeListBoardTaskRequest): Promise<void> {
-  return invoke<void>("change_list_board_task", request);
+  return committedBoardMutation<void>("change_list_board_task", request);
 }
 
 export function duplicateListBoardTask(request: DuplicateListBoardTaskRequest): Promise<string> {
-  return invoke<string>("duplicate_list_board_task", request);
+  return committedBoardMutation<string>("duplicate_list_board_task", request);
 }
 
 export function completeListBoardTask(request: CompleteListBoardTaskRequest): Promise<void> {
-  return invoke<void>("complete_list_board_task", request);
+  return committedBoardMutation<void>("complete_list_board_task", request);
 }
 
 export function permanentlyDeleteListBoardTask(
   request: PermanentlyDeleteListBoardTaskRequest,
 ): Promise<void> {
-  return invoke<void>("permanently_delete_list_board_task", request);
+  return committedBoardMutation<void>("permanently_delete_list_board_task", request);
 }
 
 export function getListBoardTaskNote(
@@ -308,29 +321,29 @@ export function getListBoardTaskSubtasks(
 export function createListBoardSubtask(
   request: CreateListBoardSubtaskRequest,
 ): Promise<BoardSubtask> {
-  return invoke<BoardSubtask>("create_list_board_subtask", request);
+  return committedBoardMutation<BoardSubtask>("create_list_board_subtask", request);
 }
 
 export function updateListBoardSubtaskTitle(
   request: UpdateListBoardSubtaskTitleRequest,
 ): Promise<BoardSubtask> {
-  return invoke<BoardSubtask>("update_list_board_subtask_title", request);
+  return committedBoardMutation<BoardSubtask>("update_list_board_subtask_title", request);
 }
 
 export function setListBoardSubtaskCompletion(
   request: SetListBoardSubtaskCompletionRequest,
 ): Promise<BoardSubtask> {
-  return invoke<BoardSubtask>("set_list_board_subtask_completion", request);
+  return committedBoardMutation<BoardSubtask>("set_list_board_subtask_completion", request);
 }
 
 export function reorderListBoardSubtasks(
   request: ReorderListBoardSubtasksRequest,
 ): Promise<BoardSubtask[]> {
-  return invoke<BoardSubtask[]>("reorder_list_board_subtasks", request);
+  return committedBoardMutation<BoardSubtask[]>("reorder_list_board_subtasks", request);
 }
 
 export function deleteListBoardSubtask(
   request: DeleteListBoardSubtaskRequest,
 ): Promise<void> {
-  return invoke<void>("delete_list_board_subtask", request);
+  return committedBoardMutation<void>("delete_list_board_subtask", request);
 }

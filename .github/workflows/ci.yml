@@ -129,11 +129,50 @@ jobs:
             return "false";
           }
 
-  build-and-test:
+  fast-gate:
     needs: validation-gate
     if: needs.validation-gate.outputs.skip-full-ci != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+        cache: 'npm'
+
+    - name: Setup Rustfmt
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: rustfmt
+
+    - name: Install Frontend Dependencies
+      run: npm ci
+
+    - name: Run Fast Frontend and Contract Gate
+      run: npm run preflight:frontend
+
+    - name: Check Rust Formatting
+      run: npm run check:rust:fmt
+
+    - name: Upload Fast Gate Frontend Dist
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-fast-frontend-dist
+        path: dist/**
+        if-no-files-found: error
+        retention-days: 1
+
+  windows-candidate:
+    needs: [validation-gate, fast-gate]
+    if: needs.validation-gate.outputs.skip-full-ci != 'true' && needs.fast-gate.result == 'success'
     runs-on: windows-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
 
     steps:
     - uses: actions/checkout@v4
@@ -161,6 +200,21 @@ jobs:
     - name: Install Frontend Dependencies
       run: npm ci
 
+    - name: Download Fast Gate Frontend Dist
+      uses: actions/download-artifact@v4
+      with:
+        name: narro-fast-frontend-dist
+        path: dist
+
+    - name: Verify Fast Gate Frontend Dist
+      shell: pwsh
+      run: |
+        foreach ($required in @("dist/index.html", "dist/focus.html")) {
+          if (-not (Test-Path $required -PathType Leaf)) {
+            throw "Fast-gate frontend output is missing: $required"
+          }
+        }
+
     - name: Print Versions
       run: |
         node -v
@@ -170,8 +224,20 @@ jobs:
         rustfmt -V
         cargo clippy -V
 
-    - name: Run Repository Preflight
-      run: npm run preflight
+    - name: Prepare Packaging Icons
+      run: npm run prepare:icons
+
+    - name: Check Rust
+      run: npm run check:rust
+
+    - name: Run Clippy
+      run: npm run check:rust:clippy
+
+    - name: Run Rust Tests
+      run: npm run test:rust
+
+    - name: Validate Performance Harness
+      run: npm run test:performance-harness
 
     - name: Capture Visual Regression Fixtures
       run: npm run test:visual-regression:windows
@@ -183,24 +249,82 @@ jobs:
         path: artifacts/visual-regression/*
         if-no-files-found: error
 
-    - name: Verify Reused Frontend Dist
-      shell: pwsh
-      run: |
-        foreach ($required in @("dist/index.html", "dist/focus.html")) {
-          if (-not (Test-Path $required -PathType Leaf)) {
-            throw "Preflight frontend build output is missing: $required"
-          }
-        }
-
     - name: Build Tauri Release
       run: npm run tauri:ci
 
-    - name: Upload Diagnostic Harness Artifact
+    - name: Capture Packaged Focus Runtime
+      run: npm run test:focus-runtime-visual:windows
+
+    - name: Upload Packaged Focus Runtime Visual Artifact
+      if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: narro-m1-runtime-harness-windows-x64
+        name: narro-m7-focus-runtime-visual
+        path: artifacts/focus-runtime-visual/**
+        if-no-files-found: error
+
+    - name: Build Physical Validation Release
+      shell: pwsh
+      run: |
+        $env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"
+        $env:NARRO_VALIDATION_SOURCE_SHA = "${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
+        npm run tauri:physical-ci
+
+    - name: Verify Physical Validation Build
+      shell: pwsh
+      run: |
+        powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-physical-validation-build.ps1 -Executable src-tauri/target-physical/release/narro.exe
+
+    - name: Prepare M7 Automatic Validation Executable
+      shell: pwsh
+      run: |
+        $output = Join-Path $PWD "artifacts/m7-validation"
+        New-Item -ItemType Directory -Force -Path $output | Out-Null
+        Copy-Item -LiteralPath "src-tauri/target-physical/release/narro.exe" -Destination (Join-Path $output "narro-m7-validation.exe") -Force
+        Copy-Item -LiteralPath "docs/M7_AUTOMATIC_VALIDATION_LOGGING.md" -Destination (Join-Path $output "README-M7-VALIDATION.md") -Force
+
+    - name: Verify M7 Automatic Validation Logging
+      shell: pwsh
+      run: |
+        powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-m7-validation-logging.ps1 -Executable artifacts/m7-validation/narro-m7-validation.exe
+
+    - name: Upload Physical Validation Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m7-physical-windows-x64
+        path: |
+          src-tauri/target-physical/release/narro.exe
+          src-tauri/target-physical/release/bundle/nsis/*.exe
+          src-tauri/target-physical/release/bundle/msi/*.msi
+        if-no-files-found: error
+
+    - name: Upload M7 Automatic Validation Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m7-validation-windows-x64
+        path: |
+          artifacts/m7-validation/narro-m7-validation.exe
+          artifacts/m7-validation/README-M7-VALIDATION.md
+        if-no-files-found: error
+
+    - name: Build M1 Diagnostic Validation Release
+      run: npm run tauri:diagnostic-ci
+
+    - name: Verify M1 Diagnostic Storage Isolation
+      shell: pwsh
+      run: |
+        powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/verify-m1-diagnostic-storage-isolation.ps1 -Executable src-tauri/target/release/narro.exe -ResetDiagnosticData
+
+    - name: Upload M1 Diagnostic Validation Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-m1-diagnostic-windows-x64
         path: |
           src-tauri/target/release/narro.exe
-          src-tauri/target/release/bundle/nsis/*.exe
-          src-tauri/target/release/bundle/msi/*.msi
+          scripts/measure-floating.ps1
+          scripts/run-m1-floating-performance-batch.ps1
+          scripts/verify-m1-floating-performance-scenario.ps1
+          docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md
+          docs/M1_WINDOWS_RUNTIME_VALIDATION.md
+          docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md
         if-no-files-found: error

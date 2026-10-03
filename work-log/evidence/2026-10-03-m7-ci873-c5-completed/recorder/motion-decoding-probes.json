@@ -1,0 +1,50 @@
+[
+  {
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "duration": "2.500000",
+          "nb_read_frames": "150"
+        }
+      ]
+    },
+    "file": "compact-expanded.mp4"
+  },
+  {
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "duration": "2.500000",
+          "nb_read_frames": "150"
+        }
+      ]
+    },
+    "file": "expanded-panel.mp4"
+  },
+  {
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "duration": "2.500000",
+          "nb_read_frames": "150"
+        }
+      ]
+    },
+    "file": "panel-compact.mp4"
+  }
+]

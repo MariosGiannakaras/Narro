@@ -142,6 +142,33 @@ mod tests {
     }
 
     #[test]
+    fn placement_survives_database_close_and_reopen() {
+        let directory =
+            std::env::temp_dir().join(format!("narro-floating-placement-{}", uuid::Uuid::new_v4()));
+        std::fs::create_dir_all(&directory).expect("create placement test directory");
+        let database_path = directory.join("narro.db");
+        let expected = fixture();
+
+        {
+            let mut connection = Connection::open(&database_path).expect("open first database");
+            run_migrations(&mut connection).expect("migrate first database");
+            save(&connection, &expected, "2026-09-24T00:00:00Z")
+                .expect("save placement before close");
+        }
+
+        {
+            let mut reopened = Connection::open(&database_path).expect("reopen database");
+            run_migrations(&mut reopened).expect("migrate reopened database");
+            assert_eq!(
+                load(&reopened).expect("load placement after reopen"),
+                Some(expected)
+            );
+        }
+
+        std::fs::remove_dir_all(&directory).expect("remove placement test directory");
+    }
+
+    #[test]
     fn invalid_saved_placement_is_rejected() {
         let mut connection = Connection::open_in_memory().expect("open database");
         run_migrations(&mut connection).expect("migrate");

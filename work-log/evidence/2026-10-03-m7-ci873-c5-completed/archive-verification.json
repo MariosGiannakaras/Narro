@@ -1,0 +1,10 @@
+{
+  "archiveBytes": 672391,
+  "archiveFiles": 41,
+  "result": "PASS",
+  "archiveIncludesBaseDirectory": "Narro-M7-Logs",
+  "archiveSha256": "4dd273cfd94df00d0315b92b449d455444d772dca86015358c3a22466cc4d3ca",
+  "verifiedUtc": "2026-10-03T11:36:21.1158648Z",
+  "snapshotHashComparison": "all copied files match original logger folder byte-for-byte",
+  "snapshotSourceFiles": 41
+}

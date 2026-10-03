@@ -1,6 +1,6 @@
 # Blitzit video UI/UX forensic analysis
 
-Status: **SECOND-PASS UI/UX FORENSIC REVIEW COMPLETE — 19/19 pairs deep-reviewed for interface and interaction evidence**
+Status: **SECOND PASS COMPLETE — 19/19 pairs covered; THIRD-PASS INTERACTION/STATE RE-AUDIT REQUIRED by `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`**
 
 Date started: 2026-09-27
 
@@ -368,14 +368,28 @@ Exact reveal/collapse easing is **CUT/UNMEASURABLE** from the edited tutorial se
 
 ### VE-018 — Planning workflow
 
-Deep-pass status: **COMPLETE; no unique UI family beyond the detailed tutorials**.
+Deep-pass status: **REOPENED / DENSE RE-AUDIT COMPLETE for the supplied 9.34 s planning clip; prior second-pass disposition was too coarse**.
 
-**UI-DIRECT**
-- the workflow reinforces direct drag reorder inside a planning lane and top-to-bottom priority semantics;
-- during drag/reorder the board remains in place; the operation does not switch into a dedicated reorder mode;
-- the same task-card, EST, Today, Blitz and Focus visual grammar already documented in VE-003/005 is reused.
+**UI-DIRECT / MOTION-DIRECT**
+- Today is not merely another neutral lane: it carries a persistent cyan→green accent outline and an anchored gradient `Blitz now` CTA.
+- Four demonstrated This Week→Today drags preserve a floating task card while the source lane visibly reflows and the destination accepts **positional insertion**, not append-only movement.
+- The moved cards retain their visible ordinals during the sequence. The final Today order visible in the clip is `1 Marketing brief`, `3 Call mum`, `4 Fire Jeffry`, `2 Insta post`; this is direct evidence that the ordinal is not simply repainted as the destination row index during the interaction.
+- The board updates remaining-work arithmetic on every transfer. This Week changes `6h35 → 5h05 → 3h05 → 2h35 → 2h30`; Today changes `No Tasks → 1h30 → 3h30 → 4h → 4h05`.
+- Today completion progress changes `0/0 → 0/1 → 0/2 → 0/3 → 0/4 Done` as tasks are planned into Today.
+- Hover keeps card geometry stable while replacing the resting left ordinal with the completion affordance and exposing compact Notes/document, lane-left, lane-right and final overflow controls at the right.
+- Activating `Blitz now` animates the gradient CTA and then fades the board over roughly **250 ms** before Focus presentation; the pointer itself remains an OS-level visual and is not part of the fade.
+- The canonical screenshot `help-v2x-today-column-task-progress-dark.png` independently corroborates the Today accent outline, `4/5 Done` progress, left task ordinal, EST at lower left and Time Taken at lower right.
 
-Dense sampling did not establish a trustworthy unique drag-lift/drop-settle duration. Those exact timings remain Narro calibration choices.
+**NARRO RECONCILIATION — 2026-10-02**
+- current cross-lane pointer drag collapses to append-only because cross-lane hover forces `beforeTaskId: null`: **IMPLEMENTATION_GAP**;
+- current lane header uses full initial EST rather than visible remaining work (`EST - Time Taken`, floor at zero): **IMPLEMENTATION_GAP**;
+- current Today header renders a generic task count and lacks source progress treatment: **IMPLEMENTATION_GAP**;
+- current global `Blitz now` control is outside the Today lane and lacks the source lane/CTA composition: **IMPLEMENTATION_GAP**;
+- current task card shows the completion circle at rest and uses up/down/overflow hover controls rather than the observed ordinal-at-rest + contextual hover grammar: **IMPLEMENTATION_GAP**;
+- current reorder UI has a placeholder and finite settle effect, but it does not fully reproduce the observed source-lane collapse/reflow character: **IMPLEMENTATION_GAP / VISUAL PARITY**;
+- exact drag-lift/drop-settle duration remains unmeasured; do not invent a source timing constant.
+
+These findings supersede the earlier claim that VE-018 had no unique UI detail. They are routed through `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and the exhaustive Pass-3 plan.
 
 ### VE-019 — historical light-theme / Floating-subtask update
 
@@ -424,9 +438,9 @@ The second pass closes at **19/19** with these source-level conclusions:
 
 ## Pass-2 tracker status
 
-Deep UI/UX forensic review: **19/19 COMPLETE**.
+Second-pass UI/UX forensic review: **19/19 COMPLETE as prior coverage**. A third-pass exhaustive interaction/state re-audit is now required; see `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`.
 
-All supplied video/transcript pairs have now been reviewed specifically for interface anatomy, text/copy, inputs, interaction states and material motion/micro-motion. The initial functional 19/19 pass remains separately complete.
+All supplied video/transcript pairs were covered by the second pass for interface anatomy, text/copy, inputs, interaction states and material motion/micro-motion. The 2026-10-02 VE-018 re-audit demonstrated that coverage did not guarantee sufficient interaction-state granularity, so final parity now requires the Pass-3 per-sequence arithmetic/order/transient-state method in `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`.
 
 ## Important correction to prior documentation
 

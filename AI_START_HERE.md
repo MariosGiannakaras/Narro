@@ -133,6 +133,14 @@ Distinguish these clearly:
 
 Never promote one level to another without evidence. `TODO.md` parent items remain open when required validation is still pending.
 
+### Integration is not milestone completion
+
+An exact-head automated-green implementation slice may be expected-head guarded-merged to `main` while a purely observational physical Windows gate remains OPEN. The merge integrates validated source; it does not convert manual evidence to PASS.
+
+Do not keep automated-green implementation PRs open solely to wait for physical observation. If the later physical run fails, record the exact failure and correct it through a narrow follow-up PR from current `main`, then repeat only the affected manual gate unless evidence requires more.
+
+Use `docs/CI_VALIDATION_STRATEGY.md` for the authoritative branch/CI/manual-gate policy.
+
 ## End-of-session contract
 
 Before stopping, every agent must leave a complete repository handoff:

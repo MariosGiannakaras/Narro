@@ -54,15 +54,18 @@ fn saved_preferences_survive_database_reopen_with_typed_values() {
     expected.focus.scrolling_title = true;
     expected.alerts.timed_alerts_enabled = true;
     expected.alerts.task_alert_interval_seconds = 15 * 60;
-    expected.alerts.task_alert_sound = Some("melodic-1".into());
+    expected.alerts.task_alert_sound = Some("melodic-bell".into());
+    expected.alerts.task_alert_volume_percent = 65;
     expected.alerts.animated_timer_flash = true;
     expected.alerts.notification_alerts_enabled = true;
-    expected.alerts.notification_sound = Some("futuristic-1".into());
+    expected.alerts.notification_sound = Some("futuristic-ding".into());
+    expected.alerts.notification_volume_percent = 55;
     expected.alerts.schedule_reminders_enabled = true;
     expected.alerts.reminder_lead_seconds = 20 * 60;
     expected.celebration.show_success_screen = true;
     expected.celebration.fun_gif = true;
-    expected.celebration.success_sound = Some("victory-1".into());
+    expected.celebration.success_sound = Some("victory-bell".into());
+    expected.celebration.success_sound_volume_percent = 80;
 
     {
         let mut conn = Connection::open(&path).expect("open temporary database");
@@ -85,6 +88,42 @@ fn saved_preferences_survive_database_reopen_with_typed_values() {
     }
 
     fs::remove_file(path).expect("remove temporary database");
+}
+
+#[test]
+fn legacy_v3_sound_payload_defaults_new_volume_fields_without_data_loss() {
+    let mut conn = Connection::open_in_memory().expect("open in-memory database");
+    run_migrations(&mut conn).expect("migrate database");
+
+    let mut payload = serde_json::to_value(PreferencesPayload::default())
+        .expect("serialize current preference payload");
+    payload["alerts"]
+        .as_object_mut()
+        .expect("alerts object")
+        .remove("task_alert_volume_percent");
+    payload["alerts"]
+        .as_object_mut()
+        .expect("alerts object")
+        .remove("notification_volume_percent");
+    payload["celebration"]
+        .as_object_mut()
+        .expect("celebration object")
+        .remove("success_sound_volume_percent");
+
+    conn.execute(
+        "INSERT INTO preferences (id, schema_version, payload_json, updated_at)
+         VALUES (1, 3, ?1, ?2)",
+        params![payload.to_string(), T1],
+    )
+    .expect("insert v3 preference fixture");
+
+    let loaded = get_preferences(&conn)
+        .expect("load v3 preferences")
+        .expect("v3 preferences exist");
+    assert_eq!(loaded.schema_version, 3);
+    assert_eq!(loaded.payload.alerts.task_alert_volume_percent, 100);
+    assert_eq!(loaded.payload.alerts.notification_volume_percent, 100);
+    assert_eq!(loaded.payload.celebration.success_sound_volume_percent, 100);
 }
 
 #[test]
