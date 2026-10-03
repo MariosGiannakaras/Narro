@@ -24,9 +24,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **14/19**
+- Full MP4s completed at Pass-3 depth: **15/19**
 - Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **5**
+- Full MP4s still open: **4**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -124,7 +124,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 12 | VE-012 | Improved Sessions and Stats | 06:56.357 / 30 | **SOURCE_COMPLETE** | daily graph, metrics, session-derived calculations, Done timing analysis, navigation/filter states |
 | 13 | VE-006 | Delete & Archive | 01:23.963 / 60 | **SOURCE_COMPLETE** | task delete, archive list, Archived tabs, Unarchive/Delete Forever, archived Done actions |
 | 14 | VE-008 | Recurring Tasks | 02:46.905 / 60 | **SOURCE_COMPLETE** | parent setup, generated child states, grouping, update/remove, detach/coexistence evidence |
-| 15 | VE-002 | EST in task name | 01:21.633 / 30 | OPEN | keystroke→parsed EST feedback, title normalization, create/commit timing |
+| 15 | VE-002 | EST in task name | 01:21.633 / 30 | **SOURCE_COMPLETE** | keystroke→parsed EST feedback, title normalization, create/commit timing |
 | 16 | VE-001 | Product explainer | 02:19.088 / 30 | OPEN | montage state catalog; explicitly classify cuts as timing-invalid |
 | 17 | VE-004 | Getting Started | 04:09.870 / 60 | OPEN | Home→list→board→Focus sequence; isolate unique UI from duplicated tutorials |
 | 18 | VE-018 | Daniel planning workflow | 03:33.090 / 60 | **PARTIAL** | 9.344 s planning excerpt deep-reviewed; full MP4 still required, including prioritization and Focus/break remainder |
@@ -147,6 +147,6 @@ This is **partial evidence for VE-018**, not full-source completion.
 
 ## Exact next action
 
-Continue with **VE-002 — `Blitzit Tutorial Add Estimated Time Directly in Task Name.mp4`**.
+Continue with **VE-001 — `Blitzit Explained Simplify Your Tasks and Stay in Flow.mp4`**.
 
 VE-003, VE-005, VE-013, VE-014, VE-016 and VE-017 are SOURCE_COMPLETE from their actual full MP4s.
