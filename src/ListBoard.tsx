@@ -1089,14 +1089,10 @@ export function ListBoard({
     return null;
   };
   const scheduleEditorTask = scheduleEditorTaskId ? findTask(scheduleEditorTaskId) : null;
-  const currentMonthDone = Math.max(0, snapshot.doneMonthCompletionCount);
-  const activePendingCount = Math.max(
-    0,
-    snapshot.backlog.count + snapshot.thisWeek.count + snapshot.today.count,
-  );
+  const todayDone = Math.max(0, snapshot.todayCompletionCount);
   const todayProgress = {
-    done: currentMonthDone,
-    total: currentMonthDone + activePendingCount,
+    done: todayDone,
+    total: todayDone + Math.max(0, snapshot.today.count),
   };
 
   const markSettling = (taskId: string) => {
