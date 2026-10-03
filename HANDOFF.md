@@ -60,6 +60,7 @@ Current source-analysis closure:
 - VE-018 Daniel's Planning Workflow: **SOURCE_COMPLETE** from the actual full MP4;
 - separate user-supplied 9.344 s / 560-frame planning clip: **DIRECT SOURCE / UNMAPPED LINEAGE**; do not relabel it as VE-018;
 - forensic/source-evidence pass: **COMPLETE**;
+- closure-integrity audit: `docs/BLITZIT_FORENSIC_CLOSURE_AUDIT_2026-10-04.md` — **PASS; no half-reviewed canonical asset detected**;
 - implementation reconciliation: **DEFERRED / separate track**.
 
 If the user later says “continue the forensic pass”:
