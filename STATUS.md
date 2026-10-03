@@ -4,6 +4,13 @@ Last updated: 2026-10-03
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-03 — M8 PREF-R05 active on PR #220
+
+Independent implementation resumed under the manual-test batching policy while M1/M7 physical gates remain OPEN. PR #220 implements the local-only sound selector/preview/volume slice with strict local-ID persistence validation and non-overlapping preview ownership. CI #874 passed the complete fast frontend/contracts/build gate and failed only Rust formatting; the exact three formatting hunks were corrected. CI #876 / run `37108157268` is active on exact head `6a8b9ba8877a83921135f755def126fc32b6dc13`. No progress counter advances until authoritative validation and reconciliation complete.
+
+Durable checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-ci876.md`.
+
+
 ## 2026-10-03 — M7 resulting-main CI #873 PASS; final physical executable fixed
 
 Windows CI #873 / run `37105088285` **PASSed** on merged source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. The final resulting-main artifact is `narro-m7-validation-windows-x64`, id `11268220111`, ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`. The contained `narro-m7-validation.exe` is SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`, size `14874624`, fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`; the downloaded artifact and CI smoke agree exactly.
