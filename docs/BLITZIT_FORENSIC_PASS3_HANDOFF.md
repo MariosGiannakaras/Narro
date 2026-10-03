@@ -62,7 +62,7 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **13/19**
+- Full MP4s completed to Pass-3 standard: **14/19**
 - Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough; VE-011 Reports; VE-012 Improved Sessions and Stats; VE-006 Delete & Archive**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
@@ -81,25 +81,24 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-008 — `Blitzit Tutorial How to Set Up Recurring Tasks.mp4`.**
+**Continue with VE-002 — `Blitzit Tutorial Add Estimated Time Directly in Task Name.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015, VE-011, VE-012, VE-006.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015, VE-011, VE-012, VE-006, VE-008.
 
-For VE-008:
+For VE-002:
 
-1. inspect the complete **02:46.905, 1920×1080, 60 fps** MP4;
-2. build a full recurring-task setup/materialization timeline;
+1. inspect the complete **01:21.633, 426×240, 30 fps** MP4;
+2. reconstruct the keystroke→parse sequence;
 3. densely inspect:
-   - initial Schedule entry and recurrence presets;
-   - recurring parent creation;
-   - generated child-task placement/counts;
-   - parent vs child identity/metadata;
-   - daily/weekday/specific-day/monthly examples actually committed;
-   - update/remove actions;
-   - detach/coexistence behavior if demonstrated;
-4. distinguish direct generated-task evidence from narration about future generation cadence;
+   - title suffix patterns typed;
+   - when EST preview/field changes;
+   - exact accepted formats shown;
+   - title normalization after parse;
+   - Enter/Confirm commit behavior;
+   - any unsupported/ambiguous suffix state;
+4. distinguish actual parser behavior from tutorial narration;
 5. update analysis Markdown only;
-6. then continue to VE-002.
+6. then continue to VE-001.
 
 ## Media-access rule
 
