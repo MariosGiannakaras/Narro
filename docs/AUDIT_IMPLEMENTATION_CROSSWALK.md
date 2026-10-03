@@ -47,6 +47,97 @@ Use `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` for the binding source-anal
 
 `SOURCE_COMPLETE` forensic records are the normal implementation input; implementation agents do not repeat the raw screenshot/video analysis by default. For stable screenshot-backed states, the measurable visual layer is `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`. New material findings are reconciled here against current code before the affected user-visible surface is considered parity-complete. A completed source record may therefore still be `RECONCILIATION_PENDING`, and screenshot source inspection may still be `VISUAL_CALIBRATION_OPEN`. M10/final review directly rechecks original references, but that is release-candidate verification rather than the first implementation comparison.
 
+## Global no-orphan reconciliation — 2026-10-04
+
+**Status: COMPLETE for source -> current implementation -> disposition routing.** This is an implementation-routing result, not a claim that Narro has achieved source parity.
+
+Reconciled baseline:
+- GitHub `main`: `f53a850f51375f15a0b2b4efe106da95e30b6e73`;
+- canonical static source: **46/46 SOURCE_COMPLETE** and **46/46 calibration dispositions**;
+- canonical video source: **19/19 SOURCE_COMPLETE**;
+- calibrated visual-system families: **8/8 complete**;
+- PR #226 Sessions implementation: exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915; all 22 files changed by that PR have identical blob SHAs on current `main`;
+- no new `SOURCE_PARITY_PASS` is claimed by this reconciliation. Narro-owned fixtures, CI screenshots and physical Windows PASS remain distinct evidence gates.
+
+### Static-source coverage ledger — 46/46
+
+| Coverage family | Canonical screenshot IDs | Current Narro / route | Disposition |
+| --- | --- | --- | --- |
+| Home/list/create/search shells | SS-C01, SS-C03, SS-C04, SS-C05, SS-C06, SS-C16 | Production list/create/search/home surfaces exist and have automated fixture coverage. No orphan functional requirement was found. Direct Blitzit comparison remains required before parity certification. | **IMPLEMENTED / VALIDATION_OPEN** |
+| Planning board + archive | SS-C10, SS-C11, SS-H01, SS-H02, SS-H13, SS-H14, SS-H15 | Current board/archive implementation is functional, but Pass-3 exposes specific planning/destructive interaction deltas listed below. | **FIX_NOW M5** for explicit deltas; otherwise **VALIDATION_OPEN** |
+| Focus / Floating / Notes / subtasks | SS-C18, SS-C19, SS-C20, SS-C21, SS-H03, SS-H04, SS-H05, SS-H09, SS-H10, SS-H11, SS-H12 | Core Focus/Floating/Notes/subtask functionality exists. Compact Floating hover grammar, Notes URL/toolbar grammar and signature live/shell styling still have routed deltas; current PR #225 physical batch is a separate Windows-correctness gate. | **FIX_NOW M6/M7** + **VALIDATION_OPEN** |
+| Preferences / Windows shortcuts | SS-C07, SS-C08, SS-C09, SS-C17, SS-H06 | M8 runtime/settings work is automated-validated, including PREF-R05/PREF-R06. PR #225 fixed the later Preferences contention defect and PASSed CI #911; exact-build physical save/restart remains open. | **AUTOMATED_VALIDATED / VALIDATION_OPEN** |
+| Scheduling / recurrence | SS-H07, SS-H08 | M4 scheduling/recurrence behavior and the No Repeat destructive consequence are validated. Stable visual comparison remains part of release/source parity revalidation. | **AUTOMATED_VALIDATED / VALIDATION_OPEN** |
+| Reports / Sessions | SS-C02, SS-C12, SS-C13, SS-C14, SS-C15, SS-C22, SS-H16, SS-H17 | Production Overview is validated; production Sessions/Add/Edit/detail plus Sessions CSV are on current main with PR #226 exact-head CI #915 blob identity. Overview PDF remains unimplemented. Direct source visual comparison is still open. | **AUTOMATED_VALIDATED / FIX_NOW M9 (Overview PDF) / VALIDATION_OPEN** |
+| Historical/context-only | SS-T01, SS-T02, SS-T03, SS-T04, SS-T05, SS-T06, SS-T07 | Retained only where they explain evolution/conflicts. Newer current v2.6.69/Help/Pass-3 evidence wins for implementation. | **CONTEXT / SUPERSEDED; no independent implementation obligation** |
+
+### Video-source coverage ledger — 19/19
+
+| Video | Material implementation result | Disposition |
+| --- | --- | --- |
+| VE-001 | Broad product-loop corroboration only; account/cloud/pricing/integration material stays outside Narro scope. | **IMPLEMENTED where in scope / EXCLUDED where scoped out** |
+| VE-002 | Terminal EST suffix parse/removal is implemented and validated. | **AUTOMATED_VALIDATED M8** |
+| VE-003 | Focus queue/live actions, success gate and Panel/Floating foundation exist. Compact Floating resting/hover action transformation is missing; current same-WebView geometry corrections are automated green but exact-build physical acceptance remains open. | **FIX_NOW M7** + **VALIDATION_OPEN** |
+| VE-004 | First-use/list/task/Blitz/Focus core loop exists. Auth/trial/pricing is excluded. Board/Floating deltas inherit the explicit M5/M7 rows below. | **IMPLEMENTED / EXCLUDED / routed deltas** |
+| VE-005 | Core task CRUD, lane movement, overflow and metrics exist. Resting ordinal, exact hover rail and board drag visual grammar are not yet source-matched. | **FIX_NOW M5** |
+| VE-006 | Archive/history/delete semantics exist and current Help confirms explicit permanent-delete confirmation. Pass-3 presentation differs: task delete uses inline Confirm+X; list Archive applies without a second confirmation, while current Narro uses modal confirmation surfaces. | **FIX_NOW M5** for presentation; keep confirmation safety/semantics |
+| VE-007 | Scheduling/reminder shortcut flow is implemented and validated. | **AUTOMATED_VALIDATED M4/M8** |
+| VE-008 | Recurring setup/materialization and detached-child safety are implemented and validated. | **AUTOMATED_VALIDATED M4/M5** |
+| VE-009 | Custom recurrence forms and conditional recurrence semantics are implemented and validated. | **AUTOMATED_VALIDATED M4** |
+| VE-010 | Inline Notes exists and explicit external-link activation remains the intentional Narro safety rule. Current editor adds an explicit Add Link control and does not auto-recognize a pasted/typed URL, while Pass-3 directly shows toolbar B/I/strike/bullets/numbered/undo/redo and automatic clickable URL recognition. | **FIX_NOW M6** + explicit browser-open **INTENTIONAL_DEVIATION** retained |
+| VE-011 | Overview metrics/chart/lower panels are production-wired and automated-validated. The source's own historic numeric inconsistency remains an evidence limitation, not a Narro target. | **AUTOMATED_VALIDATED M9 / VALIDATION_OPEN source comparison** |
+| VE-012 | Reporting semantics are implemented from authoritative local session history; rounding/denominator ambiguities remain explicitly bounded. | **AUTOMATED_VALIDATED M9 / AMBIGUOUS only where source is internally inconsistent** |
+| VE-013 | Subtask add/edit/reorder/delete/progress across board/Focus/Floating is implemented; historical integration-specific behavior is not Narro scope. Physical Floating continuity is still open. | **AUTOMATED_VALIDATED / VALIDATION_OPEN M7 / EXCLUDED integration context** |
+| VE-014 | Preferences hierarchy/runtime effects are implemented; PREF-R05/PREF-R06 are validated. PR #225's contention correction is automated green with physical save/restart open. | **AUTOMATED_VALIDATED M8 / VALIDATION_OPEN physical** |
+| VE-015 | Sessions dashboard, Add Session, inline edit/detail and Sessions CSV are now on current main and exact-head CI #915 validated. Overview PDF remains the sole top-level M9 implementation gap. | **AUTOMATED_VALIDATED M9 / FIX_NOW M9 Overview PDF / VALIDATION_OPEN source comparison** |
+| VE-016 | EST/Pomodoro/count-up/break/overtime semantics are implemented; current Focus/Floating exact presentation remains subject to M7 physical and source-parity validation. | **AUTOMATED_VALIDATED M3/M6 / VALIDATION_OPEN M7** |
+| VE-017 | Recurrence update/No Repeat consequence behavior is validated. | **AUTOMATED_VALIDATED M4/M5** |
+| VE-018 | Historical planning semantics remain context; the separate 9.344 s planning clip keeps its unmapped lineage and is not relabeled as VE-018. Modern planning deltas are routed from that direct clip plus current Help evidence. | **CONTEXT / AMBIGUOUS lineage / FIX_NOW M5 only for independently corroborated deltas** |
+| VE-019 | Historical Floating/theme/subtask evolution is context. Narro intentionally does not reproduce the historical first-subtask-live limitation. | **INTENTIONAL_DEVIATION** + current evidence wins |
+
+### Calibrated visual-system coverage — 8/8
+
+| Family | Current implementation comparison | Disposition / implementation route |
+| --- | --- | --- |
+| VS-01 Shells / surface hierarchy | Main/Focus/Floating/modal/Preferences shells exist. Current Floating shell uses 12 px radius versus the calibrated ~15–17 px compact source shell; Focus live signature also needs the source-calibrated accent edge. | **FIX_NOW M6/M7**; final direct comparison **VALIDATION_OPEN** |
+| VS-02 Spacing / density / alignment | Shared spacing tokens and dense card/row foundations exist; PR #225 corrects narrow-card/readability regressions. Cross-surface direct source comparison is not yet certified. | **IMPLEMENTED foundation / VALIDATION_OPEN M5–M9** |
+| VS-03 Typography / truncation | Shared hierarchy/ellipsis exists. Exact Blitzit font identity is not established by source evidence and must not be invented. | **IMPLEMENTED / AMBIGUOUS exact font / VALIDATION_OPEN** |
+| VS-04 Controls / inputs | Shared compact controls exist, but source-calibrated focus/selected treatment must be consumed per affected surface rather than replaced by arbitrary one-off styling. | **ROUTED_M5/M6/M8/M9; VALIDATION_OPEN** |
+| VS-05 Cards / rows | Stable row/card geometry exists, but planning cards still miss source ordinal→completion and full contextual hover rail. | **FIX_NOW M5** |
+| VS-06 Accent / glow / progress | Today accent/CTA structure exists, but done/total progress is missing; Focus live card currently uses a solid accent border rather than the calibrated crisp cyan→mint/lime edge treatment. | **FIX_NOW M5/M6** |
+| VS-07 Menus / popovers / dialogs | Shared overlay primitives exist. Task-delete/list-archive confirmation presentation remains the explicit Pass-3 mismatch; other overlays require direct parity validation. | **FIX_NOW M5** + **VALIDATION_OPEN** |
+| VS-08 State grammar / motion | General hover/focus/paused/done/destructive/reduced-motion foundations exist. Planning hover, compact Floating hover and Blitz-entry fade remain explicit gaps. | **FIX_NOW M5/M6/M7** |
+
+### Explicit current implementation gaps after reconciliation
+
+| ID | Gap | Current Narro evidence | Route |
+| --- | --- | --- | --- |
+| P3-M5-01 | Today must expose source `done/total Done` progress treatment while retaining persistent accent/CTA structure. | `ListBoard.tsx` currently renders lane count only; no Today done/total progress. | **FIX_NOW M5** |
+| P3-M5-02 | Resting planning card uses ordinal; hover replaces/reveals completion at left and exposes Subtasks / Notes / lane-left / lane-right / overflow at right without geometry reflow. | `TaskCard.tsx` currently shows completion circle at rest and a Move Up / Move Down / overflow rail; no ordinal prop/render. | **FIX_NOW M5** |
+| P3-M5-03 | Cross-lane drag must preserve the observed lifted-card/live-reflow/settle grammar in addition to positional insertion. | Positional `beforeTaskId`, placeholder and finite settle are validated; source-specific lifted-card/live-reflow parity is not. | **FIX_NOW M5** |
+| P3-M5-04 | Permanent task delete confirmation should use the source inline destructive Confirm + X state, while preserving explicit confirmation and report-exclusion safety. | Production uses centered `TaskDeleteConfirmDialog`. | **FIX_NOW M5** |
+| P3-M5-05 | List Archive applies directly from the list menu; permanent archived-list delete remains destructive. | Current list archive path uses `ListMutationConfirmDialog`, adding a second confirmation not present in Pass-3. | **FIX_NOW M5** |
+| P3-M6-01 | Blitz entry fades the board before Focus presentation (~250 ms observed); reduced motion must remove nonessential motion without changing the state transition. | `BlitzEntryButton` currently presents Focus immediately after start. | **FIX_NOW M6** |
+| P3-M6-02 | Notes toolbar/URL grammar: B, I, strike, bullets, numbered, undo, redo; pasted/typed http(s) URL auto-recognizes as clickable. External browser launch still requires explicit user activation in Narro. | `TaskNotes.tsx` adds explicit Add Link and has no automatic URL recognition path. | **FIX_NOW M6**; browser auto-open remains **INTENTIONAL_DEVIATION** |
+| P3-M6-03 | Focus live card uses calibrated crisp cyan→mint/lime live edge/glow rather than a flat single-color accent. | `focusPanel.css` / `focusVisualStates.css` use solid accent/warning/success borders and inset single-color mix. | **FIX_NOW M6** |
+| P3-M7-01 | Compact Floating Timer rest/hover converts title/time to the icon action strip; only hovered action expands to a labeled pill. | Floating action host is currently hidden when collapsed; action buttons only exist in expanded content. | **FIX_NOW M7** |
+| P3-M7-02 | Compact Floating shell uses the calibrated rounded source treatment (~15–17 px family) and associated restrained elevation. | `floatingTimerFoundation.css` currently uses 12 px outer radius. | **FIX_NOW M7** |
+| P3-M9-01 | Overview export must generate local PDF; Sessions export is current-source CSV. | Sessions CSV is implemented on current main; no Overview PDF export command exists. | **FIX_NOW M9** |
+| P3-VAL-01 | PR #225 exact-EXE Notes/tooltip/expansion/narrow-title/Preferences physical batch remains open; CI #911 is automated evidence only. | Exact candidate SHA is recorded in current M7 ledger. | **VALIDATION_OPEN M5/M7/M8** |
+| P3-VAL-02 | Reports/Sessions and all stable calibrated surfaces still require actual canonical-source comparison before any `SOURCE_PARITY_PASS`. | Narro-owned fixture/capture PASS exists but is not source-side comparison evidence. | **VALIDATION_OPEN affected milestone; M10 release recheck** |
+| P3-RISK-01 | Fresh-launch no-implicit-start and running-session Notes/title continuity still lack the dedicated integrated regressions required by the history risk index. | Current architecture is aligned, but dedicated regressions are not located. | **VALIDATION_OPEN M10** |
+
+### No-orphan result
+
+Every material Pass-3 video finding, canonical screenshot family, calibrated visual-system family and still-relevant Help/history reliability requirement now has an implementation disposition above or in the detailed rows below. Historical/context evidence is explicitly non-binding where stronger current evidence exists. The final verification for this reconciliation must preserve:
+- **zero** un-routed material Pass-3 findings;
+- **zero** calibrated visual-system families without an implementation/validation route;
+- no PR #225 correction left as stale `FIX_NOW` merely because physical validation is still open;
+- no PREF-R05/PREF-R06 row left `OPEN`;
+- no Sessions dashboard/Add/Edit/detail/CSV work left routed as unimplemented after PR #226;
+- no source ambiguity promoted to confirmed behavior;
+- no `SOURCE_PARITY_PASS` inferred from Narro-owned screenshots or Windows-only physical PASS.
+
 ## 1. Parity/code audit findings
 
 | ID | Finding | Route | Disposition |
@@ -88,8 +179,8 @@ Audit section-C intentional Narro deviations remain binding unless newer explici
 | VE-F003 | Task overflow includes Change List + Duplicate | M5 corrective slice | **VALIDATED** |
 | VE-F004 | Help/roadmap evidence documents note-link auto-open in some Blitzit versions; VE-010 direct trigger is ambiguous | Require explicit activation | **INTENTIONAL_DEVIATION** — preserve explicit activation; do not claim VE-010 itself proves auto-open-on-live |
 | VE-F005 | Recurrence detachment can leave independent old children | Preserve customizations and idempotence | **VALIDATED reliability model**; UI gap tracked below |
-| VE-F006 | Reports/Sessions derive from session history and support editing | M9 | **ROUTED_M9** |
-| VE-F007 | Panel→Floating transformation ≈0.27 s; continuous-window character | M7 physical/fidelity gate | **VALIDATION_OPEN** — PR #192 head `b506fd01...` now contains unvalidated finite ~270 ms same-WebView Panel↔Timer and compact↔expanded Timer clip/reveal implementation; physical Gate 7 evidence is still required |
+| VE-F006 | Reports/Sessions derive from session history and support editing | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — Overview plus Sessions/Add/Edit/detail and Sessions CSV are on current `main`; PR #226 exact-head CI #915 validated the 22 changed blobs now present on main. Overview PDF remains `FIX_NOW M9`; direct source visual comparison remains open. |
+| VE-F007 | Panel→Floating transformation ≈0.27 s; continuous-window character | M7 physical/fidelity gate | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — current same-WebView finite ~270 ms path includes PR #225 corrections and PASSed exact-head CI #911; exact-EXE normal/reduced physical observation remains open and does not itself establish source parity. |
 | VE-F008 | Preferences children stay in place; hidden times disclose on hover | M8 | **VALIDATED** |
 | VE-F009 | Historical first-subtask-live limitation | Do not regress Narro | **INTENTIONAL_DEVIATION** |
 | VE-F010 | Planning-board cross-lane drag supports pointer-position insertion, not append-only movement | M5 board parity correction | **VALIDATED** — PR #213 exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`, Windows CI #836 PASS, merged as `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`; persisted `beforeTaskId` now supports positional cross-lane insertion. Full drag lift/reflow/settle visual fidelity remains separately open under UX-F016. |
@@ -109,7 +200,7 @@ Unresolved video ambiguities remain explicit:
 | ID | Finding | Consequence | Disposition |
 | --- | --- | --- | --- |
 | HC-F001 | Permanent task delete is `Delete → Confirm` | Keep explicit confirmation/report exclusion | **VALIDATED** |
-| HC-F002 | Sessions prose says PDF but current screenshot says CSV | Overview PDF / Sessions CSV | **ROUTED_M9** |
+| HC-F002 | Sessions prose says PDF but current screenshot says CSV | Overview PDF / Sessions CSV | **PARTIAL / FIX_NOW M9** — current-source Sessions CSV is implemented/CI #915 validated; Overview PDF remains unimplemented. |
 | HC-F003 | Recurrence edit: No Repeat conditionally shows warm/red `Delete existing tasks(n)` | Source-evidenced No Repeat flow with safe generated-child cleanup | **VALIDATED** — PR #182 / CI #617 / main #618 |
 | HC-F004 | Source may require restart after monitor hotplug | Narro must recover dynamically | **VALIDATION_OPEN M7/M10** |
 | HC-F005 | Done tasks older than 60 days auto-archive | Existing strict-60-day sweep | **VALIDATED** |
@@ -127,18 +218,18 @@ Unresolved video ambiguities remain explicit:
 | UX-F001 | Interaction grammar is inline/contextual | Surface architecture rule | **BINDING / ongoing** |
 | UX-F002 | Gradient = high-salience primary; mint=selected/success; red/warm=destructive | Shared tokens/fixtures | **VALIDATED foundation**, M10 parity |
 | UX-F003 | Dark/light preserve hierarchy/density | Themes | **VALIDATED**, M10 parity |
-| UX-F004 | Panel→Floating ≈0.27 s; clipping/blank is source artifact | M7 continuity gate | **VALIDATION_OPEN** — same-WebView Panel↔Timer and compact↔expanded geometry motion is implementation-complete on unvalidated PR #192 head `b506fd01...`; do not promote this to fidelity PASS without exact-head CI and physical capture |
+| UX-F004 | Panel→Floating ≈0.27 s; clipping/blank is source artifact | M7 continuity gate | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — current same-WebView geometry path includes PR #225 prepaint/tooltip/editor corrections and PASSed CI #911; exact-EXE physical capture remains required, and physical PASS is not `SOURCE_PARITY_PASS`. |
 | UX-F005 | Generic hover/menu/modal/chart timings are not source-measured | Treat tokens as Narro calibration | **VALIDATED documentation rule** |
 | UX-F006 | No Repeat replaces neutral Replace row with destructive Delete Existing row | Source-evidenced recurrence consequence hierarchy | **VALIDATED** — PR #182 visual fixtures / CI #617 |
-| UX-F007 | Task hover keeps geometry; completion left/actions right; anchored overflow | M5 task geometry | **VALIDATED** |
+| UX-F007 | Task hover keeps geometry; completion left/actions right; anchored overflow | M5 task geometry | **PARTIAL / FIX_NOW** — no-reflow foundation is implemented, but current production still lacks source resting ordinal→completion substitution and the Subtasks / Notes / lane-left / lane-right / overflow hover rail. |
 | UX-F008 | Success hierarchy: completed title/context, dominant Next Task, EST/Taken, queue | M8 success UI | **VALIDATED** |
 | UX-F009 | Preferences nested controls stay in place | M8 | **VALIDATED** |
 | UX-F010 | Floating Timer expands vertically for subtasks | M7 | **VALIDATED source**, physical continuity open |
 | UX-F011 | Schedule/recurrence footer uses secondary Cancel + primary gradient action | Narro combined Schedule/Repeat dialog preserves the secondary Cancel + gradient primary hierarchy without splitting state authority | **VALIDATED NARRO ADAPTATION** — PR #182 visual fixtures / CI #617 |
-| UX-F012 | Reports hierarchy: four metrics → main chart → secondary panels | M9 | **ROUTED_M9** |
-| UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **ROUTED_M9** |
+| UX-F012 | Reports hierarchy: four metrics → main chart → secondary panels | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — production Overview PASSed CI #906/#907; direct canonical source comparison remains open. |
+| UX-F013 | Sessions inline edit + Add Session dialog remain contextual | M9 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — production Sessions/Add/Edit/detail is on current main with PR #226 changed-blob identity to exact-head CI #915; direct canonical source comparison remains open. |
 | UX-F014 | Main first paint exposes blank/washed/dark staging before Home settles | M10 final quality pass | **ROUTED_M10** — visible in the 2026-09-30 CI #744 physical recording; not established as an M7 source regression |
-| UX-F015 | Global shortcut registration failures render as large persistent error cards inside ordinary Home content | M8 shortcut UX / M10 final review | **ROUTED_M8** — conflict must remain visible/retryable, but presentation should be contextual rather than diagnostic-like application content |
+| UX-F015 | Global shortcut registration failures render as large persistent error cards inside ordinary Home content | M8 shortcut UX / M10 final review | **ROUTED_M10** — conflict/retry semantics are validated; final contextual presentation remains a release-quality UX finding and must not be treated as an open M8 runtime implementation item. |
 | UX-F016 | Cross-lane drag shows floating card, live source reflow, positional destination insertion and settle | M5 board motion/interaction | **FIX_NOW**; exact drag duration remains unmeasured |
 | UX-F017 | Today lane has persistent cyan→green accent outline and anchored gradient Blitz CTA | M5/M10 board composition | **VALIDATED STRUCTURE / ROUTED_M10 FIDELITY** — PR #213 validated stronger Today boundary plus anchored CTA structure; exact gradient/border pixel calibration remains M10/review. |
 | UX-F018 | Today progress is a done/total progress treatment, corroborated by current help-v2.x screenshot | M5 board semantics | **FIX_NOW** |
@@ -167,8 +258,8 @@ Unresolved video ambiguities remain explicit:
 | PREF-R02 | Finite animated timer flash; reduced-motion safe | **VALIDATED** — PR #193 exact head `2413de4f0e02daf829ffc753ca70b48a1e11712e`, Windows CI #714 / run `36694484904`, merged source `f1277a91f25068f4ec4818c0c14b27d2d3ca46fa`; all eight changed source/test blobs verified identical to validated PR head |
 | PREF-R03 | Notification Alerts gating without duplicating authoritative M3 effects | **VALIDATED** — PR #195 reconciled exact head `c3a09e3780871cea70d008ac540f8d62cb684be7`, Windows CI #722 / run `36704515416`, guarded squash merge `1c9f2c7dc670fddcbf8cf687ca5b1945588eb01c`, resulting-main CI #723 / run `36705536633`; disabled alerts consume durable boundary effects without backfill, enabled alerts preserve the existing at-most-once M3 notification path, and Preferences-read failures leave effects pending |
 | PREF-R04 | Schedule reminders enable + lead integrated with durable/idempotent delivery | **VALIDATED** — PR #180 exact head `0309c879998f43ff8c6e39e65f02c44669fa48b8`, CI #607, merge `643528ca223b29fd8fbd215db5b1b525c912c6fc`, main CI #608 |
-| PREF-R05 | Sound selector/preview from validated Narro-owned or user-local assets only | **OPEN M8** |
-| PREF-R06 | Windows locale/system 12/24-hour presentation | **OPEN M8** |
+| PREF-R05 | Sound selector/preview from validated Narro-owned or user-local assets only | **VALIDATED** — PR #220 exact head `af4420aa7610008c2dba8cf54c12158178abf7d4` PASSed CI #881; guarded merge `45c3218f5923c2ff673d8c1dd562de7545be1ecb` PASSed resulting-main CI #882. |
+| PREF-R06 | Windows locale/system 12/24-hour presentation | **VALIDATED** — PR #194 exact head `16ae996a478687ad3e61788e77de00159f4207c2` PASSed CI #721; guarded merge `88dea3bcbd988f2e77ea0edccb218be95e5b2438` PASSed resulting-main CI #724. |
 
 ## 7. Immediate correction queue
 
@@ -239,18 +330,18 @@ Before a milestone or substantial slice continues:
 
 | New ID | Finding | Scope | Disposition |
 |---|---|---|---|
-| M7-OBS-20261003-08 | CI893 compact→expanded prematurely reveals tall content and shifts heading/action strip during prepaint | M7 same-host Timer geometry | **FIX_NOW / PHYSICAL_FAIL** — atomically establish initial clip before native expansion; remove neutral nested containing block, preserve finite reveal, test actual wrappers/phases then continuous exact-build video. New internal expansion symptom, not an assertion of prior white-L recurrence |
-| M7-OBS-20261003-09 | CI893 wrapped Notes presentation button moves left but fixed-end tooltip clips there | M7 keyboard tooltip | **FIX_NOW / PHYSICAL_FAIL** — bound actual tooltip/anchor placement on both edges; retain short opacity/transform opening, keyboard/Escape, no idle loop |
-| M5-OBS-20261003-10 | CI893 default small planning lanes reserve all title width for action slots, making titles invisible | M5 narrow desktop card layout, exposed during M7 | **FIX_NOW / REOPENED** — preserve ordinary source action grammar; reserve second action row only when title/action tracks cannot fit. Narrow Windows readability/accessibility decision, exact source behavior at this width unproven. Validate title visibility/editing, hover/focus no-reflow and keyboard actions |
-| M8-OBS-20261003-11 | Real CI893 first success-screen Preferences save fails with `database is locked`, retry succeeds | M8 concurrent local persistence | **FIX_NOW / REOPENED** — PR #225 reserves the writer before reading current JSON; two-connection wait/latest-field regression added. Exact competing physical connection is uninstrumented; deferred-upgrade contention is the supported mechanism inference, not a claimed trace. Exact Windows CI and physical retest pending |
+| M7-OBS-20261003-08 | CI893 compact→expanded prematurely reveals tall content and shifts heading/action strip during prepaint | M7 same-host Timer geometry | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — PR #225 implements the atomic initial-clip/prepaint correction and exact-head CI #911 PASSed; exact-EXE normal/reduced physical retest remains open. |
+| M7-OBS-20261003-09 | CI893 wrapped Notes presentation button moves left but fixed-end tooltip clips there | M7 keyboard tooltip | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — PR #225 implements boundary-aware tooltip placement and exact-head CI #911 PASSed; exact-EXE physical retest remains open. |
+| M5-OBS-20261003-10 | CI893 default small planning lanes reserve all title width for action slots, making titles invisible | M5 narrow desktop card layout, exposed during M7 | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — PR #225 implements the narrow-card second-row correction and exact-head CI #911 PASSed; exact-EXE title/edit/hover/focus physical retest remains open. This does not close the separate source ordinal/hover-rail gaps. |
+| M8-OBS-20261003-11 | Real CI893 first success-screen Preferences save fails with `database is locked`, retry succeeds | M8 concurrent local persistence | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — PR #225 reserves the writer before reading current JSON; the two-connection wait/latest-field regression PASSed exact-head CI #911. Exact-build physical save/restart remains open. |
 
 All findings use the exact CI #884 validation EXE and real Windows 125% capture in [the batched findings](../work-log/2026-10-03-codex-m7-ci884-batched-findings.md). Reconcile against that evidence; do not call the native frame strip a recurrence of an older transient symptom.
 
 | ID | Finding | Scope | Disposition |
 |---|---|---|---|
-| M7-OBS-20261003-03 | Frameless Focus shadow insets expose native frame and offset client from outer-origin region | M7 Windows host / region | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 removes native shadow/resize frame consistently in all build configs; retest exact EXE at 100%/125%, movement, transitions, saved-position restart |
-| M7-OBS-20261003-04 | Expanded inline Notes shows unnecessary horizontal scrollbar | M7 editor / layout | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 bounds box sizing and horizontal content, collapses closed tooltip geometry while preserving its opacity/transform opening state, and aligns the edge tooltip inward. Real rendered keyboard-open/transition/Escape and reduced-motion regressions PASS; preserve intentional vertical editor scroll. Exact-EXE retest remains OPEN |
-| M7-OBS-20261003-05 | Larger Notes uses full-host vh and loses footer below expanded 300px region | M7 editor reachability | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 binds to visible height, bounds grid columns/Save and resize, and retains editor node/draft. Explicit Narro Windows decision; VE-010 inline flow is preserved |
+| M7-OBS-20261003-03 | Frameless Focus shadow insets expose native frame and offset client from outer-origin region | M7 Windows host / region | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — PR #222 removes native shadow/resize frame consistently in all build configs; retest exact EXE at 100%/125%, movement, transitions, saved-position restart |
+| M7-OBS-20261003-04 | Expanded inline Notes shows unnecessary horizontal scrollbar | M7 editor / layout | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — PR #222 bounds box sizing and horizontal content, collapses closed tooltip geometry while preserving its opacity/transform opening state, and aligns the edge tooltip inward. Real rendered keyboard-open/transition/Escape and reduced-motion regressions PASS; preserve intentional vertical editor scroll. Exact-EXE retest remains OPEN |
+| M7-OBS-20261003-05 | Larger Notes uses full-host vh and loses footer below expanded 300px region | M7 editor reachability | **AUTOMATED_VALIDATED / VALIDATION_OPEN** — PR #222 binds to visible height, bounds grid columns/Save and resize, and retains editor node/draft. Explicit Narro Windows decision; VE-010 inline flow is preserved |
 | M7-OBS-20261003-06 | In-app shortcuts depend on translated key and fail in Greek layout | Shared shortcut boundary, exercised M7 | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 uses physical letter code with semantic fallback and controlled regressions; real Greek/English check remains OPEN |
 | M7-OBS-20261003-07 | Quick-create loading race leaves focus outside modal so Escape/trap does not run | Focus Create modal accessibility | **FIX_NOW / AUTOMATED_PASS_PHYSICAL_PENDING** — PR #222 owns loading shell and ready title focus; rendered delayed success/error/empty, Tab/Escape and focus restore are covered; physical retest remains OPEN |
 
