@@ -1018,7 +1018,7 @@ The earlier inbox-setup state is superseded. The uploaded corpus is present and 
 - 19/19 product-behavior analyses/reconciliations/dispositions complete;
 - 19/19 second-pass UI/UX forensic reviews complete.
 
-Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No raw-video upload prerequisite remains open; exhaustive Pass-3 source analysis remains active and is authoritative only in `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
+Current durable prior-pass evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No raw-video upload prerequisite remains open; exhaustive Pass-3 source analysis is complete and its authoritative closure state is in `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
 
 ## Current Blitzit exhaustive-forensics state — 2026-10-03
 
