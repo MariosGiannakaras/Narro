@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 8/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 9/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -2205,21 +2205,140 @@ No implementation conclusion is made in this analysis track.
 # Queue 9 — VE-010 — Notes
 
 Source: `Blitzit Tutorial How to Use Notes.mp4`  
-Metadata: **01:13.561, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **01:13.500 video stream / ~01:13.561 container, 1920×1080, 60 fps, 4,410 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:21–00:00:44 — rich editor;
-- 00:00:45–00:01:00 — URL behavior.
+Inspection method:
+- complete source reviewed across the full duration;
+- 3 s whole-video scan;
+- 0.5 s dense sampling through the Notes demonstration;
+- high-resolution Focus-panel crops for editor/action/toolbar/link states;
+- 10 fps micro-review around Notes activation and later live/browser sequence;
+- transcript used only to distinguish direct behavior from the narrated automatic-link claim.
 
-Pass-3 focus:
-- Notes affordance hover/selected state;
-- editor expansion geometry;
-- toolbar action ordering;
-- content scroll;
-- close/dismiss;
-- URL styling;
-- exact source auto-open sequence vs ordinary explicit activation.
+## VE-010 chronological state map
+
+### 00:00:00–~00:00:21 — Focus baseline / introduction
+
+**VIDEO-DIRECT**
+- tutorial is staged in the narrow Focus Panel on macOS;
+- `Finish the video` is the live task with a running timer;
+- `Send press-release` remains queued below it;
+- no unique Notes state appears during the introductory narration.
+
+### ~00:00:21–00:00:25 — live-task hover → Notes activation
+
+**VIDEO-DIRECT**
+- hovering the live `Finish the video` card reveals its compact action strip;
+- targeting the document/notes icon expands it into a labeled **`Notes`** pill;
+- activating Notes expands the same task card vertically in place.
+
+**GEOMETRY-DIRECT**
+- Focus panel/window width is preserved;
+- the live card grows downward and pushes the following queue content lower;
+- no modal, separate page or second window is created;
+- expansion is visibly fast across the micro-frame sequence, but the source is not used to impose a precise duration.
+
+### ~00:00:25–00:00:30 — Notes editor anatomy
+
+**VIDEO-DIRECT**
+- expanded editor retains the parent task title `Finish the video`;
+- editor surface is a dark inset region inside the task card;
+- toolbar order, left→right:
+  1. **Bold** (`B`);
+  2. **Italic**;
+  3. **Strikethrough**;
+  4. **Bulleted list**;
+  5. **Numbered list**;
+  6. **Undo**;
+  7. **Redo**.
+- a small circular **X** close/dismiss affordance is visible at the editor's lower-right corner in this source version;
+- editor body begins as an empty multiline text region.
+
+**VERSION NOTE**
+- later/current screenshots use related rich-text grammar and may expose a text `Close` affordance or additional controls; this video records the exact source-version anatomy rather than overriding newer direct screenshots.
+
+### ~00:00:27–00:00:45 — typing + formatting/history controls
+
+**VIDEO-DIRECT**
+- text **`Feels so good`** is entered into the note body;
+- portions of the text are selected during the demonstration;
+- toolbar controls are individually targeted while narration calls out:
+  - bold;
+  - italics;
+  - strikethrough;
+  - bullet points;
+  - undo;
+  - redo.
+- numbered-list control is directly visible in the toolbar even though narration highlights bullet points generically.
+
+**EVIDENCE BOUNDARY**
+- the source clearly demonstrates the editor controls and text-selection workflow;
+- not every intermediate formatting mutation is held on-screen long enough to derive a separate animation/timing contract for each button.
+
+### ~00:00:45–00:00:51 — URL recognition
+
+**VIDEO-DIRECT**
+- URL **`https://www.blitzit.app`** is pasted/entered beneath the prose note;
+- it immediately renders as an underlined link-style run inside the editor;
+- pointer interaction over the URL uses link/clickable behavior.
+
+**SEMANTIC-DIRECT**
+- link recognition is inline inside the note editor; no explicit “convert to link” toolbar step is required.
+
+### ~00:00:51–00:00:54 — explicit link click opens browser
+
+**VIDEO-DIRECT**
+- pointer is visibly positioned on the underlined URL;
+- a direct click/activation opens Safari to `blitzit.app`;
+- Notes editor remains visible in the Focus panel beside the browser during the initial load.
+
+**CAUSALITY-DIRECT**
+- this sequence proves the recognized URL is directly clickable.
+
+### ~00:00:55–00:01:00 — task-live auto-open claim
+
+**TUTORIAL-STAGING**
+- the source cuts/re-stages the app before the next example; do not treat the cut as product navigation timing;
+- `Finish the video` is then shown becoming/being live in Focus;
+- shortly afterward Safari with the Blitzit page is present again;
+- no new pointer click on the Notes URL is visible in this second staged sequence.
+
+**TRANSCRIPT-CLAIM / STAGED VISUAL CORROBORATION**
+- narration explicitly says that links in Notes automatically open in the default browser **when the task goes live**;
+- the staged sequence visually corroborates browser appearance after the task is live;
+- because the tutorial contains a cut/re-staging around this demonstration, exact trigger latency and window-focus behavior are **not** measured as a continuous transition.
+
+### Editor dismissal evidence
+
+**CONTROL-DIRECT / ACTION-NOT-DEMONSTRATED**
+- the editor exposes the circular X close control;
+- the source does not cleanly show an uninterrupted explicit X-click → collapsed-card sequence before an editorial cut;
+- therefore control availability is direct evidence, while exact close animation/duration remains unmeasured.
+
+### ~00:01:00–00:01:13.5 — recap/outro
+
+**NON-PARITY**
+- narration summarizes Notes and transitions to tutorial/community outro;
+- no additional unique Notes state is introduced.
+
+## VE-010 source synthesis
+
+High-confidence source behavior established:
+- Notes is a contextual live-task action that expands from icon to labeled pill on hover;
+- Notes editor expands inline inside the task card and reflows later Focus content without changing panel width;
+- source-version toolbar order is Bold / Italic / Strikethrough / Bulleted list / Numbered list / Undo / Redo;
+- note body supports multiline text and selection-driven rich-text editing;
+- URL `https://www.blitzit.app` is automatically recognized and rendered as an underlined clickable link;
+- direct clicking the recognized link opens Safari;
+- a separate staged sequence corroborates the narrated behavior that Notes links can auto-open when the task goes live, but exact latency/focus semantics are not measured due tutorial staging;
+- circular X close control is visible, while its exact dismissal transition is not directly demonstrated;
+- no implementation conclusion is made in this analysis track.
+
+Static corroboration:
+- SS-C21 current Focus-panel Notes editor;
+- SS-H10 board Notes inline expansion;
+- SS-T07 historical board Notes editor.
 
 ---
 
