@@ -235,6 +235,14 @@ Before a milestone or substantial slice continues:
 
 ### M7 CI #884 runtime findings — 2026-10-03
 
+**CI893 physical reconciliation:** [Full scoped results and video](../work-log/2026-10-03-codex-m7-ci893-physical-batch-evidence.md). M7-OBS01 sole-hierarchy acceptance and02 full labels PASS on observed paths;03 frame alignment and changed-host C5 PASS.04 inline horizontal containment PASS but a wrapped presentation tooltip remains FAIL.05 Save reachability PASS, whole large-modal containment still FAIL: repeated-failure reassessment required before the selected root-relative anchoring correction.06 exercised Greek T/N/P PASS; complete chord/layout matrix remains OPEN.07 settled title/Tab/Escape PASS; physical delayed-loading ownership INCONCLUSIVE (automated coverage remains). These scoped results do not imply SOURCE_PARITY_PASS.
+
+| New ID | Finding | Scope | Disposition |
+|---|---|---|---|
+| M7-OBS-20261003-08 | CI893 compact→expanded prematurely reveals tall content and shifts heading/action strip during prepaint | M7 same-host Timer geometry | **FIX_NOW / PHYSICAL_FAIL** — atomically establish initial clip before native expansion; remove neutral nested containing block, preserve finite reveal, test actual wrappers/phases then continuous exact-build video. New internal expansion symptom, not an assertion of prior white-L recurrence |
+| M7-OBS-20261003-09 | CI893 wrapped Notes presentation button moves left but fixed-end tooltip clips there | M7 keyboard tooltip | **FIX_NOW / PHYSICAL_FAIL** — bound actual tooltip/anchor placement on both edges; retain short opacity/transform opening, keyboard/Escape, no idle loop |
+| M5-OBS-20261003-10 | CI893 default small planning lanes reserve all title width for action slots, making titles invisible | M5 narrow desktop card layout, exposed during M7 | **FIX_NOW / REOPENED** — preserve ordinary source action grammar; reserve second action row only when title/action tracks cannot fit. Narrow Windows readability/accessibility decision, exact source behavior at this width unproven. Validate title visibility/editing, hover/focus no-reflow and keyboard actions |
+
 All findings use the exact CI #884 validation EXE and real Windows 125% capture in [the batched findings](../work-log/2026-10-03-codex-m7-ci884-batched-findings.md). Reconcile against that evidence; do not call the native frame strip a recurrence of an older transient symptom.
 
 | ID | Finding | Scope | Disposition |

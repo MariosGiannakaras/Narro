@@ -2,6 +2,13 @@
 
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
+**Latest pinned M7 candidate physical batch: CI #893 C5 PASS** at saved `(800,649)`, restored paused08:11 /491 durable work seconds. [Complete results/video/logs and embedded review](work-log/2026-10-03-codex-m7-ci893-physical-batch-evidence.md). This supersedes the changed-host C5 pending action, while CI873 remains historical PASS. Current corrective closure remains3/5: whole large Notes containment, wrapped tooltip, expansion prepainting geometry and small planning titles require the reconciled batch below. Monitor crossing/reconnect/full-screen and separate M1 B/C/D remain open.
+
+- [ ] FIX_NOW CI893 editor containment: compare current nested-fixed failure to root-relative anchoring without unmounting the editor; actual production wrappers, both-axis bounds, resize/draft/focus, normal/reduced motion, then exact-build Windows video. Repeated-failure reassessment is in the batch report.
+- [ ] FIX_NOW CI893 Notes tooltip: boundary-aware placement for wrapped left/right anchors with retained keyboard/Escape/opacity behavior and no horizontal overflow.
+- [ ] FIX_NOW CI893 expanded prepaint: atomic initial clip and correct heading/action containing block; retain finite reveal and persistent host; continuous exact-build retest.
+- [ ] Reopened M5 narrow planning-title layout: zero-width title track at small main window. Reserve a stable narrow-card action row; verify readable title, hover/focus geometry, editing and keyboard controls before restoring affected acceptance.
+
 **Latest C5 physical validation, 2026-10-03: PASS.** CI #873 exact EXE completed a real running compact Timer, qualifying **328 px** drag, normal tray Quit, same-EXE relaunch and visible restore at saved **`(1640,780)`**, with the same task/time recovered paused. Native evaluator PASS and both full sessions are delivered with continuous two-monitor 60 fps video in [the completed run](work-log/2026-10-03-codex-m7-ci873-c5-completed.md) and [video-derived gallery](work-log/2026-10-03-codex-m7-ci873-c5-video-review.md). No C5 physical action remains for the user. Formal M7 tracking and the narrow extra motion/label observations below remain pending; no broader milestone/counter advancement is claimed.
 
 ## Milestone 1 — Windows desktop scaffold, capability and performance spike

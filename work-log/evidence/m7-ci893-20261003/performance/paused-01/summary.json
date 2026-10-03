@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "scenario": "floating-only-main-destroyed",
+  "rootPid": 18520,
+  "rootExecutable": "E:\\SystemFiles\\Desktop\\narroupload\\artifacts\\m7-pr222-ci893\\candidate\\narro-m7-validation.exe",
+  "logicalProcessorCount": 12,
+  "warmupSeconds": 15,
+  "requestedSampleSeconds": 60,
+  "actualSampleSeconds": 60.9853995,
+  "intervalSeconds": 1.0,
+  "sampleCount": 57,
+  "stableCpuIntervalCount": 56,
+  "churnIntervalCount": 0,
+  "steadyStateValid": true,
+  "cpuPercentOneCore": {
+    "min": 0.0,
+    "max": 0.0,
+    "average": 0.0
+  },
+  "cpuPercentTotalCapacity": {
+    "min": 0.0,
+    "max": 0.0,
+    "average": 0.0
+  },
+  "workingSetBytes": {
+    "min": 428716032.0,
+    "max": 428785664.0,
+    "average": 428737661.75438595
+  },
+  "privateBytes": {
+    "min": 328441856.0,
+    "max": 328536064.0,
+    "average": 328484181.3333333
+  },
+  "lastProcessBreakdown": [
+    {
+      "name": "msedgewebview2.exe",
+      "processCount": 6,
+      "workingSetBytes": 397074432,
+      "privateBytes": 261357568,
+      "cumulativeCpuSeconds": 7.03125
+    },
+    {
+      "name": "narro-m7-validation.exe",
+      "processCount": 1,
+      "workingSetBytes": 31641600,
+      "privateBytes": 67084288,
+      "cumulativeCpuSeconds": 1.546875
+    }
+  ],
+  "generatedAtUtc": "2026-10-03T19:03:58.7179854Z"
+}

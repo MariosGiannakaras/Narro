@@ -1,0 +1,101 @@
+[
+  {
+    "name": "normal-panel-compact-dual",
+    "input": "2026-10-03 19-53-25.mkv",
+    "actionApproxSeconds": 401.62,
+    "clipStartSeconds": 401.27,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  },
+  {
+    "name": "normal-expand-dual",
+    "input": "2026-10-03 19-53-25.mkv",
+    "actionApproxSeconds": 461.6,
+    "clipStartSeconds": 461.25,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  },
+  {
+    "name": "normal-collapse",
+    "input": "2026-10-03 21-46-42.mkv",
+    "actionApproxSeconds": 158.1,
+    "clipStartSeconds": 157.75,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  },
+  {
+    "name": "normal-compact-panel",
+    "input": "2026-10-03 21-46-42.mkv",
+    "actionApproxSeconds": 161.35,
+    "clipStartSeconds": 161,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  },
+  {
+    "name": "normal-panel-compact",
+    "input": "2026-10-03 21-46-42.mkv",
+    "actionApproxSeconds": 203.84,
+    "clipStartSeconds": 203.49,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  },
+  {
+    "name": "reduced-compact-panel",
+    "input": "2026-10-03 21-46-42.mkv",
+    "actionApproxSeconds": 207.11,
+    "clipStartSeconds": 206.76000000000002,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  },
+  {
+    "name": "reduced-panel-compact",
+    "input": "2026-10-03 21-46-42.mkv",
+    "actionApproxSeconds": 265.54,
+    "clipStartSeconds": 265.19,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  },
+  {
+    "name": "reduced-expand",
+    "input": "2026-10-03 21-46-42.mkv",
+    "actionApproxSeconds": 268.63,
+    "clipStartSeconds": 268.28,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  },
+  {
+    "name": "reduced-collapse",
+    "input": "2026-10-03 21-46-42.mkv",
+    "actionApproxSeconds": 271.65,
+    "clipStartSeconds": 271.29999999999995,
+    "durationSeconds": 2,
+    "sheets": 3,
+    "framesPerSheet": 30,
+    "sheetIntervalSeconds": 0.5,
+    "sequence": "row-major at original 60 fps; preview scales; inspect native PNG for exact defect"
+  }
+]

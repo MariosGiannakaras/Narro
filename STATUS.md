@@ -2,6 +2,14 @@
 
 Last updated: 2026-10-03
 
+## 2026-10-03 — CI #893 real Windows batch; C5 PASS, narrow corrections required
+
+Exact CI #893 EXE `01dd602454f10f85aeecd53eb1bfcdd53368b2eec46fa60cfb5d5cf80385018b` completed real drag, tray Quit, same-EXE relaunch and saved visible `(800,649)` Timer. Native evaluator PASS and read-only SQLite agrees with restored paused08:11 /491 work seconds. Native frame alignment/complete Panel labels, exercised Greek Create/Notes/Pause, settled modal Tab/Escape, inline Notes wrapping, Panel large-editor draft/resize/Save and maximized-Notepad topmost passed the observed paths. Three paused floating-only measurements have stable process trees, ~0–0.026% one-core CPU and404–409MiB working set.
+
+The batch also found **FAIL**: wrapped Notes presentation tooltip clips left; whole large Notes still exceeds expanded native bounds although Save is reachable; compact→expanded briefly reveals tall/displaced content before settling; small planning lanes collapse task titles. [Full PASS/FAIL ledger, embedded video-derived native images, 24 lossless full-recording parts, 9 motion clips/27 dense sheets, complete logs/ZIP and hashes](work-log/2026-10-03-codex-m7-ci893-physical-batch-evidence.md).810 sequence frames plus30 closer expansion frames were reviewed; the long recording's idle gap was retained, not exhaustively inspected.
+
+Per repeated-failure escalation, the next editor correction changes its containing-block path rather than subtracting margins again: remove neutral nested transforms while preserving the same editor DOM/draft, compare current failure against root-relative containment using actual production wrappers. Initial expanded clipping must be atomic before finite reveal. Wrapped tooltip alignment becomes boundary-aware; narrow card layouts retain a reserved action row. This reopens only affected M5 narrow-title acceptance. Exact-build physical validation remains required. The initial dual-monitor topology became unavailable during the idle interval; only DISPLAY2 remained despite `/extend`. Complete crossing/reconnect/full-screen and separate M1 Candidate B B/C/D are NOT RUN. Current M7 closure remains3/5, roadmap5/10M, physical14/19; concurrent M9/source-analysis work is preserved. OS animations On, app paused, OBS stopped.
+
 ## 2026-10-03 — M9 Reports Overview visual foundation validated on main
 
 PR #198 final exact head `2e32eae3043f7100fdf16990f482332293ef12d0` **PASSed** full Windows CI #904 / run `37143064981`, including Reports visual captures/validation, Rust checks/tests, release/runtime capture and repository-wide validation builds. It was expected-head guarded squash-merged as source `82786cb2a95bb5fdd2835dcb5e3660269425520f`.

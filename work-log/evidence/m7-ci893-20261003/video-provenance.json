@@ -1,0 +1,858 @@
+[
+  {
+    "rawFile": "2026-10-03 19-45-50.mkv",
+    "rawSha256": "3e94e84feecee6866240a723b6d91db6c9346e5ea2ce1731e2fc821536ba8fd0",
+    "rawProbe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "nb_read_packets": "23854"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "nb_read_packets": "18636"
+        }
+      ],
+      "format": {
+        "duration": "397.584000",
+        "size": "58746449"
+      }
+    },
+    "parts": [
+      {
+        "file": "video/recording-1/part-000.mp4",
+        "sha256": "35d8cc37b736bc254dec334b70c98bec34a8736ff250f35361f306db23714f7e",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.520000",
+            "size": "53797271"
+          }
+        }
+      },
+      {
+        "file": "video/recording-1/part-001.mp4",
+        "sha256": "71f8834f3092e0f1e4e6da490de9e0f4a505fc24cceb5c5f3d1023d13c491484",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "2104"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "1644"
+            }
+          ],
+          "format": {
+            "duration": "35.066000",
+            "size": "5431318"
+          }
+        }
+      }
+    ],
+    "allStreamPacketCountsPreserved": true,
+    "method": "stream copy all video/audio packets; full recording, including idle gap; no visual PASS inferred"
+  },
+  {
+    "rawFile": "2026-10-03 19-53-25.mkv",
+    "rawSha256": "50c1a4f8df97eba349acb73039bdfe7dac59e73812d8116f63e390ed901d174e",
+    "rawProbe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "nb_read_packets": "403238"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "nb_read_packets": "315030"
+        }
+      ],
+      "format": {
+        "duration": "6720.639000",
+        "size": "853800451"
+      }
+    },
+    "parts": [
+      {
+        "file": "video/recording-2/part-000.mp4",
+        "sha256": "d4743ca7fe2beab7562b91b7e46f311f18717029ad8f1d19a592fd2775c7efa9",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.520000",
+            "size": "53511457"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-001.mp4",
+        "sha256": "6a9acdcc133419fcd1a323cee01013117355217a31833882d25e29edb71cef73",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.332000",
+            "size": "53244929"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-002.mp4",
+        "sha256": "ac3af08344103c2f5ed8b274d0f8deaf0cf763c00935d082e501a337de7222cc",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.499000",
+            "size": "53147399"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-003.mp4",
+        "sha256": "7cbf60ac6c8283a1a6cb32e4b2026f95c71530e77f60ef1a3fbc3bfda5904a83",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.333000",
+            "size": "52536518"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-004.mp4",
+        "sha256": "89ec61348a85446d675d2ae5bd15bc8e093fd6ec180bf0f13c38c3aa431dee9a",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.332000",
+            "size": "52536543"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-005.mp4",
+        "sha256": "680c333a4d438b9380a06bfa2dce90e4c433fa745f8aebbf81e787f03b957f60",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.499000",
+            "size": "53147398"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-006.mp4",
+        "sha256": "09f611f62b737655c86f394824fed6cf5760d20cb96cee1e5ba4896ddaab3667",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.332000",
+            "size": "52536535"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-007.mp4",
+        "sha256": "d38b8002c5e9b491bdf1d0faee4ce18e149b770ca95e9b1b1fad836d1b4b5a44",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.499000",
+            "size": "53147382"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-008.mp4",
+        "sha256": "e1b2c0c575d29f7b93ead6d8ff36dfd6fb014cfcafa5bc1a27bca2ed119adb1b",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.333000",
+            "size": "52536535"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-009.mp4",
+        "sha256": "34a1b83648554da4f9fbad8f7b52ab1e67dac8b0399027650b63400333e8620b",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.332000",
+            "size": "52536543"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-010.mp4",
+        "sha256": "88e2af3f4a14fe829c2c92d7317878587409f569ee6510c81a7715b0909914d2",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.499000",
+            "size": "53147398"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-011.mp4",
+        "sha256": "43d93d54cf23cef74d8cb2274fe944276babb8b58b7dff8182f2ef0e4b9999b9",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.332000",
+            "size": "52536535"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-012.mp4",
+        "sha256": "b8291c712fc5f84fab674f609c442beb0e6442ce67a937b6c8a83451548fe3a2",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.499000",
+            "size": "53147382"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-013.mp4",
+        "sha256": "d7e77d109295c6594edda68935bf528ee5f6507dce83caf8da5100fcae57ce97",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.333000",
+            "size": "52536535"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-014.mp4",
+        "sha256": "80bc0928dab145f81a19ccefea5010c05dd4697bed26e9002f4827fb930c747d",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21711"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16962"
+            }
+          ],
+          "format": {
+            "duration": "361.849000",
+            "size": "36108442"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-015.mp4",
+        "sha256": "d3bf8101224038a9a6bead1e80122ff2b938fd72c75bc3ff9d2d3eac25e1af0e",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.332000",
+            "size": "23231699"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-016.mp4",
+        "sha256": "74cad28d570b125d36e4cb62d2407e770522be74f8db87422233004c28fce5ec",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21500"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16797"
+            }
+          ],
+          "format": {
+            "duration": "358.332000",
+            "size": "23231662"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-017.mp4",
+        "sha256": "af5fae1beb721ae4341807dae659166a2c21f2ba5a040845c9660b8b671b0f8a",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.499000",
+            "size": "23501801"
+          }
+        }
+      },
+      {
+        "file": "video/recording-2/part-018.mp4",
+        "sha256": "eb88d11360473ef34945435edc304bbcf5b6c330f51b29fca31479913812eeb3",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "14277"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "11154"
+            }
+          ],
+          "format": {
+            "duration": "237.949000",
+            "size": "15616547"
+          }
+        }
+      }
+    ],
+    "allStreamPacketCountsPreserved": true,
+    "method": "stream copy all video/audio packets; full recording, including idle gap; no visual PASS inferred"
+  },
+  {
+    "rawFile": "2026-10-03 21-46-42.mkv",
+    "rawSha256": "f74226d3c0402d6870699eed2709e870cca01cb1c0b0f0b47e9fbb59e002a4b9",
+    "rawProbe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "nb_read_packets": "30240"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "nb_read_packets": "23625"
+        }
+      ],
+      "format": {
+        "duration": "504.017000",
+        "size": "31564733"
+      }
+    },
+    "parts": [
+      {
+        "file": "video/recording-3/part-000.mp4",
+        "sha256": "ccbf9e0e16440d1bcba8c9baf1e51f7cf4f478bc8ceb72264e4db2db3e92032a",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "21750"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "16992"
+            }
+          ],
+          "format": {
+            "duration": "362.520000",
+            "size": "23243481"
+          }
+        }
+      },
+      {
+        "file": "video/recording-3/part-001.mp4",
+        "sha256": "45ea07869e0c01b266f192604398f48a1fd3de1cced3249353416a69de478572",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "8490"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "6633"
+            }
+          ],
+          "format": {
+            "duration": "141.499000",
+            "size": "8931900"
+          }
+        }
+      }
+    ],
+    "allStreamPacketCountsPreserved": true,
+    "method": "stream copy all video/audio packets; full recording, including idle gap; no visual PASS inferred"
+  },
+  {
+    "rawFile": "2026-10-03 21-56-52.mkv",
+    "rawSha256": "14ac07b75b4d7961975b8412814606da09c90ead1f9c2eaa8d291ea5c8ce2d2b",
+    "rawProbe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1",
+          "nb_read_packets": "15526"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "nb_read_packets": "12130"
+        }
+      ],
+      "format": {
+        "duration": "258.773000",
+        "size": "13689653"
+      }
+    },
+    "parts": [
+      {
+        "file": "video/recording-4/part-000.mp4",
+        "sha256": "ed7b879b55d8046abe1636e0b8a546872edaa852c7d9b38e22046a46cdbbc25e",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 4480,
+              "height": 1080,
+              "r_frame_rate": "60/1",
+              "nb_read_packets": "15526"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "r_frame_rate": "0/0",
+              "nb_read_packets": "12130"
+            }
+          ],
+          "format": {
+            "duration": "258.787000",
+            "size": "14002765"
+          }
+        }
+      }
+    ],
+    "allStreamPacketCountsPreserved": true,
+    "method": "stream copy all video/audio packets; full recording, including idle gap; no visual PASS inferred"
+  }
+]
