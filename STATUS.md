@@ -4,6 +4,15 @@ Last updated: 2026-10-03
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-03 — PR #219 exact-head PASS and merged; resulting-main CI #873 active
+
+PR #219 final exact head `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1` passed full Windows CI #872 / run `37101133903`. The dedicated validation artifact `narro-m7-validation-windows-x64` (id `11266587277`) was downloaded and verified: ZIP SHA-256 `925995634e4862e17da604f3f40566e0488738fb0caa9fed4c8f364b9cc99e28`, contained EXE SHA-256 `a016ceeb570a8c0f32042d71a4fa9658d4f146117b9ab05f130dc9ef897a9548`, fingerprint `fnv1a64:b8709c61031dee55:bytes:14874624`. CI smoke PASSed with evaluator initially PENDING.
+
+PR #219 was expected-head guarded squash-merged as `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Resulting-main Windows CI #873 / run `37105088285` is active. Final physical C5 instructions should be handed off only after #873 passes and its resulting-main artifact is verified. Progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m7-pr219-merged-main873-active.md`.
+
+
 ## 2026-10-03 — M1 final Candidate B fixed from resulting-main CI #866
 
 The post-PR #217 resulting-main diagnostic candidate is now fully reconciled. Windows CI #866 / run `37078139295` **PASSed** on exact source `f1a200c3624c3e25154a7023443c1dfc5be1e69d`, including the real diagnostic storage-isolation smoke after the bounded SQLite handle-release retry.
