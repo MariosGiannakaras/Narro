@@ -42,6 +42,62 @@ export type ReportHistory = {
   completedTasks: ReportCompletedTask[];
 };
 
+export type ReportOverviewSummary = {
+  totalWorkDays: string;
+  totalTasksDone: string;
+  averageTasksPerWorkDay: number | null;
+  totalTimeSeconds: string;
+  averageTimePerWorkDaySeconds: number | null;
+  averageTimePerTaskSeconds: number | null;
+};
+
+export type ReportDailySeriesPoint = {
+  localDate: string;
+  taskSeconds: string;
+  breakSeconds: string;
+  totalSeconds: string;
+};
+
+export type ReportProductiveSummary = {
+  localHourStart: number | null;
+  weekdayFromMonday: number | null;
+  monthKey: string | null;
+};
+
+export type ReportTimeByListRow = {
+  listId: string;
+  listTitle: string;
+  workSeconds: string;
+};
+
+export type ReportCompletionTimingKind = "early" | "on_time" | "late";
+
+export type ReportCompletionTiming = {
+  kind: ReportCompletionTimingKind;
+  differenceSeconds: string;
+};
+
+export type ReportDoneTaskInsight = {
+  task: ReportCompletedTask;
+  timing: ReportCompletionTiming | null;
+};
+
+export type ReportPunctualitySummary = {
+  earlySeconds: string;
+  lateSeconds: string;
+  earlyPercent: number | null;
+  latePercent: number | null;
+};
+
+export type ReportOverview = {
+  summary: ReportOverviewSummary;
+  dailySeries: ReportDailySeriesPoint[];
+  productive: ReportProductiveSummary;
+  timeByList: ReportTimeByListRow[];
+  doneTasks: ReportDoneTaskInsight[];
+  punctuality: ReportPunctualitySummary;
+};
+
 export type ReportSessionMutation = {
   id: string;
   taskId: string | null;
@@ -58,6 +114,13 @@ export type GetReportHistoryRequest = {
   startAt: string;
   endAt: string;
   listId: string | null;
+};
+
+export type GetReportOverviewRequest = {
+  startAt: string;
+  endAt: string;
+  listId: string | null;
+  displayTimezone: string;
 };
 
 export type CreateManualReportSessionRequest = {
@@ -82,6 +145,10 @@ export type DeleteReportSessionRequest = {
 
 export function getReportHistory(request: GetReportHistoryRequest): Promise<ReportHistory> {
   return invoke<ReportHistory>("get_report_history", request);
+}
+
+export function getReportOverview(request: GetReportOverviewRequest): Promise<ReportOverview> {
+  return invoke<ReportOverview>("get_report_overview", request);
 }
 
 export function createManualReportSession(

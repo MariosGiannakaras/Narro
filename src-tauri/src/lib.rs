@@ -2141,6 +2141,7 @@ pub fn run() {
             preference_settings::get_preference_settings,
             preference_settings::update_preference_settings,
             report_commands::get_report_history,
+            report_commands::get_report_overview,
             report_commands::create_manual_report_session,
             report_commands::edit_report_session,
             report_commands::delete_report_session,
