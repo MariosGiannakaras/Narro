@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 16/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 17/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -3983,18 +3983,307 @@ No unique implementation gap is routed from VE-001 in this analysis-only track.
 # Queue 17 — VE-004 — Getting Started
 
 Source: `Blitzit Tutorial Getting Started with Blitzit.mp4`  
-Metadata: **04:09.870, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **04:09.800 video stream / ~04:09.870 container, 1920×1080, 60 fps, 14,988 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:01:24–00:03:20 — Home/list/task/Focus overview;
-- account/trial sections around 00:00:39–00:01:22 and 00:03:38–00:03:55.
+Inspection method:
+- complete source reviewed end-to-end;
+- 5 s whole-video contact scan;
+- full-resolution keyframes across download/signup/onboarding, Home/list creation, board/list selector, task creation, Blitz entry, Focus/Floating and success state;
+- 1 s dense sampling across task-creation sequence;
+- 5 fps micro review across board→Focus, Focus→Floating and Floating→success transitions;
+- transcript used only to separate narrated capability claims from direct product pixels;
+- duplicated behavior was cross-checked against VE-003 / VE-005 rather than treated as new independent requirements.
 
-Pass-3 focus:
-- Home→list→board→Focus continuity;
-- unique vs duplicate interaction states;
-- onboarding copy only where it affects in-product behavior;
-- exclude auth/commerce from parity targets.
+## VE-004 chronological state map
+
+### 00:00:00–~00:00:39 — website/platform overview
+
+**VIDEO-DIRECT / NON-PARITY CONTEXT**
+- tutorial begins in browser on Blitzit marketing/download pages;
+- supported desktop choices shown include:
+  - Windows;
+  - macOS Intel;
+  - macOS Apple Silicon.
+- source narration also discusses OS-version support and future mobile apps.
+
+**SCOPE**
+- this is distribution/platform context, not Narro interaction-parity evidence;
+- no implementation requirement is derived from marketing/download copy.
+
+### ~00:00:39–00:01:24 — first-run account/signup flow
+
+**VIDEO-DIRECT / NON-PARITY CONTEXT**
+The source shows an older account onboarding sequence:
+1. `Welcome to Blitzit` with email field and Continue;
+2. `Privacy & Data Collection` screen with Agree / Disagree;
+3. `Email sent` verification-code screen with segmented code input and resend affordance;
+4. name onboarding asking first/last name;
+5. transition into the application Home shell.
+
+**VERSION/SCOPE NOTE**
+- this source runs Blitzit **v2.4.68** and visibly includes cloud-account/trial/commerce infrastructure;
+- Narro's local-only product architecture intentionally differs, so these states are retained as historical source evidence but are **not parity targets** for the current implementation track.
+
+### ~00:01:24–00:01:35 — first-use Home shell
+
+**VIDEO-DIRECT**
+- greeting: `Good Evening, Daniel`;
+- current Home has no user lists yet;
+- center empty-state CTA:
+  - `Create your first list to get started 🚀`;
+  - `+ CREATE LIST`.
+- left account card visibly shows:
+  - Blitzit BETA;
+  - version `v2.4.68`;
+  - `Plan: Free Trial`;
+  - six trial days remaining.
+- adjacent commerce card shows a countdown and `Upgrade Now`;
+- bottom navigation:
+  - Home;
+  - Reports;
+  - Add new task;
+  - Help center with onboarding progress `1/5`.
+
+**VERSION NOTE**
+- current v2.6.69 screenshots supersede this old shell for exact present-day styling/copy;
+- VE-004 is useful for first-use/empty-list workflow continuity.
+
+### ~00:01:35–00:01:43 — Create List
+
+**VIDEO-DIRECT**
+- Create List opens the familiar centered dimmed-background modal;
+- exact demonstrated values:
+  - title **`Tutorials`**;
+  - circular icon preview with initial `T`;
+  - selectable color swatches;
+  - Cancel;
+  - gradient Create.
+- selected list color is visibly changed before commit.
+
+**CROSS-SOURCE**
+- modal structure matches VE-005 and current SS-C01;
+- VE-004 adds first-use context rather than a distinct creation mechanism.
+
+### ~00:01:43–00:01:49 — created list card / Edit List menu
+
+**VIDEO-DIRECT**
+- Home now contains a `Tutorials` list card with **0 pending tasks**;
+- Create List tile remains beside it;
+- list-card overflow exact order:
+  1. `Edit List`
+  2. `Duplicate`
+  3. `Archive List`.
+- list card shows `ALL CLEAR` empty state.
+
+**CROSS-SOURCE**
+- same current list-menu grammar as VE-005 / SS-C05.
+
+### ~00:01:49–00:02:03 — open Tutorials → empty four-column board
+
+**VIDEO-DIRECT**
+- board columns:
+  - Backlog;
+  - This Week;
+  - Today;
+  - Done.
+- header:
+  - Back;
+  - Tutorials list selector;
+  - `This list has no tasks`.
+- all four lanes show `All Clear`;
+- Today retains its accent outline;
+- Today `Blitzit now` CTA is present but **disabled/muted** while no task exists;
+- bottom shell remains Home / Reports / Add new task / Help center.
+
+### ~00:02:03–00:02:11 — list-scope selector
+
+**VIDEO-DIRECT**
+- top list selector opens compact menu:
+  - `All Lists`;
+  - `Tutorials`.
+- selecting list scope keeps the same four-column board architecture;
+- this corroborates single-list vs All Lists board reuse.
+
+### ~00:02:11–00:02:26 — inline task creation
+
+**VIDEO-DIRECT**
+- Today `+ ADD TASK` expands in place;
+- editor anatomy:
+  - `× CANCEL`;
+  - Title;
+  - Est time `00:00`;
+  - helper `Add a new task`;
+  - gradient Confirm.
+- title entered: **`Promo video`**;
+- Confirm creates the task immediately;
+- header changes to:
+  - `1 pending tasks, Est: 0min`;
+- Today progress changes **0/0 Done → 0/1 Done**.
+
+**HOVER-DIRECT**
+- newly created Promo video exposes the established board hover rail:
+  - leading completion circle;
+  - Subtasks;
+  - Notes;
+  - lane-left;
+  - lane-right;
+  - overflow.
+- lower metrics remain `+ EST` and `0min`.
+
+### ~00:02:26–00:02:32 — tutorial staging cut to three-task planning state
+
+**SOURCE-ARTIFACT / CUT**
+- footage jumps from the single Promo video state to a prepared Today queue:
+  1. **Script**
+  2. **Recording voice**
+  3. **Editing**
+- header now reads **3 pending tasks, Est: 0min** and Today **0/3 Done**;
+- active gradient `Blitzit now` CTA appears at lane bottom.
+
+**IMPORTANT**
+- the clip does not continuously show Promo video being renamed/replaced by those three tasks;
+- do not infer a hidden bulk-edit operation. This is tutorial staging.
+
+### ~00:02:32–00:02:38 — Blitz entry
+
+**VIDEO-DIRECT**
+- activating Today `Blitzit now` leaves the board and opens the narrow Focus Panel on the left edge;
+- `Script` becomes live automatically;
+- because no EST is set, its live timer counts **up** from near zero;
+- queued order beneath:
+  - Recording voice;
+  - Editing;
+- Focus header:
+  - list badge / Today;
+  - Est: 0min;
+  - 0/3 Done.
+
+**TRANSITION**
+- 5 fps review shows board→Focus state replacement completes within only a few sampled frames;
+- exact timing is not promoted because stronger transition measurements exist in VE-003/VE-013 and this onboarding footage is not the canonical motion source.
+
+### ~00:02:38–00:02:55 — Focus queue and inline task add
+
+**VIDEO-DIRECT**
+- live Script timer continues upward;
+- queued task order changes through ordinary priority interaction, with Editing shown above Recording voice later;
+- hovering a queued task exposes Focus-specific actions including Make Live/rocket, Subtasks, Notes and overflow;
+- `+ ADD TASK` remains available inside Focus.
+
+**INLINE-ADD-DIRECT**
+- activating Add Task expands an inline editor inside Focus:
+  - Cancel;
+  - title input `Enter task title*`;
+  - Est time 00:00;
+  - Confirm.
+- editor collapses back into the same panel flow.
+
+**DENOMINATOR NOTE**
+- later success state reports **1/4 Done**, indicating a fourth task exists in the staged Focus set by that point;
+- this source does not present a clean enough continuous title/commit frame to identify that added task confidently, so its identity is not invented.
+
+### ~00:02:55–00:03:04 — Focus → Floating Timer
+
+**VIDEO-DIRECT / MOTION CORROBORATION**
+- top-right presentation control / Focus-mode affordance switches from panel to Floating Timer;
+- the same live task `Script` and its running timer persist;
+- surface shrinks from tall left panel to compact horizontal timer and relocates toward the desktop center/right;
+- 5 fps micro sampling shows a continuous geometry change rather than a hard page cut.
+
+**CROSS-SOURCE**
+- this corroborates the ~0.25–0.35 s geometry-morph family measured more cleanly in VE-013;
+- VE-004 does not override the stronger timing measurement.
+
+### ~00:03:04–00:03:18 — Floating Timer action strip
+
+**VIDEO-DIRECT**
+- resting Floating Timer prioritizes:
+  - title `Script`;
+  - live count-up timer.
+- hover reveals compact horizontal action strip;
+- visible action family includes:
+  - break/gamepad-like action;
+  - Notes/document;
+  - Pause;
+  - Skip;
+  - Done/check;
+  - expand/restore.
+- hovered action can expand into a text-labeled pill;
+- directly visible example: **`Skip`**.
+
+**CROSS-SOURCE**
+- action grammar matches VE-003 and Help/current Floating Timer evidence.
+
+### ~00:03:18–00:03:23 — Done → success screen
+
+**VIDEO-DIRECT**
+- Done is activated from Floating Timer;
+- surface expands back to the Focus-panel form and displays success content for Script:
+  - struck-through `Script`;
+  - **`Well done! 💥`**;
+  - reaction GIF;
+  - **`You finished the task!`**;
+  - gradient **`Next Task`**;
+  - secondary **`Take a Break`**;
+  - `Est: None`;
+  - `Taken: 0min`.
+- header progress is **1/4 Done**;
+- queue below includes Editing and Recording voice;
+- lower Done section shows **1 Done** and a visible **43s** value.
+
+**ONBOARDING-OVERLAY**
+- a contextual coaching bubble appears:
+  - **`Time for the next task`**;
+  - **`Move on to the next task in list`**;
+  - close X.
+- this belongs to the old first-use/help/onboarding guidance layer and should not be treated as a mandatory ordinary success-state overlay.
+
+### ~00:03:23–00:03:38 — feature recap
+
+**VIDEO-DIRECT / MOSTLY DUPLICATE**
+- success/Focus context remains visible while narration references scheduling, alerts, integrations and customization;
+- no unique new interaction is executed.
+
+### ~00:03:38–00:03:59 — pricing/trial page
+
+**VIDEO-DIRECT / NON-PARITY CONTEXT**
+- tutorial shows historical pricing page:
+  - Monthly Plan;
+  - Blitz for Life / lifetime offer;
+  - old pricing values and trial messaging.
+- this is commerce/history evidence only and is not a Narro parity target.
+
+### ~00:03:59–00:04:09.80 — outro
+
+**NON-PARITY**
+- tutorial/community outro; no additional application behavior.
+
+## VE-004 source synthesis
+
+High-confidence direct behavior/anatomy established:
+- first-use Home can present a no-list CTA that enters the same Create List modal used later;
+- creating `Tutorials` yields an empty Home list card with Edit List / Duplicate / Archive List menu;
+- empty list opens the four-column board with disabled/muted Today Blitz CTA;
+- board list selector contains All Lists + current list;
+- Today inline task creation uses title + EST + Confirm and immediately updates pending/progress counts;
+- Promo video creation is direct, but the later Script/Recording voice/Editing set appears through a tutorial staging cut and is not a rename/bulk-edit sequence;
+- Blitz entry auto-starts the top Today task;
+- no-EST task uses count-up live timer;
+- Focus supports queue management and inline task creation;
+- Focus→Floating preserves live identity through the same geometry-morph family seen in stronger motion sources;
+- Floating hover exposes the compact action strip and labeled hover state such as Skip;
+- Done from Floating expands into Focus success with GIF, Next Task, Take a Break and Est/Taken summary;
+- old onboarding/help coaching tooltip is visible on the success screen but is classified separately from normal runtime UI;
+- auth, trial and pricing surfaces are retained as historical context and explicitly excluded from current Narro parity.
+
+Cross-source precedence:
+- VE-003 is stronger for detailed Blitz/Focus interaction timing;
+- VE-005 is stronger/current for list/task management details;
+- VE-013 is stronger for Panel↔Floating motion timing;
+- current v2.6.69 screenshots supersede VE-004's v2.4.68 Home/account styling.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
