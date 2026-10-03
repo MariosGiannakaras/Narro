@@ -62,7 +62,7 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 
 - Corpus: **19 MP4 + 19 matching SRT**
 - Full MP4s completed to Pass-3 standard: **9/19**
-- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules**
+- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
@@ -80,25 +80,27 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-010 — `Blitzit Tutorial How to Use Notes.mp4`.**
+**Continue with VE-015 — `Blitzit Tutorial Sessions Walkthrough.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010.
 
-For VE-010:
+For VE-015:
 
-1. inspect the complete **01:13.561, 1920×1080, 60 fps** MP4;
-2. build a full Notes timeline;
+1. inspect the complete **02:56.216, 1920×1080, 60 fps** MP4;
+2. build a full Sessions timeline;
 3. densely inspect:
-   - Notes affordance reveal/activation;
-   - inline editor open/close and card reflow;
-   - exact toolbar control order;
-   - rich-text/list actions actually demonstrated;
-   - multiline body behavior and internal scrolling;
-   - link/URL treatment and any source auto-open artifact;
-   - Focus/board context if both are shown;
-4. separate explicit user actions from tutorial/source artifacts;
+   - Reports→Sessions entry;
+   - list/date/break filters;
+   - summary metric cards;
+   - populated session-row anatomy;
+   - task/detail expansion;
+   - inline field editing and commit/cancel;
+   - row overflow/delete;
+   - Add Session dialog and searchable task picker;
+   - export action/format shown in this source;
+4. reconcile any Sessions export-format conflict with stronger current v2.6.69 screenshot evidence;
 5. update analysis Markdown only;
-6. then continue to VE-015.
+6. then continue to VE-011.
 
 ## Media-access rule
 
