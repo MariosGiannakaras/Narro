@@ -39,6 +39,7 @@ for (const [haystack, needle, label] of [
   [card, 'data-task-completion-control="complete"', "A6 pointer/keyboard completion control"],
   [card, 'data-task-delete-confirm="inline"', "A5 inline explicit destructive confirmation"],
   [board, 'data-today-progress="true"', "P3-M5-01 Today done/total progress"],
+  [boardProjection, "today_completion_count", "P3-M5-01 authoritative Today completion count"],
   [card, 'data-task-leading-slot="ordinal-completion"', "P3-M5-02 resting ordinal/completion slot"],
   [card, 'data-task-actions="source-hover-rail"', "P3-M5-02 source hover rail"],
   [shell, "await archiveListFromSettings(list.id);", "P3-M5-05 direct reversible list archive"],
