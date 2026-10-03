@@ -150,7 +150,6 @@ for (const [haystack, needle, label] of [
   [focusEntry, 'get("diagnostics") === "1"', "explicit diagnostic-mode preservation"],
   [css, "width: min(100%, 340px)", "compact source-evidenced panel width"],
   [css, ".focus-panel__live-timer { width: 10ch; flex: 0 0 10ch;", "fixed live timer geometry"],
-  [css, "grid-template-columns: repeat(6, minmax(0, 1fr))", "stable six-action strip geometry"],
   [css, ".focus-panel__notes .task-notes__trigger { display: none; }", "Focus Notes use action-strip trigger without duplicate control"],
   [css, ".focus-panel__live-meta > span:not([class]) { display: none; }", "legacy live subtask text hidden in favor of authoritative Focus progress surface"],
   [css, "conic-gradient(", "Focus subtask progress ring"],

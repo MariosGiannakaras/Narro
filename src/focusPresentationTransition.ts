@@ -42,8 +42,9 @@ async function restorePreviousPresentation<TPresentation extends string>(
  *
  * Standard path:
  * 1. wait until the target subtree has painted,
- * 2. commit native region/position/window attributes,
- * 3. transfer renderer interaction ownership.
+ * 2. present any caller-supplied target-paint barrier,
+ * 3. commit native region/position/window attributes,
+ * 4. transfer renderer interaction ownership.
  *
  * Panel/Timer mode changes can instead provide an animated native commit and
  * renderer motion. Those run concurrently so the one persistent HWND moves
@@ -68,13 +69,19 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
   if (previousPresentation === targetPresentation) return false;
 
   await waitForTargetReady();
+  await beforeNativeCommit?.();
 
   if (animateNativePresentation && runConcurrentMotion) {
     try {
-      await Promise.all([
+      // A failed renderer motion must not race a still-running native commit:
+      // join both operations before restoring the previous presentation.
+      const results = await Promise.allSettled([
         animateNativePresentation(targetPresentation),
         runConcurrentMotion(),
       ]);
+      for (const result of results) {
+        if (result.status === "rejected") throw result.reason;
+      }
     } catch (transitionFailure) {
       return restorePreviousPresentation(
         previousPresentation,
@@ -97,7 +104,6 @@ export async function commitPreparedFocusPresentation<TPresentation extends stri
     }
   }
 
-  await beforeNativeCommit?.();
   await applyNativePresentation(targetPresentation);
 
   try {

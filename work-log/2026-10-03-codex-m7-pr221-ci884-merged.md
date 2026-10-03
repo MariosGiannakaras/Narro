@@ -1,0 +1,9 @@
+# M7 PR #221 integrated — full CI #884 PASS
+
+PR #221 head `5cc184d87ae4f3562e439012292526940a48cb0a` passed every Windows CI #884 gate, run `37122117866`, completed 2026-10-03 12:30:09 UTC. Expected-head guarded squash merge: `1a96da7d8b4c6f4aa2aa58cb7d6bd49726b0fab0`. Git diff of that head against merged main excluding Markdown is empty. The integration token emitted no push-triggered main run; repository policy accepts the byte-identical validated source tree without dispatching duplicate CI.
+
+Candidate artifact `narro-m7-validation-windows-x64`, id `11274516121`, ZIP SHA-256 `035f1462ccdd1286659a405de16e93f5e9b387d7de331983d92e0014e8d38a17`; contained EXE size 14,836,224 bytes, SHA-256 `a279664e4805eed7673ca30b1e2af6ff0f47356c1d59f8f92dacbdd8e2eb4bb3`. Download digest was verified before extraction/launch. Local backup is under ignored `artifacts/m7-pr221-ci884/safety/20261003-153204`.
+
+Native topology had changed since the prior two-monitor C5 run: only 1920×1080 DISPLAY2 remains, reported at 125% by native logs. A dedicated OBS collection/profile captures this active display at native 1920×1080/60 fps, CRF18. Original two-monitor collection/profile remain preserved. A video-derived frame confirms correct capture. Old CI873 process quit normally through its actual tray menu and persisted its safe current position before candidate launch.
+
+Physical candidate acceptance remains OPEN at this checkpoint. Latest user direction requires a detailed PASS/FAIL/NOT RUN ledger and batches compatible M7 checks/findings to avoid repetitive builds. Do not equate CI with physical acceptance or this M7 scope with a universal interface audit. Source slice diff against its validated baseline is `+138/-37`. Milestone-total baseline was verified from pre-M7 main tracking as validated M6 source `ab5818fa92970655b63323839111a1977a5837a7`; compute its non-Markdown source diff to final accepted M7 source at closure. Separate M1 B/C/D remain open.
