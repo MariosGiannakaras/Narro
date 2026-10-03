@@ -80,26 +80,25 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-009 — `Blitzit Tutorial How to Use Custom Recurring Schedules.mp4`.**
+**Continue with VE-010 — `Blitzit Tutorial How to Use Notes.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009.
 
-For VE-009:
+For VE-010:
 
-1. inspect the complete **02:39.893, 1920×1080, 60 fps** MP4;
-2. build a full custom-recurrence timeline;
+1. inspect the complete **01:13.561, 1920×1080, 60 fps** MP4;
+2. build a full Notes timeline;
 3. densely inspect:
-   - recurrence entry point and Custom selection;
-   - Repeat every interval number;
-   - day/week/month/year unit selector;
-   - weekday chip selection/deselection;
-   - monthly conditional controls;
-   - natural-language recurrence summary;
-   - any generated-task consequence rows;
-   - footer continuity and save result;
-4. separate direct UI state from narration/examples not committed;
+   - Notes affordance reveal/activation;
+   - inline editor open/close and card reflow;
+   - exact toolbar control order;
+   - rich-text/list actions actually demonstrated;
+   - multiline body behavior and internal scrolling;
+   - link/URL treatment and any source auto-open artifact;
+   - Focus/board context if both are shown;
+4. separate explicit user actions from tutorial/source artifacts;
 5. update analysis Markdown only;
-6. then continue to VE-010.
+6. then continue to VE-015.
 
 ## Media-access rule
 
