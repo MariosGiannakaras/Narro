@@ -233,6 +233,7 @@
 
 .list-board-task {
   --list-board-task-accent: var(--color-border-strong);
+  container-type: inline-size;
   display: grid;
   gap: var(--space-2);
   min-width: 0;
@@ -405,6 +406,19 @@
   width: 6.25rem;
   height: 1.25rem;
   justify-self: end;
+}
+
+/* Small Windows lanes cannot fit title + the fixed action rail on one row.
+   Reserve the second row even at rest so hover/focus never moves the title. */
+@container (max-width: 12.25rem) {
+  .list-board-task__title-row {
+    grid-template-columns: 1rem minmax(0, 1fr);
+  }
+
+  .list-board-task__action-slot {
+    grid-column: 2;
+    grid-row: 2;
+  }
 }
 
 .list-board-task__actions,

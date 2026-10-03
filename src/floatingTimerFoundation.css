@@ -26,6 +26,14 @@
   clip-path: inset(0 0 190px 0 round 12px);
 }
 
+/* Establish the compact clip in one paint before expanding the native region.
+   Animating into this initial state can expose a prematurely tall surface. */
+.floating-timer-foundation[data-floating-resize-phase="prepainting"],
+.floating-timer-foundation[data-floating-resize-phase="revealing-start"],
+.floating-timer-foundation[data-floating-resize-phase="clipping"] {
+  transition: none;
+}
+
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="revealing"],
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="contracting-start"] {
   clip-path: inset(0 0 0 0 round 12px);
@@ -87,7 +95,9 @@
   height: 100%;
   display: grid;
   opacity: 1;
-  transform: translateY(0);
+  /* Neutral transforms create a nested containing block for fixed Notes and
+     the prepainting heading. Keep both anchored to the host, not this padding. */
+  transform: none;
   transition-property: opacity, transform;
   transition-duration: var(--motion-duration-inline);
   transition-timing-function: var(--motion-ease-enter);

@@ -243,7 +243,7 @@ function ToolbarButton({
   onAction: () => void;
 }) {
   return (
-    <Tooltip content={label}>
+    <Tooltip content={label} boundarySelector=".task-notes__editor-shell">
       <button
         type="button"
         className="task-notes__toolbar-button motion-interactive"
@@ -411,7 +411,7 @@ function RichNoteEditor({
           <ToolbarButton label="Add link" disabled={pending} onAction={addLink}>↗</ToolbarButton>
           <ToolbarButton label="Undo" disabled={pending} onAction={() => command("undo")}>↶</ToolbarButton>
           <ToolbarButton label="Redo" disabled={pending} onAction={() => command("redo")}>↷</ToolbarButton>
-          <Tooltip content={presentationLabel} align="end">
+          <Tooltip content={presentationLabel} align="end" boundarySelector=".task-notes__editor-shell">
             <button
               ref={presentationButtonRef}
               type="button"

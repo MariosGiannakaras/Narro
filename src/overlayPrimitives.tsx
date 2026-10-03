@@ -9,6 +9,7 @@ import {
   type ReactNode,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -44,6 +45,7 @@ export interface TooltipProps {
   children: ReactNode;
   align?: TooltipAlign;
   placement?: TooltipPlacement;
+  boundarySelector?: string;
 }
 
 export function Tooltip({
@@ -51,11 +53,40 @@ export function Tooltip({
   children,
   align = "center",
   placement = "top",
+  boundarySelector,
 }: TooltipProps) {
   const tooltipId = useId();
   const timeoutRef = useRef<number | null>(null);
   const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLSpanElement>(null);
+  const tooltipRef = useRef<HTMLSpanElement>(null);
   const trigger = requireSingleElement(children, "Tooltip");
+
+  useLayoutEffect(() => {
+    if (!open || !boundarySelector) return;
+    const anchor = anchorRef.current;
+    const tooltip = tooltipRef.current;
+    const boundary = anchor?.closest<HTMLElement>(boundarySelector);
+    if (!anchor || !tooltip || !boundary) return;
+    const place = () => {
+      const bounds = boundary.getBoundingClientRect();
+      const origin = anchor.getBoundingClientRect();
+      const inset = 4;
+      tooltip.style.maxWidth = `${Math.max(0, bounds.width - 2 * inset)}px`;
+      const width = tooltip.offsetWidth;
+      const preferred = align === "start" ? origin.left
+        : align === "end" ? origin.right - width : origin.left + (origin.width - width) / 2;
+      const left = Math.max(bounds.left + inset, Math.min(preferred, bounds.right - inset - width));
+      tooltip.style.insetInlineStart = `${left - origin.left}px`;
+      tooltip.style.insetInlineEnd = "auto";
+      tooltip.style.setProperty("--tooltip-translate-x", "0px");
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    observer.observe(boundary);
+    observer.observe(anchor);
+    return () => observer.disconnect();
+  }, [open, align, boundarySelector, content]);
 
   const clearPending = () => {
     if (timeoutRef.current !== null) {
@@ -117,9 +148,10 @@ export function Tooltip({
   });
 
   return (
-    <span className="overlay-anchor overlay-anchor--inline">
+    <span ref={anchorRef} className="overlay-anchor overlay-anchor--inline">
       {enhancedTrigger}
       <span
+        ref={tooltipRef}
         id={tooltipId}
         role="tooltip"
         className="overlay-tooltip motion-overlay"
