@@ -17,13 +17,13 @@ It is the same Narro runtime source with validation-only local instrumentation a
 7. Relaunch the same `narro-m7-validation.exe`.
 8. Show/reopen the Timer for the recovered/live task.
 9. Open the automatically created sibling folder `Narro-M7-Logs`.
-10. Upload the latest `session-*` folders plus `m7-c5-latest-result.json` (and preferably `m7-c5-last-terminal-result.json`) for audit/debugging.
+10. Upload the entire `Narro-M7-Logs` folder for audit/debugging. The C5 restart test spans two process sessions, so keeping only the latest session would discard the pre-Quit drag/persistence timeline.
 
 ## Automatic files
 
 The executable creates `Narro-M7-Logs` next to itself when that location is writable. If it is not writable, it falls back to Narro's local AppData validation-log directory.
 
-Each process launch creates a new `session-*` directory containing:
+Each process launch creates a new `session-*` directory containing. Do not delete the first session after relaunch; the pair is the complete cross-restart trace:
 
 - `session.json` — process/build/privacy metadata;
 - `events.jsonl` — ordered timestamped technical events;
