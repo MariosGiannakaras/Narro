@@ -10,6 +10,7 @@ function requireText(haystack, needle, label) {
 const commands = read("src-tauri/src/report_commands.rs");
 const reporting = read("src-tauri/src/reporting.rs");
 const sessions = read("src-tauri/src/persistence/sessions.rs");
+const sessionReporting = read("src-tauri/src/session_reporting.rs");
 const lib = read("src-tauri/src/lib.rs");
 const api = read("src/reportsApi.ts");
 const packageJson = read("package.json");
@@ -17,6 +18,8 @@ const packageJson = read("package.json");
 for (const [haystack, needle, label] of [
   [commands, "report_history_snapshot(&connection, range)", "validated history read delegation"],
   [commands, "report_overview(&connection, range, &display_timezone)", "validated Overview aggregation delegation"],
+  [commands, "load_sessions_report(&connection, range, show_break_sessions)", "validated Sessions projection delegation"],
+  [commands, "load_task_sessions_detail(&connection, task_id)", "all-history task Sessions detail delegation"],
   [commands, "create_manual_work_session(", "manual-session persistence delegation"],
   [commands, "edit_closed_session_if_expected(", "stale-safe edit persistence delegation"],
   [commands, "delete_closed_session_if_expected(", "stale-safe delete persistence delegation"],
@@ -30,6 +33,12 @@ for (const [haystack, needle, label] of [
   [commands, "time_taken_seconds: value.time_taken_seconds.to_string()", "lossless Time Taken IPC"],
   [reporting, "pub fn report_history_snapshot(", "validated report history boundary"],
   [reporting, "pub fn report_overview(", "validated report Overview aggregation boundary"],
+  [reporting, "pub list_ids: Vec<ListId>", "multi-select report range authority"],
+  [sessionReporting, "pub fn load_sessions_report(", "validated Sessions read boundary"],
+  [sessionReporting, "pub fn load_task_sessions_detail(", "validated task Sessions detail boundary"],
+  [sessionReporting, "sessions_for_task(conn, task_id)", "all-history session ordinal authority"],
+  [sessionReporting, "task_session_ordinal", "task-relative session ordinal contract"],
+  [sessionReporting, "rows.reverse();", "reverse-chronological Sessions presentation"],
   [sessions, "pub fn create_manual_work_session(", "validated manual session boundary"],
   [sessions, "pub fn edit_closed_session_if_expected(", "validated historical edit boundary"],
   [sessions, "pub fn delete_closed_session_if_expected(", "validated historical delete boundary"],
@@ -37,11 +46,17 @@ for (const [haystack, needle, label] of [
   [lib, "pub mod report_commands;", "report command module registration"],
   [lib, "report_commands::get_report_history,", "history command registration"],
   [lib, "report_commands::get_report_overview,", "Overview command registration"],
+  [lib, "report_commands::get_report_sessions,", "Sessions command registration"],
+  [lib, "report_commands::get_report_task_sessions,", "task Sessions detail command registration"],
   [lib, "report_commands::create_manual_report_session,", "manual session command registration"],
   [lib, "report_commands::edit_report_session,", "session edit command registration"],
   [lib, "report_commands::delete_report_session,", "session delete command registration"],
   [api, 'invoke<ReportHistory>("get_report_history"', "typed history invoke"],
   [api, 'invoke<ReportOverview>("get_report_overview"', "typed Overview invoke"],
+  [api, 'invoke<ReportSessions>("get_report_sessions"', "typed Sessions invoke"],
+  [api, 'invoke<ReportTaskSessionsDetail>("get_report_task_sessions"', "typed task Sessions detail invoke"],
+  [api, "listIds: string[];", "typed multi-select report filter"],
+  [api, "taskSessionOrdinal: string | null;", "lossless task-relative session ordinal type"],
   [api, 'invoke<ReportSessionMutation>("create_manual_report_session"', "typed manual session invoke"],
   [api, 'invoke<ReportSessionMutation>("edit_report_session"', "typed session edit invoke"],
   [api, 'invoke<ReportSessionMutation>("delete_report_session"', "typed session delete invoke"],
