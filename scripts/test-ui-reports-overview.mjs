@@ -39,7 +39,7 @@ for (const [haystack, needle, label] of [
   [css, "@media (prefers-reduced-motion: reduce)", "reduced-motion chart handling"],
   [fixture, 'mode === "list-filter"', "list filter visual fixture mode"],
   [fixture, 'mode === "date-picker"', "date picker visual fixture mode"],
-  [fixture, 'mode === "series-toggle"', "chart series-toggle visual fixture mode"],
+  [fixture, 'total: mode !== "series-toggle"', "chart series-toggle visual fixture mode"],
   [fixture, 'mode === "lower"', "lower-panels visual fixture mode"],
   [fixtureHtml, "/src/reportsVisualFixture.tsx", "Reports fixture entry module"],
   [vite, 'reportsFixture: "reports-fixture.html"', "Vite Reports fixture input"],
