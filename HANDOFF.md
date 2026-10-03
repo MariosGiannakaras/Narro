@@ -6,7 +6,7 @@ GitHub `main` is the durable source truth.
 
 ## LIVE RECONCILIATION — 2026-10-03
 
-This section overrides stale PR #217/#218 continuation text below until those older passages are next cleaned up.
+This section is the current continuation state.
 
 - Main source baseline: `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
 - PR #217 is merged. Resulting-main diagnostic hash-release follow-up is validated by Windows CI #866 / run `37078139295`: **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
@@ -100,8 +100,9 @@ Do not edit implementation PR #213 or any source/test/config files from this for
   `sha256:acb24529528549762a1d7c1794268aa9ee7825197a1062b506c3b184942862b8`,
   contains diagnostic `narro.exe` SHA-256
   `a4da47d57fd08b5f3193a4f793c4df963061c094a861a4dc0fd4e6ed0b92f4af`.
-  This is the validated PR #216 fallback baseline, not yet the final user-facing
-  Candidate B because PR #217 is active.
+  This remains historical PR #216 fallback evidence. The final user-facing
+  Candidate B is the later CI #866 artifact recorded below and in
+  `work-log/2026-10-03-chatgpt-m1-ci866-final-candidate-b.md`.
 - Durable exact-head/merge checkpoint:
   `work-log/2026-10-03-chatgpt-m1-pr216-ci853-merge-checkpoint.md`.
 - Earlier combined-main failure history and #215 diagnosis remain in:
@@ -129,7 +130,9 @@ implementation under test.
 
 ### M7 C5 production physical acceptance
 
-Continue to use the already accepted CI #809 **production** physical artifact:
+CI #809 remains the accepted **legacy production baseline** below. While PR #219 is pending, do not start a new C5 run. After #219 is validated, follow the LIVE RECONCILIATION instructions and use the validated automatic-logging executable rather than silently reverting to the legacy helper path.
+
+Legacy CI #809 artifact:
 
 - artifact id `11163439039`
 - artifact digest `sha256:39ca0a91d7aa54be79ca35c509f82f25049a15a3fc4ffff199699eab309557a5`
@@ -140,33 +143,27 @@ Packaged Focus visual artifact `11163582492`, digest `sha256:c184e661163bdf9ff1a
 
 ### Remaining M1 diagnostic/manual validation
 
-PR #216 resulting-main CI #854 is fully green and provides a validated baseline
-artifact, but **final Candidate B is now pending PR #217**.
+Final Candidate B is **ready** and fixed to resulting-main CI #866:
 
-PR #217 (`M1: verify resolved diagnostic storage isolation`) was opened after
-code audit found the UI isolation verdict used only the configured identifier.
-Its current source:
-- adds native `isolationPass` from the actual resolved app-data/local-data
-  paths plus diagnostic identifier;
-- rejects the production identifier;
-- fails closed **before diagnostic SQLite create/open** if resolved app-data does
-  not end in `com.mariosg.Narro.M1Diagnostic`;
-- adds Rust regressions for valid/wrong/production namespace cases.
+- source SHA: `f1a200c3624c3e25154a7023443c1dfc5be1e69d`
+- Windows CI: #866 / run `37078139295` — **PASS**
+- diagnostic artifact: `narro-m1-diagnostic-windows-x64`
+- artifact id: `11257763093`
+- ZIP SHA-256:
+  `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`
+- contained diagnostic `narro.exe` SHA-256:
+  `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`
 
-Current exact PR #217 head:
-`f872d2cadeeb3e22583c24bd41fba9cc218cc9a2`.
+CI #866's real runtime storage-isolation smoke PASSed with diagnostic SQLite
+under `com.mariosg.Narro.M1Diagnostic`; production Roaming and Local
+`com.mariosg.Narro` namespaces remained unchanged.
 
-Windows CI #858 / run `37070634779` is authoritative for that head.
-The earlier #855 failure was rustfmt-only and was corrected exactly from the CI
-diff; #856 then passed the fast gate before the startup fail-closed hardening
-advanced the head again.
+M1 B/C/D are therefore no longer blocked on repository-side candidate
+preparation. They still require the user's real Windows physical/measurement
+run using `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md`.
 
-Do not run B/C/D until #217 is integrated and its resulting-main diagnostic
-artifact identity is recorded.
-
-
-
-Do **not** use the diagnostic artifact to substitute for M7 C5 production saved-placement acceptance.
+Do **not** use Candidate B as a substitute for the M7 C5 production/validation
+acceptance path.
 
 ## CI #806 recording audit
 
@@ -239,29 +236,32 @@ Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completio
 
 Two independent tracks remain:
 
-1. **Diagnostic storage safety finalization (agent-actionable):**
-   - resume PR #217 current exact head
-     `f872d2cadeeb3e22583c24bd41fba9cc218cc9a2`;
-   - inspect Windows CI #858 / run `37070634779`;
-   - if PASS, expected-head guarded-merge #217;
-   - validate resulting main, then download/hash the resulting-main diagnostic
-     artifact and make that artifact the final Candidate B;
-   - reconcile `HANDOFF.md`, `STATUS.md`, `TODO.md`,
-     `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md` and a new immutable
-     work-log;
-   - if #858 fails, inspect the exact failing evidence before any new change.
-2. **Remaining physical Windows gates (user-action required later):**
-   - M7 C5 saved placement using the CI #809 production artifact and the
-     data-safe `scripts/prepare-m7-physical-session.ps1`;
-   - M1 selected-monitor/reconnect/performance using only the final successful
-     post-#217 resulting-main Candidate B diagnostic artifact.
+1. **M7 automatic validation logger (agent-actionable):**
+   - check PR #219 exact head
+     `422230e755a373d3ccb61246e1917ff7934a1210`;
+   - authoritative Windows CI #869 / run `37079768471` is the next decision
+     point;
+   - if CI fails, inspect the exact failing step/log and fix only the evidenced
+     issue on PR #219;
+   - if CI passes, verify the dedicated validation artifact and exact executable
+     identity, expected-head guarded-merge #219, validate resulting main, then
+     reconcile tracking;
+   - do not change the PR #219 head while the current CI is still validating it
+     unless a concrete failure requires a fix.
+2. **Remaining physical Windows gates (user-action required):**
+   - after #219 is validated, M7 C5 uses the validated
+     `narro-m7-validation.exe` and its automatic `Narro-M7-Logs` evidence;
+   - M1 B/C/D use final Candidate B from CI #866, artifact id `11257763093`,
+     EXE SHA-256
+     `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`.
 
-Validated #216 baseline remains useful evidence:
-- main CI #854 PASS;
+Validated #216/#866 evidence remains useful:
+- main CI #854 and #866 PASS;
 - real Panel↔Timer HWND movement physically captured by CI artifact;
 - one-click monitor matrix + reconnect reuse;
 - 3× performance batch + native scenario preflight;
-- production AppData backup helper for M7 physical closure.
+- validated diagnostic storage isolation;
+- production AppData backup helper for the legacy M7 physical path.
 
 Do not resume deferred M9 while reopened Milestone 1 remains incomplete.
 
