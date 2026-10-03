@@ -323,7 +323,7 @@ fn write_readme(root: &Path) {
     if path.is_file() {
         return;
     }
-    let text = "Narro M7 validation logs\r\n\r\nThis folder is created automatically only when narro-m7-validation.exe runs.\r\nUpload the latest session-* folder plus m7-c5-latest-result.json for debugging.\r\nevents.jsonl contains technical window/monitor/persistence events with timestamps.\r\nNo task titles, notes, list names, task descriptions, telemetry, or cloud uploads are recorded.\r\nPASS requires a qualifying Timer drag, normal tray Quit, a new process/session, unchanged monitor topology, and a successful saved-position restore.\r\nFAIL means the recorded persistence/restore data contradicts the expected placement.\r\nINCONCLUSIVE means required evidence was missing or the topology changed during the restart test.\r\n";
+    let text = "Narro M7 validation logs\r\n\r\nThis folder is created automatically only when narro-m7-validation.exe runs.\r\nUpload the whole Narro-M7-Logs folder after the restart test so both process sessions and the terminal result remain available for debugging.\r\nevents.jsonl contains technical window/monitor/persistence events with timestamps.\r\nNo task titles, notes, list names, task descriptions, telemetry, or cloud uploads are recorded.\r\nPASS requires a qualifying Timer drag, normal tray Quit, a new process/session, unchanged monitor topology, and a successful saved-position restore.\r\nFAIL means the recorded persistence/restore data contradicts the expected placement.\r\nINCONCLUSIVE means required evidence was missing or the topology changed during the restart test.\r\n";
     let _ = fs::write(path, text);
 }
 
