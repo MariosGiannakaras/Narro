@@ -61,7 +61,7 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **8/19**
+- Full MP4s completed to Pass-3 standard: **9/19**
 - Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
@@ -80,25 +80,26 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-010 — `Blitzit Tutorial How to Use Notes.mp4`.**
+**Continue with VE-015 — `Blitzit Tutorial Sessions Walkthrough.mp4`.**
 
-Pass-3 full-video completion is now **8/19**.
+Pass-3 full-video completion is now **9/19**.
 
-For VE-010:
+For VE-015:
 
-1. inspect the complete **01:13.561, 1920×1080, 60 fps** MP4;
-2. map Notes entry/exit and every editor state;
+1. inspect the complete **02:56.216, 1920×1080, 60 fps** MP4;
+2. map Sessions shell, filters, summaries and row/detail states;
 3. densely inspect:
-   - task hover → Notes activation;
-   - inline editor expansion geometry and surrounding-card reflow;
-   - exact toolbar control ordering;
-   - typing/formatting/list/history interactions actually demonstrated;
-   - URL/link visual treatment and any automatic behavior;
-   - Close/dismiss behavior;
-   - whether Notes auto-open in any tutorial segment is a source artifact versus normal user-triggered state;
-4. record motion only where continuous frames support it;
+   - Overview→Sessions navigation and Beta treatment;
+   - list/date filters and Hide Break sessions;
+   - task-detail opening;
+   - inline start/end/duration edits and save/cancel semantics actually shown;
+   - row overflow actions;
+   - Add Session dialog and searchable task picker;
+   - delete behavior;
+   - export behavior/label and conflict with current screenshot evidence;
+4. reconstruct visible summary counts/times where state changes permit;
 5. update analysis Markdown only;
-6. then continue to VE-015.
+6. then continue to VE-011.
 
 ## Media-access rule
 
