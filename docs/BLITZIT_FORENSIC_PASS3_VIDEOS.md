@@ -1242,266 +1242,199 @@ No implementation conclusion is made in this analysis track.
 # Queue 5 — VE-016 — Timer Modes
 
 Source: `Blitzit Tutorial Timer Modes.mp4`  
-Verified metadata: **02:55.380 container / 02:55.333 video stream, 1920×1080, 60 fps, 10,520 video frames**  
+Verified metadata: **02:55.333 video stream / ~02:55.38 container, 1920×1080, 60 fps, 10,520 frames**  
 Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
 Inspection method:
-- complete source scanned across the full duration;
-- 2 s whole-video contact scan;
-- 0.5 s dense sampling across EST setup, zero/Extend, Pomodoro configuration/work↔break and count-up/Time Taken sections;
-- full-resolution keyframes around countdown zero, `TIME'S UP`, Extend, Pomodoro zero→Break, Break Over→work and manual Taken editing;
-- frame/dense review used only where tutorial footage remained continuous;
-- SRT used to classify narrated rules separately from direct pixel evidence.
+- complete source reviewed across the full duration;
+- 4 s whole-video scan;
+- dense 0.5–1 s sampling through EST expiry/Extend, Pomodoro and count-up/time-tracking sections;
+- full-resolution frames at the Time's Up boundary, hover action labels, overdue state, Pomodoro badge/Floating Timer and Taken editor;
+- transcript used to separate direct timer behavior from narrated/staged automatic-cycle claims.
 
 ## VE-016 chronological state map
 
-### 00:00:00–~00:00:17 — board baseline and existing-task EST editing
+### 00:00:00–~00:00:17 — board / EST countdown setup context
 
 **VIDEO-DIRECT**
-- dark four-column board is the starting surface;
+- source begins on the four-column board;
 - Today contains `Post launch announcement` and `Send press-release`;
-- the EST affordance on a task is edited inline in the card metric area rather than through a modal;
-- the board retains ordinary task hover/action geometry while the estimate is edited.
+- task cards use the established EST-left / Taken-right metric grammar;
+- tutorial demonstrates the EST affordance on a task before entering Focus.
 
-**VIDEO-DIRECT / VALUE**
-- `Post launch announcement` is prepared with a **30 min** EST for the countdown demonstration.
-
-### ~00:00:17–00:00:22 — EST field in inline task creation
+### ~00:00:17–00:00:33 — EST entry/edit
 
 **VIDEO-DIRECT**
-- Today `+ ADD TASK` expands the same inline-create pattern seen in VE-005;
-- title and EST are sibling inputs;
-- EST uses HH:MM-style entry;
-- Cancel/Confirm remain in-lane.
+- EST is edited inline in the task metric slot using HH:MM-style entry;
+- the same EST field is visible in the inline Add Task editor;
+- commit returns to compact human-readable duration on the task card.
 
-**EVIDENCE LIMIT**
-- this sequence demonstrates field availability but does not establish additional validation/error states beyond VE-005.
+**TRANSCRIPT-CLAIM / CORROBORATED BY VE-005**
+- narration states that an already-running live task's EST can only be added/changed while paused;
+- this video does not show a rejected running edit;
+- VE-005 directly shows the paused context around live metric editing, so the restriction remains supported but is not independently failure-tested here.
 
-### ~00:00:22–00:00:32 — Blitz entry and EST countdown
-
-**VIDEO-DIRECT**
-- entering Focus makes `Post launch announcement` live;
-- countdown begins around **00:29:5x**, directly matching the configured 30 min estimate;
-- `Send press-release` remains queued;
-- Focus headline/queue geometry matches the established Focus grammar.
-
-**CUT/TIME-COMPRESSION**
-- the tutorial does not wait 30 real minutes;
-- later footage jumps the countdown close to zero;
-- therefore the long countdown duration itself is staged/tutorial-compressed and not a source transition timing measurement.
-
-### ~00:00:38–00:00:41 — pause state during live-EST discussion
+### ~00:00:33–00:00:41 — Focus countdown
 
 **VIDEO-DIRECT**
-- live-task action rail is exposed;
-- Pause changes the live task to explicit `PAUSED`;
-- Resume returns to countdown behavior.
+- Blitz/Focus Panel opens;
+- `Post launch announcement` is live;
+- its timer counts **down** toward zero because the task has an EST;
+- live-card border remains accented and queue task stays beneath it.
 
-**TRANSCRIPT-CLAIM / PARTIAL CORROBORATION**
-- narration states a live task's EST may only be added/adjusted while the live timer is paused;
-- the source demonstrates the relevant paused state during that explanation;
-- it does **not** show a rejected running-state edit attempt, so the prohibition itself remains a narrated rule rather than a measured validation/error state.
-
-### ~00:00:41–00:00:44.5 — countdown reaches zero
+### ~00:00:41–00:00:46 — zero boundary → Time's Up
 
 **VIDEO-DIRECT**
-- staged near-zero countdown proceeds visibly through the final seconds;
-- direct full-resolution frames show:
-  - around 44.0 s: **00:00:01**;
-  - shortly after: zero boundary;
-  - by ~44.4–44.5 s: live label is **`TIME'S UP`**.
-- the card remains the live card; queue/window geometry does not change.
+- countdown reaches the expiry boundary;
+- live timer text is replaced by the explicit uppercase state **`TIME'S UP`**;
+- task remains live/in place;
+- card metrics remain visible beneath the title row.
 
-**MOTION-DIRECT**
-- zero→Time's Up is a fast content/state replacement, not a success screen or page transition.
+**STATE-DIRECT**
+- Time's Up is a live-task state, not automatic completion;
+- Today progress remains pending until the user chooses an action.
 
-### ~00:00:44.5–00:00:53.5 — Time's Up action state
-
-**VIDEO-DIRECT**
-- `TIME'S UP` replaces the numeric countdown in the live row;
-- hovering the live row reveals the live action strip;
-- normal live controls remain present, and the expired state adds an explicit **`Extend`** action;
-- Skip and Done are also directly demonstrated as available choices in the expired state;
-- `Extend` is visibly exposed as a labeled hover pill before activation.
-
-**ACTION-SEMANTIC**
-- Time's Up does not automatically complete or advance the task;
-- user choice is required.
-
-### ~00:00:53.5–00:01:04 — Extend → overdue timer
+### ~00:00:46–00:00:52 — expired-task action rail
 
 **VIDEO-DIRECT**
-- selecting Extend leaves the same task live;
-- countdown presentation switches to a warm/orange **negative overdue timer**;
-- successive visible values become increasingly negative as time continues.
+- hovering the expired live card reveals the direct action rail;
+- visible controls include:
+  - notes/document;
+  - Extend/play-like control;
+  - Skip/next;
+  - Done/check;
+  - other established live-task utility icons.
+- hover expands the currently targeted icon into a labeled pill.
 
-**CUT/STAGING LIMIT**
-- the tutorial jumps from Time's Up to roughly a minute-overdue value rather than showing every intervening second;
-- do not infer that Extend itself adds/subtracts exactly one minute;
-- the source truth is the **direction/semantics**: after Extend, elapsed-over-EST time is represented as an increasingly negative overdue value.
-
-### ~00:01:04–00:01:20 — Pomodoro introduction/context
-
-**VIDEO-DIRECT / TRANSCRIPT**
-- Focus remains present while narration introduces Pomodoro;
-- no unique automatic transition is claimed until the preferences configuration and staged boundary below.
-
-### ~00:01:22–00:01:31 — Pomodoro configuration in Focus Preferences
-
-**VIDEO-DIRECT**
-- Focus cog opens Preferences inside the narrow companion window;
-- Pomodoros is enabled;
-- demonstrated child values:
-  - **Work Sprint: 5 mins**
-  - **Break Time: 5 mins**
-- Default break length remains a separate setting;
-- alert/sound settings remain visible below, confirming Pomodoro configuration coexists with the broader preferences hierarchy.
-
-**TUTORIAL-STAGING**
-- 5-minute work/break values are deliberately short demonstration values; they are source-visible configuration, not universal defaults.
-
-### ~00:01:32–00:01:34.5 — Pomodoro work sprint reaches zero
-
-**VIDEO-DIRECT**
-- returning to Focus shows `Send press-release` as live with a green `POMO` badge;
-- direct frames show the final work-sprint countdown:
-  - ~93.0 s: **00:00:02**;
-  - ~94.0 s: **00:00:01**;
-  - ~94.5 s: **00:00:00**.
-- the parent task is not marked Done when the Pomodoro work interval reaches zero.
-
-### ~00:01:35 — automatic work→Break transition
-
-**VIDEO-DIRECT / BOUNDARY-DIRECT**
-- immediately after the POMO work countdown reaches zero, the live card becomes:
-  - title **`Break`**;
-  - green `POMO` badge;
-  - countdown **00:04:59**.
-- `Send press-release` returns to the ordinary queue beneath the live Break card;
-- `Finish the video` remains queued below it;
-- no success screen is involved.
-
-**ARITHMETIC/HEADER-DIRECT**
-- Focus headline changes to **Est: 10min** in this staged state while the 5-minute Break card is active;
-- this source behavior is recorded as observed and not generalized beyond this version/state.
-
-### ~00:01:35–00:01:39 — break interval staging
-
-**CUT/TIME-COMPRESSION**
-- the source begins the Break at 4:59 but tutorial editing/time compression advances it close to completion within only a few real seconds;
-- therefore the actual five-minute wait is not motion evidence.
-
-### ~00:01:39–00:01:41 — Break Over state
-
-**VIDEO-DIRECT**
-- at break completion the live title becomes **`Break Over`** with **00:00**;
-- Break also appears in the Done/history region as a struck-through row with a break/gamepad-like badge and **5min**;
-- the earlier completed `Post launch announcement` remains below it;
-- the Done/history aggregate visibly includes the break interval.
-
-**INTERACTION-DIRECT**
-- hovering Break Over exposes a labeled **`Done`** action;
-- the next work sprint does **not** visibly start until that action is explicitly used in this demonstrated flow.
-
-### ~00:01:41.5–00:01:42.5 — explicit Break Over Done → next Pomodoro work sprint
-
-**VIDEO-DIRECT**
-- activating Done on Break Over produces a very brief empty/live-card-shell transitional state;
-- then `Send press-release` becomes live again with:
-  - green `POMO` badge;
-  - fresh **00:04:59** work countdown.
-- thus the demonstrated cycle is:
-  **work reaches zero → automatic Break → Break Over → explicit Done → next work sprint**.
-
-**VERSION-SCOPE**
-- this is the exact source behavior of VE-016; do not replace it with a generic assumption that Pomodoro automatically starts the next work sprint without user action.
-
-### ~00:01:43–00:01:49 — Pomodoro in Floating Timer
-
-**VIDEO-DIRECT**
-- the active Pomodoro `Send press-release` timer is shown in the Floating Timer;
-- title and work countdown remain visible in the compact window;
-- the same work-sprint identity/countdown survives the Focus→Floating presentation change.
-
-**MOTION**
-- Panel↔Floating geometry behavior belongs to the already measured morph family from VE-003/VE-013; this tutorial does not establish a contradictory presentation model.
-
-### ~00:01:50–00:01:58 — no-EST/no-Pomodoro count-up mode
-
-**VIDEO-DIRECT**
-- tutorial switches to a task `Email campaign` in a non-Pomodoro/no-EST state;
-- its live timer visibly **counts upward**, e.g. roughly:
-  - 00:04:19;
-  - 00:04:21;
-  - 00:04:23;
-  - 00:04:25;
-  - 00:04:27.
-- this directly establishes positive count-up behavior when a countdown mode is not governing the task.
-
-**CUT/SCENARIO BOUNDARY**
-- the switch into this staged example is tutorial-edited; do not infer task-switch latency from it.
-
-### ~00:02:00–00:02:12 — Time Taken accumulation / additional count-up example
-
-**VIDEO-DIRECT**
-- source returns through the board/Focus workflow to `Send press-release` in a count-up state;
-- live numeric time progresses upward from roughly the mid-teens into the twenties;
-- Focus header shows **Est: 0min**, directly distinguishing this mode from an EST countdown.
-
-**SEMANTIC-DIRECT**
-- live elapsed time is being accumulated as actual work time rather than remaining estimate.
-
-### ~00:02:12–00:02:16 — manual Time Taken edit
-
-**VIDEO-DIRECT**
-- the live card's lower-right time metric is hovered;
-- tooltip reads **`Taken. HH:MM`**;
-- clicking opens a compact inline HH:MM editor in the metric slot;
-- demonstrated edit proceeds from `00:00` through typed input and commits to **30min**;
-- the editor closes back to the ordinary metric display.
+**LABEL-DIRECT**
+- Done expands to `Done`;
+- the expiry-specific play-like action expands to **`Extend`**.
 
 **IMPORTANT**
-- manual Taken editing is in-place and uses the same compact time-format grammar as EST;
-- this sequence directly establishes the editable field and committed value;
-- it does not demonstrate invalid input/error behavior.
+- Skip, Done and Extend coexist after expiry; reaching zero does not force one outcome.
 
-### ~00:02:17 onward — pause and Time Taken recap
+### ~00:00:52–00:01:01 — Extend → overdue timer
 
 **VIDEO-DIRECT**
-- the same live task is then shown as **PAUSED**;
-- committed **30min** Taken remains visible;
-- the rest of the tutorial keeps this state while narration summarizes timer modes and Time Taken semantics.
+- selecting Extend removes the static Time's Up message and resumes a changing timer;
+- the displayed timer now represents time **past** the estimate/zero boundary rather than a new positive EST countdown;
+- task remains live and pending;
+- direct action rail remains available on hover.
 
-**TRANSCRIPT-CLAIM / DIRECT CORROBORATION**
-- narration states Time Taken is recorded regardless of whether EST or Pomodoro is used;
-- this full universality is a narrated product claim;
-- direct footage separately corroborates Taken semantics across countdown/count-up examples but does not exhaustively execute every mode combination.
+**TRANSCRIPT + VISUAL**
+- narration says the timer shows how overdue the task is;
+- the changing post-zero display directly corroborates that semantic direction.
 
-### ~00:02:52–00:02:55.380 — branded outro
+**TIMING LIMIT**
+- tutorial pacing/staging prevents treating the apparent overdue jumps as real elapsed wall-clock duration.
 
-**VIDEO-DIRECT / NON-PRODUCT**
-- hard transition to Blitzit branded outro;
-- non-product tutorial material, excluded from parity requirements.
+### ~00:01:01–00:01:22 — Pomodoro configuration
+
+**VIDEO-DIRECT**
+- tutorial opens full Preferences;
+- Pomodoros is enabled in Blitz mode settings;
+- Work Sprint / Break Time child duration controls are shown;
+- this is the same conditional hierarchy independently established in VE-014.
+
+**TRANSCRIPT-CLAIM**
+- narration describes typical 25-minute focus / 5-minute break behavior and automatic switching;
+- exact default values should not be inferred solely from the narration because the settings are configurable.
+
+### ~00:01:22–00:01:44 — Pomodoro live-task presentation
+
+**VIDEO-DIRECT**
+- returning to Focus, live task `Send press-release` carries a small **`POMO`** badge above the card;
+- timer counts down in the Pomodoro work state;
+- task EST summary can remain 0min because the active countdown is the Pomodoro interval rather than a task EST;
+- the same Pomodoro countdown is shown in Floating Timer after presentation switch;
+- Floating Timer preserves task identity and countdown while reducing the surface to title + timer.
+
+**CUT/STAGING LIMIT**
+- the source does not continuously wait for an entire configured sprint to expire.
+
+### ~00:01:29–00:01:43 — narrated work→break→work cycle
+
+**TRANSCRIPT-CLAIM / STAGED VISUAL CONTEXT**
+- narration states:
+  - work interval counts down;
+  - sprint end triggers a break alert;
+  - break counts down;
+  - break end notifies the user to return to work.
+- the footage uses staged/cut timing and does not provide a clean continuous zero-boundary sequence for both transitions.
+
+**PASS-3 DISPOSITION**
+- automatic Pomodoro cycle semantics are recorded as narrated product behavior;
+- no precise transition duration, animation timing or alert latency is claimed from this source.
+
+### ~00:01:43–00:01:50 — Floating Timer visibility
+
+**VIDEO-DIRECT**
+- compact Floating Timer remains above desktop content with title and countdown;
+- no full Focus panel is required for the live timer to remain visible.
+
+### ~00:01:50–00:02:00 — no EST + Pomodoro off → count-up mode
+
+**VIDEO-DIRECT**
+- source returns to a task with no EST and without active Pomodoro interval;
+- live timer starts near zero and increments upward;
+- example visible state: `Send press-release 00:00:20`;
+- this directly establishes a third presentation mode distinct from EST countdown and Pomodoro countdown.
+
+**SEMANTIC-DIRECT**
+- count-up timer is actual elapsed-work tracking, not remaining estimate.
+
+### ~00:02:00–00:02:12 — Time Taken metric and manual edit
+
+**VIDEO-DIRECT**
+- hovering the lower-right metric exposes tooltip **`Taken. HH:MM`**;
+- Taken is edited inline using the same compact metric-slot input grammar;
+- demonstrated committed value becomes **30min**;
+- lower-left remains `+ EST`, showing Taken can exist without an EST.
+
+**IMPORTANT METRIC SEPARATION**
+- live timer presentation and persisted/displayed Taken metric are related but not the same UI field;
+- manual Taken editing changes the task's Taken metric rather than converting the task to EST countdown mode.
+
+### ~00:02:12–00:02:28 — paused live task / accumulated time
+
+**VIDEO-DIRECT**
+- live task can enter explicit **`PAUSED`** state;
+- Taken remains visible as a task metric while paused;
+- pause does not mark the task Done.
+
+**TRANSCRIPT-CLAIM**
+- narration states Blitz always records real time spent in Taken whether using EST, Pomodoro or plain count-up;
+- the video visually demonstrates Taken alongside multiple timer modes, but does not expose storage internals.
+
+### ~00:02:28–00:02:42 — recap states
+
+**VIDEO-DIRECT**
+- tutorial revisits the three conceptual modes:
+  - EST countdown;
+  - Pomodoro interval countdown;
+  - count-up time tracking.
+- no new interaction state beyond those above is introduced.
+
+### ~00:02:42–00:02:55.33 — outro
+
+**NON-PARITY**
+- closing tutorial/community material; no unique timer UI evidence.
 
 ## VE-016 source synthesis
 
-High-confidence source behavior established:
-- EST task time produces a true remaining-time countdown;
-- a live EST task has an explicit Pause/Resume state;
-- near-zero countdown changes to `TIME'S UP` without auto-completing the task;
-- expired live state retains Skip/Done and adds Extend;
-- Extend keeps the task live and changes timer representation to increasingly negative overdue time;
-- source editing prevents interpreting the first negative value as an exact one-minute Extend increment;
-- Pomodoro configuration in this tutorial is 5-minute work + 5-minute break;
-- POMO badge is visible on the live task;
-- work countdown zero automatically becomes a live Break card at 4:59;
-- parent task returns to queue during Break;
-- completed break is represented as `Break Over 00:00` and a 5min Done/history row;
-- demonstrated flow requires explicit Done on Break Over before a fresh 4:59 Pomodoro work sprint starts;
-- active Pomodoro state survives presentation in Floating Timer;
-- no-EST/no-Pomodoro mode directly counts upward;
-- Time Taken is an inline editable `Taken. HH:MM` metric and is demonstrated committing to 30min;
-- tutorial cuts/time compression are explicitly separated from genuine application transitions.
+High-confidence direct behavior established:
+- task EST produces a countdown live timer;
+- zero produces explicit `TIME'S UP` without auto-completing the task;
+- expired-task hover exposes Extend alongside Skip and Done;
+- icon hover can expand to a text-labeled pill such as `Extend` or `Done`;
+- Extend resumes a post-zero overdue display while preserving live/pending task identity;
+- Pomodoro live tasks carry a `POMO` badge and countdown independently of task EST;
+- Pomodoro countdown survives Panel→Floating presentation change;
+- no EST + Pomodoro off produces an upward count-up timer;
+- Taken is a separate lower-right task metric with `Taken. HH:MM` editor semantics;
+- demonstrated manual Taken commit is 30min while EST remains unset;
+- explicit PAUSED state preserves task identity and Taken;
+- the full automatic Pomodoro work→break→work cycle is narrated/staged here, not a continuously measured transition, so no invented animation/latency requirement is recorded.
 
 No implementation conclusion is made in this analysis track.
 
