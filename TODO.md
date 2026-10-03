@@ -436,6 +436,25 @@ This correction was discovered from current direct VE-005 evidence after M5 vali
 
 - [x] Expose current task-menu `Change List` and `Duplicate` behavior using existing persistence/domain authority: Change List moves the same stable task identity atomically to the chosen active list without corrupting schedule/session/history state; Duplicate creates one independent new task identity without aliasing source history/recurrence/session records. Preserve live-task safety, persistence-first UI publication, stale guards, All Lists identity semantics, and explicit error/recovery feedback. **Validated in PR #177** at exact head `e80034f481bc8d9368bb670cadfce2cdcbe61797`; Windows CI #602 PASS; expected-head guarded squash merge `f4c80d04b25f58637c0ef04c03b60dcd52fcff57`; resulting-main Windows CI #603 PASS.
 
+## Global Blitzit 19/19 no-orphan reconciliation — 2026-10-04
+
+This gate is **COMPLETE as an evidence-to-implementation routing pass** and is **non-counting**: it does not change any existing milestone denominator by itself. It does not claim `SOURCE_PARITY_PASS`. Authoritative detail is in `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
+
+- [x] Reconcile all **19/19** SOURCE_COMPLETE MP4 findings against current Narro code/tests/fixtures.
+- [x] Reconcile all **46/46** canonical screenshots and calibration dispositions against current Narro surface families.
+- [x] Route all **8/8** calibrated visual-system families to current implementation, explicit corrective work, ambiguity/deviation, or validation.
+- [x] Remove stale implementation statuses superseded by PR #225 / CI #911, M8 PREF-R05/PREF-R06 closure, and merged PR #226 / CI #915.
+
+**Non-counting parity correction routes discovered by the reconciliation:**
+- **M5 FIX_NOW:** Today `done/total Done` progress; resting ordinal → hover completion; exact board hover rail (Subtasks / Notes / lane-left / lane-right / overflow); source drag lift/live-reflow/settle presentation; inline task-delete Confirm+X presentation while preserving explicit confirmation; direct list Archive without Narro's extra archive-confirmation dialog.
+- **M6 FIX_NOW:** reduced-motion-safe board fade before Focus presentation; source Notes toolbar order plus automatic clickable http(s) URL recognition while retaining Narro's explicit browser activation; calibrated Focus live cyan→mint/lime edge treatment.
+- **M7 FIX_NOW:** collapsed Floating Timer hover must replace title/time with the compact icon strip and expand only the hovered action label; calibrate the compact rounded shell to the source family. These are source-parity corrections and do not invalidate unrelated PR #225 Windows-correctness automation evidence.
+- **M8 VALIDATION_OPEN only:** PREF-R05/PREF-R06 are already validated. PR #225's concurrent Preferences persistence correction PASSed CI #911; exact-build physical save/restart remains open.
+- **M9 FIX_NOW:** production Sessions/Add/Edit/detail and Sessions CSV are now automated-validated on current `main` from PR #226 / CI #915; **Overview PDF generation remains the only top-level M9 implementation item**.
+- **M10 VALIDATION_OPEN:** canonical side-by-side/overlay source comparison, the dedicated fresh-launch/no-implicit-start regression, running-session Notes/title continuity regression, and final release-candidate anti-regressions remain required. M10 is a revalidation gate, not a place to hide implementation gaps found above.
+
+**Execution order after this documentation-only reconciliation:** preserve the ongoing PR #225 exact-EXE M5/M7/M8 physical gate, but the earliest independent source-implementation work is the M5 corrective batch above from current `main`. Do not reopen raw Blitzit source unless a concrete ambiguity cannot be resolved from canonical records.
+
 ## Active audit-incorporation gate — 2026-09-28
 
 This cross-cutting gate applies before further forward implementation and **does not change the 10-milestone denominator**.
@@ -496,12 +515,12 @@ Acceptance criteria:
 - [x] Implement Time By List and completion/punctuality insights according to official early/late semantics. Production view consumes validated Rust aggregation; CI #907 PASS.
 - [x] Implement done-task rows with completion date, early/late when EST exists, and Time Taken. Production grouping/presentation over validated DTOs PASSed CI #907.
 - [x] Implement two-month date-range picker plus evidenced presets. Production range state, timezone-aware bounds, presets, custom calendar and Apply flow PASSed CI #906/#907.
-- [ ] Implement Sessions report with detailed work/break rows.
-- [ ] Implement manual Add Session and inline session editing/task-session detail modal.
+- [x] Implement Sessions report with detailed work/break rows. Production Sessions is on current `main`; PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 and every file changed by the PR has an identical blob SHA on merged main `f53a850f51375f15a0b2b4efe106da95e30b6e73`.
+- [x] Implement manual Add Session and inline session editing/task-session detail modal. Production Add/Edit/Delete/detail flows are on current `main` with the same PR #226 / CI #915 changed-blob identity.
 - [x] Ensure permanently deleted tasks are removed from user-facing reports while normal archived data remains represented. Authoritative reporting persistence regression remains green in resulting-main CI #907.
 - [ ] Implement evidence-selected exports:
-  - Overview -> PDF
-  - Sessions -> CSV
+  - [ ] Overview -> PDF — still unimplemented; this is the remaining M9 implementation item.
+  - [x] Sessions -> CSV — implemented locally in PR #226 / CI #915 and present on current `main`.
 - [x] Verify archived lists/tasks remain represented correctly in historical reports. Archived-history projection/regression remains green in resulting-main CI #907.
 - [x] Limit chart animation to initial load/filter changes; no continuous chart motion. Production chart transitions are data-change driven only, with reduced-motion handling; visual/runtime contracts PASSed CI #906/#907.
 
@@ -513,7 +532,7 @@ Acceptance criteria:
 - exports are generated fully locally
 - chart values are accessible without pointer-only hover
 - visual fixtures cover Overview, chart tooltip, list filter, date picker, Sessions and inline-edit modal
-- **M9 source-parity gate (non-counting; does not change the 12-item denominator):** VE-015, VE-011 and VE-012 are `SOURCE_COMPLETE`. PR #223 consumed their nonvisual contracts and PASSed exact-head CI #897 plus resulting-main CI #898. PR #198 was then reconciled forward without overwriting current source/config, final exact head `2e32eae3043f7100fdf16990f482332293ef12d0` PASSed full Windows CI #904 / run `37143064981`, and expected-head guarded squash merge `82786cb2a95bb5fdd2835dcb5e3660269425520f` PASSed resulting-main CI #905 / run `37144178568` through the repository identical-tree gate; PR-head and merge trees are exactly `b453e23cb1614a70ebfc1d74a0b5d8297789c6f7`. The visual foundation is therefore validated, but no top-level M9 item is closed until production Reports/Sessions wiring and the corresponding interactions/exports are implemented and validated.
+- **M9 source-parity gate (non-counting; does not change the 12-item denominator):** VE-015, VE-011 and VE-012 are `SOURCE_COMPLETE`. Overview production wiring PASSed PR #224 CI #906 and resulting-main CI #907. Sessions/Add/Edit/detail plus local Sessions CSV are now present on current `main` with all 22 PR #226 changed blobs identical to exact head `106d3447c6614d830b59e5464fe71b70e5552eda`, which PASSed Windows CI #915. M9 is therefore **11/12** top-level items complete; Overview PDF remains open. Direct canonical Blitzit comparison is still `VALIDATION_OPEN` and Narro-owned report fixtures do not establish `SOURCE_PARITY_PASS`.
 
 ## Milestone 10 — Windows lifecycle, packaging, visual/regression pass
 
