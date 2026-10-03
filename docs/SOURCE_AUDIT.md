@@ -22,7 +22,7 @@ Do not convert planned Blitzit features into Narro parity requirements merely be
 
 The uploaded corpus under `reference/original-blitzit-videos/inbox/` contains 19 MP4/SRT pairs. All 19 are inventoried, analyzed, reconciled and dispositioned in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
 
-That statement describes the original ingestion pass. The stricter exhaustive Pass 3 is separate and may still be active; `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` is the only authoritative current Pass-3 counter. See `docs/EVIDENCE_ROUTING_MAP.md`.
+That statement describes the original ingestion pass. The stricter exhaustive Pass 3 is separate and is now **COMPLETE** at 19/19 repository MP4s plus 46/46 canonical screenshot source inspections and 46/46 static calibration dispositions. `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` remains the authoritative Pass-3 ledger. See `docs/EVIDENCE_ROUTING_MAP.md`.
 
 Direct video evidence materially changes or sharpens these source conclusions:
 
@@ -30,7 +30,7 @@ Direct video evidence materially changes or sharpens these source conclusions:
 - **EST title parsing:** VE-002 directly shows that a successfully parsed terminal duration is removed from the saved visible task title and stored separately as EST.
 - **Completion progression:** VE-003 resolves the success-screen-enabled case only. Done enters the success state first; `Next Task` and `Take a Break` are visible; the next task starts after explicit `Next Task`. The success-screen-disabled path and the post-click domain result of `Take a Break` remain unresolved.
 - **Preferences:** VE-014 directly confirms nested conditional controls for Pomodoro, timed alerts, notification alerts and completion celebration, plus the same monitor/side, hide-times, theme and scrolling-title families already present in screenshots/docs.
-- **Notes:** VE-010 corroborates Blitzit's automatic note-URL opening when a task becomes live. Narro intentionally diverges and requires explicit activation.
+- **Notes:** VE-010 directly confirms URL recognition/clickable styling and browser opening, but it does **not** cleanly establish auto-open-on-live because the task was already live and the pointer was on the link immediately before Safari opened. Preserve this as a source ambiguity; Narro's explicit-activation behavior is an intentional product decision rather than a directly proven source divergence.
 - **Recurrence:** VE-017 confirms Replace Existing / No Repeat / Delete Existing controls and explains intentional detached-child coexistence. This must not weaken Narro's idempotent-occurrence/anti-duplication invariant.
 - **Reports/Sessions:** VE-011/012/015 reinforce session-ledger-derived reporting and session editing. The visible PDF control in VE-015 is not proof of a working export because the narration says that export was still “available soon”.
 - **Panel → Floating motion:** VE-003 permits only a coarse ~0.2–0.3 s visible resize/reposition estimate; it does not establish exact easing and cannot close Narro's physical Windows M7 matrix.
