@@ -50,8 +50,9 @@ When that instruction is given, read in order:
 
 Current source-analysis checkpoint:
 - screenshots: **46/46 SOURCE_COMPLETE** at Pass-3 depth;
-- full repository MP4s: **17/19 SOURCE_COMPLETE** at Pass-3 depth;
-- VE-018: one 9.344 s / 560-frame planning-board excerpt is **PARTIAL** deep evidence, not full VE-018 completion;
+- full repository MP4s: **18/19 SOURCE_COMPLETE** at Pass-3 depth;
+- VE-018 Daniel's Planning Workflow: **SOURCE_COMPLETE** from the actual full MP4;
+- separate 9.344 s / 560-frame planning clip: **DIRECT SOURCE / UNMAPPED LINEAGE**; it is not part of VE-018 and must remain separately attributed;
 - VE-003 Blitz Mode: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-005 Add & Manage Tasks and Lists: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-013 Subtasks: **SOURCE_COMPLETE** from the actual full MP4;
@@ -69,7 +70,7 @@ Current source-analysis checkpoint:
 - VE-002 EST Suffix Parsing: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-001 Product Explainer: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-004 Getting Started: **SOURCE_COMPLETE** from the actual full MP4;
-- exact next video: **VE-018 — Daniel's Productive Planning Workflow with Blitzit.mp4**;
+- exact next video: **VE-019 — Oct Update Light mode and more!🚀.mp4**;
 - raw MP4 access is currently available through the isolated analysis-only media bridge; do not merge that bridge into main.
 
 Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
