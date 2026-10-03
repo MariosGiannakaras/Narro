@@ -21,6 +21,8 @@ const params = new URLSearchParams(window.location.search);
 const theme = params.get("theme") === "dark" ? "dark" : "light";
 const scenario = params.get("scenario") ?? "notes-timerExpanded-large";
 const quick = scenario.startsWith("quick-");
+const motion = scenario.startsWith("motion-");
+const motionToPanel = scenario === "motion-timerCompact-panel";
 const panel = scenario.includes("-panel-");
 const large = scenario.endsWith("-large");
 const visibleHeight = panel ? 700 : 300;
@@ -54,7 +56,13 @@ const find = <T extends HTMLElement>(selector: string): T => {
 };
 function Fixture() {
   const [open, setOpen] = useState(false);
-  return quick ? <>
+  return motion ? <main className="focus-surface-coordinator" data-focus-presentation={motionToPanel ? "timerCompact" : "panel"}
+    data-focus-geometry-motion="true" data-focus-geometry-motion-phase="start"
+    data-focus-geometry-motion-from={motionToPanel ? "timerCompact" : "panel"}
+    data-focus-geometry-motion-to={motionToPanel ? "panel" : "timerCompact"}>
+    <section id="outgoing" className="focus-surface-coordinator__presentation" data-focus-presentation={motionToPanel ? "timer" : "panel"} data-focus-visibility="active">Outgoing hierarchy</section>
+    <section id="incoming" className="focus-surface-coordinator__presentation" data-focus-presentation={motionToPanel ? "panel" : "timer"} data-focus-visibility="preparing">Ready hierarchy</section>
+  </main> : quick ? <>
     <button id="open-fixture" onClick={() => setOpen(true)}>Open Create</button>
     <SearchPalette open={open} initialMode="task-create" taskCreateOnly
       onRequestClose={() => setOpen(false)} onOpenList={() => {}} onOpenTask={() => {}}
@@ -74,7 +82,24 @@ function Fixture() {
 const root = find<HTMLElement>("#root");
 flushSync(() => createRoot(root).render(<Fixture />));
 const result: Record<string, unknown> = {theme, scenario};
-if (quick) {
+if (motion) {
+  const host = find<HTMLElement>(".focus-surface-coordinator");
+  const outgoing = find<HTMLElement>("#outgoing");
+  const incoming = find<HTMLElement>("#incoming");
+  await wait(40);
+  result.soleTargetAtStart = getComputedStyle(outgoing).opacity === "0" && getComputedStyle(incoming).opacity === "1";
+  assert(result.soleTargetAtStart, "Outgoing hierarchy remains painted beside ready target");
+  host.dataset.focusGeometryMotionPhase = "running";
+  await wait(40);
+  result.soleTargetDuringMotion = getComputedStyle(outgoing).opacity === "0";
+  assert(result.soleTargetDuringMotion, "Outgoing hierarchy reappeared during native motion");
+  host.dataset.focusGeometryMotion = "false";
+  await wait(40);
+  result.rollbackRestoredOutgoing = getComputedStyle(outgoing).opacity === "1";
+  assert(result.rollbackRestoredOutgoing, "Rollback did not restore the committed hierarchy");
+  host.dataset.focusGeometryMotion = "true";
+  await wait(40);
+} else if (quick) {
   const trigger = find<HTMLButtonElement>("#open-fixture");
   trigger.focus();
   flushSync(() => trigger.click());

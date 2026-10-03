@@ -47,6 +47,9 @@
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  /* Committed/recovered content must become fully visible in this paint.
+     Geometry animation belongs to the preparing target, never rollback. */
+  transition: none;
 }
 
 .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
@@ -68,6 +71,16 @@
   opacity: 1;
   transform: none;
   transition: clip-path var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease);
+}
+
+/* The ready Timer is shorter than the outgoing Panel. Promotion alone leaves
+   the Panel visible below it until the first native region update. Transfer
+   visual ownership in the same paint; rollback restores the committed view. */
+.focus-surface-coordinator[data-focus-geometry-motion="true"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] {
+  opacity: 0;
+  pointer-events: none;
+  transition: none;
 }
 
 /* Establish the initial clip atomically during the presented-frame barrier;

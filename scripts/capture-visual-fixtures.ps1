@@ -142,7 +142,7 @@ function Capture-Theme {
 }
 
 function Capture-FocusEditors([string]$theme) {
-    foreach ($editorScenario in @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty')) {
+    foreach ($editorScenario in @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel')) {
         $editorLabel = "focus-editor-$editorScenario-$theme"
         Capture-Theme `
             -EdgePath $edge `
