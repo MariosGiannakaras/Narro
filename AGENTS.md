@@ -239,6 +239,7 @@ Implementation mechanism is flexible: use the simplest reliable Windows/Tauri/na
 - Reproduce the source structure, hierarchy, density, and interaction intent rather than designing a generic task manager.
 - Pixel-perfect copying is not the goal when it would reduce readability, accessibility, Windows-native behavior, performance, or maintainability.
 - Screenshot pixel dimensions are reference evidence for proportions, not hard CSS dimensions; support Windows DPI scaling.
+- Do not invent one-off visual values when source detail is incomplete. Derive ordinary components from the calibrated Blitzit visual system (`docs/BLITZIT_VISUAL_SYSTEM.md`) and use professional Windows/accessibility/design conventions only as fallback. Targeted pixel measurement is reserved for distinctive/signature treatments or structural geometry where it materially improves parity.
 - Support system, dark, and light themes.
 - Do not copy Blitzit branding assets or account/paid UI; use Narro branding and local equivalents.
 - Remove excluded cloud controls rather than showing dead imitations.

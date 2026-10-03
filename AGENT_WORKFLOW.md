@@ -249,6 +249,23 @@ Before stopping:
 6. rewrite `HANDOFF.md`;
 7. ensure no required continuation context exists only in chat/local files.
 
+### Authoritative-main merge preservation
+
+Implementation branches may be older than current documentation/process truth on `main`. Before merging any implementation PR:
+
+1. fetch current `main` and list the PR's changed filenames;
+2. if the PR does **not** change authoritative current-truth/evidence Markdown, a normal merge does not replace those newer `main` files; do not rebase merely to copy documentation into a code-only branch;
+3. if the PR **does** change any authoritative current-truth/evidence file, compare that patch against current `main` and reconcile it before merge — never accept an older branch copy merely because the PR head passed CI;
+4. preserve the intentional branch contribution while retaining all newer unrelated `main` truth; if reconciliation changes executable/test/config files, repeat the required exact-head validation;
+5. after merge, re-read the affected authoritative files from resulting `main` and confirm no current continuation/evidence state regressed.
+
+Protected current-truth families include at minimum:
+- `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, `HANDOFF.md`, `TODO.md`, `STATUS.md`;
+- `docs/EVIDENCE_ROUTING_MAP.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, `docs/UI_UX_SPEC.md`;
+- current `docs/BLITZIT_FORENSIC_*`, `docs/BLITZIT_PARITY_*`, `docs/BLITZIT_VISUAL_*` evidence/coordination files.
+
+An expected-head merge guard protects the validated PR head from an unvalidated branch update; it does **not** replace this semantic stale-document check.
+
 ### Branch and tracking hygiene
 
 - Do not create tracking-only PRs under normal conditions. Authoritative documentation/tracking changes go directly to `main` under the rule above.
