@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Menu, MenuItem } from "./overlayPrimitives";
-import type {
-  ReportCalendarMonth,
-  ReportDatePreset,
-} from "./reportOverviewPresentation";
+import type { ReportsCalendarMonth } from "./ReportsOverviewView";
+import type { ReportDatePreset } from "./reportOverviewPresentation";
 import type { SearchPaletteTaskResult } from "./searchPaletteApi";
 import "./reportsOverview.css";
 import "./reportsSessions.css";
@@ -63,7 +61,7 @@ export type ReportsAddSessionDraft = {
 };
 
 type DateRangePickerProps = {
-  months: ReportCalendarMonth[];
+  months: ReportsCalendarMonth[];
   onSelectPreset: (preset: ReportDatePreset) => void;
   onSelectDay: (dateKey: string) => void;
   onPreviousMonth: () => void;
@@ -418,7 +416,7 @@ export type ReportsSessionsViewProps = {
   selectedListIds: string[];
   listOptions: ReportsSessionsListOption[];
   rangeLabel: string;
-  calendarMonths: ReportCalendarMonth[];
+  calendarMonths: ReportsCalendarMonth[];
   showBreakSessions: boolean;
   listFilterOpen: boolean;
   datePickerOpen: boolean;
