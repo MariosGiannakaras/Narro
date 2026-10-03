@@ -251,11 +251,12 @@ All 38 raw files were inventoried. Every MP4 has a same-basename SRT; there are 
 
 #### 00:00:45–00:01:00 — note URL behavior
 
-- **VIDEO-DIRECT:** pasted URL becomes a clickable-looking link; around the live transition the browser appears without a visible explicit link activation in the inspected frame sequence.
-- **TRANSCRIPT-CLAIM:** links automatically open in the default browser when the task goes live.
-- **CORROBORATED:** this matches previously documented Blitzit auto-open behavior/risk.
+- **VIDEO-DIRECT:** pasted URL becomes a clickable-looking/underlined link and a browser opens shortly afterward.
+- **PASS-3 CORRECTION:** denser frame review shows the task was already live and the pointer was positioned on the recognized URL with a hand cursor immediately before Safari opened. The pixels therefore do **not** cleanly distinguish automatic live-transition opening from ordinary explicit link activation.
+- **TRANSCRIPT-CLAIM:** narration says links automatically open in the default browser when the task goes live.
+- **CROSS-SOURCE CORROBORATION:** current Help/roadmap evidence documents auto-open behavior in some Blitzit versions, but VE-010 itself is not direct proof of the trigger.
 - **Narro comparison:** Narro deliberately requires explicit pointer/keyboard activation for note URLs to avoid surprise navigation and timer coupling.
-- **Disposition:** **intentional Narro deviation; do not copy source behavior.** No gap.
+- **Disposition:** **intentional Narro deviation remains**, justified by agency/reliability and cross-source evidence; do not cite VE-010 alone as proof of auto-open-on-live.
 
 ### VE-011 — Reports
 
