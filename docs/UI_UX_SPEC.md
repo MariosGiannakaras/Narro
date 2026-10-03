@@ -106,7 +106,7 @@ The interface should feel quiet and focused. Accent communicates state/action ra
 
 ## 2.2 Calibration tokens
 
-These are implementation starting points, not claims about Blitzit's source design tokens.
+These are implementation starting points, not claims about Blitzit's source design tokens. As `docs/BLITZIT_VISUAL_SYSTEM.md` is populated, it becomes the preferred reusable calibration layer for ordinary components. Do not create independent per-component colors/radii/spacing merely because an exact Blitzit token is unknown; inherit the nearest evidenced system pattern and use Windows/accessibility/professional UI standards only for the remaining gap.
 
 Dark calibration:
 - canvas around `#111111`;
@@ -165,7 +165,7 @@ Motion is functional feedback, not decoration.
 
 ## 3.1 Rules
 
-The completed video-forensics pass in `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md` distinguishes observed source motion from Narro motion policy. Unless a line below is explicitly labeled source-measured, these rules are **[NARRO IMPROVEMENT / CALIBRATION]**, not claims about Blitzit's internal design tokens or exact durations.
+The completed prior video-forensics pass in `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md` distinguishes observed source motion from Narro motion policy. Where a source is `SOURCE_COMPLETE` in the newer exhaustive Pass 3, `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md` supersedes the older pass for source-detail questions. For stable static appearance, use `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md` once the relevant image is calibrated. Unless a line below is explicitly labeled source-measured, these rules are **[NARRO IMPROVEMENT / CALIBRATION]**, not claims about Blitzit's internal design tokens or exact durations.
 
 - hover/focus must never reflow sibling content or move action targets;
 - reserve/overlay action slots;

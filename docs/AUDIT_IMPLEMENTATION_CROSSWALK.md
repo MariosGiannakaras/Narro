@@ -41,6 +41,12 @@ Disposition values:
 - **INTENTIONAL_DEVIATION**
 - **EXCLUDED**
 
+## Canonical source-analysis consumption
+
+Use `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` for the binding source-analysis -> implementation handoff.
+
+`SOURCE_COMPLETE` forensic records are the normal implementation input; implementation agents do not repeat the raw screenshot/video analysis by default. For stable screenshot-backed states, the measurable visual layer is `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`. New material findings are reconciled here against current code before the affected user-visible surface is considered parity-complete. A completed source record may therefore still be `RECONCILIATION_PENDING`, and screenshot source inspection may still be `VISUAL_CALIBRATION_OPEN`. M10/final review directly rechecks original references, but that is release-candidate verification rather than the first implementation comparison.
+
 ## 1. Parity/code audit findings
 
 | ID | Finding | Route | Disposition |
@@ -86,12 +92,12 @@ Audit section-C intentional Narro deviations remain binding unless newer explici
 | VE-F007 | Panel→Floating transformation ≈0.27 s; continuous-window character | M7 physical/fidelity gate | **VALIDATION_OPEN** — PR #192 head `b506fd01...` now contains unvalidated finite ~270 ms same-WebView Panel↔Timer and compact↔expanded Timer clip/reveal implementation; physical Gate 7 evidence is still required |
 | VE-F008 | Preferences children stay in place; hidden times disclose on hover | M8 | **VALIDATED** |
 | VE-F009 | Historical first-subtask-live limitation | Do not regress Narro | **INTENTIONAL_DEVIATION** |
-| VE-F010 | Planning-board cross-lane drag supports pointer-position insertion, not append-only movement | M5 board parity correction | **FIX_NOW** — current renderer/backend move request has no target anchor |
-| VE-F011 | Lane headline time is live remaining work, not raw initial EST sum | M5 board read-model correction | **FIX_NOW** — current board exposes raw aggregate EST only |
-| VE-F012 | Today shows completion progress `done/total Done` and highlighted lane treatment | M5/M10 board parity | **FIX_NOW** for semantic progress + source-backed structure; final pixel calibration M10 |
+| VE-F010 | Planning-board cross-lane drag supports pointer-position insertion, not append-only movement | M5 board parity correction | **VALIDATED** — PR #213 exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`, Windows CI #836 PASS, merged as `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`; persisted `beforeTaskId` now supports positional cross-lane insertion. Full drag lift/reflow/settle visual fidelity remains separately open under UX-F016. |
+| VE-F011 | Lane headline time is live remaining work, not raw initial EST sum | M5 board read-model correction | **VALIDATED** — PR #213 exact head `54697ca5f242a4007c5eb1e7e58c6eb4552ab3db`, Windows CI #836 PASS, merged as `7ebe7f8a31b2eb37b1113ae7ceb50b92ec66ff31`; board projection now separates nominal and saturating remaining EST and pending lane headers consume remaining work. |
+| VE-F012 | Today shows completion progress `done/total Done` and highlighted lane treatment | M5/M10 board parity | **PARTIAL / FIX_NOW** — PR #213 validated stronger Today emphasis/CTA structure; `done/total Done` semantics remain open. Exact visual calibration remains M10/review. |
 | VE-F013 | Task ordinal is visible at rest and remains attached to moved cards during demonstrated planning sequence | M5 task-card parity | **FIX_NOW** as session-stable visible ordinal; persistence beyond the demonstrated interaction remains unclaimed |
 | VE-F014 | Planning hover grammar is ordinal→completion at left plus Notes/lane-left/lane-right/overflow at right | M5 task-card interaction parity | **FIX_NOW** |
-| VE-F015 | Today owns anchored gradient `Blitz now`; activation fades board ~250 ms before Focus | M6 entry / M10 motion parity | **FIX_NOW** for composition/transition; exact visual calibration M10 |
+| VE-F015 | Today owns anchored gradient `Blitz now`; activation fades board ~250 ms before Focus | M6 entry / M10 motion parity | **PARTIAL / FIX_NOW** — PR #213 validated Today-owned anchored CTA composition. Board fade before Focus remains open; exact visual/motion calibration remains M10/review. |
 
 Unresolved video ambiguities remain explicit:
 - success-screen-disabled Done progression;
@@ -134,7 +140,7 @@ Unresolved video ambiguities remain explicit:
 | UX-F014 | Main first paint exposes blank/washed/dark staging before Home settles | M10 final quality pass | **ROUTED_M10** — visible in the 2026-09-30 CI #744 physical recording; not established as an M7 source regression |
 | UX-F015 | Global shortcut registration failures render as large persistent error cards inside ordinary Home content | M8 shortcut UX / M10 final review | **ROUTED_M8** — conflict must remain visible/retryable, but presentation should be contextual rather than diagnostic-like application content |
 | UX-F016 | Cross-lane drag shows floating card, live source reflow, positional destination insertion and settle | M5 board motion/interaction | **FIX_NOW**; exact drag duration remains unmeasured |
-| UX-F017 | Today lane has persistent cyan→green accent outline and anchored gradient Blitz CTA | M5/M10 board composition | **FIX_NOW** structure; M10 pixel fidelity |
+| UX-F017 | Today lane has persistent cyan→green accent outline and anchored gradient Blitz CTA | M5/M10 board composition | **VALIDATED STRUCTURE / ROUTED_M10 FIDELITY** — PR #213 validated stronger Today boundary plus anchored CTA structure; exact gradient/border pixel calibration remains M10/review. |
 | UX-F018 | Today progress is a done/total progress treatment, corroborated by current help-v2.x screenshot | M5 board semantics | **FIX_NOW** |
 | UX-F019 | Resting task-left affordance is ordinal; completion replaces/reveals on hover without geometry shift | M5 task-card geometry | **FIX_NOW** |
 | UX-F020 | Blitz entry fades the board before Focus presentation (~250 ms in supplied planning clip) | M6/M10 transition fidelity | **FIX_NOW** with reduced-motion-safe implementation |
@@ -226,3 +232,16 @@ Before a milestone or substantial slice continues:
 - intentional deviations stay protected by tests/specs where material;
 - ambiguity is not permission to guess;
 - M10/final review rechecks all `ROUTED_M10`, `VALIDATION_OPEN` and remaining `AMBIGUOUS` rows.
+
+### M7 CI #884 runtime findings — 2026-10-03
+
+All findings use the exact CI #884 validation EXE and real Windows 125% capture in [the batched findings](../work-log/2026-10-03-codex-m7-ci884-batched-findings.md). Reconcile against that evidence; do not call the native frame strip a recurrence of an older transient symptom.
+
+| ID | Finding | Scope | Disposition |
+|---|---|---|---|
+| M7-OBS-20261003-03 | Frameless Focus shadow insets expose native frame and offset client from outer-origin region | M7 Windows host / region | **FIX_NOW** — remove native shadow/resize frame from fixed Focus host consistently in all build configs; retest exact EXE at 100%/125%, movement, transitions, saved-position restart |
+| M7-OBS-20261003-04 | Expanded inline Notes shows unnecessary horizontal scrollbar | M7 editor / layout | **FIX_NOW** — bounded box sizing and horizontal content fit; preserve intentional vertical editor scroll |
+| M7-OBS-20261003-05 | Larger Notes uses full-host vh and loses footer below expanded 300px region | M7 editor reachability | **FIX_NOW** — bind to visible presentation height, retain editor node/draft and bounded resize. Explicit Narro Windows decision; VE-010 inline flow is preserved |
+| M7-OBS-20261003-06 | In-app shortcuts depend on translated key and fail in Greek layout | Shared shortcut boundary, exercised M7 | **FIX_NOW** — physical letter code with semantic-key fallback, controlled regression cases and real Greek/English check |
+| M7-OBS-20261003-07 | Quick-create loading race leaves focus outside modal so Escape/trap does not run | Focus Create modal accessibility | **FIX_NOW** — focus loading shell, focus title once ready; test delayed success/error and focus restore |
+

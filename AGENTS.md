@@ -34,6 +34,16 @@ Before implementing an affected surface, inspect `docs/AUDIT_IMPLEMENTATION_CROS
 
 This prevents repeated implementation/rework while preserving the ordered 10-milestone roadmap.
 
+## Source-forensics consumption rule
+
+Use `docs/EVIDENCE_ROUTING_MAP.md` to discover the authoritative evidence chain, then use `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` whenever new Blitzit analysis exists or an affected user-visible surface is being implemented.
+
+Do not re-analyze every original image/video during implementation. `SOURCE_COMPLETE` Pass-3 records are the normal requirements input. Re-open raw evidence only for a material ambiguity/conflict, an uncaptured detail exposed by implementation, or direct final visual verification. A direct final screenshot/video comparison is verification against the source, not a second research pass.
+
+New source findings must pass through a reconciliation step before the affected surface is considered parity-complete: canonical finding -> static visual calibration where applicable -> current implementation comparison -> audit-crosswalk disposition -> affected milestone/tracking -> implementation/validation. Backend/domain/API work that does not prejudge an unfinished visual surface may continue while related source analysis is still open; final user-visible parity may not.
+
+For stable screenshot-backed states, use `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker before claiming `SOURCE_PARITY_PASS`. Physical Windows validation proves native behavior only unless it explicitly includes the relevant canonical Blitzit comparison.
+
 ## Evidence is guidance, not an oracle
 
 The repository specifications are a researched starting point. They are not assumed to be infallible, complete, or the only valid way to implement the product.
@@ -229,6 +239,7 @@ Implementation mechanism is flexible: use the simplest reliable Windows/Tauri/na
 - Reproduce the source structure, hierarchy, density, and interaction intent rather than designing a generic task manager.
 - Pixel-perfect copying is not the goal when it would reduce readability, accessibility, Windows-native behavior, performance, or maintainability.
 - Screenshot pixel dimensions are reference evidence for proportions, not hard CSS dimensions; support Windows DPI scaling.
+- Do not invent one-off visual values when source detail is incomplete. Derive ordinary components from the calibrated Blitzit visual system (`docs/BLITZIT_VISUAL_SYSTEM.md`) and use professional Windows/accessibility/design conventions only as fallback. Targeted pixel measurement is reserved for distinctive/signature treatments or structural geometry where it materially improves parity.
 - Support system, dark, and light themes.
 - Do not copy Blitzit branding assets or account/paid UI; use Narro branding and local equivalents.
 - Remove excluded cloud controls rather than showing dead imitations.

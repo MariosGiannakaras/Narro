@@ -17,9 +17,9 @@ This section is the current continuation state.
 - CI #869 on prior head `422230e755a373d3ccb61246e1917ff7934a1210` failed **only** because `verify-m7-validation-logging.ps1` had a PowerShell parser error before the smoke could launch; all preceding substantive Windows gates passed.
 - The smoke script was narrowly repaired and an earlier PowerShell parser preflight was added. A subsequent correctness review also fixed the evidence handoff so the entire two-session `Narro-M7-Logs` folder is retained/uploaded for debugging. Resulting-main Windows CI #873 / run `37105088285` **PASSed** on validated source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Final M7 C5 artifact: `narro-m7-validation-windows-x64`, id `11268220111`, ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`, contained EXE SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`, fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`.
 - #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
-- Milestone 8 is now validated and reconciled. Current progress is `5/10M || 5/5 | 14/19`.
+- Milestone 8 is now validated and reconciled. Current progress is `5/10M || 1/5 | 14/19`.
 
-**NEXT AGENT ACTION:** Continue user-requested **M7** physical validation, batching compatible cases/defects before any corrective rebuild. PR #221 is merged and CI #884 PASS; exact validation artifact `11274516121`, ZIP SHA-256 `035f1462ccdd1286659a405de16e93f5e9b387d7de331983d92e0014e8d38a17`, EXE SHA-256 `a279664e4805eed7673ca30b1e2af6ff0f47356c1d59f8f92dacbdd8e2eb4bb3`. Candidate is launched from `artifacts/m7-pr221-ci884/candidate`; original app quit normally and production SQLite was backed up. OBS uses a separate current-single-monitor 1920×1080/60 fps collection because topology changed to DISPLAY2 only, 125% DPI. Capture normal/reduced-motion transitions and affected M7 controls, publish PASS/FAIL/NOT RUN ledger/video-derived frames/whole logs, fix evidenced failures in one coherent follow-up if needed, then reconcile bounded C1–C5. CI #873 C5 restart PASS and separate M1 B/C/D remain as before. See `work-log/2026-10-03-codex-m7-pr221-ci884-merged.md`.
+**NEXT AGENT ACTION:** Complete one coherent M7 corrective batch on fix/m7-native-insets-and-editors in the attached m7-content-transitions worktree. Checkpoints: 1 evidence/crosswalk (done), 2 implementation/regressions, 3 local preflight + one full exact-head Windows CI, 4 exact EXE native/editor/keyboard/DPI/restart retest, 5 full logs/video-derived evidence and reconciliation. CI #884 batch found five FIX_NOW issues; see work-log/2026-10-03-codex-m7-ci884-batched-findings.md. OBS is stopped/closed, existing C5 task is paused at 2:17:16 after expected auto-next, animations On and focused WebView language Greek. Current slice 1/5, roadmap 5/10M, physical 14/19. Preserve independent M9 work and source-analysis track.
 
 **C5 PHYSICAL ACTION COMPLETED — 2026-10-03:** the requested exact CI #873 EXE completed active compact Timer → qualifying 328 px drag → actual tray **Quit Narro** → same-EXE relaunch → visible saved `(1640,780)` Timer. The same task/time returned paused; native two-session evaluator **PASS**. [Completed run](work-log/2026-10-03-codex-m7-ci873-c5-completed.md), [continuous video and embedded review frames](work-log/2026-10-03-codex-m7-ci873-c5-video-review.md), whole `Narro-M7-Logs` folder/ZIP and hashes are published. No C5 restart user action remains. Formal tracking and `M7-OBS-20261003-01/02` disposition remain pending; M1 Candidate B B/C/D remain separate. OBS was stopped/closed and Narro remains paused.
 
@@ -29,7 +29,7 @@ Durable implementation checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-val
 
 `5/10M || 5/5 | 14/19`
 
-**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3/C4 are PASS. The CI #809 event-based re-audit physically accepts the corrected compositor boundary, Blitz-now entry, task/session continuity, cross-window reconciliation, second-launch single-instance behavior, idle no-op result, mixed-DPI crossing, edge/work-area behavior, topology removal recovery and topmost behavior. No new product defect is evidenced. C5 saved-placement restart is physically PASS on CI #873; final tracking/crosswalk reconciliation and narrow additional motion/label observations remain pending.
+**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3/C4 are PASS. The CI #809 event-based re-audit physically accepts the corrected compositor boundary, Blitz-now entry, task/session continuity, cross-window reconciliation, second-launch single-instance behavior, idle no-op result, mixed-DPI crossing, edge/work-area behavior, topology removal recovery and topmost behavior. The CI #884 batch has five narrowly evidenced FIX_NOW defects; historical unrelated acceptance remains preserved. C5 saved-placement restart is physically PASS on CI #873; final tracking/crosswalk reconciliation and narrow additional motion/label observations remain pending.
 
 ## Parallel user-directed Blitzit forensic track — analysis only
 
@@ -50,7 +50,7 @@ When that instruction is given, read in order:
 
 Current source-analysis checkpoint:
 - screenshots: **46/46 SOURCE_COMPLETE** at Pass-3 depth;
-- full repository MP4s: **9/19 SOURCE_COMPLETE** at Pass-3 depth;
+- full repository MP4s: **10/19 SOURCE_COMPLETE** at Pass-3 depth;
 - VE-018: one 9.344 s / 560-frame planning-board excerpt is **PARTIAL** deep evidence, not full VE-018 completion;
 - VE-003 Blitz Mode: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-005 Add & Manage Tasks and Lists: **SOURCE_COMPLETE** from the actual full MP4;
@@ -61,10 +61,32 @@ Current source-analysis checkpoint:
 - VE-007 Schedule Task Reminders: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-009 Custom Recurring Schedules: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-010 Notes: **SOURCE_COMPLETE** from the actual full MP4;
-- exact next video: **VE-015 — Blitzit Tutorial Sessions Walkthrough.mp4**;
+- VE-015 Sessions Walkthrough: **SOURCE_COMPLETE** from the actual full MP4;
+- exact next video: **VE-011 — Blitzit Tutorial How to Use Reports.mp4**;
 - raw MP4 access is currently available through the isolated analysis-only media bridge; do not merge that bridge into main.
 
 Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
+
+## Blitzit parity consumption / implementation coordination
+
+This coordination rule is additive and does **not** change the active M7 next action.
+
+- Binding workflow: `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`.
+- The Pass-3 analysis agent continues source-only work and does not patch implementation.
+- Implementation agents consume canonical `SOURCE_COMPLETE` findings; they do not re-analyze every raw screenshot/video.
+- New source findings are compared with current Narro during a separate reconciliation step that updates `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` and the affected milestone/tracking before parity closure.
+- Current M9 Reports/Sessions visual parity is **not ready for final acceptance** while VE-015, VE-011 and VE-012 remain OPEN. Nonvisual M9 work may continue.
+- PR #205 is nonvisual typed Overview API work; Windows CI #886 PASSed its current exact head `96498085a4bd1e9935c1a2f3ca75bee905a10678`. Normal implementation integration policy may continue independently of the Reports visual evidence gate.
+- PR #198 remains provisional Reports visual foundation. Do not treat or merge it as the final Blitzit-parity answer until VE-015/011/012 are source-complete and reconciled against its current implementation.
+- PR #213 already validated positional cross-lane insertion and remaining-EST projection; stale `FIX_NOW` wording for those two items is corrected in the crosswalk by the parity-workflow reconciliation commit. Remaining board progress/ordinal/hover/drag-motion/fade fidelity gaps remain open.
+
+## Evidence-routing audit — 2026-10-03
+
+- Direct raw-source sampling confirms the sampled completed video Pass-3 records are genuinely deep and evidence-class disciplined.
+- The 46 screenshot records are useful qualitative source records but do not consistently preserve the measurable geometry/spacing/typography/color/radius/shadow detail needed for maximum visual parity.
+- Screenshot source inspection remains 46/46; a separate static visual-calibration layer is **OPEN** in `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker.
+- `docs/EVIDENCE_ROUTING_MAP.md` is the common discovery entry point for ChatGPT/Codex so prior-pass trackers, current Pass-3 findings, calibration, reconciliation and physical validation are not conflated.
+- This documentation change does not alter the active M7 physical next action. Pass-3 video continuation remains VE-015.
 
 ## Current source / validation baseline
 
@@ -273,7 +295,7 @@ Physical procedure:
 ## Deferred unrelated work
 
 - M9 remains ordered after M8; it is not blocked merely by the pending M1/M7 physical observations.
-- Historical M9 PR references are not active continuation points; live GitHub currently has no open PRs.
+- Historical M9 PR references must not be treated as implementation continuation points without checking live GitHub. Current open M9 PRs are #205 (nonvisual Overview command/API boundary; exact head `96498085a4bd1e9935c1a2f3ca75bee905a10678`, CI #886 PASS) and #198 (provisional Reports visual foundation; exact head `a0364a72b6c01c29d1e4d5b7ca44d2883d0e2dd7`, CI #775 PASS). Re-check their live state before acting; #198 remains subject to the Reports/Sessions Pass-3 parity-reconciliation gate.
 - Static-contract cleanup remains maintenance-only and is not an M7 blocker.
 
 

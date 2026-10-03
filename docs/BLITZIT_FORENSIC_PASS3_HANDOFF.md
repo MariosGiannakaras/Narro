@@ -53,7 +53,8 @@ A **screenshot** is Pass-3 complete only after the actual retained image has bee
 - Corpus: **46**
 - Individually inspected in Pass 3: **46/46**
 - Per-image forensic records durable in repo: **46/46**
-- Static screenshot source pass: **COMPLETE**
+- Static screenshot source inspection: **46/46 COMPLETE**
+- Static visual calibration for maximum parity: **OPEN** — see `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker; do not repeat broad source research
 - Implementation reconciliation: **DEFERRED by explicit user instruction**
 
 See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
@@ -61,8 +62,8 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **9/19**
-- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes**
+- Full MP4s completed to Pass-3 standard: **10/19**
+- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
@@ -80,27 +81,28 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-015 — `Blitzit Tutorial Sessions Walkthrough.mp4`.**
+**Continue with VE-011 — `Blitzit Tutorial How to Use Reports.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015.
 
-For VE-015:
+For VE-011:
 
-1. inspect the complete **02:56.216, 1920×1080, 60 fps** MP4;
-2. build a full Sessions timeline;
+1. inspect the complete **03:10.450, 1920×1080, 60 fps** MP4;
+2. build a full Reports Overview timeline;
 3. densely inspect:
-   - Reports→Sessions entry;
-   - list/date/break filters;
-   - summary metric cards;
-   - populated session-row anatomy;
-   - task/detail expansion;
-   - inline field editing and commit/cancel;
-   - row overflow/delete;
-   - Add Session dialog and searchable task picker;
-   - export action/format shown in this source;
-4. reconcile any Sessions export-format conflict with stronger current v2.6.69 screenshot evidence;
+   - Reports entry and Overview shell;
+   - list/date filters;
+   - four headline metric cards;
+   - chart series and legend;
+   - chart hover target and tooltip geometry/content;
+   - any series visibility controls;
+   - productive hour/day/month cards;
+   - Time By List panel;
+   - Done Tasks panel;
+   - scroll behavior and empty/populated lower states;
+4. reconcile static current screenshots with video states where versions differ;
 5. update analysis Markdown only;
-6. then continue to VE-011.
+6. then continue to VE-012.
 
 ## Media-access rule
 
@@ -119,6 +121,21 @@ Raw MP4 access was established through the isolated analysis-only branch `analys
 - `reference/original-blitzit-screenshots/CANONICAL_INDEX.md` — source/provenance inventory.
 - `reference/original-blitzit-videos/inbox/` — raw MP4/SRT corpus.
 
+## Implementation handoff contract
+
+Pass 3 remains source-analysis only. It does not need to re-open screenshots already marked `SOURCE_COMPLETE` merely so implementation agents can use them.
+
+For each newly completed video/source batch:
+
+- keep the detailed source observations in the canonical Pass-3 findings files;
+- identify the affected surface/feature family and any material implementation implication in the analysis record;
+- do not patch Narro code or claim that the current implementation matches;
+- do not independently rewrite milestone completion state from the analysis track.
+
+The separate reconciliation agent defined by `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` is responsible for comparing those canonical findings with current Narro and routing the resulting implementation delta. High-confidence contradictions may be reconciled incrementally before 19/19 completion; a global no-orphan reconciliation is mandatory after 19/19.
+
+Original media is reopened after `SOURCE_COMPLETE` only for a real evidence conflict/ambiguity or for direct final visual verification. That final comparison is verification, not a repeated forensic pass.
+
 ## Completion definition
 
 Source forensics are complete only when:
@@ -130,4 +147,8 @@ Source forensics are complete only when:
 - no implementation work is performed as part of this pass;
 - the tracker has no `OPEN`, `PARTIAL`, or `RAW_MEDIA_ACCESS_REQUIRED` rows.
 
-Implementation parity/reconciliation is a later, separate phase.
+Implementation parity/reconciliation is a later, separate phase. Static visual calibration is also separate from broad source re-analysis: it extracts a reusable visual system from representative already-inspected canonical images and selected video keyframes; it does not require per-control pixel measurement.
+
+### Continuation after 19/19 video completion
+
+If the user gives the generic continuation command (`continue the forensic pass` / equivalent) and the full video queue reaches 19/19 while visual calibration is still OPEN, **do not declare the overall forensic/evidence work finished and stop**. Continue into `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md`, populate `docs/BLITZIT_VISUAL_SYSTEM.md`, and close the 46-image calibration coverage ledger. This remains analysis/evidence work only; do not modify Narro implementation.

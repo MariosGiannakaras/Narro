@@ -2,13 +2,11 @@
 
 Last updated: 2026-10-03
 
-## 2026-10-03 — M7 transient-content and action-label correction in CI #884
+## 2026-10-03 — M7 CI #884 physical findings; batched correction active
 
-User-directed M7 continuation is now active on [PR #221](https://github.com/MariosGiannakaras/Narro/pull/221), exact head `5cc184d87ae4f3562e439012292526940a48cb0a`; Windows CI #884 / run `37122117866` is active. The ready, opaque destination is presented before native geometry motion, with interaction ownership retained until commit and both motion operations joined before rollback. This narrowly addresses the CI #873 doubled content/traveling old header observations. Six fixed action slots now reserve complete Resume/Extend labels without shifting targets between states.
+PR #221 is merged as validated application source 1a96da7d8b4c6f4aa2aa58cb7d6bd49726b0fab0, tree-identical to exact head 5cc184d87ae4f3562e439012292526940a48cb0a that PASSed full Windows CI #884. The real exact EXE batch passed Create/Skip/Pause, shared projection, subtask mutations/progress, Notes save and manual-break return. Native frame insets, horizontal Notes overflow, clipped large Notes and Greek shortcuts/loading-modal focus are FAIL and now routed FIX_NOW. Motion is captured and requires dense review. No all-UI PASS is claimed.
 
-This is a documented Narro reconstruction decision: preserve the evidenced finite continuous geometry movement while avoiding the source's sparse/clipped intermediate content and overlapping text; it is not a claim of exact source compositing internals. Full frontend preflight, 17 transition/recovery tests, Rustfmt and 16 rendered Panel captures with fractional text-fit/stable-slot validation PASS. Local Rust check/Clippy/tests are NOT RUN because MSVC `link.exe` is unavailable. Exact-candidate continuous Windows capture remains OPEN; no physical fix is claimed yet. Prior C5 restart PASS remains valid because saved-placement/session code is unchanged. Current validated source and roadmap counters remain `45c3218f5923c2ff673d8c1dd562de7545be1ecb` and `5/10M || 5/5 | 14/19` until integration/acceptance.
-
-Continuation: merge the exact-green candidate with a head guard, verify tree identity, test its EXE with normal/reduced motion and full native Panel labels, publish video-derived evidence, then reconcile bounded M7 C1–C5. [Implementation checkpoint](work-log/2026-10-03-codex-m7-content-labels-pr221.md).
+One corrective slice of five checkpoints is active at 1/5, with compatible source/test/config fixes batched before a single Windows CI. Roadmap remains 5/10M and physical count 14/19. Existing C5 PASS is historical accepted evidence; native host correction requires fresh relevant restart/placement acceptance. OBS stopped normally, current Narro is paused, Windows animations restored On and focused WebView language restored Greek. [Findings and plan](work-log/2026-10-03-codex-m7-ci884-batched-findings.md).
 
 ## 2026-10-03 — CI #873 C5 physical restart PASS; continuous video delivered
 
@@ -970,7 +968,21 @@ The earlier inbox-setup state is superseded. The uploaded corpus is present and 
 - 19/19 product-behavior analyses/reconciliations/dispositions complete;
 - 19/19 second-pass UI/UX forensic reviews complete.
 
-Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No video upload/analysis prerequisite remains open. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
+Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No raw-video upload prerequisite remains open; exhaustive Pass-3 source analysis remains active and is authoritative only in `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
+
+## Current Blitzit exhaustive-forensics state — 2026-10-03
+
+The older 19/19 ingestion and second-pass UI/UX counters elsewhere in this file are historical coverage, not the current exhaustive-source counter.
+
+Current authoritative state is `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`:
+- 46/46 canonical screenshots have been individually source-inspected;
+- the 2026-10-03 depth audit found their qualitative records insufficient by themselves for maximum visual reconstruction, so static visual calibration is separately OPEN in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
+- 9/19 full MP4s are SOURCE_COMPLETE at Pass-3 depth;
+- VE-018 has a partial deep planning-board sequence;
+- exact next full video is VE-015;
+- implementation reconciliation remains separate.
+
+Use `docs/EVIDENCE_ROUTING_MAP.md` for which file owns which layer of truth. Do not use historical 19/19 prior-pass statements to claim Pass-3 completion.
 
 ## Durable correctness decisions
 

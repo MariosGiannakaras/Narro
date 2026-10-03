@@ -22,6 +22,8 @@ Do not convert planned Blitzit features into Narro parity requirements merely be
 
 The uploaded corpus under `reference/original-blitzit-videos/inbox/` contains 19 MP4/SRT pairs. All 19 are inventoried, analyzed, reconciled and dispositioned in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
 
+That statement describes the original ingestion pass. The stricter exhaustive Pass 3 is separate and may still be active; `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` is the only authoritative current Pass-3 counter. See `docs/EVIDENCE_ROUTING_MAP.md`.
+
 Direct video evidence materially changes or sharpens these source conclusions:
 
 - **Tasks / current overflow:** VE-005 directly shows `Schedule`, `Change List`, `Duplicate`, and `Delete`. `Change List` and `Duplicate` are promoted from older screenshot-only ambiguity to current direct behavior evidence.
