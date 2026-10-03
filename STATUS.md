@@ -1008,17 +1008,24 @@ Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `doc
 
 ## Current Blitzit exhaustive-forensics state — 2026-10-03
 
-The older 19/19 ingestion and second-pass UI/UX counters elsewhere in this file are historical coverage, not the current exhaustive-source counter.
+The exhaustive source-analysis track is **COMPLETE**.
 
-Current authoritative state is `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`:
-- 46/46 canonical screenshots have been individually source-inspected;
-- the 2026-10-03 depth audit found their qualitative records insufficient by themselves for maximum visual reconstruction, so static visual calibration is separately OPEN in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
-- 9/19 full MP4s are SOURCE_COMPLETE at Pass-3 depth;
-- VE-018 has a partial deep planning-board sequence;
-- exact next full video is VE-015;
-- implementation reconciliation remains separate.
+Authoritative state:
+- 46/46 canonical screenshots individually source-inspected;
+- 19/19 repository MP4s SOURCE_COMPLETE at Pass-3 depth;
+- 46/46 static visual-calibration dispositions complete;
+- 8/8 reusable visual-system families complete;
+- canonical synthesis: `docs/BLITZIT_VISUAL_SYSTEM.md`;
+- separate user-supplied 9.344 s planning clip preserved as direct evidence with unmapped lineage;
+- implementation reconciliation remains a separate deferred phase and is not implied by source completion.
 
-Use `docs/EVIDENCE_ROUTING_MAP.md` for which file owns which layer of truth. Do not use historical 19/19 prior-pass statements to claim Pass-3 completion.
+Current truth lives in:
+- `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`;
+- `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
+- `docs/BLITZIT_VISUAL_SYSTEM.md`;
+- `docs/EVIDENCE_ROUTING_MAP.md`.
+
+Do not use older ingestion/second-pass counters to restart work, and do not re-audit completed source assets unless genuinely new evidence or a concrete unresolved ambiguity appears.
 
 ## Durable correctness decisions
 
