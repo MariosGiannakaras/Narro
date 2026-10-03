@@ -268,7 +268,7 @@ The 2026-09-27 uploaded tutorial corpus adds a useful distinction. VE-017 explic
 
 **Known Blitzit pitfalls**: jumping action buttons, compact notes, auto-opening note URLs, subtasks disappearing in focus reports, surprise navigation/timer coupling.
 
-VE-010 now directly/transcript-corroborates the source behavior that note URLs may auto-open when a task becomes live. This strengthens, rather than weakens, Narro's existing reliability/agency decision to require explicit link activation.
+VE-010 directly confirms URL recognition/clickability and browser opening, but its exact trigger is ambiguous in the dense Pass-3 review. Separate Help/roadmap evidence documents that auto-open-on-live existed in some Blitzit versions. This still supports Narro's existing reliability/agency decision to require explicit link activation without overstating VE-010.
 
 **Narro tests**
 
