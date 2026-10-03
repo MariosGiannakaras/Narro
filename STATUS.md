@@ -583,7 +583,7 @@ Artifacts: packaged Focus runtime id `11129918136` / `sha256:e8d6733de16ebe60e3e
 Mandatory inspection confirms one Focus HWND, 340×700 Panel, 340×110 compact region, 340×300 expanded region, zero unintended root/document scrollers, clean Panel return, and no new static light/dark Focus/Timer layout regression. Hosted runner remains reduced-motion, and the deterministic packaged fixture is idle, so standard-motion character plus active-session B5/B6/continuity and real mixed-DPI Gate 12 remain physical-only. Durable evidence: `work-log/2026-10-01-chatgpt-m7-ci787-artifact-review.md`.
 
 
-## Current validated application source baseline
+## Historical validated application source baseline
 
 **`e3a9abf8f769297d56295d7afe8a3f3aeb5d27ed` for the reopened M1/M6/M7 replacement acceptance chain.**
 
