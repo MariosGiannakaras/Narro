@@ -25,7 +25,7 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 
 - MP4/SRT pairs: **19/19**
 - Full MP4s completed at Pass-3 depth: **19/19**
-- Partial Pass-3 sequences outside the mapped 19-video corpus: **1** — unmapped user-supplied 9.344 s planning-board clip
+- Additional fully reviewed source excerpt outside the mapped 19-video corpus: **1** — user-supplied 9.344 s / 560-frame planning-board clip with unmapped lineage
 - Full MP4s still open: **0**
 - Forensic/source-evidence pass: **COMPLETE**
 - Implementation reconciliation: **DEFERRED**
