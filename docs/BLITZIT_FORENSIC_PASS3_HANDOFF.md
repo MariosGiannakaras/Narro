@@ -62,8 +62,8 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **9/19**
-- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes**
+- Full MP4s completed to Pass-3 standard: **10/19**
+- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
@@ -81,27 +81,28 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-015 — `Blitzit Tutorial Sessions Walkthrough.mp4`.**
+**Continue with VE-011 — `Blitzit Tutorial How to Use Reports.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015.
 
-For VE-015:
+For VE-011:
 
-1. inspect the complete **02:56.216, 1920×1080, 60 fps** MP4;
-2. build a full Sessions timeline;
+1. inspect the complete **03:10.450, 1920×1080, 60 fps** MP4;
+2. build a full Reports Overview timeline;
 3. densely inspect:
-   - Reports→Sessions entry;
-   - list/date/break filters;
-   - summary metric cards;
-   - populated session-row anatomy;
-   - task/detail expansion;
-   - inline field editing and commit/cancel;
-   - row overflow/delete;
-   - Add Session dialog and searchable task picker;
-   - export action/format shown in this source;
-4. reconcile any Sessions export-format conflict with stronger current v2.6.69 screenshot evidence;
+   - Reports entry and Overview shell;
+   - list/date filters;
+   - four headline metric cards;
+   - chart series and legend;
+   - chart hover target and tooltip geometry/content;
+   - any series visibility controls;
+   - productive hour/day/month cards;
+   - Time By List panel;
+   - Done Tasks panel;
+   - scroll behavior and empty/populated lower states;
+4. reconcile static current screenshots with video states where versions differ;
 5. update analysis Markdown only;
-6. then continue to VE-011.
+6. then continue to VE-012.
 
 ## Media-access rule
 
