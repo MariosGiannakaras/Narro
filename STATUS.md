@@ -4,6 +4,15 @@ Last updated: 2026-10-03
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-03 — M7 resulting-main CI #873 PASS; final physical artifact ready
+
+Resulting-main Windows CI #873 / run `37105088285` **PASSed** on source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Final M7 C5 validation artifact is `narro-m7-validation-windows-x64`, id `11268220111`; ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`; contained `narro-m7-validation.exe` SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`; CI fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`. The artifact was downloaded and independently verified.
+
+Repository-side M7 validation is complete. The only remaining M7 C5 requirement is the real-Windows physical drag → tray Quit → relaunch → Timer restore flow, returning the entire `Narro-M7-Logs` folder and visual/manual observation. No counter advances until that physical evidence passes. Current progress remains `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m7-main873-validation-artifact-ready.md`.
+
+
 ## 2026-10-03 — PR #219 exact-head PASS and merged; resulting-main CI #873 active
 
 PR #219 final exact head `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1` passed full Windows CI #872 / run `37101133903`. The dedicated validation artifact `narro-m7-validation-windows-x64` (id `11266587277`) was downloaded and verified: ZIP SHA-256 `925995634e4862e17da604f3f40566e0488738fb0caa9fed4c8f364b9cc99e28`, contained EXE SHA-256 `a016ceeb570a8c0f32042d71a4fa9658d4f146117b9ab05f130dc9ef897a9548`, fingerprint `fnv1a64:b8709c61031dee55:bytes:14874624`. CI smoke PASSed with evaluator initially PENDING.
