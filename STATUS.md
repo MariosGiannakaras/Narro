@@ -2,6 +2,15 @@
 
 Last updated: 2026-10-03
 
+## 2026-10-03 — M8 PREF-R05 merged; resulting-main CI #882 active
+
+PR #220 final exact head `af4420aa7610008c2dba8cf54c12158178abf7d4` passed full Windows CI #881 / run `37111582864`, including fast frontend/contracts, Rust check/Clippy/tests, visual regression, release/physical builds, M7 automatic-validation smoke, and M1 diagnostic storage isolation. The final slice includes the local-only four-sound catalog, persisted selector/volume validation, single-owner non-overlapping previews, authoritative timed-alert sound consumption, and success-screen sound playback after committed completion.
+
+PR #220 was expected-head guarded squash-merged as `45c3218f5923c2ff673d8c1dd562de7545be1ecb`. Resulting-main Windows CI #882 / run `37117266417` is active on that exact source. PREF-R05 remains OPEN until #882 passes and tracking reconciliation completes. Progress remains `4/10M || 4/5 | 14/19`.
+
+Durable checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-merged-main882-active.md`.
+
+
 ## 2026-10-03 — CI #873 C5 physical attempt interrupted after qualifying drag
 
 The exact requested `narro-m7-validation.exe` SHA-256 was verified locally. A dedicated real task ran in the compact Timer, native logs accepted a qualifying drag with maximum distance 268 physical pixels, and the final compact region was contained at `(1805,970)`, 340 × 110. Computer Use then reported a user physical-Escape interruption before tray Quit/relaunch. **C5 remains OPEN; evaluator PENDING; no counter advances.** The app/test task were left open. Full first-session logs, physical observations, tool-recovery evidence and continuation state are published in [the C5 attempt work log](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md). [The screenshot gallery](work-log/2026-10-03-codex-m7-ci873-c5-visual-review.md) embeds all 22 published PNGs for chat visual review; no continuous animation/video acceptance is claimed.

@@ -8,7 +8,7 @@ GitHub `main` is the durable source truth.
 
 This section is the current continuation state.
 
-- Main source baseline: `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
+- Current merged application source under resulting-main validation: `45c3218f5923c2ff673d8c1dd562de7545be1ecb` (PR #220). Do not promote it to the validated source baseline until Windows CI #882 / run `37117266417` passes. The prior resulting-main-validated application source is `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0` from CI #873.
 - PR #217 is merged. Resulting-main diagnostic hash-release follow-up is validated by Windows CI #866 / run `37078139295`: **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
 - PR #218 is **closed**; do not treat it as an active continuation.
 - **Final M1 Candidate B is ready** from resulting-main CI #866 / run `37078139295` on source `f1a200c3624c3e25154a7023443c1dfc5be1e69d`: artifact id `11257763093`, ZIP SHA-256 `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`, contained diagnostic EXE SHA-256 `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`. Its runtime storage-isolation smoke PASSed and production Roaming/Local namespaces remained unchanged. Physical M1 B/C/D may use only this candidate until superseded by later validated source.
@@ -19,7 +19,7 @@ This section is the current continuation state.
 - #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
 - No progress counter advances from implementation alone. Current progress remains `4/10M || 4/5 | 14/19`.
 
-**NEXT AGENT ACTION:** check PR #220 Windows CI #876 / run `37108157268` first. Current exact head is `6a8b9ba8877a83921135f755def126fc32b6dc13`. CI #874 proved the full frontend/contracts/build PASS and failed only on three Rust formatting hunks; those exact hunks were corrected with no functional change. If #876 fails, inspect only the exact failure and fix narrowly. If #876 passes, validate the exact head, merge with expected-head guard, reconcile M8 PREF-R05 tracking, then continue the next independently safe ordered work. Keep M1/M7 physical gates OPEN; they are not a blanket implementation stop.
+**NEXT AGENT ACTION:** check resulting-main Windows CI #882 / run `37117266417` first for merged source `45c3218f5923c2ff673d8c1dd562de7545be1ecb`. PR #220 final exact head `af4420aa7610008c2dba8cf54c12158178abf7d4` passed full Windows CI #881 / run `37111582864` and was expected-head guarded squash-merged as `45c3218f5923c2ff673d8c1dd562de7545be1ecb`. If #882 fails, inspect only the exact failure and fix narrowly from current main. If #882 passes, reconcile PREF-R05 in TODO/STATUS/HANDOFF and add immutable closure evidence; then continue the next independently safe ordered work. Keep M1/M7 physical gates OPEN; they are not a blanket implementation stop.
 
 **USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
 
