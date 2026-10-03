@@ -1,0 +1,48 @@
+{
+  "recordedUtc": "2026-10-03T08:59:25.5661312Z",
+  "checkoutMain": "9ffa3b116a51aa9f38bf9e4938ccf5ccf33aa787",
+  "preservedStash": "ee0b5257503a897f903a49938f823a583a6869f6",
+  "sourceSha": "1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0",
+  "ciRun": 37105088285,
+  "ciNumber": 873,
+  "artifactId": 11268220111,
+  "artifactName": "narro-m7-validation-windows-x64",
+  "executable": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-c5-ci873-20261003\\narro-m7-validation.exe",
+  "executableSize": 14874624,
+  "executableSha256": "4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c",
+  "operatorVerdict": "INCOMPLETE",
+  "nativeEvaluatorStatus": "PENDING",
+  "nativeEvaluatorReason": "qualifying-drag-recorded-waiting-for-tray-quit",
+  "qualifyingMoveMetrics": {
+    "acceptedForPersistence": true,
+    "baseline": {
+      "x": 1960,
+      "y": 851
+    },
+    "current": {
+      "x": 1805,
+      "y": 974
+    },
+    "maxMoveDistancePx": 268,
+    "qualifyingMove": true
+  },
+  "reason": "Computer Use reported user physical Escape interruption before tray Quit/relaunch",
+  "activeTaskObserved": true,
+  "compactTimerObserved": true,
+  "qualifyingDragObserved": true,
+  "trayQuitObserved": false,
+  "sameExeRelaunchObserved": false,
+  "restoredTimerObserved": false,
+  "processLeftRunning": 8500,
+  "preQuitVisibleRegion": {
+    "height": 110,
+    "width": 340,
+    "y": 970,
+    "x": 1805
+  },
+  "captureServiceRepair": "Existing manual service started successfully; helper WGC capture still timed out",
+  "coordinateInputWorkaround": "Documented sky.click with window coordinates plus independent physical desktop capture worked",
+  "netLimiterAllowAttempted": true,
+  "netLimiterAllowConfirmed": false,
+  "sessionCount": 1
+}

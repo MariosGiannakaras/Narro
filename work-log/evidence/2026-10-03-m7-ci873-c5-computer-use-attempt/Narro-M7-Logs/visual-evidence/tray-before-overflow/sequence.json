@@ -1,0 +1,24 @@
+{
+  "capture": "physical desktop pixels via CopyFromScreen; no input injection",
+  "startedUtc": "2026-10-03T08:58:12.8359420Z",
+  "region": {
+    "x": 2290,
+    "height": 50,
+    "width": 270,
+    "y": 1030
+  },
+  "requestedIntervalMs": 500,
+  "durationMs": 1056,
+  "frames": [
+    {
+      "file": "frame-0000.png",
+      "elapsedMs": 33,
+      "utc": "2026-10-03T08:58:12.8757879Z"
+    },
+    {
+      "file": "frame-0001.png",
+      "elapsedMs": 557,
+      "utc": "2026-10-03T08:58:13.3997143Z"
+    }
+  ]
+}

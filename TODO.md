@@ -2,6 +2,8 @@
 
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
+**Latest C5 physical attempt, 2026-10-03:** CI #873 exact-EXE task/compact Timer and qualifying drag were observed; normal tray Quit → same-EXE relaunch → restored Timer remain **OPEN** after Computer Use reported a physical-Escape interruption. Native evaluator is **PENDING**. Full logs and continuation state: [work log](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md). No milestone/counter advancement.
+
 ## Milestone 1 — Windows desktop scaffold, capability and performance spike
 
 Goal: prove the selected Tauri stack and lightweight focus-window architecture before product UI is built.
