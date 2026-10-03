@@ -24,9 +24,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **16/19**
+- Full MP4s completed at Pass-3 depth: **17/19**
 - Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **3**
+- Full MP4s still open: **2**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -126,7 +126,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 14 | VE-008 | Recurring Tasks | 02:46.905 / 60 | **SOURCE_COMPLETE** | parent setup, generated child states, grouping, update/remove, detach/coexistence evidence |
 | 15 | VE-002 | EST in task name | 01:21.633 / 30 | **SOURCE_COMPLETE** | keystroke→parsed EST feedback, title normalization, create/commit timing |
 | 16 | VE-001 | Product explainer | 02:19.088 / 30 | **SOURCE_COMPLETE** | montage state catalog; explicitly classify cuts as timing-invalid |
-| 17 | VE-004 | Getting Started | 04:09.870 / 60 | OPEN | Home→list→board→Focus sequence; isolate unique UI from duplicated tutorials |
+| 17 | VE-004 | Getting Started | 04:09.870 / 60 | **SOURCE_COMPLETE** | Home→list→board→Focus sequence; isolate unique UI from duplicated tutorials |
 | 18 | VE-018 | Daniel planning workflow | 03:33.090 / 60 | **PARTIAL** | 9.344 s planning excerpt deep-reviewed; full MP4 still required, including prioritization and Focus/break remainder |
 | 19 | VE-019 | Oct Update | 02:52.989 / 30 | OPEN | light-theme board, Floating subtask expansion, historical preference/theme states |
 
@@ -147,6 +147,6 @@ This is **partial evidence for VE-018**, not full-source completion.
 
 ## Exact next action
 
-Continue with **VE-004 — `Blitzit Tutorial Getting Started with Blitzit.mp4`**.
+Continue with **VE-018 — `Daniel's Productive Planning Workflow with Blitzit.mp4`**.
 
 VE-003, VE-005, VE-013, VE-014, VE-016 and VE-017 are SOURCE_COMPLETE from their actual full MP4s.
