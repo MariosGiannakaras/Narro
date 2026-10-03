@@ -24,9 +24,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **9/19**
+- Full MP4s completed at Pass-3 depth: **10/19**
 - Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **10**
+- Full MP4s still open: **9**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -119,7 +119,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 7 | VE-007 | Schedule Task Reminders | 02:52.803 / 60 | **SOURCE_COMPLETE** | schedule open, quick date actions, date select, time/repeat steps, save/update/remove |
 | 8 | VE-009 | Custom Recurring Schedules | 02:39.893 / 60 | **SOURCE_COMPLETE** | frequency/unit controls, weekday/month conditional UI, summary text, footer |
 | 9 | VE-010 | Notes | 01:13.561 / 60 | **SOURCE_COMPLETE** | inline editor open/close, toolbar state, link treatment, geometry/reflow |
-| 10 | VE-015 | Sessions Walkthrough | 02:56.216 / 60 | OPEN | filters, task detail open, field inline edit, ellipsis actions, Add Session, deletion/export state |
+| 10 | VE-015 | Sessions Walkthrough | 02:56.216 / 60 | **SOURCE_COMPLETE** | filters, task detail open, field inline edit, ellipsis actions, Add Session, deletion/export state |
 | 11 | VE-011 | Reports | 03:10.450 / 60 | OPEN | filters, chart hover/tooltip, series controls, lower panels, scroll |
 | 12 | VE-012 | Improved Sessions and Stats | 06:56.357 / 30 | OPEN | daily graph, metrics, session-derived calculations, Done timing analysis, navigation/filter states |
 | 13 | VE-006 | Delete & Archive | 01:23.963 / 60 | OPEN | task delete, archive list, Archived tabs, Unarchive/Delete Forever, archived Done actions |
@@ -147,6 +147,6 @@ This is **partial evidence for VE-018**, not full-source completion.
 
 ## Exact next action
 
-Continue with **VE-015 — `Blitzit Tutorial Sessions Walkthrough.mp4`**.
+Continue with **VE-011 — `Blitzit Tutorial How to Use Reports.mp4`**.
 
 VE-003, VE-005, VE-013, VE-014, VE-016 and VE-017 are SOURCE_COMPLETE from their actual full MP4s.
