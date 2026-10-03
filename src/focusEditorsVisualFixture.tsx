@@ -30,7 +30,7 @@ const requestedReducedMotion = params.get("motion")?.toLowerCase() === "true";
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 assertMotionPreference();
 function assertMotionPreference() {
-  if (reducedMotion !== requestedReducedMotion) throw new Error("Renderer motion preference did not match capture request");
+  if (reducedMotion !== requestedReducedMotion) throw new Error(`Renderer motion preference did not match capture request: requested=${requestedReducedMotion}, actual=${reducedMotion}`);
 }
 document.documentElement.dataset.theme = theme;
 const taskId = "31111111-1111-4111-8111-111111111111";

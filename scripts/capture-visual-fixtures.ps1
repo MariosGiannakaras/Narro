@@ -53,7 +53,8 @@ function Capture-Theme {
         [int]$VirtualTimeBudgetMs = 0,
         [string]$ReadyMarker = "",
         [int]$ReadyMaxAttempts = 4,
-        [switch]$ReducedMotion
+        [switch]$ReducedMotion,
+        [switch]$NormalMotion
     )
 
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
@@ -80,7 +81,9 @@ function Capture-Theme {
         if ($VirtualTimeBudgetMs -gt 0) {
             $arguments = @("--virtual-time-budget=$VirtualTimeBudgetMs") + $arguments
         }
+        if ($ReducedMotion -and $NormalMotion) { throw "Capture cannot request both normal and reduced motion." }
         if ($ReducedMotion) { $arguments = @("--force-prefers-reduced-motion") + $arguments }
+        elseif ($NormalMotion) { $arguments = @("--force-prefers-no-reduced-motion") + $arguments }
 
         if ($ReadyMaxAttempts -lt 1) {
             throw "ReadyMaxAttempts must be at least 1."
@@ -157,7 +160,8 @@ function Capture-FocusEditors([string]$theme) {
                 -DomPath (Join-Path $outputPath "$editorLabel.html") `
                 -VirtualTimeBudgetMs 2500 `
                 -ReadyMarker 'data-focus-editor-fixture-ready="true"' `
-                -ReducedMotion:$reduced
+                -ReducedMotion:$reduced `
+                -NormalMotion:(-not $reduced)
         }
     }
 }
