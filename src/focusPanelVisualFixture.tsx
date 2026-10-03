@@ -109,6 +109,7 @@ const board: ListBoardSnapshot = {
     aggregateEstSeconds: 1200,
     tasks: [doneTask],
   },
+  todayCompletionCount: 0,
   doneMonthCompletionCount: 1,
 };
 
