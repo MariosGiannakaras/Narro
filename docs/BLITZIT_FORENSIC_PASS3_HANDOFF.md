@@ -62,7 +62,7 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **13/19**
+- Full MP4s completed to Pass-3 standard: **16/19**
 - Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough; VE-011 Reports; VE-012 Improved Sessions and Stats; VE-006 Delete & Archive**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
@@ -81,25 +81,25 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-008 — `Blitzit Tutorial How to Set Up Recurring Tasks.mp4`.**
+**Continue with VE-004 — `Blitzit Tutorial Getting Started with Blitzit.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015, VE-011, VE-012, VE-006.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015, VE-011, VE-012, VE-006, VE-008, VE-002, VE-001.
 
-For VE-008:
+For VE-004:
 
-1. inspect the complete **02:46.905, 1920×1080, 60 fps** MP4;
-2. build a full recurring-task setup/materialization timeline;
-3. densely inspect:
-   - initial Schedule entry and recurrence presets;
-   - recurring parent creation;
-   - generated child-task placement/counts;
-   - parent vs child identity/metadata;
-   - daily/weekday/specific-day/monthly examples actually committed;
-   - update/remove actions;
-   - detach/coexistence behavior if demonstrated;
-4. distinguish direct generated-task evidence from narration about future generation cadence;
-5. update analysis Markdown only;
-6. then continue to VE-002.
+1. inspect the complete **04:09.870, 1920×1080, 60 fps** MP4;
+2. map the full onboarding/Home→list→board→Focus flow;
+3. isolate unique product states from footage duplicated in other tutorials;
+4. densely inspect:
+   - Home/list grid;
+   - account/trial/navigation context only where product UI is affected;
+   - list open and board entry;
+   - task creation/planning;
+   - Blitz entry / Focus;
+   - any shortcut/navigation controls demonstrated;
+5. classify auth/commerce/onboarding copy as context unless it changes application behavior;
+6. update analysis Markdown only;
+7. then continue to VE-018.
 
 ## Media-access rule
 

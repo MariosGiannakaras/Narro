@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 13/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 16/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -3402,56 +3402,581 @@ No implementation conclusion is made in this analysis track.
 # Queue 14 — VE-008 — Recurring Task Setup
 
 Source: `Blitzit Tutorial How to Set Up Recurring Tasks.mp4`  
-Metadata: **02:46.905, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **02:46.833 video stream / ~02:46.905 container, 1920×1080, 60 fps, 10,010 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:26–00:01:53 — presets/materialization;
-- 00:02:00–00:02:25 — update/remove.
+Inspection method:
+- complete source reviewed end-to-end;
+- 5 s whole-video contact scan;
+- dense 2 s sampling from initial Schedule entry through parent/child materialization and later child/parent management;
+- full-resolution keyframes for initial board arithmetic, recurrence preset state, materialized parent/children, child completion, child Update Schedule, child schedule removal and parent Remove Recurring;
+- 10 fps micro review around the final child-schedule/parent-recurring removals;
+- transcript used only to separate future-generation cadence claims from directly materialized task evidence.
 
-Pass-3 focus:
-- recurring parent visual state;
-- generated child visual state;
-- scheduled grouping/counts;
-- weekday/date metadata;
-- update/remove and child coexistence/detachment evidence.
+## VE-008 chronological state map
+
+### 00:00:00–~00:00:26 — ordinary board baseline
+
+**VIDEO-DIRECT**
+- list is `TYAMA`;
+- header reports **9 pending tasks, Est: 0min**;
+- This Week shows **0/6 Done**;
+- Today shows **0/1 Done**;
+- ordinary task `Check emails` is one of the six This Week tasks;
+- Backlog has three ordinary tasks and no recurring-task subsection yet.
+
+This gives a clean pre-recurrence baseline for later identity/count arithmetic.
+
+### ~00:00:26–00:00:33 — ordinary task → Schedule
+
+**VIDEO-DIRECT**
+- hovering `Check emails` exposes the normal board action rail;
+- its overflow uses the ordinary Schedule / Change list / Duplicate / Delete grammar;
+- selecting Schedule opens the standard date picker.
+
+### ~00:00:33–00:00:37 — selected date
+
+**VIDEO-DIRECT**
+- calendar month: **June 2025**;
+- selected date: **Monday, June 16, 2025**;
+- selected 16 uses the bright cyan/lime circular treatment;
+- top quick-date shortcuts and Cancel / Next remain consistent with VE-007.
+
+### ~00:00:37–00:01:11 — recurrence preset panel
+
+**VIDEO-DIRECT**
+- second scheduler step header shows:
+  - `< PICK DATE`;
+  - **Mon, Jun 16, 2025**;
+  - `Add Time` with `+ ADD`;
+  - `Recurring schedule`.
+- exact visible preset list:
+  1. `No Repeat`
+  2. `Every day`
+  3. `Every weekday`
+  4. `Every Monday`
+  5. `Every month on 16th`
+- No Repeat is the initial selected state;
+- tutorial points through the preset options while explaining their intended cadence;
+- **Every weekday** is the preset actually selected before commit.
+
+**VERSION/SEMANTIC NOTE**
+- the weekday-specific and month-specific labels are dynamically derived from the selected Monday/16th date;
+- this is the same date-derived preset grammar independently seen in VE-007.
+
+### ~00:01:11–00:01:16 — Every weekday commit
+
+**VIDEO-DIRECT**
+- `Every weekday` shows the selected checkmark;
+- Schedule is committed;
+- scheduler closes and returns to the board.
+
+### ~00:01:16–00:01:33 — parent + generated children materialize
+
+**VIDEO-DIRECT**
+- the original ordinary `Check emails` disappears from the ordinary This Week stack;
+- Backlog gains a dedicated **`Recurring tasks`** subsection;
+- parent card:
+  - title **`Check emails`**;
+  - recurrence label **`Weekdays`**;
+  - loop/recurring icon;
+  - list badge;
+  - EST/Taken slots.
+- Today gains one generated `Check emails` child due **Today**;
+- This Week gains subsection exact copy:
+  - **`4 Scheduled tasks this week`**;
+- four additional `Check emails` children are materialized for the remaining weekdays.
+
+**ARITHMETIC-DIRECT**
+- pre-recurrence pending count: **9**;
+- post-recurrence pending count: **13**;
+- ordinary parent source task is replaced by:
+  - one recurring parent;
+  - five generated child tasks.
+- the +4 net pending change proves the recurring parent itself is **not counted as a pending actionable task** while the five children are.
+- arithmetic:
+  - 9 original pending − 1 ordinary `Check emails` + 5 child tasks = **13**;
+  - parent exists visually but is excluded from the pending count.
+
+### ~00:01:33–00:01:54 — child-task placement and ordinary-task behavior
+
+**VIDEO-DIRECT**
+- one child sits in Today because it is due on the current Monday;
+- the other four children remain in This Week's scheduled subsection with day/date metadata;
+- child cards use ordinary task-card affordances rather than a special locked-child surface;
+- child rows retain normal EST/Taken slots and hover controls.
+
+**TRANSCRIPT + VISUAL CORROBORATION**
+- narration says generated child tasks can be edited/completed/rescheduled independently;
+- later interactions in the same source directly demonstrate completion and rescheduling, so this is not narration-only.
+
+### ~00:01:54–00:02:00 — complete one generated child
+
+**VIDEO-DIRECT**
+- one generated `Check emails` child is marked Done;
+- after settle:
+  - list pending count **13 → 12**;
+  - This Week scheduled subsection **4 → 3** remaining scheduled children;
+  - Done gains `Check emails` under **Mon, Jun 16, 2025**;
+  - Today/This Week progress bars update to include the completed child.
+
+**IDENTITY-DIRECT**
+- completing a child does not complete/remove the recurring parent;
+- parent remains `Weekdays` in Backlog and other children remain independently pending.
+
+### ~00:02:00–00:02:08 — child overflow / Update Schedule
+
+**VIDEO-DIRECT**
+- a remaining scheduled child opens its ordinary scheduled-task overflow;
+- menu includes:
+  - **`Update Schedule`**;
+  - schedule-detail row such as **`18th June`** with circular X/remove affordance;
+  - Change list;
+  - Duplicate;
+  - Delete.
+- this is child-task scheduling grammar, not parent recurring-rule grammar.
+
+### ~00:02:08–00:02:13 — child reschedule
+
+**VIDEO-DIRECT**
+- Update Schedule reopens the scheduler pre-populated for **Wed, Jun 18, 2025**;
+- current child schedule is No Repeat;
+- user returns to Pick Date and chooses a different date;
+- commit moves that child to the new date independently of the recurring parent.
+
+**RESULT-DIRECT**
+- after the edit, This Week still contains **3 Scheduled tasks this week**;
+- two generated `Check emails` rows now visibly share **Thu** metadata while the third remains Fri;
+- this directly demonstrates an individual child can be rescheduled onto a date already occupied by another generated child, producing same-title/same-day coexistence without altering the parent's Weekdays rule.
+
+### ~00:02:13–00:02:22 — remove a child's schedule via X
+
+**VIDEO-DIRECT**
+- opening the rescheduled child's menu shows `Update Schedule` plus current date detail (e.g. **19th June**) with X;
+- clicking the X removes that child's schedule;
+- toast exact copy:
+  - **`Removed schedule from task`**.
+- scheduled subsection count changes **3 → 2 Scheduled tasks this week**.
+
+**COUNT/IDENTITY-DIRECT**
+- list pending count remains unchanged across the child schedule removal;
+- therefore removing the schedule does **not delete the child task**;
+- it removes scheduling metadata/placement while preserving task identity as a pending task elsewhere in the board flow.
+
+### ~00:02:22–00:02:25 — recurring-parent overflow
+
+**VIDEO-DIRECT**
+- parent `Check emails` in Backlog opens a specialized recurring-parent menu;
+- in this source version the visible menu is:
+  1. **`Remove Recurring`**
+  2. `Change list`
+  3. `Duplicate`
+  4. `Delete` in red.
+
+**VERSION DIFFERENCE**
+- VE-017's newer recurring-parent menu also exposes `Update Recurring`;
+- VE-008 does not show that item in this menu state.
+- do not flatten the two source versions into one exact menu contract without precedence/reconciliation.
+
+### ~00:02:25–00:02:27 — Remove Recurring detaches the parent
+
+**VIDEO-DIRECT**
+- Remove Recurring is activated;
+- Recurring tasks subsection disappears;
+- `Check emails` reappears as an ordinary Backlog task;
+- a second generic toast **`Removed schedule from task`** appears;
+- existing generated children remain:
+  - completed child remains in Done;
+  - Today child remains;
+  - remaining scheduled children remain in This Week.
+
+**ARITHMETIC-DIRECT**
+- once the parent becomes an ordinary task again, the list pending count increases by one because the former parent is now actionable/countable;
+- this independently corroborates the earlier finding that an active recurring parent is excluded from pending-task counts.
+
+### ~00:02:27–00:02:38 — detached-parent result
+
+**VIDEO-DIRECT**
+- board continues with ordinary Backlog `Check emails` plus surviving child tasks;
+- no automatic deletion of already-created children occurs;
+- child state survives removal of the parent recurrence relationship.
+
+### ~00:02:38–00:02:46.83 — recap/outro
+
+**VIDEO-DIRECT / NON-PARITY**
+- narration summarizes recurring scheduling and community/outro material;
+- no additional unique recurring-task state is introduced.
+
+## VE-008 source synthesis
+
+High-confidence direct behavior established:
+- an ordinary task can be converted into a recurring parent through the normal Schedule flow;
+- for Monday Jun 16 the preset list is No Repeat / Every day / Every weekday / Every Monday / Every month on 16th;
+- Every weekday is the rule actually committed;
+- recurring parent is moved into Backlog's `Recurring tasks` subsection and labeled `Weekdays`;
+- five generated children are materialized for the current workweek: one Today + four This Week scheduled children;
+- 9→13 pending arithmetic proves the recurring parent is not counted as pending while its generated children are;
+- generated children are ordinary-manageable identities: one can complete independently, reducing pending/scheduled counts while leaving parent intact;
+- a child can use Update Schedule independently of the parent rule;
+- rescheduling one child can create same-day/same-title coexistence with another child;
+- the child schedule-detail X removes schedule metadata without deleting the task, evidenced by stable pending count and scheduled subsection decrement;
+- VE-008 parent menu exposes Remove Recurring / Change list / Duplicate / Delete, while newer VE-017 also shows Update Recurring — explicit version difference;
+- Remove Recurring converts the parent back into an ordinary Backlog task and leaves existing child tasks untouched;
+- active recurring parent exclusion vs detached ordinary-task inclusion in pending counts is directly supported by board arithmetic;
+- future Monday regeneration cadence described by narration is not independently time-lapsed in this source.
+
+Cross-source corroboration:
+- VE-007 scheduler/preset/date grammar;
+- VE-017 newer recurring update/detachment semantics;
+- SS-H08 No Repeat/destructive existing-task state for the newer update flow.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
 # Queue 15 — VE-002 — EST Suffix Parsing
 
 Source: `Blitzit Tutorial Add Estimated Time Directly in Task Name.mp4`  
-Metadata: **01:21.633, 426×240, 30 fps**  
-Status: **OPEN**
+Verified metadata: **01:21.633, 426×240, 30 fps, 2,449 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior window:
-- 00:00:17.920–00:01:00.879.
+Inspection method:
+- complete low-resolution source reviewed end-to-end;
+- 2 s whole-video contact scan;
+- dense 0.5 s and 5 fps review across all three parsing examples;
+- nearest-neighbor enlarged frames used to distinguish title input, live EST field and committed task-card output;
+- transcript used to separate parser forms actually executed from additional documented forms mentioned only by narration/tutorial annotation.
 
-Pass-3 focus:
-- keystroke-level title input;
-- when EST field changes;
-- suffix variants;
-- save/Enter moment;
-- visible title normalization;
-- any error/unsupported suffix state.
+## VE-002 chronological state map
+
+### 00:00:00–~00:00:18 — board / inline-create baseline
+
+**VIDEO-DIRECT**
+- source uses the Today lane inline task creator;
+- create row contains:
+  - Cancel;
+  - title input;
+  - compact EST field at right;
+  - Confirm.
+- before suffix parsing, EST field is visibly **00:00**.
+
+### ~00:00:18–00:00:32 — example 1: minutes suffix
+
+**VIDEO-DIRECT**
+- title input is populated as:
+  - **`Prepare slides 28 m`**.
+- while the editor is still open and before Confirm:
+  - title input still contains the suffix;
+  - EST field automatically changes from 00:00 to **00:28**.
+- therefore parsing is live/reactive during title entry, not deferred until task commit.
+
+**COMMIT-DIRECT**
+- Confirm is used;
+- committed card title becomes **`Prepare slides`**;
+- time suffix is removed from the saved/displayed title;
+- task card retains the parsed estimate as **28min**.
+
+### ~00:00:32–00:00:40 — example 2: hour suffix
+
+**VIDEO-DIRECT**
+- next title example is entered as:
+  - **`Write blog post 1 HR`** / visually case-insensitive hour token in the staged input.
+- EST field updates while the create editor remains open to **01:00**;
+- after commit:
+  - card title is **`Write blog post`**;
+  - suffix is absent from the saved title;
+  - parsed estimate is retained as **1hr**.
+
+**CASE NOTE**
+- tutorial text/narration uses uppercase `HR`, while the low-resolution visual cannot justify a case-sensitive parser requirement;
+- strongest source conclusion is that the demonstrated hour token is accepted in the shown form, not that parsing must be case-sensitive.
+
+### ~00:00:40–00:00:48 — example 3: combined hours + minutes
+
+**VIDEO-DIRECT**
+- title input is entered as:
+  - **`Email campaign 2 HR 15 m`**.
+- before commit, EST field resolves to **02:15**;
+- after Confirm:
+  - displayed task title becomes **`Email campaign`**;
+  - parsed estimate is retained as **2hr 15min**.
+
+**COMPOSITION-DIRECT**
+- parser can combine an hour component and a minute component from one trailing title suffix.
+
+### ~00:00:48–00:00:59 — tutorial-supported token grammar
+
+**TUTORIAL-ANNOTATION / TRANSCRIPT-CLAIM**
+- tutorial overlays explanatory notation equivalent to:
+  - number + `min` for minutes;
+  - number + `hr` / `hours` for hours.
+- narration explicitly says the full word **`hours`** is supported.
+
+**EVIDENCE BOUNDARY**
+- actual executed parser examples in the video use abbreviated tokens;
+- no separate task is typed/committed using the full word `hours`;
+- therefore full-word support is documented source intent, but not independently execution-tested in VE-002.
+
+### ~00:00:59–00:01:04 — manual EST remains editable
+
+**VIDEO-DIRECT**
+- ordinary EST field remains available after parser examples;
+- tutorial demonstrates/points to the same EST slot used for manual adjustment/removal.
+
+**SEMANTIC**
+- suffix parsing is a shortcut into the normal EST value, not a separate immutable metadata type.
+
+### ~00:01:04–00:01:18 — rapid-create context
+
+**VIDEO-DIRECT**
+- created cards remain in Today while inline task creation can continue;
+- source frames show multiple parsed-example tasks coexisting with the create row;
+- no dedicated parsing confirmation dialog/toast appears.
+
+### ~00:01:18–00:01:21.63 — outro
+
+**NON-PARITY**
+- branded/music outro.
+
+## VE-002 source synthesis
+
+High-confidence direct behavior established:
+- EST suffix parsing occurs live while editing the title, before Confirm;
+- parsed EST is written into the ordinary EST field immediately;
+- demonstrated minute example: `Prepare slides 28 m` → 00:28 → committed `Prepare slides` / 28min;
+- demonstrated hour example: `Write blog post 1 HR` → 01:00 → committed `Write blog post` / 1hr;
+- demonstrated combined example: `Email campaign 2 HR 15 m` → 02:15 → committed `Email campaign` / 2hr15min;
+- parsed suffix text is stripped from the committed task title;
+- hour + minute components can be combined in one trailing suffix;
+- parser output remains ordinary editable EST;
+- full-word `hours` support is tutorial-documented but not separately executed in this source;
+- no unsupported/invalid suffix example, parser error state, ambiguity resolution rule or mid-title-time-token behavior is demonstrated;
+- no requirement is inferred for unshown token forms.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
 # Queue 16 — VE-001 — Product Explainer
 
 Source: `Blitzit Explained Simplify Your Tasks and Stay in Flow.mp4`  
-Metadata: **02:19.088, 1920×1080, 30 fps**  
-Status: **OPEN**
+Verified metadata: **02:19.033 video stream / ~02:19.088 container, 1920×1080, 30 fps, 4,171 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:32–00:01:19 — core loop montage;
-- 00:01:21–00:02:16 — out-of-scope/context claims.
+Inspection method:
+- complete source reviewed end-to-end;
+- 4 s whole-video contact scan;
+- 1 s dense review through the core-product montage;
+- unique visible application states catalogued and cross-checked against stronger tutorial/screenshot sources;
+- editorial cuts, picture-in-picture composites, camera footage and staged montage transitions explicitly excluded from motion-timing requirements;
+- marketing/roadmap/commerce narration kept separate from direct product pixels.
 
-Pass-3 focus:
-- catalog every unique visible product state;
-- identify reused tutorial footage;
-- label cuts/montage as timing-invalid;
-- do not promote marketing narration to direct UI evidence.
+## VE-001 evidence character
+
+This source is a **marketing/product explainer**, not a continuous task demonstration.
+
+It mixes:
+- presenter-to-camera footage;
+- desktop/application screen recordings;
+- external tools/browser windows;
+- picture-in-picture/product composites;
+- rapid editorial hard cuts;
+- multiple product surfaces and likely multiple recording moments/versions.
+
+Therefore:
+- visible UI states can corroborate product anatomy;
+- **cut-to-cut timing is invalid for interaction/motion measurement**;
+- narration about capabilities/roadmap is not promoted to direct behavior unless the pixels independently demonstrate it.
+
+## VE-001 chronological state map
+
+### 00:00:00–~00:00:15 — presenter / workspace context
+
+**NON-PARITY / CONTEXT**
+- presenter and desk/workspace footage;
+- no sustained Blitzit interaction sequence suitable for UI timing.
+
+### ~00:00:15–00:00:20 — search / command surface montage
+
+**VIDEO-DIRECT**
+- Blitzit search/command overlay appears over the app;
+- visible structure matches the current search-family grammar:
+  - search field;
+  - quick-action area;
+  - dimmed application behind the overlay.
+
+**CORROBORATION**
+- current SS-C06 is stronger static evidence for exact current copy/layout;
+- VE-001 adds only montage corroboration, not a new search contract.
+
+### ~00:00:20–00:00:31 — Focus/success montage beside work content
+
+**VIDEO-DIRECT**
+- narrow Focus Panel is shown beside an external application/browser;
+- success-card state appears with:
+  - `Well done!`-style completion presentation;
+  - reaction media;
+  - gradient Next Task;
+  - Take a Break.
+- panel coexists with desktop work rather than replacing the external application.
+
+**PRECEDENCE**
+- VE-003/VE-005 provide stronger continuous success-state evidence;
+- VE-001 is corroborative only.
+
+### ~00:00:32–00:00:41 — planning-board montage
+
+**VIDEO-DIRECT**
+- four-column board is shown with Backlog / This Week / Today / Done;
+- task cards include list badges, EST/Taken-style metrics and scheduled sections;
+- Today retains the highlighted lane treatment and Blitz CTA.
+
+**CUT/UNMEASURABLE**
+- planning interactions are edited as montage;
+- no drag/drop/hover duration is derived here.
+
+### ~00:00:41–00:00:50 — board → Focus presentation
+
+**VIDEO-DIRECT**
+- source cuts from planning context to a narrow Focus Panel with a live task and queued tasks;
+- external work remains visible beside the panel.
+
+**CUT/UNMEASURABLE**
+- the cut does not prove board→Focus transition duration or fade behavior;
+- VE-003 and the VE-018 planning excerpt are stronger sources for those transitions.
+
+### ~00:00:50–00:01:03 — Floating Timer / Notes / work-over-app montage
+
+**VIDEO-DIRECT**
+- compact Floating Timer appears above an external application;
+- live timer remains visible while the user works in another app;
+- Floating surface expands/changes state to expose task details/actions;
+- Notes content with links is shown in a compact task surface;
+- the task/floating surface remains spatially independent from the external application.
+
+**CORROBORATION**
+- VE-003 is stronger for Panel↔Floating continuity;
+- VE-010 is stronger for Notes/link behavior;
+- VE-013 is stronger for Floating subtasks.
+
+### ~00:01:03–00:01:08 — alert/attention montage
+
+**VIDEO-DIRECT / MARKETING-CONTEXT**
+- short visual attention/alert treatment is shown around the timer/focus context.
+
+**TIMING LIMIT**
+- edited montage prevents an exact flash duration/alert cadence requirement;
+- VE-014 Preferences provides stronger direct evidence for the Animated flash setting.
+
+### ~00:01:08–00:01:18 — repeated completion/success montage
+
+**VIDEO-DIRECT**
+- multiple success/reaction-card examples are shown in rapid succession;
+- Next Task remains the high-salience primary action;
+- Take a Break is present in the success family.
+
+**SOURCE-ARTIFACT**
+- repeated success cards are editorial examples, not evidence that the application automatically cycles through multiple reaction states at the shown cadence.
+
+### ~00:01:18–00:01:22 — Break state
+
+**VIDEO-DIRECT**
+- a Focus card labeled **Break** with a running break timer is visible;
+- queued task remains beneath it.
+
+**CORROBORATION**
+- establishes the existence of an explicit live Break presentation;
+- VE-016 remains stronger for timer-mode/break semantics.
+
+### ~00:01:22–00:01:31 — integrations/work-context montage
+
+**VIDEO-DIRECT / MIXED CONTEXT**
+- Blitzit is shown alongside external productivity/content tools;
+- integration-related UI/context appears briefly.
+
+**EVIDENCE BOUNDARY**
+- narration claims Notion and Google Calendar synchronization;
+- the montage does not provide an isolated setup/sync transaction suitable for detailed behavioral requirements;
+- integration claims remain context unless corroborated by dedicated sources such as VE-013.
+
+### ~00:01:31–00:01:39 — Preferences montage
+
+**VIDEO-DIRECT**
+- Preferences panel is shown over desktop/browser context;
+- visible controls include:
+  - Theme System/Dark/Light;
+  - Pomodoro settings;
+  - break/work duration controls;
+  - alert settings.
+- both dark/light preference states appear in the montage.
+
+**PRECEDENCE**
+- VE-014 and current SS-C07–SS-C09 provide stronger exact current Preferences evidence.
+
+### ~00:01:39–00:01:47 — Reports montage
+
+**VIDEO-DIRECT**
+- Reports populated dashboard is shown with:
+  - headline metrics;
+  - daily chart;
+  - Time By List;
+  - Done Tasks.
+- this confirms Reports as part of the same application/navigation ecosystem.
+
+**PRECEDENCE**
+- VE-011/VE-012 provide stronger metric semantics and interaction evidence;
+- current SS-C12–SS-C15 provide stronger current shell styling.
+
+### ~00:01:47–00:02:03 — community / roadmap montage
+
+**MARKETING-CONTEXT**
+- Discord/community footage;
+- roadmap/product-planning imagery;
+- narration mentions future mobile app, AI assistance, list sharing and additional integrations.
+
+**NOT PARITY REQUIREMENTS**
+- these are roadmap/marketing claims, not current direct product behavior;
+- no implementation requirement is created from them.
+
+### ~00:02:03–00:02:16 — website / trial / pricing montage
+
+**MARKETING/COMMERCE CONTEXT**
+- Blitzit marketing website and pricing/lifetime-deal surfaces appear;
+- narration discusses trial/lifetime/annual-plan positioning.
+
+These are explicitly outside Narro product-parity scope unless a later product decision says otherwise.
+
+### ~00:02:16–00:02:19.03 — branded outro
+
+**NON-PARITY**
+- Blitzit logo/tagline outro.
+
+## VE-001 source synthesis
+
+High-confidence use of this source:
+- corroborates the end-to-end product story:
+  - planning board;
+  - Blitz/Focus;
+  - Floating Timer;
+  - Notes/subtasks-style compact work context;
+  - alerts;
+  - success;
+  - Break;
+  - Preferences;
+  - Reports.
+- confirms Blitzit is designed to coexist with other desktop applications during Focus/Floating work;
+- directly shows a live Break card as part of the Focus family;
+- corroborates search/command overlay and current-style workflow surfaces.
+
+Pass-3 constraints:
+- **no animation duration may be inferred across editorial cuts**;
+- repeated GIF/success examples are montage, not an automatic sequence contract;
+- external browser/apps, Discord, marketing site, roadmap and pricing are context, not Narro parity targets;
+- Notion/Google Calendar and future-integration claims are narration/marketing unless dedicated sources directly demonstrate them;
+- future mobile/AI/list-sharing claims are not current product requirements;
+- where VE-001 conflicts with dedicated current tutorial/static evidence, the dedicated/newer source has precedence.
+
+No unique implementation gap is routed from VE-001 in this analysis-only track.
 
 ---
 
