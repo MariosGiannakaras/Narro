@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 10/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 11/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -2649,20 +2649,281 @@ Static corroboration:
 
 # Queue 11 — VE-011 — Reports
 
-Source: `Blitzit Tutorial How to Use Reports.mp4`  
-Metadata: **03:10.450, 1920×1080, 60 fps**  
-Status: **OPEN**
+Source: Blitzit Tutorial How to Use Reports.mp4  
+Verified metadata: **03:10.400 video stream / ~03:10.450 container, 1920×1080, 60 fps, 11,424 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:11–00:01:39 — filters/headline metrics/daily graph;
-- 00:01:40–00:03:00 — productive cards/Time by List/Done.
+Inspection method:
+- complete source reviewed end-to-end;
+- 5 s whole-video contact scan;
+- dense full-resolution review of filter changes, metric cards, chart hover/tooltip, legend toggles and lower panels;
+- 4 fps micro-review across the chart interaction sequence;
+- direct arithmetic checked where visible values permit reconciliation;
+- current v2.6.69 screenshots used only for source-version precedence, not to overwrite direct populated states from the video.
 
-Pass-3 focus:
-- list/date filter transitions;
-- chart hover target/tooltip placement;
-- series toggle state;
-- scroll/lower panel geometry;
-- empty vs populated states.
+## VE-011 chronological state map
+
+### 00:00:00–~00:00:19 — Home → Reports
+
+**VIDEO-DIRECT**
+- source begins on the dark Home list-grid shell;
+- Reports is selected from the persistent bottom navigation;
+- application enters the Reports dashboard while preserving the desktop-window shell and top utility controls.
+
+**VERSION NOTE**
+- this video predates the later Overview / Sessions segmented tabs visible in current v2.6.69 screenshots;
+- current SS-C12 therefore has precedence for the current Reports header/shell, while VE-011 remains direct evidence for populated Overview behavior.
+
+### ~00:00:19–00:00:25 — populated Overview baseline
+
+**VIDEO-DIRECT**
+- filter row:
+  - stacked-badge All Lists;
+  - date range **Jun 24, 2025 - Jul 01, 2025**.
+- four headline cards:
+  - **TOTAL WORK DAYS — 7 days**;
+  - **TOTAL TASKS DONE — 18**, secondary **2.6 per day**;
+  - **TOTAL HRS WORKED — 9.2hr**, secondary **1.3hr per day**;
+  - **AVG. TIME PER TASK — 45.9 mins**.
+- main chart occupies the dominant panel beneath them;
+- legend order:
+  1. TASKS — purple;
+  2. BREAKS — mint;
+  3. TOTAL — tan.
+- chart options/menu icon remains at upper-right of the chart panel.
+
+**ARITHMETIC-DIRECT**
+- selected range spans eight calendar labels (Jun 24→Jul 1), but only seven chart days contain visible activity;
+- Total Work Days = **7**, consistent with active days rather than calendar-span length;
+- 18 / 7 = 2.57 → displayed **2.6 per day**;
+- 9.2 / 7 = 1.31 → displayed **1.3hr per day**.
+
+### ~00:00:25–00:00:34 — list filter is multi-select and live
+
+**VIDEO-DIRECT**
+- All Lists opens a compact anchored dropdown over the live dashboard;
+- visible list rows include:
+  - All Lists;
+  - ClickUp;
+  - Freelance;
+  - Music;
+- rows use checkmarks and list-color badges.
+
+**LIVE FILTER-DIRECT**
+- selecting **Freelance** alone updates the dashboard immediately while the dropdown remains open:
+  - Total Tasks Done → **10**, **1.4 per day**;
+  - Total Hrs Worked → **8.4hr**, **1.2hr per day**;
+  - Avg. Time per Task → **55.7 mins**.
+- then selecting **Music** as an additional list produces a two-list state:
+  - trigger changes to truncated **Selected 2 l...**;
+  - Total Tasks Done → **14**, **2.0 per day**;
+  - Total Hrs Worked → **9.0hr**, **1.3hr per day**;
+  - Avg. Time per Task → **54.0 mins**.
+- choosing All Lists restores:
+  - 18 tasks;
+  - 9.2hr;
+  - 45.9 mins.
+
+**SEMANTIC-DIRECT**
+- this is genuine multi-select filtering, not a single-choice replacement menu;
+- headline cards and chart rerender while the popover stays open.
+
+### ~00:00:34–00:00:42 — date-range picker
+
+**VIDEO-DIRECT**
+- date-range trigger opens the two-month picker over the still-live report;
+- left preset column:
+  - Today;
+  - Yesterday;
+  - This week;
+  - Last 30 days;
+  - Last 60 days;
+  - Last 90 days.
+- visible months are **Jun 2025** and **Jul 2025**;
+- current selected range crosses the month boundary from Jun 24 to Jul 1;
+- range endpoints are filled and intermediate dates use a connected muted background;
+- bottom controls are outlined Cancel and gradient Apply.
+
+**EDIT LIMIT**
+- the tutorial inspects the picker but returns to the same Jun 24→Jul 1 range;
+- no changed date-range result is committed in VE-011.
+
+### ~00:00:42–00:01:23 — headline-metric explanation / chart baseline
+
+**VIDEO-DIRECT**
+- populated cards and chart remain stable while narration walks through their meanings;
+- no hidden secondary panel replaces the dashboard;
+- chart daily categories remain:
+  - Tue 24 Jun;
+  - Wed 25 Jun;
+  - Thu 26 Jun;
+  - Fri 27 Jun;
+  - Sat 28 Jun;
+  - Sun 29 Jun;
+  - Mon 30 Jun;
+  - Tue 01 Jul.
+
+**TRANSCRIPT-CLAIM**
+- narration defines:
+  - work days as days actually worked;
+  - tasks done as completed tasks;
+  - total hours as task + break time;
+  - average time per task as including completed and started-but-unfinished tasks.
+- only the visible arithmetic relationships above are promoted to independently checked direct semantics.
+
+### ~00:01:24–00:01:32 — chart hover target / tooltip
+
+**VIDEO-DIRECT**
+- hovering a day creates a tall translucent vertical highlight band across that x-category;
+- the hovered Total bar becomes a brighter/paler yellow;
+- a compact black tooltip appears adjacent to the group.
+
+**EXACT TOOLTIP — Mon 30, Jun**
+- TASKS: **1.2hr**;
+- BREAKS: **0.1hr**;
+- TOTAL: **1.3hr**.
+
+**ARITHMETIC-DIRECT**
+- 1.2hr + 0.1hr = **1.3hr**, directly reconciling the three series for that day.
+
+**MOTION/GEOMETRY**
+- hover overlay/tooltip is in-place;
+- chart/card geometry does not shift.
+
+### ~00:01:32–00:01:40 — clickable legend / series visibility
+
+**VIDEO-DIRECT**
+- legend entries are interactive series toggles;
+- clicking TOTAL removes the tan Total bars while Tasks/Breaks remain;
+- clicking/restoring series repopulates the plot;
+- clicking BREAKS can independently remove the mint bars while Tasks/Total remain;
+- legend labels persist as controls when their series is hidden.
+
+**CHART-REFLOW-DIRECT**
+- remaining visible bars reflow/recenter within each date group;
+- the chart container, axes and headline cards do not resize.
+
+### ~00:01:40–00:01:46 — page scroll to lower analytics
+
+**VIDEO-DIRECT**
+- Reports content scrolls vertically;
+- filters/headline cards move out of the viewport;
+- Reports title/top utility shell stays pinned at the top;
+- bottom Home/Reports/Add new task/Help Center navigation remains pinned at the bottom;
+- chart moves upward and remains partially visible during the transition.
+
+### ~00:01:46–00:02:07 — productive-time cards
+
+**VIDEO-DIRECT**
+- three equal-width cards:
+  - **MOST PRODUCTIVE HOUR — 9am-10am**;
+  - **MOST PRODUCTIVE DAY — Tuesday**;
+  - **MOST PRODUCTIVE MONTH — Jun '25**.
+
+**TRANSCRIPT-CLAIM**
+- narration attributes these to focus/live-session activity within the selected range;
+- VE-011 directly establishes the cards/values, not the underlying aggregation algorithm.
+
+### ~00:02:07–00:02:18 — Time By List populated panel
+
+**VIDEO-DIRECT**
+- left lower panel is TIME BY LIST;
+- donut chart and legend share one card;
+- top-right summary:
+  - **Total Time: 18hr 56min**.
+- visible legend:
+  - **TYAMA — 1hr 40min — 8%**;
+  - **Freelance — 14hr 17min — 75%**;
+  - **Music — 2hr 46min — 14%**;
+  - **Personal — 11min — 1%**.
+
+**ROUNDING NOTE**
+- displayed percentages sum to 98%, compatible with integer percentage rounding;
+- displayed per-list minute values sum to 18hr54min, two minutes below the 18hr56min panel total, also compatible with independent rounded durations.
+
+**SOURCE-SEMANTIC NON-RECONCILIATION**
+- the same visible filter/date state earlier reports **TOTAL HRS WORKED = 9.2hr**, while Time By List reports **Total Time = 18hr56min**;
+- this difference is far larger than display rounding;
+- VE-011 does not expose enough data to prove whether these are intentionally different measures or a source/version inconsistency;
+- do not force them into one semantic definition. Leave for cross-source reconciliation, especially VE-012.
+
+### ~00:02:18–00:02:54 — Done Tasks populated panel
+
+**VIDEO-DIRECT**
+- right lower panel is DONE TASKS;
+- top punctuality bar uses:
+  - green **76.22%**;
+  - red **23.78%**;
+- percentages sum exactly to 100%.
+
+**ROW ANATOMY-DIRECT**
+- completed rows are grouped by completion date with a task count at the right;
+- each row contains:
+  - list badge;
+  - task title;
+  - early/late/no-est status pill;
+  - Taken duration at far right.
+
+Visible examples:
+- **01 Jul, 2025 — 2 tasks**
+  - Finishing mixing LP — **6min Late** — **1hr 6min**;
+  - Clothes launch announcement — **No Est** — **2hr 15min**.
+- **30 Jun, 2025 — 3 tasks**
+  - Landing page (Ninja School) — **1hr 12min Early** — **1hr 17min**;
+  - Vocal recording for "Turn into the air" — **No Est** — **0min**;
+  - Email newsletter — **20min Early** — **1hr 9min**.
+- next heading **29 Jun, 2025 — 1 task** is visible lower in the internal list during scroll.
+
+**INTERNAL-SCROLL-DIRECT**
+- Done Tasks owns a visible internal vertical scrollbar;
+- this is distinct from the outer Reports-page scroll.
+
+**TRANSCRIPT + VISUAL CORROBORATION**
+- narration says early/late classification is only available when EST exists;
+- rows marked No Est visibly lack early/late badges, corroborating that rule.
+- narration says the far-right duration is task Time Taken; row presentation is consistent with that metric grammar.
+
+### ~00:02:37–00:02:54 — punctuality semantics
+
+**VIDEO-DIRECT**
+- green/red bar remains fixed while the Done Tasks list is discussed;
+- visual mapping is corroborated by green Early and red Late row badges.
+
+**TRANSCRIPT-CLAIM**
+- narration defines the percentages as share of task time finished early versus late, not share of task count;
+- example narration: 15 hours early + 5 hours late → 75% / 25%.
+- the visible subset of rows is insufficient to independently recompute 76.22% / 23.78%, so the aggregation formula is not reverse-engineered beyond the narrated definition.
+
+### ~00:02:54–00:03:10.40 — recap / outro
+
+**VIDEO-DIRECT / NON-PARITY**
+- lower analytics remain visible through the recap;
+- final seconds transition to tutorial/community outro;
+- no additional unique Reports state appears.
+
+## VE-011 source synthesis
+
+High-confidence behavior/anatomy established:
+- Reports Overview uses list/date filters, four metric cards, a dominant three-series daily chart and vertically lower analytics;
+- list filtering is multi-select and rerenders metrics live while the dropdown remains open;
+- direct filter examples prove 18→10→14→18 task-count changes and corresponding hour/average changes;
+- Total Work Days and secondary per-day values are arithmetically consistent with the visible active-day count;
+- chart hover uses a vertical category band + black tooltip and directly reconciles Tasks + Breaks = Total for Mon 30 Jun;
+- legend entries are actual interactive series toggles, independently hiding/restoring Total and Breaks while the plot reflows in place;
+- outer Reports content scrolls while top shell and bottom app navigation remain pinned;
+- productive cards directly show 9am-10am / Tuesday / Jun '25;
+- Time By List directly shows a populated donut with list durations/percentages and Total Time 18hr56min;
+- the large difference between 9.2hr headline Total Hrs Worked and 18hr56min Time By List Total is preserved as an unresolved source-semantic distinction, not normalized by inference;
+- Done Tasks groups completed tasks by date, shows Early/Late/No Est pills, Taken durations and its own internal scrollbar;
+- visible punctuality share is 76.22% early-color / 23.78% late-color;
+- current v2.6.69 SS-C12/SS-C13 supersede this older video for the modern Reports header (Overview / Sessions, Export control) and current empty-state styling, while VE-011 supplies the strongest populated interaction evidence.
+
+Static corroboration:
+- SS-C12 current Overview chart hover and modern Reports shell;
+- SS-C13 current lower-panel empty states;
+- SS-C15 current list-filter popover.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
