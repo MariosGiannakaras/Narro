@@ -820,6 +820,7 @@ mod tests {
             started_at: started_at.to_owned(),
             ended_at: started_at.to_owned(),
             duration_seconds,
+            updated_at: started_at.to_owned(),
             task_archived: false,
             list_archived: false,
         }
