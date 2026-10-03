@@ -86,7 +86,7 @@ Audit section-C intentional Narro deviations remain binding unless newer explici
 | VE-F001 | Terminal EST suffix becomes EST and is removed from saved title | M8 task-create consumers | **VALIDATED** |
 | VE-F002 | Success-screen-enabled Done waits for explicit Next Task | M8 completion | **VALIDATED** |
 | VE-F003 | Task overflow includes Change List + Duplicate | M5 corrective slice | **VALIDATED** |
-| VE-F004 | Source auto-opens note URLs on live transition | Require explicit activation | **INTENTIONAL_DEVIATION** |
+| VE-F004 | Help/roadmap evidence documents note-link auto-open in some Blitzit versions; VE-010 direct trigger is ambiguous | Require explicit activation | **INTENTIONAL_DEVIATION** — preserve explicit activation; do not claim VE-010 itself proves auto-open-on-live |
 | VE-F005 | Recurrence detachment can leave independent old children | Preserve customizations and idempotence | **VALIDATED reliability model**; UI gap tracked below |
 | VE-F006 | Reports/Sessions derive from session history and support editing | M9 | **ROUTED_M9** |
 | VE-F007 | Panel→Floating transformation ≈0.27 s; continuous-window character | M7 physical/fidelity gate | **VALIDATION_OPEN** — PR #192 head `b506fd01...` now contains unvalidated finite ~270 ms same-WebView Panel↔Timer and compact↔expanded Timer clip/reveal implementation; physical Gate 7 evidence is still required |
