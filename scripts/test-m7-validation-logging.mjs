@@ -97,7 +97,9 @@ invariant(
     && docs.includes("FAIL")
     && docs.includes("INCONCLUSIVE")
     && docs.includes("No PowerShell setup is required")
-    && docs.includes("does **not** record task titles"),
+    && docs.includes("entire `Narro-M7-Logs` folder")
+    && docs.includes("does **not** record task titles")
+    && logger.includes("Upload the whole Narro-M7-Logs folder"),
   "user procedure must explain automatic logging, privacy, and evaluator semantics",
 );
 
