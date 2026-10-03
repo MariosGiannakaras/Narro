@@ -87,7 +87,7 @@ This coordination rule is additive and does **not** change the active M7 next ac
 
 - Direct raw-source sampling confirms the sampled completed video Pass-3 records are genuinely deep and evidence-class disciplined.
 - The 46 screenshot records are useful qualitative source records but do not consistently preserve the measurable geometry/spacing/typography/color/radius/shadow detail needed for maximum visual parity.
-- Screenshot source inspection remains 46/46; a separate static visual-calibration layer is **OPEN** in `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker.
+- Screenshot source inspection is 46/46 COMPLETE; static visual calibration is also COMPLETE at 46/46 dispositions with 8/8 visual-system families. Use `docs/BLITZIT_VISUAL_SYSTEM.md` as the implementation-facing synthesis; implementation reconciliation remains the separate next parity-consumption track.
 - `docs/EVIDENCE_ROUTING_MAP.md` is the common discovery entry point for ChatGPT/Codex so prior-pass trackers, current Pass-3 findings, calibration, reconciliation and physical validation are not conflated.
 - This documentation change does not alter the active M7 physical next action. Pass-3 video continuation remains VE-015.
 
