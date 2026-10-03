@@ -2,11 +2,11 @@
 
 Last updated: 2026-10-03
 
-## 2026-10-03 — M7 PR #225 batch; exact Windows CI #911 pending
+## 2026-10-03 — M7 PR225 merged; exact Windows CI911 PASS, physical retest in progress
 
-PR #225 exact head `4f9d03832743f3db90d0c61dc527b27a194886fd` implements the four reconciled CI893 visual failures and the newly observed Preferences `database is locked` failure. Full local frontend preflight/Rustfmt and38 rendered scenarios PASS; exact Windows CI #911 / run `37150284172` is running. CI909 was cancelled before completing validation to incorporate the Preferences correction. No new-source physical PASS is claimed. [Checkpoint and additional shortcut/completion evidence](work-log/2026-10-03-codex-m7-pr225-correction-and-shortcut-followup.md).
+PR225 final head `4f9d03832743f3db90d0c61dc527b27a194886fd` PASSed full Windows CI911 / run `37150284172`, including the real two-connection Preferences contention test and38 normal/reduced editor/geometry scenarios. Guarded squash merge is `cbbaaa25dc94ec756e8bffbc731b99a8be0c4945`, with zero non-Markdown differences; duplicate main CI `37152106789` was cancelled after proof. Verified EXE SHA256 `24b71ba952ff323647537465f4d5ec8026b3e8001f65d3798d0dbf9eef06541a` is ready for the affected continuous native batch. [Current source/artifact/physical ledger](work-log/2026-10-03-codex-m7-pr225-ci911-merged-and-physical.md).
 
-The narrow M5 card-title and M8 concurrent-preference persistence acceptance are reopened until the changed paths validate; unrelated historical acceptance is preserved. Current roadmap temporarily3/10M; M7 closure remains3/5 and physical14/19. Next: complete exact-head CI, guarded integration, then exact-EXE continuous normal/reduced retest of Notes bounds, wrapped tooltip, expansion clipping, narrow titles and Preferences persistence. Missing dual-display crossing/reconnect and separate M1 Candidate B remain open. CI893 follow-up completed its two dedicated tasks with491/19 durable seconds, exercised Greek B/S/F and English B/F, full success card/Tab/Escape. App has no active work session, OBS stopped, OS animations On; re-observe before input.
+Prior CI893 follow-up video/logs and CI911 local rendered/negative-control evidence are now included in the repository. No new-source physical PASS is claimed. M5 narrow cards and M8 concurrent Preferences acceptance remain narrowly reopened; roadmap3/10M, M7 closure3/5, historical physical counter14/19. Only DISPLAY2 remains available. Exact-EXE normal/reduced Notes/tooltip/expansion/narrow-title/Preferences retest, fullscreen and available topology checks are the next action. Separate M1 Candidate B requirements are preserved.
 
 ## 2026-10-03 — CI #893 real Windows batch; C5 PASS, narrow corrections required
 

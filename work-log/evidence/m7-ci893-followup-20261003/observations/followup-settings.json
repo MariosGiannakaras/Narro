@@ -1,0 +1,1979 @@
+{
+  "utc": "2026-10-03T19:56:32.8892436Z",
+  "windows": [
+    {
+      "hwnd": 19858242,
+      "pid": 18520,
+      "process": "narro-m7-validation",
+      "title": "Narro Main",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 797,
+        "x": 96,
+        "width": 1018,
+        "y": 96
+      },
+      "client": {
+        "height": 750,
+        "x": 105,
+        "width": 1000,
+        "y": 134
+      }
+    },
+    {
+      "hwnd": 393640,
+      "pid": 18520,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 875,
+        "x": 1495,
+        "width": 425,
+        "y": 0
+      },
+      "client": {
+        "height": 875,
+        "x": 1495,
+        "width": 425,
+        "y": 0
+      }
+    },
+    {
+      "hwnd": 70845722,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "WebSocket Server Settings",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 755,
+        "x": 227,
+        "width": 860,
+        "y": 197
+      },
+      "client": {
+        "height": 708,
+        "x": 236,
+        "width": 842,
+        "y": 235
+      }
+    },
+    {
+      "hwnd": 102303468,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "Output Timer",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 349,
+        "x": 219,
+        "width": 891,
+        "y": 360
+      },
+      "client": {
+        "height": 302,
+        "x": 228,
+        "width": 873,
+        "y": 398
+      }
+    },
+    {
+      "hwnd": 8323446,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "Stats",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 299,
+        "x": 212,
+        "width": 895,
+        "y": 380
+      },
+      "client": {
+        "height": 252,
+        "x": 221,
+        "width": 877,
+        "y": 418
+      }
+    },
+    {
+      "hwnd": 328090,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation 893 - Scenes: NarroM7CI893",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 1087,
+        "x": 0,
+        "width": 1620,
+        "y": 0
+      },
+      "client": {
+        "height": 1040,
+        "x": 9,
+        "width": 1602,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 9634892,
+      "pid": 18520,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 789,
+        "x": 32,
+        "width": 1440,
+        "y": 32
+      },
+      "client": {
+        "height": 742,
+        "x": 41,
+        "width": 1422,
+        "y": 70
+      }
+    },
+    {
+      "hwnd": 75629528,
+      "pid": 18520,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 18,
+        "x": 0,
+        "width": 18,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 0,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 16254626,
+      "pid": 18520,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 18,
+        "x": 0,
+        "width": 18,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 0,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 27985522,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "QTrayIconMessageWindow",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 789,
+        "x": 0,
+        "width": 1920,
+        "y": 52
+      },
+      "client": {
+        "height": 742,
+        "x": 9,
+        "width": 1902,
+        "y": 90
+      }
+    },
+    {
+      "hwnd": 10028342,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 8127226,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 32704106,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 11273772,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 691,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 673,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 17434490,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 713,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 695,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 591770,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 716,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 698,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 62326026,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 5834334,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 198546,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 67438100,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 918624,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 26019670,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 7669608,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 1280,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 1262,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 1509120,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 2623048,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 1639524,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 68355216,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 8127560,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 590884,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 34277104,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 26609362,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 5965014,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 39,
+        "x": 0,
+        "width": 136,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "width": 118,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 6751978,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 38,
+        "x": 0,
+        "width": 1296,
+        "y": 0
+      },
+      "client": {
+        "height": -1,
+        "x": 9,
+        "width": 1278,
+        "y": 38
+      }
+    },
+    {
+      "hwnd": 2557132,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "GDI+ Window (obs64.exe)",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 1,
+        "x": 0,
+        "width": 1,
+        "y": 0
+      },
+      "client": {
+        "height": 1,
+        "x": 0,
+        "width": 1,
+        "y": 0
+      }
+    },
+    {
+      "hwnd": 37684864,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 789,
+        "x": 0,
+        "width": 1920,
+        "y": 26
+      },
+      "client": {
+        "height": 742,
+        "x": 9,
+        "width": 1902,
+        "y": 64
+      }
+    },
+    {
+      "hwnd": 1181206,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 789,
+        "x": 0,
+        "width": 1920,
+        "y": 26
+      },
+      "client": {
+        "height": 742,
+        "x": 9,
+        "width": 1902,
+        "y": 64
+      }
+    },
+    {
+      "hwnd": 787768,
+      "pid": 18520,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      }
+    },
+    {
+      "hwnd": 8980268,
+      "pid": 18520,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      }
+    },
+    {
+      "hwnd": 42075868,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      }
+    },
+    {
+      "hwnd": 3409062,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      }
+    },
+    {
+      "hwnd": 3343998,
+      "pid": 22224,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "width": 0,
+        "y": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "Narro",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "105;134;1000;750"
+    },
+    {
+      "name": "Narro - Web content",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "105;134;1000;750"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Document",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "105;134;1000;750"
+    },
+    {
+      "name": "List navigation",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "105;134;260;4714"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "120;159;229;60"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "180;165;52;27"
+    },
+    {
+      "name": "Lists",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "120;219;229;187"
+    },
+    {
+      "name": "+ Create new list",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "120;219;229;50"
+    },
+    {
+      "name": "All my lists",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "120;300;229;51"
+    },
+    {
+      "name": "Archived lists",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "120;355;229;51"
+    },
+    {
+      "name": "Utilities",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "845;148;216;51"
+    },
+    {
+      "name": "Search",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "845;148;101;51"
+    },
+    {
+      "name": "Settings",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "955;148;106;51"
+    },
+    {
+      "name": "Preferences",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "395;244;661;4504"
+    },
+    {
+      "name": "SETTINGS",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;284;75;20"
+    },
+    {
+      "name": "Preferences",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;314;601;37"
+    },
+    {
+      "name": "Manage Narro's local Windows appearance and shortcuts.",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;361;512;28"
+    },
+    {
+      "name": "Blitz Panel",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;420;601;332"
+    },
+    {
+      "name": "WINDOW PLACEMENT",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;446;171;21"
+    },
+    {
+      "name": "Blitz Panel",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;471;171;27"
+    },
+    {
+      "name": "Refresh displays",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "862;446;138;41"
+    },
+    {
+      "name": "Monitor",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;539;74;28"
+    },
+    {
+      "name": "Choose which Windows work area owns the Focus Panel.",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;573;226;41"
+    },
+    {
+      "name": "Focus Panel monitor",
+      "type": "ControlType.ComboBox",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "734;555;266;43"
+    },
+    {
+      "name": "Panel side",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;651;92;27"
+    },
+    {
+      "name": "Anchor the Focus Panel to the selected monitor's work-area edge.",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;685;257;41"
+    },
+    {
+      "name": "Blitz Panel Side",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "788;659;212;58"
+    },
+    {
+      "name": "Left",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "794;665;98;46"
+    },
+    {
+      "name": "Right",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "896;665;98;46"
+    },
+    {
+      "name": "General",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;771;601;691"
+    },
+    {
+      "name": "APPEARANCE",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;797;103;21"
+    },
+    {
+      "name": "General",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;822;103;27"
+    },
+    {
+      "name": "Theme",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;890;62;28"
+    },
+    {
+      "name": "System follows your current Windows light or dark preference.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;924;184;62"
+    },
+    {
+      "name": "Theme",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "685;909;315;58"
+    },
+    {
+      "name": "System theme — Follow your Windows color mode",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "691;915;98;46"
+    },
+    {
+      "name": "Dark theme — Use Narro's dark surfaces",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "794;915;98;46"
+    },
+    {
+      "name": "Light theme — Use Narro's light surfaces",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "896;915;98;46"
+    },
+    {
+      "name": "Start with Windows",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1006;178;28"
+    },
+    {
+      "name": "Start Narro automatically when Windows starts.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1040;270;41"
+    },
+    {
+      "name": "Start Narro with Windows",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "947;1028;53;31"
+    },
+    {
+      "name": "Hide EST / Time Taken",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1118;202;27"
+    },
+    {
+      "name": "Keep task timing quieter until you hover or focus a task.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1152;284;41"
+    },
+    {
+      "name": "Hide task EST and Time Taken",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "947;1139;53;31"
+    },
+    {
+      "name": "Auto-parse EST from title",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1229;230;28"
+    },
+    {
+      "name": "Recognize a supported estimate suffix when creating a task.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1263;252;41"
+    },
+    {
+      "name": "Auto-parse EST from task title",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "947;1251;53;31"
+    },
+    {
+      "name": "Timezone",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1341;89;27"
+    },
+    {
+      "name": "Blank uses the current Windows/WebView timezone (Europe/Athens).",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1375;195;61"
+    },
+    {
+      "name": "Display timezone",
+      "type": "ControlType.Edit",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "725;1366;275;44"
+    },
+    {
+      "name": "Blitz Mode",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;1481;601;667"
+    },
+    {
+      "name": "FOCUS TIMING",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1507;116;21"
+    },
+    {
+      "name": "Blitz Mode",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1533;116;26"
+    },
+    {
+      "name": "Pomodoros",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1601;105;27"
+    },
+    {
+      "name": "Use sprint and break durations instead of task EST for new Focus starts.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1635;273;41"
+    },
+    {
+      "name": "Enable Pomodoros",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "947;1622;53;31"
+    },
+    {
+      "name": "Work sprint",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;1712;107;28"
+    },
+    {
+      "name": "Length of each Pomodoro work interval.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;1746;209;41"
+    },
+    {
+      "name": "Pomodoro work sprint",
+      "type": "ControlType.ComboBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "800;1728;200;43"
+    },
+    {
+      "name": "Pomodoro break",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;1824;153;27"
+    },
+    {
+      "name": "Automatic break length after a completed sprint.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;1858;203;41"
+    },
+    {
+      "name": "Pomodoro break duration",
+      "type": "ControlType.ComboBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "800;1839;200;43"
+    },
+    {
+      "name": "Default break length",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1935;187;28"
+    },
+    {
+      "name": "Used by Start Break in Focus and the in-app shortcut.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;1969;265;41"
+    },
+    {
+      "name": "Default manual break duration",
+      "type": "ControlType.ComboBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "800;1951;200;43"
+    },
+    {
+      "name": "Scrolling title on live timer",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2047;240;27"
+    },
+    {
+      "name": "Scroll long live-task titles instead of keeping them truncated.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2081;235;41"
+    },
+    {
+      "name": "Scrolling title on live timer",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "947;2068;53;31"
+    },
+    {
+      "name": "Alerts",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;2167;601;1142"
+    },
+    {
+      "name": "ATTENTION",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2193;89;21"
+    },
+    {
+      "name": "Alerts",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2218;89;27"
+    },
+    {
+      "name": "Timed alerts during a task",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2286;237;28"
+    },
+    {
+      "name": "Enable periodic local reminders while focused.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2320;305;21"
+    },
+    {
+      "name": "Timed task alerts",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "988;2298;53;31"
+    },
+    {
+      "name": "Task alert interval",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;2378;160;27"
+    },
+    {
+      "name": "How often a timed task alert may occur.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;2412;264;20"
+    },
+    {
+      "name": "Task alert interval",
+      "type": "ControlType.ComboBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "840;2383;201;43"
+    },
+    {
+      "name": "Task alert sound",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;2469;86;58"
+    },
+    {
+      "name": "Choose a bundled local Narro sound. Starting another preview stops the current one.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;2533;108;122"
+    },
+    {
+      "name": "Task alert sound",
+      "type": "ControlType.ComboBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "620;2511;351;44"
+    },
+    {
+      "name": "Preview Melodic Bell",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "998;2511;43;44"
+    },
+    {
+      "name": "Vol",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "620;2577;22;21"
+    },
+    {
+      "name": "Task alert volume",
+      "type": "ControlType.Slider",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "654;2566;385;43"
+    },
+    {
+      "name": "Animated flash on timer",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2691;220;28"
+    },
+    {
+      "name": "Allow the timer surface to use the documented alert flash.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2725;311;41"
+    },
+    {
+      "name": "Animated timer flash",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "988;2713;53;31"
+    },
+    {
+      "name": "Notification alerts",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2803;164;28"
+    },
+    {
+      "name": "Allow local Windows notification alerts for relevant timer events.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;2837;279;41"
+    },
+    {
+      "name": "Notification alerts",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "988;2825;53;30"
+    },
+    {
+      "name": "Notification sound",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;2914;108;58"
+    },
+    {
+      "name": "Choose the bundled local sound used by notification-alert preferences.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;2978;97;122"
+    },
+    {
+      "name": "Notification sound",
+      "type": "ControlType.ComboBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "620;2957;351;43"
+    },
+    {
+      "name": "Preview Futuristic Ding",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "998;2957;43;43"
+    },
+    {
+      "name": "Vol",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "620;3023;22;21"
+    },
+    {
+      "name": "Notification sound volume",
+      "type": "ControlType.Slider",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "654;3012;385;43"
+    },
+    {
+      "name": "Schedule reminders",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;3137;179;28"
+    },
+    {
+      "name": "Enable local reminders for scheduled tasks.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;3171;284;21"
+    },
+    {
+      "name": "Schedule reminders",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "988;3148;53;31"
+    },
+    {
+      "name": "Reminder timing",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;3228;152;28"
+    },
+    {
+      "name": "Lead time before the scheduled task.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;3262;244;21"
+    },
+    {
+      "name": "Schedule reminder lead time",
+      "type": "ControlType.ComboBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "840;3233;201;44"
+    },
+    {
+      "name": "Celebration",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;3328;601;656"
+    },
+    {
+      "name": "COMPLETION",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;3354;104;21"
+    },
+    {
+      "name": "Celebration",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;3380;105;26"
+    },
+    {
+      "name": "Show success screen",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;3448;186;27"
+    },
+    {
+      "name": "Enable a local completion moment after a successful task transition.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;3482;276;41"
+    },
+    {
+      "name": "Show success screen",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "955;3469;53;31"
+    },
+    {
+      "name": "Fun GIF",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;3559;69;28"
+    },
+    {
+      "name": "Optional nested success-screen decoration; exact source visuals remain a fidelity follow-up.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;3593;209;61"
+    },
+    {
+      "name": "Fun GIF on success screen",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "955;3591;53;31"
+    },
+    {
+      "name": "Success sound",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;3691;70;58"
+    },
+    {
+      "name": "Choose the bundled local sound for the success-screen completion moment.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "488;3755;75;203"
+    },
+    {
+      "name": "Success sound",
+      "type": "ControlType.ComboBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "587;3774;351;43"
+    },
+    {
+      "name": "Preview Victory Bell",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "965;3774;43;43"
+    },
+    {
+      "name": "Vol",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "587;3840;22;21"
+    },
+    {
+      "name": "Success sound volume",
+      "type": "ControlType.Slider",
+      "offscreen": true,
+      "focus": false,
+      "enabled": false,
+      "bounds": "621;3829;385;43"
+    },
+    {
+      "name": "Shortcuts",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;4008;601;640"
+    },
+    {
+      "name": "WINDOWS",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4034;82;21"
+    },
+    {
+      "name": "Shortcuts",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4060;87;26"
+    },
+    {
+      "name": "Global shortcuts work both inside and outside Narro. Disable any chord you do not want Narro to register.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4127;523;41"
+    },
+    {
+      "name": "Go to Narro",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4203;113;28"
+    },
+    {
+      "name": "Bring the Narro Main window to the front from any Windows app.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4237;219;41"
+    },
+    {
+      "name": "Registered",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4283;71;20"
+    },
+    {
+      "name": "Ctrl + Shift + B",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "735;4242;100;21"
+    },
+    {
+      "name": "Enable ",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "877;4238;65;28"
+    },
+    {
+      "name": "Go to Narro",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "941;4238;107;28"
+    },
+    {
+      "name": "Enable Go to Narro",
+      "type": "ControlType.CheckBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "882;4241;2;2"
+    },
+    {
+      "name": "Alternate Focus Mode",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4345;207;28"
+    },
+    {
+      "name": "Switch the active Focus surface between Panel and Floating Timer.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4379;204;61"
+    },
+    {
+      "name": "Registered",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4445;71;20"
+    },
+    {
+      "name": "Ctrl + Shift + T",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "736;4394;98;21"
+    },
+    {
+      "name": "Enable ",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "877;4390;65;28"
+    },
+    {
+      "name": "Alternate Focus Mode",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "941;4390;195;28"
+    },
+    {
+      "name": "Enable Alternate Focus Mode",
+      "type": "ControlType.CheckBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "882;4393;2;2"
+    },
+    {
+      "name": "Find focus timer",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4507;153;28"
+    },
+    {
+      "name": "Bring attention to the Floating Timer when Focus is active.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4541;201;41"
+    },
+    {
+      "name": "Registered",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "451;4586;71;21"
+    },
+    {
+      "name": "Ctrl + Shift + P",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "735;4546;100;21"
+    },
+    {
+      "name": "Enable ",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "877;4542;65;28"
+    },
+    {
+      "name": "Find focus timer",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "941;4542;143;28"
+    },
+    {
+      "name": "Enable Find focus timer",
+      "type": "ControlType.CheckBox",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "882;4545;2;2"
+    },
+    {
+      "name": "Primary",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "365;4778;721;70"
+    },
+    {
+      "name": "Home",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "560;4789;161;50"
+    },
+    {
+      "name": "Reports",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "730;4789;161;50"
+    }
+  ]
+}

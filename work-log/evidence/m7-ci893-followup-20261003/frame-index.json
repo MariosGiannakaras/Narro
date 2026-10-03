@@ -1,0 +1,58 @@
+[
+  {
+    "file": "created-companion.png",
+    "rawRecording": "2026-10-03 22-40-37.mkv",
+    "seconds": 680.869,
+    "crop": "crop=425:875:1495:0",
+    "method": "native scale OBS video frame"
+  },
+  {
+    "file": "english-break-compact.png",
+    "rawRecording": "2026-10-03 22-40-37.mkv",
+    "seconds": 708.869,
+    "crop": "crop=425:138:800:649",
+    "method": "native scale OBS video frame"
+  },
+  {
+    "file": "greek-break-expanded.png",
+    "rawRecording": "2026-10-03 22-40-37.mkv",
+    "seconds": 771.869,
+    "crop": "crop=425:375:800:649",
+    "method": "native scale OBS video frame"
+  },
+  {
+    "file": "greek-done-auto-next.png",
+    "rawRecording": "2026-10-03 22-40-37.mkv",
+    "seconds": 804.069,
+    "crop": "crop=425:875:1495:0",
+    "method": "native scale OBS video frame"
+  },
+  {
+    "file": "greek-skip-companion.png",
+    "rawRecording": "2026-10-03 22-40-37.mkv",
+    "seconds": 863.869,
+    "crop": "crop=425:875:1495:0",
+    "method": "native scale OBS video frame"
+  },
+  {
+    "file": "success-screen.png",
+    "rawRecording": "2026-10-03 22-40-37.mkv",
+    "seconds": 1185.369,
+    "crop": "crop=425:875:1495:0",
+    "method": "native scale OBS video frame"
+  },
+  {
+    "file": "success-tab-close.png",
+    "rawRecording": "2026-10-03 22-40-37.mkv",
+    "seconds": 1205.969,
+    "crop": "crop=425:875:1495:0",
+    "method": "native scale OBS video frame"
+  },
+  {
+    "file": "success-tab-wrapped.png",
+    "rawRecording": "2026-10-03 22-40-37.mkv",
+    "seconds": 1221.369,
+    "crop": "crop=425:875:1495:0",
+    "method": "native scale OBS video frame"
+  }
+]

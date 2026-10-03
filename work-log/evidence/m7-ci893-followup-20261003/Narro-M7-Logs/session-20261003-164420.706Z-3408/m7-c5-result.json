@@ -1,0 +1,15 @@
+{
+  "currentSessionId": "3b7b94ac-d180-411b-b57a-4bd387eaf136",
+  "generatedUtc": "2026-10-03T18:59:28.766Z",
+  "metrics": {
+    "maxMoveDistancePx": 1563,
+    "qualifyingMove": true,
+    "qualifyingMoveThresholdPx": 64
+  },
+  "pendingSourceSessionId": "3b7b94ac-d180-411b-b57a-4bd387eaf136",
+  "reason": "normal-tray-quit-recorded-waiting-for-restart-and-timer-restore",
+  "schemaVersion": 1,
+  "sourceSha": "549536c4d19b0045a928652d3feff53162f55a6e",
+  "status": "PENDING",
+  "test": "M7-C5-saved-placement-restart"
+}

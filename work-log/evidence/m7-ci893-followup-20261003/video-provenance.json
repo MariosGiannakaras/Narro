@@ -1,0 +1,155 @@
+{
+  "rawFile": "2026-10-03 22-40-37.mkv",
+  "rawSha256": "65d70c3406f050645375c3a637b8efef1f5086ffe38c8a0435494195553a48f2",
+  "rawProbe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 4480,
+        "height": 1080,
+        "r_frame_rate": "60/1",
+        "nb_read_packets": "75309"
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "r_frame_rate": "0/0",
+        "nb_read_packets": "58835"
+      }
+    ],
+    "format": {
+      "duration": "1255.184000",
+      "size": "106906333"
+    }
+  },
+  "parts": [
+    {
+      "file": "video/part-000.mp4",
+      "sha256": "649a948bfa8d7afb86f870ca9576bbee97ad39b06b9d4a4c781cf10a26617664",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 4480,
+            "height": 1080,
+            "r_frame_rate": "60/1",
+            "nb_read_packets": "21750"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "nb_read_packets": "16992"
+          }
+        ],
+        "format": {
+          "duration": "362.520000",
+          "size": "32312167"
+        }
+      }
+    },
+    {
+      "file": "video/part-001.mp4",
+      "sha256": "578f29ad244d2f7f8cd5310c654af5dac4d540328e21c58118766ea48a00cb0f",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 4480,
+            "height": 1080,
+            "r_frame_rate": "60/1",
+            "nb_read_packets": "21500"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "nb_read_packets": "16797"
+          }
+        ],
+        "format": {
+          "duration": "358.332000",
+          "size": "32167716"
+        }
+      }
+    },
+    {
+      "file": "video/part-002.mp4",
+      "sha256": "56e75c2df46872b39478ecc66499462b123cbebb0dabc901d50c5d789f023647",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 4480,
+            "height": 1080,
+            "r_frame_rate": "60/1",
+            "nb_read_packets": "21750"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "nb_read_packets": "16992"
+          }
+        ],
+        "format": {
+          "duration": "362.499000",
+          "size": "31360976"
+        }
+      }
+    },
+    {
+      "file": "video/part-003.mp4",
+      "sha256": "a8dabf8553f41f492f3704457372a3c8a1cc9e1a958dbb5807bffcd745c94cd0",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 4480,
+            "height": 1080,
+            "r_frame_rate": "60/1",
+            "nb_read_packets": "10309"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0",
+            "nb_read_packets": "8054"
+          }
+        ],
+        "format": {
+          "duration": "171.816000",
+          "size": "12585492"
+        }
+      }
+    }
+  ],
+  "allStreamPacketCountsPreserved": true,
+  "startUtc": "2026-10-03T19:40:37.631Z",
+  "method": "full all-stream packet-preserving remux; idle intervals retained"
+}

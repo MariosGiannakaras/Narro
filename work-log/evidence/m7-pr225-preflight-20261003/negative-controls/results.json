@@ -1,0 +1,30 @@
+[
+  {
+    "name": "nested-fixed-notes",
+    "scenario": "notes-timerExpanded-large",
+    "restoredLegacyBehavior": ".floating-timer-foundation__content{transform:translateY(0)!important}",
+    "expectedFail": true,
+    "error": "Uncaught Error: Large Notes escapes visible native region"
+  },
+  {
+    "name": "collapsed-card-title",
+    "scenario": "board-narrow",
+    "restoredLegacyBehavior": ".list-board-task{container-type:normal!important}",
+    "expectedFail": true,
+    "error": "Uncaught Error: Planning title collapsed at card width 144"
+  },
+  {
+    "name": "non-atomic-initial-clip",
+    "scenario": "timer-geometry",
+    "restoredLegacyBehavior": ".floating-timer-foundation[data-floating-resize-phase=\"prepainting\"]{transition:clip-path 270ms ease!important}",
+    "expectedFail": true,
+    "error": "Uncaught Error: Initial expanded clip animates before native region grows"
+  },
+  {
+    "name": "wrapped-tooltip-left",
+    "scenario": "notes-panel-compact",
+    "restoredLegacyBehavior": ".task-notes__toolbar .overlay-tooltip[data-align=\"end\"]{inset-inline-start:auto!important;inset-inline-end:0!important;--tooltip-translate-x:0px!important}",
+    "expectedFail": true,
+    "error": "Uncaught Error: Keyboard tooltip escaped the Notes width"
+  }
+]

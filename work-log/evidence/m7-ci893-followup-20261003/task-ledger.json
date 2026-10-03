@@ -1,0 +1,111 @@
+{
+  "readOnly": true,
+  "tasks": [
+    {
+      "task": {
+        "id": "9d0e80ec-77b7-49e4-b66c-f67ed7818704",
+        "title": "M7 C5 CI873 validation",
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [
+        {
+          "id": "a48b9020-7b53-4eba-9019-5dc39a4cf3d2",
+          "kind": "work",
+          "started_at": "2026-10-03T08:40:44.414Z",
+          "ended_at": "2026-10-03T13:28:42.965Z",
+          "duration_seconds": 8217,
+          "source": "focus"
+        },
+        {
+          "id": "ede05be1-69ec-4faf-a005-6f12753735ff",
+          "kind": "work",
+          "started_at": "2026-10-03T13:50:00.909Z",
+          "ended_at": "2026-10-03T16:50:10.642Z",
+          "duration_seconds": 19,
+          "source": "focus"
+        },
+        {
+          "id": "617891c2-0665-466c-8c92-d19b6de2e578",
+          "kind": "work",
+          "started_at": "2026-10-03T19:54:00.819Z",
+          "ended_at": "2026-10-03T19:55:00.701Z",
+          "duration_seconds": 43,
+          "source": "focus"
+        }
+      ],
+      "workSeconds": 8279
+    },
+    {
+      "task": {
+        "id": "b4ec7aa3-e30d-4eef-aba7-2e9e61c6df70",
+        "title": "M7 CI893 full UI validation — long task title for Timer and Notes overflow",
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-03T19:54:00.790Z"
+      },
+      "sessions": [
+        {
+          "id": "321cc8a4-86b7-4cad-8431-94c0317e6718",
+          "kind": "work",
+          "started_at": "2026-10-03T16:50:10.642Z",
+          "ended_at": "2026-10-03T19:52:25.953Z",
+          "duration_seconds": 491,
+          "source": "focus"
+        },
+        {
+          "id": "c1ed2de9-bb5e-410c-b1c2-d2b1fdb7cc51",
+          "kind": "break",
+          "started_at": "2026-10-03T19:52:25.953Z",
+          "ended_at": "2026-10-03T19:53:12.548Z",
+          "duration_seconds": 46,
+          "source": "focus"
+        },
+        {
+          "id": "7a77840f-a763-4557-a9b3-8c0ee67954c6",
+          "kind": "work",
+          "started_at": "2026-10-03T19:53:12.548Z",
+          "ended_at": "2026-10-03T19:53:28.912Z",
+          "duration_seconds": 0,
+          "source": "focus"
+        },
+        {
+          "id": "48dcf333-e414-4217-99d3-fb752724bcdc",
+          "kind": "break",
+          "started_at": "2026-10-03T19:53:28.912Z",
+          "ended_at": "2026-10-03T19:53:46.723Z",
+          "duration_seconds": 18,
+          "source": "focus"
+        },
+        {
+          "id": "9119cc55-3bd6-49e4-be93-33003be7edfb",
+          "kind": "work",
+          "started_at": "2026-10-03T19:53:46.723Z",
+          "ended_at": "2026-10-03T19:54:00.790Z",
+          "duration_seconds": 0,
+          "source": "focus"
+        }
+      ],
+      "workSeconds": 491
+    },
+    {
+      "task": {
+        "id": "83a101bf-8925-4687-888b-c1eeb6227717",
+        "title": "M7 CI893 shortcut companion",
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-03T20:00:22.260Z"
+      },
+      "sessions": [
+        {
+          "id": "99db27ab-a933-4fc5-b0c0-667aa1e5b35b",
+          "kind": "work",
+          "started_at": "2026-10-03T19:55:00.701Z",
+          "ended_at": "2026-10-03T20:00:22.260Z",
+          "duration_seconds": 19,
+          "source": "focus"
+        }
+      ],
+      "workSeconds": 19
+    }
+  ],
+  "note": "Follow-up completed dedicated CI893 task and companion. Original C5 test task briefly auto-started after success-disabled Done and accumulated 43 seconds before pause/Skip; historical C5 evidence is unchanged."
+}
