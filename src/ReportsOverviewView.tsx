@@ -20,6 +20,14 @@ export type ReportsProductiveSummary = {
   month: string;
 };
 
+export type ReportsChartSeries = "tasks" | "breaks" | "total";
+export type ReportsChartVisibility = Record<ReportsChartSeries, boolean>;
+
+export type ReportsPunctuality = {
+  earlyPercent: number;
+  latePercent: number;
+};
+
 export type ReportsListOption = {
   id: string | null;
   title: string;
@@ -55,16 +63,20 @@ export type ReportsOverviewViewProps = {
   timeByList: ReportsListTime[];
   doneTasks: ReportsDoneTask[];
   listLabel: string;
+  selectedListIds: string[];
   listOptions: ReportsListOption[];
   rangeLabel: string;
   calendarMonths: ReportsCalendarMonth[];
   listFilterOpen?: boolean;
   datePickerOpen?: boolean;
   tooltipDayId?: string | null;
+  visibleSeries?: ReportsChartVisibility;
+  punctuality: ReportsPunctuality;
   onBack?: () => void;
-  onSelectList?: (listId: string | null) => void;
+  onToggleListSelection?: (listId: string | null) => void;
   onToggleListFilter?: () => void;
   onToggleDatePicker?: () => void;
+  onToggleChartSeries?: (series: ReportsChartSeries) => void;
   onExport?: () => void;
 };
 
@@ -91,9 +103,13 @@ function chartStyle(day: ReportsChartDay, maximum: number): CSSProperties {
 function ReportChart({
   days,
   tooltipDayId,
+  visibleSeries,
+  onToggleSeries,
 }: {
   days: ReportsChartDay[];
   tooltipDayId?: string | null;
+  visibleSeries: ReportsChartVisibility;
+  onToggleSeries?: (series: ReportsChartSeries) => void;
 }) {
   const maximum = Math.max(1, ...days.map((day) => day.taskSeconds + day.breakSeconds));
 
@@ -124,10 +140,14 @@ function ReportChart({
                 aria-label={`${day.label}: Tasks ${formatDuration(day.taskSeconds)}, Breaks ${formatDuration(day.breakSeconds)}, Total ${formatDuration(total)}`}
                 aria-describedby={tooltipOpen ? `report-tooltip-${day.id}` : undefined}
               >
-                <span className="reports-overview__chart-bars" aria-hidden="true">
-                  <span className="reports-overview__chart-bar reports-overview__chart-bar--tasks" />
-                  <span className="reports-overview__chart-bar reports-overview__chart-bar--breaks" />
-                  <span className="reports-overview__chart-bar reports-overview__chart-bar--total" />
+                <span
+                  className="reports-overview__chart-bars"
+                  aria-hidden="true"
+                  data-visible-series-count={Object.values(visibleSeries).filter(Boolean).length}
+                >
+                  {visibleSeries.tasks ? <span className="reports-overview__chart-bar reports-overview__chart-bar--tasks" /> : null}
+                  {visibleSeries.breaks ? <span className="reports-overview__chart-bar reports-overview__chart-bar--breaks" /> : null}
+                  {visibleSeries.total ? <span className="reports-overview__chart-bar reports-overview__chart-bar--total" /> : null}
                 </span>
                 <span className="reports-overview__chart-label">{day.label}</span>
               </button>
@@ -151,9 +171,21 @@ function ReportChart({
       </div>
 
       <div className="reports-overview__legend" aria-label="Chart legend">
-        <span><i className="reports-overview__legend-dot reports-overview__legend-dot--tasks" />Tasks</span>
-        <span><i className="reports-overview__legend-dot reports-overview__legend-dot--breaks" />Breaks</span>
-        <span><i className="reports-overview__legend-dot reports-overview__legend-dot--total" />Total</span>
+        {([
+          ["tasks", "Tasks"],
+          ["breaks", "Breaks"],
+          ["total", "Total"],
+        ] as const).map(([series, label]) => (
+          <button
+            type="button"
+            key={series}
+            aria-pressed={visibleSeries[series]}
+            onClick={() => onToggleSeries?.(series)}
+          >
+            <i className={`reports-overview__legend-dot reports-overview__legend-dot--${series}`} />
+            {label}
+          </button>
+        ))}
       </div>
     </section>
   );
@@ -219,19 +251,44 @@ export function ReportsOverviewView({
   timeByList,
   doneTasks,
   listLabel,
+  selectedListIds,
   listOptions,
   rangeLabel,
   calendarMonths,
   listFilterOpen = false,
   datePickerOpen = false,
   tooltipDayId = null,
+  visibleSeries = { tasks: true, breaks: true, total: true },
+  punctuality,
   onBack,
-  onSelectList,
+  onToggleListSelection,
   onToggleListFilter,
   onToggleDatePicker,
+  onToggleChartSeries,
   onExport,
 }: ReportsOverviewViewProps) {
-  const maxListSeconds = Math.max(1, ...timeByList.map((item) => item.seconds));
+  const totalListSeconds = timeByList.reduce((total, item) => total + Math.max(0, item.seconds), 0);
+  let listCursor = 0;
+  const listSegments = timeByList.map((item) => {
+    const start = totalListSeconds > 0 ? (listCursor / totalListSeconds) * 100 : 0;
+    listCursor += Math.max(0, item.seconds);
+    const end = totalListSeconds > 0 ? (listCursor / totalListSeconds) * 100 : start;
+    return `${item.color ?? "var(--color-accent-solid)"} ${start}% ${end}%`;
+  });
+  const listDonutStyle = {
+    "--report-list-donut": listSegments.length
+      ? `conic-gradient(${listSegments.join(", ")})`
+      : "conic-gradient(var(--color-surface-interactive) 0 100%)",
+  } as CSSProperties;
+
+  const doneGroups = Array.from(
+    doneTasks.reduce((groups, task) => {
+      const existing = groups.get(task.completionLabel);
+      if (existing) existing.push(task);
+      else groups.set(task.completionLabel, [task]);
+      return groups;
+    }, new Map<string, ReportsDoneTask[]>()),
+  );
 
   return (
     <section className="reports-overview" data-reports-overview="true" aria-labelledby="reports-overview-title">
@@ -263,19 +320,31 @@ export function ReportsOverviewView({
             <span aria-hidden="true">⌄</span>
           </button>
           {listFilterOpen ? (
-            <div className="reports-overview__list-menu" role="listbox" aria-label="Filter reports by list" data-report-list-menu="true">
-              {listOptions.map((option) => (
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={option.title === listLabel}
-                  key={option.id ?? "all"}
-                  onClick={() => onSelectList?.(option.id)}
-                >
-                  <i style={{ backgroundColor: option.color ?? "var(--color-accent-solid)" }} aria-hidden="true" />
-                  {option.title}
-                </button>
-              ))}
+            <div
+              className="reports-overview__list-menu"
+              role="listbox"
+              aria-multiselectable="true"
+              aria-label="Filter reports by list"
+              data-report-list-menu="true"
+            >
+              {listOptions.map((option) => {
+                const selected = option.id === null
+                  ? selectedListIds.length === 0
+                  : selectedListIds.includes(option.id);
+                return (
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={selected}
+                    key={option.id ?? "all"}
+                    onClick={() => onToggleListSelection?.(option.id)}
+                  >
+                    <span className="reports-overview__list-check" aria-hidden="true">{selected ? "✓" : ""}</span>
+                    <i style={{ backgroundColor: option.color ?? "var(--color-accent-solid)" }} aria-hidden="true" />
+                    {option.title}
+                  </button>
+                );
+              })}
             </div>
           ) : null}
         </div>
@@ -306,7 +375,12 @@ export function ReportsOverviewView({
         ))}
       </div>
 
-      <ReportChart days={chartDays} tooltipDayId={tooltipDayId} />
+      <ReportChart
+        days={chartDays}
+        tooltipDayId={tooltipDayId}
+        visibleSeries={visibleSeries}
+        onToggleSeries={onToggleChartSeries}
+      />
 
       <div className="reports-overview__productive-grid" data-report-productive-cards="true">
         {[
@@ -323,23 +397,30 @@ export function ReportsOverviewView({
 
       <div className="reports-overview__lower-grid" data-report-lower-panels="true">
         <section className="reports-overview__panel" aria-labelledby="reports-time-by-list-title">
-          <div className="reports-overview__panel-heading">
+          <div className="reports-overview__panel-heading reports-overview__panel-heading--time-list">
             <h2 id="reports-time-by-list-title">Time By List</h2>
+            <span>Total Time: <strong>{formatDuration(totalListSeconds)}</strong></span>
           </div>
           {timeByList.length ? (
-            <div className="reports-overview__list-time">
-              {timeByList.map((item) => (
-                <div className="reports-overview__list-time-row" key={item.id}>
-                  <span className="reports-overview__list-time-name">
-                    <i style={{ backgroundColor: item.color ?? "var(--color-accent-solid)" }} aria-hidden="true" />
-                    {item.title}
-                  </span>
-                  <span className="reports-overview__list-time-track" aria-hidden="true">
-                    <i style={{ width: `${Math.max(4, (item.seconds / maxListSeconds) * 100)}%` }} />
-                  </span>
-                  <strong>{formatDuration(item.seconds)}</strong>
-                </div>
-              ))}
+            <div className="reports-overview__list-time" data-report-list-donut="true">
+              <div className="reports-overview__list-donut" style={listDonutStyle} aria-hidden="true">
+                <span>{formatDuration(totalListSeconds)}</span>
+              </div>
+              <div className="reports-overview__list-time-legend">
+                {timeByList.map((item) => {
+                  const percent = totalListSeconds > 0 ? (item.seconds / totalListSeconds) * 100 : 0;
+                  return (
+                    <div className="reports-overview__list-time-row" key={item.id}>
+                      <span className="reports-overview__list-time-name">
+                        <i style={{ backgroundColor: item.color ?? "var(--color-accent-solid)" }} aria-hidden="true" />
+                        {item.title}
+                      </span>
+                      <strong>{formatDuration(item.seconds)}</strong>
+                      <span>{Math.round(percent)}%</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           ) : (
             <p className="reports-overview__empty">No report on the selected date range</p>
@@ -350,27 +431,39 @@ export function ReportsOverviewView({
           <div className="reports-overview__panel-heading reports-overview__panel-heading--done">
             <h2 id="reports-done-title">Done Tasks</h2>
             <div className="reports-overview__punctuality" aria-label="Completion punctuality">
-              <span className="is-early">● Early</span>
-              <span className="is-late">● Late</span>
+              <span className="is-early">● Early {punctuality.earlyPercent.toFixed(2)}%</span>
+              <span className="is-late">● Late {punctuality.latePercent.toFixed(2)}%</span>
             </div>
+          </div>
+          <div className="reports-overview__punctuality-bar" aria-hidden="true">
+            <i className="is-early" style={{ width: `${Math.max(0, Math.min(100, punctuality.earlyPercent))}%` }} />
+            <i className="is-late" style={{ width: `${Math.max(0, Math.min(100, punctuality.latePercent))}%` }} />
           </div>
           {doneTasks.length ? (
             <div className="reports-overview__done-list">
-              {doneTasks.map((task) => (
-                <article className="reports-overview__done-row" key={task.id}>
-                  <div>
-                    <strong>{task.title}</strong>
-                    <span>{task.listTitle} · {task.completionLabel}</span>
-                  </div>
-                  <div className="reports-overview__done-metrics">
-                    {task.punctuality !== "none" ? (
-                      <span className={task.punctuality === "early" ? "is-early" : "is-late"}>
-                        {task.varianceLabel}
-                      </span>
-                    ) : null}
-                    <span>Time Taken {task.timeTakenLabel}</span>
-                  </div>
-                </article>
+              {doneGroups.map(([completionLabel, tasks]) => (
+                <section className="reports-overview__done-group" key={completionLabel} data-report-done-group="true">
+                  <header>
+                    <strong>{completionLabel}</strong>
+                    <span>{tasks.length} {tasks.length === 1 ? "task" : "tasks"}</span>
+                  </header>
+                  {tasks.map((task) => (
+                    <article className="reports-overview__done-row" key={task.id}>
+                      <div>
+                        <strong>{task.title}</strong>
+                        <span>{task.listTitle}</span>
+                      </div>
+                      <div className="reports-overview__done-metrics">
+                        {task.punctuality !== "none" ? (
+                          <span className={task.punctuality === "early" ? "is-early" : "is-late"}>
+                            {task.varianceLabel}
+                          </span>
+                        ) : <span>No Est</span>}
+                        <span>Time Taken {task.timeTakenLabel}</span>
+                      </div>
+                    </article>
+                  ))}
+                </section>
               ))}
             </div>
           ) : (
