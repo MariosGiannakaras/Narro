@@ -76,6 +76,19 @@ Use the compact progress format, counter semantics, and reporting cadence in `AI
 
 The roadmap milestone denominator remains **10**. The required Final Comprehensive Review Stage runs only after Milestone 10 and is tracked as a separate post-roadmap gate, not as Milestone 11.
 
+### Hard Milestone 10 release-candidate entry gate
+
+Milestone 10 is a **hard sequential release-candidate gate**. Do not begin, count, or mark any M10 validation while any required Milestone 1–9 work remains open on authoritative `main`, including:
+- reopened milestone items whose acceptance basis was invalidated by replacement code;
+- any unresolved `FIX_NOW` implementation route for M1–M9;
+- required physical/manual Windows acceptance for M1–M9;
+- required milestone-level source-parity correction or direct comparison gate for M1–M9;
+- an active earlier-milestone source/config/test PR whose result can still change the release-candidate application.
+
+Before the first M10 validation is allowed, reconcile `TODO.md`, `HANDOFF.md`, `STATUS.md`, the audit crosswalk, live PR/CI state and resulting `main` and record that every required M1–M9 gate is closed. Preparatory M10 tooling/tests may be authored earlier only when genuinely independent, but that preparation is **not M10 validation**, must not advance an M10 checkbox/counter, and must not be used to freeze a release candidate.
+
+The Final Comprehensive Review remains separately blocked until Milestone 10 is fully validated and its exact release-candidate SHA is frozen.
+
 For every milestone completion report, include the milestone's **total source diff** in the exact compact form `+A/-B` lines. Compute it from the milestone's validated starting source SHA to its final validated source SHA. Documentation/tracking-only commits do not replace the validated source baseline and are excluded from this source-diff figure. Record the compared SHAs with the completion evidence so another agent can reproduce the count.
 
 ## Evidence and TODO discipline
