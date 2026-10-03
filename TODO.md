@@ -548,6 +548,7 @@ Acceptance criteria:
 - [ ] Validate Windows installer packaging.
 - [ ] Re-validate autostart launch after Windows restart/sign-in on the release-candidate build.
 - [ ] Add Narro-owned application icon/branding.
+  - Historical branch `brand/pure-vector-runtime` contains unmerged M10-relevant app-icon/tray-symbol/branding-verifier work, but it is a long-diverged evidence/implementation seed rather than a safe continuation branch. Re-evaluate the useful concepts against current `main`; do not merge the historical branch wholesale.
 - [ ] Run regression tests for lists, task identity/reorder, timer/tracked time, scheduling/recurrence, focus panel/floating mode, reports, shortcuts, persistence, keyboard focus and reduced-motion.
   - For any later milestone that replaced a shared foundation originally validated in an earlier milestone, confirm the affected milestone/items were reopened during the replacement and then reclosed only from replacement-code evidence. Explicitly rerun those earlier acceptance criteria against the release-candidate implementation and record the dependency map/result.
 - [ ] Run the complete screenshot-fidelity checklist in `docs/UI_UX_SPEC.md` in dark/light themes where applicable.
