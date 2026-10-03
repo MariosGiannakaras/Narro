@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 12/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 13/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -3179,21 +3179,223 @@ No implementation conclusion is made in this analysis track.
 # Queue 13 — VE-006 — Delete & Archive
 
 Source: `Blitzit Tutorial How to Delete & Archive Tasks and Lists.mp4`  
-Metadata: **01:23.963, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **01:23.883 video stream / ~01:23.963 container, 1920×1080, 60 fps, 5,033 video frames**  
+Source version visible in Home: **v2.4.89**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:10–00:00:23 — permanent task delete;
-- 00:00:26–00:00:58 — list archive/restore/delete forever;
-- 00:00:59–00:01:08 — Done older than 60 days.
+Inspection method:
+- complete source reviewed end-to-end;
+- whole-video contact scan;
+- dense/full-resolution review around task Delete, list Archive, Archived Lists and Archived Done;
+- 0.25 s sampling around the Archive action;
+- visible counters and card identities reconciled before/after destructive/archive mutations;
+- narration kept separate where the source shows an affordance but does not execute its result.
 
-Pass-3 focus:
-- exact destructive feedback;
-- whether confirmation is visible or cut;
-- archive movement;
-- archived-card hover/actions;
-- Archived Done table actions;
-- 60-day claim: narration vs direct evidence.
+## VE-006 chronological state map
+
+### 00:00:00–~00:00:10 — Personal board baseline
+
+**VIDEO-DIRECT**
+- list `Personal` uses the established four-column board;
+- header: **5 pending tasks, Est: 0min**;
+- This Week: **0/5 Done**;
+- visible tasks:
+  - `Delete me`;
+  - `Visit dentist`;
+  - `Decorate studio`;
+  - `Accounting`;
+  - `Pay the bills`.
+- Backlog, Today and Done are otherwise in empty/All Clear states.
+
+### ~00:00:10–00:00:18 — ordinary task Delete
+
+**VIDEO-DIRECT**
+- hovering `Delete me` exposes the standard board action rail;
+- overflow exact order:
+  1. `Schedule`;
+  2. `Change list`;
+  3. `Duplicate`;
+  4. `Delete` in red.
+
+**IMPORTANT DESTRUCTIVE STATE**
+- selecting Delete does **not** immediately remove the task;
+- the destructive menu row transforms in place into a confirmation state:
+  - trash icon;
+  - red **`Confirm`**;
+  - X cancel affordance at the right.
+- there is no separate modal.
+
+This corrects any superficial reading that ordinary task Delete is a one-click destructive action in this source version.
+
+### ~00:00:18–00:00:21 — confirmed task removal
+
+**VIDEO-DIRECT**
+- activating Confirm removes `Delete me`;
+- remaining rows reflow upward;
+- list header changes:
+  - **5 pending → 4 pending**;
+- This Week changes:
+  - **0/5 Done → 0/4 Done**.
+
+**ARITHMETIC-DIRECT**
+- exactly one pending task is removed from both list-level pending count and lane denominator.
+
+**TRANSCRIPT-CLAIM**
+- narration states deleted tasks are permanent, cannot be recovered and do not appear in Reports;
+- this clip proves confirmed removal, but does not separately demonstrate recovery impossibility or Reports exclusion.
+
+### ~00:00:26–00:00:35 — Home/list-grid baseline
+
+**VIDEO-DIRECT**
+- source returns to Home in visible app version **v2.4.89**;
+- active grid includes:
+  - All Lists;
+  - ClickUp;
+  - Personal;
+  - Freelance;
+  - TYAMA;
+  - Music.
+- left navigation includes:
+  - Create new list;
+  - All my lists;
+  - Archived lists.
+- All Lists shows **25 pending tasks** before the archive mutation.
+
+**VERSION PRECEDENCE**
+- this is older than the current v2.6.69 direct screenshot corpus;
+- use VE-006 for interaction/state behavior, not as the strongest current styling target.
+
+### ~00:00:35–00:00:37 — list overflow / Archive List
+
+**VIDEO-DIRECT**
+- ClickUp list-card overflow exact order:
+  1. `Edit List`;
+  2. `Duplicate`;
+  3. `Archive List`.
+- selecting Archive List applies directly;
+- no second confirmation state is visible.
+
+### ~00:00:36.5–00:00:40 — active-grid archive result
+
+**VIDEO-DIRECT / MOTION-DIRECT**
+- ClickUp disappears from the active list grid within the next sampled frames;
+- surrounding cards reflow to occupy the vacated slot;
+- Create List tile becomes visible in the newly available grid position.
+
+**ARITHMETIC-DIRECT**
+- All Lists pending count changes:
+  - **25 → 22**;
+- the archived ClickUp card had **3 pending tasks**;
+- the exact decrement of three directly shows that archiving the list removes its pending tasks from the active All Lists aggregate.
+
+**SEMANTIC-DIRECT**
+- Archive differs from task Delete:
+  - task Delete required inline destructive confirmation and removed one task;
+  - list Archive is directly applied from the list-card menu and removes the list from the active workspace/aggregate.
+
+### ~00:00:44–00:00:48 — Archived Lists destination
+
+**VIDEO-DIRECT**
+- selecting left-nav `Archived lists` opens archive management within the Home shell;
+- tabs:
+  - `Archived lists`;
+  - `Archived done tasks`.
+- contextual heading: **`Your archived lists`**.
+
+### ~00:00:48–00:00:59 — populated Archived Lists
+
+**VIDEO-DIRECT**
+- archived ClickUp card is present;
+- its task previews retain the same identifiable ClickUp content, including:
+  - `Record video...`;
+  - `Record video well C...`;
+  - `Does ClickUp wo...`.
+- card-level actions are:
+  - **`Unarchive`**;
+  - **`Delete Forever`** in red.
+- this directly demonstrates that Archive preserves recognizable list/task content rather than deleting it.
+
+**ACTION LIMIT**
+- the tutorial points to/hover-demonstrates both Unarchive and Delete Forever;
+- it does **not** commit either action.
+- therefore:
+  - the availability and destructive/reversible distinction are VIDEO-DIRECT;
+  - “Unarchive restores active state” and “Delete Forever permanently removes list + tasks and cannot be undone” remain TRANSCRIPT-CLAIM outcomes in VE-006.
+
+**SOURCE-STAGING NOTE**
+- another archived card named TYAMA is visible even though TYAMA appeared in the earlier active grid;
+- the source does not establish whether these are duplicate names, staged data or a timeline inconsistency;
+- do not infer a uniqueness/state rule from that coincidence.
+
+### ~00:00:59–00:01:04 — Archived Done tab
+
+**VIDEO-DIRECT**
+- selecting `Archived done tasks` changes the archive body to a searchable/filterable completed-task table;
+- controls:
+  - Search field;
+  - All Lists filter with badge stack.
+- table columns exact:
+  - `Task Name`;
+  - `List`;
+  - `Info`;
+  - `Date`;
+  - `Action`.
+
+### ~00:01:04–00:01:10 — populated Archived Done rows
+
+**VIDEO-DIRECT**
+Visible completed rows include:
+- `Plan Video Tutorials` — Freelance — document/info icon — **2mon ago** — trash action;
+- `Accounting` — Music — `No Info` — **3mon ago** — trash;
+- `SK email` — Music — `No Info` — **3mon ago** — trash;
+- `Make a post SK` — Music — `No Info` — **3mon ago** — trash;
+- `Reels video (SK)` — Music — document/info icon — **3mon ago** — trash.
+
+**ROW GRAMMAR**
+- task titles are struck through/completed;
+- list identity is retained;
+- Info can be an icon or explicit `No Info`;
+- Action is a trash/delete icon.
+
+**ACTION LIMIT**
+- Archived Done delete is visible but not executed;
+- no post-delete row/count mutation is measured here.
+
+### 00:01:04–00:01:10 — automatic 60-day archival claim
+
+**TRANSCRIPT-CLAIM + VISUAL CORROBORATION**
+- narration says Done tasks older than **60 days** are automatically archived into this section;
+- visible rows are aged **2mon** and **3mon**, which is consistent with the claim;
+- the source does not observe a task crossing the exact 60-day boundary or an automatic move event.
+- therefore the exact 60-day automation remains a narrated product rule with corroborating archived ages, not VIDEO-DIRECT transition evidence.
+
+### ~00:01:10–00:01:23.88 — recap/outro
+
+**VIDEO-DIRECT / NON-PARITY**
+- Archived Done remains on screen during the recap, followed by tutorial outro;
+- no additional destructive/archive state is introduced.
+
+## VE-006 source synthesis
+
+High-confidence behavior/anatomy established:
+- ordinary task Delete opens an inline **Confirm + X cancel** destructive state before deletion;
+- confirming removes exactly one task and updates pending/lane denominators 5→4 and 0/5→0/4;
+- permanence/recovery/Reports-exclusion are narrated but not independently demonstrated;
+- list Archive is directly applied from Edit List / Duplicate / Archive List with no second visible confirmation;
+- archiving ClickUp removes it from the active grid and changes All Lists pending **25→22**, exactly matching ClickUp's 3 pending tasks;
+- archived list content remains recognizable, proving Archive is data-preserving rather than deletion;
+- Archived Lists directly exposes Unarchive and red Delete Forever, but VE-006 does not execute their outcomes;
+- Archived Done is a searchable/list-filtered table with completed title, list, info, relative date and trash action;
+- visible 2mon/3mon rows corroborate but do not independently prove the narrated automatic >60-day rule;
+- app version is v2.4.89, so current v2.6.69 screenshots supersede exact shell/styling while this clip remains valid interaction/history evidence.
+
+Static corroboration:
+- SS-H14 populated Archived Lists / Unarchive / Delete Forever;
+- SS-H15 populated Archived Done table;
+- SS-C10 current v2.6.69 Archived Lists empty shell;
+- SS-C11 current v2.6.69 Archived Done search/filter empty shell.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
