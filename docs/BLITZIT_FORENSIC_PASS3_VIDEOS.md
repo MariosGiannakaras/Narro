@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 15/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 16/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -3760,18 +3760,223 @@ No implementation conclusion is made in this analysis track.
 # Queue 16 — VE-001 — Product Explainer
 
 Source: `Blitzit Explained Simplify Your Tasks and Stay in Flow.mp4`  
-Metadata: **02:19.088, 1920×1080, 30 fps**  
-Status: **OPEN**
+Verified metadata: **02:19.033 video stream / ~02:19.088 container, 1920×1080, 30 fps, 4,171 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:32–00:01:19 — core loop montage;
-- 00:01:21–00:02:16 — out-of-scope/context claims.
+Inspection method:
+- complete source reviewed end-to-end;
+- 4 s whole-video contact scan;
+- 1 s dense review through the core-product montage;
+- unique visible application states catalogued and cross-checked against stronger tutorial/screenshot sources;
+- editorial cuts, picture-in-picture composites, camera footage and staged montage transitions explicitly excluded from motion-timing requirements;
+- marketing/roadmap/commerce narration kept separate from direct product pixels.
 
-Pass-3 focus:
-- catalog every unique visible product state;
-- identify reused tutorial footage;
-- label cuts/montage as timing-invalid;
-- do not promote marketing narration to direct UI evidence.
+## VE-001 evidence character
+
+This source is a **marketing/product explainer**, not a continuous task demonstration.
+
+It mixes:
+- presenter-to-camera footage;
+- desktop/application screen recordings;
+- external tools/browser windows;
+- picture-in-picture/product composites;
+- rapid editorial hard cuts;
+- multiple product surfaces and likely multiple recording moments/versions.
+
+Therefore:
+- visible UI states can corroborate product anatomy;
+- **cut-to-cut timing is invalid for interaction/motion measurement**;
+- narration about capabilities/roadmap is not promoted to direct behavior unless the pixels independently demonstrate it.
+
+## VE-001 chronological state map
+
+### 00:00:00–~00:00:15 — presenter / workspace context
+
+**NON-PARITY / CONTEXT**
+- presenter and desk/workspace footage;
+- no sustained Blitzit interaction sequence suitable for UI timing.
+
+### ~00:00:15–00:00:20 — search / command surface montage
+
+**VIDEO-DIRECT**
+- Blitzit search/command overlay appears over the app;
+- visible structure matches the current search-family grammar:
+  - search field;
+  - quick-action area;
+  - dimmed application behind the overlay.
+
+**CORROBORATION**
+- current SS-C06 is stronger static evidence for exact current copy/layout;
+- VE-001 adds only montage corroboration, not a new search contract.
+
+### ~00:00:20–00:00:31 — Focus/success montage beside work content
+
+**VIDEO-DIRECT**
+- narrow Focus Panel is shown beside an external application/browser;
+- success-card state appears with:
+  - `Well done!`-style completion presentation;
+  - reaction media;
+  - gradient Next Task;
+  - Take a Break.
+- panel coexists with desktop work rather than replacing the external application.
+
+**PRECEDENCE**
+- VE-003/VE-005 provide stronger continuous success-state evidence;
+- VE-001 is corroborative only.
+
+### ~00:00:32–00:00:41 — planning-board montage
+
+**VIDEO-DIRECT**
+- four-column board is shown with Backlog / This Week / Today / Done;
+- task cards include list badges, EST/Taken-style metrics and scheduled sections;
+- Today retains the highlighted lane treatment and Blitz CTA.
+
+**CUT/UNMEASURABLE**
+- planning interactions are edited as montage;
+- no drag/drop/hover duration is derived here.
+
+### ~00:00:41–00:00:50 — board → Focus presentation
+
+**VIDEO-DIRECT**
+- source cuts from planning context to a narrow Focus Panel with a live task and queued tasks;
+- external work remains visible beside the panel.
+
+**CUT/UNMEASURABLE**
+- the cut does not prove board→Focus transition duration or fade behavior;
+- VE-003 and the VE-018 planning excerpt are stronger sources for those transitions.
+
+### ~00:00:50–00:01:03 — Floating Timer / Notes / work-over-app montage
+
+**VIDEO-DIRECT**
+- compact Floating Timer appears above an external application;
+- live timer remains visible while the user works in another app;
+- Floating surface expands/changes state to expose task details/actions;
+- Notes content with links is shown in a compact task surface;
+- the task/floating surface remains spatially independent from the external application.
+
+**CORROBORATION**
+- VE-003 is stronger for Panel↔Floating continuity;
+- VE-010 is stronger for Notes/link behavior;
+- VE-013 is stronger for Floating subtasks.
+
+### ~00:01:03–00:01:08 — alert/attention montage
+
+**VIDEO-DIRECT / MARKETING-CONTEXT**
+- short visual attention/alert treatment is shown around the timer/focus context.
+
+**TIMING LIMIT**
+- edited montage prevents an exact flash duration/alert cadence requirement;
+- VE-014 Preferences provides stronger direct evidence for the Animated flash setting.
+
+### ~00:01:08–00:01:18 — repeated completion/success montage
+
+**VIDEO-DIRECT**
+- multiple success/reaction-card examples are shown in rapid succession;
+- Next Task remains the high-salience primary action;
+- Take a Break is present in the success family.
+
+**SOURCE-ARTIFACT**
+- repeated success cards are editorial examples, not evidence that the application automatically cycles through multiple reaction states at the shown cadence.
+
+### ~00:01:18–00:01:22 — Break state
+
+**VIDEO-DIRECT**
+- a Focus card labeled **Break** with a running break timer is visible;
+- queued task remains beneath it.
+
+**CORROBORATION**
+- establishes the existence of an explicit live Break presentation;
+- VE-016 remains stronger for timer-mode/break semantics.
+
+### ~00:01:22–00:01:31 — integrations/work-context montage
+
+**VIDEO-DIRECT / MIXED CONTEXT**
+- Blitzit is shown alongside external productivity/content tools;
+- integration-related UI/context appears briefly.
+
+**EVIDENCE BOUNDARY**
+- narration claims Notion and Google Calendar synchronization;
+- the montage does not provide an isolated setup/sync transaction suitable for detailed behavioral requirements;
+- integration claims remain context unless corroborated by dedicated sources such as VE-013.
+
+### ~00:01:31–00:01:39 — Preferences montage
+
+**VIDEO-DIRECT**
+- Preferences panel is shown over desktop/browser context;
+- visible controls include:
+  - Theme System/Dark/Light;
+  - Pomodoro settings;
+  - break/work duration controls;
+  - alert settings.
+- both dark/light preference states appear in the montage.
+
+**PRECEDENCE**
+- VE-014 and current SS-C07–SS-C09 provide stronger exact current Preferences evidence.
+
+### ~00:01:39–00:01:47 — Reports montage
+
+**VIDEO-DIRECT**
+- Reports populated dashboard is shown with:
+  - headline metrics;
+  - daily chart;
+  - Time By List;
+  - Done Tasks.
+- this confirms Reports as part of the same application/navigation ecosystem.
+
+**PRECEDENCE**
+- VE-011/VE-012 provide stronger metric semantics and interaction evidence;
+- current SS-C12–SS-C15 provide stronger current shell styling.
+
+### ~00:01:47–00:02:03 — community / roadmap montage
+
+**MARKETING-CONTEXT**
+- Discord/community footage;
+- roadmap/product-planning imagery;
+- narration mentions future mobile app, AI assistance, list sharing and additional integrations.
+
+**NOT PARITY REQUIREMENTS**
+- these are roadmap/marketing claims, not current direct product behavior;
+- no implementation requirement is created from them.
+
+### ~00:02:03–00:02:16 — website / trial / pricing montage
+
+**MARKETING/COMMERCE CONTEXT**
+- Blitzit marketing website and pricing/lifetime-deal surfaces appear;
+- narration discusses trial/lifetime/annual-plan positioning.
+
+These are explicitly outside Narro product-parity scope unless a later product decision says otherwise.
+
+### ~00:02:16–00:02:19.03 — branded outro
+
+**NON-PARITY**
+- Blitzit logo/tagline outro.
+
+## VE-001 source synthesis
+
+High-confidence use of this source:
+- corroborates the end-to-end product story:
+  - planning board;
+  - Blitz/Focus;
+  - Floating Timer;
+  - Notes/subtasks-style compact work context;
+  - alerts;
+  - success;
+  - Break;
+  - Preferences;
+  - Reports.
+- confirms Blitzit is designed to coexist with other desktop applications during Focus/Floating work;
+- directly shows a live Break card as part of the Focus family;
+- corroborates search/command overlay and current-style workflow surfaces.
+
+Pass-3 constraints:
+- **no animation duration may be inferred across editorial cuts**;
+- repeated GIF/success examples are montage, not an automatic sequence contract;
+- external browser/apps, Discord, marketing site, roadmap and pricing are context, not Narro parity targets;
+- Notion/Google Calendar and future-integration claims are narration/marketing unless dedicated sources directly demonstrate them;
+- future mobile/AI/list-sharing claims are not current product requirements;
+- where VE-001 conflicts with dedicated current tutorial/static evidence, the dedicated/newer source has precedence.
+
+No unique implementation gap is routed from VE-001 in this analysis-only track.
 
 ---
 
