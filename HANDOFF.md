@@ -295,7 +295,7 @@ Physical procedure:
 ## Deferred unrelated work
 
 - M9 remains ordered after M8; it is not blocked merely by the pending M1/M7 physical observations.
-- Historical M9 PR references are not active continuation points; live GitHub currently has no open PRs.
+- Historical M9 PR references must not be treated as implementation continuation points without checking live GitHub. Current open M9 PRs are #205 (nonvisual Overview command/API boundary; exact head `96498085a4bd1e9935c1a2f3ca75bee905a10678`, CI #886 PASS) and #198 (provisional Reports visual foundation; exact head `a0364a72b6c01c29d1e4d5b7ca44d2883d0e2dd7`, CI #775 PASS). Re-check their live state before acting; #198 remains subject to the Reports/Sessions Pass-3 parity-reconciliation gate.
 - Static-contract cleanup remains maintenance-only and is not an M7 blocker.
 
 
