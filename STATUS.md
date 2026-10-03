@@ -4,6 +4,22 @@ Last updated: 2026-10-03
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
+## 2026-10-03 — M1 final Candidate B fixed from resulting-main CI #866
+
+The post-PR #217 resulting-main diagnostic candidate is now fully reconciled. Windows CI #866 / run `37078139295` **PASSed** on exact source `f1a200c3624c3e25154a7023443c1dfc5be1e69d`, including the real diagnostic storage-isolation smoke after the bounded SQLite handle-release retry.
+
+Final Candidate B for physical M1 B/C/D:
+- artifact `narro-m1-diagnostic-windows-x64`, id `11257763093`;
+- ZIP SHA-256 `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`;
+- contained diagnostic `narro.exe` SHA-256 `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`.
+
+CI #866 resolved diagnostic SQLite under `com.mariosg.Narro.M1Diagnostic` and reported both production Roaming and Local `com.mariosg.Narro` namespaces unchanged. The artifact contains the three measurement/physical helper scripts plus the M1 Windows validation docs. `docs/M1_FINAL_REPLACEMENT_PHYSICAL_BATCH.md` now contains the exact Candidate B identity and performance-run hash.
+
+Repository-side Candidate B preparation is complete; selected-monitor placement, reconnect/re-enumeration and 3× floating-only CPU/RAM remain real-Windows physical/measurement gates. No progress counter changes: `4/10M || 4/5 | 14/19`.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m1-ci866-final-candidate-b.md`.
+
+
 ## 2026-10-03 — M7 automatic local validation logger implemented in PR #219; CI pending
 
 Main diagnostic-storage baseline is now green: Windows CI #866 / run `37078139295` completed **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d` after the bounded post-exit SQLite handle-release retry. PR #217 is merged; older current-state text describing it as open is superseded by this section. PR #218 is now **closed** and must not be treated as an active continuation.
