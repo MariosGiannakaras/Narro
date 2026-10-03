@@ -147,7 +147,7 @@ function Capture-Theme {
 }
 
 function Capture-FocusEditors([string]$theme) {
-    foreach ($editorScenario in @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel')) {
+    foreach ($editorScenario in @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel', 'board-narrow', 'timer-geometry')) {
         $motionVariants = if ($editorScenario.StartsWith('quick-')) { @($false) } else { @($false, $true) }
         foreach ($reduced in $motionVariants) {
             $suffix = if ($reduced) { '-reduced' } else { '' }

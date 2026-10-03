@@ -3,6 +3,9 @@ import { createRoot } from "react-dom/client";
 import { useState } from "react";
 import { TaskNotes } from "./TaskNotes";
 import { SearchPalette } from "./SearchPalette";
+import { TaskCard } from "./TaskCard";
+import type { ListBoardTask } from "./listBoardApi";
+import "./listBoard.css";
 import "./App.css";
 import "./focusSurfaceCoordinator.css";
 import "./floatingTimerFoundation.css";
@@ -22,6 +25,8 @@ const theme = params.get("theme") === "dark" ? "dark" : "light";
 const scenario = params.get("scenario") ?? "notes-timerExpanded-large";
 const quick = scenario.startsWith("quick-");
 const motion = scenario.startsWith("motion-");
+const board = scenario === "board-narrow";
+const timerGeometry = scenario === "timer-geometry";
 const motionToPanel = scenario === "motion-timerCompact-panel";
 const panel = scenario.includes("-panel-");
 const large = scenario.endsWith("-large");
@@ -62,6 +67,30 @@ const find = <T extends HTMLElement>(selector: string): T => {
 };
 function Fixture() {
   const [open, setOpen] = useState(false);
+  const notes = <TaskNotes taskId={taskId} listId={listId} taskTitle="Long validation task title for keyboard and editor overflow"
+    expanded canExpand readOnly={false} allowTitleEdit
+    onToggleExpanded={() => {}} onMutationStatus={() => {}} onRefreshBlocked={() => {}} />;
+  if (board) {
+    const task: ListBoardTask = {id: taskId, listId, listTitle: "Test", listColor: null,
+      title: "Readable planning task title", estSeconds: null, timeTakenSeconds: "0",
+      subtaskTotalCount: 0, subtaskCompletedCount: 0, scheduledLocalDate: null,
+      scheduledLocalTime: null, isOverdue: false, completedAt: null};
+    return <main className="list-board">
+      {[144, 340].map(width => <div id={`card-${width}`} key={width} style={{width, margin: 12}}>
+        <TaskCard task={task} aggregateView fixtureState="normal" onTitleEdit={() => {}} />
+      </div>)}
+      <div id="card-edit" style={{width: 144, margin: 12}}><TaskCard task={task} aggregateView
+        titleEditor={{value: task.title, pending: false, onChange: () => {}, onCancel: () => {}, onSubmit: () => {}}} /></div>
+    </main>;
+  }
+  if (timerGeometry) return <main className="floating-timer-foundation" data-floating-expanded="false"
+    data-floating-region-expanded="false" data-floating-resize-phase="idle" style={{width: 340}}>
+    <div className="floating-timer-foundation__content">
+      <div className="floating-timer-foundation__heading"><strong>Stable task</strong><span>08:11</span></div>
+      <div className="floating-timer-foundation__actions"><button>Break</button><button>Notes</button></div>
+      <div>Subtasks</div>
+    </div>
+  </main>;
   return motion ? <main className="focus-surface-coordinator" data-focus-presentation={motionToPanel ? "timerCompact" : "panel"}
     data-focus-geometry-motion="true" data-focus-geometry-motion-phase="start"
     data-focus-geometry-motion-from={motionToPanel ? "timerCompact" : "panel"}
@@ -75,20 +104,62 @@ function Fixture() {
       onAddList={() => {}} onGoReports={() => {}} onTaskCreated={() => {}} />
   </> : <main className="focus-surface-coordinator" data-focus-presentation={panel ? "panel" : "timerExpanded"}>
     <section className="focus-surface-coordinator__presentation" data-focus-presentation={panel ? "panel" : "timer"} data-focus-visibility="active">
-      <div style={{padding: 12}}>
-        <div className={panel ? "focus-panel__notes" : "floating-timer-foundation__notes"}>
-          <TaskNotes taskId={taskId} listId={listId} taskTitle="Long validation task title for keyboard and editor overflow"
-            expanded canExpand readOnly={false} allowTitleEdit
-            onToggleExpanded={() => {}} onMutationStatus={() => {}} onRefreshBlocked={() => {}} />
-        </div>
-      </div>
+      {panel ? <div style={{padding: 12}}><div className="focus-panel__notes">{notes}</div></div>
+        : <div className="floating-timer-foundation" data-floating-expanded="true"
+            data-floating-region-expanded="true" data-floating-resize-phase="idle">
+          <div className="floating-timer-foundation__content"><div className="floating-timer-foundation__notes">{notes}</div></div>
+        </div>}
     </section>
   </main>;
 }
 const root = find<HTMLElement>("#root");
 flushSync(() => createRoot(root).render(<Fixture />));
 const result: Record<string, unknown> = {theme, scenario, reducedMotion};
-if (motion) {
+if (board) {
+  await wait(40);
+  for (const width of [144, 340]) {
+    const card = find<HTMLElement>(`#card-${width} article`);
+    const title = card.querySelector<HTMLElement>('.list-board-task__title')!;
+    const rail = card.querySelector<HTMLElement>('.list-board-task__action-slot')!;
+    const before = title.getBoundingClientRect();
+    assert(before.width >= 60, 'Planning title collapsed at card width ' + width);
+    card.dataset.taskCardState = 'action_revealed';
+    title.focus();
+    await wait(30);
+    const after = title.getBoundingClientRect(), bounds = card.getBoundingClientRect();
+    assert(JSON.stringify(before.toJSON()) === JSON.stringify(after.toJSON()), 'Hover/focus moved planning title');
+    assert(rail.getBoundingClientRect().left >= bounds.left && rail.getBoundingClientRect().right <= bounds.right, 'Narrow action rail escaped card');
+    result[`titleWidth${width}`] = before.width;
+  }
+  const input = find<HTMLInputElement>('#card-edit input');
+  const cardBounds = find<HTMLElement>('#card-edit article').getBoundingClientRect();
+  assert(input.getBoundingClientRect().width >= 60 && input.getBoundingClientRect().right <= cardBounds.right, 'Narrow title editor collapsed');
+  result.readableTitles = result.stableTitleGeometry = result.actionRailContained = result.editInputContained = true;
+} else if (timerGeometry) {
+  const timer = find<HTMLElement>('.floating-timer-foundation');
+  await wait(30);
+  timer.dataset.floatingExpanded = 'true';
+  timer.dataset.floatingResizePhase = 'prepainting';
+  await wait(20);
+  result.initialClipAtomic = getComputedStyle(timer).transitionDuration === '0s'
+    && getComputedStyle(timer).clipPath.includes('190px') && timer.getAnimations().length === 0;
+  assert(result.initialClipAtomic, 'Initial expanded clip animates before native region grows');
+  const heading = find<HTMLElement>('.floating-timer-foundation__heading');
+  result.prepaintHeaderOpaque = heading.contains(document.elementFromPoint(30, 14));
+  assert(result.prepaintHeaderOpaque, 'Nested containing block exposes actions above prepaint heading');
+  timer.dataset.floatingRegionExpanded = 'true';
+  timer.dataset.floatingResizePhase = 'revealing-start';
+  assert(getComputedStyle(timer).transitionDuration === '0s', 'Reveal start did not establish initial clip atomically');
+  timer.dataset.floatingResizePhase = 'revealing';
+  await wait(20);
+  result.finiteRevealRetained = parseFloat(getComputedStyle(timer).transitionDuration) > 0;
+  assert(result.finiteRevealRetained, 'Finite geometry reveal was removed');
+  const actions = find<HTMLElement>('.floating-timer-foundation__actions');
+  result.expandedHeadingAboveActions = heading.getBoundingClientRect().bottom <= actions.getBoundingClientRect().top;
+  assert(result.expandedHeadingAboveActions, 'Settled expanded heading overlaps actions');
+  result.reducedMotionRespected = !reducedMotion || parseFloat(getComputedStyle(timer).transitionDuration) <= 0.001;
+  assert(result.reducedMotionRespected, 'Reduced reveal retains normal duration');
+} else if (motion) {
   const host = find<HTMLElement>(".focus-surface-coordinator");
   const outgoing = find<HTMLElement>("#outgoing");
   const incoming = find<HTMLElement>("#incoming");
@@ -152,6 +223,11 @@ if (motion) {
   result.titleInputContained = input.getBoundingClientRect().right <= input.parentElement!.getBoundingClientRect().right + 0.5;
   assert(result.titleInputContained, "Title input padding escaped its grid column");
   const presentation = find<HTMLButtonElement>('[data-task-note-control="presentation"]');
+  const toolbar = find<HTMLElement>('.task-notes__toolbar');
+  toolbar.style.width = '260px';
+  result.presentationWrappedLeft = presentation.getBoundingClientRect().top
+    > find<HTMLElement>('[data-task-note-control="format"]').getBoundingClientRect().top;
+  assert(result.presentationWrappedLeft, 'Fixture did not reproduce wrapped-left presentation button');
   const tooltip = presentation.parentElement!.querySelector<HTMLElement>('[role="tooltip"]')!;
   getComputedStyle(tooltip).opacity;
   const tooltipOpened = new Promise<void>((resolve, reject) => {
@@ -164,7 +240,10 @@ if (motion) {
       result.tooltipTransitionRetained = reducedMotion ? result.reducedMotionRespected
         : tooltip.getAnimations().some(animation => animation instanceof CSSTransition && animation.transitionProperty === 'opacity');
       result.tooltipOpenedFromKeyboard = getComputedStyle(tooltip).visibility === 'visible';
-      result.tooltipContained = tooltip.getBoundingClientRect().right <= 340 && wrapper.scrollWidth <= wrapper.clientWidth;
+      const bounds = tooltip.getBoundingClientRect();
+      const boundary = inline.getBoundingClientRect();
+      result.tooltipContained = bounds.left >= boundary.left && bounds.right <= boundary.right
+        && bounds.left >= 0 && bounds.right <= 340 && wrapper.scrollWidth <= wrapper.clientWidth;
       observer.disconnect(); window.clearTimeout(timeout); resolve();
     });
     observer.observe(tooltip, {attributes: true, attributeFilter: ['data-open']});
@@ -177,6 +256,7 @@ if (motion) {
   await wait(20);
   result.tooltipEscapeClosed = tooltip.dataset.open === 'false';
   assert(result.tooltipEscapeClosed, "Escape did not close keyboard tooltip");
+  toolbar.style.width = '';
   input.focus();
   if (large) {
     find<HTMLButtonElement>('[data-task-note-control="presentation"]').click();

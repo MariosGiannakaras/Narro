@@ -2,7 +2,7 @@ use crate::domain::preferences::{
     is_local_sound_id, PreferencesPayload, PreferencesRecord, PREFERENCES_SCHEMA_VERSION,
 };
 use chrono::DateTime;
-use rusqlite::{params, Connection, OptionalExtension};
+use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
 use std::fmt::{Display, Formatter};
 
 const MIN_SUPPORTED_PREFERENCES_SCHEMA_VERSION: u32 = 1;
@@ -279,7 +279,10 @@ pub fn mutate_preferences(
     mutate: impl FnOnce(&mut PreferencesPayload),
 ) -> Result<PreferencesRecord, PreferenceStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    // Acquire the writer reservation before reading the current JSON. A deferred
+    // read-to-write upgrade can deadlock with a timer/background writer and
+    // return SQLITE_BUSY immediately instead of honoring the busy timeout.
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let mut payload = get_preferences(&tx)?
         .map(|record| record.payload)
         .unwrap_or_default();
@@ -423,6 +426,63 @@ mod tests {
         let saved = get_preferences(&conn).unwrap().unwrap();
         assert!(saved.payload.general.open_on_login);
         assert!(!saved.payload.shortcuts.find_focus_timer_enabled);
+    }
+
+    #[test]
+    fn preference_patch_waits_for_writer_and_preserves_its_latest_fields() {
+        use std::sync::mpsc;
+        use std::time::Duration;
+
+        let path = std::env::temp_dir().join(format!(
+            "narro-preference-contention-{}.sqlite",
+            uuid::Uuid::new_v4()
+        ));
+        let mut writer = Connection::open(&path).expect("open writer database");
+        run_migrations(&mut writer).expect("migrate database");
+        mutate_preferences(&mut writer, NOW, |payload| {
+            payload.celebration.show_success_screen = false;
+        })
+        .expect("seed disabled success screen");
+        let mut payload = get_preferences(&writer).unwrap().unwrap().payload;
+        payload.general.hide_task_times = true;
+        let writer_tx = writer
+            .transaction_with_behavior(TransactionBehavior::Immediate)
+            .expect("hold competing writer");
+        writer_tx
+            .execute(
+                "UPDATE preferences SET payload_json = ?1 WHERE id = 1",
+                params![serde_json::to_string(&payload).unwrap()],
+            )
+            .expect("write unrelated field before commit");
+
+        let (started_tx, started_rx) = mpsc::channel();
+        let (read_tx, read_rx) = mpsc::channel();
+        let patch_path = path.clone();
+        let patch = std::thread::spawn(move || {
+            let mut conn = Connection::open(patch_path).expect("open patch database");
+            conn.busy_timeout(Duration::from_secs(2))
+                .expect("bounded writer wait");
+            started_tx.send(()).unwrap();
+            mutate_preferences(&mut conn, NOW, |payload| {
+                read_tx.send(()).unwrap();
+                payload.celebration.show_success_screen = true;
+            })
+        });
+        started_rx.recv().expect("patch worker started");
+        let read_while_writer_held = read_rx.recv_timeout(Duration::from_millis(100));
+        writer_tx.commit().expect("release competing writer");
+        let patched = patch.join().expect("patch worker finished");
+        let saved = get_preferences(&writer).unwrap().unwrap();
+        drop(writer);
+        std::fs::remove_file(path).expect("remove isolated test database");
+
+        assert!(matches!(
+            read_while_writer_held,
+            Err(mpsc::RecvTimeoutError::Timeout)
+        ));
+        patched.expect("patch waits instead of failing a read-to-write lock upgrade");
+        assert!(saved.payload.celebration.show_success_screen);
+        assert!(saved.payload.general.hide_task_times);
     }
 
     #[test]
