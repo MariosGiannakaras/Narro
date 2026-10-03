@@ -29,6 +29,8 @@ const [
   capture,
   validator,
   css,
+  soundControl,
+  soundCatalog,
   reminderService,
   scheduleReminderEffects,
   packageText,
@@ -53,6 +55,8 @@ const [
   read("scripts/capture-theme-settings-fixtures.ps1"),
   read("scripts/validate-theme-settings-captures.mjs"),
   read("src/preferenceSettingsSections.css"),
+  read("src/SoundPreferenceControl.tsx"),
+  read("src/localSoundCatalog.ts"),
   read("src-tauri/src/reminder_service.rs"),
   read("src-tauri/src/persistence/schedule_reminder_effects.rs"),
   read("package.json"),
@@ -77,7 +81,7 @@ invariant(
 invariant(lib.includes("pub mod preference_settings;"), "Preferences Rust module is not registered");
 invariant(lib.includes("preference_settings::get_preference_settings"), "Preferences read command is not registered");
 invariant(lib.includes("preference_settings::update_preference_settings"), "Preferences update command is not registered");
-invariant(domain.includes("pub const PREFERENCES_SCHEMA_VERSION: u32 = 3"), "Preferences must remain on the validated v3 payload");
+invariant(domain.includes("pub const PREFERENCES_SCHEMA_VERSION: u32 = 4"), "Preferences sound-volume fields must use the versioned v4 payload");
 
 for (const needle of [
   'invoke<PreferenceSettingsSnapshot>("get_preference_settings")',
@@ -126,7 +130,25 @@ for (const label of [
 ]) {
   invariant(sections.includes(label), `Preferences surface is missing ${label}`);
 }
-invariant(sections.includes("Preview unavailable"), "sound rows must expose explicit unavailable preview feedback");
+invariant(sections.includes("SoundPreferenceControl"), "sound rows must use the shared local preview/volume control");
+for (const field of [
+  "taskAlertSound",
+  "taskAlertVolumePercent",
+  "notificationSound",
+  "notificationVolumePercent",
+  "successSound",
+  "successSoundVolumePercent",
+]) {
+  invariant(api.includes(field) && rust.includes(field), `typed sound preference field ${field} must cross Rust/renderer boundaries`);
+}
+for (const label of ["Futuristic Ding", "Melodic Bell", "Quick Chime", "Victory Bell"]) {
+  invariant(soundCatalog.includes(label), `local sound catalog is missing ${label}`);
+}
+invariant(soundControl.includes('type="range"'), "sound control must expose the evidenced volume affordance");
+invariant(soundControl.includes("playLocalSoundPreview"), "sound control must expose local preview playback");
+invariant(soundCatalog.includes("stopLocalSoundPreview();"), "new previews must stop the previous preview before playback");
+invariant(!/https?:\/\//.test(soundCatalog), "local sound catalog must not contain remote media dependencies");
+invariant(!/fetch\s*\(/.test(soundCatalog), "local sound catalog must not fetch media");
 invariant(!/https?:\/\//.test(sections), "Preferences must not introduce remote sound/media dependencies");
 invariant(
   sections.includes("disabled={busy || !snapshot.focus.pomodoroEnabled}")
@@ -180,7 +202,12 @@ invariant(fixture.includes("preferenceMonitors"), "Preferences visual fixture ne
 
 const pkg = JSON.parse(packageText);
 invariant(pkg.scripts["test:ui-preferences"] === "node scripts/test-ui-preferences.mjs", "Preferences test script registration differs");
+invariant(
+  pkg.scripts["test:local-sound-catalog"] === "node --experimental-strip-types scripts/test-local-sound-catalog.mjs",
+  "local sound catalog test script registration differs",
+);
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-preferences"), "frontend preflight must include Preferences contracts");
+invariant(pkg.scripts["preflight:frontend"].includes("npm run test:local-sound-catalog"), "frontend preflight must include local sound contracts");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:est-title-parser"), "frontend preflight must include EST parser tests");
 
 console.log("M8 Preferences contracts passed.");
