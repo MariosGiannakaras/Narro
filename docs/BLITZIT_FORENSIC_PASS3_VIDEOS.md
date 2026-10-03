@@ -1524,253 +1524,260 @@ No implementation conclusion is made in this analysis track.
 # Queue 6 — VE-017 — Update Recurring Schedules
 
 Source: `Blitzit Tutorial Update Recurring Schedules.mp4`  
-Verified metadata: **02:50.063 container / 02:50.000 video stream, 1920×1080, 60 fps, 10,200 video frames**  
+Verified metadata: **02:50.000 video stream / 02:50.063 container, 1920×1080, 60 fps, 10,200 frames**  
 Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
 Inspection method:
-- complete 170 s source scanned end-to-end;
-- 2 s whole-video contact scan;
-- full-resolution keyframes around existing recurring-parent menu, custom-rule edit, Replace Existing Tasks, No Repeat/Delete Existing Tasks, Remove Recurring, re-scheduling after detachment and duplicate-child outcome;
-- direct board counts/labels reconciled before and after each demonstrated mutation;
-- narration kept separate where the source does not execute the alternative branch.
+- complete raw MP4 inspected across the whole duration;
+- 4 s full-source contact scan;
+- 0.5 s dense sampling across replace, No Repeat/delete and detach/recreate scenarios;
+- 0.2 s micro-sequences around recurring-menu entry, Custom rule configuration, Replace checkbox, No Repeat conditional destructive row, schedule commit and detached re-scheduling;
+- full-resolution crops used to verify exact consequence labels/counts and absence/presence of Replace;
+- SRT used only to separate narrated rationale from direct UI evidence.
 
 ## VE-017 chronological state map
 
-### 00:00:00–~00:00:34 — tutorial/context setup
-
-**VIDEO-DIRECT / NON-UNIQUE**
-- source begins on the dark planning board and briefly references earlier recurring-schedule tutorials;
-- no unique recurring-update state is established until the `Get some sleep` example.
-
-### ~00:00:34–00:00:38 — existing daily parent + seven generated children
+### 00:00:00–~00:00:23 — initial daily-recurring dataset
 
 **VIDEO-DIRECT**
-- Backlog contains a dedicated `Recurring tasks` parent:
-  - `Get some sleep`;
-  - recurrence label **`Daily`**;
-  - recurring/loop icon.
-- list header reports **7 pending tasks**;
-- Today contains one current `Get some sleep` child;
-- This Week contains six further scheduled `Get some sleep` children;
-- together the source visibly represents the seven generated daily instances associated with the current recurring parent.
+- source begins on the four-column board for `Blitz Tutorial`;
+- one `Get some sleep` parent lives in the Backlog `Recurring tasks` group;
+- parent metadata shows a daily recurring rule;
+- generated child tasks occupy scheduled areas, including multiple `Get some sleep` rows in This Week and Today;
+- before replacement, This Week visibly reports **6 Scheduled tasks this week**.
 
-### ~00:00:38–00:00:40 — recurring-parent overflow menu
+This is the linked parent/child baseline for the replacement demonstration.
+
+### ~00:00:34–00:00:39.6 — recurring-parent overflow
 
 **VIDEO-DIRECT**
-- the recurring parent has a specialized overflow grammar:
+- hovering/opening the recurring parent's overflow exposes a recurrence-specific menu;
+- visible items:
   1. `Update Recurring`
   2. `Remove Recurring`
-  3. divider
-  4. `Duplicate`
-  5. `Delete` in red.
-- this menu differs from an ordinary detached task's Schedule / Change list / Duplicate / Delete menu.
+  3. `Duplicate`
+  4. destructive `Delete`.
+- `Update Recurring` is selected.
 
-### ~00:00:40–00:00:50 — update Daily → custom Fri/Sat/Sun
+**SEMANTIC FINDING**
+- recurrence lifecycle actions are elevated into the task overflow when the task is still a linked recurring parent.
 
-**VIDEO-DIRECT**
-- `Update Recurring` opens the schedule editor over the board;
-- editor retains `PICK DATE`, current date, Add Time and Recurring schedule;
-- recurrence preset list can be replaced with `Custom`;
-- Custom editor exposes:
-  - `Repeat every`;
-  - numeric interval;
-  - unit dropdown;
-  - seven weekday chips;
-  - generated natural-language summary;
-  - conditional existing-task action row;
-  - Cancel / gradient Schedule footer.
-- demonstrated rule becomes:
-  - **Repeat every 1 week**
-  - **Friday, Saturday, Sunday** selected.
-- natural-language summary reads **`every week on Friday, Saturday, Sunday`**.
-
-### ~00:00:50–00:00:53 — Replace Existing Tasks neutral action
+### ~00:00:39.8–00:00:48 — update existing rule to Custom
 
 **VIDEO-DIRECT**
-- because this parent still owns the existing generated set, editor shows a neutral checkbox row:
+- scheduling surface opens in place over the dimmed board;
+- top retains picked date `Mon, Sep 22, 2025`;
+- recurrence presets include:
+  - No Repeat;
+  - Every day;
+  - Every weekday;
+  - Every Monday;
+  - Every month on 22nd;
+  - Custom.
+- existing rule initially shows `Every day`;
+- selecting `Custom` expands:
+  - `Repeat every` numeric control;
+  - unit selector;
+  - `Repeat On` weekday chips;
+  - plain-language summary.
+- unit is changed to **week**;
+- Friday, Saturday and Sunday become the selected chips;
+- summary resolves to **`every week on Friday, Saturday, Sunday`**.
+
+**DISCLOSURE-DIRECT**
+- Custom controls replace the simple preset-only state inside the same scheduling surface; no second modal is introduced.
+
+### ~00:00:48–00:00:52 — Replace existing tasks consequence
+
+**VIDEO-DIRECT**
+- because this is an update of a still-linked recurring parent, a neutral consequence checkbox appears below the rule:
   - **`Replace existing tasks(7)`**.
-- row uses normal/dark surface treatment, not destructive red;
-- checkbox is explicitly selected before Schedule is committed.
+- row uses ordinary/dark styling rather than destructive red;
+- checkbox is selected before commit;
+- footer remains:
+  - `Cancel`
+  - gradient `Schedule`.
+
+**SEMANTIC DISTINCTION**
+- Replace is a cleanup/re-materialization choice for an existing recurrence, not the destructive No Repeat removal action.
+
+### ~00:00:52–00:00:54 — replacement commit
+
+**VIDEO-DIRECT**
+- Schedule is clicked;
+- scheduling surface closes;
+- toast reports **`Updated recurring tasks successfully!`**;
+- recurring parent remains in Backlog and now carries `Custom`;
+- This Week changes from the earlier six scheduled children to exactly **3 Scheduled tasks this week**:
+  - Fri;
+  - Sat;
+  - Sun.
+
+**ARITHMETIC / MATERIALIZATION-DIRECT**
+- the visible child count and weekday labels match the new Friday/Saturday/Sunday custom rule;
+- this is direct evidence that checking Replace removes the prior generated set and materializes the selected rule's current children.
+
+### ~00:00:54–00:01:13 — keep-old-children explanation
+
+**VIDEO-DIRECT**
+- board remains on the new 3-child Fri/Sat/Sun state.
+
+**TRANSCRIPT-CLAIM**
+- narration explains that if Replace had not been selected, old child tasks would remain while the recurring rule updates, producing old + new children.
+- this exact unchecked-update branch is not executed in the first scenario; the later detach/recreate sequence provides independent direct evidence of additive coexistence after detachment.
+
+### ~00:01:14–00:01:24 — setup for recurrence removal
+
+**VIDEO-DIRECT**
+- recurring parent and its three Fri/Sat/Sun children remain visible;
+- the tutorial re-enters the recurring parent lifecycle controls.
+
+### ~00:01:24–00:01:29 — Update Recurring → No Repeat
+
+**VIDEO-DIRECT**
+- `Update Recurring` opens the scheduling surface with the current weekly Fri/Sat/Sun rule selected;
+- selecting **`No Repeat`** changes the selected preset in the same surface.
+
+**CONDITIONAL-UI-DIRECT**
+- the neutral Replace row disappears;
+- a warm/destructive consequence row appears:
+  - **`Delete existing tasks(3)`**.
+- the count exactly matches the three currently materialized Fri/Sat/Sun children.
+
+**MOTION-APPROX**
+- consequence-row substitution is effectively immediate in the 0.2 s samples; no separate confirmation dialog appears.
+
+### ~00:01:29–00:01:34 — Delete existing children + remove recurrence
+
+**VIDEO-DIRECT**
+- `Delete existing tasks(3)` is checked;
+- Schedule commits the No Repeat state;
+- the three generated scheduled children disappear;
+- one `Get some sleep` task remains as an ordinary single item;
+- recurring-group/linked recurrence presentation is no longer present.
 
 **SEMANTIC-DIRECT**
-- the number in parentheses directly corresponds to the seven currently generated scheduled children.
+- No Repeat + Delete Existing removes both the recurring relationship and the existing generated children while preserving the parent/task itself as a single item.
 
-### ~00:00:53–00:00:57 — replace commit result
+### ~00:01:34–00:01:45 — no-delete branch explained
 
 **VIDEO-DIRECT**
-- after Schedule:
-  - success toast: **`Updated recurring tasks successfully!`**;
-  - recurring parent remains in Backlog;
-  - parent recurrence label changes from **Daily → Custom**;
-  - seven prior generated children are replaced by exactly **three** visible scheduled children:
-    - Fri;
-    - Sat;
-    - Sun;
-  - list header changes from 7 pending to **3 pending tasks**.
-
-**ARITHMETIC/IDENTITY-DIRECT**
-- 7 old generated children → 3 children matching the new selected weekdays;
-- this is direct evidence of the Replace Existing Tasks behavior, not merely narration.
-
-### ~00:00:57–00:01:16 — replacement alternative explained
+- source holds on the single-task post-removal state.
 
 **TRANSCRIPT-CLAIM**
-- narration states that without selecting Replace Existing Tasks, the already-generated child tasks would remain while new recurrence-generated tasks are added;
-- this exact unchecked-Replace branch is **not executed** in this first demonstration;
-- later detachment/re-schedule footage provides direct evidence for coexistence/duplicates, but it should not be mislabeled as the same internal branch.
+- narration says leaving Delete Existing unchecked would preserve child tasks as individual tasks.
+- that exact No Repeat unchecked branch is not separately committed in this interval; the next explicit Remove Recurring sequence demonstrates preservation/detachment directly.
 
-### ~00:01:16–00:01:28 — reopen updated recurring rule
+### ~00:01:45–00:01:52.5 — second staged recurrence-removal scenario
 
-**VIDEO-DIRECT**
-- board still shows:
-  - Custom recurring parent;
-  - three Fri/Sat/Sun scheduled children.
-- parent can again be opened through Update Recurring;
-- existing editor reconstructs the Custom every-1-week Friday/Saturday/Sunday rule.
-
-### ~00:01:28–00:01:32 — switch recurring rule to No Repeat
+**CUT / SOURCE-STAGING**
+- source cuts to a restored linked-recurring dataset with the Fri/Sat/Sun children again present;
+- this is tutorial reset, not a product undo animation.
 
 **VIDEO-DIRECT**
-- selecting **`No Repeat`** collapses/removes the custom interval/day controls;
-- the existing-task consequence row changes category and visual severity.
+- recurring parent overflow is opened;
+- `Remove Recurring` is selected directly instead of entering Update Recurring/No Repeat.
 
-### ~00:01:32–00:01:35 — destructive Delete Existing Tasks state
-
-**VIDEO-DIRECT**
-- No Repeat displays a red/warm destructive row:
-  - **`Delete existing tasks(3)`**;
-- this row replaces the neutral Replace Existing Tasks treatment;
-- checkbox remains explicit/user-controlled;
-- Cancel and Schedule footer remain unchanged.
-
-**DIRECT CONTRAST**
-- active recurring rule update: neutral `Replace existing tasks(n)`;
-- No Repeat: destructive `Delete existing tasks(n)`.
-
-This distinction is directly visible and must not be flattened into one generic “replace/delete children” option.
-
-### ~00:01:35–00:01:37 — No Repeat + Delete Existing commit
+### ~00:01:52.5–00:01:54 — Remove Recurring detaches without deleting children
 
 **VIDEO-DIRECT**
-- Delete Existing Tasks is selected and Schedule is committed;
-- resulting board contains only one `Get some sleep` task;
-- generated Fri/Sat/Sun children are gone;
-- recurring-parent grouping/label is no longer present for that remaining task.
+- toast reports **`Removed schedule from task`**;
+- the former parent leaves the `Recurring tasks` group and appears as an ordinary Backlog task;
+- the three existing scheduled Fri/Sat/Sun child tasks remain in This Week.
 
-**RESULT-DIRECT**
-- the remaining item is a normal single task, not an active recurring parent.
+**DETACHMENT-DIRECT**
+- recurrence linkage is removed while already-materialized children survive;
+- this visually corroborates the narration's definition of detachment.
 
-### ~00:01:37–00:01:46 — unchecked Delete alternative
+### ~00:01:54–00:02:00 — schedule the detached task again
+
+**VIDEO-DIRECT**
+- ordinary task overflow now shows `Schedule`, not `Update Recurring` / `Remove Recurring`;
+- Schedule opens date picker first;
+- after date confirmation, recurrence surface begins from **No Repeat**.
+
+**IDENTITY/LIFECYCLE FINDING**
+- the detached parent is treated as an ordinary schedulable task rather than as the old recurring-parent relationship.
+
+### ~00:01:57–00:02:00.5 — new Every day rule after detachment
+
+**VIDEO-DIRECT**
+- `Every day` is selected;
+- footer remains Cancel / Schedule;
+- critically, **no `Replace existing tasks(...)` row is present**.
+
+**HIGH-CONFIDENCE ABSENCE EVIDENCE**
+- full-resolution inspection confirms the surface ends after the preset list and footer;
+- this directly proves the source's rule: after detachment, recreating recurrence no longer has the previous child-link set available for Replace.
+
+### ~00:02:00.5–00:02:02 — new recurrence commit
+
+**VIDEO-DIRECT**
+- Schedule is committed;
+- toast reports **`Created recurring tasks successfully!`**;
+- old Fri/Sat/Sun children remain;
+- newly generated daily children are added alongside them.
+
+**COUNT-DIRECT**
+- This Week visibly grows from **3 scheduled tasks** to **9 scheduled tasks this week**;
+- repeated `Get some sleep` rows coexist for overlapping days, directly demonstrating the duplicate/additive outcome warned about by narration.
+
+### ~00:02:02–00:02:08 — additive children remain
+
+**VIDEO-DIRECT**
+- board stays populated with the enlarged scheduled-child set;
+- parent is again displayed under the recurring grouping with a new `Daily` rule;
+- the old detached children were not retroactively re-associated/replaced.
+
+### ~00:02:08–00:02:28 — why detached children are preserved
 
 **TRANSCRIPT-CLAIM**
-- narration says choosing No Repeat without Delete Existing would leave generated children as independent tasks;
-- this exact unchecked-No-Repeat branch is not separately executed here;
-- do not claim a measured mutation from narration alone.
+- narration explains preservation protects user modifications such as:
+  - renaming generated children;
+  - EST edits;
+  - notes.
 
-### ~00:01:47–00:01:53 — reset scenario: Custom parent + children
+**VIDEO-DIRECT / PARTIAL CORROBORATION**
+- source visibly opens an inline Notes editor on one scheduled child during this explanation;
+- this directly demonstrates that a generated/scheduled child can carry editable per-task Notes state;
+- the clip does not visibly execute a rename and EST modification in this section, so those two examples remain narration rather than demonstrated mutations.
 
-**TUTORIAL-STAGING / VIDEO-DIRECT**
-- tutorial resets to a scenario with:
-  - recurring `Get some sleep` parent;
-  - Custom rule;
-  - Fri/Sat/Sun scheduled children.
-- reset is editorial/staged; do not interpret it as an application undo transition.
+### ~00:02:28–00:02:45 — policy/rationale and future-improvement narration
 
-### ~00:01:51–00:01:53 — Remove Recurring
+**TRANSCRIPT-CLAIM**
+- narration characterizes the two choices as:
+  - preserve existing scheduled tasks;
+  - start fresh with replacement/deletion.
+- statements about future feature improvement are roadmap commentary, not product UI evidence.
 
-**VIDEO-DIRECT**
-- recurring-parent overflow again shows Update Recurring / Remove Recurring / Duplicate / Delete;
-- `Remove Recurring` is activated.
+### ~00:02:45–00:02:50.06 — outro
 
-### ~00:01:53–00:01:55 — detachment result
-
-**VIDEO-DIRECT**
-- parent task remains visible, but:
-  - it leaves the `Recurring tasks` parent grouping;
-  - recurring label/loop metadata disappears;
-  - ordinary hover/overflow grammar returns.
-- the previously generated **Fri / Sat / Sun children remain visible** in This Week.
-
-**MENU-DIRECT**
-- detached parent's ordinary overflow now reads:
-  1. `Schedule`
-  2. `Change list`
-  3. `Duplicate`
-  4. `Delete`.
-- Update Recurring / Remove Recurring are gone.
-
-This is direct visual evidence of parent-child detachment without child deletion.
-
-### ~00:01:55–00:02:01 — re-schedule detached parent
-
-**VIDEO-DIRECT**
-- Schedule on the now-ordinary parent opens the date/recurrence editor as a new scheduling operation;
-- a new recurrence preset is selected (the demonstration moves through preset choices and settles on **Every day**).
-
-**CRITICAL VIDEO-DIRECT**
-- editor **does not show `Replace existing tasks(...)`**;
-- the old Fri/Sat/Sun children are still visible behind the modal;
-- Schedule footer remains available.
-
-This directly confirms the narrated rule that once the old schedule relationship is detached, a later new schedule has no replace relationship to those old children.
-
-### ~00:02:01–00:02:06 — re-schedule result: coexistence / duplicates
-
-**VIDEO-DIRECT**
-- after scheduling the detached parent again:
-  - Backlog once again shows a recurring parent, now **Daily**;
-  - new daily-generated `Get some sleep` entries appear;
-  - old Fri/Sat/Sun detached children remain;
-  - duplicate same-day labels are visibly present in This Week;
-  - list header reaches **10 pending tasks** in the demonstrated state.
-
-**DIRECT DUPLICATION EVIDENCE**
-- source visibly contains multiple `Get some sleep` rows for the same weekday/date family after re-scheduling;
-- this is direct corroboration of “new entries alongside old ones” after detachment.
-
-### ~00:02:06–00:02:28 — why detached/customized children are preserved
-
-**VIDEO-DIRECT**
-- tutorial hovers/edits one of the surviving child rows:
-  - EST affordance is independently editable;
-  - Notes can expand inline on an individual generated/detached child;
-  - child rows remain ordinary editable task cards.
-- inline Notes editor occupies the child card and preserves the surrounding board.
-
-**TRANSCRIPT-CLAIM / VISUAL CORROBORATION**
-- narration explains preservation exists so renamed children, EST changes or Notes are not overwritten automatically;
-- source directly shows EST and Notes affordances on individual child tasks, corroborating that these children can contain user-specific edits;
-- it does not execute every possible customization/overwrite conflict.
-
-### ~00:02:28–00:02:46 — summary
-
-**VIDEO-DIRECT**
-- board remains populated with parent + old/new child entries while narration summarizes the two user choices;
-- no additional unique control state appears.
-
-### ~00:02:46–00:02:50.063 — branded outro
-
-**VIDEO-DIRECT / NON-PRODUCT**
-- hard transition to Blitzit logo/tagline outro;
-- excluded from application parity requirements.
+**VIDEO-DIRECT / NON-PARITY**
+- source cuts to Blitzit end card;
+- branding outro is not product parity evidence.
 
 ## VE-017 source synthesis
 
-High-confidence source behavior established:
-- recurring parents use a specialized Update Recurring / Remove Recurring menu;
-- Daily parent directly owns seven currently generated children in the initial example;
-- custom weekly editor exposes interval, unit, weekday chips and natural-language rule summary;
-- active relationship displays neutral `Replace existing tasks(n)`;
-- selecting Replace on a 7-child Daily set and changing rule to Fri/Sat/Sun directly yields 3 generated children and parent label Custom;
-- No Repeat swaps neutral Replace for destructive red `Delete existing tasks(n)`;
-- selecting Delete Existing Tasks(3) removes the generated children and leaves one ordinary single task;
-- Remove Recurring is semantically distinct from No Repeat + Delete: it detaches the parent while visibly retaining existing Fri/Sat/Sun children;
-- after detachment the task's menu becomes ordinary Schedule / Change list / Duplicate / Delete;
-- re-scheduling that detached parent shows no Replace Existing Tasks row;
-- new Daily entries are then created alongside the retained old children, visibly producing duplicates and 10 pending tasks;
-- individual child rows remain independently editable (including EST and Notes), visually corroborating the rationale for avoiding destructive overwrite;
-- tutorial resets/cuts are explicitly separated from application mutation timing;
-- unchecked Replace and unchecked Delete alternatives remain narration-only unless/direct until another source executes them.
+High-confidence lifecycle behavior established:
+- linked recurring parents expose Update Recurring and Remove Recurring in overflow;
+- updating a still-linked parent can expose `Replace existing tasks(N)`;
+- Replace is neutral/non-destructive visual treatment;
+- direct source count is `Replace existing tasks(7)` before converting daily recurrence to Fri/Sat/Sun;
+- Custom supports repeat interval/unit, weekday chips and a plain-language summary;
+- selecting Friday/Saturday/Sunday + Replace transforms the visible scheduled set to 3 children and yields an update-success toast;
+- switching a linked rule to No Repeat removes Replace and exposes destructive `Delete existing tasks(3)`;
+- No Repeat + Delete Existing removes the generated children and recurrence while preserving a single ordinary task;
+- direct Remove Recurring detaches the parent without deleting its three existing children;
+- after detachment, the task's overflow returns to ordinary Schedule;
+- creating a new recurrence after detachment shows **no Replace option**;
+- committing Every day adds new children alongside the three detached children;
+- visible scheduled count increases **3 → 9**, directly demonstrating duplicate/additive materialization;
+- detached/generated child tasks can hold independent Notes state;
+- rename/EST-preservation rationale is narrated but not separately demonstrated in this source.
+
+Static corroboration:
+- SS-H08 independently shows No Repeat + destructive Delete Existing Tasks row;
+- board/help screenshots corroborate Recurring tasks grouping and scheduled-child presentation.
 
 No implementation conclusion is made in this analysis track.
 
