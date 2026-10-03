@@ -62,8 +62,8 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **12/19**
-- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough; VE-011 Reports; VE-012 Improved Sessions and Stats**
+- Full MP4s completed to Pass-3 standard: **13/19**
+- Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough; VE-011 Reports; VE-012 Improved Sessions and Stats; VE-006 Delete & Archive**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
@@ -81,26 +81,25 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-006 — `Blitzit Tutorial How to Delete & Archive Tasks and Lists.mp4`.**
+**Continue with VE-008 — `Blitzit Tutorial How to Set Up Recurring Tasks.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015, VE-011, VE-012.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015, VE-011, VE-012, VE-006.
 
-For VE-006:
+For VE-008:
 
-1. inspect the complete **01:23.963, 1920×1080, 60 fps** MP4;
-2. build a full delete/archive timeline;
+1. inspect the complete **02:46.905, 1920×1080, 60 fps** MP4;
+2. build a full recurring-task setup/materialization timeline;
 3. densely inspect:
-   - ordinary task Delete;
-   - any confirmation or lack of confirmation;
-   - list Archive from Home/list-card overflow;
-   - Archived Lists populated state;
-   - Unarchive;
-   - Delete Forever;
-   - Archived Done tasks state/actions;
-   - any 60-day archival behavior shown vs narration-only;
-4. distinguish destructive task deletion, reversible list archive and permanent archived-list deletion;
+   - initial Schedule entry and recurrence presets;
+   - recurring parent creation;
+   - generated child-task placement/counts;
+   - parent vs child identity/metadata;
+   - daily/weekday/specific-day/monthly examples actually committed;
+   - update/remove actions;
+   - detach/coexistence behavior if demonstrated;
+4. distinguish direct generated-task evidence from narration about future generation cadence;
 5. update analysis Markdown only;
-6. then continue to VE-008.
+6. then continue to VE-002.
 
 ## Media-access rule
 
