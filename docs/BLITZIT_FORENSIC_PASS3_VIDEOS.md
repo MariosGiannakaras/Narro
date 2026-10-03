@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 7/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 8/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -2028,20 +2028,177 @@ No implementation conclusion is made in this analysis track.
 # Queue 8 — VE-009 — Custom Recurring Schedules
 
 Source: `Blitzit Tutorial How to Use Custom Recurring Schedules.mp4`  
-Metadata: **02:39.893, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **02:39.833 video stream / ~02:39.893 container, 1920×1080, 60 fps, 9,590 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior window:
-- 00:00:25–00:02:14 — custom interval editor.
+Inspection method:
+- complete source reviewed across the full duration;
+- whole-video contact scan;
+- dense sampling through schedule entry and the complete Custom editor demonstration;
+- full-resolution keyframes for unit dropdown, weekday chips, monthly selector, natural-language summary and save result;
+- micro-sampling around day→week→month→year conditional reflow;
+- transcript used only to separate narrated examples from states directly visible in the source.
 
-Pass-3 focus:
-- interval number/unit control;
-- day/week/month/year switching;
-- weekday chips;
-- monthly subordinate options;
-- plain-language rule summary;
-- conditional geometry/reflow;
-- Schedule footer persistence.
+## VE-009 chronological state map
+
+### 00:00:00–~00:00:25 — tutorial setup / board context
+
+**VIDEO-DIRECT / NON-UNIQUE**
+- source opens on the dark board and introduces custom recurring schedules;
+- `Team meeting` is the task used for the demonstrated schedule;
+- early tutorial/montage material contains editorial transitions and is not used for animation timing.
+
+### ~00:00:25–00:00:38 — Schedule → date → recurrence details
+
+**VIDEO-DIRECT**
+- ordinary task overflow exposes Schedule;
+- scheduler uses the same calendar-first flow established in VE-007;
+- chosen date is **Sun, Sep 14th, 2025**;
+- after Next, the same scheduling surface retains the chosen date at upper-right;
+- `Add Time` remains available above recurrence settings;
+- `Custom` appears at the bottom of the recurrence preset list.
+
+### ~00:00:38–00:00:43 — enter Custom editor
+
+**VIDEO-DIRECT**
+- selecting `Custom` replaces the preset list in-place with a conditional custom-rule editor;
+- the editor contains:
+  - `Custom` header with an X/clear control;
+  - `Repeat every`;
+  - numeric stepper/input;
+  - unit dropdown;
+  - information/summary strip in plain language;
+  - persistent Cancel / gradient Schedule footer.
+- selected date and Add Time context remain above; entering Custom does not restart the scheduling flow.
+
+### ~00:00:43–00:01:11 — day interval
+
+**VIDEO-DIRECT**
+- initial state:
+  - numeric value **1**;
+  - unit **day**;
+  - summary **`every day`**.
+- changing numeric interval to **3** updates unit plurality to **days**;
+- summary updates to **`every 3 days`**.
+
+**DROPDOWN-DIRECT**
+- unit dropdown exposes:
+  - `days`;
+  - `weeks`;
+  - `months`;
+  - `years`.
+
+**SEMANTIC-DIRECT**
+- summary is live derived feedback from the currently selected custom rule;
+- no separate Apply is required to preview the meaning.
+
+### ~00:01:11–00:01:31 — week interval + weekday chips
+
+**VIDEO-DIRECT**
+- selecting weeks conditionally inserts a `Repeat On` row;
+- weekday chips appear Sunday-first:
+  - S, M, T, W, T, F, S.
+- initial demonstrated weekly state selects Monday;
+- with interval 3, summary reads **`every 3 weeks on Monday`**.
+
+**VIDEO-DIRECT**
+- numeric interval is changed to **4**;
+- Monday and Friday are selected;
+- summary becomes **`every 4 weeks on Monday, Friday`**.
+- clicking the selected Friday chip again deselects it;
+- summary immediately reduces to **`every 4 weeks on Monday`**.
+
+**CONDITIONAL REFLOW**
+- weekday controls are inserted inside the same modal and push the summary/footer region downward;
+- no nested dialog/page is used;
+- at sampled resolution the conditional content appears within the next ~0.2 s sample, with no separate fade evident. Treat this as fast in-place reflow, not a precise 200 ms animation requirement.
+
+### ~00:01:31–00:01:54 — month interval + monthly subordinate selector
+
+**VIDEO-DIRECT**
+- selecting months removes the weekday-chip row and inserts a different `Repeat On` selector;
+- the monthly selector directly offers two date-relative strategies:
+  - **`Monthly on day 14`**;
+  - **`Monthly on the 2nd Sunday`**.
+- with interval 4 and date option selected, summary reads:
+  - **`every 4 months on the 14th`**.
+- selecting the weekday-relative option changes the field to:
+  - **`Monthly on the 2nd Sunday`**
+- and summary updates to:
+  - **`every 4 months on the 2nd Sunday`**.
+
+**SEMANTIC-DIRECT**
+- month mode derives both alternatives from the chosen schedule date:
+  - ordinal calendar date;
+  - ordinal weekday occurrence.
+
+### ~00:01:54–00:02:08 — year interval
+
+**VIDEO-DIRECT**
+- selecting years removes the monthly subordinate selector;
+- demonstrated value is **4 years**;
+- summary becomes **`every 4 years`**;
+- no weekday or monthly Repeat On control remains.
+
+**CONDITIONAL-GRAMMAR DIRECT**
+- day = interval only;
+- week = interval + weekday chips;
+- month = interval + monthly date/ordinal-weekday selector;
+- year = interval only.
+- all four modes share the same surrounding schedule surface and footer.
+
+### ~00:02:08–00:02:14 — return to simple custom rule and save
+
+**VIDEO-DIRECT**
+- before commit, tutorial returns the custom rule to **1 day**;
+- summary returns to **`every day`**;
+- Schedule is then activated.
+
+### ~00:02:14–00:02:18 — save result
+
+**VIDEO-DIRECT**
+- toast appears: **`Created recurring tasks successfully!`**;
+- Backlog gains a `Recurring tasks` group;
+- recurring parent is `Team meeting`;
+- parent shows:
+  - recurrence label **`Custom`**;
+  - loop/recurrence icon;
+  - list badge.
+- This Week shows **`1 Scheduled tasks this week`** with a generated `Team meeting` child labeled **Sun**;
+- board/list header is **8 pending tasks** in the demonstrated state;
+- This Week progress is **1/8 Done**;
+- Today progress is **0/3 Done**.
+
+**EVIDENCE LIMIT**
+- the visible result directly proves parent + currently materialized child representation for this saved custom rule;
+- it does not prove an unlimited/future materialization horizon or generation cadence beyond what is shown.
+
+### ~00:02:18–00:02:39.83 — recap/outro
+
+**TRANSCRIPT-CLAIM / NON-UNIQUE**
+- narration says custom schedules generate child tasks like regular recurring schedules;
+- the visible parent/child result corroborates that at least one child is generated;
+- later explanatory/outro content adds no new editor state.
+
+## VE-009 source synthesis
+
+High-confidence direct behavior established:
+- Custom is entered from the ordinary recurrence preset list without leaving the scheduler;
+- selected date and optional Add Time context persist while editing recurrence;
+- Custom rule always has numeric interval + unit dropdown + live natural-language summary;
+- unit options are days / weeks / months / years;
+- summary pluralizes and updates immediately with interval changes;
+- week mode conditionally inserts Sunday-first weekday chips and derives selected weekday names in summary;
+- month mode replaces weekday chips with a date-relative selector offering day-of-month vs ordinal-weekday recurrence;
+- year mode removes subordinate Repeat On controls;
+- conditional mode changes use in-place reflow and preserve the Cancel/Schedule footer;
+- demonstrated weekly summary is `every 4 weeks on Monday, Friday`, then `every 4 weeks on Monday` after deselection;
+- demonstrated monthly summaries are `every 4 months on the 14th` and `every 4 months on the 2nd Sunday`;
+- demonstrated year summary is `every 4 years`;
+- saving the final every-day custom rule produces a Custom recurring parent and a visible scheduled child plus success toast;
+- no implementation assumptions or future-generation behavior beyond the visible source are inferred.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
