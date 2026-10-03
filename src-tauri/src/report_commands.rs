@@ -42,6 +42,7 @@ pub struct ReportSessionPayload {
     pub started_at: String,
     pub ended_at: String,
     pub duration_seconds: String,
+    pub updated_at: String,
     pub task_archived: bool,
     pub list_archived: bool,
 }
@@ -215,6 +216,7 @@ impl From<ReportSessionRow> for ReportSessionPayload {
             started_at: value.started_at,
             ended_at: value.ended_at,
             duration_seconds: value.duration_seconds.to_string(),
+            updated_at: value.updated_at,
             task_archived: value.task_archived,
             list_archived: value.list_archived,
         }
