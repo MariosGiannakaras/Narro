@@ -1,0 +1,209 @@
+{
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "final-css-build.txt",
+      "bytes": 8688,
+      "sha256": "4668479e4c42d706faae8fab7c412f290009f6f3bec490df1a8a317841a75187"
+    },
+    {
+      "path": "focus-editor-motion-panel-timerCompact-dark.html",
+      "bytes": 2307,
+      "sha256": "d91605e61f6e63f9349cd7a37fdefda5169450e284557c09e7b1af5bbcae63d9"
+    },
+    {
+      "path": "focus-editor-motion-panel-timerCompact-dark.png",
+      "bytes": 5422,
+      "sha256": "f4248c75db89cb5501b2a8aa3b44b80d032679b8e886072a2c47a1d97e892001"
+    },
+    {
+      "path": "focus-editor-motion-panel-timerCompact-light.html",
+      "bytes": 2309,
+      "sha256": "91ff2c787824a765407a9d79ef6cf56752bb06601c2947383431823cd7412189"
+    },
+    {
+      "path": "focus-editor-motion-panel-timerCompact-light.png",
+      "bytes": 5497,
+      "sha256": "e141c06ff8da827c211982a8b00506e87f727e8a2be49e5047b547337083db2c"
+    },
+    {
+      "path": "focus-editor-motion-timerCompact-panel-dark.html",
+      "bytes": 2314,
+      "sha256": "f42cf837f0bf4b5cfd88956a7943ea9387a34cc5f5ff26893bf484a373f931f4"
+    },
+    {
+      "path": "focus-editor-motion-timerCompact-panel-dark.png",
+      "bytes": 5422,
+      "sha256": "f4248c75db89cb5501b2a8aa3b44b80d032679b8e886072a2c47a1d97e892001"
+    },
+    {
+      "path": "focus-editor-motion-timerCompact-panel-light.html",
+      "bytes": 2316,
+      "sha256": "20da4297b2e3168f42c93ed8936d77d5d5d7404e166e05af5f04a8121562664c"
+    },
+    {
+      "path": "focus-editor-motion-timerCompact-panel-light.png",
+      "bytes": 5765,
+      "sha256": "a68cb48b249721e0ae8fb8b3066607baee71940070db23874a50a6f03145e3e4"
+    },
+    {
+      "path": "focus-editor-notes-panel-compact-dark.html",
+      "bytes": 8148,
+      "sha256": "e7946649413c9747f99d0710c25db09ab73ec7181eab4171d0da8869a8c3f9da"
+    },
+    {
+      "path": "focus-editor-notes-panel-compact-dark.png",
+      "bytes": 28322,
+      "sha256": "d13101aac41a0f9947bd2f178bdb95e0901b5746acd687a514b2e342fdcbf17a"
+    },
+    {
+      "path": "focus-editor-notes-panel-compact-light.html",
+      "bytes": 8150,
+      "sha256": "91c51166c831a83ef65a9d8a43bfa25f76e1fcd37029fc15b5d1c1347ead33b6"
+    },
+    {
+      "path": "focus-editor-notes-panel-compact-light.png",
+      "bytes": 33469,
+      "sha256": "4916b38365fdad142e994170d48e9727aa6c7d7ba920b50e76be37b6518214c2"
+    },
+    {
+      "path": "focus-editor-notes-panel-large-dark.html",
+      "bytes": 8398,
+      "sha256": "8a31f8dea1df765c46d0bd9cc9ca4783e058bbcacd7050b388e96d917d213f9b"
+    },
+    {
+      "path": "focus-editor-notes-panel-large-dark.png",
+      "bytes": 28315,
+      "sha256": "d0cf14e5ab016180ab4011eccd8d64d00375a501be2d88e813e758f5077d4716"
+    },
+    {
+      "path": "focus-editor-notes-panel-large-light.html",
+      "bytes": 8401,
+      "sha256": "718fa9d76de2bec251ce4ce4ef8638baf5a37d167e93898b76665675a8e02cad"
+    },
+    {
+      "path": "focus-editor-notes-panel-large-light.png",
+      "bytes": 29377,
+      "sha256": "0496678d3c48ac24bf102942c9ca6af69c12473addcdef0ba4266d18c4df61fd"
+    },
+    {
+      "path": "focus-editor-notes-timerExpanded-compact-dark.html",
+      "bytes": 8178,
+      "sha256": "e961f9c72b9d994c15a45156129484793a2413c9d4eaedd40356d72636fbfde4"
+    },
+    {
+      "path": "focus-editor-notes-timerExpanded-compact-dark.png",
+      "bytes": 9843,
+      "sha256": "500547839bc4b2030a85fbe9fd19b098f88ae7a935cf0f288c12a93aa30749b2"
+    },
+    {
+      "path": "focus-editor-notes-timerExpanded-compact-light.html",
+      "bytes": 8180,
+      "sha256": "bb0d1baf5613087048ed744aacf26848abf84b28d91adaadd579625903d8e789"
+    },
+    {
+      "path": "focus-editor-notes-timerExpanded-compact-light.png",
+      "bytes": 9800,
+      "sha256": "b9b5563f29ab6ef42e6fd2010df0a227b6caeaba190e4d340997d704086075c2"
+    },
+    {
+      "path": "focus-editor-notes-timerExpanded-large-dark.html",
+      "bytes": 8429,
+      "sha256": "94ec49238690bb6b3dfda35b8da7dc66a8e96c21844ddb2265c5cc74f7fa1ce1"
+    },
+    {
+      "path": "focus-editor-notes-timerExpanded-large-dark.png",
+      "bytes": 21091,
+      "sha256": "b51088a1064fcac716bee61968ff6d3f9c89f02d095de29b9be5a1aecd8c0fd0"
+    },
+    {
+      "path": "focus-editor-notes-timerExpanded-large-light.html",
+      "bytes": 8430,
+      "sha256": "f178ae868b2a6a2d7cbfbd37569ad8589a4e8e66d90673728a90f2972d14b463"
+    },
+    {
+      "path": "focus-editor-notes-timerExpanded-large-light.png",
+      "bytes": 26837,
+      "sha256": "3f7f286ea9ac042953197072422b792855a8b7d77a59f5dc4883a0d2773b67bb"
+    },
+    {
+      "path": "focus-editor-quick-empty-dark.html",
+      "bytes": 1784,
+      "sha256": "221134a9d542bce41b64696b36268386e5c5e92e4922d782cfa54797b712eb50"
+    },
+    {
+      "path": "focus-editor-quick-empty-dark.png",
+      "bytes": 6832,
+      "sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3"
+    },
+    {
+      "path": "focus-editor-quick-empty-light.html",
+      "bytes": 1786,
+      "sha256": "273ca42636a464011eed1217746dc77f30fcb3a35268fcede81869289fd58a47"
+    },
+    {
+      "path": "focus-editor-quick-empty-light.png",
+      "bytes": 6803,
+      "sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f"
+    },
+    {
+      "path": "focus-editor-quick-error-dark.html",
+      "bytes": 1784,
+      "sha256": "00f2b44132365b2cd1ea411f0d6d3a71e3edc2580c2f88514bc1106fd0433dfb"
+    },
+    {
+      "path": "focus-editor-quick-error-dark.png",
+      "bytes": 6832,
+      "sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3"
+    },
+    {
+      "path": "focus-editor-quick-error-light.html",
+      "bytes": 1786,
+      "sha256": "9ef8b424aa4d8dd27c95d6451774498d88a5a07bbef0a54eb28504cb1e939e6b"
+    },
+    {
+      "path": "focus-editor-quick-error-light.png",
+      "bytes": 6803,
+      "sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f"
+    },
+    {
+      "path": "focus-editor-quick-success-dark.html",
+      "bytes": 1824,
+      "sha256": "a9045882cc4ee45be9ad0962367fa169e7fd841d0f911125e740e4b2d5fa55c8"
+    },
+    {
+      "path": "focus-editor-quick-success-dark.png",
+      "bytes": 6832,
+      "sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3"
+    },
+    {
+      "path": "focus-editor-quick-success-light.html",
+      "bytes": 1826,
+      "sha256": "7260163621f9c3f0b7f6c736bae9c3065ad690ecaeff5ee366c83dc75ab9a4eb"
+    },
+    {
+      "path": "focus-editor-quick-success-light.png",
+      "bytes": 6803,
+      "sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f"
+    },
+    {
+      "path": "frontend-preflight.txt",
+      "bytes": 21925,
+      "sha256": "1f0c7b74c6ffdd7b8dbadd9d5d8731bbb0b75dc7ea48f42f85835ceedf3b6ffa"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 3149,
+      "sha256": "064073c3b19403c98687c411f411c1a063720d9f7e52db003f2af8297a3ea9b7"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1474,
+      "sha256": "6a3a38684bbe17912c0144f19cab59bc6d0cc11044b74aea5f4e4634ed761ed9"
+    }
+  ]
+}
