@@ -6,7 +6,7 @@ export type ReportSessionSource = "focus" | "manual" | "edit";
 export type ReportRange = {
   startAt: string;
   endAt: string;
-  listId: string | null;
+  listIds: string[];
 };
 
 export type ReportSession = {
@@ -98,6 +98,34 @@ export type ReportOverview = {
   punctuality: ReportPunctualitySummary;
 };
 
+export type ReportSessionsSummary = {
+  totalFocusSeconds: string;
+  totalTasks: string;
+  totalSessions: string;
+};
+
+export type ReportSessionsRow = {
+  session: ReportSession;
+  taskSessionOrdinal: string | null;
+};
+
+export type ReportSessions = {
+  summary: ReportSessionsSummary;
+  rows: ReportSessionsRow[];
+};
+
+export type ReportTaskSessionsDetail = {
+  taskId: string;
+  taskTitle: string;
+  listId: string;
+  listTitle: string;
+  taskArchived: boolean;
+  listArchived: boolean;
+  totalFocusSeconds: string;
+  totalSessions: string;
+  rows: ReportSessionsRow[];
+};
+
 export type ReportSessionMutation = {
   id: string;
   taskId: string | null;
@@ -113,14 +141,25 @@ export type ReportSessionMutation = {
 export type GetReportHistoryRequest = {
   startAt: string;
   endAt: string;
-  listId: string | null;
+  listIds: string[];
 };
 
 export type GetReportOverviewRequest = {
   startAt: string;
   endAt: string;
-  listId: string | null;
+  listIds: string[];
   displayTimezone: string;
+};
+
+export type GetReportSessionsRequest = {
+  startAt: string;
+  endAt: string;
+  listIds: string[];
+  showBreakSessions: boolean;
+};
+
+export type GetReportTaskSessionsRequest = {
+  taskId: string;
 };
 
 export type CreateManualReportSessionRequest = {
@@ -149,6 +188,16 @@ export function getReportHistory(request: GetReportHistoryRequest): Promise<Repo
 
 export function getReportOverview(request: GetReportOverviewRequest): Promise<ReportOverview> {
   return invoke<ReportOverview>("get_report_overview", request);
+}
+
+export function getReportSessions(request: GetReportSessionsRequest): Promise<ReportSessions> {
+  return invoke<ReportSessions>("get_report_sessions", request);
+}
+
+export function getReportTaskSessions(
+  request: GetReportTaskSessionsRequest,
+): Promise<ReportTaskSessionsDetail> {
+  return invoke<ReportTaskSessionsDetail>("get_report_task_sessions", request);
 }
 
 export function createManualReportSession(

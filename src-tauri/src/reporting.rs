@@ -11,7 +11,16 @@ use std::fmt::{Display, Formatter};
 pub struct ReportRange {
     pub start_at: String,
     pub end_at: String,
-    pub list_id: Option<ListId>,
+    pub list_ids: Vec<ListId>,
+}
+
+impl ReportRange {
+    fn includes_list(&self, list_id: Option<ListId>) -> bool {
+        self.list_ids.is_empty()
+            || list_id
+                .map(|id| self.list_ids.contains(&id))
+                .unwrap_or(false)
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -420,7 +429,6 @@ fn report_sessions(
     range: &ReportRange,
     validated: &ValidatedRange,
 ) -> Result<Vec<ReportSessionRow>, ReportingError> {
-    let list_filter = range.list_id.map(|id| id.to_string());
     let mut statement = conn.prepare(
         "SELECT
             s.id,
@@ -439,14 +447,15 @@ fn report_sessions(
          LEFT JOIN tasks t ON t.id = s.task_id
          LEFT JOIN lists l ON l.id = t.list_id
          WHERE s.ended_at IS NOT NULL
-           AND (?1 IS NULL OR t.list_id = ?1)
          ORDER BY s.started_at, s.id",
     )?;
-    let rows = statement.query_map([list_filter.as_deref()], raw_session_row)?;
+    let rows = statement.query_map([], raw_session_row)?;
     let mut result = Vec::new();
     for row in rows {
         if let Some(decoded) = decode_session_row(row?, validated)? {
-            result.push(decoded);
+            if range.includes_list(decoded.list_id) {
+                result.push(decoded);
+            }
         }
     }
     Ok(result)
@@ -457,7 +466,6 @@ fn report_completed_tasks(
     range: &ReportRange,
     validated: &ValidatedRange,
 ) -> Result<Vec<ReportCompletedTaskRow>, ReportingError> {
-    let list_filter = range.list_id.map(|id| id.to_string());
     let mut statement = conn.prepare(
         "SELECT
             t.id,
@@ -474,17 +482,18 @@ fn report_completed_tasks(
          JOIN lists l ON l.id = t.list_id
          LEFT JOIN sessions s ON s.task_id = t.id
          WHERE t.completed_at IS NOT NULL
-           AND (?1 IS NULL OR t.list_id = ?1)
          GROUP BY
             t.id, t.list_id, t.title, l.title, t.est_seconds, t.completed_at,
             t.manual_time_adjustment_seconds, t.archived_at, l.archived_at
          ORDER BY t.completed_at, t.id",
     )?;
-    let rows = statement.query_map([list_filter.as_deref()], raw_completed_task_row)?;
+    let rows = statement.query_map([], raw_completed_task_row)?;
     let mut result = Vec::new();
     for row in rows {
         if let Some(decoded) = decode_completed_task_row(row?, validated)? {
-            result.push(decoded);
+            if range.includes_list(Some(decoded.list_id)) {
+                result.push(decoded);
+            }
         }
     }
     Ok(result)
@@ -841,7 +850,7 @@ mod tests {
             range: ReportRange {
                 start_at: "2026-09-01T00:00:00Z".into(),
                 end_at: "2026-10-01T00:00:00Z".into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
             sessions: vec![
                 snapshot_session(
@@ -932,7 +941,7 @@ mod tests {
             range: ReportRange {
                 start_at: START.into(),
                 end_at: END.into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
             sessions: Vec::new(),
             completed_tasks: vec![
@@ -985,7 +994,7 @@ mod tests {
             range: ReportRange {
                 start_at: "2026-11-01T00:00:00Z".into(),
                 end_at: "2026-11-02T12:00:00Z".into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
             sessions: vec![
                 snapshot_session(
@@ -1034,7 +1043,7 @@ mod tests {
             range: ReportRange {
                 start_at: START.into(),
                 end_at: END.into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
             sessions: Vec::new(),
             completed_tasks: vec![completed_snapshot_task(
@@ -1078,7 +1087,7 @@ mod tests {
             range: ReportRange {
                 start_at: START.into(),
                 end_at: END.into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
             sessions: Vec::new(),
             completed_tasks: Vec::new(),
@@ -1194,7 +1203,7 @@ mod tests {
             ReportRange {
                 start_at: START.into(),
                 end_at: END.into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
         )
         .expect("all-list report");
@@ -1207,7 +1216,7 @@ mod tests {
             ReportRange {
                 start_at: START.into(),
                 end_at: END.into(),
-                list_id: Some(alpha),
+                list_ids: vec![alpha],
             },
         )
         .expect("alpha report");
@@ -1218,6 +1227,22 @@ mod tests {
             .all(|row| row.list_id == Some(alpha)));
         assert_eq!(alpha_only.completed_tasks.len(), 1);
         assert_eq!(alpha_only.completed_tasks[0].task_id, alpha_task);
+
+        let alpha_and_beta = report_history_snapshot(
+            &conn,
+            ReportRange {
+                start_at: START.into(),
+                end_at: END.into(),
+                list_ids: vec![alpha, beta],
+            },
+        )
+        .expect("multi-list report");
+        assert_eq!(alpha_and_beta.sessions.len(), 3);
+        assert!(alpha_and_beta
+            .sessions
+            .iter()
+            .all(|row| row.list_id == Some(alpha) || row.list_id == Some(beta)));
+        assert_eq!(alpha_and_beta.completed_tasks.len(), 2);
     }
 
     #[test]
@@ -1244,7 +1269,7 @@ mod tests {
             ReportRange {
                 start_at: START.into(),
                 end_at: END.into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
         )
         .expect("archived report");
@@ -1261,7 +1286,7 @@ mod tests {
             ReportRange {
                 start_at: START.into(),
                 end_at: END.into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
         )
         .expect("post-delete report");
@@ -1290,7 +1315,7 @@ mod tests {
             ReportRange {
                 start_at: START.into(),
                 end_at: END.into(),
-                list_id: None,
+                list_ids: Vec::new(),
             },
         )
         .expect("metrics report");
@@ -1309,7 +1334,7 @@ mod tests {
                 ReportRange {
                     start_at: "not-a-date".into(),
                     end_at: END.into(),
-                    list_id: None,
+                    list_ids: Vec::new(),
                 },
             ),
             Err(ReportingError::InvalidRangeTimestamp("start_at"))
@@ -1320,7 +1345,7 @@ mod tests {
                 ReportRange {
                     start_at: END.into(),
                     end_at: START.into(),
-                    list_id: None,
+                    list_ids: Vec::new(),
                 },
             ),
             Err(ReportingError::EmptyOrReversedRange)

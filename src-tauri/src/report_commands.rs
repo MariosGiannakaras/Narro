@@ -12,6 +12,10 @@ use crate::reporting::{
     ReportHistorySnapshot, ReportOverview, ReportOverviewSummary, ReportProductiveSummary,
     ReportPunctualitySummary, ReportRange, ReportSessionRow, ReportTimeByListRow, ReportingError,
 };
+use crate::session_reporting::{
+    load_sessions_report, load_task_sessions_detail, SessionsReportError, SessionsReportProjection,
+    SessionsReportRow, SessionsReportSummary, TaskSessionsDetailProjection,
+};
 use rusqlite::Connection;
 use serde::Serialize;
 use std::path::PathBuf;
@@ -22,7 +26,7 @@ use tauri::Manager;
 pub struct ReportRangePayload {
     pub start_at: String,
     pub end_at: String,
-    pub list_id: Option<String>,
+    pub list_ids: Vec<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -136,6 +140,42 @@ pub struct ReportOverviewPayload {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
+pub struct ReportSessionsSummaryPayload {
+    pub total_focus_seconds: String,
+    pub total_tasks: String,
+    pub total_sessions: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportSessionsRowPayload {
+    pub session: ReportSessionPayload,
+    pub task_session_ordinal: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportSessionsPayload {
+    pub summary: ReportSessionsSummaryPayload,
+    pub rows: Vec<ReportSessionsRowPayload>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportTaskSessionsDetailPayload {
+    pub task_id: String,
+    pub task_title: String,
+    pub list_id: String,
+    pub list_title: String,
+    pub task_archived: bool,
+    pub list_archived: bool,
+    pub total_focus_seconds: String,
+    pub total_sessions: String,
+    pub rows: Vec<ReportSessionsRowPayload>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ReportSessionMutationPayload {
     pub id: String,
     pub task_id: Option<String>,
@@ -153,7 +193,11 @@ impl From<ReportRange> for ReportRangePayload {
         Self {
             start_at: value.start_at,
             end_at: value.end_at,
-            list_id: value.list_id.map(|id| id.to_string()),
+            list_ids: value
+                .list_ids
+                .into_iter()
+                .map(|id| id.to_string())
+                .collect(),
         }
     }
 }
@@ -289,6 +333,50 @@ impl From<ReportOverview> for ReportOverviewPayload {
     }
 }
 
+impl From<SessionsReportSummary> for ReportSessionsSummaryPayload {
+    fn from(value: SessionsReportSummary) -> Self {
+        Self {
+            total_focus_seconds: value.total_focus_seconds.to_string(),
+            total_tasks: value.total_tasks.to_string(),
+            total_sessions: value.total_sessions.to_string(),
+        }
+    }
+}
+
+impl From<SessionsReportRow> for ReportSessionsRowPayload {
+    fn from(value: SessionsReportRow) -> Self {
+        Self {
+            session: value.session.into(),
+            task_session_ordinal: value.task_session_ordinal.map(|value| value.to_string()),
+        }
+    }
+}
+
+impl From<SessionsReportProjection> for ReportSessionsPayload {
+    fn from(value: SessionsReportProjection) -> Self {
+        Self {
+            summary: value.summary.into(),
+            rows: value.rows.into_iter().map(Into::into).collect(),
+        }
+    }
+}
+
+impl From<TaskSessionsDetailProjection> for ReportTaskSessionsDetailPayload {
+    fn from(value: TaskSessionsDetailProjection) -> Self {
+        Self {
+            task_id: value.task_id.to_string(),
+            task_title: value.task_title,
+            list_id: value.list_id.to_string(),
+            list_title: value.list_title,
+            task_archived: value.task_archived,
+            list_archived: value.list_archived,
+            total_focus_seconds: value.total_focus_seconds.to_string(),
+            total_sessions: value.total_sessions.to_string(),
+            rows: value.rows.into_iter().map(Into::into).collect(),
+        }
+    }
+}
+
 impl From<SessionRecord> for ReportSessionMutationPayload {
     fn from(value: SessionRecord) -> Self {
         Self {
@@ -327,12 +415,16 @@ fn app_database(app_handle: &tauri::AppHandle) -> CommandResult<Connection> {
     Ok(connection)
 }
 
-fn parse_list_id(raw: Option<String>) -> CommandResult<Option<ListId>> {
-    raw.map(|value| {
-        ListId::parse_str(&value)
-            .map_err(|_| CommandError::invalid_argument("listId", "must be a valid UUID"))
-    })
-    .transpose()
+fn parse_list_ids(raw: Vec<String>) -> CommandResult<Vec<ListId>> {
+    let mut parsed = Vec::with_capacity(raw.len());
+    for value in raw {
+        let id = ListId::parse_str(&value)
+            .map_err(|_| CommandError::invalid_argument("listIds", "must contain valid UUIDs"))?;
+        if !parsed.contains(&id) {
+            parsed.push(id);
+        }
+    }
+    Ok(parsed)
 }
 
 fn parse_task_id(raw: &str) -> CommandResult<TaskId> {
@@ -363,6 +455,13 @@ fn map_reporting_error(error: ReportingError) -> CommandError {
             CommandError::invalid_argument("displayTimezone", "must be a valid IANA timezone name")
         }
         _ => CommandError::new("REPORT_READ_FAILED", error.to_string()),
+    }
+}
+
+fn map_sessions_report_error(error: SessionsReportError) -> CommandError {
+    match error {
+        SessionsReportError::Reporting(error) => map_reporting_error(error),
+        other => CommandError::new("REPORT_READ_FAILED", other.to_string()),
     }
 }
 
@@ -400,12 +499,12 @@ pub fn get_report_history(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
-    list_id: Option<String>,
+    list_ids: Vec<String>,
 ) -> CommandResult<ReportHistoryPayload> {
     let range = ReportRange {
         start_at,
         end_at,
-        list_id: parse_list_id(list_id)?,
+        list_ids: parse_list_ids(list_ids)?,
     };
     let connection = app_database(&app_handle)?;
     report_history_snapshot(&connection, range)
@@ -418,18 +517,49 @@ pub fn get_report_overview(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
-    list_id: Option<String>,
+    list_ids: Vec<String>,
     display_timezone: String,
 ) -> CommandResult<ReportOverviewPayload> {
     let range = ReportRange {
         start_at,
         end_at,
-        list_id: parse_list_id(list_id)?,
+        list_ids: parse_list_ids(list_ids)?,
     };
     let connection = app_database(&app_handle)?;
     report_overview(&connection, range, &display_timezone)
         .map(Into::into)
         .map_err(map_reporting_error)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn get_report_sessions(
+    app_handle: tauri::AppHandle,
+    start_at: String,
+    end_at: String,
+    list_ids: Vec<String>,
+    show_break_sessions: bool,
+) -> CommandResult<ReportSessionsPayload> {
+    let range = ReportRange {
+        start_at,
+        end_at,
+        list_ids: parse_list_ids(list_ids)?,
+    };
+    let connection = app_database(&app_handle)?;
+    load_sessions_report(&connection, range, show_break_sessions)
+        .map(Into::into)
+        .map_err(map_sessions_report_error)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn get_report_task_sessions(
+    app_handle: tauri::AppHandle,
+    task_id: String,
+) -> CommandResult<ReportTaskSessionsDetailPayload> {
+    let task_id = parse_task_id(&task_id)?;
+    let connection = app_database(&app_handle)?;
+    load_task_sessions_detail(&connection, task_id)
+        .map(Into::into)
+        .map_err(map_sessions_report_error)
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -498,8 +628,14 @@ mod tests {
     #[test]
     fn report_argument_parsers_reject_invalid_identities() {
         assert_eq!(
-            parse_list_id(Some("bad".into())).unwrap_err().code,
+            parse_list_ids(vec!["bad".into()]).unwrap_err().code,
             "INVALID_ARGUMENT"
+        );
+        let list_id = ListId::generate();
+        assert_eq!(
+            parse_list_ids(vec![list_id.to_string(), list_id.to_string()])
+                .expect("deduplicate list filters"),
+            vec![list_id]
         );
         assert_eq!(parse_task_id("bad").unwrap_err().code, "INVALID_ARGUMENT");
         assert_eq!(
@@ -560,6 +696,32 @@ mod tests {
         assert_eq!(
             value["totalTimeSeconds"],
             serde_json::Value::String((u64::MAX - 2).to_string())
+        );
+    }
+
+    #[test]
+    fn sessions_payload_serializes_large_ordinals_losslessly_as_strings() {
+        let row = ReportSessionsRowPayload {
+            session: ReportSessionPayload {
+                id: SessionId::generate().to_string(),
+                task_id: Some(TaskId::generate().to_string()),
+                task_title: Some("Task".into()),
+                list_id: Some(ListId::generate().to_string()),
+                list_title: Some("List".into()),
+                kind: SessionKind::Work,
+                source: SessionSource::Focus,
+                started_at: "2026-09-30T10:00:00Z".into(),
+                ended_at: "2026-09-30T11:00:00Z".into(),
+                duration_seconds: "3600".into(),
+                task_archived: false,
+                list_archived: false,
+            },
+            task_session_ordinal: Some(u64::MAX.to_string()),
+        };
+        let value = serde_json::to_value(row).expect("serialize Sessions row");
+        assert_eq!(
+            value["taskSessionOrdinal"],
+            serde_json::Value::String(u64::MAX.to_string())
         );
     }
 
