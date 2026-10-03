@@ -430,7 +430,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** M7 closure checkpoints C1/C2/C3 are PASS. PR #192 and short-lived CI/process PR #207 are merged to `main`; exact-green #207 head and merged main have zero non-Markdown differences, so the integrated executable/build/test/workflow tree is validated by CI #806 without a dummy main run. The only remaining blockers are consolidated physical C4 (Gate 7 continuity/session) and C5 (Gate 12/platform + tracking closure) on exact CI806 production artifact `11159233418`. Do not reopen general M7 implementation; a physical failure reopens only the evidenced gate through one narrow corrective PR from current main.
+**Current execution priority:** M7 C1-C4 are physically accepted and C5 remains OPEN only for the real saved-placement Quit→relaunch observation; M1 replacement monitor/topology/performance evidence also remains physical-only. These pending observations are not a blanket stop condition under the manual-test batching policy. Continue the earliest independently safe work that cannot be invalidated by those observations; the current unblocked source slice is M8 `PREF-R05` local sound catalog/preview behavior. Keep all deferred physical gates explicitly OPEN, and do not advance M9 while unblocked M8 work remains.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
