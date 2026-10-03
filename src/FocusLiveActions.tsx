@@ -21,6 +21,10 @@ import { Tooltip } from "./overlayPrimitives";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskNotes } from "./TaskNotes";
 import {
+  DEFAULT_SUCCESS_SOUND,
+  playLocalSound,
+} from "./localSoundCatalog";
+import {
   completeTimerTask,
   extendTimer,
   pauseTimer,
@@ -318,6 +322,17 @@ export function FocusLiveActions({
         const nextAfterCompletionMode = nextAfterCompletion
           ? focusModeForTask(authoritative.runtime.timer.mode, nextAfterCompletion)
           : null;
+        const celebration = preferences.snapshot?.celebration;
+        if (celebration) {
+          const successSound = celebration.successSound ?? DEFAULT_SUCCESS_SOUND;
+          void playLocalSound(
+            successSound,
+            celebration.successSoundVolumePercent,
+          ).catch((soundFailure: unknown) => {
+            console.warn("Success sound could not play after committed task completion.", soundFailure);
+          });
+        }
+
         onCompletionSuccess?.({
           completedTaskId: completedTask.id,
           completedTaskTitle: completedTask.title,
