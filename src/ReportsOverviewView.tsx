@@ -1,4 +1,5 @@
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
+import type { ReportDatePreset } from "./reportOverviewPresentation";
 import "./reportsOverview.css";
 
 export type ReportsMetric = {
@@ -47,7 +48,7 @@ export type ReportsDoneTask = {
   listTitle: string;
   completionLabel: string;
   timeTakenLabel: string;
-  punctuality: "early" | "late" | "none";
+  punctuality: "early" | "on_time" | "late" | "none";
   varianceLabel?: string | null;
 };
 
@@ -77,7 +78,16 @@ export type ReportsOverviewViewProps = {
   onToggleListFilter?: () => void;
   onToggleDatePicker?: () => void;
   onToggleChartSeries?: (series: ReportsChartSeries) => void;
+  onSelectDatePreset?: (preset: ReportDatePreset) => void;
+  onSelectCalendarDay?: (dateKey: string) => void;
+  onPreviousCalendarMonth?: () => void;
+  onNextCalendarMonth?: () => void;
+  onCancelDateRange?: () => void;
+  onApplyDateRange?: () => void;
+  onOpenSessions?: () => void;
   onExport?: () => void;
+  sessionsDisabled?: boolean;
+  exportDisabled?: boolean;
 };
 
 function formatDuration(seconds: number): string {
@@ -111,6 +121,8 @@ function ReportChart({
   visibleSeries: ReportsChartVisibility;
   onToggleSeries?: (series: ReportsChartSeries) => void;
 }) {
+  const [interactiveTooltipDayId, setInteractiveTooltipDayId] = useState<string | null>(null);
+  const activeTooltipDayId = tooltipDayId ?? interactiveTooltipDayId;
   const maximum = Math.max(1, ...days.map((day) => day.taskSeconds + day.breakSeconds));
 
   return (
@@ -126,7 +138,7 @@ function ReportChart({
       <div className="reports-overview__chart" aria-label="Daily Tasks, Breaks and Total session time">
         {days.map((day) => {
           const total = day.taskSeconds + day.breakSeconds;
-          const tooltipOpen = tooltipDayId === day.id;
+          const tooltipOpen = activeTooltipDayId === day.id;
           return (
             <div
               key={day.id}
@@ -139,6 +151,10 @@ function ReportChart({
                 className="reports-overview__chart-hit"
                 aria-label={`${day.label}: Tasks ${formatDuration(day.taskSeconds)}, Breaks ${formatDuration(day.breakSeconds)}, Total ${formatDuration(total)}`}
                 aria-describedby={tooltipOpen ? `report-tooltip-${day.id}` : undefined}
+                onMouseEnter={() => setInteractiveTooltipDayId(day.id)}
+                onMouseLeave={() => setInteractiveTooltipDayId(null)}
+                onFocus={() => setInteractiveTooltipDayId(day.id)}
+                onBlur={() => setInteractiveTooltipDayId(null)}
               >
                 <span
                   className="reports-overview__chart-bars"
@@ -191,7 +207,23 @@ function ReportChart({
   );
 }
 
-function DateRangePicker({ months }: { months: ReportsCalendarMonth[] }) {
+function DateRangePicker({
+  months,
+  onSelectPreset,
+  onSelectDay,
+  onPreviousMonth,
+  onNextMonth,
+  onCancel,
+  onApply,
+}: {
+  months: ReportsCalendarMonth[];
+  onSelectPreset?: (preset: ReportDatePreset) => void;
+  onSelectDay?: (dateKey: string) => void;
+  onPreviousMonth?: () => void;
+  onNextMonth?: () => void;
+  onCancel?: () => void;
+  onApply?: () => void;
+}) {
   return (
     <div
       className="reports-overview__date-popover"
@@ -200,8 +232,8 @@ function DateRangePicker({ months }: { months: ReportsCalendarMonth[] }) {
       data-report-date-picker="true"
     >
       <div className="reports-overview__date-presets" aria-label="Date presets">
-        {["Today", "Yesterday", "This week", "Last 30 days", "Last 60 days", "Last 90 days"].map((preset) => (
-          <button type="button" key={preset}>{preset}</button>
+        {(["Today", "Yesterday", "This week", "Last 30 days", "Last 60 days", "Last 90 days"] as ReportDatePreset[]).map((preset) => (
+          <button type="button" key={preset} onClick={() => onSelectPreset?.(preset)}>{preset}</button>
         ))}
       </div>
 
@@ -209,9 +241,9 @@ function DateRangePicker({ months }: { months: ReportsCalendarMonth[] }) {
         {months.slice(0, 2).map((month) => (
           <section className="reports-overview__calendar" key={month.label} aria-label={month.label}>
             <header>
-              <button type="button" aria-label={`Previous month from ${month.label}`}>‹</button>
+              <button type="button" aria-label={`Previous month from ${month.label}`} onClick={onPreviousMonth}>‹</button>
               <strong>{month.label}</strong>
-              <button type="button" aria-label={`Next month from ${month.label}`}>›</button>
+              <button type="button" aria-label={`Next month from ${month.label}`} onClick={onNextMonth}>›</button>
             </header>
             <div className="reports-overview__weekdays" aria-hidden="true">
               {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => <span key={day}>{day}</span>)}
@@ -227,6 +259,9 @@ function DateRangePicker({ months }: { months: ReportsCalendarMonth[] }) {
                     day.edge ? `is-${day.edge}` : "",
                   ].filter(Boolean).join(" ")}
                   aria-pressed={day.selected || undefined}
+                  onClick={() => {
+                    if (day.dateKey) onSelectDay?.(day.dateKey);
+                  }}
                 >
                   {day.label}
                 </button>
@@ -236,8 +271,8 @@ function DateRangePicker({ months }: { months: ReportsCalendarMonth[] }) {
         ))}
 
         <footer className="reports-overview__date-actions">
-          <button type="button" className="reports-overview__date-cancel">Cancel</button>
-          <button type="button" className="reports-overview__date-apply">Apply</button>
+          <button type="button" className="reports-overview__date-cancel" onClick={onCancel}>Cancel</button>
+          <button type="button" className="reports-overview__date-apply" onClick={onApply}>Apply</button>
         </footer>
       </div>
     </div>
@@ -265,7 +300,16 @@ export function ReportsOverviewView({
   onToggleListFilter,
   onToggleDatePicker,
   onToggleChartSeries,
+  onSelectDatePreset,
+  onSelectCalendarDay,
+  onPreviousCalendarMonth,
+  onNextCalendarMonth,
+  onCancelDateRange,
+  onApplyDateRange,
+  onOpenSessions,
   onExport,
+  sessionsDisabled = false,
+  exportDisabled = false,
 }: ReportsOverviewViewProps) {
   const totalListSeconds = timeByList.reduce((total, item) => total + Math.max(0, item.seconds), 0);
   let listCursor = 0;
@@ -297,12 +341,29 @@ export function ReportsOverviewView({
           <button type="button" className="reports-overview__back" onClick={onBack}>‹ Back</button>
           <h1 id="reports-overview-title">Reports</h1>
         </div>
-        <button type="button" className="reports-overview__export" onClick={onExport}>⇩ Export PDF</button>
+        <button
+          type="button"
+          className="reports-overview__export"
+          onClick={onExport}
+          disabled={exportDisabled}
+          title={exportDisabled ? "PDF export will be enabled in the Reports export slice." : undefined}
+        >
+          ⇩ Export PDF
+        </button>
       </header>
 
       <div className="reports-overview__tabs" role="tablist" aria-label="Reports">
         <button type="button" role="tab" aria-selected="true">Overview</button>
-        <button type="button" role="tab" aria-selected="false">Sessions <span>Beta</span></button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected="false"
+          disabled={sessionsDisabled}
+          onClick={onOpenSessions}
+          title={sessionsDisabled ? "Sessions UI is implemented in the next Reports slice." : undefined}
+        >
+          Sessions <span>Beta</span>
+        </button>
       </div>
 
       <div className="reports-overview__filters">
@@ -361,7 +422,17 @@ export function ReportsOverviewView({
             <span aria-hidden="true">▣</span>
             {rangeLabel}
           </button>
-          {datePickerOpen ? <DateRangePicker months={calendarMonths} /> : null}
+          {datePickerOpen ? (
+            <DateRangePicker
+              months={calendarMonths}
+              onSelectPreset={onSelectDatePreset}
+              onSelectDay={onSelectCalendarDay}
+              onPreviousMonth={onPreviousCalendarMonth}
+              onNextMonth={onNextCalendarMonth}
+              onCancel={onCancelDateRange}
+              onApply={onApplyDateRange}
+            />
+          ) : null}
         </div>
       </div>
 
@@ -455,7 +526,13 @@ export function ReportsOverviewView({
                       </div>
                       <div className="reports-overview__done-metrics">
                         {task.punctuality !== "none" ? (
-                          <span className={task.punctuality === "early" ? "is-early" : "is-late"}>
+                          <span className={
+                            task.punctuality === "early"
+                              ? "is-early"
+                              : task.punctuality === "late"
+                                ? "is-late"
+                                : undefined
+                          }>
                             {task.varianceLabel}
                           </span>
                         ) : <span>No Est</span>}
