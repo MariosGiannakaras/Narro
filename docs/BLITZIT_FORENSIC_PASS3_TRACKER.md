@@ -2,7 +2,7 @@
 
 Status: **ACTIVE — source analysis only; implementation explicitly deferred**
 
-Last updated: 2026-10-02
+Last updated: 2026-10-03
 
 This is the single authoritative progress ledger for the exhaustive third-pass source forensics requested by the user.
 
@@ -23,9 +23,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **3/19**
+- Full MP4s completed at Pass-3 depth: **4/19**
 - Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **16**
+- Full MP4s still open: **15**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -112,7 +112,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 1 | VE-003 | Blitzit Tutorial Blitz Mode.mp4 | 03:15.651 / 60 | **SOURCE_COMPLETE** | Blitz entry, queue hover/actions, Make Live, Panel↔Floating, timer actions, Done/success, Next Task, Take a Break visibility |
 | 2 | VE-005 | Add & Manage Tasks and Lists | 03:38.848 / 60 | **SOURCE_COMPLETE** | list hover/Open, task hover rail, drag/reorder, overflow, metric edits, completion |
 | 3 | VE-013 | Subtasks | 02:20.109 / 60 | **SOURCE_COMPLETE** | expand/collapse, add, completion ring, row hover, reorder/delete, Focus/Floating subtask transitions |
-| 4 | VE-014 | Preferences | 02:48.484 / 60 | OPEN | drawer entry/scroll, parent-child toggles, screen/side/theme controls, alert/celebration nested reveal |
+| 4 | VE-014 | Preferences | 02:48.484 / 60 | **SOURCE_COMPLETE** | drawer entry/scroll, parent-child toggles, screen/side/theme controls, alert/celebration nested reveal |
 | 5 | VE-016 | Timer Modes | 02:55.380 / 60 | OPEN | expiry, Time's Up, Extend, pause/skip/done, Pomodoro transitions, count-up presentation |
 | 6 | VE-017 | Update Recurring Schedules | 02:50.063 / 60 | OPEN | existing-rule edit, Replace row, No Repeat swap, destructive row, footer/state retention |
 | 7 | VE-007 | Schedule Task Reminders | 02:52.803 / 60 | OPEN | schedule open, quick date actions, date select, time/repeat steps, save/update/remove |
@@ -146,6 +146,6 @@ This is **partial evidence for VE-018**, not full-source completion.
 
 ## Exact next action
 
-Continue with **VE-014 — `Blitzit Tutorial Preferences.mp4`**.
+Continue with **VE-016 — `Blitzit Tutorial Timer Modes.mp4`**.
 
-VE-003, VE-005 and VE-013 are SOURCE_COMPLETE from their actual full MP4s.
+VE-003, VE-005, VE-013 and VE-014 are SOURCE_COMPLETE from their actual full MP4s.
