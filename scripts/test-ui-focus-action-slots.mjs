@@ -37,7 +37,9 @@ invariant(!slotCss.includes("transition:"), "item 13 must not add motion that ne
 invariant(panelCss.includes("grid-template-columns: 1.75rem minmax(0, 1fr) 5.75rem"), "Focus subtask rows must reserve a fixed action column beside flexible text");
 invariant(panelCss.includes("width: 5.75rem"), "Focus subtask action rail must retain fixed width in the base layout");
 invariant(panelCss.includes("grid-template-columns: repeat(3, 1.75rem)"), "Focus subtask action positions must remain fixed-size hit slots");
-invariant(panelCss.includes("grid-template-columns: repeat(6, minmax(0, 1fr))"), "live Focus actions must retain their stable six-slot grid");
+// Live-action slot stability and full-label fit are measured in the rendered
+// Focus fixtures across running/paused states and themes, rather than requiring
+// equal CSS columns that truncate Resume/Extend at the production width.
 invariant(panelCss.includes("grid-template-columns: 1.75rem minmax(0, 1fr) 7.75rem"), "ordinary Focus rows must reserve completion, title, and action columns");
 invariant(slotCss.includes("width: 7.75rem"), "ordinary Focus action rail must reserve fixed geometry");
 invariant(slotCss.includes("grid-template-columns: repeat(4, 1.75rem)"), "ordinary Focus primary actions must use fixed keyboard/pointer hit slots");

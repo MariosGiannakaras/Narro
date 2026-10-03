@@ -85,15 +85,62 @@ test("requesting the committed presentation is a no-op", async () => {
   assert.deepEqual(h.calls, []);
 });
 
-test("Panel/Timer mode changes can run native position and renderer geometry concurrently", async () => {
+test("Panel/Timer prepaint completes before concurrent native position and renderer geometry", async () => {
   const h = harness("panel", "timerCompact", true);
   assert.equal(await commitPreparedFocusPresentation(h.transition), true);
   assert.deepEqual(h.calls, [
     "ready:timerCompact",
+    "before:timerCompact",
     "animated:timerCompact",
     "motion:timerCompact",
     "renderer:timerCompact",
   ]);
+});
+
+test("native clipping and motion cannot start before the promoted target has painted", async () => {
+  const h = harness("panel", "timerCompact", true);
+  let releasePaint;
+  let enteredPaint;
+  const paintEntered = new Promise((resolve) => { enteredPaint = resolve; });
+  h.transition.beforeNativeCommit = () => new Promise((resolve) => {
+    h.calls.push("promoted-target-paint");
+    releasePaint = resolve;
+    enteredPaint();
+  });
+  const pending = commitPreparedFocusPresentation(h.transition);
+  await paintEntered;
+  assert.deepEqual(h.calls, ["ready:timerCompact", "promoted-target-paint"]);
+  releasePaint();
+  assert.equal(await pending, true);
+  assert.deepEqual(h.calls.slice(2), ["animated:timerCompact", "motion:timerCompact", "renderer:timerCompact"]);
+});
+
+test("promoted target paint failure leaves native presentation untouched", async () => {
+  const h = harness("panel", "timerCompact", true);
+  const failure = new Error("target did not paint");
+  h.failures.set("before", failure);
+  await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
+  assert.deepEqual(h.calls, ["ready:timerCompact", "before:timerCompact"]);
+});
+
+test("failed motion waits for in-flight native commit before rollback", async () => {
+  const h = harness("panel", "timerCompact", true);
+  let releaseNative;
+  let motionFailed;
+  const motionFailureObserved = new Promise((resolve) => { motionFailed = resolve; });
+  h.transition.animateNativePresentation = () => new Promise((resolve) => {
+    h.calls.push("native-in-flight");
+    releaseNative = () => { h.calls.push("native-complete"); resolve(); };
+  });
+  const failure = new Error("renderer motion failed");
+  h.transition.runConcurrentMotion = async () => { motionFailed(); throw failure; };
+  const pending = commitPreparedFocusPresentation(h.transition);
+  await motionFailureObserved;
+  await Promise.resolve();
+  assert.equal(h.calls.includes("native:panel"), false);
+  releaseNative();
+  await assert.rejects(pending, failure);
+  assert.deepEqual(h.calls.slice(-3), ["native-complete", "native:panel", "renderer:panel"]);
 });
 
 test("concurrent motion failure restores the previous native and renderer presentation", async () => {
@@ -103,6 +150,7 @@ test("concurrent motion failure restores the previous native and renderer presen
   await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
   assert.deepEqual(h.calls, [
     "ready:panel",
+    "before:panel",
     "animated:panel",
     "motion:panel",
     "native:timerCompact",
@@ -117,6 +165,7 @@ test("animated native failure restores the previous native and renderer presenta
   await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
   assert.deepEqual(h.calls, [
     "ready:timerCompact",
+    "before:timerCompact",
     "animated:timerCompact",
     "motion:timerCompact",
     "native:panel",
@@ -131,6 +180,7 @@ test("renderer failure after animated native success restores the previous prese
   await assert.rejects(commitPreparedFocusPresentation(h.transition), failure);
   assert.deepEqual(h.calls, [
     "ready:panel",
+    "before:panel",
     "animated:panel",
     "motion:panel",
     "renderer:panel",
@@ -149,6 +199,7 @@ test("repeated Panel/Timer transitions keep deterministic commit ordering", asyn
     assert.equal(await commitPreparedFocusPresentation(h.transition), true);
     assert.deepEqual(h.calls, [
       `ready:${target}`,
+      `before:${target}`,
       `animated:${target}`,
       `motion:${target}`,
       `renderer:${target}`,

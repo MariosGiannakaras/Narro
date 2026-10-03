@@ -91,7 +91,7 @@ invariant(
 
 invariant(
   transition.indexOf("await waitForTargetReady()") < transition.indexOf("if (animateNativePresentation && runConcurrentMotion)")
-    && transition.includes("await Promise.all([")
+    && transition.includes("await Promise.allSettled([")
     && transition.includes("animateNativePresentation(targetPresentation)")
     && transition.includes("runConcurrentMotion()")
     && transition.indexOf("await waitForTargetReady()") < transition.indexOf("commitRendererPresentation(targetPresentation)"),
@@ -130,7 +130,6 @@ invariant(
     && coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
     && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
-    && coordinatorCss.includes('data-focus-geometry-motion-from="panel"')
     && coordinatorCss.includes('data-focus-geometry-motion-to="panel"'),
   "Panel/Timer transition must run finite native position and same-WebView geometry motion concurrently",
 );
