@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 18/19 full MP4s complete at Pass-3 depth**
+Status: **VIDEO PASS SOURCE-COMPLETE — 19/19 full MP4s reviewed at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -4567,45 +4567,225 @@ No implementation conclusion is made in this analysis track.
 # Queue 19 — VE-019 — Oct Update
 
 Source: `Oct Update Light mode and more!🚀.mp4`  
-Metadata: **02:52.989, 1920×1080, 30 fps**  
-Status: **OPEN / HISTORICAL**
+Verified metadata: **02:52.933 video stream / ~02:52.989 container, 1920×1080, 30 fps, 5,188 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / HISTORICAL / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:07–00:00:58 — Floating/live subtasks;
-- 00:01:01–00:01:45 — settings/theme;
-- 00:02:17–00:02:30 — Windows signing/security.
+Inspection method:
+- complete source reviewed end-to-end;
+- 5 s whole-video contact scan;
+- 2 fps dense review through Floating-subtask and theme/settings sections;
+- full-resolution keyframes for compact/expanded Floating Timer, subtask input/row actions, Focus live-vs-queued limitation, Preferences theme state, dark/light board and light Home;
+- source changelog/browser portion inspected separately from in-app UI;
+- narration classified separately where a claimed update is not actually exercised.
 
-Pass-3 focus:
-- historical Floating Timer subtask geometry;
-- light-theme board comparison;
-- settings shortcut/theme transitions;
-- identify obsolete limitations;
-- keep historical evidence subordinate to current v2.6.69.
+## VE-019 chronological state map
+
+### 00:00:00–~00:00:09 — update announcement
+
+**TRANSCRIPT-CLAIM / CONTEXT**
+- narration says an in-app one-click update popup will be available when users open the app;
+- this source does not visibly demonstrate that updater popup/installation interaction;
+- no updater UI contract is derived from narration alone.
+
+### ~00:00:09–00:00:17 — Floating Timer baseline with subtask summary
+
+**VIDEO-DIRECT**
+- historical Floating Timer is compact and desktop-overlayed;
+- live task is **`Device Mockups`** with a running time display;
+- resting expanded-capability row shows:
+  - circular progress;
+  - **`1/4 Subtasks`**;
+  - plus;
+  - disclosure chevron.
+- top action strip retains break/gamepad, Notes/document, pause, skip, Done and expand/restore controls.
+
+**VERSION CONTEXT**
+- this video is an October/Nov 2024 update source and later screenshots/tutorials supersede it for current exact styling;
+- it remains direct evidence for the introduction/evolution of Floating-subtask behavior.
+
+### ~00:00:17–00:00:28 — expand / add / manage Floating subtasks
+
+**VIDEO-DIRECT**
+- disclosure expands the Floating Timer vertically while width remains essentially fixed;
+- visible four-row set:
+  - `Scenes`;
+  - **`Check previews`** — completed/struck-through;
+  - `Submit`;
+  - `Promo`.
+- progress remains **1/4 Subtasks**;
+- clicking plus reveals inline input:
+  - **`Enter subtask task title*`**;
+  - X/cancel at right.
+- hovering a subtask row reveals compact right-side actions:
+  - up;
+  - down;
+  - trash/delete.
+
+**GEOMETRY-DIRECT**
+- content expands downward beneath the fixed top action strip;
+- no modal or separate panel is used;
+- collapsing restores the compact timer with the 1/4 summary.
+
+### ~00:00:28–00:00:35 — live Floating controls remain available
+
+**VIDEO-DIRECT**
+- after collapse, the timer returns to its compact presentation;
+- hovering a top action exposes text-labeled hover treatment, e.g. **`Pause`**;
+- subtask summary remains visible while the live timer continues.
+
+**IMPORTANT UPDATE SEMANTIC**
+- this historical release made existing live-task subtasks accessible while the timer is running rather than only from a paused/non-live state.
+
+### ~00:00:35–00:01:01 — first-subtask limitation in this source version
+
+**VIDEO-DIRECT / TRANSCRIPT CORROBORATION**
+- source switches from Floating Timer to the full Focus Panel;
+- live task **`Build Shorts template`** has no existing subtask summary/add row beneath it;
+- queued **`Device Mockups`** does have **1/4 Subtasks +**;
+- a queued/non-live task with no existing subtasks, **`Promo animation`**, can expose the subtask action and opens an empty inline subtask input:
+  - `Enter subtask task title*`.
+
+**VERSION-SPECIFIC LIMITATION**
+- narration states that a live task with zero existing subtasks cannot create its first subtask from Floating/Focus live state; it must first receive a subtask while non-live.
+- the pixels directly corroborate the affordance asymmetry:
+  - live zero-subtask Build Shorts template: no first-subtask add affordance shown;
+  - non-live zero-subtask Promo animation: first-subtask input can be opened.
+- the source does not show a rejected click/error message, so the limitation is supported by **visible affordance absence + narrated rule**, not by a failure dialog.
+
+**EVOLUTION NOTE**
+- later VE-013 carries related narration and more developed Floating-subtask behavior;
+- treat this as historical/versioned behavior rather than an eternal product invariant.
+
+### ~00:01:01–00:01:11 — Settings moved into navigation
+
+**VIDEO-DIRECT**
+- board top utility area visibly contains a dedicated cog/settings icon alongside search/app controls;
+- selecting it opens Preferences directly;
+- narration contrasts this with an earlier placement inside an expanded options menu.
+
+**HISTORICAL UI**
+- this Preferences composition is a centered dark modal over a dimmed board, unlike the later left-edge full Preferences surface shown in VE-014;
+- exact geometry is therefore historical.
+
+### ~00:01:11–00:01:28 — historical Preferences theme controls
+
+**VIDEO-DIRECT**
+- Preferences shows:
+  - Select Screen thumbnails;
+  - Blitz Panel Side Left / Right;
+  - Hide est/done times on tasks;
+  - **Theme** segmented choices:
+    - **System**;
+    - **Dark**;
+    - **Light**.
+- Dark is visibly selected in the initial demonstration;
+- screen 2 is selected;
+- Right panel side is selected.
+
+**SEMANTIC-DIRECT**
+- theme selection is one mutually exclusive segmented control;
+- the three choices already match the System/Dark/Light concept retained in later Preferences sources.
+
+### ~00:01:28–00:01:47 — Light theme activation
+
+**VIDEO-DIRECT**
+- selecting Light applies the light palette immediately;
+- Preferences itself changes to a light surface while remaining open;
+- after closing Preferences, the board remains in light theme.
+
+**LIGHT BOARD ANATOMY**
+- pale gray page/window background;
+- white task cards;
+- dark text;
+- muted gray metadata;
+- Today retains the cyan/green accent outline;
+- Blitzit-now remains a green/multicolor high-salience pill;
+- integration/list badges remain colored;
+- Done task strike-through and progress-ring grammar remain intact.
+
+**MOTION/STATE**
+- theme change is an immediate state repaint rather than navigation to a separate theme preview;
+- geometry/information architecture does not change.
+
+### ~00:01:47–00:01:58 — Light Home/list-grid state
+
+**VIDEO-DIRECT**
+- Home is also rendered in the light theme;
+- visible historical version label: **v2.4.22**;
+- plan state: **Unlimited For Life**;
+- list grid preserves the same card architecture;
+- hovered All Lists card reveals centered green/gradient **Open** action;
+- list-card tasks, pending count and EST remain in their usual positions.
+
+**CROSS-SOURCE**
+- this historical light Home directly corroborates the later current v2.6.69 light screenshot SS-C16 while showing an earlier styling generation.
+
+### ~00:01:58–00:02:08 — theme/system summary
+
+**VIDEO-DIRECT / TRANSCRIPT**
+- source remains in light-mode Home/board context while narration explains:
+  - Dark-only;
+  - Light-only;
+  - System-following theme.
+- System is visibly offered in Preferences;
+- this clip does not independently demonstrate an OS theme change triggering System mode, so actual live OS-follow behavior remains a product claim rather than a measured transition.
+
+### ~00:02:08–00:02:18 — Help Center / changelog navigation
+
+**VIDEO-DIRECT / EXTERNAL CONTEXT**
+- source moves to Blitzit Help Center in a browser;
+- right-side Help Center navigation includes an Updates/Changelog access path;
+- browser then opens the public Blitzit Changelog page.
+
+These are web/support surfaces, not desktop-app parity targets.
+
+### ~00:02:18–00:02:33 — changelog / Windows security-signing item
+
+**VIDEO-DIRECT WEB CONTENT + TRANSCRIPT-CLAIM**
+- Changelog heading: **`Blitzit Changelog`**;
+- latest entry visible:
+  - **Fri, Nov 1, 2024**.
+- entry text references the added Light Mode/theme work and a Windows security/certificate-signing improvement.
+- narration states Blitzit obtained/updated code-signing/security certification so Windows would no longer show the previous warning during installation.
+
+**EVIDENCE LIMIT**
+- no Windows installer, SmartScreen/security warning, certificate dialog or before/after install sequence is shown in this video;
+- therefore the Windows-warning removal is **release-note/narration evidence**, not direct Windows UI behavior or a visual parity requirement.
+
+### ~00:02:33–00:02:52.93 — update recap/outro
+
+**VIDEO-DIRECT / NON-PARITY**
+- changelog remains visible during recap;
+- community/roadmap remarks follow;
+- no additional unique desktop-app state.
+
+## VE-019 source synthesis
+
+High-confidence direct findings:
+- this historical update introduced/expanded live Floating Timer subtask access;
+- Floating Timer preserves fixed width and expands vertically for subtask rows/input;
+- existing subtasks can be viewed while live, with 1/4 progress, inline add input, and up/down/delete row actions;
+- live first-subtask creation has a historical limitation: live zero-subtask task lacks the add affordance, while a non-live zero-subtask task can open the first-subtask input;
+- Settings is exposed as a dedicated top-nav cog in this release;
+- historical Preferences uses a centered modal and already provides System/Dark/Light segmented theme choices;
+- Light selection immediately repaints Preferences and the board without changing geometry;
+- light board preserves Today accent, card hierarchy, completion/subtask grammar and Blitzit-now prominence;
+- historical light Home preserves list-card geometry and hover Open treatment;
+- source visibly identifies v2.4.22 in the light Home state;
+- System is an available theme option but OS-follow transition is not directly exercised;
+- changelog shows Fri Nov 1 2024 update context;
+- Windows certificate/security warning removal is changelog/narration evidence only, not a demonstrated Windows installer interaction;
+- later current screenshots and VE-014/VE-013 supersede this video for exact current Preferences/Floating styling, while VE-019 remains valuable product-evolution evidence.
+
+Static/current corroboration:
+- SS-C16 current v2.6.69 light Home;
+- SS-C18 current Floating Timer expanded subtasks;
+- SS-C20 current collapsed Floating Timer;
+- SS-C07 current Preferences General/theme;
+- SS-T01 historical light four-column board.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
-# Completion ledger
 
-| ID | Full MP4 Pass-3 | Deep sequences recorded | Conflict review | Source-only final disposition |
-| --- | --- | --- | --- | --- |
-| VE-001 | OPEN | 0 | OPEN | OPEN |
-| VE-002 | OPEN | 0 | OPEN | OPEN |
-| VE-003 | **SOURCE_COMPLETE** | **12+ dense sequences** | **COMPLETE** | **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED** |
-| VE-004 | OPEN | 0 | OPEN | OPEN |
-| VE-005 | OPEN | 0 | OPEN | OPEN |
-| VE-006 | OPEN | 0 | OPEN | OPEN |
-| VE-007 | OPEN | 0 | OPEN | OPEN |
-| VE-008 | OPEN | 0 | OPEN | OPEN |
-| VE-009 | OPEN | 0 | OPEN | OPEN |
-| VE-010 | OPEN | 0 | OPEN | OPEN |
-| VE-011 | OPEN | 0 | OPEN | OPEN |
-| VE-012 | OPEN | 0 | OPEN | OPEN |
-| VE-013 | OPEN | 0 | OPEN | OPEN |
-| VE-014 | OPEN | 0 | OPEN | OPEN |
-| VE-015 | OPEN | 0 | OPEN | OPEN |
-| VE-016 | OPEN | 0 | OPEN | OPEN |
-| VE-017 | OPEN | 0 | OPEN | OPEN |
-| VE-018 | PARTIAL | 1 | OPEN | OPEN |
-| VE-019 | OPEN | 0 | OPEN | OPEN |
-
-No row may change to SOURCE_COMPLETE without actual full-MP4 inspection.
