@@ -147,6 +147,8 @@ function validateListBoardFixture(theme, aggregate) {
   );
   invariant(dom.includes('data-board-list-selector="true"'), `${label} confirmed board list selector is missing`);
   invariant(dom.includes('aria-label="Planning list"'), `${label} board list selector label is missing`);
+  invariant(dom.includes('data-today-progress="true"'), `${label} Today progress treatment is missing`);
+  invariant(dom.includes("Done"), `${label} Today done/total label is missing`);
   invariant(dom.includes(">All Lists<"), `${label} All Lists selector option is missing`);
   if (aggregate) {
     invariant(

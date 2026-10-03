@@ -76,6 +76,7 @@ pub struct ListBoardSnapshot {
     pub this_week: ListBoardLane,
     pub today: ListBoardLane,
     pub done: ListBoardLane,
+    pub today_completion_count: u64,
     pub done_month_completion_count: u64,
 }
 
@@ -307,6 +308,26 @@ fn task_completed_in_display_month(
     Ok(display_local_month_key(completed_timestamp, display_timezone)? == current_month)
 }
 
+fn task_completed_in_display_today(
+    task: &TaskRecord,
+    current_date: &str,
+    display_timezone: &str,
+) -> Result<bool, ListBoardError> {
+    let Some(completed_at) = task.completed_at.as_deref() else {
+        return Ok(false);
+    };
+    let completed_timestamp = completed_at
+        .parse::<Timestamp>()
+        .map_err(|_| ListBoardError::InvalidStoredCompletedTimestamp(task.id))?;
+    if display_local_date(completed_timestamp, display_timezone)? != current_date {
+        return Ok(false);
+    }
+    Ok(
+        scheduling::effective_planning_lane_at(task, completed_timestamp, display_timezone)?
+            == PlanningLane::Today,
+    )
+}
+
 fn task_is_overdue_at(
     task: &TaskRecord,
     now: Timestamp,
@@ -412,12 +433,14 @@ pub fn load_at(
     };
 
     let display_timezone = selected_timezone(conn, fallback_display_timezone)?;
+    let current_display_date = display_local_date(now, &display_timezone)?;
     let current_display_month = display_local_month_key(now, &display_timezone)?;
     let mut seen = HashSet::new();
     let mut backlog = LaneAccumulator::default();
     let mut this_week = LaneAccumulator::default();
     let mut today = LaneAccumulator::default();
     let mut done = LaneAccumulator::default();
+    let mut today_completion_count = 0_u64;
     let mut done_month_completion_count = 0_u64;
 
     for list in selected_lists {
@@ -446,6 +469,11 @@ pub fn load_at(
         }
 
         for task in completed_tasks_for_list(conn, list.id)? {
+            if task_completed_in_display_today(&task, &current_display_date, &display_timezone)? {
+                today_completion_count = today_completion_count
+                    .checked_add(1)
+                    .ok_or(ListBoardError::CountOverflow)?;
+            }
             if task_completed_in_display_month(&task, &current_display_month, &display_timezone)? {
                 done_month_completion_count = done_month_completion_count
                     .checked_add(1)
@@ -473,6 +501,7 @@ pub fn load_at(
         this_week: this_week.finish()?,
         today: today.finish()?,
         done: done.finish()?,
+        today_completion_count,
         done_month_completion_count,
     })
 }
@@ -641,6 +670,7 @@ mod tests {
         assert_eq!(board.this_week.tasks[0].id, week);
         assert_eq!(board.today.tasks[0].id, today);
         assert_eq!(board.done.tasks[0].id, done);
+        assert_eq!(board.today_completion_count, 1);
         assert_eq!(board.today.aggregate_est_seconds, 1800);
         assert_eq!(board.today.aggregate_remaining_est_seconds, 1800);
         assert_eq!(board.done.aggregate_est_seconds, 2400);
@@ -665,6 +695,50 @@ mod tests {
             .map(|task| task.id)
             .collect();
         assert_eq!(projected.len(), 4);
+    }
+
+    #[test]
+    fn today_completion_count_uses_completion_day_and_effective_lane_at_completion() {
+        let mut conn = setup();
+        let list_id = create_named_list(&mut conn, "Today progress", None);
+        let manual_today = add_task(
+            &mut conn,
+            list_id,
+            "Manual today",
+            PlanningLane::Today,
+            None,
+        );
+        let manual_week = add_task(
+            &mut conn,
+            list_id,
+            "Manual week",
+            PlanningLane::ThisWeek,
+            None,
+        );
+        let scheduled_today = add_task(
+            &mut conn,
+            list_id,
+            "Scheduled today",
+            PlanningLane::Backlog,
+            None,
+        );
+        conn.execute(
+            "UPDATE tasks
+             SET schedule_kind = 'date_only', scheduled_local_date = '2026-09-08'
+             WHERE id = ?1",
+            [scheduled_today.to_string()],
+        )
+        .expect("schedule task for today");
+
+        complete_task(&mut conn, manual_today, T1).expect("complete manual Today task");
+        complete_task(&mut conn, manual_week, T1).expect("complete This Week task");
+        complete_task(&mut conn, scheduled_today, T1).expect("complete scheduled Today task");
+
+        let board = load_at(&conn, Some(list_id), now(), "Europe/Athens")
+            .expect("load Today progress board");
+        assert_eq!(board.today.count, 0);
+        assert_eq!(board.done.count, 3);
+        assert_eq!(board.today_completion_count, 2);
     }
 
     #[test]

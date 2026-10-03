@@ -46,6 +46,7 @@ for (const theme of ["light", "dark"]) {
   invariant(dom.includes('data-visual-fixture-ready="true"'), `${label} fixture did not report ready state`);
   invariant(dom.includes('data-task-reorder-fixture="true"'), `${label} reorder fixture identity is missing`);
   invariant(dom.includes('data-task-dragging="true"'), `${label} dragging source state is missing`);
+  invariant(dom.includes('data-task-drag-preview="true"'), `${label} lifted drag preview is missing`);
   invariant(dom.includes('data-task-drop-placeholder="true"'), `${label} drop placeholder is missing`);
   invariant(dom.includes('data-task-settling="true"'), `${label} settling state is missing`);
   invariant(dom.includes('data-drop-active="true"'), `${label} target lane feedback is missing`);
@@ -56,7 +57,9 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.theme === theme, `${label} theme identity differs`);
   invariant(contract.viewport?.width === 1280 && contract.viewport?.height === 720, `${label} viewport contract differs`);
   invariant(contract.placeholder?.width > 0 && contract.placeholder?.height > 0, `${label} placeholder geometry is invalid`);
-  invariant(contract.draggingShell?.width > 0 && contract.draggingShell?.height > 0, `${label} dragging shell geometry is invalid`);
+  invariant(contract.draggingShell?.width > 0 && contract.draggingShell?.height <= 1, `${label} dragging source did not reflow out of layout`);
+  invariant(contract.dragPreview?.width > 0 && contract.dragPreview?.height > 0, `${label} lifted drag preview geometry is invalid`);
+  invariant(contract.placeholder?.height >= 72, `${label} placeholder does not preserve the dragged-card footprint`);
   invariant(contract.settlingShell?.width > 0 && contract.settlingShell?.height > 0, `${label} settling shell geometry is invalid`);
   invariant(contract.scheduledReorderable === "false", `${label} scheduled task became manually reorderable`);
   invariant(contract.dropLaneActive === "true", `${label} drop target lane is not active`);
@@ -64,6 +67,7 @@ for (const theme of ["light", "dark"]) {
   geometryByTheme.set(theme, {
     placeholder: contract.placeholder,
     draggingShell: contract.draggingShell,
+    dragPreview: contract.dragPreview,
     settlingShell: contract.settlingShell,
   });
 }

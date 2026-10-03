@@ -41,7 +41,6 @@ import {
 import { TaskCard, type TaskCardMetricKind } from "./TaskCard";
 import { BlitzEntryButton } from "./BlitzEntryButton";
 import { TaskChangeListDialog } from "./TaskChangeListDialog";
-import { TaskDeleteConfirmDialog } from "./TaskDeleteConfirmDialog";
 import { parseEstimateSuffix } from "./taskEstimateParser";
 import { usePreferenceSettingsProjection } from "./usePreferenceSettingsProjection";
 import { TaskScheduleDialog } from "./TaskScheduleDialog";
@@ -76,6 +75,7 @@ type ListBoardOption = {
 type DragState = {
   taskId: string;
   sourceLane: PendingLaneKey;
+  sourceHeight: number;
 };
 
 type DropTarget = {
@@ -260,12 +260,15 @@ function liveStateForTask(
     : null;
 }
 
-function DropPlaceholder() {
+function DropPlaceholder({ height }: { height?: number }) {
   return (
     <div
       className="list-board-task-drop-placeholder"
       data-task-drop-placeholder="true"
       aria-hidden="true"
+      style={height
+        ? ({ "--task-drop-placeholder-height": `${height}px` } as CSSProperties)
+        : undefined}
     >
       <span />
     </div>
@@ -348,6 +351,7 @@ function BoardLane({
   lane,
   title,
   doneMonthCompletionCount,
+  todayProgress,
   aggregateView,
   presentationReorderEnabled,
   interactionReorderEnabled,
@@ -371,7 +375,7 @@ function BoardLane({
   onDrop,
   onDragEnd,
   onTaskKeyDown,
-  onMoveWithinLane,
+  onMoveAcrossLane,
   onStartCreate,
   onCreateTitleChange,
   onCreateEstChange,
@@ -380,6 +384,11 @@ function BoardLane({
   onChangeListTask,
   onDuplicateTask,
   onDeleteTask,
+  deleteTargetId,
+  deletePending,
+  deleteError,
+  onCancelDelete,
+  onConfirmDelete,
   onStartTitleEdit,
   onEditTitleChange,
   onSubmitTitleEdit,
@@ -393,6 +402,7 @@ function BoardLane({
   lane: ListBoardLane;
   title: string;
   doneMonthCompletionCount?: number;
+  todayProgress?: { done: number; total: number };
   aggregateView: boolean;
   presentationReorderEnabled: boolean;
   interactionReorderEnabled: boolean;
@@ -416,7 +426,7 @@ function BoardLane({
   onDrop: (event: ReactDragEvent<HTMLDivElement>) => void;
   onDragEnd: () => void;
   onTaskKeyDown: (task: ListBoardTask, lane: PendingLaneKey, event: ReactKeyboardEvent<HTMLDivElement>) => void;
-  onMoveWithinLane: (task: ListBoardTask, lane: PendingLaneKey, direction: WithinLaneDirection) => void;
+  onMoveAcrossLane: (task: ListBoardTask, sourceLane: PendingLaneKey, targetLane: PendingLaneKey) => void;
   onStartCreate: (lane: PendingLaneKey, insertAtTop: boolean) => void;
   onCreateTitleChange: (value: string) => void;
   onCreateEstChange: (value: string) => void;
@@ -425,6 +435,11 @@ function BoardLane({
   onChangeListTask: (task: ListBoardTask) => void;
   onDuplicateTask: (task: ListBoardTask) => void;
   onDeleteTask: (task: ListBoardTask) => void;
+  deleteTargetId: string | null;
+  deletePending: boolean;
+  deleteError: string | null;
+  onCancelDelete: () => void;
+  onConfirmDelete: () => void;
   onStartTitleEdit: (task: ListBoardTask) => void;
   onEditTitleChange: (value: string) => void;
   onSubmitTitleEdit: () => void;
@@ -452,7 +467,6 @@ function BoardLane({
     && appendAfterId === null
     && !crossLaneAppend;
   const showLaneEndPlaceholder = laneDropTarget?.beforeTaskId === null && crossLaneAppend;
-  const eligibleTasks = pendingLane !== null ? manualTasks(lane) : [];
   const createEditor = editorState?.kind === "create" && editorState.lane === pendingLane
     ? editorState
     : null;
@@ -477,6 +491,27 @@ function BoardLane({
               ? `${doneMonthCompletionCount} completed this month`
               : `${lane.count} ${lane.count === 1 ? "task" : "tasks"}`}
           </span>
+          {laneKey === "today" && todayProgress ? (
+            <div
+              className="list-board-lane__progress"
+              data-today-progress="true"
+              aria-label={`${todayProgress.done} of ${todayProgress.total} tasks done`}
+            >
+              <span className="list-board-lane__progress-track" aria-hidden="true">
+                <span
+                  className="list-board-lane__progress-fill"
+                  style={{
+                    width: `${todayProgress.total === 0
+                      ? 0
+                      : Math.min(100, Math.round((todayProgress.done / todayProgress.total) * 100))}%`,
+                  }}
+                />
+              </span>
+              <span className="list-board-lane__progress-label type-metadata">
+                {todayProgress.done}/{todayProgress.total} Done
+              </span>
+            </div>
+          ) : null}
         </div>
         <span className="list-board-lane__est type-metadata">
           Est: {formatEstimate(displayedLaneEstimateSeconds)}
@@ -527,22 +562,26 @@ function BoardLane({
             onCancel={onCancelEditor}
           />
         ) : null}
-        {showLeadingPlaceholder ? <DropPlaceholder /> : null}
+        {showLeadingPlaceholder ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
         {lane.tasks.length > 0 ? (
-          lane.tasks.map((task) => {
+          lane.tasks.map((task, taskOrdinalIndex) => {
             const reorderable = pendingLane !== null
               && presentationReorderEnabled
               && isManualReorderTask(task);
-            const reorderIndex = reorderable ? taskIndex(eligibleTasks, task.id) : -1;
             const actionsEnabled = reorderable
               && interactionReorderEnabled
               && mutationPendingTaskId === null
               && pendingLane !== null;
-            const onMoveUp = actionsEnabled && reorderIndex > 0
-              ? () => onMoveWithinLane(task, pendingLane, "up")
+            const pendingLaneIndex = pendingLane === null ? -1 : PENDING_LANES.indexOf(pendingLane);
+            const laneLeft = pendingLaneIndex > 0 ? PENDING_LANES[pendingLaneIndex - 1] : undefined;
+            const laneRight = pendingLaneIndex >= 0 && pendingLaneIndex < PENDING_LANES.length - 1
+              ? PENDING_LANES[pendingLaneIndex + 1]
               : undefined;
-            const onMoveDown = actionsEnabled && reorderIndex >= 0 && reorderIndex < eligibleTasks.length - 1
-              ? () => onMoveWithinLane(task, pendingLane, "down")
+            const onMoveLaneLeft = actionsEnabled && laneLeft && pendingLane
+              ? () => onMoveAcrossLane(task, pendingLane, laneLeft)
+              : undefined;
+            const onMoveLaneRight = actionsEnabled && laneRight && pendingLane
+              ? () => onMoveAcrossLane(task, pendingLane, laneRight)
               : undefined;
             const titleEditor = editorState?.kind === "edit" && editorState.taskId === task.id
               ? {
@@ -573,10 +612,21 @@ function BoardLane({
               && pendingLane !== null
               && task.completedAt === null
               && canChangeListTask(task);
-            const taskActions = onMoveUp || onMoveDown || canUseTaskMenu || canEditSchedule
+            const canToggleNotes = Boolean(noteControls)
+              && (noteControls?.taskId === task.id || Boolean(noteControls?.canOpen));
+            const canToggleSubtasks = Boolean(subtaskControls)
+              && (subtaskControls?.panel?.taskId === task.id || Boolean(subtaskControls?.canOpen));
+            const taskActions = canToggleSubtasks
+              || canToggleNotes
+              || onMoveLaneLeft
+              || onMoveLaneRight
+              || canUseTaskMenu
+              || canEditSchedule
               ? {
-                  onMoveUp,
-                  onMoveDown,
+                  onSubtasks: canToggleSubtasks ? () => subtaskControls?.onToggle(task) : undefined,
+                  onNotes: canToggleNotes ? () => noteControls?.onToggle(task) : undefined,
+                  onMoveLaneLeft,
+                  onMoveLaneRight,
                   onSchedule: canEditSchedule ? () => onStartScheduleEdit(task) : undefined,
                   onChangeList: canChangeList ? () => onChangeListTask(task) : undefined,
                   onDuplicate: canUseTaskMenu ? () => onDuplicateTask(task) : undefined,
@@ -611,7 +661,7 @@ function BoardLane({
 
             return (
               <div key={task.id} className="list-board-task-slot">
-                {placeholderBefore ? <DropPlaceholder /> : null}
+                {placeholderBefore ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
                 <div
                   role="listitem"
                   className="list-board-task-drag-shell"
@@ -638,7 +688,14 @@ function BoardLane({
                   <TaskCard
                     task={task}
                     aggregateView={aggregateView}
+                    ordinal={taskOrdinalIndex + 1}
                     actions={taskActions}
+                    deleteConfirmation={deleteTargetId === task.id ? {
+                      pending: deletePending,
+                      error: deleteError,
+                      onCancel: onCancelDelete,
+                      onConfirm: onConfirmDelete,
+                    } : undefined}
                     onComplete={canStartTaskEditor && task.completedAt === null
                       ? () => onCompleteTask(task)
                       : undefined}
@@ -680,14 +737,14 @@ function BoardLane({
                     hideTaskTimes={hideTaskTimes}
                   />
                 </div>
-                {placeholderAfter ? <DropPlaceholder /> : null}
+                {placeholderAfter ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
               </div>
             );
           })
         ) : laneDropTarget ? null : (
           <div className="list-board-lane__empty type-metadata">{laneKey === "today" ? "No Tasks" : "No tasks"}</div>
         )}
-        {showLaneEndPlaceholder ? <DropPlaceholder /> : null}
+        {showLaneEndPlaceholder ? <DropPlaceholder height={dragState?.sourceHeight} /> : null}
         {createEditor && !createEditor.insertAtTop ? (
           <InlineCreateEditor
             title={createEditor.title}
@@ -1013,6 +1070,7 @@ export function ListBoard({
     ? {
         taskId: fixtureReorderState.draggingTaskId,
         sourceLane: fixtureReorderState.sourceLane,
+        sourceHeight: 72,
       }
     : dragState;
   const displayedDropTarget = fixtureReorderState?.dropLane
@@ -1031,6 +1089,11 @@ export function ListBoard({
     return null;
   };
   const scheduleEditorTask = scheduleEditorTaskId ? findTask(scheduleEditorTaskId) : null;
+  const todayDone = Math.max(0, snapshot.todayCompletionCount);
+  const todayProgress = {
+    done: todayDone,
+    total: todayDone + Math.max(0, snapshot.today.count),
+  };
 
   const markSettling = (taskId: string) => {
     setSettlingTaskId(taskId);
@@ -1730,7 +1793,20 @@ export function ListBoard({
     }
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData("text/plain", task.id);
-    setDragState({ taskId: task.id, sourceLane: lane });
+    const sourceRect = event.currentTarget.getBoundingClientRect();
+    const preview = event.currentTarget.cloneNode(true) as HTMLElement;
+    preview.classList.add("list-board-task-drag-preview");
+    preview.setAttribute("aria-hidden", "true");
+    preview.removeAttribute("role");
+    preview.style.width = `${sourceRect.width}px`;
+    document.body.appendChild(preview);
+    event.dataTransfer.setDragImage(
+      preview,
+      Math.min(sourceRect.width / 2, Math.max(16, event.clientX - sourceRect.left)),
+      Math.min(sourceRect.height / 2, Math.max(16, event.clientY - sourceRect.top)),
+    );
+    window.requestAnimationFrame(() => preview.remove());
+    setDragState({ taskId: task.id, sourceLane: lane, sourceHeight: sourceRect.height });
     setDropTarget({ lane, beforeTaskId: task.id });
     setMutationError(null);
   };
@@ -1796,6 +1872,15 @@ export function ListBoard({
     if (direction === "down" && index < eligible.length - 1) {
       void commitDrop(task.id, lane, lane, eligible[index + 2]?.id ?? null);
     }
+  };
+
+  const handleMoveAcrossLane = (
+    task: ListBoardTask,
+    sourceLane: PendingLaneKey,
+    targetLane: PendingLaneKey,
+  ) => {
+    if (mutationPendingTaskId || sourceLane === targetLane) return;
+    void commitDrop(task.id, sourceLane, targetLane, null);
   };
 
   const handleTaskKeyDown = (
@@ -1976,6 +2061,7 @@ export function ListBoard({
             lane={snapshot[key]}
             title={title}
             doneMonthCompletionCount={key === "done" ? snapshot.doneMonthCompletionCount : undefined}
+            todayProgress={key === "today" ? todayProgress : undefined}
             aggregateView={aggregateView}
             presentationReorderEnabled={presentationReorderEnabled}
             interactionReorderEnabled={interactionReorderEnabled}
@@ -2002,7 +2088,7 @@ export function ListBoard({
               setDropTarget(null);
             }}
             onTaskKeyDown={handleTaskKeyDown}
-            onMoveWithinLane={handleMoveWithinLane}
+            onMoveAcrossLane={handleMoveAcrossLane}
             onStartCreate={(lane, insertAtTop) => {
               if (!canStartCreate) return;
               setMutationError(null);
@@ -2024,6 +2110,15 @@ export function ListBoard({
             onChangeListTask={requestTaskChangeList}
             onDuplicateTask={(task) => void duplicateTaskFromBoard(task)}
             onDeleteTask={requestTaskDelete}
+            deleteTargetId={deleteTarget?.id ?? null}
+            deletePending={deletePending}
+            deleteError={deleteError}
+            onCancelDelete={() => {
+              if (deletePending) return;
+              setDeleteTarget(null);
+              setDeleteError(null);
+            }}
+            onConfirmDelete={() => void confirmTaskDelete()}
             onStartTitleEdit={(task) => {
               if (!canStartTaskEditor || liveStateForTask(timerPayload, task.id) !== null) return;
               setMutationError(null);
@@ -2102,20 +2197,6 @@ export function ListBoard({
             setChangeListError(null);
           }}
           onConfirm={() => void confirmTaskChangeList()}
-        />
-      ) : null}
-
-      {deleteTarget ? (
-        <TaskDeleteConfirmDialog
-          taskTitle={deleteTarget.title}
-          pending={deletePending}
-          error={deleteError}
-          onCancel={() => {
-            if (deletePending) return;
-            setDeleteTarget(null);
-            setDeleteError(null);
-          }}
-          onConfirm={() => void confirmTaskDelete()}
         />
       ) : null}
 

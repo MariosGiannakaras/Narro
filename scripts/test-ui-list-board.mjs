@@ -53,6 +53,11 @@ for (const [haystack, needle, label] of [
   [component, "pendingLane !== null && !aggregateView", "Done and All Lists create exclusion"],
   [component, 'data-board-add-task-top={pendingLane}', "top-priority Add Task target"],
   [component, 'data-done-month-count=', "Done local-month count marker"],
+  [component, 'data-today-progress="true"', "Today done/total progress marker"],
+  [api, "todayCompletionCount: number", "typed Today completion projection"],
+  [component, "snapshot.todayCompletionCount", "Today completion numerator"],
+  [component, "todayDone + Math.max(0, snapshot.today.count)", "Today progress denominator"],
+  [rust, "task_completed_in_display_today", "Today completion local-day/effective-lane semantics"],
   [component, "<TaskCard", "task-card presentation projection"],
   [component, "actions={taskActions}", "task-card callback action projection"],
   [taskCard, 'data-board-task="task-card"', "task-card identity"],
@@ -95,9 +100,9 @@ for (const required of [
   "completeListBoardTask({",
   "permanentlyDeleteListBoardTask({",
   "completeTimerTask()",
-  "<TaskDeleteConfirmDialog",
+  'data-task-delete-confirm="inline"',
 ]) {
-  if (!component.includes(required)) {
+  if (!(component + taskCard).includes(required)) {
     throw new Error(`List-board reconciliation is missing required task interaction: ${required}`);
   }
 }
@@ -106,6 +111,10 @@ for (const forbidden of ["create_task", "move_task", "update_task", "complete_ta
   if (rustProduction.includes(forbidden)) {
     throw new Error(`List-board read model must not call a task mutation: ${forbidden}`);
   }
+}
+
+if (component.includes("TaskDeleteConfirmDialog")) {
+  throw new Error("Permanent task delete confirmation must stay inline with the task card.");
 }
 
 requireText(shell, "onDuplicate:", "Home List Duplicate production wiring");

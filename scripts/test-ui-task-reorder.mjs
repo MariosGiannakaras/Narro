@@ -52,7 +52,12 @@ for (const [haystack, needle, label] of [
   [board, "event.altKey", "keyboard reorder modifier"],
   [board, 'event.key === "ArrowUp"', "keyboard upward reorder"],
   [board, 'event.key === "ArrowLeft" || event.key === "ArrowRight"', "keyboard cross-lane move"],
-  [board, "<DropPlaceholder />", "stable placeholder presentation"],
+  [board, "<DropPlaceholder height={dragState?.sourceHeight} />", "source-height placeholder presentation"],
+  [board, 'preview.classList.add("list-board-task-drag-preview")', "lifted native drag preview"],
+  [board, "sourceHeight: sourceRect.height", "live source reflow height capture"],
+  [css, 'data-task-dragging="true"', "dragging source collapse selector"],
+  [css, "height: 0;", "live source reflow collapse"],
+  [css, "var(--task-drop-placeholder-height, 4.5rem)", "card-height insertion placeholder"],
   [css, "var(--motion-duration-reorder)", "validated reorder settle timing token"],
   [css, "list-board-task-drop-settle", "finite drop-settle animation"],
   [css, "@media (prefers-reduced-motion: reduce)", "reduced-motion reorder behavior"],
@@ -99,10 +104,14 @@ if (!mutation.includes("Could not reorder") || !mutation.includes("handleCommitt
   throw new Error("Task reorder must distinguish persistence failure from post-commit refresh failure through the shared boundary.");
 }
 
-for (const forbidden of ["setInterval(", "requestAnimationFrame("]) {
+for (const forbidden of ["setInterval("]) {
   if (board.includes(forbidden) || css.includes(forbidden)) {
     throw new Error(`Task reorder must not add continuous presentation work; found ${forbidden}`);
   }
+}
+
+if (!board.includes("window.requestAnimationFrame(() => preview.remove())")) {
+  throw new Error("Lifted drag preview must be removed by a finite one-shot cleanup.");
 }
 
 console.log("Task reorder/move contract checks passed.");

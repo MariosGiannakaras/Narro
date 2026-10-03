@@ -168,6 +168,7 @@ const listBoardFixtureSnapshot: ListBoardSnapshot = {
       ),
     ],
   },
+  todayCompletionCount: 1,
   doneMonthCompletionCount: 1,
   done: {
     count: 1,
@@ -188,6 +189,7 @@ const listBoardFixtureSnapshot: ListBoardSnapshot = {
 
 const allListsBoardFixtureSnapshot: ListBoardSnapshot = {
   ...listBoardFixtureSnapshot,
+  todayCompletionCount: 2,
   doneMonthCompletionCount: 2,
   target: {
     kind: "all_lists",

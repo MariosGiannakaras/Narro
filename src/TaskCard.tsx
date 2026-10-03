@@ -19,12 +19,21 @@ type FixturePresentationState =
   | "destructive_confirm";
 
 export type TaskCardActions = {
-  onMoveUp?: () => void;
-  onMoveDown?: () => void;
+  onSubtasks?: () => void;
+  onNotes?: () => void;
+  onMoveLaneLeft?: () => void;
+  onMoveLaneRight?: () => void;
   onSchedule?: () => void;
   onChangeList?: () => void;
   onDuplicate?: () => void;
   onDelete?: () => void;
+};
+
+export type TaskCardDeleteConfirmation = {
+  pending: boolean;
+  error: string | null;
+  onConfirm: () => void;
+  onCancel: () => void;
 };
 
 export type TaskCardTitleEditor = {
@@ -86,14 +95,19 @@ type TaskCardProps = {
   subtasks?: TaskCardSubtasks;
   liveState?: TimerStateKind | null;
   hideTaskTimes?: boolean;
+  ordinal?: number;
+  deleteConfirmation?: TaskCardDeleteConfirmation;
 };
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 const WHOLE_SECONDS = /^\d+$/;
 const fixtureAction = () => undefined;
 const FIXTURE_REORDER_ACTIONS: TaskCardActions = {
-  onMoveUp: fixtureAction,
-  onMoveDown: fixtureAction,
+  onSubtasks: fixtureAction,
+  onNotes: fixtureAction,
+  onMoveLaneLeft: fixtureAction,
+  onMoveLaneRight: fixtureAction,
+  onSchedule: fixtureAction,
 };
 
 function safeListAccent(color: string | null): CSSProperties | undefined {
@@ -179,7 +193,7 @@ function TaskActionButton({
   label: string;
   glyph: string;
   action: () => void;
-  actionId: "move-up" | "move-down";
+  actionId: "subtasks" | "notes" | "lane-left" | "lane-right";
 }) {
   return (
     <Tooltip content={label}>
@@ -246,30 +260,93 @@ function TaskActionRail({
   scheduleActionLabel: "Schedule" | "Update Schedule";
 }) {
   return (
-    <span className="list-board-task__actions" data-task-actions="reorder-overflow">
-      <span className="list-board-task__action-position" data-task-action-position="move-up">
-        {actions.onMoveUp ? (
+    <span className="list-board-task__actions" data-task-actions="source-hover-rail">
+      <span className="list-board-task__action-position" data-task-action-position="subtasks">
+        {actions.onSubtasks ? (
           <TaskActionButton
-            label="Move task up"
-            glyph="↑"
-            action={actions.onMoveUp}
-            actionId="move-up"
+            label="Subtasks"
+            glyph="☷"
+            action={actions.onSubtasks}
+            actionId="subtasks"
           />
         ) : null}
       </span>
-      <span className="list-board-task__action-position" data-task-action-position="move-down">
-        {actions.onMoveDown ? (
+      <span className="list-board-task__action-position" data-task-action-position="notes">
+        {actions.onNotes ? (
           <TaskActionButton
-            label="Move task down"
-            glyph="↓"
-            action={actions.onMoveDown}
-            actionId="move-down"
+            label="Notes"
+            glyph="▤"
+            action={actions.onNotes}
+            actionId="notes"
+          />
+        ) : null}
+      </span>
+      <span className="list-board-task__action-position" data-task-action-position="lane-left">
+        {actions.onMoveLaneLeft ? (
+          <TaskActionButton
+            label="Move task one lane left"
+            glyph="←"
+            action={actions.onMoveLaneLeft}
+            actionId="lane-left"
+          />
+        ) : null}
+      </span>
+      <span className="list-board-task__action-position" data-task-action-position="lane-right">
+        {actions.onMoveLaneRight ? (
+          <TaskActionButton
+            label="Move task one lane right"
+            glyph="→"
+            action={actions.onMoveLaneRight}
+            actionId="lane-right"
           />
         ) : null}
       </span>
       <span className="list-board-task__action-position" data-task-action-position="overflow">
         <TaskOverflowMenu actions={actions} scheduleActionLabel={scheduleActionLabel} />
       </span>
+    </span>
+  );
+}
+
+function InlineDeleteConfirmation({
+  confirmation,
+}: {
+  confirmation: TaskCardDeleteConfirmation;
+}) {
+  return (
+    <span
+      className="list-board-task__delete-confirm"
+      data-task-delete-confirm="inline"
+      aria-label="Confirm permanent task deletion"
+    >
+      <button
+        type="button"
+        className="list-board-task__delete-confirm-action motion-interactive"
+        data-task-delete-control="confirm"
+        disabled={confirmation.pending}
+        onPointerDown={(event) => event.stopPropagation()}
+        onClick={confirmation.onConfirm}
+      >
+        {confirmation.pending ? "Deleting…" : "Confirm"}
+      </button>
+      <Tooltip content="Cancel delete">
+        <button
+          type="button"
+          className="list-board-task__delete-cancel motion-interactive"
+          aria-label="Cancel permanent task deletion"
+          data-task-delete-control="cancel"
+          disabled={confirmation.pending}
+          onPointerDown={(event) => event.stopPropagation()}
+          onClick={confirmation.onCancel}
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </Tooltip>
+      {confirmation.error ? (
+        <span className="list-board-task__delete-error type-metadata" role="alert">
+          {confirmation.error}
+        </span>
+      ) : null}
     </span>
   );
 }
@@ -520,6 +597,8 @@ export function TaskCard({
   subtasks,
   liveState,
   hideTaskTimes = false,
+  ordinal,
+  deleteConfirmation,
 }: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
   const scheduled = scheduleLabel(task);
@@ -528,7 +607,7 @@ export function TaskCard({
   const showBaseContent = state !== "inline_create";
   const noteExpanded = Boolean(notes?.expanded);
   const subtaskExpanded = Boolean(subtasks?.model?.expanded);
-  const effectiveActions = titleEditor || metricEditor || noteExpanded || subtaskExpanded
+  const effectiveActions = titleEditor || metricEditor || noteExpanded || subtaskExpanded || deleteConfirmation
     ? undefined
     : actions ?? (
       isFixtureOnly && (state === "normal" || state === "action_revealed")
@@ -536,8 +615,11 @@ export function TaskCard({
         : undefined
     );
   const hasActions = Boolean(
-    effectiveActions?.onMoveUp
-      || effectiveActions?.onMoveDown
+    deleteConfirmation
+      || effectiveActions?.onSubtasks
+      || effectiveActions?.onNotes
+      || effectiveActions?.onMoveLaneLeft
+      || effectiveActions?.onMoveLaneRight
       || effectiveActions?.onSchedule
       || effectiveActions?.onChangeList
       || effectiveActions?.onDuplicate
@@ -573,7 +655,31 @@ export function TaskCard({
             <InlineTitleEditor editor={titleEditor} done={state === "done"} />
           ) : (
             <div className="list-board-task__title-row">
-              {onComplete && state !== "done" ? (
+              {ordinal !== undefined && state !== "done" ? (
+                <span
+                  className="list-board-task__completion-slot list-board-task__leading-slot"
+                  data-task-leading-slot="ordinal-completion"
+                >
+                  <span className="list-board-task__ordinal" aria-hidden="true">{ordinal}</span>
+                  {onComplete ? (
+                    <button
+                      type="button"
+                      className="list-board-task__completion-button motion-interactive"
+                      aria-label={`Complete task: ${task.title}`}
+                      data-task-completion-control="complete"
+                      draggable={false}
+                      onPointerDown={(event) => event.stopPropagation()}
+                      onClick={onComplete}
+                    >
+                      <span className="list-board-task__completion-mark">○</span>
+                    </button>
+                  ) : (
+                    <span className="list-board-task__completion-preview" aria-hidden="true">
+                      <span className="list-board-task__completion-mark">○</span>
+                    </span>
+                  )}
+                </span>
+              ) : onComplete && state !== "done" ? (
                 <button
                   type="button"
                   className="list-board-task__completion-slot list-board-task__completion-button motion-interactive"
@@ -611,8 +717,9 @@ export function TaskCard({
                 data-task-action-slot="reserved"
                 aria-hidden={hasActions || metricEditor ? undefined : true}
               >
-                {metricEditor ? <MetricEditActions editor={metricEditor} /> : null}
-                {effectiveActions && hasActions ? (
+                {deleteConfirmation ? <InlineDeleteConfirmation confirmation={deleteConfirmation} /> : null}
+                {!deleteConfirmation && metricEditor ? <MetricEditActions editor={metricEditor} /> : null}
+                {!deleteConfirmation && effectiveActions && hasActions ? (
                   <TaskActionRail
                     actions={effectiveActions}
                     scheduleActionLabel={scheduled || repeatStatus ? "Update Schedule" : "Schedule"}

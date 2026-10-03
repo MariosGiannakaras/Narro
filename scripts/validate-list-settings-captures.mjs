@@ -18,10 +18,10 @@ function read(label) {
 
 for (const theme of ["light", "dark"]) {
   const archive = read(`list-settings-archive-${theme}`);
-  invariant(archive.includes('data-list-confirm-action="archive"'), `${theme} archive confirmation is missing`);
-  invariant(archive.includes('role="dialog"'), `${theme} archive confirmation lacks dialog semantics`);
-  invariant(archive.includes('aria-modal="true"'), `${theme} archive confirmation lacks modal semantics`);
-  invariant(archive.includes("Archive list"), `${theme} archive confirmation action is missing`);
+  invariant(archive.includes('aria-label="More actions for Study"'), `${theme} direct Archive menu trigger is missing`);
+  invariant(archive.includes('aria-expanded="true"'), `${theme} direct Archive menu is not open`);
+  invariant(archive.includes("Archive List"), `${theme} direct Archive menu action is missing`);
+  invariant(!archive.includes('data-list-confirm-action="archive"'), `${theme} reversible Archive incorrectly opened a second confirmation`);
 
   const archived = read(`list-settings-archived-${theme}`);
   invariant(archived.includes('data-archived-lists-panel="true"'), `${theme} archived-list panel is missing`);

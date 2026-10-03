@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./App.css";
 import { AppShell } from "./AppShell";
 import { ListBoard } from "./ListBoard";
+import { TaskCard } from "./TaskCard";
 import type { ListBoardSnapshot, ListBoardTask } from "./listBoardApi";
 import "./visualFixtures.css";
 
@@ -86,6 +87,7 @@ const snapshot: ListBoardSnapshot = {
     aggregateEstSeconds: 0,
     tasks: [],
   },
+  todayCompletionCount: 0,
   doneMonthCompletionCount: 0,
 };
 
@@ -97,17 +99,26 @@ flushSync(() => {
     <AppShell
       fixtureMode
       homeContent={
-        <ListBoard
-          target={{ kind: "list", id: snapshot.target.id! }}
-          fixtureSnapshot={snapshot}
-          fixtureReorderState={{
-            draggingTaskId: draggingId,
-            sourceLane: "backlog",
-            dropLane: "thisWeek",
-            beforeTaskId: null,
-            settlingTaskId: settlingId,
-          }}
-        />
+        <>
+          <ListBoard
+            target={{ kind: "list", id: snapshot.target.id! }}
+            fixtureSnapshot={snapshot}
+            fixtureReorderState={{
+              draggingTaskId: draggingId,
+              sourceLane: "backlog",
+              dropLane: "thisWeek",
+              beforeTaskId: null,
+              settlingTaskId: settlingId,
+            }}
+          />
+          <div
+            className="list-board-task-drag-preview"
+            data-task-drag-preview="true"
+            style={{ left: "18rem", top: "13rem", width: "15rem" }}
+          >
+            <TaskCard task={snapshot.backlog.tasks[0]} aggregateView={false} ordinal={1} />
+          </div>
+        </>
       }
     />,
   );
@@ -120,6 +131,7 @@ const contract = {
   viewport: { width: 1280, height: 720 },
   placeholder: geometry(document.querySelector('[data-task-drop-placeholder="true"]')),
   draggingShell: geometry(document.querySelector('[data-task-dragging="true"]')),
+  dragPreview: geometry(document.querySelector('[data-task-drag-preview="true"]')),
   settlingShell: geometry(document.querySelector('[data-task-settling="true"]')),
   scheduledReorderable: scheduledShell?.getAttribute("data-task-reorderable") ?? null,
   dropLaneActive: document.querySelector('[data-board-lane="This Week"]')?.getAttribute("data-drop-active") ?? null,
