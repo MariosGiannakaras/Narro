@@ -50,7 +50,7 @@ When that instruction is given, read in order:
 
 Current source-analysis checkpoint:
 - screenshots: **46/46 SOURCE_COMPLETE** at Pass-3 depth;
-- full repository MP4s: **12/19 SOURCE_COMPLETE** at Pass-3 depth;
+- full repository MP4s: **13/19 SOURCE_COMPLETE** at Pass-3 depth;
 - VE-018: one 9.344 s / 560-frame planning-board excerpt is **PARTIAL** deep evidence, not full VE-018 completion;
 - VE-003 Blitz Mode: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-005 Add & Manage Tasks and Lists: **SOURCE_COMPLETE** from the actual full MP4;
@@ -64,7 +64,8 @@ Current source-analysis checkpoint:
 - VE-015 Sessions Walkthrough: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-011 Reports: **SOURCE_COMPLETE** from the actual full MP4;
 - VE-012 Improved Sessions and Stats: **SOURCE_COMPLETE** from the actual full MP4;
-- exact next video: **VE-006 — Blitzit Tutorial How to Delete & Archive Tasks and Lists.mp4**;
+- VE-006 Delete & Archive: **SOURCE_COMPLETE** from the actual full MP4;
+- exact next video: **VE-008 — Blitzit Tutorial How to Set Up Recurring Tasks.mp4**;
 - raw MP4 access is currently available through the isolated analysis-only media bridge; do not merge that bridge into main.
 
 Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
