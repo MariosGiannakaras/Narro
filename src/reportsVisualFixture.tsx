@@ -14,7 +14,7 @@ import {
 const params = new URLSearchParams(window.location.search);
 const theme = params.get("theme") === "light" ? "light" : "dark";
 const requestedMode = params.get("mode");
-const mode = ["overview", "list-filter", "date-picker", "lower"].includes(requestedMode ?? "")
+const mode = ["overview", "list-filter", "date-picker", "series-toggle", "lower"].includes(requestedMode ?? "")
   ? requestedMode!
   : "overview";
 
@@ -136,12 +136,15 @@ flushSync(() => {
       timeByList={timeByList}
       doneTasks={doneTasks}
       listLabel="All Lists"
+      selectedListIds={[]}
       listOptions={listOptions}
       rangeLabel="Aug 07, 2026  –  Aug 14, 2026"
       calendarMonths={[august, september]}
       listFilterOpen={mode === "list-filter"}
       datePickerOpen={mode === "date-picker"}
       tooltipDayId={mode === "overview" || mode === "list-filter" ? "aug-10" : null}
+      visibleSeries={{ tasks: true, breaks: true, total: mode !== "series-toggle" }}
+      punctuality={{ earlyPercent: 67.25, latePercent: 32.75 }}
     />,
   );
 });
