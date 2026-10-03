@@ -1,6 +1,22 @@
 # STATUS.md
 
-Last updated: 2026-10-03
+Last updated: 2026-10-04
+
+## 2026-10-04 — Global Blitzit 19/19 no-orphan reconciliation complete
+
+The mandatory post-19/19 source→implementation reconciliation is complete on runtime baseline `f53a850f51375f15a0b2b4efe106da95e30b6e73` plus subsequent documentation-only reconciliation commits. It covers **19/19 SOURCE_COMPLETE MP4s**, **46/46 canonical screenshots/calibration dispositions**, and **8/8 visual-system families**. Detailed authoritative routing is in `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`; immutable evidence is in `work-log/2026-10-04-chatgpt-global-no-orphan-reconciliation.md`.
+
+No `SOURCE_PARITY_PASS` is claimed. Narro-owned fixtures/screenshots and physical Windows PASS remain distinct from canonical Blitzit comparison.
+
+Current implementation truth after the reconciliation:
+- **M5 FIX_NOW:** Today done/total progress; resting ordinal→hover completion and exact five-action board rail; source drag lift/live-reflow/settle presentation; inline task-delete Confirm+X presentation while preserving explicit confirmation; remove Narro's extra reversible list-Archive confirmation.
+- **M6 FIX_NOW:** reduced-motion-safe board fade before Focus; Notes source toolbar + automatic clickable URL recognition while keeping explicit external-browser activation; calibrated Focus live cyan→mint/lime edge treatment.
+- **M7 FIX_NOW:** collapsed Floating Timer title/time→action-strip hover grammar and calibrated compact rounded shell. These source-parity items are separate from the current PR #225 Windows-correctness physical batch.
+- **M8:** PREF-R05/PREF-R06 are validated; PR #225 concurrent Preferences fix PASSed CI #911 and only exact-build physical save/restart remains open.
+- **M9:** PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915; all 22 changed blobs are identical on merged runtime main `f53a850f51375f15a0b2b4efe106da95e30b6e73`. Sessions dashboard/Add/Edit/detail and local Sessions CSV are therefore automated-validated. M9 is **11/12**; local Overview PDF generation is the remaining implementation item.
+- **M10:** direct canonical-source comparison/release revalidation plus fresh-launch no-implicit-start and running-session Notes/title continuity regressions remain open.
+
+The active PR #225 exact-EXE physical gate remains `3/5` with historical physical counter `14/19`; the reconciliation itself advances no validation counter. Current compact progress remains **`3/10M || 3/5 | 14/19`**.
 
 ## 2026-10-03 — M7 PR225 merged; exact Windows CI911 PASS, physical retest in progress
 
@@ -16,7 +32,7 @@ The batch also found **FAIL**: wrapped Notes presentation tooltip clips left; wh
 
 Per repeated-failure escalation, the next editor correction changes its containing-block path rather than subtracting margins again: remove neutral nested transforms while preserving the same editor DOM/draft, compare current failure against root-relative containment using actual production wrappers. Initial expanded clipping must be atomic before finite reveal. Wrapped tooltip alignment becomes boundary-aware; narrow card layouts retain a reserved action row. This reopens only affected M5 narrow-title acceptance. Exact-build physical validation remains required. The initial dual-monitor topology became unavailable during the idle interval; only DISPLAY2 remained despite `/extend`. Complete crossing/reconnect/full-screen and separate M1 Candidate B B/C/D are NOT RUN. Current M7 closure remains3/5, roadmap5/10M, physical14/19; concurrent M9/source-analysis work is preserved. OS animations On, app paused, OBS stopped.
 
-## 2026-10-03 — M9 production Overview validated; 9/12 top-level items complete
+## Historical 2026-10-03 — M9 production Overview validated; then 9/12 top-level items complete
 
 PR #224 final exact head `fd04d2890268819d2f8a2a202907ecd23a856e59` PASSed Windows CI #906 / run `37145571851`. It merged as application source `ee5448d5534b44449df1ddff02c3b83d88111c7f`, and resulting-main Windows CI #907 / run `37146683037` PASSed all gates.
 
@@ -29,7 +45,7 @@ New Sessions slice: `0/5` checkpoints — dashboard → mutations/detail → reg
 Durable evidence: `work-log/2026-10-03-chatgpt-m9-pr224-main907-overview-closure.md`.
 
 
-## 2026-10-03 — M9 Reports Overview visual foundation validated on main
+## Historical 2026-10-03 — M9 Reports Overview visual foundation validated on main
 
 PR #198 final exact head `2e32eae3043f7100fdf16990f482332293ef12d0` **PASSed** full Windows CI #904 / run `37143064981`, including Reports visual captures/validation, Rust checks/tests, release/runtime capture and repository-wide validation builds. It was expected-head guarded squash-merged as source `82786cb2a95bb5fdd2835dcb5e3660269425520f`.
 
@@ -39,7 +55,7 @@ This closes only the reusable/pure Overview visual foundation and its Windows re
 
 Durable evidence: `work-log/2026-10-03-chatgpt-m9-pr198-main905-closure.md`.
 
-## 2026-10-03 — M9 nonvisual reporting contracts validated through main CI #898
+## Historical 2026-10-03 — M9 nonvisual reporting contracts validated through main CI #898
 
 M9 PR #205 first exposed the validated Overview aggregation through typed Tauri/renderer DTOs and PASSed resulting-main Windows CI #889 on source `f1cca810ea7d7fe6130d43ae0f6bfe649a7154af`.
 
