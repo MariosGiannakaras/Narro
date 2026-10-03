@@ -906,7 +906,7 @@ Material implementation consequences:
 - VE-F001 resolves EST parser title normalization: a successfully parsed terminal duration is removed from the saved visible title and stored as EST.
 - VE-F002 resolves only the success-screen-enabled Done path: success UI appears before next-task start and `Next Task` is explicit. Success-screen-disabled progression remains unresolved; the visible `Take a Break` post-click domain semantics are not shown and must not be guessed.
 - VE-F008 directly corroborates M8 nested Preferences behavior and hide-times hover disclosure.
-- VE-F004 corroborates Blitzit's live-task note-URL auto-open; Narro's explicit-activation deviation remains binding.
+- VE-F004 no longer treats VE-010 as direct proof of live-task note-URL auto-open: the dense Pass-3 review shows the task was already live and the pointer was on the recognized link immediately before Safari opened. Help/roadmap evidence still documents auto-open behavior in some Blitzit versions; Narro's explicit-activation decision remains binding for agency/reliability.
 - VE-F007 adds a coarse ~0.2–0.3 s source Panel→Floating visual sequence but does not close any deferred M7 physical Windows checks.
 - Reports/Sessions findings are routed to M9 and do not front-run M8.
 
