@@ -80,27 +80,25 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-016 — `Blitzit Tutorial Timer Modes.mp4`.**
+**Continue with VE-017 — `Blitzit Tutorial Update Recurring Schedules.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016.
 
-For VE-016:
+For VE-017:
 
-1. inspect the complete **02:55.380, 1920×1080, 60 fps** MP4;
-2. build a full Timer Modes timeline;
+1. inspect the complete **02:50.063, 1920×1080, 60 fps** MP4;
+2. map existing recurring-rule entry/edit states;
 3. densely inspect:
-   - countdown EST behavior approaching zero;
-   - exact `Time's Up` state and control changes;
-   - Extend control appearance/interaction;
-   - Pause / Resume / Skip / Done states;
-   - manual break entry/exit if shown;
-   - Pomodoro work→break and break→work presentation;
-   - count-up/no-EST behavior;
-   - Time Taken values before/after transitions;
-4. reconstruct displayed arithmetic at timer boundaries;
-5. distinguish real product transitions from tutorial cuts;
-6. update analysis Markdown only;
-7. then continue to VE-017.
+   - Replace Existing Tasks row;
+   - count/copy associated with existing generated tasks;
+   - switch to No Repeat;
+   - Delete Existing Tasks appearance and destructive styling;
+   - whether Replace and Delete coexist or replace one another;
+   - footer/save continuity while conditional content changes;
+   - generated child state before/after update/save;
+4. distinguish direct UI evidence from narration about detached/generated tasks;
+5. update analysis Markdown only;
+6. then continue to VE-007.
 
 ## Media-access rule
 
