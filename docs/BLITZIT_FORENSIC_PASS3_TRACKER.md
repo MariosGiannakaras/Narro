@@ -24,9 +24,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **18/19**
+- Full MP4s completed at Pass-3 depth: **19/19**
 - Partial Pass-3 sequences outside the mapped 19-video corpus: **1** — unmapped user-supplied 9.344 s planning-board clip
-- Full MP4s still open: **1**
+- Full MP4s still open: **0**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -147,6 +147,6 @@ The separate 9.344 s user-supplied planning clip reached Pass-3 depth and establ
 
 ## Exact next action
 
-Continue with **VE-019 — `Oct Update Light mode and more!🚀.mp4`**.
+Video Pass 3 is **19/19 SOURCE_COMPLETE**. Continue with the still-open static visual-calibration tracker; do not declare the overall forensic pass complete until that tracker is closed.
 
 VE-003, VE-005, VE-013, VE-014, VE-016 and VE-017 are SOURCE_COMPLETE from their actual full MP4s.
