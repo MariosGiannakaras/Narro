@@ -25,7 +25,7 @@ When work touches a user-visible surface, Blitzit parity, source evidence, or ph
 | Raw static source | `reference/original-blitzit-screenshots/`, `CANONICAL_INDEX.md` | retained screenshot pixels, provenance, dimensions | implementation status |
 | Raw motion source | `reference/original-blitzit-videos/inbox/` | original MP4/SRT corpus | current Pass-3 counters |
 | Current exhaustive source forensics | `BLITZIT_FORENSIC_PASS3_TRACKER.md`, `...SCREENSHOTS.md`, `...VIDEOS.md`, `...HANDOFF.md` | current source-inspection state and canonical Pass-3 findings | Narro implementation PASS |
-| Static visual calibration | `BLITZIT_VISUAL_CALIBRATION_PLAN.md`, `BLITZIT_VISUAL_CALIBRATION_TRACKER.md` | measurable geometry/style extraction for high-fidelity reconstruction | runtime correctness |
+| Static visual calibration | `BLITZIT_VISUAL_CALIBRATION_PLAN.md`, `BLITZIT_VISUAL_CALIBRATION_TRACKER.md`, `BLITZIT_VISUAL_SYSTEM.md` | representative-source calibration and reusable visual-system rules for high-fidelity reconstruction | runtime correctness |
 | Prior evidence passes | `BLITZIT_VIDEO_EVIDENCE.md`, `BLITZIT_UI_UX_VIDEO_FORENSICS.md`, Help Center evidence, `RESEARCH_EVIDENCE.md`, `SOURCE_AUDIT.md` | prior-pass context and corroboration | current exhaustive completion |
 | Reliability hazards | `BLITZIT_HISTORY_RISK_INDEX.md` | source-product failure families / Narro anti-regressions | visual parity alone |
 | Reconciliation | `BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`, `AUDIT_IMPLEMENTATION_CROSSWALK.md` | finding → current Narro comparison → disposition | raw observation |
@@ -51,7 +51,7 @@ Do not patch implementation or use current Narro as a reason to stop source insp
 
 ### Reconciliation / implementation chat
 
-`EVIDENCE_ROUTING_MAP → PARITY_RECONCILIATION_WORKFLOW → PASS3_TRACKER → relevant SOURCE_COMPLETE findings → VISUAL_CALIBRATION_TRACKER when visual → CROSSWALK → affected TODO/UI_UX_SPEC → current implementation/tests`.
+`EVIDENCE_ROUTING_MAP → PARITY_RECONCILIATION_WORKFLOW → PASS3_TRACKER → relevant SOURCE_COMPLETE findings → VISUAL_SYSTEM / calibration tracker when visual → CROSSWALK → affected TODO/UI_UX_SPEC → current implementation/tests`.
 
 Do not replay every raw source. Re-open originals only for ambiguity/conflict or direct parity verification.
 

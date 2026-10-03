@@ -14,7 +14,7 @@ This workflow defines that handoff.
 
 Implementation agents do **not** re-analyze every original Blitzit image or video by default.
 
-Once a screenshot or video is `SOURCE_COMPLETE` in the Pass-3 corpus, its canonical forensic record is the normal implementation input. For stable screenshot-backed states, source inspection alone is not sufficient for maximum visual parity: also consume the applicable record in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`. Use:
+Once a screenshot or video is `SOURCE_COMPLETE` in the Pass-3 corpus, its canonical forensic record is the normal implementation input. For stable screenshot-backed states, source inspection alone is not sufficient for maximum visual parity: consume the reusable rules in `docs/BLITZIT_VISUAL_SYSTEM.md` plus the applicable coverage/disposition in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`. Use:
 
 - `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md` for per-image findings;
 - `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md` for per-video findings;

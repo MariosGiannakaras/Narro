@@ -7,11 +7,15 @@ Last updated: 2026-10-03
 This ledger is separate from the 46/46 source-inspection count. See `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md`.
 
 Statuses:
-- **OPEN** — calibration not performed.
-- **SAMPLE_AUDITED / OPEN** — checked during the depth audit; calibration still required.
-- **CALIBRATED** — measurable reconstruction/verification details recorded.
-- **CONTEXT_ONLY** — explicitly reviewed and not a target requiring measurements.
+- **OPEN** — not yet dispositioned by the calibration pass.
+- **SAMPLE_AUDITED / OPEN** — checked during the depth audit; still needs a final calibration disposition.
+- **SYSTEM_REFERENCE** — directly used to derive reusable visual-system rules.
+- **SYSTEM_COVERED** — existing Pass-3 record plus calibrated visual-system rules are sufficient; no independent measurement dossier is needed.
+- **UNIQUE_CALIBRATED** — a unique/signature treatment received targeted measurement.
+- **CONTEXT_ONLY** — explicitly reviewed and not a visual target needing calibration.
 - **SUPERSEDED** — stronger evidence is the target; rationale recorded.
+
+This is a **coverage ledger**, not a demand to measure every input/button in every image. Completion means 46/46 explicit dispositions plus a complete `docs/BLITZIT_VISUAL_SYSTEM.md`.
 
 | ID | Canonical image | Calibration status |
 | --- | --- | --- |
@@ -62,4 +66,4 @@ Statuses:
 | SS-T06 | `historical-tool-finder-focus-task-overflow-schedule-menu.png` | OPEN |
 | SS-T07 | `historical-tool-finder-board-notes-inline-expanded.png` | OPEN |
 
-Current calibrated count: **0/46**. The sample audit identified the need for calibration; it did not perform the calibration pass.
+Current final calibration dispositions: **0/46**. System families complete: **0/8**. The sample audit identified the need for calibration; it did not perform the calibration pass.

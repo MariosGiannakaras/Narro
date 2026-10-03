@@ -146,4 +146,8 @@ Source forensics are complete only when:
 - no implementation work is performed as part of this pass;
 - the tracker has no `OPEN`, `PARTIAL`, or `RAW_MEDIA_ACCESS_REQUIRED` rows.
 
-Implementation parity/reconciliation is a later, separate phase. Static visual calibration is also separate from broad source re-analysis: it extracts measurable geometry/style evidence from the already inspected canonical images and selected video keyframes.
+Implementation parity/reconciliation is a later, separate phase. Static visual calibration is also separate from broad source re-analysis: it extracts a reusable visual system from representative already-inspected canonical images and selected video keyframes; it does not require per-control pixel measurement.
+
+### Continuation after 19/19 video completion
+
+If the user gives the generic continuation command (`continue the forensic pass` / equivalent) and the full video queue reaches 19/19 while visual calibration is still OPEN, **do not declare the overall forensic/evidence work finished and stop**. Continue into `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md`, populate `docs/BLITZIT_VISUAL_SYSTEM.md`, and close the 46-image calibration coverage ledger. This remains analysis/evidence work only; do not modify Narro implementation.
