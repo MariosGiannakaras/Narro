@@ -20,6 +20,12 @@ Repository-side Candidate B preparation is complete; selected-monitor placement,
 Durable evidence: `work-log/2026-10-03-chatgpt-m1-ci866-final-candidate-b.md`.
 
 
+## 2026-10-03 — M7 complete two-session evidence handoff; CI #872 active
+
+A correctness review found the generated README could have caused incomplete debugging evidence by asking for only the latest session. The C5 restart test spans two processes, so PR #219 now explicitly requires retaining/uploading the entire `Narro-M7-Logs` folder. The static contract locks this requirement. No timer/persistence semantics changed.
+
+Current PR #219 exact head: `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1`. Windows CI #872 / run `37101133903` is the active authoritative validation. PR metadata also states the two-session evidence requirement. No progress counter changes.
+
 ## 2026-10-03 — M7 CI #869 failed only in validation-smoke PowerShell parsing; #871 active
 
 PR #219's prior exact head `422230e755a373d3ccb61246e1917ff7934a1210` reached and PASSed the physical build verification in Windows CI #869, then failed before the new logging smoke could launch because `scripts/verify-m7-validation-logging.ps1` had a malformed fingerprint-regex line plus duplicated trailing script content. This is validation-tool syntax evidence, not a Narro runtime/logger failure.
