@@ -133,15 +133,23 @@ export function FocusSurfaceCoordinator() {
     }
   }, []);
 
+  const prepareGeometryMotion = useCallback(async (
+    from: FocusSurfacePresentation,
+    to: FocusSurfacePresentation,
+  ) => {
+    if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
+    // Promote the ready, opaque target before native clipping/movement. It stays
+    // inert until native success; the outgoing view remains mounted for rollback.
+    flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
+    await waitForPresentedFrame();
+  }, []);
+
   const runGeometryMotion = useCallback(async (
     from: FocusSurfacePresentation,
     to: FocusSurfacePresentation,
     durationMs: number,
   ) => {
     if (focusSurfaceModeOf(from) === focusSurfaceModeOf(to)) return;
-
-    flushSync(() => setGeometryMotion({ from, to, phase: "start" }));
-    await waitForPresentedFrame();
     flushSync(() => setGeometryMotion({ from, to, phase: "running" }));
     await new Promise<void>((resolve) => {
       window.setTimeout(resolve, durationMs);
@@ -237,6 +245,7 @@ export function FocusSurfaceCoordinator() {
         previousPresentation,
         targetPresentation,
         waitForTargetReady: () => waitForReady(targetMode),
+        beforeNativeCommit: () => prepareGeometryMotion(previousPresentation, targetPresentation),
         applyNativePresentation: applyFocusSurfacePresentation,
         animateNativePresentation: (next) =>
           animateFocusSurfacePresentation(next, motionDurationMs),
@@ -274,7 +283,7 @@ export function FocusSurfaceCoordinator() {
       transitionGateRef.current = false;
       setTransitionPending(false);
     }
-  }, [presentationHydrated, publishPresentation, runGeometryMotion, timerResizePending, waitForReady]);
+  }, [presentationHydrated, prepareGeometryMotion, publishPresentation, runGeometryMotion, timerResizePending, waitForReady]);
 
   requestModeRef.current = requestMode;
 

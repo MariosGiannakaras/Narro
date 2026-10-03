@@ -58,23 +58,23 @@
   pointer-events: none;
 }
 
-/* Panel -> compact Timer contracts the already-painted Panel to the exact
-   compact visible height before Win32 clips/moves the persistent host. */
-.focus-surface-coordinator[data-focus-geometry-motion-from="panel"][data-focus-geometry-motion-to="timerCompact"][data-focus-geometry-motion-phase="running"]
-  .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="active"] {
-  clip-path: inset(0 0 590px 0 round 12px);
-}
-
-.focus-surface-coordinator[data-focus-geometry-motion-from="panel"][data-focus-geometry-motion-to="timerCompact"][data-focus-geometry-motion-phase="start"]
-  .focus-surface-coordinator__presentation[data-focus-presentation="timer"][data-focus-visibility="preparing"] {
-  opacity: 0.92;
-  transform: translateY(8px);
-}
-
-.focus-surface-coordinator[data-focus-geometry-motion-from="panel"][data-focus-geometry-motion-to="timerCompact"][data-focus-geometry-motion-phase="running"]
-  .focus-surface-coordinator__presentation[data-focus-presentation="timer"][data-focus-visibility="preparing"] {
+/* Preparation still paints below the outgoing view. After readiness, promote
+   the opaque target before native clipping/movement, without transferring its
+   interaction ownership. Avoid blending two task hierarchies or transporting
+   the old Panel header inside the compact Timer region. */
+.focus-surface-coordinator[data-focus-geometry-motion="true"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
+  z-index: 3;
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  transition: clip-path var(--focus-geometry-motion-duration) var(--focus-geometry-motion-ease);
+}
+
+/* Establish the initial clip atomically during the presented-frame barrier;
+   only the subsequent running phase animates toward the destination geometry. */
+.focus-surface-coordinator[data-focus-geometry-motion-phase="start"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] {
+  transition: none;
 }
 
 /* Timer -> Panel first expands the native region while the prepared Panel is
@@ -95,12 +95,6 @@
 .focus-surface-coordinator[data-focus-geometry-motion-from="timerExpanded"][data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
   .focus-surface-coordinator__presentation[data-focus-presentation="panel"][data-focus-visibility="preparing"] {
   clip-path: inset(0 0 0 0 round 12px);
-}
-
-.focus-surface-coordinator[data-focus-geometry-motion-to="panel"][data-focus-geometry-motion-phase="running"]
-  .focus-surface-coordinator__presentation[data-focus-presentation="timer"][data-focus-visibility="active"] {
-  opacity: 0;
-  transform: translateY(-6px);
 }
 
 .focus-surface-coordinator__presentation[data-focus-visibility="inactive"] {
