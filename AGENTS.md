@@ -36,11 +36,13 @@ This prevents repeated implementation/rework while preserving the ordered 10-mil
 
 ## Source-forensics consumption rule
 
-Use `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` whenever new Blitzit analysis exists or an affected user-visible surface is being implemented.
+Use `docs/EVIDENCE_ROUTING_MAP.md` to discover the authoritative evidence chain, then use `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` whenever new Blitzit analysis exists or an affected user-visible surface is being implemented.
 
 Do not re-analyze every original image/video during implementation. `SOURCE_COMPLETE` Pass-3 records are the normal requirements input. Re-open raw evidence only for a material ambiguity/conflict, an uncaptured detail exposed by implementation, or direct final visual verification. A direct final screenshot/video comparison is verification against the source, not a second research pass.
 
-New source findings must pass through a reconciliation step before the affected surface is considered parity-complete: canonical finding -> current implementation comparison -> audit-crosswalk disposition -> affected milestone/tracking -> implementation/validation. Backend/domain/API work that does not prejudge an unfinished visual surface may continue while related source analysis is still open; final user-visible parity may not.
+New source findings must pass through a reconciliation step before the affected surface is considered parity-complete: canonical finding -> static visual calibration where applicable -> current implementation comparison -> audit-crosswalk disposition -> affected milestone/tracking -> implementation/validation. Backend/domain/API work that does not prejudge an unfinished visual surface may continue while related source analysis is still open; final user-visible parity may not.
+
+For stable screenshot-backed states, use `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker before claiming `SOURCE_PARITY_PASS`. Physical Windows validation proves native behavior only unless it explicitly includes the relevant canonical Blitzit comparison.
 
 ## Evidence is guidance, not an oracle
 

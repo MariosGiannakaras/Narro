@@ -91,6 +91,12 @@ Use precise levels:
 
 Compilation does not prove taskbar, monitor, tray, shortcut, notification or other interactive Windows behavior.
 
+## Evidence discovery
+
+For any user-visible, source-parity, Blitzit-evidence or physical visual-validation task, read `docs/EVIDENCE_ROUTING_MAP.md` before choosing which evidence/spec files to trust. Older 19/19 trackers are historical prior-pass coverage; `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` is the only current exhaustive-source counter.
+
+A physical/native validation agent (including Codex) must not promote a Windows PASS into a Blitzit visual-parity PASS unless the check explicitly consumed the relevant canonical Pass-3/calibration evidence.
+
 ## Blitzit source-analysis handoff
 
 The forensic/source-analysis track and the implementation track remain separate. Their mandatory handoff is defined in `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`.

@@ -79,6 +79,14 @@ This coordination rule is additive and does **not** change the active M7 next ac
 - PR #198 remains provisional Reports visual foundation. Do not treat or merge it as the final Blitzit-parity answer until VE-015/011/012 are source-complete and reconciled against its current implementation.
 - PR #213 already validated positional cross-lane insertion and remaining-EST projection; stale `FIX_NOW` wording for those two items is corrected in the crosswalk by the parity-workflow reconciliation commit. Remaining board progress/ordinal/hover/drag-motion/fade fidelity gaps remain open.
 
+## Evidence-routing audit — 2026-10-03
+
+- Direct raw-source sampling confirms the sampled completed video Pass-3 records are genuinely deep and evidence-class disciplined.
+- The 46 screenshot records are useful qualitative source records but do not consistently preserve the measurable geometry/spacing/typography/color/radius/shadow detail needed for maximum visual parity.
+- Screenshot source inspection remains 46/46; a separate static visual-calibration layer is **OPEN** in `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker.
+- `docs/EVIDENCE_ROUTING_MAP.md` is the common discovery entry point for ChatGPT/Codex so prior-pass trackers, current Pass-3 findings, calibration, reconciliation and physical validation are not conflated.
+- This documentation change does not alter the active M7 physical next action. Pass-3 video continuation remains VE-015.
+
 ## Current source / validation baseline
 
 - Latest implementation merge:
