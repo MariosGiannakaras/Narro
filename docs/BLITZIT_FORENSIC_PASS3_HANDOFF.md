@@ -87,18 +87,18 @@ Completed full sources: VE-003, VE-005, VE-013, VE-014.
 For VE-016:
 
 1. inspect the complete **02:55.380, 1920×1080, 60 fps** MP4;
-2. build a full timer-mode timeline;
+2. build a full Timer Modes timeline;
 3. densely inspect:
-   - EST countdown start and zero boundary;
-   - exact `Time's Up` state;
-   - Extend control appearance/use and resulting timer direction/value;
-   - Pause/Resume, Skip and Done adjacency/state;
-   - Pomodoro work-sprint → break transition;
-   - manual break controls;
-   - count-up/no-EST mode;
-   - displayed live timer vs Taken metric at boundaries;
-4. measure/classify transition timing only where the source is continuous;
-5. distinguish timer presentation from persisted task metrics;
+   - countdown EST behavior approaching zero;
+   - exact `Time's Up` state and control changes;
+   - Extend control appearance/interaction;
+   - Pause / Resume / Skip / Done states;
+   - manual break entry/exit if shown;
+   - Pomodoro work→break and break→work presentation;
+   - count-up/no-EST behavior;
+   - Time Taken values before/after transitions;
+4. reconstruct displayed arithmetic at timer boundaries;
+5. distinguish real product transitions from tutorial cuts;
 6. update analysis Markdown only;
 7. then continue to VE-017.
 
