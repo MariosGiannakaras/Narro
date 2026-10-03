@@ -223,7 +223,8 @@
 .floating-timer-foundation__notes {
   min-width: 0;
   max-height: 116px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .floating-timer-foundation__notes .task-notes__trigger {
