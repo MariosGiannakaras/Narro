@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 17/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 18/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -4290,37 +4290,277 @@ No implementation conclusion is made in this analysis track.
 # Queue 18 — VE-018 — Daniel's Planning Workflow
 
 Source: `Daniel's Productive Planning Workflow with Blitzit.mp4`  
-Metadata: **03:33.090, 1920×1080, 60 fps**  
-Status: **PARTIAL**
+Verified metadata: **~03:33.017 video stream / ~03:33.090 container, 1920×1080, 60 fps, 12,781 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior broad window:
-- 00:00:13–00:02:42 — personal planning routine.
+Inspection method:
+- complete repository MP4 reviewed end-to-end;
+- broad full-source scan plus dense review through planning, cross-lane move, Today priority reorder, Blitz entry, break, Done/success and board reconciliation;
+- 5 fps micro-sequences around This Week→Today movement, Today reorder and break/Done flow;
+- full-resolution frames used for task identities, ordinals, estimates, completion denominators and Done grouping;
+- all visible arithmetic reconciled before/after task creation and completion;
+- narration kept separate from direct behavior.
 
-### Completed Pass-3 excerpt
+## Source-lineage correction
 
-A separate user-supplied **9.344 s / 560-frame** planning-board excerpt has already been analyzed at the required depth.
+The previously analyzed user-supplied **9.344 s / 560-frame** planning clip is **not a segment of this repository VE-018 MP4**.
 
-Direct sequence findings:
-- initial Backlog / This Week / Today board;
-- four This Week→Today drags;
-- floating drag preview;
-- source reflow;
-- positional destination insertion;
-- stable visible ordinals through the sequence;
-- final Today order `1, 3, 4, 2`;
-- This Week remaining estimate `6h35 → 5h05 → 3h05 → 2h35 → 2h30`;
-- Today remaining estimate `No Tasks → 1h30 → 3h30 → 4h → 4h05`;
-- Today progress `0/0 → 0/1 → 0/2 → 0/3 → 0/4 Done`;
-- hover completion + Notes/document + lane-left/lane-right + overflow grammar;
-- persistent Today accent outline;
-- anchored gradient Blitz CTA;
-- CTA interaction followed by approximately 250 ms board-content fade.
+Direct mismatch:
+- repository VE-018 uses the Personal-list dataset: `Hug my dog`, `Pay electricity bill`, `Schedule dentist appointment`, `Transplant ficus`, etc.;
+- the separate 9.344 s clip uses `Marketing brief`, `Insta post`, `Call mum`, `Fire Jeffry`, etc.;
+- its This Week→Today aggregate behavior also differs from this older repository source.
 
-Still required:
-- full 03:33.090 MP4 review;
-- all planning steps outside the supplied excerpt;
-- Focus/break sequence and any later state;
-- full-source chronology/cuts.
+Disposition:
+- the 9.344 s clip remains high-value **DIRECT SOURCE EVIDENCE**;
+- its source/version lineage is currently **UNMAPPED / UNKNOWN**;
+- it must no longer be cited as “VE-018 excerpt”;
+- its detailed findings are preserved separately and must not be overwritten by the older repository VE-018 semantics.
+
+## VE-018 chronological state map
+
+### 00:00:00–~00:00:39 — workflow/list-organization context
+
+**VIDEO-DIRECT**
+- tutorial begins on the older Blitzit Home/list-grid shell;
+- separate list cards are used for Personal, Freelance, creative/project and Music contexts;
+- Home card hover/Open grammar matches other source material;
+- Personal card shows a populated task preview and planning totals.
+
+**VERSION NOTE**
+- this source belongs to the older UI family visible around the v2.4.x era;
+- current screenshots and newer direct source evidence supersede it when exact styling or changed semantics conflict.
+
+### ~00:00:39–00:00:50 — Personal board baseline
+
+**VIDEO-DIRECT**
+- opening Personal enters the four-column board;
+- list header:
+  - **17 pending tasks**;
+  - **Est: 9hr 4min**.
+- This Week:
+  - **9hr 4min**;
+  - **0/14 Done**.
+- Today:
+  - **1hr 30min**;
+  - **0/6 Done**.
+- visible Today tasks include:
+  1. Pay electricity bill — 10min;
+  2. Schedule dentist appointment — 5min;
+  3. Do 30 minutes of yoga or stretch... — 40min;
+  4. Transplant ficus — 15min;
+  5. Plant flowers — 5min;
+  - additional Today task exists below the visible crop.
+
+### ~00:00:50–00:01:10 — create `Hug my dog` in This Week + EST
+
+**VIDEO-DIRECT**
+- This Week `+ ADD TASK` opens the inline create editor;
+- title entered: **`Hug my dog`**;
+- created task then receives an inline EST edit;
+- final visible EST: **24min**.
+
+**ARITHMETIC-DIRECT**
+Before:
+- list: 17 pending / 9hr4;
+- This Week: 9hr4 / 0/14;
+- Today: 1hr30 / 0/6.
+
+After creation + 24min EST:
+- list: **18 pending / 9hr28**;
+- This Week: **9hr28 / 0/15**;
+- Today remains **1hr30 / 0/6**.
+
+Direct delta:
+- +1 pending task;
+- +24min aggregate estimate;
+- +1 This Week denominator.
+
+### ~00:01:18–00:01:35 — move `Hug my dog` This Week → Today
+
+**VIDEO-DIRECT**
+- task is moved into Today;
+- it appears as Today ordinal **4** during the demonstrated planning state;
+- task identity and 24min EST are preserved.
+
+After move:
+- list remains **18 pending / Est 9hr28**;
+- This Week remains **9hr28 / 0/15**;
+- Today becomes **1hr54 / 0/7**.
+
+**VERSION-SPECIFIC AGGREGATE SEMANTIC**
+- unlike the separate unmapped 9.344 s clip, moving a task from This Week into Today does **not** subtract it from the This Week aggregate in repository VE-018;
+- direct completion arithmetic later reduces both This Week and Today together.
+
+**HIGH-CONFIDENCE INFERENCE**
+- in this older source, “This Week” behaves as a weekly **superset aggregate that includes Today**, while Today is a subset;
+- this semantic is source-version specific and must not override newer source evidence where This Week is rendered as a separate remaining lane.
+
+### ~00:01:35–00:02:14 — Today drag/drop priority reorder
+
+**VIDEO-DIRECT**
+- within Today, `Hug my dog` is drag-reordered toward the top;
+- final visible priority order begins:
+  1. **Hug my dog** — 24min;
+  2. Pay electricity bill — 10min;
+  3. Schedule dentist appointment — 5min;
+  4. Do 30 minutes of yoga or stretch... — 40min;
+  5. Transplant ficus — 15min;
+  - remaining Today tasks continue below.
+- Today aggregate remains **1hr54** and completion remains **0/7** through pure priority reordering.
+
+**SEMANTIC-DIRECT**
+- intra-Today drag changes priority/order only;
+- task identity, EST and lane arithmetic remain stable.
+
+### ~00:02:14–00:02:24 — Blitz entry / top priority becomes live
+
+**VIDEO-DIRECT**
+- activating `Blitz now` enters the left Focus Panel;
+- top-priority `Hug my dog` becomes live automatically;
+- live countdown begins near **00:24:00**, directly matching the task's 24min EST;
+- Focus header:
+  - **Est: 1hr54min**;
+  - **0/7 Done**.
+- queue beneath preserves remaining Today priority:
+  - Pay electricity bill;
+  - Schedule dentist appointment;
+  - yoga/stretch;
+  - Transplant ficus;
+  - Plant flowers;
+  - Call Mom.
+
+### ~00:02:24–00:02:40 — break flow
+
+**VIDEO-DIRECT**
+- Break is activated from Focus;
+- live card changes to **`Break`**;
+- countdown begins near **10min**;
+- while break is active, Focus header estimate changes:
+  - **1hr54 → 2hr4**;
+- Today task completion fraction remains **0/7**.
+
+**ARITHMETIC-DIRECT**
+- exactly +10min is added to the Focus header while the 10min break is active.
+
+After break finishes:
+- header returns to **Est: 1hr54min / 0/7 Done**;
+- `Hug my dog` returns as the live task;
+- Done section shows **`1 Done`** and contains a struck-through Break row with break/gamepad icon and 0min Taken.
+
+**IMPORTANT SEMANTIC**
+- Break participates in the visible Done history;
+- Break does **not** count toward the task-completion fraction (still 0/7);
+- therefore “Done rows” and “done tasks” are not identical populations in this older Focus UI.
+
+### ~00:02:40–00:02:47 — complete `Hug my dog`
+
+**VIDEO-DIRECT**
+- Done on `Hug my dog` opens success state;
+- success content:
+  - struck-through task title;
+  - `Well done!`;
+  - reaction GIF;
+  - **`You finished 24mins early!`**;
+  - gradient `Next Task`;
+  - secondary `Take a Break`;
+  - **Est: 24min**;
+  - **Taken: 0min**.
+
+**ARITHMETIC-DIRECT**
+- 24min EST − 0min Taken = **24min early**, exactly matching success copy.
+
+**TRANSIENT-PROJECTION ANOMALY**
+- success header shows **1/8 Done**, although immediately before success task progress was 0/7;
+- header estimate remains **1hr54min** during this success state instead of immediately subtracting the completed 24min.
+
+Do not normalize this away:
+- it is direct source behavior in the transient success state;
+- exact cause of denominator 8 is not proven.
+- Break is a plausible contributor but must remain an inference, because the final board later returns to a 7-task denominator.
+
+### ~00:02:47–00:02:55 — next task / `Pay electricity bill` completion
+
+**VIDEO-DIRECT**
+- moving forward brings `Pay electricity bill` into the live/success sequence;
+- success for Pay electricity bill shows:
+  - **`You finished 10mins early!`**;
+  - Est: **10min**;
+  - Taken: **0min**;
+  - header **Est: 1hr30min**;
+  - header **2/8 Done**.
+
+**ARITHMETIC-DIRECT**
+- Hug my dog completion has now reduced header estimate:
+  - 1hr54 − 24min = **1hr30**.
+- Pay electricity success itself retains the pre-subtraction 1hr30 header during the transient screen;
+- 10min − 0min = **10min early**, exactly matching copy.
+
+### ~00:02:55–00:03:06 — board reconciliation after two task completions
+
+**VIDEO-DIRECT**
+Returning to the board yields a fully reconciled planning state:
+
+List header:
+- **16 pending tasks**;
+- **Est: 8hr54min**.
+
+This Week:
+- **8hr54min**;
+- **2/15 Done**.
+
+Today:
+- **1hr20min**;
+- **2/7 Done**.
+
+Remaining Today priority begins:
+1. Schedule dentist appointment — 5min;
+2. yoga/stretch — 40min;
+3. Transplant ficus — 15min;
+4. Plant flowers — 5min;
+5. Call Mom — 15min.
+
+Done:
+- month/day header counts **2 tasks**;
+- completed task rows:
+  - Pay electricity bill — 0min;
+  - Hug my dog — 0min;
+- Break row is also visibly present below with 0min, but is not included in the **2 tasks** heading.
+
+**FULL ARITHMETIC RECONCILIATION**
+- pending: 18 → **16** after exactly two tasks complete;
+- list estimate: 9hr28 → **8hr54** = −34min;
+- Today estimate: 1hr54 → **1hr20** = −34min;
+- This Week estimate: 9hr28 → **8hr54** = −34min;
+- completed EST total: Hug 24 + Pay 10 = **34min**.
+
+**DENOMINATOR RECONCILIATION**
+- Today transient success denominator 8 resolves back to **7** on board;
+- final Today progress is **2/7**, not 2/8;
+- final This Week is **2/15**, further corroborating the older weekly-superset model;
+- Done heading counts two completed tasks while the Break row is displayed separately inside the same visual history.
+
+### ~00:03:06–00:03:33 — recap/outro
+
+**VIDEO-DIRECT / NON-PARITY**
+- workflow recap and community/outro;
+- no additional unique product state.
+
+## VE-018 source synthesis
+
+High-confidence direct findings:
+- creating Hug my dog + 24min EST changes 17→18 pending and 9h4→9h28;
+- in this older source, moving Hug my dog This Week→Today leaves the This Week aggregate at 9h28/0/15 while Today changes 1h30/0/6→1h54/0/7;
+- together with final completion arithmetic, this strongly establishes an older “This Week = weekly superset including Today” projection;
+- Today intra-lane drag reorders priority without changing aggregate/counters;
+- Blitz auto-starts the top-priority Today task and its countdown equals EST;
+- a 10min Break temporarily adds 10min to the Focus header estimate;
+- Break appears in Done history but is excluded from task completion fractions/count headings;
+- Hug success reports 24min early and Pay success reports 10min early, both exactly EST − Taken;
+- transient success headers show 1/8 and 2/8 while board reconciliation returns to 2/7 — preserve this as source-state behavior rather than inventing a normalization;
+- after two completions, pending 18→16 and all relevant estimates subtract the exact combined 34min EST;
+- repository VE-018 semantics conflict with the separate 9.344 s planning clip and therefore prove that the latter must be treated as an unmapped/newer-or-different source until provenance is established.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
