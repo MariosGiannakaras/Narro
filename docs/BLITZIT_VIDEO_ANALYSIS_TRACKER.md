@@ -47,7 +47,7 @@ Each pair advances independently through these states:
 | VE-007 | `Blitzit Tutorial How to Schedule Task Reminders.mp4` | matching `.srt` | PAIRED | ANALYZED | RECONCILED | DISPOSITIONED — M4 scheduling/recurrence corroborated |
 | VE-008 | `Blitzit Tutorial How to Set Up Recurring Tasks.mp4` | matching `.srt` | PAIRED | ANALYZED | RECONCILED | DISPOSITIONED — M4 parent/child/materialization/detachment corroborated |
 | VE-009 | `Blitzit Tutorial How to Use Custom Recurring Schedules.mp4` | matching `.srt` | PAIRED | ANALYZED | RECONCILED | DISPOSITIONED — custom recurrence rules corroborated |
-| VE-010 | `Blitzit Tutorial How to Use Notes.mp4` | matching `.srt` | PAIRED | ANALYZED | RECONCILED | DISPOSITIONED — source auto-open behavior confirmed; intentional Narro explicit-activation deviation retained |
+| VE-010 | `Blitzit Tutorial How to Use Notes.mp4` | matching `.srt` | PAIRED | ANALYZED | RECONCILED | DISPOSITIONED — prior pass treated auto-open as confirmed; exhaustive Pass 3 supersedes that trigger attribution as ambiguous, while Help/roadmap evidence separately supports the historical behavior |
 | VE-011 | `Blitzit Tutorial How to Use Reports.mp4` | matching `.srt` | PAIRED | ANALYZED | RECONCILED | DISPOSITIONED — routed to M9 |
 | VE-012 | `Blitzit Tutorial How to Use Reports -Update Improved Sessions and Stats.mp4` | matching `.srt` | PAIRED | ANALYZED | RECONCILED | DISPOSITIONED — session-ledger report evidence routed to M9 |
 | VE-013 | `Blitzit Tutorial How to Use Subtasks in Blitzit.mp4` | matching `.srt` | PAIRED | ANALYZED | RECONCILED | DISPOSITIONED — Narro already aligned/improved; source integration material excluded |
@@ -63,7 +63,7 @@ Each pair advances independently through these states:
 - **VE-F001 / VE-002:** M8 auto-parse EST behavior is confirmed. Direct video resolves the old title-normalization ambiguity: a successfully parsed terminal duration is removed from the saved visible title and stored as EST.
 - **VE-F002 / VE-003 + VE-014:** when `show_success_screen` is enabled, Done enters the celebration state first and does not auto-start the next task until the explicit `Next Task` choice. `Take a Break` is directly visible, but its post-click domain result is not shown.
 - **VE-F003 / VE-005:** current tutorial video directly shows task overflow actions `Change List` and `Duplicate`; current Narro production board lacks these renderer/command paths even though durable duplicate/move primitives exist. This is a narrow post-M5 evidence correction, not a reason to repeat M5.
-- **VE-F004 / VE-010:** source note-link auto-open is confirmed but remains an intentional Narro deviation; explicit activation stays binding.
+- **VE-F004 / VE-010:** exhaustive Pass 3 supersedes the prior direct-trigger claim: VE-010 confirms link recognition and browser opening, but the exact auto-open-vs-click trigger is ambiguous. Help/roadmap evidence still documents auto-open behavior in some source versions; explicit activation stays binding.
 - **VE-F005 / VE-017:** source recurrence detachment can intentionally leave old independent children alongside a later new schedule. Narro must distinguish this explicit coexistence from accidental duplicate occurrence creation and retain idempotent materialization.
 - **VE-F006 / VE-011/12/15:** Reports/Sessions evidence is routed to M9; it does not front-run M8.
 - **VE-F007 / VE-003:** Panel→Floating visible resize/reposition sequence is approximately 0.2–0.3 s in the recording; M7 physical Windows continuity checks remain OPEN.
