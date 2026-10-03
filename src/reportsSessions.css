@@ -381,3 +381,17 @@
     transition: none;
   }
 }
+
+.reports-sessions__toast {
+  position: fixed;
+  z-index: 2300;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  max-width: 24rem;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  box-shadow: var(--elevation-overlay);
+}
