@@ -23,9 +23,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **4/19**
+- Full MP4s completed at Pass-3 depth: **5/19**
 - Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **15**
+- Full MP4s still open: **14**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -113,7 +113,7 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 2 | VE-005 | Add & Manage Tasks and Lists | 03:38.848 / 60 | **SOURCE_COMPLETE** | list hover/Open, task hover rail, drag/reorder, overflow, metric edits, completion |
 | 3 | VE-013 | Subtasks | 02:20.109 / 60 | **SOURCE_COMPLETE** | expand/collapse, add, completion ring, row hover, reorder/delete, Focus/Floating subtask transitions |
 | 4 | VE-014 | Preferences | 02:48.484 / 60 | **SOURCE_COMPLETE** | drawer entry/scroll, parent-child toggles, screen/side/theme controls, alert/celebration nested reveal |
-| 5 | VE-016 | Timer Modes | 02:55.380 / 60 | OPEN | expiry, Time's Up, Extend, pause/skip/done, Pomodoro transitions, count-up presentation |
+| 5 | VE-016 | Timer Modes | 02:55.380 / 60 | **SOURCE_COMPLETE** | expiry, Time's Up, Extend, pause/skip/done, Pomodoro transitions, count-up presentation |
 | 6 | VE-017 | Update Recurring Schedules | 02:50.063 / 60 | OPEN | existing-rule edit, Replace row, No Repeat swap, destructive row, footer/state retention |
 | 7 | VE-007 | Schedule Task Reminders | 02:52.803 / 60 | OPEN | schedule open, quick date actions, date select, time/repeat steps, save/update/remove |
 | 8 | VE-009 | Custom Recurring Schedules | 02:39.893 / 60 | OPEN | frequency/unit controls, weekday/month conditional UI, summary text, footer |
@@ -146,6 +146,6 @@ This is **partial evidence for VE-018**, not full-source completion.
 
 ## Exact next action
 
-Continue with **VE-016 — `Blitzit Tutorial Timer Modes.mp4`**.
+Continue with **VE-017 — `Blitzit Tutorial Update Recurring Schedules.mp4`**.
 
-VE-003, VE-005, VE-013 and VE-014 are SOURCE_COMPLETE from their actual full MP4s.
+VE-003, VE-005, VE-013, VE-014 and VE-016 are SOURCE_COMPLETE from their actual full MP4s.
