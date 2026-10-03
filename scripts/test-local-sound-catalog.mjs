@@ -73,7 +73,7 @@ class FakeAudioContext {
   }
 }
 
-globalThis.window = { AudioContext: FakeAudioContext };
+globalThis.AudioContext = FakeAudioContext;
 
 invariant(
   LOCAL_SOUND_OPTIONS.map((sound) => sound.label).join("|")
