@@ -970,7 +970,21 @@ The earlier inbox-setup state is superseded. The uploaded corpus is present and 
 - 19/19 product-behavior analyses/reconciliations/dispositions complete;
 - 19/19 second-pass UI/UX forensic reviews complete.
 
-Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No video upload/analysis prerequisite remains open. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
+Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/BLITZIT_UI_UX_VIDEO_TRACKER.md` and `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`. No raw-video upload prerequisite remains open; exhaustive Pass-3 source analysis remains active and is authoritative only in `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`. The post-M10 Final Comprehensive Review must still re-reference this corpus as an end-state gate.
+
+## Current Blitzit exhaustive-forensics state — 2026-10-03
+
+The older 19/19 ingestion and second-pass UI/UX counters elsewhere in this file are historical coverage, not the current exhaustive-source counter.
+
+Current authoritative state is `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`:
+- 46/46 canonical screenshots have been individually source-inspected;
+- the 2026-10-03 depth audit found their qualitative records insufficient by themselves for maximum visual reconstruction, so static visual calibration is separately OPEN in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
+- 9/19 full MP4s are SOURCE_COMPLETE at Pass-3 depth;
+- VE-018 has a partial deep planning-board sequence;
+- exact next full video is VE-015;
+- implementation reconciliation remains separate.
+
+Use `docs/EVIDENCE_ROUTING_MAP.md` for which file owns which layer of truth. Do not use historical 19/19 prior-pass statements to claim Pass-3 completion.
 
 ## Durable correctness decisions
 

@@ -57,4 +57,4 @@ Detailed findings: `docs/BLITZIT_UI_UX_VIDEO_FORENSICS.md`.
 
 ## Pass-3 supersession note
 
-Do not use the 19/19 counters above as proof that the exhaustive third pass is complete. Pass 3 currently has 46/46 screenshot records complete, 0/19 full MP4s complete, and one partial VE-018 excerpt at deep-review depth. See the dedicated Pass-3 tracker for current truth.
+Do not use the 19/19 counters above as proof that the exhaustive third pass is complete. Do not duplicate live Pass-3 counts in this historical tracker because they become stale. See `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` for the only authoritative current counter/queue.

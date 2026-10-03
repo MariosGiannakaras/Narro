@@ -15,7 +15,8 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 - Retained canonical images: **46**
 - Pass-3 individually inspected: **46/46**
 - Pass-3 per-image records written: **46/46**
-- Static-image source pass: **COMPLETE**
+- Static-image source inspection: **46/46 COMPLETE**
+- Static visual calibration: **OPEN** — tracked separately in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`; existing qualitative records are not by themselves a `SOURCE_PARITY_PASS` contract
 - Current/direct v2.6.69: **22/22**
 - Help v2.x distinct-state references: **17/17**
 - Historical Tool Finder references: **7/7**

@@ -36,13 +36,8 @@ For every video pair:
 3. Record exact visible copy, card/column anatomy, control order, icon role, badges/ordinals and progress treatment.
 4. For numeric UI, reconstruct the arithmetic from the visible task values and verify the displayed aggregate; do not merely record the final number.
 5. Separate direct visual evidence, narration, inference, tutorial edits and source bugs/artifacts.
-6. Reconcile every direct finding against current Narro source and tests:
-   - **MATCHED** — implementation and regression coverage agree;
-   - **IMPLEMENTATION_GAP** — current Narro differs from direct evidence;
-   - **TEST_GAP** — implementation appears correct but lacks a reliable regression;
-   - **AMBIGUOUS** — evidence is insufficient; do not guess;
-   - **INTENTIONAL_DEVIATION** — documented reliability/accessibility/local-only exception.
-7. Route every implementation/test gap into `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, the relevant milestone/final-review checklist, and a concrete source/test slice.
+6. Record implementation-relevant implications as source findings without inspecting or changing Narro merely to classify them. If evidence is ambiguous, preserve the ambiguity rather than guessing.
+7. Hand completed source findings to the separate reconciliation workflow in `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`; current-code comparison, crosswalk disposition and implementation/test routing are not part of the analysis-only Pass 3.
 8. For any sequence with material animation, store the source FPS/time range and enough frame checkpoints to reproduce the conclusion.
 
 ### Required planning-board baseline from the 2026-10-02 re-audit
@@ -71,7 +66,9 @@ Inspect all 46 image references individually at native resolution. For each imag
 - normal, hover, focus, selected, disabled, overdue, done, expanded and destructive states where visible;
 - numeric/progress semantics and arithmetic;
 - icon placement and action ordering;
-- differences from current Narro and whether the difference is functional, visual-only, ambiguous or an intentional deviation.
+- implementation-relevant implications that can be derived from the source alone; comparison with current Narro is deferred to reconciliation.
+
+The 2026-10-03 depth audit found that the existing 46/46 qualitative records do not consistently preserve enough measurable geometry/style detail for maximum visual parity. Their source inspection remains useful, but static visual calibration is separately required by `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` and tracker.
 
 Every image must receive a row/checkpoint in the screenshot parity tracker used by M10/final review. Similar screenshots may share one implementation slice, but not one inspection result.
 

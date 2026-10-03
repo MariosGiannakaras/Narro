@@ -53,7 +53,8 @@ A **screenshot** is Pass-3 complete only after the actual retained image has bee
 - Corpus: **46**
 - Individually inspected in Pass 3: **46/46**
 - Per-image forensic records durable in repo: **46/46**
-- Static screenshot source pass: **COMPLETE**
+- Static screenshot source inspection: **46/46 COMPLETE**
+- Static visual calibration for maximum parity: **OPEN** — see `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker; do not repeat broad source research
 - Implementation reconciliation: **DEFERRED by explicit user instruction**
 
 See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
@@ -145,4 +146,4 @@ Source forensics are complete only when:
 - no implementation work is performed as part of this pass;
 - the tracker has no `OPEN`, `PARTIAL`, or `RAW_MEDIA_ACCESS_REQUIRED` rows.
 
-Implementation parity/reconciliation is a later, separate phase.
+Implementation parity/reconciliation is a later, separate phase. Static visual calibration is also separate from broad source re-analysis: it extracts measurable geometry/style evidence from the already inspected canonical images and selected video keyframes.
