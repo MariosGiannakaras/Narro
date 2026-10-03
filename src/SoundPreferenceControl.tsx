@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   LOCAL_SOUND_OPTIONS,
   playLocalSoundPreview,
@@ -33,16 +33,32 @@ export function SoundPreferenceControl({
   const selected = selectedSound ?? defaultSound;
   const [draftVolume, setDraftVolume] = useState(clampVolume(volumePercent));
   const [previewError, setPreviewError] = useState<string | null>(null);
+  const submittedVolume = useRef(clampVolume(volumePercent));
+  const volumeCommitInFlight = useRef(false);
 
   useEffect(() => {
-    setDraftVolume(clampVolume(volumePercent));
+    const committedVolume = clampVolume(volumePercent);
+    submittedVolume.current = committedVolume;
+    volumeCommitInFlight.current = false;
+    setDraftVolume(committedVolume);
   }, [volumePercent]);
 
   const commitVolume = async () => {
     const next = clampVolume(draftVolume);
-    if (next === volumePercent) return;
+    if (
+      next === volumePercent
+      || next === submittedVolume.current
+      || volumeCommitInFlight.current
+    ) return;
+
+    submittedVolume.current = next;
+    volumeCommitInFlight.current = true;
     const committed = await onVolumeCommit(next);
-    if (committed === false) setDraftVolume(clampVolume(volumePercent));
+    volumeCommitInFlight.current = false;
+    if (committed === false) {
+      submittedVolume.current = clampVolume(volumePercent);
+      setDraftVolume(clampVolume(volumePercent));
+    }
   };
 
   const preview = () => {
