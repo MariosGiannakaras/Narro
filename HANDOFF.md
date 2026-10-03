@@ -15,11 +15,11 @@ This section is the current continuation state.
 - PR #219 (`M7: add automatic local physical-validation logs`) is now **merged**.
 - PR #219 final exact head `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1` passed Windows CI #872 / run `37101133903` and was expected-head guarded squash-merged as main commit `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`.
 - CI #869 on prior head `422230e755a373d3ccb61246e1917ff7934a1210` failed **only** because `verify-m7-validation-logging.ps1` had a PowerShell parser error before the smoke could launch; all preceding substantive Windows gates passed.
-- The smoke script was narrowly repaired and an earlier PowerShell parser preflight was added. A subsequent correctness review also fixed the evidence handoff so the entire two-session `Narro-M7-Logs` folder is retained/uploaded for debugging. Resulting-main Windows CI #873 / run `37105088285` is now the active authoritative validation on merge `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`.
+- The smoke script was narrowly repaired and an earlier PowerShell parser preflight was added. A subsequent correctness review also fixed the evidence handoff so the entire two-session `Narro-M7-Logs` folder is retained/uploaded for debugging. Resulting-main Windows CI #873 / run `37105088285` **PASSed** on validated source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Final M7 C5 artifact: `narro-m7-validation-windows-x64`, id `11268220111`, ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`, contained EXE SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`, fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`.
 - #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
 - No progress counter advances from implementation alone. Current progress remains `4/10M || 4/5 | 14/19`.
 
-**NEXT AGENT ACTION:** check CI #873 first. On failure, inspect the exact failing evidence and fix only that on PR #219. On PASS, verify the dedicated validation artifact/executable identity, expected-head guarded merge #219, validate resulting main, then reconcile tracking. Do not wait for or redo already accepted M7 C1-C4 physical evidence.
+**NEXT AGENT ACTION:** the implementation/CI path is fully validated. Run the remaining real-Windows M7 C5 physical restart test using resulting-main artifact id `11268220111`; preserve/upload the entire `Narro-M7-Logs` folder plus the visual/manual observation. Do not reopen implementation unless that physical evidence reports FAIL/INCONCLUSIVE or exposes a concrete defect. Do not wait for or redo already accepted M7 C1-C4 physical evidence.
 
 **USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
 
@@ -277,3 +277,6 @@ Physical procedure:
 - PR #205 (`M9: expose validated Overview aggregation command/API`) remains open/deferred until M7 physical closure.
 - PR #198 (`M9: add screenshot-backed Reports Overview visual foundation`) remains open/deferred.
 - Static-contract cleanup remains maintenance-only and is not an M7 blocker.
+
+
+Durable resulting-main artifact evidence: `work-log/2026-10-03-chatgpt-m7-main873-validation-artifact-ready.md`.
