@@ -25,6 +25,7 @@ export default defineConfig(async () => ({
         searchPaletteFixture: "search-palette-fixture.html",
         archiveFixture: "archive-fixture.html",
         themeSettingsFixture: "theme-settings-fixture.html",
+        reportsFixture: "reports-fixture.html",
       },
     },
   },
