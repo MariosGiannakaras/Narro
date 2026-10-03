@@ -23,6 +23,7 @@ export type ReportsSessionViewRow = {
   endTimeValue: string;
   durationLabel: string;
   updatedAt: string;
+  initiallyEditing?: boolean;
 };
 
 export type ReportsSessionGroup = {
@@ -150,14 +151,16 @@ function SessionRow({
   onCommitEndTime,
   onOpenDetail,
   onDelete,
+  showDetailAction = true,
 }: {
   row: ReportsSessionViewRow;
   pending: boolean;
   onCommitEndTime: (row: ReportsSessionViewRow, endTime: string) => Promise<boolean>;
   onOpenDetail: (taskId: string) => void;
   onDelete: (row: ReportsSessionViewRow) => void;
+  showDetailAction?: boolean;
 }) {
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(Boolean(row.initiallyEditing));
   const [endTime, setEndTime] = useState(row.endTimeValue);
 
   const commit = async () => {
@@ -226,12 +229,14 @@ function SessionRow({
         align="end"
         trigger={<span aria-hidden="true">•••</span>}
       >
-        <MenuItem
-          disabled={pending || row.taskId === null}
-          onSelect={() => row.taskId && onOpenDetail(row.taskId)}
-        >
-          Edit
-        </MenuItem>
+        {showDetailAction ? (
+          <MenuItem
+            disabled={pending || row.taskId === null}
+            onSelect={() => row.taskId && onOpenDetail(row.taskId)}
+          >
+            Edit
+          </MenuItem>
+        ) : null}
         <MenuItem destructive disabled={pending} onSelect={() => onDelete(row)}>
           Delete
         </MenuItem>
@@ -286,6 +291,7 @@ export function ReportTaskSessionsDialog({
               onCommitEndTime={onCommitEndTime}
               onOpenDetail={() => undefined}
               onDelete={onDelete}
+              showDetailAction={false}
             />
           ))}
         </div>
