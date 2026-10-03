@@ -43,7 +43,8 @@ const SOUND_RECIPES: Record<LocalSoundId, readonly ToneStep[]> = {
   ],
 };
 
-type WebkitAudioWindow = Window & {
+type AudioContextGlobal = typeof globalThis & {
+  AudioContext?: typeof AudioContext;
   webkitAudioContext?: typeof AudioContext;
 };
 
@@ -80,8 +81,8 @@ export async function playLocalSoundPreview(
   if (!recipe) throw new Error("Unknown local Narro sound.");
 
   stopLocalSoundPreview();
-  const AudioContextConstructor = window.AudioContext
-    ?? (window as WebkitAudioWindow).webkitAudioContext;
+  const audioGlobal = globalThis as AudioContextGlobal;
+  const AudioContextConstructor = audioGlobal.AudioContext ?? audioGlobal.webkitAudioContext;
   if (!AudioContextConstructor) {
     throw new Error("Audio preview is unavailable in this WebView.");
   }
