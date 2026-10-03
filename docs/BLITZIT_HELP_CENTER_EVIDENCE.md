@@ -501,7 +501,7 @@ Narro may improve accessibility/hit target size, keyboard focus, reduced motion 
 | Hover/menu/modal timing | mostly cut/unmeasurable | static images only | Narro calibration, not source timing |
 | Recurrence destructive row | directly visible in VE-017 | official image shows warm/red `Delete existing tasks(n)` | reinforced |
 | Success hierarchy | directly visible in VE-003 | Preferences + product imagery corroborate success screen/GIF configuration | reinforced |
-| Notes auto-open URL | visible/narrated in video | current Help article documents it | Narro explicit-activation deviation remains |
+| Notes auto-open URL | VE-010 narration claims it, but dense Pass-3 pixels leave the trigger ambiguous | current Help article documents it | Narro explicit-activation deviation remains |
 | Second-monitor hotplug | videos cannot prove reliability | Troubleshooting says source can require restart | strengthens Narro runtime-recovery improvement |
 
 ## Pages intentionally not promoted into Narro scope
