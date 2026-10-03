@@ -56,7 +56,7 @@ function common(dom, label) {
 }
 
 for (const theme of ["light", "dark"]) {
-  for (const mode of ["overview", "list-filter", "date-picker", "lower"]) {
+  for (const mode of ["overview", "list-filter", "date-picker", "series-toggle", "lower"]) {
     const label = "reports-" + mode + "-" + theme;
     validatePng(label);
     const dom = readDom(label);
@@ -74,9 +74,16 @@ for (const theme of ["light", "dark"]) {
     if (mode === "list-filter") {
       invariant(dom.includes('data-report-list-menu="true"'), label + " list filter menu is missing");
       invariant(dom.includes('role="listbox"'), label + " list filter listbox semantics are missing");
+      invariant(dom.includes('aria-multiselectable="true"'), label + " list filter must remain multi-select");
+      invariant(dom.includes('role="option" aria-selected="true"'), label + " All Lists selected state is missing");
       for (const option of ["All Lists", "Job Preparation", "ReArrange", "STUDY"]) {
         invariant(dom.includes(option), label + " list filter option is missing: " + option);
       }
+    }
+
+    if (mode === "series-toggle") {
+      invariant(dom.includes('aria-pressed="false"'), label + " hidden Total legend state is missing");
+      invariant(dom.includes('data-visible-series-count="2"'), label + " chart must reflow to two visible series");
     }
 
     if (mode === "date-picker") {
@@ -94,6 +101,9 @@ for (const theme of ["light", "dark"]) {
     if (mode === "lower") {
       invariant(dom.includes('data-report-lower-panels="true"'), label + " lower panel region is missing");
       invariant(dom.includes('data-reports-lower-viewport-ready="true"'), label + " lower panels were not fully visible in the capture viewport");
+      invariant(dom.includes('data-report-list-donut="true"'), label + " populated Time By List donut is missing");
+      invariant(dom.includes('data-report-done-group="true"'), label + " Done Tasks date grouping is missing");
+      invariant(dom.includes("67.25%"), label + " punctuality percentage is missing");
       invariant(dom.includes("Prepare interview notes"), label + " representative Done row is missing");
       invariant(dom.includes("Time Taken"), label + " Done row Time Taken is missing");
       invariant(dom.includes("10min early"), label + " early completion state is missing");
