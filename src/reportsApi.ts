@@ -20,6 +20,7 @@ export type ReportSession = {
   startedAt: string;
   endedAt: string;
   durationSeconds: string;
+  updatedAt: string;
   taskArchived: boolean;
   listArchived: boolean;
 };
