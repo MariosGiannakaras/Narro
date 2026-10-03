@@ -83,13 +83,13 @@ This coordination rule is additive and does **not** change the active M7 next ac
 - PR #198 Reports Overview visual foundation is now reconciled and validated: final head `2e32eae3043f7100fdf16990f482332293ef12d0` PASSed full Windows CI #904, guarded merge `82786cb2a95bb5fdd2835dcb5e3660269425520f` PASSed resulting-main CI #905 through identical-tree validation, and both trees equal `b453e23cb1614a70ebfc1d74a0b5d8297789c6f7`. This is a pure visual/fixture foundation, not final production Reports completion. The next independent M9 action is production Overview state/API wiring; do not replace the view with fixture authority or renderer-side aggregation.
 - PR #213 already validated positional cross-lane insertion and remaining-EST projection; stale `FIX_NOW` wording for those two items is corrected in the crosswalk by the parity-workflow reconciliation commit. Remaining board progress/ordinal/hover/drag-motion/fade fidelity gaps remain open.
 
-## Evidence-routing audit — 2026-10-03
+## Historical evidence-routing audit — 2026-10-03 (superseded by forensic closure above)
 
 - Direct raw-source sampling confirms the sampled completed video Pass-3 records are genuinely deep and evidence-class disciplined.
 - The 46 screenshot records are useful qualitative source records but do not consistently preserve the measurable geometry/spacing/typography/color/radius/shadow detail needed for maximum visual parity.
 - Screenshot source inspection is 46/46 COMPLETE; static visual calibration is also COMPLETE at 46/46 dispositions with 8/8 visual-system families. Use `docs/BLITZIT_VISUAL_SYSTEM.md` as the implementation-facing synthesis; implementation reconciliation remains the separate next parity-consumption track.
 - `docs/EVIDENCE_ROUTING_MAP.md` is the common discovery entry point for ChatGPT/Codex so prior-pass trackers, current Pass-3 findings, calibration, reconciliation and physical validation are not conflated.
-- This documentation change does not alter the active M7 physical next action. Pass-3 video continuation remains VE-015.
+- Historical checkpoint only: at the time of this audit Pass-3 video continuation was VE-015. The current forensic closure above supersedes that continuation; source analysis is now 19/19 videos plus 46/46 static dispositions.
 
 ## Historical PR #216 source / validation baseline
 
