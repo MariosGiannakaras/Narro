@@ -29,7 +29,7 @@ Durable timestamped analysis/index:
 
 - `docs/BLITZIT_VIDEO_EVIDENCE.md`
 
-Status as of 2026-09-27: **initial corpus ingestion complete — 38/38 raw files inventoried, 19/19 video/transcript pairs analyzed, reconciled, and dispositioned**. Coverage is tracked in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`; timestamped observations and dispositions are in `docs/BLITZIT_VIDEO_EVIDENCE.md`.
+Status as of 2026-09-27: **initial corpus ingestion complete — 38/38 raw files inventoried, 19/19 video/transcript pairs analyzed, reconciled, and dispositioned**. This is prior-pass coverage, not the current exhaustive-forensics counter. Coverage is tracked in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`; timestamped observations and dispositions are in `docs/BLITZIT_VIDEO_EVIDENCE.md`. Current Pass-3 state is authoritative only in `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`; use `docs/EVIDENCE_ROUTING_MAP.md` to avoid mixing evidence layers.
 
 Materially new direct evidence from this corpus includes:
 - EST suffix parsing removes the successfully parsed terminal duration from the saved visible title and stores it as EST;

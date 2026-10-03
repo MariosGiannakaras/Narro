@@ -317,6 +317,7 @@ These requirements apply to every open or reopened roadmap milestone. A later re
 - Every milestone completion report must include that milestone's **total source diff** as `+A/-B` lines. Calculate it from the milestone's validated starting source SHA to its final validated source SHA; documentation/tracking-only commits do not replace the source baseline and are excluded from this source-diff figure.
 - Blitzit Pass-3 findings are consumed through `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`. Do not repeat raw-media research by default: use canonical `SOURCE_COMPLETE` forensic records, reopen originals only for real ambiguity/conflict or direct final visual verification, and require an explicit crosswalk/milestone disposition before an affected user-visible surface is parity-complete.
 - If materially relevant Pass-3 sources for a surface are still OPEN, independent backend/domain/API work may continue, but the surface's final visual/interaction parity gate remains open. M10 is a revalidation gate, not the first Blitzit comparison.
+- For stable screenshot-backed states, `SOURCE_PARITY_PASS` also requires the applicable visual-calibration record from `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`; Narro-owned regression fixtures alone are insufficient.
 
 ## Milestone 7 — Floating Timer mode
 
