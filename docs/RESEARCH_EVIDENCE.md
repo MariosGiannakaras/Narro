@@ -37,7 +37,7 @@ Materially new direct evidence from this corpus includes:
 - with the completion success screen enabled, Done enters the success state before any next task starts; `Next Task` and `Take a Break` are visible choices, while the success-screen-disabled progression remains unresolved by this sequence;
 - Preferences directly confirms in-place conditional children for Pomodoro, timed alerts, notification alerts, and completion celebration, plus the hide-times/hover-disclosure family;
 - the completed second-pass UI/UX video forensics measures the visible Focus Panel → Floating Timer geometry transformation at roughly **0.27 s** in the uninterrupted 60 fps VE-003 sequence; exact easing is still not established;
-- source note URLs auto-open when the task becomes live, corroborating the existing intentional Narro decision to require explicit activation instead;
+- VE-010 directly shows automatic URL recognition/clickable styling and a browser launch, but does **not** cleanly prove auto-open-on-live: the task was already live and the pointer was on the link immediately before Safari opened. Treat explicit activation in Narro as a product decision/deviation, not as a source-confirmed auto-open contradiction;
 - Reports/Sessions videos corroborate session-ledger-derived reporting and are routed to M9 rather than front-running the active M8 work.
 
 Tutorial narration about accounts, pricing, integrations, AI, mobile, community, or future features remains contextual material unless the same sequence supplies relevant in-product evidence. The required post-M10 comprehensive review must still re-reference the complete corpus; this initial ingestion does not replace that final gate.
