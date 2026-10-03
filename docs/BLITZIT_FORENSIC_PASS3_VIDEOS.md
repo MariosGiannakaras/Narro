@@ -1791,235 +1791,245 @@ Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
 Inspection method:
 - complete source reviewed across the full duration;
-- 4 s whole-video scan;
-- dense 0.5 s sampling through Schedule/date/time/recurrence/update/remove sections;
-- full-resolution keyframes for board hover/overflow, date picker, time editor, saved card metadata and update/remove menu;
-- 5 fps + frame-level review of the late Focus `Tasks due now` interruption and subsequent `Do Next` / Make Live flow;
-- SRT used only to classify narrated shortcut/recurrence semantics where the pixels did not execute every branch.
+- 1–2 s whole-video contact scans;
+- dense 1 s sampling across date selection, time/recurrence step and update/remove flow;
+- full-resolution frames for ordinary-task overflow, date picker, second-step scheduler, scheduled-task menu and removal result;
+- 10 fps micro review around popup opening, date→details step and reminder removal;
+- transcript used only where shortcut/recurrence semantics were narrated but not actually executed.
 
 ## VE-007 chronological state map
 
 ### 00:00:00–~00:00:12 — board baseline
 
 **VIDEO-DIRECT**
-- dark four-column board for list `TYAMA`;
-- list header shows **7 pending tasks, Est: 0min**;
-- This Week initially shows **0/6 Done** and contains `Call with Pete`;
+- source begins on list `TYAMA` with the established four-column board;
+- header reports **7 pending tasks, Est: 0min**;
+- This Week shows **0/6 Done**;
 - Today shows **0/2 Done**;
-- the task cards use the established board ordinal/metrics/action grammar.
+- ordinary task `Call with Pete` is initially an unscheduled This Week task.
 
-### ~00:00:12–00:00:19 — ordinary task hover → Schedule
+### ~00:00:12–00:00:19 — hover / overflow → Schedule
 
 **VIDEO-DIRECT**
-- hovering `Call with Pete` reveals the board task action rail;
-- opening overflow yields:
-  1. `Schedule`;
-  2. `Change list`;
-  3. `Duplicate`;
+- hovering `Call with Pete` exposes the standard board action rail:
+  - completion circle;
+  - Subtasks;
+  - Notes;
+  - lane-left;
+  - lane-right;
+  - overflow.
+- overflow menu exact order:
+  1. `Schedule`
+  2. `Change list`
+  3. `Duplicate`
   4. `Delete` in red.
-- selecting Schedule dims the board and opens the centered scheduling surface.
+- selecting Schedule opens the scheduler over a dimmed board.
 
-### ~00:00:19–00:00:52 — date picker and quick shortcuts
+**MOTION-APPROX**
+- menu→scheduler replacement is fast and local, with no page navigation;
+- no pronounced slide or window-geometry morph is visible.
+
+### ~00:00:19–00:00:52 — date picker
 
 **VIDEO-DIRECT**
-- date step contains a top quick-action row:
+- first scheduler step is a compact centered calendar surface;
+- top shortcut labels are:
   - `TODAY`;
   - `LATER TODAY`;
   - `TOMORROW`;
   - `NEXT WEEK`.
-- month title is `June 2025` with previous/next chevrons;
-- weekday header is Monday-first;
-- current date in the staged system is June 8;
-- bottom actions are outlined `Cancel` and gradient `Next`.
-- a specific date can be selected directly in the calendar.
+- month shown is **June 2025**;
+- left/right month chevrons flank the month heading;
+- weekday row starts Monday in this source;
+- bottom actions:
+  - outlined `Cancel`;
+  - gradient `Next`.
 
-**SELECTED/CURRENT-DATE DIRECT**
-- later Update Schedule footage shows the distinction clearly:
-  - current day **8** retains a purple/pink marker;
-  - scheduled target **14** uses a green selected circle.
-- therefore “today/current-date” and “chosen schedule date” are independently represented when they differ.
+**DATE-STATE-DIRECT**
+- system date in the recording is Sunday, **8 June 2025**;
+- final selected date is **Saturday, 14 June 2025**;
+- when editing later, current day 8 is shown with a purple/pink marker while selected date 14 uses the cyan/lime selected marker;
+- when current day is also the active selection, the selected treatment subsumes the separate today marker.
 
-**TRANSCRIPT-CLAIM — shortcut semantics**
-- narration defines:
+**SHORTCUT EVIDENCE BOUNDARY**
+- the tutorial points across the four shortcut labels while narration explains:
   - Today = current date;
-  - Later Today = roughly two hours ahead of current time;
+  - Later Today = roughly two hours ahead;
   - Tomorrow = next date;
-  - Next Week = exactly seven days ahead.
-- the shortcut labels/hover states are direct UI evidence, but every semantic branch is not separately committed in this source; do not turn the narrated offsets into measured transition timings.
+  - Next Week = seven days ahead.
+- this source does **not** execute each shortcut and inspect its resulting stored value;
+- shortcut semantics beyond their labels are therefore `TRANSCRIPT-CLAIM` in VE-007.
 
-### ~00:00:51–00:00:53 — date → details step
-
-**VIDEO-DIRECT**
-- selecting `Next` changes the same scheduling surface into a details step;
-- top-left back affordance reads **`< PICK DATE`**;
-- chosen date is summarized at upper-right as **`Sat, Jun 14th, 2025`**;
-- no page navigation occurs; it is a modal step transition.
-
-### ~00:00:53–00:01:08 — optional time editor
+### ~00:00:52–00:01:05 — scheduler second step: date summary, Add Time and recurrence presets
 
 **VIDEO-DIRECT**
-- details step begins with `Add Time` and **`+ ADD`**;
-- activating Add inserts one inline time row with:
-  - hour field;
-  - minute field;
-  - AM/PM selector;
-  - **`× REMOVE`** action.
-- demonstrated initial field values are approximately `01`, `0`, `AM`;
-- Remove collapses the time row back to Add Time without discarding the selected date.
-
-**SEMANTIC-DIRECT**
-- time is optional; date scheduling remains valid without a time.
-
-### ~00:00:53–00:02:00 — recurrence preset surface
-
-**VIDEO-DIRECT**
-- below Add Time is `Recurring schedule`;
-- `No Repeat` is selected initially;
-- date-dependent preset list is visible:
+- Next swaps the calendar for a second step in the **same modal footprint**;
+- header:
+  - back affordance `< PICK DATE`;
+  - selected-date summary **`Sat, Jun 14th, 2025`** in the initial flow / equivalent `Sat, Jun 14, 2025` formatting on later update;
+- `Add Time` row has `+ ADD` at right;
+- `Recurring schedule` section exact options:
+  - checked `No Repeat`;
   - `Every day`;
   - `Every weekday`;
   - `Every Saturday`;
   - `Every month on 14th`.
-- footer remains `Cancel` + gradient `Schedule`.
+- bottom actions remain Cancel + gradient Schedule.
 
-**TRANSCRIPT-CLAIM — preset generation semantics**
-- narration explains:
-  - Every day → seven weekly child tasks;
-  - Every weekday → Monday–Friday child tasks;
-  - Every Saturday → repeats on the weekday selected in the date step;
-  - Every month on 14th → repeats monthly on the chosen calendar date.
-- the preset options are direct UI evidence; child-materialization arithmetic is analyzed more strongly in VE-008/VE-017 rather than inferred from this narration alone.
+**STEP-TRANSITION-DIRECT**
+- date→details is a content swap inside one modal rather than a slide to a separate page/window.
 
-### ~00:02:00–00:02:04 — save scheduled task
+### ~00:00:56–00:01:04 — optional time control
 
 **VIDEO-DIRECT**
-- clicking `Schedule` closes the surface;
-- `Call with Pete` leaves the ordinary This Week stack and appears under a new Backlog subsection:
-  - **`1 Scheduled tasks backlog`**;
-- scheduled card shows:
-  - task title;
-  - date metadata **`14th`**;
-  - list badge;
-  - normal EST/Taken metrics.
-- This Week progress denominator changes **0/6 → 0/5 Done**;
-- list-level pending count remains seven in the staged board because the task is still pending, only reclassified as scheduled.
+- clicking `+ ADD` expands the Add Time row in place;
+- exact visible time input anatomy:
+  - hour field, demonstrated as `01`;
+  - minute field, demonstrated as `0`;
+  - AM/PM selector, demonstrated as `AM`;
+  - `× REMOVE` at upper-right of the row.
+- removing the time collapses those controls back to `+ ADD`.
 
-**SEMANTIC-DIRECT**
-- scheduling does not complete or duplicate the task; it changes its planning/scheduled placement.
+**SEMANTIC LIMIT**
+- narration states that a date-only schedule moves the task into Today when its due date arrives;
+- the video never reaches June 14, so that future automatic movement remains `TRANSCRIPT-CLAIM` rather than direct observed behavior.
+
+### ~00:01:05–00:02:00 — recurring preset explanation
+
+**VIDEO-DIRECT**
+- No Repeat remains the selected setting throughout the demonstrated save flow;
+- pointer/narration walks through the visible presets:
+  - Every day;
+  - Every weekday;
+  - Every Saturday;
+  - Every month on 14th.
+- the preset labels are dynamically derived from the selected Saturday/14th date for the weekday/month variants.
+
+**TRANSCRIPT-CLAIM**
+- narration describes generated-task behavior:
+  - Every day → seven generated child tasks per weekly batch;
+  - Every weekday → Monday–Friday children;
+  - Every Saturday → same selected weekday;
+  - Every month → same selected day-of-month.
+- none of these recurring presets is actually selected/committed in VE-007;
+- generated-child semantics are therefore narration-only in this source and are handled as direct evidence in VE-017 / later recurring-task sources instead.
+
+### ~00:02:00–00:02:01 — Schedule commit
+
+**VIDEO-DIRECT / MOTION-DIRECT**
+- Schedule is activated while No Repeat is selected and Add Time has been removed;
+- scheduler disappears within the next sampled frames;
+- board updates immediately, with no confirmation dialog.
+
+### ~00:02:01–00:02:13 — scheduled task board result
+
+**VIDEO-DIRECT**
+- `Call with Pete` is no longer in the ordinary This Week stack;
+- This Week progress changes **0/6 Done → 0/5 Done**;
+- Backlog gains subsection exact copy:
+  - **`1 Scheduled tasks backlog`**.
+- `Call with Pete` appears in that subsection with:
+  - date label **`14th`** at right;
+  - original list badge;
+  - EST/Taken slots preserved.
+- top list summary remains **7 pending tasks** in the staged board, meaning scheduled tasks remain part of the list's pending-task population.
+
+**POSITION-DIRECT**
+- a date in the following calendar week is represented under Backlog's scheduled subsection rather than the active This Week stack.
 
 ### ~00:02:13–00:02:22 — scheduled-task overflow / Update Schedule
 
 **VIDEO-DIRECT**
-- scheduled task has specialized overflow state:
-  1. **`Update Schedule`**;
-  2. a schedule-detail row **`14th June`** with a circular X remove control at the right;
-  3. `Change list`;
-  4. `Duplicate`;
-  5. divider;
-  6. `Delete` in red.
-- ordinary `Schedule` is replaced by `Update Schedule` while a schedule exists.
+- scheduled task keeps the normal board hover action rail;
+- opening its overflow changes the menu's scheduling area:
+  1. `Update Schedule`;
+  2. schedule-detail row **`14th June`** with a circular X/remove affordance at the right;
+  3. divider;
+  4. `Change list`;
+  5. `Duplicate`;
+  6. divider;
+  7. `Delete` in red.
+- `Schedule` is therefore replaced by `Update Schedule` plus the current schedule-detail/removal row.
 
-### ~00:02:20–00:02:25 — update reopens retained date
-
-**VIDEO-DIRECT**
-- Update Schedule reopens the calendar with the existing target retained;
-- June 14 is green-selected while June 8 remains separately marked as current day;
-- quick shortcuts, Cancel and Next remain available.
-
-**STATE-RETENTION DIRECT**
-- update reconstructs the saved schedule state rather than opening a blank/new scheduler.
-
-### ~00:02:23–00:02:32 — remove reminder without deleting task
+### ~00:02:22–00:02:25 — Update Schedule reopens pre-populated editor
 
 **VIDEO-DIRECT**
-- the small X on the `14th June` schedule-detail row removes the schedule directly;
-- no confirmation dialog is shown;
-- toast appears: **`Removed schedule from task`**;
-- the scheduled Backlog subsection disappears;
-- `Call with Pete` remains intact as an ordinary task in Backlog.
+- choosing Update Schedule reopens the second scheduler step with:
+  - selected date still **Sat, Jun 14, 2025**;
+  - No Repeat still selected;
+  - Add Time still unset.
+- choosing Pick Date returns to the calendar;
+- calendar simultaneously shows:
+  - current day 8 marker;
+  - selected day 14 marker.
 
-**IDENTITY-DIRECT**
-- task identity/content survives; only schedule metadata/planning classification is removed.
+**EDIT-COMMIT LIMIT**
+- this tutorial opens the existing schedule for editing but does **not** commit a changed date/time/recurrence value;
+- therefore “parameters can be adjusted” is supported by the editable/pre-populated UI, while an updated-result mutation is not independently demonstrated.
 
-### ~00:02:35–00:02:42 — tutorial recap
-
-**VIDEO-DIRECT**
-- source stays on the board while narration summarizes update/remove behavior;
-- no additional unique scheduler state is introduced.
-
-### ~00:02:42–00:02:51 — Focus due-reminder scenario begins
-
-**TUTORIAL-STAGING / VIDEO-DIRECT**
-- footage switches to a staged Focus Panel scenario;
-- `Check emails` is live;
-- a separate scheduled task `Finalize the pre...` is listed with metadata **`Today 11:30PM`**;
-- this scenario is not the same `Call with Pete` board mutation and should not be treated as a continuous timeline from the earlier board example.
-
-### ~00:02:38?–00:02:42? staged due event — Tasks due now interruption
+### ~00:02:25–00:02:28 — return to board
 
 **VIDEO-DIRECT**
-- when the scheduled task becomes due:
-  - current live `Check emails` changes to explicit **`PAUSED`**;
-  - Focus inserts an alert section:
-    - info icon + **`Tasks due now`**;
-    - copy **`You have scheduled tasks due now`**;
-    - the due task card with `Today 11:30PM`;
-    - secondary `Cancel`;
-    - gradient rocket action **`Do Next`**.
-- the reminder is therefore an in-context Focus interruption, not only a passive board badge/system notification.
+- editor is dismissed/cancelled;
+- scheduled task remains dated 14th, confirming no change was committed.
 
-### ~00:02:41–00:02:43 — Do Next semantics
-
-**VIDEO-DIRECT / FRAME-LEVEL**
-- pointer visibly activates `Do Next`;
-- the reminder prompt disappears;
-- `Check emails` resumes its running timer;
-- the due task remains immediately below it as an ordinary queue item;
-- Focus progress denominator changes **0/1 → 0/2 Done**.
-
-**CRITICAL SEMANTIC FINDING**
-- in this source, **Do Next does not instantly replace the live task**;
-- it accepts the due task into the immediate Focus queue while restoring the current live task.
-
-### ~00:02:44–00:02:49 — queued due task → Make Live
+### ~00:02:28–00:02:29 — remove schedule using schedule-detail X
 
 **VIDEO-DIRECT**
-- hovering the newly queued due task exposes the ordinary Focus hover rail;
-- Make Live/rocket is used;
-- `Finalize the pre...` then becomes the accented live card with timer beginning near `00:00:00`;
-- `Check emails` returns to the queue below it.
+- scheduled-task overflow is opened again;
+- pointer targets the circular X on the `14th June` schedule-detail row;
+- no confirmation dialog appears.
 
-**IDENTITY-DIRECT**
-- due-task reminder acceptance and actual live-task handoff are separate user actions in the demonstrated path.
+**MOTION-DIRECT**
+- reminder removal is immediate/local; menu and scheduled subsection disappear within only a few sampled frames.
 
-### ~00:02:49–00:02:52.8 — end/outro
+### ~00:02:29–00:02:33 — reminder removed, task preserved
 
-**VIDEO-DIRECT / NON-PARITY**
-- no additional unique scheduling state beyond the Focus reminder flow.
+**VIDEO-DIRECT**
+- `Call with Pete` remains intact as an ordinary task;
+- it is now placed in the ordinary **Backlog** task stack beneath `Find new copywriter`;
+- `1 Scheduled tasks backlog` subsection disappears;
+- date label and schedule metadata disappear;
+- task title, list identity and metric slots remain.
+
+**IMPORTANT POSITION SEMANTIC**
+- removing the reminder does **not** visibly restore the task to its original This Week lane in this source;
+- it becomes an ordinary Backlog task.
+- therefore the strongest direct statement is “reminder removed, task preserved,” not “task returns to its previous lane.”
+
+### ~00:02:33–00:02:42 — reminder summary
+
+**VIDEO-DIRECT**
+- board remains in the unscheduled result state while narration summarizes scheduling/reminder use;
+- no additional unique scheduler state appears.
+
+### ~00:02:42–00:02:52.80 — outro
+
+**VIDEO-DIRECT / NON-PRODUCT**
+- tutorial/community outro and music;
+- no additional application parity evidence.
 
 ## VE-007 source synthesis
 
 High-confidence direct behavior established:
-- ordinary task overflow opens Schedule;
-- schedule UI is a two-step centered surface: calendar → date summary/time/recurrence;
-- quick shortcuts are Today / Later Today / Tomorrow / Next Week;
-- current day and selected schedule date have distinct marker states;
-- Add Time is optional and expands to hour/minute/AM-PM + Remove;
-- recurrence presets are date-dependent and coexist with optional time;
-- saving a date-only reminder reclassifies the same task into a Scheduled Backlog subsection;
-- active-lane progress denominator changes when the task leaves the ordinary This Week stack while list pending identity is preserved;
-- scheduled-task overflow uses Update Schedule plus an inline schedule-detail row with X removal;
-- Update Schedule retains the saved date;
-- removing schedule is immediate, shows `Removed schedule from task`, and preserves the task itself;
-- a due reminder during Focus automatically pauses the current live task and inserts a `Tasks due now` decision surface;
-- `Do Next` adds/accepts the due task into the Focus queue and resumes the current task rather than making the due task live immediately;
-- Make Live is then a separate action that switches to the due task;
-- narrated quick-shortcut offsets and recurrence generation rules are kept distinct from branches directly executed in the pixels.
+- ordinary board task overflow enters scheduling through `Schedule`;
+- date step has Today / Later Today / Tomorrow / Next Week shortcuts plus full calendar;
+- selected date and current-date markers can coexist distinctly;
+- Next keeps the workflow inside one compact scheduler and reveals date summary + optional time + recurrence presets;
+- Add Time expands inline to hour/minute/AM-PM fields and can be removed inline;
+- No Repeat / Every day / Every weekday / Every Saturday / Every month on 14th are the visible preset grammar for the selected date;
+- recurring-generation semantics in this particular video are narrated, not committed;
+- saving a date-only No Repeat schedule moves the task into a Backlog scheduled subsection and reduces the active This Week denominator;
+- scheduled-task overflow changes to `Update Schedule` plus an inline schedule-detail/removal row;
+- Update Schedule reopens a pre-populated editor;
+- removing the reminder uses the X beside the schedule details, requires no confirmation and preserves the task;
+- direct removal result is an ordinary Backlog task, not restoration to the original This Week lane;
+- future due-date auto-movement and the four quick-shortcut calculations are not directly observed in this clip and remain transcript-level claims here.
 
 Static corroboration:
-- SS-H07 schedule date picker;
-- SS-H13 board overflow Schedule action;
-- SS-T06 historical scheduled-task overflow/update context.
+- SS-H07 Help schedule date picker;
+- SS-H13 ordinary task overflow;
+- VE-017 recurring-update source for direct generated-task consequences.
 
 No implementation conclusion is made in this analysis track.
 
