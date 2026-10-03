@@ -1,5 +1,5 @@
 use crate::autostart;
-use crate::domain::preferences::{FocusPanelSide, PreferencesPayload};
+use crate::domain::preferences::{is_local_sound_id, FocusPanelSide, PreferencesPayload};
 use crate::error::{CommandError, CommandResult};
 use crate::persistence;
 use crate::persistence::preferences::{initialize_preferences, mutate_preferences};
@@ -39,9 +39,11 @@ pub struct AlertSettingsSnapshot {
     pub timed_alerts_enabled: bool,
     pub task_alert_interval_seconds: u32,
     pub task_alert_sound: Option<String>,
+    pub task_alert_volume_percent: u8,
     pub animated_timer_flash: bool,
     pub notification_alerts_enabled: bool,
     pub notification_sound: Option<String>,
+    pub notification_volume_percent: u8,
     pub schedule_reminders_enabled: bool,
     pub reminder_lead_seconds: u32,
 }
@@ -52,6 +54,7 @@ pub struct CelebrationSettingsSnapshot {
     pub show_success_screen: bool,
     pub fun_gif: bool,
     pub success_sound: Option<String>,
+    pub success_sound_volume_percent: u8,
 }
 
 #[derive(Debug, Clone, Serialize, PartialEq, Eq)]
@@ -81,12 +84,18 @@ pub struct PreferenceSettingsPatch {
     pub scrolling_title: Option<bool>,
     pub timed_alerts_enabled: Option<bool>,
     pub task_alert_interval_seconds: Option<u32>,
+    pub task_alert_sound: Option<String>,
+    pub task_alert_volume_percent: Option<u8>,
     pub animated_timer_flash: Option<bool>,
     pub notification_alerts_enabled: Option<bool>,
+    pub notification_sound: Option<String>,
+    pub notification_volume_percent: Option<u8>,
     pub schedule_reminders_enabled: Option<bool>,
     pub reminder_lead_seconds: Option<u32>,
     pub show_success_screen: Option<bool>,
     pub fun_gif: Option<bool>,
+    pub success_sound: Option<String>,
+    pub success_sound_volume_percent: Option<u8>,
 }
 
 #[derive(Debug, Clone)]
@@ -138,8 +147,45 @@ fn normalize_optional_token(value: String) -> Option<String> {
     }
 }
 
+fn validate_sound_patch(field: &'static str, value: Option<&str>) -> CommandResult<()> {
+    if let Some(value) = value {
+        if !is_local_sound_id(value) {
+            return Err(CommandError::invalid_argument(
+                field,
+                "must reference a bundled local Narro sound",
+            ));
+        }
+    }
+    Ok(())
+}
+
+fn validate_volume_patch(field: &'static str, value: Option<u8>) -> CommandResult<()> {
+    if value.is_some_and(|percent| percent > 100) {
+        return Err(CommandError::invalid_argument(field, "must be between 0 and 100"));
+    }
+    Ok(())
+}
+
 fn prepare_patch(patch: PreferenceSettingsPatch) -> CommandResult<PreparedPatch> {
     let side = parse_side(patch.focus_panel_side.as_deref())?;
+    validate_sound_patch("patch.taskAlertSound", patch.task_alert_sound.as_deref())?;
+    validate_volume_patch(
+        "patch.taskAlertVolumePercent",
+        patch.task_alert_volume_percent,
+    )?;
+    validate_sound_patch(
+        "patch.notificationSound",
+        patch.notification_sound.as_deref(),
+    )?;
+    validate_volume_patch(
+        "patch.notificationVolumePercent",
+        patch.notification_volume_percent,
+    )?;
+    validate_sound_patch("patch.successSound", patch.success_sound.as_deref())?;
+    validate_volume_patch(
+        "patch.successSoundVolumePercent",
+        patch.success_sound_volume_percent,
+    )?;
     Ok(PreparedPatch { patch, side })
 }
 
@@ -184,11 +230,23 @@ fn apply_patch(payload: &mut PreferencesPayload, prepared: &PreparedPatch) {
     if let Some(value) = patch.task_alert_interval_seconds {
         payload.alerts.task_alert_interval_seconds = value;
     }
+    if let Some(value) = &patch.task_alert_sound {
+        payload.alerts.task_alert_sound = Some(value.clone());
+    }
+    if let Some(value) = patch.task_alert_volume_percent {
+        payload.alerts.task_alert_volume_percent = value;
+    }
     if let Some(value) = patch.animated_timer_flash {
         payload.alerts.animated_timer_flash = value;
     }
     if let Some(value) = patch.notification_alerts_enabled {
         payload.alerts.notification_alerts_enabled = value;
+    }
+    if let Some(value) = &patch.notification_sound {
+        payload.alerts.notification_sound = Some(value.clone());
+    }
+    if let Some(value) = patch.notification_volume_percent {
+        payload.alerts.notification_volume_percent = value;
     }
     if let Some(value) = patch.schedule_reminders_enabled {
         payload.alerts.schedule_reminders_enabled = value;
@@ -204,6 +262,12 @@ fn apply_patch(payload: &mut PreferencesPayload, prepared: &PreparedPatch) {
     }
     if let Some(value) = patch.fun_gif {
         payload.celebration.fun_gif = value;
+    }
+    if let Some(value) = &patch.success_sound {
+        payload.celebration.success_sound = Some(value.clone());
+    }
+    if let Some(value) = patch.success_sound_volume_percent {
+        payload.celebration.success_sound_volume_percent = value;
     }
 }
 
@@ -237,9 +301,11 @@ fn snapshot(
             timed_alerts_enabled: payload.alerts.timed_alerts_enabled,
             task_alert_interval_seconds: payload.alerts.task_alert_interval_seconds,
             task_alert_sound: payload.alerts.task_alert_sound,
+            task_alert_volume_percent: payload.alerts.task_alert_volume_percent,
             animated_timer_flash: payload.alerts.animated_timer_flash,
             notification_alerts_enabled: payload.alerts.notification_alerts_enabled,
             notification_sound: payload.alerts.notification_sound,
+            notification_volume_percent: payload.alerts.notification_volume_percent,
             schedule_reminders_enabled: payload.alerts.schedule_reminders_enabled,
             reminder_lead_seconds: payload.alerts.reminder_lead_seconds,
         },
@@ -247,10 +313,12 @@ fn snapshot(
             show_success_screen: payload.celebration.show_success_screen,
             fun_gif: payload.celebration.fun_gif,
             success_sound: payload.celebration.success_sound,
+            success_sound_volume_percent: payload.celebration.success_sound_volume_percent,
         },
-        // M8 must not invent remote or placeholder sounds. A future local catalog can flip this
-        // only when Narro-owned bundled/user-local assets exist and can actually be previewed.
-        local_sound_catalog_available: false,
+        // The catalog is bundled in the renderer as Narro-owned local synthesis recipes.
+        // Backend validation accepts only the matching stable IDs, so no remote media token
+        // can enter the persisted Preferences payload.
+        local_sound_catalog_available: true,
     }
 }
 
@@ -367,6 +435,31 @@ mod tests {
         assert_eq!(payload.focus.default_break_seconds, 12 * 60);
         assert_eq!(payload.general.timezone.as_deref(), Some("Europe/Athens"));
         assert_eq!(payload.shortcuts, original_shortcuts);
+    }
+
+    #[test]
+    fn sound_patch_rejects_remote_or_unknown_ids_and_invalid_volume() {
+        assert!(prepare_patch(PreferenceSettingsPatch {
+            task_alert_sound: Some("https://example.com/sound.wav".into()),
+            ..PreferenceSettingsPatch::default()
+        })
+        .is_err());
+        assert!(prepare_patch(PreferenceSettingsPatch {
+            notification_sound: Some("unknown-sound".into()),
+            ..PreferenceSettingsPatch::default()
+        })
+        .is_err());
+        assert!(prepare_patch(PreferenceSettingsPatch {
+            success_sound: Some("victory-bell".into()),
+            success_sound_volume_percent: Some(100),
+            ..PreferenceSettingsPatch::default()
+        })
+        .is_ok());
+        assert!(prepare_patch(PreferenceSettingsPatch {
+            task_alert_volume_percent: Some(101),
+            ..PreferenceSettingsPatch::default()
+        })
+        .is_err());
     }
 
     #[test]
