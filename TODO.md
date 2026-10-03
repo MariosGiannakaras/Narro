@@ -6,10 +6,10 @@ Milestones are ordered. Do not skip ahead unless a later task is required to unb
 
 **Latest pinned M7 candidate physical batch: CI #893 C5 PASS** at saved `(800,649)`, restored paused08:11 /491 durable work seconds. [Complete results/video/logs and embedded review](work-log/2026-10-03-codex-m7-ci893-physical-batch-evidence.md). This supersedes the changed-host C5 pending action, while CI873 remains historical PASS. Current corrective closure remains3/5: whole large Notes containment, wrapped tooltip, expansion prepainting geometry and small planning titles require the reconciled batch below. Monitor crossing/reconnect/full-screen and separate M1 B/C/D remain open.
 
-- [ ] FIX_NOW CI893 editor containment: compare current nested-fixed failure to root-relative anchoring without unmounting the editor; actual production wrappers, both-axis bounds, resize/draft/focus, normal/reduced motion, then exact-build Windows video. Repeated-failure reassessment is in the batch report.
-- [ ] FIX_NOW CI893 Notes tooltip: boundary-aware placement for wrapped left/right anchors with retained keyboard/Escape/opacity behavior and no horizontal overflow.
-- [ ] FIX_NOW CI893 expanded prepaint: atomic initial clip and correct heading/action containing block; retain finite reveal and persistent host; continuous exact-build retest.
-- [ ] Reopened M5 narrow planning-title layout: zero-width title track at small main window. Reserve a stable narrow-card action row; verify readable title, hover/focus geometry, editing and keyboard controls before restoring affected acceptance.
+- [ ] VALIDATION_OPEN PR225 editor containment: implementation is automated-validated by CI #911; run the exact-EXE both-axis large-Notes/draft/resize/focus/Save physical retest in normal/reduced motion.
+- [ ] VALIDATION_OPEN PR225 Notes tooltip: boundary-aware placement implementation is automated-validated by CI #911; run the exact-EXE wrapped left/right keyboard/Escape/opacity/no-overflow physical retest.
+- [ ] VALIDATION_OPEN PR225 expanded prepaint: atomic initial-clip/containing-block correction is automated-validated by CI #911; run the continuous exact-EXE normal/reduced transition retest.
+- [ ] VALIDATION_OPEN PR225 M5 narrow planning-title layout: second-row/readability correction is automated-validated by CI #911; verify visible title/editing, hover/focus no-reflow and keyboard controls on the exact Windows build. This is separate from the new Pass-3 ordinal/hover-rail `FIX_NOW` route.
 
 **Latest C5 physical validation, 2026-10-03: PASS.** CI #873 exact EXE completed a real running compact Timer, qualifying **328 px** drag, normal tray Quit, same-EXE relaunch and visible restore at saved **`(1640,780)`**, with the same task/time recovered paused. Native evaluator PASS and both full sessions are delivered with continuous two-monitor 60 fps video in [the completed run](work-log/2026-10-03-codex-m7-ci873-c5-completed.md) and [video-derived gallery](work-log/2026-10-03-codex-m7-ci873-c5-video-review.md). No C5 physical action remains for the user. Formal M7 tracking and the narrow extra motion/label observations below remain pending; no broader milestone/counter advancement is claimed.
 
@@ -331,7 +331,7 @@ These requirements apply to every open or reopened roadmap milestone. A later re
 
 ## Milestone 7 — Floating Timer mode
 
-**Active corrective batch (2026-10-03), 3/5:** PR #222's six corrections are merged as `ccf0fef5554fe8b635807df9214d56d3b2c29457` after full exact-head Windows CI #893 PASS, with zero non-Markdown differences. Thirty explicit normal/reduced rendered cases PASS, including keyboard-tooltip entry motion. The [final artifact/candidate](work-log/2026-10-03-codex-m7-pr222-ci893-merged-candidate-ready.md) is downloaded/verified; source/CI preparation is complete. The [affected exact-EXE physical batch](work-log/2026-10-03-codex-m7-pr222-affected-physical-batch.md) and final reconciliation remain OPEN. Complete CI #884 logs/video/results are published; cancelled #887/890/891, harness-failed #892 and duplicate-main #896 are recorded separately from physical acceptance.
+**Active corrective batch (2026-10-04), 3/5:** PR #225 exact head `4f9d03832743f3db90d0c61dc527b27a194886fd` PASSed full Windows CI #911 and merged as `cbbaaa25dc94ec756e8bffbc731b99a8be0c4945` with zero non-Markdown differences. The editor/tooltip/prepaint/narrow-title/Preferences corrections are therefore automated-validated. Exact-EXE physical acceptance remains OPEN on candidate SHA-256 `24b71ba952ff323647537465f4d5ec8026b3e8001f65d3798d0dbf9eef06541a`; see `work-log/2026-10-03-codex-m7-pr225-ci911-merged-and-physical.md`. The global Pass-3 implementation-routing reconciliation is complete, but it identified separate M5/M6/M7 source-parity implementation gaps below.
 
 **Current corrective-scope rule:** the single-Focus replacement changes implementation that materially supported M1 Gate A, M6 Gate F and multiple M7 acceptance items, and directly changes M8 Focus-shortcut routing. Those affected items/gates are therefore reopened until the replacement is validated. Historical PASS evidence remains immutable evidence for the superseded code only. M2–M5 stay closed because no direct dependency has been found.
 
@@ -424,11 +424,11 @@ Acceptance criteria:
 - final floating UI has no unexplained idle CPU or major memory regression versus Milestone 1 baseline
 - reduced-motion mode removes nonessential translation/scale while preserving clear feedback
 
-**M7 historical checklist state:** 1/15 top-level historical checklist items remain formally closed after the replacement reopening. This is not the remaining-work counter. C1–C4 were accepted on their historical candidates and **C5 saved-placement restart PASSed on CI #873**. CI #884 findings reopen the affected C4 behavior; PR #222's changed native host requires fresh relevant C5 placement/restart acceptance. Current corrective slice is **3/5**, with final tracking/crosswalk reconciliation pending. See `docs/M7_CLOSURE_PLAN.md`. Rechecks follow the actual changed scope.
+**M7 historical checklist state:** 1/15 top-level historical checklist items remain formally closed after the replacement reopening. This is not the remaining-work counter. C1–C4 were accepted on historical candidates and **C5 saved-placement restart PASSed on CI #873/CI #893 evidence for those exact builds**. PR #225/CI #911 supersedes the remaining CI893 implementation defects; the exact PR #225 EXE still requires the affected physical acceptance. The global source→implementation crosswalk is now reconciled; only actual physical/source-parity gates remain open. Current corrective slice stays **3/5**. See `docs/M7_CLOSURE_PLAN.md` and the current PR #225 ledger.
 
-- [ ] Disposition `M7-OBS-20261003-01`: CI #884 confirmed remaining coexistence after PR #221. PR #222 transfers sole paint ownership with immediate rollback restoration; rendered normal/reduced regressions PASS. Exact-EXE continuous motion acceptance remains OPEN. Preserve finite geometry movement without doubled text or a traveling old Panel header. This is new observed content, not an assertion that the CI #809 white-L defect recurred.
-- [ ] Disposition `M7-OBS-20261003-02`: PR #221 implements six stable weighted action slots with complete labels; 16 rendered captures and CI #884 physical 125% Panel labels PASS. Native 100% observation on the final changed host remains OPEN. Original evidence: [video review](work-log/2026-10-03-codex-m7-ci873-c5-video-review.md).
-- [ ] Complete formal C5/milestone tracking reconciliation after the above narrow observations are dispositioned. Keep M1 Candidate B physical/performance acceptance separate.
+- [ ] VALIDATION_OPEN `M7-OBS-20261003-01`: automated corrective lineage through PR #225 / CI #911 is green; exact final EXE normal/reduced continuous motion observation remains required. Preserve finite geometry movement without doubled text or a traveling old Panel header.
+- [ ] VALIDATION_OPEN `M7-OBS-20261003-02`: complete action labels are automated/previous-physical validated where observed; native 100% observation on the exact PR #225 host remains required.
+- [ ] Complete the remaining M7 milestone/physical reconciliation only after the exact PR #225 observations are dispositioned. Keep M1 Candidate B physical/performance acceptance separate.
 
 ### Post-validation video-evidence correction — VE-F003
 
@@ -455,9 +455,9 @@ This gate is **COMPLETE as an evidence-to-implementation routing pass** and is *
 
 **Execution order after this documentation-only reconciliation:** preserve the ongoing PR #225 exact-EXE M5/M7/M8 physical gate, but the earliest independent source-implementation work is the M5 corrective batch above from current `main`. Do not reopen raw Blitzit source unless a concrete ambiguity cannot be resolved from canonical records.
 
-## Active audit-incorporation gate — 2026-09-28
+## Historical audit-incorporation gate — 2026-09-28 (superseded by the 2026-10-04 global reconciliation)
 
-This cross-cutting gate applies before further forward implementation and **does not change the 10-milestone denominator**.
+This section preserves the completed 2026-09-28 gate as historical evidence and **does not change the 10-milestone denominator**. New findings and current routing are authoritative in the 2026-10-04 global reconciliation section above.
 
 Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
@@ -470,7 +470,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
 **Execution rule:** new evidence that materially changes an already-built/current surface reopens only that narrow surface as a corrective slice; it does not require a wholesale milestone re-audit.
 
-**Current execution priority:** M7 C1-C4 are physically accepted; C5 saved-placement Quit→relaunch is physically PASS with formal reconciliation/new-observation disposition pending; M1 replacement monitor/topology/performance evidence also remains physical-only. These pending observations are not a blanket stop condition under the manual-test batching policy. Continue the earliest independently safe work that cannot be invalidated by those observations; the current unblocked source slice is M8 `PREF-R05` local sound catalog/preview behavior. Keep all deferred physical gates explicitly OPEN, and do not advance M9 while unblocked M8 work remains.
+**Historical execution priority (superseded):** this paragraph originally routed work to M8 `PREF-R05`; that slice is now validated. Current priority is defined by the 2026-10-04 reconciliation: preserve the independent PR #225 exact-EXE physical gate, and start the earliest implementation correction from the M5 `FIX_NOW` parity batch on current `main`. M9 Sessions is merged/validated; Overview PDF remains open after earlier routed corrections.
 
 ## Milestone 8 — Windows shortcuts and preferences
 
