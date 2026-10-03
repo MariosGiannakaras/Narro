@@ -2,6 +2,14 @@
 
 Last updated: 2026-10-03
 
+## 2026-10-03 — M7 transient-content and action-label correction in CI #884
+
+User-directed M7 continuation is now active on [PR #221](https://github.com/MariosGiannakaras/Narro/pull/221), exact head `5cc184d87ae4f3562e439012292526940a48cb0a`; Windows CI #884 / run `37122117866` is active. The ready, opaque destination is presented before native geometry motion, with interaction ownership retained until commit and both motion operations joined before rollback. This narrowly addresses the CI #873 doubled content/traveling old header observations. Six fixed action slots now reserve complete Resume/Extend labels without shifting targets between states.
+
+This is a documented Narro reconstruction decision: preserve the evidenced finite continuous geometry movement while avoiding the source's sparse/clipped intermediate content and overlapping text; it is not a claim of exact source compositing internals. Full frontend preflight, 17 transition/recovery tests, Rustfmt and 16 rendered Panel captures with fractional text-fit/stable-slot validation PASS. Local Rust check/Clippy/tests are NOT RUN because MSVC `link.exe` is unavailable. Exact-candidate continuous Windows capture remains OPEN; no physical fix is claimed yet. Prior C5 restart PASS remains valid because saved-placement/session code is unchanged. Current validated source and roadmap counters remain `45c3218f5923c2ff673d8c1dd562de7545be1ecb` and `5/10M || 5/5 | 14/19` until integration/acceptance.
+
+Continuation: merge the exact-green candidate with a head guard, verify tree identity, test its EXE with normal/reduced motion and full native Panel labels, publish video-derived evidence, then reconcile bounded M7 C1–C5. [Implementation checkpoint](work-log/2026-10-03-codex-m7-content-labels-pr221.md).
+
 ## 2026-10-03 — CI #873 C5 physical restart PASS; continuous video delivered
 
 The requested exact `narro-m7-validation.exe` (`4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`) completed a real running-task compact Timer drag, normal **Quit Narro** through the tray, same-EXE relaunch and visible saved-position restore. The native evaluator is **PASS**: maximum qualifying movement **328 px**, saved/expected/actual position **`(1640,780)`**, unchanged executable/source/topology, different process sessions. The recovered task retained **2:16:57** and was visibly **Paused**. No C5 physical user action remains.
