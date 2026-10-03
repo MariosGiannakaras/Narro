@@ -146,7 +146,7 @@ for (const label of ["Futuristic Ding", "Melodic Bell", "Quick Chime", "Victory 
 }
 invariant(soundControl.includes('type="range"'), "sound control must expose the evidenced volume affordance");
 invariant(soundControl.includes("playLocalSoundPreview"), "sound control must expose local preview playback");
-invariant(soundCatalog.includes("stopLocalSoundPreview();"), "new previews must stop the previous preview before playback");
+invariant(soundCatalog.includes("stopLocalSoundPlayback();"), "new local sound playback must stop the previous playback before starting");
 invariant(!/https?:\/\//.test(soundCatalog), "local sound catalog must not contain remote media dependencies");
 invariant(!/fetch\s*\(/.test(soundCatalog), "local sound catalog must not fetch media");
 invariant(!/https?:\/\//.test(sections), "Preferences must not introduce remote sound/media dependencies");
