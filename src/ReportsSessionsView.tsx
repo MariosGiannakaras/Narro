@@ -421,9 +421,11 @@ export type ReportsSessionsViewProps = {
   listFilterOpen: boolean;
   datePickerOpen: boolean;
   pendingSessionId: string | null;
+  exportPending?: boolean;
   onBack?: () => void;
   onOpenOverview: () => void;
   onOpenAddSession: () => void;
+  onExport?: () => void;
   onToggleBreakSessions: () => void;
   onToggleListFilter: () => void;
   onToggleListSelection: (listId: string | null) => void;
@@ -451,9 +453,11 @@ export function ReportsSessionsView({
   listFilterOpen,
   datePickerOpen,
   pendingSessionId,
+  exportPending = false,
   onBack,
   onOpenOverview,
   onOpenAddSession,
+  onExport,
   onToggleBreakSessions,
   onToggleListFilter,
   onToggleListSelection,
@@ -477,7 +481,13 @@ export function ReportsSessionsView({
         </div>
         <div className="reports-sessions__top-actions">
           <button type="button" className="reports-sessions__primary" onClick={onOpenAddSession}>+ Add Session</button>
-          <button type="button" className="reports-overview__export" disabled title="Local CSV export is implemented in the next M9 slice.">
+          <button
+            type="button"
+            className="reports-overview__export"
+            onClick={onExport}
+            disabled={exportPending || !onExport}
+            aria-busy={exportPending}
+          >
             Export .csv
           </button>
         </div>

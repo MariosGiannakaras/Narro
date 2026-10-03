@@ -183,6 +183,11 @@ export type DeleteReportSessionRequest = {
   expectedUpdatedAt: string;
 };
 
+export type ReportExportResult = {
+  path: string;
+  rowCount: string;
+};
+
 export function getReportHistory(request: GetReportHistoryRequest): Promise<ReportHistory> {
   return invoke<ReportHistory>("get_report_history", request);
 }
@@ -193,6 +198,12 @@ export function getReportOverview(request: GetReportOverviewRequest): Promise<Re
 
 export function getReportSessions(request: GetReportSessionsRequest): Promise<ReportSessions> {
   return invoke<ReportSessions>("get_report_sessions", request);
+}
+
+export function exportReportSessionsCsv(
+  request: GetReportSessionsRequest,
+): Promise<ReportExportResult> {
+  return invoke<ReportExportResult>("export_report_sessions_csv", request);
 }
 
 export function getReportTaskSessions(

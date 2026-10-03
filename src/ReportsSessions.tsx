@@ -6,6 +6,7 @@ import {
   createManualReportSession,
   deleteReportSession,
   editReportSession,
+  exportReportSessionsCsv,
   getReportSessions,
   getReportTaskSessions,
   type ReportSessions,
@@ -159,6 +160,8 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
   const [mutationPendingId, setMutationPendingId] = useState<string | null>(null);
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [exportPending, setExportPending] = useState(false);
+  const [exportError, setExportError] = useState<string | null>(null);
 
   useEffect(() => {
     let disposed = false;
@@ -416,6 +419,23 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
     }
   };
 
+  const exportSessions = async () => {
+    if (exportPending) return;
+    const request = currentRequest();
+    if (!request) return;
+
+    setExportPending(true);
+    setExportError(null);
+    try {
+      const result = await exportReportSessionsCsv(request);
+      setFeedback(`Sessions CSV exported locally to ${result.path}`);
+    } catch (failure: unknown) {
+      setExportError(formatInvokeError(failure));
+    } finally {
+      setExportPending(false);
+    }
+  };
+
   const toggleListSelection = (listId: string | null) => {
     if (listId === null) {
       setSelectedListIds([]);
@@ -492,6 +512,7 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
       {refreshError ? <p className="reports-overview__runtime-error" role="status">{refreshError}</p> : null}
       {mutationError ? <p className="reports-overview__runtime-error" role="alert">{mutationError}</p> : null}
       {detailError ? <p className="reports-overview__runtime-error" role="alert">{detailError}</p> : null}
+      {exportError ? <p className="reports-overview__runtime-error" role="alert">{exportError}</p> : null}
       {feedback ? <div className="reports-sessions__toast" role="status">{feedback}</div> : null}
 
       <ReportsSessionsView
@@ -510,9 +531,11 @@ export function ReportsSessions({ onBack, onOpenOverview }: ReportsSessionsProps
         listFilterOpen={listFilterOpen}
         datePickerOpen={datePickerOpen}
         pendingSessionId={mutationPendingId}
+        exportPending={exportPending}
         onBack={onBack}
         onOpenOverview={onOpenOverview}
         onOpenAddSession={() => openAddSession()}
+        onExport={() => void exportSessions()}
         onToggleBreakSessions={() => setShowBreakSessions((visible) => !visible)}
         onToggleListFilter={() => setListFilterOpen((open) => !open)}
         onToggleListSelection={toggleListSelection}
