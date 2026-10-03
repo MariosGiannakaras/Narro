@@ -54,7 +54,7 @@ A **screenshot** is Pass-3 complete only after the actual retained image has bee
 - Individually inspected in Pass 3: **46/46**
 - Per-image forensic records durable in repo: **46/46**
 - Static screenshot source inspection: **46/46 COMPLETE**
-- Static visual calibration for maximum parity: **OPEN** — see `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md` / tracker; do not repeat broad source research
+- Static visual calibration for maximum parity: **COMPLETE — 46/46 dispositioned; 8/8 visual-system families calibrated**
 - Implementation reconciliation: **DEFERRED by explicit user instruction**
 
 See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
@@ -63,7 +63,7 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 
 - Corpus: **19 MP4 + 19 matching SRT**
 - Full MP4s completed to Pass-3 standard: **19/19**
-- Full sources completed: **VE-004 Getting Started; VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough; VE-011 Reports; VE-012 Improved Sessions and Stats; VE-006 Delete & Archive**
+- Full sources completed: **all 19 repository MP4s (VE-001 through VE-019 as mapped in the authoritative tracker)**
 - Partial deep sequence outside mapped corpus: **unmapped user-supplied 9.344 s planning-board clip**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
 
