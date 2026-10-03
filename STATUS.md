@@ -2,6 +2,27 @@
 
 Last updated: 2026-10-03
 
+## 2026-10-03 — CI #893 real Windows batch; C5 PASS, narrow corrections required
+
+Exact CI #893 EXE `01dd602454f10f85aeecd53eb1bfcdd53368b2eec46fa60cfb5d5cf80385018b` completed real drag, tray Quit, same-EXE relaunch and saved visible `(800,649)` Timer. Native evaluator PASS and read-only SQLite agrees with restored paused08:11 /491 work seconds. Native frame alignment/complete Panel labels, exercised Greek Create/Notes/Pause, settled modal Tab/Escape, inline Notes wrapping, Panel large-editor draft/resize/Save and maximized-Notepad topmost passed the observed paths. Three paused floating-only measurements have stable process trees, ~0–0.026% one-core CPU and404–409MiB working set.
+
+The batch also found **FAIL**: wrapped Notes presentation tooltip clips left; whole large Notes still exceeds expanded native bounds although Save is reachable; compact→expanded briefly reveals tall/displaced content before settling; small planning lanes collapse task titles. [Full PASS/FAIL ledger, embedded video-derived native images, 24 lossless full-recording parts, 9 motion clips/27 dense sheets, complete logs/ZIP and hashes](work-log/2026-10-03-codex-m7-ci893-physical-batch-evidence.md).810 sequence frames plus30 closer expansion frames were reviewed; the long recording's idle gap was retained, not exhaustively inspected.
+
+Per repeated-failure escalation, the next editor correction changes its containing-block path rather than subtracting margins again: remove neutral nested transforms while preserving the same editor DOM/draft, compare current failure against root-relative containment using actual production wrappers. Initial expanded clipping must be atomic before finite reveal. Wrapped tooltip alignment becomes boundary-aware; narrow card layouts retain a reserved action row. This reopens only affected M5 narrow-title acceptance. Exact-build physical validation remains required. The initial dual-monitor topology became unavailable during the idle interval; only DISPLAY2 remained despite `/extend`. Complete crossing/reconnect/full-screen and separate M1 Candidate B B/C/D are NOT RUN. Current M7 closure remains3/5, roadmap5/10M, physical14/19; concurrent M9/source-analysis work is preserved. OS animations On, app paused, OBS stopped.
+
+## 2026-10-03 — M9 production Overview validated; 9/12 top-level items complete
+
+PR #224 final exact head `fd04d2890268819d2f8a2a202907ecd23a856e59` PASSed Windows CI #906 / run `37145571851`. It merged as application source `ee5448d5534b44449df1ddff02c3b83d88111c7f`, and resulting-main Windows CI #907 / run `37146683037` PASSed all gates.
+
+Production Reports now loads the Rust-owned Overview API with live multi-select filters and Preferences timezone, and validates the summary metrics, Tasks/Breaks/Total chart with accessible values, productive cards, Time By List, Done Tasks/punctuality/Time Taken, and two-month preset/custom date-range flow. Reporting regressions continue to cover permanent-delete removal and archived-history representation; chart motion remains finite/data-change-driven with reduced-motion handling.
+
+M9 top-level progress is now **9/12**. Still OPEN: Sessions dashboard, Add Session + inline edit/task-session detail, and local exports (Overview PDF / Sessions CSV). Next slice: production Sessions UI over the already validated Sessions read/detail/mutation APIs.
+
+New Sessions slice: `0/5` checkpoints — dashboard → mutations/detail → regressions/fixtures → exact-head CI/merge → resulting-main/tracking.
+
+Durable evidence: `work-log/2026-10-03-chatgpt-m9-pr224-main907-overview-closure.md`.
+
+
 ## 2026-10-03 — M9 Reports Overview visual foundation validated on main
 
 PR #198 final exact head `2e32eae3043f7100fdf16990f482332293ef12d0` **PASSed** full Windows CI #904 / run `37143064981`, including Reports visual captures/validation, Rust checks/tests, release/runtime capture and repository-wide validation builds. It was expected-head guarded squash-merged as source `82786cb2a95bb5fdd2835dcb5e3660269425520f`.
@@ -995,17 +1016,24 @@ Current durable evidence lives in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`, `doc
 
 ## Current Blitzit exhaustive-forensics state — 2026-10-03
 
-The older 19/19 ingestion and second-pass UI/UX counters elsewhere in this file are historical coverage, not the current exhaustive-source counter.
+The exhaustive source-analysis track is **COMPLETE**.
 
-Current authoritative state is `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`:
-- 46/46 canonical screenshots have been individually source-inspected;
-- the 2026-10-03 depth audit found their qualitative records insufficient by themselves for maximum visual reconstruction, so static visual calibration is separately OPEN in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
-- 9/19 full MP4s are SOURCE_COMPLETE at Pass-3 depth;
-- VE-018 has a partial deep planning-board sequence;
-- exact next full video is VE-015;
-- implementation reconciliation remains separate.
+Authoritative state:
+- 46/46 canonical screenshots individually source-inspected;
+- 19/19 repository MP4s SOURCE_COMPLETE at Pass-3 depth;
+- 46/46 static visual-calibration dispositions complete;
+- 8/8 reusable visual-system families complete;
+- canonical synthesis: `docs/BLITZIT_VISUAL_SYSTEM.md`;
+- separate user-supplied 9.344 s planning clip preserved as direct evidence with unmapped lineage;
+- implementation reconciliation remains a separate deferred phase and is not implied by source completion.
 
-Use `docs/EVIDENCE_ROUTING_MAP.md` for which file owns which layer of truth. Do not use historical 19/19 prior-pass statements to claim Pass-3 completion.
+Current truth lives in:
+- `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`;
+- `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
+- `docs/BLITZIT_VISUAL_SYSTEM.md`;
+- `docs/EVIDENCE_ROUTING_MAP.md`.
+
+Do not use older ingestion/second-pass counters to restart work, and do not re-audit completed source assets unless genuinely new evidence or a concrete unresolved ambiguity appears.
 
 ## Durable correctness decisions
 

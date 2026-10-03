@@ -1,0 +1,142 @@
+[
+  {
+    "frame": "main-planning.png",
+    "recording": "2026-10-03 19-45-50.mkv",
+    "seconds": 155.06194,
+    "captureClockApproxUtc": "2026-10-03T16:48:25.571940+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "panel-initial.png",
+    "recording": "2026-10-03 19-45-50.mkv",
+    "seconds": 191.063076,
+    "captureClockApproxUtc": "2026-10-03T16:49:01.573076+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "greek-quick-create.png",
+    "recording": "2026-10-03 19-53-25.mkv",
+    "seconds": 112.292744,
+    "captureClockApproxUtc": "2026-10-03T16:55:18.220744+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "inline-notes-filled.png",
+    "recording": "2026-10-03 19-53-25.mkv",
+    "seconds": 206.643014,
+    "captureClockApproxUtc": "2026-10-03T16:56:52.571014+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "notes-keyboard-tooltip.png",
+    "recording": "2026-10-03 19-53-25.mkv",
+    "seconds": 231.940691,
+    "captureClockApproxUtc": "2026-10-03T16:57:17.868691+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "large-notes-panel.png",
+    "recording": "2026-10-03 19-53-25.mkv",
+    "seconds": 259.241088,
+    "captureClockApproxUtc": "2026-10-03T16:57:45.169088+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "expanded-notes-125.png",
+    "recording": "2026-10-03 19-53-25.mkv",
+    "seconds": 488.670071,
+    "captureClockApproxUtc": "2026-10-03T17:01:34.598071+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "expanded-large-notes-single.png",
+    "recording": "2026-10-03 21-46-42.mkv",
+    "seconds": 1.596074,
+    "captureClockApproxUtc": "2026-10-03T18:46:44.109074+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "timer-after-drag-desktop.png",
+    "recording": "2026-10-03 21-46-42.mkv",
+    "seconds": 320.327144,
+    "captureClockApproxUtc": "2026-10-03T18:52:02.840144+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "notepad-topmost.png",
+    "recording": "2026-10-03 21-56-52.mkv",
+    "seconds": 0.592118,
+    "captureClockApproxUtc": "2026-10-03T18:56:52.702118+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "tray-quit-menu.png",
+    "recording": "2026-10-03 21-56-52.mkv",
+    "seconds": 124.040968,
+    "captureClockApproxUtc": "2026-10-03T18:58:56.150968+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "post-relaunch-main-before-toggle.png",
+    "recording": "2026-10-03 21-56-52.mkv",
+    "seconds": 174.679245,
+    "captureClockApproxUtc": "2026-10-03T18:59:46.789245+00:00",
+    "method": "native 4480x1080 video frame at observation timestamp; live screenshots used only to locate evidence"
+  },
+  {
+    "frame": "normal-compact-panel-boundary.png",
+    "recording": "2026-10-03 21-46-42.mkv",
+    "seconds": 161.37,
+    "crop": "crop=1920:1080:0:0",
+    "method": "native scale video-derived detail; crop coordinates in OBS canvas"
+  },
+  {
+    "frame": "normal-collapse-boundary.png",
+    "recording": "2026-10-03 21-46-42.mkv",
+    "seconds": 159.2,
+    "crop": "crop=550:875:0:180",
+    "method": "native scale video-derived detail; crop coordinates in OBS canvas"
+  },
+  {
+    "frame": "reduced-collapse-boundary.png",
+    "recording": "2026-10-03 21-46-42.mkv",
+    "seconds": 272.35,
+    "crop": "crop=550:875:0:180",
+    "method": "native scale video-derived detail; crop coordinates in OBS canvas"
+  },
+  {
+    "frame": "normal-expand-dual-boundary.png",
+    "recording": "2026-10-03 19-53-25.mkv",
+    "seconds": 461.95,
+    "crop": "crop=550:700:1150:280",
+    "method": "native scale video-derived detail; crop coordinates in OBS canvas"
+  },
+  {
+    "frame": "c5-restored-timer.png",
+    "recording": "2026-10-03 21-56-52.mkv",
+    "seconds": 204,
+    "crop": "crop=425:138:800:649",
+    "method": "video-derived review detail"
+  },
+  {
+    "frame": "expand-native-detail.png",
+    "recording": "2026-10-03 19-53-25.mkv",
+    "seconds": 461.85,
+    "crop": "crop=430:385:1180:349; 30 consecutive frames at60fps",
+    "method": "video-derived review detail"
+  },
+  {
+    "frame": "tooltip-native-detail.png",
+    "recording": "2026-10-03 19-53-25.mkv",
+    "seconds": 231.94,
+    "crop": "crop=440:700:4040:0",
+    "method": "video-derived review detail"
+  },
+  {
+    "frame": "large-notes-native-detail.png",
+    "recording": "2026-10-03 21-46-42.mkv",
+    "seconds": 15,
+    "crop": "crop=445:390:0:349",
+    "method": "video-derived review detail"
+  }
+]

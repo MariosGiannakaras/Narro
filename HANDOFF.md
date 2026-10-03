@@ -8,6 +8,8 @@ GitHub `main` is the durable source truth.
 
 This section is the current continuation state.
 
+**CURRENT M7 NEXT ACTION:** CI893 real Windows batch is complete and [fully published with scoped PASS/FAIL](work-log/2026-10-03-codex-m7-ci893-physical-batch-evidence.md). Fresh changed-host C5 PASS `(800,649)`, same task restored paused08:11 /491 seconds. Frame alignment/Panel labels, exercised Greek T/N/P and modal Tab/Escape, inline wrapping and Panel large-editor draft/resize/Save, topmost Notepad passed. FIX_NOW: nested-fixed large Notes containment, wrapped tooltip clipping, initial expansion clip/heading jump and narrow planning-title collapse. Reassessment alternatives and chosen root-relative anchoring path are recorded before implementation. Batch these corrections with real-wrapper rendered regressions, one full Windows CI, then exact-build video. Do not repeat C5 on CI893 merely because it was formerly pending. Same persistent main+focusSurface architecture and editor DOM remain binding. M5 narrow title scope is reopened; broad source-parity/full-screen/monitor matrix and separate M1 B/C/D remain open. Last observed new PID18520/Focus393640 paused, main closed, OBS stopped, OS animations On; re-observe before input. Only DISPLAY2 remained at125% after primary became unavailable. Current main also has independent newer M9 source; pinned CI893 does not validate it. Progress5/10M ||3/5 |14/19.
+
 - Current validated application source: PR #222 merge `ccf0fef5554fe8b635807df9214d56d3b2c29457`, byte-identical in all non-Markdown files to exact head `549536c4d19b0045a928652d3feff53162f55a6e` that PASSed full Windows CI #893 / run `37134207962`. Duplicate main CI #896 / run `37135346028` was cancelled after proof. Concurrent M9 API source is preserved. Final M7 artifact id `11278482082`, ZIP SHA-256 `fa44946aa463eaf5e307524ec19dacc5dd09c51b6c16678f75e7977521631020`; EXE SHA-256 `01dd602454f10f85aeecd53eb1bfcdd53368b2eec46fa60cfb5d5cf80385018b`, `15027200` bytes. [Final candidate/merge evidence](work-log/2026-10-03-codex-m7-pr222-ci893-merged-candidate-ready.md). Physical M7 acceptance remains OPEN.
 - PR #217 is merged. Resulting-main diagnostic hash-release follow-up is validated by Windows CI #866 / run `37078139295`: **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
 - PR #218 is **closed**; do not treat it as an active continuation.
@@ -39,43 +41,34 @@ User direction recorded 2026-10-02:
 - analyze all supplied Blitzit videos/images at the most detailed practical level;
 - record the evidence durably in the repository;
 - **do not modify Narro implementation in this analysis track**;
-- leave enough repository state that a zero-context chat can resume by being told only to continue the forensic pass.
+- leave enough repository state that a zero-context chat can resume safely.
 
-When that instruction is given, read in order:
+Read in order when this track is requested:
 1. `docs/BLITZIT_FORENSIC_PASS3_HANDOFF.md`
 2. `docs/BLITZIT_FORENSIC_REAUDIT_PLAN.md`
 3. `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md`
-4. `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`
-5. `docs/BLITZIT_FORENSIC_PASS3_VIDEOS.md`
+4. `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`
+5. `docs/BLITZIT_VISUAL_SYSTEM.md`
+6. relevant detailed Pass-3 screenshot/video findings only if needed.
 
-Current source-analysis checkpoint:
-- screenshots: **46/46 SOURCE_COMPLETE** at Pass-3 depth;
-- full repository MP4s: **19/19 SOURCE_COMPLETE** at Pass-3 depth;
+Current source-analysis closure:
+- canonical screenshots: **46/46 SOURCE_COMPLETE**;
+- repository MP4s: **19/19 SOURCE_COMPLETE**;
+- static visual-calibration dispositions: **46/46 COMPLETE**;
+- visual-system families: **8/8 COMPLETE**;
+- canonical implementation-facing source synthesis: `docs/BLITZIT_VISUAL_SYSTEM.md`;
 - VE-018 Daniel's Planning Workflow: **SOURCE_COMPLETE** from the actual full MP4;
-- separate 9.344 s / 560-frame planning clip: **DIRECT SOURCE / UNMAPPED LINEAGE**; it is not part of VE-018 and must remain separately attributed;
-- VE-003 Blitz Mode: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-005 Add & Manage Tasks and Lists: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-013 Subtasks: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-014 Preferences: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-016 Timer Modes: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-017 Update Recurring Schedules: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-007 Schedule Task Reminders: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-009 Custom Recurring Schedules: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-010 Notes: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-015 Sessions Walkthrough: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-011 Reports: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-012 Improved Sessions and Stats: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-006 Delete & Archive: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-008 Recurring Tasks: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-002 EST Suffix Parsing: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-001 Product Explainer: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-004 Getting Started: **SOURCE_COMPLETE** from the actual full MP4;
-- VE-019 Oct Update: **SOURCE_COMPLETE / HISTORICAL** from the actual full MP4;
-- video Pass 3 is **19/19 complete**;
-- exact next forensic action: continue `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md` until static visual calibration is closed;
-- raw MP4 access is currently available through the isolated analysis-only media bridge; do not merge that bridge into main.
+- separate user-supplied 9.344 s / 560-frame planning clip: **DIRECT SOURCE / UNMAPPED LINEAGE**; do not relabel it as VE-018;
+- forensic/source-evidence pass: **COMPLETE**;
+- implementation reconciliation: **DEFERRED / separate track**.
 
-Do not edit implementation PR #213 or any source/test/config files from this forensic track. Implementation reconciliation is explicitly deferred.
+If the user later says “continue the forensic pass”:
+- verify these counters;
+- do **not** re-audit completed assets;
+- if no genuinely new source evidence exists, report that the source-analysis pass is complete;
+- do not begin implementation from this track.
+
+Reopen source analysis only for new source material or a concrete unresolved source ambiguity.
 
 ## Blitzit parity consumption / implementation coordination
 
@@ -320,15 +313,18 @@ Active M8 PREF-R05 checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-ci
 
 ## Parallel M9 implementation checkpoint — 2026-10-03
 
-This section does not replace the M7 physical next action above.
+This section does not replace the M7/Codex physical next action above.
 
-Validated nonvisual M9 source:
-- PR #205 merged; resulting-main CI #889 PASS.
-- PR #223 exact head `8ea467a8eeea0f3c623a82927bc3575aa4221780` PASSed CI #897 / run `37135494993`.
-- PR #223 merged source `a36125664831243faf36954f4691f9733a325d76`; resulting-main CI #898 / run `37136599839` PASS.
-- `test:ui-reports-api` reports `Reports history/session command API contracts passed.`
-- VE-015 / VE-011 / VE-012 are SOURCE_COMPLETE; their nonvisual contracts are consumed.
+Validated M9 lineage:
+- PR #205 / main CI #889: typed Overview API.
+- PR #223 / main CI #898: SOURCE_COMPLETE VE-015/011/012 nonvisual contracts.
+- PR #198 / main CI #905: reconciled Reports Overview visual foundation.
+- PR #224 final exact head `fd04d2890268819d2f8a2a202907ecd23a856e59` PASSed CI #906; merged source `ee5448d5534b44449df1ddff02c3b83d88111c7f` PASSed resulting-main CI #907.
 
-M9 exact next action when continuing this track: inspect/reconcile open PR #198 against current main and completed Reports/Sessions evidence. Preserve its useful validated visual foundation, but do not merge the historical branch wholesale. Production wiring must use the Rust-owned Overview/Sessions APIs; do not recreate metric arithmetic, polling, fake session ordinals or fixture data in production.
+Production Overview is validated. M9 is `9/12` top-level items complete. OPEN: production Sessions dashboard; Add Session + inline edit/task-session detail; local exports (Overview PDF / Sessions CSV).
 
-No top-level M9 checkbox is closed yet. M9 slice progress: `4/4` for the completed data/API-contract batch; overall roadmap remains `5/10M`.
+**M9 NEXT ACTION:** start a narrow production Sessions slice from current main. Reuse `get_report_sessions`, `get_report_task_sessions` and create/edit/delete mutation APIs. Preserve reverse-chronological rows and all-history task-relative work-session ordinals; do not invent break ordinals, renderer aggregation or polling.
+
+Sessions slice counter starts `0/5`: dashboard → mutations/detail → regressions/fixtures → exact-head CI/merge → resulting-main/tracking.
+
+Durable Overview closure: `work-log/2026-10-03-chatgpt-m9-pr224-main907-overview-closure.md`.

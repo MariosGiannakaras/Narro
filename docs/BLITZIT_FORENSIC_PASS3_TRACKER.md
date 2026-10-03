@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 Tracker
 
-Status: **ACTIVE — source analysis only; implementation explicitly deferred**
+Status: **COMPLETE — source analysis + static visual calibration; implementation explicitly deferred**
 
 Last updated: 2026-10-03
 
@@ -16,7 +16,7 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 - Pass-3 individually inspected: **46/46**
 - Pass-3 per-image records written: **46/46**
 - Static-image source inspection: **46/46 COMPLETE**
-- Static visual calibration: **OPEN** — tracked separately in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`; existing qualitative records are not by themselves a `SOURCE_PARITY_PASS` contract
+- Static visual calibration: **COMPLETE — 46/46 dispositions; 8/8 visual-system families** in `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md` / `docs/BLITZIT_VISUAL_SYSTEM.md`
 - Current/direct v2.6.69: **22/22**
 - Help v2.x distinct-state references: **17/17**
 - Historical Tool Finder references: **7/7**
@@ -27,6 +27,7 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 - Full MP4s completed at Pass-3 depth: **19/19**
 - Partial Pass-3 sequences outside the mapped 19-video corpus: **1** — unmapped user-supplied 9.344 s planning-board clip
 - Full MP4s still open: **0**
+- Forensic/source-evidence pass: **COMPLETE**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -150,3 +151,18 @@ The separate 9.344 s user-supplied planning clip reached Pass-3 depth and establ
 Video Pass 3 is **19/19 SOURCE_COMPLETE**. Continue with the still-open static visual-calibration tracker; do not declare the overall forensic pass complete until that tracker is closed.
 
 VE-003, VE-005, VE-013, VE-014, VE-016 and VE-017 are SOURCE_COMPLETE from their actual full MP4s.
+
+
+## Pass-3 final closure — 2026-10-03
+
+Pass 3 is complete as a source-analysis track.
+
+Closure:
+- 19/19 repository MP4s fully reviewed;
+- 46/46 canonical screenshots individually reviewed;
+- 46/46 static calibration dispositions complete;
+- 8/8 reusable visual-system families complete;
+- unmapped 9.344 s planning clip preserved separately with its lineage limitation;
+- no implementation claim is implied by SOURCE_COMPLETE.
+
+Do not restart completed source review in a zero-context chat. Reopen only for genuinely new source evidence, an unresolved source contradiction, or a targeted ambiguity that the later reconciliation phase cannot resolve from the durable findings.

@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — zero-context handoff
 
-Status: **ACTIVE — ANALYSIS ONLY**
+Status: **COMPLETE — ANALYSIS ONLY; implementation reconciliation deferred**
 
 Owner intent recorded: 2026-10-02
 
@@ -81,19 +81,24 @@ Do not attribute that excerpt to VE-018. The repository VE-018 MP4 is now SOURCE
 
 ## EXACT NEXT ACTION
 
-**Video Pass 3 is complete: 19/19 repository MP4s are SOURCE_COMPLETE.**
+**The Blitzit forensic/source-analysis pass is complete.**
 
-Do **not** declare the overall forensic/source-evidence pass finished. Continue the still-open static visual-calibration work:
+Current closure:
+- repository MP4s: **19/19 SOURCE_COMPLETE**;
+- canonical screenshots: **46/46 source-inspected**;
+- static visual calibration: **46/46 dispositioned**;
+- reusable visual-system families: **8/8 COMPLETE**;
+- canonical synthesis: `docs/BLITZIT_VISUAL_SYSTEM.md`;
+- separate 9.344 s planning clip remains direct evidence with **unmapped lineage** and must not be relabeled as VE-018.
 
-1. read `docs/BLITZIT_VISUAL_CALIBRATION_PLAN.md`;
-2. read `docs/BLITZIT_VISUAL_CALIBRATION_TRACKER.md`;
-3. continue the exact next calibration item recorded there;
-4. derive reusable visual-system rules first rather than arbitrary per-control pixel metrology;
-5. use current v2.6.69 direct screenshots as highest-precedence static source;
-6. use Help/current-state images to fill missing states and historical images only for evolution/corroboration;
-7. record geometry, spacing, typography, radii, borders, shadows, gradients and distinctive control treatments where evidence is reliable;
-8. keep calibration analysis-only; do not patch Narro implementation;
-9. preserve the separate unmapped 9.344 s planning clip as direct evidence with unknown lineage.
+If the user says `continue the forensic pass` in a future zero-context chat:
+1. verify these counters from the repo;
+2. **do not re-audit completed assets**;
+3. if no new source evidence exists, report that the analysis pass is complete;
+4. do not start implementation from this forensic track;
+5. route later code work through the separate parity reconciliation/implementation workflow.
+
+Reopen source analysis only for genuinely new source material or a concrete unresolved source ambiguity.
 
 ## Media-access rule
 

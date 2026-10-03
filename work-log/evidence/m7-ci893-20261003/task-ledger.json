@@ -1,0 +1,30 @@
+{
+  "readOnly": true,
+  "task": {
+    "id": "b4ec7aa3-e30d-4eef-aba7-2e9e61c6df70",
+    "title": "M7 CI893 full UI validation — long task title for Timer and Notes overflow",
+    "manual_time_adjustment_seconds": 0,
+    "completed_at": null
+  },
+  "sessions": [
+    {
+      "id": "321cc8a4-86b7-4cad-8431-94c0317e6718",
+      "kind": "work",
+      "started_at": "2026-10-03T16:50:10.642Z",
+      "ended_at": null,
+      "duration_seconds": 491,
+      "source": "focus"
+    }
+  ],
+  "persistedWorkSeconds": 491,
+  "matchesRestored08_11": true,
+  "originalC5Tasks": [
+    {
+      "id": "9d0e80ec-77b7-49e4-b66c-f67ed7818704",
+      "title": "M7 C5 CI873 validation",
+      "manual_time_adjustment_seconds": 0,
+      "completed_at": null
+    }
+  ],
+  "note": "Paused restore observed after tray Quit; app downtime excluded. This task is not completed yet."
+}
