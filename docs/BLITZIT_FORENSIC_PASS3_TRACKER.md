@@ -146,6 +146,6 @@ This is **partial evidence for VE-018**, not full-source completion.
 
 ## Exact next action
 
-Continue with **VE-016 — `Blitzit Tutorial Timer Modes.mp4`**.
+Continue with **VE-017 — `Blitzit Tutorial Update Recurring Schedules.mp4`**.
 
-VE-003, VE-005, VE-013 and VE-014 are SOURCE_COMPLETE from their actual full MP4s.
+VE-003, VE-005, VE-013, VE-014 and VE-016 are SOURCE_COMPLETE from their actual full MP4s.
