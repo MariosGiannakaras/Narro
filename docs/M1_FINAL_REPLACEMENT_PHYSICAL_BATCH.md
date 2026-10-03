@@ -4,6 +4,8 @@ This procedure batches the remaining real-Windows validation for the reopened
 single-`focusSurface` Milestone 1 so the user does not need multiple separate
 sessions.
 
+**2026-10-03 update:** Batch A / C5 saved-placement restart is now physically **PASS** on the user-requested resulting-main CI #873 automatic-logging EXE (`4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`). Whole two-session logs and continuous two-monitor video are published in [the completed C5 run](../work-log/2026-10-03-codex-m7-ci873-c5-completed.md). The Candidate A/CI #809 instructions below are historical lineage and do not require repeating C5. B/C/D remain separate Candidate B physical/performance tests and were not performed by that C5 continuation.
+
 Use **two intentionally separate candidates**:
 
 - **Batch A / M7 saved-placement acceptance:** use the already accepted CI #809

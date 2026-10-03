@@ -78,7 +78,7 @@ Evidence:
 A future failure reopens only the evidenced behavior.
 
 ### C5 — Physical Gate 12/platform acceptance and tracking closure
-**OPEN — narrowed to saved-placement restart + final reconciliation**
+**PHYSICAL RESTART PASS — final tracking/new-observation reconciliation OPEN**
 
 Already physically accepted on CI #809:
 - mixed-DPI 100%↔125% monitor crossing;
@@ -86,9 +86,9 @@ Already physically accepted on CI #809:
 - topology/hotplug recovery via real display removal and safe recovery;
 - topmost over a maximized application.
 
-Still required:
-- drag/save/restart placement: drag Timer to an obvious non-default safe position, normal tray `Quit Narro`, relaunch the same CI #809 EXE, then show the Timer returning to a safe visible saved placement;
-- final tracking/crosswalk/TODO reconciliation.
+Saved-placement restart is now physically **PASS** on the user-requested resulting-main CI #873 automatic-logging candidate, artifact `11268220111`, EXE SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`: real active compact Timer, qualifying 328 px movement, normal tray `Quit Narro`, new process on the same EXE, and visible exact `(1640,780)` restore with the same task/time recovered paused. Both native sessions and continuous two-monitor 60 fps capture are published in [the completed run](../work-log/2026-10-03-codex-m7-ci873-c5-completed.md).
+
+Still required: final tracking/crosswalk/TODO reconciliation and disposition of the narrowly recorded additional CI #873 transient-content/label observations (`M7-OBS-20261003-01/02`). See [the visual review](../work-log/2026-10-03-codex-m7-ci873-c5-video-review.md). No further C5 physical restart is required without a relevant source change or new saved-placement failure. This is not a new general re-audit.
 
 Evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`.
 

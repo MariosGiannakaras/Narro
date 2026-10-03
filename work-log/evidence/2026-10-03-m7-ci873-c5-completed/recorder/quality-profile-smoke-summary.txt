@@ -1,0 +1,13 @@
+14:16:40.123: CPU Name: AMD Ryzen 5 2600X Six-Core Processor
+14:16:40.625: 	base resolution:   4480x1080
+14:16:40.625: 	output resolution: 4480x1080
+14:16:40.625: 	fps:               60/1
+14:16:42.434: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+14:16:42.434: 	rate_control: CRF
+14:16:42.434: 	crf:          18
+14:16:42.434: 	fps_num:      60
+14:16:42.434: 	fps_den:      1
+14:16:42.460: ==== Recording Start ===============================================
+14:22:20.649: Output 'adv_file_output': Total frames output: 20259
+14:22:20.649: Output 'adv_file_output': Total drawn frames: 20292
+14:22:20.650: ==== Recording Stop ================================================

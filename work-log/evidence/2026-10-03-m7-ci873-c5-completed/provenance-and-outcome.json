@@ -1,0 +1,25 @@
+{
+  "sourceSha": "1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0",
+  "artifactId": 11268220111,
+  "publication": "documentation and frozen evidence only",
+  "obsStoppedAndClosed": true,
+  "applicationLeftPaused": true,
+  "restoredTaskTitle": "M7 C5 CI873 validation",
+  "ciRun": 37105088285,
+  "exeSha256": "4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c",
+  "physicalSequence": "real running task / compact Timer / physical qualifying drag / normal tray Quit / same EXE relaunch / visible saved Timer restore",
+  "relaunchPid": 21952,
+  "preQuitPid": 8500,
+  "restoredTimeTaken": "2:16:57",
+  "extraMotionReview": "REVIEW_PENDING: see M7-OBS-20261003-01/02; 126 consecutive original-video frames",
+  "restoredTaskState": "Paused",
+  "result": "C5_PHYSICAL_PASS",
+  "formalMilestoneClosure": "NOT_CLAIMED; separate final tracking reconciliation remains",
+  "nativeResult": "PASS",
+  "restoredPosition": {
+    "y": 780,
+    "x": 1640
+  },
+  "allInterfaceAudit": "NOT_RUN; see coverage ledger",
+  "ciNumber": 873
+}

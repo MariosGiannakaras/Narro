@@ -1,0 +1,17 @@
+{
+  "obsRecordingStartUtc": "2026-10-03T10:47:31.720Z",
+  "publishedContinuousExcerpt": {
+    "encoding": "native 4480x1080, H264 CRF18 veryfast, 60fps passthrough, no audio; reencoded from lossy OBS CBR6000 recording",
+    "sourceDurationSeconds": 340,
+    "sourceStartSeconds": 410,
+    "file": "c5-continuous-dual-monitor.mp4"
+  },
+  "qualitySmokeSha256": "1b44c375c49720ce348093eb346f078450564db571ab0719c6c124b68747f02a",
+  "originalVideoPath": "E:\\SystemFiles\\Desktop\\2026-10-03 13-47-31.mp4",
+  "originalVideoPublished": false,
+  "qualitySmokePublished": false,
+  "originalVideoBytes": 923981528,
+  "qualitySmokeRecordingStartUtc": "2026-10-03T11:16:42.460Z",
+  "qualitySmokeRecordingStopUtc": "2026-10-03T11:22:20.649Z",
+  "originalVideoSha256": "f99d24eed1231216342d00f42b7e2968c6bc9a0df3fc5a135546e0b7181b77e8"
+}

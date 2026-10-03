@@ -2,16 +2,28 @@
 
 Last updated: 2026-10-03
 
+## 2026-10-03 — CI #873 C5 physical restart PASS; continuous video delivered
+
+The requested exact `narro-m7-validation.exe` (`4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`) completed a real running-task compact Timer drag, normal **Quit Narro** through the tray, same-EXE relaunch and visible saved-position restore. The native evaluator is **PASS**: maximum qualifying movement **328 px**, saved/expected/actual position **`(1640,780)`**, unchanged executable/source/topology, different process sessions. The recovered task retained **2:16:57** and was visibly **Paused**. No C5 physical user action remains.
+
+Both complete logger sessions, the whole `Narro-M7-Logs` folder/ZIP, a continuous **4480×1080 / 60 fps / 5:40** two-monitor C5 video, video-derived PNGs and hashes are published in [the completed run](work-log/2026-10-03-codex-m7-ci873-c5-completed.md) and [embedded visual/motion review](work-log/2026-10-03-codex-m7-ci873-c5-video-review.md). The earlier interrupted attempt is historical. Additional motion frames document overlap/header-only intermediate content and shortened Panel labels as **REVIEW_PENDING**, not a claimed universal UI PASS. These observations are routed in the crosswalk/TODO. Formal M7 tracking reconciliation remains open; the concurrent M8 closure counters `5/10M || 5/5 | 14/19` are preserved; this C5 publication does not add a further milestone/counter advance. M1 Candidate B B/C/D were not performed in this C5 run.
+
+Operational changes: a remembered MicrosoftEdgeWebView2 NetLimiter **Allow** dismissed the blocker; a separate **Narro UI Validation** OBS profile uses native two-monitor 60 fps, CRF18 and MKV while retaining the original profile/scene. Its real recording smoke stopped normally. Narro is left paused; OBS is stopped/closed. [Windows UI video-review workflow and coverage ledger](docs/WINDOWS_UI_VIDEO_REVIEW.md) records the usable process and remaining coverage.
+
 ## 2026-10-03 — Milestone 8 PASS on resulting-main CI #882
 
 M8 is now fully reconciled against the current single-`focusSurface` tree. PR #220 final head `af4420aa7610008c2dba8cf54c12158178abf7d4` passed Windows CI #881, merged with expected-head guard as source `45c3218f5923c2ff673d8c1dd562de7545be1ecb`, and resulting-main Windows CI #882 / run `37117266417` **PASSed every gate**. Later main commits are documentation/evidence only and do not replace that validated application source.
 
 The same resulting-main run explicitly passed the single-host Focus toggle, in-app shortcut, global-shortcut persistence/rollback, Preferences, local-sound, timed-alert-sound and success-sound contracts. Rust tests also passed manual-break natural/explicit resume and skipped-break-paused semantics. Therefore the three reopened shortcut rows and PREF-R05 are reconciled without another runtime patch.
 
-M1/M7 physical geometry/placement gates remain OPEN and unchanged; they are not evidence against M8 shortcut/preferences correctness. Milestone progress advances to `5/10M`. The completed PREF-R05 implementation slice is `5/5`; the separate physical gate count remains `14/19`.
+M1 physical monitor/topology/performance gates and formal M7 reconciliation remain OPEN; C5 saved-placement physical restart is now PASS as recorded above. These are not evidence against M8 shortcut/preferences correctness. Milestone progress advances to `5/10M`. The completed PREF-R05 implementation slice is `5/5`; the separate physical gate count remains `14/19`.
 
 Durable closure: `work-log/2026-10-03-chatgpt-m8-main882-milestone-closure.md`.
 
+
+## Historical checkpoints
+
+The dated sections below preserve their at-the-time state. They are superseded by the current C5 PASS and live M8 checkpoint above; old OPEN/PENDING, candidate identities and counters are historical, not continuation instructions. Use `HANDOFF.md` and `TODO.md` for current actions.
 
 ## 2026-10-03 — M8 PREF-R05 merged; resulting-main CI #882 active
 
@@ -22,9 +34,9 @@ PR #220 was expected-head guarded squash-merged as `45c3218f5923c2ff673d8c1dd562
 Durable checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-merged-main882-active.md`.
 
 
-## 2026-10-03 — CI #873 C5 physical attempt interrupted after qualifying drag
+### Historical checkpoint — CI #873 C5 first attempt interrupted (superseded above)
 
-The exact requested `narro-m7-validation.exe` SHA-256 was verified locally. A dedicated real task ran in the compact Timer, native logs accepted a qualifying drag with maximum distance 268 physical pixels, and the final compact region was contained at `(1805,970)`, 340 × 110. Computer Use then reported a user physical-Escape interruption before tray Quit/relaunch. **C5 remains OPEN; evaluator PENDING; no counter advances.** The app/test task were left open. Full first-session logs, physical observations, tool-recovery evidence and continuation state are published in [the C5 attempt work log](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md). [The screenshot gallery](work-log/2026-10-03-codex-m7-ci873-c5-visual-review.md) embeds all 22 published PNGs for chat visual review; no continuous animation/video acceptance is claimed.
+The first attempt verified the requested EXE and observed a qualifying 268 px drag, then stopped after a physical-Escape interruption before tray Quit/relaunch. At that historical checkpoint the evaluator was PENDING. The continuation above completed the missing flow and delivered continuous video; use its PASS evidence for current C5 truth. [The original immutable attempt](work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md) and [22-image gallery](work-log/2026-10-03-codex-m7-ci873-c5-visual-review.md) remain historical evidence.
 
 For zero-context continuation start with `AI_START_HERE.md` and `HANDOFF.md`. Immutable implementation evidence lives under `work-log/`.
 
@@ -39,7 +51,7 @@ Durable checkpoint: `work-log/2026-10-03-chatgpt-m8-pref-r05-pr220-ci876.md`.
 
 Windows CI #873 / run `37105088285` **PASSed** on merged source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. The final resulting-main artifact is `narro-m7-validation-windows-x64`, id `11268220111`, ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`. The contained `narro-m7-validation.exe` is SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`, size `14874624`, fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`; the downloaded artifact and CI smoke agree exactly.
 
-Repository-side M7 validation preparation is complete. C5 remains open only for the real Windows normal tray-Quit → relaunch physical test and evidence review. The user/Codex should return the entire `Narro-M7-Logs` folder plus visual observations. No rebuild is required unless that evidence identifies a source defect. Progress remains `4/10M || 4/5 | 14/19`.
+Repository-side preparation and the requested real Windows tray-Quit → same-EXE relaunch → saved Timer restore are complete. The whole two-process logger folder and physical video are in the completed run above. C5 physical result is PASS; formal tracking/new-observation disposition remains pending. No rebuild is required merely to repeat the successful restart criterion. Progress remains `4/10M || 4/5 | 14/19`.
 
 Durable evidence: `work-log/2026-10-03-chatgpt-m7-main873-final-validation-artifact.md`.
 
@@ -48,7 +60,7 @@ Durable evidence: `work-log/2026-10-03-chatgpt-m7-main873-final-validation-artif
 
 Resulting-main Windows CI #873 / run `37105088285` **PASSed** on source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Final M7 C5 validation artifact is `narro-m7-validation-windows-x64`, id `11268220111`; ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`; contained `narro-m7-validation.exe` SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`; CI fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`. The artifact was downloaded and independently verified.
 
-Repository-side M7 validation is complete. The only remaining M7 C5 requirement is the real-Windows physical drag → tray Quit → relaunch → Timer restore flow, returning the entire `Narro-M7-Logs` folder and visual/manual observation. No counter advances until that physical evidence passes. Current progress remains `4/10M || 4/5 | 14/19`.
+The artifact-ready checkpoint has been superseded by the completed physical C5 PASS and delivered whole logger folder/video above. Formal milestone tracking/new-observation disposition remains pending; current progress remains `4/10M || 4/5 | 14/19`.
 
 Durable evidence: `work-log/2026-10-03-chatgpt-m7-main873-validation-artifact-ready.md`.
 

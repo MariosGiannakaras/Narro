@@ -19,9 +19,9 @@ This section is the current continuation state.
 - #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
 - Milestone 8 is now validated and reconciled. Current progress is `5/10M || 5/5 | 14/19`.
 
-**NEXT AGENT ACTION:** Milestone 8 is reconciled and complete on validated source `45c3218f5923c2ff673d8c1dd562de7545be1ecb` / resulting-main CI #882. Keep the M1 selected-monitor/topology/performance gates and M7 C5 saved-placement restart gate OPEN. Before starting M9 source work, inspect the current M9 TODO/crosswalk against the live repository and newest forensic findings; do not recreate already merged M9 work or treat stale FIX_NOW entries as source gaps.
+**NEXT AGENT ACTION:** Milestone 8 is reconciled and complete on validated source `45c3218f5923c2ff673d8c1dd562de7545be1ecb` / resulting-main CI #882. Keep M1 selected-monitor/topology/performance gates and formal M7 reconciliation/new-observation disposition OPEN; the CI #873 C5 saved-placement restart is physically PASS. Before starting M9 source work, inspect the current M9 TODO/crosswalk against the live repository and newest forensic findings; do not recreate already merged M9 work or treat stale FIX_NOW entries as source gaps.
 
-**USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
+**C5 PHYSICAL ACTION COMPLETED — 2026-10-03:** the requested exact CI #873 EXE completed active compact Timer → qualifying 328 px drag → actual tray **Quit Narro** → same-EXE relaunch → visible saved `(1640,780)` Timer. The same task/time returned paused; native two-session evaluator **PASS**. [Completed run](work-log/2026-10-03-codex-m7-ci873-c5-completed.md), [continuous video and embedded review frames](work-log/2026-10-03-codex-m7-ci873-c5-video-review.md), whole `Narro-M7-Logs` folder/ZIP and hashes are published. No C5 restart user action remains. Formal tracking and `M7-OBS-20261003-01/02` disposition remain pending; M1 Candidate B B/C/D remain separate. OBS was stopped/closed and Narro remains paused.
 
 Durable implementation checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-validation-logging-pr219-pending.md`. CI #869 correction chain: `work-log/2026-10-03-chatgpt-m7-ci869-parser-failure-ci871.md`. Candidate B evidence: `work-log/2026-10-03-chatgpt-m1-ci866-final-candidate-b.md`. Concurrency correction: `work-log/2026-10-03-chatgpt-pr218-concurrency-correction.md`.
 
@@ -29,7 +29,7 @@ Durable implementation checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-val
 
 `5/10M || 5/5 | 14/19`
 
-**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3/C4 are PASS. The CI #809 event-based re-audit physically accepts the corrected compositor boundary, Blitz-now entry, task/session continuity, cross-window reconciliation, second-launch single-instance behavior, idle no-op result, mixed-DPI crossing, edge/work-area behavior, topology removal recovery and topmost behavior. No new product defect is evidenced. C5 remains OPEN only for saved placement across normal Quit→relaunch plus final tracking reconciliation.
+**Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3/C4 are PASS. The CI #809 event-based re-audit physically accepts the corrected compositor boundary, Blitz-now entry, task/session continuity, cross-window reconciliation, second-launch single-instance behavior, idle no-op result, mixed-DPI crossing, edge/work-area behavior, topology removal recovery and topmost behavior. No new product defect is evidenced. C5 saved-placement restart is physically PASS on CI #873; final tracking/crosswalk reconciliation and narrow additional motion/label observations remain pending.
 
 ## Parallel user-directed Blitzit forensic track — analysis only
 
@@ -118,11 +118,7 @@ Do not edit implementation PR #213 or any source/test/config files from this for
 
 ### M7 production physical lineage
 
-The accepted M7 C4/C5-path production physical candidate remains CI #809 source
-`2767b3827670603d1ab259b6a843c2e0da82d85d` / PR #208, because the remaining
-saved-placement observation is explicitly bound to that already-audited
-candidate and later source slices did not modify the placement-persistence
-implementation under test.
+The accepted M7 C4 production physical baseline remains CI #809 source `2767b3827670603d1ab259b6a843c2e0da82d85d` / PR #208. The user-directed C5 continuation used the validated automatic-logging CI #873 candidate identified in LIVE RECONCILIATION and now physically passes the saved-placement restart criterion. Do not treat the older baseline identity as an instruction to repeat a completed C5 run.
 
 - PR #208 exact head: `d885a577c5e7f2e376ed1f6cf5e7f83146dfec58`.
 - Exact-head Windows CI #809 / run `36865451660`: **PASS**.
@@ -130,14 +126,13 @@ implementation under test.
 - PR #209 exact head `5384ea7384d304a843771e225bfb50cd9394bf43`
   passed full Windows CI #811 and regression-locks tray Quit -> save Timer
   placement -> process exit ordering without changing production runtime.
-- CI #809 physical evidence remains the accepted M7 C4 baseline; C5 still needs
-  the saved-placement restart observation and is not closed by later CI.
+- CI #809 physical evidence remains the accepted M7 C4 baseline; CI #873 supplies the completed C5 physical restart observation, whole two-session logs and continuous video. Formal closure remains separate from CI alone.
 
 ## Exact artifacts to use next
 
 ### M7 C5 production physical acceptance
 
-CI #809 remains the accepted **legacy production baseline** below. While PR #219 is pending, do not start a new C5 run. After #219 is validated, follow the LIVE RECONCILIATION instructions and use the validated automatic-logging executable rather than silently reverting to the legacy helper path.
+CI #809 below is historical C4 lineage. PR #219 is merged and its resulting-main CI #873 logging EXE has completed physical C5 PASS. Use the completed-run evidence in LIVE RECONCILIATION; no new restart run is pending. Review the recorded additional motion/label observations before formal milestone reconciliation.
 
 Legacy CI #809 artifact:
 
@@ -221,9 +216,9 @@ Corrected durable evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-re
 - C2: PASS
 - C3: PASS
 - C4 / Gate 7 physical continuity: **PASS**. Visual/session/Blitz-now/reconciliation, second-launch ownership and idle no-op behavior are accepted on CI #809.
-- C5 / Gate 12 + platform closure: **OPEN only for saved-placement restart + final reconciliation**. Mixed-DPI crossing, edge/taskbar placement, real topology-removal recovery and topmost-over-maximized-app are physically PASS.
+- C5 / Gate 12 + platform closure: **saved-placement restart PHYSICAL PASS on CI #873; formal reconciliation/new-observation disposition OPEN**. Mixed-DPI crossing, edge/taskbar placement, real topology-removal recovery and topmost-over-maximized-app retain their accepted CI #809 evidence.
 
-Progress is now `5/10M || 5/5 | 14/19`. Do not advance C5 or milestone completion until saved-placement restart is physically observed.
+Progress is now `5/10M || 5/5 | 14/19`. C5 saved-placement restart is now physically observed and PASS. This evidence publication preserves the concurrent M8 closure counters; formal M7 tracking/new-observation disposition remains separate.
 
 ## Invariants that must not regress
 
