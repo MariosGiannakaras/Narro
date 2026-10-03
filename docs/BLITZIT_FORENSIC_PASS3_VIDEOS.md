@@ -937,238 +937,303 @@ No implementation conclusion is made in this analysis track.
 # Queue 4 — VE-014 — Preferences
 
 Source: `Blitzit Tutorial Preferences.mp4`  
-Verified metadata: **02:48.417 video stream / ~02:48.48 container, 1920×1080, 60 fps, 10,105 frames**  
+Verified metadata: **02:48.417 video stream / 02:48.484 container, 1920×1080, 60 fps, 10,105 frames**  
 Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
 Inspection method:
-- complete source reviewed across the full duration;
-- broad whole-video sampling plus dense review through every Preferences section;
-- frame-level/micro review around entry, Focus quick-settings invocation, side/theme changes, hide-times demonstration, Pomodoro conditional reveal, alert controls and celebration toggles;
-- full-resolution crops used for exact labels, selected states, nested hierarchy and dropdown values;
-- SRT used only to distinguish narration claims from directly visible behavior.
+- actual complete MP4 inspected across the full duration;
+- 4 s whole-source scan;
+- 0.5–1 s dense sampling through every Preferences section;
+- 0.1 s micro-sequences around Preferences entry, Focus-side Preferences entry, panel-side selection, theme switching, Pomodoro child reveal, timer-flash demonstration and completion-celebration demonstration;
+- full-resolution crops used to read monitor dimensions, selected values, dropdown options and sound/volume controls;
+- current v2.6.69 screenshots were used only for source-precedence reconciliation, not as a substitute for video inspection.
+
+## Source/version note
+
+This tutorial is visibly a **macOS-era source** and its exact Preferences inventory is older than the current supplied v2.6.69 screenshots.
+
+Direct examples:
+- VE-014 General shows `Hide est/done times on tasks` + Theme, but not the newer current `Auto-parse Est. time from title` / timezone rows visible in SS-C07;
+- VE-014 Alerts uses Timed Alerts + Notification Alerts but does not show the newer separate `Schedule reminders (system)` hierarchy visible in SS-C08;
+- Focus-side access in this tutorial opens a narrow `Preferences` surface, while the stronger current Help screenshot SS-H05 labels the modern Focus-local surface `Menu → Quick Preferences`.
+
+Therefore:
+- **video interaction/motion evidence remains valid where directly shown**;
+- **current/direct screenshots supersede this tutorial for present-day option inventory and exact modern geometry**.
 
 ## VE-014 chronological state map
 
-### 00:00:00–~00:00:10 — board baseline and Preferences entry
+### 00:00:00–~00:00:10.7 — board baseline / Preferences entry target
 
 **VIDEO-DIRECT**
-- tutorial begins on the four-column board for list `TYAMA`;
-- top-right application toolbar contains search, app-grid, cog/settings and profile controls;
-- the full Preferences surface is entered from the application cog.
+- tutorial starts on the dark four-column planning board;
+- top-right app toolbar includes a cog/settings affordance;
+- pointer moves to the cog before Preferences opens.
 
-**SURFACE-DIRECT**
-- Preferences is not a centered modal;
-- the main app board disappears and a tall, narrow dark settings panel is anchored at the **left edge** over the desktop/background;
-- panel has its own back arrow and `Preferences` title;
-- the panel is independently vertically scrollable.
-
-### ~00:00:10–00:00:20 — full Preferences vs Focus quick preferences
+### ~00:00:10.8–00:00:12.0 — full Preferences open
 
 **VIDEO-DIRECT**
-- full Preferences opens with the Blitz Panel section at the top;
-- tutorial separately enters a Focus session and invokes the Focus cog;
-- Focus cog opens a **small anchored quick-preferences popover inside/adjacent to the Focus panel**, not the full left-edge Preferences surface;
-- quick preferences contains a reduced subset of immediate Focus controls.
+- clicking the main app cog dims the board and presents a Preferences surface;
+- the source uses a dark side-oriented/narrow Preferences composition over the desktop rather than a full-page navigation;
+- title `Preferences` and back/close navigation are retained at the top;
+- first visible section is `Blitz Panel`.
 
-**IMPORTANT SURFACE DISTINCTION**
-- full Preferences and Focus Quick Preferences are separate UI surfaces with different geometry and scope;
-- the tutorial uses the same cog concept to reach them from different contexts, but they must not be treated as one reusable layout.
+**MOTION-APPROX**
+- board→Preferences presentation is fast, roughly **0.1–0.2 s** in the 0.1 s sample sequence;
+- the source uses opacity/dimming plus surface appearance rather than a long directional slide.
 
-### ~00:00:20–00:00:37 — Blitz Panel screen and side controls
+**VERSION PRECEDENCE**
+- current SS-C07 has a wider modern Preferences composition. Use VE-014 for interaction semantics, not as the final modern pixel geometry target.
 
-**VIDEO-DIRECT**
-- `Blitz Panel` section contains:
-  - `Select Screen`;
-  - monitor preview thumbnail;
-  - selected monitor label `Screen 1`;
-  - `Blitz Panel Side` segmented control with `Left` / `Right`.
-- selected monitor preview has a bright accent outline;
-- the preview itself displays the current screen dimensions in the staged environment;
-- changing the side control visibly moves the Focus panel between screen edges in the demonstration;
-- selected segment receives the accent/filled state while the other remains dark.
-
-**MOTION/CAUSALITY**
-- side change affects the live Focus panel placement, not merely the settings control;
-- the source demonstrates the result visually, but does not expose persistence/storage mechanics.
-
-### ~00:00:37–00:00:48 — General / Theme
+### ~00:00:14.8–00:00:18.0 — Preferences access from Focus
 
 **VIDEO-DIRECT**
-- General contains `Hide est/done times on tasks` and a three-way Theme segmented control;
-- exact Theme choices shown are:
-  - `System`;
-  - `Dark`;
-  - `Light`.
-- `System` is the selected baseline in the staged source;
-- selecting Dark/Light changes the application appearance in the demonstration;
-- returning to System restores device-following behavior.
-
-**STATE-DIRECT**
-- theme selection is mutually exclusive segmented state, not three independent toggles.
-
-### ~00:00:48–00:01:01 — hide EST/done-time behavior
-
-**VIDEO-DIRECT**
-- `Hide est/done times on tasks` is a binary toggle;
-- when enabled, ordinary task metric text is suppressed at rest;
-- the tutorial then shows a task hover where hidden timing data is exposed contextually;
-- this is a presentation preference: task identity/order remains unchanged.
-
-**TRANSCRIPT + VISUAL CORROBORATION**
-- narration says hidden EST/Time Taken remains available on hover;
-- the demonstrated task hover corroborates that behavior.
-
-### ~00:01:01–00:01:13 — Pomodoro parent toggle and conditional children
-
-**VIDEO-DIRECT**
-- `Blitz mode settings` contains:
-  - `Pomodoros` parent toggle;
-  - `Default break length`;
-  - `Scrolling title on live timer`.
-- Pomodoros is initially off;
-- enabling it inserts/reveals two indented child rows directly below the parent:
-  - `Work Sprint`;
-  - `Break Time`.
-- child controls use compact duration dropdowns.
-
-**DROPDOWN-DIRECT**
-- demonstrated duration menu visibly includes values such as **5 mins, 10 mins, 15 mins, 20 mins, 25 mins, 30 mins**;
-- the staged configuration is changed while the menu is open.
-
-**GEOMETRY-DIRECT**
-- enabling Pomodoros expands the section vertically and pushes subsequent settings downward;
-- disabling/collapsing removes the child rows rather than merely greying them.
-
-### ~00:01:13–00:01:18 — default break length
-
-**VIDEO-DIRECT**
-- `Default break length` remains a sibling setting independent of the Pomodoro child rows;
-- visible staged value is **10 mins**;
-- it controls the manual-break duration discussed by narration.
-
-**EVIDENCE BOUNDARY**
-- the preference value/control is direct evidence;
-- actual break-timer behavior is analyzed in the Timer Modes source rather than inferred here.
-
-### ~00:01:18–00:01:25 — scrolling title on live timer
-
-**VIDEO-DIRECT**
-- `Scrolling title on live timer` is a binary toggle;
-- tutorial shows the live Focus task title `Finalize the presentation` in a constrained card;
-- the long title is horizontally displaced/clipped across sampled frames while the timer remains fixed at the right, demonstrating the scrolling-title presentation.
+- tutorial cuts/presents the Focus Panel and uses the same top-right cog;
+- selecting it replaces the task list area with a narrow `Preferences` surface while retaining the docked-panel footprint.
 
 **MOTION-DIRECT**
-- title motion is confined to the title region; timer placement remains stable.
+- narrow Focus→Preferences content swap occurs quickly, with no separate desktop modal.
 
-### ~00:01:25–00:01:42 — Timed alerts parent and timing child
+**VERSION PRECEDENCE**
+- this source does not use the newer `Menu → Quick Preferences` naming/composition shown in SS-H05;
+- treat the video as earlier interaction ancestry, not as current exact Focus settings UI.
+
+### ~00:00:20–00:00:29 — Blitz Panel screen selection
 
 **VIDEO-DIRECT**
-- Alerts section begins with parent toggle `Timed alerts during a task`;
-- when enabled, nested/indented children are visible:
+- `Blitz Panel` section contains `Select Screen`;
+- selected monitor is represented by a desktop thumbnail with a bright cyan/green outline;
+- source monitor overlay reads **1470×956**;
+- selected label is `Screen 1`.
+
+**TRANSCRIPT-CLAIM / DIRECT LIMIT**
+- narration says multiple monitors can be selected;
+- the staged source visibly contains one selected screen, so multi-monitor enumeration behavior is not inferred beyond the stated capability.
+
+### ~00:00:29–00:00:35 — Blitz Panel Side
+
+**VIDEO-DIRECT**
+- `Blitz Panel Side` is a Left/Right segmented control;
+- source begins with Left selected;
+- selecting Right immediately changes the selected segment.
+
+**RESULT-DIRECT**
+- the tutorial then shows the Focus Panel on the **right** edge of the desktop, confirming that the setting controls physical panel side.
+
+**CUT/UNMEASURABLE**
+- the crossfade between Preferences and the right-docked Focus demonstration is tutorial presentation and must not be treated as product transition timing.
+
+### ~00:00:36–00:00:44 — Theme segmented control
+
+**VIDEO-DIRECT / MOTION-DIRECT**
+- Theme presents three sibling choices:
+  - `System`
+  - `Dark`
+  - `Light`
+- System is initially selected;
+- selecting Light changes the Preferences surface to light styling **in place**, without closing it;
+- selecting Dark changes it back to dark styling in place;
+- selected segment uses the bright accent fill.
+
+**MOTION-APPROX**
+- theme application is effectively immediate in the 0.1 s samples; no long transition animation is visible.
+
+### ~00:00:48–00:01:00 — Hide est/done times demonstration
+
+**VIDEO-DIRECT**
+- `Hide est/done times on tasks` is a parent toggle in General;
+- after the setting is demonstrated, the tutorial shows Focus task rows with reduced resting metric detail;
+- task timing detail can still be exposed contextually during task interaction/hover, matching the narration's stated behavior.
+
+**EVIDENCE LIMIT**
+- the tutorial uses crossfades between Preferences and Focus during this demonstration;
+- those crossfades are not reliable product-motion evidence.
+
+### ~00:01:00–00:01:03 — Pomodoros child reveal
+
+**VIDEO-DIRECT**
+- `Pomodoros` is a parent toggle under `Blitz mode settings`;
+- turning it on reveals two nested controls beneath an indented vertical guide:
+  - `Work Sprint`
+  - `Break Time`.
+
+**MOTION-APPROX**
+- child controls are present by the next 0.1 s sample after toggle activation;
+- behavior is best characterized as **fast inline disclosure/reflow (~0.1 s)** rather than modal presentation.
+
+### ~00:01:03–00:01:10 — Work Sprint / Break Time values
+
+**VIDEO-DIRECT**
+- Work Sprint is a compact minutes dropdown;
+- source menu visibly includes short presets including 5, 10, 15 and additional longer values;
+- demonstrated final Work Sprint value becomes **30 mins**;
+- Break Time is separately configured and demonstrated as **10 mins**.
+
+**HIERARCHY-DIRECT**
+- both controls remain nested under Pomodoros;
+- disabling Pomodoros would therefore conceptually own their visibility, but this clip primarily demonstrates the ON/revealed state.
+
+### ~00:01:10–00:01:19 — Default break length + scrolling title
+
+**VIDEO-DIRECT**
+- `Default break length` remains a **top-level Blitz mode setting**, not a Pomodoro child;
+- demonstrated value: **10 mins**;
+- `Scrolling title on live timer` is a separate toggle and is ON in the demonstrated final state.
+
+**SEMANTIC DISTINCTION**
+- Pomodoro Break Time and Default break length are separate settings with different parentage.
+
+### ~00:01:24–00:01:33 — Timed alerts hierarchy
+
+**VIDEO-DIRECT**
+- `Timed alerts during a task` is a parent toggle;
+- when enabled, an indented child group is visible:
   - `Pick task alert timings`;
   - `Pick an alert sound`;
   - `Animated flash on timer`.
-- timing uses a compact duration dropdown;
-- the demonstration changes alert timing from the earlier visible **10 mins** to **30 mins**.
+- timing is a compact minutes dropdown;
+- source demonstrates changing the interval to **30 mins**;
+- the open menu visibly contains multiple presets including **20 mins, 25 mins, 30 mins and 60 mins**.
 
-**HIERARCHY-DIRECT**
-- timing/sound/flash controls are subordinate to Timed alerts;
-- they remain visually grouped by indentation and a vertical guide.
+**STATE RETENTION**
+- chosen interval remains visible after the menu closes.
 
-### ~00:01:42–00:01:53 — task alert sound and preview/volume controls
-
-**VIDEO-DIRECT**
-- `Pick an alert sound` row contains:
-  - a circular speaker/volume-style control;
-  - a circular play-preview button;
-  - a sound-name dropdown.
-- staged sound label is shown as a truncated `Melodic ...` choice before later alert examples;
-- clicking preview is demonstrated during narration.
-
-**EVIDENCE LIMIT**
-- the source establishes interactive preview and sound selection;
-- exact audio waveform/loudness is not a visual UI requirement.
-
-### ~00:01:53–00:01:56 — animated flash on timer
+### ~00:01:33–00:01:52 — task-alert sound, preview and volume
 
 **VIDEO-DIRECT**
-- `Animated flash on timer` is a child toggle under Timed alerts;
-- tutorial demonstrates the timer/window receiving a brief visual flash treatment when enabled.
+- sound row combines:
+  - speaker/volume button;
+  - play/preview triangle;
+  - sound dropdown.
+- source sound label changes during the tutorial; one later selected value is visibly truncated as `Futuristic...`;
+- exact full sound-name suffix is not reliably readable and is intentionally not invented.
+- clicking the speaker control opens a compact **vertical volume slider popover** anchored directly above/near the speaker;
+- slider uses a bright green thumb/filled portion;
+- play button is separate from volume.
 
-**MOTION-DIRECT**
-- flash is transient feedback, not a persistent border/theme state.
+**TRANSCRIPT + DIRECT**
+- narration's sound/volume customization is fully corroborated by the visible controls.
+
+### ~00:01:32–00:01:36 and ~00:01:53–00:01:56 — Animated flash on timer
+
+**VIDEO-DIRECT**
+- `Animated flash on timer` is a child toggle of Timed Alerts;
+- tutorial demonstrates the resulting effect on a Focus task:
+  - the live task row/card receives a temporary violet/pink accent wash;
+  - task title/time remain readable;
+  - the rest of the Focus surface remains substantially unchanged.
+
+**MOTION-APPROX**
+- visible flash persists for roughly **0.5–0.7 s** in the sampled sequence and fades back to normal;
+- this is a localized task-timer flash, not a full-desktop flash.
 
 ### ~00:01:56–00:02:06 — Notification Alerts
 
 **VIDEO-DIRECT**
-- separate parent `Notification Alerts` appears below timed task alerts;
-- when active, it reveals its own indented `Pick an alert sound` row with the same compact audio-control grammar;
-- staged sound is shown as truncated `Futuristic...`.
+- `Notification Alerts` is a separate parent toggle;
+- it owns its own nested `Pick an alert sound` row;
+- the row independently contains speaker/volume, preview triangle and sound dropdown;
+- demonstrated selected sound is again visibly truncated as `Futuristic...`.
 
-**TRANSCRIPT-CLAIM**
-- narration enumerates notification causes including task-due reminders, task/break timing and Pomodoro sprint ends;
-- the settings hierarchy is direct, but every trigger type is not independently fired in this Preferences video.
+**SEMANTIC DISTINCTION**
+- task timed-alert sound and general notification sound are independently configurable.
 
-### ~00:02:06–00:02:26 — Celebrate task completion hierarchy
+**VERSION PRECEDENCE**
+- this tutorial groups due/task/break/Pomodoro notifications under Notification Alerts;
+- the newer current SS-C08 additionally shows a separate `Schedule reminders (system)` + Reminder timing hierarchy, which supersedes VE-014 for the current inventory.
 
-**VIDEO-DIRECT**
-- section heading is `Celebrate task completion`;
-- top-level parent is `Show success screen`;
-- enabling it reveals/activates nested `Fun gif on success screen`;
-- a separate `Success sound effect` toggle controls a sound row beneath it;
-- sound row again uses circular audio/preview controls plus a dropdown;
-- visible selected celebration sound is **`Victory Bell`**.
-
-**PARENT/CHILD-DIRECT**
-- Fun GIF is subordinate to Show success screen;
-- Success sound effect is separately controllable and is not merely the same toggle as success-screen visibility;
-- toggling success-screen state visibly changes availability/presentation of its GIF child.
-
-### ~00:02:26–00:02:37 — preference overview / retained state
+### ~00:02:06–00:02:13 — Celebrate task completion hierarchy
 
 **VIDEO-DIRECT**
-- tutorial scrolls through the Preferences panel while the previously selected settings remain represented in their controls;
-- sections preserve state as they leave/re-enter the viewport;
-- no explicit Save/Apply button is shown: demonstrated changes take effect directly.
+- new section `Celebrate task completion`;
+- `Show success screen` is a parent toggle;
+- `Fun gif on success screen` appears indented beneath it;
+- `Success sound effect` is a separate row with its own enable toggle plus sound controls;
+- selected success sound is clearly **`Victory Bell`**.
 
-**INFERENCE BOUNDARY**
-- direct application strongly indicates immediate-setting semantics;
-- persistence across process restart is not established by this video and is not inferred.
+**HIERARCHY-DIRECT**
+- GIF is visually subordinate to Show success screen;
+- success sound is presented as a sibling capability rather than inside the GIF child row.
 
-### ~00:02:37–00:02:48.42 — outro
+### ~00:02:13–00:02:21 — success screen without/with GIF
+
+**VIDEO-DIRECT**
+- tutorial switches to Focus to demonstrate completion presentation;
+- success surface appears in-place in the Focus panel with:
+  - completed task title;
+  - `Well done!`;
+  - gradient `Next Task`;
+  - secondary break option.
+- one demonstrated success state contains **no reaction GIF**, proving the success screen itself can exist independently of GIF media;
+- a later demonstrated state contains the reaction GIF while retaining the same success structure.
+
+**CUT/UNMEASURABLE**
+- Preferences↔Focus crossfades in this comparison are tutorial edits;
+- do not derive success-screen entrance timing from them.
+
+### ~00:02:21–00:02:28 — success sound control demonstration
+
+**VIDEO-DIRECT**
+- Preferences returns to the completion section;
+- success sound controls show speaker/volume + play preview + `Victory Bell` dropdown;
+- pointer demonstrates the sound-preview control.
+
+**AUDIO/MOTION BOUNDARY**
+- the existence of preview behavior is direct;
+- no implementation-specific audio API, buffering behavior or exact playback latency is inferred.
+
+### ~00:02:28–00:02:44 — final Preferences overview
+
+**VIDEO-DIRECT**
+- tutorial leaves Preferences in a configured state:
+  - Pomodoros ON;
+  - Work Sprint 30 mins;
+  - Break Time 10 mins;
+  - Default break length 10 mins;
+  - Scrolling title ON;
+  - Timed alerts ON;
+  - alert timing 30 mins;
+  - Animated flash ON;
+  - Notification Alerts ON;
+  - Show success screen ON;
+  - Fun GIF ON;
+  - Success sound effect ON;
+  - Victory Bell selected.
+- internal Preferences scroll is used to move between sections;
+- section content scrolls vertically inside the narrow Preferences surface.
+
+### ~00:02:44–00:02:48.48 — outro
 
 **VIDEO-DIRECT / NON-PARITY**
-- tutorial closes with general guidance/community material;
-- no additional unique Preferences state is introduced.
+- source remains on Preferences briefly and then cuts to the Blitzit end card;
+- end card is tutorial branding, not product UI parity evidence.
 
 ## VE-014 source synthesis
 
-High-confidence source behavior established:
-- full Preferences is a left-edge, independently scrollable settings panel with Back navigation;
-- Focus Quick Preferences is a separate compact anchored surface, not the full Preferences panel;
-- Blitz Panel controls include selected-screen preview and Left/Right segmented placement;
-- Theme is a mutually exclusive System/Dark/Light segmented control;
-- Hide EST/done-times suppresses resting metrics while hover can reveal timing context;
-- Pomodoros is a parent toggle that conditionally inserts Work Sprint and Break Time children;
-- duration dropdowns expose minute presets including 5/10/15/20/25/30;
-- Default break length is a separate setting and is shown at 10 mins;
-- Scrolling title affects only the constrained live-title region while timer placement stays fixed;
-- Timed alerts conditionally reveal timing, sound and animated-flash children;
-- task-alert timing is demonstrated changing to 30 mins;
-- sound rows use compact volume/speaker + play-preview + sound-dropdown grammar;
-- Notification Alerts is a separate parent with its own sound child;
-- Celebrate task completion separates success-screen visibility, nested GIF behavior and success-sound effect;
-- visible celebration sound is Victory Bell;
-- changes apply directly with no demonstrated Save/Apply step;
-- process-restart persistence is not established here.
+High-confidence interaction behavior established:
+- main app cog opens Preferences over the current app context;
+- Focus cog can expose settings within the narrow Focus footprint in this older source;
+- screen selection uses monitor thumbnails and explicit dimensions;
+- panel side is a direct Left/Right segmented setting and visibly affects docking side;
+- System/Dark/Light theme changes apply live in-place;
+- hide-times behavior is contextual rather than permanent data removal;
+- Pomodoro is a parent disclosure with nested Work Sprint/Break Time;
+- Pomodoro child reveal is a very fast inline reflow;
+- Work Sprint and Break Time are independent values;
+- Default break length is not a Pomodoro child;
+- Timed Alerts own interval/sound/animated-flash children;
+- sound rows consistently separate volume, preview and sound selection;
+- animated flash is localized to the active task/timer and lasts roughly 0.5–0.7 s in this source;
+- Notification Alerts keep an independent sound configuration;
+- Show success screen can operate without GIF media;
+- Fun GIF is a child of success-screen presentation;
+- Success sound is independently configurable, with Victory Bell demonstrated;
+- Preferences uses internal vertical scrolling and retains configured values.
 
-Static corroboration:
-- SS-C07 current Preferences General;
-- SS-C08 current Preferences Blitz mode / alerts;
-- SS-C09 current Preferences alerts / celebration;
-- SS-H05 Focus Quick Preferences;
-- SS-H06 Pomodoro children expanded;
-- SS-T05 historical full Preferences.
+Cross-source precedence/evolution:
+- SS-C07/C08/C09 are stronger for current v2.6.69 option inventory;
+- SS-H05 is stronger for the modern Focus `Quick Preferences` composition;
+- VE-014 remains the strongest source for the demonstrated conditional reveal behaviors, live theme application, localized alert flash and success-screen-with/without-GIF comparison.
 
 No implementation conclusion is made in this analysis track.
 
