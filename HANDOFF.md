@@ -11,6 +11,7 @@ This section overrides stale PR #217/#218 continuation text below until those ol
 - Main source baseline: `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
 - PR #217 is merged. Resulting-main diagnostic hash-release follow-up is validated by Windows CI #866 / run `37078139295`: **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
 - PR #218 is **closed**; do not treat it as an active continuation.
+- **Final M1 Candidate B is ready** from resulting-main CI #866 / run `37078139295` on source `f1a200c3624c3e25154a7023443c1dfc5be1e69d`: artifact id `11257763093`, ZIP SHA-256 `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`, contained diagnostic EXE SHA-256 `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`. Its runtime storage-isolation smoke PASSed and production Roaming/Local namespaces remained unchanged. Physical M1 B/C/D may use only this candidate until superseded by later validated source.
 - Active implementation PR is **#219**: `M7: add automatic local physical-validation logs`.
 - PR #219 exact head: `422230e755a373d3ccb61246e1917ff7934a1210`.
 - PR #219 Windows CI #869 / run `37079768471`: **PENDING** at this checkpoint.
@@ -21,7 +22,7 @@ This section overrides stale PR #217/#218 continuation text below until those ol
 
 **USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
 
-Durable implementation checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-validation-logging-pr219-pending.md`. Concurrency correction: `work-log/2026-10-03-chatgpt-pr218-concurrency-correction.md`.
+Durable implementation checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-validation-logging-pr219-pending.md`. Candidate B evidence: `work-log/2026-10-03-chatgpt-m1-ci866-final-candidate-b.md`. Concurrency correction: `work-log/2026-10-03-chatgpt-pr218-concurrency-correction.md`.
 
 ## CURRENT STATE
 
