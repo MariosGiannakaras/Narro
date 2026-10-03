@@ -62,7 +62,7 @@ See `docs/BLITZIT_FORENSIC_PASS3_SCREENSHOTS.md`.
 ### Videos
 
 - Corpus: **19 MP4 + 19 matching SRT**
-- Full MP4s completed to Pass-3 standard: **15/19**
+- Full MP4s completed to Pass-3 standard: **16/19**
 - Full sources completed: **VE-003 Blitz Mode; VE-005 Add & Manage Tasks and Lists; VE-013 Subtasks; VE-014 Preferences; VE-016 Timer Modes; VE-017 Update Recurring Schedules; VE-007 Schedule Task Reminders; VE-009 Custom Recurring Schedules; VE-010 Notes; VE-015 Sessions Walkthrough; VE-011 Reports; VE-012 Improved Sessions and Stats; VE-006 Delete & Archive**
 - Partial deep sequence: **VE-018 planning-board excerpt**
 - Prior pass coverage remains useful context but does **not** count as Pass-3 completion.
@@ -81,20 +81,25 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-001 — `Blitzit Explained Simplify Your Tasks and Stay in Flow.mp4`.**
+**Continue with VE-004 — `Blitzit Tutorial Getting Started with Blitzit.mp4`.**
 
-Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015, VE-011, VE-012, VE-006, VE-008, VE-002.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017, VE-007, VE-009, VE-010, VE-015, VE-011, VE-012, VE-006, VE-008, VE-002, VE-001.
 
-For VE-001:
+For VE-004:
 
-1. inspect the complete **02:19.088, 1920×1080, 30 fps** MP4;
-2. catalog every unique visible product state;
-3. identify reused tutorial footage versus unique montage evidence;
-4. explicitly classify editorial cuts/montage as timing-invalid;
-5. separate marketing narration from direct UI behavior;
-6. record any unique visual/interaction state not already covered by stronger tutorial sources;
-7. update analysis Markdown only;
-8. then continue to VE-004.
+1. inspect the complete **04:09.870, 1920×1080, 60 fps** MP4;
+2. map the full onboarding/Home→list→board→Focus flow;
+3. isolate unique product states from footage duplicated in other tutorials;
+4. densely inspect:
+   - Home/list grid;
+   - account/trial/navigation context only where product UI is affected;
+   - list open and board entry;
+   - task creation/planning;
+   - Blitz entry / Focus;
+   - any shortcut/navigation controls demonstrated;
+5. classify auth/commerce/onboarding copy as context unless it changes application behavior;
+6. update analysis Markdown only;
+7. then continue to VE-018.
 
 ## Media-access rule
 
