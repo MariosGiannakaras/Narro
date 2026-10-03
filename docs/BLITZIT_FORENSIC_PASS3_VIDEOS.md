@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 14/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 15/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -3637,19 +3637,123 @@ No implementation conclusion is made in this analysis track.
 # Queue 15 — VE-002 — EST Suffix Parsing
 
 Source: `Blitzit Tutorial Add Estimated Time Directly in Task Name.mp4`  
-Metadata: **01:21.633, 426×240, 30 fps**  
-Status: **OPEN**
+Verified metadata: **01:21.633, 426×240, 30 fps, 2,449 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior window:
-- 00:00:17.920–00:01:00.879.
+Inspection method:
+- complete low-resolution source reviewed end-to-end;
+- 2 s whole-video contact scan;
+- dense 0.5 s and 5 fps review across all three parsing examples;
+- nearest-neighbor enlarged frames used to distinguish title input, live EST field and committed task-card output;
+- transcript used to separate parser forms actually executed from additional documented forms mentioned only by narration/tutorial annotation.
 
-Pass-3 focus:
-- keystroke-level title input;
-- when EST field changes;
-- suffix variants;
-- save/Enter moment;
-- visible title normalization;
-- any error/unsupported suffix state.
+## VE-002 chronological state map
+
+### 00:00:00–~00:00:18 — board / inline-create baseline
+
+**VIDEO-DIRECT**
+- source uses the Today lane inline task creator;
+- create row contains:
+  - Cancel;
+  - title input;
+  - compact EST field at right;
+  - Confirm.
+- before suffix parsing, EST field is visibly **00:00**.
+
+### ~00:00:18–00:00:32 — example 1: minutes suffix
+
+**VIDEO-DIRECT**
+- title input is populated as:
+  - **`Prepare slides 28 m`**.
+- while the editor is still open and before Confirm:
+  - title input still contains the suffix;
+  - EST field automatically changes from 00:00 to **00:28**.
+- therefore parsing is live/reactive during title entry, not deferred until task commit.
+
+**COMMIT-DIRECT**
+- Confirm is used;
+- committed card title becomes **`Prepare slides`**;
+- time suffix is removed from the saved/displayed title;
+- task card retains the parsed estimate as **28min**.
+
+### ~00:00:32–00:00:40 — example 2: hour suffix
+
+**VIDEO-DIRECT**
+- next title example is entered as:
+  - **`Write blog post 1 HR`** / visually case-insensitive hour token in the staged input.
+- EST field updates while the create editor remains open to **01:00**;
+- after commit:
+  - card title is **`Write blog post`**;
+  - suffix is absent from the saved title;
+  - parsed estimate is retained as **1hr**.
+
+**CASE NOTE**
+- tutorial text/narration uses uppercase `HR`, while the low-resolution visual cannot justify a case-sensitive parser requirement;
+- strongest source conclusion is that the demonstrated hour token is accepted in the shown form, not that parsing must be case-sensitive.
+
+### ~00:00:40–00:00:48 — example 3: combined hours + minutes
+
+**VIDEO-DIRECT**
+- title input is entered as:
+  - **`Email campaign 2 HR 15 m`**.
+- before commit, EST field resolves to **02:15**;
+- after Confirm:
+  - displayed task title becomes **`Email campaign`**;
+  - parsed estimate is retained as **2hr 15min**.
+
+**COMPOSITION-DIRECT**
+- parser can combine an hour component and a minute component from one trailing title suffix.
+
+### ~00:00:48–00:00:59 — tutorial-supported token grammar
+
+**TUTORIAL-ANNOTATION / TRANSCRIPT-CLAIM**
+- tutorial overlays explanatory notation equivalent to:
+  - number + `min` for minutes;
+  - number + `hr` / `hours` for hours.
+- narration explicitly says the full word **`hours`** is supported.
+
+**EVIDENCE BOUNDARY**
+- actual executed parser examples in the video use abbreviated tokens;
+- no separate task is typed/committed using the full word `hours`;
+- therefore full-word support is documented source intent, but not independently execution-tested in VE-002.
+
+### ~00:00:59–00:01:04 — manual EST remains editable
+
+**VIDEO-DIRECT**
+- ordinary EST field remains available after parser examples;
+- tutorial demonstrates/points to the same EST slot used for manual adjustment/removal.
+
+**SEMANTIC**
+- suffix parsing is a shortcut into the normal EST value, not a separate immutable metadata type.
+
+### ~00:01:04–00:01:18 — rapid-create context
+
+**VIDEO-DIRECT**
+- created cards remain in Today while inline task creation can continue;
+- source frames show multiple parsed-example tasks coexisting with the create row;
+- no dedicated parsing confirmation dialog/toast appears.
+
+### ~00:01:18–00:01:21.63 — outro
+
+**NON-PARITY**
+- branded/music outro.
+
+## VE-002 source synthesis
+
+High-confidence direct behavior established:
+- EST suffix parsing occurs live while editing the title, before Confirm;
+- parsed EST is written into the ordinary EST field immediately;
+- demonstrated minute example: `Prepare slides 28 m` → 00:28 → committed `Prepare slides` / 28min;
+- demonstrated hour example: `Write blog post 1 HR` → 01:00 → committed `Write blog post` / 1hr;
+- demonstrated combined example: `Email campaign 2 HR 15 m` → 02:15 → committed `Email campaign` / 2hr15min;
+- parsed suffix text is stripped from the committed task title;
+- hour + minute components can be combined in one trailing suffix;
+- parser output remains ordinary editable EST;
+- full-word `hours` support is tutorial-documented but not separately executed in this source;
+- no unsupported/invalid suffix example, parser error state, ambiguity resolution rule or mid-title-time-token behavior is demonstrated;
+- no requirement is inferred for unshown token forms.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
