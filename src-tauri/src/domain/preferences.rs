@@ -1,6 +1,21 @@
 use serde::{Deserialize, Serialize};
 
-pub const PREFERENCES_SCHEMA_VERSION: u32 = 3;
+pub const PREFERENCES_SCHEMA_VERSION: u32 = 4;
+pub const LOCAL_SOUND_IDS: [&str; 4] = [
+    "futuristic-ding",
+    "melodic-bell",
+    "quick-chime",
+    "victory-bell",
+];
+pub const DEFAULT_SOUND_VOLUME_PERCENT: u8 = 100;
+
+fn default_sound_volume_percent() -> u8 {
+    DEFAULT_SOUND_VOLUME_PERCENT
+}
+
+pub fn is_local_sound_id(value: &str) -> bool {
+    LOCAL_SOUND_IDS.contains(&value)
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
 #[serde(rename_all = "snake_case")]
@@ -92,9 +107,13 @@ pub struct AlertPreferences {
     pub timed_alerts_enabled: bool,
     pub task_alert_interval_seconds: u32,
     pub task_alert_sound: Option<String>,
+    #[serde(default = "default_sound_volume_percent")]
+    pub task_alert_volume_percent: u8,
     pub animated_timer_flash: bool,
     pub notification_alerts_enabled: bool,
     pub notification_sound: Option<String>,
+    #[serde(default = "default_sound_volume_percent")]
+    pub notification_volume_percent: u8,
     pub schedule_reminders_enabled: bool,
     pub reminder_lead_seconds: u32,
 }
@@ -105,6 +124,8 @@ pub struct CelebrationPreferences {
     pub show_success_screen: bool,
     pub fun_gif: bool,
     pub success_sound: Option<String>,
+    #[serde(default = "default_sound_volume_percent")]
+    pub success_sound_volume_percent: u8,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -143,9 +164,11 @@ impl Default for PreferencesPayload {
                 timed_alerts_enabled: false,
                 task_alert_interval_seconds: 10 * 60,
                 task_alert_sound: None,
+                task_alert_volume_percent: DEFAULT_SOUND_VOLUME_PERCENT,
                 animated_timer_flash: false,
                 notification_alerts_enabled: false,
                 notification_sound: None,
+                notification_volume_percent: DEFAULT_SOUND_VOLUME_PERCENT,
                 schedule_reminders_enabled: false,
                 reminder_lead_seconds: 10 * 60,
             },
@@ -153,6 +176,7 @@ impl Default for PreferencesPayload {
                 show_success_screen: false,
                 fun_gif: false,
                 success_sound: None,
+                success_sound_volume_percent: DEFAULT_SOUND_VOLUME_PERCENT,
             },
         }
     }
@@ -186,6 +210,18 @@ mod tests {
         assert!(defaults.shortcuts.toggle_focus_mode_enabled);
         assert!(defaults.shortcuts.find_focus_timer_enabled);
         assert!(!defaults.alerts.schedule_reminders_enabled);
+        assert_eq!(
+            defaults.alerts.task_alert_volume_percent,
+            DEFAULT_SOUND_VOLUME_PERCENT
+        );
+        assert_eq!(
+            defaults.alerts.notification_volume_percent,
+            DEFAULT_SOUND_VOLUME_PERCENT
+        );
+        assert_eq!(
+            defaults.celebration.success_sound_volume_percent,
+            DEFAULT_SOUND_VOLUME_PERCENT
+        );
         assert!(!defaults.celebration.show_success_screen);
     }
 
@@ -239,6 +275,39 @@ mod tests {
         assert_eq!(
             decoded.focus.sleep_accounting_policy,
             SleepAccountingPolicy::Exclude
+        );
+    }
+
+    #[test]
+    fn legacy_v3_payload_without_sound_volumes_defaults_to_full_volume() {
+        let mut value = serde_json::to_value(PreferencesPayload::default())
+            .expect("serialize default preferences");
+        value["alerts"]
+            .as_object_mut()
+            .expect("alerts object")
+            .remove("task_alert_volume_percent");
+        value["alerts"]
+            .as_object_mut()
+            .expect("alerts object")
+            .remove("notification_volume_percent");
+        value["celebration"]
+            .as_object_mut()
+            .expect("celebration object")
+            .remove("success_sound_volume_percent");
+
+        let decoded: PreferencesPayload =
+            serde_json::from_value(value).expect("decode v3 preferences");
+        assert_eq!(
+            decoded.alerts.task_alert_volume_percent,
+            DEFAULT_SOUND_VOLUME_PERCENT
+        );
+        assert_eq!(
+            decoded.alerts.notification_volume_percent,
+            DEFAULT_SOUND_VOLUME_PERCENT
+        );
+        assert_eq!(
+            decoded.celebration.success_sound_volume_percent,
+            DEFAULT_SOUND_VOLUME_PERCENT
         );
     }
 
