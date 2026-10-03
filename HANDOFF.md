@@ -8,7 +8,7 @@ GitHub `main` is the durable source truth.
 
 This section is the current continuation state.
 
-- Current merged application source under resulting-main validation: `45c3218f5923c2ff673d8c1dd562de7545be1ecb` (PR #220). Do not promote it to the validated source baseline until Windows CI #882 / run `37117266417` passes. The prior resulting-main-validated application source is `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0` from CI #873.
+- Current validated application source baseline: `45c3218f5923c2ff673d8c1dd562de7545be1ecb` (PR #220), PASS on resulting-main Windows CI #882 / run `37117266417`. Later main commits are documentation/evidence only and do not replace this source SHA.
 - PR #217 is merged. Resulting-main diagnostic hash-release follow-up is validated by Windows CI #866 / run `37078139295`: **PASS** on `f1a200c3624c3e25154a7023443c1dfc5be1e69d`.
 - PR #218 is **closed**; do not treat it as an active continuation.
 - **Final M1 Candidate B is ready** from resulting-main CI #866 / run `37078139295` on source `f1a200c3624c3e25154a7023443c1dfc5be1e69d`: artifact id `11257763093`, ZIP SHA-256 `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`, contained diagnostic EXE SHA-256 `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`. Its runtime storage-isolation smoke PASSed and production Roaming/Local namespaces remained unchanged. Physical M1 B/C/D may use only this candidate until superseded by later validated source.
@@ -17,9 +17,9 @@ This section is the current continuation state.
 - CI #869 on prior head `422230e755a373d3ccb61246e1917ff7934a1210` failed **only** because `verify-m7-validation-logging.ps1` had a PowerShell parser error before the smoke could launch; all preceding substantive Windows gates passed.
 - The smoke script was narrowly repaired and an earlier PowerShell parser preflight was added. A subsequent correctness review also fixed the evidence handoff so the entire two-session `Narro-M7-Logs` folder is retained/uploaded for debugging. Resulting-main Windows CI #873 / run `37105088285` **PASSed** on validated source `1423bb8a71deedac2fa17edf6c2fae1f98e2cbb0`. Final M7 C5 artifact: `narro-m7-validation-windows-x64`, id `11268220111`, ZIP SHA-256 `e17532df1f1eab86022d93616fb4d217ff09d6378ee94bf5af90522950286e44`, contained EXE SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`, fingerprint `fnv1a64:ccb7e96a5db9d324:bytes:14874624`.
 - #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
-- No progress counter advances from implementation alone. Current progress remains `4/10M || 4/5 | 14/19`.
+- Milestone 8 is now validated and reconciled. Current progress is `5/10M || 5/5 | 14/19`.
 
-**NEXT AGENT ACTION:** check resulting-main Windows CI #882 / run `37117266417` first for merged source `45c3218f5923c2ff673d8c1dd562de7545be1ecb`. PR #220 final exact head `af4420aa7610008c2dba8cf54c12158178abf7d4` passed full Windows CI #881 / run `37111582864` and was expected-head guarded squash-merged as `45c3218f5923c2ff673d8c1dd562de7545be1ecb`. If #882 fails, inspect only the exact failure and fix narrowly from current main. If #882 passes, reconcile PREF-R05 in TODO/STATUS/HANDOFF and add immutable closure evidence; then continue the next independently safe ordered work. Keep M1/M7 physical gates OPEN; they are not a blanket implementation stop.
+**NEXT AGENT ACTION:** Milestone 8 is reconciled and complete on validated source `45c3218f5923c2ff673d8c1dd562de7545be1ecb` / resulting-main CI #882. Keep the M1 selected-monitor/topology/performance gates and M7 C5 saved-placement restart gate OPEN. Before starting M9 source work, inspect the current M9 TODO/crosswalk against the live repository and newest forensic findings; do not recreate already merged M9 work or treat stale FIX_NOW entries as source gaps.
 
 **USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
 
@@ -27,7 +27,7 @@ Durable implementation checkpoint: `work-log/2026-10-03-chatgpt-m7-automatic-val
 
 ## CURRENT STATE
 
-`4/10M || 4/5 | 14/19`
+`5/10M || 5/5 | 14/19`
 
 **Reopened Milestone 1 / M7 single-Focus physical closure remains active.** C1/C2/C3/C4 are PASS. The CI #809 event-based re-audit physically accepts the corrected compositor boundary, Blitz-now entry, task/session continuity, cross-window reconciliation, second-launch single-instance behavior, idle no-op result, mixed-DPI crossing, edge/work-area behavior, topology removal recovery and topmost behavior. No new product defect is evidenced. C5 remains OPEN only for saved placement across normal Quit→relaunch plus final tracking reconciliation.
 
@@ -223,7 +223,7 @@ Corrected durable evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-re
 - C4 / Gate 7 physical continuity: **PASS**. Visual/session/Blitz-now/reconciliation, second-launch ownership and idle no-op behavior are accepted on CI #809.
 - C5 / Gate 12 + platform closure: **OPEN only for saved-placement restart + final reconciliation**. Mixed-DPI crossing, edge/taskbar placement, real topology-removal recovery and topmost-over-maximized-app are physically PASS.
 
-Progress is now `4/10M || 4/5 | 14/19`. Do not advance C5 or milestone completion until saved-placement restart is physically observed.
+Progress is now `5/10M || 5/5 | 14/19`. Do not advance C5 or milestone completion until saved-placement restart is physically observed.
 
 ## Invariants that must not regress
 

@@ -2,6 +2,17 @@
 
 Last updated: 2026-10-03
 
+## 2026-10-03 — Milestone 8 PASS on resulting-main CI #882
+
+M8 is now fully reconciled against the current single-`focusSurface` tree. PR #220 final head `af4420aa7610008c2dba8cf54c12158178abf7d4` passed Windows CI #881, merged with expected-head guard as source `45c3218f5923c2ff673d8c1dd562de7545be1ecb`, and resulting-main Windows CI #882 / run `37117266417` **PASSed every gate**. Later main commits are documentation/evidence only and do not replace that validated application source.
+
+The same resulting-main run explicitly passed the single-host Focus toggle, in-app shortcut, global-shortcut persistence/rollback, Preferences, local-sound, timed-alert-sound and success-sound contracts. Rust tests also passed manual-break natural/explicit resume and skipped-break-paused semantics. Therefore the three reopened shortcut rows and PREF-R05 are reconciled without another runtime patch.
+
+M1/M7 physical geometry/placement gates remain OPEN and unchanged; they are not evidence against M8 shortcut/preferences correctness. Milestone progress advances to `5/10M`. The completed PREF-R05 implementation slice is `5/5`; the separate physical gate count remains `14/19`.
+
+Durable closure: `work-log/2026-10-03-chatgpt-m8-main882-milestone-closure.md`.
+
+
 ## 2026-10-03 — M8 PREF-R05 merged; resulting-main CI #882 active
 
 PR #220 final exact head `af4420aa7610008c2dba8cf54c12158178abf7d4` passed full Windows CI #881 / run `37111582864`, including fast frontend/contracts, Rust check/Clippy/tests, visual regression, release/physical builds, M7 automatic-validation smoke, and M1 diagnostic storage isolation. The final slice includes the local-only four-sound catalog, persisted selector/volume validation, single-owner non-overlapping previews, authoritative timed-alert sound consumption, and success-screen sound playback after committed completion.
