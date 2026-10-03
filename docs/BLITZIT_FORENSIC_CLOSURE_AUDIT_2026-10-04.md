@@ -171,6 +171,32 @@ That protocol is satisfied:
 
 This is deliberate and matches the project direction to avoid both arbitrary styling and unnecessary per-control micrometrology.
 
+## 5.1 SYSTEM_COVERED sanity check
+
+The 12 SYSTEM_COVERED screenshots were re-audited as a category to make sure a distinctive current state was not hidden behind generic family coverage.
+
+They are:
+- current Preferences celebration continuation;
+- archived-list and archived-Done empty states;
+- Reports lower panels and list-filter popover;
+- current Focus Notes expanded;
+- Help Focus list selector;
+- Help Pomodoro child settings;
+- Help board Notes expanded;
+- Help subtask progress/actions;
+- Help archived-list populated state;
+- Help archived-Done populated state.
+
+These are all variants of already calibrated shell/control/menu/editor/card families. No unique current/direct signature treatment was found among them that requires promotion to UNIQUE_CALIBRATED.
+
+The six UNIQUE_CALIBRATED records remain the distinctive exceptions:
+- Create List dashed target;
+- Windows Shortcuts light-modal exception;
+- current Focus shell/live treatment;
+- Today lane/progress treatment;
+- recurrence destructive row;
+- Floating Timer selected Notes action-strip state.
+
 ## 6. Genuine source ambiguities remain — correctly labeled, not hidden as PASS
 
 SOURCE_COMPLETE means the source asset was fully reviewed. It does **not** mean the source itself answers every possible product question.
@@ -215,6 +241,18 @@ Corrected:
    - corrects Notes URL behavior to ambiguity rather than confirmed auto-open.
 5. `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` and `...HANDOFF.md`
    - clarify that the 9.344 s clip itself is fully reviewed and only its lineage is unmapped.
+6. Current implementation/evidence routing docs were reconciled to the same VE-010 distinction:
+   - `STATUS.md`;
+   - `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`;
+   - `docs/BLITZIT_HISTORY_RISK_INDEX.md`;
+   - `docs/BLITZIT_HELP_CENTER_EVIDENCE.md`;
+   - `docs/BLITZIT_VIDEO_EVIDENCE.md`;
+   - `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md`.
+
+The correct final attribution is:
+- Help/roadmap evidence documents auto-open behavior in some Blitzit versions;
+- VE-010 pixels directly prove URL recognition/clickability and browser opening;
+- VE-010 does **not** cleanly prove whether the browser open was automatic or explicitly clicked.
 
 Immutable historical work logs were not rewritten.
 
