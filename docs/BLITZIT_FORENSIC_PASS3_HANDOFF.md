@@ -87,18 +87,20 @@ Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016.
 For VE-017:
 
 1. inspect the complete **02:50.063, 1920×1080, 60 fps** MP4;
-2. map existing recurring-rule entry/edit states;
+2. map the full recurring-schedule edit flow;
 3. densely inspect:
-   - Replace Existing Tasks row;
-   - count/copy associated with existing generated tasks;
-   - switch to No Repeat;
-   - Delete Existing Tasks appearance and destructive styling;
-   - whether Replace and Delete coexist or replace one another;
-   - footer/save continuity while conditional content changes;
-   - generated child state before/after update/save;
-4. distinguish direct UI evidence from narration about detached/generated tasks;
-5. update analysis Markdown only;
-6. then continue to VE-007.
+   - entry from an existing recurring task/rule;
+   - exact existing-rule state;
+   - `Replace Existing Tasks` visibility and semantics;
+   - transition to `No Repeat`;
+   - `Delete Existing Tasks` consequence row and count;
+   - any parent/child materialization or detachment state;
+   - footer action labels and persistence;
+   - save/commit feedback;
+4. distinguish neutral replacement from destructive deletion;
+5. classify any generated-child behavior shown directly vs narrated only;
+6. update analysis Markdown only;
+7. then continue to VE-007.
 
 ## Media-access rule
 
