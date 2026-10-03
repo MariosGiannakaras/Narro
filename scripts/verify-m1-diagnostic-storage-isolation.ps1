@@ -124,7 +124,7 @@ do {
         $databaseHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $diagnosticDb -ErrorAction Stop).Hash.ToLowerInvariant()
         break
     }
-    catch [System.IO.IOException] {
+    catch {
         if ([DateTime]::UtcNow -ge $hashDeadline) {
             throw
         }

@@ -1,4 +1,10 @@
 import type { ReactNode } from "react";
+import {
+  DEFAULT_NOTIFICATION_SOUND,
+  DEFAULT_SUCCESS_SOUND,
+  DEFAULT_TASK_ALERT_SOUND,
+} from "./localSoundCatalog";
+import { SoundPreferenceControl } from "./SoundPreferenceControl";
 import type { MonitorDescriptor } from "./diagnosticApi";
 import type {
   FocusPanelSidePreference,
@@ -12,7 +18,10 @@ type CommonProps = {
   snapshot: PreferenceSettingsSnapshot;
   monitors: MonitorDescriptor[];
   pendingKey: PreferencePendingKey | null;
-  onSave: (patch: PreferenceSettingsPatch, key: PreferencePendingKey) => void;
+  onSave: (
+    patch: PreferenceSettingsPatch,
+    key: PreferencePendingKey,
+  ) => void | Promise<boolean>;
   onRefreshMonitors: () => void;
 };
 
@@ -313,11 +322,29 @@ export function LowerPreferenceSections({
         </Row>
         <Row
           title="Task alert sound"
-          detail="No validated Narro-owned local sound catalog is installed yet."
+          detail={soundUnavailable
+            ? "The local Narro sound catalog is unavailable."
+            : "Choose a bundled local Narro sound. Starting another preview stops the current one."}
           nested
           unavailable={soundUnavailable}
         >
-          <button type="button" disabled className="preference-settings__unavailable">Preview unavailable</button>
+          {soundUnavailable ? (
+            <button type="button" disabled className="preference-settings__unavailable">Preview unavailable</button>
+          ) : (
+            <SoundPreferenceControl
+              selectedSound={snapshot.alerts.taskAlertSound}
+              defaultSound={DEFAULT_TASK_ALERT_SOUND}
+              volumePercent={snapshot.alerts.taskAlertVolumePercent}
+              disabled={busy || !snapshot.alerts.timedAlertsEnabled}
+              soundLabel="Task alert sound"
+              volumeLabel="Task alert volume"
+              onSoundChange={(taskAlertSound) => onSave({ taskAlertSound }, "taskAlertSound")}
+              onVolumeCommit={(taskAlertVolumePercent) => onSave(
+                { taskAlertVolumePercent },
+                "taskAlertVolume",
+              )}
+            />
+          )}
         </Row>
         <Row title="Animated flash on timer" detail="Allow the timer surface to use the documented alert flash.">
           <Switch
@@ -337,11 +364,32 @@ export function LowerPreferenceSections({
         </Row>
         <Row
           title="Notification sound"
-          detail="No validated Narro-owned local sound catalog is installed yet."
+          detail={soundUnavailable
+            ? "The local Narro sound catalog is unavailable."
+            : "Choose the bundled local sound used by notification-alert preferences."}
           nested
           unavailable={soundUnavailable}
         >
-          <button type="button" disabled className="preference-settings__unavailable">Preview unavailable</button>
+          {soundUnavailable ? (
+            <button type="button" disabled className="preference-settings__unavailable">Preview unavailable</button>
+          ) : (
+            <SoundPreferenceControl
+              selectedSound={snapshot.alerts.notificationSound}
+              defaultSound={DEFAULT_NOTIFICATION_SOUND}
+              volumePercent={snapshot.alerts.notificationVolumePercent}
+              disabled={busy || !snapshot.alerts.notificationAlertsEnabled}
+              soundLabel="Notification sound"
+              volumeLabel="Notification sound volume"
+              onSoundChange={(notificationSound) => onSave(
+                { notificationSound },
+                "notificationSound",
+              )}
+              onVolumeCommit={(notificationVolumePercent) => onSave(
+                { notificationVolumePercent },
+                "notificationVolume",
+              )}
+            />
+          )}
         </Row>
         <Row title="Schedule reminders" detail="Enable local reminders for scheduled tasks.">
           <Switch
@@ -386,11 +434,29 @@ export function LowerPreferenceSections({
         </Row>
         <Row
           title="Success sound"
-          detail="No validated Narro-owned local sound catalog is installed yet."
+          detail={soundUnavailable
+            ? "The local Narro sound catalog is unavailable."
+            : "Choose the bundled local sound for the success-screen completion moment."}
           nested
           unavailable={soundUnavailable}
         >
-          <button type="button" disabled className="preference-settings__unavailable">Preview unavailable</button>
+          {soundUnavailable ? (
+            <button type="button" disabled className="preference-settings__unavailable">Preview unavailable</button>
+          ) : (
+            <SoundPreferenceControl
+              selectedSound={snapshot.celebration.successSound}
+              defaultSound={DEFAULT_SUCCESS_SOUND}
+              volumePercent={snapshot.celebration.successSoundVolumePercent}
+              disabled={busy || !snapshot.celebration.showSuccessScreen}
+              soundLabel="Success sound"
+              volumeLabel="Success sound volume"
+              onSoundChange={(successSound) => onSave({ successSound }, "successSound")}
+              onVolumeCommit={(successSoundVolumePercent) => onSave(
+                { successSoundVolumePercent },
+                "successSoundVolume",
+              )}
+            />
+          )}
         </Row>
       </section>
     </>
