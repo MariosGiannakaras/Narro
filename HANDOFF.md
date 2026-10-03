@@ -13,13 +13,13 @@ This section is the current continuation state.
 - PR #218 is **closed**; do not treat it as an active continuation.
 - **Final M1 Candidate B is ready** from resulting-main CI #866 / run `37078139295` on source `f1a200c3624c3e25154a7023443c1dfc5be1e69d`: artifact id `11257763093`, ZIP SHA-256 `0453b29656198a35863feca85f460fb540274f1ab826ff1a49ea29d90018f49e`, contained diagnostic EXE SHA-256 `7168dbca6e72484d0782f0541460103144162d9dd5f0355cc7df8e321c6e45c3`. Its runtime storage-isolation smoke PASSed and production Roaming/Local namespaces remained unchanged. Physical M1 B/C/D may use only this candidate until superseded by later validated source.
 - Active implementation PR is **#219**: `M7: add automatic local physical-validation logs`.
-- PR #219 exact head: `fd621696e539ab1e621e48b2ad2a2318c01219b2`.
+- PR #219 exact head: `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1`.
 - CI #869 on prior head `422230e755a373d3ccb61246e1917ff7934a1210` failed **only** because `verify-m7-validation-logging.ps1` had a PowerShell parser error before the smoke could launch; all preceding substantive Windows gates passed.
-- The smoke script was narrowly repaired and an earlier PowerShell parser preflight was added. Windows CI #871 / run `37100908558` is active for current exact head `fd621696e539ab1e621e48b2ad2a2318c01219b2`.
+- The smoke script was narrowly repaired and an earlier PowerShell parser preflight was added. A subsequent correctness review also fixed the evidence handoff so the entire two-session `Narro-M7-Logs` folder is retained/uploaded for debugging. Windows CI #872 / run `37101133903` is the active authoritative run for current exact head `b62375ec0a1a9d68edec4c872dd56a3e864aa5b1`.
 - #219 adds `narro-m7-validation.exe`, automatic local `Narro-M7-Logs`, detailed native/persistence restart evidence and a fail-closed `PENDING/PASS/FAIL/INCONCLUSIVE` C5 evaluator. Normal `narro.exe` keeps logging inert.
 - No progress counter advances from implementation alone. Current progress remains `4/10M || 4/5 | 14/19`.
 
-**NEXT AGENT ACTION:** check CI #871 first. On failure, inspect the exact failing evidence and fix only that on PR #219. On PASS, verify the dedicated validation artifact/executable identity, expected-head guarded merge #219, validate resulting main, then reconcile tracking. Do not wait for or redo already accepted M7 C1-C4 physical evidence.
+**NEXT AGENT ACTION:** check CI #872 first. On failure, inspect the exact failing evidence and fix only that on PR #219. On PASS, verify the dedicated validation artifact/executable identity, expected-head guarded merge #219, validate resulting main, then reconcile tracking. Do not wait for or redo already accepted M7 C1-C4 physical evidence.
 
 **USER ACTION REQUIRED AFTER #219 IS VALIDATED:** run the final C5 restart flow using the validated `narro-m7-validation.exe`: show a real Timer, drag it to an obvious safe non-default position, tray **Quit Narro**, relaunch the same executable, reopen/show Timer, then provide the generated `Narro-M7-Logs` folder (and preferably a short continuous recording). Structured PASS can support the persistence/geometry verdict, but the physical gate is not closed until the real Windows behavior is observed.
 
