@@ -80,25 +80,28 @@ Do not promote that excerpt to full VE-018 completion: the repository VE-018 MP4
 
 ## EXACT NEXT ACTION
 
-**Continue with VE-009 — `Blitzit Tutorial How to Use Custom Recurring Schedules.mp4`.**
+**Continue with VE-007 — `Blitzit Tutorial How to Schedule Task Reminders.mp4`.**
 
-Completed full sources include VE-003, VE-005, VE-013, VE-014, VE-016, VE-017 and VE-007.
+Completed full sources: VE-003, VE-005, VE-013, VE-014, VE-016, VE-017.
 
-For VE-009:
+For VE-007:
 
-1. inspect the complete **02:39.893, 1920×1080, 60 fps** MP4;
-2. map the custom recurrence editor from entry through commit;
+1. inspect the complete **02:52.803, 1920×1080, 60 fps** MP4;
+2. map the complete scheduling/reminder flow;
 3. densely inspect:
-   - Repeat every numeric field;
-   - unit dropdown and geometry changes across day/week/month/year;
-   - weekday-chip selection;
-   - monthly subordinate options;
-   - natural-language recurrence summary;
-   - date/time retention while recurrence configuration changes;
-   - footer continuity and save result;
-4. record exact conditional UI and distinguish direct behavior from narration examples;
-5. update analysis Markdown only;
-6. then continue to VE-010.
+   - task overflow → Schedule;
+   - quick-date actions Today / Later Today / Tomorrow / Next Week;
+   - calendar date selection and any date metadata dots;
+   - Next step and time entry;
+   - recurrence step/presets;
+   - save/commit state and card metadata;
+   - updating an existing schedule;
+   - removing schedule/reminder;
+   - any system-reminder-specific state visible directly;
+4. measure only uninterrupted product motion;
+5. separate recurrence scheduling from reminder notification claims;
+6. update analysis Markdown only;
+7. then continue to VE-009.
 
 ## Media-access rule
 
