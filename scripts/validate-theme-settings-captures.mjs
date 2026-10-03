@@ -65,7 +65,10 @@ for (const section of ["upper", "middle", "lower"]) {
   invariant(dom.includes("Alerts"), `Preferences ${section} Alerts section is missing`);
   invariant(dom.includes("Celebration"), `Preferences ${section} Celebration section is missing`);
   invariant(dom.includes('data-windows-shortcut-settings="true"'), `Preferences ${section} Windows Shortcuts section is missing`);
-  invariant(dom.includes("Preview unavailable"), `Preferences ${section} must expose unavailable sound-preview feedback`);
+  invariant(dom.includes("data-local-sound-control=\"true\""), `Preferences ${section} local sound controls are missing`);
+  for (const sound of ["Futuristic Ding", "Melodic Bell", "Quick Chime", "Victory Bell"]) {
+    invariant(dom.includes(sound), `Preferences ${section} is missing local sound option ${sound}`);
+  }
 }
 const upperDom = await read("theme-settings-preferences-upper");
 invariant(upperDom.includes("Secondary display"), "Preferences upper capture monitor inventory is missing");
