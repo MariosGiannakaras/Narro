@@ -235,7 +235,7 @@ The recording does not visibly show `Get-FileHash`; exact CI #809 identity is bo
 
 Corrected durable evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`. The prior `2026-10-01-chatgpt-m7-ci809-partial-physical-audit.md` remains immutable as the superseded first interpretation.
 
-## M7 checkpoint state
+## Historical M7 checkpoint state before the CI #884 corrective batch
 
 - C1: PASS
 - C2: PASS
@@ -243,7 +243,7 @@ Corrected durable evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-re
 - C4 / Gate 7 physical continuity: **PASS**. Visual/session/Blitz-now/reconciliation, second-launch ownership and idle no-op behavior are accepted on CI #809.
 - C5 / Gate 12 + platform closure: **saved-placement restart PHYSICAL PASS on CI #873; formal reconciliation/new-observation disposition OPEN**. Mixed-DPI crossing, edge/taskbar placement, real topology-removal recovery and topmost-over-maximized-app retain their accepted CI #809 evidence.
 
-Progress is now `5/10M || 5/5 | 14/19`. C5 saved-placement restart is now physically observed and PASS. This evidence publication preserves the concurrent M8 closure counters; formal M7 tracking/new-observation disposition remains separate.
+At that historical checkpoint progress was `5/10M || 5/5 | 14/19` for the M8 slice. C5 saved-placement restart was physically observed and PASS. The current M7 corrective slice is `2/5` as specified in LIVE RECONCILIATION; changed-host acceptance remains open.
 
 ## Invariants that must not regress
 

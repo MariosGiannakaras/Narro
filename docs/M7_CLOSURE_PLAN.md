@@ -18,7 +18,9 @@ Exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 wit
 - scheduling visual fixture;
 - same-DPI Timer→Panel endpoint correction.
 
-The remaining work is closure/observation, not another general M7 implementation audit.
+The CI #884 physical batch supplied new material evidence: native frame insets, Notes overflow/clipped Save, Greek-layout shortcuts/loading-modal focus and transient outgoing/incoming hierarchy coexistence. These are narrowly routed FIX_NOW; PR #222 batches their corrections. Current progress is `5/10M || 2/5 | 14/19`, with exact-head CI and physical acceptance still open. See [the complete physical batch](../work-log/2026-10-03-codex-m7-ci884-physical-batch-evidence.md).
+
+The remaining work is this bounded corrective batch and closure/observation, not another general M7 implementation audit. Historical acceptance below remains valid for its exact source; it does not certify changed rendering or native host geometry.
 
 ## Five closure checkpoints
 
@@ -57,7 +59,7 @@ The integration token did not emit a push-triggered main run. Per repository CI 
 Evidence: `work-log/2026-10-01-chatgpt-m7-c3-main-integration-closure.md`.
 
 ### C4 — Physical Gate 7 continuity/session acceptance
-**PASS**
+**HISTORICAL CI #809 PASS; affected transition/editor/keyboard acceptance REOPENED**
 
 Accepted on the CI #809 production artifact through the complete two-monitor physical re-audit:
 - active task/session;
@@ -77,8 +79,10 @@ Evidence:
 
 A future failure reopens only the evidenced behavior.
 
+CI #884 now confirms outgoing/incoming coexistence in both normal and reduced motion. Full Panel action labels passed at 125%, while native frame/Notes/keyboard defects failed. Repeat the affected normal/reduced Panel↔Timer and Expand/Collapse paths on the final PR #222 executable, with continuous capture, active task/time continuity, tooltip/keyboard access and bounded editor controls. Unrelated accepted single-instance/no-op/domain behavior is preserved unless new evidence contradicts it. Rendered regression fixtures are not physical motion acceptance or source-parity proof.
+
 ### C5 — Physical Gate 12/platform acceptance and tracking closure
-**PHYSICAL RESTART PASS — final tracking/new-observation reconciliation OPEN**
+**CI #873 PHYSICAL RESTART PASS; changed-host placement/restart acceptance OPEN**
 
 Already physically accepted on CI #809:
 - mixed-DPI 100%↔125% monitor crossing;
@@ -88,7 +92,7 @@ Already physically accepted on CI #809:
 
 Saved-placement restart is now physically **PASS** on the user-requested resulting-main CI #873 automatic-logging candidate, artifact `11268220111`, EXE SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`: real active compact Timer, qualifying 328 px movement, normal tray `Quit Narro`, new process on the same EXE, and visible exact `(1640,780)` restore with the same task/time recovered paused. Both native sessions and continuous two-monitor 60 fps capture are published in [the completed run](../work-log/2026-10-03-codex-m7-ci873-c5-completed.md).
 
-Still required: final tracking/crosswalk/TODO reconciliation and disposition of the narrowly recorded additional CI #873 transient-content/label observations (`M7-OBS-20261003-01/02`). See [the visual review](../work-log/2026-10-03-codex-m7-ci873-c5-video-review.md). No further C5 physical restart is required without a relevant source change or new saved-placement failure. This is not a new general re-audit.
+Still required: final tracking/crosswalk/TODO reconciliation and the affected CI #884 findings. PR #222 changes the shadow/resizable native host configuration, which is a relevant geometry change: recheck drag/edges, 100%↔125% two-monitor crossing, topmost, tray Quit→same-EXE relaunch and safe saved-position restore on its final exact artifact. The original requested CI #873 C5 remains PASS; this is acceptance of the changed host. Host-sensitive idle CPU/RAM measurement also remains open. Preserve separate M1 Candidate B topology/performance requirements rather than inheriting an unperformed measurement.
 
 Evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`.
 

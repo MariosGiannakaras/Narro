@@ -2,11 +2,13 @@
 
 Use continuous physical recording as the primary evidence for Narro interaction and motion checks. Extract review PNGs from that recording for static detail and chat inspection. Separate screenshots are useful only for controlling a test when the live capture tool needs them; they are not a second acceptance run.
 
-The current working reference is the [CI #873 completed C5 run](../work-log/2026-10-03-codex-m7-ci873-c5-completed.md) and [video review](../work-log/2026-10-03-codex-m7-ci873-c5-video-review.md). OBS recording and application control worked concurrently on this machine.
+Current evidence includes the [CI #873 completed two-monitor C5 run](../work-log/2026-10-03-codex-m7-ci873-c5-completed.md), its [video review](../work-log/2026-10-03-codex-m7-ci873-c5-video-review.md), and the [CI #884 physical batch with full logs/video and dense motion review](../work-log/2026-10-03-codex-m7-ci884-physical-batch-evidence.md). OBS recording and application control worked concurrently on this machine.
 
 ## Recording setup
 
-OBS profile **Narro UI Validation** is installed locally. It preserves the user's **Untitled / Destop** two-monitor scene: 1920×1080 secondary at left and 2560×1080 primary at right, combined **4480×1080** at **60 fps**, no downscaling. The dedicated profile uses x264 CRF18/veryfast and MKV. Its recording directory is currently `artifacts/ui-recorder-checks/obs-quality-profile-smoke`; choose a distinct per-run evidence directory before a new test. The original Untitled profile remains available.
+OBS profile **Narro UI Validation** is installed locally, using x264 CRF18/veryfast and MKV. The original **Untitled / Destop** two-monitor collection remains preserved: 1920×1080 secondary at left and 2560×1080 primary at right, combined **4480×1080** at **60 fps**, no downscaling. CI #884 used the separate **NarroM7Validation / Destop** collection with a 1920×1080 canvas because only DISPLAY2 was then available; its output directory was `artifacts/m7-pr221-ci884/video`. OBS was stopped/closed normally afterward.
+
+Both monitors were later enumerated. Before the next physical batch, observe and configure the active collection/canvas to capture both at their real extended-desktop coordinates, choose a new per-run evidence directory, and verify the output covers both screens before app actions. Merely enumerating displays is not a two-monitor test. Do not overwrite the original user collection or assume the CI #884 single-display canvas automatically became dual-display.
 
 Record to MKV, stop normally, then remux to MP4 for distribution. Record only useful scenario batches with short state holds around actions. For detailed typography, inspect native-size crops; do not evaluate a 4480-wide desktop from a scaled chat preview. If OBS reports rendering or encoding lag, reduce load or use a 30 fps fallback and explicitly weaken motion claims.
 
@@ -15,11 +17,11 @@ OBS can start the selected profile/scene from the command line. Example PowerShe
 ```powershell
 Start-Process -FilePath 'C:\Program Files\obs-studio\bin\64bit\obs64.exe' `
   -WorkingDirectory 'C:\Program Files\obs-studio\bin\64bit' `
-  -ArgumentList '--profile', '"Narro UI Validation"', '--collection', 'Untitled', '--scene', 'Destop', '--startrecording' `
+  -ArgumentList '--profile', '"Narro UI Validation"', '--collection', 'NarroM7Validation', '--scene', 'Destop', '--startrecording' `
   -WindowStyle Hidden
 ```
 
-Check the actual active recorder and output file before app input. Stop through the verified OBS **Stop Recording** UI control; confirm it becomes **Start Recording** before closing OBS. Hidden OBS windows may require enumeration/UI Automation if Computer Use cannot return their geometry. Do not enable another control server solely to avoid observing the actual recorder state.
+The example selects the last validation collection; inspect/update its display sources and canvas before a new two-monitor recording. Check the actual active recorder and output file before app input. Stop through the verified OBS **Stop Recording** UI control; confirm it becomes **Start Recording** before closing OBS. Hidden OBS windows may require enumeration/UI Automation if Computer Use cannot return their geometry. Do not enable another control server solely to avoid observing the actual recorder state.
 
 Portable FFmpeg/ffprobe are available locally under `artifacts/ui-validation-tools/ffmpeg-portable/ffmpeg-9.0.2-essentials_build/bin/`. These ignored operational files are not repository application tooling. The tested physical desktop-region fallback uses gdigrab, cursor included, native dimensions, lossless RGB MKV and passthrough timestamps. Its measured 60 fps request delivered ~52.38 fps with gaps; 30 fps delivered ~30 fps. Do not label a requested rate as an observed rate.
 
@@ -42,13 +44,13 @@ These rows describe test coverage, not permission to implement future milestones
 
 | Surface/criterion | Evidence in this continuation | Remaining scenarios |
 | --- | --- | --- |
-| Real task, compact Timer, drag, tray Quit, exact-EXE restart, saved placement | **PASS C5**, continuous two-monitor recording + two-session native verdict | No repeat required unless relevant source changes or new failure evidence |
-| Compact→expanded→Panel→compact normal motion | **OBSERVED / REVIEW_PENDING**; clips + 126 consecutive frames | Resolve transient-content/label observations against intended source behavior; expanded→compact direct path, repeated switches, active running state |
-| Timer/Panel task/session correctness | Recovered title/time/Paused state observed | Long/two-line titles, scrolling title, populated subtasks, notes, pause/resume, switch, completion, break, expiry/extend |
+| Real task, compact Timer, drag, tray Quit, exact-EXE restart, saved placement | **CI #873 C5 PASS**, continuous two-monitor recording + two-session native verdict; CI #884 restart **NOT_RUN** | PR #222 changed-host drag/restart/restore acceptance OPEN |
+| Compact→expanded→Panel→compact normal motion | **CI #884 FAIL** transient coexistence; 360 consecutive frames reviewed across six one-second normal/reduced events; full video and six two-second clips retained | PR #222 corrected paint ownership requires exact-EXE continuous normal/reduced retest; verify no blank/staging/overlap and active running continuity |
+| Timer/Panel task/session correctness | **CI #884 PASS** Create/Skip/Pause/shared projection, subtask add/edit/reorder/complete/reopen/delete, Notes save, manual break return, completion preserving exact 13 work seconds | Retest affected Notes editor/Save bounds and long-title/tooltip controls; expiry/extend and other untested states remain explicit |
 | Planning/Home/list/task controls | Incidental visible states; **NOT a full audit** | Hover/focus without geometry shifts, menus, inline edits, schedules, recurrence, reorder/duplicate/archive/delete confirmations, empty/error states |
-| Settings and existing shortcuts/notifications | **NOT_RUN** | System/light/dark, sound states, shortcut conflicts, keyboard equivalents and notification/tray behavior on the appropriate validated candidate |
-| Reduced motion / keyboard / accessibility | **NOT_RUN** | Repeat affected animations with reduced motion; tab order, visible focus, tooltip/full-label access, disabled/error state clarity |
-| Windows multi-monitor/DPI/topology | Two monitors present; no topology change in C5 | M1 Candidate B selected-monitor B, real disconnect/reconnect C, and idle CPU/RAM D remain separate exact-candidate batches |
+| Settings and existing shortcuts/notifications | **CI #884 English shortcut PASS / Greek shortcut FAIL**; full settings/notifications audit NOT_RUN | PR #222 physical-key correction retest under English/Greek; system/light/dark, sounds/conflicts and appropriate candidate tray/notification states |
+| Reduced motion / keyboard / accessibility | **CI #884 reduced roundtrip recorded and coexistence FAIL; quick-create loading focus FAIL**; OS animation setting restored On | PR #222 loading focus, Tab/Shift-Tab, Escape/return focus and tooltip motion/keyboard access on exact EXE; rendered fixtures alone do not close physical acceptance |
+| Windows multi-monitor/DPI/topology | CI #873 dual capture; CI #884 **single DISPLAY2 at 125%**; two displays later enumerated | PR #222 native-frame 100%/125% bounds/crossing/topmost; M1 Candidate B selected-monitor B, real disconnect/reconnect C, and idle CPU/RAM D remain separate exact-candidate batches |
 | Borderless/exclusive fullscreen and performance | **NOT_RUN** in this continuation | Use the documented platform matrix; do not infer exclusive-fullscreen overlay support |
 | M9/report surfaces not present in CI #873 | **NOT_RUN / milestone dependent** | Audit when the relevant implementation is validated; do not invent current coverage |
 
