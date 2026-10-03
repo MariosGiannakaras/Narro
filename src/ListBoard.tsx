@@ -375,7 +375,6 @@ function BoardLane({
   onDrop,
   onDragEnd,
   onTaskKeyDown,
-  onMoveWithinLane,
   onMoveAcrossLane,
   onStartCreate,
   onCreateTitleChange,
@@ -427,7 +426,6 @@ function BoardLane({
   onDrop: (event: ReactDragEvent<HTMLDivElement>) => void;
   onDragEnd: () => void;
   onTaskKeyDown: (task: ListBoardTask, lane: PendingLaneKey, event: ReactKeyboardEvent<HTMLDivElement>) => void;
-  onMoveWithinLane: (task: ListBoardTask, lane: PendingLaneKey, direction: WithinLaneDirection) => void;
   onMoveAcrossLane: (task: ListBoardTask, sourceLane: PendingLaneKey, targetLane: PendingLaneKey) => void;
   onStartCreate: (lane: PendingLaneKey, insertAtTop: boolean) => void;
   onCreateTitleChange: (value: string) => void;
@@ -469,7 +467,6 @@ function BoardLane({
     && appendAfterId === null
     && !crossLaneAppend;
   const showLaneEndPlaceholder = laneDropTarget?.beforeTaskId === null && crossLaneAppend;
-  const eligibleTasks = pendingLane !== null ? manualTasks(lane) : [];
   const createEditor = editorState?.kind === "create" && editorState.lane === pendingLane
     ? editorState
     : null;
@@ -2095,7 +2092,6 @@ export function ListBoard({
               setDropTarget(null);
             }}
             onTaskKeyDown={handleTaskKeyDown}
-            onMoveWithinLane={handleMoveWithinLane}
             onMoveAcrossLane={handleMoveAcrossLane}
             onStartCreate={(lane, insertAtTop) => {
               if (!canStartCreate) return;

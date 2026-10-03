@@ -20,10 +20,12 @@ const validator = read("scripts/validate-task-card-state-captures.mjs");
 for (const [haystack, needle, label] of [
   [component, 'import { Menu, MenuItem, Tooltip } from "./overlayPrimitives";', "shared overlay primitive reuse"],
   [component, 'data-task-action-slot="reserved"', "reserved action slot marker"],
-  [component, 'data-task-actions="reorder-overflow"', "production reorder/overflow action rail"],
-  [component, 'label="Move task up"', "Move up accessible action"],
-  [component, 'label="Move task down"', "Move down accessible action"],
+  [component, 'data-task-actions="source-hover-rail"', "production reorder/overflow action rail"],
+  [component, 'label="Subtasks"', "Subtasks accessible action"],
+  [component, 'label="Notes"', "Notes accessible action"],
   [component, 'triggerLabel="Task actions"', "accessible overflow trigger"],
+  [component, 'data-task-action-position="lane-left"', "fixed lane-left action position"],
+  [component, 'data-task-action-position="lane-right"', "fixed lane-right action position"],
   [component, 'data-task-action-position="overflow"', "fixed overflow action position"],
   [component, '<MenuItem onSelect={actions.onChangeList}>Change List</MenuItem>', "Change List menu action"],
   [component, '<MenuItem onSelect={actions.onDuplicate}>Duplicate</MenuItem>', "Duplicate menu action"],
@@ -31,9 +33,10 @@ for (const [haystack, needle, label] of [
   [component, "onPointerDown={(event) => event.stopPropagation()}", "pointer action drag isolation"],
   [component, "onClick={action}", "callback-gated pointer action"],
   [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]"', "parent drag-start interactive-control guard including notes and subtasks"],
-  [board, "const handleMoveWithinLane = (", "shared within-lane action helper"],
+  [board, "const handleMoveWithinLane = (", "shared keyboard within-lane helper"],
+  [board, "const handleMoveAcrossLane = (", "shared pointer lane-move helper"],
   [board, "actions={taskActions}", "production TaskCard callback wiring"],
-  [board, "onMoveWithinLane={handleMoveWithinLane}", "BoardLane callback wiring"],
+  [board, "onMoveAcrossLane={handleMoveAcrossLane}", "source lane-arrow callback wiring"],
   [board, "onChangeListTask={requestTaskChangeList}", "Change List board wiring"],
   [board, "onDuplicateTask={(task) => void duplicateTaskFromBoard(task)}", "Duplicate board wiring"],
   [board, "await changeListBoardTask({", "persistence-first Change List mutation"],
@@ -58,6 +61,7 @@ for (const [haystack, needle, label] of [
   [css, "height: 1.25rem;", "fixed reserved action-slot baseline height"],
   [css, "position: absolute;", "overlay action rail positioning"],
   [css, "width: 6.25rem;", "fixed action-slot/rail width"],
+  [css, "grid-template-columns: repeat(5, 1rem);", "five-position compact source rail"],
   [css, "height: 1.75rem;", "fixed overlay action rail/button height"],
   [css, "opacity: 0;", "rest-state hidden action rail"],
   [css, "visibility: hidden;", "rest-state non-visible action rail"],
@@ -117,18 +121,18 @@ for (const required of ["position: relative;", "width: 6.25rem;", "height: 1.25r
   }
 }
 
-const helperStart = board.indexOf("const handleMoveWithinLane = (");
+const helperStart = board.indexOf("const handleMoveAcrossLane = (");
 const helperEnd = board.indexOf("const handleTaskKeyDown = (", helperStart);
 if (helperStart < 0 || helperEnd < 0) {
   throw new Error("Could not isolate shared within-lane action helper.");
 }
 const helper = board.slice(helperStart, helperEnd);
-if (!helper.includes("commitDrop")) {
-  throw new Error("Pointer reorder actions must reuse the validated commitDrop boundary.");
+if (!helper.includes("commitDrop(task.id, sourceLane, targetLane, null)")) {
+  throw new Error("Pointer lane actions must reuse the validated positional commitDrop boundary.");
 }
 for (const forbidden of ["reorderListBoardTask(", "moveListBoardTask(", "setSnapshot("]) {
   if (helper.includes(forbidden)) {
-    throw new Error(`Within-lane action helper must not create a parallel mutation/projection path; found ${forbidden}`);
+    throw new Error(`Direct lane action helper must not create a parallel mutation/projection path; found ${forbidden}`);
   }
 }
 

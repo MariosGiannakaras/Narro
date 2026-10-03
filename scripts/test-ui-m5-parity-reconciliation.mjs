@@ -37,7 +37,11 @@ for (const [haystack, needle, label] of [
   [boardMutation, "complete_list_board_task", "A5/A6 board completion command"],
   [tasks, "pub fn permanently_delete_task_confirmed(", "A5 confirmed permanent delete boundary"],
   [card, 'data-task-completion-control="complete"', "A6 pointer/keyboard completion control"],
-  [board, "<TaskDeleteConfirmDialog", "A5 explicit destructive confirmation"],
+  [card, 'data-task-delete-confirm="inline"', "A5 inline explicit destructive confirmation"],
+  [board, 'data-today-progress="true"', "P3-M5-01 Today done/total progress"],
+  [card, 'data-task-leading-slot="ordinal-completion"', "P3-M5-02 resting ordinal/completion slot"],
+  [card, 'data-task-actions="source-hover-rail"', "P3-M5-02 source hover rail"],
+  [shell, "await archiveListFromSettings(list.id);", "P3-M5-05 direct reversible list archive"],
   [board, "listId: editorState.listId", "A7 real owning-list identity for aggregate edit"],
   [board, "mutable: Boolean(taskSubtaskPanel.snapshot?.mutable)", "A7 aggregate subtask mutation"],
   [board, "readOnly: false", "A7 aggregate Notes mutation"],
@@ -56,6 +60,12 @@ if (main.includes("TimerSessionProjection")) {
 }
 if (main.includes("JSON.stringify")) {
   throw new Error("A9 regression: normal Main must not render diagnostic JSON.");
+}
+if (board.includes("TaskDeleteConfirmDialog")) {
+  throw new Error("P3-M5-04 regression: board task deletion must not open a centered modal.");
+}
+if (shell.includes("ListMutationConfirmDialog")) {
+  throw new Error("P3-M5-05 regression: active-list Archive must not add a second confirmation dialog.");
 }
 if (!board.includes("target.kind === \"list\"") || !board.includes("interactionReorderEnabled")) {
   throw new Error("A7 regression: aggregate edits must not enable aggregate reorder.");

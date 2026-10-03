@@ -55,18 +55,20 @@ const fixtureAction = () => undefined;
 function FixtureSurface() {
   if (mode === "archive") {
     return (
-      <>
-        <AppShell
-          fixtureMode
-          homeContent={<HomeDashboard fixtureSnapshot={activeSnapshot} fixtureHour={20} />}
-        />
-        <ListMutationConfirmDialog
-          action="archive"
-          listTitle="Study"
-          onCancel={fixtureAction}
-          onConfirm={fixtureAction}
-        />
-      </>
+      <AppShell
+        fixtureMode
+        homeContent={
+          <HomeDashboard
+            fixtureSnapshot={activeSnapshot}
+            fixtureHour={20}
+            getListCardActions={() => ({
+              onEdit: fixtureAction,
+              onDuplicate: fixtureAction,
+              onArchive: fixtureAction,
+            })}
+          />
+        }
+      />
     );
   }
 
@@ -93,4 +95,9 @@ if (!root) throw new Error("List settings fixture root is missing.");
 flushSync(() => {
   createRoot(root).render(<FixtureSurface />);
 });
+if (mode === "archive") {
+  const menuTrigger = document.querySelector<HTMLButtonElement>('[aria-label="More actions for Study"]');
+  if (!menuTrigger) throw new Error("Direct Archive fixture menu trigger is missing.");
+  flushSync(() => menuTrigger.click());
+}
 document.documentElement.dataset.listSettingsFixtureReady = "true";

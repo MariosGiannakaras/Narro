@@ -70,12 +70,14 @@ for (const theme of themes) {
     );
   }
 
-  const productionRails = dom.match(/data-task-actions="reorder-overflow"/g) ?? [];
+  const productionRails = dom.match(/data-task-actions="source-hover-rail"/g) ?? [];
   const actionReadyCards = dom.match(/data-task-actions-available="true"/g) ?? [];
   invariant(productionRails.length >= 2, `${label} normal/revealed production action rails are missing`);
   invariant(actionReadyCards.length >= 2, `${label} normal/revealed action-ready card markers are missing`);
-  invariant(dom.includes('aria-label="Move task up"'), `${label} Move task up action is missing`);
-  invariant(dom.includes('aria-label="Move task down"'), `${label} Move task down action is missing`);
+  invariant(dom.includes('aria-label="Subtasks"'), `${label} Subtasks action is missing`);
+  invariant(dom.includes('aria-label="Notes"'), `${label} Notes action is missing`);
+  invariant(dom.includes('aria-label="Move task one lane left"'), `${label} lane-left action is missing`);
+  invariant(dom.includes('aria-label="Move task one lane right"'), `${label} lane-right action is missing`);
   invariant(dom.includes('data-task-action-slot="reserved"'), `${label} reserved action slot marker is missing`);
 
   for (const body of ["inline-create", "notes-expanded", "subtasks-expanded", "paused-editable", "destructive-confirm"]) {

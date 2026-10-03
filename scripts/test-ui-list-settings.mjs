@@ -47,8 +47,8 @@ for (const [haystack, needle, label] of [
   [api, 'invoke<void>("archive_list_from_settings"', "archive frontend IPC"],
   [api, 'invoke<void>("restore_list_from_settings"', "restore frontend IPC"],
   [api, 'invoke<void>("permanently_delete_list_from_settings"', "delete frontend IPC"],
-  [shell, "onArchive: () => requestArchive(list)", "real Home Archive target"],
-  [shell, "await archiveListFromSettings(archiveTarget.id);", "persistence-first active archive"],
+  [shell, "onArchive: archivePendingId ? undefined : () => void archiveList(list)", "direct Home Archive target"],
+  [shell, "await archiveListFromSettings(list.id);", "persistence-first direct active archive"],
   [shell, 'activeDestination === "archived-lists"', "production archived-list destination"],
   [shell, "<ArchivePanel />", "production archive surface"],
   [archivePanel, "<ArchivedListsPanel", "existing archived-list management nested in archive surface"],
@@ -80,10 +80,13 @@ if (deleteCall < 0 || cleanupCall < deleteCall) {
   throw new Error("Owned icon cleanup must occur only after permanent list deletion commits successfully.");
 }
 
-const archiveAwait = shell.indexOf("await archiveListFromSettings(archiveTarget.id);");
-const archivePublish = shell.indexOf("setArchiveTarget(null);", archiveAwait);
+const archiveAwait = shell.indexOf("await archiveListFromSettings(list.id);");
+const archivePublish = shell.indexOf("setHomeRefreshKey((value) => value + 1);", archiveAwait);
 if (archiveAwait < 0 || archivePublish < archiveAwait) {
   throw new Error("Active-list archive UI must publish success only after persistence resolves.");
+}
+if (shell.includes("ListMutationConfirmDialog") || shell.includes("confirmArchive")) {
+  throw new Error("Reversible active-list Archive must apply directly without a second Narro confirmation.");
 }
 
 const restoreAwait = panel.indexOf("await restoreListFromSettings(list.id);");
