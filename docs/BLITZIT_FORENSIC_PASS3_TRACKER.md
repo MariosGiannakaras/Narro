@@ -24,9 +24,9 @@ Do not use the older 19/19 completion counters as Pass-3 counters. Those remain 
 ### Video corpus
 
 - MP4/SRT pairs: **19/19**
-- Full MP4s completed at Pass-3 depth: **17/19**
-- Partial Pass-3 sequences: **1** — VE-018 planning-board excerpt
-- Full MP4s still open: **2**
+- Full MP4s completed at Pass-3 depth: **18/19**
+- Partial Pass-3 sequences outside the mapped 19-video corpus: **1** — unmapped user-supplied 9.344 s planning-board clip
+- Full MP4s still open: **1**
 - Implementation reconciliation: **DEFERRED**
 
 ## Pass-3 status vocabulary
@@ -127,12 +127,12 @@ Queue order is deliberate: calibrate on the highest interaction-density current 
 | 15 | VE-002 | EST in task name | 01:21.633 / 30 | **SOURCE_COMPLETE** | keystroke→parsed EST feedback, title normalization, create/commit timing |
 | 16 | VE-001 | Product explainer | 02:19.088 / 30 | **SOURCE_COMPLETE** | montage state catalog; explicitly classify cuts as timing-invalid |
 | 17 | VE-004 | Getting Started | 04:09.870 / 60 | **SOURCE_COMPLETE** | Home→list→board→Focus sequence; isolate unique UI from duplicated tutorials |
-| 18 | VE-018 | Daniel planning workflow | 03:33.090 / 60 | **PARTIAL** | 9.344 s planning excerpt deep-reviewed; full MP4 still required, including prioritization and Focus/break remainder |
+| 18 | VE-018 | Daniel planning workflow | 03:33.090 / 60 | **SOURCE_COMPLETE** | full Personal-list planning / Today priority / Focus / break / success / reconciled board source complete; separate 9.344 s clip is unmapped and not VE-018 |
 | 19 | VE-019 | Oct Update | 02:52.989 / 30 | OPEN | light-theme board, Floating subtask expansion, historical preference/theme states |
 
-## VE-018 partial checkpoint
+## Unmapped user-supplied planning-clip checkpoint
 
-The 9.344 s user-supplied excerpt reached Pass-3 depth and established:
+The separate 9.344 s user-supplied planning clip reached Pass-3 depth and established:
 - four cross-lane drags with positional insertion;
 - source/destination reflow;
 - stable visible ordinals through the sequence;
@@ -143,10 +143,10 @@ The 9.344 s user-supplied excerpt reached Pass-3 depth and established:
 - anchored Blitz CTA;
 - CTA interaction followed by board fade.
 
-This is **partial evidence for VE-018**, not full-source completion.
+**Source-lineage correction:** the task identities and aggregate semantics do not match the repository VE-018 MP4. Treat this as a separate direct source with **UNMAPPED / UNKNOWN lineage**, not as VE-018 evidence. Preserve its findings until provenance/version is established.
 
 ## Exact next action
 
-Continue with **VE-018 — `Daniel's Productive Planning Workflow with Blitzit.mp4`**.
+Continue with **VE-019 — `Oct Update Light mode and more!🚀.mp4`**.
 
 VE-003, VE-005, VE-013, VE-014, VE-016 and VE-017 are SOURCE_COMPLETE from their actual full MP4s.
