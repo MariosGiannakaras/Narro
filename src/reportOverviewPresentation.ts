@@ -24,6 +24,7 @@ export type ReportCalendarMonth = {
 };
 
 const DATE_KEY = /^(\d{4})-(\d{2})-(\d{2})$/;
+const TIME_KEY = /^(\d{2}):(\d{2})$/;
 
 function dateParts(dateKey: string): { year: number; month: number; day: number } {
   const match = DATE_KEY.exec(dateKey);
@@ -107,9 +108,19 @@ export function reportDateKeyInTimeZone(now: Date, timeZone: string): string {
   ].join("-");
 }
 
-export function zonedReportDateStartIso(dateKey: string, timeZone: string): string {
+export function zonedReportDateTimeIso(
+  dateKey: string,
+  timeKey: string,
+  timeZone: string,
+): string {
   const { year, month, day } = dateParts(dateKey);
-  const desiredWallClock = Date.UTC(year, month - 1, day, 0, 0, 0);
+  const timeMatch = TIME_KEY.exec(timeKey);
+  if (!timeMatch) throw new Error(`Invalid report time key: ${timeKey}`);
+  const hour = Number(timeMatch[1]);
+  const minute = Number(timeMatch[2]);
+  if (hour > 23 || minute > 59) throw new Error(`Invalid report time key: ${timeKey}`);
+
+  const desiredWallClock = Date.UTC(year, month - 1, day, hour, minute, 0);
   let candidate = desiredWallClock;
 
   for (let index = 0; index < 4; index += 1) {
@@ -127,7 +138,49 @@ export function zonedReportDateStartIso(dateKey: string, timeZone: string): stri
     candidate += correction;
   }
 
+  const resolved = zonedParts(candidate, timeZone);
+  if (
+    resolved.year !== year
+    || resolved.month !== month
+    || resolved.day !== day
+    || resolved.hour !== hour
+    || resolved.minute !== minute
+  ) {
+    throw new Error(`Report local time does not exist in ${timeZone}: ${dateKey} ${timeKey}`);
+  }
   return new Date(candidate).toISOString();
+}
+
+export function zonedReportDateStartIso(dateKey: string, timeZone: string): string {
+  return zonedReportDateTimeIso(dateKey, "00:00", timeZone);
+}
+
+export function reportTimestampInputParts(
+  timestamp: string,
+  timeZone: string,
+): { dateKey: string; timeKey: string } {
+  const parts = zonedParts(new Date(timestamp).getTime(), timeZone);
+  return {
+    dateKey: [
+      parts.year.toString().padStart(4, "0"),
+      parts.month.toString().padStart(2, "0"),
+      parts.day.toString().padStart(2, "0"),
+    ].join("-"),
+    timeKey: [
+      parts.hour.toString().padStart(2, "0"),
+      parts.minute.toString().padStart(2, "0"),
+    ].join(":"),
+  };
+}
+
+export function reportSessionDurationSeconds(startedAt: string, endedAt: string): number | null {
+  const startMs = Date.parse(startedAt);
+  const endMs = Date.parse(endedAt);
+  if (!Number.isFinite(startMs) || !Number.isFinite(endMs) || endMs <= startMs) return null;
+  const seconds = Math.round((endMs - startMs) / 1000);
+  return Number.isSafeInteger(seconds) && seconds > 0 && seconds <= 0xFFFF_FFFF
+    ? seconds
+    : null;
 }
 
 export function reportRangeRequestBounds(range: ReportDateRange, timeZone: string) {
