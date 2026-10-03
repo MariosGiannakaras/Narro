@@ -146,6 +146,6 @@ This is **partial evidence for VE-018**, not full-source completion.
 
 ## Exact next action
 
-Continue with **VE-010 — `Blitzit Tutorial How to Use Notes.mp4`**.
+Continue with **VE-015 — `Blitzit Tutorial Sessions Walkthrough.mp4`**.
 
 VE-003, VE-005, VE-013, VE-014, VE-016 and VE-017 are SOURCE_COMPLETE from their actual full MP4s.
