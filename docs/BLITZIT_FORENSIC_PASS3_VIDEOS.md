@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 9/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 10/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -2345,23 +2345,258 @@ Static corroboration:
 # Queue 10 — VE-015 — Sessions Walkthrough
 
 Source: `Blitzit Tutorial Sessions Walkthrough.mp4`  
-Metadata: **02:56.216, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **02:56.167 video stream / ~02:56.216 container, 1920×1080, 60 fps, 10,570 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:18–00:01:26 — overview/filters;
-- 00:01:28–00:02:21 — edit/delete/add;
-- 00:02:22–00:02:39 — export.
+Inspection method:
+- complete source reviewed end-to-end;
+- 5 s whole-video contact scan;
+- dense 1 s sampling through filters, chronological rows, inline editing, task-detail modal, Add Session and export sections;
+- 2–5 fps micro-review around inline session editing and row overflow→detail transition;
+- full-resolution keyframes used to reconcile visible summary arithmetic before/after mutations;
+- transcript used only for filter/feature claims not directly executed in pixels.
 
-Pass-3 focus:
-- filter open/close;
-- task/session detail selection;
-- row field inline edit;
-- save/cancel affordances;
-- overflow delete;
-- Add Session dialog;
-- task-picker interactions;
-- export label/state and version conflict with current direct CSV screenshot.
+## VE-015 chronological state map
+
+### 00:00:00–~00:00:20 — Reports shell → Sessions tab
+
+**VIDEO-DIRECT**
+- tutorial opens in Reports and moves from `Overview` to `Sessions`;
+- Sessions tab carries a **Beta** badge;
+- same Reports shell retains Back navigation and top-right app utility controls.
+
+### ~00:00:20–00:00:43 — Sessions baseline anatomy
+
+**VIDEO-DIRECT**
+- top actions:
+  - **`+ Add Session`**;
+  - **`Export PDF`** in this source version.
+- filter row:
+  - list scope trigger showing stacked badges + `All Lists`;
+  - **`Hide Break sessions`**;
+  - date-range trigger **`Nov 27,2025 - Dec 04,2025`**.
+- summary cards:
+  - **Total Time — 14hr 22min**;
+  - **Total Tasks — 39**;
+  - **Total Sessions — 22**.
+- sessions are grouped chronologically by date headings.
+
+**ROW ANATOMY-DIRECT**
+Each session row visibly contains:
+- task title;
+- list badge/name;
+- session ordinal, e.g. `Session 03`;
+- calendar/date;
+- start time;
+- arrow;
+- end time;
+- computed duration;
+- overflow ellipsis.
+
+### ~00:00:43–00:00:51 — list filter
+
+**VIDEO-DIRECT**
+- All Lists opens a compact anchored dropdown;
+- rows carry checkmarks + list badges/names;
+- visible entries include `All Lists`, `Blitzit` variants, `Bug tracker`, `ClickUp` and further lists below the viewport;
+- the control presents multi-selection/checkmark grammar rather than a separate filter page.
+
+**EVIDENCE LIMIT**
+- the source opens/explores the selector but does not hold a clean before/after committed subset long enough to assign exact summary arithmetic to a specific list choice;
+- narration that totals update with filters is therefore not converted into fabricated per-list numbers.
+
+### ~00:00:51–00:00:55 — break-session filter
+
+**VIDEO-DIRECT**
+- `Hide Break sessions` is a compact standalone filter/action in the Sessions header;
+- it uses a small gamepad/break-style icon matching break semantics elsewhere.
+
+**TRANSCRIPT-CLAIM**
+- narration states break sessions can be hidden/shown;
+- the video does not provide a sufficiently isolated committed before/after break-only row set for a numeric requirement.
+
+### ~00:00:54–00:01:04 — date-range picker
+
+**VIDEO-DIRECT**
+- date-range trigger opens the same two-month range picker family seen in current screenshots;
+- left preset column:
+  - Today;
+  - Yesterday;
+  - This week;
+  - Last 30 days;
+  - Last 60 days;
+  - Last 90 days.
+- months shown are **Nov 2025** and **Dec 2025**;
+- range endpoints are visually filled and the between-range dates use connected muted highlighting;
+- bottom actions are long outlined `Cancel` and gradient `Apply`.
+
+**STATIC CORROBORATION**
+- current SS-C02 has the same date-range architecture, with a different date/month instance.
+
+### ~00:01:04–00:01:28 — chronological session list
+
+**VIDEO-DIRECT**
+- source scrolls through date-grouped rows;
+- examples show multiple sessions on the same task and session ordinals that are task-relative, not global row indices;
+- visible durations include minute-only and multi-hour values;
+- row order is reverse chronological within the selected reporting period.
+
+### ~00:01:28–00:01:49 — direct inline field editing
+
+**VIDEO-DIRECT / ARITHMETIC-DIRECT**
+- `Email newsletter` / Session 03 initially shows:
+  - date **04 Dec**;
+  - start **12:39 PM**;
+  - end **1:51 PM**;
+  - duration **1hr 11min**.
+- clicking the end-time field converts only that field to an inline editor with bright accent border;
+- a green check appears as explicit commit affordance;
+- end time is changed to **2:51 PM**;
+- after commit:
+  - duration becomes **2hr 11min**;
+  - toast appears **`Session updated!`**.
+
+**SUMMARY ARITHMETIC-DIRECT**
+- before the edit:
+  - Total Time **14hr 22min**;
+  - Total Tasks **39**;
+  - Total Sessions **22**.
+- after increasing this single session by exactly one hour:
+  - Total Time becomes **15hr 22min**;
+  - Total Tasks stays **39**;
+  - Total Sessions stays **22**.
+- this directly proves summary totals recompute from session-duration edits.
+
+### ~00:01:49–00:01:55 — main-row overflow
+
+**VIDEO-DIRECT**
+- session-row ellipsis opens a compact menu with:
+  1. **Edit**;
+  2. **Delete** in red.
+- choosing Edit opens a task-level session detail overlay.
+
+### ~00:01:53–00:02:04 — task session-detail overlay
+
+**VIDEO-DIRECT**
+- centered/dimmed overlay is titled **`Email newsletter`**;
+- shows:
+  - `List` + Blitzit badge;
+  - **`+ Add Session`**;
+  - **3 Sessions**;
+  - aggregate **2hr 13min**.
+- contained rows:
+  - Session 03 — 04 Dec — 12:39 PM → 2:51 PM — 2hr 11min;
+  - Session 02 — 02 Nov — 7:19 PM → 7:20 PM — 0min;
+  - Session 01 — 02 Nov — 7:15 PM → 7:16 PM — 1min.
+- aggregate reconciles: 2hr11 + 0min + 1min ≈ displayed 2hr13min under source minute-rounding behavior.
+
+**DETAIL-ROW MENU**
+- each session row has its own ellipsis;
+- opened detail-row menu exposes destructive **Delete**.
+
+**ACTION LIMIT**
+- Delete availability is directly shown;
+- this source does not hold a clean committed delete result long enough to derive post-delete summary arithmetic, so deletion outcome remains unmeasured here.
+
+### ~00:02:05–00:02:20 — Add Session flow
+
+**VIDEO-DIRECT**
+- top-level `+ Add Session` opens a compact anchored/overlay card;
+- initial task selector expands to:
+  - search field **`Select tasks...`**;
+  - group heading **`Recent Tasks`**;
+  - task rows with list badges.
+- visible recent examples include:
+  - `Project roadmap video`;
+  - `Prepare weekly report`;
+  - `Launch UGC campaign`;
+  - `Repair car`;
+  - `Order a gift for Alex`.
+
+**VIDEO-DIRECT**
+- selecting `Project roadmap video` expands the Add Session form;
+- visible values:
+  - date **04, Dec**;
+  - start **3:54 PM**;
+  - end **5:54 PM**;
+  - computed duration **2hr**;
+  - `Add Session` commit button.
+
+### ~00:02:20–00:02:24 — Add Session commit and arithmetic
+
+**VIDEO-DIRECT**
+- new row appears at the top of 04 Dec:
+  - `Project roadmap video`;
+  - Content list badge;
+  - **Session 04**;
+  - 04 Dec;
+  - 3:54 PM → 5:54 PM;
+  - **2hr**.
+- toast appears: **`Session added successfully!`**.
+
+**SUMMARY ARITHMETIC-DIRECT**
+- immediately before add, after the earlier edit:
+  - Total Time **15hr 22min**;
+  - Total Tasks **39**;
+  - Total Sessions **22**.
+- after adding the 2hr session:
+  - Total Time **17hr 22min**;
+  - Total Tasks remains **39**;
+  - Total Sessions becomes **23**.
+- therefore:
+  - session count increments exactly once;
+  - total tracked time increases by the new session duration;
+  - adding another session to an already-known task does not increase distinct Total Tasks.
+
+### ~00:02:24–00:02:40 — post-add list state
+
+**VIDEO-DIRECT**
+- newly added session remains first in the selected date group;
+- existing rows preserve their values;
+- summary remains 17hr22 / 39 / 23.
+
+### ~00:02:24–00:02:40 — Export PDF source-version state
+
+**VIDEO-DIRECT**
+- source-version top-right button reads **`Export PDF`**;
+- hovering it exposes tooltip **`coming soon`**;
+- no downloadable PDF is produced in this tutorial.
+
+**VERSION-PRECEDENCE**
+- narration also says PDF export will be available soon;
+- current supplied v2.6.69 screenshot SS-C14 instead shows **`Export .csv`**;
+- for current UI parity, SS-C14 is stronger/newer direct evidence and supersedes this older Beta-era Export PDF label;
+- VE-015 remains valuable historical evidence of Sessions interaction/data semantics, not the current export-format target.
+
+### ~00:02:40–00:02:56.17 — recap/outro
+
+**NON-PARITY**
+- tutorial summary/outro; no additional unique Sessions state.
+
+## VE-015 source synthesis
+
+High-confidence behavior/anatomy established:
+- Sessions is a Beta tab inside Reports;
+- baseline summary in the source is 14hr22 / 39 tasks / 22 sessions;
+- filters are list scope, Hide Break sessions and date range;
+- date-range picker uses presets + two-month custom range + Cancel/Apply;
+- session rows are date-grouped and expose task/list/session number/date/start/end/duration/ellipsis;
+- individual session fields are inline-editable with accent editor + green check commit;
+- changing Email newsletter end time by +1h changes row duration and Total Time by exactly +1h, with tasks/session count unchanged;
+- main row overflow = Edit / Delete;
+- Edit opens a task-level modal containing all sessions and aggregate task-session time;
+- detail rows expose their own Delete menu;
+- Add Session has searchable/recent task selection, date/start/end/duration and commit;
+- adding a 2hr session increments Total Sessions 22→23 and Total Time 15hr22→17hr22 while Total Tasks stays 39;
+- source-version Export PDF is visibly `coming soon`;
+- current screenshot evidence supersedes Export PDF with Export .csv for current v2.6.69;
+- no implementation conclusion is made in this analysis track.
+
+Static corroboration:
+- SS-C14 current Sessions dashboard shell/summary and current CSV export label;
+- SS-C22 current session-detail inline edit;
+- SS-H16 older populated Sessions rows;
+- SS-H17 Add Session searchable task picker.
 
 ---
 
