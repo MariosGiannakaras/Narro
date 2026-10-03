@@ -679,13 +679,10 @@ pub fn export_report_sessions_csv(
         export_range_date(&range.end_at)
     );
     let connection = app_database(&app_handle)?;
-    let payload: ReportSessionsPayload = load_sessions_report(
-        &connection,
-        range,
-        show_break_sessions,
-    )
-    .map(Into::into)
-    .map_err(map_sessions_report_error)?;
+    let payload: ReportSessionsPayload =
+        load_sessions_report(&connection, range, show_break_sessions)
+            .map(Into::into)
+            .map_err(map_sessions_report_error)?;
     let csv = sessions_csv(&payload);
     let download_directory = app_handle.path().download_dir().map_err(|error| {
         CommandError::new(
