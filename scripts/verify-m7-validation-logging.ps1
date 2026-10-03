@@ -68,45 +68,20 @@ try {
     if ($session.executableName -ine "narro-m7-validation.exe") {
         throw "session.json recorded the wrong executable name: $($session.executableName)"
     }
-    if ([string]::IsNullOrWhiteSpace($session.executableFingerprint) -or $session.executableFingerprint -notmatch '^fnv1a64:[0-9a-f]{16}:bytes:[0-9]+
-    if ($session.privacy.localOnly -ne $true -or $session.privacy.uploadsAutomatically -ne $false) {
-        throw "session.json does not preserve the local-only/no-upload validation contract."
-    }
-    if ($session.privacy.recordsTaskContent -ne $false -or $session.privacy.recordsNotes -ne $false -or $session.privacy.recordsListNames -ne $false) {
-        throw "session.json privacy contract permits user-content capture."
-    }
-
-    $result = Get-Content -LiteralPath $resultPath -Raw | ConvertFrom-Json
-    if ($result.test -ne "M7-C5-saved-placement-restart" -or $result.status -ne "PENDING") {
-        throw "Initial M7 C5 evaluator result is not the expected PENDING state."
-    }
-
-    Write-Host "M7 automatic validation logging smoke: PASS"
-    Write-Host "  executable: $exe"
-    Write-Host "  session: $sessionName"
-    Write-Host "  initial evaluator status: $($result.status)"
-}
-finally {
-    if ($null -ne $process) {
-        try {
-            $process.Refresh()
-            if (-not $process.HasExited) {
-                Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
-                Wait-Process -Id $process.Id -Timeout 10 -ErrorAction SilentlyContinue
-            }
-        }
-        catch {
-            Write-Warning "Could not fully stop M7 validation smoke process: $($_.Exception.Message)"
-        }
-    }
-}
-) {
+    if (
+        [string]::IsNullOrWhiteSpace($session.executableFingerprint) -or
+        $session.executableFingerprint -notmatch '^fnv1a64:[0-9a-f]{16}:bytes:[0-9]+$'
+    ) {
         throw "session.json is missing the byte-level validation executable fingerprint."
     }
     if ($session.privacy.localOnly -ne $true -or $session.privacy.uploadsAutomatically -ne $false) {
         throw "session.json does not preserve the local-only/no-upload validation contract."
     }
-    if ($session.privacy.recordsTaskContent -ne $false -or $session.privacy.recordsNotes -ne $false -or $session.privacy.recordsListNames -ne $false) {
+    if (
+        $session.privacy.recordsTaskContent -ne $false -or
+        $session.privacy.recordsNotes -ne $false -or
+        $session.privacy.recordsListNames -ne $false
+    ) {
         throw "session.json privacy contract permits user-content capture."
     }
 
@@ -118,6 +93,7 @@ finally {
     Write-Host "M7 automatic validation logging smoke: PASS"
     Write-Host "  executable: $exe"
     Write-Host "  session: $sessionName"
+    Write-Host "  executable fingerprint: $($session.executableFingerprint)"
     Write-Host "  initial evaluator status: $($result.status)"
 }
 finally {
