@@ -17,12 +17,12 @@ The runtime implementation baseline compared by the reconciliation is merged `ma
 
 **No `SOURCE_PARITY_PASS` is claimed by this reconciliation.** Narro-owned visual fixtures, screenshot regressions, automated CI and physical Windows PASS are separate evidence classes from direct canonical Blitzit comparison.
 
-Live GitHub state at the last synchronization:
-- no open pull requests;
-- PR #226 is merged;
-- PR #226 exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 / run `37151575297`;
-- all **22** files changed by PR #226 have identical blob SHAs on merged runtime `main` `f53a850f...`, so that exact-head validation applies to the merged changed files;
-- resulting-main Windows CI #917 / run `37157907335` PASSed all gates on merged source `f53a850f51375f15a0b2b4efe106da95e30b6e73`, closing the PR #226 Sessions validation chain.
+Live GitHub state at the 2026-10-04 coordination re-audit:
+- **PR #227** (`fix/m5-pass3-parity-corrections`) is the active M5 implementation line for `P3-M5-01..05`; exact head at the audit checkpoint: `d40cd9edec6456bc25dafb792ad3ab29876abe99`;
+- Windows CI #927 / run `37161179503` has been started for that exact head. Its live result must be inspected before merge; this handoff does not pre-claim PASS;
+- PR #227 does **not** touch authoritative tracking/process Markdown, so current `main` coordination truth must be preserved when it later merges;
+- do **not** create a competing M5 branch while PR #227 remains the active line;
+- PR #226 is merged; its exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 / run `37151575297`, and resulting-main Windows CI #917 / run `37157907335` PASSed all gates.
 
 Current compact progress:
 
@@ -98,20 +98,26 @@ Keep open:
 - running-session Notes/title edit continuity dedicated regression;
 - final anti-regression, lifecycle, DPI/topology, accessibility and release-candidate gates already recorded in `TODO.md`.
 
+## CURRENT OWNERSHIP / CONCURRENCY
+
+User-directed ownership is now explicit and binding until newer repository truth changes it:
+- **M5/M6 implementation line:** continue active PR #227 through exact-head CI, guarded merge and resulting-main reconciliation; then implement the routed M6 `P3-M6-01..03` correction slice. This line **stops after validated/merged M6** and must not take M7, M9 or M10.
+- **M7 line:** the existing local Windows/Codex owner retains the entire M7 closure, including `P3-M7-01`, `P3-M7-02`, the PR #225 exact-EXE physical observations, and the M1/M6/M8 physical gates that depend on the same replacement `focusSurface` implementation. Do not create a parallel M7 replacement.
+- After those lines converge on authoritative `main`, the continuing Codex/release line may close the remaining M1–M9 obligations (including M9 Overview PDF and Reports/Sessions source/physical parity) and may enter M10 **only after the hard M10 entry gate in `AGENT_WORKFLOW.md` / `TODO.md` is proven clear**.
+
 ## NEXT AGENT ACTION
 
-Unless live repository ownership changes first, start a **single coherent M5 parity-correction branch from latest `main`** for **P3-M5-01 through P3-M5-05**. Inspect current M5 code/tests and applicable repository rules, implement only these evidence-backed deltas, add/update narrow regressions/visual fixtures, run the narrowest relevant preflight first, then authoritative Windows CI and guarded merge according to the repository workflow.
+For the M5/M6 implementation owner: resume **PR #227**, not a new branch. Inspect its current exact head and Windows CI #927 result. If CI fails, fix only the evidenced cause on the same coherent M5 line. If exact-head CI passes, perform the required guarded merge/resulting-main validation and reconcile tracking, then continue with the routed M6 `P3-M6-01..03` slice from latest `main`. Stop implementation after validated/merged M6 and leave a durable handoff.
+
+For the M7/local-Windows owner: continue the existing M7 physical/source-parity line independently, including `P3-M7-01/02`; also close the still-reopened M1/M6/M8 physical acceptance that depends on the same final replacement build where the evidence can be batched safely.
 
 Do **not**:
 - reopen the raw Blitzit corpus unless a concrete ambiguity cannot be resolved from canonical records;
-- create a competing M7 physical solution while the PR #225 exact-EXE validation line remains active;
+- create competing M5 or M7 branches while their current ownership lines are active;
 - replace or redo merged PR #226 Sessions work;
 - treat Narro-owned screenshots as Blitzit parity evidence;
-- defer the M5/M6/M7 implementation gaps to M10 merely because M10 contains final visual revalidation.
-
-The PR #225 exact-EXE physical owner may continue that observation batch independently because its result does not determine the implementation of the source-evidenced M5 gaps above. If a new physical result lands first, reconcile only the affected validation rows; it does not erase the source-parity queue.
-
-After the M5 batch is validated/merged, continue the routed M6 then M7 source corrections in milestone order unless newer authoritative repository state changes ownership or priority.
+- defer known M5/M6/M7 implementation gaps to M10;
+- begin or count M10 while any required M1–M9 implementation, physical acceptance, source-parity correction/comparison gate or earlier-milestone PR remains open.
 
 ## INVARIANTS
 
