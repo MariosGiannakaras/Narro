@@ -1350,3 +1350,15 @@ The exact `12707c0` binary was then physically recorded at 60 fps with Windows a
 - The transition sequence uses one PowerShell process to avoid missing the ~250ms native motion to process startup overhead.
 - This checkpoint is **NOT VALIDATED YET**. CI #732 is running on parent head `553a88f0...`; exact-head CI for `fe5224f...` is still required, followed by artifact PNG/metadata inspection.
 - Physical Gate 7/Gate 12 remain open and unavailable.
+
+## 2026-10-04 coordination audit — release gate and dormant branch dispositions
+
+A repository-wide coordination audit found no evidence that a major validated product feature was silently lost, but it corrected continuation hazards that could cause duplicate or premature work.
+
+- M10 is now a hard release-candidate entry gate: it may not start or advance while any required M1–M9 implementation, reopened acceptance item, `FIX_NOW` route, physical/manual Windows gate, milestone-level source-parity correction/comparison gate, or earlier-milestone implementation PR remains open.
+- The current user-directed concurrency split is durable in `HANDOFF.md`: the active PR #227 line owns M5 then M6 only; the existing local Windows/Codex line owns M7 and its dependent replacement-host physical acceptance. The later release line resumes from authoritative `main` only after those lines reconcile.
+- The Final Comprehensive Review consumes the already-complete 19/19 video Pass-3, 46/46 screenshot/calibration coverage and 8/8 visual-system synthesis. It does not trigger a second broad forensic pass; raw source is reopened only for a specific ambiguity/conflict, an implementation-exposed uncaptured detail, or direct final source verification.
+- Long-diverged `brand/pure-vector-runtime` is **historical M10 branding evidence/implementation seed, not a continuation branch**. Its dedicated app-icon/tray-symbol/branding-verifier ideas must be re-evaluated from current `main`; never merge that old branch wholesale.
+- Long-diverged `m1/diagnostic-event-trace` and `m1/diagnostic-event-trace-v2` are **historical diagnostic experiments, not current Candidate-B prerequisites**. Current M1 B/C/D procedures do not require resurrecting them; reuse only if new physical evidence demonstrates a concrete diagnostic need.
+- Other audited stale branches are superseded/duplicate/historical lines or contain no unique current work; their exact disposition is recorded in the immutable 2026-10-04 coordination-audit work log. Branch deletion was intentionally not performed as part of this documentation-only audit.
+
