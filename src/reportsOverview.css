@@ -756,3 +756,30 @@ html[data-reports-fixture-mode="lower"] .reports-overview__chart-card {
     transition-duration: 1ms;
   }
 }
+
+
+.reports-overview--state {
+  min-height: min(520px, calc(100vh - 160px));
+  display: grid;
+  place-content: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.reports-overview--state code,
+.reports-overview__runtime-error {
+  color: var(--color-text-secondary);
+}
+
+.reports-overview__runtime-error {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+}
+
+.reports-overview__export:disabled,
+.reports-overview__tabs button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}

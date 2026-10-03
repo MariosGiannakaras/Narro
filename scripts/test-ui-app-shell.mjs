@@ -8,6 +8,7 @@ function requireText(haystack, needle, label) {
 }
 
 const shell = read("src/AppShell.tsx");
+const reports = read("src/ReportsOverview.tsx");
 const css = read("src/appShell.css");
 const app = read("src/App.tsx");
 
@@ -21,6 +22,8 @@ for (const [haystack, needle, label] of [
   [shell, 'label="Archived lists"', "archive entry"],
   [shell, 'label="Home"', "Home primary destination"],
   [shell, 'label="Reports"', "Reports primary destination"],
+  [shell, '<ReportsOverview onBack={() => setActiveDestination("home")} />', "production Reports destination"],
+  [reports, 'getReportOverview({', "typed production Reports API load"],
   [shell, 'label="Search"', "Search utility destination"],
   [shell, 'label="Settings"', "Settings utility destination"],
   [shell, 'aria-current={active ? "page" : undefined}', "active-page semantics"],

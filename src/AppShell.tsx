@@ -15,6 +15,7 @@ import {
 } from "./listEditorApi";
 import { ListMutationConfirmDialog } from "./ListMutationConfirmDialog";
 import { archiveListFromSettings } from "./listSettingsApi";
+import { ReportsOverview } from "./ReportsOverview";
 import { SearchPalette, type SearchPaletteMode } from "./SearchPalette";
 import {
   FOCUS_IN_APP_SHORTCUT_EVENT,
@@ -369,6 +370,8 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
               <ListBoard target={boardTarget} onTargetChange={openBoardTarget} />
             ) : activeDestination === "home" ? (
               runtimeHome
+            ) : activeDestination === "reports" ? (
+              <ReportsOverview onBack={() => setActiveDestination("home")} />
             ) : activeDestination === "archived-lists" ? (
               <ArchivePanel />
             ) : activeDestination === "settings" ? (
