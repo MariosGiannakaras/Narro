@@ -1,6 +1,6 @@
 # Blitzit Forensic Pass 3 — Video Queue and Records
 
-Status: **ACTIVE — 13/19 full MP4s complete at Pass-3 depth**
+Status: **ACTIVE — 14/19 full MP4s complete at Pass-3 depth**
 
 Date: 2026-10-02
 
@@ -3402,19 +3402,235 @@ No implementation conclusion is made in this analysis track.
 # Queue 14 — VE-008 — Recurring Task Setup
 
 Source: `Blitzit Tutorial How to Set Up Recurring Tasks.mp4`  
-Metadata: **02:46.905, 1920×1080, 60 fps**  
-Status: **OPEN**
+Verified metadata: **02:46.833 video stream / ~02:46.905 container, 1920×1080, 60 fps, 10,010 video frames**  
+Pass-3 status: **SOURCE_COMPLETE / IMPLEMENTATION_DEFERRED**
 
-Prior windows:
-- 00:00:26–00:01:53 — presets/materialization;
-- 00:02:00–00:02:25 — update/remove.
+Inspection method:
+- complete source reviewed end-to-end;
+- 5 s whole-video contact scan;
+- dense 2 s sampling from initial Schedule entry through parent/child materialization and later child/parent management;
+- full-resolution keyframes for initial board arithmetic, recurrence preset state, materialized parent/children, child completion, child Update Schedule, child schedule removal and parent Remove Recurring;
+- 10 fps micro review around the final child-schedule/parent-recurring removals;
+- transcript used only to separate future-generation cadence claims from directly materialized task evidence.
 
-Pass-3 focus:
-- recurring parent visual state;
-- generated child visual state;
-- scheduled grouping/counts;
-- weekday/date metadata;
-- update/remove and child coexistence/detachment evidence.
+## VE-008 chronological state map
+
+### 00:00:00–~00:00:26 — ordinary board baseline
+
+**VIDEO-DIRECT**
+- list is `TYAMA`;
+- header reports **9 pending tasks, Est: 0min**;
+- This Week shows **0/6 Done**;
+- Today shows **0/1 Done**;
+- ordinary task `Check emails` is one of the six This Week tasks;
+- Backlog has three ordinary tasks and no recurring-task subsection yet.
+
+This gives a clean pre-recurrence baseline for later identity/count arithmetic.
+
+### ~00:00:26–00:00:33 — ordinary task → Schedule
+
+**VIDEO-DIRECT**
+- hovering `Check emails` exposes the normal board action rail;
+- its overflow uses the ordinary Schedule / Change list / Duplicate / Delete grammar;
+- selecting Schedule opens the standard date picker.
+
+### ~00:00:33–00:00:37 — selected date
+
+**VIDEO-DIRECT**
+- calendar month: **June 2025**;
+- selected date: **Monday, June 16, 2025**;
+- selected 16 uses the bright cyan/lime circular treatment;
+- top quick-date shortcuts and Cancel / Next remain consistent with VE-007.
+
+### ~00:00:37–00:01:11 — recurrence preset panel
+
+**VIDEO-DIRECT**
+- second scheduler step header shows:
+  - `< PICK DATE`;
+  - **Mon, Jun 16, 2025**;
+  - `Add Time` with `+ ADD`;
+  - `Recurring schedule`.
+- exact visible preset list:
+  1. `No Repeat`
+  2. `Every day`
+  3. `Every weekday`
+  4. `Every Monday`
+  5. `Every month on 16th`
+- No Repeat is the initial selected state;
+- tutorial points through the preset options while explaining their intended cadence;
+- **Every weekday** is the preset actually selected before commit.
+
+**VERSION/SEMANTIC NOTE**
+- the weekday-specific and month-specific labels are dynamically derived from the selected Monday/16th date;
+- this is the same date-derived preset grammar independently seen in VE-007.
+
+### ~00:01:11–00:01:16 — Every weekday commit
+
+**VIDEO-DIRECT**
+- `Every weekday` shows the selected checkmark;
+- Schedule is committed;
+- scheduler closes and returns to the board.
+
+### ~00:01:16–00:01:33 — parent + generated children materialize
+
+**VIDEO-DIRECT**
+- the original ordinary `Check emails` disappears from the ordinary This Week stack;
+- Backlog gains a dedicated **`Recurring tasks`** subsection;
+- parent card:
+  - title **`Check emails`**;
+  - recurrence label **`Weekdays`**;
+  - loop/recurring icon;
+  - list badge;
+  - EST/Taken slots.
+- Today gains one generated `Check emails` child due **Today**;
+- This Week gains subsection exact copy:
+  - **`4 Scheduled tasks this week`**;
+- four additional `Check emails` children are materialized for the remaining weekdays.
+
+**ARITHMETIC-DIRECT**
+- pre-recurrence pending count: **9**;
+- post-recurrence pending count: **13**;
+- ordinary parent source task is replaced by:
+  - one recurring parent;
+  - five generated child tasks.
+- the +4 net pending change proves the recurring parent itself is **not counted as a pending actionable task** while the five children are.
+- arithmetic:
+  - 9 original pending − 1 ordinary `Check emails` + 5 child tasks = **13**;
+  - parent exists visually but is excluded from the pending count.
+
+### ~00:01:33–00:01:54 — child-task placement and ordinary-task behavior
+
+**VIDEO-DIRECT**
+- one child sits in Today because it is due on the current Monday;
+- the other four children remain in This Week's scheduled subsection with day/date metadata;
+- child cards use ordinary task-card affordances rather than a special locked-child surface;
+- child rows retain normal EST/Taken slots and hover controls.
+
+**TRANSCRIPT + VISUAL CORROBORATION**
+- narration says generated child tasks can be edited/completed/rescheduled independently;
+- later interactions in the same source directly demonstrate completion and rescheduling, so this is not narration-only.
+
+### ~00:01:54–00:02:00 — complete one generated child
+
+**VIDEO-DIRECT**
+- one generated `Check emails` child is marked Done;
+- after settle:
+  - list pending count **13 → 12**;
+  - This Week scheduled subsection **4 → 3** remaining scheduled children;
+  - Done gains `Check emails` under **Mon, Jun 16, 2025**;
+  - Today/This Week progress bars update to include the completed child.
+
+**IDENTITY-DIRECT**
+- completing a child does not complete/remove the recurring parent;
+- parent remains `Weekdays` in Backlog and other children remain independently pending.
+
+### ~00:02:00–00:02:08 — child overflow / Update Schedule
+
+**VIDEO-DIRECT**
+- a remaining scheduled child opens its ordinary scheduled-task overflow;
+- menu includes:
+  - **`Update Schedule`**;
+  - schedule-detail row such as **`18th June`** with circular X/remove affordance;
+  - Change list;
+  - Duplicate;
+  - Delete.
+- this is child-task scheduling grammar, not parent recurring-rule grammar.
+
+### ~00:02:08–00:02:13 — child reschedule
+
+**VIDEO-DIRECT**
+- Update Schedule reopens the scheduler pre-populated for **Wed, Jun 18, 2025**;
+- current child schedule is No Repeat;
+- user returns to Pick Date and chooses a different date;
+- commit moves that child to the new date independently of the recurring parent.
+
+**RESULT-DIRECT**
+- after the edit, This Week still contains **3 Scheduled tasks this week**;
+- two generated `Check emails` rows now visibly share **Thu** metadata while the third remains Fri;
+- this directly demonstrates an individual child can be rescheduled onto a date already occupied by another generated child, producing same-title/same-day coexistence without altering the parent's Weekdays rule.
+
+### ~00:02:13–00:02:22 — remove a child's schedule via X
+
+**VIDEO-DIRECT**
+- opening the rescheduled child's menu shows `Update Schedule` plus current date detail (e.g. **19th June**) with X;
+- clicking the X removes that child's schedule;
+- toast exact copy:
+  - **`Removed schedule from task`**.
+- scheduled subsection count changes **3 → 2 Scheduled tasks this week**.
+
+**COUNT/IDENTITY-DIRECT**
+- list pending count remains unchanged across the child schedule removal;
+- therefore removing the schedule does **not delete the child task**;
+- it removes scheduling metadata/placement while preserving task identity as a pending task elsewhere in the board flow.
+
+### ~00:02:22–00:02:25 — recurring-parent overflow
+
+**VIDEO-DIRECT**
+- parent `Check emails` in Backlog opens a specialized recurring-parent menu;
+- in this source version the visible menu is:
+  1. **`Remove Recurring`**
+  2. `Change list`
+  3. `Duplicate`
+  4. `Delete` in red.
+
+**VERSION DIFFERENCE**
+- VE-017's newer recurring-parent menu also exposes `Update Recurring`;
+- VE-008 does not show that item in this menu state.
+- do not flatten the two source versions into one exact menu contract without precedence/reconciliation.
+
+### ~00:02:25–00:02:27 — Remove Recurring detaches the parent
+
+**VIDEO-DIRECT**
+- Remove Recurring is activated;
+- Recurring tasks subsection disappears;
+- `Check emails` reappears as an ordinary Backlog task;
+- a second generic toast **`Removed schedule from task`** appears;
+- existing generated children remain:
+  - completed child remains in Done;
+  - Today child remains;
+  - remaining scheduled children remain in This Week.
+
+**ARITHMETIC-DIRECT**
+- once the parent becomes an ordinary task again, the list pending count increases by one because the former parent is now actionable/countable;
+- this independently corroborates the earlier finding that an active recurring parent is excluded from pending-task counts.
+
+### ~00:02:27–00:02:38 — detached-parent result
+
+**VIDEO-DIRECT**
+- board continues with ordinary Backlog `Check emails` plus surviving child tasks;
+- no automatic deletion of already-created children occurs;
+- child state survives removal of the parent recurrence relationship.
+
+### ~00:02:38–00:02:46.83 — recap/outro
+
+**VIDEO-DIRECT / NON-PARITY**
+- narration summarizes recurring scheduling and community/outro material;
+- no additional unique recurring-task state is introduced.
+
+## VE-008 source synthesis
+
+High-confidence direct behavior established:
+- an ordinary task can be converted into a recurring parent through the normal Schedule flow;
+- for Monday Jun 16 the preset list is No Repeat / Every day / Every weekday / Every Monday / Every month on 16th;
+- Every weekday is the rule actually committed;
+- recurring parent is moved into Backlog's `Recurring tasks` subsection and labeled `Weekdays`;
+- five generated children are materialized for the current workweek: one Today + four This Week scheduled children;
+- 9→13 pending arithmetic proves the recurring parent is not counted as pending while its generated children are;
+- generated children are ordinary-manageable identities: one can complete independently, reducing pending/scheduled counts while leaving parent intact;
+- a child can use Update Schedule independently of the parent rule;
+- rescheduling one child can create same-day/same-title coexistence with another child;
+- the child schedule-detail X removes schedule metadata without deleting the task, evidenced by stable pending count and scheduled subsection decrement;
+- VE-008 parent menu exposes Remove Recurring / Change list / Duplicate / Delete, while newer VE-017 also shows Update Recurring — explicit version difference;
+- Remove Recurring converts the parent back into an ordinary Backlog task and leaves existing child tasks untouched;
+- active recurring parent exclusion vs detached ordinary-task inclusion in pending counts is directly supported by board arithmetic;
+- future Monday regeneration cadence described by narration is not independently time-lapsed in this source.
+
+Cross-source corroboration:
+- VE-007 scheduler/preset/date grammar;
+- VE-017 newer recurring update/detachment semantics;
+- SS-H08 No Repeat/destructive existing-task state for the newer update flow.
+
+No implementation conclusion is made in this analysis track.
 
 ---
 
