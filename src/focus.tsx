@@ -8,6 +8,7 @@ import { FocusSurfaceCoordinator } from "./FocusSurfaceCoordinator";
 import { startFocusRuntimeVisualDriver } from "./focusRuntimeVisualDriver";
 import { ThemeRuntimeProvider } from "./ThemeRuntime";
 import { TimedAlertFlashRuntime } from "./TimedAlertFlashRuntime";
+import { TimedAlertSoundRuntime } from "./TimedAlertSoundRuntime";
 import { TimerSessionProjection } from "./TimerSessionProjection";
 import {
   type AppStatePayload,
@@ -125,6 +126,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       ) : (
         <>
           <TimedAlertFlashRuntime />
+          <TimedAlertSoundRuntime />
           <FocusSurfaceCoordinator />
         </>
       )}
