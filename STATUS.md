@@ -1,6 +1,6 @@
 # STATUS.md
 
-Last updated: 2026-10-04
+Last updated: 2026-10-05
 
 ## Current — CI948 physical evidence and one corrective batch
 
@@ -8,7 +8,7 @@ Exact resulting-main CI948 source28e840f50d0888ab86801efc36fff76c6e8e74aa / EXE0
 
 [Complete physical results and post-session M1–M9 matrix](work-log/2026-10-04-codex-m7-ci948-physical-results.md). [Whole evidence package](work-log/evidence/m7-ci948-20261004/README.md) contains both entire original dual60fps recordings (ordinary Git parts with SHA reassembly), all11 logs/ZIP, six playable excerpts, twelve gallery PNGs and840 unique directly inspected consecutive frames. Entire original frame-by-frame review is not claimed.
 
-Next coherent source batch, reconciled before implementation: **22** committed list CRUD invalidation/event-driven Focus catalog freshness; **23** bounded keyboard/wheel-accessible inner queue in unchanged fixed host; **24** Windows HTML5 drag-drop handler configuration for initial/CI/diagnostic/recreated Main; **25** canonical retained overflow-menu trash/Confirm/X row. Actual unsuccessful drag attempts do not isolate hit-target cause; configuration incompatibility is independently confirmed by official Tauri documentation. P3-M5-04 functional delete PASS but source container FAIL/reopened; P3-M5-05 direct archive grammar scoped source/physical PASS, full Archive shell remains open. No unrelated implementation or M10 advance.
+**PR234 implementation candidate:** [PR234](https://github.com/MariosGiannakaras/Narro/pull/234), exact headabaae8f5d30b656d30997ee55611a06aedf0b9fa,21 source/tooling files+462/-85, implements22–25 together. Full local frontend/type/build and Rust formatting PASS; all20 Edge visual validator families PASS, including50 Focus editor cases, with four production-component/API adverse-order and delete safety regressions. Exact Windows CI949/run37235570552 is pending; local native compilation/tests NOT RUN (missing MSVC linker), no merge or new physical acceptance claimed. [Candidate decisions, tests and next physical batch](work-log/2026-10-05-codex-m7-pr234-batched-candidate.md). Next: exact CI, guarded integration, verified artifact and one affected two-display capture. M7 remains4/5; M10 blocked.
 
 Both physical displays active: Ultragear100% primary(0,0), LG125% secondary(-1920,0), restored by actual Duplicate→Extend. OBS recording stopped normally20:17:07Z; OS normal animation restored. Exact948 PID55464 remains alive with owned task paused; preserve local user data and generated icons. Computer Use accessibility/input works; authorized native/GDI navigation and original OBS-derived review cover its repeatedly failing WGC transport. No physical cable/sleep-wake or new performance claim.
 

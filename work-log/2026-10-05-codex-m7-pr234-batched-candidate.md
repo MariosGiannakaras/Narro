@@ -1,0 +1,26 @@
+# PR234 — catalog, queue, Main drag and retained delete menu
+
+[PR234](https://github.com/MariosGiannakaras/Narro/pull/234), exact source `abaae8f5d30b656d30997ee55611a06aedf0b9fa`, branch `fix/m7-catalog-queue-main-drag-menu`, base `ee6a3a7703075d2ff6a196f7ee330d74bed8ef54`. One coherent21-file slice, +462/-85. Full Windows CI949/run37235570552 is pending; no native acceptance or merge is claimed at this checkpoint.
+
+The [complete preceding CI948 results](2026-10-04-codex-m7-ci948-physical-results.md) and [whole media/log package](evidence/m7-ci948-20261004/README.md) are already published on main ee6a3a77. Both original recordings, all eleven native logs/ZIP, twelve gallery images and840 directly inspected consecutive frames are preserved, with exact reassembly/SHA proof. Old evidence is immutable proof of its own source.
+
+## Implemented batch
+
+- **22:** all six committed list mutation APIs broadcast the existing best-effort invalidation. Focus catalog subscribes before reading, rejects older/disposed responses and reconciles on presentation entry/refresh. Archived/deleted selected lists recover to All; invalid Add task selection clears only after an authoritative catalog read. Failed persistence emits nothing; failed secondary delivery preserves committed success. No timer polling or heavy Focus entry dependency.
+- **23:** bounded inner queue supports scrolling/focus access to its last row and menu while the header remains stable. The persistent HWND/WebView and fixed native region are unchanged. Hidden inner scrollbar track is an explicit accessibility reconstruction; no document/horizontal scrollbar is introduced. Existing tooltip bounds now convert scaled rects and CSS offsets consistently, preventing a closed tooltip from enlarging the125% queue.
+- **24:** initial production/CI/diagnostic Main config sets dragDropEnabled=false; recreated Main uses disable_drag_drop_handler. [Official Tauri guidance](https://v2.tauri.app/reference/config/#dragdropenabled) requires this for Windows HTML5 dragging. Focus native dragging is unchanged. CI948 unsuccessful pointer attempts do not isolate their title/near-border hit-target cause; actual new-build lift/drop/reorder remains OPEN.
+- **25:** the same overflow menu remains mounted; source Schedule/Change List/Duplicate rows stay visible, and only Delete becomes red trash/Confirm/X. Sibling mutations are disabled while confirmation is active as a safety decision where source clickability is not established. Cancel restores Delete; Escape/outside dismissal cancels and restores appropriate focus; pending commit retains feedback; failure exposes a retryable error. A synchronous ListBoard reservation rejects rapid duplicate Confirm calls before React pending state renders. Confirm does not bypass persistence or change independent task identity.
+
+## Validation actually run
+
+Full local frontend preflight/type/build PASS. Rust formatting PASS; local Rust compile/check/Clippy/tests NOT RUN because MSVC link.exe is unavailable. Exact-head Windows CI is authoritative for those native checks.
+
+All twenty local Windows Edge visual validator families PASS, including fifty light/dark normal/reduced Focus editor scenarios. Four added production-component/production-API regression cases mock only native IPC/storage and exercise committed/failed list CRUD, failed broadcast, entry recovery, out-of-order/disposed responses, selected-list archive/delete recovery, no polling, last-row bounds and menu focus access100%/125%, source menu order and retained confirmation, cancel/Escape/outside dismissal, failure/retry and exactly-once pending activation. The final added last-row menu assertion also passes all four targeted variants. These prove rendered browser behavior, not trusted native wheel/drag or physical source parity.
+
+Touched brittle menu source-order assertions were replaced with actual DOM ordering checks in the rendered regression. Configuration contracts retain the durable Windows native-handler/lifecycle invariant. Build-generated tracked icons were restored; unrelated pre-existing untracked64x64/android/iOS assets are preserved and excluded from the source commit.
+
+## Next exact-build physical batch
+
+After exact CI/expected-head integration, use the verified new automatic-validation executable. Before/after capture inventory current TODO/HANDOFF/crosswalk M1–M9 and disposition only adequately exercised surfaces. Batch committed catalog create/rename/duplicate/archive/restore and stale selection, long All queue wheel/keyboard/last menu/title/rail, normal/reduced metric and wrapped Notes bounds, initial and recreated Main HTML5 drag with confirmed padding hit/lift/drop/settle and identity ledger, and retained-menu source comparison/failure-independent safe confirmation. Reuse unchanged936/942 platform/performance acceptance; do not rerun a general native architecture audit.
+
+M2 actual lane Move, M5/M6 affected source gates, M7 C4 and07 delayed-loading ownership remain OPEN. C5 remains accepted948/unchanged platform basis. **3/10M ||4/5 |14/19**; M10 hard entry blocked. Explicitly announce all required M1–M9 implementation/acceptance completion before M10.
