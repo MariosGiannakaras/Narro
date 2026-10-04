@@ -38,7 +38,7 @@ invariant(
 );
 invariant(
   modeApi.includes('"timerCompact"')
-    && modeApi.includes('invoke<void>("focus_surface_apply_presentation", { presentation })'),
+    && modeApi.includes('invoke<void>("focus_surface_apply_presentation", { presentation, compactFrame })'),
   "renderer compact mode must use the single native presentation boundary",
 );
 for (const forbidden of ["timer_start_task", "timer_pause", "timer_resume", "timer_complete_task", "timer_switch_task"]) {

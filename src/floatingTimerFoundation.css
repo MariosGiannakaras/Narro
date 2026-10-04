@@ -35,6 +35,13 @@
   transition: none;
 }
 
+/* The native raster takes the complete incoming frame, never a partly faded
+   expanded heading/action strip. Ordinary compact hover keeps its crossfade. */
+.floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__heading,
+.floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__actions-wrap {
+  transition: none;
+}
+
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="revealing"],
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="contracting-start"] {
   clip-path: inset(0 0 0 0 round 16px);

@@ -287,7 +287,7 @@ export function FocusSurfaceCoordinator() {
 
   requestModeRef.current = requestMode;
 
-  const requestTimerExpanded = useCallback(async (expanded: boolean) => {
+  const requestTimerExpanded = useCallback(async (expanded: boolean, compactFrame?: number[]) => {
     if (!presentationHydrated || transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
       throw new Error("Floating Timer size cannot change during another Focus presentation transition.");
     }
@@ -302,7 +302,7 @@ export function FocusSurfaceCoordinator() {
         previousPresentation: previous,
         targetPresentation: target,
         waitForTargetReady: async () => {},
-        applyNativePresentation: applyFocusSurfacePresentation,
+        applyNativePresentation: (presentation) => applyFocusSurfacePresentation(presentation, compactFrame),
         commitRendererPresentation: publishPresentation,
       });
     } finally {

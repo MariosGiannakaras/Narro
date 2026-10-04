@@ -9,6 +9,8 @@ pub mod domain;
 pub mod error;
 pub mod floating_placement;
 pub mod focus_entry;
+pub mod focus_frame_capture;
+pub mod focus_frame_hold;
 pub mod focus_preferences;
 pub mod focus_webview;
 pub mod home_snapshot;
@@ -810,6 +812,10 @@ fn restore_focus_native_snapshot(
 ) -> CommandResult<()> {
     let mut failures = Vec::new();
 
+    if let Err(error) = focus_frame_hold::clear(window) {
+        failures.push(error);
+    }
+
     if let Err(error) = window
         .set_size(tauri::Size::Physical(snapshot.size))
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "restore host size", error))
@@ -1020,6 +1026,7 @@ fn apply_timer_native(
     window: &tauri::WebviewWindow,
     previous: FocusSurfacePresentation,
     target: FocusSurfacePresentation,
+    compact_frame: Option<&[u8]>,
 ) -> CommandResult<()> {
     let expanded = target.expanded();
 
@@ -1044,8 +1051,20 @@ fn apply_timer_native(
         } else {
             // Collapse in place after React presents its compact frame. The
             // position helper only moves if topology makes a new clamp needed.
+            let hold = compact_frame
+                .map(|frame| {
+                    focus_frame_hold::begin(
+                        window,
+                        timer_region::visible_size(window, target.region())?,
+                        frame,
+                    )
+                })
+                .transpose()?;
             timer_region::apply_without_redraw(window, target.region())?;
             set_focus_position(window, desired, "keep safe compact Timer position")?;
+            if let Some(hold) = hold {
+                hold.commit();
+            }
         }
     } else {
         timer_region::apply(window, target.region())?;
@@ -1059,7 +1078,9 @@ fn apply_focus_native_target(
     window: &tauri::WebviewWindow,
     previous: FocusSurfacePresentation,
     target: FocusSurfacePresentation,
+    compact_frame: Option<&[u8]>,
 ) -> CommandResult<()> {
+    focus_frame_hold::clear(window)?;
     match target {
         FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle).and_then(
             |(work_area, scale_factor, side)| {
@@ -1067,7 +1088,7 @@ fn apply_focus_native_target(
             },
         ),
         FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
-            apply_timer_native(app_handle, window, previous, target)
+            apply_timer_native(app_handle, window, previous, target, compact_frame)
         }
     }
 }
@@ -1217,6 +1238,8 @@ fn animate_focus_surface_presentation_internal(
         ));
     }
 
+    focus_frame_hold::clear(&window)?;
+
     let snapshot = capture_focus_native_snapshot(&window)?;
     if previous.mode() == FocusSurfaceMode::Timer && target == FocusSurfacePresentation::Panel {
         if let Err(error) = floating_placement::save_if_timer_visible(app_handle) {
@@ -1295,7 +1318,7 @@ fn animate_focus_surface_presentation_internal(
                     previous,
                 )
             }
-            _ => apply_focus_native_target(app_handle, &window, previous, target),
+            _ => apply_focus_native_target(app_handle, &window, previous, target, None),
         }
     })();
 
@@ -1316,6 +1339,7 @@ fn animate_focus_surface_presentation_internal(
 fn apply_focus_surface_presentation_internal(
     app_handle: &tauri::AppHandle,
     target: FocusSurfacePresentation,
+    compact_frame: Option<&[u8]>,
 ) -> CommandResult<()> {
     let _presentation_guard = presentation_guard()?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
@@ -1365,7 +1389,8 @@ fn apply_focus_surface_presentation_internal(
     }
     let _save_guard = floating_placement::suspend_saves();
 
-    let transition = apply_focus_native_target(app_handle, &window, previous, target);
+    let transition =
+        apply_focus_native_target(app_handle, &window, previous, target, compact_frame);
 
     if let Err(error) = transition {
         return match restore_focus_native_snapshot(&window, &snapshot) {
@@ -1499,9 +1524,31 @@ fn focus_runtime_capture_seed_timer_placement(app_handle: tauri::AppHandle) -> C
 fn focus_surface_apply_presentation(
     app_handle: tauri::AppHandle,
     presentation: String,
+    compact_frame: Option<Vec<u8>>,
 ) -> CommandResult<()> {
     let target = parse_focus_surface_presentation(&presentation)?;
-    apply_focus_surface_presentation_internal(&app_handle, target)
+    if compact_frame.is_some() && target != FocusSurfacePresentation::TimerCompact {
+        return Err(CommandError::new(
+            "FOCUS_FRAME_CAPTURE_FAILED",
+            "compact frame is only valid for compact Timer",
+        ));
+    }
+    apply_focus_surface_presentation_internal(&app_handle, target, compact_frame.as_deref())
+}
+
+#[tauri::command]
+async fn focus_surface_capture_compact_frame(
+    window: tauri::WebviewWindow,
+) -> CommandResult<Vec<u8>> {
+    if window.label() != FOCUS_SURFACE_LABEL
+        || current_focus_surface_presentation() != Some(FocusSurfacePresentation::TimerExpanded)
+    {
+        return Err(CommandError::new(
+            "FOCUS_FRAME_CAPTURE_FAILED",
+            "capture requires the expanded Focus host",
+        ));
+    }
+    focus_frame_capture::capture(window).await
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -1559,7 +1606,7 @@ fn position_focus_panel(
 
 #[tauri::command]
 fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?;
+    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?;
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     window
         .show()
@@ -1601,7 +1648,7 @@ fn present_focus_for_blitz(app_handle: tauri::AppHandle) -> CommandResult<()> {
     // Hidden Focus entry is safe to prepare natively because no intermediate
     // renderer state is exposed to the user. The coordinator reconciles the
     // authoritative Panel presentation while the host is still hidden.
-    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?;
+    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?;
     window.show().map_err(|error| {
         map_window_error(FOCUS_SURFACE_LABEL, "show Focus surface for Blitz", error)
     })?;
@@ -1659,6 +1706,7 @@ pub(crate) fn refresh_open_timer_region_for_dpi_change(
 
     let presentation =
         current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::TimerCompact);
+    focus_frame_hold::clear(&window)?;
     timer_region::apply_with_scale(&window, presentation.region(), scale_factor)?;
     Ok(true)
 }
@@ -1853,7 +1901,7 @@ async fn main_window_recreate(app_handle: tauri::AppHandle) -> CommandResult<()>
 pub(crate) fn show_current_focus_surface(app_handle: &tauri::AppHandle) -> CommandResult<()> {
     let presentation =
         current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
-    apply_focus_surface_presentation_internal(app_handle, presentation)?;
+    apply_focus_surface_presentation_internal(app_handle, presentation, None)?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
     show_and_focus(&window)
 }
@@ -1869,6 +1917,7 @@ fn focus_surface_hide(app_handle: tauri::AppHandle) -> CommandResult<()> {
         eprintln!("Could not save Floating Timer position before hide: {error}");
     }
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    focus_frame_hold::clear(&window)?;
     window
         .hide()
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "hide", error))
@@ -1884,14 +1933,18 @@ fn focus_surface_focus(app_handle: tauri::AppHandle) -> CommandResult<()> {
 
 #[tauri::command]
 fn focus_surface_mode_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?;
+    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?;
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     show_and_focus(&window)
 }
 
 #[tauri::command]
 fn focus_surface_mode_timer(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::TimerCompact)?;
+    apply_focus_surface_presentation_internal(
+        &app_handle,
+        FocusSurfacePresentation::TimerCompact,
+        None,
+    )?;
     let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
     show_and_focus(&window)
 }
@@ -2144,6 +2197,7 @@ pub fn run() {
             focus_runtime_capture_acknowledged,
             focus_runtime_capture_seed_timer_placement,
             focus_surface_apply_presentation,
+            focus_surface_capture_compact_frame,
             focus_surface_animate_presentation,
             focus_surface_mode_snapshot,
             focus_surface_mode_panel,

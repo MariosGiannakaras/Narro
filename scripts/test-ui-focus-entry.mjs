@@ -177,7 +177,7 @@ if (
   || applyNativeTargetStart < 0
   || applyNativeTargetEnd < applyNativeTargetStart
   || !applyPresentationBlock.includes("previous == target && target != FocusSurfacePresentation::Panel")
-  || !applyPresentationBlock.includes("apply_focus_native_target(app_handle, &window, previous, target)")
+  || !applyPresentationBlock.includes("apply_focus_native_target(app_handle, &window, previous, target, compact_frame)")
   || !applyNativeTargetBlock.includes("FocusSurfacePresentation::Panel => preferred_focus_panel_work_area(app_handle)")
   || !applyNativeTargetBlock.includes("apply_panel_native(window, work_area, scale_factor, side)")
 ) {
@@ -199,7 +199,7 @@ if (
   || !visibleBranch.includes("set_focus()")
   || !visibleBranch.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
   || visibleBranch.includes("apply_focus_surface_presentation_internal")
-  || !hiddenBranch.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?")
+  || !hiddenBranch.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?")
 ) {
   throw new Error("Blitz Focus entry must target Panel through the coordinator when visible and may prepare Panel natively only while hidden.");
 }
