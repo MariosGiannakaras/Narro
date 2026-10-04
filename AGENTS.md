@@ -32,7 +32,7 @@ Before implementing an affected surface, inspect `docs/AUDIT_IMPLEMENTATION_CROS
 - if it is an intentional Narro deviation, preserve the documented reliability/accessibility/agency improvement;
 - when new material evidence is discovered, update the crosswalk and roadmap before continuing implementation based on older assumptions.
 
-This prevents repeated implementation/rework while preserving the ordered 10-milestone roadmap.
+This prevents repeated implementation/rework while preserving the ordered **mandatory** 10-milestone roadmap. Optional Milestone 11 is a separately user-activated extension defined in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`; while dormant/skipped it does not alter the mandatory roadmap, progress denominator, or continuation order.
 
 ## Source-forensics consumption rule
 
