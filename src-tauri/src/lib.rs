@@ -71,7 +71,6 @@ const FOCUS_POSITION_MOTION_MAX_MS: u64 = 1_000;
 const FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS: u64 = 50;
 
 static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8 = AtomicU8::new(FOCUS_PRESENTATION_UNKNOWN);
-static COMPACT_TIMER_ORIGIN: Mutex<Option<GeometryPoint>> = Mutex::new(None);
 static FOCUS_PRESENTATION_GATE: Mutex<()> = Mutex::new(());
 
 fn presentation_guard() -> CommandResult<MutexGuard<'static, ()>> {
@@ -738,7 +737,6 @@ struct FocusNativeSnapshot {
     position: tauri::PhysicalPosition<i32>,
     size: tauri::PhysicalSize<u32>,
     always_on_top: bool,
-    compact_origin: Option<GeometryPoint>,
 }
 
 fn capture_focus_native_snapshot(
@@ -765,19 +763,12 @@ fn capture_focus_native_snapshot(
             error,
         )
     })?;
-    let compact_origin = *COMPACT_TIMER_ORIGIN.lock().map_err(|_| {
-        CommandError::new(
-            "FOCUS_PRESENTATION_FAILED",
-            "Focus compact-position state is poisoned",
-        )
-    })?;
     Ok(FocusNativeSnapshot {
         presentation: current_focus_surface_presentation()
             .unwrap_or(FocusSurfacePresentation::Panel),
         position,
         size,
         always_on_top,
-        compact_origin,
     })
 }
 
@@ -786,6 +777,16 @@ fn set_focus_position(
     point: GeometryPoint,
     context: &'static str,
 ) -> CommandResult<()> {
+    let current = window.outer_position().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read Focus position before move",
+            error,
+        )
+    })?;
+    if current.x == point.x && current.y == point.y {
+        return Ok(());
+    }
     focus_webview::set_physical_position(window, point.x, point.y)
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, context, error))
 }
@@ -839,14 +840,6 @@ fn restore_focus_native_snapshot(
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "restore taskbar state", error))
     {
         failures.push(error);
-    }
-    if let Ok(mut origin) = COMPACT_TIMER_ORIGIN.lock() {
-        *origin = snapshot.compact_origin;
-    } else {
-        failures.push(CommandError::new(
-            "FOCUS_PRESENTATION_RECOVERY_FAILED",
-            "Focus compact-position state is poisoned during rollback",
-        ));
     }
 
     if failures.is_empty() {
@@ -1033,62 +1026,26 @@ fn apply_timer_native(
     if previous.mode() != FocusSurfaceMode::Timer {
         floating_placement::restore_for_timer(app_handle, window, expanded)?;
         timer_region::apply(window, target.region())?;
-        *COMPACT_TIMER_ORIGIN.lock().map_err(|_| {
-            CommandError::new(
-                "FOCUS_PRESENTATION_FAILED",
-                "Focus compact-position state is poisoned",
-            )
-        })? = None;
         return set_focus_presentation_attributes(window, target);
     }
 
     if previous.expanded() != expanded {
-        let previous_position = window.outer_position().map_err(|error| {
-            map_window_error(
-                FOCUS_SURFACE_LABEL,
-                "read Timer position before region change",
-                error,
-            )
-        })?;
-        let previous_point = GeometryPoint {
-            x: previous_position.x,
-            y: previous_position.y,
-        };
-        let compact_origin = *COMPACT_TIMER_ORIGIN.lock().map_err(|_| {
-            CommandError::new(
-                "FOCUS_PRESENTATION_FAILED",
-                "Focus compact-position state is poisoned",
-            )
-        })?;
-        let desired = floating_placement::safe_position_for_timer_region(
-            app_handle,
-            window,
-            expanded,
-            if expanded { None } else { compact_origin },
-        )?;
+        // Expansion may clamp upward to keep the larger region visible. Keep
+        // that safe origin on collapse rather than clipping then moving back
+        // to a cached bottom-edge point, which CI911 physically lost for frames.
+        let desired =
+            floating_placement::safe_position_for_timer_region(app_handle, window, expanded, None)?;
 
         if expanded {
             // Move the still-compact visible rectangle first, then reveal the
             // prepainted lower controls.
             set_focus_position(window, desired, "move Timer before expanded region")?;
             timer_region::apply_without_redraw(window, target.region())?;
-            *COMPACT_TIMER_ORIGIN.lock().map_err(|_| {
-                CommandError::new(
-                    "FOCUS_PRESENTATION_FAILED",
-                    "Focus compact-position state is poisoned",
-                )
-            })? = Some(previous_point);
         } else {
-            // Clip first so no expanded pixels are exposed while returning to
-            // the compact origin.
+            // Collapse in place after React presents its compact frame. The
+            // position helper only moves if topology makes a new clamp needed.
             timer_region::apply_without_redraw(window, target.region())?;
-            set_focus_position(window, desired, "restore compact Timer position")?;
-            *COMPACT_TIMER_ORIGIN.lock().map_err(|_| {
-                CommandError::new(
-                    "FOCUS_PRESENTATION_FAILED",
-                    "Focus compact-position state is poisoned",
-                )
-            })? = None;
+            set_focus_position(window, desired, "keep safe compact Timer position")?;
         }
     } else {
         timer_region::apply(window, target.region())?;
@@ -2070,11 +2027,6 @@ pub fn run() {
                             },
                             accepted_for_persistence,
                         );
-                        if accepted_for_persistence && current_focus_surface_expanded() {
-                            if let Ok(mut origin) = COMPACT_TIMER_ORIGIN.lock() {
-                                *origin = None;
-                            }
-                        }
                     }
                     tauri::WindowEvent::CloseRequested { .. } => {
                         validation_log::record_focus_close_requested(window.app_handle());

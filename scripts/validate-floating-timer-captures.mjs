@@ -91,8 +91,9 @@ function validateCollapsed(dom, contract, label) {
   }
   invariant(
     dom.includes('data-floating-actions-controller="true"')
-      && dom.includes('style="display: none;"'),
-    `${label} must keep the shortcut controller mounted but visually absent while collapsed`,
+      && dom.includes('data-floating-compact-actions="false"')
+      && /data-floating-actions-controller="true"[^>]*inert=""/.test(dom),
+    `${label} must keep the controller mounted and resting actions inert while collapsed`,
   );
   invariant(
     contract.timer?.width === 340 && contract.timer?.height === 110,
@@ -193,4 +194,22 @@ invariant(idle.before.liveState === "idle" && idle.after.liveState === "idle", "
 invariant(idle.before.expanded === "true" && idle.before.collapseButtons === 1 && idle.before.headings === 1, "idle expanded Timer must expose one collapse control");
 invariant(idle.after.expanded === "false" && idle.after.collapseButtons === 0 && idle.after.headings === 1, "idle Timer collapse did not restore compact content");
 
-console.log("Floating Timer visual contracts, resize lifecycle, and idle recovery passed.");
+const compactDom = fs.readFileSync(path.join(outputDirectory, 'floating-timer-compact-focus.html'), 'utf8');
+const compactMatch = compactDom.match(/<script id="floating-timer-compact-focus-contract" type="application\/json">([\s\S]*?)<\/script>/);
+invariant(compactMatch, 'compact keyboard-focus geometry contract is missing');
+const compact = JSON.parse(compactMatch[1]);
+invariant(compact.beforeInert && compact.afterInert, 'resting actions must leave keyboard/accessibility navigation');
+invariant(compact.radius === '16px', 'calibrated compact shell radius differs');
+invariant(compact.observations.length >= 5, 'compact keyboard actions were not exercised');
+for (const observed of compact.observations) {
+  invariant(observed.labelVisible && observed.focusIsSelected, `${observed.action} must reveal only its selected label`);
+  invariant(observed.taskId === '21111111-1111-4111-8111-111111111111', 'focus reveal changed authoritative task identity');
+  invariant(JSON.stringify(observed.subtaskBefore) === JSON.stringify(observed.subtaskAfter), 'label reveal reflowed subtask geometry');
+  observed.after.forEach((box, i) => {
+    if (i !== observed.selected) invariant(JSON.stringify(box) === JSON.stringify(observed.before[i]), 'label reveal moved a neighboring control');
+  });
+  const old = observed.before[observed.selected], box = observed.after[observed.selected], bounds = observed.bounds;
+  invariant(box.x <= old.x + old.width / 2 && box.x + box.width >= old.x + old.width / 2, 'selected control moved away from its original pointer position');
+  invariant(box.x >= bounds.x && box.x + box.width <= bounds.x + bounds.width, 'selected compact pill overflows the native shell');
+}
+console.log("Floating Timer visual contracts, resize lifecycle, idle recovery and compact focus/pill geometry passed.");

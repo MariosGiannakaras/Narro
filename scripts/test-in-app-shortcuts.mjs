@@ -98,7 +98,7 @@ invariant(
 );
 invariant(
   floating.includes('data-floating-actions-controller="true"')
-    && floating.includes('style={{ display: expanded ? "contents" : "none" }}')
+    && floating.includes('className="floating-timer-foundation__actions-controller"')
     && floating.includes("onEnsureNotesVisible={() => requestExpanded(true)}"),
   "collapsed Timer must retain the action controller and safely expand for Notes",
 );

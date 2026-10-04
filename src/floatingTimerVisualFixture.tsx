@@ -131,7 +131,7 @@ function optionalBox(selector: string) {
   const node = document.querySelector<HTMLElement>(selector);
   if (!node) return null;
   const rect = node.getBoundingClientRect();
-  if (rect.width <= 0 || rect.height <= 0) return null;
+  if (rect.width <= 0 || rect.height <= 0 || node.closest('[inert]')) return null;
   return { width: Math.round(rect.width), height: Math.round(rect.height) };
 }
 
@@ -172,7 +172,7 @@ if (params.get("state") === "cycle") {
     renderedTimer.querySelectorAll<HTMLElement>(selector),
   ).filter((node) => {
     const rect = node.getBoundingClientRect();
-    return rect.width > 0 && rect.height > 0;
+    return rect.width > 0 && rect.height > 0 && !node.closest('[inert]');
   }).length;
 
   const observe = () => {
@@ -207,6 +207,47 @@ if (params.get("state") === "cycle") {
   node.textContent = JSON.stringify(observations);
   document.body.append(node);
   document.documentElement.dataset.floatingTimerCycleReady = "true";
+}
+
+if (params.get("state") === "compact-focus" && renderedTimer) {
+  // Exercise browser focus and computed layout on the production component.
+  // Hidden actions must not be tabbable before the keyboard opener is focused.
+  const host = renderedTimer.querySelector<HTMLElement>('[data-floating-actions-controller]');
+  const heading = renderedTimer.querySelector<HTMLElement>('.floating-timer-foundation__heading');
+  const buttons = Array.from(renderedTimer.querySelectorAll<HTMLButtonElement>('[data-floating-action]'));
+  const rect = (node: Element) => {
+    const r = node.getBoundingClientRect();
+    return { x: r.x, y: r.y, width: r.width, height: r.height };
+  };
+  const beforeInert = host?.inert;
+  flushSync(() => heading?.focus());
+  const observations = buttons.filter((button) => !button.disabled).map((button) => {
+    flushSync(() => heading?.focus());
+    const before = buttons.map(rect);
+    const subtaskBefore = rect(renderedTimer.querySelector('.floating-timer-foundation__subtask-toolbar')!);
+    flushSync(() => button.focus());
+    const after = buttons.map(rect);
+    const label = button.querySelector<HTMLElement>('.floating-timer-foundation__action-label')!;
+    const bounds = rect(renderedTimer);
+    return {
+      action: button.dataset.floatingAction,
+      before, after, bounds,
+      labelVisible: getComputedStyle(label).display !== "none",
+      label: label.textContent,
+      selected: buttons.indexOf(button),
+      focusIsSelected: document.activeElement === button,
+      subtaskBefore,
+      subtaskAfter: rect(renderedTimer.querySelector('.floating-timer-foundation__subtask-toolbar')!),
+      taskId: renderedTimer.dataset.floatingLiveTaskId,
+    };
+  });
+  flushSync(() => (document.activeElement as HTMLElement)?.blur());
+  const node = document.createElement('script');
+  node.id = 'floating-timer-compact-focus-contract';
+  node.type = 'application/json';
+  node.textContent = JSON.stringify({ beforeInert, afterInert: host?.inert, radius: getComputedStyle(renderedTimer).borderRadius, observations });
+  document.body.append(node);
+  document.documentElement.dataset.floatingTimerCompactFocusReady = 'true';
 }
 } else {
   const observe = () => ({

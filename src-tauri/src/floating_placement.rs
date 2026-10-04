@@ -756,6 +756,45 @@ pub fn note_timer_moved(app_handle: &tauri::AppHandle) -> bool {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn bottom_edge_expansion_and_collapse_retain_the_new_safe_origin() {
+        for (width, compact_height, expanded_height, x) in
+            [(340, 110, 300, 800), (425, 138, 375, -1462)]
+        {
+            let area = PhysicalRect {
+                position: PhysicalPoint {
+                    x: if x < 0 { -1920 } else { 0 },
+                    y: 0,
+                },
+                size: PhysicalSize {
+                    width: if x < 0 { 1920 } else { 2560 },
+                    height: 1080,
+                },
+            };
+            let compact = PhysicalSize {
+                width,
+                height: compact_height,
+            };
+            let expanded = PhysicalSize {
+                width,
+                height: expanded_height,
+            };
+            let mut current = PhysicalPoint {
+                x,
+                y: 1080 - compact_height as i32,
+            };
+            let safe = PhysicalPoint {
+                x,
+                y: 1080 - expanded_height as i32,
+            };
+            for _ in 0..6 {
+                current = clamp_top_left(area, expanded, current).expect("fit expanded edge");
+                assert_eq!(current, safe);
+                current = clamp_top_left(area, compact, current).expect("collapse in place");
+                assert_eq!(current, safe);
+            }
+        }
+    }
     use super::*;
 
     fn area(name: &str, x: i32, width: u32) -> WorkArea {
