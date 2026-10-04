@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
 import { AppShell } from "./AppShell";
+import { getPreferenceSettings, updatePreferenceSettings } from "./preferencesApi";
+import { withDiagnosticPlacementPreferences } from "./diagnosticPlacementPreferences";
 import {
   type AppStatePayload,
   type DiagnosticCommand,
@@ -90,6 +92,7 @@ function App() {
   const [selectedMonitorKey, setSelectedMonitorKey] = useState<string | null>(null);
   const [placementProbe, setPlacementProbe] = useState<FocusPanelPlacementProbe | null>(null);
   const [placementMatrix, setPlacementMatrix] = useState<FocusPanelPlacementMatrix | null>(null);
+  const placementBusy = useRef(false);
   const [placementMatrixPending, setPlacementMatrixPending] = useState(false);
   const [placementMatrixStep, setPlacementMatrixStep] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -392,22 +395,31 @@ function App() {
   }
 
   async function positionFocusPanel(side: FocusPanelSide) {
+    if (placementBusy.current) return;
+    const monitorKey = selectedMonitorKey;
     setPlacementProbe(null);
     setPlacementMatrix(null);
-    if (!isValidMonitorSelection(selectedMonitorKey, monitors)) {
+    if (!monitorKey || !isValidMonitorSelection(monitorKey, monitors)) {
       setError("[MONITOR_SELECTION_INVALID] Select a currently available monitor first.");
       return;
     }
 
+    placementBusy.current = true;
     try {
-      await invoke<void>("position_focus_panel", {
-        monitorKey: selectedMonitorKey,
-        side,
-      });
-      const probe = await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe", {
-        monitorKey: selectedMonitorKey,
-        side,
-      });
+      const probe = await withDiagnosticPlacementPreferences(
+        {
+          read: async () => (await getPreferenceSettings()).general,
+          write: updatePreferenceSettings,
+        },
+        async (select) => {
+          await select({ selectedMonitorKey: monitorKey, focusPanelSide: side });
+          await invoke<void>("position_focus_panel", { monitorKey, side });
+          await new Promise<void>((resolve) => window.setTimeout(resolve, 750));
+          return invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe", {
+            monitorKey, side,
+          });
+        },
+      );
       setPlacementProbe(probe);
       setError(null);
 
@@ -430,11 +442,14 @@ function App() {
           `${primaryFailure} | Monitor refresh also failed: ${formatInvokeError(refreshFailure)}`,
         );
       }
+    } finally {
+      placementBusy.current = false;
     }
   }
 
   async function runFocusPanelPlacementMatrix() {
-    if (placementMatrixPending) return;
+    if (placementBusy.current) return;
+    placementBusy.current = true;
 
     setPlacementProbe(null);
     setPlacementMatrix(null);
@@ -450,31 +465,41 @@ function App() {
       await invoke<void>("focus_surface_mode_panel");
       await invoke<void>("focus_surface_show");
 
-      const entries: FocusPanelPlacementMatrixEntry[] = [];
-      for (const monitor of discovered) {
-        for (const side of ["left", "right"] as const) {
-          const stepLabel = `Monitor ${monitor.index + 1}${monitor.name ? ` (${monitor.name})` : ""} — ${side === "left" ? "Left" : "Right"}`;
-          setPlacementMatrixStep(stepLabel);
-          await invoke<void>("position_focus_panel", {
-            monitorKey: monitor.key,
-            side,
-          });
-          // Keep every diagnostic placement visibly settled long enough for a
-          // screen recording/human observer to verify the actual monitor edge.
-          await new Promise<void>((resolve) => window.setTimeout(resolve, 750));
-          const probe = await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe", {
-            monitorKey: monitor.key,
-            side,
-          });
-          entries.push({
-            monitorKey: monitor.key,
-            monitorIndex: monitor.index,
-            monitorName: monitor.name,
-            side,
-            probe,
-          });
-        }
-      }
+      const entries = await withDiagnosticPlacementPreferences(
+        {
+          read: async () => (await getPreferenceSettings()).general,
+          write: updatePreferenceSettings,
+        },
+        async (select) => {
+          const entries: FocusPanelPlacementMatrixEntry[] = [];
+          for (const monitor of discovered) {
+            for (const side of ["left", "right"] as const) {
+              const stepLabel = `Monitor ${monitor.index + 1}${monitor.name ? ` (${monitor.name})` : ""} — ${side === "left" ? "Left" : "Right"}`;
+              setPlacementMatrixStep(stepLabel);
+              await select({ selectedMonitorKey: monitor.key, focusPanelSide: side });
+              await invoke<void>("position_focus_panel", {
+                monitorKey: monitor.key,
+                side,
+              });
+              // Keep every diagnostic placement visibly settled long enough for a
+              // screen recording/human observer to verify the actual monitor edge.
+              await new Promise<void>((resolve) => window.setTimeout(resolve, 750));
+              const probe = await invoke<FocusPanelPlacementProbe>("focus_panel_placement_probe", {
+                monitorKey: monitor.key,
+                side,
+              });
+              entries.push({
+                monitorKey: monitor.key,
+                monitorIndex: monitor.index,
+                monitorName: monitor.name,
+                side,
+                probe,
+              });
+            }
+          }
+          return entries;
+        },
+      );
 
       const passCount = entries.filter((entry) => entry.probe.pass).length;
       const matrix: FocusPanelPlacementMatrix = {
@@ -501,6 +526,7 @@ function App() {
         clearMonitorList();
       }
     } finally {
+      placementBusy.current = false;
       setPlacementMatrixStep(null);
       setPlacementMatrixPending(false);
     }
