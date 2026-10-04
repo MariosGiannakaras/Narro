@@ -1,0 +1,97 @@
+[
+  {
+    "folder": "live-motion/100-normal-collapse-1",
+    "frames": "001-060",
+    "verdict": "Official FAIL: caption replaces Timer frames044-049, partial return050, compact returns051. Direct60-frame review."
+  },
+  {
+    "sequence": 24,
+    "frames": "001-060",
+    "verdict": "FAIL native continuity for controls/style/DWM; sequence107 holds pixels but incomplete release hierarchy, diagnostic only"
+  },
+  {
+    "sequence": 30,
+    "frames": "001-060",
+    "verdict": "FAIL native continuity for controls/style/DWM; sequence107 holds pixels but incomplete release hierarchy, diagnostic only"
+  },
+  {
+    "sequence": 36,
+    "frames": "001-060",
+    "verdict": "FAIL native continuity for controls/style/DWM; sequence107 holds pixels but incomplete release hierarchy, diagnostic only"
+  },
+  {
+    "sequence": 42,
+    "frames": "001-060",
+    "verdict": "FAIL native continuity for controls/style/DWM; sequence107 holds pixels but incomplete release hierarchy, diagnostic only"
+  },
+  {
+    "sequence": 77,
+    "frames": "001-060",
+    "verdict": "FAIL native continuity for controls/style/DWM; sequence107 holds pixels but incomplete release hierarchy, diagnostic only"
+  },
+  {
+    "sequence": 107,
+    "frames": "001-060",
+    "verdict": "FAIL native continuity for controls/style/DWM; sequence107 holds pixels but incomplete release hierarchy, diagnostic only"
+  },
+  {
+    "sequence": 54,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 59,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 65,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 71,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 83,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 89,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 101,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 109,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 111,
+    "frames": "031-060",
+    "verdict": "Reviewed native boundary/release portion only; no whole-sequence PASS"
+  },
+  {
+    "sequence": 119,
+    "frames": "001-120",
+    "verdict": "No classic caption/whole Timer absence observed under the500ms child; retained outgoing expanded hierarchy and partial/fading release remain. Not smoothness or product PASS."
+  },
+  {
+    "sequence": 121,
+    "frames": "001-120",
+    "verdict": "No classic caption/whole Timer absence observed under the500ms child; retained outgoing expanded hierarchy and partial/fading release remain. Not smoothness or product PASS."
+  },
+  {
+    "sequence": 123,
+    "frames": "001-120",
+    "verdict": "No classic caption/whole Timer absence observed under the500ms child; retained outgoing expanded hierarchy and partial/fading release remain. Not smoothness or product PASS."
+  }
+]

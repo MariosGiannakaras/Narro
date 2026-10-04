@@ -1,0 +1,26 @@
+{
+  "folder": "motion/12-official-expand",
+  "recording": 1,
+  "action": {
+    "utc": "2026-10-04T02:14:51.1504822Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Expand Floating Timer",
+    "windowId": 1181574,
+    "processId": 13932,
+    "offscreen": false,
+    "bounds": "1395;839;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "case": "official",
+  "ptsStart": 2607.479482,
+  "crop": {
+    "x": 3016,
+    "y": 776,
+    "width": 348,
+    "height": 304
+  },
+  "observation": "reduced-100-bottom-expand-2.json",
+  "frames": 60,
+  "reviewed": false,
+  "method": "60 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

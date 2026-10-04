@@ -1,0 +1,383 @@
+[
+  {
+    "recording": 1,
+    "originalFilename": "2026-10-04 04-31-23.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 04-31-23.mkv",
+    "originalBytes": 339659462,
+    "originalSha256": "3f347b8178486d3d49a869502c662343cd2cb5be3136910c1952244ce523c044",
+    "startUtc": "2026-10-04T01:31:23.471Z",
+    "stopUtc": "2026-10-04T02:21:24.955Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "Official two-DPI normal/reduced, placement, Notes, hover and C5; full original.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "3001.017000"
+      }
+    },
+    "parts": [
+      {
+        "file": "raw-video/recording-1/2026-10-04 04-31-23.mkv.part001",
+        "sha256": "ab2b61416c4c405b83d37c8b6dd1fa88a8fdde0beccb528e4f9c90336b86a0d1",
+        "bytes": 83886080
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 04-31-23.mkv.part002",
+        "sha256": "b535ba1a513c8ec5fdb0b61f5503c2d41e5effd2a1957ef59bae7af495057a53",
+        "bytes": 83886080
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 04-31-23.mkv.part003",
+        "sha256": "62068d8cbd26bcc8ff30af09d6ae0e2697591e056269e16fcbb8a8e7df380265",
+        "bytes": 83886080
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 04-31-23.mkv.part004",
+        "sha256": "cee42c873fd27662abddb8fbe8e98ee5adce6d72a55af82344d5a22cd2f14f7d",
+        "bytes": 83886080
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 04-31-23.mkv.part005",
+        "sha256": "ffcf53000b3d94d8fec57039ac9402c745472eff4d64d4b633fc8d9fefe42f9f",
+        "bytes": 4115142
+      }
+    ]
+  },
+  {
+    "recording": 2,
+    "originalFilename": "2026-10-04 05-22-55.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 05-22-55.mkv",
+    "originalBytes": 1301516380,
+    "originalSha256": "16a8872e68333d99e014ddaddfae370d807c11f636abf46708be29bb5898e021",
+    "startUtc": "2026-10-04T02:22:55.771Z",
+    "stopUtc": "2026-10-04T05:54:41.361Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "Style experiment only in first approximately25s. Publish first35s as packet-copy remux; hours of rate-limit idle and unattributed user activity are not test evidence. Full original retained locally with SHA256.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "12704.950000"
+      }
+    },
+    "publishedSegment": {
+      "file": "raw-video/recording-2/style-experiment-first-35s.mkv",
+      "sha256": "249f5ac6d3bdf417117fbe7831f79f63d180b27f54b0ee37e5593f0cc4062295",
+      "bytes": 6080245,
+      "sourcePtsStart": 0,
+      "requestedEndPts": 35,
+      "method": "Packet-copy remux, no reencoding; may extend to packet boundary. Full original is local only."
+    }
+  },
+  {
+    "recording": 3,
+    "originalFilename": "2026-10-04 09-00-48.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 09-00-48.mkv",
+    "originalBytes": 3396251,
+    "originalSha256": "c294d9507954566fb2e4cfc67fba93f92016e3f3c2a632957408d27a8d29227c",
+    "startUtc": "2026-10-04T06:00:48.233Z",
+    "stopUtc": "2026-10-04T06:01:06.587Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "Repaint control/region redraw; third alternative cycle harness abort INCONCLUSIVE.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "17.817000"
+      }
+    },
+    "parts": [
+      {
+        "file": "raw-video/recording-3/2026-10-04 09-00-48.mkv.part001",
+        "sha256": "c294d9507954566fb2e4cfc67fba93f92016e3f3c2a632957408d27a8d29227c",
+        "bytes": 3396251
+      }
+    ]
+  },
+  {
+    "recording": 4,
+    "originalFilename": "2026-10-04 09-03-31.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 09-03-31.mkv",
+    "originalBytes": 4789681,
+    "originalSha256": "a84d4eb469bc062c1b848249d9284371d07c0ea7986727194e0df722c9069d82",
+    "startUtc": "2026-10-04T06:03:31.099Z",
+    "stopUtc": "2026-10-04T06:03:58.494Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "Parent validation/child redraw diagnostics.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "26.884000"
+      }
+    },
+    "parts": [
+      {
+        "file": "raw-video/recording-4/2026-10-04 09-03-31.mkv.part001",
+        "sha256": "a84d4eb469bc062c1b848249d9284371d07c0ea7986727194e0df722c9069d82",
+        "bytes": 4789681
+      }
+    ]
+  },
+  {
+    "recording": 5,
+    "originalFilename": "2026-10-04 09-12-28.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 09-12-28.mkv",
+    "originalBytes": 4959815,
+    "originalSha256": "abb8ab967f0ace053f74d1d35c2b0d451f54c9a30fce5f73d661c706ef712bb5",
+    "startUtc": "2026-10-04T06:12:28.459Z",
+    "stopUtc": "2026-10-04T06:12:57.545Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "DWM policy diagnostics.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "28.550000"
+      }
+    },
+    "parts": [
+      {
+        "file": "raw-video/recording-5/2026-10-04 09-12-28.mkv.part001",
+        "sha256": "abb8ab967f0ace053f74d1d35c2b0d451f54c9a30fce5f73d661c706ef712bb5",
+        "bytes": 4959815
+      }
+    ]
+  },
+  {
+    "recording": 6,
+    "originalFilename": "2026-10-04 09-21-34.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 09-21-34.mkv",
+    "originalBytes": 1288439,
+    "originalSha256": "bf3c57992b5e2bca31aef349e3f047bc7fcdd76963685e489f9bd72742e95568",
+    "startUtc": "2026-10-04T06:21:34.508Z",
+    "stopUtc": "2026-10-04T06:21:42.660Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "Composition control. CS_OWNDC excludes COMPOSITED; NOREDIRECTIONBITMAP not retained, so no alternative transition executed.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "7.600000"
+      }
+    },
+    "parts": [
+      {
+        "file": "raw-video/recording-6/2026-10-04 09-21-34.mkv.part001",
+        "sha256": "bf3c57992b5e2bca31aef349e3f047bc7fcdd76963685e489f9bd72742e95568",
+        "bytes": 1288439
+      }
+    ]
+  },
+  {
+    "recording": 7,
+    "originalFilename": "2026-10-04 09-24-31.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 09-24-31.mkv",
+    "originalBytes": 493850,
+    "originalSha256": "ec4ea51eeedc8354791fc0a580932b5d5c296fd7d0daba9c3f6505903374c530",
+    "startUtc": "2026-10-04T06:24:31.611Z",
+    "stopUtc": "2026-10-04T06:24:32.793Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "Aborted PowerShell compatibility attempt; no actual transition. INCONCLUSIVE, not a test PASS.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "0.618000"
+      }
+    },
+    "parts": [
+      {
+        "file": "raw-video/recording-7/2026-10-04 09-24-31.mkv.part001",
+        "sha256": "ec4ea51eeedc8354791fc0a580932b5d5c296fd7d0daba9c3f6505903374c530",
+        "bytes": 493850
+      }
+    ]
+  },
+  {
+    "recording": 8,
+    "originalFilename": "2026-10-04 09-24-43.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 09-24-43.mkv",
+    "originalBytes": 3986328,
+    "originalSha256": "a66170954279c651a5f16e341904edb69a939d6fe68c5d322f5dcd9f289c6d4f",
+    "startUtc": "2026-10-04T06:24:43.373Z",
+    "stopUtc": "2026-10-04T06:25:05.092Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "Temporary bitmap child diagnostic,180ms release versus control.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "21.184000"
+      }
+    },
+    "parts": [
+      {
+        "file": "raw-video/recording-8/2026-10-04 09-24-43.mkv.part001",
+        "sha256": "a66170954279c651a5f16e341904edb69a939d6fe68c5d322f5dcd9f289c6d4f",
+        "bytes": 3986328
+      }
+    ]
+  },
+  {
+    "recording": 9,
+    "originalFilename": "2026-10-04 09-28-23.mkv",
+    "originalLocalPath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci911-physical-20261004\\run-0106\\video\\2026-10-04 09-28-23.mkv",
+    "originalBytes": 4072115,
+    "originalSha256": "641c4ea43b2e9782f3b85e814379db2f78489e005bf6a8d5d32bb84d351e9946",
+    "startUtc": "2026-10-04T06:28:23.404Z",
+    "stopUtc": "2026-10-04T06:28:46.660Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "note": "Temporary bitmap child diagnostic,500ms release versus control. Partial hierarchy still requires compact prepaint; not product acceptance.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "22.700000"
+      }
+    },
+    "parts": [
+      {
+        "file": "raw-video/recording-9/2026-10-04 09-28-23.mkv.part001",
+        "sha256": "641c4ea43b2e9782f3b85e814379db2f78489e005bf6a8d5d32bb84d351e9946",
+        "bytes": 4072115
+      }
+    ]
+  }
+]

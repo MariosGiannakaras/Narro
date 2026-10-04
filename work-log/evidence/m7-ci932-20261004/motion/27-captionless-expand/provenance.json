@@ -1,0 +1,26 @@
+{
+  "folder": "motion/27-captionless-expand",
+  "recording": 2,
+  "action": {
+    "utc": "2026-10-04T02:22:59.7499443Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Expand Floating Timer",
+    "windowId": 26937174,
+    "processId": 23128,
+    "offscreen": false,
+    "bounds": "1761;697;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "case": "captionless",
+  "ptsStart": 3.7789439999999996,
+  "crop": {
+    "x": 3382,
+    "y": 634,
+    "width": 348,
+    "height": 310
+  },
+  "observation": "experiment-captionless-start.json",
+  "frames": 60,
+  "reviewed": false,
+  "method": "60 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

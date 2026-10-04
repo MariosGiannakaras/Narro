@@ -1,0 +1,18 @@
+{
+  "action": {
+    "utc": "2026-10-04T01:57:30.4719131Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Collapse Floating Timer",
+    "windowId": 1181574,
+    "processId": 13932,
+    "offscreen": false,
+    "bounds": "1395;649;32;33",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "recordingStartUtc": "2026-10-04T01:31:23.471000+00:00",
+  "ptsStart": 1566.9009130000002,
+  "frames": 60,
+  "source": "2026-10-04 04-31-23.mkv",
+  "recordingStillActive": true,
+  "method": "Consecutive decoded60fps source frames; no screenshot sampling"
+}

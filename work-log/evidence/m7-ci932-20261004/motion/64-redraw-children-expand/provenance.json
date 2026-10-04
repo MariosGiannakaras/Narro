@@ -1,0 +1,26 @@
+{
+  "folder": "motion/64-redraw-children-expand",
+  "recording": 4,
+  "action": {
+    "utc": "2026-10-04T06:03:44.7743152Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Expand Floating Timer",
+    "windowId": 26937174,
+    "processId": 23128,
+    "offscreen": false,
+    "bounds": "1762;264;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "case": "redraw-children",
+  "ptsStart": 13.475315,
+  "crop": {
+    "x": 3383,
+    "y": 201,
+    "width": 348,
+    "height": 310
+  },
+  "observation": "experiment-repaint-redraw-children-start.json",
+  "frames": 60,
+  "reviewed": false,
+  "method": "60 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

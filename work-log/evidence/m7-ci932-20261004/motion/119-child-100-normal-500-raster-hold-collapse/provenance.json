@@ -1,0 +1,25 @@
+{
+  "folder": "motion/119-child-100-normal-500-raster-hold-collapse",
+  "recording": 9,
+  "action": {
+    "action": "EXPERIMENTAL-observed-pointer-click",
+    "cycle": 1,
+    "case": "child-100-normal-500-raster-hold",
+    "windowId": 26937174,
+    "button": "Collapse Floating Timer",
+    "bounds": "1762;297;32;32",
+    "utc": "2026-10-04T06:28:38.5295691Z"
+  },
+  "case": "child-100-normal-500-raster-hold",
+  "ptsStart": 14.925569000000001,
+  "crop": {
+    "x": 3383,
+    "y": 201,
+    "width": 348,
+    "height": 310
+  },
+  "observation": "experiment-child-100-normal-500-raster-hold-start.json",
+  "frames": 120,
+  "reviewed": false,
+  "method": "120 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

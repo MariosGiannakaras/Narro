@@ -1,0 +1,7 @@
+{
+  "utc": "2026-10-04T07:10:51.4709188Z",
+  "action": "Final freeze: observed tray Quit Narro",
+  "priorPid": 23128,
+  "recorded": false,
+  "purpose": "Stop native log writer before immutable publication; earlier recorded C5 PASS remains unchanged"
+}

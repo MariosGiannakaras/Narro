@@ -1,0 +1,26 @@
+{
+  "folder": "motion/33-clipchildren-expand",
+  "recording": 2,
+  "action": {
+    "utc": "2026-10-04T02:23:04.7970540Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Expand Floating Timer",
+    "windowId": 26937174,
+    "processId": 23128,
+    "offscreen": false,
+    "bounds": "1761;697;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "case": "clipchildren",
+  "ptsStart": 8.826054000000001,
+  "crop": {
+    "x": 3382,
+    "y": 634,
+    "width": 348,
+    "height": 310
+  },
+  "observation": "experiment-clipchildren-start.json",
+  "frames": 60,
+  "reviewed": false,
+  "method": "60 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

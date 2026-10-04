@@ -1,0 +1,15 @@
+# CI932 exact-build Windows evidence
+
+EXE SHA256 `31ac41768872319ba717e07af27138009ee9fd82f75de4fff93b42ea40ed71ef`, PR228 head `a6af4ef15bd827ad751b023df21ab64e565e2c8e`, Windows CI932/run37167015466, artifact11290666183. The executable itself and production database backup are excluded.
+
+The **whole `Narro-M7-Logs` folder** is frozen after the final observed tray Quit, including both complete sessions, all root files and pending-next-restart data. The ZIP is an additional convenient copy. The earlier recorded C5 PASS remains `m7-c5-last-pass.json`; final freeze Quit is not another completed C5 round trip. No native log file was removed or rewritten.
+
+Official physical verdict: saved-origin drift **PASS**, actual378.8px drag/tray Quit/same-EXE restart/explicit Timer reappearance **PASS**, Collapse pixel continuity **FAIL**. Formal isolated replacement M1 B/C/D/performance and complete source-hover acceptance remain open. See [the detailed report](../../2026-10-04-codex-m7-ci932-physical-results.md) and [visual review](VISUAL_REVIEW.md).
+
+Recording1 is the complete approximately50-minute official4480x1080/60fps two-monitor capture. Recordings3–9 are complete diagnostic originals, including the explicitly aborted7. All are byte-identical split into at most80MiB parts. Reassemble each recording by binary concatenation of its listed parts in order and verify `originalSha256` in `video-provenance.json`. Recording2's first35s are a packet-copy remux of the actual style experiment; the1.3GB original including hours of non-test idle is retained locally and hashed, not uploaded as useful test footage. No OBS Pause in these recordings. Recording-wall duration may exceed encoded media duration by initialization/drain latency; UTC-to-PTS alignment is approximate within capture scheduling. No animation-perfect timing claim follows from UTC mapping alone.
+
+`motion/index.json` maps123 exports/8100 consecutive PNG frames to raw recording/action/PTS/crop. Exports are not automatically visual PASS. `VISUAL_REVIEW.md` lists the directly inspected portions and limitations. All crops retain the recorded pixels; MP4 clips are derived H264 and PNGs are lossless decoded frames. `live-motion` contains the original direct failure review. Native style/DWM/child experiments modified CI932 at runtime and cannot certify unmodified product acceptance. The own-parent-DC probe contains stale classic caption/black, while physical display shows the Timer; this rejected GDI-parent capture for production and led to WebView2 CapturePreview in PR230.
+
+`actions.jsonl` is normalized valid UTF8 with all242 original action records; original mixed-encoding byte streams and repair reports remain alongside it. One passive wrong-button native trace executed no transition; `native-boundary-100-normal-actual.csv` is the bounded actual-transition trace. Private database backup is excluded; small readonly own-task ledgers and native logs remain.
+
+The frozen evidence manifest hashes every package file except itself. Earlier CI911 package is unchanged. Current candidate PR230/CI936 is distinct and still requires physical verification.

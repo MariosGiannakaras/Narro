@@ -24,6 +24,8 @@ The remaining work is this bounded corrective batch and closure/observation, not
 
 ## Five closure checkpoints
 
+Current corrective source is PR230/head `ff21477e57b42b7e672b439625db6e9a20abb152`: compact prepaint, asynchronous own-WebView2 CapturePreview and finite same-HWND native child, plus source Break gamepad. Full CI936/run37184564836 PASS; guarded merge `f9a282d0ee7bcc5e7b40abb83df459927036662a` has identical non-Markdown source, duplicate main CI937 cancelled. C4/C5 remain open pending actual Windows/source/performance acceptance on verified physical EXE41365825... and diagnosticadd3e892.... [Whole CI932 package and inspected frame ranges](../work-log/evidence/m7-ci932-20261004/README.md).
+
 ### C1 — Replacement architecture and behavior automation
 **PASS**
 
