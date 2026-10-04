@@ -377,8 +377,8 @@ Acceptance criteria:
 ### 2026-10-04 Pass-3 Focus parity corrections
 
 - **P3-M6-01 — AUTOMATED_VALIDATED:** authoritative Start Blitz completes before the finite ~250 ms board fade and Focus presentation; reduced motion bypasses nonessential motion and the board is restored after the presentation attempt.
-- **P3-M6-02 — AUTOMATED_VALIDATED:** Notes toolbar is B / I / strike / bullets / numbered / undo / redo; http(s) text is auto-recognized as a link, while Narro deliberately requires explicit activation before opening the external browser.
-- **P3-M6-03 — AUTOMATED_VALIDATED:** running Focus live card uses the calibrated cyan→mint/lime edge/glow treatment.
+- **P3-M6-02 — SCOPED PHYSICAL_PASS / SOURCE_COMPARISON_PASS CI942:** seven formatting controls and recognized clickable http(s) directly compared with canonical VE010; explicit external browser activation retained. Whole Notes composition and independent formatting combinations are not certified. [Scoped source comparison](work-log/2026-10-04-codex-m6-scoped-source-evidence-reuse.md).
+- **P3-M6-03 — SCOPED PHYSICAL_PASS / SOURCE_COMPARISON_PASS CI942:** running dark live edge directly compared with calibrated SS-C19, thin cyan→mint/lime and restrained glow. Whole Focus layout/queue/theme parity remains open.
 
 Validation: PR #229 exact head `0b02beef8bd26757913a9c2a008d24a0cd3e8fb3` PASSed Windows CI #939 / run `37187036246`; expected-head guarded squash merge `120c8b6c1aae54452b4369fe16f8c71ae98585ba` PASSed resulting-main CI #940 / run `37188953409` through identical-tree validation. The coherent source/test diff is `+327/-29` across 13 files. These Pass-3 corrections are not new M6 top-level checklist items and do not change the existing 15/18 replacement-host milestone denominator. Gate F remains reopened exactly as stated above, and direct canonical Blitzit comparison remains `VALIDATION_OPEN`; Narro-owned CI/fixtures do not establish `SOURCE_PARITY_PASS`.
 
