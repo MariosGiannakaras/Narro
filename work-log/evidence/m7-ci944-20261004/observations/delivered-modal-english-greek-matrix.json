@@ -1,0 +1,102 @@
+[
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-english-B.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:29.5047724Z",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+B",
+    "focusWindow": 1509624,
+    "layout": "english"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-english-P.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:30.4932571Z",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+P",
+    "focusWindow": 1509624,
+    "layout": "english"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-english-S.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:31.4763358Z",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+S",
+    "focusWindow": 1509624,
+    "layout": "english"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-english-F.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:32.4930456Z",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+F",
+    "focusWindow": 1509624,
+    "layout": "english"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-english-N.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:33.4634496Z",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+N",
+    "focusWindow": 1509624,
+    "layout": "english"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-greek-B.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:34.8006519Z",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+B",
+    "focusWindow": 1509624,
+    "layout": "greek"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-greek-P.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:35.6312044Z",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+P",
+    "focusWindow": 1509624,
+    "layout": "greek"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-greek-S.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:36.6227187Z",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+S",
+    "focusWindow": 1509624,
+    "layout": "greek"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-greek-F.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:37.5154954Z",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+F",
+    "focusWindow": 1509624,
+    "layout": "greek"
+  },
+  {
+    "modalOpen": true,
+    "observation": "artifacts/m7-ci944-physical-20261004/run-final/observations/delivered-modal-greek-N.json",
+    "mainWindow": 11993502,
+    "utc": "2026-10-04T15:04:38.4842791Z",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+N",
+    "focusWindow": 1509624,
+    "layout": "greek"
+  }
+]

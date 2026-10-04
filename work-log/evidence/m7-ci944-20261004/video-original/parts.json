@@ -1,0 +1,28 @@
+{
+  "originalFile": "2026-10-04 17-25-24.mkv",
+  "originalBytes": 157799345,
+  "sha256": "b5b0ed21a93a0223ef3daa0aa420876ecdb20eb44e1fb37cf5f238a39e9b31d9",
+  "durationSeconds": 2777.087,
+  "parts": [
+    {
+      "file": "original.mkv.part-001",
+      "bytes": 41943040,
+      "sha256": "12bd206f88b3cefe20d3a4756b22a25948bc77d1d0131060dda0ceadce9b3520"
+    },
+    {
+      "file": "original.mkv.part-002",
+      "bytes": 41943040,
+      "sha256": "2df8e8af0667fae13ccc0c4c0c27360196b5d61538e918fdb3ac673ca7b1392c"
+    },
+    {
+      "file": "original.mkv.part-003",
+      "bytes": 41943040,
+      "sha256": "1fcbbfc804c8094021e54d014c0e3e9500a05f761805c016fa49c9f359c04012"
+    },
+    {
+      "file": "original.mkv.part-004",
+      "bytes": 31970225,
+      "sha256": "92fe05b74fdd15a4f43a85263f50cf1f62cd0f094afce259347d76246446eaf2"
+    }
+  ]
+}

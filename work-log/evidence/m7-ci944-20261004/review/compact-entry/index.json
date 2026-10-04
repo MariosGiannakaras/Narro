@@ -1,0 +1,15 @@
+{
+  "name": "compact-entry",
+  "requestedStartPts": 2478.75,
+  "consecutiveFrames": 120,
+  "fps": 60,
+  "crop": [
+    896,
+    596,
+    425,
+    170
+  ],
+  "reviewStatus": "DIRECT_INSPECTION_COMPLETE_SCOPED",
+  "directlyInspectedFrames": 120,
+  "observation": "Frames 1-20 show the underlying Main card before Timer occupies this destination ROI. Timer enters from above around frames 21-29 and then retains its content. An empty destination before arrival is not a blank Timer. This crop alone does not establish whole-path C4 continuity."
+}

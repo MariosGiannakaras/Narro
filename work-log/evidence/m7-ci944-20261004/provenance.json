@@ -1,0 +1,13 @@
+{
+  "pr": 232,
+  "head": "6029b5529f025c8dffb4e05331e11a6bbcbb4bec",
+  "merge": "0df4c14cfa6fa8632cff49529ddc36510d67ddd3",
+  "run": 37197934204,
+  "ci": 944,
+  "resultingMainCi": 945,
+  "artifactId": 11302770897,
+  "exeBytes": 15240704,
+  "exeSha256": "b6814cf572e89c0d738659726d2fa1fc06cda1dea65721f4cb1f6d04900439fa",
+  "runtimeDiffCount": 0,
+  "physicalAcceptance": "OPEN"
+}

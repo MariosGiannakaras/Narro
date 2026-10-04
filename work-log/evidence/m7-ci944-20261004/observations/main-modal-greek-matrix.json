@@ -1,0 +1,92 @@
+[
+  {
+    "utc": "2026-10-04T14:31:49.7503841Z",
+    "surface": "main",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+T",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro",
+      "Add task"
+    ],
+    "observation": "main-modal-greek-T.json"
+  },
+  {
+    "utc": "2026-10-04T14:31:50.642205Z",
+    "surface": "main",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+B",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro",
+      "Add task"
+    ],
+    "observation": "main-modal-greek-B.json"
+  },
+  {
+    "utc": "2026-10-04T14:31:51.4974845Z",
+    "surface": "main",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+P",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro",
+      "Add task"
+    ],
+    "observation": "main-modal-greek-P.json"
+  },
+  {
+    "utc": "2026-10-04T14:31:52.3784542Z",
+    "surface": "main",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+S",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro",
+      "Add task"
+    ],
+    "observation": "main-modal-greek-S.json"
+  },
+  {
+    "utc": "2026-10-04T14:31:53.2236399Z",
+    "surface": "main",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+F",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro",
+      "Add task"
+    ],
+    "observation": "main-modal-greek-F.json"
+  },
+  {
+    "utc": "2026-10-04T14:31:54.0589525Z",
+    "surface": "main",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+N",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro",
+      "Add task"
+    ],
+    "observation": "main-modal-greek-N.json"
+  },
+  {
+    "utc": "2026-10-04T14:31:54.8110281Z",
+    "surface": "main",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+F",
+    "modalOpen": true,
+    "focusedNames": [
+      "Add task"
+    ],
+    "observation": "main-modal-greek-Search.json"
+  }
+]

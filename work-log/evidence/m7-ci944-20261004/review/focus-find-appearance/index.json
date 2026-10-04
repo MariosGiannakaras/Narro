@@ -1,0 +1,15 @@
+{
+  "name": "focus-find-appearance",
+  "requestedStartPts": 1724.4,
+  "consecutiveFrames": 120,
+  "fps": 60,
+  "crop": [
+    1495,
+    0,
+    425,
+    875
+  ],
+  "reviewStatus": "DIRECT_INSPECTION_COMPLETE_SCOPED",
+  "directlyInspectedFrames": 120,
+  "observation": "Native Find is already visible in the first exported frame and remains above the retained Focus Add modal for all 120 inspected frames. This range proves retention, not the onset of Find."
+}

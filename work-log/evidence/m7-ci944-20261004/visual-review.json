@@ -1,0 +1,33 @@
+{
+  "originalVideoSha256": "b5b0ed21a93a0223ef3daa0aa420876ecdb20eb44e1fb37cf5f238a39e9b31d9",
+  "wholeOriginalRecordingReviewed": false,
+  "originalDurationSeconds": 2777.087,
+  "fps": 60,
+  "activePhysicalDisplays": 1,
+  "directlyInspectedUniqueConsecutiveFrames": 240,
+  "consecutiveRanges": [
+    "focus-find-appearance",
+    "compact-entry"
+  ],
+  "directlyInspectedGalleryStills": 8,
+  "directlyInspectedFullLgCompanionStills": 5,
+  "fullLgCompanionPtsSeconds": [
+    2478.75,
+    2478.95,
+    2479.25,
+    2479.75,
+    2480.0
+  ],
+  "companionObservation": "First two full-LG stills show the outgoing Panel with Notes; the last three show the compact Timer with content at the destination. Five sparse stills do not establish absence-free continuity between timestamps.",
+  "verdicts": {
+    "17": "PHYSICAL_PASS exercised modal action isolation; Search separately fails18",
+    "18": "PHYSICAL_FAIL native Find escapes active modal",
+    "19": "PHYSICAL_FAIL actual task creation locked once; retry commits one identity",
+    "20": "PHYSICAL_FAIL narrow Schedule/EST/Taken overflow",
+    "C5": "PHYSICAL_PASS native evaluator; 522.015px drag, normal tray Quit, same EXE restored paused at396,745"
+  },
+  "M10EntryAllowed": false,
+  "nativeLogsFiles": 11,
+  "logsZipByteIdentical": true,
+  "originalReassemblyVerified": true
+}

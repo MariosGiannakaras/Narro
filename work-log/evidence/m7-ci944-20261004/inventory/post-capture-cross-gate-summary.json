@@ -1,0 +1,20 @@
+{
+  "utc": "2026-10-04T15:35:51.241158+00:00",
+  "physicalVerdicts": {
+    "17": "PASS exercised action routing",
+    "18": "FAIL native Find in modal",
+    "19": "FAIL one actual locked create; explicit retry commits once",
+    "20": "FAIL narrow metric overflow",
+    "C5": "PASS native evaluator same-SHA/522px/935.051s paused/(396,745)"
+  },
+  "activeDisplays": 1,
+  "dpi": 125,
+  "completedMilestones": [
+    "M1",
+    "M3",
+    "M4"
+  ],
+  "M10Entry": false,
+  "wholeVideoReviewed": false,
+  "originalLogsSnapshotFiles": 11
+}

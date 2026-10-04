@@ -1,0 +1,90 @@
+[
+  {
+    "name": "main-modal-native-find",
+    "ptsSeconds": 186.0,
+    "crop": {
+      "x": 137,
+      "y": 128,
+      "width": 1250,
+      "height": 875
+    },
+    "origin": "lossless original-video PNG"
+  },
+  {
+    "name": "task-create-lock-error",
+    "ptsSeconds": 1053.5,
+    "crop": {
+      "x": 137,
+      "y": 128,
+      "width": 1250,
+      "height": 875
+    },
+    "origin": "lossless original-video PNG"
+  },
+  {
+    "name": "focus-modal-native-find",
+    "ptsSeconds": 1735.8,
+    "crop": {
+      "x": 1495,
+      "y": 0,
+      "width": 425,
+      "height": 875
+    },
+    "origin": "lossless original-video PNG"
+  },
+  {
+    "name": "narrow-board-metric-overflow",
+    "ptsSeconds": 1735.8,
+    "crop": {
+      "x": 890,
+      "y": 275,
+      "width": 390,
+      "height": 560
+    },
+    "origin": "lossless original-video PNG"
+  },
+  {
+    "name": "actual-enter-notes",
+    "ptsSeconds": 2455.0,
+    "crop": {
+      "x": 1495,
+      "y": 0,
+      "width": 425,
+      "height": 875
+    },
+    "origin": "lossless original-video PNG"
+  },
+  {
+    "name": "active-timer-after-drag",
+    "ptsSeconds": 2521.5,
+    "crop": {
+      "x": 370,
+      "y": 725,
+      "width": 470,
+      "height": 185
+    },
+    "origin": "lossless original-video PNG"
+  },
+  {
+    "name": "normal-tray-quit-menu",
+    "ptsSeconds": 2696.0,
+    "crop": {
+      "x": 1530,
+      "y": 895,
+      "width": 370,
+      "height": 180
+    },
+    "origin": "lossless original-video PNG"
+  },
+  {
+    "name": "same-exe-paused-timer-restored",
+    "ptsSeconds": 2737.0,
+    "crop": {
+      "x": 370,
+      "y": 725,
+      "width": 470,
+      "height": 185
+    },
+    "origin": "lossless original-video PNG"
+  }
+]

@@ -1,0 +1,151 @@
+{"utc":"2026-10-04T14:24:19.9261263Z","action":"activate-observed-native-window","windowId":1118112,"pid":76668,"allowedProcess":"obs64","before":1118112,"after":1118112,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:25:24.1396407Z","action":"native-uia-invoke","button":"Start Recording","windowId":1118112,"processId":76668,"offscreen":false,"bounds":"1568;792;343;45","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T14:26:04.6799821Z","action":"activate-observed-native-window","windowId":11993502,"pid":97916,"allowedProcess":"narro-m7-validation","before":1118112,"after":11993502,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:26:04.9119134Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+T","scancodes":[29,56,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:28:22.1325475Z","action":"activate-observed-native-window","windowId":11993502,"pid":97916,"allowedProcess":"narro-m7-validation","before":11993502,"after":11993502,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:28:22.3412884Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:23.0307947Z","action":"focused-webview-keyboard-layout","request":"english","focus":527230,"active":11993502,"pid":23828,"before":"4080408","after":"4090409"}
+{"utc":"2026-10-04T14:28:23.0673204Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:23.2248951Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+T","scancodes":[29,56,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:28:24.2885815Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:24.3072918Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+B","scancodes":[29,56,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:28:25.1516202Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:25.1598301Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:28:26.0009647Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:26.0086794Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+S","scancodes":[29,56,31],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:28:26.8344513Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:26.8427482Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+F","scancodes":[29,56,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:28:27.6784202Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:27.6861794Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:28:28.5121469Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:28.5189334Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+F","scancodes":[29,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:28:29.4824925Z","action":"activate-observed-native-window","windowId":11993502,"pid":97916,"allowedProcess":"narro-m7-validation","before":1707978,"after":11993502,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:28:29.5296609Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:28:30.0525916Z","action":"focused-webview-keyboard-layout","request":"greek","focus":36832444,"active":11993502,"pid":97916,"before":"4090409","after":"4090409"}
+{"utc":"2026-10-04T14:28:45.0114479Z","action":"focused-webview-keyboard-layout","request":"read","focus":15336758,"active":11993502,"pid":23828,"before":"4080408","after":"4080408"}
+{"utc":"2026-10-04T14:31:47.6777383Z","action":"activate-observed-native-window","windowId":11993502,"pid":97916,"allowedProcess":"narro-m7-validation","before":11993502,"after":11993502,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:31:47.8947478Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:31:48.5612744Z","action":"focused-webview-keyboard-layout","request":"greek","focus":15336758,"active":11993502,"pid":23828,"before":"4080408","after":"4080408","originalFocus":15336758,"originalThread":144492,"currentThread":144492}
+{"utc":"2026-10-04T14:31:48.6204529Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:31:48.7779675Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+T","scancodes":[29,56,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:31:49.8412233Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:31:49.8489119Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+B","scancodes":[29,56,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:31:50.7028635Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:31:50.7120809Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:31:51.5576472Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:31:51.5656021Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+S","scancodes":[29,56,31],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:31:52.4422033Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:31:52.4496992Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+F","scancodes":[29,56,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:31:53.2821432Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:31:53.2909751Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:31:54.1116288Z","action":"native-uia-setfocus","windowId":11993502,"name":"Add task","bounds":"952;790;141;51"}
+{"utc":"2026-10-04T14:31:54.1190134Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+F","scancodes":[29,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:32:34.4733416Z","action":"activate-observed-native-window","windowId":11993502,"pid":97916,"allowedProcess":"narro-m7-validation","before":11993502,"after":11993502,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:32:34.5739543Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Escape","scancodes":[1],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:32:52.2462088Z","action":"native-uia-invoke","button":"+ Create new list","windowId":11993502,"processId":97916,"offscreen":false,"bounds":"153;251;229;50","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T14:33:13.1683740Z","action":"native-uia-setfocus","windowId":11993502,"name":"Title","bounds":"484;799;539;56"}
+{"utc":"2026-10-04T14:35:19.1724160Z","action":"activate-observed-native-window","windowId":11993502,"pid":97916,"allowedProcess":"narro-m7-validation","before":11993502,"after":11993502,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:35:19.4029884Z","action":"native-uia-setfocus","windowId":11993502,"name":"Title","bounds":"484;799;539;56"}
+{"utc":"2026-10-04T14:35:19.7517808Z","action":"observed-unicode-SendInput","windowId":11993502,"pid":97916,"field":"Title","text":"M7 CI944 acceptance","controlCharactersAllowed":false}
+{"utc":"2026-10-04T14:35:43.7964023Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+A","scancodes":[29,30],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:35:44.6261833Z","action":"observed-unicode-SendInput","windowId":11993502,"pid":97916,"field":"Title","text":"M7 CI944 acceptance","controlCharactersAllowed":false}
+{"utc":"2026-10-04T14:35:45.0002434Z","action":"native-uia-invoke","button":"Create","windowId":11993502,"processId":97916,"offscreen":false,"bounds":"887;884;136;51","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T14:37:37.2561548Z","action":"native-uia-invoke","button":"Open","observedOrdinal":3,"expectedMatches":3,"windowId":11993502,"processId":97916,"offscreen":false,"bounds":"585;952;131;50","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T14:37:54.1956526Z","action":"native-uia-invoke","button":"Add task to Today","observedOrdinal":0,"expectedMatches":1,"windowId":11993502,"processId":97916,"offscreen":false,"bounds":"916;738;102;36","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T14:38:55.4795797Z","action":"native-uia-setfocus","windowId":11993502,"name":"New Today task title","bounds":"925;717;151;40"}
+{"utc":"2026-10-04T14:38:55.8656901Z","action":"observed-unicode-SendInput","windowId":11993502,"pid":97916,"field":"New Today task title","text":"M7 CI944 LongUnbrokenTitleForNarrowBoardOverflowAndAccessibleFullTitleValidation1234567890","controlCharactersAllowed":false}
+{"utc":"2026-10-04T14:38:56.3133387Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Enter","scancodes":[28],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:39:41.8877066Z","action":"native-uia-invoke","button":"Add task to Today","observedOrdinal":0,"expectedMatches":1,"windowId":11993502,"processId":97916,"offscreen":false,"bounds":"907;844;102;36","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T14:39:42.3215271Z","action":"native-uia-setfocus","windowId":11993502,"name":"New Today task title","bounds":"925;851;151;40"}
+{"utc":"2026-10-04T14:39:42.5883941Z","action":"observed-unicode-SendInput","windowId":11993502,"pid":97916,"field":"New Today task title","text":"M7 CI944 reorder companion","controlCharactersAllowed":false}
+{"utc":"2026-10-04T14:39:42.9511031Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Enter","scancodes":[28],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:42:35.0769126Z","action":"observed-unicode-SendInput","windowId":11993502,"pid":97916,"field":"New Today task title","text":"M7 CI944 reorder companion","controlCharactersAllowed":false}
+{"utc":"2026-10-04T14:42:35.6452486Z","action":"observed-text-value-after-input","windowId":11993502,"field":"New Today task title","value":"M7 CI944 reorder companion","expectedTextPresent":true}
+{"utc":"2026-10-04T14:42:55.7823103Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Enter","scancodes":[28],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:45:24.7404923Z","action":"native-uia-invoke","button":"Add task","observedOrdinal":0,"expectedMatches":1,"windowId":11993502,"processId":97916,"offscreen":false,"bounds":"1000;721;76;48","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T14:47:23.8366309Z","action":"native-uia-invoke","button":"Blitz now","observedOrdinal":0,"expectedMatches":1,"windowId":11993502,"processId":97916,"offscreen":false,"bounds":"907;928;185;56","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T14:48:19.7860791Z","action":"native-uia-setfocus","windowId":1509624,"name":"Task title: M7 CI944 LongUnbrokenTitleForNarrowBoardOverflowAndAccessibleFullTitleValidation1234567890","bounds":"1571;579;28;51"}
+{"utc":"2026-10-04T14:49:14.0595494Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+T","scancodes":[29,56,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:53:05.1791916Z","action":"observed-pointer-Make-live","windowId":1509624,"task":"M7 CI944 LongUnbrokenTitleForNarrowBoardOverflowAndAccessibleFullTitleValidation1234567890","x":1751,"y":617}
+{"utc":"2026-10-04T14:53:07.4377271Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+T","scancodes":[29,56,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:53:59.1174063Z","action":"activate-observed-native-window","windowId":1509624,"pid":97916,"allowedProcess":"narro-m7-validation","before":1509624,"after":1509624,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:53:59.6695031Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:00.3207951Z","action":"focused-webview-keyboard-layout","request":"english","focus":16975766,"active":1509624,"pid":23828,"before":"4080408","after":"4090409","originalFocus":16975766,"originalThread":144492,"currentThread":144492}
+{"utc":"2026-10-04T14:54:00.7142344Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:00.8536570Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+T","scancodes":[29,56,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:02.2800070Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:02.2848936Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+B","scancodes":[29,56,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:03.5259754Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:03.5310943Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:04.8210993Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:04.8281834Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+S","scancodes":[29,56,31],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:06.0351667Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:06.0401845Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+F","scancodes":[29,56,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:07.2479411Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:07.2524555Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:08.4321619Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:08.4370543Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+F","scancodes":[29,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:09.4519574Z","action":"activate-observed-native-window","windowId":1509624,"pid":97916,"allowedProcess":"narro-m7-validation","before":1510600,"after":1509624,"foregroundConfirmed":true}
+{"utc":"2026-10-04T14:54:09.8279752Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:10.3360144Z","action":"focused-webview-keyboard-layout","request":"greek","focus":16975766,"active":1509624,"pid":23828,"before":"4090409","after":"4080408","originalFocus":16975766,"originalThread":144492,"currentThread":144492}
+{"utc":"2026-10-04T14:54:10.7116988Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:10.7152430Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+T","scancodes":[29,56,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:11.9286539Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:11.9337241Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+B","scancodes":[29,56,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:13.1012079Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:13.1057324Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:14.2870388Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:14.2910463Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+S","scancodes":[29,56,31],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:15.4580990Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:15.4620012Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+F","scancodes":[29,56,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:16.6410651Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:16.6450347Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T14:54:17.8870134Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T14:54:17.8928346Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+F","scancodes":[29,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:04.7993029Z","action":"physical-pointer-close-observed-native-find","windowId":1509624,"y":38,"x":1872}
+{"utc":"2026-10-04T15:04:07.3777017Z","action":"activate-observed-native-window","windowId":11993502,"pid":97916,"allowedProcess":"narro-m7-validation","before":1509624,"after":11993502,"foregroundConfirmed":true}
+{"utc":"2026-10-04T15:04:28.1212411Z","action":"focused-webview-keyboard-layout","request":"english","focus":15336758,"active":11993502,"pid":23828,"before":"4080408","after":"4090409","originalFocus":15336758,"originalThread":144492,"currentThread":144492}
+{"utc":"2026-10-04T15:04:28.3816395Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+B","scancodes":[29,56,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:29.5517627Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:30.5111829Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+S","scancodes":[29,56,31],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:31.4912326Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+F","scancodes":[29,56,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:32.5107180Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:33.9868019Z","action":"focused-webview-keyboard-layout","request":"greek","focus":15336758,"active":11993502,"pid":23828,"before":"4090409","after":"4080408","originalFocus":15336758,"originalThread":144492,"currentThread":144492}
+{"utc":"2026-10-04T15:04:33.9921897Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+B","scancodes":[29,56,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:34.8145741Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:35.6436300Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+S","scancodes":[29,56,31],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:36.6325745Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+F","scancodes":[29,56,33],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:04:37.5230253Z","action":"physical-scancode-chord","windowId":11993502,"pid":97916,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:05:16.9981513Z","action":"activate-observed-native-window","windowId":1509624,"pid":97916,"allowedProcess":"narro-m7-validation","before":11993502,"after":1509624,"foregroundConfirmed":true}
+{"utc":"2026-10-04T15:05:17.5215307Z","action":"native-uia-setfocus","windowId":1509624,"name":"Add task","bounds":"1744;624;140;51"}
+{"utc":"2026-10-04T15:05:17.7200283Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Enter","scancodes":[28],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:05:18.6161760Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Escape","scancodes":[1],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:05:39.8634842Z","action":"focused-webview-keyboard-layout","request":"english","focus":16975766,"active":1509624,"pid":23828,"before":"4080408","after":"4090409","originalFocus":16975766,"originalThread":144492,"currentThread":144492}
+{"utc":"2026-10-04T15:05:40.1257026Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:05:41.7890835Z","action":"focused-webview-keyboard-layout","request":"greek","focus":16975766,"active":1509624,"pid":23828,"before":"4090409","after":"4080408","originalFocus":16975766,"originalThread":144492,"currentThread":144492}
+{"utc":"2026-10-04T15:05:41.7949439Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:05:42.4690898Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:05:43.0488031Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:06:15.6958087Z","action":"observed-unicode-SendInput","windowId":1509624,"pid":97916,"field":"Task note","text":"CI944 actual Enter line one","controlCharactersAllowed":false}
+{"utc":"2026-10-04T15:06:16.2682095Z","action":"observed-text-value-after-input","windowId":1509624,"field":"Task note","value":"CI944 actual Enter line one","expectedTextPresent":true}
+{"utc":"2026-10-04T15:06:16.3674214Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Enter","scancodes":[28],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:06:16.8168298Z","action":"observed-unicode-SendInput","windowId":1509624,"pid":97916,"field":"Task note","text":"Greek δεύτερη γραμμή","controlCharactersAllowed":false}
+{"utc":"2026-10-04T15:06:17.3504721Z","action":"observed-text-value-after-input","windowId":1509624,"field":"Task note","value":"CI944 actual Enter line one\nGreek δεύτερη γραμμή","expectedTextPresent":true}
+{"utc":"2026-10-04T15:06:17.3576077Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Enter","scancodes":[28],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:06:17.7915039Z","action":"observed-unicode-SendInput","windowId":1509624,"pid":97916,"field":"Task note","text":"https://example.com/ explicit-only link","controlCharactersAllowed":false}
+{"utc":"2026-10-04T15:06:18.3690045Z","action":"observed-text-value-after-input","windowId":1509624,"field":"Task note","value":"CI944 actual Enter line one\nGreek δεύτερη γραμμή\nhttps://example.com/ explicit-only link","expectedTextPresent":true}
+{"utc":"2026-10-04T15:06:18.4741080Z","action":"native-uia-invoke","button":"Save note","observedOrdinal":0,"expectedMatches":1,"windowId":1509624,"processId":97916,"offscreen":false,"bounds":"1791;734;87;39","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-04T15:06:43.0857091Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:07:20.8017382Z","action":"activate-observed-native-window","windowId":1509624,"pid":97916,"allowedProcess":"narro-m7-validation","before":1509624,"after":1509624,"foregroundConfirmed":true}
+{"utc":"2026-10-04T15:07:21.0502321Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:07:21.7947354Z","action":"DPI-aware actual pointer drag","windowId":1509624,"pid":97916,"exeSha256":"b6814cf572e89c0d738659726d2fa1fc06cda1dea65721f4cb1f6d04900439fa","from":{"y":607,"x":1040},"to":{"y":757,"x":540}}
+{"utc":"2026-10-04T15:09:04.6734782Z","action":"activate-observed-native-window","windowId":1509624,"pid":97916,"allowedProcess":"narro-m7-validation","before":1509624,"after":1509624,"foregroundConfirmed":true}
+{"utc":"2026-10-04T15:09:04.9553775Z","action":"physical-scancode-chord","windowId":1509624,"pid":97916,"chord":"Ctrl+Escape","scancodes":[29,1],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"y":1060,"x":1618,"action":"physical-pointer-show-hidden-tray-icons","utc":"2026-10-04T15:09:21.0419299Z"}
+{"x":1653,"y":1020,"utc":"2026-10-04T15:10:01.5016208Z","action":"physical-pointer-right-click-observed-Narro-tray-icon","basis":"fresh tray-overflow-navigation.png Narro gradient N icon"}
+{"pid":97916,"utc":"2026-10-04T15:10:22.6719091Z","action":"physical-pointer-normal-tray-Quit-Narro","y":1005,"x":1734,"basis":"fresh tray-narro-menu-navigation.png Quit Narro"}
+{"action":"verify-normal-tray-Quit-owner-absent","absent":true,"utc":"2026-10-04T15:10:24.9654205Z","pid":97916}
+{"launchMethod":"Computer Use sky.launch_app exact path","sha256":"b6814cf572e89c0d738659726d2fa1fc06cda1dea65721f4cb1f6d04900439fa","action":"verify-same-EXE-relaunch","pid":69800,"exe":"E:\\SystemFiles\\Desktop\\narroupload\\artifacts\\m7-pr232-ci944\\candidate\\narro-m7-validation.exe","utc":"2026-10-04T15:10:58.8741614Z","mainWindow":32704446}
+{"utc":"2026-10-04T15:10:59.7400118Z","action":"activate-observed-native-window","windowId":32704446,"pid":69800,"allowedProcess":"narro-m7-validation","before":593018,"after":32704446,"foregroundConfirmed":true}
+{"utc":"2026-10-04T15:10:59.9608766Z","action":"physical-scancode-chord","windowId":32704446,"pid":69800,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-04T15:11:41.2526758Z","action":"native-uia-invoke","button":"Stop Recording","observedOrdinal":0,"expectedMatches":1,"windowId":1118112,"processId":76668,"offscreen":false,"bounds":"1568;792;298;45","authorization":"User authorized native fallback for real Windows testing"}

@@ -1,0 +1,1411 @@
+{
+  "utc": "2026-10-04T15:11:18.2975028Z",
+  "windows": [
+    {
+      "hwnd": 593018,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 875,
+        "x": 396,
+        "y": 745,
+        "width": 425
+      },
+      "client": {
+        "height": 875,
+        "x": 396,
+        "y": 745,
+        "width": 425
+      }
+    },
+    {
+      "hwnd": 32704446,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 922,
+        "x": 32,
+        "y": 32,
+        "width": 1268
+      },
+      "client": {
+        "height": 875,
+        "x": 41,
+        "y": 70,
+        "width": 1250
+      }
+    },
+    {
+      "hwnd": 12059038,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 789,
+        "x": 192,
+        "y": 192,
+        "width": 1440
+      },
+      "client": {
+        "height": 742,
+        "x": 201,
+        "y": 230,
+        "width": 1422
+      }
+    },
+    {
+      "hwnd": 2558358,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 18,
+        "x": 0,
+        "y": 0,
+        "width": 18
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 985718,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 18,
+        "x": 0,
+        "y": 0,
+        "width": 18
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 462122,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "WebSocket Server Settings",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 753,
+        "x": 377,
+        "y": 173,
+        "width": 862
+      },
+      "client": {
+        "height": 706,
+        "x": 386,
+        "y": 211,
+        "width": 844
+      }
+    },
+    {
+      "hwnd": 1837428,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "Output Timer",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 347,
+        "x": 364,
+        "y": 377,
+        "width": 889
+      },
+      "client": {
+        "height": 300,
+        "x": 373,
+        "y": 415,
+        "width": 871
+      }
+    },
+    {
+      "hwnd": 68290044,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "Stats",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 297,
+        "x": 354,
+        "y": 475,
+        "width": 893
+      },
+      "client": {
+        "height": 250,
+        "x": 363,
+        "y": 513,
+        "width": 875
+      }
+    },
+    {
+      "hwnd": 1118112,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation 944 - Scenes: NarroM7CI944",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "height": 1098,
+        "x": -9,
+        "y": -9,
+        "width": 1938
+      },
+      "client": {
+        "height": 1051,
+        "x": 0,
+        "y": 29,
+        "width": 1920
+      }
+    },
+    {
+      "hwnd": 920300,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "QTrayIconMessageWindow",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 789,
+        "x": 224,
+        "y": 224,
+        "width": 1440
+      },
+      "client": {
+        "height": 742,
+        "x": 233,
+        "y": 262,
+        "width": 1422
+      }
+    },
+    {
+      "hwnd": 1379722,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 38274918,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 23004254,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 47056584,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 862
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 844
+      }
+    },
+    {
+      "hwnd": 855392,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 889
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 871
+      }
+    },
+    {
+      "hwnd": 10815426,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 893
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 875
+      }
+    },
+    {
+      "hwnd": 3149342,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 527110,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 592876,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 724518,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 1313014,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 1838982,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 1600
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 1582
+      }
+    },
+    {
+      "hwnd": 6227910,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 1600
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 1582
+      }
+    },
+    {
+      "hwnd": 1247432,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 20579778,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 723112,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 659186,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 14484784,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 1378920,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 63243850,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 1509484,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 23725960,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 47,
+        "x": 0,
+        "y": 0,
+        "width": 1600
+      },
+      "client": {
+        "height": 0,
+        "x": 9,
+        "y": 38,
+        "width": 1582
+      }
+    },
+    {
+      "hwnd": 68355684,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 38,
+        "x": 0,
+        "y": 0,
+        "width": 1618
+      },
+      "client": {
+        "height": -9,
+        "x": 9,
+        "y": 38,
+        "width": 1600
+      }
+    },
+    {
+      "hwnd": 108529392,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "GDI+ Window (obs64.exe)",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 1,
+        "x": 0,
+        "y": 0,
+        "width": 1
+      },
+      "client": {
+        "height": 1,
+        "x": 0,
+        "y": 0,
+        "width": 1
+      }
+    },
+    {
+      "hwnd": 1641926,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 789,
+        "x": 192,
+        "y": 192,
+        "width": 1440
+      },
+      "client": {
+        "height": 742,
+        "x": 201,
+        "y": 230,
+        "width": 1422
+      }
+    },
+    {
+      "hwnd": 23396882,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 789,
+        "x": 160,
+        "y": 160,
+        "width": 1440
+      },
+      "client": {
+        "height": 742,
+        "x": 169,
+        "y": 198,
+        "width": 1422
+      }
+    },
+    {
+      "hwnd": 3016536,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 1575226,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 527476,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 4720018,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 1247686,
+      "pid": 76668,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "x": 0,
+        "y": 0,
+        "width": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "Zoom Out",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "6;623;25;20"
+    },
+    {
+      "name": "41%",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "31;625;55;17"
+    },
+    {
+      "name": "Zoom In",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "86;623;25;20"
+    },
+    {
+      "name": "No source selected",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "12;665;200;27"
+    },
+    {
+      "name": "Properties",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "266;656;136;45"
+    },
+    {
+      "name": "Filters",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "410;656;103;45"
+    },
+    {
+      "name": "File",
+      "type": "ControlType.MenuItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1;28;43;32"
+    },
+    {
+      "name": "Edit",
+      "type": "ControlType.MenuItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "46;28;47;32"
+    },
+    {
+      "name": "View",
+      "type": "ControlType.MenuItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "95;28;53;32"
+    },
+    {
+      "name": "Docks",
+      "type": "ControlType.MenuItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "150;28;63;32"
+    },
+    {
+      "name": "Profile",
+      "type": "ControlType.MenuItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "215;28;66;32"
+    },
+    {
+      "name": "Scene Collection",
+      "type": "ControlType.MenuItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "282;28;141;32"
+    },
+    {
+      "name": "Tools",
+      "type": "ControlType.MenuItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "425;28;57;32"
+    },
+    {
+      "name": "Help",
+      "type": "ControlType.MenuItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "483;28;53;32"
+    },
+    {
+      "name": "00:00:00",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "1473;1050;65;22"
+    },
+    {
+      "name": "00:45:53",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1585;1050;65;22"
+    },
+    {
+      "name": "CPU: 13.9%",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1668;1050;86;22"
+    },
+    {
+      "name": "60.00 / 60.00 FPS",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1773;1050;128;22"
+    },
+    {
+      "name": "Scenes",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "0;710;377;327"
+    },
+    {
+      "name": "Destop",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "3;745;370;37"
+    },
+    {
+      "name": "Add",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "3;1000;32;33"
+    },
+    {
+      "name": "Remove",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "38;1000;32;33"
+    },
+    {
+      "name": "Open Scene Filters",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "82;1000;32;33"
+    },
+    {
+      "name": "Move Up",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "126;1000;32;33"
+    },
+    {
+      "name": "Move Down",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "161;1000;32;33"
+    },
+    {
+      "name": "Float",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "350;713;26;25"
+    },
+    {
+      "name": "Sources",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "382;710;380;327"
+    },
+    {
+      "name": "Display Capture",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "386;745;372;37"
+    },
+    {
+      "name": "Desktop",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "386;782;372;37"
+    },
+    {
+      "name": "Add",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "386;1000;32;33"
+    },
+    {
+      "name": "Remove",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "421;1000;32;33"
+    },
+    {
+      "name": "Properties",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "465;1000;32;33"
+    },
+    {
+      "name": "Move Up",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "508;1000;32;33"
+    },
+    {
+      "name": "Move Down",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "543;1000;32;33"
+    },
+    {
+      "name": "Float",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "735;713;26;25"
+    },
+    {
+      "name": "Audio Mixer",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "767;710;491;327"
+    },
+    {
+      "name": "Desktop Audio",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "770;761;118;26"
+    },
+    {
+      "name": "Deskt…Audio",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "770;761;103;26"
+    },
+    {
+      "name": "Mute 'Desktop Audio'",
+      "type": "ControlType.CheckBox",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "798;963;30;27"
+    },
+    {
+      "name": "0.0 dB",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "770;787;50;23"
+    },
+    {
+      "name": "Global",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "770;743;118;17"
+    },
+    {
+      "name": "Volume slider for 'Desktop Audio':",
+      "type": "ControlType.Slider",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "783;816;35;142"
+    },
+    {
+      "name": "Mic/Aux",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "890;761;90;26"
+    },
+    {
+      "name": "Mic/Aux",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "890;761;75;26"
+    },
+    {
+      "name": "Mute 'Mic/Aux'",
+      "type": "ControlType.CheckBox",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "905;963;30;27"
+    },
+    {
+      "name": "0.0 dB",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "890;787;50;23"
+    },
+    {
+      "name": "Global",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "890;743;90;17"
+    },
+    {
+      "name": "Volume slider for 'Mic/Aux':",
+      "type": "ControlType.Slider",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "890;816;35;142"
+    },
+    {
+      "name": "Mic/Aux 2",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "981;761;90;26"
+    },
+    {
+      "name": "Mic/Aux 2",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "981;761;75;26"
+    },
+    {
+      "name": "Mute 'Mic/Aux 2'",
+      "type": "ControlType.CheckBox",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "996;963;30;27"
+    },
+    {
+      "name": "0.0 dB",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "981;787;50;23"
+    },
+    {
+      "name": "Global",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "981;743;90;17"
+    },
+    {
+      "name": "Volume slider for 'Mic/Aux 2':",
+      "type": "ControlType.Slider",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "981;816;35;142"
+    },
+    {
+      "name": "0 hidden",
+      "type": "ControlType.CheckBox",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "771;1001;92;31"
+    },
+    {
+      "name": "Advanced Audio Properties",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1098;1000;32;33"
+    },
+    {
+      "name": "Options",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1142;1001;112;31"
+    },
+    {
+      "name": "Float",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1232;713;26;25"
+    },
+    {
+      "name": "Scene Transitions",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1263;710;292;327"
+    },
+    {
+      "name": "Transition",
+      "type": "ControlType.ComboBox",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1270;747;280;45"
+    },
+    {
+      "name": "Add Configurable Transition",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1442;792;32;35"
+    },
+    {
+      "name": "Remove Configurable Transition",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "1480;792;32;35"
+    },
+    {
+      "name": "Transition Properties",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "1517;792;32;35"
+    },
+    {
+      "name": "Float",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1528;713;26;25"
+    },
+    {
+      "name": "Controls",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1561;710;358;327"
+    },
+    {
+      "name": "Start Streaming",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1568;747;343;45"
+    },
+    {
+      "name": "Stop Recording",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1568;792;298;45"
+    },
+    {
+      "name": "Pause Recording",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1870;792;42;45"
+    },
+    {
+      "name": "Start Virtual Camera",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1568;837;298;45"
+    },
+    {
+      "name": "Configure Virtual Camera",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1870;837;42;45"
+    },
+    {
+      "name": "Studio Mode",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1568;882;343;45"
+    },
+    {
+      "name": "Settings",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1568;927;343;45"
+    },
+    {
+      "name": "Float",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1892;713;26;25"
+    }
+  ]
+}

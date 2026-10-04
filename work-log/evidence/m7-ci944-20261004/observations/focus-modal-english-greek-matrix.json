@@ -1,0 +1,182 @@
+[
+  {
+    "utc": "2026-10-04T14:54:01.8621795Z",
+    "surface": "focus",
+    "layout": "english",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+T",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-english-T.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:03.1334934Z",
+    "surface": "focus",
+    "layout": "english",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+B",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-english-B.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:04.442669Z",
+    "surface": "focus",
+    "layout": "english",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+P",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-english-P.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:05.6570394Z",
+    "surface": "focus",
+    "layout": "english",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+S",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-english-S.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:06.8543653Z",
+    "surface": "focus",
+    "layout": "english",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+F",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-english-F.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:08.0468431Z",
+    "surface": "focus",
+    "layout": "english",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+Alt+N",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-english-N.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:09.1511868Z",
+    "surface": "focus",
+    "layout": "english",
+    "actualHkl": "4090409",
+    "chord": "Ctrl+F",
+    "modalOpen": true,
+    "focusedNames": [
+      "Add task"
+    ],
+    "observation": "focus-modal-english-Search.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:11.5500658Z",
+    "surface": "focus",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+T",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-greek-T.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:12.7317354Z",
+    "surface": "focus",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+B",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-greek-B.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:13.9089439Z",
+    "surface": "focus",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+P",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-greek-P.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:15.0896562Z",
+    "surface": "focus",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+S",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-greek-S.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:16.2683953Z",
+    "surface": "focus",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+F",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-greek-F.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:17.537505Z",
+    "surface": "focus",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+Alt+N",
+    "modalOpen": true,
+    "focusedNames": [
+      "Narro Diagnostic - Focus",
+      "Add task"
+    ],
+    "observation": "focus-modal-greek-N.json"
+  },
+  {
+    "utc": "2026-10-04T14:54:18.5905191Z",
+    "surface": "focus",
+    "layout": "greek",
+    "actualHkl": "4080408",
+    "chord": "Ctrl+F",
+    "modalOpen": true,
+    "focusedNames": [
+      "Add task"
+    ],
+    "observation": "focus-modal-greek-Search.json"
+  }
+]
