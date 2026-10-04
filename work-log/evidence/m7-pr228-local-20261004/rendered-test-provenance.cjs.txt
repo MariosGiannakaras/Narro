@@ -1,0 +1,31 @@
+const {chromium}=require('C:/Users/MariosG/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+(async()=>{
+const browser=await chromium.launch({executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',headless:true,args:['--disable-background-networking']});
+const out='E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-compact-hover-rendered';fs.mkdirSync(out,{recursive:true});const results=[];
+try{for(const theme of ['light','dark']) for(const reducedMotion of ['no-preference','reduce']) for(const deviceScaleFactor of [1,1.25]){
+ const context=await browser.newContext({viewport:{width:420,height:400},reducedMotion,deviceScaleFactor});const page=await context.newPage();
+ await page.goto('http://127.0.0.1:4188/floating-timer-fixture.html?theme='+theme);await page.waitForSelector('[data-floating-timer-fixture-ready=true]',{state:'attached'});
+ const shell=page.locator('.floating-timer-foundation'),host=page.locator('[data-floating-actions-controller]'),buttons=page.locator('[data-floating-action]');
+ const key=`${theme}-${reducedMotion}-${deviceScaleFactor}`;assert.equal(await host.evaluate(e=>e.inert),true);
+ await page.mouse.move(380,200);await page.screenshot({path:path.join(out,key+'-rest.png')});
+ await shell.hover({position:{x:170,y:40}});await page.waitForTimeout(160);assert.equal(await host.evaluate(e=>e.inert),false);
+ const base=await buttons.evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}}));
+ const bounds=await shell.boundingBox(),toolbar=await page.locator('.floating-timer-foundation__subtask-toolbar').boundingBox();const actions=[];
+ for(const action of ['notes','pause-resume','skip','done','return-to-panel']){
+  const button=page.locator(`[data-floating-action="${action}"]`);await button.hover();await page.waitForTimeout(160);
+  const state=await buttons.evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {action:e.dataset.floatingAction,x:r.x,y:r.y,width:r.width,height:r.height,label:getComputedStyle(e.querySelector('.floating-timer-foundation__action-label')).display!=='none'}}));
+  const selected=state.findIndex(e=>e.action===action),s=state[selected];assert.equal(state.filter(e=>e.label).length,1);
+  assert(s.x>=bounds.x&&s.x+s.width<=bounds.x+bounds.width,action+' bounded pill');
+  assert(s.x<=base[selected].x+16&&s.x+s.width>=base[selected].x+16,action+' pointer remains inside target');
+  state.forEach((v,i)=>{if(i!==selected) for(const p of ['x','y','width','height'])assert.equal(v[p],base[i][p],action+' moved neighbor '+i);});
+  assert.deepEqual(await page.locator('.floating-timer-foundation__subtask-toolbar').boundingBox(),toolbar);
+  await page.screenshot({path:path.join(out,key+'-'+action+'.png')});actions.push(state);
+ }
+ await page.mouse.move(380,200);await page.waitForTimeout(160);assert.equal(await host.evaluate(e=>e.inert),true);
+ await page.locator('.floating-timer-foundation__heading').focus();await page.keyboard.press('Tab');assert.equal(await page.locator('[data-floating-action=notes]').evaluate(e=>document.activeElement===e),true);
+ await page.keyboard.press('Enter');await page.waitForTimeout(350);assert.equal(await shell.getAttribute('data-floating-expanded'),'true');assert.equal(await page.locator('.floating-timer-foundation__notes').isVisible(),true);
+ await page.screenshot({path:path.join(out,key+'-notes-click.png')});results.push({key,actions,notesClickExpands:true,restingInert:true,keyboardTabNotes:true});await context.close();
+ }}finally{await browser.close();fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(results,null,2)+'\n');}
+console.log(JSON.stringify({scenarios:results.length,screenshots:fs.readdirSync(out).filter(p=>p.endsWith('.png')).length,status:'PASS'}));
+})().catch(e=>{console.error(e);process.exit(1)});

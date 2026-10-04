@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-04T00:10:52.5718301Z",
+  "hwnd": 65818,
+  "elements": [
+    {
+      "type": "ControlType.Pane",
+      "name": "Overflow Notification Area",
+      "offscreen": false,
+      "bounds": "2250;930;160;120"
+    }
+  ]
+}

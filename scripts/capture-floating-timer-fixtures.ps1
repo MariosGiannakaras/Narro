@@ -88,7 +88,7 @@ try {
         }
     }
 
-    foreach ($lifecycleState in @("cycle", "idle-recovery")) {
+    foreach ($lifecycleState in @("cycle", "idle-recovery", "compact-focus")) {
     $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [System.IO.Path]::GetTempPath() }
     $captureId = [guid]::NewGuid().ToString('N')
     $profile = Join-Path $tempRoot "narro-floating-$lifecycleState-$captureId"
@@ -114,7 +114,7 @@ try {
         $stderrText = if (Test-Path -LiteralPath $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
         if ($process.ExitCode -ne 0) { throw "Floating Timer $lifecycleState capture failed. $stderrText" }
         $domText = if (Test-Path -LiteralPath $stdout) { [System.IO.File]::ReadAllText($stdout) } else { "" }
-        $readyAttribute = if ($lifecycleState -eq "cycle") { 'data-floating-timer-cycle-ready="true"' } else { 'data-floating-timer-idle-recovery-ready="true"' }
+        $readyAttribute = if ($lifecycleState -eq "cycle") { 'data-floating-timer-cycle-ready="true"' } elseif ($lifecycleState -eq "compact-focus") { 'data-floating-timer-compact-focus-ready="true"' } else { 'data-floating-timer-idle-recovery-ready="true"' }
         if (-not $domText.Contains($readyAttribute)) {
             throw "Floating Timer $lifecycleState capture did not finish. $stderrText"
         }

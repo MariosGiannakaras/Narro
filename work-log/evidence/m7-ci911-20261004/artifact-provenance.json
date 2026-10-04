@@ -1,0 +1,13 @@
+{
+  "sourceSha": "4f9d03832743f3db90d0c61dc527b27a194886fd",
+  "mergedSourceSha": "cbbaaa25dc94ec756e8bffbc731b99a8be0c4945",
+  "ciNumber": 911,
+  "runId": 37150284172,
+  "artifactId": 11284371032,
+  "artifactName": "narro-m7-validation-windows-x64",
+  "executable": "narro-m7-validation.exe",
+  "executableSha256": "24b71ba952ff323647537465f4d5ec8026b3e8001f65d3798d0dbf9eef06541a",
+  "validationScope": "Production-config real Windows artifact; no runtimeVisual fixture activation",
+  "physicalEvidenceFrozenUtc": "2026-10-04T01:08:20.660695+00:00",
+  "nativeLogs": "Complete point-in-time folder copy, all three sessions preserved. Latest C5 result PASS; older pending records remain immutable. Current process was idle during freeze."
+}

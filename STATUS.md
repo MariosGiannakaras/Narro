@@ -2,6 +2,18 @@
 
 Last updated: 2026-10-04
 
+## 2026-10-04 — CI911 physical C5 PASS; two placement/continuity failures routed to PR228
+
+Both real displays are restored (primary2560×1080/100%, secondary1920×1080/125%). Exact CI911 EXE `24b71ba9...` passed actual compact drag→tray Quit→same-EXE relaunch at `(1100,533)`, same task restored paused1:57:07/7027 durable work seconds; completion retained that time. Selected-display Left/Right, mixed-DPI crossing, maximized and borderless local-probe topmost, bounded large Notes and Preferences writes/restart were exercised. Direct review of eight motion sequences/480 consecutive frames confirms Collapse FAIL. Whole native logs, four original recordings,33 sequences/1980 decoded frames and a video-derived gallery are frozen under `work-log/evidence/m7-ci911-20261004`; [detailed verdict and evidence](work-log/2026-10-04-codex-m7-ci911-physical-results.md).
+
+`M7-OBS-20261004-12`: expanded→Panel→compact on unchanged100% work area drifts y205→255→317→394; mixed-DPI125% also drifts333→445. Saved visible-height normalization is the source cause. PR228 preserves the safe saved top-left when the work area is unchanged while retaining proportional recovery for actual work-area changes.
+
+`M7-OBS-20261004-13`: direct Collapse has absent Timer frames at125% bottom edge (recording1 ~351.793–351.810s, full canvas confirms absence) and100% unchanged coordinates (recording3 ~158.743–158.776s), also in reduced motion. Cached-origin snapback alone cannot explain the100% case; the old path also unconditionally sends native position/parent notification without a coordinate change. This is a candidate rendering trigger, not a proven pixel-loss cause, and is distinct from prior premature tall-heading reveal. Compare **A**, current cached-origin snapback/unconditional move with observed disappearance; **B**, retain the safe clamped top-left after expansion, collapse in place and omit redundant moves; **C**, add a native clip/move/compositor transaction, which introduces synchronization complexity without evidence it preserves WebView2 pixels. Choose **B** for the scoped exact-build experiment and compare normal/reduced two-DPI/bottom-edge capture against A before acceptance. Retaining the last safe clamped position is an explicit Narro reliability decision; source evidence does not establish expanded-Timer bottom-edge snapback. No WebView recreation/hide/resize or third window is introduced.
+
+PR228 final head `a6af4ef15bd827ad751b023df21ab64e565e2c8e` also owns routed source-parity `P3-M7-01/02`: compact130ms title/time→action crossfade, selected labeled pill with stable neighboring targets and keyboard equivalent, source horizontal drag handle, plus16px calibrated shell radius. Full local frontend preflight/Rustfmt and eight actual headless Edge hover/keyboard scenarios PASS. Intermediate placement-only CI929 was cancelled; full Windows CI932/run37167015466 is in progress. Guarded merge, exact-EXE continuous two-DPI/bottom-edge/hover/restart, current-build performance and canonical source comparison remain required. M7 remains3/5; no global counter advances.
+
+Direct SS-C20/VE003 comparison confirms the rest hierarchy/conditional strip and routed hover grammar as the reconstruction target. The added CSS elevation token alone does not establish an external desktop shadow: native region clips the shell and DWM shadow remains disabled by the earlier frame-reliability correction. Final native/source comparison must explicitly dispose this appearance limit rather than claim unsupported shadow parity. The rightmost short label `Focus` is a Narro inference for the source restore icon; directly evidenced source labels are Break/Notes/Pause/Skip/Done.
+
 ## 2026-10-04 — M5 Pass-3 parity-correction slice merged; resulting-main CI #928 PASS
 
 PR #227 exact head `d40cd9edec6456bc25dafb792ad3ab29876abe99` implemented `P3-M5-01..05` as one planning/destructive correction: Today done/total progress, resting ordinal→hover completion and exact board action rail, lifted drag/live placeholder/finite settle, inline task-delete Confirm+X, and direct reversible List Archive. Existing `beforeTaskId` persistence, confirmed permanent-delete/report exclusion, archived-list destructive deletion and PR #225 narrow-card readability invariants were preserved.
@@ -41,7 +53,7 @@ Current implementation truth after the reconciliation:
 
 The active PR #225 exact-EXE physical gate remains `3/5` with historical physical counter `14/19`; the reconciliation itself advances no validation counter. Current compact progress remains **`3/10M || 3/5 | 14/19`**.
 
-## 2026-10-03 — M7 PR225 merged; exact Windows CI911 PASS, physical retest in progress
+## Historical 2026-10-03 — M7 PR225 merged; exact Windows CI911 PASS, physical retest began
 
 PR225 final head `4f9d03832743f3db90d0c61dc527b27a194886fd` PASSed full Windows CI911 / run `37150284172`, including the real two-connection Preferences contention test and38 normal/reduced editor/geometry scenarios. Guarded squash merge is `cbbaaa25dc94ec756e8bffbc731b99a8be0c4945`, with zero non-Markdown differences; duplicate main CI `37152106789` was cancelled after proof. Verified EXE SHA256 `24b71ba952ff323647537465f4d5ec8026b3e8001f65d3798d0dbf9eef06541a` is ready for the affected continuous native batch. [Current source/artifact/physical ledger](work-log/2026-10-03-codex-m7-pr225-ci911-merged-and-physical.md).
 

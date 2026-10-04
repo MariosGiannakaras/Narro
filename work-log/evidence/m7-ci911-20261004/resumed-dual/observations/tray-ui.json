@@ -1,0 +1,54 @@
+{
+  "utc": "2026-10-04T00:10:01.2688961Z",
+  "taskbar": 131280,
+  "elements": [
+    {
+      "offscreen": false,
+      "bounds": "0;1050;36;30",
+      "type": "ControlType.Pane",
+      "name": "Start"
+    },
+    {
+      "offscreen": false,
+      "bounds": "36;1050;36;30",
+      "type": "ControlType.Pane",
+      "name": "Type here to search"
+    },
+    {
+      "offscreen": false,
+      "bounds": "72;1050;2246;30",
+      "type": "ControlType.Pane",
+      "name": "Running applications"
+    },
+    {
+      "offscreen": false,
+      "bounds": "72;1050;2246;30",
+      "type": "ControlType.Pane",
+      "name": "Running applications"
+    },
+    {
+      "offscreen": false,
+      "bounds": "2342;1050;72;30",
+      "type": "ControlType.Pane",
+      "name": "User Promoted Notification Area"
+    },
+    {
+      "offscreen": false,
+      "bounds": "2414;1050;36;30",
+      "type": "ControlType.Pane",
+      "name": "Tray Input Indicator"
+    },
+    {
+      "offscreen": false,
+      "bounds": "2450;1050;57;30",
+      "type": "ControlType.Pane",
+      "name": "System Clock, 3:10 πμ"
+    },
+    {
+      "offscreen": false,
+      "bounds": "2507;1050;48;30",
+      "type": "ControlType.Pane",
+      "name": "Action Center, 1 new notification (Focus assist on)"
+    }
+  ]
+}

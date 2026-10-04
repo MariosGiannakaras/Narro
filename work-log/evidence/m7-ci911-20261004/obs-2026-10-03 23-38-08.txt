@@ -1,0 +1,212 @@
+23:38:08.578: Command Line Arguments: --profile Narro UI Validation 911 --collection NarroM7CI911
+23:38:08.579: CPU Name: AMD Ryzen 5 2600X Six-Core Processor           
+23:38:08.579: CPU Speed: 3811MHz
+23:38:08.579: Physical Cores: 6, Logical Cores: 12
+23:38:08.579: Physical Memory: 32689MB Total, 22052MB Free
+23:38:08.579: Windows Version: 10.0 Build 19045 (release: 22H2; revision: 6466; 64-bit)
+23:38:08.579: Running as administrator: false
+23:38:08.579: Windows 10/11 Gaming Features:
+23:38:08.579: 	Game DVR: On
+23:38:08.579: 	Game Mode: Probably On (no reg key set)
+23:38:08.581: Sec. Software Status:
+23:38:08.582: 	Microsoft Defender Antivirus: enabled (AV)
+23:38:08.583: 	Windows Firewall: enabled (FW)
+23:38:08.583: Current Date/Time: 2026-10-03, 23:38:08
+23:38:08.583: Browser Hardware Acceleration: true
+23:38:08.583: Hide OBS windows from screen capture: true
+23:38:08.583: Qt Version: 6.11.1 (runtime), 6.11.1 (compiled)
+23:38:08.583: Portable mode: false
+23:38:08.930: OBS 32.2.2 (64-bit, windows)
+23:38:08.930: ---------------------------------
+23:38:08.959: ---------------------------------
+23:38:08.959: audio settings reset:
+23:38:08.959: 	samples per sec: 48000
+23:38:08.959: 	speakers:        2
+23:38:08.959: 	max buffering:   960 milliseconds
+23:38:08.959: 	buffering type:  dynamically increasing
+23:38:08.962: ---------------------------------
+23:38:08.962: Initializing D3D11...
+23:38:08.962: Available Video Adapters: 
+23:38:08.965: 	Adapter 0: Radeon RX 570 Series
+23:38:08.965: 	  Dedicated VRAM: 8567902208 (8.0 GiB)
+23:38:08.965: 	  Shared VRAM:    17138456576 (16.0 GiB)
+23:38:08.965: 	  PCI ID:         1002:67df
+23:38:08.965: 	  HAGS Status:    Disabled (Default: No, Driver status: Unsupported)
+23:38:08.966: 	  Driver Version: 31.0.21923.11000
+23:38:08.966: 	  output 0:
+23:38:08.966: 	    name=2D FHD LG TV
+23:38:08.966: 	    pos={0, 0}
+23:38:08.966: 	    size={1920, 1080}
+23:38:08.966: 	    attached=true
+23:38:08.966: 	    refresh=59
+23:38:08.966: 	    bits_per_color=8
+23:38:08.966: 	    space=RGB_FULL_G22_NONE_P709
+23:38:08.966: 	    primaries=[r=(0.637695, 0.333984), g=(0.308594, 0.626953), b=(0.153320, 0.073242), wp=(0.313477, 0.329102)]
+23:38:08.966: 	    relative_gamut_area=[709=1.016142, P3=0.749070, 2020=0.537408]
+23:38:08.966: 	    sdr_white_nits=80
+23:38:08.966: 	    nit_range=[min=0.500000, max=270.000000, max_full_frame=270.000000]
+23:38:08.966: 	    dpi=120 (125%)
+23:38:08.966: 	    id=\\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+23:38:08.966: 	    alt_id=\\.\DISPLAY2
+23:38:08.967: Loading up D3D11 on adapter Radeon RX 570 Series (0)
+23:38:09.010: D3D11 loaded successfully, feature level used: b000
+23:38:09.010: DXGI increase maximum frame latency success
+23:38:09.010: D3D11 GPU priority setup failed (not admin?)
+23:38:09.142: ---------------------------------
+23:38:09.142: video settings reset:
+23:38:09.142: 	base resolution:   1920x1080
+23:38:09.142: 	output resolution: 1920x1080
+23:38:09.142: 	downscale filter:  Bicubic
+23:38:09.142: 	fps:               60/1
+23:38:09.142: 	format:            NV12
+23:38:09.142: 	YUV mode:          Rec. 709/Full
+23:38:09.142: NV12 texture support enabled
+23:38:09.142: P010 texture support not available
+23:38:09.144: Audio monitoring device:
+23:38:09.144: 	name: Default
+23:38:09.144: 	id: default
+23:38:09.150: ---------------------------------
+23:38:09.153: No AJA devices found, skipping loading AJA UI plugin
+23:38:09.153: Failed to initialize module 'aja-output-ui.dll'
+23:38:09.155: No AJA devices found, skipping loading AJA plugin
+23:38:09.155: Failed to initialize module 'aja.dll'
+23:38:09.155: Skipping module '../../obs-plugins/64bit/chrome_elf.dll', not an OBS plugin
+23:38:09.157: [CoreAudio encoder]: CoreAudio AAC encoder not installed on the system or couldn't be loaded
+23:38:09.157: Failed to load 'en-US' text for module: 'decklink-captions.dll'
+23:38:09.158: Failed to load 'en-US' text for module: 'decklink-output-ui.dll'
+23:38:09.162: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed
+23:38:09.163: Failed to initialize module 'decklink.dll'
+23:38:09.172: Skipping module '../../obs-plugins/64bit/libcef.dll', not an OBS plugin
+23:38:09.172: Skipping module '../../obs-plugins/64bit/libEGL.dll', not an OBS plugin
+23:38:09.172: Skipping module '../../obs-plugins/64bit/libGLESv2.dll', not an OBS plugin
+23:38:10.175: Failed to get C:\Program Files\NVIDIA Corporation\NVIDIA Audio Effects SDK\NVAudioEffects.dll version info size
+23:38:10.175: [NVIDIA Audio Effects:] NVIDIA denoiser disabled, redistributable not found or could not be loaded.
+23:38:10.175: Failed to get C:\Program Files\NVIDIA Corporation\NVIDIA Video Effects\NVVideoEffects.dll version info size
+23:38:10.175: [NVIDIA VIDEO FX]: FX disabled, redistributable not found or could not be loaded.
+23:38:10.184: [obs-browser]: Version 2.26.9
+23:38:10.184: [obs-browser]: CEF Version 127.0.6533.120 (runtime), 127.145.7+g2b7d20b+chromium-127.0.6533.120 (compiled)
+23:38:10.322: LoadLibrary failed for 'nvEncodeAPI64.dll': The specified module could not be found.
+23:38:10.322:  (126)
+23:38:10.322: NVENC not supported
+23:38:10.322: Failed to initialize module 'obs-nvenc.dll'
+23:38:10.389: [obs-websocket] [obs_module_load] you can haz websockets (Version: 5.7.4 | RPC Version: 1)
+23:38:10.389: [obs-websocket] [obs_module_load] Qt version (compile-time): 6.11.1 | Qt version (run-time): 6.11.1
+23:38:10.389: [obs-websocket] [obs_module_load] Linked ASIO Version: 103200
+23:38:10.396: [obs-websocket] [obs_module_load] Module loaded.
+23:38:10.407: [vlc-video]: VLC 3.0.23 Vetinari found, VLC video source enabled
+23:38:10.433: ---------------------------------
+23:38:10.433:   Loaded Modules:
+23:38:10.433:     win-wasapi.dll
+23:38:10.433:     win-dshow.dll
+23:38:10.433:     win-capture.dll
+23:38:10.433:     vlc-video.dll
+23:38:10.433:     text-freetype2.dll
+23:38:10.433:     rtmp-services.dll
+23:38:10.433:     obs-x264.dll
+23:38:10.433:     obs-websocket.dll
+23:38:10.433:     obs-webrtc.dll
+23:38:10.433:     obs-vst.dll
+23:38:10.433:     obs-transitions.dll
+23:38:10.433:     obs-text.dll
+23:38:10.433:     obs-qsv11.dll
+23:38:10.433:     obs-outputs.dll
+23:38:10.433:     obs-filters.dll
+23:38:10.433:     obs-ffmpeg.dll
+23:38:10.433:     obs-browser.dll
+23:38:10.433:     nv-filters.dll
+23:38:10.433:     logi_obs_plugin_x64.dll
+23:38:10.433:     image-source.dll
+23:38:10.433:     frontend-tools.dll
+23:38:10.433:     decklink-output-ui.dll
+23:38:10.433:     decklink-captions.dll
+23:38:10.433:     coreaudio-encoder.dll
+23:38:10.433: ---------------------------------
+23:38:10.434: ---------------------------------
+23:38:10.434: Available Encoders:
+23:38:10.434:   Video Encoders:
+23:38:10.434: 	- ffmpeg_svt_av1 (SVT-AV1)
+23:38:10.434: 	- ffmpeg_aom_av1 (AOM AV1)
+23:38:10.434: 	- h264_texture_amf (AMD HW H.264 (AVC))
+23:38:10.434: 	- h265_texture_amf (AMD HW H.265 (HEVC))
+23:38:10.434: 	- obs_x264 (x264)
+23:38:10.434:   Audio Encoders:
+23:38:10.434: 	- ffmpeg_aac (FFmpeg AAC)
+23:38:10.434: 	- ffmpeg_opus (FFmpeg Opus)
+23:38:10.434: 	- ffmpeg_pcm_s16le (FFmpeg PCM (16-bit))
+23:38:10.434: 	- ffmpeg_pcm_s24le (FFmpeg PCM (24-bit))
+23:38:10.434: 	- ffmpeg_pcm_f32le (FFmpeg PCM (32-bit float))
+23:38:10.434: 	- ffmpeg_alac (FFmpeg ALAC (24-bit))
+23:38:10.434: 	- ffmpeg_flac (FFmpeg FLAC (16-bit))
+23:38:10.434: ==== Startup complete ===============================================
+23:38:10.499: All scene data cleared
+23:38:10.499: ------------------------------------------------
+23:38:10.504: [win-wasapi: 'Desktop Audio'] update settings:
+23:38:10.504: 	device id: {0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}
+23:38:10.504: 	use device timing: 1
+23:38:10.505: [WASAPISource::TryInitialize]:[{0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}] Failed to enumerate device: 80070490
+23:38:10.505: WASAPI: Device '{0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}' failed to start (source: Desktop Audio)
+23:38:10.557: [Loaded global audio device]: 'Desktop Audio'
+23:38:10.557:     - monitoring: monitor and output
+23:38:10.557: [win-wasapi: 'Mic/Aux'] update settings:
+23:38:10.557: 	device id: {0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}
+23:38:10.557: 	use device timing: 0
+23:38:10.558: [WASAPISource::TryInitialize]:[{0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}] Failed to enumerate device: 80070490
+23:38:10.558: WASAPI: Device '{0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}' failed to start (source: Mic/Aux)
+23:38:10.569: [Loaded global audio device]: 'Mic/Aux'
+23:38:10.569:     - monitoring: monitor and output
+23:38:10.569: [win-wasapi: 'Mic/Aux 2'] update settings:
+23:38:10.569: 	device id: {0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}
+23:38:10.569: 	use device timing: 0
+23:38:10.569: [WASAPISource::TryInitialize]:[{0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}] Failed to enumerate device: 80070490
+23:38:10.569: WASAPI: Device '{0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}' failed to start (source: Mic/Aux 2)
+23:38:10.577: [Loaded global audio device]: 'Mic/Aux 2'
+23:38:10.577:     - monitoring: monitor and output
+23:38:10.578: [duplicator-monitor-capture: 'Display Capture'] update settings:
+23:38:10.578: 	display: 2D FHD LG TV (1920x1080)
+23:38:10.578: 	cursor: true
+23:38:10.578: 	method: DXGI
+23:38:10.578: 	id: \\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+23:38:10.578: 	alt_id: \\.\DISPLAY2
+23:38:10.578: 	setting_id: \\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+23:38:10.578: 	force SDR: false
+23:38:10.581: Switched to scene 'Destop'
+23:38:10.581: ------------------------------------------------
+23:38:10.581: Loaded scenes:
+23:38:10.581: - scene 'Destop':
+23:38:10.581:     - source: 'Display Capture' (monitor_capture)
+23:38:10.581: ------------------------------------------------
+23:40:18.368: ---------------------------------
+23:40:18.368: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+23:40:18.368: [x264 encoder: 'advanced_video_recording'] settings:
+23:40:18.368: 	rate_control: CRF
+23:40:18.368: 	bitrate:      0
+23:40:18.368: 	buffer size:  0
+23:40:18.368: 	crf:          18
+23:40:18.368: 	fps_num:      60
+23:40:18.368: 	fps_den:      1
+23:40:18.368: 	width:        1920
+23:40:18.368: 	height:       1080
+23:40:18.368: 	keyint:       250
+23:40:18.368: 
+23:40:18.371: ---------------------------------
+23:40:18.372: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+23:40:18.372: 
+23:40:18.386: ==== Recording Start ===============================================
+23:40:18.386: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-ci911-physical-20261003/run-2036/video/2026-10-03 23-40-18.mkv'...
+00:59:11.923: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:11.965: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:11.969: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:11.971: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:11.982: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:11.983: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:11.996: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:11.998: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.000: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.001: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.002: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.004: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.006: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.007: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.009: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.010: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.
+00:59:12.012: The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce.

@@ -1,0 +1,794 @@
+[
+  {
+    "folder": "motion/01-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:45:40.7205090Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;942;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 322.334509,
+    "observation": "normal-expanded-1.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/02-125-collapse",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:46:09.5790072Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;819;40;41",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 351.193007,
+    "observation": "normal-collapse-1.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/03-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:46:11.2456400Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;942;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 352.85964,
+    "observation": "normal-expand-2.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/04-125-collapse",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:46:12.5779575Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;819;40;41",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 354.191957,
+    "observation": "normal-collapse-2.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/05-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:46:13.9233291Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;942;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 355.537329,
+    "observation": "normal-expand-3.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/06-125-collapse",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:46:15.2590202Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;819;40;41",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 356.87302,
+    "observation": "normal-collapse-3.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/07-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:46:16.5586883Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;942;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 358.172688,
+    "observation": "normal-expand-notes.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/08-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:49:40.1248481Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;1017;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 561.738848,
+    "observation": "normal-expand-panel-2.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/09-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:49:43.8573514Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;1017;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 565.471351,
+    "observation": "normal-expand-panel-3.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/10-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:37.0417709Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;1017;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 618.65577,
+    "observation": "reduced-expand-1.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/11-125-collapse",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:38.6400217Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;819;40;41",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 620.254021,
+    "observation": "reduced-collapse-1.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/12-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:39.9800502Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;1017;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 621.59405,
+    "observation": "reduced-expand-2.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/13-125-collapse",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:41.3540277Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;819;40;41",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 622.968027,
+    "observation": "reduced-collapse-2.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/14-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:42.6625122Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;1017;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 624.276512,
+    "observation": "reduced-expand-3.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/15-125-collapse",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:43.9855058Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;819;40;41",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 625.599505,
+    "observation": "reduced-collapse-3.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/16-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:45.3111152Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;1017;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 626.925115,
+    "observation": "reduced-panel-expand-1.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/17-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:48.9560155Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;1017;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 630.570015,
+    "observation": "reduced-panel-expand-2.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/18-125-expand",
+    "recording": 1,
+    "action": {
+      "utc": "2026-10-03T20:50:52.6160711Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 18417168,
+      "processId": 16176,
+      "offscreen": false,
+      "bounds": "1169;1017;40;40",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 634.230071,
+    "observation": "reduced-panel-expand-3.json",
+    "crop": {
+      "x": 796,
+      "y": 701,
+      "width": 433,
+      "height": 379
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/19-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:13:39.3704592Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;264;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 40.708459,
+    "observation": "primary-normal-expanded-1.json",
+    "crop": {
+      "x": 2716,
+      "y": 201,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/20-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:13:43.0475649Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;314;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 44.385564,
+    "observation": "primary-normal-expanded-2.json",
+    "crop": {
+      "x": 2716,
+      "y": 251,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/21-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:13:46.6373535Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;376;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 47.975353,
+    "observation": "primary-normal-expanded-3.json",
+    "crop": {
+      "x": 2716,
+      "y": 313,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/22-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:35.1811714Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;453;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 156.519171,
+    "observation": "primary-direct-expand-1.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/23-100-collapse",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:36.8212027Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;486;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 158.159202,
+    "observation": "primary-direct-collapse-1.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/24-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:38.1455041Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;453;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 159.483504,
+    "observation": "primary-direct-expand-2.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/25-100-collapse",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:39.4604787Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;486;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 160.798478,
+    "observation": "primary-direct-collapse-2.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/26-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:40.7276617Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;453;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 162.065661,
+    "observation": "primary-direct-expand-3.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/27-100-collapse",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:42.0196628Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;486;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 163.357662,
+    "observation": "primary-direct-collapse-3.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/28-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:43.6929874Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;453;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 165.030987,
+    "observation": "primary-reduced-expand-1.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/29-100-collapse",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:44.9875707Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;486;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 166.32557,
+    "observation": "primary-reduced-collapse-1.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/30-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:46.2567165Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;453;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 167.594716,
+    "observation": "primary-reduced-expand-2.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/31-100-collapse",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:47.5344200Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;486;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 168.87242,
+    "observation": "primary-reduced-collapse-2.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/32-100-expand",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:48.7960076Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Expand Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;453;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 170.134007,
+    "observation": "primary-reduced-expand-3.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  },
+  {
+    "folder": "motion/33-100-collapse",
+    "recording": 3,
+    "action": {
+      "utc": "2026-10-03T22:15:50.0660114Z",
+      "action": "native-uia-observed-pointer-click",
+      "button": "Collapse Floating Timer",
+      "windowId": 6883148,
+      "processId": 18576,
+      "offscreen": false,
+      "bounds": "1095;486;32;32",
+      "authorization": "User authorized native fallback for real Windows testing"
+    },
+    "ptsSeconds": 171.404011,
+    "observation": "primary-reduced-collapse-3.json",
+    "crop": {
+      "x": 2716,
+      "y": 390,
+      "width": 348,
+      "height": 324
+    },
+    "frames": 60,
+    "method": "60 consecutive source frames; action UTC mapped through documented OBS Pause intervals. Native-scale crop. PNGs lossless from decoded source; clip is derived H264."
+  }
+]

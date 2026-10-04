@@ -75,9 +75,10 @@ invariant(
   foundation.includes('key="timer-heading"')
     && foundation.includes('className="floating-timer-foundation__heading"')
     && foundation.includes('data-floating-actions-controller="true"')
-    && foundation.includes('style={{ display: expanded ? "contents" : "none" }}')
+    && foundation.includes('data-floating-compact-actions={compactActionsVisible ? "true" : "false"}')
+    && foundation.includes('(!expanded && !compactActionsVisible)')
     && !foundation.includes("{!regionExpanded || !liveTask || !timer ? ("),
-  "collapsed mode must keep the shared task/timer heading visible while the expanded action controller remains mounted but hidden",
+  "collapsed mode must retain one action controller, revealing it on hover/focus and keeping resting actions inert",
 );
 for (const forbidden of ["Date.now(", "performance.now(", "setInterval("]) {
   invariant(!foundation.includes(forbidden), `renderer must not create a duplicate timer clock through ${forbidden}`);
@@ -100,7 +101,7 @@ for (const needle of [
 }
 
 invariant(css.includes("height: 110px"), "collapsed surface must retain 110px product height");
-invariant(css.includes("border-radius: 12px"), "collapsed surface must retain rounded source hierarchy");
+invariant(css.includes("border-radius: 16px"), "collapsed shell must use the calibrated 15-17px source family");
 invariant(css.includes("grid-template-columns: minmax(0, 1fr) 8ch"), "collapsed title/timer geometry differs");
 invariant(css.includes("grid-template-columns: 28px minmax(0, 1fr) 32px 32px"), "collapsed subtask row geometry differs");
 invariant(css.includes("font-variant-numeric: tabular-nums"), "timer/progress numerals must remain stable");

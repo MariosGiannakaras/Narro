@@ -1,0 +1,183 @@
+[
+  {
+    "recording": 1,
+    "originalFilename": "2026-10-03 23-40-18.mkv",
+    "rawBytes": 141778944,
+    "rawSha256": "f51f2661beb25357b49c9e0a482cd6d77cae43274ec7e2fe83605c39575a820e",
+    "parts": [
+      {
+        "file": "raw-video/recording-1/2026-10-03 23-40-18.mkv.part001",
+        "bytes": 83886080,
+        "sha256": "869ecb962e245604083cafd4d28986169eb8ce56d88d166746988df05f112ab5"
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-03 23-40-18.mkv.part002",
+        "bytes": 57892864,
+        "sha256": "94001eee01ea899340861dbbae982dab3289c81b3782ed217da3055230a7f0a0"
+      }
+    ],
+    "startUtc": "2026-10-03T20:40:18.386Z",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {}
+    },
+    "normalStop": false,
+    "pausedIntervalsUtc": [],
+    "note": "Original premature-ended capture retained byte-for-byte; readable packets only."
+  },
+  {
+    "recording": 2,
+    "originalFilename": "2026-10-04 01-09-09.mkv",
+    "rawBytes": 4234543,
+    "rawSha256": "1f51efeae3e0f8c6a652d848165a518d06c9d02a9de12aae5b5fd486a77b8f1a",
+    "parts": [
+      {
+        "file": "raw-video/recording-2/2026-10-04 01-09-09.mkv.part001",
+        "bytes": 4234543,
+        "sha256": "1f51efeae3e0f8c6a652d848165a518d06c9d02a9de12aae5b5fd486a77b8f1a"
+      }
+    ],
+    "startUtc": "2026-10-03T22:09:09.213Z",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "50.550000"
+      }
+    },
+    "normalStop": true,
+    "pausedIntervalsUtc": [],
+    "note": "Normal OBS Stop; no recorded Pause interval."
+  },
+  {
+    "recording": 3,
+    "originalFilename": "2026-10-04 01-12-58.mkv",
+    "rawBytes": 231020256,
+    "rawSha256": "c37b63615dda88375fd3a739f7485681317b087b6f6a6efd2bc582df16e96097",
+    "parts": [
+      {
+        "file": "raw-video/recording-3/2026-10-04 01-12-58.mkv.part001",
+        "bytes": 83886080,
+        "sha256": "e6fe8cc3f1e8a835c24da5c0b7aa25f9e1321df15cc4eec62478d392534fd82b"
+      },
+      {
+        "file": "raw-video/recording-3/2026-10-04 01-12-58.mkv.part002",
+        "bytes": 83886080,
+        "sha256": "501b67f1fa1a13fb7be499ba41cd0b2860d1004daaed588c2696257ec15ea45d"
+      },
+      {
+        "file": "raw-video/recording-3/2026-10-04 01-12-58.mkv.part003",
+        "bytes": 63248096,
+        "sha256": "a0c98b49a5c6a6d7123f271d40fd67f65a83609aad9b487c2a2512eba3222984"
+      }
+    ],
+    "startUtc": "2026-10-03T22:12:58.662Z",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "1974.217000"
+      }
+    },
+    "normalStop": true,
+    "pausedIntervalsUtc": [
+      {
+        "start": "2026-10-03T22:26:24.678000+00:00",
+        "end": "2026-10-03T23:44:27.289000+00:00",
+        "seconds": 4682.611
+      },
+      {
+        "start": "2026-10-03T23:44:50.581000+00:00",
+        "end": "2026-10-03T23:45:23.592000+00:00",
+        "seconds": 33.011
+      }
+    ],
+    "note": "Normal OBS Stop. Recording 3 omits two explicit OBS Pause intervals; not continuous wall time."
+  },
+  {
+    "recording": 4,
+    "originalFilename": "2026-10-04 03-08-16.mkv",
+    "rawBytes": 112547740,
+    "rawSha256": "c721394dcb5aed9f5a2ac38cceae131c1d1416ec1440eb285e546c98fe19d9ba",
+    "parts": [
+      {
+        "file": "raw-video/recording-4/2026-10-04 03-08-16.mkv.part001",
+        "bytes": 83886080,
+        "sha256": "493afd6156d6140cfd349a26e951e402d78b0be2e089eb145d11d0c2631ff7fb"
+      },
+      {
+        "file": "raw-video/recording-4/2026-10-04 03-08-16.mkv.part002",
+        "bytes": 28661660,
+        "sha256": "be6fd2e1e6d4d7395ba8baf17f397f016a1f3684d16b53552b563166c9145123"
+      }
+    ],
+    "startUtc": "2026-10-04T00:08:16.436Z",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "733.884000"
+      }
+    },
+    "normalStop": true,
+    "pausedIntervalsUtc": [],
+    "note": "Normal OBS Stop; no recorded Pause interval."
+  }
+]
