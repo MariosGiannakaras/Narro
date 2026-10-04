@@ -31,7 +31,13 @@ Current compact progress:
 
 The documentation-only reconciliation advances no validation counter.
 
-## ACTIVE M7 CORRECTION — PR228 / CI932; CI911 PHYSICAL RESULTS FROZEN
+## ACTIVE M7 CORRECTION — CI932 placement/C5 PASS; same-HWND pixel hold
+
+PR228 exact head `a6af4ef15bd827ad751b023df21ab64e565e2c8e` PASSed all CI932/run37167015466 jobs and merged587af0a0 with runtime/build/test/workflow identity verified; duplicate main CI933 cancelled. Exact EXE31ac41768872319ba717e07af27138009ee9fd82f75de4fff93b42ea40ed71ef physically fixes drift in twelve100%/125% normal/reduced Panel returns. C5 real378.8px drag/Quit/same-EXE/relaunch/explicit shortcut reappearance PASSes at `(1466,638)`, paused04:10/250 durable seconds. Collapse still FAILs; no source parity or counter advance.
+
+Whole-path native style/repaint/DWM comparison rejects guessed fixes. Temporary native bitmap child retains pixels, but early release exposes partial incoming layout. Next: fully prepaint compact layout before native clip + bounded own-surface same-HWND raster hold, nonblocking lifetime/rollback/mode/exit cleanup, batched with canonical VE003 Break gamepad. Then exact Windows normal/reduced two-DPI/bottom-edge/hover/Notes/restart/source/performance and formal M1 B/C/D. [Current verdict and decision](work-log/2026-10-04-codex-m7-ci932-physical-results.md). Separate M6/M9 ownership is preserved.
+
+## HISTORICAL PR228 PRE-CI HANDOFF — superseded by current state above
 
 PR #225 exact head `4f9d03832743f3db90d0c61dc527b27a194886fd` PASSed full Windows CI #911 / run `37150284172` and merged as `cbbaaa25dc94ec756e8bffbc731b99a8be0c4945` with zero non-Markdown differences.
 
