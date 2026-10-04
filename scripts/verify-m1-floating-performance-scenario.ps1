@@ -197,24 +197,24 @@ function Get-OwnedWindowSnapshots {
     $captured = [System.Collections.Generic.List[object]]::new()
     $callback = [NarroM1ScenarioProbe+EnumWindowsProc]{
         param([IntPtr]$hWnd, [IntPtr]$lParam)
-    
+
         [uint32]$windowOwnerProcessId = 0
         [void][NarroM1ScenarioProbe]::GetWindowThreadProcessId($hWnd, [ref]$windowOwnerProcessId)
         if ([int]$windowOwnerProcessId -ne $OwnerRootPid) { return $true }
-    
+
         $length = [NarroM1ScenarioProbe]::GetWindowTextLength($hWnd)
         $builder = New-Object System.Text.StringBuilder ([Math]::Max(1, $length + 1))
         [void][NarroM1ScenarioProbe]::GetWindowText($hWnd, $builder, $builder.Capacity)
-    
+
         $windowRect = New-Object NarroM1ScenarioProbe+RECT
         if (-not [NarroM1ScenarioProbe]::GetWindowRect($hWnd, [ref]$windowRect)) {
             throw "GetWindowRect failed for a Narro top-level HWND"
         }
-    
+
         $regionRect = New-Object NarroM1ScenarioProbe+RECT
         $regionKind = [NarroM1ScenarioProbe]::GetWindowRgnBox($hWnd, [ref]$regionRect)
         $dpi = [NarroM1ScenarioProbe]::GetDpiForWindow($hWnd)
-    
+
         $captured.Add([pscustomobject]@{
             pid = [int]$windowOwnerProcessId
             title = $builder.ToString()
@@ -241,7 +241,7 @@ function Get-OwnedWindowSnapshots {
         })
         return $true
     }
-    
+
     $previousDpiContext = [NarroM1ScenarioProbe]::SetThreadDpiAwarenessContext([IntPtr](-4))
     try {
         Assert-Condition ([NarroM1ScenarioProbe]::EnumWindows($callback, [IntPtr]::Zero)) "native window enumeration failed"
