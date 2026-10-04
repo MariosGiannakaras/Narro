@@ -420,7 +420,7 @@ function InlineTitleEditor({ editor, done }: { editor: TaskCardTitleEditor; done
 function MetricEditActions({ editor }: { editor: TaskCardMetricEditor }) {
   return (
     <span className="list-board-task__metric-edit-actions" data-task-metric-actions={editor.metric}>
-      <Tooltip content="Cancel metric edit">
+      <Tooltip content="Cancel metric edit" boundarySelector=".list-board-task">
         <button
           type="button"
           className="list-board-task__action-button motion-interactive"
@@ -434,7 +434,7 @@ function MetricEditActions({ editor }: { editor: TaskCardMetricEditor }) {
           <span aria-hidden="true">×</span>
         </button>
       </Tooltip>
-      <Tooltip content="Save metric">
+      <Tooltip content="Save metric" boundarySelector=".list-board-task">
         <button
           type="button"
           className="list-board-task__action-button motion-interactive"

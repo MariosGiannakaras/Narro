@@ -89,7 +89,9 @@ pub fn update_task_title_if_expected(
 ) -> Result<TaskRecord, TaskTitleEditError> {
     validate_timestamp(now)?;
     let title = normalize_title(&title)?;
-    let tx = conn.transaction().map_err(TaskStoreError::from)?;
+    let tx = conn
+        .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
+        .map_err(TaskStoreError::from)?;
     let current = get_task(&tx, task_id)?;
 
     if current.archived_at.is_some() {

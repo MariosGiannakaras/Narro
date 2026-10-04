@@ -26,7 +26,7 @@ for (const [haystack, needle, label] of [
   [rust, "create_task_at_top", "atomic top-priority persistence boundary"],
   [rust, "update_task_title_if_expected(", "persistence title-edit boundary reuse"],
   [persistenceMod, "pub mod task_title_edit;", "task-title persistence module registration"],
-  [titlePersistence, "let tx = conn.transaction()", "atomic inline-title transaction"],
+  [titlePersistence, "transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)", "inline-title writer reserved before stale-state reads"],
   [titlePersistence, "SET title = ?1, updated_at = ?2", "title-only persistence write"],
   [titlePersistence, "AND list_id = ?4", "atomic expected-list precondition"],
   [titlePersistence, "AND title = ?5", "atomic expected-title precondition"],

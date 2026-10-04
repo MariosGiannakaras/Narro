@@ -26,6 +26,7 @@ const scenario = params.get("scenario") ?? "notes-timerExpanded-large";
 const quick = scenario.startsWith("quick-");
 const motion = scenario.startsWith("motion-");
 const board = scenario === "board-narrow";
+const boardMetrics = scenario === "board-metrics";
 const timerGeometry = scenario === "timer-geometry";
 const motionToPanel = scenario === "motion-timerCompact-panel";
 const panel = scenario.includes("-panel-");
@@ -70,6 +71,28 @@ function Fixture() {
   const notes = <TaskNotes taskId={taskId} listId={listId} taskTitle="Long validation task title for keyboard and editor overflow"
     expanded canExpand readOnly={false} allowTitleEdit
     onToggleExpanded={() => {}} onMutationStatus={() => {}} onRefreshBlocked={() => {}} />;
+  if (boardMetrics) {
+    const task: ListBoardTask = {id: taskId, listId, listTitle: "Long owning list title", listColor: null,
+      title: "LongUnbrokenTaskTitleForActualNarrowMetricContainment1234567890", estSeconds: null,
+      timeTakenSeconds: "0", scheduledLocalDate: null, scheduledLocalTime: null, isOverdue: false, completedAt: null};
+    const noop = () => {};
+    const cases = [
+      {id: "normal", width: 147}, {id: "wide", width: 340}, {id: "middle", width: 196},
+      {id: "long-times", width: 147}, {id: "estimate-edit", width: 147}, {id: "taken-edit", width: 147},
+      {id: "aggregate", width: 147}, {id: "hidden-times", width: 147},
+      {id: "paused-baseline", width: 226}, {id: "paused-estimate-edit", width: 226}, {id: "paused-taken-edit", width: 226},
+    ];
+    return <main style={{display: "grid", gridTemplateColumns: "repeat(4, max-content)", gap: 12, padding: 12}}>
+      {cases.map(item => <div key={item.id} data-narrow-metric-case={item.id} style={{width: item.width}}>
+        <TaskCard task={item.id === "long-times" ? {...task, estSeconds: 3_600_000, timeTakenSeconds: "18446744073709551615"} : task}
+          aggregateView={item.id === "aggregate"} onTitleEdit={noop} onScheduleEdit={noop}
+          onEstimateEdit={noop} onTimeTakenEdit={noop} hideTaskTimes={item.id === "hidden-times"}
+          liveState={item.id.startsWith("paused-") ? "paused" : undefined}
+          metricEditor={item.id.endsWith("-edit") ? {metric: item.id.includes("estimate-edit") ? "estimate" : "time_taken",
+            value: "1:23:45", pending: false, onChange: noop, onCancel: noop, onSubmit: noop} : undefined} />
+      </div>)}
+    </main>;
+  }
   if (board) {
     const task: ListBoardTask = {id: taskId, listId, listTitle: "Test", listColor: null,
       title: "Readable planning task title", estSeconds: null, timeTakenSeconds: "0",
@@ -119,7 +142,39 @@ if (scenario === "shortcut-modal") {
   Object.assign(result, await runShortcutModalRegression(root));
 } else {
 flushSync(() => createRoot(root).render(<Fixture />));
-if (board) {
+if (boardMetrics) {
+  await wait(40);
+  const samples = [];
+  for (const item of document.querySelectorAll<HTMLElement>('[data-narrow-metric-case]')) {
+    const card = item.querySelector<HTMLElement>('article')!;
+    const controls = Array.from(card.querySelectorAll<HTMLElement>('.list-board-task__meta, .list-board-task__times, .list-board-task__metric, .list-board-task__schedule-trigger'));
+    const before = controls.map(control => control.getBoundingClientRect().toJSON());
+    const bounds = card.getBoundingClientRect();
+    for (const control of controls) {
+      const rect = control.getBoundingClientRect();
+      assert(rect.left >= bounds.left && rect.right <= bounds.right + 0.5, item.dataset.narrowMetricCase + ': metric/schedule escapes card');
+      assert(control.scrollWidth <= control.clientWidth + 1, item.dataset.narrowMetricCase + ': text/input overflows metric');
+    }
+    const metrics = card.querySelectorAll<HTMLElement>('.list-board-task__metric');
+    const first = metrics[0].getBoundingClientRect(), second = metrics[1].getBoundingClientRect();
+    assert(first.right <= second.left + 0.5 || first.bottom <= second.top + 0.5, 'Metric targets overlap');
+    const schedule = card.querySelector<HTMLButtonElement>('.list-board-task__schedule-trigger');
+    if (schedule) schedule.focus(); else card.querySelector<HTMLButtonElement>('button')!.focus();
+    card.dataset.taskCardState = 'action_revealed';
+    await wait(30);
+    assert(JSON.stringify(before) === JSON.stringify(controls.map(control => control.getBoundingClientRect().toJSON())), 'Hover/focus changed metric target geometry');
+    assert(card.scrollWidth <= card.clientWidth + 1, item.dataset.narrowMetricCase + ': card has horizontal overflow ' + JSON.stringify({card: [card.clientWidth, card.scrollWidth], nodes: Array.from(card.querySelectorAll<HTMLElement>('*')).filter(node => node.getBoundingClientRect().right > bounds.right + 0.5).map(node => ({class: node.className, text: node.textContent?.slice(0,40), rect: node.getBoundingClientRect().toJSON(), visibility: getComputedStyle(node).visibility}))}));
+    samples.push({case: item.dataset.narrowMetricCase, width: bounds.width, controls: before});
+  }
+  result.metricCases = samples;
+  const pausedHeight = find<HTMLElement>('[data-narrow-metric-case="paused-baseline"] article').getBoundingClientRect().height;
+  for (const id of ["paused-estimate-edit", "paused-taken-edit"]) {
+    const editCard = find<HTMLElement>(`[data-narrow-metric-case="${id}"] article`);
+    assert(editCard.getBoundingClientRect().height === pausedHeight, 'Opening metric editor changed reserved card height ' + JSON.stringify({id, before: pausedHeight, after: editCard.getBoundingClientRect().height, title: editCard.querySelector('.list-board-task__title-row')?.getBoundingClientRect().toJSON(), meta: editCard.querySelector('.list-board-task__meta')?.getBoundingClientRect().toJSON()}));
+  }
+  result.metricEditingHeightStable = true;
+  result.metricsContained = result.metricTargetsDoNotOverlap = result.metricGeometryStable = result.metricTextContained = true;
+} else if (board) {
   await wait(40);
   for (const width of [144, 340]) {
     const card = find<HTMLElement>(`#card-${width} article`);

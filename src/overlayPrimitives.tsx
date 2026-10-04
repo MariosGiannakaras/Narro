@@ -63,7 +63,8 @@ export function Tooltip({
   const trigger = requireSingleElement(children, "Tooltip");
 
   useLayoutEffect(() => {
-    if (!open || !boundarySelector) return;
+    // Closed, mounted tooltips can otherwise enlarge a narrow card's scroll area.
+    if (!boundarySelector) return;
     const anchor = anchorRef.current;
     const tooltip = tooltipRef.current;
     const boundary = anchor?.closest<HTMLElement>(boundarySelector);
@@ -72,6 +73,9 @@ export function Tooltip({
       const bounds = boundary.getBoundingClientRect();
       const origin = anchor.getBoundingClientRect();
       const inset = 4;
+      // The bound is for the complete tooltip, including its padding/border.
+      // Focus rows do not inherit the planning board's border-box reset.
+      tooltip.style.boxSizing = "border-box";
       tooltip.style.maxWidth = `${Math.max(0, bounds.width - 2 * inset)}px`;
       const width = tooltip.offsetWidth;
       const preferred = align === "start" ? origin.left

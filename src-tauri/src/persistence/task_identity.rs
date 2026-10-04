@@ -146,7 +146,7 @@ pub fn reorder_active_bucket(
         return Err(TaskIdentityError::DuplicateReorderId);
     }
 
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     validate_active_list(&tx, list_id)?;
     let current = bucket_ids(&tx, list_id, lane)?;
     let current_set: HashSet<TaskId> = current.iter().copied().collect();
@@ -187,7 +187,7 @@ pub fn duplicate_task(
     now: &str,
 ) -> Result<TaskRecord, TaskIdentityError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let source = get_task(&tx, source_id)?;
     if source.archived_at.is_some() {
         return Err(TaskIdentityError::SourceArchived(source_id));

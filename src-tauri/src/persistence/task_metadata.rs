@@ -293,7 +293,7 @@ pub fn set_task_schedule(
 ) -> Result<TaskRecord, TaskMetadataError> {
     validate_timestamp(now)?;
     let schedule = normalize_schedule(schedule)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     validate_task_context(&tx, id, false)?;
 
     let changed = tx.execute(

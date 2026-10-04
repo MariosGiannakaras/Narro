@@ -507,7 +507,11 @@ export function FocusSurfaceCoordinator() {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
-      if (!shortcut || event.defaultPrevented || hasActiveModalShortcutBoundary()) return;
+      if (!shortcut || event.defaultPrevented) return;
+      if (hasActiveModalShortcutBoundary()) {
+        event.preventDefault();
+        return;
+      }
       if (shortcut === "search") {
         event.preventDefault();
         setShortcutStatus("Search is unavailable while Focus mode is open.");

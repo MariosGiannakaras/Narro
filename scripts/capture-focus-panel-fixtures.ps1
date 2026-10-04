@@ -1,5 +1,6 @@
 param(
-    [string]$OutputDirectory = "artifacts/visual-regression"
+    [string]$OutputDirectory = "artifacts/visual-regression",
+    [switch]$ReducedMotion
 )
 
 $ErrorActionPreference = "Stop"
@@ -79,11 +80,10 @@ try {
                     "--dump-dom",
                     $url
                 )
-                if ($scenario.VirtualTimeBudgetMs -gt 0) {
-                    $edgeArguments = @("--virtual-time-budget=$($scenario.VirtualTimeBudgetMs)") + $edgeArguments
-                }
+                $edgeArguments = @($(if ($ReducedMotion) { "--force-prefers-reduced-motion" } else { "--force-prefers-no-reduced-motion" })) + $edgeArguments
+                $edgeArguments = @("--virtual-time-budget=$([Math]::Max(800, [int]$scenario.VirtualTimeBudgetMs))") + $edgeArguments
 
-                $process = Start-Process -FilePath $edge -ArgumentList $edgeArguments -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait
+                $process = Start-Process -FilePath $edge -ArgumentList $edgeArguments -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru -Wait -WindowStyle Hidden
 
                 $stderrText = if (Test-Path $stderr) { [System.IO.File]::ReadAllText($stderr) } else { "" }
                 if ($process.ExitCode -ne 0) { throw "Focus Panel Edge capture failed for $theme/$($scenario.Name). $stderrText" }

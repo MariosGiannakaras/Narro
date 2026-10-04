@@ -717,7 +717,8 @@
 }
 
 .list-board-task__meta {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
@@ -751,11 +752,12 @@
 }
 
 .list-board-task__times {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
-  flex: 0 0 auto;
   gap: var(--space-2);
   min-width: 0;
+  max-width: 100%;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -765,11 +767,46 @@
   align-items: center;
   gap: 0.2rem;
   min-width: 0;
+  max-width: 100%;
   min-height: 1.5rem;
   color: inherit;
   font: inherit;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+.list-board-task__metric strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+/* Reserve content at every width, independently of hover/focus visibility. */
+.list-board-task__schedule-trigger {
+  appearance: none;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 1.5rem;
+  padding: 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.list-board-task__schedule-trigger:hover,
+.list-board-task__schedule-trigger:focus-visible {
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.list-board-task__schedule-trigger:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
 }
 
 .list-board-task__metric-button {
@@ -794,6 +831,8 @@
 }
 
 .list-board-task__metric-input {
+  box-sizing: border-box;
+  flex: 1 1 auto;
   width: 5.75rem;
   max-width: 100%;
   min-width: 0;
@@ -806,6 +845,23 @@
   font: inherit;
   font-size: var(--font-size-metadata);
   line-height: 1;
+}
+
+/* Reserve responsive rows before editing, so an input cannot move the card. */
+@container (max-width: 14rem) {
+  .list-board-task__meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .list-board-task__meta > :first-child {
+    min-height: 1.5rem;
+  }
+}
+
+@container (max-width: 12.25rem) {
+  .list-board-task__times {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .list-board-task--inline-create {

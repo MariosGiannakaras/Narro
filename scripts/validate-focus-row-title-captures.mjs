@@ -38,6 +38,10 @@ for (const label of [
   invariant(dom.includes('role="tooltip"'), `${label} accessible full-title tooltip is missing`);
 
   const contract = readContract(dom, label);
+  for (const key of ["titleWiderThanBadge", "railBelowTitle", "revealGeometryStable", "rowContained", "tooltipContained", "viewportChecked"]) {
+    invariant(contract.queueTitleLayout?.[key] === true, `${label} queued title allocation ${key} failed`);
+  }
+  invariant(contract.queueTitleLayout.reducedMotion === process.argv.includes("--reduced-motion"), `${label} motion preference differs from request`);
   invariant(contract.longRow?.width > 0 && contract.longRow?.height > 0, `${label} long ordinary row geometry is invalid`);
   invariant(contract.longTitle?.width > 0, `${label} long ordinary title width is invalid`);
   invariant(
