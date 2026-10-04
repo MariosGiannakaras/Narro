@@ -103,7 +103,7 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.editableActionSlot.width === 100, `${label} editable Notes lost the reserved 6.25rem action slot`);
   invariant(contract.readonlyActionSlot.width === 100, `${label} read-only Notes lost the reserved 6.25rem action slot`);
   invariant(contract.editableActionSlot.height === contract.readonlyActionSlot.height, `${label} Notes state changed action-slot height`);
-  invariant(contract.formattingControls >= 8, `${label} expected rich formatting controls are incomplete`);
+  invariant(contract.formattingControls === 7, `${label} source Notes toolbar must expose exactly seven formatting controls`);
   invariant(contract.presentationControls === 1, `${label} expected one editable presentation control`);
   invariant(contract.explicitLinkControls >= 2, `${label} saved links are not exposed through explicit controls in both states`);
 
@@ -149,7 +149,7 @@ for (const theme of ["light", "dark"]) {
   invariant(contract.largeSurface?.height > 400, `${label} large Notes surface is not comfortably tall`);
   invariant(contract.editorCanvas?.width > 600, `${label} large Notes editing canvas is not comfortably wide`);
   invariant(contract.editorCanvas?.height > 250, `${label} large Notes editing canvas is not comfortably tall`);
-  invariant(contract.formattingControls >= 8, `${label} expected rich formatting controls are incomplete`);
+  invariant(contract.formattingControls === 7, `${label} source Notes toolbar must expose exactly seven formatting controls`);
   invariant(contract.presentationControls === 1, `${label} expected one editable presentation control`);
   invariant(contract.explicitLinkControls >= 2, `${label} explicit saved-link controls regressed`);
 

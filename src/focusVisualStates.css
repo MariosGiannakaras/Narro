@@ -1,7 +1,11 @@
 /* Milestone 6 item 15: presentation-only projection of authoritative Focus states. */
 
 .focus-panel__live-card[data-focus-live-state="running"] {
-  background: color-mix(in srgb, var(--color-accent-solid) 7%, var(--color-surface-raised));
+  border-color: transparent;
+  background:
+    linear-gradient(var(--color-surface-raised), var(--color-surface-raised)) padding-box,
+    linear-gradient(115deg, var(--color-accent-start), var(--color-accent-end)) border-box;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent-start) 12%, transparent);
 }
 
 .focus-panel__live-card[data-focus-live-state="paused"],

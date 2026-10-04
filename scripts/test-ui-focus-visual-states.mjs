@@ -60,7 +60,14 @@ for (const state of ["running", "paused", "break", "time_up", "overtime_running"
     `${state} must have an explicit Focus visual-state selector`,
   );
 }
-invariant(styles.includes('var(--color-accent-solid)'), "running state must reuse the accent token family");
+invariant(
+  styles.includes("linear-gradient(115deg, var(--color-accent-start), var(--color-accent-end)) border-box"),
+  "running state must use the calibrated cyan→mint/lime edge",
+);
+invariant(
+  styles.includes("0 0 8px color-mix(in srgb, var(--color-accent-start) 12%, transparent)"),
+  "running state must retain only a restrained accent glow",
+);
 invariant(styles.includes('var(--color-warning)'), "paused/overtime states must reuse warning tokens");
 invariant(styles.includes('var(--color-success)'), "break state must reuse success tokens");
 invariant(styles.includes('var(--color-destructive)'), "Time's Up and overdue states must reuse destructive tokens");
@@ -96,6 +103,7 @@ invariant(
   capture.includes('$edgeArguments = @("--virtual-time-budget=$($scenario.VirtualTimeBudgetMs)") + $edgeArguments'),
   "Focus capture harness must apply scenario-specific virtual time without changing synchronous scenarios",
 );
+invariant(fixture.includes("backgroundImage: style.backgroundImage"), "Focus visual fixture must measure the running edge gradient");
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");
 invariant(fixture.includes("notesButton.click();"), "Notes-expanded fixture must exercise the production Notes toggle");
 invariant(fixture.includes('scenario === "no-eligible" ? [scheduledTask] : scenario === "empty" ? [] : normalTodayTasks'), "no-eligible fixture must retain scheduled work while the new empty fixture removes all Today work");
