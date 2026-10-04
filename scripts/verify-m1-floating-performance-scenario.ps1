@@ -1,5 +1,6 @@
 param(
     [switch]$SelfTest,
+    [switch]$SelfTestNative,
     [int]$NarroPid = 0,
     [string]$OutputPath = ""
 )
@@ -146,9 +147,6 @@ if ($SelfTest) {
     exit 0
 }
 
-$rootPid = Resolve-NarroRootPid -RequestedPid $NarroPid
-$rootProcess = Get-Process -Id $rootPid -ErrorAction Stop
-
 Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
@@ -188,58 +186,93 @@ public static class NarroM1ScenarioProbe {
 
     [DllImport("user32.dll")]
     public static extern uint GetDpiForWindow(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr SetThreadDpiAwarenessContext(IntPtr context);
 }
 "@
 
-$captured = @()
-$callback = [NarroM1ScenarioProbe+EnumWindowsProc]{
-    param([IntPtr]$hWnd, [IntPtr]$lParam)
-
-    [uint32]$pid = 0
-    [void][NarroM1ScenarioProbe]::GetWindowThreadProcessId($hWnd, [ref]$pid)
-    if ([int]$pid -ne $rootPid) { return $true }
-
-    $length = [NarroM1ScenarioProbe]::GetWindowTextLength($hWnd)
-    $builder = New-Object System.Text.StringBuilder ([Math]::Max(1, $length + 1))
-    [void][NarroM1ScenarioProbe]::GetWindowText($hWnd, $builder, $builder.Capacity)
-
-    $windowRect = New-Object NarroM1ScenarioProbe+RECT
-    if (-not [NarroM1ScenarioProbe]::GetWindowRect($hWnd, [ref]$windowRect)) {
-        throw "GetWindowRect failed for a Narro top-level HWND"
-    }
-
-    $regionRect = New-Object NarroM1ScenarioProbe+RECT
-    $regionKind = [NarroM1ScenarioProbe]::GetWindowRgnBox($hWnd, [ref]$regionRect)
-    $dpi = [NarroM1ScenarioProbe]::GetDpiForWindow($hWnd)
-
-    $script:captured += [pscustomobject]@{
-        pid = [int]$pid
-        title = $builder.ToString()
-        visible = [NarroM1ScenarioProbe]::IsWindowVisible($hWnd)
-        dpi = [uint32]$dpi
-        hwnd = ('0x{0:X}' -f $hWnd.ToInt64())
-        window = [pscustomobject]@{
-            x = $windowRect.Left
-            y = $windowRect.Top
-            width = $windowRect.Right - $windowRect.Left
-            height = $windowRect.Bottom - $windowRect.Top
+function Get-OwnedWindowSnapshots {
+    param([int]$OwnerRootPid)
+    $captured = [System.Collections.Generic.List[object]]::new()
+    $callback = [NarroM1ScenarioProbe+EnumWindowsProc]{
+        param([IntPtr]$hWnd, [IntPtr]$lParam)
+    
+        [uint32]$windowOwnerProcessId = 0
+        [void][NarroM1ScenarioProbe]::GetWindowThreadProcessId($hWnd, [ref]$windowOwnerProcessId)
+        if ([int]$windowOwnerProcessId -ne $OwnerRootPid) { return $true }
+    
+        $length = [NarroM1ScenarioProbe]::GetWindowTextLength($hWnd)
+        $builder = New-Object System.Text.StringBuilder ([Math]::Max(1, $length + 1))
+        [void][NarroM1ScenarioProbe]::GetWindowText($hWnd, $builder, $builder.Capacity)
+    
+        $windowRect = New-Object NarroM1ScenarioProbe+RECT
+        if (-not [NarroM1ScenarioProbe]::GetWindowRect($hWnd, [ref]$windowRect)) {
+            throw "GetWindowRect failed for a Narro top-level HWND"
         }
-        regionKind = $regionKind
-        region = if ($regionKind -gt 0) {
-            [pscustomobject]@{
-                x = $regionRect.Left
-                y = $regionRect.Top
-                width = $regionRect.Right - $regionRect.Left
-                height = $regionRect.Bottom - $regionRect.Top
+    
+        $regionRect = New-Object NarroM1ScenarioProbe+RECT
+        $regionKind = [NarroM1ScenarioProbe]::GetWindowRgnBox($hWnd, [ref]$regionRect)
+        $dpi = [NarroM1ScenarioProbe]::GetDpiForWindow($hWnd)
+    
+        $captured.Add([pscustomobject]@{
+            pid = [int]$windowOwnerProcessId
+            title = $builder.ToString()
+            visible = [NarroM1ScenarioProbe]::IsWindowVisible($hWnd)
+            dpi = [uint32]$dpi
+            hwnd = ('0x{0:X}' -f $hWnd.ToInt64())
+            window = [pscustomobject]@{
+                x = $windowRect.Left
+                y = $windowRect.Top
+                width = $windowRect.Right - $windowRect.Left
+                height = $windowRect.Bottom - $windowRect.Top
             }
-        } else {
-            $null
-        }
+            regionKind = $regionKind
+            region = if ($regionKind -gt 0) {
+                [pscustomobject]@{
+                    x = $regionRect.Left
+                    y = $regionRect.Top
+                    width = $regionRect.Right - $regionRect.Left
+                    height = $regionRect.Bottom - $regionRect.Top
+                }
+            } else {
+                $null
+            }
+        })
+        return $true
     }
-    return $true
+    
+    $previousDpiContext = [NarroM1ScenarioProbe]::SetThreadDpiAwarenessContext([IntPtr](-4))
+    try {
+        Assert-Condition ([NarroM1ScenarioProbe]::EnumWindows($callback, [IntPtr]::Zero)) "native window enumeration failed"
+    } finally {
+        [void][NarroM1ScenarioProbe]::SetThreadDpiAwarenessContext($previousDpiContext)
+    }
+    return $captured.ToArray()
 }
 
-[void][NarroM1ScenarioProbe]::EnumWindows($callback, [IntPtr]::Zero)
+if ($SelfTestNative) {
+    Add-Type -AssemblyName System.Windows.Forms
+    $probeForm = [System.Windows.Forms.Form]::new()
+    try {
+        $probeForm.Text = "Narro M1 native enumeration regression"
+        $probeHandle = $probeForm.Handle
+        $nativeRows = @(Get-OwnedWindowSnapshots -OwnerRootPid $PID)
+        $observed = @($nativeRows | Where-Object { $_.hwnd -eq ('0x{0:X}' -f $probeHandle.ToInt64()) })
+        Assert-Condition ($observed.Count -eq 1) "native callback did not capture the actual test HWND"
+        Assert-Condition ($observed[0].pid -eq $PID -and $observed[0].title -eq $probeForm.Text) "native callback owner/title mismatch"
+        Assert-Condition ($observed[0].window.width -gt 0 -and $observed[0].dpi -gt 0) "native callback geometry/DPI missing"
+        Assert-Condition (@(Get-OwnedWindowSnapshots -OwnerRootPid 0).Count -eq 0) "native callback did not filter other owners"
+        Write-Host "M1 floating native window enumeration self-test: PASS"
+    } finally {
+        $probeForm.Dispose()
+    }
+    exit 0
+}
+
+$rootPid = Resolve-NarroRootPid -RequestedPid $NarroPid
+$rootProcess = Get-Process -Id $rootPid -ErrorAction Stop
+$captured = @(Get-OwnedWindowSnapshots -OwnerRootPid $rootPid)
 $validated = Assert-ScenarioSnapshot -RootPid $rootPid -Windows $captured
 $summary = [pscustomobject]@{
     schemaVersion = 1
