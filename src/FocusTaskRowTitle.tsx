@@ -4,7 +4,7 @@ import "./focusActionSlots.css";
 
 export function FocusTaskRowTitle({ title }: { title: string }) {
   return (
-    <Tooltip content={title}>
+    <Tooltip content={title} boundarySelector=".focus-panel__task-row">
       <span
         className="focus-panel__task-title"
         data-focus-task-title="true"

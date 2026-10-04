@@ -31,6 +31,7 @@ function readCapture(theme, scenario) {
   const match = dom.match(/<script id="focus-panel-visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
   invariant(match, `${label} visual contract is missing`);
   const contract = JSON.parse(match[1]);
+  invariant(!contract.error, `${label} rendered fixture failed: ${contract.error}`);
   invariant(contract.theme === theme, `${label} contract theme differs`);
   invariant(contract.scenario === scenario, `${label} contract scenario differs`);
   invariant(contract.panel?.width === 340, `${label} Focus Panel width changed from the validated 340px geometry`);

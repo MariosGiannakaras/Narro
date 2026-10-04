@@ -80,13 +80,15 @@ function Fixture() {
       {id: "normal", width: 147}, {id: "wide", width: 340}, {id: "middle", width: 196},
       {id: "long-times", width: 147}, {id: "estimate-edit", width: 147}, {id: "taken-edit", width: 147},
       {id: "aggregate", width: 147}, {id: "hidden-times", width: 147},
+      {id: "paused-baseline", width: 226}, {id: "paused-estimate-edit", width: 226}, {id: "paused-taken-edit", width: 226},
     ];
     return <main style={{display: "grid", gridTemplateColumns: "repeat(4, max-content)", gap: 12, padding: 12}}>
       {cases.map(item => <div key={item.id} data-narrow-metric-case={item.id} style={{width: item.width}}>
         <TaskCard task={item.id === "long-times" ? {...task, estSeconds: 3_600_000, timeTakenSeconds: "18446744073709551615"} : task}
           aggregateView={item.id === "aggregate"} onTitleEdit={noop} onScheduleEdit={noop}
           onEstimateEdit={noop} onTimeTakenEdit={noop} hideTaskTimes={item.id === "hidden-times"}
-          metricEditor={item.id.endsWith("-edit") ? {metric: item.id === "estimate-edit" ? "estimate" : "time_taken",
+          liveState={item.id.startsWith("paused-") ? "paused" : undefined}
+          metricEditor={item.id.endsWith("-edit") ? {metric: item.id.includes("estimate-edit") ? "estimate" : "time_taken",
             value: "1:23:45", pending: false, onChange: noop, onCancel: noop, onSubmit: noop} : undefined} />
       </div>)}
     </main>;
@@ -165,6 +167,12 @@ if (boardMetrics) {
     samples.push({case: item.dataset.narrowMetricCase, width: bounds.width, controls: before});
   }
   result.metricCases = samples;
+  const pausedHeight = find<HTMLElement>('[data-narrow-metric-case="paused-baseline"] article').getBoundingClientRect().height;
+  for (const id of ["paused-estimate-edit", "paused-taken-edit"]) {
+    const editCard = find<HTMLElement>(`[data-narrow-metric-case="${id}"] article`);
+    assert(editCard.getBoundingClientRect().height === pausedHeight, 'Opening metric editor changed reserved card height ' + JSON.stringify({id, before: pausedHeight, after: editCard.getBoundingClientRect().height, title: editCard.querySelector('.list-board-task__title-row')?.getBoundingClientRect().toJSON(), meta: editCard.querySelector('.list-board-task__meta')?.getBoundingClientRect().toJSON()}));
+  }
+  result.metricEditingHeightStable = true;
   result.metricsContained = result.metricTargetsDoNotOverlap = result.metricGeometryStable = result.metricTextContained = true;
 } else if (board) {
   await wait(40);

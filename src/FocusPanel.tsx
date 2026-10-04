@@ -160,7 +160,7 @@ function FocusTaskRow({
       <div className="focus-panel__task-row-mainline">
         <span className="focus-panel__task-completion-slot">
           {ordinary ? (
-            <Tooltip content="Complete task">
+            <Tooltip content="Complete task" boundarySelector=".focus-panel__task-row">
               <button
                 type="button"
                 className="focus-panel__row-action focus-panel__row-action--complete motion-interactive"
@@ -209,7 +209,7 @@ function FocusTaskRow({
             }}
           >
             <div className="focus-panel__row-actions">
-              <Tooltip content="Make live">
+              <Tooltip content="Make live" boundarySelector=".focus-panel__task-row">
                 <button
                   type="button"
                   className="focus-panel__row-action motion-interactive"
@@ -221,7 +221,7 @@ function FocusTaskRow({
                   🚀
                 </button>
               </Tooltip>
-              <Tooltip content="Move up">
+              <Tooltip content="Move up" boundarySelector=".focus-panel__task-row">
                 <button
                   type="button"
                   className="focus-panel__row-action motion-interactive"
@@ -233,7 +233,7 @@ function FocusTaskRow({
                   ↑
                 </button>
               </Tooltip>
-              <Tooltip content="Move down">
+              <Tooltip content="Move down" boundarySelector=".focus-panel__task-row">
                 <button
                   type="button"
                   className="focus-panel__row-action motion-interactive"
@@ -245,7 +245,7 @@ function FocusTaskRow({
                   ↓
                 </button>
               </Tooltip>
-              <Tooltip content="More task actions">
+              <Tooltip content="More task actions" boundarySelector=".focus-panel__task-row">
                 <button
                   type="button"
                   className="focus-panel__row-action motion-interactive"

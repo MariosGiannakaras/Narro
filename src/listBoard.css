@@ -717,8 +717,8 @@
 }
 
 .list-board-task__meta {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
@@ -752,10 +752,9 @@
 }
 
 .list-board-task__times {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
-  flex: 0 1 auto;
-  flex-wrap: wrap;
   gap: var(--space-2);
   min-width: 0;
   max-width: 100%;
@@ -765,7 +764,6 @@
 
 .list-board-task__metric {
   display: inline-flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 0.2rem;
   min-width: 0;
@@ -778,6 +776,7 @@
 }
 
 .list-board-task__metric strong {
+  min-width: 0;
   overflow-wrap: anywhere;
   white-space: normal;
 }
@@ -832,6 +831,8 @@
 }
 
 .list-board-task__metric-input {
+  box-sizing: border-box;
+  flex: 1 1 auto;
   width: 5.75rem;
   max-width: 100%;
   min-width: 0;
@@ -844,6 +845,23 @@
   font: inherit;
   font-size: var(--font-size-metadata);
   line-height: 1;
+}
+
+/* Reserve responsive rows before editing, so an input cannot move the card. */
+@container (max-width: 14rem) {
+  .list-board-task__meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .list-board-task__meta > :first-child {
+    min-height: 1.5rem;
+  }
+}
+
+@container (max-width: 12.25rem) {
+  .list-board-task__times {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .list-board-task--inline-create {

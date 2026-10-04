@@ -100,8 +100,8 @@ invariant(
   "Notes-expanded Windows capture must reserve virtual time for the asynchronous production Notes read/toggle path",
 );
 invariant(
-  capture.includes('$edgeArguments = @("--virtual-time-budget=$($scenario.VirtualTimeBudgetMs)") + $edgeArguments'),
-  "Focus capture harness must apply scenario-specific virtual time without changing synchronous scenarios",
+  capture.includes('[Math]::Max(800, [int]$scenario.VirtualTimeBudgetMs)'),
+  "Focus capture harness must let production focus and tooltip assertions settle in every scenario",
 );
 invariant(fixture.includes("backgroundImage: style.backgroundImage"), "Focus visual fixture must measure the running edge gradient");
 invariant(fixture.includes('command === "get_list_board_task_note"'), "Notes-expanded fixture must mock only the authoritative Notes read boundary");

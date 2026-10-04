@@ -33,6 +33,8 @@
 
 
 .focus-panel__row-action-slot {
+  grid-column: 3;
+  grid-row: 2;
   position: relative;
   width: 7.75rem;
   min-width: 7.75rem;

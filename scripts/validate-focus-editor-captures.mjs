@@ -20,8 +20,8 @@ for(const theme of ['light','dark']) for(const scenario of scenarios) for(const 
  }
  if(scenario==='board-metrics') {
   required.length=0;
-  required.push('metricsContained','metricTargetsDoNotOverlap','metricGeometryStable','metricTextContained');
-  if(result.metricCases?.length!==8)throw new Error(label+': missing metric cases');
+  required.push('metricsContained','metricTargetsDoNotOverlap','metricGeometryStable','metricTextContained','metricEditingHeightStable');
+  if(result.metricCases?.length!==11)throw new Error(label+': missing metric cases');
  }
  if(scenario.endsWith('-large'))required.push('resizeBounded','escapeReturnedInline');
  if(scenario.startsWith('notes-'))required.push('presentationWrappedLeft');

@@ -32,7 +32,9 @@ function readCapture(label) {
 function readContract(dom, label) {
   const match = dom.match(/<script id="focus-panel-visual-contract" type="application\/json">([\s\S]*?)<\/script>/);
   invariant(match, `${label} geometry contract is missing`);
-  return JSON.parse(match[1]);
+  const contract = JSON.parse(match[1]);
+  invariant(!contract.error, `${label} rendered fixture failed: ${contract.error}`);
+  return contract;
 }
 
 function validateSharedGeometry(contract, label, theme) {
@@ -141,7 +143,7 @@ function validateSharedDom(dom, label) {
   invariant(dom.includes('data-focus-task-row="remaining"'), `${label} remaining queue is missing`);
   invariant(dom.includes("Review campaign notes"), `${label} overdue remaining task is missing`);
   invariant(dom.includes("Plan weekend errands"), `${label} second remaining task is missing`);
-  invariant(dom.includes("Personal"), `${label} All Lists origin chip is missing`);
+  invariant(dom.includes("Long owning list title for source-readable queue"), `${label} long All Lists origin chip is missing`);
   invariant(dom.includes("+ ADD TASK"), `${label} Add Task hierarchy row is missing`);
   invariant(dom.includes('data-focus-group="scheduled"'), `${label} scheduled group is missing`);
   invariant(dom.includes("1 Scheduled task"), `${label} scheduled count is missing`);
