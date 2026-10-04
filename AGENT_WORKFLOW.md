@@ -74,7 +74,7 @@ If user input is genuinely required, state the concrete constraint, viable optio
 
 Use the compact progress format, counter semantics, and reporting cadence in `AI_START_HERE.md`. Derive all counters from current `TODO.md` and `HANDOFF.md`; physical gates do not close from compilation or static contracts. Keep detailed evidence in immutable work logs instead of repeating it in progress messages.
 
-The roadmap milestone denominator remains **10**. The required Final Comprehensive Review Stage runs only after Milestone 10 and is tracked as a separate post-roadmap gate, not as Milestone 11.
+The mandatory roadmap milestone denominator remains **10** while optional Milestone 11 is dormant or skipped. **Milestone 11 exists but is strictly opt-in and is excluded from progress until the user explicitly activates it.** On explicit M11 activation, record that activation durably and change the progress denominator to **11** from that point onward. The required Final Comprehensive Review Stage is separate from the milestone denominator: it runs after Milestone 10 when M11 is dormant/skipped, or after completed M11 when M11 was explicitly activated.
 
 ### Hard Milestone 10 release-candidate entry gate
 
@@ -87,7 +87,26 @@ Milestone 10 is a **hard sequential release-candidate gate**. Do not begin, coun
 
 Before the first M10 validation is allowed, reconcile `TODO.md`, `HANDOFF.md`, `STATUS.md`, the audit crosswalk, live PR/CI state and resulting `main` and record that every required M1–M9 gate is closed. Preparatory M10 tooling/tests may be authored earlier only when genuinely independent, but that preparation is **not M10 validation**, must not advance an M10 checkbox/counter, and must not be used to freeze a release candidate.
 
-The Final Comprehensive Review remains separately blocked until Milestone 10 is fully validated and its exact release-candidate SHA is frozen.
+### Optional Milestone 11 hard opt-in gate
+
+Milestone 11 is the optional **Live Blitzit Reference Audit** defined in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
+
+**M11 MUST NOT START, be prepared, be counted, or be inferred from general continuation instructions unless the user explicitly activates M11.** Commands such as `continue`, `keep going`, `finish the project`, or equivalent do not authorize it. Completion of M10 also does not authorize it.
+
+While M11 is dormant:
+- its TODO checkboxes do not represent open required work;
+- it does not block release or the Final Comprehensive Review;
+- the progress denominator remains 10;
+- the normal continuation after validated M10 is the Final Comprehensive Review.
+
+If the user explicitly activates M11:
+- record the activation in current-truth tracking before starting;
+- change the roadmap denominator to 11;
+- require a validated M10 baseline first;
+- conduct the live-source audit through the evidence/reconciliation workflow rather than treating observations as automatic implementation requirements;
+- complete and validate any chosen M11 corrections before freezing the Final Comprehensive Review baseline.
+
+The Final Comprehensive Review remains separately blocked until Milestone 10 is fully validated and its exact candidate SHA is frozen; when M11 is explicitly activated, Final Review is additionally blocked until M11 is complete and the post-M11 candidate SHA is frozen.
 
 For every milestone completion report, include the milestone's **total source diff** in the exact compact form `+A/-B` lines. Compute it from the milestone's validated starting source SHA to its final validated source SHA. Documentation/tracking-only commits do not replace the validated source baseline and are excluded from this source-diff figure. Record the compared SHAs with the completion evidence so another agent can reproduce the count.
 
