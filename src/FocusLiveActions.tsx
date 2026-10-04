@@ -145,6 +145,7 @@ function FloatingActionIcon({ kind }: { kind: FloatingActionIconKind }) {
 type FloatingActionButtonProps = {
   action: string;
   label: string;
+  pillLabel?: string;
   icon: FloatingActionIconKind;
   disabled?: boolean;
   expanded?: boolean;
@@ -155,6 +156,7 @@ type FloatingActionButtonProps = {
 function FloatingActionButton({
   action,
   label,
+  pillLabel = label,
   icon,
   disabled = false,
   expanded,
@@ -162,7 +164,7 @@ function FloatingActionButton({
   onClick,
 }: FloatingActionButtonProps) {
   return (
-    <Tooltip content={label} placement="bottom" align={align}>
+    <Tooltip content={label} placement="bottom" align={align} boundarySelector=".floating-timer-foundation">
       <button
         type="button"
         className="floating-timer-foundation__action motion-interactive"
@@ -173,6 +175,7 @@ function FloatingActionButton({
         onClick={onClick}
       >
         <FloatingActionIcon kind={icon} />
+        <span className="floating-timer-foundation__action-label" aria-hidden="true">{pillLabel}</span>
       </button>
     </Tooltip>
   );
@@ -580,6 +583,7 @@ export function FocusLiveActions({
           <FloatingActionButton
             action="break"
             label="Start break"
+            pillLabel="Break"
             icon="break"
             align="start"
             disabled={busy || !state.breakEnabled || defaultBreakMs === null}
@@ -591,7 +595,13 @@ export function FocusLiveActions({
             icon="notes"
             expanded={notesExpanded}
             disabled={busy}
-            onClick={() => setNotesExpanded((expanded) => !expanded)}
+            onClick={() => {
+              if (notesExpanded) { setNotesExpanded(false); return; }
+              if (!onEnsureNotesVisible) { setNotesExpanded(true); return; }
+              void Promise.resolve(onEnsureNotesVisible())
+                .then((accepted) => { if (accepted) setNotesExpanded(true); })
+                .catch((failure: unknown) => fail(failure));
+            }}
           />
           <FloatingActionButton
             action="pause-resume"
@@ -603,6 +613,7 @@ export function FocusLiveActions({
           <FloatingActionButton
             action="skip"
             label="Skip task"
+            pillLabel="Skip"
             icon="skip"
             disabled={busy || !state.skipEnabled}
             onClick={() => void handleSkip()}
@@ -610,6 +621,7 @@ export function FocusLiveActions({
           <FloatingActionButton
             action="done"
             label="Complete task"
+            pillLabel="Done"
             icon="done"
             disabled={busy || !state.doneEnabled}
             onClick={() => void handleDone()}
@@ -617,6 +629,7 @@ export function FocusLiveActions({
           <FloatingActionButton
             action="return-to-panel"
             label="Return to Focus Panel"
+            pillLabel="Focus"
             icon="return"
             align="end"
             disabled={transitionPending || !onReturnToPanel}

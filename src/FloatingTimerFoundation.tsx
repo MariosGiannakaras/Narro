@@ -106,6 +106,9 @@ export function FloatingTimerFoundation({
   >("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
+  const [compactHovered, setCompactHovered] = useState(false);
+  const [compactFocused, setCompactFocused] = useState(false);
+  const compactActionsVisible = !expanded && (compactHovered || compactFocused);
 
   useEffect(() => {
     if (controlledExpanded !== undefined) {
@@ -335,11 +338,18 @@ export function FloatingTimerFoundation({
       data-floating-live-state={timer?.runtime.timer.state ?? "idle"}
       data-floating-live-task-id={liveTaskId ?? ""}
       data-floating-expanded={expanded ? "true" : "false"}
+      data-floating-compact-actions={compactActionsVisible ? "true" : "false"}
       data-floating-region-expanded={regionExpanded ? "true" : "false"}
       data-floating-resize-pending={resizePending ? "true" : "false"}
       data-floating-resize-phase={resizePhase}
       data-tauri-drag-region="true"
       aria-label="Floating Timer"
+      onPointerEnter={() => setCompactHovered(true)}
+      onPointerLeave={() => setCompactHovered(false)}
+      onFocusCapture={() => setCompactFocused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setCompactFocused(false);
+      }}
     >
       {shortcutStatus ? (
         <span className="floating-timer-foundation__shortcut-status type-metadata" role="status">
@@ -358,7 +368,13 @@ export function FloatingTimerFoundation({
         className="floating-timer-foundation__content"
         data-tauri-drag-region="true"
       >
-        <div key="timer-heading" className="floating-timer-foundation__heading" data-tauri-drag-region="true">
+        <div
+          key="timer-heading"
+          className="floating-timer-foundation__heading"
+          data-tauri-drag-region="true"
+          tabIndex={!expanded && liveTask && timer ? 0 : undefined}
+          aria-label={!expanded && liveTask && timer ? "Show Floating Timer actions" : undefined}
+        >
           <strong
             className="floating-timer-foundation__title"
             data-floating-task-title="true"
@@ -384,9 +400,9 @@ export function FloatingTimerFoundation({
           <div
             key={`actions-host:${liveTask.id}`}
             data-floating-actions-controller="true"
-            style={{ display: expanded ? "contents" : "none" }}
-            inert={expanded && (!regionExpanded || resizePending)}
-            aria-hidden={expanded && (!regionExpanded || resizePending) ? true : undefined}
+            className="floating-timer-foundation__actions-controller"
+            inert={(!expanded && !compactActionsVisible) || (expanded && (!regionExpanded || resizePending))}
+            aria-hidden={(!expanded && !compactActionsVisible) || (expanded && (!regionExpanded || resizePending)) ? true : undefined}
           >
             <FocusLiveActions
               task={liveTask}
@@ -404,6 +420,10 @@ export function FloatingTimerFoundation({
               onCompletionSuccess={onCompletionSuccess}
             />
           </div>
+        ) : null}
+
+        {liveTask && timer && !expanded ? (
+          <span className="floating-timer-foundation__drag-handle" data-tauri-drag-region="true" aria-hidden="true" />
         ) : null}
 
         {liveTask ? (

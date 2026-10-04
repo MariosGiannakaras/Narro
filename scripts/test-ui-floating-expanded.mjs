@@ -29,8 +29,8 @@ const nativeTimer = slice(lib, "fn apply_timer_native(", "fn apply_focus_surface
 invariant(
   nativeTimer.includes("safe_position_for_timer_region")
     && nativeTimer.includes("timer_region::apply(window, target.region())")
-    && nativeTimer.includes("COMPACT_TIMER_ORIGIN"),
-  "expanded/compact native transition must coordinate placement, region and compact origin",
+    && !nativeTimer.includes("COMPACT_TIMER_ORIGIN"),
+  "expanded/compact transition must keep its safe origin without cached bottom-edge snapback",
 );
 invariant(
   !nativeTimer.includes(".hide()") && !nativeTimer.includes(".show()") && !nativeTimer.includes(".set_size("),
@@ -48,7 +48,7 @@ const collapseRegion = nativeTimer.indexOf(
   expansionRegion + "timer_region::apply_without_redraw(window, target.region())?;".length,
 );
 const collapseRestore = nativeTimer.indexOf(
-  'set_focus_position(window, desired, "restore compact Timer position")?;',
+  'set_focus_position(window, desired, "keep safe compact Timer position")?;',
   collapseRegion,
 );
 invariant(
@@ -64,7 +64,7 @@ invariant(
 );
 invariant(
   collapseRegion >= 0 && collapseRestore > collapseRegion,
-  "collapse must clip before restoring compact origin",
+  "collapse must clip before any topology-required position correction",
 );
 invariant(
   region.includes("TIMER_EXPANDED_HEIGHT_LOGICAL: f64 = 300.0")
@@ -132,7 +132,7 @@ invariant(
   "resize requests must serialize, expose busy state and roll back uncommitted renderer state",
 );
 invariant(
-  foundation.includes("inert={expanded && (!regionExpanded || resizePending)}")
+  foundation.includes("(expanded && (!regionExpanded || resizePending))")
     && foundation.includes("contentInert={expanded && (!regionExpanded || resizePending)}")
     && subtasks.includes("inert={contentInert}"),
   "prepainted/in-motion controls outside committed Timer geometry must be keyboard/accessibility inert",
@@ -143,7 +143,7 @@ invariant(
     && css.includes("--floating-timer-geometry-motion-duration: 270ms")
     && css.includes('data-floating-resize-phase="revealing"')
     && css.includes('data-floating-resize-phase="contracting"')
-    && css.includes("clip-path: inset(0 0 190px 0 round 12px)")
+    && css.includes("clip-path: inset(0 0 190px 0 round 16px)")
     && css.includes("--floating-timer-geometry-motion-duration: 1ms"),
   "compact/expanded Timer must keep finite reduced-motion-safe same-WebView geometry motion",
 );

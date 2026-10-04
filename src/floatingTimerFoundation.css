@@ -5,10 +5,11 @@
   height: 110px;
   box-sizing: border-box;
   overflow: hidden;
-  clip-path: inset(0 0 0 0 round 12px);
+  clip-path: inset(0 0 0 0 round 16px);
   padding: 10px 12px;
   border: 1px solid var(--color-border-subtle);
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: var(--elevation-overlay);
   color: var(--color-text-primary);
   background: var(--color-surface-raised);
   text-align: left;
@@ -23,7 +24,7 @@
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="revealing-start"],
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="contracting"],
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="clipping"] {
-  clip-path: inset(0 0 190px 0 round 12px);
+  clip-path: inset(0 0 190px 0 round 16px);
 }
 
 /* Establish the compact clip in one paint before expanding the native region.
@@ -36,7 +37,7 @@
 
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="revealing"],
 .floating-timer-foundation[data-floating-expanded="true"][data-floating-resize-phase="contracting-start"] {
-  clip-path: inset(0 0 0 0 round 12px);
+  clip-path: inset(0 0 0 0 round 16px);
 }
 
 .floating-timer-foundation__shortcut-status {
@@ -160,6 +161,111 @@
   min-width: 0;
   display: grid;
   gap: 8px;
+}
+
+.floating-timer-foundation__actions-controller {
+  display: contents;
+}
+
+.floating-timer-foundation__heading {
+  transition: opacity 130ms var(--motion-ease-enter);
+}
+
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__actions-wrap {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  right: 12px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 130ms var(--motion-ease-enter);
+}
+
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-compact-actions="true"] .floating-timer-foundation__heading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-compact-actions="true"] .floating-timer-foundation__actions-wrap {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__actions {
+  width: 100%;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  justify-items: center;
+  gap: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.floating-timer-foundation__action-label {
+  display: none;
+}
+
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__actions > .overlay-anchor {
+  position: relative;
+}
+
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__action {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__action svg {
+  flex: none;
+}
+
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__action:is(:hover, :focus-visible):not(:disabled) {
+  width: max-content;
+  padding: 0 7px;
+  border-radius: 16px;
+}
+
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__action:is(:hover, :focus-visible):not(:disabled) .floating-timer-foundation__action-label {
+  display: inline;
+  font-size: var(--font-size-metadata);
+  line-height: 1;
+}
+
+.floating-timer-foundation__drag-handle {
+  position: absolute;
+  top: 34px;
+  left: 3px;
+  width: 7px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-text-secondary);
+  opacity: 0;
+  transition: opacity 130ms var(--motion-ease-enter);
+}
+
+.floating-timer-foundation[data-floating-compact-actions="true"] .floating-timer-foundation__drag-handle {
+  opacity: 1;
+}
+
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__notes,
+.floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__action-status {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-timer-foundation__heading,
+  .floating-timer-foundation__drag-handle,
+  .floating-timer-foundation__actions-wrap {
+    transition-duration: 1ms;
+  }
 }
 
 .floating-timer-foundation__actions {
