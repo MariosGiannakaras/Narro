@@ -98,6 +98,7 @@ type TaskCardProps = {
   hideTaskTimes?: boolean;
   ordinal?: number;
   deleteConfirmation?: TaskCardDeleteConfirmation;
+  interactionDisabled?: boolean;
 };
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
@@ -492,12 +493,14 @@ function MetricValue({
   value,
   onEdit,
   editor,
+  disabled = false,
 }: {
   metric: TaskCardMetricKind;
   label: string;
   value: string;
   onEdit?: () => void;
   editor?: TaskCardMetricEditor;
+  disabled?: boolean;
 }) {
   if (editor?.metric === metric) {
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -538,6 +541,7 @@ function MetricValue({
         data-task-metric={metric}
         data-task-metric-control="open"
         draggable={false}
+        disabled={disabled}
         onPointerDown={(event) => event.stopPropagation()}
         onClick={onEdit}
       >
@@ -633,6 +637,7 @@ export function TaskCard({
   hideTaskTimes = false,
   ordinal,
   deleteConfirmation,
+  interactionDisabled = false,
 }: TaskCardProps) {
   const state = fixtureState ?? derivedState(task);
   const scheduled = scheduleLabel(task);
@@ -641,6 +646,11 @@ export function TaskCard({
   const showBaseContent = state !== "inline_create";
   const noteExpanded = Boolean(notes?.expanded);
   const subtaskExpanded = Boolean(subtasks?.model?.expanded);
+  // Keep the pre-confirmation controls in place, but disable them while the
+  // board reserves the destructive action. Removing callbacks changes layout.
+  const cardControlsRef = useRef({ onComplete, onTitleEdit, onEstimateEdit, onTimeTakenEdit, onScheduleEdit });
+  if (!interactionDisabled) cardControlsRef.current = { onComplete, onTitleEdit, onEstimateEdit, onTimeTakenEdit, onScheduleEdit };
+  if (interactionDisabled) ({ onComplete, onTitleEdit, onEstimateEdit, onTimeTakenEdit, onScheduleEdit } = cardControlsRef.current);
   const menuActionsRef = useRef<TaskCardActions | undefined>(actions);
   // The board disables other edits during confirmation. Retain the same menu
   // composition while every sibling action is disabled, rather than unmounting
@@ -706,6 +716,7 @@ export function TaskCard({
                       className="list-board-task__completion-button motion-interactive"
                       aria-label={`Complete task: ${task.title}`}
                       data-task-completion-control="complete"
+                      disabled={interactionDisabled}
                       draggable={false}
                       onPointerDown={(event) => event.stopPropagation()}
                       onClick={onComplete}
@@ -724,6 +735,7 @@ export function TaskCard({
                   className="list-board-task__completion-slot list-board-task__completion-button motion-interactive"
                   aria-label={`Complete task: ${task.title}`}
                   data-task-completion-control="complete"
+                  disabled={interactionDisabled}
                   draggable={false}
                   onPointerDown={(event) => event.stopPropagation()}
                   onClick={onComplete}
@@ -742,6 +754,7 @@ export function TaskCard({
                   title={task.title}
                   aria-label={`Edit task title: ${task.title}`}
                   data-task-title-control="open"
+                  disabled={interactionDisabled}
                   draggable={false}
                   onPointerDown={(event) => event.stopPropagation()}
                   onClick={onTitleEdit}
@@ -775,6 +788,7 @@ export function TaskCard({
                 className="list-board-task__schedule list-board-task__schedule-button type-metadata motion-interactive"
                 data-overdue={task.isOverdue ? "true" : "false"}
                 data-task-schedule-control="open"
+                disabled={interactionDisabled}
                 aria-label={`Edit task schedule: ${scheduled}${repeatStatus ? `, ${repeatStatus}` : ""}`}
                 draggable={false}
                 onPointerDown={(event) => event.stopPropagation()}
@@ -805,6 +819,7 @@ export function TaskCard({
                 type="button"
                 className="list-board-task__schedule-trigger motion-interactive"
                 data-task-schedule-control="open"
+                disabled={interactionDisabled}
                 draggable={false}
                 onPointerDown={(event) => event.stopPropagation()}
                 onClick={onScheduleEdit}
@@ -825,6 +840,7 @@ export function TaskCard({
                 value={formatEstimate(task.estSeconds)}
                 onEdit={onEstimateEdit}
                 editor={metricEditor}
+                disabled={interactionDisabled}
               />
               <MetricValue
                 metric="time_taken"
@@ -832,6 +848,7 @@ export function TaskCard({
                 value={formatTimeTaken(task.timeTakenSeconds)}
                 onEdit={onTimeTakenEdit}
                 editor={metricEditor}
+                disabled={interactionDisabled}
               />
             </span>
           </div>

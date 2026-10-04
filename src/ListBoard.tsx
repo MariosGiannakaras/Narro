@@ -690,6 +690,7 @@ function BoardLane({
                     aggregateView={aggregateView}
                     ordinal={taskOrdinalIndex + 1}
                     actions={taskActions}
+                    interactionDisabled={deleteTargetId !== null}
                     deleteConfirmation={deleteTargetId === task.id ? {
                       pending: deletePending,
                       error: deleteError,

@@ -29,7 +29,7 @@ for(const theme of ['light','dark']) for(const scenario of scenarios) for(const 
   required.length=0;
   required.push('catalogCommittedCrud','catalogStaleResponsesRejected','catalogEntryReconciled','catalogSelectedRecovery',
    'catalogNoPolling','catalogDisposedResponseIgnored','queueLastRowReachable','queueMenuReachable','queueHeaderStable','queueNoHorizontalOverflow',
-   'deleteMenuRetained','deleteCancelAndDismissSafe','deleteFailureRetrySafe','deletePendingExactlyOnce','deleteIndependentIdentityPreserved');
+   'deleteMenuRetained','deleteCardMetadataStable','deleteCancelAndDismissSafe','deleteFailureRetrySafe','deletePendingExactlyOnce','deleteIndependentIdentityPreserved');
  }
  if(reducedMotion && !['board-narrow','board-metrics','shortcut-modal','m7-integration'].includes(scenario))required.push('reducedMotionRespected');
  for(const key of required)if(result[key]!==true)throw new Error(label+': '+key+' failed');

@@ -185,6 +185,11 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const menu = () => container.querySelector<HTMLElement>('[role="menu"][data-open="true"]')!;
   const openDelete = async () => {
     actionTrigger().click(); await wait();
+    const cardMetadata = Array.from(container.querySelectorAll<HTMLElement>('[data-board-task="task-card"]')).map(card => ({
+      id: card.dataset.taskId, text: card.querySelector('.list-board-task__meta')!.textContent,
+      height: card.getBoundingClientRect().height,
+      metadataTop: card.querySelector('.list-board-task__meta')!.getBoundingClientRect().top,
+    }));
     assert(Array.from(menu().querySelectorAll<HTMLButtonElement>('[role="menuitem"]')).map(button => button.textContent).join("|")
       === "Schedule|Change List|Duplicate|Delete", "source menu order differs");
     const deletion = Array.from(menu().querySelectorAll<HTMLButtonElement>('[role="menuitem"]')).find(button => button.textContent === "Delete")!;
@@ -192,13 +197,27 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     assert(menu() && menu().querySelector('[data-task-delete-confirm="inline"]'), "confirmation left source menu container");
     assert(menu().textContent?.includes("Schedule") && menu().textContent?.includes("Change List") && menu().textContent?.includes("Duplicate"), "source sibling rows disappeared");
     assert(menu().querySelector('svg'), "trash glyph missing");
+    for (const before of cardMetadata) {
+      const card = container.querySelector<HTMLElement>('[data-task-id="' + before.id + '"]')!;
+      assert(card.querySelector('.list-board-task__meta')!.textContent === before.text,
+        "delete confirmation removed underlying task metadata");
+      assert(Math.abs(card.getBoundingClientRect().height - before.height) <= 1
+        && Math.abs(card.querySelector('.list-board-task__meta')!.getBoundingClientRect().top - before.metadataTop) <= 1,
+        "delete confirmation reflowed underlying task card");
+      assert(Array.from(card.querySelectorAll<HTMLButtonElement>('[data-task-title-control="open"], [data-task-metric-control="open"], [data-task-schedule-control="open"], [data-task-completion-control="complete"]'))
+        .every(button => button.disabled), "retained task controls remain interactive during confirmation");
+    }
     assert(document.activeElement === menu().querySelector('[data-task-delete-control="confirm"]'), "confirm keyboard focus missing: "
       + document.activeElement?.outerHTML.slice(0, 220));
   };
-  await openDelete();
-  menu().querySelector<HTMLButtonElement>('[data-task-delete-control="cancel"]')!.click(); await wait();
-  assert(deleteCalls === 0 && boardTasks.length === 2 && menu().textContent?.includes("Delete"), "cancel mutated task or failed to restore Delete row");
-  menu().dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })); await wait();
+  for (const zoom of [1, 1.25]) {
+    container.style.zoom = String(zoom); await wait();
+    await openDelete();
+    menu().querySelector<HTMLButtonElement>('[data-task-delete-control="cancel"]')!.click(); await wait();
+    assert(deleteCalls === 0 && boardTasks.length === 2 && menu().textContent?.includes("Delete"), "cancel mutated task or failed to restore Delete row");
+    menu().dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })); await wait();
+  }
+  container.style.zoom = "1";
   await openDelete();
   menu().dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })); await wait();
   assert(deleteCalls === 0 && !menu() && document.activeElement === actionTrigger(), "Escape did not cancel/restore trigger focus");
@@ -216,9 +235,11 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(menu(), "pending destructive commit dismissed its feedback");
   deferredDelete!(); await wait(); await wait();
   assert(boardTasks.length === 1 && boardTasks[0].id === tasks[1].id, "confirmed delete did not preserve independent task identity");
+  await openDelete(); // Leave the source comparison state visible in the capture.
+  await new Promise<void>(resolve => setTimeout(resolve, 250));
   return { catalogCommittedCrud: true, catalogStaleResponsesRejected: true, catalogEntryReconciled: true,
     catalogSelectedRecovery: true, catalogNoPolling: true, catalogDisposedResponseIgnored: true,
     queueLastRowReachable: true, queueMenuReachable: true, queueHeaderStable: true, queueNoHorizontalOverflow: true, queueGeometries: geometries,
-    deleteMenuRetained: true, deleteCancelAndDismissSafe: true, deleteFailureRetrySafe: true,
+    deleteMenuRetained: true, deleteCardMetadataStable: true, deleteCancelAndDismissSafe: true, deleteFailureRetrySafe: true,
     deletePendingExactlyOnce: true, deleteIndependentIdentityPreserved: true };
 }
