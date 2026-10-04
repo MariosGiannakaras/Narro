@@ -1126,7 +1126,7 @@ PR #155 is merged. Its later reconciled exact head `c630a57346c067ab04c0fa086703
 
 ## Planned post-M10 final comprehensive review
 
-A required **Final Comprehensive Review Stage** is now scheduled after Milestone 10. It is not Milestone 11; the roadmap milestone denominator remains 10.
+A required **Final Comprehensive Review Stage** is scheduled after validated Milestone 10 while optional M11 remains dormant/skipped, or after completed M11 when the user explicitly activates it. Final Review is not itself a numbered milestone. The roadmap denominator remains 10 while M11 is dormant/skipped and changes to 11 only on explicit recorded M11 activation.
 
 Planning status only:
 - no final-review task has started or been marked complete;
