@@ -624,14 +624,45 @@ Acceptance criteria:
 - [ ] Cross-check source-product anti-regressions in `docs/SOURCE_AUDIT.md` and `docs/BLITZIT_HISTORY_RISK_INDEX.md`: no lost tracked time, no duplicate tasks from reorder/schedule moves, no wrong-day schedule shifts, no restart-required monitor hotplug, no surprise URL launch, no post-pause/manual-edit timer-vs-ledger divergence, no implicit timer/task start on a fresh app launch, and no live-session reset/desynchronisation from Notes/title metadata edits.
 - [ ] Update `README.md`, `STATUS.md`, and `TODO.md` for release-candidate reality.
 
-## Final Comprehensive Review Stage — after Milestone 10
+## Milestone 11 — OPTIONAL live Blitzit reference audit
 
-This is a required post-roadmap quality stage and **does not become an 11th roadmap milestone**. The normal roadmap progress denominator remains 10 milestones. No item in this stage may be marked complete before Milestones 1–10 are complete and the corresponding review work has actually been performed and validated.
+**STATUS: DORMANT / STRICTLY OPT-IN. THIS MILESTONE IS NOT AUTHORIZED.**
+
+**HARD OPT-IN GATE — DO NOT START OR PREPARE M11 WITHOUT AN EXPLICIT USER COMMAND THAT SPECIFICALLY ACTIVATES M11 / THE LIVE BLITZIT AUDIT.** General instructions such as `continue`, `keep going`, `finish the project`, `continue to the end`, completion of M10, or availability of a Blitzit trial/account do **not** authorize this milestone.
+
+While dormant:
+- every checkbox below is ignored for required-progress/blocker purposes;
+- the roadmap denominator remains **10**;
+- M11 does not block release;
+- after validated M10, proceed directly to the required Final Comprehensive Review.
+
+If the user explicitly activates M11:
+- record the activation in `HANDOFF.md`, `STATUS.md` and a new immutable work log before audit work starts;
+- change the progress denominator to **11** from that point onward;
+- require a fully validated M10 baseline and record its exact source SHA;
+- follow `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md` and the normal evidence-routing/reconciliation workflow.
+
+Goal if activated: inspect the actual live Blitzit product interactively to resolve material evidence gaps that cannot be answered from the existing curated screenshots/tutorial recordings, without repeating already-settled forensic work or treating version-specific live behavior as automatically authoritative.
+
+- [ ] Record the live Blitzit reference environment: version/build if observable, date, Windows/display/DPI context, trial/subscription tier limitations, theme/locale/preferences and observation provenance.
+- [ ] Build a targeted live-audit agenda from unresolved `AMBIGUOUS`, `VALIDATION_OPEN`, source-parity and evidence-limit routes; do not restart broad corpus analysis.
+- [ ] Exercise material states/interactions unavailable or insufficiently shown in the existing evidence: hover/focus/pressed/disabled states, menus/popovers/dialogs/tooltips, transient/loading/empty/error/success states, motion/timing, drag/resize/window behavior, conditional Preferences and relevant edge cases.
+- [ ] Capture reproducible live-source evidence with provenance while avoiding credentials, payment details, private account content and unrelated personal data.
+- [ ] Reconcile every material live-source finding against the canonical Pass-3/static-calibration evidence and record version conflicts/ambiguities explicitly before changing Narro.
+- [ ] Implement only evidence-backed Narro corrections selected by the reconciliation, in narrow validated slices; preserve documented reliability/accessibility/Windows/local-only deviations unless stronger evidence justifies a change.
+- [ ] Re-run affected automated/physical/source-parity gates and publish the final M11 report with live Blitzit provenance, finding dispositions, accepted/version-specific limits and exact resulting Narro SHA.
+
+**M11 completion gate (only if activated):** all targeted live-source questions are exercised/dispositioned, all material findings are reconciled, chosen Narro corrections are validated, and the post-M11 candidate SHA is frozen. Only then may the Final Comprehensive Review begin from that post-M11 baseline.
+
+## Final Comprehensive Review Stage — after Milestone 10, or after Milestone 11 only when M11 was explicitly activated
+
+This is a required post-roadmap quality stage and is **not itself a numbered milestone**. With M11 dormant/skipped, the normal roadmap denominator remains 10 and this stage begins after validated M10. If the user explicitly activated optional M11, the denominator becomes 11 and this stage begins only after M11 is complete. No item in this stage may be marked complete before the applicable preceding milestone path is complete and the corresponding review work has actually been performed and validated.
 
 ### Review preparation and evidence inventory
 
-- [ ] Freeze the final review baseline at the validated Milestone 10 source SHA and record the complete application/version/environment under review.
+- [ ] Freeze the final review baseline at the validated Milestone 10 source SHA when M11 was dormant/skipped, or at the validated post-M11 source SHA when M11 was explicitly activated; record the complete application/version/environment under review.
 - [ ] Inventory all relevant Narro specifications, validated work logs, screenshots, visual fixtures, and current product states that define expected behavior.
+- [ ] Record M11 disposition explicitly for the review: `NOT ACTIVATED / SKIPPED BY DESIGN`, or `ACTIVATED / COMPLETE` with the live-source audit report and post-M11 SHA. Never perform M11 implicitly as part of Final Review.
 - [ ] Inventory **all available Blitzit screenshots, images, videos, transcripts/captions, and visual references**, including the supplied reference screenshots, `reference/original-blitzit-videos/inbox/`, and the evidence indexed by `docs/RESEARCH_EVIDENCE.md`, `docs/BLITZIT_VIDEO_EVIDENCE.md`, `docs/UI_UX_SPEC.md`, `docs/SOURCE_AUDIT.md`, and `docs/BLITZIT_HISTORY_RISK_INDEX.md`.
 - [ ] Verify the already-complete canonical Pass-3 corpus inventory remains intact and traceable: 19/19 MP4 records, 46/46 canonical screenshot records/dispositions and 8/8 calibrated visual-system families. Do **not** re-ingest or broadly re-analyze the corpus merely because Final Review has started.
 - [ ] Consume the completed canonical timestamped Pass-3 recording analysis for interaction flow, UI states, motion, transition/resize ordering and transient states. Re-open raw media only for a concrete ambiguity/conflict, an implementation-exposed uncaptured detail, or direct final source verification of a comparable release-candidate state; never substitute a fresh broad forensic pass for the canonical records.
