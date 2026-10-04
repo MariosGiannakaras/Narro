@@ -13,7 +13,7 @@ M1 accepted placement/topology/performance remains supported by exact CI942. Cur
 [Exact result](work-log/2026-10-04-codex-m7-ci944-physical-results.md).
 
 
-**Corrective candidate PR233:** head `d77e7ec47dff1aab011b7f917e1ecfd4ec63c99d`, CI946/run37214048828. Recognized modal defaults are consumed;12 task mutation paths reserve the SQLite writer before reads; narrow metrics and hidden Save tooltip are contained. Full local frontend preflight/Rust formatting and46 actual-rendered normal/reduced light/dark scenarios PASS. Two-connection14-operation native contention regression passes Windows CI Rust tests; full CI build completion and exact-EXE physical retest remain OPEN. Local native test could not run because MSVC link.exe is absent. No physical fix or milestone completion is claimed.
+**Corrective candidate PR233:** head `d77e7ec47dff1aab011b7f917e1ecfd4ec63c99d`, CI946/run37214048828. Recognized modal defaults are consumed;12 task mutation paths reserve the SQLite writer before reads; narrow metrics and hidden Save tooltip are contained. Full local frontend preflight/Rust formatting and46 actual-rendered normal/reduced light/dark scenarios PASS. Two-connection14-operation native contention regression passes Windows CI Rust tests; CI946 completed FAIL on the older metric display/edit height validator before build; responsive-row correction and full local visual-family recheck are in progress. Exact-EXE physical retest remains OPEN. Local native test could not run because MSVC link.exe is absent. No physical fix or milestone completion is claimed.
 
 ## Historical checkpoints below
 ## 2026-10-04 — M1 replacement gate re-closed; CI942 whole review; modal correction CI944 merged
