@@ -18,7 +18,7 @@ import {
   type FocusSurfaceMode,
   type FocusSurfacePresentation,
 } from "./focusSurfaceModeApi";
-import { isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
+import { hasActiveModalShortcutBoundary, isEditableShortcutTarget, resolveInAppShortcut } from "./inAppShortcuts";
 import { commitPreparedFocusPresentation } from "./focusPresentationTransition";
 import { waitForPresentedFrame } from "./presentationFrame";
 import {
@@ -507,6 +507,7 @@ export function FocusSurfaceCoordinator() {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
+      if (!shortcut || event.defaultPrevented || hasActiveModalShortcutBoundary()) return;
       if (shortcut === "search") {
         event.preventDefault();
         setShortcutStatus("Search is unavailable while Focus mode is open.");

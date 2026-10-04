@@ -2,7 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 const dir=process.argv[2] ?? 'artifacts/visual-regression';
 let count=0;
-for(const theme of ['light','dark']) for(const scenario of ['notes-panel-compact','notes-panel-large','notes-timerExpanded-compact','notes-timerExpanded-large','quick-success','quick-error','quick-empty','motion-panel-timerCompact','motion-timerCompact-panel','board-narrow','timer-geometry']) for(const reducedMotion of scenario.startsWith('quick-')?[false]:[false,true]){
+const scenarios=process.argv.includes('--shortcut-modal')?['shortcut-modal']:['notes-panel-compact','notes-panel-large','notes-timerExpanded-compact','notes-timerExpanded-large','quick-success','quick-error','quick-empty','motion-panel-timerCompact','motion-timerCompact-panel','board-narrow','timer-geometry','shortcut-modal'];
+for(const theme of ['light','dark']) for(const scenario of scenarios) for(const reducedMotion of scenario.startsWith('quick-')?[false]:[false,true]){
  const label=`focus-editor-${scenario}-${theme}${reducedMotion?'-reduced':''}`;
  const dom=fs.readFileSync(path.join(dir,label+'.html'),'utf8');
  const match=dom.match(/<script id="focus-editor-contract" type="application\/json">([\s\S]*?)<\/script>/);
@@ -12,9 +13,14 @@ for(const theme of ['light','dark']) for(const scenario of ['notes-panel-compact
  if(result.theme!==theme||result.scenario!==scenario||result.reducedMotion!==reducedMotion)throw new Error(label+': wrong fixture identity or motion preference');
  const required=scenario==='board-narrow'?['readableTitles','stableTitleGeometry','actionRailContained','editInputContained']:scenario==='timer-geometry'?['initialClipAtomic','prepaintHeaderOpaque','finiteRevealRetained','expandedHeadingAboveActions']:scenario.startsWith('motion-')?['soleTargetAtStart','soleTargetDuringMotion','rollbackRestoredOutgoing']:scenario.startsWith('quick-')?['loadingFocusContained','readyFocusContained','escapeClosed','focusRestored']:['titleInputContained','draftPreserved','editorNodePreserved','tooltipTransitionRetained','tooltipOpenedFromKeyboard','tooltipContained','tooltipEscapeClosed'];
  if(scenario==='quick-success')required.push('titleFocused','tabWrapped');
+ if(scenario==='shortcut-modal') {
+  required.length=0;
+  required.push('focusedButtonIsolated','deliveredEventsIsolated','localDialogKeysPreserved',
+   'inactiveModalIgnored','postModalAuthorityResumed','mainModalIsolated','pendingMainDeliveryIsolated','bothKeyboardLayouts');
+ }
  if(scenario.endsWith('-large'))required.push('resizeBounded','escapeReturnedInline');
  if(scenario.startsWith('notes-'))required.push('presentationWrappedLeft');
- if(reducedMotion && scenario!=='board-narrow')required.push('reducedMotionRespected');
+ if(reducedMotion && scenario!=='board-narrow' && scenario!=='shortcut-modal')required.push('reducedMotionRespected');
  for(const key of required)if(result[key]!==true)throw new Error(label+': '+key+' failed');
  if(result.inlineHorizontalOverflow===true)throw new Error(label+': horizontal overflow');
  count++;

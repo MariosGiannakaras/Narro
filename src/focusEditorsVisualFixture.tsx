@@ -113,8 +113,12 @@ function Fixture() {
   </main>;
 }
 const root = find<HTMLElement>("#root");
-flushSync(() => createRoot(root).render(<Fixture />));
 const result: Record<string, unknown> = {theme, scenario, reducedMotion};
+if (scenario === "shortcut-modal") {
+  const { runShortcutModalRegression } = await import("./shortcutModalRegression");
+  Object.assign(result, await runShortcutModalRegression(root));
+} else {
+flushSync(() => createRoot(root).render(<Fixture />));
 if (board) {
   await wait(40);
   for (const width of [144, 340]) {
@@ -284,6 +288,7 @@ if (board) {
   result.draftPreserved = editor.textContent?.includes(draftMarker);
   result.editorNodePreserved = editor === document.querySelector('[data-task-note-control="editor"]');
   assert(result.draftPreserved && result.editorNodePreserved, "Presentation switch discarded editor/draft");
+}
 }
 const node = document.createElement('script');
 node.id = 'focus-editor-contract'; node.type = 'application/json'; node.textContent = JSON.stringify(result);

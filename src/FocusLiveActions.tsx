@@ -12,6 +12,7 @@ import {
 } from "./listBoardApi";
 import {
   FOCUS_IN_APP_SHORTCUT_EVENT,
+  hasActiveModalShortcutBoundary,
   isEditableShortcutTarget,
   isFocusActionShortcut,
   resolveInAppShortcut,
@@ -456,14 +457,15 @@ export function FocusLiveActions({
     let stopListening: (() => void) | undefined;
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
-      if (!isFocusActionShortcut(shortcut) || isEditableShortcutTarget(event.target)) return;
+      if (event.defaultPrevented || !isFocusActionShortcut(shortcut)
+        || hasActiveModalShortcutBoundary() || isEditableShortcutTarget(event.target)) return;
       event.preventDefault();
       shortcutHandlerRef.current(shortcut);
     };
 
     window.addEventListener("keydown", onKeyDown);
     void listen<InAppShortcut>(FOCUS_IN_APP_SHORTCUT_EVENT, (event) => {
-      if (!disposed && isFocusActionShortcut(event.payload)) {
+      if (!disposed && isFocusActionShortcut(event.payload) && !hasActiveModalShortcutBoundary()) {
         shortcutHandlerRef.current(event.payload);
       }
     })

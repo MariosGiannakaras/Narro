@@ -18,6 +18,7 @@ import { ReportsWorkspace } from "./ReportsWorkspace";
 import { SearchPalette, type SearchPaletteMode } from "./SearchPalette";
 import {
   FOCUS_IN_APP_SHORTCUT_EVENT,
+  hasActiveModalShortcutBoundary,
   isEditableShortcutTarget,
   isFocusActionShortcut,
   resolveInAppShortcut,
@@ -155,7 +156,8 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
-      if (!shortcut || editorState || archivePendingId) return;
+      if (!shortcut || event.defaultPrevented || editorState || archivePendingId
+        || hasActiveModalShortcutBoundary()) return;
 
       if (shortcut === "search" || shortcut === "create-task") {
         if (shortcut === "create-task" && isEditableShortcutTarget(event.target)) return;
@@ -171,6 +173,7 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
       setShortcutFeedback(null);
       void snapshotTimerSession()
         .then((payload) => {
+          if (hasActiveModalShortcutBoundary()) return;
           if (payload.runtime.timer.state === "idle" || payload.runtime.timer.task_id === null) {
             setShortcutFeedback("No active Focus task is available for this shortcut.");
             return;
