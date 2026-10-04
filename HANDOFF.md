@@ -1,3 +1,15 @@
+# CURRENT — CI944 physical batch complete; fix18/19/20 together
+
+Exact production CI944/head6029b552/merge0df4c14c EXE SHA256 b6814cf572e89c0d738659726d2fa1fc06cda1dea65721f4cb1f6d04900439fa was physically tested. Modal action isolation17 PASS for Main/Focus English/Greek T/B/P/S/F/N and Main→Focus delivered B/P/S/F/N, local invalid Enter/Escape and post-close Pause/Resume/Notes. Ctrl+F exposes native WebView2 Find in both modal windows/layouts: new18 FAIL. Owned task creation19 FAIL once with TASK_CREATE_FAILED/database is locked; actual retry commits exactly one task. Narrow Main Schedule/EST/Taken overflow20 FAIL at125%. These are a single next corrective batch, not native Collapse recurrence. M2 writer concurrency narrowly reopens; prior unrelated acceptance is preserved.
+
+CI944 native C5 PASS: running compact Timer, actual522.015px drag, normal tray Quit/PID97916 absent, same-SHA relaunch/PID69800, explicit Ctrl+Shift+T restore at(396,746), same task a2852baa/e75cc774 session paused935.051s/15:35; actual three-line Enter Notes persist. One physical1920×1080/125% LG was active; Duplicate→Extend did not activate the other display. No dual-display/sleep-wake PASS for this session. Original OBS4480×1080/60fps2777.087s video is stopped normally,157799345 bytes. Whole logs/video and video-derived review publication is being prepared; no entire-recording frame-review claim.
+
+M1 accepted placement/topology/performance remains supported by exact CI942. Current completed milestones M1/M3/M4 only; narrow M2 concurrency, M5 containment/source, M6/M7/M8 shortcut/source closure and M9 remain open. **3/10M ||3/5 |14/19**. M10 gets reusable evidence only; no checkbox/counter before all required M1–M9 gates clear and explicit user completion announcement.
+
+[Exact result and M1–M9 inventory](work-log/2026-10-04-codex-m7-ci944-physical-results.md). Next: fresh source branch from current main, modal preventDefault, proven task writer reservation and narrow metric containment; full meaningful local preflight, one exact-head Windows CI, affected physical retest. Current Narro PID69800 is paused after C5 relaunch; OBS stopped/closed. Whole evidence publication remains in progress.
+
+## Historical checkpoints below — superseded current/next claims
+
 # CURRENT: exact CI944 modal retest; CI942 whole evidence on main
 
 M1 replacement Gate A re-closed on exact CI942 physical placement/topology/3×quiet performance and bounded memory decision. M6 shared placement/topology and M8 preference save/restart close adequate scopes. Native C5 and inspected motion PASS; CI942 modal17 remains FAIL. Whole original video/logs/ZIP/four clips/840 PNG exports/600 unique inspected frames are in [the complete result](work-log/2026-10-04-codex-m7-ci942-physical-results.md).
