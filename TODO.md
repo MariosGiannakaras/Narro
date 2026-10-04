@@ -712,7 +712,7 @@ This is a required post-roadmap quality stage and is **not itself a numbered mil
 - [ ] Perform a final end-to-end release-candidate pass after all review findings are dispositioned.
 - [ ] Publish the final comprehensive review report with the reviewed source SHA, evidence matrix, unresolved/accepted limitations, final validation evidence, and aggregate final-review remediation diff.
 
-**Final comprehensive review gate:** remains OPEN until all tasks above are actually performed after Milestone 10. Planning this stage does not satisfy any checkbox.
+**Final comprehensive review gate:** remains OPEN until all tasks above are actually performed after the applicable preceding path: validated Milestone 10 when M11 is dormant/skipped, or completed Milestone 11 when M11 was explicitly activated. Planning this stage does not satisfy any checkbox.
 
 ## Post-parity candidates — recorded, not scheduled
 
