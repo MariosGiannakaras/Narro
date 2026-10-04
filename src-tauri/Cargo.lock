@@ -2198,6 +2198,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "jiff",
+ "png 0.17.16",
  "rusqlite",
  "rusqlite_migration",
  "serde",
@@ -2209,6 +2210,8 @@ dependencies = [
  "tauri-plugin-opener",
  "tauri-plugin-single-instance",
  "uuid",
+ "webview2-com",
+ "windows",
 ]
 
 [[package]]

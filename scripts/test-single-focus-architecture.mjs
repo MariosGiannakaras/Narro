@@ -278,9 +278,9 @@ invariant(
   blitzEntryNativeStart >= 0
     && blitzEntryNative.includes("if visible {")
     && blitzEntryNative.includes("set_focus()")
-    && blitzEntryNative.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?")
+    && blitzEntryNative.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?")
     && blitzEntryNative.indexOf("if visible {")
-      < blitzEntryNative.indexOf("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel)?"),
+      < blitzEntryNative.indexOf("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?"),
   "Blitz re-entry must preserve a visible Focus presentation and only prepare Panel while hidden",
 );
 invariant(

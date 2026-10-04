@@ -76,7 +76,7 @@ invariant(
 );
 invariant(placement.includes("safe_position_for_timer_region"), "region changes must fit the active monitor work area");
 invariant(
-  modeApi.includes('applyFocusSurfacePresentation(expanded ? "timerExpanded" : "timerCompact")'),
+  modeApi.includes('applyFocusSurfacePresentation(expanded ? "timerExpanded" : "timerCompact", compactFrame)'),
   "renderer expansion API must use the unified presentation command",
 );
 invariant(
@@ -121,8 +121,9 @@ invariant(
   "collapse must present the fully contracted compact frame before native region clipping",
 );
 invariant(
-  collapseBranch.indexOf("onRequestExpanded") < collapseBranch.indexOf("setExpanded(false)"),
-  "collapse must commit native clipping before compact React layout returns",
+  collapseBranch.indexOf("setExpanded(false)") < collapsePresented
+    && collapsePresented < collapseNativeCommit,
+  "collapse must present the actual compact layout before capturing/clipping its native frame",
 );
 invariant(
   requestExpanded.includes("resizeRequestInFlightRef.current")
@@ -132,8 +133,8 @@ invariant(
   "resize requests must serialize, expose busy state and roll back uncommitted renderer state",
 );
 invariant(
-  foundation.includes("(expanded && (!regionExpanded || resizePending))")
-    && foundation.includes("contentInert={expanded && (!regionExpanded || resizePending)}")
+  foundation.includes("resizePending || (!expanded && !compactActionsVisible)")
+    && foundation.includes("contentInert={resizePending || (expanded && !regionExpanded)}")
     && subtasks.includes("inert={contentInert}"),
   "prepainted/in-motion controls outside committed Timer geometry must be keyboard/accessibility inert",
 );
