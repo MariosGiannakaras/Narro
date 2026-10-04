@@ -1,0 +1,146 @@
+{
+  "utc": "2026-10-04T19:22:27.2091878Z",
+  "windows": [
+    {
+      "hwnd": 593018,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 205,
+        "height": 700,
+        "x": 797,
+        "width": 340
+      },
+      "client": {
+        "y": 205,
+        "height": 700,
+        "x": 797,
+        "width": 340
+      }
+    },
+    {
+      "hwnd": 32704446,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 32,
+        "height": 739,
+        "x": 27,
+        "width": 1016
+      },
+      "client": {
+        "y": 63,
+        "height": 700,
+        "x": 35,
+        "width": 1000
+      }
+    },
+    {
+      "hwnd": 12059038,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 192,
+        "height": 789,
+        "x": 192,
+        "width": 1440
+      },
+      "client": {
+        "y": 223,
+        "height": 750,
+        "x": 200,
+        "width": 1424
+      }
+    },
+    {
+      "hwnd": 2558358,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 18,
+        "x": 0,
+        "width": 18
+      },
+      "client": {
+        "y": 0,
+        "height": 18,
+        "x": 0,
+        "width": 18
+      }
+    },
+    {
+      "hwnd": 985718,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 18,
+        "x": 0,
+        "width": 18
+      },
+      "client": {
+        "y": 0,
+        "height": 18,
+        "x": 0,
+        "width": 18
+      }
+    },
+    {
+      "hwnd": 12191630,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 0,
+        "x": 0,
+        "width": 0
+      },
+      "client": {
+        "y": 0,
+        "height": 0,
+        "x": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 3016536,
+      "pid": 69800,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 0,
+        "x": 0,
+        "width": 0
+      },
+      "client": {
+        "y": 0,
+        "height": 0,
+        "x": 0,
+        "width": 0
+      }
+    }
+  ],
+  "elements": []
+}

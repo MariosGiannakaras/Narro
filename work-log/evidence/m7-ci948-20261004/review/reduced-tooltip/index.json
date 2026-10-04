@@ -1,0 +1,15 @@
+{
+  "name": "reduced-tooltip",
+  "requestedStartUtc": "2026-10-04T19:56:56Z",
+  "requestedStartPts": 1333.963,
+  "consecutiveExportedFrames": 240,
+  "fps": 60,
+  "crop": [
+    416,
+    598,
+    425,
+    375
+  ],
+  "reviewStatus": "ALL_EXPORTED_CONSECUTIVE_FRAMES_DIRECTLY_INSPECTED",
+  "observation": "All240 consecutive frames reviewed: tooltip fully appears around89, closes on Notes field focus around165, pointer reopens near237; same bounds. OS flag0 measured, no direct CSS query claim."
+}

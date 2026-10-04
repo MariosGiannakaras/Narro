@@ -1,0 +1,15 @@
+{
+  "name": "native-planning-drag",
+  "requestedStartUtc": "2026-10-04T20:06:20Z",
+  "requestedStartPts": 1897.963,
+  "consecutiveExportedFrames": 180,
+  "fps": 60,
+  "crop": [
+    2320,
+    365,
+    440,
+    330
+  ],
+  "reviewStatus": "ALL_EXPORTED_CONSECUTIVE_FRAMES_DIRECTLY_INSPECTED",
+  "observation": "All180 consecutive frames reviewed: no lift/placeholder/reorder; second input starts near top border, so hit-target cause remains inconclusive. Config independently incompatible."
+}

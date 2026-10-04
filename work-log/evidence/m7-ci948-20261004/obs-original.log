@@ -1,0 +1,246 @@
+22:30:52.375: CPU Name: AMD Ryzen 5 2600X Six-Core Processor           
+22:30:52.375: CPU Speed: 3811MHz
+22:30:52.376: Physical Cores: 6, Logical Cores: 12
+22:30:52.376: Physical Memory: 32689MB Total, 18902MB Free
+22:30:52.376: Windows Version: 10.0 Build 19045 (release: 22H2; revision: 6466; 64-bit)
+22:30:52.376: Running as administrator: false
+22:30:52.376: Windows 10/11 Gaming Features:
+22:30:52.376: 	Game DVR: On
+22:30:52.376: 	Game Mode: Probably On (no reg key set)
+22:30:52.377: Sec. Software Status:
+22:30:52.379: 	Microsoft Defender Antivirus: enabled (AV)
+22:30:52.379: 	Windows Firewall: enabled (FW)
+22:30:52.380: Current Date/Time: 2026-10-04, 22:30:52
+22:30:52.380: Browser Hardware Acceleration: true
+22:30:52.380: Hide OBS windows from screen capture: true
+22:30:52.380: Qt Version: 6.11.1 (runtime), 6.11.1 (compiled)
+22:30:52.380: Portable mode: false
+22:30:52.669: OBS 32.2.2 (64-bit, windows)
+22:30:52.669: ---------------------------------
+22:30:52.701: ---------------------------------
+22:30:52.701: audio settings reset:
+22:30:52.701: 	samples per sec: 48000
+22:30:52.701: 	speakers:        2
+22:30:52.701: 	max buffering:   960 milliseconds
+22:30:52.701: 	buffering type:  dynamically increasing
+22:30:52.704: ---------------------------------
+22:30:52.704: Initializing D3D11...
+22:30:52.704: Available Video Adapters: 
+22:30:52.706: 	Adapter 0: Radeon RX 570 Series
+22:30:52.706: 	  Dedicated VRAM: 8567902208 (8.0 GiB)
+22:30:52.706: 	  Shared VRAM:    17138456576 (16.0 GiB)
+22:30:52.706: 	  PCI ID:         1002:67df
+22:30:52.706: 	  HAGS Status:    Disabled (Default: No, Driver status: Unsupported)
+22:30:52.707: 	  Driver Version: 31.0.21923.11000
+22:30:52.708: 	  output 0:
+22:30:52.708: 	    name=LG ULTRAGEAR
+22:30:52.708: 	    pos={0, 0}
+22:30:52.708: 	    size={2560, 1080}
+22:30:52.708: 	    attached=true
+22:30:52.708: 	    refresh=144
+22:30:52.708: 	    bits_per_color=10
+22:30:52.708: 	    space=RGB_FULL_G22_NONE_P709
+22:30:52.708: 	    primaries=[r=(0.651367, 0.332031), g=(0.306641, 0.630859), b=(0.150391, 0.059570), wp=(0.313477, 0.329102)]
+22:30:52.708: 	    relative_gamut_area=[709=1.087150, P3=0.801416, 2020=0.574962]
+22:30:52.708: 	    sdr_white_nits=80
+22:30:52.708: 	    nit_range=[min=0.304500, max=301.000000, max_full_frame=243.000000]
+22:30:52.708: 	    dpi=96 (100%)
+22:30:52.708: 	    id=\\?\DISPLAY#GSM773B#5&30e30fda&1&UID256#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+22:30:52.708: 	    alt_id=\\.\DISPLAY1
+22:30:52.709: 	  output 1:
+22:30:52.709: 	    name=2D FHD LG TV
+22:30:52.709: 	    pos={-1920, 0}
+22:30:52.709: 	    size={1920, 1080}
+22:30:52.709: 	    attached=true
+22:30:52.709: 	    refresh=60
+22:30:52.709: 	    bits_per_color=8
+22:30:52.709: 	    space=RGB_FULL_G22_NONE_P709
+22:30:52.709: 	    primaries=[r=(0.637695, 0.333984), g=(0.308594, 0.626953), b=(0.153320, 0.073242), wp=(0.313477, 0.329102)]
+22:30:52.709: 	    relative_gamut_area=[709=1.016142, P3=0.749070, 2020=0.537408]
+22:30:52.709: 	    sdr_white_nits=80
+22:30:52.709: 	    nit_range=[min=0.500000, max=270.000000, max_full_frame=270.000000]
+22:30:52.709: 	    dpi=120 (125%)
+22:30:52.709: 	    id=\\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+22:30:52.709: 	    alt_id=\\.\DISPLAY2
+22:30:52.709: Loading up D3D11 on adapter Radeon RX 570 Series (0)
+22:30:52.752: D3D11 loaded successfully, feature level used: b000
+22:30:52.752: DXGI increase maximum frame latency success
+22:30:52.752: D3D11 GPU priority setup failed (not admin?)
+22:30:52.873: ---------------------------------
+22:30:52.873: video settings reset:
+22:30:52.873: 	base resolution:   4480x1080
+22:30:52.873: 	output resolution: 4480x1080
+22:30:52.873: 	downscale filter:  Bicubic
+22:30:52.873: 	fps:               60/1
+22:30:52.873: 	format:            NV12
+22:30:52.873: 	YUV mode:          Rec. 709/Full
+22:30:52.873: NV12 texture support enabled
+22:30:52.873: P010 texture support not available
+22:30:52.875: Audio monitoring device:
+22:30:52.875: 	name: Default
+22:30:52.875: 	id: default
+22:30:52.890: ---------------------------------
+22:30:52.892: No AJA devices found, skipping loading AJA UI plugin
+22:30:52.892: Failed to initialize module 'aja-output-ui.dll'
+22:30:52.894: No AJA devices found, skipping loading AJA plugin
+22:30:52.894: Failed to initialize module 'aja.dll'
+22:30:52.894: Skipping module '../../obs-plugins/64bit/chrome_elf.dll', not an OBS plugin
+22:30:52.896: [CoreAudio encoder]: CoreAudio AAC encoder not installed on the system or couldn't be loaded
+22:30:52.897: Failed to load 'en-US' text for module: 'decklink-captions.dll'
+22:30:52.898: Failed to load 'en-US' text for module: 'decklink-output-ui.dll'
+22:30:52.902: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed
+22:30:52.902: Failed to initialize module 'decklink.dll'
+22:30:52.912: Skipping module '../../obs-plugins/64bit/libcef.dll', not an OBS plugin
+22:30:52.912: Skipping module '../../obs-plugins/64bit/libEGL.dll', not an OBS plugin
+22:30:52.912: Skipping module '../../obs-plugins/64bit/libGLESv2.dll', not an OBS plugin
+22:30:53.918: Failed to get C:\Program Files\NVIDIA Corporation\NVIDIA Audio Effects SDK\NVAudioEffects.dll version info size
+22:30:53.918: [NVIDIA Audio Effects:] NVIDIA denoiser disabled, redistributable not found or could not be loaded.
+22:30:53.918: Failed to get C:\Program Files\NVIDIA Corporation\NVIDIA Video Effects\NVVideoEffects.dll version info size
+22:30:53.918: [NVIDIA VIDEO FX]: FX disabled, redistributable not found or could not be loaded.
+22:30:53.953: [obs-browser]: Version 2.26.9
+22:30:53.954: [obs-browser]: CEF Version 127.0.6533.120 (runtime), 127.145.7+g2b7d20b+chromium-127.0.6533.120 (compiled)
+22:30:54.132: LoadLibrary failed for 'nvEncodeAPI64.dll': The specified module could not be found.
+22:30:54.132:  (126)
+22:30:54.132: NVENC not supported
+22:30:54.132: Failed to initialize module 'obs-nvenc.dll'
+22:30:54.229: [obs-websocket] [obs_module_load] you can haz websockets (Version: 5.7.4 | RPC Version: 1)
+22:30:54.229: [obs-websocket] [obs_module_load] Qt version (compile-time): 6.11.1 | Qt version (run-time): 6.11.1
+22:30:54.229: [obs-websocket] [obs_module_load] Linked ASIO Version: 103200
+22:30:54.244: [obs-websocket] [obs_module_load] Module loaded.
+22:30:54.262: [vlc-video]: VLC 3.0.23 Vetinari found, VLC video source enabled
+22:30:54.293: ---------------------------------
+22:30:54.293:   Loaded Modules:
+22:30:54.293:     win-wasapi.dll
+22:30:54.293:     win-dshow.dll
+22:30:54.293:     win-capture.dll
+22:30:54.293:     vlc-video.dll
+22:30:54.293:     text-freetype2.dll
+22:30:54.293:     rtmp-services.dll
+22:30:54.293:     obs-x264.dll
+22:30:54.293:     obs-websocket.dll
+22:30:54.293:     obs-webrtc.dll
+22:30:54.293:     obs-vst.dll
+22:30:54.293:     obs-transitions.dll
+22:30:54.293:     obs-text.dll
+22:30:54.293:     obs-qsv11.dll
+22:30:54.293:     obs-outputs.dll
+22:30:54.293:     obs-filters.dll
+22:30:54.293:     obs-ffmpeg.dll
+22:30:54.293:     obs-browser.dll
+22:30:54.293:     nv-filters.dll
+22:30:54.293:     logi_obs_plugin_x64.dll
+22:30:54.293:     image-source.dll
+22:30:54.293:     frontend-tools.dll
+22:30:54.293:     decklink-output-ui.dll
+22:30:54.293:     decklink-captions.dll
+22:30:54.293:     coreaudio-encoder.dll
+22:30:54.293: ---------------------------------
+22:30:54.295: ---------------------------------
+22:30:54.295: Available Encoders:
+22:30:54.295:   Video Encoders:
+22:30:54.296: 	- ffmpeg_svt_av1 (SVT-AV1)
+22:30:54.296: 	- ffmpeg_aom_av1 (AOM AV1)
+22:30:54.297: 	- h264_texture_amf (AMD HW H.264 (AVC))
+22:30:54.297: 	- h265_texture_amf (AMD HW H.265 (HEVC))
+22:30:54.297: 	- obs_x264 (x264)
+22:30:54.297:   Audio Encoders:
+22:30:54.297: 	- ffmpeg_aac (FFmpeg AAC)
+22:30:54.297: 	- ffmpeg_opus (FFmpeg Opus)
+22:30:54.297: 	- ffmpeg_pcm_s16le (FFmpeg PCM (16-bit))
+22:30:54.297: 	- ffmpeg_pcm_s24le (FFmpeg PCM (24-bit))
+22:30:54.297: 	- ffmpeg_pcm_f32le (FFmpeg PCM (32-bit float))
+22:30:54.297: 	- ffmpeg_alac (FFmpeg ALAC (24-bit))
+22:30:54.297: 	- ffmpeg_flac (FFmpeg FLAC (16-bit))
+22:30:54.297: ==== Startup complete ===============================================
+22:30:54.366: All scene data cleared
+22:30:54.366: ------------------------------------------------
+22:30:54.374: [win-wasapi: 'Desktop Audio'] update settings:
+22:30:54.374: 	device id: {0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}
+22:30:54.374: 	use device timing: 1
+22:30:54.374: [WASAPISource::TryInitialize]:[{0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}] Failed to enumerate device: 80070490
+22:30:54.374: WASAPI: Device '{0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}' failed to start (source: Desktop Audio)
+22:30:54.618: [Loaded global audio device]: 'Desktop Audio'
+22:30:54.618:     - monitoring: monitor and output
+22:30:54.619: [win-wasapi: 'Mic/Aux'] update settings:
+22:30:54.619: 	device id: {0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}
+22:30:54.619: 	use device timing: 0
+22:30:54.619: [WASAPISource::TryInitialize]:[{0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}] Failed to enumerate device: 80070490
+22:30:54.619: WASAPI: Device '{0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}' failed to start (source: Mic/Aux)
+22:30:54.628: [Loaded global audio device]: 'Mic/Aux'
+22:30:54.628:     - monitoring: monitor and output
+22:30:54.629: [win-wasapi: 'Mic/Aux 2'] update settings:
+22:30:54.629: 	device id: {0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}
+22:30:54.629: 	use device timing: 0
+22:30:54.629: [WASAPISource::TryInitialize]:[{0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}] Failed to enumerate device: 80070490
+22:30:54.629: WASAPI: Device '{0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}' failed to start (source: Mic/Aux 2)
+22:30:54.637: [Loaded global audio device]: 'Mic/Aux 2'
+22:30:54.637:     - monitoring: monitor and output
+22:30:54.639: [duplicator-monitor-capture: 'Desktop'] update settings:
+22:30:54.639: 	display: LG ULTRAGEAR (2560x1080)
+22:30:54.639: 	cursor: true
+22:30:54.639: 	method: DXGI
+22:30:54.639: 	id: \\?\DISPLAY#GSM773B#5&30e30fda&1&UID256#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+22:30:54.639: 	alt_id: \\.\DISPLAY1
+22:30:54.639: 	setting_id: \\?\DISPLAY#GSM773B#5&30e30fda&1&UID256#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+22:30:54.639: 	force SDR: true
+22:30:54.643: [duplicator-monitor-capture: 'Display Capture'] update settings:
+22:30:54.643: 	display: 2D FHD LG TV (1920x1080)
+22:30:54.643: 	cursor: true
+22:30:54.643: 	method: DXGI
+22:30:54.643: 	id: \\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+22:30:54.643: 	alt_id: \\.\DISPLAY2
+22:30:54.643: 	setting_id: \\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+22:30:54.643: 	force SDR: false
+22:30:54.646: Switched to scene 'Destop'
+22:30:54.646: ------------------------------------------------
+22:30:54.646: Loaded scenes:
+22:30:54.646: - scene 'Destop':
+22:30:54.646:     - source: 'Desktop' (monitor_capture)
+22:30:54.647:     - source: 'Display Capture' (monitor_capture)
+22:30:54.647: ------------------------------------------------
+22:32:45.880: ---------------------------------
+22:32:45.880: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+22:32:45.881: [x264 encoder: 'advanced_video_recording'] settings:
+22:32:45.881: 	rate_control: CRF
+22:32:45.881: 	bitrate:      0
+22:32:45.881: 	buffer size:  0
+22:32:45.881: 	crf:          18
+22:32:45.881: 	fps_num:      60
+22:32:45.881: 	fps_den:      1
+22:32:45.881: 	width:        4480
+22:32:45.881: 	height:       1080
+22:32:45.881: 	keyint:       250
+22:32:45.881: 
+22:32:45.890: ---------------------------------
+22:32:45.890: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+22:32:45.890: 
+22:32:45.928: ==== Recording Start ===============================================
+22:32:45.928: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr233-final-physical-20261004/run-final/video/2026-10-04 22-32-45.mkv'...
+22:34:23.316: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr233-final-physical-20261004/run-final/video/2026-10-04 22-32-45.mkv' stopped
+22:34:23.316: Output 'adv_file_output': stopping
+22:34:23.316: Output 'adv_file_output': Total frames output: 5810
+22:34:23.316: Output 'adv_file_output': Total drawn frames: 5843
+22:34:23.318: ==== Recording Stop ================================================
+22:34:42.023: ---------------------------------
+22:34:42.023: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+22:34:42.023: [x264 encoder: 'advanced_video_recording'] settings:
+22:34:42.023: 	rate_control: CRF
+22:34:42.023: 	bitrate:      0
+22:34:42.023: 	buffer size:  0
+22:34:42.023: 	crf:          18
+22:34:42.023: 	fps_num:      60
+22:34:42.023: 	fps_den:      1
+22:34:42.023: 	width:        4480
+22:34:42.023: 	height:       1080
+22:34:42.023: 	keyint:       250
+22:34:42.023: 
+22:34:42.026: ---------------------------------
+22:34:42.026: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+22:34:42.026: 
+22:34:42.037: ==== Recording Start ===============================================
+22:34:42.037: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr233-final-physical-20261004/run-final/video/2026-10-04 22-34-42.mkv'...
+23:17:07.960: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr233-final-physical-20261004/run-final/video/2026-10-04 22-34-42.mkv' stopped
+23:17:07.960: Output 'adv_file_output': stopping
+23:17:07.960: Output 'adv_file_output': Total frames output: 152722
+23:17:07.960: Output 'adv_file_output': Total drawn frames: 152756
+23:17:07.962: ==== Recording Stop ================================================

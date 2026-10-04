@@ -1,0 +1,170 @@
+[
+  {
+    "name": "main-modal-no-native-find",
+    "utc": "2026-10-04T19:37:03Z",
+    "ptsSeconds": 140.963,
+    "crop": [
+      2102,
+      182,
+      1016,
+      739
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "Modal retained; complete native Main right edge contains no Find UI."
+  },
+  {
+    "name": "focus-modal-no-native-find",
+    "utc": "2026-10-04T19:43:57Z",
+    "ptsSeconds": 554.963,
+    "crop": [
+      4140,
+      0,
+      340,
+      700
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "Focus dialog retained after actual Greek action/default shortcut matrix; no native Find."
+  },
+  {
+    "name": "all-queue-clipped-unscrollable",
+    "utc": "2026-10-04T19:50:08Z",
+    "ptsSeconds": 925.963,
+    "crop": [
+      4140,
+      0,
+      340,
+      700
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "FAIL23: fourth All row and its actions clipped; actual wheel did not expose the remainder."
+  },
+  {
+    "name": "narrow-est-editor-contained",
+    "utc": "2026-10-04T19:46:16Z",
+    "ptsSeconds": 693.963,
+    "crop": [
+      985,
+      550,
+      240,
+      365
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "PASS20 normal125%: full 185px physical card and contained EST controls/Save tooltip, unchanged geometry."
+  },
+  {
+    "name": "normal-wrapped-notes-tooltip",
+    "utc": "2026-10-04T19:55:44Z",
+    "ptsSeconds": 1261.963,
+    "crop": [
+      416,
+      598,
+      425,
+      375
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "PASS09: wrapped Return tooltip appears inward, bounded by enlarged Notes presentation."
+  },
+  {
+    "name": "reduced-wrapped-notes-tooltip",
+    "utc": "2026-10-04T19:57:02Z",
+    "ptsSeconds": 1339.963,
+    "crop": [
+      416,
+      598,
+      425,
+      375
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "PASS09 bounds in measured OS ClientAreaAnimation=0 context; no independent CSS matchMedia proof."
+  },
+  {
+    "name": "normal-tray-quit",
+    "utc": "2026-10-04T19:59:19Z",
+    "ptsSeconds": 1476.963,
+    "crop": [
+      4170,
+      890,
+      310,
+      190
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "Actual native tray Quit menu immediately before normal exit; process absence is separately observed."
+  },
+  {
+    "name": "same-exe-paused-timer-restored",
+    "utc": "2026-10-04T19:59:49Z",
+    "ptsSeconds": 1506.963,
+    "crop": [
+      400,
+      585,
+      460,
+      170
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "Actual new-process same-SHA compact Timer restored paused at saved(-1504,598)."
+  },
+  {
+    "name": "owned-long-title-live",
+    "utc": "2026-10-04T20:03:34Z",
+    "ptsSeconds": 1731.963,
+    "crop": [
+      4140,
+      0,
+      340,
+      700
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "Owned long task becomes live; title remains bounded, identity/time preserved."
+  },
+  {
+    "name": "native-planning-drag-did-not-move",
+    "utc": "2026-10-04T20:06:24Z",
+    "ptsSeconds": 1901.963,
+    "crop": [
+      2320,
+      365,
+      440,
+      330
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "Owned card remains in Today. Input hit-target scope INCONCLUSIVE; independently confirmed Windows HTML5 config blocker24."
+  },
+  {
+    "name": "inline-delete-confirm",
+    "utc": "2026-10-04T20:15:07Z",
+    "ptsSeconds": 2424.963,
+    "crop": [
+      2565,
+      380,
+      225,
+      300
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "Functional Confirm/X works, but source placement FAIL25: confirmation appears in card rail instead of retained overflow menu."
+  },
+  {
+    "name": "archive-restore",
+    "utc": "2026-10-04T20:16:27Z",
+    "ptsSeconds": 2504.963,
+    "crop": [
+      2220,
+      335,
+      700,
+      400
+    ],
+    "origin": "lossless original OBS video PNG",
+    "reviewStatus": "DIRECTLY_INSPECTED",
+    "observation": "Owned archived-list card visible before actual Restore; action trace records restoration, whole shell parity not established."
+  }
+]

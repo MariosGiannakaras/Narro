@@ -1,0 +1,97 @@
+{
+  "uniqueDirectConsecutiveFrames": 840,
+  "numberedAtlases": 28,
+  "galleryImages": 12,
+  "wholeOriginalFrameReviewed": false,
+  "ranges": [
+    {
+      "name": "focus-modal-greek-ctrl-f",
+      "requestedStartUtc": "2026-10-04T19:43:20Z",
+      "requestedStartPts": 517.963,
+      "consecutiveExportedFrames": 120,
+      "fps": 60,
+      "crop": [
+        4140,
+        0,
+        340,
+        700
+      ],
+      "reviewStatus": "ALL_EXPORTED_CONSECUTIVE_FRAMES_DIRECTLY_INSPECTED",
+      "observation": "All120 consecutive frames reviewed: actual Greek dialog Ctrl+F leaves dialog/pixels retained without native Find."
+    },
+    {
+      "name": "main-modal-ctrl-f",
+      "requestedStartUtc": "2026-10-04T19:36:45Z",
+      "requestedStartPts": 122.963,
+      "consecutiveExportedFrames": 120,
+      "fps": 60,
+      "crop": [
+        2102,
+        182,
+        1016,
+        739
+      ],
+      "reviewStatus": "ALL_EXPORTED_CONSECUTIVE_FRAMES_DIRECTLY_INSPECTED",
+      "observation": "All120 consecutive frames reviewed: dialog/pixels retained and no native Find defaults."
+    },
+    {
+      "name": "native-planning-drag",
+      "requestedStartUtc": "2026-10-04T20:06:20Z",
+      "requestedStartPts": 1897.963,
+      "consecutiveExportedFrames": 180,
+      "fps": 60,
+      "crop": [
+        2320,
+        365,
+        440,
+        330
+      ],
+      "reviewStatus": "ALL_EXPORTED_CONSECUTIVE_FRAMES_DIRECTLY_INSPECTED",
+      "observation": "All180 consecutive frames reviewed: no lift/placeholder/reorder; second input starts near top border, so hit-target cause remains inconclusive. Config independently incompatible."
+    },
+    {
+      "name": "normal-tooltip",
+      "requestedStartUtc": "2026-10-04T19:55:40Z",
+      "requestedStartPts": 1257.963,
+      "consecutiveExportedFrames": 180,
+      "fps": 60,
+      "crop": [
+        416,
+        598,
+        425,
+        375
+      ],
+      "reviewStatus": "ALL_EXPORTED_CONSECUTIVE_FRAMES_DIRECTLY_INSPECTED",
+      "observation": "All180 consecutive frames reviewed: keyboard focus followed by short opacity reveal around frame87-91; inward bounds, no editor reflow."
+    },
+    {
+      "name": "reduced-tooltip",
+      "requestedStartUtc": "2026-10-04T19:56:56Z",
+      "requestedStartPts": 1333.963,
+      "consecutiveExportedFrames": 240,
+      "fps": 60,
+      "crop": [
+        416,
+        598,
+        425,
+        375
+      ],
+      "reviewStatus": "ALL_EXPORTED_CONSECUTIVE_FRAMES_DIRECTLY_INSPECTED",
+      "observation": "All240 consecutive frames reviewed: tooltip fully appears around89, closes on Notes field focus around165, pointer reopens near237; same bounds. OS flag0 measured, no direct CSS query claim."
+    }
+  ],
+  "sourceComparisons": [
+    {
+      "file": "source-comparison/ve006-inline-confirm.png",
+      "source": "VE006 canonical Pass3 Delete/Archive tutorial",
+      "ptsSeconds": 18,
+      "verdict": "FAIL25 retained-menu confirmation container"
+    },
+    {
+      "file": "source-comparison/ve006-direct-archive.png",
+      "source": "VE006 canonical Pass3 Delete/Archive tutorial",
+      "ptsSeconds": 36,
+      "verdict": "SCOPED PASS direct archive action grammar; whole shell/counts not established"
+    }
+  ]
+}

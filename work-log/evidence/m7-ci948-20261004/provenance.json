@@ -1,0 +1,112 @@
+{
+  "sourceSha": "28e840f50d0888ab86801efc36fff76c6e8e74aa",
+  "ciRun": 37220348196,
+  "ciNumber": 948,
+  "artifact": 11310284191,
+  "exeSha256": "0914b4c983d91c1e7de3937be53cf2f226e49c8049143469732499bccd932aa3",
+  "activeDisplays": 2,
+  "virtualOrigin": [
+    -1920,
+    0
+  ],
+  "recordings": [
+    {
+      "originalFile": "2026-10-04 22-32-45.mkv",
+      "originalBytes": 16275991,
+      "sha256": "9893945f00b108de34734d88e136582dc18410a823f0c7a3d9b2509c23fa7bd7",
+      "durationSeconds": 96.834,
+      "streams": [
+        {
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "parts": [
+        {
+          "file": "original.mkv.part-001",
+          "bytes": 16275991,
+          "sha256": "9893945f00b108de34734d88e136582dc18410a823f0c7a3d9b2509c23fa7bd7"
+        }
+      ],
+      "byteIdenticalConcatenationVerified": true
+    },
+    {
+      "originalFile": "2026-10-04 22-34-42.mkv",
+      "originalBytes": 387354473,
+      "sha256": "611b89496c0cf66e9f5f250f3669d797b0118433616da7309b93eb3e77247f18",
+      "durationSeconds": 2545.4,
+      "streams": [
+        {
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "parts": [
+        {
+          "file": "original.mkv.part-001",
+          "bytes": 41943040,
+          "sha256": "07b25561c1952470bd4319738fbf12393caf04dee6eaed3a2b23a47634fb3c4e"
+        },
+        {
+          "file": "original.mkv.part-002",
+          "bytes": 41943040,
+          "sha256": "289babb780ca78930e4f4d8fcb19971f4259b9e4d3656641806f151d351bbfad"
+        },
+        {
+          "file": "original.mkv.part-003",
+          "bytes": 41943040,
+          "sha256": "0243fb80bb0265e26d4a05a29bba8c010cc4f56ad91db1f11b6990010b917fd9"
+        },
+        {
+          "file": "original.mkv.part-004",
+          "bytes": 41943040,
+          "sha256": "4a00e844ab8f8e08b17935ca500bd4a942465ae003a67fa3b77ebf772e9ffbba"
+        },
+        {
+          "file": "original.mkv.part-005",
+          "bytes": 41943040,
+          "sha256": "4a1462f779fe90085329493e22e1d1d3e04628d1b5b58dc3e4dfaa8d524ece95"
+        },
+        {
+          "file": "original.mkv.part-006",
+          "bytes": 41943040,
+          "sha256": "6b506e1f859d1586f9d3ca079f104e985d93a86c21076eb5269bbda6b85b7102"
+        },
+        {
+          "file": "original.mkv.part-007",
+          "bytes": 41943040,
+          "sha256": "0c3b4ad545c6a53ce2d7030c6741c73910bd2afd5055b2bdf175357add61b678"
+        },
+        {
+          "file": "original.mkv.part-008",
+          "bytes": 41943040,
+          "sha256": "c4a35e7b6425e93172748806765b9482953f09fea6f6515b2ab1d2b342cd0040"
+        },
+        {
+          "file": "original.mkv.part-009",
+          "bytes": 41943040,
+          "sha256": "e07358914b5cb9e7dab35eb059a76c3538e48e41fe000f52cb2e8b2700222292"
+        },
+        {
+          "file": "original.mkv.part-010",
+          "bytes": 9867113,
+          "sha256": "5133d7db01e394ae1544948a2ea1eea10a9c077bc5f9d9807e33ec4274daae68"
+        }
+      ],
+      "byteIdenticalConcatenationVerified": true
+    }
+  ],
+  "nativeLogsFiles": 11,
+  "logsZipByteIdentical": true,
+  "localDataSafetyBackupPublished": false,
+  "processAtSnapshot": "PID55464 alive, owned task paused",
+  "wholeOriginalFrameReviewed": false
+}

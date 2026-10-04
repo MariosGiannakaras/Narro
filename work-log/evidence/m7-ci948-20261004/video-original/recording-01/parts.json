@@ -1,0 +1,24 @@
+{
+  "originalFile": "2026-10-04 22-32-45.mkv",
+  "originalBytes": 16275991,
+  "sha256": "9893945f00b108de34734d88e136582dc18410a823f0c7a3d9b2509c23fa7bd7",
+  "durationSeconds": 96.834,
+  "streams": [
+    {
+      "width": 4480,
+      "height": 1080,
+      "r_frame_rate": "60/1"
+    },
+    {
+      "r_frame_rate": "0/0"
+    }
+  ],
+  "parts": [
+    {
+      "file": "original.mkv.part-001",
+      "bytes": 16275991,
+      "sha256": "9893945f00b108de34734d88e136582dc18410a823f0c7a3d9b2509c23fa7bd7"
+    }
+  ],
+  "byteIdenticalConcatenationVerified": true
+}

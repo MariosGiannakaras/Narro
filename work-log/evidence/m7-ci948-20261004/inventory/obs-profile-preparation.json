@@ -1,0 +1,10 @@
+{
+  "profile": "C:\\Users\\MariosG\\AppData\\Roaming\\obs-studio\\basic\\profiles\\NarroUIValidationPR233Final",
+  "scene": "C:\\Users\\MariosG\\AppData\\Roaming\\obs-studio\\basic\\scenes\\NarroM7PR233Final.json",
+  "output": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr233-final-physical-20261004\\run-final\\video",
+  "base": "4480x1080",
+  "fps": 60,
+  "originalProfilePreserved": true,
+  "dualSourceLayoutPreserved": true,
+  "actualActiveDisplayCountMustBeInventoriedBeforeCapture": true
+}

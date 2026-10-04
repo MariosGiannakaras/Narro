@@ -2,7 +2,11 @@
 
 Status: current executable closure controller for Milestone 7.
 
-## Current2026-10-04 closure overlay
+## Current CI948 closure overlay
+
+C1–C3 PASS preserved; C5 formally **PASS**, with exact948 actual2334px mixed-DPI drag/Quit/same-EXE paused restore and unchanged accepted936/942 platform/performance. C4 remains OPEN for catalog22/queue23, insufficient07 loading observation and affected integrated acceptance.09 bounded wrapped tooltip and18 native modal defaults PASS. Writer19 actual lane Move and M5 source menu25/native drag24 acceptance remain narrow affected dependencies. [Whole results/media and post-session matrix](../work-log/2026-10-04-codex-m7-ci948-physical-results.md). One corrective22–25 source batch; no general native re-audit. **3/10M ||4/5 |14/19**; M10 blocked.
+
+## Historical pre-CI948 closure overlay
 
 CI936 accepted changed native continuity/source compact grammar/Notes paths; CI942 closes M1 replacement B/C/D and scoped M6 placement/topology/M8 preference save/restart. CI944 closes modal action routing17 and again passes native C5 (522.015px drag, normal Quit, same EXE/session restored paused at396,745); whole video/logs/direct review are [published](../work-log/evidence/m7-ci944-20261004/README.md).
 

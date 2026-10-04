@@ -1,0 +1,5 @@
+{"utc":"2026-10-04T19:18:51.3779677Z","action":"user-prescribed-display-switch","mode":"clone","program":"Windows DisplaySwitch.exe","recordingStarted":false}
+{"utc":"2026-10-04T19:18:55.8968300Z","action":"user-prescribed-display-switch","mode":"extend","program":"Windows DisplaySwitch.exe","recordingStarted":false}
+{"utc":"2026-10-04T19:21:35.4807010Z","action":"observed-native-tray-chevron-click","x":2330,"y":1065,"navigationImage":"setup-tray-crop.png","virtualOriginX":-1920,"recordingStarted":false}
+{"utc":"2026-10-04T19:23:03.0658883Z","action":"observed-Narro-tray-right-click","x":2307,"y":1025,"navigationImage":"setup-narro-tray-hover-crop.png","recordingStarted":false}
+{"utc":"2026-10-04T19:24:04.8263072Z","action":"normal-old-CI944-tray-Quit","navigationImage":"setup-quit-menu-crop.png","x":2375,"y":1010,"oldPid":69800,"oldPidAbsent":true,"recordingStarted":false}
