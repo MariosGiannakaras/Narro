@@ -60,6 +60,7 @@ Use this decision order:
 3. If handoff state is stale or contradicts repository reality, correct it first using current code/tests/CI evidence.
 4. If `HANDOFF.md` has no actionable continuation, take the first open item in the current `TODO.md` milestone whose prerequisites are satisfied.
 5. Do not skip to a later milestone merely because it is easier or more visually rewarding.
+6. **Optional Milestone 11 is a hard exception to ordinary autonomous continuation.** Never start, prepare, schedule, count, or infer the live Blitzit audit from `continue`, `keep going`, `finish the project`, completion of M10, or similar general instructions. M11 requires an explicit user instruction that specifically activates M11 / the live Blitzit reference audit. If it is never explicitly activated, skip it entirely and continue from validated M10 to the required Final Comprehensive Review.
 
 ## Autonomy expectations
 
@@ -103,6 +104,7 @@ Rules:
 - Derive all values from current repository state; never copy example numbers or conversation memory.
 - Do not increment any field before its existing validation requirements are satisfied.
 - Do not silently change denominators.
+- The mandatory roadmap denominator is 10 while optional M11 is dormant/skipped. Only an explicit user activation of M11 changes the denominator to 11; record that activation durably before reporting `/11M`. M11 checkboxes do not count as open work while dormant.
 - Show the compact line when one of its counters changes, when a genuinely new slice resets the small counter, or in a final implementation status where the current counters are useful.
 - Do **not** repeat an unchanged compact line in every routine progress update. In particular, do not repeatedly print `0/5`, `1/5`, etc. while no checkpoint has advanced.
 - Do not add parallel verbose `Γενική υλοποίηση` / `Μικρή τρέχουσα υλοποίηση` lines unless the user explicitly asks for them.
