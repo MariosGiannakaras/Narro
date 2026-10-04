@@ -44,6 +44,8 @@ for (const [haystack, needle, label] of [
   [notes, "setLocallyBlocked(true)", "local unsafe retry blocker"],
   [notes, "void openUrl(link).catch", "explicit external link activation"],
   [notes, 'data-task-note-control="open-link"', "keyboard/pointer link control"],
+  [notes, "recognizedUrlParts", "automatic http(s) URL recognition"],
+  [notes, "autoLinkEditorUrls", "live editor URL recognition"],
   [notes, "<EditableDocument document={initialDocument} />", "structural rich-note editor rendering"],
   [notes, "<NoteViewer document={note.document} />", "structural saved-note viewer"],
   [card, "const noteExpanded = Boolean(notes?.expanded);", "task-card Notes expansion lock"],
@@ -67,6 +69,30 @@ for (const forbidden of [
   if (notes.includes(forbidden)) {
     throw new Error(`Task Notes must not use unsafe HTML or remote preview/fetch behavior; found ${forbidden}`);
   }
+}
+
+for (const forbidden of ['label="Add link"', "window.prompt(", 'command("createLink"']) {
+  if (notes.includes(forbidden)) {
+    throw new Error(`Task Notes source toolbar must not retain manual link creation; found ${forbidden}.`);
+  }
+}
+
+const toolbarOrder = [
+  'label="Bold"',
+  'label="Italic"',
+  'label="Strikethrough"',
+  'label="Bulleted list"',
+  'label="Numbered list"',
+  'label="Undo"',
+  'label="Redo"',
+];
+let previousToolbarIndex = -1;
+for (const label of toolbarOrder) {
+  const index = notes.indexOf(label);
+  if (index <= previousToolbarIndex) {
+    throw new Error(`Task Notes toolbar order differs at ${label}.`);
+  }
+  previousToolbarIndex = index;
 }
 
 const openUrlCalls = notes.match(/openUrl\(/g) ?? [];

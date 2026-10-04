@@ -9,6 +9,19 @@
   min-width: 0;
 }
 
+.list-board[data-blitz-focus-transition="fading"] {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms var(--motion-ease-exit);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list-board[data-blitz-focus-transition="fading"] {
+    opacity: 1;
+    transition: none;
+  }
+}
+
 .list-board__header {
   display: flex;
   align-items: flex-end;

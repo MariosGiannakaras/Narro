@@ -64,6 +64,45 @@ function safeExternalUrl(value: string | null | undefined): string | null {
   return /^https?:\/\//i.test(normalized) ? normalized : null;
 }
 
+const HTTP_URL_PATTERN = /https?:\/\/[^\s<>"']+/gi;
+const TRAILING_URL_PUNCTUATION = /[),.!?;:\]}]+$/;
+
+type RecognizedUrlPart = {
+  text: string;
+  link: string | null;
+};
+
+function recognizedUrlParts(text: string): RecognizedUrlPart[] {
+  const parts: RecognizedUrlPart[] = [];
+  let cursor = 0;
+
+  for (const match of text.matchAll(HTTP_URL_PATTERN)) {
+    const index = match.index ?? 0;
+    if (index > cursor) parts.push({ text: text.slice(cursor, index), link: null });
+
+    const raw = match[0];
+    const trailing = raw.match(TRAILING_URL_PUNCTUATION)?.[0] ?? "";
+    const candidate = trailing ? raw.slice(0, -trailing.length) : raw;
+    const link = safeExternalUrl(candidate);
+
+    if (candidate) parts.push({ text: candidate, link });
+    if (trailing) parts.push({ text: trailing, link: null });
+    cursor = index + raw.length;
+  }
+
+  if (cursor < text.length) parts.push({ text: text.slice(cursor), link: null });
+  return parts.length > 0 ? parts : [{ text, link: null }];
+}
+
+function autoLinkedRuns(run: NoteTextRun): NoteTextRun[] {
+  if (run.link) return [run];
+  return recognizedUrlParts(run.text).map((part) => ({
+    ...run,
+    text: part.text,
+    link: part.link,
+  }));
+}
+
 function sameStyle(left: NoteTextRun, right: InlineStyle): boolean {
   return Boolean(left.bold) === right.bold
     && Boolean(left.italic) === right.italic
@@ -87,9 +126,19 @@ function appendRun(runs: NoteTextRun[], text: string, style: InlineStyle) {
   });
 }
 
+function appendTextWithAutoLinks(runs: NoteTextRun[], text: string, style: InlineStyle) {
+  if (style.link) {
+    appendRun(runs, text, style);
+    return;
+  }
+  recognizedUrlParts(text).forEach((part) => {
+    appendRun(runs, part.text, { ...style, link: part.link });
+  });
+}
+
 function readInlineNode(node: Node, style: InlineStyle, runs: NoteTextRun[]) {
   if (node.nodeType === Node.TEXT_NODE) {
-    appendRun(runs, node.textContent ?? "", style);
+    appendTextWithAutoLinks(runs, node.textContent ?? "", style);
     return;
   }
   if (!(node instanceof HTMLElement)) return;
@@ -152,6 +201,118 @@ function styledRun(run: NoteTextRun, content: ReactNode): ReactNode {
   return node;
 }
 
+type SelectionOffsets = {
+  anchor: number;
+  focus: number;
+};
+
+function textOffsetFromRoot(root: HTMLElement, node: Node, offset: number): number {
+  const range = document.createRange();
+  range.selectNodeContents(root);
+  range.setEnd(node, offset);
+  return range.toString().length;
+}
+
+function captureSelectionOffsets(root: HTMLElement): SelectionOffsets | null {
+  const selection = window.getSelection();
+  if (
+    !selection
+    || !selection.anchorNode
+    || !selection.focusNode
+    || !root.contains(selection.anchorNode)
+    || !root.contains(selection.focusNode)
+  ) {
+    return null;
+  }
+  return {
+    anchor: textOffsetFromRoot(root, selection.anchorNode, selection.anchorOffset),
+    focus: textOffsetFromRoot(root, selection.focusNode, selection.focusOffset),
+  };
+}
+
+function textPointAtOffset(root: HTMLElement, offset: number): { node: Node; offset: number } {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  let remaining = Math.max(0, offset);
+  let lastText: Text | null = null;
+
+  while (walker.nextNode()) {
+    const textNode = walker.currentNode as Text;
+    lastText = textNode;
+    if (remaining <= textNode.data.length) return { node: textNode, offset: remaining };
+    remaining -= textNode.data.length;
+  }
+
+  return lastText
+    ? { node: lastText, offset: lastText.data.length }
+    : { node: root, offset: root.childNodes.length };
+}
+
+function restoreSelectionOffsets(root: HTMLElement, offsets: SelectionOffsets | null) {
+  if (!offsets) return;
+  const selection = window.getSelection();
+  if (!selection) return;
+  const anchor = textPointAtOffset(root, offsets.anchor);
+  const focus = textPointAtOffset(root, offsets.focus);
+  selection.setBaseAndExtent(anchor.node, anchor.offset, focus.node, focus.offset);
+}
+
+function normalizeAutoLinkedAnchors(root: HTMLElement): boolean {
+  let changed = false;
+  root.querySelectorAll<HTMLAnchorElement>('a[data-note-auto-link="true"]').forEach((anchor) => {
+    const raw = anchor.textContent ?? "";
+    const trailing = raw.match(/[\s),.!?;:\]}]+$/)?.[0] ?? "";
+    const candidate = trailing ? raw.slice(0, -trailing.length) : raw;
+    const link = safeExternalUrl(candidate);
+
+    if (!link) {
+      anchor.replaceWith(document.createTextNode(raw));
+      changed = true;
+      return;
+    }
+
+    if (anchor.getAttribute("href") !== link) {
+      anchor.setAttribute("href", link);
+      changed = true;
+    }
+
+    if (trailing) {
+      anchor.textContent = candidate;
+      anchor.after(document.createTextNode(trailing));
+      changed = true;
+    }
+  });
+  return changed;
+}
+
+function autoLinkEditorUrls(root: HTMLElement): boolean {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const textNodes: Text[] = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode as Text);
+
+  let changed = false;
+  textNodes.forEach((textNode) => {
+    if (textNode.parentElement?.closest("a")) return;
+    const parts = recognizedUrlParts(textNode.data);
+    if (!parts.some((part) => part.link)) return;
+
+    const fragment = document.createDocumentFragment();
+    parts.forEach((part) => {
+      if (!part.link) {
+        fragment.append(document.createTextNode(part.text));
+        return;
+      }
+      const link = document.createElement("a");
+      link.href = part.link;
+      link.dataset.noteAutoLink = "true";
+      link.textContent = part.text;
+      fragment.append(link);
+    });
+    textNode.replaceWith(fragment);
+    changed = true;
+  });
+  return changed;
+}
+
 function EditableRun({ run }: { run: NoteTextRun }) {
   const content = styledRun(run, run.text);
   const link = safeExternalUrl(run.link);
@@ -163,7 +324,7 @@ function EditableDocument({ document }: { document: NoteDocument }) {
     if (block.kind === "paragraph") {
       return (
         <p key={`p-${blockIndex}`}>
-          {block.runs.map((run, index) => <EditableRun key={index} run={run} />)}
+          {block.runs.flatMap(autoLinkedRuns).map((run, index) => <EditableRun key={index} run={run} />)}
         </p>
       );
     }
@@ -172,7 +333,7 @@ function EditableDocument({ document }: { document: NoteDocument }) {
       <Tag key={`${block.kind}-${blockIndex}`}>
         {block.items.map((item, itemIndex) => (
           <li key={itemIndex}>
-            {item.runs.map((run, index) => <EditableRun key={index} run={run} />)}
+            {item.runs.flatMap(autoLinkedRuns).map((run, index) => <EditableRun key={index} run={run} />)}
           </li>
         ))}
       </Tag>
@@ -213,9 +374,11 @@ function NoteViewer({ document }: { document: NoteDocument }) {
   return (
     <div className="task-notes__viewer" data-task-note-viewer="true">
       {document.blocks.map((block, blockIndex) => {
-        const runs = (item: NoteListItem | { runs: NoteTextRun[] }) => item.runs.map((run, index) => (
-          <Fragment key={index}><NoteRun run={run} onOpenError={setOpenError} /></Fragment>
-        ));
+        const runs = (item: NoteListItem | { runs: NoteTextRun[] }) => item.runs
+          .flatMap(autoLinkedRuns)
+          .map((run, index) => (
+            <Fragment key={index}><NoteRun run={run} onOpenError={setOpenError} /></Fragment>
+          ));
         if (block.kind === "paragraph") {
           return <p key={`p-${blockIndex}`}>{runs(block)}</p>;
         }
@@ -312,21 +475,6 @@ function RichNoteEditor({
     setEditorError(null);
   };
 
-  const addLink = () => {
-    if (!selectionInsideEditor()) {
-      setEditorError("Select note text before adding a link.");
-      return;
-    }
-    const raw = window.prompt("Link URL (http or https)", "https://");
-    if (raw === null) return;
-    const link = safeExternalUrl(raw);
-    if (!link) {
-      setEditorError("Links must start with http:// or https://.");
-      return;
-    }
-    command("createLink", link);
-  };
-
   const save = () => {
     const root = editorRef.current;
     if (!root || pending) return;
@@ -408,7 +556,6 @@ function RichNoteEditor({
           <ToolbarButton label="Strikethrough" disabled={pending} onAction={() => command("strikeThrough")}><s>S</s></ToolbarButton>
           <ToolbarButton label="Bulleted list" disabled={pending} onAction={() => command("insertUnorderedList")}>•</ToolbarButton>
           <ToolbarButton label="Numbered list" disabled={pending} onAction={() => command("insertOrderedList")}>1.</ToolbarButton>
-          <ToolbarButton label="Add link" disabled={pending} onAction={addLink}>↗</ToolbarButton>
           <ToolbarButton label="Undo" disabled={pending} onAction={() => command("undo")}>↶</ToolbarButton>
           <ToolbarButton label="Redo" disabled={pending} onAction={() => command("redo")}>↷</ToolbarButton>
           <Tooltip content={presentationLabel} align="end" boundarySelector=".task-notes__editor-shell">
@@ -439,6 +586,12 @@ function RichNoteEditor({
           aria-label="Task note"
           data-task-note-control="editor"
           onInput={() => {
+            const root = editorRef.current;
+            const selection = root ? captureSelectionOffsets(root) : null;
+            if (root) {
+              const changed = normalizeAutoLinkedAnchors(root) || autoLinkEditorUrls(root);
+              if (changed) restoreSelectionOffsets(root, selection);
+            }
             setDirty(true);
             setEditorError(null);
           }}

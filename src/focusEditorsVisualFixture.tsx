@@ -224,7 +224,7 @@ if (board) {
   assert(result.titleInputContained, "Title input padding escaped its grid column");
   const presentation = find<HTMLButtonElement>('[data-task-note-control="presentation"]');
   const toolbar = find<HTMLElement>('.task-notes__toolbar');
-  toolbar.style.width = '260px';
+  toolbar.style.width = '230px';
   result.presentationWrappedLeft = presentation.getBoundingClientRect().top
     > find<HTMLElement>('[data-task-note-control="format"]').getBoundingClientRect().top;
   assert(result.presentationWrappedLeft, 'Fixture did not reproduce wrapped-left presentation button');
