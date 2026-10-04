@@ -1,6 +1,6 @@
 param(
     [string]$OutputDirectory = "artifacts/visual-regression",
-    [ValidateSet("all", "focus-editors", "shortcut-modal", "board-metrics", "task-metrics")][string]$Scope = "all"
+    [ValidateSet("all", "focus-editors", "shortcut-modal", "board-metrics", "task-metrics", "m7-integration")][string]$Scope = "all"
 )
 
 $ErrorActionPreference = "Stop"
@@ -51,6 +51,7 @@ function Capture-Theme {
         [string]$ScreenshotPath,
         [string]$DomPath,
         [int]$VirtualTimeBudgetMs = 0,
+        [int]$ViewportHeight = 720,
         [string]$ReadyMarker = "",
         [int]$ReadyMaxAttempts = 4,
         [switch]$ReducedMotion,
@@ -72,7 +73,7 @@ function Capture-Theme {
             "--hide-scrollbars",
             "--no-first-run",
             "--force-device-scale-factor=1",
-            "--window-size=1280,720",
+            "--window-size=1280,$ViewportHeight",
             "--user-data-dir=$profilePath",
             "--screenshot=$ScreenshotPath",
             "--dump-dom",
@@ -147,8 +148,8 @@ function Capture-Theme {
 }
 
 function Capture-FocusEditors([string]$theme) {
-    $editorScenarios = if ($Scope -eq "shortcut-modal") { @('shortcut-modal') } elseif ($Scope -in @("board-metrics", "task-metrics")) { @('board-metrics') } else {
-        @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel', 'board-narrow', 'board-metrics', 'timer-geometry', 'shortcut-modal')
+    $editorScenarios = if ($Scope -eq "m7-integration") { @('m7-integration') } elseif ($Scope -eq "shortcut-modal") { @('shortcut-modal') } elseif ($Scope -in @("board-metrics", "task-metrics")) { @('board-metrics') } else {
+        @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel', 'board-narrow', 'board-metrics', 'timer-geometry', 'shortcut-modal', 'm7-integration')
     }
     foreach ($editorScenario in $editorScenarios) {
         $motionVariants = if ($editorScenario.StartsWith('quick-')) { @($false) } else { @($false, $true) }
@@ -162,6 +163,7 @@ function Capture-FocusEditors([string]$theme) {
                 -ScreenshotPath (Join-Path $outputPath "$editorLabel.png") `
                 -DomPath (Join-Path $outputPath "$editorLabel.html") `
                 -VirtualTimeBudgetMs 2500 `
+                -ViewportHeight $(if ($editorScenario -eq 'm7-integration') { 1080 } else { 720 }) `
                 -ReadyMarker 'data-focus-editor-fixture-ready="true"' `
                 -ReducedMotion:$reduced `
                 -NormalMotion:(-not $reduced)
@@ -193,7 +195,7 @@ try {
             Capture-FocusEditors $theme
             continue
         }
-        if ($Scope -in @("focus-editors", "shortcut-modal", "board-metrics")) { Capture-FocusEditors $theme; continue }
+        if ($Scope -in @("focus-editors", "shortcut-modal", "board-metrics", "m7-integration")) { Capture-FocusEditors $theme; continue }
         $url = "$baseUrl/visual-fixtures.html?theme=$theme"
         $screenshot = Join-Path $outputPath "$theme.png"
         $dom = Join-Path $outputPath "$theme.html"

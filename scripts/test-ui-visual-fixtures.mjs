@@ -39,7 +39,7 @@ for (const [haystack, needle, label] of [
   [css, "height: 30rem;", "fixed foundation panel height"],
   [css, ".visual-fixture-body .app-shell--fixture", "app-shell capture placement"],
   [vite, 'visualFixtures: "visual-fixtures.html"', "Vite fixture build input"],
-  [capture, "--window-size=1280,720", "fixed Edge capture dimensions"],
+  [capture, "--window-size=1280,$ViewportHeight", "explicit Edge capture dimensions"],
   [capture, "--user-data-dir=", "isolated Edge profile"],
   [capture, "--screenshot=", "real screenshot capture"],
   [capture, "--dump-dom", "captured DOM output"],

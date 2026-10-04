@@ -821,6 +821,7 @@ export function ListBoard({
   const [changeListError, setChangeListError] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<ListBoardTask | null>(null);
   const [deletePending, setDeletePending] = useState(false);
+  const deleteInFlightRef = useRef(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [settlingTaskId, setSettlingTaskId] = useState<string | null>(null);
   const [timerPayload, setTimerPayload] = useState<TimerSessionPayload | null>(null);
@@ -1549,7 +1550,10 @@ export function ListBoard({
   };
 
   const confirmTaskDelete = async () => {
-    if (!deleteTarget || deletePending) return;
+    if (!deleteTarget || deletePending || deleteInFlightRef.current) return;
+    // React's pending state renders after the handler returns. Reserve this
+    // authority synchronously so rapid Confirm activations cannot submit twice.
+    deleteInFlightRef.current = true;
     const task = deleteTarget;
     setDeletePending(true);
     setDeleteError(null);
@@ -1558,6 +1562,7 @@ export function ListBoard({
       await permanentlyDeleteListBoardTask({ taskId: task.id, listId: task.listId });
     } catch (failure: unknown) {
       setDeleteError(formatInvokeError(failure));
+      deleteInFlightRef.current = false;
       setMutationPendingTaskId(null);
       setDeletePending(false);
       return;
@@ -1575,6 +1580,7 @@ export function ListBoard({
       handleCommittedRefreshFailure(failure);
     } finally {
       setMutationPendingTaskId(null);
+      deleteInFlightRef.current = false;
     }
   };
 
@@ -2114,7 +2120,7 @@ export function ListBoard({
             deletePending={deletePending}
             deleteError={deleteError}
             onCancelDelete={() => {
-              if (deletePending) return;
+              if (deletePending || deleteInFlightRef.current) return;
               setDeleteTarget(null);
               setDeleteError(null);
             }}

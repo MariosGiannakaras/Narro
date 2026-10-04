@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { emitBoardInvalidated } from "./boardInvalidation";
 
 export type ListIconUploadRequest = {
   filename: string;
@@ -11,15 +12,17 @@ export type ListEditorRequest = {
   iconUpload: ListIconUploadRequest | null;
 };
 
-export function createListFromEditor(request: ListEditorRequest): Promise<void> {
-  return invoke<void>("create_list_from_editor", { request });
+export async function createListFromEditor(request: ListEditorRequest): Promise<void> {
+  await invoke<void>("create_list_from_editor", { request });
+  await emitBoardInvalidated();
 }
 
-export function updateListFromEditor(
+export async function updateListFromEditor(
   listId: string,
   request: ListEditorRequest,
 ): Promise<void> {
-  return invoke<void>("update_list_from_editor", { listId, request });
+  await invoke<void>("update_list_from_editor", { listId, request });
+  await emitBoardInvalidated();
 }
 
 
@@ -28,8 +31,9 @@ export type ListIconAssetPayload = {
   bytes: number[];
 };
 
-export function duplicateListFromHome(listId: string): Promise<void> {
-  return invoke<void>("duplicate_list_from_home", { listId });
+export async function duplicateListFromHome(listId: string): Promise<void> {
+  await invoke<void>("duplicate_list_from_home", { listId });
+  await emitBoardInvalidated();
 }
 
 export function getListIconAsset(listId: string): Promise<ListIconAssetPayload | null> {

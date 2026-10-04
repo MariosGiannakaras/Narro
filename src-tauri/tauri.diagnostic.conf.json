@@ -6,6 +6,7 @@
     "windows": [
       {
         "label": "main",
+        "dragDropEnabled": false,
         "title": "Narro",
         "url": "index.html?diagnostics=1",
         "width": 1000,

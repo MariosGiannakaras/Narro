@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { emitBoardInvalidated } from "./boardInvalidation";
 
 export type ArchivedListSummary = {
   id: string;
@@ -40,14 +41,17 @@ export async function getArchivedListsForSettings(): Promise<ArchivedListSummary
   return snapshot.lists;
 }
 
-export function archiveListFromSettings(listId: string): Promise<void> {
-  return invoke<void>("archive_list_from_settings", { listId });
+export async function archiveListFromSettings(listId: string): Promise<void> {
+  await invoke<void>("archive_list_from_settings", { listId });
+  await emitBoardInvalidated();
 }
 
-export function restoreListFromSettings(listId: string): Promise<void> {
-  return invoke<void>("restore_list_from_settings", { listId });
+export async function restoreListFromSettings(listId: string): Promise<void> {
+  await invoke<void>("restore_list_from_settings", { listId });
+  await emitBoardInvalidated();
 }
 
-export function permanentlyDeleteListFromSettings(listId: string): Promise<void> {
-  return invoke<void>("permanently_delete_list_from_settings", { listId });
+export async function permanentlyDeleteListFromSettings(listId: string): Promise<void> {
+  await invoke<void>("permanently_delete_list_from_settings", { listId });
+  await emitBoardInvalidated();
 }

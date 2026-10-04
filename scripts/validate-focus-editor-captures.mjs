@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const dir=process.argv[2] ?? 'artifacts/visual-regression';
 let count=0;
-const scenarios=process.argv.includes('--shortcut-modal')?['shortcut-modal']:process.argv.includes('--board-metrics')?['board-metrics']:['notes-panel-compact','notes-panel-large','notes-timerExpanded-compact','notes-timerExpanded-large','quick-success','quick-error','quick-empty','motion-panel-timerCompact','motion-timerCompact-panel','board-narrow','board-metrics','timer-geometry','shortcut-modal'];
+const scenarios=process.argv.includes('--m7-integration')?['m7-integration']:process.argv.includes('--shortcut-modal')?['shortcut-modal']:process.argv.includes('--board-metrics')?['board-metrics']:['notes-panel-compact','notes-panel-large','notes-timerExpanded-compact','notes-timerExpanded-large','quick-success','quick-error','quick-empty','motion-panel-timerCompact','motion-timerCompact-panel','board-narrow','board-metrics','timer-geometry','shortcut-modal','m7-integration'];
 for(const theme of ['light','dark']) for(const scenario of scenarios) for(const reducedMotion of scenario.startsWith('quick-')?[false]:[false,true]){
  const label=`focus-editor-${scenario}-${theme}${reducedMotion?'-reduced':''}`;
  const dom=fs.readFileSync(path.join(dir,label+'.html'),'utf8');
@@ -25,7 +25,13 @@ for(const theme of ['light','dark']) for(const scenario of scenarios) for(const 
  }
  if(scenario.endsWith('-large'))required.push('resizeBounded','escapeReturnedInline');
  if(scenario.startsWith('notes-'))required.push('presentationWrappedLeft');
- if(reducedMotion && scenario!=='board-narrow' && scenario!=='board-metrics' && scenario!=='shortcut-modal')required.push('reducedMotionRespected');
+ if(scenario==='m7-integration') {
+  required.length=0;
+  required.push('catalogCommittedCrud','catalogStaleResponsesRejected','catalogEntryReconciled','catalogSelectedRecovery',
+   'catalogNoPolling','catalogDisposedResponseIgnored','queueLastRowReachable','queueMenuReachable','queueHeaderStable','queueNoHorizontalOverflow',
+   'deleteMenuRetained','deleteCancelAndDismissSafe','deleteFailureRetrySafe','deletePendingExactlyOnce','deleteIndependentIdentityPreserved');
+ }
+ if(reducedMotion && !['board-narrow','board-metrics','shortcut-modal','m7-integration'].includes(scenario))required.push('reducedMotionRespected');
  for(const key of required)if(result[key]!==true)throw new Error(label+': '+key+' failed');
  if(result.inlineHorizontalOverflow===true)throw new Error(label+': horizontal overflow');
  count++;

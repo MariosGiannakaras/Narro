@@ -145,6 +145,15 @@ for (const window of windows) {
 const mainWindow = windows.find((window) => window.label === "main");
 const focusWindow = windows.find((window) => window.label === "focusSurface");
 invariant(mainWindow?.url === "index.html", "main must load index.html");
+for (const [label, config] of [["production", tauriConfig], ["CI", tauriCiConfig], ["diagnostic", tauriDiagnosticConfig]]) {
+  invariant(config.app?.windows?.find((window) => window.label === "main")?.dragDropEnabled === false,
+    `${label} Main must permit Windows HTML5 task drag/drop by disabling Tauri's native handler`);
+}
+const nativeWindowSource = await readText("src-tauri/src/lib.rs");
+const recreatedMainBuilder = nativeWindowSource.slice(nativeWindowSource.indexOf("fn build_main_window("),
+  nativeWindowSource.indexOf("async fn show_or_recreate_main("));
+invariant(recreatedMainBuilder.includes(".disable_drag_drop_handler()"),
+  "recreated Main must preserve initial Main Windows HTML5 task drag/drop support");
 invariant(focusWindow?.url === "focus.html", "focusSurface must load focus.html");
 invariant(focusWindow?.visible === false, "focusSurface must start hidden");
 invariant(focusWindow?.decorations === false, "focusSurface must remain frameless");

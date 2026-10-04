@@ -1,4 +1,5 @@
 import type { CSSProperties, FormEvent, KeyboardEvent } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { formatVisibleDate, formatVisibleDateTime } from "./dateTimeFormat";
 import type { BoardSubtask, ListBoardTask } from "./listBoardApi";
 import { Menu, MenuItem, Tooltip } from "./overlayPrimitives";
@@ -189,11 +190,13 @@ function TaskActionButton({
   glyph,
   action,
   actionId,
+  disabled = false,
 }: {
   label: string;
   glyph: string;
   action: () => void;
   actionId: "subtasks" | "notes" | "lane-left" | "lane-right";
+  disabled?: boolean;
 }) {
   return (
     <Tooltip content={label}>
@@ -203,6 +206,7 @@ function TaskActionButton({
         aria-label={label}
         data-task-action={actionId}
         draggable={false}
+        disabled={disabled}
         onPointerDown={(event) => event.stopPropagation()}
         onClick={action}
       >
@@ -215,10 +219,24 @@ function TaskActionButton({
 function TaskOverflowMenu({
   actions,
   scheduleActionLabel,
+  confirmation,
 }: {
   actions: TaskCardActions;
   scheduleActionLabel: "Schedule" | "Update Schedule";
+  confirmation?: TaskCardDeleteConfirmation;
 }) {
+  const rootRef = useRef<HTMLSpanElement>(null);
+  const hadConfirmation = useRef(false);
+  const confirming = Boolean(confirmation);
+  useLayoutEffect(() => {
+    if (confirmation?.pending) return;
+    if (!confirming && !hadConfirmation.current) return;
+    hadConfirmation.current = confirming;
+    if (!rootRef.current?.querySelector('[role="menu"][data-open="true"]')) return;
+    const control = rootRef.current.querySelector<HTMLButtonElement>(confirming
+      ? '[data-task-delete-control="confirm"]' : '[data-destructive="true"]');
+    control?.focus();
+  }, [confirming, confirmation?.pending]);
   const hasMenuAction = Boolean(
     actions.onSchedule || actions.onChangeList || actions.onDuplicate || actions.onDelete,
   );
@@ -226,6 +244,7 @@ function TaskOverflowMenu({
 
   return (
     <span
+      ref={rootRef}
       className="list-board-task__overflow"
       data-task-action="overflow"
       onPointerDown={(event) => event.stopPropagation()}
@@ -234,18 +253,20 @@ function TaskOverflowMenu({
         triggerLabel="Task actions"
         align="end"
         trigger={<span aria-hidden="true">…</span>}
+        onDismiss={confirmation?.onCancel}
+        dismissDisabled={confirmation?.pending}
       >
         {actions.onSchedule ? (
-          <MenuItem onSelect={actions.onSchedule}>{scheduleActionLabel}</MenuItem>
+          <MenuItem disabled={confirming} onSelect={actions.onSchedule}>{scheduleActionLabel}</MenuItem>
         ) : null}
         {actions.onChangeList ? (
-          <MenuItem onSelect={actions.onChangeList}>Change List</MenuItem>
+          <MenuItem disabled={confirming} onSelect={actions.onChangeList}>Change List</MenuItem>
         ) : null}
         {actions.onDuplicate ? (
-          <MenuItem onSelect={actions.onDuplicate}>Duplicate</MenuItem>
+          <MenuItem disabled={confirming} onSelect={actions.onDuplicate}>Duplicate</MenuItem>
         ) : null}
-        {actions.onDelete ? (
-          <MenuItem destructive onSelect={actions.onDelete}>Delete</MenuItem>
+        {confirmation ? <InlineDeleteConfirmation confirmation={confirmation} /> : actions.onDelete ? (
+          <MenuItem destructive closeOnSelect={false} onSelect={actions.onDelete}>Delete</MenuItem>
         ) : null}
       </Menu>
     </span>
@@ -255,9 +276,11 @@ function TaskOverflowMenu({
 function TaskActionRail({
   actions,
   scheduleActionLabel,
+  confirmation,
 }: {
   actions: TaskCardActions;
   scheduleActionLabel: "Schedule" | "Update Schedule";
+  confirmation?: TaskCardDeleteConfirmation;
 }) {
   return (
     <span className="list-board-task__actions" data-task-actions="source-hover-rail">
@@ -268,6 +291,7 @@ function TaskActionRail({
             glyph="☷"
             action={actions.onSubtasks}
             actionId="subtasks"
+            disabled={Boolean(confirmation)}
           />
         ) : null}
       </span>
@@ -278,6 +302,7 @@ function TaskActionRail({
             glyph="▤"
             action={actions.onNotes}
             actionId="notes"
+            disabled={Boolean(confirmation)}
           />
         ) : null}
       </span>
@@ -288,6 +313,7 @@ function TaskActionRail({
             glyph="←"
             action={actions.onMoveLaneLeft}
             actionId="lane-left"
+            disabled={Boolean(confirmation)}
           />
         ) : null}
       </span>
@@ -298,11 +324,12 @@ function TaskActionRail({
             glyph="→"
             action={actions.onMoveLaneRight}
             actionId="lane-right"
+            disabled={Boolean(confirmation)}
           />
         ) : null}
       </span>
       <span className="list-board-task__action-position" data-task-action-position="overflow">
-        <TaskOverflowMenu actions={actions} scheduleActionLabel={scheduleActionLabel} />
+        <TaskOverflowMenu actions={actions} scheduleActionLabel={scheduleActionLabel} confirmation={confirmation} />
       </span>
     </span>
   );
@@ -323,10 +350,15 @@ function InlineDeleteConfirmation({
         type="button"
         className="list-board-task__delete-confirm-action motion-interactive"
         data-task-delete-control="confirm"
+        role="menuitem"
+        data-menu-close-on-select="false"
         disabled={confirmation.pending}
         onPointerDown={(event) => event.stopPropagation()}
         onClick={confirmation.onConfirm}
       >
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4">
+          <path d="M3 4h10M6 4V2h4v2M4 4l1 10h6l1-10M6.5 6v6M9.5 6v6" />
+        </svg>
         {confirmation.pending ? "Deleting…" : "Confirm"}
       </button>
       <Tooltip content="Cancel delete">
@@ -335,6 +367,8 @@ function InlineDeleteConfirmation({
           className="list-board-task__delete-cancel motion-interactive"
           aria-label="Cancel permanent task deletion"
           data-task-delete-control="cancel"
+          role="menuitem"
+          data-menu-close-on-select="false"
           disabled={confirmation.pending}
           onPointerDown={(event) => event.stopPropagation()}
           onClick={confirmation.onCancel}
@@ -607,7 +641,12 @@ export function TaskCard({
   const showBaseContent = state !== "inline_create";
   const noteExpanded = Boolean(notes?.expanded);
   const subtaskExpanded = Boolean(subtasks?.model?.expanded);
-  const effectiveActions = titleEditor || metricEditor || noteExpanded || subtaskExpanded || deleteConfirmation
+  const menuActionsRef = useRef<TaskCardActions | undefined>(actions);
+  // The board disables other edits during confirmation. Retain the same menu
+  // composition while every sibling action is disabled, rather than unmounting
+  // the open menu and moving destructive confirmation into the hover rail.
+  if (!deleteConfirmation) menuActionsRef.current = actions;
+  const effectiveActions = deleteConfirmation ? menuActionsRef.current : titleEditor || metricEditor || noteExpanded || subtaskExpanded
     ? undefined
     : actions ?? (
       isFixtureOnly && (state === "normal" || state === "action_revealed")
@@ -717,12 +756,12 @@ export function TaskCard({
                 data-task-action-slot="reserved"
                 aria-hidden={hasActions || metricEditor ? undefined : true}
               >
-                {deleteConfirmation ? <InlineDeleteConfirmation confirmation={deleteConfirmation} /> : null}
                 {!deleteConfirmation && metricEditor ? <MetricEditActions editor={metricEditor} /> : null}
-                {!deleteConfirmation && effectiveActions && hasActions ? (
+                {effectiveActions && hasActions ? (
                   <TaskActionRail
                     actions={effectiveActions}
                     scheduleActionLabel={scheduled || repeatStatus ? "Update Schedule" : "Schedule"}
+                    confirmation={deleteConfirmation}
                   />
                 ) : null}
               </span>
