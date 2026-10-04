@@ -2,6 +2,20 @@
 
 Last updated: 2026-10-05
 
+## Optional M11 policy — dormant / user activation required
+
+An optional **Milestone 11 — Live Blitzit Reference Audit** now exists as a dormant post-M10 source-reference option. It is not currently authorized and does not change current implementation priorities, blockers or progress.
+
+- M11 may start only after an explicit user command specifically activates M11 / the live Blitzit audit.
+- General continuation language, completion of M10, or availability of a Blitzit trial/account does not count as authorization.
+- While dormant/skipped, M11 is non-blocking and the roadmap denominator remains 10; validated M10 proceeds directly to the required Final Comprehensive Review.
+- If explicitly activated, the denominator becomes 11 from the recorded activation point, M11 starts from a validated M10 source SHA, and Final Review waits for the post-M11 validated candidate.
+- The audit is targeted at live-source evidence gaps not recoverable from the existing 19/19 video + 46/46 screenshot + 8/8 calibrated-family corpus. New live findings must be provenance-recorded and reconciled before Narro implementation changes.
+- Binding protocol: `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
+
+No M11 checklist item, validation count or milestone counter is advanced by defining this dormant option.
+
+
 ## Current — CI948 physical evidence and one corrective batch
 
 Exact resulting-main CI948 source28e840f50d0888ab86801efc36fff76c6e8e74aa / EXE0914b4c983d91c1e7de3937be53cf2f226e49c8049143469732499bccd932aa3 is physically tested. Native modal defaults18 PASS; writer19 owned CRUD/reorder/delete scope PASS, actual lane Move acceptance OPEN; metrics20 normal125% PASS, reduced physical edit OPEN; title21 partial PASS blocked by inaccessible queue23. Wrapped Notes tooltip09 narrow PASS. Actual C5 qualifying2334px cross-DPI drag, normal tray Quit, same EXE new process, paused exact(-1504,598) Timer restore PASS; formal C5 tracking now reconciled. Existing936/942 platform/performance acceptance is unchanged and reused. **M7 C1–C3/C5 PASS, C4 OPEN:4/5. Completed milestones M1/M3/M4 only:3/10M ||4/5 |14/19.** M10 hard entry remains blocked.
