@@ -1,6 +1,14 @@
 # STATUS.md
 
 Last updated: 2026-10-04
+## 2026-10-04 — CI942 native C5/B/C pass; modal shortcut isolation requires correction
+
+PR231/head `c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d` PASSed full CI942/run37191346390 and merged `416ff40ecd6c50b660ecfef9c9c0b57c2dc7dd92`, with zero non-Markdown differences. Exact production SHA256 `3e836e942b45f3586e71bda15208f60b8b8cc901449146fdef76b8999b5b61ea` passes native C5 after2392px drag/tray Quit/same-EXE relaunch/Timer restore `(1330,613)`. Diagnostic89b2c7c6... passes4/4 placement twice and software2→1→2 recovery with Main present/absent. All three quiet performance runs are valid/no churn (median0.025896% one-core CPU,399.420MiB working set,333.006MiB private); matched cold936 private324.727MiB leaves an8.279MiB WebView2 interpretation OPEN. Physical cable/sleep-wake was NOT RUN.
+
+The continuous dual-display60fps recording and whole logs are retained for final direct frame/canonical review. Current Notes toolbar/URL recognition, live metadata, both Greek/English shortcut layouts, Preferences save/restart, completion464/27 durable seconds and compact→full-Panel success were exercised. `M7-OBS-20261004-17` is a new confirmed **FAIL / FIX_NOW**: Focus Add task modal buttons do not suppress window-level action shortcuts, permitting background break/pause/Notes changes. Next bounded source slice: shared active-modal shortcut boundary in Main/coordinator/committed Focus listeners, including delivered cross-window events; exclude hidden/inert preparation, preserve local Enter/Escape and normal shortcuts after closure, add actual rendered regression. No rendering architecture rewrite or unrelated milestone implementation. [Exact checkpoint and M1–M9 evidence inventory](work-log/2026-10-04-codex-m7-ci942-physical-checkpoint.md).
+
+User requires pre/post-capture inventory of all open M1–M9 validation-only/source-parity gates and adequate cross-gate evidence reuse. M10 gains reusable evidence only until its hard entry gate clears; explicitly announce all M1–M9 complete before proceeding. M7 stays3/5/global3/10M/historical14/19. Earlier sections below remain historical checkpoints.
+
 ## 2026-10-04 — CI936 physical review complete; PR231/CI942 final diagnostics
 
 Exact CI936 now passes the exercised native continuity, hover/canonical grammar, bounded Notes/input and C5 paths. Whole logs/ZIP, complete dual60fps original,7440 exported frames and2340 unique directly inspected frames are published in [the full result](work-log/2026-10-04-codex-m7-ci936-physical-results.md). The exterior shadow is an explicit Windows correctness deviation rather than claimed source parity. Three quiet936/repaired-helper runs are valid, median0% one-core CPU,403.874MiB summed working set/310.789MiB private committed, zero churn; consistent with earlier404–409MiB. LG reconnect is resolved with the user-provided Duplicate→Extend sequence; fresh UI confirms100%/125%, same process survives topology recovery.

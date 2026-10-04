@@ -307,6 +307,12 @@ For each milestone:
 
 Do not perform unrelated cleanup or broad rewrites.
 
+### Reuse physical Windows evidence across open gates
+
+Before and after every physical Windows session/capture, inspect current `TODO.md`, `HANDOFF.md`, and `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` for all open validation-only or source-parity gates in M1–M9. Maintain a session evidence matrix and disposition each gate that the same recording/screenshots actually exercise sufficiently, including already-implemented surfaces from other milestones. Record exact executable/source, exercised states and evidence pointers; a surface merely appearing does not establish PASS. Preserve insufficiently exercised gates as open. Do not start unrelated implementation simply because a surface appeared in the capture.
+
+M10 may reuse this evidence later, but no M10 checkbox/counter advances before its hard entry gate clears. Explicitly tell the user when all required M1–M9 implementation and acceptance gates are complete before proceeding to M10.
+
 ### Repeated-failure escalation
 
 Keep an evidence history for any acceptance failure that recurs: exact source/build, environment, reproduction steps, observed frames or state, attempted mechanism, and what the attempt actually proved. Distinguish the same failed acceptance criterion from a genuinely identical visual symptom; do not call a new symptom a recurrence without evidence.

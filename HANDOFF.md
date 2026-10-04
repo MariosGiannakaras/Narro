@@ -1,4 +1,12 @@
-# CURRENT M7: final PR231/CI942 validation
+# CURRENT M7: CI942 checkpoint and modal shortcut correction
+
+PR231/headc2821e6 fullCI942 PASS, guarded merge416ff40e with identical non-Markdown source. Exact production3e836e94... C5 PASS (2392px drag, normal Quit/relaunch, Timer `(1330,613)`); isolated89b2c7c6... placement4/4 twice and software2→1→2 topology recovery with Main present/absent PASS. Three quiet performance runs valid/no churn; median CPU0.025896%, working399.420MiB, private333.006MiB. Matched cold936 private324.727MiB leaves8.279MiB WebView2 interpretation OPEN. Both diagnostics normally quit; OBS stopped/closed, normal motion restored, two displays active. Whole CI942 original video/logs retained locally; final direct/canonical review/publication pending.
+
+**Next source slice:** `M7-OBS-20261004-17`, confirmed background Ctrl+Alt+B/P/N execution from focused Add button in Focus Add task modal. Add shared active-modal guard to Main/coordinator/committed Focus keyboard and delivered-event paths; ignore hidden/inert preparation, preserve dialog Enter/Escape and ordinary shortcuts after closure, actual rendered regression plus exact-head CI/physical retest. New input-routing defect, not native-collapse recurrence. Fresh branch from current main; preserve other merged milestone work. [Exact checkpoint and M1–M9 inventory](work-log/2026-10-04-codex-m7-ci942-physical-checkpoint.md).
+
+Before/after each capture inspect current TODO/HANDOFF/crosswalk for all open M1–M9 gates and consume sufficient shared evidence; no unrelated implementation or inadequate PASS. Explicitly announce all required M1–M9 complete before entering M10; no M10 counter advances until hard entry gate clears. Counts3/10M ||3/5 |14/19.
+
+## Historical pre-CI942 handoff
 
 CI936 whole native logs/video/7440 motion frames and2340 directly reviewed frames are on main in [the complete result](work-log/2026-10-04-codex-m7-ci936-physical-results.md). Native continuity/Notes/input/C5 pass exercised paths; external desktop shadow is an explicit correctness deviation. Quiet936/repaired231-helper performance3/3 valid, median403.874MiB summed working set and310.789MiB private bytes, near-zero CPU/no churn. Both100%/125% displays are restored via Duplicate→Extend; Windows changed display-name assignments, stale preference safely falls back.
 
