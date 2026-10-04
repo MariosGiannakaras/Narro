@@ -85,7 +85,10 @@ for (const [haystack, needle, label] of [
   [button, 'data-start-blitz="true"', "explicit Start Blitz control"],
   [button, "const outcome = await startBlitz();", "click-only authoritative start request"],
   [button, 'outcome.status === "no_eligible_today_tasks"', "no-eligible UI handling"],
-  [button, "await presentFocusForBlitz();", "post-commit coordinator-safe Focus presentation"],
+  [button, "await fadeBoardBeforeFocusPresentation();", "post-commit board fade preparation"],
+  [button, 'window.matchMedia("(prefers-reduced-motion: reduce)").matches', "reduced-motion board-fade bypass"],
+  [button, "await presentFocusForBlitz();", "post-fade coordinator-safe Focus presentation"],
+  [button, "restoreBoard();", "board restoration after presentation attempt"],
   [button, "Focus session is active", "committed-start presentation failure distinction"],
   [board, 'laneKey === "today" ? <BlitzEntryButton /> : null', "production Today-lane entry surface"],
 ]) {
@@ -119,9 +122,10 @@ for (const forbidden of [
 }
 
 const startCall = button.indexOf("const outcome = await startBlitz();");
-const presentationCall = button.indexOf("await presentFocusForBlitz();", startCall);
-if (startCall < 0 || presentationCall < startCall) {
-  throw new Error("Focus presentation must occur only after authoritative Start Blitz resolves.");
+const fadeCall = button.indexOf("await fadeBoardBeforeFocusPresentation();", startCall);
+const presentationCall = button.indexOf("await presentFocusForBlitz();", fadeCall);
+if (startCall < 0 || fadeCall < startCall || presentationCall < fadeCall) {
+  throw new Error("Focus presentation must occur only after authoritative Start Blitz resolves and the board fade completes.");
 }
 
 const savedMonitorBranch = lib.indexOf("Some(monitor_key) =>");

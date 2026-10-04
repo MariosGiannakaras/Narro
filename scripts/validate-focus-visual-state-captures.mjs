@@ -59,6 +59,11 @@ function requireDistinctCardState(capture, running) {
 for (const theme of ["light", "dark"]) {
   const running = readCapture(theme, "running");
   requireLiveState(running, "running");
+  invariant(
+    (running.contract.liveCardStyle?.backgroundImage?.match(/linear-gradient/g) ?? []).length >= 2,
+    `${running.label} running live card must expose the calibrated layered cyan→mint/lime edge`,
+  );
+  invariant(running.contract.liveCardStyle?.boxShadow !== "none", `${running.label} running live card glow is missing`);
   invariant(running.dom.includes('aria-label="Running: 38:00 remaining"'), `${running.label} running timer label differs`);
   invariant(running.dom.includes(">38:00<"), `${running.label} running timer value differs`);
 

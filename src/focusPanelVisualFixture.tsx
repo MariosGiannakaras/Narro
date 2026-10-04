@@ -237,6 +237,7 @@ function styleContract(selector: string) {
   const style = getComputedStyle(node);
   return {
     backgroundColor: style.backgroundColor,
+    backgroundImage: style.backgroundImage,
     borderColor: style.borderColor,
     borderStyle: style.borderStyle,
     color: style.color,

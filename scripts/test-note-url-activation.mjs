@@ -73,8 +73,17 @@ if (openCall < clickHandler) {
 }
 
 requireText(notes, "return /^https?:\\/\\//i.test(normalized) ? normalized : null;", "http/https-only note URL validation");
+requireText(notes, "recognizedUrlParts", "automatic http(s) URL recognition");
+requireText(notes, "autoLinkEditorUrls", "live editor URL recognition");
+requireText(notes, 'link.dataset.noteAutoLink = "true"', "automatic editor-link marker");
 requireText(notes, 'if (target.closest("a")) event.preventDefault();', "editor anchor navigation suppression");
 requireText(notesCss, ".task-notes__link:focus-visible", "keyboard focus-visible saved-link styling");
+
+for (const forbidden of ['label="Add link"', "window.prompt(", 'command("createLink"']) {
+  if (notes.includes(forbidden)) {
+    throw new Error(`Automatic URL recognition must replace the manual Add Link path; found ${forbidden}.`);
+  }
+}
 
 for (const forbidden of ["useEffect", "useLayoutEffect", "autoFocus"]) {
   if (noteRun.includes(forbidden)) {
