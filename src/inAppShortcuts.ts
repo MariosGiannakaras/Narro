@@ -59,6 +59,16 @@ export function isEditableShortcutTarget(target: EventTarget | null): boolean {
   return Boolean(target.closest("input, textarea, select, [contenteditable='true'], [contenteditable='']"));
 }
 
+export function hasActiveModalShortcutBoundary(): boolean {
+  return Array.from(document.querySelectorAll<HTMLElement>(
+    '[role="dialog"][aria-modal="true"], [role="alertdialog"][aria-modal="true"], dialog[open]',
+  )).some((modal) => {
+    // Preparing presentations stay mounted. Their dialogs cannot own input.
+    if (modal.closest('[hidden], [inert], [aria-hidden="true"]')) return false;
+    return modal.getClientRects().length > 0 && getComputedStyle(modal).visibility === "visible";
+  });
+}
+
 export function isFocusActionShortcut(shortcut: InAppShortcut | null): shortcut is FocusActionShortcut {
   return shortcut === "start-break"
     || shortcut === "pause-resume"

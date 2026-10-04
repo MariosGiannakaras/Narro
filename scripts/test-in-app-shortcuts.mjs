@@ -50,6 +50,13 @@ const coordinator = fs.readFileSync("src/FocusSurfaceCoordinator.tsx", "utf8");
 const focusActions = fs.readFileSync("src/FocusLiveActions.tsx", "utf8");
 const floating = fs.readFileSync("src/FloatingTimerFoundation.tsx", "utf8");
 const searchPalette = fs.readFileSync("src/SearchPalette.tsx", "utf8");
+for (const [label, source] of [["Main", appShell], ["coordinator", coordinator], ["Focus", focusActions]]) {
+  invariant(source.includes("hasActiveModalShortcutBoundary()"), label + " must respect active modal input");
+}
+invariant(
+  focusActions.includes("isFocusActionShortcut(event.payload) && !hasActiveModalShortcutBoundary()"),
+  "delivered cross-window actions must check the receiver modal boundary",
+);
 
 invariant(
   appShell.includes("resolveInAppShortcut(event)")
