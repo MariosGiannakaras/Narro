@@ -2,7 +2,13 @@
 
 Last updated: 2026-10-04
 
-## 2026-10-04 — CI911 physical C5 PASS; two placement/continuity failures routed to PR228
+## 2026-10-04 — CI932 placement/C5 PASS; native pixel-hold correction
+
+PR228 head `a6af4ef15bd827ad751b023df21ab64e565e2c8e` PASSed full CI932 and merged as `587af0a0f87283b8adc56e53e166289da77833b3`, with runtime/build/test/workflow identity verified; duplicate main CI933 cancelled. Exact EXE SHA256 `31ac41768872319ba717e07af27138009ee9fd82f75de4fff93b42ea40ed71ef` fixes saved-origin drift in twelve100%/125% normal/reduced Panel returns. C5 actual378.8px drag→tray Quit→same EXE→explicit shortcut Timer reappearance PASSes at `(1466,638)`, paused04:10/250 durable seconds. C4 Collapse still FAILs.
+
+Required whole-path reassessment rejects native style/repaint/DWM guesses. A materially different temporary native bitmap child maintains Timer pixels through the failing region boundary; early180ms release exposes partial incoming layout, while500ms controlled hold retains pixels through release. Decision before implementation: fully prepaint incoming compact layout and retain its own pixels with a bounded one-shot child on the same Focus HWND; cleanup on rollback/mode replacement/exit/expiry, without GUI-thread sleep/domain blocking or new persistent WebView. The settling bound is a measured Narro reliability choice, not source-observed Blitzit motion. VE003 also requires the compact Break gamepad glyph under P3-M7-01. Exact-build two-DPI/motion/canonical/performance validation remains required. [Results, limits and comparison](work-log/2026-10-04-codex-m7-ci932-physical-results.md). Counts remain3/10M, M7 3/5, historical14/19; separate M6/M9 work preserved.
+
+## Historical 2026-10-04 — CI911 physical C5 PASS; placement/continuity findings routed to PR228
 
 Both real displays are restored (primary2560×1080/100%, secondary1920×1080/125%). Exact CI911 EXE `24b71ba9...` passed actual compact drag→tray Quit→same-EXE relaunch at `(1100,533)`, same task restored paused1:57:07/7027 durable work seconds; completion retained that time. Selected-display Left/Right, mixed-DPI crossing, maximized and borderless local-probe topmost, bounded large Notes and Preferences writes/restart were exercised. Direct review of eight motion sequences/480 consecutive frames confirms Collapse FAIL. Whole native logs, four original recordings,33 sequences/1980 decoded frames and a video-derived gallery are frozen under `work-log/evidence/m7-ci911-20261004`; [detailed verdict and evidence](work-log/2026-10-04-codex-m7-ci911-physical-results.md).
 
