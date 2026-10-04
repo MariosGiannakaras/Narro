@@ -9,6 +9,8 @@ M1 accepted placement/topology/performance remains supported by exact CI942. Cur
 [Exact result and M1–M9 inventory](work-log/2026-10-04-codex-m7-ci944-physical-results.md). Next: correct the CI946 metric-height regression, pass full local visual-family checks and corrected exact-head CI, expected-head guarded PR233 integration, download/hash its validation artifact and batch the affected physical retest. Current Narro PID69800 is paused after C5 relaunch; OBS stopped/closed. Whole CI944 evidence is published; the corrected candidate is awaiting full CI and physical retest.
 
 
+**Queued-title21:** [Source reconciliation and explicit accessible row decision](work-log/2026-10-04-codex-m7-queued-title-reconciliation.md); bundle with PR233, exact-EXE retest required.
+
 **Corrective candidate PR233:** head `d77e7ec47dff1aab011b7f917e1ecfd4ec63c99d`, CI946/run37214048828. Recognized modal defaults are consumed;12 task mutation paths reserve the SQLite writer before reads; narrow metrics and hidden Save tooltip are contained. Full local frontend preflight/Rust formatting and46 actual-rendered normal/reduced light/dark scenarios PASS. Two-connection14-operation native contention regression passes Windows CI Rust tests; CI946 completed FAIL on the older metric display/edit height validator before build; responsive-row correction and full local visual-family recheck are in progress. Exact-EXE physical retest remains OPEN. Local native test could not run because MSVC link.exe is absent. No physical fix or milestone completion is claimed.
 
 ## Historical checkpoints below — superseded current/next claims
