@@ -17,12 +17,13 @@ The runtime implementation baseline compared by the reconciliation is merged `ma
 
 **No `SOURCE_PARITY_PASS` is claimed by this reconciliation.** Narro-owned visual fixtures, screenshot regressions, automated CI and physical Windows PASS are separate evidence classes from direct canonical Blitzit comparison.
 
-Live GitHub state after the M5 Pass-3 correction closure:
-- **PR #227** (`fix/m5-pass3-parity-corrections`) exact head `d40cd9edec6456bc25dafb792ad3ab29876abe99` PASSed Windows CI #927 / run `37161179503`;
-- expected-head guarded squash merge is `cdbe496bb995311f5dacc0527ef94072683032d1`;
-- resulting-main Windows CI #928 / run `37162873321` PASSed all gates on that merged source, including frontend/contracts, Rust fmt/check/Clippy/tests, visual regression, release build, packaged Focus runtime, physical-validation build and diagnostic validation;
-- `P3-M5-01..05` are therefore **AUTOMATED_VALIDATED** implementation corrections; direct canonical Blitzit comparison remains a separate `VALIDATION_OPEN` gate and PR #225's exact-EXE narrow-board physical observation remains open;
-- there is no active M5 implementation PR; the next owned implementation slice is M6 `P3-M6-01..03`;
+Live GitHub state after the M5/M6 Pass-3 correction closure:
+- **M5 PR #227** exact head `d40cd9edec6456bc25dafb792ad3ab29876abe99` PASSed Windows CI #927 and merged as `cdbe496bb995311f5dacc0527ef94072683032d1`; resulting-main CI #928 PASSed.
+- **M6 PR #229** (`fix/m6-pass3-parity-corrections`) exact head `0b02beef8bd26757913a9c2a008d24a0cd3e8fb3` PASSed Windows CI #939 / run `37187036246`;
+- expected-head guarded squash merge is `120c8b6c1aae54452b4369fe16f8c71ae98585ba`;
+- resulting-main CI #940 / run `37188953409` PASSed the identical-tree validation gate for that merged source; fast/windows jobs were intentionally skipped because the exact tree had already PASSed #939;
+- `P3-M5-01..05` and `P3-M6-01..03` are **AUTOMATED_VALIDATED** implementation corrections. Direct canonical Blitzit comparison remains a separate `VALIDATION_OPEN` gate; M6 Gate F also remains reopened for the replacement-host placement/topology/end-to-end physical acceptance owned by the M7 line;
+- there is no active M5/M6 implementation PR. This implementation line is complete and must not take M7, M9 or M10 ownership;
 - PR #226 remains merged/validated for the separate M9 Sessions line.
 
 Current compact progress:
@@ -73,11 +74,14 @@ PR #227 / CI #927 / guarded merge `cdbe496bb995311f5dacc0527ef94072683032d1` / r
 
 Do not undo PR #225's narrow-card readability correction while implementing the source hover grammar.
 
-### M6 — FIX_NOW after M5
+### M6 — AUTOMATED_VALIDATED Pass-3 correction; replacement-host/direct-source validation still open
 
-1. **P3-M6-01** — reduced-motion-safe board fade before Focus presentation (~250 ms observed source transition).
-2. **P3-M6-02** — Notes source toolbar grammar/order and automatic clickable http(s) URL recognition. Retain Narro's deliberate explicit user activation before opening an external browser; do not reintroduce surprise URL auto-open.
-3. **P3-M6-03** — calibrated Focus live-card cyan→mint/lime crisp edge/glow treatment instead of the current flat single-color accent.
+PR #229 / Windows CI #939 / guarded merge `120c8b6c1aae54452b4369fe16f8c71ae98585ba` / resulting-main CI #940 validate the coherent three-item M6 correction. Retain these as regression invariants:
+1. **P3-M6-01** — authoritative Start Blitz resolves first, then a finite ~250 ms board fade precedes Focus presentation; reduced motion bypasses the nonessential delay and board state is restored after the presentation attempt.
+2. **P3-M6-02** — Notes toolbar order is B / I / strike / bullets / numbered / undo / redo; typed/pasted http(s) URLs are recognized automatically, while external-browser opening remains an explicit user activation.
+3. **P3-M6-03** — running Focus live card uses the calibrated cyan→mint/lime edge with restrained glow instead of the old flat single-color accent.
+
+The M6 source/test slice is `+327/-29` across 13 files relative to its final main base. This closes the three Pass-3 `FIX_NOW` implementation rows only. M6 Gate F remains reopened for the replacement single-`focusSurface` placement/topology/end-to-end validation owned by the M7 line, and direct canonical comparison remains `VALIDATION_OPEN`; no `SOURCE_PARITY_PASS` is inferred from Narro-owned fixtures or CI.
 
 ### M7 — FIX_NOW source parity, plus independent physical gate
 
@@ -110,13 +114,13 @@ Keep open:
 ## CURRENT OWNERSHIP / CONCURRENCY
 
 User-directed ownership is now explicit and binding until newer repository truth changes it:
-- **M5/M6 implementation line:** M5 `P3-M5-01..05` is merged/resulting-main green on `cdbe496bb995311f5dacc0527ef94072683032d1`; continue with the routed M6 `P3-M6-01..03` correction slice from latest `main`. This line **stops after validated/merged M6** and must not take M7, M9 or M10.
+- **M5/M6 implementation line:** complete. M5 `P3-M5-01..05` is merged/resulting-main green on `cdbe496bb995311f5dacc0527ef94072683032d1`; M6 `P3-M6-01..03` is merged/resulting-main validated on `120c8b6c1aae54452b4369fe16f8c71ae98585ba` / CI #940. Do not reopen this implementation line without new evidence, and do not take M7, M9 or M10 ownership.
 - **M7 line:** the existing local Windows/Codex owner retains the entire M7 closure, including `P3-M7-01`, `P3-M7-02`, the PR #225 exact-EXE physical observations, and the M1/M6/M8 physical gates that depend on the same replacement `focusSurface` implementation. Do not create a parallel M7 replacement.
 - After those lines converge on authoritative `main`, the continuing Codex/release line may close the remaining M1–M9 obligations (including M9 Overview PDF and Reports/Sessions source/physical parity) and may enter M10 **only after the hard M10 entry gate in `AGENT_WORKFLOW.md` / `TODO.md` is proven clear**.
 
 ## NEXT AGENT ACTION
 
-For the M5/M6 implementation owner: M5 is reconciled and automated-green on resulting `main` source `cdbe496bb995311f5dacc0527ef94072683032d1`. Start one coherent M6 `P3-M6-01..03` feature branch from the latest authoritative `main`, preserve the M7/M9 ownership boundaries, run authoritative Windows CI, use an expected-head guarded merge, validate resulting `main`, then reconcile tracking. Stop implementation after validated/merged M6 and leave a durable handoff.
+For the M5/M6 implementation owner: no further source implementation is owned. The line is closed at M5 `cdbe496bb995311f5dacc0527ef94072683032d1` and M6 `120c8b6c1aae54452b4369fe16f8c71ae98585ba`. Preserve those regressions and leave replacement-host physical/source comparison to the existing M7 owner and later release line.
 
 For the M7/local-Windows owner: continue the existing M7 physical/source-parity line independently, including `P3-M7-01/02`; also close the still-reopened M1/M6/M8 physical acceptance that depends on the same final replacement build where the evidence can be batched safely.
 

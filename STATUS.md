@@ -1,6 +1,16 @@
 # STATUS.md
 
 Last updated: 2026-10-04
+## 2026-10-04 — M6 Pass-3 parity-correction slice merged; resulting-main CI #940 PASS
+
+PR #229 exact head `0b02beef8bd26757913a9c2a008d24a0cd3e8fb3` implemented `P3-M6-01..03`: post-commit ~250 ms reduced-motion-safe board fade before Focus presentation, exact Notes toolbar grammar plus automatic http(s) recognition with explicit external activation retained, and calibrated cyan→mint/lime running live-card edge/glow. The final reconciled PR diff is 13 files, `+327/-29`, and preserves the concurrent M7 compact-frame/native work.
+
+Windows CI #939 / run `37187036246` PASSed the exact PR head, including frontend/contracts, Rust formatting/check/Clippy/tests, performance harness, Windows visual regression, Tauri release, packaged Focus runtime, physical-validation build and diagnostic validation. Expected-head guarded squash merge `120c8b6c1aae54452b4369fe16f8c71ae98585ba` then PASSed resulting-main CI #940 / run `37188953409` via identical-tree validation.
+
+The three M6 Pass-3 `FIX_NOW` rows are now **AUTOMATED_VALIDATED**. This does not close the reopened Gate F replacement-host selected-monitor/placement, topology/display-change or complete end-to-end physical validation items, all of which remain with the M7/local-Windows owner. It also does not claim direct Blitzit `SOURCE_PARITY_PASS`. Global compact progress therefore remains **`3/10M || 3/5 | 14/19`**.
+
+Durable evidence: `work-log/2026-10-04-chatgpt-m6-pass3-pr229-main940-closure.md`.
+
 
 ## 2026-10-04 — PR230 native WebView pixel preservation; CI936 validation active
 
