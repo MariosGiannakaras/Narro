@@ -457,8 +457,12 @@ export function FocusLiveActions({
     let stopListening: (() => void) | undefined;
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
-      if (event.defaultPrevented || !isFocusActionShortcut(shortcut)
-        || hasActiveModalShortcutBoundary() || isEditableShortcutTarget(event.target)) return;
+      if (!shortcut || event.defaultPrevented) return;
+      if (hasActiveModalShortcutBoundary()) {
+        event.preventDefault();
+        return;
+      }
+      if (!isFocusActionShortcut(shortcut) || isEditableShortcutTarget(event.target)) return;
       event.preventDefault();
       shortcutHandlerRef.current(shortcut);
     };

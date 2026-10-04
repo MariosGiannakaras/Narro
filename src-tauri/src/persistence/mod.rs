@@ -21,6 +21,8 @@ pub mod task_metadata;
 pub mod task_schedule_edit;
 pub mod task_time_taken_edit;
 pub mod task_title_edit;
+#[cfg(test)]
+mod task_writer_contention;
 pub mod tasks;
 pub mod timed_alert_effects;
 pub mod timer_controller;

@@ -341,7 +341,7 @@ pub fn create_task(
     let title = normalize_title(&input.title)?;
     let est_seconds = validate_estimate(input.est_seconds)?;
     let id = TaskId::generate();
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     validate_active_list(&tx, input.list_id)?;
     let rank = next_bucket_rank(&tx, input.list_id, input.manual_lane)?;
     tx.execute(
@@ -427,7 +427,7 @@ pub fn update_task(
     validate_timestamp(now)?;
     let title = normalize_title(&input.title)?;
     let est_seconds = validate_estimate(input.est_seconds)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let current = get_task(&tx, id)?;
     ensure_mutable_task(&tx, &current)?;
     let changed = tx.execute(
@@ -451,7 +451,7 @@ pub fn move_task(
     now: &str,
 ) -> Result<TaskRecord, TaskStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let current = get_task(&tx, id)?;
     ensure_mutable_task(&tx, &current)?;
     if current.completed_at.is_some() {
@@ -531,7 +531,7 @@ pub fn complete_task(
     id: TaskId,
     now: &str,
 ) -> Result<TaskRecord, TaskStoreError> {
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let completed = complete_task_in_transaction(&tx, id, now)?;
     tx.commit()?;
     Ok(completed)
@@ -543,7 +543,7 @@ pub fn reopen_task(
     now: &str,
 ) -> Result<TaskRecord, TaskStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let current = get_task(&tx, id)?;
     ensure_mutable_task(&tx, &current)?;
     if current.completed_at.is_none() {
@@ -572,7 +572,7 @@ pub fn archive_task(
     now: &str,
 ) -> Result<TaskRecord, TaskStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let current = get_task(&tx, id)?;
     if current.archived_at.is_some() {
         drop(tx);
@@ -602,7 +602,7 @@ pub fn restore_task(
     now: &str,
 ) -> Result<TaskRecord, TaskStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let current = get_task(&tx, id)?;
     if current.archived_at.is_none() {
         drop(tx);
@@ -692,7 +692,7 @@ pub fn permanently_delete_task_confirmed(
 }
 
 pub fn permanently_delete_task(conn: &mut Connection, id: TaskId) -> Result<(), TaskStoreError> {
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let current = get_task(&tx, id)?;
     if current.archived_at.is_none() {
         return Err(TaskStoreError::MustArchiveBeforePermanentDelete(id));

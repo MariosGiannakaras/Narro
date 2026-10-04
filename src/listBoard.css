@@ -718,6 +718,7 @@
 
 .list-board-task__meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
@@ -753,23 +754,60 @@
 .list-board-task__times {
   display: inline-flex;
   align-items: center;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
   gap: var(--space-2);
   min-width: 0;
+  max-width: 100%;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .list-board-task__metric {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.2rem;
   min-width: 0;
+  max-width: 100%;
   min-height: 1.5rem;
   color: inherit;
   font: inherit;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+.list-board-task__metric strong {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+/* Reserve content at every width, independently of hover/focus visibility. */
+.list-board-task__schedule-trigger {
+  appearance: none;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 1.5rem;
+  padding: 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.list-board-task__schedule-trigger:hover,
+.list-board-task__schedule-trigger:focus-visible {
+  color: var(--color-text-primary);
+  background: var(--color-surface-interactive);
+}
+
+.list-board-task__schedule-trigger:focus-visible {
+  outline: 2px solid var(--color-accent-solid);
+  outline-offset: 2px;
 }
 
 .list-board-task__metric-button {

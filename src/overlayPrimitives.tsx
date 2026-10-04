@@ -63,7 +63,8 @@ export function Tooltip({
   const trigger = requireSingleElement(children, "Tooltip");
 
   useLayoutEffect(() => {
-    if (!open || !boundarySelector) return;
+    // Closed, mounted tooltips can otherwise enlarge a narrow card's scroll area.
+    if (!boundarySelector) return;
     const anchor = anchorRef.current;
     const tooltip = tooltipRef.current;
     const boundary = anchor?.closest<HTMLElement>(boundarySelector);

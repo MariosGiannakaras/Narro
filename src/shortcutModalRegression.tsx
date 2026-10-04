@@ -96,13 +96,16 @@ export async function runShortcutModalRegression(container: HTMLElement) {
   assert(Array.from(listeners.values()).some(listener => listener.event === FOCUS_IN_APP_SHORTCUT_EVENT),
     "real Focus event listener did not register");
   const actions = { B: "start-break", P: "pause-resume", S: "skip-task", F: "finish-task", N: "notes" };
-  for (const greek of [false, true]) for (const letter of Object.keys(actions)) {
-    key(button, letter, greek);
+  for (const greek of [false, true]) for (const letter of ["T", ...Object.keys(actions)]) {
+    assert(key(button, letter, greek).defaultPrevented, "Focus modal left native action default available");
     for (const listener of listeners.values()) if (listener.event === FOCUS_IN_APP_SHORTCUT_EVENT) {
       callbacks.get(listener.handler)!({ event: listener.event, id: listener.handler,
-        payload: actions[letter as keyof typeof actions] });
+        payload: letter === "T" ? "create-task" : actions[letter as keyof typeof actions] });
     }
     await wait();
+  }
+  for (const greek of [false, true]) {
+    assert(key(button, "F", greek, false).defaultPrevented, "Focus modal left native Find available");
   }
   assert(calls.length === baseline && notesRequests === 0, "modal leaked keyboard/delivered action");
   const enter = new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true });
@@ -133,8 +136,10 @@ export async function runShortcutModalRegression(container: HTMLElement) {
   main.focus(); key(main, "T"); await wait();
   const mainButton = addButton(), mainBaseline = calls.length;
   for (const greek of [false, true]) {
-    for (const letter of ["T", "B", "P", "S", "F", "N"]) key(mainButton, letter, greek);
-    key(mainButton, "F", greek, false);
+    for (const letter of ["T", "B", "P", "S", "F", "N"]) {
+      assert(key(mainButton, letter, greek).defaultPrevented, "Main modal left native action default available");
+    }
+    assert(key(mainButton, "F", greek, false).defaultPrevented, "Main modal left native Find available");
   }
   await wait();
   assert(calls.length === mainBaseline, "Main modal delivered background command");
@@ -153,5 +158,5 @@ export async function runShortcutModalRegression(container: HTMLElement) {
     "Main routing did not resume after dismissal");
   return { focusedButtonIsolated: true, deliveredEventsIsolated: true, localDialogKeysPreserved: true,
     inactiveModalIgnored: true, postModalAuthorityResumed: true, mainModalIsolated: true,
-    pendingMainDeliveryIsolated: true, bothKeyboardLayouts: true };
+    pendingMainDeliveryIsolated: true, bothKeyboardLayouts: true, modalNativeDefaultsConsumed: true };
 }

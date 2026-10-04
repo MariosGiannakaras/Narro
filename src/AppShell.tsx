@@ -156,8 +156,12 @@ export function AppShell({ children, fixtureMode = false, homeContent }: AppShel
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const shortcut = resolveInAppShortcut(event);
-      if (!shortcut || event.defaultPrevented || editorState || archivePendingId
-        || hasActiveModalShortcutBoundary()) return;
+      if (!shortcut || event.defaultPrevented) return;
+      if (editorState || archivePendingId || hasActiveModalShortcutBoundary()) {
+        // The modal owns recognized shortcuts, including WebView2's native Find default.
+        event.preventDefault();
+        return;
+      }
 
       if (shortcut === "search" || shortcut === "create-task") {
         if (shortcut === "create-task" && isEditableShortcutTarget(event.target)) return;

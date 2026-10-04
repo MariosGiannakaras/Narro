@@ -1,6 +1,6 @@
 param(
     [string]$OutputDirectory = "artifacts/visual-regression",
-    [ValidateSet("all", "focus-editors", "shortcut-modal")][string]$Scope = "all"
+    [ValidateSet("all", "focus-editors", "shortcut-modal", "board-metrics")][string]$Scope = "all"
 )
 
 $ErrorActionPreference = "Stop"
@@ -147,8 +147,8 @@ function Capture-Theme {
 }
 
 function Capture-FocusEditors([string]$theme) {
-    $editorScenarios = if ($Scope -eq "shortcut-modal") { @('shortcut-modal') } else {
-        @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel', 'board-narrow', 'timer-geometry', 'shortcut-modal')
+    $editorScenarios = if ($Scope -eq "shortcut-modal") { @('shortcut-modal') } elseif ($Scope -eq "board-metrics") { @('board-metrics') } else {
+        @('notes-panel-compact', 'notes-panel-large', 'notes-timerExpanded-compact', 'notes-timerExpanded-large', 'quick-success', 'quick-error', 'quick-empty', 'motion-panel-timerCompact', 'motion-timerCompact-panel', 'board-narrow', 'board-metrics', 'timer-geometry', 'shortcut-modal')
     }
     foreach ($editorScenario in $editorScenarios) {
         $motionVariants = if ($editorScenario.StartsWith('quick-')) { @($false) } else { @($false, $true) }
@@ -185,7 +185,7 @@ try {
     Wait-ForPreview -Url "$baseUrl/visual-fixtures.html?theme=light"
 
     foreach ($theme in @("light", "dark")) {
-        if ($Scope -in @("focus-editors", "shortcut-modal")) { Capture-FocusEditors $theme; continue }
+        if ($Scope -in @("focus-editors", "shortcut-modal", "board-metrics")) { Capture-FocusEditors $theme; continue }
         $url = "$baseUrl/visual-fixtures.html?theme=$theme"
         $screenshot = Join-Path $outputPath "$theme.png"
         $dom = Join-Path $outputPath "$theme.html"
