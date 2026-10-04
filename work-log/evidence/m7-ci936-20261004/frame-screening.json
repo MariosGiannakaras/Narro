@@ -1,0 +1,188 @@
+{
+  "method": "Screen every collapsed sequence180-frame header for light-surface loss/solid pale/no glyphs/classic blue caption; explicit thresholds in reproduction script",
+  "sequences": [
+    {
+      "folder": "motion/normal-100-middle-collapse-1",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/normal-100-middle-collapse-2",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/normal-100-bottom-collapse-1",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/normal-100-bottom-collapse-2",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/normal-125-middle-collapse-1",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/normal-125-middle-collapse-2",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/normal-125-bottom-collapse-1",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/normal-125-bottom-collapse-2",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-125-bottom-collapse-1",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 35,
+          "whiteFraction": 0.982,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-125-bottom-collapse-2",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 35,
+          "whiteFraction": 0.9902,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-125-middle-collapse-1",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 33,
+          "whiteFraction": 0.9902,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-125-middle-collapse-2",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 35,
+          "whiteFraction": 0.9831,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-100-bottom-collapse-1",
+      "framesScreened": 180,
+      "flagged": [],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-100-bottom-collapse-2",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 35,
+          "whiteFraction": 0.9795,
+          "darkPixels": 7,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-100-edge-collapse-1",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 38,
+          "whiteFraction": 0.9936,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        },
+        {
+          "frame": 39,
+          "whiteFraction": 0.9802,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-100-edge-collapse-2",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 35,
+          "whiteFraction": 0.9831,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-100-middle-collapse-1",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 36,
+          "whiteFraction": 0.9801,
+          "darkPixels": 8,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    },
+    {
+      "folder": "motion/reduced-100-middle-collapse-2",
+      "framesScreened": 180,
+      "flagged": [
+        {
+          "frame": 34,
+          "whiteFraction": 0.9917,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        },
+        {
+          "frame": 35,
+          "whiteFraction": 0.9801,
+          "darkPixels": 6,
+          "captionBluePixels": 0
+        }
+      ],
+      "limits": "Light paused Timer header only; pixel screening is not OCR/source-parity/motion acceptance. Flags require direct review."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "folder": "motion/normal-125-middle-expand-1",
+  "recording": 1,
+  "action": {
+    "utc": "2026-10-04T07:39:29.1002394Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Expand Floating Timer",
+    "windowId": 1247064,
+    "processId": 28652,
+    "offscreen": false,
+    "bounds": "-1334;474;40;40",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "observation": "normal-125-middle-expand-1.json",
+  "ptsStart": 538.0312389999999,
+  "crop": {
+    "x": 214,
+    "y": 396,
+    "width": 433,
+    "height": 383
+  },
+  "frames": 180,
+  "reviewed": false,
+  "method": "180 consecutive source60fps frames; decoded from continuous OBS recording; export is not PASS"
+}

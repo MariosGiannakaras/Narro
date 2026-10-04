@@ -1,0 +1,101 @@
+[
+  {
+    "recording": 1,
+    "originalFilename": "2026-10-04 10-30-30.mkv",
+    "originalBytes": 514153718,
+    "originalSha256": "4c094ab6e671076a8a331ba2d8cf44f7bc2ee608c9f0070b5e8c91a390663efb",
+    "startUtc": "2026-10-04T07:30:30.869Z",
+    "stopUtc": "2026-10-04T08:32:50.170Z",
+    "normalStop": true,
+    "obsPauseIntervals": [],
+    "parts": [
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part001",
+        "sha256": "3d1d168989d4e475bb0066f95a2d1e987a1bfb1971eace61d7800811ca7139ec",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part002",
+        "sha256": "54427e2aaaf74781fcee933e35f81bb551fe51235036e3f540c1243f6540eec9",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part003",
+        "sha256": "6e7a6e264995bf7ea126b7006aa9b9c586fb83bc1c399a738d77e854424d1a56",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part004",
+        "sha256": "cae9a031c68be873fbddd4611f6964cdb19d76cece6b089ddb7c28ae37e6b3a9",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part005",
+        "sha256": "7b27356c9beaaee4ef7b807224c018cd0abc7d95741b8b5299e5bb77c41b8abd",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part006",
+        "sha256": "f5f446eda7ad710adc9acb7696d23fec2422baed589d3b0c9401fd1eadb46d8c",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part007",
+        "sha256": "87a41d0a883206a5e001c42142a215399a290bf01cbccb4a0f83c1eb2ddc6d51",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part008",
+        "sha256": "6091c40c7993d5842174536bced9ac67f6735cde1765ae7d2c20126693b84bf0",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part009",
+        "sha256": "16c51143479bec7a977f3ffa9ba5dcbc426689f875ebde1b3046ea2ebead1cf4",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part010",
+        "sha256": "503d96ccaf9b71a80a14c2bc98938f8ab685a1fb6835fe63c22f33420e3034ce",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part011",
+        "sha256": "c468118bfa7158ddc3fa40ad8a458e708b6c4d7ccabf27a0e431f1e7dc4f5533",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part012",
+        "sha256": "9f366484741391461c201a59c130295c4cb08a03df28447a6e9f26c7cbcfef39",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 10-30-30.mkv.part013",
+        "sha256": "eac51a31eff8b7f9ad756fbd3c39b82469a8e9107a644ad5494ac59489fa0f3f",
+        "bytes": 10837238
+      }
+    ],
+    "note": "Full original dual-display capture. Secondary intentionally disabled after08:21:57; LG idle reconnect restoration09:03 occurs after OBS stop, proven separately by native observations. Not all footage was manually reviewed.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "3738.717000"
+      }
+    }
+  }
+]

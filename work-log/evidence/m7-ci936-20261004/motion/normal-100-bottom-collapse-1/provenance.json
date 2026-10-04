@@ -1,0 +1,29 @@
+{
+  "folder": "motion/normal-100-bottom-collapse-1",
+  "recording": 1,
+  "action": {
+    "utc": "2026-10-04T07:37:48.1614063Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Collapse Floating Timer",
+    "windowId": 1247064,
+    "processId": 28652,
+    "offscreen": false,
+    "bounds": "1395;872;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "observation": "normal-100-bottom-collapse-1.json",
+  "ptsStart": 437.09240600000004,
+  "crop": {
+    "x": 3016,
+    "y": 776,
+    "width": 348,
+    "height": 304
+  },
+  "frames": 180,
+  "reviewed": false,
+  "method": "180 consecutive source60fps frames; decoded from continuous OBS recording; export is not PASS",
+  "actualDecodedDimensions": {
+    "width": 348,
+    "height": 304
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "folder": "panel-motion/reduced-125-middle-restore-1",
+  "action": {
+    "utc": "2026-10-04T07:45:18.1456812Z",
+    "action": "physical-scancode-chord",
+    "windowId": 1247064,
+    "pid": 28652,
+    "chord": "Ctrl+Shift+T",
+    "scancodes": [
+      29,
+      42,
+      20
+    ],
+    "injection": "keybd_event KEYEVENTF_SCANCODE; normal Windows input path"
+  },
+  "observation": "reduced-125-middle-restore-1.json",
+  "priorObservation": "reduced-125-middle-panel-1.json",
+  "ptsStart": 887.076681,
+  "crop": {
+    "x": 214,
+    "y": 0,
+    "width": 4266,
+    "height": 708
+  },
+  "displayRects": [
+    [
+      4136,
+      0,
+      344,
+      708
+    ],
+    [
+      214,
+      396,
+      433,
+      146
+    ]
+  ],
+  "frames": 120,
+  "reviewed": false,
+  "method": "Consecutive source60fps frames; old and new locations both retained; no automatic visual PASS"
+}

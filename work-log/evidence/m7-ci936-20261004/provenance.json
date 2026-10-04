@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-04T07:28:37.4418117Z",
+  "validatedHead": "ff21477e57b42b7e672b439625db6e9a20abb152",
+  "mergeCommit": "f9a282d0ee7bcc5e7b40abb83df459927036662a",
+  "ciRun": 37184564836,
+  "ciNumber": 936,
+  "ci": "PASS all jobs",
+  "duplicateMainRun": 37185693254,
+  "duplicateMainNumber": 937,
+  "duplicateStatus": "CANCEL REQUESTED after zero non-Markdown diff",
+  "exeSha256": "4136582562a19aaa2fbd0cd2a67c49b4353117186a66be41fa84cb4968311a78",
+  "diagnosticExeSha256": "add3e892b6f08879730dbd017862d36f1d9ca94040ada29f7ae769c5c0b5be53",
+  "runtimeDiffCount": 0,
+  "runtimeDiffMethod": "git diff --name-only ff21477 f9a282 -- . :!*.md returned empty",
+  "computerUse": "Sky accessible/keyboard with authorized UIA/Win32 capture/input fallback after repeat WGC timeout",
+  "physicalStatus": "NOT YET ACCEPTED"
+}

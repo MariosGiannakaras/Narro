@@ -1,0 +1,23 @@
+{
+  "recording": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-ci936-physical-20261004\\run-final\\video\\2026-10-04 10-30-30.mkv",
+  "action": {
+    "utc": "2026-10-04T07:34:01.3982250Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Collapse Floating Timer",
+    "windowId": 1247064,
+    "processId": 28652,
+    "offscreen": false,
+    "bounds": "1395;625;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "ptsStart": 210.329225,
+  "crop": {
+    "x": 3016,
+    "y": 529,
+    "width": 348,
+    "height": 310
+  },
+  "frames": 180,
+  "reviewed": false,
+  "note": "Decoded from still-open continuous OBS capture; original hash will be frozen after normal Stop. Export is not PASS."
+}

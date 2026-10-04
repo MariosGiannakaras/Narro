@@ -1,0 +1,29 @@
+{
+  "folder": "motion/reduced-125-middle-collapse-2",
+  "recording": 1,
+  "action": {
+    "utc": "2026-10-04T07:45:10.9935615Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Collapse Floating Timer",
+    "windowId": 1247064,
+    "processId": 28652,
+    "offscreen": false,
+    "bounds": "-1334;514;40;41",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "observation": "reduced-125-middle-collapse-2.json",
+  "ptsStart": 879.9245609999999,
+  "crop": {
+    "x": 214,
+    "y": 396,
+    "width": 433,
+    "height": 383
+  },
+  "frames": 180,
+  "reviewed": false,
+  "method": "180 consecutive source60fps frames; decoded from continuous OBS recording; export is not PASS",
+  "actualDecodedDimensions": {
+    "width": 432,
+    "height": 382
+  }
+}

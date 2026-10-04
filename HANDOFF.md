@@ -1,3 +1,9 @@
+# CURRENT M7: final PR231/CI942 validation
+
+CI936 whole native logs/video/7440 motion frames and2340 directly reviewed frames are on main in [the complete result](work-log/2026-10-04-codex-m7-ci936-physical-results.md). Native continuity/Notes/input/C5 pass exercised paths; external desktop shadow is an explicit correctness deviation. Quiet936/repaired231-helper performance3/3 valid, median403.874MiB summed working set and310.789MiB private bytes, near-zero CPU/no churn. Both100%/125% displays are restored via Duplicate→Extend; Windows changed display-name assignments, stale preference safely falls back.
+
+Next: full CI942/head c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d, guarded PR231 integration/exact artifacts, formal corrected diagnostic B/C, affected latest M6 Notes/entry physical checks, then closure tracking. Current counts3/10M || 3/5 |14/19. Preserve original failures and separate source/executable/helper lineage. Historical handoffs below are superseded.
+
 # HANDOFF.md
 
 Canonical current continuation point. GitHub `main` is authoritative. Read `AI_START_HERE.md`, `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, active `TODO.md`, relevant `STATUS.md`, `docs/EVIDENCE_ROUTING_MAP.md`, `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`, `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`, `docs/BLITZIT_VISUAL_SYSTEM.md`, and the newest relevant immutable `work-log/` entries before implementation.

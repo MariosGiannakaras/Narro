@@ -1,0 +1,20 @@
+{"utc":"2026-10-04T07:47:54.4649839Z","action":"native-uia-observed-pointer-click","button":"Expand Floating Timer","windowId":1247064,"processId":28652,"offscreen":false,"bounds":"1395;1024;32;32","authorization":"User authorized native fallback for real Windows testing"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":780,"width":340,"height":700,"x":1100},"client":{"y":780,"width":340,"height":700,"x":1100}}
+{"utc":"2026-10-04T07:47:58.6362796Z","action":"native-uia-observed-pointer-click","button":"Collapse Floating Timer","windowId":1247064,"processId":28652,"offscreen":false,"bounds":"1395;872;32;32","authorization":"User authorized native fallback for real Windows testing"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":780,"width":340,"height":700,"x":1100},"client":{"y":780,"width":340,"height":700,"x":1100}}
+{"utc":"2026-10-04T07:48:04.7617715Z","action":"native-uia-observed-pointer-click","button":"Expand Floating Timer","windowId":1247064,"processId":28652,"offscreen":false,"bounds":"1395;839;32;32","authorization":"User authorized native fallback for real Windows testing"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":780,"width":340,"height":700,"x":1100},"client":{"y":780,"width":340,"height":700,"x":1100}}
+{"utc":"2026-10-04T07:48:11.6091578Z","action":"native-uia-observed-pointer-click","button":"Collapse Floating Timer","windowId":1247064,"processId":28652,"offscreen":false,"bounds":"1395;872;32;32","authorization":"User authorized native fallback for real Windows testing"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":780,"width":340,"height":700,"x":1100},"client":{"y":780,"width":340,"height":700,"x":1100}}
+{"utc":"2026-10-04T07:48:17.9895784Z","action":"physical-scancode-chord","windowId":1247064,"pid":28652,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":0,"width":340,"height":700,"x":2220}}
+{"utc":"2026-10-04T07:48:21.8927688Z","action":"physical-scancode-chord","windowId":1247064,"pid":28652,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":780,"width":340,"height":700,"x":1100}}
+{"utc":"2026-10-04T07:48:25.2844596Z","action":"physical-scancode-chord","windowId":1247064,"pid":28652,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":0,"width":340,"height":700,"x":2220}}
+{"utc":"2026-10-04T07:48:28.7369215Z","action":"physical-scancode-chord","windowId":1247064,"pid":28652,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":780,"width":340,"height":700,"x":1100}}
+{"utc":"2026-10-04T07:48:32.1159580Z","action":"physical-scancode-chord","windowId":1247064,"pid":28652,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":0,"width":340,"height":700,"x":2220}}
+{"utc":"2026-10-04T07:48:35.5558724Z","action":"physical-scancode-chord","windowId":1247064,"pid":28652,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"hwnd":1247064,"dpi":96,"outer":{"y":780,"width":340,"height":700,"x":1100}}

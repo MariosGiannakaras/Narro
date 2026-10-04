@@ -1,0 +1,42 @@
+{
+  "folder": "panel-motion/reduced-100-edge-restore-1",
+  "action": {
+    "utc": "2026-10-04T07:48:21.8927688Z",
+    "action": "physical-scancode-chord",
+    "windowId": 1247064,
+    "pid": 28652,
+    "chord": "Ctrl+Shift+T",
+    "scancodes": [
+      29,
+      42,
+      20
+    ],
+    "injection": "keybd_event KEYEVENTF_SCANCODE; normal Windows input path"
+  },
+  "observation": "reduced-100-edge-restore-1.json",
+  "priorObservation": "reduced-100-edge-panel-1.json",
+  "ptsStart": 1070.823768,
+  "crop": {
+    "x": 3016,
+    "y": 0,
+    "width": 1464,
+    "height": 894
+  },
+  "displayRects": [
+    [
+      4136,
+      0,
+      344,
+      708
+    ],
+    [
+      3016,
+      776,
+      348,
+      118
+    ]
+  ],
+  "frames": 120,
+  "reviewed": false,
+  "method": "Consecutive source60fps frames; old and new locations both retained; no automatic visual PASS"
+}

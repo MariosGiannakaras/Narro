@@ -1,0 +1,12 @@
+physicalCursor=-1654,468
+{"utc":"2026-10-04T08:08:13.6710847Z","action":"observed physical hover","name":"Start break","x":-1654,"y":468,"windowId":1247064}
+physicalCursor=-1588,468
+{"utc":"2026-10-04T08:08:20.0091304Z","action":"observed physical hover","name":"Notes","x":-1588,"y":468,"windowId":1247064}
+physicalCursor=-1524,468
+{"utc":"2026-10-04T08:08:26.4801095Z","action":"observed physical hover","name":"Resume","x":-1524,"y":468,"windowId":1247064}
+physicalCursor=-1458,468
+{"utc":"2026-10-04T08:08:32.7154805Z","action":"observed physical hover","name":"Skip task","x":-1458,"y":468,"windowId":1247064}
+physicalCursor=-1392,468
+{"utc":"2026-10-04T08:08:38.8602399Z","action":"observed physical hover","name":"Complete task","x":-1392,"y":468,"windowId":1247064}
+physicalCursor=-1326,468
+{"utc":"2026-10-04T08:08:45.4473104Z","action":"observed physical hover","name":"Return to Focus Panel","x":-1326,"y":468,"windowId":1247064}

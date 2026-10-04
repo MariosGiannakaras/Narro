@@ -1,0 +1,13 @@
+# CI936 complete exact-build evidence
+
+Production source `ff21477e57b42b7e672b439625db6e9a20abb152`, PR230, full CI936/run37184564836 PASS, mergef9a282d identical non-Markdown tree. EXE4136582562a19aaa2fbd0cd2a67c49b4353117186a66be41fa84cb4968311a78, artifact11296657772. Diagnostic EXEadd3e892b6f08879730dbd017862d36f1d9ca94040ada29f7ae769c5c0b5be53, artifact11297166374.
+
+The **whole original `Narro-M7-Logs` folder** is frozen byte-for-byte after the final production Quit, all11 files including two complete sessions and pending-next-restart state. The ZIP is an additional byte-identical convenient copy. `c5-accepted-result.json` is the completed PASS; pending-next-restart does not imply another completed test. Production database/backups and executables are excluded.
+
+[Actual PASS/FAIL and visual review](VISUAL_REVIEW.md), [exact inspected ranges](visual-review-ranges.json), [artifact provenance](artifact-download-provenance.json), [whole native logs](Narro-M7-Logs), [performance batch](performance-repaired/batch-summary.json).
+
+The complete original4480×1080/60fps OBS recording is split into40MiB binary parts in `raw-video/recording-1`. Concatenate listed parts in order and verify `originalSha256` from `video-provenance.json`; the published reassembly has been verified byte-for-byte. Actual OBS start07:30:30.869Z/stop08:32:50.170Z; encoded duration3738.717s differs slightly from wall time due capture/drain. No pause. Intentional secondary removal after08:21:57 produces black secondary output; it is not a Narro pixel-loss verdict. Later09:03 restoration is documented separately.
+
+`motion` contains36 sequences/6480 consecutive PNGs and `panel-motion` eight sequences/960 PNGs with original action, native endpoint observations, PTS and exact bounded crop. Export is not automatically review/PASS. Direct review covers2340 unique frames plus flagged neighborhoods; duplicate live exports are not double-counted. `gallery` is derived from this video for independent ChatGPT visual review. Canonical supplied Blitzit images are in `canonical`; native exterior shadow is an explicit reliability deviation, not claimed parity.
+
+`actions.jsonl` retains all original161 normalized records plus later reconnect observations; the original mixed-encoding bytes and repair report are preserved. Native/UI snapshots, resource/input observations, corrected collector provenance and raw performance samples are included. Repaired helper source is PR231/c2821e6; executable being measured is still936. Original diagnostic B/performance failures remain visible; final corrected942 checks are a separate evidence package.

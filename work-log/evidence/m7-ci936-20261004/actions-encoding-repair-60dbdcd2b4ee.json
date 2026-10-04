@@ -1,0 +1,6 @@
+{
+  "reason": "PowerShell 5 Tee-Object appended ASCII JSON as UTF16LE to UTF8. All affected code units verified ASCII; original bytes retained; no action dropped.",
+  "rows": 161,
+  "originalSha256": "60dbdcd2b4ee6cda7e8c15a728ee28e4816359c5bb55e01126995ba0a02c657d",
+  "normalizedSha256": "1ad22b8614c4a5541bbea97364be6743fcf13ee9fcc5ac7eaced94064575af35"
+}

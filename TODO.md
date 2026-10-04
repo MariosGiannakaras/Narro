@@ -2,6 +2,8 @@
 
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
+**Current execution:** CI936 physical continuity/source grammar/Notes/C5 and three-run performance are reviewed and published; Duplicate→Extend restores both100%/125% displays. PR231/head c2821e6/CI942 is the shared diagnostic correction, awaiting final exact-build formal B/C and affected integrated Notes checks. [Current complete result](work-log/2026-10-04-codex-m7-ci936-physical-results.md). Older checkpoint descriptions below retain history and do not require repeating superseded candidates. M7 remains3/5 until final closure.
+
 - [ ] FIX_NOW diagnostic batch `M7-OBS-20261004-15/16`: CI936 physical matrix2/4 FAIL from requested/persisted monitor conflict at DPI recovery; actual performance preflight fails on read-only `$PID` collision before sampling. Align diagnostic placement with production preference authority, restore original placement settings on success/failure, repair owner-variable enumeration and add executable regression coverage; one shared CI/build, then affected physical matrix/performance. Windows secondary re-enable currently does not stick; reconnect is OPEN, not PASS. [Current exact findings](work-log/2026-10-04-codex-m7-ci936-physical-checkpoint.md).
 
 **CI936 physical checkpoint:** C5 PASS at `(1280,616)` after actual ~2986px cross-monitor drag/tray Quit/same EXE/explicit Timer restore, same task paused325 durable seconds. Notes save/restart/complete and bounded large-editor paths exercised. C4 final continuous/native/source review and M1 placement/reconnect/performance remain OPEN. These results supersede CI932 for the exercised changed paths only; whole CI936 evidence publication is being prepared.

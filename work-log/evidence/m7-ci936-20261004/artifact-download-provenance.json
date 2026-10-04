@@ -1,0 +1,58 @@
+{
+  "run": {
+    "conclusion": "success",
+    "headSha": "ff21477e57b42b7e672b439625db6e9a20abb152",
+    "status": "completed"
+  },
+  "downloads": [
+    {
+      "artifact": {
+        "id": 11296657772,
+        "node_id": "MDg6QXJ0aWZhY3QxMTI5NjY1Nzc3Mg==",
+        "name": "narro-m7-validation-windows-x64",
+        "size_in_bytes": 5402642,
+        "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/11296657772",
+        "archive_download_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/11296657772/zip",
+        "expired": false,
+        "digest": "sha256:4c4f8ef66eb79c45ec22f6d6b672c9172eb5ea0a7686e05ed01f4350b7df4758",
+        "created_at": "2026-10-04T07:20:50Z",
+        "updated_at": "2026-10-04T07:20:50Z",
+        "expires_at": "2027-01-02T07:01:52Z",
+        "workflow_run": {
+          "id": 37184564836,
+          "repository_id": 1334565718,
+          "head_repository_id": 1334565718,
+          "head_branch": "fix/m7-preserve-native-pixels",
+          "head_sha": "ff21477e57b42b7e672b439625db6e9a20abb152"
+        }
+      },
+      "archiveSha256": "4c4f8ef66eb79c45ec22f6d6b672c9172eb5ea0a7686e05ed01f4350b7df4758",
+      "zipFile": "candidate.zip"
+    },
+    {
+      "artifact": {
+        "id": 11297166374,
+        "node_id": "MDg6QXJ0aWZhY3QxMTI5NzE2NjM3NA==",
+        "name": "narro-m1-diagnostic-windows-x64",
+        "size_in_bytes": 5422159,
+        "url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/11297166374",
+        "archive_download_url": "https://api.github.com/repos/MariosGiannakaras/Narro/actions/artifacts/11297166374/zip",
+        "expired": false,
+        "digest": "sha256:1e9b3f113403be48123040cfa3aab757c494c0f3ae27c9a1878c1f3c394f5bc4",
+        "created_at": "2026-10-04T07:22:31Z",
+        "updated_at": "2026-10-04T07:22:31Z",
+        "expires_at": "2027-01-02T07:01:52Z",
+        "workflow_run": {
+          "id": 37184564836,
+          "repository_id": 1334565718,
+          "head_repository_id": 1334565718,
+          "head_branch": "fix/m7-preserve-native-pixels",
+          "head_sha": "ff21477e57b42b7e672b439625db6e9a20abb152"
+        }
+      },
+      "archiveSha256": "1e9b3f113403be48123040cfa3aab757c494c0f3ae27c9a1878c1f3c394f5bc4",
+      "zipFile": "m1-diagnostic.zip"
+    }
+  ],
+  "utc": "2026-10-04T07:24:17.177Z"
+}

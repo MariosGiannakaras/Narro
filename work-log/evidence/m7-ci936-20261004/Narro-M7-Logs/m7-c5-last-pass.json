@@ -1,0 +1,81 @@
+{
+  "currentSessionId": "844bb87a-b729-4198-9ed3-bba5247449a7",
+  "generatedUtc": "2026-10-04T08:10:38.216Z",
+  "metrics": {
+    "actualPosition": {
+      "x": 1280,
+      "y": 616
+    },
+    "executableFingerprintUnchanged": true,
+    "expectedPosition": {
+      "x": 1280,
+      "y": 616
+    },
+    "loadedSavedPlacement": {
+      "monitorName": "\\\\.\\DISPLAY2",
+      "outerSize": {
+        "height": 110,
+        "width": 340
+      },
+      "position": {
+        "x": 1280,
+        "y": 616
+      },
+      "version": 1,
+      "workArea": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "height": 1080,
+          "width": 2560
+        }
+      }
+    },
+    "maxMoveDistancePx": 3254,
+    "positionTolerancePx": 2,
+    "restoreSessionId": "844bb87a-b729-4198-9ed3-bba5247449a7",
+    "savedPlacement": {
+      "monitorName": "\\\\.\\DISPLAY2",
+      "outerSize": {
+        "height": 110,
+        "width": 340
+      },
+      "position": {
+        "x": 1280,
+        "y": 616
+      },
+      "version": 1,
+      "workArea": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "height": 1080,
+          "width": 2560
+        }
+      }
+    },
+    "sourceSessionId": "c469d73f-dc65-4cef-b1e6-2f067b6b5643",
+    "sourceShaUnchanged": true,
+    "targetWorkArea": {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "height": 1080,
+        "width": 2560
+      }
+    },
+    "topologyUnchanged": true
+  },
+  "pendingSourceSessionId": "c469d73f-dc65-4cef-b1e6-2f067b6b5643",
+  "reason": "qualifying-drag-normal-tray-quit-new-process-and-safe-saved-placement-restore-all-recorded",
+  "schemaVersion": 1,
+  "sourceSha": "ff21477e57b42b7e672b439625db6e9a20abb152",
+  "status": "PASS",
+  "test": "M7-C5-saved-placement-restart"
+}

@@ -1,6 +1,12 @@
 # STATUS.md
 
 Last updated: 2026-10-04
+## 2026-10-04 — CI936 physical review complete; PR231/CI942 final diagnostics
+
+Exact CI936 now passes the exercised native continuity, hover/canonical grammar, bounded Notes/input and C5 paths. Whole logs/ZIP, complete dual60fps original,7440 exported frames and2340 unique directly inspected frames are published in [the full result](work-log/2026-10-04-codex-m7-ci936-physical-results.md). The exterior shadow is an explicit Windows correctness deviation rather than claimed source parity. Three quiet936/repaired-helper runs are valid, median0% one-core CPU,403.874MiB summed working set/310.789MiB private committed, zero churn; consistent with earlier404–409MiB. LG reconnect is resolved with the user-provided Duplicate→Extend sequence; fresh UI confirms100%/125%, same process survives topology recovery.
+
+PR231/head c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d batches diagnostic placement authority/restoration and real native performance callback regression. Local full frontend and harness PASS; full Windows CI942/run37191346390 is in progress. Final corrected formal matrix/topology and affected integrated M6 Notes/entry checks remain. M7 stays3/5, global3/10M/historical14/19; this does not start another milestone. Historical checkpoints below describe their original observation time.
+
 ## 2026-10-04 — CI936 physical C5/Notes pass; diagnostic batch corrections
 
 Exact CI936 production EXE `4136582562a19aaa2fbd0cd2a67c49b4353117186a66be41fa84cb4968311a78` completed real active compact cross-monitor drag (~2986px), tray Quit, same-EXE relaunch and explicit Timer reappearance at `(1280,616)`. Native C5 evaluator PASS, same task recovered paused with325 durable work seconds; four-line Notes survived restart and completion retained325 seconds. Both-axis large Notes containment/resize and keyboard/Escape/Save were exercised at100% normal and125% reduced motion. Physical keyboard and Break-pointer actions worked while the finite native child existed, with unchanged sampled GDI/USER resource counts. Full continuous dual-display recording is stopped and retained locally for final video-derived publication; direct inspected collapse ranges show no Timer absence so far, but C4/canonical comparison remains open.

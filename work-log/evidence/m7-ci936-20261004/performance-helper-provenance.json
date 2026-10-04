@@ -1,0 +1,7 @@
+{
+  "executableBuild": "CI936",
+  "exeSha256": "add3e892b6f08879730dbd017862d36f1d9ca94040ada29f7ae769c5c0b5be53",
+  "scenarioHelperSource": "c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d",
+  "scenarioHelperSha256": "80dbfc497d3074a5243e8d0a0975ec0a8a80652dd459f6d81f00817db2e47b22",
+  "note": "Repaired native scenario collector from PR231; measured executable remains exact CI936. Original CI936 artifact helper fails before sampling and is not rewritten."
+}

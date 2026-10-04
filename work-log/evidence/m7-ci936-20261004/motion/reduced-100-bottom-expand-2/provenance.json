@@ -1,0 +1,25 @@
+{
+  "folder": "motion/reduced-100-bottom-expand-2",
+  "recording": 1,
+  "action": {
+    "utc": "2026-10-04T07:46:33.2123309Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Expand Floating Timer",
+    "windowId": 1247064,
+    "processId": 28652,
+    "offscreen": false,
+    "bounds": "1395;815;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "observation": "reduced-100-bottom-expand-2.json",
+  "ptsStart": 962.14333,
+  "crop": {
+    "x": 3016,
+    "y": 752,
+    "width": 348,
+    "height": 308
+  },
+  "frames": 180,
+  "reviewed": false,
+  "method": "180 consecutive source60fps frames; decoded from continuous OBS recording; export is not PASS"
+}

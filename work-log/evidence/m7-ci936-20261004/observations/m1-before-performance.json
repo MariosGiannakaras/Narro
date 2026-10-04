@@ -1,0 +1,223 @@
+{
+    "utc":  "2026-10-04T08:59:37.4862616Z",
+    "windows":  [
+                    {
+                        "hwnd":  593030,
+                        "pid":  139484,
+                        "process":  "narro",
+                        "title":  "Narro - Focus",
+                        "visible":  true,
+                        "dpi":  96,
+                        "outer":  {
+                                      "y":  0,
+                                      "width":  340,
+                                      "height":  700,
+                                      "x":  1993
+                                  },
+                        "client":  {
+                                       "y":  0,
+                                       "width":  340,
+                                       "height":  700,
+                                       "x":  1993
+                                   }
+                    },
+                    {
+                        "hwnd":  5246154,
+                        "pid":  139484,
+                        "process":  "narro",
+                        "title":  "",
+                        "visible":  false,
+                        "dpi":  96,
+                        "outer":  {
+                                      "y":  182,
+                                      "width":  1920,
+                                      "height":  789,
+                                      "x":  182
+                                  },
+                        "client":  {
+                                       "y":  213,
+                                       "width":  1904,
+                                       "height":  750,
+                                       "x":  190
+                                   }
+                    },
+                    {
+                        "hwnd":  11076186,
+                        "pid":  139484,
+                        "process":  "narro",
+                        "title":  "com.mariosg.Narro.M1Diagnostic-siw",
+                        "visible":  true,
+                        "dpi":  96,
+                        "outer":  {
+                                      "y":  0,
+                                      "width":  16,
+                                      "height":  16,
+                                      "x":  0
+                                  },
+                        "client":  {
+                                       "y":  31,
+                                       "width":  0,
+                                       "height":  0,
+                                       "x":  8
+                                   }
+                    },
+                    {
+                        "hwnd":  7078454,
+                        "pid":  139484,
+                        "process":  "narro",
+                        "title":  "",
+                        "visible":  true,
+                        "dpi":  96,
+                        "outer":  {
+                                      "y":  0,
+                                      "width":  16,
+                                      "height":  16,
+                                      "x":  0
+                                  },
+                        "client":  {
+                                       "y":  31,
+                                       "width":  0,
+                                       "height":  0,
+                                       "x":  8
+                                   }
+                    },
+                    {
+                        "hwnd":  2426128,
+                        "pid":  139484,
+                        "process":  "narro",
+                        "title":  "MSCTFIME UI",
+                        "visible":  false,
+                        "dpi":  96,
+                        "outer":  {
+                                      "y":  0,
+                                      "width":  0,
+                                      "height":  0,
+                                      "x":  0
+                                  },
+                        "client":  {
+                                       "y":  0,
+                                       "width":  0,
+                                       "height":  0,
+                                       "x":  0
+                                   }
+                    },
+                    {
+                        "hwnd":  86771320,
+                        "pid":  139484,
+                        "process":  "narro",
+                        "title":  "Default IME",
+                        "visible":  false,
+                        "dpi":  96,
+                        "outer":  {
+                                      "y":  0,
+                                      "width":  0,
+                                      "height":  0,
+                                      "x":  0
+                                  },
+                        "client":  {
+                                       "y":  0,
+                                       "width":  0,
+                                       "height":  0,
+                                       "x":  0
+                                   }
+                    }
+                ],
+    "elements":  [
+                     {
+                         "name":  "Narro Diagnostic - Focus",
+                         "type":  "ControlType.Pane",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "1993;0;340;700"
+                     },
+                     {
+                         "name":  "Narro Diagnostic - Focus - Web content",
+                         "type":  "ControlType.Pane",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "1993;0;340;700"
+                     },
+                     {
+                         "name":  "Narro Diagnostic - Focus",
+                         "type":  "ControlType.Document",
+                         "offscreen":  false,
+                         "focus":  true,
+                         "enabled":  true,
+                         "bounds":  "1993;0;340;700"
+                     },
+                     {
+                         "name":  "Floating Timer",
+                         "type":  "ControlType.Group",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "1993;0;340;110"
+                     },
+                     {
+                         "name":  "No active focus task",
+                         "type":  "ControlType.Text",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "2006;24;152;22"
+                     },
+                     {
+                         "name":  "Idle: --:-- remaining",
+                         "type":  "ControlType.Group",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "2251;23;74;24"
+                     },
+                     {
+                         "name":  "--:--",
+                         "type":  "ControlType.Text",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "2294;24;31;21"
+                     },
+                     {
+                         "name":  "Floating Timer subtask summary",
+                         "type":  "ControlType.Group",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "2006;67;314;32"
+                     },
+                     {
+                         "name":  "0 of 0 subtasks complete",
+                         "type":  "ControlType.ProgressBar",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "2006;69;28;28"
+                     },
+                     {
+                         "name":  "Subtasks",
+                         "type":  "ControlType.Text",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "2040;74;47;17"
+                     },
+                     {
+                         "name":  "Add subtask",
+                         "type":  "ControlType.Button",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  false,
+                         "bounds":  "2250;67;32;32"
+                     },
+                     {
+                         "name":  "Return to Focus Panel",
+                         "type":  "ControlType.Button",
+                         "offscreen":  false,
+                         "focus":  false,
+                         "enabled":  true,
+                         "bounds":  "2288;67;32;32"
+                     }
+                 ]
+}

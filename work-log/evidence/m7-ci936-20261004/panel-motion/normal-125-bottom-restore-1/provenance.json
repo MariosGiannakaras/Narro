@@ -1,0 +1,42 @@
+{
+  "folder": "panel-motion/normal-125-bottom-restore-1",
+  "action": {
+    "utc": "2026-10-04T07:41:11.6042298Z",
+    "action": "physical-scancode-chord",
+    "windowId": 1247064,
+    "pid": 28652,
+    "chord": "Ctrl+Shift+T",
+    "scancodes": [
+      29,
+      42,
+      20
+    ],
+    "injection": "keybd_event KEYEVENTF_SCANCODE; normal Windows input path"
+  },
+  "observation": "normal-125-bottom-restore-1.json",
+  "priorObservation": "normal-125-bottom-panel-1.json",
+  "ptsStart": 640.535229,
+  "crop": {
+    "x": 214,
+    "y": 0,
+    "width": 4266,
+    "height": 847
+  },
+  "displayRects": [
+    [
+      4136,
+      0,
+      344,
+      708
+    ],
+    [
+      214,
+      701,
+      433,
+      146
+    ]
+  ],
+  "frames": 120,
+  "reviewed": false,
+  "method": "Consecutive source60fps frames; old and new locations both retained; no automatic visual PASS"
+}

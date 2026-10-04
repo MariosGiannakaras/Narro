@@ -1,0 +1,158 @@
+[
+  {
+    "file": "gallery/large-notes-100.png",
+    "pts": 1780.839653,
+    "utcObservation": "2026-10-04T08:00:11.8586532Z",
+    "observation": "large-notes-100.json",
+    "crop": [
+      3016,
+      529,
+      348,
+      308
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/large-notes-125-reduced.png",
+    "pts": 2103.087091,
+    "utcObservation": "2026-10-04T08:05:34.1060916Z",
+    "observation": "large-notes-125-reduced.json",
+    "crop": [
+      214,
+      420,
+      433,
+      383
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/notes-resize-min-125.png",
+    "pts": 2174.929209,
+    "utcObservation": "2026-10-04T08:06:45.9482093Z",
+    "observation": "notes-resize-min-125.json",
+    "crop": [
+      214,
+      420,
+      433,
+      383
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/c5-before-quit.png",
+    "pts": 2327.3160629999998,
+    "utcObservation": "2026-10-04T08:09:18.3350631Z",
+    "observation": "c5-before-quit.json",
+    "crop": [
+      3196,
+      612,
+      348,
+      118
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/c5-restored.png",
+    "pts": 2455.673389,
+    "utcObservation": "2026-10-04T08:11:26.6923899Z",
+    "observation": "c5-restored.json",
+    "crop": [
+      3196,
+      612,
+      348,
+      118
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/notes-after-restart.png",
+    "pts": 2490.0476759999997,
+    "utcObservation": "2026-10-04T08:12:01.0666762Z",
+    "observation": "notes-restart-persisted.json",
+    "crop": [
+      3196,
+      612,
+      348,
+      308
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/hover-0.png",
+    "pts": 2266.059068,
+    "utcObservation": "2026-10-04T08:08:17.0780681Z",
+    "observation": "hover-after-0.json",
+    "crop": [
+      214,
+      420,
+      433,
+      146
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/hover-1.png",
+    "pts": 2272.2781179999997,
+    "utcObservation": "2026-10-04T08:08:23.2971188Z",
+    "observation": "hover-after-1.json",
+    "crop": [
+      214,
+      420,
+      433,
+      146
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/hover-2.png",
+    "pts": 2278.75229,
+    "utcObservation": "2026-10-04T08:08:29.7712908Z",
+    "observation": "hover-after-2.json",
+    "crop": [
+      214,
+      420,
+      433,
+      146
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/hover-3.png",
+    "pts": 2284.943437,
+    "utcObservation": "2026-10-04T08:08:35.9624373Z",
+    "observation": "hover-after-3.json",
+    "crop": [
+      214,
+      420,
+      433,
+      146
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/hover-4.png",
+    "pts": 2291.5497849999997,
+    "utcObservation": "2026-10-04T08:08:42.5687858Z",
+    "observation": "hover-after-4.json",
+    "crop": [
+      214,
+      420,
+      433,
+      146
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  },
+  {
+    "file": "gallery/hover-5.png",
+    "pts": 2297.728158,
+    "utcObservation": "2026-10-04T08:08:48.7471586Z",
+    "observation": "hover-after-5.json",
+    "crop": [
+      214,
+      420,
+      433,
+      146
+    ],
+    "source": "recording1 original OBS dual60fps; UTC alignment approximate capture scheduling; no new screenshot"
+  }
+]

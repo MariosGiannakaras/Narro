@@ -1,0 +1,314 @@
+{
+    "utc":  "2026-10-04T09:03:04.5134471Z",
+    "devices":  [
+                    {
+                        "name":  "\\\\.\\DISPLAY1",
+                        "description":  "Radeon RX 570 Series",
+                        "flags":  524293,
+                        "monitors":  [
+                                         {
+                                             "name":  "\\\\.\\DISPLAY1\\Monitor0",
+                                             "description":  "LG ULTRAGEAR(DisplayPort)",
+                                             "flags":  3
+                                         }
+                                     ],
+                        "modes":  [
+                                      {
+                                          "mode":  -1,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  2560,
+                                          "h":  1080,
+                                          "hz":  144,
+                                          "bits":  32,
+                                          "fields":  544997536
+                                      },
+                                      {
+                                          "mode":  -2,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  2560,
+                                          "h":  1080,
+                                          "hz":  144,
+                                          "bits":  32,
+                                          "fields":  544997536
+                                      },
+                                      {
+                                          "mode":  0,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  640,
+                                          "h":  480,
+                                          "hz":  59,
+                                          "bits":  32,
+                                          "fields":  8126592
+                                      }
+                                  ]
+                    },
+                    {
+                        "name":  "\\\\.\\DISPLAY2",
+                        "description":  "Radeon RX 570 Series",
+                        "flags":  134742017,
+                        "monitors":  [
+                                         {
+                                             "name":  "\\\\.\\DISPLAY2\\Monitor0",
+                                             "description":  "Generic PnP Monitor",
+                                             "flags":  3
+                                         }
+                                     ],
+                        "modes":  [
+                                      {
+                                          "mode":  -1,
+                                          "ok":  true,
+                                          "x":  -1920,
+                                          "y":  0,
+                                          "w":  1920,
+                                          "h":  1080,
+                                          "hz":  60,
+                                          "bits":  32,
+                                          "fields":  544997536
+                                      },
+                                      {
+                                          "mode":  -2,
+                                          "ok":  true,
+                                          "x":  -1920,
+                                          "y":  0,
+                                          "w":  1920,
+                                          "h":  1080,
+                                          "hz":  60,
+                                          "bits":  32,
+                                          "fields":  544997536
+                                      },
+                                      {
+                                          "mode":  0,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  640,
+                                          "h":  480,
+                                          "hz":  59,
+                                          "bits":  32,
+                                          "fields":  8126592
+                                      }
+                                  ]
+                    },
+                    {
+                        "name":  "\\\\.\\DISPLAY3",
+                        "description":  "Radeon RX 570 Series",
+                        "flags":  134742016,
+                        "monitors":  [
+
+                                     ],
+                        "modes":  [
+                                      {
+                                          "mode":  -1,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      },
+                                      {
+                                          "mode":  -2,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  8257664
+                                      },
+                                      {
+                                          "mode":  0,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      }
+                                  ]
+                    },
+                    {
+                        "name":  "\\\\.\\DISPLAY4",
+                        "description":  "Radeon RX 570 Series",
+                        "flags":  134742016,
+                        "monitors":  [
+
+                                     ],
+                        "modes":  [
+                                      {
+                                          "mode":  -1,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      },
+                                      {
+                                          "mode":  -2,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  8257664
+                                      },
+                                      {
+                                          "mode":  0,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      }
+                                  ]
+                    },
+                    {
+                        "name":  "\\\\.\\DISPLAY5",
+                        "description":  "Radeon RX 570 Series",
+                        "flags":  134742016,
+                        "monitors":  [
+
+                                     ],
+                        "modes":  [
+                                      {
+                                          "mode":  -1,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      },
+                                      {
+                                          "mode":  -2,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  8257664
+                                      },
+                                      {
+                                          "mode":  0,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      }
+                                  ]
+                    },
+                    {
+                        "name":  "\\\\.\\DISPLAY6",
+                        "description":  "Radeon RX 570 Series",
+                        "flags":  134742016,
+                        "monitors":  [
+
+                                     ],
+                        "modes":  [
+                                      {
+                                          "mode":  -1,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      },
+                                      {
+                                          "mode":  -2,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  8257664
+                                      },
+                                      {
+                                          "mode":  0,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      }
+                                  ]
+                    },
+                    {
+                        "name":  "\\\\.\\DISPLAY7",
+                        "description":  "Radeon RX 570 Series",
+                        "flags":  134742016,
+                        "monitors":  [
+
+                                     ],
+                        "modes":  [
+                                      {
+                                          "mode":  -1,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      },
+                                      {
+                                          "mode":  -2,
+                                          "ok":  true,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  8257664
+                                      },
+                                      {
+                                          "mode":  0,
+                                          "ok":  false,
+                                          "x":  0,
+                                          "y":  0,
+                                          "w":  0,
+                                          "h":  0,
+                                          "hz":  0,
+                                          "bits":  0,
+                                          "fields":  0
+                                      }
+                                  ]
+                    }
+                ]
+}

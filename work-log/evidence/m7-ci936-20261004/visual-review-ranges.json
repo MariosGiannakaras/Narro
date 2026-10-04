@@ -1,0 +1,139 @@
+{
+  "uniqueConsecutiveFrames": 2340,
+  "ranges": [
+    {
+      "folder": "motion/normal-100-middle-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/normal-100-middle-collapse-2",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/normal-125-middle-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/normal-100-bottom-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/normal-125-bottom-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/reduced-125-bottom-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/reduced-100-edge-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/reduced-125-middle-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/reduced-100-bottom-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/reduced-100-middle-collapse-1",
+      "first": 1,
+      "last": 180,
+      "verdict": "No classic caption or complete Timer absence in directly inspected consecutive frames. Compact Subtasks remains intentional; hover action crossfade is not missing hierarchy."
+    },
+    {
+      "folder": "motion/normal-100-middle-expand-1",
+      "first": 1,
+      "last": 60,
+      "verdict": "Outgoing compact persists until expanded presentation is visible; work-area clamp changes legitimate location. Reduced motion commits without subsequent growth translation."
+    },
+    {
+      "folder": "motion/normal-125-bottom-expand-1",
+      "first": 1,
+      "last": 60,
+      "verdict": "Outgoing compact persists until expanded presentation is visible; work-area clamp changes legitimate location. Reduced motion commits without subsequent growth translation."
+    },
+    {
+      "folder": "motion/reduced-100-edge-expand-1",
+      "first": 1,
+      "last": 60,
+      "verdict": "Outgoing compact persists until expanded presentation is visible; work-area clamp changes legitimate location. Reduced motion commits without subsequent growth translation."
+    },
+    {
+      "folder": "motion/reduced-125-middle-expand-1",
+      "first": 1,
+      "last": 60,
+      "verdict": "Outgoing compact persists until expanded presentation is visible; work-area clamp changes legitimate location. Reduced motion commits without subsequent growth translation."
+    },
+    {
+      "folder": "panel-motion/normal-100-middle-panel-1",
+      "first": 1,
+      "last": 60,
+      "verdict": "Native host stays painted during movement. Whole union16-45 reviewed so absence at endpoint ROI during travel is not mistaken for a gap. Reduced motion uses immediate placement."
+    },
+    {
+      "folder": "panel-motion/normal-100-middle-restore-1",
+      "first": 1,
+      "last": 60,
+      "verdict": "Native host stays painted during movement. Whole union16-45 reviewed so absence at endpoint ROI during travel is not mistaken for a gap. Reduced motion uses immediate placement."
+    },
+    {
+      "folder": "panel-motion/normal-125-bottom-panel-1",
+      "first": 16,
+      "last": 45,
+      "verdict": "Native host stays painted during movement. Whole union16-45 reviewed so absence at endpoint ROI during travel is not mistaken for a gap. Reduced motion uses immediate placement."
+    },
+    {
+      "folder": "panel-motion/normal-125-bottom-restore-1",
+      "first": 16,
+      "last": 45,
+      "verdict": "Native host stays painted during movement. Whole union16-45 reviewed so absence at endpoint ROI during travel is not mistaken for a gap. Reduced motion uses immediate placement."
+    },
+    {
+      "folder": "panel-motion/reduced-100-edge-panel-1",
+      "first": 16,
+      "last": 45,
+      "verdict": "Native host stays painted during movement. Whole union16-45 reviewed so absence at endpoint ROI during travel is not mistaken for a gap. Reduced motion uses immediate placement."
+    },
+    {
+      "folder": "panel-motion/reduced-100-edge-restore-1",
+      "first": 16,
+      "last": 45,
+      "verdict": "Native host stays painted during movement. Whole union16-45 reviewed so absence at endpoint ROI during travel is not mistaken for a gap. Reduced motion uses immediate placement."
+    },
+    {
+      "folder": "panel-motion/reduced-125-middle-panel-1",
+      "first": 16,
+      "last": 45,
+      "verdict": "Native host stays painted during movement. Whole union16-45 reviewed so absence at endpoint ROI during travel is not mistaken for a gap. Reduced motion uses immediate placement."
+    },
+    {
+      "folder": "panel-motion/reduced-125-middle-restore-1",
+      "first": 16,
+      "last": 45,
+      "verdict": "Native host stays painted during movement. Whole union16-45 reviewed so absence at endpoint ROI during travel is not mistaken for a gap. Reduced motion uses immediate placement."
+    }
+  ],
+  "duplicateExports": "live-motion100-normal-collapse1/2 share source PTS with motion/normal-100-middle-collapse1/2 and are not counted twice",
+  "screening": "3240 collapse frames screened as locator only; all11 flagged frame neighborhoods directly inspected. Pixel screening is not OCR or automatic PASS."
+}
