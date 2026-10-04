@@ -1,5 +1,14 @@
 # HANDOFF — CI948 reviewed; batched22–25 correction next
 
+## OPTIONAL M11 — DORMANT / NOT AUTHORIZED
+
+Optional Milestone 11 is the **Live Blitzit Reference Audit**. It is strictly opt-in and **must not start, be prepared, be counted, or be inferred from general continuation language**. `continue`, `keep going`, `finish the project`, completion of M10, or availability of a Blitzit trial/account do not authorize it.
+
+Only an explicit user instruction that specifically activates M11 / the live Blitzit audit may open it. While dormant, the roadmap denominator remains 10, M11 checkboxes are non-blocking, and the normal path after validated M10 is directly to the required Final Comprehensive Review. If explicitly activated later, follow `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`, record activation durably, switch the denominator to 11, and run Final Review only after M11 closes.
+
+This M11 policy does not change the current M7/PR234 next action or authorize any live-Blitzit work now.
+
+
 ## Current — CI948 physical evidence and one corrective batch
 
 Exact resulting-main CI948 source28e840f50d0888ab86801efc36fff76c6e8e74aa / EXE0914b4c983d91c1e7de3937be53cf2f226e49c8049143469732499bccd932aa3 is physically tested. Native modal defaults18 PASS; writer19 owned CRUD/reorder/delete scope PASS, actual lane Move acceptance OPEN; metrics20 normal125% PASS, reduced physical edit OPEN; title21 partial PASS blocked by inaccessible queue23. Wrapped Notes tooltip09 narrow PASS. Actual C5 qualifying2334px cross-DPI drag, normal tray Quit, same EXE new process, paused exact(-1504,598) Timer restore PASS; formal C5 tracking now reconciled. Existing936/942 platform/performance acceptance is unchanged and reused. **M7 C1–C3/C5 PASS, C4 OPEN:4/5. Completed milestones M1/M3/M4 only:3/10M ||4/5 |14/19.** M10 hard entry remains blocked.
