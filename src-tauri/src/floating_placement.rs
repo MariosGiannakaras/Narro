@@ -437,6 +437,15 @@ fn restored_position(
     target: PhysicalRect,
     current_size: PhysicalSize,
 ) -> CommandResult<PhysicalPoint> {
+    // A presentation-size change does not change the user's chosen location.
+    // Normalizing against the new free height here ratchets an expanded Timer
+    // downward each time Panel returns to compact Timer on the same monitor.
+    // Keep the saved top-left and only clamp what no longer fits; proportional
+    // recovery remains appropriate when the actual work area has changed.
+    if saved.work_area == target {
+        return clamp_top_left(target, current_size, saved.position)
+            .map_err(|error| placement_error("clamp unchanged-area position", error));
+    }
     let desired = PhysicalPoint {
         x: scaled_axis(
             saved.position.x,
@@ -761,6 +770,83 @@ mod tests {
                 },
             },
         }
+    }
+
+    #[test]
+    fn repeated_expanded_panel_compact_restore_keeps_unchanged_area_position() {
+        for (scale, x, y) in [(1.0, 800, 205), (1.25, -1462, 333)] {
+            let work_area = PhysicalRect {
+                position: PhysicalPoint {
+                    x: if x < 0 { -1920 } else { 0 },
+                    y: 0,
+                },
+                size: PhysicalSize {
+                    width: if x < 0 { 1920 } else { 2560 },
+                    height: 1080,
+                },
+            };
+            let compact = PhysicalSize {
+                width: (340.0 * scale) as u32,
+                height: (110.0_f64 * scale).round() as u32,
+            };
+            let expanded = PhysicalSize {
+                width: compact.width,
+                height: (300.0 * scale) as u32,
+            };
+            let original = PhysicalPoint { x, y };
+            let mut position = original;
+            // Each Panel transition saves the outgoing expanded visible region;
+            // returning to Timer requests compact geometry, just as in CI911.
+            for _ in 0..6 {
+                let saved = SavedFloatingPlacement {
+                    version: SavedFloatingPlacement::VERSION,
+                    position,
+                    outer_size: expanded,
+                    work_area,
+                    monitor_name: Some("same-display".into()),
+                };
+                position = restored_position(&saved, work_area, compact).expect("restore compact");
+                assert_eq!(position, original);
+            }
+        }
+    }
+
+    #[test]
+    fn unchanged_area_size_or_dpi_change_only_clamps_unsafe_edges() {
+        let work_area = area("same-display", 0, 1920).rect;
+        let saved = SavedFloatingPlacement {
+            version: SavedFloatingPlacement::VERSION,
+            position: PhysicalPoint { x: 1580, y: 930 },
+            outer_size: PhysicalSize {
+                width: 340,
+                height: 110,
+            },
+            work_area,
+            monitor_name: Some("same-display".into()),
+        };
+        let larger = PhysicalSize {
+            width: 425,
+            height: 375,
+        };
+        let clamped = restored_position(&saved, work_area, larger).expect("fit larger region");
+        assert_eq!(clamped, PhysicalPoint { x: 1495, y: 665 });
+        let saved_larger = SavedFloatingPlacement {
+            position: clamped,
+            outer_size: larger,
+            ..saved
+        };
+        assert_eq!(
+            restored_position(
+                &saved_larger,
+                work_area,
+                PhysicalSize {
+                    width: 340,
+                    height: 110
+                }
+            )
+            .expect("return compact without a new move"),
+            clamped,
+        );
     }
 
     #[test]
