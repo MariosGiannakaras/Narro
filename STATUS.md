@@ -1,6 +1,16 @@
 # STATUS.md
 
 Last updated: 2026-10-04
+## 2026-10-04 — M1 replacement gate re-closed; CI942 whole review; modal correction CI944 merged
+
+M1 Gate A replacement acceptance PASS: exact CI942 placement4/4 twice, software2→1→2/Main present and absent/same PID/HWND, and3/3 quiet hash/scenario-valid30s/60s process-tree runs. Median one-core CPU0.025896%, working399.420MiB/private333.006MiB; six WebView2 children included. Matched cold936 working399.266/private324.727MiB (+8.279MiB/+2.55% private), native94262.711MiB below93663.566MiB. Bounded no-major-regression/near-idle acceptance PASS; startup WebView allocation variation documented, exact cause/long-duration leak freedom not claimed. Retain Tauri/single Focus composition; re-measure after performance-relevant changes.
+
+Whole CI942 original dual60fps video,11 native log files/ZIP, four playable excerpts,840 lossless motion exports and600 unique directly reviewed consecutive frames plus six stills are published together. Native C5 restored(1330,613)/paused05:08 after2392px drag and normal tray Quit/same EXE; inspected Collapse/entry ranges retain pixels. M6 shared placement/topology and M8 affected preference save/restart now close their adequate narrow gates. Whole M5/M6/M8 source parity remains open; modal17 still physically FAIL on942. [Detailed result, source comparisons and cross-gate disposition](work-log/2026-10-04-codex-m7-ci942-physical-results.md).
+
+PR232 modal ownership fix: exact head6029b5529f025c8dffb4e05331e11a6bbcbb4bec9 files+204/-10,42 actual rendered regressions/full frontend and full Windows CI944/run37197934204 PASS. Local Rust compile/check unavailable (MSVC link.exe); authoritative CI performed native checks. Expected-head merge0df4c14cfa6fa8632cff49529ddc36510d67ddd3 has zero non-Markdown differences; resulting-main945 identical-tree gate PASS/downstream intentionally skipped. Exact artifact11302770897 EXE b6814cf572e89c0d738659726d2fa1fc06cda1dea65721f4cb1f6d04900439fa is downloaded. Next: actual focused modal English/Greek/local-key/delivered-event/post-close retest, batched adequate M5 narrow-title/canonical and C5 evidence. No architecture change/idle polling.
+
+Current roadmap completed M1–M4; narrow affected M5, M6 integration, M7 closure, M8 modal/source and M9 remain open. **4/10M ||3/5 |14/19**. All M1–M9 must clear before explicit completion announcement and M10 entry. Historical sections retain exact old-source verdicts/counts.
+
 ## 2026-10-04 — CI942 native C5/B/C pass; modal shortcut isolation requires correction
 
 PR231/head `c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d` PASSed full CI942/run37191346390 and merged `416ff40ecd6c50b660ecfef9c9c0b57c2dc7dd92`, with zero non-Markdown differences. Exact production SHA256 `3e836e942b45f3586e71bda15208f60b8b8cc901449146fdef76b8999b5b61ea` passes native C5 after2392px drag/tray Quit/same-EXE relaunch/Timer restore `(1330,613)`. Diagnostic89b2c7c6... passes4/4 placement twice and software2→1→2 recovery with Main present/absent. All three quiet performance runs are valid/no churn (median0.025896% one-core CPU,399.420MiB working set,333.006MiB private); matched cold936 private324.727MiB leaves an8.279MiB WebView2 interpretation OPEN. Physical cable/sleep-wake was NOT RUN.

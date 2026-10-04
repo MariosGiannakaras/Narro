@@ -2,6 +2,13 @@
 
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
+**Current execution — CI942 reviewed; PR232/CI944 merged:** exact CI942 B/C/D replacement acceptance is sufficient to re-close M1 Gate A. Native C5/affected motion PASS; modal shortcut17 FAIL remains open until physical retest. PR232/head6029b552 fullCI944 PASS, guarded identical-source merge0df4c14c, resulting-main945 identical-tree gate PASS. Exact next EXE b6814cf5... downloaded. [Whole CI942 results/video/logs/gallery](work-log/2026-10-04-codex-m7-ci942-physical-results.md). Current roadmap completion counts M1–M4; M5 affected title/source acceptance, M6 integration, M7 closure, M8 modal/source acceptance and M9 remain open: **4/10M ||3/5 |14/19**. Historical checkpoints below retain their original counts.
+
+- [x] CI942 final direct review/publication preparation: whole original video/11 native logs/ZIP/four clips/840 motion PNG exports;600 unique source frames directly inspected. M1 quiet-performance decision PASS existing bounded acceptance, with2.55% cold private difference explicitly documented.
+- [x] Modal17 source correction: PR2329 files+204/-10,42 actual rendered scenarios/full frontend and full Windows CI944 PASS; no native architecture change.
+- [ ] Exact-CI944 physical modal17 retest: English/Greek focused modal buttons, local dialog Enter/Escape, cross-window delivered actions, outside-modal shortcuts; batch adequate current M5 narrow-title/source checks and unchanged C5 path.
+- [ ] Clear every required M1–M9 implementation/reopened physical/source-parity gate, explicitly tell the user all M1–M9 are complete, then enter M10. No M10 checkbox/counter advances now.
+
 **Current execution, superseding historical checkpoints below:** PR231/CI942 is merged and exact artifacts physically exercised. Formal placement4/4 twice, software topology Main present/absent and native C5 PASS; performance collection3/3 valid. Private-memory interpretation and final CI942 direct motion/canonical review remain OPEN. New finding17 must be corrected before closure. [Current exact checkpoint and cross-gate inventory](work-log/2026-10-04-codex-m7-ci942-physical-checkpoint.md). Counts remain3/10M ||3/5 |14/19.
 
 - [x] Diagnostic correction `M7-OBS-20261004-15/16`: PR231/headc2821e6 fullCI942 PASS, identical-source merge416ff40e; exact diagnostic4/4 placement twice, original secondary/right preference physically restored; canonical performance preflight and all3 native sampling runs valid. Preserve initial stale-monitor precondition and prior failures. This checkbox closes the correction, not all M1 acceptance or memory interpretation.
@@ -59,14 +66,14 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] Replacement implementation compiles in authoritative Windows CI; latest corrected source passed exact-head CI #809 and resulting-main validation CI #810.
   - [x] Replacement interactive Panel -> Timer -> Panel validation passes physically on CI #809; same-HWND/WebView reuse is independently enforced by accepted packaged/runtime architecture evidence.
 - [x] Revalidate always-on-top and skip-taskbar behavior for Floating Timer presentation on the replacement single Focus host. CI #809 physically keeps Timer above maximized Notepad++ during cross-monitor movement; Alt-Tab exposes Narro as the application, not a separate Timer task entry.
-- [ ] Revalidate Windows monitor enumeration and left/right positioning for Focus Panel presentation on the replacement fixed host.
+- [x] Revalidate Windows monitor enumeration and left/right positioning for Focus Panel presentation on the replacement fixed host. CI9424/4 at100%/125%, repeated after reconnect; current active monitor precondition and restored secondary/right baseline recorded.
   - Historical evidence: the superseded host passed implementation/geometry tests and physical selected-monitor left/right validation; this does not validate replacement geometry.
   - [x] Replacement automated geometry validation passes.
-  - [ ] Replacement physical selected-monitor left/right validation passes.
-- [ ] Revalidate display-topology change handling for the replacement host: connect/disconnect/re-enumerate displays, recompute visible-region geometry/DPI, and keep the visible Focus presentation inside an available work area without restarting Narro.
+  - [x] Replacement physical selected-monitor left/right validation passes on exact isolated CI942.
+- [x] Revalidate display-topology change handling for the replacement host: connect/disconnect/re-enumerate displays, recompute visible-region geometry/DPI, and keep the visible Focus presentation inside an available work area without restarting Narro. CI942 software2→1→2 with Main present/absent and same PID/HWND; physical cable/sleep-wake not claimed.
   - Historical evidence: the superseded host passed event-driven topology tests and physical disconnect/reconnect recovery; this does not validate replacement region/DPI recovery.
   - [x] Replacement automated topology/DPI/work-area recovery validation passes.
-  - [ ] Replacement physical disconnect/reconnect recovery validation passes.
+  - [x] Replacement physical software display removal/reconnect recovery validation passes on exact CI942; actual active topology re-enumerated after Duplicate→Extend.
 - [x] Prove global shortcut registration and conflict/error handling.
   - [x] native registration/unregistration/conflict implementation and Windows CI validation
   - [x] physical shortcut validation
@@ -81,11 +88,11 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - [x] physical enable/disable registration observed in Windows Task Manager Startup apps
   - [x] actual autostart launch observed after a real Windows restart; `main` opened normally after sign-in
 - [x] Revalidate the consolidated `focusSurface` frontend entry/bundle remains Focus-only and does not pull dashboard/reports/settings/editor code after Panel/Timer coordination is combined. Exact-head Windows CI #672 validates the Focus-only production entry/dist contract.
-- [ ] Re-measure replacement floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations.
+- [x] Re-measure replacement floating-only steady-state CPU and process memory with the main webview destroyed/closed and no active animations. Exact CI9423/3 quiet protocol runs valid, hash/native preflight PASS, zero churn.
   - Historical baseline evidence: the process-tree harness was automated-validated by Windows CI #66 and the superseded composition completed three valid physical 30s-warmup / 60s-sample runs with zero process churn and `steadyStateValid: true`.
-  - [ ] Replacement composition completes the same repeatable process-tree measurement protocol with valid steady-state samples.
-- [ ] Record the replacement composition measurements and obvious WebView2/process contributors in `STATUS.md`.
-- [ ] Reconfirm the M1 floating performance baseline supports the replacement single-`focusSurface` Tauri + WebView2 composition; if clearly unacceptable, evaluate the narrow native fallback from current evidence before proceeding.
+  - [x] Replacement composition completes the same repeatable process-tree measurement protocol with valid steady-state samples:30s warmup/60s sample, median0.025896% one-core CPU/399.420MiB working/333.006MiB private.
+- [x] Record the replacement composition measurements and obvious WebView2/process contributors in `STATUS.md`. Native62.711MiB private/six WebView2 processes; cold936 comparison and bounded2.55% private difference recorded.
+- [x] Reconfirm the M1 floating performance baseline supports the replacement single-`focusSurface` Tauri + WebView2 composition; measured near-idle CPU/stable working set/no major memory regression justify retaining the architecture. No long-duration leak freedom claimed.
 - [x] Add a minimal smoke-test harness for Rust commands/events.
   - [x] harness created and compiles in Windows CI
   - [ ] explicit standalone interactive harness invocation remains optional/deferred; equivalent runtime paths were physically exercised during M1 validation
@@ -106,7 +113,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - floating-only idle CPU is stable/near-idle with no unexplained polling loop
 - floating-only memory is measured and documented; if clearly unacceptable, stop and evaluate a native Win32/WinUI overlay before product UI work
 
-**Gate A current result: REOPENED for the single-Focus replacement.** Historical M1 Gate A PASS remains valid evidence for the superseded implementation, but the replacement changes the window/presentation foundation, DPI/topology path, Focus-only bundle composition and floating performance profile. Re-close Gate A only after the open M1 replacement items above are validated on the new code.
+**Gate A current result: PASS / replacement acceptance re-closed on CI942.** Earlier replacement architecture/bundle/lifecycle/topmost contracts and accepted809/936 native evidence combine with exact942 selected-monitor4/4 twice, software topology Main present/absent and three valid quiet performance runs. [Complete evidence and bounded performance decision](work-log/2026-10-04-codex-m7-ci942-physical-results.md). All materially reopened M1 items above are satisfied; physical cable/display sleep-wake and long-duration leakage were not added as fabricated PASS. PR232 changes event-time shortcut ownership only, preserving native composition/performance paths. Historical superseded-code PASS remains immutable.
 
 Do not implement polished Blitzit UI in this milestone.
 
@@ -286,6 +293,8 @@ Acceptance criteria:
 
 **Gate E reconciliation result: PASS / proceed to the reopened Milestone 6 reconciliation gate.** PR #156 exact head `2cde42c10389c2417e1b6e356eae59150ebff8ce` passed Windows CI #539, including repository preflight, Rust checks/tests, Windows visual regression, Tauri release build, visual artifact `narro-m5-visual-regression`, and diagnostic harness artifact. Expected-head guarded squash merge `4e315f551737d729f76e5f561dd8d7404717e157` passed resulting-main Windows CI #540 through the repository's identical-tree validation gate. The validated source baseline for this reconciliation is `4e315f551737d729f76e5f561dd8d7404717e157`.
 
+**Current Gate E affected acceptance: VALIDATION_OPEN.** Preserve validated domain/planning foundations; exact PR225 narrow-board title/edit/hover and PR227 direct canonical planning/drag/delete/archive comparisons are not all physically accepted. Main modal17 integration also requires the exact-CI944 retest. This is the narrow reopened M5 scope, not a request to redo the milestone.
+
 ### 2026-10-04 Pass-3 planning/destructive parity corrections
 
 - [x] **P3-M5-01** — Today exposes source-style done/total `Done` progress while retaining the Today accent and anchored CTA.
@@ -306,8 +315,8 @@ Automated validation: PR #227 exact head `d40cd9edec6456bc25dafb792ad3ab29876abe
 - [x] Implement break, notes, pause/resume, skip, finish.
 - [x] Implement subtasks/progress in focus mode.
 - [x] Permit EST/Time Taken editing only while paused.
-- [ ] Revalidate selected-monitor and left/right Focus Panel placement on the replacement fixed Focus host.
-- [ ] Revalidate monitor/display-change reaction while Focus Mode is open on the replacement region/DPI/topology path.
+- [x] Revalidate selected-monitor and left/right Focus Panel placement on the replacement fixed Focus host. Shared exact-CI942 physical4/4 twice; see M1 evidence.
+- [x] Revalidate monitor/display-change reaction while Focus Mode is open on the replacement region/DPI/topology path. Shared exact-CI942 software2→1→2/Main present/absent evidence; real cable/sleep not claimed.
 - [x] Implement configured scrolling behavior for the live title.
 - [x] Allow ordinary focus-row task titles up to two lines where practical; expose full title accessibly.
 - [x] Reserve action slots for hover/focus controls so controls never push task text or move hit targets.
@@ -343,7 +352,7 @@ Acceptance criteria:
 
 - [ ] Revalidate the complete M6 Focus Panel end to end inside the replacement single-`focusSurface` coordinator: entry/selection, hierarchy, authoritative timer projection, every existing action/state, keyboard/focus/reduced-motion behavior, quick task/Home flows, selected-monitor/edge placement, topology recovery, and immediate consistency with Main. Reuse the existing validated domain commands; do not reimplement unrelated M6 behavior.
 
-**Gate F current result: REOPENED for replacement integration.** Re-close M6 only after the two placement/topology items and the complete replacement-host regression item above pass on the new implementation.
+**Gate F current result: REOPENED for replacement integration.** CI942 closes the two shared placement/topology items (17/18 current M6 top-level items); complete replacement-host integration and modal17 remain open, alongside direct canonical source calibration.
 
 ### 2026-10-04 Pass-3 Focus parity corrections
 
@@ -533,7 +542,7 @@ Authoritative detailed mapping: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 - [x] Preserve conditional/nested setting behavior without disruptive scroll jumps. Validated in reconciled PR #170 / Windows CI #604 with nested controls mounted in place and parent-gated rather than remounted.
 - [x] Use Windows locale for date/time presentation by default. PREF-R06 validated through PR #194 / CI #721 and resulting-main CI #724.
 - [x] Persist preferences in SQLite or a versioned local settings layer. The typed versioned SQLite payload already persists all current General/Focus/Alerts/Celebration fields and now v3 ShortcutPreferences; reopen/migration/atomic mutation coverage passed PR #168 / CI #574.
-  - [ ] Revalidate concurrent Preferences patch persistence after real CI893 `database is locked`: PR #225 writer-before-read correction, two-connection regression and exact-build physical save/restart. Unrelated M8 runtime/shortcut acceptance is retained.
+  - [x] Revalidate concurrent Preferences patch persistence after real CI893 `database is locked`: PR #225 writer-before-read correction/two-connection regression plus exact-CI942 dark/success-on save and Quit/relaunch persistence; original values restored. No forced physical lock stress claimed. Modal shortcut17 remains separately open.
 
 Acceptance criteria:
 
@@ -543,7 +552,7 @@ Acceptance criteria:
 - sound previews do not overlap indefinitely
 - 12/24-hour display follows Windows locale in schedule/session UI
 
-**Milestone 8 validation gate: PASS.** Original implementation PR evidence plus current single-`focusSurface` reconciliation and final PREF-R05 all pass on resulting-main Windows CI #882 / run `37117266417`. M8 is complete.
+**Historical Milestone 8 validation gate: PASS on CI882. Current affected gate: REOPENED for modal shortcut17 / final source visual acceptance.** Preserve all unaffected implementation/runtime evidence; Preferences writer/save-restart correction is now physically accepted on CI942. PR232/CI944 correction requires exact-build modal/shortcut retest before affected integration re-closes.
 
 ## Milestone 9 — Reports and history
 

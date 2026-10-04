@@ -1,0 +1,52 @@
+[
+  {
+    "file": "notes-toolbar-and-live-edit.mp4",
+    "requestedStartPts": 1609.223,
+    "requestedStartUtc": "2026-10-04T10:12:30Z",
+    "requestedDuration": 115,
+    "crop": [
+      4136,
+      0,
+      344,
+      708
+    ],
+    "method": "cropped h264 preview, audio omitted",
+    "acceptanceReference": "original MKV plus lossless consecutive PNGs",
+    "bytes": 938386
+  },
+  {
+    "file": "modal-shortcuts-background-action-failure.mp4",
+    "requestedStartPts": 1739.223,
+    "requestedStartUtc": "2026-10-04T10:14:40Z",
+    "requestedDuration": 102,
+    "crop": [
+      4136,
+      0,
+      344,
+      708
+    ],
+    "method": "cropped h264 preview, audio omitted",
+    "acceptanceReference": "original MKV plus lossless consecutive PNGs",
+    "bytes": 656428
+  },
+  {
+    "file": "c5-dual-display-drag-quit-relaunch.mp4",
+    "requestedStartPts": 1879.223,
+    "requestedStartUtc": "2026-10-04T10:17:00Z",
+    "requestedDuration": 215,
+    "crop": null,
+    "method": "unaltered streams copied at keyframe bounds; requested time may differ from first copied source frame",
+    "acceptanceReference": "original MKV plus lossless consecutive PNGs",
+    "bytes": 34216573
+  },
+  {
+    "file": "compact-finish-full-panel-success.mp4",
+    "requestedStartPts": 2369.223,
+    "requestedStartUtc": "2026-10-04T10:25:10Z",
+    "requestedDuration": 60,
+    "crop": null,
+    "method": "unaltered streams copied at keyframe bounds; requested time may differ from first copied source frame",
+    "acceptanceReference": "original MKV plus lossless consecutive PNGs",
+    "bytes": 9548516
+  }
+]

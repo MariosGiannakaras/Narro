@@ -1,0 +1,182 @@
+﻿{
+    "schemaVersion":  1,
+    "scenario":  "floating-only-main-destroyed",
+    "runCount":  3,
+    "allRunsValid":  true,
+    "scenarioPreflightValidatedForEveryRun":  true,
+    "expectedExecutableSha256":  "89b2c7c6799743e891a8c602c0e969aab8d0ecdd6b64a809c453f44e567af648",
+    "warmupSeconds":  30,
+    "requestedSampleSeconds":  60,
+    "intervalSeconds":  1,
+    "runs":  [
+                 {
+                     "runNumber":  1,
+                     "scenarioPreflightPath":  "run-01/scenario-preflight.json",
+                     "scenarioPreflightValidated":  true,
+                     "summaryPath":  "run-01/summary.json",
+                     "rootPid":  25528,
+                     "rootExecutable":  "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr231-ci942\\m1-diagnostic\\src-tauri\\target\\release\\narro.exe",
+                     "executableSha256":  "89b2c7c6799743e891a8c602c0e969aab8d0ecdd6b64a809c453f44e567af648",
+                     "logicalProcessorCount":  12,
+                     "actualSampleSeconds":  60.5662865,
+                     "sampleCount":  54,
+                     "stableCpuIntervalCount":  53,
+                     "churnIntervalCount":  0,
+                     "cpuPercentOneCore":  {
+                                               "min":  0,
+                                               "max":  1.3724718081114868,
+                                               "average":  0.025895694492669558
+                                           },
+                     "cpuPercentTotalCapacity":  {
+                                                     "min":  0,
+                                                     "max":  0.11437265067595724,
+                                                     "average":  0.0021579745410557965
+                                                 },
+                     "workingSetMiB":  {
+                                           "min":  399.35546875,
+                                           "max":  399.44921875,
+                                           "average":  399.41977719907408
+                                       },
+                     "privateBytesMiB":  {
+                                             "min":  332.8359375,
+                                             "max":  333.0390625,
+                                             "average":  333.005787037037
+                                         },
+                     "lastProcessBreakdown":  [
+                                                  {
+                                                      "name":  "msedgewebview2.exe",
+                                                      "processCount":  6,
+                                                      "workingSetBytes":  387559424,
+                                                      "privateBytes":  283246592,
+                                                      "cumulativeCpuSeconds":  4.171875
+                                                  },
+                                                  {
+                                                      "name":  "narro.exe",
+                                                      "processCount":  1,
+                                                      "workingSetBytes":  31195136,
+                                                      "privateBytes":  65757184,
+                                                      "cumulativeCpuSeconds":  0.53125
+                                                  }
+                                              ],
+                     "generatedAtUtc":  "2026-10-04T10:33:13.6430331Z"
+                 },
+                 {
+                     "runNumber":  2,
+                     "scenarioPreflightPath":  "run-02/scenario-preflight.json",
+                     "scenarioPreflightValidated":  true,
+                     "summaryPath":  "run-02/summary.json",
+                     "rootPid":  25528,
+                     "rootExecutable":  "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr231-ci942\\m1-diagnostic\\src-tauri\\target\\release\\narro.exe",
+                     "executableSha256":  "89b2c7c6799743e891a8c602c0e969aab8d0ecdd6b64a809c453f44e567af648",
+                     "logicalProcessorCount":  12,
+                     "actualSampleSeconds":  60.3877496,
+                     "sampleCount":  54,
+                     "stableCpuIntervalCount":  53,
+                     "churnIntervalCount":  0,
+                     "cpuPercentOneCore":  {
+                                               "min":  0,
+                                               "max":  1.3680726601120008,
+                                               "average":  0.025812691700226431
+                                           },
+                     "cpuPercentTotalCapacity":  {
+                                                     "min":  0,
+                                                     "max":  0.1140060550093334,
+                                                     "average":  0.0021510576416855359
+                                                 },
+                     "workingSetMiB":  {
+                                           "min":  399.35546875,
+                                           "max":  399.3984375,
+                                           "average":  399.38317418981484
+                                       },
+                     "privateBytesMiB":  {
+                                             "min":  332.8359375,
+                                             "max":  332.8671875,
+                                             "average":  332.83998842592592
+                                         },
+                     "lastProcessBreakdown":  [
+                                                  {
+                                                      "name":  "msedgewebview2.exe",
+                                                      "processCount":  6,
+                                                      "workingSetBytes":  387596288,
+                                                      "privateBytes":  283246592,
+                                                      "cumulativeCpuSeconds":  4.1875
+                                                  },
+                                                  {
+                                                      "name":  "narro.exe",
+                                                      "processCount":  1,
+                                                      "workingSetBytes":  31195136,
+                                                      "privateBytes":  65757184,
+                                                      "cumulativeCpuSeconds":  0.53125
+                                                  }
+                                              ],
+                     "generatedAtUtc":  "2026-10-04T10:34:45.7246340Z"
+                 },
+                 {
+                     "runNumber":  3,
+                     "scenarioPreflightPath":  "run-03/scenario-preflight.json",
+                     "scenarioPreflightValidated":  true,
+                     "summaryPath":  "run-03/summary.json",
+                     "rootPid":  25528,
+                     "rootExecutable":  "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr231-ci942\\m1-diagnostic\\src-tauri\\target\\release\\narro.exe",
+                     "executableSha256":  "89b2c7c6799743e891a8c602c0e969aab8d0ecdd6b64a809c453f44e567af648",
+                     "logicalProcessorCount":  12,
+                     "actualSampleSeconds":  60.5715362,
+                     "sampleCount":  54,
+                     "stableCpuIntervalCount":  53,
+                     "churnIntervalCount":  0,
+                     "cpuPercentOneCore":  {
+                                               "min":  0,
+                                               "max":  1.3794179888994982,
+                                               "average":  0.077798559008469909
+                                           },
+                     "cpuPercentTotalCapacity":  {
+                                                     "min":  0,
+                                                     "max":  0.1149514990749582,
+                                                     "average":  0.0064832132507058257
+                                                 },
+                     "workingSetMiB":  {
+                                           "min":  400.0390625,
+                                           "max":  402.62109375,
+                                           "average":  400.4737413194444
+                                       },
+                     "privateBytesMiB":  {
+                                             "min":  333.203125,
+                                             "max":  334.46875,
+                                             "average":  333.4302662037037
+                                         },
+                     "lastProcessBreakdown":  [
+                                                  {
+                                                      "name":  "msedgewebview2.exe",
+                                                      "processCount":  6,
+                                                      "workingSetBytes":  390840320,
+                                                      "privateBytes":  284811264,
+                                                      "cumulativeCpuSeconds":  4.203125
+                                                  },
+                                                  {
+                                                      "name":  "narro.exe",
+                                                      "processCount":  1,
+                                                      "workingSetBytes":  31338496,
+                                                      "privateBytes":  65904640,
+                                                      "cumulativeCpuSeconds":  0.5625
+                                                  }
+                                              ],
+                     "generatedAtUtc":  "2026-10-04T10:36:17.8113267Z"
+                 }
+             ],
+    "medianRunAverage":  {
+                             "cpuPercentOneCore":  0.025895694492669558,
+                             "cpuPercentTotalCapacity":  0.0021579745410557965,
+                             "workingSetMiB":  399.41977719907408,
+                             "privateBytesMiB":  333.005787037037
+                         },
+    "environment":  {
+                        "windowsCaption":  "Microsoft Windows 10 Pro",
+                        "windowsVersion":  "10.0.19045",
+                        "windowsBuildNumber":  "19045",
+                        "processorNames":  [
+                                               "AMD Ryzen 5 2600X Six-Core Processor           "
+                                           ],
+                        "logicalProcessorCount":  12
+                    },
+    "generatedAtUtc":  "2026-10-04T10:36:18.4785608Z"
+}

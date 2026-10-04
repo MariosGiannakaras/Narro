@@ -1,0 +1,371 @@
+{
+  "utc": "2026-10-04T10:40:10.3476587Z",
+  "windows": [
+    {
+      "hwnd": 3343634,
+      "pid": 126160,
+      "process": "narro",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "width": 1016,
+        "height": 739,
+        "y": 260,
+        "x": 260
+      },
+      "client": {
+        "width": 1000,
+        "height": 700,
+        "y": 291,
+        "x": 268
+      }
+    },
+    {
+      "hwnd": 986524,
+      "pid": 126160,
+      "process": "narro",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 1920,
+        "height": 789,
+        "y": 130,
+        "x": 130
+      },
+      "client": {
+        "width": 1904,
+        "height": 750,
+        "y": 161,
+        "x": 138
+      }
+    },
+    {
+      "hwnd": 8587260,
+      "pid": 126160,
+      "process": "narro",
+      "title": "Narro - Focus",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 340,
+        "height": 700,
+        "y": 78,
+        "x": 78
+      },
+      "client": {
+        "width": 340,
+        "height": 700,
+        "y": 78,
+        "x": 78
+      }
+    },
+    {
+      "hwnd": 2359634,
+      "pid": 126160,
+      "process": "narro",
+      "title": "com.mariosg.Narro.M1Diagnostic-siw",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "width": 16,
+        "height": 16,
+        "y": 0,
+        "x": 0
+      },
+      "client": {
+        "width": 0,
+        "height": 0,
+        "y": 31,
+        "x": 8
+      }
+    },
+    {
+      "hwnd": 12060222,
+      "pid": 126160,
+      "process": "narro",
+      "title": "",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "width": 16,
+        "height": 16,
+        "y": 0,
+        "x": 0
+      },
+      "client": {
+        "width": 0,
+        "height": 0,
+        "y": 31,
+        "x": 8
+      }
+    },
+    {
+      "hwnd": 2952410,
+      "pid": 126160,
+      "process": "narro",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 0,
+        "height": 0,
+        "y": 0,
+        "x": 0
+      },
+      "client": {
+        "width": 0,
+        "height": 0,
+        "y": 0,
+        "x": 0
+      }
+    },
+    {
+      "hwnd": 1444784,
+      "pid": 126160,
+      "process": "narro",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 0,
+        "height": 0,
+        "y": 0,
+        "x": 0
+      },
+      "client": {
+        "width": 0,
+        "height": 0,
+        "y": 0,
+        "x": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "Narro",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "268;291;1000;700"
+    },
+    {
+      "name": "Narro - Web content",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "268;291;1000;700"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Document",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "268;291;1000;700"
+    },
+    {
+      "name": "List navigation",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "268;291;208;700"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "280;311;183;48"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "328;316;42;21"
+    },
+    {
+      "name": "Lists",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "280;359;183;149"
+    },
+    {
+      "name": "+ Create new list",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "280;359;183;40"
+    },
+    {
+      "name": "All my lists",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "280;424;183;40"
+    },
+    {
+      "name": "Archived lists",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "280;468;183;40"
+    },
+    {
+      "name": "Utilities",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1075;302;173;41"
+    },
+    {
+      "name": "Search",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1075;302;81;41"
+    },
+    {
+      "name": "Settings",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1163;302;85;41"
+    },
+    {
+      "name": "Good afternoon",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "500;379;744;366"
+    },
+    {
+      "name": "HOME",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "500;379;40;16"
+    },
+    {
+      "name": "Good afternoon",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "500;403;744;29"
+    },
+    {
+      "name": "Plan the next work that deserves your attention.",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "500;440;337;22"
+    },
+    {
+      "name": "Your Lists",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "500;487;744;258"
+    },
+    {
+      "name": "Your Lists",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "500;487;217;22"
+    },
+    {
+      "name": "Lists with your upcoming tasks",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "500;513;217;22"
+    },
+    {
+      "name": "No lists yet",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "830;582;84;22"
+    },
+    {
+      "name": "Your local lists will appear here after you create one.",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "688;630;368;22"
+    },
+    {
+      "name": "Create your first list",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "787;676;170;40"
+    },
+    {
+      "name": "Windows diagnostic controls",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "501;769;742;49"
+    },
+    {
+      "name": "Windows diagnostic controls",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "533;782;211;22"
+    },
+    {
+      "name": "Primary",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "476;935;792;56"
+    },
+    {
+      "name": "Home",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "740;944;128;40"
+    },
+    {
+      "name": "Reports",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "876;944;128;40"
+    }
+  ]
+}

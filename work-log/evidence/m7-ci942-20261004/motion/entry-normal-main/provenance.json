@@ -1,0 +1,28 @@
+{
+  "folder": "motion/entry-normal-main",
+  "ptsStart": 1579.2304649999999,
+  "frames": 120,
+  "crop": {
+    "x": 1942,
+    "y": 22,
+    "width": 1024,
+    "height": 747
+  },
+  "action": {
+    "utc": "2026-10-04T10:12:00.2074655Z",
+    "action": "native-uia-invoke",
+    "button": "Blitz now",
+    "windowId": 13108632,
+    "processId": 17624,
+    "offscreen": false,
+    "bounds": "649;384;148;45",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "reviewed": true,
+  "reviewedFrames": [
+    1,
+    120
+  ],
+  "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+  "observation": "Frames 1-120: finite board opacity transition and restored board after authoritative Start Blitz."
+}

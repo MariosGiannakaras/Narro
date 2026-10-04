@@ -1,0 +1,6 @@
+{
+  "scenarioHelperSource": "c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d",
+  "scenarioHelperSha256": "48e96d23b72454bbb8d5c0cb44d387f1f69e9ecb81775ae27b3e841fff50bb81",
+  "exactCi942ThreeRuns": true,
+  "coldCi936Comparison": "One additional matched cold comparison only, using the same collector; not a replacement three-run baseline."
+}

@@ -1,0 +1,35 @@
+﻿{
+    "schemaVersion":  1,
+    "scenario":  "floating-only-main-destroyed",
+    "pass":  true,
+    "rootPid":  25528,
+    "rootExecutable":  "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr231-ci942\\m1-diagnostic\\src-tauri\\target\\release\\narro.exe",
+    "ownedTopLevelWindowCount":  6,
+    "mainWindowCount":  0,
+    "focusWindowCount":  1,
+    "focus":  {
+                  "pid":  25528,
+                  "title":  "Narro - Focus",
+                  "visible":  true,
+                  "dpi":  96,
+                  "hwnd":  "0x1F70626",
+                  "window":  {
+                                 "x":  0,
+                                 "y":  380,
+                                 "width":  340,
+                                 "height":  700
+                             },
+                  "regionKind":  2,
+                  "region":  {
+                                 "x":  0,
+                                 "y":  0,
+                                 "width":  340,
+                                 "height":  110
+                             }
+              },
+    "expectedCompactRegion":  {
+                                  "width":  340,
+                                  "height":  110
+                              },
+    "capturedAtUtc":  "2026-10-04T10:31:42.3650105Z"
+}

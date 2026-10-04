@@ -1,0 +1,306 @@
+{
+  "build": "CI942",
+  "sourceHead": "c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d",
+  "continuousVideoOriginalPreserved": true,
+  "losslessMotionPngExports": 840,
+  "uniqueDirectlyReviewedConsecutiveSourceFrames": 600,
+  "uniquePtsRanges": 5,
+  "pairedMainFocusRoisCountedOnce": true,
+  "directlyReviewedVideoDerivedStills": 6,
+  "motionRanges": [
+    {
+      "folder": "motion/collapse125-normal",
+      "ptsStart": 1891.6228959999999,
+      "frames": 120,
+      "crop": {
+        "x": 858,
+        "y": 701,
+        "width": 433,
+        "height": 379
+      },
+      "action": {
+        "utc": "2026-10-04T10:17:12.5998962Z",
+        "action": "native-uia-observed-pointer-click",
+        "button": "Collapse Floating Timer",
+        "windowId": 9307546,
+        "processId": 17624,
+        "offscreen": false,
+        "bounds": "-689;819;40;41",
+        "authorization": "User authorized native fallback for real Windows testing"
+      },
+      "reviewed": true,
+      "reviewedFrames": [
+        1,
+        120
+      ],
+      "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+      "observation": "Frames 1-120: Timer remains present through collapse at 125%; no pale/native-caption replacement observed."
+    },
+    {
+      "folder": "motion/collapse100-normal",
+      "ptsStart": 1956.7452429999998,
+      "frames": 120,
+      "crop": {
+        "x": 3246,
+        "y": 609,
+        "width": 348,
+        "height": 308
+      },
+      "action": {
+        "utc": "2026-10-04T10:18:17.7222439Z",
+        "action": "native-uia-observed-pointer-click",
+        "button": "Collapse Floating Timer",
+        "windowId": 9307546,
+        "processId": 17624,
+        "offscreen": false,
+        "bounds": "1625;705;32;32",
+        "authorization": "User authorized native fallback for real Windows testing"
+      },
+      "reviewed": true,
+      "reviewedFrames": [
+        1,
+        120
+      ],
+      "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+      "observation": "Frames 1-120: Timer remains present through collapse at 100%; later frames include the next intentional Expand."
+    },
+    {
+      "folder": "motion/collapse100-reduced",
+      "ptsStart": 2008.1652179999999,
+      "frames": 120,
+      "crop": {
+        "x": 3246,
+        "y": 609,
+        "width": 348,
+        "height": 308
+      },
+      "action": {
+        "utc": "2026-10-04T10:19:09.1422187Z",
+        "action": "native-uia-observed-pointer-click",
+        "button": "Collapse Floating Timer",
+        "windowId": 9307546,
+        "processId": 17624,
+        "offscreen": false,
+        "bounds": "1625;729;32;33",
+        "authorization": "User authorized native fallback for real Windows testing"
+      },
+      "reviewed": true,
+      "reviewedFrames": [
+        1,
+        120
+      ],
+      "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+      "observation": "Frames 1-120: immediate compact commit, then functional Locate pulse; no Timer absence observed."
+    },
+    {
+      "folder": "motion/entry-normal-main",
+      "ptsStart": 1579.2304649999999,
+      "frames": 120,
+      "crop": {
+        "x": 1942,
+        "y": 22,
+        "width": 1024,
+        "height": 747
+      },
+      "action": {
+        "utc": "2026-10-04T10:12:00.2074655Z",
+        "action": "native-uia-invoke",
+        "button": "Blitz now",
+        "windowId": 13108632,
+        "processId": 17624,
+        "offscreen": false,
+        "bounds": "649;384;148;45",
+        "authorization": "User authorized native fallback for real Windows testing"
+      },
+      "reviewed": true,
+      "reviewedFrames": [
+        1,
+        120
+      ],
+      "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+      "observation": "Frames 1-120: finite board opacity transition and restored board after authoritative Start Blitz."
+    },
+    {
+      "folder": "motion/entry-normal-focus",
+      "ptsStart": 1579.2304649999999,
+      "frames": 120,
+      "crop": {
+        "x": 4136,
+        "y": 0,
+        "width": 344,
+        "height": 708
+      },
+      "action": {
+        "utc": "2026-10-04T10:12:00.2074655Z",
+        "action": "native-uia-invoke",
+        "button": "Blitz now",
+        "windowId": 13108632,
+        "processId": 17624,
+        "offscreen": false,
+        "bounds": "649;384;148;45",
+        "authorization": "User authorized native fallback for real Windows testing"
+      },
+      "reviewed": true,
+      "reviewedFrames": [
+        1,
+        120
+      ],
+      "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+      "observation": "Frames 1-120: desktop before entry, then populated Focus Panel; no partial empty host observed."
+    },
+    {
+      "folder": "motion/entry-reduced-focus",
+      "ptsStart": 2532.032493,
+      "frames": 120,
+      "crop": {
+        "x": 4136,
+        "y": 0,
+        "width": 344,
+        "height": 708
+      },
+      "action": {
+        "utc": "2026-10-04T10:27:53.0094937Z",
+        "action": "native-uia-invoke",
+        "button": "Blitz now",
+        "windowId": 16123728,
+        "processId": 135708,
+        "offscreen": false,
+        "bounds": "805;540;148;45",
+        "authorization": "User authorized native fallback for real Windows testing"
+      },
+      "reviewed": true,
+      "reviewedFrames": [
+        1,
+        120
+      ],
+      "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+      "observation": "Frames 1-120: populated Panel appears directly, without the normal entry opacity transition."
+    },
+    {
+      "folder": "motion/entry-reduced-main",
+      "ptsStart": 2532.032493,
+      "frames": 120,
+      "crop": {
+        "x": 2098,
+        "y": 178,
+        "width": 1024,
+        "height": 747
+      },
+      "action": {
+        "utc": "2026-10-04T10:27:53.0094937Z",
+        "action": "native-uia-invoke",
+        "button": "Blitz now",
+        "windowId": 16123728,
+        "processId": 135708,
+        "offscreen": false,
+        "bounds": "805;540;148;45",
+        "authorization": "User authorized native fallback for real Windows testing"
+      },
+      "reviewed": true,
+      "reviewedFrames": [
+        1,
+        120
+      ],
+      "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+      "observation": "Frames 1-120: board remains opaque; Starting Blitz button changes separately. Correct post-relaunch Main ROI (182,182)."
+    }
+  ],
+  "stills": [
+    {
+      "file": "notes-new-toolbar.png",
+      "observation": "notes-new-toolbar.json",
+      "utc": "2026-10-04T10:12:32.6672596Z",
+      "pts": 1611.890259,
+      "crop": {
+        "x": 4136,
+        "y": 0,
+        "width": 344,
+        "height": 708
+      },
+      "reviewed": true,
+      "reviewMethod": "Direct inspection of the video-derived PNG."
+    },
+    {
+      "file": "notes-toolbar-saved-running.png",
+      "observation": "notes-toolbar-saved-running.json",
+      "utc": "2026-10-04T10:13:28.3818032Z",
+      "pts": 1667.604803,
+      "crop": {
+        "x": 4136,
+        "y": 0,
+        "width": 344,
+        "height": 708
+      },
+      "reviewed": true,
+      "reviewMethod": "Direct inspection of the video-derived PNG."
+    },
+    {
+      "file": "english-n-notes.png",
+      "observation": "english-n-notes.json",
+      "utc": "2026-10-04T10:15:39.1094624Z",
+      "pts": 1798.332462,
+      "crop": {
+        "x": 4136,
+        "y": 0,
+        "width": 344,
+        "height": 708
+      },
+      "reviewed": true,
+      "reviewMethod": "Direct inspection of the video-derived PNG."
+    },
+    {
+      "file": "large-notes100-reduced-current.png",
+      "observation": "large-notes100-reduced-current.json",
+      "utc": "2026-10-04T10:18:38.2441492Z",
+      "pts": 1977.467149,
+      "crop": {
+        "x": 3246,
+        "y": 609,
+        "width": 348,
+        "height": 308
+      },
+      "reviewed": true,
+      "reviewMethod": "Direct inspection of the video-derived PNG."
+    },
+    {
+      "file": "c5-reappeared.png",
+      "observation": "c5-reappeared.json",
+      "utc": "2026-10-04T10:20:18.0872575Z",
+      "pts": 2077.310257,
+      "crop": {
+        "x": 3246,
+        "y": 609,
+        "width": 348,
+        "height": 118
+      },
+      "reviewed": true,
+      "reviewMethod": "Direct inspection of the video-derived PNG."
+    },
+    {
+      "file": "english-f-compact-success.png",
+      "observation": "english-f-compact-success.json",
+      "utc": "2026-10-04T10:25:42.7823602Z",
+      "pts": 2402.00536,
+      "crop": {
+        "x": 4136,
+        "y": 0,
+        "width": 344,
+        "height": 708
+      },
+      "reviewed": true,
+      "reviewMethod": "Direct inspection of the video-derived PNG."
+    }
+  ],
+  "nativeC5": "PASS",
+  "softwarePlacementAndTopology": "PASS exercised scope",
+  "shortcutsBehindAddTaskModal": "FAIL M7-OBS-20261004-17",
+  "sourceParity": "Only narrow toolbar grammar/motion behavior comparisons; whole M5/M6/M8 source parity remains open.",
+  "excludedGalleryImage": "observations/compact-success-navigation-crop.png shows Codex rather than the intended success surface; retained raw, excluded from acceptance.",
+  "limits": [
+    "Not every original video frame was manually inspected.",
+    "Navigation GDI screenshots are not substituted for continuous-motion evidence.",
+    "Physical cable disconnect and display sleep/wake were not run.",
+    "No M9 report/export acceptance was run.",
+    "No M10 checkbox/counter advanced."
+  ]
+}

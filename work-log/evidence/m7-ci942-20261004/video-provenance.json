@@ -1,0 +1,91 @@
+[
+  {
+    "recording": 1,
+    "originalFilename": "2026-10-04 12-45-40.mkv",
+    "originalBytes": 422038429,
+    "originalSha256": "ddf990eb6fd65f734fa64ab399cc26575e127900b035ebff7e07e529e146b9ee",
+    "startUtc": "2026-10-04T09:45:40.777Z",
+    "stopUtc": "2026-10-04T10:31:04.202Z",
+    "normalStop": true,
+    "parts": [
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part001",
+        "sha256": "443850a6b5fc15e4ff5aa5c10271b0c0e0f20143646998876d7aeb5eae1c2485",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part002",
+        "sha256": "3050fcc9ad75d85f933f7261f52acd897f190c8911eaac80fef4b15c840db286",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part003",
+        "sha256": "d7c45885b8b2e2f26b31f7eb3185d3c9411ceedea7191fb511ec089977e2ca4d",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part004",
+        "sha256": "ecddb6e15377209baa629a3d0a42b77fdcfa05d4916d6325005c6b484472e71a",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part005",
+        "sha256": "c7a6a4b3357f1937e0f9980c6ec241c3499a840a25a9b1c268bc48c3fe8a3364",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part006",
+        "sha256": "74b46293f649bee690802e73fe976bb075d9ea8a0db5229e68cadc79d7a9a8d3",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part007",
+        "sha256": "0d97b7ee71908f698fccb966685e52ba20dd4ae7f43d3ff52172c543ccd2c4a5",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part008",
+        "sha256": "74cb4d547a6a7527e0ea974980db2878dc302a1374d62bb986d56b61285841e6",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part009",
+        "sha256": "bbf1bad1ba34403f4e4380fa4f9735c6b5f27e96b63fc3f503b5656b58c13252",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part010",
+        "sha256": "7ba6709e819901def8c7b93afd74532f792d57441a55c2d36bac4a83b366b64e",
+        "bytes": 41943040
+      },
+      {
+        "file": "raw-video/recording-1/2026-10-04 12-45-40.mkv.part011",
+        "sha256": "2d8008305ba3da173600c653b8d39f4cd1415242b5249f5780b8717a7261f072",
+        "bytes": 2608029
+      }
+    ],
+    "obsPauseIntervals": [],
+    "note": "Complete original two-display capture, including original audio streams. Not all 2722.867 seconds were directly reviewed. Performance runs after stop are separately logged and not claimed to be in this video.",
+    "media": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "2722.867000"
+      }
+    }
+  }
+]

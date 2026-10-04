@@ -1,0 +1,86 @@
+[
+  {
+    "file": "notes-new-toolbar.png",
+    "observation": "notes-new-toolbar.json",
+    "utc": "2026-10-04T10:12:32.6672596Z",
+    "pts": 1611.890259,
+    "crop": {
+      "x": 4136,
+      "y": 0,
+      "width": 344,
+      "height": 708
+    },
+    "reviewed": true,
+    "reviewMethod": "Direct inspection of the video-derived PNG."
+  },
+  {
+    "file": "notes-toolbar-saved-running.png",
+    "observation": "notes-toolbar-saved-running.json",
+    "utc": "2026-10-04T10:13:28.3818032Z",
+    "pts": 1667.604803,
+    "crop": {
+      "x": 4136,
+      "y": 0,
+      "width": 344,
+      "height": 708
+    },
+    "reviewed": true,
+    "reviewMethod": "Direct inspection of the video-derived PNG."
+  },
+  {
+    "file": "english-n-notes.png",
+    "observation": "english-n-notes.json",
+    "utc": "2026-10-04T10:15:39.1094624Z",
+    "pts": 1798.332462,
+    "crop": {
+      "x": 4136,
+      "y": 0,
+      "width": 344,
+      "height": 708
+    },
+    "reviewed": true,
+    "reviewMethod": "Direct inspection of the video-derived PNG."
+  },
+  {
+    "file": "large-notes100-reduced-current.png",
+    "observation": "large-notes100-reduced-current.json",
+    "utc": "2026-10-04T10:18:38.2441492Z",
+    "pts": 1977.467149,
+    "crop": {
+      "x": 3246,
+      "y": 609,
+      "width": 348,
+      "height": 308
+    },
+    "reviewed": true,
+    "reviewMethod": "Direct inspection of the video-derived PNG."
+  },
+  {
+    "file": "c5-reappeared.png",
+    "observation": "c5-reappeared.json",
+    "utc": "2026-10-04T10:20:18.0872575Z",
+    "pts": 2077.310257,
+    "crop": {
+      "x": 3246,
+      "y": 609,
+      "width": 348,
+      "height": 118
+    },
+    "reviewed": true,
+    "reviewMethod": "Direct inspection of the video-derived PNG."
+  },
+  {
+    "file": "english-f-compact-success.png",
+    "observation": "english-f-compact-success.json",
+    "utc": "2026-10-04T10:25:42.7823602Z",
+    "pts": 2402.00536,
+    "crop": {
+      "x": 4136,
+      "y": 0,
+      "width": 344,
+      "height": 708
+    },
+    "reviewed": true,
+    "reviewMethod": "Direct inspection of the video-derived PNG."
+  }
+]

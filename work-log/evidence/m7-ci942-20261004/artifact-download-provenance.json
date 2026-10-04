@@ -1,0 +1,28 @@
+[
+  {
+    "label": "candidate",
+    "artifactId": 11299369259,
+    "zipSha256": "cf911b2aa4b0becad2ce286967634f298cf8e6635f5960243afe3c0f3fe9597e",
+    "zipBytes": 5403405,
+    "exePath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr231-ci942\\candidate\\narro-m7-validation.exe",
+    "exeSha256": "3e836e942b45f3586e71bda15208f60b8b8cc901449146fdef76b8999b5b61ea",
+    "sourceHead": "c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d",
+    "ciRun": 37191346390,
+    "ciNumber": 942,
+    "ciVerdict": "PASS all jobs",
+    "utc": "2026-10-04T09:36:53.153916+00:00"
+  },
+  {
+    "label": "m1-diagnostic",
+    "artifactId": 11299363071,
+    "zipSha256": "cf346936f515f742cad9e1c83df249779f58a5f94071ac2adf1f7ef6fd918a65",
+    "zipBytes": 5423490,
+    "exePath": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr231-ci942\\m1-diagnostic\\src-tauri\\target\\release\\narro.exe",
+    "exeSha256": "89b2c7c6799743e891a8c602c0e969aab8d0ecdd6b64a809c453f44e567af648",
+    "sourceHead": "c2821e6f998c6cd7424d5aed8673f5c9a3ff9e9d",
+    "ciRun": 37191346390,
+    "ciNumber": 942,
+    "ciVerdict": "PASS all jobs",
+    "utc": "2026-10-04T09:36:57.912334+00:00"
+  }
+]

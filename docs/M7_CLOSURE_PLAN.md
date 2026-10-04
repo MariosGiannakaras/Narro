@@ -2,6 +2,13 @@
 
 Status: current executable closure controller for Milestone 7.
 
+## Current2026-10-04 closure overlay
+
+CI936 accepted changed native continuity/source grammar/Notes paths; CI942 adds600 unique consecutive directly reviewed frames, current M6 entry/Notes observations and native C5 PASS at(1330,613) after2392px drag/Quit/same-EXE relaunch. M1 B/C/D replacement Gate A is re-closed with exact942 placement4/4 twice, software reconnect/Main present/absent and3/3 valid quiet measurements; small2.55% cold private difference is accepted under existing no-major-regression criterion with explicit limits. Whole [CI942 video/logs/visual review](../work-log/2026-10-04-codex-m7-ci942-physical-results.md) is authoritative for this build.
+
+C1–C3 remain PASS. **C4 is open for new modal shortcut17 integration retest; C5 native/platform paths PASS but final tracking/source reconciliation remains open**, so closure counter stays3/5. PR232/head6029b552 fullCI944 PASS/identical merge0df4c14c/main945 identical-tree PASS. Next exact EXEb6814cf5... retest only affected modal/shortcut paths, batched adequate M5 narrow/source/C5 observations. Do not repeat all previously accepted native paths or start another general audit. Global4/10M; no M10 until every required M1–M9 gate clears. Sections below preserve historical mechanism/acceptance context.
+
+
 This document supersedes historical “implementation order” text for deciding what remains before M7 can close. Historical design/physical evidence remains in the existing M7 docs and immutable work logs.
 
 ## What is already done

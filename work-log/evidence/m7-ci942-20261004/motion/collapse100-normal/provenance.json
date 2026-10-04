@@ -1,0 +1,28 @@
+{
+  "folder": "motion/collapse100-normal",
+  "ptsStart": 1956.7452429999998,
+  "frames": 120,
+  "crop": {
+    "x": 3246,
+    "y": 609,
+    "width": 348,
+    "height": 308
+  },
+  "action": {
+    "utc": "2026-10-04T10:18:17.7222439Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Collapse Floating Timer",
+    "windowId": 9307546,
+    "processId": 17624,
+    "offscreen": false,
+    "bounds": "1625;705;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "reviewed": true,
+  "reviewedFrames": [
+    1,
+    120
+  ],
+  "reviewMethod": "Direct consecutive-frame inspection of four 30-frame contact sheets; full lossless frames retained.",
+  "observation": "Frames 1-120: Timer remains present through collapse at 100%; later frames include the next intentional Expand."
+}
