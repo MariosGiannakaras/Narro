@@ -31,7 +31,13 @@ Current compact progress:
 
 The documentation-only reconciliation advances no validation counter.
 
-## ACTIVE M7 CORRECTION — CI932 placement/C5 PASS; same-HWND pixel hold
+## ACTIVE M7 CORRECTION — PR230/CI936 own-WebView pixels; physical acceptance pending
+
+[PR230](https://github.com/MariosGiannakaras/Narro/pull/230), exact head `ff21477e57b42b7e672b439625db6e9a20abb152`, implements compact React prepaint, asynchronous WebView2 CapturePreview PNG, finite500ms native bitmap child on the same Focus HWND with rollback/mode/exit/DPI cleanup, and the canonical Break gamepad. Parent-client GDI probe returned stale caption/black, so no parent/desktop GDI capture is used in production. Full CI936/run37184564836 PASS; guarded merge `f9a282d0ee7bcc5e7b40abb83df459927036662a` has zero non-Markdown differences, duplicate main CI937 cancelled after proof. Verified physical artifact11296657772 EXE41365825... and diagnostic11297166374 EXEadd3e892... downloaded in `artifacts/m7-pr230-ci936`. Next: affected continuous two-DPI normal/reduced/bottom-edge/hover/Notes/C5/canonical capture and isolated M1 B/C/D/performance. M7 remains3/5 until physical acceptance.
+
+Whole frozen [CI932 native logs, videos, images and visual review](work-log/evidence/m7-ci932-20261004/README.md) are on main. The official run proves placement/C5 and FAILs Collapse. Modified-runtime native-child experiments are diagnostic only; full500ms review still exposes outgoing/partial hierarchy, corrected by the new prepaint candidate. CI932 PID23128 was normally tray-Quit after diagnostics to freeze all twelve log files; next production launch must use the newly validated candidate in its own artifact directory, not overwrite CI932 logs. Both displays remain enabled, normal motion restored, OBS stopped. No production database restoration was performed.
+
+## HISTORICAL CI932 physical verdict — immutable exact-source evidence
 
 PR228 exact head `a6af4ef15bd827ad751b023df21ab64e565e2c8e` PASSed all CI932/run37167015466 jobs and merged587af0a0 with runtime/build/test/workflow identity verified; duplicate main CI933 cancelled. Exact EXE31ac41768872319ba717e07af27138009ee9fd82f75de4fff93b42ea40ed71ef physically fixes drift in twelve100%/125% normal/reduced Panel returns. C5 real378.8px drag/Quit/same-EXE/relaunch/explicit shortcut reappearance PASSes at `(1466,638)`, paused04:10/250 durable seconds. Collapse still FAILs; no source parity or counter advance.
 

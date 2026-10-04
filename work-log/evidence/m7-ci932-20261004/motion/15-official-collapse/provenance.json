@@ -1,0 +1,26 @@
+{
+  "folder": "motion/15-official-collapse",
+  "recording": 1,
+  "action": {
+    "utc": "2026-10-04T02:15:19.1615607Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Collapse Floating Timer",
+    "windowId": 1181574,
+    "processId": 13932,
+    "offscreen": false,
+    "bounds": "-1334;819;40;41",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "case": "official",
+  "ptsStart": 2635.49056,
+  "crop": {
+    "x": 214,
+    "y": 701,
+    "width": 433,
+    "height": 379
+  },
+  "observation": "reduced-125-bottom-collapse-1.json",
+  "frames": 60,
+  "reviewed": false,
+  "method": "60 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

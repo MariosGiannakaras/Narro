@@ -1,0 +1,14 @@
+[
+  {
+    "artifactId": 11290666183,
+    "zipSha256": "8b812c25ecedb4b9780bc847cecbfa0db8a83558f3c97538d640ffa9c08f40bc",
+    "executable": "narro-m7-validation.exe",
+    "executableSha256": "31ac41768872319ba717e07af27138009ee9fd82f75de4fff93b42ea40ed71ef"
+  },
+  {
+    "artifactId": 11290271172,
+    "zipSha256": "172a906103c41c0d1b6611a4c53a1e308b163d1330a82d678ca17124c02d88c4",
+    "executable": "src-tauri/target/release/narro.exe",
+    "executableSha256": "e569ddd8af38f2482afbefe92ede10936af056cdbbbfafa62c1e30f11e016a60"
+  }
+]

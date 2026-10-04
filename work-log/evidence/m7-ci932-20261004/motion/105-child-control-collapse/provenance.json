@@ -1,0 +1,25 @@
+{
+  "folder": "motion/105-child-control-collapse",
+  "recording": 8,
+  "action": {
+    "action": "EXPERIMENTAL-observed-pointer-click",
+    "cycle": 3,
+    "case": "child-control",
+    "windowId": 26937174,
+    "button": "Collapse Floating Timer",
+    "bounds": "1762;297;32;32",
+    "utc": "2026-10-04T06:24:52.7497164Z"
+  },
+  "case": "child-control",
+  "ptsStart": 9.176716,
+  "crop": {
+    "x": 3383,
+    "y": 201,
+    "width": 348,
+    "height": 310
+  },
+  "observation": "experiment-child-control-start.json",
+  "frames": 60,
+  "reviewed": false,
+  "method": "60 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

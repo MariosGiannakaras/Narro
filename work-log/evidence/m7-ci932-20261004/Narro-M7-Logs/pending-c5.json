@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "sourceSessionId": "dd590f8f-2c84-440a-9b61-d89231f5cef6",
+  "createdUtc": "2026-10-04T07:10:51.177Z",
+  "savedPlacement": {
+    "version": 1,
+    "position": {
+      "x": 1467,
+      "y": 205
+    },
+    "outerSize": {
+      "width": 340,
+      "height": 110
+    },
+    "workArea": {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "width": 2560,
+        "height": 1080
+      }
+    },
+    "monitorName": "\\\\.\\DISPLAY2"
+  },
+  "topologySignature": "\\\\.\\DISPLAY1|-1920|0|1920|1080|-1920|0|1920|1080|3ff4000000000000\n\\\\.\\DISPLAY2|0|0|2560|1080|0|0|2560|1080|3ff0000000000000",
+  "maxMoveDistancePx": 567,
+  "qualifyingMove": true,
+  "sourceSha": "a6af4ef15bd827ad751b023df21ab64e565e2c8e",
+  "executableFingerprint": "fnv1a64:69b3ab8fe4f770fa:bytes:14935040"
+}

@@ -1,0 +1,11 @@
+{
+  "sourceSha": "a6af4ef15bd827ad751b023df21ab64e565e2c8e",
+  "mergedSourceSha": "587af0a0f87283b8adc56e53e166289da77833b3",
+  "ciRun": 37167015466,
+  "ciNumber": 932,
+  "artifactId": 11290666183,
+  "exeSha256": "31ac41768872319ba717e07af27138009ee9fd82f75de4fff93b42ea40ed71ef",
+  "computerUse": "Window enumeration/accessibility and keyboard work; capture timeout survives fresh-session retry. User-authorized native UIA/Win32 fallback is retained. OBS records actual two-display desktop.",
+  "networkLimiter": "Blocker On and Limiter On both unchecked, no change needed",
+  "setupUtc": "2026-10-04T01:29:47.479554+00:00"
+}

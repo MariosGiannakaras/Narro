@@ -1,0 +1,26 @@
+{
+  "folder": "motion/87-dwm-no-nc-collapse",
+  "recording": 5,
+  "action": {
+    "utc": "2026-10-04T06:12:48.6935393Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Collapse Floating Timer",
+    "windowId": 26937174,
+    "processId": 23128,
+    "offscreen": false,
+    "bounds": "1762;297;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "case": "dwm-no-nc",
+  "ptsStart": 20.034539000000002,
+  "crop": {
+    "x": 3383,
+    "y": 201,
+    "width": 348,
+    "height": 310
+  },
+  "observation": "experiment-dwm-no-nc-start.json",
+  "frames": 60,
+  "reviewed": false,
+  "method": "60 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

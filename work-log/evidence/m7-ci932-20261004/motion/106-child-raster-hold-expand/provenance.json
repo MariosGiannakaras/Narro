@@ -1,0 +1,26 @@
+{
+  "folder": "motion/106-child-raster-hold-expand",
+  "recording": 8,
+  "action": {
+    "utc": "2026-10-04T06:24:56.7816766Z",
+    "action": "native-uia-observed-pointer-click",
+    "button": "Expand Floating Timer",
+    "windowId": 26937174,
+    "processId": 23128,
+    "offscreen": false,
+    "bounds": "1762;264;32;32",
+    "authorization": "User authorized native fallback for real Windows testing"
+  },
+  "case": "child-raster-hold",
+  "ptsStart": 13.208676,
+  "crop": {
+    "x": 3383,
+    "y": 201,
+    "width": 348,
+    "height": 310
+  },
+  "observation": "experiment-child-raster-hold-start.json",
+  "frames": 60,
+  "reviewed": false,
+  "method": "60 consecutive decoded source60fps frames; source PTS from OBS UTC log; export is not review"
+}

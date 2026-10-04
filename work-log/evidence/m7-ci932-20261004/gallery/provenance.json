@@ -1,0 +1,40 @@
+[
+  {
+    "file": "gallery/official-large-notes.png",
+    "recording": 1,
+    "sourcePts": 2765.59483,
+    "observation": "large-notes-open.json",
+    "description": "Large Notes bounded presentation; full draft/focus/Save proof also uses observations and recorded actions."
+  },
+  {
+    "file": "gallery/official-compact-hover.png",
+    "recording": 1,
+    "sourcePts": 2708.448387,
+    "observation": "hover-1298.json",
+    "description": "Compact Skip hover; selected label with neighboring slots stable."
+  },
+  {
+    "file": "gallery/c5-after-drag.png",
+    "recording": 1,
+    "sourcePts": 2795.220794,
+    "observation": "c5-live-after-drag.json",
+    "description": "Running own task after378.8px physical compact drag, at1466,638."
+  },
+  {
+    "file": "gallery/c5-restored.png",
+    "recording": 1,
+    "sourcePts": 2986.530023,
+    "observation": "c5-restored-visible.json",
+    "description": "Same task restored paused04:10 after same-EXE restart and explicit Timer shortcut."
+  },
+  {
+    "file": "gallery/official-normal-collapse.png",
+    "sourceFrame": "live-motion/100-normal-collapse-1/frame-044.png",
+    "description": "Observed native classic caption instead of Timer; official Collapse FAIL."
+  },
+  {
+    "file": "gallery/official-return-frame051.png",
+    "sourceFrame": "live-motion/100-normal-collapse-1/frame-051.png",
+    "description": "First returned compact pixels after the caption gap; actual source frame051."
+  }
+]

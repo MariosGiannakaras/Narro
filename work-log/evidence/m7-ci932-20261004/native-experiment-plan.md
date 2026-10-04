@@ -1,0 +1,9 @@
+# CI932 native boundary experiment
+
+Official unmodified candidate: CI932, source a6af4ef15bd827ad751b023df21ab64e565e2c8e, SHA256 31ac41768872319ba717e07af27138009ee9fd82f75de4fff93b42ea40ed71ef.
+
+The official continuous capture still exposes native caption/background during Collapse. Three observed direct transitions preserve HWND, 340x700 client/outer size, WS style14CA0000/exstyle40118, visibility and position; the region changes110/300. No hung/ghost HWND is detected by the bounded sampler. Tao0.35.3 avoids unchanged always-on-top writes; its skip-taskbar call only uses ITaskbarList DeleteTab. These observations reject claiming redundant attribute writes or a ghost as the established cause.
+
+Before another implementation, compare scoped native alternatives on the same paused own task: remove the latent WS_CAPTION only; add WS_CLIPCHILDREN only; combine them; restore the exact baseline and repeat as control. Changes use SetWindowLongPtr + SWP_FRAMECHANGED, without host resize/hide/WebView recreation or data mutation. Win32 WS_CLIPCHILDREN excludes child rectangles from parent painting; applicability to this failure remains a hypothesis. Record exact styles, geometry and continuous pixels. Always restore original style in finally. Experimental modified-runtime captures are diagnostic evidence, never unmodified-EXE acceptance.
+
+SetWindowRgn sends WINDOWPOSCHANGING/CHANGED even when redraw is false: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowrgn . Tao delegates WINDOWPOSCHANGED to default processing so WM_SIZE remains available, and implements borderlessness through NCCALCSIZE while WS_CAPTION remains in the native style. This is a materially different parent/nonclient painting experiment from PR228's position-only correction. If none maintains pixels, investigate compositor/child repaint transaction rather than claim a caption-only fix.
