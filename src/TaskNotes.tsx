@@ -256,11 +256,12 @@ function restoreSelectionOffsets(root: HTMLElement, offsets: SelectionOffsets | 
   selection.setBaseAndExtent(anchor.node, anchor.offset, focus.node, focus.offset);
 }
 
-function normalizeAutoLinkedAnchors(root: HTMLElement): boolean {
+function normalizeAutoLinkedAnchors(root: HTMLElement, finalizePunctuation = false): boolean {
   let changed = false;
   root.querySelectorAll<HTMLAnchorElement>('a[data-note-auto-link="true"]').forEach((anchor) => {
     const raw = anchor.textContent ?? "";
-    const trailing = raw.match(/[\s),.!?;:\]}]+$/)?.[0] ?? "";
+    const trailingPattern = finalizePunctuation ? /[\s),.!?;:\]}]+$/ : /\s+$/;
+    const trailing = raw.match(trailingPattern)?.[0] ?? "";
     const candidate = trailing ? raw.slice(0, -trailing.length) : raw;
     const link = safeExternalUrl(candidate);
 
@@ -324,7 +325,7 @@ function EditableDocument({ document }: { document: NoteDocument }) {
     if (block.kind === "paragraph") {
       return (
         <p key={`p-${blockIndex}`}>
-          {block.runs.flatMap(autoLinkedRuns).map((run, index) => <EditableRun key={index} run={run} />)}
+          {block.runs.map((run, index) => <EditableRun key={index} run={run} />)}
         </p>
       );
     }
@@ -333,7 +334,7 @@ function EditableDocument({ document }: { document: NoteDocument }) {
       <Tag key={`${block.kind}-${blockIndex}`}>
         {block.items.map((item, itemIndex) => (
           <li key={itemIndex}>
-            {item.runs.flatMap(autoLinkedRuns).map((run, index) => <EditableRun key={index} run={run} />)}
+            {item.runs.map((run, index) => <EditableRun key={index} run={run} />)}
           </li>
         ))}
       </Tag>
@@ -460,6 +461,11 @@ function RichNoteEditor({
     };
   }, [largePresentation]);
 
+  useEffect(() => {
+    const root = editorRef.current;
+    if (root) autoLinkEditorUrls(root);
+  }, [initialDocument]);
+
   const selectionInsideEditor = () => {
     const selection = window.getSelection();
     const root = editorRef.current;
@@ -478,6 +484,8 @@ function RichNoteEditor({
   const save = () => {
     const root = editorRef.current;
     if (!root || pending) return;
+    normalizeAutoLinkedAnchors(root, true);
+    autoLinkEditorUrls(root);
     onSave(editorDocument(root));
   };
 
@@ -589,8 +597,9 @@ function RichNoteEditor({
             const root = editorRef.current;
             const selection = root ? captureSelectionOffsets(root) : null;
             if (root) {
-              const changed = normalizeAutoLinkedAnchors(root) || autoLinkEditorUrls(root);
-              if (changed) restoreSelectionOffsets(root, selection);
+              const normalized = normalizeAutoLinkedAnchors(root);
+              const linked = autoLinkEditorUrls(root);
+              if (normalized || linked) restoreSelectionOffsets(root, selection);
             }
             setDirty(true);
             setEditorError(null);
