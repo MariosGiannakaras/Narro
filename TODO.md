@@ -266,6 +266,16 @@ Acceptance criteria:
 
 **Gate E reconciliation result: PASS / proceed to the reopened Milestone 6 reconciliation gate.** PR #156 exact head `2cde42c10389c2417e1b6e356eae59150ebff8ce` passed Windows CI #539, including repository preflight, Rust checks/tests, Windows visual regression, Tauri release build, visual artifact `narro-m5-visual-regression`, and diagnostic harness artifact. Expected-head guarded squash merge `4e315f551737d729f76e5f561dd8d7404717e157` passed resulting-main Windows CI #540 through the repository's identical-tree validation gate. The validated source baseline for this reconciliation is `4e315f551737d729f76e5f561dd8d7404717e157`.
 
+### 2026-10-04 Pass-3 planning/destructive parity corrections
+
+- [x] **P3-M5-01** — Today exposes source-style done/total `Done` progress while retaining the Today accent and anchored CTA.
+- [x] **P3-M5-02** — resting board tasks use an ordinal; hover/focus exposes completion plus Subtasks / Notes / lane-left / lane-right / overflow without geometry reflow.
+- [x] **P3-M5-03** — drag presentation uses lifted-card feedback, live card-height placeholder/reflow and finite settle while preserving validated `beforeTaskId` persistence semantics.
+- [x] **P3-M5-04** — permanent task delete uses inline destructive Confirm + X while retaining explicit confirmation, stable identity and report-exclusion safety.
+- [x] **P3-M5-05** — active-list Archive applies directly from the menu; permanent archived-list deletion remains destructive/confirmed.
+
+Automated validation: PR #227 exact head `d40cd9edec6456bc25dafb792ad3ab29876abe99` PASSed Windows CI #927 / run `37161179503`; expected-head guarded squash merge `cdbe496bb995311f5dacc0527ef94072683032d1` PASSed resulting-main Windows CI #928 / run `37162873321`. This closes the five `FIX_NOW` implementation deltas only. PR #225's exact-EXE narrow-board physical check and direct canonical-source comparison remain `VALIDATION_OPEN`; Narro-owned captures do not establish `SOURCE_PARITY_PASS`.
+
 ## Milestone 6 — Blitz Mode / Focus Panel
 
 - [x] Start Blitz from eligible Today tasks.

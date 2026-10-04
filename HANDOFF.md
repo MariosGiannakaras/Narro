@@ -17,12 +17,13 @@ The runtime implementation baseline compared by the reconciliation is merged `ma
 
 **No `SOURCE_PARITY_PASS` is claimed by this reconciliation.** Narro-owned visual fixtures, screenshot regressions, automated CI and physical Windows PASS are separate evidence classes from direct canonical Blitzit comparison.
 
-Live GitHub state at the 2026-10-04 coordination re-audit:
-- **PR #227** (`fix/m5-pass3-parity-corrections`) is the active M5 implementation line for `P3-M5-01..05`; exact head at the audit checkpoint: `d40cd9edec6456bc25dafb792ad3ab29876abe99`;
-- Windows CI #927 / run `37161179503` has been started for that exact head. Its live result must be inspected before merge; this handoff does not pre-claim PASS;
-- PR #227 does **not** touch authoritative tracking/process Markdown, so current `main` coordination truth must be preserved when it later merges;
-- do **not** create a competing M5 branch while PR #227 remains the active line;
-- PR #226 is merged; its exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 / run `37151575297`, and resulting-main Windows CI #917 / run `37157907335` PASSed all gates.
+Live GitHub state after the M5 Pass-3 correction closure:
+- **PR #227** (`fix/m5-pass3-parity-corrections`) exact head `d40cd9edec6456bc25dafb792ad3ab29876abe99` PASSed Windows CI #927 / run `37161179503`;
+- expected-head guarded squash merge is `cdbe496bb995311f5dacc0527ef94072683032d1`;
+- resulting-main Windows CI #928 / run `37162873321` PASSed all gates on that merged source, including frontend/contracts, Rust fmt/check/Clippy/tests, visual regression, release build, packaged Focus runtime, physical-validation build and diagnostic validation;
+- `P3-M5-01..05` are therefore **AUTOMATED_VALIDATED** implementation corrections; direct canonical Blitzit comparison remains a separate `VALIDATION_OPEN` gate and PR #225's exact-EXE narrow-board physical observation remains open;
+- there is no active M5 implementation PR; the next owned implementation slice is M6 `P3-M6-01..03`;
+- PR #226 remains merged/validated for the separate M9 Sessions line.
 
 Current compact progress:
 
@@ -53,9 +54,9 @@ Durable physical ledger:
 
 Authoritative row-level detail: `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md`.
 
-### M5 — FIX_NOW
+### M5 — AUTOMATED_VALIDATED correction; direct source comparison still open
 
-Implement one coherent planning/destructive-parity corrective batch:
+PR #227 / CI #927 / guarded merge `cdbe496bb995311f5dacc0527ef94072683032d1` / resulting-main CI #928 validate the coherent planning/destructive correction. The five requirements are implemented and remain regression invariants:
 1. **P3-M5-01** — Today `done/total Done` progress while retaining the existing Today accent/CTA structure.
 2. **P3-M5-02** — resting task ordinal; hover changes the left slot to completion and exposes **Subtasks / Notes / lane-left / lane-right / overflow** without geometry reflow.
 3. **P3-M5-03** — source drag presentation: lifted card, live source reflow/placeholder and finite settle, while preserving the already-validated positional `beforeTaskId` mutation.
@@ -101,13 +102,13 @@ Keep open:
 ## CURRENT OWNERSHIP / CONCURRENCY
 
 User-directed ownership is now explicit and binding until newer repository truth changes it:
-- **M5/M6 implementation line:** continue active PR #227 through exact-head CI, guarded merge and resulting-main reconciliation; then implement the routed M6 `P3-M6-01..03` correction slice. This line **stops after validated/merged M6** and must not take M7, M9 or M10.
+- **M5/M6 implementation line:** M5 `P3-M5-01..05` is merged/resulting-main green on `cdbe496bb995311f5dacc0527ef94072683032d1`; continue with the routed M6 `P3-M6-01..03` correction slice from latest `main`. This line **stops after validated/merged M6** and must not take M7, M9 or M10.
 - **M7 line:** the existing local Windows/Codex owner retains the entire M7 closure, including `P3-M7-01`, `P3-M7-02`, the PR #225 exact-EXE physical observations, and the M1/M6/M8 physical gates that depend on the same replacement `focusSurface` implementation. Do not create a parallel M7 replacement.
 - After those lines converge on authoritative `main`, the continuing Codex/release line may close the remaining M1–M9 obligations (including M9 Overview PDF and Reports/Sessions source/physical parity) and may enter M10 **only after the hard M10 entry gate in `AGENT_WORKFLOW.md` / `TODO.md` is proven clear**.
 
 ## NEXT AGENT ACTION
 
-For the M5/M6 implementation owner: resume **PR #227**, not a new branch. Inspect its current exact head and Windows CI #927 result. If CI fails, fix only the evidenced cause on the same coherent M5 line. If exact-head CI passes, perform the required guarded merge/resulting-main validation and reconcile tracking, then continue with the routed M6 `P3-M6-01..03` slice from latest `main`. Stop implementation after validated/merged M6 and leave a durable handoff.
+For the M5/M6 implementation owner: M5 is reconciled and automated-green on resulting `main` source `cdbe496bb995311f5dacc0527ef94072683032d1`. Start one coherent M6 `P3-M6-01..03` feature branch from the latest authoritative `main`, preserve the M7/M9 ownership boundaries, run authoritative Windows CI, use an expected-head guarded merge, validate resulting `main`, then reconcile tracking. Stop implementation after validated/merged M6 and leave a durable handoff.
 
 For the M7/local-Windows owner: continue the existing M7 physical/source-parity line independently, including `P3-M7-01/02`; also close the still-reopened M1/M6/M8 physical acceptance that depends on the same final replacement build where the evidence can be batched safely.
 

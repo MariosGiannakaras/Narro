@@ -2,6 +2,17 @@
 
 Last updated: 2026-10-04
 
+## 2026-10-04 — M5 Pass-3 parity-correction slice merged; resulting-main CI #928 PASS
+
+PR #227 exact head `d40cd9edec6456bc25dafb792ad3ab29876abe99` implemented `P3-M5-01..05` as one planning/destructive correction: Today done/total progress, resting ordinal→hover completion and exact board action rail, lifted drag/live placeholder/finite settle, inline task-delete Confirm+X, and direct reversible List Archive. Existing `beforeTaskId` persistence, confirmed permanent-delete/report exclusion, archived-list destructive deletion and PR #225 narrow-card readability invariants were preserved.
+
+Windows CI #927 / run `37161179503` PASSed the exact PR head. Expected-head guarded squash merge `cdbe496bb995311f5dacc0527ef94072683032d1` then PASSed resulting-main Windows CI #928 / run `37162873321`, including frontend/contracts, Rust fmt/check/Clippy/tests, performance harness, Windows visual regression, Tauri release, packaged Focus runtime validation, physical-validation build and diagnostic validation.
+
+The five M5 Pass-3 `FIX_NOW` implementation rows are now **AUTOMATED_VALIDATED**. This does **not** close PR #225's exact-EXE narrow-board physical observation and does not claim direct Blitzit `SOURCE_PARITY_PASS`. Current global compact progress therefore remains governed by the active M7/reopened-acceptance ledger: **`3/10M || 3/5 | 14/19`**.
+
+Durable evidence: `work-log/2026-10-04-chatgpt-m5-pass3-pr227-main928-closure.md`.
+
+
 ## 2026-10-04 — M9 PR #226 resulting-main CI #917 PASS; Sessions slice 5/5
 
 PR #226 final exact head `106d3447c6614d830b59e5464fe71b70e5552eda` PASSed Windows CI #915 / run `37151575297`, then expected-head guarded squash-merged as `f53a850f51375f15a0b2b4efe106da95e30b6e73`. All 22 PR-changed files are blob-identical between the validated head and merged source. Resulting-main Windows CI #917 / run `37157907335` **PASSed all gates**, including frontend/contracts, Rust fmt/check/clippy/tests, performance harness, Reports visual-regression capture, Tauri release, packaged Focus validation and repository-wide validation builds.
