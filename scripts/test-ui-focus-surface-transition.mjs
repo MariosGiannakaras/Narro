@@ -194,7 +194,7 @@ invariant(
 );
 
 invariant(
-  modeApi.includes('invoke<void>("focus_surface_apply_presentation", { presentation })')
+  modeApi.includes('invoke<void>("focus_surface_apply_presentation", { presentation, compactFrame })')
     && modeApi.includes('invoke<void>("focus_surface_animate_presentation", { presentation, durationMs })')
     && !modeApi.includes("prepare_floating_timer")
     && !modeApi.includes("reveal_floating_timer"),

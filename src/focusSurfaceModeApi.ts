@@ -19,8 +19,13 @@ export async function getFocusSurfaceMode(): Promise<FocusSurfaceMode> {
 
 export async function applyFocusSurfacePresentation(
   presentation: FocusSurfacePresentation,
+  compactFrame?: number[],
 ): Promise<void> {
-  await invoke<void>("focus_surface_apply_presentation", { presentation });
+  await invoke<void>("focus_surface_apply_presentation", { presentation, compactFrame });
+}
+
+export async function captureCompactTimerFrame(): Promise<number[]> {
+  return invoke<number[]>("focus_surface_capture_compact_frame");
 }
 
 export async function animateFocusSurfacePresentation(
@@ -38,6 +43,6 @@ export async function presentFloatingTimer(expanded = false): Promise<void> {
   await applyFocusSurfacePresentation(expanded ? "timerExpanded" : "timerCompact");
 }
 
-export async function setFloatingTimerExpanded(expanded: boolean): Promise<void> {
-  await applyFocusSurfacePresentation(expanded ? "timerExpanded" : "timerCompact");
+export async function setFloatingTimerExpanded(expanded: boolean, compactFrame?: number[]): Promise<void> {
+  await applyFocusSurfacePresentation(expanded ? "timerExpanded" : "timerCompact", compactFrame);
 }

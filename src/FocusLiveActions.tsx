@@ -126,7 +126,7 @@ function FloatingActionIcon({ kind }: { kind: FloatingActionIconKind }) {
 
   switch (kind) {
     case "break":
-      return <svg {...common}><path d="M5 8h11v5a5 5 0 0 1-5 5H9a4 4 0 0 1-4-4V8Z" /><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16" /><path d="M8 4v2M12 4v2" /></svg>;
+      return <svg {...common}><path d="M7 8h10a4 4 0 0 1 3.8 2.8l1 5.1a2 2 0 0 1-3.3 1.8L16 15H8l-2.5 2.7a2 2 0 0 1-3.3-1.8l1-5.1A4 4 0 0 1 7 8Z" /><path d="M7 10v4M5 12h4" /><circle cx="16" cy="11" r=".5" /><circle cx="18" cy="13" r=".5" /></svg>;
     case "notes":
       return <svg {...common}><path d="M6 3h9l3 3v15H6Z" /><path d="M15 3v4h4M9 11h6M9 15h6" /></svg>;
     case "pause":

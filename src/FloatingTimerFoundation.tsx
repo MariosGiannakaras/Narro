@@ -5,7 +5,7 @@ import { FocusLiveActions } from "./FocusLiveActions";
 import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveSubtasks } from "./FocusLiveSubtasks";
 import { focusTimerPresentation } from "./focusTimerPresentation";
-import { setFloatingTimerExpanded } from "./focusSurfaceModeApi";
+import { captureCompactTimerFrame, setFloatingTimerExpanded } from "./focusSurfaceModeApi";
 import {
   getListBoardSnapshot,
   type BoardSubtaskSnapshot,
@@ -39,7 +39,7 @@ export type FloatingTimerFoundationProps = {
   };
   presentationActive?: boolean;
   controlledExpanded?: boolean;
-  onRequestExpanded?: (expanded: boolean) => Promise<void>;
+  onRequestExpanded?: (expanded: boolean, compactFrame?: number[]) => Promise<void>;
   fixtureExpanded?: boolean;
   fixtureSubtasks?: BoardSubtaskSnapshot | null;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
@@ -294,14 +294,20 @@ export function FloatingTimerFoundation({
         await waitForPresentedFrame();
         flushSync(() => setResizePhase("contracting"));
         await waitForFloatingTimerGeometryMotion();
-        flushSync(() => setResizePhase("clipping"));
+        // The compact hierarchy, not a clipped expanded hierarchy, is the
+        // incoming frame. Present it before native clipping so the native
+        // one-shot raster contains the correct title/action/subtask geometry.
+        flushSync(() => {
+          setResizePhase("clipping");
+          setExpanded(false);
+        });
         await waitForPresentedFrame();
-        if (onRequestExpanded) await onRequestExpanded(false);
-        else await setFloatingTimerExpanded(false);
+        const compactFrame = await captureCompactTimerFrame();
+        if (onRequestExpanded) await onRequestExpanded(false, compactFrame);
+        else await setFloatingTimerExpanded(false, compactFrame);
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(false);
-          setExpanded(false);
         });
       }
       return true;
@@ -401,8 +407,8 @@ export function FloatingTimerFoundation({
             key={`actions-host:${liveTask.id}`}
             data-floating-actions-controller="true"
             className="floating-timer-foundation__actions-controller"
-            inert={(!expanded && !compactActionsVisible) || (expanded && (!regionExpanded || resizePending))}
-            aria-hidden={(!expanded && !compactActionsVisible) || (expanded && (!regionExpanded || resizePending)) ? true : undefined}
+            inert={resizePending || (!expanded && !compactActionsVisible) || (expanded && !regionExpanded)}
+            aria-hidden={resizePending || (!expanded && !compactActionsVisible) || (expanded && !regionExpanded) ? true : undefined}
           >
             <FocusLiveActions
               task={liveTask}
@@ -436,7 +442,7 @@ export function FloatingTimerFoundation({
             fixtureExpanded={fixtureExpanded}
             presentation="floating"
             expanded={expanded}
-            contentInert={expanded && (!regionExpanded || resizePending)}
+            contentInert={resizePending || (expanded && !regionExpanded)}
             interactionPending={transitionPending || resizePending}
             onExpandedChange={requestExpanded}
             onTaskProjection={applyTaskProjection}
