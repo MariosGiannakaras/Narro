@@ -1,0 +1,317 @@
+[
+  {
+    "file": ".gitattributes",
+    "bytes": 9,
+    "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992"
+  },
+  {
+    "file": "m7-hover-rendered-final.log",
+    "bytes": 50,
+    "sha256": "efcf350af0fa055debcd1ee590c3d951bd4b09f2cdeb6e963d0d63cb159b6fd2"
+  },
+  {
+    "file": "m7-parity-preflight-final.log",
+    "bytes": 23643,
+    "sha256": "9bece56fc9849fa590871ee0621dc99eacbb9e4f5c7f66b7cdc70277100ee68d"
+  },
+  {
+    "file": "m7-parity-rendered.log",
+    "bytes": 149,
+    "sha256": "b90ac9a6e5d5df2f1f4b285fd2f7e8109a949e4f221232c8aba51fe5fd145a55"
+  },
+  {
+    "file": "README.md",
+    "bytes": 1336,
+    "sha256": "96f913d2c1a576f34b69019af289db37e6bfdfbcc845c8148adeb5262b23dbe1"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1-done.png",
+    "bytes": 6520,
+    "sha256": "5b4394788167c4727e182625031e190633deffd747ab38e38d2af877ac394bc0"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1-notes-click.png",
+    "bytes": 7661,
+    "sha256": "dd3e92517da22dfb29fc00c30cf3299fddb54da9f81d0bed68623826d72c61ab"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1-notes.png",
+    "bytes": 6570,
+    "sha256": "757f051babeb6fcda1edcf56c9a76795c39f575d9a67b68eb8a5fc8d7b793546"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1-pause-resume.png",
+    "bytes": 6542,
+    "sha256": "45a682c9d2f71d1b1f80871e31f7a26f560ce7ca2cb1316933159baeaa1d7bbf"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1-rest.png",
+    "bytes": 6087,
+    "sha256": "f6daa583c192f75f0c8afbf073ae35db5b06930ab0b0c1f17a7e5d776e1b28d5"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1-return-to-panel.png",
+    "bytes": 6475,
+    "sha256": "9f11aa9ca3a12184a165909a9b92550c6d3e304025a560cc1b34900238a0c1bb"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1-skip.png",
+    "bytes": 6530,
+    "sha256": "de425acd7ff4df288963f18cc2481c5beba7d3eefd26ba8d7b2ca9bc056d47bc"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1.25-done.png",
+    "bytes": 8764,
+    "sha256": "212d4dca29fe8d493446cd09996a6922d2a5303711cab96fd1376327face0dfb"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1.25-notes-click.png",
+    "bytes": 12607,
+    "sha256": "038d2c49e12297e16a68036c21cbf16a653768f5105cde3d451c64d1bc1e6735"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1.25-notes.png",
+    "bytes": 8873,
+    "sha256": "56f20b1d2ff21618f5e661743a913dbaebbbbb130660147498b7f61ffba5a79c"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1.25-pause-resume.png",
+    "bytes": 8792,
+    "sha256": "a8a981ac7ac4b5a620eeb897633b59371e398e6893d5831439abf21d90a6de6b"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1.25-rest.png",
+    "bytes": 10062,
+    "sha256": "6e55b4eb09c6d7742bcabfa4ae347602a79a2ce7ee6d6ecbe4ab1e13e68c1634"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1.25-return-to-panel.png",
+    "bytes": 8782,
+    "sha256": "f502a36f438d2718c9e1e0e3770f5851065d4c9c3b2c261dd74f4205dfdf82c0"
+  },
+  {
+    "file": "rendered-hover/dark-no-preference-1.25-skip.png",
+    "bytes": 8793,
+    "sha256": "757534e54a56bc408ed184d91e3bd2360f2fd43ad123e4d8b217e993f49d319b"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1-done.png",
+    "bytes": 6520,
+    "sha256": "5b4394788167c4727e182625031e190633deffd747ab38e38d2af877ac394bc0"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1-notes-click.png",
+    "bytes": 7661,
+    "sha256": "dd3e92517da22dfb29fc00c30cf3299fddb54da9f81d0bed68623826d72c61ab"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1-notes.png",
+    "bytes": 6570,
+    "sha256": "757f051babeb6fcda1edcf56c9a76795c39f575d9a67b68eb8a5fc8d7b793546"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1-pause-resume.png",
+    "bytes": 6542,
+    "sha256": "45a682c9d2f71d1b1f80871e31f7a26f560ce7ca2cb1316933159baeaa1d7bbf"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1-rest.png",
+    "bytes": 6087,
+    "sha256": "f6daa583c192f75f0c8afbf073ae35db5b06930ab0b0c1f17a7e5d776e1b28d5"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1-return-to-panel.png",
+    "bytes": 6475,
+    "sha256": "9f11aa9ca3a12184a165909a9b92550c6d3e304025a560cc1b34900238a0c1bb"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1-skip.png",
+    "bytes": 6530,
+    "sha256": "de425acd7ff4df288963f18cc2481c5beba7d3eefd26ba8d7b2ca9bc056d47bc"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1.25-done.png",
+    "bytes": 8764,
+    "sha256": "212d4dca29fe8d493446cd09996a6922d2a5303711cab96fd1376327face0dfb"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1.25-notes-click.png",
+    "bytes": 12607,
+    "sha256": "038d2c49e12297e16a68036c21cbf16a653768f5105cde3d451c64d1bc1e6735"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1.25-notes.png",
+    "bytes": 8873,
+    "sha256": "56f20b1d2ff21618f5e661743a913dbaebbbbb130660147498b7f61ffba5a79c"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1.25-pause-resume.png",
+    "bytes": 8792,
+    "sha256": "a8a981ac7ac4b5a620eeb897633b59371e398e6893d5831439abf21d90a6de6b"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1.25-rest.png",
+    "bytes": 10062,
+    "sha256": "6e55b4eb09c6d7742bcabfa4ae347602a79a2ce7ee6d6ecbe4ab1e13e68c1634"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1.25-return-to-panel.png",
+    "bytes": 8782,
+    "sha256": "f502a36f438d2718c9e1e0e3770f5851065d4c9c3b2c261dd74f4205dfdf82c0"
+  },
+  {
+    "file": "rendered-hover/dark-reduce-1.25-skip.png",
+    "bytes": 8793,
+    "sha256": "757534e54a56bc408ed184d91e3bd2360f2fd43ad123e4d8b217e993f49d319b"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1-done.png",
+    "bytes": 6274,
+    "sha256": "5038aa3f36c9231a21312f385ff51f7edebce7f05d0f6c527941c1fd759a491a"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1-notes-click.png",
+    "bytes": 7512,
+    "sha256": "a5d65f3fa638f10a41d15b76a2f5e0d71f9ae84e81ef213d4727cc243cf026c8"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1-notes.png",
+    "bytes": 6337,
+    "sha256": "d809e2524fe17727d613ff64902debb0f40369b18a5f127c3bfdc18266d6a059"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1-pause-resume.png",
+    "bytes": 6350,
+    "sha256": "b0149a454a834820205806e51d730ebec28d56fa7248b1acdcded6eebb13e792"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1-rest.png",
+    "bytes": 5852,
+    "sha256": "2af2ad59b687039549b61fb2d30662d01d44d88842419e396c821052c4139410"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1-return-to-panel.png",
+    "bytes": 6260,
+    "sha256": "12b5030aa29537767dc1c066f2747092cba9e6cd708179c1936986db4067932c"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1-skip.png",
+    "bytes": 6326,
+    "sha256": "9c70d8b93635a1d9aa15e3d4c4b875dbc985f00ecf59c49bda6d656c7d143c58"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1.25-done.png",
+    "bytes": 8618,
+    "sha256": "ed2fbadc2ab8e35130e9c6165d5852a546c46aba6c4d16e2fa8b7beb1bfa3653"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1.25-notes-click.png",
+    "bytes": 12383,
+    "sha256": "61b20fb678b905ab16045eac6a0c5842cad729f33a7c77adb14459f8ccf24e61"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1.25-notes.png",
+    "bytes": 8717,
+    "sha256": "a7f1d9b955f3bf4176a8ff44a33f2fbcc08d67f0890f975100f680db68ae06c6"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1.25-pause-resume.png",
+    "bytes": 8636,
+    "sha256": "abdb23af2953109821f23036f08a0186a46a57e0eb2e499fb48e8209cba80990"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1.25-rest.png",
+    "bytes": 9917,
+    "sha256": "38a6ae9ef99b858bf1b6a5fd3e16651f105071976b9865be996330f104f7cd2f"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1.25-return-to-panel.png",
+    "bytes": 8642,
+    "sha256": "daa74dc889cc1d8973a66db63dd649e7c8464d4c6a39409bc602b10cdaf707ec"
+  },
+  {
+    "file": "rendered-hover/light-no-preference-1.25-skip.png",
+    "bytes": 8617,
+    "sha256": "2e98e93241339790be07fc616875ccab89f20753b760a6001b7f994a86ceee78"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1-done.png",
+    "bytes": 6274,
+    "sha256": "5038aa3f36c9231a21312f385ff51f7edebce7f05d0f6c527941c1fd759a491a"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1-notes-click.png",
+    "bytes": 7512,
+    "sha256": "a5d65f3fa638f10a41d15b76a2f5e0d71f9ae84e81ef213d4727cc243cf026c8"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1-notes.png",
+    "bytes": 6337,
+    "sha256": "d809e2524fe17727d613ff64902debb0f40369b18a5f127c3bfdc18266d6a059"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1-pause-resume.png",
+    "bytes": 6350,
+    "sha256": "b0149a454a834820205806e51d730ebec28d56fa7248b1acdcded6eebb13e792"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1-rest.png",
+    "bytes": 5852,
+    "sha256": "2af2ad59b687039549b61fb2d30662d01d44d88842419e396c821052c4139410"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1-return-to-panel.png",
+    "bytes": 6260,
+    "sha256": "12b5030aa29537767dc1c066f2747092cba9e6cd708179c1936986db4067932c"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1-skip.png",
+    "bytes": 6326,
+    "sha256": "9c70d8b93635a1d9aa15e3d4c4b875dbc985f00ecf59c49bda6d656c7d143c58"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1.25-done.png",
+    "bytes": 8618,
+    "sha256": "ed2fbadc2ab8e35130e9c6165d5852a546c46aba6c4d16e2fa8b7beb1bfa3653"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1.25-notes-click.png",
+    "bytes": 12383,
+    "sha256": "61b20fb678b905ab16045eac6a0c5842cad729f33a7c77adb14459f8ccf24e61"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1.25-notes.png",
+    "bytes": 8717,
+    "sha256": "a7f1d9b955f3bf4176a8ff44a33f2fbcc08d67f0890f975100f680db68ae06c6"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1.25-pause-resume.png",
+    "bytes": 8636,
+    "sha256": "abdb23af2953109821f23036f08a0186a46a57e0eb2e499fb48e8209cba80990"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1.25-rest.png",
+    "bytes": 9917,
+    "sha256": "38a6ae9ef99b858bf1b6a5fd3e16651f105071976b9865be996330f104f7cd2f"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1.25-return-to-panel.png",
+    "bytes": 8642,
+    "sha256": "daa74dc889cc1d8973a66db63dd649e7c8464d4c6a39409bc602b10cdaf707ec"
+  },
+  {
+    "file": "rendered-hover/light-reduce-1.25-skip.png",
+    "bytes": 8617,
+    "sha256": "2e98e93241339790be07fc616875ccab89f20753b760a6001b7f994a86ceee78"
+  },
+  {
+    "file": "rendered-hover/results.json",
+    "bytes": 42711,
+    "sha256": "a646b88cde6bc6bfbfba931338c762f5ebaefd87e9e5e0817591e0bb35bbcf30"
+  },
+  {
+    "file": "rendered-test-provenance.cjs.txt",
+    "bytes": 3967,
+    "sha256": "3b3c6157bb0c83f8def61935c57754dd1caffdcf8bb613f615af8b0c628dad2a"
+  }
+]

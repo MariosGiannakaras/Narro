@@ -1,0 +1,939 @@
+{
+  "utc": "2026-10-03T20:52:45.3119355Z",
+  "windows": [
+    {
+      "hwnd": 18417168,
+      "pid": 16176,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": 800,
+        "width": 425,
+        "y": 942,
+        "height": 875
+      },
+      "client": {
+        "x": 800,
+        "width": 425,
+        "y": 942,
+        "height": 875
+      }
+    },
+    {
+      "hwnd": 25560028,
+      "pid": 16176,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": 224,
+        "width": 1268,
+        "y": 158,
+        "height": 922
+      },
+      "client": {
+        "x": 233,
+        "width": 1250,
+        "y": 196,
+        "height": 875
+      }
+    },
+    {
+      "hwnd": 33556180,
+      "pid": 16176,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 128,
+        "width": 1440,
+        "y": 128,
+        "height": 789
+      },
+      "client": {
+        "x": 137,
+        "width": 1422,
+        "y": 166,
+        "height": 742
+      }
+    },
+    {
+      "hwnd": 3998882,
+      "pid": 16176,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 18,
+        "y": 0,
+        "height": 18
+      },
+      "client": {
+        "x": 9,
+        "width": 0,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 9831152,
+      "pid": 16176,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 18,
+        "y": 0,
+        "height": 18
+      },
+      "client": {
+        "x": 9,
+        "width": 0,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 6817514,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "WebSocket Server Settings",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 379,
+        "width": 862,
+        "y": 167,
+        "height": 753
+      },
+      "client": {
+        "x": 388,
+        "width": 844,
+        "y": 205,
+        "height": 706
+      }
+    },
+    {
+      "hwnd": 18547668,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "Output Timer",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 365,
+        "width": 889,
+        "y": 371,
+        "height": 347
+      },
+      "client": {
+        "x": 374,
+        "width": 871,
+        "y": 409,
+        "height": 300
+      }
+    },
+    {
+      "hwnd": 43976274,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "Stats",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 364,
+        "width": 893,
+        "y": 434,
+        "height": 297
+      },
+      "client": {
+        "x": 373,
+        "width": 875,
+        "y": 472,
+        "height": 250
+      }
+    },
+    {
+      "hwnd": 63506118,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation 911 - Scenes: NarroM7CI911",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": -1,
+        "width": 1622,
+        "y": 1,
+        "height": 1087
+      },
+      "client": {
+        "x": 8,
+        "width": 1604,
+        "y": 39,
+        "height": 1040
+      }
+    },
+    {
+      "hwnd": 1246258,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "QTrayIconMessageWindow",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 192,
+        "width": 1440,
+        "y": 192,
+        "height": 789
+      },
+      "client": {
+        "x": 201,
+        "width": 1422,
+        "y": 230,
+        "height": 742
+      }
+    },
+    {
+      "hwnd": 67503636,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 32769642,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 8192762,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 1573954,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 862,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 844,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 3474634,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 889,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 871,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 393626,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 893,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 875,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 105252000,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 4654298,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 1246288,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 209192644,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 14288036,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 28051058,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 28444494,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 1600,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 1582,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 2622668,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 75630160,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 17958550,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 3540646,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 1443274,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 65865316,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 67569228,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 2491680,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 1246742,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 166,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 148,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 657162,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 1622,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "x": 9,
+        "width": 1604,
+        "y": 38,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 120391376,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "GDI+ Window (obs64.exe)",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 1,
+        "y": 0,
+        "height": 1
+      },
+      "client": {
+        "x": 0,
+        "width": 1,
+        "y": 0,
+        "height": 1
+      }
+    },
+    {
+      "hwnd": 3474598,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 160,
+        "width": 1440,
+        "y": 160,
+        "height": 789
+      },
+      "client": {
+        "x": 169,
+        "width": 1422,
+        "y": 198,
+        "height": 742
+      }
+    },
+    {
+      "hwnd": 31917792,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 128,
+        "width": 1440,
+        "y": 128,
+        "height": 789
+      },
+      "client": {
+        "x": 137,
+        "width": 1422,
+        "y": 166,
+        "height": 742
+      }
+    },
+    {
+      "hwnd": 11928874,
+      "pid": 16176,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 14353528,
+      "pid": 16176,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 5899870,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 37750400,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 24446650,
+      "pid": 11500,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "x": 0,
+        "width": 0,
+        "y": 0,
+        "height": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "Narro Diagnostic - Focus",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "800;942;425;875"
+    },
+    {
+      "name": "Narro Diagnostic - Focus - Web content",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "800;943;425;875"
+    },
+    {
+      "name": "Narro Diagnostic - Focus",
+      "type": "ControlType.Document",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "800;943;425;875"
+    },
+    {
+      "name": "Floating Timer",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "800;943;425;138"
+    },
+    {
+      "name": "M7 CI911 acceptance — long Timer title, Notes bounds and transitions",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "816;967;291;28"
+    },
+    {
+      "name": "Running: 07:55 elapsed",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1122;966;93;31"
+    },
+    {
+      "name": "07:55",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1163;967;52;28"
+    },
+    {
+      "name": "Subtasks for M7 CI911 acceptance — long Timer title, Notes bounds and transitions",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "816;1017;393;50"
+    },
+    {
+      "name": "Floating Timer subtask summary",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "816;1017;393;40"
+    },
+    {
+      "name": "0 of 0 subtasks complete",
+      "type": "ControlType.ProgressBar",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "816;1019;35;36"
+    },
+    {
+      "name": "Subtasks",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "858;1026;59;21"
+    },
+    {
+      "name": "Add subtask for M7 CI911 acceptance — long Timer title, Notes bounds and transitions",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1121;1017;41;40"
+    },
+    {
+      "name": "Expand Floating Timer",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1169;1017;40;40"
+    },
+    {
+      "name": "Expand Floating Timer",
+      "type": "ControlType.ToolTip",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1039;974;170;33"
+    }
+  ]
+}

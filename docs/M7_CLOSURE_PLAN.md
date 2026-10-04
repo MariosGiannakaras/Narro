@@ -18,7 +18,7 @@ Exact head `440b172565d94fadb3e814559bec5f3b47e48012` passed Windows CI #803 wit
 - scheduling visual fixture;
 - same-DPI Timer→Panel endpoint correction.
 
-The CI #884 physical batch supplied six narrowly routed FIX_NOW findings. PR #222 now corrects them and PASSed exact-head Windows CI #893, merged as `ccf0fef5554fe8b635807df9214d56d3b2c29457` with an identical non-Markdown tree. Its final verified EXE is ready. Current corrective progress is `5/10M || 3/5 | 14/19`; affected C4/C5 physical acceptance and reconciliation remain OPEN. See [final source/artifact evidence](../work-log/2026-10-03-codex-m7-pr222-ci893-merged-candidate-ready.md) and [complete prior physical findings](../work-log/2026-10-03-codex-m7-ci884-physical-batch-evidence.md).
+Historical CI884→PR222/CI893→PR225/CI911 corrected native frame, Notes, tooltip, prepaint, planning title and Preferences failures. Latest CI911 physical C5 passes; C4 fails on saved-origin drift and Collapse frame loss. PR228 final head `a6af4ef15bd827ad751b023df21ab64e565e2c8e` batches their corrective mechanism with reconciled compact hover/shell source findings. Full Windows CI932/run37167015466 is in progress. Current closure is **`3/10M || 3/5 | 14/19`**. [Latest exact-source physical results and complete evidence](../work-log/2026-10-04-codex-m7-ci911-physical-results.md) govern current work; older artifacts remain historical proof.
 
 The remaining work is this bounded corrective batch and closure/observation, not another general M7 implementation audit. Historical acceptance below remains valid for its exact source; it does not certify changed rendering or native host geometry.
 
@@ -79,10 +79,10 @@ Evidence:
 
 A future failure reopens only the evidenced behavior.
 
-CI #884 now confirms outgoing/incoming coexistence in both normal and reduced motion. Full Panel action labels passed at 125%, while native frame/Notes/keyboard defects failed. Repeat the affected normal/reduced Panel↔Timer and Expand/Collapse paths on the final PR #222 executable, with continuous capture, active task/time continuity, tooltip/keyboard access and bounded editor controls. Unrelated accepted single-instance/no-op/domain behavior is preserved unless new evidence contradicts it. Rendered regression fixtures are not physical motion acceptance or source-parity proof.
+CI911 direct480-frame review confirms absent Timer frames during normal/reduced Collapse at100% unchanged coordinates and125% bottom edge. Unchanged-area expanded→Panel→compact restores also drift. PR228's scoped alternative retains the last safe origin and avoids redundant native/parent moves; exact rendering cause is not proven. Repeat normal/reduced two-DPI/bottom-edge/direct/Panel transitions on the final exact artifact, plus compact hover/selected labeled pills/keyboard/Notes and direct canonical comparison for `P3-M7-01/02`. Large Notes/tooltip paths passed the CI911 observations and need only affected regression coverage. Preserve unrelated accepted single-instance/no-op/domain behavior unless new evidence contradicts it. Rendered fixtures do not certify physical continuity or source parity.
 
 ### C5 — Physical Gate 12/platform acceptance and tracking closure
-**CI #873 PHYSICAL RESTART PASS; changed-host placement/restart acceptance OPEN**
+**CI873/CI893/CI911 PHYSICAL RESTART PASS; PR228 changed placement acceptance OPEN**
 
 Already physically accepted on CI #809:
 - mixed-DPI 100%↔125% monitor crossing;
@@ -92,7 +92,7 @@ Already physically accepted on CI #809:
 
 Saved-placement restart is now physically **PASS** on the user-requested resulting-main CI #873 automatic-logging candidate, artifact `11268220111`, EXE SHA-256 `4fde3778720505705ac9c7f9b05a30cb70c26b02c09c6dec442775bc5c66637c`: real active compact Timer, qualifying 328 px movement, normal tray `Quit Narro`, new process on the same EXE, and visible exact `(1640,780)` restore with the same task/time recovered paused. Both native sessions and continuous two-monitor 60 fps capture are published in [the completed run](../work-log/2026-10-03-codex-m7-ci873-c5-completed.md).
 
-Still required: final tracking/crosswalk/TODO reconciliation and the affected CI #884 findings. PR #222 changes the shadow/resizable native host configuration, which is a relevant geometry change: recheck drag/edges, 100%↔125% two-monitor crossing, topmost, tray Quit→same-EXE relaunch and safe saved-position restore on its final exact artifact. The original requested CI #873 C5 remains PASS; this is acceptance of the changed host. Host-sensitive idle CPU/RAM measurement also remains open. Preserve separate M1 Candidate B topology/performance requirements rather than inheriting an unperformed measurement.
+CI911 C5 PASS at `(1100,533)` is now frozen with same-task paused1:57:07/7027-second restore, actual1124px drag and normal tray Quit/relaunch. Both displays, software topology recovery, Left/Right Panel placement and maximized/borderless topmost were exercised. PR228 changes saved-origin/collapse semantics: refresh affected drag/edge/restore coverage on its exact artifact, plus current-build idle CPU/RAM. Physical cable removal and formal M1 Candidate B topology/performance remain separate; do not inherit an unperformed measurement. The original requested CI873 remains historical PASS.
 
 Evidence: `work-log/2026-10-02-chatgpt-m7-ci809-two-monitor-reaudit.md`.
 

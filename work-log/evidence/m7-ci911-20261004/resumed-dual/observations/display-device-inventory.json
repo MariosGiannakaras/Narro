@@ -1,0 +1,44 @@
+[
+  {
+    "name": "\\\\.\\DISPLAY1",
+    "description": "Radeon RX 570 Series",
+    "flags": 524293,
+    "id": "PCI\\VEN_1002&DEV_67DF&SUBSYS_341B1462&REV_EF"
+  },
+  {
+    "name": "\\\\.\\DISPLAY2",
+    "description": "Radeon RX 570 Series",
+    "flags": 524288,
+    "id": "PCI\\VEN_1002&DEV_67DF&SUBSYS_341B1462&REV_EF"
+  },
+  {
+    "name": "\\\\.\\DISPLAY3",
+    "description": "Radeon RX 570 Series",
+    "flags": 524288,
+    "id": "PCI\\VEN_1002&DEV_67DF&SUBSYS_341B1462&REV_EF"
+  },
+  {
+    "name": "\\\\.\\DISPLAY4",
+    "description": "Radeon RX 570 Series",
+    "flags": 524288,
+    "id": "PCI\\VEN_1002&DEV_67DF&SUBSYS_341B1462&REV_EF"
+  },
+  {
+    "name": "\\\\.\\DISPLAY5",
+    "description": "Radeon RX 570 Series",
+    "flags": 524288,
+    "id": "PCI\\VEN_1002&DEV_67DF&SUBSYS_341B1462&REV_EF"
+  },
+  {
+    "name": "\\\\.\\DISPLAY6",
+    "description": "Radeon RX 570 Series",
+    "flags": 524288,
+    "id": "PCI\\VEN_1002&DEV_67DF&SUBSYS_341B1462&REV_EF"
+  },
+  {
+    "name": "\\\\.\\DISPLAY7",
+    "description": "Radeon RX 570 Series",
+    "flags": 524288,
+    "id": "PCI\\VEN_1002&DEV_67DF&SUBSYS_341B1462&REV_EF"
+  }
+]

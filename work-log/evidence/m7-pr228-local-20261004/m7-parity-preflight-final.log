@@ -1,0 +1,517 @@
+
+> narro@0.1.0 preflight:frontend
+> npm run check:config && npm run test:ci-tiering && npm run test:date-formatting && npm run test:ui-theme && npm run test:ui-theme-settings && npm run test:ui-typography && npm run test:ui-geometry && npm run test:ui-motion && npm run test:ui-reduced-motion && npm run test:ui-overlay-primitives && npm run test:ui-visual-fixtures && npm run test:ui-app-shell && npm run test:single-instance-runtime && npm run test:ui-excluded-controls && npm run test:single-focus-architecture && npm run test:focus-runtime-visual-harness && npm run test:m7-validation-logging && npm run test:ui-focus-entry && npm run test:ui-focus-panel && npm run test:ui-m6-parity-reconciliation && npm run test:ui-focus-live-title && npm run test:ui-focus-row-titles && npm run test:ui-focus-action-slots && npm run test:ui-focus-icon-tooltips && npm run test:ui-focus-visual-states && npm run test:ui-focus-empty-states && npm run test:ui-floating-compact-mode && npm run test:ui-floating-movability && npm run test:ui-floating-collapsed && npm run test:ui-floating-expanded && npm run test:focus-mode-transition && npm run test:ui-focus-surface-transition && npm run test:ui-focus-toggle-shortcut && npm run test:shortcut-retry && npm run test:in-app-shortcuts && npm run test:ui-global-shortcut-settings && npm run test:ui-preferences && npm run test:local-sound-catalog && npm run test:timed-alert-runtime && npm run test:timed-alert-flash-runtime && npm run test:timed-alert-sound-runtime && npm run test:success-sound-runtime && npm run test:est-title-parser && npm run test:ui-home-dashboard && npm run test:ui-list-card-states && npm run test:ui-list-editor-modal && npm run test:ui-list-settings && npm run test:ui-archives && npm run test:ui-reports-api && npm run test:ui-reports-overview && npm run test:report-overview-presentation && npm run test:ui-reports-overview-runtime && npm run test:ui-reports-sessions && npm run test:report-sessions-presentation && npm run test:ui-m5-parity-reconciliation && npm run test:ui-search-palette && npm run test:ui-list-board && npm run test:ui-cross-window-board-sync && npm run test:ui-task-card-states && npm run test:ui-task-hover-actions && npm run test:ui-task-create-edit && npm run test:ui-task-metrics && npm run test:ui-task-scheduling && npm run test:ui-task-notes && npm run test:ui-task-notes-large && npm run test:ui-task-notes-spellcheck && npm run test:note-url-activation && npm run test:ui-task-subtasks && npm run test:ui-task-reorder && npm run build
+
+
+> narro@0.1.0 check:config
+> node scripts/verify-config.mjs
+
+Repository configuration invariants: PASS
+
+> narro@0.1.0 test:ci-tiering
+> node scripts/test-ci-tiering.mjs
+
+CI fast/candidate tiering contracts passed.
+
+> narro@0.1.0 test:date-formatting
+> node scripts/test-date-time-format.mjs
+
+Visible date/time locale contract: PASS
+
+> narro@0.1.0 test:ui-theme
+> node scripts/test-ui-theme-tokens.mjs
+
+UI semantic theme token contract: PASS
+
+> narro@0.1.0 test:ui-theme-settings
+> node scripts/test-ui-theme-settings.mjs
+
+Theme settings/runtime contract: PASS
+
+> narro@0.1.0 test:ui-typography
+> node scripts/test-ui-typography.mjs
+
+UI typography contract: PASS
+
+> narro@0.1.0 test:ui-geometry
+> node scripts/test-ui-geometry.mjs
+
+UI spacing/radius/elevation contract: PASS
+
+> narro@0.1.0 test:ui-motion
+> node scripts/test-ui-motion.mjs
+
+UI motion foundation contract: PASS
+
+> narro@0.1.0 test:ui-reduced-motion
+> node scripts/test-ui-reduced-motion.mjs
+
+UI reduced-motion contract: PASS
+
+> narro@0.1.0 test:ui-overlay-primitives
+> node scripts/test-ui-overlay-primitives.mjs
+
+Overlay primitive contract checks passed.
+
+> narro@0.1.0 test:ui-visual-fixtures
+> node scripts/test-ui-visual-fixtures.mjs
+
+Visual fixture harness contract checks passed.
+
+> narro@0.1.0 test:ui-app-shell
+> node scripts/test-ui-app-shell.mjs
+
+App shell/navigation contract checks passed.
+
+> narro@0.1.0 test:single-instance-runtime
+> node scripts/test-single-instance-runtime.mjs
+
+Single-instance runtime ownership contracts passed.
+
+> narro@0.1.0 test:ui-excluded-controls
+> node scripts/test-ui-excluded-controls.mjs
+
+Excluded service/account control absence checks passed.
+
+> narro@0.1.0 test:single-focus-architecture
+> node scripts/test-single-focus-architecture.mjs
+
+Single-Focus architecture invariants passed.
+
+> narro@0.1.0 test:focus-runtime-visual-harness
+> node scripts/test-focus-runtime-visual-harness.mjs
+
+Focus packaged-runtime visual harness contracts passed.
+
+> narro@0.1.0 test:m7-validation-logging
+> node scripts/test-m7-validation-logging.mjs
+
+M7 automatic validation logging contracts passed.
+
+> narro@0.1.0 test:ui-focus-entry
+> node scripts/test-ui-focus-entry.mjs
+
+Single-host Focus entry, placement, and display-revalidation contracts passed.
+
+> narro@0.1.0 test:ui-focus-panel
+> node scripts/test-ui-focus-panel.mjs
+
+Focus Panel hierarchy/live timer/workflow/actions/metrics/subtasks contract checks passed.
+
+> narro@0.1.0 test:ui-m6-parity-reconciliation
+> node scripts/test-ui-m6-parity-reconciliation.mjs
+
+M6 Focus parity reconciliation contract checks passed.
+
+> narro@0.1.0 test:ui-focus-live-title
+> node scripts/test-ui-focus-live-title.mjs
+
+Focus live-title persisted preference, overflow scrolling, and reduced-motion contracts passed.
+
+> narro@0.1.0 test:ui-focus-row-titles
+> node scripts/test-ui-focus-row-titles.mjs
+
+Focus ordinary row-title wrapping and accessible full-title contracts passed.
+
+> narro@0.1.0 test:ui-focus-action-slots
+> node scripts/test-ui-focus-action-slots.mjs
+
+Focus reserved action-slot and stable hit-target contracts passed.
+
+> narro@0.1.0 test:ui-focus-icon-tooltips
+> node scripts/test-ui-focus-icon-tooltips.mjs
+
+Focus icon-only tooltip, accessibility, and stable-geometry contracts passed.
+
+> narro@0.1.0 test:ui-focus-visual-states
+> node scripts/test-ui-focus-visual-states.mjs
+
+Focus visual-state projection, scope, and fixture contracts passed.
+
+> narro@0.1.0 test:ui-focus-empty-states
+> node scripts/test-ui-focus-empty-states.mjs
+
+Focus empty/no-eligible behavior and scope contracts passed.
+
+> narro@0.1.0 test:ui-floating-compact-mode
+> node scripts/test-ui-floating-compact-mode.mjs
+
+Floating Timer single-host compact-mode contracts passed.
+
+> narro@0.1.0 test:ui-floating-movability
+> node scripts/test-ui-floating-movability.mjs
+
+Floating Timer single-host movability/topmost/taskbar contracts passed.
+
+> narro@0.1.0 test:ui-floating-collapsed
+> node scripts/test-ui-floating-collapsed.mjs
+
+Floating Timer collapsed single-host product contracts passed.
+
+> narro@0.1.0 test:ui-floating-expanded
+> node scripts/test-ui-floating-expanded.mjs
+
+Floating Timer single-host expanded behavior contracts passed.
+
+> narro@0.1.0 test:focus-mode-transition
+> node --experimental-strip-types scripts/test-focus-mode-transition.mjs
+
+✔ prepared Panel to Timer waits, commits native state, then transfers renderer ownership (2.1101ms)
+✔ prepared Timer to Panel uses the same ordered commit (0.232ms)
+✔ requesting the committed presentation is a no-op (0.2142ms)
+✔ Panel/Timer prepaint completes before concurrent native position and renderer geometry (0.982ms)
+✔ native clipping and motion cannot start before the promoted target has painted (0.3289ms)
+✔ promoted target paint failure leaves native presentation untouched (0.6487ms)
+✔ failed motion waits for in-flight native commit before rollback (0.4472ms)
+✔ concurrent motion failure restores the previous native and renderer presentation (0.3024ms)
+✔ animated native failure restores the previous native and renderer presentation (0.3334ms)
+✔ renderer failure after animated native success restores the previous presentation (0.4841ms)
+✔ repeated Panel/Timer transitions keep deterministic commit ordering (5.8279ms)
+✔ ready failure leaves renderer ownership on the previous presentation (0.2522ms)
+✔ before failure leaves renderer ownership on the previous presentation (0.1115ms)
+✔ native failure leaves renderer ownership on the previous presentation (0.0975ms)
+✔ post-native motion failure restores the previous native presentation (0.1715ms)
+✔ renderer commit failure after native success restores the previous native presentation (0.1648ms)
+✔ failed renderer recovery preserves both failures for diagnosis (0.34ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21.9435
+
+> narro@0.1.0 test:ui-focus-surface-transition
+> node scripts/test-ui-focus-surface-transition.mjs
+
+Single-host Focus presentation transition contracts passed.
+
+> narro@0.1.0 test:ui-focus-toggle-shortcut
+> node scripts/test-ui-focus-toggle-shortcut.mjs
+
+Single-host Focus toggle shortcut contracts passed.
+
+> narro@0.1.0 test:shortcut-retry
+> node --experimental-strip-types scripts/test-shortcut-retry.mjs
+
+Shortcut retry reconciliation behavioral tests passed.
+
+> narro@0.1.0 test:in-app-shortcuts
+> node --experimental-strip-types scripts/test-in-app-shortcuts.mjs
+
+Single-host in-app shortcut contracts passed.
+
+> narro@0.1.0 test:ui-global-shortcut-settings
+> node scripts/test-ui-global-shortcut-settings.mjs
+
+Global shortcut preference, rollback, startup, and product UI contracts passed.
+
+> narro@0.1.0 test:ui-preferences
+> node scripts/test-ui-preferences.mjs
+
+M8 Preferences contracts passed.
+
+> narro@0.1.0 test:local-sound-catalog
+> node --experimental-strip-types scripts/test-local-sound-catalog.mjs
+
+Local sound catalog contracts: PASS
+
+> narro@0.1.0 test:timed-alert-runtime
+> node scripts/test-timed-alert-runtime.mjs
+
+Timed-alert runtime contracts: PASS
+
+> narro@0.1.0 test:timed-alert-flash-runtime
+> node scripts/test-timed-alert-flash-runtime.mjs
+
+Timed-alert flash runtime contracts passed.
+
+> narro@0.1.0 test:timed-alert-sound-runtime
+> node scripts/test-timed-alert-sound-runtime.mjs
+
+Timed-alert sound runtime contracts: PASS
+
+> narro@0.1.0 test:success-sound-runtime
+> node scripts/test-success-sound-runtime.mjs
+
+Success sound runtime contracts: PASS
+
+> narro@0.1.0 test:est-title-parser
+> node --experimental-strip-types scripts/test-est-title-parser.mjs
+
+EST suffix parser contracts passed.
+
+> narro@0.1.0 test:ui-home-dashboard
+> node scripts/test-ui-home-dashboard.mjs
+
+Home dashboard/list-card contract checks passed.
+
+> narro@0.1.0 test:ui-list-card-states
+> node scripts/test-ui-list-card-states.mjs
+
+List-card interaction-state contract checks passed.
+
+> narro@0.1.0 test:ui-list-editor-modal
+> node scripts/test-ui-list-editor-modal.mjs
+
+Create/Edit List modal contract checks passed.
+
+> narro@0.1.0 test:ui-list-settings
+> node scripts/test-ui-list-settings.mjs
+
+List settings archive/delete contract checks passed.
+
+> narro@0.1.0 test:ui-archives
+> node scripts/test-ui-archives.mjs
+
+Archive lists/done-task surface contract checks passed.
+
+> narro@0.1.0 test:ui-reports-api
+> node scripts/test-ui-reports-api.mjs
+
+Reports history/session command API contracts passed.
+
+> narro@0.1.0 test:ui-reports-overview
+> node scripts/test-ui-reports-overview.mjs
+
+Reports Overview presentational/fixture contract checks passed.
+
+> narro@0.1.0 test:report-overview-presentation
+> node --experimental-strip-types scripts/test-report-overview-presentation.mjs
+
+Report Overview presentation/date contracts: PASS
+
+> narro@0.1.0 test:ui-reports-overview-runtime
+> node scripts/test-ui-reports-overview-runtime.mjs
+
+Production Reports Overview runtime contracts: PASS
+
+> narro@0.1.0 test:ui-reports-sessions
+> node scripts/test-ui-reports-sessions.mjs
+
+Reports Sessions production contracts: PASS
+
+> narro@0.1.0 test:report-sessions-presentation
+> node --experimental-strip-types scripts/test-report-sessions-presentation.mjs
+
+Reports Sessions presentation contracts: PASS
+
+> narro@0.1.0 test:ui-m5-parity-reconciliation
+> node scripts/test-ui-m5-parity-reconciliation.mjs
+
+M5 parity reconciliation contract checks passed.
+
+> narro@0.1.0 test:ui-search-palette
+> node scripts/test-ui-search-palette.mjs
+
+Search palette contract checks passed.
+
+> narro@0.1.0 test:ui-list-board
+> node scripts/test-ui-list-board.mjs
+
+List board contract checks passed.
+
+> narro@0.1.0 test:ui-cross-window-board-sync
+> node scripts/test-ui-cross-window-board-sync.mjs
+
+Cross-window authoritative board synchronization contracts passed.
+
+> narro@0.1.0 test:ui-task-card-states
+> node scripts/test-ui-task-card-states.mjs
+
+Task-card state-model contract checks passed.
+
+> narro@0.1.0 test:ui-task-hover-actions
+> node scripts/test-ui-task-hover-actions.mjs
+
+Task hover/action-menu geometry and persistence contracts passed.
+
+> narro@0.1.0 test:ui-task-create-edit
+> node scripts/test-ui-task-create-edit.mjs
+
+Task creation and inline editing contract checks passed.
+
+> narro@0.1.0 test:ui-task-metrics
+> node scripts/test-ui-task-metrics.mjs
+
+EST and Time Taken production contract checks passed.
+
+> narro@0.1.0 test:ui-task-scheduling
+> node scripts/test-ui-task-scheduling.mjs
+
+Task scheduling and recurrence production contract checks passed.
+
+> narro@0.1.0 test:ui-task-notes
+> node scripts/test-ui-task-notes.mjs
+
+Task Notes persistence, rich editor/viewer, and interaction contract checks passed.
+
+> narro@0.1.0 test:ui-task-notes-large
+> node scripts/test-ui-task-notes-large.mjs
+
+Large/resizable Notes presentation, single-editor draft, accessibility, spellcheck, and visual contracts passed.
+
+> narro@0.1.0 test:ui-task-notes-spellcheck
+> node scripts/test-ui-task-notes-spellcheck.mjs
+
+Native WebView/browser Notes spellcheck contract checks passed.
+
+> narro@0.1.0 test:note-url-activation
+> node scripts/test-note-url-activation.mjs
+
+Note URL explicit-activation and focus no-auto-launch contract checks passed.
+
+> narro@0.1.0 test:ui-task-subtasks
+> node scripts/test-ui-task-subtasks.mjs
+
+Task subtasks production contract checks passed.
+
+> narro@0.1.0 test:ui-task-reorder
+> node scripts/test-ui-task-reorder.mjs
+
+Task reorder/move contract checks passed.
+
+> narro@0.1.0 prebuild
+> npm run prepare:icons
+
+
+> narro@0.1.0 prepare:icons
+> tauri icon assets/branding/narro-logo-master.png && node scripts/sync-tray-icon.mjs
+
+        Appx Creating StoreLogo.png
+        Appx Creating Square30x30Logo.png
+        Appx Creating Square44x44Logo.png
+        Appx Creating Square71x71Logo.png
+        Appx Creating Square89x89Logo.png
+        Appx Creating Square107x107Logo.png
+        Appx Creating Square142x142Logo.png
+        Appx Creating Square150x150Logo.png
+        Appx Creating Square284x284Logo.png
+        Appx Creating Square310x310Logo.png
+        ICNS Creating icon.icns
+         ICO Creating icon.ico
+         PNG Creating 32x32.png
+         PNG Creating 64x64.png
+         PNG Creating 128x128.png
+         PNG Creating 128x128@2x.png
+         PNG Creating icon.png
+         iOS Creating AppIcon-20x20@2x-1.png
+         iOS Creating AppIcon-20x20@1x.png
+         iOS Creating AppIcon-20x20@2x.png
+         iOS Creating AppIcon-20x20@3x.png
+         iOS Creating AppIcon-29x29@2x-1.png
+         iOS Creating AppIcon-29x29@1x.png
+         iOS Creating AppIcon-29x29@2x.png
+         iOS Creating AppIcon-29x29@3x.png
+         iOS Creating AppIcon-40x40@2x-1.png
+         iOS Creating AppIcon-40x40@1x.png
+         iOS Creating AppIcon-40x40@2x.png
+         iOS Creating AppIcon-40x40@3x.png
+         iOS Creating AppIcon-60x60@2x.png
+         iOS Creating AppIcon-60x60@3x.png
+         iOS Creating AppIcon-76x76@1x.png
+         iOS Creating AppIcon-76x76@2x.png
+         iOS Creating AppIcon-83.5x83.5@2x.png
+         iOS Creating AppIcon-512@2x.png
+     Android Creating mipmap-hdpi/ic_launcher_foreground.png
+     Android Creating mipmap-mdpi/ic_launcher_foreground.png
+     Android Creating mipmap-xhdpi/ic_launcher_foreground.png
+     Android Creating mipmap-xxhdpi/ic_launcher_foreground.png
+     Android Creating mipmap-xxxhdpi/ic_launcher_foreground.png
+     Android Creating mipmap-hdpi/ic_launcher_round.png
+     Android Creating mipmap-hdpi/ic_launcher.png
+     Android Creating mipmap-mdpi/ic_launcher_round.png
+     Android Creating mipmap-mdpi/ic_launcher.png
+     Android Creating mipmap-xhdpi/ic_launcher_round.png
+     Android Creating mipmap-xhdpi/ic_launcher.png
+     Android Creating mipmap-xxhdpi/ic_launcher_round.png
+     Android Creating mipmap-xxhdpi/ic_launcher.png
+     Android Creating mipmap-xxxhdpi/ic_launcher_round.png
+     Android Creating mipmap-xxxhdpi/ic_launcher.png
+Synced Narro tray icon from the canonical generated 64px icon.
+
+> narro@0.1.0 build
+> tsc && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 164 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/reports-fixture.html                                   0.91 kB │ gzip:  0.40 kB
+dist/theme-settings-fixture.html                            1.11 kB │ gzip:  0.44 kB
+dist/task-schedule-fixture.html                             1.11 kB │ gzip:  0.43 kB
+dist/floating-timer-fixture.html                            1.68 kB │ gzip:  0.55 kB
+dist/focus-editor-fixture.html                              1.81 kB │ gzip:  0.59 kB
+dist/focus-panel-fixture.html                               2.09 kB │ gzip:  0.64 kB
+dist/archive-fixture.html                                   2.66 kB │ gzip:  0.74 kB
+dist/list-settings-fixture.html                             2.67 kB │ gzip:  0.75 kB
+dist/search-palette-fixture.html                            2.67 kB │ gzip:  0.75 kB
+dist/index.html                                             2.72 kB │ gzip:  0.75 kB
+dist/task-notes-fixture.html                                2.75 kB │ gzip:  0.76 kB
+dist/task-reorder-fixture.html                              2.75 kB │ gzip:  0.76 kB
+dist/task-metric-fixture.html                               2.75 kB │ gzip:  0.76 kB
+dist/task-subtasks-fixture.html                             2.76 kB │ gzip:  0.76 kB
+dist/focus.html                                             2.76 kB │ gzip:  0.77 kB
+dist/visual-fixtures.html                                   2.80 kB │ gzip:  0.77 kB
+dist/assets/taskScheduleFixture-DdRU-jnA.css                0.65 kB │ gzip:  0.30 kB
+dist/assets/taskNotesFixture-ODvtp9rm.css                   0.79 kB │ gzip:  0.34 kB
+dist/assets/taskMetricFixture-CCDXzBL4.css                  0.82 kB │ gzip:  0.33 kB
+dist/assets/taskSubtasksFixture-exIMdFP0.css                0.83 kB │ gzip:  0.33 kB
+dist/assets/main-BOrSsS1P.css                               0.99 kB │ gzip:  0.46 kB
+dist/assets/focus-DVv0yZ05.css                              1.79 kB │ gzip:  0.68 kB
+dist/assets/listMutationConfirmDialog-d5rmGlwt.css          2.69 kB │ gzip:  0.80 kB
+dist/assets/focusTimerPresentation-BbJ61LxM.css             2.76 kB │ gzip:  0.77 kB
+dist/assets/visualFixtures-Bll2iilH.css                     3.23 kB │ gzip:  0.82 kB
+dist/assets/focusSurfaceCoordinator-xv4ljYHs.css            4.61 kB │ gzip:  0.90 kB
+dist/assets/SearchPalette-CSHewt5T.css                      5.73 kB │ gzip:  1.38 kB
+dist/assets/usePreferenceSettingsProjection-q-1NgRX7.css    5.83 kB │ gzip:  1.37 kB
+dist/assets/FocusPanel-B16iVo29.css                         7.02 kB │ gzip:  1.50 kB
+dist/assets/taskScheduleDialog-Co9TlyDR.css                 7.39 kB │ gzip:  1.55 kB
+dist/assets/ThemeSettingsPanel-CzzTbaiL.css                10.80 kB │ gzip:  2.02 kB
+dist/assets/floatingTimerFoundation-Dc4LykEA.css           13.31 kB │ gzip:  2.36 kB
+dist/assets/focusPanel--ikYoHIH.css                        15.11 kB │ gzip:  2.48 kB
+dist/assets/index-CPfZN2Az.css                             15.38 kB │ gzip:  3.17 kB
+dist/assets/ReportsSessionsView-csNHTwmF.css               22.73 kB │ gzip:  4.06 kB
+dist/assets/listBoard-iRUXyH21.css                         26.46 kB │ gzip:  3.82 kB
+dist/assets/AppShell-Pf2IkxBm.css                          29.01 kB │ gzip:  4.44 kB
+dist/assets/index-DsUD6RfE.js                               0.07 kB │ gzip:  0.08 kB
+dist/assets/boardInvalidation-CdWHHKxs.js                   0.19 kB │ gzip:  0.17 kB
+dist/assets/preferencesApi-C7D_Xdky.js                      0.27 kB │ gzip:  0.19 kB
+dist/assets/listEditorApi-bVuVgjPF.js                       0.34 kB │ gzip:  0.20 kB
+dist/assets/taskEstimateParser-BzOISH3P.js                  0.48 kB │ gzip:  0.32 kB
+dist/assets/dateTimeFormat-D8MUvw8W.js                      1.27 kB │ gzip:  0.52 kB
+dist/assets/ThemeRuntime-DS5NWkCz.js                        1.31 kB │ gzip:  0.70 kB
+dist/assets/archiveFixture-CyZ1XJ5I.js                      2.24 kB │ gzip:  1.11 kB
+dist/assets/diagnosticApi-fLcWrFlK.js                       2.29 kB │ gzip:  1.05 kB
+dist/assets/inAppShortcuts-XkkgD7FK.js                      2.36 kB │ gzip:  1.09 kB
+dist/assets/localSoundCatalog-BdyoL-rk.js                   2.44 kB │ gzip:  1.01 kB
+dist/assets/listSettingsFixture-CQn45L2P.js                 2.50 kB │ gzip:  1.20 kB
+dist/assets/searchPaletteFixture-D3RJbtXC.js                2.77 kB │ gzip:  1.22 kB
+dist/assets/themeSettingsFixture-9Gv2f0DP.js                3.31 kB │ gzip:  1.49 kB
+dist/assets/taskScheduleFixture--HFPpYp-.js                 3.67 kB │ gzip:  1.57 kB
+dist/assets/overlayPrimitives-DNEsht_S.js                   3.78 kB │ gzip:  1.64 kB
+dist/assets/taskReorderFixture-BJ-Lgr9B.js                  3.88 kB │ gzip:  1.72 kB
+dist/assets/taskMetricFixture-CStljeww.js                   4.66 kB │ gzip:  1.69 kB
+dist/assets/taskSubtasksFixture-Ca2sX--0.js                 5.62 kB │ gzip:  1.99 kB
+dist/assets/taskNotesFixture-BSxIPTSh.js                    6.91 kB │ gzip:  2.55 kB
+dist/assets/focusPanelFixture-8NC5dSPx.js                   7.43 kB │ gzip:  3.00 kB
+dist/assets/floatingTimerFixture-CVKKDdJT.js                7.74 kB │ gzip:  2.55 kB
+dist/assets/FloatingTimerFoundation-BVh1Tnfb.js             8.34 kB │ gzip:  2.96 kB
+dist/assets/reportsFixture-D3hRAtKN.js                      8.57 kB │ gzip:  2.96 kB
+dist/assets/SearchPalette-CkNkKMwR.js                      12.07 kB │ gzip:  3.51 kB
+dist/assets/main-K_7Jz5rq.js                               13.27 kB │ gzip:  4.32 kB
+dist/assets/focusEditorFixture-BVAn5jE2.js                 14.36 kB │ gzip:  4.94 kB
+dist/assets/visualFixtures-CCIvQszD.js                     14.47 kB │ gzip:  3.95 kB
+dist/assets/TaskScheduleDialog-DgXzxbF-.js                 16.24 kB │ gzip:  4.50 kB
+dist/assets/listBoard-Df8GiIkK.js                          17.32 kB │ gzip:  4.10 kB
+dist/assets/usePreferenceSettingsProjection-UAa0YVPJ.js    21.11 kB │ gzip:  6.17 kB
+dist/assets/FocusPanel-1akhuwLG.js                         21.34 kB │ gzip:  6.78 kB
+dist/assets/ThemeSettingsPanel-BYUl6rpg.js                 22.38 kB │ gzip:  5.97 kB
+dist/assets/focus-DlCn_jRQ.js                              22.45 kB │ gzip:  7.62 kB
+dist/assets/ReportsSessionsView-9OTRzOD5.js                23.71 kB │ gzip:  5.25 kB
+dist/assets/focusTimerPresentation-DvDhGryL.js             28.36 kB │ gzip:  8.15 kB
+dist/assets/AppShell-W05Sg7lr.js                           81.40 kB │ gzip: 24.14 kB
+dist/assets/index-jgjgj53-.js                             193.24 kB │ gzip: 60.64 kB
+✓ built in 1.89s

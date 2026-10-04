@@ -1,0 +1,84 @@
+[
+  {
+    "file": "gallery/c5-restored-compact.png",
+    "recording": 4,
+    "ptsSeconds": 377.316824,
+    "observation": "c5-restored-compact.json",
+    "crop": {
+      "x": 3020,
+      "y": 533,
+      "width": 340,
+      "height": 110
+    },
+    "method": "Decoded source-video frame, native-scale crop; no new desktop screenshot"
+  },
+  {
+    "file": "gallery/completion-success.png",
+    "recording": 4,
+    "ptsSeconds": 474.047306,
+    "observation": "completion-success.json",
+    "crop": {
+      "x": 4140,
+      "y": 0,
+      "width": 340,
+      "height": 700
+    },
+    "method": "Decoded source-video frame, native-scale crop; no new desktop screenshot"
+  },
+  {
+    "file": "gallery/large-notes-100.png",
+    "recording": 3,
+    "ptsSeconds": 590.893823,
+    "observation": "primary-notes-large.json",
+    "crop": {
+      "x": 2720,
+      "y": 394,
+      "width": 340,
+      "height": 300
+    },
+    "method": "Decoded source-video frame, native-scale crop; no new desktop screenshot"
+  },
+  {
+    "file": "gallery/primary-compact-before-crossing.png",
+    "recording": 3,
+    "ptsSeconds": 614.789893,
+    "observation": "primary-before-crossing.json",
+    "crop": {
+      "x": 2720,
+      "y": 394,
+      "width": 340,
+      "height": 110
+    },
+    "method": "Decoded source-video frame, native-scale crop; no new desktop screenshot"
+  },
+  {
+    "file": "gallery/collapse-125-absent.png",
+    "motionFolder": "motion/02-125-collapse",
+    "frame": 44,
+    "method": "Byte-identical decoded PNG from consecutive-frame motion sequence"
+  },
+  {
+    "file": "gallery/collapse-100-absent.png",
+    "motionFolder": "motion/23-100-collapse",
+    "frame": 43,
+    "method": "Byte-identical decoded PNG from consecutive-frame motion sequence"
+  },
+  {
+    "file": "gallery/collapse-125-reduced.png",
+    "motionFolder": "motion/11-125-collapse",
+    "frame": 25,
+    "method": "Byte-identical decoded PNG from consecutive-frame motion sequence"
+  },
+  {
+    "file": "gallery/collapse-100-reduced.png",
+    "motionFolder": "motion/29-100-collapse",
+    "frame": 24,
+    "method": "Byte-identical decoded PNG from consecutive-frame motion sequence"
+  },
+  {
+    "file": "gallery/collapse-125-full-canvas.png",
+    "recording": 1,
+    "ptsSeconds": 351.81,
+    "method": "Decoded full-canvas source frame confirms Timer absence beyond the crop"
+  }
+]

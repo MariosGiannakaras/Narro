@@ -31,24 +31,20 @@ Current compact progress:
 
 The documentation-only reconciliation advances no validation counter.
 
-## ACTIVE PHYSICAL VALIDATION — PR #225 LINEAGE
+## ACTIVE M7 CORRECTION — PR228 / CI932; CI911 PHYSICAL RESULTS FROZEN
 
 PR #225 exact head `4f9d03832743f3db90d0c61dc527b27a194886fd` PASSed full Windows CI #911 / run `37150284172` and merged as `cbbaaa25dc94ec756e8bffbc731b99a8be0c4945` with zero non-Markdown differences.
 
 Exact validation EXE SHA-256:
 `24b71ba952ff323647537465f4d5ec8026b3e8001f65d3798d0dbf9eef06541a`
 
-Automated implementation is green for the PR #225 editor containment, wrapped-tooltip placement, expansion prepaint, narrow planning-title layout and concurrent Preferences persistence corrections. The affected exact-EXE Windows checks remain **VALIDATION_OPEN**:
-- large Notes both-axis containment, draft/resize/focus/Save;
-- wrapped left/right tooltip keyboard/Escape/opacity/no-overflow behavior;
-- compact↔expanded initial prepaint and continuous normal/reduced motion;
-- narrow planning title/editing plus hover/focus no-reflow;
-- Preferences save/restart under the corrected persistence path.
+CI911 real compact drag1124px→actual tray Quit→same-EXE relaunch→visible `(1100,533)` Timer is **C5 PASS**. Same task restored paused1:57:07/7027 durable seconds; completion retains time. Large Notes/wrapped tooltip, mixed-DPI crossing, selected-monitor Left/Right, software display removal/recovery, maximized/borderless probe topmost and Preferences writes/restart passed the exercised paths. Both displays are available again, primary100% and secondary125%.
 
-Only DISPLAY2 remained available in the last physical session. Dual-display crossing/reconnect/full-screen work and separate M1 Candidate B physical/performance gates remain separate. Physical PASS must not be promoted to source parity.
+**C4 FAIL**: unchanged-work-area Panel→Timer restore drifts; decoded continuous frames show Timer absence during Collapse at both100%/125%, normal/reduced. Exact evidence is frozen: whole native folder/ZIP, four byte-identical recording originals,33 sequences/1980 PNGs and video-derived gallery. Eight sequences/480 consecutive frames were directly reviewed; OBS Pause gaps are explicit. [Full results](work-log/2026-10-04-codex-m7-ci911-physical-results.md).
 
-Durable physical ledger:
-`work-log/2026-10-03-codex-m7-pr225-ci911-merged-and-physical.md`.
+Active [PR228](https://github.com/MariosGiannakaras/Narro/pull/228), final head `a6af4ef15bd827ad751b023df21ab64e565e2c8e`, combines unchanged-area origin preservation, collapse at last safe origin/no redundant parent moves, and routed `P3-M7-01/02` compact hover/keyboard/shell parity. Full local frontend preflight/Rustfmt and eight rendered Edge pointer/keyboard scenarios PASS. [Full Windows CI932/run37167015466](https://github.com/MariosGiannakaras/Narro/actions/runs/37167015466) is in progress. Intermediate CI929 was cancelled and is not accepted.
+
+Next for the M7 owner: exact-head CI PASS→guarded merge preserving latest main documentation→verified exact artifact→continuous normal/reduced two-DPI direct/bottom-edge/Panel/hover/Notes and drag/tray-Quit/relaunch acceptance→current-build performance and canonical comparison. Reopened M1 Candidate B protocol remains separate; latest M5/M6 source-dependent acceptance must use a build containing those sources. No physical result is promoted to source parity. Counts remain3/10M, M7 3/5, historical14/19.
 
 ## RECONCILED SOURCE IMPLEMENTATION QUEUE
 
@@ -80,7 +76,7 @@ These are source-parity implementation deltas. They are independent from the PR 
 
 ### M8 — implementation closed; validation only
 
-PREF-R05 and PREF-R06 are validated. The later PR #225 concurrent Preferences writer-before-read correction PASSed CI #911. Only the exact-build physical save/restart observation remains open; do not reopen M8 sound/locale implementation.
+PREF-R05 and PREF-R06 are validated. PR #225 concurrent Preferences writer-before-read correction PASSed CI #911; CI911 physical repeated Success writes and restart persistence were observed PASS, original preference restored. This does not simulate simultaneous physical writers or close unrelated M8 obligations; do not reopen sound/locale implementation.
 
 ### M9 — 11/12
 

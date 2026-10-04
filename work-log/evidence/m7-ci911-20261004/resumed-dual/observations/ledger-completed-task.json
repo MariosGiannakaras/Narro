@@ -1,0 +1,113 @@
+{
+  "utc": "2026-10-04T00:16:32.291578+00:00",
+  "readOnly": true,
+  "tasks": [
+    {
+      "task": {
+        "id": "9d0e80ec-77b7-49e4-b66c-f67ed7818704",
+        "title": "M7 C5 CI873 validation",
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [
+        {
+          "id": "a48b9020-7b53-4eba-9019-5dc39a4cf3d2",
+          "kind": "work",
+          "started_at": "2026-10-03T08:40:44.414Z",
+          "ended_at": "2026-10-03T13:28:42.965Z",
+          "duration_seconds": 8217,
+          "source": "focus"
+        },
+        {
+          "id": "ede05be1-69ec-4faf-a005-6f12753735ff",
+          "kind": "work",
+          "started_at": "2026-10-03T13:50:00.909Z",
+          "ended_at": "2026-10-03T16:50:10.642Z",
+          "duration_seconds": 19,
+          "source": "focus"
+        },
+        {
+          "id": "617891c2-0665-466c-8c92-d19b6de2e578",
+          "kind": "work",
+          "started_at": "2026-10-03T19:54:00.819Z",
+          "ended_at": "2026-10-03T19:55:00.701Z",
+          "duration_seconds": 43,
+          "source": "focus"
+        },
+        {
+          "id": "c079a939-8b9c-4782-ae2d-b4714fabd738",
+          "kind": "work",
+          "started_at": "2026-10-03T20:44:14.354Z",
+          "ended_at": "2026-10-03T20:44:49.183Z",
+          "duration_seconds": 34,
+          "source": "focus"
+        }
+      ],
+      "closedWorkSeconds": 8313
+    },
+    {
+      "task": {
+        "id": "9e24a781-2f28-460a-befa-e7aa0d297b2d",
+        "title": "M7 CI911 acceptance — long Timer title, Notes bounds and transitions",
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-04T00:16:09.570Z"
+      },
+      "sessions": [
+        {
+          "id": "8a01d999-8269-4a63-b522-6104f33e0191",
+          "kind": "work",
+          "started_at": "2026-10-03T20:44:49.183Z",
+          "ended_at": "2026-10-04T00:16:09.570Z",
+          "duration_seconds": 7027,
+          "source": "focus"
+        }
+      ],
+      "closedWorkSeconds": 7027
+    }
+  ],
+  "preferences": {
+    "payload": {
+      "general": {
+        "selected_monitor_key": null,
+        "focus_panel_side": "right",
+        "open_on_login": false,
+        "hide_task_times": false,
+        "auto_parse_est_from_title": false,
+        "theme": "light",
+        "timezone": null
+      },
+      "focus": {
+        "pomodoro_enabled": false,
+        "pomodoro_work_seconds": 1500,
+        "pomodoro_break_seconds": 300,
+        "default_break_seconds": 600,
+        "scrolling_title": false,
+        "sleep_accounting_policy": "exclude"
+      },
+      "shortcuts": {
+        "go_to_narro_enabled": true,
+        "toggle_focus_mode_enabled": true,
+        "find_focus_timer_enabled": true
+      },
+      "alerts": {
+        "timed_alerts_enabled": false,
+        "task_alert_interval_seconds": 600,
+        "task_alert_sound": null,
+        "task_alert_volume_percent": 100,
+        "animated_timer_flash": false,
+        "notification_alerts_enabled": false,
+        "notification_sound": null,
+        "notification_volume_percent": 100,
+        "schedule_reminders_enabled": false,
+        "reminder_lead_seconds": 600
+      },
+      "celebration": {
+        "show_success_screen": true,
+        "fun_gif": false,
+        "success_sound": null,
+        "success_sound_volume_percent": 100
+      }
+    },
+    "updatedAt": "2026-10-03T23:50:12.675550400+00:00"
+  }
+}
