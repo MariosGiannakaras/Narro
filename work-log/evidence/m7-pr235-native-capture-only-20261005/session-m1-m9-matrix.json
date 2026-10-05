@@ -1,0 +1,47 @@
+[
+  {
+    "milestone": "M1",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "Native two-display recording context only"
+  },
+  {
+    "milestone": "M2",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "No deliberate new acceptance exercise"
+  },
+  {
+    "milestone": "M3",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "No deliberate new acceptance exercise"
+  },
+  {
+    "milestone": "M4",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "No deliberate new acceptance exercise"
+  },
+  {
+    "milestone": "M5",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "No deliberate new acceptance exercise"
+  },
+  {
+    "milestone": "M6",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "No deliberate new acceptance exercise"
+  },
+  {
+    "milestone": "M7",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "No deliberate new acceptance exercise"
+  },
+  {
+    "milestone": "M8",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "Preferences/Pomodoro/alerts/reminders/shortcut keyboard"
+  },
+  {
+    "milestone": "M9",
+    "disposition": "OPEN / CAPTURED_UNREVIEWED where relevant; no acceptance change",
+    "relevantPaths": "Reports filter/chart/date controls; Export PDF invocation rejected because disabled"
+  }
+]

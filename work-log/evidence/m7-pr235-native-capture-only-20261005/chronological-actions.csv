@@ -1,0 +1,62 @@
+utc,action,target
+2026-10-05T14:46:34.5577616Z,native-uia-invoke,Start Recording
+2026-10-05T14:46:35.2100593Z,native-uia-observed-pointer-click,Enable Pomodoros
+2026-10-05T14:47:03.1969416Z,physical-mouse-wheel,
+2026-10-05T14:47:14.5139633Z,native-uia-observed-pointer-click,Enable Pomodoros
+2026-10-05T14:47:15.0746691Z,native-uia-observed-pointer-click,Pomodoro work sprint
+2026-10-05T14:47:44.4940826Z,physical-scancode-chord,Escape
+2026-10-05T14:47:45.1603097Z,native-uia-observed-pointer-click,Pomodoro break duration
+2026-10-05T14:47:45.6638477Z,physical-scancode-chord,Escape
+2026-10-05T14:47:46.1034766Z,native-uia-observed-pointer-click,Enable Pomodoros
+2026-10-05T14:47:46.6022621Z,native-uia-observed-pointer-click,Timed task alerts
+2026-10-05T14:47:47.1078041Z,native-uia-observed-pointer-click,Task alert interval
+2026-10-05T14:47:47.5665834Z,physical-scancode-chord,Escape
+2026-10-05T14:47:48.4389515Z,physical-mouse-wheel,
+2026-10-05T14:47:48.4713469Z,native-uia-observed-pointer-click,Task alert sound
+2026-10-05T14:48:20.2545386Z,native-uia-observed-pointer-click,Task alert sound
+2026-10-05T14:48:20.9080971Z,physical-scancode-chord,Escape
+2026-10-05T14:48:21.3489765Z,native-uia-invoke,Preview Melodic Bell
+2026-10-05T14:48:21.6691817Z,native-uia-observed-pointer-click,Timed task alerts
+2026-10-05T14:48:22.1641251Z,native-uia-observed-pointer-click,Notification alerts
+2026-10-05T14:48:22.6652556Z,native-uia-observed-pointer-click,Notification sound
+2026-10-05T14:48:23.1274500Z,physical-scancode-chord,Escape
+2026-10-05T14:48:23.5478367Z,native-uia-invoke,Preview Futuristic Ding
+2026-10-05T14:48:23.8768404Z,native-uia-observed-pointer-click,Notification alerts
+2026-10-05T14:48:24.8585460Z,physical-mouse-wheel,
+2026-10-05T14:48:37.5396699Z,native-uia-observed-pointer-click,Schedule reminders
+2026-10-05T14:49:04.8299200Z,native-uia-observed-pointer-click,Schedule reminders
+2026-10-05T14:49:05.9907691Z,native-uia-observed-pointer-click,Schedule reminder lead time
+2026-10-05T14:49:06.5919185Z,physical-scancode-chord,Escape
+2026-10-05T14:49:07.0279411Z,native-uia-observed-pointer-click,Schedule reminders
+2026-10-05T14:49:07.9768919Z,physical-mouse-wheel,
+2026-10-05T14:49:38.3232909Z,physical-mouse-wheel,
+2026-10-05T14:49:39.5573142Z,native-uia-setfocus,Enable Go to Narro
+2026-10-05T14:49:39.6690030Z,physical-scancode-chord,Tab
+2026-10-05T14:49:40.0779148Z,physical-scancode-chord,Tab
+2026-10-05T14:49:40.4795783Z,physical-scancode-chord,Shift+Tab
+2026-10-05T14:49:41.0610703Z,native-uia-invoke,Reports
+2026-10-05T14:49:52.7802302Z,native-uia-observed-pointer-click,All Lists
+2026-10-05T14:50:06.9986745Z,native-uia-selection,M7 PR235 CI953 live expiry break capture
+2026-10-05T14:50:28.7960255Z,native-uia-invoke,Chart options
+2026-10-05T14:50:45.4063009Z,physical-scancode-chord,Escape
+2026-10-05T14:50:46.0717230Z,native-uia-observed-pointer-click,TASKS
+2026-10-05T14:50:46.9854583Z,native-uia-observed-pointer-click,BREAKS
+2026-10-05T14:50:47.8901922Z,native-uia-observed-pointer-click,TOTAL
+2026-10-05T14:50:48.7966430Z,native-uia-observed-pointer-click,TOTAL
+2026-10-05T14:50:49.7036499Z,native-uia-observed-pointer-click,BREAKS
+2026-10-05T14:50:50.6087478Z,native-uia-observed-pointer-click,TASKS
+2026-10-05T14:50:51.5045976Z,native-uia-observed-pointer-click,"Sep 05, 2026 – Oct 05, 2026"
+2026-10-05T14:50:52.3838416Z,physical-scancode-chord,Tab
+2026-10-05T14:50:52.7842762Z,physical-scancode-chord,Escape
+2026-10-05T14:50:53.2006434Z,native-uia-invoke,Settings
+2026-10-05T14:51:23.8034101Z,physical-mouse-wheel,
+2026-10-05T14:51:44.8745419Z,physical-mouse-wheel,
+2026-10-05T14:51:45.7917152Z,physical-mouse-wheel,
+2026-10-05T14:51:46.6771439Z,physical-mouse-wheel,
+2026-10-05T14:51:47.5491730Z,physical-mouse-wheel,
+2026-10-05T14:51:48.4306800Z,physical-mouse-wheel,
+2026-10-05T14:51:49.3807267Z,native-uia-setfocus,Enable Go to Narro
+2026-10-05T14:51:49.4848774Z,physical-scancode-chord,Enter
+2026-10-05T14:51:49.8928747Z,physical-scancode-chord,Enter
+2026-10-05T14:51:50.3008158Z,physical-scancode-chord,Ctrl+Shift+B
+2026-10-05T14:51:51.1132932Z,native-uia-invoke,Stop Recording

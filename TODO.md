@@ -1,5 +1,14 @@
 # TODO.md
 
+## Current — capture only, no media analysis (2026-10-05 14:46–14:52 UTC)
+
+[Raw Windows recording and action manifest](work-log/evidence/m7-pr235-native-capture-only-20261005/README.md): 316.567s, 61 logged actions, exact CI953 candidate. User explicitly requests acquisition only; do not use the historical analyzed-check counter as acquisition progress. No video/image review, frame extraction, new PASS/FAIL, source parity closure or acceptance counter change.
+
+Recorded paths: Pomodoro enable/disable and work/break dropdowns; timed alerts enable/disable, interval/sound dropdowns and Melodic Bell preview; notification alerts enable/disable, sound dropdown and Futuristic Ding preview; schedule reminders enable/disable and lead-time dropdown; shortcut keyboard focus/Tab/Shift+Tab/Enter/Ctrl+Shift+B; owned Reports list filter, chart options/series controls, date control/Tab/Escape. Export PDF invocation was rejected by the native helper because the control was disabled: this path was not completed. Shortcut enable/disable intent is not established by Enter presses; keep it open for reviewer/continuation. Some early pointer attempts used stale scrolled geometry and needed foreground/re-probe recovery; actions record attempts, not proof that every intended state occurred.
+
+All M1–M9 acceptance/source-parity gates remain at their previous dispositions. M10 hard entry remains blocked; M11 dormant. Entire original MKV/full stream-copy MP4 and all Narro-M7-Logs plus ZIP are uploaded; logs are a live snapshot, not fresh tray-exit proof. No application source changes/tests/builds/CI/merge. Original owned task remains paused per raw ledger snapshot. Continuation: acquisition only; distinct remaining physical Preferences/shortcut/notification delivery or topology/sleep paths, avoiding repeats of captured surfaces. Another chat must review recordings before disposition.
+
+
 ## Existing WIP safely backed up — capture-only continuation
 
 Existing four-file async SQLite-read proposal plus Desktop publication/reassembly and used capture helpers are backed up in [WIP branch](https://github.com/MariosGiannakaras/Narro/tree/wip/m7-async-read-and-evidence-tools-20261005/scripts/local-evidence-tools), commit `24d69e771ec8b2341021606d069a52e3fc65d1c2`. Backup only: app source uncompiled/unvalidated, no tests/build/CI or main merge; original working files/index/branch preserved. Helper Python syntax checked, publisher's previous actual publications verified; no new aggregate validation claimed. Text Git LF/CRLF normalization applies; backup manifest records original working-copy bytes. No generated icons/binaries/user database/transient queues uploaded. Authoritative evidence/tracking remain on main. Actual Windows sessions continue on unchanged CI953 EXE, not this WIP.

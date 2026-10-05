@@ -1,0 +1,202 @@
+[
+  {
+    "path": ".gitattributes",
+    "bytes": 19,
+    "sha256": "f01a7d3573bcb8be0255b188ea30002f6792b2eeb0470ae49f30f21b69cff1d7"
+  },
+  {
+    "path": "actions.jsonl",
+    "bytes": 14788,
+    "sha256": "b9a3c458f5883b159c21726b6468efff86b82c6d66d54d023872ddcf0b7d805d"
+  },
+  {
+    "path": "chronological-actions.csv",
+    "bytes": 4187,
+    "sha256": "09d0c409cb494fbf1f362615bc1ba7b453c9783a596a21cc2cdedc59c9f218da"
+  },
+  {
+    "path": "inventory/AUDIT_IMPLEMENTATION_CROSSWALK.md",
+    "bytes": 91497,
+    "sha256": "0c0ed8656bde1d985d81695ccb47d2ee7966a0c1a230366b2698b051f957850e"
+  },
+  {
+    "path": "inventory/ffprobe.json",
+    "bytes": 3405,
+    "sha256": "e64362de489d547d2aa13af3b9dd12e0a967ed64c967f7b4fbc876cbf437b9c8"
+  },
+  {
+    "path": "inventory/HANDOFF.md",
+    "bytes": 33239,
+    "sha256": "5daeba72c32fe643cf722fd1d9bdf5d79092372c61efb1b27c018f0abcb2c89c"
+  },
+  {
+    "path": "inventory/obs-log.txt",
+    "bytes": 45544,
+    "sha256": "bea0c76c951ec6017711b792c98e26363f9d363023edfec7e4a27c24cde991eb"
+  },
+  {
+    "path": "inventory/post-ledger.json",
+    "bytes": 20389,
+    "sha256": "e825a888bf8840833c7ddf2f78446dfadd00befd65f32eca00e1dd0bfeed41e0"
+  },
+  {
+    "path": "inventory/STATUS.md",
+    "bytes": 198634,
+    "sha256": "5f83f0b3df06547c097b31f75d8f76508830491bc20adc6855f0eae2cf6d2308"
+  },
+  {
+    "path": "inventory/TODO.md",
+    "bytes": 148427,
+    "sha256": "695e37f7d4c9b0a1df55549fc62bf08bd18487639eac019c37d9c133628a5008"
+  },
+  {
+    "path": "Narro-M7-Logs/LATEST.txt",
+    "bytes": 37,
+    "sha256": "096475ec05839b8d9d31e6aaaf64f6d72a4161a2dbc7479507569e7f144d92c1"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-last-pass.json",
+    "bytes": 1840,
+    "sha256": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-last-terminal-result.json",
+    "bytes": 1840,
+    "sha256": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-latest-result.json",
+    "bytes": 579,
+    "sha256": "5faaf20031d2c027a4d0172c65c46baf7a905461a8bc4935f3d856ddb31cb025"
+  },
+  {
+    "path": "Narro-M7-Logs/README.txt",
+    "bytes": 765,
+    "sha256": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/events.jsonl",
+    "bytes": 329580,
+    "sha256": "86ac38ce4dd5b22d6e85bea009f821c1911e81113ad0def327d951d38ad20cee"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/m7-c5-result.json",
+    "bytes": 518,
+    "sha256": "fcd368de9bb3e05f008c472d60fad2b4553c3edf33166955c031af95ec1e29d9"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/session.json",
+    "bytes": 490,
+    "sha256": "afc7b7b34c22a0f58658e9e74ffbdabd1ae4f35085a9604c3b326d5a07788fd0"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/events.jsonl",
+    "bytes": 864595,
+    "sha256": "3c9da9c4f45879d4659737de21ff5dfb889bc66cd8dc4c5fd228d8e597f913a9"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/m7-c5-result.json",
+    "bytes": 579,
+    "sha256": "5faaf20031d2c027a4d0172c65c46baf7a905461a8bc4935f3d856ddb31cb025"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/session.json",
+    "bytes": 490,
+    "sha256": "0a6532ec0ef157b8d76aa17714672c62b34a591f929ba99d5c345bb09a477aa9"
+  },
+  {
+    "path": "Narro-M7-Logs.zip",
+    "bytes": 44694,
+    "sha256": "6040096b6980ce3e1128b28a3cd0fbbc6bd304274c4cd99c1b94ff91b1937b93"
+  },
+  {
+    "path": "observations/alerts-navigation.json",
+    "bytes": 43280,
+    "sha256": "d5ee39f9ec3647c6b1ff93cc75bbcad7c1b547b35868926dd2537744758b5eef"
+  },
+  {
+    "path": "observations/chart-menu.json",
+    "bytes": 34892,
+    "sha256": "bf4cf0afe1cd2d6e8dd1945d63e1ae75eda803a50570867d2c3869e4400833de"
+  },
+  {
+    "path": "observations/controls.json",
+    "bytes": 43277,
+    "sha256": "9cac9704cfbb8bf8718340ea8c70b979b332818684d9ea4a5e1a098575912e42"
+  },
+  {
+    "path": "observations/pdf-navigation.json",
+    "bytes": 34892,
+    "sha256": "6927f4bd1dbc59405741eb221d42c6f38c6cb12e6d5a29d575027c72ce1e3bed"
+  },
+  {
+    "path": "observations/pomodoro-options.json",
+    "bytes": 44786,
+    "sha256": "0512b314968151431139b211d15bb7135551d0771ea341787efbf931f4b8a7e3"
+  },
+  {
+    "path": "observations/reminder-navigation.json",
+    "bytes": 43301,
+    "sha256": "ed88410407742688a4810ffe7a66f53f0d5ec5a7be9eb95b739831042852b75e"
+  },
+  {
+    "path": "observations/report-filter.json",
+    "bytes": 54679,
+    "sha256": "62f39ae408a9f819e2a7436645633b99ab928cd165596a45999439e5b798fcc7"
+  },
+  {
+    "path": "observations/reports-navigation.json",
+    "bytes": 53032,
+    "sha256": "88b187ea8ab2a0342c9d21eaf69ba7c28456c4b046b8b0964281653e160fffdd"
+  },
+  {
+    "path": "observations/shortcut-navigation.json",
+    "bytes": 43323,
+    "sha256": "db38264972a4cb6388ce3031d61fa041f5e7f8b5b7644868543ec6a887d1bde5"
+  },
+  {
+    "path": "observations/shortcuts-final.json",
+    "bytes": 43290,
+    "sha256": "04ff56070d039866b1a75955e2114047833714d91fe0028fd9ba389af04a3768"
+  },
+  {
+    "path": "observations/start-main.json",
+    "bytes": 43283,
+    "sha256": "e286a19c6c9e6775e287a328b66b8b5f61bac2cb6f3b3902979a5b3ce9b7d938"
+  },
+  {
+    "path": "observations/start-obs.json",
+    "bytes": 28064,
+    "sha256": "d63af37bac8655662c1403788ba17288d8d0d37dd4a55cefac10fa29481a1056"
+  },
+  {
+    "path": "plan.json",
+    "bytes": 422,
+    "sha256": "21c2007e442499d1a039faf6c803b621aa9805cb61eb2fce51b7e6422bb3c8fb"
+  },
+  {
+    "path": "provenance.json",
+    "bytes": 409,
+    "sha256": "33937601556d0140408435a64877c6e1c2bd95984cf854409754a788a4daddeb"
+  },
+  {
+    "path": "README.md",
+    "bytes": 2390,
+    "sha256": "8a94e0fae31613d7ed9282beeceacd753459251148c4378b96082e0019ea46c7"
+  },
+  {
+    "path": "session-m1-m9-matrix.json",
+    "bytes": 1729,
+    "sha256": "13e18d1e2cab6274e46e898262de6648062cf394918fc0dcbaad7f8ab481cbe9"
+  },
+  {
+    "path": "video/2026-10-05 17-46-34.mkv",
+    "bytes": 24024527,
+    "sha256": "ccdd1d04142ff0181760ded69dbba818c24f265d78eeacc7765dbbde5909faa9"
+  },
+  {
+    "path": "video/full.mp4",
+    "bytes": 24407424,
+    "sha256": "bb1458172e5a471841032978f3601c1e8325d17c411d44fe1a6cc0a4d7be4f83"
+  }
+]

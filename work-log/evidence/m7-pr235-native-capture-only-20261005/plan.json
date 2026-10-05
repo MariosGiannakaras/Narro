@@ -1,0 +1,13 @@
+{
+  "utc": "2026-10-05T14:46:33.7519263Z",
+  "mode": "CAPTURE_ONLY_UNREVIEWED",
+  "paths": [
+    "Preferences Pomodoro controls",
+    "Timed alerts interval/sound preview",
+    "Notification sound preview",
+    "Schedule reminder lead time",
+    "Global shortcut enable/disable and keyboard navigation",
+    "Reports export controls"
+  ],
+  "acceptance": "No new PASS/FAIL; media reserved for another chat"
+}
