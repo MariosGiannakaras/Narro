@@ -1,0 +1,7 @@
+# CI953 acquisition gaps — no new review denominator
+
+Continue only the existing six partial cells in m7-ci953-interfaces-20261005/acquisition-matrix.json: M5-A02 long subtask title edit/cancel/Save; M5-A06 normal/reduced planning card keyboard/hover rail; M7-A08 populated Timer action-hover sweep; M9-A02 actual date range Apply/restoration; M9-A04 actual Sessions hide/show Break filter with all modals closed; M9-A05 actual manual Add/Edit form where available. No canonical/continuous acceptance inferred from capture. Registered visual matrix remains44/100 reviewed.
+
+Exact38219e20/CI953/EXEbde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8. PID141908/Focus7471826/Main3213706; oneLG125% active, normal animation and lightNarro; paused846s/801308ms active task95a2466c. Preserve ledger, preferences and existing Notes/four incomplete owned subtasks. New manual session fixture may be created only on an explicitly owned validation task and must be recorded as a test-data delta. No code/tests/builds/CI. OBSwhole originals, UTC/native manifests, source gates stayOPEN until analyzed. User explicitly launched existing Antigravity Desktop shortcut before recording; do not interact with its code or terminal.
+
+Sequence: populated Timer hover sweep → Focus Home/Main owned list → long subtask edit/cancel/Save+restore, card hover/focus states normal/reduced → Reports real date/filters → manual-session controls if available → restore normal/pausedcompact → stop/flush/export whole logs and update main tracking.

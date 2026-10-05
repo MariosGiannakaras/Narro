@@ -1,0 +1,18 @@
+[
+  {
+    "utc": "2026-10-05T09:56:42.0113269Z",
+    "action": "bookmark",
+    "observation": "30: owned Add Session shows a visible horizontal scrollbar inside the Recent Tasks picker, with supplied long fixture titles; native navigation PNG and continuous OBS preserve it. Source/requirement disposition pending.",
+    "state": "REVIEW_PENDING",
+    "evidenceInput": "actions.jsonl:62",
+    "originalApproxSeconds": 686.915
+  },
+  {
+    "utc": "2026-10-05T10:03:18.2049338Z",
+    "action": "bookmark",
+    "observation": "31: Manual end-time editing is reached by clicking the displayed end time, not its Delete-only menu. Actual Save120→180→120 worked on the same manual session ID. After an unsaved minute increment, Escape left the inline editor open; restore draft explicitly and close task detail. Requirement/source review pending.",
+    "state": "REVIEW_PENDING",
+    "evidenceInput": "actions.jsonl:74",
+    "originalApproxSeconds": 1083.108
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "observedUtc": "2026-10-05T10:07:42.8561467Z",
+  "request": "Launch Antigravity from Desktop",
+  "shortcut": "E:/SystemFiles/Desktop/Antigravity.lnk",
+  "target": "C:/Users/MariosG/AppData/Local/Programs/Antigravity/Antigravity.exe",
+  "mainProcessId": 34652,
+  "mainWindowTitle": "Antigravity",
+  "noIDEInteractions": true
+}

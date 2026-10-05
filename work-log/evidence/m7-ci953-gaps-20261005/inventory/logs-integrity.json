@@ -1,0 +1,18 @@
+{
+  "files": 11,
+  "zipAllFilesByteIdentical": true,
+  "sha256": {
+    "Narro-M7-Logs/LATEST.txt": "096475ec05839b8d9d31e6aaaf64f6d72a4161a2dbc7479507569e7f144d92c1",
+    "Narro-M7-Logs/m7-c5-last-pass.json": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d",
+    "Narro-M7-Logs/m7-c5-last-terminal-result.json": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d",
+    "Narro-M7-Logs/m7-c5-latest-result.json": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d",
+    "Narro-M7-Logs/README.txt": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160",
+    "Narro-M7-Logs/session-20261005-034426.418Z-130912/events.jsonl": "86ac38ce4dd5b22d6e85bea009f821c1911e81113ad0def327d951d38ad20cee",
+    "Narro-M7-Logs/session-20261005-034426.418Z-130912/m7-c5-result.json": "fcd368de9bb3e05f008c472d60fad2b4553c3edf33166955c031af95ec1e29d9",
+    "Narro-M7-Logs/session-20261005-034426.418Z-130912/session.json": "afc7b7b34c22a0f58658e9e74ffbdabd1ae4f35085a9604c3b326d5a07788fd0",
+    "Narro-M7-Logs/session-20261005-082950.511Z-141908/events.jsonl": "b03655ffe3f1e7d7259b0ecb762e9627fd65c8c743e091fef1bb87dabdb7cc07",
+    "Narro-M7-Logs/session-20261005-082950.511Z-141908/m7-c5-result.json": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d",
+    "Narro-M7-Logs/session-20261005-082950.511Z-141908/session.json": "0a6532ec0ef157b8d76aa17714672c62b34a591f929ba99d5c345bb09a477aa9"
+  },
+  "liveSessionIsBoundedSnapshot": true
+}

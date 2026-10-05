@@ -1,0 +1,120 @@
+[
+  {
+    "id": "M7-A08",
+    "previousAcquisition": "PARTIAL",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "description": "Six populated Timer action slots: normal/reduced pointer hover; locate already captured in previous packet.",
+    "utcStart": "2026-10-05T09:47:10.9536328Z",
+    "utcEnd": "2026-10-05T09:47:28.2261179Z",
+    "originalApproxSeconds": [
+      115.857,
+      133.13
+    ],
+    "evidence": [
+      "observations/hover-normal-start-break.json",
+      "observations/hover-reduced-start-break.json",
+      "chronological-actions.jsonl"
+    ],
+    "limits": "Acquisition closure only. Continuous/static/canonical requirement review remains OPEN; no new visual PASS."
+  },
+  {
+    "id": "M5-A02",
+    "previousAcquisition": "PARTIAL",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "description": "Actual long unbroken subtask title editor, Save edited text, restore original Save, reopen and Cancel.",
+    "utcStart": "2026-10-05T09:47:31.3146330Z",
+    "utcEnd": "2026-10-05T09:48:50.3737064Z",
+    "originalApproxSeconds": [
+      136.218,
+      215.277
+    ],
+    "evidence": [
+      "observations/02-main-long-subtask-edit.json",
+      "inventory/ledger-verification.json",
+      "chronological-actions.jsonl"
+    ],
+    "limits": "Acquisition closure only. Continuous/static/canonical requirement review remains OPEN; no new visual PASS."
+  },
+  {
+    "id": "M5-A06",
+    "previousAcquisition": "PARTIAL",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "description": "Planning title focus and actual Tab/Shift+Tab, pointer title hover, all five action slots normal/reduced.",
+    "utcStart": "2026-10-05T09:49:43.7909528Z",
+    "utcEnd": "2026-10-05T09:50:57.8327689Z",
+    "originalApproxSeconds": [
+      268.694,
+      342.736
+    ],
+    "evidence": [
+      "observations/rail-normal-keyboard-return.json",
+      "observations/rail-reduced-keyboard-return.json",
+      "observations/rail-normal-full-sweep.json",
+      "observations/rail-reduced-full-sweep.json"
+    ],
+    "limits": "Acquisition closure only. Continuous/static/canonical requirement review remains OPEN; no new visual PASS."
+  },
+  {
+    "id": "M9-A02",
+    "previousAcquisition": "PARTIAL",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "description": "This week Apply gives Oct05-Oct05 (today Monday); Last30days Apply restores Sep05-Oct05.",
+    "utcStart": "2026-10-05T09:50:58.8253109Z",
+    "utcEnd": "2026-10-05T09:52:59.8606560Z",
+    "originalApproxSeconds": [
+      343.729,
+      464.764
+    ],
+    "evidence": [
+      "observations/04-date-this-week-preview.json",
+      "observations/05-date-this-week-applied.json",
+      "observations/06-date-restored-and-tabs.json"
+    ],
+    "limits": "Acquisition closure only. Continuous/static/canonical requirement review remains OPEN; no new visual PASS."
+  },
+  {
+    "id": "M9-A04",
+    "previousAcquisition": "PARTIAL",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "description": "Sessions Break filter actually toggled Off->On->Off with no Add/Edit modal present.",
+    "utcStart": "2026-10-05T09:53:01.4051292Z",
+    "utcEnd": "2026-10-05T09:53:59.8753038Z",
+    "originalApproxSeconds": [
+      466.309,
+      524.779
+    ],
+    "evidence": [
+      "observations/filter-before.json",
+      "observations/filter-hidden.json",
+      "observations/filter-restored.json",
+      "chronological-actions.jsonl"
+    ],
+    "limits": "Acquisition closure only. Continuous/static/canonical requirement review remains OPEN; no new visual PASS."
+  },
+  {
+    "id": "M9-A05",
+    "previousAcquisition": "PARTIAL",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "description": "Owned manual Add120s, displayed end-time inline Edit180s, Save restore120s; Escape leaves inline editor open, draft restored and detail explicitly closed. Add Cancel was captured in previous packet. No separate Edit Session modal claim.",
+    "utcStart": "2026-10-05T09:53:59.9172852Z",
+    "utcEnd": "2026-10-05T10:03:20.2364905Z",
+    "originalApproxSeconds": [
+      524.821,
+      1085.14
+    ],
+    "evidence": [
+      "observations/08-owned-add-manual-modal.json",
+      "observations/15-manual-time-edit-affordance.json",
+      "observations/16-manual-edited-3min.json",
+      "observations/17-manual-inline-edit-escape.json",
+      "inventory/ledger-verification.json"
+    ],
+    "limits": "Acquisition closure only. Continuous/static/canonical requirement review remains OPEN; no new visual PASS."
+  }
+]

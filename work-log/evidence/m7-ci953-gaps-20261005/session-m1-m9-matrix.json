@@ -1,0 +1,56 @@
+[
+  {
+    "milestone": "M1",
+    "disposition": "OPEN / reused FAIL27",
+    "evidence": "inventory/displays-before.json; inventory/displays-after.json",
+    "limits": "One LG125% only; no new dual/topology/sleep/cable/quiet performance validation. Explicit selected-monitor DPI recovery remains failed."
+  },
+  {
+    "milestone": "M2",
+    "disposition": "Existing acceptance unchanged; narrow identity corroboration",
+    "evidence": "inventory/ledger-verification.json",
+    "limits": "No new milestone acceptance claim or implementation counter."
+  },
+  {
+    "milestone": "M3",
+    "disposition": "Existing acceptance unchanged; paused ledger corroboration",
+    "evidence": "inventory/ledger-before.json; inventory/ledger-after.json",
+    "limits": "Active846s/801308ms checkpoint unchanged; new owned manual session+120s explicitly retained."
+  },
+  {
+    "milestone": "M4",
+    "disposition": "No sufficient new exercise",
+    "evidence": "chronological-actions.jsonl",
+    "limits": "No scheduling acceptance inferred."
+  },
+  {
+    "milestone": "M5",
+    "disposition": "CAPTURED / visual OPEN",
+    "evidence": "M5-A02; M5-A06 in acquisition-closure-matrix.json",
+    "limits": "Source/continuous comparison pending; no-drag focus does not resolve post-drag observation28."
+  },
+  {
+    "milestone": "M6",
+    "disposition": "Reuse previous populated packet / visual OPEN",
+    "evidence": "../m7-ci953-interfaces-20261005/acquisition-matrix.json",
+    "limits": "No broad Focus/source acceptance claim; selected-monitor dependency27 still open."
+  },
+  {
+    "milestone": "M7",
+    "disposition": "M7-A08 CAPTURED / C4 OPEN",
+    "evidence": "acquisition-closure-matrix.json; observations/18-final-paused-compact.json",
+    "limits": "Same Focus HWND7471826; historical953 C5 PASS reused, no new tray/relaunch test. No full motion acceptance."
+  },
+  {
+    "milestone": "M8",
+    "disposition": "No new acceptance; preferences unchanged",
+    "evidence": "inventory/ledger-verification.json",
+    "limits": "Prior Preferences/shortcut capture reusable; selection27 and source gates remain open."
+  },
+  {
+    "milestone": "M9",
+    "disposition": "Date/filter/manual writes functionally corroborated; visual OPEN",
+    "evidence": "M9-A02/M9-A04/M9-A05 in acquisition-closure-matrix.json",
+    "limits": "Bookmarks30/31 REVIEW_PENDING. Add uses modal; end-time Edit is inline. No canonical/whole Reports acceptance."
+  }
+]
