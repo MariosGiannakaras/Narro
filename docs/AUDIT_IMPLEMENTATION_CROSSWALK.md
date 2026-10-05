@@ -16,6 +16,8 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Continuation readiness verified:** [publication/integrity audit and precise limits](../work-log/2026-10-05-chat-continuation-readiness.md). Eleven capture packets plus index/review:13 bundles,1,217 listed files match frozen SHA256 and published Git blobs;156 relative links resolve. Remote main/publication receipt agree; no pending queue. Source WIP remains unvalidated on its backup branch. No new product PASS or acceptance/counter change.
 
+- **Supplemental evidence review:** [archive/reassembly and sleep/terminal-state checks](../work-log/evidence/m7-ci953-supplemental-review-20261005/README.md). All11 ZIPs/127 logs match complete folders; four multipart whole-video hashes reconstruct exactly. S3 event interval7.8762s and saved dual topology confirmed. One post-wake Time's Up frame shows Time Taken10:00, matching F ledger600s. Earlier running Time Taken3:30 is UIA-only/review pending, not confirmed visual FAIL. No application corrections or gate/counter advancement.
+
 ## Historical acquisition/disposition checkpoints
 
 Existing finding verdicts are retained; this documentation audit adds no source or physical acceptance.
