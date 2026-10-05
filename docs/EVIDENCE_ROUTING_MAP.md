@@ -72,3 +72,17 @@ A summary/index tells an agent where truth lives; it must not silently replace t
 End-to-end:
 
 `raw Blitzit source → canonical Pass-3 finding → visual calibration where needed → reconciliation/crosswalk → milestone implementation → automated/native validation → SOURCE_PARITY_PASS where applicable → M10/final revalidation`.
+
+## Optional live Blitzit evidence — M11 only
+
+This source class is **inactive unless the user explicitly activates Milestone 11**. See `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
+
+When activated, live Blitzit observation adds two synchronized evidence streams:
+- user-visible continuous recording/screenshots/state transitions;
+- observable client/backend/state evidence from ordinary authorized use, such as redacted request/event structure, timing/status/order, local persistence/app-data and materially relevant local process/file effects where legitimately observable.
+
+Routing is deliberately two-stage:
+1. **acquisition:** collect the entire planned campaign, keep only neutral timestamps/action labels, then freeze/hash/inventory the corpus; no parity verdict, crosswalk disposition or Narro remediation is allowed yet;
+2. **analysis/reconciliation:** after corpus freeze, analyze the complete visual + protocol/state corpus, reconcile against canonical Pass-3/calibration evidence, then update the crosswalk/findings register and remediation plan before implementation.
+
+Sensitive raw network/state evidence stays local. Commit only sanitized/redacted derivatives, manifests, hashes and structural summaries. If observation would require bypassing authentication, access controls, certificate pinning or other security protections, record the channel as unavailable rather than defeating the protection.
