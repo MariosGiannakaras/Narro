@@ -1,0 +1,232 @@
+[
+  {
+    "path": ".gitattributes",
+    "bytes": 19,
+    "sha256": "f01a7d3573bcb8be0255b188ea30002f6792b2eeb0470ae49f30f21b69cff1d7"
+  },
+  {
+    "path": "actions.jsonl",
+    "bytes": 595,
+    "sha256": "b8f60219bf43ef3b16adc0ee7e0d14f7be048625370fa038ec8d710abd4ebb63"
+  },
+  {
+    "path": "chronological-actions.jsonl",
+    "bytes": 8085,
+    "sha256": "ae35b68d94f751cf64a581598563e56ec464644ea3f6af6087c7d0eaa06cb426"
+  },
+  {
+    "path": "inventory/health-frame-95.png",
+    "bytes": 1857704,
+    "sha256": "62be8d225893d93b4be9ef1b633700c9be15667a739f1b85a600f4a30df12f5d"
+  },
+  {
+    "path": "inventory/ledger-after.json",
+    "bytes": 14418,
+    "sha256": "d6bdbda82f6c04d84d46dea7deeeaeec2da5ac42a6954162b41b8aa54f674e5b"
+  },
+  {
+    "path": "inventory/ledger-before.json",
+    "bytes": 14418,
+    "sha256": "de5957c67aa61a36c45e8c2dae41bdcce2e4618c445f2049904de648fa2805d2"
+  },
+  {
+    "path": "inventory/ledger-verification.json",
+    "bytes": 131,
+    "sha256": "6a89bd7993572185010ab11352eb9b3e07a0e87f2eb128e3e08a8ce307469104"
+  },
+  {
+    "path": "inventory/obs-recording-log.txt",
+    "bytes": 41211,
+    "sha256": "26830409cc592636909a69d6eee5855abad3fb8c9f17e5e0b9bda5a41e7a92b6"
+  },
+  {
+    "path": "inventory/post-AUDIT_IMPLEMENTATION_CROSSWALK.md",
+    "bytes": 82496,
+    "sha256": "97566cd9207663e38213a338d5c4069500007137510fa0cf12d03ca049316912"
+  },
+  {
+    "path": "inventory/post-HANDOFF.md",
+    "bytes": 24247,
+    "sha256": "098491c63c0b95ebeba69b4e3bf5ba3802ade65c4d6c83eac84818be35ebb13e"
+  },
+  {
+    "path": "inventory/post-STATUS.md",
+    "bytes": 189642,
+    "sha256": "1d2c5983c9dd08daef5bb06d9f71b9016c1e99910074cf4fb51ef67138b7bc38"
+  },
+  {
+    "path": "inventory/post-TODO.md",
+    "bytes": 139435,
+    "sha256": "bbab683d019068855d81ef31bccf64a31c029444e48937385b17f1c654399d6c"
+  },
+  {
+    "path": "inventory/pre-AUDIT_IMPLEMENTATION_CROSSWALK.md",
+    "bytes": 79661,
+    "sha256": "9ec277a614b5ad0504d33e7194bb7e83e6b45d9f5f4f60fc96ade4d258b3b126"
+  },
+  {
+    "path": "inventory/pre-HANDOFF.md",
+    "bytes": 21769,
+    "sha256": "8054e8c0f554c8be21c102039808ebdb9ad1ea941c13e47078318018b49c3842"
+  },
+  {
+    "path": "inventory/pre-STATUS.md",
+    "bytes": 185717,
+    "sha256": "db2073682b2655a2860a440e977f2547df864215b976ccd5a061dd6dd0615a0b"
+  },
+  {
+    "path": "inventory/pre-TODO.md",
+    "bytes": 136205,
+    "sha256": "641bc284a0b1d6e797312af3d99045a67947d171d5dbb98aea6fa55344e3b320"
+  },
+  {
+    "path": "inventory/recording-ffprobe.json",
+    "bytes": 3404,
+    "sha256": "13d91ff6c6b505d6fbcbd5dbd33983c73746c41a1935423a7e106052bf2c6ccd"
+  },
+  {
+    "path": "Narro-M7-Logs/LATEST.txt",
+    "bytes": 37,
+    "sha256": "096475ec05839b8d9d31e6aaaf64f6d72a4161a2dbc7479507569e7f144d92c1"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-last-pass.json",
+    "bytes": 1840,
+    "sha256": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-last-terminal-result.json",
+    "bytes": 1840,
+    "sha256": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-latest-result.json",
+    "bytes": 580,
+    "sha256": "bc8bb3f1182e264d2346218541dea855ff79793de9d0e40a6971bf8df064d959"
+  },
+  {
+    "path": "Narro-M7-Logs/README.txt",
+    "bytes": 765,
+    "sha256": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/events.jsonl",
+    "bytes": 329580,
+    "sha256": "86ac38ce4dd5b22d6e85bea009f821c1911e81113ad0def327d951d38ad20cee"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/m7-c5-result.json",
+    "bytes": 518,
+    "sha256": "fcd368de9bb3e05f008c472d60fad2b4553c3edf33166955c031af95ec1e29d9"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/session.json",
+    "bytes": 490,
+    "sha256": "afc7b7b34c22a0f58658e9e74ffbdabd1ae4f35085a9604c3b326d5a07788fd0"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/events.jsonl",
+    "bytes": 485492,
+    "sha256": "401e7cad81e45bb0eec5476146dcbf8c173609e1d7df1c700eb8a03bc4f21aa9"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/m7-c5-result.json",
+    "bytes": 580,
+    "sha256": "bc8bb3f1182e264d2346218541dea855ff79793de9d0e40a6971bf8df064d959"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/session.json",
+    "bytes": 490,
+    "sha256": "0a6532ec0ef157b8d76aa17714672c62b34a591f929ba99d5c345bb09a477aa9"
+  },
+  {
+    "path": "Narro-M7-Logs.zip",
+    "bytes": 34111,
+    "sha256": "572352efc3d847a9f0ddef824cfab8e6f64c05c975508f735c46a524e4b76103"
+  },
+  {
+    "path": "observations/final-compact.json",
+    "bytes": 17197,
+    "sha256": "6d4e5a4292dd6c287f9a238509a5e798970d8022ca5fad2856d2be5a53c92f93"
+  },
+  {
+    "path": "observations/focus-greek-add.json",
+    "bytes": 38019,
+    "sha256": "77b2671d008f9ff5b7cfbc8af2c0e6b2dcb37e912d055f5b9209d34ac23b2627"
+  },
+  {
+    "path": "observations/focus-greek-Ctrl-Alt-B.json",
+    "bytes": 38019,
+    "sha256": "0525f453446a7b9c48e66b364908222d779d87ddf5e8c5d4e502ddd6978d4dad"
+  },
+  {
+    "path": "observations/focus-greek-Ctrl-Alt-N.json",
+    "bytes": 38019,
+    "sha256": "19a1caef8af21a882bf9b5d9030b9968caf694e18ea6a81d1ae53c202991573a"
+  },
+  {
+    "path": "observations/focus-greek-Ctrl-Alt-P.json",
+    "bytes": 38019,
+    "sha256": "04b1d1f8770912f20e782eb6b79fff77e4b6fcf7a6485988f5b47eb0c55355a7"
+  },
+  {
+    "path": "observations/focus-panel.json",
+    "bytes": 35761,
+    "sha256": "517aa4f10e50f71225607b05b5ed01bb8fa84af5b0e2b214f57026fe9d9365b7"
+  },
+  {
+    "path": "observations/main-greek-add.json",
+    "bytes": 59648,
+    "sha256": "c3b42446e32fc98fc16c27cdb25bcd7089e1512367ee3a2d92c630bb5e4e6637"
+  },
+  {
+    "path": "observations/main-greek-Ctrl-Alt-B.json",
+    "bytes": 59648,
+    "sha256": "3197aba2d0b2b8fc921938fd714a53c90d3c7a13482c4b5d1257f197c3ff21bc"
+  },
+  {
+    "path": "observations/main-greek-Ctrl-Alt-N.json",
+    "bytes": 59648,
+    "sha256": "5f22840adb0a5a497ebada03ad8dfdb66dfda500a421b14dcbc7bb70d87bb65c"
+  },
+  {
+    "path": "observations/main-greek-Ctrl-Alt-P.json",
+    "bytes": 59648,
+    "sha256": "f0f6116aed58fa1c6ba1ff35319fffd5a45c9011c607862339886c88fc2539e1"
+  },
+  {
+    "path": "provenance.json",
+    "bytes": 523,
+    "sha256": "6a1e11b898324c4ca3a90a4cef94bffe1ca5a0236fab8e6ede37ca4587cc4be6"
+  },
+  {
+    "path": "raw-actions.log",
+    "bytes": 5230,
+    "sha256": "032b418b4460c18767380815e87148d985b85ccd481d7c764aa9f1dbe0b1e616"
+  },
+  {
+    "path": "README.md",
+    "bytes": 2833,
+    "sha256": "2a144f4c1b7680065cfaa2d2e31b1390df7d16901e8cd65f7be6698804b4092e"
+  },
+  {
+    "path": "session-m1-m9-matrix.json",
+    "bytes": 1457,
+    "sha256": "1a39993796ad3e056741e193bbfbf9b2676a55dcf570499ab6cb4c83df0fff39"
+  },
+  {
+    "path": "video/2026-10-05 16-24-29.mkv",
+    "bytes": 10214772,
+    "sha256": "37f32e648f29296022a96d955c23b389ee278e85100a485eadc3565ced57e0ad"
+  },
+  {
+    "path": "video/layout-full.mp4",
+    "bytes": 10335604,
+    "sha256": "3a7a93303313f218f514d8c0e1dc61f496d28a7d23285fcfbcbd25e9a556575e"
+  },
+  {
+    "path": "visual-progress.json",
+    "bytes": 1484,
+    "sha256": "0b6c2c4cbf5cff5ab925615558254a385f2a2f4ad3ad0ac0cdd4db86cce60738"
+  }
+]

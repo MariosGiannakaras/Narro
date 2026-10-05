@@ -1,0 +1,70 @@
+{
+  "kind": "visual-review-only",
+  "baseFrozenV1": {
+    "reviewed": 44,
+    "total": 70,
+    "open": 26
+  },
+  "explicitAddendum": {
+    "reviewed": 0,
+    "total": 30,
+    "captureReady": 30,
+    "partial": 0,
+    "open": 30
+  },
+  "combinedRegisteredScope": {
+    "reviewed": 44,
+    "total": 100,
+    "open": 56,
+    "milestones": {
+      "M1": {
+        "reviewed": 1,
+        "total": 1,
+        "result": "reused FAIL27"
+      },
+      "M5": {
+        "reviewed": 12,
+        "total": 25
+      },
+      "M6": {
+        "reviewed": 16,
+        "total": 31
+      },
+      "M7": {
+        "reviewed": 13,
+        "total": 29
+      },
+      "M8": {
+        "reviewed": 2,
+        "total": 8
+      },
+      "M9": {
+        "reviewed": 0,
+        "total": 6
+      }
+    }
+  },
+  "notWholeProductUI": true,
+  "doesNotAdvanceImplementationCounters": true,
+  "acquisitionClosureOnly": {
+    "cells": 6,
+    "newReviewCells": 0,
+    "visualReviewedDelta": 0,
+    "sourcePacket": "m7-ci953-gaps-20261005"
+  },
+  "supplementalDualCapture": {
+    "newReviewCells": 0,
+    "visualReviewedDelta": 0,
+    "packet": "m7-ci953-dual-20261005"
+  },
+  "supplementalContinuousCapture": {
+    "newReviewCells": 0,
+    "visualReviewedDelta": 0,
+    "packet": "m7-ci953-continuous-20261005"
+  },
+  "supplementalLayoutCapture": {
+    "packet": "m7-ci953-layout-20261005",
+    "visualReviewedDelta": 0,
+    "newReviewCells": 0
+  }
+}

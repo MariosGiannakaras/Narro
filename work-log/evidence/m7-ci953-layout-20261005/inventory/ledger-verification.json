@@ -1,0 +1,6 @@
+{
+  "tasksExactlySame": true,
+  "checkpointExactlySame": true,
+  "preferencesPayloadExactlySame": true,
+  "readOnly": true
+}
