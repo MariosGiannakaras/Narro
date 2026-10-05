@@ -10,6 +10,10 @@ M11 is explicitly **capture-first**: plan the campaign, record the user-visible 
 
 This M11 policy does not change the current M7/PR234 next action or authorize any live-Blitzit work now.
 
+## CURRENT PHYSICAL-CAPTURE MODE
+
+The next PR234/current-M7 Windows recording must use execution-first capture. Before OBS starts, freeze the exact build, scenario data, cross-milestone acceptance matrix and ordered runbook. While OBS records, execute the planned user actions/paired comparisons continuously; do not inspect/edit source, investigate root cause, run broad diagnostics, inspect Git/CI, or patch Narro between actions. Mark suspected findings with neutral timestamps and continue independent scripted steps. Stop OBS before substantive analysis. Analyze the whole capture/log set afterward, then batch any evidence-backed corrections and retest affected paths on the next exact build.
+
 
 ## Current — CI948 physical evidence and one corrective batch
 
