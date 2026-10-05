@@ -523,6 +523,8 @@
 }
 
 .list-board-task__actions {
+  /* The transformed rail must paint above retained disabled metadata. */
+  z-index: 2;
   grid-template-columns: repeat(5, 1rem);
   width: 6.25rem;
 }

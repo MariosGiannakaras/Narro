@@ -13,6 +13,7 @@ const titlePersistenceProduction = titlePersistence.split("#[cfg(test)]")[0];
 const persistenceMod = read("src-tauri/src/persistence/mod.rs");
 const lib = read("src-tauri/src/lib.rs");
 const board = read("src/ListBoard.tsx");
+const pointer = read("src/boardTaskPointerDrag.ts");
 const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
 const api = read("src/listBoardApi.ts");
@@ -55,7 +56,7 @@ for (const [haystack, needle, label] of [
   [board, "expectedTitle,", "expected-title concurrency guard projection"],
   [board, "Task change was saved, but the board could not refresh.", "committed-refresh failure distinction"],
   [board, "setMutationRefreshBlocked(true)", "post-commit mutation block"],
-  [board, '[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control]', "task controls including scheduling excluded from drag start"],
+  [pointer, '[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control]', "task controls including scheduling excluded from drag start"],
   [board, "onScheduleEdit={canEditSchedule ? () => onStartScheduleEdit(task) : undefined}", "separately gated ordered scheduling interaction"],
   [taskCard, 'data-task-title-control="open"', "click title edit target"],
   [taskCard, 'data-task-title-editor="true"', "inline title editor identity"],

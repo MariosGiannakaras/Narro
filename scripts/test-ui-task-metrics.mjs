@@ -18,6 +18,7 @@ const boardMetrics = read("src-tauri/src/board_task_metrics.rs");
 const persistenceMod = read("src-tauri/src/persistence/mod.rs");
 const lib = read("src-tauri/src/lib.rs");
 const board = read("src/ListBoard.tsx");
+const pointer = read("src/boardTaskPointerDrag.ts");
 const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
 const listApi = read("src/listBoardApi.ts");
@@ -86,7 +87,7 @@ for (const [haystack, needle, label] of [
   [board, "Task change was saved, but the board could not refresh.", "committed-refresh failure distinction"],
   [board, "MAX_EDITABLE_SECONDS = 4_294_967_295n", "u32 duration boundary"],
   [board, "H:MM:SS", "explicit duration edit format"],
-  [board, "[data-task-metric-control]", "metric drag isolation"],
+  [pointer, "[data-task-metric-control]", "metric drag isolation"],
   [board, "Live task titles cannot be edited from the List Board.", "live title restriction"],
   [taskCard, 'data-task-metric-control="open"', "metric open control"],
   [taskCard, 'data-task-metric-control="input"', "metric input control"],
@@ -128,7 +129,7 @@ if (commitIndex < 0 || publishIndex < 0 || commitIndex > publishIndex) {
 }
 
 const metricStart = board.indexOf("const submitMetricEdit");
-const metricEnd = board.indexOf("const handleDragStart", metricStart);
+const metricEnd = board.indexOf("const handleTaskPointerDown", metricStart);
 if (metricStart < 0 || metricEnd < 0) throw new Error("Could not isolate metric mutation flow.");
 const metricCommit = board.slice(metricStart, metricEnd);
 if (metricCommit.includes('target.kind !== "list"')) {

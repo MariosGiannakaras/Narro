@@ -15,6 +15,7 @@ const api = read("src/listBoardApi.ts");
 const notes = read("src/TaskNotes.tsx");
 const card = read("src/TaskCard.tsx");
 const board = read("src/ListBoard.tsx");
+const pointer = read("src/boardTaskPointerDrag.ts");
 
 for (const [haystack, needle, label] of [
   [persistenceMod, "pub mod note_board;", "note-board persistence registration"],
@@ -55,7 +56,7 @@ for (const [haystack, needle, label] of [
   [board, "readOnly: false", "All Lists Notes use authoritative task/list mutation boundary"],
   [board, 'data-board-note-panel={notePanelTaskId ?? "closed"}', "board Notes state marker"],
   [board, "setMutationRefreshBlocked(true);", "board unsafe retry blocker"],
-  [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]"', "parent drag isolation for note controls"],
+  [pointer, '[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]', "parent drag isolation for note controls"],
 ]) {
   requireText(haystack, needle, label);
 }

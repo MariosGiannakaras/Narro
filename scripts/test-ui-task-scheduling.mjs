@@ -20,6 +20,7 @@ const listBoardApi = read("src/listBoardApi.ts");
 const api = read("src/taskScheduleApi.ts");
 const dialog = read("src/TaskScheduleDialog.tsx");
 const board = read("src/ListBoard.tsx");
+const pointer = read("src/boardTaskPointerDrag.ts");
 const taskCard = read("src/TaskCard.tsx");
 const boardCss = read("src/listBoard.css");
 const dialogCss = read("src/taskScheduleDialog.css");
@@ -111,7 +112,7 @@ for (const [haystack, needle, label] of [
   [board, "onScheduleEdit={canEditSchedule", "production task-card scheduling wiring"],
   [board, "setMutationPendingTaskId(taskId);", "post-commit refresh interaction lock"],
   [board, "Task change was saved, but the board could not refresh.", "committed refresh failure distinction"],
-  [board, "[data-task-schedule-control]", "schedule-control drag isolation"],
+  [pointer, "[data-task-schedule-control]", "schedule-control drag isolation"],
   [board, 'data-board-schedule-editor={scheduleEditorTaskId ? "open" : "closed"}', "board schedule editor marker"],
   [taskCard, 'data-task-schedule-control="open"', "task-card schedule affordance"],
   [taskCard, 'data-task-recurrence={recurrenceState(task)}', "task-card recurrence state marker"],

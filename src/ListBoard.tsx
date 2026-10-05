@@ -1,7 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import {
   type CSSProperties,
-  type DragEvent as ReactDragEvent,
+  type PointerEvent as ReactPointerEvent,
   type FormEvent as ReactFormEvent,
   type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
@@ -54,6 +54,7 @@ import {
   type TimerStateKind,
 } from "./timerSessionApi";
 import "./listBoard.css";
+import { beginBoardTaskPointerDrag } from "./boardTaskPointerDrag";
 
 type LaneKey = "backlog" | "thisWeek" | "today" | "done";
 type PendingLaneKey = Exclude<LaneKey, "done">;
@@ -369,11 +370,7 @@ function BoardLane({
   mutationPendingTaskId,
   noteControls,
   subtaskControls,
-  onDragStart,
-  onDragOverTask,
-  onDragOverLane,
-  onDrop,
-  onDragEnd,
+  onTaskPointerDown,
   onTaskKeyDown,
   onMoveAcrossLane,
   onStartCreate,
@@ -420,11 +417,7 @@ function BoardLane({
   mutationPendingTaskId: string | null;
   noteControls?: BoardNoteControls;
   subtaskControls?: BoardSubtaskControls;
-  onDragStart: (task: ListBoardTask, lane: PendingLaneKey, event: ReactDragEvent<HTMLDivElement>) => void;
-  onDragOverTask: (task: ListBoardTask, lane: PendingLaneKey, event: ReactDragEvent<HTMLDivElement>) => void;
-  onDragOverLane: (lane: PendingLaneKey, event: ReactDragEvent<HTMLDivElement>) => void;
-  onDrop: (event: ReactDragEvent<HTMLDivElement>) => void;
-  onDragEnd: () => void;
+  onTaskPointerDown: (task: ListBoardTask, lane: PendingLaneKey, event: ReactPointerEvent<HTMLDivElement>) => void;
   onTaskKeyDown: (task: ListBoardTask, lane: PendingLaneKey, event: ReactKeyboardEvent<HTMLDivElement>) => void;
   onMoveAcrossLane: (task: ListBoardTask, sourceLane: PendingLaneKey, targetLane: PendingLaneKey) => void;
   onStartCreate: (lane: PendingLaneKey, insertAtTop: boolean) => void;
@@ -454,7 +447,6 @@ function BoardLane({
   const displayedLaneEstimateSeconds = pendingLane !== null
     ? lane.aggregateRemainingEstSeconds ?? lane.aggregateEstSeconds
     : lane.aggregateEstSeconds;
-  const acceptsDrop = pendingLane !== null && presentationReorderEnabled;
   const laneDropTarget = pendingLane !== null && dropTarget?.lane === pendingLane ? dropTarget : null;
   const crossLaneAppend = pendingLane !== null
     && laneDropTarget?.beforeTaskId === null
@@ -545,10 +537,7 @@ function BoardLane({
         className="list-board-lane__tasks"
         role="list"
         aria-label={`${title} tasks`}
-        onDragOver={acceptsDrop && interactionReorderEnabled
-          ? (event) => onDragOverLane(pendingLane, event)
-          : undefined}
-        onDrop={acceptsDrop && interactionReorderEnabled ? onDrop : undefined}
+        data-board-drop-lane={interactionReorderEnabled ? pendingLane ?? undefined : undefined}
       >
         {createEditor?.insertAtTop ? (
           <InlineCreateEditor
@@ -665,22 +654,19 @@ function BoardLane({
                 <div
                   role="listitem"
                   className="list-board-task-drag-shell"
+                  data-board-drag-task={task.id}
                   data-task-reorderable={reorderable ? "true" : "false"}
                   data-task-dragging={dragging ? "true" : "false"}
                   data-task-settling={settling ? "true" : "false"}
                   data-task-mutation-pending={pending ? "true" : "false"}
-                  draggable={reorderable && interactionReorderEnabled && !mutationPendingTaskId}
+                  draggable={false}
                   tabIndex={reorderable && interactionReorderEnabled ? 0 : undefined}
                   aria-describedby={reorderable && interactionReorderEnabled
                     ? "list-board-reorder-instructions"
                     : undefined}
-                  onDragStart={reorderable && interactionReorderEnabled && pendingLane !== null
-                    ? (event) => onDragStart(task, pendingLane, event)
+                  onPointerDown={reorderable && interactionReorderEnabled && pendingLane !== null
+                    ? (event) => onTaskPointerDown(task, pendingLane, event)
                     : undefined}
-                  onDragOver={reorderable && interactionReorderEnabled && pendingLane !== null
-                    ? (event) => onDragOverTask(task, pendingLane, event)
-                    : undefined}
-                  onDragEnd={reorderable && interactionReorderEnabled ? onDragEnd : undefined}
                   onKeyDown={reorderable && interactionReorderEnabled && pendingLane !== null
                     ? (event) => onTaskKeyDown(task, pendingLane, event)
                     : undefined}
@@ -829,13 +815,21 @@ export function ListBoard({
   const [timerProjectionError, setTimerProjectionError] = useState<string | null>(null);
   const settleTimer = useRef<number | null>(null);
   const externalRefreshRevisionRef = useRef(0);
+  const pointerDragCleanup = useRef<(() => void) | null>(null);
   const preferences = usePreferenceSettingsProjection(Boolean(fixtureSnapshot));
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
   const autoParseEstFromTitle = preferences.snapshot?.general.autoParseEstFromTitle ?? false;
 
   useEffect(() => () => {
     if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
+    pointerDragCleanup.current?.();
   }, []);
+
+  useEffect(() => {
+    pointerDragCleanup.current?.();
+    pointerDragCleanup.current = null;
+  }, [snapshot, target.kind, target.kind === "list" ? target.id : null, editorState,
+    scheduleEditorTaskId, notePanelTaskId, subtaskPanel, changeListState, deleteTarget, mutationRefreshBlocked]);
 
   useEffect(() => {
     if (fixtureSnapshot) {
@@ -1783,83 +1777,28 @@ export function ListBoard({
     await finishSubtaskCommit(panel, `Deleted subtask ${subtask.title}.`);
   };
 
-  const handleDragStart = (
+  const handleTaskPointerDown = (
     task: ListBoardTask,
     lane: PendingLaneKey,
-    event: ReactDragEvent<HTMLDivElement>,
+    event: ReactPointerEvent<HTMLDivElement>,
   ) => {
-    if ((event.target as HTMLElement).closest(
-      "[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]",
-    )) {
-      event.preventDefault();
-      return;
-    }
-    if (!interactionReorderEnabled || mutationPendingTaskId) {
-      event.preventDefault();
-      return;
-    }
-    event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.setData("text/plain", task.id);
-    const sourceRect = event.currentTarget.getBoundingClientRect();
-    const preview = event.currentTarget.cloneNode(true) as HTMLElement;
-    preview.classList.add("list-board-task-drag-preview");
-    preview.setAttribute("aria-hidden", "true");
-    preview.removeAttribute("role");
-    preview.style.width = `${sourceRect.width}px`;
-    document.body.appendChild(preview);
-    event.dataTransfer.setDragImage(
-      preview,
-      Math.min(sourceRect.width / 2, Math.max(16, event.clientX - sourceRect.left)),
-      Math.min(sourceRect.height / 2, Math.max(16, event.clientY - sourceRect.top)),
-    );
-    window.requestAnimationFrame(() => preview.remove());
-    setDragState({ taskId: task.id, sourceLane: lane, sourceHeight: sourceRect.height });
-    setDropTarget({ lane, beforeTaskId: task.id });
-    setMutationError(null);
-  };
-
-  const handleDragOverTask = (
-    task: ListBoardTask,
-    lane: PendingLaneKey,
-    event: ReactDragEvent<HTMLDivElement>,
-  ) => {
-    if (!dragState || mutationPendingTaskId) return;
-    event.preventDefault();
-    event.stopPropagation();
-    event.dataTransfer.dropEffect = "move";
-
-    const eligible = manualTasks(snapshot[lane]);
-    const hoveredIndex = taskIndex(eligible, task.id);
-    if (hoveredIndex < 0) return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const before = event.clientY < bounds.top + bounds.height / 2;
-    setDropTarget({
-      lane,
-      beforeTaskId: before
-        ? task.id
-        : eligible[hoveredIndex + 1]?.id ?? null,
+    if (!event.isPrimary || event.button !== 0 || !interactionReorderEnabled || mutationPendingTaskId) return;
+    pointerDragCleanup.current?.();
+    pointerDragCleanup.current = beginBoardTaskPointerDrag({
+      source: event.currentTarget, target: event.target, pointerId: event.pointerId,
+      x: event.clientX, y: event.clientY, taskId: task.id, sourceLane: lane,
+      onLift: (sourceHeight) => {
+        setDragState({ taskId: task.id, sourceLane: lane, sourceHeight });
+        setMutationError(null);
+      },
+      onTarget: setDropTarget,
+      onFinish: (drop) => {
+        pointerDragCleanup.current = null;
+        setDragState(null); setDropTarget(null);
+        if (drop) void commitDrop(task.id, lane, drop.lane, drop.beforeTaskId);
+      },
     });
-  };
-
-  const handleDragOverLane = (
-    lane: PendingLaneKey,
-    event: ReactDragEvent<HTMLDivElement>,
-  ) => {
-    if (!dragState || mutationPendingTaskId) return;
-    event.preventDefault();
-    event.dataTransfer.dropEffect = "move";
-    setDropTarget({ lane, beforeTaskId: null });
-  };
-
-  const handleDrop = (event: ReactDragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    if (!dragState || !dropTarget) return;
-    void commitDrop(
-      dragState.taskId,
-      dragState.sourceLane,
-      dropTarget.lane,
-      dropTarget.beforeTaskId,
-    );
+    if (pointerDragCleanup.current) event.preventDefault();
   };
 
   const handleMoveWithinLane = (
@@ -2086,14 +2025,7 @@ export function ListBoard({
             mutationPendingTaskId={mutationPendingTaskId}
             noteControls={noteControls}
             subtaskControls={subtaskControls}
-            onDragStart={handleDragStart}
-            onDragOverTask={handleDragOverTask}
-            onDragOverLane={handleDragOverLane}
-            onDrop={handleDrop}
-            onDragEnd={() => {
-              setDragState(null);
-              setDropTarget(null);
-            }}
+            onTaskPointerDown={handleTaskPointerDown}
             onTaskKeyDown={handleTaskKeyDown}
             onMoveAcrossLane={handleMoveAcrossLane}
             onStartCreate={(lane, insertAtTop) => {

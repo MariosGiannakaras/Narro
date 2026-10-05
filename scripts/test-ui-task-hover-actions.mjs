@@ -9,6 +9,7 @@ function requireText(haystack, needle, label) {
 
 const component = read("src/TaskCard.tsx");
 const board = read("src/ListBoard.tsx");
+const pointer = read("src/boardTaskPointerDrag.ts");
 const css = read("src/listBoard.css");
 const overlay = read("src/overlayPrimitives.tsx");
 const api = read("src/listBoardApi.ts");
@@ -29,7 +30,7 @@ for (const [haystack, needle, label] of [
   [component, 'data-task-action-position="overflow"', "fixed overflow action position"],
   [component, "onPointerDown={(event) => event.stopPropagation()}", "pointer action drag isolation"],
   [component, "onClick={action}", "callback-gated pointer action"],
-  [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]"', "parent drag-start interactive-control guard including notes and subtasks"],
+  [pointer, '[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]', "parent drag-start interactive-control guard including notes and subtasks"],
   [board, "const handleMoveWithinLane = (", "shared keyboard within-lane helper"],
   [board, "const handleMoveAcrossLane = (", "shared pointer lane-move helper"],
   [board, "actions={taskActions}", "production TaskCard callback wiring"],
