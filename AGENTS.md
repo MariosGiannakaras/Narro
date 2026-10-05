@@ -313,6 +313,34 @@ Do not perform unrelated cleanup or broad rewrites.
 
 Before and after every physical Windows session/capture, inspect current `TODO.md`, `HANDOFF.md`, and `docs/AUDIT_IMPLEMENTATION_CROSSWALK.md` for all open validation-only or source-parity gates in M1–M9. Maintain a session evidence matrix and disposition each gate that the same recording/screenshots actually exercise sufficiently, including already-implemented surfaces from other milestones. Record exact executable/source, exercised states and evidence pointers; a surface merely appearing does not establish PASS. Preserve insufficiently exercised gates as open. Do not start unrelated implementation simply because a surface appeared in the capture.
 
+### Physical capture execution mode
+
+For ordinary M1–M10/Final-Review Windows captures, treat OBS/screen recording as a **test-execution window, not a debugging workspace**.
+
+Before recording:
+- freeze the exact candidate/build, scenario data and acceptance matrix;
+- write the ordered runbook first, including cross-milestone checks that can safely share the session;
+- pre-open/preconfigure the required tools and automatic loggers/probes;
+- group paired/related observations so they run consecutively under the same state/context where practical.
+
+While recording:
+- execute the planned user actions continuously and with only the dwell needed to make states/transitions observable;
+- do **not** read/edit source, inspect Git/CI, run broad diagnostic/source-search commands, perform deep frame/log analysis, investigate root cause, or modify Narro;
+- if a possible defect appears, add only a neutral timestamp/bookmark or short factual note and continue the remaining independent runbook steps when safe;
+- do not turn one physical action into a long think/debug/fix interval while OBS keeps recording;
+- capture-health/identity checks and pre-planned lightweight probes are allowed; intrinsic waits required by the product/scenario are allowed and should be marked;
+- stop early only when continuing would invalidate evidence, corrupt test state, create a safety/privacy problem, or make the remaining scripted steps meaningless.
+
+After recording stops:
+- analyze the complete session video/screenshots/logs together;
+- disposition every sufficiently exercised open gate, including cross-milestone evidence reuse;
+- group newly evidenced failures into coherent remediation batches;
+- implement/fix only after the session analysis is complete, then validate and run one affected retest batch rather than interleaving fixes with the original capture.
+
+Prefer short, information-dense captures over long recordings dominated by source inspection or idle debugging. Performance measurements that require quiet/non-OBS conditions remain separate protocols and are not forced into this mode.
+
+This rule is less strict than optional M11: M11 requires the **entire planned live-Blitzit campaign/corpus** to be captured and frozen before analysis or remediation.
+
 M10 may reuse this evidence later, but no M10 checkbox/counter advances before its hard entry gate clears. Explicitly tell the user when all required M1–M9 implementation and acceptance gates are complete before proceeding to M10.
 
 ### Repeated-failure escalation
