@@ -1,0 +1,359 @@
+[
+  {
+    "id": "M5-A01",
+    "milestone": "M5",
+    "label": "Main populated Subtasks expansion",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/19-main-populated-subtasks.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M5-A02",
+    "milestone": "M5",
+    "label": "Main long-row title/edit/cancel",
+    "acquisition": "PARTIAL",
+    "review": "OPEN",
+    "evidence": [
+      "observations/19-main-populated-subtasks.json",
+      "observations/21-main-subtask-edit.json"
+    ],
+    "limits": "Long rows are exposed; actual edit/cancel was the normal first title, not the long title"
+  },
+  {
+    "id": "M5-A03",
+    "milestone": "M5",
+    "label": "Main complete/uncomplete feedback",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "actions.jsonl:09:19:58.181Z-09:19:58.952Z"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M5-A04",
+    "milestone": "M5",
+    "label": "Main populated inline/large Notes",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/22-main-notes-reopen.json",
+      "observations/23-main-large-populated-notes.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M5-A05",
+    "milestone": "M5",
+    "label": "Main persistent Notes reopening",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/22-main-notes-reopen.json",
+      "inventory/ledger-verification.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M5-A06",
+    "milestone": "M5",
+    "label": "Main keyboard/hover controls",
+    "acquisition": "PARTIAL",
+    "review": "OPEN",
+    "evidence": [
+      "observations/23-main-large-populated-notes.json",
+      "actions.jsonl"
+    ],
+    "limits": "Notes keyboard exercised; whole planning-card hover/focus rail was not revisited"
+  },
+  {
+    "id": "M6-A01",
+    "milestone": "M6",
+    "label": "Panel populated Subtasks",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/12-panel-populated.json",
+      "observations/13-panel-subtasks-one-complete.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M6-A02",
+    "milestone": "M6",
+    "label": "Panel progress toggle/projection",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/13-panel-subtasks-one-complete.json",
+      "actions.jsonl"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M6-A03",
+    "milestone": "M6",
+    "label": "Panel long inline Notes",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/14-panel-inline-populated-notes.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M6-A04",
+    "milestone": "M6",
+    "label": "Panel large Notes/Save/return",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/15-panel-large-populated-notes.json",
+      "actions.jsonl"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M6-A05",
+    "milestone": "M6",
+    "label": "Notes formatting/URL/save/reopen",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/09-large-populated-notes.json",
+      "observations/22-main-notes-reopen.json",
+      "inventory/ledger-verification.json"
+    ],
+    "limits": "B/I/strike/undo/redo, bullet/numbered/undo actions recorded; URL was never activated; no comprehensive formatting/source acceptance"
+  },
+  {
+    "id": "M6-A06",
+    "milestone": "M6",
+    "label": "Long Notes keyboard/scroll containment",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/15-panel-large-populated-notes.json",
+      "actions.jsonl"
+    ],
+    "limits": "Ctrl+Home/End injected into Task note; rendered effects require video review"
+  },
+  {
+    "id": "M7-A01",
+    "milestone": "M7",
+    "label": "Populated compact subtask summary",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/06-compact-populated.json",
+      "observations/47-final-focus.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M7-A02",
+    "milestone": "M7",
+    "label": "Timer add/edit/cancel transient",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/01-compact-add.json",
+      "observations/04-subtask-edit.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M7-A03",
+    "milestone": "M7",
+    "label": "Expanded four populated rows",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/03-four-subtasks-one-complete.json",
+      "observations/07-after-expand.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M7-A04",
+    "milestone": "M7",
+    "label": "Timer complete/uncomplete feedback",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/03-four-subtasks-one-complete.json",
+      "actions.jsonl"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M7-A05",
+    "milestone": "M7",
+    "label": "Long row native tooltip",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/05-long-subtask-tooltip.json"
+    ],
+    "limits": "Native tooltip910px wide, x833 to1743 withinLG desktop; final source/visual disposition pending"
+  },
+  {
+    "id": "M7-A06",
+    "milestone": "M7",
+    "label": "Expanded Timer Notes overlay/save/return",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/08-timer-notes.json",
+      "observations/09-large-populated-notes.json",
+      "observations/11-after-notes-save.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M7-A07",
+    "milestone": "M7",
+    "label": "Populated Panel/compact/expanded changes",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/16-reduced-expanded-populated-find.json",
+      "observations/47-final-focus.json",
+      "actions.jsonl"
+    ],
+    "limits": "Normal/reduced paths recorded, no frame-by-frame continuity PASS"
+  },
+  {
+    "id": "M7-A08",
+    "milestone": "M7",
+    "label": "Populated locate/hover controls",
+    "acquisition": "PARTIAL",
+    "review": "OPEN",
+    "evidence": [
+      "observations/16-reduced-expanded-populated-find.json",
+      "actions.jsonl"
+    ],
+    "limits": "Actual Ctrl+Shift+P captured; complete populated action-hover sweep not repeated"
+  },
+  {
+    "id": "M8-A01",
+    "milestone": "M8",
+    "label": "Preferences upper",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/24-preferences-upper.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M8-A02",
+    "milestone": "M8",
+    "label": "Preferences middle",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/25-preferences-middle.json",
+      "observations/28-preferences-true-bottom.json"
+    ],
+    "limits": "28 filename is historical label, actually middle; final lower is46"
+  },
+  {
+    "id": "M8-A03",
+    "milestone": "M8",
+    "label": "Preferences lower including shortcuts",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/26-preferences-lower.json",
+      "observations/46-preferences-final-lower.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M8-A04",
+    "milestone": "M8",
+    "label": "Preferences keyboard/close, paused state",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "actions.jsonl",
+      "observations/45-preferences-keyboard-end.json",
+      "inventory/ledger-verification.json"
+    ],
+    "limits": "Tab/Shift+Tab and Home close recorded; Ctrl+End did not move viewport, wheel recovery reached lower"
+  },
+  {
+    "id": "M9-A01",
+    "milestone": "M9",
+    "label": "Reports Overview",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/29-reports-overview.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M9-A02",
+    "milestone": "M9",
+    "label": "Date/period controls",
+    "acquisition": "PARTIAL",
+    "review": "OPEN",
+    "evidence": [
+      "observations/30-reports-date-controls.json"
+    ],
+    "limits": "Calendar exposed and Cancel invoked; no changed range/Apply exercise"
+  },
+  {
+    "id": "M9-A03",
+    "milestone": "M9",
+    "label": "Overview chart hover/options",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/31-reports-chart-hover.json",
+      "observations/32-reports-chart-options.json"
+    ],
+    "limits": "Continuous/source review pending"
+  },
+  {
+    "id": "M9-A04",
+    "milestone": "M9",
+    "label": "Sessions table/filter",
+    "acquisition": "PARTIAL",
+    "review": "OPEN",
+    "evidence": [
+      "observations/35-sessions-table.json",
+      "observations/38-sessions-after-filter.json"
+    ],
+    "limits": "Table captured; attempted filter clicks occurred while Add modal remained open and do not prove filtering"
+  },
+  {
+    "id": "M9-A05",
+    "milestone": "M9",
+    "label": "Add/Edit session modal Cancel",
+    "acquisition": "PARTIAL",
+    "review": "OPEN",
+    "evidence": [
+      "observations/36-add-session-modal.json",
+      "observations/38-sessions-after-filter.json"
+    ],
+    "limits": "Add modal/real Cancel captured. Escape left Add open. Global Edit opened task detail; detail recorded Delete only. Actual manual-session Edit form not exercised"
+  },
+  {
+    "id": "M9-A06",
+    "milestone": "M9",
+    "label": "Owned existing task session detail",
+    "acquisition": "CAPTURED",
+    "review": "OPEN",
+    "evidence": [
+      "observations/42-after-edit-ready.json",
+      "observations/44-detail-session-actions.json"
+    ],
+    "limits": "Continuous/source review pending"
+  }
+]

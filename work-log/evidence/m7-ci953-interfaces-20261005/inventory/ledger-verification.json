@@ -1,0 +1,66 @@
+{
+  "capturedUtc": "2026-10-05T09:29:02.575908+00:00",
+  "readOnly": true,
+  "checkpointExactlySame": true,
+  "preferencesExactlySame": true,
+  "taskIdentityOrderSame": true,
+  "changes": [
+    {
+      "taskId": "95a2466c-a06c-4a41-a2b4-3d1e65b9fa08",
+      "changedFields": [
+        "note"
+      ]
+    }
+  ],
+  "newOwnedFixtureNotePermitted": true,
+  "ownedSubtasks": [
+    {
+      "table": "subtasks",
+      "row": {
+        "id": "636b1274-9cd7-4d29-9c76-8a35f8840de3",
+        "task_id": "95a2466c-a06c-4a41-a2b4-3d1e65b9fa08",
+        "title": "CI953 Visual subtask 1 — readable normal row",
+        "sort_rank": 0,
+        "completed_at": null,
+        "created_at": "2026-10-05T09:11:51.099237600+00:00",
+        "updated_at": "2026-10-05T09:19:58.992777500+00:00"
+      }
+    },
+    {
+      "table": "subtasks",
+      "row": {
+        "id": "11ae314e-0cba-450a-8e13-69f879e16b42",
+        "task_id": "95a2466c-a06c-4a41-a2b4-3d1e65b9fa08",
+        "title": "CI953VisualSubtask2LongUnbrokenTitleForOverflowTooltipAndNarrowRowAcceptance1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "sort_rank": 1,
+        "completed_at": null,
+        "created_at": "2026-10-05T09:12:23.339181600+00:00",
+        "updated_at": "2026-10-05T09:13:44.895897100+00:00"
+      }
+    },
+    {
+      "table": "subtasks",
+      "row": {
+        "id": "e55ccf61-36f3-445a-9603-140ff90e660b",
+        "task_id": "95a2466c-a06c-4a41-a2b4-3d1e65b9fa08",
+        "title": "CI953 Οπτικός έλεγχος 3 — μεγάλη ελληνική περιγραφή για αναδίπλωση και πλήρη τίτλο",
+        "sort_rank": 2,
+        "completed_at": null,
+        "created_at": "2026-10-05T09:12:24.749462900+00:00",
+        "updated_at": "2026-10-05T09:13:44.895897100+00:00"
+      }
+    },
+    {
+      "table": "subtasks",
+      "row": {
+        "id": "7ebc436f-577e-4088-8713-8c8383b7f34f",
+        "task_id": "95a2466c-a06c-4a41-a2b4-3d1e65b9fa08",
+        "title": "CI953 Visual subtask 4 — reorder companion",
+        "sort_rank": 3,
+        "completed_at": null,
+        "created_at": "2026-10-05T09:12:26.069501800+00:00",
+        "updated_at": "2026-10-05T09:16:34.612793100+00:00"
+      }
+    }
+  ]
+}

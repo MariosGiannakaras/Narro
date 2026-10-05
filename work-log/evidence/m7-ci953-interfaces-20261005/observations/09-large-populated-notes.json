@@ -1,0 +1,1291 @@
+{
+  "utc": "2026-10-05T09:15:07.9167908Z",
+  "windows": [
+    {
+      "hwnd": 7471826,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": 660,
+        "height": 875,
+        "y": 494,
+        "width": 425
+      },
+      "client": {
+        "x": 660,
+        "height": 875,
+        "y": 494,
+        "width": 425
+      }
+    },
+    {
+      "hwnd": 3147608,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "Stats",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 218,
+        "height": 355,
+        "y": 380,
+        "width": 898
+      },
+      "client": {
+        "x": 227,
+        "height": 308,
+        "y": 418,
+        "width": 880
+      }
+    },
+    {
+      "hwnd": 3149438,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": -32000,
+        "height": 28,
+        "y": -32000,
+        "width": 160
+      },
+      "client": {
+        "x": -32000,
+        "height": 0,
+        "y": -32000,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 31917974,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 256,
+        "height": 789,
+        "y": 256,
+        "width": 1440
+      },
+      "client": {
+        "x": 265,
+        "height": 742,
+        "y": 294,
+        "width": 1422
+      }
+    },
+    {
+      "hwnd": 3213706,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": 96,
+        "height": 922,
+        "y": 96,
+        "width": 1268
+      },
+      "client": {
+        "x": 105,
+        "height": 875,
+        "y": 134,
+        "width": 1250
+      }
+    },
+    {
+      "hwnd": 58001056,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 18,
+        "y": 0,
+        "width": 18
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 3999754,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 18,
+        "y": 0,
+        "width": 18
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 855316,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "QTrayIconMessageWindow",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 789,
+        "y": 52,
+        "width": 1920
+      },
+      "client": {
+        "x": 9,
+        "height": 742,
+        "y": 90,
+        "width": 1902
+      }
+    },
+    {
+      "hwnd": 51383936,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 19728344,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 12388248,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 2624704,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "GDI+ Window (obs64.exe)",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 1,
+        "y": 0,
+        "width": 1
+      },
+      "client": {
+        "x": 0,
+        "height": 1,
+        "y": 0,
+        "width": 1
+      }
+    },
+    {
+      "hwnd": 1248016,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 716
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 698
+      }
+    },
+    {
+      "hwnd": 15533366,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 12322702,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 2689190,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 1706498,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 789812,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 8457324,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 23399010,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 1280
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 1262
+      }
+    },
+    {
+      "hwnd": 4131038,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 52692826,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 14616554,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 58723782,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 25560262,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 4918566,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 20385722,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 6229424,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 38537128,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 166
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 148
+      }
+    },
+    {
+      "hwnd": 3280186,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 47,
+        "y": 0,
+        "width": 1296
+      },
+      "client": {
+        "x": 9,
+        "height": 0,
+        "y": 38,
+        "width": 1278
+      }
+    },
+    {
+      "hwnd": 47122130,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 789,
+        "y": 26,
+        "width": 1920
+      },
+      "client": {
+        "x": 9,
+        "height": 742,
+        "y": 64,
+        "width": 1902
+      }
+    },
+    {
+      "hwnd": 27987338,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 789,
+        "y": 260,
+        "width": 1920
+      },
+      "client": {
+        "x": 9,
+        "height": 742,
+        "y": 298,
+        "width": 1902
+      }
+    },
+    {
+      "hwnd": 9833266,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 20252044,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 985956,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 3607970,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 4917624,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 120,
+      "outer": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      },
+      "client": {
+        "x": 0,
+        "height": 0,
+        "y": 0,
+        "width": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "Narro Diagnostic - Focus",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "660;494;425;875"
+    },
+    {
+      "name": "Narro Diagnostic - Focus - Web content",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "660;494;425;875"
+    },
+    {
+      "name": "Narro Diagnostic - Focus",
+      "type": "ControlType.Document",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "660;494;425;875"
+    },
+    {
+      "name": "Floating Timer",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "660;494;425;375"
+    },
+    {
+      "name": "M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;508;285;28"
+    },
+    {
+      "name": "Paused: 16:39 remaining",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "982;507;93;31"
+    },
+    {
+      "name": "16:39",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1023;508;52;28"
+    },
+    {
+      "name": "Floating Timer actions",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;547;393;52"
+    },
+    {
+      "name": "Start break",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;547;40;41"
+    },
+    {
+      "name": "Notes",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "746;547;41;41"
+    },
+    {
+      "name": "Resume",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "817;547;41;41"
+    },
+    {
+      "name": "Skip task",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "887;547;41;41"
+    },
+    {
+      "name": "Complete task",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "958;547;41;41"
+    },
+    {
+      "name": "Return to Focus Panel",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1028;547;41;41"
+    },
+    {
+      "name": "Edit notes for M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Window",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "670;504;405;355"
+    },
+    {
+      "name": "Note formatting",
+      "type": "ControlType.ToolBar",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "681;515;383;61"
+    },
+    {
+      "name": "M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "681;515;369;20"
+    },
+    {
+      "name": "Bold",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "681;540;35;36"
+    },
+    {
+      "name": "Italic",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "721;540;35;36"
+    },
+    {
+      "name": "Strikethrough",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "761;540;35;36"
+    },
+    {
+      "name": "Bulleted list",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "801;540;35;36"
+    },
+    {
+      "name": "Numbered list",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "841;540;35;36"
+    },
+    {
+      "name": "Undo",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "881;540;35;36"
+    },
+    {
+      "name": "Redo",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "921;540;35;36"
+    },
+    {
+      "name": "Return to compact notes",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "961;540;35;36"
+    },
+    {
+      "name": "Return to compact notes",
+      "type": "ControlType.ToolTip",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "811;498;186;33"
+    },
+    {
+      "name": "Task note",
+      "type": "ControlType.Edit",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "681;580;383;221"
+    },
+    {
+      "name": "CI953 owned visual Notes fixture — long text, wrapping, formatting and persistent reopen.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "692;124;339;86"
+    },
+    {
+      "name": "Ελληνικό κείμενο για έλεγχο αναδίπλωσης: οι γραμμές πρέπει να μένουν μέσα στον editor και τα controls να παραμένουν προσβάσιμα.",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "692;211;328;144"
+    },
+    {
+      "name": "LongUnbrokenNotesTokenForHorizontalOverflowValidation1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "692;356;341;144"
+    },
+    {
+      "name": "Explicit URL only: ",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "692;501;164;28"
+    },
+    {
+      "name": "https://e",
+      "type": "ControlType.Hyperlink",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "692;530;77;28"
+    },
+    {
+      "name": "xample.invalid/ci953-visual-notes — no browser activation requested.",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "692;530;284;86"
+    },
+    {
+      "name": "Paragraph five: longer reading content for inline scroll, large editor containment, keyboard selection and return to compact Notes.",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "692;617;337;115"
+    },
+    {
+      "name": "Final line — durable Notes text belongs only to this clearly identified CI953 validation task.",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "692;733;303;86"
+    },
+    {
+      "name": "Unsaved changes",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "681;814;116;21"
+    },
+    {
+      "name": "Save note",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "977;805;87;38"
+    },
+    {
+      "name": "Subtasks for M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;624;393;232"
+    },
+    {
+      "name": "Floating Timer subtask summary",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;624;393;41"
+    },
+    {
+      "name": "0 of 4 subtasks complete",
+      "type": "ControlType.ProgressBar",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;627;35;35"
+    },
+    {
+      "name": "0/4 Subtasks",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "718;634;85;21"
+    },
+    {
+      "name": "Add subtask for M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "981;624;41;41"
+    },
+    {
+      "name": "Collapse Floating Timer",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1029;624;40;41"
+    },
+    {
+      "name": "Subtasks for M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.List",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;674;378;196"
+    },
+    {
+      "name": "CI953 Visual subtask 1 — readable normal rowCI953 Visual subtask 1 — r…↑↓×",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;674;378;46"
+    },
+    {
+      "name": "Complete subtask: CI953 Visual subtask 1 — readable normal row",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;677;40;40"
+    },
+    {
+      "name": "Edit subtask: CI953 Visual subtask 1 — readable normal row",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "723;685;193;24"
+    },
+    {
+      "name": "Move subtask up: CI953 Visual subtask 1 — readable normal row",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "923;677;41;40"
+    },
+    {
+      "name": "Move subtask down: CI953 Visual subtask 1 — readable normal row",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "968;677;41;40"
+    },
+    {
+      "name": "Delete subtask: CI953 Visual subtask 1 — readable normal row",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1013;677;41;40"
+    },
+    {
+      "name": "CI953VisualSubtask2LongUnbrokenTitleForOverflowTooltipAndNarrowRowAcceptance1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZCI953VisualSubtask2LongU…↑↓×",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;724;378;46"
+    },
+    {
+      "name": "Complete subtask: CI953VisualSubtask2LongUnbrokenTitleForOverflowTooltipAndNarrowRowAcceptance1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;727;40;40"
+    },
+    {
+      "name": "Edit subtask: CI953VisualSubtask2LongUnbrokenTitleForOverflowTooltipAndNarrowRowAcceptance1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "723;735;193;24"
+    },
+    {
+      "name": "Move subtask up: CI953VisualSubtask2LongUnbrokenTitleForOverflowTooltipAndNarrowRowAcceptance1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "923;727;41;40"
+    },
+    {
+      "name": "Move subtask down: CI953VisualSubtask2LongUnbrokenTitleForOverflowTooltipAndNarrowRowAcceptance1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "968;727;41;40"
+    },
+    {
+      "name": "Delete subtask: CI953VisualSubtask2LongUnbrokenTitleForOverflowTooltipAndNarrowRowAcceptance1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1013;727;41;40"
+    },
+    {
+      "name": "CI953 Οπτικός έλεγχος 3 — μεγάλη ελληνική περιγραφή για αναδίπλωση και πλήρη τίτλοCI953 Οπτικός έλεγχος 3 …↑↓×",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;774;378;46"
+    },
+    {
+      "name": "Complete subtask: CI953 Οπτικός έλεγχος 3 — μεγάλη ελληνική περιγραφή για αναδίπλωση και πλήρη τίτλο",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;777;40;40"
+    },
+    {
+      "name": "Edit subtask: CI953 Οπτικός έλεγχος 3 — μεγάλη ελληνική περιγραφή για αναδίπλωση και πλήρη τίτλο",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "723;785;193;24"
+    },
+    {
+      "name": "Move subtask up: CI953 Οπτικός έλεγχος 3 — μεγάλη ελληνική περιγραφή για αναδίπλωση και πλήρη τίτλο",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "923;777;41;40"
+    },
+    {
+      "name": "Move subtask down: CI953 Οπτικός έλεγχος 3 — μεγάλη ελληνική περιγραφή για αναδίπλωση και πλήρη τίτλο",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "968;777;41;40"
+    },
+    {
+      "name": "Delete subtask: CI953 Οπτικός έλεγχος 3 — μεγάλη ελληνική περιγραφή για αναδίπλωση και πλήρη τίτλο",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1013;777;41;40"
+    },
+    {
+      "name": "CI953 Visual subtask 4 — reorder companionCI953 Visual subtask 4 — r…↑↓×",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;824;378;46"
+    },
+    {
+      "name": "Complete subtask: CI953 Visual subtask 4 — reorder companion",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "676;827;40;40"
+    },
+    {
+      "name": "Edit subtask: CI953 Visual subtask 4 — reorder companion",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "723;835;193;24"
+    },
+    {
+      "name": "Move subtask up: CI953 Visual subtask 4 — reorder companion",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "923;827;41;40"
+    },
+    {
+      "name": "Move subtask down: CI953 Visual subtask 4 — reorder companion",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "968;827;41;40"
+    },
+    {
+      "name": "Delete subtask: CI953 Visual subtask 4 — reorder companion",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1013;827;41;40"
+    }
+  ]
+}
