@@ -1,0 +1,23 @@
+{
+  "currentSessionId": "639c1524-c906-4a14-ab4e-a31e73749e28",
+  "generatedUtc": "2026-10-05T14:12:36.687Z",
+  "metrics": {
+    "acceptedForPersistence": true,
+    "baseline": {
+      "x": 660,
+      "y": 494
+    },
+    "current": {
+      "x": -1235,
+      "y": 429
+    },
+    "maxMoveDistancePx": 2382,
+    "qualifyingMove": true
+  },
+  "pendingSourceSessionId": null,
+  "reason": "qualifying-drag-recorded-waiting-for-tray-quit",
+  "schemaVersion": 1,
+  "sourceSha": "38219e200fe3bec7309f8e03e72003184ca86d08",
+  "status": "PENDING",
+  "test": "M7-C5-saved-placement-restart"
+}

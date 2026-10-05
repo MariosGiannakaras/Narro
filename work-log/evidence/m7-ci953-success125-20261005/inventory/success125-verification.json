@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "probe": "11-D-success125-reduced.json",
+      "dpi": 120,
+      "outer": {
+        "x": -425,
+        "width": 425,
+        "height": 875,
+        "y": 0
+      },
+      "sameHwnd": 7471826,
+      "nativeGeometry": "SCOPED_PASS",
+      "sourceMotionAcceptance": "OPEN",
+      "takeBreakEnabled": false
+    },
+    {
+      "probe": "20-E-success125-normal-fun.json",
+      "dpi": 120,
+      "outer": {
+        "width": 425,
+        "y": 0,
+        "x": -425,
+        "height": 875
+      },
+      "sameHwnd": 7471826,
+      "nativeGeometry": "SCOPED_PASS",
+      "sourceMotionAcceptance": "OPEN",
+      "takeBreakEnabled": false
+    }
+  ],
+  "actualEscapeClosesD": true,
+  "TabAndShiftTabExercised": true,
+  "funGifFlagTrueDuringE": true,
+  "animationEffectNotEstablishedByStaticProvider": true
+}

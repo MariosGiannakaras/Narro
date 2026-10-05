@@ -1,0 +1,47 @@
+[
+  {
+    "milestone": "M1",
+    "disposition": "Native125%context/sameHWND; Windowsprimaryunchanged, no quietperformance/topologyfailure/sleep proof;27 staysFAIL.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M2",
+    "disposition": "Two new retained completed D/E identities, existing owned tasks unchanged except originalsession lifecycle.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M3",
+    "disposition": "Nonzero D/E live work/completion ledger preserved; original846 restoredpaused/newsession; no broadfullacceptance.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M4",
+    "disposition": "No scheduling exercise.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M5",
+    "disposition": "Actual owned Main D/E create1mEST and completedrows captured; source/motionOPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M6",
+    "disposition": "Owned selectedlist returnsallfivecompleted/emptylive; source/canonicalOPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M7",
+    "disposition": "SCOPED_NATIVE_GEOMETRY_PASS success125 normal/reduced425x875(-425,0); actualEscapeclosesD/CloseE. TakeBreak37disabled; C4/source/motionOPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M8",
+    "disposition": "Actual selectedLGmonitor/showSuccess/FunGIF roundtrip and payloadrestoration; localmodalBPN leavescheckpoint/tasksunchanged. Source/animationOPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M9",
+    "disposition": "No new Reports/exports; owned sessiondata only.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  }
+]

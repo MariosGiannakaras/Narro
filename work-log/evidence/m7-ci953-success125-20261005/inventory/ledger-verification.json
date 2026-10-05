@@ -1,0 +1,69 @@
+{
+  "newCompletedOwnedTasks": [
+    {
+      "task": {
+        "id": "7537a652-84ec-4cf9-b938-34846adda726",
+        "list_id": "0ef952b4-6283-4b83-8fec-dfe488af3995",
+        "title": "M7 PR235 CI953 D success125 reduced LongUnbrokenTitleForSuccessOverflowValidation1234567890",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-05T14:26:29.611Z"
+      },
+      "sessions": [
+        {
+          "id": "79b176df-7b4a-4e62-82fb-c23c76bc11c1",
+          "kind": "work",
+          "started_at": "2026-10-05T14:26:07.664Z",
+          "ended_at": "2026-10-05T14:26:29.611Z",
+          "duration_seconds": 21,
+          "source": "focus"
+        }
+      ],
+      "note": null,
+      "closedWorkSeconds": 21
+    },
+    {
+      "task": {
+        "id": "c23f05a6-92e7-42be-9be5-8b1a51354d9b",
+        "list_id": "0ef952b4-6283-4b83-8fec-dfe488af3995",
+        "title": "M7 PR235 CI953 E επιτυχία 125% normal και έλεγχος κινούμενης διακόσμησης",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-05T14:28:21.748Z"
+      },
+      "sessions": [
+        {
+          "id": "29958a9a-8e76-40d8-8461-6edfed7d90a0",
+          "kind": "work",
+          "started_at": "2026-10-05T14:27:51.118Z",
+          "ended_at": "2026-10-05T14:28:21.748Z",
+          "duration_seconds": 30,
+          "source": "focus"
+        }
+      ],
+      "note": null,
+      "closedWorkSeconds": 30
+    }
+  ],
+  "existingOwnedTaskRecordsExactlySameExceptOriginalSessionLifecycle": true,
+  "originalTakenBeforeAfter": [
+    846,
+    846
+  ],
+  "originalSessionBefore": {
+    "session_id": "9e190776-2158-4ef4-80c6-50b74090fba7",
+    "payload_json": "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"95a2466c-a06c-4a41-a2b4-3d1e65b9fa08\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":1800000},\"phase\":\"paused\",\"total_work_ms\":326,\"interval_work_ms\":326}}",
+    "updated_at": "2026-10-05T14:14:33.264Z"
+  },
+  "originalNewPausedCheckpoint": {
+    "session_id": "cf3403c5-0336-4486-abbe-4d0f7453e1c7",
+    "payload_json": "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"95a2466c-a06c-4a41-a2b4-3d1e65b9fa08\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":1800000},\"phase\":\"paused\",\"total_work_ms\":327,\"interval_work_ms\":327}}",
+    "updated_at": "2026-10-05T14:29:47.666Z"
+  },
+  "preferencePayloadRestored": true,
+  "modalLocalBPNTasksCheckpointUnchanged": true,
+  "earlierC5IncidentalDelta51sNotChangedInThisSession": true,
+  "noFixtureDeletionClockManipulationOrWholeDatabaseExport": true
+}

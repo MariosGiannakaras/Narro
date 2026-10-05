@@ -1,0 +1,67 @@
+utc,original_seconds,action,target,raw_input
+2026-10-05T14:23:35.8967692Z,-0.682,native-uia-invoke,Start Recording,actions.jsonl:1
+2026-10-05T14:23:36.5430450Z,-0.036,activate-observed-native-window,,raw-actions.log:1
+2026-10-05T14:23:36.5884195Z,0.009,native-uia-observed-pointer-click,Show success screen,actions.jsonl:2
+2026-10-05T14:23:37.3863778Z,0.807,native-uia-observed-pointer-click,Focus Panel monitor,actions.jsonl:3
+2026-10-05T14:24:01.1110519Z,24.532,native-uia-selection,\\.\DISPLAY1 · 1920×1080 · 125%,raw-actions.log:2
+2026-10-05T14:24:01.3653865Z,24.786,native-uia-invoke,All my lists,actions.jsonl:4
+2026-10-05T14:24:02.3452321Z,25.766,native-uia-observed-pointer-click,Planning list,actions.jsonl:5
+2026-10-05T14:24:52.5095308Z,75.93,native-uia-selection,M7 PR235 CI953 live expiry break capture,raw-actions.log:3
+2026-10-05T14:24:52.7758955Z,76.197,native-uia-invoke,Add task to Today,actions.jsonl:6
+2026-10-05T14:24:53.8053757Z,77.226,observed-unicode-SendInput,,raw-actions.log:4
+2026-10-05T14:24:54.4042517Z,77.825,observed-text-value-after-input,,raw-actions.log:5
+2026-10-05T14:24:54.8240214Z,78.245,native-uia-setfocus,New Today task EST,raw-actions.log:6
+2026-10-05T14:24:54.8746577Z,78.295,observed-unicode-SendInput,,raw-actions.log:7
+2026-10-05T14:24:55.3923738Z,78.813,observed-text-value-after-input,,raw-actions.log:8
+2026-10-05T14:24:55.4223379Z,78.843,native-uia-invoke,Add task,actions.jsonl:7
+2026-10-05T14:24:56.0986387Z,79.519,native-uia-invoke,Add task to Today,actions.jsonl:8
+2026-10-05T14:24:56.7330921Z,80.154,observed-unicode-SendInput,,raw-actions.log:9
+2026-10-05T14:24:57.2985946Z,80.719,observed-text-value-after-input,,raw-actions.log:10
+2026-10-05T14:24:57.6732503Z,81.094,native-uia-setfocus,New Today task EST,raw-actions.log:11
+2026-10-05T14:24:57.7286044Z,81.149,observed-unicode-SendInput,,raw-actions.log:12
+2026-10-05T14:24:58.2383642Z,81.659,observed-text-value-after-input,,raw-actions.log:13
+2026-10-05T14:24:58.2672878Z,81.688,native-uia-invoke,Add task,actions.jsonl:9
+2026-10-05T14:24:59.2852330Z,82.706,activate-observed-native-window,,raw-actions.log:14
+2026-10-05T14:24:59.3154225Z,82.736,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:10
+2026-10-05T14:25:33.3787982Z,116.8,native-uia-invoke,Return to Focus Panel,actions.jsonl:11
+2026-10-05T14:25:34.1718554Z,117.593,native-uia-observed-pointer-click,Focus list,actions.jsonl:12
+2026-10-05T14:25:35.0213062Z,118.442,native-uia-selection,M7 PR235 CI953 live expiry break capture,raw-actions.log:15
+2026-10-05T14:25:35.4957505Z,118.917,os-client-area-animation,,raw-actions.log:16
+2026-10-05T14:26:07.6113524Z,151.032,native-uia-invoke,Make live: M7 PR235 CI953 D success125 reduced LongUnbrokenTitleForSuccessOverflowValidation1234567890,actions.jsonl:13
+2026-10-05T14:26:08.2259547Z,151.647,native-uia-invoke,Compact view,actions.jsonl:14
+2026-10-05T14:26:08.8139558Z,152.235,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:15
+2026-10-05T14:26:29.5195555Z,172.94,native-uia-invoke,Complete task,actions.jsonl:16
+2026-10-05T14:26:31.0680594Z,174.489,physical-scancode-chord,Tab,raw-actions.log:18
+2026-10-05T14:26:31.7204309Z,175.141,physical-scancode-chord,Shift+Tab,raw-actions.log:19
+2026-10-05T14:26:32.2073818Z,175.628,physical-scancode-chord,Escape,raw-actions.log:20
+2026-10-05T14:27:06.5904820Z,210.011,activate-observed-native-window,,raw-actions.log:21
+2026-10-05T14:27:06.9019143Z,210.323,native-uia-invoke,Settings,actions.jsonl:17
+2026-10-05T14:27:07.5119946Z,210.933,native-uia-observed-pointer-click,Fun GIF on success screen,actions.jsonl:18
+2026-10-05T14:27:08.9082139Z,212.329,os-client-area-animation,,raw-actions.log:22
+2026-10-05T14:27:09.1915804Z,212.612,activate-observed-native-window,,raw-actions.log:23
+2026-10-05T14:27:09.2325612Z,212.653,native-uia-observed-pointer-click,Focus list,actions.jsonl:19
+2026-10-05T14:27:10.0672557Z,213.488,native-uia-selection,M7 PR235 CI953 live expiry break capture,raw-actions.log:24
+2026-10-05T14:27:51.0642021Z,254.485,native-uia-invoke,Make live: M7 PR235 CI953 E επιτυχία 125% normal και έλεγχος κινούμενης διακόσμησης,actions.jsonl:20
+2026-10-05T14:27:51.7018145Z,255.123,native-uia-invoke,Compact view,actions.jsonl:21
+2026-10-05T14:27:52.2930129Z,255.714,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:22
+2026-10-05T14:28:21.6692545Z,285.09,native-uia-invoke,Complete task,actions.jsonl:23
+2026-10-05T14:28:23.7272419Z,287.148,native-uia-setfocus,Close,raw-actions.log:26
+2026-10-05T14:28:23.8343183Z,287.255,physical-scancode-chord,Ctrl+Alt+B,raw-actions.log:27
+2026-10-05T14:28:24.6691085Z,288.09,physical-scancode-chord,Ctrl+Alt+P,raw-actions.log:28
+2026-10-05T14:28:25.5009564Z,288.922,physical-scancode-chord,Ctrl+Alt+N,raw-actions.log:29
+2026-10-05T14:28:26.4209067Z,289.842,native-uia-invoke,Close,actions.jsonl:24
+2026-10-05T14:28:26.7430651Z,290.164,native-uia-observed-pointer-click,Focus list,actions.jsonl:25
+2026-10-05T14:28:27.5739982Z,290.995,native-uia-selection,M7 PR235 CI953 live expiry break capture,raw-actions.log:30
+2026-10-05T14:29:12.6475188Z,336.068,activate-observed-native-window,,raw-actions.log:31
+2026-10-05T14:29:12.9871656Z,336.408,native-uia-observed-pointer-click,Fun GIF on success screen,actions.jsonl:26
+2026-10-05T14:29:13.5164660Z,336.937,native-uia-observed-pointer-click,Show success screen,actions.jsonl:27
+2026-10-05T14:29:14.3103053Z,337.731,native-uia-observed-pointer-click,Focus Panel monitor,actions.jsonl:28
+2026-10-05T14:29:15.1418601Z,338.563,native-uia-selection,Primary display (automatic),raw-actions.log:32
+2026-10-05T14:29:15.9790314Z,339.4,activate-observed-native-window,,raw-actions.log:33
+2026-10-05T14:29:16.0051811Z,339.426,native-uia-observed-pointer-click,Focus list,actions.jsonl:29
+2026-10-05T14:29:16.7940157Z,340.215,native-uia-selection,M7 PR233 CI948 LongListBadge acceptance,raw-actions.log:34
+2026-10-05T14:29:47.2859937Z,370.707,native-uia-invoke,Make live: M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890,actions.jsonl:30
+2026-10-05T14:29:47.6260665Z,371.047,native-uia-invoke,Pause,actions.jsonl:31
+2026-10-05T14:29:47.9395895Z,371.36,native-uia-invoke,Compact view,actions.jsonl:32
+2026-10-05T14:29:48.6834750Z,372.104,os-client-area-animation,,raw-actions.log:36
+2026-10-05T14:29:49.2876341Z,372.708,native-uia-invoke,Stop Recording,actions.jsonl:33
