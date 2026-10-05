@@ -153,14 +153,101 @@ export function applyNewerShortcutDiagnostics(
   return current;
 }
 
+type PersistedMonitorIdentity = {
+  name: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
+function parseMonitorKeyInteger(
+  value: string,
+  minimum: number,
+  maximum: number,
+): number | null {
+  if (!/^-?\d+$/.test(value)) return null;
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed >= minimum && parsed <= maximum ? parsed : null;
+}
+
+function parsePersistedMonitorIdentity(monitorKey: string): PersistedMonitorIdentity | null {
+  const parts = monitorKey.split("|");
+  if (parts.length < 10) return null;
+
+  const scaleBits = parts.pop();
+  const workHeight = parts.pop();
+  const workWidth = parts.pop();
+  const workY = parts.pop();
+  const workX = parts.pop();
+  const height = parts.pop();
+  const width = parts.pop();
+  const y = parts.pop();
+  const x = parts.pop();
+  if (
+    scaleBits === undefined
+    || workHeight === undefined
+    || workWidth === undefined
+    || workY === undefined
+    || workX === undefined
+    || height === undefined
+    || width === undefined
+    || y === undefined
+    || x === undefined
+    || !/^[0-9a-fA-F]{16}$/.test(scaleBits)
+  ) {
+    return null;
+  }
+
+  if (
+    parseMonitorKeyInteger(workHeight, 0, 0xffff_ffff) === null
+    || parseMonitorKeyInteger(workWidth, 0, 0xffff_ffff) === null
+    || parseMonitorKeyInteger(workY, -0x8000_0000, 0x7fff_ffff) === null
+    || parseMonitorKeyInteger(workX, -0x8000_0000, 0x7fff_ffff) === null
+  ) {
+    return null;
+  }
+
+  const parsedHeight = parseMonitorKeyInteger(height, 0, 0xffff_ffff);
+  const parsedWidth = parseMonitorKeyInteger(width, 0, 0xffff_ffff);
+  const parsedY = parseMonitorKeyInteger(y, -0x8000_0000, 0x7fff_ffff);
+  const parsedX = parseMonitorKeyInteger(x, -0x8000_0000, 0x7fff_ffff);
+  if (parsedHeight === null || parsedWidth === null || parsedY === null || parsedX === null) {
+    return null;
+  }
+
+  return {
+    name: parts.join("|"),
+    x: parsedX,
+    y: parsedY,
+    width: parsedWidth,
+    height: parsedHeight,
+  };
+}
+
+export function monitorMatchesSelectionKey(
+  monitor: MonitorDescriptor,
+  monitorKey: string,
+): boolean {
+  if (monitor.key === monitorKey) return true;
+
+  const saved = parsePersistedMonitorIdentity(monitorKey);
+  return saved !== null
+    && saved.name === (monitor.name ?? "")
+    && saved.x === monitor.position.x
+    && saved.y === monitor.position.y
+    && saved.width === monitor.size.width
+    && saved.height === monitor.size.height;
+}
+
 export function isValidMonitorSelection(
   monitorKey: string | null,
   monitors: readonly MonitorDescriptor[],
 ): monitorKey is string {
   return (
-    monitorKey !== null &&
-    monitorKey.length > 0 &&
-    monitors.some((monitor) => monitor.key === monitorKey)
+    monitorKey !== null
+    && monitorKey.length > 0
+    && monitors.some((monitor) => monitorMatchesSelectionKey(monitor, monitorKey))
   );
 }
 
@@ -168,10 +255,10 @@ export function findSelectedMonitor(
   monitorKey: string | null,
   monitors: readonly MonitorDescriptor[],
 ): MonitorDescriptor | null {
-  if (!isValidMonitorSelection(monitorKey, monitors)) {
+  if (monitorKey === null || monitorKey.length === 0) {
     return null;
   }
-  return monitors.find((monitor) => monitor.key === monitorKey) ?? null;
+  return monitors.find((monitor) => monitorMatchesSelectionKey(monitor, monitorKey)) ?? null;
 }
 
 export function formatMonitorLabel(monitor: MonitorDescriptor): string {
