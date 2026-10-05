@@ -18,6 +18,10 @@ An optional **Milestone 11 — Live Blitzit Reference Audit** now exists as a do
 
 No M11 checklist item, validation count or milestone counter is advanced by defining this dormant option.
 
+## Physical Windows capture efficiency policy
+
+Ordinary M1–M10/Final-Review screen-recorded physical sessions now use an execution-first capture protocol. Prepare the exact-build runbook and cross-milestone acceptance matrix before OBS starts; while recording, perform the planned interactions/paired comparisons continuously and defer source reading, debugging, root-cause investigation and Narro edits until the recording has stopped. Potential defects receive neutral timestamps/notes during capture, then the complete video/log/screenshot set is analyzed together and evidence-backed fixes are batched afterward. This avoids long OBS recordings dominated by development work while preserving full evidence. Quiet performance measurements remain separate when OBS would contaminate the measurement. M11 retains its stricter whole-campaign corpus freeze before any analysis.
+
 
 ## Current — CI948 physical evidence and one corrective batch
 
