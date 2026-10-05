@@ -486,6 +486,54 @@ fn monitor_descriptor(
     })
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+struct PersistedMonitorIdentity {
+    name: String,
+    position: GeometryPoint,
+    size: GeometrySize,
+}
+
+fn parse_persisted_monitor_identity(monitor_key: &str) -> Option<PersistedMonitorIdentity> {
+    let mut parts = monitor_key.rsplitn(10, '|');
+
+    let scale_bits = parts.next()?;
+    if scale_bits.len() != 16 || u64::from_str_radix(scale_bits, 16).is_err() {
+        return None;
+    }
+    parts.next()?.parse::<u32>().ok()?;
+    parts.next()?.parse::<u32>().ok()?;
+    parts.next()?.parse::<i32>().ok()?;
+    parts.next()?.parse::<i32>().ok()?;
+
+    let height = parts.next()?.parse::<u32>().ok()?;
+    let width = parts.next()?.parse::<u32>().ok()?;
+    let y = parts.next()?.parse::<i32>().ok()?;
+    let x = parts.next()?.parse::<i32>().ok()?;
+    let name = parts.next()?.to_owned();
+
+    Some(PersistedMonitorIdentity {
+        name,
+        position: GeometryPoint { x, y },
+        size: GeometrySize { width, height },
+    })
+}
+
+fn monitor_key_matches_descriptor(
+    monitor_key: &str,
+    descriptor: &MonitorDescriptor,
+) -> bool {
+    if descriptor.key == monitor_key {
+        return true;
+    }
+
+    let Some(saved) = parse_persisted_monitor_identity(monitor_key) else {
+        return false;
+    };
+    saved.name == descriptor.name.as_deref().unwrap_or_default()
+        && saved.position == descriptor.position
+        && saved.size == descriptor.size
+}
+
 fn resolve_monitor_by_key(
     app_handle: &tauri::AppHandle,
     monitor_key: &str,
@@ -505,12 +553,94 @@ fn resolve_monitor_by_key(
 
     for (index, monitor) in enumerate_monitors(app_handle)?.into_iter().enumerate() {
         let descriptor = monitor_descriptor(index, &monitor)?;
-        if descriptor.key == monitor_key {
+        if monitor_key_matches_descriptor(monitor_key, &descriptor) {
             return Ok((monitor, descriptor));
         }
     }
 
     Err(CommandError::stale_monitor_selection())
+}
+
+#[cfg(test)]
+mod monitor_selection_tests {
+    use super::*;
+
+    fn descriptor(key: &str, name: &str, position: GeometryPoint, size: GeometrySize) -> MonitorDescriptor {
+        MonitorDescriptor {
+            key: key.to_owned(),
+            index: 0,
+            name: Some(name.to_owned()),
+            scale_factor: 1.0,
+            position,
+            size,
+            work_area: GeometryRect {
+                position,
+                size,
+            },
+        }
+    }
+
+    #[test]
+    fn saved_monitor_identity_survives_dpi_and_work_area_changes() {
+        let position = GeometryPoint { x: 0, y: 0 };
+        let size = GeometrySize {
+            width: 1920,
+            height: 1080,
+        };
+        let current_key =
+            r"\\.\DISPLAY1|0|0|1920|1080|0|0|1920|1040|3ff0000000000000";
+        let saved_at_125_percent =
+            r"\\.\DISPLAY1|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
+        let current = descriptor(current_key, r"\\.\DISPLAY1", position, size);
+
+        assert!(monitor_key_matches_descriptor(current_key, &current));
+        assert!(monitor_key_matches_descriptor(saved_at_125_percent, &current));
+    }
+
+    #[test]
+    fn saved_monitor_identity_still_fails_closed_for_different_display_geometry() {
+        let current = descriptor(
+            r"\\.\DISPLAY1|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
+            r"\\.\DISPLAY1",
+            GeometryPoint { x: 0, y: 0 },
+            GeometrySize {
+                width: 1920,
+                height: 1080,
+            },
+        );
+
+        assert!(!monitor_key_matches_descriptor(
+            r"\\.\DISPLAY2|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
+            &current,
+        ));
+        assert!(!monitor_key_matches_descriptor(
+            r"\\.\DISPLAY1|-1920|0|1920|1080|-1920|0|1920|1040|3ff0000000000000",
+            &current,
+        ));
+        assert!(!monitor_key_matches_descriptor(
+            r"\\.\DISPLAY1|0|0|2560|1440|0|0|2560|1400|3ff0000000000000",
+            &current,
+        ));
+        assert!(!monitor_key_matches_descriptor("malformed-monitor-key", &current));
+    }
+
+    #[test]
+    fn monitor_names_with_separators_remain_parseable() {
+        let current = descriptor(
+            r"DISPLAY|ALIAS|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
+            "DISPLAY|ALIAS",
+            GeometryPoint { x: 0, y: 0 },
+            GeometrySize {
+                width: 1920,
+                height: 1080,
+            },
+        );
+
+        assert!(monitor_key_matches_descriptor(
+            r"DISPLAY|ALIAS|0|0|1920|1080|0|0|1536|832|3ff4000000000000",
+            &current,
+        ));
+    }
 }
 
 #[tauri::command]
