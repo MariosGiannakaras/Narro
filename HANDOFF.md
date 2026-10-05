@@ -10,10 +10,9 @@ M11 is explicitly **capture-first**: plan the campaign, record the user-visible 
 
 This M11 policy does not change the current M7/PR234 next action or authorize any live-Blitzit work now.
 
-## CURRENT PHYSICAL-CAPTURE MODE
+## CURRENT INTERACTIVE-VALIDATION EFFICIENCY RULE
 
-The next PR234/current-M7 Windows recording must use execution-first capture. Before OBS starts, freeze the exact build, scenario data, cross-milestone acceptance matrix and ordered runbook. While OBS records, execute the planned user actions/paired comparisons continuously; do not inspect/edit source, investigate root cause, run broad diagnostics, inspect Git/CI, or patch Narro between actions. Mark suspected findings with neutral timestamps and continue independent scripted steps. Stop OBS before substantive analysis. Analyze the whole capture/log set afterward, then batch any evidence-backed corrections and retest affected paths on the next exact build.
-
+The next PR234/current-M7 Windows validation should use the most reliable evidence method for each check; OBS is optional. Prepare the affected acceptance matrix and likely action sequence before a substantial session, and prefer related/paired observations close together where that improves comparability. If continuous recording is used, keep the useful capture focused rather than leaving it running through long unrelated source/debug intervals. However, intermediate probes, tool changes, state inspection and adaptive diagnostics are allowed whenever they materially improve evidence quality, preserve/recover the scenario, or are required to decide the next safe action. Analyze completed capture segments and batch compatible evidence-backed corrections where practical; do not treat this efficiency rule as rigid choreography.
 
 ## Current — CI948 physical evidence and one corrective batch
 
