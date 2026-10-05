@@ -162,7 +162,7 @@ function Capture-FocusEditors([string]$theme) {
                 -Url "$baseUrl/focus-editor-fixture.html?theme=$theme&scenario=$editorScenario&motion=$reduced" `
                 -ScreenshotPath (Join-Path $outputPath "$editorLabel.png") `
                 -DomPath (Join-Path $outputPath "$editorLabel.html") `
-                -VirtualTimeBudgetMs 2500 `
+                -VirtualTimeBudgetMs $(if ($editorScenario -eq 'm7-integration') { 10000 } else { 2500 }) `
                 -ViewportHeight $(if ($editorScenario -eq 'm7-integration') { 1080 } else { 720 }) `
                 -ReadyMarker 'data-focus-editor-fixture-ready="true"' `
                 -ReducedMotion:$reduced `
