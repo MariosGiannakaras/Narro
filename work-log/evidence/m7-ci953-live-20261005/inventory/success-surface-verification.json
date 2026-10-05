@@ -1,0 +1,27 @@
+{
+  "cases": [
+    {
+      "probe": "71-C-success-reduced100.json",
+      "actualDpi": 96,
+      "actualOuter": {
+        "y": 0,
+        "height": 700,
+        "x": 2220,
+        "width": 340
+      },
+      "takeBreakEnabled": false
+    },
+    {
+      "probe": "81-B-success125-normal-fun.json",
+      "actualDpi": 96,
+      "actualOuter": {
+        "width": 340,
+        "y": 156,
+        "height": 700,
+        "x": 965
+      },
+      "takeBreakEnabled": false
+    }
+  ],
+  "limits": "Both success surfaces actually100%, even B entryTimer125. Filename125 indicates entry only. Fun GIF toggled on for B but no accessible image or obvious decoration in provider; effective animation remains OPEN."
+}

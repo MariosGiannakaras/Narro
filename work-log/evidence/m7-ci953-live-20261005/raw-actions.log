@@ -1,0 +1,64 @@
+{"utc":"2026-10-05T13:52:16.0859001Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":3149438,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T13:52:35.1279188Z","action":"native-uia-setfocus","windowId":3213706,"name":"Title","bounds":"1057;708;431;45"}
+{"utc":"2026-10-05T13:52:35.5080551Z","action":"observed-unicode-SendInput","windowId":3213706,"pid":141908,"field":"Title","text":"M7 PR235 CI953 live expiry break capture","controlCharactersAllowed":false}
+{"utc":"2026-10-05T13:52:36.0596624Z","action":"observed-text-value-after-input","windowId":3213706,"field":"Title","value":"M7 PR235 CI953 live expiry break capture","expectedTextPresent":true}
+{"utc":"2026-10-05T13:53:36.7055466Z","action":"observed-unicode-SendInput","windowId":3213706,"pid":141908,"field":"New Today task title","text":"M7 PR235 CI953 live A expiry extend complete","controlCharactersAllowed":false}
+{"utc":"2026-10-05T13:53:37.2746278Z","action":"observed-text-value-after-input","windowId":3213706,"field":"New Today task title","value":"M7 PR235 CI953 live A expiry extend complete","expectedTextPresent":true}
+{"utc":"2026-10-05T13:53:37.7125443Z","action":"native-uia-setfocus","windowId":3213706,"name":"New Today task EST","bounds":"1418;506;128;33"}
+{"utc":"2026-10-05T13:53:37.7682155Z","action":"observed-unicode-SendInput","windowId":3213706,"pid":141908,"field":"New Today task EST","text":"1m","controlCharactersAllowed":false}
+{"utc":"2026-10-05T13:53:38.2804924Z","action":"observed-text-value-after-input","windowId":3213706,"field":"New Today task EST","value":"1m","expectedTextPresent":true}
+{"utc":"2026-10-05T13:54:15.3787215Z","action":"native-uia-setfocus","windowId":3213706,"name":"New Today task EST","bounds":"1418;560;128;33"}
+{"utc":"2026-10-05T13:54:15.6352297Z","action":"physical-scancode-chord","windowId":3213706,"pid":141908,"chord":"Ctrl+A","scancodes":[29,30],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T13:54:16.3357781Z","action":"observed-unicode-SendInput","windowId":3213706,"pid":141908,"field":"New Today task EST","text":"0:01:00","controlCharactersAllowed":false}
+{"utc":"2026-10-05T13:54:16.8511724Z","action":"observed-text-value-after-input","windowId":3213706,"field":"New Today task EST","value":"0:01:00","expectedTextPresent":true}
+{"utc":"2026-10-05T13:54:18.3704282Z","action":"observed-unicode-SendInput","windowId":3213706,"pid":141908,"field":"New Today task title","text":"M7 PR235 CI953 live B expiry switch","controlCharactersAllowed":false}
+{"utc":"2026-10-05T13:54:18.9105811Z","action":"observed-text-value-after-input","windowId":3213706,"field":"New Today task title","value":"M7 PR235 CI953 live B expiry switch","expectedTextPresent":true}
+{"utc":"2026-10-05T13:54:19.2861236Z","action":"native-uia-setfocus","windowId":3213706,"name":"New Today task EST","bounds":"1418;586;128;33"}
+{"utc":"2026-10-05T13:54:19.3353427Z","action":"observed-unicode-SendInput","windowId":3213706,"pid":141908,"field":"New Today task EST","text":"0:01:00","controlCharactersAllowed":false}
+{"utc":"2026-10-05T13:54:19.8585971Z","action":"observed-text-value-after-input","windowId":3213706,"field":"New Today task EST","value":"0:01:00","expectedTextPresent":true}
+{"utc":"2026-10-05T13:54:50.6146640Z","action":"observed-unicode-SendInput","windowId":3213706,"pid":141908,"field":"New Today task title","text":"M7 PR235 CI953 live C break workflow","controlCharactersAllowed":false}
+{"utc":"2026-10-05T13:54:51.1589221Z","action":"observed-text-value-after-input","windowId":3213706,"field":"New Today task title","value":"M7 PR235 CI953 live C break workflow","expectedTextPresent":true}
+{"utc":"2026-10-05T13:54:51.5678142Z","action":"native-uia-setfocus","windowId":3213706,"name":"New Today task EST","bounds":"1418;754;128;33"}
+{"utc":"2026-10-05T13:54:51.6197590Z","action":"observed-unicode-SendInput","windowId":3213706,"pid":141908,"field":"New Today task EST","text":"0:03:00","controlCharactersAllowed":false}
+{"utc":"2026-10-05T13:54:52.1411748Z","action":"observed-text-value-after-input","windowId":3213706,"field":"New Today task EST","value":"0:03:00","expectedTextPresent":true}
+{"utc":"2026-10-05T13:55:10.6994761Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T13:55:10.9321021Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T13:56:25.3877304Z","action":"native-uia-selection","windowId":7471826,"name":"M7 PR235 CI953 live expiry break capture","observedOrdinal":1,"expectedMatches":1}
+physicalCursor=2390,194
+{"utc":"2026-10-05T13:57:44.2052954Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Alt+P","scancodes":[29,56,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+physicalCursor=-1010,771
+{"utc":"2026-10-05T13:59:17.9163669Z","action":"native-uia-selection","windowId":7471826,"name":"M7 PR235 CI953 live expiry break capture","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T14:00:08.4738493Z","action":"os-client-area-animation","request":"reduced","before":1,"after":0}
+{"utc":"2026-10-05T14:00:08.7792580Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T14:00:09.9216635Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Alt+N","scancodes":[29,56,49],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T14:00:10.9454252Z","action":"native-uia-setfocus","windowId":7471826,"name":"Pause","bounds":"2337;318;59;31"}
+{"utc":"2026-10-05T14:00:10.9532792Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Tab","scancodes":[15],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T14:00:11.6356742Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Shift+Tab","scancodes":[42,15],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T14:02:05.1377180Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:03:35.4054304Z","action":"native-uia-selection","windowId":3213706,"name":"5 mins","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T14:03:37.3992906Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:04:14.1305043Z","action":"SendInput actual virtual-desktop drag","windowId":7471826,"from":[-900,711],"to":[950,390],"exeSha256":"bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8"}
+SendInput complete; physical button state verified during hold
+{"utc":"2026-10-05T14:04:17.9292668Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:05:03.1845831Z","action":"native-uia-selection","windowId":3213706,"name":"M7 PR235 CI953 live expiry break capture","observedOrdinal":1,"expectedMatches":1}
+physicalCursor=410,550
+physicalCursor=425,212
+{"utc":"2026-10-05T14:06:47.1216164Z","action":"native-uia-selection","windowId":3213706,"name":"M7 PR235 CI953 live expiry break capture","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T14:07:34.8647774Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:07:36.4772909Z","action":"os-client-area-animation","request":"normal","before":0,"after":1}
+{"utc":"2026-10-05T14:08:18.7842678Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:08:20.7960175Z","action":"native-uia-selection","windowId":3213706,"name":"10 mins","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T14:08:52.0350927Z","action":"physical-scancode-chord","windowId":3213706,"pid":141908,"chord":"Escape","scancodes":[1],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T14:08:52.8854093Z","action":"os-client-area-animation","request":"reduced","before":1,"after":0}
+{"utc":"2026-10-05T14:10:03.9258474Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:10:55.8425693Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:10:57.0796251Z","action":"os-client-area-animation","request":"normal","before":0,"after":1}
+{"utc":"2026-10-05T14:11:47.4343365Z","action":"native-uia-selection","windowId":7471826,"name":"M7 PR235 CI953 live expiry break capture","observedOrdinal":1,"expectedMatches":1}
+physicalCursor=2390,192
+{"utc":"2026-10-05T14:12:34.1756695Z","action":"SendInput actual virtual-desktop drag","windowId":7471826,"from":[968,385],"to":[-1000,430],"exeSha256":"bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8"}
+SendInput complete; physical button state verified during hold
+{"utc":"2026-10-05T14:13:44.7814421Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:14:08.4795760Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T14:14:09.6925717Z","action":"native-uia-selection","windowId":7471826,"name":"M7 PR233 CI948 LongListBadge acceptance","observedOrdinal":1,"expectedMatches":1}
+physicalCursor=2400,292
+{"utc":"2026-10-05T14:14:34.6284979Z","action":"os-client-area-animation","request":"normal","before":1,"after":1}

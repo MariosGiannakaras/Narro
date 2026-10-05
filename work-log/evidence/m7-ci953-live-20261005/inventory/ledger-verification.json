@@ -1,0 +1,154 @@
+{
+  "preferencesPayloadRestored": true,
+  "unchangedExistingOwnedTaskIds": [
+    "130dde4e-d723-4733-acc0-fb3a0b57adf7",
+    "32fd4eee-8543-4cc1-9f63-39b44ba89178",
+    "2594ad65-09d6-4409-b187-e39d3b9f572c",
+    "a2852baa-6e71-43cb-b327-be302c594f77",
+    "52427643-507d-4212-bfb3-b3f5950dd3e1",
+    "a43e74a6-23d1-4566-a74c-e61f1444460f",
+    "40f3a219-3817-48f6-8360-8ef3b60ee287",
+    "54611a1e-feed-4a4b-92d9-1679b1b480bf"
+  ],
+  "newTasksRetainedCompleted": [
+    {
+      "task": {
+        "id": "d8a49994-5266-4d8c-9689-c6ded7a5633b",
+        "list_id": "0ef952b4-6283-4b83-8fec-dfe488af3995",
+        "title": "M7 PR235 CI953 live A expiry extend complete",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-05T13:59:34.500Z"
+      },
+      "sessions": [
+        {
+          "id": "a0ee2e64-4d51-4b88-b2c3-7d830f4cd489",
+          "kind": "work",
+          "started_at": "2026-10-05T13:56:53.882Z",
+          "ended_at": "2026-10-05T13:59:34.500Z",
+          "duration_seconds": 76,
+          "source": "focus"
+        }
+      ],
+      "note": null,
+      "closedWorkSeconds": 76
+    },
+    {
+      "task": {
+        "id": "dde789b3-3a16-434b-80cf-34fd620ef713",
+        "list_id": "0ef952b4-6283-4b83-8fec-dfe488af3995",
+        "title": "M7 PR235 CI953 live B expiry switch",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-05T14:12:38.893Z"
+      },
+      "sessions": [
+        {
+          "id": "00865bf1-edfc-4132-b9cb-fbe0f2f4c182",
+          "kind": "work",
+          "started_at": "2026-10-05T13:59:34.568Z",
+          "ended_at": "2026-10-05T14:01:05.305Z",
+          "duration_seconds": 60,
+          "source": "focus"
+        },
+        {
+          "id": "f8564b00-3549-47a8-9003-35a4ec1a1852",
+          "kind": "work",
+          "started_at": "2026-10-05T14:12:07.937Z",
+          "ended_at": "2026-10-05T14:12:38.893Z",
+          "duration_seconds": 30,
+          "source": "focus"
+        }
+      ],
+      "note": null,
+      "closedWorkSeconds": 90
+    },
+    {
+      "task": {
+        "id": "9bbfa1e8-ef35-4d25-a889-f3ad6524516f",
+        "list_id": "0ef952b4-6283-4b83-8fec-dfe488af3995",
+        "title": "M7 PR235 CI953 live C break workflow",
+        "manual_lane": "today",
+        "sort_rank": 1,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-05T14:10:04.313Z"
+      },
+      "sessions": [
+        {
+          "id": "32153651-7942-4cdf-9720-732de8ade68d",
+          "kind": "work",
+          "started_at": "2026-10-05T14:01:05.305Z",
+          "ended_at": "2026-10-05T14:01:06.117Z",
+          "duration_seconds": 0,
+          "source": "focus"
+        },
+        {
+          "id": "b0145cb8-f2f1-4553-ae12-7335446dd87b",
+          "kind": "break",
+          "started_at": "2026-10-05T14:01:06.117Z",
+          "ended_at": "2026-10-05T14:01:47.575Z",
+          "duration_seconds": 41,
+          "source": "focus"
+        },
+        {
+          "id": "318b66b9-a9a8-493a-8207-98da3e0e3145",
+          "kind": "work",
+          "started_at": "2026-10-05T14:01:47.575Z",
+          "ended_at": "2026-10-05T14:04:12.362Z",
+          "duration_seconds": 35,
+          "source": "focus"
+        },
+        {
+          "id": "c58c544c-3709-4562-8ea1-b26cbc7d29ad",
+          "kind": "break",
+          "started_at": "2026-10-05T14:04:12.362Z",
+          "ended_at": "2026-10-05T14:09:12.362Z",
+          "duration_seconds": 300,
+          "source": "focus"
+        },
+        {
+          "id": "5191a840-2e6e-4cf0-9761-f81557649629",
+          "kind": "work",
+          "started_at": "2026-10-05T14:09:12.362Z",
+          "ended_at": "2026-10-05T14:10:04.313Z",
+          "duration_seconds": 52,
+          "source": "focus"
+        }
+      ],
+      "note": null,
+      "closedWorkSeconds": 87
+    }
+  ],
+  "originalTaskSecondsBeforeAfter": [
+    846,
+    846
+  ],
+  "originalOldSegmentClosedAndNewPausedSession": {
+    "before": {
+      "session_id": "763d0419-98e1-421f-b065-03ad7dd1d51c",
+      "payload_json": "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"95a2466c-a06c-4a41-a2b4-3d1e65b9fa08\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":1800000},\"phase\":\"paused\",\"total_work_ms\":801308,\"interval_work_ms\":801308}}",
+      "updated_at": "2026-10-05T08:29:50.639Z"
+    },
+    "after": {
+      "session_id": "9e190776-2158-4ef4-80c6-50b74090fba7",
+      "payload_json": "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"95a2466c-a06c-4a41-a2b4-3d1e65b9fa08\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":1800000},\"phase\":\"paused\",\"total_work_ms\":326,\"interval_work_ms\":326}}",
+      "updated_at": "2026-10-05T14:14:33.264Z"
+    }
+  },
+  "olderC5FixtureIncidentalWorkDelta": {
+    "taskId": "9d0e80ec-77b7-49e4-b66c-f67ed7818704",
+    "beforeSeconds": 8410,
+    "afterSeconds": 8461,
+    "deltaSeconds": 51,
+    "cause": "success Next Task selected All default first owned fixture",
+    "pausedAndRetained": true
+  },
+  "actualBreakSeconds": [
+    41,
+    300
+  ],
+  "noFixtureDeletionOrClockManipulation": true,
+  "wholeUserDatabaseNotExported": true
+}

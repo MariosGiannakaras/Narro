@@ -1,0 +1,23 @@
+[
+  {
+    "file": "2026-10-05 16-52-15.mkv",
+    "bytes": 132822893,
+    "sha256": "ad51f1d8b6914bc379fb015f43d668ed51666baa1ba58346a57f81102b6495af",
+    "parts": [
+      "2026-10-05 16-52-15.mkv.part001",
+      "2026-10-05 16-52-15.mkv.part002"
+    ],
+    "reassembledByteIdentical": true
+  },
+  {
+    "file": "live-full.mp4",
+    "bytes": 134440444,
+    "sha256": "b23e68bf4c58ee6810deb08492cad64d7128baaeb6e951a776ac9c994d288ba2",
+    "parts": [
+      "live-full.mp4.part001",
+      "live-full.mp4.part002",
+      "live-full.mp4.part003"
+    ],
+    "reassembledByteIdentical": true
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "source": "38219e200fe3bec7309f8e03e72003184ca86d08",
+  "ci": 953,
+  "runId": 37258629373,
+  "artifactId": 11324640580,
+  "exeSha256": "bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8",
+  "runtimePid": 141908,
+  "focusHwnd": 7471826,
+  "mainHwnd": 3213706,
+  "durationSeconds": 1339.617,
+  "canvas": "4480x1080/60fps",
+  "originalAnchorUtc": "2026-10-05T13:52:16.145036+00:00",
+  "offsetUncertaintySeconds": 1,
+  "actions": 130,
+  "obsStopFlushUtc": "2026-10-05T14:14:35.747Z",
+  "obsFramesOutput": 80376,
+  "obsFramesDrawn": 80409,
+  "obsStoppedVerified": true,
+  "wholeMedia": [
+    {
+      "file": "2026-10-05 16-52-15.mkv",
+      "bytes": 132822893,
+      "sha256": "ad51f1d8b6914bc379fb015f43d668ed51666baa1ba58346a57f81102b6495af",
+      "parts": [
+        "2026-10-05 16-52-15.mkv.part001",
+        "2026-10-05 16-52-15.mkv.part002"
+      ],
+      "reassembledByteIdentical": true
+    },
+    {
+      "file": "live-full.mp4",
+      "bytes": 134440444,
+      "sha256": "b23e68bf4c58ee6810deb08492cad64d7128baaeb6e951a776ac9c994d288ba2",
+      "parts": [
+        "live-full.mp4.part001",
+        "live-full.mp4.part002",
+        "live-full.mp4.part003"
+      ],
+      "reassembledByteIdentical": true
+    }
+  ],
+  "noAppSourceEditsTestsBuildsCiOrMerge": true,
+  "separateWipBackupBranch": "wip/m7-async-read-and-evidence-tools-20261005"
+}

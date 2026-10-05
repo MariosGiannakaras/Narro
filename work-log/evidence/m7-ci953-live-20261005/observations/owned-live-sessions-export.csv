@@ -1,0 +1,6 @@
+﻿"Session","Type","Task","List","Started At","Ended At","Duration Seconds","Source"
+"2","work","M7 PR235 CI953 live C break workflow","M7 PR235 CI953 live expiry break capture","2026-10-05T14:01:47.575Z","2026-10-05T14:04:12.362Z","35","focus"
+"","break","M7 PR235 CI953 live C break workflow","M7 PR235 CI953 live expiry break capture","2026-10-05T14:01:06.117Z","2026-10-05T14:01:47.575Z","41","focus"
+"1","work","M7 PR235 CI953 live C break workflow","M7 PR235 CI953 live expiry break capture","2026-10-05T14:01:05.305Z","2026-10-05T14:01:06.117Z","0","focus"
+"1","work","M7 PR235 CI953 live B expiry switch","M7 PR235 CI953 live expiry break capture","2026-10-05T13:59:34.568Z","2026-10-05T14:01:05.305Z","60","focus"
+"1","work","M7 PR235 CI953 live A expiry extend complete","M7 PR235 CI953 live expiry break capture","2026-10-05T13:56:53.882Z","2026-10-05T13:59:34.500Z","76","focus"

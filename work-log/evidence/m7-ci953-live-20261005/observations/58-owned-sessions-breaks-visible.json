@@ -1,0 +1,1419 @@
+{
+  "utc": "2026-10-05T14:06:47.6192056Z",
+  "windows": [
+    {
+      "hwnd": 7471826,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "width": 340,
+        "x": 780,
+        "y": 384,
+        "height": 700
+      },
+      "client": {
+        "width": 340,
+        "x": 780,
+        "y": 384,
+        "height": 700
+      }
+    },
+    {
+      "hwnd": 3213706,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "width": 2576,
+        "x": -8,
+        "y": -8,
+        "height": 1096
+      },
+      "client": {
+        "width": 2560,
+        "x": 0,
+        "y": 23,
+        "height": 1057
+      }
+    },
+    {
+      "hwnd": 3147608,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "Stats",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 659,
+        "x": 388,
+        "y": 380,
+        "height": 284
+      },
+      "client": {
+        "width": 643,
+        "x": 396,
+        "y": 411,
+        "height": 245
+      }
+    },
+    {
+      "hwnd": 3149438,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "visible": true,
+      "dpi": 120,
+      "outer": {
+        "width": 160,
+        "x": -32000,
+        "y": -32000,
+        "height": 28
+      },
+      "client": {
+        "width": 0,
+        "x": -32000,
+        "y": -32000,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 31917974,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 1440,
+        "x": 256,
+        "y": 256,
+        "height": 789
+      },
+      "client": {
+        "width": 1424,
+        "x": 264,
+        "y": 287,
+        "height": 750
+      }
+    },
+    {
+      "hwnd": 58001056,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "width": 18,
+        "x": 0,
+        "y": 0,
+        "height": 18
+      },
+      "client": {
+        "width": 18,
+        "x": 0,
+        "y": 0,
+        "height": 18
+      }
+    },
+    {
+      "hwnd": 3999754,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "width": 18,
+        "x": 0,
+        "y": 0,
+        "height": 18
+      },
+      "client": {
+        "width": 18,
+        "x": 0,
+        "y": 0,
+        "height": 18
+      }
+    },
+    {
+      "hwnd": 855316,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "QTrayIconMessageWindow",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 1920,
+        "x": 0,
+        "y": 52,
+        "height": 789
+      },
+      "client": {
+        "width": 1904,
+        "x": 8,
+        "y": 83,
+        "height": 750
+      }
+    },
+    {
+      "hwnd": 51383936,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 19728344,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 12388248,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 2624704,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "GDI+ Window (obs64.exe)",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 1,
+        "x": 0,
+        "y": 0,
+        "height": 1
+      },
+      "client": {
+        "width": 1,
+        "x": 0,
+        "y": 0,
+        "height": 1
+      }
+    },
+    {
+      "hwnd": 1248016,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 716,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 700,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 15533366,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 12322702,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 2689190,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 1706498,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 789812,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 8457324,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 23399010,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 1280,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 1264,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 4131038,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 52692826,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 14616554,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 58723782,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 25560262,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 4918566,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 20385722,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 6229424,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 38537128,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 166,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 150,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 3280186,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 1296,
+        "x": 0,
+        "y": 0,
+        "height": 47
+      },
+      "client": {
+        "width": 1280,
+        "x": 8,
+        "y": 31,
+        "height": 8
+      }
+    },
+    {
+      "hwnd": 47122130,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 1920,
+        "x": 0,
+        "y": 26,
+        "height": 789
+      },
+      "client": {
+        "width": 1904,
+        "x": 8,
+        "y": 57,
+        "height": 750
+      }
+    },
+    {
+      "hwnd": 27987338,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 1920,
+        "x": 0,
+        "y": 260,
+        "height": 789
+      },
+      "client": {
+        "width": 1904,
+        "x": 8,
+        "y": 291,
+        "height": 750
+      }
+    },
+    {
+      "hwnd": 10029874,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 20252044,
+      "pid": 141908,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 1051492,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 3607970,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 4917624,
+      "pid": 43648,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      },
+      "client": {
+        "width": 0,
+        "x": 0,
+        "y": 0,
+        "height": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "Narro",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "0;23;2560;1057"
+    },
+    {
+      "name": "Narro - Web content",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "0;23;2560;1057"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Document",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "0;23;2560;1057"
+    },
+    {
+      "name": "List navigation",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "0;23;208;1225"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "12;43;183;48"
+    },
+    {
+      "name": "Narro",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "60;48;42;21"
+    },
+    {
+      "name": "Lists",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "12;91;183;149"
+    },
+    {
+      "name": "+ Create new list",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "12;91;183;40"
+    },
+    {
+      "name": "All my lists",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "12;156;183;40"
+    },
+    {
+      "name": "Archived lists",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "12;200;183;40"
+    },
+    {
+      "name": "Utilities",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2352;34;173;41"
+    },
+    {
+      "name": "Search",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2352;34;81;41"
+    },
+    {
+      "name": "Settings",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2440;34;85;41"
+    },
+    {
+      "name": "← BACK",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "256;133;59;38"
+    },
+    {
+      "name": "Reports",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "328;137;86;30"
+    },
+    {
+      "name": "+ Add Session",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2250;135;135;34"
+    },
+    {
+      "name": "Export .csv",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2392;135;105;34"
+    },
+    {
+      "name": "Reports",
+      "type": "ControlType.Tab",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "256;191;239;42"
+    },
+    {
+      "name": "Overview",
+      "type": "ControlType.TabItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "261;196;96;32"
+    },
+    {
+      "name": "Sessions BETA",
+      "type": "ControlType.TabItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "361;196;129;32"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "256;251;366;38"
+    },
+    {
+      "name": "Filter Sessions by list",
+      "type": "ControlType.List",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "256;295;210;404"
+    },
+    {
+      "name": "All Lists",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "263;302;196;34"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "263;336;196;34"
+    },
+    {
+      "name": "M7 CI944 acceptance",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "263;370;196;50"
+    },
+    {
+      "name": "M7 PR233 CI948 LongListBadge acceptance",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "263;420;196;74"
+    },
+    {
+      "name": "M7 PR233 CI948 archive fixture",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "263;494;196;50"
+    },
+    {
+      "name": "M7 PR234 CI950 renamed queue acceptance",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "263;544;196;74"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.ListItem",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "263;618;196;74"
+    },
+    {
+      "name": "Hide Break sessions",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "633;249;179;42"
+    },
+    {
+      "name": "Sep 05, 2026 – Oct 05, 2026",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;251;252;38"
+    },
+    {
+      "name": "Total Time",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "273;330;50;15"
+    },
+    {
+      "name": "3min",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "273;357;43;24"
+    },
+    {
+      "name": "Total Tasks",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1024;330;52;15"
+    },
+    {
+      "name": "3",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1024;357;11;24"
+    },
+    {
+      "name": "Total Sessions",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1775;330;68;15"
+    },
+    {
+      "name": "5",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1775;357;11;24"
+    },
+    {
+      "name": "Oct 05, 2026",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "273;428;65;16"
+    },
+    {
+      "name": "5",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2431;428;7;16"
+    },
+    {
+      "name": " ",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2437;428;4;16"
+    },
+    {
+      "name": "sessions",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2440;428;40;16"
+    },
+    {
+      "name": "M7 PR235 CI953 live C break workflow",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "269;468;219;17"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "283;490;183;15"
+    },
+    {
+      "name": "Session 02",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1976;478;52;16"
+    },
+    {
+      "name": "Oct 05, 2026",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2060;478;62;16"
+    },
+    {
+      "name": "5:01 PM",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2160;478;40;16"
+    },
+    {
+      "name": "5:04 PM",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2268;471;54;31"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2413;478;27;16"
+    },
+    {
+      "name": "Session actions for M7 PR235 CI953 live C break workflow",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2448;469;32;35"
+    },
+    {
+      "name": "Break",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "269;526;33;17"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "283;548;183;15"
+    },
+    {
+      "name": "Break",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1976;536;27;16"
+    },
+    {
+      "name": "Oct 05, 2026",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2060;536;62;16"
+    },
+    {
+      "name": "5:01 PM",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2160;536;40;16"
+    },
+    {
+      "name": "5:01 PM",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2268;529;54;31"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2413;536;27;16"
+    },
+    {
+      "name": "Session actions for Break",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2448;527;32;35"
+    },
+    {
+      "name": "M7 PR235 CI953 live C break workflow",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "269;584;219;17"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "283;606;183;15"
+    },
+    {
+      "name": "Session 01",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1976;594;52;16"
+    },
+    {
+      "name": "Oct 05, 2026",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2060;594;62;16"
+    },
+    {
+      "name": "5:01 PM",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2160;594;40;16"
+    },
+    {
+      "name": "5:01 PM",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2268;587;54;31"
+    },
+    {
+      "name": "0min",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2413;594;27;16"
+    },
+    {
+      "name": "Session actions for M7 PR235 CI953 live C break workflow",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2448;585;32;35"
+    },
+    {
+      "name": "M7 PR235 CI953 live B expiry switch",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "269;642;206;17"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "283;664;183;15"
+    },
+    {
+      "name": "Session 01",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1976;652;52;16"
+    },
+    {
+      "name": "Oct 05, 2026",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2060;652;62;16"
+    },
+    {
+      "name": "4:59 PM",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2160;652;40;16"
+    },
+    {
+      "name": "5:01 PM",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2268;645;54;31"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2413;652;27;16"
+    },
+    {
+      "name": "Session actions for M7 PR235 CI953 live B expiry switch",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2448;643;32;35"
+    },
+    {
+      "name": "M7 PR235 CI953 live A expiry extend complete",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "269;700;265;17"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "283;722;183;15"
+    },
+    {
+      "name": "Session 01",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1976;710;52;16"
+    },
+    {
+      "name": "Oct 05, 2026",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2060;710;62;16"
+    },
+    {
+      "name": "4:56 PM",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2160;710;40;16"
+    },
+    {
+      "name": "4:59 PM",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2268;703;54;31"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2413;710;27;16"
+    },
+    {
+      "name": "Session actions for M7 PR235 CI953 live A expiry extend complete",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2448;701;32;35"
+    },
+    {
+      "name": "Primary",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "208;1192;2337;56"
+    },
+    {
+      "name": "Home",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1244;1201;129;40"
+    },
+    {
+      "name": "Reports",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1380;1201;129;40"
+    }
+  ]
+}

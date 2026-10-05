@@ -1,0 +1,47 @@
+[
+  {
+    "milestone": "M1",
+    "disposition": "Native dual topology/context and actual100/125 cross drags; no quiet performance/sleep/cable acceptance.27 FAIL remains.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M2",
+    "disposition": "SCOPED owned identities preserved; 3 newly created completed retained fixtures, existing ordinary fixture semantics unchanged except explicit segment lifecycle. No whole-db claim.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M3",
+    "disposition": "SCOPED ledger corroboration: A76/B90/C87work seconds, C41+300break, actual expiry and paused restoration; original846 preserved; oldC5+51 explicit. Full runtime acceptance unchanged.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M4",
+    "disposition": "No new scheduling/recurrence exercise.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M5",
+    "disposition": "Owned list/task creation with invalidEST error then valid H:MM:SS correction; Main live/complete transitions. Source/motion OPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M6",
+    "disposition": "Owned list/live selection, PanelTimeUp/Skip, completion/queue; selection reset across presentations36 REVIEW_PENDING. Source/motion OPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M7",
+    "disposition": "Actual running/pause/resume/compact/expanded, two realEST expiries, Extend/overtime/Done/Skip; manualBreak41s and naturalBreak300s, successnormal/reduced100.35 observedFAIL,37 TakeBreak OPEN; C4 remainsOPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M8",
+    "disposition": "Real defaultBreak10→5→10 and celebrationoff→on→off/FunGIFoff→on→off, semantic preference payload restored; full source/acceptance OPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M9",
+    "disposition": "Real owned live-origin work/break Reports/tooltip/Sessions filters and actualCSV5rows during capture; final ledger retained. Canonical/detail/full visual acceptance OPEN.",
+    "evidence": "chronological-actions.csv; observations; inventory/ledger-verification.json"
+  }
+]

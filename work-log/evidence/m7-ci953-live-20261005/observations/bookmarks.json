@@ -1,0 +1,38 @@
+[
+  {
+    "utc": "2026-10-05T13:58:52.8803478Z",
+    "action": "bookmark",
+    "id": 35,
+    "disposition": "REVIEW_PENDING",
+    "observation": "A domain checkpoint time_up/60000ms at13:58:13Z while expanded Timer provider retains00:00/Pause/Task resumed with no Time Up actions. Native pixels captured; actual Panel re-entry will test recovery; no source correction during capture.",
+    "originalApproxSeconds": 396.735,
+    "evidenceInput": "actions.jsonl:24"
+  },
+  {
+    "utc": "2026-10-05T14:00:41.7166008Z",
+    "action": "bookmark",
+    "id": 35,
+    "disposition": "OBSERVED_FAIL_PENDING_FULL_REVIEW",
+    "observation": "Domain time_up60000ms at13:58:13Z, expanded Timer still00:00/Pause/Task resumed at13:58:53Z, Main live cardTime Up. Actual Return Panel recoversTime Up. Recording/native pixels/checkpoint retained; no source fix. Panel re-entry also returned Focus selectorAll; reselected owned list before Done to prevent unrelated task autostart.",
+    "originalApproxSeconds": 505.572,
+    "evidenceInput": "actions.jsonl:29"
+  },
+  {
+    "utc": "2026-10-05T14:11:46.5315101Z",
+    "action": "bookmark",
+    "id": 36,
+    "disposition": "REVIEW_PENDING",
+    "observation": "C success Next Task chose older owned M7 C5 CI873 fixture9d0e80ec rather than owned-list B after presentation returned selectorAll. Actual Pause recovery; retains documented incidental work delta; no ordinary user task edit/no data reset.",
+    "originalApproxSeconds": 1170.386,
+    "evidenceInput": "actions.jsonl:60"
+  },
+  {
+    "utc": "2026-10-05T14:13:43.2572278Z",
+    "action": "bookmark",
+    "id": 37,
+    "disposition": "OPEN_EXISTING_INCOMPLETE_SURFACE",
+    "observation": "Enabled success screen C reduced100 and B normal: Take a Break is disabled and visible text says timer/session transition not established. Do not close acceptance. B pre-completionTimer125 relocates to actual100% success atUltraRight; no125 success geometry PASS inferred.",
+    "originalApproxSeconds": 1287.112,
+    "evidenceInput": "actions.jsonl:66"
+  }
+]
