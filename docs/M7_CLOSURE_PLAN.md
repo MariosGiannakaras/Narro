@@ -2,7 +2,11 @@
 
 Status: current executable closure controller for Milestone 7.
 
-## Current CI948 closure overlay
+## Current CI950 closure overlay
+
+Exact source704763e2 / CI950 / EXEc9189a75 has now been physically exercised. Actual lane Move and stable identity/time ledgers close writer19 and re-close M2; M1–M4 are complete. Catalog22 refresh/recovery is scoped PASS. Long-queue vertical/end/last-menu/Tab access passes at100%/125%; horizontal/unbroken-title bounds remain open. Native internal drag24 fails with both confirmed-padding legacy and verified SendInput inputs. Retained menu25 functions, but disabled metadata paints above it: new26 FAIL/FIX_NOW. Compare scoped Pointer Events internal drag against HTML5/OLE, correct menu stacking and add meaningful rendered regressions before one consolidated validation/build. [Exact results, evidence and alternatives](../work-log/2026-10-05-codex-m7-ci950-physical-results.md). C1–C3/C5 remain accepted; C4 OPEN. **4/10M ||4/5 |14/19**; M10 blocked; optional M11 dormant.
+
+## Historical CI948 / pre-CI950 closure overlay
 
 C1–C3 PASS preserved; C5 formally **PASS**, with exact948 actual2334px mixed-DPI drag/Quit/same-EXE paused restore and unchanged accepted936/942 platform/performance. C4 remains OPEN for catalog22/queue23, insufficient07 loading observation and affected integrated acceptance.09 bounded wrapped tooltip and18 native modal defaults PASS. Writer19 actual lane Move and M5 source menu25/native drag24 acceptance remain narrow affected dependencies. [Whole results/media and post-session matrix](../work-log/2026-10-04-codex-m7-ci948-physical-results.md). PR234 revisedhead704763e2,21 files+501/-85 corrects the subsequently confirmed retained-card discrepancy. Full frontend/20 visual families/50 editor cases and final settled four variants PASS; exactCI950/run37237592915 PASS; guarded main2c194ffb non-Markdown equivalent, verified artifact11315904440 EXEc9189a75... awaiting physical checks. Duplicate951 cancelled with proof. Initial949 PASS is historical. Apply current adaptive capture policy28637a12; no rigid recorder/one-segment requirement. Guarded integration then one affected physical/source batch; no general native re-audit. **3/10M ||4/5 |14/19**; M10 blocked.
 

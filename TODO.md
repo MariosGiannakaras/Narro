@@ -2,7 +2,20 @@
 
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
-## Current — CI948 physical evidence and one corrective batch
+## Current — CI950 native results and scoped remediation
+
+Exact CI950/704763e2 / EXEc9189a75 was physically exercised. [Results and post-session M1–M9 matrix](work-log/2026-10-05-codex-m7-ci950-physical-results.md); [whole recordings/logs/probes](work-log/evidence/m7-ci950-20261005/README.md). Writer19 actual lane Move plus stable-ID/time ledgers re-closes M2 Gate B; catalog22 has scoped native PASS. Long-queue wheel/Ctrl+End/last-menu/Tab access passes100%/125%, but horizontal-provider/long-title bounds still require reproduction. Native internal drag24 fails both legacy and verified SendInput methods from confirmed padding to empty lane. Retained Delete grammar/metadata functions, but disabled metadata paints above the menu: new26 FAIL/FIX_NOW. Compare a scoped Pointer Events internal-drag solution against current HTML5/OLE; preserve stable-ID positional authority and keyboard moves. Add rendered occlusion and actual unbroken-title regressions before the next consolidated build. No further speculative native-handler toggles.
+
+Current **4/10M ||4/5 |14/19**: completed M1–M4; M7 C1–C3/C5 accepted, C4 OPEN. M10 blocked; optional M11 dormant. OBS stopped. CI950 process remains paused/alive; both physical displays active, Main maximized on primary and Focus Panel on secondary125%. The user normally quit the old948 process; ordinary version changes should use targeted commands/automation, reserving formal actual tray Quit for C5. No new quiet-performance/cable/sleep-wake claim.
+
+- [x]19 actual owned Today→This Week Move, stable identity/time and prior applicable writer proofs complete narrow M2 reopening.
+- [x]22 scoped committed catalog refresh/recovery with the same Focus host; whole M6/source remains open.
+- [ ]23 horizontal bounds/long unbroken titles; retain sufficient vertical/input100%/125% PASS.
+- [ ]24 native drag path reassessment and physically compare scoped alternative using the same acceptance.
+- [ ]26 menu painting ownership correction and actual unobscured native/source retest;25 grammar/metadata alone is insufficient.
+- [ ]07 delayed quick-create, reduced metric20, remaining title/tooltip/entry/source acceptance remain open where not exercised.
+
+## Previous CI948 / pre-CI950 checkpoint
 
 Exact resulting-main CI948 source28e840f50d0888ab86801efc36fff76c6e8e74aa / EXE0914b4c983d91c1e7de3937be53cf2f226e49c8049143469732499bccd932aa3 is physically tested. Native modal defaults18 PASS; writer19 owned CRUD/reorder/delete scope PASS, actual lane Move acceptance OPEN; metrics20 normal125% PASS, reduced physical edit OPEN; title21 partial PASS blocked by inaccessible queue23. Wrapped Notes tooltip09 narrow PASS. Actual C5 qualifying2334px cross-DPI drag, normal tray Quit, same EXE new process, paused exact(-1504,598) Timer restore PASS; formal C5 tracking now reconciled. Existing936/942 platform/performance acceptance is unchanged and reused. **M7 C1–C3/C5 PASS, C4 OPEN:4/5. Completed milestones M1/M3/M4 only:3/10M ||4/5 |14/19.** M10 hard entry remains blocked.
 
@@ -143,7 +156,7 @@ Goal: establish durable task/list/session behavior before UI complexity.
 
 - [x] Define IDs and schema for lists, tasks, subtasks, notes, recurrence rules, reminders, sessions, preferences, and archived entities.
 - [x] Implement list CRUD, ordering, archive, restore, permanent deletion.
-- [ ] Reopened narrow task-writer concurrency19: existing CRUD/planning behavior retains historical PASS, but actual CI944 create fails with database is locked. Reserve the writer before state-dependent reads; controlled competing-writer regression, exact-head Windows CI and physical create/edit/move/duplicate/reorder acceptance required.
+- [x] Revalidated narrow task-writer concurrency19: writer-before-read and controlled two-connection regressions PASS exact CI948/950; actual948 owned create/edit/duplicate/reorder/delete plus950 Today→This Week Move preserve stable IDs/time without lock failure. [Final affected path](work-log/2026-10-05-codex-m7-ci950-physical-results.md). Native drag24 remains separately routed to M5 input acceptance.
 - [x] Implement ordering within planning buckets as position changes on stable task identities.
 - [x] Implement task duplication as a new independent identity/copy.
 - [x] Implement EST, Time Taken, completion timestamp, scheduled date/time, recurrence metadata, and archive state.
@@ -166,7 +179,7 @@ Acceptance criteria:
 - archive/restore preserves history
 - permanent deletion is explicit, tested, and excluded from user-facing reports
 
-**Gate B current result: REOPENED, narrow task-writer concurrency19.** Prior unrelated domain/persistence acceptance remains historical PASS. Physical CI944 task creation lock failure requires controlled competing-writer regression and exact-build retest; preserve persistence-first and identity invariants.
+**Gate B current result: PASS, narrow task-writer concurrency19 re-closed on CI950.** Prior unrelated domain/persistence acceptance retained; actual lane Move completes the affected path with stable identities/time. Historical CI944 lock failure is preserved; no forced physical lock stress is claimed.
 
 ## Milestone 3 — Timer/session engine
 

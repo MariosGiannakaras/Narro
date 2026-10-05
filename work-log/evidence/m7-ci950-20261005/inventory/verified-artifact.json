@@ -1,0 +1,14 @@
+{
+  "ci": 950,
+  "run": 37237592915,
+  "source": "704763e20c3543729902a52acc30278773b003de",
+  "integratedMain": "2c194ffbd79c253508e8b3baee75c85c57c4e0d2",
+  "nonMarkdownDiffCount": 0,
+  "artifactId": 11315904440,
+  "artifactArchiveSha256": "e89d66b7aa78988a0832f033514d56e4aefaf1f2a3327a3787ace30ecb0d8319",
+  "exe": "E:\\SystemFiles\\Desktop\\NarroUpload\\artifacts\\m7-pr234-ci950\\candidate\\narro-m7-validation.exe",
+  "exeBytes": 15250944,
+  "exeSha256": "c9189a754116010d24e9b22af12ea35f27924029f943b1c9c57faa818321ee72",
+  "launched": false,
+  "nativeAcceptance": "PENDING"
+}

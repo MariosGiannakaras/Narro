@@ -2,6 +2,22 @@
 
 # Audit → implementation crosswalk
 
+## Current CI950 native disposition — 2026-10-05
+
+[Full results, exact source and post-session M1–M9 matrix](../work-log/2026-10-05-codex-m7-ci950-physical-results.md). These current scoped dispositions supersede older open labels without rewriting historical evidence.
+
+| Finding | Current evidence and route |
+| --- | --- |
+|19 / M2 writer|Actual950 lane Move plus stable identity/time completes prior948 CRUD/reorder and exact-CI competing-writer proof. **PHYSICAL_PASS / M2 re-closed**; no forced physical lock stress.|
+|22 catalog|All six owned committed list operations exercised with persistent Focus; immediate create/rename/duplicate/restore updates and selected-archive fallback. **SCOPED PHYSICAL_PASS**; whole M6/source remains open. Final archived permanent-delete event delivery independently covered by rendered regression.|
+|23 queue|Wheel/Ctrl+End/last-row menu and Tab access100%/125% **SCOPED PHYSICAL_PASS**. Horizontal-provider metric and actual unbroken-title bounds **VALIDATION_OPEN**; no whole source claim.|
+|24 / P3-M5-03 drag|Confirmed padding→empty-lane drag fails with legacy and verified SendInput. Initial small-atlas task-lift interpretation is unsubstantiated by clearer frames. **FAIL / REASSESS_SCOPED_INPUT_COMPOSITION**: compare Pointer Events internal drag against current HTML5/OLE using identical acceptance; stable-ID positional/domain and keyboard authority retained.|
+|25 / P3-M5-04 delete|Retained menu/trash/Confirm/X, Cancel, explicit owned deletion, metadata/geometry retention are functional. No whole source PASS because26 occludes the menu.|
+|M7-OBS-20261005-26 menu paint|Disabled underlying metadata paints above transformed menu rail in native footage, unlike opaque/unobscured VE00618s. **FAIL / FIX_NOW M5**: rendered top-hit assertions and scoped explicit stacking ownership; portal alternative considered if scoped correction is insufficient.|
+|M8 display preference|Selection persists; currently-visible Panel moves to LG125% on presentation reentry. Actual behavior recorded for existing Preferences/source acceptance; no unverified immediate-apply requirement or unrelated M8 implementation.|
+
+Current **4/10M ||4/5 |14/19**. M10 hard entry blocked; optional M11 dormant.
+
 Status: **ACTIVE / authoritative implementation-routing companion**
 
 Created: 2026-09-28

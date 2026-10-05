@@ -1,5 +1,11 @@
 # STATUS.md
 
+## 2026-10-05 — CI950 native batch; M2 re-closed; drag/menu corrections open
+
+Exact704763e2/CI950/EXEc9189a75 exercised on both real displays. Actual lane Move completes writer19 and re-closes M2; catalog22 refresh/selection recovery and vertical queue/last-menu keyboard access100%/125% have sufficient scoped evidence. Native drag24 still fails from confirmed padding to empty lane using two input mechanisms. Retained Delete grammar/metadata works, but disabled metadata occludes the menu (new26). Horizontal-provider bounds need a rendered unbroken-title reproduction. [Detailed evidence, limits and scoped alternatives](work-log/2026-10-05-codex-m7-ci950-physical-results.md); [whole media/current logs](work-log/evidence/m7-ci950-20261005/README.md). No whole source-parity or C4 PASS. Current **4/10M ||4/5 |14/19**; M10 blocked, M11 dormant. OBS stopped; new process133416 remains paused/alive. Old948 was normally quit by the user. Use targeted commands/automation for ordinary version changes; actual tray Quit belongs to formal C5 acceptance.
+
+Next coherent source slice: compare Pointer Events internal task drag against ineffective HTML5/OLE, keeping current positional transaction/keyboard authority; correct menu stacking ownership and reproduce actual long unbroken tooltip bounds. A scoped z-order correction is preferred to moving every menu into a portal if it satisfies the same painting/focus acceptance. Do not begin unrelated milestone work or another build before the implementation batch is complete.
+
 Last updated: 2026-10-05
 
 ## Optional M11 policy — dormant / user activation required

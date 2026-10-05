@@ -1,0 +1,19 @@
+{
+  "before": "ledger-three-created.json",
+  "writerAcceptanceAfter": "ledger-after-lane-move.json",
+  "retainedIdentitiesBeforeDuplication": 10,
+  "removedGammaIdentity": "3f3abc73-3f08-415c-9d21-5ccf2e7a61cb",
+  "retainedSessionsAndTimeUnchanged": true,
+  "betaSameIdentityLaneMove": "today -> this_week",
+  "catalogFinalSnapshot": "ledger-after-copy-deleted.json",
+  "catalogIdentityCorrection": "The deleted same-named owned list was the original; its independent duplicate with two new task IDs survives. The filename after-copy-deleted is an input label, not proof of list identity.",
+  "originalTaskIdsDeletedWithOwnedList": [
+    "40029469-380e-4fa4-8763-aec2b6bd7ebd",
+    "efc546c9-3c82-4823-a93c-ab39b8a881f4"
+  ],
+  "independentDuplicateTaskIdsRetained": [
+    "40f3a219-3817-48f6-8360-8ef3b60ee287",
+    "54611a1e-feed-4a4b-92d9-1679b1b480bf"
+  ],
+  "allOlderOwnedSessionTimeUnchanged": true
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "fileName": "2026-10-05 04-30-36.mkv",
+    "bytes": 51069250,
+    "sha256": "6f3103226387418f9ce3fddd40810886cf457cb61146d48902c6cf6ad5bdf12c",
+    "parts": [
+      {
+        "file": "video-originals/2026-10-05 04-30-36/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "19bb9b5ffc9c3660f089ea6fd04b91118b6443eab0dbc2d0eb347f058a4bf1af"
+      },
+      {
+        "file": "video-originals/2026-10-05 04-30-36/part-002.bin",
+        "bytes": 9126210,
+        "sha256": "722663277c44d3061d865d050b6d1ba97b45327051294d3d87b4f345baef6839"
+      }
+    ]
+  },
+  {
+    "fileName": "2026-10-05 04-37-09.mkv",
+    "bytes": 162177243,
+    "sha256": "69afd765812d8eae20282ae06f658fdd67c1959bb56e5a91e61962c29a980fb8",
+    "parts": [
+      {
+        "file": "video-originals/2026-10-05 04-37-09/part-001.bin",
+        "bytes": 41943040,
+        "sha256": "d062377b8e01ed111fe1c4b0efef58528b78ada669c99be4134836f239013e84"
+      },
+      {
+        "file": "video-originals/2026-10-05 04-37-09/part-002.bin",
+        "bytes": 41943040,
+        "sha256": "6a56954752a1720485eda30c0d3c438de0fa58907be581ad3fc3850ca3e60bae"
+      },
+      {
+        "file": "video-originals/2026-10-05 04-37-09/part-003.bin",
+        "bytes": 41943040,
+        "sha256": "b9245668b771ab54dee62fb7414fc428543947655194036ec9df996df116342f"
+      },
+      {
+        "file": "video-originals/2026-10-05 04-37-09/part-004.bin",
+        "bytes": 36348123,
+        "sha256": "baf6aae1439509267565943e3c3cba0432da08d0a59d574f48112ec1392bb18f"
+      }
+    ]
+  },
+  {
+    "fileName": "2026-10-05 05-01-35.mkv",
+    "bytes": 2935752,
+    "sha256": "d53e412c2aa3e11f0422b5e6476d5c66376e2c18156ab33eea73cc632017be52",
+    "parts": [
+      {
+        "file": "video-originals/2026-10-05 05-01-35/part-001.bin",
+        "bytes": 2935752,
+        "sha256": "d53e412c2aa3e11f0422b5e6476d5c66376e2c18156ab33eea73cc632017be52"
+      }
+    ]
+  },
+  {
+    "fileName": "2026-10-05 05-08-08.mkv",
+    "bytes": 14609241,
+    "sha256": "373fbf3bf2bed3c9f8525c334f501f458f5a16c12dc1de1cd1e1c7e611ec0238",
+    "parts": [
+      {
+        "file": "video-originals/2026-10-05 05-08-08/part-001.bin",
+        "bytes": 14609241,
+        "sha256": "373fbf3bf2bed3c9f8525c334f501f458f5a16c12dc1de1cd1e1c7e611ec0238"
+      }
+    ]
+  }
+]

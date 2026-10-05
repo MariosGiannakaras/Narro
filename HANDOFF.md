@@ -1,4 +1,10 @@
-# HANDOFF — CI948 reviewed; batched22–25 correction next
+# HANDOFF — CI950 native results; scoped drag/menu correction next
+
+## Current CI950 physical checkpoint — 2026-10-05
+
+[Exact results and M1–M9 reuse](work-log/2026-10-05-codex-m7-ci950-physical-results.md); [whole originals/current Narro-M7-Logs](work-log/evidence/m7-ci950-20261005/README.md). Source704763e2/CI950, EXEc9189a75; process133416/Main19727316/Focus4064974. OBS recording is stopped. Main is maximized on primary100%; same Focus host is on LG125% at(-425,0),425×875. Task95a2466c remains paused, same801308ms/846s ledger total. No new C5 acceptance inferred from launch recovery. Ordinary version changes use targeted command/automation; the user normally quit old948.
+
+M2 writer19 re-closed after actual Move; M1–M4 complete. Catalog22 scoped native PASS; queue vertical/end/last-menu/Tab100%/125% sufficient. Horizontal metric/unbroken titles unresolved. Native drag24 failed from confirmed padding to empty lane with legacy and verified SendInput inputs; clearer frames do not confirm initial atlas lift interpretation. Menu25 retains grammar/metadata but new26 painting FAIL requires explicit rail stacking and rendered occlusion assertions. Compare scoped Pointer Events internal task drag to HTML5/OLE, preserving authoritative commit/keyboard identity semantics. Finish that source batch before one consolidated validation/build. Current **4/10M ||4/5 |14/19**, M10 blocked, M11 dormant.
 
 ## OPTIONAL M11 — DORMANT / NOT AUTHORIZED
 

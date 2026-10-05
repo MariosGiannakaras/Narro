@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Notes",
+    "bounds": "2372;461;158;33",
+    "offscreen": false,
+    "enabled": true
+  },
+  {
+    "name": "Schedule",
+    "bounds": "2372;493;158;33",
+    "offscreen": false,
+    "enabled": true
+  },
+  {
+    "name": "Permanently delete",
+    "bounds": "2372;525;158;33",
+    "offscreen": false,
+    "enabled": true
+  }
+]
