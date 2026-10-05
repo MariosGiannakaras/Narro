@@ -13,6 +13,7 @@ const [
   lib,
   domain,
   api,
+  diagnosticApi,
   runtime,
   sections,
   themePanel,
@@ -39,6 +40,7 @@ const [
   read("src-tauri/src/lib.rs"),
   read("src-tauri/src/domain/preferences.rs"),
   read("src/preferencesApi.ts"),
+  read("src/diagnosticApi.ts"),
   read("src/PreferenceSettingsRuntime.tsx"),
   read("src/PreferenceSettingsSections.tsx"),
   read("src/ThemeSettingsPanel.tsx"),
@@ -91,10 +93,10 @@ for (const needle of [
   invariant(api.includes(needle), `renderer Preferences API is missing ${needle}`);
 }
 invariant(
-  api.includes("parsePersistedMonitorName")
-    && api.includes("const compatible = monitors.filter")
-    && api.includes("compatible.length === 1")
-    && api.includes("findSelectedMonitor"),
+  diagnosticApi.includes("parsePersistedMonitorName")
+    && diagnosticApi.includes("const compatible = monitors.filter")
+    && diagnosticApi.includes("compatible.length === 1")
+    && diagnosticApi.includes("findSelectedMonitor"),
   "monitor selection must preserve physical-display identity across DPI/work-area descriptor changes",
 );
 invariant(
