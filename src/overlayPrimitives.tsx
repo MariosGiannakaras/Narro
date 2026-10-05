@@ -72,16 +72,21 @@ export function Tooltip({
     const place = () => {
       const bounds = boundary.getBoundingClientRect();
       const origin = anchor.getBoundingClientRect();
-      const inset = 4;
+      // Rects include ancestor zoom/scale; offsetWidth and CSS insets do not.
+      // Keep one coordinate system so a mixed-scale row cannot enlarge its
+      // scroll container with even a closed, mounted tooltip.
+      const scale = boundary.offsetWidth > 0 && bounds.width > 0
+        ? bounds.width / boundary.offsetWidth : 1;
+      const inset = 4 * scale;
       // The bound is for the complete tooltip, including its padding/border.
       // Focus rows do not inherit the planning board's border-box reset.
       tooltip.style.boxSizing = "border-box";
-      tooltip.style.maxWidth = `${Math.max(0, bounds.width - 2 * inset)}px`;
-      const width = tooltip.offsetWidth;
+      tooltip.style.maxWidth = `${Math.max(0, (bounds.width - 2 * inset) / scale)}px`;
+      const width = tooltip.offsetWidth * scale;
       const preferred = align === "start" ? origin.left
         : align === "end" ? origin.right - width : origin.left + (origin.width - width) / 2;
       const left = Math.max(bounds.left + inset, Math.min(preferred, bounds.right - inset - width));
-      tooltip.style.insetInlineStart = `${left - origin.left}px`;
+      tooltip.style.insetInlineStart = `${(left - origin.left) / scale}px`;
       tooltip.style.insetInlineEnd = "auto";
       tooltip.style.setProperty("--tooltip-translate-x", "0px");
     };
@@ -255,13 +260,15 @@ export interface MenuItemProps {
   disabled?: boolean;
   destructive?: boolean;
   onSelect: () => void;
+  closeOnSelect?: boolean;
 }
 
-export function MenuItem({ children, disabled = false, destructive = false, onSelect }: MenuItemProps) {
+export function MenuItem({ children, disabled = false, destructive = false, onSelect, closeOnSelect = true }: MenuItemProps) {
   return (
     <button
       type="button"
       role="menuitem"
+      data-menu-close-on-select={closeOnSelect ? "true" : "false"}
       className="overlay-menu__item motion-interactive"
       data-destructive={destructive ? "true" : "false"}
       disabled={disabled}
@@ -275,9 +282,12 @@ export function MenuItem({ children, disabled = false, destructive = false, onSe
   );
 }
 
-export interface MenuProps extends BaseOverlayProps {}
+export interface MenuProps extends BaseOverlayProps {
+  onDismiss?: () => void;
+  dismissDisabled?: boolean;
+}
 
-export function Menu({ triggerLabel, trigger, children, align = "start" }: MenuProps) {
+export function Menu({ triggerLabel, trigger, children, align = "start", onDismiss, dismissDisabled = false }: MenuProps) {
   const menuId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const rootRef = useRef<HTMLSpanElement>(null);
@@ -298,7 +308,9 @@ export function Menu({ triggerLabel, trigger, children, align = "start" }: MenuP
   };
 
   const closeAndRestoreFocus = () => {
+    if (dismissDisabled) return;
     setOpen(false);
+    onDismiss?.();
     triggerRef.current?.focus();
   };
 
@@ -306,14 +318,15 @@ export function Menu({ triggerLabel, trigger, children, align = "start" }: MenuP
     if (!open) return;
 
     const onPointerDown = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) {
+      if (!dismissDisabled && !rootRef.current?.contains(event.target as Node)) {
         setOpen(false);
+        onDismiss?.();
       }
     };
 
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, [open]);
+  }, [open, dismissDisabled, onDismiss]);
 
   const onMenuKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const items = Array.from(
@@ -328,7 +341,9 @@ export function Menu({ triggerLabel, trigger, children, align = "start" }: MenuP
     }
 
     if (event.key === "Tab") {
+      if (dismissDisabled) { event.preventDefault(); return; }
       setOpen(false);
+      onDismiss?.();
       return;
     }
 
@@ -383,7 +398,8 @@ export function Menu({ triggerLabel, trigger, children, align = "start" }: MenuP
         data-open={open ? "true" : "false"}
         onClick={(event) => {
           const target = event.target as HTMLElement;
-          if (target.closest('[role="menuitem"]:not(:disabled)')) {
+          const item = target.closest('[role="menuitem"]:not(:disabled)');
+          if (item && item.getAttribute("data-menu-close-on-select") !== "false") {
             closeAndRestoreFocus();
           }
         }}

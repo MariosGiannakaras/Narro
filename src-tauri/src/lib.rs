@@ -1815,6 +1815,7 @@ fn build_main_window(app_handle: &tauri::AppHandle) -> CommandResult<tauri::Webv
     )
     .title("Narro Main")
     .inner_size(800.0, 600.0)
+    .disable_drag_drop_handler()
     .build()
     .map_err(|error| map_window_error(MAIN_WINDOW_LABEL, "create", error))
 }

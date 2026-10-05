@@ -9,6 +9,7 @@ function invariant(condition, message) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const catalog = read("src/useFocusListCatalog.ts");
 const actions = read("src/FocusLiveActions.tsx");
 const metrics = read("src/FocusLiveMetrics.tsx");
 const metricsCss = read("src/focusLiveMetrics.css");
@@ -27,7 +28,7 @@ const pkg = JSON.parse(read("package.json"));
 
 for (const [haystack, needle, label] of [
   [panel, "getListBoardSnapshot", "authoritative planning projection"],
-  [panel, 'invoke<HomeSnapshot>("get_home_snapshot")', "authoritative active-list options"],
+  [catalog, 'invoke<HomeSnapshot>("get_home_snapshot")', "authoritative active-list options"],
   [panel, "connectLiveTimerSessionProjection", "authoritative live timer-session projection"],
   [panel, "applyTimerSessionProjection", "timer revision ordering"],
   [panel, "currentTargetKeyRef.current === expectedTargetKey", "shared projection target-staleness guard"],

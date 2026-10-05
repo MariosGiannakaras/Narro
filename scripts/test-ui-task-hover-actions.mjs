@@ -27,9 +27,6 @@ for (const [haystack, needle, label] of [
   [component, 'data-task-action-position="lane-left"', "fixed lane-left action position"],
   [component, 'data-task-action-position="lane-right"', "fixed lane-right action position"],
   [component, 'data-task-action-position="overflow"', "fixed overflow action position"],
-  [component, '<MenuItem onSelect={actions.onChangeList}>Change List</MenuItem>', "Change List menu action"],
-  [component, '<MenuItem onSelect={actions.onDuplicate}>Duplicate</MenuItem>', "Duplicate menu action"],
-  [component, '<MenuItem destructive onSelect={actions.onDelete}>Delete</MenuItem>', "destructive Delete menu action"],
   [component, "onPointerDown={(event) => event.stopPropagation()}", "pointer action drag isolation"],
   [component, "onClick={action}", "callback-gated pointer action"],
   [board, '"[data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]"', "parent drag-start interactive-control guard including notes and subtasks"],
@@ -137,13 +134,8 @@ for (const forbidden of ["reorderListBoardTask(", "moveListBoardTask(", "setSnap
 }
 
 
-const scheduleIndex = component.indexOf("<MenuItem onSelect={actions.onSchedule}");
-const changeListIndex = component.indexOf("<MenuItem onSelect={actions.onChangeList}");
-const duplicateIndex = component.indexOf("<MenuItem onSelect={actions.onDuplicate}");
-const deleteIndex = component.indexOf("<MenuItem destructive onSelect={actions.onDelete}");
-if (!(scheduleIndex >= 0 && scheduleIndex < changeListIndex && changeListIndex < duplicateIndex && duplicateIndex < deleteIndex)) {
-  throw new Error("Task overflow menu must preserve source-confirmed order: Schedule, Change List, Duplicate, Delete.");
-}
+// Actual menu ordering, retained confirmation, cancellation/failure/retry and
+// task identity are exercised by the rendered m7-integration CI scenario.
 
 for (const forbidden of ["setSnapshot(", "crypto.randomUUID(", "Math.random("]) {
   const changeStart = board.indexOf("const requestTaskChangeList");

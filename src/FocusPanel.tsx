@@ -8,7 +8,7 @@ import { FocusLiveActions, focusModeForTask } from "./FocusLiveActions";
 import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveTitle } from "./FocusLiveTitle";
 import { FocusTaskRowTitle } from "./FocusTaskRowTitle";
-import type { HomeSnapshot } from "./HomeDashboard";
+import { useFocusListCatalog } from "./useFocusListCatalog";
 import {
   completeListBoardTask,
   createListBoardTask,
@@ -336,7 +336,9 @@ export function FocusPanel({
       : { kind: "all" },
   );
   const [board, setBoard] = useState<ListBoardSnapshot | null>(fixtureBoard ?? null);
-  const [lists, setLists] = useState<FocusListOption[]>(fixtureLists ?? []);
+  const { lists, loaded: catalogLoaded, error: catalogError } = useFocusListCatalog(
+    fixtureLists, refreshKey, presentationActive,
+  );
   const [timer, setTimer] = useState<TimerSessionPayload | null>(fixtureTimer);
   const [error, setError] = useState<string | null>(null);
   const [boardReadyTargetKey, setBoardReadyTargetKey] = useState<string | null>(null);
@@ -466,22 +468,11 @@ export function FocusPanel({
   }, [target.kind, target.kind === "list" ? target.id : null]);
 
   useEffect(() => {
-    if (fixtureLists) {
-      setLists(fixtureLists);
-      return;
-    }
-    let disposed = false;
-    void invoke<HomeSnapshot>("get_home_snapshot")
-      .then((home) => {
-        if (!disposed) setLists(home.lists.map((list) => ({ id: list.id, title: list.title })));
-      })
-      .catch((failure: unknown) => {
-        if (!disposed) setError(formatInvokeError(failure));
-      });
-    return () => {
-      disposed = true;
-    };
-  }, [fixtureLists]);
+    if (!catalogLoaded || fixtureMode) return;
+    setTarget((current) => current.kind === "list" && !lists.some(({ id }) => id === current.id)
+      ? { kind: "all" } : current);
+    setAddTaskListId((current) => current && !lists.some(({ id }) => id === current) ? "" : current);
+  }, [catalogLoaded, lists, fixtureMode]);
 
   useEffect(() => {
     if (fixtureMode) {
@@ -582,11 +573,11 @@ export function FocusPanel({
 
   const selectorOptions = useMemo(() => {
     const options = [...lists];
-    if (board?.target.kind === "list" && board.target.id && !options.some((list) => list.id === board.target.id)) {
+    if (!catalogLoaded && board?.target.kind === "list" && board.target.id && !options.some((list) => list.id === board.target.id)) {
       options.push({ id: board.target.id, title: board.target.title });
     }
     return options;
-  }, [board, lists]);
+  }, [board, lists, catalogLoaded]);
 
   const refreshBoard = async (): Promise<ListBoardSnapshot> => {
     const refreshed = await getListBoardSnapshot(target);
@@ -899,7 +890,8 @@ export function FocusPanel({
         </div>
       </section>
 
-      <section className="focus-panel__queue" aria-label="Focus queue">
+      <section className="focus-panel__queue" aria-label="Focus queue" tabIndex={0}>
+        {catalogError ? <p className="focus-panel__action-error type-metadata" role="alert">{catalogError}</p> : null}
         {liveTask ? (
           <article
             className="focus-panel__live-card"

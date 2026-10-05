@@ -137,7 +137,10 @@ function Fixture() {
 }
 const root = find<HTMLElement>("#root");
 const result: Record<string, unknown> = {theme, scenario, reducedMotion};
-if (scenario === "shortcut-modal") {
+if (scenario === "m7-integration") {
+  const { runM7IntegrationRegression } = await import("./m7IntegrationRegression");
+  Object.assign(result, await runM7IntegrationRegression(root));
+} else if (scenario === "shortcut-modal") {
   const { runShortcutModalRegression } = await import("./shortcutModalRegression");
   Object.assign(result, await runShortcutModalRegression(root));
 } else {

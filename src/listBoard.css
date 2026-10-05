@@ -636,17 +636,16 @@
 }
 
 .list-board-task__delete-confirm {
-  position: absolute;
-  inset-inline-end: 0;
-  top: 50%;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 1.75rem;
   gap: var(--space-1);
-  width: 6.25rem;
+  width: 100%;
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-border-subtle);
   min-height: 1.75rem;
-  transform: translateY(-50%);
-  z-index: 2;
 }
+
+.list-board-task__delete-confirm-action { display: flex; align-items: center; gap: var(--space-1); }
 
 .list-board-task__delete-confirm-action,
 .list-board-task__delete-cancel {
@@ -680,10 +679,9 @@
 }
 
 .list-board-task__delete-error {
-  position: absolute;
-  inset-inline-end: 0;
-  top: calc(100% + var(--space-1));
-  width: min(15rem, 75vw);
+  grid-column: 1 / -1;
+  width: 100%;
+  box-sizing: border-box;
   padding: var(--space-2);
   border: 1px solid var(--color-destructive);
   border-radius: var(--radius-control);
