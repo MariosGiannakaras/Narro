@@ -34,6 +34,8 @@ Before implementing an affected surface, inspect `docs/AUDIT_IMPLEMENTATION_CROS
 
 This prevents repeated implementation/rework while preserving the ordered **mandatory** 10-milestone roadmap. Optional Milestone 11 is a separately user-activated extension defined in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`; while dormant/skipped it does not alter the mandatory roadmap, progress denominator, or continuation order.
 
+If M11 is explicitly activated, its live Blitzit work is evidence acquisition first, not implementation. The full planned user-visible + observable protocol/state corpus must be captured and frozen before substantive analysis; the full corpus must then be analyzed/reconciled and a remediation plan frozen before Narro source/config/test changes begin. Do not convert an interesting live observation directly into a patch during capture.
+
 ## Source-forensics consumption rule
 
 Use `docs/EVIDENCE_ROUTING_MAP.md` to discover the authoritative evidence chain, then use `docs/BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md` whenever new Blitzit analysis exists or an affected user-visible surface is being implemented.
