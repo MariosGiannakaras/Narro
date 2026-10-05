@@ -1,0 +1,10 @@
+[
+  {
+    "utc": "2026-10-05T12:31:45.9487757Z",
+    "action": "bookmark",
+    "observation": "32: Native probes after direct monitor/side controls retain previous Panel geometry; explicit Timer->Panel re-entry captured separately. Requirement/source disposition pending; no immediate live relocation PASS.",
+    "state": "REVIEW_PENDING",
+    "originalApproxSeconds": 546.835,
+    "evidenceInput": "actions.jsonl:43"
+  }
+]

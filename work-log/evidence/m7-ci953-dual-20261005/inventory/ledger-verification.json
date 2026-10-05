@@ -1,0 +1,14 @@
+{
+  "readOnly": true,
+  "ownedTasksIdentitiesNotesSessionsTimeExactlySame": true,
+  "checkpointIncludingTimestampExactlySame": true,
+  "preferencePayloadRestored": true,
+  "preferenceUpdatedAtChangedLegitimately": [
+    "2026-10-05T08:14:09.380160600+00:00",
+    "2026-10-05T12:31:46.796602600+00:00"
+  ],
+  "activeTakenSeconds": 846,
+  "activePausedWorkMs": 801308,
+  "previousOwnedManual120sFixtureUnchanged": true,
+  "wholeUserDatabaseNotExported": true
+}

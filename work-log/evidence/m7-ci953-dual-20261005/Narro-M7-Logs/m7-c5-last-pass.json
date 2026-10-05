@@ -1,0 +1,81 @@
+{
+  "currentSessionId": "639c1524-c906-4a14-ab4e-a31e73749e28",
+  "generatedUtc": "2026-10-05T08:30:39.021Z",
+  "metrics": {
+    "actualPosition": {
+      "x": 660,
+      "y": 494
+    },
+    "executableFingerprintUnchanged": true,
+    "expectedPosition": {
+      "x": 660,
+      "y": 494
+    },
+    "loadedSavedPlacement": {
+      "monitorName": "\\\\.\\DISPLAY1",
+      "outerSize": {
+        "height": 138,
+        "width": 425
+      },
+      "position": {
+        "x": 660,
+        "y": 494
+      },
+      "version": 1,
+      "workArea": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "height": 1080,
+          "width": 1920
+        }
+      }
+    },
+    "maxMoveDistancePx": 424,
+    "positionTolerancePx": 2,
+    "restoreSessionId": "639c1524-c906-4a14-ab4e-a31e73749e28",
+    "savedPlacement": {
+      "monitorName": "\\\\.\\DISPLAY1",
+      "outerSize": {
+        "height": 138,
+        "width": 425
+      },
+      "position": {
+        "x": 660,
+        "y": 494
+      },
+      "version": 1,
+      "workArea": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "height": 1080,
+          "width": 1920
+        }
+      }
+    },
+    "sourceSessionId": "a0f2c9e7-44ad-4362-b73b-590998b9e736",
+    "sourceShaUnchanged": true,
+    "targetWorkArea": {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "height": 1080,
+        "width": 1920
+      }
+    },
+    "topologyUnchanged": true
+  },
+  "pendingSourceSessionId": "a0f2c9e7-44ad-4362-b73b-590998b9e736",
+  "reason": "qualifying-drag-normal-tray-quit-new-process-and-safe-saved-placement-restore-all-recorded",
+  "schemaVersion": 1,
+  "sourceSha": "38219e200fe3bec7309f8e03e72003184ca86d08",
+  "status": "PASS",
+  "test": "M7-C5-saved-placement-restart"
+}

@@ -1,0 +1,49 @@
+{"utc":"2026-10-05T12:24:31.2024677Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:24:31.5743733Z","action":"SendInput actual virtual-desktop drag","windowId":7471826,"from":[1010,225],"to":[-1490,445],"exeSha256":"bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8"}
+SendInput complete; physical button state verified during hold
+{"utc":"2026-10-05T12:25:20.2788383Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:25:20.5265373Z","action":"SendInput actual virtual-desktop drag","windowId":7471826,"from":[1050,211],"to":[-1510,431],"exeSha256":"bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8"}
+SendInput complete; physical button state verified during hold
+{"utc":"2026-10-05T12:25:24.4586041Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:25:48.5142355Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:25:49.4510980Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+P","scancodes":[29,42,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:26:15.3603870Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:26:15.4073660Z","action":"native-uia-observed-pointer-click","button":"Focus Panel monitor","observedOrdinal":0,"expectedMatches":1,"windowId":3213706,"processId":141908,"offscreen":false,"bounds":"1498;352;214;35","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T12:27:11.9424510Z","action":"native-uia-selection","windowId":3213706,"name":"\\\\.\\DISPLAY1 · 1920×1080 · 125%","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T12:27:12.4464913Z","action":"os-client-area-animation","request":"normal","before":1,"after":1}
+{"utc":"2026-10-05T12:27:14.8664296Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:27:14.9630801Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:27:16.2851861Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+P","scancodes":[29,42,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:27:17.6795532Z","action":"os-client-area-animation","request":"reduced","before":1,"after":0}
+{"utc":"2026-10-05T12:27:19.5565410Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:27:19.5611612Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:27:20.8346134Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+P","scancodes":[29,42,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:27:22.2544785Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:28:32.6883286Z","action":"native-uia-selection","windowId":3213706,"name":"\\\\.\\DISPLAY2 · 2560×1080 · 100%","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T12:28:33.0626399Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:28:33.2590633Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:28:34.0550354Z","action":"SendInput actual virtual-desktop drag","windowId":7471826,"from":[-1510,431],"to":[950,350],"exeSha256":"bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8"}
+SendInput complete; physical button state verified during hold
+{"utc":"2026-10-05T12:28:38.6861329Z","action":"os-client-area-animation","request":"normal","before":0,"after":1}
+{"utc":"2026-10-05T12:28:40.5975093Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:28:40.6027572Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:28:41.8847718Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+P","scancodes":[29,42,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:28:43.2696237Z","action":"os-client-area-animation","request":"reduced","before":1,"after":0}
+{"utc":"2026-10-05T12:28:45.1128881Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:28:45.1171043Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:28:46.3660716Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+P","scancodes":[29,42,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:30:12.8701390Z","action":"os-client-area-animation","request":"normal","before":0,"after":1}
+{"utc":"2026-10-05T12:30:14.0625108Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:30:14.1595614Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:30:53.1642281Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:30:53.2547012Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:30:56.7893438Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:31:37.3467312Z","action":"native-uia-selection","windowId":3213706,"name":"\\\\.\\DISPLAY1 · 1920×1080 · 125%","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T12:31:38.4335548Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:31:38.5395113Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:31:42.7130165Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:31:42.7214611Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T12:31:46.2236404Z","action":"activate-observed-native-window","windowId":3213706,"pid":141908,"allowedProcess":"narro-m7-validation","before":7471826,"after":3213706,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:31:47.0435402Z","action":"native-uia-selection","windowId":3213706,"name":"Primary display (automatic)","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T12:31:47.3274749Z","action":"activate-observed-native-window","windowId":7471826,"pid":141908,"allowedProcess":"narro-m7-validation","before":3213706,"after":7471826,"foregroundConfirmed":true}
+{"utc":"2026-10-05T12:31:47.3319757Z","action":"physical-scancode-chord","windowId":7471826,"pid":141908,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}

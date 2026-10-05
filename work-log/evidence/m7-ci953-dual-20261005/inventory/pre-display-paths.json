@@ -1,0 +1,902 @@
+{
+  "utc": "2026-10-05T12:20:47.8079310Z",
+  "query": "QDC_ALL_PATHS",
+  "paths": [
+    {
+      "sourceId": 0,
+      "targetId": 268,
+      "flags": 1,
+      "targetStatus": 1,
+      "available": true,
+      "friendlyName": "2D FHD LG TV"
+    },
+    {
+      "sourceId": 0,
+      "targetId": 256,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": true,
+      "friendlyName": "LG ULTRAGEAR"
+    },
+    {
+      "sourceId": 1,
+      "targetId": 256,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": true,
+      "friendlyName": "LG ULTRAGEAR"
+    },
+    {
+      "sourceId": 2,
+      "targetId": 256,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": true,
+      "friendlyName": "LG ULTRAGEAR"
+    },
+    {
+      "sourceId": 3,
+      "targetId": 256,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": true,
+      "friendlyName": "LG ULTRAGEAR"
+    },
+    {
+      "sourceId": 4,
+      "targetId": 256,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": true,
+      "friendlyName": "LG ULTRAGEAR"
+    },
+    {
+      "sourceId": 5,
+      "targetId": 256,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": true,
+      "friendlyName": "LG ULTRAGEAR"
+    },
+    {
+      "sourceId": 6,
+      "targetId": 256,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": true,
+      "friendlyName": "LG ULTRAGEAR"
+    },
+    {
+      "sourceId": 0,
+      "targetId": 257,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 257,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 257,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 257,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 257,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 257,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 257,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 258,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 258,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 258,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 258,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 258,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 258,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 258,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 259,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 259,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 259,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 259,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 259,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 259,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 259,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 260,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 260,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 260,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 260,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 260,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 260,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 260,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 261,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 261,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 261,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 261,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 261,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 261,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 261,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 262,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 262,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 262,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 262,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 262,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 262,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 262,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 263,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 263,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 263,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 263,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 263,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 263,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 263,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 264,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 264,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 264,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 264,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 264,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 264,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 264,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 265,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 265,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 265,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 265,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 265,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 265,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 265,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 266,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 266,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 266,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 266,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 266,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 266,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 266,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 267,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 267,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 267,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 267,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 267,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 267,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 267,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 268,
+      "flags": 0,
+      "targetStatus": 1,
+      "available": true,
+      "friendlyName": "2D FHD LG TV"
+    },
+    {
+      "sourceId": 2,
+      "targetId": 268,
+      "flags": 0,
+      "targetStatus": 1,
+      "available": true,
+      "friendlyName": "2D FHD LG TV"
+    },
+    {
+      "sourceId": 3,
+      "targetId": 268,
+      "flags": 0,
+      "targetStatus": 1,
+      "available": true,
+      "friendlyName": "2D FHD LG TV"
+    },
+    {
+      "sourceId": 4,
+      "targetId": 268,
+      "flags": 0,
+      "targetStatus": 1,
+      "available": true,
+      "friendlyName": "2D FHD LG TV"
+    },
+    {
+      "sourceId": 5,
+      "targetId": 268,
+      "flags": 0,
+      "targetStatus": 1,
+      "available": true,
+      "friendlyName": "2D FHD LG TV"
+    },
+    {
+      "sourceId": 6,
+      "targetId": 268,
+      "flags": 0,
+      "targetStatus": 1,
+      "available": true,
+      "friendlyName": "2D FHD LG TV"
+    },
+    {
+      "sourceId": 0,
+      "targetId": 269,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 269,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 269,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 269,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 269,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 269,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 269,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 270,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 270,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 270,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 270,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 270,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 270,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 270,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 0,
+      "targetId": 271,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 1,
+      "targetId": 271,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 2,
+      "targetId": 271,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 3,
+      "targetId": 271,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 4,
+      "targetId": 271,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 5,
+      "targetId": 271,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    },
+    {
+      "sourceId": 6,
+      "targetId": 271,
+      "flags": 0,
+      "targetStatus": 0,
+      "available": false,
+      "friendlyName": ""
+    }
+  ]
+}

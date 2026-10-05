@@ -1,0 +1,62 @@
+[
+  {
+    "file": "observations/settled-panel-lg-Left.json",
+    "utc": "2026-10-05T12:31:41.9334969Z",
+    "originalApproxSeconds": 542.82,
+    "hwnd": 7471826,
+    "dpi": 120,
+    "outer": {
+      "x": -1920,
+      "height": 875,
+      "y": 0,
+      "width": 425
+    },
+    "scopedNativeGeometry": "PASS",
+    "visualSourceMotionReview": "OPEN"
+  },
+  {
+    "file": "observations/settled-panel-lg-Right.json",
+    "utc": "2026-10-05T12:31:45.9448892Z",
+    "originalApproxSeconds": 546.831,
+    "hwnd": 7471826,
+    "dpi": 120,
+    "outer": {
+      "x": -425,
+      "height": 875,
+      "y": 0,
+      "width": 425
+    },
+    "scopedNativeGeometry": "PASS",
+    "visualSourceMotionReview": "OPEN"
+  },
+  {
+    "file": "observations/settled-panel-ultra-Left.json",
+    "utc": "2026-10-05T12:30:52.3280356Z",
+    "originalApproxSeconds": 493.214,
+    "hwnd": 7471826,
+    "dpi": 96,
+    "outer": {
+      "x": 0,
+      "width": 340,
+      "y": 0,
+      "height": 700
+    },
+    "scopedNativeGeometry": "PASS",
+    "visualSourceMotionReview": "OPEN"
+  },
+  {
+    "file": "observations/settled-panel-ultra-Right.json",
+    "utc": "2026-10-05T12:30:56.5000785Z",
+    "originalApproxSeconds": 497.386,
+    "hwnd": 7471826,
+    "dpi": 96,
+    "outer": {
+      "x": 2220,
+      "width": 340,
+      "y": 0,
+      "height": 700
+    },
+    "scopedNativeGeometry": "PASS",
+    "visualSourceMotionReview": "OPEN"
+  }
+]

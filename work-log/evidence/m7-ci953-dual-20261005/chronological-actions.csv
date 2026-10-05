@@ -1,0 +1,92 @@
+utc,original_approx_seconds,action,target_or_note,raw_input
+2026-10-05T12:22:38.4315307Z,-0.682,native-uia-invoke,Start Recording,actions.jsonl:1
+2026-10-05T12:22:38.7341164Z,-0.38,windows-topology-request,Duplicate,actions.jsonl:2
+2026-10-05T12:22:41.0565288Z,1.943,windows-topology-request,Extend,actions.jsonl:3
+2026-10-05T12:24:31.2024677Z,112.088,activate-observed-native-window,,raw-actions.log:1
+2026-10-05T12:24:31.5743733Z,112.46,SendInput actual virtual-desktop drag,,raw-actions.log:2
+2026-10-05T12:24:35.3872920Z,116.273,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:4
+2026-10-05T12:25:19.3977795Z,160.284,native-uia-observed-pointer-click,Collapse Floating Timer,actions.jsonl:5
+2026-10-05T12:25:20.2788383Z,161.165,activate-observed-native-window,,raw-actions.log:4
+2026-10-05T12:25:20.5265373Z,161.413,SendInput actual virtual-desktop drag,,raw-actions.log:5
+2026-10-05T12:25:24.4586041Z,165.345,activate-observed-native-window,,raw-actions.log:7
+2026-10-05T12:25:24.4847693Z,165.371,native-uia-invoke,Settings,actions.jsonl:6
+2026-10-05T12:25:48.5142355Z,189.4,activate-observed-native-window,,raw-actions.log:8
+2026-10-05T12:25:48.8489127Z,189.735,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:7
+2026-10-05T12:25:49.4510980Z,190.337,physical-scancode-chord,Ctrl+Shift+P,raw-actions.log:9
+2026-10-05T12:25:50.5267536Z,191.413,native-uia-observed-pointer-click,Notes,actions.jsonl:8
+2026-10-05T12:26:13.5866033Z,214.473,native-uia-observed-pointer-click,Notes,actions.jsonl:9
+2026-10-05T12:26:14.1180337Z,215.004,native-uia-invoke,Return to Focus Panel,actions.jsonl:10
+2026-10-05T12:26:15.3603870Z,216.246,activate-observed-native-window,,raw-actions.log:10
+2026-10-05T12:26:15.4073660Z,216.293,native-uia-observed-pointer-click,Focus Panel monitor,raw-actions.log:11
+2026-10-05T12:27:11.9424510Z,272.828,native-uia-selection,\\.\DISPLAY1 · 1920×1080 · 125%,raw-actions.log:12
+2026-10-05T12:27:12.4464913Z,273.333,os-client-area-animation,normal,raw-actions.log:13
+2026-10-05T12:27:12.6839332Z,273.57,native-uia-observed-pointer-click,Left,actions.jsonl:11
+2026-10-05T12:27:13.6934470Z,274.579,native-uia-observed-pointer-click,Right,actions.jsonl:12
+2026-10-05T12:27:14.8664296Z,275.752,activate-observed-native-window,,raw-actions.log:14
+2026-10-05T12:27:14.9630801Z,275.849,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:15
+2026-10-05T12:27:15.8325944Z,276.719,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:13
+2026-10-05T12:27:16.2851861Z,277.171,physical-scancode-chord,Ctrl+Shift+P,raw-actions.log:16
+2026-10-05T12:27:17.1655991Z,278.052,native-uia-invoke,Return to Focus Panel,actions.jsonl:14
+2026-10-05T12:27:17.6795532Z,278.566,os-client-area-animation,reduced,raw-actions.log:17
+2026-10-05T12:27:17.7134051Z,278.599,native-uia-observed-pointer-click,Left,actions.jsonl:15
+2026-10-05T12:27:18.5038205Z,279.39,native-uia-observed-pointer-click,Right,actions.jsonl:16
+2026-10-05T12:27:19.5565410Z,280.443,activate-observed-native-window,,raw-actions.log:18
+2026-10-05T12:27:19.5611612Z,280.447,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:19
+2026-10-05T12:27:20.3644849Z,281.251,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:17
+2026-10-05T12:27:20.8346134Z,281.721,physical-scancode-chord,Ctrl+Shift+P,raw-actions.log:20
+2026-10-05T12:27:21.6771872Z,282.563,native-uia-invoke,Return to Focus Panel,actions.jsonl:18
+2026-10-05T12:27:22.2544785Z,283.141,activate-observed-native-window,,raw-actions.log:21
+2026-10-05T12:27:22.2875357Z,283.174,native-uia-observed-pointer-click,Focus Panel monitor,actions.jsonl:19
+2026-10-05T12:28:32.6883286Z,353.574,native-uia-selection,\\.\DISPLAY2 · 2560×1080 · 100%,raw-actions.log:22
+2026-10-05T12:28:33.0626399Z,353.949,activate-observed-native-window,,raw-actions.log:23
+2026-10-05T12:28:33.2590633Z,354.145,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:24
+2026-10-05T12:28:34.0550354Z,354.941,SendInput actual virtual-desktop drag,,raw-actions.log:25
+2026-10-05T12:28:37.7454510Z,358.631,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:20
+2026-10-05T12:28:38.2618586Z,359.148,native-uia-invoke,Return to Focus Panel,actions.jsonl:21
+2026-10-05T12:28:38.6861329Z,359.572,os-client-area-animation,normal,raw-actions.log:27
+2026-10-05T12:28:38.7325413Z,359.619,native-uia-observed-pointer-click,Left,actions.jsonl:22
+2026-10-05T12:28:39.5340004Z,360.42,native-uia-observed-pointer-click,Right,actions.jsonl:23
+2026-10-05T12:28:40.5975093Z,361.484,activate-observed-native-window,,raw-actions.log:28
+2026-10-05T12:28:40.6027572Z,361.489,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:29
+2026-10-05T12:28:41.4209690Z,362.307,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:24
+2026-10-05T12:28:41.8847718Z,362.771,physical-scancode-chord,Ctrl+Shift+P,raw-actions.log:30
+2026-10-05T12:28:42.7625161Z,363.649,native-uia-invoke,Return to Focus Panel,actions.jsonl:25
+2026-10-05T12:28:43.2696237Z,364.156,os-client-area-animation,reduced,raw-actions.log:31
+2026-10-05T12:28:43.3064176Z,364.192,native-uia-observed-pointer-click,Left,actions.jsonl:26
+2026-10-05T12:28:44.0741377Z,364.96,native-uia-observed-pointer-click,Right,actions.jsonl:27
+2026-10-05T12:28:45.1128881Z,365.999,activate-observed-native-window,,raw-actions.log:32
+2026-10-05T12:28:45.1171043Z,366.003,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:33
+2026-10-05T12:28:45.9138924Z,366.8,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:28
+2026-10-05T12:28:46.3660716Z,367.252,physical-scancode-chord,Ctrl+Shift+P,raw-actions.log:34
+2026-10-05T12:28:47.1877926Z,368.074,native-uia-invoke,Return to Focus Panel,actions.jsonl:29
+2026-10-05T12:30:12.8701390Z,453.756,os-client-area-animation,normal,raw-actions.log:35
+2026-10-05T12:30:13.2311751Z,454.117,native-uia-observed-pointer-click,Left,actions.jsonl:30
+2026-10-05T12:30:14.0625108Z,454.949,activate-observed-native-window,,raw-actions.log:36
+2026-10-05T12:30:14.1595614Z,455.046,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:37
+2026-10-05T12:30:14.7691634Z,455.655,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:31
+2026-10-05T12:30:51.0488127Z,491.935,native-uia-invoke,Return to Focus Panel,actions.jsonl:32
+2026-10-05T12:30:52.3617993Z,493.248,native-uia-observed-pointer-click,Right,actions.jsonl:33
+2026-10-05T12:30:53.1642281Z,494.05,activate-observed-native-window,,raw-actions.log:38
+2026-10-05T12:30:53.2547012Z,494.141,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:39
+2026-10-05T12:30:54.3360451Z,495.222,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:34
+2026-10-05T12:30:55.2736763Z,496.16,native-uia-invoke,Return to Focus Panel,actions.jsonl:35
+2026-10-05T12:30:56.7893438Z,497.675,activate-observed-native-window,,raw-actions.log:40
+2026-10-05T12:30:56.8273919Z,497.713,native-uia-observed-pointer-click,Focus Panel monitor,actions.jsonl:36
+2026-10-05T12:31:37.3467312Z,538.233,native-uia-selection,\\.\DISPLAY1 · 1920×1080 · 125%,raw-actions.log:41
+2026-10-05T12:31:37.5984408Z,538.484,native-uia-observed-pointer-click,Left,actions.jsonl:37
+2026-10-05T12:31:38.4335548Z,539.32,activate-observed-native-window,,raw-actions.log:42
+2026-10-05T12:31:38.5395113Z,539.426,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:43
+2026-10-05T12:31:39.6334027Z,540.519,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:38
+2026-10-05T12:31:40.5583419Z,541.444,native-uia-invoke,Return to Focus Panel,actions.jsonl:39
+2026-10-05T12:31:41.9716469Z,542.858,native-uia-observed-pointer-click,Right,actions.jsonl:40
+2026-10-05T12:31:42.7130165Z,543.599,activate-observed-native-window,,raw-actions.log:44
+2026-10-05T12:31:42.7214611Z,543.607,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:45
+2026-10-05T12:31:43.7719044Z,544.658,native-uia-observed-pointer-click,Expand Floating Timer,actions.jsonl:41
+2026-10-05T12:31:44.7111429Z,545.597,native-uia-invoke,Return to Focus Panel,actions.jsonl:42
+2026-10-05T12:31:45.9487757Z,546.835,bookmark,32: Native probes after direct monitor/side controls retain previous Panel geometry; explicit Timer->Panel re-entry captured separately. Requirement/source disposition pending; no immediate live relocation PASS.,actions.jsonl:43
+2026-10-05T12:31:46.2236404Z,547.11,activate-observed-native-window,,raw-actions.log:46
+2026-10-05T12:31:46.2552578Z,547.141,native-uia-observed-pointer-click,Focus Panel monitor,actions.jsonl:44
+2026-10-05T12:31:47.0435402Z,547.93,native-uia-selection,Primary display (automatic),raw-actions.log:47
+2026-10-05T12:31:47.3274749Z,548.214,activate-observed-native-window,,raw-actions.log:48
+2026-10-05T12:31:47.3319757Z,548.218,physical-scancode-chord,Ctrl+Shift+T,raw-actions.log:49
+2026-10-05T12:31:48.1601050Z,549.046,native-uia-invoke,Stop Recording,actions.jsonl:45

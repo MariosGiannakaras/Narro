@@ -1,0 +1,51 @@
+[
+  {
+    "milestone": "M1",
+    "disposition": "SCOPED_NATIVE_TOPOLOGY_PASS; selected-monitor/DPI27 OPEN/FAIL",
+    "evidence": "inventory/display-paths-extend.json; inventory/display-modes-settled.json",
+    "limits": "Actual Duplicate->Extend activates both displays. No cable/sleep/wake/quiet performance or explicit DPI-stale recovery proof."
+  },
+  {
+    "milestone": "M2",
+    "disposition": "Existing acceptance unchanged; owned identity corroboration",
+    "evidence": "inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M3",
+    "disposition": "Existing acceptance unchanged; paused ledger corroboration",
+    "evidence": "inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M4",
+    "disposition": "No sufficient new scheduling exercise"
+  },
+  {
+    "milestone": "M5",
+    "disposition": "Main catalog/Preferences present; no new board visual acceptance",
+    "evidence": "observations/02-main-dual.json",
+    "limits": "Do not infer task drag/editor/source PASS from Main merely appearing."
+  },
+  {
+    "milestone": "M6",
+    "disposition": "Dual Panel geometry corroborated; source/motion OPEN",
+    "evidence": "inventory/settled-geometry-verification.json",
+    "limits": "Only explicit re-entry materializes correctly observed side/monitor. Direct live relocation32 is pending."
+  },
+  {
+    "milestone": "M7",
+    "disposition": "SCOPED_NATIVE_CROSS_DPI_DRAG_PASS; compact/expanded/locate captured; C4 OPEN",
+    "evidence": "observations/05-compact-padding-cross-lg.json; observations/12-compact-cross-ultra.json; chronological-actions.jsonl",
+    "limits": "Same Focus HWND; no new tray Quit/relaunch/C5 test. Raw title-origin attempt caused no movement; verified padding starts succeeded."
+  },
+  {
+    "milestone": "M8",
+    "disposition": "Monitor/side roundtrip and semantic preference restoration corroborated; visual/source OPEN",
+    "evidence": "inventory/ledger-verification.json; inventory/settled-geometry-verification.json",
+    "limits": "Immediate geometry32 pending; existing selected-monitor/DPI27 remains FAIL."
+  },
+  {
+    "milestone": "M9",
+    "disposition": "No new Reports exercise; previous manual fixture unchanged",
+    "evidence": "inventory/ledger-verification.json"
+  }
+]

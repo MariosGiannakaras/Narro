@@ -1,0 +1,7 @@
+# CI953 dual-display supplemental acquisition
+
+Existing exact38219e20/CI953/EXEbde7646d; no new visual denominator or source/build/test/CI changes. Visual review stays44/100. Before starting, preserve current TODO/HANDOFF/crosswalk, paused active ledger and preferences. UltraGear is now available but inactive; existing LG is active125%.
+
+Record one focused OBS segment: current one-display state -> actual Windows Duplicate -> Extend -> inspect actual native topology. If both displays become active, batch previously uncaptured exact953 cross-monitor Panel/compact/expanded/locate and Main/Focus placement, with owned paused state and the same Focus HWND. Use actual available monitor controls only, restore automatic selection/preferences and normal motion. Do not intentionally change primary monitor. If topology fails, record timestamp/native result, restore usable state and stop; do not perform repeated ineffective cycles or count dual acceptance.
+
+M1 observations are scoped dynamic topology only; explicit selected-monitor/DPI27 remains FAIL. M5/M6/M7/M8 may reuse sufficiently exercised surfaces; no canonical/full-motion PASS from acquisition. M2/M3 identity/time invariants corroborated read-only; M4 no scheduling claim; M9 no new Reports acceptance. No cable/sleep/wake or quiet performance claim. M10 blocked/M11 dormant. Upload whole original/remux/log folder/ZIP/chronological manifest and update main before stopping. No old frozen packet is edited.
