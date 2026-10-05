@@ -788,3 +788,7 @@ Do not implement these until Milestones 1–10 and the Final Comprehensive Revie
 - richer app theme/icon customization
 - partial-completion/day-by-day accounting
 - bulk task operations
+
+## 2026-10-05 03:43Z — verified CI953 and separate read-worker WIP
+
+CI953 is now full PASS on frozen38219e20; artifact11324640580 ZIP7720c2de and EXEbde7646d SHA256 verified. This candidate covers pointer/menu/wrapping only. New local unpushed07 WIP uses async Home/board commands plus a shared spawn_blocking read worker, preserving DTO/errors/domain reads; Home/board contracts and Rust formatting PASS. Actual blocked-SQLite yielding/result and error-preservation tests are added but not compiled locally (MSVC linker unavailable). CI953 does not validate that WIP. Use the frozen953 candidate for affected125% physical checks, batch any substantiated findings with07 before the next exact build. Current LG only; Duplicate->Extend did not restore unavailable UltraGear. M7 remains4/5/C4 open;4/10M ||4/5 |14/19, M10 blocked/M11 dormant.

@@ -1484,3 +1484,7 @@ A repository-wide coordination audit found no evidence that a major validated pr
 - Long-diverged `m1/diagnostic-event-trace` and `m1/diagnostic-event-trace-v2` are **historical diagnostic experiments, not current Candidate-B prerequisites**. Current M1 B/C/D procedures do not require resurrecting them; reuse only if new physical evidence demonstrates a concrete diagnostic need.
 - Other audited stale branches are superseded/duplicate/historical lines or contain no unique current work; their exact disposition is recorded in the immutable 2026-10-04 coordination-audit work log. Branch deletion was intentionally not performed as part of this documentation-only audit.
 
+
+## 2026-10-05 03:43Z — verified CI953 and separate read-worker WIP
+
+CI953 is now full PASS on frozen38219e20; artifact11324640580 ZIP7720c2de and EXEbde7646d SHA256 verified. This candidate covers pointer/menu/wrapping only. New local unpushed07 WIP uses async Home/board commands plus a shared spawn_blocking read worker, preserving DTO/errors/domain reads; Home/board contracts and Rust formatting PASS. Actual blocked-SQLite yielding/result and error-preservation tests are added but not compiled locally (MSVC linker unavailable). CI953 does not validate that WIP. Use the frozen953 candidate for affected125% physical checks, batch any substantiated findings with07 before the next exact build. Current LG only; Duplicate->Extend did not restore unavailable UltraGear. M7 remains4/5/C4 open;4/10M ||4/5 |14/19, M10 blocked/M11 dormant.
