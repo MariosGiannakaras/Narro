@@ -103,7 +103,10 @@ If the user explicitly activates M11:
 - record the activation in current-truth tracking before starting;
 - change the roadmap denominator to 11;
 - require a validated M10 baseline first;
-- conduct the live-source audit through the evidence/reconciliation workflow rather than treating observations as automatic implementation requirements;
+- follow the phase order in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`: **PLAN -> CAPTURE EVERYTHING -> FREEZE CORPUS -> ANALYZE -> RECONCILE/PLAN -> IMPLEMENT -> REVALIDATE**;
+- capture user-visible evidence and the observable client/backend/state contract on a synchronized timeline where legitimately available from ordinary authorized use;
+- enforce a strict capture-phase analysis embargo: no Narro source/config/test changes, parity verdicts, crosswalk dispositions or remediation branches while the planned live-source campaign is still being acquired;
+- complete/freeze the evidence corpus before substantive analysis; complete the full-corpus findings register and remediation plan before changing Narro;
 - complete and validate any chosen M11 corrections before freezing the Final Comprehensive Review baseline.
 
 The Final Comprehensive Review remains separately blocked until Milestone 10 is fully validated and its exact candidate SHA is frozen; when M11 is explicitly activated, Final Review is additionally blocked until M11 is complete and the post-M11 candidate SHA is frozen.
