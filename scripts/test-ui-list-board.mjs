@@ -35,7 +35,7 @@ for (const [haystack, needle, label] of [
   [rust, "archived_at IS NULL", "board excludes archived tasks"],
   [rust, "get_preferences(conn)?", "persisted timezone preference read"],
   [rust, "scheduling::validate_timezone_identifier", "fail-closed timezone validation"],
-  [rust, "pub fn get_list_board_snapshot", "renderer board snapshot command"],
+  [rust, "pub async fn get_list_board_snapshot", "renderer board snapshot command"],
   [lib, "pub mod list_board;", "list board module registration"],
   [lib, "list_board::get_list_board_snapshot,", "list board command registration"],
   [api, 'invoke<ListBoardSnapshot>("get_list_board_snapshot"', "typed board IPC"],

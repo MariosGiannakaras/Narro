@@ -529,24 +529,27 @@ fn app_database(app_handle: &tauri::AppHandle) -> CommandResult<Connection> {
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn get_list_board_snapshot(
+pub async fn get_list_board_snapshot(
     app_handle: tauri::AppHandle,
     list_id: Option<String>,
     display_timezone: String,
 ) -> CommandResult<ListBoardSnapshot> {
-    let parsed_list_id = list_id
-        .as_deref()
-        .map(ListId::parse_str)
-        .transpose()
-        .map_err(|_| CommandError::invalid_argument("listId", "must be a valid UUID"))?;
-    let connection = app_database(&app_handle)?;
-    load_at(
-        &connection,
-        parsed_list_id,
-        Timestamp::now(),
-        &display_timezone,
-    )
-    .map_err(|error| CommandError::new("LIST_BOARD_FAILED", error.to_string()))
+    crate::blocking_read::read("LIST_BOARD_FAILED", move || {
+        let parsed_list_id = list_id
+            .as_deref()
+            .map(ListId::parse_str)
+            .transpose()
+            .map_err(|_| CommandError::invalid_argument("listId", "must be a valid UUID"))?;
+        let connection = app_database(&app_handle)?;
+        load_at(
+            &connection,
+            parsed_list_id,
+            Timestamp::now(),
+            &display_timezone,
+        )
+        .map_err(|error| CommandError::new("LIST_BOARD_FAILED", error.to_string()))
+    })
+    .await
 }
 
 #[cfg(test)]

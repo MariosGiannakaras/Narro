@@ -1,0 +1,11 @@
+$ErrorActionPreference='Stop'
+Add-Type -TypeDefinition @'
+using System;using System.Runtime.InteropServices;using System.Collections.Generic;
+public static class M7DisplayPaths{
+ [DllImport("user32.dll")]static extern int GetDisplayConfigBufferSizes(uint f,out uint p,out uint m);
+ [DllImport("user32.dll")]static extern int QueryDisplayConfig(uint f,ref uint p,IntPtr paths,ref uint m,IntPtr modes,IntPtr topology);
+ public class Path{public uint sourceId,targetId,flags,targetStatus;public bool available;public string friendlyName;}
+ [DllImport("user32.dll")] static extern int DisplayConfigGetDeviceInfo(IntPtr header); public static string Name(IntPtr path){IntPtr h=Marshal.AllocHGlobal(420);try{Marshal.Copy(new byte[420],0,h,420);Marshal.WriteInt32(h,0,2);Marshal.WriteInt32(h,4,420);byte[] luid=new byte[8];Marshal.Copy(IntPtr.Add(path,20),luid,0,8);Marshal.Copy(luid,0,IntPtr.Add(h,8),8);Marshal.WriteInt32(h,16,Marshal.ReadInt32(path,28));int e=DisplayConfigGetDeviceInfo(h);return e==0?Marshal.PtrToStringUni(IntPtr.Add(h,36)):"error="+e;}finally{Marshal.FreeHGlobal(h);}} public static Path[] Read(){for(int attempt=0;attempt<3;attempt++){uint p,m;int e=GetDisplayConfigBufferSizes(1,out p,out m);if(e!=0)throw new Exception("Get sizes: "+e);if(p>1000||m>1000)throw new Exception("Unexpected display count");IntPtr paths=Marshal.AllocHGlobal((int)p*72),modes=Marshal.AllocHGlobal((int)m*64);try{e=QueryDisplayConfig(1,ref p,paths,ref m,modes,IntPtr.Zero);if(e==122)continue;if(e!=0)throw new Exception("Query paths: "+e);var result=new List<Path>();for(int i=0;i<p;i++){IntPtr a=IntPtr.Add(paths,i*72);result.Add(new Path{friendlyName=Marshal.ReadInt32(a,60)!=0?Name(a):"",sourceId=(uint)Marshal.ReadInt32(a,8),targetId=(uint)Marshal.ReadInt32(a,28),available=Marshal.ReadInt32(a,60)!=0,targetStatus=(uint)Marshal.ReadInt32(a,64),flags=(uint)Marshal.ReadInt32(a,68)});}return result.ToArray();}finally{Marshal.FreeHGlobal(paths);Marshal.FreeHGlobal(modes);}}throw new Exception("Display topology did not settle");}
+}
+'@
+[ordered]@{utc=[DateTime]::UtcNow.ToString('o');query='QDC_ALL_PATHS';paths=[M7DisplayPaths]::Read()} | ConvertTo-Json -Depth 5 | Tee-Object -FilePath artifacts/m7-ci936-physical-20261004/run-final/observations/m1-topology-now-native.json
