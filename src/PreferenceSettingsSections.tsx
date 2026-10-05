@@ -5,7 +5,7 @@ import {
   DEFAULT_TASK_ALERT_SOUND,
 } from "./localSoundCatalog";
 import { SoundPreferenceControl } from "./SoundPreferenceControl";
-import type { MonitorDescriptor } from "./diagnosticApi";
+import { findSelectedMonitor, type MonitorDescriptor } from "./diagnosticApi";
 import type {
   FocusPanelSidePreference,
   PreferenceSettingsPatch,
@@ -121,7 +121,11 @@ export function BlitzPanelPreferenceSection({
   onRefreshMonitors,
 }: CommonProps) {
   const selected = snapshot.general.selectedMonitorKey ?? "";
-  const selectedStillAvailable = !selected || monitors.some((monitor) => monitor.key === selected);
+  const resolvedSelectedMonitor = selected ? findSelectedMonitor(selected, monitors) : null;
+  const selectedStillAvailable = !selected || resolvedSelectedMonitor !== null;
+  const selectValue = !selected
+    ? ""
+    : resolvedSelectedMonitor?.key ?? "__saved_monitor_unavailable__";
   return (
     <section className="theme-settings__section preference-settings__section" aria-labelledby="preferences-blitz-panel-title">
       <div className="theme-settings__section-heading">
@@ -141,11 +145,14 @@ export function BlitzPanelPreferenceSection({
       >
         <select
           aria-label="Focus Panel monitor"
-          value={selectedStillAvailable ? selected : ""}
+          value={selectValue}
           disabled={pendingKey !== null}
           onChange={(event) => onSave({ selectedMonitorKey: event.target.value }, "monitor")}
         >
           <option value="">Primary display (automatic)</option>
+          {!selectedStillAvailable && (
+            <option value="__saved_monitor_unavailable__" disabled>Saved display unavailable</option>
+          )}
           {monitors.map((monitor) => (
             <option key={monitor.key} value={monitor.key}>{monitorLabel(monitor)}</option>
           ))}
