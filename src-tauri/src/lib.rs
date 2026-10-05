@@ -610,7 +610,7 @@ mod monitor_selection_tests {
     }
 
     #[test]
-    fn durable_monitor_resolution_prefers_exact_and_requires_unique_named_fallback() {
+    fn durable_monitor_resolution_requires_unique_named_fallback() {
         let saved =
             r"\\.\DISPLAY1|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
         let current = descriptor(
