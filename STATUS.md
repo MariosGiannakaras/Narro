@@ -1,5 +1,9 @@
 # STATUS.md
 
+## 2026-10-05 — PR235 scoped correction implemented; exact Windows acceptance pending
+
+[PR235/source d80978b8](work-log/2026-10-05-codex-m7-pr235-pointer-overlay-correction.md) batches internal Pointer Events task drag, unobscured retained-menu stacking and unbroken tooltip wrapping. Full frontend preflight and final four light/dark normal/reduced production-component/API regressions at100%/125% PASS; exact Windows CI952 is running. Fixture evidence is not native PASS. CI950 remains paused/alive, OBS stopped; ordinary version changes use targeted commands/automation. Native24/26 and horizontal23/title/tooltip coverage stay open until the verified candidate is exercised and compared. Current **4/10M ||4/5 |14/19**; M10 blocked, M11 dormant.
+
 ## 2026-10-05 — CI950 native batch; M2 re-closed; drag/menu corrections open
 
 Exact704763e2/CI950/EXEc9189a75 exercised on both real displays. Actual lane Move completes writer19 and re-closes M2; catalog22 refresh/selection recovery and vertical queue/last-menu keyboard access100%/125% have sufficient scoped evidence. Native drag24 still fails from confirmed padding to empty lane using two input mechanisms. Retained Delete grammar/metadata works, but disabled metadata occludes the menu (new26). Horizontal-provider bounds need a rendered unbroken-title reproduction. [Detailed evidence, limits and scoped alternatives](work-log/2026-10-05-codex-m7-ci950-physical-results.md); [whole media/current logs](work-log/evidence/m7-ci950-20261005/README.md). No whole source-parity or C4 PASS. Current **4/10M ||4/5 |14/19**; M10 blocked, M11 dormant. OBS stopped; new process133416 remains paused/alive. Old948 was normally quit by the user. Use targeted commands/automation for ordinary version changes; actual tray Quit belongs to formal C5 acceptance.

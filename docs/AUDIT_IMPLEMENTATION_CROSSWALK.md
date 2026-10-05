@@ -2,6 +2,10 @@
 
 # Audit → implementation crosswalk
 
+## Current PR235 corrective implementation — physical acceptance OPEN
+
+Source d80978b8 batches24 internal task-drag alternative,26 menu stacking,23 unbroken tooltip text overflow. Actual title reproduced410/316px horizontal overflow; an interior menu sample hit disabled Schedule/Repeat above confirmation. Both rendered failures are corrected. Four final theme/motion variants at100%/125% pass production/API assertions including pointer/keyboard identity, cancellation, cleanup, menu painting and queue bounds. Windows CI952 is running; no native/source PASS yet. [Exact decision and acceptance map](../work-log/2026-10-05-codex-m7-pr235-pointer-overlay-correction.md). Retain CI950 immutable failures and sufficient19/22 scoped acceptance. Counters **4/10M ||4/5 |14/19** unchanged.
+
 ## Current CI950 native disposition — 2026-10-05
 
 [Full results, exact source and post-session M1–M9 matrix](../work-log/2026-10-05-codex-m7-ci950-physical-results.md). These current scoped dispositions supersede older open labels without rewriting historical evidence.

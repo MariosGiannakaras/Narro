@@ -2,6 +2,10 @@
 
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
+## Current — PR235 implemented; one exact-build affected acceptance batch next
+
+Source d80978b8 / [PR235](https://github.com/MariosGiannakaras/Narro/pull/235),13 files+323/-128: Pointer Events internal task drag, explicit retained-menu rail stacking, wrapped unbroken tooltip text. Four final light/dark normal/reduced rendered regressions pass at100%/125%; full frontend preflight and final TypeScript PASS. Windows CI952/run37257315398 running; native acceptance **OPEN**. [Decision, reproduced failures, validation limits and pre-session M1–M9 matrix](work-log/2026-10-05-codex-m7-pr235-pointer-overlay-correction.md). Native24/26, horizontal23, reduced metric20, remaining title/tooltip and delayed quick-create07 requirements remain open. Existing C1–C3/C5 and writer19/catalog22 scoped proofs retained. Current **4/10M ||4/5 |14/19**; M10 blocked; M11 dormant.
+
 ## Current — CI950 native results and scoped remediation
 
 Exact CI950/704763e2 / EXEc9189a75 was physically exercised. [Results and post-session M1–M9 matrix](work-log/2026-10-05-codex-m7-ci950-physical-results.md); [whole recordings/logs/probes](work-log/evidence/m7-ci950-20261005/README.md). Writer19 actual lane Move plus stable-ID/time ledgers re-closes M2 Gate B; catalog22 has scoped native PASS. Long-queue wheel/Ctrl+End/last-menu/Tab access passes100%/125%, but horizontal-provider/long-title bounds still require reproduction. Native internal drag24 fails both legacy and verified SendInput methods from confirmed padding to empty lane. Retained Delete grammar/metadata functions, but disabled metadata paints above the menu: new26 FAIL/FIX_NOW. Compare a scoped Pointer Events internal-drag solution against current HTML5/OLE; preserve stable-ID positional authority and keyboard moves. Add rendered occlusion and actual unbroken-title regressions before the next consolidated build. No further speculative native-handler toggles.
