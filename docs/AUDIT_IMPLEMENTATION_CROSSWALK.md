@@ -1,10 +1,12 @@
 # Audit → implementation crosswalk
 
-## Current authoritative state — documentation reconciled 2026-10-05
+## Current authoritative state — project continuation reconciled 2026-10-05
 
 This section is the continuation authority. Dated checkpoints below describe earlier builds/sessions; their old counters, pending-CI text, PIDs, monitor state and next-step requests are historical, not instructions to rerun them.
 
-- **Authorized phase:** capture/evidence, documentation and small evidence analyses without corrections (latest user instruction). No Narro source changes, tests, builds, CI-triggering source push or PR merge. Browser shortcut received a bounded sampled-frame review below; other new recordings retain their prior review status.
+Temporary capture-only/no-analysis/no-source instructions in dated checkpoints are historical instructions for the originating chat, not repository-wide restrictions on other chats. Current continuation below and durable milestone/FIX_NOW rules govern the project.
+
+- **Project continuation:** normal evidence analysis, evidence-backed implementation/corrections and validation under the ordered M1–M9/FIX_NOW and acceptance rules. The capture-only/no-analysis/no-source restrictions applied only to the originating Windows chat because of its usage budget; they are not project-wide and do not require other chats to obtain renewed implementation permission. Unreviewed recordings still need proper analysis before acceptance claims.
 - **Candidate:** source `38219e200fe3bec7309f8e03e72003184ca86d08`, Windows CI953/run37258629373 **completed/success**, artifact11324640580, EXE SHA256 `bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8`. [PR235](https://github.com/MariosGiannakaras/Narro/pull/235) is still **OPEN/DRAFT**, exact head matches candidate; it is not merged into main. Documentation/evidence on main does not mean candidate source or WIP is merged.
 - **Implementation/acceptance roadmap:** M2–M4 complete (**3/10 mandatory milestones**). M1 is narrowly reopened for explicit-monitor/DPI recovery27. M5/M6 have affected visual/source gates open. M7 C1–C3/C5 have accepted evidence, **C4 remains OPEN:4/5 corrective criteria**, not whole M7 completion. M8/M9 remain open. M10 hard entry is blocked until every required M1–M9 gate clears and the user receives the explicit completion announcement. Optional M11 is dormant and outside the denominator.
 - **Source WIP:** the four async-read files are backed up on [the separate WIP branch](https://github.com/MariosGiannakaras/Narro/tree/wip/m7-async-read-and-evidence-tools-20261005), latest `99c2e5fc3900a16496f53dc091bf63b3be3a9789`. Current local file contents match that backup after LF/CRLF normalization. Backup is **uncompiled/native-unvalidated**, absent from CI953 and unmerged; do not describe it as an accepted responsiveness fix. No new validation was run for this audit.
@@ -20,11 +22,13 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](../work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
+- **Scope correction:** [user clarification and normal continuation](../work-log/2026-10-05-chat-scope-continuation-clarification.md). Session-specific operating/usage restrictions must not become project-wide implementation bans. Other chats can continue the normal analyze/reconcile → implement → validate cycle within durable rules; historical capture-only work logs retain their facts.
+
 ## Historical acquisition/disposition checkpoints
 
 Existing finding verdicts are retained; this documentation audit adds no source or physical acceptance.
 
-## Existing WIP safely backed up — capture-only continuation
+## Historical checkpoint — existing WIP backup during the original chat's capture-only phase
 
 ## Historical checkpoint — unified capture navigation index (2026-10-05)
 
