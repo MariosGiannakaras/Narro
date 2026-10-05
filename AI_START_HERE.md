@@ -60,7 +60,7 @@ Use this decision order:
 3. If handoff state is stale or contradicts repository reality, correct it first using current code/tests/CI evidence.
 4. If `HANDOFF.md` has no actionable continuation, take the first open item in the current `TODO.md` milestone whose prerequisites are satisfied.
 5. Do not skip to a later milestone merely because it is easier or more visually rewarding.
-6. **Optional Milestone 11 is a hard exception to ordinary autonomous continuation.** Never start, prepare, schedule, count, or infer the live Blitzit audit from `continue`, `keep going`, `finish the project`, completion of M10, or similar general instructions. M11 requires an explicit user instruction that specifically activates M11 / the live Blitzit reference audit. If it is never explicitly activated, skip it entirely and continue from validated M10 to the required Final Comprehensive Review.
+6. **Optional Milestone 11 is a hard exception to ordinary autonomous continuation.** Never start, prepare, schedule, count, or infer the live Blitzit audit from `continue`, `keep going`, `finish the project`, completion of M10, or similar general instructions. M11 requires an explicit user instruction that specifically activates M11 / the live Blitzit reference audit. If it is never explicitly activated, skip it entirely and continue from validated M10 to the required Final Comprehensive Review. If it is activated, obey `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md` phase ordering: **capture/freeze the complete visual + observable protocol/state corpus before analysis, complete analysis/reconciliation before any Narro remediation**.
 
 ## Autonomy expectations
 
