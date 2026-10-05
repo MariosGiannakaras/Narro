@@ -506,17 +506,10 @@ fn parse_persisted_monitor_name(monitor_key: &str) -> Option<String> {
     (!name.is_empty()).then_some(name)
 }
 
-fn monitor_descriptor_index_for_key(
+fn compatible_monitor_descriptor_index(
     monitor_key: &str,
     descriptors: &[MonitorDescriptor],
 ) -> Option<usize> {
-    if let Some(index) = descriptors
-        .iter()
-        .position(|descriptor| descriptor.key == monitor_key)
-    {
-        return Some(index);
-    }
-
     let saved_name = parse_persisted_monitor_name(monitor_key)?;
     let mut compatible = descriptors
         .iter()
@@ -544,24 +537,23 @@ fn resolve_monitor_by_key(
     }
 
     let monitors = enumerate_monitors(app_handle)?;
-    let descriptors = monitors
+    let mut described = Vec::with_capacity(monitors.len());
+    for (index, monitor) in monitors.into_iter().enumerate() {
+        let descriptor = monitor_descriptor(index, &monitor)?;
+        if descriptor.key == monitor_key {
+            return Ok((monitor, descriptor));
+        }
+        described.push((monitor, descriptor));
+    }
+
+    let descriptors = described
         .iter()
-        .enumerate()
-        .map(|(index, monitor)| monitor_descriptor(index, monitor))
-        .collect::<CommandResult<Vec<_>>>()?;
-    let Some(selected_index) = monitor_descriptor_index_for_key(monitor_key, &descriptors) else {
+        .map(|(_, descriptor)| descriptor.clone())
+        .collect::<Vec<_>>();
+    let Some(selected_index) = compatible_monitor_descriptor_index(monitor_key, &descriptors) else {
         return Err(CommandError::stale_monitor_selection());
     };
-
-    let monitor = monitors
-        .into_iter()
-        .nth(selected_index)
-        .ok_or_else(CommandError::stale_monitor_selection)?;
-    let descriptor = descriptors
-        .into_iter()
-        .nth(selected_index)
-        .ok_or_else(CommandError::stale_monitor_selection)?;
-    Ok((monitor, descriptor))
+    Ok(described.swap_remove(selected_index))
 }
 
 #[cfg(test)]
@@ -627,21 +619,16 @@ mod monitor_selection_tests {
             0,
         );
         assert_eq!(
-            monitor_descriptor_index_for_key(saved, std::slice::from_ref(&current)),
+            compatible_monitor_descriptor_index(saved, std::slice::from_ref(&current)),
             Some(0)
         );
-        assert_eq!(
-            monitor_descriptor_index_for_key(&current.key, std::slice::from_ref(&current)),
-            Some(0)
-        );
-
         let duplicate = descriptor(
             r"\\.\DISPLAY1|1920|0|1920|1080|1920|0|1920|1040|3ff0000000000000",
             Some(r"\\.\DISPLAY1"),
             1,
         );
         assert_eq!(
-            monitor_descriptor_index_for_key(saved, &[current.clone(), duplicate]),
+            compatible_monitor_descriptor_index(saved, &[current.clone(), duplicate]),
             None
         );
 
@@ -650,7 +637,7 @@ mod monitor_selection_tests {
             Some(r"\\.\DISPLAY2"),
             0,
         );
-        assert_eq!(monitor_descriptor_index_for_key(saved, &[different]), None);
+        assert_eq!(compatible_monitor_descriptor_index(saved, &[different]), None);
 
         let unnamed_saved =
             "|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
@@ -660,7 +647,7 @@ mod monitor_selection_tests {
             0,
         );
         assert_eq!(
-            monitor_descriptor_index_for_key(unnamed_saved, &[unnamed]),
+            compatible_monitor_descriptor_index(unnamed_saved, &[unnamed]),
             None
         );
     }
