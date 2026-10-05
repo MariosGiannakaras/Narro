@@ -506,6 +506,26 @@ fn parse_persisted_monitor_name(monitor_key: &str) -> Option<String> {
     (!name.is_empty()).then_some(name)
 }
 
+fn monitor_descriptor_index_for_key(
+    monitor_key: &str,
+    descriptors: &[MonitorDescriptor],
+) -> Option<usize> {
+    if let Some(index) = descriptors
+        .iter()
+        .position(|descriptor| descriptor.key == monitor_key)
+    {
+        return Some(index);
+    }
+
+    let saved_name = parse_persisted_monitor_name(monitor_key)?;
+    let mut compatible = descriptors
+        .iter()
+        .enumerate()
+        .filter(|(_, descriptor)| descriptor.name.as_deref() == Some(saved_name.as_str()));
+    let candidate = compatible.next()?.0;
+    compatible.next().is_none().then_some(candidate)
+}
+
 fn resolve_monitor_by_key(
     app_handle: &tauri::AppHandle,
     monitor_key: &str,
@@ -524,27 +544,24 @@ fn resolve_monitor_by_key(
     }
 
     let monitors = enumerate_monitors(app_handle)?;
-    let mut described = Vec::with_capacity(monitors.len());
-    for (index, monitor) in monitors.into_iter().enumerate() {
-        let descriptor = monitor_descriptor(index, &monitor)?;
-        if descriptor.key == monitor_key {
-            return Ok((monitor, descriptor));
-        }
-        described.push((monitor, descriptor));
-    }
+    let descriptors = monitors
+        .iter()
+        .enumerate()
+        .map(|(index, monitor)| monitor_descriptor(index, monitor))
+        .collect::<CommandResult<Vec<_>>>()?;
+    let Some(selected_index) = monitor_descriptor_index_for_key(monitor_key, &descriptors) else {
+        return Err(CommandError::stale_monitor_selection());
+    };
 
-    if let Some(saved_name) = parse_persisted_monitor_name(monitor_key) {
-        let mut compatible = described.into_iter().filter(|(_, descriptor)| {
-            descriptor.name.as_deref() == Some(saved_name.as_str())
-        });
-        if let Some(candidate) = compatible.next() {
-            if compatible.next().is_none() {
-                return Ok(candidate);
-            }
-        }
-    }
-
-    Err(CommandError::stale_monitor_selection())
+    let monitor = monitors
+        .into_iter()
+        .nth(selected_index)
+        .ok_or_else(CommandError::stale_monitor_selection)?;
+    let descriptor = descriptors
+        .into_iter()
+        .nth(selected_index)
+        .ok_or_else(CommandError::stale_monitor_selection)?;
+    Ok((monitor, descriptor))
 }
 
 #[cfg(test)]
@@ -575,6 +592,75 @@ mod monitor_selection_tests {
             parse_persisted_monitor_name(
                 "|0|0|1920|1080|0|0|1920|1040|3ff0000000000000"
             ),
+            None
+        );
+    }
+
+    fn descriptor(key: &str, name: Option<&str>, index: usize) -> MonitorDescriptor {
+        MonitorDescriptor {
+            key: key.to_owned(),
+            index,
+            name: name.map(str::to_owned),
+            scale_factor: 1.0,
+            position: GeometryPoint { x: 0, y: 0 },
+            size: GeometrySize {
+                width: 1920,
+                height: 1080,
+            },
+            work_area: GeometryRect {
+                position: GeometryPoint { x: 0, y: 0 },
+                size: GeometrySize {
+                    width: 1920,
+                    height: 1040,
+                },
+            },
+        }
+    }
+
+    #[test]
+    fn durable_monitor_resolution_prefers_exact_and_requires_unique_named_fallback() {
+        let saved =
+            r"\\.\DISPLAY1|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
+        let current = descriptor(
+            r"\\.\DISPLAY1|-2560|120|2560|1440|-2560|120|2560|1400|3ff0000000000000",
+            Some(r"\\.\DISPLAY1"),
+            0,
+        );
+        assert_eq!(
+            monitor_descriptor_index_for_key(saved, std::slice::from_ref(&current)),
+            Some(0)
+        );
+        assert_eq!(
+            monitor_descriptor_index_for_key(&current.key, std::slice::from_ref(&current)),
+            Some(0)
+        );
+
+        let duplicate = descriptor(
+            r"\\.\DISPLAY1|1920|0|1920|1080|1920|0|1920|1040|3ff0000000000000",
+            Some(r"\\.\DISPLAY1"),
+            1,
+        );
+        assert_eq!(
+            monitor_descriptor_index_for_key(saved, &[current.clone(), duplicate]),
+            None
+        );
+
+        let different = descriptor(
+            r"\\.\DISPLAY2|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
+            Some(r"\\.\DISPLAY2"),
+            0,
+        );
+        assert_eq!(monitor_descriptor_index_for_key(saved, &[different]), None);
+
+        let unnamed_saved =
+            "|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
+        let unnamed = descriptor(
+            "|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
+            None,
+            0,
+        );
+        assert_eq!(
+            monitor_descriptor_index_for_key(unnamed_saved, &[unnamed]),
             None
         );
     }
