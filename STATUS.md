@@ -18,9 +18,9 @@ An optional **Milestone 11 — Live Blitzit Reference Audit** now exists as a do
 
 No M11 checklist item, validation count or milestone counter is advanced by defining this dormant option.
 
-## Physical Windows capture efficiency policy
+## Physical Windows evidence-efficiency policy
 
-Ordinary M1–M10/Final-Review screen-recorded physical sessions now use an execution-first capture protocol. Prepare the exact-build runbook and cross-milestone acceptance matrix before OBS starts; while recording, perform the planned interactions/paired comparisons continuously and defer source reading, debugging, root-cause investigation and Narro edits until the recording has stopped. Potential defects receive neutral timestamps/notes during capture, then the complete video/log/screenshot set is analyzed together and evidence-backed fixes are batched afterward. This avoids long OBS recordings dominated by development work while preserving full evidence. Quiet performance measurements remain separate when OBS would contaminate the measurement. M11 retains its stricter whole-campaign corpus freeze before any analysis.
+Ordinary M1–M10/Final-Review interactive validation is tool-agnostic: use OBS/video, Computer Use, screenshots, native/UIA probes, diagnostic logs or another suitable method according to the scenario. Prepare compatible checks before a substantial session and prefer related/paired observations close together where useful. When continuous recording is used, avoid long unrelated source/debug intervals that add little evidence, but allow intermediate probes, tool changes, state inspection and adaptive diagnostics whenever they materially improve reliability or are required for the next safe action. Analyze completed capture segments and batch compatible fixes where practical. This is an efficiency objective, not a rigid prohibition or an OBS requirement. Quiet performance measurements remain separate when recording would contaminate them. M11 retains its stricter whole-campaign corpus freeze before analysis.
 
 
 ## Current — CI948 physical evidence and one corrective batch
