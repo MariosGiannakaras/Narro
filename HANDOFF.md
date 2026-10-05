@@ -14,6 +14,8 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Small browser review:** [eight extracted frames, exact actions and limits](work-log/evidence/m7-ci953-browser-shortcut-review-20261005/README.md). Enabled Ctrl+Shift+T visibly switches compact Timer to Panel and does not restore the closed New tab. Disabled preference=false yields no visible Narro overlay in the sampled post-action state, but still no restored tab; browser compatibility remains OPEN. Missing positive control: identifiable loaded page reopened with Narro exited. No source correction, full-gate closure or counter change.
 
+- **Continuation readiness verified:** [publication/integrity audit and precise limits](work-log/2026-10-05-chat-continuation-readiness.md). Eleven capture packets plus index/review:13 bundles,1,217 listed files match frozen SHA256 and published Git blobs;156 relative links resolve. Remote main/publication receipt agree; no pending queue. Source WIP remains unvalidated on its backup branch. No new product PASS or acceptance/counter change.
+
 ## Next action and boundaries
 
 Use the capture index and full original packets for evidence analysis in the reviewing chat. Request only specifically missing acquisition afterward. Physical cable unplug/replug is still manual/OPEN. Notification delivery, the unresolved browser positive control and motion/source comparisons require further review; no new milestone is complete from these raw captures.
