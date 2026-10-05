@@ -550,7 +550,8 @@ fn resolve_monitor_by_key(
         .iter()
         .map(|(_, descriptor)| descriptor.clone())
         .collect::<Vec<_>>();
-    let Some(selected_index) = compatible_monitor_descriptor_index(monitor_key, &descriptors) else {
+    let Some(selected_index) = compatible_monitor_descriptor_index(monitor_key, &descriptors)
+    else {
         return Err(CommandError::stale_monitor_selection());
     };
     Ok(described.swap_remove(selected_index))
@@ -562,8 +563,7 @@ mod monitor_selection_tests {
 
     #[test]
     fn persisted_monitor_name_survives_dpi_work_area_and_geometry_changes() {
-        let saved =
-            r"\\.\DISPLAY1|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
+        let saved = r"\\.\DISPLAY1|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
         assert_eq!(
             parse_persisted_monitor_name(saved).as_deref(),
             Some(r"\\.\DISPLAY1")
@@ -581,9 +581,7 @@ mod monitor_selection_tests {
     fn malformed_or_unnamed_persisted_monitor_keys_have_no_compatibility_identity() {
         assert_eq!(parse_persisted_monitor_name("malformed-monitor-key"), None);
         assert_eq!(
-            parse_persisted_monitor_name(
-                "|0|0|1920|1080|0|0|1920|1040|3ff0000000000000"
-            ),
+            parse_persisted_monitor_name("|0|0|1920|1080|0|0|1920|1040|3ff0000000000000"),
             None
         );
     }
@@ -611,8 +609,7 @@ mod monitor_selection_tests {
 
     #[test]
     fn durable_monitor_resolution_requires_unique_named_fallback() {
-        let saved =
-            r"\\.\DISPLAY1|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
+        let saved = r"\\.\DISPLAY1|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
         let current = descriptor(
             r"\\.\DISPLAY1|-2560|120|2560|1440|-2560|120|2560|1400|3ff0000000000000",
             Some(r"\\.\DISPLAY1"),
@@ -654,8 +651,7 @@ mod monitor_selection_tests {
 
     #[test]
     fn monitor_names_with_separators_remain_parseable() {
-        let saved =
-            r"DISPLAY|ALIAS|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
+        let saved = r"DISPLAY|ALIAS|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
         assert_eq!(
             parse_persisted_monitor_name(saved).as_deref(),
             Some("DISPLAY|ALIAS")
