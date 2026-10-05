@@ -486,14 +486,7 @@ fn monitor_descriptor(
     })
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
-struct PersistedMonitorIdentity {
-    name: String,
-    position: GeometryPoint,
-    size: GeometrySize,
-}
-
-fn parse_persisted_monitor_identity(monitor_key: &str) -> Option<PersistedMonitorIdentity> {
+fn parse_persisted_monitor_name(monitor_key: &str) -> Option<String> {
     let mut parts = monitor_key.rsplitn(10, '|');
 
     let scale_bits = parts.next()?;
@@ -504,34 +497,13 @@ fn parse_persisted_monitor_identity(monitor_key: &str) -> Option<PersistedMonito
     parts.next()?.parse::<u32>().ok()?;
     parts.next()?.parse::<i32>().ok()?;
     parts.next()?.parse::<i32>().ok()?;
+    parts.next()?.parse::<u32>().ok()?;
+    parts.next()?.parse::<u32>().ok()?;
+    parts.next()?.parse::<i32>().ok()?;
+    parts.next()?.parse::<i32>().ok()?;
 
-    let height = parts.next()?.parse::<u32>().ok()?;
-    let width = parts.next()?.parse::<u32>().ok()?;
-    let y = parts.next()?.parse::<i32>().ok()?;
-    let x = parts.next()?.parse::<i32>().ok()?;
     let name = parts.next()?.to_owned();
-
-    Some(PersistedMonitorIdentity {
-        name,
-        position: GeometryPoint { x, y },
-        size: GeometrySize { width, height },
-    })
-}
-
-fn monitor_key_matches_descriptor(
-    monitor_key: &str,
-    descriptor: &MonitorDescriptor,
-) -> bool {
-    if descriptor.key == monitor_key {
-        return true;
-    }
-
-    let Some(saved) = parse_persisted_monitor_identity(monitor_key) else {
-        return false;
-    };
-    saved.name == descriptor.name.as_deref().unwrap_or_default()
-        && saved.position == descriptor.position
-        && saved.size == descriptor.size
+    (!name.is_empty()).then_some(name)
 }
 
 fn resolve_monitor_by_key(
@@ -551,10 +523,24 @@ fn resolve_monitor_by_key(
         ));
     }
 
-    for (index, monitor) in enumerate_monitors(app_handle)?.into_iter().enumerate() {
+    let monitors = enumerate_monitors(app_handle)?;
+    let mut described = Vec::with_capacity(monitors.len());
+    for (index, monitor) in monitors.into_iter().enumerate() {
         let descriptor = monitor_descriptor(index, &monitor)?;
-        if monitor_key_matches_descriptor(monitor_key, &descriptor) {
+        if descriptor.key == monitor_key {
             return Ok((monitor, descriptor));
+        }
+        described.push((monitor, descriptor));
+    }
+
+    if let Some(saved_name) = parse_persisted_monitor_name(monitor_key) {
+        let mut compatible = described.into_iter().filter(|(_, descriptor)| {
+            descriptor.name.as_deref() == Some(saved_name.as_str())
+        });
+        if let Some(candidate) = compatible.next() {
+            if compatible.next().is_none() {
+                return Ok(candidate);
+            }
         }
     }
 
@@ -565,81 +551,42 @@ fn resolve_monitor_by_key(
 mod monitor_selection_tests {
     use super::*;
 
-    fn descriptor(key: &str, name: &str, position: GeometryPoint, size: GeometrySize) -> MonitorDescriptor {
-        MonitorDescriptor {
-            key: key.to_owned(),
-            index: 0,
-            name: Some(name.to_owned()),
-            scale_factor: 1.0,
-            position,
-            size,
-            work_area: GeometryRect {
-                position,
-                size,
-            },
-        }
-    }
-
     #[test]
-    fn saved_monitor_identity_survives_dpi_and_work_area_changes() {
-        let position = GeometryPoint { x: 0, y: 0 };
-        let size = GeometrySize {
-            width: 1920,
-            height: 1080,
-        };
-        let current_key =
-            r"\\.\DISPLAY1|0|0|1920|1080|0|0|1920|1040|3ff0000000000000";
-        let saved_at_125_percent =
+    fn persisted_monitor_name_survives_dpi_work_area_and_geometry_changes() {
+        let saved =
             r"\\.\DISPLAY1|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
-        let current = descriptor(current_key, r"\\.\DISPLAY1", position, size);
-
-        assert!(monitor_key_matches_descriptor(current_key, &current));
-        assert!(monitor_key_matches_descriptor(saved_at_125_percent, &current));
-    }
-
-    #[test]
-    fn saved_monitor_identity_still_fails_closed_for_different_display_geometry() {
-        let current = descriptor(
-            r"\\.\DISPLAY1|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
-            r"\\.\DISPLAY1",
-            GeometryPoint { x: 0, y: 0 },
-            GeometrySize {
-                width: 1920,
-                height: 1080,
-            },
+        assert_eq!(
+            parse_persisted_monitor_name(saved).as_deref(),
+            Some(r"\\.\DISPLAY1")
         );
 
-        assert!(!monitor_key_matches_descriptor(
-            r"\\.\DISPLAY2|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
-            &current,
-        ));
-        assert!(!monitor_key_matches_descriptor(
-            r"\\.\DISPLAY1|-1920|0|1920|1080|-1920|0|1920|1040|3ff0000000000000",
-            &current,
-        ));
-        assert!(!monitor_key_matches_descriptor(
-            r"\\.\DISPLAY1|0|0|2560|1440|0|0|2560|1400|3ff0000000000000",
-            &current,
-        ));
-        assert!(!monitor_key_matches_descriptor("malformed-monitor-key", &current));
+        let moved_and_resized =
+            r"\\.\DISPLAY1|-2560|120|2560|1440|-2560|120|2560|1400|3ff0000000000000";
+        assert_eq!(
+            parse_persisted_monitor_name(moved_and_resized).as_deref(),
+            Some(r"\\.\DISPLAY1")
+        );
+    }
+
+    #[test]
+    fn malformed_or_unnamed_persisted_monitor_keys_have_no_compatibility_identity() {
+        assert_eq!(parse_persisted_monitor_name("malformed-monitor-key"), None);
+        assert_eq!(
+            parse_persisted_monitor_name(
+                "|0|0|1920|1080|0|0|1920|1040|3ff0000000000000"
+            ),
+            None
+        );
     }
 
     #[test]
     fn monitor_names_with_separators_remain_parseable() {
-        let current = descriptor(
-            r"DISPLAY|ALIAS|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
-            "DISPLAY|ALIAS",
-            GeometryPoint { x: 0, y: 0 },
-            GeometrySize {
-                width: 1920,
-                height: 1080,
-            },
+        let saved =
+            r"DISPLAY|ALIAS|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
+        assert_eq!(
+            parse_persisted_monitor_name(saved).as_deref(),
+            Some("DISPLAY|ALIAS")
         );
-
-        assert!(monitor_key_matches_descriptor(
-            r"DISPLAY|ALIAS|0|0|1920|1080|0|0|1536|832|3ff4000000000000",
-            &current,
-        ));
     }
 }
 
