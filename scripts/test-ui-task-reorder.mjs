@@ -10,6 +10,7 @@ function requireText(haystack, needle, label) {
 const rust = read("src-tauri/src/board_task_mutation.rs");
 const lib = read("src-tauri/src/lib.rs");
 const board = read("src/ListBoard.tsx");
+const pointer = read("src/boardTaskPointerDrag.ts");
 const api = read("src/listBoardApi.ts");
 const css = read("src/taskReorder.css");
 const appCss = read("src/App.css");
@@ -38,10 +39,10 @@ for (const [haystack, needle, label] of [
   [board, 'data-board-reorder-enabled={interactionReorderEnabled ? "true" : "false"}', "individual-board interaction gate"],
   [board, "snapshot.target.kind === \"list\"", "aggregate All Lists read-only gate"],
   [board, "task.scheduledLocalDate === null", "scheduled task drag exclusion"],
-  [board, "draggable={reorderable && interactionReorderEnabled", "pointer drag activation"],
-  [board, "event.dataTransfer.effectAllowed = \"move\"", "native drag move intent"],
-  [board, "event.clientY < bounds.top + bounds.height / 2", "same-lane and cross-lane pointer insertion targeting"],
-  [board, "setDropTarget({ lane, beforeTaskId: null });", "blank-lane append targeting"],
+  [board, "draggable={false}", "internal movement excludes competing native/OLE drag"],
+  [board, "onPointerDown={reorderable && interactionReorderEnabled", "guarded pointer drag activation"],
+  [pointer, "y < bounds.top + bounds.height / 2", "same-lane and cross-lane pointer insertion targeting"],
+  [pointer, "beforeTaskId: before?.dataset.boardDragTask ?? null", "blank-lane append targeting"],
   [board, "showLaneEndPlaceholder", "cross-lane append placeholder"],
   [board, "beforeTaskId,", "selected cross-lane position persistence"],
   [board, "await reorderListBoardTask", "persistence-first same-lane mutation"],
@@ -53,8 +54,12 @@ for (const [haystack, needle, label] of [
   [board, 'event.key === "ArrowUp"', "keyboard upward reorder"],
   [board, 'event.key === "ArrowLeft" || event.key === "ArrowRight"', "keyboard cross-lane move"],
   [board, "<DropPlaceholder height={dragState?.sourceHeight} />", "source-height placeholder presentation"],
-  [board, 'preview.classList.add("list-board-task-drag-preview")', "lifted native drag preview"],
-  [board, "sourceHeight: sourceRect.height", "live source reflow height capture"],
+  [pointer, "preview.classList.add('list-board-task-drag-preview')", "lifted internal drag preview"],
+  [pointer, "options.onLift(initial.height)", "live source reflow height capture"],
+  [pointer, "preview.inert = true", "noninteractive/accessibility-excluded preview"],
+  [pointer, "source.setPointerCapture(pointerId)", "pointer capture across lanes"],
+  [pointer, "window.removeEventListener('pointermove', move)", "finite listener cleanup"],
+  [pointer, "event.key === 'Escape'", "cancel without positional mutation"],
   [css, 'data-task-dragging="true"', "dragging source collapse selector"],
   [css, "height: 0;", "live source reflow collapse"],
   [css, "var(--task-drop-placeholder-height, 4.5rem)", "card-height insertion placeholder"],
@@ -105,13 +110,13 @@ if (!mutation.includes("Could not reorder") || !mutation.includes("handleCommitt
 }
 
 for (const forbidden of ["setInterval("]) {
-  if (board.includes(forbidden) || css.includes(forbidden)) {
+  if (board.includes(forbidden) || pointer.includes(forbidden) || css.includes(forbidden)) {
     throw new Error(`Task reorder must not add continuous presentation work; found ${forbidden}`);
   }
 }
 
-if (!board.includes("window.requestAnimationFrame(() => preview.remove())")) {
-  throw new Error("Lifted drag preview must be removed by a finite one-shot cleanup.");
+if (!pointer.includes("preview?.remove()") || !pointer.includes("window.cancelAnimationFrame(scrollFrame)")) {
+  throw new Error("Internal drag preview and edge-scroll frames require cancellation cleanup.");
 }
 
 console.log("Task reorder/move contract checks passed.");

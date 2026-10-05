@@ -17,7 +17,9 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   let lists = [{ id, title: "Original" }];
   const tasks: ListBoardTask[] = Array.from({ length: 12 }, (_, index) => ({
     id: `31111111-1111-4111-8111-${String(index + 1).padStart(12, "0")}`,
-    listId: id, listTitle: "Original", listColor: null, title: `Queue task ${index + 1} with long readable title`,
+    listId: id, listTitle: "Original", listColor: null, title: index === 11
+      ? "M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890"
+      : `Queue task ${index + 1} with long readable title`,
     estSeconds: null, timeTakenSeconds: "0", subtaskTotalCount: 0, subtaskCompletedCount: 0,
     scheduledLocalDate: null, scheduledLocalTime: null, isOverdue: false, completedAt: null,
   }));
@@ -26,13 +28,14 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       mode: null, work_elapsed_ms: 0, total_break_ms: 0, countdown_remaining_ms: null,
       overtime_ms: 0, break_kind: null, break_remaining_ms: null } } };
   let boardTasks = [...tasks];
+  const taskLanes = new Map<string, "backlog" | "thisWeek" | "today">();
+  const laneTasks = (lane: "backlog" | "thisWeek" | "today") => boardTasks.filter(task => (taskLanes.get(task.id) ?? "today") === lane);
+  const laneSnapshot = (lane: "backlog" | "thisWeek" | "today") => ({tasks: laneTasks(lane), count: laneTasks(lane).length, aggregateEstSeconds: 0});
   const board = (target: { kind: string; id?: string }): ListBoardSnapshot => ({
     target: target.kind === "list" ? { kind: "list", id: target.id!, title: "Original", color: null }
       : { kind: "all_lists", id: null, title: "All Lists", color: null },
     displayTimezone: "Europe/Athens",
-    backlog: { tasks: [], count: 0, aggregateEstSeconds: 0 },
-    thisWeek: { tasks: [], count: 0, aggregateEstSeconds: 0 },
-    today: { tasks: boardTasks, count: boardTasks.length, aggregateEstSeconds: 0 },
+    backlog: laneSnapshot("backlog"), thisWeek: laneSnapshot("thisWeek"), today: laneSnapshot("today"),
     done: { tasks: [], count: 0, aggregateEstSeconds: 0 }, todayCompletionCount: 0, doneMonthCompletionCount: 0,
   });
   const callbacks = new Map<number, (value: unknown) => void>();
@@ -41,6 +44,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   let deferHome = false, deleteFailure = false, deleteCalls = 0;
   const homeWaiters: Array<(value: unknown) => void> = [];
   let deferredDelete: (() => void) | undefined;
+  const dragCalls: Array<Record<string, unknown>> = [];
   const native = window as unknown as {
     __TAURI_INTERNALS__: { transformCallback: (callback: (value: unknown) => void) => number;
       invoke: (command: string, args?: Record<string, unknown>) => Promise<unknown> };
@@ -74,6 +78,17 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       if (command === "get_list_board_snapshot") return board(args.listId
         ? { kind: "list", id: String(args.listId) } : { kind: "all" });
       if (command === "timer_session_snapshot") return timer;
+      if (command === "move_list_board_task" || command === "reorder_list_board_task") {
+        dragCalls.push({command, ...args});
+        const task = boardTasks.find(task => task.id === args.taskId)!;
+        assert(task && args.listId === id && task.scheduledLocalDate === null, "invalid drag mutation");
+        const lane = String(args.targetLane ?? args.sourceLane).replace("this_week", "thisWeek") as "backlog" | "thisWeek" | "today";
+        taskLanes.set(task.id, lane);
+        boardTasks = boardTasks.filter(other => other.id !== task.id);
+        const before = args.beforeTaskId ? boardTasks.findIndex(other => other.id === args.beforeTaskId) : -1;
+        boardTasks.splice(before < 0 ? boardTasks.length : before, 0, task);
+        return;
+      }
       if (command === "permanently_delete_list_board_task") {
         deleteCalls++;
         if (deleteFailure) throw new Error("controlled delete failure");
@@ -178,9 +193,104 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   flushSync(() => root.render(<div>Disposed Focus</div>)); await wait();
   disposedRead({ lists: [{ id: "disposed", title: "Disposed" }] }); await wait(); deferHome = false;
 
+  // Production pointer handlers, real rendered hit testing/placeholder reflow,
+  // and actual production mutation APIs. Synthetic events are renderer-level
+  // regression evidence, not a substitute for native WebView2 acceptance.
+  lists = [{ id, title: "Original" }, { id: "other", title: "Other" }];
+  const scheduled = {...tasks[3], scheduledLocalDate: "2026-10-06"};
+  const renderBoard = (key: string) => flushSync(() => root.render(<ListBoard key={key} target={{kind:"list",id}} />));
+  const shell = (taskId: string) => container.querySelector<HTMLElement>('[data-board-drag-task="' + taskId + '"]')!;
+  const sendPointer = (element: EventTarget, type: string, x: number, y: number, pointerId = 7) =>
+    element.dispatchEvent(new PointerEvent(type, {bubbles:true, cancelable:true, isPrimary:true, pointerId,
+      pointerType:"mouse", button:0, buttons:type === "pointerup" ? 0 : 1, clientX:x, clientY:y}));
+  const lift = async (taskId: string, targetNode?: HTMLElement) => {
+    const source = shell(taskId);
+    source.scrollIntoView({block:"nearest"}); await wait();
+    const bounds = source.getBoundingClientRect();
+    const x = bounds.left + 7, y = bounds.top + 7;
+    sendPointer(targetNode ?? source,"pointerdown",x,y); await wait();
+    sendPointer(window,"pointermove",x+12,y+12); await wait();
+    return {x:x+12,y:y+12};
+  };
+  const releaseAt = async (x: number,y: number) => {
+    sendPointer(window,"pointermove",x,y); await wait();
+    sendPointer(window,"pointerup",x,y); sendPointer(window,"pointerup",x,y);
+    await wait(); await wait(); await wait();
+  };
+  for (const zoom of [1,1.25]) {
+    boardTasks = [tasks[0],tasks[1],tasks[2],scheduled]; taskLanes.clear();
+    container.style.zoom = String(zoom); renderBoard("pointer-"+zoom); await wait(); await wait();
+    const initialIds = boardTasks.map(task => task.id).sort().join("|");
+    const count = dragCalls.length;
+    await lift(tasks[0].id);
+    const preview = document.querySelector<HTMLElement>('.list-board-task-drag-preview')!;
+    assert(preview?.inert && preview.getAttribute('aria-hidden') === 'true'
+      && shell(tasks[0].id).dataset.taskDragging === 'true'
+      && container.querySelector('[data-task-drop-placeholder]'), "pointer lift/reflow/accessibility missing");
+    const backlog = container.querySelector<HTMLElement>('[data-board-drop-lane="backlog"]')!.getBoundingClientRect();
+    await releaseAt(backlog.left+backlog.width/2,backlog.top+backlog.height/2);
+    assert(dragCalls.length === count+1 && taskLanes.get(tasks[0].id) === 'backlog'
+      && dragCalls[count].taskId === tasks[0].id && !document.querySelector('.list-board-task-drag-preview'), "cross-lane drop not exactly once/cleaned");
+    await lift(tasks[0].id);
+    const returningAnchor = shell(tasks[1].id);
+    const returnBeforeScroll = returningAnchor.getBoundingClientRect();
+    document.scrollingElement!.scrollTop += returnBeforeScroll.top + returnBeforeScroll.height / 3 - window.innerHeight / 2;
+    await wait();
+    const today = returningAnchor.getBoundingClientRect();
+    await releaseAt(today.left+today.width/2,today.top+today.height/3);
+    assert(dragCalls.length === count+2 && taskLanes.get(tasks[0].id) === 'today', "return move failed "
+      + JSON.stringify({zoom,count,calls:dragCalls.slice(count),target:today.toJSON(),height:window.innerHeight}));
+    await lift(tasks[0].id);
+    const reorderBeforeScroll = shell(tasks[1].id).getBoundingClientRect();
+    document.scrollingElement!.scrollTop += reorderBeforeScroll.top + reorderBeforeScroll.height * 2 / 3 - window.innerHeight / 2;
+    await wait();
+    const first = shell(tasks[1].id).getBoundingClientRect();
+    await releaseAt(first.left+first.width/2,first.top+first.height*2/3);
+    assert(dragCalls.length === count+3 && dragCalls[count+2].command === 'reorder_list_board_task'
+      && dragCalls[count+2].beforeTaskId === tasks[2].id
+      && laneTasks('today').map(task => task.id).join('|') === [tasks[1].id,tasks[0].id,tasks[2].id,scheduled.id].join('|'), "same-lane positional reorder failed "
+        + JSON.stringify({zoom, count, calls:dragCalls.slice(count), first:first.toJSON()}));
+    assert(boardTasks.map(task => task.id).sort().join('|') === initialIds
+      && boardTasks.every(task => task.timeTakenSeconds === '0'), "drag changed identities/tracked time");
+    await lift(tasks[0].id);
+    window.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true})); await wait();
+    assert(dragCalls.length === count+3 && !document.querySelector('.list-board-task-drag-preview')
+      && !container.querySelector('[data-task-drop-placeholder]'), "Escape drag cancellation mutated or leaked");
+    for (const cancellation of ['pointercancel','blur','outside']) {
+      await lift(tasks[0].id);
+      if (cancellation === 'outside') await releaseAt(-5,-5);
+      else window.dispatchEvent(cancellation === 'pointercancel'
+        ? new PointerEvent('pointercancel',{pointerId:7}) : new Event('blur'));
+      await wait();
+      assert(dragCalls.length === count+3 && !document.querySelector('.list-board-task-drag-preview'), cancellation+" drag cancellation mutated or leaked");
+    }
+    const titleButton = shell(tasks[0].id).querySelector<HTMLElement>('[data-task-title-control]')!;
+    const point = await lift(tasks[0].id,titleButton); await releaseAt(point.x,point.y);
+    assert(dragCalls.length === count+3 && !document.querySelector('.list-board-task-drag-preview'), "interactive title began drag");
+    const scheduledPoint = await lift(scheduled.id); await releaseAt(scheduledPoint.x,scheduledPoint.y);
+    assert(dragCalls.length === count+3, "scheduled task became draggable");
+    const shortSource = shell(tasks[0].id), shortBounds = shortSource.getBoundingClientRect();
+    sendPointer(shortSource,'pointerdown',shortBounds.left+7,shortBounds.top+7);
+    sendPointer(window,'pointermove',shortBounds.left+10,shortBounds.top+9);
+    sendPointer(window,'pointerup',shortBounds.left+10,shortBounds.top+9); await wait();
+    assert(dragCalls.length === count+3 && !document.querySelector('.list-board-task-drag-preview'), "below-threshold pointer movement mutated task");
+    await lift(tasks[0].id);
+    await emitBoardInvalidated(); await wait(); await wait();
+    assert(dragCalls.length === count+3 && !document.querySelector('.list-board-task-drag-preview'), "external snapshot did not cancel stale drag");
+    await lift(tasks[0].id);
+    flushSync(() => root.render(<div>Disposed board</div>)); await wait();
+    assert(dragCalls.length === count+3 && !document.querySelector('.list-board-task-drag-preview'), "unmount did not cancel drag");
+    renderBoard('keyboard-'+zoom); await wait(); await wait();
+    shell(tasks[0].id).dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowUp',altKey:true,bubbles:true,cancelable:true}));
+    await wait(); await wait(); await wait();
+    assert(dragCalls.length === count+4 && dragCalls[count+3].command === 'reorder_list_board_task'
+      && laneTasks('today')[0].id === tasks[0].id, "keyboard reorder regressed after pointer replacement");
+  }
+  container.style.zoom = "1"; taskLanes.clear();
+
   // Real ListBoard delete authority, not a presentation-only imitation.
   lists = [{ id, title: "Original" }, { id: "other", title: "Other" }]; boardTasks = [tasks[0], tasks[1]];
-  flushSync(() => root.render(<ListBoard target={{ kind: "list", id }} />)); await wait(); await wait();
+  renderBoard("delete"); await wait(); await wait();
   const actionTrigger = () => container.querySelector<HTMLButtonElement>('[aria-label="Task actions"]')!;
   const menu = () => container.querySelector<HTMLElement>('[role="menu"][data-open="true"]')!;
   const openDelete = async () => {
@@ -194,9 +304,18 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       === "Schedule|Change List|Duplicate|Delete", "source menu order differs");
     const deletion = Array.from(menu().querySelectorAll<HTMLButtonElement>('[role="menuitem"]')).find(button => button.textContent === "Delete")!;
     deletion.click(); await wait();
+    await new Promise<void>(resolve => setTimeout(resolve, 250));
     assert(menu() && menu().querySelector('[data-task-delete-confirm="inline"]'), "confirmation left source menu container");
     assert(menu().textContent?.includes("Schedule") && menu().textContent?.includes("Change List") && menu().textContent?.includes("Duplicate"), "source sibling rows disappeared");
     assert(menu().querySelector('svg'), "trash glyph missing");
+    const popup = menu();
+    const bounds = popup.getBoundingClientRect();
+    for (let y = bounds.top + 8; y < bounds.bottom - 8; y += 8) {
+      for (let x = bounds.left + 8; x < bounds.right - 8; x += 12) {
+        const hit = document.elementFromPoint(x, y);
+        assert(hit && popup.contains(hit), "retained menu is occluded at " + JSON.stringify({ x, y, hit: hit?.outerHTML.slice(0, 160) }));
+      }
+    }
     for (const before of cardMetadata) {
       const card = container.querySelector<HTMLElement>('[data-task-id="' + before.id + '"]')!;
       assert(card.querySelector('.list-board-task__meta')!.textContent === before.text,
@@ -240,6 +359,8 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   return { catalogCommittedCrud: true, catalogStaleResponsesRejected: true, catalogEntryReconciled: true,
     catalogSelectedRecovery: true, catalogNoPolling: true, catalogDisposedResponseIgnored: true,
     queueLastRowReachable: true, queueMenuReachable: true, queueHeaderStable: true, queueNoHorizontalOverflow: true, queueGeometries: geometries,
-    deleteMenuRetained: true, deleteCardMetadataStable: true, deleteCancelAndDismissSafe: true, deleteFailureRetrySafe: true,
+    pointerDragCrossLane: true, pointerDragSameLane: true, pointerDragIdentityPreserved: true,
+    pointerDragCancellationSafe: true, pointerDragThresholdSafe: true, pointerDragInteractiveGuard: true, pointerDragScheduledGuard: true, pointerDragCleanup: true, keyboardReorderPreserved: true,
+    deleteMenuRetained: true, deleteMenuUnobscured: true, deleteCardMetadataStable: true, deleteCancelAndDismissSafe: true, deleteFailureRetrySafe: true,
     deletePendingExactlyOnce: true, deleteIndependentIdentityPreserved: true };
 }

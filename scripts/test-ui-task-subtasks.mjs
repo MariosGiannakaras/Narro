@@ -15,6 +15,7 @@ const listBoardRust = read("src-tauri/src/list_board.rs");
 const lib = read("src-tauri/src/lib.rs");
 const api = read("src/listBoardApi.ts");
 const board = read("src/ListBoard.tsx");
+const pointer = read("src/boardTaskPointerDrag.ts");
 const taskCard = read("src/TaskCard.tsx");
 const subtasks = read("src/TaskSubtasks.tsx");
 const css = read("src/listBoard.css");
@@ -75,7 +76,7 @@ for (const [haystack, needle, label] of [
   [board, "getListBoardSnapshot(target)", "authoritative board progress refresh"],
   [board, "Subtask change was saved, but authoritative task details could not refresh.", "committed subtask refresh-failure distinction"],
   [board, "setMutationRefreshBlocked(true)", "unsafe retry blocker"],
-  [board, "[data-task-subtask-control]", "subtask-control parent drag isolation"],
+  [pointer, "[data-task-subtask-control]", "subtask-control parent drag isolation"],
   [board, 'data-board-subtask-panel={subtaskPanel?.taskId ?? "closed"}', "board subtask panel marker"],
   [taskCard, 'data-task-subtasks-expanded={subtaskExpanded ? "true" : "false"}', "task-card expansion marker"],
   [taskCard, "task.subtaskTotalCount ?? 0", "task-card total progress projection"],
