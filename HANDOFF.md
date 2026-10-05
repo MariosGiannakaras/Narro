@@ -4,7 +4,9 @@
 
 Optional Milestone 11 is the **Live Blitzit Reference Audit**. It is strictly opt-in and **must not start, be prepared, be counted, or be inferred from general continuation language**. `continue`, `keep going`, `finish the project`, completion of M10, or availability of a Blitzit trial/account do not authorize it.
 
-Only an explicit user instruction that specifically activates M11 / the live Blitzit audit may open it. While dormant, the roadmap denominator remains 10, M11 checkboxes are non-blocking, and the normal path after validated M10 is directly to the required Final Comprehensive Review. If explicitly activated later, follow `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`, record activation durably, switch the denominator to 11, and run Final Review only after M11 closes.
+Only an explicit user instruction that specifically activates M11 / the live Blitzit audit may open it. While dormant, the roadmap denominator remains 10, M11 checkboxes are non-blocking, and the normal path after validated M10 is directly to the required Final Comprehensive Review. If explicitly activated later, follow `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`, record activation durably and switch the denominator to 11.
+
+M11 is explicitly **capture-first**: plan the campaign, record the user-visible stream and observable protocol/state stream together, finish/freeze the complete corpus, then analyze it, then reconcile and freeze a remediation plan, and only then modify Narro. A finding observed during capture must not trigger an immediate fix.
 
 This M11 policy does not change the current M7/PR234 next action or authorize any live-Blitzit work now.
 
