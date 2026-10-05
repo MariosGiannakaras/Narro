@@ -1,0 +1,22 @@
+[
+  {
+    "path": ".gitattributes",
+    "bytes": 19,
+    "sha256": "f01a7d3573bcb8be0255b188ea30002f6792b2eeb0470ae49f30f21b69cff1d7"
+  },
+  {
+    "path": "all-actions.csv",
+    "bytes": 217355,
+    "sha256": "06407ae6ab445aeaf3d54ba5113aa022d317339d92182c3e902c7559358fe830"
+  },
+  {
+    "path": "offset-anchors.json",
+    "bytes": 561,
+    "sha256": "ef35ba88012ee64a726de2ae734911bafa73fae4f34d105ba9705532e5aa8fa7"
+  },
+  {
+    "path": "README.md",
+    "bytes": 17307,
+    "sha256": "070b0f6f09e846e11c22912c6e0258899721f47e665896a80bf73be4c7d5134d"
+  }
+]

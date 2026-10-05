@@ -1,5 +1,10 @@
 # STATUS.md
 
+## Current — unified capture navigation index (2026-10-05)
+
+[CI953 capture index:11 packets, whole-media links, recorded paths and existing UTC/offset bookmarks](work-log/evidence/ci953-capture-index-20261005/README.md). Includes combined raw action CSV and source anchors. Navigation only; no video/image review, new PASS/FAIL, source changes or acceptance counter advance. Another chat can use it to locate evidence before requesting targeted missing capture. All previous open gates remain unchanged; M10 blocked/M11 dormant.
+
+
 ## Current — browser Ctrl+Shift+T paired acquisition, unreviewed (2026-10-05)
 
 [Whole 120.000s recording, 12 native actions and whole logs](work-log/evidence/m7-ci953-browser-shortcut-20261005/README.md). Existing exact CI953 candidate. Fresh separate regular Edge test profile, about:blank; create new tab Ctrl+T, close only that new tab Ctrl+W, then Ctrl+Shift+T with Narro Alternate Focus Mode enabled; disable only that shortcut with real Space, repeat same browser sequence; restore shortcut true. Raw preference snapshots establish false during second sequence and true afterward. Test-profile browser process closed afterward; no user browser tabs intentionally closed. Earlier InPrivate launch was setup only and not used for paired restore-tab test.
