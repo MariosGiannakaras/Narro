@@ -4,12 +4,6 @@
 
 This file contains durable implementation rules for Narro. Keep changing progress in `STATUS.md` and `TODO.md`; do not turn this file into a changelog.
 
-## Scope of chat-specific instructions
-
-Temporary operating instructions for one chat — such as capture-only work, no analysis/source changes, or prioritization because of that chat's usage/time budget — apply to that chat unless the user explicitly makes them project-wide. Do not promote them into a repository-wide phase, implementation ban, or requirement for other chats to obtain renewed implementation permission.
-
-If needed for coordination, record their scope explicitly in `HANDOFF.md` or a dated work log. Other chats continue the normal evidence analysis, implementation and validation workflow under the current milestone/FIX_NOW order and durable repository rules. Historical capture-only instructions describe the original session, not current project-wide continuation authority. This scope rule does not relax acceptance requirements, the M10 entry gate, or the separately activated M11 campaign phase rules.
-
 ## Start-of-task procedure
 
 Before making changes:

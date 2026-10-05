@@ -42,13 +42,13 @@ Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instr
 
 ## Current phase
 
-Normal ordered evidence analysis, implementation/corrections and validation for the open M1–M9 work, with existing FIX_NOW and acceptance dependencies determining priority. Temporary capture-only restrictions belonged to the originating Windows chat and do not block other chats. M2–M4 are complete; M1 monitor/DPI acceptance is narrowly reopened, and M5–M9 retain validation/source-parity gates. M10 is blocked until all required M1–M9 acceptance clears.
+Normal ordered evidence analysis, implementation/corrections and validation for the open M1–M9 work, with existing FIX_NOW and acceptance dependencies determining priority. M2–M4 are complete; M1 monitor/DPI acceptance is narrowly reopened, and M5–M9 retain validation/source-parity gates. M10 is blocked until all required M1–M9 acceptance clears.
 
 The exact capture candidate is CI953/source `38219e20` from open draft PR235. Separate async-read WIP is backed up but uncompiled/native-unvalidated and unmerged. Documentation/evidence publication on main is separate from application-source acceptance.
 
 Start from [HANDOFF](HANDOFF.md), [TODO](TODO.md) and [STATUS](STATUS.md). The [capture navigation index](work-log/evidence/ci953-capture-index-20261005/README.md) links11 follow-up packets; capture counts are not reviewed/PASS counts. Current authoritative tracking takes precedence over dated historical checkpoints.
 
-Review existing recordings/logs before requesting repeated acquisition; batch compatible evidence-backed corrections and validate them normally. Browser Ctrl+Shift+T A/B/C is closed by [personal user validation](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). See [chat-scope clarification](work-log/2026-10-05-chat-scope-continuation-clarification.md); no custom prompt is needed merely to lift the old chat's capture restrictions.
+Review existing recordings/logs before requesting repeated acquisition; batch compatible evidence-backed corrections and validate them normally. Browser Ctrl+Shift+T A/B/C is closed by [personal user validation](work-log/2026-10-05-user-manual-browser-shortcut-pass.md).
 
 ## Product scope
 

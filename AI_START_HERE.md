@@ -25,8 +25,6 @@ Before asking the user what to do next, do all of the following:
 Do **not** ask the user for a prompt that merely repeats repository instructions.
 Do **not** ask “what should I work on next?” when `HANDOFF.md` and `TODO.md` already answer that question.
 
-Apply temporary capture-only, no-analysis/no-source or usage-budget instructions only to their stated chat scope, as defined in `AGENTS.md`. They are not project-wide continuation blockers. Another chat may perform normal analysis, implementation and validation without a custom reauthorization prompt, while respecting the ordered milestone/FIX_NOW and acceptance gates.
-
 Ask the user only when one of these is genuinely required:
 
 - a product/scope decision not already recorded in the repository;
