@@ -256,6 +256,8 @@ Use automated Windows CI for reproducible compilation/tests. When a behavior gen
 
 A pending physical Windows gate is not automatically a stop condition.
 
+When a consolidated Windows session uses OBS/screen recording, enter **physical capture execution mode** before pressing Record: finalize the runbook and acceptance matrix first, then execute the planned interactions back-to-back without source inspection, debugging, root-cause analysis or Narro edits while recording. Mark suspected findings neutrally and finish the remaining independent scripted steps. Stop recording before substantive analysis/remediation. Analyze the whole session afterward, batch evidence-backed corrections, then retest only affected paths on the next exact build. Do not leave OBS running through long code-reading/command/debug intervals. M11 remains stricter and follows its own whole-corpus embargo.
+
 - If the manual result would determine the next implementation, could invalidate dependent work, or protects a correctness/safety boundary, stop at that gate and obtain the evidence before continuing.
 - If later work is independently evidenced and safe regardless of the pending observation, continue implementing it while keeping the manual gate explicitly OPEN.
 - Batch compatible physical checks into one consolidated Windows session on the latest relevant artifact when that avoids redundant user testing.
