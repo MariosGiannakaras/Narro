@@ -1,0 +1,119 @@
+{
+  "saveChecks": [
+    {
+      "case": "main100-normal-save",
+      "index": 0,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "main100-normal-save",
+      "index": 1,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "main100-normal-save",
+      "index": 2,
+      "seconds": 906,
+      "expected": 906,
+      "result": "PASS"
+    },
+    {
+      "case": "main100-normal-save",
+      "index": 3,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "focus100-normal-save",
+      "index": 0,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "focus100-normal-save",
+      "index": 1,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "focus100-normal-save",
+      "index": 2,
+      "seconds": 906,
+      "expected": 906,
+      "result": "PASS"
+    },
+    {
+      "case": "focus100-normal-save",
+      "index": 3,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "main100-reduced-save",
+      "index": 0,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "main100-reduced-save",
+      "index": 1,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "main100-reduced-save",
+      "index": 2,
+      "seconds": 906,
+      "expected": 906,
+      "result": "PASS"
+    },
+    {
+      "case": "main100-reduced-save",
+      "index": 3,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "focus100-reduced-save",
+      "index": 0,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "focus100-reduced-save",
+      "index": 1,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    },
+    {
+      "case": "focus100-reduced-save",
+      "index": 2,
+      "seconds": 906,
+      "expected": 906,
+      "result": "PASS"
+    },
+    {
+      "case": "focus100-reduced-save",
+      "index": 3,
+      "seconds": 846,
+      "expected": 846,
+      "result": "PASS"
+    }
+  ],
+  "allOwnedTasksSessionsNotesFinalEqual": true,
+  "checkpointSemanticPayloadEqual": true,
+  "preferencesPayloadRestored": true
+}

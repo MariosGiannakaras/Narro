@@ -1,5 +1,15 @@
 # HANDOFF — CI953 Windows evidence and open acceptance gates
 
+## Current — CI953 theme/100% Save/C5 visual evidence, capture-only phase
+
+[Detailed results and fixed visual x/y](work-log/2026-10-05-codex-m7-ci953-theme-physical-results.md); [whole originals/clips/43 directly reviewed state images/whole logs](work-log/evidence/m7-ci953-theme-20261005/README.md). Exact38219e20/CI953/EXEbde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8. Two new whole4480×1080/60fps originals; onlyLGactive, real100/125 restored125/normal/Windowsdark/Narrolight. Six Dark/System-dark/System-light normal/reduced pairs and real100%Main/FocusSave16writes. EST30→31→30/Taken846→906→846; identity/notes/sessions/checkpoint semantic payload/preferences restored. Main72353300→1968730 samePID/Focus11077022; actual retained menus/drags recorded.
+
+Formal exact953C5 **PASS**:216.33pxdrag, actualtrayQuit130912, sameEXEnew141908, actualCtrlShiftT→compactTimer(660,494)paused16:39/846s/801308ms. Whole11fileNarro-M7-Logs/ZIP holds bothsessions andloggerPASS. OBS stopped; livepaused141908/Focus7471826/Main3213706. No new quiet-performance/dual/cable/sleep-wake claim.
+
+User wants **visual review x/y only**, not implementation numbers. Fixed scoped visual matrix v1 **44/70 reviewed,26OPEN**:M5**12/19**,M6**16/25**,M7**13/21**,M8**2/4**,M1**1/1 examinedFAIL27**.43new selected static states directly reviewed; remaining continuous/source comparisons are OPEN. This is the named campaign matrix, not a complete whole-productUI percentage. FAILcountsasexamined, neverasaccepted. Native helper output/sampling corrections preserve originals; initialSystemlightFocusprobe showedMain, laterFocusstateprovesonlyeventualcolorprojection.
+
+07read responsiveness/23provider/source27explicitDPIremainOPEN.28post-dragkeyboardrailobservation is REVIEW_PENDING in Main hover/keyboard review; nosourcepatch. M1narrowreopened/M6/M8dependentacceptance/C4stayOPEN; M2–M4completed only, M7C1–C3/C5accepted/C4OPEN. NoM10advance; M11dormant. NoNarro source/tests/build/CI changes in this physical-onlycampaign; preserve earlier uncompiledasyncworkerWIP. Nextphysical-only: independentnonemptysubtasks/longNotesstatesifuseful; lateranalysiscanreview26frozencells. Do not resumeimplementation fromthischeckpoint withoutuserdirection. AnnounceeachactualmilestonecompletionandallM1–M9completionbeforeM10.
+
 ## Current — CI953 Windows evidence, scoped PASS and reopened monitor acceptance
 
 Frozen source `38219e200fe3bec7309f8e03e72003184ca86d08`, full Windows CI953/run37258629373 PASS, artifact11324640580, EXE SHA256 `bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8`. [Physical results and M1–M9 matrix](work-log/2026-10-05-codex-m7-ci953-physical-results.md); [whole recordings/logs, playable clips, images and chronological actions](work-log/evidence/m7-ci953-physical-20261005/README.md). Five original4480×1080/60fps recordings are retained whole; actual active display was LG1920×1080, exercised at125% and100%, restored125%/normal. No dual-monitor claim. Initial10414.4s original includes an unattended/minimized interval; only bookmarked exercised intervals count.

@@ -1,0 +1,613 @@
+[
+  {
+    "milestone": "M5",
+    "case": "dark-normal retained menu",
+    "observation": "06-dark-normal-retained-menu.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 90.121914,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/01-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "dark-normal full title",
+    "observation": "dark-normal-full-title-after.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 269.450641,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/02-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "dark-normal large Notes",
+    "observation": "dark-normal-large-notes.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 263.79068,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/03-M6.png",
+    "originalProbeOffset": 264.24068,
+    "samplingNote": "Sample within held large editor before subsequent Escape; immediate post-probe frame already shows return to inline.",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "dark-normal compact Timer",
+    "observation": "dark-normal-compact.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 270.450212,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/04-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "dark-normal expanded Timer",
+    "observation": "dark-normal-expanded.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 271.58754400000004,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/05-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "dark-reduced retained menu",
+    "observation": "09-dark-reduced-retained-menu.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 152.585397,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/06-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "dark-reduced full title",
+    "observation": "dark-reduced-full-title-after.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 229.27336400000002,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/07-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "dark-reduced large Notes",
+    "observation": "dark-reduced-large-notes.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 223.71082700000002,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/08-M6.png",
+    "originalProbeOffset": 224.160827,
+    "samplingNote": "Sample within held large editor before subsequent Escape; immediate post-probe frame already shows return to inline.",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "dark-reduced compact Timer",
+    "observation": "dark-reduced-compact.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 230.255737,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/09-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "dark-reduced expanded Timer",
+    "observation": "dark-reduced-expanded.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 231.39204900000001,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/10-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "system-dark-normal retained menu",
+    "observation": "system-dark-normal-retained-menu.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 476.502258,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/11-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "system-dark-normal full title",
+    "observation": "system-dark-normal-full-title-after.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 491.85877400000004,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/12-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "system-dark-normal large Notes",
+    "observation": "system-dark-normal-large-notes.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 486.34927500000003,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/13-M6.png",
+    "originalProbeOffset": 486.799275,
+    "samplingNote": "Sample within held large editor before subsequent Escape; immediate post-probe frame already shows return to inline.",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "system-dark-normal compact Timer",
+    "observation": "system-dark-normal-compact.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 492.820553,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/14-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "system-dark-normal expanded Timer",
+    "observation": "system-dark-normal-expanded.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 493.967099,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/15-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "system-dark-reduced retained menu",
+    "observation": "system-dark-reduced-retained-menu.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 432.33397,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/16-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "system-dark-reduced full title",
+    "observation": "system-dark-reduced-full-title-after.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 447.59585,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/17-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "system-dark-reduced large Notes",
+    "observation": "system-dark-reduced-large-notes.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 442.095498,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/18-M6.png",
+    "originalProbeOffset": 442.545498,
+    "samplingNote": "Sample within held large editor before subsequent Escape; immediate post-probe frame already shows return to inline.",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "system-dark-reduced compact Timer",
+    "observation": "system-dark-reduced-compact.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 448.55870200000004,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/19-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "system-dark-reduced expanded Timer",
+    "observation": "system-dark-reduced-expanded.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 449.713721,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/20-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "system-light-normal retained menu",
+    "observation": "system-light-normal-retained-menu.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 578.60695,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/21-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "system-light-normal full title",
+    "observation": "system-light-normal-full-title-after.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 593.832873,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/22-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "system-light-normal large Notes",
+    "observation": "system-light-normal-large-notes.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 588.3977489999999,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/23-M6.png",
+    "originalProbeOffset": 588.8477489999999,
+    "samplingNote": "Sample within held large editor before subsequent Escape; immediate post-probe frame already shows return to inline.",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "system-light-normal compact Timer",
+    "observation": "system-light-normal-compact.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 594.805892,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/24-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "system-light-normal expanded Timer",
+    "observation": "system-light-normal-expanded.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 595.959211,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/25-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "system-light-reduced retained menu",
+    "observation": "system-light-reduced-retained-menu.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 628.642575,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/26-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "system-light-reduced full title",
+    "observation": "system-light-reduced-full-title-after.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 643.949699,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/27-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "system-light-reduced large Notes",
+    "observation": "system-light-reduced-large-notes.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 638.4102109999999,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/28-M6.png",
+    "originalProbeOffset": 638.8602109999999,
+    "samplingNote": "Sample within held large editor before subsequent Escape; immediate post-probe frame already shows return to inline.",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "system-light-reduced compact Timer",
+    "observation": "system-light-reduced-compact.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 644.930796,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/29-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "system-light-reduced expanded Timer",
+    "observation": "system-light-reduced-expanded.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 646.078887,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/30-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "recreated100-normal retained menu",
+    "observation": "recreated100-normal-retained-menu.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 244.704463,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/31-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "recreated100-reduced retained menu",
+    "observation": "39-recreated100-reduced-retained-menu.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 379.984434,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/32-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "main100-normal EST input and Save",
+    "observation": "main100-normal-save-0-before-save.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 86.222544,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/33-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "main100-normal Taken input and Save",
+    "observation": "main100-normal-save-2-before-save.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 91.738232,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/34-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "main100-reduced EST input and Save",
+    "observation": "main100-reduced-save-0-before-save.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 108.923874,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/35-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "main100-reduced Taken input and Save",
+    "observation": "main100-reduced-save-2-before-save.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 114.268525,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/36-M5.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "focus100-normal EST input and Save",
+    "observation": "focus100-normal-save-0-before-save.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 97.625028,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/37-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "focus100-normal Taken input and Save",
+    "observation": "focus100-normal-save-2-before-save.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 103.041946,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/38-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "focus100-reduced EST input and Save",
+    "observation": "focus100-reduced-save-0-before-save.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 119.97040299999999,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/39-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M6",
+    "case": "focus100-reduced Taken input and Save",
+    "observation": "focus100-reduced-save-2-before-save.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 125.316615,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/40-M6.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M7",
+    "case": "C5 restored paused compact Timer",
+    "observation": "55-c5-restored-final.json",
+    "video": "video/2026-10-05 11-16-21.mkv",
+    "offset": 882.881776,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/41-M7.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M8",
+    "case": "System light Main projection",
+    "observation": "19-system-light-main.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 574.994691,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/42-M8.png",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M8",
+    "case": "System light Focus projection",
+    "observation": "system-light-normal-full-title-after.json",
+    "video": "video/2026-10-05 11-02-01.mkv",
+    "offset": 593.832873,
+    "status": "SCOPED_NATIVE_STATIC_PASS",
+    "image": "gallery/43-M8.png",
+    "initialProbe": {
+      "observation": "20-system-light-panel.json",
+      "offset": 576.173464,
+      "image": "gallery/43-initial-focus-probe-main-painted.png"
+    },
+    "samplingNote": "Eventual System-light Focus appearance from later exercised Focus state; initial immediate probe shows Main. No timing/instant-propagation PASS.",
+    "scope": "Directly viewed original-derived static state only; no source-parity or whole continuous motion acceptance."
+  },
+  {
+    "milestone": "M5",
+    "case": "dark125-normal continuous drag lift/reflow/drop/settle review",
+    "status": "OPEN",
+    "evidence": "Two new originals/actions; P3-M5-03/24"
+  },
+  {
+    "milestone": "M5",
+    "case": "dark125-reduced continuous drag lift/reflow/drop/settle review",
+    "status": "OPEN",
+    "evidence": "Two new originals/actions; P3-M5-03/24"
+  },
+  {
+    "milestone": "M5",
+    "case": "recreated100-normal continuous drag lift/reflow/drop/settle review",
+    "status": "OPEN",
+    "evidence": "Two new originals/actions; P3-M5-03/24"
+  },
+  {
+    "milestone": "M5",
+    "case": "recreated100-reduced continuous drag lift/reflow/drop/settle review",
+    "status": "OPEN",
+    "evidence": "Two new originals/actions; P3-M5-03/24"
+  },
+  {
+    "milestone": "M5",
+    "case": "Canonical retained-menu VE006 18s comparison",
+    "status": "OPEN",
+    "evidence": "Current TODO/crosswalk P3-M5-03/04 and source gates"
+  },
+  {
+    "milestone": "M5",
+    "case": "Canonical Main cards/metrics/hover comparison",
+    "status": "OPEN",
+    "evidence": "Current TODO/crosswalk P3-M5-03/04 and source gates"
+  },
+  {
+    "milestone": "M5",
+    "case": "Canonical drag/reorder motion comparison",
+    "status": "OPEN",
+    "evidence": "Current TODO/crosswalk P3-M5-03/04 and source gates"
+  },
+  {
+    "milestone": "M6",
+    "case": "dark-normal continuous Notes open/large/return/queue review",
+    "status": "OPEN",
+    "evidence": "First original and native observations"
+  },
+  {
+    "milestone": "M6",
+    "case": "dark-reduced continuous Notes open/large/return/queue review",
+    "status": "OPEN",
+    "evidence": "First original and native observations"
+  },
+  {
+    "milestone": "M6",
+    "case": "system-dark-normal continuous Notes open/large/return/queue review",
+    "status": "OPEN",
+    "evidence": "First original and native observations"
+  },
+  {
+    "milestone": "M6",
+    "case": "system-dark-reduced continuous Notes open/large/return/queue review",
+    "status": "OPEN",
+    "evidence": "First original and native observations"
+  },
+  {
+    "milestone": "M6",
+    "case": "system-light-normal continuous Notes open/large/return/queue review",
+    "status": "OPEN",
+    "evidence": "First original and native observations"
+  },
+  {
+    "milestone": "M6",
+    "case": "system-light-reduced continuous Notes open/large/return/queue review",
+    "status": "OPEN",
+    "evidence": "First original and native observations"
+  },
+  {
+    "milestone": "M6",
+    "case": "Canonical Focus hierarchy/queue comparison",
+    "status": "OPEN",
+    "evidence": "M6/source09/21/23 acceptance; no visible horizontal-overflow FAIL inferred"
+  },
+  {
+    "milestone": "M6",
+    "case": "Canonical Notes editor comparison",
+    "status": "OPEN",
+    "evidence": "M6/source09/21/23 acceptance; no visible horizontal-overflow FAIL inferred"
+  },
+  {
+    "milestone": "M6",
+    "case": "Canonical full-title/tooltip/queue overflow comparison",
+    "status": "OPEN",
+    "evidence": "M6/source09/21/23 acceptance; no visible horizontal-overflow FAIL inferred"
+  },
+  {
+    "milestone": "M7",
+    "case": "dark-normal continuous Panel/compact/expanded/hover/Notes/Find review",
+    "status": "OPEN",
+    "evidence": "First original and native actions"
+  },
+  {
+    "milestone": "M7",
+    "case": "dark-reduced continuous Panel/compact/expanded/hover/Notes/Find review",
+    "status": "OPEN",
+    "evidence": "First original and native actions"
+  },
+  {
+    "milestone": "M7",
+    "case": "system-dark-normal continuous Panel/compact/expanded/hover/Notes/Find review",
+    "status": "OPEN",
+    "evidence": "First original and native actions"
+  },
+  {
+    "milestone": "M7",
+    "case": "system-dark-reduced continuous Panel/compact/expanded/hover/Notes/Find review",
+    "status": "OPEN",
+    "evidence": "First original and native actions"
+  },
+  {
+    "milestone": "M7",
+    "case": "system-light-normal continuous Panel/compact/expanded/hover/Notes/Find review",
+    "status": "OPEN",
+    "evidence": "First original and native actions"
+  },
+  {
+    "milestone": "M7",
+    "case": "system-light-reduced continuous Panel/compact/expanded/hover/Notes/Find review",
+    "status": "OPEN",
+    "evidence": "First original and native actions"
+  },
+  {
+    "milestone": "M7",
+    "case": "Canonical Timer typography/layout/shell comparison",
+    "status": "OPEN",
+    "evidence": "M7 C4/P3-M7-01/02"
+  },
+  {
+    "milestone": "M7",
+    "case": "Canonical Timer hover pills/hit-target/motion comparison",
+    "status": "OPEN",
+    "evidence": "M7 C4/P3-M7-01/02"
+  },
+  {
+    "milestone": "M8",
+    "case": "Live System theme propagation timing/visibility review",
+    "status": "OPEN",
+    "evidence": "Initial immediate Focus probe plus later light Focus state; reuse earlier Preferences capture where applicable"
+  },
+  {
+    "milestone": "M8",
+    "case": "Canonical Preferences upper/middle/lower visual comparison",
+    "status": "OPEN",
+    "evidence": "Initial immediate Focus probe plus later light Focus state; reuse earlier Preferences capture where applicable"
+  },
+  {
+    "milestone": "M1",
+    "case": "Explicit-monitor125\u2192100 DPI recovery27",
+    "status": "REVIEWED_FAIL",
+    "scope": "Reused exact953 preceding physical package; narrow M1 acceptance remains reopened",
+    "evidence": "../m7-ci953-physical-20261005"
+  }
+]

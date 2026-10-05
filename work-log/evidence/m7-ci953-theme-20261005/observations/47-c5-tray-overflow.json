@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-05T08:27:06.1690547Z",
+  "taskbar": 65818,
+  "elements": [
+    {
+      "offscreen": false,
+      "type": "ControlType.Pane",
+      "name": "Overflow Notification Area",
+      "bounds": "1543;910;176;132"
+    }
+  ]
+}

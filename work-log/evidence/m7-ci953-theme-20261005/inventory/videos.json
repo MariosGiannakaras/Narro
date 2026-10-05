@@ -1,0 +1,52 @@
+[
+  {
+    "file": "video/2026-10-05 11-02-01.mkv",
+    "startUtc": "2026-10-05T08:02:01.228Z",
+    "sha256": "8544f62e572d5937ce80b6da9ebda02323a73f577edf31274b9f3f37b5586163",
+    "bytes": 23204632,
+    "details": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "avg_frame_rate": "60/1"
+        },
+        {
+          "codec_name": "aac",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "728.800000"
+      }
+    }
+  },
+  {
+    "file": "video/2026-10-05 11-16-21.mkv",
+    "startUtc": "2026-10-05T08:16:21.598Z",
+    "sha256": "735a54e427d2349c05afe0dcae411c5cb36843d51e8cecdaef17f92fd974a854",
+    "bytes": 23876156,
+    "details": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "avg_frame_rate": "60/1"
+        },
+        {
+          "codec_name": "aac",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "883.285000"
+      }
+    }
+  }
+]

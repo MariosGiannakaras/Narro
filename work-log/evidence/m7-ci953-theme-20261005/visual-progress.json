@@ -1,0 +1,28 @@
+{
+  "scope": "Frozen CI953 physical visual review matrix v1 for these exercised/open surfaces, not all product UI or milestone implementation. Reviewed counts include FAIL; source/motion OPEN counts remain separate acceptance blockers.",
+  "milestones": {
+    "M1": {
+      "reviewed": 1,
+      "total": 1
+    },
+    "M5": {
+      "reviewed": 12,
+      "total": 19
+    },
+    "M6": {
+      "reviewed": 16,
+      "total": 25
+    },
+    "M7": {
+      "reviewed": 13,
+      "total": 21
+    },
+    "M8": {
+      "reviewed": 2,
+      "total": 4
+    }
+  },
+  "totalReviewed": 44,
+  "total": 70,
+  "unreviewed": 26
+}

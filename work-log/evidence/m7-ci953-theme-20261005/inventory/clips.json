@@ -1,0 +1,30 @@
+[
+  {
+    "file": "clips/dark-focus-normal-reduced.mp4",
+    "source": "video/2026-10-05 11-02-01.mkv",
+    "requestedStart": 208,
+    "requestedDuration": 100,
+    "method": "Stream-copy original H264; keyframe boundary may shift; derived clip omits audio. Whole original retains audio."
+  },
+  {
+    "file": "clips/system-theme-change.mp4",
+    "source": "video/2026-10-05 11-02-01.mkv",
+    "requestedStart": 520,
+    "requestedDuration": 155,
+    "method": "Stream-copy original H264; keyframe boundary may shift; derived clip omits audio. Whole original retains audio."
+  },
+  {
+    "file": "clips/100-save-main-recreation.mp4",
+    "source": "video/2026-10-05 11-16-21.mkv",
+    "requestedStart": 70,
+    "requestedDuration": 350,
+    "method": "Stream-copy original H264; keyframe boundary may shift; derived clip omits audio. Whole original retains audio."
+  },
+  {
+    "file": "clips/c5-drag-quit-relaunch.mp4",
+    "source": "video/2026-10-05 11-16-21.mkv",
+    "requestedStart": 485,
+    "requestedDuration": 400,
+    "method": "Stream-copy original H264; keyframe boundary may shift; derived clip omits audio. Whole original retains audio."
+  }
+]

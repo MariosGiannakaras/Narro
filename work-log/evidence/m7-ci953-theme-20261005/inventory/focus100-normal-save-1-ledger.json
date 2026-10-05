@@ -1,0 +1,353 @@
+{
+  "utc": "2026-10-05T08:18:02.541888+00:00",
+  "readOnly": true,
+  "tasks": [
+    {
+      "task": {
+        "id": "9d0e80ec-77b7-49e4-b66c-f67ed7818704",
+        "list_id": "dc8214bb-37eb-40e9-af29-3cd40052616f",
+        "title": "M7 C5 CI873 validation",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [
+        {
+          "id": "a48b9020-7b53-4eba-9019-5dc39a4cf3d2",
+          "kind": "work",
+          "started_at": "2026-10-03T08:40:44.414Z",
+          "ended_at": "2026-10-03T13:28:42.965Z",
+          "duration_seconds": 8217,
+          "source": "focus"
+        },
+        {
+          "id": "ede05be1-69ec-4faf-a005-6f12753735ff",
+          "kind": "work",
+          "started_at": "2026-10-03T13:50:00.909Z",
+          "ended_at": "2026-10-03T16:50:10.642Z",
+          "duration_seconds": 19,
+          "source": "focus"
+        },
+        {
+          "id": "617891c2-0665-466c-8c92-d19b6de2e578",
+          "kind": "work",
+          "started_at": "2026-10-03T19:54:00.819Z",
+          "ended_at": "2026-10-03T19:55:00.701Z",
+          "duration_seconds": 43,
+          "source": "focus"
+        },
+        {
+          "id": "c079a939-8b9c-4782-ae2d-b4714fabd738",
+          "kind": "work",
+          "started_at": "2026-10-03T20:44:14.354Z",
+          "ended_at": "2026-10-03T20:44:49.183Z",
+          "duration_seconds": 34,
+          "source": "focus"
+        },
+        {
+          "id": "6c22e134-0730-4b30-aaed-a2c45a1abae3",
+          "kind": "work",
+          "started_at": "2026-10-04T01:51:53.194Z",
+          "ended_at": "2026-10-04T01:53:06.716Z",
+          "duration_seconds": 12,
+          "source": "focus"
+        },
+        {
+          "id": "27d00803-ed67-4ff5-95a6-c8ca91ba1eef",
+          "kind": "work",
+          "started_at": "2026-10-04T08:12:01.916Z",
+          "ended_at": "2026-10-04T10:12:31.072Z",
+          "duration_seconds": 30,
+          "source": "focus"
+        },
+        {
+          "id": "73fe132d-a473-46bb-ac69-3eb74d2728e4",
+          "kind": "work",
+          "started_at": "2026-10-04T10:22:44.733Z",
+          "ended_at": "2026-10-04T10:22:46.728Z",
+          "duration_seconds": 1,
+          "source": "focus"
+        },
+        {
+          "id": "bb863e5e-6a7b-411c-9898-13430e53f76d",
+          "kind": "work",
+          "started_at": "2026-10-04T10:25:13.340Z",
+          "ended_at": "2026-10-04T10:25:14.452Z",
+          "duration_seconds": 1,
+          "source": "focus"
+        },
+        {
+          "id": "afc64087-cd43-49f3-ad54-53dbfe77d574",
+          "kind": "work",
+          "started_at": "2026-10-04T10:27:53.060Z",
+          "ended_at": "2026-10-04T14:53:06.505Z",
+          "duration_seconds": 53,
+          "source": "focus"
+        }
+      ],
+      "note": null,
+      "closedWorkSeconds": 8410
+    },
+    {
+      "task": {
+        "id": "130dde4e-d723-4733-acc0-fb3a0b57adf7",
+        "list_id": "dc8214bb-37eb-40e9-af29-3cd40052616f",
+        "title": "M7 CI942 integrated Notes and source acceptance edited live",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-04T10:24:46.622Z"
+      },
+      "sessions": [
+        {
+          "id": "6613a5d2-2ba4-4e3f-ab60-e280dfd80385",
+          "kind": "work",
+          "started_at": "2026-10-04T10:12:31.072Z",
+          "ended_at": "2026-10-04T10:14:54.893Z",
+          "duration_seconds": 127,
+          "source": "focus"
+        },
+        {
+          "id": "cfeee813-6cc5-4b75-bdf4-1d9789ec6963",
+          "kind": "break",
+          "started_at": "2026-10-04T10:14:54.893Z",
+          "ended_at": "2026-10-04T10:15:37.252Z",
+          "duration_seconds": 42,
+          "source": "focus"
+        },
+        {
+          "id": "848c3ce0-aad7-41ce-b76c-231b23c5c38d",
+          "kind": "work",
+          "started_at": "2026-10-04T10:15:37.252Z",
+          "ended_at": "2026-10-04T10:22:05.373Z",
+          "duration_seconds": 218,
+          "source": "focus"
+        },
+        {
+          "id": "d5f4c42c-5ccc-46c0-af16-761d676a6637",
+          "kind": "break",
+          "started_at": "2026-10-04T10:22:05.373Z",
+          "ended_at": "2026-10-04T10:22:06.408Z",
+          "duration_seconds": 1,
+          "source": "focus"
+        },
+        {
+          "id": "83f41d45-4954-4761-afba-8190c60d0f0f",
+          "kind": "work",
+          "started_at": "2026-10-04T10:22:06.408Z",
+          "ended_at": "2026-10-04T10:22:44.733Z",
+          "duration_seconds": 0,
+          "source": "focus"
+        },
+        {
+          "id": "56640262-dcc8-4ca1-8283-3a8241fde05c",
+          "kind": "work",
+          "started_at": "2026-10-04T10:22:46.728Z",
+          "ended_at": "2026-10-04T10:24:46.622Z",
+          "duration_seconds": 119,
+          "source": "focus"
+        }
+      ],
+      "note": {
+        "editor_format_version": 1,
+        "content": "{\"blocks\":[{\"kind\":\"paragraph\",\"runs\":[{\"text\":\"CI942 Notes persistence\",\"bold\":true,\"italic\":true,\"strikethrough\":true},{\"text\":\"https://example.com\",\"bold\":true,\"italic\":true,\"strikethrough\":true,\"link\":\"https://example.com\"},{\"text\":\"Toolbar and running-session continuity\",\"bold\":true,\"italic\":true,\"strikethrough\":true}]},{\"kind\":\"paragraph\",\"runs\":[{\"text\":\"\"}]}]}",
+        "updated_at": "2026-10-04T10:19:07.803900+00:00"
+      },
+      "closedWorkSeconds": 464
+    },
+    {
+      "task": {
+        "id": "32fd4eee-8543-4cc1-9f63-39b44ba89178",
+        "list_id": "dc8214bb-37eb-40e9-af29-3cd40052616f",
+        "title": "M7 CI942 English shortcut companion",
+        "manual_lane": "today",
+        "sort_rank": 1,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": "2026-10-04T10:25:41.535Z"
+      },
+      "sessions": [
+        {
+          "id": "ee384d10-a810-4503-9854-9731b24ec719",
+          "kind": "work",
+          "started_at": "2026-10-04T10:25:14.452Z",
+          "ended_at": "2026-10-04T10:25:41.535Z",
+          "duration_seconds": 27,
+          "source": "focus"
+        }
+      ],
+      "note": null,
+      "closedWorkSeconds": 27
+    },
+    {
+      "task": {
+        "id": "2594ad65-09d6-4409-b187-e39d3b9f572c",
+        "list_id": "dc8214bb-37eb-40e9-af29-3cd40052616f",
+        "title": "M7 CI942 Greek shortcut companion",
+        "manual_lane": "today",
+        "sort_rank": 1,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [],
+      "note": null,
+      "closedWorkSeconds": 0
+    },
+    {
+      "task": {
+        "id": "a2852baa-6e71-43cb-b327-be302c594f77",
+        "list_id": "4759e672-4377-44ab-9ffa-73785f7f70c3",
+        "title": "M7 CI944 LongUnbrokenTitleForNarrowBoardOverflowAndAccessibleFullTitleValidation1234567890",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [
+        {
+          "id": "e75cc774-81e1-4f45-920a-ed9ad9099fcc",
+          "kind": "work",
+          "started_at": "2026-10-04T14:53:06.505Z",
+          "ended_at": "2026-10-04T20:03:30.562Z",
+          "duration_seconds": 1681,
+          "source": "focus"
+        }
+      ],
+      "note": {
+        "editor_format_version": 1,
+        "content": "{\"blocks\":[{\"kind\":\"paragraph\",\"runs\":[{\"text\":\"CI944 actual Enter line one\"}]},{\"kind\":\"paragraph\",\"runs\":[{\"text\":\"\"}]},{\"kind\":\"paragraph\",\"runs\":[{\"text\":\"Greek δεύτερη γραμμή\"}]},{\"kind\":\"paragraph\",\"runs\":[{\"text\":\"https://e\",\"link\":\"https://e\"},{\"text\":\"xample.com/ explicit-only link\"}]}]}",
+        "updated_at": "2026-10-04T15:06:18.528882300+00:00"
+      },
+      "closedWorkSeconds": 1681
+    },
+    {
+      "task": {
+        "id": "52427643-507d-4212-bfb3-b3f5950dd3e1",
+        "list_id": "4759e672-4377-44ab-9ffa-73785f7f70c3",
+        "title": "M7 CI944 reorder companion",
+        "manual_lane": "today",
+        "sort_rank": 1,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [],
+      "note": null,
+      "closedWorkSeconds": 0
+    },
+    {
+      "task": {
+        "id": "95a2466c-a06c-4a41-a2b4-3d1e65b9fa08",
+        "list_id": "ab0696e0-285b-4da7-be4d-336b4ccc6612",
+        "title": "M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+        "manual_lane": "today",
+        "sort_rank": 1,
+        "manual_time_adjustment_seconds": 45,
+        "completed_at": null
+      },
+      "sessions": [
+        {
+          "id": "763d0419-98e1-421f-b065-03ad7dd1d51c",
+          "kind": "work",
+          "started_at": "2026-10-04T20:03:30.562Z",
+          "ended_at": null,
+          "duration_seconds": 801,
+          "source": "focus"
+        }
+      ],
+      "note": null,
+      "closedWorkSeconds": 846
+    },
+    {
+      "task": {
+        "id": "a43e74a6-23d1-4566-a74c-e61f1444460f",
+        "list_id": "ab0696e0-285b-4da7-be4d-336b4ccc6612",
+        "title": "M7 PR233 CI948 queue reorder companion with readable long title",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [],
+      "note": null,
+      "closedWorkSeconds": 0
+    },
+    {
+      "task": {
+        "id": "40f3a219-3817-48f6-8360-8ef3b60ee287",
+        "list_id": "0bd50417-4e93-4248-86ee-b16fb597f629",
+        "title": "M7 PR234 CI950 beta lane move and queue",
+        "manual_lane": "today",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [],
+      "note": null,
+      "closedWorkSeconds": 0
+    },
+    {
+      "task": {
+        "id": "54611a1e-feed-4a4b-92d9-1679b1b480bf",
+        "list_id": "0bd50417-4e93-4248-86ee-b16fb597f629",
+        "title": "M7 PR234 CI950 alpha retained-menu and drag",
+        "manual_lane": "this_week",
+        "sort_rank": 0,
+        "manual_time_adjustment_seconds": 0,
+        "completed_at": null
+      },
+      "sessions": [],
+      "note": null,
+      "closedWorkSeconds": 0
+    }
+  ],
+  "preferences": {
+    "payload": {
+      "general": {
+        "selected_monitor_key": null,
+        "focus_panel_side": "right",
+        "open_on_login": false,
+        "hide_task_times": false,
+        "auto_parse_est_from_title": false,
+        "theme": "light",
+        "timezone": null
+      },
+      "focus": {
+        "pomodoro_enabled": false,
+        "pomodoro_work_seconds": 1500,
+        "pomodoro_break_seconds": 300,
+        "default_break_seconds": 600,
+        "scrolling_title": false,
+        "sleep_accounting_policy": "exclude"
+      },
+      "shortcuts": {
+        "go_to_narro_enabled": true,
+        "toggle_focus_mode_enabled": true,
+        "find_focus_timer_enabled": true
+      },
+      "alerts": {
+        "timed_alerts_enabled": false,
+        "task_alert_interval_seconds": 600,
+        "task_alert_sound": null,
+        "task_alert_volume_percent": 100,
+        "animated_timer_flash": false,
+        "notification_alerts_enabled": false,
+        "notification_sound": null,
+        "notification_volume_percent": 100,
+        "schedule_reminders_enabled": false,
+        "reminder_lead_seconds": 600
+      },
+      "celebration": {
+        "show_success_screen": false,
+        "fun_gif": false,
+        "success_sound": "victory-bell",
+        "success_sound_volume_percent": 100
+      }
+    },
+    "updatedAt": "2026-10-05T08:14:09.380160600+00:00"
+  },
+  "checkpoint": {
+    "session_id": "763d0419-98e1-421f-b065-03ad7dd1d51c",
+    "payload_json": "{\"version\":1,\"closed_work_seconds\":0,\"closed_break_seconds\":0,\"committed_break_ms\":0,\"state\":{\"kind\":\"work\",\"task_id\":\"95a2466c-a06c-4a41-a2b4-3d1e65b9fa08\",\"mode\":{\"kind\":\"est_countdown\",\"est_ms\":1800000},\"phase\":\"paused\",\"total_work_ms\":801308,\"interval_work_ms\":801308}}",
+    "updated_at": "2026-10-05T08:18:01.933Z"
+  }
+}
