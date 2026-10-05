@@ -1,0 +1,7 @@
+{
+  "tasksExactlySame": true,
+  "checkpointExactlySame": true,
+  "preferencesPayloadExactlySame": true,
+  "readOnlyOwnedSnapshot": true,
+  "noWholeUserDatabaseExport": true
+}

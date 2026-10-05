@@ -1,0 +1,18 @@
+[
+  {
+    "utc": "2026-10-05T13:01:05.6462868Z",
+    "action": "bookmark",
+    "observation": "33: Main large Notes: lower-right pointer drag left Task note bounds unchanged990x557; actual Ctrl+A/Tab/Shift+Tab/Escape leaves large Notes open. Resize affordance/keyboard requirement review pending; recover through actual Return to compact notes.",
+    "state": "REVIEW_PENDING",
+    "originalApproxSeconds": 279.801,
+    "evidenceInput": "actions.jsonl:8"
+  },
+  {
+    "utc": "2026-10-05T13:03:09.8018583Z",
+    "action": "bookmark",
+    "observation": "34: Main Add dialog with focused Add task: actual CtrlAltB/P/N exercised; global CtrlShiftT transferred foreground to Focus while Main dialog remains. Native ledger snapshot retained. Main Escape guard rejected without input after foreground changed; reactivate Main then Escape. Requirement/source review pending.",
+    "state": "REVIEW_PENDING",
+    "originalApproxSeconds": 403.956,
+    "evidenceInput": "actions.jsonl:11"
+  }
+]

@@ -1,0 +1,655 @@
+00:43:21.106: CPU Name: AMD Ryzen 5 2600X Six-Core Processor           
+00:43:21.106: CPU Speed: 3811MHz
+00:43:21.106: Physical Cores: 6, Logical Cores: 12
+00:43:21.106: Physical Memory: 32689MB Total, 16958MB Free
+00:43:21.106: Windows Version: 10.0 Build 19045 (release: 22H2; revision: 6466; 64-bit)
+00:43:21.106: Running as administrator: false
+00:43:21.107: Windows 10/11 Gaming Features:
+00:43:21.107: 	Game DVR: On
+00:43:21.107: 	Game Mode: Probably On (no reg key set)
+00:43:21.108: Sec. Software Status:
+00:43:21.110: 	Microsoft Defender Antivirus: enabled (AV)
+00:43:21.110: 	Windows Firewall: enabled (FW)
+00:43:21.115: Current Date/Time: 2026-10-05, 00:43:21
+00:43:21.115: Browser Hardware Acceleration: true
+00:43:21.115: Hide OBS windows from screen capture: true
+00:43:21.115: Qt Version: 6.11.1 (runtime), 6.11.1 (compiled)
+00:43:21.115: Portable mode: false
+00:43:21.474: OBS 32.2.2 (64-bit, windows)
+00:43:21.474: ---------------------------------
+00:43:21.594: ---------------------------------
+00:43:21.594: audio settings reset:
+00:43:21.594: 	samples per sec: 48000
+00:43:21.594: 	speakers:        2
+00:43:21.594: 	max buffering:   960 milliseconds
+00:43:21.594: 	buffering type:  dynamically increasing
+00:43:21.596: ---------------------------------
+00:43:21.596: Initializing D3D11...
+00:43:21.596: Available Video Adapters: 
+00:43:21.599: 	Adapter 0: Radeon RX 570 Series
+00:43:21.599: 	  Dedicated VRAM: 8567902208 (8.0 GiB)
+00:43:21.599: 	  Shared VRAM:    17138456576 (16.0 GiB)
+00:43:21.599: 	  PCI ID:         1002:67df
+00:43:21.599: 	  HAGS Status:    Disabled (Default: No, Driver status: Unsupported)
+00:43:21.599: 	  Driver Version: 31.0.21923.11000
+00:43:21.601: 	  output 0:
+00:43:21.601: 	    name=LG ULTRAGEAR
+00:43:21.601: 	    pos={0, 0}
+00:43:21.601: 	    size={2560, 1080}
+00:43:21.601: 	    attached=true
+00:43:21.601: 	    refresh=144
+00:43:21.601: 	    bits_per_color=10
+00:43:21.601: 	    space=RGB_FULL_G22_NONE_P709
+00:43:21.601: 	    primaries=[r=(0.651367, 0.332031), g=(0.306641, 0.630859), b=(0.150391, 0.059570), wp=(0.313477, 0.329102)]
+00:43:21.601: 	    relative_gamut_area=[709=1.087150, P3=0.801416, 2020=0.574962]
+00:43:21.601: 	    sdr_white_nits=80
+00:43:21.601: 	    nit_range=[min=0.304500, max=301.000000, max_full_frame=243.000000]
+00:43:21.601: 	    dpi=96 (100%)
+00:43:21.601: 	    id=\\?\DISPLAY#GSM773B#5&30e30fda&1&UID256#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+00:43:21.601: 	    alt_id=\\.\DISPLAY1
+00:43:21.602: 	  output 1:
+00:43:21.602: 	    name=2D FHD LG TV
+00:43:21.602: 	    pos={-1920, 0}
+00:43:21.602: 	    size={1920, 1080}
+00:43:21.602: 	    attached=true
+00:43:21.602: 	    refresh=60
+00:43:21.602: 	    bits_per_color=8
+00:43:21.602: 	    space=RGB_FULL_G22_NONE_P709
+00:43:21.602: 	    primaries=[r=(0.637695, 0.333984), g=(0.308594, 0.626953), b=(0.153320, 0.073242), wp=(0.313477, 0.329102)]
+00:43:21.602: 	    relative_gamut_area=[709=1.016142, P3=0.749070, 2020=0.537408]
+00:43:21.602: 	    sdr_white_nits=80
+00:43:21.602: 	    nit_range=[min=0.500000, max=270.000000, max_full_frame=270.000000]
+00:43:21.602: 	    dpi=120 (125%)
+00:43:21.602: 	    id=\\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+00:43:21.602: 	    alt_id=\\.\DISPLAY2
+00:43:21.602: Loading up D3D11 on adapter Radeon RX 570 Series (0)
+00:43:21.651: D3D11 loaded successfully, feature level used: b000
+00:43:21.651: DXGI increase maximum frame latency success
+00:43:21.651: D3D11 GPU priority setup failed (not admin?)
+00:43:21.803: ---------------------------------
+00:43:21.803: video settings reset:
+00:43:21.803: 	base resolution:   4480x1080
+00:43:21.803: 	output resolution: 4480x1080
+00:43:21.803: 	downscale filter:  Bicubic
+00:43:21.803: 	fps:               60/1
+00:43:21.803: 	format:            NV12
+00:43:21.803: 	YUV mode:          Rec. 709/Full
+00:43:21.803: NV12 texture support enabled
+00:43:21.803: P010 texture support not available
+00:43:21.805: Audio monitoring device:
+00:43:21.805: 	name: Default
+00:43:21.805: 	id: default
+00:43:21.834: ---------------------------------
+00:43:21.837: No AJA devices found, skipping loading AJA UI plugin
+00:43:21.837: Failed to initialize module 'aja-output-ui.dll'
+00:43:21.839: No AJA devices found, skipping loading AJA plugin
+00:43:21.839: Failed to initialize module 'aja.dll'
+00:43:21.840: Skipping module '../../obs-plugins/64bit/chrome_elf.dll', not an OBS plugin
+00:43:21.841: [CoreAudio encoder]: CoreAudio AAC encoder not installed on the system or couldn't be loaded
+00:43:21.842: Failed to load 'en-US' text for module: 'decklink-captions.dll'
+00:43:21.843: Failed to load 'en-US' text for module: 'decklink-output-ui.dll'
+00:43:21.849: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed
+00:43:21.849: Failed to initialize module 'decklink.dll'
+00:43:21.877: Skipping module '../../obs-plugins/64bit/libcef.dll', not an OBS plugin
+00:43:21.883: Skipping module '../../obs-plugins/64bit/libEGL.dll', not an OBS plugin
+00:43:21.884: Skipping module '../../obs-plugins/64bit/libGLESv2.dll', not an OBS plugin
+00:43:22.890: Failed to get C:\Program Files\NVIDIA Corporation\NVIDIA Audio Effects SDK\NVAudioEffects.dll version info size
+00:43:22.890: [NVIDIA Audio Effects:] NVIDIA denoiser disabled, redistributable not found or could not be loaded.
+00:43:22.891: Failed to get C:\Program Files\NVIDIA Corporation\NVIDIA Video Effects\NVVideoEffects.dll version info size
+00:43:22.891: [NVIDIA VIDEO FX]: FX disabled, redistributable not found or could not be loaded.
+00:43:22.901: [obs-browser]: Version 2.26.9
+00:43:22.901: [obs-browser]: CEF Version 127.0.6533.120 (runtime), 127.145.7+g2b7d20b+chromium-127.0.6533.120 (compiled)
+00:43:23.086: LoadLibrary failed for 'nvEncodeAPI64.dll': The specified module could not be found.
+00:43:23.086:  (126)
+00:43:23.086: NVENC not supported
+00:43:23.086: Failed to initialize module 'obs-nvenc.dll'
+00:43:23.146: [obs-websocket] [obs_module_load] you can haz websockets (Version: 5.7.4 | RPC Version: 1)
+00:43:23.146: [obs-websocket] [obs_module_load] Qt version (compile-time): 6.11.1 | Qt version (run-time): 6.11.1
+00:43:23.146: [obs-websocket] [obs_module_load] Linked ASIO Version: 103200
+00:43:23.153: [obs-websocket] [obs_module_load] Module loaded.
+00:43:23.160: [vlc-video]: VLC 3.0.23 Vetinari found, VLC video source enabled
+00:43:23.183: ---------------------------------
+00:43:23.183:   Loaded Modules:
+00:43:23.183:     win-wasapi.dll
+00:43:23.183:     win-dshow.dll
+00:43:23.183:     win-capture.dll
+00:43:23.183:     vlc-video.dll
+00:43:23.183:     text-freetype2.dll
+00:43:23.183:     rtmp-services.dll
+00:43:23.183:     obs-x264.dll
+00:43:23.183:     obs-websocket.dll
+00:43:23.183:     obs-webrtc.dll
+00:43:23.183:     obs-vst.dll
+00:43:23.183:     obs-transitions.dll
+00:43:23.183:     obs-text.dll
+00:43:23.183:     obs-qsv11.dll
+00:43:23.183:     obs-outputs.dll
+00:43:23.183:     obs-filters.dll
+00:43:23.183:     obs-ffmpeg.dll
+00:43:23.183:     obs-browser.dll
+00:43:23.183:     nv-filters.dll
+00:43:23.184:     logi_obs_plugin_x64.dll
+00:43:23.184:     image-source.dll
+00:43:23.184:     frontend-tools.dll
+00:43:23.184:     decklink-output-ui.dll
+00:43:23.184:     decklink-captions.dll
+00:43:23.184:     coreaudio-encoder.dll
+00:43:23.184: ---------------------------------
+00:43:23.184: ---------------------------------
+00:43:23.184: Available Encoders:
+00:43:23.184:   Video Encoders:
+00:43:23.184: 	- ffmpeg_svt_av1 (SVT-AV1)
+00:43:23.184: 	- ffmpeg_aom_av1 (AOM AV1)
+00:43:23.184: 	- h264_texture_amf (AMD HW H.264 (AVC))
+00:43:23.184: 	- h265_texture_amf (AMD HW H.265 (HEVC))
+00:43:23.184: 	- obs_x264 (x264)
+00:43:23.184:   Audio Encoders:
+00:43:23.184: 	- ffmpeg_aac (FFmpeg AAC)
+00:43:23.184: 	- ffmpeg_opus (FFmpeg Opus)
+00:43:23.184: 	- ffmpeg_pcm_s16le (FFmpeg PCM (16-bit))
+00:43:23.184: 	- ffmpeg_pcm_s24le (FFmpeg PCM (24-bit))
+00:43:23.184: 	- ffmpeg_pcm_f32le (FFmpeg PCM (32-bit float))
+00:43:23.184: 	- ffmpeg_alac (FFmpeg ALAC (24-bit))
+00:43:23.184: 	- ffmpeg_flac (FFmpeg FLAC (16-bit))
+00:43:23.185: ==== Startup complete ===============================================
+00:43:23.240: All scene data cleared
+00:43:23.240: ------------------------------------------------
+00:43:23.245: [win-wasapi: 'Desktop Audio'] update settings:
+00:43:23.245: 	device id: {0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}
+00:43:23.245: 	use device timing: 1
+00:43:23.245: [WASAPISource::TryInitialize]:[{0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}] Failed to enumerate device: 80070490
+00:43:23.245: WASAPI: Device '{0.0.0.00000000}.{6d2e8ac7-ef56-4fa8-80ef-83a279b927bf}' failed to start (source: Desktop Audio)
+00:43:23.296: [Loaded global audio device]: 'Desktop Audio'
+00:43:23.296:     - monitoring: monitor and output
+00:43:23.296: [win-wasapi: 'Mic/Aux'] update settings:
+00:43:23.296: 	device id: {0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}
+00:43:23.296: 	use device timing: 0
+00:43:23.296: [WASAPISource::TryInitialize]:[{0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}] Failed to enumerate device: 80070490
+00:43:23.296: WASAPI: Device '{0.0.1.00000000}.{6e8c77f0-609f-4bde-b179-eee7dd518dcc}' failed to start (source: Mic/Aux)
+00:43:23.306: [Loaded global audio device]: 'Mic/Aux'
+00:43:23.306:     - monitoring: monitor and output
+00:43:23.307: [win-wasapi: 'Mic/Aux 2'] update settings:
+00:43:23.307: 	device id: {0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}
+00:43:23.307: 	use device timing: 0
+00:43:23.307: [WASAPISource::TryInitialize]:[{0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}] Failed to enumerate device: 80070490
+00:43:23.307: WASAPI: Device '{0.0.1.00000000}.{cdadd6e9-aced-4603-82f2-873c1a7a9fc7}' failed to start (source: Mic/Aux 2)
+00:43:23.315: [Loaded global audio device]: 'Mic/Aux 2'
+00:43:23.315:     - monitoring: monitor and output
+00:43:23.318: [duplicator-monitor-capture: 'Desktop'] update settings:
+00:43:23.318: 	display: LG ULTRAGEAR (2560x1080)
+00:43:23.318: 	cursor: true
+00:43:23.318: 	method: DXGI
+00:43:23.318: 	id: \\?\DISPLAY#GSM773B#5&30e30fda&1&UID256#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+00:43:23.318: 	alt_id: \\.\DISPLAY1
+00:43:23.318: 	setting_id: \\?\DISPLAY#GSM773B#5&30e30fda&1&UID256#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+00:43:23.318: 	force SDR: true
+00:43:23.321: [duplicator-monitor-capture: 'Display Capture'] update settings:
+00:43:23.321: 	display: 2D FHD LG TV (1920x1080)
+00:43:23.321: 	cursor: true
+00:43:23.321: 	method: DXGI
+00:43:23.321: 	id: \\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+00:43:23.321: 	alt_id: \\.\DISPLAY2
+00:43:23.321: 	setting_id: \\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+00:43:23.321: 	force SDR: false
+00:43:23.324: Switched to scene 'Destop'
+00:43:23.324: ------------------------------------------------
+00:43:23.324: Loaded scenes:
+00:43:23.325: - scene 'Destop':
+00:43:23.325:     - source: 'Desktop' (monitor_capture)
+00:43:23.325:     - source: 'Display Capture' (monitor_capture)
+00:43:23.325: ------------------------------------------------
+04:30:36.155: ---------------------------------
+04:30:36.155: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+04:30:36.155: [x264 encoder: 'advanced_video_recording'] settings:
+04:30:36.155: 	rate_control: CRF
+04:30:36.155: 	bitrate:      0
+04:30:36.155: 	buffer size:  0
+04:30:36.155: 	crf:          18
+04:30:36.155: 	fps_num:      60
+04:30:36.155: 	fps_den:      1
+04:30:36.155: 	width:        4480
+04:30:36.155: 	height:       1080
+04:30:36.155: 	keyint:       250
+04:30:36.155: 
+04:30:36.159: ---------------------------------
+04:30:36.160: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+04:30:36.160: 
+04:30:36.176: ==== Recording Start ===============================================
+04:30:36.176: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 04-30-36.mkv'...
+04:36:26.415: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 04-30-36.mkv' stopped
+04:36:26.415: Output 'adv_file_output': stopping
+04:36:26.415: Output 'adv_file_output': Total frames output: 20981
+04:36:26.415: Output 'adv_file_output': Total drawn frames: 21014
+04:36:26.417: ==== Recording Stop ================================================
+04:37:09.489: ---------------------------------
+04:37:09.489: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+04:37:09.489: [x264 encoder: 'advanced_video_recording'] settings:
+04:37:09.489: 	rate_control: CRF
+04:37:09.489: 	bitrate:      0
+04:37:09.489: 	buffer size:  0
+04:37:09.489: 	crf:          18
+04:37:09.489: 	fps_num:      60
+04:37:09.489: 	fps_den:      1
+04:37:09.489: 	width:        4480
+04:37:09.489: 	height:       1080
+04:37:09.489: 	keyint:       250
+04:37:09.489: 
+04:37:09.493: ---------------------------------
+04:37:09.493: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+04:37:09.493: 
+04:37:09.527: ==== Recording Start ===============================================
+04:37:09.527: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 04-37-09.mkv'...
+04:55:23.048: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 04-37-09.mkv' stopped
+04:55:23.048: Output 'adv_file_output': stopping
+04:55:23.048: Output 'adv_file_output': Total frames output: 65578
+04:55:23.048: Output 'adv_file_output': Total drawn frames: 65608 (65611 attempted)
+04:55:23.048: Output 'adv_file_output': Number of lagged frames due to rendering lag/stalls: 3 (0.0%)
+04:55:23.049: ==== Recording Stop ================================================
+05:01:35.317: ---------------------------------
+05:01:35.317: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+05:01:35.317: [x264 encoder: 'advanced_video_recording'] settings:
+05:01:35.317: 	rate_control: CRF
+05:01:35.317: 	bitrate:      0
+05:01:35.317: 	buffer size:  0
+05:01:35.317: 	crf:          18
+05:01:35.317: 	fps_num:      60
+05:01:35.317: 	fps_den:      1
+05:01:35.317: 	width:        4480
+05:01:35.317: 	height:       1080
+05:01:35.317: 	keyint:       250
+05:01:35.317: 
+05:01:35.321: ---------------------------------
+05:01:35.321: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+05:01:35.321: 
+05:01:35.333: ==== Recording Start ===============================================
+05:01:35.333: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 05-01-35.mkv'...
+05:02:06.574: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 05-01-35.mkv' stopped
+05:02:06.574: Output 'adv_file_output': stopping
+05:02:06.574: Output 'adv_file_output': Total frames output: 1841
+05:02:06.574: Output 'adv_file_output': Total drawn frames: 1875
+05:02:06.576: ==== Recording Stop ================================================
+05:08:08.990: ---------------------------------
+05:08:08.990: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+05:08:08.990: [x264 encoder: 'advanced_video_recording'] settings:
+05:08:08.990: 	rate_control: CRF
+05:08:08.990: 	bitrate:      0
+05:08:08.990: 	buffer size:  0
+05:08:08.990: 	crf:          18
+05:08:08.990: 	fps_num:      60
+05:08:08.990: 	fps_den:      1
+05:08:08.990: 	width:        4480
+05:08:08.990: 	height:       1080
+05:08:08.990: 	keyint:       250
+05:08:08.990: 
+05:08:08.994: ---------------------------------
+05:08:08.994: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+05:08:08.994: 
+05:08:09.006: ==== Recording Start ===============================================
+05:08:09.006: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 05-08-08.mkv'...
+05:10:51.244: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 05-08-08.mkv' stopped
+05:10:51.244: Output 'adv_file_output': stopping
+05:10:51.244: Output 'adv_file_output': Total frames output: 9702
+05:10:51.244: Output 'adv_file_output': Total drawn frames: 9735
+05:10:51.245: ==== Recording Stop ================================================
+06:16:58.665: ---------------------------------
+06:16:58.665: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+06:16:58.665: [x264 encoder: 'advanced_video_recording'] settings:
+06:16:58.665: 	rate_control: CRF
+06:16:58.665: 	bitrate:      0
+06:16:58.665: 	buffer size:  0
+06:16:58.665: 	crf:          18
+06:16:58.665: 	fps_num:      60
+06:16:58.665: 	fps_den:      1
+06:16:58.665: 	width:        4480
+06:16:58.665: 	height:       1080
+06:16:58.665: 	keyint:       250
+06:16:58.665: 
+06:16:58.668: ---------------------------------
+06:16:58.669: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+06:16:58.669: 
+06:16:58.680: ==== Recording Start ===============================================
+06:16:58.680: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 06-16-58.mkv'...
+06:23:21.030: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 06-16-58.mkv' stopped
+06:23:21.030: Output 'adv_file_output': stopping
+06:23:21.030: Output 'adv_file_output': Total frames output: 22908
+06:23:21.030: Output 'adv_file_output': Total drawn frames: 22941
+06:23:21.031: ==== Recording Stop ================================================
+06:28:21.567: ---------------------------------
+06:28:21.568: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+06:28:21.568: [x264 encoder: 'advanced_video_recording'] settings:
+06:28:21.568: 	rate_control: CRF
+06:28:21.568: 	bitrate:      0
+06:28:21.568: 	buffer size:  0
+06:28:21.568: 	crf:          18
+06:28:21.568: 	fps_num:      60
+06:28:21.568: 	fps_den:      1
+06:28:21.568: 	width:        4480
+06:28:21.568: 	height:       1080
+06:28:21.568: 	keyint:       250
+06:28:21.568: 
+06:28:21.571: ---------------------------------
+06:28:21.572: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+06:28:21.572: 
+06:28:21.681: ==== Recording Start ===============================================
+06:28:21.681: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 06-28-21.mkv'...
+06:28:37.484: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 06-28-21.mkv' stopped
+06:28:37.485: Output 'adv_file_output': stopping
+06:28:37.485: Output 'adv_file_output': Total frames output: 922
+06:28:37.485: Output 'adv_file_output': Total drawn frames: 948
+06:28:37.486: ==== Recording Stop ================================================
+06:29:21.632: ---------------------------------
+06:29:21.632: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+06:29:21.632: [x264 encoder: 'advanced_video_recording'] settings:
+06:29:21.632: 	rate_control: CRF
+06:29:21.632: 	bitrate:      0
+06:29:21.632: 	buffer size:  0
+06:29:21.632: 	crf:          18
+06:29:21.632: 	fps_num:      60
+06:29:21.632: 	fps_den:      1
+06:29:21.632: 	width:        4480
+06:29:21.632: 	height:       1080
+06:29:21.632: 	keyint:       250
+06:29:21.632: 
+06:29:21.636: ---------------------------------
+06:29:21.636: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+06:29:21.636: 
+06:29:21.647: ==== Recording Start ===============================================
+06:29:21.647: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 06-29-21.mkv'...
+06:29:32.398: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 06-29-21.mkv' stopped
+06:29:32.398: Output 'adv_file_output': stopping
+06:29:32.398: Output 'adv_file_output': Total frames output: 612
+06:29:32.398: Output 'adv_file_output': Total drawn frames: 645
+06:29:32.399: ==== Recording Stop ================================================
+06:45:55.942: ---------------------------------
+06:45:55.942: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+06:45:55.942: [x264 encoder: 'advanced_video_recording'] settings:
+06:45:55.942: 	rate_control: CRF
+06:45:55.942: 	bitrate:      0
+06:45:55.942: 	buffer size:  0
+06:45:55.942: 	crf:          18
+06:45:55.942: 	fps_num:      60
+06:45:55.942: 	fps_den:      1
+06:45:55.942: 	width:        4480
+06:45:55.942: 	height:       1080
+06:45:55.942: 	keyint:       250
+06:45:55.942: 
+06:45:55.945: ---------------------------------
+06:45:55.946: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+06:45:55.946: 
+06:45:55.977: ==== Recording Start ===============================================
+06:45:55.977: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 06-45-55.mkv'...
+09:39:30.980: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 06-45-55.mkv' stopped
+09:39:30.980: Output 'adv_file_output': stopping
+09:39:30.980: Output 'adv_file_output': Total frames output: 624862
+09:39:30.980: Output 'adv_file_output': Total drawn frames: 624809 (624900 attempted)
+09:39:30.980: Output 'adv_file_output': Number of lagged frames due to rendering lag/stalls: 91 (0.0%)
+09:39:30.981: Video stopped, number of skipped frames due to encoding lag: 3/624900 (0.0%)
+09:39:30.981: ==== Recording Stop ================================================
+09:40:15.167: ---------------------------------
+09:40:15.167: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+09:40:15.167: [x264 encoder: 'advanced_video_recording'] settings:
+09:40:15.167: 	rate_control: CRF
+09:40:15.167: 	bitrate:      0
+09:40:15.167: 	buffer size:  0
+09:40:15.167: 	crf:          18
+09:40:15.167: 	fps_num:      60
+09:40:15.167: 	fps_den:      1
+09:40:15.167: 	width:        4480
+09:40:15.167: 	height:       1080
+09:40:15.167: 	keyint:       250
+09:40:15.167: 
+09:40:15.171: ---------------------------------
+09:40:15.171: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+09:40:15.171: 
+09:40:15.182: ==== Recording Start ===============================================
+09:40:15.182: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 09-40-15.mkv'...
+09:55:09.646: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 09-40-15.mkv' stopped
+09:55:09.646: Output 'adv_file_output': stopping
+09:55:09.646: Output 'adv_file_output': Total frames output: 53633
+09:55:09.646: Output 'adv_file_output': Total drawn frames: 53668
+09:55:09.647: Video stopped, number of skipped frames due to encoding lag: 1/53667 (0.0%)
+09:55:09.647: ==== Recording Stop ================================================
+10:01:04.765: ---------------------------------
+10:01:04.765: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+10:01:04.765: [x264 encoder: 'advanced_video_recording'] settings:
+10:01:04.765: 	rate_control: CRF
+10:01:04.765: 	bitrate:      0
+10:01:04.765: 	buffer size:  0
+10:01:04.765: 	crf:          18
+10:01:04.765: 	fps_num:      60
+10:01:04.765: 	fps_den:      1
+10:01:04.765: 	width:        4480
+10:01:04.765: 	height:       1080
+10:01:04.765: 	keyint:       250
+10:01:04.765: 
+10:01:04.769: ---------------------------------
+10:01:04.769: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+10:01:04.769: 
+10:01:04.867: ==== Recording Start ===============================================
+10:01:04.867: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 10-01-04.mkv'...
+10:12:09.046: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 10-01-04.mkv' stopped
+10:12:09.046: Output 'adv_file_output': stopping
+10:12:09.046: Output 'adv_file_output': Total frames output: 39822
+10:12:09.046: Output 'adv_file_output': Total drawn frames: 39851
+10:12:09.047: ==== Recording Stop ================================================
+10:15:18.574: ---------------------------------
+10:15:18.574: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+10:15:18.574: [x264 encoder: 'advanced_video_recording'] settings:
+10:15:18.574: 	rate_control: CRF
+10:15:18.574: 	bitrate:      0
+10:15:18.574: 	buffer size:  0
+10:15:18.574: 	crf:          18
+10:15:18.574: 	fps_num:      60
+10:15:18.574: 	fps_den:      1
+10:15:18.574: 	width:        4480
+10:15:18.574: 	height:       1080
+10:15:18.574: 	keyint:       250
+10:15:18.574: 
+10:15:18.578: ---------------------------------
+10:15:18.578: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+10:15:18.578: 
+10:15:18.588: ==== Recording Start ===============================================
+10:15:18.588: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 10-15-18.mkv'...
+10:17:24.631: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 10-15-18.mkv' stopped
+10:17:24.631: Output 'adv_file_output': stopping
+10:17:24.631: Output 'adv_file_output': Total frames output: 7529
+10:17:24.631: Output 'adv_file_output': Total drawn frames: 7563
+10:17:24.632: ==== Recording Stop ================================================
+10:30:35.102: ---------------------------------
+10:30:35.102: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+10:30:35.102: [x264 encoder: 'advanced_video_recording'] settings:
+10:30:35.102: 	rate_control: CRF
+10:30:35.102: 	bitrate:      0
+10:30:35.102: 	buffer size:  0
+10:30:35.102: 	crf:          18
+10:30:35.102: 	fps_num:      60
+10:30:35.102: 	fps_den:      1
+10:30:35.102: 	width:        4480
+10:30:35.102: 	height:       1080
+10:30:35.102: 	keyint:       250
+10:30:35.102: 
+10:30:35.106: ---------------------------------
+10:30:35.106: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+10:30:35.106: 
+10:30:35.117: ==== Recording Start ===============================================
+10:30:35.117: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 10-30-35.mkv'...
+10:34:22.797: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 10-30-35.mkv' stopped
+10:34:22.797: Output 'adv_file_output': stopping
+10:34:22.797: Output 'adv_file_output': Total frames output: 13628
+10:34:22.797: Output 'adv_file_output': Total drawn frames: 13661
+10:34:22.798: ==== Recording Stop ================================================
+11:02:01.215: ---------------------------------
+11:02:01.215: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+11:02:01.215: [x264 encoder: 'advanced_video_recording'] settings:
+11:02:01.215: 	rate_control: CRF
+11:02:01.215: 	bitrate:      0
+11:02:01.215: 	buffer size:  0
+11:02:01.215: 	crf:          18
+11:02:01.215: 	fps_num:      60
+11:02:01.215: 	fps_den:      1
+11:02:01.215: 	width:        4480
+11:02:01.215: 	height:       1080
+11:02:01.215: 	keyint:       250
+11:02:01.215: 
+11:02:01.218: ---------------------------------
+11:02:01.218: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+11:02:01.218: 
+11:02:01.228: ==== Recording Start ===============================================
+11:02:01.229: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 11-02-01.mkv'...
+11:11:31.932: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.933: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.933: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.934: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.935: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.935: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.935: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.935: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.936: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.936: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.936: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.937: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.937: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.937: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.938: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.938: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.938: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.939: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:11:31.940: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.289: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.290: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.290: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.291: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.292: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.292: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.293: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.293: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.294: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.294: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.295: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:03.295: QWindowsWindow::setDarkBorderToWindow: Unable to set light window border.
+11:14:10.603: Last log entry repeated for 7 more lines
+11:14:10.603: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 11-02-01.mkv' stopped
+11:14:10.603: Output 'adv_file_output': stopping
+11:14:10.603: Output 'adv_file_output': Total frames output: 43729
+11:14:10.603: Output 'adv_file_output': Total drawn frames: 43762
+11:14:10.604: ==== Recording Stop ================================================
+11:16:21.584: ---------------------------------
+11:16:21.584: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+11:16:21.584: [x264 encoder: 'advanced_video_recording'] settings:
+11:16:21.584: 	rate_control: CRF
+11:16:21.584: 	bitrate:      0
+11:16:21.584: 	buffer size:  0
+11:16:21.584: 	crf:          18
+11:16:21.584: 	fps_num:      60
+11:16:21.584: 	fps_den:      1
+11:16:21.584: 	width:        4480
+11:16:21.584: 	height:       1080
+11:16:21.584: 	keyint:       250
+11:16:21.584: 
+11:16:21.587: ---------------------------------
+11:16:21.587: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+11:16:21.587: 
+11:16:21.598: ==== Recording Start ===============================================
+11:16:21.598: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 11-16-21.mkv'...
+11:31:05.497: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 11-16-21.mkv' stopped
+11:31:05.497: Output 'adv_file_output': stopping
+11:31:05.497: Output 'adv_file_output': Total frames output: 52998
+11:31:05.497: Output 'adv_file_output': Total drawn frames: 53030 (53034 attempted)
+11:31:05.497: Output 'adv_file_output': Number of lagged frames due to rendering lag/stalls: 4 (0.0%)
+11:31:05.498: Video stopped, number of skipped frames due to encoding lag: 3/53033 (0.0%)
+11:31:05.498: ==== Recording Stop ================================================
+12:11:29.055: ---------------------------------
+12:11:29.055: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+12:11:29.055: [x264 encoder: 'advanced_video_recording'] settings:
+12:11:29.055: 	rate_control: CRF
+12:11:29.055: 	bitrate:      0
+12:11:29.055: 	buffer size:  0
+12:11:29.055: 	crf:          18
+12:11:29.055: 	fps_num:      60
+12:11:29.055: 	fps_den:      1
+12:11:29.055: 	width:        4480
+12:11:29.055: 	height:       1080
+12:11:29.055: 	keyint:       250
+12:11:29.055: 
+12:11:29.058: ---------------------------------
+12:11:29.059: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+12:11:29.059: 
+12:11:29.069: ==== Recording Start ===============================================
+12:11:29.070: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 12-11-29.mkv'...
+12:28:16.713: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 12-11-29.mkv' stopped
+12:28:16.713: Output 'adv_file_output': stopping
+12:28:16.713: Output 'adv_file_output': Total frames output: 60425
+12:28:16.713: Output 'adv_file_output': Total drawn frames: 60458 (60459 attempted)
+12:28:16.713: Output 'adv_file_output': Number of lagged frames due to rendering lag/stalls: 1 (0.0%)
+12:28:16.714: ==== Recording Stop ================================================
+12:45:14.510: ---------------------------------
+12:45:14.510: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+12:45:14.510: [x264 encoder: 'advanced_video_recording'] settings:
+12:45:14.510: 	rate_control: CRF
+12:45:14.510: 	bitrate:      0
+12:45:14.510: 	buffer size:  0
+12:45:14.510: 	crf:          18
+12:45:14.510: 	fps_num:      60
+12:45:14.510: 	fps_den:      1
+12:45:14.510: 	width:        4480
+12:45:14.510: 	height:       1080
+12:45:14.510: 	keyint:       250
+12:45:14.510: 
+12:45:14.514: ---------------------------------
+12:45:14.514: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+12:45:14.514: 
+12:45:14.549: ==== Recording Start ===============================================
+12:45:14.549: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 12-45-14.mkv'...
+13:03:23.780: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 12-45-14.mkv' stopped
+13:03:23.780: Output 'adv_file_output': stopping
+13:03:23.780: Output 'adv_file_output': Total frames output: 65321
+13:03:23.780: Output 'adv_file_output': Total drawn frames: 65354
+13:03:23.781: ==== Recording Stop ================================================
+15:22:38.553: ---------------------------------
+15:22:38.553: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+15:22:38.553: [x264 encoder: 'advanced_video_recording'] settings:
+15:22:38.553: 	rate_control: CRF
+15:22:38.553: 	bitrate:      0
+15:22:38.553: 	buffer size:  0
+15:22:38.553: 	crf:          18
+15:22:38.553: 	fps_num:      60
+15:22:38.553: 	fps_den:      1
+15:22:38.553: 	width:        4480
+15:22:38.553: 	height:       1080
+15:22:38.553: 	keyint:       250
+15:22:38.553: 
+15:22:38.558: ---------------------------------
+15:22:38.558: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+15:22:38.558: 
+15:22:38.572: ==== Recording Start ===============================================
+15:22:38.572: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 15-22-38.mkv'...
+15:31:49.162: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 15-22-38.mkv' stopped
+15:31:49.163: Output 'adv_file_output': stopping
+15:31:49.163: Output 'adv_file_output': Total frames output: 32983
+15:31:49.163: Output 'adv_file_output': Total drawn frames: 32921 (33035 attempted)
+15:31:49.163: Output 'adv_file_output': Number of lagged frames due to rendering lag/stalls: 114 (0.3%)
+15:31:49.163: Video stopped, number of skipped frames due to encoding lag: 23/33035 (0.1%)
+15:31:49.164: ==== Recording Stop ================================================
+15:56:25.292: ---------------------------------
+15:56:25.292: [x264 encoder: 'advanced_video_recording'] preset: veryfast
+15:56:25.292: [x264 encoder: 'advanced_video_recording'] settings:
+15:56:25.292: 	rate_control: CRF
+15:56:25.292: 	bitrate:      0
+15:56:25.292: 	buffer size:  0
+15:56:25.292: 	crf:          18
+15:56:25.292: 	fps_num:      60
+15:56:25.292: 	fps_den:      1
+15:56:25.292: 	width:        4480
+15:56:25.292: 	height:       1080
+15:56:25.292: 	keyint:       250
+15:56:25.292: 
+15:56:25.295: ---------------------------------
+15:56:25.295: [FFmpeg aac encoder: 'Track1'] bitrate: 320, channels: 2, channel_layout: stereo, track: 1
+15:56:25.295: 
+15:56:25.307: ==== Recording Start ===============================================
+15:56:25.308: [ffmpeg muxer: 'adv_file_output'] Writing file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 15-56-25.mkv'...
+16:13:48.379: [ffmpeg muxer: 'adv_file_output'] Output of file 'E:/SystemFiles/Desktop/NarroUpload/artifacts/m7-pr234-native-20261005/video/2026-10-05 15-56-25.mkv' stopped
+16:13:48.379: Output 'adv_file_output': stopping
+16:13:48.380: Output 'adv_file_output': Total frames output: 62552
+16:13:48.380: Output 'adv_file_output': Total drawn frames: 62584
+16:13:48.381: ==== Recording Stop ================================================

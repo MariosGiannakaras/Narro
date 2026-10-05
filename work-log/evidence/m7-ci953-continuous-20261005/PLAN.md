@@ -1,0 +1,7 @@
+# CI953 continuous supplemental capture
+
+Physical/acquisition only. Exact38219e20 / CI953 / EXEbde7646d, paused141908/Focus7471826/Main3213706. Preserve separate uncompiled source WIP. Review remains44/100; no source/static/motion PASS from raw capture, no new denominator. Whole raw videos/logs and chronological manifest must be uploaded with main tracking before ending the turn.
+
+Batch currently unexercised details on implemented surfaces: M5 Main populated large Notes actual resize/keyboard boundaries and task-dialog focused-button shortcut shielding; M6 Focus equivalent Notes/modal paths; M7 actual bottom-edge compact/expanded/Notes/locate and cross-DPI recovery with the same Focus HWND, normal/reduced. Reuse compatible M1 monitor observations/M8 shortcut evidence; no unrelated milestone implementation. Failed actions get factual bookmarks; continue independent paths, recover only when state requires it. No fixture deletion or user data loss. No requirement claim from a surface merely appearing. M10 entry remains blocked/M11 dormant.
+
+Before/after capture inspect current TODO/HANDOFF/crosswalk and take owned read-only ledger snapshots. Restore normal motion, automatic monitor, Right/light, paused state where possible; any durable fixture delta must be explicit. Stop/restart only to flush/publish an actual batch or improve capture reliability; immediately resume remaining independent acquisition. Update user when named per-milestone capture paths complete, distinguish that from milestone acceptance.

@@ -1,0 +1,40 @@
+{
+  "source": "38219e200fe3bec7309f8e03e72003184ca86d08",
+  "ci": 953,
+  "runId": 37258629373,
+  "artifactId": 11324640580,
+  "exeSha256": "bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8",
+  "pid": 141908,
+  "focusHwnd": 7471826,
+  "mainHwnd": 3213706,
+  "durationSeconds": 1042.55,
+  "canvas": "4480x1080/60fps",
+  "obsStopFlushLocal": "2026-10-05 16:13:48.381",
+  "obsStoppedVerified": true,
+  "nativeActions": 102,
+  "offsetAnchorUtc": "2026-10-05T12:56:25.845417+00:00",
+  "offsetUncertaintySeconds": 1,
+  "sourceCodeChanges": false,
+  "wholeMediaReassembly": [
+    {
+      "file": "2026-10-05 15-56-25.mkv",
+      "bytes": 108724128,
+      "sha256": "271de80bff021e6ceba914660f8c52245ed6661f82fdca42db8265b33ef0830d",
+      "parts": [
+        "2026-10-05 15-56-25.mkv.part001",
+        "2026-10-05 15-56-25.mkv.part002"
+      ],
+      "reassembledByteIdentical": true
+    },
+    {
+      "file": "2026-10-05-continuous-full.mp4",
+      "bytes": 109983127,
+      "sha256": "9680c8eb2119c39bf91c3d56baabcf14ed4cdd308e1609193b9b7d8ed82434ae",
+      "parts": [
+        "2026-10-05-continuous-full.mp4.part001",
+        "2026-10-05-continuous-full.mp4.part002"
+      ],
+      "reassembledByteIdentical": true
+    }
+  ]
+}

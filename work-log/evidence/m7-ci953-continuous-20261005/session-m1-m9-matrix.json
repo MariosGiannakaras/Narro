@@ -1,0 +1,47 @@
+[
+  {
+    "milestone": "M1",
+    "disposition": "Two-display100/125 context corroboration; no quiet performance/sleep/cable test.27 remains FAIL.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M2",
+    "disposition": "Owned identities/data unchanged; no new acceptance counter.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M3",
+    "disposition": "Paused checkpoint/846s unchanged; no running/expiry test.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M4",
+    "disposition": "No scheduling exercise.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M5",
+    "disposition": "Main populated large Notes drag/keyboard boundary and focused Add dialog shortcuts captured.33/34 REVIEW_PENDING; no source PASS.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M6",
+    "disposition": "Focus large Notes drag/keyboard and focused Add dialogs captured; normal/reduced dialogs. Source/motion OPEN.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M7",
+    "disposition": "Bottom-edge compact/expanded/Notes/locate100/125 normal/reduced captured, same HWND. Reduced starts at already-clamped position. C4 OPEN.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M8",
+    "disposition": "Local modal B/P/N, Main global T transfer exercised. Greek draft Unicode is NOT Greek OS keyboard-layout acceptance.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  },
+  {
+    "milestone": "M9",
+    "disposition": "No new Reports exercise; existing owned manual fixture retained unchanged.",
+    "evidence": "chronological-actions.jsonl; observations; inventory/ledger-verification.json"
+  }
+]

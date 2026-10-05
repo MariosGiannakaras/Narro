@@ -1,0 +1,22 @@
+[
+  {
+    "file": "2026-10-05 15-56-25.mkv",
+    "bytes": 108724128,
+    "sha256": "271de80bff021e6ceba914660f8c52245ed6661f82fdca42db8265b33ef0830d",
+    "parts": [
+      "2026-10-05 15-56-25.mkv.part001",
+      "2026-10-05 15-56-25.mkv.part002"
+    ],
+    "reassembledByteIdentical": true
+  },
+  {
+    "file": "2026-10-05-continuous-full.mp4",
+    "bytes": 109983127,
+    "sha256": "9680c8eb2119c39bf91c3d56baabcf14ed4cdd308e1609193b9b7d8ed82434ae",
+    "parts": [
+      "2026-10-05-continuous-full.mp4.part001",
+      "2026-10-05-continuous-full.mp4.part002"
+    ],
+    "reassembledByteIdentical": true
+  }
+]
