@@ -634,15 +634,13 @@ mod monitor_selection_tests {
             Some(r"\\.\DISPLAY2"),
             0,
         );
-        assert_eq!(compatible_monitor_descriptor_index(saved, &[different]), None);
-
-        let unnamed_saved =
-            "|0|0|1920|1080|0|0|1536|832|3ff4000000000000";
-        let unnamed = descriptor(
-            "|0|0|1920|1080|0|0|1920|1040|3ff0000000000000",
-            None,
-            0,
+        assert_eq!(
+            compatible_monitor_descriptor_index(saved, &[different]),
+            None
         );
+
+        let unnamed_saved = "|0|0|1920|1080|0|0|1536|832|3ff0000000000000";
+        let unnamed = descriptor("|0|0|1920|1080|0|0|1920|1040|3ff0000000000000", None, 0);
         assert_eq!(
             compatible_monitor_descriptor_index(unnamed_saved, &[unnamed]),
             None
