@@ -1,4 +1,4 @@
-param([string]$MediaDirectory='C:\Users\MariosG\.codex\worktrees\m7-native-paint\NarroUpload\work-log\evidence\m7-ci953-continuous-20261005\video')
+param([string]$MediaDirectory='C:\Users\MariosG\.codex\worktrees\m7-native-paint\NarroUpload\work-log\evidence\m7-ci953-live-20261005\video')
 $ErrorActionPreference='Stop'
 foreach ($m in (Get-Content -Raw -LiteralPath (Join-Path $MediaDirectory 'media-reassembly.json') | ConvertFrom-Json)) {
  $target=Join-Path $MediaDirectory $m.file
