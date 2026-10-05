@@ -44,7 +44,7 @@ Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instr
 
 Normal ordered evidence analysis, implementation/corrections and validation for the open M1–M9 work, with existing FIX_NOW and acceptance dependencies determining priority. M2–M4 are complete; M1 monitor/DPI acceptance is narrowly reopened, and M5–M9 retain validation/source-parity gates. M10 is blocked until all required M1–M9 acceptance clears.
 
-The exact capture candidate is CI953/source `38219e20` from open draft PR235. Separate async-read WIP is backed up but uncompiled/native-unvalidated and unmerged. Documentation/evidence publication on main is separate from application-source acceptance.
+The CI953/source `38219e20` pointer/menu correction from PR235 is now integrated on `main` as squash merge `a0dd76ed`; its 14 changed source/test blobs match the exact CI953 head. Separate async-read finding07 WIP is backed up but uncompiled/native-unvalidated and unmerged.
 
 Start from [HANDOFF](HANDOFF.md), [TODO](TODO.md) and [STATUS](STATUS.md). The [capture navigation index](work-log/evidence/ci953-capture-index-20261005/README.md) links11 follow-up packets; capture counts are not reviewed/PASS counts. Current authoritative tracking takes precedence over dated historical checkpoints.
 
