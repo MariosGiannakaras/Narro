@@ -1,0 +1,123 @@
+utc,action,target
+2026-10-05T15:00:26.714Z,OBS Tab navigation,
+2026-10-05T15:02:07.0252140Z,native-uia-invoke,Start Recording
+2026-10-05T15:02:07.8350181Z,native-uia-invoke,Settings
+2026-10-05T15:02:41.5487924Z,physical-mouse-wheel,
+2026-10-05T15:02:42.5331934Z,physical-mouse-wheel,
+2026-10-05T15:02:43.4650620Z,physical-mouse-wheel,
+2026-10-05T15:02:44.3957375Z,physical-mouse-wheel,
+2026-10-05T15:02:45.3320712Z,physical-mouse-wheel,
+2026-10-05T15:02:46.2672903Z,physical-mouse-wheel,
+2026-10-05T15:02:47.2029866Z,physical-mouse-wheel,
+2026-10-05T15:02:48.1763687Z,native-uia-setfocus,Enable Go to Narro
+2026-10-05T15:02:48.2926835Z,physical-scancode-chord,Space
+2026-10-05T15:02:49.2920290Z,physical-scancode-chord,Space
+2026-10-05T15:02:50.5770487Z,native-uia-setfocus,Enable Alternate Focus Mode
+2026-10-05T15:02:50.5817909Z,physical-scancode-chord,Space
+2026-10-05T15:02:51.5700954Z,physical-scancode-chord,Space
+2026-10-05T15:02:52.8393268Z,native-uia-setfocus,Enable Find focus timer
+2026-10-05T15:02:52.8444095Z,physical-scancode-chord,Space
+2026-10-05T15:02:53.8362917Z,physical-scancode-chord,Space
+2026-10-05T15:02:55.0944253Z,physical-scancode-chord,Ctrl+Shift+B
+2026-10-05T15:03:05.0952587Z,physical-mouse-wheel,
+2026-10-05T15:03:06.0257618Z,physical-mouse-wheel,
+2026-10-05T15:03:06.9631393Z,physical-mouse-wheel,
+2026-10-05T15:03:07.9050163Z,physical-mouse-wheel,
+2026-10-05T15:03:23.8383613Z,physical-mouse-wheel,
+2026-10-05T15:03:24.7887790Z,physical-mouse-wheel,
+2026-10-05T15:03:25.7446440Z,physical-mouse-wheel,
+2026-10-05T15:03:26.6655702Z,physical-mouse-wheel,
+2026-10-05T15:03:27.6206195Z,native-uia-observed-pointer-click,Timed task alerts
+2026-10-05T15:03:28.6509407Z,native-uia-observed-pointer-click,Task alert interval
+2026-10-05T15:04:33.7055522Z,native-uia-observed-pointer-click,Notification alerts
+2026-10-05T15:04:34.2843704Z,native-uia-observed-pointer-click,Schedule reminders
+2026-10-05T15:04:35.6626757Z,native-uia-observed-pointer-click,Schedule reminder lead time
+2026-10-05T15:04:53.9807477Z,native-uia-invoke,All my lists
+2026-10-05T15:04:54.8931037Z,native-uia-observed-pointer-click,Planning list
+2026-10-05T15:05:21.9437260Z,native-uia-selection,M7 PR235 CI953 live expiry break capture
+2026-10-05T15:05:22.2308811Z,native-uia-invoke,Add task to Today
+2026-10-05T15:05:24.4067600Z,native-uia-invoke,Add task
+2026-10-05T15:05:36.9875208Z,native-uia-invoke,Blitz now
+2026-10-05T15:05:59.4562488Z,native-uia-observed-pointer-click,Focus list
+2026-10-05T15:06:00.9177290Z,native-uia-selection,M7 PR235 CI953 live expiry break capture
+2026-10-05T15:06:26.3653932Z,native-uia-invoke,Make live: M7 PR235 CI953 F real alert and sleep capture
+2026-10-05T15:06:26.7504945Z,native-uia-invoke,Compact view
+2026-10-05T15:06:27.5303582Z,physical-scancode-chord,Ctrl+Shift+P
+2026-10-05T15:06:28.9068047Z,physical-scancode-chord,Ctrl+Shift+T
+2026-10-05T15:06:57.7007852Z,native-uia-invoke,Add task to Today
+2026-10-05T15:06:58.3136260Z,observed-unicode-SendInput,
+2026-10-05T15:06:58.8961581Z,observed-text-value-after-input,
+2026-10-05T15:06:58.9637005Z,native-uia-invoke,Add task
+2026-10-05T15:06:59.3111566Z,native-uia-invoke,Schedule / Repeat
+2026-10-05T15:07:10.8202563Z,native-uia-invoke,Later today
+2026-10-05T15:07:57.4232443Z,native-uia-setfocus,Hours Local time
+2026-10-05T15:07:57.8374097Z,observed-unicode-SendInput,
+2026-10-05T15:07:58.3464113Z,observed-text-value-after-input,
+2026-10-05T15:07:58.7408675Z,native-uia-setfocus,Minutes Local time
+2026-10-05T15:07:58.8034171Z,observed-unicode-SendInput,
+2026-10-05T15:07:59.3242306Z,observed-text-value-after-input,
+2026-10-05T15:07:59.7158906Z,native-uia-setfocus,AM/PM Local time
+2026-10-05T15:07:59.7841573Z,observed-unicode-SendInput,
+2026-10-05T15:08:00.2983383Z,observed-text-value-after-input,
+2026-10-05T15:08:00.4043602Z,native-uia-invoke,Save schedule
+2026-10-05T15:08:00.9922581Z,DisplaySwitch internal,
+2026-10-05T15:08:05.4207666Z,DisplaySwitch clone then extend recovery,
+2026-10-05T15:08:49.8818636Z,Real S3 sleep requested; one-shot resume wake timer 45 seconds,
+2026-10-05T15:08:49.9051609Z,SetSuspendState returned,
+2026-10-05T15:10:09.2475603Z,native-uia-invoke,Settings
+2026-10-05T15:10:10.1345112Z,physical-mouse-wheel,
+2026-10-05T15:10:11.0681410Z,physical-mouse-wheel,
+2026-10-05T15:10:12.0070778Z,physical-mouse-wheel,
+2026-10-05T15:10:12.9413836Z,physical-mouse-wheel,
+2026-10-05T15:10:13.8694958Z,physical-mouse-wheel,
+2026-10-05T15:10:14.8006119Z,physical-mouse-wheel,
+2026-10-05T15:10:15.7367024Z,physical-mouse-wheel,
+2026-10-05T15:10:16.6935075Z,native-uia-setfocus,Enable Go to Narro
+2026-10-05T15:10:16.8004118Z,physical-scancode-chord,Space
+2026-10-05T15:10:17.5795053Z,native-uia-setfocus,Enable Alternate Focus Mode
+2026-10-05T15:10:17.5843745Z,physical-scancode-chord,Space
+2026-10-05T15:10:18.3741341Z,native-uia-setfocus,Enable Find focus timer
+2026-10-05T15:10:18.3786830Z,physical-scancode-chord,Space
+2026-10-05T15:10:19.2055818Z,physical-scancode-chord,Ctrl+Shift+B
+2026-10-05T15:10:21.0765977Z,physical-scancode-chord,Ctrl+Shift+T
+2026-10-05T15:10:22.9359648Z,physical-scancode-chord,Ctrl+Shift+P
+2026-10-05T15:10:25.1740777Z,native-uia-setfocus,Enable Go to Narro
+2026-10-05T15:10:25.1785478Z,physical-scancode-chord,Space
+2026-10-05T15:10:25.9419010Z,native-uia-setfocus,Enable Alternate Focus Mode
+2026-10-05T15:10:25.9465341Z,physical-scancode-chord,Space
+2026-10-05T15:10:26.7030170Z,native-uia-setfocus,Enable Find focus timer
+2026-10-05T15:10:26.7078491Z,physical-scancode-chord,Space
+2026-10-05T15:10:37.1185528Z,physical-scancode-chord,Ctrl+Shift+B
+2026-10-05T15:10:39.0021292Z,physical-scancode-chord,Ctrl+Shift+T
+2026-10-05T15:10:40.8522390Z,physical-scancode-chord,Ctrl+Shift+P
+2026-10-05T15:10:43.0612164Z,Continue recording through real 300s timed-alert boundary from F start 15:06:26 UTC; G reminder lead boundary 15:10 UTC,
+2026-10-05T15:11:23.9311888Z,native-uia-setfocus,Enable Go to Narro
+2026-10-05T15:11:24.1556349Z,physical-scancode-chord,Space
+2026-10-05T15:11:25.5675013Z,native-uia-setfocus,Enable Alternate Focus Mode
+2026-10-05T15:11:25.5755886Z,physical-scancode-chord,Space
+2026-10-05T15:11:26.9542049Z,native-uia-setfocus,Enable Find focus timer
+2026-10-05T15:11:26.9603360Z,physical-scancode-chord,Space
+2026-10-05T15:11:28.0466524Z,Snapshot naming correction: all-shortcuts-disabled file actually true; all-shortcuts-restored file actually false. Raw snapshot authoritative; final re-enable performed.,
+2026-10-05T15:11:56.3186703Z,native-uia-invoke,Stop Recording
+2026-10-05T15:12:23.9491892Z,"OBS process closed after recording normal stop/flush, to remove Away Mode request",
+2026-10-05T15:12:26.3810330Z,Real S3 sleep requested; one-shot resume wake timer 45 seconds,
+2026-10-05T15:12:58.9819672Z,SetSuspendState returned,
+2026-10-05T15:14:35.6613596Z,USER OBSERVATION,"User reports browser Ctrl+Shift+T reopened Narro Timer instead of restoring closed tab yesterday. Global shortcut conflict; retain for later analysis/remediation, no source change."
+2026-10-05T15:15:43.8850198Z,native-uia-invoke,Run in Normal Mode
+2026-10-05T15:17:56.3901806Z,"Post-wake GDI recorder active, 4480x1080 20fps; OBS GPU initialization failure preserved",
+2026-10-05T15:18:14.5105510Z,native-uia-observed-pointer-click,Focus list
+2026-10-05T15:18:15.9285557Z,native-uia-selection,M7 PR233 CI948 LongListBadge acceptance
+2026-10-05T15:18:36.3312602Z,native-uia-invoke,Make live: M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890
+2026-10-05T15:18:37.1841092Z,native-uia-invoke,Pause
+2026-10-05T15:18:37.5070178Z,native-uia-invoke,Compact view
+2026-10-05T15:18:38.6117299Z,physical-mouse-wheel,
+2026-10-05T15:18:39.5475873Z,physical-mouse-wheel,
+2026-10-05T15:18:40.4552496Z,physical-mouse-wheel,
+2026-10-05T15:18:55.2243305Z,physical-mouse-wheel,
+2026-10-05T15:18:56.1750463Z,physical-mouse-wheel,
+2026-10-05T15:18:56.8870728Z,native-uia-observed-pointer-click,Task alert interval
+2026-10-05T15:19:13.1675945Z,native-uia-observed-pointer-click,Timed task alerts
+2026-10-05T15:19:13.7305396Z,native-uia-observed-pointer-click,Notification alerts
+2026-10-05T15:19:14.2191668Z,native-uia-observed-pointer-click,Schedule reminder lead time
+2026-10-05T15:19:37.5485990Z,native-uia-observed-pointer-click,Schedule reminders
+2026-10-05T15:19:38.9624103Z,End post-wake recording after restoration; F/G fixtures retained; original paused,

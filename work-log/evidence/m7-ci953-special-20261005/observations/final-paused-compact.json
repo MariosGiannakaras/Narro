@@ -1,0 +1,259 @@
+{
+  "utc": "2026-10-05T15:19:38.6302279Z",
+  "windows": [
+    {
+      "hwnd": 6619566,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 700,
+        "y": 239,
+        "x": 1993,
+        "width": 340
+      },
+      "client": {
+        "height": 700,
+        "y": 239,
+        "x": 1993,
+        "width": 340
+      }
+    },
+    {
+      "hwnd": 1444846,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 1096,
+        "y": -8,
+        "x": -8,
+        "width": 2576
+      },
+      "client": {
+        "height": 1057,
+        "y": 23,
+        "x": 0,
+        "width": 2560
+      }
+    },
+    {
+      "hwnd": 2493770,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 789,
+        "y": 26,
+        "x": 26,
+        "width": 1920
+      },
+      "client": {
+        "height": 750,
+        "y": 57,
+        "x": 34,
+        "width": 1904
+      }
+    },
+    {
+      "hwnd": 20448652,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 16,
+        "y": 0,
+        "x": 0,
+        "width": 16
+      },
+      "client": {
+        "height": 16,
+        "y": 0,
+        "x": 0,
+        "width": 16
+      }
+    },
+    {
+      "hwnd": 66389578,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 16,
+        "y": 0,
+        "x": 0,
+        "width": 16
+      },
+      "client": {
+        "height": 16,
+        "y": 0,
+        "x": 0,
+        "width": 16
+      }
+    },
+    {
+      "hwnd": 3411754,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 5836174,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "Narro Diagnostic - Focus",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1993;239;340;700"
+    },
+    {
+      "name": "Narro Diagnostic - Focus - Web content",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1993;239;340;700"
+    },
+    {
+      "name": "Narro Diagnostic - Focus",
+      "type": "ControlType.Document",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "1993;239;340;700"
+    },
+    {
+      "name": "Floating Timer",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1993;239;340;110"
+    },
+    {
+      "name": "Show Floating Timer actions",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2006;250;314;40"
+    },
+    {
+      "name": "M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2006;259;228;22"
+    },
+    {
+      "name": "Paused: 30:00 remaining",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2251;258;74;24"
+    },
+    {
+      "name": "30:00",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2283;259;42;21"
+    },
+    {
+      "name": "Subtasks for M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2006;298;314;40"
+    },
+    {
+      "name": "Floating Timer subtask summary",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2006;298;314;32"
+    },
+    {
+      "name": "0 of 4 subtasks complete",
+      "type": "ControlType.ProgressBar",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2006;300;28;28"
+    },
+    {
+      "name": "0/4 Subtasks",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2040;305;68;17"
+    },
+    {
+      "name": "Add subtask for M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2250;298;32;32"
+    },
+    {
+      "name": "Expand Floating Timer",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2288;298;32;32"
+    }
+  ]
+}

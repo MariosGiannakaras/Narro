@@ -1,0 +1,246 @@
+{
+  "utc": "2026-10-05T15:15:12.2559934Z",
+  "windows": [
+    {
+      "hwnd": 6619566,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 700,
+        "y": 0,
+        "x": 2220,
+        "width": 340
+      },
+      "client": {
+        "height": 700,
+        "y": 0,
+        "x": 2220,
+        "width": 340
+      }
+    },
+    {
+      "hwnd": 2493308,
+      "pid": 117136,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 39,
+        "y": 0,
+        "x": 0,
+        "width": 656
+      },
+      "client": {
+        "height": 0,
+        "y": 31,
+        "x": 8,
+        "width": 640
+      }
+    },
+    {
+      "hwnd": 1444142,
+      "pid": 117136,
+      "process": "obs64",
+      "title": "OBS Studio Crash Detected",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 190,
+        "y": 425,
+        "x": 1012,
+        "width": 516
+      },
+      "client": {
+        "height": 151,
+        "y": 456,
+        "x": 1020,
+        "width": 500
+      }
+    },
+    {
+      "hwnd": 7016148,
+      "pid": 117136,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 789,
+        "y": 234,
+        "x": 234,
+        "width": 1920
+      },
+      "client": {
+        "height": 750,
+        "y": 265,
+        "x": 242,
+        "width": 1904
+      }
+    },
+    {
+      "hwnd": 16386904,
+      "pid": 117136,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 789,
+        "y": 208,
+        "x": 208,
+        "width": 1920
+      },
+      "client": {
+        "height": 750,
+        "y": 239,
+        "x": 216,
+        "width": 1904
+      }
+    },
+    {
+      "hwnd": 1444846,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 1096,
+        "y": -8,
+        "x": -8,
+        "width": 2576
+      },
+      "client": {
+        "height": 1057,
+        "y": 23,
+        "x": 0,
+        "width": 2560
+      }
+    },
+    {
+      "hwnd": 2493770,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 789,
+        "y": 26,
+        "x": 26,
+        "width": 1920
+      },
+      "client": {
+        "height": 750,
+        "y": 57,
+        "x": 34,
+        "width": 1904
+      }
+    },
+    {
+      "hwnd": 20448652,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 16,
+        "y": 0,
+        "x": 0,
+        "width": 16
+      },
+      "client": {
+        "height": 0,
+        "y": 31,
+        "x": 8,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 66389578,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 16,
+        "y": 0,
+        "x": 0,
+        "width": 16
+      },
+      "client": {
+        "height": 0,
+        "y": 31,
+        "x": 8,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 3411754,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 5836174,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      }
+    },
+    {
+      "hwnd": 2165604,
+      "pid": 117136,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      },
+      "client": {
+        "height": 0,
+        "y": 0,
+        "x": 0,
+        "width": 0
+      }
+    }
+  ],
+  "elements": []
+}

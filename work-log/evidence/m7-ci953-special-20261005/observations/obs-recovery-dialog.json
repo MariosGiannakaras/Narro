@@ -1,0 +1,271 @@
+{
+  "utc": "2026-10-05T15:13:48.4766145Z",
+  "windows": [
+    {
+      "hwnd": 7014328,
+      "pid": 98512,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 39,
+        "width": 656,
+        "x": 0
+      },
+      "client": {
+        "y": 31,
+        "height": 0,
+        "width": 640,
+        "x": 8
+      }
+    },
+    {
+      "hwnd": 16321368,
+      "pid": 98512,
+      "process": "obs64",
+      "title": "OBS Studio Crash Detected",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 425,
+        "height": 190,
+        "width": 516,
+        "x": 1012
+      },
+      "client": {
+        "y": 456,
+        "height": 151,
+        "width": 500,
+        "x": 1020
+      }
+    },
+    {
+      "hwnd": 1312974,
+      "pid": 98512,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 130,
+        "height": 789,
+        "width": 1920,
+        "x": 130
+      },
+      "client": {
+        "y": 161,
+        "height": 750,
+        "width": 1904,
+        "x": 138
+      }
+    },
+    {
+      "hwnd": 9504230,
+      "pid": 98512,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 104,
+        "height": 789,
+        "width": 1920,
+        "x": 104
+      },
+      "client": {
+        "y": 135,
+        "height": 750,
+        "width": 1904,
+        "x": 112
+      }
+    },
+    {
+      "hwnd": 6619566,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 700,
+        "width": 340,
+        "x": 2220
+      },
+      "client": {
+        "y": 0,
+        "height": 700,
+        "width": 340,
+        "x": 2220
+      }
+    },
+    {
+      "hwnd": 1444846,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": -8,
+        "height": 1096,
+        "width": 2576,
+        "x": -8
+      },
+      "client": {
+        "y": 23,
+        "height": 1057,
+        "width": 2560,
+        "x": 0
+      }
+    },
+    {
+      "hwnd": 2493770,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 26,
+        "height": 789,
+        "width": 1920,
+        "x": 26
+      },
+      "client": {
+        "y": 57,
+        "height": 750,
+        "width": 1904,
+        "x": 34
+      }
+    },
+    {
+      "hwnd": 20448652,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 16,
+        "width": 16,
+        "x": 0
+      },
+      "client": {
+        "y": 31,
+        "height": 0,
+        "width": 0,
+        "x": 8
+      }
+    },
+    {
+      "hwnd": 66389578,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 16,
+        "width": 16,
+        "x": 0
+      },
+      "client": {
+        "y": 31,
+        "height": 0,
+        "width": 0,
+        "x": 8
+      }
+    },
+    {
+      "hwnd": 33621950,
+      "pid": 98512,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 0,
+        "width": 0,
+        "x": 0
+      },
+      "client": {
+        "y": 0,
+        "height": 0,
+        "width": 0,
+        "x": 0
+      }
+    },
+    {
+      "hwnd": 3346218,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 0,
+        "width": 0,
+        "x": 0
+      },
+      "client": {
+        "y": 0,
+        "height": 0,
+        "width": 0,
+        "x": 0
+      }
+    },
+    {
+      "hwnd": 5836174,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "height": 0,
+        "width": 0,
+        "x": 0
+      },
+      "client": {
+        "y": 0,
+        "height": 0,
+        "width": 0,
+        "x": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "OBS Studio did not properly shut down.\n\nRun in Safe Mode (third-party plugins, scripting, and WebSockets disabled)?",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1082;467;427;72"
+    },
+    {
+      "name": "Run in Safe Mode",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1202;560;141;36"
+    },
+    {
+      "name": "Run in Normal Mode",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "1349;560;160;36"
+    }
+  ]
+}

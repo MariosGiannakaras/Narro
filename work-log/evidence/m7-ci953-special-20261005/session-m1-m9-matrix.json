@@ -1,0 +1,47 @@
+[
+  {
+    "milestone": "M1",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "S3/route topology/native geometry raw events"
+  },
+  {
+    "milestone": "M2",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "Owned fixture/session runtime context; only sufficiently exercised states may later be dispositioned"
+  },
+  {
+    "milestone": "M3",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "Owned fixture/session runtime context; only sufficiently exercised states may later be dispositioned"
+  },
+  {
+    "milestone": "M4",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "Owned fixture/session runtime context; only sufficiently exercised states may later be dispositioned"
+  },
+  {
+    "milestone": "M5",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "Owned fixture/session runtime context; only sufficiently exercised states may later be dispositioned"
+  },
+  {
+    "milestone": "M6",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "Owned fixture/session runtime context; only sufficiently exercised states may later be dispositioned"
+  },
+  {
+    "milestone": "M7",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "Owned fixture/session runtime context; only sufficiently exercised states may later be dispositioned"
+  },
+  {
+    "milestone": "M8",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "Three global shortcuts; real timed alerts and scheduled reminder boundaries"
+  },
+  {
+    "milestone": "M9",
+    "disposition": "CAPTURED_UNREVIEWED / OPEN; no new acceptance",
+    "scope": "Owned fixture/session runtime context; only sufficiently exercised states may later be dispositioned"
+  }
+]

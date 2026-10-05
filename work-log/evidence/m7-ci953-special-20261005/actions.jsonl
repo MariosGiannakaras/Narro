@@ -1,0 +1,128 @@
+{"utc":"2026-10-05T15:00:26.714Z","action":"OBS Tab navigation"}
+{"utc":"2026-10-05T15:02:07.0252140Z","action":"native-uia-invoke","button":"Start Recording","observedOrdinal":0,"expectedMatches":1,"windowId":3673506,"processId":141268,"offscreen":false,"bounds":"2086;850;468;36","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:02:07.8350181Z","action":"native-uia-invoke","button":"Settings","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"2455;34;85;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:02:41.5487924Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:02:42.5331934Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:02:43.4650620Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:02:44.3957375Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:02:45.3320712Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:02:46.2672903Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:02:47.2029866Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:02:48.1763687Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Go to Narro","bounds":"1617;650;2;2"}
+{"utc":"2026-10-05T15:02:48.2926835Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:02:49.2920290Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:02:50.5770487Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Alternate Focus Mode","bounds":"1617;748;2;2"}
+{"utc":"2026-10-05T15:02:50.5817909Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:02:51.5700954Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:02:52.8393268Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Find focus timer","bounds":"1617;845;2;2"}
+{"utc":"2026-10-05T15:02:52.8444095Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:02:53.8362917Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:02:55.0944253Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+B","scancodes":[29,42,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:03:05.0952587Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":500,"delta":720}
+{"utc":"2026-10-05T15:03:06.0257618Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":500,"delta":720}
+{"utc":"2026-10-05T15:03:06.9631393Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":500,"delta":720}
+{"utc":"2026-10-05T15:03:07.9050163Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":500,"delta":720}
+{"utc":"2026-10-05T15:03:23.8383613Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:03:24.7887790Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:03:25.7446440Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:03:26.6655702Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:03:27.6206195Z","action":"native-uia-observed-pointer-click","button":"Timed task alerts","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1669;538;43;25","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:03:28.6509407Z","action":"native-uia-observed-pointer-click","button":"Task alert interval","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1551;607;161;35","authorization":"User authorized native fallback for real Windows testing"}
+physicalCursor=1578,658
+{"utc":"2026-10-05T15:04:33.7055522Z","action":"native-uia-observed-pointer-click","button":"Notification alerts","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1669;867;43;25","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:04:34.2843704Z","action":"native-uia-observed-pointer-click","button":"Schedule reminders","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1669;1049;43;25","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:04:35.6626757Z","action":"native-uia-observed-pointer-click","button":"Schedule reminder lead time","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1551;533;161;35","authorization":"User authorized native fallback for real Windows testing"}
+physicalCursor=1578,585
+{"utc":"2026-10-05T15:04:53.9807477Z","action":"native-uia-invoke","button":"All my lists","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"12;156;183;40","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:04:54.8931037Z","action":"native-uia-observed-pointer-click","button":"Planning list","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1969;131;184;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:05:21.9437260Z","action":"native-uia-selection","windowId":1444846,"name":"M7 PR235 CI953 live expiry break capture","observedOrdinal":1,"expectedMatches":1}
+{"utc":"2026-10-05T15:05:22.2308811Z","action":"native-uia-invoke","button":"Add task to Today","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1395;463;82;29","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:05:24.4067600Z","action":"native-uia-invoke","button":"Add task","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1855;546;65;31","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:05:36.9875208Z","action":"native-uia-invoke","button":"Blitz now","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1395;545;538;45","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:05:59.4562488Z","action":"native-uia-observed-pointer-click","button":"Focus list","observedOrdinal":0,"expectedMatches":1,"windowId":6619566,"processId":22948,"offscreen":false,"bounds":"2232;16;129;32","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:06:00.9177290Z","action":"native-uia-selection","windowId":6619566,"name":"M7 PR235 CI953 live expiry break capture","observedOrdinal":1,"expectedMatches":1}
+physicalCursor=2350,194
+{"utc":"2026-10-05T15:06:26.3653932Z","action":"native-uia-invoke","button":"Make live: M7 PR235 CI953 F real alert and sleep capture","observedOrdinal":0,"expectedMatches":1,"windowId":6619566,"processId":22948,"offscreen":false,"bounds":"2411;225;28;29","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:06:26.7504945Z","action":"native-uia-invoke","button":"Compact view","observedOrdinal":0,"expectedMatches":1,"windowId":6619566,"processId":22948,"offscreen":false,"bounds":"2516;16;32;32","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:06:27.5303582Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+P","scancodes":[29,42,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:06:28.9068047Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:06:57.7007852Z","action":"native-uia-invoke","button":"Add task to Today","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1395;495;82;29","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:06:58.3136260Z","action":"observed-unicode-SendInput","windowId":1444846,"pid":22948,"field":"New Today task title","text":"M7 PR235 CI953 G scheduled reminder capture","controlCharactersAllowed":false}
+{"utc":"2026-10-05T15:06:58.8961581Z","action":"observed-text-value-after-input","windowId":1444846,"field":"New Today task title","value":"M7 PR235 CI953 G scheduled reminder capture","expectedTextPresent":true}
+{"utc":"2026-10-05T15:06:58.9637005Z","action":"native-uia-invoke","button":"Add task","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1855;626;65;31","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:06:59.3111566Z","action":"native-uia-invoke","button":"Schedule / Repeat","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1410;530;372;25","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:07:10.8202563Z","action":"native-uia-invoke","button":"Later today","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1125;291;144;33","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:07:57.4232443Z","action":"native-uia-setfocus","windowId":1444846,"name":"Hours Local time","bounds":"987;436;21;24"}
+{"utc":"2026-10-05T15:07:57.8374097Z","action":"observed-unicode-SendInput","windowId":1444846,"pid":22948,"field":"Hours Local time","text":"6","controlCharactersAllowed":false}
+{"utc":"2026-10-05T15:07:58.3464113Z","action":"observed-text-value-after-input","windowId":1444846,"field":"Hours Local time","value":"06","expectedTextPresent":true}
+{"utc":"2026-10-05T15:07:58.7408675Z","action":"native-uia-setfocus","windowId":1444846,"name":"Minutes Local time","bounds":"1011;436;20;24"}
+{"utc":"2026-10-05T15:07:58.8034171Z","action":"observed-unicode-SendInput","windowId":1444846,"pid":22948,"field":"Minutes Local time","text":"15","controlCharactersAllowed":false}
+{"utc":"2026-10-05T15:07:59.3242306Z","action":"observed-text-value-after-input","windowId":1444846,"field":"Minutes Local time","value":"15","expectedTextPresent":true}
+{"utc":"2026-10-05T15:07:59.7158906Z","action":"native-uia-setfocus","windowId":1444846,"name":"AM/PM Local time","bounds":"1032;436;28;24"}
+{"utc":"2026-10-05T15:07:59.7841573Z","action":"observed-unicode-SendInput","windowId":1444846,"pid":22948,"field":"AM/PM Local time","text":"PM","controlCharactersAllowed":false}
+{"utc":"2026-10-05T15:08:00.2983383Z","action":"observed-text-value-after-input","windowId":1444846,"field":"AM/PM Local time","value":"PM","expectedTextPresent":true}
+{"utc":"2026-10-05T15:08:00.4043602Z","action":"native-uia-invoke","button":"Save schedule","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1434;484;137;40","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:08:00.9922581Z","action":"DisplaySwitch internal"}
+{"utc":"2026-10-05T15:08:05.4207666Z","action":"DisplaySwitch clone then extend recovery"}
+{"utc":"2026-10-05T15:08:49.8818636Z","action":"Real S3 sleep requested; one-shot resume wake timer 45 seconds"}
+{"utc":"2026-10-05T15:08:49.9051609Z","action":"SetSuspendState returned","result":true,"nativeError":1300}
+{"utc":"2026-10-05T15:10:09.2475603Z","action":"native-uia-invoke","button":"Settings","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"2440;34;85;41","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:10:10.1345112Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:10:11.0681410Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:10:12.0070778Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:10:12.9413836Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:10:13.8694958Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:10:14.8006119Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:10:15.7367024Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:10:16.6935075Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Go to Narro","bounds":"1617;650;2;2"}
+{"utc":"2026-10-05T15:10:16.8004118Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:17.5795053Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Alternate Focus Mode","bounds":"1617;748;2;2"}
+{"utc":"2026-10-05T15:10:17.5843745Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:18.3741341Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Find focus timer","bounds":"1617;845;2;2"}
+{"utc":"2026-10-05T15:10:18.3786830Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:19.2055818Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+B","scancodes":[29,42,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:21.0765977Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:22.9359648Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+P","scancodes":[29,42,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:25.1740777Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Go to Narro","bounds":"1617;650;2;2"}
+{"utc":"2026-10-05T15:10:25.1785478Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:25.9419010Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Alternate Focus Mode","bounds":"1617;748;2;2"}
+{"utc":"2026-10-05T15:10:25.9465341Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:26.7030170Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Find focus timer","bounds":"1617;845;2;2"}
+{"utc":"2026-10-05T15:10:26.7078491Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:37.1185528Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+B","scancodes":[29,42,48],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:39.0021292Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:40.8522390Z","action":"physical-scancode-chord","windowId":3673506,"pid":141268,"chord":"Ctrl+Shift+P","scancodes":[29,42,25],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:10:43.0612164Z","action":"Continue recording through real 300s timed-alert boundary from F start 15:06:26 UTC; G reminder lead boundary 15:10 UTC"}
+{"utc":"2026-10-05T15:11:23.9311888Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Go to Narro","bounds":"1617;650;2;2"}
+{"utc":"2026-10-05T15:11:24.1556349Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:11:25.5675013Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Alternate Focus Mode","bounds":"1617;748;2;2"}
+{"utc":"2026-10-05T15:11:25.5755886Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:11:26.9542049Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Find focus timer","bounds":"1617;845;2;2"}
+{"utc":"2026-10-05T15:11:26.9603360Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:11:28.0466524Z","action":"Snapshot naming correction: all-shortcuts-disabled file actually true; all-shortcuts-restored file actually false. Raw snapshot authoritative; final re-enable performed."}
+{"utc":"2026-10-05T15:11:56.3186703Z","action":"native-uia-invoke","button":"Stop Recording","observedOrdinal":0,"expectedMatches":1,"windowId":3673506,"processId":141268,"offscreen":false,"bounds":"2086;850;432;36","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:12:23.9491892Z","action":"OBS process closed after recording normal stop/flush, to remove Away Mode request"}
+{"utc":"2026-10-05T15:12:26.3810330Z","action":"Real S3 sleep requested; one-shot resume wake timer 45 seconds"}
+{"utc":"2026-10-05T15:12:58.9819672Z","action":"SetSuspendState returned","result":true,"nativeError":1300}
+{"utc":"2026-10-05T15:14:35.6613596Z","action":"USER OBSERVATION","note":"User reports browser Ctrl+Shift+T reopened Narro Timer instead of restoring closed tab yesterday. Global shortcut conflict; retain for later analysis/remediation, no source change."}
+{"utc":"2026-10-05T15:15:43.8850198Z","action":"native-uia-invoke","button":"Run in Normal Mode","observedOrdinal":0,"expectedMatches":1,"windowId":1444142,"processId":117136,"offscreen":false,"bounds":"1349;560;160;36","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:17:56.3901806Z","action":"Post-wake GDI recorder active, 4480x1080 20fps; OBS GPU initialization failure preserved"}
+{"utc":"2026-10-05T15:18:14.5105510Z","action":"native-uia-observed-pointer-click","button":"Focus list","observedOrdinal":0,"expectedMatches":1,"windowId":6619566,"processId":22948,"offscreen":false,"bounds":"2232;16;129;32","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:18:15.9285557Z","action":"native-uia-selection","windowId":6619566,"name":"M7 PR233 CI948 LongListBadge acceptance","observedOrdinal":1,"expectedMatches":1}
+physicalCursor=2350,292
+{"utc":"2026-10-05T15:18:36.3312602Z","action":"native-uia-invoke","button":"Make live: M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890","observedOrdinal":0,"expectedMatches":1,"windowId":6619566,"processId":22948,"offscreen":false,"bounds":"2411;324;28;29","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:18:37.1841092Z","action":"native-uia-invoke","button":"Pause","observedOrdinal":0,"expectedMatches":1,"windowId":6619566,"processId":22948,"offscreen":false,"bounds":"2337;318;59;31","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:18:37.5070178Z","action":"native-uia-invoke","button":"Compact view","observedOrdinal":0,"expectedMatches":1,"windowId":6619566,"processId":22948,"offscreen":false,"bounds":"2516;16;32;32","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:18:38.6117299Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":500,"delta":720}
+{"utc":"2026-10-05T15:18:39.5475873Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":500,"delta":720}
+{"utc":"2026-10-05T15:18:40.4552496Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":500,"delta":720}
+{"utc":"2026-10-05T15:18:55.2243305Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:18:56.1750463Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:18:56.8870728Z","action":"native-uia-observed-pointer-click","button":"Task alert interval","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1551;123;161;35","authorization":"User authorized native fallback for real Windows testing"}
+physicalCursor=1578,198
+{"utc":"2026-10-05T15:19:13.1675945Z","action":"native-uia-observed-pointer-click","button":"Timed task alerts","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1669;54;43;25","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:19:13.7305396Z","action":"native-uia-observed-pointer-click","button":"Notification alerts","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1669;383;43;25","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:19:14.2191668Z","action":"native-uia-observed-pointer-click","button":"Schedule reminder lead time","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1551;633;161;35","authorization":"User authorized native fallback for real Windows testing"}
+physicalCursor=1578,709
+{"utc":"2026-10-05T15:19:37.5485990Z","action":"native-uia-observed-pointer-click","button":"Schedule reminders","observedOrdinal":0,"expectedMatches":1,"windowId":1444846,"processId":22948,"offscreen":false,"bounds":"1669;565;43;25","authorization":"User authorized native fallback for real Windows testing"}
+{"utc":"2026-10-05T15:19:38.9624103Z","action":"End post-wake recording after restoration; F/G fixtures retained; original paused"}

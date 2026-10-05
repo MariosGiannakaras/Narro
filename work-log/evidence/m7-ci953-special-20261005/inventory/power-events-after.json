@@ -1,0 +1,37 @@
+[
+  {
+    "TimeCreated": "2026-10-05T18:12:55.4867299+03:00",
+    "Id": 130,
+    "Message": "Firmware S3 times. SuspendStart: 934069536, SuspendEnd: 934069593"
+  },
+  {
+    "TimeCreated": "2026-10-05T18:12:55.4867283+03:00",
+    "Id": 131,
+    "Message": "Firmware S3 times. ResumeCount: 1, FullResume: 2963, AverageResume: 2963"
+  },
+  {
+    "TimeCreated": "2026-10-05T18:12:43.396682+03:00",
+    "Id": 107,
+    "Message": "The system has resumed from sleep."
+  },
+  {
+    "TimeCreated": "2026-10-05T18:12:35.5204828+03:00",
+    "Id": 42,
+    "Message": "The system is entering sleep.\r\n\r\nSleep Reason: Application API"
+  },
+  {
+    "TimeCreated": "2026-10-05T18:12:26.4516416+03:00",
+    "Id": 187,
+    "Message": "User-mode process attempted to change the system state by calling SetSuspendState or SetSystemPowerState APIs."
+  },
+  {
+    "TimeCreated": "2026-10-05T18:08:49.9044283+03:00",
+    "Id": 59,
+    "Message": "The system is entering Away Mode."
+  },
+  {
+    "TimeCreated": "2026-10-05T18:08:49.9040274+03:00",
+    "Id": 187,
+    "Message": "User-mode process attempted to change the system state by calling SetSuspendState or SetSystemPowerState APIs."
+  }
+]

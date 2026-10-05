@@ -1,0 +1,1827 @@
+{
+  "utc": "2026-10-05T15:11:28.8681739Z",
+  "windows": [
+    {
+      "hwnd": 6619566,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 340,
+        "x": 2220,
+        "height": 700
+      },
+      "client": {
+        "y": 0,
+        "width": 340,
+        "x": 2220,
+        "height": 700
+      }
+    },
+    {
+      "hwnd": 1444846,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": -8,
+        "width": 2576,
+        "x": -8,
+        "height": 1096
+      },
+      "client": {
+        "y": 23,
+        "width": 2560,
+        "x": 0,
+        "height": 1057
+      }
+    },
+    {
+      "hwnd": 9242086,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "Stats",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 382,
+        "width": 716,
+        "x": 284,
+        "height": 239
+      },
+      "client": {
+        "y": 413,
+        "width": 700,
+        "x": 292,
+        "height": 200
+      }
+    },
+    {
+      "hwnd": 3673506,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "OBS 32.2.2 - Profile: Narro UI Validation PR234 - Scenes: NarroM7PR234",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": -8,
+        "width": 2576,
+        "x": -8,
+        "height": 1096
+      },
+      "client": {
+        "y": 23,
+        "width": 2560,
+        "x": 0,
+        "height": 1057
+      }
+    },
+    {
+      "hwnd": 5440738,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "QTrayIconMessageWindow",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 52,
+        "width": 1920,
+        "x": 52,
+        "height": 789
+      },
+      "client": {
+        "y": 83,
+        "width": 1904,
+        "x": 60,
+        "height": 750
+      }
+    },
+    {
+      "hwnd": 58789318,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 14682090,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 52758362,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 38602664,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "GDI+ Window (obs64.exe)",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 1,
+        "x": 0,
+        "height": 1
+      },
+      "client": {
+        "y": 0,
+        "width": 1,
+        "x": 0,
+        "height": 1
+      }
+    },
+    {
+      "hwnd": 23464546,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 716,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 700,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 8522860,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 855348,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 1772034,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 12453784,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 19793880,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 51449472,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 2754726,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 1280,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 1264,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 12388238,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 15598902,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 3345722,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 1051496,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 2690240,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 7146468,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 9112732,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 5966042,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 3606828,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 136,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 120,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 1182564,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "_q_titlebar",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 1298,
+        "x": 0,
+        "height": 39
+      },
+      "client": {
+        "y": 31,
+        "width": 1282,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 17434246,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 26,
+        "width": 1920,
+        "x": 26,
+        "height": 789
+      },
+      "client": {
+        "y": 57,
+        "width": 1904,
+        "x": 34,
+        "height": 750
+      }
+    },
+    {
+      "hwnd": 2493770,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 26,
+        "width": 1920,
+        "x": 26,
+        "height": 789
+      },
+      "client": {
+        "y": 57,
+        "width": 1904,
+        "x": 34,
+        "height": 750
+      }
+    },
+    {
+      "hwnd": 121898704,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 260,
+        "width": 1920,
+        "x": 260,
+        "height": 789
+      },
+      "client": {
+        "y": 291,
+        "width": 1904,
+        "x": 268,
+        "height": 750
+      }
+    },
+    {
+      "hwnd": 20448652,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 16,
+        "x": 0,
+        "height": 16
+      },
+      "client": {
+        "y": 31,
+        "width": 0,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 66389578,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 16,
+        "x": 0,
+        "height": 16
+      },
+      "client": {
+        "y": 31,
+        "width": 0,
+        "x": 8,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 3346218,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      },
+      "client": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 5836174,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      },
+      "client": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 6294960,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      },
+      "client": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 16975742,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      },
+      "client": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      }
+    },
+    {
+      "hwnd": 5966004,
+      "pid": 141268,
+      "process": "obs64",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      },
+      "client": {
+        "y": 0,
+        "width": 0,
+        "x": 0,
+        "height": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "Narro Diagnostic - Focus",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "2220;0;340;700"
+    },
+    {
+      "name": "Narro Diagnostic - Focus - Audio playing - Web content",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2220;0;340;700"
+    },
+    {
+      "name": "Narro Diagnostic - Focus",
+      "type": "ControlType.Document",
+      "offscreen": false,
+      "focus": true,
+      "enabled": true,
+      "bounds": "2220;0;340;700"
+    },
+    {
+      "name": "Focus list",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2231;16;65;21"
+    },
+    {
+      "name": "Focus list",
+      "type": "ControlType.ComboBox",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;16;129;32"
+    },
+    {
+      "name": "Today",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2368;21;44;22"
+    },
+    {
+      "name": "Focus Panel quick controls",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2419;16;129;32"
+    },
+    {
+      "name": "Preferences",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "2425;16;32;32"
+    },
+    {
+      "name": "Home",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2461;16;51;32"
+    },
+    {
+      "name": "Compact view",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2516;16;32;32"
+    },
+    {
+      "name": "Today progress",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;64;316;29"
+    },
+    {
+      "name": "Est: ",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;64;22;16"
+    },
+    {
+      "name": "40min",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2253;64;34;16"
+    },
+    {
+      "name": "14",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2485;64;14;16"
+    },
+    {
+      "name": "/",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2498;64;6;16"
+    },
+    {
+      "name": "23",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2503;64;14;16"
+    },
+    {
+      "name": " Done",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2516;64;32;16"
+    },
+    {
+      "name": "Focus queue",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;104;316;584"
+    },
+    {
+      "name": "M7 PR235 CI953 F real alert and sleep capture",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;118;181;21"
+    },
+    {
+      "name": "Running: 04:59 remaining",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2441;120;94;17"
+    },
+    {
+      "name": "04:59",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2493;117;42;23"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2254;149;74;17"
+    },
+    {
+      "name": "Running",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2490;149;45;17"
+    },
+    {
+      "name": "Live task time details",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;175;290;78"
+    },
+    {
+      "name": "EST",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;192;19;17"
+    },
+    {
+      "name": "0:10:00",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2342;192;38;17"
+    },
+    {
+      "name": "Time Taken",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;228;60;17"
+    },
+    {
+      "name": "0:03:30",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2342;228;38;17"
+    },
+    {
+      "name": "Subtasks for M7 PR235 CI953 F real alert and sleep capture",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;260;290;46"
+    },
+    {
+      "name": "0 of 0 subtasks complete",
+      "type": "ControlType.ProgressBar",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;269;36;37"
+    },
+    {
+      "name": "Subtasks",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2289;271;206;33"
+    },
+    {
+      "name": "Add subtask for M7 PR235 CI953 F real alert and sleep capture",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2503;271;32;33"
+    },
+    {
+      "name": "Live task actions",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;313;290;40"
+    },
+    {
+      "name": "Break",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;322;42;31"
+    },
+    {
+      "name": "Notes",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2290;322;44;31"
+    },
+    {
+      "name": "Pause",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2337;322;59;31"
+    },
+    {
+      "name": "Skip",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2399;322;36;31"
+    },
+    {
+      "name": "Extend",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": false,
+      "bounds": "2438;322;52;31"
+    },
+    {
+      "name": "Done",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2493;322;42;31"
+    },
+    {
+      "name": "Complete task: M7 C5 CI873 validation",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;382;28;29"
+    },
+    {
+      "name": "Task title: M7 C5 CI873 validation",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;386;208;21"
+    },
+    {
+      "name": "M7 C5 CI873 validation",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;386;154;21"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;388;21;17"
+    },
+    {
+      "name": "Complete task: M7 CI942 Greek shortcut companion",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;475;28;29"
+    },
+    {
+      "name": "Task title: M7 CI942 Greek shortcut companion",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;468;208;42"
+    },
+    {
+      "name": "M7 CI942 Greek shortcut companion",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;468;165;42"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;481;21;17"
+    },
+    {
+      "name": "Complete task: M7 CI944 LongUnbrokenTitleForNarrowBoardOverflowAndAccessibleFullTitleValidation1234567890",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;573;28;29"
+    },
+    {
+      "name": "Task title: M7 CI944 LongUnbrokenTitleForNarrowBoardOverflowAndAccessibleFullTitleValidation1234567890",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;567;154;41"
+    },
+    {
+      "name": "M7 CI944 LongUnbrokenTitleForNarrowBoardOverflowAndAccessibleFullTitleValidation1234567890",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;567;154;102"
+    },
+    {
+      "name": "M7 CI944 acceptance",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;579;69;17"
+    },
+    {
+      "name": "Complete task: M7 CI944 reorder companion",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;672;28;29"
+    },
+    {
+      "name": "Task title: M7 CI944 reorder companion",
+      "type": "ControlType.Group",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;665;154;42"
+    },
+    {
+      "name": "M7 CI944 reorder companion",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;665;117;42"
+    },
+    {
+      "name": "M7 CI944 acceptance",
+      "type": "ControlType.Text",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;678;69;17"
+    },
+    {
+      "name": "Complete task: M7 PR233 CI948 queue reorder companion with readable long title",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;770;28;29"
+    },
+    {
+      "name": "Task title: M7 PR233 CI948 queue reorder companion with readable long title",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;764;154;41"
+    },
+    {
+      "name": "M7 PR233 CI948 queue reorder companion with readable long title",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;764;121;82"
+    },
+    {
+      "name": "M7 PR233 CI948 LongListBadge acceptance",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;776;74;17"
+    },
+    {
+      "name": "Complete task: M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;869;28;29"
+    },
+    {
+      "name": "Task title: M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;862;154;42"
+    },
+    {
+      "name": "M7 PR233 CI948 LongUnbrokenTitleForNarrowMetricAndQueuedBadgeValidation1234567890",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;862;154;102"
+    },
+    {
+      "name": "M7 PR233 CI948 LongListBadge acceptance",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;875;74;17"
+    },
+    {
+      "name": "0/4 subtasks",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;917;67;17"
+    },
+    {
+      "name": "Complete task: M7 PR234 CI950 beta lane move and queue",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;967;28;29"
+    },
+    {
+      "name": "Task title: M7 PR234 CI950 beta lane move and queue",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;961;154;41"
+    },
+    {
+      "name": "M7 PR234 CI950 beta lane move and queue",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;961;144;41"
+    },
+    {
+      "name": "M7 PR234 CI950 renamed queue acceptance",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;973;74;17"
+    },
+    {
+      "name": "Add task in Focus Panel",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;1058;316;37"
+    },
+    {
+      "name": "1 Scheduled task",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;1106;316;129"
+    },
+    {
+      "name": "1 Scheduled task",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;1115;316;18"
+    },
+    {
+      "name": "Complete task: M7 PR235 CI953 G scheduled reminder capture",
+      "type": "ControlType.Button",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2245;1155;28;29"
+    },
+    {
+      "name": "Task title: M7 PR235 CI953 G scheduled reminder capture",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1149;154;41"
+    },
+    {
+      "name": "M7 PR235 CI953 G scheduled reminder capture",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1149;143;61"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;1161;74;17"
+    },
+    {
+      "name": "6:15 PM",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1203;43;17"
+    },
+    {
+      "name": "14 Done",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;1242;316;1206"
+    },
+    {
+      "name": "14 Done",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2232;1251;316;17"
+    },
+    {
+      "name": "Task title: asdfas",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1288;208;21"
+    },
+    {
+      "name": "asdfas",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1288;42;21"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1290;21;17"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;1320;27;17"
+    },
+    {
+      "name": "Task title: M7 CI942 integrated Notes and source acceptance edited live",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1358;208;42"
+    },
+    {
+      "name": "M7 CI942 integrated Notes and source acceptance edited live",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1358;200;62"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1371;21;17"
+    },
+    {
+      "name": "8min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;1407;27;17"
+    },
+    {
+      "name": "Task title: sdwas",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1449;208;21"
+    },
+    {
+      "name": "sdwas",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1449;41;21"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1451;21;17"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;1481;27;17"
+    },
+    {
+      "name": "Task title: M7 CI884 UI batch validation with a long title for compact overflow checks",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1519;208;42"
+    },
+    {
+      "name": "M7 CI884 UI batch validation with a long title for compact overflow checks",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1519;199;62"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1532;21;17"
+    },
+    {
+      "name": "0/1 subtasks",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1568;67;17"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;1568;27;17"
+    },
+    {
+      "name": "Task title: M7 CI942 English shortcut companion",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1606;208;41"
+    },
+    {
+      "name": "M7 CI942 English shortcut companion",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1606;173;41"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1618;21;17"
+    },
+    {
+      "name": "2min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;1655;27;16"
+    },
+    {
+      "name": "Task title: M7 CI893 shortcut companion",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1697;208;21"
+    },
+    {
+      "name": "M7 CI893 shortcut companion",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1697;201;21"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1699;21;17"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;1729;27;17"
+    },
+    {
+      "name": "Task title: M7 CI932 final acceptance — hover, Notes and two-DPI transitions",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1767;208;41"
+    },
+    {
+      "name": "M7 CI932 final acceptance — hover, Notes and two-DPI transitions",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1767;193;61"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1779;21;17"
+    },
+    {
+      "name": "5min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;1815;27;17"
+    },
+    {
+      "name": "Task title: M7 CI911 acceptance — long Timer title, Notes bounds and transitions",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1854;208;41"
+    },
+    {
+      "name": "M7 CI911 acceptance — long Timer title, Notes bounds and transitions",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1854;199;61"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1866;21;17"
+    },
+    {
+      "name": "1hr 57min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2481;1902;54;17"
+    },
+    {
+      "name": "Task title: M7 CI893 full UI validation — long task title for Timer and Notes overflow",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1940;208;42"
+    },
+    {
+      "name": "M7 CI893 full UI validation — long task title for Timer and Notes overflow",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;1940;195;62"
+    },
+    {
+      "name": "Test",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2505;1953;21;16"
+    },
+    {
+      "name": "8min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;1989;27;17"
+    },
+    {
+      "name": "Task title: M7 PR235 CI953 D success125 reduced LongUnbrokenTitleForSuccessOverflowValidation1234567890",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2027;154;41"
+    },
+    {
+      "name": "M7 PR235 CI953 D success125 reduced LongUnbrokenTitleForSuccessOverflowValidation1234567890",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2027;150;102"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;2039;74;17"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;2075;27;17"
+    },
+    {
+      "name": "Task title: M7 PR235 CI953 E επιτυχία 125% normal και έλεγχος κινούμενης διακόσμησης",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2114;154;41"
+    },
+    {
+      "name": "M7 PR235 CI953 E επιτυχία 125% normal και έλεγχος κινούμενης διακόσμησης",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2114;149;102"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;2126;74;17"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;2162;27;17"
+    },
+    {
+      "name": "Task title: M7 PR235 CI953 live A expiry extend complete",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2200;154;42"
+    },
+    {
+      "name": "M7 PR235 CI953 live A expiry extend complete",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2200;150;62"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;2213;74;17"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;2249;27;17"
+    },
+    {
+      "name": "Task title: M7 PR235 CI953 live B expiry switch",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2287;154;41"
+    },
+    {
+      "name": "M7 PR235 CI953 live B expiry switch",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2287;149;41"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;2299;74;17"
+    },
+    {
+      "name": "2min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;2336;27;16"
+    },
+    {
+      "name": "Task title: M7 PR235 CI953 live C break workflow",
+      "type": "ControlType.Group",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2374;154;41"
+    },
+    {
+      "name": "M7 PR235 CI953 live C break workflow",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2281;2374;149;41"
+    },
+    {
+      "name": "M7 PR235 CI953 live expiry break capture",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2452;2386;74;17"
+    },
+    {
+      "name": "1min",
+      "type": "ControlType.Text",
+      "offscreen": true,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2508;2422;27;17"
+    }
+  ]
+}

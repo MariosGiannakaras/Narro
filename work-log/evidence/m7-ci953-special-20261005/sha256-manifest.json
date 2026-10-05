@@ -1,0 +1,422 @@
+[
+  {
+    "path": ".gitattributes",
+    "bytes": 19,
+    "sha256": "f01a7d3573bcb8be0255b188ea30002f6792b2eeb0470ae49f30f21b69cff1d7"
+  },
+  {
+    "path": "actions.jsonl",
+    "bytes": 24222,
+    "sha256": "21fd307ab05983780771cdf38a98f803c0b2abf0d9b10f27bad12aeb4f85d11e"
+  },
+  {
+    "path": "chronological-actions.csv",
+    "bytes": 8537,
+    "sha256": "e370b399453f85ace4fe3bb2894910002054d8984f93a5744c33e2cc22b95ae0"
+  },
+  {
+    "path": "inventory/all-shortcuts-disabled.json",
+    "bytes": 21536,
+    "sha256": "3162ecb8780e6b368444bf0553bc78954ed2b1d5dbbffa61d2dc1ed37184350d"
+  },
+  {
+    "path": "inventory/all-shortcuts-restored.json",
+    "bytes": 21542,
+    "sha256": "521b48add81b929d4c4a799fee46c5e54ec353f6ffceca5d13f82b6587bc7eb1"
+  },
+  {
+    "path": "inventory/AUDIT_IMPLEMENTATION_CROSSWALK.md",
+    "bytes": 93401,
+    "sha256": "a9fd5b6378c69b3d044153d402273c300ec5e6851917c14ebc2c122de5e069b8"
+  },
+  {
+    "path": "inventory/disabled-Enable-Alternate-Focus-Mode.json",
+    "bytes": 20391,
+    "sha256": "98f7548e0ff125582f206f07ffe8f57e79477321852ebf538e372cfaa8ea4600"
+  },
+  {
+    "path": "inventory/disabled-Enable-Find-focus-timer.json",
+    "bytes": 20389,
+    "sha256": "459c0a7f3438253caec9036ca7094cdc40648dd132cfc4d2f19392249b227c24"
+  },
+  {
+    "path": "inventory/disabled-Enable-Go-to-Narro.json",
+    "bytes": 20390,
+    "sha256": "68a9f2533ce736f4016228e55abd15b82877eeb59559dff85ee582a65f398d35"
+  },
+  {
+    "path": "inventory/displays-after.json",
+    "bytes": 6102,
+    "sha256": "76a47a2dccf17e9c61a624f50f262b4de305c3426f01f8ede2a04a7f46201af5"
+  },
+  {
+    "path": "inventory/displays-before.json",
+    "bytes": 6102,
+    "sha256": "0930aba30335c73398800f298b11bebfebe6a28060ef7b24519cd9348d6b18a6"
+  },
+  {
+    "path": "inventory/displays-post-sleep.json",
+    "bytes": 6102,
+    "sha256": "6d98e7456a3483c87638ddb9bda7e834b965e18bf04c6082dec9c0e9d9aece8f"
+  },
+  {
+    "path": "inventory/final-ledger.json",
+    "bytes": 21807,
+    "sha256": "38c0579b5d25b2af04604f8604cb5a02ccfc1f75f637b1d1b6133e11a0a5eca7"
+  },
+  {
+    "path": "inventory/HANDOFF.md",
+    "bytes": 35143,
+    "sha256": "be4717a4c54490239357550fd96eb90dbf012d7bf4eb8ab0d38e657b41e273c8"
+  },
+  {
+    "path": "inventory/media-probes.json",
+    "bytes": 7208,
+    "sha256": "8399b96915b4d0d5727cabbd477e999f5e4a5e56c169f07263944b578139d970"
+  },
+  {
+    "path": "inventory/mux-post-wake-full.mp4.json",
+    "bytes": 139,
+    "sha256": "fe624298c4c3370cfce8914c502923e1aee313e841030b7b3dd74d38117b8999"
+  },
+  {
+    "path": "inventory/mux-pre-sleep-full.mp4.json",
+    "bytes": 73,
+    "sha256": "2cedbb2ad8b12334799260514b5ca38bcc86b030c7685e58354a5847d096b49e"
+  },
+  {
+    "path": "inventory/obs-logs/2026-10-05 18-13-22.txt",
+    "bytes": 50,
+    "sha256": "83308857ef5a91161e82eb6386a07ec33954c5eec8f486d1ccfd44103bb506e3"
+  },
+  {
+    "path": "inventory/obs-logs/2026-10-05 18-14-10.txt",
+    "bytes": 5358,
+    "sha256": "6b1ecf4e120075aac98f6a8e7df55bfee5e1d28696cb19ebebacf8126e586fb9"
+  },
+  {
+    "path": "inventory/power-events-after.json",
+    "bytes": 1213,
+    "sha256": "6783f5f5c6cba1f083b36b6038cf4fe46ffe5805b8b56950dc52295b4e81ae4c"
+  },
+  {
+    "path": "inventory/power-events-before.json",
+    "bytes": 353,
+    "sha256": "0824acdda1df30a8a3f7f1931b4fe2d0f9a82b1c5f45fbd7da672cccfe09b0ba"
+  },
+  {
+    "path": "inventory/power-events-final.json",
+    "bytes": 1213,
+    "sha256": "6783f5f5c6cba1f083b36b6038cf4fe46ffe5805b8b56950dc52295b4e81ae4c"
+  },
+  {
+    "path": "inventory/scheduled-G.json",
+    "bytes": 21538,
+    "sha256": "caf93902edcd096785081a6b9d9e354a3593c97156aeb4080f74669fbb9f2b37"
+  },
+  {
+    "path": "inventory/shortcuts-final-true.json",
+    "bytes": 21539,
+    "sha256": "844e5b6babe0cf24039e35152f0dd8ac80610411ca35ec400ab99032742cf99f"
+  },
+  {
+    "path": "inventory/STATUS.md",
+    "bytes": 200538,
+    "sha256": "819860edc939170ce43eb0810729083b13a989d0e719951461247fe8c742d9e6"
+  },
+  {
+    "path": "inventory/TODO.md",
+    "bytes": 150331,
+    "sha256": "e74f6ccd2c555fc9be38173c2445b365a6afe0d28d8ad0d5ba8319e2ccdcec7d"
+  },
+  {
+    "path": "Narro-M7-Logs/LATEST.txt",
+    "bytes": 36,
+    "sha256": "d7c75bdda47befb49c829e76d7281a995f75c24fec95ca6b3d73529d823cf8c6"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-last-pass.json",
+    "bytes": 1840,
+    "sha256": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-last-terminal-result.json",
+    "bytes": 1840,
+    "sha256": "77b8d11419e3853331035b529f790c8c36945998ae900894da0ff5b7df86671d"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-latest-result.json",
+    "bytes": 580,
+    "sha256": "65ce36889f471dbe3eb84358cd2010125c8407385c522eb36a8d47558bc26f62"
+  },
+  {
+    "path": "Narro-M7-Logs/README.txt",
+    "bytes": 765,
+    "sha256": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/events.jsonl",
+    "bytes": 329580,
+    "sha256": "86ac38ce4dd5b22d6e85bea009f821c1911e81113ad0def327d951d38ad20cee"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/m7-c5-result.json",
+    "bytes": 518,
+    "sha256": "fcd368de9bb3e05f008c472d60fad2b4553c3edf33166955c031af95ec1e29d9"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-034426.418Z-130912/session.json",
+    "bytes": 490,
+    "sha256": "afc7b7b34c22a0f58658e9e74ffbdabd1ae4f35085a9604c3b326d5a07788fd0"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/events.jsonl",
+    "bytes": 864595,
+    "sha256": "3c9da9c4f45879d4659737de21ff5dfb889bc66cd8dc4c5fd228d8e597f913a9"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/m7-c5-result.json",
+    "bytes": 579,
+    "sha256": "5faaf20031d2c027a4d0172c65c46baf7a905461a8bc4935f3d856ddb31cb025"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-082950.511Z-141908/session.json",
+    "bytes": 490,
+    "sha256": "0a6532ec0ef157b8d76aa17714672c62b34a591f929ba99d5c345bb09a477aa9"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-145913.595Z-22948/events.jsonl",
+    "bytes": 26454,
+    "sha256": "80944f76a981cc5a062d2b5e8ea985c43f49944fa8113fa0bcc7bb27a19d8489"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-145913.595Z-22948/m7-c5-result.json",
+    "bytes": 580,
+    "sha256": "65ce36889f471dbe3eb84358cd2010125c8407385c522eb36a8d47558bc26f62"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-145913.595Z-22948/session.json",
+    "bytes": 489,
+    "sha256": "a7d143eb931efb65f81973ed591f62d06a474b42d5e2667fda72b09553b72f25"
+  },
+  {
+    "path": "Narro-M7-Logs.zip",
+    "bytes": 47432,
+    "sha256": "565986354c3cfc58aa9598e07c6c8afb922c537dcc3cd24da7b1c2cdcb634fac"
+  },
+  {
+    "path": "observations/after-300s-alert.json",
+    "bytes": 42411,
+    "sha256": "9a2e667fae98a3ac234195309574bdf7c28a95b892192b601e146769d3df38e6"
+  },
+  {
+    "path": "observations/alert-options.json",
+    "bytes": 44800,
+    "sha256": "5d8576e31d437b3c7b3a80264ed08a60a8735fa6f630c4c2e2c8ede9ad14c81c"
+  },
+  {
+    "path": "observations/alerts.json",
+    "bytes": 43290,
+    "sha256": "feba6024cd28f53c44a8b2e7049f5585b57d56374036f0ce6b74592596f3e9a8"
+  },
+  {
+    "path": "observations/board-current.json",
+    "bytes": 36275,
+    "sha256": "0fab68f099fcf46a1371d8c9009c927859a0b32e9e94204e1829202e5aa6a19f"
+  },
+  {
+    "path": "observations/board-options.json",
+    "bytes": 67515,
+    "sha256": "5863b002a9cbdd49a598f01674f8f064aa3ebda3052d65b5bbbfd44982c66ab4"
+  },
+  {
+    "path": "observations/F-position.json",
+    "bytes": 22816,
+    "sha256": "ef0dd921fe844732ac78b38ea1951f40618d1f43793c6c4704824f4d86fcbb19"
+  },
+  {
+    "path": "observations/final-paused-compact.json",
+    "bytes": 5829,
+    "sha256": "4fe97c9c6438eb3aa52bd4bc3374883f2057f9ca166998e3410f94b0ea2f0ab3"
+  },
+  {
+    "path": "observations/focus-panel.json",
+    "bytes": 41167,
+    "sha256": "fa64f310bee2c968a6fddd34e374a2af2bc4fd520c9606b24ae0ff57b41c26a0"
+  },
+  {
+    "path": "observations/new-F.json",
+    "bytes": 35403,
+    "sha256": "a0a7e45e267e7ed49b1f792225ea439487e67f9c813869fd9cf8c73793e682a8"
+  },
+  {
+    "path": "observations/obs-crash-dialog-visible.json",
+    "bytes": 5761,
+    "sha256": "5876d6d6ba8faf481e96f58791e0ead4ec931e6f626af7fd96f68fe93c1495ed"
+  },
+  {
+    "path": "observations/obs-dialog-now.json",
+    "bytes": 4700,
+    "sha256": "f2384d8646419bdc06af94f09a54750b4dbd2343357952e43df12b37cab171be"
+  },
+  {
+    "path": "observations/obs-error-post-sleep.json",
+    "bytes": 13125,
+    "sha256": "dbdda01f9a8e36f089dab7a1b7af1371c74cd4908c0d0759f8c12c9c4d36d1f8"
+  },
+  {
+    "path": "observations/obs-loaded-post.json",
+    "bytes": 11898,
+    "sha256": "17657a95c12206a6355ceb96161c40f4b474ab6e04908c2d67923a7c985ee4c3"
+  },
+  {
+    "path": "observations/obs-recovery-dialog.json",
+    "bytes": 5388,
+    "sha256": "41463cd8c3cbc458874e19e1903342b36d34b029caf18d7b942be724971519fb"
+  },
+  {
+    "path": "observations/obs-restart.json",
+    "bytes": 4700,
+    "sha256": "7d862a66f6e4982ab172ebfc1ae82257c7e1ded55189ca492c62d625536317c9"
+  },
+  {
+    "path": "observations/obs-running-post.json",
+    "bytes": 11896,
+    "sha256": "ce1157a4b583147d4d110ca3ae5770958aa1e281ac4f9e9e43df2e9ae66a97bf"
+  },
+  {
+    "path": "observations/obs-stopped.json",
+    "bytes": 28127,
+    "sha256": "47f18a3754e10e94a7340e5e9f704a62c42a29a9ae9cb8fa80172b43e3bbce02"
+  },
+  {
+    "path": "observations/option-bounds.json",
+    "bytes": 44800,
+    "sha256": "fb7443cfcc6497884372b60698ded055f1063b01eff59c7ef0a284cbfc404a87"
+  },
+  {
+    "path": "observations/outside-shortcuts.json",
+    "bytes": 17089,
+    "sha256": "b8faed918719a4114cd271db17583bf605e7b4dc4b11d57519c588d71dc908fb"
+  },
+  {
+    "path": "observations/post-sleep-active.json",
+    "bytes": 32941,
+    "sha256": "e2dbd0ed5b63e04e428bdb68fe7680952577276ee601fd61b709551ba3fabdce"
+  },
+  {
+    "path": "observations/post-sleep-focus.json",
+    "bytes": 32942,
+    "sha256": "2b9c5a1ccc9d93a29e4ea88e654be732e09b11950dc230000ef76719502e30c5"
+  },
+  {
+    "path": "observations/post-wake-native.json",
+    "bytes": 40897,
+    "sha256": "dcf7b6627df0678d928ec8c326ce845b5372cc64a5f01551f6cbbc6a9a7d87e4"
+  },
+  {
+    "path": "observations/post-wake-windows.json",
+    "bytes": 4696,
+    "sha256": "e171d750bef74a3a02a72bc7e485c8aa17069096a8ee61bd1669726fbf09f943"
+  },
+  {
+    "path": "observations/pre-alert.json",
+    "bytes": 42412,
+    "sha256": "04ad31ecfc9b1142d6d161e492269db556f90f0bf0c99c647f4869cb93c98d8a"
+  },
+  {
+    "path": "observations/preferences.json",
+    "bytes": 43296,
+    "sha256": "a803626047185684f854be071c4bad406af29e921fdf74537179257b0012e599"
+  },
+  {
+    "path": "observations/reminder-options.json",
+    "bytes": 44824,
+    "sha256": "ee0f8f8271f9fdba956f8c2def635cb60545ed872920ccd0a68cdf9cbfc6886b"
+  },
+  {
+    "path": "observations/reminder-wait.json",
+    "bytes": 38096,
+    "sha256": "6c074c4326a3ff6e510b601a2cd6c3a947bae3da585be9593b7c0cd9883c915f"
+  },
+  {
+    "path": "observations/restore-alert-options.json",
+    "bytes": 33450,
+    "sha256": "99a8e1f3d73d86c1b148cb9a2aa8d565a8d59e7dbcac1cb78380cf2f3520a024"
+  },
+  {
+    "path": "observations/restore-lead-options.json",
+    "bytes": 33457,
+    "sha256": "4940ea0af417ccda824295779e5e7a8dd225ed063c67dedebb46559eece98c46"
+  },
+  {
+    "path": "observations/restore-original-position.json",
+    "bytes": 9112,
+    "sha256": "235d76e4c93a1d2a22f119eaa9868f3bc6e700463b4aeb928f72c23244a6417a"
+  },
+  {
+    "path": "observations/restore-pref-position.json",
+    "bytes": 31920,
+    "sha256": "3a0a9ca801277893e1158d7a17f1854a2cd31e9760fe5c2122d3965d820ce892"
+  },
+  {
+    "path": "observations/schedule-G.json",
+    "bytes": 50037,
+    "sha256": "d7f82ea5cee441d670a4beb40f818f3b12b56ef3b84ca3d37d0175f0a207f755"
+  },
+  {
+    "path": "observations/schedule-time.json",
+    "bytes": 51589,
+    "sha256": "1c505041643917e433894dc22209a5c92c106bfd4206e058e9ab3d10c8197323"
+  },
+  {
+    "path": "observations/single-display.json",
+    "bytes": 17089,
+    "sha256": "d4f930a9e8202476c94d8a3754c1f010e79ad3954abd0e9581f8ca7da00380c7"
+  },
+  {
+    "path": "observations/timed-alert-boundary.json",
+    "bytes": 42427,
+    "sha256": "277ef6e099d1e6322eec3f4b3c0f2a81b0097bdebdee6de6e5355eaf6ae95dee"
+  },
+  {
+    "path": "observations/windows-focus.json",
+    "bytes": 14171,
+    "sha256": "e3d921deb1c8537e116ddbc09adfa78aa25c73035d4b7fef17f575ca7b2509a5"
+  },
+  {
+    "path": "provenance.json",
+    "bytes": 597,
+    "sha256": "36569e2b90cc636a8a98f8f23af0af2852aee71c740ff3bca3f23f8396c73e5d"
+  },
+  {
+    "path": "README.md",
+    "bytes": 3190,
+    "sha256": "04308d0d83972ad336fc995c957b7f94b579ab1154ba8badfac1180534a8ebfd"
+  },
+  {
+    "path": "session-m1-m9-matrix.json",
+    "bytes": 1913,
+    "sha256": "7814655df89a35f50a599c9f1208158ac6903125b842b1b8f2124e015c43df78"
+  },
+  {
+    "path": "video/2026-10-05 18-02-07.mkv",
+    "bytes": 62554153,
+    "sha256": "6977fc0162ca42f327e4501064390ba356dc3dc312bb72b594704a1651aa6ecf"
+  },
+  {
+    "path": "video/post-wake-full.mp4",
+    "bytes": 10739538,
+    "sha256": "d62f014ae6bae6348c8a31996535529e27471c3fb4c7965f945ac65ad66bb926"
+  },
+  {
+    "path": "video/post-wake-gdi.mkv",
+    "bytes": 10747904,
+    "sha256": "c88f2c7116ed2f3711479b91fa6645340f13b3fade78c02cc55f973a2a51c85c"
+  },
+  {
+    "path": "video/pre-sleep-full.mp4",
+    "bytes": 63265854,
+    "sha256": "3e8a0b50266755b7afd3c2f2e878db9ac50f9e9a8ed3e4f8a0ec1f7725ec50a7"
+  }
+]

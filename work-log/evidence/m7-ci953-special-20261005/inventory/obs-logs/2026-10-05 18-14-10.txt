@@ -1,0 +1,94 @@
+18:14:10.635: Crash or unclean shutdown detected
+18:15:44.021: [Safe Mode] Normal launch selected, loading third-party plugins is enabled
+18:15:44.022: Command Line Arguments: --disable-shutdown-check
+18:15:44.022: CPU Name: AMD Ryzen 5 2600X Six-Core Processor           
+18:15:44.022: CPU Speed: 3811MHz
+18:15:44.022: Physical Cores: 6, Logical Cores: 12
+18:15:44.022: Physical Memory: 32689MB Total, 15591MB Free
+18:15:44.022: Windows Version: 10.0 Build 19045 (release: 22H2; revision: 6466; 64-bit)
+18:15:44.022: Running as administrator: false
+18:15:44.022: Windows 10/11 Gaming Features:
+18:15:44.023: 	Game DVR: On
+18:15:44.023: 	Game Mode: Probably On (no reg key set)
+18:15:44.025: Sec. Software Status:
+18:15:44.026: 	Microsoft Defender Antivirus: enabled (AV)
+18:15:44.026: 	Windows Firewall: enabled (FW)
+18:15:44.027: Current Date/Time: 2026-10-05, 18:15:44
+18:15:44.027: Browser Hardware Acceleration: true
+18:15:44.027: Hide OBS windows from screen capture: true
+18:15:44.027: Qt Version: 6.11.1 (runtime), 6.11.1 (compiled)
+18:15:44.027: Portable mode: false
+18:15:44.073: OBS 32.2.2 (64-bit, windows)
+18:15:44.073: ---------------------------------
+18:15:44.165: ---------------------------------
+18:15:44.165: audio settings reset:
+18:15:44.165: 	samples per sec: 48000
+18:15:44.165: 	speakers:        2
+18:15:44.165: 	max buffering:   960 milliseconds
+18:15:44.165: 	buffering type:  dynamically increasing
+18:15:44.168: ---------------------------------
+18:15:44.168: Initializing D3D11...
+18:15:44.168: Available Video Adapters: 
+18:15:44.172: 	Adapter 0: Radeon RX 570 Series
+18:15:44.172: 	  Dedicated VRAM: 8567902208 (8.0 GiB)
+18:15:44.172: 	  Shared VRAM:    17138456576 (16.0 GiB)
+18:15:44.172: 	  PCI ID:         1002:67df
+18:15:44.172: 	  HAGS Status:    Disabled (Default: No, Driver status: Unsupported)
+18:15:44.172: 	  Driver Version: 31.0.21923.11000
+18:15:44.174: 	  output 0:
+18:15:44.174: 	    name=LG ULTRAGEAR
+18:15:44.174: 	    pos={0, 0}
+18:15:44.174: 	    size={2560, 1080}
+18:15:44.174: 	    attached=true
+18:15:44.174: 	    refresh=144
+18:15:44.174: 	    bits_per_color=10
+18:15:44.174: 	    space=RGB_FULL_G22_NONE_P709
+18:15:44.174: 	    primaries=[r=(0.651367, 0.332031), g=(0.306641, 0.630859), b=(0.150391, 0.059570), wp=(0.313477, 0.329102)]
+18:15:44.174: 	    relative_gamut_area=[709=1.087150, P3=0.801416, 2020=0.574962]
+18:15:44.174: 	    sdr_white_nits=80
+18:15:44.174: 	    nit_range=[min=0.304500, max=301.000000, max_full_frame=243.000000]
+18:15:44.174: 	    dpi=96 (100%)
+18:15:44.174: 	    id=\\?\DISPLAY#GSM773B#5&30e30fda&1&UID256#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+18:15:44.174: 	    alt_id=\\.\DISPLAY2
+18:15:44.176: 	  output 1:
+18:15:44.176: 	    name=2D FHD LG TV
+18:15:44.176: 	    pos={-1920, 0}
+18:15:44.176: 	    size={1920, 1080}
+18:15:44.176: 	    attached=true
+18:15:44.176: 	    refresh=60
+18:15:44.176: 	    bits_per_color=8
+18:15:44.176: 	    space=RGB_FULL_G22_NONE_P709
+18:15:44.176: 	    primaries=[r=(0.637695, 0.333984), g=(0.308594, 0.626953), b=(0.153320, 0.073242), wp=(0.313477, 0.329102)]
+18:15:44.176: 	    relative_gamut_area=[709=1.016142, P3=0.749070, 2020=0.537408]
+18:15:44.176: 	    sdr_white_nits=80
+18:15:44.176: 	    nit_range=[min=0.500000, max=270.000000, max_full_frame=270.000000]
+18:15:44.176: 	    dpi=120 (125%)
+18:15:44.176: 	    id=\\?\DISPLAY#GSM59C6#5&30e30fda&1&UID268#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}
+18:15:44.176: 	    alt_id=\\.\DISPLAY1
+18:15:44.177: Loading up D3D11 on adapter Radeon RX 570 Series (0)
+18:15:44.220: D3D11 loaded successfully, feature level used: b000
+18:15:44.220: DXGI increase maximum frame latency success
+18:15:44.220: D3D11 GPU priority setup failed (not admin?)
+18:15:59.522: HasBadNV12Output failed: Could not map surface
+18:15:59.522: device_vertexbuffer_create (D3D11): Failed to create buffer (887A0005)
+18:15:59.522:   Device Removed Reason: 887A0007
+18:16:31.197: Failed to initialize video.  Your GPU may not be supported, or your graphics drivers may need to be updated.
+18:17:03.273: Freeing OBS context data
+18:17:03.321: == Profiler Results =============================
+18:17:03.321: run_program_init: 172890 ms
+18:17:03.321:  ┣OBSApp::AppInit: 48.33 ms
+18:17:03.321:  ┃ ┗OBSApp::InitLocale: 1.805 ms
+18:17:03.321:  ┗OBSApp::OBSInit: 47175 ms
+18:17:03.321:    ┣obs_startup: 5.257 ms
+18:17:03.321:    ┗OBSBasic::OBSInit: 47041 ms
+18:17:03.321:      ┣OBSBasic::InitBasicConfig: 9.807 ms
+18:17:03.321:      ┣OBSBasic::ResetAudio: 0.296 ms
+18:17:03.321:      ┗OBSBasic::ResetVideo: 47030.7 ms
+18:17:03.321:        ┗obs_init_graphics: 47030.7 ms
+18:17:03.321: obs_hotkey_thread(25 ms): min=0.003 ms, median=0.005 ms, max=919.136 ms, 99th percentile=0.448 ms, 99.7354% below 25 ms
+18:17:03.321: audio_thread(Audio): min=0.005 ms, median=0.011 ms, max=0.068 ms, 99th percentile=0.034 ms
+18:17:03.321: =================================================
+18:17:03.321: == Profiler Time Between Calls ==================
+18:17:03.321: obs_hotkey_thread(25 ms): min=24.88 ms, median=25.262 ms, max=943.512 ms, 56.434% within ±2% of 25 ms (0% lower, 43.566% higher)
+18:17:03.321: =================================================
+18:17:03.325: Number of memory leaks: 634

@@ -1,0 +1,12 @@
+[
+  {
+    "TimeCreated": "2026-10-05T18:08:49.9044283+03:00",
+    "Id": 59,
+    "Message": "The system is entering Away Mode."
+  },
+  {
+    "TimeCreated": "2026-10-05T18:08:49.9040274+03:00",
+    "Id": 187,
+    "Message": "User-mode process attempted to change the system state by calling SetSuspendState or SetSystemPowerState APIs."
+  }
+]
