@@ -1,5 +1,9 @@
 # TODO.md
 
+## Existing WIP safely backed up — capture-only continuation
+
+Existing four-file async SQLite-read proposal plus Desktop publication/reassembly and used capture helpers are backed up in [WIP branch](https://github.com/MariosGiannakaras/Narro/tree/wip/m7-async-read-and-evidence-tools-20261005/scripts/local-evidence-tools), commit `24d69e771ec8b2341021606d069a52e3fc65d1c2`. Backup only: app source uncompiled/unvalidated, no tests/build/CI or main merge; original working files/index/branch preserved. Helper Python syntax checked, publisher's previous actual publications verified; no new aggregate validation claimed. Text Git LF/CRLF normalization applies; backup manifest records original working-copy bytes. No generated icons/binaries/user database/transient queues uploaded. Authoritative evidence/tracking remain on main. Actual Windows sessions continue on unchanged CI953 EXE, not this WIP.
+
 ## Current — CI953 actual Greek keyboard-layout capture; visual review44/100
 
 [Whole 99.517s original MKV/MP4, health image, full logs/ZIP and chronological actions](work-log/evidence/m7-ci953-layout-20261005/README.md). Actual Windows focused WebView HKL4080408 verified on Main3213706 and Focus7471826 while Add task button focused. Actual physical Ctrl+Alt+T opens each Add dialog; draft typed, focused Add tested with Ctrl+Alt+B/P/N; actual Escape cancellation. Both return to HKL4090409. Normal motion only. This closes the earlier missing input-layout acquisition, not full M8 shortcut/source acceptance. Read-only task/checkpoint/preference payload exactly unchanged; no created task/session. No app source/tests/build/CI changes. Whole live logs are a bounded snapshot; historicalC5 PASS preserved, not rerun.
