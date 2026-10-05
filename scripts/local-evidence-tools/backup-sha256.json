@@ -229,5 +229,12 @@
     "originalWorkingCopySha256": "33efc532b80913d3546ec8b29cf4b81705b2ba65f785b7c16b32a09fc01fd8fd",
     "gitBlobSha1": "417c538d3bc7d72321e5a1db9ee83463c1ef36c3",
     "textLineEndingNormalizationMayApply": true
+  },
+  {
+    "path": "scripts/local-evidence-tools/capture-helpers/freeze-ci953-success125.py",
+    "originalWorkingCopyBytes": 12907,
+    "originalWorkingCopySha256": "d3a56d164abd32a8663b4d7229f3153573afacf947bb866cb76200f03dbea917",
+    "gitBlobSha1": "4c1130f60bd63f2938880cbd331b6c20dee90b34",
+    "textLineEndingNormalizationMayApply": true
   }
 ]
