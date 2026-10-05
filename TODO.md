@@ -640,19 +640,60 @@ If the user explicitly activates M11:
 - record the activation in `HANDOFF.md`, `STATUS.md` and a new immutable work log before audit work starts;
 - change the progress denominator to **11** from that point onward;
 - require a fully validated M10 baseline and record its exact source SHA;
-- follow `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md` and the normal evidence-routing/reconciliation workflow.
+- follow `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md` exactly.
 
-Goal if activated: inspect the actual live Blitzit product interactively to resolve material evidence gaps that cannot be answered from the existing curated screenshots/tutorial recordings, without repeating already-settled forensic work or treating version-specific live behavior as automatically authoritative.
+**Binding M11 execution order:** `PLAN -> CAPTURE EVERYTHING -> FREEZE CORPUS -> ANALYZE -> RECONCILE/PLAN -> IMPLEMENT -> REVALIDATE`.
 
-- [ ] Record the live Blitzit reference environment: version/build if observable, date, Windows/display/DPI context, trial/subscription tier limitations, theme/locale/preferences and observation provenance.
-- [ ] Build a targeted live-audit agenda from unresolved `AMBIGUOUS`, `VALIDATION_OPEN`, source-parity and evidence-limit routes; do not restart broad corpus analysis.
-- [ ] Exercise material states/interactions unavailable or insufficiently shown in the existing evidence: hover/focus/pressed/disabled states, menus/popovers/dialogs/tooltips, transient/loading/empty/error/success states, motion/timing, drag/resize/window behavior, conditional Preferences and relevant edge cases.
-- [ ] Capture reproducible live-source evidence with provenance while avoiding credentials, payment details, private account content and unrelated personal data.
-- [ ] Reconcile every material live-source finding against the canonical Pass-3/static-calibration evidence and record version conflicts/ambiguities explicitly before changing Narro.
-- [ ] Implement only evidence-backed Narro corrections selected by the reconciliation, in narrow validated slices; preserve documented reliability/accessibility/Windows/local-only deviations unless stronger evidence justifies a change.
-- [ ] Re-run affected automated/physical/source-parity gates and publish the final M11 report with live Blitzit provenance, finding dispositions, accepted/version-specific limits and exact resulting Narro SHA.
+Do **not** analyze/fix findings opportunistically while the capture campaign is running. The visual and observable protocol/state evidence must first be collected as a coherent corpus.
 
-**M11 completion gate (only if activated):** all targeted live-source questions are exercised/dispositioned, all material findings are reconciled, chosen Narro corrections are validated, and the post-M11 candidate SHA is frozen. Only then may the Final Comprehensive Review begin from that post-M11 baseline.
+### Phase 0–1 — provenance and capture plan
+
+- [ ] Record the live Blitzit reference environment: observable version/build, date/time, Windows/display/DPI context, trial/subscription limitations, theme/locale/preferences and evidence provenance.
+- [ ] Build a complete scripted capture matrix before substantive exploration starts, using current TODO/HANDOFF/crosswalk plus unresolved `AMBIGUOUS`, `VALIDATION_OPEN`, source-parity and evidence-limit routes.
+- [ ] Define synchronized capture for both streams:
+  - continuous user-visible screen recording/screenshots/keyframes;
+  - observable client/backend/state evidence from ordinary authorized product use: request/event shapes, timing/status/order, local storage/app-data/process/file state where legitimately observable.
+- [ ] Define the privacy/security filter before capture: no credentials/tokens/cookies/payment/private unrelated data in repo evidence; no endpoint fuzzing, auth/access-control bypass, certificate-pinning bypass or secret replay.
+
+### Phase 2 — continuous evidence acquisition only
+
+- [ ] Execute the full scripted product journey and branch scenarios with visual + protocol/state streams synchronized on one timeline.
+- [ ] Keep each scripted session continuous; segment only for technical reliability/size while preserving session IDs, chronological order, hashes/reassembly metadata and explicit capture gaps.
+- [ ] Preserve unexpected/failing states and repeats as evidence rather than overwriting them.
+- [ ] Enforce the **analysis embargo** throughout capture:
+  - no Narro source/config/test changes because of an observation;
+  - no parity verdict/crosswalk disposition;
+  - no deep frame/network analysis;
+  - no remediation branch.
+  Only neutral timestamps/action labels/capture-health notes are allowed.
+
+### Phase 3 — freeze the evidence corpus
+
+- [ ] Stop acquisition and create the immutable M11 corpus inventory: session chronology, raw/sanitized file mapping, hashes, provenance, scenario coverage, capture gaps and unobserved channels.
+- [ ] Verify all intended recordings/logs are readable and coverage is complete. If something required is missing/corrupt, run a capture-completion session and refreeze before analysis.
+- [ ] Keep sensitive raw network/state captures local; repository evidence contains only sanitized derivatives, manifests, hashes and redacted structural summaries.
+
+### Phase 4 — full-corpus analysis
+
+- [ ] Review the **entire frozen visual corpus** systematically for layout, hierarchy, typography, icons, spacing, states, menus/dialogs/tooltips, motion, transitions, transient states and version-dependent differences.
+- [ ] Review the **entire frozen observable protocol/state corpus** and correlate user actions with task identity/mutations, reorder/move, timer/session accounting, Notes/subtasks, scheduling/recurrence, reports, optimistic acknowledgement/reconciliation, retries/conflicts and local-vs-remote state where supported.
+- [ ] Classify backend conclusions as directly observed contract / strong evidence-based inference / unknown-unobservable; never claim hidden server implementation from client evidence.
+- [ ] Produce one complete M11 findings register. **Do not begin Narro fixes before the planned corpus has been analyzed to completion.**
+
+### Phase 5 — reconciliation and remediation plan
+
+- [ ] Reconcile every material live finding against canonical Pass-3/static-calibration evidence and the final M10 Narro implementation; record version conflicts and ambiguity explicitly.
+- [ ] Disposition every finding before implementation: no difference, source-version difference, intentional Narro deviation, insufficient evidence/accepted ambiguity, or Narro correction required.
+- [ ] Freeze a dependency-aware remediation plan grouping required fixes into coherent validation batches. **No M11 implementation begins before this plan is complete.**
+
+### Phase 6–7 — implementation, revalidation and closure
+
+- [ ] Implement only the evidence-backed corrections selected by the frozen remediation plan; preserve Narro's local-only architecture and reproduce observable semantics rather than Blitzit's private cloud architecture.
+- [ ] Add/update regression coverage for material visual/behavior/state-contract findings.
+- [ ] Re-run affected automated/Windows/source-parity/data-integrity gates.
+- [ ] Publish the final M11 report with Blitzit provenance/version, frozen capture inventory, visual findings, observable protocol/state findings, unknown backend limits, version-specific differences, accepted deviations, remediation diff and exact resulting Narro SHA.
+
+**M11 completion gate (only if activated):** the capture campaign is complete and frozen, the entire corpus has been analyzed, every material finding is reconciled, the remediation plan is complete, every selected Narro correction is validated, affected prior gates are re-run as required, and the post-M11 candidate SHA is frozen. Only then may the Final Comprehensive Review begin.
 
 ## Final Comprehensive Review Stage — after Milestone 10, or after Milestone 11 only when M11 was explicitly activated
 
