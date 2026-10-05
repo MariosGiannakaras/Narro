@@ -42,15 +42,11 @@ Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instr
 
 ## Current phase
 
-**Milestone 1 — Windows architecture/capability/performance validation.**
+Windows capture/evidence review for the affected M5/M6/M7 surfaces and already-implemented M1–M9 paths. M2–M4 are complete; M1 monitor/DPI acceptance is narrowly reopened, and M5–M9 retain validation/source-parity gates. M10 is blocked until all required M1–M9 acceptance clears.
 
-Research/specification and reference assets are complete enough for implementation. A Tauri 2 + React + TypeScript + Rust + SQLite Windows scaffold and temporary runtime diagnostic harness now build successfully through Windows GitHub Actions.
+The exact capture candidate is CI953/source `38219e20` from open draft PR235. Separate async-read WIP is backed up but uncompiled/native-unvalidated and unmerged. Documentation/evidence publication on main is separate from application-source acceptance.
 
-Real Windows testing has already proven shared Rust state between the `main` and `focusSurface` webviews plus survival of Rust state when `main` is forcibly destroyed. The current exact blocker/retest state is always recorded in:
-
-[`HANDOFF.md`](HANDOFF.md)
-
-Do not infer current progress from this README alone.
+Start from [HANDOFF](HANDOFF.md), [TODO](TODO.md) and [STATUS](STATUS.md). The [capture navigation index](work-log/evidence/ci953-capture-index-20261005/README.md) links11 follow-up packets; capture counts are not reviewed/PASS counts. Current authoritative tracking takes precedence over dated historical checkpoints.
 
 ## Product scope
 

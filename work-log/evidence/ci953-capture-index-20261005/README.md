@@ -1,6 +1,6 @@
 # CI953 capture index — navigation only
 
-This index covers **11 published CI953 evidence packets** from 2026-10-05. It indexes existing manifests; no media was watched, frames extracted, source re-analyzed, or acceptance counter advanced. It is not a PASS/FAIL report. Historical reviews inside older packets remain separate from this new navigation index.
+This index covers **11 published follow-up CI953 evidence packets** from 2026-10-05. It indexes existing manifests; no media was watched, frames extracted, source re-analyzed, or acceptance counter advanced. It is not a PASS/FAIL report. Historical reviews inside older packets remain separate from this new navigation index.
 
 **Exact candidate:** source `38219e200fe3bec7309f8e03e72003184ca86d08`, CI953/run37258629373/artifact11324640580, EXE SHA256 `bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8`.
 
@@ -191,3 +191,5 @@ Edge Ctrl+T/W/Shift+T pair with Narro alternate shortcut enabled/disabled.
 - Do not reuse old/source acceptance as validation of unvalidated async-read WIP. M10 hard entry remains blocked; M11 dormant.
 
 **Continuation:** use this index and whole packet media to analyze already acquired evidence; request only specific missing acquisition after review. No new implementation/validation was performed for this index.
+
+Initial CI953 baseline is separate from this11-packet follow-up table: [physical results](../../2026-10-05-codex-m7-ci953-physical-results.md) and [initial whole evidence](../m7-ci953-physical-20261005/README.md). Earlier CI builds are historical evidence, not this index denominator.

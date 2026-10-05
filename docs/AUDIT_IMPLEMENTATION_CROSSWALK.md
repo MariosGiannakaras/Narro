@@ -1,20 +1,38 @@
+# Audit → implementation crosswalk
+
+## Current authoritative state — documentation reconciled 2026-10-05
+
+This section is the continuation authority. Dated checkpoints below describe earlier builds/sessions; their old counters, pending-CI text, PIDs, monitor state and next-step requests are historical, not instructions to rerun them.
+
+- **Authorized phase:** capture/evidence and documentation only. No Narro source changes, tests, builds, CI-triggering source push or PR merge in this reconciliation. New recordings remain unreviewed; another chat analyzes them before acceptance disposition.
+- **Candidate:** source `38219e200fe3bec7309f8e03e72003184ca86d08`, Windows CI953/run37258629373 **completed/success**, artifact11324640580, EXE SHA256 `bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8`. [PR235](https://github.com/MariosGiannakaras/Narro/pull/235) is still **OPEN/DRAFT**, exact head matches candidate; it is not merged into main. Documentation/evidence on main does not mean candidate source or WIP is merged.
+- **Implementation/acceptance roadmap:** M2–M4 complete (**3/10 mandatory milestones**). M1 is narrowly reopened for explicit-monitor/DPI recovery27. M5/M6 have affected visual/source gates open. M7 C1–C3/C5 have accepted evidence, **C4 remains OPEN:4/5 corrective criteria**, not whole M7 completion. M8/M9 remain open. M10 hard entry is blocked until every required M1–M9 gate clears and the user receives the explicit completion announcement. Optional M11 is dormant and outside the denominator.
+- **Source WIP:** the four async-read files are backed up on [the separate WIP branch](https://github.com/MariosGiannakaras/Narro/tree/wip/m7-async-read-and-evidence-tools-20261005), latest `99c2e5fc3900a16496f53dc091bf63b3be3a9789`. Current local file contents match that backup after LF/CRLF normalization. Backup is **uncompiled/native-unvalidated**, absent from CI953 and unmerged; do not describe it as an accepted responsiveness fix. No new validation was run for this audit.
+- **Evidence navigation:** [11 follow-up CI953 packets with existing timestamps](../work-log/evidence/ci953-capture-index-20261005/README.md), plus [initial CI953 physical results](../work-log/2026-10-05-codex-m7-ci953-physical-results.md) and [initial full evidence packet](../work-log/evidence/m7-ci953-physical-20261005/README.md). The11-packet index is a navigation inventory, not the complete historical corpus or a check-completion counter. Historical44/100 means reviewed cells only; raw acquisition did not advance it.
+- **Open routing:**07 native-read responsiveness and27 DPI recovery remain correction/acceptance blockers;23 provider/source discrepancy requires review, not an assumed visible-overflow fix. Supplemental35 Time's Up,36 list reset/Next Task,37 disabled success Take a Break and other timestamped observations retain their prior OPEN/review dispositions. Actual notification delivery, source parity and continuous motion must not become PASS from elapsed boundaries, static probes or mere surface appearance.
+- **Latest capture facts:** software internal/clone/extend and real S3 sleep/resume events were acquired; physical HDMI unplug/replug was NOT performed. Browser Ctrl+Shift+T was acquired with alternate shortcut enabled/disabled and final preference restoredtrue. OBS GPU failure/post-wake GDI and multipart limitations remain in packet READMEs. Runtime/PID/monitor descriptions in snapshots are not a fresh claim that an app is currently running.
+
+## Historical acquisition/disposition checkpoints
+
+Existing finding verdicts are retained; this documentation audit adds no source or physical acceptance.
+
 ## Existing WIP safely backed up — capture-only continuation
 
-## Current — unified capture navigation index (2026-10-05)
+## Historical checkpoint — unified capture navigation index (2026-10-05)
 
-[CI953 capture index:11 packets, whole-media links, recorded paths and existing UTC/offset bookmarks](work-log/evidence/ci953-capture-index-20261005/README.md). Includes combined raw action CSV and source anchors. Navigation only; no video/image review, new PASS/FAIL, source changes or acceptance counter advance. Another chat can use it to locate evidence before requesting targeted missing capture. All previous open gates remain unchanged; M10 blocked/M11 dormant.
+[CI953 capture index:11 packets, whole-media links, recorded paths and existing UTC/offset bookmarks](../work-log/evidence/ci953-capture-index-20261005/README.md). Includes combined raw action CSV and source anchors. Navigation only; no video/image review, new PASS/FAIL, source changes or acceptance counter advance. Another chat can use it to locate evidence before requesting targeted missing capture. All previous open gates remain unchanged; M10 blocked/M11 dormant.
 
 
-## Current — browser Ctrl+Shift+T paired acquisition, unreviewed (2026-10-05)
+## Historical checkpoint — browser Ctrl+Shift+T paired acquisition, unreviewed (2026-10-05)
 
-[Whole 120.000s recording, 12 native actions and whole logs](work-log/evidence/m7-ci953-browser-shortcut-20261005/README.md). Existing exact CI953 candidate. Fresh separate regular Edge test profile, about:blank; create new tab Ctrl+T, close only that new tab Ctrl+W, then Ctrl+Shift+T with Narro Alternate Focus Mode enabled; disable only that shortcut with real Space, repeat same browser sequence; restore shortcut true. Raw preference snapshots establish false during second sequence and true afterward. Test-profile browser process closed afterward; no user browser tabs intentionally closed. Earlier InPrivate launch was setup only and not used for paired restore-tab test.
+[Whole 120.000s recording, 12 native actions and whole logs](../work-log/evidence/m7-ci953-browser-shortcut-20261005/README.md). Existing exact CI953 candidate. Fresh separate regular Edge test profile, about:blank; create new tab Ctrl+T, close only that new tab Ctrl+W, then Ctrl+Shift+T with Narro Alternate Focus Mode enabled; disable only that shortcut with real Space, repeat same browser sequence; restore shortcut true. Raw preference snapshots establish false during second sequence and true afterward. Test-profile browser process closed afterward; no user browser tabs intentionally closed. Earlier InPrivate launch was setup only and not used for paired restore-tab test.
 
 No video/image review, screenshot extraction, PASS/FAIL or source change. Browser/Focus outcome remains for another chat to inspect whole video and native probes. Normal120s recorder cutoff/finalization, UI actions are near end of recording; exact UTC manifest/creation anchor retained. Failed final Focus UIA observation had stale handle after paired work; no conclusion about current app state or automatic relaunch. Capture file remains whole and sealed. All prior M1–M9 gates unchanged, M10 blocked/M11 dormant. Continuation: media/log analysis elsewhere; no further repetitive acquisition for this pair without identified missing evidence.
 
 
-## Current — three special acquisition groups exercised, media unreviewed (2026-10-05)
+## Historical checkpoint — three special acquisition groups exercised, media unreviewed (2026-10-05)
 
-[Raw recordings, actions, whole logs and Windows power events](work-log/evidence/m7-ci953-special-20261005/README.md). 733.316s total in two recordings; 122 chronological actions. No video/image review or new PASS/FAIL. Exact unchanged CI953 EXE, newly launched PID22948/Main1444846/Focus6619566.
+[Raw recordings, actions, whole logs and Windows power events](../work-log/evidence/m7-ci953-special-20261005/README.md). 733.316s total in two recordings; 122 chronological actions. No video/image review or new PASS/FAIL. Exact unchanged CI953 EXE, newly launched PID22948/Main1444846/Focus6619566.
 
 Acquisition: global B/T/P from OBS with both true/false preference snapshots, three checkbox Space toggles and final all true; real owned F timer10m with timed alert300s and notification alerts enabled, recorded through300s boundary; owned G scheduled Oct5 18:15 local, reminder lead300s, continuous capture spans18:10 reminder boundary. Notification delivery/rendering/audio outcome remains OPEN for media/log reviewer. Snapshot names all-shortcuts-disabled and all-shortcuts-restored are reversed relative to actual contents (true then false): raw values and timestamps are authoritative; final snapshot is all true. Do not infer key behavior from the filenames.
 
@@ -25,9 +43,9 @@ Recorder recovery: Computer Use WGC FrameArrived timeout/geometry unavailable, n
 User observation: yesterday browser Ctrl+Shift+T showed Narro Timer instead of reopening closed tab. Explicit global binding conflict to reconcile in later analysis/remediation, no source change during capture. Continuation: another chat reviews whole media/logs and maps exact exercised requirements; physical cable removal/reconnect remains manual/OPEN. Do not call actual Windows notification delivery PASS merely because its configured boundary elapsed.
 
 
-## Current — capture only, no media analysis (2026-10-05 14:46–14:52 UTC)
+## Historical checkpoint — capture only, no media analysis (2026-10-05 14:46–14:52 UTC)
 
-[Raw Windows recording and action manifest](work-log/evidence/m7-pr235-native-capture-only-20261005/README.md): 316.567s, 61 logged actions, exact CI953 candidate. User explicitly requests acquisition only; do not use the historical analyzed-check counter as acquisition progress. No video/image review, frame extraction, new PASS/FAIL, source parity closure or acceptance counter change.
+[Raw Windows recording and action manifest](../work-log/evidence/m7-pr235-native-capture-only-20261005/README.md): 316.567s, 61 logged actions, exact CI953 candidate. User explicitly requests acquisition only; do not use the historical analyzed-check counter as acquisition progress. No video/image review, frame extraction, new PASS/FAIL, source parity closure or acceptance counter change.
 
 Recorded paths: Pomodoro enable/disable and work/break dropdowns; timed alerts enable/disable, interval/sound dropdowns and Melodic Bell preview; notification alerts enable/disable, sound dropdown and Futuristic Ding preview; schedule reminders enable/disable and lead-time dropdown; shortcut keyboard focus/Tab/Shift+Tab/Enter/Ctrl+Shift+B; owned Reports list filter, chart options/series controls, date control/Tab/Escape. Export PDF invocation was rejected by the native helper because the control was disabled: this path was not completed. Shortcut enable/disable intent is not established by Enter presses; keep it open for reviewer/continuation. Some early pointer attempts used stale scrolled geometry and needed foreground/re-probe recovery; actions record attempts, not proof that every intended state occurred.
 
@@ -36,7 +54,7 @@ All M1–M9 acceptance/source-parity gates remain at their previous dispositions
 
 Existing four-file async SQLite-read proposal plus Desktop publication/reassembly and used capture helpers are backed up in [WIP branch](https://github.com/MariosGiannakaras/Narro/tree/wip/m7-async-read-and-evidence-tools-20261005/scripts/local-evidence-tools), commit `24d69e771ec8b2341021606d069a52e3fc65d1c2`. Backup only: app source uncompiled/unvalidated, no tests/build/CI or main merge; original working files/index/branch preserved. Helper Python syntax checked, publisher's previous actual publications verified; no new aggregate validation claimed. Text Git LF/CRLF normalization applies; backup manifest records original working-copy bytes. No generated icons/binaries/user database/transient queues uploaded. Authoritative evidence/tracking remain on main. Actual Windows sessions continue on unchanged CI953 EXE, not this WIP.
 
-## Current — CI953 real125% success capture; visual review44/100
+## Historical checkpoint — CI953 real125% success capture; visual review44/100
 
 [Whole 373.400s original MKV/MP4, images, whole logs/ZIP and actions](../work-log/evidence/m7-ci953-success125-20261005/README.md). Explicit Narro LGmonitor selection, no Windowsprimarychange. Actual reducedD and normalE success from expandedTimer bothnativeDPI120/425x875(-425,0), sameFocus7471826: scopednativegeometryPASS only, source/motionOPEN. LongunbrokenD and GreekE titles captured. ActualTab/ShiftTab/Escape closesD; focusedClose+localB/P/N onEsuccess leavesownedtask/checkpointexactlyunchanged; actualCloseE. FunGIFenabledE but effectiveanimateddecoration remainsunproven;37TakeBreakdisabled. Ownedlistallfivecompleted/emptylivecaptured. NoNextTaskrepeat, newolderC5delta or ordinaryusertaskchange.
 
@@ -46,7 +64,7 @@ Final sameCI953/38219e20/bde7646d, runtime141908/Main3213706/Focus7471826, origi
 
 **Continuation:** true125%successnormal/reduced acquisition is nowclosed; do notrepeatit solelybecausecanonical/motionanalysisispending. Review56registeredpendingcells plus35–37/supplementalGIF/title/keyboard states fromwhole recordings. Remainingdistinctphysicalrequirements should be selected fromcurrentTODO/crosswalk: quietperformance asaseparate nonrecordingprotocol; actualsleep/wake/topology whereavailable; remainingPreferences/shortcut/notificationmatrix ifalreadyimplemented. SuccessTakeBreak cannot beacceptedasPASSwhilecontrolisdisabled. Captureonly; existingWIPsourceandtoolsbackeduponbranch842c162f; noNarrosourcefix/build/CI. Announceactualmilestonecompletion/allM1–M9acceptancebeforeM10.
 
-## Current — CI953 live/expiry/break/completion acquisition; visual review44/100
+## Historical checkpoint — CI953 live/expiry/break/completion acquisition; visual review44/100
 
 [Whole 1339.617s recording, verified multipart MKV/MP4, native images, whole logs/ZIP, CSV and chronological actions](../work-log/evidence/m7-ci953-live-20261005/README.md). Actual own list/three tasks; real A/B60sEST expiry, work pause/resume/button+CtrlAltP, compact/expanded while live, ATimeUp→Extend/overtime→Done, BTimeUp→Skip→C; real manual break41s skipped and natural300s break expiry→running work. Enabled success screen from expandedTimer C reduced100/B normal100 (B entryTimer125 moves to actual100 success); Take a Break is disabled37. Reports owned work/break list, chart tooltip, actual hide/showBreak rows and CSV5rows exercised during ongoingBreak. No app source edits/tests/builds/CI/merge; previous WIP backup remains separate.
 
@@ -58,7 +76,7 @@ Final original95a paused, same runtime141908/Focus7471826/Main3213706, compact{'
 
 **Continuation:** later chat can analyze56 registered pending cells plus supplemental35–37 from whole media/canonical fixtures and disposition only sufficiently exercised requirements. Distinct physical gaps: explicit125% success geometry (currentAUTO chooses100%primary), success TakeBreak actual path cannot run while disabled, remaining preference/shortcut/error/motion matrix and separate quiet performance/sleep/wake/topology as required. Do not repeat completed live/expiry/defaultBreak setup merely because review is pending. Capture-only priority; preserve WIP backup, announce actual milestone completion/all M1–M9 complete before M10. DesktopBAT publishes prepared frozen evidence/tracking, not active recordings.
 
-## Current — CI953 actual Greek keyboard-layout capture; visual review44/100
+## Historical checkpoint — CI953 actual Greek keyboard-layout capture; visual review44/100
 
 [Whole 99.517s original MKV/MP4, health image, full logs/ZIP and chronological actions](../work-log/evidence/m7-ci953-layout-20261005/README.md). Actual Windows focused WebView HKL4080408 verified on Main3213706 and Focus7471826 while Add task button focused. Actual physical Ctrl+Alt+T opens each Add dialog; draft typed, focused Add tested with Ctrl+Alt+B/P/N; actual Escape cancellation. Both return to HKL4090409. Normal motion only. This closes the earlier missing input-layout acquisition, not full M8 shortcut/source acceptance. Read-only task/checkpoint/preference payload exactly unchanged; no created task/session. No app source/tests/build/CI changes. Whole live logs are a bounded snapshot; historicalC5 PASS preserved, not rerun.
 
@@ -66,7 +84,7 @@ Final original95a paused, same runtime141908/Focus7471826/Main3213706, compact{'
 
 **Continuation:** next independent acquisition is a separately owned running work→pause/resume→real EST expiry/Time's Up→Extend/Done/Switch and break workflow, with a fresh pre-session matrix and explicit durable fixture/session deltas. Do not claim the current paused ledger unchanged after a live workflow. Existing56 pending cells and bookmarks need later whole-recording/canonical review. Desktop Publish-Narro-Evidence.bat is installed/tested and publishes only a prepared SHA-verified packet/tracking; no active-recording sealing or source upload. Preserve uncompiled async-worker WIP. Announce actual milestone completion and all M1–M9 gates complete before M10.
 
-## Current — CI953 Notes/modal/bottom-edge capture; visual review44/100
+## Historical checkpoint — CI953 Notes/modal/bottom-edge capture; visual review44/100
 
 [Whole 1042.550s recording, verified multipart MKV/MP4, screenshots, whole logs/ZIP and actions](../work-log/evidence/m7-ci953-continuous-20261005/README.md). M5/M6 large populated Notes attempted lower-right resize and actual Ctrl+A/Tab/Shift+Tab/Escape, actual Return compact recovery; Notes bounds unchanged and Escape retains editor,33 REVIEW_PENDING pending affordance/source requirement. Main focused Add dialog local B/P/N and global T; global T transfers Focus while Main modal remains,34 REVIEW_PENDING. Focus local modal keys also captured. Dialogs normal/reduced with English/Greek draft text; **OS Greek keyboard layout was not exercised**. Drafts cancelled; no task writes. M7 bottom-edge100/125 compact→expanded→Notes→locate→compact captured normal/reduced on same7471826; reduced begins at already-clamped positions. No canonical/motion PASS inferred.
 
@@ -76,7 +94,7 @@ Final paused compact(-1113,705) on LG125%, Main maximized Ultra100/All Lists wit
 
 **Continuation:** capture-only next distinct unmet path is actual OS Greek input-layout modal shortcuts (current Greek draft text does not prove it), followed by separately owned live work/expiry/break workflow if safely prepared. Review the56 frozen pending cells and supplemental bookmarks later using full recordings/canonical fixtures. Desktop Publish-Narro-Evidence.bat publishes a prepared SHA-verified evidence/tracking packet only; it cannot create missing observations or finalize an unprepared capture. Preserve uncompiled async-worker WIP. Explicitly announce each actual milestone completion and all M1–M9 completion before M10.
 
-## Current — CI953 dual-display capture published; visual review44/100
+## Historical checkpoint — CI953 dual-display capture published; visual review44/100
 
 [Whole9m10s original/MP4, logs/ZIP and chronological actions](../work-log/evidence/m7-ci953-dual-20261005/README.md). Exact38219e20/CI953/EXEbde7646d. Actual Duplicate->Extend restored UltraGear2560x1080/100% primary(0,0) and LG1920x1080/125% secondary(-1920,0); no explicit primary selection. Actual padding drags100→125→100 preserve Focus7471826. Compact/expanded/populated/locate and normal/reduced transitions captured on both displays. Explicit monitor and Left/Right with Timer→Panel re-entry reach native anchors Ultra0/2220 and LG-1920/-425, scoped native geometry PASS. Immediate live relocation after Preferences controls32 is REVIEW_PENDING; direct early probes retain old geometry. No canonical/full-motion PASS inferred.
 
@@ -86,7 +104,7 @@ Owned identities/notes/sessions/time and paused checkpoint timestamp unchanged; 
 
 **Continuation:** analyze the56 registered pending visual/source/motion cells from whole packets/canonical fixtures; all named six capture gaps and this dual path are recorded, so avoid repeating setup without a distinct unmet criterion. Additional physical-only sessions need a named uncovered path and current pre/post M1–M9 dispositions. Preserve separate uncompiled async-worker WIP. Explicitly announce each actual milestone completion and all required M1–M9 complete before M10. Earlier capture sections below are historical checkpoints; this is current continuation authority.
 
-## Current — CI953 six capture gaps closed; visual review44/100
+## Historical checkpoint — CI953 six capture gaps closed; visual review44/100
 
 [Whole18m08.7s OBS recording, full playable MP4,11-file logs/ZIP and timestamps](../work-log/evidence/m7-ci953-gaps-20261005/README.md); [report](../work-log/2026-10-05-codex-m7-ci953-gaps-capture.md). Exact38219e20 / CI953 / artifact11324640580 / EXE bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8. Existing six partial acquisition cells M5-A02/A06, M7-A08, M9-A02/A04/A05 are now captured: actual long-row edit/Save/restore/Cancel; planning keyboard and full normal/reduced hover rail; populated Timer hover sweep; real date Apply/restore; modal-free Break filter; owned manual Add and displayed end-time inline Edit. App source/tests/builds/CI were not changed or run.
 
@@ -100,7 +118,7 @@ OBS stopped. Exact953 PID141908 / Focus7471826 / Main3213706; compact(660,494), 
 
 **Continuation:** analysis chat can review26 original pending cells plus30 appended cells from whole recordings/canonical fixtures. All six listed acquisition gaps are closed; do not repeat covered empty/theme/DPI/C5/populated setups. Additional physical work must name uncovered acceptance: dual topology only when available, quiet performance as a separate protocol. Continue capture-only priority, preserve uncompiled async-worker WIP. Explicitly announce each actual milestone completion and all required M1–M9 complete before M10.
 
-## Current — CI953 theme/100% Save/C5 visual evidence, capture-only phase
+## Historical checkpoint — CI953 theme/100% Save/C5 visual evidence, capture-only phase
 
 [Detailed results and fixed visual x/y](../work-log/2026-10-05-codex-m7-ci953-theme-physical-results.md); [whole originals/clips/43 directly reviewed state images/whole logs](../work-log/evidence/m7-ci953-theme-20261005/README.md). Exact38219e20/CI953/EXEbde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8. Two new whole4480×1080/60fps originals; onlyLGactive, real100/125 restored125/normal/Windowsdark/Narrolight. Six Dark/System-dark/System-light normal/reduced pairs and real100%Main/FocusSave16writes. EST30→31→30/Taken846→906→846; identity/notes/sessions/checkpoint semantic payload/preferences restored. Main72353300→1968730 samePID/Focus11077022; actual retained menus/drags recorded.
 
@@ -112,9 +130,8 @@ User wants **visual review x/y only**, not implementation numbers. Fixed scoped 
 
 <!-- Current2026-10-05: CI953 scoped native results; M1 selected-monitor DPI27 reopened; M7 C4/source07/23 OPEN. Authoritative current matrix: ../work-log/2026-10-05-codex-m7-ci953-physical-results.md. -->
 
-# Audit → implementation crosswalk
 
-## Current — CI953 physical dispositions and new27
+## Historical checkpoint — CI953 physical dispositions and new27
 
 [Exact results and post-campaign matrix](../work-log/2026-10-05-codex-m7-ci953-physical-results.md); [whole evidence](../work-log/evidence/m7-ci953-physical-20261005/README.md). Full CI953 PASS is verified on38219e20; this is the pointer/menu/wrapping candidate, excluding unpushed07 WIP.
 
@@ -130,13 +147,13 @@ User wants **visual review x/y only**, not implementation numbers. Fixed scoped 
 Completed M2–M4 only:3/10M. M7 C1–C3/C5 accepted/C4 OPEN:4/5. No new quiet performance, cable/sleep-wake, dual-monitor, full source parity, new C5 tray/restart or M10 claim. User requires explicit completion announcements; M11 dormant.
 
 
-## Current PR235 revised harness / controlled native loading
+## Historical checkpoint PR235 revised harness / controlled native loading
 
 Exact PR235 source38219e200fe3bec7309f8e03e72003184ca86d08,14 files+324/-129. CI952 failed because its2500ms virtual capture budget could not finish the expanded sequential integration suite; production/domain/fast gates passed. The revised harness grants10000ms only to that scenario. Four revised captures against the unchanged exact CI-built frontend and their DOM validator PASS locally. [CI953/run37258629373](https://github.com/MariosGiannakaras/Narro/actions/runs/37258629373) has passed frontend/Rust/domain/visual stages and is building the Windows candidate; no full-CI/native PASS yet. Normal-motion headless screenshots can sample a partially faded action rail and are not settled opaque-menu/source evidence; reduced/static and earlier real-clock browser evidence remain bounded. [Exact corrective plan](../work-log/2026-10-05-codex-m7-pr235-pointer-overlay-correction.md).
 
 [CI950 loading addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md): real1.8s/4s read-latency exercises show loading feedback and ready title focus, but Escape/Tab remain queued until the database lock releases on Main and Focus.07 remains **FAIL / FIX_NOW** for native read responsiveness; synchronous Home/board commands are the scoped path to investigate/correct. All sampled identities/sessions/time/notes/checkpoint/preferences are unchanged. Whole three originals, four clips,190 reviewed unique crops/12atlases and whole six-file current Narro-M7-Logs/verified ZIP are published. Only LG1920x1080/125% currently active; UltraGear unavailable, no deliberate display change in this session. OBS stopped; PID133416 remains paused. Native24/26/23/20 and whole source gates stay open. **4/10M ||4/5 |14/19**; M10 blocked/M11 dormant.
 
-## Current CI950 native disposition — 2026-10-05
+## Historical checkpoint CI950 native disposition — 2026-10-05
 
 [Full results, exact source and post-session M1–M9 matrix](../work-log/2026-10-05-codex-m7-ci950-physical-results.md). These current scoped dispositions supersede older open labels without rewriting historical evidence.
 
@@ -292,7 +309,7 @@ Every material Pass-3 video finding, canonical screenshot family, calibrated vis
 - no source ambiguity promoted to confirmed behavior;
 - no `SOURCE_PARITY_PASS` inferred from Narro-owned screenshots or Windows-only physical PASS.
 
-## Current CI948 reconciliation — 2026-10-04
+## Historical checkpoint CI948 reconciliation — 2026-10-04
 
 [Exact physical/source results](../work-log/2026-10-04-codex-m7-ci948-physical-results.md), complete pre/post M1–M9 inventory and whole media.18 PHYSICAL_PASS;19 CRUD scope PASS / lane Move OPEN;20 normal125% PASS / reduced edit OPEN;21 PARTIAL_OPEN;09 wrapped tooltip scoped PASS;C5 formal PASS. Old candidates below retain their original verdicts. M10 blocked.
 
