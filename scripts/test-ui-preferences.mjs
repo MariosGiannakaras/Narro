@@ -91,8 +91,9 @@ for (const needle of [
   invariant(api.includes(needle), `renderer Preferences API is missing ${needle}`);
 }
 invariant(
-  api.includes("parsePersistedMonitorIdentity")
-    && api.includes("monitorMatchesSelectionKey")
+  api.includes("parsePersistedMonitorName")
+    && api.includes("const compatible = monitors.filter")
+    && api.includes("compatible.length === 1")
     && api.includes("findSelectedMonitor"),
   "monitor selection must preserve physical-display identity across DPI/work-area descriptor changes",
 );
