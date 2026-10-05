@@ -10,7 +10,10 @@ An optional **Milestone 11 — Live Blitzit Reference Audit** now exists as a do
 - General continuation language, completion of M10, or availability of a Blitzit trial/account does not count as authorization.
 - While dormant/skipped, M11 is non-blocking and the roadmap denominator remains 10; validated M10 proceeds directly to the required Final Comprehensive Review.
 - If explicitly activated, the denominator becomes 11 from the recorded activation point, M11 starts from a validated M10 source SHA, and Final Review waits for the post-M11 validated candidate.
-- The audit is targeted at live-source evidence gaps not recoverable from the existing 19/19 video + 46/46 screenshot + 8/8 calibrated-family corpus. New live findings must be provenance-recorded and reconciled before Narro implementation changes.
+- The audit is targeted at live-source evidence gaps not recoverable from the existing 19/19 video + 46/46 screenshot + 8/8 calibrated-family corpus.
+- If activated, M11 follows a strict capture-first sequence: plan -> continuous synchronized visual + observable protocol/state capture -> corpus freeze/integrity inventory -> full-corpus analysis -> reconciliation/remediation plan -> Narro corrections -> revalidation.
+- During the capture campaign there is an analysis/remediation embargo: findings may receive neutral timestamps/action labels, but no parity disposition, crosswalk conclusion or Narro source/config/test change is allowed until the planned corpus is complete and frozen.
+- Observable backend work means the client-visible contract from ordinary authorized use (requests/events/state/local persistence/process effects where legitimately observable), not private server-source recovery. Sensitive raw captures remain local; repository evidence is sanitized/redacted.
 - Binding protocol: `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
 
 No M11 checklist item, validation count or milestone counter is advanced by defining this dormant option.
