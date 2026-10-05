@@ -1,0 +1,32 @@
+from pathlib import Path
+import json, subprocess, hashlib
+from PIL import Image, ImageDraw
+root=Path(r'E:\SystemFiles\Desktop\NarroUpload')
+run=root/'artifacts/m7-ci950-loading-addendum-20261005'
+ffmpeg=root/'artifacts/ui-validation-tools/ffmpeg-portable/ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe'
+video=root/'artifacts/m7-pr234-native-20261005/video/2026-10-05 06-16-58.mkv'
+cases=[('main-escape',22.8,3.0,(560,425,1360,685)),('main-ready-retained-focus',39.8,3.5,(540,240,1380,830)),('focus-escape',130.4,3.5,(1495,160,1920,750)),('focus-ready-title',367.6,4.0,(1495,160,1920,750))]
+result=[]
+for name,start,duration,bounds in cases:
+    frames=run/'review'/name;frames.mkdir(parents=True,exist_ok=True)
+    subprocess.run([str(ffmpeg),'-hide_banner','-loglevel','error','-ss',str(start),'-i',str(video),'-t',str(duration),'-vf',f'crop={bounds[2]-bounds[0]}:{bounds[3]-bounds[1]}:{bounds[0]}:{bounds[1]}','-fps_mode','passthrough',str(frames/'frame-%04d.png')],check=True)
+    seen={};unique=[]
+    for index,path in enumerate(sorted(frames.glob('frame-*.png'))):
+        im=Image.open(path).convert('RGB');digest=hashlib.sha256(im.tobytes()).hexdigest()
+        if digest not in seen:
+            seen[digest]=len(unique);unique.append(dict(path=path,firstFrame=index,lastFrame=index,count=1))
+        else:
+            entry=unique[seen[digest]];entry['lastFrame']=index;entry['count']+=1
+    atlases=[]
+    for page in range(0,len(unique),20):
+        subset=unique[page:page+20];cell_w=420;cell_h=round((bounds[3]-bounds[1])*cell_w/(bounds[2]-bounds[0]))+24
+        atlas=Image.new('RGB',(cell_w*4,cell_h*5),'#303030');draw=ImageDraw.Draw(atlas)
+        for cell,entry in enumerate(subset):
+            im=Image.open(entry['path']);im.thumbnail((cell_w,cell_h-24));x=(cell%4)*cell_w;y=(cell//4)*cell_h
+            atlas.paste(im,(x,y+24));draw.text((x+3,y+3),f"#{page+cell} PTS {start+entry['firstFrame']/60:.3f}-{start+entry['lastFrame']/60:.3f}",fill='white')
+        dest=run/'review'/f'{name}-atlas-{page//20+1}.jpg';atlas.save(dest,quality=92);atlases.append(str(dest.relative_to(run)))
+    clip=run/f'{name}.mp4'
+    subprocess.run([str(ffmpeg),'-hide_banner','-loglevel','error','-ss',str(max(0,start-.5)),'-i',str(video),'-t',str(duration+1),'-vf','crop=1920:1080:0:0','-c:v','libx264','-preset','fast','-crf','18','-an',str(clip)],check=True)
+    result.append(dict(name=name,ptsStart=start,duration=duration,crop=bounds,decodedFrames=len(list(frames.glob('frame-*.png'))),uniqueCrops=len(unique),atlases=atlases,unique=[dict(path=str(e['path'].relative_to(run)),firstFrame=e['firstFrame'],lastFrame=e['lastFrame'],count=e['count']) for e in unique]))
+(run/'review/index.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+print(json.dumps([{k:v for k,v in r.items() if k!='unique'} for r in result]))

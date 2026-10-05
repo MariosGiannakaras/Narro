@@ -1,6 +1,6 @@
 # PR235 — one scoped drag/overlay correction batch
 
-Exact source **d80978b8de54e280b191860fdf94905e447712c5**, [PR235](https://github.com/MariosGiannakaras/Narro/pull/235),13 source/test files **+323/-128**. [Full Windows CI952/run37257315398](https://github.com/MariosGiannakaras/Narro/actions/runs/37257315398) is running; no Windows/native PASS yet. Historical [CI950 whole evidence](evidence/m7-ci950-20261005/README.md) remains immutable. Current production process133416 is still paused/alive; OBS stopped.
+Current exact source **38219e200fe3bec7309f8e03e72003184ca86d08**, [PR235](https://github.com/MariosGiannakaras/Narro/pull/235),14 source/test/harness files **+324/-129**. CI952/run37257315398 failed solely at the expanded integration capture readiness budget; revised [CI953/run37258629373](https://github.com/MariosGiannakaras/Narro/actions/runs/37258629373) has passed that stage and is building; no Windows/native PASS yet. Historical [CI950 whole evidence](evidence/m7-ci950-20261005/README.md) remains immutable. Current production process133416 is still paused/alive; OBS stopped.
 
 ## Evidence and scoped composition decision
 
@@ -22,7 +22,7 @@ The new rendered menu-occlusion assertion reproduced native failure at(776.594,2
 
 ## Next exact-build physical matrix
 
-Refresh current TODO/HANDOFF/crosswalk and the actual process/display inventory before inputs and after capture. Verify the CI952 artifact digest/EXE SHA256/source identity before launch. Ordinary version changes use targeted command/automation; a new C5 tray-Quit campaign is not implied or required by this unchanged Focus lifecycle.
+Refresh current TODO/HANDOFF/crosswalk and the actual process/display inventory before inputs and after capture. Verify the final exact candidate artifact digest/EXE SHA256/source identity before launch. Ordinary version changes use targeted command/automation; a new C5 tray-Quit campaign is not implied or required by this unchanged Focus lifecycle.
 
 |Milestone / affected gate|Planned exercise and adequate evidence|Preserved limit|
 |---|---|---|
@@ -36,3 +36,11 @@ Refresh current TODO/HANDOFF/crosswalk and the actual process/display inventory 
 |M9|Reuse only if a relevant already-implemented report is actually exercised/compared.|Overview PDF and source acceptance stay open.|
 
 Current **4/10M ||4/5 |14/19**. M10 hard entry remains blocked; optional M11 dormant. Tell the user explicitly when all required M1–M9 implementation/acceptance gates are complete before entering M10.
+
+## Revised harness and native loading diagnosis
+
+Exact PR235 source38219e200fe3bec7309f8e03e72003184ca86d08,14 files+324/-129. CI952 failed because its2500ms virtual capture budget could not finish the expanded sequential integration suite; production/domain/fast gates passed. The revised harness grants10000ms only to that scenario. Four revised captures against the unchanged exact CI-built frontend and their DOM validator PASS locally. [CI953/run37258629373](https://github.com/MariosGiannakaras/Narro/actions/runs/37258629373) has passed frontend/Rust/domain/visual stages and is building the Windows candidate; no full-CI/native PASS yet. Normal-motion headless screenshots can sample a partially faded action rail and are not settled opaque-menu/source evidence; reduced/static and earlier real-clock browser evidence remain bounded. [Exact corrective plan](2026-10-05-codex-m7-pr235-pointer-overlay-correction.md).
+
+[CI950 loading addendum](evidence/m7-ci950-loading-20261005/README.md): real1.8s/4s read-latency exercises show loading feedback and ready title focus, but Escape/Tab remain queued until the database lock releases on Main and Focus.07 remains **FAIL / FIX_NOW** for native read responsiveness; synchronous Home/board commands are the scoped path to investigate/correct. All sampled identities/sessions/time/notes/checkpoint/preferences are unchanged. Whole three originals, four clips,190 reviewed unique crops/12atlases and whole six-file current Narro-M7-Logs/verified ZIP are published. Only LG1920x1080/125% currently active; UltraGear unavailable, no deliberate display change in this session. OBS stopped; PID133416 remains paused. Native24/26/23/20 and whole source gates stay open. **4/10M ||4/5 |14/19**; M10 blocked/M11 dormant.
+
+Keep production source unchanged while CI953 completes and affected pointer/menu acceptance is exercised. Then batch the known07 native-read correction with any substantiated remaining affected failures; do not declare07 PASS or start unrelated forward work.

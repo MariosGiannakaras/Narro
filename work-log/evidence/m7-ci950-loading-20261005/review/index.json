@@ -1,0 +1,1222 @@
+[
+  {
+    "name": "main-escape",
+    "ptsStart": 22.8,
+    "duration": 3.0,
+    "crop": [
+      560,
+      425,
+      1360,
+      685
+    ],
+    "decodedFrames": 180,
+    "uniqueCrops": 27,
+    "atlases": [
+      "review\\main-escape-atlas-1.jpg",
+      "review\\main-escape-atlas-2.jpg"
+    ],
+    "unique": [
+      {
+        "path": "review\\main-escape\\frame-0001.png",
+        "firstFrame": 0,
+        "lastFrame": 27,
+        "count": 28
+      },
+      {
+        "path": "review\\main-escape\\frame-0029.png",
+        "firstFrame": 28,
+        "lastFrame": 29,
+        "count": 2
+      },
+      {
+        "path": "review\\main-escape\\frame-0031.png",
+        "firstFrame": 30,
+        "lastFrame": 30,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0032.png",
+        "firstFrame": 31,
+        "lastFrame": 31,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0033.png",
+        "firstFrame": 32,
+        "lastFrame": 32,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0034.png",
+        "firstFrame": 33,
+        "lastFrame": 33,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0035.png",
+        "firstFrame": 34,
+        "lastFrame": 37,
+        "count": 4
+      },
+      {
+        "path": "review\\main-escape\\frame-0039.png",
+        "firstFrame": 38,
+        "lastFrame": 131,
+        "count": 94
+      },
+      {
+        "path": "review\\main-escape\\frame-0133.png",
+        "firstFrame": 132,
+        "lastFrame": 132,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0134.png",
+        "firstFrame": 133,
+        "lastFrame": 133,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0135.png",
+        "firstFrame": 134,
+        "lastFrame": 134,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0136.png",
+        "firstFrame": 135,
+        "lastFrame": 135,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0137.png",
+        "firstFrame": 136,
+        "lastFrame": 137,
+        "count": 2
+      },
+      {
+        "path": "review\\main-escape\\frame-0139.png",
+        "firstFrame": 138,
+        "lastFrame": 138,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0140.png",
+        "firstFrame": 139,
+        "lastFrame": 139,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0141.png",
+        "firstFrame": 140,
+        "lastFrame": 140,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0142.png",
+        "firstFrame": 141,
+        "lastFrame": 141,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0143.png",
+        "firstFrame": 142,
+        "lastFrame": 142,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0144.png",
+        "firstFrame": 143,
+        "lastFrame": 143,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0145.png",
+        "firstFrame": 144,
+        "lastFrame": 144,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0146.png",
+        "firstFrame": 145,
+        "lastFrame": 145,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0147.png",
+        "firstFrame": 146,
+        "lastFrame": 146,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0148.png",
+        "firstFrame": 147,
+        "lastFrame": 147,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0149.png",
+        "firstFrame": 148,
+        "lastFrame": 148,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0150.png",
+        "firstFrame": 149,
+        "lastFrame": 149,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0151.png",
+        "firstFrame": 150,
+        "lastFrame": 150,
+        "count": 1
+      },
+      {
+        "path": "review\\main-escape\\frame-0152.png",
+        "firstFrame": 151,
+        "lastFrame": 179,
+        "count": 29
+      }
+    ]
+  },
+  {
+    "name": "main-ready-retained-focus",
+    "ptsStart": 39.8,
+    "duration": 3.5,
+    "crop": [
+      540,
+      240,
+      1380,
+      830
+    ],
+    "decodedFrames": 210,
+    "uniqueCrops": 48,
+    "atlases": [
+      "review\\main-ready-retained-focus-atlas-1.jpg",
+      "review\\main-ready-retained-focus-atlas-2.jpg",
+      "review\\main-ready-retained-focus-atlas-3.jpg"
+    ],
+    "unique": [
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0001.png",
+        "firstFrame": 0,
+        "lastFrame": 25,
+        "count": 26
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0027.png",
+        "firstFrame": 26,
+        "lastFrame": 26,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0028.png",
+        "firstFrame": 27,
+        "lastFrame": 27,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0029.png",
+        "firstFrame": 28,
+        "lastFrame": 28,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0030.png",
+        "firstFrame": 29,
+        "lastFrame": 29,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0031.png",
+        "firstFrame": 30,
+        "lastFrame": 30,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0032.png",
+        "firstFrame": 31,
+        "lastFrame": 31,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0033.png",
+        "firstFrame": 32,
+        "lastFrame": 32,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0034.png",
+        "firstFrame": 33,
+        "lastFrame": 33,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0035.png",
+        "firstFrame": 34,
+        "lastFrame": 34,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0036.png",
+        "firstFrame": 35,
+        "lastFrame": 35,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0037.png",
+        "firstFrame": 36,
+        "lastFrame": 36,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0038.png",
+        "firstFrame": 37,
+        "lastFrame": 37,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0039.png",
+        "firstFrame": 38,
+        "lastFrame": 38,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0040.png",
+        "firstFrame": 39,
+        "lastFrame": 39,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0041.png",
+        "firstFrame": 40,
+        "lastFrame": 40,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0042.png",
+        "firstFrame": 41,
+        "lastFrame": 41,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0043.png",
+        "firstFrame": 42,
+        "lastFrame": 106,
+        "count": 9
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0044.png",
+        "firstFrame": 43,
+        "lastFrame": 109,
+        "count": 51
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0047.png",
+        "firstFrame": 46,
+        "lastFrame": 111,
+        "count": 10
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0113.png",
+        "firstFrame": 112,
+        "lastFrame": 112,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0114.png",
+        "firstFrame": 113,
+        "lastFrame": 113,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0115.png",
+        "firstFrame": 114,
+        "lastFrame": 114,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0116.png",
+        "firstFrame": 115,
+        "lastFrame": 115,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0117.png",
+        "firstFrame": 116,
+        "lastFrame": 132,
+        "count": 17
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0134.png",
+        "firstFrame": 133,
+        "lastFrame": 133,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0135.png",
+        "firstFrame": 134,
+        "lastFrame": 134,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0136.png",
+        "firstFrame": 135,
+        "lastFrame": 135,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0137.png",
+        "firstFrame": 136,
+        "lastFrame": 136,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0138.png",
+        "firstFrame": 137,
+        "lastFrame": 137,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0139.png",
+        "firstFrame": 138,
+        "lastFrame": 138,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0140.png",
+        "firstFrame": 139,
+        "lastFrame": 139,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0141.png",
+        "firstFrame": 140,
+        "lastFrame": 140,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0142.png",
+        "firstFrame": 141,
+        "lastFrame": 141,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0143.png",
+        "firstFrame": 142,
+        "lastFrame": 142,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0144.png",
+        "firstFrame": 143,
+        "lastFrame": 143,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0145.png",
+        "firstFrame": 144,
+        "lastFrame": 144,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0146.png",
+        "firstFrame": 145,
+        "lastFrame": 145,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0147.png",
+        "firstFrame": 146,
+        "lastFrame": 146,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0148.png",
+        "firstFrame": 147,
+        "lastFrame": 148,
+        "count": 2
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0150.png",
+        "firstFrame": 149,
+        "lastFrame": 149,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0151.png",
+        "firstFrame": 150,
+        "lastFrame": 150,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0152.png",
+        "firstFrame": 151,
+        "lastFrame": 153,
+        "count": 2
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0153.png",
+        "firstFrame": 152,
+        "lastFrame": 152,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0155.png",
+        "firstFrame": 154,
+        "lastFrame": 154,
+        "count": 1
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0156.png",
+        "firstFrame": 155,
+        "lastFrame": 209,
+        "count": 28
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0157.png",
+        "firstFrame": 156,
+        "lastFrame": 208,
+        "count": 14
+      },
+      {
+        "path": "review\\main-ready-retained-focus\\frame-0159.png",
+        "firstFrame": 158,
+        "lastFrame": 206,
+        "count": 13
+      }
+    ]
+  },
+  {
+    "name": "focus-escape",
+    "ptsStart": 130.4,
+    "duration": 3.5,
+    "crop": [
+      1495,
+      160,
+      1920,
+      750
+    ],
+    "decodedFrames": 210,
+    "uniqueCrops": 44,
+    "atlases": [
+      "review\\focus-escape-atlas-1.jpg",
+      "review\\focus-escape-atlas-2.jpg",
+      "review\\focus-escape-atlas-3.jpg"
+    ],
+    "unique": [
+      {
+        "path": "review\\focus-escape\\frame-0001.png",
+        "firstFrame": 0,
+        "lastFrame": 0,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0002.png",
+        "firstFrame": 1,
+        "lastFrame": 1,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0003.png",
+        "firstFrame": 2,
+        "lastFrame": 2,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0004.png",
+        "firstFrame": 3,
+        "lastFrame": 3,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0005.png",
+        "firstFrame": 4,
+        "lastFrame": 4,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0006.png",
+        "firstFrame": 5,
+        "lastFrame": 5,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0007.png",
+        "firstFrame": 6,
+        "lastFrame": 6,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0008.png",
+        "firstFrame": 7,
+        "lastFrame": 7,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0009.png",
+        "firstFrame": 8,
+        "lastFrame": 8,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0010.png",
+        "firstFrame": 9,
+        "lastFrame": 9,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0011.png",
+        "firstFrame": 10,
+        "lastFrame": 10,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0012.png",
+        "firstFrame": 11,
+        "lastFrame": 19,
+        "count": 9
+      },
+      {
+        "path": "review\\focus-escape\\frame-0021.png",
+        "firstFrame": 20,
+        "lastFrame": 23,
+        "count": 4
+      },
+      {
+        "path": "review\\focus-escape\\frame-0025.png",
+        "firstFrame": 24,
+        "lastFrame": 28,
+        "count": 5
+      },
+      {
+        "path": "review\\focus-escape\\frame-0030.png",
+        "firstFrame": 29,
+        "lastFrame": 29,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0031.png",
+        "firstFrame": 30,
+        "lastFrame": 30,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0032.png",
+        "firstFrame": 31,
+        "lastFrame": 31,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0033.png",
+        "firstFrame": 32,
+        "lastFrame": 32,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0034.png",
+        "firstFrame": 33,
+        "lastFrame": 33,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0035.png",
+        "firstFrame": 34,
+        "lastFrame": 34,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0036.png",
+        "firstFrame": 35,
+        "lastFrame": 135,
+        "count": 101
+      },
+      {
+        "path": "review\\focus-escape\\frame-0137.png",
+        "firstFrame": 136,
+        "lastFrame": 136,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0138.png",
+        "firstFrame": 137,
+        "lastFrame": 137,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0139.png",
+        "firstFrame": 138,
+        "lastFrame": 138,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0140.png",
+        "firstFrame": 139,
+        "lastFrame": 140,
+        "count": 2
+      },
+      {
+        "path": "review\\focus-escape\\frame-0142.png",
+        "firstFrame": 141,
+        "lastFrame": 141,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0143.png",
+        "firstFrame": 142,
+        "lastFrame": 142,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0144.png",
+        "firstFrame": 143,
+        "lastFrame": 143,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0145.png",
+        "firstFrame": 144,
+        "lastFrame": 144,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0146.png",
+        "firstFrame": 145,
+        "lastFrame": 145,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0147.png",
+        "firstFrame": 146,
+        "lastFrame": 146,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0148.png",
+        "firstFrame": 147,
+        "lastFrame": 147,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0149.png",
+        "firstFrame": 148,
+        "lastFrame": 148,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0150.png",
+        "firstFrame": 149,
+        "lastFrame": 149,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0151.png",
+        "firstFrame": 150,
+        "lastFrame": 175,
+        "count": 26
+      },
+      {
+        "path": "review\\focus-escape\\frame-0177.png",
+        "firstFrame": 176,
+        "lastFrame": 176,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0178.png",
+        "firstFrame": 177,
+        "lastFrame": 177,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0179.png",
+        "firstFrame": 178,
+        "lastFrame": 178,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0180.png",
+        "firstFrame": 179,
+        "lastFrame": 179,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0181.png",
+        "firstFrame": 180,
+        "lastFrame": 188,
+        "count": 9
+      },
+      {
+        "path": "review\\focus-escape\\frame-0190.png",
+        "firstFrame": 189,
+        "lastFrame": 189,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0191.png",
+        "firstFrame": 190,
+        "lastFrame": 190,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0192.png",
+        "firstFrame": 191,
+        "lastFrame": 191,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-escape\\frame-0193.png",
+        "firstFrame": 192,
+        "lastFrame": 209,
+        "count": 18
+      }
+    ]
+  },
+  {
+    "name": "focus-ready-title",
+    "ptsStart": 367.6,
+    "duration": 4.0,
+    "crop": [
+      1495,
+      160,
+      1920,
+      750
+    ],
+    "decodedFrames": 240,
+    "uniqueCrops": 71,
+    "atlases": [
+      "review\\focus-ready-title-atlas-1.jpg",
+      "review\\focus-ready-title-atlas-2.jpg",
+      "review\\focus-ready-title-atlas-3.jpg",
+      "review\\focus-ready-title-atlas-4.jpg"
+    ],
+    "unique": [
+      {
+        "path": "review\\focus-ready-title\\frame-0001.png",
+        "firstFrame": 0,
+        "lastFrame": 20,
+        "count": 21
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0022.png",
+        "firstFrame": 21,
+        "lastFrame": 27,
+        "count": 7
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0029.png",
+        "firstFrame": 28,
+        "lastFrame": 28,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0030.png",
+        "firstFrame": 29,
+        "lastFrame": 29,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0031.png",
+        "firstFrame": 30,
+        "lastFrame": 30,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0032.png",
+        "firstFrame": 31,
+        "lastFrame": 31,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0033.png",
+        "firstFrame": 32,
+        "lastFrame": 32,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0034.png",
+        "firstFrame": 33,
+        "lastFrame": 33,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0035.png",
+        "firstFrame": 34,
+        "lastFrame": 34,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0036.png",
+        "firstFrame": 35,
+        "lastFrame": 35,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0037.png",
+        "firstFrame": 36,
+        "lastFrame": 132,
+        "count": 97
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0134.png",
+        "firstFrame": 133,
+        "lastFrame": 134,
+        "count": 2
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0136.png",
+        "firstFrame": 135,
+        "lastFrame": 135,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0137.png",
+        "firstFrame": 136,
+        "lastFrame": 136,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0138.png",
+        "firstFrame": 137,
+        "lastFrame": 137,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0139.png",
+        "firstFrame": 138,
+        "lastFrame": 138,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0140.png",
+        "firstFrame": 139,
+        "lastFrame": 139,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0141.png",
+        "firstFrame": 140,
+        "lastFrame": 140,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0142.png",
+        "firstFrame": 141,
+        "lastFrame": 141,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0143.png",
+        "firstFrame": 142,
+        "lastFrame": 142,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0144.png",
+        "firstFrame": 143,
+        "lastFrame": 143,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0145.png",
+        "firstFrame": 144,
+        "lastFrame": 144,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0146.png",
+        "firstFrame": 145,
+        "lastFrame": 145,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0147.png",
+        "firstFrame": 146,
+        "lastFrame": 146,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0148.png",
+        "firstFrame": 147,
+        "lastFrame": 147,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0149.png",
+        "firstFrame": 148,
+        "lastFrame": 148,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0150.png",
+        "firstFrame": 149,
+        "lastFrame": 149,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0151.png",
+        "firstFrame": 150,
+        "lastFrame": 170,
+        "count": 21
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0172.png",
+        "firstFrame": 171,
+        "lastFrame": 171,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0173.png",
+        "firstFrame": 172,
+        "lastFrame": 172,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0174.png",
+        "firstFrame": 173,
+        "lastFrame": 173,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0175.png",
+        "firstFrame": 174,
+        "lastFrame": 193,
+        "count": 20
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0195.png",
+        "firstFrame": 194,
+        "lastFrame": 194,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0196.png",
+        "firstFrame": 195,
+        "lastFrame": 195,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0197.png",
+        "firstFrame": 196,
+        "lastFrame": 196,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0198.png",
+        "firstFrame": 197,
+        "lastFrame": 197,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0199.png",
+        "firstFrame": 198,
+        "lastFrame": 198,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0200.png",
+        "firstFrame": 199,
+        "lastFrame": 199,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0201.png",
+        "firstFrame": 200,
+        "lastFrame": 200,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0202.png",
+        "firstFrame": 201,
+        "lastFrame": 201,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0203.png",
+        "firstFrame": 202,
+        "lastFrame": 202,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0204.png",
+        "firstFrame": 203,
+        "lastFrame": 203,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0205.png",
+        "firstFrame": 204,
+        "lastFrame": 204,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0206.png",
+        "firstFrame": 205,
+        "lastFrame": 205,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0207.png",
+        "firstFrame": 206,
+        "lastFrame": 206,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0208.png",
+        "firstFrame": 207,
+        "lastFrame": 207,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0209.png",
+        "firstFrame": 208,
+        "lastFrame": 208,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0210.png",
+        "firstFrame": 209,
+        "lastFrame": 211,
+        "count": 2
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0211.png",
+        "firstFrame": 210,
+        "lastFrame": 210,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0213.png",
+        "firstFrame": 212,
+        "lastFrame": 212,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0214.png",
+        "firstFrame": 213,
+        "lastFrame": 213,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0215.png",
+        "firstFrame": 214,
+        "lastFrame": 214,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0216.png",
+        "firstFrame": 215,
+        "lastFrame": 215,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0217.png",
+        "firstFrame": 216,
+        "lastFrame": 216,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0218.png",
+        "firstFrame": 217,
+        "lastFrame": 217,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0219.png",
+        "firstFrame": 218,
+        "lastFrame": 218,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0220.png",
+        "firstFrame": 219,
+        "lastFrame": 219,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0221.png",
+        "firstFrame": 220,
+        "lastFrame": 220,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0222.png",
+        "firstFrame": 221,
+        "lastFrame": 221,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0223.png",
+        "firstFrame": 222,
+        "lastFrame": 222,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0224.png",
+        "firstFrame": 223,
+        "lastFrame": 225,
+        "count": 2
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0225.png",
+        "firstFrame": 224,
+        "lastFrame": 224,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0227.png",
+        "firstFrame": 226,
+        "lastFrame": 226,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0228.png",
+        "firstFrame": 227,
+        "lastFrame": 229,
+        "count": 2
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0229.png",
+        "firstFrame": 228,
+        "lastFrame": 228,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0231.png",
+        "firstFrame": 230,
+        "lastFrame": 230,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0232.png",
+        "firstFrame": 231,
+        "lastFrame": 231,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0233.png",
+        "firstFrame": 232,
+        "lastFrame": 232,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0234.png",
+        "firstFrame": 233,
+        "lastFrame": 233,
+        "count": 1
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0235.png",
+        "firstFrame": 234,
+        "lastFrame": 238,
+        "count": 3
+      },
+      {
+        "path": "review\\focus-ready-title\\frame-0236.png",
+        "firstFrame": 235,
+        "lastFrame": 239,
+        "count": 3
+      }
+    ]
+  }
+]

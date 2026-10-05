@@ -2,7 +2,13 @@
 
 Status: current executable closure controller for Milestone 7.
 
-## Current CI950 closure overlay
+## Current PR235 / native-read responsiveness overlay
+
+Exact PR235 source38219e200fe3bec7309f8e03e72003184ca86d08,14 files+324/-129. CI952 failed because its2500ms virtual capture budget could not finish the expanded sequential integration suite; production/domain/fast gates passed. The revised harness grants10000ms only to that scenario. Four revised captures against the unchanged exact CI-built frontend and their DOM validator PASS locally. [CI953/run37258629373](https://github.com/MariosGiannakaras/Narro/actions/runs/37258629373) has passed frontend/Rust/domain/visual stages and is building the Windows candidate; no full-CI/native PASS yet. Normal-motion headless screenshots can sample a partially faded action rail and are not settled opaque-menu/source evidence; reduced/static and earlier real-clock browser evidence remain bounded. [Exact corrective plan](../work-log/2026-10-05-codex-m7-pr235-pointer-overlay-correction.md).
+
+[CI950 loading addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md): real1.8s/4s read-latency exercises show loading feedback and ready title focus, but Escape/Tab remain queued until the database lock releases on Main and Focus.07 remains **FAIL / FIX_NOW** for native read responsiveness; synchronous Home/board commands are the scoped path to investigate/correct. All sampled identities/sessions/time/notes/checkpoint/preferences are unchanged. Whole three originals, four clips,190 reviewed unique crops/12atlases and whole six-file current Narro-M7-Logs/verified ZIP are published. Only LG1920x1080/125% currently active; UltraGear unavailable, no deliberate display change in this session. OBS stopped; PID133416 remains paused. Native24/26/23/20 and whole source gates stay open. **4/10M ||4/5 |14/19**; M10 blocked/M11 dormant.
+
+## Earlier CI950 closure overlay
 
 Exact source704763e2 / CI950 / EXEc9189a75 has now been physically exercised. Actual lane Move and stable identity/time ledgers close writer19 and re-close M2; M1–M4 are complete. Catalog22 refresh/recovery is scoped PASS. Long-queue vertical/end/last-menu/Tab access passes at100%/125%; horizontal/unbroken-title bounds remain open. Native internal drag24 fails with both confirmed-padding legacy and verified SendInput inputs. Retained menu25 functions, but disabled metadata paints above it: new26 FAIL/FIX_NOW. Compare scoped Pointer Events internal drag against HTML5/OLE, correct menu stacking and add meaningful rendered regressions before one consolidated validation/build. [Exact results, evidence and alternatives](../work-log/2026-10-05-codex-m7-ci950-physical-results.md). C1–C3/C5 remain accepted; C4 OPEN. **4/10M ||4/5 |14/19**; M10 blocked; optional M11 dormant.
 

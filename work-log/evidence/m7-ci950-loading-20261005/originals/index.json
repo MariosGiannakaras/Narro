@@ -1,0 +1,17 @@
+[
+  {
+    "path": "originals/2026-10-05 06-16-58.mkv",
+    "bytes": 9448682,
+    "sha256": "44d6f9064b73675b7453303ddd10565f2534404a8834675efbbce61a61ef743e"
+  },
+  {
+    "path": "originals/2026-10-05 06-28-21.mkv",
+    "bytes": 410280,
+    "sha256": "b61b588501ee954959a710da62a0328ba73538407b4bc0a9dff5fa1ba9179941"
+  },
+  {
+    "path": "originals/2026-10-05 06-29-21.mkv",
+    "bytes": 653735,
+    "sha256": "4185163eced01c004e8f31b31a016594d24890af0e3cdc73b2ef48d6508ab284"
+  }
+]

@@ -1,0 +1,1192 @@
+[
+  {
+    "path": ".gitattributes",
+    "bytes": 9,
+    "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992"
+  },
+  {
+    "path": "actions-reconciled.jsonl",
+    "bytes": 16139,
+    "sha256": "2ac004aa620aa3b7a474b6c865a347093672fd252923ef7d17e7db97e10ebc4c"
+  },
+  {
+    "path": "first-escape-recording.png",
+    "bytes": 223519,
+    "sha256": "9745e38649424d87257dad2ad5aa51c744601517126ace576808a6e3dee25099"
+  },
+  {
+    "path": "focus-4s-delay-before-unlock.png",
+    "bytes": 65589,
+    "sha256": "09e3c3301d16bdcb0c05a6b99329434cabbd60e4ccac8bd58de8981109673d5b"
+  },
+  {
+    "path": "focus-escape.mp4",
+    "bytes": 258779,
+    "sha256": "93b7c14ebcbc03c969822d05f8bffce5b5c1be070f1a9fe5ebd5872481451dfc"
+  },
+  {
+    "path": "focus-ready-title.mp4",
+    "bytes": 187826,
+    "sha256": "c83701605d21547be14c7f7bc9d90e0c0b91fced44d33a3c6b6f0b6592b45395"
+  },
+  {
+    "path": "inventory/AUDIT_IMPLEMENTATION_CROSSWALK.md",
+    "bytes": 68185,
+    "sha256": "88fc62bb82baebecbc12ea3f8194c670143953926a21311429ff12a6f0c80fda"
+  },
+  {
+    "path": "inventory/display-modes-after.json",
+    "bytes": 5901,
+    "sha256": "9ed5c806328faad7cc0a4730ec946a0faf506796e9424891b2dbcc3acfafa1e6"
+  },
+  {
+    "path": "inventory/HANDOFF.md",
+    "bytes": 7776,
+    "sha256": "457674ca63665b687b1079f3ab9de6a058728a9e0e9420d91fddb05bd59d64f7"
+  },
+  {
+    "path": "inventory/ledger-after.json",
+    "bytes": 11873,
+    "sha256": "abcdddd78231a0167ff62bbe8e4386c2dc0e3ffbac6fcf6bafd3d84b86ed01d4"
+  },
+  {
+    "path": "inventory/ledger-before.json",
+    "bytes": 11873,
+    "sha256": "ebc5532edab30b79dd2424080951d73566936fb71a04a69def3a86c261914f65"
+  },
+  {
+    "path": "inventory/ledger-comparison.json",
+    "bytes": 199,
+    "sha256": "30ef40aea76300f7523c28ba9624781da311e468c615976d0d8cd152ca8ef9c9"
+  },
+  {
+    "path": "inventory/TODO.md",
+    "bytes": 122550,
+    "sha256": "e70fcdda7825a8c2907755d3401d42f01ec657369036f801d8824b8ba960f3b1"
+  },
+  {
+    "path": "inventory/topology-after.json",
+    "bytes": 17980,
+    "sha256": "d053459790a2938cc78b8557f2eddc1475017dfebb081fa774a6a229b908a858"
+  },
+  {
+    "path": "log-snapshot.json",
+    "bytes": 302,
+    "sha256": "3fa7adf4a915b7f5b7c1cc8bacabae3c6ef3d43e1251db88d764c4f5c847b33c"
+  },
+  {
+    "path": "main-4s-delay-before-unlock.png",
+    "bytes": 624504,
+    "sha256": "f0af9604497509bcb0f15f82e0f7e5ab6d2eda3df8de3ebada3cbbe5312e217d"
+  },
+  {
+    "path": "main-escape.mp4",
+    "bytes": 172904,
+    "sha256": "56caa7628842a1eca78e2dfe2bb78b773d957d0b7103a50dafe521d6550bb9e3"
+  },
+  {
+    "path": "main-ready-retained-focus.mp4",
+    "bytes": 184734,
+    "sha256": "4b6eb60c396b54bf6ec16f71f1f73545d0444b6f9ad595cd4fb7bbd28a7e227f"
+  },
+  {
+    "path": "Narro-M7-Logs/LATEST.txt",
+    "bytes": 37,
+    "sha256": "b1a5f7a369caad8f5679c05f22828b3b4ae0e783137cf6f2c1ed0e63cf2ae99a"
+  },
+  {
+    "path": "Narro-M7-Logs/m7-c5-latest-result.json",
+    "bytes": 396,
+    "sha256": "55bbeb0b9eda97ae12a127f6f8fdfcbf9c51cc9c71c7305f42dc30732943c39a"
+  },
+  {
+    "path": "Narro-M7-Logs/README.txt",
+    "bytes": 765,
+    "sha256": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-013048.511Z-133416/events.jsonl",
+    "bytes": 38951,
+    "sha256": "1a05c379cb466d908156c0af070b65bf914934fe353d3835bcad35fbbfa4bb17"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-013048.511Z-133416/m7-c5-result.json",
+    "bytes": 396,
+    "sha256": "55bbeb0b9eda97ae12a127f6f8fdfcbf9c51cc9c71c7305f42dc30732943c39a"
+  },
+  {
+    "path": "Narro-M7-Logs/session-20261005-013048.511Z-133416/session.json",
+    "bytes": 490,
+    "sha256": "7a34174496a62eab8fed87f740a0adaa027df2cf33f6ee4ff55554cb5a9de581"
+  },
+  {
+    "path": "Narro-M7-Logs.zip",
+    "bytes": 4166,
+    "sha256": "29143ec95cd920dc7d7a9108aa9cb7ceec5ebe9fc7d5631c77430932a611ea56"
+  },
+  {
+    "path": "observations/focus-final.json",
+    "bytes": 35799,
+    "sha256": "b4a620d84c6d169b0107c4cd62dad92d5c3b3e1d4ad3715c6b6ff112d4d00ebd"
+  },
+  {
+    "path": "observations/focus-ready-no-tab.json",
+    "bytes": 38055,
+    "sha256": "92764852eb807902f10137168b291e2873d458069a4a037902dd4a84aece9996"
+  },
+  {
+    "path": "observations/main-ready.json",
+    "bytes": 31907,
+    "sha256": "390a0799451079dc93040249826cf14bb9d84d8bee9690a9e861bc10a11d2d2b"
+  },
+  {
+    "path": "originals/2026-10-05 06-16-58.mkv",
+    "bytes": 9448682,
+    "sha256": "44d6f9064b73675b7453303ddd10565f2534404a8834675efbbce61a61ef743e"
+  },
+  {
+    "path": "originals/2026-10-05 06-28-21.mkv",
+    "bytes": 410280,
+    "sha256": "b61b588501ee954959a710da62a0328ba73538407b4bc0a9dff5fa1ba9179941"
+  },
+  {
+    "path": "originals/2026-10-05 06-29-21.mkv",
+    "bytes": 653735,
+    "sha256": "4185163eced01c004e8f31b31a016594d24890af0e3cdc73b2ef48d6508ab284"
+  },
+  {
+    "path": "originals/index.json",
+    "bytes": 501,
+    "sha256": "63b7db2b6ceb57723ab63cb13fca730a015af16c4ec6d09eda618b5dff282ce6"
+  },
+  {
+    "path": "README.md",
+    "bytes": 2985,
+    "sha256": "971d9d709d2ca484247b40640c15693ad11b995ecf09a70908d04996f4a0b844"
+  },
+  {
+    "path": "reproduction/observed-create-read-latency.py.txt",
+    "bytes": 3580,
+    "sha256": "b1db6594e00a838662e3fbbf335624f79ce5050630944b8c19c2c07219048c27"
+  },
+  {
+    "path": "reproduction/review-ci950-loading.py.txt",
+    "bytes": 2837,
+    "sha256": "8bf177133a474c5a634ed8e4b9f9fb03a02b1f56d8a2b1a763ae14c79250e23f"
+  },
+  {
+    "path": "review/focus-escape/frame-0001.png",
+    "bytes": 51031,
+    "sha256": "a33d4c5f3f8d0c356edbc5a5b3e7b8ea3def65ed046c8be3530f285984f5d55c"
+  },
+  {
+    "path": "review/focus-escape/frame-0002.png",
+    "bytes": 51621,
+    "sha256": "b0e3f48e43cdcad6537ac828570a321bc62a62886ed7cbbf6c789057c0b9863d"
+  },
+  {
+    "path": "review/focus-escape/frame-0003.png",
+    "bytes": 51573,
+    "sha256": "ac9c8454f00d4ce3c2f3362d6c392d45803c3a70cfad9d9c8f690fdab7e69a84"
+  },
+  {
+    "path": "review/focus-escape/frame-0004.png",
+    "bytes": 51519,
+    "sha256": "24830a6d268899c292830b32c13f6b25f5f1c32aff4c0f05f99668131795baa8"
+  },
+  {
+    "path": "review/focus-escape/frame-0005.png",
+    "bytes": 51492,
+    "sha256": "60260e1687840688c29ecc5749196f879cf692e07d9036cd40eefdf1404d154e"
+  },
+  {
+    "path": "review/focus-escape/frame-0006.png",
+    "bytes": 51533,
+    "sha256": "720f54b01cdf22f1b756f61c7d5e06542ee12a4428e1a9101f99e2e2139f46cd"
+  },
+  {
+    "path": "review/focus-escape/frame-0007.png",
+    "bytes": 51490,
+    "sha256": "f762033fd21df1529238076882a1d04ccbdcea8890500e1cfb487d5ce110413d"
+  },
+  {
+    "path": "review/focus-escape/frame-0008.png",
+    "bytes": 51535,
+    "sha256": "954377aac3dac1b3140242269e836712a22f1ba1d456b26efab8ed488d18e59f"
+  },
+  {
+    "path": "review/focus-escape/frame-0009.png",
+    "bytes": 51506,
+    "sha256": "d7828f9d9a20ae31ed5f54747599d98344566ca0d7a827aa9998ce4240e322ea"
+  },
+  {
+    "path": "review/focus-escape/frame-0010.png",
+    "bytes": 51517,
+    "sha256": "218011a0d89c1c25e2d2676255792d61d193068b043200a7c12c08eef942cd08"
+  },
+  {
+    "path": "review/focus-escape/frame-0011.png",
+    "bytes": 51542,
+    "sha256": "7d1f4426a70e425744a922fa021b97a167f5e81f39d916cd701ab8f96b25571c"
+  },
+  {
+    "path": "review/focus-escape/frame-0012.png",
+    "bytes": 51525,
+    "sha256": "a3d9fca531d5754974077ca6ad15eb5fb127d76013c17960e51b2ed128e3ab39"
+  },
+  {
+    "path": "review/focus-escape/frame-0021.png",
+    "bytes": 51542,
+    "sha256": "b5690baaac8cdd333049dc4d81f01fd9b66e8e53b58da24665d0fa9226f130ca"
+  },
+  {
+    "path": "review/focus-escape/frame-0025.png",
+    "bytes": 51553,
+    "sha256": "77d4f187f2ff5dc73cad1d329edeb6b1307bb096597318f2137263775bb0929a"
+  },
+  {
+    "path": "review/focus-escape/frame-0030.png",
+    "bytes": 42518,
+    "sha256": "c727df299f0a3352569764fa04dfa5f23104dd77ef976eb89e9ef6b511df35ec"
+  },
+  {
+    "path": "review/focus-escape/frame-0031.png",
+    "bytes": 42513,
+    "sha256": "727051d0399862a65b4604607b8b7bf6eaeccf031f2a119b021453b9e140e1c8"
+  },
+  {
+    "path": "review/focus-escape/frame-0032.png",
+    "bytes": 42518,
+    "sha256": "56871d938f486038ef0e7196718e552c6948409f96fd28961b40b3cc0cb223d5"
+  },
+  {
+    "path": "review/focus-escape/frame-0033.png",
+    "bytes": 42516,
+    "sha256": "37700931eb2c4d43ca27b95f0f6a4bbdf6c062cfff06e617ba2886834ef0d11f"
+  },
+  {
+    "path": "review/focus-escape/frame-0034.png",
+    "bytes": 42508,
+    "sha256": "d7bc07b4cc5b068f8371a02f098364add89d928c2e8f6a29d810db905219cd93"
+  },
+  {
+    "path": "review/focus-escape/frame-0035.png",
+    "bytes": 42518,
+    "sha256": "8b9904d93f3f90ae0b13cf03b5f947f0f61602d7ae2042e7dd6a23b2c1209059"
+  },
+  {
+    "path": "review/focus-escape/frame-0036.png",
+    "bytes": 42504,
+    "sha256": "4088c9e538a56433df273113a165e5455f3df882698f8ee6f2ff87fd556c3485"
+  },
+  {
+    "path": "review/focus-escape/frame-0137.png",
+    "bytes": 42562,
+    "sha256": "84aeecee042c8354588d5504ea8530b854f8ae8d1d141ebb6bc74406a45ebf36"
+  },
+  {
+    "path": "review/focus-escape/frame-0138.png",
+    "bytes": 42560,
+    "sha256": "e4e9ac0f9842bfeb6166abb13bbba33e111b3611795cee14b3c771a16167cf24"
+  },
+  {
+    "path": "review/focus-escape/frame-0139.png",
+    "bytes": 43490,
+    "sha256": "9dfbd0dca8940d97b097278a68ef34a6a7cc60083bc8f66b7946d34d44202391"
+  },
+  {
+    "path": "review/focus-escape/frame-0140.png",
+    "bytes": 52940,
+    "sha256": "d5e1466c79dbe8da2a8021d3061de0281b7eea373f2fcc7f6b49e29de753d169"
+  },
+  {
+    "path": "review/focus-escape/frame-0142.png",
+    "bytes": 52912,
+    "sha256": "067c76a9615419d480848eff33fb5ba24097545ae1b754539978201b85ef8788"
+  },
+  {
+    "path": "review/focus-escape/frame-0143.png",
+    "bytes": 52823,
+    "sha256": "59899bbc33b1a2668a50b717618c9da6e6b7bedcfa1d9250821a09bbd65850e1"
+  },
+  {
+    "path": "review/focus-escape/frame-0144.png",
+    "bytes": 52805,
+    "sha256": "da439981fb0e0c15f32a3380fb7d90e4f1b80949c6917c39b39952c52a9cadad"
+  },
+  {
+    "path": "review/focus-escape/frame-0145.png",
+    "bytes": 52835,
+    "sha256": "36cc760073a32ac65cbda8e2fc4d55c62b22a935056c0e21e7f1048971ad3603"
+  },
+  {
+    "path": "review/focus-escape/frame-0146.png",
+    "bytes": 52791,
+    "sha256": "9fcfc5161d71e8809d023bfd55e01ef20b52b25690e3cf4a162826911de68b55"
+  },
+  {
+    "path": "review/focus-escape/frame-0147.png",
+    "bytes": 52876,
+    "sha256": "c2455d24e59c673fe42b7b60a8b681146a15f0cdad8e093706970654d03bdd79"
+  },
+  {
+    "path": "review/focus-escape/frame-0148.png",
+    "bytes": 52861,
+    "sha256": "f5aaa6df28c011d65806abce7efc1ba0cb93da13c2bcc82fb216fe1b7ead9209"
+  },
+  {
+    "path": "review/focus-escape/frame-0149.png",
+    "bytes": 52883,
+    "sha256": "e0539cf732a03511bb8c0cc6a53861aa460f3dadbc88ee684159e29cb44c6f72"
+  },
+  {
+    "path": "review/focus-escape/frame-0150.png",
+    "bytes": 52835,
+    "sha256": "9b7d96c0c474b29075e680eb30658e581f9989cc8d30e8c71b341c8293a05b0c"
+  },
+  {
+    "path": "review/focus-escape/frame-0151.png",
+    "bytes": 52871,
+    "sha256": "b189758da1d2973a894f99a0cf8a2a4bdc70599d085134d13f8000f4bf9e28b2"
+  },
+  {
+    "path": "review/focus-escape/frame-0177.png",
+    "bytes": 49527,
+    "sha256": "6a0363338f20951079cdc1369a6c415bf3151f9a5cb9623bfc8060f857a9fbc9"
+  },
+  {
+    "path": "review/focus-escape/frame-0178.png",
+    "bytes": 49618,
+    "sha256": "eca753762827f239e30eac594d0c8c8f58990c778c6e57b1a5133d226698f662"
+  },
+  {
+    "path": "review/focus-escape/frame-0179.png",
+    "bytes": 49665,
+    "sha256": "8578a6d285839b81872226571b917cc9b4861ff91a3e2fb0e5bc316705f2c44f"
+  },
+  {
+    "path": "review/focus-escape/frame-0180.png",
+    "bytes": 49626,
+    "sha256": "d26dc89ea39735de2bb8319fc040c37edbf003fd7ebebee4bcad2a822060f75a"
+  },
+  {
+    "path": "review/focus-escape/frame-0181.png",
+    "bytes": 49647,
+    "sha256": "3f2fd2a88c2113ff917c425b05bd8e1972c3009899bfb3a4f1df065d5e1bac3a"
+  },
+  {
+    "path": "review/focus-escape/frame-0190.png",
+    "bytes": 49648,
+    "sha256": "6521982534e6b67a493bcc93717e56f55b576a68d6b838580a054ee14ad7fb2a"
+  },
+  {
+    "path": "review/focus-escape/frame-0191.png",
+    "bytes": 49665,
+    "sha256": "eaed940b29cecbbb8814de460ce57b4f4dc5fbde44fe27383c9c4805d3fd86e2"
+  },
+  {
+    "path": "review/focus-escape/frame-0192.png",
+    "bytes": 49668,
+    "sha256": "05ba77a9dc759c0503fc9138082de49282115b62f8b88b40f1f5d0d77c7c1549"
+  },
+  {
+    "path": "review/focus-escape/frame-0193.png",
+    "bytes": 49657,
+    "sha256": "66a28cb5d512be95ecff3d49c75fb333b7d046ef7208f36467301013f2db2e5c"
+  },
+  {
+    "path": "review/focus-escape-atlas-1.jpg",
+    "bytes": 667580,
+    "sha256": "e27dc1478374a82d4c0773f77c63665ba3f397ff5e19c6705da814a3de78991a"
+  },
+  {
+    "path": "review/focus-escape-atlas-2.jpg",
+    "bytes": 689026,
+    "sha256": "79a413f65923c77c87ca4717f601fcd60ffb21909156bf4dc63a41c47eb254c6"
+  },
+  {
+    "path": "review/focus-escape-atlas-3.jpg",
+    "bytes": 202603,
+    "sha256": "5ae3b48f6442b67f811c5f353b593d5f15e2b5a5dcc3e23e3a6055f0bfb9e75c"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0001.png",
+    "bytes": 49657,
+    "sha256": "66a28cb5d512be95ecff3d49c75fb333b7d046ef7208f36467301013f2db2e5c"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0022.png",
+    "bytes": 49658,
+    "sha256": "7c6421a4011cf12bb429981666484693e183f983e8b66e6fbddce025e40c0592"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0029.png",
+    "bytes": 41171,
+    "sha256": "979728e1b2564502c8313e42fac89aecfe6e226d3cda1eaa4db28c3c6a54db9b"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0030.png",
+    "bytes": 42405,
+    "sha256": "7c728d801f84de7974f63a5a41ed2cff6e0315c249040516c3b75a6bbfa0ff84"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0031.png",
+    "bytes": 42425,
+    "sha256": "a7a29aef41dccf07f5b6de1e0d8cd8d35482dda45a9e1fa8698b7369f906c254"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0032.png",
+    "bytes": 42431,
+    "sha256": "c6a7bb260b696268e2f5859b9f5356dbf4f8829bdcff084695d6bd4a080c826b"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0033.png",
+    "bytes": 42387,
+    "sha256": "3899de9b616170fceb6b014201acf968a02b64bba7189867d6363e6836776211"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0034.png",
+    "bytes": 42384,
+    "sha256": "3bb89ec02db3498a84af56408eccc73126f6c0eed1e562b4f1ed6f3f62801c87"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0035.png",
+    "bytes": 42388,
+    "sha256": "cb0d9b373746bcc00b23102e782cfc2c01f038ddaeae70acb2e7b984388d4c19"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0036.png",
+    "bytes": 42380,
+    "sha256": "deb3d6e126ec84a05c677c9b7803737df5d9150566ece558889bb6911dbb116a"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0037.png",
+    "bytes": 42377,
+    "sha256": "2c9afb19713d8b0ee9b9befef5c8b2eda2ab0ec63eb610ab0dc3721ca330ffa5"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0134.png",
+    "bytes": 42419,
+    "sha256": "d5f81800f7f77a129ae32a61bcdc5f88465832f8f4bc1c28948eb31e09d56d34"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0136.png",
+    "bytes": 42423,
+    "sha256": "2573e1f7be5f32a1155249310208609a84a69039499196f8e4e93968ac92f703"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0137.png",
+    "bytes": 42452,
+    "sha256": "3b788319c25d5760efffad3683b4f5fc96c9a1a5890b62a414afb1a193557c3d"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0138.png",
+    "bytes": 42554,
+    "sha256": "d51ff7bc93092191d13ee87981a3ba33f903782929e1b60c1beb1153742ba0f6"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0139.png",
+    "bytes": 44066,
+    "sha256": "1a4f9a5723917b2353d29d2ff2f997536b362763bdd50a7eef3add36e8d038ce"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0140.png",
+    "bytes": 44859,
+    "sha256": "24e14eac6a33e3f97b32eee5bd5bd9a2d5be4dea0178cbc7024acd046d57d784"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0141.png",
+    "bytes": 44883,
+    "sha256": "01071a0ebb231fe4dcc063d603f80a7ef76f7a5e22bed501dd166d048a3214e2"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0142.png",
+    "bytes": 44897,
+    "sha256": "af4b2f45447376159fd2bd0269c7cdcc0da0ca764b6aa13794a8775966b2ffaf"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0143.png",
+    "bytes": 44875,
+    "sha256": "20d8a77c2d4ade04cedec825e280a207255cc7c3bc53ed6e6c5f738c16866b99"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0144.png",
+    "bytes": 44967,
+    "sha256": "58abbfd271f5ead4c25507780e4dfeb04fd06fd64d63d4000ac9609a50d064e6"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0145.png",
+    "bytes": 44986,
+    "sha256": "9b5a6848ba270e3d42a86ce9edf07807403a743fbd0e7ff6d1069ad4f536be36"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0146.png",
+    "bytes": 44978,
+    "sha256": "302aa11e48c5497a7d5f9779b996a9885ac4c4d0152c81df29853951709ea483"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0147.png",
+    "bytes": 44999,
+    "sha256": "936ae26d098b321bc83db7e6bd4c7c3893172dffedfc7ccd955cfc791797f795"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0148.png",
+    "bytes": 44989,
+    "sha256": "4b69cf2f798f11286405453cf0db1e80f01a1cd5edeeb07f78e51d978e7ab1a2"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0149.png",
+    "bytes": 44997,
+    "sha256": "70b3930dd9071e4c697fe9bd4087405b9737c6aaae9ac02a73ec666ae73546bc"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0150.png",
+    "bytes": 44972,
+    "sha256": "367da2c955a1096c84f70656b227f7ac23895714b60fafe15fa36318aa894572"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0151.png",
+    "bytes": 44943,
+    "sha256": "ac3bb1258876f0af664439f1e4340daef91faab1a2222de8fbda66683ac3444e"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0172.png",
+    "bytes": 44831,
+    "sha256": "174165244b17618c92005fcb0be912f15c0b9f0971d7bcc0fcbfd71c199c8853"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0173.png",
+    "bytes": 44839,
+    "sha256": "e1e0fb5824cdc0f29e46c87b62734a1e811aa2c6d9593c70322269f981f411f7"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0174.png",
+    "bytes": 44828,
+    "sha256": "20295a490c229b590b99a1db2e0395797ed7ae31e84e304a64100718e3d47dac"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0175.png",
+    "bytes": 44826,
+    "sha256": "8e562092b7eb7c9518f93b70e983fab9b0466bd0de7966f682b71c5de96d5c3a"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0195.png",
+    "bytes": 41867,
+    "sha256": "ae04e8790aad37d2889aa3f534db13d6b6b827757ce839d173e2e863b846cc50"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0196.png",
+    "bytes": 42051,
+    "sha256": "4b07330646b2869498d47e02bb823b3c2163c2d5492556817d989263f141f611"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0197.png",
+    "bytes": 42038,
+    "sha256": "ea7d071c50cc935453283f7fc35eb313f1e977aa2dcb9efb13c4bd8e87c53d17"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0198.png",
+    "bytes": 42195,
+    "sha256": "814bb857ae5f85e1660c612ab45d47157ab8035592fd00e08fecb95dac2d84f9"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0199.png",
+    "bytes": 42127,
+    "sha256": "c2c83eb7643540fc37ab215cf0ae16cac2849783ec1b152b444d9d0bb27beda5"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0200.png",
+    "bytes": 42192,
+    "sha256": "d952f6ce050f71dab0f97a42901453024b98850655189853bcefc9d865faab0d"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0201.png",
+    "bytes": 42136,
+    "sha256": "bdbd7b13b288abfc03aaef8a4bea7859cc7fcbd91ec0f3d2804c2c33cbf2bfa2"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0202.png",
+    "bytes": 42209,
+    "sha256": "ef31645883a2e1d435a39103e89c0c5bb89b81d778f7e2777ed11b0fd618c0d5"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0203.png",
+    "bytes": 42094,
+    "sha256": "3788dd07af7b574c4f25ecb3f50929c79781edf3f8ea3884539dd45110962f24"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0204.png",
+    "bytes": 42323,
+    "sha256": "bd46222fbab7818ceb0204eec928fc5c7f3944bbd20379e5861b14c86b6ba63c"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0205.png",
+    "bytes": 42252,
+    "sha256": "a587749295e3b4d38095f94d802091046917910ae00bd7c8b0851c4914d57c3c"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0206.png",
+    "bytes": 42317,
+    "sha256": "6537e4533ebab14cb690292c466e74375ffbd690699a8ec52cb8754180c9d82a"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0207.png",
+    "bytes": 42203,
+    "sha256": "d232c18223c64f4cc5671da17a9c30a73c39d37cb3f01dfa2548d7b9ac9280a0"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0208.png",
+    "bytes": 42306,
+    "sha256": "4e48cb1d962173ecfb38e49b2d2891b435af7987e66474b859eadcdec02db28c"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0209.png",
+    "bytes": 42230,
+    "sha256": "b4bfa8246fc4de8688fac6b6ddbfe0a383b13d381f2670f2cee1f2c5689fdadc"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0210.png",
+    "bytes": 42325,
+    "sha256": "18a89ae79b077c0862c993da9b0d1997552f8e547c6669f0327a0a75634509ab"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0211.png",
+    "bytes": 42145,
+    "sha256": "338f5207ddbcd229df1c5513587c0c18454d878b7ada3eb726e6f3f14107f368"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0213.png",
+    "bytes": 42223,
+    "sha256": "ed342c825d860f9c6e4d50df1dd715392a9b1cd34f61fc44c3d0980f5262420b"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0214.png",
+    "bytes": 42331,
+    "sha256": "c46142814f7ddbac2aa426754a2ada5ce3e9cacff9d3d9375e7cffbaaf466080"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0215.png",
+    "bytes": 42139,
+    "sha256": "1aae1f4c4fb07a23d9ad2ce484eeb0b992dd72f7748aa58ffc55780172bd8d07"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0216.png",
+    "bytes": 42337,
+    "sha256": "f3df1a768176dc541062c3c11afd578af1d6a3a39bd61e2a4048838f60d1597f"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0217.png",
+    "bytes": 42225,
+    "sha256": "aeae3cba43ee22fcee90d8d0c884a1028384ce38540ea204e631b8c2d26183a0"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0218.png",
+    "bytes": 42341,
+    "sha256": "4285ba6bcafb615ac755298d5bdb221f2fb5f9ea63c956230dc54137b9f06582"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0219.png",
+    "bytes": 42150,
+    "sha256": "7abe8395ea6d0877e847369a33b699ae0f65537a54cde574a9cd854b6a0ed9fb"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0220.png",
+    "bytes": 42344,
+    "sha256": "6b7e13b5e541723efef44f77d80b207bbe0a5eaf18e74cf576f5477af21320b7"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0221.png",
+    "bytes": 42225,
+    "sha256": "5a5cb6bcc2c04e685188b33f412906c73a148f842413139d2f4ed93ebcc0fb38"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0222.png",
+    "bytes": 42346,
+    "sha256": "e55759f8bd0edf2a5d36cccb4f0eaa256681abc4838686084b39493969815702"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0223.png",
+    "bytes": 42143,
+    "sha256": "3e86584233bbbe3d2c20981b4faeab8a49c6cfdb7b099cc3af3c25b5abb091d3"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0224.png",
+    "bytes": 42343,
+    "sha256": "0dd124aec46010125870e6bf09785de751d6c3d4f12e08d2cfc2e2e42a6a9723"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0225.png",
+    "bytes": 42222,
+    "sha256": "13d2260394ef0a8817c5d647d72ea1b3a659c0e52c7b267909beaea39f95427f"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0227.png",
+    "bytes": 42144,
+    "sha256": "465db4eed547533e3fcfab6ba12e0619b9fea41097b693851b386358a9ff530e"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0228.png",
+    "bytes": 42343,
+    "sha256": "98c44f87dad58bcfb7282e67f7f236606e69906688f6c3ce9ecf0697c1274c66"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0229.png",
+    "bytes": 42225,
+    "sha256": "99c6d11a5ca0f069d13e05efc931d0bd77db712856b1e4b9e1fb2f10ae83b791"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0231.png",
+    "bytes": 42148,
+    "sha256": "7980ca5f21a0e9ac34b9b09a7424791bba1198a69d550cb5fb85ffcb99e0f310"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0232.png",
+    "bytes": 42274,
+    "sha256": "4211c67c408b9eda52bb1097723e8fa4f34fb71a1a77b915009c7c4299890e1b"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0233.png",
+    "bytes": 42186,
+    "sha256": "76b8c3947dcb5552d6fa7e4fece66ca29f93f09f4d22cb28609ff0ebfac823e4"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0234.png",
+    "bytes": 42269,
+    "sha256": "712b00ab54579cd5bc22d720ff5297e8e3aff051a0cda8e1ffde13eed0eb9a2e"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0235.png",
+    "bytes": 42127,
+    "sha256": "9187a38991b71a1afe16b6bb17b4185a3d63ea2573a5e930150e24f336d394e4"
+  },
+  {
+    "path": "review/focus-ready-title/frame-0236.png",
+    "bytes": 42195,
+    "sha256": "92294e9da2efacbf5c17a269bc7d5824ed47e7df41ae222cf16f1cfa9de90dce"
+  },
+  {
+    "path": "review/focus-ready-title-atlas-1.jpg",
+    "bytes": 613079,
+    "sha256": "51b628d92b640d91ba5d272e58d6e9bf3ebbfe1f8fcfc818687d8ca1b00b6c83"
+  },
+  {
+    "path": "review/focus-ready-title-atlas-2.jpg",
+    "bytes": 686127,
+    "sha256": "72b0d794df8fea5ba9591137e03e358f8e3bcd41e21b8018c4f2b8b8395bfe9b"
+  },
+  {
+    "path": "review/focus-ready-title-atlas-3.jpg",
+    "bytes": 685645,
+    "sha256": "827e7055050b76065fc8a4ec7eea8c672a814c032287775db653730d57d1a6c2"
+  },
+  {
+    "path": "review/focus-ready-title-atlas-4.jpg",
+    "bytes": 416167,
+    "sha256": "0029660aeeaa8d6f33b02c7a1cc425947dc55603e90cbd5ef8b799dedca52721"
+  },
+  {
+    "path": "review/index.json",
+    "bytes": 31142,
+    "sha256": "5118c2f17756339087f2b04702846f43d46c8c456bc29a0e951c93d8ce50eb80"
+  },
+  {
+    "path": "review/main-escape/frame-0001.png",
+    "bytes": 39680,
+    "sha256": "18ae9dbeb36c5056d39701d8e398a417d528500042036a425ab83951cd2e39f8"
+  },
+  {
+    "path": "review/main-escape/frame-0029.png",
+    "bytes": 36353,
+    "sha256": "b6990cc03126268b7d226a8964b45331cbcb9b0db573ad6a6358e2117d2e88f5"
+  },
+  {
+    "path": "review/main-escape/frame-0031.png",
+    "bytes": 36364,
+    "sha256": "109c6ddb1c9a6cc92e66e779b56ab671d5c8110d96f6a2543b3d71e2a4fe3ac4"
+  },
+  {
+    "path": "review/main-escape/frame-0032.png",
+    "bytes": 36357,
+    "sha256": "e82c33a0998d0f8eb84d51217c8eecfd0b888d6d20abc5762862acfc53002a12"
+  },
+  {
+    "path": "review/main-escape/frame-0033.png",
+    "bytes": 36372,
+    "sha256": "c2c62851c2348ca9942b27a748b26097fc5c2e1a920b8b725a0c87e4735b3588"
+  },
+  {
+    "path": "review/main-escape/frame-0034.png",
+    "bytes": 36345,
+    "sha256": "9ab8932097faf877bb9120b63e212ced920b9ec2809eecea4b8e97b4bd05483b"
+  },
+  {
+    "path": "review/main-escape/frame-0035.png",
+    "bytes": 36357,
+    "sha256": "60200ee6763e3ad37e87550d4a927173c7f2e03da9da0780c808ef6c6d6512d0"
+  },
+  {
+    "path": "review/main-escape/frame-0039.png",
+    "bytes": 36364,
+    "sha256": "f1eaee3afee7e424c60910694d8aa16e8a1c57be15109174bc2a03a0babed4ad"
+  },
+  {
+    "path": "review/main-escape/frame-0133.png",
+    "bytes": 34706,
+    "sha256": "2577c337efb94b4b2094a952386b9d5c1ab686b891275a36a452d0b9247f1281"
+  },
+  {
+    "path": "review/main-escape/frame-0134.png",
+    "bytes": 34768,
+    "sha256": "41b80cc1353beb2b1c5572c9c90805deb0cc2ca3b8b9b9217a6669950782df63"
+  },
+  {
+    "path": "review/main-escape/frame-0135.png",
+    "bytes": 34772,
+    "sha256": "99d76882f7512169061e1c918ff8fdb0d0ae9e8915c96e87f8f7337ca7fbf027"
+  },
+  {
+    "path": "review/main-escape/frame-0136.png",
+    "bytes": 34787,
+    "sha256": "eff5756bcd21d9d70d726fb18467408264e6613e3490be4ee6bfb7c467fbc61b"
+  },
+  {
+    "path": "review/main-escape/frame-0137.png",
+    "bytes": 36661,
+    "sha256": "c97e0a42941ffd10438aeba33dbd9284c75d1c3e1cbfa17bbe5a26a0408aa7dd"
+  },
+  {
+    "path": "review/main-escape/frame-0139.png",
+    "bytes": 41935,
+    "sha256": "c73d59ed1de82974c56bc7d044b0d05431977ea2efae1aedc78ee946cf095614"
+  },
+  {
+    "path": "review/main-escape/frame-0140.png",
+    "bytes": 44228,
+    "sha256": "3f494b0451794229d9751cef6a31d7e4c2cd5a22c33659eba043d9d45e1a65cf"
+  },
+  {
+    "path": "review/main-escape/frame-0141.png",
+    "bytes": 44470,
+    "sha256": "9dc245843669bb22100aff5d66501ca5d168be771d5cce302f0fc5882112a5a4"
+  },
+  {
+    "path": "review/main-escape/frame-0142.png",
+    "bytes": 44667,
+    "sha256": "1073ab20ccb7a28043d6b2f57b6712591ed674ff6f0b6053739fac2c19bb9a44"
+  },
+  {
+    "path": "review/main-escape/frame-0143.png",
+    "bytes": 44758,
+    "sha256": "fcb3bdb2e6a55f991979099a7a99d336667e1c8a876bc58e248041985cc3e003"
+  },
+  {
+    "path": "review/main-escape/frame-0144.png",
+    "bytes": 44899,
+    "sha256": "cca101c637686a859a200a40d07fb803e8c587aa4973e4b4574d2d70030152b6"
+  },
+  {
+    "path": "review/main-escape/frame-0145.png",
+    "bytes": 44848,
+    "sha256": "c38619c39f3389dfde64e26e53e41807b0c1c8706eb322091994270f72a0d8cb"
+  },
+  {
+    "path": "review/main-escape/frame-0146.png",
+    "bytes": 44865,
+    "sha256": "db2a17f22c23553fb720fca594e12b196e917ccd2e32fef16cbf65ac20676ec0"
+  },
+  {
+    "path": "review/main-escape/frame-0147.png",
+    "bytes": 44908,
+    "sha256": "c3ec0bb20ea866bb61b8014d9226c0e64656b6c151df9ef3734a63151d77d0e3"
+  },
+  {
+    "path": "review/main-escape/frame-0148.png",
+    "bytes": 44874,
+    "sha256": "410d01db5cb69b5f996f8e6d9f9e926c14d0ca8cb3b912871ad2a1ce141a7bc3"
+  },
+  {
+    "path": "review/main-escape/frame-0149.png",
+    "bytes": 44896,
+    "sha256": "9378471c4b4fae5565b936309305745ff79317611c788ada953ab665558c09f8"
+  },
+  {
+    "path": "review/main-escape/frame-0150.png",
+    "bytes": 44909,
+    "sha256": "bb0b54cd6027acbd5e35b28d84d69b0c4ae87598421b6998152ff015172d6d66"
+  },
+  {
+    "path": "review/main-escape/frame-0151.png",
+    "bytes": 44875,
+    "sha256": "846fe27e710e1c426c8a9a9c8f04e9b4daccb5a11bd6b5cac9d825a36458c7be"
+  },
+  {
+    "path": "review/main-escape/frame-0152.png",
+    "bytes": 44844,
+    "sha256": "a6d868792ee9ddc034c8552bd9a75d0ceab8c3845141bce37f047ff7ab0e028d"
+  },
+  {
+    "path": "review/main-escape-atlas-1.jpg",
+    "bytes": 211631,
+    "sha256": "2aa4e7b3fa1a634a0fd0054bed5722640ad30f9f0c65d558788a943c6f9de59c"
+  },
+  {
+    "path": "review/main-escape-atlas-2.jpg",
+    "bytes": 90856,
+    "sha256": "8e8d353806b5e9df0e84c93e6bcb6845deb0e0c4af5259836894e5a92f344b96"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0001.png",
+    "bytes": 89712,
+    "sha256": "cc9b0bc08ff1746149b81719a2691aa02e0556c9bceec1457a150c936fdb3262"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0027.png",
+    "bytes": 75502,
+    "sha256": "429afa66c4438ddefdd3e7d9c18ed019b631b23712d3bc749edaba1bc723545f"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0028.png",
+    "bytes": 75651,
+    "sha256": "57313d27c461a7095ac3e64bd680a67a6984e14e9c2b8cc57a76a4e5ecde79c9"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0029.png",
+    "bytes": 75589,
+    "sha256": "5f32678ca41cacda3f96c7324e11047111689b97a19c8812f92f636040a719b1"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0030.png",
+    "bytes": 75590,
+    "sha256": "ab9406219bc4980207f5cddeeb7d72c5beab239258045aa847f79cd9870a18db"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0031.png",
+    "bytes": 75521,
+    "sha256": "3545aca2a57af65ee12cc23197cce1f424019817c549d11f0d9eec32f558bbff"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0032.png",
+    "bytes": 75567,
+    "sha256": "2ed8c556ea18119a8f122980b0df3ea33d20e21d527f618ea09d3cc23da1f01a"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0033.png",
+    "bytes": 75562,
+    "sha256": "0e09a09b5330718ff1424fac755c6a9824d265d03c0df68ab4f97ddb1f85da8c"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0034.png",
+    "bytes": 75575,
+    "sha256": "1c00f7d386bf2533df55163459028abe25858df5081466295012c4f8a1e9e3ba"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0035.png",
+    "bytes": 75596,
+    "sha256": "e09452996e531e22c6ea00a1029f45c671b12acb0d7c226a02fbb2b3238912ca"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0036.png",
+    "bytes": 75607,
+    "sha256": "8cb33cb981e719a474c5d4ed7b00c3d23c9b9e02e3410612ecefc3e7ecf02147"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0037.png",
+    "bytes": 75600,
+    "sha256": "f27e4cc7b7973a0b6d68576dfa86e053cf0546d3c784372447cec56fdcf0dd7c"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0038.png",
+    "bytes": 75602,
+    "sha256": "dc575ce37846b95e370234773d395a1981c01f7ccfbec3447ac2d043b5e71ce2"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0039.png",
+    "bytes": 75571,
+    "sha256": "4801763c374137ed019c321ad593ed965297f83786cf8bb56eb033bfb34da8c7"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0040.png",
+    "bytes": 75573,
+    "sha256": "cedf29f470124458c77278491e3c11463d4f397761ac9fd3fe550e5d0da606a3"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0041.png",
+    "bytes": 75578,
+    "sha256": "13b6057054ec47fcf9215d1134d9d00c0d1b6b8bc7d9a23f2283ad6f5c215827"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0042.png",
+    "bytes": 75571,
+    "sha256": "450bd0ff551b20af932959fa8a88f29b8b7aa5103087893d60e866f8d25f6b51"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0043.png",
+    "bytes": 75572,
+    "sha256": "1e9c2fa00112c93e791126a027caa5af0343afcea7bb01a4c961ffab772d9249"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0044.png",
+    "bytes": 75573,
+    "sha256": "ad709cda6113e0ff1483366a1a439a2f229f0a387d3fe87ee0ac45ede6503b9b"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0047.png",
+    "bytes": 75568,
+    "sha256": "4e38c2cf8b81afa66778b554b6e88e8b3f8d979bf637866cd129137f1dc90829"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0113.png",
+    "bytes": 70312,
+    "sha256": "526fed0c6349e09968dbfe7b55300ad10167f5cb919132d988f95625c88709e2"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0114.png",
+    "bytes": 70339,
+    "sha256": "5dcea956871cd0fb9b80849db6fdc005843c773483f5c7eeb615d022a19f7458"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0115.png",
+    "bytes": 70346,
+    "sha256": "7a45ab39a5a2560c9b8a4a217154dc1b9d19929b38d170f911bbe4e1f4091a39"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0116.png",
+    "bytes": 70357,
+    "sha256": "1f19e4661eae10732d34dc0ea76db2e8184ee4435440cf394891656797c7f135"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0117.png",
+    "bytes": 70388,
+    "sha256": "cf214c9a884129a3e65efcd4863b8c3f1cc4b3c39583d2ca41389b2ae869495d"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0134.png",
+    "bytes": 72489,
+    "sha256": "5eaa0ea7c4cdc0a6cb4ddbb8e478549944fbf6e35d8cc1d3c32ae11ec13be746"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0135.png",
+    "bytes": 72443,
+    "sha256": "a4c226667669e57294e3deda4b732d996dbcaaf27f94c68bb1c88f30736f0f06"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0136.png",
+    "bytes": 58821,
+    "sha256": "bcc9fabe2a8fad05cc54e89e42fe50456820852c75c39a343cb1fcdddf23dcf2"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0137.png",
+    "bytes": 58715,
+    "sha256": "c7afaf3e377be2c71fe1ba0a48543ec13bc0c5f1bf5f0c2e9b25e4ea2703330b"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0138.png",
+    "bytes": 58782,
+    "sha256": "1562a2653ab1a57a1edc721798916b95906bc1d445530afdf70b0d29920c4574"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0139.png",
+    "bytes": 58725,
+    "sha256": "1c4b9dd8641b9cc3132fb9fec9bfe092271aadf6f151e146d2b40b1c600cf978"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0140.png",
+    "bytes": 58789,
+    "sha256": "e2f258f42a95f5f059ff5c1b53052ecbeadc561f570fbafb2c1e682e43adfa97"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0141.png",
+    "bytes": 58764,
+    "sha256": "18387d513ea43e462b2afc00363dd67d574261f3a8c0c6b2c6a1de818bb67358"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0142.png",
+    "bytes": 58788,
+    "sha256": "4864a188d2dabdd8f01bd15129dd47dfaab3cfe92d371bf2050361310040178f"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0143.png",
+    "bytes": 58838,
+    "sha256": "ff79e7c7edd533f7c64e047df464f2250acff71ab7d3766eae5bbe1aa7a67925"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0144.png",
+    "bytes": 58811,
+    "sha256": "ec87be594e8b7944d2055b6d78c2fbeddaf815e139534ce5d5fe01749a646369"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0145.png",
+    "bytes": 58814,
+    "sha256": "d8155e7dd986c60dcd7bf46b4ff277de7660f57989ee8a3369d9ea44ab0966a8"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0146.png",
+    "bytes": 58819,
+    "sha256": "05222f3a0f3c5e91f41b4937e5638381665ca94cd3051f4546910439452bd9b7"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0147.png",
+    "bytes": 58841,
+    "sha256": "a91f3ac132262f51e89e9e11351e7bebc6749526e686350accf3434da2fabe7c"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0148.png",
+    "bytes": 58816,
+    "sha256": "c30fccfc5849c43d55b4c32c1b54c05d6f326920140b17d06ffab16172ed652e"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0150.png",
+    "bytes": 58818,
+    "sha256": "b9a7dc554081ed29d1f918efa2389dc128dd1844a382ed707ec358467b9103f5"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0151.png",
+    "bytes": 58836,
+    "sha256": "7006d49408f7bfbfc1ab983dbf0b9cd05a0ebac4d4554f385c57efe3db90c023"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0152.png",
+    "bytes": 58819,
+    "sha256": "8547c035c69c6db985fc8a09acadc9b7c47a8998ba102ee21e77813ae78fe3da"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0153.png",
+    "bytes": 58818,
+    "sha256": "86c761c2814f466e2083fc39294792703be0c0c11961a2c5b9ac27c95dbf7a10"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0155.png",
+    "bytes": 58836,
+    "sha256": "808661d0469787c6b3e2ee6560718eba03a78486409ed65cd25b497de6f5de8c"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0156.png",
+    "bytes": 58816,
+    "sha256": "d7a6ce9943f27e7a0169c692d8df8fd51abcf96e0de4cf1ad96c58cfde94d729"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0157.png",
+    "bytes": 58817,
+    "sha256": "fbd5f205dd26063ff67be988ed34106ec3b66034f67237fd41186097c89f39c1"
+  },
+  {
+    "path": "review/main-ready-retained-focus/frame-0159.png",
+    "bytes": 58838,
+    "sha256": "9af76df83998b51cc4ae452df2ccda32b854fc6144fd01c82a047bfbc6e2dfb4"
+  },
+  {
+    "path": "review/main-ready-retained-focus-atlas-1.jpg",
+    "bytes": 338119,
+    "sha256": "ae9b488a950e67dbb2954f7f7f410b7f8358fb5dbdec31450537bbd6d5ab5dd5"
+  },
+  {
+    "path": "review/main-ready-retained-focus-atlas-2.jpg",
+    "bytes": 360073,
+    "sha256": "21095c8469a5499063a173302b2d8a8a20ca8916be33eeaa3a0c92435a514a7f"
+  },
+  {
+    "path": "review/main-ready-retained-focus-atlas-3.jpg",
+    "bytes": 171347,
+    "sha256": "3918fe0f7024e10f402f6cc338400cf83e1f239af09a96eb4bd9feafd9c2f964"
+  }
+]
