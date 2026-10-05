@@ -1,0 +1,50 @@
+[
+  {
+    "path": "gallery/menu125-reduced.png",
+    "original": "2026-10-05 06-45-55.mkv",
+    "originalOffsetSeconds": 10401,
+    "crop": "500:350:640:300"
+  },
+  {
+    "path": "gallery/menu125-normal.png",
+    "original": "2026-10-05 09-40-15.mkv",
+    "originalOffsetSeconds": 3.5,
+    "crop": "500:350:640:300"
+  },
+  {
+    "path": "gallery/menu100-normal.png",
+    "original": "2026-10-05 10-01-04.mkv",
+    "originalOffsetSeconds": 114.2,
+    "crop": "500:350:640:260"
+  },
+  {
+    "path": "gallery/menu100-reduced.png",
+    "original": "2026-10-05 10-01-04.mkv",
+    "originalOffsetSeconds": 119.5,
+    "crop": "500:350:640:260"
+  },
+  {
+    "path": "gallery/unbroken-tooltip125.png",
+    "original": "2026-10-05 09-40-15.mkv",
+    "originalOffsetSeconds": 584,
+    "crop": "425:875:1495:0"
+  },
+  {
+    "path": "gallery/unbroken-tooltip100.png",
+    "original": "2026-10-05 10-01-04.mkv",
+    "originalOffsetSeconds": 420.7,
+    "crop": "340:700:1495:0"
+  },
+  {
+    "path": "gallery/large-notes125.png",
+    "original": "2026-10-05 09-40-15.mkv",
+    "originalOffsetSeconds": 823,
+    "crop": "425:875:1495:0"
+  },
+  {
+    "path": "gallery/large-notes100.png",
+    "original": "2026-10-05 10-01-04.mkv",
+    "originalOffsetSeconds": 359.4,
+    "crop": "340:700:1495:0"
+  }
+]

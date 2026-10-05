@@ -1,0 +1,173 @@
+[
+  {
+    "original": "2026-10-05 06-45-55.mkv",
+    "sha256": "04858964298852fc40023a5ce7e92af2f01555ab77eabfe7b2a1fc386eb4c9f0",
+    "bytes": 333653082,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "10414.400000",
+        "size": "333653082"
+      }
+    },
+    "parts": [
+      {
+        "path": "originals/2026-10-05 06-45-55.mkv.part001",
+        "bytes": 41943040,
+        "sha256": "119493ca8cbb4d118f67f72dac2b647466cc6d6f42f4373c626d95fd02db5a39"
+      },
+      {
+        "path": "originals/2026-10-05 06-45-55.mkv.part002",
+        "bytes": 41943040,
+        "sha256": "393c4298c5e99e8aafc9cb7056f280934b6328ba72d5e66392bea5700e879048"
+      },
+      {
+        "path": "originals/2026-10-05 06-45-55.mkv.part003",
+        "bytes": 41943040,
+        "sha256": "cc5d3123caaf2efece72c9222bde543ebc69def21d8bf31fad64940cee2fa0f8"
+      },
+      {
+        "path": "originals/2026-10-05 06-45-55.mkv.part004",
+        "bytes": 41943040,
+        "sha256": "19b1ef5d7e94c9b9c7ea3e9e2982c4d58a309bf3fd55112d438b586305c932ac"
+      },
+      {
+        "path": "originals/2026-10-05 06-45-55.mkv.part005",
+        "bytes": 41943040,
+        "sha256": "3d4c30e134ad8bd8bfca376055481c264fb4283ed6ec467c6aae5385e8ff9a7a"
+      },
+      {
+        "path": "originals/2026-10-05 06-45-55.mkv.part006",
+        "bytes": 41943040,
+        "sha256": "81834ba8c5f3dd339d2dbcbfa724e8325cb3aa48d2b838e92e34628b1be96215"
+      },
+      {
+        "path": "originals/2026-10-05 06-45-55.mkv.part007",
+        "bytes": 41943040,
+        "sha256": "3eabdc6b8bf9cc488e87f00992aac37ead5aaddaefdd8e0a29319b508a208900"
+      },
+      {
+        "path": "originals/2026-10-05 06-45-55.mkv.part008",
+        "bytes": 40051802,
+        "sha256": "04a721d4c7c38b84e0a80165e488480fb4720f7ac969e8514bd7d7f9119b43ee"
+      }
+    ]
+  },
+  {
+    "original": "2026-10-05 09-40-15.mkv",
+    "sha256": "e3728c84252da525a9d43f212a0d006f29f5e6bae2e8ea585e7114a5d3e66b3a",
+    "bytes": 26520452,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "893.900000",
+        "size": "26520452"
+      }
+    },
+    "path": "originals/2026-10-05 09-40-15.mkv"
+  },
+  {
+    "original": "2026-10-05 10-01-04.mkv",
+    "sha256": "45c83e6d7898d90b6b3b7d9d6c892f83126a52f984e0cea2a1adc92a919697cd",
+    "bytes": 16100744,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "663.717000",
+        "size": "16100744"
+      }
+    },
+    "path": "originals/2026-10-05 10-01-04.mkv"
+  },
+  {
+    "original": "2026-10-05 10-15-18.mkv",
+    "sha256": "5c1738d00777b0e12d149d1eb40ec6cd3ae81a0136e91e5ee5b1175bd4114f87",
+    "bytes": 4348912,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "125.484000",
+        "size": "4348912"
+      }
+    },
+    "path": "originals/2026-10-05 10-15-18.mkv"
+  },
+  {
+    "original": "2026-10-05 10-30-35.mkv",
+    "sha256": "8a9f1da8e7ce4f49a6d7c9397760e975396dadca5e55dad9114e077de1742e95",
+    "bytes": 6201311,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 4480,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "codec_name": "aac",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "227.150000",
+        "size": "6201311"
+      }
+    },
+    "path": "originals/2026-10-05 10-30-35.mkv"
+  }
+]

@@ -1,0 +1,1 @@
+Whole previous CI950 logger-folder terminal snapshot after ordinary targeted process termination on03:44Z; source704763e20c3543729902a52acc30278773b003de/EXEc9189a75. This was not a normal tray Quit and adds no C5 PASS. Keep this build distinct from the current953 logs at the evidence root.

@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-05T07:28:12.9873228Z",
+  "name": "Focus queue",
+  "bounds": "1510;130;395;730",
+  "patterns": [
+    "ScrollPatternIdentifiers.Pattern",
+    "ScrollItemPatternIdentifiers.Pattern"
+  ],
+  "horizontal": true,
+  "vertical": true,
+  "horizontalPercent": 0.0
+}

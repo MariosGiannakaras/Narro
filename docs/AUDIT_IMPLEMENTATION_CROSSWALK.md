@@ -1,6 +1,22 @@
-<!-- Current2026-10-04 cross-gate disposition: CI942 closes shared M1 replacement placement/topology/performance, M6 placement/topology and M8 Preferences writer/save-restart. Modal17 corrected in PR232/CI944 but physically open. Detailed scoped results: ../work-log/2026-10-04-codex-m7-ci942-physical-results.md. No whole source-parity or M10 advance. -->
+<!-- Current2026-10-05: CI953 scoped native results; M1 selected-monitor DPI27 reopened; M7 C4/source07/23 OPEN. Authoritative current matrix: ../work-log/2026-10-05-codex-m7-ci953-physical-results.md. -->
 
 # Audit → implementation crosswalk
+
+## Current — CI953 physical dispositions and new27
+
+[Exact results and post-campaign matrix](../work-log/2026-10-05-codex-m7-ci953-physical-results.md); [whole evidence](../work-log/evidence/m7-ci953-physical-20261005/README.md). Full CI953 PASS is verified on38219e20; this is the pointer/menu/wrapping candidate, excluding unpushed07 WIP.
+
+| Finding | Current disposition |
+| --- | --- |
+|24 / P3-M5-03|SCOPED_NATIVE_FUNCTIONAL_PASS: real padding drags now commit empty/cross/same-lane placement100/125, actual Escape cancels, actual card Alt+Right works; recreated Main tested with persistent Focus. Source lift/reflow/drop/settle/motion comparison OPEN. Old950 failure history retained.|
+|26 / M5 retained menu paint|IMPLEMENTED / SCOPED_NATIVE_STATIC_PASS: four directly reviewed video crops100/125 normal/reduced show opaque retained confirmation above disabled metadata. Full canonical VE00618s/menu-motion/source acceptance OPEN.|
+|20 / M5/M6 metric editors|SCOPED_PHYSICAL_PASS for real reduced125% Main/Focus EST and Taken Save+restore, durable906→846s and unchanged session/identity/paused-state semantic payload. Normal125%948 acceptance retained;100% editor Cancel/Escape captured. Whole visual/source gate OPEN where not compared.|
+|09/21/23 full title/queue|Unbroken tooltips wrap inside native Panel100/125 normal/reduced, full accessible names retained. Vertical/end/menu evidence reused/exercised. Horizontal provider assertion remains inconsistent (true/85.31% view, SetScrollPercent100 leaves0 and no movement); VALIDATION_OPEN, no demonstrated visible horizontal overflow.|
+|M1/M6/M7/M8-OBS-20261005-27|FAIL / NARROW_CORRECTION_REQUIRED: saved explicit current125% monitor becomes stale after100% DPI; Panel entry blocked, prior anchor wrong85px. Stale preference renders automatic without committing a clear operation. Current→automatic selection recovers/persistsnull; clean transitions at100/restored125 succeed. Reopen M1 DPI recovery and affected M6/M8 validation; C4 remains open. Correct within the dependent M7 batch when user resumes source work; physical-only priority currently governs.|
+|07 read responsiveness|Prior950 controlled4s native failure remains unresolved; frozen953 did not change that command path. Async worker WIP exists locally but is uncompiled/not in953. No new physical loading PASS.|
+
+Completed M2–M4 only:3/10M. M7 C1–C3/C5 accepted/C4 OPEN:4/5. No new quiet performance, cable/sleep-wake, dual-monitor, full source parity, new C5 tray/restart or M10 claim. User requires explicit completion announcements; M11 dormant.
+
 
 ## Current PR235 revised harness / controlled native loading
 

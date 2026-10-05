@@ -1,5 +1,19 @@
 # TODO.md
 
+## Current — CI953 Windows evidence, scoped PASS and reopened monitor acceptance
+
+Frozen source `38219e200fe3bec7309f8e03e72003184ca86d08`, full Windows CI953/run37258629373 PASS, artifact11324640580, EXE SHA256 `bde7646d9a3f17af0078c41e8a90173bc044f6747d24fde278e6f5739ebe05d8`. [Physical results and M1–M9 matrix](work-log/2026-10-05-codex-m7-ci953-physical-results.md); [whole recordings/logs, playable clips, images and chronological actions](work-log/evidence/m7-ci953-physical-20261005/README.md). Five original4480×1080/60fps recordings are retained whole; actual active display was LG1920×1080, exercised at125% and100%, restored125%/normal. No dual-monitor claim. Initial10414.4s original includes an unattended/minimized interval; only bookmarked exercised intervals count.
+
+24 pointer drag has scoped native functional PASS (empty/cross/same lane, Escape cancellation, card-focused Alt+Right, Main recreation); full lift/reflow/drop/settle/source-motion comparison remains OPEN.26 retained-menu painting has directly reviewed static native PASS in all100/125 normal/reduced variants; canonical/full source acceptance remains OPEN.09/23 long unbroken tooltips visibly wrap inside the Panel in both DPI; vertical queue/Ctrl+End/native menu paths were exercised. The native provider still reports horizontal scrollability, but actual native SetScrollPercent(100) stayed0 and established no viewport movement: provider inconsistency/validation OPEN, not confirmed visible horizontal overflow.20 real reduced125% EST/Taken Save+restore passed Main and Focus;100% Cancel/Escape/editor coverage is also recorded. Ledger906s after each Taken edit returned846s, same identities/notes/sessions/paused801308ms checkpoint semantic state; explicit restored EST writes legitimately changed checkpoint updated_at.
+
+**New27 FAIL:** explicit current125% monitor selection becomes stale after a real125→100% DPI change; Return to Panel fails with MONITOR_SELECTION_STALE and the old right anchor leaves an85px gap. Preferences displays automatic fallback while the stale stored key remains; choosing that already-displayed automatic value did not commit. Actual current-display→automatic selection is a successful recovery, persisted keynull; clean100%/restored125% Panel/Timer transitions then passed on the same Focus HWND. Reopen only M1 saved-monitor/DPI recovery and dependent M6/M8 acceptance, with M7 C4 already OPEN. Earlier accepted topology/performance/lifecycle scope remains immutable evidence. Current completed milestones **M2–M4:3/10M**, M7 **C1–C3/C5 accepted, C4 OPEN:4/5**; legacy14/19 counter is not advanced. M10 hard entry blocked; M11 dormant.
+
+User priority remains physical/visual Windows acquisition only.07 read responsiveness is still unresolved from exact950 evidence;953 does not include the separate unpushed async read-worker WIP. No new build, source fix or PR merge was performed during this campaign. Preserve WIP in `blocking_read.rs`, `lib.rs`, `list_board.rs`, and `scripts/test-ui-list-board.mjs`; its Rust compile/native acceptance is still OPEN. Announce every milestone completion explicitly, and all required M1–M9 completion before M10.
+
+**Continuation:** OBS stopped; exact953 PID130912 alive/paused, Focus HWND11077022, recreated Main72353300; saved monitor automatic/null; LG125%/normal restored. Finish remaining independent Windows evidence (dark/system states, any specified100% real Save/recreation cells, then dual100/125 when UltraGear becomes available). Use existing captured media for detailed motion/canonical comparison; avoid repeated setups/builds. Mark FAIL timestamps and keep independent checks running. Before source work resumes, reconcile27 and batch its narrow recovery correction with07 and any substantiated23 findings; do not treat UIA provider overflow as a rendered defect without causal/visual proof.
+
+Older checkpoint sections below retain their exact-build historical findings and counts; this section is the current continuation authority.
+
 Milestones are ordered. Do not skip ahead unless a later task is required to unblock the current one.
 
 ## Current — PR235 exact candidate / loading07 remains open
@@ -109,10 +123,11 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
   - Historical evidence: the superseded host passed implementation/geometry tests and physical selected-monitor left/right validation; this does not validate replacement geometry.
   - [x] Replacement automated geometry validation passes.
   - [x] Replacement physical selected-monitor left/right validation passes on exact isolated CI942.
-- [x] Revalidate display-topology change handling for the replacement host: connect/disconnect/re-enumerate displays, recompute visible-region geometry/DPI, and keep the visible Focus presentation inside an available work area without restarting Narro. CI942 software2→1→2 with Main present/absent and same PID/HWND; physical cable/sleep-wake not claimed.
+- [ ] Revalidate display-topology change handling for the replacement host: connect/disconnect/re-enumerate displays, recompute visible-region geometry/DPI, and keep the visible Focus presentation inside an available work area without restarting Narro. CI942 software2→1→2 with Main present/absent and same PID/HWND; physical cable/sleep-wake not claimed.
   - Historical evidence: the superseded host passed event-driven topology tests and physical disconnect/reconnect recovery; this does not validate replacement region/DPI recovery.
   - [x] Replacement automated topology/DPI/work-area recovery validation passes.
   - [x] Replacement physical software display removal/reconnect recovery validation passes on exact CI942; actual active topology re-enumerated after Duplicate→Extend.
+  - [ ] New27: explicit selected-monitor125→100% DPI identity/anchor recovery and direct stale→automatic preference commit; exact953 FAIL. Retain accepted942 removal/reconnect scope; reopen only this newly exercised DPI/recovery path.
 - [x] Prove global shortcut registration and conflict/error handling.
   - [x] native registration/unregistration/conflict implementation and Windows CI validation
   - [x] physical shortcut validation
@@ -152,7 +167,7 @@ Goal: prove the selected Tauri stack and lightweight focus-window architecture b
 - floating-only idle CPU is stable/near-idle with no unexplained polling loop
 - floating-only memory is measured and documented; if clearly unacceptable, stop and evaluate a native Win32/WinUI overlay before product UI work
 
-**Gate A current result: PASS / replacement acceptance re-closed on CI942.** Earlier replacement architecture/bundle/lifecycle/topmost contracts and accepted809/936 native evidence combine with exact942 selected-monitor4/4 twice, software topology Main present/absent and three valid quiet performance runs. [Complete evidence and bounded performance decision](work-log/2026-10-04-codex-m7-ci942-physical-results.md). All materially reopened M1 items above are satisfied; physical cable/display sleep-wake and long-duration leakage were not added as fabricated PASS. PR232 changes event-time shortcut ownership only, preserving native composition/performance paths. Historical superseded-code PASS remains immutable.
+**Gate A current result: REOPENED / narrow selected-monitor DPI recovery27 on CI953.** Exact942 remains accepted evidence for its exercised placement/topology/performance paths; new real selected-monitor125→100% entry/recovery fails and requires correction/native acceptance. Earlier replacement architecture/bundle/lifecycle/topmost contracts and accepted809/936 native evidence combine with exact942 selected-monitor4/4 twice, software topology Main present/absent and three valid quiet performance runs. [Complete evidence and bounded performance decision](work-log/2026-10-04-codex-m7-ci942-physical-results.md). At the942 checkpoint, its materially reopened M1 items were satisfied; physical cable/display sleep-wake and long-duration leakage were not added as fabricated PASS. PR232 changes event-time shortcut ownership only, preserving native composition/performance paths. Historical superseded-code PASS remains immutable.
 
 Do not implement polished Blitzit UI in this milestone.
 

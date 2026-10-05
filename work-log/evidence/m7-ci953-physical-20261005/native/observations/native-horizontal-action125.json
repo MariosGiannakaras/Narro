@@ -1,0 +1,15 @@
+{
+  "utc": "2026-10-05T07:34:21.7037499Z",
+  "action": "actual-native-UIA-ScrollPattern-horizontal-end-and-restore",
+  "windowId": 11077022,
+  "before": {
+    "horizontal": true,
+    "horizontalPercent": 0.0,
+    "horizontalViewSize": 85.31317494600432
+  },
+  "end": {
+    "horizontalPercent": 0.0,
+    "horizontalViewSize": 85.31317494600432
+  },
+  "restoredPercent": 0.0
+}
