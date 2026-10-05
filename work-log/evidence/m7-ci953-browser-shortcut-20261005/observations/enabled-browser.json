@@ -1,0 +1,323 @@
+{
+  "utc": "2026-10-05T15:32:06.3431857Z",
+  "windows": [
+    {
+      "hwnd": 6619566,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro - Focus",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 700,
+        "y": 0,
+        "width": 340,
+        "x": 2220
+      },
+      "client": {
+        "height": 700,
+        "y": 0,
+        "width": 340,
+        "x": 2220
+      }
+    },
+    {
+      "hwnd": 1444846,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Narro",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 1096,
+        "y": -8,
+        "width": 2576,
+        "x": -8
+      },
+      "client": {
+        "height": 1057,
+        "y": 23,
+        "width": 2560,
+        "x": 0
+      }
+    },
+    {
+      "hwnd": 2493770,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 789,
+        "y": 26,
+        "width": 1920,
+        "x": 26
+      },
+      "client": {
+        "height": 750,
+        "y": 57,
+        "width": 1904,
+        "x": 34
+      }
+    },
+    {
+      "hwnd": 20448652,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "com.mariosg.Narro-siw",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 16,
+        "y": 0,
+        "width": 16,
+        "x": 0
+      },
+      "client": {
+        "height": 16,
+        "y": 0,
+        "width": 16,
+        "x": 0
+      }
+    },
+    {
+      "hwnd": 66389578,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "",
+      "visible": true,
+      "dpi": 96,
+      "outer": {
+        "height": 16,
+        "y": 0,
+        "width": 16,
+        "x": 0
+      },
+      "client": {
+        "height": 16,
+        "y": 0,
+        "width": 16,
+        "x": 0
+      }
+    },
+    {
+      "hwnd": 3542826,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "MSCTFIME UI",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 0,
+        "y": 0,
+        "width": 0,
+        "x": 0
+      },
+      "client": {
+        "height": 0,
+        "y": 0,
+        "width": 0,
+        "x": 0
+      }
+    },
+    {
+      "hwnd": 5836174,
+      "pid": 22948,
+      "process": "narro-m7-validation",
+      "title": "Default IME",
+      "visible": false,
+      "dpi": 96,
+      "outer": {
+        "height": 0,
+        "y": 0,
+        "width": 0,
+        "x": 0
+      },
+      "client": {
+        "height": 0,
+        "y": 0,
+        "width": 0,
+        "x": 0
+      }
+    }
+  ],
+  "elements": [
+    {
+      "name": "about:blank - Microsoft Edge",
+      "type": "ControlType.Pane",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "0;0;2560;1078"
+    },
+    {
+      "name": "Minimize",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2422;0;46;40"
+    },
+    {
+      "name": "Restore",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2468;0;46;40"
+    },
+    {
+      "name": "Close",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2514;0;46;40"
+    },
+    {
+      "name": "App bar",
+      "type": "ControlType.ToolBar",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "0;40;2560;40"
+    },
+    {
+      "name": "Back",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "0;44;36;32"
+    },
+    {
+      "name": "Refresh",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "40;44;32;32"
+    },
+    {
+      "name": "Home",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "76;44;32;32"
+    },
+    {
+      "name": "View site information",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "116;48;24;24"
+    },
+    {
+      "name": "Address and search bar",
+      "type": "ControlType.Edit",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "140;48;2177;24"
+    },
+    {
+      "name": "Add this page to favorites (Ctrl+D)",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2321;48;24;24"
+    },
+    {
+      "name": "Favorites",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2353;44;32;32"
+    },
+    {
+      "name": "Personal Profile",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2389;44;32;32"
+    },
+    {
+      "name": "Settings and more (Alt+F). Something needs your attention.",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2425;44;36;32"
+    },
+    {
+      "name": "Chat",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2461;44;71;32"
+    },
+    {
+      "name": "Copilot menu",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2532;44;24;32"
+    },
+    {
+      "name": "",
+      "type": "ControlType.Edit",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "Empty"
+    },
+    {
+      "name": "Tab bar",
+      "type": "ControlType.Tab",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "2;0;2420;41"
+    },
+    {
+      "name": "Search tabs",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "4;0;32;36"
+    },
+    {
+      "name": "about:blank - Memory usage - 18.6 MB",
+      "type": "ControlType.TabItem",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "32;0;256;41"
+    },
+    {
+      "name": "Close tab",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "256;12;16;16"
+    },
+    {
+      "name": "New Tab",
+      "type": "ControlType.Button",
+      "offscreen": false,
+      "focus": false,
+      "enabled": true,
+      "bounds": "284;0;32;41"
+    }
+  ]
+}

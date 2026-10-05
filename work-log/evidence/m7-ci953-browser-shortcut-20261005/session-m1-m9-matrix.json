@@ -1,0 +1,47 @@
+[
+  {
+    "milestone": "M1",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Incidental native Focus context only"
+  },
+  {
+    "milestone": "M2",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Incidental native Focus context only"
+  },
+  {
+    "milestone": "M3",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Incidental native Focus context only"
+  },
+  {
+    "milestone": "M4",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Incidental native Focus context only"
+  },
+  {
+    "milestone": "M5",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Incidental native Focus context only"
+  },
+  {
+    "milestone": "M6",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Incidental native Focus context only"
+  },
+  {
+    "milestone": "M7",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Incidental native Focus context only"
+  },
+  {
+    "milestone": "M8",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Global CtrlShiftT enabled/disabled from Edge, raw acquisition only"
+  },
+  {
+    "milestone": "M9",
+    "disposition": "OPEN; no new acceptance",
+    "exercise": "Incidental native Focus context only"
+  }
+]

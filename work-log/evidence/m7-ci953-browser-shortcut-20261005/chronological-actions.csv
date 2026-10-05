@@ -1,0 +1,13 @@
+utc,action,target
+2026-10-05T15:32:02.6587455Z,physical-scancode-chord,Ctrl+T
+2026-10-05T15:32:03.6681778Z,physical-scancode-chord,Ctrl+W
+2026-10-05T15:32:04.6650947Z,physical-scancode-chord,Ctrl+Shift+T
+2026-10-05T15:32:07.1934924Z,physical-mouse-wheel,
+2026-10-05T15:32:08.1326943Z,physical-mouse-wheel,
+2026-10-05T15:32:09.0743862Z,native-uia-setfocus,Enable Alternate Focus Mode
+2026-10-05T15:32:09.0863032Z,physical-scancode-chord,Space
+2026-10-05T15:32:09.9853841Z,physical-scancode-chord,Ctrl+T
+2026-10-05T15:32:10.9637700Z,physical-scancode-chord,Ctrl+W
+2026-10-05T15:32:11.9399469Z,physical-scancode-chord,Ctrl+Shift+T
+2026-10-05T15:32:14.0866590Z,native-uia-setfocus,Enable Alternate Focus Mode
+2026-10-05T15:32:14.1165456Z,physical-scancode-chord,Space

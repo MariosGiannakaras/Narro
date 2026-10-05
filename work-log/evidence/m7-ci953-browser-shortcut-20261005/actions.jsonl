@@ -1,0 +1,12 @@
+{"utc":"2026-10-05T15:32:02.6587455Z","action":"physical-scancode-chord","windowId":51908224,"pid":116560,"chord":"Ctrl+T","scancodes":[29,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:32:03.6681778Z","action":"physical-scancode-chord","windowId":51908224,"pid":116560,"chord":"Ctrl+W","scancodes":[29,17],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:32:04.6650947Z","action":"physical-scancode-chord","windowId":51908224,"pid":116560,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:32:07.1934924Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:32:08.1326943Z","action":"physical-mouse-wheel","windowId":1444846,"x":1500,"y":800,"delta":-720}
+{"utc":"2026-10-05T15:32:09.0743862Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Alternate Focus Mode","bounds":"1617;748;2;2"}
+{"utc":"2026-10-05T15:32:09.0863032Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:32:09.9853841Z","action":"physical-scancode-chord","windowId":51908224,"pid":116560,"chord":"Ctrl+T","scancodes":[29,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:32:10.9637700Z","action":"physical-scancode-chord","windowId":51908224,"pid":116560,"chord":"Ctrl+W","scancodes":[29,17],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:32:11.9399469Z","action":"physical-scancode-chord","windowId":51908224,"pid":116560,"chord":"Ctrl+Shift+T","scancodes":[29,42,20],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
+{"utc":"2026-10-05T15:32:14.0866590Z","action":"native-uia-setfocus","windowId":1444846,"name":"Enable Alternate Focus Mode","bounds":"1617;748;2;2"}
+{"utc":"2026-10-05T15:32:14.1165456Z","action":"physical-scancode-chord","windowId":1444846,"pid":22948,"chord":"Space","scancodes":[57],"injection":"keybd_event KEYEVENTF_SCANCODE; normal Windows input path"}
