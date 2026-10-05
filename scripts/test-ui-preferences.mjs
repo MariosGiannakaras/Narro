@@ -90,6 +90,18 @@ for (const needle of [
 ]) {
   invariant(api.includes(needle), `renderer Preferences API is missing ${needle}`);
 }
+invariant(
+  api.includes("parsePersistedMonitorIdentity")
+    && api.includes("monitorMatchesSelectionKey")
+    && api.includes("findSelectedMonitor"),
+  "monitor selection must preserve physical-display identity across DPI/work-area descriptor changes",
+);
+invariant(
+  sections.includes("findSelectedMonitor(selected, monitors)")
+    && sections.includes("__saved_monitor_unavailable__")
+    && sections.includes("Saved display unavailable"),
+  "Preferences must resolve DPI-compatible monitor keys and expose a distinct stale value so Automatic can clear it",
+);
 invariant(runtime.includes("PREFERENCES_CHANGED_EVENT"), "Preferences runtime must consume cross-window committed updates");
 invariant(!runtime.includes("setInterval("), "Preferences runtime must not poll");
 invariant(runtime.includes("setSnapshot(await getPreferenceSettings())"), "failed writes must refresh authoritative Preferences");
