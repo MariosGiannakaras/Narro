@@ -128,7 +128,10 @@ Compilation does not prove taskbar, monitor, tray, shortcut, notification or oth
 
 ## Evidence discovery
 
-For any user-visible, source-parity, Blitzit-evidence or physical visual-validation task, read `docs/EVIDENCE_ROUTING_MAP.md` before choosing which evidence/spec files to trust. Older 19/19 trackers are historical prior-pass coverage; `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` is the only current exhaustive-source counter.
+For any user-visible, source-parity, Blitzit-evidence, physical visual-validation, or broad multi-finding corrective task, read `docs/EVIDENCE_ROUTING_MAP.md` before choosing which evidence/spec files to trust, then apply `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md`. Older 19/19 trackers are historical prior-pass coverage; `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` is the only current exhaustive-source counter.
+
+For broad corrective campaigns, do not alternate mechanically between one shallow finding and one immediate patch. Analyze the dependency-safe finding set to a durable disposition/cause map first, while allowing already-evidenced independent branches/CI to progress in parallel. Motion-dependent findings require actual video review at the needed continuous interval; static probes/transcripts/action manifests do not establish motion parity. Visual review must cover the relevant state/composition/geometry hierarchy rather than a general aesthetic glance.
+
 
 A physical/native validation agent (including Codex) must not promote a Windows PASS into a Blitzit visual-parity PASS unless the check explicitly consumed the relevant canonical Pass-3/calibration evidence.
 
