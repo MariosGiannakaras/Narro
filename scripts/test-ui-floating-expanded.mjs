@@ -174,10 +174,8 @@ for (const action of ["break", "notes", "pause-resume", "skip", "done", "return-
   invariant(actions.includes(`action="${action}"`), `expanded action ${action} is missing`);
 }
 invariant(
-  actions.includes("state.extendEnabled ? (")
-    && actions.includes('action="extend"')
-    && actions.includes('action="pause-resume"'),
-  "Time's Up must substitute Extend into the ordinary Pause/Resume slot",
+  actions.includes('action="extend"') && actions.includes('run("extend", extendTimer'),
+  "Floating Time's Up Extend control must retain the authoritative Extend mutation",
 );
 invariant(
   css.includes("grid-template-columns: repeat(6, 32px)")
