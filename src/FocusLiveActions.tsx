@@ -110,7 +110,7 @@ function assertExpectedLiveTask(payload: TimerSessionPayload, expectedTaskId: st
   }
 }
 
-type FloatingActionIconKind = "break" | "notes" | "pause" | "resume" | "skip" | "done" | "return";
+type FloatingActionIconKind = "break" | "notes" | "pause" | "resume" | "extend" | "skip" | "done" | "return";
 
 function FloatingActionIcon({ kind }: { kind: FloatingActionIconKind }) {
   const common = {
@@ -134,6 +134,8 @@ function FloatingActionIcon({ kind }: { kind: FloatingActionIconKind }) {
       return <svg {...common}><path d="M9 6v12M15 6v12" /></svg>;
     case "resume":
       return <svg {...common}><path d="m9 6 9 6-9 6Z" /></svg>;
+    case "extend":
+      return <svg {...common}><circle cx="10" cy="12" r="6" /><path d="M10 8v4l2.5 1.5M17 7v6M14 10h6" /></svg>;
     case "skip":
       return <svg {...common}><path d="m7 6 8 6-8 6Z" /><path d="M17 6v12" /></svg>;
     case "done":
@@ -609,13 +611,24 @@ export function FocusLiveActions({
                 .catch((failure: unknown) => fail(failure));
             }}
           />
-          <FloatingActionButton
-            action="pause-resume"
-            label={state.pauseResumeLabel}
-            icon={state.pauseResumeLabel === "Resume" ? "resume" : "pause"}
-            disabled={busy || !state.pauseResumeEnabled}
-            onClick={handlePauseResume}
-          />
+          {state.extendEnabled ? (
+            <FloatingActionButton
+              action="extend"
+              label="Extend timer"
+              pillLabel="Extend"
+              icon="extend"
+              disabled={busy}
+              onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
+            />
+          ) : (
+            <FloatingActionButton
+              action="pause-resume"
+              label={state.pauseResumeLabel}
+              icon={state.pauseResumeLabel === "Resume" ? "resume" : "pause"}
+              disabled={busy || !state.pauseResumeEnabled}
+              onClick={handlePauseResume}
+            />
+          )}
           <FloatingActionButton
             action="skip"
             label="Skip task"
@@ -650,7 +663,7 @@ export function FocusLiveActions({
         <div className="focus-panel__notes" hidden={!notesExpanded}>{notesEditor}</div>
       )}
 
-      {status ? (
+      {timer.runtime.timer.state !== "time_up" && status ? (
         <div className={floating ? "floating-timer-foundation__action-status type-metadata" : "focus-panel__action-status type-metadata"} role="status">
           {status}
         </div>
