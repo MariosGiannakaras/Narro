@@ -2,7 +2,6 @@ import { createRoot } from "react-dom/client";
 import { flushSync } from "react-dom";
 import { useState } from "react";
 import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
-import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusPanel } from "./FocusPanel";
 import { ListBoard } from "./ListBoard";
 import { createListFromEditor, updateListFromEditor, duplicateListFromHome } from "./listEditorApi";
@@ -48,7 +47,6 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   let scopeScenario = false;
   let scopeCompleted = false;
   let scopeBoardReads: Array<string | null> = [];
-  const capturedScopeSuccess: { current: FocusCompletionSuccessState | null } = { current: null };
   let scopeTimer: TimerSessionPayload = {
     revision: 50,
     awaitingResume: false,
@@ -317,7 +315,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   scopeScenario = true;
   scopeCompleted = false;
   scopeBoardReads = [];
-  capturedScopeSuccess.current = null;
+  delete container.dataset.scopeSuccessNextTaskId;
   scopeTimer = {
     revision: 50,
     awaitingResume: false,
@@ -339,7 +337,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       presentationActive
       controlledExpanded
       onRequestExpanded={async () => {}}
-      onCompletionSuccess={(state) => { capturedScopeSuccess.current = state; }}
+      onCompletionSuccess={(state) => { container.dataset.scopeSuccessNextTaskId = state.nextTask?.id ?? ""; }}
     />,
   ));
   await wait(); await wait(); await wait();
@@ -347,11 +345,11 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   if (!scopedDone || scopedDone.disabled) throw new Error("scoped Floating Done action unavailable");
   scopedDone.click();
   await wait(); await wait(); await wait(); await wait();
-  const scopeSuccess = capturedScopeSuccess.current;
-  if (!scopeSuccess) throw new Error("scoped completion success was not published");
-  assert(scopeSuccess.nextTask?.id === scopedNextTask.id,
-    "success Next Task escaped selected Focus queue: " + JSON.stringify(scopeSuccess.nextTask));
-  assert(scopeSuccess.nextTask?.id !== globalOldTask.id,
+  const scopedSuccessNextTaskId = container.dataset.scopeSuccessNextTaskId;
+  if (scopedSuccessNextTaskId === undefined) throw new Error("scoped completion success was not published");
+  assert(scopedSuccessNextTaskId === scopedNextTask.id,
+    "success Next Task escaped selected Focus queue: " + scopedSuccessNextTaskId);
+  assert(scopedSuccessNextTaskId !== globalOldTask.id,
     "success Next Task selected global older task");
   assert(scopeBoardReads.filter(listId => listId === scopeListId).length >= 2,
     "Done/success did not refresh selected Focus target: " + JSON.stringify(scopeBoardReads));
