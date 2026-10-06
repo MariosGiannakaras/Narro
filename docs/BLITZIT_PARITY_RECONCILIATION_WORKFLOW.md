@@ -2,7 +2,7 @@
 
 Status: **BINDING**
 
-Last updated: 2026-10-03
+Last updated: 2026-10-06
 
 ## Purpose
 
@@ -29,6 +29,24 @@ Re-open raw media only when at least one of these is true:
 4. final visual acceptance needs a direct side-by-side/overlay check against the original reference.
 
 Case 4 is **verification, not a second requirements-analysis pass**. The agent should use the existing forensic record to know what to compare and should not recreate the source research from scratch.
+
+## Evidence-conflict resolution — claim-level, not pass-level
+
+A Pass-3 record is normally the best implementation input because it is the completed canonical analysis, but **Pass-3 does not win a conflict merely because it is newer, deeper, or labeled canonical**. Resolve the disputed claim, not the document hierarchy.
+
+When pre-Pass-3, Pass-3, Help/docs, screenshots, videos, implementation evidence or platform guidance disagree:
+
+1. **State the exact disputed claim.** Separate static appearance, motion/timing, interaction order, domain semantics, product intent and platform/implementation constraints. One source can be strongest for one claim and irrelevant to another.
+2. **Normalize provenance and context.** Record Blitzit version/lineage when known, timestamp/source identity, theme/DPI/window/state, and whether evidence is direct pixels/actions, narration/transcript, documentation intent, user observation, or inference. Different versions/states may both be valid rather than contradictory.
+3. **Use modality fitness.** Continuous direct video is strongest for visible sequencing/motion when the needed interval is actually shown; the clearest direct screenshot/frame is strongest for static pixels/geometry; current official product documentation is strong for intended semantics but can lag shipped behavior; public comments are corroboration, not primary parity proof.
+4. **Compare completeness and directness.** A full interval can overturn an earlier sampled-frame or inferred motion conclusion when it observes the same version/state/claim more directly. Conversely, a detailed analysis cannot manufacture information absent from its source.
+5. **Seek independent corroboration.** Check adjacent source states, other current recordings/screenshots, official Help/version notes and known bug/history evidence. Re-open the raw source only as narrowly as needed to resolve the conflict.
+6. **Use engineering standards for the engineering question.** Current Windows/Tauri/WebView2/accessibility/security documentation can constrain what is safe, reliable or platform-correct in Narro; it does **not** by itself prove what Blitzit visually did. Keep source truth and Narro implementation choice distinct.
+7. **Apply Narro invariants/deviation rules.** Even confirmed Blitzit behavior may be intentionally deviated from when required by explicit local-only scope, data integrity/reliability, accessibility or Windows correctness. Record the deviation and its rationale rather than rewriting source truth.
+8. **Do not force a winner when evidence is insufficient.** Use `CONFLICT_REVIEW`, `EVIDENCE_LIMIT`, `PRODUCT_DECISION_REQUIRED` or the appropriate open disposition. Never promote “more detailed” into “confirmed” without claim-level support.
+9. **Record the supersession reasoning durably.** The crosswalk/work log must say which claim changed, which evidence was compared, why one interpretation is stronger or version-specific, and what old evidence remains valid historically.
+
+Example: an earlier short planning clip or interpretation may support “board fade,” while a full current motion interval may show a shrink/translate window morph. The latter supersedes the former only after confirming the compared action/state/lineage are materially the same and that the full interval directly observes the transition more completely; if they are different product versions or different transitions, preserve both as version/state-specific evidence instead of declaring one globally wrong.
 
 ## Roles
 
