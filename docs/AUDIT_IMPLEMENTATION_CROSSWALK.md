@@ -2,13 +2,17 @@
 
 ## Current authoritative state — project continuation reconciled 2026-10-06
 
-This section is the continuation authority. Dated checkpoints below describe earlier builds/sessions; their old counters, pending-CI text, PIDs, monitor state and next-step requests are historical, not instructions to rerun them.
+This section is the continuation authority. Dated checkpoints below are historical.
 
-- **PR236 / finding27 implementation:** exact head `357706a1fe6d7143c046c64df2f336a236026a88`, full Windows CI962 PASS, guarded squash merge `9f3e9b5cebdd752551c9b6b148975fe542bf44ea`; seven source/test blobs verified identical on resulting `main`. Source correction integrated, physical selected-monitor/DPI recovery acceptance still OPEN/deferred.
-- **PR237 / finding07 implementation:** exact head `0f15f06ff7642e68dd4f124b526f38810b753bfb`, four-file async SQLite-read correction on current `main`; CI964/run `37428653095` active. No PASS until CI completes; physical blocked-lock keyboard responsiveness remains a later gate.
-- **Finding23:** review-first completed with **NO FIX NOW**. Native vertical/end/menu/Tab access already passes at 100%/125%; source/automation bound horizontal overflow. Provider-only UIA horizontal metric has no rendered reproduction. Canonical/source acceptance remains open.
-- **Roadmap state:** M2–M4 complete (**3/10**). M1 still narrowly reopened for physical finding27. M5/M6 visual/source acceptance open. M7 C1–C3/C5 accepted and C4 OPEN (**4/5**). M8/M9 open; M10 blocked; M11 dormant. Compact progress **3/10M || 4/5 | 14/19**.
-- **WIP provenance:** the old async-read/evidence-tools branch is backup only; PR237 was rebuilt using only the reviewed four-file implementation delta.
+- **Finding27:** PR236 source correction integrated/automated-green; physical selected-monitor/DPI recovery remains OPEN.
+- **Finding07:** PR237 source correction integrated/automated-green; real locked-SQLite keyboard responsiveness remains OPEN.
+- **Finding23:** **NO_FIX** unless rendered/canonical evidence establishes an actual horizontal-overflow defect.
+- **Finding36:** PR239 exact head `955a6e124130ae9abae9be3fff242f881abadfc5` passed CI976 and merged as `88cd58e0357f9ab368716eb4504711aaf5cb0687`; 5/5 blobs identical on resulting main. Physical/source acceptance remains routed/open.
+- **Finding35:** PR240 exact final head `94ea1ccdf7bbc8f00585370d799b077b8bad2ef9` passed CI983 and merged as `7f8a1f3b52a405d94ff5cb1ba98d04bdb251f248`; 3/3 blobs identical on resulting main. Fixed six-slot Time's Up Extend behavior is integrated; physical/direct visual parity remains OPEN.
+- **Finding37:** **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**; do not invent post-click Take a Break semantics.
+- **M9 PDF:** source/automation integrated from PR238/CI971; actual Windows PDF creation/open/rendering remains OPEN, M9 stays 11/12.
+- **Current non-physical implementation slice:** M5 `P3-M5-04` canonical destructive-menu reconciliation. M5 has **33/34** validated top-level TODO items; this is the sole open top-level M5 item.
+- **Roadmap:** M2–M4 complete (**3/10M**). M1 physical finding27 open; M5/M6 affected source/visual gates open; M7 C4 OPEN (**4/5**); M8/M9 open; M10 blocked; M11 dormant.
 
 - **Evidence navigation:** [11 follow-up CI953 packets with existing timestamps](../work-log/evidence/ci953-capture-index-20261005/README.md), plus [initial CI953 physical results](../work-log/2026-10-05-codex-m7-ci953-physical-results.md) and [initial full evidence packet](../work-log/evidence/m7-ci953-physical-20261005/README.md). The11-packet index is a navigation inventory, not the complete historical corpus or a check-completion counter. Historical44/100 means reviewed cells only; raw acquisition did not advance it.
 - **Open routing:**07 native-read responsiveness and27 DPI recovery remain correction/acceptance blockers;23 provider/source discrepancy requires review, not an assumed visible-overflow fix. Supplemental35 Time's Up,36 list reset/Next Task,37 disabled success Take a Break and other timestamped observations retain their prior OPEN/review dispositions. Actual notification delivery, source parity and continuous motion must not become PASS from elapsed boundaries, static probes or mere surface appearance.
