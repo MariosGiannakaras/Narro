@@ -10,6 +10,7 @@ function requireText(haystack, needle, label) {
 const rust = read("src-tauri/src/list_board.rs");
 const rustProduction = rust.split("#[cfg(test)]")[0];
 const lib = read("src-tauri/src/lib.rs");
+const blockingRead = read("src-tauri/src/blocking_read.rs");
 const component = read("src/ListBoard.tsx");
 const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
@@ -35,7 +36,14 @@ for (const [haystack, needle, label] of [
   [rust, "archived_at IS NULL", "board excludes archived tasks"],
   [rust, "get_preferences(conn)?", "persisted timezone preference read"],
   [rust, "scheduling::validate_timezone_identifier", "fail-closed timezone validation"],
-  [rust, "pub fn get_list_board_snapshot", "renderer board snapshot command"],
+  [rust, "pub async fn get_list_board_snapshot", "async renderer board snapshot command"],
+  [rust, 'crate::blocking_read::read("LIST_BOARD_FAILED"', "list-board SQLite read offload"],
+  [lib, "mod blocking_read;", "shared blocking-read module registration"],
+  [lib, "async fn get_home_snapshot(", "async Home snapshot command"],
+  [lib, 'blocking_read::read("HOME_SNAPSHOT_FAILED"', "Home SQLite read offload"],
+  [blockingRead, "tauri::async_runtime::spawn_blocking(operation)", "native blocking-read worker boundary"],
+  [blockingRead, "locked_sqlite_read_yields_to_caller_and_preserves_result", "blocked SQLite responsiveness regression"],
+  [blockingRead, "worker_preserves_authoritative_command_errors", "authoritative error preservation regression"],
   [lib, "pub mod list_board;", "list board module registration"],
   [lib, "list_board::get_list_board_snapshot,", "list board command registration"],
   [api, 'invoke<ListBoardSnapshot>("get_list_board_snapshot"', "typed board IPC"],
