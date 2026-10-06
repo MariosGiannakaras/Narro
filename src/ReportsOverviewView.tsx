@@ -95,6 +95,7 @@ export type ReportsOverviewViewProps = {
   onExport?: () => void;
   sessionsDisabled?: boolean;
   exportDisabled?: boolean;
+  exportPending?: boolean;
 };
 
 function formatDuration(seconds: number): string {
@@ -317,6 +318,7 @@ export function ReportsOverviewView({
   onExport,
   sessionsDisabled = false,
   exportDisabled = false,
+  exportPending = false,
 }: ReportsOverviewViewProps) {
   const totalListSeconds = timeByList.reduce((total, item) => total + Math.max(0, item.seconds), 0);
   let listCursor = 0;
@@ -353,9 +355,10 @@ export function ReportsOverviewView({
           className="reports-overview__export"
           onClick={onExport}
           disabled={exportDisabled}
-          title={exportDisabled ? "PDF export will be enabled in the Reports export slice." : undefined}
+          aria-busy={exportPending || undefined}
+          title={exportPending ? "Exporting the current Overview to PDF…" : undefined}
         >
-          ⇩ Export PDF
+          {exportPending ? "Exporting…" : "⇩ Export PDF"}
         </button>
       </header>
 

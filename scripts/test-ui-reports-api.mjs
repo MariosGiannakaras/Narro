@@ -8,6 +8,7 @@ function requireText(haystack, needle, label) {
 }
 
 const commands = read("src-tauri/src/report_commands.rs");
+const reportPdf = read("src-tauri/src/report_pdf.rs");
 const reporting = read("src-tauri/src/reporting.rs");
 const sessions = read("src-tauri/src/persistence/sessions.rs");
 const sessionReporting = read("src-tauri/src/session_reporting.rs");
@@ -20,8 +21,15 @@ for (const [haystack, needle, label] of [
   [commands, "report_overview(&connection, range, &display_timezone)", "validated Overview aggregation delegation"],
   [commands, "load_sessions_report(&connection, range, show_break_sessions)", "validated Sessions projection delegation"],
   [commands, '"REPORT_EXPORT_FAILED"', "stable local report export failure code"],
+  [commands, "pub async fn export_report_overview_pdf(", "Overview PDF export command"],
+  [commands, "crate::report_pdf::capture(window).await?", "current WebView Overview PDF capture"],
+  [commands, 'write_unique_export(&download_directory, &file_stem, "pdf", &pdf)', "non-overwriting Overview PDF persistence"],
   [commands, "app_handle.path().download_dir()", "local Downloads export target"],
   [commands, "OpenOptions::new().write(true).create_new(true)", "non-overwriting local export creation"],
+  [reportPdf, "ICoreWebView2_7", "WebView2 PDF interface"],
+  [reportPdf, "PrintToPdfCompletedHandler::create", "WebView2 PDF completion callback"],
+  [reportPdf, "None::<&ICoreWebView2PrintSettings>", "default local PDF print settings"],
+  [reportPdf, 'bytes.starts_with(b"%PDF-")', "generated PDF signature validation"],
   [commands, "load_task_sessions_detail(&connection, task_id)", "all-history task Sessions detail delegation"],
   [commands, "create_manual_work_session(", "manual-session persistence delegation"],
   [commands, "edit_closed_session_if_expected(", "stale-safe edit persistence delegation"],
@@ -48,8 +56,10 @@ for (const [haystack, needle, label] of [
   [sessions, "pub fn delete_closed_session_if_expected(", "validated historical delete boundary"],
   [sessions, "OpenSessionMutation", "open live session mutation protection"],
   [lib, "pub mod report_commands;", "report command module registration"],
+  [lib, "mod report_pdf;", "Overview PDF helper module registration"],
   [lib, "report_commands::get_report_history,", "history command registration"],
   [lib, "report_commands::get_report_overview,", "Overview command registration"],
+  [lib, "report_commands::export_report_overview_pdf,", "Overview PDF export registration"],
   [lib, "report_commands::get_report_sessions,", "Sessions command registration"],
   [lib, "report_commands::export_report_sessions_csv,", "Sessions CSV export registration"],
   [lib, "report_commands::get_report_task_sessions,", "task Sessions detail command registration"],
@@ -58,6 +68,7 @@ for (const [haystack, needle, label] of [
   [lib, "report_commands::delete_report_session,", "session delete command registration"],
   [api, 'invoke<ReportHistory>("get_report_history"', "typed history invoke"],
   [api, 'invoke<ReportOverview>("get_report_overview"', "typed Overview invoke"],
+  [api, 'invoke<ReportPdfExportResult>("export_report_overview_pdf"', "typed Overview PDF export invoke"],
   [api, 'invoke<ReportSessions>("get_report_sessions"', "typed Sessions invoke"],
   [api, 'invoke<ReportExportResult>("export_report_sessions_csv"', "typed Sessions CSV export invoke"],
   [api, 'invoke<ReportTaskSessionsDetail>("get_report_task_sessions"', "typed task Sessions detail invoke"],

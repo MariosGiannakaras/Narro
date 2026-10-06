@@ -767,19 +767,98 @@ html[data-reports-fixture-mode="lower"] .reports-overview__chart-card {
 }
 
 .reports-overview--state code,
-.reports-overview__runtime-error {
+.reports-overview__runtime-error,
+.reports-overview__export-status {
   color: var(--color-text-secondary);
 }
 
-.reports-overview__runtime-error {
+.reports-overview__runtime-error,
+.reports-overview__export-status {
   margin: 0 0 var(--space-3);
   padding: var(--space-2) var(--space-3);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-control);
 }
 
+.reports-overview__export-status {
+  color: var(--color-success);
+}
+
 .reports-overview__export:disabled,
 .reports-overview__tabs button:disabled {
   cursor: default;
   opacity: 0.55;
+}
+
+
+@media print {
+  @page {
+    size: landscape;
+    margin: 10mm;
+  }
+
+  html[data-report-pdf-export="true"],
+  html[data-report-pdf-export="true"] body {
+    min-width: 0;
+    min-height: 0;
+    overflow: visible !important;
+    background: var(--color-canvas);
+  }
+
+  html[data-report-pdf-export="true"] .app-shell {
+    display: block;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  html[data-report-pdf-export="true"] .app-shell__sidebar,
+  html[data-report-pdf-export="true"] .app-shell__topbar,
+  html[data-report-pdf-export="true"] .app-shell__primary-nav,
+  html[data-report-pdf-export="true"] .reports-overview__back,
+  html[data-report-pdf-export="true"] .reports-overview__export,
+  html[data-report-pdf-export="true"] .reports-overview__tabs,
+  html[data-report-pdf-export="true"] .reports-overview__chart-menu,
+  html[data-report-pdf-export="true"] .reports-overview__list-menu,
+  html[data-report-pdf-export="true"] .reports-overview__date-popover,
+  html[data-report-pdf-export="true"] .reports-overview__chart-tooltip,
+  html[data-report-pdf-export="true"] .reports-overview__runtime-error,
+  html[data-report-pdf-export="true"] .reports-overview__export-status {
+    display: none !important;
+  }
+
+  html[data-report-pdf-export="true"] .app-shell__workspace,
+  html[data-report-pdf-export="true"] .app-shell__content {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: visible !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  html[data-report-pdf-export="true"] .reports-overview {
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  html[data-report-pdf-export="true"] .reports-overview__title-row {
+    min-height: 34px;
+  }
+
+  html[data-report-pdf-export="true"] .reports-overview__done-list {
+    max-height: none;
+    overflow: visible;
+  }
+
+  html[data-report-pdf-export="true"] .reports-overview__metric,
+  html[data-report-pdf-export="true"] .reports-overview__chart-card,
+  html[data-report-pdf-export="true"] .reports-overview__productive-grid article,
+  html[data-report-pdf-export="true"] .reports-overview__panel,
+  html[data-report-pdf-export="true"] .reports-overview__done-group {
+    break-inside: avoid;
+  }
 }

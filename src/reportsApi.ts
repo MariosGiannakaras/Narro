@@ -188,6 +188,15 @@ export type ReportExportResult = {
   rowCount: string;
 };
 
+export type ReportPdfExportResult = {
+  path: string;
+};
+
+export type ExportReportOverviewPdfRequest = {
+  startAt: string;
+  endAt: string;
+};
+
 export function getReportHistory(request: GetReportHistoryRequest): Promise<ReportHistory> {
   return invoke<ReportHistory>("get_report_history", request);
 }
@@ -198,6 +207,12 @@ export function getReportOverview(request: GetReportOverviewRequest): Promise<Re
 
 export function getReportSessions(request: GetReportSessionsRequest): Promise<ReportSessions> {
   return invoke<ReportSessions>("get_report_sessions", request);
+}
+
+export function exportReportOverviewPdf(
+  request: ExportReportOverviewPdfRequest,
+): Promise<ReportPdfExportResult> {
+  return invoke<ReportPdfExportResult>("export_report_overview_pdf", request);
 }
 
 export function exportReportSessionsCsv(
