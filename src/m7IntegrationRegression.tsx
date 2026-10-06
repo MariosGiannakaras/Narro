@@ -341,7 +341,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     />,
   ));
   await wait(); await wait(); await wait();
-  const scopedDone = container.querySelector<HTMLButtonElement>('[data-focus-action="done"]');
+  const scopedDone = container.querySelector<HTMLButtonElement>('[data-floating-action="done"]');
   if (!scopedDone || scopedDone.disabled) throw new Error("scoped Floating Done action unavailable");
   scopedDone.click();
   await wait(); await wait(); await wait(); await wait();
