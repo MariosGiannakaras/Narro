@@ -153,25 +153,70 @@ export function applyNewerShortcutDiagnostics(
   return current;
 }
 
-export function isValidMonitorSelection(
-  monitorKey: string | null,
-  monitors: readonly MonitorDescriptor[],
-): monitorKey is string {
-  return (
-    monitorKey !== null &&
-    monitorKey.length > 0 &&
-    monitors.some((monitor) => monitor.key === monitorKey)
-  );
+function parsePersistedMonitorName(monitorKey: string): string | null {
+  const parts = monitorKey.split("|");
+  if (parts.length < 10) return null;
+
+  const scaleBits = parts.pop();
+  const workHeight = parts.pop();
+  const workWidth = parts.pop();
+  const workY = parts.pop();
+  const workX = parts.pop();
+  const height = parts.pop();
+  const width = parts.pop();
+  const y = parts.pop();
+  const x = parts.pop();
+  if (
+    scaleBits === undefined
+    || workHeight === undefined
+    || workWidth === undefined
+    || workY === undefined
+    || workX === undefined
+    || height === undefined
+    || width === undefined
+    || y === undefined
+    || x === undefined
+    || !/^[0-9a-fA-F]{16}$/.test(scaleBits)
+  ) {
+    return null;
+  }
+
+  const unsignedFields = [workHeight, workWidth, height, width];
+  const signedFields = [workY, workX, y, x];
+  if (
+    unsignedFields.some((value) => !/^\d+$/.test(value))
+    || signedFields.some((value) => !/^-?\d+$/.test(value))
+  ) {
+    return null;
+  }
+
+  const name = parts.join("|");
+  return name.length > 0 ? name : null;
 }
 
 export function findSelectedMonitor(
   monitorKey: string | null,
   monitors: readonly MonitorDescriptor[],
 ): MonitorDescriptor | null {
-  if (!isValidMonitorSelection(monitorKey, monitors)) {
+  if (monitorKey === null || monitorKey.length === 0) {
     return null;
   }
-  return monitors.find((monitor) => monitor.key === monitorKey) ?? null;
+
+  const exact = monitors.find((monitor) => monitor.key === monitorKey);
+  if (exact) return exact;
+
+  const savedName = parsePersistedMonitorName(monitorKey);
+  if (savedName === null) return null;
+
+  const compatible = monitors.filter((monitor) => monitor.name === savedName);
+  return compatible.length === 1 ? compatible[0] : null;
+}
+
+export function isValidMonitorSelection(
+  monitorKey: string | null,
+  monitors: readonly MonitorDescriptor[],
+): monitorKey is string {
+  return findSelectedMonitor(monitorKey, monitors) !== null;
 }
 
 export function formatMonitorLabel(monitor: MonitorDescriptor): string {
