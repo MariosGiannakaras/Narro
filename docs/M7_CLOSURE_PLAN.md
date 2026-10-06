@@ -14,12 +14,12 @@ PR235 remains integrated and its scoped native finding24/26 acceptance is unchan
 
 [CI950 loading addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md) remains the physical baseline for finding07: real 1.8s/4s SQLite lock exercises showed loading feedback but queued Escape/Tab until release. PR237 addresses only the source mechanism; exact Windows physical acceptance is deferred per current user direction.
 
-Current progress stays **3/10M || 4/5 | 14/19**. M7 C1–C3/C5 remain accepted, C4 remains OPEN, M10 blocked and M11 dormant.
+Roadmap remains **3/10M** and M7 closure remains **4/5** (C1–C3/C5 accepted, C4 OPEN). The currently active non-physical implementation slice is tracked separately in HANDOFF under the current progress protocol. M10 remains blocked and M11 dormant.
 
 ## Finding35/36/37 current overlay
 
 - **Finding36:** PR239 exact head `955a6e124130ae9abae9be3fff242f881abadfc5` passed full Windows CI976 and merged as `88cd58e0357f9ab368716eb4504711aaf5cb0687`; 5/5 changed source/test blobs were verified identical on resulting main. Focus queue target now survives Panel remount and scopes success Next Task correctly. Separate physical/source acceptance remains OPEN.
-- **Finding35:** PR240 current head `94ea1ccdf7bbc8f00585370d799b077b8bad2ef9` uses fixed six-slot Time's Up geometry by substituting Extend into the Pause/Resume slot and clears stale prior action-status copy. CI983 first attempt passed fast/check/clippy but hit an unrelated SQLite writer-contention timeout in Rust tests; exact-head Windows-candidate rerun is in progress. Do not merge until the exact-head rerun completes successfully.
+- **Finding35:** PR240 exact final head `94ea1ccdf7bbc8f00585370d799b077b8bad2ef9` uses fixed six-slot Time's Up geometry by substituting Extend into the Pause/Resume slot, restores Pause/Resume in overtime, and clears stale prior action-status copy. Full Windows CI983/run `37459582808` PASS; expected-head-guarded squash merge `7f8a1f3b52a405d94ff5cb1ba98d04bdb251f248`; all 3 changed source/test blobs match resulting main. Physical/direct source-visual acceptance remains OPEN.
 - **Finding37:** **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**. Source proves the visible success `Take a Break` control but not its post-click semantics. Durable record: `work-log/2026-10-06-chatgpt-finding37-take-break-disposition.md`.
 
 ## Earlier CI950 closure overlay
