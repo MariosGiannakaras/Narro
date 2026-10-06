@@ -79,7 +79,9 @@ mod tests {
         assert_eq!(finished_rx.try_recv(), Err(mpsc::TryRecvError::Empty));
 
         // The caller can continue processing actions before the read is ready.
-        connection.execute_batch("ROLLBACK").expect("release SQLite lock");
+        connection
+            .execute_batch("ROLLBACK")
+            .expect("release SQLite lock");
         let result = tauri::async_runtime::block_on(pending).expect("read should complete");
         assert_eq!(result, ("stable-task".to_owned(), 846));
         let retained: i64 = connection
