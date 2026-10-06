@@ -293,9 +293,32 @@ if (queuedRow) {
   }
   if (JSON.stringify(bounds()) !== JSON.stringify(before)) throw new Error('Revealing queued actions moved title, card or targets');
   if (queuedRow.scrollWidth > queuedRow.clientWidth + 1) throw new Error('Queued task has horizontal overflow ' + JSON.stringify({width: queuedRow.clientWidth, scrollWidth: queuedRow.scrollWidth, escaping: Array.from(queuedRow.querySelectorAll<HTMLElement>('*')).filter(node => node.getBoundingClientRect().right > queuedRow.getBoundingClientRect().right).map(node => ({text: node.textContent?.slice(0,35), class: node.className, right: node.getBoundingClientRect().right}))}));
-  const tooltip = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]')!.getBoundingClientRect();
+  const tooltipNode = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]')!;
+  const tooltip = tooltipNode.getBoundingClientRect();
   const rowBounds = queuedRow.getBoundingClientRect();
-  if (tooltip.left < rowBounds.left || tooltip.right > rowBounds.right || (rowIsVisible && (tooltip.top < 0 || tooltip.bottom > window.innerHeight))) throw new Error('Full queued title tooltip escapes tested horizontal row/visible viewport bounds');
+  const tooltipEscapes = tooltip.left < rowBounds.left
+    || tooltip.right > rowBounds.right
+    || (rowIsVisible && (tooltip.top < 0 || tooltip.bottom > window.innerHeight));
+  if (tooltipEscapes) {
+    const style = getComputedStyle(tooltipNode);
+    throw new Error(
+      'Full queued title tooltip escapes tested horizontal row/visible viewport bounds '
+      + JSON.stringify({
+        tooltip: tooltip.toJSON(),
+        row: rowBounds.toJSON(),
+        anchor: title.closest('.overlay-anchor')!.getBoundingClientRect().toJSON(),
+        viewport: {width: window.innerWidth, height: window.innerHeight},
+        rowIsVisible,
+        placement: tooltipNode.dataset.placement ?? null,
+        maxWidth: style.maxWidth,
+        insetInlineStart: style.insetInlineStart,
+        insetInlineEnd: style.insetInlineEnd,
+        insetBlockStart: style.insetBlockStart,
+        insetBlockEnd: style.insetBlockEnd,
+        transform: style.transform,
+      }),
+    );
+  }
   queueTitleLayout = {titleWiderThanBadge: true, railBelowTitle: true, revealGeometryStable: rowIsVisible,
     rowContained: true, tooltipContained: rowIsVisible, viewportChecked: rowIsVisible, titleWidth: before[1].width, badgeWidth: badge.getBoundingClientRect().width,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches};
