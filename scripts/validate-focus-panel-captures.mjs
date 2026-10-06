@@ -137,8 +137,14 @@ function validateSharedDom(dom, label) {
   invariant(dom.includes(">Skip<"), `${label} Skip action label is missing`);
   invariant(dom.includes(">Extend<"), `${label} Extend action label is missing`);
   invariant(dom.includes(">Done<"), `${label} Done action label is missing`);
-  for (const action of ["complete", "make-live", "move-up", "move-down", "more"]) {
+  for (const action of ["complete", "make-live", "subtasks", "notes", "more"]) {
     invariant(dom.includes(`data-focus-row-action="${action}"`), `${label} ordinary row ${action} action is missing`);
+  }
+  for (const removedAction of ["move-up", "move-down"]) {
+    invariant(
+      !dom.includes(`data-focus-row-action="${removedAction}"`),
+      `${label} ordinary row still exposes removed ${removedAction} rail action`,
+    );
   }
   invariant(dom.includes('data-focus-task-row="remaining"'), `${label} remaining queue is missing`);
   invariant(dom.includes("Review campaign notes"), `${label} overdue remaining task is missing`);
