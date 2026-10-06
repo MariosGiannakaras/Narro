@@ -155,6 +155,35 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
         return board(args.listId ? { kind: "list", id: String(args.listId) } : { kind: "all" });
       }
       if (command === "timer_session_snapshot") return scopeScenario ? scopeTimer : timer;
+      if (command === "timer_resume" && scopeScenario) {
+        scopeTimer = {
+          ...scopeTimer,
+          revision: scopeTimer.revision + 1,
+          change: null,
+          runtime: {
+            ...scopeTimer.runtime,
+            timer: { ...scopeTimer.runtime.timer, state: "running" },
+          },
+        };
+        return scopeTimer;
+      }
+      if (command === "timer_extend" && scopeScenario) {
+        scopeTimer = {
+          ...scopeTimer,
+          revision: scopeTimer.revision + 1,
+          change: null,
+          runtime: {
+            ...scopeTimer.runtime,
+            timer: {
+              ...scopeTimer.runtime.timer,
+              state: "overtime_running",
+              countdown_remaining_ms: null,
+              overtime_ms: 0,
+            },
+          },
+        };
+        return scopeTimer;
+      }
       if (command === "timer_complete_task" && scopeScenario) {
         scopeCompleted = true;
         scopeTimer = {
@@ -353,6 +382,110 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     "success Next Task selected global older task");
   assert(scopeBoardReads.filter(listId => listId === scopeListId).length >= 2,
     "Done/success did not refresh selected Focus target: " + JSON.stringify(scopeBoardReads));
+
+  // Finding35 regression: a prior local success message must not survive the
+  // authoritative automatic transition into Time's Up, and Floating must expose
+  // the same Extend mutation already available in Panel.
+  flushSync(() => root.render(<div data-finding35-reset="true" />)); await wait();
+  scopeCompleted = false;
+  scopeTimer = {
+    revision: 70,
+    awaitingResume: false,
+    change: null,
+    runtime: {
+      open_session_id: "scope-session-time-up",
+      timer: {
+        state: "paused", task_id: scopedLiveTask.id,
+        mode: { kind: "est_countdown", est_ms: 60_000 },
+        work_elapsed_ms: 59_000, total_break_ms: 0, countdown_remaining_ms: 1_000,
+        overtime_ms: 0, break_kind: null, break_remaining_ms: null,
+      },
+    },
+  };
+  const renderFinding35Floating = () => flushSync(() => root.render(
+    <FloatingTimerFoundation
+      onReturnToPanel={() => {}}
+      focusTarget={{ kind: "list", id: scopeListId }}
+      sharedTimerProjection={{ payload: scopeTimer, settled: true }}
+      presentationActive
+      controlledExpanded
+      onRequestExpanded={async () => {}}
+    />,
+  ));
+  renderFinding35Floating(); await wait(); await wait(); await wait();
+  const resume = container.querySelector<HTMLButtonElement>('[data-floating-action="pause-resume"]');
+  if (!resume || resume.disabled) throw new Error("finding35 Floating Resume action unavailable");
+  resume.click(); await wait(); await wait(); await wait();
+  assert(container.textContent?.includes("Task resumed."), "finding35 precondition did not publish resumed status");
+
+  scopeTimer = {
+    ...scopeTimer,
+    revision: scopeTimer.revision + 1,
+    runtime: {
+      ...scopeTimer.runtime,
+      timer: {
+        ...scopeTimer.runtime.timer,
+        state: "time_up",
+        countdown_remaining_ms: 0,
+        overtime_ms: 0,
+      },
+    },
+  };
+  renderFinding35Floating(); await wait(); await wait(); await wait();
+  const timerReadout = container.querySelector<HTMLElement>('[data-floating-live-timer="true"]');
+  const breakAction = container.querySelector<HTMLButtonElement>('[data-floating-action="break"]');
+  const pauseAction = container.querySelector<HTMLButtonElement>('[data-floating-action="pause-resume"]');
+  const skipAction = container.querySelector<HTMLButtonElement>('[data-floating-action="skip"]');
+  const extendAction = container.querySelector<HTMLButtonElement>('[data-floating-action="extend"]');
+  const doneAction = container.querySelector<HTMLButtonElement>('[data-floating-action="done"]');
+  assert(container.querySelector<HTMLElement>('[data-floating-timer="foundation"]')?.dataset.floatingLiveState === "time_up",
+    "finding35 Floating did not project authoritative Time's Up state");
+  assert(timerReadout?.textContent?.trim() === "00:00" && timerReadout.getAttribute("aria-label") === "Time's Up",
+    "finding35 Floating Time's Up readout mismatch");
+  assert(Boolean(breakAction?.disabled) && Boolean(pauseAction?.disabled),
+    "finding35 Time's Up left Break/Pause enabled");
+  assert(Boolean(skipAction && !skipAction.disabled) && Boolean(doneAction && !doneAction.disabled)
+      && Boolean(extendAction && !extendAction.disabled),
+    "finding35 Time's Up did not expose Skip/Done/Extend");
+  assert(!container.textContent?.includes("Task resumed."),
+    "finding35 stale resumed status survived authoritative Time's Up");
+  extendAction!.click(); await wait(); await wait(); await wait();
+  assert(scopeTimer.runtime.timer.state === "overtime_running",
+    "finding35 Floating Extend did not call authoritative timer_extend");
+  assert(container.querySelector<HTMLElement>('[data-floating-timer="foundation"]')?.dataset.floatingLiveState === "overtime_running",
+    "finding35 Floating Extend did not project overtime");
+
+  scopeTimer = {
+    ...scopeTimer,
+    revision: scopeTimer.revision + 1,
+    runtime: {
+      ...scopeTimer.runtime,
+      timer: {
+        ...scopeTimer.runtime.timer,
+        state: "time_up",
+        countdown_remaining_ms: 0,
+        overtime_ms: 0,
+      },
+    },
+  };
+  flushSync(() => root.render(
+    <FocusPanel
+      target={{ kind: "list", id: scopeListId }}
+      onTargetChange={() => {}}
+      sharedTimerProjection={{ payload: scopeTimer, settled: true }}
+      presentationActive
+    />,
+  ));
+  await wait(); await wait(); await wait();
+  const panelBreak = container.querySelector<HTMLButtonElement>('[data-focus-action="break"]');
+  const panelPause = container.querySelector<HTMLButtonElement>('[data-focus-action="pause-resume"]');
+  const panelSkip = container.querySelector<HTMLButtonElement>('[data-focus-action="skip"]');
+  const panelExtend = container.querySelector<HTMLButtonElement>('[data-focus-action="extend"]');
+  const panelDone = container.querySelector<HTMLButtonElement>('[data-focus-action="done"]');
+  assert(Boolean(panelBreak?.disabled) && Boolean(panelPause?.disabled)
+      && Boolean(panelSkip && !panelSkip.disabled) && Boolean(panelExtend && !panelExtend.disabled)
+      && Boolean(panelDone && !panelDone.disabled),
+    "finding35 correction changed Panel Time's Up action contract");
   scopeScenario = false;
 
   // Production pointer handlers, real rendered hit testing/placeholder reflow,

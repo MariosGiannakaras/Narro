@@ -110,7 +110,7 @@ function assertExpectedLiveTask(payload: TimerSessionPayload, expectedTaskId: st
   }
 }
 
-type FloatingActionIconKind = "break" | "notes" | "pause" | "resume" | "skip" | "done" | "return";
+type FloatingActionIconKind = "break" | "notes" | "pause" | "resume" | "skip" | "extend" | "done" | "return";
 
 function FloatingActionIcon({ kind }: { kind: FloatingActionIconKind }) {
   const common = {
@@ -136,6 +136,8 @@ function FloatingActionIcon({ kind }: { kind: FloatingActionIconKind }) {
       return <svg {...common}><path d="m9 6 9 6-9 6Z" /></svg>;
     case "skip":
       return <svg {...common}><path d="m7 6 8 6-8 6Z" /><path d="M17 6v12" /></svg>;
+    case "extend":
+      return <svg {...common}><circle cx="12" cy="12" r="8" /><path d="M12 8v8M8 12h8" /></svg>;
     case "done":
       return <svg {...common}><circle cx="12" cy="12" r="8" /><path d="m8.5 12 2.2 2.2 4.8-5" /></svg>;
     case "return":
@@ -202,6 +204,8 @@ export function FocusLiveActions({
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const shortcutHandlerRef = useRef<(shortcut: InAppShortcut) => void>(() => {});
+  const timerState = timer.runtime.timer.state;
+  const previousTimerStateRef = useRef(timerState);
   const state = actionState(timer.runtime.timer);
   const busy = !presentationActive
     || pendingAction !== null
@@ -212,6 +216,14 @@ export function FocusLiveActions({
     : null;
   const hideTaskTimes = preferences.snapshot?.general.hideTaskTimes ?? false;
   const showSuccessScreen = preferences.snapshot?.celebration.showSuccessScreen ?? true;
+
+  useEffect(() => {
+    const previousTimerState = previousTimerStateRef.current;
+    if (timerState === "time_up" && previousTimerState !== "time_up") {
+      setStatus(null);
+    }
+    previousTimerStateRef.current = timerState;
+  }, [timerState]);
 
   const applyPayload = (payload: TimerSessionPayload) => {
     onTimerPayload(payload);
@@ -624,6 +636,16 @@ export function FocusLiveActions({
             disabled={busy || !state.skipEnabled}
             onClick={() => void handleSkip()}
           />
+          {state.extendEnabled ? (
+            <FloatingActionButton
+              action="extend"
+              label="Extend timer"
+              pillLabel="Extend"
+              icon="extend"
+              disabled={busy}
+              onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
+            />
+          ) : null}
           <FloatingActionButton
             action="done"
             label="Complete task"
