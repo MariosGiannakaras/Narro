@@ -73,6 +73,10 @@ pub fn set_outer_rect(window: &tauri::WebviewWindow, rect: PhysicalRect) -> Comm
             height: i32,
             flags: u32,
         ) -> i32;
+    }
+
+    #[link(name = "kernel32")]
+    unsafe extern "system" {
         fn GetLastError() -> u32;
     }
 
