@@ -88,14 +88,14 @@ Persistent webview budget:
 
 Do not keep separate persistent Focus Panel and Floating Timer webviews.
 
-**M7 implementation direction (2026-09-29; pending code and validation):** retain one
+**Current validated Focus-host architecture (adopted after the 2026-09-29 replacement program):** retain one
 nominal 340 × 700 logical px fixed-size `focusSurface` HWND/WebView and select
 Panel (340×700), compact Timer (340×110) or expanded Timer (340×300) inside that React entry. Use a DPI-aware native window region to
 expose the corresponding visible rectangle without resizing or hiding the HWND
 on ordinary presentation changes. The now-closed, unmerged PR #191 second
 `floatingTimer` WebView is an unsuccessful historical physical candidate, not the target architecture.
-The executable plan and deferred validation boundary are in
-`docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`.
+The replacement architecture is implemented on current `main`; its historical design/validation path remains in
+`docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. Current remaining physical/source acceptance is tracked in `HANDOFF.md`, `TODO.md` and `docs/M7_CLOSURE_PLAN.md`.
 
 ### `main`
 

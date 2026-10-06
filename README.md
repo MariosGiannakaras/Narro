@@ -44,7 +44,7 @@ Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instr
 
 Normal ordered evidence analysis, implementation/corrections and validation for the open M1–M9 work, with existing FIX_NOW and acceptance dependencies determining priority. M2–M4 are complete; M1 monitor/DPI acceptance is narrowly reopened, and M5–M9 retain validation/source-parity gates. M10 is blocked until all required M1–M9 acceptance clears.
 
-The CI953/source `38219e20` pointer/menu correction from PR235 is now integrated on `main` as squash merge `a0dd76ed`; its 14 changed source/test blobs match the exact CI953 head. Separate async-read finding07 WIP is backed up but uncompiled/native-unvalidated and unmerged.
+The CI953/source `38219e20` pointer/menu correction from PR235 is integrated on `main` as squash merge `a0dd76ed`. The later async-read finding07 correction is also integrated from PR237/CI967 as `535e0a8c7c92143dd6bd7feac2c680a85e672cff`; only its physical blocked-SQLite responsiveness acceptance remains open. M1 finding27 source correction is integrated with physical DPI/monitor acceptance open; M9 Overview PDF source is integrated with physical PDF acceptance open. Current implementation continuation is M6 P3-M6-05 after integrated PR241 Quick Preferences; see `HANDOFF.md` for the exact queue.
 
 Start from [HANDOFF](HANDOFF.md), [TODO](TODO.md) and [STATUS](STATUS.md). The [capture navigation index](work-log/evidence/ci953-capture-index-20261005/README.md) links11 follow-up packets; capture counts are not reviewed/PASS counts. Current authoritative tracking takes precedence over dated historical checkpoints.
 
