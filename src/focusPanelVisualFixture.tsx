@@ -1,7 +1,8 @@
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./App.css";
-import { FocusPanel } from "./FocusPanel";\nimport { TOOLTIP_INTENT_DELAY_MS } from "./overlayPrimitives";
+import { FocusPanel } from "./FocusPanel";
+import { TOOLTIP_INTENT_DELAY_MS } from "./overlayPrimitives";
 import type {
   BoardTaskNoteSnapshot,
   ListBoardSnapshot,
