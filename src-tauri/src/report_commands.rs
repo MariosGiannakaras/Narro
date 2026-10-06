@@ -198,6 +198,12 @@ pub struct ReportExportPayload {
     pub row_count: String,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReportPdfExportPayload {
+    pub path: String,
+}
+
 impl From<ReportRange> for ReportRangePayload {
     fn from(value: ReportRange) -> Self {
         Self {
@@ -661,6 +667,50 @@ pub fn get_report_sessions(
 }
 
 #[tauri::command(rename_all = "camelCase")]
+pub async fn export_report_overview_pdf(
+    window: tauri::WebviewWindow,
+    app_handle: tauri::AppHandle,
+    start_at: String,
+    end_at: String,
+) -> CommandResult<ReportPdfExportPayload> {
+    if window.label() != "main" {
+        return Err(CommandError::new(
+            "REPORT_EXPORT_FAILED",
+            "Overview PDF export is only available from the main Narro window",
+        ));
+    }
+
+    let start = chrono::DateTime::parse_from_rfc3339(&start_at)
+        .map_err(|_| CommandError::invalid_argument("startAt", "must be an RFC 3339 timestamp"))?;
+    let end = chrono::DateTime::parse_from_rfc3339(&end_at)
+        .map_err(|_| CommandError::invalid_argument("endAt", "must be an RFC 3339 timestamp"))?;
+    if end <= start {
+        return Err(CommandError::invalid_argument(
+            "endAt",
+            "must be after startAt",
+        ));
+    }
+
+    let file_stem = format!(
+        "narro-overview-{}-to-{}",
+        export_range_date(&start_at),
+        export_range_date(&end_at)
+    );
+    let pdf = crate::report_pdf::capture(window).await?;
+    let download_directory = app_handle.path().download_dir().map_err(|error| {
+        CommandError::new(
+            "REPORT_EXPORT_FAILED",
+            format!("failed to resolve the local Downloads directory: {error}"),
+        )
+    })?;
+    let path = write_unique_export(&download_directory, &file_stem, "pdf", &pdf)?;
+
+    Ok(ReportPdfExportPayload {
+        path: path.to_string_lossy().into_owned(),
+    })
+}
+
+#[tauri::command(rename_all = "camelCase")]
 pub fn export_report_sessions_csv(
     app_handle: tauri::AppHandle,
     start_at: String,
@@ -772,6 +822,12 @@ pub fn delete_report_session(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn overview_pdf_export_range_dates_are_filename_safe() {
+        assert_eq!(export_range_date("2026-10-01T00:00:00+03:00"), "2026-10-01");
+        assert_eq!(export_range_date("not-a-range"), "range");
+    }
 
     #[test]
     fn report_argument_parsers_reject_invalid_identities() {

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { formatInvokeError } from "./diagnosticApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import {
+  exportReportOverviewPdf,
   getReportOverview,
   type ReportOverview,
 } from "./reportsApi";
@@ -57,6 +58,14 @@ function resolvedSystemTimeZone(): string {
   } catch {
     return "UTC";
   }
+}
+
+function waitForReportPrintLayout(): Promise<void> {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => resolve());
+    });
+  });
 }
 
 function buildMetrics(overview: ReportOverview): ReportsMetric[] {
@@ -125,6 +134,9 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   const [homeError, setHomeError] = useState<string | null>(null);
   const [overview, setOverview] = useState<ReportOverview | null>(null);
   const [reportError, setReportError] = useState<string | null>(null);
+  const [exportPending, setExportPending] = useState(false);
+  const [exportStatus, setExportStatus] = useState<string | null>(null);
+  const [exportError, setExportError] = useState<string | null>(null);
   const [selectedListIds, setSelectedListIds] = useState<string[]>([]);
   const [appliedRange, setAppliedRange] = useState<ReportDateRange | null>(null);
   const [draftRange, setDraftRange] = useState<DraftRangeState | null>(null);
@@ -274,6 +286,32 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     });
   };
 
+  const exportOverviewPdf = async () => {
+    if (!appliedRange || exportPending) return;
+
+    const bounds = reportRangeRequestBounds(appliedRange, timeZone);
+    setExportPending(true);
+    setExportStatus(null);
+    setExportError(null);
+    setListFilterOpen(false);
+    setDatePickerOpen(false);
+    document.documentElement.dataset.reportPdfExport = "true";
+
+    try {
+      await waitForReportPrintLayout();
+      const result = await exportReportOverviewPdf({
+        startAt: bounds.startAt,
+        endAt: bounds.endAt,
+      });
+      setExportStatus(`Saved PDF to ${result.path}`);
+    } catch (failure: unknown) {
+      setExportError(formatInvokeError(failure));
+    } finally {
+      delete document.documentElement.dataset.reportPdfExport;
+      setExportPending(false);
+    }
+  };
+
   const blockingError = preferences.error || homeError || (overview === null ? reportError : null);
   if (blockingError) {
     return (
@@ -309,6 +347,15 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
           Latest report refresh failed: {reportError}
         </p>
       ) : null}
+      {exportError ? (
+        <p className="reports-overview__runtime-error" role="alert">
+          PDF export failed: {exportError}
+        </p>
+      ) : exportStatus ? (
+        <p className="reports-overview__export-status" role="status">
+          {exportStatus}
+        </p>
+      ) : null}
       <ReportsOverviewView
         metrics={buildMetrics(overview)}
         chartDays={overview.dailySeries.map((day) => ({
@@ -336,8 +383,10 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
           earlyPercent: overview.punctuality.earlyPercent ?? 0,
           latePercent: overview.punctuality.latePercent ?? 0,
         }}
-        exportDisabled
+        exportDisabled={exportPending}
+        exportPending={exportPending}
         sessionsDisabled={!onOpenSessions}
+        onExport={() => void exportOverviewPdf()}
         onBack={onBack}
         onOpenSessions={onOpenSessions}
         onToggleListSelection={toggleListSelection}

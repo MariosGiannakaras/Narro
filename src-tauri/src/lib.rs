@@ -26,6 +26,7 @@ pub mod recurrence_service;
 pub mod reminder_acceptance;
 pub mod reminder_service;
 pub mod report_commands;
+mod report_pdf;
 pub mod reporting;
 pub mod scheduling;
 pub mod session_reporting;
@@ -2298,6 +2299,7 @@ pub fn run() {
             preference_settings::update_preference_settings,
             report_commands::get_report_history,
             report_commands::get_report_overview,
+            report_commands::export_report_overview_pdf,
             report_commands::get_report_sessions,
             report_commands::export_report_sessions_csv,
             report_commands::get_report_task_sessions,
