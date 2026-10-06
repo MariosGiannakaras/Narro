@@ -185,6 +185,7 @@ export function Tooltip({
         data-open={open ? "true" : "false"}
         data-align={align}
         data-placement={placement}
+        data-bounded={boundarySelector ? "true" : undefined}
       >
         {content}
       </span>
