@@ -19,6 +19,28 @@ Every implementation slice should consider:
 - OS/API failures at native boundaries;
 - performance costs in long-lived/background code.
 
+## Learning from prior Narro corrections
+
+`docs/NARRO_ENGINEERING_RISK_REGISTER.md` is the reusable failure-family index mined from Narro's own implementation, validation and process corrections. It complements `docs/BLITZIT_HISTORY_RISK_INDEX.md`: the Blitzit index records source-product reliability hazards; the Narro register records ways **our implementation process or architecture has already failed or nearly failed** and the prevention guards learned from them.
+
+This is deliberately **not** another backlog, milestone ledger, acceptance gate, CI stage or source of current project status. `TODO.md` / `HANDOFF.md` still choose work, the evidence/crosswalk documents still define parity truth, and `docs/CI_VALIDATION_STRATEGY.md` still defines validation obligations.
+
+Before a non-trivial source/config/test change:
+
+- classify the affected surfaces and state/native/persistence/tooling authorities;
+- consult only the matching risk-register tags/families rather than rereading the whole history;
+- carry any applicable prevention invariant and guard into the implementation/test plan;
+- do not rerun unrelated historical checks merely because a risk entry exists.
+
+After a material implementation, validation or process failure/correction:
+
+- preserve the incident in the immutable work log;
+- map it to an existing risk family and strengthen that family's evidence/guard, or add a new family only when the lesson is reusable beyond the one incident;
+- record the causal boundary, why the previous checks missed it, and the regression/preflight/physical guard added, or explicitly state why automation is not meaningful;
+- avoid turning trivial one-off mistakes into permanent process overhead.
+
+A risk-register control state describes prevention maturity only. It never converts an open TODO, physical Windows gate or source-parity gate to PASS.
+
 ## Error model
 
 Use stable typed internal errors rather than ad-hoc strings.

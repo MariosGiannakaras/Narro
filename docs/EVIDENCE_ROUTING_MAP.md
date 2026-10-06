@@ -28,6 +28,7 @@ When work touches a user-visible surface, Blitzit parity, source evidence, physi
 | Static visual calibration | `BLITZIT_VISUAL_CALIBRATION_PLAN.md`, `BLITZIT_VISUAL_CALIBRATION_TRACKER.md`, `BLITZIT_VISUAL_SYSTEM.md` | representative-source calibration and reusable visual-system rules for high-fidelity reconstruction | runtime correctness |
 | Prior evidence passes | `BLITZIT_VIDEO_EVIDENCE.md`, `BLITZIT_UI_UX_VIDEO_FORENSICS.md`, Help Center evidence, `RESEARCH_EVIDENCE.md`, `SOURCE_AUDIT.md` | prior-pass context and corroboration | current exhaustive completion |
 | Reliability hazards | `BLITZIT_HISTORY_RISK_INDEX.md` | source-product failure families / Narro anti-regressions | visual parity alone |
+| Narro engineering hazards | `NARRO_ENGINEERING_RISK_REGISTER.md` | recurring Narro implementation/process failure families and reusable prevention guards | current work ordering or acceptance status |
 | Reconciliation | `BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`, `AUDIT_IMPLEMENTATION_CROSSWALK.md` | finding → current Narro comparison → disposition | raw observation |
 | Deep corrective analysis | `DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` | exhaustive Narro finding review, visual/video analysis depth, causal/disposition matrix, dependency-aware batching | replacement for canonical Blitzit source records |
 | Visible target | `UI_UX_SPEC.md` plus reconciled canonical evidence | implementation-facing visible target | proof Narro matches |
