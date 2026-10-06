@@ -7,6 +7,7 @@ This section is the continuation authority. Dated checkpoints below are historic
 - **Finding27:** PR236 source correction integrated/automated-green; physical selected-monitor/DPI recovery remains OPEN.
 - **Finding07:** PR237 source correction integrated/automated-green; real locked-SQLite keyboard responsiveness remains OPEN.
 - **Finding23:** **NO_FIX** unless rendered/canonical evidence establishes an actual horizontal-overflow defect.
+- **Finding28:** **NEEDS_REGRESSION_FIRST**. Exact CI953 post-drag Main evidence has real title keyboard focus while the action rail stays absent until pointer hover, contradicting the existing focus-reveal contract. Add a deterministic post-drag focus/computed-style regression before any runtime fix; durable analysis: [finding28 record](../work-log/2026-10-06-chatgpt-finding28-keyboard-action-rail-analysis.md).
 - **Finding36:** PR239 exact head `955a6e124130ae9abae9be3fff242f881abadfc5` passed CI976 and merged as `88cd58e0357f9ab368716eb4504711aaf5cb0687`; 5/5 blobs identical on resulting main. Physical/source acceptance remains routed/open.
 - **Finding35:** PR240 exact final head `94ea1ccdf7bbc8f00585370d799b077b8bad2ef9` passed CI983 and merged as `7f8a1f3b52a405d94ff5cb1ba98d04bdb251f248`; 3/3 blobs identical on resulting main. Fixed six-slot Time's Up Extend behavior is integrated; physical/direct visual parity remains OPEN.
 - **Finding37:** **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**; do not invent post-click Take a Break semantics.
