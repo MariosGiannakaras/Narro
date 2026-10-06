@@ -442,8 +442,11 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     "finding35 Floating did not project authoritative Time's Up state");
   assert(timerReadout?.textContent?.trim() === "00:00" && timerReadout.getAttribute("aria-label") === "Time's Up",
     "finding35 Floating Time's Up readout mismatch");
-  assert(Boolean(breakAction?.disabled) && Boolean(pauseAction?.disabled),
-    "finding35 Time's Up left Break/Pause enabled");
+  const timeUpActions = container.querySelectorAll<HTMLButtonElement>('[data-floating-action]');
+  assert(Boolean(breakAction?.disabled) && pauseAction === null,
+    "finding35 Time's Up retained a Pause/Resume slot instead of replacing it with Extend");
+  assert(timeUpActions.length === 6,
+    "finding35 Time's Up changed the fixed six-slot Floating action geometry");
   assert(Boolean(skipAction && !skipAction.disabled) && Boolean(doneAction && !doneAction.disabled)
       && Boolean(extendAction && !extendAction.disabled),
     "finding35 Time's Up did not expose Skip/Done/Extend");
@@ -454,6 +457,11 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     "finding35 Floating Extend did not call authoritative timer_extend");
   assert(container.querySelector<HTMLElement>('[data-floating-timer="foundation"]')?.dataset.floatingLiveState === "overtime_running",
     "finding35 Floating Extend did not project overtime");
+  assert(container.querySelector<HTMLButtonElement>('[data-floating-action="extend"]') === null
+      && Boolean(container.querySelector<HTMLButtonElement>('[data-floating-action="pause-resume"]')),
+    "finding35 overtime did not restore the ordinary Pause/Resume slot");
+  assert(container.querySelectorAll<HTMLButtonElement>('[data-floating-action]').length === 6,
+    "finding35 overtime changed the fixed six-slot Floating action geometry");
 
   scopeTimer = {
     ...scopeTimer,
