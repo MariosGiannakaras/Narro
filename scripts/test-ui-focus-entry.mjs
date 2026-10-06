@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-const [rust, lib, api, button, main, board, preferences, windows, topology, region, coordinator] = await Promise.all([
+const [rust, lib, api, button, main, board, preferences, windows, topology, region, coordinator, morph, capture] = await Promise.all([
   readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/focusEntryApi.ts", import.meta.url), "utf8"),
@@ -12,6 +12,8 @@ const [rust, lib, api, button, main, board, preferences, windows, topology, regi
   readFile(new URL("../src-tauri/src/windows/topology.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/timer_region.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8"),
+  readFile(new URL("../src-tauri/src/main_focus_morph.rs", import.meta.url), "utf8"),
+  readFile(new URL("../src-tauri/src/focus_frame_capture.rs", import.meta.url), "utf8"),
 ]);
 
 function requireText(haystack, needle, label) {
@@ -83,14 +85,23 @@ for (const [haystack, needle, label] of [
   [region, "FOCUS_HOST_WIDTH_LOGICAL: f64 = 340.0", "validated single-host width"],
   [region, "FOCUS_HOST_HEIGHT_LOGICAL: f64 = 700.0", "validated single-host maximum height"],
   [api, 'invoke<StartBlitzOutcome>("start_blitz"', "typed Start Blitz IPC"],
-  [api, 'invoke<void>("present_focus_for_blitz")', "coordinator-safe Blitz Focus presentation IPC"],
+  [api, 'invoke<void>("present_focus_for_blitz", { reducedMotion })', "reduced-motion-aware native Blitz Focus presentation IPC"],
   [button, 'data-start-blitz="true"', "explicit Start Blitz control"],
   [button, "const outcome = await startBlitz();", "click-only authoritative start request"],
   [button, 'outcome.status === "no_eligible_today_tasks"', "no-eligible UI handling"],
-  [button, "await fadeBoardBeforeFocusPresentation();", "post-commit board fade preparation"],
-  [button, 'window.matchMedia("(prefers-reduced-motion: reduce)").matches', "reduced-motion board-fade bypass"],
-  [button, "await presentFocusForBlitz();", "post-fade coordinator-safe Focus presentation"],
-  [button, "restoreBoard();", "board restoration after presentation attempt"],
+  [button, 'window.matchMedia("(prefers-reduced-motion: reduce)").matches', "reduced-motion native morph bypass flag"],
+  [button, "await presentFocusForBlitz(reducedMotion);", "post-commit native Focus presentation"],
+  [lib, "const BLITZ_MAIN_MORPH_MS: u64 = 220;", "source-calibrated finite Board-to-Focus duration"],
+  [lib, "focus_frame_capture::capture(main.clone()).await", "Main WebView CapturePreview path"],
+  [lib, "focus_frame_hold::begin(&main, visible, &frame)", "finite frozen Main raster hold"],
+  [lib, "animate_main_focus_rect(", "native Main rect morph"],
+  [lib, "restore_main_after_blitz_morph(&main, main_snapshot)", "Main geometry rollback/restoration"],
+  [lib, "main_focus_morph::safe_restored_state(&main)?", "unsafe Main state direct-handoff guard"],
+  [morph, "SetWindowPos(", "native top-level rect authority"],
+  [morph, "DwmFlush()", "finite compositor-step flush"],
+  [morph, ".is_maximized()", "maximized Main morph bypass"],
+  [morph, ".is_fullscreen()", "fullscreen Main morph bypass"],
+  [capture, "MAX_CAPTURE_PNG_BYTES", "bounded large Main WebView capture limit"],
   [button, "Focus session is active", "committed-start presentation failure distinction"],
   [board, 'laneKey === "today" ? <BlitzEntryButton /> : null', "production Today-lane entry surface"],
 ]) {
@@ -124,10 +135,18 @@ for (const forbidden of [
 }
 
 const startCall = button.indexOf("const outcome = await startBlitz();");
-const fadeCall = button.indexOf("await fadeBoardBeforeFocusPresentation();", startCall);
-const presentationCall = button.indexOf("await presentFocusForBlitz();", fadeCall);
-if (startCall < 0 || fadeCall < startCall || presentationCall < fadeCall) {
-  throw new Error("Focus presentation must occur only after authoritative Start Blitz resolves and the board fade completes.");
+const presentationCall = button.indexOf("await presentFocusForBlitz(reducedMotion);", startCall);
+if (startCall < 0 || presentationCall < startCall) {
+  throw new Error("Focus presentation must occur only after authoritative Start Blitz resolves.");
+}
+for (const forbidden of [
+  "fadeBoardBeforeFocusPresentation",
+  "BLITZ_BOARD_FADE_MS",
+  "data-blitz-focus-transition",
+]) {
+  if (button.includes(forbidden)) {
+    throw new Error(`Board-to-Focus entry must not retain renderer fade behavior: ${forbidden}`);
+  }
 }
 
 const savedMonitorBranch = lib.indexOf("Some(monitor_key) =>");
@@ -186,11 +205,11 @@ if (
   throw new Error("Explicit Panel presentation must reapply current monitor/side preferences even when Panel is already the committed mode.");
 }
 
-const blitzPresentationStart = lib.indexOf("fn present_focus_for_blitz(app_handle: tauri::AppHandle)");
+const blitzPresentationStart = lib.indexOf("async fn present_focus_for_blitz(");
 const blitzPresentationEnd = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(", blitzPresentationStart);
 const blitzPresentation = lib.slice(blitzPresentationStart, blitzPresentationEnd);
 const visibleBranchStart = blitzPresentation.indexOf("if visible {");
-const hiddenBranchStart = blitzPresentation.indexOf("// Hidden Focus entry", visibleBranchStart);
+const hiddenBranchStart = blitzPresentation.indexOf("// Prepare the retained hidden Focus host", visibleBranchStart);
 const visibleBranch = blitzPresentation.slice(visibleBranchStart, hiddenBranchStart);
 const hiddenBranch = blitzPresentation.slice(hiddenBranchStart);
 if (
@@ -201,9 +220,13 @@ if (
   || !visibleBranch.includes("set_focus()")
   || !visibleBranch.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
   || visibleBranch.includes("apply_focus_surface_presentation_internal")
-  || !hiddenBranch.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?")
+  || !hiddenBranch.includes("apply_focus_surface_presentation_internal(")
+  || !hiddenBranch.includes("FocusSurfacePresentation::Panel")
+  || !hiddenBranch.includes("show_focus_after_blitz_entry(&main, &focus)")
+  || !hiddenBranch.includes("focus_frame_capture::capture(main.clone()).await")
+  || !hiddenBranch.includes("animate_main_focus_rect(")
 ) {
-  throw new Error("Blitz Focus entry must target Panel through the coordinator when visible and may prepare Panel natively only while hidden.");
+  throw new Error("Blitz Focus entry must preserve the visible coordinator path and use the bounded native morph only for hidden Focus.");
 }
 
 const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
