@@ -9,7 +9,8 @@ function requireText(haystack, needle, label) {
 
 const rust = read("src-tauri/src/list_board.rs");
 const rustProduction = rust.split("#[cfg(test)]")[0];
-const lib = read("src-tauri/src/lib.rs");\nconst blockingRead = read("src-tauri/src/blocking_read.rs");
+const lib = read("src-tauri/src/lib.rs");
+const blockingRead = read("src-tauri/src/blocking_read.rs");
 const component = read("src/ListBoard.tsx");
 const taskCard = read("src/TaskCard.tsx");
 const css = read("src/listBoard.css");
