@@ -6,6 +6,7 @@ import { FocusCompletionSuccess, type FocusCompletionSuccessState } from "./Focu
 import { FocusPanel } from "./FocusPanel";
 import { SearchPalette } from "./SearchPalette";
 import { formatInvokeError } from "./diagnosticApi";
+import type { ListBoardRequestTarget } from "./listBoardApi";
 import {
   FOCUS_PRESENTATION_CHANGED_EVENT,
   type FocusPresentationChanged,
@@ -56,6 +57,7 @@ export function FocusSurfaceCoordinator() {
   const [transitionError, setTransitionError] = useState<string | null>(null);
   const [shortcutStatus, setShortcutStatus] = useState<string | null>(null);
   const [quickTaskOpen, setQuickTaskOpen] = useState(false);
+  const [focusTarget, setFocusTarget] = useState<ListBoardRequestTarget>({ kind: "all" });
   const [panelRefreshKey, setPanelRefreshKey] = useState(0);
   const [timerRefreshKey, setTimerRefreshKey] = useState(0);
   const [findTimerPulse, setFindTimerPulse] = useState<number | null>(null);
@@ -598,6 +600,7 @@ export function FocusSurfaceCoordinator() {
     <main
       className="focus-surface-coordinator"
       data-focus-surface-coordinator="true"
+      data-focus-target={focusTarget.kind === "list" ? `list:${focusTarget.id}` : "all"}
       data-focus-presentation={presentation}
       data-focus-presentation-hydrated={presentationHydrated ? "true" : "false"}
       data-focus-transition-pending={transitionPending ? "true" : "false"}
@@ -617,6 +620,8 @@ export function FocusSurfaceCoordinator() {
         >
           <FocusPanel
             sharedTimerProjection={sharedTimerProjection}
+            target={focusTarget}
+            onTargetChange={setFocusTarget}
             presentationActive={panelActive}
             onRequestCompact={() => void requestMode("timer")}
             compactTransitionPending={transitionPending}
@@ -639,6 +644,7 @@ export function FocusSurfaceCoordinator() {
         >
           <FloatingTimerFoundation
             sharedTimerProjection={sharedTimerProjection}
+            focusTarget={focusTarget}
             presentationActive={timerActive}
             controlledExpanded={presentation === "timerExpanded"}
             onRequestExpanded={requestTimerExpanded}

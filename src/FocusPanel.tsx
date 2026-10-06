@@ -50,6 +50,8 @@ export type FocusPanelProps = {
     payload: TimerSessionPayload | null;
     settled: boolean;
   };
+  target?: ListBoardRequestTarget;
+  onTargetChange?: (target: ListBoardRequestTarget) => void;
   presentationActive?: boolean;
   onRequestCompact?: () => void;
   compactTransitionPending?: boolean;
@@ -321,6 +323,8 @@ export function FocusPanel({
   fixtureLists,
   fixtureTimer = null,
   sharedTimerProjection,
+  target: controlledTarget,
+  onTargetChange,
   presentationActive = true,
   onRequestCompact,
   compactTransitionPending = false,
@@ -330,11 +334,20 @@ export function FocusPanel({
   onPresentationReady,
   onCompletionSuccess,
 }: FocusPanelProps) {
-  const [target, setTarget] = useState<ListBoardRequestTarget>(() =>
+  const [localTarget, setLocalTarget] = useState<ListBoardRequestTarget>(() =>
     fixtureBoard?.target.kind === "list" && fixtureBoard.target.id
       ? { kind: "list", id: fixtureBoard.target.id }
       : { kind: "all" },
   );
+  const target = controlledTarget ?? localTarget;
+  const setFocusTarget = (
+    next: ListBoardRequestTarget | ((current: ListBoardRequestTarget) => ListBoardRequestTarget),
+  ) => {
+    const resolved = typeof next === "function" ? next(target) : next;
+    if (sameTarget(target, resolved)) return;
+    if (controlledTarget === undefined) setLocalTarget(resolved);
+    onTargetChange?.(resolved);
+  };
   const [board, setBoard] = useState<ListBoardSnapshot | null>(fixtureBoard ?? null);
   const { lists, loaded: catalogLoaded, error: catalogError } = useFocusListCatalog(
     fixtureLists, refreshKey, presentationActive,
@@ -374,7 +387,7 @@ export function FocusPanel({
     if (fixtureBoard) {
       setBoard(fixtureBoard);
       setBoardReadyRefreshKey(refreshKey);
-      setTarget(
+      setFocusTarget(
         fixtureBoard.target.kind === "list" && fixtureBoard.target.id
           ? { kind: "list", id: fixtureBoard.target.id }
           : { kind: "all" },
@@ -469,7 +482,7 @@ export function FocusPanel({
 
   useEffect(() => {
     if (!catalogLoaded || fixtureMode) return;
-    setTarget((current) => current.kind === "list" && !lists.some(({ id }) => id === current.id)
+    setFocusTarget((current) => current.kind === "list" && !lists.some(({ id }) => id === current.id)
       ? { kind: "all" } : current);
     setAddTaskListId((current) => current && !lists.some(({ id }) => id === current) ? "" : current);
   }, [catalogLoaded, lists, fixtureMode]);
@@ -842,7 +855,7 @@ export function FocusPanel({
             data-focus-list-selector="true"
             value={selectedValue}
             disabled={fixtureMode || mutationPendingTaskId !== null || addTaskPending}
-            onChange={(event) => setTarget(targetFromValue(event.currentTarget.value))}
+            onChange={(event) => setFocusTarget(targetFromValue(event.currentTarget.value))}
           >
             <option value={ALL_LISTS_VALUE}>All</option>
             {selectorOptions.map((list) => (

@@ -9,6 +9,8 @@ function invariant(condition, message) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const floating = read("src/FloatingTimerFoundation.tsx");
 const catalog = read("src/useFocusListCatalog.ts");
 const actions = read("src/FocusLiveActions.tsx");
 const metrics = read("src/FocusLiveMetrics.tsx");
@@ -28,6 +30,16 @@ const pkg = JSON.parse(read("package.json"));
 
 for (const [haystack, needle, label] of [
   [panel, "getListBoardSnapshot", "authoritative planning projection"],
+  [panel, "target: controlledTarget", "optional coordinator-owned Focus target"],
+  [panel, "const target = controlledTarget ?? localTarget;", "controlled/uncontrolled Focus target projection"],
+  [panel, "onTargetChange?.(resolved);", "Focus target owner notification"],
+  [coordinator, 'const [focusTarget, setFocusTarget] = useState<ListBoardRequestTarget>({ kind: "all" });', "persistent Focus target authority"],
+  [coordinator, "target={focusTarget}", "Panel receives persistent Focus target"],
+  [coordinator, "onTargetChange={setFocusTarget}", "Panel commits Focus target to coordinator"],
+  [coordinator, "focusTarget={focusTarget}", "Floating receives persistent queue target"],
+  [floating, "focusTarget?: ListBoardRequestTarget;", "Floating queue target contract"],
+  [floating, "target={focusTarget}", "Floating live actions use persistent Focus target"],
+  [floating, 'getListBoardSnapshot({ kind: "all" })', "Floating live-task identity remains globally readable"],
   [catalog, 'invoke<HomeSnapshot>("get_home_snapshot")', "authoritative active-list options"],
   [panel, "connectLiveTimerSessionProjection", "authoritative live timer-session projection"],
   [panel, "applyTimerSessionProjection", "timer revision ordering"],

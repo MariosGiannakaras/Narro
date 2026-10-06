@@ -1,11 +1,13 @@
 import { createRoot } from "react-dom/client";
 import { flushSync } from "react-dom";
+import { useState } from "react";
+import { FloatingTimerFoundation } from "./FloatingTimerFoundation";
 import { FocusPanel } from "./FocusPanel";
 import { ListBoard } from "./ListBoard";
 import { createListFromEditor, updateListFromEditor, duplicateListFromHome } from "./listEditorApi";
 import { archiveListFromSettings, restoreListFromSettings, permanentlyDeleteListFromSettings } from "./listSettingsApi";
 import { emitBoardInvalidated } from "./boardInvalidation";
-import type { ListBoardTask, ListBoardSnapshot } from "./listBoardApi";
+import type { ListBoardRequestTarget, ListBoardTask, ListBoardSnapshot } from "./listBoardApi";
 import type { TimerSessionPayload } from "./timerSessionApi";
 
 // Render production components and call production APIs; replace only native
@@ -27,6 +29,66 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     runtime: { open_session_id: null, timer: { state: "idle", task_id: null,
       mode: null, work_elapsed_ms: 0, total_break_ms: 0, countdown_remaining_ms: null,
       overtime_ms: 0, break_kind: null, break_remaining_ms: null } } };
+
+  const scopeListId = "41111111-1111-4111-8111-111111111111";
+  const otherListId = "41111111-1111-4111-8111-222222222222";
+  const scopedLiveTask: ListBoardTask = {
+    ...tasks[0], id: "51111111-1111-4111-8111-111111111111",
+    listId: scopeListId, listTitle: "Scoped", title: "Scoped live task", timeTakenSeconds: "12",
+  };
+  const scopedNextTask: ListBoardTask = {
+    ...tasks[1], id: "51111111-1111-4111-8111-111111111112",
+    listId: scopeListId, listTitle: "Scoped", title: "Scoped next task",
+  };
+  const globalOldTask: ListBoardTask = {
+    ...tasks[2], id: "51111111-1111-4111-8111-999999999999",
+    listId: otherListId, listTitle: "Other", title: "Global old task",
+  };
+  let scopeScenario = false;
+  let scopeCompleted = false;
+  let scopeBoardReads: Array<string | null> = [];
+  let scopeTimer: TimerSessionPayload = {
+    revision: 50,
+    awaitingResume: false,
+    change: null,
+    runtime: {
+      open_session_id: "scope-session",
+      timer: {
+        state: "running",
+        task_id: scopedLiveTask.id,
+        mode: { kind: "count_up" },
+        work_elapsed_ms: 12_000,
+        total_break_ms: 0,
+        countdown_remaining_ms: null,
+        overtime_ms: 0,
+        break_kind: null,
+        break_remaining_ms: null,
+      },
+    },
+  };
+  const scopeBoard = (target: ListBoardRequestTarget): ListBoardSnapshot => {
+    const listScoped = target.kind === "list";
+    const todayTasks = scopeCompleted
+      ? (listScoped ? [scopedNextTask] : [globalOldTask, scopedNextTask])
+      : (listScoped ? [scopedLiveTask, scopedNextTask] : [globalOldTask, scopedLiveTask, scopedNextTask]);
+    return {
+      target: listScoped
+        ? { kind: "list", id: target.id, title: "Scoped", color: null }
+        : { kind: "all_lists", id: null, title: "All Lists", color: null },
+      displayTimezone: "Europe/Athens",
+      backlog: { tasks: [], count: 0, aggregateEstSeconds: 0 },
+      thisWeek: { tasks: [], count: 0, aggregateEstSeconds: 0 },
+      today: { tasks: todayTasks, count: todayTasks.length, aggregateEstSeconds: 0 },
+      done: {
+        tasks: scopeCompleted ? [{ ...scopedLiveTask, completedAt: "2026-10-06T09:00:00Z" }] : [],
+        count: scopeCompleted ? 1 : 0,
+        aggregateEstSeconds: 0,
+      },
+      todayCompletionCount: scopeCompleted ? 1 : 0,
+      doneMonthCompletionCount: scopeCompleted ? 1 : 0,
+    };
+  };
+
   let boardTasks = [...tasks];
   const taskLanes = new Map<string, "backlog" | "thisWeek" | "today">();
   const laneTasks = (lane: "backlog" | "thisWeek" | "today") => boardTasks.filter(task => (taskLanes.get(task.id) ?? "today") === lane);
@@ -69,15 +131,46 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       if (command === "get_home_snapshot") {
         homeReads++;
         if (deferHome) return new Promise(resolve => homeWaiters.push(resolve));
+        if (scopeScenario) return {
+          lists: [{ id: scopeListId, title: "Scoped" }, { id: otherListId, title: "Other" }],
+          pendingCount: scopeBoard({ kind: "all" }).today.count,
+          aggregateEstSeconds: 0,
+        };
         return { lists: [...lists], pendingCount: boardTasks.length, aggregateEstSeconds: 0 };
       }
       if (command === "get_preference_settings") return {
-        general: { hideTaskTimes: false }, focus: { scrollingTitle: false }, celebration: { showSuccessScreen: false },
+        general: { hideTaskTimes: false },
+        focus: { scrollingTitle: false },
+        celebration: { showSuccessScreen: scopeScenario },
       };
       if (command === "get_archived_lists_for_settings") return { lists: [], doneTasks: [], filterLists: [] };
-      if (command === "get_list_board_snapshot") return board(args.listId
-        ? { kind: "list", id: String(args.listId) } : { kind: "all" });
-      if (command === "timer_session_snapshot") return timer;
+      if (command === "get_list_board_snapshot") {
+        if (scopeScenario) {
+          const requested = args.listId
+            ? { kind: "list", id: String(args.listId) } as ListBoardRequestTarget
+            : { kind: "all" } as ListBoardRequestTarget;
+          scopeBoardReads.push(requested.kind === "list" ? requested.id : null);
+          return scopeBoard(requested);
+        }
+        return board(args.listId ? { kind: "list", id: String(args.listId) } : { kind: "all" });
+      }
+      if (command === "timer_session_snapshot") return scopeScenario ? scopeTimer : timer;
+      if (command === "timer_complete_task" && scopeScenario) {
+        scopeCompleted = true;
+        scopeTimer = {
+          revision: scopeTimer.revision + 1,
+          awaitingResume: false,
+          change: { type: "task_completed", task_id: scopedLiveTask.id, closed_session_id: "scope-session" },
+          runtime: {
+            open_session_id: null,
+            timer: {
+              state: "idle", task_id: null, mode: null, work_elapsed_ms: 0, total_break_ms: 0,
+              countdown_remaining_ms: null, overtime_ms: 0, break_kind: null, break_remaining_ms: null,
+            },
+          },
+        };
+        return scopeTimer;
+      }
       if (command === "move_list_board_task" || command === "reorder_list_board_task") {
         dragCalls.push({command, ...args});
         const task = boardTasks.find(task => task.id === args.taskId)!;
@@ -192,6 +285,75 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   const disposedRead = homeWaiters[homeWaiters.length - 1];
   flushSync(() => root.render(<div>Disposed Focus</div>)); await wait();
   disposedRead({ lists: [{ id: "disposed", title: "Disposed" }] }); await wait(); deferHome = false;
+
+  // Finding36 regression: the queue/list target must outlive the Panel subtree,
+  // and Floating Done/success must compute Next Task from that target rather
+  // than the global All-list board.
+  lists = [{ id, title: "Original" }];
+  function FocusScopeOwner({ visible }: { visible: boolean }) {
+    const [ownedTarget, setOwnedTarget] = useState<ListBoardRequestTarget>({ kind: "all" });
+    return visible ? (
+      <FocusPanel
+        target={ownedTarget}
+        onTargetChange={setOwnedTarget}
+        sharedTimerProjection={{ payload: timer, settled: true }}
+      />
+    ) : <div data-focus-scope-owner-hidden="true" />;
+  }
+  const renderScopeOwner = (visible: boolean) =>
+    flushSync(() => root.render(<FocusScopeOwner visible={visible} />));
+  renderScopeOwner(true); await wait(); await wait();
+  selector().value = id; selector().dispatchEvent(new Event("change", { bubbles: true })); await wait(); await wait();
+  assert(selector().value === id, "controlled Focus target did not commit selected list");
+  renderScopeOwner(false); await wait();
+  renderScopeOwner(true); await wait(); await wait();
+  assert(selector().value === id, "coordinator-owned Focus target did not survive Panel remount");
+  lists = [];
+  await emitBoardInvalidated(); await wait(); await wait();
+  assert(selector().value === "__all_lists__", "invalid controlled Focus target did not fall back through owner to All");
+
+  scopeScenario = true;
+  scopeCompleted = false;
+  scopeBoardReads = [];
+  delete container.dataset.scopeSuccessNextTaskId;
+  scopeTimer = {
+    revision: 50,
+    awaitingResume: false,
+    change: null,
+    runtime: {
+      open_session_id: "scope-session",
+      timer: {
+        state: "running", task_id: scopedLiveTask.id, mode: { kind: "count_up" },
+        work_elapsed_ms: 12_000, total_break_ms: 0, countdown_remaining_ms: null,
+        overtime_ms: 0, break_kind: null, break_remaining_ms: null,
+      },
+    },
+  };
+  flushSync(() => root.render(
+    <FloatingTimerFoundation
+      onReturnToPanel={() => {}}
+      focusTarget={{ kind: "list", id: scopeListId }}
+      sharedTimerProjection={{ payload: scopeTimer, settled: true }}
+      presentationActive
+      controlledExpanded
+      onRequestExpanded={async () => {}}
+      onCompletionSuccess={(state) => { container.dataset.scopeSuccessNextTaskId = state.nextTask?.id ?? ""; }}
+    />,
+  ));
+  await wait(); await wait(); await wait();
+  const scopedDone = container.querySelector<HTMLButtonElement>('[data-floating-action="done"]');
+  if (!scopedDone || scopedDone.disabled) throw new Error("scoped Floating Done action unavailable");
+  scopedDone.click();
+  await wait(); await wait(); await wait(); await wait();
+  const scopedSuccessNextTaskId = container.dataset.scopeSuccessNextTaskId;
+  if (scopedSuccessNextTaskId === undefined) throw new Error("scoped completion success was not published");
+  assert(scopedSuccessNextTaskId === scopedNextTask.id,
+    "success Next Task escaped selected Focus queue: " + scopedSuccessNextTaskId);
+  assert(scopedSuccessNextTaskId !== globalOldTask.id,
+    "success Next Task selected global older task");
+  assert(scopeBoardReads.filter(listId => listId === scopeListId).length >= 2,
+    "Done/success did not refresh selected Focus target: " + JSON.stringify(scopeBoardReads));
+  scopeScenario = false;
 
   // Production pointer handlers, real rendered hit testing/placeholder reflow,
   // and actual production mutation APIs. Synthetic events are renderer-level
@@ -358,6 +520,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   await new Promise<void>(resolve => setTimeout(resolve, 250));
   return { catalogCommittedCrud: true, catalogStaleResponsesRejected: true, catalogEntryReconciled: true,
     catalogSelectedRecovery: true, catalogNoPolling: true, catalogDisposedResponseIgnored: true,
+    focusTargetRemountPreserved: true, focusInvalidTargetOwnerFallback: true, focusSuccessNextTaskScoped: true,
     queueLastRowReachable: true, queueMenuReachable: true, queueHeaderStable: true, queueNoHorizontalOverflow: true, queueGeometries: geometries,
     pointerDragCrossLane: true, pointerDragSameLane: true, pointerDragIdentityPreserved: true,
     pointerDragCancellationSafe: true, pointerDragThresholdSafe: true, pointerDragInteractiveGuard: true, pointerDragScheduledGuard: true, pointerDragCleanup: true, keyboardReorderPreserved: true,
