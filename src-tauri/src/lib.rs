@@ -1,4 +1,5 @@
 pub mod autostart;
+mod blocking_read;
 pub mod board_task_editor;
 pub mod board_task_metrics;
 pub mod board_task_mutation;
@@ -141,32 +142,37 @@ fn get_state(state: State<'_, AppState>) -> CommandResult<AppStatePayload> {
 }
 
 #[tauri::command]
-fn get_home_snapshot(app_handle: tauri::AppHandle) -> CommandResult<home_snapshot::HomeSnapshot> {
-    let app_dir = app_handle.path().app_data_dir().map_err(|error| {
-        CommandError::new(
-            "HOME_SNAPSHOT_FAILED",
-            format!("failed to resolve Narro app-data directory for Home: {error}"),
-        )
-    })?;
-    let database_path = app_dir.join("narro.db");
-    let connection = rusqlite::Connection::open(&database_path).map_err(|error| {
-        CommandError::new(
-            "HOME_SNAPSHOT_FAILED",
-            format!("failed to open the Narro database for Home: {error}"),
-        )
-    })?;
-    persistence::configure_connection(&connection).map_err(|error| {
-        CommandError::new(
-            "HOME_SNAPSHOT_FAILED",
-            format!("failed to configure the Narro database for Home: {error}"),
-        )
-    })?;
-    home_snapshot::load(&connection).map_err(|error| {
-        CommandError::new(
-            "HOME_SNAPSHOT_FAILED",
-            format!("failed to read the Home snapshot: {error}"),
-        )
+async fn get_home_snapshot(
+    app_handle: tauri::AppHandle,
+) -> CommandResult<home_snapshot::HomeSnapshot> {
+    blocking_read::read("HOME_SNAPSHOT_FAILED", move || {
+        let app_dir = app_handle.path().app_data_dir().map_err(|error| {
+            CommandError::new(
+                "HOME_SNAPSHOT_FAILED",
+                format!("failed to resolve Narro app-data directory for Home: {error}"),
+            )
+        })?;
+        let database_path = app_dir.join("narro.db");
+        let connection = rusqlite::Connection::open(&database_path).map_err(|error| {
+            CommandError::new(
+                "HOME_SNAPSHOT_FAILED",
+                format!("failed to open the Narro database for Home: {error}"),
+            )
+        })?;
+        persistence::configure_connection(&connection).map_err(|error| {
+            CommandError::new(
+                "HOME_SNAPSHOT_FAILED",
+                format!("failed to configure the Narro database for Home: {error}"),
+            )
+        })?;
+        home_snapshot::load(&connection).map_err(|error| {
+            CommandError::new(
+                "HOME_SNAPSHOT_FAILED",
+                format!("failed to read the Home snapshot: {error}"),
+            )
+        })
     })
+    .await
 }
 
 #[tauri::command]
