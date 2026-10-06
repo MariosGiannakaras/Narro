@@ -189,6 +189,10 @@ function FocusTaskRow({
       data-task-id={task.id}
       onPointerDown={ordinary && canReorder ? onPointerReorder : undefined}
       onKeyDown={ordinary && canReorder ? (event) => {
+        if (
+          event.target instanceof Element
+          && event.target.closest("button, input, select, textarea, [contenteditable]")
+        ) return;
         if (!event.altKey || (event.key !== "ArrowUp" && event.key !== "ArrowDown")) return;
         const direction = event.key === "ArrowUp" ? "up" : "down";
         if ((direction === "up" && !canMoveUp) || (direction === "down" && !canMoveDown)) return;
@@ -994,7 +998,7 @@ export function FocusPanel({
         canMakeLive={!scheduled}
         canMoveUp={index !== undefined && index > 0}
         canMoveDown={index !== undefined && index < reorderableTasks.length - 1}
-        canReorder={index !== undefined}
+        canReorder={index !== undefined && notesTaskId !== task.id && subtasksTaskId !== task.id}
         onMakeLive={() => void makeTaskLive(task)}
         onPointerReorder={(event) => beginFocusTaskReorder(task, event)}
         onKeyboardReorder={(direction) => moveFocusTask(task, direction)}
