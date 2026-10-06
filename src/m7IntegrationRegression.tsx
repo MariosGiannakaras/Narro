@@ -295,9 +295,14 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     const more = last.querySelector<HTMLButtonElement>('[data-focus-row-action="more"]')!;
     more.focus(); more.click(); await wait();
     const menuButtons = last.querySelectorAll<HTMLButtonElement>('[role="menuitem"]');
-    assert(menuButtons.length === 3, "last row menu controls missing");
-    menuButtons[2].focus(); await wait();
-    assert(menuButtons[2].getBoundingClientRect().bottom <= queue.getBoundingClientRect().bottom + 1,
+    assert(menuButtons.length === 4, "last row menu controls missing");
+    assert(
+      Array.from(menuButtons, (button) => button.textContent?.trim()).join("|")
+        === "Schedule|Change list|Duplicate|Delete",
+      "last row menu order diverged from the Focus source grammar",
+    );
+    menuButtons[3].focus(); await wait();
+    assert(menuButtons[3].getBoundingClientRect().bottom <= queue.getBoundingClientRect().bottom + 1,
       "last row menu action cannot be reached through focus scrolling");
     assert(header.getBoundingClientRect().top === headerTop, "menu navigation moved fixed header");
     more.click(); await wait();
