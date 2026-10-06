@@ -231,6 +231,25 @@ if (
   throw new Error("Blitz Focus entry must preserve the visible coordinator path and use the bounded native morph only for hidden Focus.");
 }
 
+const sourceHandoffComment = hiddenBranch.indexOf("// Match the source-backed handoff:");
+const successHide = hiddenBranch.lastIndexOf("if let Err(error) = main.hide()", sourceHandoffComment);
+const successRestore = hiddenBranch.indexOf(
+  "restore_main_after_blitz_morph(&main, main_snapshot)",
+  sourceHandoffComment,
+);
+const successFocusReveal = hiddenBranch.indexOf("show_and_focus(&focus)", successRestore);
+if (
+  sourceHandoffComment < 0
+  || successHide < 0
+  || successHide > sourceHandoffComment
+  || successRestore < sourceHandoffComment
+  || successFocusReveal < successRestore
+) {
+  throw new Error(
+    "P3-M6-01 success handoff must hide Main, restore its geometry/clear the raster while hidden, then reveal Focus.",
+  );
+}
+
 const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
 const registeredPresentation = lib.indexOf("present_focus_for_blitz", handler);
 if (handler < 0 || registeredPresentation < handler) {
