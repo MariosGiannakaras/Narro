@@ -1947,7 +1947,7 @@ async fn present_focus_for_blitz(
     };
 
     let worker_main = main.clone();
-    let transition = tauri::async_runtime::spawn_blocking(move || {
+    let transition = match tauri::async_runtime::spawn_blocking(move || {
         animate_main_focus_rect(
             &worker_main,
             main_snapshot,
@@ -1956,12 +1956,13 @@ async fn present_focus_for_blitz(
         )
     })
     .await
-    .map_err(|error| {
-        CommandError::new(
+    {
+        Ok(result) => result,
+        Err(error) => Err(CommandError::new(
             "FOCUS_PRESENTATION_FAILED",
             format!("Board-to-Focus morph worker failed: {error}"),
-        )
-    })?;
+        )),
+    };
 
     if let Err(error) = transition {
         let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
