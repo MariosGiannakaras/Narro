@@ -219,10 +219,15 @@ for (const label of toolbarOrder) {
 }
 
 const startBlitz = entry.indexOf("const outcome = await startBlitz();");
-const boardFade = entry.indexOf("restoreBoard = await fadeBoardBeforeFocusPresentation();", startBlitz);
-const focusPresent = entry.indexOf("await presentFocusForBlitz();", boardFade);
-if (startBlitz < 0 || boardFade < startBlitz || focusPresent < boardFade) {
-  throw new Error("P3-M6-01 must keep domain start authoritative, then fade the board, then present Focus.");
+const reducedMotion = entry.indexOf(
+  'window.matchMedia("(prefers-reduced-motion: reduce)").matches',
+  startBlitz,
+);
+const focusPresent = entry.indexOf("await presentFocusForBlitz(reducedMotion);", reducedMotion);
+if (startBlitz < 0 || reducedMotion < startBlitz || focusPresent < reducedMotion) {
+  throw new Error(
+    "P3-M6-01 must keep domain start authoritative, resolve reduced-motion policy, then enter the native Focus presentation boundary.",
+  );
 }
 
 console.log("M6 Focus parity reconciliation contract checks passed.");
