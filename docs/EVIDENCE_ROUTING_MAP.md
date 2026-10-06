@@ -2,7 +2,7 @@
 
 Status: **BINDING DISCOVERY MAP**
 
-Last updated: 2026-10-03
+Last updated: 2026-10-06
 
 ## Purpose
 
@@ -16,7 +16,7 @@ Normal bootstrap remains:
 
 `AI_START_HERE.md → AGENTS.md → ENGINEERING_QUALITY.md → AGENT_WORKFLOW.md → HANDOFF.md → active TODO/STATUS`.
 
-When work touches a user-visible surface, Blitzit parity, source evidence, or physical visual validation, continue through this map before claiming the surface complete.
+When work touches a user-visible surface, Blitzit parity, source evidence, physical visual validation, or a broad set of corrective findings, continue through this map before claiming the surface complete. Use `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` for the binding analysis → disposition → causal tracing → implementation campaign standard.
 
 ## Evidence layers
 
@@ -29,6 +29,7 @@ When work touches a user-visible surface, Blitzit parity, source evidence, or ph
 | Prior evidence passes | `BLITZIT_VIDEO_EVIDENCE.md`, `BLITZIT_UI_UX_VIDEO_FORENSICS.md`, Help Center evidence, `RESEARCH_EVIDENCE.md`, `SOURCE_AUDIT.md` | prior-pass context and corroboration | current exhaustive completion |
 | Reliability hazards | `BLITZIT_HISTORY_RISK_INDEX.md` | source-product failure families / Narro anti-regressions | visual parity alone |
 | Reconciliation | `BLITZIT_PARITY_RECONCILIATION_WORKFLOW.md`, `AUDIT_IMPLEMENTATION_CROSSWALK.md` | finding → current Narro comparison → disposition | raw observation |
+| Deep corrective analysis | `DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` | exhaustive Narro finding review, visual/video analysis depth, causal/disposition matrix, dependency-aware batching | replacement for canonical Blitzit source records |
 | Visible target | `UI_UX_SPEC.md` plus reconciled canonical evidence | implementation-facing visible target | proof Narro matches |
 | Ordered execution | `TODO.md`, `HANDOFF.md`, `STATUS.md` | active/validated/blocked/next state | replacement for detail evidence |
 | Physical/runtime validation | milestone validation docs + immutable work logs | exact-build Windows observations | source parity unless canonical Blitzit evidence was also compared |
@@ -51,9 +52,9 @@ Do not patch implementation or use current Narro as a reason to stop source insp
 
 ### Reconciliation / implementation chat
 
-`EVIDENCE_ROUTING_MAP → PARITY_RECONCILIATION_WORKFLOW → PASS3_TRACKER → relevant SOURCE_COMPLETE findings → VISUAL_SYSTEM / calibration tracker when visual → CROSSWALK → affected TODO/UI_UX_SPEC → current implementation/tests`.
+`EVIDENCE_ROUTING_MAP → DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW → PARITY_RECONCILIATION_WORKFLOW → PASS3_TRACKER → relevant SOURCE_COMPLETE findings → VISUAL_SYSTEM / calibration tracker when visual → CROSSWALK → affected TODO/UI_UX_SPEC → current implementation/tests`.
 
-Do not replay every raw source. Re-open originals only for ambiguity/conflict or direct parity verification.
+Do not replay every raw source. Re-open originals only for ambiguity/conflict, newly exposed detail, or direct parity verification. When a question depends on motion/transient sequencing, inspect the actual relevant MP4 interval rather than substituting transcript/action-log/static-frame evidence.
 
 ### Codex / physical-validation agent
 
