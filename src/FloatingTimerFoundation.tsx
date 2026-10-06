@@ -9,6 +9,7 @@ import { captureCompactTimerFrame, setFloatingTimerExpanded } from "./focusSurfa
 import {
   getListBoardSnapshot,
   type BoardSubtaskSnapshot,
+  type ListBoardRequestTarget,
   type ListBoardSnapshot,
   type ListBoardTask,
 } from "./listBoardApi";
@@ -37,6 +38,7 @@ export type FloatingTimerFoundationProps = {
     payload: TimerSessionPayload | null;
     settled: boolean;
   };
+  focusTarget?: ListBoardRequestTarget;
   presentationActive?: boolean;
   controlledExpanded?: boolean;
   onRequestExpanded?: (expanded: boolean, compactFrame?: number[]) => Promise<void>;
@@ -46,6 +48,7 @@ export type FloatingTimerFoundationProps = {
 };
 
 const FLOATING_TIMER_GEOMETRY_MOTION_MS = 270;
+const ALL_FOCUS_TARGET: ListBoardRequestTarget = { kind: "all" };
 
 async function waitForFloatingTimerGeometryMotion(): Promise<void> {
   const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -79,6 +82,7 @@ export function FloatingTimerFoundation({
   fixtureBoard,
   fixtureTimer = null,
   sharedTimerProjection,
+  focusTarget = ALL_FOCUS_TARGET,
   presentationActive = true,
   controlledExpanded,
   onRequestExpanded,
@@ -341,6 +345,7 @@ export function FloatingTimerFoundation({
     <main
       className="floating-timer-foundation"
       data-floating-timer="foundation"
+      data-floating-focus-target={focusTarget.kind === "list" ? `list:${focusTarget.id}` : "all"}
       data-floating-live-state={timer?.runtime.timer.state ?? "idle"}
       data-floating-live-task-id={liveTaskId ?? ""}
       data-floating-expanded={expanded ? "true" : "false"}
@@ -412,7 +417,7 @@ export function FloatingTimerFoundation({
           >
             <FocusLiveActions
               task={liveTask}
-              target={{ kind: "all" }}
+              target={focusTarget}
               timer={timer}
               fixtureMode={fixtureMode}
               presentation="floating"
