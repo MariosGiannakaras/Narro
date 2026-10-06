@@ -621,21 +621,6 @@ export function FocusLiveActions({
                 .catch((failure: unknown) => fail(failure));
             }}
           />
-          <FloatingActionButton
-            action="pause-resume"
-            label={state.pauseResumeLabel}
-            icon={state.pauseResumeLabel === "Resume" ? "resume" : "pause"}
-            disabled={busy || !state.pauseResumeEnabled}
-            onClick={handlePauseResume}
-          />
-          <FloatingActionButton
-            action="skip"
-            label="Skip task"
-            pillLabel="Skip"
-            icon="skip"
-            disabled={busy || !state.skipEnabled}
-            onClick={() => void handleSkip()}
-          />
           {state.extendEnabled ? (
             <FloatingActionButton
               action="extend"
@@ -645,7 +630,23 @@ export function FocusLiveActions({
               disabled={busy}
               onClick={() => void run("extend", extendTimer, "Timer extended into overtime.")}
             />
-          ) : null}
+          ) : (
+            <FloatingActionButton
+              action="pause-resume"
+              label={state.pauseResumeLabel}
+              icon={state.pauseResumeLabel === "Resume" ? "resume" : "pause"}
+              disabled={busy || !state.pauseResumeEnabled}
+              onClick={handlePauseResume}
+            />
+          )}
+          <FloatingActionButton
+            action="skip"
+            label="Skip task"
+            pillLabel="Skip"
+            icon="skip"
+            disabled={busy || !state.skipEnabled}
+            onClick={() => void handleSkip()}
+          />
           <FloatingActionButton
             action="done"
             label="Complete task"
