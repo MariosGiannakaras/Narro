@@ -198,6 +198,13 @@ Independent work may proceed in parallel when:
 - they do not create unsafe overlapping ownership of shared source/tracking;
 - each branch has a coherent review/validation story.
 
+Before calling two implementation lines independent, compare their expected changed-file sets. Classify any shared source as:
+
+- **soft/mechanical overlap** — shared glue such as module/command registration where each semantic change remains independently reasoned. Parallel work is allowed only with an explicit merge order and a mandatory reconcile of the later branch onto resulting `main` before exact-head validation/merge;
+- **hard/semantic overlap** — shared state authority, behavior, schema, algorithm, high-risk helper, or tests whose meaning can change with merge order. Keep these lines sequential unless stronger repository evidence proves the interaction safe.
+
+A planned reconcile/rebase after the earlier branch merges is normal coordination, not a product/implementation failure. Track it separately from compile, test, CI, or physical-validation failures. Do not label branches with a shared source file as fully independent without recording the overlap classification.
+
 Examples:
 - an M7 native-read branch may validate while an unrelated M9 Reports export branch is analyzed/implemented;
 - documentation/evidence reconciliation on `main` may continue while source CI runs.

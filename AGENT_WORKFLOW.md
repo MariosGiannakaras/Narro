@@ -150,6 +150,20 @@ Key synchronization rules:
 
 Do not change milestone denominators merely to represent an evidence gate. Add a non-counting acceptance/gate note unless a genuinely new executable top-level milestone item is intentionally added and the denominator is explicitly reconciled.
 
+## Parallel implementation overlap preflight
+
+Before starting or continuing more than one implementation branch concurrently:
+
+- compare the expected changed-file sets and shared authorities for the active branches;
+- classify overlap as **none**, **soft/mechanical** (for example shared module/command registration with independently reasoned semantics), or **hard/semantic** (shared state authority, algorithm, schema, high-risk helper, or behavior whose correctness depends on merge order);
+- **none** may proceed normally in parallel;
+- **soft/mechanical overlap** may proceed in parallel only when the merge order is recorded, the later branch is explicitly expected to reconcile onto the resulting `main`, and exact-head validation is run only after that reconciliation;
+- **hard/semantic overlap** remains sequential unless the repository records a stronger evidence-backed reason that makes the interaction safe;
+- do not describe branches with any shared source file as fully independent without recording why the overlap is mechanically safe;
+- a required rebase/reconciliation caused solely by an earlier planned merge is a coordination event, not an implementation failure. Record it separately from compile/test/CI failures.
+
+This preflight supplements dependency analysis; it does not prohibit useful parallelism merely because two branches touch a common registration or glue file.
+
 ## Pre-CI discipline
 
 Before every source/config push that will trigger Windows CI:
