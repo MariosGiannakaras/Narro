@@ -1979,12 +1979,16 @@ async fn present_focus_for_blitz(
         };
     }
 
-    if let Err(error) = show_and_focus(&focus) {
-        let _ = focus.hide();
+    if let Err(error) = main.hide() {
         let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
         drop(hold);
         return match recovery {
-            Ok(()) => Err(error),
+            Ok(()) => {
+                eprintln!(
+                    "Could not hide Main at the Board-to-Focus morph endpoint; using direct Focus handoff: {error}"
+                );
+                show_focus_after_blitz_entry(&main, &focus)
+            }
             Err(recovery) => Err(CommandError::new(
                 "FOCUS_PRESENTATION_RECOVERY_FAILED",
                 format!("{error}; Main rollback failed: {recovery}"),
@@ -1992,12 +1996,34 @@ async fn present_focus_for_blitz(
         };
     }
 
-    if let Err(error) = main.hide() {
-        eprintln!("Focus Panel is visible, but Main could not be hidden after Blitz morph: {error}");
+    // Match the source-backed handoff: once the frozen Main reaches the Focus
+    // target, remove Main from view, restore its exact user geometry while it
+    // is hidden, clear the finite raster, then reveal the prepared Focus host.
+    if let Err(recovery) = restore_main_after_blitz_morph(&main, main_snapshot) {
+        drop(hold);
+        let visibility_recovery = show_and_focus(&main);
+        return match visibility_recovery {
+            Ok(()) => Err(recovery),
+            Err(visibility) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{recovery}; Main visibility recovery failed: {visibility}"),
+            )),
+        };
     }
-    let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
     drop(hold);
-    recovery
+
+    if let Err(error) = show_and_focus(&focus) {
+        let _ = focus.hide();
+        return match show_and_focus(&main) {
+            Ok(()) => Err(error),
+            Err(recovery) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{error}; restored Main could not be shown: {recovery}"),
+            )),
+        };
+    }
+
+    Ok(())
 }
 
 pub(crate) fn revalidate_open_focus_panel_after_display_change(
