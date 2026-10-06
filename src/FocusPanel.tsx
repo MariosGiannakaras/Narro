@@ -7,6 +7,7 @@ import { focusTimerPresentation, focusTimerStateLabel } from "./focusTimerPresen
 import { FocusLiveActions, focusModeForTask } from "./FocusLiveActions";
 import type { FocusCompletionSuccessState } from "./FocusCompletionSuccess";
 import { FocusLiveTitle } from "./FocusLiveTitle";
+import { FocusQuickPreferences } from "./FocusQuickPreferences";
 import { FocusTaskRowTitle } from "./FocusTaskRowTitle";
 import { useFocusListCatalog } from "./useFocusListCatalog";
 import {
@@ -369,6 +370,7 @@ export function FocusPanel({
   const [addTaskListId, setAddTaskListId] = useState("");
   const [addTaskPending, setAddTaskPending] = useState(false);
   const [homePending, setHomePending] = useState(false);
+  const [quickPreferencesOpen, setQuickPreferencesOpen] = useState(false);
   const fixtureMode = Boolean(fixtureBoard);
   const currentTargetKey = targetKey(target);
   const currentTargetKeyRef = useRef(currentTargetKey);
@@ -734,6 +736,14 @@ export function FocusPanel({
 
   const statusError = error ?? preferences.error ?? modeTransitionError;
 
+  if (quickPreferencesOpen) {
+    return (
+      <main className="focus-panel focus-panel--quick-preferences" data-focus-panel="main" data-focus-view="quick-preferences">
+        <FocusQuickPreferences onBack={() => setQuickPreferencesOpen(false)} />
+      </main>
+    );
+  }
+
   if (error && !board) {
     return (
       <main className="focus-panel focus-panel--message" data-focus-panel="error" role="alert">
@@ -866,7 +876,15 @@ export function FocusPanel({
         <h1 className="focus-panel__title">Today</h1>
         <div className="focus-panel__quick-controls" aria-label="Focus Panel quick controls">
           <Tooltip content="Preferences">
-            <button type="button" aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences">⚙</button>
+            <button
+              type="button"
+              aria-label="Preferences"
+              data-focus-preferences-control="true"
+              disabled={!presentationActive}
+              onClick={() => setQuickPreferencesOpen(true)}
+            >
+              ⚙
+            </button>
           </Tooltip>
           <Tooltip content="Home">
             <button

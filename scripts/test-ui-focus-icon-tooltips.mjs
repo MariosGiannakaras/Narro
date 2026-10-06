@@ -13,6 +13,7 @@ function occurrences(source, needle) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const quickPreferences = read("src/FocusQuickPreferences.tsx");
 const liveSubtasks = read("src/FocusLiveSubtasks.tsx");
 const liveMetrics = read("src/FocusLiveMetrics.tsx");
 const sharedSubtasks = read("src/TaskSubtasks.tsx");
@@ -22,24 +23,22 @@ const slotCss = read("src/focusActionSlots.css");
 const panelCss = read("src/focusPanel.css");
 const metricCss = read("src/focusLiveMetrics.css");
 const pkg = JSON.parse(read("package.json"));
-const quickDisabledCss = slotCss.match(
-  /\.focus-panel__quick-controls button\[aria-disabled="true"\] \{([\s\S]*?)\}/,
-)?.[1] ?? "";
-
 invariant(panel.includes('import { Tooltip } from "./overlayPrimitives";'), "Focus quick controls must reuse the shared Tooltip primitive");
 invariant(panel.includes('<Tooltip content="Preferences">'), "Preferences icon must expose a shared tooltip");
-invariant(panel.includes('aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences"'), "Preferences placeholder must retain an accessible disabled name without becoming active");
+invariant(panel.includes('data-focus-preferences-control="true"'), "Preferences quick control must use the active-control marker");
+invariant(panel.includes('onClick={() => setQuickPreferencesOpen(true)}'), "Preferences quick control must open the Focus-local view");
 invariant(panel.includes('<Tooltip content="Compact view">'), "Compact-view icon must keep the shared tooltip after M7 activation");
 invariant(panel.includes('aria-label="Compact view"'), "Compact-view control must retain its accessible name");
 invariant(panel.includes('data-focus-compact-control="true"'), "Compact-view control must use the M7 active-control marker");
-invariant(occurrences(panel, 'data-focus-placeholder-control=') === 1, "only the still-inactive Preferences icon should use the placeholder contract");
+invariant(occurrences(panel, 'data-focus-placeholder-control=') === 0, "Focus quick controls must not retain obsolete placeholder contracts");
 invariant(!panel.includes('title="Preferences"'), "Preferences must not stack a native title tooltip on top of the shared tooltip");
 invariant(!panel.includes('title="Compact view"'), "Compact view must not stack a native title tooltip on top of the shared tooltip");
 invariant(panel.includes('<Tooltip content="Home">'), "Home must use the shared tooltip after activation");
 invariant(panel.includes('data-focus-home-control="true"'), "Home must use the active Focus lifecycle marker");
 invariant(panel.includes('onClick={() => void exitFocusHome()}'), "Home must activate the Focus-exit lifecycle");
 invariant(!panel.includes('title="Home"'), "Home must not stack a native title tooltip on the shared tooltip");
-invariant(!panel.includes('data-focus-placeholder-control="preferences" onClick='), "Preferences placeholder must remain inactive");
+invariant(quickPreferences.includes('autoFocus'), "Quick Preferences Back control must receive predictable initial keyboard focus");
+invariant(quickPreferences.includes('event.key === "Escape"'), "Quick Preferences must support keyboard return with Escape");
 invariant(panel.includes('onClick={onRequestCompact}'), "Compact-view activation must stay on the explicit M7 callback");
 
 invariant(liveSubtasks.includes('import { Tooltip } from "./overlayPrimitives";'), "Focus live subtasks must reuse the shared Tooltip primitive");
@@ -64,10 +63,6 @@ invariant(overlay.includes("onPointerEnter: mergeHandler("), "shared Tooltip mus
 invariant(overlay.includes("onFocus: mergeHandler("), "shared Tooltip must support keyboard-focus discovery");
 invariant(overlay.includes('if (event.key === "Escape")'), "shared Tooltip must remain dismissible with Escape");
 
-invariant(quickDisabledCss.length > 0, "keyboard-discoverable quick placeholders must keep disabled visual treatment");
-invariant(quickDisabledCss.includes("cursor: default"), "quick placeholders must remain visually non-actionable");
-invariant(quickDisabledCss.includes("opacity: 0.65"), "quick placeholders must retain disabled emphasis");
-invariant(!quickDisabledCss.includes("pointer-events: none"), "quick placeholder triggers must stay hover-discoverable for tooltips");
 invariant(panelCss.includes("grid-template-columns: minmax(88px, 1fr) auto minmax(112px, 1fr)"), "Focus topbar geometry must remain unchanged");
 invariant(panelCss.includes(".focus-panel__quick-controls { display: flex; justify-content: flex-end; gap: var(--space-1); }"), "quick-control slot geometry must remain stable");
 invariant(metricCss.includes("grid-template-columns: repeat(2, 2.25rem)"), "metric action hit slots must remain fixed while adding tooltips");
