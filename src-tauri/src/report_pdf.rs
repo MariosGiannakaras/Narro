@@ -8,10 +8,14 @@ fn error(message: impl Into<String>) -> CommandError {
 
 fn validate_pdf_bytes(bytes: Vec<u8>) -> CommandResult<Vec<u8>> {
     if bytes.len() < 5 || !bytes.starts_with(b"%PDF-") {
-        return Err(error("WebView2 report export did not produce a valid PDF header"));
+        return Err(error(
+            "WebView2 report export did not produce a valid PDF header",
+        ));
     }
     if bytes.len() as u64 > MAX_REPORT_PDF_BYTES {
-        return Err(error("WebView2 report export exceeded the supported PDF size"));
+        return Err(error(
+            "WebView2 report export exceeded the supported PDF size",
+        ));
     }
     Ok(bytes)
 }
@@ -41,11 +45,10 @@ pub async fn capture(window: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
             let start_result = (|| -> windows::core::Result<()> {
                 let core = webview.controller().CoreWebView2()?;
                 let printable: ICoreWebView2_7 = core.cast()?;
-                let callback = PrintToPdfCompletedHandler::create(Box::new(
-                    move |status, succeeded| {
-                        let completed = status
-                            .map_err(|failure| failure.to_string())
-                            .and_then(|_| {
+                let callback =
+                    PrintToPdfCompletedHandler::create(Box::new(move |status, succeeded| {
+                        let completed =
+                            status.map_err(|failure| failure.to_string()).and_then(|_| {
                                 if succeeded {
                                     Ok(())
                                 } else {
@@ -54,8 +57,7 @@ pub async fn capture(window: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
                             });
                         let _ = callback_send.send(completed);
                         Ok(())
-                    },
-                ));
+                    }));
                 printable.PrintToPdf(
                     PCWSTR::from_raw(wide_path.as_ptr()),
                     None::<&ICoreWebView2PrintSettings>,

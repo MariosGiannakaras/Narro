@@ -825,10 +825,7 @@ mod tests {
 
     #[test]
     fn overview_pdf_export_range_dates_are_filename_safe() {
-        assert_eq!(
-            export_range_date("2026-10-01T00:00:00+03:00"),
-            "2026-10-01"
-        );
+        assert_eq!(export_range_date("2026-10-01T00:00:00+03:00"), "2026-10-01");
         assert_eq!(export_range_date("not-a-range"), "range");
     }
 
