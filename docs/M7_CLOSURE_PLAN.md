@@ -8,13 +8,19 @@ PR235 remains integrated and its scoped native finding24/26 acceptance is unchan
 
 **Finding27 implementation:** PR236 exact head `357706a1fe6d7143c046c64df2f336a236026a88` passed full Windows CI962/run `37382833470`, then expected-head-guarded squash-merged as `9f3e9b5cebdd752551c9b6b148975fe542bf44ea`. All seven changed source/test blobs on resulting `main` are identical to the validated head. The source correction preserves a saved explicit display across volatile DPI/work-area/geometry changes through a unique named-monitor fallback while retaining stale/ambiguous fail-closed behavior. **Physical finding27 acceptance remains OPEN/deferred**, so M1 stays narrowly reopened.
 
-**Finding07 implementation:** PR237 exact head `0f15f06ff7642e68dd4f124b526f38810b753bfb` is the active four-file correction on post-PR236 `main`. It adds a shared `spawn_blocking` boundary, converts Home/List-board authoritative SQLite snapshot commands to async offloaded reads, and includes locked-SQLite yielding plus command-error preservation regressions. Windows CI964/run `37428653095` is active; no automated PASS or physical keyboard-responsiveness PASS is claimed yet. The historical WIP/evidence-tool branch is provenance only and is not the merge source.
+**Finding07 implementation:** PR237 exact head `74658f9c47bf808f8bf23c1726125c8a8b5cbb8f` passed full Windows CI967/run `37434273074` and was squash-merged as `535e0a8c7c92143dd6bd7feac2c680a85e672cff`; the four changed source/test blobs were verified identical on resulting `main`. The shared `spawn_blocking` boundary and async Home/List-board reads are integrated. Physical blocked-SQLite keyboard responsiveness remains OPEN/deferred.
 
 **Finding23 review:** CI950 already physically passed queue wheel/Ctrl+End/last-row/menu/Tab access at real 100%/125%. Current source uses bounded vertical scrolling, `overflow-x: hidden`, `min-width: 0`/ellipsis/wrapping, and existing integration regressions assert `queue.scrollWidth <= queue.clientWidth + 1`. The UIA ~66.7% horizontal-view metric still lacks a rendered reproduction. **NO FIX NOW**; do not change layout for provider telemetry alone. Remaining canonical/source acceptance is independent.
 
 [CI950 loading addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md) remains the physical baseline for finding07: real 1.8s/4s SQLite lock exercises showed loading feedback but queued Escape/Tab until release. PR237 addresses only the source mechanism; exact Windows physical acceptance is deferred per current user direction.
 
 Current progress stays **3/10M || 4/5 | 14/19**. M7 C1–C3/C5 remain accepted, C4 remains OPEN, M10 blocked and M11 dormant.
+
+## Finding35/36/37 current overlay
+
+- **Finding36:** PR239 exact head `955a6e124130ae9abae9be3fff242f881abadfc5` passed full Windows CI976 and merged as `88cd58e0357f9ab368716eb4504711aaf5cb0687`; 5/5 changed source/test blobs were verified identical on resulting main. Focus queue target now survives Panel remount and scopes success Next Task correctly. Separate physical/source acceptance remains OPEN.
+- **Finding35:** PR240 current head `94ea1ccdf7bbc8f00585370d799b077b8bad2ef9` uses fixed six-slot Time's Up geometry by substituting Extend into the Pause/Resume slot and clears stale prior action-status copy. CI983 first attempt passed fast/check/clippy but hit an unrelated SQLite writer-contention timeout in Rust tests; exact-head Windows-candidate rerun is in progress. Do not merge until the exact-head rerun completes successfully.
+- **Finding37:** **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**. Source proves the visible success `Take a Break` control but not its post-click semantics. Durable record: `work-log/2026-10-06-chatgpt-finding37-take-break-disposition.md`.
 
 ## Earlier CI950 closure overlay
 
