@@ -60,6 +60,10 @@
   transition-delay: 0ms;
 }
 
+.overlay-tooltip[data-bounded="true"] {
+  --tooltip-translate-x: 0px;
+}
+
 .overlay-tooltip[data-open="true"] {
   --tooltip-translate-y: 0;
   transform: translate(var(--tooltip-translate-x), var(--tooltip-translate-y)) scale(1);
