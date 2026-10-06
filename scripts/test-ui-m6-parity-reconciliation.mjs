@@ -7,6 +7,8 @@ function requireText(haystack, needle, label) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const quickPreferences = read("src/FocusQuickPreferences.tsx");
+const quickPreferencesCss = read("src/focusQuickPreferences.css");
 const actions = read("src/FocusLiveActions.tsx");
 const entry = read("src/BlitzEntryButton.tsx");
 const boardCss = read("src/listBoard.css");
@@ -42,6 +44,22 @@ for (const [haystack, needle, label] of [
   [panel, 'data-focus-add-task-list="true"', "A14 explicit All Lists owner selection"],
   [panel, 'lane: "today"', "A14 Today creation target"],
   [panel, 'invoke<void>("focus_surface_exit_to_main")', "A15 renderer Home lifecycle invocation"],
+  [panel, 'data-focus-preferences-control="true"', "M6 Focus Quick Preferences active gear"],
+  [panel, 'onClick={() => setQuickPreferencesOpen(true)}', "M6 Focus Quick Preferences entry"],
+  [quickPreferences, 'data-focus-quick-preferences="true"', "M6 source-evidenced Quick Preferences surface"],
+  [quickPreferences, 'PreferenceSettingsRuntimeProvider', "M6 Quick Preferences reuses validated preference authority"],
+  [quickPreferences, 'onSave({ hideTaskTimes: !snapshot.general.hideTaskTimes }, "hideTaskTimes")', "M6 Quick Preferences hide-times mutation"],
+  [quickPreferences, 'onSave({ selectedMonitorKey: monitor.key }, "monitor")', "M6 Quick Preferences monitor mutation"],
+  [quickPreferences, 'data-focus-quick-screen-dimensions="true"', "M6 Quick Preferences monitor dimensions"],
+  [quickPreferences, 'onSave({ focusPanelSide: side }, "side")', "M6 Quick Preferences panel-side mutation"],
+  [quickPreferences, 'onSave({ pomodoroEnabled: !snapshot.focus.pomodoroEnabled }, "pomodoro")', "M6 Quick Preferences Pomodoro mutation"],
+  [quickPreferences, 'onSave({ timedAlertsEnabled: !snapshot.alerts.timedAlertsEnabled }, "timedAlerts")', "M6 Quick Preferences timed-alert mutation"],
+  [quickPreferences, 'onSave({ notificationAlertsEnabled: !snapshot.alerts.notificationAlertsEnabled }, "notificationAlerts")', "M6 Quick Preferences notification mutation"],
+  [quickPreferences, 'onSave({ showSuccessScreen: !snapshot.celebration.showSuccessScreen }, "successScreen")', "M6 Quick Preferences success-screen mutation"],
+  [quickPreferences, 'snapshot.celebration.showSuccessScreen ? (', "M6 Quick Preferences nested success option"],
+  [quickPreferences, 'onSave({ funGif: !snapshot.celebration.funGif }, "funGif")', "M6 Quick Preferences Fun GIF mutation"],
+  [quickPreferencesCss, ".focus-quick-preferences__screen--selected", "M6 selected-monitor visual treatment"],
+  [quickPreferencesCss, "border-color: var(--color-accent-end);", "M6 calibrated selected-monitor accent outline"],
   [native, "async fn focus_surface_exit_to_main", "A15 native Focus exit command"],
   [native, "show_or_recreate_main(app_handle.clone()).await?;", "A15 existing Main lifecycle reuse"],
   [native, "focus_surface_hide(app_handle)", "A15 Focus hide without timer reset"],
@@ -92,6 +110,13 @@ const reorderEnd = panel.indexOf("const renderTaskRow", reorderStart);
 const reorder = panel.slice(reorderStart, reorderEnd);
 if (!reorder.includes("reorderListBoardTask({") || reorder.includes("moveListBoardTask")) {
   throw new Error("A12 Focus queue reorder must reuse the validated reorder boundary only.");
+}
+
+if (panel.includes('data-focus-placeholder-control="preferences"')) {
+  throw new Error("M6 Quick Preferences must not regress to the old non-mutating placeholder.");
+}
+if (quickPreferences.includes("invoke(")) {
+  throw new Error("M6 Quick Preferences must reuse PreferenceSettingsRuntime rather than add a parallel native settings authority.");
 }
 
 if (actions.includes('allowTitleEdit={true}')) {

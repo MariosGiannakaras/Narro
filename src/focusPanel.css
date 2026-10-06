@@ -14,6 +14,10 @@
   text-align: left;
 }
 
+.focus-panel--quick-preferences {
+  gap: 0;
+}
+
 .focus-panel--message {
   justify-content: center;
   align-items: center;

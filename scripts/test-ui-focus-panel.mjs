@@ -267,9 +267,10 @@ invariant(
 );
 invariant(panel.includes('invoke<void>("focus_surface_exit_to_main")'), "Home must exit Focus through the native lifecycle command");
 invariant(
-  panel.includes('aria-disabled="true" aria-label="Preferences" data-focus-placeholder-control="preferences"')
-    && !panel.includes('data-focus-placeholder-control="preferences" onClick='),
-  "Preferences quick control must remain explicitly non-mutating before its ordered slice",
+  panel.includes('data-focus-preferences-control="true"')
+    && panel.includes('onClick={() => setQuickPreferencesOpen(true)}')
+    && panel.includes('<FocusQuickPreferences onBack={() => setQuickPreferencesOpen(false)} />'),
+  "Preferences quick control must open the Focus-local Quick Preferences surface",
 );
 invariant(
   panel.includes('data-focus-compact-control="true"')
