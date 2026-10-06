@@ -86,7 +86,7 @@ pub async fn capture(_: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
 
 #[cfg(windows)]
 pub fn compact_bgra(png_bytes: &[u8], width: u32, height: u32) -> CommandResult<Vec<u8>> {
-    if png_bytes.is_empty() || png_bytes.len() > 1_048_576 || width == 0 || height == 0 {
+    if png_bytes.is_empty() || png_bytes.len() as u64 > MAX_CAPTURE_PNG_BYTES || width == 0 || height == 0 {
         return Err(error("invalid compact capture"));
     }
     let mut decoder = png::Decoder::new(std::io::Cursor::new(png_bytes));
