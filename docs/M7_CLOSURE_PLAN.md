@@ -2,11 +2,19 @@
 
 Status: current executable closure controller for Milestone 7.
 
-## Current PR235 / native-read responsiveness overlay
+## Current PR236 / PR237 implementation overlay
 
-Exact PR235 source `38219e200fe3bec7309f8e03e72003184ca86d08`, 14 files +324/-129, passed full [Windows CI953/run37258629373](https://github.com/MariosGiannakaras/Narro/actions/runs/37258629373). The exact Windows campaign then gave finding24 **SCOPED_NATIVE_FUNCTIONAL_PASS** at real 100%/125% (including empty/cross/same-lane movement, Escape cleanup and keyboard lane move) and finding26 **SCOPED_NATIVE_STATIC_PASS** in all four DPI/motion states; full canonical lift/reflow/drop/settle and source-motion comparison remain OPEN. PR235 was expected-head-guarded squash-merged as `a0dd76edfce00f053231430d767dd091689ac52f` on 2026-10-06, and all 14 changed source/test blobs on resulting `main` were verified identical to the CI953 head. Finding07 remains unvalidated on the separate WIP branch; finding23 is review-first; finding27 is a separate M1 monitor/DPI correction. [Exact corrective plan](../work-log/2026-10-05-codex-m7-pr235-pointer-overlay-correction.md) and [CI953 physical results](../work-log/2026-10-05-codex-m7-ci953-physical-results.md) remain the evidence boundary.
+PR235 remains integrated and its scoped native finding24/26 acceptance is unchanged. Full canonical drag/menu motion/source comparison remains OPEN.
 
-[CI950 loading addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md): real1.8s/4s read-latency exercises show loading feedback and ready title focus, but Escape/Tab remain queued until the database lock releases on Main and Focus.07 remains **FAIL / FIX_NOW** for native read responsiveness; synchronous Home/board commands are the scoped path to investigate/correct. All sampled identities/sessions/time/notes/checkpoint/preferences are unchanged. Whole three originals, four clips,190 reviewed unique crops/12atlases and whole six-file current Narro-M7-Logs/verified ZIP are published. Only LG1920x1080/125% currently active; UltraGear unavailable, no deliberate display change in this session. OBS stopped; PID133416 remains paused. Native24/26/23/20 and whole source gates stay open. That CI950 count is historical; current completion after finding27 is **3/10M ||4/5 |14/19**. M10 remains blocked and M11 dormant.
+**Finding27 implementation:** PR236 exact head `357706a1fe6d7143c046c64df2f336a236026a88` passed full Windows CI962/run `37382833470`, then expected-head-guarded squash-merged as `9f3e9b5cebdd752551c9b6b148975fe542bf44ea`. All seven changed source/test blobs on resulting `main` are identical to the validated head. The source correction preserves a saved explicit display across volatile DPI/work-area/geometry changes through a unique named-monitor fallback while retaining stale/ambiguous fail-closed behavior. **Physical finding27 acceptance remains OPEN/deferred**, so M1 stays narrowly reopened.
+
+**Finding07 implementation:** PR237 exact head `0f15f06ff7642e68dd4f124b526f38810b753bfb` is the active four-file correction on post-PR236 `main`. It adds a shared `spawn_blocking` boundary, converts Home/List-board authoritative SQLite snapshot commands to async offloaded reads, and includes locked-SQLite yielding plus command-error preservation regressions. Windows CI964/run `37428653095` is active; no automated PASS or physical keyboard-responsiveness PASS is claimed yet. The historical WIP/evidence-tool branch is provenance only and is not the merge source.
+
+**Finding23 review:** CI950 already physically passed queue wheel/Ctrl+End/last-row/menu/Tab access at real 100%/125%. Current source uses bounded vertical scrolling, `overflow-x: hidden`, `min-width: 0`/ellipsis/wrapping, and existing integration regressions assert `queue.scrollWidth <= queue.clientWidth + 1`. The UIA ~66.7% horizontal-view metric still lacks a rendered reproduction. **NO FIX NOW**; do not change layout for provider telemetry alone. Remaining canonical/source acceptance is independent.
+
+[CI950 loading addendum](../work-log/evidence/m7-ci950-loading-20261005/README.md) remains the physical baseline for finding07: real 1.8s/4s SQLite lock exercises showed loading feedback but queued Escape/Tab until release. PR237 addresses only the source mechanism; exact Windows physical acceptance is deferred per current user direction.
+
+Current progress stays **3/10M || 4/5 | 14/19**. M7 C1–C3/C5 remain accepted, C4 remains OPEN, M10 blocked and M11 dormant.
 
 ## Earlier CI950 closure overlay
 
