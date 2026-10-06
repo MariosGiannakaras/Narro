@@ -21,15 +21,9 @@ where
 mod tests {
     use super::*;
     use std::future::Future;
-    use std::sync::{mpsc, Arc};
-    use std::task::{Context, Poll, Wake, Waker};
+    use std::sync::mpsc;
+    use std::task::{Context, Poll, Waker};
     use std::time::Duration;
-
-    struct NoopWake;
-
-    impl Wake for NoopWake {
-        fn wake(self: Arc<Self>) {}
-    }
 
     #[test]
     fn locked_sqlite_read_yields_to_caller_and_preserves_result() {
@@ -68,8 +62,8 @@ mod tests {
             result
         }));
 
-        let waker = Waker::from(Arc::new(NoopWake));
-        let mut context = Context::from_waker(&waker);
+        let waker = Waker::noop();
+        let mut context = Context::from_waker(waker);
         assert!(matches!(pending.as_mut().poll(&mut context), Poll::Pending));
         let worker_thread = started_rx
             .recv_timeout(Duration::from_secs(2))
