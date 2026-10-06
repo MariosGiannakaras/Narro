@@ -12,13 +12,13 @@ pub mod floating_placement;
 pub mod focus_entry;
 pub mod focus_frame_capture;
 pub mod focus_frame_hold;
-pub mod main_focus_morph;
 pub mod focus_preferences;
 pub mod focus_webview;
 pub mod home_snapshot;
 pub mod list_board;
 pub mod list_editor;
 pub mod list_settings;
+pub mod main_focus_morph;
 pub mod notifications;
 pub mod persistence;
 pub mod preference_settings;
@@ -1845,7 +1845,9 @@ fn show_focus_after_blitz_entry(
 ) -> CommandResult<()> {
     show_and_focus(focus)?;
     if let Err(error) = main.hide() {
-        eprintln!("Focus Panel is visible, but Main could not be hidden after Blitz entry: {error}");
+        eprintln!(
+            "Focus Panel is visible, but Main could not be hidden after Blitz entry: {error}"
+        );
     }
     Ok(())
 }
@@ -1907,11 +1909,7 @@ async fn present_focus_for_blitz(
 
     // Prepare the retained hidden Focus host at its authoritative Panel target
     // before touching Main. No intermediate Focus renderer state is exposed.
-    apply_focus_surface_presentation_internal(
-        &app_handle,
-        FocusSurfacePresentation::Panel,
-        None,
-    )?;
+    apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?;
 
     let main = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
     if reduced_motion
