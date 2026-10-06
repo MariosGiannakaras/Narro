@@ -7,10 +7,7 @@ use crate::error::{CommandError, CommandResult};
 use crate::windows::{PhysicalPoint, PhysicalRect, PhysicalSize};
 
 fn morph_error(operation: &str, detail: impl std::fmt::Display) -> CommandError {
-    CommandError::new(
-        "FOCUS_ENTRY_MORPH_FAILED",
-        format!("{operation}: {detail}"),
-    )
+    CommandError::new("FOCUS_ENTRY_MORPH_FAILED", format!("{operation}: {detail}"))
 }
 
 pub fn supported() -> bool {
