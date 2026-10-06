@@ -1,4 +1,4 @@
-# HANDOFF — PR239 finding36 CI + finding35 continuation
+# HANDOFF — finding35 Time's Up Floating correction
 
 ## Current authoritative state — project continuation reconciled 2026-10-06
 
@@ -9,7 +9,7 @@ This section is the continuation authority. Dated checkpoints below describe ear
 - **Integrated finding27 correction:** PR236 exact head `357706a1fe6d7143c046c64df2f336a236026a88` passed full Windows CI962/run `37382833470` and was expected-head-guarded squash-merged as `9f3e9b5cebdd752551c9b6b148975fe542bf44ea`. Physical finding27 acceptance remains OPEN/deferred.
 - **Finding07 implementation integrated:** PR237 exact head `74658f9c47bf808f8bf23c1726125c8a8b5cbb8f` passed full Windows CI967/run `37434273074` and was squash-merged as `535e0a8c7c92143dd6bd7feac2c680a85e672cff`. Physical blocked-SQLite responsiveness remains OPEN/deferred; automation does not close that physical gate.
 - **Finding23:** review disposition remains **NO_FIX** unless new rendered/canonical evidence contradicts existing vertical/input PASS plus horizontal-bound automation. UIA provider-only ~66.7% horizontal-view telemetry has no rendered reproduction.
-- **Supplemental 35–37 analysis:** finding35 is **READY_FOR_FIX** after CI953 UIA + VE-016 causal reconciliation: Floating is already in authoritative Time's Up, but omits Extend and retains stale prior action-status copy. finding36 is **IMPLEMENTED / AUTOMATED VALIDATION PENDING** in PR239, exact head `a17c8b9ca3d2b23ab26bf29229883bcd9b5d0189`; Windows CI/run `37445464188` is **in_progress**. The PR makes Focus queue target ownership persistent in the coordinator and routes that scope through Panel/Floating/success actions with deterministic regression coverage. Do not call finding36 validated until exact-head CI passes and the guarded merge/resulting-main checks complete. Durable analysis/refinement: `work-log/2026-10-06-chatgpt-finding36-focus-scope-analysis.md` and `work-log/2026-10-06-chatgpt-finding36-implementation-refinement.md`. finding37 remains **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**.
+- **Supplemental 35–37 analysis:** finding35 is **READY_FOR_FIX** after CI953 UIA + VE-016 causal reconciliation: Floating is already in authoritative Time's Up, but omits Extend and retains stale prior action-status copy. finding36 source/automated correction is **INTEGRATED**: PR239 exact head `955a6e124130ae9abae9be3fff242f881abadfc5` passed Windows CI976/run `37450668638`, then expected-head-guarded squash-merged as `88cd58e0357f9ab368716eb4504711aaf5cb0687`. All 5 changed source/test blobs are byte-identical on resulting `main`. The CI976 M7 physical/runtime artifact exists and is unexpired; any separate routed physical/source-parity acceptance remains OPEN. finding37 remains **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**.
 - **M9 Overview PDF implementation integrated:** PR238 exact head `e584b5d5d40623a9e14b7180ecb5b117ad73ae03` passed full Windows CI971/run `37439099811` and was expected-head-guarded squash-merged as `c8d1b67f74d5c2347877da410a4584fb6625a74c`. All 10 changed source/test blobs are identical on resulting `main`. Physical Windows PDF creation/open/rendering acceptance remains OPEN, so M9 stays 11/12. Direct Reports/Sessions source-parity comparison remains separately OPEN.
 - **Roadmap:** M2–M4 complete (**3/10 mandatory milestones**). M1 remains narrowly reopened for physical finding27. M5/M6 retain affected source/visual gates. M7 C1–C3/C5 accepted and C4 OPEN (**4/5**); finding07 is part of that affected closure. M8/M9 remain open. M10 hard entry blocked; optional M11 dormant.
 
@@ -25,13 +25,14 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
-## NEXT AGENT ACTION — PR239 exact-head validation
+## NEXT AGENT ACTION — finding35 Time's Up Floating correction
 
-1. Inspect PR239 exact head `a17c8b9ca3d2b23ab26bf29229883bcd9b5d0189` and Windows CI/run `37445464188`. If CI fails, fix only the exact evidence-backed failure and repeat exact-head validation; do not broaden the finding36 scope.
-2. If exact-head CI is fully green, re-check live `main`/PR overlap, then expected-head-guard merge PR239 and verify the resulting executable/source tree against the validated head. Keep physical/source-parity acceptance OPEN unless separately observed.
-3. After finding36 integration/tracking reconciliation, continue finding35 from `work-log/2026-10-06-chatgpt-finding35-time-up-analysis.md` as the next READY_FOR_FIX supplemental line, subject to the ordered roadmap/dependency rules.
-4. Keep physical finding07 blocked-SQLite responsiveness, finding27 DPI recovery, and M9 PDF creation/open/rendering OPEN/deferred for a consolidated compatible Windows session. Reuse a still-valid exact artifact where the invalidation protocol permits; do not rebuild solely because the manual session begins.
-5. finding37 remains PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT. M10 remains blocked and M11 dormant.
+Current progress: `3/10M || 0/3 | 4/5`.
+
+1. Implement the narrow finding35 correction from current `main`: expose Floating Extend only when authoritative `time_up` permits it, reuse the existing `timer_extend` mutation, and clear stale local success/status copy when the authoritative timer newly enters `time_up`.
+2. Add deterministic renderer regression proving Time's Up action availability, Floating Extend → overtime projection, stale `Task resumed.` clearance, and unchanged Panel Time's Up behavior. Run the narrowest available checks first.
+3. Run exact-head Windows CI for the coherent source/test candidate and integrate only after PASS. Automated validation does not close any separate physical/source-motion gate.
+4. Keep physical finding07 blocked-SQLite responsiveness, finding27 DPI recovery, and M9 PDF creation/open/rendering OPEN/deferred for a consolidated compatible Windows session. finding37 remains PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT. M10 remains blocked and M11 dormant.
 
 ## USER ACTION REQUIRED
 
