@@ -97,6 +97,16 @@
 
 .focus-panel__row-action--complete {
   color: var(--color-accent-solid);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.focus-panel__task-row:hover .focus-panel__row-action--complete,
+.focus-panel__task-row:focus-within .focus-panel__row-action--complete {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .focus-panel__row-menu {
@@ -132,4 +142,23 @@
 
 .focus-panel__row-menu .focus-panel__row-menu-delete {
   color: var(--color-destructive);
+}
+
+
+.focus-panel__row-subtasks {
+  min-width: 0;
+}
+
+.focus-panel__task-row[data-focus-task-dragging="true"] {
+  opacity: 0.28;
+}
+
+.focus-panel__task-drag-preview {
+  position: fixed !important;
+  z-index: 60;
+  margin: 0 !important;
+  pointer-events: none;
+  border-color: var(--color-accent-solid) !important;
+  box-shadow: var(--elevation-overlay);
+  opacity: 0.96;
 }

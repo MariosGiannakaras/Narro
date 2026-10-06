@@ -7,6 +7,7 @@ function requireText(haystack, needle, label) {
 }
 
 const panel = read("src/FocusPanel.tsx");
+const focusPointerDrag = read("src/focusTaskPointerDrag.ts");
 const quickPreferences = read("src/FocusQuickPreferences.tsx");
 const quickPreferencesCss = read("src/focusQuickPreferences.css");
 const actions = read("src/FocusLiveActions.tsx");
@@ -23,11 +24,28 @@ const visualValidator = read("scripts/validate-focus-panel-captures.mjs");
 
 for (const [haystack, needle, label] of [
   [panel, 'data-focus-row-action="complete"', "A10 ordinary completion control"],
-  [panel, 'data-focus-row-action="make-live"', "A10 Rocket / Make Live control"],
-  [panel, 'data-focus-row-action="move-up"', "A10 keyboard/pointer Move up control"],
-  [panel, 'data-focus-row-action="move-down"', "A10 keyboard/pointer Move down control"],
-  [panel, 'data-focus-row-action="more"', "A10 stable overflow action control"],
+  [panel, 'data-focus-row-action="make-live"', "P3-M6-05 Rocket / Make Live control"],
+  [panel, 'data-focus-row-action="subtasks"', "P3-M6-05 direct Subtasks control"],
+  [panel, 'data-focus-row-action="notes"', "P3-M6-05 direct Notes control"],
+  [panel, 'data-focus-row-action="more"', "P3-M6-05 stable overflow action control"],
+  [panel, 'tabIndex={ordinary && canReorder ? 0 : undefined}', "P3-M6-05 focusable keyboard reorder/reveal entry"],
+  [panel, 'onPointerDown={ordinary && canReorder && !moreOpen ? onPointerReorder : undefined}', "P3-M6-05 no drag while overflow is open"],
+  [panel, 'onKeyDown={ordinary && canReorder && !moreOpen ? (event) => {', "P3-M6-05 no keyboard reorder while overflow is open"],
+  [panel, "<FocusLiveSubtasks", "P3-M6-05 validated subtask surface reuse"],
+  [panel, "changeListBoardTask({", "P3-M6-05 validated Change list boundary"],
+  [panel, "duplicateListBoardTask({", "P3-M6-05 validated Duplicate boundary"],
+  [panel, "<TaskChangeListDialog", "P3-M6-05 validated Change list dialog reuse"],
+  [panel, "beginFocusTaskPointerDrag({", "P3-M6-05 pointer-drag Focus reorder"],
+  [panel, 'event.target.closest("button, input, select, textarea, [contenteditable]")', "P3-M6-05 keyboard action/editor guard"],
+  [panel, 'if (!event.altKey || (event.key !== "ArrowUp" && event.key !== "ArrowDown")) return;', "P3-M6-05 keyboard reorder alternative"],
+  [panel, 'canReorder={index !== undefined && notesTaskId !== task.id && subtasksTaskId !== task.id}', "P3-M6-05 expanded editor reorder guard"],
+  [focusPointerDrag, 'data-focus-reorder-zone="true"', "P3-M6-05 scoped Focus reorder zone"],
+  [focusPointerDrag, "Math.hypot(x - options.x, y - options.y) < 6", "P3-M6-05 drag activation threshold"],
+  [focusPointerDrag, "source.setPointerCapture(pointerId)", "P3-M6-05 stable pointer capture"],
+  [focusPointerDrag, 'event.key !== "Escape"', "P3-M6-05 Escape cancellation"],
   [slotCss, "width: 7.75rem", "A10 reserved row action geometry"],
+  [slotCss, '.focus-panel__task-row:hover .focus-panel__row-action--complete', "P3-M6-05 hover-revealed completion control"],
+  [slotCss, '.focus-panel__task-drag-preview', "P3-M6-05 lightweight Focus drag preview"],
   [panelCss, "grid-template-columns: 1.75rem minmax(0, 1fr) 7.75rem", "A10 non-shifting row grid"],
   [panel, "snapshotTimerSession()", "A11 fresh timer authority read"],
   [panel, "switchTimerTask(task.id, mode)", "A11 authoritative live-task switch"],
@@ -105,11 +123,49 @@ if (makeLive.includes("completeTimerTask") || makeLive.includes("skipTimerTask")
   throw new Error("A11 Rocket must switch the current work segment rather than complete/skip it.");
 }
 
-const reorderStart = panel.indexOf("const moveFocusTask");
+const reorderStart = panel.indexOf("const commitFocusTaskReorder");
 const reorderEnd = panel.indexOf("const renderTaskRow", reorderStart);
 const reorder = panel.slice(reorderStart, reorderEnd);
 if (!reorder.includes("reorderListBoardTask({") || reorder.includes("moveListBoardTask")) {
   throw new Error("A12 Focus queue reorder must reuse the validated reorder boundary only.");
+}
+
+for (const forbidden of ['data-focus-row-action="move-up"', 'data-focus-row-action="move-down"']) {
+  if (panel.includes(forbidden)) {
+    throw new Error(`P3-M6-05 ordinary Focus rail must not expose board-style reorder controls: ${forbidden}`);
+  }
+}
+
+const railOrder = [
+  'data-focus-row-action="make-live"',
+  'data-focus-row-action="subtasks"',
+  'data-focus-row-action="notes"',
+  'data-focus-row-action="more"',
+];
+let previousRailIndex = panel.indexOf('data-focus-row-action="complete"');
+for (const marker of railOrder) {
+  const index = panel.indexOf(marker);
+  if (index <= previousRailIndex) throw new Error(`P3-M6-05 Focus rail order differs at ${marker}`);
+  previousRailIndex = index;
+}
+
+const menuStart = panel.indexOf('className="focus-panel__row-menu"');
+const menuEnd = panel.indexOf("</div>", menuStart);
+const menu = panel.slice(menuStart, menuEnd);
+for (const label of ["Schedule", "Change list", "Duplicate", "Delete"]) {
+  requireText(menu, label, `P3-M6-05 overflow ${label}`);
+}
+if (!(menu.indexOf("Schedule") < menu.indexOf("Change list")
+  && menu.indexOf("Change list") < menu.indexOf("Duplicate")
+  && menu.indexOf("Duplicate") < menu.indexOf("Delete"))) {
+  throw new Error("P3-M6-05 ordinary Focus overflow order differs from VE-003.");
+}
+if (menu.includes("Permanently delete") || menu.includes("Close Notes")) {
+  throw new Error("P3-M6-05 overflow still contains pre-Pass-3 visible copy.");
+}
+
+if (focusPointerDrag.includes("reorderListBoardTask(") || focusPointerDrag.includes("moveListBoardTask(")) {
+  throw new Error("P3-M6-05 pointer helper must stay visual/input-only; durable reorder authority remains in FocusPanel.");
 }
 
 if (panel.includes('data-focus-placeholder-control="preferences"')) {

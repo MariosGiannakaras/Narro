@@ -26,6 +26,7 @@ for (const [needle, label] of [
   ['document.addEventListener("pointerdown"', "outside pointer dismissal"],
   ['target.closest(\'[role="menuitem"]:not(:disabled)\')', "menu selection dismissal"],
   ['triggerRef.current?.focus()', "focus restoration"],
+  ['data-bounded={boundarySelector ? "true" : undefined}', "bounded tooltip marker"],
 ]) {
   requireText(source, needle, label);
 }
@@ -39,6 +40,8 @@ for (const [needle, label] of [
   ["var(--motion-distance-overlay)", "overlay motion distance token"],
   ["@media (prefers-reduced-motion: reduce)", "reduced-motion override"],
   ["transform: none;", "reduced-motion transform removal"],
+  ['.overlay-tooltip[data-bounded="true"]', "bounded tooltip first-paint selector"],
+  ["--tooltip-translate-x: 0px;", "bounded tooltip stable horizontal transform"],
 ]) {
   requireText(css, needle, label);
 }
