@@ -24,6 +24,9 @@ invariant(title.includes("tabIndex={0}"), "ordinary truncated title must be keyb
 invariant(title.includes("aria-label={`Task title: ${title}`}"), "ordinary title accessible label must expose full text");
 invariant(overlay.includes('"aria-describedby": describedBy'), "Tooltip primitive must associate its content with the focused trigger");
 invariant(overlay.includes("onFocus: mergeHandler("), "Tooltip primitive must support keyboard focus disclosure");
+invariant(overlay.includes("const verticalOverflow = (rect: DOMRect) =>"), "bounded Tooltip must measure vertical viewport overflow");
+invariant(overlay.includes('placement === "top" ? "bottom" : "top"'), "bounded Tooltip must evaluate the opposite vertical placement");
+invariant(overlay.includes("alternateOverflow >= preferredOverflow"), "bounded Tooltip must preserve the placement with less viewport overflow");
 invariant(css.includes(".focus-panel__task-title-row > .overlay-anchor--inline"), "Tooltip wrapper must participate in the existing title-row flex slot");
 invariant(css.includes("flex: 1 1 auto"), "Tooltip wrapper must not steal a fixed-width title slot");
 invariant(css.includes("-webkit-line-clamp: 2"), "ordinary task titles must clamp to two lines");
