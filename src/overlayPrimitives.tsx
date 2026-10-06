@@ -89,13 +89,31 @@ export function Tooltip({
       tooltip.style.insetInlineStart = `${(left - origin.left) / scale}px`;
       tooltip.style.insetInlineEnd = "auto";
       tooltip.style.setProperty("--tooltip-translate-x", "0px");
+
+      // Bounded tooltips must remain usable for visible rows even when their
+      // preferred side has no viewport room. Compare the actual CSS geometry
+      // on both sides and keep whichever placement produces less vertical
+      // overflow; this preserves the requested side whenever it already fits.
+      const verticalOverflow = (rect: DOMRect) =>
+        Math.max(0, -rect.top) + Math.max(0, rect.bottom - window.innerHeight);
+      tooltip.dataset.placement = placement;
+      const preferredRect = tooltip.getBoundingClientRect();
+      const preferredOverflow = verticalOverflow(preferredRect);
+      if (preferredOverflow > 0) {
+        const alternatePlacement: TooltipPlacement = placement === "top" ? "bottom" : "top";
+        tooltip.dataset.placement = alternatePlacement;
+        const alternateOverflow = verticalOverflow(tooltip.getBoundingClientRect());
+        if (alternateOverflow >= preferredOverflow) {
+          tooltip.dataset.placement = placement;
+        }
+      }
     };
     place();
     const observer = new ResizeObserver(place);
     observer.observe(boundary);
     observer.observe(anchor);
     return () => observer.disconnect();
-  }, [open, align, boundarySelector, content]);
+  }, [open, align, placement, boundarySelector, content]);
 
   const clearPending = () => {
     if (timeoutRef.current !== null) {
