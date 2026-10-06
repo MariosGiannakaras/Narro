@@ -187,8 +187,9 @@ function FocusTaskRow({
       data-focus-drag-task={ordinary && canReorder ? task.id : undefined}
       data-focus-reorderable={ordinary && canReorder ? "true" : "false"}
       data-task-id={task.id}
-      onPointerDown={ordinary && canReorder ? onPointerReorder : undefined}
-      onKeyDown={ordinary && canReorder ? (event) => {
+      tabIndex={ordinary && canReorder ? 0 : undefined}
+      onPointerDown={ordinary && canReorder && !moreOpen ? onPointerReorder : undefined}
+      onKeyDown={ordinary && canReorder && !moreOpen ? (event) => {
         if (
           event.target instanceof Element
           && event.target.closest("button, input, select, textarea, [contenteditable]")
