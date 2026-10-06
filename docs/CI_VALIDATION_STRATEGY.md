@@ -117,3 +117,33 @@ When a merge is performed through an integration token that does not emit a new 
 4. record the tool/platform limitation in the handoff.
 
 The goal is evidence completeness, not mechanically repeating identical expensive work.
+
+## 8. Validation invalidation protocol
+
+Validation is **claim-driven and invalidation-driven**. Before running a test, build, CI job or repeated manual check, identify the exact claim being proved and whether the current change made the existing evidence stale. Do not rerun expensive validation merely because a new review session started.
+
+### Decision sequence
+
+1. **Classify the changed surface.** Use the smallest applicable set: documentation/evidence/tracking; frontend/runtime; Rust/domain/storage; Windows/native/Tauri; build/config/workflow/test harness. A mixed change inherits the union of the relevant obligations.
+2. **Derive the invalidation boundary.** Existing evidence becomes stale only for claims that depend on changed semantics, dependencies, build inputs or candidate identity. Unaffected evidence remains historical/current evidence as appropriate; do not erase or rerun it by habit.
+3. **Start narrow.** Run the smallest deterministic regression/unit/integration check that can expose the affected failure first. This improves failure isolation and avoids discovering cheap defects after an expensive candidate build.
+4. **Batch before the expensive gate.** When multiple evidence-backed fixes are dependency-safe and form one reviewable candidate, validate them together. Do not create a full Windows build/CI cycle for every micro-edit.
+5. **Keep the mandatory candidate gate.** This protocol does **not** waive repository-required aggregate preflight or exact-head Windows CI for source/config/test candidates. It controls *when* those gates are necessary and prevents duplicate or unrelated reruns.
+6. **Reuse exact artifacts for deferred observation.** Record the source SHA, CI run/artifact identity and the manual gates that artifact can satisfy. Starting or resuming a physical/manual check does not itself require a rebuild. Reuse the exact validated artifact while no relevant source/config/build change has made it unrepresentative for that claim.
+7. **Rerun only invalidated downstream evidence after a failure/fix.** A manual or automated failure reopens the affected claim. After the narrow correction, repeat the checks/build/physical portion whose evidence the correction invalidated; do not mechanically replay unrelated PASS evidence.
+
+### Practical matrix
+
+| Situation | New executable build/Windows candidate required? |
+| --- | --- |
+| Analysis of code, screenshots, video or existing evidence only | No |
+| Markdown documentation/tracking/process update only | No |
+| Manual/physical check of an unchanged exact-head validated artifact | No; reuse that artifact |
+| Source/config/test change in an executable candidate | Yes, once for the coherent candidate under the normal preflight + exact-head CI policy |
+| Build/workflow/runtime configuration change | Yes; validate the affected pipeline/candidate semantics |
+| Later documentation-only commit after a validated source candidate | No; it does not invalidate the executable candidate |
+| Narrow corrective source change after a failed gate | Revalidate the affected source candidate and only the downstream evidence invalidated by that correction |
+
+For physical acceptance, prefer the latest relevant integrated candidate when a later source change can affect the observed behavior. If a later change is genuinely unrelated to the claim, preserve the prior evidence rather than silently discarding it; document the reasoning when that distinction matters.
+
+The governing question is: **what concrete claim is missing or stale, and what is the least expensive evidence that can validly prove it without weakening the repository's required candidate gates?**

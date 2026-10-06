@@ -1,14 +1,15 @@
-# HANDOFF — finding36 implementation + post-PR238 continuation
+# HANDOFF — PR239 finding36 CI + finding35 continuation
 
 ## Current authoritative state — project continuation reconciled 2026-10-06
 
 This section is the continuation authority. Dated checkpoints below describe earlier builds/sessions; their old counters, pending-CI text, PIDs, monitor state and next-step requests are historical, not instructions to rerun them.
 
 - **Operating method:** `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` is now binding for broad corrective/visual work and is referenced from `AI_START_HERE.md`, `AGENT_WORKFLOW.md` and `docs/EVIDENCE_ROUTING_MAP.md`. Zero-context chats must analyze the independent open-finding set to durable dispositions/causes, use full visual/video evidence depth where required, and then batch/parallelize only dependency-safe fixes. Do not leave the disposition/cause map only in chat.
+- **Validation method:** `docs/CI_VALIDATION_STRATEGY.md` now defines a claim/invalidation protocol. Start with the narrowest affected deterministic check, retain the required aggregate preflight/exact-head CI for coherent source candidates, batch dependency-safe fixes before expensive builds, and reuse an unchanged exact-head artifact for compatible deferred manual gates. A new review/manual session alone is not a rebuild trigger.
 - **Integrated finding27 correction:** PR236 exact head `357706a1fe6d7143c046c64df2f336a236026a88` passed full Windows CI962/run `37382833470` and was expected-head-guarded squash-merged as `9f3e9b5cebdd752551c9b6b148975fe542bf44ea`. Physical finding27 acceptance remains OPEN/deferred.
 - **Finding07 implementation integrated:** PR237 exact head `74658f9c47bf808f8bf23c1726125c8a8b5cbb8f` passed full Windows CI967/run `37434273074` and was squash-merged as `535e0a8c7c92143dd6bd7feac2c680a85e672cff`. Physical blocked-SQLite responsiveness remains OPEN/deferred; automation does not close that physical gate.
 - **Finding23:** review disposition remains **NO_FIX** unless new rendered/canonical evidence contradicts existing vertical/input PASS plus horizontal-bound automation. UIA provider-only ~66.7% horizontal-view telemetry has no rendered reproduction.
-- **Supplemental 35–37 analysis:** use the deep-analysis workflow before edits. finding35 is **READY_FOR_FIX** after CI953 UIA + VE-016 causal reconciliation: Floating is already in authoritative Time's Up, but omits Extend and retains stale prior action-status copy. finding36 is now **READY_FOR_FIX**: CI953 recorded selected-list reset + wrong global Next Task; canonical Pass-3 VE-003 proves explicit Success → Next Task advances through the current Focus queue; current Narro keeps list scope only in the mount-local Panel while Floating/success read `{ kind: "all" }`. Durable causal record: `work-log/2026-10-06-chatgpt-finding36-focus-scope-analysis.md`. finding37 remains **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**.
+- **Supplemental 35–37 analysis:** finding35 is **READY_FOR_FIX** after CI953 UIA + VE-016 causal reconciliation: Floating is already in authoritative Time's Up, but omits Extend and retains stale prior action-status copy. finding36 is **IMPLEMENTED / AUTOMATED VALIDATION PENDING** in PR239, exact head `a17c8b9ca3d2b23ab26bf29229883bcd9b5d0189`; Windows CI/run `37445464188` is **in_progress**. The PR makes Focus queue target ownership persistent in the coordinator and routes that scope through Panel/Floating/success actions with deterministic regression coverage. Do not call finding36 validated until exact-head CI passes and the guarded merge/resulting-main checks complete. Durable analysis/refinement: `work-log/2026-10-06-chatgpt-finding36-focus-scope-analysis.md` and `work-log/2026-10-06-chatgpt-finding36-implementation-refinement.md`. finding37 remains **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**.
 - **M9 Overview PDF implementation integrated:** PR238 exact head `e584b5d5d40623a9e14b7180ecb5b117ad73ae03` passed full Windows CI971/run `37439099811` and was expected-head-guarded squash-merged as `c8d1b67f74d5c2347877da410a4584fb6625a74c`. All 10 changed source/test blobs are identical on resulting `main`. Physical Windows PDF creation/open/rendering acceptance remains OPEN, so M9 stays 11/12. Direct Reports/Sessions source-parity comparison remains separately OPEN.
 - **Roadmap:** M2–M4 complete (**3/10 mandatory milestones**). M1 remains narrowly reopened for physical finding27. M5/M6 retain affected source/visual gates. M7 C1–C3/C5 accepted and C4 OPEN (**4/5**); finding07 is part of that affected closure. M8/M9 remain open. M10 hard entry blocked; optional M11 dormant.
 
@@ -24,14 +25,13 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
-## NEXT AGENT ACTION — finding36 scope ownership
+## NEXT AGENT ACTION — PR239 exact-head validation
 
-1. Implement finding36 from current `main` in a narrow M7 branch: make the Focus queue target persistent in `FocusSurfaceCoordinator`, pass it into both `FocusPanel` and `FloatingTimerFoundation`, and ensure `FocusLiveActions` uses that same target for Skip/Done/success Next Task selection.
-2. Add deterministic renderer regression coverage for list selection → Panel unmount/presentation switch → Floating/success → explicit Next Task → Panel return, plus invalid/deleted-list fallback to All. Preserve all-list behavior and timer/session authority.
-3. Run the strongest available source/contract tests, then Windows CI on the exact PR head. Integrate only after exact-head automated PASS; keep any routed physical/source acceptance explicitly OPEN.
-4. Keep physical finding07 blocked-SQLite responsiveness, finding27 DPI recovery, and M9 PDF creation/rendering OPEN/deferred for a later consolidated Windows session.
-5. finding35 is READY_FOR_FIX; see `work-log/2026-10-06-chatgpt-finding35-time-up-analysis.md`; finding37 remains PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT. Do not invent fixes for either.
-6. M10 remains blocked and M11 dormant.
+1. Inspect PR239 exact head `a17c8b9ca3d2b23ab26bf29229883bcd9b5d0189` and Windows CI/run `37445464188`. If CI fails, fix only the exact evidence-backed failure and repeat exact-head validation; do not broaden the finding36 scope.
+2. If exact-head CI is fully green, re-check live `main`/PR overlap, then expected-head-guard merge PR239 and verify the resulting executable/source tree against the validated head. Keep physical/source-parity acceptance OPEN unless separately observed.
+3. After finding36 integration/tracking reconciliation, continue finding35 from `work-log/2026-10-06-chatgpt-finding35-time-up-analysis.md` as the next READY_FOR_FIX supplemental line, subject to the ordered roadmap/dependency rules.
+4. Keep physical finding07 blocked-SQLite responsiveness, finding27 DPI recovery, and M9 PDF creation/open/rendering OPEN/deferred for a consolidated compatible Windows session. Reuse a still-valid exact artifact where the invalidation protocol permits; do not rebuild solely because the manual session begins.
+5. finding37 remains PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT. M10 remains blocked and M11 dormant.
 
 ## USER ACTION REQUIRED
 

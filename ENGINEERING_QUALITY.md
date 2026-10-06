@@ -85,6 +85,8 @@ Prefer deterministic unit tests for pure/domain behavior and narrow integration/
 
 Before a source/config push that will trigger Windows CI, run the strongest meaningful local preflight the current environment permits.
 
+Apply the claim/invalidation decision protocol in `docs/CI_VALIDATION_STRATEGY.md` before choosing validation. Run the narrowest affected deterministic check first for failure isolation, then the required aggregate preflight/exact-head CI for the coherent source candidate. Do not trigger a fresh build merely because a later manual or review session begins: if the exact validated artifact still represents the claim under test, reuse it and keep its identity explicit. Conversely, a relevant source/config/build change invalidates the affected candidate evidence and must be revalidated.
+
 Canonical commands:
 
 - `npm run check:config` — dependency-light repository/config invariants;
