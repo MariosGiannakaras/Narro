@@ -1,5 +1,7 @@
-//! Capture only Narro's prepared WebView pixels, never its stale parent GDI DC.
+//! Capture Narro's prepared WebView pixels, never stale parent/desktop GDI pixels.
 use crate::error::{CommandError, CommandResult};
+
+const MAX_CAPTURE_PNG_BYTES: u64 = 8 * 1024 * 1024;
 
 #[cfg(windows)]
 pub async fn capture(window: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
@@ -28,7 +30,7 @@ pub async fn capture(window: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
                         captured_stream
                             .Stat(&mut info, STATFLAG_NONAME)
                             .map_err(|e| error(e.to_string()))?;
-                        if info.cbSize == 0 || info.cbSize > 1_048_576 {
+                        if info.cbSize == 0 || info.cbSize > MAX_CAPTURE_PNG_BYTES {
                             return Err(error("capture size is invalid"));
                         }
                         captured_stream
