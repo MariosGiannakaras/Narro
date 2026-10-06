@@ -447,6 +447,9 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
     "finding35 Time's Up retained a Pause/Resume slot instead of replacing it with Extend");
   assert(timeUpActions.length === 6,
     "finding35 Time's Up changed the fixed six-slot Floating action geometry");
+  assert(Array.from(timeUpActions, action => action.dataset.floatingAction).join(",")
+      === "break,notes,extend,skip,done,return-to-panel",
+    "finding35 Time's Up changed the fixed Floating action-slot order");
   assert(Boolean(skipAction && !skipAction.disabled) && Boolean(doneAction && !doneAction.disabled)
       && Boolean(extendAction && !extendAction.disabled),
     "finding35 Time's Up did not expose Skip/Done/Extend");
@@ -460,8 +463,12 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   assert(container.querySelector<HTMLButtonElement>('[data-floating-action="extend"]') === null
       && Boolean(container.querySelector<HTMLButtonElement>('[data-floating-action="pause-resume"]')),
     "finding35 overtime did not restore the ordinary Pause/Resume slot");
-  assert(container.querySelectorAll<HTMLButtonElement>('[data-floating-action]').length === 6,
+  const overtimeActions = container.querySelectorAll<HTMLButtonElement>('[data-floating-action]');
+  assert(overtimeActions.length === 6,
     "finding35 overtime changed the fixed six-slot Floating action geometry");
+  assert(Array.from(overtimeActions, action => action.dataset.floatingAction).join(",")
+      === "break,notes,pause-resume,skip,done,return-to-panel",
+    "finding35 overtime did not restore the ordinary Floating action-slot order");
 
   scopeTimer = {
     ...scopeTimer,
