@@ -48,7 +48,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   let scopeScenario = false;
   let scopeCompleted = false;
   let scopeBoardReads: Array<string | null> = [];
-  let capturedScopeSuccess: FocusCompletionSuccessState | null = null;
+  const capturedScopeSuccess: { current: FocusCompletionSuccessState | null } = { current: null };
   let scopeTimer: TimerSessionPayload = {
     revision: 50,
     awaitingResume: false,
@@ -317,7 +317,7 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
   scopeScenario = true;
   scopeCompleted = false;
   scopeBoardReads = [];
-  capturedScopeSuccess = null;
+  capturedScopeSuccess.current = null;
   scopeTimer = {
     revision: 50,
     awaitingResume: false,
@@ -339,17 +339,19 @@ export async function runM7IntegrationRegression(container: HTMLElement) {
       presentationActive
       controlledExpanded
       onRequestExpanded={async () => {}}
-      onCompletionSuccess={(state) => { capturedScopeSuccess = state; }}
+      onCompletionSuccess={(state) => { capturedScopeSuccess.current = state; }}
     />,
   ));
   await wait(); await wait(); await wait();
   const scopedDone = container.querySelector<HTMLButtonElement>('[data-focus-action="done"]');
-  assert(scopedDone && !scopedDone.disabled, "scoped Floating Done action unavailable");
+  if (!scopedDone || scopedDone.disabled) throw new Error("scoped Floating Done action unavailable");
   scopedDone.click();
   await wait(); await wait(); await wait(); await wait();
-  assert(capturedScopeSuccess?.nextTask?.id === scopedNextTask.id,
-    "success Next Task escaped selected Focus queue: " + JSON.stringify(capturedScopeSuccess?.nextTask));
-  assert(capturedScopeSuccess?.nextTask?.id !== globalOldTask.id,
+  const scopeSuccess = capturedScopeSuccess.current;
+  if (!scopeSuccess) throw new Error("scoped completion success was not published");
+  assert(scopeSuccess.nextTask?.id === scopedNextTask.id,
+    "success Next Task escaped selected Focus queue: " + JSON.stringify(scopeSuccess.nextTask));
+  assert(scopeSuccess.nextTask?.id !== globalOldTask.id,
     "success Next Task selected global older task");
   assert(scopeBoardReads.filter(listId => listId === scopeListId).length >= 2,
     "Done/success did not refresh selected Focus target: " + JSON.stringify(scopeBoardReads));
