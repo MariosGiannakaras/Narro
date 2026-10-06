@@ -1,7 +1,7 @@
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./App.css";
-import { FocusPanel } from "./FocusPanel";
+import { FocusPanel } from "./FocusPanel";\nimport { TOOLTIP_INTENT_DELAY_MS } from "./overlayPrimitives";
 import type {
   BoardTaskNoteSnapshot,
   ListBoardSnapshot,
@@ -289,7 +289,9 @@ if (queuedRow) {
   const rowIsVisible = before[0].top >= 0 && before[0].bottom <= window.innerHeight;
   if (rowIsVisible) {
     title.focus({preventScroll: true});
-    await new Promise<void>(resolve => window.setTimeout(resolve, 180));
+    await new Promise<void>(resolve => window.setTimeout(resolve, TOOLTIP_INTENT_DELAY_MS + 50));
+    const focusedTooltip = title.closest('.overlay-anchor')!.querySelector<HTMLElement>('[role="tooltip"]');
+    if (focusedTooltip?.dataset.open !== "true") throw new Error('Focused queued title tooltip did not open before containment measurement');
   }
   if (JSON.stringify(bounds()) !== JSON.stringify(before)) throw new Error('Revealing queued actions moved title, card or targets');
   if (queuedRow.scrollWidth > queuedRow.clientWidth + 1) throw new Error('Queued task has horizontal overflow ' + JSON.stringify({width: queuedRow.clientWidth, scrollWidth: queuedRow.scrollWidth, escaping: Array.from(queuedRow.querySelectorAll<HTMLElement>('*')).filter(node => node.getBoundingClientRect().right > queuedRow.getBoundingClientRect().right).map(node => ({text: node.textContent?.slice(0,35), class: node.className, right: node.getBoundingClientRect().right}))}));
