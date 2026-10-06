@@ -13,6 +13,6 @@ export function startBlitz(): Promise<StartBlitzOutcome> {
   });
 }
 
-export function presentFocusForBlitz(): Promise<void> {
-  return invoke<void>("present_focus_for_blitz");
+export function presentFocusForBlitz(reducedMotion: boolean): Promise<void> {
+  return invoke<void>("present_focus_for_blitz", { reducedMotion });
 }
