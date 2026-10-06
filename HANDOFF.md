@@ -1,4 +1,4 @@
-# HANDOFF — M5 P3-M5-04 source/menu reconciliation
+# HANDOFF — M6 whole-Focus source/state reconciliation
 
 ## Current authoritative state — project continuation reconciled 2026-10-06
 
@@ -12,6 +12,7 @@ This section is the continuation authority. Dated checkpoints below describe ear
 - **Supplemental 35–37:** finding35 source/automation correction is **INTEGRATED**. PR240 exact final head `94ea1ccdf7bbc8f00585370d799b077b8bad2ef9` passed full Windows CI983/run `37459582808` and was expected-head-guarded squash-merged as `7f8a1f3b52a405d94ff5cb1ba98d04bdb251f248`; all 3 changed source/test blobs match resulting `main`. The final design substitutes Extend into the Pause/Resume slot only during authoritative `time_up`, preserves six fixed slots, restores Pause/Resume in overtime, and clears stale prior action-status copy. Physical/direct source-visual acceptance remains OPEN. finding36 remains **INTEGRATED** from PR239/CI976 with 5/5 resulting-main blob identity. finding37 remains **PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT**; durable record: `work-log/2026-10-06-chatgpt-finding37-take-break-disposition.md`.
 - **M9 Overview PDF implementation integrated:** PR238 exact head `e584b5d5d40623a9e14b7180ecb5b117ad73ae03` passed full Windows CI971/run `37439099811` and was expected-head-guarded squash-merged as `c8d1b67f74d5c2347877da410a4584fb6625a74c`. All 10 changed source/test blobs are identical on resulting `main`. Physical Windows PDF creation/open/rendering acceptance remains OPEN, so M9 stays 11/12. Direct Reports/Sessions source-parity comparison remains separately OPEN.
 - **Roadmap:** M2–M4 complete (**3/10 mandatory milestones**). M1 remains narrowly reopened for physical finding27. M5/M6 retain affected source/visual gates. M7 C1–C3/C5 accepted and C4 OPEN (**4/5**); finding07 is part of that affected closure. M8/M9 remain open. M10 hard entry blocked; optional M11 dormant.
+- **M5 P3-M5-04 reconciliation:** **NO_SOURCE_FIX / SOURCE_PARITY_OPEN**. Current TaskCard destructive-menu grammar already matches canonical VE-006 structurally: same menu retained, Delete row becomes trash/Confirm/X, sibling rows retained/disabled, keyboard/cancel/failure/pending safety covered. `TaskCard.tsx` is blob-identical to PR234/CI950 and PR235/CI953; current menu/overlay CSS is blob-identical to PR235/CI953. No new source PR/CI is warranted. Direct current-candidate canonical visual/physical acceptance remains OPEN, so the M5 item stays unchecked. Durable record: `work-log/2026-10-06-chatgpt-m5-p3-m5-04-menu-reconciliation.md`.
 
 - **Evidence navigation:** [11 follow-up CI953 packets with existing timestamps](work-log/evidence/ci953-capture-index-20261005/README.md), plus [initial CI953 physical results](work-log/2026-10-05-codex-m7-ci953-physical-results.md) and [initial full evidence packet](work-log/evidence/m7-ci953-physical-20261005/README.md). The11-packet index is a navigation inventory, not the complete historical corpus or a check-completion counter. Historical44/100 means reviewed cells only; raw acquisition did not advance it.
 - **Open routing:**07 native-read responsiveness and27 DPI recovery remain correction/acceptance blockers;23 provider/source discrepancy requires review, not an assumed visible-overflow fix. Supplemental35 Time's Up,36 list reset/Next Task,37 disabled success Take a Break and other timestamped observations retain their prior OPEN/review dispositions. Actual notification delivery, source parity and continuous motion must not become PASS from elapsed boundaries, static probes or mere surface appearance.
@@ -25,15 +26,15 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
-## NEXT AGENT ACTION — M5 P3-M5-04 canonical destructive-menu reconciliation
+## NEXT AGENT ACTION — M6 whole-Focus canonical source/state reconciliation
 
-Current progress: `3/10M || 0/3 | 33/34`.
+Current progress: `3/10M || 0/3 | 17/18`.
 
-1. Analyze canonical VE006 destructive-menu grammar against current `ListBoard` / task-overflow implementation and current regression coverage. Confirm whether PR235's menu-paint correction fixed only stacking or also the source container/Confirm/X behavior.
-2. If a real source gap remains, implement only the narrow P3-M5-04 correction and deterministic keyboard/failure regressions in one M5 branch. Preserve PR227 destructive safety, PR235 z-order/pointer behavior and all validated task identity semantics.
-3. Run the narrowest affected frontend/visual checks first, then required exact-head Windows CI for the coherent source candidate. Integrate only after evidence-backed PASS. Do not claim SOURCE_PARITY_PASS from Narro-owned fixtures alone.
-4. Keep physical finding07, finding27, M9 PDF creation/rendering, finding35/36 routed physical/source checks and M7 continuous-motion acceptance OPEN/deferred for the later compatible Windows session.
-5. finding37 remains PRODUCT_DECISION_REQUIRED / EVIDENCE_LIMIT; do not invent Take a Break semantics. M10 remains blocked and M11 dormant.
+1. Analyze the canonical current Focus hierarchy/state grammar against current `FocusPanel`, `FocusSurfaceCoordinator`, queue/live-card CSS and existing regression coverage. Use Pass-3 VE-003/VE-010 plus calibrated current Focus screenshots/visual-system records; do not broadly rerun completed Blitzit forensics.
+2. Split the reopened Gate F into evidence-backed dispositions: source/code gap requiring implementation, already-correct source path with acceptance-only work, or physical-only integration. Pay particular attention to queue hierarchy, live-card/paused/time-up states, selected-list continuity, quick task/Home, keyboard/focus and normal/reduced-motion behavior.
+3. If a real non-physical source gap is found, implement only that bounded M6 correction with deterministic regression coverage and required exact-head CI. If no source gap remains, record NO_SOURCE_FIX and keep the physical/direct source gate OPEN without speculative edits.
+4. Preserve integrated M7 finding07/35/36 corrections and M1 finding27 source work; do not reopen them unless this M6 reconciliation finds a concrete causal conflict.
+5. Physical finding07/27, M5 P3-M5-04 direct acceptance, M9 PDF creation/rendering and remaining compatible manual/source gates stay deferred for a later consolidated Windows session. M10 remains blocked; M11 dormant.
 
 ## USER ACTION REQUIRED
 
