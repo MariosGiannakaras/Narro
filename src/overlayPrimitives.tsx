@@ -14,7 +14,7 @@ import {
   useState,
 } from "react";
 
-const TOOLTIP_INTENT_DELAY_MS = 400;
+export const TOOLTIP_INTENT_DELAY_MS = 400;
 
 type OverlayAlign = "start" | "end";
 type TooltipAlign = "start" | "center" | "end";
