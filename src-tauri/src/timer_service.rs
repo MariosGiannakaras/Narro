@@ -100,6 +100,7 @@ struct FocusHomePauseLease {
 pub struct TimerService {
     state: Mutex<TimerServiceState>,
     focus_home_pause_lease: Mutex<Option<FocusHomePauseLease>>,
+    focus_home_pause_gate: Mutex<()>,
     focus_home_pause_nonce: AtomicU64,
     monotonic_origin: Instant,
 }
@@ -138,6 +139,7 @@ impl TimerService {
                 recovered_awaiting_resume,
             }),
             focus_home_pause_lease: Mutex::new(None),
+            focus_home_pause_gate: Mutex::new(()),
             focus_home_pause_nonce: AtomicU64::new(0),
             monotonic_origin,
         })
@@ -328,15 +330,20 @@ impl TimerService {
         &self,
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<Option<TimerSessionPayload>> {
-        let nonce = self.next_focus_home_pause_nonce()?;
-        // Serialize lease renewal with the authoritative timer transition. A stale
-        // post-reveal resume must not be able to consume the old lease while a
-        // repeated Home exit is deciding whether to renew that same provenance.
-        let mut lease = self
-            .focus_home_pause_lease
+        // Serialize only Home-pause provenance operations. Do not hold the lease
+        // mutex across SQLite, event publication or native notification work.
+        let _home_pause_gate = self
+            .focus_home_pause_gate
             .lock()
             .map_err(|_| CommandError::timer_service_lock_poisoned())?;
-        let existing_lease = *lease;
+        let nonce = self.next_focus_home_pause_nonce()?;
+        let existing_lease = {
+            let lease = self
+                .focus_home_pause_lease
+                .lock()
+                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            *lease
+        };
 
         let payload = self.transition_if(
             app_handle,
@@ -374,6 +381,10 @@ impl TimerService {
             renew_focus_home_pause_lease(existing_lease, &current, nonce)
         };
 
+        let mut lease = self
+            .focus_home_pause_lease
+            .lock()
+            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
         *lease = next_lease;
         Ok(payload)
     }
@@ -383,20 +394,23 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
         expected_nonce: Option<u64>,
     ) -> CommandResult<Option<TimerSessionPayload>> {
-        // Keep the lease mutex until the authoritative resume decision has
-        // completed. Otherwise a repeated Home exit can observe the old paused
-        // state after this callback consumed the lease but before it resumes,
-        // then leave Focus while the stale callback resumes underneath it.
-        let mut lease_guard = self
-            .focus_home_pause_lease
+        let _home_pause_gate = self
+            .focus_home_pause_gate
             .lock()
             .map_err(|_| CommandError::timer_service_lock_poisoned())?;
-        if let (Some(expected), Some(current)) = (expected_nonce, lease_guard.as_ref()) {
-            if current.nonce != expected {
-                return Ok(None);
+        let lease = {
+            let mut lease = self
+                .focus_home_pause_lease
+                .lock()
+                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            if let (Some(expected), Some(current)) = (expected_nonce, lease.as_ref()) {
+                if current.nonce != expected {
+                    return Ok(None);
+                }
             }
-        }
-        let Some(lease) = lease_guard.take() else {
+            lease.take()
+        };
+        let Some(lease) = lease else {
             return Ok(None);
         };
 
