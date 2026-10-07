@@ -76,6 +76,7 @@ A capable agent should normally:
 - run the strongest meaningful local preflight available **before** a source/config push that triggers Windows CI;
 - record unavailable local checks as `NOT RUN`, never as PASS;
 - use GitHub Actions as the reproducible second gate, not as a replacement for avoidable local checking;
+- **do not tight-loop poll long-running CI/build jobs.** Once the exact head/run is recorded and a build/candidate is actively progressing, continue independent safe work. Re-check only after substantive work, when that result becomes necessary for the next safe action, or when new evidence/user input says it completed. Repeated no-change polling is not progress;
 - when a physical Windows check is required but does not determine whether independent next work is safe, keep the manual gate OPEN and batch compatible manual checks into one later session on the latest relevant build;
 - never mark a deferred manual check PASS from automated evidence, and do not defer a manual result when that result is needed to choose or validate the next safe implementation;
 - after CI or another intermediate checkpoint completes, continue immediately with the next unblocked repository-recorded action instead of ending the implementation session merely because a checkpoint was reached;

@@ -68,6 +68,8 @@ The user should never have to relay one agent's explanation to another.
 
 Current user direction delegates ordinary implementation and validation sequencing to the agent. Do not stop merely because a routine validation boundary was reached. Batch compatible checks when later work is independent; run targeted automated validation before dependent work when a failure could invalidate the next slice or materially worsen failure isolation. Apply the claim/invalidation protocol in `docs/CI_VALIDATION_STRATEGY.md`: preserve unaffected evidence, batch dependency-safe source fixes before expensive candidate CI/builds, and reuse an unchanged exact-head artifact for compatible deferred manual checks instead of rebuilding by habit. Manual Windows checks may remain open for a later consolidated session when safe.
 
+Do **not** spend the session repeatedly polling the same active build/candidate with no state change. Record the exact head/run once, continue dependency-safe implementation/analysis/documentation, and re-check only after substantive progress, when the CI result is required to choose the next safe action, or when new evidence/user input indicates completion. A long-running build is not a reason to idle.
+
 If user input is genuinely required, state the concrete constraint, viable options, the recommended path, and its rationale. A historical handoff instruction that demanded fresh permission solely to begin ordinary tests/CI is superseded by this policy; destructive/external actions and physical-only evidence remain separate approval/observation boundaries.
 
 ## User progress reporting
