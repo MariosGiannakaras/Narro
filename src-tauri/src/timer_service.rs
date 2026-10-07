@@ -24,6 +24,7 @@ use crate::timer::{BreakKind, TimerMode, TimerSnapshot, TimerStateKind};
 use chrono::{DateTime, Duration as ChronoDuration, SecondsFormat, Utc};
 use rusqlite::Connection;
 use std::fmt::{Display, Formatter};
+use std::sync::atomic::{AtomicU64, Ordering as AtomicOrdering};
 use std::sync::Mutex;
 use std::time::{Duration, Instant};
 use tauri::{Emitter, Manager, State};
@@ -90,6 +91,7 @@ struct TimerServiceState {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 struct FocusHomePauseLease {
+    nonce: u64,
     revision: u64,
     task_id: TaskId,
     session_id: SessionId,
@@ -98,6 +100,7 @@ struct FocusHomePauseLease {
 pub struct TimerService {
     state: Mutex<TimerServiceState>,
     focus_home_pause_lease: Mutex<Option<FocusHomePauseLease>>,
+    focus_home_pause_nonce: AtomicU64,
     monotonic_origin: Instant,
 }
 
@@ -135,6 +138,7 @@ impl TimerService {
                 recovered_awaiting_resume,
             }),
             focus_home_pause_lease: Mutex::new(None),
+            focus_home_pause_nonce: AtomicU64::new(0),
             monotonic_origin,
         })
     }
@@ -296,17 +300,42 @@ impl TimerService {
         self.transition(app_handle, TimerController::pause)
     }
 
+    fn next_focus_home_pause_nonce(&self) -> CommandResult<u64> {
+        self.focus_home_pause_nonce
+            .fetch_update(
+                AtomicOrdering::Relaxed,
+                AtomicOrdering::Relaxed,
+                |current| current.checked_add(1),
+            )
+            .map(|previous| previous + 1)
+            .map_err(|_| {
+                CommandError::new(
+                    "FOCUS_HOME_PAUSE_NONCE_OVERFLOW",
+                    "Focus Home pause provenance counter overflowed",
+                )
+            })
+    }
+
+    pub fn focus_home_pause_nonce(&self) -> CommandResult<Option<u64>> {
+        let lease = self
+            .focus_home_pause_lease
+            .lock()
+            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        Ok(lease.map(|current| current.nonce))
+    }
+
     pub fn pause_for_focus_home(
         &self,
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<Option<TimerSessionPayload>> {
-        {
-            let mut lease = self
+        let nonce = self.next_focus_home_pause_nonce()?;
+        let existing_lease = {
+            let lease = self
                 .focus_home_pause_lease
                 .lock()
                 .map_err(|_| CommandError::timer_service_lock_poisoned())?;
-            *lease = None;
-        }
+            *lease
+        };
 
         let payload = self.transition_if(
             app_handle,
@@ -320,7 +349,7 @@ impl TimerService {
             TimerController::pause,
         )?;
 
-        if let Some(payload) = payload.as_ref() {
+        let next_lease = if let Some(payload) = payload.as_ref() {
             let task_id = payload.runtime.timer.task_id.ok_or_else(|| {
                 CommandError::new(
                     "FOCUS_HOME_PAUSE_BINDING_MISSING",
@@ -333,29 +362,42 @@ impl TimerService {
                     "Home-induced pause has no authoritative session binding",
                 )
             })?;
-            let mut lease = self
-                .focus_home_pause_lease
-                .lock()
-                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
-            *lease = Some(FocusHomePauseLease {
+            Some(FocusHomePauseLease {
+                nonce,
                 revision: payload.revision,
                 task_id,
                 session_id,
-            });
-        }
+            })
+        } else {
+            let current = self.snapshot()?;
+            existing_lease
+                .filter(|lease| focus_home_pause_lease_matches(*lease, &current))
+                .map(|lease| FocusHomePauseLease { nonce, ..lease })
+        };
 
+        let mut lease = self
+            .focus_home_pause_lease
+            .lock()
+            .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+        *lease = next_lease;
         Ok(payload)
     }
 
     pub fn resume_focus_home_pause(
         &self,
         app_handle: &tauri::AppHandle,
+        expected_nonce: Option<u64>,
     ) -> CommandResult<Option<TimerSessionPayload>> {
         let lease = {
             let mut lease = self
                 .focus_home_pause_lease
                 .lock()
                 .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            if let (Some(expected), Some(current)) = (expected_nonce, lease.as_ref()) {
+                if current.nonce != expected {
+                    return Ok(None);
+                }
+            }
             lease.take()
         };
         let Some(lease) = lease else {
@@ -985,8 +1027,16 @@ pub fn timer_pause_for_focus_home(
 pub fn timer_resume_focus_home_pause(
     timer_service: State<'_, TimerService>,
     app_handle: tauri::AppHandle,
+    resume_nonce: Option<String>,
 ) -> CommandResult<Option<TimerSessionPayload>> {
-    timer_service.resume_focus_home_pause(&app_handle)
+    let resume_nonce = resume_nonce
+        .map(|value| {
+            value
+                .parse::<u64>()
+                .map_err(|_| CommandError::invalid_argument("resumeNonce", "must be an unsigned integer"))
+        })
+        .transpose()?;
+    timer_service.resume_focus_home_pause(&app_handle, resume_nonce)
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -1556,6 +1606,7 @@ mod tests {
         let task_id = TaskId::generate();
         let session_id = SessionId::generate();
         let lease = FocusHomePauseLease {
+            nonce: 11,
             revision: 7,
             task_id,
             session_id,
