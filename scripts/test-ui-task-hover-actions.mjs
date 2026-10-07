@@ -89,7 +89,7 @@ for (const [haystack, needle, label] of [
   [finding28Driver, 'probeCard?.matches(":focus-within")', "Finding28 focus-within observation"],
   [finding28Driver, 'probeShell?.matches(":focus-visible")', "Finding28 shell focus-visible observation"],
   [finding28Driver, 'getComputedStyle(rail)', "Finding28 computed rail style observation"],
-  [finding28Driver, 'card.matches(":hover")', "Finding28 actual hover observation"],
+  [finding28Driver, 'probeCard?.matches(":hover")', "Finding28 actual hover observation"],
   [finding28Driver, '"finding28-post-drag-action-rail.json"', "Finding28 durable rendered result"],
   [packageJson, '"test:finding28-post-drag-action-rail"', "Finding28 Windows regression package route"],
   [packageJson, "npm run test:finding28-post-drag-action-rail", "Finding28 Windows visual-gate execution"],
