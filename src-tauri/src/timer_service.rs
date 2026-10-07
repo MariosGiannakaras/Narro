@@ -321,7 +321,7 @@ impl TimerService {
             .focus_home_pause_lease
             .lock()
             .map_err(|_| CommandError::timer_service_lock_poisoned())?;
-        Ok(lease.map(|current| current.nonce))
+        Ok(lease.as_ref().map(|current| current.nonce))
     }
 
     pub fn pause_for_focus_home(
@@ -370,9 +370,7 @@ impl TimerService {
             })
         } else {
             let current = self.snapshot()?;
-            existing_lease
-                .filter(|lease| focus_home_pause_lease_matches(*lease, &current))
-                .map(|lease| FocusHomePauseLease { nonce, ..lease })
+            renew_focus_home_pause_lease(existing_lease, &current, nonce)
         };
 
         let mut lease = self
@@ -711,6 +709,16 @@ fn wall_time_at_monotonic(
 fn is_paused_pomodoro_projection(payload: &TimerSessionPayload) -> bool {
     payload.runtime.timer.state == TimerStateKind::Paused
         && matches!(payload.runtime.timer.mode, Some(TimerMode::Pomodoro { .. }))
+}
+
+fn renew_focus_home_pause_lease(
+    existing: Option<FocusHomePauseLease>,
+    payload: &TimerSessionPayload,
+    nonce: u64,
+) -> Option<FocusHomePauseLease> {
+    existing
+        .filter(|lease| focus_home_pause_lease_matches(*lease, payload))
+        .map(|lease| FocusHomePauseLease { nonce, ..lease })
 }
 
 fn focus_home_pause_lease_matches(
@@ -1632,8 +1640,15 @@ mod tests {
         };
 
         assert!(focus_home_pause_lease_matches(lease, &payload));
+        let renewed = renew_focus_home_pause_lease(Some(lease), &payload, 12)
+            .expect("exact Home pause provenance must be renewable");
+        assert_eq!(renewed.nonce, 12);
+        assert_eq!(renewed.revision, lease.revision);
+        assert_eq!(renewed.task_id, lease.task_id);
+        assert_eq!(renewed.session_id, lease.session_id);
 
         payload.revision += 1;
+        assert_eq!(renew_focus_home_pause_lease(Some(lease), &payload, 13), None);
         assert!(!focus_home_pause_lease_matches(lease, &payload));
         payload.revision = lease.revision;
         payload.runtime.timer.task_id = Some(TaskId::generate());
