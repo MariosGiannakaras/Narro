@@ -138,9 +138,15 @@ function Fixture() {
 const root = find<HTMLElement>("#root");
 const result: Record<string, unknown> = {theme, scenario, reducedMotion};
 if (scenario === "finding28-post-drag") {
-  const { mountFinding28PostDragFixture } = await import("./finding28PostDragFixture");
-  await mountFinding28PostDragFixture(root);
-  result.finding28FixtureMounted = true;
+  try {
+    const { mountFinding28PostDragFixture } = await import("./finding28PostDragFixture");
+    await mountFinding28PostDragFixture(root);
+    result.finding28FixtureMounted = true;
+  } catch (error: unknown) {
+    document.documentElement.dataset.finding28FixtureError =
+      error instanceof Error ? error.message : String(error);
+    throw error;
+  }
 } else if (scenario === "m7-integration") {
   const { runM7IntegrationRegression } = await import("./m7IntegrationRegression");
   Object.assign(result, await runM7IntegrationRegression(root));
