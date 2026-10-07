@@ -17,6 +17,10 @@ const rust = read("src-tauri/src/board_task_mutation.rs");
 const lib = read("src-tauri/src/lib.rs");
 const changeListDialog = read("src/TaskChangeListDialog.tsx");
 const validator = read("scripts/validate-task-card-state-captures.mjs");
+const focusEditorFixture = read("src/focusEditorsVisualFixture.tsx");
+const finding28Fixture = read("src/finding28PostDragFixture.tsx");
+const finding28Driver = read("scripts/test-finding28-post-drag-action-rail.mjs");
+const packageJson = read("package.json");
 
 for (const [haystack, needle, label] of [
   [component, 'import { Menu, MenuItem, Tooltip } from "./overlayPrimitives";', "shared overlay primitive reuse"],
@@ -77,6 +81,18 @@ for (const [haystack, needle, label] of [
   [validator, "action reveal changed title-row height", "captured title-row-height no-reflow validation"],
   [validator, "reserved action slot width changed", "captured fixed action-slot width validation"],
   [validator, "reserved action slot height changed", "captured fixed action-slot height validation"],
+  [focusEditorFixture, 'scenario === "finding28-post-drag"', "Finding28 rendered fixture route"],
+  [finding28Fixture, "<ListBoard target={{ kind: \"list\", id: listId }} />", "Finding28 production ListBoard fixture"],
+  [finding28Fixture, 'command === "reorder_list_board_task"', "Finding28 real reorder authority mock"],
+  [finding28Driver, '"Input.dispatchMouseEvent"', "Finding28 browser pointer input"],
+  [finding28Driver, '"Input.dispatchKeyEvent"', "Finding28 browser keyboard input"],
+  [finding28Driver, 'probeCard?.matches(":focus-within")', "Finding28 focus-within observation"],
+  [finding28Driver, 'probeShell?.matches(":focus-visible")', "Finding28 shell focus-visible observation"],
+  [finding28Driver, 'getComputedStyle(rail)', "Finding28 computed rail style observation"],
+  [finding28Driver, 'card.matches(":hover")', "Finding28 actual hover observation"],
+  [finding28Driver, '"finding28-post-drag-action-rail.json"', "Finding28 durable rendered result"],
+  [packageJson, '"test:finding28-post-drag-action-rail"', "Finding28 Windows regression package route"],
+  [packageJson, "npm run test:finding28-post-drag-action-rail", "Finding28 Windows visual-gate execution"],
 ]) {
   requireText(haystack, needle, label);
 }
