@@ -7,6 +7,7 @@ This section is the continuation authority. Dated checkpoints below describe ear
 - **Operating method:** `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` is now binding for broad corrective/visual work and is referenced from `AI_START_HERE.md`, `AGENT_WORKFLOW.md` and `docs/EVIDENCE_ROUTING_MAP.md`. Zero-context chats must analyze the independent open-finding set to durable dispositions/causes, use full visual/video evidence depth where required, and then batch/parallelize only dependency-safe fixes. Do not leave the disposition/cause map only in chat.
 - **Validation method:** `docs/CI_VALIDATION_STRATEGY.md` now defines a claim/invalidation protocol. Start with the narrowest affected deterministic check, retain the required aggregate preflight/exact-head CI for coherent source candidates, batch dependency-safe fixes before expensive builds, and reuse an unchanged exact-head artifact for compatible deferred manual gates. A new review/manual session alone is not a rebuild trigger.
 - **Prevention method:** `docs/NARRO_ENGINEERING_RISK_REGISTER.md` records reusable Narro failure families and prevention guards; `ENGINEERING_QUALITY.md` requires targeted consultation for affected surfaces/authorities. It does not change work ordering, counters, CI tiers or acceptance semantics.
+- **Post-correction programming review / PR248 ACTIVE:** per the user's clarified scope, the extra programming pass is bounded to corrections introduced from the current implementation context onward (PR236–247 generation), not a whole-repository re-audit. Five evidence-backed edge/regression defects were found and corrected on PR248: renderer/native monitor-key numeric-range parity, Add Session pending→interactive focus trapping, stale/in-flight Reports Overview PDF capture plus interaction freeze, generation-bound Focus Home pause/reveal provenance, and late WebView2 PDF timeout cleanup. Exact PR head is `4d5b57bb13372f36036b3c737ff189a948046656`; Windows CI1032/run `37658873387` is the authoritative exact-head validation and is currently in progress. The prior CI1025 physical artifact is **not** the final candidate for PR248-affected surfaces if this source generation integrates. Durable review: `work-log/2026-10-07-chatgpt-post-correction-review-pr248-active.md`. No counter advances from this review/CI alone.
 - **Full-history setup audit (2026-10-06):** M1–M4 foundations were rechecked against current source/tests/CI (two-window Tauri host, versioned SQLite migrations/constraints, authoritative monotonic timer with atomic Done persistence, scheduling/DST and recurrence invariants, display recovery, fast→Windows CI). No lost foundational implementation was found. Stale current-truth rows in README/architecture/TODO/crosswalk were identified for reconciliation, and a concrete Tauri pre-release hardening note (CSP + command-surface least privilege) is tracked for M10/final security review. No validation counter advances from this audit.
 - **Integrated finding27 correction:** PR236 exact head `357706a1fe6d7143c046c64df2f336a236026a88` passed full Windows CI962/run `37382833470` and was expected-head-guarded squash-merged as `9f3e9b5cebdd752551c9b6b148975fe542bf44ea`. Physical finding27 acceptance remains OPEN/deferred.
 - **Finding07 implementation integrated:** PR237 exact head `74658f9c47bf808f8bf23c1726125c8a8b5cbb8f` passed full Windows CI967/run `37434273074` and was squash-merged as `535e0a8c7c92143dd6bd7feac2c680a85e672cff`. Physical blocked-SQLite responsiveness remains OPEN/deferred; automation does not close that physical gate.
@@ -37,32 +38,23 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
-## NEXT AGENT ACTION — await bounded Windows physical observation
+## NEXT AGENT ACTION — validate/integrate PR248, then repin the Windows physical candidate
 
 Current progress is `3/10M || 0/3 | 17/18`.
 
-The implementation/test work currently needed before the physical session is complete. Do **not** create another build or speculative source patch while the current physical evidence is missing.
+The user-requested bounded post-correction programming review found source defects that affect the previously pinned physical generation. Finish this exact source generation before asking for Windows observation.
 
-1. Use exact CI1025/run `37630032472`, artifact id `11486928221`, verified ZIP SHA-256 `ac88a2b01d18597cf5de813f1af1b00cf16a6832d13234613e8b95faf7f91599`, `narro.exe` SHA-256 `a7881c6c3984314f6c089865e87cd22c97c292606fe13997b170b3973ac4bfd1`.
-2. Follow `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`. It consolidates every currently identified compatible physical gate without repeating already accepted CI942/944/948/953/C5 evidence.
-3. Minimum closure observations cover M5 board/destructive acceptance, M6 A–D, M7 C4 continuity, Findings28/29/30/33/35/36, and M9 PDF. Conditional Finding27, Finding07 and Windows notification checks run only when their prerequisites are available.
-4. Record PASS/FAIL only for actually observed gates. Conditional unavailable gates remain OPEN, not FAIL.
-5. After physical results arrive, reconcile only the affected authorities; a failure must not trigger a broad re-audit.
+1. Inspect exact-head Windows CI1032/run `37658873387` for PR248 head `4d5b57bb13372f36036b3c737ff189a948046656`.
+2. If CI fails, inspect the exact failed step/log and correct only the evidenced cause. Do not rerun blindly or broaden the audit.
+3. If CI passes, re-check live PR/main state, preserve newer authoritative Markdown on `main`, and expected-head-guard squash-merge PR248 only if its validated head is unchanged.
+4. Verify the resulting-main affected source/test blobs/tree against the exact green PR head or use resulting-main CI where the claim/invalidation protocol requires it. Identify the new validated production artifact and reconcile `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`, `HANDOFF.md`, `STATUS.md`, and `TODO.md` to that candidate.
+5. Only then resume the bounded physical Windows session. Historical unaffected evidence remains valid; rerun only physical/source claims invalidated by PR248.
 
 ## USER ACTION REQUIRED
 
-**YES — physical Windows observation is now the blocking dependency.**
+**NO — not while PR248 exact-head CI/integration remains actionable.**
 
-Use the exact verified CI1025 production artifact and execute the bounded checklist in `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`.
-
-Required evidence:
-- the result of each exercised numbered section as PASS/FAIL;
-- one short note for any visible divergence/failure;
-- for conditional sections, mark NOT RUN when the required display/DPI, SQLite-lock, or Windows-notification condition is unavailable.
-
-Do not rebuild Narro first. Do not repeat historical accepted placement/restart/topology checks unless the checklist explicitly asks for the narrowed current condition.
-
-The most recent archived preference snapshots have alerts/reminders false, interval/lead 600s and all three shortcuts true. The original owned task was restored paused; F/G fixtures were retained. These are recorded historical end-of-session facts, not a live runtime inspection. Use fresh native observation before interaction.
+Do **not** run the consolidated physical checklist against the old CI1025 artifact for PR248-affected surfaces. The physical-user dependency resumes after PR248 is exact-head green, integrated, resulting-main identity is reconciled, and a new exact candidate is pinned.
 
 ## History and validation
 
