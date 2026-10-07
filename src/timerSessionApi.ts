@@ -204,12 +204,28 @@ async function committedTimerMutation(
   return result;
 }
 
+async function committedOptionalTimerMutation(
+  command: string,
+): Promise<TimerSessionPayload | null> {
+  const result = await invoke<TimerSessionPayload | null>(command);
+  if (result !== null) await emitBoardInvalidated();
+  return result;
+}
+
 export function startTimerTask(taskId: string, mode: TimerMode): Promise<TimerSessionPayload> {
   return committedTimerMutation("timer_start_task", { taskId, mode });
 }
 
 export function pauseTimer(): Promise<TimerSessionPayload> {
   return committedTimerMutation("timer_pause");
+}
+
+export function pauseTimerForFocusHome(): Promise<TimerSessionPayload | null> {
+  return committedOptionalTimerMutation("timer_pause_for_focus_home");
+}
+
+export function resumeTimerFromFocusHome(): Promise<TimerSessionPayload | null> {
+  return committedOptionalTimerMutation("timer_resume_focus_home_pause");
 }
 
 export function resumeTimer(): Promise<TimerSessionPayload> {
