@@ -37,22 +37,32 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 - **Browser Ctrl+Shift+T CLOSED — USER_MANUAL_PASS (3/3):** [personal user acceptance A/B/C](work-log/2026-10-05-user-manual-browser-shortcut-pass.md). User confirms Narro-exited browser baseline, enabled Panel/Timer toggling and disabled browser restoration all passed as instructed; explicitly accepts closure without recording or detailed replay. Do not request repeat solely for absent video. Supersedes earlier browser-positive-control OPEN; continuous motion/source parity, whole M7 C4/M8 and unrelated gates remain unchanged.
 
-## NEXT AGENT ACTION — consolidated physical acceptance on reusable CI1025 candidate
+## NEXT AGENT ACTION — await bounded Windows physical observation
 
 Current progress is `3/10M || 0/3 | 17/18`.
 
-1. Finding28 implementation/regression work is complete and integrated. Do not reopen production CSS/TaskCard/focus work from the old CI953 UIA snapshot. Its remaining native Tauri/WebView/UIA discrepancy may be observed physically only.
-2. The earliest open roadmap acceptance is M1 Finding27. Reuse the full-green CI1025/run `37630032472` physical candidate; exact artifact identity/hashes and the bounded Finding27 + M6 steps are in `docs/M6_CURRENT_RESIDUAL_PHYSICAL_CHECKLIST.md`. Do not repeat already-PASS CI942 ordinary placement/topology.
-3. Before asking for physical observation, consolidate every other still-open physical gate that is valid on the same unchanged production runtime into one current checklist. Include only gates whose source was already integrated before CI1025 and whose result does not depend on later production changes. Preserve source-parity-only and product-decision gates separately.
-4. M5 P3-M5-04 stays SOURCE_PARITY_OPEN until direct current-candidate visual/physical comparison; textual Pass-3 findings alone do not establish pixel parity.
-5. After the consolidated checklist is durable, provide/use the exact CI1025 physical artifact rather than triggering a duplicate build. A physical failure reopens only the affected authority.
+The implementation/test work currently needed before the physical session is complete. Do **not** create another build or speculative source patch while the current physical evidence is missing.
+
+1. Use exact CI1025/run `37630032472`, artifact id `11486928221`, verified ZIP SHA-256 `ac88a2b01d18597cf5de813f1af1b00cf16a6832d13234613e8b95faf7f91599`, `narro.exe` SHA-256 `a7881c6c3984314f6c089865e87cd22c97c292606fe13997b170b3973ac4bfd1`.
+2. Follow `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`. It consolidates every currently identified compatible physical gate without repeating already accepted CI942/944/948/953/C5 evidence.
+3. Minimum closure observations cover M5 board/destructive acceptance, M6 A–D, M7 C4 continuity, Findings28/29/30/33/35/36, and M9 PDF. Conditional Finding27, Finding07 and Windows notification checks run only when their prerequisites are available.
+4. Record PASS/FAIL only for actually observed gates. Conditional unavailable gates remain OPEN, not FAIL.
+5. After physical results arrive, reconcile only the affected authorities; a failure must not trigger a broad re-audit.
 
 ## USER ACTION REQUIRED
 
-None now. Physical findings07/27 and other compatible manual/source-parity gates remain explicitly deferred/open.
+**YES — physical Windows observation is now the blocking dependency.**
 
+Use the exact verified CI1025 production artifact and execute the bounded checklist in `docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md`.
 
-The most recent archived preference snapshots have alerts/remindersfalse, interval/lead600s and all three shortcutstrue. The original owned task was restoredpaused; F/G fixtures were retained. These are recorded end-of-session facts, not a live runtime inspection. Use fresh native observation before any later interaction.
+Required evidence:
+- the result of each exercised numbered section as PASS/FAIL;
+- one short note for any visible divergence/failure;
+- for conditional sections, mark NOT RUN when the required display/DPI, SQLite-lock, or Windows-notification condition is unavailable.
+
+Do not rebuild Narro first. Do not repeat historical accepted placement/restart/topology checks unless the checklist explicitly asks for the narrowed current condition.
+
+The most recent archived preference snapshots have alerts/reminders false, interval/lead 600s and all three shortcuts true. The original owned task was restored paused; F/G fixtures were retained. These are recorded historical end-of-session facts, not a live runtime inspection. Use fresh native observation before interaction.
 
 ## History and validation
 
