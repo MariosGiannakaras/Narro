@@ -17,6 +17,7 @@ const notes = read("src/TaskNotes.tsx");
 const timerApi = read("src/timerSessionApi.ts");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
 const timerService = read("src-tauri/src/timer_service.rs");
+const startBlitzNative = read("src-tauri/src/focus_entry.rs");
 const native = read("src-tauri/src/lib.rs");
 const morph = read("src-tauri/src/main_focus_morph.rs");
 const panelCss = read("src/focusPanel.css");
@@ -133,6 +134,18 @@ for (const forbidden of [
 ]) {
   if (entry.includes(forbidden) || boardCss.includes(forbidden)) {
     throw new Error(`P3-M6-01 must not retain the legacy renderer fade: ${forbidden}`);
+  }
+}
+
+const tauriHandler = native.slice(native.indexOf(".invoke_handler(tauri::generate_handler!["));
+for (const command of ["timer_pause_for_focus_home", "timer_resume_focus_home_pause"]) {
+  if (!tauriHandler.includes(command)) {
+    throw new Error(`P3-M6-06 Tauri handler registration is missing ${command}`);
+  }
+}
+for (const forbidden of ["resume_focus_home_pause", "timer_resume_focus_home_pause", "timer_resume("]) {
+  if (startBlitzNative.includes(forbidden)) {
+    throw new Error(`P3-M6-06 start_blitz must remain paused-first and resume-free: ${forbidden}`);
   }
 }
 
