@@ -220,11 +220,11 @@ if (
   || visibleBranchStart < 0
   || hiddenBranchStart < visibleBranchStart
   || !visibleBranch.includes("set_focus()")
-  || !visibleBranch.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
+  || !visibleBranch.includes("request_blitz_panel_after_reveal(&app_handle)")
   || visibleBranch.includes("apply_focus_surface_presentation_internal")
   || !hiddenBranch.includes("apply_focus_surface_presentation_internal(")
   || !hiddenBranch.includes("FocusSurfacePresentation::Panel")
-  || !hiddenBranch.includes("show_focus_after_blitz_entry(&main, &focus)")
+  || !hiddenBranch.includes("show_focus_after_blitz_entry(&app_handle, &main, &focus)")
   || !hiddenBranch.includes("focus_frame_capture::capture(main.clone()).await")
   || !hiddenBranch.includes("animate_main_focus_rect(")
 ) {
@@ -238,16 +238,44 @@ const successRestore = hiddenBranch.indexOf(
   sourceHandoffComment,
 );
 const successFocusReveal = hiddenBranch.indexOf("show_and_focus(&focus)", successRestore);
+const successPanelRequest = hiddenBranch.indexOf(
+  "request_blitz_panel_after_reveal(&app_handle)",
+  successFocusReveal,
+);
 if (
   sourceHandoffComment < 0
   || successHide < 0
   || successHide > sourceHandoffComment
   || successRestore < sourceHandoffComment
   || successFocusReveal < successRestore
+  || successPanelRequest < successFocusReveal
 ) {
   throw new Error(
-    "P3-M6-01 success handoff must hide Main, restore its geometry/clear the raster while hidden, then reveal Focus.",
+    "P3-M6-01/06 success handoff must hide Main, restore while hidden, reveal Focus, then request the Blitz Panel handshake.",
   );
+}
+
+const panelRequestHelperStart = lib.indexOf("fn request_blitz_panel_after_reveal(");
+const panelRequestHelperEnd = lib.indexOf("fn show_focus_after_blitz_entry(", panelRequestHelperStart);
+const panelRequestHelper = lib.slice(panelRequestHelperStart, panelRequestHelperEnd);
+if (
+  panelRequestHelperStart < 0
+  || panelRequestHelperEnd < panelRequestHelperStart
+  || !panelRequestHelper.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
+) {
+  throw new Error("Blitz Panel handshake must use the existing coordinator-only request event.");
+}
+for (const required of [
+  "const handleBlitzPanelRequest = useCallback(async () => {",
+  'await requestModeRef.current("panel");',
+  "await waitForPresentedFrame();",
+  "await resumeTimerFromFocusHome();",
+  "deferredPanelRequestRef.current = true",
+  "void handleBlitzPanelRequest();",
+]) {
+  if (!coordinator.includes(required)) {
+    throw new Error(`P3-M6-06 coordinator re-entry handshake is missing: ${required}`);
+  }
 }
 
 const handler = lib.indexOf(".invoke_handler(tauri::generate_handler![");
