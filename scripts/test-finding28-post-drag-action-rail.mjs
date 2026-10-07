@@ -290,6 +290,33 @@ try {
     return state?.ready === true;
   }, "Finding28 production ListBoard fixture", 20_000);
 
+  await evaluate(client, `(() => {
+    const trace = [];
+    window.__NARRO_FINDING28_INPUT_TRACE__ = trace;
+    const record = (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const shell = target?.closest?.("[data-board-drag-task]") ?? null;
+      trace.push({
+        type: event.type,
+        pointerId: "pointerId" in event ? event.pointerId : null,
+        pointerType: "pointerType" in event ? event.pointerType : null,
+        isPrimary: "isPrimary" in event ? event.isPrimary : null,
+        button: "button" in event ? event.button : null,
+        buttons: "buttons" in event ? event.buttons : null,
+        clientX: "clientX" in event ? event.clientX : null,
+        clientY: "clientY" in event ? event.clientY : null,
+        defaultPrevented: event.defaultPrevented,
+        taskId: shell?.getAttribute("data-board-drag-task") ?? null,
+        target: target?.outerHTML?.slice(0, 220) ?? null,
+      });
+      if (trace.length > 24) trace.splice(0, trace.length - 24);
+    };
+    for (const type of ["pointerdown", "pointermove", "pointerup", "mousedown", "mousemove", "mouseup"]) {
+      window.addEventListener(type, record);
+    }
+    return true;
+  })()`);
+
   const initial = await evaluate(client, `(() => {
     const fixture = window.__NARRO_FINDING28_FIXTURE__.read();
     const shells = Array.from(document.querySelectorAll('[data-board-drag-task][data-task-reorderable="true"]'));
@@ -323,10 +350,25 @@ try {
     type: "mousePressed", x: initial.sourcePoint.x, y: initial.sourcePoint.y,
     button: "left", buttons: 1, clickCount: 1,
   });
+  await sleep(client, 40);
+  const pressTrace = await evaluate(client, `(() => ({
+    expectedTaskId: window.__NARRO_FINDING28_FIXTURE__.read().taskIds[0],
+    events: (window.__NARRO_FINDING28_INPUT_TRACE__ ?? []).slice(),
+  }))()`);
+  const pointerDown = pressTrace.events.find((event) => event.type === "pointerdown");
+  assert.ok(pointerDown, "Finding28 CDP mouse press did not produce a pointerdown.");
+  assert.equal(pointerDown.taskId, pressTrace.expectedTaskId, "Finding28 pointerdown missed the expected production drag shell.");
+
   await client.send("Input.dispatchMouseEvent", {
     type: "mouseMoved", x: initial.sourcePoint.x + 12, y: initial.sourcePoint.y + 12,
     button: "none", buttons: 1,
   });
+  await sleep(client, 40);
+  const moveTrace = await evaluate(client, "(window.__NARRO_FINDING28_INPUT_TRACE__ ?? []).slice()");
+  assert.ok(
+    moveTrace.some((event) => event.type === "pointermove" && event.buttons === 1),
+    "Finding28 CDP pressed mouse move did not produce a left-button pointermove.",
+  );
 
   await waitFor(async () => {
     return evaluate(client, `(() => {
@@ -463,6 +505,7 @@ try {
         boardState: document.querySelector("[data-list-board]")?.getAttribute("data-list-board") ?? null,
         boardText: document.querySelector("[data-list-board]")?.textContent?.trim().slice(0, 800) ?? null,
         rootHtml: document.querySelector("#root")?.innerHTML?.slice(0, 1800) ?? null,
+        inputTrace: (window.__NARRO_FINDING28_INPUT_TRACE__ ?? []).slice(),
       }))()`);
       console.error("Finding28 fixture diagnostics:", JSON.stringify(diagnostics, null, 2));
     } catch {
