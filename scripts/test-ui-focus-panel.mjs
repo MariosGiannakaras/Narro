@@ -266,6 +266,26 @@ invariant(
   "inactive/prepainting Focus Panel must not execute Make Live mutations",
 );
 invariant(panel.includes('invoke<void>("focus_surface_exit_to_main")'), "Home must exit Focus through the native lifecycle command");
+const homeStart = panel.indexOf("const exitFocusHome");
+const homeEnd = panel.indexOf("const submitAddTask", homeStart);
+const home = panel.slice(homeStart, homeEnd);
+const homePause = home.indexOf("await pauseTimerForFocusHome();");
+const homePausedFrame = home.indexOf("await waitForPresentedFrame();", homePause);
+const homeExit = home.indexOf('await invoke<void>("focus_surface_exit_to_main");', homePausedFrame);
+invariant(
+  homeStart >= 0
+    && homeEnd > homeStart
+    && homePause >= 0
+    && homePausedFrame > homePause
+    && homeExit > homePausedFrame,
+  "P3-M6-06 Home must commit its guarded pause, expose the PAUSED frame, then exit Focus",
+);
+invariant(
+  home.includes("await resumeTimerFromFocusHome();")
+    && !home.includes("pauseTimer()")
+    && !home.includes("resumeTimer()"),
+  "P3-M6-06 Home failure recovery must use only the one-shot guarded lease, never generic Pause/Resume",
+);
 invariant(
   panel.includes('data-focus-preferences-control="true"')
     && panel.includes('onClick={() => setQuickPreferencesOpen(true)}')
