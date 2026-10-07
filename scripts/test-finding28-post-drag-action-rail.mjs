@@ -295,7 +295,6 @@ try {
     const shells = Array.from(document.querySelectorAll('[data-board-drag-task][data-task-reorderable="true"]'));
     if (shells.length < 3) throw new Error("Finding28 fixture needs three reorderable tasks.");
     const source = shells[0];
-    const destination = shells[1];
     const interactive = "button, a, input, select, textarea, [contenteditable], [data-task-action], [data-task-title-control], [data-task-metric-control], [data-task-schedule-control], [data-task-note-control], [data-task-subtask-control]";
     const bounds = source.getBoundingClientRect();
     let sourcePoint = null;
@@ -312,12 +311,7 @@ try {
       if (sourcePoint) break;
     }
     if (!sourcePoint) throw new Error("No non-interactive drag point found.");
-    const dest = destination.getBoundingClientRect();
-    return {
-      fixture,
-      sourcePoint,
-      destinationPoint: { x: dest.left + dest.width * 0.5, y: dest.top + dest.height * 0.82 },
-    };
+    return { fixture, sourcePoint };
   })()`);
 
   assert.equal(initial.fixture.mutationCount, 0, "Finding28 fixture must start without mutations.");
@@ -333,14 +327,36 @@ try {
     type: "mouseMoved", x: initial.sourcePoint.x + 12, y: initial.sourcePoint.y + 12,
     button: "none", buttons: 1,
   });
-  await sleep(client, 60);
+
+  await waitFor(async () => {
+    return evaluate(client, `(() => {
+      const sourceId = window.__NARRO_FINDING28_FIXTURE__.read().taskIds[0];
+      const source = document.querySelector('[data-board-drag-task="' + sourceId + '"]');
+      const preview = document.querySelector(".list-board-task-drag-preview");
+      return source?.getAttribute("data-task-dragging") === "true" && Boolean(preview);
+    })()`);
+  }, "Finding28 pointer lift", 5_000, 50);
+
+  const destinationPoint = await evaluate(client, `(() => {
+    const fixture = window.__NARRO_FINDING28_FIXTURE__.read();
+    const destination = document.querySelector('[data-board-drag-task="' + fixture.taskIds[1] + '"]');
+    if (!(destination instanceof HTMLElement)) throw new Error("Finding28 destination task missing after pointer lift.");
+    const bounds = destination.getBoundingClientRect();
+    const x = bounds.left + bounds.width * 0.5;
+    const y = bounds.top + bounds.height * 0.82;
+    const hit = document.elementFromPoint(x, y);
+    const lane = hit?.closest?.("[data-board-drop-lane]");
+    if (!lane) throw new Error("Finding28 live destination point is outside a board drop lane.");
+    return { x, y, hit: hit?.outerHTML?.slice(0, 180) ?? null };
+  })()`);
+
   await client.send("Input.dispatchMouseEvent", {
-    type: "mouseMoved", x: initial.destinationPoint.x, y: initial.destinationPoint.y,
+    type: "mouseMoved", x: destinationPoint.x, y: destinationPoint.y,
     button: "none", buttons: 1,
   });
-  await sleep(client, 60);
+  await sleep(client, 80);
   await client.send("Input.dispatchMouseEvent", {
-    type: "mouseReleased", x: initial.destinationPoint.x, y: initial.destinationPoint.y,
+    type: "mouseReleased", x: destinationPoint.x, y: destinationPoint.y,
     button: "left", buttons: 0, clickCount: 1,
   });
 
