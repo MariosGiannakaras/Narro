@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from "react";
 import { Menu, MenuItem } from "./overlayPrimitives";
 import type { ReportsCalendarMonth } from "./ReportsOverviewView";
 import type { ReportDatePreset } from "./reportOverviewPresentation";
@@ -298,6 +298,14 @@ export function ReportTaskSessionsDialog({
   );
 }
 
+function focusableDialogElements(container: HTMLElement): HTMLElement[] {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    ),
+  ).filter((element) => !element.hasAttribute("hidden"));
+}
+
 export function ReportAddSessionDialog({
   tasks,
   draft,
@@ -319,17 +327,70 @@ export function ReportAddSessionDialog({
   const filtered = tasks.filter((task) => task.title.toLowerCase().includes(query.trim().toLowerCase()));
   const selected = tasks.find((task) => task.id === draft.taskId) ?? null;
 
+  const dialogRef = useRef<HTMLElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    searchInputRef.current?.focus();
+    return () => openerRef.current?.focus();
+  }, []);
+
+  function requestClose() {
+    if (!pending) onClose();
+  }
+
+  function handleAddSessionKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      requestClose();
+      return;
+    }
+    if (event.key !== "Tab" || !dialogRef.current) return;
+
+    const focusable = focusableDialogElements(dialogRef.current);
+    if (focusable.length === 0) {
+      event.preventDefault();
+      dialogRef.current.focus();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+    if (!dialogRef.current.contains(active)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
   return (
     <div className="reports-sessions__backdrop" role="presentation" data-report-add-session="true">
-      <section className="reports-sessions__add-dialog" role="dialog" aria-modal="true" aria-labelledby="report-add-session-title">
+      <section
+        ref={dialogRef}
+        className="reports-sessions__add-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="report-add-session-title"
+        tabIndex={-1}
+        onKeyDown={handleAddSessionKeyDown}
+      >
         <header>
           <h2 id="report-add-session-title">Add Session</h2>
-          <button type="button" aria-label="Close Add Session" disabled={pending} onClick={onClose}>×</button>
+          <button type="button" aria-label="Close Add Session" disabled={pending} onClick={requestClose}>×</button>
         </header>
 
         <label className="reports-sessions__field">
           <span>Task</span>
           <input
+            ref={searchInputRef}
             type="search"
             placeholder="Select tasks..."
             value={query}
@@ -394,7 +455,7 @@ export function ReportAddSessionDialog({
 
         {error ? <p className="reports-sessions__error" role="alert">{error}</p> : null}
         <footer>
-          <button type="button" disabled={pending} onClick={onClose}>Cancel</button>
+          <button type="button" disabled={pending} onClick={requestClose}>Cancel</button>
           <button
             type="button"
             className="reports-sessions__primary"

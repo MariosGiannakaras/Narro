@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./App.css";
@@ -31,6 +32,7 @@ const mode = [
   "sessions-populated",
   "sessions-detail",
   "sessions-add",
+  "sessions-add-keyboard",
 ].includes(requestedMode ?? "")
   ? requestedMode!
   : "overview";
@@ -234,6 +236,13 @@ const taskDetail: ReportsTaskDetailView = {
 };
 
 const addTasks = [
+  {
+    id: "task-finding30-long",
+    listId: "work",
+    listTitle: "Work",
+    title: "Finding30LongUnbrokenTaskTitleABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    lane: "Today" as const,
+  },
   { id: "task-roadmap", listId: "content", listTitle: "Content", title: "Project roadmap video", lane: "Today" as const },
   { id: "task-report", listId: "work", listTitle: "Work", title: "Prepare weekly report", lane: "This Week" as const },
   { id: "task-ugc", listId: "content", listTitle: "Content", title: "Launch UGC campaign", lane: "Backlog" as const },
@@ -241,13 +250,62 @@ const addTasks = [
   { id: "task-gift", listId: "personal", listTitle: "Personal", title: "Order a gift for Alex", lane: "Backlog" as const },
 ];
 
+const addDraft = {
+  taskId: "",
+  dateKey: "2025-12-04",
+  startTime: "15:54",
+  endTime: "17:54",
+  durationLabel: "2hr",
+};
+
+function ReportsAddSessionKeyboardFixture() {
+  const [open, setOpen] = useState(false);
+  const [pending, setPending] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    triggerRef.current?.focus();
+    setOpen(true);
+  }, []);
+
+  return (
+    <>
+      <button ref={triggerRef} type="button" data-report-add-keyboard-trigger="true" onClick={() => setOpen(true)}>
+        + Add Session
+      </button>
+      <button
+        type="button"
+        hidden
+        aria-pressed={pending}
+        data-report-add-keyboard-pending="true"
+        onClick={() => setPending((value) => !value)}
+      >
+        Toggle pending fixture
+      </button>
+      {open ? (
+        <ReportAddSessionDialog
+          tasks={addTasks}
+          draft={addDraft}
+          pending={pending}
+          error={null}
+          onDraftChange={() => undefined}
+          onClose={() => setOpen(false)}
+          onCommit={() => undefined}
+        />
+      ) : null}
+    </>
+  );
+}
+
 const root = document.getElementById("root");
 if (!root) throw new Error("Reports fixture root is missing.");
 
 flushSync(() => {
   const sessionMode = mode.startsWith("sessions-");
   createRoot(root).render(
-    sessionMode ? (
+    mode === "sessions-add-keyboard" ? (
+      <ReportsAddSessionKeyboardFixture />
+    ) : sessionMode ? (
       <>
         <ReportsSessionsView
           summary={mode === "sessions-empty"
@@ -295,13 +353,7 @@ flushSync(() => {
         {mode === "sessions-add" ? (
           <ReportAddSessionDialog
             tasks={addTasks}
-            draft={{
-              taskId: "",
-              dateKey: "2025-12-04",
-              startTime: "15:54",
-              endTime: "17:54",
-              durationLabel: "2hr",
-            }}
+            draft={addDraft}
             pending={false}
             error={null}
             onDraftChange={() => undefined}
@@ -336,7 +388,103 @@ const markReady = () => {
   document.documentElement.dataset.reportsFixtureReady = "true";
 };
 
-if (mode === "lower") {
+const wait = (milliseconds: number) => new Promise<void>((resolve) => window.setTimeout(resolve, milliseconds));
+const requireFixture = (condition: unknown, message: string) => {
+  if (!condition) throw new Error(message);
+};
+
+async function waitForElement<T extends HTMLElement>(selector: string, present = true): Promise<T | null> {
+  for (let attempt = 0; attempt < 80; attempt += 1) {
+    const element = document.querySelector<T>(selector);
+    if (present ? Boolean(element) : !element) return element;
+    await wait(25);
+  }
+  throw new Error(`Timed out waiting for Reports fixture selector ${selector} present=${present}`);
+}
+
+function dispatchFixtureKey(target: HTMLElement, key: string, shiftKey = false) {
+  target.dispatchEvent(new KeyboardEvent("keydown", {
+    key,
+    shiftKey,
+    bubbles: true,
+    cancelable: true,
+  }));
+}
+
+async function validateAddSessionKeyboardFixture() {
+  const dialog = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
+  requireFixture(dialog, "Add Session keyboard fixture did not open.");
+  await wait(30);
+
+  const search = dialog!.querySelector<HTMLInputElement>('input[type="search"]');
+  requireFixture(document.activeElement === search, "Add Session did not move initial focus to task search.");
+  document.documentElement.dataset.reportsAddInitialFocus = "true";
+
+  const focusable = Array.from(dialog!.querySelectorAll<HTMLElement>(
+    'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  )).filter((element) => !element.hasAttribute("hidden"));
+  requireFixture(focusable.length >= 3, "Add Session keyboard fixture needs multiple focusable controls.");
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  last.focus();
+  dispatchFixtureKey(last, "Tab");
+  requireFixture(document.activeElement === first, "Add Session Tab escaped instead of wrapping to first control.");
+
+  first.focus();
+  dispatchFixtureKey(first, "Tab", true);
+  requireFixture(document.activeElement === last, "Add Session Shift+Tab escaped instead of wrapping to last control.");
+  document.documentElement.dataset.reportsAddTabContained = "true";
+
+  dispatchFixtureKey(last, "Escape");
+  await waitForElement(".reports-sessions__add-dialog", false);
+  await wait(30);
+  const trigger = document.querySelector<HTMLButtonElement>('[data-report-add-keyboard-trigger="true"]');
+  requireFixture(document.activeElement === trigger, "Add Session dismissal did not restore opener focus.");
+  document.documentElement.dataset.reportsAddEscapeDismissed = "true";
+  document.documentElement.dataset.reportsAddFocusRestored = "true";
+
+  const pendingToggle = document.querySelector<HTMLButtonElement>('[data-report-add-keyboard-pending="true"]');
+  requireFixture(trigger && pendingToggle, "Add Session keyboard fixture controls are missing.");
+  pendingToggle!.click();
+  for (let attempt = 0; attempt < 20 && pendingToggle!.getAttribute("aria-pressed") !== "true"; attempt += 1) {
+    await wait(10);
+  }
+  requireFixture(pendingToggle!.getAttribute("aria-pressed") === "true", "Pending fixture state did not settle.");
+
+  trigger!.focus();
+  trigger!.click();
+  const pendingDialog = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
+  requireFixture(pendingDialog, "Pending Add Session fixture did not reopen.");
+  pendingDialog!.focus();
+  dispatchFixtureKey(pendingDialog!, "Escape");
+  await wait(30);
+  requireFixture(document.querySelector(".reports-sessions__add-dialog"), "Pending Escape dismissed Add Session.");
+
+  dispatchFixtureKey(pendingDialog!, "Tab");
+  requireFixture(document.activeElement === pendingDialog, "Pending Add Session allowed Tab to escape with all controls disabled.");
+  document.documentElement.dataset.reportsAddPendingGuard = "true";
+  document.documentElement.dataset.reportsAddKeyboardPass = "true";
+}
+
+if (mode === "sessions-add-keyboard") {
+  void validateAddSessionKeyboardFixture()
+    .then(markReady)
+    .catch((error: unknown) => {
+      document.documentElement.dataset.reportsFixtureError = error instanceof Error ? error.message : String(error);
+      throw error;
+    });
+} else if (mode === "sessions-add") {
+  window.requestAnimationFrame(() => {
+    const picker = document.querySelector<HTMLElement>(".reports-sessions__task-picker");
+    if (!picker) throw new Error("Reports Add Session task picker is missing.");
+    if (picker.scrollWidth > picker.clientWidth + 1) {
+      throw new Error(`Reports Recent Tasks picker has horizontal overflow: ${picker.scrollWidth} > ${picker.clientWidth}`);
+    }
+    document.documentElement.dataset.reportsTaskPickerBounded = "true";
+    markReady();
+  });
+} else if (mode === "lower") {
   window.requestAnimationFrame(() => {
     const lowerPanels = document.querySelector<HTMLElement>(".reports-overview__lower-grid");
     if (!lowerPanels) throw new Error("Reports lower-panel fixture region is missing.");

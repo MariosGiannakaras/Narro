@@ -8,6 +8,9 @@ const workspace = fs.readFileSync("src/ReportsWorkspace.tsx", "utf8");
 const overview = fs.readFileSync("src/ReportsOverview.tsx", "utf8");
 const sessions = fs.readFileSync("src/ReportsSessions.tsx", "utf8");
 const view = fs.readFileSync("src/ReportsSessionsView.tsx", "utf8");
+const styles = fs.readFileSync("src/reportsSessions.css", "utf8");
+const fixture = fs.readFileSync("src/reportsVisualFixture.tsx", "utf8");
+const captureValidator = fs.readFileSync("scripts/validate-reports-captures.mjs", "utf8");
 const api = fs.readFileSync("src/reportsApi.ts", "utf8");
 const reporting = fs.readFileSync("src-tauri/src/reporting.rs", "utf8");
 const commands = fs.readFileSync("src-tauri/src/report_commands.rs", "utf8");
@@ -42,6 +45,18 @@ for (const [haystack, needle, label] of [
   [view, "Hide Break sessions", "break visibility filter"],
   [view, 'placeholder="Select tasks..."', "Add Session task search"],
   [view, ">Recent Tasks<", "Add Session recent task heading"],
+  [view, "searchInputRef.current?.focus()", "Add Session initial-focus ownership"],
+  [view, 'event.key === "Escape"', "Add Session Escape handling"],
+  [view, 'event.key !== "Tab"', "Add Session Tab containment"],
+  [view, "openerRef.current?.focus()", "Add Session focus restoration"],
+  [view, "if (!pending) onClose()", "Add Session pending dismissal guard"],
+  [styles, "overflow-x: hidden;", "Recent Tasks horizontal overflow suppression"],
+  [styles, "text-overflow: ellipsis;", "Recent Tasks bounded one-line title treatment"],
+  [fixture, '"sessions-add-keyboard"', "rendered Add Session keyboard fixture"],
+  [fixture, "reportsAddKeyboardPass", "rendered Add Session keyboard assertions"],
+  [fixture, "picker.scrollWidth > picker.clientWidth + 1", "rendered Recent Tasks overflow assertion"],
+  [captureValidator, 'data-reports-add-keyboard-pass="true"', "captured Add Session keyboard validation"],
+  [captureValidator, 'data-reports-task-picker-bounded="true"', "captured Recent Tasks containment validation"],
   [sessions, "row.taskSessionOrdinal", "task-relative session presentation"],
   [view, 'type="time"', "inline time editing"],
   [view, 'aria-label="Save session end time"', "explicit green-check commit affordance"],

@@ -294,9 +294,11 @@
 .reports-sessions__task-picker {
   display: grid;
   gap: 4px;
+  min-width: 0;
   max-height: 190px;
   margin: var(--space-3) var(--space-6) 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .reports-sessions__task-picker > strong {
@@ -310,11 +312,21 @@
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  width: 100%;
+  min-width: 0;
   min-height: 42px;
   padding: 0 10px;
   border-color: transparent;
   background: transparent;
   text-align: left;
+}
+
+.reports-sessions__task-picker button > span {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .reports-sessions__task-picker button[aria-selected="true"],
@@ -324,7 +336,13 @@
 }
 
 .reports-sessions__task-picker small {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 40%;
+  overflow: hidden;
   color: var(--color-text-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .reports-sessions__add-fields {

@@ -132,12 +132,21 @@ for (const theme of ["light", "dark"]) {
 
 
 for (const theme of ["light", "dark"]) {
-  for (const mode of ["sessions-empty", "sessions-populated", "sessions-detail", "sessions-add"]) {
+  for (const mode of ["sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard"]) {
     const label = "reports-" + mode + "-" + theme;
     validatePng(label);
     const dom = readDom(label);
-    sessionsCommon(dom, label);
     invariant(dom.includes('data-reports-fixture-mode="' + mode + '"'), label + " fixture mode marker differs");
+    if (mode === "sessions-add-keyboard") {
+      invariant(dom.includes('data-reports-add-keyboard-pass="true"'), label + " keyboard modal regression did not pass");
+      invariant(dom.includes('data-reports-add-initial-focus="true"'), label + " initial focus regression did not pass");
+      invariant(dom.includes('data-reports-add-tab-contained="true"'), label + " Tab containment regression did not pass");
+      invariant(dom.includes('data-reports-add-escape-dismissed="true"'), label + " Escape dismissal regression did not pass");
+      invariant(dom.includes('data-reports-add-focus-restored="true"'), label + " focus restoration regression did not pass");
+      invariant(dom.includes('data-reports-add-pending-guard="true"'), label + " pending dismissal/containment regression did not pass");
+      continue;
+    }
+    sessionsCommon(dom, label);
 
     if (mode === "sessions-empty") {
       invariant(dom.includes(">0min<"), label + " empty Total Time state is missing");
@@ -167,6 +176,8 @@ for (const theme of ["light", "dark"]) {
       invariant(dom.includes('placeholder="Select tasks..."'), label + " Add Session task search is missing");
       invariant(dom.includes(">Recent Tasks<"), label + " Recent Tasks group is missing");
       invariant(dom.includes("Project roadmap video"), label + " representative Recent Task is missing");
+      invariant(dom.includes("Finding30LongUnbrokenTaskTitleABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"), label + " long-title overflow fixture is missing");
+      invariant(dom.includes('data-reports-task-picker-bounded="true"'), label + " Recent Tasks picker is not horizontally bounded");
     }
   }
 }
