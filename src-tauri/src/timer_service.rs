@@ -304,7 +304,7 @@ impl TimerService {
 
     fn next_focus_home_pause_nonce(&self) -> CommandResult<u64> {
         self.focus_home_pause_nonce
-            .fetch_update(
+            .try_update(
                 AtomicOrdering::Relaxed,
                 AtomicOrdering::Relaxed,
                 |current| current.checked_add(1),
