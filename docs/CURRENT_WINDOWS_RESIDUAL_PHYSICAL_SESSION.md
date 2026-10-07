@@ -6,19 +6,19 @@ This plan consolidates compatible current-candidate observations onto one alread
 
 ## Exact reusable candidate
 
-Use the exact full-green CI1025 production physical candidate:
+Use the exact full-green CI1046 production physical candidate:
 
-- Windows CI: `37630032472` / CI1025
-- exact workflow head: `8f921d7063f78a51ea4e42b0e102c96cfe8ef8e3`
-- merged runtime/test source: `ad6019b87d1ea7382b99db34b1e7e75725d1b107`
+- Windows CI: `37677630228` / CI1046
+- exact workflow head: `515b0f9a9df5cdf1a67e2b879047ee6551ae6dec`
+- merged runtime/test source: `c389148b9edc56dd616e6c95a32b31d52cf79639`
 - artifact: `narro-m7-physical-windows-x64`
-- artifact id: `11486928221`
-- ZIP SHA-256: `ac88a2b01d18597cf5de813f1af1b00cf16a6832d13234613e8b95faf7f91599`
-- `narro.exe` SHA-256: `a7881c6c3984314f6c089865e87cd22c97c292606fe13997b170b3973ac4bfd1`
-- NSIS SHA-256: `b057f098f2bce8da0df327e451f1a7f4bc2ebc799fc69b56615b805aaf6f71e4`
-- MSI SHA-256: `ba5764423bf67a1fef83c11ae363b690a172d5a4f22da276657c1efb0656114f`
+- artifact id: `11508639865`
+- ZIP SHA-256: `57f19035ee842e3479bde946a4a82348b1dfc9ea3045d600f18707c4d38b0411`
+- `narro.exe` SHA-256: `59beeb8271d08fd60adab4d41840bb65ed956d753410d8f2985daf4efe6a9275`
+- NSIS SHA-256: `714c3c3d99ea9d820a572c64f3df05d108854d31043801111848c1918b997a56`
+- MSI SHA-256: `851f57b27dffb9aa194fc9176696f4a93d35be0ee2b3871e0f85313321886af1`
 
-All later changes on `main` through this plan are Markdown/process/evidence only relative to that merged runtime source. PR245/Finding28 remains test-only. Therefore do not create another runtime build solely for these observations.
+PR248 exact-head CI1046 is full green and the resulting-main squash merge is 18/18 source/test blob-identical to that validated head. Later changes through this repin are Markdown/process/evidence only. Historical unaffected evidence remains valid; use this CI1046 executable for PR248-affected and compatible remaining observations rather than rebuilding again.
 
 Before starting, verify the executable SHA-256. Record the active display topology, Windows scale on each display, animation preference, Narro theme, and any preference intentionally changed for the run. Restore reversible OS/Narro settings after the relevant observation.
 
