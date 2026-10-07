@@ -206,8 +206,9 @@ async function committedTimerMutation(
 
 async function committedOptionalTimerMutation(
   command: string,
+  args?: Record<string, unknown>,
 ): Promise<TimerSessionPayload | null> {
-  const result = await invoke<TimerSessionPayload | null>(command);
+  const result = await invoke<TimerSessionPayload | null>(command, args);
   if (result !== null) await emitBoardInvalidated();
   return result;
 }
@@ -224,8 +225,11 @@ export function pauseTimerForFocusHome(): Promise<TimerSessionPayload | null> {
   return committedOptionalTimerMutation("timer_pause_for_focus_home");
 }
 
-export function resumeTimerFromFocusHome(): Promise<TimerSessionPayload | null> {
-  return committedOptionalTimerMutation("timer_resume_focus_home_pause");
+export function resumeTimerFromFocusHome(resumeNonce?: string): Promise<TimerSessionPayload | null> {
+  return committedOptionalTimerMutation(
+    "timer_resume_focus_home_pause",
+    resumeNonce === undefined ? undefined : { resumeNonce },
+  );
 }
 
 export function resumeTimer(): Promise<TimerSessionPayload> {
