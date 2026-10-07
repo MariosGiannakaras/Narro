@@ -15,6 +15,8 @@ const entry = read("src/BlitzEntryButton.tsx");
 const boardCss = read("src/listBoard.css");
 const notes = read("src/TaskNotes.tsx");
 const timerApi = read("src/timerSessionApi.ts");
+const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const timerService = read("src-tauri/src/timer_service.rs");
 const native = read("src-tauri/src/lib.rs");
 const morph = read("src-tauri/src/main_focus_morph.rs");
 const panelCss = read("src/focusPanel.css");
@@ -82,6 +84,20 @@ for (const [haystack, needle, label] of [
   [native, "async fn focus_surface_exit_to_main", "A15 native Focus exit command"],
   [native, "show_or_recreate_main(app_handle.clone()).await?;", "A15 existing Main lifecycle reuse"],
   [native, "focus_surface_hide(app_handle)", "A15 Focus hide without timer reset"],
+  [panel, "await pauseTimerForFocusHome();", "P3-M6-06 guarded Home pause"],
+  [panel, "await waitForPresentedFrame();", "P3-M6-06 visible PAUSED frame before exit"],
+  [panel, "await resumeTimerFromFocusHome();", "P3-M6-06 guarded Home exit rollback"],
+  [timerApi, 'committedOptionalTimerMutation("timer_pause_for_focus_home")', "P3-M6-06 typed optional Home pause API"],
+  [timerApi, 'committedOptionalTimerMutation("timer_resume_focus_home_pause")', "P3-M6-06 typed optional guarded resume API"],
+  [timerService, "struct FocusHomePauseLease", "P3-M6-06 one-shot pause provenance"],
+  [timerService, "lease.take()", "P3-M6-06 one-shot resume ownership"],
+  [timerService, "payload.revision == lease.revision", "P3-M6-06 exact revision guard"],
+  [timerService, "payload.runtime.timer.task_id == Some(lease.task_id)", "P3-M6-06 exact task guard"],
+  [timerService, "payload.runtime.open_session_id == Some(lease.session_id)", "P3-M6-06 exact session guard"],
+  [coordinator, "const handleBlitzPanelRequest = useCallback(async () => {", "P3-M6-06 Blitz-only resume coordinator"],
+  [coordinator, 'await requestModeRef.current("panel");', "P3-M6-06 Panel settlement before resume"],
+  [coordinator, "await resumeTimerFromFocusHome();", "P3-M6-06 guarded post-reveal resume"],
+  [native, "fn request_blitz_panel_after_reveal(", "P3-M6-06 native post-reveal handshake"],
   [notes, "updateListBoardTaskTitle({", "A16 stale-safe live-title persistence"],
   [notes, 'data-task-note-title-editor="true"', "A16 title editor lives inside Notes"],
   [actions, 'allowTitleEdit={!fixtureMode && presentation === "panel"}', "A16 title edit limited to Focus Panel Notes"],
@@ -127,6 +143,19 @@ for (const forbidden of ["timer_complete", "timer_skip", "timer_pause", "timer_r
   if (exitCommand.includes(forbidden)) {
     throw new Error(`A15 Focus Home must not mutate timer/session state via ${forbidden}`);
   }
+}
+
+const homeStart = panel.indexOf("const exitFocusHome");
+const homeEnd = panel.indexOf("const submitAddTask", homeStart);
+const home = panel.slice(homeStart, homeEnd);
+const homePause = home.indexOf("await pauseTimerForFocusHome();");
+const homeFrame = home.indexOf("await waitForPresentedFrame();", homePause);
+const homeExit = home.indexOf('await invoke<void>("focus_surface_exit_to_main");', homeFrame);
+if (homeStart < 0 || homeEnd < homeStart || homePause < 0 || homeFrame < homePause || homeExit < homeFrame) {
+  throw new Error("P3-M6-06 must visibly commit PAUSED before Focus Home exits.");
+}
+if (home.includes("pauseTimer()") || home.includes("resumeTimer()")) {
+  throw new Error("P3-M6-06 must never use generic Pause/Resume for Home provenance.");
 }
 
 const makeLiveStart = panel.indexOf("const makeTaskLive");
