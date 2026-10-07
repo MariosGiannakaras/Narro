@@ -113,7 +113,7 @@ try {
     Wait-ForPreview -Url "$baseUrl/reports-fixture.html?theme=dark&mode=overview"
 
     foreach ($theme in @("light", "dark")) {
-        foreach ($reportsMode in @("overview", "list-filter", "date-picker", "series-toggle", "lower", "sessions-empty", "sessions-populated", "sessions-detail", "sessions-add")) {
+        foreach ($reportsMode in @("overview", "list-filter", "date-picker", "series-toggle", "lower", "sessions-empty", "sessions-populated", "sessions-detail", "sessions-add", "sessions-add-keyboard")) {
             $label = "reports-$reportsMode-$theme"
             $url = "$baseUrl/reports-fixture.html?theme=$theme&mode=$reportsMode"
             Capture-ReportsState -EdgePath $edge -Label $label -Url $url -ScreenshotPath (Join-Path $outputPath "$label.png") -DomPath (Join-Path $outputPath "$label.html")
