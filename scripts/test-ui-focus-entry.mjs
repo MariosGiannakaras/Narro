@@ -243,6 +243,10 @@ const successPanelRequest = hiddenBranch.indexOf(
   "request_blitz_panel_after_reveal(&app_handle)",
   successFocusReveal,
 );
+const successRevealRecovery = hiddenBranch.indexOf(
+  "recover_main_after_blitz_reveal_failure(",
+  successFocusReveal,
+);
 if (
   sourceHandoffComment < 0
   || successHide < 0
@@ -250,10 +254,37 @@ if (
   || successRestore < sourceHandoffComment
   || successFocusReveal < successRestore
   || successPanelRequest < successFocusReveal
+  || successRevealRecovery < successFocusReveal
 ) {
   throw new Error(
     "P3-M6-01/06 success handoff must hide Main, restore while hidden, reveal Focus, then request the Blitz Panel handshake.",
   );
+}
+
+const revealRecoveryStart = lib.indexOf("fn recover_main_after_blitz_reveal_failure(");
+const revealRecoveryEnd = lib.indexOf("fn show_focus_after_blitz_entry(", revealRecoveryStart);
+const revealRecovery = lib.slice(revealRecoveryStart, revealRecoveryEnd);
+if (
+  revealRecoveryStart < 0
+  || revealRecoveryEnd < revealRecoveryStart
+  || !revealRecovery.includes("show_and_focus(main)")
+  || !revealRecovery.includes("focus.hide()")
+  || !revealRecovery.includes("FOCUS_PRESENTATION_RECOVERY_FAILED")
+) {
+  throw new Error("Blitz reveal rollback must restore Main and explicitly account for Focus rollback failure.");
+}
+
+const directHandoffStart = lib.indexOf("fn show_focus_after_blitz_entry(");
+const directHandoffEnd = lib.indexOf("fn restore_main_after_blitz_morph(", directHandoffStart);
+const directHandoff = lib.slice(directHandoffStart, directHandoffEnd);
+if (
+  directHandoffStart < 0
+  || directHandoffEnd < directHandoffStart
+  || !directHandoff.includes("recover_main_after_blitz_reveal_failure(main, focus, error)")
+  || !directHandoff.includes('map_window_error(MAIN_WINDOW_LABEL, "hide after Blitz entry", error)')
+  || !directHandoff.includes("request_blitz_panel_after_reveal(app_handle)")
+) {
+  throw new Error("Direct Blitz handoff must fail-and-rollback instead of swallowing partial Focus/Main presentation failures.");
 }
 
 const panelRequestHelperStart = lib.indexOf("fn request_blitz_panel_after_reveal(");
