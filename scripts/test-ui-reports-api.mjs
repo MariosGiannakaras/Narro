@@ -28,6 +28,8 @@ for (const [haystack, needle, label] of [
   [commands, "OpenOptions::new().write(true).create_new(true)", "non-overwriting local export creation"],
   [reportPdf, "ICoreWebView2_7", "WebView2 PDF interface"],
   [reportPdf, "PrintToPdfCompletedHandler::create", "WebView2 PDF completion callback"],
+  [reportPdf, "callback_send.send(completed).is_err()", "late PDF completion receiver-drop detection"],
+  [reportPdf, "remove_file(&callback_temp_path)", "late PDF timeout cleanup"],
   [reportPdf, "None::<&ICoreWebView2PrintSettings>", "default local PDF print settings"],
   [reportPdf, 'bytes.starts_with(b"%PDF-")', "generated PDF signature validation"],
   [commands, "load_task_sessions_detail(&connection, task_id)", "all-history task Sessions detail delegation"],
