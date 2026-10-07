@@ -80,6 +80,12 @@ const FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS: u64 = 50;
 static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8 = AtomicU8::new(FOCUS_PRESENTATION_UNKNOWN);
 static FOCUS_PRESENTATION_GATE: Mutex<()> = Mutex::new(());
 
+#[derive(Clone, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct FocusPanelRequestPayload {
+    resume_nonce: Option<String>,
+}
+
 fn presentation_guard() -> CommandResult<MutexGuard<'static, ()>> {
     FOCUS_PRESENTATION_GATE.lock().map_err(|_| {
         CommandError::new(
@@ -1841,8 +1847,15 @@ fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
 }
 
 fn request_blitz_panel_after_reveal(app_handle: &tauri::AppHandle) -> CommandResult<()> {
+    let resume_nonce = app_handle
+        .state::<TimerService>()
+        .focus_home_pause_nonce()?
+        .map(|nonce| nonce.to_string());
     app_handle
-        .emit(FOCUS_PANEL_REQUEST_EVENT, true)
+        .emit(
+            FOCUS_PANEL_REQUEST_EVENT,
+            FocusPanelRequestPayload { resume_nonce },
+        )
         .map_err(|error| {
             CommandError::new(
                 "FOCUS_PRESENTATION_FAILED",
