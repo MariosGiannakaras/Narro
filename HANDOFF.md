@@ -39,7 +39,7 @@ This section is the continuation authority. Dated checkpoints below describe ear
 
 ## NEXT AGENT ACTION — M6 whole-Focus canonical source/state reconciliation
 
-Current progress is `3/10M || 0/3 | 17/18`. P3-M6-06 is the active implementation slice on PR244; no checkpoint advances until its validation requirements pass.
+Current progress is `3/10M || 2/3 | 17/18`. P3-M6-06 implementation and deterministic/fast validation are complete on PR244; full exact-head Windows CI + guarded integration remain for 3/3.
 
 1. Poll PR244 exact-head CI1013/run `37594066892` frequently. CI1012 already proved validation/fast gates and exposed only a test-private-import Clippy failure; do not reopen it as a production compile failure. On any new failure, inspect the exact step/log and fix only evidence-backed causes on the existing branch.
 2. PR243 resulting-main CI1010/run `37585481400` is PASS; preserve that acceptance and do not rerun it without new evidence.
