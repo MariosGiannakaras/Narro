@@ -267,10 +267,27 @@ try {
   await client.send("Runtime.enable");
   await client.send("Page.enable");
 
-  await waitFor(async () => evaluate(
-    client,
-    'document.documentElement.dataset.finding28FixtureReady === "true"',
-  ), "Finding28 production ListBoard fixture", 20_000);
+  await waitFor(async () => {
+    const state = await evaluate(client, `(() => {
+      const ready = document.documentElement.dataset.finding28FixtureReady === "true";
+      if (ready) return { ready: true };
+      const boardError = document.querySelector('[data-list-board="error"]');
+      if (boardError) {
+        return {
+          ready: false,
+          error: boardError.textContent?.trim() || "ListBoard rendered an unknown error",
+        };
+      }
+      return {
+        ready: false,
+        error: document.documentElement.dataset.finding28FixtureError || null,
+      };
+    })()`);
+    if (state?.error) {
+      throw new Error(`Finding28 fixture failed before readiness: ${state.error}`);
+    }
+    return state?.ready === true;
+  }, "Finding28 production ListBoard fixture", 20_000);
 
   const initial = await evaluate(client, `(() => {
     const fixture = window.__NARRO_FINDING28_FIXTURE__.read();
@@ -420,6 +437,22 @@ try {
     JSON.stringify(result, null, 2) + "\n",
   );
   console.log("Finding28 post-drag keyboard/action-rail Edge regression: PASS");
+} catch (error) {
+  if (client) {
+    try {
+      const diagnostics = await evaluate(client, `(() => ({
+        readyState: document.readyState,
+        htmlDataset: { ...document.documentElement.dataset },
+        boardState: document.querySelector("[data-list-board]")?.getAttribute("data-list-board") ?? null,
+        boardText: document.querySelector("[data-list-board]")?.textContent?.trim().slice(0, 800) ?? null,
+        rootHtml: document.querySelector("#root")?.innerHTML?.slice(0, 1800) ?? null,
+      }))()`);
+      console.error("Finding28 fixture diagnostics:", JSON.stringify(diagnostics, null, 2));
+    } catch {
+      // Preserve the original failure when the page itself is unavailable.
+    }
+  }
+  throw error;
 } finally {
   client?.close();
   killTree(edge);
