@@ -111,7 +111,7 @@ export function startFocusRuntimeVisualDriver() {
     await sleep(100);
     await invoke("main_window_hide");
     await sleep(100);
-    await invoke("present_focus_for_blitz");
+    await invoke("present_focus_for_blitz", { reducedMotion: false });
     await waitForPresentation("panel");
 
     // A clean CI profile has no saved Timer placement, so production correctly
