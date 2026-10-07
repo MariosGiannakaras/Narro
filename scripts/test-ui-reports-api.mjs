@@ -26,6 +26,8 @@ for (const [haystack, needle, label] of [
   [commands, 'write_unique_export(&download_directory, &file_stem, "pdf", &pdf)', "non-overwriting Overview PDF persistence"],
   [commands, "app_handle.path().download_dir()", "local Downloads export target"],
   [commands, "OpenOptions::new().write(true).create_new(true)", "non-overwriting local export creation"],
+  [commands, "failed to remove partial local report export", "partial export cleanup failure reporting"],
+  [commands, "fs::remove_file(&path)", "partial export cleanup"],
   [reportPdf, "ICoreWebView2_7", "WebView2 PDF interface"],
   [reportPdf, "PrintToPdfCompletedHandler::create", "WebView2 PDF completion callback"],
   [reportPdf, "callback_send.send(completed).is_err()", "late PDF completion receiver-drop detection"],
