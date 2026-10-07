@@ -25,6 +25,7 @@ import { waitForPresentedFrame } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
+  resumeTimerFromFocusHome,
   snapshotTimerSession,
   startTimerTask,
   type TimerSessionPayload,
@@ -289,6 +290,36 @@ export function FocusSurfaceCoordinator() {
 
   requestModeRef.current = requestMode;
 
+  const handleBlitzPanelRequest = useCallback(async () => {
+    await requestModeRef.current("panel");
+    if (
+      !presentationHydratedRef.current
+      || transitionGateRef.current
+      || timerResizePendingRef.current
+      || focusSurfaceModeOf(presentationRef.current) !== "panel"
+    ) {
+      deferredPanelRequestRef.current = true;
+      return;
+    }
+
+    await waitForPresentedFrame();
+    try {
+      const resumed = await resumeTimerFromFocusHome();
+      if (resumed !== null) {
+        setTimerProjection((current) => {
+          const next = applyTimerSessionProjection(current, resumed);
+          timerProjectionRef.current = next;
+          return next;
+        });
+      }
+      setTimerProjectionError(null);
+    } catch (failure: unknown) {
+      setTimerProjectionError(
+        `Focus returned in its paused state, but Home-paused work could not resume. ${formatInvokeError(failure)}`,
+      );
+    }
+  }, []);
+
   const requestTimerExpanded = useCallback(async (expanded: boolean, compactFrame?: number[]) => {
     if (!presentationHydrated || transitionGateRef.current || focusSurfaceModeOf(presentationRef.current) !== "timer") {
       throw new Error("Floating Timer size cannot change during another Focus presentation transition.");
@@ -339,7 +370,7 @@ export function FocusSurfaceCoordinator() {
         return;
       }
       deferredPanelRequestRef.current = false;
-      void requestModeRef.current("panel");
+      void handleBlitzPanelRequest();
     });
 
     void subscribe<number>("focus-surface-toggle-requested", (sequence) => {
@@ -390,7 +421,7 @@ export function FocusSurfaceCoordinator() {
       disposed = true;
       for (const stop of stops) stop();
     };
-  }, []);
+  }, [handleBlitzPanelRequest]);
 
   useEffect(() => {
     let disposed = false;
@@ -449,7 +480,7 @@ export function FocusSurfaceCoordinator() {
 
     if (deferredPanelRequestRef.current) {
       deferredPanelRequestRef.current = false;
-      void requestModeRef.current("panel");
+      void handleBlitzPanelRequest();
       return;
     }
 
@@ -478,7 +509,7 @@ export function FocusSurfaceCoordinator() {
         setFindTimerPulse(deferredFind);
       }
     }
-  }, [presentationHydrated, timerResizePending, transitionPending]);
+  }, [handleBlitzPanelRequest, presentationHydrated, timerResizePending, transitionPending]);
 
   useEffect(() => {
     if (

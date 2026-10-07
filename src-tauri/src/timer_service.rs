@@ -1,4 +1,4 @@
-use crate::domain::ids::{ListId, TaskId};
+use crate::domain::ids::{ListId, SessionId, TaskId};
 use crate::domain::preferences::SleepAccountingPolicy;
 use crate::domain::tasks::SetTaskTimeTakenInput;
 use crate::domain::timed_alert_events::{TimedAlertEffectPayload, TIMED_ALERT_EFFECT_EVENT_NAME};
@@ -88,8 +88,16 @@ struct TimerServiceState {
     recovered_awaiting_resume: bool,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+struct FocusHomePauseLease {
+    revision: u64,
+    task_id: TaskId,
+    session_id: SessionId,
+}
+
 pub struct TimerService {
     state: Mutex<TimerServiceState>,
+    focus_home_pause_lease: Mutex<Option<FocusHomePauseLease>>,
     monotonic_origin: Instant,
 }
 
@@ -126,6 +134,7 @@ impl TimerService {
                 observed_ms: 0,
                 recovered_awaiting_resume,
             }),
+            focus_home_pause_lease: Mutex::new(None),
             monotonic_origin,
         })
     }
@@ -287,6 +296,79 @@ impl TimerService {
         self.transition(app_handle, TimerController::pause)
     }
 
+    pub fn pause_for_focus_home(
+        &self,
+        app_handle: &tauri::AppHandle,
+    ) -> CommandResult<Option<TimerSessionPayload>> {
+        {
+            let mut lease = self
+                .focus_home_pause_lease
+                .lock()
+                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            *lease = None;
+        }
+
+        let payload = self.transition_if(
+            app_handle,
+            |before| {
+                matches!(
+                    before.runtime.timer.state,
+                    TimerStateKind::Running | TimerStateKind::OvertimeRunning
+                ) && before.runtime.timer.task_id.is_some()
+                    && before.runtime.open_session_id.is_some()
+            },
+            TimerController::pause,
+        )?;
+
+        if let Some(payload) = payload.as_ref() {
+            let task_id = payload.runtime.timer.task_id.ok_or_else(|| {
+                CommandError::new(
+                    "FOCUS_HOME_PAUSE_BINDING_MISSING",
+                    "Home-induced pause has no authoritative task binding",
+                )
+            })?;
+            let session_id = payload.runtime.open_session_id.ok_or_else(|| {
+                CommandError::new(
+                    "FOCUS_HOME_PAUSE_BINDING_MISSING",
+                    "Home-induced pause has no authoritative session binding",
+                )
+            })?;
+            let mut lease = self
+                .focus_home_pause_lease
+                .lock()
+                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            *lease = Some(FocusHomePauseLease {
+                revision: payload.revision,
+                task_id,
+                session_id,
+            });
+        }
+
+        Ok(payload)
+    }
+
+    pub fn resume_focus_home_pause(
+        &self,
+        app_handle: &tauri::AppHandle,
+    ) -> CommandResult<Option<TimerSessionPayload>> {
+        let lease = {
+            let mut lease = self
+                .focus_home_pause_lease
+                .lock()
+                .map_err(|_| CommandError::timer_service_lock_poisoned())?;
+            lease.take()
+        };
+        let Some(lease) = lease else {
+            return Ok(None);
+        };
+
+        self.transition_if(
+            app_handle,
+            move |before| focus_home_pause_lease_matches(lease, before),
+            TimerController::resume,
+        )
+    }
+
     pub fn resume(&self, app_handle: &tauri::AppHandle) -> CommandResult<TimerSessionPayload> {
         self.transition(app_handle, TimerController::resume)
     }
@@ -388,6 +470,29 @@ impl TimerService {
             &str,
         ) -> Result<TimerSessionPayload, TimerControllerError>,
     {
+        self.transition_if(app_handle, |_| true, transition)?
+            .ok_or_else(|| {
+                CommandError::new(
+                    "TIMER_OPERATION_FAILED",
+                    "unconditional timer transition was unexpectedly skipped",
+                )
+            })
+    }
+
+    fn transition_if<F, P>(
+        &self,
+        app_handle: &tauri::AppHandle,
+        predicate: P,
+        transition: F,
+    ) -> CommandResult<Option<TimerSessionPayload>>
+    where
+        F: FnOnce(
+            &mut TimerController,
+            u64,
+            &str,
+        ) -> Result<TimerSessionPayload, TimerControllerError>,
+        P: FnOnce(&TimerSessionPayload) -> bool,
+    {
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
         let mut state = self
@@ -418,6 +523,14 @@ impl TimerService {
         observe_timed_alerts_best_effort(effects_connection, &before_transition, false, &wall_time);
         let mut timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
 
+        if !predicate(&before_transition) {
+            let pending = claim_notifications_best_effort(effects_connection, &wall_time);
+            drop(state);
+            submit_claimed_timed_alerts(app_handle, timed_alerts);
+            submit_claimed_notifications(app_handle, pending);
+            return Ok(None);
+        }
+
         let payload =
             transition(controller, now_ms, &wall_time).map_err(CommandError::timer_operation)?;
         *observed_ms = now_ms;
@@ -437,7 +550,7 @@ impl TimerService {
         }
         submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
-        Ok(payload)
+        Ok(Some(payload))
     }
 
     fn raw_now_ms(&self) -> CommandResult<u64> {
@@ -556,6 +669,19 @@ fn wall_time_at_monotonic(
 fn is_paused_pomodoro_projection(payload: &TimerSessionPayload) -> bool {
     payload.runtime.timer.state == TimerStateKind::Paused
         && matches!(payload.runtime.timer.mode, Some(TimerMode::Pomodoro { .. }))
+}
+
+fn focus_home_pause_lease_matches(
+    lease: FocusHomePauseLease,
+    payload: &TimerSessionPayload,
+) -> bool {
+    payload.revision == lease.revision
+        && payload.runtime.timer.task_id == Some(lease.task_id)
+        && payload.runtime.open_session_id == Some(lease.session_id)
+        && matches!(
+            payload.runtime.timer.state,
+            TimerStateKind::Paused | TimerStateKind::OvertimePaused
+        )
 }
 
 fn decorate_timer_payload(
@@ -845,6 +971,22 @@ pub fn timer_pause(
     app_handle: tauri::AppHandle,
 ) -> CommandResult<TimerSessionPayload> {
     timer_service.pause(&app_handle)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn timer_pause_for_focus_home(
+    timer_service: State<'_, TimerService>,
+    app_handle: tauri::AppHandle,
+) -> CommandResult<Option<TimerSessionPayload>> {
+    timer_service.pause_for_focus_home(&app_handle)
+}
+
+#[tauri::command(rename_all = "camelCase")]
+pub fn timer_resume_focus_home_pause(
+    timer_service: State<'_, TimerService>,
+    app_handle: tauri::AppHandle,
+) -> CommandResult<Option<TimerSessionPayload>> {
+    timer_service.resume_focus_home_pause(&app_handle)
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -1407,6 +1549,52 @@ mod tests {
             wall_time_at_monotonic("2026-09-05T12:00:06Z", 6_000, 2_000).unwrap(),
             "2026-09-05T12:00:02.000Z"
         );
+    }
+
+    #[test]
+    fn focus_home_pause_lease_requires_exact_paused_timer_identity() {
+        let task_id = TaskId::generate();
+        let session_id = SessionId::generate();
+        let lease = FocusHomePauseLease {
+            revision: 7,
+            task_id,
+            session_id,
+        };
+        let mut payload = TimerSessionPayload {
+            revision: 7,
+            runtime: crate::timer::runtime::TimerRuntimeSnapshot {
+                timer: TimerSnapshot {
+                    state: TimerStateKind::Paused,
+                    task_id: Some(task_id),
+                    mode: Some(TimerMode::CountUp),
+                    work_elapsed_ms: 0,
+                    total_break_ms: 0,
+                    countdown_remaining_ms: None,
+                    overtime_ms: 0,
+                    break_kind: None,
+                    break_remaining_ms: None,
+                },
+                open_session_id: Some(session_id),
+            },
+            awaiting_resume: false,
+            change: Some(TimerSessionChange::Paused),
+        };
+
+        assert!(focus_home_pause_lease_matches(lease, &payload));
+
+        payload.revision += 1;
+        assert!(!focus_home_pause_lease_matches(lease, &payload));
+        payload.revision = lease.revision;
+        payload.runtime.timer.task_id = Some(TaskId::generate());
+        assert!(!focus_home_pause_lease_matches(lease, &payload));
+        payload.runtime.timer.task_id = Some(task_id);
+        payload.runtime.open_session_id = Some(SessionId::generate());
+        assert!(!focus_home_pause_lease_matches(lease, &payload));
+        payload.runtime.open_session_id = Some(session_id);
+        payload.runtime.timer.state = TimerStateKind::Running;
+        assert!(!focus_home_pause_lease_matches(lease, &payload));
+        payload.runtime.timer.state = TimerStateKind::OvertimePaused;
+        assert!(focus_home_pause_lease_matches(lease, &payload));
     }
 
     #[test]

@@ -51,9 +51,10 @@ use tauri::menu::{Menu, MenuItem};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Emitter, Manager, State};
 use timer_service::{
-    timer_complete_task, timer_extend, timer_finish_break, timer_pause, timer_resume,
-    timer_session_snapshot, timer_set_estimate, timer_set_time_taken, timer_skip_break,
-    timer_skip_task, timer_start_manual_break, timer_start_task, timer_switch_task, TimerService,
+    timer_complete_task, timer_extend, timer_finish_break, timer_pause, timer_pause_for_focus_home,
+    timer_resume, timer_resume_focus_home_pause, timer_session_snapshot, timer_set_estimate,
+    timer_set_time_taken, timer_skip_break, timer_skip_task, timer_start_manual_break,
+    timer_start_task, timer_switch_task, TimerService,
 };
 use windows::{
     clamp_top_left, focus_panel_edge_position, validate_work_area, FocusPanelSide,
@@ -1839,7 +1840,19 @@ fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus Focus Panel", error))
 }
 
+fn request_blitz_panel_after_reveal(app_handle: &tauri::AppHandle) -> CommandResult<()> {
+    app_handle
+        .emit(FOCUS_PANEL_REQUEST_EVENT, true)
+        .map_err(|error| {
+            CommandError::new(
+                "FOCUS_PRESENTATION_FAILED",
+                format!("failed to request Focus Panel after Blitz reveal: {error}"),
+            )
+        })
+}
+
 fn show_focus_after_blitz_entry(
+    app_handle: &tauri::AppHandle,
     main: &tauri::WebviewWindow,
     focus: &tauri::WebviewWindow,
 ) -> CommandResult<()> {
@@ -1849,7 +1862,7 @@ fn show_focus_after_blitz_entry(
             "Focus Panel is visible, but Main could not be hidden after Blitz entry: {error}"
         );
     }
-    Ok(())
+    request_blitz_panel_after_reveal(app_handle)
 }
 
 fn restore_main_after_blitz_morph(
@@ -1897,14 +1910,7 @@ async fn present_focus_for_blitz(
         focus.set_focus().map_err(|error| {
             map_window_error(FOCUS_SURFACE_LABEL, "focus existing Blitz surface", error)
         })?;
-        return app_handle
-            .emit(FOCUS_PANEL_REQUEST_EVENT, true)
-            .map_err(|error| {
-                CommandError::new(
-                    "FOCUS_PRESENTATION_FAILED",
-                    format!("failed to request Focus Panel for Blitz entry: {error}"),
-                )
-            });
+        return request_blitz_panel_after_reveal(&app_handle);
     }
 
     // Prepare the retained hidden Focus host at its authoritative Panel target
@@ -1916,7 +1922,7 @@ async fn present_focus_for_blitz(
         || !main_focus_morph::supported()
         || !main_focus_morph::safe_restored_state(&main)?
     {
-        return show_focus_after_blitz_entry(&main, &focus);
+        return show_focus_after_blitz_entry(&app_handle, &main, &focus);
     }
 
     let main_snapshot = main_focus_morph::capture_outer_rect(&main)?;
@@ -1933,14 +1939,14 @@ async fn present_focus_for_blitz(
         Ok(frame) => frame,
         Err(error) => {
             eprintln!("Blitz Main pixel capture failed; using direct Focus handoff: {error}");
-            return show_focus_after_blitz_entry(&main, &focus);
+            return show_focus_after_blitz_entry(&app_handle, &main, &focus);
         }
     };
     let hold = match focus_frame_hold::begin(&main, visible, &frame) {
         Ok(hold) => hold,
         Err(error) => {
             eprintln!("Blitz Main raster hold failed; using direct Focus handoff: {error}");
-            return show_focus_after_blitz_entry(&main, &focus);
+            return show_focus_after_blitz_entry(&app_handle, &main, &focus);
         }
     };
 
@@ -1968,7 +1974,7 @@ async fn present_focus_for_blitz(
         return match recovery {
             Ok(()) => {
                 eprintln!("Board-to-Focus morph failed; using direct Focus handoff: {error}");
-                show_focus_after_blitz_entry(&main, &focus)
+                show_focus_after_blitz_entry(&app_handle, &main, &focus)
             }
             Err(recovery) => Err(CommandError::new(
                 "FOCUS_PRESENTATION_RECOVERY_FAILED",
@@ -1985,7 +1991,7 @@ async fn present_focus_for_blitz(
                 eprintln!(
                     "Could not hide Main at the Board-to-Focus morph endpoint; using direct Focus handoff: {error}"
                 );
-                show_focus_after_blitz_entry(&main, &focus)
+                show_focus_after_blitz_entry(&app_handle, &main, &focus)
             }
             Err(recovery) => Err(CommandError::new(
                 "FOCUS_PRESENTATION_RECOVERY_FAILED",
@@ -2021,7 +2027,7 @@ async fn present_focus_for_blitz(
         };
     }
 
-    Ok(())
+    request_blitz_panel_after_reveal(&app_handle)
 }
 
 pub(crate) fn revalidate_open_focus_panel_after_display_change(
@@ -2569,6 +2575,8 @@ pub fn run() {
             timer_session_snapshot,
             timer_start_task,
             timer_pause,
+            timer_pause_for_focus_home,
+            timer_resume_focus_home_pause,
             timer_resume,
             timer_extend,
             timer_start_manual_break,

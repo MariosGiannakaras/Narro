@@ -34,11 +34,14 @@ import { TaskScheduleDialog } from "./TaskScheduleDialog";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
+  pauseTimerForFocusHome,
+  resumeTimerFromFocusHome,
   snapshotTimerSession,
   startTimerTask,
   switchTimerTask,
   type TimerSessionPayload,
 } from "./timerSessionApi";
+import { waitForPresentedFrame } from "./presentationFrame";
 import "./focusPanel.css";
 
 const ALL_LISTS_VALUE = "__all_lists__";
@@ -803,9 +806,29 @@ export function FocusPanel({
     if (fixtureMode || !presentationActive || homePending) return;
     setHomePending(true);
     setError(null);
+    let pausedByHome = false;
     try {
+      const paused = await pauseTimerForFocusHome();
+      if (paused !== null) {
+        pausedByHome = true;
+        setTimer((current) => applyTimerSessionProjection(current, paused));
+        await waitForPresentedFrame();
+      }
       await invoke<void>("focus_surface_exit_to_main");
     } catch (failure: unknown) {
+      if (pausedByHome) {
+        try {
+          const resumed = await resumeTimerFromFocusHome();
+          if (resumed !== null) {
+            setTimer((current) => applyTimerSessionProjection(current, resumed));
+          }
+        } catch (rollbackFailure: unknown) {
+          setError(
+            `${formatInvokeError(failure)} Home-pause rollback also failed. ${formatInvokeError(rollbackFailure)}`,
+          );
+          return;
+        }
+      }
       setError(formatInvokeError(failure));
     } finally {
       setHomePending(false);

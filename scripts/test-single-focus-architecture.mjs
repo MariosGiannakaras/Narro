@@ -286,12 +286,22 @@ invariant(
     && blitzVisibleBranchStart >= 0
     && blitzHiddenBranchStart > blitzVisibleBranchStart
     && blitzVisibleBranch.includes("set_focus()")
-    && blitzVisibleBranch.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
+    && blitzVisibleBranch.includes("request_blitz_panel_after_reveal(&app_handle)")
     && !blitzVisibleBranch.includes("apply_focus_surface_presentation_internal")
     && blitzHiddenBranch.includes("apply_focus_surface_presentation_internal(")
     && blitzHiddenBranch.includes("FocusSurfacePresentation::Panel"),
   "Blitz re-entry must preserve a visible Focus presentation and only prepare Panel while hidden",
 );
+const blitzPanelRequestHelperStart = lib.indexOf("fn request_blitz_panel_after_reveal(");
+const blitzPanelRequestHelperEnd = lib.indexOf("fn show_focus_after_blitz_entry(", blitzPanelRequestHelperStart);
+const blitzPanelRequestHelper = lib.slice(blitzPanelRequestHelperStart, blitzPanelRequestHelperEnd);
+invariant(
+  blitzPanelRequestHelperStart >= 0
+    && blitzPanelRequestHelperEnd > blitzPanelRequestHelperStart
+    && blitzPanelRequestHelper.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)"),
+  "Blitz Panel requests must stay centralized in the post-reveal coordinator handshake",
+);
+
 invariant(
   topology.includes("const OBSERVED_WINDOW_LABELS: [&str; 1] = [FOCUS_SURFACE_LABEL]")
     && topology.includes("revalidate_open_timer_after_display_change"),
