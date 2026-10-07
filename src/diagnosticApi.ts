@@ -183,9 +183,14 @@ function parsePersistedMonitorName(monitorKey: string): string | null {
 
   const unsignedFields = [workHeight, workWidth, height, width];
   const signedFields = [workY, workX, y, x];
+  const withinIntegerRange = (value: string, minimum: number, maximum: number) => {
+    if (!/^-?\d+$/.test(value)) return false;
+    const parsed = Number(value);
+    return Number.isSafeInteger(parsed) && parsed >= minimum && parsed <= maximum;
+  };
   if (
-    unsignedFields.some((value) => !/^\d+$/.test(value))
-    || signedFields.some((value) => !/^-?\d+$/.test(value))
+    unsignedFields.some((value) => !/^\d+$/.test(value) || !withinIntegerRange(value, 0, 0xFFFF_FFFF))
+    || signedFields.some((value) => !withinIntegerRange(value, -0x8000_0000, 0x7FFF_FFFF))
   ) {
     return null;
   }
