@@ -1562,7 +1562,7 @@ mod tests {
         };
         let mut payload = TimerSessionPayload {
             revision: 7,
-            runtime: crate::domain::timer_events::TimerRuntimeSnapshot {
+            runtime: crate::timer::runtime::TimerRuntimeSnapshot {
                 timer: TimerSnapshot {
                     state: TimerStateKind::Paused,
                     task_id: Some(task_id),
