@@ -1051,9 +1051,9 @@ pub fn timer_resume_focus_home_pause(
 ) -> CommandResult<Option<TimerSessionPayload>> {
     let resume_nonce = resume_nonce
         .map(|value| {
-            value
-                .parse::<u64>()
-                .map_err(|_| CommandError::invalid_argument("resumeNonce", "must be an unsigned integer"))
+            value.parse::<u64>().map_err(|_| {
+                CommandError::invalid_argument("resumeNonce", "must be an unsigned integer")
+            })
         })
         .transpose()?;
     timer_service.resume_focus_home_pause(&app_handle, resume_nonce)
@@ -1660,7 +1660,10 @@ mod tests {
         assert_eq!(renewed.session_id, lease.session_id);
 
         payload.revision += 1;
-        assert_eq!(renew_focus_home_pause_lease(Some(lease), &payload, 13), None);
+        assert_eq!(
+            renew_focus_home_pause_lease(Some(lease), &payload, 13),
+            None
+        );
         assert!(!focus_home_pause_lease_matches(lease, &payload));
         payload.revision = lease.revision;
         payload.runtime.timer.task_id = Some(TaskId::generate());
