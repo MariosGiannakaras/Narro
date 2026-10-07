@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-const [rust, lib, api, button, main, board, preferences, windows, topology, region, coordinator, morph, capture] = await Promise.all([
+const [rust, lib, api, button, main, board, preferences, windows, topology, region, coordinator, morph, capture, startBlitzNative] = await Promise.all([
   readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/lib.rs", import.meta.url), "utf8"),
   readFile(new URL("../src/focusEntryApi.ts", import.meta.url), "utf8"),
@@ -14,6 +14,7 @@ const [rust, lib, api, button, main, board, preferences, windows, topology, regi
   readFile(new URL("../src/FocusSurfaceCoordinator.tsx", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/main_focus_morph.rs", import.meta.url), "utf8"),
   readFile(new URL("../src-tauri/src/focus_frame_capture.rs", import.meta.url), "utf8"),
+  readFile(new URL("../src-tauri/src/focus_entry.rs", import.meta.url), "utf8"),
 ]);
 
 function requireText(haystack, needle, label) {
@@ -275,6 +276,16 @@ for (const required of [
 ]) {
   if (!coordinator.includes(required)) {
     throw new Error(`P3-M6-06 coordinator re-entry handshake is missing: ${required}`);
+  }
+}
+
+for (const forbidden of [
+  "resume_focus_home_pause",
+  "timer_resume_focus_home_pause",
+  "timer_resume(",
+]) {
+  if (startBlitzNative.includes(forbidden)) {
+    throw new Error(`Blitz domain start must leave a Home-paused timer paused until post-reveal guarded resume: ${forbidden}`);
   }
 }
 
