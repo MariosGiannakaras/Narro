@@ -19,7 +19,7 @@ const pkg = JSON.parse(read("package.json"));
 for (const [haystack, needle, label] of [
   [runtime, 'invoke<HomeSnapshot>("get_home_snapshot")', "authoritative active-list projection"],
   [runtime, "usePreferenceSettingsProjection()", "Preferences timezone projection"],
-  [runtime, "getReportOverview({", "typed Overview aggregation invoke"],
+  [runtime, "getReportOverview(reportRequest)", "typed current-request Overview aggregation invoke"],
   [runtime, "listIds: [...selectedListIds].sort()", "stable multi-select list request identity"],
   [runtime, "displayTimezone: timeZone", "authoritative display timezone request"],
   [runtime, "reportRangeRequestBounds(appliedRange, timeZone)", "timezone-aware range boundary"],
