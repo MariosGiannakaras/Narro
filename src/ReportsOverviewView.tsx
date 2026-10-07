@@ -96,6 +96,7 @@ export type ReportsOverviewViewProps = {
   sessionsDisabled?: boolean;
   exportDisabled?: boolean;
   exportPending?: boolean;
+  interactionLocked?: boolean;
 };
 
 function formatDuration(seconds: number): string {
@@ -319,6 +320,7 @@ export function ReportsOverviewView({
   sessionsDisabled = false,
   exportDisabled = false,
   exportPending = false,
+  interactionLocked = false,
 }: ReportsOverviewViewProps) {
   const totalListSeconds = timeByList.reduce((total, item) => total + Math.max(0, item.seconds), 0);
   let listCursor = 0;
@@ -344,7 +346,13 @@ export function ReportsOverviewView({
   );
 
   return (
-    <section className="reports-overview" data-reports-overview="true" aria-labelledby="reports-overview-title">
+    <section
+      className="reports-overview"
+      data-reports-overview="true"
+      aria-labelledby="reports-overview-title"
+      aria-busy={interactionLocked || undefined}
+      inert={interactionLocked ? true : undefined}
+    >
       <header className="reports-overview__header">
         <div className="reports-overview__title-row">
           <button type="button" className="reports-overview__back" onClick={onBack}>‹ Back</button>
