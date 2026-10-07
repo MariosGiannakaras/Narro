@@ -46,6 +46,10 @@ type PresentationReadiness = {
   timer: boolean;
 };
 
+type FocusPanelRequest = {
+  resumeNonce: string | null;
+};
+
 function modePresentation(mode: FocusSurfaceMode): FocusSurfacePresentation {
   return mode === "panel" ? "panel" : "timerCompact";
 }
@@ -83,7 +87,7 @@ export function FocusSurfaceCoordinator() {
   });
   const lastToggleRequestRef = useRef(0);
   const lastFindRequestRef = useRef(0);
-  const deferredPanelRequestRef = useRef(false);
+  const deferredPanelResumeNonceRef = useRef<string | null | undefined>(undefined);
   const deferredToggleSequenceRef = useRef<number | null>(null);
   const deferredFindSequenceRef = useRef<number | null>(null);
   const timerProjectionRef = useRef<TimerSessionPayload | null>(null);
@@ -290,7 +294,7 @@ export function FocusSurfaceCoordinator() {
 
   requestModeRef.current = requestMode;
 
-  const handleBlitzPanelRequest = useCallback(async () => {
+  const handleBlitzPanelRequest = useCallback(async (resumeNonce: string | null) => {
     await requestModeRef.current("panel");
     if (
       !presentationHydratedRef.current
@@ -298,13 +302,14 @@ export function FocusSurfaceCoordinator() {
       || timerResizePendingRef.current
       || focusSurfaceModeOf(presentationRef.current) !== "panel"
     ) {
-      deferredPanelRequestRef.current = true;
+      deferredPanelResumeNonceRef.current = resumeNonce;
       return;
     }
 
     await waitForPresentedFrame();
+    if (resumeNonce === null) return;
     try {
-      const resumed = await resumeTimerFromFocusHome();
+      const resumed = await resumeTimerFromFocusHome(resumeNonce);
       if (resumed !== null) {
         setTimerProjection((current) => {
           const next = applyTimerSessionProjection(current, resumed);
@@ -359,18 +364,17 @@ export function FocusSurfaceCoordinator() {
       }
     };
 
-    void subscribe<boolean>("focus-panel-requested", (requested) => {
-      if (requested !== true) return;
+    void subscribe<FocusPanelRequest>("focus-panel-requested", (request) => {
       if (
         !presentationHydratedRef.current
         || transitionGateRef.current
         || timerResizePendingRef.current
       ) {
-        deferredPanelRequestRef.current = true;
+        deferredPanelResumeNonceRef.current = request.resumeNonce;
         return;
       }
-      deferredPanelRequestRef.current = false;
-      void handleBlitzPanelRequest();
+      deferredPanelResumeNonceRef.current = undefined;
+      void handleBlitzPanelRequest(request.resumeNonce);
     });
 
     void subscribe<number>("focus-surface-toggle-requested", (sequence) => {
@@ -478,9 +482,10 @@ export function FocusSurfaceCoordinator() {
   useEffect(() => {
     if (!presentationHydrated || transitionPending || timerResizePending) return;
 
-    if (deferredPanelRequestRef.current) {
-      deferredPanelRequestRef.current = false;
-      void handleBlitzPanelRequest();
+    if (deferredPanelResumeNonceRef.current !== undefined) {
+      const resumeNonce = deferredPanelResumeNonceRef.current;
+      deferredPanelResumeNonceRef.current = undefined;
+      void handleBlitzPanelRequest(resumeNonce);
       return;
     }
 
