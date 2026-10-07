@@ -128,12 +128,16 @@ async function dispatchPointer(client, type, x, y, button, buttons, targetMode =
   return evaluate(client, `(() => {
     const x = ${JSON.stringify(x)};
     const y = ${JSON.stringify(y)};
-    const target = ${JSON.stringify(targetMode)} === "hit"
-      ? document.elementFromPoint(x, y)
-      : window;
+    const mode = ${JSON.stringify(targetMode)};
+    const sourceId = window.__NARRO_FINDING28_FIXTURE__.read().taskIds[0];
+    const target = mode === "source"
+      ? document.querySelector('[data-board-drag-task="' + sourceId + '"]')
+      : mode === "hit"
+        ? document.elementFromPoint(x, y)
+        : window;
     if (!target) throw new Error("Finding28 pointer transport target is missing.");
     const event = new PointerEvent(${JSON.stringify(type)}, {
-      pointerId: 1,
+      pointerId: 41,
       pointerType: "mouse",
       isPrimary: true,
       button: ${JSON.stringify(button)},
@@ -380,14 +384,19 @@ try {
   // onPointerDown, so use deterministic PointerEvent transport for drag start/
   // move/finish while retaining real Edge input for the keyboard/hover probes
   // that decide Finding28's focus/action-rail behavior.
-  await dispatchPointer(
+  const syntheticDown = await dispatchPointer(
     client,
     "pointerdown",
     initial.sourcePoint.x,
     initial.sourcePoint.y,
     0,
     1,
-    "hit",
+    "source",
+  );
+  assert.match(
+    syntheticDown.target,
+    /data-board-drag-task=/,
+    "Finding28 deterministic pointerdown did not target the production reorder shell.",
   );
   await sleep(client, 40);
   const pressTrace = await evaluate(client, `(() => ({
@@ -396,6 +405,7 @@ try {
   }))()`);
   const pointerDown = pressTrace.events.find((event) => event.type === "pointerdown" && event.buttons === 1);
   assert.ok(pointerDown, "Finding28 deterministic pointerdown did not reach the production drag shell.");
+  assert.equal(pointerDown.pointerId, 41, "Finding28 deterministic pointerdown used an unexpected pointer id.");
   assert.equal(pointerDown.taskId, pressTrace.expectedTaskId, "Finding28 pointerdown missed the expected production drag shell.");
   assert.equal(pointerDown.isTrusted, false, "Finding28 harness must record its deterministic drag transport as synthetic.");
 
