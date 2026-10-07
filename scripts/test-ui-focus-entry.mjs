@@ -60,8 +60,8 @@ for (const [haystack, needle, label] of [
   [lib, "position_focus_panel,", "Panel positioning command registration"],
   [lib, "present_focus_panel", "production Panel presentation registration"],
   [lib, 'const FOCUS_PANEL_REQUEST_EVENT: &str = "focus-panel-requested";', "visible Blitz target-Panel coordinator request"],
-  [coordinator, 'subscribe<boolean>("focus-panel-requested"', "persistent coordinator Blitz Panel request listener"],
-  [coordinator, 'deferredPanelRequestRef.current = true', "Blitz Panel request transition deferral"],
+  [coordinator, 'subscribe<FocusPanelRequest>("focus-panel-requested"', "persistent coordinator Blitz Panel request listener"],
+  [coordinator, 'deferredPanelResumeNonceRef.current = request.resumeNonce', "Blitz Panel request transition deferral with provenance"],
   [lib, "Err(CommandError::stale_monitor_selection())", "stale selected-monitor rejection"],
   [preferences, "selected_monitor_key: None", "safe no-selection default"],
   [preferences, "focus_panel_side: FocusPanelSide::Right", "default right side"],
@@ -262,17 +262,19 @@ const panelRequestHelper = lib.slice(panelRequestHelperStart, panelRequestHelper
 if (
   panelRequestHelperStart < 0
   || panelRequestHelperEnd < panelRequestHelperStart
-  || !panelRequestHelper.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
+  || !panelRequestHelper.includes("focus_home_pause_nonce()?")
+  || !panelRequestHelper.includes("FocusPanelRequestPayload { resume_nonce }")
 ) {
-  throw new Error("Blitz Panel handshake must use the existing coordinator-only request event.");
+  throw new Error("Blitz Panel handshake must bind the coordinator request to current Home-pause provenance.");
 }
 for (const required of [
-  "const handleBlitzPanelRequest = useCallback(async () => {",
+  "const handleBlitzPanelRequest = useCallback(async (resumeNonce: string | null) => {",
   'await requestModeRef.current("panel");',
   "await waitForPresentedFrame();",
-  "await resumeTimerFromFocusHome();",
-  "deferredPanelRequestRef.current = true",
-  "void handleBlitzPanelRequest();",
+  "if (resumeNonce === null) return;",
+  "await resumeTimerFromFocusHome(resumeNonce);",
+  "deferredPanelResumeNonceRef.current = request.resumeNonce",
+  "void handleBlitzPanelRequest(request.resumeNonce);",
 ]) {
   if (!coordinator.includes(required)) {
     throw new Error(`P3-M6-06 coordinator re-entry handshake is missing: ${required}`);
