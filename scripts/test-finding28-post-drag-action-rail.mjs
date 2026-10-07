@@ -211,7 +211,7 @@ const debugPort = await freePort();
 const npmCli = process.env.npm_execpath;
 if (!npmCli) throw new Error("npm_execpath is unavailable.");
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), "narro-finding28-"));
-const pageUrl = `http://127.0.0.1:${previewPort}/focus-editor-fixture.html?theme=dark&scenario=finding28-post-drag`;
+const pageUrl = `http://127.0.0.1:${previewPort}/focus-editor-fixture.html?theme=dark&scenario=finding28-post-drag&motion=false`;
 const preview = spawn(process.execPath, [
   npmCli,
   "run",
@@ -241,6 +241,7 @@ try {
     "--disable-background-networking",
     "--no-first-run",
     "--force-device-scale-factor=1",
+    "--force-prefers-no-reduced-motion",
     "--window-size=1280,900",
     `--remote-debugging-port=${debugPort}`,
     `--user-data-dir=${profile}`,
