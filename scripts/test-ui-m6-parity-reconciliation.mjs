@@ -16,6 +16,7 @@ const boardCss = read("src/listBoard.css");
 const notes = read("src/TaskNotes.tsx");
 const timerApi = read("src/timerSessionApi.ts");
 const native = read("src-tauri/src/lib.rs");
+const morph = read("src-tauri/src/main_focus_morph.rs");
 const panelCss = read("src/focusPanel.css");
 const visualStatesCss = read("src/focusVisualStates.css");
 const slotCss = read("src/focusActionSlots.css");
@@ -91,11 +92,15 @@ for (const [haystack, needle, label] of [
   [actions, 'run("extend", extendTimer', "A17 authoritative Extend mutation"],
   [visualFixture, 'rowActionSlot: optionalBox(', "M6 ordinary-row visual measurement"],
   [visualValidator, "ordinary row action slot must reserve 7.75rem/124px", "M6 Windows row geometry validator"],
-  [entry, "const BLITZ_BOARD_FADE_MS = 250;", "P3-M6-01 measured board-fade duration"],
-  [entry, "restoreBoard = await fadeBoardBeforeFocusPresentation();", "P3-M6-01 board fade before Focus"],
-  [entry, 'window.matchMedia("(prefers-reduced-motion: reduce)").matches', "P3-M6-01 reduced-motion bypass"],
-  [boardCss, '.list-board[data-blitz-focus-transition="fading"]', "P3-M6-01 board fade selector"],
-  [boardCss, "transition: opacity 250ms var(--motion-ease-exit);", "P3-M6-01 finite board fade"],
+  [entry, 'window.matchMedia("(prefers-reduced-motion: reduce)").matches', "P3-M6-01 reduced-motion bypass flag"],
+  [entry, "await presentFocusForBlitz(reducedMotion);", "P3-M6-01 native presentation after authoritative start"],
+  [native, "const BLITZ_MAIN_MORPH_MS: u64 = 220;", "P3-M6-01 calibrated native morph duration"],
+  [native, "focus_frame_capture::capture(main.clone()).await", "P3-M6-01 frozen Main WebView capture"],
+  [native, "focus_frame_hold::begin(&main, visible, &frame)", "P3-M6-01 finite Main raster hold"],
+  [native, "animate_main_focus_rect(", "P3-M6-01 native geometry morph"],
+  [native, "restore_main_after_blitz_morph(&main, main_snapshot)", "P3-M6-01 exact Main rollback"],
+  [morph, "SetWindowPos(", "P3-M6-01 native outer-rect ownership"],
+  [morph, "safe_restored_state", "P3-M6-01 maximized/fullscreen/minimized bypass"],
   [notes, "recognizedUrlParts", "P3-M6-02 automatic http(s) recognition"],
   [notes, "autoLinkEditorUrls", "P3-M6-02 live editor auto-linking"],
   [notes, 'data-note-url-activation="explicit"', "P3-M6-02 explicit browser activation retained"],
@@ -103,6 +108,16 @@ for (const [haystack, needle, label] of [
   [visualStatesCss, "0 0 8px color-mix(in srgb, var(--color-accent-start) 12%, transparent)", "P3-M6-03 restrained live glow"],
 ]) {
   requireText(haystack, needle, label);
+}
+
+for (const forbidden of [
+  "BLITZ_BOARD_FADE_MS",
+  "fadeBoardBeforeFocusPresentation",
+  'data-blitz-focus-transition="fading"',
+]) {
+  if (entry.includes(forbidden) || boardCss.includes(forbidden)) {
+    throw new Error(`P3-M6-01 must not retain the legacy renderer fade: ${forbidden}`);
+  }
 }
 
 const exitStart = native.indexOf("async fn focus_surface_exit_to_main");
@@ -204,10 +219,15 @@ for (const label of toolbarOrder) {
 }
 
 const startBlitz = entry.indexOf("const outcome = await startBlitz();");
-const boardFade = entry.indexOf("restoreBoard = await fadeBoardBeforeFocusPresentation();", startBlitz);
-const focusPresent = entry.indexOf("await presentFocusForBlitz();", boardFade);
-if (startBlitz < 0 || boardFade < startBlitz || focusPresent < boardFade) {
-  throw new Error("P3-M6-01 must keep domain start authoritative, then fade the board, then present Focus.");
+const reducedMotion = entry.indexOf(
+  'window.matchMedia("(prefers-reduced-motion: reduce)").matches',
+  startBlitz,
+);
+const focusPresent = entry.indexOf("await presentFocusForBlitz(reducedMotion);", reducedMotion);
+if (startBlitz < 0 || reducedMotion < startBlitz || focusPresent < reducedMotion) {
+  throw new Error(
+    "P3-M6-01 must keep domain start authoritative, resolve reduced-motion policy, then enter the native Focus presentation boundary.",
+  );
 }
 
 console.log("M6 Focus parity reconciliation contract checks passed.");

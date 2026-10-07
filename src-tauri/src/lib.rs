@@ -18,6 +18,7 @@ pub mod home_snapshot;
 pub mod list_board;
 pub mod list_editor;
 pub mod list_settings;
+pub mod main_focus_morph;
 pub mod notifications;
 pub mod persistence;
 pub mod preference_settings;
@@ -72,6 +73,7 @@ const FOCUS_PRESENTATION_TIMER_COMPACT: u8 = 2;
 const FOCUS_PRESENTATION_TIMER_EXPANDED: u8 = 3;
 const FOCUS_POSITION_MOTION_STEP_MS: u64 = 16;
 const FOCUS_POSITION_MOTION_MAX_MS: u64 = 1_000;
+const BLITZ_MAIN_MORPH_MS: u64 = 220;
 const FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS: u64 = 50;
 
 static FOCUS_SURFACE_PRESENTATION_STATE: AtomicU8 = AtomicU8::new(FOCUS_PRESENTATION_UNKNOWN);
@@ -1330,6 +1332,76 @@ fn interpolate_focus_axis(start: i32, end: i32, step: u64, steps: u64) -> Comman
     Ok(value as i32)
 }
 
+fn interpolate_focus_extent(start: u32, end: u32, step: u64, steps: u64) -> CommandResult<u32> {
+    let start = i32::try_from(start).map_err(|_| {
+        CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            "animated window extent exceeds supported coordinates",
+        )
+    })?;
+    let end = i32::try_from(end).map_err(|_| {
+        CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            "animated window extent exceeds supported coordinates",
+        )
+    })?;
+    let value = interpolate_focus_axis(start, end, step, steps)?;
+    u32::try_from(value).map_err(|_| {
+        CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            "animated window extent became negative",
+        )
+    })
+}
+
+fn interpolate_blitz_morph_rect(
+    start: GeometryRect,
+    target: GeometryRect,
+    step: u64,
+    steps: u64,
+) -> CommandResult<GeometryRect> {
+    Ok(GeometryRect {
+        position: GeometryPoint {
+            x: interpolate_focus_axis(start.position.x, target.position.x, step, steps)?,
+            y: interpolate_focus_axis(start.position.y, target.position.y, step, steps)?,
+        },
+        size: GeometrySize {
+            width: interpolate_focus_extent(start.size.width, target.size.width, step, steps)?,
+            height: interpolate_focus_extent(start.size.height, target.size.height, step, steps)?,
+        },
+    })
+}
+
+fn animate_main_focus_rect(
+    window: &tauri::WebviewWindow,
+    start: GeometryRect,
+    target: GeometryRect,
+    duration_ms: u64,
+) -> CommandResult<()> {
+    if duration_ms == 0 || duration_ms > FOCUS_POSITION_MOTION_MAX_MS {
+        return Err(CommandError::invalid_argument(
+            "durationMs",
+            format!("must be between 1 and {FOCUS_POSITION_MOTION_MAX_MS} milliseconds"),
+        ));
+    }
+
+    let steps = duration_ms.div_ceil(FOCUS_POSITION_MOTION_STEP_MS).max(1);
+    let mut elapsed_ms = 0_u64;
+    for step in 1..=steps {
+        let target_elapsed_ms = duration_ms * step / steps;
+        let sleep_ms = target_elapsed_ms.saturating_sub(elapsed_ms);
+        if sleep_ms != 0 {
+            std::thread::sleep(Duration::from_millis(sleep_ms));
+        }
+        elapsed_ms = target_elapsed_ms;
+        main_focus_morph::set_outer_rect(
+            window,
+            interpolate_blitz_morph_rect(start, target, step, steps)?,
+        )?;
+    }
+    Ok(())
+}
+
 fn animate_focus_position(
     window: &tauri::WebviewWindow,
     target: GeometryPoint,
@@ -1767,10 +1839,51 @@ fn present_focus_panel(app_handle: tauri::AppHandle) -> CommandResult<()> {
         .map_err(|error| map_window_error(FOCUS_SURFACE_LABEL, "focus Focus Panel", error))
 }
 
-#[tauri::command]
-fn present_focus_for_blitz(app_handle: tauri::AppHandle) -> CommandResult<()> {
-    let window = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
-    let visible = window.is_visible().map_err(|error| {
+fn show_focus_after_blitz_entry(
+    main: &tauri::WebviewWindow,
+    focus: &tauri::WebviewWindow,
+) -> CommandResult<()> {
+    show_and_focus(focus)?;
+    if let Err(error) = main.hide() {
+        eprintln!(
+            "Focus Panel is visible, but Main could not be hidden after Blitz entry: {error}"
+        );
+    }
+    Ok(())
+}
+
+fn restore_main_after_blitz_morph(
+    main: &tauri::WebviewWindow,
+    snapshot: GeometryRect,
+) -> CommandResult<()> {
+    let mut failures = Vec::new();
+    if let Err(error) = main_focus_morph::set_outer_rect(main, snapshot) {
+        failures.push(error);
+    }
+    if let Err(error) = focus_frame_hold::clear(main) {
+        failures.push(error);
+    }
+    if failures.is_empty() {
+        Ok(())
+    } else {
+        Err(CommandError::new(
+            "FOCUS_PRESENTATION_RECOVERY_FAILED",
+            failures
+                .iter()
+                .map(ToString::to_string)
+                .collect::<Vec<_>>()
+                .join("; "),
+        ))
+    }
+}
+
+#[tauri::command(rename_all = "camelCase")]
+async fn present_focus_for_blitz(
+    app_handle: tauri::AppHandle,
+    reduced_motion: bool,
+) -> CommandResult<()> {
+    let focus = get_window(&app_handle, FOCUS_SURFACE_LABEL)?;
+    let visible = focus.is_visible().map_err(|error| {
         map_window_error(
             FOCUS_SURFACE_LABEL,
             "read Focus visibility for Blitz entry",
@@ -1779,11 +1892,9 @@ fn present_focus_for_blitz(app_handle: tauri::AppHandle) -> CommandResult<()> {
     })?;
 
     if visible {
-        // A visible Timer must return to Panel through the persistent React
-        // coordinator so target prepaint and renderer/native ownership stay
-        // serialized. Focusing first preserves the existing visible surface
-        // while the coordinator commits the Panel transition.
-        window.set_focus().map_err(|error| {
+        // Preserve the existing visible-surface coordinator path. The native
+        // Board morph is only for the ordinary hidden-Focus entry from Main.
+        focus.set_focus().map_err(|error| {
             map_window_error(FOCUS_SURFACE_LABEL, "focus existing Blitz surface", error)
         })?;
         return app_handle
@@ -1796,16 +1907,121 @@ fn present_focus_for_blitz(app_handle: tauri::AppHandle) -> CommandResult<()> {
             });
     }
 
-    // Hidden Focus entry is safe to prepare natively because no intermediate
-    // renderer state is exposed to the user. The coordinator reconciles the
-    // authoritative Panel presentation while the host is still hidden.
+    // Prepare the retained hidden Focus host at its authoritative Panel target
+    // before touching Main. No intermediate Focus renderer state is exposed.
     apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?;
-    window.show().map_err(|error| {
-        map_window_error(FOCUS_SURFACE_LABEL, "show Focus surface for Blitz", error)
+
+    let main = get_window(&app_handle, MAIN_WINDOW_LABEL)?;
+    if reduced_motion
+        || !main_focus_morph::supported()
+        || !main_focus_morph::safe_restored_state(&main)?
+    {
+        return show_focus_after_blitz_entry(&main, &focus);
+    }
+
+    let main_snapshot = main_focus_morph::capture_outer_rect(&main)?;
+    let focus_target = main_focus_morph::capture_outer_rect(&focus)?;
+    let visible = main.inner_size().map_err(|error| {
+        map_window_error(
+            MAIN_WINDOW_LABEL,
+            "read Main client size before Blitz morph",
+            error,
+        )
     })?;
-    window.set_focus().map_err(|error| {
-        map_window_error(FOCUS_SURFACE_LABEL, "focus Focus surface for Blitz", error)
+
+    let frame = match focus_frame_capture::capture(main.clone()).await {
+        Ok(frame) => frame,
+        Err(error) => {
+            eprintln!("Blitz Main pixel capture failed; using direct Focus handoff: {error}");
+            return show_focus_after_blitz_entry(&main, &focus);
+        }
+    };
+    let hold = match focus_frame_hold::begin(&main, visible, &frame) {
+        Ok(hold) => hold,
+        Err(error) => {
+            eprintln!("Blitz Main raster hold failed; using direct Focus handoff: {error}");
+            return show_focus_after_blitz_entry(&main, &focus);
+        }
+    };
+
+    let worker_main = main.clone();
+    let transition = match tauri::async_runtime::spawn_blocking(move || {
+        animate_main_focus_rect(
+            &worker_main,
+            main_snapshot,
+            focus_target,
+            BLITZ_MAIN_MORPH_MS,
+        )
     })
+    .await
+    {
+        Ok(result) => result,
+        Err(error) => Err(CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            format!("Board-to-Focus morph worker failed: {error}"),
+        )),
+    };
+
+    if let Err(error) = transition {
+        let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
+        drop(hold);
+        return match recovery {
+            Ok(()) => {
+                eprintln!("Board-to-Focus morph failed; using direct Focus handoff: {error}");
+                show_focus_after_blitz_entry(&main, &focus)
+            }
+            Err(recovery) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{error}; Main rollback failed: {recovery}"),
+            )),
+        };
+    }
+
+    if let Err(error) = main.hide() {
+        let recovery = restore_main_after_blitz_morph(&main, main_snapshot);
+        drop(hold);
+        return match recovery {
+            Ok(()) => {
+                eprintln!(
+                    "Could not hide Main at the Board-to-Focus morph endpoint; using direct Focus handoff: {error}"
+                );
+                show_focus_after_blitz_entry(&main, &focus)
+            }
+            Err(recovery) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{error}; Main rollback failed: {recovery}"),
+            )),
+        };
+    }
+
+    // Match the source-backed handoff: once the frozen Main reaches the Focus
+    // target, remove Main from view, restore its exact user geometry while it
+    // is hidden, clear the finite raster, then reveal the prepared Focus host.
+    if let Err(recovery) = restore_main_after_blitz_morph(&main, main_snapshot) {
+        drop(hold);
+        let visibility_recovery = show_and_focus(&main);
+        return match visibility_recovery {
+            Ok(()) => Err(recovery),
+            Err(visibility) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{recovery}; Main visibility recovery failed: {visibility}"),
+            )),
+        };
+    }
+    drop(hold);
+
+    if let Err(error) = show_and_focus(&focus) {
+        let _ = focus.hide();
+        return match show_and_focus(&main) {
+            Ok(()) => Err(error),
+            Err(recovery) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{error}; restored Main could not be shown: {recovery}"),
+            )),
+        };
+    }
+
+    Ok(())
 }
 
 pub(crate) fn revalidate_open_focus_panel_after_display_change(
@@ -1875,8 +2091,8 @@ pub(crate) fn revalidate_open_timer_after_display_change(
 #[cfg(test)]
 mod focus_position_motion_tests {
     use super::{
-        focus_panel_animation_size, interpolate_focus_axis, GeometryPoint, GeometryRect,
-        GeometrySize,
+        focus_panel_animation_size, interpolate_blitz_morph_rect, interpolate_focus_axis,
+        GeometryPoint, GeometryRect, GeometrySize,
     };
 
     #[test]
@@ -1941,6 +2157,35 @@ mod focus_position_motion_tests {
         assert!((100..=130).contains(&early));
         assert!(midpoint > 900);
         assert!(late > 990);
+    }
+
+    #[test]
+    fn blitz_board_morph_interpolates_position_and_size_to_exact_target() {
+        let start = GeometryRect {
+            position: GeometryPoint { x: 120, y: 80 },
+            size: GeometrySize {
+                width: 1_000,
+                height: 700,
+            },
+        };
+        let target = GeometryRect {
+            position: GeometryPoint { x: 1_580, y: 0 },
+            size: GeometrySize {
+                width: 340,
+                height: 700,
+            },
+        };
+        assert_eq!(
+            interpolate_blitz_morph_rect(start, target, 0, 14).expect("start"),
+            start,
+        );
+        let middle = interpolate_blitz_morph_rect(start, target, 7, 14).expect("middle");
+        assert!(middle.position.x > start.position.x);
+        assert!(middle.size.width < start.size.width);
+        assert_eq!(
+            interpolate_blitz_morph_rect(start, target, 14, 14).expect("target"),
+            target,
+        );
     }
 
     #[test]

@@ -3,24 +3,6 @@ import { formatInvokeError } from "./diagnosticApi";
 import { presentFocusForBlitz, startBlitz } from "./focusEntryApi";
 import "./blitzEntryButton.css";
 
-const BLITZ_BOARD_FADE_MS = 250;
-
-async function fadeBoardBeforeFocusPresentation(): Promise<() => void> {
-  const board = document.querySelector<HTMLElement>('[data-list-board="main"]');
-  if (!board || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return () => {};
-  }
-
-  board.dataset.blitzFocusTransition = "fading";
-  await new Promise<void>((resolve) => window.setTimeout(resolve, BLITZ_BOARD_FADE_MS));
-
-  return () => {
-    if (board.dataset.blitzFocusTransition === "fading") {
-      delete board.dataset.blitzFocusTransition;
-    }
-  };
-}
-
 export function BlitzEntryButton() {
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState("");
@@ -44,16 +26,13 @@ export function BlitzEntryButton() {
         : "Blitz is already active.";
       setStatus(committedStatus);
 
-      let restoreBoard = () => {};
       try {
-        restoreBoard = await fadeBoardBeforeFocusPresentation();
-        await presentFocusForBlitz();
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        await presentFocusForBlitz(reducedMotion);
       } catch (presentationFailure: unknown) {
         setError(
           `Focus session is active, but the Focus Panel could not be shown. ${formatInvokeError(presentationFailure)}`,
         );
-      } finally {
-        restoreBoard();
       }
     } catch (failure: unknown) {
       setError(`Blitz could not start. ${formatInvokeError(failure)}`);

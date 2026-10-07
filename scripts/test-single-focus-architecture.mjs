@@ -266,21 +266,30 @@ invariant(
   "Main in-app Focus actions must route to the single host",
 );
 invariant(
-  focusEntryApi.includes('invoke<void>("present_focus_for_blitz")')
+  focusEntryApi.includes('invoke<void>("present_focus_for_blitz", { reducedMotion })')
     && !focusEntryApi.includes('invoke<void>("present_focus_panel")')
-    && blitzEntry.includes("await presentFocusForBlitz();"),
+    && blitzEntry.includes("await presentFocusForBlitz(reducedMotion);"),
   "production Blitz entry must use the coordinator-safe native entry boundary",
 );
-const blitzEntryNativeStart = lib.indexOf("fn present_focus_for_blitz(app_handle: tauri::AppHandle)");
+const blitzEntryNativeStart = lib.indexOf("async fn present_focus_for_blitz(");
 const blitzEntryNativeEnd = lib.indexOf("pub(crate) fn revalidate_open_focus_panel_after_display_change(", blitzEntryNativeStart);
 const blitzEntryNative = lib.slice(blitzEntryNativeStart, blitzEntryNativeEnd);
+const blitzVisibleBranchStart = blitzEntryNative.indexOf("if visible {");
+const blitzHiddenBranchStart = blitzEntryNative.indexOf(
+  "// Prepare the retained hidden Focus host",
+  blitzVisibleBranchStart,
+);
+const blitzVisibleBranch = blitzEntryNative.slice(blitzVisibleBranchStart, blitzHiddenBranchStart);
+const blitzHiddenBranch = blitzEntryNative.slice(blitzHiddenBranchStart);
 invariant(
   blitzEntryNativeStart >= 0
-    && blitzEntryNative.includes("if visible {")
-    && blitzEntryNative.includes("set_focus()")
-    && blitzEntryNative.includes("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?")
-    && blitzEntryNative.indexOf("if visible {")
-      < blitzEntryNative.indexOf("apply_focus_surface_presentation_internal(&app_handle, FocusSurfacePresentation::Panel, None)?"),
+    && blitzVisibleBranchStart >= 0
+    && blitzHiddenBranchStart > blitzVisibleBranchStart
+    && blitzVisibleBranch.includes("set_focus()")
+    && blitzVisibleBranch.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
+    && !blitzVisibleBranch.includes("apply_focus_surface_presentation_internal")
+    && blitzHiddenBranch.includes("apply_focus_surface_presentation_internal(")
+    && blitzHiddenBranch.includes("FocusSurfacePresentation::Panel"),
   "Blitz re-entry must preserve a visible Focus presentation and only prepare Panel while hidden",
 );
 invariant(

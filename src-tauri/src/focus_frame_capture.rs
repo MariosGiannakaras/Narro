@@ -1,5 +1,7 @@
-//! Capture only Narro's prepared WebView pixels, never its stale parent GDI DC.
+//! Capture Narro's prepared WebView pixels, never stale parent/desktop GDI pixels.
 use crate::error::{CommandError, CommandResult};
+
+const MAX_CAPTURE_PNG_BYTES: u64 = 8 * 1024 * 1024;
 
 #[cfg(windows)]
 pub async fn capture(window: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
@@ -28,7 +30,7 @@ pub async fn capture(window: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
                         captured_stream
                             .Stat(&mut info, STATFLAG_NONAME)
                             .map_err(|e| error(e.to_string()))?;
-                        if info.cbSize == 0 || info.cbSize > 1_048_576 {
+                        if info.cbSize == 0 || info.cbSize > MAX_CAPTURE_PNG_BYTES {
                             return Err(error("capture size is invalid"));
                         }
                         captured_stream
@@ -84,7 +86,11 @@ pub async fn capture(_: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
 
 #[cfg(windows)]
 pub fn compact_bgra(png_bytes: &[u8], width: u32, height: u32) -> CommandResult<Vec<u8>> {
-    if png_bytes.is_empty() || png_bytes.len() > 1_048_576 || width == 0 || height == 0 {
+    if png_bytes.is_empty()
+        || png_bytes.len() as u64 > MAX_CAPTURE_PNG_BYTES
+        || width == 0
+        || height == 0
+    {
         return Err(error("invalid compact capture"));
     }
     let mut decoder = png::Decoder::new(std::io::Cursor::new(png_bytes));
