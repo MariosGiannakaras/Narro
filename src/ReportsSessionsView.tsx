@@ -337,6 +337,10 @@ export function ReportAddSessionDialog({
     return () => openerRef.current?.focus();
   }, []);
 
+  useEffect(() => {
+    if (pending) dialogRef.current?.focus();
+  }, [pending]);
+
   function requestClose() {
     if (!pending) onClose();
   }

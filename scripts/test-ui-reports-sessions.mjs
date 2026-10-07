@@ -50,6 +50,7 @@ for (const [haystack, needle, label] of [
   [view, 'event.key !== "Tab"', "Add Session Tab containment"],
   [view, "openerRef.current?.focus()", "Add Session focus restoration"],
   [view, "if (!pending) onClose()", "Add Session pending dismissal guard"],
+  [view, "if (pending) dialogRef.current?.focus()", "Add Session pending focus ownership"],
   [styles, "overflow-x: hidden;", "Recent Tasks horizontal overflow suppression"],
   [styles, "text-overflow: ellipsis;", "Recent Tasks bounded one-line title treatment"],
   [fixture, '"sessions-add-keyboard"', "rendered Add Session keyboard fixture"],

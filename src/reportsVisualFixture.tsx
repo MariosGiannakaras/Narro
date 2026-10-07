@@ -456,7 +456,8 @@ async function validateAddSessionKeyboardFixture() {
   trigger!.click();
   const pendingDialog = await waitForElement<HTMLElement>(".reports-sessions__add-dialog");
   requireFixture(pendingDialog, "Pending Add Session fixture did not reopen.");
-  pendingDialog!.focus();
+  await wait(30);
+  requireFixture(document.activeElement === pendingDialog, "Pending Add Session did not move focus to its dialog shell.");
   dispatchFixtureKey(pendingDialog!, "Escape");
   await wait(30);
   requireFixture(document.querySelector(".reports-sessions__add-dialog"), "Pending Escape dismissed Add Session.");
