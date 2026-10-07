@@ -314,6 +314,8 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
     setExportError(null);
     setListFilterOpen(false);
     setDatePickerOpen(false);
+    const bodyWasInert = document.body.inert;
+    document.body.inert = true;
     document.documentElement.dataset.reportPdfExport = "true";
 
     try {
@@ -327,6 +329,7 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
       setExportError(formatInvokeError(failure));
     } finally {
       delete document.documentElement.dataset.reportPdfExport;
+      document.body.inert = bodyWasInert;
       setExportPending(false);
     }
   };
