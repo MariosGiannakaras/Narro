@@ -145,33 +145,41 @@ for (const forbidden of [
 const pauseForHomeStart = timerService.indexOf("pub fn pause_for_focus_home(");
 const pauseForHomeEnd = timerService.indexOf("pub fn resume_focus_home_pause(", pauseForHomeStart);
 const pauseForHome = timerService.slice(pauseForHomeStart, pauseForHomeEnd);
-const pauseLeaseLock = pauseForHome.indexOf("let mut lease = self");
-const pauseTransition = pauseForHome.indexOf("let payload = self.transition_if(", pauseLeaseLock);
+const pauseGateLock = pauseForHome.indexOf("let _home_pause_gate = self");
+const pauseLeaseRead = pauseForHome.indexOf("let existing_lease = {", pauseGateLock);
+const pauseTransition = pauseForHome.indexOf("let payload = self.transition_if(", pauseLeaseRead);
 const pauseLeaseCommit = pauseForHome.indexOf("*lease = next_lease;", pauseTransition);
 if (
   pauseForHomeStart < 0
   || pauseForHomeEnd < pauseForHomeStart
-  || pauseLeaseLock < 0
-  || pauseTransition < pauseLeaseLock
+  || pauseGateLock < 0
+  || pauseLeaseRead < pauseGateLock
+  || pauseTransition < pauseLeaseRead
   || pauseLeaseCommit < pauseTransition
 ) {
-  throw new Error("P3-M6-06 repeated Home pause renewal must keep the provenance lease serialized through the authoritative pause decision.");
+  throw new Error("P3-M6-06 repeated Home pause renewal must use the dedicated provenance gate across the authoritative pause decision.");
+}
+if (pauseForHome.slice(pauseTransition, pauseLeaseCommit).includes("let _home_pause_gate")) {
+  throw new Error("P3-M6-06 Home provenance gate must be acquired before authoritative timer work.");
 }
 
 const resumeForHomeStart = timerService.indexOf("pub fn resume_focus_home_pause(");
 const resumeForHomeEnd = timerService.indexOf("pub fn resume(&self", resumeForHomeStart);
 const resumeForHome = timerService.slice(resumeForHomeStart, resumeForHomeEnd);
-const resumeLeaseLock = resumeForHome.indexOf("let mut lease_guard = self");
-const resumeLeaseTake = resumeForHome.indexOf("lease_guard.take()", resumeLeaseLock);
+const resumeGateLock = resumeForHome.indexOf("let _home_pause_gate = self");
+const resumeLeaseTake = resumeForHome.indexOf("lease.take()", resumeGateLock);
 const resumeTransition = resumeForHome.indexOf("self.transition_if(", resumeLeaseTake);
 if (
   resumeForHomeStart < 0
   || resumeForHomeEnd < resumeForHomeStart
-  || resumeLeaseLock < 0
-  || resumeLeaseTake < resumeLeaseLock
+  || resumeGateLock < 0
+  || resumeLeaseTake < resumeGateLock
   || resumeTransition < resumeLeaseTake
 ) {
-  throw new Error("P3-M6-06 post-reveal resume must keep the provenance lease serialized through the authoritative resume decision.");
+  throw new Error("P3-M6-06 post-reveal resume must use the dedicated provenance gate across the authoritative resume decision.");
+}
+if (!timerService.includes("focus_home_pause_gate: Mutex<()>")) {
+  throw new Error("P3-M6-06 Home provenance serialization must not hold the authoritative lease mutex across storage/event work.");
 }
 
 const tauriHandler = native.slice(native.indexOf(".invoke_handler(tauri::generate_handler!["));
