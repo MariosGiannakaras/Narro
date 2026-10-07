@@ -307,7 +307,10 @@ export function FocusSurfaceCoordinator() {
     }
 
     await waitForPresentedFrame();
-    if (resumeNonce === null) return;
+    if (resumeNonce === null) {
+      setTimerProjectionError(null);
+      return;
+    }
     try {
       const resumed = await resumeTimerFromFocusHome(resumeNonce);
       if (resumed !== null) {
