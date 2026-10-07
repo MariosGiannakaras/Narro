@@ -104,6 +104,21 @@ assert.equal(findSelectedMonitor(savedAt125Percent, [differentDisplay]), null);
 assert.equal(isValidMonitorSelection(savedAt125Percent, [differentDisplay]), false);
 assert.equal(findSelectedMonitor("malformed-monitor-key", [current]), null);
 
+const oversizedSaved = monitorKey({
+  name: "D".repeat(2050),
+  x: 0,
+  y: 0,
+  width: 1920,
+  height: 1080,
+  workX: 0,
+  workY: 0,
+  workWidth: 1920,
+  workHeight: 1040,
+  scaleBits: "3ff0000000000000",
+});
+const oversizedDisplay = descriptor({ name: "D".repeat(2050) });
+assert.equal(findSelectedMonitor(oversizedSaved, [oversizedDisplay]), null);
+
 const unsignedOverflowSaved = monitorKey({
   name: String.raw`\\.\DISPLAY1`,
   x: 0,
