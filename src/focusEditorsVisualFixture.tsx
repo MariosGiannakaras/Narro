@@ -137,7 +137,11 @@ function Fixture() {
 }
 const root = find<HTMLElement>("#root");
 const result: Record<string, unknown> = {theme, scenario, reducedMotion};
-if (scenario === "m7-integration") {
+if (scenario === "finding28-post-drag") {
+  const { mountFinding28PostDragFixture } = await import("./finding28PostDragFixture");
+  await mountFinding28PostDragFixture(root);
+  result.finding28FixtureMounted = true;
+} else if (scenario === "m7-integration") {
   const { runM7IntegrationRegression } = await import("./m7IntegrationRegression");
   Object.assign(result, await runM7IntegrationRegression(root));
 } else if (scenario === "shortcut-modal") {
