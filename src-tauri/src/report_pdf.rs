@@ -40,6 +40,7 @@ pub async fn capture(window: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
 
     let (send, receive) = mpsc::channel::<Result<(), String>>();
     let callback_send = send.clone();
+    let callback_temp_path = temp_path.clone();
     window
         .with_webview(move |webview| unsafe {
             let start_result = (|| -> windows::core::Result<()> {
@@ -55,7 +56,9 @@ pub async fn capture(window: tauri::WebviewWindow) -> CommandResult<Vec<u8>> {
                                     Err("WebView2 reported an unsuccessful PDF export".to_owned())
                                 }
                             });
-                        let _ = callback_send.send(completed);
+                        if callback_send.send(completed).is_err() {
+                            let _ = std::fs::remove_file(&callback_temp_path);
+                        }
                         Ok(())
                     }));
                 printable.PrintToPdf(
