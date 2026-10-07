@@ -40,6 +40,51 @@ A failure in a current residual check reopens only that authority.
 
 # Minimum closure set
 
+## 0. M5 board current-candidate acceptance — narrow title + P3-M5-01/02/03
+
+This is one bounded board observation, not a general M5 re-audit.
+
+Use a normal planning board with:
+- at least one narrow lane/card where the title previously risked disappearing;
+- at least two movable ordinary tasks;
+- Today containing enough tasks to show progress.
+
+### Narrow title / M5-OBS-20261003-10
+
+PASS requires:
+- ordinary task title remains visibly readable in the narrow card;
+- title/edit input is not reduced to an unusable sliver;
+- hover/focus action reveal does not change card/title-row geometry;
+- reserved action controls do not cover the title.
+
+### P3-M5-01 Today progress
+
+PASS requires the current source-backed Today treatment:
+- persistent Today accent;
+- anchored Blitz CTA;
+- visible `done/total Done` progress coupled to the current Today task count.
+
+### P3-M5-02 ordinary board row grammar
+
+On rest → hover → keyboard focus:
+- resting leading slot shows ordinal;
+- hover/focus replaces/reveals completion at the leading slot without row shift;
+- right rail exposes Subtasks / Notes / lane-left / lane-right / overflow in stable reserved geometry;
+- full title remains accessible.
+
+### P3-M5-03 drag presentation
+
+Perform one owned same-lane or cross-lane drag that does not depend on a destructive side effect.
+
+PASS requires:
+- lifted-card feedback;
+- live source/destination reflow with a card-height placeholder;
+- positional insertion rather than append-only behavior when a positional target is used;
+- finite settle with no stale duplicate/blank card;
+- exactly one task identity moves.
+
+Record representative screenshots/video ranges for later direct canonical comparison. This section establishes current packaged-Windows behavior; do not promote `SOURCE_PARITY_PASS` without the corresponding canonical comparison.
+
 ## 1. M5 P3-M5-04 — retained destructive menu
 
 Authority: VE-006 Pass-3 destructive-row transition plus current production menu contract.
@@ -91,6 +136,24 @@ PASS requires:
 If a failure is visible with animations On, record the exact transition and stop repeating the same cycle. Reduced-motion/animations-Off is needed only if the current failure classification requires it; do not duplicate an already sufficient failure.
 
 This check is the current C4 continuity gate. It does not reopen C5 or accepted placement/restart/platform evidence.
+
+## 3A. Finding28 — native packaged-WebView post-drag keyboard rail
+
+This observation resolves only the remaining CI953 native/Tauri-WebView/UIA discrepancy. PR245/CI1029 already proves the production browser DOM/CSS contract and **does not authorize a CSS/TaskCard workaround**.
+
+Use one owned ordinary board task:
+1. Perform one real pointer reorder.
+2. Move pointer away from the task.
+3. Put real keyboard focus on the reordered task title without hovering the card.
+4. Observe the rendered rail and, if available, native/UIA focused element.
+5. Press real Tab once, then Shift+Tab.
+
+PASS requires:
+- title focus reveals the action rail without pointer hover;
+- Tab enters the first rail action and Shift+Tab returns to title;
+- no second reorder or title edit occurs.
+
+If UIA reports title `HasKeyboardFocus=true` while the rendered rail remains absent, record **FAIL / NATIVE DISCREPANCY PERSISTS**. Do not add a blind CSS/focus patch; preserve the CI1029 browser-DOM PASS and reopen only the Tauri/WebView/UIA boundary.
 
 ## 4. Reports Findings29/30 — packaged Windows acceptance
 
