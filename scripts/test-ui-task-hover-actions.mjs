@@ -85,6 +85,8 @@ for (const [haystack, needle, label] of [
   [finding28Fixture, "<ListBoard target={{ kind: \"list\", id: listId }} />", "Finding28 production ListBoard fixture"],
   [finding28Fixture, 'command === "reorder_list_board_task"', "Finding28 real reorder authority mock"],
   [finding28Driver, '"Input.dispatchMouseEvent"', "Finding28 browser pointer input"],
+  [finding28Driver, "new PointerEvent", "Finding28 deterministic production pointer transport"],
+  [finding28Driver, "isTrusted", "Finding28 synthetic drag transport disclosure"],
   [finding28Driver, '"Input.dispatchKeyEvent"', "Finding28 browser keyboard input"],
   [finding28Driver, 'probeCard?.matches(":focus-within")', "Finding28 focus-within observation"],
   [finding28Driver, 'probeShell?.matches(":focus-visible")', "Finding28 shell focus-visible observation"],

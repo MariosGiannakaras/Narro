@@ -124,6 +124,24 @@ async function sleep(client, milliseconds) {
   await evaluate(client, `new Promise(resolve => setTimeout(resolve, ${milliseconds}))`);
 }
 
+async function dispatchPointer(client, type, x, y, button, buttons, targetMode = "window") {
+  return evaluate(client, `(() => {
+    const x = ${JSON.stringify(0)};
+    return true;
+  })()`.replace("const x = 0;", [
+    "const x = " + JSON.stringify(x) + ";",
+    "const y = " + JSON.stringify(y) + ";",
+    "const target = " + JSON.stringify(targetMode) + " === \"hit\" ? document.elementFromPoint(x, y) : window;",
+    "if (!target) throw new Error(\"Finding28 pointer transport target is missing.\");",
+    "const event = new PointerEvent(" + JSON.stringify(type) + ", {",
+    "  pointerId: 1, pointerType: \"mouse\", isPrimary: true,",
+    "  button: " + JSON.stringify(button) + ", buttons: " + JSON.stringify(buttons) + ",",
+    "  clientX: x, clientY: y, bubbles: true, cancelable: true, composed: true,",
+    "});",
+    "return { dispatched: target.dispatchEvent(event), target: target instanceof Element ? target.outerHTML.slice(0, 220) : \"window\" };",
+  ].join("\n")));
+}
+
 async function key(client, keyName, code, virtualKeyCode, modifiers = 0) {
   await client.send("Input.dispatchKeyEvent", {
     type: "keyDown",
@@ -306,6 +324,7 @@ try {
         clientX: "clientX" in event ? event.clientX : null,
         clientY: "clientY" in event ? event.clientY : null,
         defaultPrevented: event.defaultPrevented,
+        isTrusted: event.isTrusted,
         taskId: shell?.getAttribute("data-board-drag-task") ?? null,
         target: target?.outerHTML?.slice(0, 220) ?? null,
       });
@@ -346,28 +365,44 @@ try {
   await client.send("Input.dispatchMouseEvent", {
     type: "mouseMoved", x: initial.sourcePoint.x, y: initial.sourcePoint.y, button: "none", buttons: 0,
   });
-  await client.send("Input.dispatchMouseEvent", {
-    type: "mousePressed", x: initial.sourcePoint.x, y: initial.sourcePoint.y,
-    button: "left", buttons: 1, clickCount: 1,
-  });
+
+  // CI1023 proved Edge/CDP mousePressed emits mousedown but not pointerdown in
+  // this headless transport. The production board starts drag exclusively from
+  // onPointerDown, so use deterministic PointerEvent transport for drag start/
+  // move/finish while retaining real Edge input for the keyboard/hover probes
+  // that decide Finding28's focus/action-rail behavior.
+  await dispatchPointer(
+    client,
+    "pointerdown",
+    initial.sourcePoint.x,
+    initial.sourcePoint.y,
+    0,
+    1,
+    "hit",
+  );
   await sleep(client, 40);
   const pressTrace = await evaluate(client, `(() => ({
     expectedTaskId: window.__NARRO_FINDING28_FIXTURE__.read().taskIds[0],
     events: (window.__NARRO_FINDING28_INPUT_TRACE__ ?? []).slice(),
   }))()`);
-  const pointerDown = pressTrace.events.find((event) => event.type === "pointerdown");
-  assert.ok(pointerDown, "Finding28 CDP mouse press did not produce a pointerdown.");
+  const pointerDown = pressTrace.events.find((event) => event.type === "pointerdown" && event.buttons === 1);
+  assert.ok(pointerDown, "Finding28 deterministic pointerdown did not reach the production drag shell.");
   assert.equal(pointerDown.taskId, pressTrace.expectedTaskId, "Finding28 pointerdown missed the expected production drag shell.");
+  assert.equal(pointerDown.isTrusted, false, "Finding28 harness must record its deterministic drag transport as synthetic.");
 
-  await client.send("Input.dispatchMouseEvent", {
-    type: "mouseMoved", x: initial.sourcePoint.x + 12, y: initial.sourcePoint.y + 12,
-    button: "none", buttons: 1,
-  });
+  await dispatchPointer(
+    client,
+    "pointermove",
+    initial.sourcePoint.x + 12,
+    initial.sourcePoint.y + 12,
+    -1,
+    1,
+  );
   await sleep(client, 40);
   const moveTrace = await evaluate(client, "(window.__NARRO_FINDING28_INPUT_TRACE__ ?? []).slice()");
   assert.ok(
     moveTrace.some((event) => event.type === "pointermove" && event.buttons === 1),
-    "Finding28 CDP pressed mouse move did not produce a left-button pointermove.",
+    "Finding28 deterministic pressed pointermove did not reach the production drag session.",
   );
 
   await waitFor(async () => {
@@ -392,15 +427,23 @@ try {
     return { x, y, hit: hit?.outerHTML?.slice(0, 180) ?? null };
   })()`);
 
-  await client.send("Input.dispatchMouseEvent", {
-    type: "mouseMoved", x: destinationPoint.x, y: destinationPoint.y,
-    button: "none", buttons: 1,
-  });
+  await dispatchPointer(
+    client,
+    "pointermove",
+    destinationPoint.x,
+    destinationPoint.y,
+    -1,
+    1,
+  );
   await sleep(client, 80);
-  await client.send("Input.dispatchMouseEvent", {
-    type: "mouseReleased", x: destinationPoint.x, y: destinationPoint.y,
-    button: "left", buttons: 0, clickCount: 1,
-  });
+  await dispatchPointer(
+    client,
+    "pointerup",
+    destinationPoint.x,
+    destinationPoint.y,
+    0,
+    0,
+  );
 
   await waitFor(async () => {
     const state = await evaluate(client, "window.__NARRO_FINDING28_FIXTURE__.read()");
