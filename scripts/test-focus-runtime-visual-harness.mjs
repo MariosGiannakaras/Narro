@@ -74,6 +74,11 @@ for (const required of [
 ]) invariant(driver.includes(required), `renderer capture driver is missing ${required}`);
 
 invariant(
+  driver.includes('invoke("present_focus_for_blitz", { reducedMotion: false })'),
+  "packaged normal-motion runtime harness must pass the required native motion policy argument",
+);
+
+invariant(
   rust.includes("NARRO_FOCUS_CAPTURE_DIR")
     && rust.includes("focus_runtime_capture_checkpoint")
     && rust.includes("focus_runtime_capture_acknowledged")
