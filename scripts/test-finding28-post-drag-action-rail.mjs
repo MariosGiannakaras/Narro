@@ -126,20 +126,29 @@ async function sleep(client, milliseconds) {
 
 async function dispatchPointer(client, type, x, y, button, buttons, targetMode = "window") {
   return evaluate(client, `(() => {
-    const x = ${JSON.stringify(0)};
-    return true;
-  })()`.replace("const x = 0;", [
-    "const x = " + JSON.stringify(x) + ";",
-    "const y = " + JSON.stringify(y) + ";",
-    "const target = " + JSON.stringify(targetMode) + " === \"hit\" ? document.elementFromPoint(x, y) : window;",
-    "if (!target) throw new Error(\"Finding28 pointer transport target is missing.\");",
-    "const event = new PointerEvent(" + JSON.stringify(type) + ", {",
-    "  pointerId: 1, pointerType: \"mouse\", isPrimary: true,",
-    "  button: " + JSON.stringify(button) + ", buttons: " + JSON.stringify(buttons) + ",",
-    "  clientX: x, clientY: y, bubbles: true, cancelable: true, composed: true,",
-    "});",
-    "return { dispatched: target.dispatchEvent(event), target: target instanceof Element ? target.outerHTML.slice(0, 220) : \"window\" };",
-  ].join("\n")));
+    const x = ${JSON.stringify(x)};
+    const y = ${JSON.stringify(y)};
+    const target = ${JSON.stringify(targetMode)} === "hit"
+      ? document.elementFromPoint(x, y)
+      : window;
+    if (!target) throw new Error("Finding28 pointer transport target is missing.");
+    const event = new PointerEvent(${JSON.stringify(type)}, {
+      pointerId: 1,
+      pointerType: "mouse",
+      isPrimary: true,
+      button: ${JSON.stringify(button)},
+      buttons: ${JSON.stringify(buttons)},
+      clientX: x,
+      clientY: y,
+      bubbles: true,
+      cancelable: true,
+      composed: true,
+    });
+    return {
+      dispatched: target.dispatchEvent(event),
+      target: target instanceof Element ? target.outerHTML.slice(0, 220) : "window",
+    };
+  })()`);
 }
 
 async function key(client, keyName, code, virtualKeyCode, modifiers = 0) {
