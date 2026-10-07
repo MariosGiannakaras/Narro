@@ -11,6 +11,7 @@ const notes = read("src/TaskNotes.tsx");
 const css = read("src/taskNotes.css");
 const fixture = read("src/taskNotesVisualFixture.tsx");
 const capture = read("scripts/capture-visual-fixtures.ps1");
+const finding33Driver = read("scripts/test-finding33-large-notes-escape.mjs");
 const validator = read("scripts/validate-task-note-captures.mjs");
 const packageJson = read("package.json");
 
@@ -45,6 +46,12 @@ for (const [haystack, needle, label] of [
   [fixture, 'presentationButton.click();', "production presentation activation in fixture"],
   [fixture, "resizablePresentation", "visual resizable contract"],
   [capture, 'task-notes-large-$theme', "Windows large Notes capture"],
+  [capture, 'test-finding33-large-notes-escape.mjs', "Finding33 real Edge Escape execution"],
+  [finding33Driver, '"Input.dispatchKeyEvent"', "Finding33 real browser keyboard input"],
+  [finding33Driver, '[data-task-note-control="editor"]', "Finding33 contenteditable focus path"],
+  [finding33Driver, 'shell.addEventListener("keydown"', "Finding33 key propagation trace"],
+  [finding33Driver, 'data-task-note-presentation', "Finding33 presentation-state observation"],
+  [finding33Driver, '"finding33-large-notes-escape.json"', "Finding33 durable rendered result"],
   [validator, 'contract.presentation === "large"', "large Notes capture contract"],
   [validator, "contract.largeDialog === true", "large Notes dialog visual contract"],
   [validator, "contract.resizablePresentation === true", "large Notes resize visual contract"],

@@ -328,6 +328,13 @@ try {
                 -ReadyMaxAttempts 8
         }
     }
+
+    if ($Scope -eq "all") {
+        & node (Join-Path $PSScriptRoot "test-finding33-large-notes-escape.mjs") $baseUrl $edge
+        if ($LASTEXITCODE -ne 0) {
+            throw "Finding33 large Notes real Escape regression failed with exit code $LASTEXITCODE."
+        }
+    }
 } finally {
     if ($preview -and -not $preview.HasExited) {
         & taskkill.exe /PID $preview.Id /T /F 2>$null | Out-Null
