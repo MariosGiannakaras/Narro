@@ -298,5 +298,5 @@ try {
 } finally {
   client?.close();
   killTree(edge);
-  fs.rmSync(profile, { recursive: true, force: true });
+  fs.rmSync(profile, { recursive: true, force: true, maxRetries: 8, retryDelay: 125 });
 }
