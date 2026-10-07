@@ -89,16 +89,21 @@ for (const [haystack, needle, label] of [
   [panel, "await waitForPresentedFrame();", "P3-M6-06 visible PAUSED frame before exit"],
   [panel, "await resumeTimerFromFocusHome();", "P3-M6-06 guarded Home exit rollback"],
   [timerApi, 'committedOptionalTimerMutation("timer_pause_for_focus_home")', "P3-M6-06 typed optional Home pause API"],
-  [timerApi, 'committedOptionalTimerMutation("timer_resume_focus_home_pause")', "P3-M6-06 typed optional guarded resume API"],
+  [timerApi, '"timer_resume_focus_home_pause"', "P3-M6-06 typed optional guarded resume API"],
+  [timerApi, "resumeNonce === undefined ? undefined : { resumeNonce }", "P3-M6-06 coordinated resume nonce wiring"],
   [timerService, "struct FocusHomePauseLease", "P3-M6-06 one-shot pause provenance"],
+  [timerService, "nonce: u64", "P3-M6-06 generation-bound pause provenance"],
+  [timerService, "renew_focus_home_pause_lease", "P3-M6-06 repeated Home exit provenance renewal"],
+  [timerService, "if current.nonce != expected", "P3-M6-06 stale reveal resume rejection"],
   [timerService, "lease.take()", "P3-M6-06 one-shot resume ownership"],
   [timerService, "payload.revision == lease.revision", "P3-M6-06 exact revision guard"],
   [timerService, "payload.runtime.timer.task_id == Some(lease.task_id)", "P3-M6-06 exact task guard"],
   [timerService, "payload.runtime.open_session_id == Some(lease.session_id)", "P3-M6-06 exact session guard"],
-  [coordinator, "const handleBlitzPanelRequest = useCallback(async () => {", "P3-M6-06 Blitz-only resume coordinator"],
+  [coordinator, "const handleBlitzPanelRequest = useCallback(async (resumeNonce: string | null) => {", "P3-M6-06 Blitz-only resume coordinator"],
   [coordinator, 'await requestModeRef.current("panel");', "P3-M6-06 Panel settlement before resume"],
-  [coordinator, "await resumeTimerFromFocusHome();", "P3-M6-06 guarded post-reveal resume"],
+  [coordinator, "await resumeTimerFromFocusHome(resumeNonce);", "P3-M6-06 guarded post-reveal resume"],
   [native, "fn request_blitz_panel_after_reveal(", "P3-M6-06 native post-reveal handshake"],
+  [native, "focus_home_pause_nonce()?", "P3-M6-06 reveal-bound pause provenance"],
   [notes, "updateListBoardTaskTitle({", "A16 stale-safe live-title persistence"],
   [notes, 'data-task-note-title-editor="true"', "A16 title editor lives inside Notes"],
   [actions, 'allowTitleEdit={!fixtureMode && presentation === "panel"}', "A16 title edit limited to Focus Panel Notes"],
@@ -135,6 +140,46 @@ for (const forbidden of [
   if (entry.includes(forbidden) || boardCss.includes(forbidden)) {
     throw new Error(`P3-M6-01 must not retain the legacy renderer fade: ${forbidden}`);
   }
+}
+
+const pauseForHomeStart = timerService.indexOf("pub fn pause_for_focus_home(");
+const pauseForHomeEnd = timerService.indexOf("pub fn resume_focus_home_pause(", pauseForHomeStart);
+const pauseForHome = timerService.slice(pauseForHomeStart, pauseForHomeEnd);
+const pauseGateLock = pauseForHome.indexOf("let _home_pause_gate = self");
+const pauseLeaseRead = pauseForHome.indexOf("let existing_lease = {", pauseGateLock);
+const pauseTransition = pauseForHome.indexOf("let payload = self.transition_if(", pauseLeaseRead);
+const pauseLeaseCommit = pauseForHome.indexOf("*lease = next_lease;", pauseTransition);
+if (
+  pauseForHomeStart < 0
+  || pauseForHomeEnd < pauseForHomeStart
+  || pauseGateLock < 0
+  || pauseLeaseRead < pauseGateLock
+  || pauseTransition < pauseLeaseRead
+  || pauseLeaseCommit < pauseTransition
+) {
+  throw new Error("P3-M6-06 repeated Home pause renewal must use the dedicated provenance gate across the authoritative pause decision.");
+}
+if (pauseForHome.slice(pauseTransition, pauseLeaseCommit).includes("let _home_pause_gate")) {
+  throw new Error("P3-M6-06 Home provenance gate must be acquired before authoritative timer work.");
+}
+
+const resumeForHomeStart = timerService.indexOf("pub fn resume_focus_home_pause(");
+const resumeForHomeEnd = timerService.indexOf("pub fn resume(&self", resumeForHomeStart);
+const resumeForHome = timerService.slice(resumeForHomeStart, resumeForHomeEnd);
+const resumeGateLock = resumeForHome.indexOf("let _home_pause_gate = self");
+const resumeLeaseTake = resumeForHome.indexOf("lease.take()", resumeGateLock);
+const resumeTransition = resumeForHome.indexOf("self.transition_if(", resumeLeaseTake);
+if (
+  resumeForHomeStart < 0
+  || resumeForHomeEnd < resumeForHomeStart
+  || resumeGateLock < 0
+  || resumeLeaseTake < resumeGateLock
+  || resumeTransition < resumeLeaseTake
+) {
+  throw new Error("P3-M6-06 post-reveal resume must use the dedicated provenance gate across the authoritative resume decision.");
+}
+if (!timerService.includes("focus_home_pause_gate: Mutex<()>")) {
+  throw new Error("P3-M6-06 Home provenance serialization must not hold the authoritative lease mutex across storage/event work.");
 }
 
 const tauriHandler = native.slice(native.indexOf(".invoke_handler(tauri::generate_handler!["));

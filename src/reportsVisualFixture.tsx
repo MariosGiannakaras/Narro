@@ -464,6 +464,25 @@ async function validateAddSessionKeyboardFixture() {
 
   dispatchFixtureKey(pendingDialog!, "Tab");
   requireFixture(document.activeElement === pendingDialog, "Pending Add Session allowed Tab to escape with all controls disabled.");
+
+  pendingToggle!.click();
+  for (let attempt = 0; attempt < 20 && pendingToggle!.getAttribute("aria-pressed") !== "false"; attempt += 1) {
+    await wait(10);
+  }
+  requireFixture(pendingToggle!.getAttribute("aria-pressed") === "false", "Pending fixture did not return to interactive state.");
+  await wait(30);
+  requireFixture(document.activeElement === pendingDialog, "Add Session unexpectedly moved focus after pending settled.");
+  const restoredFocusable = Array.from(pendingDialog!.querySelectorAll<HTMLElement>(
+    'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  )).filter((element) => !element.hasAttribute("hidden"));
+  requireFixture(restoredFocusable.length >= 3, "Restored Add Session needs multiple focusable controls.");
+  const restoredLast = restoredFocusable[restoredFocusable.length - 1];
+  dispatchFixtureKey(pendingDialog!, "Tab", true);
+  requireFixture(
+    document.activeElement === restoredLast,
+    "Add Session Shift+Tab escaped after pending focus returned to the dialog shell.",
+  );
+
   document.documentElement.dataset.reportsAddPendingGuard = "true";
   document.documentElement.dataset.reportsAddKeyboardPass = "true";
 }

@@ -363,7 +363,7 @@ export function ReportAddSessionDialog({
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
     const active = document.activeElement;
-    if (!dialogRef.current.contains(active)) {
+    if (!dialogRef.current.contains(active) || active === dialogRef.current) {
       event.preventDefault();
       (event.shiftKey ? last : first).focus();
     } else if (event.shiftKey && active === first) {

@@ -479,18 +479,34 @@ fn write_unique_export(
         let path = directory.join(file_name);
         match OpenOptions::new().write(true).create_new(true).open(&path) {
             Ok(mut file) => {
-                file.write_all(contents).map_err(|error| {
-                    CommandError::new(
-                        "REPORT_EXPORT_FAILED",
-                        format!("failed to write the local report export: {error}"),
-                    )
-                })?;
-                file.flush().map_err(|error| {
-                    CommandError::new(
-                        "REPORT_EXPORT_FAILED",
-                        format!("failed to finalize the local report export: {error}"),
-                    )
-                })?;
+                let write_result = (|| -> CommandResult<()> {
+                    file.write_all(contents).map_err(|error| {
+                        CommandError::new(
+                            "REPORT_EXPORT_FAILED",
+                            format!("failed to write the local report export: {error}"),
+                        )
+                    })?;
+                    file.flush().map_err(|error| {
+                        CommandError::new(
+                            "REPORT_EXPORT_FAILED",
+                            format!("failed to finalize the local report export: {error}"),
+                        )
+                    })?;
+                    Ok(())
+                })();
+
+                if let Err(primary) = write_result {
+                    drop(file);
+                    return match fs::remove_file(&path) {
+                        Ok(()) => Err(primary),
+                        Err(cleanup) => Err(CommandError::new(
+                            "REPORT_EXPORT_FAILED",
+                            format!(
+                                "{primary}; failed to remove partial local report export: {cleanup}"
+                            ),
+                        )),
+                    };
+                }
                 return Ok(path);
             }
             Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => continue,

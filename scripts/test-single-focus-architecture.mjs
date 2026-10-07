@@ -298,8 +298,9 @@ const blitzPanelRequestHelper = lib.slice(blitzPanelRequestHelperStart, blitzPan
 invariant(
   blitzPanelRequestHelperStart >= 0
     && blitzPanelRequestHelperEnd > blitzPanelRequestHelperStart
-    && blitzPanelRequestHelper.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)"),
-  "Blitz Panel requests must stay centralized in the post-reveal coordinator handshake",
+    && blitzPanelRequestHelper.includes("focus_home_pause_nonce()?")
+    && blitzPanelRequestHelper.includes("FocusPanelRequestPayload { resume_nonce }"),
+  "Blitz Panel requests must stay centralized and bound to Home-pause provenance",
 );
 
 invariant(

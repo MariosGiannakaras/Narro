@@ -133,6 +133,8 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   const [home, setHome] = useState<HomeSnapshot | null>(null);
   const [homeError, setHomeError] = useState<string | null>(null);
   const [overview, setOverview] = useState<ReportOverview | null>(null);
+  const [overviewRequestKey, setOverviewRequestKey] = useState<string | null>(null);
+  const [reportPending, setReportPending] = useState(false);
   const [reportError, setReportError] = useState<string | null>(null);
   const [exportPending, setExportPending] = useState(false);
   const [exportStatus, setExportStatus] = useState<string | null>(null);
@@ -150,6 +152,22 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   });
 
   const timeZone = preferences.snapshot?.general.timezone || resolvedSystemTimeZone();
+  const reportRequest = useMemo(() => {
+    if (!appliedRange || !preferences.settled || preferences.error) return null;
+    const bounds = reportRangeRequestBounds(appliedRange, timeZone);
+    return {
+      ...bounds,
+      listIds: [...selectedListIds].sort(),
+      displayTimezone: timeZone,
+    };
+  }, [appliedRange, preferences.error, preferences.settled, selectedListIds, timeZone]);
+  const reportRequestKey = useMemo(
+    () => reportRequest === null ? null : JSON.stringify(reportRequest),
+    [reportRequest],
+  );
+  const overviewCurrent = reportRequestKey !== null
+    && overviewRequestKey === reportRequestKey
+    && !reportPending;
 
   useEffect(() => {
     let disposed = false;
@@ -177,26 +195,28 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   }, [appliedRange, preferences.settled, timeZone]);
 
   useEffect(() => {
-    if (!appliedRange || !preferences.settled || preferences.error) return;
+    if (reportRequest === null || reportRequestKey === null) return;
     let disposed = false;
-    const bounds = reportRangeRequestBounds(appliedRange, timeZone);
-    void getReportOverview({
-      ...bounds,
-      listIds: selectedListIds,
-      displayTimezone: timeZone,
-    })
+    setReportPending(true);
+    void getReportOverview(reportRequest)
       .then((payload) => {
         if (disposed) return;
         setOverview(payload);
+        setOverviewRequestKey(reportRequestKey);
         setReportError(null);
       })
       .catch((failure: unknown) => {
-        if (!disposed) setReportError(formatInvokeError(failure));
+        if (disposed) return;
+        setOverviewRequestKey(null);
+        setReportError(formatInvokeError(failure));
+      })
+      .finally(() => {
+        if (!disposed) setReportPending(false);
       });
     return () => {
       disposed = true;
     };
-  }, [appliedRange, preferences.error, preferences.settled, selectedListIds, timeZone]);
+  }, [reportRequest, reportRequestKey]);
 
   const listOptions = useMemo<ReportsListOption[]>(() => [
     { id: null, title: "All Lists", color: null },
@@ -287,27 +307,29 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
   };
 
   const exportOverviewPdf = async () => {
-    if (!appliedRange || exportPending) return;
+    if (reportRequest === null || !overviewCurrent || exportPending) return;
 
-    const bounds = reportRangeRequestBounds(appliedRange, timeZone);
     setExportPending(true);
     setExportStatus(null);
     setExportError(null);
     setListFilterOpen(false);
     setDatePickerOpen(false);
+    const bodyWasInert = document.body.inert;
+    document.body.inert = true;
     document.documentElement.dataset.reportPdfExport = "true";
 
     try {
       await waitForReportPrintLayout();
       const result = await exportReportOverviewPdf({
-        startAt: bounds.startAt,
-        endAt: bounds.endAt,
+        startAt: reportRequest.startAt,
+        endAt: reportRequest.endAt,
       });
       setExportStatus(`Saved PDF to ${result.path}`);
     } catch (failure: unknown) {
       setExportError(formatInvokeError(failure));
     } finally {
       delete document.documentElement.dataset.reportPdfExport;
+      document.body.inert = bodyWasInert;
       setExportPending(false);
     }
   };
@@ -383,8 +405,9 @@ export function ReportsOverview({ onBack, onOpenSessions }: ReportsOverviewProps
           earlyPercent: overview.punctuality.earlyPercent ?? 0,
           latePercent: overview.punctuality.latePercent ?? 0,
         }}
-        exportDisabled={exportPending}
+        exportDisabled={exportPending || !overviewCurrent}
         exportPending={exportPending}
+        interactionLocked={exportPending}
         sessionsDisabled={!onOpenSessions}
         onExport={() => void exportOverviewPdf()}
         onBack={onBack}

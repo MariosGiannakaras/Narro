@@ -153,7 +153,10 @@ export function applyNewerShortcutDiagnostics(
   return current;
 }
 
+const MAX_MONITOR_KEY_LEN = 2048;
+
 function parsePersistedMonitorName(monitorKey: string): string | null {
+  if (monitorKey.length > MAX_MONITOR_KEY_LEN) return null;
   const parts = monitorKey.split("|");
   if (parts.length < 10) return null;
 
@@ -183,9 +186,14 @@ function parsePersistedMonitorName(monitorKey: string): string | null {
 
   const unsignedFields = [workHeight, workWidth, height, width];
   const signedFields = [workY, workX, y, x];
+  const withinIntegerRange = (value: string, minimum: number, maximum: number) => {
+    if (!/^-?\d+$/.test(value)) return false;
+    const parsed = Number(value);
+    return Number.isSafeInteger(parsed) && parsed >= minimum && parsed <= maximum;
+  };
   if (
-    unsignedFields.some((value) => !/^\d+$/.test(value))
-    || signedFields.some((value) => !/^-?\d+$/.test(value))
+    unsignedFields.some((value) => !/^\d+$/.test(value) || !withinIntegerRange(value, 0, 0xFFFF_FFFF))
+    || signedFields.some((value) => !withinIntegerRange(value, -0x8000_0000, 0x7FFF_FFFF))
   ) {
     return null;
   }
@@ -198,7 +206,11 @@ export function findSelectedMonitor(
   monitorKey: string | null,
   monitors: readonly MonitorDescriptor[],
 ): MonitorDescriptor | null {
-  if (monitorKey === null || monitorKey.length === 0) {
+  if (
+    monitorKey === null
+    || monitorKey.length === 0
+    || monitorKey.length > MAX_MONITOR_KEY_LEN
+  ) {
     return null;
   }
 

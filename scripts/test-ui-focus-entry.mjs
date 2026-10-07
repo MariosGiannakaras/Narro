@@ -60,8 +60,8 @@ for (const [haystack, needle, label] of [
   [lib, "position_focus_panel,", "Panel positioning command registration"],
   [lib, "present_focus_panel", "production Panel presentation registration"],
   [lib, 'const FOCUS_PANEL_REQUEST_EVENT: &str = "focus-panel-requested";', "visible Blitz target-Panel coordinator request"],
-  [coordinator, 'subscribe<boolean>("focus-panel-requested"', "persistent coordinator Blitz Panel request listener"],
-  [coordinator, 'deferredPanelRequestRef.current = true', "Blitz Panel request transition deferral"],
+  [coordinator, 'subscribe<FocusPanelRequest>("focus-panel-requested"', "persistent coordinator Blitz Panel request listener"],
+  [coordinator, 'deferredPanelResumeNonceRef.current = request.resumeNonce', "Blitz Panel request transition deferral with provenance"],
   [lib, "Err(CommandError::stale_monitor_selection())", "stale selected-monitor rejection"],
   [preferences, "selected_monitor_key: None", "safe no-selection default"],
   [preferences, "focus_panel_side: FocusPanelSide::Right", "default right side"],
@@ -243,6 +243,10 @@ const successPanelRequest = hiddenBranch.indexOf(
   "request_blitz_panel_after_reveal(&app_handle)",
   successFocusReveal,
 );
+const successRevealRecovery = hiddenBranch.indexOf(
+  "recover_main_after_blitz_reveal_failure(",
+  successFocusReveal,
+);
 if (
   sourceHandoffComment < 0
   || successHide < 0
@@ -250,10 +254,37 @@ if (
   || successRestore < sourceHandoffComment
   || successFocusReveal < successRestore
   || successPanelRequest < successFocusReveal
+  || successRevealRecovery < successFocusReveal
 ) {
   throw new Error(
     "P3-M6-01/06 success handoff must hide Main, restore while hidden, reveal Focus, then request the Blitz Panel handshake.",
   );
+}
+
+const revealRecoveryStart = lib.indexOf("fn recover_main_after_blitz_reveal_failure(");
+const revealRecoveryEnd = lib.indexOf("fn show_focus_after_blitz_entry(", revealRecoveryStart);
+const revealRecovery = lib.slice(revealRecoveryStart, revealRecoveryEnd);
+if (
+  revealRecoveryStart < 0
+  || revealRecoveryEnd < revealRecoveryStart
+  || !revealRecovery.includes("show_and_focus(main)")
+  || !revealRecovery.includes("focus.hide()")
+  || !revealRecovery.includes("FOCUS_PRESENTATION_RECOVERY_FAILED")
+) {
+  throw new Error("Blitz reveal rollback must restore Main and explicitly account for Focus rollback failure.");
+}
+
+const directHandoffStart = lib.indexOf("fn show_focus_after_blitz_entry(");
+const directHandoffEnd = lib.indexOf("fn restore_main_after_blitz_morph(", directHandoffStart);
+const directHandoff = lib.slice(directHandoffStart, directHandoffEnd);
+if (
+  directHandoffStart < 0
+  || directHandoffEnd < directHandoffStart
+  || !directHandoff.includes("recover_main_after_blitz_reveal_failure(main, focus, error)")
+  || !directHandoff.includes('map_window_error(MAIN_WINDOW_LABEL, "hide after Blitz entry", error)')
+  || !directHandoff.includes("request_blitz_panel_after_reveal(app_handle)")
+) {
+  throw new Error("Direct Blitz handoff must fail-and-rollback instead of swallowing partial Focus/Main presentation failures.");
 }
 
 const panelRequestHelperStart = lib.indexOf("fn request_blitz_panel_after_reveal(");
@@ -262,17 +293,20 @@ const panelRequestHelper = lib.slice(panelRequestHelperStart, panelRequestHelper
 if (
   panelRequestHelperStart < 0
   || panelRequestHelperEnd < panelRequestHelperStart
-  || !panelRequestHelper.includes("emit(FOCUS_PANEL_REQUEST_EVENT, true)")
+  || !panelRequestHelper.includes("focus_home_pause_nonce()?")
+  || !panelRequestHelper.includes("FocusPanelRequestPayload { resume_nonce }")
 ) {
-  throw new Error("Blitz Panel handshake must use the existing coordinator-only request event.");
+  throw new Error("Blitz Panel handshake must bind the coordinator request to current Home-pause provenance.");
 }
 for (const required of [
-  "const handleBlitzPanelRequest = useCallback(async () => {",
+  "const handleBlitzPanelRequest = useCallback(async (resumeNonce: string | null) => {",
   'await requestModeRef.current("panel");',
   "await waitForPresentedFrame();",
-  "await resumeTimerFromFocusHome();",
-  "deferredPanelRequestRef.current = true",
-  "void handleBlitzPanelRequest();",
+  "if (resumeNonce === null) {",
+  "setTimerProjectionError(null);",
+  "await resumeTimerFromFocusHome(resumeNonce);",
+  "deferredPanelResumeNonceRef.current = request.resumeNonce",
+  "void handleBlitzPanelRequest(request.resumeNonce);",
 ]) {
   if (!coordinator.includes(required)) {
     throw new Error(`P3-M6-06 coordinator re-entry handshake is missing: ${required}`);
