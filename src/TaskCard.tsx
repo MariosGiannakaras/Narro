@@ -25,6 +25,7 @@ export type TaskCardActions = {
   onMoveLaneLeft?: () => void;
   onMoveLaneRight?: () => void;
   onSchedule?: () => void;
+  onRemoveRecurring?: () => void;
   onChangeList?: () => void;
   onDuplicate?: () => void;
   onDelete?: () => void;
@@ -223,7 +224,7 @@ function TaskOverflowMenu({
   confirmation,
 }: {
   actions: TaskCardActions;
-  scheduleActionLabel: "Schedule" | "Update Schedule";
+  scheduleActionLabel: "Schedule" | "Update Schedule" | "Update Recurring";
   confirmation?: TaskCardDeleteConfirmation;
 }) {
   const rootRef = useRef<HTMLSpanElement>(null);
@@ -239,7 +240,8 @@ function TaskOverflowMenu({
     control?.focus();
   }, [confirming, confirmation?.pending]);
   const hasMenuAction = Boolean(
-    actions.onSchedule || actions.onChangeList || actions.onDuplicate || actions.onDelete,
+    actions.onSchedule || actions.onRemoveRecurring
+    || actions.onChangeList || actions.onDuplicate || actions.onDelete,
   );
   if (!hasMenuAction) return null;
 
@@ -259,6 +261,9 @@ function TaskOverflowMenu({
       >
         {actions.onSchedule ? (
           <MenuItem disabled={confirming} onSelect={actions.onSchedule}>{scheduleActionLabel}</MenuItem>
+        ) : null}
+        {actions.onRemoveRecurring ? (
+          <MenuItem disabled={confirming} onSelect={actions.onRemoveRecurring}>Remove Recurring</MenuItem>
         ) : null}
         {actions.onChangeList ? (
           <MenuItem disabled={confirming} onSelect={actions.onChangeList}>Change List</MenuItem>
@@ -283,7 +288,7 @@ function TaskActionRail({
   confirmation,
 }: {
   actions: TaskCardActions;
-  scheduleActionLabel: "Schedule" | "Update Schedule";
+  scheduleActionLabel: "Schedule" | "Update Schedule" | "Update Recurring";
   confirmation?: TaskCardDeleteConfirmation;
 }) {
   return (
@@ -673,6 +678,7 @@ export function TaskCard({
       || effectiveActions?.onMoveLaneLeft
       || effectiveActions?.onMoveLaneRight
       || effectiveActions?.onSchedule
+      || effectiveActions?.onRemoveRecurring
       || effectiveActions?.onChangeList
       || effectiveActions?.onDuplicate
       || effectiveActions?.onDelete,
@@ -776,7 +782,9 @@ export function TaskCard({
                 {effectiveActions && hasActions ? (
                   <TaskActionRail
                     actions={effectiveActions}
-                    scheduleActionLabel={scheduled || repeatStatus ? "Update Schedule" : "Schedule"}
+                    scheduleActionLabel={task.recurrenceRuleId
+                      ? "Update Recurring"
+                      : scheduled || repeatStatus ? "Update Schedule" : "Schedule"}
                     confirmation={deleteConfirmation}
                   />
                 ) : null}
